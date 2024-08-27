@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::738825ccedd80eedcc5a76b0eb4b2e97>>
+ * @codegen <<SignedSource::151adc1d1860bef098892121ed6112e6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: open a link in a new page (but not a new tab).
+ * Usage guidance: Multi purpose
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

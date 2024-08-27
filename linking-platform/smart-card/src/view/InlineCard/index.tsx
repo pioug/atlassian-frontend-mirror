@@ -42,6 +42,7 @@ export const InlineCard = ({
 	hoverPreviewOptions,
 	showAuthTooltip,
 	actionOptions,
+	removeTextHighlightingFromTitle,
 }: InlineCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -58,7 +59,11 @@ export const InlineCard = ({
 
 	const resolvedProps =
 		status === SmartLinkStatus.Resolved
-			? extractInlineProps(cardDetails as JsonLd.Data.BaseData, renderers)
+			? extractInlineProps(
+					cardDetails as JsonLd.Data.BaseData,
+					renderers,
+					removeTextHighlightingFromTitle,
+				)
 			: {};
 
 	useEffect(() => {

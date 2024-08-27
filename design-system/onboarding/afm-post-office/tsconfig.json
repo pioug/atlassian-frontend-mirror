@@ -18,9 +18,6 @@
   ],
   "references": [
     {
-      "path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
-    },
-    {
       "path": "../../button/afm-post-office/tsconfig.json"
     },
     {

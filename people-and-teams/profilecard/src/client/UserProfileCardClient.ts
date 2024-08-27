@@ -85,7 +85,8 @@ export const buildUserQuery = (cloudId: string, userId: string) => ({
 });
 
 export const buildAggUserQuery = (userId: string) => ({
-	query: `query TeamsUserQuery($userId: ID!) {
+	//The query name needs to be app_user_characteristics in order to return appType field
+	query: `query app_user_characteristics($userId: ID!) {
 		user(accountId: $userId) {
 			id
 			name
@@ -108,6 +109,9 @@ export const buildAggUserQuery = (userId: string) => ({
 				email
 				zoneinfo
 			}
+			... on AppUser {
+      			appType
+    		}
 		}
 	}`,
 	variables: {
@@ -144,13 +148,10 @@ export default class UserProfileCardClient extends CachingClient<any> {
 	}
 
 	async makeRequest(cloudId: string, userId: string): Promise<ProfileCardClientData> {
-		if (fg('migrate_cloud_user_to_agg_user_query')) {
-			if (!this.options.gatewayGraphqlUrl) {
-				throw new Error('options.gatewayGraphqlUrl is a required parameter');
-			}
-
+		if (fg('migrate_cloud_user_to_agg_user_query_profile_card')) {
+			const gatewayGraphqlUrl = this.options.gatewayGraphqlUrl || '/gateway/api/graphql';
 			const userCheckPromise = getUserInSiteUserBase(cloudId, userId);
-			const userQueryPromise = queryAGGUser(this.options.gatewayGraphqlUrl, userId);
+			const userQueryPromise = queryAGGUser(gatewayGraphqlUrl, userId);
 
 			const checkUserPresentInSiteRes = await userCheckPromise;
 
@@ -174,6 +175,7 @@ export default class UserProfileCardClient extends CachingClient<any> {
 			return {
 				...user,
 				isBot: user.__typename === 'AppUser',
+				isAgent: user.appType === 'agent',
 				status: user.accountStatus,
 				statusModifiedDate: user.extendedProfile?.closedDate || user.extendedProfile?.inactiveDate,
 				avatarUrl: user.picture,

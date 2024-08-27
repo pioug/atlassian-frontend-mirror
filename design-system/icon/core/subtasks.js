@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::37eb7d81b538c0f2353b54dc06ef3045>>
+ * @codegen <<SignedSource::09a8c218325e783a9c5298a708af93a4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Subtasks".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for subtasks in Jira.
+ * Usage guidance: Single purpose - Reserved for subtasks in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

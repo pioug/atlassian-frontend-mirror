@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7f1321e9d762894734692a29b55116d1>>
+ * @codegen <<SignedSource::e1d767c2bf4320bb7e127b754b192d24>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Close".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for closing an element.
+ * Usage guidance: Single purpose - Reserved for closing an element.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

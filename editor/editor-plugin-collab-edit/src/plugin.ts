@@ -13,6 +13,7 @@ import { sendTransaction } from './events/send-transaction';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey as mainPluginKey } from './pm-plugins/main/plugin-key';
 import { nativeCollabProviderPlugin } from './pm-plugins/native-collab-provider-plugin';
+import { createPlugin as trackSpammingStepsPlugin } from './pm-plugins/track-and-filter-spamming-steps';
 import {
 	createPlugin as createLastOrganicChangePlugin,
 	trackLastOrganicChangePluginKey,
@@ -21,7 +22,7 @@ import {
 	createPlugin as createTrackNCSInitializationPlugin,
 	trackNCSInitializationPluginKey,
 } from './pm-plugins/track-ncs-initialization';
-import { track } from './track-steps';
+import { sanitizeStep, track } from './track-steps';
 import type { CollabEditPlugin, ProviderBuilder, ProviderCallback } from './types';
 import { getAvatarColor } from './utils';
 
@@ -159,6 +160,27 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					plugin: createTrackNCSInitializationPlugin,
 				},
 			];
+
+			if (
+				fg('platform_editor_filter_transactions_analytics') ||
+				fg('platform_editor_filter_spamming_transactions')
+			) {
+				plugins.push({
+					name: 'trackAndFilterSpammingSteps',
+					plugin: () =>
+						trackSpammingStepsPlugin((tr: Transaction) => {
+							const sanitizedSteps = tr.steps.map((step) => sanitizeStep(step));
+							api?.analytics?.actions?.fireAnalyticsEvent({
+								action: ACTION.STEPS_FILTERED,
+								actionSubject: ACTION_SUBJECT.COLLAB,
+								attributes: {
+									steps: sanitizedSteps,
+								},
+								eventType: EVENT_TYPE.OPERATIONAL,
+							});
+						}),
+				});
+			}
 
 			if (fg('platform_editor_last_organic_change')) {
 				plugins.push({

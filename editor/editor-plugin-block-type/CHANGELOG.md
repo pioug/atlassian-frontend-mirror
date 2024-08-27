@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.14.2
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`93bd7032842ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93bd7032842ec) -
+  [ux] [ED-24636] Bump ADF Schema package
+
+## 3.14.1
+
+### Patch Changes
+
+- [#133711](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133711)
+  [`41612f682764d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/41612f682764d) -
+  [ED-24400] Added feature gate and experiment for nesting media & codeblock in quotes
+- Updated dependencies
+
 ## 3.14.0
 
 ### Minor Changes

@@ -9,11 +9,11 @@ context:
       description: name of the component the event was fired from.
   AnalyticsContext: &AnalyticsContext
     source:
-      type: ["datasourceConfigModal"]
+      type: ['datasourceConfigModal']
       description: The source where the event is fired from.
   AnalyticsContextAttributes: &AnalyticsContextAttributes
     dataProvider:
-      type: ["jira-issues", "jsm-assets", "confluence-search"]
+      type: ['jira-issues', 'jsm-assets', 'confluence-search']
       description: Data provider that the configuration modal supports.
 
 attributes:
@@ -23,35 +23,30 @@ attributes:
       description: The type of object that the link links to ResourceType from datasource.
   TotalItemCount: &TotalItemCount
     totalItemCount:
-      type: "number"
+      type: 'number'
       description: The number of total count of objects returned from the query
   DisplayedColumnCount: &DisplayedColumnCount
     displayedColumnCount:
-      type: "number"
+      type: 'number'
       required: false
       description: The number of display columns in a table.
   SearchMethod: &SearchMethod
     searchMethod:
-      type:
-        [
-          "datasource_search_query",
-          "datasource_basic_filter",
-          "datasource_saved_filter",
-        ]
+      type: ['datasource_search_query', 'datasource_basic_filter', 'datasource_saved_filter']
       required: false
       description: The method used for the datasource to be searched in config modal
   SearchCount: &SearchCount
     searchCount:
-      type: "number"
+      type: 'number'
       description: How many times users search before insert or cancel.
   ExtensionKey: &ExtensionKey
     extensionKey:
-      type: "string"
+      type: 'string'
       required: false
       description: The resolver that was used to resolve the link.
   Display: &Display
     display:
-      type: ["datasource_inline", "datasource_table", "inline"]
+      type: ['datasource_inline', 'datasource_table', 'inline']
       description: The view option the datasource shown as.
   Actions: &Actions
     actions:
@@ -59,16 +54,37 @@ attributes:
       description: The type of update made to datasource config.
   BasicFilterFieldTypes: &BasicFilterFieldTypes
     filterName:
-      type: "string"
+      type: 'string'
       description: The basic filters available in jlol config modal
   StatusCodeGroup: &StatusCodeGroup
     statusCodeGroup:
-      type: ["1xx", "3xx", "4xx", "5xx", "unknown"]
+      type: ['1xx', '3xx', '4xx', '5xx', 'unknown']
       description: The fetch request error response code group.
   IsQueryComplex: &IsQueryComplex
     isQueryComplex:
-      type: "boolean"
+      type: 'boolean'
       description: Indicates if the JQL query was complex.
+  IntegrationKey: &IntegrationKey
+    integrationKey:
+      type: 'string'
+      description: The integration key of the data provider.
+  EntityType: &EntityType
+    entityType:
+      type: 'string'
+      description: The resource type represented by the data.
+  ColumnKey: &ColumnKey
+    columnKey:
+      type: 'string'
+      description: The attribute of the data which is updated in an action.
+  Experience: &Experience
+    experience:
+      type: ['datasource']
+      required: true
+      description: Experience identifier.
+  ActionKey: &ActionKey
+    actionKey:
+      type: 'string'
+      description: The action type that of an action request.
 
 events:
   # actionSubject action (actionSubjectId)
@@ -76,34 +92,27 @@ events:
       type: screen
       description: Fires when user sees modal dialog.
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
   - modal ready (datasource):
       type: ui
-      description: Fires when the datasource modal is ready for searching and displaying search results.
+      description:
+        Fires when the datasource modal is ready for searching and displaying search results.
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
         instancesCount:
-          type: "number"
+          type: 'number'
           required: false
           description: The number of instances sites (instances) of this user connected to.
         # Assets
         schemasCount:
-          type: "number"
+          type: 'number'
           required: false
           description: The number of Assets schemas of this user connected to.
   - jqlEditor searched:
       type: ui
-      description: Fires when search is initiated via the search icon or enter key press for jql editor input field.
+      description:
+        Fires when search is initiated via the search icon or enter key press for jql editor input
+        field.
       attributes:
         <<:
           [
@@ -114,36 +123,23 @@ events:
           ]
   - form submitted (basicSearch):
       type: ui
-      description: Fires when search is initiated via the search icon or enter key press from the basic input textfield.
+      description:
+        Fires when search is initiated via the search icon or enter key press from the basic input
+        textfield.
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
   - emptyResult shown (datasource):
       type: ui
       description: Fires when datasource results are empty.
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
   - error shown:
       type: ui
       description: Fires when datasource errors state is shown.
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
         reason:
-          type: ["network", "access"]
+          type: ['network', 'access']
           description: The reason why datasource was not able to render.
   - button clicked (sync):
       type: ui
@@ -206,22 +202,12 @@ events:
       type: ui
       description: Fired on wrap button click
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
   - button clicked (unwrap):
       type: ui
       description: Fired on unwrap button click
       attributes:
-        <<:
-          [
-              *ComponentMetaDataContext,
-              *AnalyticsContext,
-              *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
   - link clicked (singleItem):
       type: ui
       description: Fired when user clicks on datasource items
@@ -249,31 +235,21 @@ events:
             *ExtensionKey,
           ]
         display:
-          type: ["table"]
+          type: ['table']
           description: Indicates what view option the datasource is shown as
   - datasource renderFailure:
       type: operational
       description: Fired when an inserted datasource fails to render
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
       reason:
-        type: ["internal"]
+        type: ['internal']
         description: The reason why datasource failed to render.
   - datasource operationFailed:
       type: operational
       description: Fired when a generic operation failed
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
         errorLocation:
           type: string
           required: false
@@ -296,11 +272,8 @@ events:
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *ExtensionKey,
+            *Experience,
           ]
-        experience:
-          type: ["datasource"]
-          required: true
-          description: Experience identifier.
   - provider authFailure:
       type: operational
       description: Fired when an auth provider connection failed to complete.
@@ -311,26 +284,23 @@ events:
             *AnalyticsContext,
             *AnalyticsContextAttributes,
             *ExtensionKey,
+            *Experience,
           ]
         reason:
           type:
             [
-              "auth_window_closed",
-              "invalid_request",
-              "unauthorized_client",
-              "access_denied",
-              "unsupported_response_type",
-              "invalid_scope",
-              "server_error",
-              "temporarily_unavailable",
-              "authclientoauth2.autherror",
+              'auth_window_closed',
+              'invalid_request',
+              'unauthorized_client',
+              'access_denied',
+              'unsupported_response_type',
+              'invalid_scope',
+              'server_error',
+              'temporarily_unavailable',
+              'authclientoauth2.autherror',
             ]
           required: false
           description: Reason for provider auth failure.
-        experience:
-          type: ["datasource"]
-          required: true
-          description: Experience identifier.
   - nextItem loaded:
       type: track
       description: Fired when user scrolls to the next page/list of the objects
@@ -344,11 +314,13 @@ events:
             *ExtensionKey,
           ]
         loadedItemCount:
-          type: "number"
+          type: 'number'
           description: Total number of items loaded into display table
   - table viewed (datasourceConfigModal):
       type: ui
-      description: Fired when the datasource results are displayed as table inside of datasource configuration modal
+      description:
+        Fired when the datasource results are displayed as table inside of datasource configuration
+        modal
       attributes:
         <<:
           [
@@ -363,7 +335,8 @@ events:
           ]
   - link viewed (singleItem):
       type: ui
-      description: Fired when the datasource results are displayed as link(may be smart-link) for a single item
+      description:
+        Fired when the datasource results are displayed as link(may be smart-link) for a single item
       attributes:
         <<:
           [
@@ -376,7 +349,8 @@ events:
           ]
   - link viewed (count):
       type: ui
-      description: Fired when the datasource results are displayed as link( smart-link) in count mode.
+      description:
+        Fired when the datasource results are displayed as link( smart-link) in count mode.
       attributes:
         <<:
           [
@@ -411,7 +385,7 @@ events:
             *BasicFilterFieldTypes,
           ]
         reason:
-          type: ["agg", "network", "unknown"]
+          type: ['agg', 'network', 'unknown']
           description: The reason why basic filter search dropdown shows an error UI.
   - dropdown opened (basicSearchDropdown):
       type: ui
@@ -425,7 +399,7 @@ events:
             *BasicFilterFieldTypes,
           ]
         selectionCount:
-          type: "number"
+          type: 'number'
           description: The number of options selected when opening the dropdown
   - dropdown closed (basicSearchDropdown):
       type: ui
@@ -439,7 +413,7 @@ events:
             *BasicFilterFieldTypes,
           ]
         selectionCount:
-          type: "number"
+          type: 'number'
           description: The number of options selected when closing the dropdown
   - button clicked (basicSearchDropdown):
       type: ui
@@ -453,39 +427,26 @@ events:
             *BasicFilterFieldTypes,
           ]
         type:
-          type: ["showMore"]
+          type: ['showMore']
           description: The type of the button
   # Assets Events
   - aqlEditor searched:
       type: ui
-      description: Fired when search is initiated via the search icon or enter key press for aql editor input field.
+      description:
+        Fired when search is initiated via the search icon or enter key press for aql editor input
+        field.
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
   - link clicked (poweredBy):
       type: ui
       description: Fired when the power by link on the issue like table footer is clicked.
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
   - getWorkspaceId success:
       type: operational
       description: Fired when fetching a workspace Id is successful.
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
   - getWorkspaceId failed:
       type: operational
       description: Fired when fetching a workspace Id fails.
@@ -501,12 +462,7 @@ events:
       type: operational
       description: Fired when making a request to validateAQL is successful.
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
   - validateAql failed:
       type: operational
       description: Fired when making a request to validateAQL fails.
@@ -522,12 +478,7 @@ events:
       type: operational
       description: Fired when fetching an object schema is successful.
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
   - objectSchema failed:
       type: operational
       description: Fired when fetching an object schema fails.
@@ -543,12 +494,7 @@ events:
       type: operational
       description: Fired when fetching object schemas is successful.
       attributes:
-        <<:
-          [
-            *ComponentMetaDataContext,
-            *AnalyticsContext,
-            *AnalyticsContextAttributes,
-          ]
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
   - objectSchemas failed:
       type: operational
       description: Fired when fetching object schemas fails.
@@ -560,3 +506,24 @@ events:
             *AnalyticsContextAttributes,
             *StatusCodeGroup,
           ]
+  # Actions Events
+  - actionDiscovery success:
+      type: operational
+      description: Fired when the action discovery and permissions request is successful.
+      attributes:
+        <<:
+          [
+            *ComponentMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *Experience,
+            *EntityType,
+          ]
+        integrationKey:
+          type: string
+          required: false
+          description: target integration Key in actions service
+        datasourceId:
+          type: string
+          required: false
+          description: target datasourceId in actions service

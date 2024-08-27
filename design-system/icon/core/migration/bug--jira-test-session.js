@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2c58032634d9fbc4641a8e6273509c71>>
+ * @codegen <<SignedSource::37e73d553097eaa25eefa254f81304d5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: Request types in JSM, bugs in Jira.
+ * Usage guidance: Multi purpose - Known uses: Request types in JSM, bugs in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

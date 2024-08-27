@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2db54f84b9bcbe66de01e2b3adc5abf2>>
+ * @codegen <<SignedSource::a509b109f5ba2c243a976a651826c96a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "PriorityBlocker".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for blocker issue priority.
+ * Usage guidance: Single purpose - Reserved for blocker issue priority.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

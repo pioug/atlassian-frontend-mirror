@@ -6,6 +6,7 @@ import { layers } from '@atlaskit/theme/constants';
 import { cardTriggered } from '../../util/analytics';
 import { useProfileInfo } from '../../util/useProfileInfo';
 
+import { LoadingState } from './LoadingState';
 import { PopupTrigger } from './PopupTrigger';
 import { type ProfileCardTriggerProps } from './types';
 
@@ -92,7 +93,11 @@ function ProfileCardTrigger<T>({
 			}}
 			content={() => (
 				<div onMouseEnter={onMouseEnter} onMouseLeave={hideProfilecard} onFocus={showProfilecard}>
-					{renderProfileCard({ profileData, isLoading, error })}
+					{isLoading ? (
+						<LoadingState fireAnalytics={fireAnalytics} profileType={profileCardType} />
+					) : (
+						renderProfileCard({ profileData, error })
+					)}
 				</div>
 			)}
 		/>

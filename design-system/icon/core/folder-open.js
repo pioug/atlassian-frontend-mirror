@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::456c59f96c30d1d87efd2391e38628e8>>
+ * @codegen <<SignedSource::e0e4ec5521c6a1f22d501697faadfab2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "FolderOpen".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for open folders in Confluence.
+ * Usage guidance: Single purpose - Reserved for open folders in Confluence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -18,6 +18,7 @@ import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-sc
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin, PluginState } from '../types';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
@@ -140,6 +141,10 @@ export const createPlugin = (
 					childCount,
 				} = currentState;
 
+				const isPerformanceFix =
+					editorExperiment('dnd-input-performance-optimisation', true, {
+						exposure: true,
+					}) || fg('platform_editor_elements_dnd_nested');
 				let activeNodeWithNewNodeType = null;
 				const meta = tr.getMeta(key);
 				const newChildCount =
@@ -205,10 +210,10 @@ export const createPlugin = (
 				// The tr.meta.activeNode is triggered by the showDragHandleAt function during the mouse entry event
 				// (when the table node rerenders)
 				// The activeNode is from the previous rendering cycle, and verify if they share the same anchor.
-				const maybeNodeWidthUpdated =
+				const maybeTableWidthUpdated =
 					meta?.activeNode &&
 					meta?.activeNode?.nodeType === 'table' &&
-					meta.activeNode.anchorName === activeNode?.anchorName;
+					(isPerformanceFix || meta.activeNode.anchorName === activeNode?.anchorName);
 
 				const redrawDecorations =
 					decorations === DecorationSet.empty ||
@@ -217,7 +222,7 @@ export const createPlugin = (
 					(meta?.editorWidthRight !== undefined && meta?.editorWidthRight !== editorWidthRight) ||
 					maybeWidthUpdated ||
 					nodeCountChanged ||
-					maybeNodeWidthUpdated ||
+					maybeTableWidthUpdated ||
 					resizerMeta === false ||
 					isDecsMissing ||
 					(!!meta?.nodeMoved && tr.docChanged);
@@ -230,13 +235,10 @@ export const createPlugin = (
 						(spec) => spec.type !== 'drop-target-decoration',
 					);
 					decorations = decorations.remove(oldNodeDecs);
-
 					newNodeDecs = newNodeDecs ?? nodeDecorations(newState);
 					decorations = decorations.add(newState.doc, [...newNodeDecs]);
 
-					// Note: Quite often the handle is not in the right position after a node is moved
-					// it is safer for now to not show it when a node is moved
-					if (activeNode && !meta?.nodeMoved && !isDecsMissing) {
+					if (activeNode && !isDecsMissing) {
 						let mappedPosisiton = tr.mapping.map(activeNode.pos);
 						const prevMappedPos = oldState.tr.mapping.map(activeNode.pos);
 
@@ -247,23 +249,45 @@ export const createPlugin = (
 						}
 						const newActiveNode = tr.doc.nodeAt(mappedPosisiton);
 
-						let nodeType = activeNode.nodeType;
-						let anchorName = activeNode.anchorName;
+						let draghandleDec;
+						if (isPerformanceFix) {
+							if (newActiveNode && newActiveNode?.type.name !== activeNode.nodeType) {
+								const oldHandle = decorations.find(
+									undefined,
+									undefined,
+									(spec) => spec.id === 'drag-handle',
+								);
+								decorations = decorations.remove(oldHandle);
+							}
+							const decAtPos = newNodeDecs.find((dec) => dec.from === mappedPosisiton);
+							draghandleDec = dragHandleDecoration(
+								api,
+								getIntl,
+								meta?.activeNode?.pos ?? mappedPosisiton,
+								meta?.activeNode?.anchorName ??
+									decAtPos?.spec?.anchorName ??
+									activeNode?.anchorName,
+								meta?.activeNode?.nodeType ?? decAtPos?.spec?.nodeType ?? activeNode?.nodeType,
+								meta?.activeNode?.handleOptions,
+							);
+						} else {
+							let nodeType = activeNode.nodeType;
+							let anchorName = activeNode.anchorName;
 
-						if (newActiveNode && newActiveNode?.type.name !== activeNode.nodeType) {
-							nodeType = newActiveNode.type.name;
-							anchorName = activeNode.anchorName.replace(activeNode.nodeType, nodeType);
+							if (newActiveNode && newActiveNode?.type.name !== activeNode.nodeType) {
+								nodeType = newActiveNode.type.name;
+								anchorName = activeNode.anchorName.replace(activeNode.nodeType, nodeType);
 
-							activeNodeWithNewNodeType = { pos: prevMappedPos, nodeType, anchorName };
+								activeNodeWithNewNodeType = { pos: prevMappedPos, nodeType, anchorName };
+							}
+							draghandleDec = dragHandleDecoration(
+								api,
+								getIntl,
+								activeNode.pos,
+								anchorName,
+								nodeType,
+							);
 						}
-						const draghandleDec = dragHandleDecoration(
-							api,
-							getIntl,
-							activeNode.pos,
-							anchorName,
-							nodeType,
-						);
-
 						decorations = decorations.add(newState.doc, [draghandleDec]);
 					}
 				}
@@ -295,6 +319,7 @@ export const createPlugin = (
 
 				// Remove previous drag handle widget and draw new drag handle widget when node type changes
 				if (
+					!isPerformanceFix &&
 					activeNodeWithNewNodeType &&
 					activeNodeWithNewNodeType?.nodeType !== activeNode?.nodeType &&
 					api
@@ -390,7 +415,7 @@ export const createPlugin = (
 				// Map active node position when the document changes
 				const mappedActiveNodePos =
 					tr.docChanged && activeNode
-						? activeNodeWithNewNodeType || {
+						? (!isPerformanceFix && activeNodeWithNewNodeType) || {
 								pos: tr.mapping.map(activeNode.pos),
 								anchorName: activeNode.anchorName,
 								nodeType: activeNode.nodeType,

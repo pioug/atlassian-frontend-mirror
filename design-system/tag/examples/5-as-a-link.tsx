@@ -24,8 +24,8 @@ interface SpreadExampleProps {
 	tabIndex?: number;
 }
 
-const SpreadExample = ({ children, className, href, tabIndex = -1 }: SpreadExampleProps) => {
-	const props = { className, href, tabIndex };
+const SpreadExample = ({ children, className, href }: SpreadExampleProps) => {
+	const props = { className, href };
 	return (
 		<Link {...props} target="_blank">
 			{children}

@@ -8,6 +8,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import { ComposableEditor } from './composable-editor';
+import type { InitialPluginConfiguration } from './preset-universal';
 import useUniversalPreset from './presets/useUniversalPreset';
 import type { EditorProps } from './types/editor-props';
 import editorDeprecationWarnings from './utils/editorDeprecationWarnings';
@@ -44,14 +45,19 @@ export type { FeedbackInfo } from '@atlaskit/editor-common/types';
 
 interface WrapperProps {
 	props: EditorProps;
+	initialPluginConfiguration?: InitialPluginConfiguration;
 }
 
-const ComposableEditorWrapper = ({ props }: WrapperProps) => {
-	const preset = useUniversalPreset({ props });
+const ComposableEditorWrapper = ({ props, initialPluginConfiguration }: WrapperProps) => {
+	const preset = useUniversalPreset({ props, initialPluginConfiguration });
 	return <ComposableEditor preset={preset} {...props} />;
 };
 
-export default class Editor extends React.Component<EditorProps> {
+interface EditorPropsWithInitialPluginConfiguration extends EditorProps {
+	initialPluginConfiguration?: InitialPluginConfiguration;
+}
+
+export default class Editor extends React.Component<EditorPropsWithInitialPluginConfiguration> {
 	static defaultProps: EditorProps = {
 		appearance: 'comment',
 		disabled: false,
@@ -60,12 +66,17 @@ export default class Editor extends React.Component<EditorProps> {
 		quickInsert: true,
 	};
 
-	constructor(props: EditorProps) {
+	constructor(props: EditorPropsWithInitialPluginConfiguration) {
 		super(props);
 		editorDeprecationWarnings(props);
 	}
 
 	render() {
-		return <ComposableEditorWrapper props={this.props} />;
+		return (
+			<ComposableEditorWrapper
+				props={this.props}
+				initialPluginConfiguration={this.props.initialPluginConfiguration}
+			/>
+		);
 	}
 }

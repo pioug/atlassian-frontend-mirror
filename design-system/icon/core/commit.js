@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::16e4e82013d8dd3af14ca6753a8e7727>>
+ * @codegen <<SignedSource::927670bf7e49f2d0323a49bec9ba77e0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Commit".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for commits in Jira or Bitbucket.
+ * Usage guidance: Single purpose - Reserved for commits in Jira or Bitbucket.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CommitIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M8 10.25a2.25 2.25 0 0 0 0-4.5m0 4.5a2.25 2.25 0 0 1 0-4.5m0 4.5V16M8 5.75V0"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M8 10a2 2 0 1 0 0-4m0 4a2 2 0 1 1 0-4m0 4v6M8 6V0"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CommitIcon.displayName = 'CommitIcon';

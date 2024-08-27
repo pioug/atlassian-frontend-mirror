@@ -57,4 +57,5 @@ export type CardWithUrlContentProps = {
 	analyticsEvents?: AnalyticsFacade;
 	placeholder?: string;
 	useLegacyBlockCard?: boolean;
+	removeTextHighlightingFromTitle?: boolean;
 };

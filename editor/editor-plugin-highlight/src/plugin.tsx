@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { backgroundColor } from '@atlaskit/adf-schema';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	Command,
@@ -10,7 +11,6 @@ import type {
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { BackgroundColorPlugin } from '@atlaskit/editor-plugin-background-color';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 
@@ -30,8 +30,6 @@ export type HighlightPlugin = NextEditorPlugin<
 	{
 		pluginConfiguration?: HighlightPluginOptions;
 		dependencies: [
-			// We need the mark to be defined before we can use the highlight functionality
-			BackgroundColorPlugin,
 			// Optional, we won't log analytics if it's not available
 			OptionalPlugin<AnalyticsPlugin>,
 			// Optional, used to allow clearing highlights when clear
@@ -74,6 +72,10 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 
 	return {
 		name: 'highlight',
+
+		marks() {
+			return [{ name: 'backgroundColor', mark: backgroundColor }];
+		},
 
 		commands: {
 			changeColor: changeColor(editorAnalyticsAPI),

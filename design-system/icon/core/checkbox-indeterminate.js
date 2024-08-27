@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::187c032ad8110ac72d2b8078d8208a81>>
+ * @codegen <<SignedSource::e22957d40a579a61884c8371295183ed>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "CheckboxIndeterminate".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for interactive checkbox experiences. Consider using the checkbox component.
+ * Usage guidance: Multi purpose - Reserved for interactive checkbox experiences. Consider using the checkbox component.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

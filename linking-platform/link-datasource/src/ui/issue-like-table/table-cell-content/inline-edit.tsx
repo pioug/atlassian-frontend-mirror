@@ -14,7 +14,7 @@ import { useDatasourceActions, useDatasourceItem } from '../../../state';
 import { editType } from '../edit-type';
 import type { DatasourceTypeWithOnlyValues } from '../types';
 
-const containerStyles = xcss({
+const editContainerStyles = xcss({
 	marginBlockStart: 'space.negative.100',
 });
 
@@ -109,7 +109,7 @@ export const InlineEdit = ({
 	);
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={editContainerStyles}>
 			<AKInlineEdit
 				{...editType(datasourceTypeWithValues)}
 				hideActionButtons

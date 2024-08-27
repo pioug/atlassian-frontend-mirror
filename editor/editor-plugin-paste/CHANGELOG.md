@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.11.2
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`93bd7032842ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93bd7032842ec) -
+  [ux] [ED-24636] Bump ADF Schema package
+
+## 1.11.1
+
+### Patch Changes
+
+- [#130811](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130811)
+  [`541a703405a7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/541a703405a7d) -
+  [ux] [ED-24431] Ability to paste an expand into another expand
+- Updated dependencies
+
 ## 1.11.0
 
 ### Minor Changes

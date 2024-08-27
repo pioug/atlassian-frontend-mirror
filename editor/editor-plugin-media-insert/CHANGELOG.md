@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.1.2
+
+### Patch Changes
+
+- [#134104](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134104)
+  [`18a1de35efaf0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18a1de35efaf0) -
+  [ux] ED-24639 Make sure the editor is properly re-focused when the media insert picker is closed
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

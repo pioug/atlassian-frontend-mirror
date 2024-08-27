@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ff8a88f25eea6d84f78bd4beead43ab3>>
+ * @codegen <<SignedSource::ea04c75a262fc5cdf9201493991b71b1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Menu".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for accessing the menu in global product navigation.
+ * Usage guidance: Single purpose - Reserved for accessing the menu in global product navigation.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

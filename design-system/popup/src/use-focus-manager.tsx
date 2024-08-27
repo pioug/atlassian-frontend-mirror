@@ -15,6 +15,7 @@ export const useFocusManager = ({
 	autoFocus,
 	shouldCloseOnTab,
 	shouldDisableFocusTrap,
+	shouldReturnFocus,
 }: FocusManagerHook): void => {
 	const { requestFrame, cancelAllFrames } = useAnimationFrame();
 
@@ -42,7 +43,7 @@ export const useFocusManager = ({
 			escapeDeactivates: true,
 			initialFocus: initialFocusRef || popupRef,
 			fallbackFocus: popupRef,
-			returnFocusOnDeactivate: true,
+			returnFocusOnDeactivate: shouldReturnFocus,
 		};
 
 		const focusTrap: FocusTrap = createFocusTrap(popupRef, trapConfig);
@@ -65,5 +66,6 @@ export const useFocusManager = ({
 		shouldDisableFocusTrap,
 		requestFrame,
 		cancelAllFrames,
+		shouldReturnFocus,
 	]);
 };

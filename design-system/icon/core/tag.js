@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::af1e1fc5e68cd387b797eb9ccecf2a29>>
+ * @codegen <<SignedSource::89cad69808757224d00e2fa96ed43d7e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Tag".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for tags in Atlas.
+ * Usage guidance: Single purpose - Reserved for tags in Atlas.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

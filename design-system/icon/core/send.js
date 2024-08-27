@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c9f69500231cc83f8cb6efc962251e64>>
+ * @codegen <<SignedSource::c7e7ca8eeb3782d668e37dab1d963bfe>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Send".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for sending messages in Rovo Chat.
+ * Usage guidance: Single purpose - Reserved for sending messages in Rovo Chat.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

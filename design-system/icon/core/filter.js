@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e934ea169289b7b5a7509591f8d1133e>>
+ * @codegen <<SignedSource::215610d791317f4744219097d1c79d84>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Filter".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for filterting data or objects.
+ * Usage guidance: Single purpose - Reserved for filterting data or objects.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

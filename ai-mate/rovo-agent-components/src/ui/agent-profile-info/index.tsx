@@ -7,6 +7,7 @@ import StarIcon from '@atlaskit/icon/glyph/star';
 import { AtlassianIcon, RovoIcon } from '@atlaskit/logo';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import Skeleton from '@atlaskit/skeleton';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { HiddenIcon } from '../../common/ui/hidden-icon';
@@ -21,7 +22,7 @@ const clickableItemStyles = xcss({
 });
 
 const countStyles = xcss({
-	fontSize: '11px',
+	font: token('font.body.small'),
 	display: 'flex',
 	alignItems: 'center',
 	gap: 'space.025',

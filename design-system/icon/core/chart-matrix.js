@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f1341f1d03d3f65cfaadfd910fa78624>>
+ * @codegen <<SignedSource::599d56e81cf48cef36f9997aaf5c8202>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "ChartMatrix".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: Matrix view in in JPD, and other matrix charts.
+ * Usage guidance: Multi purpose - Known uses: Matrix view in in JPD, and other matrix charts.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,0 +1,31 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::71a2e5c72d660bcc8de2d0798757664e>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _UNSAFE_baseNew = _interopRequireDefault(require("@atlaskit/icon/UNSAFE_base-new"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/**
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
+ * Please reach out in #icon-contributions before using these in production.
+ *
+ * Icon: "ExpandHorizontal".
+ * Category: single-purpose
+ * Location: @atlaskit/icon
+ * Usage guidance: Single purpose - Reserved for expanding an element to its maximum width.
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
+ */
+const ExpandHorizontalIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M.75 1v14m14.5-14v14m-5.5-9.5 2.5 2.5m0 0-2.5 2.5m2.5-2.5h-8.5m2.5-2.5L3.75 8m0 0 2.5 2.5"/>`
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
+ExpandHorizontalIcon.displayName = 'ExpandHorizontalIcon';
+var _default = exports.default = ExpandHorizontalIcon;

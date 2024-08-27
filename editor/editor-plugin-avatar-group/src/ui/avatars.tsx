@@ -34,7 +34,7 @@ export interface AvatarsProps {
 }
 
 export const scrollToCollabCursor = (
-	editorView: EditorView,
+	editorAPI: ExtractInjectionAPI<AvatarGroupPlugin> | undefined,
 	participants: CollabParticipant[],
 	sessionId: string | undefined,
 	// analytics: AnalyticsEvent | undefined,
@@ -42,30 +42,27 @@ export const scrollToCollabCursor = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ) => {
 	const selectedUser = participants[index];
-	if (
-		selectedUser &&
-		selectedUser.cursorPos !== undefined &&
-		selectedUser.sessionId !== sessionId
-	) {
-		const { state } = editorView;
-		let tr = state.tr;
+	const cursorPos = selectedUser.cursorPos;
+	if (selectedUser && cursorPos !== undefined && selectedUser.sessionId !== sessionId) {
 		const analyticsPayload: AnalyticsEventPayload = {
 			action: ACTION.MATCHED,
 			actionSubject: ACTION_SUBJECT.SELECTION,
 			eventType: EVENT_TYPE.TRACK,
 		};
-		tr.setSelection(Selection.near(tr.doc.resolve(selectedUser.cursorPos)));
-		editorAnalyticsAPI?.attachAnalyticsEvent(analyticsPayload)(tr);
-		tr.scrollIntoView();
-		editorView.dispatch(tr);
-		if (!editorView.hasFocus()) {
-			editorView.focus();
-		}
+
+		editorAPI?.core?.actions?.execute(({ tr }) => {
+			tr.setSelection(Selection.near(tr.doc.resolve(cursorPos)));
+			editorAnalyticsAPI?.attachAnalyticsEvent(analyticsPayload)(tr);
+			tr.scrollIntoView();
+			return tr;
+		});
+
+		editorAPI?.core?.actions?.focus();
 	}
 };
 
 export const Avatars = React.memo((props: AvatarsProps) => {
-	const { sessionId, editorView, featureFlags, editorAPI } = props;
+	const { sessionId, featureFlags, editorAPI } = props;
 	const participants = props.participants?.toArray() as CollabParticipant[];
 	const avatars = participants
 		.sort((p) => (p.sessionId === sessionId ? -1 : 1))
@@ -88,16 +85,12 @@ export const Avatars = React.memo((props: AvatarsProps) => {
 					_analytics: AnalyticsEvent | undefined,
 					index: number,
 				) => {
-					if (!editorView) {
-						return;
-					}
-
 					const allowCollabAvatarScroll = featureFlags?.collabAvatarScroll;
 
 					// user does not need to scroll to their own position (index 0)
 					if (allowCollabAvatarScroll && index > 0) {
 						scrollToCollabCursor(
-							editorView,
+							editorAPI,
 							participants,
 							props.sessionId,
 							index,

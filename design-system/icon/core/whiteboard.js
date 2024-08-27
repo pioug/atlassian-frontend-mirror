@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::48508310a9f2301c2884ab81dc3e1c26>>
+ * @codegen <<SignedSource::9aaf395ffee993a0287e58fae5cecc5b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Whiteboard".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for whiteboards in Confluence.
+ * Usage guidance: Single purpose - Reserved for whiteboards in Confluence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

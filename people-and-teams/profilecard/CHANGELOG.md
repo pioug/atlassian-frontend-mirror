@@ -1,5 +1,23 @@
 # @atlaskit/profilecard
 
+## 19.21.0
+
+### Minor Changes
+
+- [#133829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133829)
+  [`63826c22cf753`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/63826c22cf753) -
+  Show agent profile card if user is an agent
+- [#132624](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132624)
+  [`98d1ec284a292`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98d1ec284a292) -
+  stopPropagation for actions and reduce the delay to show profile card
+- [#133829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133829)
+  [`63826c22cf753`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/63826c22cf753) -
+  Show agent profile card if user is an agent
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.20.0
 
 ### Minor Changes

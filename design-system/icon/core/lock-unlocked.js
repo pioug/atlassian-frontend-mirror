@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7baf6fd6f1e8be6b15f8ab9f6022b367>>
+ * @codegen <<SignedSource::45dd2cdeb084f78f202948ae116275ae>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "LockUnlocked".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: unlocked page in Confluence.
+ * Usage guidance: Multi purpose - Known uses: unlocked page in Confluence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LockUnlockedIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M4.75 7.25H4c-.69 0-1.25.56-1.25 1.25V14c0 .69.56 1.25 1.25 1.25h8c.69 0 1.25-.56 1.25-1.25V8.5c0-.69-.56-1.25-1.25-1.25zm0 0V4a3.25 3.25 0 1 1 6.5 0v.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.25 4a3.25 3.25 0 1 0-6.5 0v3.75m0 0H4c-.69 0-1.25.56-1.25 1.25v5c0 .69.56 1.25 1.25 1.25h8c.69 0 1.25-.56 1.25-1.25V9c0-.69-.56-1.25-1.25-1.25z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 LockUnlockedIcon.displayName = 'LockUnlockedIcon';

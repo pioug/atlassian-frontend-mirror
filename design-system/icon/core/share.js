@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::56b7493ca55a467b5dec2851225bc1d7>>
+ * @codegen <<SignedSource::6b1d38bd881e36a60e1d8f11863c2679>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Share".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for sharing an object.
+ * Usage guidance: Single purpose - Reserved for sharing an object.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e6ef7023a830889b10c90072eede4472>>
+ * @codegen <<SignedSource::32b30012a06b05f4ef4342e1d9ce4358>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,9 +19,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Migration Icon component for FeedbackIcon.
  * This component is FeedbackIcon, with `UNSAFE_fallbackIcon` set to "EditorFeedbackIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: customer feedback.
+ * Usage guidance: Single purpose - Known uses: customer feedback.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

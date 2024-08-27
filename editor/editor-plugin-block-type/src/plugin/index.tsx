@@ -2,7 +2,12 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
-import { blockquoteWithList, hardBreak, heading } from '@atlaskit/adf-schema';
+import {
+	blockquoteWithList,
+	blockquoteWithNestedCodeblockOrMedia,
+	hardBreak,
+	heading,
+} from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -29,8 +34,10 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { TextBlockTypes } from './block-types';
 import { setBlockTypeWithAnalytics } from './commands';
@@ -133,7 +140,11 @@ export type BlockTypePlugin = NextEditorPlugin<
 	'blockType',
 	{
 		pluginConfiguration: BlockTypePluginOptions | undefined;
-		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<PrimaryToolbarPlugin>];
+		dependencies: [
+			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<PrimaryToolbarPlugin>,
+			OptionalPlugin<FeatureFlagsPlugin>,
+		];
 		sharedState: BlockTypeState | undefined;
 		actions: {
 			insertBlockQuote: (inputMethod: InputMethod) => Command;
@@ -145,6 +156,12 @@ export type BlockTypePlugin = NextEditorPlugin<
 >;
 
 const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
+	// Confluence is injecting the FF through editor props, from an experiment
+	// Jira is pulling it in through platform feature flags, from a feature gate
+	const isNestingMediaAndCodeblockInQuoteSupported =
+		api?.featureFlags?.sharedState.currentState()?.nestMediaAndCodeblockInQuote ||
+		fg('editor_nest_media_and_codeblock_in_quotes_jira');
+
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		popupsMountPoint,
 		popupsBoundariesElement,
@@ -180,10 +197,14 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		name: 'blockType',
 
 		nodes() {
-			const blockquoteNode = blockquoteWithList;
 			const nodes: BlockTypeNode[] = [
 				{ name: 'heading', node: heading },
-				{ name: 'blockquote', node: blockquoteNode },
+				{
+					name: 'blockquote',
+					node: isNestingMediaAndCodeblockInQuoteSupported
+						? blockquoteWithNestedCodeblockOrMedia
+						: blockquoteWithList,
+				},
 				{ name: 'hardBreak', node: hardBreak },
 			];
 

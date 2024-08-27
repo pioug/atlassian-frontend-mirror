@@ -86,7 +86,7 @@ export const useDatasourceTableState = ({
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const { captureError } = useErrorLogger({ datasourceId });
 	const { onAddItems } = useDatasourceActions();
-	const { discoverActions } = useDiscoverActions({ captureError });
+	const { discoverActions } = useDiscoverActions({ captureError, fireEvent });
 
 	const idFieldCount = 1;
 	const keyFieldCount = 1;

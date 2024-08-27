@@ -6,7 +6,6 @@ import { BlockCardResolvingView } from '../../BlockCard';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { EmbedCardErroredView } from '../../../view/EmbedCard/views/ErroredView';
 import { mocks } from '../../../utils/mocks';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('@atlaskit/link-provider', () => ({
 	useSmartLinkContext: () => ({
@@ -152,45 +151,30 @@ describe('EmbedCard Views', () => {
 			expect(iframeEl?.getAttribute('sandbox')).toBeNull();
 		});
 
-		it('does not allow scrolling of content through wrapper when FF is off', () => {
+		it('does allow scrolling of content through wrapper', () => {
 			const props = getResolvedProps({ isTrusted: true });
 			const { getByTestId } = render(
 				<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
 			);
 			const view = getByTestId('embed-content-wrapper');
-			expect(window.getComputedStyle(view).getPropertyValue('overflow')).toEqual('hidden');
+			expect(window.getComputedStyle(view).getPropertyValue('overflow')).toEqual('');
 		});
 
-		ffTest.on(
-			'platform.linking-platform.smart-card.fix-embed-card-blurring',
-			'with fix for embed card blurring on',
-			() => {
-				it('does allow scrolling of content through wrapper when FF is on', () => {
-					const props = getResolvedProps({ isTrusted: true });
-					const { getByTestId } = render(
-						<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
-					);
-					const view = getByTestId('embed-content-wrapper');
-					expect(window.getComputedStyle(view).getPropertyValue('overflow')).toEqual('');
-				});
-
-				it(`doesn't remove overflow attribute for Unresolved embeds`, () => {
-					const props = getResolvedProps({ isTrusted: true });
-					const { getByTestId } = render(
-						<UnresolvedView
-							testId="embed-card-unresolved-view"
-							{...props}
-							description="description"
-							title="title"
-							icon={null}
-							image={null}
-						/>,
-					);
-					const view = getByTestId('embed-content-wrapper');
-					expect(window.getComputedStyle(view).getPropertyValue('overflow')).toEqual('auto');
-				});
-			},
-		);
+		it(`doesn't remove overflow attribute for Unresolved embeds`, () => {
+			const props = getResolvedProps({ isTrusted: true });
+			const { getByTestId } = render(
+				<UnresolvedView
+					testId="embed-card-unresolved-view"
+					{...props}
+					description="description"
+					title="title"
+					icon={null}
+					image={null}
+				/>,
+			);
+			const view = getByTestId('embed-content-wrapper');
+			expect(window.getComputedStyle(view).getPropertyValue('overflow')).toEqual('auto');
+		});
 	});
 
 	// Same as BlockCard

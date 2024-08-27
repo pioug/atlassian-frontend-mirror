@@ -3,11 +3,11 @@
  *
  * Extract component prop types from UIKit 2 components - TimePickerProps
  *
- * @codegen <<SignedSource::d674cb805411d0a1d2e687abeeeba9e3>>
+ * @codegen <<SignedSource::db62df2c8928eb77a589694a6741e9ae>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/timepicker/__generated__/index.partial.tsx <<SignedSource::785d7ffcaac38544d4658ed1560d72f5>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/timepicker/__generated__/index.partial.tsx <<SignedSource::45eaafdd9a1bbc8b356cc8a9b5365bc1>>
  */
-import type { SelectProps } from '@atlaskit/select';
+import type { DateTimePickerSelectProps } from '@atlaskit/datetime-picker';
 
 export interface FieldProps {
 	id: string;
@@ -44,5 +44,5 @@ export type TimePickerProps = {
 	placeholder?: string;
 	locale?: string;
 	testId?: string;
-  selectProps?: SelectProps<any | false>;
+  selectProps?: DateTimePickerSelectProps;
 } & Partial<Omit<FieldProps, 'onChange' | 'isRequired'>>;

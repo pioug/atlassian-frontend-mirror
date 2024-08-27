@@ -35,6 +35,11 @@ describe('Snapshot Test: Media', () => {
 					advanced: true,
 				},
 			},
+			initialPluginConfiguration: {
+				tablesPlugin: {
+					tableResizingEnabled: true,
+				},
+			},
 		});
 		await clickFirstCell(page);
 		await waitForMediaToBeLoaded(page);

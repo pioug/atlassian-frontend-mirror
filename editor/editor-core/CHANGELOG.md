@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 195.9.0
+
+### Minor Changes
+
+- [#134135](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134135)
+  [`aff992988cf17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aff992988cf17) -
+  Deprecated hideAvatarGroup prop
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`93bd7032842ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93bd7032842ec) -
+  [ux] [ED-24636] Bump ADF Schema package
+
+## 195.8.2
+
+### Patch Changes
+
+- [`a88c92506a873`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a88c92506a873) -
+  Use initialPluginConfiguration to enabled table resizing
+- Updated dependencies
+
 ## 195.8.1
 
 ### Patch Changes

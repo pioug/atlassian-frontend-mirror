@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::a526398bbb8839b31c26c69ef2845c19>>
+ * @codegen <<SignedSource::26fd2d06084d185e97be01b2070484ff>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type ComponentMetaDataType = {
@@ -83,6 +83,7 @@ export type ProviderAuthSuccessAttributesType = {
 };
 export type ProviderAuthFailureAttributesType = {
 	extensionKey: string | null;
+	experience: 'datasource';
 	reason:
 		| 'auth_window_closed'
 		| 'invalid_request'
@@ -94,7 +95,6 @@ export type ProviderAuthFailureAttributesType = {
 		| 'temporarily_unavailable'
 		| 'authclientoauth2.autherror'
 		| null;
-	experience: 'datasource';
 };
 export type NextItemLoadedAttributesType = {
 	destinationObjectTypes: unknown[];
@@ -167,6 +167,12 @@ export type ObjectSchemaFailedAttributesType = {
 export type ObjectSchemasSuccessAttributesType = {};
 export type ObjectSchemasFailedAttributesType = {
 	statusCodeGroup: '1xx' | '3xx' | '4xx' | '5xx' | 'unknown';
+};
+export type ActionDiscoverySuccessAttributesType = {
+	experience: 'datasource';
+	entityType: string;
+	integrationKey: string | null;
+	datasourceId: string | null;
 };
 
 export type AnalyticsEventAttributes = {
@@ -278,6 +284,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * Fired when fetching object schemas fails. */
 	'operational.objectSchemas.failed': ObjectSchemasFailedAttributesType;
+	/**
+	 * Fired when the action discovery and permissions request is successful. */
+	'operational.actionDiscovery.success': ActionDiscoverySuccessAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

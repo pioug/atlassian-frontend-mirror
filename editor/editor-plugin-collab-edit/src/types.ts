@@ -9,6 +9,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import { type Step } from '@atlaskit/editor-prosemirror/dist/types/transform';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -48,6 +49,10 @@ export type CollabInitializedMetadata = {
 export type LastOrganicChangeMetadata = {
 	lastLocalOrganicChangeAt: null | number;
 	lastRemoteOrganicChangeAt: null | number;
+};
+
+export type TrackSpammingStepsMetadata = {
+	recentTransactionsTimestemps: Map<string, { timestamp: number; steps: Step[] }>;
 };
 
 export type CollabEditPluginSharedState = {

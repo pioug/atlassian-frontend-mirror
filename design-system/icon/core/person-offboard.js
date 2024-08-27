@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f72361847754e2f4efed89d336802c41>>
+ * @codegen <<SignedSource::b6022c9ffb5d557d7df4e0fddd84c372>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,11 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "PersonOffboard".
  * Category: single-purpose
  * Location: @atlaskit/icon
+ * Usage guidance: 📦 @atlaskit/icon/core/person-offboard
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PersonOffboardIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.25 16v-3a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3v3M9 8h6.25M8.5 4A3.25 3.25 0 1 1 2 4a3.25 3.25 0 0 1 6.5 0Zm3.25.5 3.5 3.5-3.5 3.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M.75 15v-2.25a3 3 0 0 1 3-3h2.5a3 3 0 0 1 3 3V15M9 8h6.25m-7-4a3.25 3.25 0 1 1-6.5 0 3.25 3.25 0 0 1 6.5 0Zm3.5.5 3.5 3.5-3.5 3.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PersonOffboardIcon.displayName = 'PersonOffboardIcon';

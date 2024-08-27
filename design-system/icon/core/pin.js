@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c663835a44fbaf9d8811f3390c2dca97>>
+ * @codegen <<SignedSource::62534da6c52ce12e83fe76d819e9c5d0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Pin".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: pinning Jira issue fields.
+ * Usage guidance: Multi purpose - Known uses: pinning Jira issue fields.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.16.1
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`93bd7032842ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93bd7032842ec) -
+  [ux] [ED-24636] Bump ADF Schema package
+- Updated dependencies
+
+## 1.16.0
+
+### Minor Changes
+
+- [#134153](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134153)
+  [`88d5b34381594`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88d5b34381594) -
+  Introduced filtering of spamming transaction
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.15.0
+
+### Minor Changes
+
+- [#133504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133504)
+  [`024439741fcdc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/024439741fcdc) -
+  Replaced usage of `originalTransactionHasMeta` to avoid infinite loop issue
+
 ## 1.14.2
 
 ### Patch Changes

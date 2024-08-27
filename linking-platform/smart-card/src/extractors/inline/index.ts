@@ -21,9 +21,10 @@ export const extractInlineIcon = (jsonLd: JsonLd.Data.BaseData) => {
 export const extractInlineProps = (
 	jsonLd: JsonLd.Data.BaseData,
 	renderers?: CardProviderRenderers,
+	removeTextHighlightingFromTitle?: boolean,
 ): InlineCardResolvedViewProps => ({
 	link: extractLink(jsonLd),
-	title: extractTitle(jsonLd),
+	title: extractTitle(jsonLd, removeTextHighlightingFromTitle),
 	lozenge: extractLozenge(jsonLd),
 	icon: extractInlineIcon(jsonLd),
 	titleTextColor: extractTitleTextColor(jsonLd),

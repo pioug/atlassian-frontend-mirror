@@ -36,8 +36,8 @@ const migrationMap: IconMigrationMap = {
 	'add-circle': {
 		newIcon: { name: 'add', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: '16-icon-tile',
-			medium: '24-icon-tile',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
 			large: '32-icon-tile',
 			xlarge: '48-icon-tile',
 		},
@@ -108,10 +108,10 @@ const migrationMap: IconMigrationMap = {
 	'app-switcher': {
 		newIcon: { name: 'app-switcher', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'top-nav',
-			medium: 'top-nav',
-			large: 'top-nav',
-			xlarge: 'top-nav',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
+			large: 'not-recommended',
+			xlarge: 'not-recommended',
 		},
 	},
 	archive: {
@@ -126,8 +126,8 @@ const migrationMap: IconMigrationMap = {
 	'arrow-down-circle': {
 		newIcon: { name: 'arrow-down', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: '16-icon-tile',
-			medium: '24-icon-tile',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
 			large: '32-icon-tile',
 			xlarge: '48-icon-tile',
 		},
@@ -144,8 +144,8 @@ const migrationMap: IconMigrationMap = {
 	'arrow-left-circle': {
 		newIcon: { name: 'arrow-left', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: '16-icon-tile',
-			medium: '24-icon-tile',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
 			large: '32-icon-tile',
 			xlarge: '48-icon-tile',
 		},
@@ -162,8 +162,8 @@ const migrationMap: IconMigrationMap = {
 	'arrow-right-circle': {
 		newIcon: { name: 'arrow-right', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: '16-icon-tile',
-			medium: '24-icon-tile',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
 			large: '32-icon-tile',
 			xlarge: '48-icon-tile',
 		},
@@ -180,8 +180,8 @@ const migrationMap: IconMigrationMap = {
 	'arrow-up-circle': {
 		newIcon: { name: 'arrow-up', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: '16-icon-tile',
-			medium: '24-icon-tile',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
 			large: '32-icon-tile',
 			xlarge: '48-icon-tile',
 		},
@@ -223,7 +223,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'hipchat/audio-only': {
-		newIcon: { name: 'eye-open-filled', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'eye-open-filled',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -332,7 +336,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'bitbucket/repos': {
-		newIcon: { name: 'angle-brackets', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'angle-brackets',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -350,7 +358,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'bitbucket/source': {
-		newIcon: { name: 'angle-brackets', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'angle-brackets',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -368,7 +380,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	book: {
-		newIcon: { name: 'book-with-bookmark', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'book-with-bookmark',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -377,7 +393,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'bullet-list': {
-		newIcon: { name: 'bulleted-list', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'list-bulleted', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -446,7 +462,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	checkbox: {
-		newIcon: { name: 'checkbox-checked', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'checkbox-checked',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -455,7 +475,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'checkbox-indeterminate': {
-		newIcon: { name: 'checkbox-indeterminate', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'checkbox-indeterminate',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -464,7 +488,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'check-circle': {
-		newIcon: { name: 'check-circle', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'success', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -473,11 +497,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'check-circle-outline': {
+		newIcon: { name: 'check-circle', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap',
+			medium: 'swap',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	check: {
@@ -506,7 +531,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'chevron-down': {
-		newIcon: { name: 'chevron-down', type: 'utility', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'chevron-down',
+			type: 'utility',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-size-shift-utility',
 			medium: 'swap-size-shift-utility',
@@ -515,7 +544,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'chevron-down-circle': {
-		newIcon: { name: 'chevron-down', type: 'utility', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'chevron-down',
+			type: 'utility',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-size-shift-utility',
 			medium: 'swap-size-shift-utility',
@@ -524,7 +557,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'hipchat/chevron-down': {
-		newIcon: { name: 'chevron-down', type: 'utility', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'chevron-down',
+			type: 'utility',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-size-shift-utility',
 			medium: 'swap-size-shift-utility',
@@ -533,7 +570,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'chevron-left-circle': {
-		newIcon: { name: 'chevron-left', type: 'utility', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'chevron-left',
+			type: 'utility',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-size-shift-utility',
 			medium: 'swap-size-shift-utility',
@@ -542,7 +583,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'chevron-left': {
-		newIcon: { name: 'chevron-left', type: 'utility', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'chevron-left',
+			type: 'utility',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-size-shift-utility',
 			medium: 'swap-size-shift-utility',
@@ -551,7 +596,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'chevron-left-large': {
-		newIcon: { name: 'chevron-left', type: 'utility', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'chevron-left',
+			type: 'utility',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-size-shift-utility',
 			medium: 'swap-size-shift-utility',
@@ -560,7 +609,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'chevron-right-circle': {
-		newIcon: { name: 'chevron-right', type: 'utility', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'chevron-right',
+			type: 'utility',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-size-shift-utility',
 			medium: 'swap-size-shift-utility',
@@ -569,7 +622,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'chevron-right': {
-		newIcon: { name: 'chevron-right', type: 'utility', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'chevron-right',
+			type: 'utility',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-size-shift-utility',
 			medium: 'swap-size-shift-utility',
@@ -578,7 +635,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'chevron-right-large': {
-		newIcon: { name: 'chevron-right', type: 'utility', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'chevron-right',
+			type: 'utility',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-size-shift-utility',
 			medium: 'swap-size-shift-utility',
@@ -623,7 +684,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	code: {
-		newIcon: { name: 'angle-brackets', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'angle-brackets',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -730,7 +795,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'hipchat/dial-out': {
-		newIcon: { name: 'phone', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'on-call', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -853,27 +918,42 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/align-image-center': {
+		newIcon: {
+			name: 'content-align-center',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/align-image-left': {
+		newIcon: {
+			name: 'content-align-left',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/align-image-right': {
+		newIcon: {
+			name: 'content-align-right',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/attachment': {
@@ -886,23 +966,25 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/background-color': {
+		newIcon: { name: 'paint-bucket', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/bold': {
+		newIcon: { name: 'text-bold', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/bullet-list': {
-		newIcon: { name: 'bulleted-list', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'list-bulleted', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -920,7 +1002,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/code': {
-		newIcon: { name: 'angle-brackets', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'angle-brackets',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -929,7 +1015,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/collapse': {
-		newIcon: { name: 'collapse', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'shrink-horizontal', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -1000,7 +1086,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/expand': {
-		newIcon: { name: 'expand', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'grow-horizontal',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -1018,11 +1108,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/file': {
+		newIcon: { name: 'file', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/file-preview': {
@@ -1034,7 +1125,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/help': {
-		newIcon: { name: 'question-circle', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'question-circle',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -1052,11 +1147,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/horizontal-rule': {
+		newIcon: { name: 'minus', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/image-border': {
@@ -1077,7 +1173,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/image-resize': {
-		newIcon: { name: 'expand', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'maximize', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -1086,11 +1182,16 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/indent': {
+		newIcon: {
+			name: 'text-indent-right',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/info': {
@@ -1103,11 +1204,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/italic': {
+		newIcon: { name: 'text-italic', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/layout-single': {
@@ -1119,43 +1221,68 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/layout-three-equal': {
+		newIcon: {
+			name: 'layout-three-columns',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/layout-three-with-sidebars': {
+		newIcon: {
+			name: 'layout-three-columns-sidebars',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/layout-two-equal': {
+		newIcon: {
+			name: 'layout-two-columns',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/layout-two-left-sidebar': {
+		newIcon: {
+			name: 'layout-two-columns-sidebar-left',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/layout-two-right-sidebar': {
+		newIcon: {
+			name: 'layout-two-columns-sidebar-right',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/link': {
@@ -1168,27 +1295,42 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/media-center': {
+		newIcon: {
+			name: 'content-width-narrow',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/media-full-width': {
+		newIcon: {
+			name: 'expand-horizontal',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/media-wide': {
+		newIcon: {
+			name: 'content-width-wide',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/media-wrap-left': {
@@ -1217,7 +1359,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/more': {
-		newIcon: { name: 'show-more-horizontal', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'show-more-horizontal',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -1235,15 +1381,20 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/number-list': {
+		newIcon: { name: 'list-numbered', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/open': {
-		newIcon: { name: 'arrow-up-right', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'arrow-up-right',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -1252,11 +1403,16 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/outdent': {
+		newIcon: {
+			name: 'text-indent-left',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/panel': {
@@ -1278,7 +1434,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/quote': {
-		newIcon: { name: 'quotation-mark', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'quotation-mark',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -1348,7 +1508,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/success': {
-		newIcon: { name: 'check-circle', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'success', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -1367,14 +1527,18 @@ const migrationMap: IconMigrationMap = {
 	'editor/table': {
 		newIcon: { name: 'grid', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'swap',
-			medium: 'swap',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
 			large: 'icon-tile',
 			xlarge: 'icon-tile',
 		},
 	},
 	'editor/task': {
-		newIcon: { name: 'checkbox-checked', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'checkbox-checked',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -1444,11 +1608,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'emoji/activity': {
+		newIcon: { name: 'basketball', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'emoji-add': {
@@ -1489,18 +1654,19 @@ const migrationMap: IconMigrationMap = {
 	'emoji/flags': {
 		newIcon: { name: 'flag', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap',
+			medium: 'swap',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'emoji/food': {
+		newIcon: { name: 'takeout-food', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'emoji/frequent': {
@@ -1531,11 +1697,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'emoji/nature': {
+		newIcon: { name: 'tree', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'emoji/objects': {
@@ -1550,18 +1717,19 @@ const migrationMap: IconMigrationMap = {
 	'emoji/people': {
 		newIcon: { name: 'emoji', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'emoji/productivity': {
+		newIcon: { name: 'check-circle', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'emoji/symbols': {
@@ -1574,11 +1742,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'emoji/travel': {
+		newIcon: { name: 'vehicle-car', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	error: {
@@ -1593,10 +1762,10 @@ const migrationMap: IconMigrationMap = {
 	export: {
 		newIcon: { name: 'upload', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap',
+			medium: 'swap',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	feedback: {
@@ -1609,11 +1778,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	file: {
+		newIcon: { name: 'file', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	filter: {
@@ -1626,11 +1796,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'flag-filled': {
+		newIcon: { name: 'flag-filled', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'folder-filled': {
@@ -1651,7 +1822,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	followers: {
-		newIcon: { name: 'person-offboard', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'person-offboard',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -1745,7 +1920,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'image-resize': {
-		newIcon: { name: 'expand', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'maximize', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -1846,8 +2021,8 @@ const migrationMap: IconMigrationMap = {
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
-			large: 'icon-tile',
-			xlarge: 'icon-tile',
+			large: '32-icon-tile',
+			xlarge: '48-icon-tile',
 		},
 	},
 	lightbulb: {
@@ -1924,8 +2099,8 @@ const migrationMap: IconMigrationMap = {
 	'lock-filled': {
 		newIcon: { name: 'lock-locked', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: '16-icon-tile',
-			medium: '24-icon-tile',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
 			large: '32-icon-tile',
 			xlarge: '48-icon-tile',
 		},
@@ -1957,7 +2132,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'media-services/actual-size': {
-		newIcon: { name: 'maximize', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'grow-diagonal', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -2024,7 +2199,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'media-services/code': {
-		newIcon: { name: 'angle-brackets', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'angle-brackets',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: '16-icon-tile',
 			medium: '24-icon-tile',
@@ -2051,7 +2230,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'media-services/fit-to-page': {
-		newIcon: { name: 'minimize', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'shrink-diagonal', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -2060,7 +2239,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'media-services/full-screen': {
-		newIcon: { name: 'fullscreen-exit', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'fullscreen-exit',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -2273,7 +2456,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	more: {
-		newIcon: { name: 'show-more-horizontal', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'show-more-horizontal',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -2282,7 +2469,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'more-vertical': {
-		newIcon: { name: 'show-more-vertical', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'show-more-vertical',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -2317,7 +2508,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'office-building-filled': {
-		newIcon: { name: 'office-building', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'office-building',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -2326,7 +2521,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'office-building': {
-		newIcon: { name: 'office-building', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'office-building',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -2335,7 +2534,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	open: {
-		newIcon: { name: 'arrow-up-right', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'arrow-up-right',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -2388,19 +2591,21 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'people-group': {
+		newIcon: { name: 'people-group', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	people: {
+		newIcon: { name: 'people-group', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'person-circle': {
@@ -2497,7 +2702,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'question-circle': {
-		newIcon: { name: 'question-circle', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'question-circle',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -2506,7 +2715,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	question: {
-		newIcon: { name: 'question-circle', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'question-circle',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -2533,7 +2746,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	quote: {
-		newIcon: { name: 'quotation-mark', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'quotation-mark',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -2568,11 +2785,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	refresh: {
+		newIcon: { name: 'refresh', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap',
+			medium: 'swap',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	retry: {
@@ -2735,7 +2953,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	star: {
-		newIcon: { name: 'star-unstarred', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'star-unstarred',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -2744,7 +2966,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'star-large': {
-		newIcon: { name: 'star-unstarred', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'star-unstarred',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -2788,7 +3014,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	switcher: {
-		newIcon: { name: 'app-switcher', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'boards', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -2887,7 +3113,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	upload: {
-		newIcon: { name: 'cloud-arrow-up', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'cloud-arrow-up',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -2981,8 +3211,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'vid-full-screen-off': {
-		newIcon: { name: 'minimize', type: 'core', package: '@atlaskit/icon' },
-		additionalIcons: [{ name: 'fullscreen-exit', type: 'core', package: '@atlaskit/icon' }],
+		newIcon: { name: 'shrink-diagonal', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -2991,7 +3220,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'vid-full-screen-on': {
-		newIcon: { name: 'fullscreen-enter', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'fullscreen-enter',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -3094,7 +3327,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'watch-filled': {
-		newIcon: { name: 'eye-open-filled', type: 'core', package: '@atlaskit/icon' },
+		newIcon: {
+			name: 'eye-open-filled',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',

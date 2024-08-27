@@ -3,7 +3,6 @@ import { snapshot } from '@af/visual-regression';
 import EmbedCardErrorView from '../../../examples/vr-embed-card/vr-embed-card-error';
 import EmbedCardForbiddenView from '../../../examples/vr-embed-card/vr-embed-card-forbidden';
 import EmbedCardForbiddenFixBlurring from '../../../examples/vr-embed-card/vr-embed-card-forbidden-fix-blurring';
-import EmbedCardForbiddenFixBlurringFFOff from '../../../examples/vr-embed-card/vr-embed-card-forbidden-fix-blurring-ff-off';
 import EmbedCardForbiddenDefault from '../../../examples/vr-embed-card/vr-embed-card-forbidden';
 import EmbedCardForbiddenViewFrameHide from '../../../examples/vr-embed-card/vr-embed-card-forbidden-frame-hide';
 import EmbedCardForbiddenObjectRequestAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-object-request-access';
@@ -40,7 +39,6 @@ import EmbedCardFrameStyleShowOnHoverAndSelected from '../../../examples/vr-embe
 snapshot(EmbedCardErrorView);
 snapshot(EmbedCardForbiddenView);
 snapshot(EmbedCardForbiddenFixBlurring);
-snapshot(EmbedCardForbiddenFixBlurringFFOff);
 snapshot(EmbedCardForbiddenDefault);
 snapshot(EmbedCardForbiddenObjectRequestAccess);
 snapshot(EmbedCardForbiddenSiteDeniedAccess);

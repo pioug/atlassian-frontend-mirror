@@ -51,9 +51,6 @@
 			"path": "../editor-plugin-avatar-group/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-background-color/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-base/tsconfig.app.json"
 		},
 		{

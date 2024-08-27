@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::99b93acabab7dae9f106d616ecf7b105>>
+ * @codegen <<SignedSource::14782abc7438d1670876ca58c2a8e712>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "CheckCircle".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: success section messages or a list of done items.
+ * Usage guidance: Multi purpose - Known uses: completed items, productivity emoji category.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CheckCircleIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M6.843 11.767l5.95-6.25-1.086-1.034-5.416 5.69-2.007-2.036L3.216 9.19l2.55 2.587a.75.75 0 0 0 1.077-.01" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m4.25 8 2.5 3 5-6M8 .75a7.25 7.25 0 1 0 0 14.5A7.25 7.25 0 0 0 8 .75Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CheckCircleIcon.displayName = 'CheckCircleIcon';

@@ -58,6 +58,8 @@ interface Props {
 	customTextAreaLabel?: string;
 	/** Custom Select feedback options */
 	customFeedbackOptions?: OptionType[];
+	/** React Ref to focus on close */
+	shouldReturnFocusRef?: React.MutableRefObject<HTMLElement>;
 }
 
 export interface OptionType {
@@ -84,6 +86,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 	selectLabel,
 	customTextAreaLabel,
 	customFeedbackOptions = [],
+	shouldReturnFocusRef,
 }) => {
 	const [canBeContacted, setCanBeContacted] = useState<FormFields['canBeContacted']>(false);
 	const [description, setDescription] = useState<FormFields['description']>('');
@@ -149,7 +152,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 			autoFocus={focusRef}
 			onClose={onClose}
 			testId="feedbackCollectorModalDialog"
-			shouldReturnFocus={true}
+			shouldReturnFocus={shouldReturnFocusRef}
 		>
 			<Form
 				onSubmit={async () => {

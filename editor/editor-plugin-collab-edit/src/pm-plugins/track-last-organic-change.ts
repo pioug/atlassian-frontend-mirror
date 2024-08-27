@@ -4,7 +4,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { LastOrganicChangeMetadata } from '../types';
-import { isOrganicChange, originalTransactionHasMeta } from '../utils';
+import { isOrganicChange } from '../utils';
 
 export const trackLastOrganicChangePluginKey = new PluginKey<LastOrganicChangeMetadata>(
 	'collabTrackLastOrganicChangePlugin',
@@ -21,9 +21,13 @@ export const createPlugin = () => {
 				};
 			},
 			apply(transaction: ReadonlyTransaction, prevPluginState: LastOrganicChangeMetadata) {
-				const isRemote = originalTransactionHasMeta(transaction, 'isRemote');
+				if (Boolean(transaction.getMeta('appendedTransaction'))) {
+					return prevPluginState;
+				}
+
+				const isRemote = Boolean(transaction.getMeta('isRemote'));
 				const isDocumentReplaceFromRemote =
-					isRemote && originalTransactionHasMeta(transaction, 'replaceDocument');
+					isRemote && Boolean(transaction.getMeta('replaceDocument'));
 
 				if (isDocumentReplaceFromRemote) {
 					return prevPluginState;

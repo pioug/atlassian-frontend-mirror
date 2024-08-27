@@ -50,6 +50,9 @@
 			"path": "../../design-system/code/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/datetime-picker/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/dynamic-table/tsconfig.app.json"
 		},
 		{

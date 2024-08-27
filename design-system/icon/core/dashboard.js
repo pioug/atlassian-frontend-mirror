@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e205bd0df6a59fffa8e3e88a96cadaeb>>
+ * @codegen <<SignedSource::cf60205a3460556413b4bbe2c3cf4fed>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Dashboard".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for dashboards in Jira.
+ * Usage guidance: Single purpose - Reserved for dashboards in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

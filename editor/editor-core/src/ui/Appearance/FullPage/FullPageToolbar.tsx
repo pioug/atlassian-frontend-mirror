@@ -122,20 +122,21 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 					beforePrimaryToolbarComponents={props.customPrimaryToolbarComponents?.before}
 				/>
 			) : null}
-			{props.hideAvatarGroup ||
-			(props?.featureFlags?.showAvatarGroupAsPlugin === true &&
-				!props.featureFlags?.twoLineEditorToolbar)
-				? null
-				: // Avatars are moved to Confluence codebase for Edit in Context
-					// When Edit in Context is enabled customPrimaryToolbarComponents is undefined
-					// For more details please check
-					// https://hello.atlassian.net/wiki/spaces/PCG/pages/2851572180/Editor+toolbar+for+live+pages+and+edit+in+context+projects
-					editorAPI?.avatarGroup?.actions.getToolbarItem({
-						editorView: props.editorView,
-						inviteToEditComponent: props.collabEdit?.inviteToEditComponent,
-						inviteToEditHandler: props.collabEdit?.inviteToEditHandler,
-						isInviteToEditButtonSelected: props.collabEdit?.isInviteToEditButtonSelected,
-					})}
+			{!fg('platform_editor_remove_hide_avatar_group_prop')
+				? props.hideAvatarGroup ||
+					(props?.featureFlags?.showAvatarGroupAsPlugin === true &&
+						!props.featureFlags?.twoLineEditorToolbar)
+					? null
+					: // Avatars are moved to Confluence codebase for Edit in Context
+						// When Edit in Context is enabled customPrimaryToolbarComponents is undefined
+						// For more details please check
+						// https://hello.atlassian.net/wiki/spaces/PCG/pages/2851572180/Editor+toolbar+for+live+pages+and+edit+in+context+projects
+						editorAPI?.avatarGroup?.actions.getToolbarItem({
+							inviteToEditComponent: props.collabEdit?.inviteToEditComponent,
+							inviteToEditHandler: props.collabEdit?.inviteToEditHandler,
+							isInviteToEditButtonSelected: props.collabEdit?.isInviteToEditButtonSelected,
+						})
+				: null}
 			{editorAPI?.findReplace && twoLineEditorToolbar
 				? editorAPI?.findReplace.actions.getToolbarButton({
 						popupsBoundariesElement: props.popupsBoundariesElement,

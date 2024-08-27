@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d15d96d70fb2a379958dc6e54013d368>>
+ * @codegen <<SignedSource::0cb77bd0ff93f907a6547caf18123fb9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "PowerPlug".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: plugins, add ons.
+ * Usage guidance: Multi purpose - Known uses: plugins, add ons.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

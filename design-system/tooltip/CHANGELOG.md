@@ -1,5 +1,14 @@
 # @atlaskit/tooltip
 
+## 18.7.2
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`cd16d91b93dff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd16d91b93dff) -
+  We are testing an internal change to use an ID generator compatible with both React 16 and
+  React 18. If these changes are successful, it will be rolled out in a later release.
+
 ## 18.7.1
 
 ### Patch Changes

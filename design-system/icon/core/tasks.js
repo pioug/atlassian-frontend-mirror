@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::234e2254b1de584961f856a58d758e1a>>
+ * @codegen <<SignedSource::043e13dd808cb1506a1a5fa9488bd57d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Tasks".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for multiple tasks in Jira.
+ * Usage guidance: Single purpose - Reserved for multiple tasks in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TasksIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m4.375 7 1.75 1.75L9.625 5M3 12.25h8c.69 0 1.25-.56 1.25-1.25V3c0-.69-.56-1.25-1.25-1.25H3c-.69 0-1.25.56-1.25 1.25v8c0 .69.56 1.25 1.25 1.25Z"/><path stroke="currentcolor" stroke-width="1.5" d="M6 15.25h6.75a2.5 2.5 0 0 0 2.5-2.5V6"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M4 6.875 6 9.25l4-4.75m-7 7.75h8c.69 0 1.25-.56 1.25-1.25V3c0-.69-.56-1.25-1.25-1.25H3c-.69 0-1.25.56-1.25 1.25v8c0 .69.56 1.25 1.25 1.25Z"/><path stroke="currentcolor" stroke-width="1.5" d="M6 15.25h6.75a2.5 2.5 0 0 0 2.5-2.5V6"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TasksIcon.displayName = 'TasksIcon';

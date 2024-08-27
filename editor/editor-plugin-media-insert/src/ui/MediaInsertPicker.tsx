@@ -20,6 +20,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 
+import { useFocusEditor } from '../hooks/use-focus-editor';
 import { type MediaInsertPickerProps } from '../types';
 
 import { MediaInsertContent } from './MediaInsertContent';
@@ -68,6 +69,7 @@ export const MediaInsertPicker = ({
 	const isOpen = useSharedPluginState(api, ['mediaInsert'])?.mediaInsertState?.isOpen;
 	const mediaProvider = useSharedPluginState(api, ['media'])?.mediaState?.mediaProvider;
 	const intl = useIntl();
+	const focusEditor = useFocusEditor({ editorView });
 
 	if (!isOpen || !mediaProvider) {
 		return null;
@@ -87,6 +89,7 @@ export const MediaInsertPicker = ({
 				dispatchAnalyticsEvent(payload);
 			}
 			closeMediaInsertPicker();
+			focusEditor();
 		};
 
 	return (
@@ -109,7 +112,10 @@ export const MediaInsertPicker = ({
 				<MediaInsertContent
 					mediaProvider={mediaProvider}
 					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-					closeMediaInsertPicker={closeMediaInsertPicker}
+					closeMediaInsertPicker={() => {
+						closeMediaInsertPicker();
+						focusEditor();
+					}}
 				/>
 			</MediaInsertWrapper>
 		</PopupWithListeners>

@@ -48,7 +48,6 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 			popupsBoundariesElement,
 			popupsScrollableElement,
 		}) => {
-			const { dispatch, state } = editorView;
 			return (
 				<MediaInsertPicker
 					api={api}
@@ -57,7 +56,9 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 					popupsMountPoint={popupsMountPoint}
 					popupsBoundariesElement={popupsBoundariesElement}
 					popupsScrollableElement={popupsScrollableElement}
-					closeMediaInsertPicker={() => dispatch(closeMediaInsertPicker(state.tr))}
+					closeMediaInsertPicker={() => {
+						editorView.dispatch(closeMediaInsertPicker(editorView.state.tr));
+					}}
 				/>
 			);
 		},

@@ -54,7 +54,7 @@ const FormDateTimePickerExample = () => {
 						<Field name="DOB" label="Date of Birth" defaultValue="" isRequired>
 							{({ fieldProps: { id, ...rest }, error }) => (
 								<Fragment>
-									<DatePicker selectProps={{ inputId: id }} {...rest} />
+									<DatePicker {...rest} id={id} />
 									{error && <ErrorMessage>{error}</ErrorMessage>}
 								</Fragment>
 							)}
@@ -70,14 +70,21 @@ const FormDateTimePickerExample = () => {
 								return (
 									<Fragment>
 										<DateTimePicker
-											// @ts-ignore - Type '"error" | "none"' is not assignable to type 'ValidationState | undefined'.
-											datePickerSelectProps={{ validationState, inputId: id }}
-											timePickerSelectProps={{
-												// @ts-ignore - Type '"error" | "none"' is not assignable to type 'ValidationState | undefined'.
-												validationState,
-												'aria-labelledby': `${id}-label`,
-											}}
 											{...rest}
+											datePickerProps={{
+												selectProps: {
+													validationState,
+												},
+
+												id: id,
+											}}
+											timePickerProps={{
+												selectProps: {
+													// @ts-ignore - Type '"error" | "none"' is not assignable to type 'ValidationState | undefined'.
+													validationState,
+													'aria-labelledby': `${id}-label`,
+												},
+											}}
 										/>
 										{error && <ErrorMessage>{error}</ErrorMessage>}
 									</Fragment>

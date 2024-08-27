@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3a3eb33b5845c1910a3bdb4c571191ae>>
+ * @codegen <<SignedSource::59ed0d1eaf3692b12c2c689c7a7ea5c7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "OfficeBuilding".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: office in Atlas, company.
+ * Usage guidance: Multi purpose - Known uses: office in Atlas, company.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const OfficeBuildingIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M5 3.75h2m2 0h2m0 3H9m-2 0H5m1.25 8.5H4c-.69 0-1.25-.56-1.25-1.25V2c0-.69.56-1.25 1.25-1.25h8c.69 0 1.25.56 1.25 1.25v12c0 .69-.56 1.25-1.25 1.25H9.75m-3.5 0v-5.5h3.5v5.5m-3.5 0h3.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M13.25 15.25V2c0-.69-.56-1.25-1.25-1.25H4c-.69 0-1.25.56-1.25 1.25v13.25m10.5 0h-3.5m3.5 0H15m-12.25 0h3.5m-3.5 0H1m4-11.5h2m2 0h2m0 3H9m-2 0H5m1.25 8.5v-4.5h3.5v4.5m-3.5 0h3.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 OfficeBuildingIcon.displayName = 'OfficeBuildingIcon';

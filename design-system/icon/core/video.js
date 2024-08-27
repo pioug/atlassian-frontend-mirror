@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c4dba24cee3c60ae99e8abf13d04e23a>>
+ * @codegen <<SignedSource::0fddfbb163bc1fbb0b66cb6dc4ce0eb6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Video".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for video in Media.
+ * Usage guidance: Single purpose - Reserved for video in Media.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

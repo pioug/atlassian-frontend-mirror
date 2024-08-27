@@ -97,12 +97,12 @@ const FormAllOptionsExample = () => (
 								{({ fieldProps: { id, ...rest } }) => (
 									<DateTimePicker
 										{...rest}
-										datePickerSelectProps={{
-											inputId: id,
-											'aria-label': 'Select date',
+										datePickerProps={{
+											label: 'Select date',
+											id: id,
 										}}
-										timePickerSelectProps={{
-											'aria-label': 'Select time',
+										timePickerProps={{
+											label: 'Select time',
 										}}
 									/>
 								)}

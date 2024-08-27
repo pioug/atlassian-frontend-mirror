@@ -8,6 +8,7 @@ export {
 	mockDatasourceDetailsResponse,
 	mockDatasourceDataResponse,
 	mockDatasourceDataResponseWithSchema,
+	mockActionsDiscoveryResponse,
 	mockActionsDiscoveryEmptyResponse,
 } from './services/use-data-source-client-extension/mocks';
 export type { JsonLdDatasourceResponse, DatasourceResolveResponse } from './types';

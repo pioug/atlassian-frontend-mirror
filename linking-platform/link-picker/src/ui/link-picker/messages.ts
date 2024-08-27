@@ -44,7 +44,7 @@ export const formMessages = defineMessages({
 	},
 	clearLink: {
 		id: 'fabric.linkPicker.clearLink',
-		defaultMessage: 'Clear link',
+		defaultMessage: 'Clear',
 		description: 'Tooltip message for link input clear button',
 	},
 });

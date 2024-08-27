@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::595af3bf5fb4c876687bdcae9c6733d2>>
+ * @codegen <<SignedSource::34cce0e65d0b47ff66878c07e93619ce>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Image".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: images, image upload.
+ * Usage guidance: Multi purpose - Known uses: images, image upload.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

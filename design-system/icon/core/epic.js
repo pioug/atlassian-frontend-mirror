@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::74bf6dd2ea02ae74942476e8cb28e29f>>
+ * @codegen <<SignedSource::f2eb421a0e293ac76b5a98c3320ed794>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Epic".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for epics in Jira.
+ * Usage guidance: Single purpose - Reserved for epics in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

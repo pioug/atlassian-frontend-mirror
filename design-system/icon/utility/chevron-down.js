@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7c1d0ab56b5a56e82c7add15b1628bd6>>
+ * @codegen <<SignedSource::3eb2993a427b2667a5277a7a906fec96>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChevronDownIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M10.5 4 6 8.5 1.5 4"/>`,
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M10.5 4.5 8.25 6.75 6 9 3.75 6.75 1.5 4.5"/>`,
   type: 'utility'
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

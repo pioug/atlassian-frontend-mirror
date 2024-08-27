@@ -449,7 +449,7 @@ type InvalidMediaContentTransformedAEP = OperationalAEP<
 >;
 
 type CollabStepsTrackerPayloadAEP = OperationalAEP<
-	ACTION.STEPS_TRACKED,
+	ACTION.STEPS_TRACKED | ACTION.STEPS_FILTERED,
 	ACTION_SUBJECT.COLLAB,
 	undefined,
 	{

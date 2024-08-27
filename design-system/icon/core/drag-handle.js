@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6a41284882a1f5b3109b417d4c5a4278>>
+ * @codegen <<SignedSource::70d998c8691b604489f3906291ac21cb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "DragHandle".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for draggable elements.
+ * Usage guidance: Single purpose - Reserved for draggable elements.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

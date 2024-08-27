@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::16e4434776c9aca74b4f6534b23839e2>>
+ * @codegen <<SignedSource::e91f147fe60ea6a83ac4e3275d8b97ba>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "ArrowUpRight".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: open a link in a new page (but not a new tab).
+ * Usage guidance: Multi purpose
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ArrowUpRightIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M13.25 2.75 2.5 13.5M6.25 2.75h7v7"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M12.75 3.25 3 13m2.75-9.75h7v7"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ArrowUpRightIcon.displayName = 'ArrowUpRightIcon';

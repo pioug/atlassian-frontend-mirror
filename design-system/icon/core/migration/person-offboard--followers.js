@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::04ab805fc858afdde8ba5bfaf48676aa>>
+ * @codegen <<SignedSource::07902b01c60edcf3461b2af92b4e182c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  * Category: single-purpose
  * Location: @atlaskit/icon
+ * Usage guidance: 📦 @atlaskit/icon/core/person-offboard
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

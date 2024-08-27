@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bd69b7cfada02387d44f07e86e65cf52>>
+ * @codegen <<SignedSource::c0cbe60e845ea9826b9208c3495c1399>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,6 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  * Category: single-purpose
  * Location: @atlaskit/icon
+ * Usage guidance: 📦 @atlaskit/icon/core/audio
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

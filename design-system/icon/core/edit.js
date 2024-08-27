@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::00c549449d1434fc84695de350189eb1>>
+ * @codegen <<SignedSource::32c191357b748545769418a2438f72bf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Edit".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for editing objects.
+ * Usage guidance: Single purpose - Reserved for editing objects.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

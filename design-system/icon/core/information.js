@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a389834d00ee60e446c7d8bd6bfed260>>
+ * @codegen <<SignedSource::cfc592cc61140d99cb4eaed527408acf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Information".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: helper message under textfield, information state insection messages.
+ * Usage guidance: Single purpose - Known uses: information state in section messages or inline messages.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

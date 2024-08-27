@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::625e25409693985e87996dba316fed56>>
+ * @codegen <<SignedSource::7a7c98940d9e97e987ea73306185cb66>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "PriorityMajor".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for major issue priority.
+ * Usage guidance: Single purpose - Reserved for major issue priority.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

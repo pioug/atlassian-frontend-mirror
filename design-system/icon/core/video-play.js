@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::54ab9b1447263beab7592e2800e27529>>
+ * @codegen <<SignedSource::42417b1120b708626f47280d3ac0fde0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "VideoPlay".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for play video in Media.
+ * Usage guidance: Single purpose - Reserved for play video in Media.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

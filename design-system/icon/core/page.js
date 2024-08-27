@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::44e4bb75683d5b0200bdf024a439b4e4>>
+ * @codegen <<SignedSource::cab2bd3bf7f5b1e2b2df4de8af9192f9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Page".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for pages in Confluence.
+ * Usage guidance: Single purpose - Reserved for pages in Confluence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

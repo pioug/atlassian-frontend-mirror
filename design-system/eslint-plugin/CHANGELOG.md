@@ -1,5 +1,23 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.17.2
+
+### Patch Changes
+
+- [#133689](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133689)
+  [`5b1de3a5df2be`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b1de3a5df2be) -
+  Fix bug in no-legacy-icons where in certain tooling, the token() function wasn't recognised
+  correctly when resolving icon colors.
+
+## 10.17.1
+
+### Patch Changes
+
+- [#133643](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133643)
+  [`1ab5ca9bddc97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1ab5ca9bddc97) -
+  Updated the list of upcoming icons after a new set of icons were added
+- Updated dependencies
+
 ## 10.17.0
 
 ### Minor Changes

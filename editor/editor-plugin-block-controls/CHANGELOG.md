@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.12.5
+
+### Patch Changes
+
+- [#134135](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134135)
+  [`4aabe1f4ad731`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4aabe1f4ad731) -
+  ED-24551 Fix drop target missing at end of bodied extension nodes.
+- [#133748](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133748)
+  [`3d90a431f7ed8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d90a431f7ed8) -
+  Optimise node decs to prevent re-renders on doc change
+
 ## 1.12.4
 
 ### Patch Changes

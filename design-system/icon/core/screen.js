@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ecdb299d6f5a8103d74a882d26974193>>
+ * @codegen <<SignedSource::2cce72e2862671e014229e4f9f93b819>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Screen".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: assets in Jira.
+ * Usage guidance: Multi purpose - Known uses: assets in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

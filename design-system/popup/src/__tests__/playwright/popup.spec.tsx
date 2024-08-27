@@ -315,4 +315,28 @@ test.describe('Popup focus behavior', () => {
 		// Both popups are closed, element after trigger is focused
 		await expect(button1).toBeFocused();
 	});
+
+	test('Should not return focus to trigger with should not return focus', async ({ page }) => {
+		await page.visitExample('design-system', 'popup', 'should-not-return-focus');
+
+		const trigger = page.getByText('Trigger');
+
+		await trigger.focus();
+		await trigger.press('Enter');
+		await expect(page.getByText('Content')).toBeFocused();
+
+		await page.keyboard.press('Escape');
+		await expect(trigger).not.toBeFocused();
+
+		await trigger.focus();
+		await trigger.press('Enter');
+		await expect(page.getByText('Content')).toBeFocused();
+
+		await page.keyboard.press('Enter');
+		await expect(trigger).not.toBeFocused();
+		await expect(page.getByPlaceholder('Input')).toBeFocused();
+
+		await page.keyboard.press('Escape');
+		await expect(trigger).toBeFocused();
+	});
 });

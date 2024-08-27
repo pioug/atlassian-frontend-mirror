@@ -76,10 +76,10 @@ export default () => {
 										<DatePicker
 											selectProps={{
 												ref: DOBfieldRef,
-												inputId: id,
 												'aria-invalid': ariaInvalid,
 											}}
 											{...rest}
+											id={id}
 										/>
 										{error && <ErrorMessage>{error}</ErrorMessage>}
 									</Fragment>
@@ -107,14 +107,18 @@ export default () => {
 								return (
 									<Fragment>
 										<DateTimePicker
-											datePickerSelectProps={{
-												'aria-invalid': ariaInvalid,
-												ref: preferenceFieldRef,
-											}}
-											timePickerSelectProps={{
-												'aria-invalid': ariaInvalid,
-											}}
 											{...rest}
+											datePickerProps={{
+												selectProps: {
+													'aria-invalid': ariaInvalid,
+													ref: preferenceFieldRef,
+												},
+											}}
+											timePickerProps={{
+												selectProps: {
+													'aria-invalid': ariaInvalid,
+												},
+											}}
 										/>
 										{error && <ErrorMessage>{error}</ErrorMessage>}
 									</Fragment>

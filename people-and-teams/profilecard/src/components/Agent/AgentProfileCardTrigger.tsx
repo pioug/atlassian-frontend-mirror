@@ -19,7 +19,7 @@ export const AgentProfileCardTrigger = ({
 	product,
 	...props
 }: AgentProfileCardTriggerProps) => {
-	const { resourceClient, userId, cloudId } = props;
+	const { resourceClient, agentId: userId, cloudId } = props;
 
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const fireAnalytics = useCallback(
@@ -83,18 +83,15 @@ export const AgentProfileCardTrigger = ({
 	};
 	const renderProfileCard = ({
 		profileData,
-		isLoading,
 		error,
 	}: {
 		profileData?: RovoAgentProfileCardInfo;
-		isLoading: boolean;
 		error?: ProfileCardErrorType;
 	}) => {
 		return (
 			<Suspense fallback={null}>
 				<AgentProfileCardLazy
 					agent={profileData}
-					isLoading={isLoading}
 					hasError={!!error}
 					isCreatedByViewingUser={profileData?.creatorInfo?.id === viewingUserId}
 					cloudId={props.cloudId}

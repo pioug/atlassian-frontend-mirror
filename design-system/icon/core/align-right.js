@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::36893cbae4b59fc32b7babd5bc6b0064>>
+ * @codegen <<SignedSource::22d57f35a65dacc17730032a7fd3b094>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "AlignRight".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: align text right, align content right.
+ * Usage guidance: Multi purpose - Known uses: align text right, align content right.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::58066e91faf8f4aeeee8b5f2cdc90337>>
+ * @codegen <<SignedSource::eb5ae16d375178abf3240e54f94509e6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "VideoPause".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for pause video in Media.
+ * Usage guidance: Single purpose - Reserved for pause video in Media.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

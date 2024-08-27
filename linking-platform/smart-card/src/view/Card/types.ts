@@ -118,4 +118,11 @@ export interface CardProps extends WithAnalyticsEventsProps {
 	 * unable to use the new flexible block cards.
 	 */
 	useLegacyBlockCard?: boolean;
+	/**
+	 * When set to true, the text fragment will be removed from the title.
+	 * This will have no impact on the url and text highlighting will still persist in the url,
+	 * however the the text fragment will be stripped from the title of the smart card.
+	 * For example, when set to true: "my name | :~:text=highlight this" will be displayed as "my name"
+	 */
+	removeTextHighlightingFromTitle?: boolean;
 }

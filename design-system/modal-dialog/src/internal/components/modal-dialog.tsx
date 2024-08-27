@@ -6,14 +6,14 @@ import { type CSSProperties, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
-import { useUID } from 'react-uid';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import FocusRing from '@atlaskit/focus-ring';
 import { useCloseOnEscapePress } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { media } from '@atlaskit/primitives';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
@@ -118,7 +118,7 @@ const ModalDialog = (
 		testId,
 	} = props;
 
-	const id = useUID();
+	const id = useId();
 	const titleId = `modal-dialog-title-${id}`;
 
 	useAutoFocus(
@@ -180,7 +180,7 @@ const ModalDialog = (
 									aria-modal={true}
 								>
 									{children}
-									{getBooleanFF('platform.design-system-team.iframe_gojiv') && (
+									{fg('platform.design-system-team.iframe_gojiv') && (
 										<Global styles={resetPointerEventsOnIframeStyles} />
 									)}
 								</section>

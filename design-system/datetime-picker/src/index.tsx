@@ -7,4 +7,5 @@ export type {
 	DatePickerBaseProps as DatePickerProps,
 	TimePickerBaseProps as TimePickerProps,
 	DateTimePickerBaseProps as DateTimePickerProps,
+	DateTimePickerSelectProps,
 } from './types';

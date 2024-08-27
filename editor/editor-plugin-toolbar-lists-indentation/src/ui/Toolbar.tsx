@@ -20,7 +20,7 @@ import {
 import { indentationMessages, listMessages as messages } from '@atlaskit/editor-common/messages';
 import { buttonGroupStyle, separatorStyles } from '@atlaskit/editor-common/styles';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import BulletedListIcon from '@atlaskit/icon/core/migration/bulleted-list--editor-bullet-list';
+import BulletedListIcon from '@atlaskit/icon/core/migration/list-bulleted--editor-bullet-list';
 import IndentIcon from '@atlaskit/icon/glyph/editor/indent';
 import NumberListIcon from '@atlaskit/icon/glyph/editor/number-list';
 import OutdentIcon from '@atlaskit/icon/glyph/editor/outdent';

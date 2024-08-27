@@ -5,7 +5,6 @@ import { confluenceSchema } from '@atlaskit/adf-schema/schema-confluence';
 import * as AdfSchemaDefault from '@atlaskit/adf-schema/schema-default';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { DocBuilder } from '@atlaskit/editor-common/types';
-import { backgroundColorPlugin } from '@atlaskit/editor-plugin-background-color';
 import { highlightPlugin } from '@atlaskit/editor-plugin-highlight';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -99,10 +98,7 @@ describe('JSONTransformer:', () => {
 		const editor = (doc: DocBuilder, options?: Pick<Options, 'editorProps'>) =>
 			createEditor({
 				doc,
-				editorPlugins: [
-					backgroundColorPlugin({ config: undefined }),
-					highlightPlugin({ config: undefined }),
-				],
+				editorPlugins: [highlightPlugin({ config: undefined })],
 				editorProps: {
 					emojiProvider: new Promise(() => {}),
 					mentionProvider: new Promise(() => {}),

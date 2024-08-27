@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::84714ddff7a3965e8b5bab27f131965d>>
+ * @codegen <<SignedSource::99849bbcaca45d07c3becf9eaf3b85c4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Phone".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: call us, phone number input.
+ * Usage guidance: Multi purpose - Known uses: call us, phone number input.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

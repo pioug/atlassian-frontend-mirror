@@ -1,6 +1,10 @@
 import { type JsonLd } from 'json-ld-types';
 
-import { TEST_BASE_DATA, TEST_NAME } from '../../__mocks__/linkingPlatformJsonldMocks';
+import {
+	TEST_BASE_DATA,
+	TEST_BASE_DATA_WITH_HIGHLIGHTING,
+	TEST_NAME,
+} from '../../__mocks__/linkingPlatformJsonldMocks';
 import { extractTitle } from '../extractTitle';
 
 describe('extractors.primitives.title', () => {
@@ -70,5 +74,9 @@ describe('extractors.primitives.title', () => {
 		} as JsonLd.Data.SourceCodeReference;
 
 		expect(extractTitle(fileMockData)).toBe(`my-repo: ${TEST_NAME}`);
+	});
+
+	it("removes text highlighting if 'removeTextHighlightingFromTitle' is true", () => {
+		expect(extractTitle(TEST_BASE_DATA_WITH_HIGHLIGHTING, true)).toBe(TEST_NAME);
 	});
 });

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bbccf50060728e8af14d782745fad85f>>
+ * @codegen <<SignedSource::2fdc79421e640da36581eab376b367cc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -17,9 +17,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Please reach out in #icon-contributions before using these in production.
  *
  * Icon: "Feedback".
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: customer feedback.
+ * Usage guidance: Single purpose - Known uses: customer feedback.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

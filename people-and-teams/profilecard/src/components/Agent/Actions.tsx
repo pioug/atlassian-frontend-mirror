@@ -31,20 +31,6 @@ const chatToAgentButtonContainer = xcss({
 	width: '100%',
 });
 
-const buttonStyles = xcss({
-	borderRadius: '3px',
-	color: 'color.text',
-	backgroundColor: 'color.background.neutral',
-
-	':hover': {
-		backgroundColor: 'color.background.neutral.hovered',
-	},
-
-	':active': {
-		backgroundColor: 'color.background.neutral.pressed',
-	},
-});
-
 const chatToAgentButtonWrapper = xcss({
 	display: 'flex',
 	justifyContent: 'center',
@@ -66,7 +52,7 @@ const chatPillIconWrapper = xcss({
 	height: '20px',
 });
 
-const actopnsWrapperStyles = xcss({
+const actionsWrapperStyles = xcss({
 	borderTop: '1px',
 	borderTopStyle: 'solid',
 	borderColor: 'color.border',
@@ -132,9 +118,15 @@ export const AgentActions = ({
 
 	return (
 		<>
-			<Inline space="space.100" xcss={actopnsWrapperStyles}>
-				<Box xcss={[chatToAgentButtonContainer, buttonStyles]}>
-					<Button shouldFitContainer onClick={onChatClick}>
+			<Inline space="space.100" xcss={actionsWrapperStyles}>
+				<Box xcss={chatToAgentButtonContainer}>
+					<Button
+						shouldFitContainer
+						onClick={(e) => {
+							e.stopPropagation();
+							onChatClick();
+						}}
+					>
 						<Box xcss={chatToAgentButtonWrapper}>
 							<Inline space="space.050" xcss={chatPillButtonInlineStyles}>
 								<Box xcss={chatPillIconWrapper}>
@@ -145,12 +137,19 @@ export const AgentActions = ({
 						</Box>
 					</Button>
 				</Box>
-				{/* <ChatToAgentButton onClick={(_, analyticsEvents) => handleClickChat(analyticsEvents)} /> */}
-
 				<DropdownMenu<HTMLButtonElement>
 					trigger={({ triggerRef, ...props }) => (
-						<Box xcss={buttonStyles}>
-							<IconButton {...props} icon={MoreIcon} label="more" ref={triggerRef} />
+						<Box>
+							<IconButton
+								{...props}
+								icon={MoreIcon}
+								label="more"
+								ref={triggerRef}
+								onClick={(e) => {
+									e.stopPropagation();
+									props.onClick?.(e);
+								}}
+							/>
 						</Box>
 					)}
 					placement="bottom-end"
@@ -158,7 +157,13 @@ export const AgentActions = ({
 					<DropdownItemGroup>
 						{agentActions.map(({ text, onClick }, idx) => {
 							return (
-								<DropdownItem key={idx} onClick={onClick}>
+								<DropdownItem
+									key={idx}
+									onClick={(e) => {
+										e.stopPropagation();
+										onClick?.();
+									}}
+								>
 									{text}
 								</DropdownItem>
 							);
@@ -168,7 +173,13 @@ export const AgentActions = ({
 						<DropdownItemGroup hasSeparator>
 							{agentSetting.map(({ text, onClick }, idx) => {
 								return (
-									<DropdownItem key={idx} onClick={onClick}>
+									<DropdownItem
+										key={idx}
+										onClick={(e) => {
+											e.stopPropagation();
+											onClick?.();
+										}}
+									>
 										{text}
 									</DropdownItem>
 								);

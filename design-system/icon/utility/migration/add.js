@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ce225e4813e70a7cefc7befe37b0ce33>>
+ * @codegen <<SignedSource::3eea19965f0a38e6eb4f3d86ac3ccb0f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  * Category: utility
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for creating and adding an object as a secondary action within a Menu Item.
+ * Usage guidance: Reserved for creating and adding an object as a secondary/tertiary action in a menu item.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

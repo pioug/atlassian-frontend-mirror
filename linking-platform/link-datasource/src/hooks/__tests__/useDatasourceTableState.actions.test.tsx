@@ -5,6 +5,7 @@ import { defaultRegistry } from 'react-sweet-state';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import {
+	mockActionsDiscoveryResponse,
 	mockDatasourceDataResponse,
 	mockDatasourceDataResponseWithSchema,
 	useDatasourceClientExtension,
@@ -94,6 +95,35 @@ describe('useDatasourceTableState', () => {
 	describe('with useDiscoverActions', () => {
 		ffTest.on('enable_datasource_react_sweet_state', 'flag on', () => {
 			ffTest.on('platform-datasources-enable-two-way-sync', 'flag on', () => {
+				it('should fire analytic event when `discoverActions` is successful', async () => {
+					asMock(getDatasourceData).mockResolvedValueOnce({
+						...mockDatasourceDataResponseWithSchema,
+					});
+					asMock(getDatasourceActionsAndPermissions).mockResolvedValueOnce({
+						...mockActionsDiscoveryResponse,
+					});
+
+					const { waitForNextUpdate } = setup();
+					await waitForNextUpdate();
+
+					expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+						{
+							payload: {
+								action: 'success',
+								actionSubject: 'actionDiscovery',
+								eventType: 'operational',
+								attributes: {
+									datasourceId: null,
+									entityType: 'issue',
+									experience: 'datasource',
+									integrationKey: 'jira',
+								},
+							},
+						},
+						EVENT_CHANNEL,
+					);
+				});
+
 				ffTest.off('platform.linking-platform.datasources.enable-sentry-client', 'flag on', () => {
 					it('when `discoverActions` fails with an `Error`, it should log to Splunk and log to Sentry conditionally based on FF', async () => {
 						const mockError = new Error('Mock error');

@@ -1,5 +1,19 @@
 # @atlaskit/feedback-collector
 
+## 13.7.0
+
+### Minor Changes
+
+- [#132488](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132488)
+  [`64f768ca3e89f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64f768ca3e89f) -
+  [ux] return focus to calling element on modal close
+
+### Patch Changes
+
+- [#132488](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132488)
+  [`64f768ca3e89f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64f768ca3e89f) -
+  [ux] update a11y fix to accept ref instead of boolean
+
 ## 13.6.0
 
 ### Minor Changes

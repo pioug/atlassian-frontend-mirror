@@ -1,5 +1,38 @@
 # @atlaskit/link-datasource
 
+## 2.11.11
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`93bd7032842ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93bd7032842ec) -
+  [ux] [ED-24636] Bump ADF Schema package
+
+## 2.11.10
+
+### Patch Changes
+
+- [#130811](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130811)
+  [`3e95e200fd9e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e95e200fd9e8) -
+  Fire event when action discovery has been successful
+- Updated dependencies
+
+## 2.11.9
+
+### Patch Changes
+
+- [#133592](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133592)
+  [`4f2ae93fd3ff1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f2ae93fd3ff1) -
+  [ux] Makes IssueLikeTable td cells have a consistent minHeight of 40px and border of 1px, and
+  fixes several visual bugs with the edit view of InlineEdit cell
+- Updated dependencies
+
+## 2.11.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.11.7
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fa8dddc2f46d332e2201fd268dd9b60f>>
+ * @codegen <<SignedSource::65087a5c326775de37928a617e41b589>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Teams".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for teams in Atlassian.
+ * Usage guidance: Single purpose - Reserved for teams in Atlassian.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

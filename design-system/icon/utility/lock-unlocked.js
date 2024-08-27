@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f39d4711960cf46d8eb71d081a878359>>
+ * @codegen <<SignedSource::d1691c033c64bbb1d389da7537e5b28c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LockUnlockedIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8.25 3a2.25 2.25 0 0 0-4.5 0v2.75m0 0h-.562a.937.937 0 0 0-.938.938v3.625c0 .517.42.937.938.937h5.624c.518 0 .938-.42.938-.937V6.687a.937.937 0 0 0-.937-.937z"/>`,
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M2.25 7.188c0-.518.42-.938.938-.938h5.625c.517 0 .937.42.937.938v3.125c0 .517-.42.937-.937.937H3.186a.937.937 0 0 1-.937-.937z"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8.25 3a2.25 2.25 0 0 0-4.5 0v3.25m0 0h-.562a.937.937 0 0 0-.938.938v3.125c0 .517.42.937.938.937h5.624c.518 0 .938-.42.938-.937V7.187a.937.937 0 0 0-.937-.937z"/>`,
   type: 'utility'
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

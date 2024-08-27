@@ -257,7 +257,10 @@ export interface EditorSharedPropsWithPlugins {
 	// Enable undo/redo buttons within the editor.
 	allowUndoRedoButtons?: boolean;
 
-	// Hide avatar group in editor toolbar
+	/**
+	 * @deprecated
+	 * This prop is no longer in use and will be removed soon.
+	 */
 	hideAvatarGroup?: boolean;
 }
 

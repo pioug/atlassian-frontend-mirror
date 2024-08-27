@@ -1,5 +1,13 @@
 # @atlaskit/link-client-extension
 
+## 2.2.0
+
+### Minor Changes
+
+- [#130811](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130811)
+  [`3e95e200fd9e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e95e200fd9e8) -
+  Exports `mockActionsDiscoveryResponse` for testing
+
 ## 2.1.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.4.2
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`93bd7032842ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93bd7032842ec) -
+  [ux] [ED-24636] Bump ADF Schema package
+- [#134135](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134135)
+  [`9cad1ed145e27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9cad1ed145e27) -
+  updated lnv toDOM implementation of decision node to match ReactNodeView
+
 ## 2.4.1
 
 ### Patch Changes

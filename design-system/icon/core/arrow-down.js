@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::03498a13e2fe6cbeefd2e4488d01bb3e>>
+ * @codegen <<SignedSource::9d1aa0572d94bc56fef315dae94d7845>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "ArrowDown".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Know uses: sorting table headers or Bitbucket code difference.
+ * Usage guidance: Multi purpose - Know uses: sorting table headers or Bitbucket code difference.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

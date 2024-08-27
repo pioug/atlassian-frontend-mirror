@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d5709cb9bafc9b549456a44baebf70aa>>
+ * @codegen <<SignedSource::f2fd9335bfe5932179f21bcbea4ed5b2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "LobbyBell".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: risks in Atlas.
+ * Usage guidance: Multi purpose - Known uses: risks in Atlas.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

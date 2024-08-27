@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8e9da87c12c497498357d6b68ee6d150>>
+ * @codegen <<SignedSource::c23eee3b5d32c87576e570d624c1141b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "ChartBar".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: Reports in JSM, Space Analytics in Confluence, and other graph charts.
+ * Usage guidance: Multi purpose - Known uses: Reports in JSM, Space Analytics in Confluence, and other graph charts.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

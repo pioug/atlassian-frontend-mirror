@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b213b664b983e6f2d7869af5326f121f>>
+ * @codegen <<SignedSource::a4f21bfbaa65dd002db008ddef9d1004>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  * Category: utility
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for menu fly-outs and to indicate next in dates.
+ * Usage guidance: Reserved for menu fly outs and to indicate next in dates.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

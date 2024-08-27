@@ -1,53 +1,55 @@
-import React, { Component } from 'react';
+import React, { useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { FlagGroup } from '@atlaskit/flag';
 
 import FeedbackCollector, { FeedbackFlag } from '../src';
 
-interface State {
-	isOpen: boolean;
-	displayFlag: boolean;
-}
-
 const ENTRYPOINT_ID: string = 'e0d501eb-7386-4ba7-aedc-68dc1dde485a';
 const name: string = 'Feedback Sender';
 const aaid: string = 'test-aaid';
 
-class DisplayFeedback extends Component<{}, State> {
-	state = { isOpen: false, displayFlag: false };
+const DisplayFeedback = () => {
+	const ref: React.MutableRefObject<HTMLElement | undefined> = useRef<HTMLElement>();
 
-	open = () => this.setState({ isOpen: true });
+	const [isOpen, setIsOpen] = useState(false);
+	const [displayFlag, setDisplayFlag] = useState(false);
 
-	close = () => this.setState({ isOpen: false });
+	const open = () => setIsOpen(true);
 
-	displayFlag = () => this.setState({ displayFlag: true });
+	const close = () => setIsOpen(false);
 
-	hideFlag = () => this.setState({ displayFlag: false });
+	const displayFlagTrue = () => setDisplayFlag(true);
 
-	render() {
-		const { isOpen, displayFlag } = this.state;
-		return (
-			<div>
-				<Button appearance="primary" onClick={this.open}>
-					Display Feedback
-				</Button>
+	const hideFlag = () => setDisplayFlag(false);
 
-				{isOpen && (
-					<FeedbackCollector
-						url={'https://api-private.atlassian.com'}
-						onClose={this.close}
-						onSubmit={this.displayFlag}
-						atlassianAccountId={aaid}
-						name={name}
-						entrypointId={ENTRYPOINT_ID}
-					/>
-				)}
+	return (
+		<div>
+			<Button appearance="primary" onClick={open}>
+				Display Feedback
+			</Button>
 
-				<FlagGroup onDismissed={this.hideFlag}>{displayFlag && <FeedbackFlag />}</FlagGroup>
-			</div>
-		);
-	}
-}
+			{isOpen && (
+				<FeedbackCollector
+					url={'https://api-private.atlassian.com'}
+					onClose={close}
+					onSubmit={displayFlagTrue}
+					atlassianAccountId={aaid}
+					name={name}
+					entrypointId={ENTRYPOINT_ID}
+					// @ts-ignore
+					shouldReturnFocusRef={ref}
+				/>
+			)}
 
-export default () => <DisplayFeedback />;
+			<FlagGroup onDismissed={hideFlag}>{displayFlag && <FeedbackFlag />}</FlagGroup>
+		</div>
+	);
+};
+
+export default () => (
+	<>
+		<>Click the button to display the feedback collector.</>
+		<DisplayFeedback />
+	</>
+);

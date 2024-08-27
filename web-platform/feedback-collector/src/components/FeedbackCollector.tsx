@@ -116,6 +116,8 @@ export interface Props {
 	customTextAreaLabel?: string;
 	/** Custom Select feedback options */
 	customFeedbackOptions?: OptionType[];
+	/** Optional ref to return focus to after feedback form is closed */
+	shouldReturnFocusRef?: React.MutableRefObject<HTMLElement>;
 }
 
 const MAX_SUMMARY_LENGTH_CHARS = 100;
@@ -505,6 +507,7 @@ export default class FeedbackCollector extends Component<Props> {
 				selectLabel={this.props.selectLabel}
 				customTextAreaLabel={this.props.customTextAreaLabel}
 				customFeedbackOptions={this.props.customFeedbackOptions}
+				shouldReturnFocusRef={this.props.shouldReturnFocusRef}
 			/>
 		);
 	}

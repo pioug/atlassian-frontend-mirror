@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b6d41477d7f90a36611e246ec159014f>>
+ * @codegen <<SignedSource::b0d21cbdb123001f2ef9b7632912cbe9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "AlignCenter".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: align text center, align center.
+ * Usage guidance: Multi purpose - Known uses: align text center, align center.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

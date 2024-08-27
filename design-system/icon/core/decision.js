@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b32f48d4acb702f2c93e9862959b2ebb>>
+ * @codegen <<SignedSource::8c9e2deb6ebf95556dd638948ba257eb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Decision".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for decisions.
+ * Usage guidance: Single purpose - Reserved for decisions.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

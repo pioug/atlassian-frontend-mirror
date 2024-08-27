@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c6928bfb7061cd2410570d1d5f83ea18>>
+ * @codegen <<SignedSource::6c6b9cf8424344e0fb5329b8ec898181>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Automation".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved to represent an Automation.
+ * Usage guidance: Single purpose - Reserved to represent an Automation.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

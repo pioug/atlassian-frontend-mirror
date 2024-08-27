@@ -34,6 +34,11 @@ const initEditor = async (adf: Object) => {
 				advanced: true,
 			},
 		},
+		initialPluginConfiguration: {
+			tablesPlugin: {
+				tableResizingEnabled: true,
+			},
+		},
 	});
 	await clickFirstCell(page, true);
 };

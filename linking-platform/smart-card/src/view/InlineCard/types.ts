@@ -24,4 +24,5 @@ export type InlineCardProps = {
 	showAuthTooltip?: boolean;
 	actionOptions?: CardActionOptions;
 	analytics: AnalyticsFacade;
+	removeTextHighlightingFromTitle?: boolean;
 };

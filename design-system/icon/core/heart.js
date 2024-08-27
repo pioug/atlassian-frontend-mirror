@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::420b375e72e0d060586989e5c6fa9724>>
+ * @codegen <<SignedSource::e093e48b893328153f021c902dbada0f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Heart".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: emoji symbols in Editor.
+ * Usage guidance: Multi purpose - Known uses: emoji symbols in Editor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -79,6 +79,10 @@ export type InitialPluginConfiguration = {
 			mentionChanges: { type: 'added' | 'deleted'; localId: string; id: string }[],
 		) => void;
 	};
+
+	tablesPlugin?: {
+		tableResizingEnabled?: boolean;
+	};
 };
 
 /**
@@ -235,8 +239,6 @@ export default function createUniversalPresetInternal({
 				{
 					tableOptions:
 						!props.allowTables || typeof props.allowTables === 'boolean' ? {} : props.allowTables,
-					tableResizingEnabled:
-						isFullPage || (isComment && fg('platform_editor_table_support_in_comment')),
 					dragAndDropEnabled:
 						featureFlags?.tableDragAndDrop &&
 						(isFullPage ||
@@ -254,6 +256,7 @@ export default function createUniversalPresetInternal({
 					isNewColumnResizingEnabled: featureFlags?.tableNewColumnResizing && isFullPage,
 					isCommentEditor: isComment,
 					isChromelessEditor: isChromeless,
+					...initialPluginConfiguration?.tablesPlugin,
 				},
 			],
 			Boolean(props.allowTables),
@@ -450,6 +453,8 @@ export default function createUniversalPresetInternal({
 				collabEdit: props.collabEdit,
 				takeFullWidth: !hasBeforePrimaryToolbar(props.primaryToolbarComponents),
 				showAvatarGroup:
+					// Cleanup: `platform_editor_remove_hide_avatar_group_prop`
+					// Remove `!props.hideAvatarGroup`
 					!props.hideAvatarGroup &&
 					featureFlags.showAvatarGroupAsPlugin === true &&
 					!featureFlags.twoLineEditorToolbar,
@@ -460,6 +465,8 @@ export default function createUniversalPresetInternal({
 				findReplacePlugin,
 				{
 					takeFullWidth:
+						// Cleanup: `platform_editor_remove_hide_avatar_group_prop`
+						// Remove `!props.hideAvatarGroup`
 						!props.hideAvatarGroup &&
 						!!featureFlags.showAvatarGroupAsPlugin === false &&
 						!hasBeforePrimaryToolbar(props.primaryToolbarComponents),

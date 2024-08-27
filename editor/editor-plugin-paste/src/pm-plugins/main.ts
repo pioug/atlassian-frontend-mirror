@@ -34,6 +34,7 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { contains, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { PastePluginActionTypes } from '../actions';
 import { splitParagraphs, upgradeTextToLists } from '../commands';
@@ -609,7 +610,17 @@ export function createPlugin(
 						slice = sliceCopy;
 					}
 
-					if (handleExpandWithAnalytics(editorAnalyticsAPI)(view, event, slice)(state, dispatch)) {
+					const isNestingExpandsSupported =
+						pluginInjectionApi?.featureFlags?.sharedState.currentState()?.nestedExpandInExpandEx ||
+						fg('platform_editor_nest_nested_expand_in_expand_jira');
+
+					if (
+						handleExpandWithAnalytics(editorAnalyticsAPI, isNestingExpandsSupported)(
+							view,
+							event,
+							slice,
+						)(state, dispatch)
+					) {
 						return true;
 					}
 

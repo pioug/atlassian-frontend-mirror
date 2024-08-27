@@ -34,18 +34,9 @@ export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 		[cloudId],
 	);
 
-	const onCopyAgent = useCallback(
-		(agentId: string) => {
-			const baseUrl = `${getATLContextUrl('home')}/chat`;
-			const urlWithParams = encodeParamsToUrl(baseUrl, {
-				cloudId,
-				...createRovoParams({ cloudId, agentId, pathway: 'chat' }),
-			});
-
-			navigator.clipboard.writeText(urlWithParams);
-		},
-		[cloudId],
-	);
+	const onCopyAgent = (agentId: string) => {
+		navigator.clipboard.writeText(`/people/agent/${agentId}`);
+	};
 
 	const onDuplicateAgent = useCallback(
 		(agentId: string) => {

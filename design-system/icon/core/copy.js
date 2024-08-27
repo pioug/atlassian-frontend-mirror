@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::52c40a71f7acdc497bf1531fa876f6c9>>
+ * @codegen <<SignedSource::cb7c6c8cdb896d771e123a497630ca2d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Copy".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for copying data such as text, code or other objects.
+ * Usage guidance: Single purpose - Reserved for copying data such as text, code or other objects.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

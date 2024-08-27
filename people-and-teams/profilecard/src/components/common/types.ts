@@ -10,11 +10,9 @@ export type ProfileCardTriggerProps<T> = {
 	children: React.ReactNode;
 	renderProfileCard: ({
 		profileData,
-		isLoading,
 		error,
 	}: {
 		profileData?: T;
-		isLoading: boolean;
 		error: ProfileCardErrorType | undefined | null;
 	}) => React.ReactNode;
 	fetchProfile?: () => Promise<T>;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b66a5a6681078427881894db5d543e59>>
+ * @codegen <<SignedSource::9c14b83ca742f084284206d4d8bcb4cb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "EyeOpen".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: watch page in Confluence, show password in text field, and following in Atlas.
+ * Usage guidance: Multi purpose - Known uses: watch page in Confluence, show password in text field, and following in Atlas.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EyeOpenIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/><path fill="currentcolor" fill-rule="evenodd" d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" clip-rule="evenodd"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M.75 8A8.07 8.07 0 0 1 8 3.5 8.07 8.07 0 0 1 15.25 8 8.07 8.07 0 0 1 8 12.5 8.07 8.07 0 0 1 .75 8ZM9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 2.75c-3.255 0-6.086 2.039-7.13 4.888a1.06 1.06 0 0 0 0 .724C1.914 11.212 4.745 13.25 8 13.25s6.086-2.039 7.129-4.888a1.06 1.06 0 0 0 0-.724c-1.043-2.85-3.874-4.888-7.13-4.888Z"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M10.25 8a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 EyeOpenIcon.displayName = 'EyeOpenIcon';

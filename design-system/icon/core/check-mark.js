@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c574b93fdd770f1bd3d80d4920f31fde>>
+ * @codegen <<SignedSource::43db9d99c93083272e0c42b874af3704>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "CheckMark".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: table cells, checkboxes.
+ * Usage guidance: Multi purpose - Known uses: table cells, checkboxes.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CheckMarkIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.5 8.966 5.4 13l9.1-9.75"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m1.5 8 4.25 5.25 8.75-10.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CheckMarkIcon.displayName = 'CheckMarkIcon';

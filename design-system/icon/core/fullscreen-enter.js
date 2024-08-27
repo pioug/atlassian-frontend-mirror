@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2c2a30ad15cf0eba85058db1e1818604>>
+ * @codegen <<SignedSource::b26c71b40f75323819aec67e432f29ec>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "FullscreenEnter".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for full screen videos or objects.
+ * Usage guidance: Single purpose - Reserved for full screen videos or objects.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

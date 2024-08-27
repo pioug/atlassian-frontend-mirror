@@ -588,11 +588,7 @@ describe('DatePicker', () => {
 	it('should never apply an ID to the hidden input', () => {
 		const id = 'test';
 		// const testId = 'testId';
-		const allImplementations = [
-			createDatePicker(),
-			createDatePicker({ id: id }),
-			createDatePicker({ selectProps: { inputId: id } }),
-		];
+		const allImplementations = [createDatePicker(), createDatePicker({ id: id })];
 
 		allImplementations.forEach((jsx) => {
 			const { unmount } = render(jsx);

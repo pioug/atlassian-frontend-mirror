@@ -2,12 +2,6 @@ import React, { Component, type ComponentType, type ReactNode } from 'react';
 
 import FocusLock from 'react-focus-lock';
 
-import {
-	createAndFireEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
 import { type Placement, Popper } from '@atlaskit/popper';
 
 import { DialogImage } from '../styled/dialog';
@@ -16,10 +10,7 @@ import { type Actions } from '../types';
 import SpotlightCard from './spotlight-card';
 import ValueChanged from './value-changed';
 
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
-export interface SpotlightDialogProps extends WithAnalyticsEventsProps {
+export interface SpotlightDialogProps {
 	/**
 	 * Buttons to render in the footer.
 	 */
@@ -93,6 +84,15 @@ interface State {
 	focusLockDisabled: boolean;
 }
 
+/**
+ * __Spotlight dialog__
+ *
+ * An onboarding spotlight introduces new features to users through focused messages or multi-step tours.
+ *
+ * - [Examples](https://atlassian.design/components/onboarding/examples)
+ * - [Code](https://atlassian.design/components/onboarding/code)
+ * - [Usage](https://atlassian.design/components/onboarding/usage)
+ */
 class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 	state = {
 		focusLockDisabled: true,
@@ -196,33 +196,4 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 	}
 }
 
-const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
-
-/**
- * __Spotlight dialog__
- *
- * An onboarding spotlight introduces new features to users through focused messages or multi-step tours.
- *
- * - [Examples](https://atlassian.design/components/onboarding/examples)
- * - [Code](https://atlassian.design/components/onboarding/code)
- * - [Usage](https://atlassian.design/components/onboarding/usage)
- */
-const SpotlightDialog = withAnalyticsContext({
-	componentName: 'spotlight',
-	packageName,
-	packageVersion,
-})(
-	withAnalyticsEvents({
-		targetOnClick: createAndFireEventOnAtlaskit({
-			action: 'clicked',
-			actionSubject: 'spotlight',
-			attributes: {
-				componentName: 'spotlight',
-				packageName,
-				packageVersion,
-			},
-		}),
-	})(SpotlightDialogComponent),
-);
-
-export default SpotlightDialog;
+export default SpotlightDialogComponent;

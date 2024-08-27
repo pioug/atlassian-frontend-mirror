@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5220f360013af3d17b04a9dcdbde9801>>
+ * @codegen <<SignedSource::37d53dbba04f89a22511bccef5b4ab97>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Grid".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: spaces in Confluence, and grid view, all content in Confluence.
+ * Usage guidance: Multi purpose - Known uses: spaces in Confluence, and grid view, all content in Confluence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

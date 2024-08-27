@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/docs",
-	"version": "9.1.8",
+	"version": "9.1.9",
 	"description": "Utilities for building documentation",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -12,7 +12,10 @@
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
 		"team": "UIP: Dev Life Cycle",
-		"releaseModel": "continuous"
+		"releaseModel": "continuous",
+		"toolingLabels": [
+			"docs"
+		]
 	},
 	"af:exports": {
 		".": "./src/index.js"
@@ -24,10 +27,10 @@
 	"dependencies": {
 		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/code": "^15.5.0",
-		"@atlaskit/icon": "^22.14.0",
+		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "1.59.0",
+		"@atlaskit/tokens": "1.59.1",
 		"@babel/runtime": "^7.0.0",
 		"codesandboxer": "^1.0.3",
 		"pretty-proptypes": "^1.7.0",

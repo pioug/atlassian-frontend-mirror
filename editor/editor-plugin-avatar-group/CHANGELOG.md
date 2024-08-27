@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 2.0.0
+
+### Major Changes
+
+- [#134135](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134135)
+  [`aff992988cf17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aff992988cf17) -
+  Refactor avatar plugin to use editorAPI instead of editorView
+
 ## 1.5.3
 
 ### Patch Changes

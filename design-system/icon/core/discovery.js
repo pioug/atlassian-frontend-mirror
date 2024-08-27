@@ -1,0 +1,31 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::9d4dc88bdcaa8c3a44c396369a853a07>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _UNSAFE_baseNew = _interopRequireDefault(require("@atlaskit/icon/UNSAFE_base-new"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/**
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
+ * Please reach out in #icon-contributions before using these in production.
+ *
+ * Icon: "Discovery".
+ * Category: single-purpose
+ * Location: @atlaskit/icon
+ * Usage guidance: Single purpose - Reserved for representing discovery. Used for Note info panel variant in Editor.
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
+ */
+const DiscoveryIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M13 1.75H3c-.69 0-1.25.56-1.25 1.25v10c0 .69.56 1.25 1.25 1.25h5.25v-4a2 2 0 0 1 2-2h4V3c0-.69-.56-1.25-1.25-1.25" clip-rule="evenodd"/><path fill="currentcolor" d="M14.25 8.25V9H15v-.75zm-6 6V15H9v-.75zm3-3v-.75a.75.75 0 0 0-.75.75zm2 0 .53.53 1.28-1.28h-1.81zm-2 2h-.75v1.81l1.28-1.28zm3-5.75h-4V9h4zM7.5 10.25v4H9v-4zM3 2.5h10V1H3zm10 0a.5.5 0 0 1 .5.5H15a2 2 0 0 0-2-2zm.5.5v5.25H15V3zM8.25 13.5H3V15h5.25zM3 13.5a.5.5 0 0 1-.5-.5H1a2 2 0 0 0 2 2zm-.5-.5V3H1v10zm0-10a.5.5 0 0 1 .5-.5V1a2 2 0 0 0-2 2zm8.75 9h2v-1.5h-2zm.75 1.25v-2h-1.5v2zm.72-2.53-2 2 1.06 1.06 2-2zM1 13a2 2 0 0 0 2 2v-1.5a.5.5 0 0 1-.5-.5zm9.25-5.5a2.75 2.75 0 0 0-2.75 2.75H9C9 9.56 9.56 9 10.25 9zM15 3a2 2 0 0 0-2-2v1.5a.5.5 0 0 1 .5.5zM2.5 3a.5.5 0 0 1 .5-.5V1a2 2 0 0 0-2 2z"/><path stroke="#fff" stroke-linejoin="round" stroke-width="1.5" d="M4 4.75h7m-7 3.5h3"/>`
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
+DiscoveryIcon.displayName = 'DiscoveryIcon';
+var _default = exports.default = DiscoveryIcon;

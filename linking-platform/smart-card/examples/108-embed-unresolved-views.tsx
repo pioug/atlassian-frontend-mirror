@@ -21,7 +21,6 @@ import {
 	UnAuthClientWithProviderImage,
 } from './utils/custom-client';
 import { token } from '@atlaskit/tokens';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
 const render = (client: ProviderProps['client'], title: string, description?: string) => (
 	<React.Fragment>
@@ -34,14 +33,6 @@ const render = (client: ProviderProps['client'], title: string, description?: st
 		<CardView appearance="embed" client={client} url="https://site.atlassian.net/browse/key-1" />
 	</React.Fragment>
 );
-
-setBooleanFeatureFlagResolver((flagKey) => {
-	/** Enabled to test that embed overflow behaviour isn't broken by this */
-	if (flagKey === 'platform.linking-platform.smart-card.fix-embed-card-blurring') {
-		return true;
-	}
-	return false;
-});
 
 const renderWithCustomWidth = (
 	client: ProviderProps['client'],
@@ -82,7 +73,7 @@ export default () => {
 			{renderWithCustomWidth(
 				new UnAuthClientWithProviderImage(),
 				'[Unauthorized] Custom height/width with provider image',
-				'For testing overflow behaviour. Note: FF platform.linking-platform.smart-card.fix-embed-card-blurring is on for all examples',
+				'For testing overflow behaviour',
 				'300px',
 				'100px',
 			)}

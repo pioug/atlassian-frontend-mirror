@@ -4,12 +4,13 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "10-popup.tsx",
-    "11-asynchronous-popup.tsx",
-    "13-setting-focus.tsx",
-    "popup-disable-autofocus.tsx",
-    "surface-detection.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"10-popup.tsx",
+		"11-asynchronous-popup.tsx",
+		"13-setting-focus.tsx",
+		"popup-disable-autofocus.tsx",
+		"surface-detection.tsx",
+		"should-not-return-focus.tsx",
+	],
+	"exampleDependencies": [],
 }

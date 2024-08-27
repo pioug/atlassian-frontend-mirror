@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::12488ed6825256878276b84eac0b23d8>>
+ * @codegen <<SignedSource::78f654d6a0be0f43fe01d7648fd064ae>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,6 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "VolumeHigh".
  * Category: multi-purpose
  * Location: @atlaskit/icon
+ * Usage guidance: 📦 @atlaskit/icon/core/volume-high
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

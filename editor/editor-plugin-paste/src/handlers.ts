@@ -60,6 +60,12 @@ import {
 	isSelectionInsidePanel,
 } from './util';
 
+const insideExpand = (state: EditorState): Boolean => {
+	const { expand, nestedExpand } = state.schema.nodes;
+
+	return hasParentNodeOfType([expand, nestedExpand])(state.selection);
+};
+
 /** Helper type for single arg function */
 type Func<A, B> = (a: A) => B;
 
@@ -888,7 +894,7 @@ export function handleMediaSingle(
 	};
 }
 
-const checkExpand = (slice: Slice): boolean => {
+const hasTopLevelExpand = (slice: Slice): boolean => {
 	let hasExpand = false;
 	slice.content.forEach((node: PMNode) => {
 		if (node.type.name === 'expand' || node.type.name === 'nestedExpand') {
@@ -924,11 +930,13 @@ export function handleTableContentPasteInBodiedExtension(slice: Slice): Command 
 	};
 }
 
-export function handleExpandPasteInTable(slice: Slice): Command {
+export function handleExpandPaste(slice: Slice, isNestingExpandsSupported?: boolean): Command {
 	return (state, dispatch) => {
-		// Do not handle expand if it's not being pasted into a table
-		// OR if it's nested within another node when being pasted into a table
-		if (!insideTable(state) || !checkExpand(slice)) {
+		const isInsideNestableExpand = isNestingExpandsSupported && !!insideExpand(state);
+
+		// Do not handle expand if it's not being pasted into a table or expand
+		// OR if it's nested within another node when being pasted into a table/expand
+		if ((!insideTable(state) && !isInsideNestableExpand) || !hasTopLevelExpand(slice)) {
 			return false;
 		}
 

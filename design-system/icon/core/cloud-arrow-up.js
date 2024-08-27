@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::24a8a1a2f7c6fbf1e458bafec2dea77f>>
+ * @codegen <<SignedSource::febd6095fdf26c9199b6c7e2fc7e7331>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "CloudArrowUp".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: deployments in Jira.
+ * Usage guidance: Multi purpose - Known uses: deployments in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

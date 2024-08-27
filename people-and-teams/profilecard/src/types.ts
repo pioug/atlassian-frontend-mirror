@@ -98,6 +98,7 @@ export interface ProfileCardClientData {
 	statusModifiedDate?: number | null;
 	customLozenges?: LozengeProps[];
 	accountType?: string;
+	isAgent?: boolean;
 }
 
 export interface ReportingLinesUserPII {
@@ -313,7 +314,7 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
 }
 
 export interface AgentProfileCardTriggerProps {
-	userId: string;
+	agentId: string;
 	cloudId?: string;
 	autoFocus?: boolean;
 	resourceClient: ProfileClient;
@@ -546,6 +547,7 @@ export type TeamsUserQueryResponse = {
 		closedDate?: number;
 		inactiveDate?: number;
 	};
+	appType?: string;
 };
 
 export interface UserInSiteUserbase {

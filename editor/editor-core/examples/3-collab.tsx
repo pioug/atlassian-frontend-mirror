@@ -220,6 +220,8 @@ const editorProps = ({
 	allowDate: true,
 	allowPanel: true,
 	allowFindReplace: true,
+	// Cleanup: `platform_editor_remove_hide_avatar_group_prop`
+	// Remove `hideAvatarGroup` prop
 	hideAvatarGroup: true,
 	featureFlags: {
 		showAvatarGroupAsPlugin: true,

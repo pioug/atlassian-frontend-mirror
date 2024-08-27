@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eae72e715bf22a08a7ba32f22270272b>>
+ * @codegen <<SignedSource::cdb1ccac2bef0b462eb765c5c5d4b174>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "ChartTrend".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: charts, reports in Jira, and sprint insights.
+ * Usage guidance: Multi purpose - Known uses: charts, reports in Jira, and sprint insights.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

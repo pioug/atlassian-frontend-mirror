@@ -277,13 +277,6 @@ describe('DateTimePicker', () => {
 		const allImplementations = [
 			<DateTimePicker testId={testId} />,
 			<DateTimePicker testId={testId} id={id} />,
-			<DateTimePicker testId={testId} datePickerSelectProps={{ inputId: id }} />,
-			<DateTimePicker testId={testId} timePickerSelectProps={{ inputId: id }} />,
-			<DateTimePicker
-				testId={testId}
-				datePickerSelectProps={{ inputId: id }}
-				timePickerSelectProps={{ inputId: id }}
-			/>,
 		];
 
 		allImplementations.forEach((jsx) => {
@@ -314,22 +307,6 @@ describe('DateTimePicker', () => {
 			expect(timePicker).toHaveAttribute('aria-label', timePickerDefaultAriaLabel);
 		});
 
-		it('should not use the default aria-label on the internal pickers if `aria-label` prop is provided to internal select props', () => {
-			render(
-				<DateTimePicker
-					datePickerSelectProps={{ 'aria-label': label }}
-					timePickerSelectProps={{ 'aria-label': label }}
-					testId={testId}
-				/>,
-			);
-
-			const datePicker = screen.getByTestId(datePickerTestId);
-			const timePicker = screen.getByTestId(timePickerTestId);
-
-			expect(datePicker).toHaveAttribute('aria-label', label);
-			expect(timePicker).toHaveAttribute('aria-label', label);
-		});
-
 		it('should not use the default aria-label on the internal date picker if `label` prop is provided by [date|time]PickerProps', () => {
 			render(
 				<DateTimePicker
@@ -348,24 +325,6 @@ describe('DateTimePicker', () => {
 			// Make sure the default labels are not used anywhere
 			expect(screen.queryByLabelText('Date')).not.toBeInTheDocument();
 			expect(screen.queryByLabelText('Time')).not.toBeInTheDocument();
-		});
-
-		it('should prioritize `label` via [date|time]PickerProps over [date|time]PickerSelectProps', () => {
-			render(
-				<DateTimePicker
-					datePickerProps={{ label: label }}
-					timePickerProps={{ label: label }}
-					datePickerSelectProps={{ 'aria-label': `${label} - select` }}
-					timePickerSelectProps={{ 'aria-label': `${label} - select` }}
-					testId={testId}
-				/>,
-			);
-
-			const datePicker = screen.getByTestId(datePickerTestId);
-			const timePicker = screen.getByTestId(timePickerTestId);
-
-			expect(datePicker).toHaveAttribute('aria-label', label);
-			expect(timePicker).toHaveAttribute('aria-label', label);
 		});
 
 		it('should add aria-describedby when prop is supplied', () => {

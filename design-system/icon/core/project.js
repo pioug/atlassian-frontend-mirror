@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ed2875f9c971711ccf74756e4bbf0e2d>>
+ * @codegen <<SignedSource::12d0a394e5ad80a6e3cfa31c383428ec>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Project".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for projects in Jira.
+ * Usage guidance: Single purpose - Reserved for projects in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

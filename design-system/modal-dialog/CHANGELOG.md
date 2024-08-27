@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 12.15.3
+
+### Patch Changes
+
+- [#134135](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134135)
+  [`6597900cdd5be`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6597900cdd5be) -
+  We are testing an internal change to use an ID generator compatible with both React 16 and
+  React 18. If these changes are successful, it will be rolled out in a later release.
+
 ## 12.15.2
 
 ### Patch Changes

@@ -25,6 +25,7 @@ export const createPlugin = (dispatch: Dispatch, dispatchAnalyticsEvent: Dispatc
 			);
 
 			if (tr) {
+				const newTr = newState.tr;
 				dispatchAnalyticsEvent({
 					action: TABLE_ACTION.ROW_OR_COLUMN_MOVED,
 					actionSubject: ACTION_SUBJECT.TABLE,
@@ -34,7 +35,7 @@ export const createPlugin = (dispatch: Dispatch, dispatchAnalyticsEvent: Dispatc
 						type: tr.getMeta(pluginKey)?.data?.type,
 					},
 				});
-				return resetRowOrColumnMovedTransform()(tr);
+				return resetRowOrColumnMovedTransform()(newTr);
 			}
 
 			return undefined;

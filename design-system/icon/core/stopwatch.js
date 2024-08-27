@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e2cdbe93290cc7cd7a12ff4ce0efedba>>
+ * @codegen <<SignedSource::7738f2c14b1d5a31c72b1066ab8e43ac>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Stopwatch".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: timer in Confluence Whiteboards
+ * Usage guidance: Multi purpose - Known uses: timer in Confluence Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

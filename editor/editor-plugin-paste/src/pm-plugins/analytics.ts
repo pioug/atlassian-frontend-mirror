@@ -26,7 +26,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
 	handleCodeBlock,
-	handleExpandPasteInTable,
+	handleExpandPaste,
 	handleMarkdown,
 	handleMediaSingle,
 	handlePasteAsPlainText,
@@ -512,14 +512,14 @@ export const handlePasteNonNestableBlockNodesIntoListWithAnalytics =
 		)(handlePasteNonNestableBlockNodesIntoList(slice));
 
 export const handleExpandWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, isNestingExpandsSupported: boolean) =>
 	(view: EditorView, event: ClipboardEvent, slice: Slice): Command =>
 		injectAnalyticsPayloadBeforeCommand(editorAnalyticsAPI)(
 			createPasteAnalyticsPayloadBySelection(event, slice, {
 				type: PasteTypes.richText,
 				pasteSplitList: true,
 			}),
-		)(handleExpandPasteInTable(slice));
+		)(handleExpandPaste(slice, isNestingExpandsSupported));
 
 export const handleSelectedTableWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cc8b3575c3bb0f38194a941b986986f6>>
+ * @codegen <<SignedSource::165cc895a4210bea4c2ab9c26802e024>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "PersonAvatar".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for user avatar.
+ * Usage guidance: Single purpose - Reserved for user avatar.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -13,7 +13,6 @@ import { handleClickCommon } from '../../BlockCard/utils/handlers';
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 import { type FrameStyle } from '../types';
 import Tooltip from '@atlaskit/tooltip';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface ExpandedFrameProps {
 	isPlaceholder?: boolean;
@@ -95,9 +94,7 @@ export const ExpandedFrame = ({
 		<Content
 			data-testid="embed-content-wrapper"
 			allowScrollBar={allowScrollBar}
-			removeOverflow={
-				fg('platform.linking-platform.smart-card.fix-embed-card-blurring') && !setOverflow
-			}
+			removeOverflow={!setOverflow}
 			isInteractive={isInteractive()}
 			frameStyle={frameStyle}
 			// This fixes an issue with input fields in cross domain iframes (ie. databases and jira fields from different domains)

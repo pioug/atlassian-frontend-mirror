@@ -1,5 +1,14 @@
 # @atlaskit/popup
 
+## 1.23.1
+
+### Patch Changes
+
+- [#133686](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133686)
+  [`462353527b0db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/462353527b0db) -
+  Expose shouldReturnFocus on Popup component to allow consumers to prevent trigger refocusing on
+  popup close
+
 ## 1.23.0
 
 ### Minor Changes

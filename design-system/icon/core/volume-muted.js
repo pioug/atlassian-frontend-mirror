@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::50ae2624087e449b06193b33f86d2c7f>>
+ * @codegen <<SignedSource::ac5ca159165cc8a3ebe7ca95542f1b3f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,6 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "VolumeMuted".
  * Category: multi-purpose
  * Location: @atlaskit/icon
+ * Usage guidance: 📦 @atlaskit/icon/core/volume-muted
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

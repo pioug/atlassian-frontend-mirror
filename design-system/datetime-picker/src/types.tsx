@@ -12,14 +12,54 @@ export type Spacing = 'compact' | 'default';
  * be making this public API and re-exporting from the root */
 type Combine<First, Second> = Omit<First, keyof Second> & Second;
 
+/**
+ * Props to apply to the select. These include all of [the props from our
+ * `Select` component](/components/select). For the following properties, use
+ * the top-level prop alternatives:
+ *
+ * - `aria-describedby`, use `aria-describedby` prop
+ * - `aria-label`, use `label` prop
+ * - `inputId`, use `id` prop
+ * - `placeholder`, use `placeholder` prop
+ *
+ * Example:
+ *
+ * ```tsx
+ * // Don't do this
+ * <DatePicker selectProps={{
+ *   'aria-describedby': 'helper-id'
+ * }} />
+ *
+ * // Do this
+ * <DatePicker aria-describedby="helper-id" />
+ * ```
+ */
+// This hack makes the types actually work. Don't ask why, we don't know.
+// See DSP-20292 for more information.
+export type DateTimePickerSelectProps = Combine<
+	SelectProps<OptionType>,
+	{
+		/**
+		 * Use the `aria-describedby` prop on the picker..
+		 */
+		'aria-describedby'?: never;
+		/**
+		 * Use the `label` prop on the picker..
+		 */
+		'aria-label'?: never;
+		/**
+		 * Use the `id` prop on the picker.`.
+		 */
+		inputId?: never;
+		/**
+		 * Use the `placeholder` prop on the picker.
+		 */
+		placeholder?: never;
+	}
+>;
+
 interface PickerSelectProps {
-	/**
-	 * Props to apply to the select. These include all of [the props from our
-	 * `Select` component](/components/select).
-	 */
-	// This hack makes the types actually work. Don't ask why, we don't know.
-	// See DSP-20292 for more information.
-	selectProps?: Combine<SelectProps<OptionType>, {}>;
+	selectProps?: DateTimePickerSelectProps;
 }
 
 export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSelectProps {
@@ -317,8 +357,8 @@ export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
 	/**
 	 * Used to associate accessible descriptions to both the date and time
 	 * picker. If you want to associate individual accessible descriptions, this
-	 * should be done through the `datePickerSelectProps` and
-	 * `timePickerSelectProps`.
+	 * should be done through the `aria-describedby` props on the
+	 * `datePickerProps` and `timePickerProps`.
 	 */
 	'aria-describedby'?: string;
 	/**
@@ -365,18 +405,9 @@ export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
 	 */
 	value?: string;
 	/**
-	 * Set if users can edit the input, allowing them to add custom times.
-	 */
-	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-	timeIsEditable?: boolean;
-	/**
 	 * Set if the picker has an invalid value.
 	 */
 	isInvalid?: boolean;
-	/**
-	 * Format the date with a string that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format).
-	 */
-	dateFormat?: string;
 	/**
 	 * Props applied to the `DatePicker`.
 	 */
@@ -394,22 +425,6 @@ export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
 		time: string,
 		timezone: string,
 	) => { dateValue: string; timeValue: string; zoneValue: string };
-	/**
-	 * [Select props](/components/select) to pass onto the `DatePicker` component's `Select`. This can be used to set options such as placeholder text.
-	 */
-	datePickerSelectProps?: SelectProps<any>;
-	/**
-	 * [Select props](/components/select) to pass onto the `TimePicker` component's `Select`. This can be used to set options such as placeholder text.
-	 */
-	timePickerSelectProps?: SelectProps<any>;
-	/**
-	 * The times shown by the `TimePicker`.
-	 */
-	times?: Array<string>;
-	/**
-	 * The format that times are displayed in. Values should be those accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format).
-	 */
-	timeFormat?: string;
 	/**
 	 * The spacing for the select control.
 	 *

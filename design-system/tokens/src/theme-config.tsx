@@ -343,7 +343,10 @@ export interface ThemeState {
 	contrastMode: ThemeContrastModes;
 	shape?: Extract<ThemeIds, 'shape'>;
 	spacing: Extract<ThemeIds, 'spacing'>;
-	typography?: Extract<ThemeIds, 'typography' | 'typography-adg3' | 'typography-modernized'>;
+	typography?: Extract<
+		ThemeIds,
+		'typography' | 'typography-adg3' | 'typography-modernized' | 'typography-refreshed'
+	>;
 	UNSAFE_themeOptions?: ThemeOptionsSchema;
 }
 

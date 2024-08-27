@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6cff17da10bceb4d459e8b3333c96a28>>
+ * @codegen <<SignedSource::39884ac0de97a0d5d102b0b86a47c91a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "AiChat".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for Rovo Chat.
+ * Usage guidance: Single purpose - Reserved for Rovo Chat.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AiChatIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M6 12.25v-.75h-.22l-.19.12zM1.75 15H1a.75.75 0 0 0 1.16.63zM3 2.5h10V1H3zm10.5.5v8H15V3zm-.5 8.5H6V13h7zm-7.41.12-4.25 2.75.81 1.26 4.25-2.75zM2.5 15V3H1v12zm11-4a.5.5 0 0 1-.5.5V13a2 2 0 0 0 2-2zM13 2.5a.5.5 0 0 1 .5.5H15a2 2 0 0 0-2-2zM3 1a2 2 0 0 0-2 2h1.5a.5.5 0 0 1 .5-.5zm3 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M4.25 13.25v-.75h-.2l-.17.1zm-3.5 2H0a.75.75 0 0 0 1.12.65zM2.63 2h10.75V.5H2.63zM14.5 3.13v8.25H16V3.13zm-1.12 9.37H4.25V14h9.13zm-9.5.1-3.5 2 .74 1.3 3.5-2zM1.5 15.25V3.13H0v12.12zm13-3.87c0 .62-.5 1.13-1.12 1.13V14A2.63 2.63 0 0 0 16 11.38zM13.38 2c.62 0 1.13.5 1.13 1.13H16A2.63 2.63 0 0 0 13.38.5zM2.63.5A2.63 2.63 0 0 0 0 3.13h1.5C1.5 2.5 2 2 2.63 2zM6 7.25a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AiChatIcon.displayName = 'AiChatIcon';

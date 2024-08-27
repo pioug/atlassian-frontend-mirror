@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5ee1baf1a0912a26ffe151cf17196a78>>
+ * @codegen <<SignedSource::9c0d938fb6031da711e3dd61b0b32030>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "DeviceMobile".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: call, contact us.
+ * Usage guidance: Multi purpose - Known uses: call, contact us.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

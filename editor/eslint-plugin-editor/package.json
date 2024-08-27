@@ -10,7 +10,11 @@
 	"main": "index.js",
 	"atlassian": {
 		"team": "Editor: Lego",
-		"releaseModel": "continuous"
+		"releaseModel": "continuous",
+		"toolingLabels": [
+			"linting",
+			"editor"
+		]
 	},
 	"license": "MIT",
 	"dependencies": {

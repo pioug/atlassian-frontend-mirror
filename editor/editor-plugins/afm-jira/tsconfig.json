@@ -33,9 +33,6 @@
       "path": "../../editor-plugin-avatar-group/afm-jira/tsconfig.json"
     },
     {
-      "path": "../../editor-plugin-background-color/afm-jira/tsconfig.json"
-    },
-    {
       "path": "../../editor-plugin-base/afm-jira/tsconfig.json"
     },
     {

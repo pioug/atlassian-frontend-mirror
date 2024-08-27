@@ -381,6 +381,15 @@ export type FeatureFlags = {
 	 * @default false
 	 */
 	nestedExpandInExpandEx?: boolean;
+
+	/**
+	 * @description
+	 * Enables nesting media and codeblock in blockquotes
+	 *
+	 * @see https://hello.jira.atlassian.cloud/browse/FD-73720
+	 * @default false
+	 */
+	nestMediaAndCodeblockInQuote?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

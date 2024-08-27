@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::23ccbfab64fbf95402b50dff5811b50b>>
+ * @codegen <<SignedSource::8ae4593f4ff63575ad9c769c45f6f210>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "QuotationMark".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: blockquote, comment, testimonial, blogs in Confluence.
+ * Usage guidance: Multi purpose - Known uses: blockquote, comment, testimonial, blogs in Confluence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

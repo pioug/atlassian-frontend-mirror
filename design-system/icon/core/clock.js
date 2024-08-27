@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4b3e4a0af463b13d4a394f86c05dae0d>>
+ * @codegen <<SignedSource::833e8a33316d384f26236b8b96c6d5be>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Clock".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: recent, time input, sprint time remaining.
+ * Usage guidance: Multi purpose - Known uses: recent, time input, sprint time remaining.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

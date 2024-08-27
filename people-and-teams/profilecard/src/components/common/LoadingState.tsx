@@ -11,7 +11,7 @@ interface AnalyticsProps {
 	profileType: 'user' | 'team' | 'agent';
 }
 
-const LoadingState = ({ fireAnalytics, profileType }: AnalyticsProps) => {
+export const LoadingState = ({ fireAnalytics, profileType }: AnalyticsProps) => {
 	useEffect(() => {
 		if (fireAnalytics) {
 			fireAnalytics(profileCardRendered(profileType, 'spinner'));
@@ -24,5 +24,3 @@ const LoadingState = ({ fireAnalytics, profileType }: AnalyticsProps) => {
 		</SpinnerContainer>
 	);
 };
-
-export default LoadingState;

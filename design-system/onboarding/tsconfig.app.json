@@ -33,9 +33,6 @@
 	},
 	"references": [
 		{
-			"path": "../../analytics/analytics-next/tsconfig.app.json"
-		},
-		{
 			"path": "../button/tsconfig.app.json"
 		},
 		{

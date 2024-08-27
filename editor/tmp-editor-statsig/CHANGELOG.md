@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 1.3.1
+
+### Patch Changes
+
+- [#133748](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133748)
+  [`3d90a431f7ed8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d90a431f7ed8) -
+  Add experiment for input latency fix
+
+## 1.3.0
+
+### Minor Changes
+
+- [#134006](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134006)
+  [`51179090981ef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/51179090981ef) -
+  EDF-1302 updated condensed dloating toolbar feature flag to use statsig instrumentation
+
 ## 1.2.0
 
 ### Minor Changes

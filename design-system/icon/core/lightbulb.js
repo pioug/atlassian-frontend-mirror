@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9e7289598562b9ed558cd434d125aa1a>>
+ * @codegen <<SignedSource::34d35bc4e76024415ee361c9c3a838f4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Lightbulb".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: learnings in Atlas, initiatives in Jira.
+ * Usage guidance: Multi purpose - Known uses: learnings in Atlas, initiatives in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

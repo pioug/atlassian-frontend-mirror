@@ -231,6 +231,8 @@ const editorProps: EditorProps = {
 			],
 		},
 	},
+	// Cleanup: `platform_editor_remove_hide_avatar_group_prop`
+	// Remove `hideAvatarGroup` prop
 	hideAvatarGroup: true,
 	allowExpand: {
 		allowInsertion: true,

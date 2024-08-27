@@ -13,8 +13,6 @@ import baseMigrationMap, {
 	migrationOutcomeDescriptionMap,
 } from '@atlaskit/icon/UNSAFE_migration-map';
 
-import { getImportName } from '../utils/get-import-name';
-
 export type IconMigrationError = Rule.ReportDescriptor;
 import { upcomingIcons } from './upcoming-icons';
 
@@ -437,18 +435,16 @@ export const createHelpers = (context: Rule.RuleContext) => {
 	 * @returns The value of the token call, or null if it could not be extracted
 	 */
 	const getTokenCallValue = (value: any) => {
-		const tokenName = getImportName(
-			context.sourceCode.getScope(value),
-			'@atlaskit/tokens',
-			'token',
-		);
+		/**
+		 * Previously, we used getImportName() to extract the token name from a token() call.
+		 * However, this was failing in the Issue Automat so we are now using a simpler approach.
+		 */
 
 		if (
-			tokenName &&
 			isNodeOfType(value, 'JSXExpressionContainer') &&
 			isNodeOfType(value.expression, 'CallExpression') &&
 			'name' in value.expression.callee &&
-			value.expression.callee.name === tokenName
+			value.expression.callee.name === 'token'
 		) {
 			// propName={token("color...."}
 			return getLiteralStringValue(value.expression.arguments[0]);

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::804e9db68386df1205d7e0c1b5445e64>>
+ * @codegen <<SignedSource::69a86866a6f39379e56a74b7c1aec75c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Microphone".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: record sounds in Trello.
+ * Usage guidance: Multi purpose - Known uses: record sounds in Trello.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

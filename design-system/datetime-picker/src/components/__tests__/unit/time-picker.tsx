@@ -312,11 +312,7 @@ describe('TimePicker', () => {
 
 	it('should never apply an ID to the hidden input', () => {
 		const id = 'test';
-		const allImplementations = [
-			createTimePicker(),
-			createTimePicker({ id: id }),
-			createTimePicker({ selectProps: { inputId: id } }),
-		];
+		const allImplementations = [createTimePicker(), createTimePicker({ id: id })];
 
 		allImplementations.forEach((jsx) => {
 			const { unmount } = render(jsx);

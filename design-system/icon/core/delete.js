@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d14cc5abdf2df41abd23381981a18a55>>
+ * @codegen <<SignedSource::29e574c9f51baa9683949825b37b2fad>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Delete".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for removing or deleting an object.
+ * Usage guidance: Single purpose - Reserved for removing or deleting an object.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

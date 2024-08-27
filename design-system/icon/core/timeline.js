@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0f18571944bfb60580ee2f32ac0fb755>>
+ * @codegen <<SignedSource::5b411c2f2a716dc272a86f00db36db93>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Timeline".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for timelines in Jira or Trello.
+ * Usage guidance: Single purpose - Reserved for timelines in Jira or Trello.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

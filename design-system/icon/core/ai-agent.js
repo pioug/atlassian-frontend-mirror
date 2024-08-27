@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d8b857f9b4398aa6f0e007435062462d>>
+ * @codegen <<SignedSource::bb94b98f7166d4d7f5a52c17482d5a9d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "AiAgent".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for Rovo Agent.
+ * Usage guidance: Single purpose - Reserved for Rovo Agent.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

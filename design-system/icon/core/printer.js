@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::94cda66fc072c812948b7d4266f7c6c8>>
+ * @codegen <<SignedSource::7893d5dc2a7c4b6af05560dbc4932fc6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Printer".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: print page, print-friendly view.
+ * Usage guidance: Multi purpose - Known uses: print page, print-friendly view.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

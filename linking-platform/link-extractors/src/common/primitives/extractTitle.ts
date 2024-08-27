@@ -4,7 +4,10 @@ import { extractContext } from '../context';
 
 import { extractType } from './extractType';
 
-export const extractTitle = (jsonLd: JsonLd.Data.BaseData): string | undefined => {
+export const extractTitle = (
+	jsonLd: JsonLd.Data.BaseData,
+	removeTextHighlightingFromTitle?: boolean,
+): string | undefined => {
 	const name = jsonLd.name?.replace(/[\r\n]+/g, '');
 	const id = jsonLd['@id'] || '';
 
@@ -39,6 +42,12 @@ export const extractTitle = (jsonLd: JsonLd.Data.BaseData): string | undefined =
 		if (type.includes('schema:DigitalDocument')) {
 			return contextName + name;
 		}
+	}
+
+	if (removeTextHighlightingFromTitle) {
+		const textFragmentRegex = new RegExp(' \\| :~:text=.*', 'g');
+		const truncated = name?.replace(textFragmentRegex, '');
+		return truncated;
 	}
 
 	return name;

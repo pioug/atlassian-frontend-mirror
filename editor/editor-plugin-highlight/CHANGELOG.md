@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.16.1
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`93bd7032842ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93bd7032842ec) -
+  [ux] [ED-24636] Bump ADF Schema package
+
+## 1.16.0
+
+### Minor Changes
+
+- [`0605ac78bd8a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0605ac78bd8a6) -
+  [ED-23398] Deleted background color plugin and moved background-color mark into the highlight
+  plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.15.0
 
 ### Minor Changes

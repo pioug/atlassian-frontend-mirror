@@ -1,5 +1,4 @@
 import React from 'react';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
 // Note: overrideCss requires SerialisedStyles which compiled doesn't appear to support.
 // Refactor ticket: https://product-fabric.atlassian.net/browse/EDM-10366
@@ -19,14 +18,7 @@ const customCss = css({
 	height: '200px',
 });
 
-setBooleanFeatureFlagResolver((flagKey) => {
-	if (flagKey === 'platform.linking-platform.smart-card.fix-embed-card-blurring') {
-		return true;
-	}
-	return false;
-});
 // Content inside embed card should not extend out of it,
-// even when `platform.linking-platform.smart-card.fix-embed-card-blurring` is enabled
 // (it also gates the fix to the overflow styles)
 export default () => (
 	<VRCardView

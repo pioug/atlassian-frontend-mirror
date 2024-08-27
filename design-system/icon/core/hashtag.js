@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7f43775e87d9563ad32bb604bf2f4ee6>>
+ * @codegen <<SignedSource::3ce22c911d6ac212cbde061d735a55ed>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Hashtag".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: topics in Atlas, tags.
+ * Usage guidance: Multi purpose - Known uses: topics in Atlas, tags.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

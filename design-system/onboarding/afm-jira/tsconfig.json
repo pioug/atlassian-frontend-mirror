@@ -18,9 +18,6 @@
   ],
   "references": [
     {
-      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
-    },
-    {
       "path": "../../button/afm-jira/tsconfig.json"
     },
     {

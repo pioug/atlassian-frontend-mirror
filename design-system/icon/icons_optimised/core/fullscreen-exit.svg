@@ -1,1 +1,1 @@
-<svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M5.25 1v4.25H1M10.75 15v-4.25H15m0-5.5h-4.25V1M1 10.75h4.25V15"/></svg>
+<svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M5.25 1v3c0 .69-.56 1.25-1.25 1.25H1M10.75 15v-3c0-.69.56-1.25 1.25-1.25h3m0-5.5h-3c-.69 0-1.25-.56-1.25-1.25V1M1 10.75h3c.69 0 1.25.56 1.25 1.25v3"/></svg>

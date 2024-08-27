@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 109.50.7
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`93bd7032842ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93bd7032842ec) -
+  [ux] [ED-24636] Bump ADF Schema package
+
+## 109.50.6
+
+### Patch Changes
+
+- [#133592](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133592)
+  [`4f2ae93fd3ff1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f2ae93fd3ff1) -
+  Updates vr tests related to datasources as the TableCell height has now become 40px
+- Updated dependencies
+
 ## 109.50.5
 
 ### Patch Changes

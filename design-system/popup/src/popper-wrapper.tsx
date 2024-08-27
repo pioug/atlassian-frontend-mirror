@@ -88,6 +88,7 @@ function PopperWrapper({
 	shouldRenderToParent,
 	shouldFitContainer,
 	shouldDisableFocusLock,
+	shouldReturnFocus = true,
 	strategy,
 	role,
 	label,
@@ -109,6 +110,7 @@ function PopperWrapper({
 		triggerRef,
 		autoFocus,
 		shouldDisableFocusTrap,
+		shouldReturnFocus,
 	});
 	useCloseManager({
 		isOpen,

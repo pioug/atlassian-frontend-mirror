@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d2eb6e08c23e102107f2c97d872fd81d>>
+ * @codegen <<SignedSource::5ec3ab4f2572578f7d4396fe09a8e769>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "ThumbsDown".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: voting, feedback in AI.
+ * Usage guidance: Multi purpose - Known uses: voting, feedback in AI.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

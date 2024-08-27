@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::59da353e0366eab4cd71049a9918f30e>>
+ * @codegen <<SignedSource::df0137baf7c6dfbc4630f274b82c23e7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Megaphone".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: feedback in products.
+ * Usage guidance: Multi purpose - Known uses: feedback in products.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

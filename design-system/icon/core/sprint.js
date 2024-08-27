@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2a17e0fb1d5c8bf156eaffa8f1ae390d>>
+ * @codegen <<SignedSource::5e1e458900ba648ff1441bd4c3cd4b08>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Sprint".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for sprints in Jira.
+ * Usage guidance: Single purpose - Reserved for sprints in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

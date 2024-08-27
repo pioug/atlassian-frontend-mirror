@@ -1,5 +1,16 @@
 # @atlaskit/datetime-picker
 
+## 14.0.0
+
+### Major Changes
+
+- [#133339](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133339)
+  [`eb8297ababb74`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb8297ababb74) -
+  Refactors the API and ratchets down on props in the `selectProps` in favor of top-level
+  alternatives. This ensures that there is one way to do each things and there is a clear
+  encapsulation of what prop goes to which picker. A codemod is included which will automate all of
+  the changes for you.
+
 ## 13.11.3
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/link-extractors
 
+## 1.9.0
+
+### Minor Changes
+
+- [#133311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133311)
+  [`d0dfe717c6cc3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0dfe717c6cc3) -
+  Added removeTextHighlightingFromTitle prop to allow for removal of text fragment from the title
+  ofan inline smart card
+
 ## 1.8.0
 
 ### Minor Changes

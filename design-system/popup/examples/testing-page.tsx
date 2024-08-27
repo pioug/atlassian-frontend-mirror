@@ -71,7 +71,7 @@ const DefaultPopup: FC<DefaultPopupProps> = ({ title, role, shouldRenderToParent
 			content={() => <PopupContent />}
 			placement="bottom-start"
 			trigger={(triggerProps) => (
-				<Button id="Popup-trigger" {...triggerProps} onClick={() => setIsOpen(!isOpen)}>
+				<Button {...triggerProps} onClick={() => setIsOpen(!isOpen)}>
 					{isOpen ? 'Close' : 'Open'} {title}
 				</Button>
 			)}

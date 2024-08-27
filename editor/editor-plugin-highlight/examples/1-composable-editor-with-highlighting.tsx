@@ -4,7 +4,6 @@ import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { backgroundColorPlugin } from '@atlaskit/editor-plugin-background-color';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { primaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
@@ -551,7 +550,6 @@ const Editor = () => {
 			.add(editorDisabledPlugin)
 			.add(floatingToolbarPlugin)
 			.add(emojiPlugin)
-			.add(backgroundColorPlugin)
 			.add([highlightPlugin, { textHighlightingFloatingToolbarExperiment: true }]),
 	);
 

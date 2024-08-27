@@ -1,5 +1,14 @@
 # @atlaskit/onboarding
 
+## 11.12.3
+
+### Patch Changes
+
+- [#134051](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134051)
+  [`85b8f6cd01de0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85b8f6cd01de0) -
+  Removes redundant usage of analytics-next from the spotlight dialog. No functional or behavioural
+  changes
+
 ## 11.12.2
 
 ### Patch Changes

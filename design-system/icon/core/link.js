@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4046211133bc0fed2db20d616da0221f>>
+ * @codegen <<SignedSource::7939ee5038402c5f027adffad929d2df>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Link".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for links, urls, or copy link.
+ * Usage guidance: Single purpose - Reserved for links, urls, or copy link.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

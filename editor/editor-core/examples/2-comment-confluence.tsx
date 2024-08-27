@@ -6,7 +6,6 @@ import { IntlProvider } from 'react-intl-next';
 import { DevTools } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import { backgroundColorPlugin } from '@atlaskit/editor-plugins/background-color';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
@@ -82,10 +81,7 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 			...editorProps,
 		},
 	});
-	const { preset } = usePreset(
-		() => universalPreset.add(backgroundColorPlugin).add(highlightPlugin),
-		[universalPreset],
-	);
+	const { preset } = usePreset(() => universalPreset.add(highlightPlugin), [universalPreset]);
 
 	useEffect(() => {
 		delete window.jQuery;

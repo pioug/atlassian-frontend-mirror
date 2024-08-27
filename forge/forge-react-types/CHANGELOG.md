@@ -1,5 +1,14 @@
 # @atlaskit/forge-react-types
 
+## 0.27.8
+
+### Patch Changes
+
+- [#133339](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133339)
+  [`eb8297ababb74`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb8297ababb74) -
+  Update datepicker usage to match new refactored API.
+- Updated dependencies
+
 ## 0.27.7
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::96d5388cb8a061f74fd7aea457769843>>
+ * @codegen <<SignedSource::c63846748bfdb0e2b18027868787d8c8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Issue".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for issues in Jira.
+ * Usage guidance: Single purpose - Reserved for issues in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const IssueIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m5 8.25 2 2 4.5-4.75M2 13.25h12c.69 0 1.25-.56 1.25-1.25V4c0-.69-.56-1.25-1.25-1.25H2C1.31 2.75.75 3.31.75 4v8c0 .69.56 1.25 1.25 1.25Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m5 7.875 2 2.375 4-4.75m-9 7.75h12c.69 0 1.25-.56 1.25-1.25V4c0-.69-.56-1.25-1.25-1.25H2C1.31 2.75.75 3.31.75 4v8c0 .69.56 1.25 1.25 1.25Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 IssueIcon.displayName = 'IssueIcon';

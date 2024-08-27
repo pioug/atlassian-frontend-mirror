@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::59f62eba28f6b1499dee51be8bd7c919>>
+ * @codegen <<SignedSource::dd9a3d039b3b6e1a14e3992e5106d1fa>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "ArchiveBox".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: archiving pages, storage.
+ * Usage guidance: Multi purpose - Known uses: archiving pages, storage.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

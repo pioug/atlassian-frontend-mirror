@@ -31,6 +31,11 @@ describe('Snapshot Test: Media Border Mark', () => {
 			viewport,
 			editorProps,
 			adf,
+			initialPluginConfiguration: {
+				tablesPlugin: {
+					tableResizingEnabled: true,
+				},
+			},
 		});
 	};
 

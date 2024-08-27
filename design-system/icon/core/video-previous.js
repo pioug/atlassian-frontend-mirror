@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7ffa027f28eabaa05e9c21e897470058>>
+ * @codegen <<SignedSource::bc1eb1c2511e453861b41cf4396652f8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "VideoPrevious".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for previous video in Media.
+ * Usage guidance: Single purpose - Reserved for previous video in Media.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

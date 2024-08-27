@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::569cc7ecf6b6d87770b4faaa121b2568>>
+ * @codegen <<SignedSource::518c3b537c8ccf4cc320bc7404b7af27>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Flag".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: flags in Editor, feature flags.
+ * Usage guidance: Multi purpose - Known uses: flags in Editor, feature flags.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

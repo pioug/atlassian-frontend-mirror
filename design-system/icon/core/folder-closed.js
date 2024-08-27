@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6d4f9895d4d1f3622727d3db86ca3978>>
+ * @codegen <<SignedSource::4d2e1f2a5ac4d58edbb705d97e3e46bc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "FolderClosed".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for folders in Confluence.
+ * Usage guidance: Single purpose - Reserved for folders in Confluence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,5 +1,16 @@
 # @atlaskit/rovo-agent-components
 
+## 0.5.0
+
+### Minor Changes
+
+- [`e1fa2f4a7dd08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e1fa2f4a7dd08) -
+  [ux] Internal updates to typography.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.4.2
 
 ### Patch Changes

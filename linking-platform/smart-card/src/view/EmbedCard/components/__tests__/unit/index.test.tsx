@@ -3,7 +3,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { ExpandedFrame } from '../../../components/ExpandedFrame';
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
 import userEvent from '@testing-library/user-event';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('ExpandedFrame', () => {
 	it('should not render an icon when isPlaceholder=true', async () => {
@@ -26,69 +25,39 @@ describe('ExpandedFrame', () => {
 		await expectElementWithText('expanded-frame', 'foobar');
 	});
 
-	describe('should not allow scrolling when allowScrolling is undefined', () => {
-		ffTest('platform.linking-platform.smart-card.fix-embed-card-blurring', async () => {
-			render(<ExpandedFrame />);
-			expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: hidden');
-		});
+	it('should not allow scrolling when allowScrolling is undefined', async () => {
+		render(<ExpandedFrame />);
+		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: hidden');
 	});
 
-	describe('should not allow scrolling when allowScrolling is false', () => {
-		ffTest('platform.linking-platform.smart-card.fix-embed-card-blurring', async () => {
-			render(<ExpandedFrame allowScrollBar={false} setOverflow={true} />);
-			expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: hidden');
-		});
+	it('should not allow scrolling when allowScrolling is false', async () => {
+		render(<ExpandedFrame allowScrollBar={false} setOverflow={true} />);
+		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: hidden');
 	});
 
-	describe('should allow scrolling when allowScrolling is true', () => {
-		ffTest('platform.linking-platform.smart-card.fix-embed-card-blurring', async () => {
-			render(<ExpandedFrame allowScrollBar={true} />);
-			expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: auto');
-		});
+	it('should allow scrolling when allowScrolling is true', async () => {
+		render(<ExpandedFrame allowScrollBar={true} />);
+		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: auto');
 	});
 
-	describe('should allow scrolling when allowScrolling is true and setOverflow is true', () => {
-		ffTest('platform.linking-platform.smart-card.fix-embed-card-blurring', async () => {
-			render(<ExpandedFrame allowScrollBar={true} setOverflow={true} />);
-			expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: auto');
-		});
+	it('should allow scrolling when allowScrolling is true and setOverflow is true', async () => {
+		render(<ExpandedFrame allowScrollBar={true} setOverflow={true} />);
+		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: auto');
 	});
 
-	describe('should not set overflow property when setOverflow is false', () => {
-		ffTest(
-			'platform.linking-platform.smart-card.fix-embed-card-blurring',
-			async () => {
-				render(<ExpandedFrame allowScrollBar={false} setOverflow={false} />);
-				expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: ');
-			},
-			async () => {
-				render(<ExpandedFrame allowScrollBar={false} setOverflow={false} />);
-				// FF prevents overflow being removed (as the support for _removal_ is new)
-				expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: hidden');
-			},
-		);
+	it('should not set overflow property when setOverflow is false', async () => {
+		render(<ExpandedFrame allowScrollBar={false} setOverflow={false} />);
+		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: ');
 	});
 
-	describe('should not allow scrolling (or clip content) when setOverflow is false even if allowScrollBar is true', () => {
-		ffTest(
-			'platform.linking-platform.smart-card.fix-embed-card-blurring',
-			async () => {
-				render(<ExpandedFrame allowScrollBar={true} setOverflow={false} />);
-				expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: ');
-			},
-			async () => {
-				render(<ExpandedFrame allowScrollBar={true} setOverflow={false} />);
-				// FF prevents overflow being removed (as the support for _removal_ is new)
-				expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: auto');
-			},
-		);
+	it('should not allow scrolling (or clip content) when setOverflow is false even if allowScrollBar is true', async () => {
+		render(<ExpandedFrame allowScrollBar={true} setOverflow={false} />);
+		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: ');
 	});
 
-	describe('should clip content and not allow scrolling when setOverflow is true and allowScrollBar is false', () => {
-		ffTest('platform.linking-platform.smart-card.fix-embed-card-blurring', async () => {
-			render(<ExpandedFrame allowScrollBar={false} setOverflow={true} />);
-			expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: hidden');
-		});
+	it('should clip content and not allow scrolling when setOverflow is true and allowScrollBar is false', async () => {
+		render(<ExpandedFrame allowScrollBar={false} setOverflow={true} />);
+		expect(await screen.findByTestId('embed-content-wrapper')).toHaveStyle('overflow: hidden');
 	});
 
 	it('should not render header and frame when frameStyle = "hide" & href is provided', async () => {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::953d8382d9bc457db785ca4bf02938ad>>
+ * @codegen <<SignedSource::68f1dffaa1a7906fc3566c6e7dc8c9eb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "ZoomIn".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for zooming in of an object or view.
+ * Usage guidance: Single purpose - Reserved for zooming in of an object or view.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

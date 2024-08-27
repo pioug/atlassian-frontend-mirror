@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c06bb5944789c87f3ee3eeb355abbf45>>
+ * @codegen <<SignedSource::44f68a28e7579c1e69613bedc98a8120>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "QuestionCircle".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: help, tip.
+ * Usage guidance: Multi purpose - Known uses: help, tip.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

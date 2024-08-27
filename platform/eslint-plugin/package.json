@@ -6,7 +6,10 @@
 	"atlassian": {
 		"team": "UIP - Platform Integration Trust (PITa)",
 		"releaseModel": "continuous",
-		"inPublicMirror": true
+		"inPublicMirror": true,
+		"toolingLabels": [
+			"linting"
+		]
 	},
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

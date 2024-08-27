@@ -3,12 +3,14 @@ import { createElement } from 'react';
 import { bind, type UnbindFn } from 'bind-event-listener';
 import ReactDOM from 'react-dom';
 import { type IntlShape, RawIntlProvider } from 'react-intl-next';
+import uuid from 'uuid';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin, HandleOptions } from '../types';
 import { DragHandle } from '../ui/drag-handle';
@@ -32,6 +34,7 @@ const PARENT_WITH_END_DROP_TARGET = [
 	'layoutColumn',
 	'expand',
 	'nestedExpand',
+	'bodiedExtension',
 ];
 const getNestedDepth = () => (fg('platform_editor_elements_dnd_nested') ? 100 : 0);
 
@@ -73,7 +76,8 @@ export const dropTargetDecorations = (
 
 	newState.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, parent, index) => {
 		let depth = 0;
-		let endDec = null;
+		// drop target dco at the end position
+		let endPosDeco = null;
 		if (fg('platform_editor_elements_dnd_nested')) {
 			depth = newState.doc.resolve(pos).depth;
 			if (node.isInline || !parent) {
@@ -96,7 +100,7 @@ export const dropTargetDecorations = (
 			decorationState.push({ id: pos, pos });
 			if (parent.lastChild === node && PARENT_WITH_END_DROP_TARGET.includes(parent.type.name)) {
 				const endpos = pos + node.nodeSize;
-				endDec = { id: endpos, pos: endpos };
+				endPosDeco = { id: endpos, pos: endpos };
 				decorationState.push({ id: endpos, pos: endpos });
 			}
 		} else {
@@ -117,13 +121,13 @@ export const dropTargetDecorations = (
 			),
 		);
 
-		if (endDec) {
+		if (endPosDeco) {
 			decs.push(
 				createDropTargetDecoration(
-					endDec.pos,
+					endPosDeco.pos,
 					createElement(DropTarget, {
 						api,
-						id: endDec.id,
+						id: endPosDeco.id,
 						parentNode: parent,
 						formatMessage,
 					} as DropTargetProps),
@@ -195,12 +199,33 @@ export const emptyParagraphNodeDecorations = () => {
 		},
 	);
 };
+
+class ObjHash {
+	static caching = new WeakMap();
+
+	static getForNode(node: PMNode) {
+		if (this.caching.has(node)) {
+			return this.caching.get(node);
+		}
+		const uniqueId = uuid();
+		this.caching.set(node, uniqueId);
+		return uniqueId;
+	}
+}
 export const nodeDecorations = (newState: EditorState) => {
 	const decs: Decoration[] = [];
-	newState.doc.descendants((node, pos, parent, index) => {
+	newState.doc.descendants((node, pos, _parent, index) => {
 		let depth = 0;
 		let anchorName;
 		const shouldDescend = !IGNORE_NODE_DESCENDANTS.includes(node.type.name);
+
+		if (
+			editorExperiment('dnd-input-performance-optimisation', true, { exposure: true }) ||
+			fg('platform_editor_elements_dnd_nested')
+		) {
+			const handleId = ObjHash.getForNode(node);
+			anchorName = `--node-anchor-${node.type.name}-${handleId}`;
+		}
 
 		if (fg('platform_editor_elements_dnd_nested')) {
 			// Doesn't descend into a node
@@ -212,10 +237,9 @@ export const nodeDecorations = (newState: EditorState) => {
 			}
 
 			depth = newState.doc.resolve(pos).depth;
-
-			anchorName = `--node-anchor-${node.type.name}-${pos}`;
+			anchorName = anchorName ?? `--node-anchor-${node.type.name}-${pos}`;
 		} else {
-			anchorName = `--node-anchor-${node.type.name}-${index}`;
+			anchorName = anchorName ?? `--node-anchor-${node.type.name}-${index}`;
 		}
 
 		decs.push(
@@ -230,6 +254,8 @@ export const nodeDecorations = (newState: EditorState) => {
 				},
 				{
 					type: 'node-decoration',
+					anchorName,
+					nodeType: node.type.name,
 				},
 			),
 		);

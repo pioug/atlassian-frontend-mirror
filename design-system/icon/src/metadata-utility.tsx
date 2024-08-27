@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `UNSAFE_createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::7a591dd4eb936ca5574aca6d23fdb2ac>>
+ * @codegen <<SignedSource::5352e728fce738eb92848436349cb2ad>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -64,8 +64,68 @@ const metadata: Record<string, metadata> = {
 		oldName: ['add-circle', 'add', 'editor/add', 'emoji/custom'],
 		type: 'utility',
 		categorization: 'utility',
-		usage: 'Reserved for creating and adding an object as a secondary action within a Menu Item.',
-		team: 'ADS',
+		usage:
+			'Reserved for creating and adding an object as a secondary/tertiary action in a menu item.',
+		team: 'Design System Team',
+	},
+	'arrow-down': {
+		keywords: ['arrow-down', 'arrowdown', 'icon', 'utility', 'down', 'bottom', 'sorting'],
+		componentName: 'ArrowDownIcon',
+		package: '@atlaskit/icon/utility/arrow-down',
+		oldName: ['arrow-down-circle', 'arrow-down'],
+		type: 'utility',
+		categorization: 'utility',
+		usage: 'Know uses: sorting table headers or Bitbucket code difference.',
+		team: 'Design System Team',
+	},
+	'arrow-left': {
+		keywords: [
+			'arrow-left',
+			'arrowleft',
+			'back',
+			'previous',
+			'icon',
+			'utility',
+			'back',
+			'previous',
+		],
+		componentName: 'ArrowLeftIcon',
+		package: '@atlaskit/icon/utility/arrow-left',
+		oldName: ['arrow-left-circle', 'arrow-left'],
+		type: 'utility',
+		categorization: 'utility',
+		usage: 'Known uses: back to previous screen, previous slide.',
+		team: 'Design System Team',
+	},
+	'arrow-right': {
+		keywords: [
+			'arrow-right',
+			'arrowright',
+			'forward',
+			'next',
+			'icon',
+			'utility',
+			'forward',
+			'next',
+			'link',
+		],
+		componentName: 'ArrowRightIcon',
+		package: '@atlaskit/icon/utility/arrow-right',
+		oldName: ['arrow-right-circle', 'arrow-right'],
+		type: 'utility',
+		categorization: 'utility',
+		usage: 'Known uses: link to nested menu item, a linked menu item, next slide.',
+		team: 'Design System Team',
+	},
+	'arrow-up': {
+		keywords: ['arrow-up', 'arrowup', 'icon', 'utility', 'improvement', 'jira status'],
+		componentName: 'ArrowUpIcon',
+		package: '@atlaskit/icon/utility/arrow-up',
+		oldName: ['arrow-up-circle', 'arrow-up'],
+		type: 'utility',
+		categorization: 'utility',
+		usage: 'Known uses: back to top.',
+		team: 'Design System Team',
 	},
 	'check-circle': {
 		keywords: [
@@ -76,33 +136,25 @@ const metadata: Record<string, metadata> = {
 			'utility',
 			'tick',
 			'yes',
-			'success',
-			'filled',
+			'checkmark',
 		],
 		componentName: 'CheckCircleIcon',
 		package: '@atlaskit/icon/utility/check-circle',
-		oldName: ['check-circle', 'editor/success'],
+		oldName: ['check-circle-outline', 'emoji/productivity'],
 		type: 'utility',
 		categorization: 'utility',
-		usage: 'Reserved for Helper Messages in Forms.',
-		team: 'ADS',
+		usage: '📦 @atlaskit/icon/utility/check-circle',
+		team: 'Design System Team',
 	},
 	'check-mark': {
-		keywords: [
-			'check-mark',
-			'checkmark',
-			'icon',
-			'utility',
-			'Known uses: table cells',
-			'checkboxes.',
-		],
+		keywords: ['check-mark', 'checkmark', 'icon', 'utility', 'tick'],
 		componentName: 'CheckMarkIcon',
 		package: '@atlaskit/icon/utility/check-mark',
 		oldName: ['check', 'editor/done'],
 		type: 'utility',
 		categorization: 'utility',
-		usage: 'TBD',
-		team: 'ADS',
+		usage: '📦 @atlaskit/icon/utility/check-mark',
+		team: 'Design System Team',
 	},
 	'chevron-down': {
 		keywords: [
@@ -121,7 +173,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for dropdown menus, selects, accordions, and expands.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 	'chevron-left': {
 		keywords: [
@@ -141,7 +193,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for collapse side nav and to indicate previous in dates.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 	'chevron-right': {
 		keywords: [
@@ -160,8 +212,8 @@ const metadata: Record<string, metadata> = {
 		oldName: ['chevron-right-circle', 'chevron-right', 'chevron-right-large'],
 		type: 'utility',
 		categorization: 'utility',
-		usage: 'Reserved for menu fly-outs and to indicate next in dates.',
-		team: 'ADS',
+		usage: 'Reserved for menu fly outs and to indicate next in dates.',
+		team: 'Design System Team',
 	},
 	'chevron-up': {
 		keywords: [
@@ -180,7 +232,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for accordions.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 	cross: {
 		keywords: ['cross', 'close', 'x', 'cancel', 'icon', 'utility', 'remove', 'clear', 'x'],
@@ -189,7 +241,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Known uses: remove tag.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 	'cross-circle': {
 		keywords: [
@@ -213,7 +265,26 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
-		team: 'ADS',
+		team: 'Design System Team',
+	},
+	'drag-handle': {
+		keywords: [
+			'drag-handle',
+			'draghandle',
+			'icon',
+			'utility',
+			'drag handler',
+			'drag dots',
+			'reorder',
+			'move',
+		],
+		componentName: 'DragHandleIcon',
+		package: '@atlaskit/icon/utility/drag-handle',
+		oldName: ['drag-handler'],
+		type: 'utility',
+		categorization: 'utility',
+		usage: 'Reserved for draggable elements.',
+		team: 'Design System Team',
 	},
 	error: {
 		keywords: [
@@ -233,7 +304,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 	information: {
 		keywords: ['information', 'icon', 'utility', 'info', 'filled', 'helper', 'tip', 'form'],
@@ -243,7 +314,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 	'link-external': {
 		keywords: [
@@ -272,7 +343,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for links that open up a new tab as a secondary/tertiary action.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 	'lock-locked': {
 		keywords: [
@@ -296,7 +367,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for indicating something is locked in the side navigation Menu Item.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 	'lock-unlocked': {
 		keywords: [
@@ -318,7 +389,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for indicating something is locked in the side navigation Menu Item.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 	'show-more-horizontal': {
 		keywords: [
@@ -339,7 +410,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for secondary/tertiary more action menus.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 	'show-more-vertical': {
 		keywords: [
@@ -359,7 +430,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for secondary/tertiary action menus, traditionally on mobile.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 	'star-starred': {
 		keywords: [
@@ -381,7 +452,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for starred or favourited objects as a secondary/tertiary action.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 	'star-unstarred': {
 		keywords: [
@@ -401,7 +472,17 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for starring or favoriting objects as a secondary/tertiary action.',
-		team: 'ADS',
+		team: 'Design System Team',
+	},
+	success: {
+		keywords: ['success', 'icon', 'utility', 'tick', 'yes', 'success', 'filled'],
+		componentName: 'SuccessIcon',
+		package: '@atlaskit/icon/utility/success',
+		oldName: ['check-circle', 'editor/success'],
+		type: 'utility',
+		categorization: 'utility',
+		usage: 'Reserved for Helper Messages in Forms.',
+		team: 'Design System Team',
 	},
 	warning: {
 		keywords: [
@@ -423,7 +504,7 @@ const metadata: Record<string, metadata> = {
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
-		team: 'ADS',
+		team: 'Design System Team',
 	},
 };
 

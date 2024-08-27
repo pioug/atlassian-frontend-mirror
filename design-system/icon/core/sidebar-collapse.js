@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5bc4d966e917253c76229b57105044ff>>
+ * @codegen <<SignedSource::f2e1a3558816b37a63451e97328c43c7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "SidebarCollapse".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for collapsing the navigation sidebar.
+ * Usage guidance: Single purpose - Reserved for collapsing the navigation sidebar.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

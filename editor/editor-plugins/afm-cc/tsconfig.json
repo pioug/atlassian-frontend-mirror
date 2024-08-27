@@ -34,9 +34,6 @@
             "path": "../../editor-plugin-avatar-group/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-plugin-background-color/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugin-base/afm-cc/tsconfig.json"
         },
         {

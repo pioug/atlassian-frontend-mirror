@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c0951cd6e9a611eb8fd4b9e849bff47e>>
+ * @codegen <<SignedSource::cf10b26ba1fae739ee9cb8d22d45fd10>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Incident".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for incidents in Jira.
+ * Usage guidance: Single purpose - Reserved for incidents in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

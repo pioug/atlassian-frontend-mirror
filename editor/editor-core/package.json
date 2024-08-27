@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "195.8.1",
+	"version": "195.9.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,17 +40,17 @@
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.4.0",
-		"@atlaskit/adf-schema": "^40.8.1",
+		"@atlaskit/adf-schema": "^40.9.0",
 		"@atlaskit/analytics-namespaced-context": "^6.11.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.1.0",
-		"@atlaskit/editor-common": "^88.1.0",
+		"@atlaskit/editor-common": "^88.2.0",
 		"@atlaskit/editor-plugins": "^4.2.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/emoji": "^67.7.0",
-		"@atlaskit/icon": "^22.14.0",
+		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/media-card": "^78.1.0",
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -85,9 +85,9 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.8.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
-		"@atlaskit/collab-provider": "9.37.3",
+		"@atlaskit/collab-provider": "9.37.4",
 		"@atlaskit/editor-json-transformer": "^8.18.0",
-		"@atlaskit/editor-plugin-annotation": "1.19.2",
+		"@atlaskit/editor-plugin-annotation": "1.19.3",
 		"@atlaskit/editor-plugin-card": "^2.13.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-plugin-list": "^3.8.0",
@@ -101,14 +101,14 @@
 		"@atlaskit/modal-dialog": "^12.15.0",
 		"@atlaskit/primitives": "^12.0.0",
 		"@atlaskit/renderer": "^109.50.0",
-		"@atlaskit/smart-card": "^27.17.0",
+		"@atlaskit/smart-card": "^27.18.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.3.0",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.113",
+		"@atlassian/search-provider": "2.4.115",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -276,6 +276,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_ssr": {
+			"type": "boolean"
+		},
+		"platform_editor_remove_hide_avatar_group_prop": {
 			"type": "boolean"
 		}
 	},

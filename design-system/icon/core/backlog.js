@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ae7a46667f1c0c74e1c54d6d93e78731>>
+ * @codegen <<SignedSource::ddd0d36f6409a9fcba622c91220b0b67>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Backlog".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for backlogs in Jira.
+ * Usage guidance: Single purpose - Reserved for backlogs in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

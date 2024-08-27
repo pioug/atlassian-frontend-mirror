@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f7c5ac8f9e136e477bff0fa9cd1f8f57>>
+ * @codegen <<SignedSource::de7dc29156e946bd4191573fa6086961>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Database".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for databases in Confluence.
+ * Usage guidance: Single purpose - Reserved for databases in Confluence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

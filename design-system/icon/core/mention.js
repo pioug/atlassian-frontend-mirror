@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d797b78ab0b8e9ef103e4c053959fc70>>
+ * @codegen <<SignedSource::e5cad668d96b2a30ed351c60b482fb09>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Mention".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for user mentions.
+ * Usage guidance: Single purpose - Reserved for user mentions.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

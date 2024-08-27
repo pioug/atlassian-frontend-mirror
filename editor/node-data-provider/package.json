@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/node-data-provider",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Node data provider for @atlaskit/editor-core plugins and @atlaskit/renderer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,7 +37,7 @@
 		"./get-confluence-page-providers": "./src/get-providers/confluence-page.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.8.1",
+		"@atlaskit/adf-schema": "^40.9.0",
 		"@atlaskit/adf-utils": "^19.8.0",
 		"@atlaskit/emoji": "^67.7.0",
 		"@babel/runtime": "^7.0.0"

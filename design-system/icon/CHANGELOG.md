@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 22.15.0
+
+### Minor Changes
+
+- [#133643](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133643)
+  [`1ab5ca9bddc97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1ab5ca9bddc97) -
+  Added a supplementary set of icons to `@atlaskit/icon`
+
 ## 22.14.2
 
 ### Patch Changes

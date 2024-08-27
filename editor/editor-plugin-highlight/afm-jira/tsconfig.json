@@ -27,9 +27,6 @@
       "path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
     },
     {
-      "path": "../../editor-plugin-background-color/afm-jira/tsconfig.json"
-    },
-    {
       "path": "../../editor-plugin-primary-toolbar/afm-jira/tsconfig.json"
     },
     {

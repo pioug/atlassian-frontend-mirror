@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::64e934a6168477c040fb21bbef9da9d0>>
+ * @codegen <<SignedSource::e371ddd7e9bfa6cea614a5140c65773c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Customize".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: modify a sidebar order, change view, settings.
+ * Usage guidance: Multi purpose - Known uses: customize sidebar, customize view, settings.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

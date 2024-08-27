@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4980b6940d3ec06657bc2008f366e5b4>>
+ * @codegen <<SignedSource::1db644828b4f838ff6385efd15aa7229>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "PersonAdd".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for adding a user to an object.
+ * Usage guidance: Single purpose - Reserved for adding a user to an object.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PersonAddIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1 16v-3a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3v3m4-8V5m0 3v3m0-3h3m-3 0h-3M8.25 4a3.25 3.25 0 1 1-6.5 0 3.25 3.25 0 0 1 6.5 0Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M.75 15v-2.25a3 3 0 0 1 3-3h2.5a3 3 0 0 1 3 3V15M13 8V5m0 3v3m0-3h3m-3 0h-3M8.25 4a3.25 3.25 0 1 1-6.5 0 3.25 3.25 0 0 1 6.5 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PersonAddIcon.displayName = 'PersonAddIcon';

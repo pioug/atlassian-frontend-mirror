@@ -124,7 +124,11 @@ export const FullPageEditor = (props: ComponentProps) => {
 						providerFactory={props.providerFactory}
 						showKeyline={showKeyline}
 						featureFlags={props.featureFlags}
-						hideAvatarGroup={props.hideAvatarGroup}
+						hideAvatarGroup={
+							fg('platform_editor_remove_hide_avatar_group_prop')
+								? undefined
+								: props.hideAvatarGroup
+						}
 					/>
 				)}
 				<FullPageContentArea

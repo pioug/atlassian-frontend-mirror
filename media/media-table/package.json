@@ -41,7 +41,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/dynamic-table": "^14.20.0",
-		"@atlaskit/icon": "^22.14.0",
+		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/media-client": "^27.5.0",
 		"@atlaskit/media-client-react": "^2.1.0",
 		"@atlaskit/media-ui": "^25.11.0",

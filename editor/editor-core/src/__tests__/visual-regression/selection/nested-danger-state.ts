@@ -32,6 +32,11 @@ describe('Danger for nested elements', () => {
 				editorProps: {
 					smartLinks: { provider: Promise.resolve(cardProvider) },
 				},
+				initialPluginConfiguration: {
+					tablesPlugin: {
+						tableResizingEnabled: true,
+					},
+				},
 			});
 			await waitForResolvedInlineCard(page);
 			await clickFirstCell(page);

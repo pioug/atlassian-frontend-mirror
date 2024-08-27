@@ -26,6 +26,11 @@ describe('Snapshot Test: Media', () => {
 					advanced: true,
 				},
 			},
+			initialPluginConfiguration: {
+				tablesPlugin: {
+					tableResizingEnabled: appearance === Appearance.fullPage,
+				},
+			},
 		});
 	};
 

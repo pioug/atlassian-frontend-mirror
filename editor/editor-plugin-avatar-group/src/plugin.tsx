@@ -10,7 +10,6 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import AvatarGroupPluginWrapper from './ui/AvatarGroupPluginWrapper';
 import AvatarsWithPluginState from './ui/avatars-with-plugin-state';
@@ -33,13 +32,10 @@ export type AvatarGroupPlugin = NextEditorPlugin<
 		];
 		actions: {
 			getToolbarItem: ({
-				editorView,
 				inviteToEditHandler,
 				isInviteToEditButtonSelected,
 				inviteToEditComponent,
-			}: {
-				editorView: EditorView;
-			} & CollabInviteToEditProps) => JSX.Element | null;
+			}: CollabInviteToEditProps) => JSX.Element | null;
 		};
 	}
 >;
@@ -79,14 +75,12 @@ export const avatarGroupPlugin: AvatarGroupPlugin = ({ config: props, api }) => 
 
 		actions: {
 			getToolbarItem: ({
-				editorView,
 				inviteToEditHandler,
 				isInviteToEditButtonSelected,
 				inviteToEditComponent,
 			}) => {
 				return (
 					<AvatarsWithPluginState
-						editorView={editorView}
 						featureFlags={api?.featureFlags?.sharedState.currentState() ?? {}}
 						editorAnalyticsAPI={api?.analytics?.actions}
 						editorAPI={api}

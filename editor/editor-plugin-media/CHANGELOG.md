@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-media
 
+## 1.29.7
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`93bd7032842ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93bd7032842ec) -
+  [ux] [ED-24636] Bump ADF Schema package
+- Updated dependencies
+
+## 1.29.6
+
+### Patch Changes
+
+- [#133462](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133462)
+  [`bfd75eee7c115`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfd75eee7c115) -
+  added keyword to media plugin so /file shows insert media first
+- Updated dependencies
+
 ## 1.29.5
 
 ### Patch Changes

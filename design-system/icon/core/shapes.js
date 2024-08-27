@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a1f91fb082e9b33c3580a0f63b6ffeab>>
+ * @codegen <<SignedSource::e161a0f4ccf739441d8019e51184c031>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Shapes".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for shapes in Whiteboards.
+ * Usage guidance: Single purpose - Reserved for shapes in Whiteboards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -13,6 +13,10 @@ import TeamCentralCardClient from './TeamCentralCardClient';
 import TeamProfileCardClient from './TeamProfileCardClient';
 import UserProfileCardClient from './UserProfileCardClient';
 
+const defaultConfig: Partial<ProfileClientOptions> = {
+	gatewayGraphqlUrl: '/gateway/api/graphql',
+};
+
 class ProfileCardClient {
 	userClient: UserProfileCardClient;
 	teamClient: TeamProfileCardClient;
@@ -20,9 +24,15 @@ class ProfileCardClient {
 	rovoAgentClient: RovoAgentCardClient;
 
 	constructor(config: ProfileClientOptions, clients?: ClientOverrides) {
-		this.userClient = clients?.userClient || new UserProfileCardClient(config);
-		this.teamClient = clients?.teamClient || new TeamProfileCardClient(config);
-		this.rovoAgentClient = clients?.rovoAgentClient || new RovoAgentCardClient(config);
+		//This default can be removed once all the clients are updated to pass the gatewayGraphqlUrl
+		const withDefaultConfig = {
+			...defaultConfig,
+			...config,
+			...{ gatewayGraphqlUrl: config.gatewayGraphqlUrl ?? defaultConfig.gatewayGraphqlUrl },
+		};
+		this.userClient = clients?.userClient || new UserProfileCardClient(withDefaultConfig);
+		this.teamClient = clients?.teamClient || new TeamProfileCardClient(withDefaultConfig);
+		this.rovoAgentClient = clients?.rovoAgentClient || new RovoAgentCardClient(withDefaultConfig);
 		this.tcClient = maybeCreateTeamCentralClient(config, clients);
 	}
 

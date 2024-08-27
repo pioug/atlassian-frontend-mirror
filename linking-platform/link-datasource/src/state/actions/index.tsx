@@ -5,6 +5,9 @@ import { type Action, createActionsHook, createHook, createStore } from 'react-s
 import { useDatasourceClientExtension } from '@atlaskit/link-client-extension';
 import type { ActionsDiscoveryRequest, AtomicActionInterface } from '@atlaskit/linking-types';
 
+import { type EventKey } from '../../../src/analytics/generated/analytics.types';
+import type createEventPayload from '../../../src/analytics/generated/create-event-payload';
+
 type IntegrationKey = string;
 type FieldKey = string;
 
@@ -69,14 +72,21 @@ interface Client {
 	>['getDatasourceActionsAndPermissions'];
 }
 
+type AnalyticsCaptureError = (errorLocation: string, error: unknown) => void;
+type AnalyticsFireEvent = <K extends EventKey>(
+	...params: Parameters<typeof createEventPayload<K>>
+) => void;
+
+interface UseDiscoverActionsProps {
+	captureError: AnalyticsCaptureError;
+	fireEvent: AnalyticsFireEvent;
+}
+
 export const actions = {
 	discoverActions:
 		(
-			captureError: (
-				errorLocation: string,
-				error: unknown,
-				extraInfo?: Record<string, any>,
-			) => void,
+			captureError: AnalyticsCaptureError,
+			fireEvent: AnalyticsFireEvent,
 			api: Client,
 			request: ActionsDiscoveryRequest,
 		): Action<ActionsStoreState> =>
@@ -119,14 +129,19 @@ export const actions = {
 						actionsByIntegration,
 						permissions,
 					});
+
+					fireEvent('operational.actionDiscovery.success', {
+						integrationKey: 'integrationKey' in request ? request.integrationKey : null,
+						datasourceId: 'datasourceId' in request ? request.datasourceId : null,
+						entityType: request.entityType,
+						experience: 'datasource',
+					});
 				}
 			} catch (error) {
 				/**
-				 * Requests can be made with datasourceId or integrationKey
-				 * We only want one of them with entityType, leave the rest out.
+				 * captureError was already initialised with integrationKey or datasourceId
 				 */
-				const { aris, fieldKeys, ...rest } = request;
-				captureError('actionDiscovery', error, rest);
+				captureError('actionDiscovery', error);
 			}
 		},
 };
@@ -141,18 +156,15 @@ export const ActionsStore = createStore<ActionsStoreState, Actions>({
 
 const useActionStoreActions = createActionsHook(ActionsStore);
 
-export const useDiscoverActions = ({
-	captureError,
-}: {
-	captureError: (errorLocation: string, error: unknown, extraInfo?: Record<string, any>) => void;
-}) => {
+export const useDiscoverActions = ({ captureError, fireEvent }: UseDiscoverActionsProps) => {
 	const { getDatasourceActionsAndPermissions } = useDatasourceClientExtension();
 	const { discoverActions } = useActionStoreActions();
 
 	return {
 		discoverActions: useMemo(
-			() => discoverActions.bind(null, captureError, { getDatasourceActionsAndPermissions }),
-			[captureError, discoverActions, getDatasourceActionsAndPermissions],
+			() =>
+				discoverActions.bind(null, captureError, fireEvent, { getDatasourceActionsAndPermissions }),
+			[captureError, discoverActions, fireEvent, getDatasourceActionsAndPermissions],
 		),
 	};
 };

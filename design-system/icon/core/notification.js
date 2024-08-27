@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aa1ecb9a0cf853cf1b76a64174e2950b>>
+ * @codegen <<SignedSource::98484f38f14f471bf84b78bbb9c90b61>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Notification".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for notifications within global product navigation and within product screens.
+ * Usage guidance: Single purpose - Reserved for notifications within global product navigation and within product screens.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const NotificationIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m3.675 9.106-2.23 3.159a.625.625 0 0 0 .511.985h12.088a.625.625 0 0 0 .51-.985l-2.229-3.159a.4.4 0 0 1-.075-.236V5a4.25 4.25 0 0 0-8.5 0v3.87a.4.4 0 0 1-.075.236Z"/><path fill="currentcolor" stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M10 13.25H6a2 2 0 1 0 4 0Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M10.5 12.75a2.5 2.5 0 0 1-5 0m6.75-4.114V5a4.25 4.25 0 0 0-8.5 0v3.636a.4.4 0 0 1-.06.21l-1.842 2.948a.625.625 0 0 0 .53.956h11.244c.491 0 .79-.54.53-.956l-1.841-2.947a.4.4 0 0 1-.061-.211Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 NotificationIcon.displayName = 'NotificationIcon';

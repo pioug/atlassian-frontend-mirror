@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0a2e5ab3a49d8cccb26e31fe0c83cc7b>>
+ * @codegen <<SignedSource::f3a425de3d8288b05a3222c93ad991c3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "ShowMoreHorizontal".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for more action menus.
+ * Usage guidance: Single purpose - Reserved for more action menus.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

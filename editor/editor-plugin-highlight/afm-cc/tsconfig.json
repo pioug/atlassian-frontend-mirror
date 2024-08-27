@@ -28,9 +28,6 @@
             "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-plugin-background-color/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugin-primary-toolbar/afm-cc/tsconfig.json"
         },
         {

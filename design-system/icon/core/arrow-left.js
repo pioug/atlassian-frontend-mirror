@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d1bc539e7cae1d80b0192c1230ece3a0>>
+ * @codegen <<SignedSource::9e1fd7b933e999b25f94bae27a6bfcd2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "ArrowLeft".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: back to previous screen, previous slide.
+ * Usage guidance: Multi purpose - Known uses: back to previous screen, previous slide.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a4ed0f6b0607d67b6da0c8ea61acdd1f>>
+ * @codegen <<SignedSource::28c37f007108fa2bd72f54d31778e79a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "LinkBroken".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for removing a link.
+ * Usage guidance: Single purpose - Reserved for removing a link.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

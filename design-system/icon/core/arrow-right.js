@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2dca86e5b34b0e5c7b761478caac1bf4>>
+ * @codegen <<SignedSource::81f09b6725db6a703aeff6cd91bee5a6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "ArrowRight".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: link to nested menu item, a linked menu item, next slide.
+ * Usage guidance: Multi purpose - Known uses: link to nested menu item, a linked menu item, next slide.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -104,8 +104,6 @@ const dateTimePickerDefaultProps = {
 	isInvalid: false,
 	datePickerProps: {},
 	timePickerProps: {},
-	datePickerSelectProps: {},
-	timePickerSelectProps: {},
 	times: defaultTimes,
 	spacing: 'default' as NonNullable<DateTimePickerBaseProps['spacing']>,
 	locale: 'en-US',
@@ -237,9 +235,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 			'aria-describedby': ariaDescribedBy,
 			appearance,
 			autoFocus,
-			dateFormat,
-			datePickerProps,
-			datePickerSelectProps,
+			datePickerProps: datePickerPropsWithSelectProps,
 			id,
 			innerProps,
 			isDisabled,
@@ -248,11 +244,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 			name,
 			spacing,
 			testId,
-			timeFormat,
-			timeIsEditable,
-			timePickerProps,
-			timePickerSelectProps,
-			times,
+			timePickerProps: timePickerPropsWithSelectProps,
 		} = this.props;
 		const value = this.getValue();
 		const { isFocused } = this.state;
@@ -260,27 +252,26 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 		const dateValue = parsedValues?.dateValue;
 		const timeValue = parsedValues?.timeValue;
 
-		const { styles: datePickerStyles = {} } = datePickerSelectProps;
-		const { styles: timePickerStyles = {} } = timePickerSelectProps;
+		const { selectProps: datePickerSelectProps, ...datePickerProps } =
+			datePickerPropsWithSelectProps;
+
+		const datePickerAriaDescribedBy = datePickerProps['aria-describedby'] || ariaDescribedBy;
+		const datePickerLabel = datePickerProps.label || datePickerDefaultAriaLabel;
 
 		const mergedDatePickerSelectProps = {
 			...datePickerSelectProps,
-			'aria-describedby': datePickerProps['aria-describedby'] || ariaDescribedBy,
-			'aria-label':
-				datePickerProps['label'] ||
-				datePickerSelectProps['aria-label'] ||
-				datePickerDefaultAriaLabel,
-			styles: mergeStyles(styles, datePickerStyles),
+			styles: mergeStyles(styles, datePickerSelectProps?.styles),
 		};
+
+		const { selectProps: timePickerSelectProps, ...timePickerProps } =
+			timePickerPropsWithSelectProps;
+
+		const timePickerAriaDescribedBy = timePickerProps['aria-describedby'] || ariaDescribedBy;
+		const timePickerLabel = timePickerProps.label || timePickerDefaultAriaLabel;
 
 		const mergedTimePickerSelectProps = {
 			...timePickerSelectProps,
-			'aria-describedby': timePickerProps['aria-describedby'] || ariaDescribedBy,
-			'aria-label':
-				timePickerProps['label'] ||
-				timePickerSelectProps['aria-label'] ||
-				timePickerDefaultAriaLabel,
-			styles: mergeStyles(styles, timePickerStyles),
+			styles: mergeStyles(styles, timePickerSelectProps?.styles),
 		};
 
 		// Render DateTimePicker's IconContainer when a value has been filled
@@ -300,8 +291,9 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 				<div css={datePickerContainerStyles}>
 					<DatePicker
 						appearance={appearance}
+						aria-describedby={datePickerAriaDescribedBy}
 						autoFocus={datePickerProps.autoFocus || autoFocus}
-						dateFormat={datePickerProps.dateFormat || dateFormat}
+						dateFormat={datePickerProps.dateFormat}
 						defaultIsOpen={datePickerProps.defaultIsOpen}
 						defaultValue={datePickerProps.defaultValue}
 						disabled={datePickerProps.disabled}
@@ -314,6 +306,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 						isDisabled={datePickerProps.isDisabled || isDisabled}
 						isInvalid={datePickerProps.isInvalid || isInvalid}
 						isOpen={datePickerProps.isOpen}
+						label={datePickerLabel}
 						locale={datePickerProps.locale || locale}
 						maxDate={datePickerProps.maxDate}
 						minDate={datePickerProps.minDate}
@@ -335,6 +328,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 				<div css={timePickerContainerStyles}>
 					<TimePicker
 						appearance={timePickerProps.appearance || appearance}
+						aria-describedby={timePickerAriaDescribedBy}
 						autoFocus={timePickerProps.autoFocus}
 						defaultIsOpen={timePickerProps.defaultIsOpen}
 						defaultValue={timePickerProps.defaultValue}
@@ -345,6 +339,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 						isDisabled={timePickerProps.isDisabled || isDisabled}
 						isInvalid={timePickerProps.isInvalid || isInvalid}
 						isOpen={timePickerProps.isOpen}
+						label={timePickerLabel}
 						locale={timePickerProps.locale || locale}
 						name={timePickerProps.name}
 						onBlur={timePickerProps.onBlur || this.onBlur}
@@ -355,9 +350,9 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 						selectProps={mergedTimePickerSelectProps}
 						spacing={timePickerProps.spacing || spacing}
 						testId={timePickerProps.testId || (testId && `${testId}--timepicker`)}
-						timeFormat={timePickerProps.timeFormat || timeFormat}
-						timeIsEditable={timePickerProps.timeIsEditable || timeIsEditable}
-						times={timePickerProps.times || times}
+						timeFormat={timePickerProps.timeFormat}
+						timeIsEditable={timePickerProps.timeIsEditable}
+						times={timePickerProps.times}
 						value={timeValue}
 					/>
 				</div>

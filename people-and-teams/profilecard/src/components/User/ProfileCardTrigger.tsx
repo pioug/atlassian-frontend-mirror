@@ -14,16 +14,70 @@ import { CardWrapper } from '../../styled/Card';
 import {
 	type ProfileCardAction,
 	type ProfileCardClientData,
+	type ProfileCardErrorType,
 	type ProfilecardProps,
 	type ProfileCardTriggerProps,
+	type ProfileClient,
 	type TeamCentralReportingLinesData,
+	type TriggerType,
 } from '../../types';
 import { cardTriggered, fireEvent } from '../../util/analytics';
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
+import { AgentProfileCardResourced } from '../Agent/AgentProfileCardResourced';
 
 import { ProfileCardLazy } from './lazyProfileCard';
 import UserLoadingState from './UserLoadingState';
 
+function ProfileCardContent({
+	profilecardProps,
+	userId,
+	cloudId,
+	resourceClient,
+	viewingUserId,
+	trigger,
+	product,
+	isAgent,
+	profileCardAction,
+	hasError,
+	errorType,
+}: {
+	profilecardProps: ProfilecardProps;
+	userId: string;
+	cloudId: string;
+	resourceClient: ProfileClient;
+	viewingUserId?: string;
+	trigger?: TriggerType;
+	product?: string;
+	isAgent: boolean;
+	profileCardAction: ProfileCardAction[];
+	hasError?: boolean;
+	errorType?: ProfileCardErrorType;
+}) {
+	if (isAgent && fg('enable_agent_profile_card')) {
+		return (
+			<AgentProfileCardResourced
+				accountId={userId}
+				cloudId={cloudId!}
+				resourceClient={resourceClient}
+				viewingUserId={viewingUserId}
+				trigger={trigger}
+				product={product}
+			/>
+		);
+	} else {
+		return (
+			<Suspense fallback={null}>
+				<ProfileCardLazy
+					{...profilecardProps}
+					actions={profileCardAction}
+					hasError={hasError}
+					errorType={errorType}
+					withoutElevation
+				/>
+			</Suspense>
+		);
+	}
+}
 export default function ProfilecardTriggerNext({
 	autoFocus,
 	trigger = 'hover',
@@ -43,6 +97,7 @@ export default function ProfilecardTriggerNext({
 	onVisibilityChange,
 	offset,
 	viewingUserId,
+	product,
 }: ProfileCardTriggerProps) {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
@@ -291,7 +346,7 @@ export default function ProfilecardTriggerNext({
 	const profilecardProps: ProfilecardProps = {
 		userId: userId,
 		fullName: prepopulatedData?.fullName,
-		isCurrentUser: fg('migrate_cloud_user_to_agg_user_query')
+		isCurrentUser: fg('migrate_cloud_user_to_agg_user_query_profile_card')
 			? userId === viewingUserId
 			: data?.isCurrentUser,
 		clientFetchProfile: clientFetchProfile,
@@ -322,15 +377,19 @@ export default function ProfilecardTriggerNext({
 							<LoadingView fireAnalytics={fireAnalytics} />
 						) : (
 							visible && (
-								<Suspense fallback={null}>
-									<ProfileCardLazy
-										{...profilecardProps}
-										actions={filterActions()}
-										hasError={hasError}
-										errorType={error}
-										withoutElevation
-									/>
-								</Suspense>
+								<ProfileCardContent
+									profilecardProps={profilecardProps}
+									isAgent={!!data?.isAgent}
+									userId={userId}
+									cloudId={cloudId!}
+									resourceClient={resourceClient}
+									viewingUserId={viewingUserId}
+									trigger={trigger}
+									product={product}
+									profileCardAction={filterActions()}
+									errorType={error}
+									hasError={hasError}
+								/>
 							)
 						)}
 					</div>

@@ -15,8 +15,9 @@ export const decisionItemSpecWithFixedToDOM = () => {
 		toDOM: (node: PMNode): DOMOutputSpec => {
 			const { localId, state } = node.attrs;
 			const attrs = {
-				'data-decision-local-id': localId || 'local-decision',
-				'data-decision-state': state,
+				decisionLocalId: localId || 'local-decision',
+				decisionState: state,
+				class: 'decisionItemView-content-wrap',
 				// Styles to match `packages/elements/task-decision/src/components/styles.ts`
 				style: convertToInlineCss({
 					background: token('color.background.neutral', 'rgba(9, 30, 66, 0.04)'),
@@ -32,7 +33,6 @@ export const decisionItemSpecWithFixedToDOM = () => {
 				[
 					'span',
 					{
-						// Styles to match `packages/elements/task-decision/src/components/DecisionItem.tsx`
 						style: convertToInlineCss({
 							width: '16px',
 							height: '16px',
@@ -40,7 +40,26 @@ export const decisionItemSpecWithFixedToDOM = () => {
 						}),
 					},
 				],
-				['span', 0],
+				[
+					'div',
+					{
+						'data-decision-wrapper': true,
+						'data-testid': 'elements-decision-item',
+					},
+					[
+						'div',
+						{
+							'data-component': 'content',
+						},
+						[
+							'div',
+							{
+								class: 'decision-item',
+							},
+							0,
+						],
+					],
+				],
 			];
 		},
 	};

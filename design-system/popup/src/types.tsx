@@ -213,6 +213,12 @@ interface BaseProps {
 	shouldDisableFocusLock?: boolean;
 
 	/**
+	 * This determines whether the popup trigger will be focused when the popup content closes.
+	 * The default is `true`.
+	 */
+	shouldReturnFocus?: boolean;
+
+	/**
 	 * This controls the positioning strategy to use. Can vary between `absolute` and `fixed`.
 	 * The default is `fixed`.
 	 */
@@ -293,6 +299,7 @@ export type FocusManagerHook = {
 	triggerRef: TriggerRef;
 	autoFocus: boolean;
 	shouldDisableFocusTrap: boolean;
+	shouldReturnFocus: boolean;
 };
 
 export type RepositionOnUpdateProps = PropsWithChildren<{

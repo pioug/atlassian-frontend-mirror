@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::59f8fe6ca387f29d595e78c52ef6ebdc>>
+ * @codegen <<SignedSource::932bd55458dbf2b53d7a9e8ea9989eae>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Attachment".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for attaching files to issues or other objects.
+ * Usage guidance: Single purpose - Reserved for attaching files to issues or other objects.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

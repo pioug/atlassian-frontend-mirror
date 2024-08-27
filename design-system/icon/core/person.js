@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ce7fb3ee936a3740df2be49bb297ff8c>>
+ * @codegen <<SignedSource::112dba5b505c6a9c25d6aa59e6867dde>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Person".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: representing a person or user, owner, contributor.
+ * Usage guidance: Single purpose - Known uses: representing a person or user, owner, contributor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PersonIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M13.25 16v-3a3 3 0 0 0-3-3h-4.5a3 3 0 0 0-3 3v3m8.5-12a3.25 3.25 0 1 1-6.5 0 3.25 3.25 0 0 1 6.5 0Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M13.25 15v-2.25a3 3 0 0 0-3-3h-4.5a3 3 0 0 0-3 3V15m8.5-11a3.25 3.25 0 1 1-6.5 0 3.25 3.25 0 0 1 6.5 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PersonIcon.displayName = 'PersonIcon';

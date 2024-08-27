@@ -12,7 +12,7 @@ import {
 
 import { type ProfileCardErrorType, type RovoAgentProfileCardInfo } from '../../types';
 import { fireEvent, profileCardRendered } from '../../util/analytics';
-import LoadingState from '../common/LoadingState';
+import { LoadingState } from '../common/LoadingState';
 import { ErrorMessage } from '../Error';
 
 import { AgentActions } from './Actions';

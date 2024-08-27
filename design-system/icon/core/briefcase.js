@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d250cb5a68ebcd0478cbd11ac9d7724b>>
+ * @codegen <<SignedSource::71433f9acaed41c70af23acdbb168054>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Briefcase".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: Job title in Atlas, Operations in JSM.
+ * Usage guidance: Multi purpose - Known uses: Job title in Atlas, Operations in JSM.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

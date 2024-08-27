@@ -10,10 +10,10 @@ import { useIntl } from 'react-intl-next';
 
 import { LoadingButton } from '@atlaskit/button';
 import { ErrorMessage, Field } from '@atlaskit/form';
-import CheckCircleIcon from '@atlaskit/icon/core/migration/check-circle';
 import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
+import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
 import Spinner from '@atlaskit/spinner';
 import Textfield from '@atlaskit/textfield';
 import { G300, N500, R400 } from '@atlaskit/theme/colors';

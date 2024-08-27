@@ -19,6 +19,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
 import { BaseTheme, IntlProviderIfMissingWrapper, WidthProvider } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 import { getUiComponent } from '../create-editor';
@@ -180,7 +181,11 @@ export const EditorInternal = memo(
 														useStickyToolbar={props.useStickyToolbar}
 														featureFlags={featureFlags}
 														pluginHooks={config.pluginHooks}
-														hideAvatarGroup={props.hideAvatarGroup}
+														hideAvatarGroup={
+															fg('platform_editor_remove_hide_avatar_group_prop')
+																? undefined
+																: props.hideAvatarGroup
+														}
 													/>
 												</BaseTheme>
 											)}

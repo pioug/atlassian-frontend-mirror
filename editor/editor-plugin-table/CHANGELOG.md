@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.13
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`93bd7032842ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93bd7032842ec) -
+  [ux] [ED-24636] Bump ADF Schema package
+
+## 7.25.12
+
+### Patch Changes
+
+- [#133347](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133347)
+  [`cb1658fdac261`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb1658fdac261) -
+  Create a new tr, instead of letting previous one in append transaction for analytics
+- Updated dependencies
+
 ## 7.25.11
 
 ### Patch Changes

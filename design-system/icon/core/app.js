@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::91758a1ed6cd9c64e243ee789c72dbf9>>
+ * @codegen <<SignedSource::31337633aba6a2557151320fbcdb47a4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "App".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for marketplace apps and integrations across products.
+ * Usage guidance: Single purpose - Reserved for marketplace apps and integrations across products.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

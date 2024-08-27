@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 1.59.1
+
+### Patch Changes
+
+- [#133730](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133730)
+  [`1e7250bf14d57`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1e7250bf14d57) -
+  Added experimental `typography-refreshed` theme
+
 ## 1.59.0
 
 ### Minor Changes

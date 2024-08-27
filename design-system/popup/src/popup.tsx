@@ -47,6 +47,7 @@ export const Popup: FC<PopupProps> = memo(
 		shouldRenderToParent = false,
 		shouldFitContainer = false,
 		shouldDisableFocusLock = false,
+		shouldReturnFocus = true,
 		strategy,
 		role,
 		label,
@@ -79,6 +80,7 @@ export const Popup: FC<PopupProps> = memo(
 					shouldRenderToParent={shouldRenderToParent || shouldFitContainer}
 					shouldFitContainer={shouldFitContainer}
 					shouldDisableFocusLock={shouldDisableFocusLock}
+					shouldReturnFocus={shouldReturnFocus}
 					triggerRef={triggerRef}
 					strategy={shouldFitContainer ? 'absolute' : strategy}
 					role={role}

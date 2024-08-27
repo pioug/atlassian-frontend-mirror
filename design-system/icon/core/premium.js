@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::200d4b8f9f159a4edabbee99463b1b5c>>
+ * @codegen <<SignedSource::e4e7e52b19e86505e62fa001d0499281>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Premium".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for premium features.
+ * Usage guidance: Single purpose - Reserved for premium features.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

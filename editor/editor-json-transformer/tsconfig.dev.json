@@ -48,9 +48,6 @@
 			"path": "../editor-core/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-background-color/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-highlight/tsconfig.app.json"
 		},
 		{

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5e8f81245a7bf271f86ba63b93c89562>>
+ * @codegen <<SignedSource::5cb86c704b4aada9757c695d217a2634>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Email".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for when an email-related things.
+ * Usage guidance: Single purpose - Reserved for when an email-related things.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

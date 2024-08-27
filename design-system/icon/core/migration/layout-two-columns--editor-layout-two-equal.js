@@ -1,0 +1,33 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::28dd082a71c0afd491c4c0a3bfdc75a7>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _layoutTwoColumns = _interopRequireDefault(require("@atlaskit/icon/core/layout-two-columns"));
+var _layoutTwoEqual = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/layout-two-equal"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/**
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
+ *
+ * Migration Icon component for LayoutTwoColumnsIcon.
+ * This component is LayoutTwoColumnsIcon, with `UNSAFE_fallbackIcon` set to "EditorLayoutTwoEqualIcon".
+ *
+ * Category: multi-purpose
+ * Location: @atlaskit/icon
+ * Usage guidance: Single purpose - Reserved for 2 column layout option in Confluence Editor.
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
+ */
+const LayoutTwoColumnsIcon = props => /*#__PURE__*/_react.default.createElement(_layoutTwoColumns.default, Object.assign({
+  LEGACY_fallbackIcon: _layoutTwoEqual.default
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
+LayoutTwoColumnsIcon.Name = 'LayoutTwoColumnsIconMigration';
+var _default = exports.default = LayoutTwoColumnsIcon;

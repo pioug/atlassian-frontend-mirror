@@ -134,6 +134,7 @@ export enum ACTION {
 	SORT_COLUMN = 'sortedColumn',
 	SORT_COLUMN_NOT_ALLOWED = 'sortColumnNotAllowed',
 	STEPS_TRACKED = 'stepsTracked',
+	STEPS_FILTERED = 'stepsFiltered',
 	CREATE_NOT_ALLOWED = 'createNotAllowed',
 	UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED = 'unsupportedContentLevelsTrackingSucceeded',
 	UNSUPPORTED_CONTENT_LEVELS_TRACKING_ERRORED = 'unsupportedContentLevelsTrackingErrored',

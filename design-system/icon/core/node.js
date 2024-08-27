@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dfee4f993f5fd914dbed9ec4dc6535ed>>
+ * @codegen <<SignedSource::fe55a1fa8a71c16989a3a00e47b85768>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Node".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for a non-expandable item in a page tree.
+ * Usage guidance: Single purpose - Reserved for a non-expandable item in a page tree.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.3.8
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`93bd7032842ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93bd7032842ec) -
+  [ux] [ED-24636] Bump ADF Schema package
+
 ## 3.3.7
 
 ### Patch Changes

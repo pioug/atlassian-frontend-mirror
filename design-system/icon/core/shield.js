@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::431838eb94cfb7b68eee2448917157a6>>
+ * @codegen <<SignedSource::2adc39b031ceb6f91c817705f89253ed>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Shield".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for classifications in Enterprise Trust.
+ * Usage guidance: Multi purpose - Known uses: classifications in Enterprise Trust, security in Jira (Spork)
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

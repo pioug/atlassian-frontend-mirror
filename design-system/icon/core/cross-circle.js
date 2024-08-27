@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::143bcc99e3b5fbdcb049ce3958503a90>>
+ * @codegen <<SignedSource::6e3245a4cda5405cbe39cdb10fb1ac0b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "CrossCircle".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: clear text field, error status icon.
+ * Usage guidance: Multi purpose - Known uses: clear text field, error status.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

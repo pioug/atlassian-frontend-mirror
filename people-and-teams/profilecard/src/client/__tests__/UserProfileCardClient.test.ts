@@ -105,70 +105,70 @@ describe('UserProfileCardClient', () => {
 		});
 	});
 
-	ffTest.on('migrate_cloud_user_to_agg_user_query', 'with cloudUser migration on', () => {
-		const optionsNext = {
-			gatewayGraphqlUrl: 'https://test.com',
-			cacheMaxAge: 1000,
-		};
+	ffTest.on(
+		'migrate_cloud_user_to_agg_user_query_profile_card',
+		'with cloudUser migration on',
+		() => {
+			const optionsNext = {
+				gatewayGraphqlUrl: 'https://test.com',
+				cacheMaxAge: 1000,
+			};
 
-		const userId = 'test-user';
-		const cloudId = 'test-cloud';
+			const userId = 'test-user';
+			const cloudId = 'test-cloud';
 
-		let client: UserProfileCardClient;
+			let client: UserProfileCardClient;
 
-		beforeEach(() => {
-			client = new UserProfileCardClient(optionsNext);
-			fetchMock.mock({
-				options: {
-					method: 'GET',
-				},
-				matcher: `begin:/gateway/api/teams/site`,
-				response: { isPresent: true },
-			});
-			// jest.clearAllMocks();
-		});
-
-		afterEach(() => {
-			fetchMock.restore();
-		});
-
-		it('should throw an error if options.gatewayGraphqlUrl is not provided', async () => {
-			// @ts-ignore
-			client = new UserProfileCardClient({});
-			await expect(client.makeRequest(cloudId, userId)).rejects.toThrow(
-				'options.gatewayGraphqlUrl is a required parameter',
-			);
-		});
-
-		it('should throw an error if user not present in the site', async () => {
-			fetchMock.restore();
-			fetchMock.mock({
-				options: {
-					method: 'GET',
-				},
-				matcher: `begin:/gateway/api/teams/site`,
-				response: { isPresent: false },
+			beforeEach(() => {
+				client = new UserProfileCardClient(optionsNext);
+				fetchMock.mock({
+					options: {
+						method: 'GET',
+					},
+					matcher: `begin:/gateway/api/teams/site`,
+					response: { isPresent: true },
+				});
+				// jest.clearAllMocks();
 			});
 
-			await expect(client.makeRequest(cloudId, userId)).rejects.toThrow(
-				'Unable to fetch user: User does not exist in this site',
-			);
-		});
+			afterEach(() => {
+				fetchMock.restore();
+			});
 
-		it('should handle request errors', async () => {
-			(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
+			it('should throw an error if user not present in the site', async () => {
+				fetchMock.restore();
+				fetchMock.mock({
+					options: {
+						method: 'GET',
+					},
+					matcher: `begin:/gateway/api/teams/site`,
+					response: { isPresent: false },
+				});
 
-			await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow('AGGErrors');
-		});
+				await expect(client.makeRequest(cloudId, userId)).rejects.toThrow(
+					'Unable to fetch user: User does not exist in this site',
+				);
+			});
 
-		it('should call analytics when makeRequest throws an error', async () => {
-			(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
+			it('should handle request errors', async () => {
+				(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
 
-			await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow('AGGErrors');
+				await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow(
+					'AGGErrors',
+				);
+			});
 
-			expect(mockAnalytics).toHaveBeenCalled();
-		});
-	});
+			it('should call analytics when makeRequest throws an error', async () => {
+				(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
+
+				await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow(
+					'AGGErrors',
+				);
+
+				expect(mockAnalytics).toHaveBeenCalled();
+			});
+		},
+	);
 });
 
 describe('UserProfileCardClient query tests', () => {

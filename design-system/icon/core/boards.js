@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::62d38bb850b600a7d6bae5f7d4e8ce27>>
+ * @codegen <<SignedSource::918d6dc1094e88e35ad27be983a3219e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Boards".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved as the icon to represent multiple boards.
+ * Usage guidance: Single purpose - Reserved as the icon to represent multiple boards.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

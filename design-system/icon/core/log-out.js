@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::968f67dd837d3725960b1e9870800991>>
+ * @codegen <<SignedSource::93a1e302216325aa2b2109812064e44a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "LogOut".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for logout.
+ * Usage guidance: Single purpose - Reserved for log out.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

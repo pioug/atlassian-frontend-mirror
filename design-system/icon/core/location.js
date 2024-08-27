@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d20b96af41398a2001599c35ba809457>>
+ * @codegen <<SignedSource::63fb0b6df7e49e2098c2ec6d28a5ea51>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Icon: "Location".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: location in Atlas.
+ * Usage guidance: Multi purpose - Known uses: location in Atlas.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

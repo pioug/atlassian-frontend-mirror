@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 88.2.1
+
+### Patch Changes
+
+- [#134213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134213)
+  [`93bd7032842ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93bd7032842ec) -
+  [ux] [ED-24636] Bump ADF Schema package
+
+## 88.2.0
+
+### Minor Changes
+
+- [#134153](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134153)
+  [`88d5b34381594`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88d5b34381594) -
+  Introduced filtering of spamming transaction
+
+## 88.1.2
+
+### Patch Changes
+
+- [#133711](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133711)
+  [`41612f682764d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/41612f682764d) -
+  [ED-24400] Added feature gate and experiment for nesting media & codeblock in quotes
+- Updated dependencies
+
 ## 88.1.1
 
 ### Patch Changes

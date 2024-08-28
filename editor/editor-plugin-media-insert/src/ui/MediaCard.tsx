@@ -14,7 +14,7 @@ const maxDimensions = {
 };
 
 type Props = {
-	attrs: OnInsertAttrs;
+	attrs: Required<OnInsertAttrs>;
 	mediaProvider: MediaProvider;
 };
 

@@ -1,5 +1,4 @@
 import { type JsonLd } from 'json-ld-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { CONTENT_URL_ACCEPTABLE_USE_POLICY, CONTENT_URL_AI_TROUBLESHOOTING } from '../../constants';
 import { messages } from '../../messages';
 import { mockConfluenceResponse } from '../../view/HoverCard/__tests__/__mocks__/mocks';
@@ -15,55 +14,29 @@ describe('getIsAISummaryEnabled', () => {
 			},
 		}) as JsonLd.Response;
 
-	describe('returns false when AI is disabled', () => {
+	it('returns false when AI is disabled', () => {
 		const response = getMockResponse({ supportedFeature: ['AISummary'] });
-
-		ffTest(
-			'platform.linking-platform.smart-card.hover-card-ai-summaries',
-			() => {
-				const isAISummaryEnabled = getIsAISummaryEnabled(false, response);
-				expect(isAISummaryEnabled).toBe(false);
-			},
-			() => {
-				const isAISummaryEnabled = getIsAISummaryEnabled(false, response);
-				expect(isAISummaryEnabled).toBe(false);
-			},
-		);
+		const isAISummaryEnabled = getIsAISummaryEnabled(false, response);
+		expect(isAISummaryEnabled).toBe(false);
 	});
 
 	describe('when AI is enabled', () => {
-		describe('returns true when AISummary is included in supportedFeatures', () => {
+		it('returns true when AISummary is included in supportedFeatures', () => {
 			const response = getMockResponse({ supportedFeature: ['AISummary'] });
-
-			ffTest(
-				'platform.linking-platform.smart-card.hover-card-ai-summaries',
-				() => {
-					const isAISummaryEnabled = getIsAISummaryEnabled(true, response);
-					expect(isAISummaryEnabled).toBe(true);
-				},
-				() => {
-					const isAISummaryEnabled = getIsAISummaryEnabled(true, response);
-					expect(isAISummaryEnabled).toBe(false);
-				},
-			);
+			const isAISummaryEnabled = getIsAISummaryEnabled(true, response);
+			expect(isAISummaryEnabled).toBe(true);
 		});
 
-		describe('returns false when AISummary is not included in supportedFeatures', () => {
+		it('returns false when AISummary is not included in supportedFeatures', () => {
 			const response = getMockResponse({ supportedFeature: [] });
-
-			ffTest('platform.linking-platform.smart-card.hover-card-ai-summaries', () => {
-				const isAISummaryEnabled = getIsAISummaryEnabled(true, response);
-				expect(isAISummaryEnabled).toBe(false);
-			});
+			const isAISummaryEnabled = getIsAISummaryEnabled(true, response);
+			expect(isAISummaryEnabled).toBe(false);
 		});
 
-		describe('returns false when link does not have supportedFeatures', () => {
+		it('returns false when link does not have supportedFeatures', () => {
 			const response = getMockResponse();
-
-			ffTest('platform.linking-platform.smart-card.hover-card-ai-summaries', () => {
-				const isAISummaryEnabled = getIsAISummaryEnabled(true, response);
-				expect(isAISummaryEnabled).toBe(false);
-			});
+			const isAISummaryEnabled = getIsAISummaryEnabled(true, response);
+			expect(isAISummaryEnabled).toBe(false);
 		});
 	});
 });

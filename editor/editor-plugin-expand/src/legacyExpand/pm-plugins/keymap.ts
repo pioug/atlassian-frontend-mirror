@@ -10,7 +10,6 @@ import {
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { GapCursorSelection, RelativeSelectionPos, Side } from '@atlaskit/editor-common/selection';
 import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
-import { expandClassNames } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyNode, isPositionNearTableRow } from '@atlaskit/editor-common/utils';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
@@ -19,7 +18,7 @@ import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosem
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../../types';
-import { deleteExpand, focusTitle } from '../commands';
+import { deleteExpand, focusIcon, focusTitle } from '../commands';
 import { findExpand } from '../utils';
 
 const isExpandNode = (node: PMNode) => {
@@ -82,34 +81,23 @@ export function expandKeymap(
 	bindKeymapWithCommand(
 		tab.common!,
 		(state, dispatch, editorView) => {
-			if (
-				state.selection instanceof NodeSelection &&
-				state.selection.node.type === state.schema.nodes.expand &&
-				editorView &&
-				editorView.dom instanceof HTMLElement
-			) {
+			if (editorView && editorView.dom instanceof HTMLElement) {
 				const { from } = state.selection;
-				const expand = editorView.nodeDOM(from);
-				if (!expand || !(expand instanceof HTMLElement)) {
-					return false;
-				}
 
-				const iconContainer = expand.querySelector(
-					`.${expandClassNames.iconContainer}`,
-				) as HTMLElement;
-
-				if (iconContainer && iconContainer.focus) {
-					const { tr } = state;
-					const pos = state.selection.from;
-					tr.setSelection(new TextSelection(tr.doc.resolve(pos)));
-					if (dispatch) {
-						dispatch(tr);
+				if (isExpandSelected(state.selection)) {
+					const expand = editorView.nodeDOM(from);
+					if (!expand || !(expand instanceof HTMLElement)) {
+						return false;
 					}
-					editorView.dom.blur();
-					iconContainer.focus();
+					return focusIcon(expand)(state, dispatch, editorView);
+				} else if (state.selection instanceof TextSelection) {
+					const dom = editorView.domAtPos(from);
+					const expand = dom.node.parentElement?.parentElement;
+					if (!expand || !(expand instanceof HTMLElement)) {
+						return false;
+					}
+					return focusIcon(expand)(state, dispatch, editorView);
 				}
-
-				return true;
 			}
 
 			return false;

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.17.0
+
+### Minor Changes
+
+- [#134540](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134540)
+  [`46242fbed9aeb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46242fbed9aeb) -
+  Exclude AnalyticsStep, ReplaceStep and ReplaceAround step from filtering
+
 ## 1.16.1
 
 ### Patch Changes

@@ -7,7 +7,7 @@ import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 
 import createUniversalPreset from '../../../presets/universal';
-import { ComposableEditor } from '../../editor';
+import { ComposableEditor } from '../../composable-editor';
 
 describe('ComposableEditor', () => {
 	describe('render with presets passed in', () => {

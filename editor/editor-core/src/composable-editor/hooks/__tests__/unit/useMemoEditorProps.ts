@@ -3,17 +3,21 @@ import { renderHook } from '@testing-library/react-hooks';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 import type { EditorNextProps, EditorProps } from '../../../../types/editor-props';
+import type { WithAppearanceComponent } from '../../../../types/with-appearance-component';
 import { useMemoEditorProps } from '../../useMemoEditorProps';
 
 describe('useMemoEditorProps', () => {
 	const preset = new EditorPresetBuilder();
-	const propOne: EditorProps & EditorNextProps = {
+	const AppearanceComponent = () => null;
+	const propOne: EditorProps & EditorNextProps & WithAppearanceComponent = {
 		appearance: 'full-page',
 		preset,
+		AppearanceComponent,
 	};
-	const propTwo: EditorProps & EditorNextProps = {
+	const propTwo: EditorProps & EditorNextProps & WithAppearanceComponent = {
 		appearance: 'full-page',
 		preset,
+		AppearanceComponent,
 	};
 
 	it('should return the same object referency when prop values did not changed', () => {

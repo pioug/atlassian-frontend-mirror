@@ -4,7 +4,7 @@ import Page from '@atlaskit/page';
 
 import Help, { ARTICLE_TYPE } from '../src';
 import type { Article, articleId, HistoryItem } from '../src';
-
+import { createArticleObject } from '../src';
 import {
 	ExampleWrapper,
 	HelpContainer,
@@ -14,7 +14,7 @@ import {
 } from './utils/styled';
 
 const client = algoliasearch('8K6J5OJIQW', '55176fdca77978d05c6da060d8724fe7');
-const index = client.initIndex('product_help_dev_copsi');
+const index = client.initIndex('product_help_uat');
 
 const Example = () => {
 	const [navigationData, setNavigationData] = useState<{
@@ -38,7 +38,7 @@ const Example = () => {
 		return new Promise((resolve, reject) => {
 			index.search(
 				{
-					filters: `objectID:${articleId.id}`,
+					filters: `id:${articleId.id}`,
 				},
 				(err, res) => {
 					if (err) {
@@ -46,7 +46,7 @@ const Example = () => {
 					}
 
 					if (res) {
-						const article = res.hits[0];
+						const article = createArticleObject(res.hits[0], res.hits[1]);
 
 						if (article) {
 							resolve(article);

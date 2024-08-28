@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 109.51.0
+
+### Minor Changes
+
+- [#134423](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134423)
+  [`026952a6b9ee5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/026952a6b9ee5) -
+  [ux] EDF-1284: Cleanup platform.editor.renderer-error-boundary-for-dom-errors platform flag in
+  renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.50.7
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 1.3.1
+
+### Patch Changes
+
+- [#134143](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134143)
+  [`d39c874b29fbb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d39c874b29fbb) -
+  Support team reassigning and clearing out unused packages in
+
 ## 1.3.0
 
 ### Minor Changes

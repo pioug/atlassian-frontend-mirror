@@ -42,7 +42,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/dropdown-menu": "^12.17.0",
+		"@atlaskit/dropdown-menu": "^12.18.0",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/media-client": "^27.5.0",

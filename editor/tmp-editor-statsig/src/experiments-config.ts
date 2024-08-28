@@ -1,7 +1,6 @@
 function isBoolean(value: unknown): value is boolean {
 	return typeof value === 'boolean';
 }
-
 function oneOf<T extends string>(values: T[]): (value: unknown) => value is T {
 	return (value: unknown): value is T => {
 		return values.includes(value as T);
@@ -9,6 +8,17 @@ function oneOf<T extends string>(values: T[]): (value: unknown) => value is T {
 }
 
 export type EditorExperimentsConfig = typeof editorExperimentsConfig;
+
+type EditorExperimentConfigValue = {
+	productKeys?: {
+		confluence?: string;
+		jira?: string;
+		test?: string;
+	};
+	param: string;
+	typeGuard: (value: unknown) => boolean;
+	defaultValue: boolean | string;
+};
 
 /**
  * When adding a new experiment, you need to add it here.
@@ -74,4 +84,4 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-};
+} satisfies Record<string, EditorExperimentConfigValue>;

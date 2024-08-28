@@ -27,7 +27,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^88.2.0",
+		"@atlaskit/editor-common": "^88.3.0",
 		"@atlaskit/editor-plugin-width": "^1.3.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",

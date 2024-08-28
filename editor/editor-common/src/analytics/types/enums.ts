@@ -184,6 +184,7 @@ export enum INPUT_METHOD {
 	DATASOURCE = 'datasource_config',
 	TABLE_CONTEXT_MENU = 'tableContextMenu',
 	MOUSE = 'mouse',
+	BROWSER = 'browser',
 }
 
 export enum TRIGGER_METHOD {
@@ -384,7 +385,7 @@ export enum ACTION_SUBJECT_ID {
 	ON_UNSUPPORTED_INLINE = 'onUnsupportedInline',
 	ON_UNSUPPORTED_BLOCK = 'onUnsupportedBlock',
 	MULTI_BODIED_EXTENSION = 'multiBodiedExtension',
-	UPLOAD_MEDIA_FROM_URL = 'uploadMediaFromUrl',
+	UPLOAD_MEDIA = 'uploadMedia',
 }
 
 export enum FLOATING_CONTROLS_TITLE {

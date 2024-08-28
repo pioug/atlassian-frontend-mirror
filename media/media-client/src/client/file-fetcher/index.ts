@@ -2,9 +2,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { type ReplaySubject } from 'rxjs/ReplaySubject';
 import { map } from 'rxjs/operators/map';
 import uuid from 'uuid/v4';
-// import setimmediate to temporary fix dataloader 2.0.0 bug
-// @see https://github.com/graphql/dataloader/issues/249
-import 'setimmediate';
 import type Dataloader from 'dataloader';
 import { type AuthProvider, authToOwner } from '@atlaskit/media-core';
 import { downloadUrl } from '@atlaskit/media-common/downloadUrl';

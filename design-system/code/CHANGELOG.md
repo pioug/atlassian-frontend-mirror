@@ -1,5 +1,14 @@
 # @atlaskit/code
 
+## 15.6.0
+
+### Minor Changes
+
+- [#133573](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133573)
+  [`9e6563c10af4c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e6563c10af4c) -
+  Updating font styles for code component inline with the new typography system behind a feature
+  flag. If successful, these changes will be made available in a later release.
+
 ## 15.5.1
 
 ### Patch Changes

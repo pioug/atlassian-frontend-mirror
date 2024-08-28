@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import algoliasearch from 'algoliasearch';
 import type { Article, ArticleItem, articleId as articleIdType } from '../../../src/index';
-import { ARTICLE_ITEM_TYPES } from '../../../src/index';
+import { ARTICLE_ITEM_TYPES, createArticleObject } from '../../../src/index';
 
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 
@@ -98,7 +98,7 @@ interface useAlgoliaProps {
 export const useAlgolia = ({
 	productName: productNameValue = 'Jira Software',
 	productExperience: productExperienceValue = 'Classic',
-	algoliaIndexName: algoliaIndexNameValue = 'product_help_uat_copsi',
+	algoliaIndexName: algoliaIndexNameValue = 'product_help_uat',
 }: useAlgoliaProps) => {
 	const [algoliaIndexName, setAlgoliaIndexName] = useState(algoliaIndexNameValue);
 	const [productName, setProductName] = useState(productNameValue);
@@ -137,9 +137,9 @@ export const useAlgolia = ({
 						reject(err);
 					}
 
-					const article = res.hits[0];
+					const article = createArticleObject(res.hits[0], res.hits[1]);
 					if (article) {
-						const articleBodyUpdate = fixImagesAndLinkTags(article.body);
+						const articleBodyUpdate = fixImagesAndLinkTags(article.body as string);
 						article.body = articleBodyUpdate;
 
 						resolve(article);
@@ -169,6 +169,7 @@ export const useAlgolia = ({
 					'routes.routeGroup:-hide',
 					'routes.routeName:-hide',
 					`productExperience:${productExperience}`,
+					'order: 1',
 				];
 			} else {
 				facetFiltersValue = [
@@ -181,6 +182,7 @@ export const useAlgolia = ({
 					'routes.routeGroup:-hide',
 					'routes.routeName:-hide',
 					`productExperience:${productExperience}`,
+					'order: 1',
 				];
 			}
 
@@ -189,7 +191,6 @@ export const useAlgolia = ({
 			algoliaIndex.current.search(
 				{
 					facetFilters,
-					// sumOrFiltersScores: true,
 				},
 				(err, res: any = {}) => {
 					if (err) {
@@ -206,7 +207,7 @@ export const useAlgolia = ({
 			algoliaIndex.current.search(
 				{
 					query,
-					filters: `productName:"${productName}" AND NOT routes.routeGroup:"hide" AND NOT routes.routeName:"hide" AND productExperience:${productExperience}`,
+					filters: `productName:"${productName}" AND NOT routes.routeGroup:"hide" AND NOT routes.routeName:"hide" AND productExperience:${productExperience} AND order:1`,
 				},
 				(err, res: any = {}) => {
 					if (err) {

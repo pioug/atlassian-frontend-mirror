@@ -17,7 +17,7 @@ export const useProfileInfo = <T>({
 			setIsLoading(false);
 		} catch (error: any) {
 			setError(error);
-			setIsLoading(true);
+			setIsLoading(false);
 		}
 	};
 

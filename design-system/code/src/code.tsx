@@ -7,6 +7,9 @@ import React, { forwardRef, memo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
+
 import CodeBidiWarning from './bidi-warning';
 import codeBidiWarningDecorator from './bidi-warning/bidi-warning-decorator';
 import { getCodeStyles } from './internal/theme/styles';
@@ -23,8 +26,25 @@ import type { CodeProps } from './types';
  */
 const Code = memo(
 	forwardRef<HTMLElement, CodeProps>(function Code({ testId, ...props }, ref) {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		const styles = css(getCodeStyles());
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+		const styles = fg('platform_design_system_team_code_new_typography')
+			? css({
+					display: 'inline',
+					padding: '2px 0.5ch',
+					backgroundColor: token('color.background.neutral'),
+					borderRadius: token('border.radius', '3px'),
+					borderStyle: 'none',
+					boxDecorationBreak: 'clone',
+					color: token('color.text'),
+					font: token('font.code'),
+					lineHeight: 'inherit',
+					overflow: 'auto',
+					overflowWrap: 'break-word',
+					whiteSpace: 'pre-wrap',
+				})
+			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				css(getCodeStyles());
+
 		const {
 			children,
 			codeBidiWarnings = true,

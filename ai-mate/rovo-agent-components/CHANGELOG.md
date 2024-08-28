@@ -1,5 +1,28 @@
 # @atlaskit/rovo-agent-components
 
+## 1.0.0
+
+### Major Changes
+
+- [#134205](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134205)
+  [`a9fe525de8e31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a9fe525de8e31) -
+  Major bump all ai-mate packages and conversation-assistant, because it's been used in production
+  for a while, and 1.0.0 signify different semver requirements
+
+## 0.6.0
+
+### Minor Changes
+
+- [#131981](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131981)
+  [`ac354a1b52112`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac354a1b52112) -
+  Adds streaming of LLM-generated contextual conversation starters
+
+### Patch Changes
+
+- [#131981](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131981)
+  [`32d80ef4b8f70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32d80ef4b8f70) -
+  Change copy capitalization
+
 ## 0.5.0
 
 ### Minor Changes

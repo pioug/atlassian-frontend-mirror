@@ -6,6 +6,7 @@ import {
 	moveLeft,
 	moveRight,
 	moveUp,
+	tab,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
@@ -15,10 +16,10 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyNode, isPositionNearTableRow } from '@atlaskit/editor-common/utils';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import type { ExpandPlugin } from '../../types';
-import { deleteExpand, focusTitle } from '../commands';
+import { deleteExpand, focusIcon, focusTitle } from '../commands';
 
 const isExpandNode = (node: PMNode) => {
 	return node?.type.name === 'expand' || node?.type.name === 'nestedExpand';
@@ -70,6 +71,33 @@ export function expandKeymap(
 					selectionRelativeToNode === RelativeSelectionPos.End)
 			) {
 				return focusTitle(selection.from + 1)(state, dispatch, editorView);
+			}
+
+			return false;
+		},
+		list,
+	);
+
+	bindKeymapWithCommand(
+		tab.common!,
+		(state, dispatch, editorView) => {
+			if (editorView && editorView.dom instanceof HTMLElement) {
+				const { from } = state.selection;
+
+				if (isExpandSelected(state.selection)) {
+					const expand = editorView.nodeDOM(from);
+					if (!expand || !(expand instanceof HTMLElement)) {
+						return false;
+					}
+					return focusIcon(expand)(state, dispatch, editorView);
+				} else if (state.selection instanceof TextSelection) {
+					const dom = editorView.domAtPos(from);
+					const expand = dom.node.parentElement?.parentElement;
+					if (!expand || !(expand instanceof HTMLElement)) {
+						return false;
+					}
+					return focusIcon(expand)(state, dispatch, editorView);
+				}
 			}
 
 			return false;

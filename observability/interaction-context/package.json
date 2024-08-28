@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/interaction-context",
-	"version": "2.1.4",
+	"version": "2.1.5",
 	"description": "Interaction context for handling tracing",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,7 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "UFO - Vulcans",
+		"team": "UIP Frontend Observability",
 		"inPublicMirror": false,
 		"releaseModel": "continuous",
 		"productPushConsumption": [
@@ -43,13 +43,11 @@
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
+	"runReact18": true,
 	"devDependencies": {
-		"@testing-library/react": "^12.1.5",
-		"react-dom": "^16.8.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "^12.1.5"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

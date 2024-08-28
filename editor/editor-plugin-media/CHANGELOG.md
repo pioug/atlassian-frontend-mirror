@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.29.8
+
+### Patch Changes
+
+- [#131403](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131403)
+  [`1ac0252dbed37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1ac0252dbed37) -
+  [ED-24665] Fire analytics event for media insert via file browser
+
 ## 1.29.7
 
 ### Patch Changes

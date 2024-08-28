@@ -1,14 +1,17 @@
 import { useMemo } from 'react';
 
 import type { EditorNextProps, EditorProps } from '../../types/editor-props';
+import { type WithAppearanceComponent } from '../../types/with-appearance-component';
 
 export type Complete<T> = {
 	[P in keyof Required<T>]: Pick<T, P> extends Required<Pick<T, P>> ? T[P] : T[P] | undefined;
 };
 
-export const useMemoEditorProps = (passedProps: EditorProps & EditorNextProps) => {
-	const memodProps: EditorProps & EditorNextProps = useMemo(() => {
-		type All = Complete<EditorNextProps> & Complete<EditorProps>;
+export const useMemoEditorProps = (
+	passedProps: EditorProps & EditorNextProps & WithAppearanceComponent,
+) => {
+	const memodProps: EditorProps & EditorNextProps & WithAppearanceComponent = useMemo(() => {
+		type All = Complete<EditorNextProps> & Complete<EditorProps> & WithAppearanceComponent;
 		// That sounds awful but this is the only way to make sure we didn't missed any EditorProps
 		const allProps: All = {
 			preset: passedProps.preset,
@@ -107,6 +110,7 @@ export const useMemoEditorProps = (passedProps: EditorProps & EditorNextProps) =
 			textFormatting: passedProps.textFormatting,
 			dangerouslyAppendPlugins: passedProps.dangerouslyAppendPlugins,
 			__livePage: passedProps.__livePage,
+			AppearanceComponent: passedProps.AppearanceComponent,
 		};
 
 		const defaultProps: Partial<EditorNextProps> = {
@@ -218,6 +222,7 @@ export const useMemoEditorProps = (passedProps: EditorProps & EditorNextProps) =
 		passedProps.textFormatting,
 		passedProps.dangerouslyAppendPlugins,
 		passedProps.__livePage,
+		passedProps.AppearanceComponent,
 	]);
 
 	return memodProps;

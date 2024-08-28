@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ufo-interaction-ignore",
-	"version": "1.3.0",
+	"version": "1.3.1",
 	"description": "Ignoring any holds under this component tree",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,7 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "UFO - Vulcans",
+		"team": "UIP Frontend Observability",
 		"inPublicMirror": false,
 		"releaseModel": "continuous",
 		"productPushConsumption": [
@@ -47,10 +47,7 @@
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^12.1.5",
-		"react-dom": "^16.8.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"@testing-library/react": "^12.1.5"
 	},
 	"runReact18": true,
 	"techstack": {

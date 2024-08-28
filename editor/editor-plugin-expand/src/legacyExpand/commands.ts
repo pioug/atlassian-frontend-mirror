@@ -10,10 +10,11 @@ import {
 	PLATFORMS,
 } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
+import { expandClassNames } from '@atlaskit/editor-common/styles';
 import type { Command } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
@@ -268,6 +269,29 @@ export const focusTitle =
 				}
 			}
 		}
+		return false;
+	};
+
+export const focusIcon =
+	(expand: Node): Command =>
+	(state, dispatch, editorView) => {
+		if (!expand || !(expand instanceof HTMLElement)) {
+			return false;
+		}
+
+		const iconContainer = expand.querySelector(`.${expandClassNames.iconContainer}`) as HTMLElement;
+		if (iconContainer && iconContainer.focus) {
+			const { tr } = state;
+			const pos = state.selection.from;
+			tr.setSelection(new TextSelection(tr.doc.resolve(pos)));
+			if (dispatch) {
+				dispatch(tr);
+			}
+			editorView?.dom.blur();
+			iconContainer.focus();
+			return true;
+		}
+
 		return false;
 	};
 

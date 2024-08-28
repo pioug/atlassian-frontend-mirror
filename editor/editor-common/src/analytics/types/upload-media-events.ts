@@ -4,13 +4,15 @@ import type { OperationalAEP } from './utils';
 type MediaUploadAEP<Action, Attributes> = OperationalAEP<
 	Action,
 	ACTION_SUBJECT.MEDIA,
-	ACTION_SUBJECT_ID.UPLOAD_MEDIA_FROM_URL,
+	ACTION_SUBJECT_ID.UPLOAD_MEDIA,
 	Attributes
 >;
 
-type MediaUploadCommencedAEP = MediaUploadAEP<ACTION.UPLOAD_COMMENCED, undefined>;
-type MediaUploadSuccessAEP = MediaUploadAEP<ACTION.UPLOAD_SUCCEEDED, undefined>;
-type MediaUploadFailAEP = MediaUploadAEP<ACTION.UPLOAD_FAILED, { reason: string }>;
+type SourceAttrs = { mediaUploadSource: 'local' | 'url' };
+
+type MediaUploadCommencedAEP = MediaUploadAEP<ACTION.UPLOAD_COMMENCED, SourceAttrs>;
+type MediaUploadSuccessAEP = MediaUploadAEP<ACTION.UPLOAD_SUCCEEDED, SourceAttrs>;
+type MediaUploadFailAEP = MediaUploadAEP<ACTION.UPLOAD_FAILED, SourceAttrs & { reason: string }>;
 
 export type MediaUploadEventPayload =
 	| MediaUploadCommencedAEP

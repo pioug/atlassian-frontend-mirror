@@ -1,5 +1,34 @@
 # @atlaskit/profilecard
 
+## 19.22.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.22.0
+
+### Minor Changes
+
+- [#134375](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134375)
+  [`03134c232b4a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/03134c232b4a2) -
+  Pass agent actions overrides
+- [#134349](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134349)
+  [`f66ae41dc74c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f66ae41dc74c2) -
+  Fix wrong copy agent URL
+
+### Patch Changes
+
+- [#133158](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133158)
+  [`7cfd5390f596f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7cfd5390f596f) -
+  [ux] Pass agent id to AgentBanner and AgentAvatar
+
+## 19.21.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.21.0
 
 ### Minor Changes

@@ -35,7 +35,7 @@ export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 	);
 
 	const onCopyAgent = (agentId: string) => {
-		navigator.clipboard.writeText(`/people/agent/${agentId}`);
+		navigator.clipboard.writeText(`${window.location.origin}/people/agent/${agentId}`);
 	};
 
 	const onDuplicateAgent = useCallback(

@@ -320,6 +320,12 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 	render() {
 		const { attrs } = this.node;
 
+		if (fg('platform-datasources-enable-two-way-sync')) {
+			// EDM-10607: Workaround to remove datasource table draggable attribute
+			// @ts-ignore TS2341: Property domRef is private
+			this.domRef?.setAttribute('draggable', 'false');
+		}
+
 		return (
 			<DatasourceErrorBoundary
 				unsupportedComponent={UnsupportedInline}

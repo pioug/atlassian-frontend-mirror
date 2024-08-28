@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 12.18.0
+
+### Minor Changes
+
+- [#133919](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133919)
+  [`8b25fdc44ca38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b25fdc44ca38) -
+  Added return focus to trigger after item selection
+
 ## 12.17.3
 
 ### Patch Changes

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { ACTION, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { logException } from '@atlaskit/editor-common/monitoring';
@@ -59,25 +58,23 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 			},
 		});
 		logException(error, { location: 'renderer' });
-		if (getBooleanFF('platform.editor.renderer-error-boundary-for-dom-errors')) {
-			const pattern = /Failed to execute.*on 'Node'.*/;
-			const matchesPattern = pattern.test(error.message);
+		const pattern = /Failed to execute.*on 'Node'.*/;
+		const matchesPattern = pattern.test(error.message);
 
-			if (matchesPattern) {
-				this.fireAnalyticsEvent({
-					action: ACTION.CAUGHT_DOM_ERROR,
-					actionSubject: this.props.component,
-					actionSubjectId: this.props.componentId,
-					eventType: EVENT_TYPE.OPERATIONAL,
-					attributes: {
-						platform: PLATFORM.WEB,
-						errorMessage: `${additionalInfo}${error?.message}`,
-					},
-				});
-				this.setState(() => ({
-					domError: true,
-				}));
-			}
+		if (matchesPattern) {
+			this.fireAnalyticsEvent({
+				action: ACTION.CAUGHT_DOM_ERROR,
+				actionSubject: this.props.component,
+				actionSubjectId: this.props.componentId,
+				eventType: EVENT_TYPE.OPERATIONAL,
+				attributes: {
+					platform: PLATFORM.WEB,
+					errorMessage: `${additionalInfo}${error?.message}`,
+				},
+			});
+			this.setState(() => ({
+				domError: true,
+			}));
 		}
 		if (this.hasFallback()) {
 			this.setState({ errorCaptured: true }, () => {
@@ -89,10 +86,8 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 	}
 
 	render() {
-		if (getBooleanFF('platform.editor.renderer-error-boundary-for-dom-errors')) {
-			if (this.state.domError) {
-				return <React.Fragment key={uuid()}>{this.props.children}</React.Fragment>;
-			}
+		if (this.state.domError) {
+			return <React.Fragment key={uuid()}>{this.props.children}</React.Fragment>;
 		}
 		if (this.shouldRecover()) {
 			return this.props.fallbackComponent;

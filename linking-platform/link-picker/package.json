@@ -95,7 +95,7 @@
 		"@af/analytics-codegen": "^0.1.0",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/dropdown-menu": "^12.17.0",
+		"@atlaskit/dropdown-menu": "^12.18.0",
 		"@atlaskit/link-provider": "^1.14.0",
 		"@atlaskit/link-test-helpers": "^7.5.0",
 		"@atlaskit/visual-regression": "*",

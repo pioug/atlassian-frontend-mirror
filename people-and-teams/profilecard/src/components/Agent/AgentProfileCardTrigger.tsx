@@ -97,7 +97,8 @@ export const AgentProfileCardTrigger = ({
 					cloudId={props.cloudId}
 					product={product}
 					errorType={error}
-					onOpenChat={props.onOpenChat}
+					onChatClick={props.onChatClick}
+					onConversationStartersClick={props.onConversationStartersClick}
 				/>
 			</Suspense>
 		);

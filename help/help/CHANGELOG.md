@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.6.1
+
+### Patch Changes
+
+- [#133921](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133921)
+  [`a4ef453e59a39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4ef453e59a39) -
+  help examples updated for algolia size limit refactor
+
 ## 7.6.0
 
 ### Minor Changes

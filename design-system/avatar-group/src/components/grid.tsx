@@ -17,6 +17,7 @@ const listStyles = css({
 	padding: token('space.0', '0px'),
 	justifyContent: 'flex-start',
 	flexWrap: 'wrap',
+	isolation: 'isolate',
 	lineHeight: 1,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 	listStyleType: 'none !important',

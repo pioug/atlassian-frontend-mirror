@@ -46,6 +46,9 @@
             "path": "../../../media/media-client-react/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../media/media-picker/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
         },
         {

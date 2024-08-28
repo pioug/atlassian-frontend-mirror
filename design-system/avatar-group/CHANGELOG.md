@@ -1,5 +1,14 @@
 # @atlaskit/avatar-group
 
+## 9.11.3
+
+### Patch Changes
+
+- [#134321](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134321)
+  [`4539c88ed5ed3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4539c88ed5ed3) -
+  The avatar group container now creates a new stacking context using `isolation: isolate`. This
+  improves how it interacts with other layered elementson the page.
+
 ## 9.11.2
 
 ### Patch Changes

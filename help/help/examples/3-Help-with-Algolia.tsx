@@ -742,7 +742,6 @@ const Example = () => {
 										onSearchResultItemClick: handleOnSearchResultItemClick,
 										onSearchExternalUrlClick: handleOnSearchExternalUrlClick,
 										searchExternalUrl: SEARCH_EXTERNAL_URL,
-										searchOnEnterKeyPress: true,
 									}}
 									relatedArticles={{
 										routeGroup: routeGroup,

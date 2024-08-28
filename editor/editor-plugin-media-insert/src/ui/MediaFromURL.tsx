@@ -49,14 +49,14 @@ type PreviewState = {
 	isLoading: boolean;
 	error: string | null;
 	warning: string | null;
-	previewInfo: OnInsertAttrs | null;
+	previewInfo: Required<OnInsertAttrs> | null;
 };
 
 type PreviewStateAction =
 	| { type: 'loading' }
 	| { type: 'error'; error: string }
 	| { type: 'warning'; warning: string; url: string }
-	| { type: 'success'; payload: OnInsertAttrs }
+	| { type: 'success'; payload: Required<OnInsertAttrs> }
 	| { type: 'reset' };
 
 const INITIAL_PREVIEW_STATE: Readonly<PreviewState> = Object.freeze({
@@ -104,19 +104,24 @@ export function MediaFromURL({
 		insert: intl.formatMessage(mediaInsertMessages.insert),
 		pasteLinkToUpload: intl.formatMessage(mediaInsertMessages.pasteLinkToUpload),
 		cancel: intl.formatMessage(mediaInsertMessages.cancel),
-		errorMessage: intl.formatMessage(mediaInsertMessages.errorMessage),
-		warning: intl.formatMessage(mediaInsertMessages.warning),
+		errorMessage: intl.formatMessage(mediaInsertMessages.fromUrlErrorMessage),
+		warning: intl.formatMessage(mediaInsertMessages.fromUrlWarning),
 	};
 
 	const [inputUrl, setUrl] = React.useState<string>('');
 	const [previewState, dispatch] = React.useReducer(previewStateReducer, INITIAL_PREVIEW_STATE);
 	const pasteFlag = React.useRef(false);
 
-	const { onUploadAnalytics, onUploadSuccessAnalytics, onUploadFailureAnalytics } =
-		useAnalyticsEvents(dispatchAnalyticsEvent);
+	const {
+		onUploadButtonClickedAnalytics,
+		onUploadCommencedAnalytics,
+		onUploadSuccessAnalytics,
+		onUploadFailureAnalytics,
+	} = useAnalyticsEvents(dispatchAnalyticsEvent);
 
 	const uploadExternalMedia = React.useCallback(
 		async (url: string) => {
+			onUploadButtonClickedAnalytics();
 			dispatch({ type: 'loading' });
 			const { uploadMediaClientConfig, uploadParams } = mediaProvider;
 			if (!uploadMediaClientConfig) {
@@ -126,13 +131,13 @@ export function MediaFromURL({
 			const mediaClient = getMediaClient(uploadMediaClientConfig);
 			const collection = uploadParams?.collection;
 
-			onUploadAnalytics();
+			onUploadCommencedAnalytics('url');
 			try {
 				const { uploadableFileUpfrontIds, dimensions } = await mediaClient.file.uploadExternal(
 					url,
 					collection,
 				);
-				onUploadSuccessAnalytics();
+				onUploadSuccessAnalytics('url');
 				dispatch({
 					type: 'success',
 					payload: {
@@ -148,23 +153,24 @@ export function MediaFromURL({
 					// TODO: Make sure this gets good unit test coverage with the actual
 					// media plugin. This hard coded error message could be changed at any
 					// point and we need a unit test to break to stop people changing it.
-					onUploadFailureAnalytics(e);
+					onUploadFailureAnalytics(e, 'url');
 					dispatch({ type: 'warning', warning: e, url: inputUrl });
 				} else if (e instanceof Error) {
 					const message = 'Image preview fetch failed';
-					onUploadFailureAnalytics(message);
+					onUploadFailureAnalytics(message, 'url');
 					dispatch({ type: 'error', error: message });
 				} else {
-					onUploadFailureAnalytics('Unknown error');
+					onUploadFailureAnalytics('Unknown error', 'url');
 					dispatch({ type: 'error', error: 'Unknown error' });
 				}
 			}
 		},
 		[
+			onUploadButtonClickedAnalytics,
 			mediaProvider,
-			onUploadAnalytics,
-			onUploadFailureAnalytics,
+			onUploadCommencedAnalytics,
 			onUploadSuccessAnalytics,
+			onUploadFailureAnalytics,
 			inputUrl,
 		],
 	);

@@ -3,6 +3,7 @@ import { snapshot } from '@af/visual-regression';
 import BasicAvatarGroup from '../../../../examples/02-basic-avatar-group';
 import BorderColorExample from '../../../../examples/03-avatar-group-border-color';
 import AvatarGroupPlayground from '../../../../examples/10-avatar-group-playground';
+import VRStackingContextExample from '../../../../examples/vr-stacking-context';
 
 snapshot(BasicAvatarGroup, {
 	states: [
@@ -59,4 +60,9 @@ snapshot(AvatarGroupPlayground, {
 
 snapshot(BorderColorExample, {
 	description: 'Border colors should be visible for avatars in avatar group',
+});
+
+snapshot(VRStackingContextExample, {
+	description:
+		'Avatar group should create a new stacking context so that avatars do not pop in front of floating items',
 });

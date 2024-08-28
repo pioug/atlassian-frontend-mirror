@@ -28,7 +28,6 @@ test('Verify that Dropdown Menu is able to open - stateless', async ({ page }) =
 test.describe('Keyboard navigation', () => {
 	const triggerTestId = 'dropdown--trigger';
 	const contentTestId = 'dropdown--content';
-	const firstToggleId = 'toggle-1';
 
 	test('Verify that Dropdown Menu is closing on Tab press and focus on the next interactive element', async ({
 		page,
@@ -42,7 +41,7 @@ test.describe('Keyboard navigation', () => {
 
 		await page.getByTestId(contentTestId).press('Tab');
 		await expect(page.getByTestId(contentTestId)).toBeHidden();
-		await expect(page.locator(`#${firstToggleId}`)).toBeFocused();
+		await expect(page.getByTestId(triggerTestId)).toBeFocused();
 	});
 
 	test('Verify that Dropdown Menu is closing on Shift+Tab press and focus on trigger', async ({

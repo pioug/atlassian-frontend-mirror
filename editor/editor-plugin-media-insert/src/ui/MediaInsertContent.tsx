@@ -8,7 +8,8 @@ import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { Box } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 
-import { MediaFromURL } from './FromURL';
+import { LocalMedia } from './LocalMedia';
+import { MediaFromURL } from './MediaFromURL';
 
 export const MediaInsertContent = ({
 	mediaProvider,
@@ -25,9 +26,18 @@ export const MediaInsertContent = ({
 		<Tabs id="media-insert-tab-navigation">
 			<Box paddingBlockEnd="space.150">
 				<TabList>
+					<Tab>{intl.formatMessage(mediaInsertMessages.fileTabTitle)}</Tab>
 					<Tab>{intl.formatMessage(mediaInsertMessages.linkTabTitle)}</Tab>
 				</TabList>
 			</Box>
+			<TabPanel>
+				<LocalMedia
+					mediaProvider={mediaProvider}
+					onInsert={() => {}}
+					onClose={closeMediaInsertPicker}
+					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+				/>
+			</TabPanel>
 			<TabPanel>
 				<MediaFromURL
 					mediaProvider={mediaProvider}

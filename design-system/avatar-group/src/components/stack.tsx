@@ -18,6 +18,7 @@ const listStyles = css({
 	display: 'flex',
 	margin: token('space.0', '0px'),
 	padding: token('space.0', '0px'),
+	isolation: 'isolate',
 	lineHeight: 1,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	listStyleType: 'none !important',

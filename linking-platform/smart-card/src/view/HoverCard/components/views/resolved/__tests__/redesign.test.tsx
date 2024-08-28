@@ -248,116 +248,97 @@ describe('HoverCardResolvedView', () => {
 				});
 
 				describe('AISummaryAction', () => {
-					ffTest.on(
-						'platform.linking-platform.smart-card.hover-card-ai-summaries',
-						'AI summary FF on',
-						() => {
-							describe('with AI summary enabled', () => {
-								beforeEach(() => {
-									AISummariesStore.clear();
-								});
+					beforeEach(() => {
+						AISummariesStore.clear();
+					});
 
-								it('renders AI summary action', async () => {
-									const { findByTestId } = setup({
-										mockResponse: mockAtlasProjectWithAiSummary,
-										isAISummaryEnabled: true,
-									});
-
-									const aiSummaryAction = await findByTestId(
-										'smart-action-ai-summary-action-summarise-action',
-									);
-									expect(aiSummaryAction?.textContent).toEqual('Summarize with AI');
-								});
-
-								it('renders snippet as a placeholder', async () => {
-									const { findByTestId } = setup({
-										mockResponse: mockAtlasProjectWithAiSummary,
-										isAISummaryEnabled: true,
-									});
-
-									const snippet = await findByTestId('smart-block-snippet-resolved-view');
-
-									expect(snippet).toBeInTheDocument();
-								});
-
-								it('renders AI summary block and hides the snippet when is summary content available', async () => {
-									(useAISummary as jest.Mock).mockReturnValueOnce({
-										state: { status: 'loading', content: '' },
-										summariseUrl: jest.fn(),
-									});
-
-									const { findByTestId, queryByTestId, rerenderTestComponent } = setup({
-										mockResponse: mockAtlasProjectWithAiSummary,
-										isAISummaryEnabled: true,
-									});
-
-									const snippet = queryByTestId('smart-block-snippet-resolved-view');
-									expect(snippet).toBeInTheDocument();
-
-									(useAISummary as jest.Mock).mockReturnValueOnce({
-										state: {
-											status: 'loading',
-											content: 'first piece of summary is here',
-										},
-										summariseUrl: jest.fn(),
-									});
-
-									rerenderTestComponent();
-
-									const aiSumamryBlock = await findByTestId('smart-ai-summary-block-resolved-view');
-									const snippetAfterRerender = queryByTestId('smart-block-snippet-resolved-view');
-
-									expect(aiSumamryBlock).toBeInTheDocument();
-									expect(snippetAfterRerender).not.toBeInTheDocument();
-								});
-
-								it('should use a resolved data URL instead of provided URL', () => {
-									// Provided URL can be different from the data URL obtained from the resolver (see short links as example).
-									// We want to ensure that all components within the Hover Card subscribe to the same URL AI Summary update
-									// and do not create two different instances of AI Summary Service.
-									setup({
-										mockResponse: {
-											...mockAtlasProjectWithAiSummary,
-											data: {
-												...mockAtlasProjectWithAiSummary.data,
-												url: 'http://data-link-url.com',
-											},
-										},
-										isAISummaryEnabled: true,
-									});
-
-									expect(AISummariesStore.size).toBe(1);
-									// Provided URL
-									expect(AISummariesStore.get(url)).not.toBeDefined();
-									// Data url from the cardState
-									expect(AISummariesStore.get('http://data-link-url.com')).toBeDefined();
-								});
-
-								it('should call the useAISummary hook with a product name when it`s available in SmartLinkContext', () => {
-									setup({
-										mockResponse: mockAtlasProjectWithAiSummary,
-										isAISummaryEnabled: true,
-									});
-
-									expect(useAISummary).toHaveBeenCalledWith(
-										expect.objectContaining({
-											product: productName,
-										}),
-									);
-								});
-							});
-						},
-					);
-
-					describe('with AI summary disabled', () => {
-						it('does not render AISummary block', () => {
-							const { queryByTestId } = setup({
-								mockResponse: mockAtlasProjectWithAiSummary,
-							});
-
-							expect(queryByTestId('smart-ai-summary-block-resolved-view')).toBeNull();
-							expect(queryByTestId('smart-ai-summary-block-ai-summary-action')).toBeNull();
+					it('renders AI summary action', async () => {
+						const { findByTestId } = setup({
+							mockResponse: mockAtlasProjectWithAiSummary,
+							isAISummaryEnabled: true,
 						});
+
+						const aiSummaryAction = await findByTestId(
+							'smart-action-ai-summary-action-summarise-action',
+						);
+						expect(aiSummaryAction?.textContent).toEqual('Summarize with AI');
+					});
+
+					it('renders snippet as a placeholder', async () => {
+						const { findByTestId } = setup({
+							mockResponse: mockAtlasProjectWithAiSummary,
+							isAISummaryEnabled: true,
+						});
+
+						const snippet = await findByTestId('smart-block-snippet-resolved-view');
+
+						expect(snippet).toBeInTheDocument();
+					});
+
+					it('renders AI summary block and hides the snippet when is summary content available', async () => {
+						(useAISummary as jest.Mock).mockReturnValueOnce({
+							state: { status: 'loading', content: '' },
+							summariseUrl: jest.fn(),
+						});
+
+						const { findByTestId, queryByTestId, rerenderTestComponent } = setup({
+							mockResponse: mockAtlasProjectWithAiSummary,
+							isAISummaryEnabled: true,
+						});
+
+						const snippet = queryByTestId('smart-block-snippet-resolved-view');
+						expect(snippet).toBeInTheDocument();
+
+						(useAISummary as jest.Mock).mockReturnValueOnce({
+							state: {
+								status: 'loading',
+								content: 'first piece of summary is here',
+							},
+							summariseUrl: jest.fn(),
+						});
+
+						rerenderTestComponent();
+
+						const aiSumamryBlock = await findByTestId('smart-ai-summary-block-resolved-view');
+						const snippetAfterRerender = queryByTestId('smart-block-snippet-resolved-view');
+
+						expect(aiSumamryBlock).toBeInTheDocument();
+						expect(snippetAfterRerender).not.toBeInTheDocument();
+					});
+
+					it('should use a resolved data URL instead of provided URL', () => {
+						// Provided URL can be different from the data URL obtained from the resolver (see short links as example).
+						// We want to ensure that all components within the Hover Card subscribe to the same URL AI Summary update
+						// and do not create two different instances of AI Summary Service.
+						setup({
+							mockResponse: {
+								...mockAtlasProjectWithAiSummary,
+								data: {
+									...mockAtlasProjectWithAiSummary.data,
+									url: 'http://data-link-url.com',
+								},
+							},
+							isAISummaryEnabled: true,
+						});
+
+						expect(AISummariesStore.size).toBe(1);
+						// Provided URL
+						expect(AISummariesStore.get(url)).not.toBeDefined();
+						// Data url from the cardState
+						expect(AISummariesStore.get('http://data-link-url.com')).toBeDefined();
+					});
+
+					it('should call the useAISummary hook with a product name when it`s available in SmartLinkContext', () => {
+						setup({
+							mockResponse: mockAtlasProjectWithAiSummary,
+							isAISummaryEnabled: true,
+						});
+
+						expect(useAISummary).toHaveBeenCalledWith(
+							expect.objectContaining({
+								product: productName,
+							}),
+						);
 					});
 				});
 			});

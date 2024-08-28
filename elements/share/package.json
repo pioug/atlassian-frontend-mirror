@@ -43,7 +43,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.1.0",
-		"@atlaskit/dropdown-menu": "^12.17.0",
+		"@atlaskit/dropdown-menu": "^12.18.0",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/menu": "^2.12.0",

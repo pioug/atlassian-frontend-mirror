@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 2.13.5
+
+### Patch Changes
+
+- [#134243](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134243)
+  [`f80ad43fc6eea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f80ad43fc6eea) -
+  Fix text selection inside datasource table input
+
 ## 2.13.4
 
 ### Patch Changes

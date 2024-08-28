@@ -1,1 +1,1 @@
-export { ComposableEditor } from './composable-editor/editor';
+export { ComposableEditor } from './composable-editor/composable-editor';

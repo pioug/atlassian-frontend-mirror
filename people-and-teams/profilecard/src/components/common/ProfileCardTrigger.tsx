@@ -8,6 +8,7 @@ import { useProfileInfo } from '../../util/useProfileInfo';
 
 import { LoadingState } from './LoadingState';
 import { PopupTrigger } from './PopupTrigger';
+import { ProfileCardWrapper } from './ProfileCardWrapper';
 import { type ProfileCardTriggerProps } from './types';
 
 const DELAY_MS_SHOW = 800;
@@ -94,7 +95,9 @@ function ProfileCardTrigger<T>({
 			content={() => (
 				<div onMouseEnter={onMouseEnter} onMouseLeave={hideProfilecard} onFocus={showProfilecard}>
 					{isLoading ? (
-						<LoadingState fireAnalytics={fireAnalytics} profileType={profileCardType} />
+						<ProfileCardWrapper>
+							<LoadingState fireAnalytics={fireAnalytics} profileType={profileCardType} />
+						</ProfileCardWrapper>
 					) : (
 						renderProfileCard({ profileData, error })
 					)}

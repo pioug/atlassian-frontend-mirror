@@ -1,4 +1,3 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { type JsonLd } from 'json-ld-types';
 
 import AtlasProject from '../../../__fixtures__/atlas-project';
@@ -502,16 +501,7 @@ describe('extractFlexibleUiContext', () => {
 			},
 		} as JsonLd.Response;
 
-		ffTest(
-			'platform.linking-platform.smart-card.hover-card-ai-summaries',
-			() => {
-				const data = extractFlexibleUiContext({ aiSummaryConfig, response, url: propUrl });
-				expect(data?.actions?.AISummaryAction?.url).toEqual('prop-url');
-			},
-			() => {
-				const data = extractFlexibleUiContext({ aiSummaryConfig, response, url: propUrl });
-				expect(data?.actions?.AISummaryAction).toBeUndefined();
-			},
-		);
+		const data = extractFlexibleUiContext({ aiSummaryConfig, response, url: propUrl });
+		expect(data?.actions?.AISummaryAction?.url).toEqual('prop-url');
 	});
 });

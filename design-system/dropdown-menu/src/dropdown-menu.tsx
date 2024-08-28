@@ -1,11 +1,9 @@
-/* eslint-disable import/order */
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/new';
 import { KEY_DOWN, KEY_ENTER, KEY_SPACE, KEY_TAB } from '@atlaskit/ds-lib/keycodes';
-
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
@@ -17,6 +15,7 @@ import { gridSize as gridSizeFn, layers } from '@atlaskit/theme/constants';
 
 import FocusManager from './internal/components/focus-manager';
 import MenuWrapper from './internal/components/menu-wrapper';
+import { DropdownMenuProvider } from './internal/context/dropdown-menu-context';
 import SelectionStore from './internal/context/selection-store';
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
 import useGeneratedId, { PREFIX } from './internal/utils/use-generated-id';
@@ -99,7 +98,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 	label,
 }: DropdownMenuProps<T>) => {
 	const [isLocalOpen, setLocalIsOpen] = useControlledState(isOpen, () => defaultOpen);
-
+	const triggerRef = useRef<HTMLElement | null>(null);
 	const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
 	const id = useGeneratedId();
 	const itemRef = useRegisterItemWithFocusManager();
@@ -160,6 +159,10 @@ const DropdownMenu = <T extends HTMLElement = any>({
 			} else if ((event.key === 'Tab' && event.shiftKey) || event.key === 'Escape') {
 				requestAnimationFrame(() => {
 					itemRef.current?.focus();
+				});
+			} else if (triggerRef.current) {
+				requestAnimationFrame(() => {
+					triggerRef.current?.focus();
 				});
 			}
 
@@ -226,80 +229,82 @@ const DropdownMenu = <T extends HTMLElement = any>({
 
 	return (
 		<SelectionStore>
-			<Popup
-				id={isLocalOpen ? id : undefined}
-				shouldFlip={shouldFlip}
-				isOpen={isLocalOpen}
-				onClose={handleOnClose}
-				zIndex={zIndex}
-				placement={placement}
-				fallbackPlacements={fallbackPlacements}
-				testId={testId && `${testId}--content`}
-				shouldUseCaptureOnOutsideClick
-				{...conditionalProps}
-				shouldDisableFocusLock
-				trigger={({
-					ref,
-					'aria-controls': ariaControls,
-					'aria-expanded': ariaExpanded,
-					'aria-haspopup': ariaHasPopup,
-					// DSP-13312 TODO: remove spread props in future major release
-					...rest
-				}: TriggerProps) => {
-					if (typeof trigger === 'function') {
-						return trigger({
-							'aria-controls': ariaControls,
-							'aria-expanded': ariaExpanded,
-							'aria-haspopup': ariaHasPopup,
-							...rest,
-							...bindFocus,
-							triggerRef: mergeRefs([ref, itemRef]),
-							isSelected: isLocalOpen,
-							onClick: handleTriggerClicked,
-							testId: testId && `${testId}--trigger`,
-						});
-					}
+			<DropdownMenuProvider value={{ returnFocusRef: triggerRef }}>
+				<Popup
+					id={isLocalOpen ? id : undefined}
+					shouldFlip={shouldFlip}
+					isOpen={isLocalOpen}
+					onClose={handleOnClose}
+					zIndex={zIndex}
+					placement={placement}
+					fallbackPlacements={fallbackPlacements}
+					testId={testId && `${testId}--content`}
+					shouldUseCaptureOnOutsideClick
+					{...conditionalProps}
+					shouldDisableFocusLock
+					trigger={({
+						ref,
+						'aria-controls': ariaControls,
+						'aria-expanded': ariaExpanded,
+						'aria-haspopup': ariaHasPopup,
+						// DSP-13312 TODO: remove spread props in future major release
+						...rest
+					}: TriggerProps) => {
+						if (typeof trigger === 'function') {
+							return trigger({
+								'aria-controls': ariaControls,
+								'aria-expanded': ariaExpanded,
+								'aria-haspopup': ariaHasPopup,
+								...rest,
+								...bindFocus,
+								triggerRef: mergeRefs([ref, triggerRef, itemRef]),
+								isSelected: isLocalOpen,
+								onClick: handleTriggerClicked,
+								testId: testId && `${testId}--trigger`,
+							});
+						}
 
-					return (
-						<Button
-							{...bindFocus}
-							ref={mergeRefs([ref, itemRef])}
-							aria-controls={ariaControls}
-							aria-expanded={ariaExpanded}
-							aria-haspopup={ariaHasPopup}
-							isSelected={isLocalOpen}
-							iconAfter={ExpandIcon}
-							onClick={handleTriggerClicked}
-							testId={testId && `${testId}--trigger`}
-							aria-label={label}
-						>
-							{trigger}
-						</Button>
-					);
-				}}
-				content={({ setInitialFocusRef, update }) => (
-					<FocusManager onClose={handleOnClose}>
-						<MenuWrapper
-							spacing={spacing}
-							maxHeight={MAX_HEIGHT}
-							maxWidth={shouldFitContainer ? undefined : 800}
-							onClose={handleOnClose}
-							onUpdate={update}
-							isLoading={isLoading}
-							statusLabel={statusLabel}
-							setInitialFocusRef={
-								isTriggeredUsingKeyboard || autoFocus ? setInitialFocusRef : undefined
-							}
-							shouldRenderToParent={shouldRenderToParent || shouldFitContainer}
-							isTriggeredUsingKeyboard={isTriggeredUsingKeyboard}
-							autoFocus={autoFocus}
-							testId={testId && `${testId}--menu-wrapper`}
-						>
-							{children}
-						</MenuWrapper>
-					</FocusManager>
-				)}
-			/>
+						return (
+							<Button
+								{...bindFocus}
+								ref={mergeRefs([ref, triggerRef, itemRef])}
+								aria-controls={ariaControls}
+								aria-expanded={ariaExpanded}
+								aria-haspopup={ariaHasPopup}
+								isSelected={isLocalOpen}
+								iconAfter={ExpandIcon}
+								onClick={handleTriggerClicked}
+								testId={testId && `${testId}--trigger`}
+								aria-label={label}
+							>
+								{trigger}
+							</Button>
+						);
+					}}
+					content={({ setInitialFocusRef, update }) => (
+						<FocusManager onClose={handleOnClose}>
+							<MenuWrapper
+								spacing={spacing}
+								maxHeight={MAX_HEIGHT}
+								maxWidth={shouldFitContainer ? undefined : 800}
+								onClose={handleOnClose}
+								onUpdate={update}
+								isLoading={isLoading}
+								statusLabel={statusLabel}
+								setInitialFocusRef={
+									isTriggeredUsingKeyboard || autoFocus ? setInitialFocusRef : undefined
+								}
+								shouldRenderToParent={shouldRenderToParent || shouldFitContainer}
+								isTriggeredUsingKeyboard={isTriggeredUsingKeyboard}
+								autoFocus={autoFocus}
+								testId={testId && `${testId}--menu-wrapper`}
+							>
+								{children}
+							</MenuWrapper>
+						</FocusManager>
+					)}
+				/>
+			</DropdownMenuProvider>
 		</SelectionStore>
 	);
 };

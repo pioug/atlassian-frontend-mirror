@@ -14,7 +14,7 @@ import algoliasearch from 'algoliasearch';
 import Page from '@atlaskit/page';
 
 import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';
-import Help from '../src';
+import Help, { createArticleObject } from '../src';
 
 import {
   ExampleWrapper,
@@ -31,7 +31,7 @@ const Example = () => {
     return new Promise((resolve, reject) => {
       index.search(
         {
-          filters: "objectID:articleId",
+          filters: "id:articleId",
         },
         (err, res) => {
           if (err) {
@@ -39,7 +39,7 @@ const Example = () => {
           }
 
           if (res) {
-            const article = res.hits[0];
+            const article = createArticleObject(res.hits[0], res.hits[1]);
 
             if (article) {
               resolve(article);

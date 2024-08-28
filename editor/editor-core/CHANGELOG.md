@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 195.9.1
+
+### Patch Changes
+
+- [#134167](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134167)
+  [`1bad7a54ecf5b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1bad7a54ecf5b) -
+  Refactoring editor internals to allow for specific component based appearances.
+
 ## 195.9.0
 
 ### Minor Changes

@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useCallback } from 'react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import ButtonItem from '@atlaskit/menu/button-item';
@@ -35,11 +35,25 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 			target,
 			testId,
 			UNSAFE_shouldDisableRouterLink,
+			returnFocusRef,
 			...rest
 		}: DropdownItemProps,
 		ref,
 	) => {
 		const itemRef = useRegisterItemWithFocusManager();
+
+		const handleItemClick = useCallback(
+			(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
+				if (returnFocusRef?.current) {
+					returnFocusRef.current.focus();
+				}
+				if (onClick) {
+					onClick(event);
+				}
+			},
+			[onClick, returnFocusRef],
+		);
+
 		if (component) {
 			return (
 				<CustomItem<CustomItemHtmlProps>
@@ -49,7 +63,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 					iconBefore={elemBefore}
 					isDisabled={isDisabled}
 					isSelected={isSelected}
-					onClick={onClick}
+					onClick={handleItemClick}
 					ref={mergeRefs([ref, itemRef])}
 					shouldDescriptionWrap={shouldDescriptionWrap}
 					shouldTitleWrap={shouldTitleWrap}
@@ -75,7 +89,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 					iconBefore={elemBefore}
 					isDisabled={isDisabled}
 					isSelected={isSelected}
-					onClick={onClick}
+					onClick={handleItemClick}
 					ref={mergeRefs([ref, itemRef])}
 					rel={rel}
 					role="menuitem"
@@ -98,7 +112,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 					iconBefore={elemBefore}
 					isDisabled={isDisabled}
 					isSelected={isSelected}
-					onClick={onClick}
+					onClick={handleItemClick}
 					ref={mergeRefs([ref, itemRef])}
 					role="menuitem"
 					shouldDescriptionWrap={shouldDescriptionWrap}

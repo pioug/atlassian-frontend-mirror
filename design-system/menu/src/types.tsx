@@ -197,7 +197,7 @@ export interface MenuItemProps {
 	/**
 	 * Event that's triggered when the element is clicked.
 	 */
-	onClick?: (event: React.MouseEvent | React.KeyboardEvent) => void;
+	onClick?: (e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void;
 
 	/**
 	 * Event that's triggered when the element has been pressed.

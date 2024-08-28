@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.2.0
+
+### Minor Changes
+
+- [#134463](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134463)
+  [`d20ae898369bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d20ae898369bc) -
+  [ux] [ED-24326] Add local file upload tab to media insert popup
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.2
 
 ### Patch Changes

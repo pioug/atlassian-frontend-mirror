@@ -12,6 +12,7 @@ import filterActionsInner from '../../internal/filterActions';
 import getLabelMessage from '../../internal/getLabelMessage';
 import { CardWrapper } from '../../styled/Card';
 import {
+	type AgentActionsType,
 	type ProfileCardAction,
 	type ProfileCardClientData,
 	type ProfileCardErrorType,
@@ -40,6 +41,7 @@ function ProfileCardContent({
 	profileCardAction,
 	hasError,
 	errorType,
+	agentActions,
 }: {
 	profilecardProps: ProfilecardProps;
 	userId: string;
@@ -52,6 +54,7 @@ function ProfileCardContent({
 	profileCardAction: ProfileCardAction[];
 	hasError?: boolean;
 	errorType?: ProfileCardErrorType;
+	agentActions?: AgentActionsType;
 }) {
 	if (isAgent && fg('enable_agent_profile_card')) {
 		return (
@@ -62,6 +65,8 @@ function ProfileCardContent({
 				viewingUserId={viewingUserId}
 				trigger={trigger}
 				product={product}
+				onChatClick={agentActions?.onChatClick}
+				onConversationStartersClick={agentActions?.onConversationStartersClick}
 			/>
 		);
 	} else {
@@ -98,6 +103,7 @@ export default function ProfilecardTriggerNext({
 	offset,
 	viewingUserId,
 	product,
+	agentActions,
 }: ProfileCardTriggerProps) {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
@@ -389,6 +395,7 @@ export default function ProfilecardTriggerNext({
 									profileCardAction={filterActions()}
 									errorType={error}
 									hasError={hasError}
+									agentActions={agentActions}
 								/>
 							)
 						)}

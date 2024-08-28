@@ -45,7 +45,6 @@ type TableArrayMapped = {
 
 export const isTableResizingEnabled = (appearance: RendererAppearance) =>
 	isFullWidthOrFullPageAppearance(appearance) ||
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	(isCommentAppearance(appearance) && fg('platform_editor_table_support_in_comment'));
 
 const orderChildren = (
@@ -398,7 +397,6 @@ export class TableContainer extends React.Component<
 		const tableWidth = calcDefaultLayoutWidthByAppearance(rendererAppearance, tableNode);
 
 		const isCommentAppearanceAndTableAlignmentEnabled =
-			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 			allowTableAlignment && fg('platform_editor_table_support_in_comment');
 
 		// Logic for table alignment in renderer

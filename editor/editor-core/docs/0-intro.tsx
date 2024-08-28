@@ -398,7 +398,7 @@ ${(
 		<Props
 			shouldCollapseProps
 			heading="Props"
-			props={require('!!extract-react-types-loader!../src/composable-editor/editor')}
+			props={require('!!extract-react-types-loader!../src/composable-editor/composable-editor')}
 		/>
 	)}
 

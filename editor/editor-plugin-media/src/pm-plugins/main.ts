@@ -702,6 +702,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 				return INPUT_METHOD.CLIPBOARD;
 			case 'dropzone':
 				return INPUT_METHOD.DRAG_AND_DROP;
+			case 'browser':
+				return INPUT_METHOD.BROWSER;
 		}
 		return;
 	};

@@ -2,7 +2,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 
-import { type ProfileClient, type RovoAgentProfileCardInfo, type TriggerType } from '../../types';
+import {
+	type AgentActionsType,
+	type ProfileClient,
+	type RovoAgentProfileCardInfo,
+	type TriggerType,
+} from '../../types';
 import { fireEvent } from '../../util/analytics';
 import { getAAIDFromARI } from '../../util/rovoAgentUtils';
 import ErrorMessage from '../Error/ErrorMessage';
@@ -10,7 +15,7 @@ import ErrorMessage from '../Error/ErrorMessage';
 import { AgentProfileCardWrapper } from './AgentProfileCardWrapper';
 import { AgentProfileCardLazy } from './lazyAgentProfileCard';
 
-export interface AgentProfileCardResourcedProps {
+export type AgentProfileCardResourcedProps = {
 	accountId: string;
 	cloudId: string;
 	resourceClient: ProfileClient;
@@ -18,7 +23,7 @@ export interface AgentProfileCardResourcedProps {
 	children?: React.ReactNode;
 	viewingUserId?: string;
 	product?: string;
-}
+} & AgentActionsType;
 export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps) => {
 	const [agentData, setAgentData] = useState<RovoAgentProfileCardInfo>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -140,6 +145,8 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 				hasError={!!error}
 				isCreatedByViewingUser={creatorUserId === props.viewingUserId}
 				product={props.product}
+				onConversationStartersClick={props.onConversationStartersClick}
+				onChatClick={props.onChatClick}
 			/>
 		);
 	}

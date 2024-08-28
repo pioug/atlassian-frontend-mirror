@@ -33,7 +33,7 @@ import ImagePreview from '../../ImagePreview';
 import { type HoverCardResolvedProps } from './types';
 import { messages } from '../../../../../messages';
 import { FormattedMessage } from 'react-intl-next';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { getCanBeDatasource } from '../../../../../state/helpers';
 import useAISummaryAction from '../../../../../state/hooks/use-ai-summary-action';
 import { SmartLinkStatus } from '../../../../../constants';
@@ -80,7 +80,6 @@ export const toFooterActions = (
 	return [followAction, ...actions];
 };
 
-//This component encapsulates useAISummarySmartLink hook under the AI Summary FF 'platform.linking-platform.smart-card.hover-card-ai-summaries'
 const ConnectedAIBlock = ({
 	bottomPrimary,
 	imagePreview,
@@ -183,8 +182,6 @@ const HoverCardResolvedView = ({
 				size={SmartLinkSize.Medium}
 			/>
 
-			{/* The isAISummaryEnabled setting depends on the status of the feature flag (FF) 'platform.linking-platform.smart-card.hover-card-ai-summaries'.
-      It will always be false if this FF is disabled. */}
 			{isAISummaryEnabled && (
 				// All custom elements should be contained within a CustomBlock.
 				// Flex Container components check whether the direct child is a flex blocks. It removes anything that isn't
@@ -216,7 +213,7 @@ const HoverCardResolvedView = ({
 				/>
 			)}
 
-			{getBooleanFF('platform.linking-platform.smart-card.enable-hover-card-related-urls') && (
+			{fg('platform.linking-platform.smart-card.enable-hover-card-related-urls') && (
 				<RelatedUrlsBlock url={url} size={SmartLinkSize.Small} />
 			)}
 

@@ -37,7 +37,6 @@ snapshot(HoverCard, {
 snapshot(HoverCardActions, {
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform.linking-platform.smart-card.hover-card-ai-summaries': [true, false],
 		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
 	},
 	states: [

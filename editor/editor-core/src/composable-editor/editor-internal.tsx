@@ -22,7 +22,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
-import { getUiComponent } from '../create-editor';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
 import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
 import type { EditorViewProps } from '../create-editor/ReactEditorView';
@@ -30,6 +29,7 @@ import ReactEditorView from '../create-editor/ReactEditorView';
 import type { EventDispatcher } from '../event-dispatcher';
 import { ContextAdapter } from '../nodeviews/context-adapter';
 import { useSetPresetContext } from '../presets/context';
+import { type EditorAppearanceComponentProps } from '../types';
 import type { EditorNextProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
@@ -51,6 +51,9 @@ interface InternalProps {
 	onEditorDestroyed: (_instance: { view: EditorView; transformer?: Transformer<string> }) => void;
 	preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
 	providerFactory: ProviderFactory;
+	AppearanceComponent: React.ComponentType<
+		React.PropsWithChildren<EditorAppearanceComponentProps<[]>>
+	>;
 }
 
 /**
@@ -68,9 +71,8 @@ export const EditorInternal = memo(
 		onEditorCreated,
 		onEditorDestroyed,
 		preset,
+		AppearanceComponent,
 	}: InternalProps) => {
-		const Component = getUiComponent(props.appearance!);
-
 		const setEditorApi = useCallback(
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(api: PublicPluginAPI<any>) => {
@@ -145,7 +147,7 @@ export const EditorInternal = memo(
 												editorAPI,
 											}) => (
 												<BaseTheme baseFontSize={getBaseFontSize(props.appearance)}>
-													<Component
+													<AppearanceComponent
 														innerRef={editorRef}
 														editorAPI={editorAPI}
 														appearance={props.appearance!}

@@ -21,6 +21,9 @@ import VisualBasic from '../../../examples/visual-basic';
 import VrPythonTestIdAndWrapping from '../../../examples/vr-python-test-id-and-wrapping';
 
 snapshot(InlineCodeBasic, {
+	featureFlags: {
+		platform_design_system_team_code_new_typography: [false, true],
+	},
 	variants: [
 		{
 			name: 'Default',

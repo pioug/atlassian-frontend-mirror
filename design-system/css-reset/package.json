@@ -27,7 +27,7 @@
 	},
 	"scripts": {
 		"ak-postbuild": "mkdir -p dist && cp src/bundle.css dist/bundle.css && ABS_PATH=$(pwd) && ln -sf $ABS_PATH/dist/bundle.css dist/cjs/bundle.css && ln -sf $ABS_PATH/dist/bundle.css dist/esm/bundle.css && ln -sf $ABS_PATH/dist/bundle.css dist/es2019/bundle.css",
-		"build-css": "ts-node --compiler-options='{ \"module\": \"CommonJS\" }' -P ./tsconfig.json build/js-to-css.tsx"
+		"build-css": "run-ts build/js-to-css.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/theme": "^13.0.0",
@@ -39,8 +39,8 @@
 	},
 	"devDependencies": {
 		"@atlaskit/visual-regression": "*",
+		"@atlassian/ts-loader": "*",
 		"mkdirp": "^0.5.1",
-		"ts-node": "^10.9.1",
 		"tsconfig-paths": "^4.2.0",
 		"typescript": "~5.4.2"
 	},

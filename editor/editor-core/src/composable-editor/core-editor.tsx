@@ -24,6 +24,7 @@ import EditorActions from '../actions';
 import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
 import type { EventDispatcher } from '../event-dispatcher';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
+import { type WithAppearanceComponent } from '../types/with-appearance-component';
 import { useEditorContext } from '../ui/EditorContext';
 import measurements from '../utils/performance/measure-enum';
 import { name, version } from '../version-wrapper';
@@ -38,7 +39,7 @@ import trackEditorActions from './utils/trackEditorActions';
 /**
  * Editor wrapper that deals with the lifecycle logic of the editor
  */
-function Editor(passedProps: EditorProps & EditorNextProps) {
+function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceComponent) {
 	const propsRef = useRef(passedProps);
 	const props = useMemoEditorProps(passedProps);
 	useMemo(() => {
@@ -156,6 +157,7 @@ function Editor(passedProps: EditorProps & EditorNextProps) {
 			onEditorCreated={onEditorCreated}
 			onEditorDestroyed={onEditorDestroyed}
 			providerFactory={providerFactory}
+			AppearanceComponent={props.AppearanceComponent}
 		/>
 	);
 }
@@ -170,7 +172,7 @@ const useMemoEditorFeatureFlags = (featureFlags?: { [featureFlag: string]: strin
 	return ffRef.current;
 };
 
-export function ComposableEditor(props: EditorNextProps) {
+export function CoreEditor(props: EditorNextProps & WithAppearanceComponent) {
 	const editorSessionId = useRef(uuid());
 	const data = useMemo(() => {
 		return {
@@ -193,7 +195,7 @@ export function ComposableEditor(props: EditorNextProps) {
 	);
 }
 
-ComposableEditor.propTypes = {
+CoreEditor.propTypes = {
 	minHeight: ({ appearance, minHeight }: Pick<EditorNextProps, 'appearance' | 'minHeight'>) => {
 		if (minHeight && appearance && !['comment', 'chromeless'].includes(appearance)) {
 			return new Error(
@@ -204,4 +206,4 @@ ComposableEditor.propTypes = {
 	},
 };
 
-export default ComposableEditor;
+export default CoreEditor;

@@ -5,7 +5,6 @@ import { SmartLinkSize } from '../../constants';
 import { type FlexibleUiOptions } from '../FlexibleCard/types';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 // Temporary fix for Confluence inline comment on editor mod has z-index of 500, Jira issue view has z-index of 510
 export const HOVER_CARD_Z_INDEX = layers.modal();
@@ -39,9 +38,7 @@ export const HoverCardContainer = css`
 	background: none;
 	border-width: 0;
 	box-sizing: border-box;
-	width: ${getBooleanFF('platform.linking-platform.smart-card.hover-card-ai-summaries')
-		? NEW_CARD_WIDTH_REM
-		: CARD_WIDTH_REM}rem;
+	width: ${NEW_CARD_WIDTH_REM}rem;
 
 	.${loadingPlaceholderClassName} {
 		display: none;

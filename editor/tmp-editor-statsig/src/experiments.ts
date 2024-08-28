@@ -105,7 +105,7 @@ export function editorExperiment<ExperimentName extends keyof EditorExperimentsC
 	}
 
 	// Typescript is complaining here about accessing the productKeys property
-	const experimentKey = (experimentConfig.productKeys as { [key: string]: string })[_product!];
+	const experimentKey = (experimentConfig.productKeys as { [key: string]: string })?.[_product!];
 
 	if (!experimentKey) {
 		// This will be hit in the case of an experiment not being set up for the product

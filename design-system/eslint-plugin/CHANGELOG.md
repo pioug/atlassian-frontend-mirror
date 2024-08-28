@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.17.3
+
+### Patch Changes
+
+- [#134533](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134533)
+  [`729d2ac5a7b41`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/729d2ac5a7b41) -
+  Disallow letter spacing and disallow font weight only when heading font token is used for
+  `use-latest-xcss-syntax-typography` rule.
+
 ## 10.17.2
 
 ### Patch Changes

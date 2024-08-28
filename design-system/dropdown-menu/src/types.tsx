@@ -317,6 +317,11 @@ export interface DropdownItemProps {
 	 * Marked as "unsafe" because ideally, router links should be used for all internal links.
 	 */
 	UNSAFE_shouldDisableRouterLink?: boolean;
+
+	/**
+	 * If ref is passed, focus returns to that specific ref element after dropdown item clicked.
+	 */
+	returnFocusRef?: RefObject<HTMLElement>;
 }
 
 export interface DropdownItemCheckboxProps {

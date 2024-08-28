@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 27.19.0
+
+### Minor Changes
+
+- [#134316](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134316)
+  [`921e345ee41da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/921e345ee41da) -
+  [ux] Remove hover card AI Summary feature flag
+
 ## 27.18.0
 
 ### Minor Changes

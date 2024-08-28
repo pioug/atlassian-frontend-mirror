@@ -296,7 +296,7 @@ type ButtonHelpAEP = ButtonAEP<
 
 type ButtonFeedbackAEP = ButtonAEP<ACTION_SUBJECT_ID.BUTTON_FEEDBACK, undefined>;
 
-type ButtonUploadMediaAEP = ButtonAEP<ACTION_SUBJECT_ID.UPLOAD_MEDIA_FROM_URL, undefined>;
+type ButtonUploadMediaAEP = ButtonAEP<ACTION_SUBJECT_ID.UPLOAD_MEDIA, undefined>;
 
 type PickerEmojiAEP = PickerAEP<
 	ACTION_SUBJECT_ID.PICKER_EMOJI,

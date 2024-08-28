@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 88.3.1
+
+### Patch Changes
+
+- [#131403](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131403)
+  [`1ac0252dbed37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1ac0252dbed37) -
+  [ED-24665] Fire analytics event for media insert via file browser
+- [#134243](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134243)
+  [`f80ad43fc6eea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f80ad43fc6eea) -
+  Fix text selection inside datasource table input
+
+## 88.3.0
+
+### Minor Changes
+
+- [#134463](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134463)
+  [`d20ae898369bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d20ae898369bc) -
+  [ux] [ED-24326] Add local file upload tab to media insert popup
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 88.2.1
 
 ### Patch Changes

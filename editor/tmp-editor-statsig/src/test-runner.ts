@@ -71,7 +71,7 @@ export function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
 					: false
 				: testCaseKey;
 
-			setupEditorExperiments('test', { [experimentName]: convertedValue });
+			setupEditorExperiments('test', { [experimentName]: convertedValue as boolean | string });
 
 			const testCase = cases[testCaseKey];
 

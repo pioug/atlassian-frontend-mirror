@@ -1,4 +1,3 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { JsonLd } from 'json-ld-types';
 import type { MessageDescriptor } from 'react-intl-next';
 import { CONTENT_URL_ACCEPTABLE_USE_POLICY, CONTENT_URL_AI_TROUBLESHOOTING } from '../constants';
@@ -8,12 +7,7 @@ import type { ErrorMessage } from '../state/hooks/use-ai-summary/ai-summary-serv
 export const getIsAISummaryEnabled = (
 	isAdminHubAIEnabled: boolean = false,
 	response?: JsonLd.Response,
-) =>
-	Boolean(
-		getBooleanFF('platform.linking-platform.smart-card.hover-card-ai-summaries') &&
-			isAdminHubAIEnabled &&
-			response?.meta?.supportedFeature?.includes('AISummary'),
-	);
+) => Boolean(isAdminHubAIEnabled && response?.meta?.supportedFeature?.includes('AISummary'));
 
 export const getAISummaryErrorMessage = (
 	error?: ErrorMessage,

@@ -10,7 +10,11 @@ import {
 	AgentStarCount,
 } from '@atlaskit/rovo-agent-components';
 
-import { type ProfileCardErrorType, type RovoAgentProfileCardInfo } from '../../types';
+import {
+	type AgentActionsType,
+	type ProfileCardErrorType,
+	type RovoAgentProfileCardInfo,
+} from '../../types';
 import { fireEvent, profileCardRendered } from '../../util/analytics';
 import { LoadingState } from '../common/LoadingState';
 import { ErrorMessage } from '../Error';
@@ -35,10 +39,9 @@ type AgentProfileCardProps = {
 	hasError?: boolean;
 	isCreatedByViewingUser?: boolean;
 	cloudId?: string;
-	onOpenChat?: (agentId: string) => void;
 	product?: string;
 	errorType?: ProfileCardErrorType;
-};
+} & AgentActionsType;
 
 const cardContainerStyles = xcss({
 	borderRadius: 'border.radius.200',
@@ -51,10 +54,11 @@ const AgentProfileCard = ({
 	isLoading,
 	isCreatedByViewingUser,
 	cloudId,
-	onOpenChat,
+	onChatClick,
 	product = 'rovo',
 	hasError,
 	errorType,
+	onConversationStartersClick,
 }: AgentProfileCardProps) => {
 	const {
 		onEditAgent,
@@ -116,9 +120,9 @@ const AgentProfileCard = ({
 	return (
 		<AgentProfileCardWrapper>
 			<Box xcss={cardContainerStyles}>
-				<AgentBanner height={96} />
+				<AgentBanner agentId={agent.id} agentNamedId={agent.named_id} height={96} />
 				<Box xcss={avatarStyles}>
-					<AgentAvatar size="xlarge" />
+					<AgentAvatar agentId={agent.id} agentNamedId={agent.named_id} size="xlarge" />
 				</Box>
 
 				<Stack space="space.100" xcss={styles}>
@@ -148,7 +152,9 @@ const AgentProfileCard = ({
 						isAgentDefault={agent.is_default}
 						userDefinedConversationStarters={agent.user_defined_conversation_starters}
 						onConversationStarterClick={(conversationStarter: string) => {
-							onConversationStarter({ agentId: agent.id, prompt: 'conversationStarter' });
+							onConversationStartersClick
+								? onConversationStartersClick(conversationStarter)
+								: onConversationStarter({ agentId: agent.id, prompt: conversationStarter });
 						}}
 					/>
 				</Stack>
@@ -158,7 +164,7 @@ const AgentProfileCard = ({
 					onCopyAgent={() => onCopyAgent(agent.id)}
 					onDuplicateAgent={() => onDuplicateAgent(agent.id)}
 					onDeleteAgent={handleOnDelete}
-					onChatClick={() => (onOpenChat ? onOpenChat(agent.id) : onOpenChatFullScreecn())}
+					onChatClick={() => (onChatClick ? onChatClick() : onOpenChatFullScreecn())}
 				/>
 			</Box>
 		</AgentProfileCardWrapper>

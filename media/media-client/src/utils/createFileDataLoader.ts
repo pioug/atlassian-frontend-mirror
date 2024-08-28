@@ -1,6 +1,3 @@
-// import setimmediate to temporary fix dataloader 2.0.0 bug
-// @see https://github.com/graphql/dataloader/issues/249
-import 'setimmediate';
 import Dataloader from 'dataloader';
 
 import { type MediaStore, type ResponseFileItem } from '../client/media-store';

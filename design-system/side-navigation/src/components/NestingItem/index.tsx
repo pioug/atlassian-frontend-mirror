@@ -105,8 +105,7 @@ export interface NestingItemProps<TCustomComponentProps = CustomItemComponentPro
 	/**
 	 * Event that is triggered when a person clicks the element.
 	 */
-	onClick?: (event: React.MouseEvent | React.KeyboardEvent) => void;
-
+	onClick?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void;
 	/**
 	 * Description of the item.
 	 * This will render smaller text below the primary text of the item as well as slightly increasing the height of the item.

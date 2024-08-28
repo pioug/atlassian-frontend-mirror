@@ -46,6 +46,18 @@ export const createFilterTransaction = (
 			return true;
 		}
 
+		const containsExcludedSteps = tr.steps.some((step) => {
+			return (
+				step instanceof AnalyticsStep ||
+				step instanceof ReplaceStep ||
+				step instanceof ReplaceAroundStep
+			);
+		});
+
+		if (containsExcludedSteps) {
+			return true;
+		}
+
 		if (tr.docChanged && tr.doc.eq(tr.before)) {
 			const transactionKey = generateTransactionKey(tr);
 
@@ -81,33 +93,29 @@ export const createFilterTransaction = (
 
 // Helper function to create a u ique transaction key
 export function generateTransactionKey(tr: Transaction) {
-	return tr.steps
-		.map((step) => {
-			if (
-				step instanceof RemoveNodeMarkStep ||
-				step instanceof AddNodeMarkStep ||
-				step instanceof SetAttrsStep ||
-				step instanceof AttrStep ||
-				step instanceof AnalyticsStep
-			) {
-				if (step.pos !== undefined) {
-					return `${step.pos}`;
-				}
-			} else if (
-				step instanceof AddMarkStep ||
-				step instanceof RemoveMarkStep ||
-				step instanceof ReplaceAroundStep ||
-				step instanceof ReplaceStep
-			) {
-				return `from_${step.from}_to_${step.to}`;
-			} else if (step instanceof LinkMetaStep) {
-				return `from_${step.toJSON().from}_to_${step.toJSON().to}`;
-			} else if (step instanceof InsertTypeAheadStep) {
-				return `insertTypeAheadStep`;
+	const stepPositions = tr.steps.map((step) => {
+		if (
+			step instanceof RemoveNodeMarkStep ||
+			step instanceof AddNodeMarkStep ||
+			step instanceof SetAttrsStep ||
+			step instanceof AttrStep
+		) {
+			if (step.pos !== undefined) {
+				return `${step.pos}`;
 			}
-			return '';
-		})
-		.join('_');
+		} else if (step instanceof AddMarkStep || step instanceof RemoveMarkStep) {
+			return `from_${step.from}_to_${step.to}`;
+		} else if (step instanceof LinkMetaStep) {
+			return `from_${step.toJSON().from}_to_${step.toJSON().to}`;
+		} else if (step instanceof InsertTypeAheadStep) {
+			return `insertTypeAheadStep`;
+		}
+		return '';
+	});
+	if (stepPositions.some((step) => Boolean(step))) {
+		return stepPositions.join('_');
+	}
+	return '';
 }
 
 export const trackSpammingStepsPluginKey = new PluginKey<TrackSpammingStepsMetadata>(

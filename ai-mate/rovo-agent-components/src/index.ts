@@ -4,6 +4,7 @@ export {
 	AgentConversationStarters,
 	ConversationStarters,
 	type AgentConversationStartersProps,
+	type ConversationStartersProps,
 	getConversationStarters,
 } from './ui/agent-conversation-starters';
 export { ChatPill, type ChatPillProps } from './common/ui/chat-pill';

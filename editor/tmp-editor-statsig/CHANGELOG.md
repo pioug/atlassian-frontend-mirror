@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 1.3.2
+
+### Patch Changes
+
+- [#133128](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133128)
+  [`5208be528f4e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5208be528f4e4) -
+  EO-2024-44 Improved types and added export
+
 ## 1.3.1
 
 ### Patch Changes

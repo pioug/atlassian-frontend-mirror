@@ -6,8 +6,6 @@ import { errorBoundary } from '../utils/error-boundary';
 import { getConfig } from './config';
 import { BannedProperty } from './linters';
 
-export const error = `Don't set fontSize, lineHeight, fontWeight properties on xcss. They are unsafe as they allow invalid combinations of typography tokens. There is ongoing work to make this a TypeScript error. Once that happens, you will have to delete/refactor anyway.`;
-
 const rule = createLintRule({
 	meta: {
 		name: 'use-latest-xcss-syntax-typography',
@@ -21,7 +19,7 @@ const rule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			noUnsafeTypographyProperties: error,
+			noUnsafeTypographyProperties: `Don't set '{{ property }}' on xcss. They are unsafe as they allow invalid combinations of typography tokens. There is ongoing work to make this a TypeScript error. Once that happens, you will have to delete/refactor anyway.`,
 		},
 	},
 	create(context) {
@@ -29,9 +27,9 @@ const rule = createLintRule({
 
 		return errorBoundary(
 			{
-				'CallExpression[callee.name="xcss"] ObjectExpression > Property > Identifier[name=/(fontSize|lineHeight|fontWeight)/]':
+				'CallExpression[callee.name="xcss"] ObjectExpression > Property > Identifier[name=/(fontSize|lineHeight|fontWeight|letterSpacing)/]':
 					(node: Rule.Node) => BannedProperty.lint(node, { context }),
-				'CallExpression[callee.name="xcss"] ObjectExpression > Property > Literal[value=/(fontSize|lineHeight|fontWeight)/]':
+				'CallExpression[callee.name="xcss"] ObjectExpression > Property > Literal[value=/(fontSize|lineHeight|fontWeight|letterSpacing)/]':
 					(node: Rule.Node) => BannedProperty.lint(node, { context }),
 			},
 			config,

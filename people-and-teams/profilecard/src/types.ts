@@ -174,6 +174,7 @@ export interface ProfileCardTriggerProps {
 	offset?: [number, number];
 	product?: string;
 	viewingUserId?: string;
+	agentActions?: AgentActionsType;
 }
 
 export interface ProfileCardTriggerState {
@@ -313,13 +314,16 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
 	cloudId?: string;
 }
 
-export interface AgentProfileCardTriggerProps {
+export interface AgentActionsType {
+	onChatClick?: () => void;
+	onConversationStartersClick?: (starter: string) => void;
+}
+export interface AgentProfileCardTriggerProps extends AgentActionsType {
 	agentId: string;
 	cloudId?: string;
 	autoFocus?: boolean;
 	resourceClient: ProfileClient;
 	actions?: ProfileCardAction[];
-	onOpenChat?: (agentId: string) => void;
 	position?: ProfilecardTriggerPosition;
 	trigger?: TriggerType;
 	children: React.ReactNode;
@@ -410,6 +414,8 @@ export interface ProfilecardProps {
 	openKudosDrawer?: () => void;
 	isTriggeredUsingKeyboard?: boolean;
 	disabledAriaAttributes?: boolean;
+	//overriding agent actions
+	agentActions?: AgentActionsType;
 }
 
 export type AnalyticsFromDuration = (duration: number) => AnalyticsEventPayload;

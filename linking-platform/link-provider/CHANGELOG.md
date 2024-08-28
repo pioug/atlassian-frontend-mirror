@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 1.14.1
+
+### Patch Changes
+
+- [#134513](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134513)
+  [`9908df0490fce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9908df0490fce) -
+  NO-ISSUE: remmove unneeded setimmediate dependency
+
 ## 1.14.0
 
 ### Minor Changes

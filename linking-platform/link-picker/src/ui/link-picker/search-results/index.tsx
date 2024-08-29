@@ -101,7 +101,11 @@ export const SearchResults = ({
 		<SearchResultsContainer hasTabs={!!tabs.length || isLoadingPlugins} {...fixListHeightProps}>
 			{isLoadingPlugins && !!queryState && (
 				<div css={spinnerContainerStyles}>
-					<Spinner testId={testIds.tabsLoadingIndicator} size="medium" />
+					<Spinner
+						testId={testIds.tabsLoadingIndicator}
+						interactionName="link-picker-tabs-loading"
+						size="medium"
+					/>
 				</div>
 			)}
 			{!isLoadingPlugins && isActivePlugin && !!queryState && (

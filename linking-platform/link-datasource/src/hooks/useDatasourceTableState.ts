@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import isEqual from 'lodash/isEqual';
 
+import { isFedRamp } from '@atlaskit/atlassian-context';
 import {
 	DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
 	useDatasourceClientExtension,
@@ -277,19 +278,22 @@ export const useDatasourceTableState = ({
 					setResponseItemIds((currentIds) => [...currentIds, ...newIds]);
 
 					if (fg('platform-datasources-enable-two-way-sync')) {
-						if (typeof integrationKey === 'string') {
-							const aris = items.reduce<string[]>(
-								(acc, item) => (typeof item.ari?.data === 'string' ? [...acc, item.ari.data] : acc),
-								[],
-							);
+						if (!isFedRamp()) {
+							if (typeof integrationKey === 'string') {
+								const aris = items.reduce<string[]>(
+									(acc, item) =>
+										typeof item.ari?.data === 'string' ? [...acc, item.ari.data] : acc,
+									[],
+								);
 
-							if (aris.length && destinationObjectTypes.length) {
-								discoverActions({
-									aris,
-									integrationKey,
-									fieldKeys,
-									entityType: destinationObjectTypes[0],
-								});
+								if (aris.length && destinationObjectTypes.length) {
+									discoverActions({
+										aris,
+										integrationKey,
+										fieldKeys,
+										entityType: destinationObjectTypes[0],
+									});
+								}
 							}
 						}
 					}

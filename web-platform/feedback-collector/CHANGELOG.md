@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 13.8.0
+
+### Minor Changes
+
+- [#134833](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134833)
+  [`4f83c556a5b97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f83c556a5b97) -
+  Add support for React 18
+
 ## 13.7.0
 
 ### Minor Changes

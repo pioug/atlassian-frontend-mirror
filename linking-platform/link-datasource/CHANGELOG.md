@@ -1,5 +1,27 @@
 # @atlaskit/link-datasource
 
+## 2.11.13
+
+### Patch Changes
+
+- [#134868](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134868)
+  [`2b61da0339af2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b61da0339af2) -
+  [ux] Enforce mininum width of the datasource column
+- [#119756](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119756)
+  [`3ebb67c9feed7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ebb67c9feed7) -
+  Adds dependency to @atlaskit/atlassian-context to use isFedRamp() function to exclude connections
+  to actions service and 2 way sync functionality, behind existing feature flag so no functional
+  behaviour change.
+
+## 2.11.12
+
+### Patch Changes
+
+- [#134926](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134926)
+  [`891fc0be667d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/891fc0be667d7) -
+  Adds an operational analytic event fired when an atomic execute action request succeeds, and moves
+  the error logging from the InlineEdit component into the action itself.
+
 ## 2.11.11
 
 ### Patch Changes

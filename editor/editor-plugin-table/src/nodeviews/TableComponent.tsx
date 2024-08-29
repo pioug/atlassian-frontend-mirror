@@ -483,21 +483,24 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				}
 
 				let scalePercent = 1;
-				if (
-					!this.props.options?.isCommentEditor ||
-					(this.props.options?.isCommentEditor && tableNode.attrs.width)
-				) {
-					scalePercent = getTableScalingPercent(
-						tableNode,
-						this.table!,
-						shouldUseIncreasedScalingPercent,
-					);
-				} else {
-					scalePercent = getScalingPercentForTableWithoutWidth(tableNode, this.table!);
-				}
-
-				// Request animation frame required for Firefox
 				requestAnimationFrame(() => {
+					// Scaling percent has to be calculated inside requestAnimationFrame, otherwise
+					// renderWidth calculated as `tableRef?.parentElement?.clientWidth`
+					// inside of getTableScalingPercent returns 0.
+					if (
+						!this.props.options?.isCommentEditor ||
+						(this.props.options?.isCommentEditor && tableNode.attrs.width)
+					) {
+						scalePercent = getTableScalingPercent(
+							tableNode,
+							this.table!,
+							shouldUseIncreasedScalingPercent,
+						);
+					} else {
+						scalePercent = getScalingPercentForTableWithoutWidth(tableNode, this.table!);
+					}
+
+					// Request animation frame required for Firefox
 					updateColgroup(
 						resizeState,
 						this.table!,

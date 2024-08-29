@@ -57,6 +57,7 @@ const mountBasicTable = ({
 	layout = 'default',
 	rendererAppearance = 'full-page',
 	isInsideOfBlockNode = false,
+	allowTableResizing = false,
 }: {
 	columnWidths?: number[];
 	isNumberColumnEnabled?: boolean;
@@ -64,6 +65,7 @@ const mountBasicTable = ({
 	layout?: TableLayout;
 	rendererAppearance?: RendererAppearance;
 	isInsideOfBlockNode?: boolean;
+	allowTableResizing?: boolean;
 } = {}) => {
 	return mountWithIntl(
 		<Table
@@ -73,6 +75,7 @@ const mountBasicTable = ({
 			renderWidth={renderWidth}
 			rendererAppearance={rendererAppearance}
 			isInsideOfBlockNode={isInsideOfBlockNode}
+			allowTableResizing={allowTableResizing}
 		>
 			<TableRow>
 				<TableCell />
@@ -90,6 +93,7 @@ const mountTable = (
 	appearance: RendererAppearance = 'full-page',
 	isInsideOfBlockNode = false,
 	allowTableAlignment = false,
+	allowTableResizing = false,
 ) => {
 	return mountWithIntl(
 		<Table
@@ -101,6 +105,7 @@ const mountTable = (
 			columnWidths={columnWidths}
 			isInsideOfBlockNode={isInsideOfBlockNode}
 			allowTableAlignment={allowTableAlignment}
+			allowTableResizing={allowTableResizing}
 		>
 			<TableRow>
 				<TableHeader />
@@ -190,6 +195,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			columnWidths,
 			renderWidth,
 			isNumberColumnEnabled: false,
+			allowTableResizing: true,
 		});
 		expect(table.find('col')).toHaveLength(3);
 		table.unmount();
@@ -350,6 +356,7 @@ describe('Renderer - React/Nodes/Table', () => {
 					isNumberColumnEnabled={true}
 					renderWidth={renderWidth}
 					rendererAppearance="full-page"
+					allowTableResizing={true}
 				>
 					<TableRow>
 						<TableCell />
@@ -1052,7 +1059,7 @@ describe('Renderer - React/Nodes/Table', () => {
 		it('table is centered and has correct width', () => {
 			const tableNode = createTable(700, 'wide');
 			const rendererWidth = 1800;
-			const wrap = mountTable(tableNode, rendererWidth);
+			const wrap = mountTable(tableNode, rendererWidth, undefined, 'full-page', false, false, true);
 
 			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
@@ -1065,7 +1072,15 @@ describe('Renderer - React/Nodes/Table', () => {
 			const tableNode = createDefaultTable();
 			const rendererWidth = 1800;
 
-			const wrap = mountTable(tableNode, rendererWidth, undefined, 'full-width');
+			const wrap = mountTable(
+				tableNode,
+				rendererWidth,
+				undefined,
+				'full-width',
+				false,
+				false,
+				true,
+			);
 
 			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
@@ -1076,7 +1091,15 @@ describe('Renderer - React/Nodes/Table', () => {
 		it('default table should be responsively full width in full-width mode', () => {
 			const tableNode = createDefaultTable();
 			const rendererWidth = 900;
-			const wrap = mountTable(tableNode, rendererWidth, undefined, 'full-width');
+			const wrap = mountTable(
+				tableNode,
+				rendererWidth,
+				undefined,
+				'full-width',
+				false,
+				false,
+				true,
+			);
 
 			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
@@ -1088,7 +1111,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			const tableNode = createTable(700, 'wide');
 			const rendererWidth = 600;
 
-			const wrap = mountTable(tableNode, rendererWidth);
+			const wrap = mountTable(tableNode, rendererWidth, undefined, 'full-page', false, false, true);
 
 			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
@@ -1140,9 +1163,16 @@ describe('Renderer - React/Nodes/Table', () => {
 				const expectedWidths = (computedColWidths: Array<number>) =>
 					computedColWidths.map((w) => Math.floor(w * 0.7));
 				// expected to scale down
-				const wrap = mountTable(tableNode, rendererWidth, colWidths);
+				const wrap = mountTable(
+					tableNode,
+					rendererWidth,
+					colWidths,
+					'full-page',
+					false,
+					false,
+					true,
+				);
 				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
 				checkColWidths(tableContainer, expectedWidths([166, 166, 166]));
 				wrap.unmount();
 			});
@@ -1158,7 +1188,15 @@ describe('Renderer - React/Nodes/Table', () => {
 					computedColWidths.map((w) => Math.floor(w * 0.7));
 
 				// expected to scale down
-				const wrap = mountTable(tableNode, rendererWidth, colWidths);
+				const wrap = mountTable(
+					tableNode,
+					rendererWidth,
+					colWidths,
+					'full-page',
+					false,
+					false,
+					true,
+				);
 				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 				checkColWidths(tableContainer, expectedWidths([399, 399, 399]));
 				wrap.unmount();
@@ -1291,7 +1329,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			() => {
 				const tableNode = createDefaultTable();
 				const rendererWidth = 900;
-				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment', false, false, true);
 
 				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
@@ -1301,7 +1339,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			() => {
 				const tableNode = createDefaultTable('default');
 				const rendererWidth = 900;
-				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment', false, false, true);
 
 				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
@@ -1317,7 +1355,7 @@ describe('Renderer - React/Nodes/Table', () => {
 				const tableWidth = 300;
 				const tableNode = createTable(tableWidth, 'default');
 				const rendererWidth = 900;
-				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment', false, false, true);
 
 				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
@@ -1410,6 +1448,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			columnWidths?: number[],
 			appearance: RendererAppearance = 'full-page',
 			isInsideOfBlockNode = false,
+			allowTableResizing = false,
 		) => {
 			return mountWithIntl(
 				<Table
@@ -1419,6 +1458,7 @@ describe('Renderer - React/Nodes/Table', () => {
 					tableNode={node}
 					columnWidths={columnWidths}
 					isInsideOfBlockNode={isInsideOfBlockNode}
+					allowTableResizing={allowTableResizing}
 				>
 					<TableRow>
 						<TableHeader />
@@ -1436,7 +1476,7 @@ describe('Renderer - React/Nodes/Table', () => {
 
 		it('table has its own width in full-width renderer with no width', () => {
 			const tableNode = createTable(700, 'wide');
-			const wrap = mountTable(tableNode, undefined, 'full-width', true);
+			const wrap = mountTable(tableNode, undefined, 'full-width', true, true);
 
 			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
@@ -1447,7 +1487,7 @@ describe('Renderer - React/Nodes/Table', () => {
 
 		it('default table should be full width in full-width mode', () => {
 			const tableNode = createDefaultTable();
-			const wrap = mountTable(tableNode, undefined, 'full-width');
+			const wrap = mountTable(tableNode, undefined, 'full-width', false, true);
 
 			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 

@@ -55,7 +55,7 @@ export interface RovoAgent {
 	name: string;
 	description: string | null;
 	system_prompt_template?: string | null;
-	creator_type: 'SYSTEM' | 'CUSTOMER' | 'THIRD_PARTY';
+	creator_type: 'SYSTEM' | 'CUSTOMER' | 'THIRD_PARTY' | 'FORGE';
 	creator?: string | null;
 	visibility?: 'PUBLIC' | 'PRIVATE' | null;
 	is_default: boolean;
@@ -69,7 +69,7 @@ export interface RovoAgent {
 }
 
 export interface RovoAgentCreatorInfo {
-	type: 'CUSTOMER' | 'SYSTEM' | 'THIRD_PARTY';
+	type: 'CUSTOMER' | 'SYSTEM' | 'THIRD_PARTY' | 'FORGE';
 	name?: string;
 	profileLink?: string;
 	id?: string;

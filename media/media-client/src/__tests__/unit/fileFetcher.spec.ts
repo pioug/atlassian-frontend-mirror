@@ -1133,6 +1133,31 @@ describe('FileFetcher', () => {
 	describe('uploadExternal()', () => {
 		const url = 'https://atlassian/logo.png';
 
+		it('should return the correct format', async () => {
+			const { fileFetcher } = setup();
+			fetchMock.mock(
+				url,
+				{
+					headers: { 'Content-Type': 'image/jpeg' },
+					body: new Blob([], { type: 'image/jpeg' }),
+				},
+				{ sendAsJson: false },
+			);
+			const result = await fileFetcher.uploadExternal(url);
+
+			expect(result).toEqual({
+				dimensions: {
+					height: 1,
+					width: 1,
+				},
+				mimeType: 'image/jpeg',
+				uploadableFileUpfrontIds: {
+					id: 'upfront-id',
+					occurrenceKey: 'upfront-occurrence-key',
+				},
+			});
+		});
+
 		it('should populate cache before upload finishes', async () => {
 			const { fileFetcher } = setup();
 

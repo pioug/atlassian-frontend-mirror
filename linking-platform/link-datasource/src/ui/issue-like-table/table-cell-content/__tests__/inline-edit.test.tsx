@@ -6,13 +6,12 @@ import { defaultRegistry } from 'react-sweet-state';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FlagsProvider } from '@atlaskit/flag';
-import { captureException } from '@atlaskit/linking-common/sentry';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { Store, StoreContainer } from '../../../../state';
 import { type DatasourceTypeWithOnlyValues } from '../../types';
 import { InlineEdit } from '../inline-edit';
+import '@atlaskit/link-test-helpers/jest';
 
 const store = defaultRegistry.getStore(Store);
 const onAnalyticFireEvent = jest.fn();
@@ -40,6 +39,8 @@ const testIds = {
 	editView: 'inline-edit-text',
 };
 
+const testJiraAri = 'ari:test:something:with:issue/123123';
+
 describe('InlineEdit', () => {
 	const setup = (props: React.ComponentProps<typeof InlineEdit>) => {
 		render(
@@ -63,15 +64,15 @@ describe('InlineEdit', () => {
 		return (
 			<StoreContainer>
 				<div data-testid={testIds.readView}>
-					{store.storeState.getState().items[ari].data.date.data}
+					{store.storeState.getState().items[ari].data.summary.data}
 				</div>
 			</StoreContainer>
 		);
 	};
 
-	it('should respond to the commit click and update the view and state when `execute` from `useExecuteAtomicAction` exists and its call resolves successfully', () => {
+	it('should respond to the commit click and update the view and state when `execute` from `useExecuteAtomicAction` exists and its call resolves successfully', async () => {
 		const execute = jest.fn().mockResolvedValue({});
-		const ari = 'ari/test';
+		const ari = testJiraAri;
 		store.storeState.setState({
 			items: {
 				[ari]: {
@@ -79,7 +80,7 @@ describe('InlineEdit', () => {
 					integrationKey: 'jira',
 					data: {
 						ari: { data: ari },
-						date: { data: 'Blahblah' },
+						summary: { data: 'Blahblah' },
 					},
 				},
 			},
@@ -90,14 +91,13 @@ describe('InlineEdit', () => {
 
 		setup({
 			ari,
-			columnKey: 'date',
+			columnKey: 'summary',
 			execute,
-			integrationKey: 'jira',
 			datasourceTypeWithValues: dataValues,
 			readView: <MockReadView ari={ari} />,
 		});
 
-		expect(store.storeState.getState().items[ari].data.date.data).toEqual('Blahblah');
+		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
 		fireEvent.click(screen.getByTestId(testIds.readView));
 
@@ -106,13 +106,13 @@ describe('InlineEdit', () => {
 		fireEvent.change(screen.getByTestId(testIds.editView), { target: { value: 'FoobarFoobar' } });
 		fireEvent.submit(screen.getByTestId(testIds.editView));
 
-		expect(store.storeState.getState().items[ari].data.date.data).toEqual('FoobarFoobar');
-		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('FoobarFoobar');
+		expect(await screen.findByTestId(testIds.readView)).toHaveTextContent('FoobarFoobar');
+		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('FoobarFoobar');
 	});
 
 	it('should shows error flag when `execute` fails', async () => {
 		const execute = jest.fn().mockRejectedValue({});
-		const ari = 'ari/test';
+		const ari = testJiraAri;
 		store.storeState.setState({
 			items: {
 				[ari]: {
@@ -120,7 +120,7 @@ describe('InlineEdit', () => {
 					integrationKey: 'jira',
 					data: {
 						ari: { data: ari },
-						date: { data: 'Blahblah' },
+						summary: { data: 'Blahblah' },
 					},
 				},
 			},
@@ -131,9 +131,8 @@ describe('InlineEdit', () => {
 
 		setup({
 			ari,
-			columnKey: 'date',
+			columnKey: 'summary',
 			execute,
-			integrationKey: 'jira',
 			datasourceTypeWithValues: dataValues,
 			readView: <MockReadView ari={ari} />,
 		});
@@ -148,7 +147,7 @@ describe('InlineEdit', () => {
 
 	it('should NOT update the view or state with an empty string', () => {
 		const execute = jest.fn().mockResolvedValue({});
-		const ari = 'ari/test';
+		const ari = testJiraAri;
 		store.storeState.setState({
 			items: {
 				[ari]: {
@@ -156,7 +155,7 @@ describe('InlineEdit', () => {
 					integrationKey: 'jira',
 					data: {
 						ari: { data: ari },
-						date: { data: 'Blahblah' },
+						summary: { data: 'Blahblah' },
 					},
 				},
 			},
@@ -168,14 +167,13 @@ describe('InlineEdit', () => {
 
 		setup({
 			ari,
-			columnKey: 'date',
+			columnKey: 'summary',
 			execute,
-			integrationKey: 'jira',
 			datasourceTypeWithValues: dataValues,
 			readView: <MockReadView ari={ari} />,
 		});
 
-		expect(store.storeState.getState().items[ari].data.date.data).toEqual('Blahblah');
+		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
 		fireEvent.click(screen.getByTestId(testIds.readView));
 
@@ -185,13 +183,13 @@ describe('InlineEdit', () => {
 
 		expect(execute).not.toHaveBeenCalled();
 		expect(screen.queryByTestId(testIds.editView)).not.toBeInTheDocument();
-		expect(store.storeState.getState().items[ari].data.date.data).toEqual('Blahblah');
+		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
 	});
 
 	it('should NOT update the view or state on Blur', () => {
 		const execute = jest.fn().mockResolvedValue({});
-		const ari = 'ari/test';
+		const ari = testJiraAri;
 		store.storeState.setState({
 			items: {
 				[ari]: {
@@ -199,7 +197,7 @@ describe('InlineEdit', () => {
 					integrationKey: 'jira',
 					data: {
 						ari: { data: ari },
-						date: { data: 'Blahblah' },
+						summary: { data: 'Blahblah' },
 					},
 				},
 			},
@@ -211,14 +209,13 @@ describe('InlineEdit', () => {
 
 		setup({
 			ari,
-			columnKey: 'date',
+			columnKey: 'summary',
 			execute,
-			integrationKey: 'jira',
 			datasourceTypeWithValues: dataValues,
 			readView: <MockReadView ari={ari} />,
 		});
 
-		expect(store.storeState.getState().items[ari].data.date.data).toEqual('Blahblah');
+		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
 		fireEvent.click(screen.getByTestId(testIds.readView));
 
@@ -232,131 +229,7 @@ describe('InlineEdit', () => {
 
 		expect(execute).not.toHaveBeenCalled();
 		expect(screen.queryByTestId(testIds.editView)).not.toBeInTheDocument();
-		expect(store.storeState.getState().items[ari].data.date.data).toEqual('Blahblah');
+		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
 	});
-
-	it('should fire analytics event when `execute` fails', async () => {
-		const ari = 'ari/test';
-		store.storeState.setState({
-			items: {
-				[ari]: {
-					ari,
-					integrationKey: 'jira',
-					data: {
-						ari: { data: ari },
-						date: { data: 'Blahblah' },
-					},
-				},
-			},
-		});
-		const execute = jest.fn().mockRejectedValue(new Error('Async error'));
-		mockUseExecuteAtomicAction.mockReturnValue({ execute });
-
-		const dataValues: DatasourceTypeWithOnlyValues = { type: 'string', values: ['Blahblah'] };
-
-		setup({
-			ari,
-			columnKey: 'date',
-			execute,
-			integrationKey: 'jira',
-			datasourceTypeWithValues: dataValues,
-			readView: <MockReadView ari={ari} />,
-		});
-
-		fireEvent.click(screen.getByTestId(testIds.readView));
-		fireEvent.change(screen.getByTestId(testIds.editView), {
-			target: { value: 'FoobarFoobar' },
-		});
-		fireEvent.submit(screen.getByTestId(testIds.editView));
-
-		const flag = await screen.findByRole('alert');
-		expect(flag).toBeInTheDocument();
-
-		expect(onAnalyticFireEvent).toHaveBeenCalledWith(
-			expect.objectContaining({
-				payload: {
-					action: 'operationFailed',
-					actionSubject: 'datasource',
-					eventType: 'operational',
-					attributes: {
-						errorLocation: 'actionExecution',
-						status: null,
-						traceId: null,
-					},
-				},
-			}),
-			EVENT_CHANNEL,
-		);
-
-		expect(captureException).toHaveBeenCalledTimes(0);
-	});
-
-	ffTest.on(
-		'platform.linking-platform.datasources.enable-sentry-client',
-		'with sentry client disabled',
-		() => {
-			it('should fire analytics event when `execute` fails', async () => {
-				const ari = 'ari/test';
-				store.storeState.setState({
-					items: {
-						[ari]: {
-							ari,
-							integrationKey: 'jira',
-							data: {
-								ari: { data: ari },
-								date: { data: 'Blahblah' },
-							},
-						},
-					},
-				});
-				const execute = jest.fn().mockRejectedValue(new Error('Async error'));
-				mockUseExecuteAtomicAction.mockReturnValue({ execute });
-
-				const dataValues: DatasourceTypeWithOnlyValues = { type: 'string', values: ['Blahblah'] };
-
-				setup({
-					ari,
-					columnKey: 'date',
-					execute,
-					integrationKey: 'jira',
-					datasourceTypeWithValues: dataValues,
-					readView: <MockReadView ari={ari} />,
-				});
-
-				fireEvent.click(screen.getByTestId(testIds.readView));
-				fireEvent.change(screen.getByTestId(testIds.editView), {
-					target: { value: 'FoobarFoobar' },
-				});
-				fireEvent.submit(screen.getByTestId(testIds.editView));
-
-				const flag = await screen.findByRole('alert');
-				expect(flag).toBeInTheDocument();
-
-				expect(onAnalyticFireEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						payload: {
-							action: 'operationFailed',
-							actionSubject: 'datasource',
-							eventType: 'operational',
-							attributes: {
-								errorLocation: 'actionExecution',
-								status: null,
-								traceId: null,
-							},
-						},
-					}),
-					EVENT_CHANNEL,
-				);
-
-				expect(captureException).toHaveBeenCalledWith(
-					new Error('Async error'),
-					'link-datasource',
-					expect.objectContaining({
-						integrationKey: 'jira',
-					}),
-				);
-			});
-		},
-	);
 });

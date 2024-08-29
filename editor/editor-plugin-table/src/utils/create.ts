@@ -15,6 +15,7 @@ export const createTableWithWidth =
 		isTableAlignmentEnabled,
 		isFullWidthModeEnabled,
 		isCommentEditor,
+		isChromelessEditor,
 		isTableResizingEnabled,
 		createTableProps,
 	}: {
@@ -22,6 +23,7 @@ export const createTableWithWidth =
 		isTableAlignmentEnabled?: boolean;
 		isFullWidthModeEnabled?: boolean;
 		isCommentEditor?: boolean;
+		isChromelessEditor?: boolean;
 		isTableResizingEnabled?: boolean;
 		createTableProps?: {
 			rowsCount?: number;
@@ -36,7 +38,7 @@ export const createTableWithWidth =
 		if (isTableAlignmentEnabled && (isFullWidthModeEnabled || isCommentEditor)) {
 			attrsOverrides.layout = 'align-start';
 		}
-		if (isCommentEditor && isTableResizingEnabled) {
+		if ((isCommentEditor && isTableResizingEnabled) || isChromelessEditor) {
 			attrsOverrides.tableWidth = 'inherit';
 		}
 

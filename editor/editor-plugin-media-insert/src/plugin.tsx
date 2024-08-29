@@ -13,7 +13,7 @@ import { IconImages } from '@atlaskit/editor-common/quick-insert';
 import { closeMediaInsertPicker, showMediaInsertPopup } from './actions';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
-import type { MediaInsertPlugin } from './types';
+import type { InsertExternalMediaSingle, InsertMediaSingle, MediaInsertPlugin } from './types';
 import { MediaInsertPicker } from './ui/MediaInsertPicker';
 
 export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
@@ -48,6 +48,37 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 			popupsBoundariesElement,
 			popupsScrollableElement,
 		}) => {
+			const insertMediaSingle: InsertMediaSingle = ({ mediaState, inputMethod }) => {
+				const { id, dimensions, contextId, scaleFactor = 1, fileName, collection } = mediaState;
+				const { width, height } = dimensions || {
+					height: undefined,
+					width: undefined,
+				};
+				const scaledWidth = width && Math.round(width / scaleFactor);
+				const node = editorView.state.schema.nodes.media.create({
+					id,
+					type: 'file',
+					collection,
+					contextId,
+					width: scaledWidth,
+					height: height && Math.round(height / scaleFactor),
+					alt: fileName,
+					__fileMimeType: mediaState.fileMimeType,
+				});
+
+				return api?.media.actions.insertMediaAsMediaSingle(editorView, node, inputMethod) ?? false;
+			};
+
+			const insertExternalMediaSingle: InsertExternalMediaSingle = ({ url, alt, inputMethod }) => {
+				const node = editorView.state.schema.nodes.media.create({
+					type: 'external',
+					url,
+					alt,
+				});
+
+				return api?.media.actions.insertMediaAsMediaSingle(editorView, node, inputMethod) ?? false;
+			};
+
 			return (
 				<MediaInsertPicker
 					api={api}
@@ -56,9 +87,11 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 					popupsMountPoint={popupsMountPoint}
 					popupsBoundariesElement={popupsBoundariesElement}
 					popupsScrollableElement={popupsScrollableElement}
-					closeMediaInsertPicker={() => {
-						editorView.dispatch(closeMediaInsertPicker(editorView.state.tr));
-					}}
+					closeMediaInsertPicker={() =>
+						editorView.dispatch(closeMediaInsertPicker(editorView.state.tr))
+					}
+					insertMediaSingle={insertMediaSingle}
+					insertExternalMediaSingle={insertExternalMediaSingle}
 				/>
 			);
 		},

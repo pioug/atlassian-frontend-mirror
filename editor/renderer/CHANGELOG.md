@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 109.51.1
+
+### Patch Changes
+
+- [#134066](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134066)
+  [`43a1d7aed352b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43a1d7aed352b) -
+  UNSTABLE_allowTableResizing in renderer added
+
 ## 109.51.0
 
 ### Minor Changes

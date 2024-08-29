@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.6.0
+
+### Minor Changes
+
+- [#134731](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134731)
+  [`07dc34f5168a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07dc34f5168a0) -
+  [ux] ED-23190 This change allows users to navigate using Tab when there are multiple expands on
+  the page. Previously, users could only navigate around the 1st expand on the page with Tab.
+
 ## 2.5.4
 
 ### Patch Changes

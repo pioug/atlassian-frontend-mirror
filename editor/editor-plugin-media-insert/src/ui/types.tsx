@@ -4,4 +4,5 @@ export type OnInsertAttrs = {
 	height?: number;
 	width?: number;
 	occurrenceKey: string | undefined;
+	fileMimeType: string;
 };

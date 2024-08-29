@@ -43,7 +43,7 @@ import { useDatasourceAnalyticsEvents } from '../../analytics';
 import { GlyphPlaceholder, UnwrapTextIcon, WrapTextIcon } from './custom-icons';
 import { issueLikeTableMessages } from './messages';
 import { TableHeading } from './styled';
-import { COLUMN_MIN_WIDTH, getWidthCss } from './utils';
+import { getColumnMinWidth, getWidthCss } from './utils';
 
 type DraggableState =
 	| { type: 'idle' }
@@ -296,6 +296,10 @@ export const DraggableTableHeading = ({
 				// Set the width of our header being resized
 				let proposedWidth = initialWidth + relativeDistanceX;
 
+				if (proposedWidth < getColumnMinWidth(id)) {
+					proposedWidth = getColumnMinWidth(id);
+				}
+
 				// We update width css directly live
 				mainHeaderCell.style.setProperty('width', `${proposedWidth}px`);
 			},
@@ -305,9 +309,6 @@ export const DraggableTableHeading = ({
 				if (onWidthChange) {
 					let cssWidth = +mainHeaderCell.style.getPropertyValue('width').slice(0, -2);
 
-					if (cssWidth < COLUMN_MIN_WIDTH) {
-						cssWidth = COLUMN_MIN_WIDTH;
-					}
 					onWidthChange(cssWidth);
 				}
 			},

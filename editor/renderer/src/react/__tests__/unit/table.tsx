@@ -43,6 +43,7 @@ const requiredProps = {
 	layout: '' as any,
 	isNumberColumnEnabled: '' as any,
 	smartCardStorage: '' as any,
+	allowTableResizing: true,
 };
 
 describe('Tables with a width attribute', () => {

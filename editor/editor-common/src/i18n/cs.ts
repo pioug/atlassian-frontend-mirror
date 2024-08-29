@@ -204,6 +204,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': 'Odstranit prvek',
   'fabric.editor.extension.sourceNoTitledName': 'tento prvek',
   'fabric.editor.extensions.config-panel.save-indicator': 'Všechny změny jsou vždy automaticky ukládány',
+  'fabric.editor.externalMediaFile': 'Externí multimediální soubor',
   'fabric.editor.failed_to_upload': 'Nahrání se nezdařilo',
   'fabric.editor.feedbackDialog': 'Poskytnout zpětnou vazbu',
   'fabric.editor.feedbackDialog.description': 'Podělte se s námi o pocity z práce v novém editoru',
@@ -315,6 +316,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, one {Šířka multimédia byla zvýšena na {newMediaWidth,number} pixel.} few {Šířka multimédia byla zvýšena na {newMediaWidth,number} pixely.} many {Šířka multimédia byla zvýšena na {newMediaWidth,number} pixelu.} other {Šířka multimédia byla zvýšena na {newMediaWidth,number} pixelů.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Velikost multimediálního prvku byla snížena na minimum.',
+  'fabric.editor.media.insert.cancel': 'Zrušit',
+  'fabric.editor.media.insert.errorMessage':
+    'Tento odkaz na obrázek bohužel nejde přidat. Stáhněte si obrázek a poté jej přetáhněte na stránku.',
+  'fabric.editor.media.insert.insert': 'Vložit',
+  'fabric.editor.media.insert.linkTabTitle': 'Odkaz',
+  'fabric.editor.media.insert.loadPreview': 'Načíst náhled',
+  'fabric.editor.media.insert.mediaAlt': 'Náhled nahraného obrázku nebo video souboru',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Výběr multimédií',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'Vložte odkaz pro nahrání.',
+  'fabric.editor.media.insert.warning':
+    'Tento obrázek kvůli zdrojovým omezením možná nebude viditelný pro ostatní. Zvažte místo toho nahrání souboru.',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Velikost multimediálního prvku byla zvýšena na maximum.',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'vstup výšky',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Výška',

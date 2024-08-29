@@ -1,9 +1,17 @@
 import { DatasourceAction } from '../../analytics/types';
 
 export const COLUMN_BASE_WIDTH = 8;
-export const COLUMN_MIN_WIDTH = COLUMN_BASE_WIDTH * 3;
+const COLUMN_MIN_WIDTH = COLUMN_BASE_WIDTH * 4;
 
 export type GetWidthCss = (arg: { shouldUseWidth: boolean; width?: number }) => React.CSSProperties;
+
+const keyBasedMinWidthMap: Record<string, number> = {
+	summary: COLUMN_BASE_WIDTH * 26,
+};
+
+export const getColumnMinWidth = (key: string) => {
+	return keyBasedMinWidthMap[key] || COLUMN_MIN_WIDTH;
+};
 
 /**
  * Generate width related portion of css for table cell.

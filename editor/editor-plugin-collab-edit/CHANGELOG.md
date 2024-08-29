@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.18.0
+
+### Minor Changes
+
+- [`6035369220646`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6035369220646) -
+  Refined logic of sanitizeStep to include stepInstance information
+
 ## 1.17.0
 
 ### Minor Changes

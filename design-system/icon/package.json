@@ -143,10 +143,12 @@
 	},
 	"platform-feature-flags": {
 		"platform.design-system-team.enable-new-icons": {
-			"type": "boolean"
+			"type": "boolean",
+			"showOnWebsiteForTransitiveDependencies": true
 		},
 		"platform-visual-refresh-icons-legacy-facade": {
-			"type": "boolean"
+			"type": "boolean",
+			"showOnWebsiteForTransitiveDependencies": true
 		}
 	}
 }

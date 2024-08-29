@@ -32,7 +32,7 @@ import { ActionsStore } from '../../../state/actions';
 import { getOrderedColumns, IssueLikeDataTableView } from '../index';
 import { ScrollableContainerHeight } from '../styled';
 import { type IssueLikeDataTableViewProps, type TableViewPropsRenderType } from '../types';
-import { COLUMN_MIN_WIDTH } from '../utils';
+import { getColumnMinWidth } from '../utils';
 
 function getDefaultInput(overrides: Partial<Input> = {}): Input {
 	const defaults: Input = {
@@ -109,7 +109,7 @@ jest.mock('@atlaskit/width-detector', () => {
 	};
 });
 
-const dragAndDrop = async (source: HTMLElement, destination: HTMLElement, moveItBy: number = 5) => {
+const drag = async (source: HTMLElement, destination: HTMLElement, moveItBy: number = 5) => {
 	fireEvent.dragStart(source, getDefaultInput({ clientX: 5 }));
 	act(() => {
 		// ticking forward an animation frame will complete the lift
@@ -123,10 +123,18 @@ const dragAndDrop = async (source: HTMLElement, destination: HTMLElement, moveIt
 		// @ts-ignore
 		requestAnimationFrame.step();
 	});
+};
+
+const drop = async (destination: HTMLElement) => {
 	fireEvent.drop(destination);
 	// dragEnd is important to be called if there are tooltips involved in any tests
 	// tooltip watches dragstart event and stops appearing until dragend is called
 	fireEvent.dragEnd(destination);
+};
+
+const dragAndDrop = async (source: HTMLElement, destination: HTMLElement, moveItBy: number = 5) => {
+	await drag(source, destination, moveItBy);
+	await drop(destination);
 };
 
 describe('IssueLikeDataTableView', () => {
@@ -1035,16 +1043,19 @@ describe('IssueLikeDataTableView', () => {
 										data: 'TASK-1',
 									},
 									emoji: { data: ':D' },
+									summary: { data: 'some summary' },
 								},
 								{
 									id: { data: `id2` },
 									task: { data: 'TASK-2' },
 									emoji: { data: ':)' },
+									summary: { data: 'some summary' },
 								},
 								{
 									id: { data: `id3` },
 									task: { data: 'TASK-3' },
 									emoji: { data: ':(' },
+									summary: { data: 'some summary' },
 								},
 							];
 							const itemIds = setupItemIds(items);
@@ -1062,6 +1073,11 @@ describe('IssueLikeDataTableView', () => {
 								{
 									key: 'emoji',
 									title: 'emoji',
+									type: 'string',
+								},
+								{
+									key: 'summary',
+									title: 'summary',
 									type: 'string',
 								},
 							];
@@ -1174,28 +1190,38 @@ describe('IssueLikeDataTableView', () => {
 							expect(onColumnResize).toHaveBeenCalledWith('task', 205);
 						});
 
-						it('should not allow column width smaller then COLUMN_MIN_WIDTH when resized', async () => {
-							const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
+						it.each<[string, number]>([
+							['task', 32],
+							['summary', 208],
+						])(
+							'should not allow column "%s" width smaller then %d when resized',
+							async (key, expectedMinWidth) => {
+								const { columns, items, itemIds } = makeDragAndDropTableProps();
 
-							mockCellBoundingRect({ cellWidth: 200 });
+								mockCellBoundingRect({ cellWidth: 400 });
 
-							const { onColumnResize, getByTestId } = setup({
-								items,
-								itemIds,
-								columns,
-								visibleColumnKeys,
-								columnCustomSizes: { id: 100, task: 200, emoji: 300 },
-								hasNextPage: false,
-							});
+								const { onColumnResize, getByTestId } = setup({
+									items,
+									itemIds,
+									columns,
+									visibleColumnKeys: ['id', 'summary', 'task', 'emoji'],
+									columnCustomSizes: { id: 100, task: 200, summary: 300, emoji: 300 },
+									hasNextPage: false,
+								});
 
-							const dragHandle = await findByTestId(
-								getByTestId('task-column-heading'),
-								'column-resize-handle',
-							);
-							await dragAndDrop(dragHandle, dragHandle, -195);
+								const dragHandle = await findByTestId(
+									getByTestId(`${key}-column-heading`),
+									'column-resize-handle',
+								);
+								await drag(dragHandle, dragHandle, -395);
+								expect(getByTestId(`${key}-column-heading`)).toHaveStyle({
+									width: `${expectedMinWidth}px`,
+								});
+								await drop(dragHandle);
 
-							expect(onColumnResize).toHaveBeenCalledWith('task', COLUMN_MIN_WIDTH);
-						});
+								expect(onColumnResize).toHaveBeenCalledWith(key, getColumnMinWidth(key));
+							},
+						);
 
 						describe('when container is wider then sum of all column widths, last column', () => {
 							it('should not have resize handle', () => {
@@ -1373,8 +1399,8 @@ describe('IssueLikeDataTableView', () => {
 							expect(dropTarget).toBeDefined();
 
 							await dragAndDrop(dragHandle, dropTarget);
-							expect(onVisibleColumnKeysChange).toBeCalledTimes(1);
-							expect(onVisibleColumnKeysChange).toBeCalledWith(['task', 'id', 'emoji']);
+							expect(onVisibleColumnKeysChange).toHaveBeenCalledTimes(1);
+							expect(onVisibleColumnKeysChange).toHaveBeenCalledWith(['task', 'id', 'emoji']);
 						});
 
 						it('should have correct order of columns inside picker', async () => {
@@ -1402,7 +1428,7 @@ describe('IssueLikeDataTableView', () => {
 							const pickerOptionTitles = Array.from(allOptions).map(
 								(el) => (el as HTMLElement).innerText,
 							);
-							expect(pickerOptionTitles).toEqual(['task', 'id', 'emoji']);
+							expect(pickerOptionTitles).toEqual(['task', 'id', 'emoji', 'summary']);
 						});
 
 						it('should not be able to drag and drop between tables', async () => {

@@ -15,6 +15,7 @@ import {
 	layoutSection,
 	li,
 	media,
+	mediaGroup,
 	mediaInline,
 	mediaSingle,
 	mention,
@@ -502,6 +503,62 @@ describe('SlackTransformer: serializer', () => {
 					doc(blockquote(ul(li(p('list item 1')), li(p('list item 2')))))(defaultSchema),
 				),
 			).toEqual('> • list item 1\n> • list item 2\n> \n');
+		});
+
+		it('should serialize a codeblock inside a blockquote', () => {
+			expect(
+				markdownSerializer.serialize(
+					doc(
+						blockquote(
+							code_block({ language: 'esperanto' })('Mia kusenveturilo estas plena je angiloj'),
+						),
+					)(defaultSchema),
+				),
+			).toEqual('> ```\n> Mia kusenveturilo estas plena je angiloj\n> ```');
+		});
+
+		it('should serialize a media single inside a blockquote', () => {
+			expect(
+				markdownSerializer.serialize(
+					doc(
+						blockquote(
+							mediaSingle({
+								layout: 'center',
+								width: 354,
+								widthType: 'pixel',
+							})(
+								media({
+									width: 1024,
+									alt: '6b6a0fdc-3aba-41e5-9ccb-dade3165804a.png',
+									id: '397edf6e-2d0f-4d78-a855-4158fcc594e7',
+									collection: 'contentId-4113639891',
+									type: 'file',
+									height: 1024,
+								})(),
+								caption('Caption on media in quote'),
+							),
+						),
+					)(defaultSchema),
+				),
+			).toEqual('> [media attached]\n> \n> Caption on media in quote\n>\n> \n');
+		});
+
+		it('should serialize a media group inside a blockquote', () => {
+			expect(
+				markdownSerializer.serialize(
+					doc(
+						blockquote(
+							mediaGroup(
+								media({
+									id: 'a9dfeb96-18aa-4eca-8c95-c7c19be33650',
+									collection: 'contentId-4113639891',
+									type: 'file',
+								})(),
+							),
+						),
+					)(defaultSchema),
+				),
+			).toEqual('> [media attached]\n');
 		});
 	});
 

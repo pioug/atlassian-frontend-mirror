@@ -46,6 +46,9 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
+			"path": "../../uip/atlassian-context/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{

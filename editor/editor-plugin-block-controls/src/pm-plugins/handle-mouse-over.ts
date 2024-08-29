@@ -33,7 +33,7 @@ export const handleMouseOver = (
 			return false;
 		}
 
-		const pos = view.posAtDOM(rootElement, 0, 0);
+		const pos = view.posAtDOM(rootElement, 0, -1);
 
 		let rootPos;
 		if (fg('platform_editor_elements_dnd_nested')) {

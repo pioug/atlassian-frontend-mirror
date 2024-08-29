@@ -9,13 +9,7 @@ import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 
 import { ComposableEditor } from '../../composable-editor';
 
-const allAppearances: EditorAppearance[] = [
-	'comment',
-	'chromeless',
-	'mobile',
-	'full-page',
-	'full-width',
-];
+const allAppearances: EditorAppearance[] = ['comment', 'chromeless', 'full-page', 'full-width'];
 
 describe('ComposableEditor', () => {
 	describe('renders plugin hooks on all appearances', () => {

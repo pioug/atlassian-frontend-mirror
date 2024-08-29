@@ -2,13 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+import React, { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import { type ExtractPresetAPI } from '@atlaskit/editor-common/preset';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import { type createUniversalPresetInternal } from '@atlaskit/editor-core/preset-universal';
+import { type ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 import { N10, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -17,13 +19,10 @@ import breakoutAdf from '../example-helpers/templates/breakout.adf.json';
 import decisionAdf from '../example-helpers/templates/decision.adf.json';
 import type { EditorActions } from '../src';
 import { ContextPanel } from '../src';
-import { usePresetContext } from '../src/presets/context';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
 import { ExampleEditor, LOCALSTORAGE_defaultDocKey } from './5-full-page';
-
-type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 
 const isEmptyDoc = (adf: any) => (adf ? adf.content.length === 0 : true);
 
@@ -111,6 +110,7 @@ type TemplatePanelState = {
 type TemplatePanelProps = {
 	actions: EditorActions;
 	defaultValue: string | undefined;
+	editorAPI: PublicPluginAPI<ContextPanelPlugin> | undefined;
 };
 
 class TemplatePanel extends React.Component<TemplatePanelProps, TemplatePanelState> {
@@ -173,7 +173,7 @@ class TemplatePanel extends React.Component<TemplatePanelProps, TemplatePanelSta
 
 	render() {
 		return (
-			<ContextPanel visible={this.state.panelVisible}>
+			<ContextPanel visible={this.state.panelVisible} editorAPI={this.props.editorAPI}>
 				<div>
 					{templates.map((tmpl, idx) => (
 						<div css={templateCard} key={idx} onClick={() => this.selectTemplate(tmpl)}>
@@ -187,6 +187,8 @@ class TemplatePanel extends React.Component<TemplatePanelProps, TemplatePanelSta
 	}
 }
 
+type EditorAPI = ExtractPresetAPI<ReturnType<typeof createUniversalPresetInternal>> | undefined;
+
 const EditorWithSidebar = () => {
 	const sidebar = React.createRef<TemplatePanel>();
 	// wire this up via ref so that we don't re-render the whole
@@ -197,7 +199,8 @@ const EditorWithSidebar = () => {
 		}
 	}, [sidebar]);
 
-	const editorApi = usePresetContext<StackPlugins>();
+	const [editorAPI, setEditorAPI] = useState<EditorAPI | undefined>();
+
 	const defaultValue =
 		(localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) || undefined;
 	const editorProps = React.useMemo(() => {
@@ -205,7 +208,7 @@ const EditorWithSidebar = () => {
 			onChange,
 			defaultValue,
 			extensionProviders: (editorActions: EditorActions | undefined) => [
-				getExampleExtensionProviders(editorApi, editorActions),
+				getExampleExtensionProviders(editorAPI, editorActions),
 			],
 			allowExtension: {},
 			contextPanel: (
@@ -215,14 +218,15 @@ const EditorWithSidebar = () => {
 							actions={actions}
 							defaultValue={defaultValue ? JSON.parse(defaultValue) : null}
 							ref={sidebar}
+							editorAPI={editorAPI}
 						/>
 					)}
 				/>
 			),
 		};
-	}, [sidebar, defaultValue, onChange, editorApi]);
+	}, [sidebar, defaultValue, onChange, editorAPI]);
 
-	return <ExampleEditor editorProps={editorProps} />;
+	return <ExampleEditor editorProps={editorProps} setEditorApi={setEditorAPI} />;
 };
 
 export default function Example() {

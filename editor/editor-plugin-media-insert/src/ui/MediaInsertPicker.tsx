@@ -63,6 +63,8 @@ export const MediaInsertPicker = ({
 	popupsBoundariesElement,
 	popupsScrollableElement,
 	closeMediaInsertPicker,
+	insertMediaSingle,
+	insertExternalMediaSingle,
 }: MediaInsertPickerProps) => {
 	const targetRef = getDomRefFromSelection(editorView, dispatchAnalyticsEvent);
 
@@ -116,6 +118,8 @@ export const MediaInsertPicker = ({
 						closeMediaInsertPicker();
 						focusEditor();
 					}}
+					insertMediaSingle={insertMediaSingle}
+					insertExternalMediaSingle={insertExternalMediaSingle}
 				/>
 			</MediaInsertWrapper>
 		</PopupWithListeners>

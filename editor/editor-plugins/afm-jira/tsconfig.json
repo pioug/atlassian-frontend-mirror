@@ -36,6 +36,9 @@
       "path": "../../editor-plugin-base/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../editor-plugin-batch-attribute-updates/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../editor-plugin-before-primary-toolbar/afm-jira/tsconfig.json"
     },
     {

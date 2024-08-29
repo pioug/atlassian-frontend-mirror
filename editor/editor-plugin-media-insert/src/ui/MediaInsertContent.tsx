@@ -8,18 +8,26 @@ import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { Box } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 
+import { type InsertExternalMediaSingle, type InsertMediaSingle } from '../types';
+
 import { LocalMedia } from './LocalMedia';
 import { MediaFromURL } from './MediaFromURL';
+
+type Props = {
+	mediaProvider: MediaProvider;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	closeMediaInsertPicker: () => void;
+	insertMediaSingle: InsertMediaSingle;
+	insertExternalMediaSingle: InsertExternalMediaSingle;
+};
 
 export const MediaInsertContent = ({
 	mediaProvider,
 	dispatchAnalyticsEvent,
 	closeMediaInsertPicker,
-}: {
-	mediaProvider: MediaProvider;
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	closeMediaInsertPicker: () => void;
-}) => {
+	insertMediaSingle,
+	insertExternalMediaSingle,
+}: Props) => {
 	const intl = useIntl();
 
 	return (
@@ -33,7 +41,7 @@ export const MediaInsertContent = ({
 			<TabPanel>
 				<LocalMedia
 					mediaProvider={mediaProvider}
-					onInsert={() => {}}
+					onInsert={insertMediaSingle}
 					onClose={closeMediaInsertPicker}
 					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 				/>
@@ -41,10 +49,10 @@ export const MediaInsertContent = ({
 			<TabPanel>
 				<MediaFromURL
 					mediaProvider={mediaProvider}
-					onExternalInsert={() => {}}
-					onInsert={() => {}}
 					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 					closeMediaInsertPicker={closeMediaInsertPicker}
+					insertMediaSingle={insertMediaSingle}
+					insertExternalMediaSingle={insertExternalMediaSingle}
 				/>
 			</TabPanel>
 		</Tabs>

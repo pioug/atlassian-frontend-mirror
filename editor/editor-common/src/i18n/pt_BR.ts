@@ -203,6 +203,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': 'Excluir elemento',
   'fabric.editor.extension.sourceNoTitledName': 'este elemento',
   'fabric.editor.extensions.config-panel.save-indicator': 'Todas as alterações são salvas automaticamente',
+  'fabric.editor.externalMediaFile': 'Arquivo de mídia externo',
   'fabric.editor.failed_to_upload': 'Falha ao carregar',
   'fabric.editor.feedbackDialog': 'Enviar feedback',
   'fabric.editor.feedbackDialog.description': 'Conte-nos sobre sua experiência com o novo editor',
@@ -316,6 +317,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, one {Largura da mídia aumentada para {newMediaWidth,number} pixel.} other {Largura da mídia aumentada para {newMediaWidth,number} pixels.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Mídia diminuída para o tamanho máximo',
+  'fabric.editor.media.insert.cancel': 'Cancelar',
+  'fabric.editor.media.insert.errorMessage':
+    'Não foi possível adicionar o link desta imagem. Faça download dela, então arraste e solte a imagem na página.',
+  'fabric.editor.media.insert.insert': 'Inserir',
+  'fabric.editor.media.insert.linkTabTitle': 'Link',
+  'fabric.editor.media.insert.loadPreview': 'Carregar pré-visualização',
+  'fabric.editor.media.insert.mediaAlt': 'Pré-visualização do arquivo de imagem ou vídeo enviado',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Seletor de mídia',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'Cole o link para fazer upload',
+  'fabric.editor.media.insert.warning':
+    'Talvez esta imagem não fique visível para outras pessoas devido a restrições da fonte. Faça upload do arquivo.',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Mídia aumentada para o tamanho máximo',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'entrada de altura',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Altura',

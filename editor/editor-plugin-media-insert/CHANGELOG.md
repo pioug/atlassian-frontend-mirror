@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.3.0
+
+### Minor Changes
+
+- [#134882](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134882)
+  [`ba204702f8e32`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba204702f8e32) -
+  [ux] [ED-24567] Insert media into the editor via the media insert picker
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

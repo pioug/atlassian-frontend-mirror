@@ -53,7 +53,7 @@ const mocksucceedMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'succeedMediaFi
 const mockfailMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'failMediaFileUfoExperience');
 const mockstartMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'startMediaFileUfoExperience');
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf';
 
@@ -90,8 +90,7 @@ describe('<MediaViewer />', () => {
 	});
 
 	describe('Opening Media Viewer', () => {
-		// TODO: Investigate why it fails in React 18 Builds - https://atlassian.slack.com/archives/C05J5GNHPLN/p1724200698234739
-		it.skip('should render local preview for pdf documents', async () => {
+		it('should render local preview for pdf documents', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithLocalPreview();
 			const { MockedMediaClientProvider, uploadItem } = createMockedMediaClientProvider({});
 			const fileAttributes = {
@@ -118,47 +117,47 @@ describe('<MediaViewer />', () => {
 					isEvalSupported: false,
 				}),
 			);
-
-			expect(analytics.fireAnalytics).toHaveBeenCalledWith(
-				expect.objectContaining({
-					action: 'commenced',
-					actionSubject: 'mediaFile',
-					attributes: {
-						fileAttributes: {
-							fileId: identifier.id,
+			await waitFor(() => {
+				expect(analytics.fireAnalytics).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'commenced',
+						actionSubject: 'mediaFile',
+						attributes: {
+							fileAttributes: {
+								fileId: identifier.id,
+							},
+							traceContext: { traceId: expect.any(String) },
 						},
-						traceContext: { traceId: expect.any(String) },
-					},
-					eventType: 'operational',
-				}),
-				expect.anything(),
-			);
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
-				expect.objectContaining({
-					action: 'loadSucceeded',
-					actionSubject: 'mediaFile',
-					attributes: {
+						eventType: 'operational',
+					}),
+					expect.anything(),
+				);
+				expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+					expect.objectContaining({
+						action: 'loadSucceeded',
+						actionSubject: 'mediaFile',
+						attributes: {
+							fileAttributes,
+							fileMediatype: fileAttributes.fileMediatype,
+							fileMimetype: fileAttributes.fileMimetype,
+							status: 'success',
+							traceContext: undefined,
+						},
+						eventType: 'operational',
+					}),
+					expect.anything(),
+				);
+				expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
+				expect(mocksucceedMediaFileUfoExperience).toHaveBeenCalledWith(
+					expect.objectContaining({
 						fileAttributes,
-						fileMediatype: fileAttributes.fileMediatype,
-						fileMimetype: fileAttributes.fileMimetype,
-						status: 'success',
-						traceContext: undefined,
-					},
-					eventType: 'operational',
-				}),
-				expect.anything(),
-			);
-			expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
-			expect(mocksucceedMediaFileUfoExperience).toHaveBeenCalledWith(
-				expect.objectContaining({
-					fileAttributes,
-					fileStateFlags: { wasStatusProcessing: false, wasStatusUploading: true },
-				}),
-			);
+						fileStateFlags: { wasStatusProcessing: false, wasStatusUploading: true },
+					}),
+				);
+			});
 		});
 
-		// TODO: Investigate why it fails in React 18 Builds - https://atlassian.slack.com/archives/C05J5GNHPLN/p1724200698234739
-		it.skip('should not render local preview for non-pdf docs', async () => {
+		it('should not render local preview for non-pdf docs', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingExcelWithLocalPreview();
 			const { MockedMediaClientProvider, uploadItem, processItem } =
 				createMockedMediaClientProvider({});
@@ -198,43 +197,44 @@ describe('<MediaViewer />', () => {
 					isEvalSupported: false,
 				}),
 			);
-
-			expect(analytics.fireAnalytics).toHaveBeenCalledWith(
-				expect.objectContaining({
-					action: 'commenced',
-					actionSubject: 'mediaFile',
-					attributes: {
-						fileAttributes: {
-							fileId: identifier.id,
+			await waitFor(() => {
+				expect(analytics.fireAnalytics).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'commenced',
+						actionSubject: 'mediaFile',
+						attributes: {
+							fileAttributes: {
+								fileId: identifier.id,
+							},
+							traceContext: { traceId: expect.any(String) },
 						},
-						traceContext: { traceId: expect.any(String) },
-					},
-					eventType: 'operational',
-				}),
-				expect.anything(),
-			);
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
-				expect.objectContaining({
-					action: 'loadSucceeded',
-					actionSubject: 'mediaFile',
-					attributes: {
+						eventType: 'operational',
+					}),
+					expect.anything(),
+				);
+				expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+					expect.objectContaining({
+						action: 'loadSucceeded',
+						actionSubject: 'mediaFile',
+						attributes: {
+							fileAttributes,
+							fileMediatype: fileAttributes.fileMediatype,
+							fileMimetype: fileAttributes.fileMimetype,
+							status: 'success',
+							traceContext: undefined,
+						},
+						eventType: 'operational',
+					}),
+					expect.anything(),
+				);
+				expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
+				expect(mocksucceedMediaFileUfoExperience).toHaveBeenCalledWith(
+					expect.objectContaining({
 						fileAttributes,
-						fileMediatype: fileAttributes.fileMediatype,
-						fileMimetype: fileAttributes.fileMimetype,
-						status: 'success',
-						traceContext: undefined,
-					},
-					eventType: 'operational',
-				}),
-				expect.anything(),
-			);
-			expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
-			expect(mocksucceedMediaFileUfoExperience).toHaveBeenCalledWith(
-				expect.objectContaining({
-					fileAttributes,
-					fileStateFlags: { wasStatusProcessing: true, wasStatusUploading: true },
-				}),
-			);
+						fileStateFlags: { wasStatusProcessing: true, wasStatusUploading: true },
+					}),
+				);
+			});
 		});
 	});
 

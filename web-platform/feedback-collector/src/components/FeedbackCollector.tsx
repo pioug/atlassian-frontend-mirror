@@ -380,10 +380,10 @@ export default class FeedbackCollector extends Component<Props> {
 	async mapFormToJSD(formValues: FormFields) {
 		let entitlementInformation: FieldType[] | [] | null = null;
 
-		if (this.props.shouldGetEntitlementDetails) {
+		if (this.props?.shouldGetEntitlementDetails) {
 			entitlementInformation = await this.getEntitlementInformation();
 		}
-		if (this.props.email) {
+		if (this.props?.email) {
 			this.addEmailToContext();
 		}
 

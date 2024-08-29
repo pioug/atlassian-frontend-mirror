@@ -20,9 +20,6 @@ import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-const transformer = new JSONTransformer();
-const toJSON = (node: PMNode) => transformer.encode(node);
-
 describe('MarkdownTransformer', () => {
 	const transformer = new MarkdownTransformer();
 
@@ -70,15 +67,11 @@ describe('MarkdownTransformer', () => {
 			);
 		});
 
-		it('should split blockquotes with images', () => {
+		it('should support images in blockquotes', () => {
 			const md = `> Hello ![my alt text](image.jpg) **World**`;
 
 			expect(transformer.parse(md)).toEqualDocument(
-				doc(
-					blockquote(p('Hello ')),
-					mediaNode({ alt: 'my alt text' }),
-					blockquote(p(' ', strong('World'))),
-				),
+				doc(blockquote(p('Hello '), mediaNode({ alt: 'my alt text' }), p(' ', strong('World')))),
 			);
 		});
 
@@ -180,76 +173,104 @@ ${CODE_FENCE}`;
 		});
 	});
 
-	describe('List within a blockquote', () => {
-		it('should nest an unordered list inside a blockquote', () => {
-			const md = `> - item 1\n> - item 2`;
-
-			expect(transformer.parse(md)).toEqualDocument(
-				doc(blockquote(ul(li(p('item 1')), li(p('item 2'))))),
-			);
+	describe('Blockquote', () => {
+		describe('List within a blockquote', () => {
+			it('should nest an unordered list inside a blockquote', () => {
+				const md = `> - item 1\n> - item 2`;
+				expect(transformer.parse(md)).toEqualDocument(
+					doc(blockquote(ul(li(p('item 1')), li(p('item 2'))))),
+				);
+			});
+			it('should support complex nested unordered list inside a blockquote', () => {
+				const md = `> * level 1\n>\n>     * level 1.1\n>     * level 1.2`;
+				expect(transformer.parse(md)).toEqualDocument(
+					doc(blockquote(ul(li(p('level 1'), ul(li(p('level 1.1')), li(p('level 1.2'))))))),
+				);
+			});
+			it('should support media inside an orderedlist within a quote', () => {
+				const md = `> * ![](image.jpg)`;
+				expect(transformer.parse(md)).toEqualDocument(doc(blockquote(ul(li(mediaNode())))));
+			});
+			it('should nest an ordered list inside a blockquote', () => {
+				const md = `> 0. item 1\n> 1. item 2`;
+				expect(transformer.parse(md)).toEqualDocument(
+					doc(blockquote(ol({ order: 0 })(li(p('item 1')), li(p('item 2'))))),
+				);
+			});
+			it('should support complex nested ordered list inside a blockquote', () => {
+				const md = `> 1. level 1\n>\n>     1. level 1.1\n>     2. level 1.2`;
+				expect(transformer.parse(md)).toEqualDocument(
+					doc(
+						blockquote(
+							ol({ order: 1 })(
+								li(p('level 1'), ol({ order: 1 })(li(p('level 1.1')), li(p('level 1.2')))),
+							),
+						),
+					),
+				);
+			});
+			it('should support custom ordered list inside a blockquote', () => {
+				const md = `> 6. One\n> 7. Two\n> 8. Three`;
+				expect(transformer.parse(md)).toEqualDocument(
+					doc(blockquote(ol({ order: 6 })(li(p('One')), li(p('Two')), li(p('Three'))))),
+				);
+			});
+			it('should support media inside an orderedlist within a blockquote', () => {
+				const md = `> 1. ![](image.jpg)`;
+				expect(transformer.parse(md)).toEqualDocument(
+					doc(blockquote(ol({ order: 1 })(li(mediaNode())))),
+				);
+			});
+			it('should support codeblock inside an orderedlist within a blockquote', () => {
+				const CODE_FENCE = '```';
+				const md = `> 1. ${CODE_FENCE}`;
+				expect(transformer.parse(md)).toEqualDocument(
+					doc(blockquote(ol({ order: 1 })(li(code_block()())))),
+				);
+			});
+			it('should support codeblock & media inside an orderedlist within a same blockquote', () => {
+				const CODE_FENCE = '```';
+				const md = `> 1. ${CODE_FENCE}\n> 2. ![](image.jpg)\n> 3. https://example.com`;
+				expect(transformer.parse(md)).toEqualDocument(
+					doc(
+						blockquote(
+							ol({ order: 1 })(li(code_block()()), li(mediaNode()), li(p('https://example.com'))),
+						),
+					),
+				);
+			});
 		});
-		it('should support complex nested unordered list inside a blockquote', () => {
-			const md = `> * level 1\n>\n>     * level 1.1\n>     * level 1.2`;
 
-			expect(transformer.parse(md)).toEqualDocument(
-				doc(blockquote(ul(li(p('level 1'), ul(li(p('level 1.1')), li(p('level 1.2'))))))),
-			);
-		});
-		it('should support media inside an orderedlist within a quote', () => {
-			const md = `> * ![](image.jpg)`;
-
-			expect(transformer.parse(md)).toEqualDocument(doc(blockquote(ul(li(mediaNode())))));
-		});
-		it('should nest an ordered list inside a blockquote', () => {
-			const md = `> 0. item 1\n> 1. item 2`;
-
-			expect(transformer.parse(md)).toEqualDocument(
-				doc(blockquote(ol({ order: 0 })(li(p('item 1')), li(p('item 2'))))),
-			);
-		});
-		it('should support complex nested ordered list inside a blockquote', () => {
-			const md = `> 1. level 1\n>\n>     1. level 1.1\n>     2. level 1.2`;
-
+		it('should parse a codeblock nested in a blockquote', () => {
+			const md = '> ```esperanto\n> Mia kusenveturilo estas plena je angiloj\n> ```';
 			expect(transformer.parse(md)).toEqualDocument(
 				doc(
 					blockquote(
-						ol({ order: 1 })(
-							li(p('level 1'), ol({ order: 1 })(li(p('level 1.1')), li(p('level 1.2')))),
-						),
+						code_block({ language: 'esperanto' })('Mia kusenveturilo estas plena je angiloj'),
 					),
 				),
 			);
 		});
-		it('should support custom ordered list inside a blockquote', () => {
-			const md = `> 6. One\n> 7. Two\n> 8. Three`;
 
-			expect(transformer.parse(md)).toEqualDocument(
-				doc(blockquote(ol({ order: 6 })(li(p('One')), li(p('Two')), li(p('Three'))))),
-			);
-		});
-		it('should support media inside an orderedlist within a blockquote', () => {
-			const md = `> 1. ![](image.jpg)`;
-
-			expect(transformer.parse(md)).toEqualDocument(
-				doc(blockquote(ol({ order: 1 })(li(mediaNode())))),
-			);
-		});
-		it('should support codeblock inside an orderedlist within a blockquote', () => {
-			const CODE_FENCE = '```';
-			const md = `> 1. ${CODE_FENCE}`;
-
-			expect(transformer.parse(md)).toEqualDocument(
-				doc(blockquote(ol({ order: 1 })(li(code_block()())))),
-			);
-		});
-		it('should support codeblock & media inside an orderedlist within a same blockquote', () => {
-			const CODE_FENCE = '```';
-			const md = `> 1. ${CODE_FENCE}\n> 2. ![](image.jpg)\n> 3. https://example.com`;
-
+		it('should parse a media single nested in a blockquote', () => {
+			const md = '> ![Some alt text](image.jpg)';
 			expect(transformer.parse(md)).toEqualDocument(
 				doc(
 					blockquote(
-						ol({ order: 1 })(li(code_block()()), li(mediaNode()), li(p('https://example.com'))),
+						mediaSingle()(media({ url: 'image.jpg', type: 'external', alt: 'Some alt text' })()),
+					),
+				),
+			);
+		});
+
+		// Media group isn't supported, parses as multiple media singles
+		it('should parse a media group nested in a blockquote', () => {
+			const md = '> ![This is image 1](image1.jpg)![This is image 2](image2.jpg)';
+			expect(transformer.parse(md)).toEqualDocument(
+				doc(
+					blockquote(
+						mediaSingle()(media({ url: 'image1.jpg', type: 'external', alt: 'This is image 1' })()),
+						mediaSingle()(media({ url: 'image2.jpg', type: 'external', alt: 'This is image 2' })()),
 					),
 				),
 			);
@@ -257,6 +278,9 @@ ${CODE_FENCE}`;
 	});
 
 	describe('Transforming', () => {
+		const transformer = new JSONTransformer();
+		const toJSON = (node: PMNode) => transformer.encode(node);
+
 		it('should create a standard empty adf for empty Markdown', () => {
 			const standardEmptyAdf: JSONDocNode = {
 				type: 'doc',

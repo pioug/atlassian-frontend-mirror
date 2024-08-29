@@ -206,6 +206,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': 'Element löschen',
   'fabric.editor.extension.sourceNoTitledName': 'dieses Element',
   'fabric.editor.extensions.config-panel.save-indicator': 'Alle Änderungen werden immer automatisch gespeichert.',
+  'fabric.editor.externalMediaFile': 'Externe Mediendatei',
   'fabric.editor.failed_to_upload': 'Upload fehlgeschlagen',
   'fabric.editor.feedbackDialog': 'Feedback geben',
   'fabric.editor.feedbackDialog.description': 'Teilen Sie uns Ihre Erfahrungen mit dem neuen Editor mit.',
@@ -318,6 +319,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, one {Die Medienbreite wurde auf {newMediaWidth,number} Pixel erhöht.} other {Die Medienbreite wurde auf {newMediaWidth,number} Pixel erhöht.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Medien auf Mindestgröße verringert',
+  'fabric.editor.media.insert.cancel': 'Abbrechen',
+  'fabric.editor.media.insert.errorMessage':
+    'Leider kann dieser Bildlink nicht hinzugefügt werden. Laden Sie das Bild herunter und ziehen Sie es anschließend per Drag-and-Drop auf die Seite.',
+  'fabric.editor.media.insert.insert': 'Einfügen',
+  'fabric.editor.media.insert.linkTabTitle': 'Link',
+  'fabric.editor.media.insert.loadPreview': 'Vorschau laden',
+  'fabric.editor.media.insert.mediaAlt': 'Vorschau für die hochgeladene Bild- oder Videodatei',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Medienauswahl',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'Link zum Hochladen einfügen',
+  'fabric.editor.media.insert.warning':
+    'Dieses Bild ist aufgrund von Quellenbeschränkungen möglicherweise nicht für andere sichtbar. Erwägen Sie stattdessen, die Datei hochzuladen.',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Medien auf maximale Größe erhöht',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'Eingabe der Höhe',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Höhe',

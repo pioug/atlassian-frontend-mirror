@@ -58,7 +58,6 @@ import {
 	fireScreenEvent,
 } from './cardAnalytics';
 import { CardView } from './cardView';
-import { CardViews } from './cardviews';
 import { InlinePlayerLazy } from './inlinePlayerLazy';
 import { useFilePreview, type MediaFilePreview } from '@atlaskit/media-file-preview';
 import { type CardAction } from './actions';
@@ -113,10 +112,6 @@ export interface FileCardProps extends CardEventProps {
 	/** Disable tooltip for the card */
 	readonly shouldHideTooltip?: boolean;
 }
-
-const LoadedCardView = fg('platform.media-experience.card-views-refactor_b91lr')
-	? CardViews
-	: CardView;
 
 export const FileCard = ({
 	appearance = 'auto',
@@ -749,7 +744,7 @@ export const FileCard = ({
 		const forceSyncDisplay = !!ssr;
 
 		const card = (
-			<LoadedCardView
+			<CardView
 				status={cardStatusOverride || finalStatus}
 				error={finalError}
 				mediaItemType={mediaItemType}

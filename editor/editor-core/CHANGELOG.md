@@ -1,5 +1,58 @@
 # @atlaskit/editor-core
 
+## 196.1.0
+
+### Minor Changes
+
+- [`c4d2eb3f9f965`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c4d2eb3f9f965) -
+  [ux] Fix issue with card provider not updating asynchronously
+
+### Patch Changes
+
+- [`84c0869e8c5c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84c0869e8c5c6) -
+  remove unused cardview refactor FF and components
+- Updated dependencies
+
+## 196.0.0
+
+### Major Changes
+
+- [#133449](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133449)
+  [`e71e7162cf5c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e71e7162cf5c2) -
+  [ux] Add new parameter for ContextPanel component: "editorAPI". This only affects
+  `full-page`/`full-width` appearance
+
+  WHAT? `ContextPanel` previously used a deprecated method `WithPluginState` to listen to plugin
+  changes.
+
+  The behaviour now uses the new `editorAPI` to listen to plugin updates and display the UI
+  accordingly.
+
+  WHY? The old approach is deprecated and no longer supported.
+
+  HOW? Generally this only affects consumers using `full-page`/`full-width` appearances. If you are
+  not using the `contextPanel` prop as well, this does not apply.
+
+  Currently you can pass a `contextPanel` to the editor to override the default. If you are doing
+  this you will now need to pass the `editorAPI` (or `undefined` if you are not using the
+  `extensionPlugin` with your context panel)
+
+  Example:
+
+  ```tsx
+  function Editor() {
+    const { preset, editorApi } = usePreset(...);
+
+    return (
+      <ComposableEditor
+        preset={preset}
+        contextPanel={<ContextPanel editorAPI={editorApi} visible={...} />}
+      />
+    );
+  }
+
+  ```
+
 ## 195.9.1
 
 ### Patch Changes

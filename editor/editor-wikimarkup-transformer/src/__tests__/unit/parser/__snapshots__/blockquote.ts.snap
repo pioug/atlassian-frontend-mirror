@@ -24,3 +24,293 @@ exports[`JIRA wiki markup - blockquote [CS-607] should not need a whitespace 1`]
   "type": "doc",
 }
 `;
+
+exports[`JIRA wiki markup - blockquote Blockquote 1`] = `
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
+            "localId": null,
+          },
+          "content": [
+            {
+              "text": "This is a great quote!",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "blockquote",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - blockquote Blockquote macro with nested codeblock 1`] = `
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
+            "language": "javascript",
+            "uniqueId": null,
+          },
+          "content": [
+            {
+              "text": "pls don't put code in quotes",
+              "type": "text",
+            },
+          ],
+          "type": "codeBlock",
+        },
+      ],
+      "type": "blockquote",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - blockquote Blockquote macro with nested mediaGroup 1`] = `
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
+                "__contextId": null,
+                "__displayType": null,
+                "__external": false,
+                "__fileMimeType": null,
+                "__fileName": null,
+                "__fileSize": null,
+                "__mediaTraceId": null,
+                "alt": "",
+                "collection": "",
+                "height": null,
+                "id": "file1.txt",
+                "occurrenceKey": null,
+                "type": "file",
+                "url": null,
+                "width": null,
+              },
+              "type": "media",
+            },
+            {
+              "attrs": {
+                "__contextId": null,
+                "__displayType": null,
+                "__external": false,
+                "__fileMimeType": null,
+                "__fileName": null,
+                "__fileSize": null,
+                "__mediaTraceId": null,
+                "alt": "",
+                "collection": "",
+                "height": null,
+                "id": "file2.txt",
+                "occurrenceKey": null,
+                "type": "file",
+                "url": null,
+                "width": null,
+              },
+              "type": "media",
+            },
+          ],
+          "type": "mediaGroup",
+        },
+      ],
+      "type": "blockquote",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - blockquote Blockquote macro with nested mediaSingle 1`] = `
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
+            "layout": "center",
+            "width": null,
+            "widthType": null,
+          },
+          "content": [
+            {
+              "attrs": {
+                "__contextId": null,
+                "__displayType": null,
+                "__external": false,
+                "__fileMimeType": null,
+                "__fileName": null,
+                "__fileSize": null,
+                "__mediaTraceId": null,
+                "alt": "Hello world",
+                "collection": "",
+                "height": 183,
+                "id": "abc-1",
+                "occurrenceKey": null,
+                "type": "file",
+                "url": null,
+                "width": 200,
+              },
+              "type": "media",
+            },
+          ],
+          "type": "mediaSingle",
+        },
+      ],
+      "type": "blockquote",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - blockquote Blockquote with nested codeblock 1`] = `
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
+            "language": "javascript",
+            "uniqueId": null,
+          },
+          "content": [
+            {
+              "text": "pls don't put code in quotes",
+              "type": "text",
+            },
+          ],
+          "type": "codeBlock",
+        },
+      ],
+      "type": "blockquote",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - blockquote Blockquote with nested mediaGroup 1`] = `
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
+                "__contextId": null,
+                "__displayType": null,
+                "__external": false,
+                "__fileMimeType": null,
+                "__fileName": null,
+                "__fileSize": null,
+                "__mediaTraceId": null,
+                "alt": "",
+                "collection": "",
+                "height": null,
+                "id": "file1.txt",
+                "occurrenceKey": null,
+                "type": "file",
+                "url": null,
+                "width": null,
+              },
+              "type": "media",
+            },
+            {
+              "attrs": {
+                "__contextId": null,
+                "__displayType": null,
+                "__external": false,
+                "__fileMimeType": null,
+                "__fileName": null,
+                "__fileSize": null,
+                "__mediaTraceId": null,
+                "alt": "",
+                "collection": "",
+                "height": null,
+                "id": "file2.txt",
+                "occurrenceKey": null,
+                "type": "file",
+                "url": null,
+                "width": null,
+              },
+              "type": "media",
+            },
+          ],
+          "type": "mediaGroup",
+        },
+      ],
+      "type": "blockquote",
+    },
+    {
+      "content": [
+        {
+          "attrs": {
+            "localId": null,
+          },
+          "type": "paragraph",
+        },
+      ],
+      "type": "blockquote",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - blockquote Blockquote with nested mediaSingle 1`] = `
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
+            "layout": "center",
+            "width": null,
+            "widthType": null,
+          },
+          "content": [
+            {
+              "attrs": {
+                "__contextId": null,
+                "__displayType": null,
+                "__external": false,
+                "__fileMimeType": null,
+                "__fileName": null,
+                "__fileSize": null,
+                "__mediaTraceId": null,
+                "alt": "Hello world",
+                "collection": "",
+                "height": 183,
+                "id": "abc-1",
+                "occurrenceKey": null,
+                "type": "file",
+                "url": null,
+                "width": 200,
+              },
+              "type": "media",
+            },
+          ],
+          "type": "mediaSingle",
+        },
+      ],
+      "type": "blockquote",
+    },
+  ],
+  "type": "doc",
+}
+`;

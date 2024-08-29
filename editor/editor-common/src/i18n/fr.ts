@@ -36,7 +36,7 @@ export default {
   'fabric.editor.backLink': 'Retour',
   'fabric.editor.backgroundColor': "Couleur d'arrière-plan",
   'fabric.editor.blockCardUnavailable': 'Le lien contextuel est dans {node} et sa vue ne peut être modifiée',
-  'fabric.editor.blockControlDragHandleUsageInfo': 'Faites glisser pour déplacer',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Faire glisser pour déplacer',
   'fabric.editor.blockControlMoveDown': 'Déplacer vers le bas',
   'fabric.editor.blockControlMoveUp': 'Déplacer vers le haut',
   'fabric.editor.blockControlMovedDown': 'Le contenu a été déplacé vers le bas',
@@ -206,6 +206,7 @@ export default {
   'fabric.editor.extension.sourceNoTitledName': 'cet élément',
   'fabric.editor.extensions.config-panel.save-indicator':
     'Tous les changements sont toujours enregistrés automatiquement',
+  'fabric.editor.externalMediaFile': 'Fichier multimédia externe',
   'fabric.editor.failed_to_upload': 'Échec du chargement',
   'fabric.editor.feedbackDialog': 'Donner votre avis',
   'fabric.editor.feedbackDialog.description': 'Dites-nous ce que vous pensez du nouvel éditeur',
@@ -319,6 +320,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, one {La largeur du média a été augmentée à {newMediaWidth,number} pixel.} other {La largeur du média a été augmentée à {newMediaWidth,number} pixels.}}',
   'fabric.editor.media.MediaWidthIsMin': 'La taille des médias a été réduite au minimum',
+  'fabric.editor.media.insert.cancel': 'Annuler',
+  'fabric.editor.media.insert.errorMessage':
+    "Malheureusement, nous ne pouvons pas ajouter le lien vers cette image. Téléchargez l'image, puis faites-la glisser sur la page.",
+  'fabric.editor.media.insert.insert': 'Insérer',
+  'fabric.editor.media.insert.linkTabTitle': 'Lien',
+  'fabric.editor.media.insert.loadPreview': "Charger l'aperçu",
+  'fabric.editor.media.insert.mediaAlt': 'Aperçu du fichier image ou vidéo importé',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Sélecteur de contenu multimédia',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'Coller un lien pour importer',
+  'fabric.editor.media.insert.warning':
+    "Cette image n'est peut-être pas visible pour les autres en raison de restrictions source. Envisagez plutôt d'importer le fichier.",
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'La taille des médias a été augmentée au maximum',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'saisie de la hauteur',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Hauteur',

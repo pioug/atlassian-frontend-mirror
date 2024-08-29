@@ -135,7 +135,7 @@ export const getTableScalingPercent = (
 		: MAX_SCALING_PERCENT;
 
 	const tableWidth = getTableContainerElementWidth(table);
-	let renderWidth = tableRef?.parentElement?.clientWidth || tableWidth;
+	const renderWidth = tableRef?.parentElement?.clientWidth || tableWidth;
 	// minus 1 here to avoid any 1px scroll in Firefox
 	let scalePercent = (renderWidth - 1) / tableWidth;
 	scalePercent = Math.max(scalePercent, 1 - maxScalingPercent);

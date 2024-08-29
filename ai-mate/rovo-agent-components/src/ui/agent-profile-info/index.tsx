@@ -56,6 +56,10 @@ export const AgentProfileCreator = ({
 		| {
 				type: 'THIRD_PARTY';
 				name: string;
+		  }
+		| {
+				type: 'FORGE';
+				name: string;
 		  };
 	isLoading: boolean;
 	onCreatorLinkClick: () => void;

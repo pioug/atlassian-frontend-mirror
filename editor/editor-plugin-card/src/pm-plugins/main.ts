@@ -198,8 +198,10 @@ export const createPlugin =
 				const domAtPos = view.domAtPos.bind(view);
 				const rafCancellationCallbacks: Function[] = [];
 
-				if (options.provider && fg('platform_editor_get_card_provider_from_config')) {
-					handleProvider('cardProvider', options.provider, view);
+				if (fg('platform_editor_get_card_provider_from_config')) {
+					if (options.provider) {
+						handleProvider('cardProvider', options.provider, view);
+					}
 				} else {
 					pmPluginFactoryParams.providerFactory.subscribe('cardProvider', subscriptionHandler);
 				}

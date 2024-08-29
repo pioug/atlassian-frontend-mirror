@@ -2,6 +2,9 @@ jest.mock('@atlaskit/editor-plugins/card', () => {
 	return {
 		cardPlugin: jest.fn().mockReturnValue({
 			name: 'card',
+			actions: {
+				setProvider: jest.fn(),
+			},
 			commands: {
 				showLinkToolbar: jest.fn(),
 			},

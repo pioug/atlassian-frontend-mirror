@@ -82,6 +82,7 @@ export interface CopyFileOptions {
 
 export type ExternalUploadPayload = {
 	uploadableFileUpfrontIds: UploadableFileUpfrontIds;
+	mimeType: string;
 	dimensions: Dimensions;
 };
 
@@ -376,6 +377,7 @@ export class FileFetcherImpl implements FileFetcher {
 
 			resolve({
 				dimensions,
+				mimeType: type,
 				uploadableFileUpfrontIds,
 			});
 		});

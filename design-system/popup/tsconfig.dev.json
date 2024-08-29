@@ -57,7 +57,13 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../dropdown-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../form/tsconfig.app.json"
 		},
 		{
 			"path": "../heading/tsconfig.app.json"

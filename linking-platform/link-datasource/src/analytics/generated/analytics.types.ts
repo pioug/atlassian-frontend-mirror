@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::26fd2d06084d185e97be01b2070484ff>>
+ * @codegen <<SignedSource::a773c6cad8ff2e59bb7020ea85e35bc5>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type ComponentMetaDataType = {
@@ -168,6 +168,10 @@ export type ObjectSchemasSuccessAttributesType = {};
 export type ObjectSchemasFailedAttributesType = {
 	statusCodeGroup: '1xx' | '3xx' | '4xx' | '5xx' | 'unknown';
 };
+export type ActionExecutionSuccessAttributesType = {
+	integrationKey: string;
+	experience: 'datasource';
+};
 export type ActionDiscoverySuccessAttributesType = {
 	experience: 'datasource';
 	entityType: string;
@@ -284,6 +288,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * Fired when fetching object schemas fails. */
 	'operational.objectSchemas.failed': ObjectSchemasFailedAttributesType;
+	/**
+	 * Fired when an atomic action execution is successful */
+	'operational.actionExecution.success': ActionExecutionSuccessAttributesType;
 	/**
 	 * Fired when the action discovery and permissions request is successful. */
 	'operational.actionDiscovery.success': ActionDiscoverySuccessAttributesType;

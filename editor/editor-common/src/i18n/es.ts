@@ -204,6 +204,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': 'Eliminar elemento',
   'fabric.editor.extension.sourceNoTitledName': 'este elemento',
   'fabric.editor.extensions.config-panel.save-indicator': 'Todos los cambios se guardan siempre automáticamente',
+  'fabric.editor.externalMediaFile': 'Archivo multimedia externo',
   'fabric.editor.failed_to_upload': 'Error al cargar',
   'fabric.editor.feedbackDialog': 'Enviar comentarios',
   'fabric.editor.feedbackDialog.description': 'Cuéntanos tu experiencia con el editor nuevo',
@@ -321,8 +322,10 @@ export default {
   'fabric.editor.media.insert.errorMessage':
     'Lamentablemente, no se puede añadir este enlace a la imagen. Descarga la imagen y, a continuación, arrástrala y suéltala en la página.',
   'fabric.editor.media.insert.insert': 'Insertar',
+  'fabric.editor.media.insert.linkTabTitle': 'Enlace',
   'fabric.editor.media.insert.loadPreview': 'Cargar vista previa',
   'fabric.editor.media.insert.mediaAlt': 'Vista previa del archivo de imagen o vídeo subido',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Selector de archivos multimedia',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Pegar enlace para subirlo',
   'fabric.editor.media.insert.warning':
     'Puede que esta imagen no esté visible para otras personas debido a restricciones de origen. Considera subir el archivo en su lugar.',

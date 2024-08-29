@@ -172,6 +172,7 @@ export enum INPUT_METHOD {
 	FORMATTING = 'autoformatting',
 	INSERT_MENU = 'insertMenu',
 	KEYBOARD = 'keyboard',
+	MEDIA_PICKER = 'mediaPicker',
 	MACRO_BROWSER = 'macroBrowser',
 	MANUAL = 'manual',
 	PICKER = 'picker',

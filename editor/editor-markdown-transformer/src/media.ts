@@ -16,7 +16,7 @@ export interface MdState {
 
 function createRule() {
 	const regx = /!\[([^\]]*)\]\(([^)]*?)\s*(?:"([^")]*)"\s*)?\)/g;
-	const validParentTokens = ['th_open', 'td_open', 'list_item_open'];
+	const validParentTokens = ['th_open', 'td_open', 'list_item_open', 'blockquote_open'];
 
 	/**
 	 * This function looks for strings that matches ![description](url) inside Inline-tokens.

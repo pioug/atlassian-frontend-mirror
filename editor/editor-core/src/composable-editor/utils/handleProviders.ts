@@ -4,6 +4,7 @@ import type {
 	Providers,
 	QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  *
@@ -46,7 +47,7 @@ export default function handleProviders(
 	providerFactory.setProvider('presenceProvider', presenceProvider);
 	providerFactory.setProvider('macroProvider', macroProvider);
 
-	if (cardProvider) {
+	if (!fg('platform_editor_card_provider_from_plugin_config')) {
 		providerFactory.setProvider('cardProvider', cardProvider);
 	}
 

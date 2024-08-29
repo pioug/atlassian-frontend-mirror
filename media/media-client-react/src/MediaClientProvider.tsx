@@ -9,7 +9,7 @@ interface MediaClientProviderProp {
 	clientConfig: MediaClientConfig;
 }
 
-const mediaClientsMap = new Map<MediaClientConfig, MediaClient>();
+export const mediaClientsMap = new Map<MediaClientConfig, MediaClient>();
 
 export const getMediaClient = (mediaClientConfig: MediaClientConfig): MediaClient => {
 	// The Provider defines mediaClientConfig as required,

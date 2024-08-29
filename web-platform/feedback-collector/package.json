@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "13.7.0",
+	"version": "13.8.0",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,14 +34,15 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
-		"team": "Web Platform",
+		"team": "Web Platform: Feedback Collector",
 		"releaseModel": "continuous",
 		"productPushConsumption": [
 			"jira"
 		],
 		"website": {
 			"name": "Feedback Collector"
-		}
+		},
+		"runReact18": true
 	},
 	"config": {
 		"access": "public"
@@ -63,7 +64,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
@@ -72,7 +73,6 @@
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",
 		"buffer": "^6.0.3",
-		"enzyme": "^3.10.0",
 		"react-dom": "^16.8.0",
 		"typescript": "~5.4.2"
 	},

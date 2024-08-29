@@ -204,6 +204,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': 'Radera element',
   'fabric.editor.extension.sourceNoTitledName': 'detta element',
   'fabric.editor.extensions.config-panel.save-indicator': 'Alla ändringar sparas alltid automatiskt',
+  'fabric.editor.externalMediaFile': 'Extern mediefil',
   'fabric.editor.failed_to_upload': 'Uppladdning misslyckades',
   'fabric.editor.feedbackDialog': 'Ge feedback',
   'fabric.editor.feedbackDialog.description': 'Berätta för oss om din upplevelse av den nya redigeraren',
@@ -315,6 +316,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, one {Mediabredden har ökats till {newMediaWidth,number} pixel.} other {Mediabredden har ökats till {newMediaWidth,number} pixlar.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Media har minskats till minsta storlek',
+  'fabric.editor.media.insert.cancel': 'Avbryt',
+  'fabric.editor.media.insert.errorMessage':
+    'Vi kan tyvärr inte lägga till den här bildlänken. Ladda ner bilden och dra och släpp den på sidan.',
+  'fabric.editor.media.insert.insert': 'Infoga',
+  'fabric.editor.media.insert.linkTabTitle': 'Länk',
+  'fabric.editor.media.insert.loadPreview': 'Läs in förhandsgranskning',
+  'fabric.editor.media.insert.mediaAlt': 'Förhandsgranskning av uppladdad bild- eller videofil',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Medieväljare',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'Klistra in länk för att ladda upp',
+  'fabric.editor.media.insert.warning':
+    'Bilden kanske inte är synlig för andra på grund av källbegränsningar. Överväg att ladda upp filen istället.',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Media har ökats till maximal storlek',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'höjdingång',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Höjd',

@@ -20,8 +20,6 @@ import { token } from '@atlaskit/tokens';
 import { Table } from './table';
 import { recursivelyInjectProps } from '../../utils/inject-props';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
-import { isTableResizingEnabled } from '../table';
-
 export type StickyMode = 'none' | 'stick' | 'pin-bottom';
 
 export const tableStickyPadding = 8;
@@ -30,7 +28,7 @@ type FixedProps = React.PropsWithChildren<{
 	top?: number;
 	wrapperWidth: number;
 	mode: StickyMode;
-	rendererAppearance: RendererAppearance;
+	allowTableResizing?: boolean;
 }>;
 
 const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
@@ -49,10 +47,10 @@ const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
 const fixedTableDivStaticStyles = (
 	top: number | undefined,
 	width: number,
-	rendererAppearance: RendererAppearance,
+	allowTableResizing?: boolean,
 ) => {
 	let stickyHeaderZIndex: number;
-	if (isTableResizingEnabled(rendererAppearance)) {
+	if (allowTableResizing) {
 		stickyHeaderZIndex = 13;
 	} else {
 		stickyHeaderZIndex = akEditorStickyHeaderZIndex;
@@ -96,9 +94,9 @@ const fixedTableDivStaticStyles = (
 };
 
 const FixedTableDiv = (props: FixedProps) => {
-	const { top, wrapperWidth, mode, rendererAppearance } = props;
+	const { top, wrapperWidth, mode, allowTableResizing } = props;
 	const fixedTableCss = [
-		fixedTableDivStaticStyles(top, wrapperWidth, rendererAppearance),
+		fixedTableDivStaticStyles(top, wrapperWidth, allowTableResizing),
 		modeSpecficStyles?.[mode],
 	];
 
@@ -109,9 +107,7 @@ const FixedTableDiv = (props: FixedProps) => {
 			{...attrs}
 			data-testid="sticky-table-fixed"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={
-				isTableResizingEnabled(rendererAppearance) ? 'fixed-table-div-custom-table-resizing' : ''
-			}
+			className={allowTableResizing ? 'fixed-table-div-custom-table-resizing' : ''}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={fixedTableCss}
 		>
@@ -136,6 +132,7 @@ type StickyTableProps = {
 	renderWidth: number;
 	tableNode?: PMNode;
 	rendererAppearance: RendererAppearance;
+	allowTableResizing?: boolean;
 } & OverflowShadowProps;
 
 export const StickyTable = ({
@@ -154,10 +151,11 @@ export const StickyTable = ({
 	rowHeight,
 	tableNode,
 	rendererAppearance,
+	allowTableResizing,
 }: StickyTableProps) => {
 	let styles;
 	/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-	if (isTableResizingEnabled(rendererAppearance)) {
+	if (allowTableResizing) {
 		styles = css({
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			top: mode === 'pin-bottom' ? top : undefined,
@@ -180,7 +178,7 @@ export const StickyTable = ({
 				top={mode === 'stick' ? top : undefined}
 				mode={rowHeight > 300 ? 'none' : mode}
 				wrapperWidth={wrapperWidth}
-				rendererAppearance={rendererAppearance}
+				allowTableResizing={allowTableResizing}
 			>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

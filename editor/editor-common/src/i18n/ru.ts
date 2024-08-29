@@ -207,6 +207,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': 'Удаление элемента',
   'fabric.editor.extension.sourceNoTitledName': 'этого элемента',
   'fabric.editor.extensions.config-panel.save-indicator': 'Любые изменения всегда сохраняются автоматически',
+  'fabric.editor.externalMediaFile': 'Внешний медиафайл',
   'fabric.editor.failed_to_upload': 'Ошибка загрузки',
   'fabric.editor.feedbackDialog': 'Оставить отзыв',
   'fabric.editor.feedbackDialog.description': 'Поделитесь впечатлениями о новом редакторе',
@@ -319,6 +320,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, one {Ширина объекта мультимедиа увеличена до {newMediaWidth,number} пикселя.} few {Ширина объекта мультимедиа увеличена до {newMediaWidth,number} пикселей.} many {Ширина объекта мультимедиа увеличена до {newMediaWidth,number} пикселей.} other {Ширина объекта мультимедиа увеличена до {newMediaWidth,number} пикселя.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Размер медиа уменьшен до минимума',
+  'fabric.editor.media.insert.cancel': 'Отмена',
+  'fabric.editor.media.insert.errorMessage':
+    'Невозможно добавить изображение по этой ссылке. Загрузите изображение, а затем перетащите его на страницу.',
+  'fabric.editor.media.insert.insert': 'Вставить',
+  'fabric.editor.media.insert.linkTabTitle': 'Ссылка',
+  'fabric.editor.media.insert.loadPreview': 'Загрузить предпросмотр',
+  'fabric.editor.media.insert.mediaAlt': 'Предпросмотр загруженного изображения или видеофайла',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Средство выбора медиафайлов',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'Вставьте ссылку, чтобы загрузить файл',
+  'fabric.editor.media.insert.warning':
+    'Это изображение может быть скрыто от других пользователей из-за ограничений источника. Вместо этого попробуйте загрузить файл.',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Размер медиа увеличен до максимума',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'ввод высоты',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Высота',

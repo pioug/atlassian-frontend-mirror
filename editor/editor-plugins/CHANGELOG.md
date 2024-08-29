@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugins
 
+## 4.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.0
+
+### Minor Changes
+
+- [#134801](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134801)
+  [`fa66e8fd00f73`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa66e8fd00f73) -
+  [ED-24636] Introducing the new batch attribute updates editor plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.10
 
 ### Patch Changes

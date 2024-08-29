@@ -210,6 +210,7 @@ export default {
   'fabric.editor.extension.sourceNoTitledName': '⁣⁢this element‌⁮⁭⁮⁪⁬‍⁫⁬⁯⁭⁮⁯⁭⁯⁯⁪⁡⁬⁫⁫⁫⁣⁤',
   'fabric.editor.extensions.config-panel.save-indicator':
     '⁣⁢All changes are always autosaved‌⁬⁪⁡⁪⁬⁮؜‌‌⁪⁡‍‍⁮⁪⁠⁮⁯⁯⁠‍⁫⁫⁡⁪⁣⁤',
+  'fabric.editor.externalMediaFile': '⁣⁢External media file⁭؜⁬‌⁯؜⁡‌؜‌‍⁯⁬⁡؜⁮⁠؜⁮⁠⁮⁭⁬⁣⁤',
   'fabric.editor.failed_to_upload': '⁣⁢Failed to upload‌؜؜⁬؜⁪⁪⁯‌⁪⁫⁮‍⁬‌‍⁮⁭⁡⁮⁯⁭؜؜⁣⁤',
   'fabric.editor.feedbackDialog': '⁣⁢Give feedback؜⁪⁡⁮؜⁯⁬⁠‍⁪‌⁯⁮⁬‌⁭‍⁡⁣⁤',
   'fabric.editor.feedbackDialog.description':
@@ -329,8 +330,10 @@ export default {
   'fabric.editor.media.insert.errorMessage':
     '⁣⁢Unfortunately, we can’t add this image link. Download the image, then drag and drop onto the page.‌⁡؜⁭⁬‌⁮؜⁮‌⁯⁡⁭⁮⁠⁭⁮؜؜⁫⁭⁡⁡⁣⁤',
   'fabric.editor.media.insert.insert': '⁣⁢Insert⁠⁡⁯؜⁬‌⁫؜⁪⁡⁯⁯⁫⁪⁬⁬⁡⁮⁭؜؜⁣⁤',
+  'fabric.editor.media.insert.linkTabTitle': '⁣⁢Link‍⁡‌‌⁠⁯⁠⁡‍⁫‍‍‍⁭‍⁮⁬⁫⁪؜⁬⁬⁡⁣⁤',
   'fabric.editor.media.insert.loadPreview': '⁣⁢Load preview⁪؜⁠⁫⁪⁯⁯‌⁯⁫⁪؜⁪⁯⁭⁭⁭‍⁭⁫‍⁣⁤',
   'fabric.editor.media.insert.mediaAlt': '⁣⁢Preview for uploaded image or video file⁡⁬⁪⁮‍‌⁠⁡⁡⁬⁪؜⁯⁠⁫⁯⁭⁬⁠⁡⁡⁭⁮⁪⁣⁤',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': '⁣⁢Media picker⁫؜⁠⁪⁬⁡؜؜‍⁬⁮⁪⁬‍⁯⁠⁡⁭⁯⁠‌⁯⁯⁣⁤',
   'fabric.editor.media.insert.pasteLinkToUpload': '⁣⁢Paste link to upload⁡⁬⁪⁮⁯⁭⁪⁭⁠⁯‍⁮⁪⁡⁮⁬⁫⁮؜⁯⁡‍⁪⁪⁣⁤',
   'fabric.editor.media.insert.warning':
     '⁣⁢This image might not be visible to others due to source restrictions. Consider uploading the file instead.⁠‍؜⁮‍؜⁠⁭⁫⁫؜⁫⁫⁠⁫‍⁭⁫⁪‍⁣⁤',

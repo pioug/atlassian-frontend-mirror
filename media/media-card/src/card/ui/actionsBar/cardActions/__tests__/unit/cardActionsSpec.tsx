@@ -198,10 +198,10 @@ describe('CardActions', () => {
 	});
 
 	describe('Analytics Events', () => {
-		const clickIconButton = (card: RenderResult, at: number) =>
-			card.getAllByTestId(actionButtonTestId)[at].click();
-		const clickDropdownItem = (card: RenderResult, at: number) =>
-			card.getAllByTestId(dropdownItemsTestId)[at].click();
+		const clickIconButton = async (card: RenderResult, at: number) =>
+			(await card.findAllByTestId(actionButtonTestId))[at].click();
+		const clickDropdownItem = async (card: RenderResult, at: number) =>
+			(await card.findAllByTestId(dropdownItemsTestId))[at].click();
 
 		const matchingActionEventPayload = (actionSubjectId: string, label: string) =>
 			expect.objectContaining({
@@ -220,12 +220,12 @@ describe('CardActions', () => {
 		const matchingMenuItemAction = (label: string) =>
 			matchingActionEventPayload('mediaCardDropDownMenuItem', label);
 
-		it('should fire analytics event on every action clicked', () => {
+		it('should fire analytics event on every action clicked', async () => {
 			const analyticsEventHandler: jest.Mock = jest.fn();
 			const twoActions = [annotateAction, deleteAction];
 			const { card: card1 } = setup(twoActions, undefined, analyticsEventHandler);
-			clickIconButton(card1, 0);
-			clickIconButton(card1, 1);
+			await clickIconButton(card1, 0);
+			await clickIconButton(card1, 1);
 
 			expect(analyticsEventHandler).toBeCalledTimes(2);
 			expect(analyticsEventHandler).toHaveBeenNthCalledWith(
@@ -240,7 +240,7 @@ describe('CardActions', () => {
 			);
 		});
 
-		it('should fire analytics event on every clicked menu item and dropdown menu', () => {
+		it('should fire analytics event on every clicked menu item and dropdown menu', async () => {
 			const matchingDropdownAnalyticsEvent = expect.objectContaining({
 				payload: expect.objectContaining({
 					eventType: 'ui',
@@ -255,11 +255,11 @@ describe('CardActions', () => {
 			const fourActions = [annotateAction, openAction, deleteAction, closeAction];
 			const { card: card2 } = setup(fourActions, undefined, analyticsEventHandler);
 			// There is a click in dropdown from setup
-			clickDropdownItem(card2, 0); // dropdown[0] = fourActions[1]
+			await clickDropdownItem(card2, 0); // dropdown[0] = fourActions[1]
 			openDropdownMenuIfExists(card2);
-			clickDropdownItem(card2, 1); // dropdown[1] = fourActions[2]
+			await clickDropdownItem(card2, 1); // dropdown[1] = fourActions[2]
 			openDropdownMenuIfExists(card2);
-			clickDropdownItem(card2, 2); // dropdown[2] = fourActions[3]
+			await clickDropdownItem(card2, 2); // dropdown[2] = fourActions[3]
 
 			expect(analyticsEventHandler).toBeCalledTimes(6);
 			expect(analyticsEventHandler).toHaveBeenNthCalledWith(

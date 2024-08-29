@@ -37,6 +37,9 @@
             "path": "../../editor-plugin-base/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-batch-attribute-updates/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-before-primary-toolbar/afm-cc/tsconfig.json"
         },
         {

@@ -3,9 +3,10 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
-import { type DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { type DispatchAnalyticsEvent, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { type MediaState } from '@atlaskit/editor-plugin-media/types';
 import UploadIcon from '@atlaskit/icon/glyph/upload';
 import {
 	Browser,
@@ -17,12 +18,13 @@ import {
 import { Stack } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 
-import { type OnInsertAttrs } from './types';
+import { type InsertMediaSingle } from '../types';
+
 import { useAnalyticsEvents } from './useAnalyticsEvents';
 
 type Props = {
 	mediaProvider: MediaProvider;
-	onInsert: (attrs: OnInsertAttrs) => void;
+	onInsert: InsertMediaSingle;
 	onClose: () => void;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 };
@@ -82,18 +84,24 @@ export const LocalMedia = ({ mediaProvider, onInsert, dispatchAnalyticsEvent }: 
 
 	const onUpload = ({ file, preview }: UploadPreviewUpdateEventPayload): void => {
 		onUploadSuccessAnalytics('local');
-		const insertPayload: OnInsertAttrs = {
+
+		const mediaState: MediaState = {
 			id: file.id,
 			collection: mediaProvider.uploadParams?.collection,
-			occurrenceKey: file.occurrenceKey,
+			fileMimeType: file.type,
+			fileSize: file.size,
+			fileName: file.name,
+			dimensions: undefined,
 		};
 
 		if (isImagePreview(preview)) {
-			insertPayload.height = preview.dimensions.height;
-			insertPayload.width = preview.dimensions.width;
+			mediaState.dimensions = {
+				width: preview.dimensions.width,
+				height: preview.dimensions.height,
+			};
 		}
 
-		onInsert(insertPayload);
+		onInsert({ mediaState, inputMethod: INPUT_METHOD.MEDIA_PICKER });
 
 		// Probably not needed but I guess it _could_ fail to close for some reason
 		dispatch({ type: 'reset' });

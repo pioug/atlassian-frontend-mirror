@@ -42,7 +42,6 @@ const Footer = ({ appearance, children }: FooterProps) => (
 
 const headingStyles = xcss({
 	color: 'color.text',
-	fontWeight: 'font.weight.medium',
 });
 
 const pageStyles = xcss({

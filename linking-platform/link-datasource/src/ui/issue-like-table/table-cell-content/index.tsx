@@ -152,7 +152,6 @@ const InlineEditableCell = ({
 			execute={execute}
 			readView={readView}
 			columnKey={columnKey}
-			integrationKey={integrationKey}
 			datasourceTypeWithValues={values}
 		/>
 	);

@@ -1,5 +1,14 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.11.0
+
+### Minor Changes
+
+- [#134932](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134932)
+  [`e3993d306949f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e3993d306949f) -
+  [ED-24520] Added support for nesting codeblock and media inside quotes to transformers
+  (WikiMarkup, Markdown)
+
 ## 11.10.1
 
 ### Patch Changes

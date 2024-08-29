@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.27.9
+
+### Patch Changes
+
+- [#134882](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134882)
+  [`ee43e2aa5cd29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee43e2aa5cd29) -
+  Update InlineEdit types
+
 ## 0.27.8
 
 ### Patch Changes

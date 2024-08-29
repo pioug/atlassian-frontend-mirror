@@ -218,7 +218,6 @@ export class Renderer extends PureComponent<RendererProps> {
 				? {}
 				: props.stickyHeaders
 			: undefined;
-
 		const { annotationProvider } = props;
 		const allowAnnotationsDraftMode = Boolean(
 			annotationProvider &&
@@ -266,6 +265,10 @@ export class Renderer extends PureComponent<RendererProps> {
 			textHighlighter: props.UNSTABLE_textHighlighter,
 			isCommentsOnMediaMediaInlineBugFixEnabled: featureFlags?.commentsOnMediaMediaInlineBugFix,
 			allowTableAlignment: props.UNSTABLE_allowTableAlignment,
+			allowTableResizing:
+				props.appearance === 'comment' && !fg('platform_editor_table_support_in_comment')
+					? false
+					: props.UNSTABLE_allowTableResizing,
 		};
 	}
 
@@ -606,6 +609,7 @@ type RendererWrapperProps = {
 	onMouseDown?: (event: React.MouseEvent) => void;
 	ssr?: MediaSSR;
 	isInsideOfInlineExtension?: boolean;
+	allowTableResizing?: boolean;
 } & { children?: React.ReactNode };
 
 const RendererWrapper = React.memo((props: RendererWrapperProps) => {
@@ -621,6 +625,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 		addTelepointer,
 		ssr,
 		isInsideOfInlineExtension,
+		allowTableResizing,
 	} = props;
 
 	const createTelepointer = () => {
@@ -708,6 +713,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 							allowColumnSorting: !!allowColumnSorting,
 							useBlockRenderForCodeBlock,
 							allowAnnotations: props.allowAnnotations,
+							allowTableResizing: allowTableResizing,
 						})}
 					>
 						{children}

@@ -1,0 +1,24 @@
+{
+	"type": "doc",
+	"content": [
+		{
+			"type": "blockquote",
+			"content": [
+				{
+					"type": "mediaGroup",
+					"content": [
+						{
+							"type": "media",
+							"attrs": {
+								"id": "a9dfeb96-18aa-4eca-8c95-c7c19be33650",
+								"collection": "contentId-4113639891",
+								"type": "file"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"version": 1
+}

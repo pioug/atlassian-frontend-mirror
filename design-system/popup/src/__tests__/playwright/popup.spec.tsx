@@ -339,4 +339,61 @@ test.describe('Popup focus behavior', () => {
 		await page.keyboard.press('Escape');
 		await expect(trigger).toBeFocused();
 	});
+
+	test('Should open popup inside dropdown menu and then open modal from popup, FF off', async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'popup', 'testing-modal-inside-popup-inside-dropdown');
+
+		const dropdownTrigger = page.getByTestId('dropdown--trigger');
+		const modalDialogTrigger = page.getByTestId('modal-trigger');
+		const popupContent = page.getByTestId('popup-content');
+		const modalDialogContent = page.getByTestId('modal-content');
+
+		await dropdownTrigger.focus();
+		await dropdownTrigger.press('Enter');
+
+		await page.keyboard.press('Tab');
+		await page.keyboard.press('Tab');
+		await page.keyboard.press('Enter');
+
+		await expect(popupContent).toBeVisible();
+		await expect(modalDialogTrigger).toBeFocused();
+
+		await page.keyboard.press('Enter');
+
+		await expect(modalDialogContent).toBeVisible();
+	});
+
+	test('Should open popup inside dropdown menu and then open modal from popup, FF on', async ({
+		page,
+	}) => {
+		await page.visitExample(
+			'design-system',
+			'popup',
+			'testing-modal-inside-popup-inside-dropdown',
+			{
+				featureFlag: 'platform_dst_popup-disable-focuslock',
+			},
+		);
+
+		const dropdownTrigger = page.getByTestId('dropdown--trigger');
+		const modalDialogTrigger = page.getByTestId('modal-trigger');
+		const popupContent = page.getByTestId('popup-content');
+		const modalDialogContent = page.getByTestId('modal-content');
+
+		await dropdownTrigger.focus();
+		await dropdownTrigger.press('Enter');
+
+		await page.keyboard.press('Tab');
+		await page.keyboard.press('Tab');
+		await page.keyboard.press('Enter');
+
+		await expect(popupContent).toBeVisible();
+		await expect(modalDialogTrigger).toBeFocused();
+
+		await page.keyboard.press('Enter');
+
+		await expect(modalDialogContent).toBeVisible();
+	});
 });

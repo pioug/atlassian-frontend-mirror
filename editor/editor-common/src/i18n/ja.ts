@@ -202,6 +202,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': '要素の削除',
   'fabric.editor.extension.sourceNoTitledName': 'この要素',
   'fabric.editor.extensions.config-panel.save-indicator': 'すべての変更は常に自動保存されます',
+  'fabric.editor.externalMediaFile': '外部メディア ファイル',
   'fabric.editor.failed_to_upload': 'アップロードに失敗しました',
   'fabric.editor.feedbackDialog': 'フィードバックを送信',
   'fabric.editor.feedbackDialog.description': '新しいエディターに関するご意見・ご感想をお聞かせください',
@@ -313,6 +314,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, other {メディア幅が {newMediaWidth,number} ピクセルに拡大しました。}}',
   'fabric.editor.media.MediaWidthIsMin': 'メディアが最小サイズに縮小されました',
+  'fabric.editor.media.insert.cancel': 'キャンセル',
+  'fabric.editor.media.insert.errorMessage':
+    '残念ながら、この画像リンクは追加できません。画像をダウンロードして、ページにドラッグ & ドロップしてください。',
+  'fabric.editor.media.insert.insert': '挿入',
+  'fabric.editor.media.insert.linkTabTitle': 'リンク',
+  'fabric.editor.media.insert.loadPreview': 'プレビューを読み込む',
+  'fabric.editor.media.insert.mediaAlt': 'アップロードした画像または動画ファイルのプレビュー',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'メディア ピッカー',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'リンクを貼り付けてアップロード',
+  'fabric.editor.media.insert.warning':
+    'ソースの制限によってはこの画像がユーザーに表示されない可能性があります。代わりにファイルをアップロードすることをご検討ください。',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'メディアが最大サイズに拡大されました',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': '高さの入力',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': '高さ',

@@ -3,7 +3,7 @@ import React from 'react';
 import { inlineCard } from '@atlaskit/adf-schema';
 import type { CardPluginActions } from '@atlaskit/editor-common/card';
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { CardProvider, QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import {
 	IconDatasourceAssetsObjects,
 	IconDatasourceConfluenceSearch,
@@ -26,7 +26,7 @@ import {
 
 import { createEventsQueue } from './analytics/create-events-queue';
 import type { CardPluginEvent } from './analytics/types';
-import { hideLinkToolbar, showDatasourceModal } from './pm-plugins/actions';
+import { hideLinkToolbar, setProvider, showDatasourceModal } from './pm-plugins/actions';
 import { queueCardsFromChangedTr } from './pm-plugins/doc';
 import { cardKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
@@ -61,6 +61,7 @@ export type CardPlugin = NextEditorPlugin<
 >;
 
 export const cardPlugin: CardPlugin = ({ config: options, api }) => {
+	let previousCardProvider: CardProvider | undefined;
 	const cardPluginEvents = createEventsQueue<CardPluginEvent>();
 
 	return {
@@ -157,6 +158,15 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
 		},
 
 		actions: {
+			setProvider: async (providerPromise) => {
+				const provider = await providerPromise;
+				// Prevent someone trying to set the exact same provider twice for performance reasons
+				if (previousCardProvider === provider) {
+					return false;
+				}
+				previousCardProvider = provider;
+				return api?.core.actions.execute(({ tr }) => setProvider(provider)(tr)) ?? false;
+			},
 			hideLinkToolbar,
 			queueCardsFromChangedTr,
 			getStartingToolbarItems: getStartingToolbarItems(options, api),

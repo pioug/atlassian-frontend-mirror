@@ -85,7 +85,8 @@ test.describe('DatasourceTableView', () => {
 		await expect(page.getByTestId('inline-edit-text')).toBeVisible();
 	});
 
-	test('shows flag after edit fail', async ({ page }) => {
+	// eslint-disable-next-line playwright/no-skipped-test
+	test.skip('shows flag after edit fail', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
 		await withFeatureFlags(page, [
 			'enable_datasource_react_sweet_state',

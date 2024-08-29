@@ -32,6 +32,7 @@ function groupBy<T>(array: T[], keyGetter: (item: T) => string): Record<string, 
 
 export type SanitizedStep = {
 	stepType: string;
+	stepInstance: string;
 	attr?: string;
 	markType?: string;
 };
@@ -62,6 +63,7 @@ export const sanitizeStep = (step: Step): SanitizedStep => {
 	const serializedStep = step.toJSON();
 	const sanitizedStep: SanitizedStep = {
 		stepType: serializedStep.stepType,
+		stepInstance: step.constructor.name,
 	};
 
 	if (step instanceof AttrStep || step instanceof DocAttrStep) {

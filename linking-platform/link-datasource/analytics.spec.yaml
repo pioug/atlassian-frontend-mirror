@@ -66,25 +66,17 @@ attributes:
       description: Indicates if the JQL query was complex.
   IntegrationKey: &IntegrationKey
     integrationKey:
-      type: 'string'
+      type: "string"
       description: The integration key of the data provider.
   EntityType: &EntityType
     entityType:
       type: 'string'
       description: The resource type represented by the data.
-  ColumnKey: &ColumnKey
-    columnKey:
-      type: 'string'
-      description: The attribute of the data which is updated in an action.
   Experience: &Experience
     experience:
-      type: ['datasource']
+      type: ["datasource"]
       required: true
       description: Experience identifier.
-  ActionKey: &ActionKey
-    actionKey:
-      type: 'string'
-      description: The action type that of an action request.
 
 events:
   # actionSubject action (actionSubjectId)
@@ -506,7 +498,19 @@ events:
             *AnalyticsContextAttributes,
             *StatusCodeGroup,
           ]
-  # Actions Events
+# Actions Events
+  - actionExecution success:
+      type: operational
+      description: Fired when an atomic action execution is successful
+      attributes:
+        <<:
+          [
+            *ComponentMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *IntegrationKey,
+            *Experience,
+          ]
   - actionDiscovery success:
       type: operational
       description: Fired when the action discovery and permissions request is successful.

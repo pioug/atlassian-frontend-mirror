@@ -50,6 +50,9 @@ import * as actionInsideList from './__fixtures__/action-inside-list.adf.json';
 import * as extendedPanel from './__fixtures__/extended-panel.adf.json';
 import * as nestedExpand from './__fixtures__/extended-nested-expand.adf.json';
 import * as nestedExpandInExpand from './__fixtures__/nested-expand-in-expand.adf.json';
+import * as codeblockInQuote from './__fixtures__/codeblock-in-quote.adf.json';
+import * as mediaSingleInQuote from './__fixtures__/media-single-in-quote.adf.json';
+import * as mediaGroupInQuote from './__fixtures__/media-group-in-quote.adf.json';
 import type { MetaDataContext } from '../../interfaces';
 
 const defaultTestOpts: EmailSerializerOpts = {
@@ -439,6 +442,21 @@ describe('Renderer - EmailSerializer', () => {
 
 	it('should render nestedExpand nested in expand', () => {
 		const { result } = render(nestedExpandInExpand);
-		expect(result).toMatchSnapshot('html');
+		expect(result).toMatchSnapshot('nestedExpand in expand');
+	});
+
+	it('should render codeblock nested in quote', () => {
+		const { result } = render(codeblockInQuote);
+		expect(result).toMatchSnapshot('codeblock in quote');
+	});
+
+	it('should render mediaSingle nested in quote', () => {
+		const { result } = render(mediaSingleInQuote);
+		expect(result).toMatchSnapshot('mediaSingle in quote');
+	});
+
+	it('should render mediaGroup nested in quote', () => {
+		const { result } = render(mediaGroupInQuote);
+		expect(result).toMatchSnapshot('mediaGroup in quote');
 	});
 });

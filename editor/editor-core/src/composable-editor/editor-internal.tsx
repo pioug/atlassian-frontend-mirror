@@ -30,7 +30,7 @@ import type { EventDispatcher } from '../event-dispatcher';
 import { ContextAdapter } from '../nodeviews/context-adapter';
 import { useSetPresetContext } from '../presets/context';
 import { type EditorAppearanceComponentProps } from '../types';
-import type { EditorNextProps } from '../types/editor-props';
+import type { EditorNextProps, EditorProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 
@@ -225,9 +225,17 @@ function ReactEditorViewContextWrapper(props: EditorViewProps) {
 		[setInternalEditorAPI, setExternalEditorAPI],
 	);
 
+	// TODO: Remove these when we deprecate these props from editor-props - smartLinks is unfortunately still used in some places, we can sidestep this problem if we move everyone across to ComposableEditor and deprecate Editor
+	const UNSAFE_cards = (props.editorProps as EditorProps).UNSAFE_cards;
+	const smartLinks = (props.editorProps as EditorProps).smartLinks;
+
 	useProviders({
 		contextIdentifierProvider: props.editorProps.contextIdentifierProvider,
 		mediaProvider: props.editorProps.media?.provider,
+		cardProvider:
+			props.editorProps.linking?.smartLinks?.provider ||
+			(smartLinks && smartLinks.provider) ||
+			(UNSAFE_cards && UNSAFE_cards.provider),
 	});
 
 	return <ReactEditorView {...props} setEditorApi={setEditorAPI} />;

@@ -202,6 +202,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': 'Poista elementti',
   'fabric.editor.extension.sourceNoTitledName': 'tämä elementti',
   'fabric.editor.extensions.config-panel.save-indicator': 'Kaikki muutokset tallennetaan aina automaattisesti',
+  'fabric.editor.externalMediaFile': 'Ulkoinen mediatiedosto',
   'fabric.editor.failed_to_upload': 'Lataaminen epäonnistui',
   'fabric.editor.feedbackDialog': 'Anna palautetta',
   'fabric.editor.feedbackDialog.description': 'Kerro meille uuden muokkaajan käyttökokemuksestasi',
@@ -313,6 +314,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, one {Median leveys lisättiin {newMediaWidth,number} pikseliin.} other {Median leveys lisättiin {newMediaWidth,number} pikseliin.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Media pienennettiin vähimmäiskokoon',
+  'fabric.editor.media.insert.cancel': 'Peruuta',
+  'fabric.editor.media.insert.errorMessage':
+    'Valitettavasti emme voi lisätä tätä kuvalinkkiä. Lataa kuva ja vedä ja pudota se sitten sivulle.',
+  'fabric.editor.media.insert.insert': 'Lisää',
+  'fabric.editor.media.insert.linkTabTitle': 'Linkki',
+  'fabric.editor.media.insert.loadPreview': 'Lataa esikatselu',
+  'fabric.editor.media.insert.mediaAlt': 'Lähetetyn kuvan tai videotiedoston esikatselu',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Mediavalitsin',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'Liitä linkki ladattavaksi',
+  'fabric.editor.media.insert.warning':
+    'Tämä kuva ei ehkä näy muille lähderajoitusten vuoksi. Harkitse sen sijaan tiedoston lataamista.',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Media suurennettiin enimmäiskokoon',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'korkeuden arvo',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Korkeus',

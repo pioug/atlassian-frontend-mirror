@@ -201,6 +201,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': 'Xóa thành phần',
   'fabric.editor.extension.sourceNoTitledName': 'thành phần này',
   'fabric.editor.extensions.config-panel.save-indicator': 'Mọi thay đổi luôn được lưu tự động',
+  'fabric.editor.externalMediaFile': 'Tệp phương tiện bên ngoài',
   'fabric.editor.failed_to_upload': 'Không thể tải lên',
   'fabric.editor.feedbackDialog': 'Đưa ra phản hồi',
   'fabric.editor.feedbackDialog.description':
@@ -314,6 +315,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, other {Chiều rộng phương tiện đã tăng lên {newMediaWidth,number} pixel.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Đã giảm nội dung đa phương tiện xuống kích thước tối thiểu',
+  'fabric.editor.media.insert.cancel': 'Hủy',
+  'fabric.editor.media.insert.errorMessage':
+    'Rất tiếc, chúng tôi không thể thêm liên kết đến hình ảnh này. Hãy tải hình ảnh xuống, sau đó kéo và thả ảnh vào trang.',
+  'fabric.editor.media.insert.insert': 'Chèn',
+  'fabric.editor.media.insert.linkTabTitle': 'Liên kết',
+  'fabric.editor.media.insert.loadPreview': 'Tải bản xem trước',
+  'fabric.editor.media.insert.mediaAlt': 'Bản xem trước của tệp hình ảnh hoặc video đã tải lên',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Trình chọn phương tiện',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'Dán liên kết để tải lên',
+  'fabric.editor.media.insert.warning':
+    'Hình ảnh này có thể không hiển thị với người khác do hạn chế về nguồn. Bạn nên tải tệp lên.',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Đã tăng nội dung đa phương tiện lên kích thước tối đa',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'nhập chiều cao',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Chiều cao',

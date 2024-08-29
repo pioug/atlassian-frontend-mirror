@@ -201,6 +201,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': 'Öğeyi sil',
   'fabric.editor.extension.sourceNoTitledName': 'bu öğe',
   'fabric.editor.extensions.config-panel.save-indicator': 'Tüm değişiklikler her zaman otomatik olarak kaydedilir',
+  'fabric.editor.externalMediaFile': 'Harici medya dosyası',
   'fabric.editor.failed_to_upload': 'Yüklenemedi',
   'fabric.editor.feedbackDialog': 'Geri bildirim verin',
   'fabric.editor.feedbackDialog.description': 'Yeni düzenleyici hakkındaki deneyimlerinizi bizimle paylaşın',
@@ -312,6 +313,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, one {Medya genişliği {newMediaWidth,number} piksele çıkarıldı.} other {Medya genişliği {newMediaWidth,number} piksele çıkarıldı.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Medya minimum boyuta düşürüldü',
+  'fabric.editor.media.insert.cancel': 'İptal',
+  'fabric.editor.media.insert.errorMessage':
+    'Üzgünüz, bu görsel bağlantısı eklenemiyor. Görselin indirin, ardından sürükleyip sayfaya bırakın.',
+  'fabric.editor.media.insert.insert': 'Ekle',
+  'fabric.editor.media.insert.linkTabTitle': 'Bağlantı',
+  'fabric.editor.media.insert.loadPreview': 'Önizlemeyi yükle',
+  'fabric.editor.media.insert.mediaAlt': 'Yüklenen görsel veya video dosyasının önizlemesi',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Medya seçici',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'Yüklemek için bağlantıyı yapıştırın',
+  'fabric.editor.media.insert.warning':
+    'Kaynak kısıtlamaları nedeniyle bu görsel başkaları tarafından görülemeyebilir. Bunun yerine dosyayı yüklemenizi öneririz.',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Medya maksimum boyuta artırıldı',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'yükseklik girdisi',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Yükseklik',

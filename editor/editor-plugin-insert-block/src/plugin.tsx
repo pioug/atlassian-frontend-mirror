@@ -26,6 +26,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import SwitchIcon from './assets/switch';
 import type { InsertBlockPluginDependencies } from './types';
+import { templateOptions } from './ui/templateOptions';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import { transformationOptions } from './ui/transformOptions';
 
@@ -224,6 +225,16 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 						rank: -9,
 					};
 				}
+			},
+			// This is temporarily added for element level templates experiment.
+			// This is not the most ideal plugin to add this to, but it is suitable for experiment purpose
+			// If we decide to ship the feature, we will consider a separate plugin if needed.
+			// Experiment one-pager: https://hello.atlassian.net/wiki/spaces/ETM/pages/3983684902/Experiment+Drive+element+usage+via+element+templates
+			quickInsert: () => {
+				if (editorExperiment('element-level-templates', true, { exposure: true })) {
+					return templateOptions;
+				}
+				return [];
 			},
 		},
 

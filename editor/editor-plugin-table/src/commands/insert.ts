@@ -249,6 +249,7 @@ export const createTable =
 		isFullWidthModeEnabled?: boolean,
 		editorAnalyticsAPI?: EditorAnalyticsAPI | undefined | null,
 		isCommentEditor?: boolean,
+		isChromelessEditor?: boolean,
 		isTableResizingEnabled?: boolean,
 	): Command =>
 	(state, dispatch) => {
@@ -257,6 +258,7 @@ export const createTable =
 			isTableAlignmentEnabled,
 			isFullWidthModeEnabled,
 			isCommentEditor,
+			isChromelessEditor,
 			isTableResizingEnabled,
 		})(state.schema);
 
@@ -284,6 +286,7 @@ export const insertTableWithSize =
 		isTableAlignmentEnabled?: boolean,
 		editorAnalyticsAPI?: EditorAnalyticsAPI,
 		isCommentEditor?: boolean,
+		isChromelessEditor?: boolean,
 	) =>
 	(rowsCount: number, colsCount: number, inputMethod?: INPUT_METHOD.PICKER): EditorCommand => {
 		return ({ tr }) => {
@@ -292,6 +295,7 @@ export const insertTableWithSize =
 				isFullWidthModeEnabled,
 				isTableAlignmentEnabled,
 				isCommentEditor,
+				isChromelessEditor,
 				createTableProps: {
 					rowsCount: rowsCount,
 					colsCount: colsCount,

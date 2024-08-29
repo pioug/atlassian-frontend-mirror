@@ -30,6 +30,7 @@ export const ExtensionsWithinTable = generateRendererComponent({
 	document: extensionsWithinTable,
 	appearance: 'full-page',
 	extensionHandlers,
+	UNSTABLE_allowTableResizing: true,
 });
 
 export const ExtensionIframeNested = generateRendererComponent({

@@ -26,12 +26,21 @@ const mockDatasourceId: string = '12e74246-a3f1-46c1-9fd9-8d952aa9f12f';
 const mockParameterValue: string = 'project=EDM';
 const mockCloudId = 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b';
 const onAnalyticFireEvent = jest.fn();
+const mockIsFedRamp: jest.Mock = jest.fn();
 
 const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
 	<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
 		<SmartCardProvider client={new CardClient()}>{children}</SmartCardProvider>
 	</AnalyticsListener>
 );
+
+jest.mock('@atlaskit/atlassian-context', () => {
+	const originalModule = jest.requireActual('@atlaskit/atlassian-context');
+	return {
+		...originalModule,
+		isFedRamp: () => mockIsFedRamp(),
+	};
+});
 
 jest.mock('@atlaskit/link-client-extension', () => {
 	const originalModule = jest.requireActual('@atlaskit/link-client-extension');
@@ -86,6 +95,7 @@ describe('useDatasourceTableState', () => {
 		jest.resetModules();
 		store.storeState.resetState();
 		getDatasourceData = jest.fn().mockResolvedValue(mockDatasourceDataResponse);
+		mockIsFedRamp.mockReturnValue(false);
 	});
 
 	afterEach(() => {
@@ -95,6 +105,33 @@ describe('useDatasourceTableState', () => {
 	describe('with useDiscoverActions', () => {
 		ffTest.on('enable_datasource_react_sweet_state', 'flag on', () => {
 			ffTest.on('platform-datasources-enable-two-way-sync', 'flag on', () => {
+				it('should not call discovery when determined to be in FedRamp environment', async () => {
+					asMock(getDatasourceData).mockResolvedValueOnce({
+						...mockDatasourceDataResponseWithSchema,
+					});
+					mockIsFedRamp.mockReturnValueOnce(true);
+
+					const { waitForNextUpdate } = setup();
+					await waitForNextUpdate();
+
+					expect(getDatasourceActionsAndPermissions).not.toHaveBeenCalled();
+				});
+
+				it('should call discovery when determined to be non FedRamp environment', async () => {
+					asMock(getDatasourceData).mockResolvedValueOnce({
+						...mockDatasourceDataResponseWithSchema,
+					});
+					asMock(getDatasourceActionsAndPermissions).mockResolvedValueOnce({
+						...mockActionsDiscoveryResponse,
+					});
+					mockIsFedRamp.mockReturnValueOnce(false);
+
+					const { waitForNextUpdate } = setup();
+					await waitForNextUpdate();
+
+					expect(getDatasourceActionsAndPermissions).toHaveBeenCalled();
+				});
+
 				it('should fire analytic event when `discoverActions` is successful', async () => {
 					asMock(getDatasourceData).mockResolvedValueOnce({
 						...mockDatasourceDataResponseWithSchema,

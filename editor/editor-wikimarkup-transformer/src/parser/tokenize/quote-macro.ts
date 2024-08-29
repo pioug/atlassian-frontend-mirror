@@ -58,9 +58,12 @@ function sanitize(nodes: PMNode[], schema: Schema) {
 		switch (n.type.name) {
 			case 'paragraph':
 			case 'bulletList':
-			case 'orderedList': {
+			case 'orderedList':
+			case 'codeBlock':
+			case 'mediaSingle':
+			case 'mediaGroup': {
 				/**
-				 * blockquote is happy with paragraph and list
+				 * blockquote supports nesting paragraphs, lists, codeblocks and media nodes
 				 */
 				contentBuffer.push(n);
 				break;

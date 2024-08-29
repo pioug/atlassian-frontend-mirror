@@ -4,7 +4,6 @@ import { Colgroup } from './colgroup';
 import type { SharedTableProps } from './types';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
-import { isTableResizingEnabled } from '../table';
 
 type TableProps = SharedTableProps & {
 	innerRef?: React.RefObject<HTMLTableElement>;
@@ -23,6 +22,7 @@ export const Table = React.memo(
 		rendererAppearance,
 		isInsideOfBlockNode,
 		isinsideMultiBodiedExtension,
+		allowTableResizing,
 	}: TableProps) => {
 		let tableWidth: number | 'inherit' = tableNode
 			? getTableContainerWidth(tableNode)
@@ -30,11 +30,14 @@ export const Table = React.memo(
 
 		if (
 			rendererAppearance === 'comment' &&
-			isTableResizingEnabled(rendererAppearance) &&
+			allowTableResizing &&
 			tableNode &&
 			!tableNode.attrs?.width
 		) {
 			tableWidth = 'inherit';
+		}
+		if (rendererAppearance === 'comment' && !allowTableResizing) {
+			tableWidth = renderWidth;
 		}
 
 		const tableLayout = tableNode?.attrs.layout;
@@ -58,6 +61,7 @@ export const Table = React.memo(
 					rendererAppearance={rendererAppearance}
 					isInsideOfBlockNode={isInsideOfBlockNode}
 					isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
+					allowTableResizing={allowTableResizing}
 				/>
 				<tbody>{children}</tbody>
 			</table>

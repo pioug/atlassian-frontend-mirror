@@ -18,16 +18,12 @@ export function shouldRecreatePreset(props: EditorProps, nextProps: EditorProps)
 }
 
 function shouldReconfigureState(props: EditorProps, nextProps: EditorProps) {
-	const mobileProperties: Array<keyof EditorProps> =
-		props.appearance === 'mobile' ? ['quickInsert', 'featureFlags'] : [];
-
 	const properties: Array<keyof EditorProps> = [
 		'appearance',
 		'persistScrollGutter',
 		'allowUndoRedoButtons',
 		'placeholder',
 		'sanitizePrivateContent',
-		...mobileProperties,
 	];
 
 	return properties.reduce((acc, curr) => acc || props[curr] !== nextProps[curr], false);

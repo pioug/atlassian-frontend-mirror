@@ -1,0 +1,89 @@
+{
+	"name": "@atlaskit/react-select",
+	"version": "0.0.2",
+	"description": "A forked version of react-select to only be used in atlaskit/select",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Design System Team",
+		"inPublicMirror": false,
+		"releaseModel": "continuous"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"af:exports": {
+		".": "./src/index.tsx",
+		"./base": "./src/select.tsx",
+		"./async": "./src/async.tsx",
+		"./creatable": "./src/creatable.tsx"
+	},
+	"exports": {
+		".": "./src/index.tsx",
+		"./base": "./src/select.tsx",
+		"./async": "./src/async.tsx",
+		"./creatable": "./src/creatable.tsx"
+	},
+	"dependencies": {
+		"@atlaskit/ds-lib": "^2.5.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/cache": "^11.10.0",
+		"@emotion/react": "^11.7.1",
+		"@floating-ui/dom": "^1.0.1",
+		"memoize-one": "^6.0.0",
+		"react-dom": "^16.8.0",
+		"use-isomorphic-layout-effect": "^1.1.2"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
+		"jest-in-case": "^1.0.2",
+		"typescript": "~5.4.2",
+		"user-agent-data-types": "^0.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": "file-and-folder-level"
+		},
+		"@repo/internal": {
+			"design-system": "v1",
+			"dom-events": "use-bind-event-listener",
+			"analytics": "analytics-next",
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"static",
+				"emotion"
+			]
+		}
+	},
+	"homepage": "https://atlassian.design/components",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	}
+}

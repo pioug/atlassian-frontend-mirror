@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.12.6
+
+### Patch Changes
+
+- [#135137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135137)
+  [`c1cc86c3c898f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1cc86c3c898f) -
+  [ux] Fix bug where drag handles may be missing
+
 ## 1.12.5
 
 ### Patch Changes

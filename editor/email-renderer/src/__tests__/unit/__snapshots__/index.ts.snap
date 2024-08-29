@@ -1050,6 +1050,30 @@ exports[`Renderer - EmailSerializer should render codeblock correctly: html 1`] 
 </div>
 `;
 
+exports[`Renderer - EmailSerializer should render codeblock nested in quote: codeblock in quote 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <blockquote
+    class="csg-blockquote"
+    style="border-left: 2px solid #DFE1E6; color: #5E6C84; margin: 12px 0 0 0; padding-left: 16px;"
+  >
+    <div
+      class="csg-codeBlock-div"
+      style="padding: 8px 16px; background-color: #F4F5F7; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; color: rgb(23, 43, 77);"
+    >
+      <pre
+        class="csg-codeBlock-pre"
+        style="white-space: pre-wrap; font-size: 12px; line-height: 20px; font-family: 'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono', Menlo, Consolas, Courier, monospace; color: rgb(23, 43, 77); background: #F4F5F7; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; margin: 0px; overflow-wrap: break-word;"
+      >
+        This is a codeblock in a blockquote.
+      </pre>
+    </div>
+  </blockquote>
+</div>
+`;
+
 exports[`Renderer - EmailSerializer should render dates in normal text and task lists: html 1`] = `
 <div
   class="csg-wrapper"
@@ -4921,6 +4945,97 @@ exports[`Renderer - EmailSerializer should render media with images inline corre
 </div>
 `;
 
+exports[`Renderer - EmailSerializer should render mediaGroup nested in quote: mediaGroup in quote 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <blockquote
+    class="csg-blockquote"
+    style="border-left: 2px solid #DFE1E6; color: #5E6C84; margin: 12px 0 0 0; padding-left: 16px;"
+  >
+    <div
+      style="width: 100%;"
+    >
+      <div
+        class="csg-media-lozenge-wrapper"
+        style="margin: 8px 0;"
+      >
+        <div
+          class="csg-media-lozenge"
+          style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+        >
+          <span>
+            <img
+              class="csg-media-lozenge-icon"
+              height="14"
+              src="cid:csg-icon-genericAttachment"
+              style="vertical-align: baseline;"
+              width="14"
+            />
+          </span>
+          <span
+            class="csg-media-lozenge-text"
+            style="overflow: hidden; display: inline-block;"
+          >
+            Attached file
+          </span>
+        </div>
+      </div>
+    </div>
+  </blockquote>
+</div>
+`;
+
+exports[`Renderer - EmailSerializer should render mediaSingle nested in quote: mediaSingle in quote 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <blockquote
+    class="csg-blockquote"
+    style="border-left: 2px solid #DFE1E6; color: #5E6C84; margin: 12px 0 0 0; padding-left: 16px;"
+  >
+    <div
+      class="csg-media-single-center"
+      style="margin-left: auto; margin-right: auto; width: 354px; max-width: 100%;"
+    >
+      <div
+        class="csg-media-lozenge-wrapper"
+        style="margin: 8px 0;"
+      >
+        <div
+          class="csg-media-lozenge"
+          style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+        >
+          <span>
+            <img
+              class="csg-media-lozenge-icon"
+              height="14"
+              src="cid:csg-icon-genericAttachment"
+              style="vertical-align: baseline;"
+              width="14"
+            />
+          </span>
+          <span
+            class="csg-media-lozenge-text"
+            style="overflow: hidden; display: inline-block;"
+          >
+            Attached file
+          </span>
+        </div>
+      </div>
+      <div
+        class="csg-caption"
+        style="mso-line-height-rule: exactly; line-height: 24px; font-size: 14px; margin-top: 8px; text-align: center; position: relative; color: rgb(80, 95, 121);"
+      >
+        Caption on media in quote
+      </div>
+    </div>
+  </blockquote>
+</div>
+`;
+
 exports[`Renderer - EmailSerializer should render mention correctly: html 1`] = `
 <div
   class="csg-wrapper"
@@ -5958,7 +6073,7 @@ exports[`Renderer - EmailSerializer should render nested task list correctly: ht
 </div>
 `;
 
-exports[`Renderer - EmailSerializer should render nestedExpand nested in expand: html 1`] = `
+exports[`Renderer - EmailSerializer should render nestedExpand nested in expand: nestedExpand in expand 1`] = `
 <div
   class="csg-wrapper"
   style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"

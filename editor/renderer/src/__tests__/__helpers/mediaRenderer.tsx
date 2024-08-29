@@ -20,6 +20,7 @@ export const MediaBaseRenderer = ({
 				appearance={appearance}
 				adfStage={'stage0'}
 				media={{ allowLinking: true, allowCaptions: true }}
+				UNSTABLE_allowTableResizing={true}
 			/>
 		</MockMediaClientProvider>
 	);

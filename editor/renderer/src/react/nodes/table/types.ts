@@ -11,4 +11,5 @@ export type SharedTableProps = {
 	rendererAppearance: RendererAppearance;
 	isInsideOfBlockNode?: boolean;
 	isinsideMultiBodiedExtension?: boolean;
+	allowTableResizing?: boolean;
 };

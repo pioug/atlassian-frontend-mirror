@@ -4,6 +4,6 @@ export function isSSR() {
 		typeof document === 'undefined' ||
 			// When SSRing editor with full cycle mode we define the document
 			// Check Confluence specific environment variable
-			process?.env?.REACT_SSR,
+			(typeof process !== 'undefined' && process?.env?.REACT_SSR),
 	);
 }

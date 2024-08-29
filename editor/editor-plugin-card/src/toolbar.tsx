@@ -874,6 +874,7 @@ export const getStartingToolbarItems = (
 							providerFactory={providerFactory}
 							platform={options?.platform}
 							editorAnalyticsApi={api?.analytics?.actions}
+							editorPluginApi={api}
 						/>
 					);
 				},

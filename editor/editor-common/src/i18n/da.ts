@@ -204,6 +204,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': 'Slet element',
   'fabric.editor.extension.sourceNoTitledName': 'dette element',
   'fabric.editor.extensions.config-panel.save-indicator': 'Alle ændringer gemmes altid automatisk',
+  'fabric.editor.externalMediaFile': 'Ekstern mediefil',
   'fabric.editor.failed_to_upload': 'Upload mislykkedes',
   'fabric.editor.feedbackDialog': 'Giv feedback',
   'fabric.editor.feedbackDialog.description': 'Fortæl os om din oplevelse med den nye editor.',
@@ -315,6 +316,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, one {Mediebredde øget til {newMediaWidth,number} pixel.} other {Mediebredde øget til {newMediaWidth,number} pixels.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Medier reduceret til minimumsstørrelsen',
+  'fabric.editor.media.insert.cancel': 'Annuller',
+  'fabric.editor.media.insert.errorMessage':
+    'Vi kan desværre ikke tilføje dette billedlink. Download billedet, og træk og slip det til her på siden.',
+  'fabric.editor.media.insert.insert': 'Indsæt',
+  'fabric.editor.media.insert.linkTabTitle': 'Link',
+  'fabric.editor.media.insert.loadPreview': 'Indlæs forhåndsvisning',
+  'fabric.editor.media.insert.mediaAlt': 'Forhåndsvisning af uploadet billede eller videofil',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Medievælger',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'Kopiér og indsæt link for at uploade',
+  'fabric.editor.media.insert.warning':
+    'Billedet er muligvis ikke synligt for andre på grund af kildebegrænsninger. Du kan prøve at uploade filen i stedet.',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Medier øget til maksimumsstørrelsen',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'højdeinput',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Højde',

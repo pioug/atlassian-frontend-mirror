@@ -5,7 +5,7 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { ACTION, EditorAnalyticsAPI, INPUT_METHOD } from '../analytics';
-import { type CardAppearance, type ProviderFactory } from '../provider-factory';
+import { type CardAppearance, type CardProvider, type ProviderFactory } from '../provider-factory';
 import type { Command, FloatingToolbarItem } from '../types';
 
 export interface OptionConfig {
@@ -67,4 +67,5 @@ export type CardPluginActions = {
 	hideLinkToolbar: HideLinkToolbarAction;
 	getStartingToolbarItems: GetStartingToolbarItems;
 	getEndingToolbarItems: GetEndingToolbarItems;
+	setProvider: (provider: Promise<CardProvider>) => Promise<boolean>;
 };

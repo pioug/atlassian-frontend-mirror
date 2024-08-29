@@ -1,0 +1,41 @@
+{
+	"type": "doc",
+	"content": [
+		{
+			"type": "blockquote",
+			"content": [
+				{
+					"type": "mediaSingle",
+					"attrs": {
+						"layout": "center",
+						"width": 354,
+						"widthType": "pixel"
+					},
+					"content": [
+						{
+							"type": "media",
+							"attrs": {
+								"width": 1024,
+								"alt": "6b6a0fdc-3aba-41e5-9ccb-dade3165804a.png",
+								"id": "397edf6e-2d0f-4d78-a855-4158fcc594e7",
+								"collection": "contentId-4113639891",
+								"type": "file",
+								"height": 1024
+							}
+						},
+						{
+							"type": "caption",
+							"content": [
+								{
+									"text": "Caption on media in quote",
+									"type": "text"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"version": 1
+}

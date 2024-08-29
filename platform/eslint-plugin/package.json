@@ -4,7 +4,7 @@
 	"version": "0.7.3",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
-		"team": "UIP - Platform Integration Trust (PITa)",
+		"team": "UIP Dev Infra",
 		"releaseModel": "continuous",
 		"inPublicMirror": true,
 		"toolingLabels": [

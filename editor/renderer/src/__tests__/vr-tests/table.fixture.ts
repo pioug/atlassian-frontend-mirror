@@ -29,11 +29,13 @@ export const FullWidthTableRendererFullWidth = generateRendererComponent({
 export const TableRendererWideOverflow = generateRendererComponent({
 	document: overflowTableWide,
 	appearance: 'full-page',
+	UNSTABLE_allowTableResizing: true,
 });
 
 export const TableRendererFullWidthOverflow = generateRendererComponent({
 	document: overflowTableFullWidth,
 	appearance: 'full-page',
+	UNSTABLE_allowTableResizing: true,
 });
 
 export const TableRendererWrappedNodes = generateRendererComponent({

@@ -76,6 +76,7 @@ export interface ReactSerializerInit {
 	textHighlighter?: TextHighlighter;
 	isCommentsOnMediaMediaInlineBugFixEnabled?: boolean;
 	allowTableAlignment?: boolean;
+	allowTableResizing?: boolean;
 }
 
 interface ParentInfo {
@@ -177,6 +178,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
 	private textHighlighter?: TextHighlighter;
 	private allowTableAlignment?: boolean;
+	private allowTableResizing?: boolean;
 
 	constructor(init: ReactSerializerInit) {
 		this.providers = init.providers;
@@ -210,6 +212,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.textHighlighter = init.textHighlighter;
 		this.isCommentsOnMediaMediaInlineBugFixEnabled = init.isCommentsOnMediaMediaInlineBugFixEnabled;
 		this.allowTableAlignment = init.allowTableAlignment;
+		this.allowTableResizing = init.allowTableResizing;
 	}
 
 	private resetState() {
@@ -480,6 +483,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			isInsideOfBlockNode,
 			isInsideMultiBodiedExtension,
 			allowTableAlignment: this.allowTableAlignment,
+			allowTableResizing: this.allowTableResizing,
 		};
 	}
 

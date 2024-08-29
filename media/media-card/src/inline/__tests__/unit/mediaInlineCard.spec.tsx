@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/media-client';
 import { fakeMediaClient, fakeIntl, asMock } from '@atlaskit/media-test-helpers';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
-import { render, waitFor } from '@testing-library/react';
+import { act, render, waitFor } from '@testing-library/react';
 import * as analyticsModule from '../../../utils/analytics/analytics';
 
 describe('<MediaInlineCard />', () => {
@@ -132,12 +132,18 @@ describe('<MediaInlineCard />', () => {
 	});
 
 	describe('Analytics', () => {
-		it('should send succeeded event once if file is processed and rendered', () => {
+		it('should send succeeded event once if file is processed and rendered', async () => {
 			mount(<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />);
 			expect(fireOperationalEvent).toBeCalledTimes(0);
 
-			observable.next({ ...mockFileState, status: 'processed', artifacts: {} });
-			expect(fireOperationalEvent).toBeCalledTimes(1);
+			act(() => {
+				observable.next({ ...mockFileState, status: 'processed', artifacts: {} });
+			});
+
+			await waitFor(() => {
+				expect(fireOperationalEvent).toBeCalledTimes(1);
+			});
+
 			expect(fireOperationalEvent).toBeCalledWith(
 				{
 					eventType: 'operational',
@@ -171,12 +177,18 @@ describe('<MediaInlineCard />', () => {
 
 			expect(fireOperationalEvent).toBeCalledTimes(0);
 
-			observable.next({
-				...mockFileState,
-				status: 'failed-processing',
-				artifacts: {},
+			act(() => {
+				observable.next({
+					...mockFileState,
+					status: 'failed-processing',
+					artifacts: {},
+				});
 			});
-			expect(fireOperationalEvent).toBeCalledTimes(1);
+
+			await waitFor(() => {
+				expect(fireOperationalEvent).toBeCalledTimes(1);
+			});
+
 			expect(fireOperationalEvent).toBeCalledWith(
 				{
 					eventType: 'operational',
@@ -195,11 +207,15 @@ describe('<MediaInlineCard />', () => {
 			);
 		});
 
-		it('should send failed event once if file subscription errored', () => {
+		it('should send failed event once if file subscription errored', async () => {
 			mount(<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />);
 			expect(fireOperationalEvent).toBeCalledTimes(0);
 			observable.error(new Error('test'));
-			expect(fireOperationalEvent).toBeCalledTimes(1);
+
+			await waitFor(() => {
+				expect(fireOperationalEvent).toBeCalledTimes(1);
+			});
+
 			expect(fireOperationalEvent).toBeCalledWith(
 				{
 					eventType: 'operational',
@@ -220,16 +236,22 @@ describe('<MediaInlineCard />', () => {
 			);
 		});
 
-		it('should send failed event once if file state is error', () => {
+		it('should send failed event once if file state is error', async () => {
 			mount(<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />);
 			expect(fireOperationalEvent).toBeCalledTimes(0);
 
-			observable.next({
-				...mockFileState,
-				status: 'error',
-				message: 'serverForbidden',
+			act(() =>
+				observable.next({
+					...mockFileState,
+					status: 'error',
+					message: 'serverForbidden',
+				}),
+			);
+
+			await waitFor(() => {
+				expect(fireOperationalEvent).toBeCalledTimes(1);
 			});
-			expect(fireOperationalEvent).toBeCalledTimes(1);
+
 			expect(fireOperationalEvent).toBeCalledWith(
 				{
 					eventType: 'operational',
@@ -250,14 +272,16 @@ describe('<MediaInlineCard />', () => {
 			);
 		});
 
-		it('should send failed event once if file state has no filename)', () => {
+		it('should send failed event once if file state has no filename', () => {
 			mount(<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />);
 			expect(fireOperationalEvent).toBeCalledTimes(0);
 
-			observable.next({
-				status: 'processing',
-				id: '1234',
-			} as any);
+			act(() => {
+				observable.next({
+					status: 'processing',
+					id: '1234',
+				} as any);
+			});
 			expect(fireOperationalEvent).toBeCalledTimes(1);
 			expect(fireOperationalEvent).toBeCalledWith(
 				{

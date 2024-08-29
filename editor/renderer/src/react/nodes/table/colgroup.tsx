@@ -8,7 +8,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { SharedTableProps } from './types';
-import { isTableResizingEnabled } from '../table';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { useFeatureFlags } from '../../../use-feature-flags';
 import type { RendererContextProps } from '../../../renderer-context';
@@ -77,6 +76,7 @@ const renderScaleDownColgroup = (
 		isinsideMultiBodiedExtension,
 		isTableScalingEnabled,
 		isTableFixedColumnWidthsOptionEnabled,
+		allowTableResizing,
 	} = props;
 
 	if (!columnWidths) {
@@ -88,15 +88,16 @@ const renderScaleDownColgroup = (
 	const noOfColumns = columnWidths.length;
 	let targetWidths;
 
+	// appearance == comment && allowTableResizing && !tableNode?.attrs.width, means it is a comment
+	// appearance == comment && !allowTableResizing && !tableNode?.attrs.width, means it is a inline comment
+	// When comment and inline comment table width inherits from the parent container, we want tableContainerWidth === renderWidth
 	const tableContainerWidth =
-		rendererAppearance === 'comment' &&
-		isTableResizingEnabled(rendererAppearance) &&
-		!tableNode?.attrs.width
+		rendererAppearance === 'comment' && !tableNode?.attrs.width
 			? renderWidth
 			: getTableContainerWidth(tableNode);
 
 	if (
-		isTableResizingEnabled(rendererAppearance) &&
+		allowTableResizing &&
 		!isInsideOfBlockNode &&
 		!isinsideMultiBodiedExtension &&
 		!tableResized

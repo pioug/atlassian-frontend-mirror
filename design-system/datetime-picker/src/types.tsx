@@ -229,6 +229,8 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 * `subtle` will remove the borders, background, and icon.
 	 *
 	 * __NOTE:__ Appearance values will be ignored if styles are parsed through `selectProps`.
+	 *
+	 * @deprecated
 	 */
 	appearance?: Appearance;
 	/**
@@ -352,6 +354,8 @@ export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
 	 * Set the appearance of the picker.
 	 *
 	 * `subtle` will remove the borders and background.
+	 *
+	 * @deprecated
 	 */
 	appearance?: Appearance;
 	/**

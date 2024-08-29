@@ -35,7 +35,7 @@
 	},
 	"atlassian": {
 		"releaseModel": "continuous",
-		"team": "UIP: Frontend Delivery"
+		"team": "UIP Dev Infra"
 	},
 	"config": {
 		"access": "public"

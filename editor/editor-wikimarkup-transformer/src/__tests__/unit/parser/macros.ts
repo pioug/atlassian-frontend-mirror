@@ -87,7 +87,7 @@ this is a text as well`,
 {quote}`,
 		],
 		[
-			'should lift attachment node when it is inside quote',
+			'should render attachment nodes inside quotes',
 			`{quote}this is text inside a quote
 [^attachment-file11.txt] [^attachment-file12.txt] [^attachment-file13.txt]
 

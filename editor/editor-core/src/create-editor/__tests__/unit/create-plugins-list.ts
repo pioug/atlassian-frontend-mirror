@@ -1,7 +1,6 @@
 jest.mock('@atlaskit/editor-plugins/hyperlink');
 jest.mock('@atlaskit/editor-plugins/feedback-dialog');
 jest.mock('@atlaskit/editor-plugins/placeholder');
-jest.mock('@atlaskit/editor-plugins/selection');
 jest.mock('@atlaskit/editor-plugins/code-block');
 jest.mock('@atlaskit/editor-plugins/layout');
 jest.mock('@atlaskit/editor-plugins/submit-editor');
@@ -13,7 +12,6 @@ jest.mock('@atlaskit/editor-plugins/help-dialog');
 jest.mock('@atlaskit/editor-plugins/media');
 jest.mock('@atlaskit/editor-plugins/status');
 jest.mock('@atlaskit/editor-plugins/scroll-into-view');
-jest.mock('@atlaskit/editor-plugins/history');
 jest.mock('@atlaskit/editor-plugins/placeholder-text');
 jest.mock('@atlaskit/editor-plugins/analytics');
 jest.mock('@atlaskit/editor-plugins/insert-block');
@@ -26,7 +24,6 @@ import { contextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import { feedbackDialogPlugin } from '@atlaskit/editor-plugins/feedback-dialog';
 import { findReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
 import { helpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
-import { historyPlugin } from '@atlaskit/editor-plugins/history';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
 import { insertBlockPlugin } from '@atlaskit/editor-plugins/insert-block';
 import { layoutPlugin } from '@atlaskit/editor-plugins/layout';
@@ -35,13 +32,12 @@ import { placeholderPlugin } from '@atlaskit/editor-plugins/placeholder';
 import { placeholderTextPlugin } from '@atlaskit/editor-plugins/placeholder-text';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { scrollIntoViewPlugin } from '@atlaskit/editor-plugins/scroll-into-view';
-import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { statusPlugin } from '@atlaskit/editor-plugins/status';
 import { submitEditorPlugin } from '@atlaskit/editor-plugins/submit-editor';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 
 import type { EditorProps } from '../../../types';
-import createPluginsListBase, { getScrollGutterOptions } from '../../create-plugins-list';
+import createPluginsListBase from '../../create-plugins-list';
 import { createUniversalPreset } from '../../create-universal-preset';
 
 const createPluginsList = (props: EditorProps, prevProps?: EditorProps) => {
@@ -83,19 +79,6 @@ describe('createPluginsList', () => {
 		});
 	});
 
-	it('should add tablePlugin if allowTables is true where previous appearance was mobile', () => {
-		const tableOptions = { allowTables: true };
-		const prevProps: EditorProps = { appearance: 'mobile' };
-		createPluginsList(tableOptions, prevProps);
-		expect(tablesPlugin).toHaveBeenCalledTimes(1);
-		expect(tablesPlugin).toHaveBeenCalledWith({
-			config: expect.objectContaining({
-				fullWidthEnabled: false,
-				wasFullWidthEnabled: false,
-			}),
-		});
-	});
-
 	it('should always add submitEditorPlugin to the editor', () => {
 		createPluginsList({});
 		expect(submitEditorPlugin).toHaveBeenCalled();
@@ -104,26 +87,6 @@ describe('createPluginsList', () => {
 	it('should always add quickInsert', () => {
 		createPluginsList({});
 		expect(quickInsertPlugin).toHaveBeenCalled();
-	});
-
-	it('should add quickInsertPlugin with special options when appearance === "mobile"', () => {
-		createPluginsList({ appearance: 'mobile' });
-		expect(quickInsertPlugin).toHaveBeenCalledWith({
-			config: {
-				disableDefaultItems: true,
-				headless: true,
-			},
-		});
-	});
-
-	it('should add selectionPlugin with useLongPressSelection disable when appearance === "mobile"', () => {
-		createPluginsList({ appearance: 'mobile' });
-
-		expect(selectionPlugin).toHaveBeenCalledWith({
-			config: {
-				useLongPressSelection: false,
-			},
-		});
 	});
 
 	it('should add mediaPlugin if media prop is provided', () => {
@@ -358,16 +321,6 @@ describe('createPluginsList', () => {
 		expect(insertBlockPlugin).toHaveBeenCalledWith({ config: props });
 	});
 
-	it('should add historyPlugin to mobile editor', () => {
-		createPluginsList({ appearance: 'mobile' });
-		expect(historyPlugin).toHaveBeenCalled();
-	});
-
-	it('should not add historyPlugin to non-mobile editor', () => {
-		createPluginsList({ appearance: 'full-page' });
-		expect(historyPlugin).not.toHaveBeenCalled();
-	});
-
 	it('should add contextPanelPlugin by default', () => {
 		createPluginsList({ appearance: 'full-page' });
 		expect(contextPanelPlugin).toHaveBeenCalled();
@@ -410,36 +363,7 @@ describe('createPluginsList', () => {
 		});
 	});
 
-	describe('getScrollGutterOptions', () => {
-		it('should return ScrollGutterPluginOptions with persistScrollGutter as true', () => {
-			const scrollGutterOptions = getScrollGutterOptions({
-				appearance: 'mobile',
-				persistScrollGutter: true,
-			});
-
-			expect(scrollGutterOptions?.persistScrollGutter).toBe(true);
-		});
-
-		it('should return ScrollGutterPluginOptions with gutterSize as 36', () => {
-			const scrollGutterOptions = getScrollGutterOptions({
-				appearance: 'mobile',
-			});
-
-			expect(scrollGutterOptions?.gutterSize).toBe(36);
-		});
-	});
-
 	describe('codeblock', () => {
-		it('should pass allowCompositionInputOverride when mobile editor', () => {
-			createPluginsList({ appearance: 'mobile' });
-			expect(codeBlockPlugin).toHaveBeenCalledWith({
-				config: {
-					allowCompositionInputOverride: true,
-					useLongPressSelection: false,
-				},
-			});
-		});
-
 		it('should not pass allowCompositionInputOverride when not mobile editor', () => {
 			createPluginsList({ appearance: 'full-page' });
 			expect(codeBlockPlugin).toHaveBeenCalledWith({

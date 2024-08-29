@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.15
+
+### Patch Changes
+
+- [`be687d5675114`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be687d5675114) -
+  [ux] Fixes a bug where scaled table viewed on a narrow screen loses scaling.
+- Updated dependencies
+
+## 7.25.14
+
+### Patch Changes
+
+- [#134066](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134066)
+  [`43a1d7aed352b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43a1d7aed352b) -
+  ED-24576: UNSTABLE_allowTableResizing in renderer added
+
 ## 7.25.13
 
 ### Patch Changes

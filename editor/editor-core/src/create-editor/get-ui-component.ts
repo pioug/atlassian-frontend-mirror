@@ -2,7 +2,6 @@ import type { EditorAppearance, EditorAppearanceComponentProps } from '../types'
 import Chromeless from '../ui/Appearance/Chromeless';
 import Comment from '../ui/Appearance/Comment';
 import FullPage from '../ui/Appearance/FullPage';
-import Mobile from '../ui/Appearance/Mobile';
 
 type ReturnType = React.ComponentType<
 	// Can't compute editor api at run time
@@ -21,8 +20,6 @@ export default function getUiComponent(appearance: EditorAppearance): ReturnType
 			return Chromeless;
 		case 'comment':
 			return Comment;
-		case 'mobile':
-			return Mobile;
 		default:
 			throw new Error(`Appearance '${appearance}' is not supported by the editor.`);
 	}

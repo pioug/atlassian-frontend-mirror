@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "78.1.2",
+	"version": "78.2.0",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -38,15 +38,16 @@
 		"releaseModel": "continuous",
 		"website": {
 			"name": "Media Card"
-		}
+		},
+		"runReact18": true
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/dropdown-menu": "^12.18.0",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/icon": "^22.15.0",
-		"@atlaskit/media-client": "^27.5.0",
-		"@atlaskit/media-client-react": "^2.1.0",
+		"@atlaskit/media-client": "^27.6.0",
+		"@atlaskit/media-client-react": "^2.2.0",
 		"@atlaskit/media-common": "^11.4.0",
 		"@atlaskit/media-file-preview": "^0.8.0",
 		"@atlaskit/media-svg": "^0.1.3",
@@ -70,8 +71,8 @@
 	},
 	"peerDependencies": {
 		"@emotion/react": "^11.7.1",
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0",
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
@@ -108,9 +109,6 @@
 		"wait-for-expect": "^1.2.0"
 	},
 	"platform-feature-flags": {
-		"platform.media-experience.card-views-refactor_b91lr": {
-			"type": "boolean"
-		},
 		"platform.media-card-svg-rendering_6tdbv": {
 			"type": "boolean"
 		},

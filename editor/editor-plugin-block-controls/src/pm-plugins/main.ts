@@ -238,7 +238,7 @@ export const createPlugin = (
 					newNodeDecs = newNodeDecs ?? nodeDecorations(newState);
 					decorations = decorations.add(newState.doc, [...newNodeDecs]);
 
-					if (activeNode && !isDecsMissing) {
+					if (activeNode && !meta?.nodeMoved && !isDecsMissing) {
 						let mappedPosisiton = tr.mapping.map(activeNode.pos);
 						const prevMappedPos = oldState.tr.mapping.map(activeNode.pos);
 

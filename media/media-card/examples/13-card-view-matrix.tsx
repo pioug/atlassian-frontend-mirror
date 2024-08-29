@@ -15,9 +15,7 @@ import TrashIcon from '@atlaskit/icon/glyph/trash';
 import EditIcon from '@atlaskit/icon/glyph/edit';
 import { type CardAction, type CardStatus } from '../src';
 import { CardView } from '../src/card/cardView';
-import { CardViews } from '../src/card/cardviews';
 import { type FileDetails, type MediaType } from '@atlaskit/media-client';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { IntlProvider } from 'react-intl-next';
 import { Y75 } from '@atlaskit/theme/colors';
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';
@@ -75,9 +73,7 @@ interface State {
 	withTransparency: boolean;
 	error: string;
 }
-const LoadedCardView = getBooleanFF('platform.media-experience.card-views-refactor_b91lr')
-	? CardViews
-	: CardView;
+
 class Example extends React.Component<{}, State> {
 	state: State = {
 		disableOverlay: false,
@@ -354,7 +350,7 @@ class Example extends React.Component<{}, State> {
 
 		return (
 			<CardViewWrapper small={!this.state.useBigCard}>
-				<LoadedCardView
+				<CardView
 					status={status}
 					mediaItemType="file"
 					metadata={withMetadata ? metadata : undefined}

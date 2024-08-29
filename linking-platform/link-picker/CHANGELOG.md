@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 1.45.0
+
+### Minor Changes
+
+- [#134720](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134720)
+  [`d68e52d41458c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d68e52d41458c) -
+  Add UFO performance monitoring support
+
 ## 1.44.1
 
 ### Patch Changes

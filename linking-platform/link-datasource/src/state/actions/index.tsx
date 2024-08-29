@@ -7,6 +7,8 @@ import type { ActionsDiscoveryRequest, AtomicActionInterface } from '@atlaskit/l
 
 import { type EventKey } from '../../../src/analytics/generated/analytics.types';
 import type createEventPayload from '../../../src/analytics/generated/create-event-payload';
+import { useDatasourceAnalyticsEvents } from '../../analytics';
+import useErrorLogger from '../../hooks/useErrorLogger';
 
 type IntegrationKey = string;
 type FieldKey = string;
@@ -221,6 +223,9 @@ export const useExecuteAtomicAction = ({
 
 	const { executeAtomicAction: executeAction } = useDatasourceClientExtension();
 
+	const { fireEvent } = useDatasourceAnalyticsEvents();
+	const { captureError } = useErrorLogger({ integrationKey });
+
 	const execute = useCallback(
 		(value: string | number) => {
 			if (!schema) {
@@ -231,9 +236,21 @@ export const useExecuteAtomicAction = ({
 				integrationKey,
 				actionKey: schema.actionKey,
 				parameters: { inputs: { [fieldKey]: value }, target: { ari } },
-			});
+			})
+				.then((resp) => {
+					fireEvent('operational.actionExecution.success', {
+						integrationKey: integrationKey,
+						experience: 'datasource',
+					});
+					return resp;
+				})
+				.catch((error) => {
+					captureError('actionExecution', error);
+					// Rethrow up to component for flags and other handling
+					throw error;
+				});
 		},
-		[schema, executeAction, integrationKey, fieldKey, ari],
+		[schema, executeAction, integrationKey, fieldKey, ari, fireEvent, captureError],
 	);
 
 	if (!schema) {

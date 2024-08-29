@@ -127,4 +127,5 @@ export interface RendererProps {
 
 	UNSTABLE_textHighlighter?: TextHighlighter;
 	UNSTABLE_allowTableAlignment?: boolean;
+	UNSTABLE_allowTableResizing?: boolean;
 }

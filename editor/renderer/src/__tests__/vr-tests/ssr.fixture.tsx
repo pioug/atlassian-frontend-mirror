@@ -15,7 +15,7 @@ import { smartCardAdf, smartCardAtlassianProjectAdf } from '../__fixtures__/ssr-
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { IntlProvider } from 'react-intl-next';
 import Loadable from 'react-loadable';
-import { ReactRenderer } from '../../index';
+import { ReactRenderer, type RendererProps } from '../../index';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { DocNode } from '@atlaskit/adf-schema';
 import {
@@ -26,36 +26,51 @@ import {
 } from '@atlaskit/media-test-helpers/smart-card-state';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const RendererWrapper = ({ adf }: { adf: DocNode }) => (
-	<IntlProvider locale="en">
-		<SmartCardProvider storeOptions={storeOptions} client={new CardClient('staging')}>
-			<ReactRenderer
-				document={adf}
-				schema={defaultSchema}
-				appearance="full-page"
-				enableSsrInlineScripts={true}
-				smartLinks={{ ssr: true }}
-			/>
-		</SmartCardProvider>
-	</IntlProvider>
-);
+const RendererWrapper = ({
+	adf,
+	rendererProps,
+}: {
+	adf: DocNode;
+	rendererProps?: Partial<RendererProps>;
+}) => {
+	return (
+		<IntlProvider locale="en">
+			<SmartCardProvider storeOptions={storeOptions} client={new CardClient('staging')}>
+				<ReactRenderer
+					document={adf}
+					schema={defaultSchema}
+					appearance="full-page"
+					enableSsrInlineScripts={true}
+					smartLinks={{ ssr: true }}
+					{...rendererProps}
+				/>
+			</SmartCardProvider>
+		</IntlProvider>
+	);
+};
 
 interface CustomProvidersProps {
 	children?: JSX.Element;
 	[k: string]: any;
 }
 
-const RendererSSR = ({ adf }: { adf: DocNode }) => {
+const RendererSSR = ({
+	adf,
+	rendererProps,
+}: {
+	adf: DocNode;
+	rendererProps?: Partial<RendererProps>;
+}) => {
 	const [htmlString, setHtmlString] = useState<string | null>(null);
 	useEffect(() => {
 		Loadable.preloadAll().then(() => {
 			const element = React.createElement<CustomProvidersProps>(() => (
-				<RendererWrapper adf={adf} />
+				<RendererWrapper adf={adf} rendererProps={rendererProps} />
 			));
 			const html = ReactDOMServer.renderToString(element);
 			setHtmlString(html);
 		});
-	}, [adf]);
+	}, [adf, rendererProps]);
 
 	if (!htmlString) {
 		return null;
@@ -65,7 +80,7 @@ const RendererSSR = ({ adf }: { adf: DocNode }) => {
 };
 
 export const RendererSSRTable = () => {
-	return <RendererSSR adf={ssrTableDoc} />;
+	return <RendererSSR adf={ssrTableDoc} rendererProps={{ UNSTABLE_allowTableResizing: true }} />;
 };
 
 export const RendererSSRLayout = () => {

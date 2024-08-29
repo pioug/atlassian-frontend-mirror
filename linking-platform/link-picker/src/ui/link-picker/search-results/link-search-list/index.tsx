@@ -224,7 +224,11 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={spinnerContainerStyles}
 				>
-					<Spinner testId={testIds.searchResultLoadingIndicator} size="medium" />
+					<Spinner
+						testId={testIds.searchResultLoadingIndicator}
+						interactionName="link-picker-search-list-loading"
+						size="medium"
+					/>
 				</MinHeightContainer>
 			);
 		}

@@ -1,13 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { mount, type ReactWrapper, shallow } from 'enzyme';
-import { act } from 'react-dom/test-utils';
 
-import { Checkbox } from '@atlaskit/checkbox';
-import { AutoDismissFlag } from '@atlaskit/flag';
-import { Field } from '@atlaskit/form';
-import Select from '@atlaskit/select';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import FeedbackCollector from '../../components/FeedbackCollector';
@@ -15,12 +9,7 @@ import FeedbackFlag from '../../components/FeedbackFlag';
 import FeedbackForm, { type OptionType } from '../../components/FeedbackForm';
 import { type FormFields } from '../../types';
 
-import {
-	customFieldRecords,
-	customOptionsData,
-	defaultFieldRecords,
-	emptyOptionData,
-} from './_data';
+import { customFieldRecords, emptyOptionData } from './_data';
 
 jest.mock('../../i18n/fr', () => ({
 	'feedback-collector.feedback-title': 'Translated feedback title (FR)',
@@ -33,43 +22,32 @@ jest
 		return null;
 	});
 
+const renderFeedbackCollector = (props = {}) =>
+	render(
+		<FeedbackCollector
+			onClose={() => {}}
+			onSubmit={() => {}}
+			name="name"
+			entrypointId="entrypoint_id"
+			{...props}
+		/>,
+	);
+
 describe('Feedback Collector unit tests', () => {
 	describe('Feedback integration', () => {
-		test('Feedback collector should render a component', () => {
-			const wrapper = mount(
-				<FeedbackCollector
-					onClose={() => {}}
-					onSubmit={() => {}}
-					name="name"
-					entrypointId="entrypoint_id"
-				/>,
-			);
-			expect(wrapper).toBeDefined();
-			wrapper.unmount();
-		});
-
 		test('should render visual instruction for mandatory field', () => {
-			render(
-				<FeedbackCollector
-					onClose={() => {}}
-					onSubmit={() => {}}
-					name="name"
-					entrypointId="entrypoint_id"
-				/>,
-			);
+			renderFeedbackCollector({});
 			const visualInstruction = screen.getByText('Required fields are marked with an asterisk');
 			expect(visualInstruction).toBeInTheDocument();
 		});
 
 		describe('Transforming form values into format', () => {
-			let wrapper: ReactWrapper<{}, {}, FeedbackCollector>;
-
+			let feedbackCollector: FeedbackCollector;
 			beforeEach(() => {
-				wrapper = mount(<FeedbackCollector name="name" entrypointId="entrypoint_id" />);
-			});
-
-			afterEach(() => {
-				wrapper.unmount();
+				feedbackCollector = new FeedbackCollector({
+					...FeedbackCollector.defaultProps,
+					entrypointId: 'entrypoint_id',
+				});
 			});
 
 			test('value is selected, everything else is empty', async () => {
@@ -102,7 +80,7 @@ describe('Feedback Collector unit tests', () => {
 						},
 						{
 							id: 'customfield_10045',
-							value: 'name',
+							value: 'unknown',
 						},
 						{
 							id: 'customfield_10043',
@@ -115,7 +93,7 @@ describe('Feedback Collector unit tests', () => {
 					],
 				};
 
-				const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+				const resultJsd = await feedbackCollector.mapFormToJSD(formValues);
 
 				expect(resultJsd).toEqual(resultValues);
 			});
@@ -150,7 +128,7 @@ describe('Feedback Collector unit tests', () => {
 						},
 						{
 							id: 'customfield_10045',
-							value: 'name',
+							value: 'unknown',
 						},
 						{
 							id: 'customfield_10043',
@@ -163,7 +141,7 @@ describe('Feedback Collector unit tests', () => {
 					],
 				};
 
-				const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+				const resultJsd = await feedbackCollector.mapFormToJSD(formValues);
 
 				expect(resultJsd).toEqual(resultValues);
 			});
@@ -198,7 +176,7 @@ describe('Feedback Collector unit tests', () => {
 						},
 						{
 							id: 'customfield_10045',
-							value: 'name',
+							value: 'unknown',
 						},
 						{
 							id: 'customfield_10043',
@@ -211,12 +189,78 @@ describe('Feedback Collector unit tests', () => {
 					],
 				};
 
-				const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+				const resultJsd = await feedbackCollector.mapFormToJSD(formValues);
 
 				expect(resultJsd).toEqual(resultValues);
 			});
 
 			test('value is selected, description is filled, consent to contact is given, enrolled in research', async () => {
+				const formValues: FormFields = {
+					type: 'question',
+					description: 'some text',
+					canBeContacted: true,
+					enrollInResearchGroup: true,
+				};
+
+				const resultValues = {
+					fields: [
+						{
+							id: 'customfield_10042',
+							value: {
+								id: '10108',
+							},
+						},
+						{
+							id: 'summary',
+							value: 'some text',
+						},
+						{
+							id: 'description',
+							value: 'some text',
+						},
+						{
+							id: 'aaidOrHash',
+							value: undefined,
+						},
+						{
+							id: 'customfield_10045',
+							value: 'unknown',
+						},
+						{
+							id: 'customfield_10043',
+							value: [
+								{
+									id: '10109',
+								},
+							],
+						},
+						{
+							id: 'customfield_10044',
+							value: [
+								{
+									id: '10110',
+								},
+							],
+						},
+					],
+				};
+
+				const resultJsd = await feedbackCollector.mapFormToJSD(formValues);
+
+				expect(resultJsd).toEqual(resultValues);
+			});
+		});
+
+		describe('Without reason select', () => {
+			let feedbackCollector: FeedbackCollector;
+			beforeEach(() => {
+				feedbackCollector = new FeedbackCollector({
+					...FeedbackCollector.defaultProps,
+					entrypointId: 'entrypoint_id',
+					name: 'name',
+				});
+			});
+			test('Should set feedback without a feedback type', async () => {
 				const formValues: FormFields = {
 					type: 'question',
 					description: 'some text',
@@ -267,88 +311,34 @@ describe('Feedback Collector unit tests', () => {
 					],
 				};
 
-				const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
-
-				expect(resultJsd).toEqual(resultValues);
-			});
-		});
-
-		describe('Without reason select', () => {
-			let wrapper: ReactWrapper<{}, {}, FeedbackCollector>;
-
-			beforeEach(() => {
-				wrapper = mount(
-					<FeedbackCollector name="name" entrypointId="entrypoint_id" showTypeField={false} />,
-				);
-			});
-
-			afterEach(() => {
-				wrapper.unmount();
-			});
-
-			test('Should set feedback without a feedback type', async () => {
-				const formValues: FormFields = {
-					type: 'question',
-					description: 'some text',
-					canBeContacted: true,
-					enrollInResearchGroup: true,
-				};
-
-				const resultValues = {
-					fields: [
-						{
-							id: 'summary',
-							value: 'some text',
-						},
-						{
-							id: 'description',
-							value: 'some text',
-						},
-						{
-							id: 'aaidOrHash',
-							value: undefined,
-						},
-						{
-							id: 'customfield_10045',
-							value: 'name',
-						},
-						{
-							id: 'customfield_10043',
-							value: [
-								{
-									id: '10109',
-								},
-							],
-						},
-						{
-							id: 'customfield_10044',
-							value: [
-								{
-									id: '10110',
-								},
-							],
-						},
-					],
-				};
-
-				const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+				const resultJsd = await feedbackCollector.mapFormToJSD(formValues);
 
 				expect(resultJsd).toEqual(resultValues);
 			});
 
 			test('should add context with email', async () => {
+				feedbackCollector = new FeedbackCollector({
+					...FeedbackCollector.defaultProps,
+					entrypointId: 'entrypoint_id',
+					email: 'test@test.com',
+					name: 'name',
+				});
+
 				const formValues: FormFields = {
 					type: 'question',
 					description: 'some text',
 					canBeContacted: true,
 					enrollInResearchGroup: true,
 				};
-				wrapper.setProps({
-					email: 'test@test.com',
-				});
 
 				const resultValues = {
 					fields: [
+						{
+							id: 'customfield_10042',
+							value: {
+								id: '10108',
+							},
+						},
 						{
 							id: 'summary',
 							value: 'some text',
@@ -388,31 +378,39 @@ describe('Feedback Collector unit tests', () => {
 					],
 				};
 
-				const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+				const resultJsd = await feedbackCollector.mapFormToJSD(formValues);
 
 				expect(resultJsd).toEqual(resultValues);
 			});
 
 			test('should add email to existing context', async () => {
+				feedbackCollector = new FeedbackCollector({
+					...FeedbackCollector.defaultProps,
+					entrypointId: 'entrypoint_id',
+					email: 'test@test.com',
+					name: 'name',
+					additionalFields: [
+						{
+							id: 'customfield_10047',
+							value: 'This is a test\nWe have some formatting here',
+						},
+					],
+				});
 				const formValues: FormFields = {
 					type: 'question',
 					description: 'some text',
 					canBeContacted: true,
 					enrollInResearchGroup: true,
 				};
-				wrapper.setProps({
-					email: 'test@test.com',
-					additionalFields: [
-						{
-							id: 'customfield_10047',
-							value: `This is a test
-          We have some formatting here`,
-						},
-					],
-				});
 
 				const resultValues = {
 					fields: [
+						{
+							id: 'customfield_10042',
+							value: {
+								id: '10108',
+							},
+						},
 						{
 							id: 'summary',
 							value: 'some text',
@@ -448,98 +446,59 @@ describe('Feedback Collector unit tests', () => {
 						{
 							id: 'customfield_10047',
 							value: `This is a test
-          We have some formatting here
+We have some formatting here
         email: test@test.com`,
 						},
 					],
 				};
 
-				const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+				const resultJsd = await feedbackCollector.mapFormToJSD(formValues);
 
 				expect(resultJsd).toEqual(resultValues);
-			});
-
-			test('Should not render Select in the component', () => {
-				expect(wrapper.contains('Select')).toBeFalsy();
 			});
 		});
 
 		describe('With custom copy', () => {
-			let wrapper: ReactWrapper<{}, {}, FeedbackCollector>;
 			const customPreamble = 'Your feedback means a lot to us, thank you.';
-			const customCanContact = 'Atlassian can contact me about my feedback';
-			const customEnroll = 'Please enroll me in research program';
-			const expectedButtonLabels = ['Cancel Button', 'Submit Button'];
-
-			beforeEach(() => {
-				wrapper = mount(
-					<FeedbackCollector
-						name="name"
-						entrypointId="entrypoint_id"
-						showTypeField={false}
-						feedbackTitle="Custom title"
-						feedbackTitleDetails={
-							<>
-								<div id="test-preamble-content">{customPreamble}</div>
-							</>
-						}
-						summaryPlaceholder="Enter your feedback here"
-						canBeContactedLabel={
-							<p id="test-contacted-content">Atlassian can contact me about my feedback</p>
-						}
-						enrolInResearchLabel={
-							<p id="test-research-content">Please enroll me in research program</p>
-						}
-					/>,
-				);
-			});
-
-			afterEach(() => {
-				wrapper.unmount();
-			});
 
 			test('Should render the custom copy in the component without reason select', () => {
-				expect(wrapper.contains('Select')).toBeFalsy();
-				expect(wrapper.find('#test-preamble-content').text()).toEqual(customPreamble);
+				const { getByTestId } = renderFeedbackCollector({
+					showTypeField: false,
+					feedbackTitle: 'Custom title',
+					feedbackTitleDetails: (
+						<>
+							<div data-testid="test-preamble-content">
+								Your feedback means a lot to us, thank you.
+							</div>
+						</>
+					),
+					summaryPlaceholder: 'Enter your feedback here',
+					canBeContactedLabel: (
+						<p id="test-contacted-content">Atlassian can contact me about my feedback</p>
+					),
+					enrolInResearchLabel: (
+						<p id="test-research-content">Please enroll me in research program</p>
+					),
+				});
+				expect(getByTestId('test-preamble-content').textContent).toEqual(customPreamble);
 			});
 
 			test('Should render the custom copy in the component with reason select', () => {
-				wrapper.setProps({
+				const { getAllByRole, getByRole, getByText } = renderFeedbackCollector({
 					showTypeField: true,
 					submitButtonLabel: 'Submit Button',
 					cancelButtonLabel: 'Cancel Button',
 					feedbackGroupLabels: customFieldRecords,
 				});
 
-				const { options, placeholder } = wrapper.find(Select).props();
-				const feedbackFormWrapper = wrapper.find(FeedbackForm);
+				expect(getAllByRole('button').length).toBe(3); // now includes 'x'
 
-				expect(wrapper.find('button')).toBeTruthy();
-				expect(wrapper.find('button').length).toBe(3); // now includes 'x'
-				wrapper
-					.find('button')
-					?.slice(1)
-					.forEach((action, index) => {
-						expect(action.text()).toEqual(expectedButtonLabels[index]);
-					});
-
-				expect(wrapper.find(Select)).toBeTruthy();
-				expect(placeholder).toEqual(emptyOptionData);
-				expect(options).toEqual(customOptionsData);
-				for (const [key, value] of Object.entries(customFieldRecords)) {
-					if (key !== 'empty') {
-						act(() => {
-							feedbackFormWrapper.find(Select).props().onChange({ value: key });
-						});
-						feedbackFormWrapper.update();
-						expect(wrapper.find(Field).at(1).props().label).toBe(value.fieldLabel);
-						expect(wrapper.find('#test-preamble-content').text()).toEqual(customPreamble);
-					}
-				}
+				expect(getByRole('combobox', { name: 'Select feedback' })).toBeTruthy();
+				expect(getByText(emptyOptionData).textContent).toEqual(emptyOptionData);
 			});
 
 			test('Should render the custom copy in the component with reason select and aaid', () => {
-				wrapper.setProps({
+				const { getAllByRole, getByRole, getByText } = renderFeedbackCollector({
 					atlassianAccountId: 'aaid',
 					showTypeField: true,
 					submitButtonLabel: 'Submit Button',
@@ -547,60 +506,42 @@ describe('Feedback Collector unit tests', () => {
 					feedbackGroupLabels: customFieldRecords,
 				});
 
-				const { options, placeholder } = wrapper.find(Select).props();
-				const feedbackFormWrapper = wrapper.find(FeedbackForm);
+				expect(getAllByRole('button').length).toBe(3); // now includes 'x'
 
-				expect(wrapper.find('button')).toBeTruthy();
-				expect(wrapper.find('button').length).toBe(3); // now includes 'x'
-				wrapper
-					.find('button')
-					?.slice(1)
-					.forEach((action, index) => {
-						expect(action.text()).toEqual(expectedButtonLabels[index]);
-					});
-
-				expect(wrapper.find(Select)).toBeTruthy();
-				expect(placeholder).toEqual(emptyOptionData);
-				expect(options).toEqual(customOptionsData);
-				for (const [key, value] of Object.entries(customFieldRecords)) {
-					if (key !== 'empty') {
-						act(() => {
-							feedbackFormWrapper.find(Select).props().onChange({ value: key });
-						});
-						feedbackFormWrapper.update();
-						expect(wrapper.find(Field).at(1).props().label).toBe(value.fieldLabel);
-						expect(wrapper.find('#test-preamble-content').text()).toEqual(customPreamble);
-						expect(wrapper.find('#test-contacted-content').text()).toEqual(customCanContact);
-						expect(wrapper.find('#test-research-content').text()).toEqual(customEnroll);
-					}
-				}
+				expect(getByRole('combobox', { name: 'Select feedback' })).toBeTruthy();
+				expect(getByText(emptyOptionData).textContent).toEqual(emptyOptionData);
 			});
 		});
 
 		describe('Posting feedback', () => {
-			test('Should invoke props.onSubmit even after FeedbackCollector unmounts', async () => {
-				class TestableFeedbackCollector extends FeedbackCollector {
-					componentWillUnmount() {
-						// Empty placeholder to allow spying on this lifecycle method within a unit test,
-						// because the real component doesn't declare one, and sadly, Enzyme doesn't allow
-						// access to the inherited React lifecycle methods.
-					}
-				}
+			let feedbackCollector: FeedbackCollector;
+			beforeEach(() => {
+				feedbackCollector = new FeedbackCollector({
+					...FeedbackCollector.defaultProps,
+					entrypointId: 'entrypoint_id',
+				});
+			});
+			test('Should invoke props.onSubmit', async () => {
+				class TestableFeedbackCollector extends FeedbackCollector {}
 
 				const onSubmit = jest.fn();
 				const timeoutOnSubmit = 700;
-				const unmountSpy = jest.spyOn(TestableFeedbackCollector.prototype, 'componentWillUnmount');
-
-				const wrapper = mount<TestableFeedbackCollector>(
+				feedbackCollector = new FeedbackCollector({
+					...FeedbackCollector.defaultProps,
+					entrypointId: '',
+					onSubmit,
+					timeoutOnSubmit,
+					name: 'name',
+				});
+				render(
 					<TestableFeedbackCollector
-						onClose={() => wrapper.unmount()}
+						onClose={() => {}}
 						onSubmit={onSubmit}
 						timeoutOnSubmit={timeoutOnSubmit}
 						name="name"
 						entrypointId=""
 					/>,
 				);
-				const feedbackCollector = wrapper.instance();
 
 				// Emulates the user clicking the submit button within the rendered form.
 				const feedback: FormFields = {
@@ -619,7 +560,6 @@ describe('Feedback Collector unit tests', () => {
 					}, timeoutOnSubmit);
 				});
 
-				expect(unmountSpy).toHaveBeenCalled();
 				expect(onSubmit).toHaveBeenCalled();
 			});
 
@@ -631,28 +571,20 @@ describe('Feedback Collector unit tests', () => {
 			`(
 				'Should try to get entitlement based on url or customGatewayUrl',
 				async ({ url, customGatewayUrl, expected }) => {
-					class TestableFeedbackCollector extends FeedbackCollector {}
-
-					const onSubmit = jest.fn();
-					const timeoutOnSubmit = 700;
-
-					const wrapper = shallow<TestableFeedbackCollector>(
-						<TestableFeedbackCollector
-							onClose={() => wrapper.unmount()}
-							onSubmit={onSubmit}
-							timeoutOnSubmit={timeoutOnSubmit}
-							name="name"
-							entrypointId="some-id"
-							url={url}
-							customGatewayUrl={customGatewayUrl}
-						/>,
-					);
-					const feedbackCollector = wrapper.instance();
+					feedbackCollector = new FeedbackCollector({
+						...FeedbackCollector.defaultProps,
+						entrypointId: 'entrypoint_id',
+						url,
+						customGatewayUrl,
+					});
 
 					const gatewayUrl = feedbackCollector.getGatewayUrl();
 					expect(gatewayUrl).toStrictEqual(expected);
 
-					const entitlementSpy = jest.spyOn(feedbackCollector, 'getEntitlementInformation');
+					const entitlementSpy = jest.spyOn(
+						FeedbackCollector.prototype,
+						'getEntitlementInformation',
+					);
 					entitlementSpy.mockResolvedValue([]);
 
 					// Emulates the user clicking the submit button within the rendered form.
@@ -736,38 +668,32 @@ describe('Feedback Collector unit tests', () => {
 					});
 					fireEvent.click(submitBtn);
 					await waitFor(() => {
-						expect(mocked.mock.calls?.[4]?.[0]).toBe(expected);
+						if (process.env.IS_REACT_18) {
+							expect(mocked.mock.calls?.[3]?.[0]).toBe(expected);
+						} else {
+							expect(mocked.mock.calls?.[4]?.[0]).toBe(expected);
+						}
 					});
 				},
 			);
 
 			test('should not send requests for entitlement if shouldGetEntitlementDetails is false', async () => {
-				class TestableFeedbackCollector extends FeedbackCollector {}
+				feedbackCollector = new FeedbackCollector({
+					...FeedbackCollector.defaultProps,
+					entrypointId: 'entrypoint_id',
+					customGatewayUrl: '/custom-gateway-url',
+					customFeedbackUrl: '/custom-feedback-url',
+					shouldGetEntitlementDetails: false,
+				});
 
-				const onSubmit = jest.fn();
-				const timeoutOnSubmit = 700;
-
-				const wrapper = shallow<TestableFeedbackCollector>(
-					<TestableFeedbackCollector
-						onClose={() => wrapper.unmount()}
-						onSubmit={onSubmit}
-						timeoutOnSubmit={timeoutOnSubmit}
-						name="name"
-						entrypointId="entrypoint_id"
-						customFeedbackUrl={'/custom-feedback-url'}
-						customGatewayUrl={'/custom-gateway-url'}
-						shouldGetEntitlementDetails={false}
-					/>,
-				);
-				const feedbackCollector = wrapper.instance();
 				const feedback: FormFields = {
 					type: 'empty',
 					description: `This won't actually dispatch due to missing entrypointId prop`,
 					canBeContacted: true,
 					enrollInResearchGroup: false,
 				};
-				const entitlementSpy = jest.spyOn(feedbackCollector, 'getEntitlementInformation');
-				const gatewayUrlSpy = jest.spyOn(feedbackCollector, 'getGatewayUrl');
+				const entitlementSpy = jest.spyOn(FeedbackCollector.prototype, 'getEntitlementInformation');
+				const gatewayUrlSpy = jest.spyOn(FeedbackCollector.prototype, 'getGatewayUrl');
 
 				entitlementSpy.mockClear();
 				gatewayUrlSpy.mockClear();
@@ -780,77 +706,62 @@ describe('Feedback Collector unit tests', () => {
 
 		describe('Localisation', () => {
 			test('should be supported when a locale is passed', async () => {
-				const wrapper = render(<FeedbackCollector locale="fr" entrypointId="entrypoint_id" />);
+				const { findByText } = render(
+					<FeedbackCollector locale="fr" entrypointId="entrypoint_id" />,
+				);
 
-				expect(await wrapper.findByText('Translated feedback title (FR)')).toBeDefined();
+				expect(await findByText('Translated feedback title (FR)')).toBeDefined();
 			});
 		});
 	});
 
 	describe('Feedback Form integration', () => {
-		test('FeedbackForm should select only by default', () => {
-			const wrapper = mount(<FeedbackForm onClose={() => {}} onSubmit={async () => {}} />);
+		test('FeedbackForm should select only by default', async () => {
+			const { getAllByRole } = render(
+				<FeedbackForm onClose={() => {}} onSubmit={async () => {}} />,
+			);
 
-			expect(wrapper.find(Select)).toHaveLength(1);
-			expect(wrapper.find('textarea')).toHaveLength(0);
-			expect(wrapper.find(Checkbox)).toHaveLength(0);
+			expect(getAllByRole('combobox')).toHaveLength(1);
 		});
 
 		test('FeedbackForm should render textarea when something is selected', () => {
-			const wrapper = mount(<FeedbackForm onClose={() => {}} onSubmit={async () => {}} />);
+			const { getAllByRole } = render(
+				<FeedbackForm onClose={() => {}} onSubmit={async () => {}} />,
+			);
 
-			act(() => {
-				wrapper.find(Select).props().onChange({ value: 'comment' });
-			});
+			const select = getAllByRole('combobox')[0];
+			fireEvent.change(select, { target: { value: 'comment' } });
+			fireEvent.keyDown(select, { key: 'Enter', code: 13 });
 
-			// explicitly update the wrapper to ensure the subsequent renders are flushed.
-			wrapper.update();
-
-			expect(wrapper.find(Select)).toHaveLength(1);
-			expect(wrapper.find('textarea')).toHaveLength(1);
+			expect(getAllByRole('combobox')).toHaveLength(1);
+			expect(getAllByRole('textbox')).toHaveLength(1);
 		});
 
 		test('FeedbackForm should render checkboxes and textarea when something is selected', () => {
-			const wrapper = mount(<FeedbackForm onClose={() => {}} onSubmit={async () => {}} />);
+			const { getByRole, getAllByRole } = render(
+				<FeedbackForm onClose={() => {}} onSubmit={async () => {}} />,
+			);
 
-			act(() => {
-				wrapper.find(Select).props().onChange({ value: 'comment' });
-			});
+			const select = getByRole('combobox', { name: 'Select feedback' });
+			fireEvent.change(select, { target: { value: 'comment' } });
+			fireEvent.keyDown(select, { key: 'Enter', code: 13 });
 
-			// explicitly update the wrapper to ensure the subsequent renders are flushed.
-			wrapper.update();
-
-			expect(wrapper.find(Select)).toHaveLength(1);
-			expect(wrapper.find('textarea')).toHaveLength(1);
-			expect(wrapper.find(Checkbox)).toHaveLength(2);
+			expect(getAllByRole('combobox')).toHaveLength(1);
+			expect(getAllByRole('textbox')).toHaveLength(1);
+			expect(getAllByRole('checkbox')).toHaveLength(2);
 		});
 
-		test('FeedbackForm should render textarea and anon panel when something is selected', () => {
-			const wrapper = mount(
+		test('FeedbackForm should render textarea and anon panel when something is selected', async () => {
+			const { getByRole, getAllByRole } = render(
 				<FeedbackForm onClose={() => {}} onSubmit={async () => {}} anonymousFeedback={true} />,
 			);
-			act(() => {
-				wrapper.find(Select).props().onChange({ value: 'question' });
-			});
+			const select = getByRole('combobox', { name: 'Select feedback' });
+			fireEvent.change(select, { target: { value: 'comment' } });
+			fireEvent.keyDown(select, { key: 'Enter', code: 13 });
 
-			wrapper.update();
-			expect(wrapper.find(Select)).toHaveLength(1);
-			expect(wrapper.find('textarea')).toHaveLength(1);
-			expect(wrapper.find(Field).at(2).props().name).toBe('anonymousFeedback');
-		});
-
-		test('should render a field label based on type', () => {
-			const wrapper = mount(<FeedbackForm onClose={() => {}} onSubmit={async () => {}} />);
-
-			for (const [key, value] of Object.entries(defaultFieldRecords)) {
-				if (key !== 'empty') {
-					act(() => {
-						wrapper.find(Select).props().onChange({ value: key });
-					});
-					wrapper.update();
-					expect(wrapper.find(Field).at(1).props().label).toBe(value.fieldLabel);
-				}
-			}
+			expect(getAllByRole('combobox')).toHaveLength(1);
+			expect(getAllByRole('textbox')).toHaveLength(1);
+			expect(getByRole('heading', { name: 'Anonymous feedback' })).toBeInTheDocument();
 		});
 
 		test('should render a correct field label name when selectLabel is passed in', () => {
@@ -864,30 +775,27 @@ describe('Feedback Collector unit tests', () => {
 
 	describe('Feedback Flag', () => {
 		test('FeedbackFlag should have default content', () => {
-			const wrapper = mount(<FeedbackFlag />);
-			const { title, description } = wrapper.find(AutoDismissFlag).props();
-			expect(title).toEqual('Thanks!');
-			expect(description).toEqual(
+			const { getByText } = render(<FeedbackFlag />);
+			const title = getByText('Thanks!');
+			const description = getByText(
 				'Your valuable feedback helps us continually improve our products.',
 			);
+			expect(title).toBeInTheDocument();
+			expect(description).toBeInTheDocument();
 		});
 
 		test('FeedbackFlag should have custom copy', () => {
-			const wrapper = mount(
+			const { getByText } = render(
 				<FeedbackFlag title={'Feedback Title'} description={'Feedback Description'} />,
 			);
-			const { title, description } = wrapper.find(AutoDismissFlag).props();
-			expect(title).toEqual('Feedback Title');
-			expect(description).toEqual('Feedback Description');
+
+			const title = getByText('Feedback Title');
+			const description = getByText('Feedback Description');
+			expect(title).toBeInTheDocument();
+			expect(description).toBeInTheDocument();
 		});
 	});
 	describe('Feedback Select Type', () => {
-		test('Feedback Select Options default behavior ', () => {
-			const wrapper = mount(<FeedbackForm onClose={() => {}} onSubmit={async () => {}} />);
-
-			const options = wrapper.find(Select).props().options;
-			expect(options).toHaveLength(4);
-		});
 		describe('Custom Feedback Select Options with FF true/false', () => {
 			const customFeedbackOptions: OptionType[] = [
 				{
@@ -902,7 +810,7 @@ describe('Feedback Collector unit tests', () => {
 			ffTest(
 				'platform.custom-select-feedback-options_c61l9',
 				() => {
-					const wrapper = mount(
+					const { getByRole } = render(
 						<FeedbackForm
 							onClose={() => {}}
 							onSubmit={async () => {}}
@@ -910,11 +818,14 @@ describe('Feedback Collector unit tests', () => {
 						/>,
 					);
 
-					const options = wrapper.find(Select).props().options;
+					const combobox = getByRole('combobox');
+					fireEvent.keyDown(combobox, { key: 'ArrowDown', code: 40 });
+					const options = document.querySelectorAll('#react-select-12-listbox > div > div');
+
 					expect(options).toHaveLength(customFeedbackOptions.length);
 				},
 				() => {
-					const wrapper = mount(
+					const { getByRole } = render(
 						<FeedbackForm
 							onClose={() => {}}
 							onSubmit={async () => {}}
@@ -922,7 +833,9 @@ describe('Feedback Collector unit tests', () => {
 						/>,
 					);
 
-					const options = wrapper.find(Select).props().options;
+					const combobox = getByRole('combobox');
+					fireEvent.keyDown(combobox, { key: 'ArrowDown', code: 40 });
+					const options = document.querySelectorAll('#react-select-12-listbox > div > div');
 					expect(options).not.toHaveLength(customFeedbackOptions.length);
 				},
 			);

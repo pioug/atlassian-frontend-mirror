@@ -19,6 +19,7 @@ export type LoaderFallbackProps = {
 	hideDisplayText?: boolean;
 	isLoadingPlugins?: boolean;
 	plugins?: unknown[];
+	name?: string;
 };
 
 const LINK_PICKER_MIN_HEIGHT_IN_PX_WITH_TABS_WITHOUT_DISPLAYTEXT = '472px';
@@ -83,7 +84,11 @@ export const LoaderFallback = (props: LoaderFallbackProps) => {
 			data-testid="link-picker-root-loader-boundary-ui"
 			css={styles}
 		>
-			<Spinner testId="link-picker.component-loading-indicator" size="medium" />
+			<Spinner
+				testId="link-picker.component-loading-indicator"
+				interactionName={props.name || 'link-picker-loading'}
+				size="medium"
+			/>
 		</MinHeightContainer>
 	);
 };

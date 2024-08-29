@@ -71,6 +71,7 @@ type RendererWrapperProps = {
 	allowNestedHeaderLinks: boolean;
 	allowColumnSorting: boolean;
 	useBlockRenderForCodeBlock: boolean;
+	allowTableResizing?: boolean;
 };
 
 export const TELEPOINTER_ID = 'ai-streaming-telepointer';

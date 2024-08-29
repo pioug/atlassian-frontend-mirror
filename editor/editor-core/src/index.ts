@@ -13,7 +13,7 @@ export {
 	 * DO NOT USE THIS WILL BE REMOVED SOON. This was intended for internal usage only
 	 */
 	default as ContextPanel,
-} from './ui/ContextPanel/deprecated';
+} from './ui/ContextPanel';
 export { EmojiResource } from '@atlaskit/emoji/resource';
 export { MentionResource } from '@atlaskit/mention/resource';
 export type { MentionProvider, PresenceProvider } from '@atlaskit/mention/resource';

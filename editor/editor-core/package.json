@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "195.9.1",
+	"version": "196.1.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,13 +45,13 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.1.0",
-		"@atlaskit/editor-common": "^88.3.0",
-		"@atlaskit/editor-plugins": "^4.2.0",
+		"@atlaskit/editor-common": "^88.4.0",
+		"@atlaskit/editor-plugins": "^4.3.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/emoji": "^67.7.0",
 		"@atlaskit/icon": "^22.15.0",
-		"@atlaskit/media-card": "^78.1.0",
+		"@atlaskit/media-card": "^78.2.0",
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/spinner": "^16.3.0",
@@ -80,7 +80,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@af/editor-examples-helpers": "0.3.2",
+		"@af/editor-examples-helpers": "0.3.4",
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.8.0",
@@ -88,7 +88,7 @@
 		"@atlaskit/collab-provider": "9.37.4",
 		"@atlaskit/editor-json-transformer": "^8.18.0",
 		"@atlaskit/editor-plugin-annotation": "1.19.3",
-		"@atlaskit/editor-plugin-card": "^2.13.0",
+		"@atlaskit/editor-plugin-card": "^2.14.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-plugin-list": "^3.8.0",
 		"@atlaskit/editor-plugin-paste": "^1.11.0",
@@ -168,10 +168,6 @@
 		},
 		"platform.editor.table-sticky-scrollbar": {
 			"type": "boolean"
-		},
-		"platform.media-experience.card-views-refactor_b91lr": {
-			"type": "boolean",
-			"referenceOnly": "true"
 		},
 		"platform.editor.multi-bodied-extension_0rygg": {
 			"type": "boolean",
@@ -279,6 +275,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_remove_hide_avatar_group_prop": {
+			"type": "boolean"
+		},
+		"platform_editor_card_provider_from_plugin_config": {
 			"type": "boolean"
 		}
 	},

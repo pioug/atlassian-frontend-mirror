@@ -204,6 +204,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': "Elimina l'elemento",
   'fabric.editor.extension.sourceNoTitledName': 'questo elemento',
   'fabric.editor.extensions.config-panel.save-indicator': 'Le modifiche vengono sempre salvate automaticamente',
+  'fabric.editor.externalMediaFile': 'File multimediale esterno',
   'fabric.editor.failed_to_upload': 'Impossibile caricare',
   'fabric.editor.feedbackDialog': 'Lascia un feedback',
   'fabric.editor.feedbackDialog.description': 'Raccontaci la tua esperienza usando il nuovo editor',
@@ -318,6 +319,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     "{newMediaWidth, plural, one {La larghezza dell'elemento multimediale è stata aumentata a {newMediaWidth,number} pixel.} other {La larghezza dell'elemento multimediale è stata aumentata a {newMediaWidth,number} pixel.}}",
   'fabric.editor.media.MediaWidthIsMin': 'Elemento multimediale ridotto alla dimensione minima',
+  'fabric.editor.media.insert.cancel': 'Annulla',
+  'fabric.editor.media.insert.errorMessage':
+    "Impossibile aggiungere il link a questa immagine. Scarica l'immagine, quindi trascinala nella pagina.",
+  'fabric.editor.media.insert.insert': 'Inserisci',
+  'fabric.editor.media.insert.linkTabTitle': 'Link',
+  'fabric.editor.media.insert.loadPreview': 'Carica anteprima',
+  'fabric.editor.media.insert.mediaAlt': "Anteprima del file del video o dell'immagine caricato",
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Selettore di file multimediali',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'Incolla il link per caricare',
+  'fabric.editor.media.insert.warning':
+    "L'immagine potrebbe non essere visibile agli altri a causa di limitazioni dell'origine. Prova a caricare i file come alternativa.",
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Elemento multimediale aumentato alla dimensione massima',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': "campo di inserimento dell'altezza",
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Altezza',

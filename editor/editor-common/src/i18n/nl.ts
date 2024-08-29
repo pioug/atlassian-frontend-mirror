@@ -203,6 +203,7 @@ export default {
   'fabric.editor.extension.deleteElementTitle': 'Element verwijderen',
   'fabric.editor.extension.sourceNoTitledName': 'dit element',
   'fabric.editor.extensions.config-panel.save-indicator': 'Alle wijzigingen worden altijd automatisch opgeslagen',
+  'fabric.editor.externalMediaFile': 'Extern mediabestand',
   'fabric.editor.failed_to_upload': 'Kan niet worden geüpload',
   'fabric.editor.feedbackDialog': 'Feedback geven',
   'fabric.editor.feedbackDialog.description': 'Vertel ons wat je vindt van de nieuwe editor',
@@ -314,6 +315,17 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, one {Mediabreedte verhoogd tot {newMediaWidth,number} pixel.} other {Mediabreedte verhoogd tot {newMediaWidth,number} pixels.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Media verkleind tot het minimale formaat',
+  'fabric.editor.media.insert.cancel': 'Annuleren',
+  'fabric.editor.media.insert.errorMessage':
+    'We kunnen deze afbeeldingslink helaas niet toevoegen. Download de afbeelding en sleep deze vervolgens op de pagina.',
+  'fabric.editor.media.insert.insert': 'Invoegen',
+  'fabric.editor.media.insert.linkTabTitle': 'Link',
+  'fabric.editor.media.insert.loadPreview': 'Voorvertoning laden',
+  'fabric.editor.media.insert.mediaAlt': 'Voorvertoning van geüploade afbeelding of videobestand',
+  'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Mediakiezer',
+  'fabric.editor.media.insert.pasteLinkToUpload': 'Plak de link om te uploaden',
+  'fabric.editor.media.insert.warning':
+    'Deze afbeelding is mogelijk niet zichtbaar voor anderen vanwege bronbeperkingen. Overweeg om in plaats daarvan het bestand te uploaden.',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Media vergroot tot het maximale formaat',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'hoogte-invoer',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Hoogte',

@@ -1,10 +1,10 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { adf2wiki, wiki2adf } from '../_test-helpers';
-
 import { code_block, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 
-describe('ADF => WikiMarkup => ADF - CodeBlock', () => {
-	test('should convert code block node into code macro', () => {
+import { adf2wiki, wiki2adf } from '../_test-helpers';
+
+describe('ADF => WikiMarkup => ADF Round-trip - CodeBlock', () => {
+	test('should convert codeblock node into code macro', () => {
 		adf2wiki(doc(code_block({ language: 'javascript' })('const i = 0;'))(defaultSchema));
 		adf2wiki(
 			doc(
@@ -19,7 +19,7 @@ public class CamelCaseLikeClassName {
 		);
 	});
 
-	test('should convert code macro with language attr into code block', () => {
+	test('should convert code macro with language attr into codeblock', () => {
 		wiki2adf(`{code:java}package com.atlassian.confluence;
 public class CamelCaseLikeClassName {
     private String sampleAttr;

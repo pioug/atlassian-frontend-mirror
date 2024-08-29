@@ -1,5 +1,16 @@
 # @atlaskit/media-client
 
+## 27.6.0
+
+### Minor Changes
+
+- [#134882](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134882)
+  [`ba204702f8e32`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba204702f8e32) -
+  [ED-24567]
+
+  - **@atlaskit/editor-common** Add MEDIA_PICKER as a variable fo analytics
+  - **@atlaskit/media-client** Return the mime-type from when calling the `uploadExternal` function
+
 ## 27.5.2
 
 ### Patch Changes

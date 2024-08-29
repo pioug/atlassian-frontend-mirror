@@ -28,7 +28,7 @@ import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-hel
 import { createMockedMediaClientProvider } from '../__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem, sampleBinaries } from '@atlaskit/media-test-data';
-import { tallImage, asMockFunction } from '@atlaskit/media-test-helpers';
+import { tallImage, asMockFunction, sleep } from '@atlaskit/media-test-helpers';
 import {
 	createServerUnauthorizedError,
 	createRateLimitedError,
@@ -87,6 +87,12 @@ describe('Card ', () => {
 				isIntersecting: true,
 			});
 		});
+	};
+
+	// TODO: Remove this workaround that avoids a race condition between two functions that set card status
+	// Tracked by + explained in more detail in https://product-fabric.atlassian.net/browse/CXP-3751
+	const simulateImageLoadDelay = async () => {
+		await sleep(1);
 	};
 
 	beforeEach(() => {
@@ -182,6 +188,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -263,6 +270,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -294,6 +302,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -326,6 +335,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -353,6 +363,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -380,6 +391,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -409,6 +421,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -439,6 +452,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -469,6 +483,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -498,6 +513,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -527,6 +543,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -723,13 +740,13 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
 			await waitFor(() =>
 				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 			);
-
 			const style = window.getComputedStyle(img);
 			expect(style.transform).not.toContain('rotate');
 		});
@@ -775,6 +792,7 @@ describe('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				await waitFor(() =>
@@ -805,6 +823,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -833,6 +852,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -862,6 +882,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -889,6 +910,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -1544,7 +1566,7 @@ describe('Card ', () => {
 				const img = await screen.findByTestId(imgTestId);
 				fireEvent.load(img);
 
-				// card should be fully processed
+				// card should completely process the file
 				await waitFor(() =>
 					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 				);
@@ -1670,7 +1692,7 @@ describe('Card ', () => {
 				const img = await screen.findByTestId(imgTestId);
 				fireEvent.load(img);
 
-				// card should completely process
+				// card should completely process the file
 				await waitFor(() =>
 					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 				);
@@ -2291,9 +2313,10 @@ describe('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
-				// card should be fully processeds
+				// card should completely process the file
 				await waitFor(() =>
 					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 				);
@@ -2395,7 +2418,7 @@ describe('Card ', () => {
 				const img = await screen.findByTestId(imgTestId);
 				fireEvent.load(img);
 
-				// card should be fully processed
+				// card should completely process the file
 				await waitFor(
 					() =>
 						expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
@@ -2529,9 +2552,10 @@ describe('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
-				// card should completely process
+				// card should completely process the file
 				await waitFor(() =>
 					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 				);
@@ -2594,6 +2618,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -2603,7 +2628,7 @@ describe('Card ', () => {
 
 			const playBtn = screen.getByLabelText('play');
 			await user.click(playBtn);
-			expect(container.querySelector('video')).toBeInTheDocument();
+			await waitFor(() => expect(container.querySelector('video')).toBeInTheDocument());
 		});
 
 		it('should not render an inline video when an error occurs', async () => {
@@ -2659,6 +2684,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -2684,6 +2710,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const newImg = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(newImg);
 
 			// card should completely process the file
@@ -2719,6 +2746,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -2747,6 +2775,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const newImg = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(newImg);
 
 			// card should completely process the file
@@ -2815,6 +2844,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -2844,6 +2874,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -2881,6 +2912,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -2916,6 +2948,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -2959,6 +2992,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -2991,6 +3025,7 @@ describe('Card ', () => {
 
 		// simulate that the file has been fully loaded by the browser
 		const img = await screen.findByTestId(imgTestId);
+		await simulateImageLoadDelay();
 		fireEvent.load(img);
 
 		// card should completely process the file
@@ -3019,6 +3054,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -3051,6 +3087,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -3085,6 +3122,7 @@ describe('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
@@ -3155,6 +3193,7 @@ describe('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
@@ -3187,6 +3226,7 @@ describe('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
@@ -3326,6 +3366,7 @@ describe('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
@@ -3362,6 +3403,7 @@ describe('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
@@ -3404,7 +3446,10 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
 				);
 
-				expect(completeUfoExperience).toBeCalledTimes(1);
+				await waitFor(() => {
+					expect(completeUfoExperience).toBeCalledTimes(1);
+				});
+
 				expect(completeUfoExperience).toHaveBeenLastCalledWith(
 					expect.any(String),
 					'error',
@@ -3454,7 +3499,10 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
 				);
 
-				expect(completeUfoExperience).toBeCalledTimes(1);
+				await waitFor(() => {
+					expect(completeUfoExperience).toBeCalledTimes(1);
+				});
+
 				expect(completeUfoExperience).toHaveBeenLastCalledWith(
 					expect.any(String),
 					'error',
@@ -3499,6 +3547,7 @@ describe('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
@@ -3543,6 +3592,7 @@ describe('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
@@ -3611,51 +3661,55 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 				);
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
-					eventType: 'operational',
-					action: 'commenced',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileAttributes: {
-							fileMediatype: undefined,
-							fileMimetype: undefined,
-							fileId: fileItem.id,
-							fileSize: undefined,
-							fileStatus: undefined,
-						},
-						performanceAttributes: {
-							overall: {
-								durationSincePageStart: PERFORMANCE_NOW,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+						eventType: 'operational',
+						action: 'commenced',
+						actionSubject: 'mediaCardRender',
+						attributes: {
+							fileAttributes: {
+								fileMediatype: undefined,
+								fileMimetype: undefined,
+								fileId: fileItem.id,
+								fileSize: undefined,
+								fileStatus: undefined,
 							},
+							performanceAttributes: {
+								overall: {
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							traceContext: { traceId: expect.any(String) },
 						},
-						traceContext: { traceId: expect.any(String) },
-					},
+					});
 				});
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-					eventType: 'operational',
-					action: 'succeeded',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileMimetype: fileItem.details.mimeType,
-						fileAttributes: {
-							fileMediatype: fileItem.details.mediaType,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+						eventType: 'operational',
+						action: 'succeeded',
+						actionSubject: 'mediaCardRender',
+						attributes: {
 							fileMimetype: fileItem.details.mimeType,
-							fileId: fileItem.id,
-							fileSize: fileItem.details.size,
-							fileStatus: 'processed',
-						},
-						performanceAttributes: {
-							overall: {
-								durationSinceCommenced: 0,
-								durationSincePageStart: PERFORMANCE_NOW,
+							fileAttributes: {
+								fileMediatype: fileItem.details.mediaType,
+								fileMimetype: fileItem.details.mimeType,
+								fileId: fileItem.id,
+								fileSize: fileItem.details.size,
+								fileStatus: 'processed',
 							},
+							performanceAttributes: {
+								overall: {
+									durationSinceCommenced: 0,
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							status: 'success',
+							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+							traceContext: { traceId: expect.any(String) },
+							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 						},
-						status: 'success',
-						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-						traceContext: { traceId: expect.any(String) },
-						metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
-					},
+					});
 				});
 
 				expect(event.fire).toHaveBeenCalledTimes(3); // 2 operational events, 1 screen event
@@ -3685,6 +3739,7 @@ describe('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
@@ -3692,45 +3747,49 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 				);
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
-					eventType: 'operational',
-					action: 'commenced',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileAttributes: {
-							fileMediatype: 'image',
-							fileId: extIdentifier.mediaItemType,
-						},
-						performanceAttributes: {
-							overall: {
-								durationSincePageStart: PERFORMANCE_NOW,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+						eventType: 'operational',
+						action: 'commenced',
+						actionSubject: 'mediaCardRender',
+						attributes: {
+							fileAttributes: {
+								fileMediatype: 'image',
+								fileId: extIdentifier.mediaItemType,
 							},
+							performanceAttributes: {
+								overall: {
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							traceContext: { traceId: expect.any(String) },
 						},
-						traceContext: { traceId: expect.any(String) },
-					},
+					});
 				});
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-					eventType: 'operational',
-					action: 'succeeded',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileMimetype: undefined,
-						fileAttributes: {
-							fileMediatype: 'image',
-							fileId: extIdentifier.mediaItemType,
-						},
-						performanceAttributes: {
-							overall: {
-								durationSinceCommenced: 0,
-								durationSincePageStart: PERFORMANCE_NOW,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+						eventType: 'operational',
+						action: 'succeeded',
+						actionSubject: 'mediaCardRender',
+						attributes: {
+							fileMimetype: undefined,
+							fileAttributes: {
+								fileMediatype: 'image',
+								fileId: extIdentifier.mediaItemType,
 							},
+							performanceAttributes: {
+								overall: {
+									durationSinceCommenced: 0,
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							status: 'success',
+							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+							traceContext: { traceId: expect.any(String) },
+							metadataTraceContext: undefined,
 						},
-						status: 'success',
-						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-						traceContext: { traceId: expect.any(String) },
-						metadataTraceContext: undefined,
-					},
+					});
 				});
 
 				expect(event.fire).toHaveBeenCalledTimes(3); // 2 operational events, 1 screen event
@@ -3760,55 +3819,59 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
 				);
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
-					eventType: 'operational',
-					action: 'commenced',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileAttributes: {
-							fileMediatype: undefined,
-							fileMimetype: undefined,
-							fileId: fileItem.id,
-							fileSize: undefined,
-							fileStatus: undefined,
-						},
-						performanceAttributes: {
-							overall: {
-								durationSincePageStart: PERFORMANCE_NOW,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+						eventType: 'operational',
+						action: 'commenced',
+						actionSubject: 'mediaCardRender',
+						attributes: {
+							fileAttributes: {
+								fileMediatype: undefined,
+								fileMimetype: undefined,
+								fileId: fileItem.id,
+								fileSize: undefined,
+								fileStatus: undefined,
 							},
+							performanceAttributes: {
+								overall: {
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							traceContext: { traceId: expect.any(String) },
 						},
-						traceContext: { traceId: expect.any(String) },
-					},
+					});
 				});
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-					eventType: 'operational',
-					action: 'failed',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileMimetype: undefined,
-						fileAttributes: {
-							fileMediatype: undefined,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+						eventType: 'operational',
+						action: 'failed',
+						actionSubject: 'mediaCardRender',
+						attributes: {
 							fileMimetype: undefined,
-							fileId: fileItem.id,
-							fileSize: undefined,
-							fileStatus: undefined,
-						},
-						performanceAttributes: {
-							overall: {
-								durationSinceCommenced: 0,
-								durationSincePageStart: PERFORMANCE_NOW,
+							fileAttributes: {
+								fileMediatype: undefined,
+								fileMimetype: undefined,
+								fileId: fileItem.id,
+								fileSize: undefined,
+								fileStatus: undefined,
 							},
+							performanceAttributes: {
+								overall: {
+									durationSinceCommenced: 0,
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							status: 'fail',
+							failReason: 'metadata-fetch',
+							error: 'serverRateLimited',
+							errorDetail: 'serverRateLimited',
+							request: undefined,
+							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+							traceContext: { traceId: expect.any(String) },
+							metadataTraceContext: undefined,
 						},
-						status: 'fail',
-						failReason: 'metadata-fetch',
-						error: 'serverRateLimited',
-						errorDetail: 'serverRateLimited',
-						request: undefined,
-						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-						traceContext: { traceId: expect.any(String) },
-						metadataTraceContext: undefined,
-					},
+					});
 				});
 
 				expect(event.fire).toHaveBeenCalledTimes(2);
@@ -3838,55 +3901,59 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
 				);
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
-					eventType: 'operational',
-					action: 'commenced',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileAttributes: {
-							fileMediatype: undefined,
-							fileMimetype: undefined,
-							fileId: fileItem.id,
-							fileSize: undefined,
-							fileStatus: undefined,
-						},
-						performanceAttributes: {
-							overall: {
-								durationSincePageStart: PERFORMANCE_NOW,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+						eventType: 'operational',
+						action: 'commenced',
+						actionSubject: 'mediaCardRender',
+						attributes: {
+							fileAttributes: {
+								fileMediatype: undefined,
+								fileMimetype: undefined,
+								fileId: fileItem.id,
+								fileSize: undefined,
+								fileStatus: undefined,
 							},
+							performanceAttributes: {
+								overall: {
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							traceContext: { traceId: expect.any(String) },
 						},
-						traceContext: { traceId: expect.any(String) },
-					},
+					});
 				});
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-					eventType: 'operational',
-					action: 'failed',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileMimetype: undefined,
-						fileAttributes: {
-							fileMediatype: undefined,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+						eventType: 'operational',
+						action: 'failed',
+						actionSubject: 'mediaCardRender',
+						attributes: {
 							fileMimetype: undefined,
-							fileId: fileItem.id,
-							fileSize: undefined,
-							fileStatus: undefined,
-						},
-						performanceAttributes: {
-							overall: {
-								durationSinceCommenced: 0,
-								durationSincePageStart: PERFORMANCE_NOW,
+							fileAttributes: {
+								fileMediatype: undefined,
+								fileMimetype: undefined,
+								fileId: fileItem.id,
+								fileSize: undefined,
+								fileStatus: undefined,
 							},
+							performanceAttributes: {
+								overall: {
+									durationSinceCommenced: 0,
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							status: 'fail',
+							failReason: 'metadata-fetch',
+							error: 'pollingMaxAttemptsExceeded',
+							errorDetail: 'pollingMaxAttemptsExceeded',
+							request: undefined,
+							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+							traceContext: { traceId: expect.any(String) },
+							metadataTraceContext: undefined,
 						},
-						status: 'fail',
-						failReason: 'metadata-fetch',
-						error: 'pollingMaxAttemptsExceeded',
-						errorDetail: 'pollingMaxAttemptsExceeded',
-						request: undefined,
-						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-						traceContext: { traceId: expect.any(String) },
-						metadataTraceContext: undefined,
-					},
+					});
 				});
 
 				expect(event.fire).toHaveBeenCalledTimes(2);
@@ -3914,52 +3981,56 @@ describe('Card ', () => {
 					).toBeInTheDocument(),
 				);
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
-					eventType: 'operational',
-					action: 'commenced',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileAttributes: {
-							fileMediatype: undefined,
-							fileMimetype: undefined,
-							fileId: fileItem.id,
-							fileSize: undefined,
-							fileStatus: undefined,
-						},
-						performanceAttributes: {
-							overall: {
-								durationSincePageStart: PERFORMANCE_NOW,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+						eventType: 'operational',
+						action: 'commenced',
+						actionSubject: 'mediaCardRender',
+						attributes: {
+							fileAttributes: {
+								fileMediatype: undefined,
+								fileMimetype: undefined,
+								fileId: fileItem.id,
+								fileSize: undefined,
+								fileStatus: undefined,
 							},
+							performanceAttributes: {
+								overall: {
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							traceContext: { traceId: expect.any(String) },
 						},
-						traceContext: { traceId: expect.any(String) },
-					},
+					});
 				});
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-					eventType: 'operational',
-					action: 'failed',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileMimetype: fileItem.details.mimeType,
-						fileAttributes: {
-							fileMediatype: fileItem.details.mediaType,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+						eventType: 'operational',
+						action: 'failed',
+						actionSubject: 'mediaCardRender',
+						attributes: {
 							fileMimetype: fileItem.details.mimeType,
-							fileId: fileItem.id,
-							fileSize: fileItem.details.size,
-							fileStatus: 'failed-processing',
-						},
-						performanceAttributes: {
-							overall: {
-								durationSinceCommenced: 0,
-								durationSincePageStart: PERFORMANCE_NOW,
+							fileAttributes: {
+								fileMediatype: fileItem.details.mediaType,
+								fileMimetype: fileItem.details.mimeType,
+								fileId: fileItem.id,
+								fileSize: fileItem.details.size,
+								fileStatus: 'failed-processing',
 							},
+							performanceAttributes: {
+								overall: {
+									durationSinceCommenced: 0,
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							status: 'fail',
+							failReason: 'failed-processing',
+							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+							traceContext: { traceId: expect.any(String) },
+							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 						},
-						status: 'fail',
-						failReason: 'failed-processing',
-						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-						traceContext: { traceId: expect.any(String) },
-						metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
-					},
+					});
 				});
 
 				expect(event.fire).toHaveBeenCalledTimes(2);
@@ -3989,61 +4060,65 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
 				);
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
-					eventType: 'operational',
-					action: 'commenced',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileAttributes: {
-							fileMediatype: undefined,
-							fileMimetype: undefined,
-							fileId: fileItem.id,
-							fileSize: undefined,
-							fileStatus: undefined,
-						},
-						performanceAttributes: {
-							overall: {
-								durationSincePageStart: PERFORMANCE_NOW,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+						eventType: 'operational',
+						action: 'commenced',
+						actionSubject: 'mediaCardRender',
+						attributes: {
+							fileAttributes: {
+								fileMediatype: undefined,
+								fileMimetype: undefined,
+								fileId: fileItem.id,
+								fileSize: undefined,
+								fileStatus: undefined,
 							},
+							performanceAttributes: {
+								overall: {
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							traceContext: { traceId: expect.any(String) },
 						},
-						traceContext: { traceId: expect.any(String) },
-					},
+					});
 				});
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-					eventType: 'operational',
-					action: 'failed',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileMimetype: fileItem.details.mimeType,
-						fileAttributes: {
-							fileMediatype: fileItem.details.mediaType,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+						eventType: 'operational',
+						action: 'failed',
+						actionSubject: 'mediaCardRender',
+						attributes: {
 							fileMimetype: fileItem.details.mimeType,
-							fileId: fileItem.id,
-							fileSize: fileItem.details.size,
-							fileStatus: 'processed',
-						},
-						performanceAttributes: {
-							overall: {
-								durationSinceCommenced: 0,
-								durationSincePageStart: PERFORMANCE_NOW,
+							fileAttributes: {
+								fileMediatype: fileItem.details.mediaType,
+								fileMimetype: fileItem.details.mimeType,
+								fileId: fileItem.id,
+								fileSize: fileItem.details.size,
+								fileStatus: 'processed',
 							},
+							performanceAttributes: {
+								overall: {
+									durationSinceCommenced: 0,
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							status: 'fail',
+							failReason: 'remote-preview-fetch',
+							error: 'serverUnauthorized',
+							errorDetail: 'serverUnauthorized',
+							request: {
+								attempts: 5,
+								clientExhaustedRetries: true,
+								mediaRegion: 'test-media-region',
+								mediaEnv: 'test-media-env',
+								statusCode: 403,
+							},
+							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+							traceContext: { traceId: expect.any(String) },
+							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 						},
-						status: 'fail',
-						failReason: 'remote-preview-fetch',
-						error: 'serverUnauthorized',
-						errorDetail: 'serverUnauthorized',
-						request: {
-							attempts: 5,
-							clientExhaustedRetries: true,
-							mediaRegion: 'test-media-region',
-							mediaEnv: 'test-media-env',
-							statusCode: 403,
-						},
-						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-						traceContext: { traceId: expect.any(String) },
-						metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
-					},
+					});
 				});
 
 				expect(event.fire).toHaveBeenCalledTimes(2);
@@ -4073,55 +4148,59 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
 				);
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
-					eventType: 'operational',
-					action: 'commenced',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileAttributes: {
-							fileMediatype: undefined,
-							fileMimetype: undefined,
-							fileId: fileItem.id,
-							fileSize: undefined,
-							fileStatus: undefined,
-						},
-						performanceAttributes: {
-							overall: {
-								durationSincePageStart: PERFORMANCE_NOW,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+						eventType: 'operational',
+						action: 'commenced',
+						actionSubject: 'mediaCardRender',
+						attributes: {
+							fileAttributes: {
+								fileMediatype: undefined,
+								fileMimetype: undefined,
+								fileId: fileItem.id,
+								fileSize: undefined,
+								fileStatus: undefined,
 							},
+							performanceAttributes: {
+								overall: {
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							traceContext: { traceId: expect.any(String) },
 						},
-						traceContext: { traceId: expect.any(String) },
-					},
+					});
 				});
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-					eventType: 'operational',
-					action: 'failed',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						fileMimetype: undefined,
-						fileAttributes: {
-							fileMediatype: undefined,
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+						eventType: 'operational',
+						action: 'failed',
+						actionSubject: 'mediaCardRender',
+						attributes: {
 							fileMimetype: undefined,
-							fileId: fileItem.id,
-							fileSize: undefined,
-							fileStatus: undefined,
-						},
-						performanceAttributes: {
-							overall: {
-								durationSinceCommenced: 0,
-								durationSincePageStart: PERFORMANCE_NOW,
+							fileAttributes: {
+								fileMediatype: undefined,
+								fileMimetype: undefined,
+								fileId: fileItem.id,
+								fileSize: undefined,
+								fileStatus: undefined,
 							},
+							performanceAttributes: {
+								overall: {
+									durationSinceCommenced: 0,
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							status: 'fail',
+							failReason: 'metadata-fetch',
+							error: 'serverUnauthorized',
+							errorDetail: 'serverUnauthorized',
+							request: undefined,
+							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+							traceContext: { traceId: expect.any(String) },
+							metadataTraceContext: undefined,
 						},
-						status: 'fail',
-						failReason: 'metadata-fetch',
-						error: 'serverUnauthorized',
-						errorDetail: 'serverUnauthorized',
-						request: undefined,
-						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
-						traceContext: { traceId: expect.any(String) },
-						metadataTraceContext: undefined,
-					},
+					});
 				});
 
 				expect(event.fire).toHaveBeenCalledTimes(2);
@@ -4234,6 +4313,7 @@ describe('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
@@ -4286,6 +4366,7 @@ describe('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
@@ -4337,8 +4418,10 @@ describe('Card ', () => {
 			expect(elem[0]).toBeDefined();
 			const imgElement = elem[0];
 			expect(imgElement.nodeName.toLowerCase()).toBe('img');
+			await simulateImageLoadDelay();
 			fireEvent.load(imgElement);
 
+			// card should completely process the file
 			await waitFor(() =>
 				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 			);
@@ -4396,8 +4479,10 @@ describe('Card ', () => {
 			expect(elem[0]).toBeDefined();
 			const imgElement = elem[0];
 			expect(imgElement.nodeName.toLowerCase()).toBe('img');
+			await simulateImageLoadDelay();
 			fireEvent.load(imgElement);
 
+			// card should completely process the file
 			await waitFor(() =>
 				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 			);
@@ -4453,8 +4538,10 @@ describe('Card ', () => {
 			expect(elem[0]).toBeDefined();
 			const imgElement = elem[0];
 			expect(imgElement.nodeName.toLowerCase()).toBe('img');
+			await simulateImageLoadDelay();
 			fireEvent.load(imgElement);
 
+			// card should completely process the file
 			await waitFor(() =>
 				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 			);
@@ -4511,8 +4598,10 @@ describe('Card ', () => {
 			expect(elem[0]).toBeDefined();
 			const imgElement = elem[0];
 			expect(imgElement.nodeName.toLowerCase()).toBe('img');
+			await simulateImageLoadDelay();
 			fireEvent.load(imgElement);
 
+			// card should completely process the file
 			await waitFor(() =>
 				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 			);
@@ -4581,34 +4670,36 @@ describe('Card ', () => {
 				fileStatus: 'processed',
 			};
 
-			expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-				action: 'failed',
-				actionSubject: 'mediaCardRender',
-				attributes: {
-					error: 'serverUnauthorized',
-					errorDetail: 'serverUnauthorized',
-					failReason: 'svg-binary-fetch',
-					fileAttributes,
-					fileMimetype: 'image/svg+xml',
-					performanceAttributes: {
-						overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+			await waitFor(() => {
+				expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+					action: 'failed',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						error: 'serverUnauthorized',
+						errorDetail: 'serverUnauthorized',
+						failReason: 'svg-binary-fetch',
+						fileAttributes,
+						fileMimetype: 'image/svg+xml',
+						performanceAttributes: {
+							overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+						},
+						request: {
+							attempts: 5,
+							clientExhaustedRetries: true,
+							mediaEnv: 'test-media-env',
+							mediaRegion: 'test-media-region',
+							statusCode: 403,
+						},
+						ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
+						status: 'fail',
+						metadataTraceContext: {
+							spanId: expect.any(String),
+							traceId: expect.any(String),
+						},
+						traceContext: { traceId: expect.any(String) },
 					},
-					request: {
-						attempts: 5,
-						clientExhaustedRetries: true,
-						mediaEnv: 'test-media-env',
-						mediaRegion: 'test-media-region',
-						statusCode: 403,
-					},
-					ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
-					status: 'fail',
-					metadataTraceContext: {
-						spanId: expect.any(String),
-						traceId: expect.any(String),
-					},
-					traceContext: { traceId: expect.any(String) },
-				},
-				eventType: 'operational',
+					eventType: 'operational',
+				});
 			});
 		});
 
@@ -4645,27 +4736,29 @@ describe('Card ', () => {
 				fileStatus: 'processed',
 			};
 
-			expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-				action: 'failed',
-				actionSubject: 'mediaCardRender',
-				attributes: {
-					error: 'nativeError',
-					errorDetail: 'svg-img-error',
-					failReason: 'svg-img-error',
-					fileAttributes,
-					fileMimetype: 'image/svg+xml',
-					performanceAttributes: {
-						overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+			await waitFor(() => {
+				expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+					action: 'failed',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						error: 'nativeError',
+						errorDetail: 'svg-img-error',
+						failReason: 'svg-img-error',
+						fileAttributes,
+						fileMimetype: 'image/svg+xml',
+						performanceAttributes: {
+							overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+						},
+						ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
+						status: 'fail',
+						metadataTraceContext: {
+							spanId: expect.any(String),
+							traceId: expect.any(String),
+						},
+						traceContext: { traceId: expect.any(String) },
 					},
-					ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
-					status: 'fail',
-					metadataTraceContext: {
-						spanId: expect.any(String),
-						traceId: expect.any(String),
-					},
-					traceContext: { traceId: expect.any(String) },
-				},
-				eventType: 'operational',
+					eventType: 'operational',
+				});
 			});
 		});
 

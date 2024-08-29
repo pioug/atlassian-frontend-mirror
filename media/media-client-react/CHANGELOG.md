@@ -1,5 +1,13 @@
 # @atlaskit/media-client-react
 
+## 2.2.0
+
+### Minor Changes
+
+- [#134170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134170)
+  [`362bb4c304c27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/362bb4c304c27) -
+  This changeset exists because a PR touches these packages in a way that doesn't require a release
+
 ## 2.1.0
 
 ### Minor Changes

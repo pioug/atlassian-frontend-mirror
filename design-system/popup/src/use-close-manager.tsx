@@ -59,16 +59,9 @@ export const useCloseManager = ({
 				return;
 			}
 
-			if (fg('platform_dst_popup-disable-focuslock')) {
-				if (isLayerDisabled() && document.activeElement?.closest('[aria-modal]')) {
-					//if it is a disabled layer, we need to disable its click listener.
-					return;
-				}
-			} else {
-				if (isLayerDisabled()) {
-					//if it is a disabled layer, we need to disable its click listener.
-					return;
-				}
+			if (isLayerDisabled()) {
+				//if it is a disabled layer, we need to disable its click listener.
+				return;
 			}
 
 			const isClickOnPopup = popupRef && popupRef.contains(target as Node);

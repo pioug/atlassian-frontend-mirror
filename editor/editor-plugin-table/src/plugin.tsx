@@ -218,6 +218,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 						isTableAlignmentEnabled: options?.isTableAlignmentEnabled,
 						isFullWidthModeEnabled: options?.fullWidthEnabled,
 						isCommentEditor: options?.isCommentEditor,
+						isChromelessEditor: options?.isChromelessEditor,
 						isTableResizingEnabled: options?.tableResizingEnabled,
 					})(state.schema);
 
@@ -360,6 +361,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							isTableAlignmentEnabled = false,
 							fullWidthEnabled = false,
 							isCommentEditor = false,
+							isChromelessEditor = false,
 							tableResizingEnabled = false,
 						} = options || ({} as TablePluginOptions);
 
@@ -377,6 +379,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							isTableFixedColumnWidthsOptionEnabled,
 							shouldUseIncreasedScalingPercent,
 							isCommentEditor,
+							isChromelessEditor,
 							tableResizingEnabled,
 						);
 					},
@@ -705,6 +708,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							isTableAlignmentEnabled: options?.isTableAlignmentEnabled,
 							isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
 							isCommentEditor: options?.isCommentEditor,
+							isChromelessEditor: options?.isChromelessEditor,
 							isTableResizingEnabled: options?.tableResizingEnabled,
 						})(state.schema);
 

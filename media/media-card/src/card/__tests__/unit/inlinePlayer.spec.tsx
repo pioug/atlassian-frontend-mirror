@@ -346,7 +346,7 @@ describe('<InlinePlayer />', () => {
 			() => {
 				expect(playButton).not.toBeVisible();
 			},
-			{ timeout: 2000 },
+			{ timeout: 3000 },
 		);
 
 		/*

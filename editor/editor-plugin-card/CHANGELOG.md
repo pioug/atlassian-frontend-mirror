@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-card
 
+## 2.14.0
+
+### Minor Changes
+
+- [`c4d2eb3f9f965`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c4d2eb3f9f965) -
+  [ux] Fix issue with card provider not updating asynchronously
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.13.5
 
 ### Patch Changes

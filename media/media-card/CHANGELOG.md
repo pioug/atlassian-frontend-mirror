@@ -1,5 +1,19 @@
 # @atlaskit/media-card
 
+## 78.2.0
+
+### Minor Changes
+
+- [#134978](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134978)
+  [`3dabd40fd0af7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3dabd40fd0af7) -
+  Updates media-card to support React 18
+
+### Patch Changes
+
+- [`84c0869e8c5c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84c0869e8c5c6) -
+  remove unused cardview refactor FF and components
+- Updated dependencies
+
 ## 78.1.2
 
 ### Patch Changes

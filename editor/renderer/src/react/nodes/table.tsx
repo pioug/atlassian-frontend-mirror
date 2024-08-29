@@ -46,7 +46,6 @@ type TableArrayMapped = {
 export const isTableResizingEnabled = (appearance: RendererAppearance) =>
 	isFullWidthOrFullPageAppearance(appearance) ||
 	(isCommentAppearance(appearance) && fg('platform_editor_table_support_in_comment'));
-
 const orderChildren = (
 	children: React.ReactElement[],
 	tableNode: PMNode,
@@ -138,6 +137,7 @@ type TableProps = SharedTableProps & {
 	allowColumnSorting?: boolean;
 	stickyHeaders?: StickyHeaderConfig;
 	allowTableAlignment?: boolean;
+	allowTableResizing?: boolean;
 };
 
 const isHeaderRowEnabled = (
@@ -357,6 +357,7 @@ export class TableContainer extends React.Component<
 			isInsideOfBlockNode,
 			isinsideMultiBodiedExtension,
 			allowTableAlignment,
+			allowTableResizing,
 		} = this.props;
 
 		const { stickyMode } = this.state;
@@ -380,7 +381,7 @@ export class TableContainer extends React.Component<
 					: akEditorFullWidthLayoutWidth;
 			} else if (
 				rendererAppearance === 'comment' &&
-				isTableResizingEnabled(rendererAppearance) &&
+				allowTableResizing &&
 				!tableNode?.attrs.width
 			) {
 				const tableContainerWidth = getTableContainerWidth(tableNode);
@@ -456,10 +457,8 @@ export class TableContainer extends React.Component<
 			updatedLayout = layout;
 		}
 
-		let finalTableContainerWidth = isTableResizingEnabled(rendererAppearance)
-			? tableWidth
-			: 'inherit';
-		if (rendererAppearance === 'comment' && isTableResizingEnabled(rendererAppearance)) {
+		let finalTableContainerWidth = allowTableResizing ? tableWidth : 'inherit';
+		if (rendererAppearance === 'comment' && allowTableResizing) {
 			finalTableContainerWidth = tableNode?.attrs.width ? tableWidth : 'inherit';
 		}
 
@@ -494,6 +493,7 @@ export class TableContainer extends React.Component<
 							rowHeight={this.state.headerRowHeight}
 							tableNode={tableNode}
 							rendererAppearance={rendererAppearance}
+							allowTableResizing={allowTableResizing}
 						>
 							{[children && children[0]]}
 						</StickyTable>
@@ -514,6 +514,7 @@ export class TableContainer extends React.Component<
 							rendererAppearance={rendererAppearance}
 							isInsideOfBlockNode={isInsideOfBlockNode}
 							isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
+							allowTableResizing={allowTableResizing}
 						>
 							{this.grabFirstRowRef(children)}
 						</Table>
@@ -629,7 +630,7 @@ const TableWithWidth = (
 					props.rendererAppearance === 'full-page' ? width - FullPagePadding * 2 : width;
 				const colWidthsSum = props.columnWidths?.reduce((total, val) => total + val, 0) || 0;
 
-				if (colWidthsSum || isTableResizingEnabled(props.rendererAppearance)) {
+				if (colWidthsSum || props.allowTableResizing) {
 					return <TableWithShadows renderWidth={renderWidth} {...props} />;
 				}
 				// there should not be a case when colWidthsSum is 0 and table is in overflow state - so no need to render shadows in this case

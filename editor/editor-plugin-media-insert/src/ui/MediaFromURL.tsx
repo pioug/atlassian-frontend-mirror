@@ -21,6 +21,8 @@ import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import TextField from '@atlaskit/textfield';
 
+import { type InsertExternalMediaSingle, type InsertMediaSingle } from '../types';
+
 import { MediaCard } from './MediaCard';
 import { type OnInsertAttrs } from './types';
 import { useAnalyticsEvents } from './useAnalyticsEvents';
@@ -85,18 +87,18 @@ const previewStateReducer = (state: PreviewState, action: PreviewStateAction) =>
 
 type Props = {
 	mediaProvider: MediaProvider;
-	onInsert: (attrs: OnInsertAttrs) => void;
-	onExternalInsert: (url: string) => void;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	closeMediaInsertPicker: () => void;
+	insertMediaSingle: InsertMediaSingle;
+	insertExternalMediaSingle: InsertExternalMediaSingle;
 };
 
 export function MediaFromURL({
 	mediaProvider,
-	onInsert,
-	onExternalInsert,
 	dispatchAnalyticsEvent,
 	closeMediaInsertPicker,
+	insertMediaSingle,
+	insertExternalMediaSingle,
 }: Props) {
 	const intl = useIntl();
 	const strings = {
@@ -133,10 +135,8 @@ export function MediaFromURL({
 
 			onUploadCommencedAnalytics('url');
 			try {
-				const { uploadableFileUpfrontIds, dimensions } = await mediaClient.file.uploadExternal(
-					url,
-					collection,
-				);
+				const { uploadableFileUpfrontIds, dimensions, mimeType } =
+					await mediaClient.file.uploadExternal(url, collection);
 				onUploadSuccessAnalytics('url');
 				dispatch({
 					type: 'success',
@@ -146,6 +146,7 @@ export function MediaFromURL({
 						height: dimensions.height,
 						width: dimensions.width,
 						occurrenceKey: uploadableFileUpfrontIds.occurrenceKey,
+						fileMimeType: mimeType,
 					},
 				});
 			} catch (e) {
@@ -204,15 +205,35 @@ export function MediaFromURL({
 		[inputUrl],
 	);
 
+	const onInsert = React.useCallback(() => {
+		if (previewState.previewInfo) {
+			insertMediaSingle({
+				mediaState: previewState.previewInfo,
+				inputMethod: INPUT_METHOD.MEDIA_PICKER,
+			});
+		}
+		closeMediaInsertPicker();
+	}, [closeMediaInsertPicker, insertMediaSingle, previewState.previewInfo]);
+
+	const onExternalInsert = React.useCallback(
+		(url: string) => {
+			if (previewState.warning) {
+				insertExternalMediaSingle({ url, alt: url, inputMethod: INPUT_METHOD.MEDIA_PICKER });
+			}
+			closeMediaInsertPicker();
+		},
+		[closeMediaInsertPicker, insertExternalMediaSingle, previewState.warning],
+	);
+
 	const onInsertClick = React.useCallback(() => {
 		if (previewState.previewInfo) {
-			return onInsert(previewState.previewInfo);
+			return onInsert();
 		}
 
 		if (previewState.warning) {
 			return onExternalInsert(inputUrl);
 		}
-	}, [onExternalInsert, onInsert, previewState.previewInfo, previewState.warning, inputUrl]);
+	}, [previewState.previewInfo, previewState.warning, onInsert, onExternalInsert, inputUrl]);
 
 	const onInputKeyPress = React.useCallback(
 		(event: React.KeyboardEvent<HTMLInputElement> | undefined) => {

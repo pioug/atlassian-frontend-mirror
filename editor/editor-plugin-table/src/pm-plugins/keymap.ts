@@ -71,6 +71,7 @@ export function keymapPlugin(
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent?: boolean,
 	isCommentEditor?: boolean,
+	isChromelessEditor?: boolean,
 	isTableResizingEnabled?: boolean,
 ): SafePlugin {
 	const list = {};
@@ -95,6 +96,7 @@ export function keymapPlugin(
 			!!isFullWidthEnabled,
 			editorAnalyticsAPI,
 			isCommentEditor,
+			isChromelessEditor,
 			isTableResizingEnabled,
 		),
 		list,

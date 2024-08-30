@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 1.23.2
+
+### Patch Changes
+
+- [#134766](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134766)
+  [`56e1c0d98f0c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56e1c0d98f0c2) -
+  Fixed unnecessary closing of modal dialogs that opened from a popup.
+
 ## 1.23.1
 
 ### Patch Changes

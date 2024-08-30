@@ -14,7 +14,7 @@ import Button from '@atlaskit/button/new';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import { WidthConsumer } from '@atlaskit/editor-common/ui';
+import { WidthConsumer, WidthProvider } from '@atlaskit/editor-common/ui';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import type { MaxContentSizePlugin } from '@atlaskit/editor-plugins/max-content-size';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
@@ -193,127 +193,130 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 
 	return (
 		<WithFlash animate={maxContentSizeReached}>
-			<div
-				css={[
-					commentEditorStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					css({
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						minHeight: `${minHeight}px`,
-					}),
-				]}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className="akEditor"
-				ref={wrapperElementRef}
-			>
-				<MainToolbar
-					useStickyToolbar={useStickyToolbar}
-					twoLineEditorToolbar={isTwoLineToolbarEnabled}
+			<WidthProvider>
+				<div
+					css={[
+						commentEditorStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+						css({
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+							minHeight: `${minHeight}px`,
+						}),
+					]}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className="akEditor"
+					ref={wrapperElementRef}
 				>
-					<ToolbarArrowKeyNavigationProvider
-						editorView={editorView}
-						childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
-						isShortcutToFocusToolbar={isShortcutToFocusToolbar}
-						handleEscape={handleEscape}
-						editorAppearance={appearance}
+					<MainToolbar
 						useStickyToolbar={useStickyToolbar}
-						intl={intl}
+						twoLineEditorToolbar={isTwoLineToolbarEnabled}
 					>
-						<Toolbar
-							editorView={editorView!}
-							editorActions={editorActions}
-							eventDispatcher={eventDispatcher!}
-							providerFactory={providerFactory!}
-							appearance={appearance}
-							items={primaryToolbarComponents}
-							popupsMountPoint={popupsMountPoint}
-							popupsBoundariesElement={popupsBoundariesElement}
-							popupsScrollableElement={popupsScrollableElement}
-							disabled={!!disabled}
-							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-							containerElement={containerElement.current}
-							twoLineEditorToolbar={isTwoLineToolbarEnabled}
-						/>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<div css={mainToolbarCustomComponentsSlotStyle(isTwoLineToolbarEnabled)}>
-							{customPrimaryToolbarComponents as React.ReactNode}
-						</div>
-					</ToolbarArrowKeyNavigationProvider>
-				</MainToolbar>
-				<ClickAreaBlock editorView={editorView} editorDisabled={disabled}>
-					<WidthConsumer>
-						{({ width }) => {
-							return (
-								<ContentArea
-									ref={containerElement}
-									css={
-										maxHeight
-											? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-												css({
-													// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-													maxHeight: `${maxHeight}px`,
-												})
-											: null
-									}
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-									className={classnames('ak-editor-content-area', {
-										'less-margin': width < akEditorMobileBreakoutPoint,
-									})}
-									featureFlags={featureFlags}
-								>
-									{customContentComponents && 'before' in customContentComponents
-										? customContentComponents.before
-										: customContentComponents}
-									<PluginSlot
-										editorView={editorView}
-										editorActions={editorActions}
-										eventDispatcher={eventDispatcher}
-										dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-										providerFactory={providerFactory}
-										appearance={appearance}
-										items={contentComponents}
-										popupsMountPoint={popupsMountPoint}
-										popupsBoundariesElement={popupsBoundariesElement}
-										popupsScrollableElement={popupsScrollableElement}
-										containerElement={containerElement.current}
-										disabled={!!disabled}
-										wrapperElement={wrapperElementRef.current}
-										pluginHooks={pluginHooks}
-									/>
-									{editorDOMElement}
-									{customContentComponents && 'after' in customContentComponents
-										? customContentComponents.after
-										: null}
-								</ContentArea>
-							);
-						}}
-					</WidthConsumer>
-				</ClickAreaBlock>
-			</div>
-			{showSecondaryToolbar && (
-				<div css={secondaryToolbarStyles} data-testid="ak-editor-secondary-toolbar">
-					<ButtonGroup>
-						{!!onSave && (
-							<Button
-								appearance="primary"
-								onClick={handleSave}
-								testId="comment-save-button"
-								isDisabled={disabled || saveButtonDisabled}
-							>
-								{intl.formatMessage(messages.saveButton)}
-							</Button>
-						)}
-						{!!onCancel && (
-							<Button appearance="subtle" onClick={handleCancel} isDisabled={disabled}>
-								{intl.formatMessage(messages.cancelButton)}
-							</Button>
-						)}
-					</ButtonGroup>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-					<span style={{ flexGrow: 1 }} />
-					{customSecondaryToolbarComponents}
+						<ToolbarArrowKeyNavigationProvider
+							editorView={editorView}
+							childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
+							isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+							handleEscape={handleEscape}
+							editorAppearance={appearance}
+							useStickyToolbar={useStickyToolbar}
+							intl={intl}
+						>
+							<Toolbar
+								editorView={editorView!}
+								editorActions={editorActions}
+								eventDispatcher={eventDispatcher!}
+								providerFactory={providerFactory!}
+								appearance={appearance}
+								items={primaryToolbarComponents}
+								popupsMountPoint={popupsMountPoint}
+								popupsBoundariesElement={popupsBoundariesElement}
+								popupsScrollableElement={popupsScrollableElement}
+								disabled={!!disabled}
+								dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+								containerElement={containerElement.current}
+								twoLineEditorToolbar={isTwoLineToolbarEnabled}
+							/>
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+							<div css={mainToolbarCustomComponentsSlotStyle(isTwoLineToolbarEnabled)}>
+								{customPrimaryToolbarComponents as React.ReactNode}
+							</div>
+						</ToolbarArrowKeyNavigationProvider>
+					</MainToolbar>
+					<ClickAreaBlock editorView={editorView} editorDisabled={disabled}>
+						<WidthConsumer>
+							{({ width }) => {
+								return (
+									<ContentArea
+										ref={containerElement}
+										css={
+											maxHeight
+												? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+													css({
+														// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+														maxHeight: `${maxHeight}px`,
+													})
+												: null
+										}
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+										className={classnames('ak-editor-content-area', {
+											'less-margin': width < akEditorMobileBreakoutPoint,
+										})}
+										featureFlags={featureFlags}
+									>
+										{customContentComponents && 'before' in customContentComponents
+											? customContentComponents.before
+											: customContentComponents}
+										<PluginSlot
+											editorView={editorView}
+											editorActions={editorActions}
+											eventDispatcher={eventDispatcher}
+											dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+											providerFactory={providerFactory}
+											appearance={appearance}
+											items={contentComponents}
+											popupsMountPoint={popupsMountPoint}
+											popupsBoundariesElement={popupsBoundariesElement}
+											popupsScrollableElement={popupsScrollableElement}
+											containerElement={containerElement.current}
+											disabled={!!disabled}
+											wrapperElement={wrapperElementRef.current}
+											pluginHooks={pluginHooks}
+										/>
+										{editorDOMElement}
+										{customContentComponents && 'after' in customContentComponents
+											? customContentComponents.after
+											: null}
+									</ContentArea>
+								);
+							}}
+						</WidthConsumer>
+					</ClickAreaBlock>
 				</div>
-			)}
+
+				{showSecondaryToolbar && (
+					<div css={secondaryToolbarStyles} data-testid="ak-editor-secondary-toolbar">
+						<ButtonGroup>
+							{!!onSave && (
+								<Button
+									appearance="primary"
+									onClick={handleSave}
+									testId="comment-save-button"
+									isDisabled={disabled || saveButtonDisabled}
+								>
+									{intl.formatMessage(messages.saveButton)}
+								</Button>
+							)}
+							{!!onCancel && (
+								<Button appearance="subtle" onClick={handleCancel} isDisabled={disabled}>
+									{intl.formatMessage(messages.cancelButton)}
+								</Button>
+							)}
+						</ButtonGroup>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+						<span style={{ flexGrow: 1 }} />
+						{customSecondaryToolbarComponents}
+					</div>
+				)}
+			</WidthProvider>
 		</WithFlash>
 	);
 };

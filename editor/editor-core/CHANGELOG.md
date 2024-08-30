@@ -1,5 +1,39 @@
 # @atlaskit/editor-core
 
+## 197.1.2
+
+### Patch Changes
+
+- [#135500](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135500)
+  [`a571f59156bc1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a571f59156bc1) -
+  Build internal version of Chromeless and Comment Editor. No API changes.
+
+## 197.1.1
+
+### Patch Changes
+
+- [#135207](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135207)
+  [`84391e4360fbd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84391e4360fbd) -
+  Refactor editor internals to minimise bundle size and javascript run by removing width observer
+  from main editor.
+
+## 197.1.0
+
+### Minor Changes
+
+- [#135270](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135270)
+  [`4a75557335357`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a75557335357) -
+  [ux] [ED-23237] feat(node data provider): wire up to emoji provider
+
+## 197.0.0
+
+### Major Changes
+
+- [#135235](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135235)
+  [`f67578e7140b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f67578e7140b5) -
+  removed MobileAppearance from editor-core, removed editor-mobile-bridge testing step from a
+  pipeline
+
 ## 196.1.0
 
 ### Minor Changes

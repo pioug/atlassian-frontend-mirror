@@ -10,6 +10,7 @@ import {
 	AddMarkStep,
 	AddNodeMarkStep,
 	AttrStep,
+	DocAttrStep,
 	RemoveMarkStep,
 	RemoveNodeMarkStep,
 	ReplaceAroundStep,
@@ -30,6 +31,70 @@ export type RecentTransactionTimestamp = {
 export type RecentTransactionTimestamps = Map<string, RecentTransactionTimestamp>;
 
 export type TrackFilteredTransaction = (tr: Transaction) => void;
+export type SanitizedFilteredStep = {
+	stepType: string;
+	stepInstance?: string;
+	attr?: string;
+	markType?: string;
+};
+
+/**
+ * Sanitizes a given ProseMirror step by extracting its type and non-UCG relevant attributes.
+ *
+ * @param {Step} step - The ProseMirror step to be sanitized.
+ * @returns {SanitizedFilteredStep} - The sanitized step with only necessary information.
+ *
+ * @example
+ * ```
+ * const step = new AttrStep(10, 'colwidth', [123, 451] );
+ * const sanitized = sanitizeFilteredStep(step);
+ *
+ * // Output: { stepType: 'attr', stepInstance: 'AttrStep', attr: 'example' }
+ * ```
+ */
+export const sanitizeFilteredStep = (step: Step): SanitizedFilteredStep => {
+	const serializedStep = step.toJSON();
+	const sanitizedStep: SanitizedFilteredStep = {
+		stepType: serializedStep.stepType,
+		stepInstance: 'unknown',
+	};
+
+	if (step instanceof AttrStep) {
+		sanitizedStep.attr = step.attr;
+		sanitizedStep.stepInstance = 'AttrStep';
+	} else if (step instanceof DocAttrStep) {
+		sanitizedStep.attr = step.attr;
+		sanitizedStep.stepInstance = 'DocAttrStep';
+	} else if (step instanceof SetAttrsStep) {
+		// Combines all attrs keys separated by _ to one single string
+		sanitizedStep.attr = Object.keys(step.attrs).sort().join('_');
+		sanitizedStep.stepInstance = 'SetAttrsStep';
+	} else if (step instanceof AddMarkStep) {
+		sanitizedStep.markType = step.mark.type.name;
+		sanitizedStep.stepInstance = 'AddMarkStep';
+	} else if (step instanceof RemoveMarkStep) {
+		sanitizedStep.markType = step.mark.type.name;
+		sanitizedStep.stepInstance = 'RemoveMarkStep';
+	} else if (step instanceof RemoveNodeMarkStep) {
+		sanitizedStep.markType = step.mark.type.name;
+		sanitizedStep.stepInstance = 'RemoveNodeMarkStep';
+	} else if (step instanceof AddNodeMarkStep) {
+		sanitizedStep.markType = step.mark.type.name;
+		sanitizedStep.stepInstance = 'AddNodeMarkStep';
+	} else if (step instanceof ReplaceStep) {
+		sanitizedStep.stepInstance = 'ReplaceStep';
+	} else if (step instanceof ReplaceAroundStep) {
+		sanitizedStep.stepInstance = 'ReplaceAroundStep';
+	} else if (step instanceof AnalyticsStep) {
+		sanitizedStep.stepInstance = 'AnalyticsStep';
+	} else if (step instanceof InsertTypeAheadStep) {
+		sanitizedStep.stepInstance = 'InsertTypeAheadStep';
+	} else if (step instanceof LinkMetaStep) {
+		sanitizedStep.stepInstance = 'LinkMetaStep';
+	}
+
+	return sanitizedStep;
+};
 
 export const createFilterTransaction = (
 	recentTransactionsTimestamps: RecentTransactionTimestamps,

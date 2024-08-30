@@ -66,7 +66,7 @@ export const EditorMain = styled.div`
 		color: ${token('color.text.inverse', N0)};
 		border-radius: ${token('border.radius.100', '3px')};
 		box-sizing: border-box;
-		font-size: 12px;
+		font: ${token('font.body.UNSAFE_small')};
 		line-height: 1.3;
 		max-width: 240px;
 		padding: ${token('space.025', '2px')} ${token('space.075', '6px')};

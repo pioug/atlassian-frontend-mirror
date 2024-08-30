@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `UNSAFE_createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::5352e728fce738eb92848436349cb2ad>>
+ * @codegen <<SignedSource::9631ea87cef913a2404b055832446e10>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -140,7 +140,7 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'CheckCircleIcon',
 		package: '@atlaskit/icon/utility/check-circle',
-		oldName: ['check-circle-outline', 'emoji/productivity'],
+		oldName: ['check-circle', 'check-circle-outline', 'emoji/productivity'],
 		type: 'utility',
 		categorization: 'utility',
 		usage: '📦 @atlaskit/icon/utility/check-circle',

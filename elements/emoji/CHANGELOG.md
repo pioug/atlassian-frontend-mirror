@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 67.7.7
+
+### Patch Changes
+
+- [#134115](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134115)
+  [`bc9c5492e63b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc9c5492e63b5) -
+  Reduce emoji rerender by adding useCallback
+
 ## 67.7.6
 
 ### Patch Changes

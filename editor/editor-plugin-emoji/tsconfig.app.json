@@ -45,6 +45,9 @@
 			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{
+			"path": "../node-data-provider/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

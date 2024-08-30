@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 19.24.0
+
+### Minor Changes
+
+- [#135350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135350)
+  [`e22e1c78bb96d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e22e1c78bb96d) -
+  [ux] Move api call to agent clients
+
+## 19.23.0
+
+### Minor Changes
+
+- [#135110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135110)
+  [`ae41f672c79da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae41f672c79da) -
+  Update rovo agent type definitions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.22.1
 
 ### Patch Changes

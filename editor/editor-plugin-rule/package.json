@@ -36,7 +36,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.9.0",
-		"@atlaskit/editor-common": "^88.4.0",
+		"@atlaskit/editor-common": "^88.5.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",

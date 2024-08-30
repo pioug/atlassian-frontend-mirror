@@ -21,9 +21,9 @@ import { indentationMessages, listMessages as messages } from '@atlaskit/editor-
 import { buttonGroupStyle, separatorStyles } from '@atlaskit/editor-common/styles';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import BulletedListIcon from '@atlaskit/icon/core/migration/list-bulleted--editor-bullet-list';
-import IndentIcon from '@atlaskit/icon/glyph/editor/indent';
-import NumberListIcon from '@atlaskit/icon/glyph/editor/number-list';
-import OutdentIcon from '@atlaskit/icon/glyph/editor/outdent';
+import NumberListIcon from '@atlaskit/icon/core/migration/list-numbered--editor-number-list';
+import OutdentIcon from '@atlaskit/icon/core/migration/text-indent-left--editor-outdent';
+import IndentIcon from '@atlaskit/icon/core/migration/text-indent-right--editor-indent';
 
 import type { ButtonName, ToolbarProps } from '../types';
 
@@ -103,7 +103,7 @@ export function Toolbar(props: ToolbarProps) {
 					aria-keyshortcuts={getAriaKeyshortcuts(toggleOrderedListKeymap)}
 					disabled={orderedListDisabled || disabled}
 					title={<ToolTipContent description={labelOrderedList} keymap={toggleOrderedListKeymap} />}
-					iconBefore={<NumberListIcon label="" />}
+					iconBefore={<NumberListIcon color="currentColor" spacing="spacious" label="" />}
 				/>
 				{showIndentationButtons && (
 					<ToolbarButton
@@ -112,7 +112,7 @@ export function Toolbar(props: ToolbarProps) {
 						ref={outdentButtonRef}
 						spacing={isReducedSpacing ? 'none' : 'default'}
 						onClick={handleOnItemActivated('outdent')}
-						iconBefore={<OutdentIcon label="" />}
+						iconBefore={<OutdentIcon color="currentColor" spacing="spacious" label="" />}
 						disabled={outdentDisabled || disabled}
 						aria-label={tooltip(toggleOutdentKeymap, outdentMessage)}
 						aria-keyshortcuts={getAriaKeyshortcuts(toggleOutdentKeymap)}
@@ -126,7 +126,7 @@ export function Toolbar(props: ToolbarProps) {
 						ref={indentButtonRef}
 						spacing={isReducedSpacing ? 'none' : 'default'}
 						onClick={handleOnItemActivated('indent')}
-						iconBefore={<IndentIcon label="" />}
+						iconBefore={<IndentIcon color="currentColor" spacing="spacious" label="" />}
 						disabled={indentDisabled || disabled}
 						aria-label={tooltip(toggleIndentKeymap, indentMessage)}
 						aria-keyshortcuts={getAriaKeyshortcuts(toggleIndentKeymap)}

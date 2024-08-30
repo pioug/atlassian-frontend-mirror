@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 4.6.0
+
+### Minor Changes
+
+- [`31ba9e3c9a657`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31ba9e3c9a657) -
+  Typography migration (https://product-fabric.atlassian.net/browse/PYX-881)
+
 ## 4.5.2
 
 ### Patch Changes

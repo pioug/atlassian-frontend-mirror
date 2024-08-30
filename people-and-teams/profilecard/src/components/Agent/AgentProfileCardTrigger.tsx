@@ -93,12 +93,16 @@ export const AgentProfileCardTrigger = ({
 				<AgentProfileCardLazy
 					agent={profileData}
 					hasError={!!error}
-					isCreatedByViewingUser={profileData?.creatorInfo?.id === viewingUserId}
+					isCreatedByViewingUser={
+						profileData?.creatorInfo && profileData?.creatorInfo?.id === viewingUserId
+					}
 					cloudId={props.cloudId}
 					product={product}
 					errorType={error}
 					onChatClick={props.onChatClick}
 					onConversationStartersClick={props.onConversationStartersClick}
+					resourceClient={props.resourceClient}
+					addFlag={props.addFlag}
 				/>
 			</Suspense>
 		);

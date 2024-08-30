@@ -17,7 +17,7 @@ import { contextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import { customAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';
 import { dataConsumerPlugin } from '@atlaskit/editor-plugins/data-consumer';
 import { datePlugin } from '@atlaskit/editor-plugins/date';
-import { emojiPlugin } from '@atlaskit/editor-plugins/emoji';
+import { emojiPlugin, type EmojiPluginOptions } from '@atlaskit/editor-plugins/emoji';
 import { expandPlugin } from '@atlaskit/editor-plugins/expand';
 import { extensionPlugin } from '@atlaskit/editor-plugins/extension';
 import { feedbackDialogPlugin } from '@atlaskit/editor-plugins/feedback-dialog';
@@ -72,6 +72,8 @@ type UniversalPresetProps = DefaultPresetPluginOptions &
 /**
  * Mechanism to configuring plugins as the universal preset blocks direct access
  * to configuring plugins.
+ *
+ * Note: not all plugins are configurable via this mechanism, and for plugins configured -- it is only doing a subset of the configuration.
  */
 export type InitialPluginConfiguration = {
 	mentionsPlugin?: {
@@ -79,9 +81,11 @@ export type InitialPluginConfiguration = {
 			mentionChanges: { type: 'added' | 'deleted'; localId: string; id: string }[],
 		) => void;
 	};
-
 	tablesPlugin?: {
 		tableResizingEnabled?: boolean;
+	};
+	emoji?: {
+		emojiNodeDataProvider?: EmojiPluginOptions['emojiNodeDataProvider'];
 	};
 };
 
@@ -232,7 +236,15 @@ export default function createUniversalPresetInternal({
 			],
 			Boolean(props.mentionProvider),
 		)
-		.maybeAdd(emojiPlugin, Boolean(props.emojiProvider))
+		.maybeAdd(
+			[
+				emojiPlugin,
+				{
+					emojiNodeDataProvider: initialPluginConfiguration?.emoji?.emojiNodeDataProvider,
+				},
+			],
+			Boolean(props.emojiProvider),
+		)
 		.maybeAdd(
 			[
 				tablesPlugin,

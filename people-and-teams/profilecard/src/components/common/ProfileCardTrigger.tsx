@@ -54,9 +54,9 @@ function ProfileCardTrigger<T>({
 	const showProfilecard = useCallback(async () => {
 		clearTimeout(hideTimer.current);
 		clearTimeout(showTimer.current);
-		showTimer.current = window.setTimeout(async () => {
+		showTimer.current = window.setTimeout(() => {
 			if (!visible) {
-				await getProfileData?.();
+				getProfileData?.();
 				setVisible(true);
 				if (fireAnalytics) {
 					fireAnalytics(cardTriggered(profileCardType, trigger));

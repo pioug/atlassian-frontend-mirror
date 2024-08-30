@@ -212,7 +212,7 @@ export const ResourcedEmojiComponent = (props: Props) => {
 		return emoji;
 	}, [emoji, optimisticImageURL, fallback, fitToHeight, id, shortName]);
 
-	const handleOnLoadError = (emojiId: EmojiId) => {
+	const handleOnLoadError = useCallback((emojiId: EmojiId) => {
 		setImageLoadError(true);
 		sampledUfoRenderedEmoji(emojiId).failure({
 			metadata: {
@@ -221,7 +221,7 @@ export const ResourcedEmojiComponent = (props: Props) => {
 				emojiId: emojiId.id,
 			},
 		});
-	};
+	}, []);
 
 	return (
 		<EmojiCommonProvider emojiProvider={resolvedEmojiProvider}>

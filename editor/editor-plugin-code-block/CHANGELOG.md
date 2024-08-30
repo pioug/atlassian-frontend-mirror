@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.3.9
+
+### Patch Changes
+
+- [#134918](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134918)
+  [`89e5820ef3ed5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89e5820ef3ed5) -
+  [ux] ED-24678 adding a11y support for code block
+
 ## 3.3.8
 
 ### Patch Changes

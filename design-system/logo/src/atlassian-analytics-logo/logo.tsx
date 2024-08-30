@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 
-import { uid } from 'react-uid';
-
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { defaultLogoParams } from '../constants';
@@ -10,12 +9,11 @@ import type { LogoPropsAppearanceRequired } from '../types';
 import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = ({ appearance }: LogoPropsAppearanceRequired, colorMode: string | undefined) => {
-	// Will be fixed upon removal of deprecated iconGradientStart and
-	// iconGradientStop props, or with React 18's useId() hook when we update.
-	// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
-	let id = uid({ appearance });
-
+const svg = (
+	{ appearance }: LogoPropsAppearanceRequired,
+	colorMode: string | undefined,
+	id: string,
+) => {
 	const colors = getColorsFromAppearanceOldLogos(appearance, colorMode);
 
 	return `
@@ -59,17 +57,13 @@ export const AtlassianAnalyticsLogo = ({
 	testId,
 }: LogoPropsAppearanceRequired) => {
 	const { colorMode } = useThemeObserver();
+	const id = useId();
 	return (
 		<Wrapper
 			appearance={appearance}
 			label={label}
 			size={size}
-			svg={svg(
-				{
-					appearance,
-				},
-				colorMode,
-			)}
+			svg={svg({ appearance }, colorMode, id)}
 			testId={testId}
 		/>
 	);

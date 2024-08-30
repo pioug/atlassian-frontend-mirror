@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 1.1.0
+
+### Minor Changes
+
+- [#135110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135110)
+  [`ae41f672c79da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae41f672c79da) -
+  Update rovo agent type definitions
+
 ## 1.0.0
 
 ### Major Changes

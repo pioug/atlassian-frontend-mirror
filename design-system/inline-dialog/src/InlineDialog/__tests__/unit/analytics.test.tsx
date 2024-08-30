@@ -1,44 +1,52 @@
-import {
-	createAndFireEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+import React from 'react';
 
-import '../../index';
+import { fireEvent, render, screen } from '@testing-library/react';
 
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
+import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import __noop from '@atlaskit/ds-lib/noop';
 
-// This is a global mock for this file that will mock all components wrapped with analytics
-// and replace them with an empty SFC that returns null. This includes components imported
-// directly in this file and others imported as dependencies of those imports.
-jest.mock('@atlaskit/analytics-next', () => ({
-	withAnalyticsEvents: jest.fn(() => jest.fn(() => () => null)),
-	withAnalyticsContext: jest.fn(() => jest.fn(() => () => null)),
-	createAndFireEvent: jest.fn(() => jest.fn((args) => args)),
-}));
+import InlineDialog from '../../index';
 
 describe('InlineDialog', () => {
-	it('should be wrapped with analytics context', () => {
-		expect(withAnalyticsContext).toHaveBeenCalledWith({
-			componentName: 'inlineDialog',
-			packageName,
-			packageVersion,
-		});
-	});
+	it('should fire an analytics event', () => {
+		const onEvent = jest.fn();
+		let isOpen = true;
 
-	it('should be wrapped with analytics events', () => {
-		expect(createAndFireEvent).toHaveBeenCalledWith('atlaskit');
-		expect(withAnalyticsEvents).toHaveBeenLastCalledWith({
-			onClose: {
+		render(
+			<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
+				<InlineDialog content={<div>content</div>} onClose={__noop} isOpen={isOpen}>
+					<button type="button" onClick={() => !isOpen} data-testid="trigger">
+						Click me!
+					</button>
+				</InlineDialog>
+			</AnalyticsListener>,
+		);
+
+		const button: HTMLElement = screen.getByTestId('trigger');
+
+		fireEvent.keyDown(button, { key: 'Escape', code: 'Escape' });
+
+		const expected = new UIAnalyticsEvent({
+			payload: {
 				action: 'closed',
 				actionSubject: 'inlineDialog',
 				attributes: {
 					componentName: 'inlineDialog',
-					packageName,
-					packageVersion,
+					packageName: process.env._PACKAGE_NAME_,
+					packageVersion: process.env._PACKAGE_VERSION_,
 				},
 			},
+			context: [
+				{
+					componentName: 'inlineDialog',
+					packageName: process.env._PACKAGE_NAME_,
+					packageVersion: process.env._PACKAGE_VERSION_,
+				},
+			],
 		});
+
+		expect(onEvent).toHaveBeenCalledTimes(1);
+		expect(onEvent.mock.calls[0][0].payload).toEqual(expected.payload);
+		expect(onEvent.mock.calls[0][0].context).toEqual(expected.context);
 	});
 });

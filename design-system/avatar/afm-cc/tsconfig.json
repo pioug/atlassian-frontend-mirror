@@ -22,6 +22,9 @@
             "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../ds-lib/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../focus-ring/afm-cc/tsconfig.json"
         },
         {

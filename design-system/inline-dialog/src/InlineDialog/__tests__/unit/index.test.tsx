@@ -4,8 +4,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import Button from '@atlaskit/button/new';
 
-import InlineDialogWithAnalytics from '../../../index';
-import { InlineDialogWithoutAnalytics as InlineDialog } from '../../index';
+import InlineDialog from '../../../index';
 
 declare var global: any;
 
@@ -339,7 +338,7 @@ describe('InlineDialogWithAnalytics', () => {
 	});
 
 	it('should mount without errors', () => {
-		render(<InlineDialogWithAnalytics children={''} content={''} />);
+		render(<InlineDialog children={''} content={''} />);
 
 		/* eslint-disable no-console */
 		expect(console.warn).not.toHaveBeenCalled();

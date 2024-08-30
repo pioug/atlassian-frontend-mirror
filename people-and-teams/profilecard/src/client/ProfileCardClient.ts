@@ -79,6 +79,17 @@ class ProfileCardClient {
 	getRovoAgentProfile(id: AgentIdType, analytics?: (event: AnalyticsEventPayload) => void) {
 		return this.rovoAgentClient?.getProfile(id, analytics);
 	}
+	deleteAgent(id: string, analytics?: (event: AnalyticsEventPayload) => void) {
+		return this.rovoAgentClient?.deleteAgent(id, analytics);
+	}
+
+	setFavouriteAgent(
+		id: string,
+		isFavourite: boolean,
+		analytics?: (event: AnalyticsEventPayload) => void,
+	) {
+		return this.rovoAgentClient?.setFavouriteAgent(id, isFavourite, analytics);
+	}
 }
 
 function maybeCreateTeamCentralClient(config: ProfileClientOptions, clients?: ClientOverrides) {

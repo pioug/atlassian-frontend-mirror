@@ -25,12 +25,12 @@ import EmojiIcon from '@atlaskit/icon/core/migration/emoji--editor-emoji';
 import GridIcon from '@atlaskit/icon/core/migration/grid--editor-table';
 import ImageIcon from '@atlaskit/icon/core/migration/image--editor-image';
 import InformationIcon from '@atlaskit/icon/core/migration/information--editor-info';
+import LayoutTwoColumnsIcon from '@atlaskit/icon/core/migration/layout-two-columns--editor-layout-two-equal';
 import LinkIcon from '@atlaskit/icon/core/migration/link--editor-link';
 import MentionIcon from '@atlaskit/icon/core/migration/mention--editor-mention';
+import HorizontalRuleIcon from '@atlaskit/icon/core/migration/minus--editor-horizontal-rule';
 import QuotationMarkIcon from '@atlaskit/icon/core/migration/quotation-mark--quote';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
-import HorizontalRuleIcon from '@atlaskit/icon/glyph/editor/horizontal-rule';
-import LayoutTwoEqualIcon from '@atlaskit/icon/glyph/editor/layout-two-equal';
 import PlaceholderTextIcon from '@atlaskit/icon/glyph/media-services/text';
 import StatusIcon from '@atlaskit/icon/glyph/status';
 import type Icon from '@atlaskit/icon/UNSAFE_base-new';
@@ -182,7 +182,7 @@ export const layout = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'layout',
-		Icon: LayoutTwoEqualIcon,
+		Icon: LayoutTwoColumnsIcon,
 	}),
 );
 

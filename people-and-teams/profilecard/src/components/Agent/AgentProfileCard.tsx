@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+
+import { useIntl } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
@@ -10,11 +12,7 @@ import {
 	AgentStarCount,
 } from '@atlaskit/rovo-agent-components';
 
-import {
-	type AgentActionsType,
-	type ProfileCardErrorType,
-	type RovoAgentProfileCardInfo,
-} from '../../types';
+import { type AgentProfileCardProps } from '../../types';
 import { fireEvent, profileCardRendered } from '../../util/analytics';
 import { LoadingState } from '../common/LoadingState';
 import { ErrorMessage } from '../Error';
@@ -23,8 +21,7 @@ import { AgentActions } from './Actions';
 import { AgentProfileCardWrapper } from './AgentProfileCardWrapper';
 import { ConversationStarters } from './ConversationStarters';
 import { useAgentUrlActions } from './hooks/useAgentActions';
-import { useDeleteAgent } from './hooks/useDeleteAgent';
-import { useSetFavouriteAgent } from './hooks/useSetFavouriteAgent';
+import { messages } from './messages';
 
 const styles = xcss({ paddingBlockStart: 'space.400', paddingInline: 'space.200' });
 
@@ -33,15 +30,6 @@ const avatarStyles = xcss({
 	top: 'space.300',
 	left: 'space.200',
 });
-type AgentProfileCardProps = {
-	agent?: RovoAgentProfileCardInfo;
-	isLoading?: boolean;
-	hasError?: boolean;
-	isCreatedByViewingUser?: boolean;
-	cloudId?: string;
-	product?: string;
-	errorType?: ProfileCardErrorType;
-} & AgentActionsType;
 
 const cardContainerStyles = xcss({
 	borderRadius: 'border.radius.200',
@@ -59,6 +47,8 @@ const AgentProfileCard = ({
 	hasError,
 	errorType,
 	onConversationStartersClick,
+	resourceClient,
+	addFlag,
 }: AgentProfileCardProps) => {
 	const {
 		onEditAgent,
@@ -70,14 +60,12 @@ const AgentProfileCard = ({
 		cloudId: cloudId || '',
 	});
 
-	const { isStarred, setFavourite } = useSetFavouriteAgent({
-		agentId: agent?.id,
-		cloudId: cloudId,
-		isStarred: !!agent?.favourite,
-		product,
-	});
+	const [isStarred, setIsStarred] = useState(false);
+	const { formatMessage } = useIntl();
 
-	const { deleteAgent } = useDeleteAgent({ cloudId, product });
+	useEffect(() => {
+		setIsStarred(!!agent?.favourite);
+	}, [agent?.favourite]);
 
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -89,12 +77,39 @@ const AgentProfileCard = ({
 		},
 		[createAnalyticsEvent],
 	);
-
-	const handleOnDelete = async () => {
-		if (agent) {
-			await deleteAgent(agent.id);
+	const handleSetFavourite = useCallback(async () => {
+		if (agent?.id) {
+			try {
+				await resourceClient.setFavouriteAgent(agent.id, !isStarred, fireAnalytics);
+				setIsStarred(!isStarred);
+			} catch (error) {}
 		}
-	};
+	}, [agent?.id, fireAnalytics, isStarred, resourceClient]);
+
+	const handleOnDelete = useCallback(async () => {
+		if (agent) {
+			try {
+				await resourceClient.deleteAgent(agent.id, fireAnalytics);
+
+				addFlag?.({
+					title: formatMessage(messages.agentDeletedSuccessFlagTitle),
+					description: formatMessage(messages.agentDeletedSuccessFlagDescription, {
+						agentName: agent.name,
+					}),
+					type: 'success',
+					id: 'ptc-directory.agent-profile.delete-agent-success',
+				});
+			} catch (error) {
+				addFlag?.({
+					title: formatMessage(messages.agentDeletedErrorFlagTitle),
+					description: formatMessage(messages.agentDeletedErrorFlagDescription),
+					type: 'error',
+					id: 'ptc-directory.agent-profile.delete-agent-error',
+				});
+			}
+		}
+	}, [addFlag, agent, fireAnalytics, formatMessage, resourceClient]);
+
 	useEffect(() => {
 		if (!isLoading && agent) {
 			fireAnalytics(profileCardRendered('agent', 'content'));
@@ -129,7 +144,7 @@ const AgentProfileCard = ({
 					<AgentProfileInfo
 						agentName={agent.name}
 						isStarred={isStarred}
-						onStarToggle={setFavourite}
+						onStarToggle={handleSetFavourite}
 						isHidden={agent.visibility === 'PRIVATE'}
 						creatorRender={
 							agent.creatorInfo?.type && (
@@ -159,6 +174,7 @@ const AgentProfileCard = ({
 					/>
 				</Stack>
 				<AgentActions
+					agent={agent}
 					isAgentCreatedByCurrentUser={isCreatedByViewingUser}
 					onEditAgent={() => onEditAgent(agent.id)}
 					onCopyAgent={() => onCopyAgent(agent.id)}

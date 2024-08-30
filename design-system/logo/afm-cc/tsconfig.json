@@ -19,6 +19,9 @@
     ],
     "references": [
         {
+            "path": "../../ds-lib/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../theme/afm-cc/tsconfig.json"
         },
         {

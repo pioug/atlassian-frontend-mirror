@@ -1,7 +1,7 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { type PopupProps } from '@atlaskit/popup';
 
-import { type ProfileCardErrorType } from '../../types';
+import { type ProfileCardErrorType, type ProfileType } from '../../types';
 
 export type ProfileCardTriggerProps<T> = {
 	trigger: 'hover' | 'click';
@@ -16,6 +16,6 @@ export type ProfileCardTriggerProps<T> = {
 		error: ProfileCardErrorType | undefined | null;
 	}) => React.ReactNode;
 	fetchProfile?: () => Promise<T>;
-	profileCardType: 'agent' | 'user' | 'team';
+	profileCardType: ProfileType;
 	fireAnalytics?: (payload: AnalyticsEventPayload) => void;
 } & Omit<PopupProps, 'trigger' | 'isOpen' | 'content'>;

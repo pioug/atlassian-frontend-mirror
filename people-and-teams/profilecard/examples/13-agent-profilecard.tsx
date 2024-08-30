@@ -7,6 +7,7 @@ import ProfileCardTrigger from '../src/components/common/ProfileCardTrigger';
 import { type RovoAgentProfileCardInfo } from '../src/types';
 
 import ExampleWrapper from './helper/example-wrapper';
+import { getMockProfileClient } from './helper/util';
 
 const styles = xcss({ marginBlock: 'space.200' });
 const Section = ({ children }: { children: React.ReactNode }) => {
@@ -16,6 +17,8 @@ const Section = ({ children }: { children: React.ReactNode }) => {
 		</Box>
 	);
 };
+
+const mockClient = getMockProfileClient(10, 0, {}, { cloudId: 'test-cloud-id' });
 
 export default function Example() {
 	const agent: RovoAgentProfileCardInfo = {
@@ -49,6 +52,7 @@ export default function Example() {
 						agent={agent}
 						isCreatedByViewingUser={true}
 						cloudId="38ef3107-2a4f-4922-9bc6-40beb439aace"
+						resourceClient={mockClient}
 					/>
 				</Section>
 				<Section>
@@ -60,7 +64,11 @@ export default function Example() {
 						<ProfileCardTrigger
 							trigger={'hover'}
 							renderProfileCard={() => (
-								<AgentProfileCard agent={agent} isCreatedByViewingUser={true} />
+								<AgentProfileCard
+									agent={agent}
+									isCreatedByViewingUser={true}
+									resourceClient={mockClient}
+								/>
 							)}
 							profileCardType={'agent'}
 						>
@@ -73,7 +81,9 @@ export default function Example() {
 					<span>
 						<ProfileCardTrigger
 							trigger={'click'}
-							renderProfileCard={() => <AgentProfileCard agent={agent} />}
+							renderProfileCard={() => (
+								<AgentProfileCard agent={agent} resourceClient={mockClient} />
+							)}
 							profileCardType={'agent'}
 						>
 							<Text as="strong">Click me</Text>

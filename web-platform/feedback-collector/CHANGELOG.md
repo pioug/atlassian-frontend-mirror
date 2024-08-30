@@ -1,5 +1,21 @@
 # @atlaskit/feedback-collector
 
+## 13.10.0
+
+### Minor Changes
+
+- [#135500](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135500)
+  [`4bba3585bfc68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4bba3585bfc68) -
+  updates type for shouldReturnFocus ref to match atlaskit
+
+## 13.9.0
+
+### Minor Changes
+
+- [#135270](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135270)
+  [`3a67dc3f9fd01`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a67dc3f9fd01) -
+  [ux] Accessibility fixes for opt-in checkboxes
+
 ## 13.8.0
 
 ### Minor Changes

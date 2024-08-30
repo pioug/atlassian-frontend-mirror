@@ -8,11 +8,7 @@ import React, { type FC, memo, useCallback, useEffect, useRef } from 'react';
 import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
-import {
-	createAndFireEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import { UNSAFE_LAYERING, useCloseOnEscapePress } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -22,9 +18,6 @@ import type { InlineDialogProps } from '../types';
 
 import NodeResolverWrapper from './node-resolver-wrapper';
 import { Container } from './styled/container';
-
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const checkIsChildOfPortal = (node: HTMLElement | null): boolean => {
 	if (!node) {
@@ -44,12 +37,12 @@ const EscapeCloseManager = ({ handleClose }: { handleClose: (event: KeyboardEven
 	return <span />;
 };
 
-const InlineDialogComponent: FC<InlineDialogProps> = memo<InlineDialogProps>(function InlineDialog({
+const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function InlineDialog({
 	isOpen = false,
 	onContentBlur = noop,
 	onContentClick = noop,
 	onContentFocus = noop,
-	onClose = noop,
+	onClose: providedOnClose = noop,
 	placement = 'bottom-start',
 	strategy = 'fixed',
 	testId,
@@ -58,6 +51,15 @@ const InlineDialogComponent: FC<InlineDialogProps> = memo<InlineDialogProps>(fun
 }) {
 	const containerRef = useRef<HTMLElement | null>(null);
 	const triggerRef = useRef<HTMLElement | null>(null);
+
+	const onClose = usePlatformLeafEventHandler<{ isOpen: boolean; event: Event }>({
+		fn: (event) => providedOnClose(event),
+		action: 'closed',
+		componentName: 'inlineDialog',
+		packageName: process.env._PACKAGE_NAME_ as string,
+		packageVersion: process.env._PACKAGE_VERSION_ as string,
+	});
+
 	// we put this into a ref to avoid handleCloseRequest having this as a dependency
 	const onCloseRef = useRef<typeof onClose>(onClose);
 
@@ -213,39 +215,5 @@ const InlineDialogComponent: FC<InlineDialogProps> = memo<InlineDialogProps>(fun
 	);
 });
 
-InlineDialogComponent.displayName = 'InlineDialog';
-
-export { InlineDialogComponent as InlineDialogWithoutAnalytics };
-const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
-
-/**
- * __Inline dialog__
- *
- * _We are planning on deprecating Inline dialog. We recommend using the Popup component instead._
- *
- * An inline dialog is a pop-up container for small amounts of information. It can also contain controls.
- *
- * - [Examples](https://atlassian.design/components/inline-dialog/examples)
- * - [Code](https://atlassian.design/components/inline-dialog/code)
- * - [Usage](https://atlassian.design/components/inline-dialog/usage)
- */
-const InlineDialog = withAnalyticsContext({
-	componentName: 'inlineDialog',
-	packageName,
-	packageVersion,
-})(
-	withAnalyticsEvents({
-		onClose: createAndFireEventOnAtlaskit({
-			action: 'closed',
-			actionSubject: 'inlineDialog',
-
-			attributes: {
-				componentName: 'inlineDialog',
-				packageName,
-				packageVersion,
-			},
-		}),
-	})(InlineDialogComponent),
-);
-
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default InlineDialog;

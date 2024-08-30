@@ -18,7 +18,7 @@ import type {
 	PublicPluginAPI,
 	ReactHookFactory,
 } from '@atlaskit/editor-common/types';
-import { ContextPanelConsumer, WidthConsumer } from '@atlaskit/editor-common/ui';
+import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -97,88 +97,83 @@ const Content = React.forwardRef<
 	);
 
 	return (
-		<WidthConsumer>
-			{({ width }) => (
-				// Cleaned up with: platform_editor_context-panel_simplify_behaviour
-				<ContextPanelConsumer>
-					{({ positionedOverEditor }) => (
-						<div
-							css={[
+		// Cleaned up with: platform_editor_context-panel_simplify_behaviour
+		<ContextPanelConsumer>
+			{({ positionedOverEditor }) => (
+				<div
+					css={[
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+						contentArea,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+						props.isEditorToolbarHidden && contentAreaHeightNoToolbar,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+						positionedOverEditor && positionedOverEditorStyle,
+					]}
+					data-testid={CONTENT_AREA_TEST_ID}
+					ref={containerRef}
+				>
+					<ScrollContainer
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className="fabric-editor-popup-scroll-parent"
+						featureFlags={props.featureFlags}
+						ref={scrollContainerRef}
+					>
+						<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
+							<div
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								contentArea,
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								props.isEditorToolbarHidden && contentAreaHeightNoToolbar,
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								positionedOverEditor && positionedOverEditorStyle,
-							]}
-							data-testid={CONTENT_AREA_TEST_ID}
-							ref={containerRef}
-						>
-							<ScrollContainer
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-								className="fabric-editor-popup-scroll-parent"
-								featureFlags={props.featureFlags}
-								ref={scrollContainerRef}
+								css={editorContentAreaStyle({
+									fullWidthMode,
+									layoutMaxWidth: theme.layoutMaxWidth,
+								})}
+								role="region"
+								aria-label={props.intl.formatMessage(messages.editableContentLabel)}
+								ref={contentAreaRef}
 							>
-								<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
-									<div
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-										css={editorContentAreaStyle({
-											fullWidthMode,
-											layoutMaxWidth: theme.layoutMaxWidth,
-											containerWidth: width,
-										})}
-										role="region"
-										aria-label={props.intl.formatMessage(messages.editableContentLabel)}
-										ref={contentAreaRef}
-									>
-										<div
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-											css={editorContentGutterStyle()}
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-											className={[
-												'ak-editor-content-area',
-												fullWidthMode ? 'fabric-editor--full-width-mode' : '',
-											].join(' ')}
-											ref={contentAreaRef}
-										>
-											{!!props.customContentComponents && 'before' in props.customContentComponents
-												? props.customContentComponents.before
-												: props.customContentComponents}
-											<PluginSlot
-												editorView={props.editorView}
-												editorActions={props.editorActions}
-												eventDispatcher={props.eventDispatcher}
-												providerFactory={props.providerFactory}
-												appearance={props.appearance}
-												items={props.contentComponents}
-												pluginHooks={props.pluginHooks}
-												contentArea={contentAreaRef.current ?? undefined}
-												popupsMountPoint={props.popupsMountPoint}
-												popupsBoundariesElement={props.popupsBoundariesElement}
-												popupsScrollableElement={props.popupsScrollableElement}
-												disabled={!!props.disabled}
-												containerElement={scrollContainerRef.current}
-												dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-												wrapperElement={props.wrapperElement}
-											/>
-											{props.editorDOMElement}
-											{!!props.customContentComponents && 'after' in props.customContentComponents
-												? props.customContentComponents.after
-												: null}
-										</div>
-									</div>
-								</ClickAreaBlock>
-							</ScrollContainer>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-							<div css={sidebarArea}>
-								{props.contextPanel || <ContextPanel editorAPI={props.editorAPI} visible={false} />}
+								<div
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+									css={editorContentGutterStyle()}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+									className={[
+										'ak-editor-content-area',
+										fullWidthMode ? 'fabric-editor--full-width-mode' : '',
+									].join(' ')}
+									ref={contentAreaRef}
+								>
+									{!!props.customContentComponents && 'before' in props.customContentComponents
+										? props.customContentComponents.before
+										: props.customContentComponents}
+									<PluginSlot
+										editorView={props.editorView}
+										editorActions={props.editorActions}
+										eventDispatcher={props.eventDispatcher}
+										providerFactory={props.providerFactory}
+										appearance={props.appearance}
+										items={props.contentComponents}
+										pluginHooks={props.pluginHooks}
+										contentArea={contentAreaRef.current ?? undefined}
+										popupsMountPoint={props.popupsMountPoint}
+										popupsBoundariesElement={props.popupsBoundariesElement}
+										popupsScrollableElement={props.popupsScrollableElement}
+										disabled={!!props.disabled}
+										containerElement={scrollContainerRef.current}
+										dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+										wrapperElement={props.wrapperElement}
+									/>
+									{props.editorDOMElement}
+									{!!props.customContentComponents && 'after' in props.customContentComponents
+										? props.customContentComponents.after
+										: null}
+								</div>
 							</div>
-						</div>
-					)}
-				</ContextPanelConsumer>
+						</ClickAreaBlock>
+					</ScrollContainer>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+					<div css={sidebarArea}>
+						{props.contextPanel || <ContextPanel editorAPI={props.editorAPI} visible={false} />}
+					</div>
+				</div>
 			)}
-		</WidthConsumer>
+		</ContextPanelConsumer>
 	);
 });
 

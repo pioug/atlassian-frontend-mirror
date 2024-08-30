@@ -3,6 +3,8 @@ import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { injectable } from 'react-magnetic-di';
 
+import { Text } from '@atlaskit/primitives';
+
 import { Template } from '../examples-utils/template';
 import { TemplateReadOnly } from '../examples-utils/template-read-only';
 
@@ -90,7 +92,8 @@ export const ExternalWarning = Template.bind(
 			{
 				message: (
 					<>
-						Warning: something got deprecated but we <strong>don't remember</strong> what exactly
+						Warning: something got deprecated but we <Text as="strong">don't remember</Text> what
+						exactly
 					</>
 				),
 				type: 'warning',

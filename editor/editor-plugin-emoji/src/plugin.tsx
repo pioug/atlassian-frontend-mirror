@@ -34,7 +34,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { createEmojiFragment, insertEmoji } from './commands/insert-emoji';
 import { EmojiNodeView } from './nodeviews/emoji';
 import { inputRulePlugin as asciiInputRulePlugin } from './pm-plugins/ascii-input-rules';
-import type { EmojiPlugin, EmojiPluginState } from './types';
+import type { EmojiPlugin, EmojiPluginOptions, EmojiPluginState } from './types';
 
 export const emojiToTypeaheadItem = (
 	emoji: EmojiDescription,
@@ -220,7 +220,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			return [
 				{
 					name: 'emoji',
-					plugin: (pmPluginFactoryParams) => createEmojiPlugin(pmPluginFactoryParams),
+					plugin: (pmPluginFactoryParams) => createEmojiPlugin(pmPluginFactoryParams, options),
 				},
 				{
 					name: 'emojiAsciiInputRule',
@@ -385,7 +385,10 @@ export function getEmojiPluginState(state: EditorState) {
 	return (emojiPluginKey.getState(state) || {}) as EmojiPluginState;
 }
 
-export function createEmojiPlugin(pmPluginFactoryParams: PMPluginFactoryParams) {
+export function createEmojiPlugin(
+	pmPluginFactoryParams: PMPluginFactoryParams,
+	options?: EmojiPluginOptions,
+) {
 	return new SafePlugin<EmojiPluginState>({
 		key: emojiPluginKey,
 		state: {
@@ -427,6 +430,7 @@ export function createEmojiPlugin(pmPluginFactoryParams: PMPluginFactoryParams) 
 					Component: EmojiNodeView,
 					extraComponentProps: {
 						providerFactory: pmPluginFactoryParams.providerFactory,
+						options,
 					},
 				}),
 			},

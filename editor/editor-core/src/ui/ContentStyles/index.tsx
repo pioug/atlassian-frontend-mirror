@@ -299,6 +299,19 @@ const contentStyles = (props: ContentStylesProps) => css`
 		text-align: center;
 	}
 
+	// For FullPage only when inside a table
+	// Related code all lives inside: packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts
+	// In the "editorContentAreaContainerStyle" function
+	.fabric-editor--full-width-mode {
+		.pm-table-container {
+			.code-block,
+			.extension-container,
+			.multiBodiedExtension--container {
+				max-width: 100%;
+			}
+		}
+	}
+
 	.pm-table-header-content-wrap :not(.fabric-editor-alignment),
 	.pm-table-header-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark,
 	.pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark {

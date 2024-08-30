@@ -13,9 +13,11 @@ import type {
 	EmojiProvider,
 	EmojiResourceConfig,
 } from '@atlaskit/emoji';
+import { type EmojiNodeDataProvider } from '@atlaskit/node-data-provider/emoji-provider';
 
 export interface EmojiPluginOptions {
 	headless?: boolean;
+	emojiNodeDataProvider?: EmojiNodeDataProvider;
 }
 
 export type EmojiPluginState = {

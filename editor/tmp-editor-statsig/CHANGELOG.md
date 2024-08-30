@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 1.4.0
+
+### Minor Changes
+
+- [#135110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135110)
+  [`48ef3f98124db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48ef3f98124db) -
+  [ux] [ED-24754] Add 5 template options to quick insert and element browser when
+  `platform_editor_element_level_templates` experiment is enabled
+
 ## 1.3.2
 
 ### Patch Changes

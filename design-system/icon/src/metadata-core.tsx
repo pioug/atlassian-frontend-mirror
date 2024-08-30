@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `UNSAFE_createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::09db227727a6cb8c91cb2b8460c6ee38>>
+ * @codegen <<SignedSource::a1b62bf6f89207d8d697a50949119712>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -185,7 +185,7 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'AppSwitcherIcon',
 		package: '@atlaskit/icon/core/app-switcher',
-		oldName: ['app-switcher'],
+		oldName: ['app-switcher', 'switcher'],
 		type: 'core',
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for app switcher in global product navigation.',
@@ -422,6 +422,16 @@ const metadata: Record<string, metadata> = {
 		usage: 'Multi purpose - Known uses: Request types in JSM, bugs in Jira.',
 		team: 'Design System Team',
 	},
+	'bulleted-list': {
+		keywords: ['bulleted-list', 'bulletedlist', 'icon', 'core', 'bullets', 'unordered list'],
+		componentName: 'BulletedListIcon',
+		package: '@atlaskit/icon/core/bulleted-list',
+		oldName: ['bullet-list', 'editor/bullet-list'],
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'Multi purpose - Known uses: bulleted lists, view all.',
+		team: 'Design System Team',
+	},
 	calendar: {
 		keywords: ['calendar', 'date', 'icon', 'core', 'date', 'month', 'day', 'year', 'jira status'],
 		componentName: 'CalendarIcon',
@@ -533,7 +543,7 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'CheckCircleIcon',
 		package: '@atlaskit/icon/core/check-circle',
-		oldName: ['check-circle-outline', 'emoji/productivity'],
+		oldName: ['check-circle', 'check-circle-outline', 'emoji/productivity'],
 		type: 'core',
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: completed items, productivity emoji category.',
@@ -636,6 +646,16 @@ const metadata: Record<string, metadata> = {
 		usage: 'Multi purpose - Known uses: deployments in Jira.',
 		team: 'Design System Team',
 	},
+	collapse: {
+		keywords: ['collapse', 'icon', 'core', 'contract', 'width', 'horizontal arrows'],
+		componentName: 'CollapseIcon',
+		package: '@atlaskit/icon/core/collapse',
+		oldName: ['editor/collapse'],
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Single purpose - Reserved for contracting or reducing the width of an element.',
+		team: 'Design System Team',
+	},
 	'collapse-horizontal': {
 		keywords: [
 			'collapse-horizontal',
@@ -706,7 +726,7 @@ const metadata: Record<string, metadata> = {
 		keywords: ['compass', 'icon', 'core', 'template'],
 		componentName: 'CompassIcon',
 		package: '@atlaskit/icon/core/compass',
-		oldName: ['discover-filled', 'discover'],
+		oldName: ['discover'],
 		type: 'core',
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: templates.',
@@ -1147,6 +1167,17 @@ const metadata: Record<string, metadata> = {
 		type: 'core',
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for when there is an error.',
+		team: 'Design System Team',
+	},
+	expand: {
+		keywords: ['expand', 'icon', 'core', 'diagonal', 'resize', 'enlarge'],
+		componentName: 'ExpandIcon',
+		package: '@atlaskit/icon/core/expand',
+		oldName: ['editor/expand', 'editor/image-resize', 'image-resize'],
+		type: 'core',
+		categorization: 'single-purpose',
+		usage:
+			'Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.',
 		team: 'Design System Team',
 	},
 	'expand-horizontal': {
@@ -1974,7 +2005,7 @@ const metadata: Record<string, metadata> = {
 		keywords: ['maximize', 'icon', 'core', 'diagonal', 'resize', 'enlarge'],
 		componentName: 'MaximizeIcon',
 		package: '@atlaskit/icon/core/maximize',
-		oldName: ['editor/image-resize', 'image-resize'],
+		oldName: ['editor/image-resize', 'image-resize', 'media-services/actual-size'],
 		type: 'core',
 		categorization: 'single-purpose',
 		usage:
@@ -2086,6 +2117,7 @@ const metadata: Record<string, metadata> = {
 		keywords: ['minimize', 'icon', 'core', 'minimize', 'dock'],
 		componentName: 'MinimizeIcon',
 		package: '@atlaskit/icon/core/minimize',
+		oldName: ['media-services/fit-to-page', 'vid-full-screen-off'],
 		type: 'core',
 		categorization: 'single-purpose',
 		usage:
@@ -2372,6 +2404,7 @@ const metadata: Record<string, metadata> = {
 		keywords: ['phone', 'icon', 'core', 'call', 'dial out'],
 		componentName: 'PhoneIcon',
 		package: '@atlaskit/icon/core/phone',
+		oldName: ['hipchat/dial-out'],
 		type: 'core',
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: call us, phone number input.',

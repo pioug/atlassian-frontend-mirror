@@ -117,7 +117,7 @@ export interface Props {
 	/** Custom Select feedback options */
 	customFeedbackOptions?: OptionType[];
 	/** Optional ref to return focus to after feedback form is closed */
-	shouldReturnFocusRef?: React.MutableRefObject<HTMLElement>;
+	shouldReturnFocusRef?: React.RefObject<HTMLElement>;
 }
 
 const MAX_SUMMARY_LENGTH_CHARS = 100;

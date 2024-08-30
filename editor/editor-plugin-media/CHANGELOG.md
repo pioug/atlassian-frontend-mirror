@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.29.9
+
+### Patch Changes
+
+- [#135555](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135555)
+  [`b7c55014a5c15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b7c55014a5c15) -
+  add batch steps for media node attributes update
+
 ## 1.29.8
 
 ### Patch Changes

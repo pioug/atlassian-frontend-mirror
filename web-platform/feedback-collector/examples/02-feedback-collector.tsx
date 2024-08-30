@@ -10,7 +10,7 @@ const name: string = 'Feedback Sender';
 const aaid: string = 'test-aaid';
 
 const DisplayFeedback = () => {
-	const ref: React.MutableRefObject<HTMLElement | undefined> = useRef<HTMLElement>();
+	const ref = useRef<HTMLElement | null>(null);
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [displayFlag, setDisplayFlag] = useState(false);

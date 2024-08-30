@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { HelperMessage } from '@atlaskit/form';
+import { Text } from '@atlaskit/primitives';
 
 import { JQL_EDITOR_HELP_CONTENT_ID } from '../../../common/constants';
 import { useEditorThemeContext } from '../../../hooks/use-editor-theme';
@@ -15,18 +16,18 @@ export const JQLEditorHelp = () => {
 	const { isSearch } = useEditorThemeContext();
 	const [helpContentId] = useScopedId(JQL_EDITOR_HELP_CONTENT_ID);
 	const SearchMessage = (
-		<span>
+		<Text size="UNSAFE_small" color="inherit">
 			{formatMessage(messages.searchCommand, {
 				b: (text: React.ReactNode[]) => <b>{text}</b>,
 			})}
-		</span>
+		</Text>
 	);
 	const NewLineMessage = (
-		<span>
+		<Text size="UNSAFE_small" color="inherit">
 			{formatMessage(isSearch ? messages.newLineCommand : messages.fieldNewLineCommand, {
 				b: (text: React.ReactNode[]) => <b>{text}</b>,
 			})}
-		</span>
+		</Text>
 	);
 
 	return (

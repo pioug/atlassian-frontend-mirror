@@ -64,6 +64,9 @@
 			"path": "../jql-parser/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/spinner/tsconfig.app.json"
 		},
 		{

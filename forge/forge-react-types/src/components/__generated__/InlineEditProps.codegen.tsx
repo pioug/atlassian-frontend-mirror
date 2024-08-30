@@ -3,15 +3,15 @@
  *
  * Extract component prop types from UIKit 2 components - InlineEditProps
  *
- * @codegen <<SignedSource::883cbf65ce085489448ec7a7b7eab334>>
+ * @codegen <<SignedSource::6f9f7793b1fa146a1d3ae743f8ed6483>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline-edit/index.tsx <<SignedSource::889a061fb97b1a38f584702345e428c8>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline-edit/index.tsx <<SignedSource::9f519f258e72d24157290a0844371df9>>
  */
 import React from 'react';
 import { default as PlatformInlineEdit } from '@atlaskit/inline-edit';
 
 type EditViewFieldProps<V> = {
-	onChange: (value: V) => void;
+	onChange: (event: any) => void;
 	value: V;
 	errorMessage?: string;
 	isInvalid: boolean;

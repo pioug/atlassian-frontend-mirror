@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 
-import { uid } from 'react-uid';
-
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { defaultLogoParams } from '../constants';
@@ -10,10 +9,11 @@ import type { LogoPropsAppearanceRequired } from '../types';
 import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = ({ appearance }: LogoPropsAppearanceRequired, colorMode: string | undefined) => {
-	// Replace with React 18's useId() hook when we update.
-	// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
-	const id = uid({ appearance });
+const svg = (
+	{ appearance }: LogoPropsAppearanceRequired,
+	colorMode: string | undefined,
+	id: string,
+) => {
 	const colors = getColorsFromAppearanceOldLogos(appearance, colorMode);
 
 	return `<svg height="32" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -53,11 +53,12 @@ export const AtlassianAnalyticsIcon = ({
 	testId,
 }: LogoPropsAppearanceRequired) => {
 	const { colorMode } = useThemeObserver();
+	const id = useId();
 	return (
 		<Wrapper
 			appearance={appearance}
 			label={label}
-			svg={svg({ appearance }, colorMode)}
+			svg={svg({ appearance }, colorMode, id)}
 			size={size}
 			testId={testId}
 		/>

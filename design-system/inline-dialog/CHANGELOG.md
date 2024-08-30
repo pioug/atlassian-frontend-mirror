@@ -1,5 +1,13 @@
 # @atlaskit/inline-dialog
 
+## 15.0.0
+
+### Major Changes
+
+- [#135555](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135555)
+  [`530c505c5abab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/530c505c5abab) -
+  Refactors analytics next API to remove usages of legacy react context.
+
 ## 14.3.1
 
 ### Patch Changes

@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { IntlProviderIfMissingWrapper } from '@atlaskit/editor-common/ui';
-
 import type Editor from '../../editor';
 import ChromeCollapsed from '../ChromeCollapsed';
+import { IntlProviderIfMissingWrapper } from '../IntlProviderIfMissingWrapper/IntlProviderIfMissingWrapper';
 
 export interface Props {
 	placeholder?: string;

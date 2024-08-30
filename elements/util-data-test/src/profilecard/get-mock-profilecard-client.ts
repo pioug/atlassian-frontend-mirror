@@ -115,5 +115,15 @@ export function simpleMockProfilecardClient(): ProfileClient {
 		getRovoAgentProfile: (_Id: AgentIdType, _analytics?: (event: Record<string, any>) => void) => {
 			return Promise.reject({ reason: 'not built yet' });
 		},
+		deleteAgent: (_id: string, _analytics?: (event: Record<string, any>) => void) => {
+			return Promise.reject({ reason: 'not built yet' });
+		},
+		setFavouriteAgent: (
+			_id: string,
+			_isFavourite: boolean,
+			_analytics?: (event: Record<string, any>) => void,
+		) => {
+			return Promise.reject({ reason: 'not built yet' });
+		},
 	};
 }

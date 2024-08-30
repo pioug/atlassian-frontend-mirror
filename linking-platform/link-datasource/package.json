@@ -56,7 +56,7 @@
 		"@atlaskit/inline-edit": "^13.7.0",
 		"@atlaskit/intl-messages-provider": "^1.0.0",
 		"@atlaskit/jql-ast": "^3.3.0",
-		"@atlaskit/jql-editor": "^4.5.0",
+		"@atlaskit/jql-editor": "^4.6.0",
 		"@atlaskit/jql-editor-autocomplete-rest": "^2.0.0",
 		"@atlaskit/layering": "^0.4.0",
 		"@atlaskit/link-client-extension": "^2.2.0",

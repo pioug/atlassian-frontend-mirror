@@ -13,6 +13,7 @@ import getLabelMessage from '../../internal/getLabelMessage';
 import { CardWrapper } from '../../styled/Card';
 import {
 	type AgentActionsType,
+	type Flag,
 	type ProfileCardAction,
 	type ProfileCardClientData,
 	type ProfileCardErrorType,
@@ -42,6 +43,7 @@ function ProfileCardContent({
 	hasError,
 	errorType,
 	agentActions,
+	addFlag,
 }: {
 	profilecardProps: ProfilecardProps;
 	userId: string;
@@ -55,6 +57,7 @@ function ProfileCardContent({
 	hasError?: boolean;
 	errorType?: ProfileCardErrorType;
 	agentActions?: AgentActionsType;
+	addFlag?: (flag: Flag) => void;
 }) {
 	if (isAgent && fg('enable_agent_profile_card')) {
 		return (
@@ -67,6 +70,7 @@ function ProfileCardContent({
 				product={product}
 				onChatClick={agentActions?.onChatClick}
 				onConversationStartersClick={agentActions?.onConversationStartersClick}
+				addFlag={addFlag}
 			/>
 		);
 	} else {
@@ -396,6 +400,7 @@ export default function ProfilecardTriggerNext({
 									errorType={error}
 									hasError={hasError}
 									agentActions={agentActions}
+									addFlag={addFlag}
 								/>
 							)
 						)}

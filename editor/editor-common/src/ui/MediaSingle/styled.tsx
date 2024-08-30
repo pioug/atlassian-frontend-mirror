@@ -14,6 +14,7 @@ import {
 	akEditorFullPageMaxWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { nonWrappedLayouts } from '../../utils';
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
@@ -178,6 +179,27 @@ function isImageAligned(layout: MediaSingleLayout): string {
 	}
 }
 
+/**
+ * Reduces the given CSS width value to the next lowest even pixel value if the value is in px.
+ * This is to mitigate subpixel rendering issues of embedded smart links.
+ *
+ * @param widthValue CSS width value to be rounded
+ * @returns Reduced CSS width value where px value given, or otherwise the original value
+ */
+export function roundToClosestEvenPxValue(widthValue: any) {
+	try {
+		if (widthValue.endsWith('px')) {
+			const pxWidth = parseInt(widthValue.slice(0, -2));
+
+			return `${pxWidth - (pxWidth % 2)}px`;
+		}
+
+		return widthValue;
+	} catch {
+		return widthValue;
+	}
+}
+
 export interface MediaSingleWrapperProps {
 	containerWidth?: number;
 	fullWidthMode?: boolean;
@@ -211,9 +233,31 @@ export const MediaSingleDimensionHelper = ({
 	isExtendedResizeExperienceOn,
 	isNestedNode = false,
 	isInsideOfInlineExtension = false,
-}: MediaSingleWrapperProps) =>
+}: MediaSingleWrapperProps) => {
+	let calculatedWidth = isExtendedResizeExperienceOn
+		? `${mediaSingleWidth || width}px`
+		: mediaSingleWidth
+			? calcResizedWidth(layout, width || 0, containerWidth)
+			: calcLegacyWidth(
+					layout,
+					width || 0,
+					containerWidth,
+					fullWidthMode,
+					isResized,
+					isInsideOfInlineExtension,
+				);
+
+	let calculatedMaxWidth = isExtendedResizeExperienceOn
+		? `${containerWidth}px`
+		: calcMaxWidth(layout, containerWidth);
+
+	if (fg('platform_editor_fix_embed_subpixel_rendering')) {
+		calculatedWidth = roundToClosestEvenPxValue(calculatedWidth);
+		calculatedMaxWidth = roundToClosestEvenPxValue(calculatedMaxWidth);
+	}
+
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
-	css`
+	return css`
 		/* For nested rich media items, set max-width to 100% */
 		tr &,
 		[data-layout-column] &,
@@ -223,18 +267,7 @@ export const MediaSingleDimensionHelper = ({
 			max-width: 100%;
 		}
 
-		width: ${isExtendedResizeExperienceOn
-			? `${mediaSingleWidth || width}px`
-			: mediaSingleWidth
-				? calcResizedWidth(layout, width || 0, containerWidth)
-				: calcLegacyWidth(
-						layout,
-						width || 0,
-						containerWidth,
-						fullWidthMode,
-						isResized,
-						isInsideOfInlineExtension,
-					)};
+		width: ${calculatedWidth};
 		${layout === 'full-width' &&
 		/* This causes issues for new experience where we don't strip layout attributes
    when copying top-level node and pasting into a table/layout,
@@ -243,9 +276,7 @@ export const MediaSingleDimensionHelper = ({
 		css({
 			minWidth: '100%',
 		})}
-		max-width: ${isExtendedResizeExperienceOn
-			? `${containerWidth}px`
-			: calcMaxWidth(layout, containerWidth)};
+		max-width: ${calculatedMaxWidth};
 
 		${isExtendedResizeExperienceOn &&
 		`&[class*='is-resizing'] {
@@ -279,6 +310,7 @@ export const MediaSingleDimensionHelper = ({
 
 		${isImageAligned(layout)};
 	`;
+};
 
 export interface MediaWrapperProps {
 	paddingBottom?: string;

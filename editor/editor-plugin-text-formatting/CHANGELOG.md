@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 1.14.2
+
+### Patch Changes
+
+- [#135500](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135500)
+  [`d97d77c47b7cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d97d77c47b7cb) -
+  [ux] Migrate new ADS icons on Editor primary toolbar
+
 ## 1.14.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-emoji
 
+## 2.4.0
+
+### Minor Changes
+
+- [#135270](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135270)
+  [`4a75557335357`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a75557335357) -
+  [ux] [ED-23237] feat(node data provider): wire up to emoji provider
+
 ## 2.3.2
 
 ### Patch Changes

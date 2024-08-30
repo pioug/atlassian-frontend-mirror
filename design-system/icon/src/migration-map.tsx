@@ -394,6 +394,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'bullet-list': {
 		newIcon: { name: 'list-bulleted', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'bulleted-list', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -489,6 +490,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'check-circle': {
 		newIcon: { name: 'success', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'check-circle', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -796,6 +798,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'hipchat/dial-out': {
 		newIcon: { name: 'on-call', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'phone', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -985,6 +988,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'editor/bullet-list': {
 		newIcon: { name: 'list-bulleted', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'bulleted-list', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -1016,6 +1020,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'editor/collapse': {
 		newIcon: { name: 'shrink-horizontal', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'collapse', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -1091,6 +1096,7 @@ const migrationMap: IconMigrationMap = {
 			type: 'core',
 			package: '@atlaskit/icon',
 		},
+		additionalIcons: [{ name: 'expand', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -1174,6 +1180,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'editor/image-resize': {
 		newIcon: { name: 'maximize', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'expand', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -1921,6 +1928,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'image-resize': {
 		newIcon: { name: 'maximize', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'expand', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -2133,6 +2141,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'media-services/actual-size': {
 		newIcon: { name: 'grow-diagonal', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'maximize', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -2231,6 +2240,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'media-services/fit-to-page': {
 		newIcon: { name: 'shrink-diagonal', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'minimize', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -3015,6 +3025,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	switcher: {
 		newIcon: { name: 'boards', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'app-switcher', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -3212,6 +3223,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'vid-full-screen-off': {
 		newIcon: { name: 'shrink-diagonal', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'minimize', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',

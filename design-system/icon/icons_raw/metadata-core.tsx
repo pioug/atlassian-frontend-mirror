@@ -681,6 +681,16 @@ const metadata: UNSAFE_IconMetadata = {
 		usage:
 			'Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.',
 	},
+	// Added back as it was removed in a minor release
+	expand: {
+		keywords: ['diagonal', 'resize', 'enlarge'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'core',
+		usage:
+			'Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.',
+	},
 	mention: {
 		keywords: ['at symbol', '@', 'tag', 'username'],
 		categorization: 'single-purpose',
@@ -1087,6 +1097,15 @@ const metadata: UNSAFE_IconMetadata = {
 			'Single purpose - Reserved for shrinking the height and width of modals, panels, media, or objects.',
 	},
 	'shrink-horizontal': {
+		keywords: ['contract', 'width', 'horizontal arrows'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'core',
+		usage: 'Single purpose - Reserved for contracting or reducing the width of an element.',
+	},
+	// Added back as it was removed in a minor release
+	collapse: {
 		keywords: ['contract', 'width', 'horizontal arrows'],
 		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
@@ -1875,6 +1894,15 @@ const metadata: UNSAFE_IconMetadata = {
 		usage: 'Multi purpose - Known uses: learnings in Atlas, initiatives in Jira.',
 	},
 	'list-bulleted': {
+		keywords: ['bullets', 'unordered list'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'core',
+		usage: 'Multi purpose - Known uses: bulleted lists, view all.',
+	},
+	// Added back as it was removed in a minor release
+	'bulleted-list': {
 		keywords: ['bullets', 'unordered list'],
 		categorization: 'multi-purpose',
 		location: '@atlaskit/icon',

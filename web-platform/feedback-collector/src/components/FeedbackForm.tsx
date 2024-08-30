@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
-import Form, { Field, RequiredAsterisk } from '@atlaskit/form';
+import Form, { Field, Fieldset, RequiredAsterisk } from '@atlaskit/form';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -59,7 +59,7 @@ interface Props {
 	/** Custom Select feedback options */
 	customFeedbackOptions?: OptionType[];
 	/** React Ref to focus on close */
-	shouldReturnFocusRef?: React.MutableRefObject<HTMLElement>;
+	shouldReturnFocusRef?: React.RefObject<HTMLElement>;
 }
 
 export interface OptionType {
@@ -255,7 +255,10 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 										)}
 									</Field>
 									{(!anonymousFeedback && (
-										<>
+										<Fieldset>
+											<legend aria-hidden={false} hidden>
+												Atlassian opt-in options
+											</legend>
 											<Field name="can-be-contacted">
 												{({ fieldProps }) => (
 													<Checkbox
@@ -295,7 +298,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 													/>
 												)}
 											</Field>
-										</>
+										</Fieldset>
 									)) || (
 										<>
 											<Field name={'anonymousFeedback'}>

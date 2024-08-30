@@ -22,8 +22,6 @@ import { type JsonLd } from 'json-ld-types';
 import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import * as api from './api';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 const BATCH_WAIT_TIME = 50;
 
 // Check if it is matching a Jira Roadmaps or Jira Timeline url
@@ -223,7 +221,7 @@ export class EditorCardProvider implements CardProvider {
 			isProformaView(url) ||
 			isConfluenceWhiteboard(url) ||
 			isConfluenceDatabase(url) ||
-			(getBooleanFF('platform.linking-platform.embed-youtube-by-default') && isYoutubeVideo(url)) ||
+			isYoutubeVideo(url) ||
 			isLoomUrl(url) ||
 			isJiraDashboard(url)
 		) {

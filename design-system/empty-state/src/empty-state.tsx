@@ -3,7 +3,7 @@ import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Heading from '@atlaskit/heading';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
 
 import {
@@ -101,8 +101,14 @@ const EmptyState = ({
 			) : (
 				<Header level={headingLevel}>{header}</Header>
 			)}
-
-			{description && <Description>{description}</Description>}
+			{description &&
+				(fg('platform.design-system-team.empty-state-typography-updates_gndrj') ? (
+					<Box paddingBlockEnd="space.300">
+						<Text as="p">{description}</Text>
+					</Box>
+				) : (
+					<Description>{description}</Description>
+				))}
 			{actionsContainer}
 			{tertiaryAction}
 		</Container>

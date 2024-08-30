@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 21.15.1
+
+### Patch Changes
+
+- [#135555](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135555)
+  [`6325e9c5617d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6325e9c5617d5) -
+  Use a ID generator that is compatible with React16 and React 18
+
 ## 21.15.0
 
 ### Minor Changes

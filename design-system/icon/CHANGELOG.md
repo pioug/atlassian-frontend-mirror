@@ -1,12 +1,243 @@
 # @atlaskit/icon
 
+## 22.15.1
+
+### Patch Changes
+
+- [#135508](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135508)
+  [`7a69ad1e19510`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7a69ad1e19510) -
+  Reverts the removal of several icon entrypoints from `@atlaskit/icon/core` and
+  `@atlaskit/icon/utility`:
+
+  ### Core icons (from `@atlaskit/icon/core`):
+
+  - `bulleted-list`
+  - `expand`
+  - `collapse`
+
+  ### Core migration icons (from `@atlaskit/icon/core/migration`):
+
+  - `app-switcher--switcher`
+  - `bulleted-list--bullet-list`
+  - `bulleted-list--editor-bullet-list`
+  - `collapse`
+  - `collapse--editor-collapse`
+  - `expand--editor-expand	`
+  - `expand--editor-image-resize`
+  - `expand--image-resize`
+  - `maximize--media-services-actual-size`
+  - `minimize--media-services-fit-to-page`
+  - `minimize--vid-full-screen-off`
+  - `phone--hipchat-dial-out`
+
+  ### Utility migration icons (from `@atlaskit/icon/core/utility/migration`):
+
+  - `check-circle`
+  - `check-circle--editor-success`
+
+  These restored entrypoints match the designs from the previous release.
+
+  Core and Utility icons that were re-named in the previous release were not reverted to their
+  previous designs to prevent regressions in experiences that have updated to use the new designs.
+
 ## 22.15.0
 
 ### Minor Changes
 
 - [#133643](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133643)
   [`1ab5ca9bddc97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1ab5ca9bddc97) -
-  Added a supplementary set of icons to `@atlaskit/icon`
+
+  ### Warning:
+
+  **This release erroneously removed a number of entrypoints that should not have been removed in a
+  minor release. Please stay on 22.14.2, or roll forward to 22.15.1, which adds back the removed
+  entrypoints with the closest equivalent icons from the new set.**
+
+  ### Summary
+
+  This release adds a huge new set of icons to `@atlaskit/icon/core` and `@atlaskit/icon/utility`,
+  including replacements for legacy Editor, Jira and Media icons.
+
+  To see how legacy icons from `@atlaskit/icon/glyph` map to these new icons, see the migration map
+  in `@atlaskit/icon/migration-map`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `key-result`
+  - `people-group`
+  - `merge-failure`
+  - `merge-success`
+  - `text`
+  - `sort-descending`
+  - `sort-ascending`
+  - `minus`
+  - `grow-horizontal`
+  - `expand-horizontal`
+  - `collapse-horizontal`
+  - `expand-vertical`
+  - `collapse-vertical`
+  - `grow-vertical`
+  - `shrink-vertical`
+  - `refresh`
+  - `note`
+  - `discovery`
+  - `eye-open-strikethrough`
+  - `file`
+  - `files`
+  - `video-pause-overlay`
+  - `video-play-overlay`
+  - `video-next-overlay`
+  - `video-previous-overlay`
+  - `notification-muted`
+  - `plus-square`
+  - `cash`
+  - `defect`
+  - `devices`
+  - `list-checklist`
+  - `magic-wand`
+  - `pulse`
+  - `minus-square`
+  - `ticket`
+  - `tools`
+  - `wallet`
+  - `wrench`
+  - `on-call`
+  - `edit-bulk`
+  - `objective`
+  - `target`
+  - `scales`
+  - `data-flow`
+  - `theme`
+  - `paint-bucket`
+  - `paint-roller`
+  - `paint-brush`
+  - `pen`
+  - `projection-screen`
+  - `paint-palette`
+  - `field`
+  - `field-text`
+  - `operations`
+  - `text-bold`
+  - `text-italic`
+  - `list-numbered`
+  - `text-indent-left`
+  - `text-indent-right`
+  - `layout-two-columns`
+  - `layout-two-columns-sidebar-left`
+  - `layout-two-columns-sidebar-right`
+  - `layout-three-columns`
+  - `layout-three-columns-sidebars`
+  - `content-align-left`
+  - `content-align-center`
+  - `content-align-right`
+  - `content-wrap-left`
+  - `content-wrap-right`
+  - `content-width-narrow`
+  - `content-width-wide`
+  - `tree`
+  - `takeout-food`
+  - `basketball`
+  - `vehicle-car`
+
+  **`@atlaskit/icon/utility`**
+
+  - `success`
+  - `arrow-down`
+  - `arrow-left`
+  - `arrow-right`
+  - `arrow-up`
+  - `drag-handle`
+
+  ### Renamed:
+
+  **`@atlaskit/icon/core`**
+
+  - `list-bulleted → bulleted list`
+  - `shrink-diagonal → minimize`
+  - `grow-diagonal → maximize`
+  - `shrink-horizontal → collapse`
+  - `maximize → expand`
+  - `success → check-circle`
+
+  **`@atlaskit/icon/utility`**
+
+  - `success → check-circle`
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `check-circle`
+  - `ai-chat`
+  - `comment`
+  - `comment-add`
+  - `person`
+  - `person-add`
+  - `person-added`
+  - `person-offboard`
+  - `lock-locked`
+  - `lock-unlocked`
+  - `check-mark`
+  - `checkbox-checked`
+  - `issue`
+  - `issues`
+  - `scorecard`
+  - `task`
+  - `tasks`
+  - `branch`
+  - `pull-request`
+  - `add`
+  - `minimize`
+  - `fullscreen-exit`
+  - `commit`
+  - `office-building`
+  - `department`
+  - `text-style`
+  - `eye-open`
+  - `eye-open-filled`
+  - `notification`
+  - `arrow-up-right`
+
+  **`@atlaskit/icon/utility`**
+
+  - `chevron-right`
+  - `chevron-down`
+  - `chevron-left`
+  - `chevron-up`
+  - `lock-locked`
+  - `lock-unlocked`
+  - `check-circle`
+  - `check-mark`
+
+  ### Removed entrypoints:
+
+  **`@atlaskit/icon/core`**
+
+  - `bulleted-list`
+  - `expand`
+  - `collapse`
+
+  **`@atlaskit/icon/core/migration`**
+
+  - `app-switcher--switcher`
+  - `bulleted-list--bullet-list`
+  - `bulleted-list--editor-bullet-list`
+  - `collapse`
+  - `collapse--editor-collapse`
+  - `expand--editor-expand	`
+  - `expand--editor-image-resize`
+  - `expand--image-resize`
+  - `maximize--media-services-actual-size`
+  - `minimize--media-services-fit-to-page`
+  - `minimize--vid-full-screen-off`
+  - `phone--hipchat-dial-out`
+
+  **`@atlaskit/icon/core/utility/migration`**
+
+  - `check-circle`
+  - `check-circle--editor-success`
 
 ## 22.14.2
 

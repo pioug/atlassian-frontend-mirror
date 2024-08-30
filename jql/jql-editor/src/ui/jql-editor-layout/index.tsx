@@ -1,5 +1,7 @@
 import React, { type FocusEvent, type ReactNode } from 'react';
 
+import { Box } from '@atlaskit/primitives';
+
 import {
 	EditorThemeContext,
 	useEditorTheme,
@@ -151,7 +153,9 @@ const JQLEditorReadOnlyWithoutTheme = ({ query }: ReadOnlyProps) => {
 					isCompact={isCompact}
 				>
 					{blocks.map((block, index) => (
-						<p key={index}>{block}</p>
+						<Box as="p" key={index}>
+							{block}
+						</Box>
 					))}
 				</ReadOnlyEditorView>
 				<EditorControls isSearch={isSearch} isCompact={isCompact}>

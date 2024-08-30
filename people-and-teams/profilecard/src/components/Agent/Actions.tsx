@@ -8,9 +8,12 @@ import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { ChatPillIcon } from '@atlaskit/rovo-agent-components';
 
+import { type RovoAgentProfileCardInfo } from '../../types';
+
 import { AgentDeleteConfirmationModal } from './AgentDeleteConfirmationModal';
 
 type AgentActionsProps = {
+	agent: RovoAgentProfileCardInfo;
 	isAgentCreatedByCurrentUser?: boolean;
 	onEditAgent: () => void;
 	onCopyAgent: () => void;
@@ -104,6 +107,7 @@ export const AgentActions = ({
 	onDuplicateAgent,
 	onCopyAgent,
 	onChatClick,
+	agent,
 }: AgentActionsProps) => {
 	const { formatMessage } = useIntl();
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -194,8 +198,8 @@ export const AgentActions = ({
 					setIsDeleteModalOpen(false);
 				}}
 				onSubmit={onDeleteAgent}
-				agentId={'some Id'}
-				agentName="agentName"
+				agentId={agent.id}
+				agentName={agent.name}
 			/>
 		</>
 	);

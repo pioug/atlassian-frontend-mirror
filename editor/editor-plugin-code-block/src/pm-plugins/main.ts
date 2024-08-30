@@ -1,6 +1,7 @@
 import type { IntlShape } from 'react-intl-next';
 
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
+import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
@@ -259,8 +260,11 @@ export const createPlugin = ({
 				return undefined;
 			},
 			nodeViews: {
-				codeBlock: (node: PMNode, view: EditorView, getPos: getPosHandler) =>
-					codeBlockNodeView(node, view, getPos, api),
+				codeBlock: (node: PMNode, view: EditorView, getPos: getPosHandler) => {
+					const { formatMessage } = getIntl();
+					const formattedAriaLabel = formatMessage(blockTypeMessages.codeblock);
+					return codeBlockNodeView(node, view, getPos, formattedAriaLabel, api);
+				},
 			},
 			handleClickOn: createSelectionClickHandler(
 				['codeBlock'],

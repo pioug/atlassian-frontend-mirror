@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 14.2.2
+
+### Patch Changes
+
+- [#134918](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134918)
+  [`702121b21483a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/702121b21483a) -
+  Remove react-uid
+
 ## 14.2.1
 
 ### Patch Changes

@@ -2,6 +2,7 @@ import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
 import { type ErrorAttributes } from '../client/types';
+import { type ProfileType } from '../types';
 
 import { getPageTime } from './performance';
 
@@ -84,7 +85,7 @@ const getActionSubject = (type: string) => {
 	}
 };
 
-export const cardTriggered = (type: 'user' | 'team' | 'agent', method: 'hover' | 'click') => {
+export const cardTriggered = (type: ProfileType, method: 'hover' | 'click') => {
 	return createEvent('ui', 'triggered', getActionSubject(type), undefined, {
 		method,
 	});
@@ -101,7 +102,7 @@ export const userRequestAnalytics = (
 ) => createEvent('operational', action, USER_SUBJECT, 'request', attributes);
 
 export const profileCardRendered = (
-	type: 'user' | 'team' | 'agent',
+	type: ProfileType,
 	actionSubjectId: 'spinner' | 'content' | 'error' | 'errorBoundary',
 	attributes?: {
 		duration?: number;
@@ -116,7 +117,7 @@ export const profileCardRendered = (
 ) => createEvent('ui', 'rendered', getActionSubject(type), actionSubjectId, attributes);
 
 export const actionClicked = (
-	type: 'user' | 'team',
+	type: ProfileType,
 	attributes: {
 		duration: number;
 		hasHref: boolean;
@@ -132,7 +133,7 @@ export const reportingLinesClicked = (attributes: {
 }) => createEvent('ui', 'clicked', USER_SUBJECT, 'reportingLines', attributes);
 
 export const moreActionsClicked = (
-	type: 'user' | 'team',
+	type: ProfileType,
 	attributes: {
 		duration: number;
 		numActions: number;
@@ -154,5 +155,6 @@ export const errorRetryClicked = (attributes: { duration: number }) =>
 
 export const agentRequestAnalytics = (
 	action: 'triggered' | 'succeeded' | 'failed',
+	actionSubjectId?: string,
 	attributes?: { duration: number } & GenericAttributes,
-) => createEvent('operational', action, AGENT_SUBJECT, 'request', attributes);
+) => createEvent('operational', action, AGENT_SUBJECT, actionSubjectId || 'request', attributes);

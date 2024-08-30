@@ -112,14 +112,14 @@ export const editorContentAreaHideContainer = css({
 });
 
 /* Prevent horizontal scroll on page in full width mode */
-const editorContentAreaContainerStyle = (containerWidth: number) =>
+const editorContentAreaContainerStyle = () =>
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.fabric-editor--full-width-mode': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'.code-block, .extension-container': {
+			'.code-block, .extension-container, .multiBodiedExtension--container': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				maxWidth: `${containerWidth - getTotalPadding() - tableMarginFullWidthMode * 2}px`,
+				maxWidth: `calc(100% - ${tableMarginFullWidthMode * 2}px)`,
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'.extension-container.inline': {
@@ -130,14 +130,9 @@ const editorContentAreaContainerStyle = (containerWidth: number) =>
 				maxWidth: 'inherit',
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'.multiBodiedExtension--container': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				maxWidth: `${containerWidth - getTotalPadding() - tableMarginFullWidthMode * 2}px`,
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'[data-layout-section]': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				maxWidth: `${containerWidth - getTotalPadding() + akLayoutGutterOffset * 2}px`,
+				maxWidth: `calc(100% + ${akLayoutGutterOffset * 2}px)`,
 			},
 		},
 	});
@@ -145,15 +140,13 @@ const editorContentAreaContainerStyle = (containerWidth: number) =>
 export const editorContentAreaStyle = ({
 	layoutMaxWidth,
 	fullWidthMode,
-	containerWidth,
 }: {
 	layoutMaxWidth: number;
 	fullWidthMode: boolean;
-	containerWidth?: number;
 }) => [
 	editorContentArea,
 	!fullWidthMode && editorContentAreaWithLayoutWith(layoutMaxWidth),
-	containerWidth ? editorContentAreaContainerStyle(containerWidth) : editorContentAreaHideContainer,
+	editorContentAreaContainerStyle(),
 ];
 
 const editorContentAreaWithLayoutWith = (layoutMaxWidth: number) =>

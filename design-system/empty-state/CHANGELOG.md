@@ -1,5 +1,14 @@
 # @atlaskit/empty-state
 
+## 7.11.3
+
+### Patch Changes
+
+- [#135500](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135500)
+  [`1d43605b39f55`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1d43605b39f55) -
+  We are testing a visual change behind a feature flag inceasing specificity of description
+  typography styles. If this change is successful it will be available in a later release.
+
 ## 7.11.2
 
 ### Patch Changes

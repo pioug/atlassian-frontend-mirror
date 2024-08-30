@@ -4,6 +4,7 @@ import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analyt
 
 import {
 	type AgentActionsType,
+	type Flag,
 	type ProfileClient,
 	type RovoAgentProfileCardInfo,
 	type TriggerType,
@@ -23,6 +24,7 @@ export type AgentProfileCardResourcedProps = {
 	children?: React.ReactNode;
 	viewingUserId?: string;
 	product?: string;
+	addFlag?: (flag: Flag) => void;
 } & AgentActionsType;
 export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps) => {
 	const [agentData, setAgentData] = useState<RovoAgentProfileCardInfo>();
@@ -147,6 +149,8 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 				product={props.product}
 				onConversationStartersClick={props.onConversationStartersClick}
 				onChatClick={props.onChatClick}
+				addFlag={props.addFlag}
+				resourceClient={props.resourceClient}
 			/>
 		);
 	}

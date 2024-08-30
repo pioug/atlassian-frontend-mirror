@@ -1,5 +1,12 @@
 # @atlaskit/editor-card-provider
 
+## 3.8.0
+
+### Minor Changes
+
+- [`4f0da3d4d6c4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f0da3d4d6c4e) -
+  EDM-10533 Cleanup platform.linking-platform.embed-youtube-by-default FF
+
 ## 3.7.1
 
 ### Patch Changes

@@ -68,46 +68,46 @@ export const AgentDeleteConfirmationModal = ({
 
 const messages = defineMessages({
 	cancelText: {
-		id: 'ai-mate.agent-modal.agent-delete-confirm.cancel-text',
+		id: 'profilecard.agent-profile.agent-delete-confirm.cancel-text',
 		defaultMessage: 'Cancel',
 	},
 	confirmText: {
-		id: 'ai-mate.agent-modal.agent-delete-confirm.confirm-text',
+		id: 'profilecard.agent-profile.agent-delete-confirm.confirm-text',
 		defaultMessage: 'Delete',
 	},
 	title: {
-		id: 'ai-mate.agent-list.delete-agent-confirm-title',
+		id: 'profilecard.agent-profile.delete-agent-confirm-title',
 		defaultMessage: 'Delete "{agentName}"?',
 		description: 'Title text for the delete agent confirmation modal',
 	},
 	body: {
-		id: 'ai-mate.agent-list.delete-agent-confirm-body',
+		id: 'profilecard.agent-profile.delete-agent-confirm-body',
 		defaultMessage: `Are you sure you want to delete this agent? This action cannot be undone.`,
 		description: 'Body text for the delete agent confirmation modal',
 	},
 	error: {
-		id: 'ai-mate.agent-list.delete-agent-error',
+		id: 'profilecard.agent-profile.delete-agent-error',
 		defaultMessage: 'Could not delete agent',
 		description: 'Error message displayed when an agent cannot be deleted',
 	},
 	errorAgentNotFound: {
-		id: 'ai-mate.agent-list.delete-agent-error.agent-not-found',
+		id: 'profilecard.agent-profile.delete-agent-error.agent-not-found',
 		defaultMessage: 'That agent could not be found.',
 		description: 'Error message displayed when an agent cannot be found',
 	},
 	errorAgentInUse: {
-		id: 'ai-mate.agent-list.delete-agent-error.agent-in-use',
+		id: 'profilecard.agent-profile.delete-agent-error.agent-in-use',
 		defaultMessage: 'Agent is currently in use. Try again later.',
 		description: 'Error message displayed when an agent is in use',
 	},
 	errorIncorrectOwner: {
-		id: 'ai-mate.agent-list.delete-agent-error.incorrect-owner',
+		id: 'profilecard.agent-profile.delete-agent-error.incorrect-owner',
 		defaultMessage:
 			'You cannot delete agents you have not created yourself. Please contact the agent owner.',
 		description: 'Error message displayed when the agent owner is incorrect',
 	},
 	agentDeletedSuccess: {
-		id: 'ai-mate.agent-list.delete-agent-success',
+		id: 'profilecard.agent-profile.delete-agent-success',
 		defaultMessage: 'Agent has been deleted!',
 		description: 'Success message displayed when an agent is deleted',
 	},

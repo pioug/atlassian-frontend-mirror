@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 88.5.0
+
+### Minor Changes
+
+- [#135396](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135396)
+  [`af03638fcb7c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af03638fcb7c0) -
+  [ux][EDM-10592] Reduce px width of media to next lowest even value behind FF
+
+### Patch Changes
+
+- [#135246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135246)
+  [`72792f85ed3b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/72792f85ed3b0) -
+  [ux] [ED-24518] Override styling for last element in blockquote which was being set to display
+  inline-block and instead set it to display block. Only overriding if last child is a code block,
+  media single, or media group node.
+- Updated dependencies
+
 ## 88.4.0
 
 ### Minor Changes

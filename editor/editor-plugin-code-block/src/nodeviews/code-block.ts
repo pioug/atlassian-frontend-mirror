@@ -19,7 +19,7 @@ import { codeBlockClassNames } from '../ui/class-names';
 
 const MATCH_NEWLINES = new RegExp('\n', 'g');
 
-const toDOM = (node: Node, contentEditable: boolean) =>
+const toDOM = (node: Node, contentEditable: boolean, formattedAriaLabel: string) =>
 	[
 		'div',
 		{ class: 'code-block' },
@@ -56,6 +56,7 @@ const toDOM = (node: Node, contentEditable: boolean) =>
 								: 'false'
 							: 'true',
 						'data-testid': 'code-block--code',
+						'aria-label': formattedAriaLabel,
 					},
 					0,
 				],
@@ -71,18 +72,24 @@ export class CodeBlockView {
 	lineNumberGutter: HTMLElement;
 	getPos: getPosHandlerNode;
 	view: EditorView;
+	formattedAriaLabel: string = '';
 	api?: ExtractInjectionAPI<CodeBlockPlugin>;
 
 	constructor(
 		node: Node,
 		view: EditorView,
 		getPos: getPosHandlerNode,
+		formattedAriaLabel: string,
 		api?: ExtractInjectionAPI<CodeBlockPlugin>,
 		private cleanupEditorDisabledListener?: () => void,
 	) {
 		const { dom, contentDOM } = DOMSerializer.renderSpec(
 			document,
-			toDOM(node, !api?.editorDisabled?.sharedState.currentState()?.editorDisabled),
+			toDOM(
+				node,
+				!api?.editorDisabled?.sharedState.currentState()?.editorDisabled,
+				formattedAriaLabel,
+			),
 		);
 		this.getPos = getPos;
 		this.view = view;
@@ -253,5 +260,6 @@ export const codeBlockNodeView = (
 	node: Node,
 	view: EditorView,
 	getPos: getPosHandler,
+	formattedAriaLabel: string,
 	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
-) => new CodeBlockView(node, view, getPos as getPosHandlerNode, api);
+) => new CodeBlockView(node, view, getPos as getPosHandlerNode, formattedAriaLabel, api);

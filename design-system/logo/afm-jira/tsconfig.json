@@ -18,6 +18,9 @@
   ],
   "references": [
     {
+      "path": "../../ds-lib/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../theme/afm-jira/tsconfig.json"
     },
     {

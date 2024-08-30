@@ -18,6 +18,7 @@ import {
 } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaTraceContext } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	replaceExternalMedia,
@@ -30,6 +31,7 @@ import type {
 	getPosHandler as ProsemirrorGetPosHandler,
 	SupportedMediaAttributes,
 } from '../types';
+import { batchMediaNodeAttrsUpdate } from '../utils/batchMediaNodeAttrs';
 
 type RemoteDimensions = { id: string; height: number; width: number };
 
@@ -77,9 +79,18 @@ export class MediaNodeUpdater {
 		const { id } = attrs;
 		const objectId = await this.getObjectId();
 
-		updateAllMediaNodesAttrs(id, {
-			__contextId: objectId,
-		})(this.props.view.state, this.props.view.dispatch);
+		if (fg('platform_editor_media_batch_updates')) {
+			batchMediaNodeAttrsUpdate(this.props.view, {
+				id: id,
+				nextAttributes: {
+					__contextId: objectId,
+				},
+			});
+		} else {
+			updateAllMediaNodesAttrs(id, {
+				__contextId: objectId,
+			})(this.props.view.state, this.props.view.dispatch);
+		}
 	};
 
 	updateNodeContextId = async (getPos: ProsemirrorGetPosHandler) => {
@@ -159,8 +170,16 @@ export class MediaNodeUpdater {
 	updateMediaSingleFileAttrs = async () => {
 		const newAttrs = await this.getNewFileAttrsForNode();
 		const { id } = this.getAttrs() as MediaAttributes;
+
 		if (id && newAttrs) {
-			updateAllMediaNodesAttrs(id, newAttrs)(this.props.view.state, this.props.view.dispatch);
+			if (fg('platform_editor_media_batch_updates')) {
+				batchMediaNodeAttrsUpdate(this.props.view, {
+					id: id,
+					nextAttributes: newAttrs,
+				});
+			} else {
+				updateAllMediaNodesAttrs(id, newAttrs)(this.props.view.state, this.props.view.dispatch);
+			}
 		}
 	};
 
@@ -243,10 +262,20 @@ export class MediaNodeUpdater {
 	};
 
 	updateDimensions = (dimensions: RemoteDimensions) => {
-		updateAllMediaNodesAttrs(dimensions.id, {
-			height: dimensions.height,
-			width: dimensions.width,
-		})(this.props.view.state, this.props.view.dispatch);
+		if (fg('platform_editor_media_batch_updates')) {
+			batchMediaNodeAttrsUpdate(this.props.view, {
+				id: dimensions.id,
+				nextAttributes: {
+					height: dimensions.height,
+					width: dimensions.width,
+				},
+			});
+		} else {
+			updateAllMediaNodesAttrs(dimensions.id, {
+				height: dimensions.height,
+				width: dimensions.width,
+			})(this.props.view.state, this.props.view.dispatch);
+		}
 	};
 
 	async getRemoteDimensions(): Promise<false | RemoteDimensions> {

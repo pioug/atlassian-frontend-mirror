@@ -2,7 +2,6 @@ import { type ProductType, type Datasource, type EnvironmentsKeys } from '@atlas
 import { EditorCardProvider } from '..';
 import { type LinkAppearance, type ProviderPattern, type UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 type PatternsProviderResponse = {
 	providers: Provider[];
@@ -385,38 +384,19 @@ describe('providers > editor', () => {
 		['Youtube.ch link', 'https://www.youtube.ch/watch?v=w7ejDZ8SWv8'],
 	])(
 		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
-		(_, url) => {
-			ffTest(
-				'platform.linking-platform.embed-youtube-by-default',
-				async () => {
-					const provider = new EditorCardProvider();
-					mockFetch.mockResolvedValueOnce({
-						json: async () => getMockProvidersResponse(),
-						ok: true,
-					});
-					// Mocking call to /resolve/batch
-					mockFetch.mockResolvedValueOnce({
-						json: async () => [{ body: mocks.success, status: 200 }],
-						ok: true,
-					});
-					const adf = await provider.resolve(url, 'inline', false);
-					expect(adf).toEqual(expectedEmbedAdf(url));
-				},
-				async () => {
-					const provider = new EditorCardProvider();
-					mockFetch.mockResolvedValueOnce({
-						json: async () => getMockProvidersResponse(),
-						ok: true,
-					});
-					// Mocking call to /resolve/batch
-					mockFetch.mockResolvedValueOnce({
-						json: async () => [{ body: mocks.success, status: 200 }],
-						ok: true,
-					});
-					const adf = await provider.resolve(url, 'inline', false);
-					expect(adf).toEqual(expectedInlineAdf(url));
-				},
-			);
+		async (_, url) => {
+			const provider = new EditorCardProvider();
+			mockFetch.mockResolvedValueOnce({
+				json: async () => getMockProvidersResponse(),
+				ok: true,
+			});
+			// Mocking call to /resolve/batch
+			mockFetch.mockResolvedValueOnce({
+				json: async () => [{ body: mocks.success, status: 200 }],
+				ok: true,
+			});
+			const adf = await provider.resolve(url, 'inline', false);
+			expect(adf).toEqual(expectedEmbedAdf(url));
 		},
 	);
 

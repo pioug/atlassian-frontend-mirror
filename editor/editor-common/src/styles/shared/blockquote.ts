@@ -42,6 +42,12 @@ export const blockquoteSharedStyles = css({
 		'& table, & table:last-child': {
 			display: 'inline-table',
 		},
+		// Workaround for overriding the inline-block display on last child of a blockquote set in CSS reset.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'> .code-block:last-child, >.mediaSingleView-content-wrap:last-child, >.mediaGroupView-content-wrap:last-child':
+			{
+				display: 'block',
+			},
 	},
 });
 
@@ -80,5 +86,11 @@ export const blockquoteSharedStylesNew = css({
 		'& table, & table:last-child': {
 			display: 'inline-table',
 		},
+		// Workaround for overriding the inline-block display on last child of a blockquote set in CSS reset.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'> .code-block:last-child, >.mediaSingleView-content-wrap:last-child, >.mediaGroupView-content-wrap:last-child':
+			{
+				display: 'block',
+			},
 	},
 });

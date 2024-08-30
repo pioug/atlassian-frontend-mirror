@@ -48,6 +48,9 @@
       "path": "../../jql-parser/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/spinner/afm-post-office/tsconfig.json"
     },
     {

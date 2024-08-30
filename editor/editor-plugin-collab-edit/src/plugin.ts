@@ -13,7 +13,10 @@ import { sendTransaction } from './events/send-transaction';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey as mainPluginKey } from './pm-plugins/main/plugin-key';
 import { nativeCollabProviderPlugin } from './pm-plugins/native-collab-provider-plugin';
-import { createPlugin as trackSpammingStepsPlugin } from './pm-plugins/track-and-filter-spamming-steps';
+import {
+	sanitizeFilteredStep,
+	createPlugin as trackSpammingStepsPlugin,
+} from './pm-plugins/track-and-filter-spamming-steps';
 import {
 	createPlugin as createLastOrganicChangePlugin,
 	trackLastOrganicChangePluginKey,
@@ -22,7 +25,7 @@ import {
 	createPlugin as createTrackNCSInitializationPlugin,
 	trackNCSInitializationPluginKey,
 } from './pm-plugins/track-ncs-initialization';
-import { sanitizeStep, track } from './track-steps';
+import { track } from './track-steps';
 import type { CollabEditPlugin, ProviderBuilder, ProviderCallback } from './types';
 import { getAvatarColor } from './utils';
 
@@ -169,7 +172,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					name: 'trackAndFilterSpammingSteps',
 					plugin: () =>
 						trackSpammingStepsPlugin((tr: Transaction) => {
-							const sanitizedSteps = tr.steps.map((step) => sanitizeStep(step));
+							const sanitizedSteps = tr.steps.map((step) => sanitizeFilteredStep(step));
 							api?.analytics?.actions?.fireAnalyticsEvent({
 								action: ACTION.STEPS_FILTERED,
 								actionSubject: ACTION_SUBJECT.COLLAB,

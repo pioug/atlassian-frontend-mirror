@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.19.0
+
+### Minor Changes
+
+- [#132314](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132314)
+  [`92f67ece07ca1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92f67ece07ca1) -
+  Refined logic of sanitizeStep to include stepInstance information
+- [#132314](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132314)
+  [`92f67ece07ca1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92f67ece07ca1) -
+  Improve implementation of serializeStep to include stepInstance namefor more detailed analytics
+  log.
+
 ## 1.18.0
 
 ### Minor Changes

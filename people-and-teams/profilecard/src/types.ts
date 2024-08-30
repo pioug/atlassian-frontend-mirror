@@ -30,6 +30,23 @@ export interface ApiClientResponse {
 	};
 }
 
+type FlagAppearance = 'error' | 'info' | 'normal' | 'success' | 'warning';
+export interface Flag {
+	id: number | string;
+	title?: string | React.ReactNode;
+	description?: string | React.ReactNode;
+	type?: FlagAppearance;
+
+	appearance?: FlagAppearance;
+	actions?: {
+		content: React.ReactNode;
+		onClick?: () => void;
+		href?: string;
+		target?: string;
+	}[];
+	icon?: JSX.Element;
+}
+
 export interface Team {
 	// Header image props
 	largeAvatarImageUrl?: string;
@@ -328,7 +345,7 @@ export interface AgentProfileCardTriggerProps extends AgentActionsType {
 	trigger?: TriggerType;
 	children: React.ReactNode;
 	testId?: string;
-	addFlag?: (flag: any) => void;
+	addFlag?: (flag: Flag) => void;
 	ariaLabel?: string;
 	ariaLabelledBy?: string;
 	prepopulatedData?: PrepopulatedData;
@@ -339,9 +356,23 @@ export interface AgentProfileCardTriggerProps extends AgentActionsType {
 	viewingUserId?: string;
 }
 
+export type AgentProfileCardProps = {
+	resourceClient: ProfileClient;
+	agent?: RovoAgentProfileCardInfo;
+	isLoading?: boolean;
+	hasError?: boolean;
+	isCreatedByViewingUser?: boolean;
+	cloudId?: string;
+	product?: string;
+	errorType?: ProfileCardErrorType;
+	addFlag?: (flag: Flag) => void;
+} & AgentActionsType;
+
 export type StatusType = 'active' | 'inactive' | 'closed';
 
 export type TriggerType = 'hover' | 'click';
+
+export type ProfileType = 'user' | 'team' | 'agent';
 
 export type StatusModifiedDateType =
 	| 'noDate'
@@ -479,6 +510,15 @@ export interface ProfileClient {
 		id: AgentIdType,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,
 	) => Promise<RovoAgent>;
+	deleteAgent: (
+		id: string,
+		fireAnalytics?: (event: AnalyticsEventPayload) => void,
+	) => Promise<void>;
+	setFavouriteAgent: (
+		id: string,
+		isFavourite: boolean,
+		fireAnalytics?: (event: AnalyticsEventPayload) => void,
+	) => Promise<void>;
 }
 
 export type ProfilecardTriggerPosition =

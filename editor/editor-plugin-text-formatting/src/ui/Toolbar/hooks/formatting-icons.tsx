@@ -28,8 +28,8 @@ import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import type { Command, EditorCommand, TextFormattingState } from '@atlaskit/editor-common/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import BoldIcon from '@atlaskit/icon/glyph/editor/bold';
-import ItalicIcon from '@atlaskit/icon/glyph/editor/italic';
+import BoldIcon from '@atlaskit/icon/core/migration/text-bold--editor-bold';
+import ItalicIcon from '@atlaskit/icon/core/migration/text-italic--editor-italic';
 
 import {
 	toggleCodeWithAnalytics,
@@ -69,14 +69,14 @@ const IconButtons = (
 		command: withToolbarInputMethod(toggleStrongWithAnalytics(editorAnalyticsAPI)),
 		message: toolbarMessages.bold,
 		tooltipKeymap: toggleBold,
-		component: () => <BoldIcon label="" />,
+		component: () => <BoldIcon color="currentColor" spacing="spacious" label="" />,
 	},
 	em: {
 		buttonId: TOOLBAR_ACTION_SUBJECT_ID.TEXT_FORMATTING_ITALIC,
 		command: withToolbarInputMethod(toggleEmWithAnalytics(editorAnalyticsAPI)),
 		message: toolbarMessages.italic,
 		tooltipKeymap: toggleItalic,
-		component: () => <ItalicIcon label="" />,
+		component: () => <ItalicIcon color="currentColor" spacing="spacious" label="" />,
 	},
 	underline: {
 		command: withToolbarInputMethod(toggleUnderlineWithAnalytics(editorAnalyticsAPI)),

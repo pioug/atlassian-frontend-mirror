@@ -17,7 +17,6 @@ import type {
 } from '@atlaskit/editor-common/preset';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
-import { BaseTheme, IntlProviderIfMissingWrapper, WidthProvider } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -32,8 +31,10 @@ import { useSetPresetContext } from '../presets/context';
 import { type EditorAppearanceComponentProps } from '../types';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
+import { IntlProviderIfMissingWrapper } from '../ui/IntlProviderIfMissingWrapper/IntlProviderIfMissingWrapper';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 
+import { BaseThemeWrapper } from './BaseThemeWrapper';
 import { useProviders } from './hooks/useProviders';
 import { getBaseFontSize } from './utils/getBaseFontSize';
 
@@ -55,6 +56,12 @@ interface InternalProps {
 		React.PropsWithChildren<EditorAppearanceComponentProps<[]>>
 	>;
 }
+
+const editorContainerStyles = css({
+	position: 'relative',
+	width: '100%',
+	height: '100%',
+});
 
 /**
  * EditorInternalComponent is used to capture the common component
@@ -121,8 +128,7 @@ export const EditorInternal = memo(
 					contextIdentifierProvider={props.contextIdentifierProvider}
 					featureFlags={featureFlags}
 				>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<WidthProvider css={css({ height: '100%' })}>
+					<div css={editorContainerStyles}>
 						<EditorContext editorActions={editorActions}>
 							<ContextAdapter>
 								<IntlProviderIfMissingWrapper>
@@ -146,7 +152,7 @@ export const EditorInternal = memo(
 												editorRef,
 												editorAPI,
 											}) => (
-												<BaseTheme baseFontSize={getBaseFontSize(props.appearance)}>
+												<BaseThemeWrapper baseFontSize={getBaseFontSize(props.appearance)}>
 													<AppearanceComponent
 														innerRef={editorRef}
 														editorAPI={editorAPI}
@@ -189,7 +195,7 @@ export const EditorInternal = memo(
 																: props.hideAvatarGroup
 														}
 													/>
-												</BaseTheme>
+												</BaseThemeWrapper>
 											)}
 										/>
 										<PortalRenderer />
@@ -197,7 +203,7 @@ export const EditorInternal = memo(
 								</IntlProviderIfMissingWrapper>
 							</ContextAdapter>
 						</EditorContext>
-					</WidthProvider>
+					</div>
 				</ErrorBoundary>
 			</Fragment>
 		);

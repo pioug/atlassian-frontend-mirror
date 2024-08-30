@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.10.2
+
+### Patch Changes
+
+- [#135500](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135500)
+  [`d97d77c47b7cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d97d77c47b7cb) -
+  [ux] Migrate new ADS icons on Editor primary toolbar
+
+## 1.10.1
+
+### Patch Changes
+
+- [#135110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135110)
+  [`48ef3f98124db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48ef3f98124db) -
+  [ux] [ED-24754] Add 5 template options to quick insert and element browser when
+  `platform_editor_element_level_templates` experiment is enabled
+- Updated dependencies
+
 ## 1.10.0
 
 ### Minor Changes

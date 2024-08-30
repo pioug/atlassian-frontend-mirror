@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 
-import { uid } from 'react-uid';
-
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { defaultLogoParams, legacyDefaultLogoParams } from '../constants';
@@ -10,16 +9,12 @@ import type { LogoProps } from '../types';
 import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = ({ appearance, iconColor }: LogoProps, colorMode: string | undefined) => {
+const svg = ({ appearance, iconColor }: LogoProps, colorMode: string | undefined, id: string) => {
 	let colors: Partial<ReturnType<typeof getColorsFromAppearanceOldLogos>> = {
 		iconGradientStart: legacyDefaultLogoParams.iconGradientStart,
 		iconGradientStop: legacyDefaultLogoParams.iconGradientStart,
 		iconColor,
 	};
-	// Will be fixed upon removal of deprecated iconGradientStart and
-	// iconGradientStop props, or with React 18's useId() hook when we update.
-	// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
-	let id = uid({ iconGradientStart: colors.iconGradientStop });
 
 	if (appearance) {
 		colors = getColorsFromAppearanceOldLogos(appearance, colorMode);
@@ -72,6 +67,7 @@ export const JiraSoftwareIcon = ({
 	textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
 	const { colorMode } = useThemeObserver();
+	const id = useId();
 	return (
 		<Wrapper
 			appearance={appearance}
@@ -82,6 +78,7 @@ export const JiraSoftwareIcon = ({
 					iconColor,
 				},
 				colorMode,
+				id,
 			)}
 			iconColor={iconColor}
 			size={size}

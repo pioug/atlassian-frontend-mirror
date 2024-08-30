@@ -19,9 +19,9 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { ClassNames, jsx } from '@emotion/react';
 import { type CSSInterpolation } from '@emotion/serialize';
-import { useUIDSeed } from 'react-uid';
 
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import FocusRing from '@atlaskit/focus-ring';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N70A } from '@atlaskit/theme/colors';
@@ -305,7 +305,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 		const customStatusNode = isValidElement(status) ? status : null;
 		const isValidIconSize = size !== 'xxlarge' && size !== 'xsmall';
 		const lastAnalytics = useRef(analyticsContext);
-		const uuid = useUIDSeed()('avatar');
+		const labelId = useId();
 
 		useEffect(() => {
 			lastAnalytics.current = analyticsContext;
@@ -385,7 +385,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 			<AvatarContainer
 				data-testid={testId}
 				role={containerShouldBeImage ? 'img' : undefined}
-				aria-labelledby={containerShouldBeImage ? `${uuid}-label` : undefined}
+				aria-labelledby={containerShouldBeImage ? labelId : undefined}
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					display: 'inline-block',
@@ -415,7 +415,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 							}),
 							children: (
 								<AvatarImage
-									// Only pass in the name if an image is provded and the
+									// Only pass in the name if an image is provided and the
 									// container is not being used as an `img` role
 									alt={!containerShouldBeImage && src ? name : undefined}
 									appearance={appearance!}
@@ -462,7 +462,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 					</StatusWrapper>
 				)}
 				{containerShouldBeImage ? (
-					<span data-testid={testId && `${testId}--label`} id={`${uuid}-label`} hidden>
+					<span data-testid={testId && `${testId}--label`} id={labelId} hidden>
 						{defaultLabel}
 					</span>
 				) : undefined}

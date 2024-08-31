@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import renderer from 'react-test-renderer';
 
 import PageHeader from '../../../index';
 
@@ -16,8 +15,8 @@ describe('@atlaskit/page-header', () => {
 				Test
 			</PageHeader>
 		);
-		const Component = renderer.create(wrapper).toJSON();
-		expect(Component).toMatchSnapshot();
+		const { container } = render(wrapper);
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render correctly with disableTitleStyles prop', () => {
@@ -36,8 +35,8 @@ describe('@atlaskit/page-header', () => {
 			</PageHeader>
 		);
 
-		const Component = renderer.create(wrapper).toJSON();
-		expect(Component).toMatchSnapshot();
+		const { container } = render(wrapper);
+		expect(container).toMatchSnapshot();
 	});
 
 	it('should render component as <h1> level heading', () => {

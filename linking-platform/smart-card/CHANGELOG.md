@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 27.19.1
+
+### Patch Changes
+
+- [`6993bb3b59334`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6993bb3b59334) -
+  Added check if entrypoint wrapper is available then pass it to the the wrapper prop of
+  action-group-item
+
 ## 27.19.0
 
 ### Minor Changes

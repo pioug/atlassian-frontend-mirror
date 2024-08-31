@@ -1,5 +1,13 @@
 # @atlaskit/tag
 
+## 12.5.3
+
+### Patch Changes
+
+- [#135718](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135718)
+  [`ed8ae748863a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed8ae748863a0) -
+  Enhance the removable Tag component to automatically prepend 'Remove' to the tag text by default.
+
 ## 12.5.2
 
 ### Patch Changes

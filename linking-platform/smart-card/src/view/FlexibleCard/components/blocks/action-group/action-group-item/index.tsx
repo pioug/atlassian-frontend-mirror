@@ -52,6 +52,10 @@ const ActionGroupItem = ({
 		actionProps.icon = undefined;
 	}
 
+	if (item?.entryPointWrapper) {
+		actionProps.wrapper = item.entryPointWrapper;
+	}
+
 	return (
 		<Action
 			asDropDownItem={asDropDownItems}

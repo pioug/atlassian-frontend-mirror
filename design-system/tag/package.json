@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag",
-	"version": "12.5.2",
+	"version": "12.5.3",
 	"description": "A tag labels UI objects for quick recognition and navigation.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -74,7 +74,6 @@
 		"exenv": "^1.2.2",
 		"jscodeshift": "^0.13.0",
 		"react-dom": "^16.8.0",
-		"react-test-renderer": "^16.8.0",
 		"storybook-addon-performance": "^0.16.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

@@ -25,7 +25,6 @@ export function MyTagGroup({ alignment }: MyTagGroupProps) {
 					key={text}
 					onAfterRemoveAction={handleRemoveComplete}
 					onBeforeRemoveAction={handleRemoveRequest}
-					removeButtonLabel="Remove me"
 					text={text}
 				/>
 			))}

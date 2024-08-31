@@ -47,7 +47,6 @@
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
 		"react-dom": "^16.8.0",
-		"react-test-renderer": "^16.8.0",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

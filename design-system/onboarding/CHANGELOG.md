@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 11.13.0
+
+### Minor Changes
+
+- [#135285](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135285)
+  [`5129525d797c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5129525d797c8) -
+  DSP-20262 react-node-resolver removal behind ff
+
 ## 11.12.3
 
 ### Patch Changes

@@ -5,6 +5,7 @@ import { accessibilityUtilsPlugin } from '@atlaskit/editor-plugins/accessibility
 import { alignmentPlugin } from '@atlaskit/editor-plugins/alignment';
 import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import { avatarGroupPlugin } from '@atlaskit/editor-plugins/avatar-group';
+import { batchAttributeUpdatesPlugin } from '@atlaskit/editor-plugins/batch-attribute-updates';
 import { beforePrimaryToolbarPlugin } from '@atlaskit/editor-plugins/before-primary-toolbar';
 import { borderPlugin } from '@atlaskit/editor-plugins/border';
 import { breakoutPlugin } from '@atlaskit/editor-plugins/breakout';
@@ -156,6 +157,7 @@ export default function createUniversalPresetInternal({
 		.add(dataConsumerPlugin)
 		.add(accessibilityUtilsPlugin)
 		.add(contentInsertionPlugin)
+		.add(batchAttributeUpdatesPlugin)
 		.maybeAdd(
 			[breakoutPlugin, { allowBreakoutButton: appearance === 'full-page' }],
 			Boolean(props.allowBreakout && isFullPage),

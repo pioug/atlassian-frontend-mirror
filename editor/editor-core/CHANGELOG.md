@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 197.1.3
+
+### Patch Changes
+
+- [#135342](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135342)
+  [`7310995594ece`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7310995594ece) -
+  [ED-24636] Add Batch Attributes Plugin into the universal preset
+
 ## 197.1.2
 
 ### Patch Changes

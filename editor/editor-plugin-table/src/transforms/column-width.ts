@@ -6,6 +6,7 @@ import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ResizeState } from '../pm-plugins/table-resizing/utils';
 import {
@@ -30,12 +31,12 @@ export const updateColumnWidths =
 		resizeState: ResizeState,
 		table: PMNode,
 		start: number,
-		// TODO: ED-24636 To be used in a follow up change
-		_api: PluginInjectionAPI | undefined | null,
+		api: PluginInjectionAPI | undefined | null,
 	) =>
 	(tr: Transaction): Transaction => {
 		const map = TableMap.get(table);
 		const updatedCellsAttrs: { [key: number]: CellAttributes } = {};
+		const steps: Array<AttrStep> = [];
 
 		// calculating new attributes for each cell
 		for (let columnIndex = 0; columnIndex < map.width; columnIndex++) {
@@ -89,11 +90,20 @@ export const updateColumnWidths =
 				const cell = table.nodeAt(pos);
 				if (!seen[pos] && cell) {
 					if (updatedCellsAttrs[pos]) {
-						tr.step(new AttrStep(pos + start, 'colwidth', updatedCellsAttrs[pos].colwidth));
+						steps.push(new AttrStep(pos + start, 'colwidth', updatedCellsAttrs[pos].colwidth));
 					}
 					seen[pos] = true;
 				}
 			}
+		}
+
+		if (api?.batchAttributeUpdates && fg('platform_editor_batch_steps_table')) {
+			const batchStep = api.batchAttributeUpdates.actions.batchSteps({ steps, doc: tr.doc });
+			tr.step(batchStep);
+		} else {
+			steps.forEach((s) => {
+				tr.step(s);
+			});
 		}
 
 		return tr;

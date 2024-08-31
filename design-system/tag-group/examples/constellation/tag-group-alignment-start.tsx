@@ -6,15 +6,15 @@ import TagGroup from '../../src';
 
 export default () => (
 	<TagGroup alignment="start">
-		<Tag text="Bitbucket" removeButtonLabel="Remove" />
-		<Tag text="Compass" removeButtonLabel="Remove" />
-		<Tag text="Confluence" removeButtonLabel="Remove" />
-		<Tag text="Jira" removeButtonLabel="Remove" />
-		<Tag text="Jira Service Management" removeButtonLabel="Remove" />
+		<Tag text="Bitbucket" />
+		<Tag text="Compass" />
+		<Tag text="Confluence" />
+		<Tag text="Jira" />
+		<Tag text="Jira Service Management" />
 		<Tag text="Jira Software" />
-		<Tag text="Jira Work Management" removeButtonLabel="Remove" />
-		<Tag text="Opsgenie" removeButtonLabel="Remove" />
-		<Tag text="Statuspage" removeButtonLabel="Remove" />
-		<Tag text="Trello" removeButtonLabel="Remove" />
+		<Tag text="Jira Work Management" />
+		<Tag text="Opsgenie" />
+		<Tag text="Statuspage" />
+		<Tag text="Trello" />
 	</TagGroup>
 );

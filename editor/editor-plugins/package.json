@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "4.3.5",
+	"version": "4.3.6",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -296,7 +296,7 @@
 		"@atlaskit/editor-plugin-selection-toolbar": "1.2.2",
 		"@atlaskit/editor-plugin-status": "2.4.3",
 		"@atlaskit/editor-plugin-submit-editor": "1.3.1",
-		"@atlaskit/editor-plugin-table": "7.25.15",
+		"@atlaskit/editor-plugin-table": "7.25.16",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "2.4.2",
 		"@atlaskit/editor-plugin-text-color": "1.14.1",
 		"@atlaskit/editor-plugin-text-formatting": "1.14.2",

@@ -131,7 +131,7 @@ const RemovableTagComponent = forwardRef<any, RemovableTagProps>(
 
 		const removeButton = isRemovable ? (
 			<RemoveButton
-				aria-label={`${removeButtonLabel} ${text}`}
+				aria-label={`${removeButtonLabel || 'Remove'} ${text}`}
 				onClick={handleRemoveRequest}
 				onFocus={removingTag}
 				onBlur={showingTag}

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.16
+
+### Patch Changes
+
+- [#135342](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135342)
+  [`7310995594ece`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7310995594ece) -
+  [ED-24636] Group Table Resizing Steps into a single custom step
+
 ## 7.25.15
 
 ### Patch Changes

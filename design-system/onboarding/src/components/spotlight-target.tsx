@@ -1,7 +1,8 @@
 import React, { type ReactNode } from 'react';
 
-import NodeResolver from 'react-node-resolver';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import NodeResolverSpotlightTarget from './node-resolver-spotlight-target';
 import { TargetConsumer } from './spotlight-manager';
 
 interface SpotlightTargetProps {
@@ -28,9 +29,13 @@ const SpotlightTarget = ({ children, name }: SpotlightTargetProps) => (
 	<TargetConsumer>
 		{(targetRef) =>
 			targetRef ? (
-				<NodeResolver innerRef={targetRef(name)}>
+				<NodeResolverSpotlightTarget
+					name={name}
+					hasNodeResolver={!fg('platform-design-system-dsp-20262-spotlight-target')}
+					targetRef={targetRef}
+				>
 					<>{children}</>
-				</NodeResolver>
+				</NodeResolverSpotlightTarget>
 			) : (
 				children
 			)

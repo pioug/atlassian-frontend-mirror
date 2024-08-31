@@ -55,7 +55,6 @@
 		"@testing-library/user-event": "^14.4.3",
 		"lodash": "^4.17.21",
 		"react-dom": "^16.8.0",
-		"react-test-renderer": "^16.8.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

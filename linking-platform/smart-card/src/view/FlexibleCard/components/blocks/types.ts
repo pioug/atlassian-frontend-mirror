@@ -234,7 +234,9 @@ export type CustomActionItem = BaseActionItem & {
 				Pick<ActionProps, 'tooltipMessage'>)
 	);
 
-export type ActionItem = NamedActionItem | NamedDataActionItem | CustomActionItem;
+export type ActionItem = (NamedActionItem | NamedDataActionItem | CustomActionItem) & {
+	entryPointWrapper?: React.FC<{ children: React.ReactNode }>;
+};
 
 export type OnActionMenuOpenChangeOptions = {
 	isOpen: boolean;

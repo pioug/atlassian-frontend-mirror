@@ -28,6 +28,7 @@ import { browser } from '@atlaskit/editor-common/utils';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BatchAttributeUpdatesPlugin } from '@atlaskit/editor-plugin-batch-attribute-updates';
 import type { ContentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -136,6 +137,7 @@ export type TablePlugin = NextEditorPlugin<
 			WidthPlugin,
 			GuidelinePlugin,
 			SelectionPlugin,
+			OptionalPlugin<BatchAttributeUpdatesPlugin>,
 			OptionalPlugin<AccessibilityUtilsPlugin>,
 			OptionalPlugin<MediaPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,

@@ -58,10 +58,8 @@
 		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^12.1.5",
-		"@types/react-test-renderer": "^16.8.1",
 		"jscodeshift": "^0.13.0",
 		"react-dom": "^16.8.0",
-		"react-test-renderer": "^16.8.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

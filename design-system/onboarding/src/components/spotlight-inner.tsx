@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { canUseDOM } from 'exenv';
-import NodeResovler from 'react-node-resolver';
 import ScrollLock from 'react-scrolllock';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -13,6 +13,7 @@ import { type ElementBoundingBox, ElementBox } from '../utils/use-element-box';
 
 import { Fade } from './animation';
 import Clone from './clone';
+import NodeResolverSpotlightInner from './node-resolver-spotlight-inner';
 import SpotlightDialog from './spotlight-dialog';
 import { SpotlightTransitionConsumer } from './spotlight-transition';
 
@@ -124,7 +125,8 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 				{({ isOpen, onExited }) => (
 					<Portal zIndex={layers.spotlight() + 1}>
 						{TargetReplacement ? (
-							<NodeResovler
+							<NodeResolverSpotlightInner
+								hasNodeResolver={!fg('platform-design-system-dsp-20262-spotlight-inner')}
 								innerRef={(elem: HTMLElement | null) => this.setState({ replacementElement: elem })}
 							>
 								<ElementBox element={targetNode}>
@@ -135,7 +137,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 										/>
 									)}
 								</ElementBox>
-							</NodeResovler>
+							</NodeResolverSpotlightInner>
 						) : (
 							<ElementBox element={targetNode}>
 								{(box) => (

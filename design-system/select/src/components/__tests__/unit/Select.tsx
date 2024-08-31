@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import selectEvent from 'react-select-event';
 
 import AtlaskitSelect from '../../..';
-import { act } from 'react-test-renderer';
 
 jest.mock('../../../utils/grouped-options-announcement', () => {
 	const originalModule = jest.requireActual<

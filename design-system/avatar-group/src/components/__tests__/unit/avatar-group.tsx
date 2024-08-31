@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-test-renderer';
 
 import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import __noop from '@atlaskit/ds-lib/noop';

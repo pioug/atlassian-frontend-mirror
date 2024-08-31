@@ -64,41 +64,43 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
   margin-block-start: var(--ds-space-200, 16px);
 }
 
-<div
-  className="emotion-5"
->
-  <div>
-    Breadcrumb
-  </div>
+<div>
   <div
-    className="emotion-3"
+    class="emotion-5"
   >
-    <div
-      className="emotion-1"
-    >
-      <h1
-        className="emotion-0"
-        tabIndex={-1}
-      >
-        Test
-      </h1>
+    <div>
+      Breadcrumb
     </div>
     <div
-      className="emotion-2"
+      class="emotion-3"
     >
-      <div>
-        Action
+      <div
+        class="emotion-1"
+      >
+        <h1
+          class="emotion-0"
+          tabindex="-1"
+        >
+          Test
+        </h1>
+      </div>
+      <div
+        class="emotion-2"
+      >
+        <div>
+          Action
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="emotion-4"
-  >
-     
-    <div>
-      Bar
+    <div
+      class="emotion-4"
+    >
+       
+      <div>
+        Bar
+      </div>
+       
     </div>
-     
   </div>
 </div>
 `;
@@ -159,36 +161,38 @@ exports[`@atlaskit/page-header should render correctly with disableTitleStyles p
   margin-block-start: var(--ds-space-200, 16px);
 }
 
-<div
-  className="emotion-4"
->
-  <div>
-    Breadcrumb
-  </div>
+<div>
   <div
-    className="emotion-2"
+    class="emotion-4"
   >
-    <div
-      className="emotion-0"
-    >
-      Test
+    <div>
+      Breadcrumb
     </div>
     <div
-      className="emotion-1"
+      class="emotion-2"
     >
-      <div>
-        Action
+      <div
+        class="emotion-0"
+      >
+        Test
+      </div>
+      <div
+        class="emotion-1"
+      >
+        <div>
+          Action
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="emotion-3"
-  >
-     
-    <div>
-      Bar
+    <div
+      class="emotion-3"
+    >
+       
+      <div>
+        Bar
+      </div>
+       
     </div>
-     
   </div>
 </div>
 `;

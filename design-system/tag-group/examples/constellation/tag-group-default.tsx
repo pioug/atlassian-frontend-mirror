@@ -38,10 +38,10 @@ export default () => (
 			<SimpleTag text="Rounded tag" appearance="rounded" />
 		</TagGroup>
 		<TagGroup>
-			<Tag text="Removable tag" removeButtonLabel="Remove" />
-			<Tag text="Removable tag" removeButtonLabel="Remove" />
-			<Tag text="Removable tag" removeButtonLabel="Remove" />
-			<Tag text="Removable tag" removeButtonLabel="Remove" />
+			<Tag text="Removable tag" />
+			<Tag text="Removable tag" />
+			<Tag text="Removable tag" />
+			<Tag text="Removable tag" />
 		</TagGroup>
 	</div>
 );

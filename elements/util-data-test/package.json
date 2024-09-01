@@ -105,7 +105,6 @@
 		"./user-picker-data": "./src/user-picker/user-picker-data.ts"
 	},
 	"atlassian": {
-		"releaseModel": "continuous",
 		"team": "UIP: Test Foundations"
 	},
 	"scripts": {

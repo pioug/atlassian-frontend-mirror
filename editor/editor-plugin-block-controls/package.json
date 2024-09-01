@@ -8,9 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "Editor: Jenga",
-		"inPublicMirror": false,
-		"releaseModel": "continuous"
+		"team": "Editor: Jenga"
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",

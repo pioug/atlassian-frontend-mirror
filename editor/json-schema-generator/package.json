@@ -10,8 +10,7 @@
 	"license": "Apache-2.0",
 	"main": "bin/json-schema-generator.js",
 	"atlassian": {
-		"team": "Editor: ADF",
-		"releaseModel": "continuous"
+		"team": "Editor: ADF"
 	},
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",

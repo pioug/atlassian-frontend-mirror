@@ -22,8 +22,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Confluence Better Together",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Embedded Confluence"
 		}

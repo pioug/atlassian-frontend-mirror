@@ -10,9 +10,7 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Confluence Content Experience Mobile",
-		"inPublicMirror": false,
-		"releaseModel": "continuous"
+		"team": "Confluence Content Experience Mobile"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.9.0",

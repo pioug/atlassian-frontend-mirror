@@ -36,11 +36,7 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
-		"team": "UIP Frontend Observability",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		]
+		"team": "UIP Frontend Observability"
 	},
 	"config": {
 		"access": "public"

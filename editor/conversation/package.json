@@ -23,8 +23,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Bitbucket: CoreX",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Conversation",
 			"deprecated": "This component is no longer being used and will not be actively maintained"

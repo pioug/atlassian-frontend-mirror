@@ -12,7 +12,6 @@
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
 		"team": "UIP: Dev Life Cycle",
-		"releaseModel": "continuous",
 		"toolingLabels": [
 			"docs"
 		]

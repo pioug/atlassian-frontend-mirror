@@ -17,13 +17,13 @@ import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
 import {
-	type FontSize,
-	fontStylesMap,
-	type FontWeight,
-	fontWeightStylesMap,
 	inverseColorMap,
 	type TextColor,
 	textColorStylesMap,
+	type TextSize,
+	textSizeStylesMap,
+	type TextWeight,
+	textWeightStylesMap,
 } from '../xcss/style-maps.partial';
 
 import { useSurface } from './internal/surface-provider';
@@ -64,11 +64,11 @@ type TextPropsBase<T extends ElementType = 'span'> = {
 	/**
 	 * Text size.
 	 */
-	size?: FontSize;
+	size?: TextSize;
 	/**
-	 * The [HTML `font-weight` attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight).
+	 * Font weight.
 	 */
-	weight?: FontWeight;
+	weight?: TextWeight;
 	/**
 	 * Forwarded ref.
 	 */
@@ -180,14 +180,14 @@ const Text = forwardRef(
 				css={[
 					resetStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					fontStylesMap[size],
+					textSizeStylesMap[size],
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					color && textColorStylesMap[color],
 					maxLines && truncationStyles,
 					maxLines === 1 && wordBreakMap.breakAll,
 					align && textAlignMap[align],
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					weight && fontWeightStylesMap[weight],
+					weight && textWeightStylesMap[weight],
 					Component === 'em' && emStyles,
 					Component === 'strong' && strongStyles,
 				]}

@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Linking Platform",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "LinkingTypes"
 		},

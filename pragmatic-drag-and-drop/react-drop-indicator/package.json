@@ -16,8 +16,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Design System Team",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
 		"runReact18": true,
 		"website": {
 			"name": "React drop indicator",

@@ -26,10 +26,6 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Inline message",
 			"category": "Components"
@@ -40,7 +36,7 @@
 		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/inline-dialog": "^15.0.0",
-		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.59.0",
 		"@babel/runtime": "^7.0.0",

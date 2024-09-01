@@ -151,6 +151,12 @@ const JQLEditorReadOnlyWithoutTheme = ({ query }: ReadOnlyProps) => {
 					expandedRows={expandedRows}
 					lineNumbersVisible={lineNumbersVisible}
 					isCompact={isCompact}
+					// aria-expanded and aria-controls here are placeholders only. This is to avoid a11y violations.
+					// This component JQLEditorReadOnlyWithoutTheme is only a loading state
+					// Therefore the autocomplete combobox is never shown to the users
+					aria-expanded={false}
+					aria-controls="dummy-jql-editor-auto-complete-id"
+					aria-label="JQL query"
 				>
 					{blocks.map((block, index) => (
 						<Box as="p" key={index}>

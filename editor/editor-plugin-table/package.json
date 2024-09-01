@@ -24,7 +24,6 @@
 	"atlassian": {
 		"team": "Editor: Jenga",
 		"singleton": true,
-		"releaseModel": "continuous",
 		"runReact18": false
 	},
 	"dependencies": {
@@ -50,7 +49,7 @@
 		"@atlaskit/pragmatic-drag-and-drop": "^1.3.0",
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.4.0",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
-		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/toggle": "^13.3.0",
 		"@atlaskit/tokens": "^1.59.0",

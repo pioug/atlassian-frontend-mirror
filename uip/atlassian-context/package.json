@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "UIP Application Framework - Jupiter",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "AtlassianContext",
 			"category": "Components"

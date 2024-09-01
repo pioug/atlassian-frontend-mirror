@@ -31,7 +31,6 @@
 	},
 	"atlassian": {
 		"team": "Bitbucket: CoreX",
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Mobile Header"
 		}

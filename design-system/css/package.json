@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"runReact18": true,
 		"website": {
 			"name": "CSS",

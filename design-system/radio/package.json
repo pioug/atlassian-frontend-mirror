@@ -24,11 +24,7 @@
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
-		"releaseModel": "continuous",
 		"runReact18": true,
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Radio",
 			"category": "Components"

@@ -24,7 +24,6 @@
 	"atlassian": {
 		"team": "Editor: Lego",
 		"singleton": true,
-		"releaseModel": "continuous",
 		"runReact18": false
 	},
 	"dependencies": {

@@ -24,8 +24,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Editor: ADF",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Editor Bitbucket Transformer"
 		},

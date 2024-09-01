@@ -15,8 +15,6 @@
 	"sideEffects": true,
 	"atlassian": {
 		"team": "Design System Team",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Unit testing",
 			"category": "Libraries"

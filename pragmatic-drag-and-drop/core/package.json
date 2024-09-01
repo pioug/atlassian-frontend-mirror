@@ -24,8 +24,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Design System Team",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Core",
 			"category": "Libraries"

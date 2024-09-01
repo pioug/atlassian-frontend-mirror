@@ -39,7 +39,6 @@
 	},
 	"atlassian": {
 		"team": "Growth: Groot",
-		"releaseModel": "continuous",
 		"website": {
 			"name": "React Experiment Framework"
 		}

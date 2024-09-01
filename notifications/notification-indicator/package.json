@@ -22,10 +22,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Work Platform: Incoming Work",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Notification Indicator"
 		}

@@ -32,10 +32,6 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Date time picker",
 			"category": "Components"

@@ -24,10 +24,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Editor: Collaboration",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Emoji"
 		},
@@ -42,7 +38,7 @@
 		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/media-client": "^27.6.0",
 		"@atlaskit/media-client-react": "^2.2.0",
-		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/theme": "^13.0.0",

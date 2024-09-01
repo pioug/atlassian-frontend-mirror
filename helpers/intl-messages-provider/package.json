@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Frontend Platform Consortium",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"i18n": true,
 		"website": {
 			"name": "IntlMessagesProvider"

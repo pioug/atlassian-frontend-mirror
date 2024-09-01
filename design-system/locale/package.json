@@ -32,11 +32,7 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"releaseModel": "continuous",
 		"runReact18": true,
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Locale",
 			"category": "Libraries"

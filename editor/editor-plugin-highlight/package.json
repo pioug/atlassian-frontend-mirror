@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Editor: Core Experiences",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "EditorPluginHighlight",
 			"category": "Components"
@@ -51,7 +49,7 @@
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/editor-tables": "^2.8.0",
 		"@atlaskit/icon": "^22.15.0",
-		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/tokens": "^1.59.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

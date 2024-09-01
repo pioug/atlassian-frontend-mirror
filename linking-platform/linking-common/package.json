@@ -24,8 +24,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Linking Platform",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "LinkingCommon"
 		},

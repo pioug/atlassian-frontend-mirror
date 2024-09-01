@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Editor: Lego",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "EditorPluginLoom",
 			"category": "Components"

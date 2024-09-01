@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "UIP Frontend Observability",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "UFO"
 		}

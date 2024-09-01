@@ -35,8 +35,7 @@
 			"name": "@atlaskit/activity-provider",
 			"deprecated": "This package is deprecated and no longer supported. We recommend using @atlassian/activity-provider instead."
 		},
-		"team": "Linking Platform",
-		"releaseModel": "continuous"
+		"team": "Linking Platform"
 	},
 	"dependencies": {
 		"@atlaskit/util-service-support": "^6.2.0",

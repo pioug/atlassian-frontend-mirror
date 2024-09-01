@@ -9,9 +9,7 @@
 	},
 	"atlassian": {
 		"team": "Editor: Collaboration",
-		"singleton": true,
-		"inPublicMirror": false,
-		"releaseModel": "continuous"
+		"singleton": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",

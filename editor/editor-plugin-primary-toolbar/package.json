@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Editor: Core Experiences",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "EditorPluginPrimaryToolbar",
 			"category": "Components"

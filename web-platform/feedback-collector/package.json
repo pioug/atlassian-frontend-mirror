@@ -35,10 +35,6 @@
 	},
 	"atlassian": {
 		"team": "Web Platform: Feedback Collector",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Feedback Collector"
 		},

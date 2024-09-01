@@ -16,7 +16,6 @@
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Code",
 			"category": "Components"

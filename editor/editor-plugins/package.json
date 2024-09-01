@@ -9,9 +9,7 @@
 	},
 	"atlassian": {
 		"singleton": true,
-		"team": "Editor: Lego",
-		"inPublicMirror": false,
-		"releaseModel": "continuous"
+		"team": "Editor: Lego"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend",
 	"main": "dist/cjs/index.js",

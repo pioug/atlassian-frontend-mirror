@@ -17,10 +17,6 @@
 	"atlassian": {
 		"team": "Design System Team",
 		"runReact18": true,
-		"productPushConsumption": [
-			"jira"
-		],
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Range",
 			"category": "Components"

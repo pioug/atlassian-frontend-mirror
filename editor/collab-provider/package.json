@@ -23,12 +23,7 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Editor: Collaboration",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		]
+		"team": "Editor: Collaboration"
 	},
 	"af:exports": {
 		".": "./src/index.ts",

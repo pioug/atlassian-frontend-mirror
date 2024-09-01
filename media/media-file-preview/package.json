@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Media Experience",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "MediaFilePreview",
 			"category": "Components"

@@ -17,8 +17,6 @@
 	"atlassian": {
 		"team": "Editor: Core Experiences",
 		"singleton": true,
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"runReact18": false,
 		"integrationTests": {
 			"additionalBrowsers": [

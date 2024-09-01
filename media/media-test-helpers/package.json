@@ -23,8 +23,6 @@
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Media Experience",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
 		"runReact18": true
 	},
 	"dependencies": {

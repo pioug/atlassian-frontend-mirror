@@ -5,8 +5,6 @@
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
 		"team": "UIP Dev Infra",
-		"releaseModel": "continuous",
-		"inPublicMirror": true,
 		"toolingLabels": [
 			"linting"
 		]

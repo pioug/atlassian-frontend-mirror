@@ -9,10 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "ESLint plugin",
 			"category": "Tooling"

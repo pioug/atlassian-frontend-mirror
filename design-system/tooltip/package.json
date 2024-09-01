@@ -24,10 +24,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Design System Team",
-		"productPushConsumption": [
-			"jira"
-		],
-		"releaseModel": "continuous",
 		"runReact18": true,
 		"website": {
 			"name": "Tooltip",

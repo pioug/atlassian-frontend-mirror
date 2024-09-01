@@ -25,10 +25,6 @@
 	"atlaskit:designLink": "https://atlassian.design/foundations/grid",
 	"atlassian": {
 		"team": "Design System Team",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Page",
 			"category": "Components",

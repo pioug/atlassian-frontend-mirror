@@ -17,9 +17,7 @@
 	"types": "dist/types/index.d.ts",
 	"sideEffects": false,
 	"atlassian": {
-		"team": "trello-ecosystem",
-		"inPublicMirror": true,
-		"releaseModel": "continuous"
+		"team": "trello-ecosystem"
 	},
 	"af:exports": {
 		".": "./src/index.ts"

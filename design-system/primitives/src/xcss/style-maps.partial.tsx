@@ -906,39 +906,71 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cd260411f17d54ff1ac7e627ef070ef4>>
+ * @codegen <<SignedSource::80cc7623e264a740959237b5a1643873>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "ui"]
  * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
  * @codegenDependency ../../scripts/codegen-file-templates/layer.tsx <<SignedSource::6f10945ad9139d0119003738c65ae40a>>
  */
-export const fontSizeMap = {
-	medium: token(
+export const fontMap = {
+	'font.body': token(
 		'font.body',
 		'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
 	),
-	UNSAFE_small: token(
+	'font.body.UNSAFE_small': token(
 		'font.body.UNSAFE_small',
 		'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
 	),
-	large: token(
+	'font.body.large': token(
 		'font.body.large',
 		'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
 	),
-	small: token(
+	'font.body.small': token(
 		'font.body.small',
 		'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
 	),
+	'font.code': token(
+		'font.code',
+		'normal 400 0.875em/1 ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
+	),
+	'font.heading.large': token(
+		'font.heading.large',
+		'normal 500 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+	),
+	'font.heading.medium': token(
+		'font.heading.medium',
+		'normal 500 20px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+	),
+	'font.heading.small': token(
+		'font.heading.small',
+		'normal 600 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+	),
+	'font.heading.xlarge': token(
+		'font.heading.xlarge',
+		'normal 600 29px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+	),
+	'font.heading.xsmall': token(
+		'font.heading.xsmall',
+		'normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+	),
+	'font.heading.xxlarge': token(
+		'font.heading.xxlarge',
+		'normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+	),
+	'font.heading.xxsmall': token(
+		'font.heading.xxsmall',
+		'normal 600 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+	),
 };
 
-export type FontSize = keyof typeof fontSizeMap;
+export type Font = keyof typeof fontMap;
 
 export const fontWeightMap = {
-	bold: token('font.weight.bold', '700'),
-	medium: token('font.weight.medium', '500'),
-	regular: token('font.weight.regular', '400'),
-	semibold: token('font.weight.semibold', '600'),
+	'font.weight.bold': token('font.weight.bold', '700'),
+	'font.weight.medium': token('font.weight.medium', '500'),
+	'font.weight.regular': token('font.weight.regular', '400'),
+	'font.weight.semibold': token('font.weight.semibold', '600'),
 };
 
 export type FontWeight = keyof typeof fontWeightMap;
@@ -967,6 +999,48 @@ export const fontFamilyMap = {
 };
 
 export type FontFamily = keyof typeof fontFamilyMap;
+
+/**
+ * @codegenEnd
+ */
+
+/**
+ * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::d92525f319a39edc53a30184bd02aa2c>>
+ * @codegenId text
+ * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
+ * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
+ * @codegenDependency ../../scripts/codegen-file-templates/layer.tsx <<SignedSource::6f10945ad9139d0119003738c65ae40a>>
+ */
+export const textSizeMap = {
+	medium: token(
+		'font.body',
+		'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+	),
+	UNSAFE_small: token(
+		'font.body.UNSAFE_small',
+		'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+	),
+	large: token(
+		'font.body.large',
+		'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+	),
+	small: token(
+		'font.body.small',
+		'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+	),
+};
+
+export type TextSize = keyof typeof textSizeMap;
+
+export const textWeightMap = {
+	bold: token('font.weight.bold', '700'),
+	medium: token('font.weight.medium', '500'),
+	regular: token('font.weight.regular', '400'),
+	semibold: token('font.weight.semibold', '600'),
+};
+
+export type TextWeight = keyof typeof textWeightMap;
 
 /**
  * @codegenEnd
@@ -1016,6 +1090,9 @@ export type TokenisedProps = {
 	boxShadow?: Shadow;
 	color?: TextColor;
 	columnGap?: Space;
+	font?: Font | string;
+	fontFamily?: FontFamily | string;
+	fontWeight?: FontWeight | string | number;
 	gap?: Space;
 	height?: Dimension | string;
 	inlineSize?: Dimension | string;
@@ -1101,15 +1178,19 @@ type PropsToken =
 	| FontWeightToken
 	| FontFamilyToken
 	| TextColorToken
-	| BodyFontToken;
+	| FontToken
+	| TextWeightToken
+	| TextSizeToken;
+
 type TokenMap = Partial<Record<PropsToken, ReturnType<typeof token>>>;
 type SerializedStylesMap = Record<PropsToken, SerializedStyles>;
 
-const getSerializedStylesMap = (
+export const getSerializedStylesMap = (
 	cssProperty: TokenMappableProperty,
 	tokenMap: TokenMap,
 ): SerializedStylesMap => {
 	return Object.keys(tokenMap).reduce((emotionSpacingMap, token) => {
+		// eslint-disable-next-line @repo/internal/styles/no-exported-styles
 		emotionSpacingMap[token as PropsToken] = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			[cssProperty]: tokenMap[token as PropsToken],
@@ -1124,14 +1205,18 @@ type SurfaceColorToken = keyof typeof surfaceColorMap;
 type TextColorToken = keyof typeof textColorMap;
 type FontWeightToken = keyof typeof fontWeightMap;
 type FontFamilyToken = keyof typeof fontFamilyMap;
-type BodyFontToken = keyof typeof fontSizeMap;
+type FontToken = keyof typeof fontMap;
+type TextWeightToken = keyof typeof textWeightMap;
+type TextSizeToken = keyof typeof textSizeMap;
 type SpacingStyleMap = Record<SpacingProperty, Record<SpacingToken, SerializedStyles>>;
 type BackgroundColorStyleMap = Record<BackgroundColorToken, SerializedStyles>;
 type SurfaceColorStyleMap = Record<SurfaceColorToken, SerializedStyles>;
 type TextColorStyleMap = Record<TextColorToken, SerializedStyles>;
 type FontWeightStyleMap = Record<FontWeightToken, SerializedStyles>;
 type FontFamilyStyleMap = Record<FontFamilyToken, SerializedStyles>;
-type FontStyleMap = Record<BodyFontToken, SerializedStyles>;
+type FontStyleMap = Record<FontToken, SerializedStyles>;
+type TextWeightStyleMap = Record<TextWeightToken, SerializedStyles>;
+type TextStyleMap = Record<TextSizeToken, SerializedStyles>;
 
 export const paddingStylesMap: SpacingStyleMap = spacingProperties.reduce(
 	(styleMap, spacingProperty: SpacingProperty) => {
@@ -1165,7 +1250,14 @@ export const fontFamilyStylesMap: FontFamilyStyleMap = getSerializedStylesMap(
 	'fontFamily',
 	fontFamilyMap,
 );
-export const fontStylesMap: FontStyleMap = getSerializedStylesMap('font', fontSizeMap);
+export const fontStylesMap: FontStyleMap = getSerializedStylesMap('font', fontMap);
+
+export const textSizeStylesMap: TextStyleMap = getSerializedStylesMap('font', textSizeMap);
+
+export const textWeightStylesMap: TextWeightStyleMap = getSerializedStylesMap(
+	'fontWeight',
+	textWeightMap,
+);
 
 export const surfaceColorStylesMap: SurfaceColorStyleMap = getSerializedStylesMap(
 	CURRENT_SURFACE_CSS_VAR,

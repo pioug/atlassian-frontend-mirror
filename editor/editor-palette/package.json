@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Editor: Lego",
-		"releaseModel": "continuous",
-		"inPublicMirror": true,
 		"website": {
 			"name": "Editor Palette"
 		},

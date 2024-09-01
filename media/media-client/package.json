@@ -34,8 +34,6 @@
 	},
 	"atlassian": {
 		"team": "Media Experience",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Media Client"
 		}

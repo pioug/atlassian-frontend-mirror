@@ -24,9 +24,7 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Editor",
-		"inPublicMirror": true,
 		"singleton": true,
-		"releaseModel": "continuous",
 		"runReact18": true
 	},
 	"af:exports": {
@@ -200,7 +198,7 @@
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/menu": "^2.12.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/profilecard": "^19.24.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/smart-card": "^27.19.0",

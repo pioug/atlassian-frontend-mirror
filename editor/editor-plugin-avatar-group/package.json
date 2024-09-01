@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Editor: Collaboration",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "EditorPluginAvatarGroup",
 			"category": "Components"

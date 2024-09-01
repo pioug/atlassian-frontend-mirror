@@ -10,7 +10,6 @@
 	"atlassian": {
 		"team": "Editor: Lego",
 		"singleton": true,
-		"releaseModel": "continuous",
 		"runReact18": false
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

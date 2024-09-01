@@ -15,14 +15,24 @@ export const ReadOnlyControlsContent = () => {
 	return (
 		<>
 			<BaseExpandToggle
-				label={''}
+				// The label here is for avoiding a11y violations only
+				// This component ReadOnlyControlsContent is only used as a fallback for a loading state
+				label={'Editor'}
 				editorId={''}
 				expanded={false}
 				onClick={noop}
 				isDisabled={true}
 			/>
 			<BaseSyntaxHelp label={''} onClick={noop} isDisabled={true} />
-			{isSearch && <BaseSearch label={''} onSearch={noop} isDisabled={true} />}
+			{isSearch && (
+				<BaseSearch
+					// The label here is for avoiding a11y violations only
+					// This component ReadOnlyControlsContent is only used as a fallback for a loading state
+					label={'Search'}
+					onSearch={noop}
+					isDisabled={true}
+				/>
+			)}
 		</>
 	);
 };

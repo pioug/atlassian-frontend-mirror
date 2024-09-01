@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Jira Platform: Search Experience / Empanada",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "JQL AST",
 			"category": "JQL"

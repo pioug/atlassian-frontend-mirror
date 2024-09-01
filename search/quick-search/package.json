@@ -23,7 +23,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Search Platform: Search Experience",
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Quick Search"
 		}

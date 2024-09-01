@@ -16,10 +16,6 @@
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Table tree",
 			"category": "Components"

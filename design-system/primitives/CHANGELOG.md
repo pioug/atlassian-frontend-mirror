@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 12.1.0
+
+### Minor Changes
+
+- [`e0c305a0be2ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0c305a0be2ce) -
+  Added support for typography tokens to XCSS.
+
 ## 12.0.1
 
 ### Patch Changes

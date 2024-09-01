@@ -24,11 +24,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Linking Platform",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "LinkingAnalytics"
 		},

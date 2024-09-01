@@ -16,10 +16,6 @@
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Calendar",
 			"category": "Components"
@@ -33,7 +29,7 @@
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/locale": "^2.8.0",
-		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.59.0",
 		"@babel/runtime": "^7.0.0",

@@ -9,11 +9,6 @@
 	},
 	"atlassian": {
 		"team": "UIP Frontend Observability",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "InteractionContext"
 		}

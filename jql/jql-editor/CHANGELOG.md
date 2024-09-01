@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 4.6.1
+
+### Patch Changes
+
+- [`c2faa85c89bec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c2faa85c89bec) -
+  a11y fixes for read only loading states
+
 ## 4.6.0
 
 ### Minor Changes

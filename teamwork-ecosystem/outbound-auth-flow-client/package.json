@@ -22,11 +22,7 @@
 	},
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Ecosystem Capabilities",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		]
+		"team": "Ecosystem Capabilities"
 	},
 	"config": {
 		"access": "public"

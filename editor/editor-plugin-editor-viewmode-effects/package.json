@@ -9,9 +9,7 @@
 	},
 	"atlassian": {
 		"team": "Confluence Page Modes",
-		"inPublicMirror": false,
 		"singleton": true,
-		"releaseModel": "continuous",
 		"runReact18": false
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",

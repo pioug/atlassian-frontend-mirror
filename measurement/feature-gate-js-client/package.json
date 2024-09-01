@@ -8,9 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "MEP: Switcheroo",
-		"inPublicMirror": false,
-		"releaseModel": "continuous"
+		"team": "MEP: Switcheroo"
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",

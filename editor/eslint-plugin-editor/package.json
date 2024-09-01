@@ -10,7 +10,6 @@
 	"main": "index.js",
 	"atlassian": {
 		"team": "Editor: Lego",
-		"releaseModel": "continuous",
 		"toolingLabels": [
 			"linting",
 			"editor"
@@ -25,7 +24,6 @@
 		"@types/eslint": "^8.56.6",
 		"@typescript-eslint/utils": "^5.48.1"
 	},
-	"releaseModel": "continuous",
 	"af:exports": {
 		".": "./index.js"
 	},

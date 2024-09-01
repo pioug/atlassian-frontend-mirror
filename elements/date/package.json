@@ -29,7 +29,6 @@
 	},
 	"atlassian": {
 		"team": "Editor: AI",
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Date"
 		},

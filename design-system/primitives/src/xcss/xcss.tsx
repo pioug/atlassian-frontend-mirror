@@ -21,6 +21,9 @@ import {
 	borderRadiusMap,
 	borderWidthMap,
 	dimensionMap,
+	fontFamilyMap,
+	fontMap,
+	fontWeightMap,
 	layerMap,
 	opacityMap,
 	positiveSpaceMap,
@@ -41,7 +44,10 @@ type StrictTokensMap = {
 		| typeof positiveSpaceMap
 		| typeof allSpaceMap
 		| typeof shadowMap
-		| typeof textColorMap;
+		| typeof textColorMap
+		| typeof fontFamilyMap
+		| typeof fontMap
+		| typeof fontWeightMap;
 };
 export const tokensMap = {
 	backgroundColor: backgroundColorMap,
@@ -81,6 +87,9 @@ export const tokensMap = {
 	boxShadow: shadowMap,
 	color: textColorMap,
 	columnGap: positiveSpaceMap,
+	font: fontMap,
+	fontFamily: fontFamilyMap,
+	fontWeight: fontWeightMap,
 	gap: positiveSpaceMap,
 	height: dimensionMap,
 	inlineSize: dimensionMap,

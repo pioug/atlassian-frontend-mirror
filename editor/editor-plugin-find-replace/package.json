@@ -8,9 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "Editor: Lego",
-		"inPublicMirror": false,
-		"releaseModel": "continuous"
+		"team": "Editor: Lego"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -46,7 +44,7 @@
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/icon": "^22.15.0",
-		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.59.0",

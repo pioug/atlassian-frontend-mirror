@@ -17,10 +17,13 @@ const activeTokens: Token[] = tokens
 
 const typographyProperties = [
 	{
-		objectName: 'fontSize',
+		objectName: 'font',
 		cssProperty: 'font',
 		prefix: 'font.body',
-		filterFn: <T extends Token>(t: T) => t.name.startsWith('font.body'),
+		filterFn: <T extends Token>(t: T) =>
+			t.name.startsWith('font.body') ||
+			t.name.startsWith('font.heading') ||
+			t.name.startsWith('font.code'),
 	},
 	{
 		objectName: 'fontWeight',
@@ -35,29 +38,6 @@ const typographyProperties = [
 		filterFn: <T extends Token>(t: T) => t.name.startsWith('font.family'),
 	},
 ] as const;
-
-const bodySizeMap = {
-	'body.small': 'small',
-	'body.UNSAFE_small': 'UNSAFE_small',
-	body: 'medium',
-	'body.large': 'large',
-};
-
-const removeVerbosity = (name: string): string => {
-	const partialRemove = ['font.body'];
-	if (partialRemove.some((s) => name.includes(s))) {
-		// @ts-expect-error Indexing bodySizeMap
-		return bodySizeMap[name.replace('font.', '')];
-	}
-
-	const fullRemove = ['font.weight'];
-	const removeIndex = fullRemove.findIndex((s) => name.includes(s));
-	if (removeIndex > -1) {
-		return name.replace(`${fullRemove[removeIndex]}.`, '');
-	}
-
-	return name;
-};
 
 export const createTypographyStylesFromTemplate = () => {
 	return typographyProperties
@@ -74,7 +54,7 @@ ${activeTokens
 	.sort((a, b) => (a.name < b.name ? -1 : 1))
 	.map((token) => {
 		return `
-      '${removeVerbosity(token.name)}': ${constructTokenFunctionCall(token.name, token.fallback)}
+      '${token.name}': ${constructTokenFunctionCall(token.name, token.fallback)}
     `.trim();
 	})
 	.join(',\n\t')}

@@ -35,10 +35,6 @@
 	},
 	"atlassian": {
 		"team": "Self-Help Experiences",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Help"
 		}

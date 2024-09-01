@@ -9,7 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Media Experience",
-		"releaseModel": "continuous",
 		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

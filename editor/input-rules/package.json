@@ -24,8 +24,7 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Editor: Lego",
-		"singleton": true,
-		"releaseModel": "continuous"
+		"singleton": true
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "5.0.1",

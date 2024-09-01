@@ -42,8 +42,6 @@
 	},
 	"atlassian": {
 		"team": "Editor: Core Experiences",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Editor Core"
 		},

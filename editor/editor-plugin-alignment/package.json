@@ -16,7 +16,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Editor: AI",
-		"releaseModel": "continuous",
 		"singleton": true,
 		"runReact18": false
 	},

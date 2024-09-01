@@ -29,8 +29,7 @@
 	},
 	"atlassian": {
 		"team": "Media Experience",
-		"singleton": true,
-		"releaseModel": "continuous"
+		"singleton": true
 	},
 	"dependencies": {
 		"@atlaskit/media-common": "^11.4.0",

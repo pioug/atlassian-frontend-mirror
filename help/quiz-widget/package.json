@@ -15,7 +15,6 @@
 	},
 	"atlassian": {
 		"team": "Jira Training App",
-		"releaseModel": "continuous",
 		"website": {
 			"name": "QuizWidget"
 		}

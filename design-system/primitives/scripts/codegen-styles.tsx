@@ -10,6 +10,7 @@ import { createElevationStylesFromTemplate } from './elevation-codegen-template'
 import { createInverseColorMapTemplate } from './inverse-color-map-template';
 import { createStylesFromFileTemplate } from './misc-codegen-template';
 import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
+import { createTextStylesFromTemplate } from './text-codegen-template';
 import { createTypographyStylesFromTemplate } from './typography-codegen-template';
 
 const colorTokensDependencyPath = require.resolve(
@@ -115,6 +116,17 @@ const sourceFns = [
 			'yarn workspace @atlaskit/primitives codegen-styles',
 			{
 				id: 'typography',
+				absoluteFilePath: targetPath,
+				dependencies: templateFiles,
+			},
+		),
+	// font and weight map for text primitive
+	() =>
+		createPartialSignedArtifact(
+			createTextStylesFromTemplate,
+			'yarn workspace @atlaskit/primitives codegen-styles',
+			{
+				id: 'text',
 				absoluteFilePath: targetPath,
 				dependencies: templateFiles,
 			},

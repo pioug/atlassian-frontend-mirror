@@ -24,7 +24,6 @@
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Ecosystem - Discover",
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Rating"
 		}

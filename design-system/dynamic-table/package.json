@@ -35,10 +35,6 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Dynamic table",
 			"category": "Components"

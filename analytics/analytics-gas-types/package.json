@@ -28,8 +28,7 @@
 		".": "./src/index.ts"
 	},
 	"atlassian": {
-		"team": "UIP Frontend Observability",
-		"releaseModel": "continuous"
+		"team": "UIP Frontend Observability"
 	},
 	"config": {
 		"access": "public"

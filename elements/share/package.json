@@ -23,10 +23,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "People and Teams Collective",
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Share"
 		}
@@ -51,7 +47,7 @@
 		"@atlaskit/popper": "^6.2.0",
 		"@atlaskit/popup": "^1.23.0",
 		"@atlaskit/portal": "^4.9.0",
-		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/smart-user-picker": "^6.10.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/tabs": "^16.4.0",

@@ -24,6 +24,9 @@ describe('xcss()', () => {
 			zIndex: 'blanket',
 			color: 'color.text',
 			boxShadow: 'elevation.shadow.overflow',
+			font: 'font.body.small',
+			fontWeight: 'font.weight.bold',
+			fontFamily: 'font.family.code',
 		});
 
 		expect(styles).toMatchInlineSnapshot(`
@@ -31,6 +34,9 @@ describe('xcss()', () => {
 		  Symbol(UNSAFE_INTERNAL_styles): {
 		    "boxShadow": "var(--ds-shadow-overflow, 0px 0px 8px #091e423f, 0px 0px 1px #091e424f)",
 		    "color": "var(--ds-text, #172B4D)",
+		    "font": "var(--ds-font-body-small, normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif)",
+		    "fontFamily": "var(--ds-font-family-code, ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace)",
+		    "fontWeight": "var(--ds-font-weight-bold, 700)",
 		    "insetBlock": "var(--ds-space-negative-150, -12px)",
 		    "margin": "var(--ds-space-negative-200, -16px)",
 		    "padding": "var(--ds-space-100, 8px)",

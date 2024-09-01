@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "People and Teams Collective",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "TeamsAvatar",
 			"category": "Components"

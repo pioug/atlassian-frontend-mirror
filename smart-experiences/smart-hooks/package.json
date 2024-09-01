@@ -22,9 +22,7 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Search Platform: Search Experience",
-		"inPublicMirror": false,
-		"releaseModel": "continuous"
+		"team": "Search Platform: Search Experience"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "^5.1.0",

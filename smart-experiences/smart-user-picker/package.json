@@ -32,12 +32,7 @@
 		"./option": "./src/option.ts"
 	},
 	"atlassian": {
-		"team": "Search Platform: Search Experience",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		]
+		"team": "Search Platform: Search Experience"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",

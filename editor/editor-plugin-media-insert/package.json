@@ -10,7 +10,6 @@
 	"atlassian": {
 		"team": "Editor: Core Experiences",
 		"singleton": true,
-		"releaseModel": "continuous",
 		"runReact18": true
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
@@ -38,7 +37,7 @@
 		"@atlaskit/media-client": "^27.6.0",
 		"@atlaskit/media-client-react": "^2.2.0",
 		"@atlaskit/media-picker": "^66.4.0",
-		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/tabs": "^16.4.0",
 		"@atlaskit/textfield": "^6.5.0",

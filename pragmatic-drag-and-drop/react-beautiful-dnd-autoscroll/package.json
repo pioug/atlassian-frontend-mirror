@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
 		"runReact18": true,
 		"website": {
 			"name": "react-beautiful-dnd autoscroll",

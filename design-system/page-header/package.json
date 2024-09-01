@@ -16,10 +16,6 @@
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
-		"productPushConsumption": [
-			"jira"
-		],
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Page header",
 			"category": "Components"
@@ -27,7 +23,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/tokens": "^1.59.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

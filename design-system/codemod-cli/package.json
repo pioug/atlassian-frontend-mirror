@@ -40,8 +40,7 @@
 		"./utils": "./src/utils.ts"
 	},
 	"atlassian": {
-		"team": "Design System Team",
-		"releaseModel": "continuous"
+		"team": "Design System Team"
 	},
 	"scripts": {
 		"prestart": "cd ../../ && yarn build @atlaskit/codemod-utils tokens",

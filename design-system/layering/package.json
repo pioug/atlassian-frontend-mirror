@@ -7,9 +7,7 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"inPublicMirror": false,
-		"runReact18": true,
-		"releaseModel": "continuous"
+		"runReact18": true
 	},
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

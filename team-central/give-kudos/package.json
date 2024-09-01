@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Team Central",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Give Kudos"
 		},

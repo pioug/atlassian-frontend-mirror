@@ -34,7 +34,6 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
-		"releaseModel": "continuous",
 		"team": "UIP Dev Infra"
 	},
 	"config": {

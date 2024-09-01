@@ -27,12 +27,7 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "UIP Dev Infra",
-		"singleton": true,
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		]
+		"singleton": true
 	},
 	"files": [
 		"dist",

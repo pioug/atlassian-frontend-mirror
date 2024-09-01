@@ -17,10 +17,6 @@
 	"atlaskit:designLink": "https://atlassian.design/guidelines/product/patterns/forms",
 	"atlassian": {
 		"team": "Design System Team",
-		"productPushConsumption": [
-			"jira"
-		],
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Form",
 			"category": "Components"
@@ -30,7 +26,7 @@
 	"dependencies": {
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/icon": "^22.15.0",
-		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.59.0",
 		"@babel/runtime": "^7.0.0",

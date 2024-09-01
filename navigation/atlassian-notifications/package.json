@@ -23,8 +23,7 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Work Platform: Incoming Work",
-		"releaseModel": "continuous"
+		"team": "Work Platform: Incoming Work"
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",

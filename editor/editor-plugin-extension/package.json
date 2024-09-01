@@ -10,7 +10,6 @@
 	"atlassian": {
 		"team": "Editor: Core Experiences",
 		"singleton": true,
-		"releaseModel": "continuous",
 		"runReact18": false
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -49,7 +48,7 @@
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/select": "^17.15.0",

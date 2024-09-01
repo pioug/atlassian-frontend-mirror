@@ -32,8 +32,6 @@
 	"atlassian": {
 		"team": "Media Experience",
 		"singleton": true,
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
 		"website": {
 			"name": "Media Core"
 		},

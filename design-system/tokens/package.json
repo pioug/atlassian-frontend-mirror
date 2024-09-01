@@ -18,10 +18,6 @@
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
-		"productPushConsumption": [
-			"jira"
-		],
-		"releaseModel": "continuous",
 		"runReact18": true,
 		"website": {
 			"name": "Design tokens",

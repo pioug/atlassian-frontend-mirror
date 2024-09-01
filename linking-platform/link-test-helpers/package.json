@@ -9,8 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Linking Platform",
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
 		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

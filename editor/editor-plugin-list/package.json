@@ -9,7 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Editor: AI",
-		"releaseModel": "continuous",
 		"singleton": true,
 		"runReact18": false
 	},

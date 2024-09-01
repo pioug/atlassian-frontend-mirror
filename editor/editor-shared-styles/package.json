@@ -23,9 +23,7 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Editor: Lego",
-		"inPublicMirror": true,
-		"releaseModel": "continuous"
+		"team": "Editor: Lego"
 	},
 	"platform-feature-flags": {
 		"platform.confluence.frontend.narrow-full-page-editor-toolbar": {

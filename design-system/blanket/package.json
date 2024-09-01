@@ -25,11 +25,7 @@
 	"homepage": "https://atlassian.design/components/blanket",
 	"atlassian": {
 		"team": "Design System Team",
-		"releaseModel": "continuous",
 		"runReact18": true,
-		"productPushConsumption": [
-			"jira"
-		],
 		"website": {
 			"name": "Blanket",
 			"category": "Components"

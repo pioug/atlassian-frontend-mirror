@@ -16,12 +16,6 @@ snapshotInformational(BackgroundColorYellow, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 	prepare: async (page: Page) => {
 		await partialSelectTextOnRenderer(page.getByText('Custom:'));

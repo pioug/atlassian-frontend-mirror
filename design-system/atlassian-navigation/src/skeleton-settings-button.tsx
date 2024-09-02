@@ -1,6 +1,8 @@
 import React from 'react';
 
+import Nav4SettingsIcon from '@atlaskit/icon/core/settings';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
+import { token } from '@atlaskit/tokens';
 
 import { SkeletonIconButton } from './components/SkeletonIconButton';
 
@@ -25,5 +27,16 @@ export type SkeletonSettingsButtonProps = {
 export const SkeletonSettingsButton = ({ label = '' }: SkeletonSettingsButtonProps) => (
 	<SkeletonIconButton>
 		<SettingsIcon label={label} />
+	</SkeletonIconButton>
+);
+
+/**
+ * __Nav 4 skeleton settings button__
+ *
+ * A nav 4 skeleton settings button
+ */
+export const Nav4SkeletonSettingsButton = ({ label = '' }: SkeletonSettingsButtonProps) => (
+	<SkeletonIconButton>
+		<Nav4SettingsIcon label={label} color={token('color.icon')} />
 	</SkeletonIconButton>
 );

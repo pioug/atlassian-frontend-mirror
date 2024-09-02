@@ -19,7 +19,7 @@ import type { RendererContextProps } from '../../../renderer-context';
 const MAX_SCALING_PERCENT = 0.3;
 const MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION = 0.4;
 
-const isTableResized = (columnWidths: Array<number>) => {
+const isTableColumnResized = (columnWidths: Array<number>) => {
 	const filteredWidths = columnWidths.filter((width) => width !== 0);
 	return !!filteredWidths.length;
 };
@@ -78,13 +78,12 @@ const renderScaleDownColgroup = (
 		isTableFixedColumnWidthsOptionEnabled,
 		allowTableResizing,
 	} = props;
-
 	if (!columnWidths) {
 		return [];
 	}
 
-	// isTableResized checks if table columns were resized
-	const tableResized = isTableResized(columnWidths);
+	// isTableColumnResized checks if table columns were resized
+	const tableColumnResized = isTableColumnResized(columnWidths);
 	const noOfColumns = columnWidths.length;
 	let targetWidths;
 
@@ -100,10 +99,9 @@ const renderScaleDownColgroup = (
 		allowTableResizing &&
 		!isInsideOfBlockNode &&
 		!isinsideMultiBodiedExtension &&
-		!tableResized
+		!tableColumnResized
 	) {
-		// for tables with no column widths defined, assume that the real table width
-		// is defined by node.attrs.width
+		// when no columns are resized, each column should have equal width, equals to tableWidth / noOfColumns
 		const tableWidth =
 			(isNumberColumnEnabled
 				? tableContainerWidth - akEditorTableNumberColumnWidth
@@ -111,7 +109,7 @@ const renderScaleDownColgroup = (
 
 		const defaultColumnWidth = tableWidth / noOfColumns;
 		targetWidths = new Array(noOfColumns).fill(defaultColumnWidth);
-	} else if (!tableResized) {
+	} else if (!tableColumnResized) {
 		return null;
 	}
 
@@ -121,7 +119,9 @@ const renderScaleDownColgroup = (
 	// this causes issues with num column scaling as we add a new table column in renderer
 	const isTableSmallerThanContainer = sumOfColumns < tableContainerWidth - 1;
 
-	const forceScaleForNumColumn = isTableScalingEnabled && isNumberColumnEnabled && tableResized;
+	const forceScaleForNumColumn =
+		isTableScalingEnabled && isNumberColumnEnabled && tableColumnResized;
+
 	// when table resized and number column is enabled, we need to scale down the table in render
 	if (forceScaleForNumColumn) {
 		const scalePercentage = +(
@@ -198,10 +198,12 @@ const renderScaleDownColgroup = (
 	}
 	// scaling down
 	else if (renderWidth < tableWidth && !isTableWidthFixed) {
+		const shouldTable100ScaleDown =
+			rendererAppearance === 'comment' && allowTableResizing && !tableNode?.attrs.width;
 		scaleDownPercent = calcScalePercent({
 			renderWidth,
 			tableWidth,
-			maxScale: maxScalingPercent,
+			maxScale: shouldTable100ScaleDown ? 1 : maxScalingPercent,
 		});
 	}
 
@@ -214,7 +216,6 @@ const renderScaleDownColgroup = (
 				zeroWidthColumnsCount,
 				scaleDownPercent,
 			) || cellMinWidth;
-
 		const style = width ? { width: `${width}px` } : {};
 		return style;
 	});

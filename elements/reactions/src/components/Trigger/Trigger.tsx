@@ -10,6 +10,7 @@ import { Pressable, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
 import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * Test id for the tooltip
@@ -57,6 +58,10 @@ const triggerStyles = xcss({
 	justifyContent: 'center',
 	alignItems: 'center',
 	lineHeight: '16px',
+});
+
+const triggerStylesRefresh = xcss({
+	borderRadius: 'border.radius',
 });
 
 const transparentEnabledTriggerStyles = xcss({
@@ -129,6 +134,7 @@ export const Trigger = React.forwardRef(
 								? opaqueEnabledTriggerStyles
 								: transparentEnabledTriggerStyles,
 						miniMode && miniModeStyles,
+						fg('platform-component-visual-refresh') && triggerStylesRefresh,
 					]}
 					onClick={handleMouseDown}
 					isDisabled={disabled}

@@ -379,6 +379,42 @@ describe('@atlaskit/editor-core', () => {
 			).toBeInTheDocument();
 		});
 
+		it('should set and update aria-describedby of editor ProseMirror div with passed assistiveDescribedBy prop. ', () => {
+			const associatedId = 'test-id';
+			const dummyContent = 'This is a test span';
+			const { rerender } = renderWithIntl(
+				<>
+					<ReactEditorView
+						{...requiredProps()}
+						{...analyticsProps()}
+						editorProps={{
+							assistiveDescribedBy: associatedId,
+						}}
+					/>
+					<span id={associatedId}>{dummyContent}</span>
+				</>,
+			);
+
+			expect(screen.getByRole('textbox', { description: dummyContent })).toBeInTheDocument();
+
+			const newAssociatedId = 'new-test-id';
+			const newDummyContent = 'This is a new test span';
+			rerender(
+				<>
+					<ReactEditorView
+						{...requiredProps()}
+						{...analyticsProps()}
+						editorProps={{
+							assistiveDescribedBy: newAssociatedId,
+						}}
+					/>
+					<span id={newAssociatedId}>{newDummyContent}</span>
+				</>,
+			);
+
+			expect(screen.getByRole('textbox', { description: newDummyContent })).toBeInTheDocument();
+		});
+
 		describe('when a transaction is dispatched', () => {
 			it('should not trigger a re-render', () => {
 				const wrapper = mountWithIntl(<ReactEditorView {...requiredProps()} />);

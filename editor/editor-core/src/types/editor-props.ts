@@ -279,6 +279,9 @@ export interface EditorProps
 		 */
 		__plugins: EditorPlugin[];
 	};
+	// Editor assitive describedby. Set aria-describedby to make the editor announcement to include the information
+	// the associated component's content
+	assistiveDescribedBy?: string;
 }
 
 export interface EditorNextProps
@@ -333,6 +336,9 @@ export interface EditorNextProps
 	 * ```
 	 */
 	media?: MediaOptions;
+	// Editor assitive describedby. Set aria-describedby to make the editor announcement to include the information
+	// the associated component's content
+	assistiveDescribedBy?: string;
 }
 
 export interface EditorProviderProps {

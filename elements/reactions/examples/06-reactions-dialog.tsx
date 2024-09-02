@@ -3,7 +3,6 @@ import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { ConnectedReactionsView, type StorePropInput } from '../src';
 import { MockReactionsClient } from '../src/MockReactionsClient';
-
 import { ExampleWrapper, Example, Constants as ExampleConstants } from './utils';
 
 export default () => {

@@ -37,7 +37,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/eslint-plugin-platform": "0.7.3",
-		"@atlaskit/link-client-extension": "^2.2.0",
+		"@atlaskit/link-client-extension": "^2.3.0",
 		"@atlaskit/link-extractors": "^1.9.0",
 		"@atlaskit/linking-common": "^5.11.0",
 		"@babel/runtime": "^7.0.0",

@@ -1,207 +1,129 @@
-import React, { Component } from 'react';
+import React, { type FC, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives';
 
-import { ProgressTracker, type Stage, type Stages } from '../src';
+import { ProgressTracker, type Stages } from '../src';
 
-const items: Stages = [
-	{
-		id: '1',
-		label: 'Step 1',
+const items: Stages = [...Array(6)].map((_num, index) => {
+	return {
+		id: `${index + 1}`,
+		label: `Step ${index + 1}`,
 		percentageComplete: 0,
-		status: 'current',
+		status: index === 0 ? 'current' : 'unvisited',
 		href: '#',
-	},
-	{
-		id: '2',
-		label: 'Step 2',
-		percentageComplete: 0,
-		status: 'unvisited',
-		href: '#',
-	},
-	{
-		id: '3',
-		label: 'Step 3',
-		percentageComplete: 0,
-		status: 'unvisited',
-		href: '#',
-	},
-	{
-		id: '4',
-		label: 'Step 4',
-		percentageComplete: 0,
-		status: 'unvisited',
-		href: '#',
-	},
-	{
-		id: '5',
-		label: 'Step 5',
-		percentageComplete: 0,
-		status: 'unvisited',
-		href: '#',
-	},
-	{
-		id: '6',
-		label: 'Step 6',
-		percentageComplete: 0,
-		status: 'unvisited',
-		href: '#',
-	},
-];
+	};
+});
 
-const completedStages: Stages = [
-	{
-		id: '1',
-		label: 'Step 1',
-		percentageComplete: 100,
-		status: 'visited',
+const completedStages: Stages = [...Array(6)].map((_num, index, arr) => {
+	return {
+		id: `${index + 1}`,
+		label: `Step ${index + 1}`,
+		percentageComplete: index === arr.length - 1 ? 0 : 100,
+		status: index === arr.length - 1 ? 'current' : 'visited',
 		href: '#',
-	},
-	{
-		id: '2',
-		label: 'Step 2',
-		percentageComplete: 100,
-		status: 'visited',
-		href: '#',
-	},
-	{
-		id: '3',
-		label: 'Step 3',
-		percentageComplete: 100,
-		status: 'visited',
-		href: '#',
-	},
-	{
-		id: '4',
-		label: 'Step 4',
-		percentageComplete: 100,
-		status: 'visited',
-		href: '#',
-	},
-	{
-		id: '5',
-		label: 'Step 5',
-		percentageComplete: 100,
-		status: 'visited',
-		href: '#',
-	},
-	{
-		id: '6',
-		label: 'Step 6',
-		percentageComplete: 0,
-		status: 'current',
-		href: '#',
-	},
-];
+	};
+});
 
 interface State {
 	current: number;
 	items: Stages;
 }
 
-class ProgressExample extends Component<{}, State> {
-	constructor(props: any) {
-		super(props);
-		this.state = {
-			current: 1,
-			items,
-		};
-	}
+const ProgressExample: FC = () => {
+	const [state, setState] = useState<State>({
+		current: 1,
+		items,
+	});
 
-	next() {
-		const currentId = this.state.current;
-		const completed: Stage = {
-			id: `${currentId}`,
-			label: `Step ${currentId}`,
-			percentageComplete: 100,
-			status: 'visited',
-			href: '#',
-		};
+	const next = () => {
+		const currentId = state.current;
 		const nextId = currentId + 1;
-		const next: Stage = {
-			id: `${nextId}`,
-			label: `Step ${nextId}`,
-			percentageComplete: 0,
-			status: 'current',
-			href: '#',
-		};
 
-		const newstages = this.state.items.map((x) => {
-			if (x.id === `${currentId}`) {
-				return completed;
+		const newStages: Stages = state.items.map((currentItem) => {
+			const currentItemId = parseInt(currentItem.id, 10);
+			if (currentItemId === currentId) {
+				return {
+					...currentItem,
+					percentageComplete: 100,
+					status: 'visited',
+				};
+			} else if (currentItemId === nextId) {
+				return {
+					...currentItem,
+					percentageComplete: 0,
+					status: 'current',
+				};
+			} else {
+				return currentItem;
 			}
-			if (x.id === `${nextId}`) {
-				return next;
-			}
-			return x;
 		});
 
-		this.setState({
+		setState({
 			current: nextId,
-			items: newstages,
+			items: newStages,
 		});
-	}
+	};
 
-	prev() {
-		const currentId = this.state.current;
-		const completed: Stage = {
-			id: `${currentId}`,
-			label: `Step ${currentId}`,
-			percentageComplete: 0,
-			status: 'unvisited',
-			href: '#',
-		};
-		const prevId = currentId - 1;
-		const prev: Stage = {
-			id: `${prevId}`,
-			label: `Step ${prevId}`,
-			percentageComplete: 0,
-			status: 'current',
-			href: '#',
-		};
+	const prev = () => {
+		const currentId = state.current;
+		const previousId = currentId - 1;
 
-		const newstages = this.state.items.map((x) => {
-			if (x.id === `${currentId}`) {
-				return completed;
+		const newStages: Stages = state.items.map((currentItem) => {
+			const currentItemId = parseInt(currentItem.id, 10);
+			if (currentItemId === currentId) {
+				return {
+					...currentItem,
+					percentageComplete: 0,
+					status: 'unvisited',
+				};
+			} else if (currentItemId === currentId - 1) {
+				return {
+					...currentItem,
+					percentageComplete: 0,
+					status: 'current',
+				};
+			} else {
+				return currentItem;
 			}
-			if (x.id === `${prevId}`) {
-				return prev;
-			}
-			return x;
 		});
 
-		this.setState({
-			current: prevId,
-			items: newstages,
+		setState({
+			current: previousId,
+			items: newStages,
 		});
-	}
+	};
 
-	reset() {
-		this.setState({
+	const reset = () => {
+		setState({
 			current: 1,
 			items,
 		});
-	}
+	};
 
-	completeAll() {
-		this.setState({
+	const completeAll = () => {
+		setState({
 			current: 6,
 			items: completedStages,
 		});
-	}
+	};
 
-	render() {
-		return (
-			<Box>
-				<ProgressTracker items={this.state.items} />
-				<Button onClick={() => this.next()}>Next</Button>
-				<Button onClick={() => this.prev()}>Prev</Button>
-				<Button onClick={() => this.reset()}>Reset</Button>
-				<Button onClick={() => this.completeAll()}>completeAll</Button>
-			</Box>
-		);
-	}
-}
+	return (
+		<Box>
+			<ProgressTracker items={state.items} />
+			<Button
+				onClick={() => next()}
+				isDisabled={state.current === state.items.length ? true : false}
+			>
+				Next
+			</Button>
+			<Button onClick={() => prev()} isDisabled={state.current === 0 ? true : false}>
+				Prev
+			</Button>
+			<Button onClick={() => reset()}>Reset</Button>
+			<Button onClick={() => completeAll()}>completeAll</Button>
+		</Box>
+	);
+};
 
 export default () => <ProgressExample />;

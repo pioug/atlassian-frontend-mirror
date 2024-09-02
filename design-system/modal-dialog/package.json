@@ -56,7 +56,7 @@
 		"@atlaskit/button": "*",
 		"@atlaskit/checkbox": "^13.7.0",
 		"@atlaskit/dropdown-menu": "^12.18.0",
-		"@atlaskit/popup": "^1.23.0",
+		"@atlaskit/popup": "^1.24.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/select": "^17.15.0",
 		"@atlaskit/ssr": "*",

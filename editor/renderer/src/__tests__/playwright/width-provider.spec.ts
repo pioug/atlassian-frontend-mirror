@@ -1,4 +1,4 @@
-import { tableADF } from './width-provider.spec.ts-fixtures';
+import { tableADF, tableWithCustomWidthADF } from './width-provider.spec.ts-fixtures';
 import { rendererTestCase as test, expect } from './not-libra';
 
 test.describe('width-provider when table resizing is disabled', () => {
@@ -8,9 +8,6 @@ test.describe('width-provider when table resizing is disabled', () => {
 			appearance: 'comment',
 		},
 		viewport: { width: 960, height: 600 },
-		platformFeatureFlags: {
-			platform_editor_table_support_in_comment: false,
-		},
 	});
 
 	test('should resize table on page width change', async ({ renderer }) => {
@@ -35,23 +32,14 @@ test.describe('width-provider when table resizing is disabled', () => {
 	});
 });
 
-/*
-
-Feature gate is always 'false' in Playwright test at the moment, so these test fail.
-If feature gate removed, the tests work as expected.
-
-import { tableWithCustomWidthADF } from './width-provider.spec.ts-fixtures';
-
 test.describe('width-provider when table resizing is enabled', () => {
 	test.use({
 		adf: tableADF,
 		rendererProps: {
 			appearance: 'comment',
+			UNSTABLE_allowTableResizing: true,
 		},
 		viewport: { width: 960, height: 600 },
-		platformFeatureFlags: {
-			platform_editor_table_support_in_comment: true,
-		},
 	});
 
 	test.describe('table without width', () => {
@@ -82,28 +70,30 @@ test.describe('width-provider when table resizing is enabled', () => {
 			adf: tableWithCustomWidthADF,
 			rendererProps: {
 				appearance: 'comment',
-				// featureFlags: {
-				// 	platform_editor_table_support_in_comment: true,
-				// },
+				UNSTABLE_allowTableResizing: true,
 			},
 			viewport: { width: 960, height: 600 },
 		});
 
-		test.only('should not be resized on page width change', async ({ renderer }) => {
+		test('should not be resized on page width change', async ({ renderer }) => {
 			const table = renderer.page.getByRole('table');
 			const ADFTableWidth = 880;
+			const newViwportWidth = 600;
 
-			await renderer.page.pause();
 			const beforeWidth = (await table.boundingBox())?.width;
 			expect(beforeWidth).toBe(ADFTableWidth);
-			await renderer.page.setViewportSize({ width: 600, height: 600 });
+			await renderer.page.setViewportSize({ width: newViwportWidth, height: 600 });
 
-			// Comment Renderer doesn't support Preserve Table Widths yet
-			// Historically (before PTW), renderer has always scaled the table by up to 30%
-			// when the viewport is smaller than the table's width.
+			// NOTE: this tests uses 30% as MAX_SCALING_PERCENT because our Renderer Playwright tests
+			// do not support feature flags yet. When tablePreserveWidth is enabled,
+			// Comment Renderer should use 40% scaling.
+
+			// tableWidthDiff = (ADFTableWidth - newViwportWidth) / ADFTableWidth =
+			// 				  = (880 - 600) / 880 = 0.318;
+			// Scale table by = tableWidthDiff > MAX_SCALING_PERCENT ? MAX_SCALING_PERCENT : tableWidthDiff;
+			// New table width will be using max scaling percent (30%). So new target width is equal:
 			const targetWidth = 0.7 * ADFTableWidth;
 
-			await renderer.page.pause();
 			await renderer.page.waitForFunction(
 				(targetWidth) => {
 					const tableWidth = document.querySelector('table')?.getBoundingClientRect()?.width;
@@ -114,8 +104,7 @@ test.describe('width-provider when table resizing is enabled', () => {
 			);
 
 			const afterWidth = (await table.boundingBox())?.width;
-			expect(afterWidth).toBeCloseTo(ADFTableWidth, 0);
+			expect(afterWidth).toBeCloseTo(targetWidth, 0);
 		});
 	});
 });
-*/

@@ -1,8 +1,11 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { BreakoutCssClassName, expandClassNames } from '@atlaskit/editor-common/styles';
-import { sharedExpandStyles } from '@atlaskit/editor-common/ui';
+import {
+	BreakoutCssClassName,
+	expandClassNames,
+	sharedExpandStyles,
+} from '@atlaskit/editor-common/styles';
 import {
 	akEditorSelectedNodeClassName,
 	akLayoutGutterOffset,

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.3.10
+
+### Patch Changes
+
+- [`cbe3b04ebb0b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cbe3b04ebb0b6) -
+  ED-24730 - Address bug where word wrap decorator broke on drag and drop. Required some refactoring
+  of decoration functions for code block. Moved all of them to decorators.ts and added unit tests.
+
 ## 3.3.9
 
 ### Patch Changes

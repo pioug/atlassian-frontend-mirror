@@ -1,5 +1,17 @@
 # @atlaskit/reactions
 
+## 22.11.0
+
+### Minor Changes
+
+- [#134822](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134822)
+  [`10fb92b357895`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10fb92b357895) -
+  [ux] Jira Visual Refresh changes for reactions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.10.16
 
 ### Patch Changes

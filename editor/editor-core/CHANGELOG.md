@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 197.2.0
+
+### Minor Changes
+
+- [#135954](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135954)
+  [`62ec64be9ed01`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62ec64be9ed01) -
+  Exposing a table's plugin configuration option for table alignment feature.
+
+### Patch Changes
+
+- [#136078](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136078)
+  [`09414d7233497`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09414d7233497) -
+  ED-24507 Switch nested dnd FG to experiment and include padding changes"
+- [#134667](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134667)
+  [`2c9b19e28b320`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c9b19e28b320) -
+  Add assistiveDescribedBy prop for aria-describedby to address a11y issues
+- [#135936](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135936)
+  [`f5825c21dab81`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5825c21dab81) -
+  Properly check should component update correctly in ToolbarInner
+- [#135954](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135954)
+  [`62ec64be9ed01`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62ec64be9ed01) -
+  Table alignment feature flag cleanup
+
+## 197.1.4
+
+### Patch Changes
+
+- [`ed9e420d175b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed9e420d175b8) -
+  New entry-point for intl-error-boundary component on editor-common. Further sharedExpandStyles is
+  now available on editor-common/styles entry-point. These are to remove `editor-common/ui`
+  entry-point from the critical path in editor-core.
+- Updated dependencies
+
 ## 197.1.3
 
 ### Patch Changes

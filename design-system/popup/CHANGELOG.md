@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 1.24.0
+
+### Minor Changes
+
+- [#124840](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124840)
+  [`2e4f70b9a71fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e4f70b9a71fa) -
+  Fix to set ref for trigger in React 18 Strict mode behind feature flag
+
 ## 1.23.2
 
 ### Patch Changes

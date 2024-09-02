@@ -1,5 +1,13 @@
 # @atlaskit/media-filmstrip
 
+## 47.2.3
+
+### Patch Changes
+
+- [#135990](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135990)
+  [`b7371dbfd64e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b7371dbfd64e0) -
+  remove unused styles
+
 ## 47.2.2
 
 ### Patch Changes

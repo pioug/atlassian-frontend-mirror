@@ -28,7 +28,10 @@ export default function useUniversalPreset({ props, initialPluginConfiguration }
 		if (!recreate) {
 			return;
 		}
-		setPreset(createUniversalPreset({ props, prevProps: previousEditorProps }));
-	}, [props, previousEditorProps]);
+		// we are not comparing the previous initialPluginConfiguration to the new one assuming that it never changes
+		setPreset(
+			createUniversalPreset({ props, prevProps: previousEditorProps, initialPluginConfiguration }),
+		);
+	}, [props, previousEditorProps, initialPluginConfiguration]);
 	return preset;
 }

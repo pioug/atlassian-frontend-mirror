@@ -10,6 +10,7 @@ import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
@@ -64,6 +65,13 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 	const [hasJquery, setHasJquery] = useState(false);
 	const [isExpanded, setIsExpanded] = useState(false);
 
+	const initialPluginConfiguration = {
+		tablesPlugin: {
+			tableResizingEnabled: fg('platform_editor_table_support_in_comment'),
+			isTableAlignmentEnabled: fg('platform_editor_table_support_in_comment'),
+		},
+	};
+
 	const universalPreset = useUniversalPreset({
 		props: {
 			appearance: 'comment',
@@ -80,6 +88,7 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 			allowExtension: true,
 			...editorProps,
 		},
+		initialPluginConfiguration,
 	});
 	const { preset } = usePreset(() => universalPreset.add(highlightPlugin), [universalPreset]);
 

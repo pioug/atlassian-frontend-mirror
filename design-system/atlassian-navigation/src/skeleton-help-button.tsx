@@ -1,6 +1,8 @@
 import React from 'react';
 
+import Nav4QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
+import { token } from '@atlaskit/tokens';
 
 import { SkeletonIconButton } from './components/SkeletonIconButton';
 import { useTheme } from './theme';
@@ -34,3 +36,14 @@ export const SkeletonHelpButton = ({ label = '' }: SkeletonHelpButtonProps) => {
 		</SkeletonIconButton>
 	);
 };
+
+/**
+ * __Nav 4 skeleton help button__
+ *
+ * A nav 4 skeleton help button {description}.
+ */
+export const Nav4SkeletonHelpButton = ({ label = '' }: SkeletonHelpButtonProps) => (
+	<SkeletonIconButton>
+		<Nav4QuestionCircleIcon label={label} color={token('color.icon')} />
+	</SkeletonIconButton>
+);

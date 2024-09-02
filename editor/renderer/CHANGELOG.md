@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 109.51.2
+
+### Patch Changes
+
+- [#136078](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136078)
+  [`09414d7233497`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09414d7233497) -
+  ED-24507 Switch nested dnd FG to experiment and include padding changes"
+- [#135911](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135911)
+  [`554309ca8fbe5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/554309ca8fbe5) -
+  ED-24371: Support new 100% scaling and 40%PTW scaling in Comment Renderer
+- [#135954](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135954)
+  [`62ec64be9ed01`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62ec64be9ed01) -
+  Table alignment feature flag cleanup
+
 ## 109.51.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 9.37.5
+
+### Patch Changes
+
+- [#136085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136085)
+  [`88f45948976f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88f45948976f6) -
+  Bump version of socket.io-client used to patch vulnerability in ws library
+
 ## 9.37.4
 
 ### Patch Changes

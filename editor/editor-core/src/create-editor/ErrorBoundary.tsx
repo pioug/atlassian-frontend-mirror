@@ -11,10 +11,10 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
+import { IntlErrorBoundary } from '@atlaskit/editor-common/intl-error-boundary';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { ExperienceStore } from '@atlaskit/editor-common/ufo';
-import { IntlErrorBoundary } from '@atlaskit/editor-common/ui';
 import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
 import { isOutdatedBrowser } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

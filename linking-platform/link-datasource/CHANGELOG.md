@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 2.11.14
+
+### Patch Changes
+
+- [#134332](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134332)
+  [`ba2a672c564ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba2a672c564ec) -
+  Fix displaying cached data after inline edit updates
+- Updated dependencies
+
 ## 2.11.13
 
 ### Patch Changes

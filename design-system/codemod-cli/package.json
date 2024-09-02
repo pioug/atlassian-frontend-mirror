@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/codemod-cli",
-	"version": "0.25.2",
+	"version": "0.26.0",
 	"description": "A cli for distributing codemods for atlassian-frontend components and services",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "88.5.0",
+	"version": "88.6.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -91,6 +91,7 @@
 		"./constants": "./src/link/constants.ts",
 		"./doc-utils": "./src/doc-utils/index.ts",
 		"./expand": "./src/expand/index.ts",
+		"./intl-error-boundary": "./src/ui/IntlErrorBoundary/index.tsx",
 		"./code-block": "./src/code-block/index.ts",
 		"./table": "./src/table/index.ts",
 		"./lazy-node-view": "./src/lazy-node-view/index.ts"
@@ -161,6 +162,7 @@
 		"./doc-utils": "./src/doc-utils/index.ts",
 		"./i18n/*": "./src/i18n/*.ts",
 		"./expand": "./src/expand/index.ts",
+		"./intl-error-boundary": "./src/ui/IntlErrorBoundary/index.tsx",
 		"./table": "./src/table/index.ts",
 		"./lazy-node-view": "./src/lazy-node-view/index.ts"
 	},
@@ -199,7 +201,7 @@
 		"@atlaskit/menu": "^2.12.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.1.0",
-		"@atlaskit/profilecard": "^19.24.0",
+		"@atlaskit/profilecard": "^19.25.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/smart-card": "^27.19.0",
 		"@atlaskit/smart-user-picker": "^6.10.0",
@@ -207,6 +209,7 @@
 		"@atlaskit/task-decision": "^17.10.0",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/theme": "^13.0.0",
+		"@atlaskit/tmp-editor-statsig": "*",
 		"@atlaskit/tokens": "^1.59.0",
 		"@atlaskit/tooltip": "^18.7.0",
 		"@atlaskit/ufo": "^0.3.0",
@@ -331,9 +334,6 @@
 			"type": "boolean"
 		},
 		"platform-fix-table-ssr-resizing": {
-			"type": "boolean"
-		},
-		"platform_editor_element_padding_changes_gate": {
 			"type": "boolean"
 		},
 		"use-effect-in-use-previous-props": {

@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.26.0
+
+### Minor Changes
+
+- [#135958](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135958)
+  [`61059e42a3aa2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61059e42a3aa2) -
+  Added a new preset and codemod for removing dark options from Gemini VR tests.
+
 ## 0.25.2
 
 ### Patch Changes

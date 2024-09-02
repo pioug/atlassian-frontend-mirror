@@ -8,7 +8,9 @@ import { Pressable, type XCSS, xcss } from '@atlaskit/primitives';
 import { jsx } from '@emotion/react';
 import { FlashAnimation } from '../FlashAnimation';
 import { type ReactionProps } from './Reaction';
-import { flashStyle } from './styles';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+import { flashStyle, flashStyleOld } from './styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const reactionStyles = xcss({
 	display: 'flex',
@@ -33,6 +35,10 @@ const reactionStyles = xcss({
 	':active': {
 		backgroundColor: 'color.background.neutral.subtle.pressed',
 	},
+});
+
+const reactionStylesRefresh = xcss({
+	borderRadius: 'border.radius',
 });
 
 interface ReactionButtonProps extends Pick<ReactionProps, 'flash'> {
@@ -67,11 +73,19 @@ export const ReactionButton = ({
 			aria-label={ariaLabel}
 			aria-pressed={ariaPressed}
 			testId={testId}
-			xcss={[reactionStyles, ...additionalStyles]}
+			xcss={[
+				reactionStyles,
+				...additionalStyles,
+				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+				fg('platform-component-visual-refresh') && reactionStylesRefresh,
+			]}
 			{...dataAttributes}
 		>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-			<FlashAnimation flash={flash} css={flashStyle}>
+			<FlashAnimation
+				flash={flash}
+				/* eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */
+				css={fg('platform-component-visual-refresh') ? flashStyle : flashStyleOld}
+			>
 				{children}
 			</FlashAnimation>
 		</Pressable>

@@ -5,9 +5,11 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import Nav4AppSwitcherIcon from '@atlaskit/icon/core/app-switcher';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 import { token } from '@atlaskit/tokens';
 
+import { SkeletonIconButton } from './components/SkeletonIconButton';
 import { useTheme } from './theme';
 
 export type SkeletonSwitcherButtonProps = {
@@ -82,3 +84,14 @@ export const SkeletonSwitcherButton = ({ label = '', testId }: SkeletonSwitcherB
 		</button>
 	);
 };
+
+/**
+ * __Nav 4 skeleton switcher button__
+ *
+ * A nav 4 skeleton switcher button
+ */
+export const Nav4SkeletonSwitcherButton = ({ label = '', testId }: SkeletonSwitcherButtonProps) => (
+	<SkeletonIconButton>
+		<Nav4AppSwitcherIcon label={label} color={token('color.icon')} />
+	</SkeletonIconButton>
+);

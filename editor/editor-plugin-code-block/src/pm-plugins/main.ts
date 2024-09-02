@@ -1,6 +1,5 @@
 import type { IntlShape } from 'react-intl-next';
 
-import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -8,14 +7,9 @@ import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
-	type EditorState,
-	NodeSelection,
-	type ReadonlyTransaction,
-} from '@atlaskit/editor-prosemirror/state';
-import { type ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import {
-	Decoration,
+	type Decoration,
 	DecorationSet,
 	type EditorView,
 	type EditorProps as PMEditorProps,
@@ -30,10 +24,12 @@ import { codeBlockClassNames } from '../ui/class-names';
 import { findCodeBlock } from '../utils';
 
 import { ACTIONS } from './actions';
-import { createLineNumbersDecorations, DECORATION_WIDGET_TYPE } from './decorators';
+import {
+	generateInitialDecorations,
+	updateCodeBlockDecorations,
+	updateDecorationSetWithWordWrappedDecorator,
+} from './decorators';
 import { type CodeBlockState } from './main-state';
-
-const DECORATION_WRAPPED_BLOCK_NODE_TYPE = 'decorationNodeType';
 
 export const createPlugin = ({
 	useLongPressSelection = false,
@@ -50,76 +46,6 @@ export const createPlugin = ({
 	decorations?: DecorationSet;
 }) => {
 	const handleDOMEvents: PMEditorProps['handleDOMEvents'] = {};
-
-	const createLineNumberDecoratorsFromDecendants = (editorState: EditorState) => {
-		let lineNumberDecorators: Decoration[] = [];
-
-		editorState.doc.descendants((node, pos) => {
-			if (node.type === editorState.schema.nodes.codeBlock) {
-				lineNumberDecorators.push(...createLineNumbersDecorations(pos, node));
-				return false;
-			}
-			return true;
-		});
-		return lineNumberDecorators;
-	};
-
-	const createWordWrappedDecoratorPluginState = (
-		pluginState: CodeBlockState,
-		tr: ReadonlyTransaction,
-		node: ContentNodeWithPos | undefined,
-	): DecorationSet => {
-		let decorationSetFromState = pluginState.decorations;
-		if (node) {
-			const { pos, node: innerNode } = node;
-			if (pos !== undefined) {
-				const isNodeWrapped = isCodeBlockWordWrapEnabled(innerNode);
-
-				if (!isNodeWrapped) {
-					// Restricts the range of decorators to the current node while not including the previous nodes position in range
-					const codeBlockNodePosition = pos + 1;
-					const currentWrappedBlockDecorationSet = decorationSetFromState.find(
-						codeBlockNodePosition,
-						codeBlockNodePosition,
-						(spec) => spec.type === DECORATION_WRAPPED_BLOCK_NODE_TYPE,
-					);
-
-					decorationSetFromState = decorationSetFromState.remove(currentWrappedBlockDecorationSet);
-				} else {
-					const wrappedBlock = Decoration.node(
-						pos,
-						pos + innerNode.nodeSize,
-						{
-							class: codeBlockClassNames.contentFgWrapped,
-						},
-						{ type: DECORATION_WRAPPED_BLOCK_NODE_TYPE }, // Allows for quick filtering of decorations while using `find`
-					);
-					decorationSetFromState = decorationSetFromState.add(tr.doc, [wrappedBlock]);
-				}
-			}
-		}
-		return decorationSetFromState;
-	};
-
-	const updateLineDecorationSet = (
-		tr: ReadonlyTransaction,
-		state: EditorState,
-		decorationSet: DecorationSet,
-	): DecorationSet => {
-		// remove all the line number children from the decorations set. 'undefined, undefined' is used to find() the whole doc.
-		const children = decorationSet.find(
-			undefined,
-			undefined,
-			(spec) => spec.type === DECORATION_WIDGET_TYPE,
-		);
-		decorationSet = decorationSet.remove(children);
-
-		// regenerate all the line number for the documents code blocks
-		const lineDecorators = createLineNumberDecoratorsFromDecendants(state);
-
-		// add the newly generated line numbers to the decorations set
-		return decorationSet.add(tr.doc, [...lineDecorators]);
-	};
 
 	// ME-1599: Composition on mobile was causing the DOM observer to mutate the code block
 	// incorrecly and lose content when pressing enter in the middle of a code block line.
@@ -183,8 +109,8 @@ export const createPlugin = ({
 			init(_, state): CodeBlockState {
 				const node = findCodeBlock(state, state.selection);
 
-				const lineNumberDecorators = fg('editor_support_code_block_wrapping')
-					? createLineNumberDecoratorsFromDecendants(state)
+				const initialDecorations: Decoration[] = fg('editor_support_code_block_wrapping')
+					? generateInitialDecorations(state)
 					: [];
 
 				return {
@@ -192,7 +118,7 @@ export const createPlugin = ({
 					contentCopied: false,
 					isNodeSelected: false,
 					shouldIgnoreFollowingMutations: false,
-					decorations: DecorationSet.create(state.doc, lineNumberDecorators),
+					decorations: DecorationSet.create(state.doc, initialDecorations),
 				};
 			},
 			apply(tr, pluginState: CodeBlockState, _oldState, newState): CodeBlockState {
@@ -202,7 +128,11 @@ export const createPlugin = ({
 					const node = findCodeBlock(newState, tr.selection);
 					return {
 						...pluginState,
-						decorations: createWordWrappedDecoratorPluginState(pluginState, tr, node),
+						decorations: updateDecorationSetWithWordWrappedDecorator(
+							pluginState.decorations,
+							tr,
+							node,
+						),
 					};
 				}
 
@@ -210,11 +140,12 @@ export const createPlugin = ({
 					const node = findCodeBlock(newState, tr.selection);
 
 					// Updates mapping position of all existing decorations to new positions
-					// specifically used for updating word wrap node decorators
+					// specifically used for updating word wrap node decorators (does not cover drag & drop, validateWordWrappedDecorators does).
 					let updatedDecorationSet = pluginState.decorations.map(tr.mapping, tr.doc);
 
-					// Wipe and regenerate all line numbers in the document
-					updatedDecorationSet = updateLineDecorationSet(tr, newState, updatedDecorationSet);
+					if (fg('editor_support_code_block_wrapping')) {
+						updatedDecorationSet = updateCodeBlockDecorations(tr, newState, updatedDecorationSet);
+					}
 
 					const newPluginState: CodeBlockState = {
 						...pluginState,

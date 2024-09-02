@@ -1,5 +1,13 @@
 # @atlaskit/link-client-extension
 
+## 2.3.0
+
+### Minor Changes
+
+- [#134332](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134332)
+  [`ba2a672c564ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba2a672c564ec) -
+  Expose new method removeDataCacheWithAri to clear cache conditionally
+
 ## 2.2.0
 
 ### Minor Changes

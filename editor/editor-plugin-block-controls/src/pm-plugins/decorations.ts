@@ -9,7 +9,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin, HandleOptions } from '../types';
@@ -36,7 +35,7 @@ const PARENT_WITH_END_DROP_TARGET = [
 	'nestedExpand',
 	'bodiedExtension',
 ];
-const getNestedDepth = () => (fg('platform_editor_elements_dnd_nested') ? 100 : 0);
+const getNestedDepth = () => (editorExperiment('nested-dnd', true) ? 100 : 0);
 
 const createDropTargetDecoration = (
 	pos: number,
@@ -78,7 +77,7 @@ export const dropTargetDecorations = (
 		let depth = 0;
 		// drop target dco at the end position
 		let endPosDeco = null;
-		if (fg('platform_editor_elements_dnd_nested')) {
+		if (editorExperiment('nested-dnd', true)) {
 			depth = newState.doc.resolve(pos).depth;
 			if (node.isInline || !parent) {
 				prevNode = node;
@@ -112,7 +111,7 @@ export const dropTargetDecorations = (
 				pos,
 				createElement(DropTarget, {
 					api,
-					id: fg('platform_editor_elements_dnd_nested') ? pos : index,
+					id: editorExperiment('nested-dnd', true) ? pos : index,
 					formatMessage,
 					prevNode,
 					nextNode: node,
@@ -147,7 +146,7 @@ export const dropTargetDecorations = (
 	 *
 	 */
 	const lastPos = newState.doc.content.size;
-	if (fg('platform_editor_elements_dnd_nested')) {
+	if (editorExperiment('nested-dnd', true)) {
 		decorationState.push({
 			id: lastPos,
 			pos: lastPos,
@@ -168,7 +167,7 @@ export const dropTargetDecorations = (
 				ReactDOM.render(
 					createElement(DropTarget, {
 						api,
-						id: fg('platform_editor_elements_dnd_nested') ? lastPos : decorationState.length,
+						id: editorExperiment('nested-dnd', true) ? lastPos : decorationState.length,
 						formatMessage,
 					}),
 					element,
@@ -221,13 +220,13 @@ export const nodeDecorations = (newState: EditorState) => {
 
 		if (
 			editorExperiment('dnd-input-performance-optimisation', true, { exposure: true }) ||
-			fg('platform_editor_elements_dnd_nested')
+			editorExperiment('nested-dnd', true)
 		) {
 			const handleId = ObjHash.getForNode(node);
 			anchorName = `--node-anchor-${node.type.name}-${handleId}`;
 		}
 
-		if (fg('platform_editor_elements_dnd_nested')) {
+		if (editorExperiment('nested-dnd', true)) {
 			// Doesn't descend into a node
 			if (node.isInline) {
 				return false;
@@ -283,7 +282,7 @@ export const dragHandleDecoration = (
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
 			element.setAttribute('data-blocks-drag-handle-container', 'true');
 
-			if (fg('platform_editor_elements_dnd_nested')) {
+			if (editorExperiment('nested-dnd', true)) {
 				unbind = bind(element, {
 					type: 'mouseover',
 					listener: (e) => {
@@ -319,7 +318,7 @@ export const dragHandleDecoration = (
 			side: -1,
 			id: 'drag-handle',
 			destroy: () => {
-				if (fg('platform_editor_elements_dnd_nested')) {
+				if (editorExperiment('nested-dnd', true)) {
 					unbind && unbind();
 				}
 			},

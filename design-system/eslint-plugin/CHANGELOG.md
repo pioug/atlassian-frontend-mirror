@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.18.0
+
+### Minor Changes
+
+- [#136089](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136089)
+  [`d0e47b2e03130`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0e47b2e03130) -
+  Disallow wrapped tokens for typography properties in XCSS using the
+  `use-latest-xcss-syntax-typography` rule.
+
 ## 10.17.3
 
 ### Patch Changes

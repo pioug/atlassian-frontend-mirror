@@ -19,6 +19,7 @@ import { layers } from '@atlaskit/theme/constants';
 import PopperWrapper from './popper-wrapper';
 import { type PopupProps } from './types';
 import { useGetMemoizedMergedTriggerRef } from './use-get-memoized-merged-trigger-ref';
+import { useGetMemoizedMergedTriggerRefNew } from './use-get-memoized-merged-trigger-ref-new';
 
 const defaultLayer = layers.layer();
 
@@ -56,6 +57,7 @@ export const Popup: FC<PopupProps> = memo(
 	}: PopupProps) => {
 		const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 		const getMergedTriggerRef = useGetMemoizedMergedTriggerRef();
+		const getMergedTriggerRefNew = useGetMemoizedMergedTriggerRefNew();
 
 		const generatedId = useUID();
 		const id = providedId || generatedId;
@@ -96,7 +98,9 @@ export const Popup: FC<PopupProps> = memo(
 				<Reference>
 					{({ ref }) => {
 						return trigger({
-							ref: getMergedTriggerRef(ref, setTriggerRef, isOpen),
+							ref: !fg('platform-design-system-dsp-20476-dropdown-menu')
+								? getMergedTriggerRef(ref, setTriggerRef, isOpen)
+								: getMergedTriggerRefNew(ref, setTriggerRef),
 							'aria-controls': isOpen ? id : undefined,
 							'aria-expanded': isOpen,
 							'aria-haspopup':

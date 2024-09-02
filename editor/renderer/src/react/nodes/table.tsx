@@ -397,25 +397,20 @@ export class TableContainer extends React.Component<
 
 		const tableWidth = calcDefaultLayoutWidthByAppearance(rendererAppearance, tableNode);
 
-		const isCommentAppearanceAndTableAlignmentEnabled =
-			allowTableAlignment && fg('platform_editor_table_support_in_comment');
-
 		// Logic for table alignment in renderer
 		const isTableAlignStart =
-			(isFullWidthOrFullPageAppearance(rendererAppearance) ||
-				isCommentAppearanceAndTableAlignmentEnabled) &&
 			tableNode &&
 			tableNode.attrs &&
 			tableNode.attrs.layout === 'align-start' &&
-			allowTableAlignment &&
-			fg('platform.editor.table.allow-table-alignment'); // allowTableAlignment should be used instead of fg('platform.editor.table.allow-table-alignment') after this fg cleanup
+			allowTableAlignment;
 
 		const fullWidthLineLength = isRenderWidthValid
 			? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
 			: akEditorFullWidthLayoutWidth;
 
 		const commentLineLength = isRenderWidthValid ? renderWidth : lineLengthFixedWidth;
-
+		const isCommentAppearanceAndTableAlignmentEnabled =
+			isCommentAppearance(rendererAppearance) && allowTableAlignment;
 		let lineLength = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLength
 			: isCommentAppearanceAndTableAlignmentEnabled

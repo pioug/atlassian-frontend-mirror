@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "109.51.1",
+	"version": "109.51.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/code": "^15.6.0",
-		"@atlaskit/editor-common": "^88.5.0",
+		"@atlaskit/editor-common": "^88.6.0",
 		"@atlaskit/editor-json-transformer": "^8.18.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
@@ -50,6 +50,7 @@
 		"@atlaskit/status": "^1.4.0",
 		"@atlaskit/task-decision": "^17.10.0",
 		"@atlaskit/theme": "^13.0.0",
+		"@atlaskit/tmp-editor-statsig": "*",
 		"@atlaskit/tokens": "^1.59.0",
 		"@atlaskit/tooltip": "^18.7.0",
 		"@babel/runtime": "^7.0.0",
@@ -139,9 +140,6 @@
 		"platform.editor.table.use-increased-scaling-percent": {
 			"type": "boolean"
 		},
-		"platform.editor.table.allow-table-alignment": {
-			"type": "boolean"
-		},
 		"annotations_align_editor_and_renderer_styles": {
 			"type": "boolean"
 		},
@@ -152,9 +150,6 @@
 			"type": "boolean"
 		},
 		"platform-fix-table-ssr-resizing": {
-			"type": "boolean"
-		},
-		"platform_editor_element_padding_changes_gate": {
 			"type": "boolean"
 		}
 	},

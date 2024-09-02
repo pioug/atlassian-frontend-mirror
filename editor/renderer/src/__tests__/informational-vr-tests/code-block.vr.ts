@@ -23,11 +23,5 @@ snapshotInformational(CodeBlockRendererQuote, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });

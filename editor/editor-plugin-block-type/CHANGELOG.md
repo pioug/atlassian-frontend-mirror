@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.14.3
+
+### Patch Changes
+
+- [#136078](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136078)
+  [`09414d7233497`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09414d7233497) -
+  ED-24507 Switch nested dnd FG to experiment and include padding changes"
+
 ## 3.14.2
 
 ### Patch Changes

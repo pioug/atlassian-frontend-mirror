@@ -39,6 +39,9 @@
 			"path": "../link-provider/tsconfig.app.json"
 		},
 		{
+			"path": "../link-test-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../linking-common/tsconfig.app.json"
 		},
 		{

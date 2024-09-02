@@ -139,18 +139,32 @@ export const useDatasourceClientExtension = () => {
 		[resolverUrl],
 	);
 
+	const invalidateDatasourceDataCacheByAri = useCallback((ari: string) => {
+		datasourceDataResponsePromiseCache.forEach(async (value, key) => {
+			const response = await value;
+			const targetFound = response.data.items.some((item) => {
+				return item['ari']?.data === ari;
+			});
+			if (targetFound) {
+				datasourceDataResponsePromiseCache.delete(key);
+			}
+		});
+	}, []);
+
 	return useMemo(
 		() => ({
 			getDatasourceDetails,
 			getDatasourceData,
 			getDatasourceActionsAndPermissions,
 			executeAtomicAction,
+			invalidateDatasourceDataCacheByAri,
 		}),
 		[
 			getDatasourceDetails,
 			getDatasourceData,
 			getDatasourceActionsAndPermissions,
 			executeAtomicAction,
+			invalidateDatasourceDataCacheByAri,
 		],
 	);
 };

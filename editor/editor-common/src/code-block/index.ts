@@ -26,11 +26,15 @@ export const transferCodeBlockWrappedValue = (
 		return;
 	}
 
-	const previousValue = codeBlockWrappedStates.get(oldCodeBlockNode);
-
-	if (previousValue !== undefined) {
-		codeBlockWrappedStates.set(newCodeBlockNode, previousValue);
-
-		codeBlockWrappedStates.delete(oldCodeBlockNode);
+	// Don't overwrite the value for the new node if it already exists.
+	// This can happen when a drag&drop is swapping nodes.
+	if (codeBlockWrappedStates.has(newCodeBlockNode)) {
+		return;
 	}
+
+	const previousValue = isCodeBlockWordWrapEnabled(oldCodeBlockNode);
+
+	codeBlockWrappedStates.set(newCodeBlockNode, previousValue);
+
+	codeBlockWrappedStates.delete(oldCodeBlockNode);
 };

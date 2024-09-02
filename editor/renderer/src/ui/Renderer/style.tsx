@@ -60,6 +60,7 @@ import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor'
 import { getLightWeightCodeBlockStylesForRootRendererStyleSheet } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
 import { isTableResizingEnabled } from '../../react/nodes/table';
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const FullPagePadding = 32;
 
@@ -549,9 +550,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 
 		${telepointerStyles(colorMode)}
 		${whitespaceSharedStyles};
-		${fg('platform_editor_element_padding_changes_gate')
-			? blockquoteSharedStylesNew
-			: blockquoteSharedStyles};
+		${editorExperiment('nested-dnd', true) ? blockquoteSharedStylesNew : blockquoteSharedStyles};
 		${headingsSharedStyles()};
 		${ruleSharedStyles()};
 		${paragraphSharedStyles};

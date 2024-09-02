@@ -3,6 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { token } from '@atlaskit/tokens';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ProgressTracker, type Stages } from '../../index';
 import {
@@ -131,7 +132,7 @@ const testNotAnimated = (progressTrackerStages: NodeListOf<HTMLLIElement>) => {
 	});
 };
 
-describe('@atlaskit/progress-tracker', () => {
+ffTest.both('platform-progress-tracker-functional-facade', '@atlaskit/progress-tracker', () => {
 	it('should render the component', () => {
 		render(<ProgressTracker items={items} testId="progress-tracker" />);
 

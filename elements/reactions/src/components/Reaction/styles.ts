@@ -74,11 +74,20 @@ export const reactedStyle = css({
 export const flashHeight = akHeight - 2; // height without the 1px border
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const flashStyle = css({
+export const flashStyleOld = css({
 	display: 'flex',
 	flexDirection: 'row',
 	alignItems: 'center',
 	borderRadius: '10px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	height: `${flashHeight}px`,
+});
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const flashStyle = css({
+	display: 'flex',
+	flexDirection: 'row',
+	alignItems: 'center',
+	borderRadius: token('border.radius.050'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: `${flashHeight}px`,
 });

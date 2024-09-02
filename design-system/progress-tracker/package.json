@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/progress-tracker",
-	"version": "8.8.1",
+	"version": "8.8.2",
 	"description": "A progress tracker displays the steps and progress through a journey.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,6 +23,7 @@
 		}
 	},
 	"dependencies": {
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.59.0",
@@ -85,5 +86,10 @@
 		"./types": "./src/types.tsx",
 		".": "./src/index.tsx"
 	},
-	"homepage": "https://atlassian.design/components/progress-tracker/"
+	"homepage": "https://atlassian.design/components/progress-tracker/",
+	"platform-feature-flags": {
+		"platform-progress-tracker-functional-facade": {
+			"type": "boolean"
+		}
+	}
 }

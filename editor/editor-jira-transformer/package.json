@@ -49,7 +49,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.9.0",
-		"@atlaskit/editor-common": "^88.5.0",
+		"@atlaskit/editor-common": "^88.6.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@babel/runtime": "^7.0.0",
 		"collapse-whitespace": "^1.1.6"
@@ -59,7 +59,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/activity": "^1.0.1",
-		"@atlaskit/editor-core": "^197.1.0",
+		"@atlaskit/editor-core": "^197.2.0",
 		"@atlaskit/editor-json-transformer": "^8.18.0",
 		"@atlaskit/editor-test-helpers": "^18.31.0",
 		"@atlaskit/theme": "^13.0.0",

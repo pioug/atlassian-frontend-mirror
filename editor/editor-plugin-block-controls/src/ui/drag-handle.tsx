@@ -31,6 +31,7 @@ import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -285,7 +286,7 @@ const DragHandleInternal = ({
 
 	const calculatePosition = useCallback(() => {
 		let parentNodeType;
-		if (fg('platform_editor_elements_dnd_nested')) {
+		if (editorExperiment('nested-dnd', true)) {
 			const pos = getPos();
 			const $pos = pos && view.state.doc.resolve(pos);
 			const parentPos = $pos && $pos.depth ? $pos.before() : undefined;

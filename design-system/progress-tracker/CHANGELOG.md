@@ -1,5 +1,13 @@
 # @atlaskit/progress-tracker
 
+## 8.8.2
+
+### Patch Changes
+
+- [#134667](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134667)
+  [`7e834d0456744`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7e834d0456744) -
+  Converting ProgressTracker component from class component to functional component
+
 ## 8.8.1
 
 ### Patch Changes

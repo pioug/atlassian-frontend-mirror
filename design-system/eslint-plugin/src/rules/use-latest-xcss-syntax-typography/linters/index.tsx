@@ -1,1 +1,2 @@
-export { BannedProperty } from './banned-property';
+export { RestrictedProperty } from './restricted-property';
+export { WrappedTokenValue } from './wrapped-token-value';

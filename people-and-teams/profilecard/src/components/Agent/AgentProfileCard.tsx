@@ -61,11 +61,13 @@ const AgentProfileCard = ({
 	});
 
 	const [isStarred, setIsStarred] = useState(false);
+	const [starCount, setStarCount] = useState<number | undefined>();
 	const { formatMessage } = useIntl();
 
 	useEffect(() => {
 		setIsStarred(!!agent?.favourite);
-	}, [agent?.favourite]);
+		setStarCount(agent?.favourite_count);
+	}, [agent?.favourite, agent?.favourite_count]);
 
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -81,10 +83,15 @@ const AgentProfileCard = ({
 		if (agent?.id) {
 			try {
 				await resourceClient.setFavouriteAgent(agent.id, !isStarred, fireAnalytics);
+				if (isStarred) {
+					setStarCount(starCount ? starCount - 1 : 0);
+				} else {
+					setStarCount((starCount || 0) + 1);
+				}
 				setIsStarred(!isStarred);
 			} catch (error) {}
 		}
-	}, [agent?.id, fireAnalytics, isStarred, resourceClient]);
+	}, [agent?.id, fireAnalytics, isStarred, resourceClient, starCount]);
 
 	const handleOnDelete = useCallback(async () => {
 		if (agent) {
@@ -159,7 +166,7 @@ const AgentProfileCard = ({
 								/>
 							)
 						}
-						starCountRender={<AgentStarCount starCount={agent.favourite_count} isLoading={false} />}
+						starCountRender={<AgentStarCount starCount={starCount} isLoading={false} />}
 						agentDescription={agent.description}
 					/>
 

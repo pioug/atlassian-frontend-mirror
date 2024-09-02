@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 88.6.1
+
+### Patch Changes
+
+- [#136078](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136078)
+  [`09414d7233497`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09414d7233497) -
+  ED-24507 Switch nested dnd FG to experiment and include padding changes"
+- Updated dependencies
+
+## 88.6.0
+
+### Minor Changes
+
+- [`ed9e420d175b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed9e420d175b8) -
+  New entry-point for intl-error-boundary component on editor-common. Further sharedExpandStyles is
+  now available on editor-common/styles entry-point. These are to remove `editor-common/ui`
+  entry-point from the critical path in editor-core.
+
+## 88.5.1
+
+### Patch Changes
+
+- [`cbe3b04ebb0b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cbe3b04ebb0b6) -
+  ED-24730 tweak transferCodeBlockWrappedValue to handle nodes being swapped by drag and drop.
+
 ## 88.5.0
 
 ### Minor Changes

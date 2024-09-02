@@ -10,7 +10,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { emojiImage, emojiSprite } from '@atlaskit/emoji';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	B100,
 	B400,
@@ -39,6 +38,7 @@ import {
 	Y50,
 	Y75,
 } from '@atlaskit/theme/colors';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const lightPanelColors = {
@@ -258,7 +258,7 @@ export const panelSharedStylesWithoutPrefix = () => css`
 		height: ${token('space.300', '24px')};
 		width: ${token('space.300', '24px')};
 		box-sizing: content-box;
-		padding-right: ${fg('platform_editor_element_padding_changes_gate')
+		padding-right: ${editorExperiment('nested-dnd', true)
 			? token('space.150', '12px')
 			: token('space.100', '8px')};
 		text-align: center;

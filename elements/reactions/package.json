@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "22.10.16",
+	"version": "22.11.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,8 +41,9 @@
 		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/modal-dialog": "^12.15.0",
 		"@atlaskit/motion": "^1.9.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popper": "^6.2.0",
-		"@atlaskit/popup": "1.23.2",
+		"@atlaskit/popup": "1.24.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/tabs": "^16.4.0",
@@ -111,5 +112,10 @@
 		"typecheck": "cd ../../ && yarn typecheck:package ./packages/elements/reactions",
 		"start:dev": "cd ../../ && yarn start reactions --proxy ./packages/elements/reactions/proxy.ts",
 		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start reactions --proxy ./packages/elements/reactions/proxy.ts"
+	},
+	"platform-feature-flags": {
+		"platform-component-visual-refresh": {
+			"type": "boolean"
+		}
 	}
 }

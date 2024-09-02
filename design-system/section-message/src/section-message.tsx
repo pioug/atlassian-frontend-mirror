@@ -1,12 +1,13 @@
 import React, { forwardRef } from 'react';
 
 import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { getAppearanceIconStyles } from './internal/appearance-icon';
 import type { SectionMessageProps } from './types';
 
-const sectionMessageStyles = xcss({
+const containerStyles = xcss({
 	wordBreak: 'break-word',
 	borderRadius: 'border.radius',
 });
@@ -14,6 +15,11 @@ const sectionMessageStyles = xcss({
 const bleedStyles = xcss({
 	display: 'flex',
 	marginBlock: 'space.negative.025',
+});
+
+const contentStyles = xcss({
+	color: 'color.text',
+	font: token('font.body'),
 });
 
 /**
@@ -48,7 +54,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 			padding="space.200"
 			testId={testId}
 			ref={ref}
-			xcss={sectionMessageStyles}
+			xcss={containerStyles}
 		>
 			<Inline space="space.200" alignBlock="stretch">
 				<Box xcss={bleedStyles}>
@@ -60,7 +66,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 							{title}
 						</Heading>
 					)}
-					<Text>{children}</Text>
+					<Box xcss={contentStyles}>{children}</Box>
 					{actionsArray.length > 0 && (
 						<Inline
 							shouldWrap

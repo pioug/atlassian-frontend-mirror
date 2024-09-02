@@ -12,6 +12,7 @@ import { ActionsStore, type ActionsStoreState, useExecuteAtomicAction } from '..
 const mockUseDatasourceClientExtension: jest.Mock = jest.fn();
 const mockUseDatasourceAnalyticsEvents: jest.Mock = jest.fn();
 const mockExecuteAction: jest.Mock = jest.fn();
+const mockInvalidateDatasourceDataCacheByAri: jest.Mock = jest.fn();
 const mockFireEvent: jest.Mock = jest.fn();
 
 jest.mock('@atlaskit/link-client-extension', () => {
@@ -72,7 +73,10 @@ describe('useExecuteAtomicAction', () => {
 	const setup = (
 		overrideProps: { ari?: string; fieldKey?: string; integrationKey?: string } = {},
 	) => {
-		mockUseDatasourceClientExtension.mockReturnValue({ executeAtomicAction: mockExecuteAction });
+		mockUseDatasourceClientExtension.mockReturnValue({
+			executeAtomicAction: mockExecuteAction,
+			invalidateDatasourceDataCacheByAri: mockInvalidateDatasourceDataCacheByAri,
+		});
 		mockUseDatasourceAnalyticsEvents.mockReturnValue({ fireEvent: mockFireEvent });
 
 		const { result } = renderHook(

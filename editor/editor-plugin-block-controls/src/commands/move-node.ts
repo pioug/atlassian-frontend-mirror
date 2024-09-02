@@ -15,6 +15,7 @@ import type { NodeType, Slice } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { DIRECTION } from '../consts';
 import { key } from '../pm-plugins/main';
@@ -142,7 +143,7 @@ export const moveNode =
 		const end = start + size;
 
 		let mappedTo;
-		if (fg('platform_editor_elements_dnd_nested')) {
+		if (editorExperiment('nested-dnd', true)) {
 			const nodeCopy = tr.doc.slice(start, end, false); // cut the content
 			const $to = tr.doc.resolve(to);
 			const $from = tr.doc.resolve(start);

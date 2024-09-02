@@ -37,7 +37,7 @@
 		"@atlaskit/adf-schema": "^40.9.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/editor-common": "^88.5.0",
+		"@atlaskit/editor-common": "^88.6.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-tables": "^2.8.0",

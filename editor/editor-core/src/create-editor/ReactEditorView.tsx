@@ -42,7 +42,6 @@ import {
 	ExperienceStore,
 	RELIABILITY_INTERVAL,
 } from '@atlaskit/editor-common/ufo';
-import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui';
 import type { ErrorReporter, SEVERITY } from '@atlaskit/editor-common/utils';
 import {
 	analyticsEventKey,
@@ -96,6 +95,8 @@ import { createSchema } from './create-schema';
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
 import { editorMessages } from './messages';
 import ReactEditorViewContext from './ReactEditorViewContext';
+
+const EDIT_AREA_ID = 'ak-editor-textarea';
 
 export interface EditorViewProps {
 	editorProps: (EditorProps | EditorNextProps) & {
@@ -364,8 +365,14 @@ export class ReactEditorView<T = {}> extends React.Component<
 			this.pluginPerformanceObserver.disconnect();
 		}
 
-		if (nextProps.editorProps.assistiveLabel !== this.props.editorProps.assistiveLabel) {
-			this.editor = this.createEditor(nextProps.editorProps.assistiveLabel);
+		if (
+			nextProps.editorProps.assistiveLabel !== this.props.editorProps.assistiveLabel ||
+			nextProps.editorProps?.assistiveDescribedBy !== this.props.editorProps?.assistiveDescribedBy
+		) {
+			this.editor = this.createEditor(
+				nextProps.editorProps.assistiveLabel,
+				nextProps.editorProps?.assistiveDescribedBy,
+			);
 		}
 	}
 
@@ -969,7 +976,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 		}
 	};
 
-	private createEditor = (assistiveLabel?: string) => {
+	private createEditor = (assistiveLabel?: string, assistiveDescribedBy?: string) => {
 		return (
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -987,10 +994,14 @@ export class ReactEditorView<T = {}> extends React.Component<
 				aria-multiline={this.props.editorProps.appearance !== 'mobile' ? true : false}
 				role="textbox"
 				id={EDIT_AREA_ID}
+				aria-describedby={assistiveDescribedBy}
 			/>
 		);
 	};
-	private editor = this.createEditor(this.props.editorProps.assistiveLabel);
+	private editor = this.createEditor(
+		this.props.editorProps.assistiveLabel,
+		this.props.editorProps?.assistiveDescribedBy,
+	);
 
 	render() {
 		const renderTracking =

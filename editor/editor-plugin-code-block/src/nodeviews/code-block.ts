@@ -1,6 +1,10 @@
 import rafSchedule from 'raf-schd';
 
-import { transferCodeBlockWrappedValue } from '@atlaskit/editor-common/code-block';
+import {
+	codeBlockWrappedStates,
+	defaultWordWrapState,
+	transferCodeBlockWrappedValue,
+} from '@atlaskit/editor-common/code-block';
 import type {
 	ExtractInjectionAPI,
 	getPosHandler,
@@ -103,6 +107,12 @@ export class CodeBlockView {
 
 		if (fg('editor_support_code_block_wrapping')) {
 			this.maintainDynamicGutterSize();
+
+			// Ensure the code block node has a wrapped state.
+			// Wrapped state may already exist from breakout's recreating the node.
+			if (!codeBlockWrappedStates.has(node)) {
+				codeBlockWrappedStates.set(node, defaultWordWrapState);
+			}
 		} else {
 			this.ensureLineNumbers();
 		}

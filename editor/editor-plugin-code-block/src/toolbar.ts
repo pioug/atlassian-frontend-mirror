@@ -135,7 +135,7 @@ export const getToolbarConfig =
 			type: 'button',
 			supportsViewMode: true,
 			icon: WrapIcon,
-			onClick: toggleWordWrapStateForCodeBlockNode(editorAnalyticsAPI), // Hooking up here for demo purposes. To be revisited with ED-24222.
+			onClick: toggleWordWrapStateForCodeBlockNode(editorAnalyticsAPI),
 			title: isWrapped
 				? formatMessage(codeBlockButtonMessages.unwrapCode)
 				: formatMessage(codeBlockButtonMessages.wrapCode),

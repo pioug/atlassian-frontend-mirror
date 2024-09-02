@@ -61,7 +61,7 @@ Not yet supported.
 ##### Boolean experiments
 
 ${code`
-import { eeTest } from '@atlaskit/tmp-editor-statsig/test-runner';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 eeTest('example-boolean', {
 	true: () => {
@@ -76,7 +76,7 @@ eeTest('example-boolean', {
 ##### Multivariate experiments
 
 ${code`
-import { eeTest } from '@atlaskit/tmp-editor-statsig/test-runner';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 eeTest('example-multivariate', {
 	one: () => {

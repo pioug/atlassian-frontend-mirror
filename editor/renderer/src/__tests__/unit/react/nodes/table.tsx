@@ -20,7 +20,6 @@ import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReactWrapper } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { RendererContextProvider } from '../../../../renderer-context';
 import type { RendererContextProps } from '../../../../renderer-context';
 
@@ -1270,43 +1269,41 @@ describe('Renderer - React/Nodes/Table', () => {
 			wrap.unmount();
 		});
 
-		ffTest(
-			'platform.editor.table.allow-table-alignment',
-			() => {
-				const tableNode = createTable(600, 'align-start');
-				const rendererWidth = 1000;
+		it('should have correct style when table alignment is enabled', () => {
+			const tableNode = createTable(600, 'align-start');
+			const rendererWidth = 1000;
 
-				const allowTableAlignment = true;
-				const wrap = mountTable(
-					tableNode,
-					rendererWidth,
-					undefined,
-					'full-page',
-					false,
-					allowTableAlignment,
-				);
+			const allowTableAlignment = true;
+			const wrap = mountTable(
+				tableNode,
+				rendererWidth,
+				undefined,
+				'full-page',
+				false,
+				allowTableAlignment,
+			);
 
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
-				expect(tableContainer.prop('style')!.left).toBe(-80);
+			expect(tableContainer.prop('style')!.left).toBe(-80);
 
-				wrap.unmount();
-			},
-			() => {
-				const tableNode = createTable(600, 'align-start');
-				const rendererWidth = 1000;
+			wrap.unmount();
+		});
 
-				const wrap = mountTable(tableNode, rendererWidth);
+		it('should not have left alignment when table alignment is not enabled', () => {
+			const tableNode = createTable(600, 'align-start');
+			const rendererWidth = 1000;
 
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+			const wrap = mountTable(tableNode, rendererWidth);
 
-				expect(tableContainer.prop('style')!.left).toBe(undefined);
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
-				wrap.unmount();
-			},
-		);
+			expect(tableContainer.prop('style')!.left).toBe(undefined);
 
-		ffTest('platform.editor.table.allow-table-alignment', () => {
+			wrap.unmount();
+		});
+
+		it('should not have left style when table is inside of a block node', () => {
 			// should not have left style when table is inside of a block node
 			const tableNode = createTable(600, 'align-start');
 			const rendererWidth = 1000;
@@ -1323,95 +1320,115 @@ describe('Renderer - React/Nodes/Table', () => {
 	});
 
 	describe('table in comments renderer', () => {
-		// Should default table should have the same width as renderer enabled/disabled
-		ffTest(
-			'platform_editor_table_support_in_comment',
-			() => {
-				const tableNode = createDefaultTable();
-				const rendererWidth = 900;
-				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment', false, false, true);
+		it('default table should have the same width as renderer when table resizing and alignment are enabled', () => {
+			const tableNode = createDefaultTable();
+			const rendererWidth = 900;
 
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+			const columnWidths = undefined;
+			const isInsideOfBlockNode = false;
+			const allowTableResizing = true;
+			const allowTableAlignment = true;
+			const wrap = mountTable(
+				tableNode,
+				rendererWidth,
+				columnWidths,
+				'comment',
+				isInsideOfBlockNode,
+				allowTableResizing,
+				allowTableAlignment,
+			);
 
-				expect(tableContainer.prop('style')!.width).toBe('inherit');
-				wrap.unmount();
-			},
-			() => {
-				const tableNode = createDefaultTable('default');
-				const rendererWidth = 900;
-				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment', false, false, true);
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+			expect(tableContainer.prop('style')!.width).toBe('inherit');
+			wrap.unmount();
+		});
 
-				expect(tableContainer.prop('style')!.width).toBe('inherit');
-				wrap.unmount();
-			},
-		);
+		it('default table should have the same width as renderer when table resizing and alignment are disabled', () => {
+			const tableNode = createDefaultTable('default');
+			const rendererWidth = 900;
 
-		// Should have correct width when table has width attribute and table resizing is enabled/disabled
-		ffTest(
-			'platform_editor_table_support_in_comment',
-			() => {
-				const tableWidth = 300;
-				const tableNode = createTable(tableWidth, 'default');
-				const rendererWidth = 900;
-				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment', false, false, true);
+			const columnWidths = undefined;
+			const wrap = mountTable(tableNode, rendererWidth, columnWidths, 'comment');
 
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
-				expect(tableContainer.prop('style')!.width).toBe(tableWidth);
-				wrap.unmount();
-			},
-			() => {
-				const tableWidth = 300;
-				const tableNode = createTable(tableWidth, 'default');
-				const rendererWidth = 900;
-				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+			expect(tableContainer.prop('style')!.width).toBe('inherit');
+			wrap.unmount();
+		});
 
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+		it('resized table should have correct width when table resizing and alignment are enabled', () => {
+			const tableWidth = 300;
+			const tableNode = createTable(tableWidth, 'default');
+			const rendererWidth = 900;
 
-				expect(tableContainer.prop('style')!.width).toBe('inherit');
-				wrap.unmount();
-			},
-		);
+			const columnWidths = undefined;
+			const isInsideOfBlockNode = false;
+			const allowTableResizing = true;
+			const allowTableAlignment = true;
+			const wrap = mountTable(
+				tableNode,
+				rendererWidth,
+				columnWidths,
+				'comment',
+				isInsideOfBlockNode,
+				allowTableResizing,
+				allowTableAlignment,
+			);
 
-		// Should have correct styles when table alignment is enabled in Comment Renderer
-		ffTest(
-			'platform.editor.table.allow-table-alignment',
-			() => {
-				const tableNode = createTable(600, 'align-start');
-				const rendererWidth = 1000;
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
-				const allowTableAlignment = true;
-				const wrap = mountTable(
-					tableNode,
-					rendererWidth,
-					undefined,
-					'comment',
-					false,
-					allowTableAlignment,
-				);
+			expect(tableContainer.prop('style')!.width).toBe(tableWidth);
+			wrap.unmount();
+		});
 
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+		it('resized table should have correct width when table resizing and alignment are disabled', () => {
+			const tableWidth = 300;
+			const tableNode = createTable(tableWidth, 'default');
+			const rendererWidth = 900;
 
-				expect(tableContainer.prop('style')!.left).toBe(-200);
+			const columnWidths = undefined;
+			const wrap = mountTable(tableNode, rendererWidth, columnWidths, 'comment');
 
-				wrap.unmount();
-			},
-			() => {
-				const tableNode = createTable(600, 'align-start');
-				const rendererWidth = 1000;
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
-				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+			expect(tableContainer.prop('style')!.width).toBe('inherit');
+			wrap.unmount();
+		});
 
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+		it('should have correct styles when table alignment is enabled in Comment Renderer', () => {
+			const tableNode = createTable(600, 'align-start');
+			const rendererWidth = 1000;
 
-				expect(tableContainer.prop('style')!.left).toBe(undefined);
+			const allowTableAlignment = true;
+			const wrap = mountTable(
+				tableNode,
+				rendererWidth,
+				undefined,
+				'comment',
+				false,
+				allowTableAlignment,
+			);
 
-				wrap.unmount();
-			},
-			{ platform_editor_table_support_in_comment: true },
-		);
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+			expect(tableContainer.prop('style')!.left).toBe(-200);
+
+			wrap.unmount();
+		});
+
+		it('should have correct styles when table alignment is not enabled in Comment Renderer', () => {
+			const tableNode = createTable(600, 'align-start');
+			const rendererWidth = 1000;
+
+			const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+			expect(tableContainer.prop('style')!.left).toBe(undefined);
+
+			wrap.unmount();
+		});
 	});
 
 	describe('SSR - Table widths', () => {

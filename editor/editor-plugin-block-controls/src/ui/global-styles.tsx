@@ -6,6 +6,7 @@
 import { css, Global, jsx } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP } from './consts';
 
@@ -150,7 +151,7 @@ export const GlobalStylesWrapper = () => {
 		<Global
 			styles={[
 				globalStyles,
-				fg('platform_editor_elements_dnd_nested') ? extendedHoverZoneNested : extendedHoverZone,
+				editorExperiment('nested-dnd', true) ? extendedHoverZoneNested : extendedHoverZone,
 				getTextNodeStyle(),
 				withDeleteLinesStyleFix,
 				withMediaSingleStyleFix,

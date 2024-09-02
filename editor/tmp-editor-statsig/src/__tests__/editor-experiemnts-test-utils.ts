@@ -1,5 +1,5 @@
 import { editorExperiment } from '../experiments';
-import { eeTest } from '../test-runner';
+import { eeTest } from '../editor-experiments-test-utils';
 
 jest.mock('../experiments-config', () => ({
 	editorExperimentsConfig: {

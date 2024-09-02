@@ -265,10 +265,7 @@ export class Renderer extends PureComponent<RendererProps> {
 			textHighlighter: props.UNSTABLE_textHighlighter,
 			isCommentsOnMediaMediaInlineBugFixEnabled: featureFlags?.commentsOnMediaMediaInlineBugFix,
 			allowTableAlignment: props.UNSTABLE_allowTableAlignment,
-			allowTableResizing:
-				props.appearance === 'comment' && !fg('platform_editor_table_support_in_comment')
-					? false
-					: props.UNSTABLE_allowTableResizing,
+			allowTableResizing: props.UNSTABLE_allowTableResizing,
 		};
 	}
 

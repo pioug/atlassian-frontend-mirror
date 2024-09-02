@@ -1,5 +1,13 @@
 # @atlaskit/section-message
 
+## 6.6.3
+
+### Patch Changes
+
+- [#128532](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128532)
+  [`4d5c91fed0306`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d5c91fed0306) -
+  Change element wrapping children from `span` to `div` to improve HTML specification compliance.
+
 ## 6.6.2
 
 ### Patch Changes

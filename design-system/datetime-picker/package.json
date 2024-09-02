@@ -65,7 +65,7 @@
 		"@atlaskit/docs": "*",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/modal-dialog": "^12.15.0",
-		"@atlaskit/popup": "^1.23.0",
+		"@atlaskit/popup": "^1.24.0",
 		"@atlaskit/range": "^7.4.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/ssr": "*",

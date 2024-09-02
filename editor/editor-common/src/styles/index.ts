@@ -80,6 +80,7 @@ export {
 	expandClassNames,
 	expandIconContainerStyle,
 } from './shared/expand';
+export { sharedExpandStyles } from '../ui/Expand/sharedStyles';
 export { ClassNames as MediaSharedClassNames } from './shared/media';
 
 export { BreakoutCssClassName } from './shared/breakout';

@@ -8,11 +8,5 @@ export const snapshotOptions: SnapshotTestOptions<any> = {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 };

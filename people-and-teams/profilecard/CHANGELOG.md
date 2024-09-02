@@ -1,5 +1,20 @@
 # @atlaskit/profilecard
 
+## 19.25.0
+
+### Minor Changes
+
+- [#134139](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134139)
+  [`6cb20b026ce66`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6cb20b026ce66) -
+  Set start count after making agent favourite
+- [#135893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135893)
+  [`089338b763495`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/089338b763495) -
+  Show agents in team profile
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.24.0
 
 ### Minor Changes

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { type FC } from 'react';
 
 import { BrowserRouter, Link } from 'react-router-dom';
 
@@ -53,17 +53,15 @@ interface CustomProgressTrackerLinkProps {
 	item: Stage;
 }
 
-class CustomProgressTrackerLink extends PureComponent<CustomProgressTrackerLinkProps> {
-	render() {
-		const { href = '', label } = this.props.item;
-		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			<Link style={{ color: token('color.text') }} to={href}>
-				{label}
-			</Link>
-		);
-	}
-}
+const CustomProgressTrackerLink: FC<CustomProgressTrackerLinkProps> = ({ item }) => {
+	const { href = '', label } = item;
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<Link style={{ color: token('color.text') }} to={href}>
+			{label}
+		</Link>
+	);
+};
 
 const render = {
 	link: (props: CustomProgressTrackerLinkProps) => <CustomProgressTrackerLink {...props} />,

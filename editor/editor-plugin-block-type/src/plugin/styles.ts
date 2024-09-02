@@ -6,14 +6,12 @@ import {
 	blockquoteSharedStylesNew,
 	headingsSharedStyles,
 } from '@atlaskit/editor-common/styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Imports are not safe in an object syntax
 export const blocktypeStyles = () => css`
 	.ProseMirror {
-		${fg('platform_editor_element_padding_changes_gate')
-			? blockquoteSharedStylesNew
-			: blockquoteSharedStyles};
+		${editorExperiment('nested-dnd', true) ? blockquoteSharedStylesNew : blockquoteSharedStyles};
 		${headingsSharedStyles()};
 	}
 `;

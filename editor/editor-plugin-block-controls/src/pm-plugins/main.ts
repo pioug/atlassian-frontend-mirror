@@ -144,17 +144,17 @@ export const createPlugin = (
 				const isPerformanceFix =
 					editorExperiment('dnd-input-performance-optimisation', true, {
 						exposure: true,
-					}) || fg('platform_editor_elements_dnd_nested');
+					}) || editorExperiment('nested-dnd', true);
 				let activeNodeWithNewNodeType = null;
 				const meta = tr.getMeta(key);
 				const newChildCount =
-					tr.docChanged && fg('platform_editor_elements_dnd_nested')
+					tr.docChanged && editorExperiment('nested-dnd', true)
 						? getDocChildrenCount(newState)
 						: childCount;
 				// If tables or media are being resized, we want to hide the drag handle
 				const resizerMeta = tr.getMeta('is-resizer-resizing');
 				isResizerResizing = resizerMeta ?? isResizerResizing;
-				const nodeCountChanged = fg('platform_editor_elements_dnd_nested')
+				const nodeCountChanged = editorExperiment('nested-dnd', true)
 					? childCount !== newChildCount
 					: oldState.doc.childCount !== newState.doc.childCount;
 				const shouldRemoveHandle = !tr.getMeta('isRemote');
@@ -172,12 +172,12 @@ export const createPlugin = (
 				// Ensure decorations stay in sync when nodes are added or removed from the doc
 				const isHandleMissing =
 					!meta?.activeNode && !decorations.find().some(({ spec }) => spec.id === 'drag-handle');
-				const decsLength = fg('platform_editor_elements_dnd_nested')
+				const decsLength = editorExperiment('nested-dnd', true)
 					? decorations.find().filter(({ spec }) => spec.type === 'node-decoration').length
 					: decorations.find().filter(({ spec }) => spec.id !== 'drag-handle').length;
 
 				let newNodeDecs;
-				if (fg('platform_editor_elements_dnd_nested')) {
+				if (editorExperiment('nested-dnd', true)) {
 					// naive solution while we work on performance optimised approach under ED-24503
 					newNodeDecs = nodeDecorations(newState);
 					isDecsMissing = !(isDragging || meta?.isDragging) && decsLength !== newNodeDecs.length;
@@ -193,7 +193,7 @@ export const createPlugin = (
 				).length;
 
 				const { formatMessage } = getIntl();
-				if (!fg('platform_editor_elements_dnd_nested')) {
+				if (editorExperiment('nested-dnd', false)) {
 					isDropTargetsMissing =
 						isDragging &&
 						meta?.isDragging !== false &&
@@ -350,7 +350,7 @@ export const createPlugin = (
 					!meta?.nodeMoved;
 
 				if (meta?.isDragging === false || isDropTargetsMissing) {
-					if (fg('platform_editor_elements_dnd_nested')) {
+					if (editorExperiment('nested-dnd', true)) {
 						const remainingDecs = decorations.find(
 							undefined,
 							undefined,
@@ -398,7 +398,7 @@ export const createPlugin = (
 					decorations = decorations.map(tr.mapping, tr.doc);
 				}
 
-				const isEmptyDoc = fg('platform_editor_elements_dnd_nested')
+				const isEmptyDoc = editorExperiment('nested-dnd', true)
 					? newState.doc.childCount === 1 &&
 						newState.doc.nodeSize <= 4 &&
 						(newState.doc.firstChild === null || newState.doc.firstChild.nodeSize <= 2)

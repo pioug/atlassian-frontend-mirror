@@ -406,7 +406,7 @@ export class Channel extends Emitter<ChannelEvent> {
 			usedCachedToken: !!this.token,
 		});
 		this.emit('connected', {
-			sid: this.socket!.id,
+			sid: this.socket!.id!,
 			initialized: this.initialized,
 		});
 	};

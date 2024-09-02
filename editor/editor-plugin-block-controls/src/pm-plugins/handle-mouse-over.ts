@@ -1,6 +1,7 @@
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockControlsPlugin } from '../types';
 
@@ -36,7 +37,7 @@ export const handleMouseOver = (
 		const pos = view.posAtDOM(rootElement, 0, -1);
 
 		let rootPos;
-		if (fg('platform_editor_elements_dnd_nested')) {
+		if (editorExperiment('nested-dnd', true, { exposure: true })) {
 			const $rootPos = view.state.doc.resolve(pos);
 			const depth = $rootPos.depth;
 
@@ -56,6 +57,7 @@ export const handleMouseOver = (
 		} else {
 			rootPos = view.state.doc.resolve(pos).start(1) - 1;
 		}
+
 		const nodeType = rootElement.getAttribute('data-drag-handler-node-type')!;
 
 		if (nodeType) {

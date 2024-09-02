@@ -6,6 +6,7 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import isEqual from 'lodash/isEqual';
 
 import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
 
@@ -23,14 +24,7 @@ const toolbarComponentsWrapper = css({
 
 export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 	shouldComponentUpdate(nextProps: ToolbarInnerProps) {
-		return (
-			nextProps.toolbarSize !== this.props.toolbarSize ||
-			nextProps.disabled !== this.props.disabled ||
-			nextProps.popupsMountPoint === this.props.popupsMountPoint ||
-			nextProps.popupsBoundariesElement === this.props.popupsBoundariesElement ||
-			nextProps.popupsScrollableElement === this.props.popupsScrollableElement ||
-			nextProps.isReducedSpacing !== this.props.isToolbarReducedSpacing
-		);
+		return !isEqual(nextProps, this.props);
 	}
 
 	render() {

@@ -221,7 +221,8 @@ export const useExecuteAtomicAction = ({
 }) => {
 	const [schema] = useAtomicUpdateActionSchema({ ari, fieldKey, integrationKey });
 
-	const { executeAtomicAction: executeAction } = useDatasourceClientExtension();
+	const { executeAtomicAction: executeAction, invalidateDatasourceDataCacheByAri } =
+		useDatasourceClientExtension();
 
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const { captureError } = useErrorLogger({ integrationKey });
@@ -238,6 +239,9 @@ export const useExecuteAtomicAction = ({
 				parameters: { inputs: { [fieldKey]: value }, target: { ari } },
 			})
 				.then((resp) => {
+					// Force data to refresh after update
+					invalidateDatasourceDataCacheByAri(ari);
+
 					fireEvent('operational.actionExecution.success', {
 						integrationKey: integrationKey,
 						experience: 'datasource',
@@ -250,7 +254,16 @@ export const useExecuteAtomicAction = ({
 					throw error;
 				});
 		},
-		[schema, executeAction, integrationKey, fieldKey, ari, fireEvent, captureError],
+		[
+			schema,
+			executeAction,
+			integrationKey,
+			fieldKey,
+			ari,
+			invalidateDatasourceDataCacheByAri,
+			fireEvent,
+			captureError,
+		],
 	);
 
 	if (!schema) {

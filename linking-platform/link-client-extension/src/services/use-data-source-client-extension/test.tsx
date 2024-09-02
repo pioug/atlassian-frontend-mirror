@@ -3,6 +3,7 @@ import React from 'react';
 import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { flushPromises } from '@atlaskit/link-test-helpers';
 import { NetworkError } from '@atlaskit/linking-common';
 import type {
 	ActionsDiscoveryRequest,
@@ -105,6 +106,7 @@ describe('useDatasourceClientExtension', () => {
 			getDatasourceData,
 			getDatasourceActionsAndPermissions,
 			executeAtomicAction,
+			invalidateDatasourceDataCacheByAri,
 		} = result.current;
 
 		return {
@@ -117,6 +119,7 @@ describe('useDatasourceClientExtension', () => {
 			actionsDiscoveryIntegrationParams,
 			actionsDiscoveryDatasourceParams,
 			atomicExecuteActionRequestParams,
+			invalidateDatasourceDataCacheByAri,
 		};
 	};
 
@@ -147,6 +150,7 @@ describe('useDatasourceClientExtension', () => {
 			getDatasourceData: expect.any(Function),
 			getDatasourceActionsAndPermissions: expect.any(Function),
 			executeAtomicAction: expect.any(Function),
+			invalidateDatasourceDataCacheByAri: expect.any(Function),
 		});
 	});
 
@@ -1029,6 +1033,131 @@ describe('useDatasourceClientExtension', () => {
 			const response = await executeAtomicAction(atomicExecuteActionRequestParams);
 
 			expect(response).toEqual(expectedResponse);
+		});
+	});
+
+	describe('invalidateDatasourceDataCacheByAri', () => {
+		let expectedResponseOne: DatasourceDataResponse;
+
+		beforeEach(() => {
+			const { meta, data } = mockDatasourceDataResponse;
+			expectedResponseOne = { meta, data: { ...data, totalCount: 1 } };
+			const expectedResponseTwo: DatasourceDataResponse = {
+				meta,
+				data: { ...data, totalCount: 2 },
+			};
+			const expectedResponseThree: DatasourceDataResponse = {
+				meta,
+				data: {
+					items: [
+						{
+							ari: { data: 'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10000' },
+							id: { data: 'EDM-10000' },
+							description: { data: 'two-way sync feature' },
+							createdAt: { data: '2023-01-22T01:30:00.000-05:00' },
+							assigned: {
+								data: { displayName: 'Andres' },
+							},
+							status: {
+								data: {
+									text: 'In Progress',
+									style: {
+										appearance: 'inprogress',
+									},
+								},
+							},
+						},
+					],
+					totalCount: 1,
+				},
+			};
+
+			mockFetch.mockResolvedValueOnce({
+				body: '{}',
+				json: async () => expectedResponseOne,
+				ok: true,
+				text: async () => JSON.stringify(expectedResponseOne),
+			});
+			mockFetch.mockResolvedValueOnce({
+				body: '{}',
+				json: async () => expectedResponseTwo,
+				ok: true,
+				text: async () => JSON.stringify(expectedResponseTwo),
+			});
+			mockFetch.mockResolvedValueOnce({
+				body: '{}',
+				json: async () => expectedResponseThree,
+				ok: true,
+				text: async () => JSON.stringify(expectedResponseThree),
+			});
+		});
+		const targetAri = 'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10025';
+
+		it('should successfuly invalidate cache by ari', async () => {
+			const { getDatasourceData, invalidateDatasourceDataCacheByAri, datasourceDataParams } =
+				setup();
+
+			await getDatasourceData(datasourceId, { ...datasourceDataParams });
+			invalidateDatasourceDataCacheByAri(targetAri);
+			await flushPromises();
+			expect(datasourceDataResponsePromiseCache.size).toBe(0);
+		});
+
+		it('should successfuly invalidate all cache record where target ari is found', async () => {
+			const { getDatasourceData, invalidateDatasourceDataCacheByAri, datasourceDataParams } =
+				setup();
+			const datasourceId2 = 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b';
+			await getDatasourceData(datasourceId, { ...datasourceDataParams });
+			await getDatasourceData(datasourceId2, { ...datasourceDataParams });
+
+			expect(datasourceDataResponsePromiseCache.size).toBe(2);
+			invalidateDatasourceDataCacheByAri(targetAri);
+			await flushPromises();
+			expect(datasourceDataResponsePromiseCache.size).toBe(0);
+		});
+
+		it('should make a new request when successfuly removed item from cache', async () => {
+			const { getDatasourceData, invalidateDatasourceDataCacheByAri, datasourceDataParams } =
+				setup();
+
+			await getDatasourceData(datasourceId, { ...datasourceDataParams });
+			invalidateDatasourceDataCacheByAri(targetAri);
+			await flushPromises();
+			await getDatasourceData(datasourceId, { ...datasourceDataParams });
+			expect(mockFetch).toHaveBeenCalledTimes(2);
+		});
+
+		it('should not make new request if target ari is not found in cache', async () => {
+			const { getDatasourceData, invalidateDatasourceDataCacheByAri, datasourceDataParams } =
+				setup();
+
+			await getDatasourceData(datasourceId, { ...datasourceDataParams });
+			invalidateDatasourceDataCacheByAri('ari/not-found');
+			await flushPromises();
+			await getDatasourceData(datasourceId, { ...datasourceDataParams });
+			expect(mockFetch).toHaveBeenCalledTimes(1);
+		});
+
+		it('Should only invalidate the cache keys where the target ari is found', async () => {
+			const { getDatasourceData, invalidateDatasourceDataCacheByAri, datasourceDataParams } =
+				setup();
+
+			const datasourceId2 = 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b';
+			const datasourceId3 = '3ac63b37-9bca-435e-9840-eff6f8739dba';
+			await getDatasourceData(datasourceId, { ...datasourceDataParams });
+			await getDatasourceData(datasourceId2, { ...datasourceDataParams });
+			const deleteCacheKey = datasourceDataResponsePromiseCache.newest.key;
+
+			await getDatasourceData(datasourceId3, { ...datasourceDataParams });
+			const keepCacheKey = datasourceDataResponsePromiseCache.newest.key;
+			expect(datasourceDataResponsePromiseCache.size).toBe(3);
+
+			invalidateDatasourceDataCacheByAri(targetAri);
+			await flushPromises();
+
+			expect(datasourceDataResponsePromiseCache.size).toBe(1);
+			expect(datasourceDataResponsePromiseCache.newest.key).toBe(keepCacheKey);
+			expect(await datasourceDataResponsePromiseCache.find(deleteCacheKey)).toBe(undefined);
 		});
 	});
 });

@@ -1,6 +1,6 @@
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import type { Manager } from 'socket.io-client';
+import type { Manager, Socket as SocketIOSocket } from 'socket.io-client';
 import type { InternalError } from './errors/internal-errors';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { GetUserType } from './participants/participants-helper';
@@ -83,7 +83,7 @@ export interface Config {
 		path: string,
 		auth?: AuthCallback | InitAndAuthData,
 		productInfo?: ProductInformation,
-	) => Socket;
+	) => SocketIOSocket;
 	/**
 	 * @deprecated: Use promise based getAnalyticsWebClient instead
 	 */

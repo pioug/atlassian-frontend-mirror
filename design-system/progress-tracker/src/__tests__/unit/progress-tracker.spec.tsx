@@ -2,6 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { ProgressTracker, type Stages } from '../../index';
 
 const generateStages = ({
@@ -30,7 +32,7 @@ const generateStages = ({
 	}));
 };
 
-describe('<ProgressTracker />', () => {
+ffTest.both('platform-progress-tracker-functional-facade', '<ProgressTracker />', () => {
 	it('should have default label where there is no label passed', () => {
 		const { container } = render(<ProgressTracker items={generateStages({ count: 6 })} />);
 
@@ -56,6 +58,6 @@ describe('<ProgressTracker />', () => {
 
 		const listItems = container.querySelectorAll('li');
 		expect(listItems).toHaveLength(6);
-		expect(listItems[3].getAttribute('aria-current')).toBe('step');
+		expect(listItems[3]).toHaveAttribute('aria-current', 'step');
 	});
 });

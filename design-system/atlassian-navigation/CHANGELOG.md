@@ -1,5 +1,17 @@
 # @atlaskit/atlassian-navigation
 
+## 4.6.0
+
+### Minor Changes
+
+- [#134149](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134149)
+  [`9502975197692`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9502975197692) -
+  [ux] Providing Nav4 skeleton components for SSR
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.5.2
 
 ### Patch Changes

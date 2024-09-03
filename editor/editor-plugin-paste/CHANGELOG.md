@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.11.3
+
+### Patch Changes
+
+- [#135903](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135903)
+  [`42636c7a806fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/42636c7a806fb) -
+  [ux] [ED-24525] Fix paste for media nested in blockquotes from external editor. Before it was
+  missing quote on paste, now it includes the quote.
+- Updated dependencies
+
 ## 1.11.2
 
 ### Patch Changes

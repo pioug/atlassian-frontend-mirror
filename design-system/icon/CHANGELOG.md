@@ -1,5 +1,14 @@
 # @atlaskit/icon
 
+## 22.15.2
+
+### Patch Changes
+
+- [#135696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135696)
+  [`81ef1300efc63`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/81ef1300efc63) -
+  This release tests changes to the default color value for new icons in `/core` and `/utility`
+  entrypoints behind a feature flag. These changes will roll out in an upcoming major release.
+
 ## 22.15.1
 
 ### Patch Changes

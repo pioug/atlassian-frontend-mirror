@@ -3,7 +3,7 @@ import React, { Profiler } from 'react';
 // @ts-expect-error TS7016: Could not find a declaration file for module 'react-dom/profiling'
 import ReactDOM from 'react-dom/profiling';
 
-import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';

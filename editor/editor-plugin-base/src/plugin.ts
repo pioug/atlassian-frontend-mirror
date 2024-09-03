@@ -12,12 +12,14 @@ import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-id
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import { history } from '@atlaskit/editor-prosemirror/history';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { setKeyboardHeight } from './commands';
 import disableSpellcheckingPlugin from './pm-plugins/disable-spell-checking';
 import filterStepsPlugin from './pm-plugins/filter-steps';
 import frozenEditor from './pm-plugins/frozen-editor';
 import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
+import { createLazyNodeViewDecorationPlugin } from './pm-plugins/lazy-node-view-decoration';
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import type { ScrollGutterPluginOptions } from './pm-plugins/scroll-gutter';
 import scrollGutter, { getKeyboardHeight } from './pm-plugins/scroll-gutter';
@@ -70,6 +72,13 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 					plugin: ({ dispatchAnalyticsEvent }) => filterStepsPlugin(dispatchAnalyticsEvent),
 				},
 			];
+
+			if (fg('platform_editor_lazy-node-views')) {
+				plugins.push({
+					name: 'lazyNodeViewDecorationsPlugin',
+					plugin: () => createLazyNodeViewDecorationPlugin(),
+				});
+			}
 
 			// In Chrome, when the selection is placed between adjacent nodes which are not contenteditatble
 			// the cursor appears at the right most point of the parent container.

@@ -8,7 +8,7 @@ import React, { Fragment, memo, useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import Button, { type ThemeProps, type ThemeTokens } from '@atlaskit/button/custom-theme-button';
 import { B400, B50, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

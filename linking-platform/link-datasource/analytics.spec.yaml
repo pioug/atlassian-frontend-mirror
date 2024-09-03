@@ -531,3 +531,9 @@ events:
           type: string
           required: false
           description: target datasourceId in actions service
+  - form submitted (inlineEdit):
+      type: ui
+      description:
+        Fired when the user initiates an update via inline edit through enter key press or submit
+      attributes:
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]

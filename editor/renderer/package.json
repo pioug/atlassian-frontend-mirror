@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "109.51.2",
+	"version": "109.51.5",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,11 +25,11 @@
 		"@atlaskit/adf-schema": "^40.9.0",
 		"@atlaskit/adf-utils": "^19.8.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
-		"@atlaskit/analytics-namespaced-context": "^6.11.0",
+		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/code": "^15.6.0",
-		"@atlaskit/editor-common": "^88.6.0",
+		"@atlaskit/editor-common": "^88.8.0",
 		"@atlaskit/editor-json-transformer": "^8.18.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
@@ -72,7 +72,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/css-reset": "^6.10.0",
-		"@atlaskit/editor-test-helpers": "^18.31.0",
+		"@atlaskit/editor-test-helpers": "^18.32.0",
 		"@atlaskit/link-provider": "^1.14.0",
 		"@atlaskit/link-test-helpers": "^7.5.0",
 		"@atlaskit/linking-common": "^5.11.0",
@@ -126,9 +126,6 @@
 			"referenceOnly": "true"
 		},
 		"platform.editor.inline_extension.extended_lcqdn": {
-			"type": "boolean"
-		},
-		"platform_editor_tables_padding_increase": {
 			"type": "boolean"
 		},
 		"platform_editor_table_support_in_comment": {

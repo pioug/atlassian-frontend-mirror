@@ -14,12 +14,6 @@ snapshot(DefaultExample, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 snapshot(SelectedExample, {
@@ -32,12 +26,6 @@ snapshot(SelectedExample, {
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],

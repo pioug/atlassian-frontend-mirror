@@ -1,4 +1,4 @@
-import { browser } from '@atlaskit/editor-common/utils';
+import { browser } from '@atlaskit/editor-common/browser';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { B200, N20, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

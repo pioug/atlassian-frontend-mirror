@@ -18,10 +18,10 @@ import {
 	akEditorWideLayoutWidth,
 	overflowShadow,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import browser from '../../utils/browser';
+import { browser } from '../../utils/browser';
 
 import { CodeBlockSharedCssClassName } from './code-block';
 import { tableCellBackgroundStyleOverride } from './tableCell';
@@ -133,7 +133,7 @@ const tableSharedStyle = () => css`
 				border-right-width: 0;
 				border-bottom-width: 0;
 
-				padding: ${fg('platform_editor_tables_padding_increase')
+				padding: ${editorExperiment('table-nested-dnd', true)
 					? `${token('space.100', '8px')} ${token('space.250', '20px')}`
 					: token('space.100', '8px')};
 				/* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */

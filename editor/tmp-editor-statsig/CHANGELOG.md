@@ -1,5 +1,41 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.1.1
+
+### Patch Changes
+
+- [#136410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136410)
+  [`af422227cfb98`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af422227cfb98) -
+  Update eeTest to include experiment overrides
+- [#136410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136410)
+  [`52083ca79b5dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52083ca79b5dc) -
+  [ux] ED-24603 Disable dragging nested nodes within table behind FF
+
+## 2.1.0
+
+### Minor Changes
+
+- [#136054](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136054)
+  [`9887c32fede77`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9887c32fede77) -
+  EDF-1449 Fix floating toolbar experiment
+
+## 2.0.1
+
+### Patch Changes
+
+- [#136295](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136295)
+  [`0150dad7ca580`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0150dad7ca580) -
+  Add new experiment for insert menu in right rail, allow right menu to be opened from main toolbar
+  '+' button
+
+## 2.0.0
+
+### Major Changes
+
+- [#136209](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136209)
+  [`2d0d9036c143a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d0d9036c143a) -
+  [ED-24790] Add support for editor experiments in gemini tests
+
 ## 1.4.1
 
 ### Patch Changes

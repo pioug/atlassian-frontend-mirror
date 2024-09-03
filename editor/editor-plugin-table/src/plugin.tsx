@@ -10,6 +10,7 @@ import {
 	INPUT_METHOD,
 	TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
+import { browser } from '@atlaskit/editor-common/browser';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { IconTable } from '@atlaskit/editor-common/icons';
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
@@ -24,7 +25,6 @@ import type {
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import { browser } from '@atlaskit/editor-common/utils';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';

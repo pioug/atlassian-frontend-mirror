@@ -51,7 +51,7 @@ export const fireEvent = (
 
 const TEAM_SUBJECT = 'teamProfileCard';
 const USER_SUBJECT = 'profilecard';
-const AGENT_SUBJECT = 'rovoAgenrProfilecard';
+const AGENT_SUBJECT = 'rovoAgentProfilecard';
 
 const createEvent = (
 	eventType: 'ui' | 'operational',

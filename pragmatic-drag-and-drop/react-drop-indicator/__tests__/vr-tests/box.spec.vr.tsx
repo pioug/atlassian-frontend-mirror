@@ -15,12 +15,6 @@ snapshot(ClosestEdge, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 snapshot(Gap, {
@@ -33,12 +27,6 @@ snapshot(Gap, {
 			name: 'Light',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],

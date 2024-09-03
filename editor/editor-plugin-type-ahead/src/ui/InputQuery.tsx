@@ -10,8 +10,8 @@ import type { IntlShape } from 'react-intl-next';
 import { useIntl } from 'react-intl-next';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';

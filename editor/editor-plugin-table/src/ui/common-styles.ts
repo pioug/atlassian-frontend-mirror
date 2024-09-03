@@ -3,10 +3,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import { tableMarginTop, tableSharedStyle } from '@atlaskit/editor-common/styles';
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import { browser } from '@atlaskit/editor-common/utils';
 import {
 	akEditorSelectedNodeClassName,
 	akEditorSmallZIndex,

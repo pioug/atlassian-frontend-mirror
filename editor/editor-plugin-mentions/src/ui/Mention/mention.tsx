@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import { MentionWithProfileCard } from '@atlaskit/editor-common/mention';
 import { type ProfilecardProvider } from '@atlaskit/editor-common/src/provider-factory/profile-card-provider';
 import type { MentionEventHandlers } from '@atlaskit/editor-common/ui';
-import { browser } from '@atlaskit/editor-common/utils';
 import { ResourcedMention } from '@atlaskit/mention/element';
 import {
 	isResolvingMentionProvider,

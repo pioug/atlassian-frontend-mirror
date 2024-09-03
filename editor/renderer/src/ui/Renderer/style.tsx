@@ -41,7 +41,7 @@ import {
 
 import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 
-import { browser } from '@atlaskit/editor-common/utils';
+import { browser } from '@atlaskit/editor-common/browser';
 import {
 	editorFontSize,
 	blockNodesVerticalMargin,
@@ -54,6 +54,7 @@ import {
 	relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
 import { N40A } from '@atlaskit/theme/colors';
+
 import { RendererCssClassName } from '../../consts';
 import type { RendererAppearance } from './types';
 import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
@@ -283,7 +284,7 @@ const tableSortableColumnStyle = ({
 			.${RendererCssClassName.SORTABLE_COLUMN} {
 				width: 100%;
 				height: 100%;
-				padding: ${fg('platform_editor_tables_padding_increase')
+				padding: ${editorExperiment('table-nested-dnd', true)
 					? `${tableCellPadding}px ${token('space.250', '20px')}`
 					: `${tableCellPadding}px`};
 				border-width: 1.5px;

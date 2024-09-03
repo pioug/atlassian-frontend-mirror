@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
 
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -23,6 +23,7 @@ import type {
 	SimplifiedNode,
 	UfoSessionCompletePayloadAEP,
 } from '@atlaskit/editor-common/analytics';
+import { browser } from '@atlaskit/editor-common/browser';
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
@@ -44,18 +45,16 @@ import {
 } from '@atlaskit/editor-common/ufo';
 import type { ErrorReporter, SEVERITY } from '@atlaskit/editor-common/utils';
 import {
-	analyticsEventKey,
-	browser,
 	countNodes,
-	findChangedNodesFromTransaction,
-	getAnalyticsEventSeverity,
 	getResponseEndTime,
 	measureRender,
 	processRawValue,
 	shouldForceTracking,
-	validateNodes,
-	validNode,
 } from '@atlaskit/editor-common/utils';
+import {
+	analyticsEventKey,
+	getAnalyticsEventSeverity,
+} from '@atlaskit/editor-common/utils/analytics';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -70,6 +69,7 @@ import type { EditorAppearance, EditorConfig, EditorPlugin, EditorProps } from '
 import type { EditorNextProps } from '../types/editor-props';
 import type { FeatureFlags } from '../types/feature-flags';
 import { getNodesCount } from '../utils/document';
+import { findChangedNodesFromTransaction } from '../utils/findChangedNodesFromTransaction';
 import { isFullPage } from '../utils/is-full-page';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 import measurements from '../utils/performance/measure-enum';
@@ -83,6 +83,7 @@ import {
 	EVENT_NAME_VIEW_STATE_UPDATED,
 	TransactionTracker,
 } from '../utils/performance/track-transactions';
+import { validateNodes, validNode } from '../utils/validateNodes';
 
 import {
 	DEFAULT_SAMPLING_RATE_VALID_TRANSACTIONS,

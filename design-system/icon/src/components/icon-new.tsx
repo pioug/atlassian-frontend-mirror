@@ -105,7 +105,7 @@ const baseSizeMap = {
  */
 export const Icon = memo(function Icon(props: NewIconProps) {
 	const {
-		color = token('color.icon'),
+		color: providedColor,
 		spacing: providedSpacing = 'none',
 		testId,
 		label,
@@ -121,6 +121,12 @@ export const Icon = memo(function Icon(props: NewIconProps) {
 		shouldScale,
 		LEGACY_margin,
 	} = props as InternalIconPropsNew;
+
+	let fallbackColor: NewIconProps['color'] = token('color.icon');
+	if (fg('platform-design-system-new-icon-default-color')) {
+		fallbackColor = 'currentColor';
+	}
+	const color = providedColor ?? fallbackColor;
 
 	const dangerouslySetInnerHTML = dangerouslySetGlyph
 		? {

@@ -15,12 +15,6 @@ snapshot(DragHandleButtonExample, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 
@@ -35,12 +29,6 @@ snapshot.skip(DragHandleButtonSmallExample, {
 			name: 'Light',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],

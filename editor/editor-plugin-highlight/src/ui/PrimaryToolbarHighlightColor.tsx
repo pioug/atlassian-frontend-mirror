@@ -11,19 +11,25 @@ import { injectIntl } from 'react-intl-next';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { DynamicStrokeIconDecoration } from '@atlaskit/editor-common/icons';
 import {
 	getAriaKeyshortcuts,
 	toggleHighlightPalette,
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
-import { expandIconContainerStyle } from '@atlaskit/editor-common/styles';
+import {
+	expandIconContainerStyle,
+	triggerWrapperStylesWithPadding,
+} from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import EditFilledIcon from '@atlaskit/icon/core/migration/edit--edit-filled';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 
 import { setPalette } from '../commands';
@@ -119,19 +125,37 @@ const PrimaryToolbarHighlightColor = ({
 						onKeyDown={handleKeyDown}
 						ref={toolbarItemRef}
 						iconBefore={
-							<Flex>
-								<EditorHighlightIcon
-									selectedColor={activeColorToken}
-									disabled={highlightState.disabled}
-								/>
+							// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
+							fg('platform.design-system-team.enable-new-icons') ? (
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+								<div css={triggerWrapperStylesWithPadding}>
+									<DynamicStrokeIconDecoration
+										selectedColor={activeColorToken}
+										disabled={highlightState.disabled}
+										icon={<EditFilledIcon label="" color="currentColor" spacing="spacious" />}
+									/>
+									{
+										//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+										<span css={expandIconContainerStyle}>
+											<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
+										</span>
+									}
+								</div>
+							) : (
+								<Flex>
+									<EditorHighlightIcon
+										selectedColor={activeColorToken}
+										disabled={highlightState.disabled}
+									/>
 
-								<span
-									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-									css={expandIconContainerStyle}
-								>
-									<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
-								</span>
-							</Flex>
+									<span
+										// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+										css={expandIconContainerStyle}
+									>
+										<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
+									</span>
+								</Flex>
+							)
 						}
 					/>
 				}

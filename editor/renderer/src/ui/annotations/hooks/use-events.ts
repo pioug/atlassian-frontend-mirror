@@ -18,7 +18,7 @@ import {
 	EVENT_TYPE,
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 
 type ListenEventProps = {
 	id: AnnotationId;

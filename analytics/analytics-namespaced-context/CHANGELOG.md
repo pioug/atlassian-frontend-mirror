@@ -1,5 +1,13 @@
 # @atlaskit/analytics-namespaced-context
 
+## 6.12.0
+
+### Minor Changes
+
+- [#136348](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136348)
+  [`fb4fb56f1da7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb4fb56f1da7c) -
+  Add new entry-point for FabricEditorAnalyticsContext.
+
 ## 6.11.0
 
 ### Minor Changes

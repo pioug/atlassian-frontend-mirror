@@ -47,8 +47,8 @@ import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/smart-car
 import { startTrackingPastedMacroPositions, stopTrackingPastedMacroPositions } from './commands';
 import {
 	insertSliceForLists,
-	insertSliceForListsInsideBlockquote,
 	insertSliceForTaskInsideList,
+	insertSliceInsideBlockquote,
 } from './edge-cases';
 import { insertSliceInsideOfPanelNodeSelected } from './edge-cases/lists';
 import { getPluginState as getPastePluginState } from './pm-plugins/plugin-factory';
@@ -405,7 +405,7 @@ export function handlePasteNonNestableBlockNodesIntoList(slice: Slice): Command 
 			slice.content.firstChild?.type.name === 'blockquote' &&
 			contains(slice.content.firstChild, state.schema.nodes.listItem)
 		) {
-			insertSliceForListsInsideBlockquote({ tr, slice });
+			insertSliceInsideBlockquote({ tr, slice });
 		} else if (
 			sliceContainsNodeThatPastesAsPlainText ||
 			nodeAfterInsertPositionIsListItem ||
@@ -1213,10 +1213,12 @@ export function handleRichText(
 			if (
 				firstChildOfSlice?.type?.name === 'blockquote' &&
 				firstChildOfSlice?.content.firstChild?.type.name &&
-				['bulletList', 'orderedList'].includes(firstChildOfSlice?.content.firstChild?.type.name)
+				['bulletList', 'orderedList', 'mediaSingle'].includes(
+					firstChildOfSlice?.content.firstChild?.type.name,
+				)
 			) {
-				// checks if parent node is a blockquote and child node is either a bulletlist or orderedlist
-				insertSliceForListsInsideBlockquote({ tr, slice });
+				// checks if parent node is a blockquote and child node is either a bulletlist or orderedlist or mediaSingle
+				insertSliceInsideBlockquote({ tr, slice });
 			} else {
 				tr.replaceSelection(slice);
 				// when cursor is inside a table cell, and slice.content.lastChild is a panel, expand, or decisionList

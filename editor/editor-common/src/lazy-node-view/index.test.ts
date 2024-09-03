@@ -4,8 +4,6 @@ import type { DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/
 
 import { type CreateReactNodeViewProps, withLazyLoading } from './index'; // Update this with the actual path
 
-jest.mock('./replace-node-views');
-
 jest.mock('@atlaskit/editor-prosemirror/model', () => {
 	return {
 		__esModule: true,

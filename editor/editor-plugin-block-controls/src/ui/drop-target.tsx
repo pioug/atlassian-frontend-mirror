@@ -19,16 +19,19 @@ import { token } from '@atlaskit/tokens';
 import type { BlockControlsPlugin } from '../types';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 
-import { nodeMargins, spaceLookupMap } from './consts';
+import { getNestedNodeLeftPaddingMargin, nodeMargins, spaceLookupMap } from './consts';
 
 const DEFAULT_DROP_INDICATOR_WIDTH = 760;
 const EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH = '--editor-block-controls-drop-indicator-width';
+const EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_LEFT_MARGIN =
+	'--editor-block-controls-drop-indicator-leftMargin';
 
 const styleDropTarget = css({
 	height: token('space.100', '8px'),
 	marginTop: token('space.negative.100', '-8px'),
+	marginLeft: `calc(-1 * var(${EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_LEFT_MARGIN}, 0))`,
+	paddingLeft: `var(${EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_LEFT_MARGIN}, 0)`,
 	position: 'absolute',
-	width: '100%',
 	left: '0',
 	display: 'block',
 	zIndex: layers.card(),
@@ -154,9 +157,13 @@ export const DropTarget = ({
 	}, [prevNode, nextNode, parentNode]);
 
 	const widthStyle = {
+		width: isNestedDropTarget ? 'unset' : '100%',
 		[EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH]: isNestedDropTarget
 			? '100%'
 			: `${widthState?.lineLength || DEFAULT_DROP_INDICATOR_WIDTH}px`,
+		[EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_LEFT_MARGIN]: isNestedDropTarget
+			? getNestedNodeLeftPaddingMargin(parentNode?.type.name)
+			: '0',
 	} as CSSProperties;
 
 	return (

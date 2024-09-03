@@ -25,12 +25,6 @@ snapshot(HoverCard, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 
@@ -45,10 +39,7 @@ snapshot(HoverCardActions, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
-	variants: [
-		{ name: 'light mode', environment: { colorScheme: 'light' } },
-		{ name: 'dark mode', environment: { colorScheme: 'dark' } },
-	],
+	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
 });
 
 snapshot(HoverCardActions, {

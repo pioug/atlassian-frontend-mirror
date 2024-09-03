@@ -2,9 +2,9 @@ import React from 'react';
 
 import {
 	type CreateUIAnalyticsEvent,
-	withAnalyticsEvents,
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 export type Props = {
 	render: (createAnalyticsEvent?: CreateUIAnalyticsEvent) => React.ReactNode;

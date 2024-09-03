@@ -12,8 +12,8 @@ import { ACTION_SUBJECT_ID } from '../analytics';
 
 export const UNSUPPORTED_NODE_ATTRIBUTE = 'unsupportedNodeAttribute';
 
-import type { UnsupportedContentPayload } from './analytics';
 import { fireUnsupportedEvent } from './track-unsupported-content';
+import type { UnsupportedContentPayload } from './unsupportedContent/types';
 
 export type DispatchAnalyticsEvent = (event: UnsupportedContentPayload) => void;
 

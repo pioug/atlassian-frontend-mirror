@@ -9,8 +9,8 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages';
-import { browser } from '@atlaskit/editor-common/utils';
 import Heading from '@atlaskit/heading';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog';
 import { Text } from '@atlaskit/primitives';

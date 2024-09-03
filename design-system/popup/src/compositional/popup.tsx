@@ -6,10 +6,10 @@ import React, {
 	useState,
 } from 'react';
 
-import { useUID } from 'react-uid';
 import invariant from 'tiny-invariant';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
@@ -64,7 +64,7 @@ export type PopupProps = {
 export const Popup = ({ children, id: providedId, isOpen = false }: PopupProps) => {
 	const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 
-	const generatedId = useUID();
+	const generatedId = useId();
 	const id = providedId || generatedId;
 
 	return (

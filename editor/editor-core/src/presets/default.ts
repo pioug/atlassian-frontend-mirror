@@ -1,5 +1,5 @@
 // #region Imports
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { SelectionPluginOptions } from '@atlaskit/editor-common/selection';

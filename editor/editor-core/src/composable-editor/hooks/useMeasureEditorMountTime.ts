@@ -4,7 +4,7 @@
  */
 import { useEffect } from 'react';
 
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { ACTION } from '@atlaskit/editor-common/analytics';
 import { clearMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { ExperienceStore } from '@atlaskit/editor-common/ufo';

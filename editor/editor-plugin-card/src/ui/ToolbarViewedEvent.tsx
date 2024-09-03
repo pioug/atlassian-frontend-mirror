@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import type { CardContext } from '@atlaskit/link-provider';
 
 import { getResolvedAttributesFromStore } from '../utils';

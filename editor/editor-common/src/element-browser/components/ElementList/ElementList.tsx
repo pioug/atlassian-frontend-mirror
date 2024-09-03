@@ -12,7 +12,7 @@ import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';

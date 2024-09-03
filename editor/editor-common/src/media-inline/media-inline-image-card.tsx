@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { createIntl, injectIntl } from 'react-intl-next';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import {
 	fireFailedMediaInlineEvent,
 	fireSucceededMediaInlineEvent,

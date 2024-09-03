@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.3.1
+
+### Patch Changes
+
+- [#136260](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136260)
+  [`852bc79a309bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/852bc79a309bc) -
+  [ux] [ED-24567] Closes the media insert popup when local upload has started
+- Updated dependencies
+
 ## 2.3.0
 
 ### Minor Changes

@@ -2,7 +2,7 @@ import React, { type ErrorInfo } from 'react';
 
 import uuid from 'uuid';
 
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { ErrorEventAttributes, ErrorEventPayload } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -16,11 +16,11 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
-import { isOutdatedBrowser } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CustomData } from '@atlaskit/ufo/types';
 
 import type { FeatureFlags } from '../types/feature-flags';
+import { isOutdatedBrowser } from '../utils/outdatedBrowsers';
 
 import { WithEditorView } from './WithEditorView';
 

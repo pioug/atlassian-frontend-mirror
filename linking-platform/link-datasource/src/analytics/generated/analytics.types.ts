@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::a773c6cad8ff2e59bb7020ea85e35bc5>>
+ * @codegen <<SignedSource::b545a6ba498c7d701c956e5ca94c24cf>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type ComponentMetaDataType = {
@@ -178,6 +178,7 @@ export type ActionDiscoverySuccessAttributesType = {
 	integrationKey: string | null;
 	datasourceId: string | null;
 };
+export type FormSubmittedInlineEditAttributesType = {};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -294,6 +295,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * Fired when the action discovery and permissions request is successful. */
 	'operational.actionDiscovery.success': ActionDiscoverySuccessAttributesType;
+	/**
+	 * Fired when the user initiates an update via inline edit through enter key press or submit */
+	'ui.form.submitted.inlineEdit': FormSubmittedInlineEditAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

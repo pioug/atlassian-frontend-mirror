@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.18
+
+### Patch Changes
+
+- [#136348](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136348)
+  [`fb4fb56f1da7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb4fb56f1da7c) -
+  Use optimised entry-points on editor-common for browser.
+- Updated dependencies
+
+## 7.25.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.25.16
 
 ### Patch Changes

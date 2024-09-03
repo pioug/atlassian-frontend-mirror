@@ -1,4 +1,4 @@
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { EditorPluginInjectionAPI, EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type { ScrollGutterPluginOptions } from '@atlaskit/editor-plugins/base';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';

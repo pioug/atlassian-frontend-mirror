@@ -83,7 +83,7 @@ function ProfileCardTrigger<T>({
 				return (
 					<PopupTrigger<T>
 						{...(disabledAriaAttributes ? restInnerProps : triggerProps)}
-						forwardRef={triggerProps.ref}
+						ref={triggerProps.ref}
 						hideProfilecard={hideProfilecard}
 						showProfilecard={showProfilecard}
 						children={children}

@@ -11,6 +11,7 @@ export { PanelSuccessIcon } from './shared/PanelSuccessIcon';
 export { PanelNoteIcon } from './shared/PanelNoteIcon';
 export { BorderIcon } from './shared/BorderIcon';
 export { SteppedRainbowIconDecoration } from './shared/SteppedRainbowIconDecoration';
+export { DynamicStrokeIconDecoration } from './shared/DynamicStrokeIconDecoration';
 
 export const IconTable = Loadable({
 	loader: () =>

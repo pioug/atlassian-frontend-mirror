@@ -7,7 +7,7 @@ import { Fragment, memo, useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { usePortalProvider } from '@atlaskit/editor-common/portal';

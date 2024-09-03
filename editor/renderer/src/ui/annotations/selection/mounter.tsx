@@ -9,7 +9,7 @@ import type { ApplyAnnotation } from '../../../actions/index';
 import { updateWindowSelectionAroundDraft } from '../draft';
 import type { Position } from '../types';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import {
 	ACTION,
 	ACTION_SUBJECT,

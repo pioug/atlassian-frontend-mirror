@@ -1,5 +1,6 @@
 import rafSchedule from 'raf-schd';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import {
 	codeBlockWrappedStates,
 	defaultWordWrapState,
@@ -10,7 +11,6 @@ import type {
 	getPosHandler,
 	getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { DOMOutputSpec, Node } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

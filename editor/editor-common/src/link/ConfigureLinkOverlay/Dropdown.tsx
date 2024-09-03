@@ -8,7 +8,7 @@ import { type KeyboardEvent, type MouseEvent, useCallback } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import DropdownMenu, {
 	DropdownItem,
 	DropdownItemGroup,

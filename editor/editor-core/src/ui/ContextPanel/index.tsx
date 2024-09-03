@@ -17,11 +17,8 @@ import {
 	akEditorContextPanelWidth,
 	akEditorSwoopCubicBezier,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import ContextPanelDeprecated from './deprecated';
 
 export type Props = {
 	visible: boolean;
@@ -177,13 +174,5 @@ export function ContextPanel(props: Props) {
 
 	return (
 		<SwappableContentArea {...props} editorAPI={props.editorAPI} pluginContent={firstContent} />
-	);
-}
-
-export default function ContextPanelDefault(props: Props) {
-	return fg('platform_editor_context-panel_simplify_behaviour') ? (
-		<ContextPanel {...props} />
-	) : (
-		<ContextPanelDeprecated {...props} />
 	);
 }

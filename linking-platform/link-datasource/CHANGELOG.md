@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 2.11.15
+
+### Patch Changes
+
+- [#136349](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136349)
+  [`a1c9a8ac45907`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1c9a8ac45907) -
+  Adds the ui.form.submitted.inlineEdit analytic event to be fired on when users attempts to update
+  via inline edit.
+
 ## 2.11.14
 
 ### Patch Changes

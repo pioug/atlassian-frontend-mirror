@@ -4,6 +4,7 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { applyChange } from './transforms';
 import type { ContextPanelHandler } from './types';
@@ -36,14 +37,26 @@ function contextPanelPluginFactory(
 				if (tr.docChanged || tr.selectionSet || (meta && meta.changed)) {
 					const newContents = pluginState.handlers.map((panelContent) => panelContent(newState));
 
-					if (
-						newContents.length !== newPluginState.contents.length ||
-						newContents.some((node) => newPluginState.contents.indexOf(node) < 0)
-					) {
-						newPluginState = {
-							...newPluginState,
-							contents: newContents,
-						};
+					if (editorExperiment('insert-menu-in-right-rail', true)) {
+						if (
+							newContents.length !== newPluginState.contents.length ||
+							newContents.some((node, index) => newPluginState.contents[index] !== node)
+						) {
+							newPluginState = {
+								...newPluginState,
+								contents: newContents,
+							};
+						}
+					} else {
+						if (
+							newContents.length !== newPluginState.contents.length ||
+							newContents.some((node) => newPluginState.contents.indexOf(node) < 0)
+						) {
+							newPluginState = {
+								...newPluginState,
+								contents: newContents,
+							};
+						}
 					}
 				}
 

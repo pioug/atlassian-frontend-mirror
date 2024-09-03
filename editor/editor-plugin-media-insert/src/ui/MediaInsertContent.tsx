@@ -41,9 +41,9 @@ export const MediaInsertContent = ({
 			<TabPanel>
 				<LocalMedia
 					mediaProvider={mediaProvider}
-					onInsert={insertMediaSingle}
-					onClose={closeMediaInsertPicker}
 					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+					closeMediaInsertPicker={closeMediaInsertPicker}
+					insertMediaSingle={insertMediaSingle}
 				/>
 			</TabPanel>
 			<TabPanel>

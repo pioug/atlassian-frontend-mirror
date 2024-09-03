@@ -46,3 +46,9 @@ export const wrapperStyle = css({
 export const triggerWrapperStyles = css({
 	display: 'flex',
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const triggerWrapperStylesWithPadding = css({
+	display: 'flex',
+	paddingRight: token('space.025', '2px'),
+});

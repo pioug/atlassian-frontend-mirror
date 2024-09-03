@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 import { bulletListSelector, orderedListSelector } from '@atlaskit/adf-schema';
 
-import browser from '../../utils/browser';
+import { browser } from '../../utils/browser';
 
 export const listItemCounterPadding = 24;
 

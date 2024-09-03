@@ -4,19 +4,20 @@ import { type TriggerProps } from '@atlaskit/popup';
 
 import { type ProfileCardTriggerProps } from './types';
 
-export const PopupTrigger = <T,>({
-	children,
-	trigger,
-	forwardRef,
-	showProfilecard,
-	hideProfilecard,
-	ariaLabelledBy,
-	...props
-}: Partial<TriggerProps> & {
-	showProfilecard: () => void;
-	hideProfilecard: () => void;
-	forwardRef: React.Ref<HTMLSpanElement>;
-} & Pick<ProfileCardTriggerProps<T>, 'ariaLabelledBy' | 'trigger' | 'children'>) => {
+const PopupTriggerInner = <T,>(
+	{
+		children,
+		trigger,
+		showProfilecard,
+		hideProfilecard,
+		ariaLabelledBy,
+		...props
+	}: Partial<TriggerProps> & {
+		showProfilecard: () => void;
+		hideProfilecard: () => void;
+	} & Pick<ProfileCardTriggerProps<T>, 'ariaLabelledBy' | 'trigger' | 'children'>,
+	ref: React.Ref<HTMLSpanElement>,
+) => {
 	const onMouseEnter = useCallback(() => {
 		showProfilecard();
 	}, [showProfilecard]);
@@ -33,9 +34,7 @@ export const PopupTrigger = <T,>({
 
 	const onClick = useCallback(
 		(event: React.MouseEvent) => {
-			// If the user clicks on the trigger then we don't want that click event to
-			// propagate out to parent containers. For example when clicking a mention
-			// lozenge in an inline-edit.
+			// Prevent the click event from propagating to parent containers.
 			event.stopPropagation();
 			showProfilecard();
 		},
@@ -46,21 +45,29 @@ export const PopupTrigger = <T,>({
 		() =>
 			trigger === 'hover'
 				? {
-						onMouseEnter: onMouseEnter,
+						onMouseEnter,
 						onMouseLeave: hideProfilecard,
 						onBlur: hideProfilecard,
-						onKeyPress: onKeyPress,
+						onKeyPress,
 					}
 				: {
-						onClick: onClick,
-						onKeyPress: onKeyPress,
+						onClick,
+						onKeyPress,
 					},
 		[hideProfilecard, onClick, onKeyPress, onMouseEnter, trigger],
 	);
 
 	return (
-		<span {...props} {...containerListeners} ref={forwardRef} aria-labelledby={ariaLabelledBy}>
+		<span {...props} {...containerListeners} ref={ref} aria-labelledby={ariaLabelledBy}>
 			{children}
 		</span>
 	);
 };
+
+export const PopupTrigger = React.forwardRef(PopupTriggerInner) as <T>(
+	props: Partial<TriggerProps> & {
+		showProfilecard: () => void;
+		hideProfilecard: () => void;
+	} & Pick<ProfileCardTriggerProps<T>, 'ariaLabelledBy' | 'trigger' | 'children'> &
+		React.RefAttributes<HTMLSpanElement>,
+) => JSX.Element;

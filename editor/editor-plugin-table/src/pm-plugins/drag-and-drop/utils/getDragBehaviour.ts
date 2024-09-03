@@ -1,4 +1,4 @@
-import { browser } from '@atlaskit/editor-common/utils';
+import { browser } from '@atlaskit/editor-common/browser';
 import type { Input } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 import type { DraggableBehaviour } from '../../../types';

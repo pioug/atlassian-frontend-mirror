@@ -20,9 +20,20 @@ export const handleMouseOver = (
 	if (target.classList.contains('ProseMirror')) {
 		return false;
 	}
-	const rootElement = target?.closest('[data-drag-handler-anchor-name]');
+	let rootElement = target?.closest('[data-drag-handler-anchor-name]');
 	if (rootElement) {
+		const tableElement = rootElement.closest('[data-drag-handler-node-type="table"]');
+
+		if (
+			tableElement &&
+			editorExperiment('nested-dnd', true) &&
+			editorExperiment('table-nested-dnd', false, { exposure: true })
+		) {
+			rootElement = tableElement;
+		}
 		const anchorName = rootElement.getAttribute('data-drag-handler-anchor-name')!;
+		const nodeType = rootElement.getAttribute('data-drag-handler-node-type')!;
+
 		if (activeNode?.anchorName === anchorName) {
 			return false;
 		}
@@ -39,11 +50,12 @@ export const handleMouseOver = (
 		let rootPos;
 		if (editorExperiment('nested-dnd', true, { exposure: true })) {
 			const $rootPos = view.state.doc.resolve(pos);
-			const depth = $rootPos.depth;
 
+			const depth = $rootPos.depth;
 			const isParentAnIsolatingNode =
 				$rootPos.parent?.type.name !== 'doc' && $rootPos.parent?.type.spec.isolating;
 			const isCurrentNodeAtom = $rootPos.nodeAfter?.isAtom;
+
 			/**
 			 * If the parent node is an isolating node, the sides of nodes of this type are considered boundaries, such as a table cell.
 			 * And the current node, as a direct child, is an atom node, meaning it does not have directly editable content.
@@ -57,8 +69,6 @@ export const handleMouseOver = (
 		} else {
 			rootPos = view.state.doc.resolve(pos).start(1) - 1;
 		}
-
-		const nodeType = rootElement.getAttribute('data-drag-handler-node-type')!;
 
 		if (nodeType) {
 			api?.core?.actions.execute(

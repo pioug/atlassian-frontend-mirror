@@ -8,7 +8,8 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import Button from '@atlaskit/button/standard-button';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';

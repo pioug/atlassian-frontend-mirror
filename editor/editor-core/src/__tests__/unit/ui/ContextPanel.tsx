@@ -9,10 +9,9 @@ import { contextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import type { EditorPlugin } from '../../../types';
-import ContextPanel, { SwappableContentArea } from '../../../ui/ContextPanel';
+import { ContextPanel, SwappableContentArea } from '../../../ui/ContextPanel';
 
 describe('SwappableContentArea', () => {
 	it('renders children', () => {
@@ -102,59 +101,57 @@ const mockContextPanelPlugin: EditorPlugin = {
 };
 
 describe('ContextPanel', () => {
-	ffTest.on('platform_editor_context-panel_simplify_behaviour', '', () => {
-		it('renders SwappableContentArea', () => {
-			render(
-				<ContextPanel editorAPI={undefined} visible={true}>
-					<div>yoshi bongo</div>
-				</ContextPanel>,
-			);
-			const contentArea = screen.getByTestId('context-panel-panel');
-			expect(contentArea).toBeInTheDocument();
+	it('renders SwappableContentArea', () => {
+		render(
+			<ContextPanel editorAPI={undefined} visible={true}>
+				<div>yoshi bongo</div>
+			</ContextPanel>,
+		);
+		const contentArea = screen.getByTestId('context-panel-panel');
+		expect(contentArea).toBeInTheDocument();
+	});
+
+	it('passes top-level props and children to SwappableContentArea', () => {
+		render(
+			<ContextPanel editorAPI={undefined} visible={true}>
+				<div>yoshi bongo</div>
+			</ContextPanel>,
+		);
+		expect(screen.getByText('yoshi bongo')).toBeInTheDocument();
+	});
+
+	it('uses pluginContent instead if plugins define content', () => {
+		const { editorAPI } = editorFactory({
+			editorPlugins: [mockContextPanelPlugin, contextPanelPlugin({ config: undefined })],
+			doc: doc(p('hello')),
+		});
+		render(
+			<ContextPanel editorAPI={editorAPI} visible={true}>
+				<div>yoshi bongo</div>
+			</ContextPanel>,
+		);
+		expect(screen.queryByText('yoshi bongo')).not.toBeInTheDocument();
+		expect(screen.getByText('mario saxaphone')).toBeInTheDocument();
+	});
+
+	it('should focus editor on ESC from the sidebar config panel', async () => {
+		const { editorAPI } = editorFactory({
+			doc: doc(p('hello')),
 		});
 
-		it('passes top-level props and children to SwappableContentArea', () => {
-			render(
-				<ContextPanel editorAPI={undefined} visible={true}>
-					<div>yoshi bongo</div>
-				</ContextPanel>,
-			);
-			expect(screen.getByText('yoshi bongo')).toBeInTheDocument();
-		});
-
-		it('uses pluginContent instead if plugins define content', () => {
-			const { editorAPI } = editorFactory({
-				editorPlugins: [mockContextPanelPlugin, contextPanelPlugin({ config: undefined })],
-				doc: doc(p('hello')),
-			});
-			render(
-				<ContextPanel editorAPI={editorAPI} visible={true}>
-					<div>yoshi bongo</div>
-				</ContextPanel>,
-			);
-			expect(screen.queryByText('yoshi bongo')).not.toBeInTheDocument();
-			expect(screen.getByText('mario saxaphone')).toBeInTheDocument();
-		});
-
-		it('should focus editor on ESC from the sidebar config panel', async () => {
-			const { editorAPI } = editorFactory({
-				doc: doc(p('hello')),
-			});
-
-			// @ts-expect-error
-			const editorFocusSpy = jest.spyOn(editorAPI?.core.actions, 'focus');
-			const { rerender } = render(
-				<ContextPanel editorAPI={editorAPI} visible={true}>
-					<div>yoshi bongo</div>
-				</ContextPanel>,
-			);
-			// Update the component to simulate closing the sidebar
-			rerender(
-				<ContextPanel editorAPI={editorAPI} visible={false}>
-					<div>yoshi bongo</div>
-				</ContextPanel>,
-			);
-			expect(editorFocusSpy).toHaveBeenCalled();
-		});
+		// @ts-expect-error
+		const editorFocusSpy = jest.spyOn(editorAPI?.core.actions, 'focus');
+		const { rerender } = render(
+			<ContextPanel editorAPI={editorAPI} visible={true}>
+				<div>yoshi bongo</div>
+			</ContextPanel>,
+		);
+		// Update the component to simulate closing the sidebar
+		rerender(
+			<ContextPanel editorAPI={editorAPI} visible={false}>
+				<div>yoshi bongo</div>
+			</ContextPanel>,
+		);
+		expect(editorFocusSpy).toHaveBeenCalled();
 	});
 });

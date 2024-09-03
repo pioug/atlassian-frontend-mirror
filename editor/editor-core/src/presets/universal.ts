@@ -1,4 +1,4 @@
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { shouldForceTracking } from '@atlaskit/editor-common/utils';
 import { accessibilityUtilsPlugin } from '@atlaskit/editor-plugins/accessibility-utils';

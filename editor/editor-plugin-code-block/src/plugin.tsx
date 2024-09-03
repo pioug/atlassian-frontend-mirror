@@ -22,6 +22,7 @@ import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
 import { createInsertCodeBlockTransaction, insertCodeBlockWithAnalytics } from './actions';
+import { codeBlockAutoFullStopTransformPlugin } from './pm-plugins/codeBlockAutoFullStopTransformPlugin';
 import { codeBlockCopySelectionPlugin } from './pm-plugins/codeBlockCopySelectionPlugin';
 import ideUX from './pm-plugins/ide-ux';
 import { createCodeBlockInputRule } from './pm-plugins/input-rule';
@@ -82,6 +83,10 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => ({
 			{
 				name: 'codeBlockCopySelection',
 				plugin: () => codeBlockCopySelectionPlugin(),
+			},
+			{
+				name: 'codeBlockAutoFullStopTransform',
+				plugin: () => codeBlockAutoFullStopTransformPlugin(),
 			},
 		];
 	},

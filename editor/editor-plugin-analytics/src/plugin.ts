@@ -2,9 +2,9 @@ import { useLayoutEffect } from 'react';
 
 import type { AnalyticsWithChannel } from '@atlaskit/adf-schema/steps';
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,

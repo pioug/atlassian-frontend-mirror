@@ -7,8 +7,8 @@ import { type FC, memo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { useUID } from 'react-uid';
 
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
@@ -59,7 +59,7 @@ export const Popup: FC<PopupProps> = memo(
 		const getMergedTriggerRef = useGetMemoizedMergedTriggerRef();
 		const getMergedTriggerRefNew = useGetMemoizedMergedTriggerRefNew();
 
-		const generatedId = useUID();
+		const generatedId = useId();
 		const id = providedId || generatedId;
 
 		const renderPopperWrapper = (

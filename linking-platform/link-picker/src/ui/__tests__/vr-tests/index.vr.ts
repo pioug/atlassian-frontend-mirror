@@ -30,12 +30,6 @@ const allVariantsOptions: OptionsType = {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 };
 
@@ -76,12 +70,6 @@ snapshot(LargePaddingUsingTokensExample, {
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],

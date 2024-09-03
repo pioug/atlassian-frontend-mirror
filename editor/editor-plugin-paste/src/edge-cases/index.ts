@@ -76,13 +76,7 @@ export function insertSliceForLists({
 	tr.replaceSelection(slice);
 }
 
-export function insertSliceForListsInsideBlockquote({
-	tr,
-	slice,
-}: {
-	tr: Transaction;
-	slice: PMSlice;
-}) {
+export function insertSliceInsideBlockquote({ tr, slice }: { tr: Transaction; slice: PMSlice }) {
 	//insert blockquote explicitly and set the selection in blockquote since replaceSelection will only insert the list
 	const { schema } = tr.doc.type;
 	tr.replaceSelection(new Slice(Fragment.from(schema.nodes.blockquote.createAndFill()), 0, 0));

@@ -8,6 +8,7 @@ import {
 } from '@atlaskit/linking-types/datasource';
 import { Box, xcss } from '@atlaskit/primitives';
 
+import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { useDatasourceTableFlag } from '../../../hooks/useDatasourceTableFlag';
 import { useDatasourceActions, useDatasourceItem } from '../../../state';
 import { editType } from '../edit-type';
@@ -67,6 +68,8 @@ export const InlineEdit = ({
 
 	const { onUpdateItem } = useDatasourceActions();
 
+	const { fireEvent } = useDatasourceAnalyticsEvents();
+
 	const onCommitUpdate = useCallback(
 		(value: string) => {
 			if (!item) {
@@ -84,6 +87,8 @@ export const InlineEdit = ({
 
 			onUpdateItem(ari, newItem);
 
+			fireEvent('ui.form.submitted.inlineEdit', {});
+
 			execute(value).catch((error) => {
 				const status = error && typeof error === 'object' ? error.status : undefined;
 				showErrorFlag({ status });
@@ -91,7 +96,16 @@ export const InlineEdit = ({
 			});
 			setIsEditing(false);
 		},
-		[ari, item, datasourceTypeWithValues.type, columnKey, onUpdateItem, execute, showErrorFlag],
+		[
+			item,
+			datasourceTypeWithValues.type,
+			columnKey,
+			onUpdateItem,
+			ari,
+			execute,
+			fireEvent,
+			showErrorFlag,
+		],
 	);
 
 	return (

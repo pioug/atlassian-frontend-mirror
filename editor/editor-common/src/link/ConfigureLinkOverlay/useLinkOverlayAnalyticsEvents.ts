@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { FabricChannel } from '@atlaskit/analytics-listeners';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../analytics';
 

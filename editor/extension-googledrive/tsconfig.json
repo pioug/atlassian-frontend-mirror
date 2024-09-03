@@ -1,14 +1,15 @@
 {
-  "extends": "../../../tsconfig.json",
-  "include": [
-    "./src/**/*",
-    "./src/**/*.tsx",
-    "./docs/**/*.ts",
-    "./docs/**/*.tsx",
-    "./examples/**/*.ts",
-    "./examples/**/*.tsx",
-  ],
-  "compilerOptions": {
-    "baseUrl": "./"
-  }
+	"extends": "../../../tsconfig.json",
+	"include": [
+		"./src/**/*",
+		"./src/**/*.tsx",
+		"./docs/**/*.ts",
+		"./docs/**/*.tsx",
+		"./examples/**/*.ts",
+		"./examples/**/*.tsx"
+	],
+	"compilerOptions": {
+		"baseUrl": "./",
+		"types": ["node", "jest", "@testing-library/jest-dom", "gapi"]
+	}
 }

@@ -22,7 +22,7 @@ import { Popup } from '@atlaskit/editor-common/ui';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { withReactEditorViewOuterListeners as withOuterListeners } from '@atlaskit/editor-common/ui-react';
-import { analyticsEventKey } from '@atlaskit/editor-common/utils';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils/analytics';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
 import type { FeedbackDialogPlugin } from '@atlaskit/editor-plugins/feedback-dialog';
 import Spinner from '@atlaskit/spinner';

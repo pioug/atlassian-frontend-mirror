@@ -12,7 +12,7 @@ export {
 	 * @deprecated
 	 * DO NOT USE THIS WILL BE REMOVED SOON. This was intended for internal usage only
 	 */
-	default as ContextPanel,
+	ContextPanel,
 } from './ui/ContextPanel';
 export { EmojiResource } from '@atlaskit/emoji/resource';
 export { MentionResource } from '@atlaskit/mention/resource';

@@ -13,7 +13,7 @@ declare global {
 }
 
 const urlRegex =
-	/https:\/\/(?:media\.(?:dev|staging|prod)\.atl-paas\.net|api\.media\.atlassian\.com)\/file\/([^/]+)\/image.*[?&]source=mediaCard/;
+	/https:\/\/(?:media\.(?:dev|staging|prod)\.atl-paas\.net|api\.media\.atlassian\.com|media-cdn(?:\.stg\.|\.)atlassian\.com)\/file\/([^/]+)\/image.*[?&]source=mediaCard/;
 
 const clientIdParamRegex = /[?&]clientId=([^&]+)/;
 const ssrParamRegex = /[?&]token=([^&]+)/;

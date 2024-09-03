@@ -1,5 +1,31 @@
 # @atlaskit/renderer
 
+## 109.51.5
+
+### Patch Changes
+
+- [#136410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136410)
+  [`52083ca79b5dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52083ca79b5dc) -
+  [ux] ED-24603 Disable dragging nested nodes within table behind FF
+
+## 109.51.4
+
+### Patch Changes
+
+- [#136348](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136348)
+  [`fb4fb56f1da7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb4fb56f1da7c) -
+  Use optimised entry-points on editor-common for browser.
+- Updated dependencies
+
+## 109.51.3
+
+### Patch Changes
+
+- [#136143](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136143)
+  [`851c2575d214e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/851c2575d214e) -
+  Use optimised entry-points for analytics packages to reduce bundle size.
+- Updated dependencies
+
 ## 109.51.2
 
 ### Patch Changes

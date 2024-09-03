@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "88.6.1",
+	"version": "88.8.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,6 +43,7 @@
 		"./insert": "./src/insert/index.ts",
 		"./types": "./src/types/index.ts",
 		"./ui": "./src/ui/index.tsx",
+		"./utils/analytics": "./src/utils/analytics.ts",
 		"./utils": "./src/utils/index.ts",
 		"./card": "./src/card/index.ts",
 		"./collab": "./src/collab/index.ts",
@@ -86,6 +87,7 @@
 		"./floating-toolbar": "./src/floating-toolbar/index.ts",
 		"./copy-button": "./src/copy-button/index.ts",
 		"./legacy-rank-plugins": "./src/rank.ts",
+		"./browser": "./src/utils/browser.ts",
 		"./indentation": "./src/indentation/index.ts",
 		"./annotation": "./src/annotation/index.ts",
 		"./constants": "./src/link/constants.ts",
@@ -112,6 +114,7 @@
 		"./insert": "./src/insert/index.ts",
 		"./types": "./src/types/index.ts",
 		"./ui": "./src/ui/index.tsx",
+		"./utils/analytics": "./src/utils/analytics.ts",
 		"./utils": "./src/utils/index.ts",
 		"./card": "./src/card/index.ts",
 		"./code-block": "./src/code-block/index.ts",
@@ -156,6 +159,7 @@
 		"./floating-toolbar": "./src/floating-toolbar/index.ts",
 		"./copy-button": "./src/copy-button/index.ts",
 		"./legacy-rank-plugins": "./src/rank.ts",
+		"./browser": "./src/utils/browser.ts",
 		"./indentation": "./src/indentation/index.ts",
 		"./annotation": "./src/annotation/index.ts",
 		"./constants": "./src/link/constants.ts",
@@ -171,7 +175,7 @@
 		"@atlaskit/adf-schema": "^40.9.0",
 		"@atlaskit/adf-utils": "^19.8.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
-		"@atlaskit/analytics-namespaced-context": "^6.11.0",
+		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/atlassian-context": "^0.0.1",
 		"@atlaskit/button": "^20.1.0",
@@ -304,9 +308,6 @@
 			"type": "boolean"
 		},
 		"platform.editor.mbe-update-params-change": {
-			"type": "boolean"
-		},
-		"platform_editor_tables_padding_increase": {
 			"type": "boolean"
 		},
 		"annotations_align_editor_and_renderer_styles": {

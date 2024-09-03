@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { mentionResourceProviderWithInviteFromMentionEnabled } from '@atlaskit/util-data-test/mention-story-data';
 

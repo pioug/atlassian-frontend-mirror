@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.3.12
+
+### Patch Changes
+
+- [#136348](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136348)
+  [`fb4fb56f1da7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb4fb56f1da7c) -
+  Use optimised entry-points on editor-common for browser.
+- Updated dependencies
+
+## 3.3.11
+
+### Patch Changes
+
+- [#136266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136266)
+  [`cb41a82ab6813`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb41a82ab6813) -
+  ED-24752 Add new plugin to code block that strips auto inserted fullstops from mac on code blocks
+- Updated dependencies
+
 ## 3.3.10
 
 ### Patch Changes

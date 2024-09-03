@@ -7,9 +7,9 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { browser } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';

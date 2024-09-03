@@ -1,5 +1,13 @@
 # @atlaskit/prosemirror-collab
 
+## 0.9.2
+
+### Patch Changes
+
+- [#136261](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136261)
+  [`132b8da724995`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/132b8da724995) -
+  Generate clientId when it is undefined
+
 ## 0.9.1
 
 ### Patch Changes

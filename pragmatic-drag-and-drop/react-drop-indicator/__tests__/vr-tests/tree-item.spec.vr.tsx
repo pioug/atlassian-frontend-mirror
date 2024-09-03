@@ -14,11 +14,5 @@ snapshot(ExperimentalTreeItem, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });

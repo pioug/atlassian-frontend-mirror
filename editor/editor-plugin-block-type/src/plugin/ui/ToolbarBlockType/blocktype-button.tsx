@@ -13,7 +13,9 @@ import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { expandIconContainerStyle, wrapperStyle } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import TextStyleIcon from '@atlaskit/icon/core/migration/text-style--editor-text-style';
+import TextIcon from '@atlaskit/icon/core/text';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { NORMAL_TEXT } from '../../block-types';
 
@@ -61,9 +63,13 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 				>
 					{
 						<React.Fragment>
-							{props.isSmall && (
-								<TextStyleIcon label={labelTextStyles} spacing="spacious" color="currentColor" />
-							)}
+							{props.isSmall &&
+								// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
+								(fg('platform.design-system-team.enable-new-icons') ? (
+									<TextIcon label={labelTextStyles} spacing="spacious" color="currentColor" />
+								) : (
+									<TextStyleIcon color="currentColor" spacing="spacious" label={labelTextStyles} />
+								))}
 							<span
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								css={expandIconContainerStyle}

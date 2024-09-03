@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "197.2.0",
+	"version": "197.2.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,11 +39,11 @@
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.4.0",
 		"@atlaskit/adf-schema": "^40.9.0",
-		"@atlaskit/analytics-namespaced-context": "^6.11.0",
+		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.1.0",
-		"@atlaskit/editor-common": "^88.6.0",
+		"@atlaskit/editor-common": "^88.8.0",
 		"@atlaskit/editor-plugins": "^4.3.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
@@ -106,8 +106,7 @@
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
-		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.117",
+		"@atlassian/search-provider": "2.4.118",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -218,9 +217,6 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform_editor_context-panel_simplify_behaviour": {
-			"type": "boolean"
-		},
 		"platform.confluence.frontend.narrow-full-page-editor-toolbar": {
 			"type": "boolean"
 		},
@@ -230,10 +226,6 @@
 		},
 		"platform.editor.core.increase-full-page-guttering": {
 			"type": "boolean"
-		},
-		"platform_editor_tables_padding_increase": {
-			"type": "boolean",
-			"referenceOnly": "true"
 		},
 		"platform_editor_get_card_provider_from_config": {
 			"type": "boolean",

@@ -25,7 +25,9 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import SwitchIcon from './assets/switch';
+import { elementBrowserPmKey, elementBrowserPmPlugin } from './pm-plugins/elementBrowser';
 import type { InsertBlockPluginDependencies } from './types';
+import { InsertMenuRail } from './ui/ElementRail';
 import { templateOptions } from './ui/templateOptions';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import { transformationOptions } from './ui/transformOptions';
@@ -96,6 +98,7 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 	const toggleDropdownMenuOptionsRef: Record<'current', null | (() => void)> = {
 		current: null,
 	};
+
 	const registerToggleDropdownMenuOptions = (cb: () => void) => {
 		toggleDropdownMenuOptionsRef.current = cb;
 
@@ -164,6 +167,19 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 
 				toggle();
 			},
+		},
+
+		pmPlugins: () => {
+			if (!editorExperiment('insert-menu-in-right-rail', true)) {
+				[];
+			}
+
+			return [
+				{
+					name: 'elementBrowserPmPlugin',
+					plugin: () => elementBrowserPmPlugin(),
+				},
+			];
 		},
 
 		pluginsOptions: {
@@ -235,6 +251,24 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 					return templateOptions;
 				}
 				return [];
+			},
+
+			contextPanel: (state) => {
+				/**
+				 * For insert menu in right rail experiment
+				 * - Clean up ticket ED-24801
+				 */
+				if (!editorExperiment('insert-menu-in-right-rail', true)) {
+					return;
+				}
+
+				// api.getSharedState() will have an outdated reference to editorState on first mount of this component
+				// so instead just rely on plugin key as we don't need to be reactive to changes here
+				const pluginState = elementBrowserPmKey.getState(state);
+				if (pluginState?.menuBrowserOpen) {
+					return <InsertMenuRail api={api} />;
+				}
+				return;
 			},
 		},
 

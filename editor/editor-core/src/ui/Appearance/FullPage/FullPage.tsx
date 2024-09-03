@@ -7,10 +7,10 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';

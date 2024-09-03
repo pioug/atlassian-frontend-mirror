@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { Pulse } from '@atlaskit/linking-common';
 
 import {

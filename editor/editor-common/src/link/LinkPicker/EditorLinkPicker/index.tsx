@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { LazyLinkPicker } from '@atlaskit/link-picker/lazy';
 

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-base
 
+## 1.11.0
+
+### Minor Changes
+
+- [#136261](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136261)
+  [`7e900c6a2ae84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7e900c6a2ae84) -
+  Lazy node view loading without setProps
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.10.2
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ACTION, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ComponentCaughtDomErrorAEP, ComponentCrashErrorAEP } from '../../analytics/events';
 import { PLATFORM } from '../../analytics/events';

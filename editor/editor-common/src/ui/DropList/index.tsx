@@ -9,11 +9,9 @@ import { Component } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import {
-	createAndFireEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { N0, N50A, N60A, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

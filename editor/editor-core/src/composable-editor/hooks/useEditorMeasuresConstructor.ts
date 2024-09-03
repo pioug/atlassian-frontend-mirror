@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { useConstructor } from '@atlaskit/editor-common/hooks';
 import { startMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { ExperienceStore } from '@atlaskit/editor-common/ufo';

@@ -2,6 +2,10 @@ import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from '
 
 import debounce from 'lodash/debounce';
 
+import {
+	lazyNodeViewDecorationPluginKey,
+	testOnlyIgnoreLazyNodeView,
+} from '@atlaskit/editor-common/lazy-node-view';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import type { EditorActions } from '@atlaskit/editor-core';
@@ -15,7 +19,7 @@ import { mediaPlugin } from '@atlaskit/editor-plugin-media';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { DirectEditorProps, EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import Heading from '@atlaskit/heading';
@@ -57,17 +61,17 @@ const EditorWithNodeViewFallbacked = memo(
 				if (!view) {
 					return;
 				}
-				// DO NOT REPEAT THIS KIND OF CODE ANYWHERE ON PRODUCTION
-				view.setProps = (args: Partial<DirectEditorProps>) => {
-					// This function runs inside a Docker VM with Chrome only
-					// eslint-disable-next-line compat/compat
-					window.requestIdleCallback(
-						() => {
-							onReady();
-						},
-						{ timeout: 4000 },
-					);
-				};
+
+				testOnlyIgnoreLazyNodeView(view);
+
+				// This function runs inside a Docker VM with Chrome only
+				// eslint-disable-next-line compat/compat
+				window.requestIdleCallback(
+					() => {
+						onReady();
+					},
+					{ timeout: 4000 },
+				);
 			},
 			[onReady],
 		);
@@ -110,19 +114,21 @@ const EditorWithhRealNodeView = memo(
 				if (!view) {
 					return;
 				}
-				const originalSetProps = view.setProps.bind(view);
 				// DO NOT REPEAT THIS KIND OF CODE ANYWHERE ON PRODUCTION
-				view.setProps = (args: Partial<DirectEditorProps>) => {
-					originalSetProps(args);
-
-					// This function runs inside a Docker VM with Chrome only
-					// eslint-disable-next-line compat/compat
-					window.requestIdleCallback(
-						() => {
-							onReady();
-						},
-						{ timeout: 4000 },
-					);
+				const originalViewDispatch = view.dispatch.bind(view);
+				view.dispatch = (tr: Transaction) => {
+					const meta = tr.getMeta(lazyNodeViewDecorationPluginKey);
+					if (meta) {
+						// This function runs inside a Docker VM with Chrome only
+						// eslint-disable-next-line compat/compat
+						window.requestIdleCallback(
+							() => {
+								onReady();
+							},
+							{ timeout: 4000 },
+						);
+					}
+					originalViewDispatch(tr);
 				};
 			},
 			[onReady],

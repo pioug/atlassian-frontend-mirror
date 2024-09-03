@@ -19,7 +19,15 @@ export {
 } from './annotation';
 export { getExtensionLozengeData } from './macro';
 export type { Params } from './macro';
-export { default as browser } from './browser';
+export {
+	/**
+	 * @private
+	 * @deprecated
+	 *
+	 * Please use `@atlaskit/editor-common/browser` entry-point instead.
+	 */
+	browser,
+} from './browser';
 export { default as ErrorReporter } from './error-reporter';
 export type { ErrorReportingHandler } from './error-reporter';
 export {
@@ -63,8 +71,29 @@ export {
 } from './breakout';
 
 export {
+	/**
+	 * @private
+	 * @deprecated
+	 *
+	 * This is only used in editor-core and shouldn't be used anywhere else.
+	 * If you do need it please reach out to #cc-editor-lego
+	 */
 	findChangedNodesFromTransaction,
+	/**
+	 * @private
+	 * @deprecated
+	 *
+	 * This is only used in editor-core and shouldn't be used anywhere else.
+	 * If you do need it please reach out to #cc-editor-lego
+	 */
 	validNode,
+	/**
+	 * @private
+	 * @deprecated
+	 *
+	 * This is only used in editor-core and shouldn't be used anywhere else.
+	 * If you do need it please reach out to #cc-editor-lego
+	 */
 	validateNodes,
 	isType,
 	isParagraph,
@@ -97,21 +126,29 @@ export {
 export type { MapCallback } from './dom';
 
 export { default as ADFTraversor } from './traversor';
+/**
+ * @private
+ * @deprecated
+ *
+ * Use entry-point `@atlaskit/editor-common/utils/analytics` instead
+ */
 export {
 	analyticsEventKey,
 	getAnalyticsAppearance,
 	getAnalyticsEditorAppearance,
 	getAnalyticsEventSeverity,
 	SEVERITY,
+} from './analytics';
+export {
 	getUnsupportedContentLevelData,
 	UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
 	UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS,
-} from './analytics';
+	type UnsupportedContentLevelsTracking,
+} from './unsupportedContent/get-unsupported-content-level-data';
 export type {
 	UnsupportedContentTooltipPayload,
 	UnsupportedContentPayload,
-	UnsupportedContentLevelsTracking,
-} from './analytics';
+} from './unsupportedContent/types';
 export { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
 export { getDistortedDurationMonitor, measureRender } from './performance/measure-render';
 export { startMeasure, stopMeasure, clearMeasure } from './performance/measure';
@@ -157,6 +194,12 @@ export { getShallowPropsDifference, getPropsDifference } from './compare-props';
 export type { ShallowPropsDifference, PropsDifference } from './compare-props';
 export { useComponentRenderTracking } from './performance/hooks/use-component-render-tracking';
 export type { UseComponentRenderTrackingArgs } from './performance/hooks/use-component-render-tracking';
+/**
+ * @private
+ * @deprecated
+ *
+ * Private API do not use
+ */
 export { isOutdatedBrowser } from './outdated-browsers';
 export { autoJoinTr } from './prosemirror/autojoin';
 

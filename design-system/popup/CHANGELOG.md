@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 1.24.1
+
+### Patch Changes
+
+- [#135608](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/135608)
+  [`7498a45496f8a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7498a45496f8a) -
+  Update to remove react-uid
+
 ## 1.24.0
 
 ### Minor Changes

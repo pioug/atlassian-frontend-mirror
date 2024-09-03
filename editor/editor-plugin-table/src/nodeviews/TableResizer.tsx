@@ -10,6 +10,7 @@ import {
 	INPUT_METHOD,
 	TABLE_OVERFLOW_CHANGE_TRIGGER,
 } from '@atlaskit/editor-common/analytics';
+import { browser } from '@atlaskit/editor-common/browser';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
@@ -18,7 +19,6 @@ import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import { browser } from '@atlaskit/editor-common/utils';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';

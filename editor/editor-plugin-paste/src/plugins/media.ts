@@ -144,7 +144,7 @@ const isElementInvisible = (element: HTMLElement) => {
 	);
 };
 
-const VALID_TAGS_CONTAINER = ['DIV', 'TD'];
+const VALID_TAGS_CONTAINER = ['DIV', 'TD', 'BLOCKQUOTE'];
 function canContainImage(element: HTMLElement | null): boolean {
 	if (!element) {
 		return false;

@@ -15,7 +15,7 @@ import { defineMessages, injectIntl } from 'react-intl-next';
 import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';

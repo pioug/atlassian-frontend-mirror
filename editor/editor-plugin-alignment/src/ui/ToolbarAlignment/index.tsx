@@ -10,7 +10,11 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
-import { expandIconContainerStyle, separatorStyles } from '@atlaskit/editor-common/styles';
+import {
+	expandIconContainerStyle,
+	separatorStyles,
+	triggerWrapperStylesWithPadding,
+} from '@atlaskit/editor-common/styles';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
 import {
@@ -103,8 +107,16 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 							onClick={this.toggleOpen}
 							onKeyDown={this.toggleOpenByKeyboard}
 							iconBefore={
-								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								<div css={triggerWrapper}>
+								<div
+									css={
+										// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
+										fg('platform.design-system-team.enable-new-icons')
+											? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+												triggerWrapperStylesWithPadding
+											: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+												triggerWrapper
+									}
+								>
 									<IconMap alignment={alignment} />
 									{
 										<span

@@ -6,8 +6,8 @@ import ReactDOM from 'react-dom';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { browser } from '@atlaskit/editor-common/utils';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable, TableMap } from '@atlaskit/editor-tables';

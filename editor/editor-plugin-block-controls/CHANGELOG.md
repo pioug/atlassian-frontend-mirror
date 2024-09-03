@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.12.10
+
+### Patch Changes
+
+- [#136410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136410)
+  [`52083ca79b5dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52083ca79b5dc) -
+  [ux] ED-24603 Disable dragging nested nodes within table behind FF
+
+## 1.12.9
+
+### Patch Changes
+
+- [#136177](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136177)
+  [`557c5bcfce83c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/557c5bcfce83c) -
+  [ux] Adjust margin of drop targets in nested scenarios
+- [#136348](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136348)
+  [`fb4fb56f1da7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb4fb56f1da7c) -
+  Use optimised entry-points on editor-common for browser.
+- Updated dependencies
+
+## 1.12.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.12.7
 
 ### Patch Changes

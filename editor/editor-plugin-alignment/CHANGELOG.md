@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.12.2
+
+### Patch Changes
+
+- [#136367](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136367)
+  [`4d9450a7e1283`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d9450a7e1283) -
+  [ux] Update new icons (text color, highlight, text style) with design change
+- Updated dependencies
+
 ## 1.12.1
 
 ### Patch Changes

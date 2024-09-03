@@ -1,11 +1,11 @@
 import type { IntlShape } from 'react-intl-next';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {

@@ -9,7 +9,8 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 

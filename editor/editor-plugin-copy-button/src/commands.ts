@@ -1,5 +1,6 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { browser } from '@atlaskit/editor-common/browser';
 import {
 	copyHTMLToClipboard,
 	copyHTMLToClipboardPolyfill,
@@ -7,7 +8,6 @@ import {
 } from '@atlaskit/editor-common/clipboard';
 import { getSelectedNodeOrNodeParentByNodeType, toDOM } from '@atlaskit/editor-common/copy-button';
 import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { MarkType, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';

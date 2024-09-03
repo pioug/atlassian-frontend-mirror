@@ -15,12 +15,6 @@ const options: OptionsType = {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 	drawsOutsideBounds: true,
 };

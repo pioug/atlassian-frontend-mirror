@@ -8,7 +8,7 @@ import { type MouseEvent, useCallback, useLayoutEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import PreferencesIcon from '@atlaskit/icon/glyph/preferences';

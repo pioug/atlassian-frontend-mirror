@@ -1,5 +1,6 @@
 import { editorExperiment } from '../experiments';
 import { eeTest } from '../editor-experiments-test-utils';
+import { _overrides } from '../setup';
 
 jest.mock('../experiments-config', () => ({
 	editorExperimentsConfig: {
@@ -43,6 +44,27 @@ describe('eeTest', () => {
 				expect(testsCount).toBe(2);
 			});
 		});
+		describe('should run each case with overrides', () => {
+			// @ts-ignore
+			eeTest(
+				'example-boolean',
+				{
+					true: () => {
+						// @ts-ignore
+						expect(editorExperiment('example-boolean', true)).toBe(true);
+						expect(_overrides).toEqual({ 'example-boolean': true, 'example-multivariate': 'one' });
+					},
+					false: () => {
+						// @ts-ignore
+						expect(editorExperiment('example-boolean', false)).toBe(true);
+						expect(_overrides).toEqual({ 'example-boolean': false, 'example-multivariate': 'one' });
+					},
+				},
+				{
+					'example-multivariate': 'one',
+				},
+			);
+		});
 	});
 	describe('Multivariates', () => {
 		describe('should run each case passed with ', () => {
@@ -69,6 +91,35 @@ describe('eeTest', () => {
 			it('should have run 3 tests', () => {
 				expect(testsCount).toBe(3);
 			});
+		});
+
+		describe('should run each case with overrides', () => {
+			// @ts-ignore
+			eeTest(
+				'example-multivariate',
+				{
+					// @ts-ignore
+					one: () => {
+						// @ts-ignore
+						expect(editorExperiment('example-multivariate', 'one')).toBe(true);
+						expect(_overrides).toEqual({ 'example-multivariate': 'one', 'example-boolean': true });
+					},
+					two: () => {
+						// @ts-ignore
+						expect(editorExperiment('example-multivariate', 'two')).toBe(true);
+						expect(_overrides).toEqual({ 'example-multivariate': 'two', 'example-boolean': true });
+					},
+					three: () => {
+						// @ts-ignore
+						expect(editorExperiment('example-multivariate', 'three')).toBe(true);
+						expect(_overrides).toEqual({
+							'example-multivariate': 'three',
+							'example-boolean': true,
+						});
+					},
+				},
+				{ 'example-boolean': true },
+			);
 		});
 	});
 });

@@ -1,3 +1,4 @@
+import { browser } from '@atlaskit/editor-common/browser';
 import { TELEPOINTER_DIM_CLASS } from '@atlaskit/editor-common/collab';
 import type {
 	CollabEventConnectionData,
@@ -5,7 +6,6 @@ import type {
 	CollabParticipant,
 	CollabTelepointerPayload,
 } from '@atlaskit/editor-common/collab';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';

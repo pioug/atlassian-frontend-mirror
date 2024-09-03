@@ -1,5 +1,51 @@
 # @atlaskit/editor-common
 
+## 88.8.1
+
+### Patch Changes
+
+- [#136410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136410)
+  [`52083ca79b5dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52083ca79b5dc) -
+  [ux] ED-24603 Disable dragging nested nodes within table behind FF
+
+## 88.8.0
+
+### Minor Changes
+
+- [#136348](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136348)
+  [`fb4fb56f1da7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb4fb56f1da7c) -
+  Add new optimised entry-points for /browser and /utils/analytics.
+- [#136367](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136367)
+  [`4d9450a7e1283`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d9450a7e1283) -
+  [ux] Update new icons (text color, highlight, text style) with design change
+
+### Patch Changes
+
+- Updated dependencies
+
+## 88.7.0
+
+### Minor Changes
+
+- [#136261](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136261)
+  [`7e900c6a2ae84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7e900c6a2ae84) -
+  Lazy node view loading without setProps
+
+### Patch Changes
+
+- [#136261](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136261)
+  [`7e900c6a2ae84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7e900c6a2ae84) -
+  Replace LazyNodeView without view.setProps
+
+## 88.6.2
+
+### Patch Changes
+
+- [#136143](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136143)
+  [`851c2575d214e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/851c2575d214e) -
+  Use optimised entry-points for analytics packages to reduce bundle size.
+- Updated dependencies
+
 ## 88.6.1
 
 ### Patch Changes

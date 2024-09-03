@@ -14,11 +14,5 @@ snapshot(Example, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });

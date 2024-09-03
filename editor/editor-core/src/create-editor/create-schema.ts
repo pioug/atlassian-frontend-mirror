@@ -1,8 +1,8 @@
-import { sanitizeNodes } from '@atlaskit/adf-schema';
 import type { MarkSpec, NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { Schema } from '@atlaskit/editor-prosemirror/model';
 
 import type { MarkConfig, NodeConfig } from '../types/pm-config';
+import { sanitizeNodes } from '../utils/sanitizeNodes';
 
 import { fixExcludes } from './create-editor';
 import { sortByOrder } from './sort-by-order';

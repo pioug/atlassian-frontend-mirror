@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
+import { browser } from '@atlaskit/editor-common/browser';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';

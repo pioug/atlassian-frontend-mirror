@@ -10,14 +10,14 @@ import isEqual from 'lodash/isEqual';
 import uuid from 'uuid/v4';
 
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { ACTION, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { useConstructor } from '@atlaskit/editor-common/hooks';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
-import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils';
+import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import EditorActions from '../actions';

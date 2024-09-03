@@ -15,7 +15,6 @@ const createRovoParams = (params: {
 }) => {
 	const rovoParams: Record<string, string> = {};
 	Object.entries(params).forEach(([key, value]) => {
-		rovoParams[`${ROVO_PARAM_PREFIX}.${key}`] = encodeURIComponent(value);
 		rovoParams[`${ROVO_PARAM_PREFIX}${firstCharUpper(key)}`] = encodeURIComponent(value);
 	});
 	return rovoParams;
@@ -55,7 +54,7 @@ export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 		const baseUrl = `${getATLContextUrl('home')}/chat`;
 		const urlWithParams = encodeParamsToUrl(baseUrl, {
 			cloudId,
-			...createRovoParams({ cloudId, agentId, prompt }),
+			...createRovoParams({ cloudId, agentId, prompt, pathway: 'chat' }),
 		});
 		window.open(urlWithParams, '_blank', 'noopener, noreferrer');
 	};

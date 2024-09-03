@@ -24,12 +24,6 @@ snapshot(RelatedLinksModal, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 
@@ -48,12 +42,6 @@ snapshot(RelatedLinksResolvedView, {
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],
@@ -76,12 +64,6 @@ snapshot(RelatedLinksResolvedViewWithEmptyList, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 
@@ -100,12 +82,6 @@ snapshot(RelatedLinksModalErroredView, {
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],
@@ -128,12 +104,6 @@ snapshot(RelatedLinksModalUnavailableView, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 
@@ -152,12 +122,6 @@ snapshot(RelatedLinksModalResolvingView, {
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],

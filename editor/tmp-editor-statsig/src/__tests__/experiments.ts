@@ -1,4 +1,5 @@
-import { editorExperiment, setupEditorExperiments } from '../experiments';
+import { editorExperiment } from '../experiments';
+import { setupEditorExperiments } from '../setup';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 

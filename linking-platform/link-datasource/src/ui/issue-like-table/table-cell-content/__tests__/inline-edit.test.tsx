@@ -70,6 +70,8 @@ describe('InlineEdit', () => {
 		);
 	};
 
+	const dataValues: DatasourceTypeWithOnlyValues = { type: 'string', values: ['Blahblah'] };
+
 	it('should respond to the commit click and update the view and state when `execute` from `useExecuteAtomicAction` exists and its call resolves successfully', async () => {
 		const execute = jest.fn().mockResolvedValue({});
 		const ari = testJiraAri;
@@ -86,8 +88,6 @@ describe('InlineEdit', () => {
 			},
 		});
 		mockUseExecuteAtomicAction.mockReturnValue({ execute });
-
-		const dataValues: DatasourceTypeWithOnlyValues = { type: 'string', values: ['Blahblah'] };
 
 		setup({
 			ari,
@@ -108,6 +108,20 @@ describe('InlineEdit', () => {
 
 		expect(await screen.findByTestId(testIds.readView)).toHaveTextContent('FoobarFoobar');
 		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('FoobarFoobar');
+
+		// Analytic event should be fired on successful update
+		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+			{
+				payload: {
+					action: 'submitted',
+					actionSubject: 'form',
+					actionSubjectId: 'inlineEdit',
+					attributes: {},
+					eventType: 'ui',
+				},
+			},
+			EVENT_CHANNEL,
+		);
 	});
 
 	it('should shows error flag when `execute` fails', async () => {
@@ -127,8 +141,6 @@ describe('InlineEdit', () => {
 		});
 		mockUseExecuteAtomicAction.mockReturnValue({ execute });
 
-		const dataValues: DatasourceTypeWithOnlyValues = { type: 'string', values: ['Blahblah'] };
-
 		setup({
 			ari,
 			columnKey: 'summary',
@@ -143,6 +155,20 @@ describe('InlineEdit', () => {
 
 		const flag = await screen.findByRole('alert');
 		expect(flag).toBeInTheDocument();
+
+		// Analytic event should be fired on valid update that failed
+		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+			{
+				payload: {
+					action: 'submitted',
+					actionSubject: 'form',
+					actionSubjectId: 'inlineEdit',
+					attributes: {},
+					eventType: 'ui',
+				},
+			},
+			EVENT_CHANNEL,
+		);
 	});
 
 	it('should NOT update the view or state with an empty string', () => {
@@ -162,8 +188,6 @@ describe('InlineEdit', () => {
 		});
 
 		mockUseExecuteAtomicAction.mockReturnValue({ execute });
-
-		const dataValues: DatasourceTypeWithOnlyValues = { type: 'string', values: ['Blahblah'] };
 
 		setup({
 			ari,
@@ -185,6 +209,74 @@ describe('InlineEdit', () => {
 		expect(screen.queryByTestId(testIds.editView)).not.toBeInTheDocument();
 		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
+
+		// No analytic event should be fired when update is invalid so no form submission occurs
+		expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+			{
+				payload: {
+					action: 'submitted',
+					actionSubject: 'form',
+					actionSubjectId: 'inlineEdit',
+					attributes: {},
+					eventType: 'ui',
+				},
+			},
+			EVENT_CHANNEL,
+		);
+	});
+
+	it('should NOT update the view or state with the same string', () => {
+		const execute = jest.fn().mockResolvedValue({});
+		const ari = testJiraAri;
+		store.storeState.setState({
+			items: {
+				[ari]: {
+					ari,
+					integrationKey: 'jira',
+					data: {
+						ari: { data: ari },
+						summary: { data: 'Blahblah' },
+					},
+				},
+			},
+		});
+
+		mockUseExecuteAtomicAction.mockReturnValue({ execute });
+
+		setup({
+			ari,
+			columnKey: 'summary',
+			execute,
+			datasourceTypeWithValues: dataValues,
+			readView: <MockReadView ari={ari} />,
+		});
+
+		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
+		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
+		fireEvent.click(screen.getByTestId(testIds.readView));
+
+		expect(screen.getByTestId(testIds.editView)).toBeInTheDocument();
+		fireEvent.change(screen.getByTestId(testIds.editView), { target: { value: 'Blahblah' } });
+		fireEvent.submit(screen.getByTestId(testIds.editView));
+
+		expect(execute).not.toHaveBeenCalled();
+		expect(screen.queryByTestId(testIds.editView)).not.toBeInTheDocument();
+		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
+		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
+
+		// No analytic event should be fired when update is invalid so no form submission occurs
+		expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+			{
+				payload: {
+					action: 'submitted',
+					actionSubject: 'form',
+					actionSubjectId: 'inlineEdit',
+					attributes: {},
+					eventType: 'ui',
+				},
+			},
+			EVENT_CHANNEL,
+		);
 	});
 
 	it('should NOT update the view or state on Blur', () => {
@@ -204,8 +296,6 @@ describe('InlineEdit', () => {
 		});
 
 		mockUseExecuteAtomicAction.mockReturnValue({ execute });
-
-		const dataValues: DatasourceTypeWithOnlyValues = { type: 'string', values: ['Blahblah'] };
 
 		setup({
 			ari,
@@ -231,5 +321,19 @@ describe('InlineEdit', () => {
 		expect(screen.queryByTestId(testIds.editView)).not.toBeInTheDocument();
 		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
+
+		// No analytic event should be fired when aborting form submission
+		expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+			{
+				payload: {
+					action: 'submitted',
+					actionSubject: 'form',
+					actionSubjectId: 'inlineEdit',
+					attributes: {},
+					eventType: 'ui',
+				},
+			},
+			EVENT_CHANNEL,
+		);
 	});
 });

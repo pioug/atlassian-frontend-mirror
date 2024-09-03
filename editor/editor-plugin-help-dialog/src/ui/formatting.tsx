@@ -7,6 +7,7 @@ import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 import { FormattedMessage } from 'react-intl-next';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import {
 	addInlineComment,
 	addLink,
@@ -54,7 +55,6 @@ import {
 	toolbarMessages,
 	undoRedoMessages,
 } from '@atlaskit/editor-common/messages';
-import { browser } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 

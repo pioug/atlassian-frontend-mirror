@@ -24,6 +24,26 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
 	return DRAG_HANDLE_DEFAULT_GAP;
 };
 
+export const getNestedNodeLeftPaddingMargin = (nodeType?: string) => {
+	switch (nodeType) {
+		case 'bodiedExtension':
+			return '28px';
+		case 'expand':
+		case 'nestedExpand':
+			return '24px';
+		case 'layoutColumn':
+			return '20px';
+		case 'panel':
+			return '44px';
+		case 'tableCell':
+			return '8px';
+		case 'tableHeader':
+			return '8px';
+		default:
+			return `${DRAG_HANDLE_WIDTH + DRAG_HANDLE_NARROW_GAP}px`;
+	}
+};
+
 export const topPositionAdjustment = (nodeType: string) => {
 	switch (nodeType) {
 		case 'rule':

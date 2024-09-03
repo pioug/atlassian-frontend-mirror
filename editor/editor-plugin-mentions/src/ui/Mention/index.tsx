@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type { MentionEventHandlers } from '@atlaskit/editor-common/ui';
-import { browser } from '@atlaskit/editor-common/utils';
 import { ResourcedMention } from '@atlaskit/mention/element';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 

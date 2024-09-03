@@ -8,12 +8,12 @@ import type {
 	Transformer,
 } from '@atlaskit/editor-common/types';
 import {
-	analyticsEventKey,
 	findNodePosByLocalIds,
 	isEmptyDocument,
 	processRawValue,
 	toJSON,
 } from '@atlaskit/editor-common/utils';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils/analytics';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';

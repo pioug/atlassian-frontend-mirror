@@ -2,6 +2,7 @@ import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type';
 import type { CodeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
+import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { DatePlugin } from '@atlaskit/editor-plugin-date';
 import type { EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
@@ -45,4 +46,5 @@ export type InsertBlockPluginDependencies = [
 	OptionalPlugin<TasksAndDecisionsPlugin>,
 	OptionalPlugin<PrimaryToolbarPlugin>,
 	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<ContextPanelPlugin>,
 ];

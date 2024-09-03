@@ -71,9 +71,9 @@ export const editorExperimentsConfig = {
 		productKeys: {
 			confluence: 'platform_editor_ai_condensed_floating_toobar',
 		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'dropdown', 'editor_ai_button']),
+		defaultValue: 'control' as 'control' | 'dropdown' | 'editor_ai_button',
 	},
 	// Added 2024-08-27
 	'dnd-input-performance-optimisation': {
@@ -97,6 +97,24 @@ export const editorExperimentsConfig = {
 	'nested-dnd': {
 		productKeys: {
 			confluence: 'platform_editor_element_drag_and_drop_nested',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2024-08-29
+	'insert-menu-in-right-rail': {
+		productKeys: {
+			confluence: 'platform_editor_insert_menu_in_right_rail',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Add 2024-08-27
+	'table-nested-dnd': {
+		productKeys: {
+			confluence: 'platform_editor_elements_dnd_nested_table',
 		},
 		param: 'isEnabled',
 		typeGuard: isBoolean,

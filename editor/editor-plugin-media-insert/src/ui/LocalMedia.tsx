@@ -24,8 +24,8 @@ import { useAnalyticsEvents } from './useAnalyticsEvents';
 
 type Props = {
 	mediaProvider: MediaProvider;
-	onInsert: InsertMediaSingle;
-	onClose: () => void;
+	insertMediaSingle: InsertMediaSingle;
+	closeMediaInsertPicker: () => void;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 };
 
@@ -65,7 +65,12 @@ const isImagePreview = (preview: Preview): preview is ImagePreview => {
 	return 'dimensions' in preview;
 };
 
-export const LocalMedia = ({ mediaProvider, onInsert, dispatchAnalyticsEvent }: Props) => {
+export const LocalMedia = ({
+	mediaProvider,
+	insertMediaSingle,
+	dispatchAnalyticsEvent,
+	closeMediaInsertPicker,
+}: Props) => {
 	const intl = useIntl();
 	const strings = {
 		upload: intl.formatMessage(mediaInsertMessages.upload),
@@ -101,7 +106,8 @@ export const LocalMedia = ({ mediaProvider, onInsert, dispatchAnalyticsEvent }: 
 			};
 		}
 
-		onInsert({ mediaState, inputMethod: INPUT_METHOD.MEDIA_PICKER });
+		insertMediaSingle({ mediaState, inputMethod: INPUT_METHOD.MEDIA_PICKER });
+		closeMediaInsertPicker();
 
 		// Probably not needed but I guess it _could_ fail to close for some reason
 		dispatch({ type: 'reset' });

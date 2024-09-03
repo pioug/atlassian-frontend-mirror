@@ -21,7 +21,7 @@ describe('PopupTrigger', () => {
 					trigger={trigger}
 					showProfilecard={showProfilecard}
 					hideProfilecard={hideProfilecard}
-					forwardRef={forwardRef}
+					ref={forwardRef}
 				>
 					<Text>popup trigger</Text>
 				</PopupTrigger>

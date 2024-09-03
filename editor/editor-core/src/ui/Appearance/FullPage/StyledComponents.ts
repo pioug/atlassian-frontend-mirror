@@ -5,7 +5,6 @@ import { decisionListSelector, taskListSelector } from '@atlaskit/adf-schema';
 import { tableFullPageEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import { tableMarginFullWidthMode } from '@atlaskit/editor-plugins/table/ui/consts';
 import {
-	akEditorContextPanelWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPaddingDynamic,
 	akEditorSwoopCubicBezier,
@@ -48,23 +47,6 @@ const scrollStyles = css(
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ScrollContainer = createEditorContentStyle(scrollStyles);
 ScrollContainer.displayName = 'ScrollContainer';
-
-// transition used to match scrollbar with config panel opening animation
-// only use animation when opening as there is a bug with floating toolbars.
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const positionedOverEditorStyle = css({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	paddingRight: `${akEditorContextPanelWidth}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	transition: `padding 500ms ${akEditorSwoopCubicBezier}`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.fabric-editor-popup-scroll-parent': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		paddingLeft: `${akEditorContextPanelWidth}px`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		transition: `padding 500ms ${akEditorSwoopCubicBezier}`,
-	},
-});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const contentArea = () => {

@@ -12,6 +12,7 @@ import type { SerializedStyles } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type Theme, useTheme } from '@emotion/react';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import { telepointerStyle } from '@atlaskit/editor-common/collab';
 import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
@@ -43,7 +44,6 @@ import {
 	whitespaceSharedStyles,
 } from '@atlaskit/editor-common/styles';
 import { type OptionalPlugin } from '@atlaskit/editor-common/types';
-import { browser } from '@atlaskit/editor-common/utils';
 import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles';

@@ -1,4 +1,4 @@
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { ACTION } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { ExperienceStore } from '@atlaskit/editor-common/ufo';

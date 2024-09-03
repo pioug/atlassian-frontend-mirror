@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Plugin, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
@@ -100,7 +102,10 @@ export function collab(config: CollabConfig = {}): Plugin {
 		version: config.version || 0,
 		clientID:
 			// eslint-disable-next-line eqeqeq
-			config.clientID == null ? Math.floor(Math.random() * 0xffffffff) : config.clientID,
+			// generate a temporary id as clientId when it is null or undefined
+			config.clientID == null || config.clientID === undefined
+				? `temp-${uuidv4()}`
+				: config.clientID,
 	};
 
 	return new Plugin<CollabState>({

@@ -31,7 +31,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import uuid from 'uuid/v4';
 import type { MediaSSR, RendererContext } from '../../';

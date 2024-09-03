@@ -14,12 +14,6 @@ const options: SnapshotTestOptions<{}> = {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 };
 

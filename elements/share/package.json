@@ -71,7 +71,7 @@
 		"react": "^16.8.0"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-test-helpers": "^18.31.0",
+		"@atlaskit/editor-test-helpers": "^18.32.0",
 		"@atlaskit/flag": "^15.8.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",

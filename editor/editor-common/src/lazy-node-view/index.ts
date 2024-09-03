@@ -1,15 +1,23 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 
 import { LazyNodeView } from './node-view';
-import { queueReplaceNodeViews } from './replace-node-views';
 import type { LazyNodeViewToDOMConfiguration, NodeViewConstructor } from './types';
 
 export { convertToInlineCss } from './css-helper';
 
 export type { NodeViewConstructor, LazyNodeViewToDOMConfiguration };
+
+/**
+ * 📢 Public Plugin Key
+ *
+ * Communication channel between LazyNodeView loader and LazyNodeViewDecorationPlugin.
+ */
+export const lazyNodeViewDecorationPluginKey = new PluginKey('lazyNodeViewDecoration');
+
 /**
  * 📢 Public Type
  *
@@ -38,12 +46,55 @@ export type LazyLoadingProps<NodeViewOptions> = {
 /**
  * 🧱 Internal: Editor FE Platform
  *
+ * Caches loaded node view factory functions
+ */
+type NodeViewFactoryFn = (
+	node: PMNode,
+	view: EditorView,
+	getPos: () => number | undefined,
+	decorations: readonly Decoration[],
+) => NodeView;
+
+/**
+ * 🧱 Internal: Editor FE Platform
+ *
  * Controls which node was scheduled to load the original node view code
  */
-const requestedNodesPerEditorView: WeakMap<EditorView, Set<string>> = new WeakMap<
+const requestedNodesPerEditorView: WeakMap<
 	EditorView,
-	Set<string>
+	Map<string, Promise<NodeViewFactoryFn>>
+> = new WeakMap<EditorView, Map<string, Promise<NodeViewFactoryFn>>>();
+
+/**
+ * 🧱 Internal: Editor FE Platform
+ *
+ * Caches loaded node view factory functions for each editor view
+ */
+const resolvedNodesPerEditorView: WeakMap<EditorView, Map<string, NodeViewFactoryFn>> = new WeakMap<
+	EditorView,
+	Map<string, NodeViewFactoryFn>
 >();
+
+/**
+ * 🧱 Internal: Editor FE Platform
+ *
+ * Stores editorView -> raf to debounce NodeView updates.
+ */
+const debounceToEditorViewMap: WeakMap<EditorView, [number | null, Set<string>]> = new WeakMap();
+
+const testOnlyIgnoreLazyNodeViewSet = new WeakSet<EditorView>();
+/**
+ * 🧱 Internal: Editor FE Platform
+ *
+ * Used in tests to prevent lazy node view being replaced by a real node view.
+ *
+ * This needs to be replaced with proper implementation once LazyNodeView is converted to a plugin.
+ *
+ * @deprecated DO NOT USE THIS OUSIDE TESTS.
+ */
+export function testOnlyIgnoreLazyNodeView(view: EditorView) {
+	testOnlyIgnoreLazyNodeViewSet.add(view);
+}
 
 /**
  * 📢 Public: Any EditorPlugin can use this function
@@ -89,7 +140,6 @@ export const withLazyLoading = <Options>({
 	nodeName,
 	loader,
 	getNodeViewOptions,
-	dispatchAnalyticsEvent,
 }: LazyLoadingProps<Options>): NodeViewConstructor => {
 	const createLazyNodeView = (
 		node: PMNode,
@@ -97,33 +147,61 @@ export const withLazyLoading = <Options>({
 		getPos: () => number | undefined,
 		decorations: readonly Decoration[],
 	): NodeView => {
-		let requestedNodes: Set<string> | undefined = requestedNodesPerEditorView.get(view);
+		let requestedNodes: Map<string, Promise<NodeViewFactoryFn>> | undefined =
+			requestedNodesPerEditorView.get(view);
 		if (!requestedNodes) {
-			(requestedNodes = new Set()), requestedNodesPerEditorView.set(view, requestedNodes);
+			requestedNodes = new Map();
+			requestedNodesPerEditorView.set(view, requestedNodes);
+		}
+
+		const resolvedNodeViews = resolvedNodesPerEditorView.get(view);
+		if (!resolvedNodeViews) {
+			resolvedNodesPerEditorView.set(view, new Map());
 		}
 
 		const wasAlreadyRequested = requestedNodes.has(nodeName);
 		if (wasAlreadyRequested) {
-			return new LazyNodeView(node, view, getPos);
+			const resolvedNodeView = resolvedNodeViews?.get(nodeName);
+			if (resolvedNodeView && !testOnlyIgnoreLazyNodeViewSet.has(view)) {
+				return resolvedNodeView(node, view, getPos, decorations);
+			}
+
+			return new LazyNodeView(node, view, getPos, requestedNodes.get(nodeName)!);
 		}
 
-		requestedNodes.add(nodeName);
-
-		loader().then((nodeViewFuncModule) => {
-			const nodeViewFunc = (
-				node: PMNode,
-				view: EditorView,
-				getPos: () => number | undefined,
-				decorations: readonly Decoration[],
-			) => {
+		const loaderPromise = loader().then((nodeViewFuncModule) => {
+			const nodeViewFunc: NodeViewFactoryFn = (node, view, getPos, decorations) => {
 				return nodeViewFuncModule(node, view, getPos, decorations, getNodeViewOptions);
 			};
 
-			queueReplaceNodeViews(view, {
-				nodeName,
-				nodeViewFunc,
+			resolvedNodesPerEditorView.get(view)?.set(nodeName, nodeViewFunc);
+
+			/**
+			 * Triggering lazyNodeViewDecoration plugin to apply decorations
+			 * to nodes with newly loaded NodeViews.
+			 */
+			const [raf, nodeTypes] = debounceToEditorViewMap.get(view) || [null, new Set()];
+			if (raf) {
+				cancelAnimationFrame(raf);
+			}
+
+			nodeTypes.add(node.type.name);
+			const nextRaf = requestAnimationFrame(() => {
+				debounceToEditorViewMap.set(view, [null, new Set()]);
+				const tr = view.state.tr;
+				tr.setMeta(lazyNodeViewDecorationPluginKey, { type: 'add', nodeTypes });
+				view.dispatch(tr);
 			});
+
+			debounceToEditorViewMap.set(view, [nextRaf, nodeTypes]);
+			/**
+			 * END triggering LazyNodeViewDecoration plugin
+			 */
+
+			return nodeViewFunc;
 		});
+
+		requestedNodes.set(nodeName, loaderPromise);
 
 		if (typeof node.type?.spec?.toDOM !== 'function') {
 			// TODO: Analytics ED-23982
@@ -138,7 +216,7 @@ export const withLazyLoading = <Options>({
 			// });
 		}
 
-		return new LazyNodeView(node, view, getPos);
+		return new LazyNodeView(node, view, getPos, loaderPromise);
 	};
 
 	return createLazyNodeView;

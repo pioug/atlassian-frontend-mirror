@@ -1,6 +1,6 @@
 // This is loosely based on the `ffTest` util from `@atlassian/feature-flags-test-utils` package.
 
-import { type EditorExperimentOverrides, setupEditorExperiments } from './experiments';
+import { type EditorExperimentOverrides, setupEditorExperiments } from './setup';
 import { type EditorExperimentsConfig, editorExperimentsConfig } from './experiments-config';
 
 /**
@@ -49,7 +49,7 @@ export function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
 
 	describe(`eeTest: ${experimentName}`, () => {
 		afterEach(() => {
-			setupEditorExperiments('test', otherExperiments ?? {});
+			setupEditorExperiments('test', {});
 		});
 
 		const isBooleanExperiment =
@@ -71,7 +71,10 @@ export function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
 					: false
 				: testCaseKey;
 
-			setupEditorExperiments('test', { [experimentName]: convertedValue as boolean | string });
+			setupEditorExperiments('test', {
+				[experimentName]: convertedValue as boolean | string,
+				...otherExperiments,
+			});
 
 			const testCase = cases[testCaseKey];
 

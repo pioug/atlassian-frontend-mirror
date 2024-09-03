@@ -68,4 +68,4 @@ if (typeof navigator !== 'undefined') {
 		typeof window !== 'undefined' && 'ResizeObserver' in window && 'ResizeObserverEntry' in window;
 }
 
-export default result;
+export { result as browser };

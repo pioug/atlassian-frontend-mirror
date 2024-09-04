@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "1.24.1",
+	"version": "1.24.2",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -108,9 +108,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.design-system-team.iframe_gojiv": {
-			"type": "boolean"
-		},
 		"platform_dst_popup-disable-focuslock": {
 			"type": "boolean"
 		},

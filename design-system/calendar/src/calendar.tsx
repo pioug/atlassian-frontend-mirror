@@ -16,7 +16,6 @@ import Header from './internal/components/header';
 import WeekDaysComponent from './internal/components/week-days';
 import WeekHeaderComponent from './internal/components/week-header';
 import { blankStringArray } from './internal/constants';
-import useCalendarRef from './internal/hooks/use-calendar-ref';
 import useControlledDateState from './internal/hooks/use-controlled-date-state';
 import useFocusing from './internal/hooks/use-focusing';
 import useGetWeeks from './internal/hooks/use-get-weeks';
@@ -64,7 +63,6 @@ const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(function Calenda
 		analyticsContext,
 		weekStartDay = 0,
 		testId,
-		calendarRef,
 		className,
 		style,
 		tabIndex = 0,
@@ -128,10 +126,6 @@ const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(function Calenda
 	const { handleContainerBlur, handleContainerFocus } = useFocusing({
 		onFocus,
 		onBlur,
-	});
-
-	useCalendarRef(calendarRef, {
-		navigate,
 	});
 
 	const { monthsLong, daysShort, daysLong } = useLocale({

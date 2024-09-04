@@ -102,15 +102,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-08-29
-	'insert-menu-in-right-rail': {
-		productKeys: {
-			confluence: 'platform_editor_insert_menu_in_right_rail',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Add 2024-08-27
 	'table-nested-dnd': {
 		productKeys: {

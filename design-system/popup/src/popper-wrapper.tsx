@@ -4,11 +4,9 @@
  */
 import { forwardRef, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, Global, jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { UNSAFE_useLayering } from '@atlaskit/layering';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Popper } from '@atlaskit/popper';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
@@ -39,15 +37,6 @@ const popupStyles = css({
 });
 const popupOverflowStyles = css({
 	overflow: 'auto',
-});
-
-// disables iframe pointer events while popup is open, except if iframe is nested inside popup
-// solves an issue of popup not being closed on iframe click
-const blockPointerEventsOnExternalIframeStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'iframe:not([data-ds--level] iframe)': {
-		pointerEvents: 'none',
-	},
 });
 
 const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>((props, ref) => {
@@ -172,9 +161,6 @@ function PopperWrapper({
 						shouldRenderToParent={shouldRenderToParent}
 						shouldFitContainer={shouldFitContainer}
 					>
-						{fg('platform.design-system-team.iframe_gojiv') && (
-							<Global styles={blockPointerEventsOnExternalIframeStyles} />
-						)}
 						<RepositionOnUpdate update={update}>
 							{content({
 								update,

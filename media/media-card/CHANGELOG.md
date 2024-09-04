@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 78.2.1
+
+### Patch Changes
+
+- [#136583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136583)
+  [`2f48f0fb0c9f5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f48f0fb0c9f5) -
+  Fixed analytics firing for single domain cdn
+
 ## 78.2.0
 
 ### Minor Changes

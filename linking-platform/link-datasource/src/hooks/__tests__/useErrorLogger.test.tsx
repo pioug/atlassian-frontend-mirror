@@ -59,7 +59,7 @@ describe('useErrorLogger', () => {
 			headers: { 'x-trace-id': 'mock-trace-id' },
 		});
 
-		result.current.captureError('someFunction', response);
+		result.current.captureError('onNextPage', response);
 
 		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
 			{
@@ -68,7 +68,7 @@ describe('useErrorLogger', () => {
 					actionSubject: 'datasource',
 					eventType: 'operational',
 					attributes: {
-						errorLocation: 'someFunction',
+						errorLocation: 'onNextPage',
 						status: 500,
 						traceId: 'mock-trace-id',
 					},
@@ -88,7 +88,7 @@ describe('useErrorLogger', () => {
 
 				const mockError = new Error('mockError');
 
-				result.current.captureError('someFunction', mockError);
+				result.current.captureError('onNextPage', mockError);
 
 				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
 					{
@@ -97,7 +97,7 @@ describe('useErrorLogger', () => {
 							actionSubject: 'datasource',
 							eventType: 'operational',
 							attributes: {
-								errorLocation: 'someFunction',
+								errorLocation: 'onNextPage',
 								status: null,
 								traceId: null,
 							},
@@ -119,7 +119,7 @@ describe('useErrorLogger', () => {
 
 				const mockError = new Error('mockError');
 
-				result.current.captureError('someFunction', mockError);
+				result.current.captureError('onNextPage', mockError);
 
 				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
 					{
@@ -128,7 +128,7 @@ describe('useErrorLogger', () => {
 							actionSubject: 'datasource',
 							eventType: 'operational',
 							attributes: {
-								errorLocation: 'someFunction',
+								errorLocation: 'onNextPage',
 								status: null,
 								traceId: null,
 							},
@@ -146,7 +146,7 @@ describe('useErrorLogger', () => {
 
 				const mockError = new Error('mockError');
 
-				result.current.captureError('someFunction', mockError);
+				result.current.captureError('onNextPage', mockError);
 
 				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
 					{
@@ -155,7 +155,7 @@ describe('useErrorLogger', () => {
 							actionSubject: 'datasource',
 							eventType: 'operational',
 							attributes: {
-								errorLocation: 'someFunction',
+								errorLocation: 'onNextPage',
 								status: null,
 								traceId: null,
 							},

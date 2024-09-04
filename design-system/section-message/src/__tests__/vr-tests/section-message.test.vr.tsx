@@ -28,12 +28,6 @@ snapshot(AppearanceVariations, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 

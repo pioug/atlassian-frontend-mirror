@@ -115,7 +115,8 @@ export const createFilterTransaction = (
 			return (
 				step instanceof AnalyticsStep ||
 				step instanceof ReplaceStep ||
-				step instanceof ReplaceAroundStep
+				step instanceof ReplaceAroundStep ||
+				step instanceof LinkMetaStep
 			);
 		});
 
@@ -170,8 +171,6 @@ export function generateTransactionKey(tr: Transaction) {
 			}
 		} else if (step instanceof AddMarkStep || step instanceof RemoveMarkStep) {
 			return `from_${step.from}_to_${step.to}`;
-		} else if (step instanceof LinkMetaStep) {
-			return `from_${step.toJSON().from}_to_${step.toJSON().to}`;
 		} else if (step instanceof InsertTypeAheadStep) {
 			return `insertTypeAheadStep`;
 		}

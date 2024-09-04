@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.11.1
+
+### Patch Changes
+
+- [#136413](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136413)
+  [`934839fbec788`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/934839fbec788) -
+  Revert ED-24737-enable-right-rail due to HOT-111462
+
 ## 1.11.0
 
 ### Minor Changes

@@ -17,12 +17,6 @@ snapshot(ControlledExpandedState, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 snapshot(VrLoading, {
@@ -37,12 +31,6 @@ snapshot(VrLoading, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 snapshot(VrLoadingNested, {
@@ -55,12 +43,6 @@ snapshot(VrLoadingNested, {
 			name: 'Light',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],

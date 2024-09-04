@@ -11,10 +11,4 @@ export const themeVariants: SnapshotTestOptions<any>['variants'] = [
 			colorScheme: 'light',
 		},
 	},
-	{
-		name: 'Dark',
-		environment: {
-			colorScheme: 'dark',
-		},
-	},
 ];

@@ -48,12 +48,5 @@ snapshot(BoxCustomStyles, {
 	],
 });
 snapshot(BoxSurfaceDetection, {
-	variants: [
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
-	],
+	variants: [],
 });

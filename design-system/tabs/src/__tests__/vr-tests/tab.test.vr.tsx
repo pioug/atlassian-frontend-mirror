@@ -21,12 +21,6 @@ snapshot(Default, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
@@ -42,12 +36,6 @@ snapshot(Controlled, {
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],
@@ -67,12 +55,6 @@ snapshot(CustomTabComponents, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
@@ -88,12 +70,6 @@ snapshot(WithMany, {
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],
@@ -113,12 +89,6 @@ snapshot(WithFlexContent, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
@@ -134,12 +104,6 @@ snapshot(NoSpaceForTabs, {
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],
@@ -159,12 +123,6 @@ snapshot(Overflow, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
@@ -180,12 +138,6 @@ snapshot(Testing, {
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],

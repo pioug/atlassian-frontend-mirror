@@ -20,9 +20,6 @@
     "references": [
         {
             "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
         }
     ]
 }

@@ -15,12 +15,6 @@ snapshot(Basic, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 snapshot(Themed, {
@@ -33,12 +27,6 @@ snapshot(Themed, {
 			name: 'Light',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],

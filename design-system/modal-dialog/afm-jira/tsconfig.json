@@ -42,9 +42,6 @@
       "path": "../../motion/afm-jira/tsconfig.json"
     },
     {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
       "path": "../../portal/afm-jira/tsconfig.json"
     },
     {

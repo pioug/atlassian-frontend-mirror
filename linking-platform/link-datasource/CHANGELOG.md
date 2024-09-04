@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 2.11.16
+
+### Patch Changes
+
+- [#136744](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136744)
+  [`04df6a1d732b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04df6a1d732b5) -
+  Fix errorLocation analytic attribute typing
+
 ## 2.11.15
 
 ### Patch Changes

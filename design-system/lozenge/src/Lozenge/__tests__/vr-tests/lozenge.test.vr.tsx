@@ -18,12 +18,6 @@ snapshot(Basic, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],

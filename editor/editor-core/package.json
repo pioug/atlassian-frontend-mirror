@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "197.2.4",
+	"version": "197.2.5",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -197,6 +197,9 @@
 		"platform.editor.media.extended-resize-experience": {
 			"type": "boolean",
 			"referenceOnly": "true"
+		},
+		"platform_editor_prevent_toolbar_width_reflow": {
+			"type": "boolean"
 		},
 		"platform.editor.single-player-expand": {
 			"type": "boolean",

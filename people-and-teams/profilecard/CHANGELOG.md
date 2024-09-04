@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 19.25.1
+
+### Patch Changes
+
+- [#136007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136007)
+  [`f41e92bc2025c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f41e92bc2025c) -
+  Fix pathway not set for full screen conversation starter
+
 ## 19.25.0
 
 ### Minor Changes

@@ -16,12 +16,6 @@ snapshot(PressableDefault, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 
@@ -55,12 +49,6 @@ snapshot(PressableStyled, {
 			name: 'Light',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],

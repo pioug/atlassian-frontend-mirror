@@ -1,5 +1,14 @@
 # @atlaskit/calendar
 
+## 15.0.0
+
+### Major Changes
+
+- [#136647](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136647)
+  [`a3f810c087f5d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3f810c087f5d) -
+  Remove `calendarRef` prop. This has been included as a legacy prop but is no longer in use within
+  Atlassian.
+
 ## 14.5.2
 
 ### Patch Changes

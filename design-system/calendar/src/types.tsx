@@ -2,7 +2,7 @@ import { type CSSProperties } from 'react';
 
 import { type UIAnalyticsEvent, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-import type { ArrowKeys, DateObj, ISODate } from './internal/types';
+import type { DateObj, ISODate } from './internal/types';
 
 export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -147,11 +147,6 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
 	 */
 	style?: CSSProperties;
 	/**
-	 * @internal An additional ref which exposes Calendar's internal api's. We kept this for
-	 * backward compatibility. PLEASE DO NOT USE THIS.
-	 */
-	calendarRef?: React.Ref<CalendarRef>;
-	/**
 	 * Indicates if the calendar can be focused by keyboard or only
 	 * programmatically. Defaults to "0".
 	 */
@@ -161,8 +156,4 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
 	 * The default is false.
 	 */
 	shouldSetFocusOnCurrentDay?: boolean;
-}
-
-export interface CalendarRef {
-	navigate: (type: ArrowKeys) => void;
 }

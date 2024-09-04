@@ -23,12 +23,6 @@ snapshot(NavExample, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 
@@ -42,12 +36,6 @@ snapshot(SkeletonButtonsExample, {
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],
@@ -65,12 +53,6 @@ snapshot(NavigationSkeletonExample, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 
@@ -84,12 +66,6 @@ snapshot(ThemingExample, {
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],

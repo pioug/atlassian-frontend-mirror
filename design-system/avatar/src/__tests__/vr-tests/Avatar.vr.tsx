@@ -17,12 +17,6 @@ snapshot(BasicAvatar, {
 			},
 		},
 		{
-			name: 'dark mode',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
-		{
 			name: 'none',
 			environment: {
 				colorScheme: 'no-preference',

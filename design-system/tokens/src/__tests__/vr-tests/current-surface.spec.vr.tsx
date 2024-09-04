@@ -11,12 +11,6 @@ snapshot(CurrentSurfaceVr, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 snapshot(CurrentSurfaceVr, {

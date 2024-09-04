@@ -24,12 +24,6 @@ snapshot(BadgeBasic, {
 			},
 		},
 		{
-			name: 'dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
-		{
 			name: 'none',
 			environment: {
 				colorScheme: 'no-preference',

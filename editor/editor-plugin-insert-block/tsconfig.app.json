@@ -45,9 +45,6 @@
 			"path": "../editor-plugin-code-block/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-context-panel/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-date/tsconfig.app.json"
 		},
 		{

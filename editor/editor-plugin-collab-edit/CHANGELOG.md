@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.19.3
+
+### Patch Changes
+
+- [#136632](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136632)
+  [`d2f43d5cb2d52`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2f43d5cb2d52) -
+  Exclude LinkMetaStep from going through filtering transaction logic
+
 ## 1.19.2
 
 ### Patch Changes

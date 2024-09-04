@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::b545a6ba498c7d701c956e5ca94c24cf>>
+ * @codegen <<SignedSource::0d4e0c024f984c4facf077d6a3f6ccda>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type ComponentMetaDataType = {
@@ -73,7 +73,13 @@ export type DatasourceRenderSuccessAttributesType = {
 };
 export type DatasourceRenderFailureAttributesType = {};
 export type DatasourceOperationFailedAttributesType = {
-	errorLocation: string | null;
+	errorLocation:
+		| 'ProviderOnAuthRequest'
+		| 'loadDatasourceDetails'
+		| 'onNextPage'
+		| 'actionDiscovery'
+		| 'actionExecution'
+		| null;
 	traceId: string | null;
 	status: number | null;
 };

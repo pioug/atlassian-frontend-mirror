@@ -19,9 +19,6 @@
   "references": [
     {
       "path": "../../editor-common/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
     }
   ]
 }

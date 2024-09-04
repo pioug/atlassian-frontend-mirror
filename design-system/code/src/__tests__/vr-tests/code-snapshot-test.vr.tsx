@@ -35,12 +35,6 @@ snapshot(InlineCodeBasic, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 snapshot(CodeBlockBasic, {
@@ -53,12 +47,6 @@ snapshot(CodeBlockBasic, {
 			name: 'Light',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],

@@ -12,12 +12,6 @@ snapshot(SpacingVr, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 snapshot(SpacingVr, {

@@ -5,6 +5,7 @@ import { getTraceId } from '@atlaskit/linking-common/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
+import { type DatasourceOperationFailedAttributesType } from '../analytics/generated/analytics.types';
 
 const getNetworkFields = (error: unknown) => {
 	return error instanceof Response
@@ -51,7 +52,7 @@ const useErrorLogger = (loggerProps: UseErrorLoggerProps) => {
 	 * We will send to Splunk every single time, though, but we won't send PII risky fields.
 	 */
 	const captureError = useCallback(
-		(errorLocation: string, error: unknown) => {
+		(errorLocation: DatasourceOperationFailedAttributesType['errorLocation'], error: unknown) => {
 			const { traceId, status } = getNetworkFields(error);
 
 			fireEvent('operational.datasource.operationFailed', {

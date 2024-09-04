@@ -45,7 +45,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/formatting": "*",
 		"@atlaskit/button": "^20.1.0",
-		"@atlaskit/calendar": "^14.5.0",
+		"@atlaskit/calendar": "^15.0.0",
 		"@atlaskit/checkbox": "^13.7.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/textfield": "^6.5.0",

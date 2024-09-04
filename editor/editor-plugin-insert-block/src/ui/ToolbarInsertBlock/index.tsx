@@ -27,10 +27,8 @@ import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import type { EmojiId } from '@atlaskit/emoji/types';
 import * as colors from '@atlaskit/theme/colors';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import { toggleInsertMenuRightRail } from '../../pm-plugins/commands';
 import type { OnInsert } from '../ElementBrowser/types';
 
 import { BlockInsertMenu } from './block-insert-menu';
@@ -538,37 +536,11 @@ export class ToolbarInsertBlock extends React.PureComponent<
 	}
 
 	private handleClick = () => {
-		/**
-		 * For insert menu in right rail experiment
-		 * - Clean up ticket ED-24801
-		 */
-		if (editorExperiment('insert-menu-in-right-rail', true, { exposure: true })) {
-			this.props.pluginInjectionApi?.core.actions.execute(({ tr }) => {
-				toggleInsertMenuRightRail(tr);
-				this.props.pluginInjectionApi?.contextPanel?.actions.applyChange(tr);
-				return tr;
-			});
-			return;
-		}
-
 		this.togglePlusMenuVisibility();
 	};
 
 	private handleOpenByKeyboard = (event: React.KeyboardEvent) => {
 		if (event.key === 'Enter' || event.key === ' ') {
-			/**
-			 * For insert menu in right rail experiment
-			 * - Clean up ticket ED-24801
-			 */
-			if (editorExperiment('insert-menu-in-right-rail', true, { exposure: true })) {
-				this.props.pluginInjectionApi?.core.actions.execute(({ tr }) => {
-					toggleInsertMenuRightRail(tr);
-					this.props.pluginInjectionApi?.contextPanel?.actions.applyChange(tr);
-					return tr;
-				});
-				return;
-			}
-
 			this.setState({ ...this.state, isOpenedByKeyboard: true });
 			event.preventDefault();
 			this.togglePlusMenuVisibility();

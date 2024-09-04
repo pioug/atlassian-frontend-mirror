@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 12.15.4
+
+### Patch Changes
+
+- [#136611](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136611)
+  [`9755fb019113f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9755fb019113f) -
+  Clean up emotion Globals usage
+
 ## 12.15.3
 
 ### Patch Changes

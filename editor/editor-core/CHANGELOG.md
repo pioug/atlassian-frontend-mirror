@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 197.2.5
+
+### Patch Changes
+
+- [#136744](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136744)
+  [`58f46f65a5d7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/58f46f65a5d7c) -
+  Improve performance by removing unnecessary toolbar reflow.
+
 ## 197.2.4
 
 ### Patch Changes

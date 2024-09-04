@@ -12,12 +12,6 @@ const themeVariants: SnapshotTestOptions<any>['variants'] = [
 		},
 	},
 	{
-		name: 'dark',
-		environment: {
-			colorScheme: 'dark',
-		},
-	},
-	{
 		name: 'none',
 		environment: {
 			colorScheme: 'no-preference',

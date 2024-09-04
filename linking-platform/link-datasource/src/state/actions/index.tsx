@@ -5,7 +5,10 @@ import { type Action, createActionsHook, createHook, createStore } from 'react-s
 import { useDatasourceClientExtension } from '@atlaskit/link-client-extension';
 import type { ActionsDiscoveryRequest, AtomicActionInterface } from '@atlaskit/linking-types';
 
-import { type EventKey } from '../../../src/analytics/generated/analytics.types';
+import {
+	type DatasourceOperationFailedAttributesType,
+	type EventKey,
+} from '../../../src/analytics/generated/analytics.types';
 import type createEventPayload from '../../../src/analytics/generated/create-event-payload';
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 import useErrorLogger from '../../hooks/useErrorLogger';
@@ -74,7 +77,10 @@ interface Client {
 	>['getDatasourceActionsAndPermissions'];
 }
 
-type AnalyticsCaptureError = (errorLocation: string, error: unknown) => void;
+type AnalyticsCaptureError = (
+	errorLocation: DatasourceOperationFailedAttributesType['errorLocation'],
+	error: unknown,
+) => void;
 type AnalyticsFireEvent = <K extends EventKey>(
 	...params: Parameters<typeof createEventPayload<K>>
 ) => void;

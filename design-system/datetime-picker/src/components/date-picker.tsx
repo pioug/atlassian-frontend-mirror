@@ -13,7 +13,6 @@ import {
 	withAnalyticsContext,
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import { type CalendarRef } from '@atlaskit/calendar';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
 import Select, {
@@ -86,7 +85,6 @@ const datePickerDefaultProps = {
 
 class DatePickerComponent extends Component<DatePickerProps, State> {
 	static defaultProps = datePickerDefaultProps;
-	calendarRef: CalendarRef | null = null;
 	containerRef: HTMLElement | null = null;
 
 	constructor(props: any) {
@@ -336,10 +334,6 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		}
 	};
 
-	refCalendar = (ref: CalendarRef | null) => {
-		this.calendarRef = ref;
-	};
-
 	handleSelectInputChange = (selectInputValue: string, actionMeta: InputActionMeta) => {
 		const { onInputChange } = this.props.selectProps;
 		if (onInputChange) {
@@ -463,7 +457,6 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 
 		const calendarProps = {
 			calendarContainerRef: this.containerRef,
-			calendarRef: this.refCalendar,
 			calendarDisabled: disabled,
 			calendarDisabledDateFilter: disabledDateFilter,
 			calendarMaxDate: maxDate,
@@ -544,7 +537,6 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					calendarLocale={calendarProps.calendarLocale}
 					calendarMaxDate={calendarProps.calendarMaxDate}
 					calendarMinDate={calendarProps.calendarMinDate}
-					calendarRef={calendarProps.calendarRef}
 					calendarValue={calendarProps.calendarValue}
 					calendarView={calendarProps.calendarView}
 					calendarWeekStartDay={calendarProps.calendarWeekStartDay}

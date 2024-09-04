@@ -23,13 +23,15 @@
 		".": "./src/index.tsx",
 		"./base": "./src/select.tsx",
 		"./async": "./src/async.tsx",
-		"./creatable": "./src/creatable.tsx"
+		"./creatable": "./src/creatable.tsx",
+		"./async-creatable": "./src/async-creatable.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./base": "./src/select.tsx",
 		"./async": "./src/async.tsx",
-		"./creatable": "./src/creatable.tsx"
+		"./creatable": "./src/creatable.tsx",
+		"./async-creatable": "./src/async-creatable.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "^2.5.0",

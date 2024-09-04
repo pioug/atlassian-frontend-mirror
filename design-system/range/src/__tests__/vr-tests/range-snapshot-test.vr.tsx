@@ -16,12 +16,6 @@ snapshot(BasicExampleUncontrolled, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
-			},
-		},
 	],
 });
 snapshot(DisabledDisplay, {
@@ -34,12 +28,6 @@ snapshot(DisabledDisplay, {
 			name: 'Light',
 			environment: {
 				colorScheme: 'light',
-			},
-		},
-		{
-			name: 'Dark',
-			environment: {
-				colorScheme: 'dark',
 			},
 		},
 	],

@@ -7,7 +7,7 @@ import { Fragment, type MouseEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import OpenIcon from '@atlaskit/icon/glyph/open';
+import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import { Box, xcss } from '@atlaskit/primitives';
 
@@ -53,7 +53,7 @@ const BasicExample = () => {
 					<NestingItem
 						id="3"
 						iconBefore={<SettingsIcon label="" />}
-						iconAfter={<OpenIcon label="" />}
+						iconAfter={<EmojiAtlassianIcon label="" />}
 						title="Settings"
 						description="I have a custom after element"
 					>

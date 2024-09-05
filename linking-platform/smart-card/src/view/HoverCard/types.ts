@@ -1,6 +1,5 @@
 import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { type AnalyticsFacade } from '../../state/analytics';
-import { type LinkAction } from '../../state/hooks-external/useSmartLinkActions';
 import { type CardState } from '@atlaskit/linking-common';
 import { type AnalyticsHandler } from '../../utils/types';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
@@ -100,7 +99,6 @@ export type PreviewInvokeMethod = 'keyboard' | 'mouse_hover' | 'mouse_click';
 export type HoverCardContentProps = {
 	id?: string;
 	analytics?: AnalyticsFacade;
-	cardActions?: LinkAction[];
 	cardState: CardState;
 	renderers?: CardProviderRenderers;
 	onActionClick: (actionId: string | ActionName) => void;

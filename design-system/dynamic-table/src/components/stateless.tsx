@@ -1,4 +1,4 @@
-import React, { forwardRef, lazy, Suspense, useEffect, useState } from 'react';
+import React, { forwardRef, lazy, Suspense, useEffect, useRef, useState } from 'react';
 
 import {
 	createAndFireEvent,
@@ -43,52 +43,46 @@ function toggleSortOrder(currentSortOrder?: SortOrderType) {
 	}
 }
 
-export interface State {
-	isRanking: boolean;
-}
+const DynamicTable = ({
+	caption,
+	head,
+	highlightedRowIndex,
+	rows,
+	sortKey,
+	sortOrder,
+	loadingLabel,
+	onPageRowsUpdate,
+	testId,
+	totalRows: passedDownTotalRows,
+	label,
+	isLoading = false,
+	isFixedSize = false,
+	rowsPerPage = Infinity,
+	onSetPage = noop,
+	onSort = noop,
+	page = 1,
+	emptyView,
+	isRankable = false,
+	isRankingDisabled = false,
+	onRankStart = noop,
+	onRankEnd = noop,
+	loadingSpinnerSize,
+	paginationi18n = {
+		prev: 'Previous',
+		next: 'Next',
+		label: 'Pagination',
+		pageLabel: 'Page',
+	},
+}: Props) => {
+	const [isRanking, setIsRanking] = useState(false);
+	const tableBodyRef = useRef<HTMLTableSectionElement>(null);
 
-class DynamicTable extends React.Component<Props, State> {
-	tableBody = React.createRef<HTMLTableSectionElement>();
+	useEffect(() => {
+		validateSortKey(sortKey, head);
+		assertIsSortable(head);
+	}, [sortKey, head]);
 
-	state = {
-		isRanking: false,
-	};
-
-	static defaultProps = {
-		isLoading: false,
-		isFixedSize: false,
-		rowsPerPage: Infinity,
-		onSetPage: noop,
-		onSort: noop,
-		page: 1,
-		isRankable: false,
-		isRankingDisabled: false,
-		onRankStart: noop,
-		onRankEnd: noop,
-		paginationi18n: {
-			prev: 'Previous',
-			next: 'Next',
-			label: 'Pagination',
-			pageLabel: 'Page',
-		},
-	};
-
-	UNSAFE_componentWillMount() {
-		validateSortKey(this.props.sortKey, this.props.head);
-		assertIsSortable(this.props.head);
-	}
-
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		if (this.props.sortKey !== nextProps.sortKey || this.props.head !== nextProps.head) {
-			validateSortKey(nextProps.sortKey, nextProps.head);
-		}
-		if (this.props.head !== nextProps.head) {
-			assertIsSortable(nextProps.head);
-		}
-	}
-
-	onSortHandler = (item: RowCellType) => () => {
-		const { sortKey, sortOrder, onSort, isRankable } = this.props;
+	const onSortHandler = (item: RowCellType) => () => {
 		const { key } = item;
 		if (!key) {
 			return;
@@ -105,36 +99,21 @@ class DynamicTable extends React.Component<Props, State> {
 		}
 	};
 
-	onSetPageHandler = (page: number, event?: UIAnalyticsEvent) => {
-		const { onSetPage } = this.props;
-		if (onSetPage) {
-			onSetPage(page, event);
-		}
+	const onSetPageHandler = (page: number, event?: UIAnalyticsEvent) => {
+		onSetPage(page, event);
 	};
 
-	onRankStartHandler = (params: RankStart) => {
-		this.setState({
-			isRanking: true,
-		});
-
-		if (this.props.onRankStart) {
-			this.props.onRankStart(params);
-		}
+	const onRankStartHandler = (params: RankStart) => {
+		setIsRanking(true);
+		onRankStart(params);
 	};
 
-	onRankEndHandler = (params: RankEnd) => {
-		this.setState({
-			isRanking: false,
-		});
-
-		if (this.props.onRankEnd) {
-			this.props.onRankEnd(params);
-		}
+	const onRankEndHandler = (params: RankEnd) => {
+		setIsRanking(false);
+		onRankEnd(params);
 	};
 
-	getSpinnerSize = () => {
-		const { page, rows, rowsPerPage, loadingSpinnerSize } = this.props;
-
+	const getSpinnerSize = () => {
 		if (loadingSpinnerSize) {
 			return loadingSpinnerSize;
 		}
@@ -142,9 +121,7 @@ class DynamicTable extends React.Component<Props, State> {
 		return getPageRows(rows || [], page, rowsPerPage).length > 2 ? LARGE : SMALL;
 	};
 
-	renderEmptyBody = () => {
-		const { emptyView, isLoading, testId } = this.props;
-
+	const renderEmptyBody = () => {
 		if (isLoading) {
 			return <EmptyViewWithFixedHeight testId={testId} />;
 		}
@@ -152,140 +129,114 @@ class DynamicTable extends React.Component<Props, State> {
 		return emptyView && <EmptyViewContainer testId={testId}>{emptyView}</EmptyViewContainer>;
 	};
 
-	render() {
-		const {
-			caption,
-			head,
-			highlightedRowIndex,
-			isFixedSize,
-			page,
-			rows,
-			rowsPerPage,
-			sortKey,
-			sortOrder,
-			isLoading,
-			loadingLabel,
-			isRankable,
-			isRankingDisabled,
-			paginationi18n,
-			onPageRowsUpdate,
-			testId,
-			totalRows: passedDownTotalRows,
-			label,
-		} = this.props;
+	const rowsLength = rows && rows.length;
+	let totalPages: number;
+	// set a flag to denote the dynamic table might get only one page of data
+	// for paginated data
+	let isTotalPagesControlledExternally = false;
+	if (
+		passedDownTotalRows &&
+		Number.isInteger(passedDownTotalRows) &&
+		rowsPerPage &&
+		rowsLength &&
+		rowsLength <= passedDownTotalRows
+	) {
+		/**
+		 * If total number of rows / records have been passed down as prop
+		 * Then table is being fed paginated data from server or other sources
+		 * In this case, we want to respect information passed down by server or external source
+		 * Rather than relying on our computation based on number of rows
+		 */
+		totalPages = Math.ceil(passedDownTotalRows / rowsPerPage);
+		isTotalPagesControlledExternally = true;
+	} else {
+		totalPages = rowsLength && rowsPerPage ? Math.ceil(rowsLength / rowsPerPage) : 0;
+	}
+	totalPages = totalPages < 1 ? 1 : totalPages;
 
-		const rowsLength = rows && rows.length;
-		let totalPages: number;
-		// set a flag to denote the dynamic table might get only one page of data
-		// for paginated data
-		let isTotalPagesControlledExternally = false;
-		if (
-			passedDownTotalRows &&
-			Number.isInteger(passedDownTotalRows) &&
-			rowsPerPage &&
-			rowsLength &&
-			rowsLength <= passedDownTotalRows
-		) {
-			/**
-			 * If total number of rows / records have been passed down as prop
-			 * Then table is being fed paginated data from server or other sources
-			 * In this case, we want to respect information passed down by server or external source
-			 * Rather than relying on our computation based on number of rows
-			 */
-			totalPages = Math.ceil(passedDownTotalRows / rowsPerPage);
-			isTotalPagesControlledExternally = true;
-		} else {
-			totalPages = rowsLength && rowsPerPage ? Math.ceil(rowsLength / rowsPerPage) : 0;
-		}
-		totalPages = totalPages < 1 ? 1 : totalPages;
+	const getPageNumber = page! > totalPages ? totalPages : page; // page! required, because typescript can't yet see defaultProps to know that this won't be undefined
 
-		const getPageNumber = page! > totalPages ? totalPages : page; // page! required, because typescript can't yet see defaultProps to know that this won't be undefined
+	const rowsExist = !!rowsLength;
 
-		const bodyProps = {
-			highlightedRowIndex,
-			rows,
-			head,
-			sortKey,
-			sortOrder,
-			rowsPerPage,
-			page: getPageNumber,
-			isFixedSize: isFixedSize || false,
-			onPageRowsUpdate,
-			isTotalPagesControlledExternally,
-			ref: this.tableBody,
-			testId,
-		};
-		const rowsExist = !!rowsLength;
+	const spinnerSize = getSpinnerSize();
+	const emptyBody = renderEmptyBody();
 
-		const spinnerSize = this.getSpinnerSize();
-		const emptyBody = this.renderEmptyBody();
-
-		return (
-			<>
-				<LoadingContainerAdvanced
-					isLoading={isLoading && rowsExist}
-					spinnerSize={spinnerSize}
-					targetRef={() => this.tableBody.current}
+	return (
+		<>
+			<LoadingContainerAdvanced
+				isLoading={isLoading && rowsExist}
+				spinnerSize={spinnerSize}
+				targetRef={() => tableBodyRef.current}
+				testId={testId}
+				loadingLabel={loadingLabel}
+			>
+				<Table
+					isFixedSize={isFixedSize}
+					aria-label={label}
+					hasDataRow={rowsExist}
+					testId={testId}
+					isLoading={isLoading}
+				>
+					{!!caption && <Caption>{caption}</Caption>}
+					{head && (
+						<TableHead
+							head={head}
+							onSort={onSortHandler}
+							sortKey={sortKey}
+							sortOrder={sortOrder}
+							isRanking={isRanking}
+							isRankable={isRankable}
+							testId={testId}
+						/>
+					)}
+					{rowsExist && (
+						<TableBody
+							ref={tableBodyRef}
+							highlightedRowIndex={highlightedRowIndex}
+							rows={rows}
+							head={head}
+							sortKey={sortKey}
+							sortOrder={sortOrder}
+							rowsPerPage={rowsPerPage}
+							page={getPageNumber}
+							isFixedSize={isFixedSize || false}
+							onPageRowsUpdate={onPageRowsUpdate}
+							isTotalPagesControlledExternally={isTotalPagesControlledExternally}
+							testId={testId}
+							isRankable={isRankable}
+							isRanking={isRanking}
+							onRankStart={onRankStartHandler}
+							onRankEnd={onRankEndHandler}
+							isRankingDisabled={isRankingDisabled || isLoading || false}
+						/>
+					)}
+				</Table>
+			</LoadingContainerAdvanced>
+			{totalPages <= 1 ? null : ( // only show pagination if there's MORE than 1 page
+				<PaginationWrapper testId={testId}>
+					<ManagedPagination
+						value={getPageNumber}
+						onChange={onSetPageHandler}
+						total={totalPages}
+						i18n={paginationi18n}
+						isDisabled={isLoading}
+						testId={testId}
+					/>
+				</PaginationWrapper>
+			)}
+			{!rowsExist && emptyBody && (
+				<LoadingContainer
+					isLoading={isLoading}
+					spinnerSize={LARGE}
 					testId={testId}
 					loadingLabel={loadingLabel}
 				>
-					<Table
-						isFixedSize={isFixedSize}
-						aria-label={label}
-						hasDataRow={rowsExist}
-						testId={testId}
-						isLoading={isLoading}
-					>
-						{!!caption && <Caption>{caption}</Caption>}
-						{head && (
-							<TableHead
-								head={head}
-								onSort={this.onSortHandler}
-								sortKey={sortKey}
-								sortOrder={sortOrder}
-								isRanking={this.state.isRanking}
-								isRankable={isRankable}
-								testId={testId}
-							/>
-						)}
-						{rowsExist && (
-							<TableBody
-								{...bodyProps}
-								isRankable={this.props.isRankable}
-								isRanking={this.state.isRanking}
-								onRankStart={this.onRankStartHandler}
-								onRankEnd={this.onRankEndHandler}
-								isRankingDisabled={isRankingDisabled || isLoading || false}
-							/>
-						)}
-					</Table>
-				</LoadingContainerAdvanced>
-				{totalPages <= 1 ? null : ( // only show pagination if there's MORE than 1 page
-					<PaginationWrapper testId={testId}>
-						<ManagedPagination
-							value={getPageNumber}
-							onChange={this.onSetPageHandler}
-							total={totalPages}
-							i18n={paginationi18n}
-							isDisabled={isLoading}
-							testId={testId}
-						/>
-					</PaginationWrapper>
-				)}
-				{!rowsExist && emptyBody && (
-					<LoadingContainer
-						isLoading={isLoading}
-						spinnerSize={LARGE}
-						testId={testId}
-						loadingLabel={loadingLabel}
-					>
-						{emptyBody}
-					</LoadingContainer>
-				)}
-			</>
-		);
-	}
-}
+					{emptyBody}
+				</LoadingContainer>
+			)}
+		</>
+	);
+};
 
 type TableBodyProps = {
 	highlightedRowIndex?: number | number[];

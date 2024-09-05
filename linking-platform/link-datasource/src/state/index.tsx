@@ -18,6 +18,7 @@ type UniqueIdentifier = string;
 
 interface DatasourceItem {
 	ari: string | undefined;
+	entityType: string | undefined;
 	integrationKey: string | undefined;
 	data: DatasourceDataResponseItem;
 }
@@ -56,6 +57,7 @@ export const actions = {
 		(
 			items: DatasourceDataResponseItem[],
 			integrationKey: string | undefined,
+			entityType: string | undefined,
 		): Action<State, void, string[]> =>
 		({ setState, getState }) => {
 			const oldItems = { ...getState().items };
@@ -70,6 +72,7 @@ export const actions = {
 							...itemMap,
 							[id]: {
 								ari,
+								entityType,
 								integrationKey,
 								data: {
 									...oldItems[id]?.data,

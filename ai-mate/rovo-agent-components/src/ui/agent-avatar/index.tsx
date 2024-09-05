@@ -43,9 +43,10 @@ type AgentAvatarProps = {
 	label?: string;
 	// Alt text for image
 	name?: string;
+	showBorder?: boolean;
+	agentIdentityAccountId?: string | null | undefined;
 	agentNamedId?: string;
 	agentId?: string;
-	showBorder?: boolean;
 };
 
 export const AgentAvatar = ({
@@ -54,6 +55,7 @@ export const AgentAvatar = ({
 	label,
 	name,
 	agentId,
+	agentIdentityAccountId,
 	agentNamedId,
 	showBorder = true,
 }: AgentAvatarProps) => {
@@ -75,7 +77,12 @@ export const AgentAvatar = ({
 					{imageUrl ? (
 						<Box as="img" xcss={imageStyles} src={imageUrl} alt={name} />
 					) : (
-						<GeneratedAvatar agentId={agentId} agentNamedId={agentNamedId} size={size} />
+						<GeneratedAvatar
+							agentId={agentId}
+							agentNamedId={agentNamedId}
+							agentIdentityAccountId={agentIdentityAccountId}
+							size={size}
+						/>
 					)}
 				</Box>
 			</Box>

@@ -1,7 +1,9 @@
+/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
 import { type EditorState, type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CodeBlockLineAttributes } from '../types';
 import { codeBlockClassNames } from '../ui/class-names';
@@ -24,11 +26,10 @@ export const generateInitialDecorations = (state: EditorState) => {
  */
 export const updateCodeBlockDecorations = (
 	tr: ReadonlyTransaction,
-	state: EditorState,
+	codeBlockNodes: NodeWithPos[],
 	decorationSet: DecorationSet,
 ): DecorationSet => {
 	let updatedDecorationSet = decorationSet;
-	const codeBlockNodes = getAllCodeBlockNodesInDoc(state);
 
 	// All the line numbers decorators are refreshed on doc change.
 	updatedDecorationSet = updateDecorationSetWithLineNumberDecorators(
@@ -149,8 +150,14 @@ export const validateWordWrappedDecorators = (
 		const isCodeBlockWrappedByDecorator =
 			getWordWrapDecoratorsFromNodePos(node.pos, decorationSet).length !== 0;
 
-		if (isCodeBlockWrappedInState && !isCodeBlockWrappedByDecorator) {
-			updatedDecorationSet = updateDecorationSetWithWordWrappedDecorator(decorationSet, tr, node);
+		if (fg('editor_code_block_wrapping_language_change_bug')) {
+			if (isCodeBlockWrappedInState !== isCodeBlockWrappedByDecorator) {
+				updatedDecorationSet = updateDecorationSetWithWordWrappedDecorator(decorationSet, tr, node);
+			}
+		} else {
+			if (isCodeBlockWrappedInState && !isCodeBlockWrappedByDecorator) {
+				updatedDecorationSet = updateDecorationSetWithWordWrappedDecorator(decorationSet, tr, node);
+			}
 		}
 	});
 

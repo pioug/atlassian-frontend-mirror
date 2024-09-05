@@ -9,6 +9,7 @@ import { type PropsWithChildren } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline } from '@atlaskit/primitives';
 import AkSelect, {
 	components,
@@ -52,7 +53,12 @@ export function Select<T = OptionType>({
 			validationHelpText={validationHelpText}
 			testId={testId}
 		>
-			{({ fieldId, ...fieldProps }) => {
+			{({ fieldId, isRequired, ...fieldProps }) => {
+				if (fg('linking-platform-create-field-error-association')) {
+					return (
+						<AkSelect required={isRequired} inputId={fieldId} {...fieldProps} {...restProps} />
+					);
+				}
 				return <AkSelect inputId={fieldId} {...fieldProps} {...restProps} />;
 			}}
 		</CreateField>
@@ -60,7 +66,7 @@ export function Select<T = OptionType>({
 }
 
 export type SiteSelectProps = {
-	testId: string;
+	testId?: string;
 	options?: SitePickerOptionType[];
 	name?: string;
 };
@@ -68,7 +74,6 @@ export type SiteSelectProps = {
 export const SiteSelect = ({ options, name, testId }: SiteSelectProps) => {
 	const intl = useIntl();
 	const siteTestId = testId ? testId : 'link-create-site-picker';
-
 	return (
 		<Select<SitePickerOptionType>
 			isRequired

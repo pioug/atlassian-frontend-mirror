@@ -43,7 +43,7 @@ export const setup = async ({
 	const analyticsSpy = jest.fn();
 	setGlobalTheme({ colorMode: 'dark' });
 
-	const { findAllByTestId, queryByTestId, findByTestId } = render(
+	const { findAllByTestId, queryByTestId, findByTestId, findByRole, queryByRole } = render(
 		<AnalyticsListener channel={analytics.ANALYTICS_CHANNEL} onEvent={analyticsSpy}>
 			<IntlProvider locale="en">
 				<Provider client={mockClient} featureFlags={featureFlags}>
@@ -73,6 +73,8 @@ export const setup = async ({
 		findAllByTestId,
 		findByTestId,
 		queryByTestId,
+		findByRole,
+		queryByRole,
 		element,
 		analyticsSpy,
 		dateSpy,

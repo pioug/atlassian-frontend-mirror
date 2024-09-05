@@ -41,7 +41,7 @@ describe('Performance unit tests', () => {
 
 		expect(isPerformanceAPIAvailable()).toEqual(true);
 
-		analyticsHelper = new AnalyticsHelper(fakeDocumentAri, fakeAnalyticsWebClient);
+		analyticsHelper = new AnalyticsHelper(fakeDocumentAri, 'live', fakeAnalyticsWebClient);
 	});
 
 	afterEach(jest.resetAllMocks);

@@ -8,10 +8,6 @@ const options: OptionsType = {
 	drawsOutsideBounds: true,
 	variants: [
 		{
-			name: 'default',
-			environment: {},
-		},
-		{
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',

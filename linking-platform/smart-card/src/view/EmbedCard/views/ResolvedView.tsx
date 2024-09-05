@@ -112,6 +112,7 @@ export const EmbedCardResolvedView = React.forwardRef<
 					ref={embedIframeRef}
 					onIframeDwell={onIframeDwell}
 					onIframeFocus={onIframeFocus}
+					title={text}
 				/>
 			</ExpandedFrame>
 		);

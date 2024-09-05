@@ -15,8 +15,8 @@ export const decisionItemSpecWithFixedToDOM = () => {
 		toDOM: (node: PMNode): DOMOutputSpec => {
 			const { localId, state } = node.attrs;
 			const attrs = {
-				decisionLocalId: localId || 'local-decision',
-				decisionState: state,
+				'data-decision-local-id': localId || 'local-decision',
+				'data-decision-state': state,
 				class: 'decisionItemView-content-wrap',
 				// Styles to match `packages/elements/task-decision/src/components/styles.ts`
 				style: convertToInlineCss({

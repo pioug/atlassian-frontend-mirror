@@ -9,8 +9,6 @@ import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-// eslint-disable-next-line @atlaskit/platform/no-alias
-import * as ffPackage from '@atlaskit/platform-feature-flags';
 import type { Provider } from '..';
 import { EVENT_STATUS } from '../../helpers/const';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
@@ -45,6 +43,10 @@ describe('#sendData', () => {
 		const testProviderConfigWithAnalytics = {
 			url: `http://provider-url:6661`,
 			documentAri: documentAri,
+			productInfo: {
+				product: 'confluence',
+				subProduct: 'live',
+			},
 			analyticsClient: fakeAnalyticsWebClient,
 		};
 		provider = createSocketIOCollabProvider(testProviderConfigWithAnalytics);
@@ -78,8 +80,6 @@ describe('#sendData', () => {
 	});
 
 	it('catchupv2 : triggers catchupv2 on processSteps failure', () => {
-		jest.spyOn(ffPackage, 'getBooleanFF').mockImplementation(() => true);
-
 		const catchupv2Spy = jest.spyOn(
 			// @ts-ignore
 			provider.documentService as any,
@@ -100,6 +100,7 @@ describe('#sendData', () => {
 			attributes: {
 				collabService: 'ncs',
 				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+				subProduct: 'live',
 				network: {
 					status: 'ONLINE',
 				},
@@ -199,6 +200,7 @@ describe('#sendData', () => {
 					status: 'ONLINE',
 				},
 				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+				subProduct: 'live',
 				eventStatus: EVENT_STATUS.SUCCESS_10x_SAMPLED,
 				type: 'ACCEPTED',
 				latency: 0,
@@ -243,6 +245,7 @@ describe('#sendData', () => {
 				packageName: '@atlaskit/fabric',
 				packageVersion: '0.0.0',
 				collabService: 'ncs',
+				subProduct: 'live',
 				network: {
 					status: 'ONLINE',
 				},
@@ -265,6 +268,7 @@ describe('#sendData', () => {
 					status: 'ONLINE',
 				},
 				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+				subProduct: 'live',
 				errorCode: 'HEAD_VERSION_UPDATE_FAILED',
 				errorMessage: 'Error while adding steps - Acknowledgement Error',
 				originalErrorMessage: undefined,
@@ -317,6 +321,7 @@ describe('#sendData', () => {
 					status: 'ONLINE',
 				},
 				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+				subProduct: 'live',
 				eventStatus: 'FAILURE',
 				type: 'REJECTED',
 				latency: 0,
@@ -335,6 +340,7 @@ describe('#sendData', () => {
 					status: 'ONLINE',
 				},
 				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+				subProduct: 'live',
 				errorCode: 'VERSION_NUMBER_ALREADY_EXISTS',
 				errorMessage: 'Error while adding steps - Acknowledgement Error',
 				originalErrorMessage: undefined,
@@ -440,6 +446,7 @@ describe('#sendData', () => {
 					status: 'ONLINE',
 				},
 				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+				subProduct: 'live',
 				errorCode: 'SOME_TECHNICAL_ERROR',
 				errorMessage: 'Error handled',
 				errorName: undefined,
@@ -466,6 +473,7 @@ describe('#sendData', () => {
 					status: 'ONLINE',
 				},
 				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+				subProduct: 'live',
 				eventStatus: 'FAILURE',
 				type: 'ERROR',
 				latency: 0,
@@ -484,6 +492,7 @@ describe('#sendData', () => {
 					status: 'ONLINE',
 				},
 				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+				subProduct: 'live',
 				errorCode: 'SOME_TECHNICAL_ERROR',
 				errorMessage: 'Error while adding steps - Acknowledgement Error',
 				originalErrorMessage: undefined,
@@ -532,6 +541,7 @@ describe('#sendData', () => {
 					status: 'ONLINE',
 				},
 				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+				subProduct: 'live',
 				errorName: 'Error',
 				errorMessage: 'Error while adding steps - Invalid Acknowledgement',
 				originalErrorMessage: undefined,

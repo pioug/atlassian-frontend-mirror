@@ -135,21 +135,6 @@ describe('UserProfileCardClient', () => {
 				fetchMock.restore();
 			});
 
-			it('should throw an error if user not present in the site', async () => {
-				fetchMock.restore();
-				fetchMock.mock({
-					options: {
-						method: 'GET',
-					},
-					matcher: `begin:/gateway/api/teams/site`,
-					response: { isPresent: false },
-				});
-
-				await expect(client.makeRequest(cloudId, userId)).rejects.toThrow(
-					'Unable to fetch user: User does not exist in this site',
-				);
-			});
-
 			it('should handle request errors', async () => {
 				(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
 

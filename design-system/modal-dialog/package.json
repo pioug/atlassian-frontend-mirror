@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/modal-dialog",
-	"version": "12.15.4",
+	"version": "12.15.5",
 	"description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,6 +34,7 @@
 		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/layering": "^0.4.0",
 		"@atlaskit/motion": "^1.9.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/portal": "^4.9.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/theme": "^13.0.0",
@@ -43,6 +44,7 @@
 		"bind-event-listener": "^3.0.0",
 		"raf-schd": "^4.0.3",
 		"react-focus-lock": "^2.9.5",
+		"react-focus-lock-next": "npm:react-focus-lock@^2.13.2",
 		"react-scrolllock": "^5.0.1"
 	},
 	"peerDependencies": {
@@ -62,6 +64,7 @@
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/tooltip": "^18.7.0",
 		"@atlaskit/visual-regression": "*",
+		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",
@@ -130,6 +133,11 @@
 		"./modal-body": "./src/modal-body.tsx",
 		"./modal-footer": "./src/modal-footer.tsx",
 		"./modal-transition": "./src/modal-transition.tsx"
+	},
+	"platform-feature-flags": {
+		"platform_dst_modal-dialog-bump-focus-lock": {
+			"type": "boolean"
+		}
 	},
 	"homepage": "https://atlassian.design/components/modal-dialog/"
 }

@@ -1,16 +1,33 @@
 # @atlaskit/jql-editor-autocomplete-rest
 
+## 2.1.0
+
+### Minor Changes
+
+- [#136871](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136871)
+  [`c663f9f8a9171`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c663f9f8a9171) -
+  Add support for React 18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes
 
-- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`
 
 ## 2.0.0
 
 ### Major Changes
 
-- [#39978](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39978) [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate `jql-editor-autocomplete-rest` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-editor-autocomplete-rest`.
+- [#39978](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39978)
+  [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate
+  `jql-editor-autocomplete-rest` package to the `@atlaskit` namespace. Any consumers should update
+  their imports to `@atlaskit/jql-editor-autocomplete-rest`.
 
 ### Patch Changes
 
@@ -20,19 +37,25 @@
 
 ### Patch Changes
 
-- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162)
+  [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete
+  version.json
 
 ## 1.1.6
 
 ### Patch Changes
 
-- [#37925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37925) [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+- [#37925](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37925)
+  [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use
+  injected env vars instead of version.json
 
 ## 1.1.5
 
 ### Patch Changes
 
-- [#37802](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37802) [`6081642ebe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6081642ebe0) - Allow Forge/Connect JQL functions to correctly autocomplete for single value and list operators.
+- [#37802](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37802)
+  [`6081642ebe0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6081642ebe0) - Allow
+  Forge/Connect JQL functions to correctly autocomplete for single value and list operators.
 
 ## 1.1.4
 
@@ -40,7 +63,9 @@
 
 ### Patch Changes
 
-- [#36600](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36600) [`f04004ec277`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f04004ec277) - Extract common JQL editor types, constants and utilities to separate package.
+- [#36600](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36600)
+  [`f04004ec277`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f04004ec277) - Extract
+  common JQL editor types, constants and utilities to separate package.
 
 ## 1.1.3
 
@@ -48,25 +73,34 @@
 
 ### Patch Changes
 
-- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
+  [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
+  legacy types are published for TS 4.5-4.8
 
 ## 1.1.2
 
 ### Patch Changes
 
-- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
+  [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade
+  Typescript from `4.5.5` to `4.9.5`
 
 ## 1.1.1
 
 ### Patch Changes
 
-- [#33285](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33285) [`5fbee461cc7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fbee461cc7) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#33285](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33285)
+  [`5fbee461cc7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5fbee461cc7) - Internal
+  change to enforce token usage for spacing properties. There is no expected visual or behaviour
+  change.
 
 ## 1.1.0
 
 ### Minor Changes
 
-- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
+  [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
+  minor dependency bump
 
 ### Patch Changes
 
@@ -76,7 +110,9 @@
 
 ### Patch Changes
 
-- [#26392](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26392) [`fbd7a36e956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbd7a36e956) - Upgrade react-sweet-state from `2.5.2` to `2.6.5`
+- [#26392](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26392)
+  [`fbd7a36e956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbd7a36e956) - Upgrade
+  react-sweet-state from `2.5.2` to `2.6.5`
 
 ## 1.0.13
 
@@ -88,7 +124,9 @@
 
 ### Patch Changes
 
-- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874)
+  [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade
+  Typescript from `4.3.5` to `4.5.5`
 
 ## 1.0.11
 
@@ -96,7 +134,9 @@
 
 ### Patch Changes
 
-- [#25232](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25232) [`b2e81642b07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2e81642b07) - Use default import for version.json and specify fixed prosemirror-transform dependency version.
+- [#25232](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25232)
+  [`b2e81642b07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2e81642b07) - Use
+  default import for version.json and specify fixed prosemirror-transform dependency version.
 
 ## 1.0.10
 
@@ -202,7 +242,8 @@
 
 ### Major Changes
 
-- 94c794c: Bump all TypeScript packages to 1.0.0 for release to production. From this point on, semver will be used in all packages.
+- 94c794c: Bump all TypeScript packages to 1.0.0 for release to production. From this point on,
+  semver will be used in all packages.
 
 ### Patch Changes
 
@@ -236,7 +277,8 @@
 
 ### Patch Changes
 
-- 17f2a3c: Remove email from from user nodes on autocomplete insertion when data is provided by REST API
+- 17f2a3c: Remove email from from user nodes on autocomplete insertion when data is provided by REST
+  API
 - Updated dependencies [17f2a3c]
   - @atlassiansox/jql-editor@0.12.0
 

@@ -18,13 +18,14 @@ const testChannelConfig: Config = {
 	createSocket: createSocketIOSocket,
 	analyticsClient: fakeAnalyticsWebClient,
 };
+const analyticsHelper = new AnalyticsHelper(
+	testChannelConfig.documentAri,
+	testChannelConfig.productInfo?.subProduct,
+	testChannelConfig.analyticsClient,
+);
 
 describe('Channel rate limiting unit tests', () => {
 	it('Should not rate limit if off', () => {
-		const analyticsHelper = new AnalyticsHelper(
-			testChannelConfig.documentAri,
-			testChannelConfig.analyticsClient,
-		);
 		const channel = new Channel(
 			{
 				...testChannelConfig,
@@ -54,10 +55,6 @@ describe('Channel rate limiting unit tests', () => {
 	});
 
 	it('Should rate limit frequent messages', () => {
-		const analyticsHelper = new AnalyticsHelper(
-			testChannelConfig.documentAri,
-			testChannelConfig.analyticsClient,
-		);
 		const channel = new Channel(
 			{
 				...testChannelConfig,
@@ -87,10 +84,6 @@ describe('Channel rate limiting unit tests', () => {
 	});
 
 	it('Should rate limit large messages', () => {
-		const analyticsHelper = new AnalyticsHelper(
-			testChannelConfig.documentAri,
-			testChannelConfig.analyticsClient,
-		);
 		const channel = new Channel(
 			{
 				...testChannelConfig,
@@ -120,10 +113,6 @@ describe('Channel rate limiting unit tests', () => {
 	});
 
 	it('Should rate limit message bandwidth', () => {
-		const analyticsHelper = new AnalyticsHelper(
-			testChannelConfig.documentAri,
-			testChannelConfig.analyticsClient,
-		);
 		const channel = new Channel(
 			{
 				...testChannelConfig,
@@ -153,10 +142,6 @@ describe('Channel rate limiting unit tests', () => {
 	});
 
 	it('Should rate limit message bandwidth over multiple windows', () => {
-		const analyticsHelper = new AnalyticsHelper(
-			testChannelConfig.documentAri,
-			testChannelConfig.analyticsClient,
-		);
 		const channel = new Channel(
 			{
 				...testChannelConfig,

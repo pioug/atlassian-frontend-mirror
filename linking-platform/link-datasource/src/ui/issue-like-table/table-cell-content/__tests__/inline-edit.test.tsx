@@ -79,6 +79,7 @@ describe('InlineEdit', () => {
 			items: {
 				[ari]: {
 					ari,
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: ari },
@@ -131,6 +132,7 @@ describe('InlineEdit', () => {
 			items: {
 				[ari]: {
 					ari,
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: ari },
@@ -178,6 +180,7 @@ describe('InlineEdit', () => {
 			items: {
 				[ari]: {
 					ari,
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: ari },
@@ -232,6 +235,7 @@ describe('InlineEdit', () => {
 			items: {
 				[ari]: {
 					ari,
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: ari },
@@ -286,6 +290,7 @@ describe('InlineEdit', () => {
 			items: {
 				[ari]: {
 					ari,
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: ari },
@@ -335,5 +340,55 @@ describe('InlineEdit', () => {
 			},
 			EVENT_CHANNEL,
 		);
+	});
+
+	describe('analytics', () => {
+		it('fires ui.inlineEdit.clicked.datasource on inline edit click', () => {
+			const execute = jest.fn().mockResolvedValue({});
+			const ari = testJiraAri;
+			store.storeState.setState({
+				items: {
+					[ari]: {
+						ari,
+						entityType: 'work-item',
+						integrationKey: 'jira',
+						data: {
+							ari: { data: ari },
+							summary: { data: 'Blahblah' },
+						},
+					},
+				},
+			});
+			mockUseExecuteAtomicAction.mockReturnValue({ execute });
+
+			const dataValues: DatasourceTypeWithOnlyValues = { type: 'string', values: ['Blahblah'] };
+
+			setup({
+				ari,
+				columnKey: 'summary',
+				execute,
+				datasourceTypeWithValues: dataValues,
+				readView: <MockReadView ari={ari} />,
+			});
+
+			fireEvent.click(screen.getByTestId(testIds.readView));
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						eventType: 'ui',
+						action: 'clicked',
+						actionSubject: 'inlineEdit',
+						actionSubjectId: 'datasource',
+						attributes: {
+							entityType: 'work-item',
+							fieldKey: 'summary',
+							integrationKey: 'jira',
+						},
+					},
+				},
+				'media',
+			);
+		});
 	});
 });

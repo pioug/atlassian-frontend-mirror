@@ -29,12 +29,7 @@ describe('LazyNodeView', () => {
 			contentDOM: document.createElement('div'),
 		});
 
-		const nodeView = new LazyNodeView(
-			fakeNode,
-			jest.fn() as unknown as EditorView,
-			jest.fn(),
-			new Promise(() => {}),
-		);
+		const nodeView = new LazyNodeView(fakeNode, jest.fn() as unknown as EditorView, jest.fn(), []);
 
 		expect(nodeView.dom).toBeInstanceOf(HTMLElement);
 		// @ts-expect-error Type already checked above

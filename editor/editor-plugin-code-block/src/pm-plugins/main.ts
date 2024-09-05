@@ -1,6 +1,8 @@
+/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 import type { IntlShape } from 'react-intl-next';
 
 import { browser } from '@atlaskit/editor-common/browser';
+import { updateCodeBlockWrappedStateNodeKeys } from '@atlaskit/editor-common/code-block';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -21,7 +23,7 @@ import type { CodeBlockPlugin } from '../index';
 import { codeBlockNodeView } from '../nodeviews/code-block';
 import { pluginKey } from '../plugin-key';
 import { codeBlockClassNames } from '../ui/class-names';
-import { findCodeBlock } from '../utils';
+import { findCodeBlock, getAllCodeBlockNodesInDoc } from '../utils';
 
 import { ACTIONS } from './actions';
 import {
@@ -144,7 +146,17 @@ export const createPlugin = ({
 					let updatedDecorationSet = pluginState.decorations.map(tr.mapping, tr.doc);
 
 					if (fg('editor_support_code_block_wrapping')) {
-						updatedDecorationSet = updateCodeBlockDecorations(tr, newState, updatedDecorationSet);
+						const codeBlockNodes = getAllCodeBlockNodesInDoc(newState);
+
+						if (fg('editor_code_block_wrapping_language_change_bug')) {
+							updateCodeBlockWrappedStateNodeKeys(codeBlockNodes, _oldState);
+						}
+
+						updatedDecorationSet = updateCodeBlockDecorations(
+							tr,
+							codeBlockNodes,
+							updatedDecorationSet,
+						);
 					}
 
 					const newPluginState: CodeBlockState = {

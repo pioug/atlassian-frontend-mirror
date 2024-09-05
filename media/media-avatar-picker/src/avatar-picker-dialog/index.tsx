@@ -56,7 +56,7 @@ const HeaderContent = ({ title }: { title?: string }) => {
 	const modal = useModal();
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<h1 css={modalHeaderStyles} data-test-id="modal-header" id={modal.titleId}>
+		<h1 data-testid="modal-header" css={modalHeaderStyles} id={modal.titleId}>
 			{title || <FormattedMessage {...messages.upload_an_avatar} />}
 		</h1>
 	);
@@ -236,7 +236,7 @@ export class AvatarPickerDialog extends PureComponent<
 				{this.state.isSubmitted && <SubmitErrorDialog />}
 
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-				<form onSubmit={this.onSave} css={formStyles}>
+				<form aria-label="form" onSubmit={this.onSave} css={formStyles}>
 					<ModalBody>
 						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={avatarPickerViewWrapperStyles}>{this.renderBody()}</div>
@@ -252,7 +252,7 @@ export class AvatarPickerDialog extends PureComponent<
 	footerContent = () => {
 		const { primaryButtonText, onCancel, isLoading } = this.props;
 		return (
-			<ModalFooter>
+			<ModalFooter testId="avatar-picker-dialog-footer">
 				<ButtonGroup>
 					<Button appearance="default" onClick={onCancel}>
 						<FormattedMessage {...messages.cancel} />
@@ -343,7 +343,6 @@ export class AvatarPickerDialog extends PureComponent<
 						<Fragment>
 							<Textfield
 								{...fieldProps}
-								id="altText"
 								onChange={(event: FormEvent<HTMLInputElement>) =>
 									this.updateAltText(event.currentTarget.value)
 								}

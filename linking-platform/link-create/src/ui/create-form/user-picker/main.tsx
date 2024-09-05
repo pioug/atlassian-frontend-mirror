@@ -31,7 +31,7 @@ export function UserPicker({
 }: UserPickerProps) {
 	return (
 		<CreateField name={name} label={label} isRequired testId={testId} validators={validators}>
-			{({ fieldId, ...fieldProps }) => {
+			{({ fieldId, isRequired, ...fieldProps }) => {
 				return (
 					<SmartUserPicker
 						defaultValue={defaultValue ? { ...defaultValue, type: 'user' } : undefined}
@@ -47,6 +47,7 @@ export function UserPicker({
 						prefetch
 						isClearable={false}
 						width={UserPickerWidth}
+						required={isRequired}
 					/>
 				);
 			}}

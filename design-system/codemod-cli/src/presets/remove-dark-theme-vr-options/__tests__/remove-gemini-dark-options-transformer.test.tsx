@@ -95,9 +95,10 @@ describe('Remove dark colorScheme from Gemini VR tests', () => {
 	});
 
 	check({
-		it: "should not modify if it's not imported from @af/visual-regression",
+		it: "should not modify if it's not imported from @af/visual-regression or @atlassian/jira-vr-testing",
 		original: `
 		import { snapshot } from '@atlaskit/visual-regression';
+		import { snapshot as jiraSnapshot2 } from '@atlaskit/jira-vr-testing';
 		snapshot(ComponentName, {
 			variants: [
 				{
@@ -111,6 +112,7 @@ describe('Remove dark colorScheme from Gemini VR tests', () => {
     `,
 		expected: `
 		import { snapshot } from '@atlaskit/visual-regression';
+		import { snapshot as jiraSnapshot2 } from '@atlaskit/jira-vr-testing';
 		snapshot(ComponentName, {
 			variants: [
 				{

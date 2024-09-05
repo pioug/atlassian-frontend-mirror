@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.20
+
+### Patch Changes
+
+- [#137344](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137344)
+  [`00c81bdf34c46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00c81bdf34c46) -
+  [ux] Fixes an issue where tables that existed before "Support Table in Comment" are displayed as
+  centered 760px width tables when FF for Support Table in Comment is enabled.
+
+## 7.25.19
+
+### Patch Changes
+
+- [#136485](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136485)
+  [`96d4b8a73c2ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/96d4b8a73c2ea) -
+  Refactored table styles so that it is inside the tables plugin and not in the editors critical
+  path.
+
 ## 7.25.18
 
 ### Patch Changes

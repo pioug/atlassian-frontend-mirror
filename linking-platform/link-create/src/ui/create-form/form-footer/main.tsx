@@ -48,7 +48,7 @@ export function CreateFormFooter({
 	return (
 		<footer data-testid={`${testId}-footer`} css={formFooterWrapperStyles}>
 			{formErrorMessage && (
-				<div css={errorStyles} data-testid={`${testId}-error`}>
+				<div role="alert" css={errorStyles} data-testid={`${testId}-error`}>
 					<ErrorIcon
 						label={formErrorMessage}
 						color={token('color.icon.danger', '#E34935')}

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.4.3
+
+### Patch Changes
+
+- [#137344](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137344)
+  [`ec4ac3d413b9a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec4ac3d413b9a) -
+  ED-24829 Fixed lazy node attributes to match parseDOM
+
 ## 2.4.2
 
 ### Patch Changes

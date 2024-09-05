@@ -52,10 +52,26 @@ interface ScaleOptions {
 	renderWidth: number;
 	tableWidth: number;
 	maxScale: number;
+	isNumberColumnEnabled: boolean;
 }
-const calcScalePercent = ({ renderWidth, tableWidth, maxScale }: ScaleOptions) => {
-	const diffPercent = 1 - renderWidth / tableWidth;
-	return diffPercent < maxScale ? diffPercent : maxScale;
+const calcScalePercent = ({
+	renderWidth,
+	tableWidth,
+	maxScale,
+	isNumberColumnEnabled,
+}: ScaleOptions) => {
+	const noNumColumnScalePercent = renderWidth / tableWidth;
+	// when numbered column is enabled, we need to calculate the scale percent without the akEditorTableNumberColumnWidth
+	// As numbered column width is not scaled down
+	const numColumnScalePercent =
+		(renderWidth - akEditorTableNumberColumnWidth) / (tableWidth - akEditorTableNumberColumnWidth);
+	const diffPercent = 1 - noNumColumnScalePercent;
+
+	return diffPercent < maxScale
+		? isNumberColumnEnabled
+			? 1 - numColumnScalePercent
+			: diffPercent
+		: maxScale;
 };
 
 const colWidthSum = (columnWidths: number[]) => columnWidths.reduce((prev, curr) => curr + prev, 0);
@@ -82,7 +98,6 @@ const renderScaleDownColgroup = (
 		return [];
 	}
 
-	// isTableColumnResized checks if table columns were resized
 	const tableColumnResized = isTableColumnResized(columnWidths);
 	const noOfColumns = columnWidths.length;
 	let targetWidths;
@@ -130,6 +145,7 @@ const renderScaleDownColgroup = (
 		);
 
 		const targetMaxWidth = tableContainerWidth - akEditorTableNumberColumnWidth;
+
 		let totalWidthAfterScale = 0;
 		const newScaledTargetWidths = columnWidths.map((width) => {
 			// we need to scale each column UP, to ensure total width of table matches table container
@@ -204,6 +220,7 @@ const renderScaleDownColgroup = (
 			renderWidth,
 			tableWidth,
 			maxScale: shouldTable100ScaleDown ? 1 : maxScalingPercent,
+			isNumberColumnEnabled: isNumberColumnEnabled,
 		});
 	}
 

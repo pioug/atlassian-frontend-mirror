@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.3.13
+
+### Patch Changes
+
+- [#136871](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136871)
+  [`87a30d5cb3ffb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87a30d5cb3ffb) -
+  ED-24814 - Addressing a bug where changing the language on a wrapped code block caused the wrapped
+  decorator to disappear. Required changing the sequence in which we update the keys on the wrapped
+  states WeakMap. Due to the amount of changes, it has all be placed behind a bug fix feature gate
+  (editor_code_block_wrapping_language_change_bug) and the original feature gate
+  (editor_support_code_block_wrapping).
+
 ## 3.3.12
 
 ### Patch Changes

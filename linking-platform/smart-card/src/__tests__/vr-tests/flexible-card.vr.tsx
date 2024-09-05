@@ -5,7 +5,6 @@ import FlexibleUiComposition from '../../../examples/vr-flexible-card/vr-flexibl
 
 import FlexibleUiBlock from '../../../examples/vr-flexible-card/vr-flexible-ui-block';
 import FlexibleUiBlockActionList from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action';
-import FlexibleUiBlockAISummary from '../../../examples/vr-flexible-card/vr-flexible-ui-block-ai-summary';
 import FlexibleUiBlockTitle from '../../../examples/vr-flexible-card/vr-flexible-ui-block-title';
 import FlexibleUiBlockMetadata from '../../../examples/vr-flexible-card/vr-flexible-ui-block-metadata';
 import FlexibleUiBlockSnippet from '../../../examples/vr-flexible-card/vr-flexible-ui-block-snippet';
@@ -107,7 +106,6 @@ snapshot(FlexibleUiBlockMetadata, {
 });
 snapshot(FlexibleUiBlockSnippet);
 snapshot(FlexibleUiBlockFooter);
-snapshot(FlexibleUiBlockAISummary);
 snapshot(FlexibleUiBlockPreview);
 snapshot(FlexibleUiBlockActionList);
 snapshot(FlexibleUiBlockAction);

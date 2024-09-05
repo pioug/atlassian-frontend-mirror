@@ -1,5 +1,22 @@
 # @atlaskit/profilecard
 
+## 19.26.1
+
+### Patch Changes
+
+- [#137195](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137195)
+  [`0c6a0ad6e8350`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c6a0ad6e8350) -
+  Pass identity_account_id to AgentAvatar
+- Updated dependencies
+
+## 19.26.0
+
+### Minor Changes
+
+- [#134885](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134885)
+  [`17a1076221589`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17a1076221589) -
+  PTC-9930 Removed the check if user is in site
+
 ## 19.25.1
 
 ### Patch Changes

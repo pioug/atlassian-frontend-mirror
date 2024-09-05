@@ -14,7 +14,7 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { act, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { fakeFactory } from '../../../utils/mocks';
 import { type CardClient } from '@atlaskit/link-provider';
@@ -47,6 +47,7 @@ describe('HoverCard', () => {
 	});
 
 	afterEach(() => {
+		act(() => jest.runAllTimers()); // Suppress act errors after test ends
 		jest.useRealTimers();
 		jest.restoreAllMocks();
 	});
@@ -60,15 +61,14 @@ describe('HoverCard', () => {
 			},
 		};
 
-		runCommonHoverCardTests((setupProps?: SetUpParams) => setup(setupProps), testsConfig);
-
-		forbiddenViewTests((setupProps?: SetUpParams) => setup(setupProps));
-
-		unauthorizedViewTests((setupProps?: SetUpParams) => setup(setupProps), testsConfig);
-
-		analyticsTests((setupProps?: SetUpParams) => setup(setupProps), {
-			display: 'inline',
-			isAnalyticsContextResolvedOnHover: true,
+		describe('Common tests', () => {
+			runCommonHoverCardTests((setupProps?: SetUpParams) => setup(setupProps), testsConfig);
+			forbiddenViewTests((setupProps?: SetUpParams) => setup(setupProps));
+			unauthorizedViewTests((setupProps?: SetUpParams) => setup(setupProps), testsConfig);
+			analyticsTests((setupProps?: SetUpParams) => setup(setupProps), {
+				display: 'inline',
+				isAnalyticsContextResolvedOnHover: true,
+			});
 		});
 
 		it('should not call loadMetadata if link state is not pending', async () => {
@@ -88,7 +88,9 @@ describe('HoverCard', () => {
 				.spyOn(useSmartCardActions, 'useSmartCardActions')
 				.mockImplementation(() => mockedActions);
 
-			jest.advanceTimersByTime(100);
+			act(() => {
+				jest.advanceTimersByTime(100);
+			});
 			expect(loadMetadataSpy).toHaveBeenCalledTimes(0);
 		});
 
@@ -96,7 +98,7 @@ describe('HoverCard', () => {
 			const { findByTestId } = await setup({
 				extraCardProps: { ui: { hideHoverCardPreviewButton: true } },
 			});
-			const previewButton = await findByTestId('preview-content');
+			const previewButton = await findByTestId('smart-action-preview-action');
 			expect(previewButton.textContent).toBe('Open preview');
 		});
 
@@ -143,7 +145,7 @@ describe('HoverCard', () => {
 				const link = await findByTestId('smart-element-link');
 				await event.click(link);
 
-				const previewButton = await findByTestId('preview-content');
+				const previewButton = await findByTestId('smart-action-preview-action');
 				await event.click(previewButton);
 
 				expect(mockOnClick).not.toHaveBeenCalled();
@@ -180,21 +182,25 @@ describe('HoverCard', () => {
 					},
 				};
 
-				const { findAllByTestId, findByTestId, queryByTestId } = render(
+				const { findAllByTestId, findByTestId, queryByTestId, debug } = render(
 					<Provider client={mockClient} storeOptions={storeOptions}>
 						<Card appearance="inline" url={mockUrl} showHoverPreview={true} />
 					</Provider>,
 				);
 
-				expect(mockFetch).toBeCalledTimes(0);
+				expect(mockFetch).toHaveBeenCalledTimes(0);
 				const element = await findByTestId('inline-card-resolved-view');
 				expect(element.textContent).toBe('I am a fan of cheese');
 
 				jest.useFakeTimers({ legacyFakeTimers: true });
 				const event = userEvent.setup({ delay: null });
 				await event.hover(element);
-				jest.runAllTimers();
-				await waitFor(() => expect(mockFetch).toBeCalledTimes(1));
+
+				act(() => {
+					jest.runAllTimers();
+				});
+
+				await waitFor(() => expect(mockFetch).toHaveBeenCalledTimes(1));
 
 				return {
 					findAllByTestId,
@@ -203,6 +209,7 @@ describe('HoverCard', () => {
 					resolveFetch,
 					rejectFetch,
 					event,
+					debug,
 				};
 			};
 
@@ -215,13 +222,13 @@ describe('HoverCard', () => {
 				await findAllByTestId('smart-block-metadata-resolved-view');
 				const titleBlock = await findByTestId('smart-block-title-resolved-view');
 				const snippetBlock = await findByTestId('smart-block-snippet-resolved-view');
-				const footerBlock = await findByTestId('smart-footer-block-resolved-view');
+				const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
 				expect(queryByTestId('hover-card-loading-view')).toBeNull();
 
-				//trim because the icons are causing new lines in the textContent
+				// trim because the icons are causing new lines in the textContent
 				expect(titleBlock.textContent?.trim()).toBe('I love cheese');
 				expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
-				expect(footerBlock.textContent?.trim()).toBe('ConfluenceDownloadOpen preview');
+				expect(footerBlock.textContent?.trim()).toBe('Confluence');
 			});
 
 			it('should fall back to default path if fetch fails', async () => {
@@ -232,10 +239,10 @@ describe('HoverCard', () => {
 
 				const titleBlock = await findByTestId('smart-block-title-resolved-view');
 				const snippetBlock = await findByTestId('smart-block-snippet-resolved-view');
-				const footerBlock = await findByTestId('smart-footer-block-resolved-view');
+				const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
 				expect(queryByTestId('hover-card-loading-view')).toBeNull();
 
-				//trim because the icons are causing new lines in the textContent
+				// trim because the icons are causing new lines in the textContent
 				expect(titleBlock.textContent?.trim()).toBe('I am a fan of cheese');
 				expect(snippetBlock.textContent).toBe('');
 				expect(footerBlock.textContent?.trim()).toBe('');

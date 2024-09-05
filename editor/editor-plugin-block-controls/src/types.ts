@@ -10,6 +10,7 @@ import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibi
 import { type AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import { type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
@@ -65,6 +66,11 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			OptionalPlugin<FeatureFlagsPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<AccessibilityUtilsPlugin>,
+			/**
+			 * For Typeahead - Empty line prompt experiment
+			 * Clean up ticket ED-24824
+			 */
+			OptionalPlugin<QuickInsertPlugin>,
 		];
 		sharedState: BlockControlsSharedState;
 		commands: {

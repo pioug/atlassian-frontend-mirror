@@ -271,9 +271,11 @@ export const useDatasourceTableState = ({
 					 * Product is typed as any.
 					 */
 					const integrationKey: unknown = product;
+					const entityType = destinationObjectTypes?.length ? destinationObjectTypes[0] : undefined;
 					const newIds = onAddItems(
 						items,
 						typeof integrationKey === 'string' ? integrationKey : undefined,
+						entityType,
 					);
 					setResponseItemIds((currentIds) => [...currentIds, ...newIds]);
 
@@ -286,12 +288,12 @@ export const useDatasourceTableState = ({
 									[],
 								);
 
-								if (aris.length && destinationObjectTypes.length) {
+								if (aris.length && entityType) {
 									discoverActions({
 										aris,
 										integrationKey,
 										fieldKeys,
-										entityType: destinationObjectTypes[0],
+										entityType,
 									});
 								}
 							}

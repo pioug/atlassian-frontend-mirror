@@ -8,6 +8,7 @@ const rule = createLintRule({
 	meta: {
 		name: 'no-legacy-icons',
 		fixable: 'code',
+		hasSuggestions: true,
 		type: 'problem',
 		docs: {
 			description: 'Enforces no legacy icons are used.',

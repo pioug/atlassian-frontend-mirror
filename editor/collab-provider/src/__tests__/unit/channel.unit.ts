@@ -72,7 +72,11 @@ const testChannelConfig: Config = {
 
 const GET_CHANNEL_ASSERTION_COUNT = 4;
 const getChannel = (config: Config = testChannelConfig): Channel => {
-	const analyticsHelper = new AnalyticsHelper(config.documentAri, config.analyticsClient);
+	const analyticsHelper = new AnalyticsHelper(
+		config.documentAri,
+		config.productInfo?.subProduct,
+		config.analyticsClient,
+	);
 	const channel = new Channel(config, analyticsHelper);
 	expectValidChannel(channel);
 	return channel;
@@ -1032,6 +1036,7 @@ describe('Channel unit tests', () => {
 	it('Should throw an error when trying to emit metadata without having the channel.socket initialised', () => {
 		const analyticsHelper = new AnalyticsHelper(
 			testChannelConfig.documentAri,
+			testChannelConfig.productInfo?.subProduct,
 			testChannelConfig.analyticsClient,
 		);
 		// getChannel() calls channel.connect(), which initialises channel.socket, therefore creating Channel directly.
@@ -1073,6 +1078,7 @@ describe('Channel unit tests', () => {
 	it('Should throw an error when trying to broadcast events without having the channel.socket initialised', () => {
 		const analyticsHelper = new AnalyticsHelper(
 			testChannelConfig.documentAri,
+			testChannelConfig.productInfo?.subProduct,
 			testChannelConfig.analyticsClient,
 		);
 		// getChannel() calls channel.connect(), which initialises channel.socket, therefore creating Channel directly.
@@ -1142,7 +1148,11 @@ describe('Channel unit tests', () => {
 
 		describe('Reconnection logic', () => {
 			it('Should initialize the network helper on connect', () => {
-				const analyticsHelper = new AnalyticsHelper(fakeDocumentAri, fakeAnalyticsWebClient);
+				const analyticsHelper = new AnalyticsHelper(
+					fakeDocumentAri,
+					'live',
+					fakeAnalyticsWebClient,
+				);
 				const channel = new Channel(testChannelConfig, analyticsHelper);
 				// @ts-ignore private method
 				expect(channel.network).toBeNull();

@@ -40,8 +40,8 @@ import { type EditorExperimentsConfig, editorExperimentsConfig } from './experim
  */
 export function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
 	experimentName: ExperimentName,
-	cases: EditorExperimentsConfig[ExperimentName] extends string
-		? Record<EditorExperimentsConfig[ExperimentName], () => void | Promise<void>>
+	cases: EditorExperimentsConfig[ExperimentName]['defaultValue'] extends string
+		? Record<EditorExperimentsConfig[ExperimentName]['defaultValue'], () => void | Promise<void>>
 		: { true: () => void | Promise<void>; false: () => void | Promise<void> },
 	otherExperiments?: EditorExperimentOverrides,
 ) {

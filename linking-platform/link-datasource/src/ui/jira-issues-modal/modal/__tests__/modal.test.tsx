@@ -663,16 +663,14 @@ describe('JiraIssuesConfigModal', () => {
 					const hookState = getSingleResponseItemHookState(
 						'https://product-fabric.atlassian.net/browse/EDM-5941',
 					);
-					const { switchMode, queryByTestId, getByText } = await setup({
+					const { switchMode, queryByTestId, findByText } = await setup({
 						hookState,
 					});
 
 					expect(IssueLikeDataTableView).toHaveBeenCalled();
 					switchMode('inline');
 
-					await waitFor(() =>
-						getByText('EDM-5941: Implement mapping between data type and visual component'),
-					);
+					await findByText('EDM-5941: Implement mapping between data type and visual component');
 
 					const card = queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-view`);
 					expect(card).toBeInTheDocument();
@@ -740,14 +738,12 @@ describe('JiraIssuesConfigModal', () => {
 					const hookState = getSingleResponseItemHookState(
 						'https://product-fabric.atlassian.net/browse/EDM-5941',
 					);
-					const { getByText, onInsert, getByRole } = await setup({
+					const { onInsert, getByRole, findByText } = await setup({
 						hookState,
 						viewMode: 'inline',
 					});
 
-					await waitFor(() =>
-						getByText('EDM-5941: Implement mapping between data type and visual component'),
-					);
+					await findByText('EDM-5941: Implement mapping between data type and visual component');
 					const button = getByRole('button', { name: 'Insert issues' });
 					act(() => {
 						button.click();
@@ -1464,6 +1460,39 @@ describe('JiraIssuesConfigModal', () => {
 						expect(getByText("You don't have access to this content")).toBeInTheDocument();
 					});
 				});
+			});
+
+			it('should show DisplayViewDropdown when disableDisplayDropdown is false', async () => {
+				const { getByTestId } = await setup({
+					disableDisplayDropdown: false,
+					hookState: { ...getErrorHookState(), status: 'unauthorized' },
+					mockSiteDataOverride: mockSiteData.slice(3),
+					url: '',
+				});
+
+				expect(getByTestId('datasource-modal--view-drop-down--trigger')).toBeInTheDocument();
+			});
+
+			it('should show DisplayViewDropdown when disableDisplayDropdown is undefined', async () => {
+				const { getByTestId } = await setup({
+					disableDisplayDropdown: undefined,
+					hookState: { ...getErrorHookState(), status: 'unauthorized' },
+					mockSiteDataOverride: mockSiteData.slice(3),
+					url: '',
+				});
+
+				expect(getByTestId('datasource-modal--view-drop-down--trigger')).toBeInTheDocument();
+			});
+
+			it('should not show DisplayViewDropdown when disableDisplayDropdown is true', async () => {
+				const { queryByTestId } = await setup({
+					disableDisplayDropdown: true,
+					hookState: { ...getErrorHookState(), status: 'unauthorized' },
+					mockSiteDataOverride: mockSiteData.slice(3),
+					url: '',
+				});
+
+				expect(queryByTestId('datasource-modal--view-drop-down--trigger')).toBeNull();
 			});
 
 			ffTest.on(

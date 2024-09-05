@@ -1,29 +1,115 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 
 import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { AutoDevAvatar } from './assets/auto-dev';
-import { AutoFixAvatar } from './assets/auto-fix';
-import { AutoReviewAvatar } from './assets/auto-review';
-import { BacklogBuddyAvatar } from './assets/backlog-buddy';
-import { CommsCrafterAvatar } from './assets/comms-crafter';
-import { CultureAvatar } from './assets/culture';
-import { CustomerInsightAvatar } from './assets/customer-insight';
-import { DecisionDirectorAvatar } from './assets/decision-director';
-import { FeatureFlagAvatar } from './assets/feature-flag-avatar';
-import { GenericAvatar } from './assets/generic-avatar';
-import { HireWriterAvatar } from './assets/hire-writer';
-import { MarketingMessageMaestroAvatar } from './assets/marketing-message-maestro';
-import { MyUserManualAvatar } from './assets/my-user-manual';
-import { OkrOracleAvatar } from './assets/okr-oracle';
-import { OpsAgentAvatar } from './assets/ops-agent';
-import { PitchPerfectorAvatar } from './assets/pitch-perfector';
-import { ProductRequirementAvatar } from './assets/product-requirement';
-import { ReleaseNotesAvatar } from './assets/release-notes';
-import { ResearchScoutAvatar } from './assets/research-scout';
-import { SocialMediaScribeAvatar } from './assets/social-media-scribe';
-import { TeamConnectionAvatar } from './assets/team-connection';
+const AutoDevAvatar = lazy(
+	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-AutoDevAvatar"*/ './assets/auto-dev'),
+);
+
+const AutoFixAvatar = lazy(
+	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-AutoFixAvatar"*/ './assets/auto-fix'),
+);
+const AutoReviewAvatar = lazy(
+	() =>
+		import(/* webpackChunkName: "@atlaskit-rovo-avatar-AutoReviewAvatar"*/ './assets/auto-review'),
+);
+const BacklogBuddyAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-BacklogBuddyAvatar"*/ './assets/backlog-buddy'
+		),
+);
+const CommsCrafterAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-CommsCrafterAvatar"*/ './assets/comms-crafter'
+		),
+);
+const CultureAvatar = lazy(
+	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-CultureAvatar"*/ './assets/culture'),
+);
+const CustomerInsightAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-CustomerInsightAvatar"*/ './assets/customer-insight'
+		),
+);
+const DecisionDirectorAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-DecisionDirectorAvatar"*/ './assets/decision-director'
+		),
+);
+const FeatureFlagAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-FeatureFlagAvatar"*/ './assets/feature-flag-avatar'
+		),
+);
+const GenericAvatar = lazy(
+	() =>
+		import(/* webpackChunkName: "@atlaskit-rovo-avatar-GenericAvatar"*/ './assets/generic-avatar'),
+);
+const HireWriterAvatar = lazy(
+	() =>
+		import(/* webpackChunkName: "@atlaskit-rovo-avatar-HireWriterAvatar"*/ './assets/hire-writer'),
+);
+const MarketingMessageMaestroAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-MarketingMessageMaestroAvatar"*/ './assets/marketing-message-maestro'
+		),
+);
+const MyUserManualAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-MyUserManualAvatar"*/ './assets/my-user-manual'
+		),
+);
+const OkrOracleAvatar = lazy(
+	() =>
+		import(/* webpackChunkName: "@atlaskit-rovo-avatar-OkrOracleAvatar"*/ './assets/okr-oracle'),
+);
+const OpsAgentAvatar = lazy(
+	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-OpsAgentAvatar"*/ './assets/ops-agent'),
+);
+const PitchPerfectorAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-PitchPerfectorAvatar"*/ './assets/pitch-perfector'
+		),
+);
+const ProductRequirementAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-ProductRequirementAvatar"*/ './assets/product-requirement'
+		),
+);
+const ReleaseNotesAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-ReleaseNotesAvatar"*/ './assets/release-notes'
+		),
+);
+const ResearchScoutAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-ResearchScoutAvatar"*/ './assets/research-scout'
+		),
+);
+const SocialMediaScribeAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-SocialMediaScribeAvatar"*/ './assets/social-media-scribe'
+		),
+);
+const TeamConnectionAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-TeamConnectionAvatar"*/ './assets/team-connection'
+		),
+);
 
 type Color = {
 	primary: string;
@@ -66,6 +152,7 @@ export const TOTAL_AVATAR_COMBINATIONS = avatarList.length * colorList.length;
 type GeneratedAvatarProps = {
 	agentNamedId?: string;
 	agentId?: string;
+	agentIdentityAccountId?: string | null | undefined;
 	size: SizeType;
 };
 
@@ -113,7 +200,43 @@ const outOfTheBoxAgentAvatar: {
 	},
 };
 
-const getAvatarRender = ({ agentNamedId, agentId, size }: GeneratedAvatarProps) => {
+/**
+ * agentIdentityAccountId examples:
+ * 5b985e7c96cb052b5f65c830
+ * 712020:19e57f67-c132-462b-8503-0c19953122cd
+ *
+ * agentId examples:
+ * cd002f25-46e4-4023-80ff-32e4d90849b4
+ */
+export const getNumberIdForAvatar = ({
+	agentIdentityAccountId,
+	agentId,
+}: Pick<GeneratedAvatarProps, 'agentIdentityAccountId' | 'agentId'>): number | null => {
+	// we prioritise agentIdentityAccountId first if it is available
+	// this is because agentIdentityAccountId is more widely available (e.g. in ProfilePage)
+	const idForAgentAvatar = agentIdentityAccountId || agentId;
+
+	if (idForAgentAvatar) {
+		// Take the last 8 characters of the id because JS can't handle 16 digit numbers
+		const trimmedId = idForAgentAvatar.slice(-8).replace(/[-:]/g, '');
+
+		const parsedId = parseInt(trimmedId, 16);
+		if (isNaN(parsedId)) {
+			return 0;
+		} else {
+			return parsedId;
+		}
+	}
+
+	return null;
+};
+
+const getAvatarRender = ({
+	agentNamedId,
+	agentId,
+	agentIdentityAccountId,
+	size,
+}: GeneratedAvatarProps) => {
 	if (typeof agentNamedId === 'string' && outOfTheBoxAgentAvatar[agentNamedId]) {
 		const ootbAvatarResult = outOfTheBoxAgentAvatar[agentNamedId];
 
@@ -123,22 +246,16 @@ const getAvatarRender = ({ agentNamedId, agentId, size }: GeneratedAvatarProps) 
 		};
 	}
 
-	if (agentId) {
-		// Take the last 8 characters of the agentId because JS can't handle 16 digit numbers
-		const agentIdSubset = agentId.slice(-8).replace(/-/g, '');
+	const numberId = getNumberIdForAvatar({ agentIdentityAccountId, agentId });
 
-		let agentIdNumber = parseInt(agentIdSubset, 16);
-		if (isNaN(agentIdNumber)) {
-			agentIdNumber = 0;
-		}
-
+	if (numberId !== null) {
 		/**
 		 * this create all possible combinations of avatars and colors
 		 * e.g. [[avatar1, color1], [avatar1, color2], [avatar2, color1], [avatar2, color2]]
 		 * then choose 1 based on agentId
 		 */
 		const totalCombinations = avatarList.length * colorList.length;
-		const combinationIndex = agentIdNumber % totalCombinations;
+		const combinationIndex = numberId % totalCombinations;
 
 		const avatarIndex = Math.floor(combinationIndex / colorList.length);
 		const colorIndex = combinationIndex % colorList.length;
@@ -177,17 +294,25 @@ const bannerStyles = xcss({
 export const AgentBanner = ({
 	agentNamedId,
 	agentId,
+	agentIdentityAccountId,
 	height,
-}: Pick<GeneratedAvatarProps, 'agentId' | 'agentNamedId'> & { height: number }) => {
-	const { color } = getAvatarRender({ agentNamedId, agentId, size: 'medium' });
+}: Pick<GeneratedAvatarProps, 'agentId' | 'agentNamedId' | 'agentIdentityAccountId'> & {
+	height: number;
+}) => {
+	const { color } = getAvatarRender({
+		agentNamedId,
+		agentId,
+		agentIdentityAccountId,
+		size: 'medium',
+	});
 
 	return (
 		<Box xcss={bannerStyles} style={{ backgroundColor: color.primary, height: `${height}px` }} />
 	);
 };
 
-export const GeneratedAvatar = ({ agentNamedId, agentId, size }: GeneratedAvatarProps) => {
-	const { render, color } = getAvatarRender({ agentNamedId, agentId, size });
+export const GeneratedAvatar = (props: GeneratedAvatarProps) => {
+	const { render, color } = getAvatarRender(props);
 
 	return (
 		<Box
@@ -196,7 +321,7 @@ export const GeneratedAvatar = ({ agentNamedId, agentId, size }: GeneratedAvatar
 				backgroundColor: color.primary,
 			}}
 		>
-			{render}
+			<Suspense fallback={null}>{render}</Suspense>
 		</Box>
 	);
 };

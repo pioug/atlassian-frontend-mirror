@@ -1,2 +1,2 @@
-export { selectionMarkerPlugin } from './plugin';
-export type { SelectionMarkerPlugin, ReleaseHiddenDecoration } from './types';
+export { selectionMarkerPlugin } from './selectionMarkerPlugin';
+export type { SelectionMarkerPlugin, ReleaseHiddenDecoration } from './selectionMarkerPluginType';

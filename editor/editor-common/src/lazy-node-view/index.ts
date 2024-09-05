@@ -90,7 +90,7 @@ const testOnlyIgnoreLazyNodeViewSet = new WeakSet<EditorView>();
  *
  * This needs to be replaced with proper implementation once LazyNodeView is converted to a plugin.
  *
- * @deprecated DO NOT USE THIS OUSIDE TESTS.
+ * @deprecated DO NOT USE THIS OUTSIDE TESTS.
  */
 export function testOnlyIgnoreLazyNodeView(view: EditorView) {
 	testOnlyIgnoreLazyNodeViewSet.add(view);
@@ -166,7 +166,7 @@ export const withLazyLoading = <Options>({
 				return resolvedNodeView(node, view, getPos, decorations);
 			}
 
-			return new LazyNodeView(node, view, getPos, requestedNodes.get(nodeName)!);
+			return new LazyNodeView(node, view, getPos, decorations);
 		}
 
 		const loaderPromise = loader().then((nodeViewFuncModule) => {
@@ -216,7 +216,7 @@ export const withLazyLoading = <Options>({
 			// });
 		}
 
-		return new LazyNodeView(node, view, getPos, loaderPromise);
+		return new LazyNodeView(node, view, getPos, decorations);
 	};
 
 	return createLazyNodeView;

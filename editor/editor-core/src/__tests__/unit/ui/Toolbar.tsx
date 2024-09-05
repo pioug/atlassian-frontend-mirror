@@ -3,7 +3,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { WidthObserver } from '@atlaskit/width-detector';
 
 import { Toolbar } from '../../../ui/Toolbar/Toolbar';
@@ -41,9 +43,17 @@ jest.mock('../../../ui/Toolbar/hooks', () => {
 	};
 });
 
+jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/editor-common/core-utils', () => ({
+	isSSR: jest.fn(),
+}));
+
 describe('Toolbar', () => {
 	beforeEach(() => {
 		mockElementWidth = undefined;
+	});
+	afterEach(() => {
+		jest.resetAllMocks();
 	});
 
 	it('should render a Toolbar UI Component', () => {
@@ -149,6 +159,70 @@ describe('Toolbar', () => {
 			isToolbarReducedSpacing: false,
 		});
 
+		toolbar.unmount();
+	});
+
+	it('should not render Toolbar in SSR if platform_hide_editor_toolbar_ssr is on', () => {
+		(isSSR as jest.Mock).mockReturnValue(true);
+		(fg as jest.Mock).mockImplementation((name) => name === 'platform_hide_editor_toolbar_ssr');
+		const toolbarItem = getMockedToolbarItem();
+		const toolbar = mount(
+			<Toolbar
+				items={[toolbarItem]}
+				editorView={{} as any}
+				eventDispatcher={{} as any}
+				providerFactory={{} as any}
+				appearance="full-page"
+				disabled={false}
+				toolbarSize={ToolbarSize.L}
+				containerElement={null}
+			/>,
+		);
+
+		expect(toolbarItem).not.toBeCalled();
+		toolbar.unmount();
+	});
+
+	it('should render Toolbar UI in SSR if platform_hide_editor_toolbar_ssr is off', () => {
+		(isSSR as jest.Mock).mockReturnValue(true);
+
+		const toolbarItem = getMockedToolbarItem();
+		const toolbar = mount(
+			<Toolbar
+				items={[toolbarItem]}
+				editorView={{} as any}
+				eventDispatcher={{} as any}
+				providerFactory={{} as any}
+				appearance="full-page"
+				disabled={false}
+				toolbarSize={ToolbarSize.L}
+				containerElement={null}
+			/>,
+		);
+
+		expect(toolbarItem).toBeCalled();
+		toolbar.unmount();
+	});
+
+	it('should render Toolbar UI in non SSR env if platform_hide_editor_toolbar_ssr is on', () => {
+		(isSSR as jest.Mock).mockReturnValue(false);
+		(fg as jest.Mock).mockImplementation((name) => name === 'platform_hide_editor_toolbar_ssr');
+
+		const toolbarItem = getMockedToolbarItem();
+		const toolbar = mount(
+			<Toolbar
+				items={[toolbarItem]}
+				editorView={{} as any}
+				eventDispatcher={{} as any}
+				providerFactory={{} as any}
+				appearance="full-page"
+				disabled={false}
+				toolbarSize={ToolbarSize.L}
+				containerElement={null}
+			/>,
+		);
+
+		expect(toolbarItem).toBeCalled();
 		toolbar.unmount();
 	});
 });

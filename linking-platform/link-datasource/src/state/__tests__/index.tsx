@@ -33,15 +33,36 @@ describe('onAddItems', () => {
 				},
 			],
 			'jira',
+			'work-item',
 		)(storeApi);
 
 		expect(newAris).toEqual(['ari1', 'ari2', 'ari3', 'ari4']);
 		expect(store.storeState.getState()).toEqual({
 			items: {
-				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				ari2: { ari: 'ari2', integrationKey: 'jira', data: { ari: { data: 'ari2' } } },
-				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
-				ari4: { ari: 'ari4', integrationKey: 'jira', data: { ari: { data: 'ari4' } } },
+				ari1: {
+					ari: 'ari1',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari1' } },
+				},
+				ari2: {
+					ari: 'ari2',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari2' } },
+				},
+				ari3: {
+					ari: 'ari3',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari3' } },
+				},
+				ari4: {
+					ari: 'ari4',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari4' } },
+				},
 			},
 		});
 	});
@@ -50,8 +71,18 @@ describe('onAddItems', () => {
 		expect(store.storeState.getState()).toEqual({ items: {} });
 		store.storeState.setState({
 			items: {
-				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari1: {
+					ari: 'ari1',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari1' } },
+				},
+				ari3: {
+					ari: 'ari3',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari3' } },
+				},
 			},
 		});
 
@@ -71,15 +102,36 @@ describe('onAddItems', () => {
 				},
 			],
 			'jira',
+			'work-item',
 		)(storeApi);
 
 		expect(newAris).toEqual(['ari1', 'ari2', 'ari3', 'ari4']);
 		expect(store.storeState.getState()).toEqual({
 			items: {
-				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				ari2: { ari: 'ari2', integrationKey: 'jira', data: { ari: { data: 'ari2' } } },
-				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
-				ari4: { ari: 'ari4', integrationKey: 'jira', data: { ari: { data: 'ari4' } } },
+				ari1: {
+					ari: 'ari1',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari1' } },
+				},
+				ari2: {
+					ari: 'ari2',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari2' } },
+				},
+				ari3: {
+					ari: 'ari3',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari3' } },
+				},
+				ari4: {
+					ari: 'ari4',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari4' } },
+				},
 			},
 		});
 	});
@@ -102,13 +154,24 @@ describe('onAddItems', () => {
 				},
 			],
 			'jira',
+			'work-item',
 		)(storeApi);
 
 		expect(newAris).toEqual(['ari1', 'ari1', 'ari3', 'ari3']);
 		expect(store.storeState.getState()).toEqual({
 			items: {
-				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari1: {
+					ari: 'ari1',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari1' } },
+				},
+				ari3: {
+					ari: 'ari3',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari3' } },
+				},
 			},
 		});
 	});
@@ -132,6 +195,7 @@ describe('onAddItems', () => {
 				},
 			],
 			'jira',
+			'work-item',
 		)(storeApi);
 
 		expect(newAris).toEqual(['ari1', expect.any(String), 'ari3', expect.any(String)]);
@@ -139,10 +203,28 @@ describe('onAddItems', () => {
 		invariant(newAris[3]);
 		expect(store.storeState.getState()).toEqual({
 			items: {
-				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				[newAris[1]]: { integrationKey: 'jira', data: { field: { data: 'field1' } } },
-				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
-				[newAris[3]]: { integrationKey: 'jira', data: { field: { data: 'field2' } } },
+				ari1: {
+					ari: 'ari1',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari1' } },
+				},
+				[newAris[1]]: {
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { field: { data: 'field1' } },
+				},
+				ari3: {
+					ari: 'ari3',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari3' } },
+				},
+				[newAris[3]]: {
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { field: { data: 'field2' } },
+				},
 			},
 		});
 	});
@@ -153,6 +235,7 @@ describe('onAddItems', () => {
 			items: {
 				ari1: {
 					ari: 'ari1',
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari1' },
@@ -162,6 +245,7 @@ describe('onAddItems', () => {
 				},
 				ari2: {
 					ari: 'ari2',
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari2' },
@@ -170,6 +254,7 @@ describe('onAddItems', () => {
 				},
 				ari3: {
 					ari: 'ari3',
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari3' },
@@ -179,6 +264,7 @@ describe('onAddItems', () => {
 				},
 				ari4: {
 					ari: 'ari4',
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari4' },
@@ -212,6 +298,7 @@ describe('onAddItems', () => {
 				},
 			],
 			'jira',
+			'work-item',
 		)(storeApi);
 
 		expect(newAris).toEqual(['ari1', 'ari2', 'ari3', 'ari4']);
@@ -220,6 +307,7 @@ describe('onAddItems', () => {
 			items: {
 				ari1: {
 					ari: 'ari1',
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari1' },
@@ -230,6 +318,7 @@ describe('onAddItems', () => {
 				},
 				ari2: {
 					ari: 'ari2',
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari2' },
@@ -239,6 +328,7 @@ describe('onAddItems', () => {
 				},
 				ari3: {
 					ari: 'ari3',
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari3' },
@@ -250,6 +340,7 @@ describe('onAddItems', () => {
 				},
 				ari4: {
 					ari: 'ari4',
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari4' },
@@ -287,8 +378,18 @@ describe('onUpdateItem', () => {
 	it('should keep the state the same when calling onUpdateItem with a non-existent ari key', () => {
 		store.storeState.setState({
 			items: {
-				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari1: {
+					ari: 'ari1',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari1' } },
+				},
+				ari3: {
+					ari: 'ari3',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari3' } },
+				},
 			},
 		});
 		actions.onUpdateItem('ari-4444', {
@@ -297,8 +398,18 @@ describe('onUpdateItem', () => {
 
 		expect(store.storeState.getState()).toEqual({
 			items: {
-				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari1: {
+					ari: 'ari1',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari1' } },
+				},
+				ari3: {
+					ari: 'ari3',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari3' } },
+				},
 			},
 		});
 	});
@@ -306,8 +417,18 @@ describe('onUpdateItem', () => {
 	it('should update the item with the new response value', () => {
 		store.storeState.setState({
 			items: {
-				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari1: {
+					ari: 'ari1',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari1' } },
+				},
+				ari3: {
+					ari: 'ari3',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari3' } },
+				},
 			},
 		});
 		actions.onUpdateItem('ari1', {
@@ -319,10 +440,16 @@ describe('onUpdateItem', () => {
 			items: {
 				ari1: {
 					ari: 'ari1',
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: { ari: { data: 'ari1' }, fieldValue: { data: 'ABCDEF' } },
 				},
-				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari3: {
+					ari: 'ari3',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari3' } },
+				},
 			},
 		});
 	});
@@ -330,8 +457,18 @@ describe('onUpdateItem', () => {
 	it('should update the item with the new response value, but ari key updates are NOT allowed', () => {
 		store.storeState.setState({
 			items: {
-				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari1: {
+					ari: 'ari1',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari1' } },
+				},
+				ari3: {
+					ari: 'ari3',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari3' } },
+				},
 			},
 		});
 		actions.onUpdateItem('ari1', {
@@ -343,10 +480,16 @@ describe('onUpdateItem', () => {
 			items: {
 				ari1: {
 					ari: 'ari1',
+					entityType: 'work-item',
 					integrationKey: 'jira',
 					data: { ari: { data: 'ari1' }, fieldValue: { data: 'ABCDEF' } },
 				},
-				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari3: {
+					ari: 'ari3',
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari3' } },
+				},
 			},
 		});
 	});

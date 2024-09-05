@@ -24,8 +24,28 @@ export type RangeList = {
 export type ErrorListManual = {
 	[loc: string]: { errors: IconMigrationError[]; iconName: string; importSource: string };
 };
-export type ErrorListAuto = { [loc: string]: IconMigrationError };
+export type ErrorListAuto = {
+	[loc: string]: IconMigrationError;
+};
 export type GuidanceList = { [loc: string]: string };
+
+export type LegacyIconImportList = {
+	[key: string]: {
+		packageName: string;
+		exported: boolean;
+		importNode: ImportDeclaration;
+		importSpecifier: string;
+	};
+};
+
+export type MigrationIconImportList = {
+	[key: string]: {
+		packageName: string;
+		exported: boolean;
+		importNode: ImportDeclaration;
+		importSpecifier: string;
+	};
+};
 
 const sizes = ['small', 'medium', 'large', 'xlarge'] as const;
 export type Size = (typeof sizes)[number];
@@ -87,7 +107,7 @@ export const canAutoMigrateNewIconBasedOnSize = (guidance?: string) => {
  * @param iconPackage string
  * @returns object of new icon name and import path
  */
-export const getNewIconNameAndImportPath = (
+const getNewIconNameAndImportPath = (
 	iconPackage: string,
 	shouldUseMigrationPath?: boolean,
 ): { iconName?: string; importPath?: string } => {
@@ -406,7 +426,7 @@ const pushManualError = (
 	}
 };
 
-export const getLiteralStringValue = (value: any): string | undefined => {
+const getLiteralStringValue = (value: any): string | undefined => {
 	if (!value) {
 		return;
 	}
@@ -488,7 +508,7 @@ export const addToListOfRanges = (node: Node, sortedListOfRangesForErrors: Range
 	}
 };
 
-export const isInRangeList = (node: Node, sortedListOfRangesForErrors: RangeList): boolean => {
+const isInRangeList = (node: Node, sortedListOfRangesForErrors: RangeList): boolean => {
 	const { range } = node;
 	if (!range || range.length < 2) {
 		return false;
@@ -556,6 +576,27 @@ const findProp = (attributes: (JSXAttribute | JSXSpreadAttribute)[], propName: s
 			attr.type === 'JSXAttribute' && attr.name.name === propName,
 	);
 
+const getNewIconNameForRenaming = (
+	isInManualArray: boolean,
+	importSource: string,
+	importSpecifier?: string,
+) => {
+	let newIconName: string | undefined;
+
+	if (isInManualArray) {
+		newIconName = getNewIconNameAndImportPath(importSource).iconName;
+		const keyToName = newIconName
+			? newIconName[0].toUpperCase() + newIconName.slice(1) + 'Icon'
+			: undefined;
+		newIconName = keyToName;
+
+		if (newIconName === undefined || importSpecifier === keyToName) {
+			newIconName = `${keyToName}New`;
+		}
+	}
+	return newIconName;
+};
+
 /**
  *
  * Creates a list of fixers to update the icon import path
@@ -566,18 +607,20 @@ const findProp = (attributes: (JSXAttribute | JSXSpreadAttribute)[], propName: s
  * @param migrationImportNode The migration import declaration node to replace, only present if shouldUseMigrationPath is false
  * @returns A list of fixers to migrate the icon
  */
-export const createImportFix = ({
+const createImportFix = ({
 	fixer,
 	legacyImportNode,
 	metadata,
 	shouldUseMigrationPath,
 	migrationImportNode,
+	newIconName,
 }: {
 	fixer: Rule.RuleFixer;
 	metadata: { importSource: string; spacing: string };
 	legacyImportNode?: ImportDeclaration;
 	shouldUseMigrationPath: boolean;
 	migrationImportNode?: ImportDeclaration;
+	newIconName?: string;
 }) => {
 	const fixes: Rule.Fix[] = [];
 	const { importSource } = metadata;
@@ -586,14 +629,26 @@ export const createImportFix = ({
 		? importSource.replace('/migration', '').split('--')[0]
 		: getNewIconNameAndImportPath(importSource, shouldUseMigrationPath).importPath;
 
-	// replace old icon import with icon import
-	if (legacyImportNode && importPath) {
-		fixes.push(fixer.replaceText(legacyImportNode.source, `'${literal(importPath)}'`));
+	const useMigrationPath = legacyImportNode && importPath;
+	const useFinalPath = migrationImportNode && !shouldUseMigrationPath && importPath;
+
+	if (useMigrationPath) {
+		fixes.push(
+			newIconName
+				? fixer.insertTextBefore(legacyImportNode, `import ${newIconName} from '${importPath}';\n`)
+				: fixer.replaceText(legacyImportNode.source, `'${literal(importPath)}'`),
+		);
+	} else if (useFinalPath) {
+		fixes.push(
+			newIconName
+				? fixer.insertTextBefore(
+						migrationImportNode,
+						`import ${newIconName} from '${importPath}';\n`,
+					)
+				: fixer.replaceText(migrationImportNode.source, `'${literal(importPath)}'`),
+		);
 	}
 
-	if (migrationImportNode && !shouldUseMigrationPath && importPath) {
-		fixes.push(fixer.replaceText(migrationImportNode.source, `'${literal(importPath)}'`));
-	}
 	return fixes;
 };
 
@@ -607,13 +662,14 @@ export const createImportFix = ({
  * @param migrationImportNode The migration import declaration node to replace, only present if shouldUseMigrationPath is false
  * @returns A list of fixers to migrate the icon
  */
-export const createPropFixes = ({
+const createPropFixes = ({
 	node,
 	fixer,
 	legacyImportNode,
 	metadata,
 	shouldUseMigrationPath,
 	migrationImportNode,
+	newIconName,
 }: {
 	node: Node;
 	fixer: Rule.RuleFixer;
@@ -621,15 +677,14 @@ export const createPropFixes = ({
 	legacyImportNode?: ImportDeclaration;
 	shouldUseMigrationPath: boolean;
 	migrationImportNode?: ImportDeclaration;
+	newIconName?: string;
 }) => {
 	const fixes: Rule.Fix[] = [];
 
 	const { importSource, spacing, insideNewButton } = metadata;
-
 	if (shouldUseMigrationPath && !legacyImportNode) {
 		return fixes;
 	}
-
 	const importPath = migrationImportNode
 		? importSource.replace('/migration', '').split('--')[0]
 		: getNewIconNameAndImportPath(importSource, shouldUseMigrationPath).importPath;
@@ -638,6 +693,11 @@ export const createPropFixes = ({
 
 	if (node.type === 'JSXElement') {
 		const { openingElement } = node;
+
+		if (newIconName) {
+			fixes.push(fixer.replaceText(openingElement.name, newIconName));
+		}
+
 		const { attributes } = openingElement;
 
 		// replace primaryColor prop with color
@@ -708,6 +768,8 @@ export const createPropFixes = ({
 				},
 			);
 		}
+	} else if (node.type === 'Identifier' && newIconName) {
+		fixes.push(fixer.replaceText(node, newIconName));
 	}
 
 	return fixes;
@@ -716,7 +778,7 @@ export const createPropFixes = ({
 /**
  * Check if the new icon exists in the migration map
  */
-export const checkIfNewIconExist = (error: { data?: { importSource?: string } }) => {
+const checkIfNewIconExist = (error: { data?: { importSource?: string } }) => {
 	if (!error.data?.importSource) {
 		return false;
 	}
@@ -724,4 +786,228 @@ export const checkIfNewIconExist = (error: { data?: { importSource?: string } })
 	const { newIcon } = baseMigrationMap[iconKey] || {};
 
 	return Boolean(newIcon);
+};
+
+export const throwManualErrors = ({
+	errorsManual,
+	errorRanges,
+	guidance,
+	context,
+	isQuietMode,
+}: {
+	errorsManual: ErrorListManual;
+	errorRanges: RangeList;
+	guidance: GuidanceList;
+	context: Rule.RuleContext;
+	isQuietMode: boolean;
+}) => {
+	for (const [key, errorList] of Object.entries(errorsManual)) {
+		const node: Node | null = 'node' in errorList.errors[0] ? errorList.errors[0].node : null;
+		if (!node) {
+			return;
+		}
+		const cantMigrateIdentifierError = errorList.errors.find(
+			(x) => 'messageId' in x && x.messageId === 'cantMigrateIdentifier',
+		);
+		let isInRange = false;
+		if (cantMigrateIdentifierError && isInRangeList(node, errorRanges)) {
+			isInRange = true;
+		}
+		if (
+			(isInRange && errorList.errors.length - 1 > 0) ||
+			(!isInRange && errorList.errors.length > 0)
+		) {
+			const guidanceMessage = Object.keys(guidance).includes(key) ? guidance[key] : '';
+			context.report({
+				node,
+				messageId: 'noLegacyIconsManualMigration',
+				data: {
+					iconName: errorList.iconName,
+					importSource: errorList.importSource,
+					guidance: isQuietMode
+						? guidanceMessage
+						: `${guidanceMessage}For more information see the below errors.\n`,
+				},
+			});
+			if (!isQuietMode) {
+				for (const error of errorList.errors) {
+					if (
+						'messageId' in error &&
+						(error.messageId !== 'cantMigrateIdentifier' ||
+							(error.messageId === 'cantMigrateIdentifier' && !isInRange))
+					) {
+						context.report(error);
+					}
+				}
+			}
+		}
+	}
+};
+
+// Loops through automatic errors and them after adding the required suggestion/fix
+export const throwAutoErrors = ({
+	errorsManual,
+	errorsAuto,
+	legacyIconImports,
+	guidance,
+	migrationIconImports,
+	shouldUseMigrationPath,
+	context,
+}: {
+	errorsManual: ErrorListManual;
+	errorsAuto: ErrorListAuto;
+	legacyIconImports: LegacyIconImportList;
+	guidance: GuidanceList;
+	migrationIconImports: MigrationIconImportList;
+	shouldUseMigrationPath: boolean;
+	context: Rule.RuleContext;
+}) => {
+	// Set of all the import sources that have manual errors (required later to check if a source has both manual and auto
+	// errors in one file making it impossible to just remove the legacy import)
+	const allManualErrorSources = Object.entries(errorsManual).reduce<Set<string>>(
+		(result, option) => {
+			const [key, errorInfo] = option;
+			if (!errorsAuto.hasOwnProperty(key)) {
+				result.add(errorInfo.importSource);
+			}
+			return result;
+		},
+		new Set<string>(),
+	);
+	//group errors by import source and remove any unwanted errors
+	const groupedErrorList = Object.entries(errorsAuto).reduce<
+		Record<string, ({ key: string } & Rule.ReportDescriptor)[]>
+	>((result, option) => {
+		const [key, error] = option;
+		//return early if no data
+		if (!error.data) {
+			return result;
+		}
+		if (Object.keys(errorsManual).includes(key)) {
+			const cantMigrateIdentifierError = errorsManual[key].errors.find(
+				(x) => 'messageId' in x && x.messageId === 'cantMigrateIdentifier',
+			);
+			// If cantMigrateIdentifier is the only manual error found we still want to throw the auto error
+			if (!(cantMigrateIdentifierError && errorsManual[key].errors.length === 1)) {
+				return result;
+			}
+		}
+		const importSource = error.data.importSource;
+		if (!result.hasOwnProperty(importSource)) {
+			result[importSource] = [];
+		}
+		result[importSource].push({
+			key,
+			...error,
+		});
+		return result;
+	}, {});
+
+	for (const [importSource, errorList] of Object.entries(groupedErrorList)) {
+		const autoFixers: ((fixer: Rule.RuleFixer) => Rule.Fix[])[] = [];
+		// appliedErrorsForImport will contain all the errors FOR A SINGLE IMPORT and will be merged into errorListForReport
+		const appliedErrorsForImport: ({
+			key: string;
+		} & Rule.ReportDescriptor)[] = [];
+		// Loop over auto errors for a single import source
+		for (const [_, error] of errorList.entries()) {
+			const { key } = error;
+			const node = 'node' in error ? error.node : null;
+			// Check if there is a manual error for the same import source somewhere else in the same file
+			// If that is the case we'll need to provide a suggestion instead of auto-fixing as the suggestion will
+			// add another import without removing the old import and this needs to be validated
+			const isInManualArray = allManualErrorSources.has(importSource);
+			// New icon name for renaming if the icon is in the manual array
+			const newIconName = getNewIconNameForRenaming(
+				isInManualArray,
+				importSource,
+				errorList[0].data
+					? legacyIconImports[errorList[0].data.iconName]?.importSpecifier
+					: undefined,
+			);
+			if (!node) {
+				continue;
+			}
+
+			const guidanceMessage = guidance.hasOwnProperty(key) ? guidance[key] : '';
+			if (Object.keys(error).includes('data') && error.data) {
+				error.data.guidance = guidanceMessage;
+			}
+			const fixArguments = error.data
+				? {
+						metadata: error.data as {
+							importSource: string;
+							spacing: string;
+							insideNewButton: string;
+						},
+						legacyImportNode: legacyIconImports[error.data.iconName]?.importNode,
+						migrationImportNode: migrationIconImports[error.data.iconName]?.importNode,
+						shouldUseMigrationPath,
+						newIconName: isInManualArray ? newIconName : undefined,
+					}
+				: null;
+			if (!error.data || (shouldUseMigrationPath && !checkIfNewIconExist(error)) || !fixArguments) {
+				continue;
+			}
+			if (isInManualArray) {
+				// provide suggestion if there is a manual error for the same import source and thus the legacy import can't be removed
+				error.suggest = [
+					{
+						desc: 'Rename icon import, import from the new package, and update props.',
+						fix: (fixer) => {
+							return [
+								...createPropFixes({
+									...fixArguments,
+									node,
+									fixer,
+								}),
+								...createImportFix({
+									...fixArguments,
+									fixer,
+								}),
+							];
+						},
+					},
+				];
+			} else {
+				// Update Guidance message for auto-fixing
+				if (error.data) {
+					error.data.guidance =
+						error.data.guidance +
+						`\nTo automatically fix this icon, run the auto-fixer attached to the first use of ${importSource} in this file - either manually, or by saving this file.`;
+				}
+				// There should only be 1 import fix for each import source and thus only add this at the start of the list
+				if (autoFixers.length === 0) {
+					autoFixers.push((fixer) =>
+						createImportFix({
+							...fixArguments,
+							fixer,
+						}),
+					);
+				}
+				// Push the prop fix regardless
+				autoFixers.push((fixer) =>
+					createPropFixes({
+						...fixArguments,
+						node,
+						fixer,
+					}),
+				);
+			}
+			// Add the error to the appliedErrorsForImport, ready to be thrown later
+			appliedErrorsForImport.push(error);
+		}
+		// We want to have only 1 fix for each import source that is not in the manual array
+		// NOTE: If in the manual array, suggestions have been applied above and autoFixers.length will be 0 which will mean no fix is added
+		if (autoFixers.length > 0) {
+			// Add the fix to only one of the errors in the list of errors from the current import source
+			appliedErrorsForImport[0].fix = (fixer: Rule.RuleFixer) => {
+				return autoFixers.flatMap((autoFixer) => autoFixer(fixer));
+			};
+		}
+		// throw errors
+		appliedErrorsForImport.forEach((error) => {
+			context.report(error);
+		});
+	}
 };

@@ -323,6 +323,7 @@ export const GroupType = 'group';
 export interface Group extends OptionData {
 	highlight?: GroupHighlight;
 	type: 'group';
+	byline?: string;
 }
 
 /*

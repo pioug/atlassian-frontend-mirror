@@ -7,10 +7,6 @@ type OptionsType = Parameters<typeof snapshot>[1];
 const options: OptionsType = {
 	variants: [
 		{
-			name: 'default',
-			environment: {},
-		},
-		{
 			name: 'light mode',
 			environment: {
 				colorScheme: 'light',
@@ -20,4 +16,7 @@ const options: OptionsType = {
 };
 
 snapshot(DefaultAsyncSelect, options);
-snapshot(AsyncSelectorAllProps, options);
+snapshot(AsyncSelectorAllProps, {
+	...options,
+	featureFlags: { 'linking-platform-create-field-error-association': [true, false] },
+});

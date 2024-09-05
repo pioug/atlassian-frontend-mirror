@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-context-panel
 
+## 1.3.3
+
+### Patch Changes
+
+- [#137041](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137041)
+  [`060aff106c5ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/060aff106c5ac) -
+  Add insert-right-rail experiment and reimplement right rail logic
+- [#137041](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137041)
+  [`060aff106c5ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/060aff106c5ac) -
+  Add new experiment for insert menu in right rail, allow right menu to be opened from main toolbar
+  '+' button
+
 ## 1.3.2
 
 ### Patch Changes

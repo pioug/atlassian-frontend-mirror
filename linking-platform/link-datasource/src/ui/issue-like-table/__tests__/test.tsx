@@ -2,8 +2,16 @@ import React from 'react';
 
 const mockColumnPickerUfoSuccess = jest.fn();
 
-import { findByTestId, screen, waitForElementToBeRemoved, within } from '@testing-library/dom';
-import { act, fireEvent, render, waitFor } from '@testing-library/react';
+import {
+	act,
+	findByTestId,
+	fireEvent,
+	render,
+	screen,
+	waitFor,
+	waitForElementToBeRemoved,
+	within,
+} from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import { defaultRegistry } from 'react-sweet-state';
 import invariant from 'tiny-invariant';
@@ -428,7 +436,8 @@ describe('IssueLikeDataTableView', () => {
 				[
 					'with flag on and off and store is populated (provides ids)',
 					'both',
-					(items: DatasourceDataResponseItem[]) => store.actions.onAddItems(items, 'jira'),
+					(items: DatasourceDataResponseItem[]) =>
+						store.actions.onAddItems(items, 'jira', 'work-item'),
 				],
 				['with sweet state flag off and with store unpopulated (empty ids)', 'off', () => []],
 			])('%s', (_, ffScenario, setupItemIds) => {
@@ -1921,7 +1930,7 @@ describe('IssueLikeDataTableView', () => {
 			it('shows editable cell on click when field is editable', async () => {
 				const items = getComplexItems();
 				const columns = getComplexColumns();
-				const itemIds = store.actions.onAddItems(items, 'jira');
+				const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
 				actionStore.storeState.setState({
 					actionsByIntegration: {
 						jira: {
@@ -1966,7 +1975,7 @@ describe('IssueLikeDataTableView', () => {
 			it('does not show editable cell on click when field is NOT editable', async () => {
 				const items = getComplexItems();
 				const columns = getComplexColumns();
-				const itemIds = store.actions.onAddItems(items, 'jira');
+				const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
 				actionStore.storeState.setState({
 					actionsByIntegration: {
 						jira: {
@@ -2011,7 +2020,7 @@ describe('IssueLikeDataTableView', () => {
 			it('does not show editable cell on click when there are no actions available', async () => {
 				const items = getComplexItems();
 				const columns = getComplexColumns();
-				const itemIds = store.actions.onAddItems(items, 'jira');
+				const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
 				actionStore.storeState.setState({
 					actionsByIntegration: {},
 					permissions: {},

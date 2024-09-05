@@ -61,6 +61,7 @@ import {
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N200, N30A, N500 } from '@atlaskit/theme/colors';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
@@ -249,9 +250,9 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${layoutStyles(props.viewMode)}
   ${telepointerStyle}
   ${gapCursorStyles};
-	${tableStyles(props)}
+	${fg('platform_editor_move_table_styles_to_plugin') ? undefined : tableStyles(props)}
 	${panelStyles()}
-  ${mentionsStyles}
+	${mentionsStyles}
   ${emojiStyles}
   ${tasksAndDecisionsStyles}
   ${gridStyles}

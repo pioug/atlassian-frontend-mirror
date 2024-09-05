@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "9.37.5",
+	"version": "9.37.7",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
-		"@atlaskit/editor-common": "^88.8.0",
+		"@atlaskit/editor-common": "^88.9.0",
 		"@atlaskit/editor-json-transformer": "^8.18.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -50,7 +50,8 @@
 		"@babel/runtime": "^7.0.0",
 		"eventemitter2": "^4.1.0",
 		"lodash": "^4.17.21",
-		"socket.io-client": "^4.7.5"
+		"socket.io-client": "^4.7.5",
+		"uuid": "^3.1.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -73,9 +74,6 @@
 	},
 	"platform-feature-flags": {
 		"platform.editor.live-pages-expand-divergence": {
-			"type": "boolean"
-		},
-		"platform.editor.ncs.log-error-stacks": {
 			"type": "boolean"
 		}
 	}

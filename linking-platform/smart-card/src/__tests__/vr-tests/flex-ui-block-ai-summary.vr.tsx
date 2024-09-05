@@ -16,9 +16,6 @@ snapshot(FlexUiBlockAiSummaryReady, {
 			state: 'hovered',
 		},
 	],
-	featureFlags: {
-		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
-	},
 });
 
 snapshot(FlexUiBlockAiSummaryLoading, {
@@ -31,9 +28,6 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 			state: 'hovered',
 		},
 	],
-	featureFlags: {
-		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
-	},
 });
 
 snapshot(FlexUiBlockAiSummaryDone, {
@@ -46,10 +40,6 @@ snapshot(FlexUiBlockAiSummaryDone, {
 			state: 'hovered',
 		},
 	],
-	featureFlags: {
-		'platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable': [true, false],
-		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
-	},
 });
 
 snapshot(FlexUiBlockAiSummaryDoneOnMount, {
@@ -62,9 +52,6 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 			state: 'hovered',
 		},
 	],
-	featureFlags: {
-		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
-	},
 });
 
 snapshot(FlexUiBlockAiSummaryError, {
@@ -77,7 +64,4 @@ snapshot(FlexUiBlockAiSummaryError, {
 			state: 'hovered',
 		},
 	],
-	featureFlags: {
-		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
-	},
 });

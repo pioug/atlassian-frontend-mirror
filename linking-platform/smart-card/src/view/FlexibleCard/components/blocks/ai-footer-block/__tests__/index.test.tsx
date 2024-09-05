@@ -13,6 +13,7 @@ import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 
 import type { AIFooterBlockProps } from '../types';
 import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
+import { type AISummaryStatus } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
 	useAISummary: jest.fn(),
@@ -37,8 +38,9 @@ describe('AIFooterBlock', () => {
 	};
 
 	it('should render non-empty block when status is resolved', () => {
-		(useAISummary as jest.Mock).mockReturnValue({
-			state: { status: 'done' },
+		jest.mocked(useAISummary).mockReturnValue({
+			state: { status: 'done', content: '' },
+			summariseUrl: jest.fn(),
 		});
 
 		const { getByTestId } = renderAIFooterBlock();
@@ -92,8 +94,9 @@ describe('AIFooterBlock', () => {
 
 	describe('AI Metadata', () => {
 		it('should render AI metadata when AI action is available', async () => {
-			(useAISummary as jest.Mock).mockReturnValue({
-				state: { status: 'done' },
+			jest.mocked(useAISummary).mockReturnValue({
+				state: { status: 'done', content: '' },
+				summariseUrl: jest.fn(),
 			});
 
 			const { findByTestId } = renderAIFooterBlock();
@@ -103,11 +106,12 @@ describe('AIFooterBlock', () => {
 			expect(aiMetadata).toBeDefined();
 		});
 
-		it.each([['ready'], ['error'], ['loading']])(
+		it.each<[AISummaryStatus]>([['ready'], ['error'], ['loading']])(
 			'should not render AI metadata when AI summary is in state %s',
 			async (status) => {
-				(useAISummary as jest.Mock).mockReturnValue({
-					state: { status },
+				jest.mocked(useAISummary).mockReturnValue({
+					state: { status, content: '' },
+					summariseUrl: jest.fn(),
 				});
 
 				const { queryByTestId } = renderAIFooterBlock();

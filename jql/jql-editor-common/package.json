@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor-common",
-	"version": "2.0.2",
+	"version": "2.1.0",
 	"description": "Common constants, types and utilities used by the JQL editor and its dependant packages.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -12,7 +12,8 @@
 		"website": {
 			"name": "JQL Editor Common",
 			"category": "JQL"
-		}
+		},
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -42,7 +43,8 @@
 		"rxjs": "^5.5.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "*",

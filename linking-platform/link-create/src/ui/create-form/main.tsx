@@ -11,6 +11,7 @@ import { Form, FormSpy } from 'react-final-form';
 import { useIntl } from 'react-intl-next';
 
 import { RequiredAsterisk } from '@atlaskit/form';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -177,6 +178,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
 					<form
 						onSubmit={formProps.handleSubmit}
 						name="link-create-form"
+						{...(fg('linking-platform-create-field-error-association') ? { noValidate: true } : {})}
 						data-testid={testId}
 						css={formStyles}
 					>

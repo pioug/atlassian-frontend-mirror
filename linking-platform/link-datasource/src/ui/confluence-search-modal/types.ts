@@ -10,13 +10,11 @@ export interface ConfluenceSearchConfigModalProps
 		InlineCardAdf | ConfluenceSearchDatasourceAdf,
 		DatasourceParameters | ConfluenceSearchDatasourceParameters
 	> {
-	disableDisplayDropdown?: boolean;
 	overrideParameters?: Pick<ConfluenceSearchDatasourceParameters, 'entityTypes'>;
 }
 
 export interface ConnectedConfluenceSearchConfigModalProps
 	extends ConnectedConfigModalProps<ConfluenceSearchDatasourceParameters> {
-	disableDisplayDropdown?: boolean;
 	overrideParameters?: Pick<ConfluenceSearchDatasourceParameters, 'entityTypes'>;
 }
 

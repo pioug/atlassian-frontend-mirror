@@ -37,6 +37,9 @@
 			"path": "tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/accessibility-testing/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
 		},
 		{

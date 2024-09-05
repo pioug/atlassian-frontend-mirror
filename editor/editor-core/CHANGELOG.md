@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 197.2.7
+
+### Patch Changes
+
+- [#136485](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136485)
+  [`96d4b8a73c2ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/96d4b8a73c2ea) -
+  Refactored table styles so that it is inside the tables plugin and not in the editors critical
+  path.
+
+## 197.2.6
+
+### Patch Changes
+
+- [#137244](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137244)
+  [`e6f32d1f22896`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e6f32d1f22896) -
+  Control show or hide editor toolbar in SSR environment
+- [#136871](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136871)
+  [`87a30d5cb3ffb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87a30d5cb3ffb) -
+  ED-24814 - Addressing a bug where changing the language on a wrapped code block caused the wrapped
+  decorator to disappear. Required changing the sequence in which we update the keys on the wrapped
+  states WeakMap. Due to the amount of changes, it has all be placed behind a bug fix feature gate
+  (editor_code_block_wrapping_language_change_bug) and the original feature gate
+  (editor_support_code_block_wrapping).
+
 ## 197.2.5
 
 ### Patch Changes

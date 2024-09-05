@@ -2,7 +2,6 @@ import type { JsonLd } from 'json-ld-types';
 import { ElementName } from '../../constants';
 import { extractType } from '@atlaskit/link-extractors';
 import { extractOwnedBy } from '../../extractors/flexible/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { ElementItem } from '../FlexibleCard/components/blocks/types';
 
 const getSimulatedBetterMetadata = (
@@ -123,20 +122,11 @@ const toElementItems = (elementNames: ElementName[]): ElementItem[] | undefined 
 export const getMetadata = (extensionKey?: string, data?: JsonLd.Data.BaseData) => {
 	const metadata = getSimulatedBetterMetadata(extensionKey, data);
 
-	const primary = fg('platform.linking-platform.smart-card.hover-card-action-redesign')
-		? [].concat(metadata.primary, metadata.tertiary)
-		: metadata.primary;
-
-	// `tertiary` should be removed completely during cleanup:
-	// https://product-fabric.atlassian.net/browse/EDM-9556
-	const tertiary = fg('platform.linking-platform.smart-card.hover-card-action-redesign')
-		? undefined
-		: metadata.tertiary;
+	const primary = [].concat(metadata.primary, metadata.tertiary);
 
 	return {
 		subtitle: toElementItems(metadata.subtitle),
 		primary: toElementItems(primary),
 		secondary: toElementItems(metadata.secondary),
-		tertiary: toElementItems(tertiary),
 	};
 };

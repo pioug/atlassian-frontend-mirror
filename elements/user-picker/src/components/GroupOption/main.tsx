@@ -58,7 +58,7 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
 	);
 
 	private renderByline = () => {
-		const { isSelected } = this.props;
+		const { isSelected, group } = this.props;
 		return (
 			<span
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -67,7 +67,7 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
 				)}
 				data-testid="user-picker-group-secondary-text"
 			>
-				<FormattedMessage {...messages.groupByline} />
+				{group.byline ? group.byline : <FormattedMessage {...messages.groupByline} />}
 			</span>
 		);
 	};

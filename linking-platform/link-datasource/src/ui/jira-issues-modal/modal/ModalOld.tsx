@@ -92,6 +92,7 @@ export const PlainJiraIssuesConfigModalOld = (props: JiraConfigModalProps) => {
 		parameters: initialParameters,
 		url: urlBeingEdited,
 		visibleColumnKeys: initialVisibleColumnKeys,
+		disableDisplayDropdown = false,
 	} = props;
 
 	const [currentViewMode, setCurrentViewMode] = useState<DisplayViewModes>(viewMode);
@@ -631,7 +632,7 @@ export const PlainJiraIssuesConfigModalOld = (props: JiraConfigModalProps) => {
 								label={siteSelectorLabel}
 							/>
 						</ModalTitle>
-						{!hasNoJiraSites && (
+						{!hasNoJiraSites && !disableDisplayDropdown && (
 							<DisplayViewDropDown
 								onViewModeChange={handleViewModeChange}
 								viewMode={currentViewMode}

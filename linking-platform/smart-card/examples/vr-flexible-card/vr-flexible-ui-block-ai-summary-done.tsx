@@ -12,7 +12,6 @@ import { CardClient } from '@atlaskit/link-provider';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 import { DiProvider, injectable } from 'react-magnetic-di';
 import useAISummaryAction from '../../src/state/hooks/use-ai-summary-action';
-import { AISummaryBlockStatusIndicator } from '../../src/view/FlexibleCard/components/blocks/ai-summary-block/resolved';
 import AISummary from '../../src/view/common/ai-summary';
 
 class MaximumResolvedCustomClient extends CardClient {
@@ -30,13 +29,9 @@ const mockUseAISummaryAction = injectable(useAISummaryAction, () => ({
 	state: mockState,
 }));
 
-const mockAISummaryBlockStatusIndicator = injectable(AISummaryBlockStatusIndicator, (props) => (
-	<AISummaryBlockStatusIndicator {...props} showStatusIndicator={true} />
-));
+const mockAISummary = injectable(AISummary, (props) => <AISummary {...props} />);
 
-const mockAISummary = injectable(AISummary, (props) => <AISummary {...props} showIcon={false} />);
-
-const dependencies = [mockUseAISummaryAction, mockAISummaryBlockStatusIndicator, mockAISummary];
+const dependencies = [mockUseAISummaryAction, mockAISummary];
 
 export default () => (
 	<DiProvider use={dependencies}>

@@ -39,7 +39,12 @@ type TypeAheadEmojiAEP = TypeAheadAEP<
 			| INPUT_METHOD.TOOLBAR
 			| INPUT_METHOD.INSERT_MENU
 			| INPUT_METHOD.QUICK_INSERT
-			| INPUT_METHOD.KEYBOARD;
+			| INPUT_METHOD.KEYBOARD
+			/**
+			 * For Typeahead - Empty line prompt experiment
+			 * Clean up ticket ED-24824
+			 */
+			| 'blockControl';
 	}
 >;
 
@@ -50,7 +55,12 @@ type TypeAheadLinkAEP = TypeAheadAEP<
 			| INPUT_METHOD.TOOLBAR
 			| INPUT_METHOD.INSERT_MENU
 			| INPUT_METHOD.QUICK_INSERT
-			| INPUT_METHOD.SHORTCUT;
+			| INPUT_METHOD.SHORTCUT
+			/**
+			 * For Typeahead - Empty line prompt experiment
+			 * Clean up ticket ED-24824
+			 */
+			| 'blockControl';
 	}
 >;
 
@@ -61,7 +71,12 @@ type TypeAheadMentionAEP = TypeAheadAEP<
 			| INPUT_METHOD.TOOLBAR
 			| INPUT_METHOD.INSERT_MENU
 			| INPUT_METHOD.QUICK_INSERT
-			| INPUT_METHOD.KEYBOARD;
+			| INPUT_METHOD.KEYBOARD
+			/**
+			 * For Typeahead - Empty line prompt experiment
+			 * Clean up ticket ED-24824
+			 */
+			| 'blockControl';
 	}
 >;
 
@@ -72,7 +87,12 @@ type TypeAheadQuickInsertAEP = TypeAheadAEP<
 			| INPUT_METHOD.TOOLBAR
 			| INPUT_METHOD.INSERT_MENU
 			| INPUT_METHOD.QUICK_INSERT
-			| INPUT_METHOD.KEYBOARD;
+			| INPUT_METHOD.KEYBOARD
+			/**
+			 * For Typeahead - Empty line prompt experiment
+			 * Clean up ticket ED-24824
+			 */
+			| 'blockControl';
 	}
 >;
 

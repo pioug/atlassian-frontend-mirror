@@ -17,12 +17,12 @@ export default function () {
 						const hexString = i.toString(16);
 						return (
 							<Inline key={hexString} space="space.100" alignBlock="center">
-								<AgentAvatar agentId={hexString} size="xxlarge" />
-								<AgentAvatar agentId={hexString} size="xlarge" />
-								<AgentAvatar agentId={hexString} size="large" />
-								<AgentAvatar agentId={hexString} size="medium" />
-								<AgentAvatar agentId={hexString} size="small" />
-								<AgentAvatar agentId={hexString} size="xsmall" />
+								<AgentAvatar agentIdentityAccountId={hexString} size="xxlarge" />
+								<AgentAvatar agentIdentityAccountId={hexString} size="xlarge" />
+								<AgentAvatar agentIdentityAccountId={hexString} size="large" />
+								<AgentAvatar agentIdentityAccountId={hexString} size="medium" />
+								<AgentAvatar agentIdentityAccountId={hexString} size="small" />
+								<AgentAvatar agentIdentityAccountId={hexString} size="xsmall" />
 							</Inline>
 						);
 					})}

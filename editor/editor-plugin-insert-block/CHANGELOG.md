@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.12.0
+
+### Minor Changes
+
+- [#137041](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137041)
+  [`060aff106c5ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/060aff106c5ac) -
+  Add new experiment for insert menu in right rail, allow right menu to be opened from main toolbar
+  '+' button
+
+### Patch Changes
+
+- [#137041](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137041)
+  [`060aff106c5ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/060aff106c5ac) -
+  Add insert-right-rail experiment and reimplement right rail logic
+
 ## 1.11.1
 
 ### Patch Changes

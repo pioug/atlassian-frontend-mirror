@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 12.15.5
+
+### Patch Changes
+
+- [#137443](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137443)
+  [`467a08d727c07`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/467a08d727c07) -
+  Updated dependencies
+
 ## 12.15.4
 
 ### Patch Changes

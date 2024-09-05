@@ -9,9 +9,6 @@ import HoverCardPositioning from '../../../examples/vr-hover-card/vr-hover-card-
 
 snapshot(HoverCard, {
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
-	},
 	states: [
 		{
 			state: 'hovered',
@@ -30,9 +27,6 @@ snapshot(HoverCard, {
 
 snapshot(HoverCardActions, {
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
-	},
 	states: [
 		{
 			state: 'hovered',
@@ -46,7 +40,6 @@ snapshot(HoverCardActions, {
 	description: 'Hover card actions with related urls',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform.linking-platform.smart-card.hover-card-action-redesign': [true],
 		'platform.linking-platform.smart-card.enable-view-related-urls-action': [true],
 	},
 	states: [
@@ -59,9 +52,6 @@ snapshot(HoverCardActions, {
 
 snapshot(HoverCardUnauthorised, {
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
-	},
 	states: [
 		{
 			state: 'hovered',
@@ -72,9 +62,6 @@ snapshot(HoverCardUnauthorised, {
 
 snapshot(HoverCardSSRLoading, {
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
-	},
 	states: [
 		{
 			state: 'hovered',
@@ -85,9 +72,6 @@ snapshot(HoverCardSSRLoading, {
 
 snapshot(HoverCardSSRError, {
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
-	},
 	states: [
 		{
 			state: 'hovered',

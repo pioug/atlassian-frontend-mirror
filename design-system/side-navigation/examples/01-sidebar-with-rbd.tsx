@@ -2,18 +2,36 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, Fragment, type Ref, useState } from 'react';
+/**
+ * @jsxFrag React.Fragment
+ */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-// Allowing existing usage of non Pragmatic drag and drop solution
-// eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
-import { DragDropContext, Draggable, type DraggableProvided, Droppable } from 'react-beautiful-dnd';
+import React, {
+	createContext,
+	forwardRef,
+	memo,
+	type Ref,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
+
+import { css, jsx } from '@emotion/react';
+import invariant from 'tiny-invariant';
 
 import ItemIcon from '@atlaskit/icon/glyph/editor/bullet-list';
 import RBDIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
+import { easeInOut } from '@atlaskit/motion/curves';
+import { smallDurationMs } from '@atlaskit/motion/durations';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import {
+	draggable,
+	dropTargetForElements,
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { Box } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import {
 	ButtonItem,
@@ -28,10 +46,13 @@ import {
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
 
+const InstanceIdContext = createContext<symbol | null>(null);
 interface RenderDraggableProps {
 	ref: Ref<any>;
-	dragHandleProps: DraggableProvided['dragHandleProps'];
-	draggableProps: DraggableProvided['draggableProps'];
+	draggableProps: {
+		['data-testid']?: string;
+	};
+	onDrop: (sourceIndex: number, destinationIndex: number) => void;
 }
 
 interface CustomDraggable {
@@ -39,80 +60,137 @@ interface CustomDraggable {
 	renderItem: (props: RenderDraggableProps) => JSX.Element;
 }
 
-const ADragDropView = (props: { items: CustomDraggable[] }) => {
-	const [draggables, setDraggables] = useState(props.items);
+interface DraggableItemProps {
+	item: JSX.Element;
+	index: number;
+	onDrop: (sourceIndex: number, destinationIndex: number) => void;
+}
 
-	const handleDragEnd = (result: any) => {
-		const { source, destination } = result;
+interface DraggableCatItemProps {
+	src: string;
+	index: number;
+	onDrop: (sourceIndex: number, destinationIndex: number) => void;
+}
 
-		if (!destination) {
-			return;
-		}
+const itemStyles = css({
+	boxSizing: 'border-box',
+	width: '100%',
+	padding: token('space.050', '4px'),
+	background: token('elevation.surface.raised', '#FFF'),
+	borderRadius: token('border.radius.100', '4px'),
+	boxShadow: token('elevation.shadow.raised', 'none'),
+	objectFit: 'cover',
+	transition: `all ${smallDurationMs}ms ${easeInOut}`,
+	'-webkit-touch-callout': 'none',
+});
 
-		const newDraggables = Array.from(draggables);
-		const [removed] = newDraggables.splice(source.index, 1);
-		newDraggables.splice(destination.index, 0, removed);
+type State = 'idle' | 'dragging' | 'over';
 
-		setDraggables(newDraggables);
-	};
+type ItemState = 'idle' | 'dragging' | 'over';
+
+const itemStateStyles: Record<ItemState, any> = {
+	idle: css({
+		'&:hover': {
+			background: token('elevation.surface.overlay', '#FFF'),
+			boxShadow: token('elevation.shadow.overlay', 'none'),
+		},
+	}),
+	dragging: css({
+		filter: 'grayscale(0.8)',
+	}),
+	over: css({
+		boxShadow: token('elevation.shadow.overlay', 'none'),
+		filter: 'brightness(1.15)',
+		transform: 'scale(1.1) rotate(8deg)',
+	}),
+};
+
+const DraggableItem = memo(function DraggableItem({ item, index, onDrop }: DraggableItemProps) {
+	const ref = useRef(null);
+	const [state, setState] = useState<ItemState>('idle');
+	const instanceId = useContext(InstanceIdContext);
+
+	useEffect(() => {
+		const el = ref.current;
+		invariant(el);
+
+		return combine(
+			draggable({
+				element: el,
+				getInitialData: () => ({ type: 'item', index, instanceId }),
+				onDragStart: () => setState('dragging'),
+				onDrop: () => setState('idle'),
+			}),
+			dropTargetForElements({
+				element: el,
+				getData: () => ({ index }),
+				getIsSticky: () => true,
+				canDrop: ({ source }) =>
+					source.data.instanceId === instanceId &&
+					source.data.type === 'item' &&
+					source.data.index !== index,
+				onDragEnter: () => setState('over'),
+				onDragLeave: () => setState('idle'),
+				onDrop: ({ source }) => {
+					setState('idle');
+					onDrop(source.data.index as any, index);
+				},
+			}),
+		);
+	}, [index, instanceId, onDrop]);
 
 	return (
-		<DragDropContext onDragEnd={handleDragEnd}>
-			<Droppable droppableId="droppable-1">
-				{(provided) => (
-					<Box ref={provided.innerRef} {...provided.droppableProps}>
-						<Fragment>
-							{draggables.map((item, index) => {
-								return (
-									<Draggable
-										disableInteractiveElementBlocking={true}
-										key={item.key}
-										draggableId={item.key}
-										index={index}
-									>
-										{(provided) => {
-											return item.renderItem({
-												ref: provided.innerRef,
-												dragHandleProps: provided.dragHandleProps,
-												draggableProps: provided.draggableProps,
-											});
-										}}
-									</Draggable>
-								);
-							})}
-							{provided.placeholder}
-						</Fragment>
-					</Box>
-				)}
-			</Droppable>
-		</DragDropContext>
+		<Box ref={ref} xcss={itemStateStyles[state]}>
+			{item}
+		</Box>
+	);
+});
+
+const DraggableList = ({
+	items,
+	onDrop,
+}: {
+	items: CustomDraggable[];
+	onDrop: (sourceIndex: number, destinationIndex: number) => void;
+}) => {
+	return (
+		<React.Fragment>
+			{items.map((item: CustomDraggable, index: number) => (
+				<DraggableItem
+					key={item.key}
+					item={item.renderItem({
+						ref: null,
+						draggableProps: {},
+						onDrop,
+					})}
+					index={index}
+					onDrop={onDrop}
+				/>
+			))}
+		</React.Fragment>
 	);
 };
 
+const ADragDropView = ({ items }: any) => {
+	const [draggables, setDraggables] = useState(items);
+
+	const handleDrop = (sourceIndex: number, destinationIndex: number) => {
+		const updatedItems = Array.from(draggables);
+		const [movedItem] = updatedItems.splice(sourceIndex, 1);
+		updatedItems.splice(destinationIndex, 0, movedItem);
+		setDraggables(updatedItems);
+	};
+
+	return <DraggableList items={draggables} onDrop={handleDrop} />;
+};
+
 const generateDraggableButtonItems = (n: number): CustomDraggable[] => {
-	return Array.from(Array(n)).map((_, n) => {
+	return Array.from(Array(n)).map((_, index) => {
 		return {
-			key: n.toString(),
+			key: index.toString(),
 			renderItem: (props: RenderDraggableProps) => (
-				<ButtonItem
-					// disable the dynamic margin behaviour
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-					cssFn={() => {
-						return {
-							'&:first-child:not(style)': {
-								marginTop: 0,
-							},
-							'&:last-child:not(style)': {
-								marginBottom: 0,
-							},
-						};
-					}}
-					ref={props.ref}
-					iconBefore={<ItemIcon label="" />}
-					{...props.dragHandleProps}
-					{...props.draggableProps}
-				>
-					Item {n}
+				<ButtonItem ref={props.ref} iconBefore={<ItemIcon label="" />} {...props.draggableProps}>
+					Item {index}
 				</ButtonItem>
 			),
 		};
@@ -130,28 +208,17 @@ const generateDraggableCustomItems = (n: number): CustomDraggable[] => {
 		},
 	);
 
-	return Array.from(Array(n)).map((_, n) => {
+	return Array.from(Array(n)).map((_, index) => {
 		return {
-			key: n.toString(),
+			key: index.toString(),
 			renderItem: (props: RenderDraggableProps) => (
 				<CustomItem
 					component={CustomComponent}
-					// disable the dynamic margin behaviour
 					iconBefore={<ItemIcon label="" />}
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-					cssFn={() => ({
-						'&:first-child:not(style)': {
-							marginTop: 0,
-						},
-						'&:last-child:not(style)': {
-							marginBottom: 0,
-						},
-					})}
 					ref={props.ref}
-					{...props.dragHandleProps}
 					{...props.draggableProps}
 				>
-					Item {n}
+					Item {index}
 				</CustomItem>
 			),
 		};
@@ -167,18 +234,52 @@ const generateDraggableCats = (): CustomDraggable[] => {
 		'https://images.pexels.com/photos/2194261/pexels-photo-2194261.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
 	];
 
-	return urls.map((url) => ({
+	const DraggableCatItem = memo(function DraggableCatItem({
+		src,
+		index,
+		onDrop,
+	}: DraggableCatItemProps) {
+		const ref = useRef<HTMLImageElement | null>(null);
+		const [state, setState] = useState<State>('idle');
+		const instanceId = useContext(InstanceIdContext);
+
+		useEffect(() => {
+			const el = ref.current;
+			invariant(el);
+
+			return combine(
+				draggable({
+					element: el,
+					getInitialData: () => ({ type: 'cat', index, instanceId, src }),
+					onDragStart: () => setState('dragging'),
+					onDrop: () => setState('idle'),
+				}),
+				dropTargetForElements({
+					element: el,
+					getData: () => ({ index, src }),
+					getIsSticky: () => true,
+					canDrop: ({ source }) =>
+						source.data.instanceId === instanceId &&
+						source.data.type === 'cat' &&
+						source.data.index !== index,
+					onDragEnter: () => setState('over'),
+					onDragLeave: () => setState('idle'),
+					onDrop: ({ source }) => {
+						setState('idle');
+						onDrop(source.data.index as number, index);
+					},
+				}),
+			);
+		}, [instanceId, index, onDrop, src]);
+
+		const altText = `Draggable cat image ${index + 1}`;
+
+		return <img css={[itemStyles, itemStateStyles[state]]} ref={ref} src={src} alt={altText} />;
+	});
+
+	return urls.map((url, index) => ({
 		key: url,
-		renderItem: (props) => (
-			<img
-				ref={props.ref}
-				{...props.dragHandleProps}
-				{...props.draggableProps}
-				width="100%"
-				alt="Cat"
-				src={url}
-			/>
-		),
+		renderItem: ({ onDrop }: any) => <DraggableCatItem src={url} index={index} onDrop={onDrop} />,
 	}));
 };
 
@@ -196,7 +297,7 @@ const RBDExample = () => {
 						title="Draggable <ButtonItem/>s"
 					>
 						<HeadingItem>Click and drag the items below to rearrange</HeadingItem>
-						<ADragDropView items={generateDraggableButtonItems(10)}></ADragDropView>
+						<ADragDropView items={generateDraggableButtonItems(10)} />
 					</NestingItem>
 					<NestingItem
 						id="draggable-custom-items"

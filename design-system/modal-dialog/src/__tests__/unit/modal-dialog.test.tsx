@@ -9,6 +9,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import Portal from '@atlaskit/portal';
 import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives';
 import { layers } from '@atlaskit/theme/constants';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { width } from '../../internal/constants';
 import ModalBody from '../../modal-body';
@@ -487,74 +488,116 @@ describe('<ModalDialog />', () => {
 });
 
 describe('focus lock', () => {
-	it('Input field outside modal dialog does not have focus when data-atlas-extension attribute does not exists and auto focus is turned on', () => {
-		render(
-			<div>
-				<Portal zIndex={layers.dialog() + 1}>
-					<input
-						// This is required to test a very unique implementation for an
-						// internal Chrome plugin. See DSP-11753 for more info.
-						// eslint-disable-next-line jsx-a11y/no-autofocus
-						autoFocus={true}
-						data-testid="input-field-outside-modal"
-						type="text"
-						aria-label="second"
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							top: '200px',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							left: '200px',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							position: 'fixed',
-						}}
-					/>
-				</Portal>
-				{createModal({
-					children: (
+	describe('Input field outside modal dialog does not have focus when data-atlas-extension attribute does not exists and auto focus is turned on', () => {
+		ffTest('platform_dst_modal-dialog-bump-focus-lock', () => {
+			render(
+				<div>
+					<Portal zIndex={layers.dialog() + 1}>
 						<input
-							data-testid="input-field-inside-modal"
-							title="inputFieldInsideModal"
+							// This is required to test a very unique implementation for an
+							// internal Chrome plugin. See DSP-11753 for more info.
+							// eslint-disable-next-line jsx-a11y/no-autofocus
+							autoFocus={true}
+							data-testid="input-field-outside-modal"
 							type="text"
-							aria-label="first"
+							aria-label="second"
+							style={{
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								top: '200px',
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								left: '200px',
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								position: 'fixed',
+							}}
 						/>
-					),
-				})}
-			</div>,
-		);
-		expect(screen.getByTestId('input-field-inside-modal')).toHaveFocus();
-		expect(screen.getByTestId('input-field-outside-modal')).not.toHaveFocus();
+					</Portal>
+					{createModal({
+						children: (
+							<input
+								data-testid="input-field-inside-modal"
+								title="inputFieldInsideModal"
+								type="text"
+								aria-label="first"
+							/>
+						),
+					})}
+				</div>,
+			);
+			expect(screen.getByTestId('input-field-inside-modal')).toHaveFocus();
+			expect(screen.getByTestId('input-field-outside-modal')).not.toHaveFocus();
+		});
 	});
 
-	it('Input field outside modal dialog has focus when data-atlas-extension attribute exists and autofocus is turned on', () => {
-		render(
-			<div>
-				<Portal zIndex={layers.dialog() + 1}>
-					<input
-						data-atlas-extension="test"
-						// This is required to test a very unique implementation for an
-						// internal Chrome plugin. See DSP-11753 for more info.
-						// eslint-disable-next-line jsx-a11y/no-autofocus
-						autoFocus={true}
-						data-testid="input-field-outside-modal"
-						type="text"
-						aria-label="second"
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							top: '200px',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							left: '200px',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							position: 'fixed',
-						}}
-					/>
-				</Portal>
-				{createModal({
-					children: <input data-testid="input-field-inside-modal" type="text" aria-label="first" />,
-				})}
-			</div>,
+	describe('Input field outside modal dialog has focus when data-atlas-extension attribute exists and autofocus is turned on', () => {
+		ffTest(
+			'platform_dst_modal-dialog-bump-focus-lock',
+			() => {
+				render(
+					<div>
+						<Portal zIndex={layers.dialog() + 1}>
+							<input
+								data-atlas-extension="test"
+								// This is required to test a very unique implementation for an
+								// internal Chrome plugin. See DSP-11753 for more info.
+								// eslint-disable-next-line jsx-a11y/no-autofocus
+								autoFocus={true}
+								data-testid="input-field-outside-modal"
+								type="text"
+								aria-label="second"
+								style={{
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									top: '200px',
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									left: '200px',
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									position: 'fixed',
+								}}
+							/>
+						</Portal>
+						{createModal({
+							children: (
+								<input data-testid="input-field-inside-modal" type="text" aria-label="first" />
+							),
+						})}
+					</div>,
+				);
+				expect(screen.getByTestId('input-field-outside-modal')).toHaveFocus();
+				expect(screen.getByTestId('input-field-inside-modal')).not.toHaveFocus();
+			},
+			() => {
+				render(
+					<div>
+						<Portal zIndex={layers.dialog() + 1}>
+							<input
+								data-atlas-extension="test"
+								// This is required to test a very unique implementation for an
+								// internal Chrome plugin. See DSP-11753 for more info.
+								// eslint-disable-next-line jsx-a11y/no-autofocus
+								autoFocus={true}
+								data-testid="input-field-outside-modal"
+								type="text"
+								aria-label="second"
+								style={{
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									top: '200px',
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									left: '200px',
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									position: 'fixed',
+								}}
+							/>
+						</Portal>
+						{createModal({
+							children: (
+								<input data-testid="input-field-inside-modal" type="text" aria-label="first" />
+							),
+						})}
+					</div>,
+				);
+				expect(screen.getByTestId('input-field-outside-modal')).toHaveFocus();
+				expect(screen.getByTestId('input-field-inside-modal')).not.toHaveFocus();
+			},
 		);
-		expect(screen.getByTestId('input-field-outside-modal')).toHaveFocus();
-		expect(screen.getByTestId('input-field-inside-modal')).not.toHaveFocus();
 	});
 });
 

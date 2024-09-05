@@ -142,9 +142,19 @@ const AgentProfileCard = ({
 	return (
 		<AgentProfileCardWrapper>
 			<Box xcss={cardContainerStyles}>
-				<AgentBanner agentId={agent.id} agentNamedId={agent.named_id} height={96} />
+				<AgentBanner
+					agentId={agent.id}
+					agentNamedId={agent.named_id}
+					height={96}
+					agentIdentityAccountId={agent.identity_account_id}
+				/>
 				<Box xcss={avatarStyles}>
-					<AgentAvatar agentId={agent.id} agentNamedId={agent.named_id} size="xlarge" />
+					<AgentAvatar
+						agentId={agent.id}
+						agentNamedId={agent.named_id}
+						agentIdentityAccountId={agent.identity_account_id}
+						size="xlarge"
+					/>
 				</Box>
 
 				<Stack space="space.100" xcss={styles}>

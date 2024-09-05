@@ -1357,9 +1357,59 @@ describe('Renderer - React/Nodes/Table', () => {
 			wrap.unmount();
 		});
 
-		it('resized table should have correct width when table resizing and alignment are enabled', () => {
+		it('resized table should have correct width when table resizing is enabled and alignment is NOT enabled', () => {
 			const tableWidth = 300;
 			const tableNode = createTable(tableWidth, 'default');
+			const rendererWidth = 900;
+
+			const columnWidths = undefined;
+			const isInsideOfBlockNode = false;
+			const allowTableResizing = true;
+			const allowTableAlignment = false;
+			const wrap = mountTable(
+				tableNode,
+				rendererWidth,
+				columnWidths,
+				'comment',
+				isInsideOfBlockNode,
+				allowTableAlignment,
+				allowTableResizing,
+			);
+
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+			expect(tableContainer.prop('style')!.width).toBe(tableWidth);
+			wrap.unmount();
+		});
+
+		it('edge case: a table with 760px width when table resizing is enabled and alignment is NOT enabled should inherit renderer width', () => {
+			const tableWidth = 760;
+			const tableNode = createTable(tableWidth, 'default');
+			const rendererWidth = 900;
+
+			const columnWidths = undefined;
+			const isInsideOfBlockNode = false;
+			const allowTableResizing = true;
+			const allowTableAlignment = false;
+			const wrap = mountTable(
+				tableNode,
+				rendererWidth,
+				columnWidths,
+				'comment',
+				isInsideOfBlockNode,
+				allowTableAlignment,
+				allowTableResizing,
+			);
+
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+			expect(tableContainer.prop('style')!.width).toBe('inherit');
+			wrap.unmount();
+		});
+
+		it('resized table should have correct width when table resizing and alignment are enabled', () => {
+			const tableWidth = 300;
+			const tableNode = createTable(tableWidth, 'align-start');
 			const rendererWidth = 900;
 
 			const columnWidths = undefined;
@@ -1372,8 +1422,8 @@ describe('Renderer - React/Nodes/Table', () => {
 				columnWidths,
 				'comment',
 				isInsideOfBlockNode,
-				allowTableResizing,
 				allowTableAlignment,
+				allowTableResizing,
 			);
 
 			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);

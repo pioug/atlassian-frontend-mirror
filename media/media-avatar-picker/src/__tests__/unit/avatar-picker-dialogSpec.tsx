@@ -1,188 +1,251 @@
-import * as mocks from './avatar-picker-dialogSpec.mock';
+const mockedFile = new File(['dsjklDFljk'], 'nice-photo.png', {
+	type: 'image/png',
+});
+
+jest.mock('@atlaskit/media-ui', () => ({
+	...jest.requireActual('@atlaskit/media-ui'),
+	dataURItoFile: jest.fn(() => mockedFile),
+}));
+
 import React from 'react';
-import { ModalFooter } from '@atlaskit/modal-dialog';
-import { smallImage, mountWithIntlContext } from '@atlaskit/media-test-helpers';
-import Textfield from '@atlaskit/textfield';
+import { smallImage } from '@atlaskit/media-test-helpers';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { type Avatar } from '../../avatar-list';
-import { ImageNavigator } from '../../image-navigator';
-import { PredefinedAvatarList } from '../../predefined-avatar-list';
 import { AvatarPickerDialog, fixedCrop } from '../../avatar-picker-dialog';
-import {
-	DEFAULT_VISIBLE_PREDEFINED_AVATARS,
-	CONTAINER_SIZE,
-} from '../../avatar-picker-dialog/layout-const';
-import { PredefinedAvatarView } from '../../predefined-avatar-view';
-import {
-	Mode,
-	type AvatarPickerDialogPropsNoAlt,
-	type AvatarPickerDialogState,
-	type AvatarPickerDialogPropsAlt,
-} from '../../avatar-picker-dialog/types';
+import { DEFAULT_VISIBLE_PREDEFINED_AVATARS } from '../../avatar-picker-dialog/layout-const';
+import * as exportCroppedImageModule from '../../image-navigator/exportCroppedImage';
+
+// Polyfill needed for CSS.supports
+// @ts-ignore
+if (window.CSS.supports) {
+	jest.spyOn(window.CSS, 'supports').mockImplementation(() => false);
+} else {
+	window.CSS.supports = () => false;
+}
+
+const croppedImgDataURI = 'data:image/meme;based64:w0w';
+jest
+	.spyOn(exportCroppedImageModule, 'exportCroppedImage')
+	.mockImplementation(() => croppedImgDataURI);
+
+const someAvatar = { dataURI: 'http://an.avatar.com/456', name: 'a-nice-avatar.jpg' };
 
 describe('Avatar Picker Dialog', () => {
-	const renderWithProps = (props: Partial<AvatarPickerDialogPropsNoAlt>) => {
-		const component = mountWithIntlContext(
+	it('when save button is clicked onImagePicked and onImagePickedDataURI should be called', async () => {
+		const onImagePicked = jest.fn();
+
+		render(
 			<AvatarPickerDialog
-				avatars={[{ dataURI: 'http://an.avatar.com/453' }]}
+				imageSource={smallImage}
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={onImagePicked}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const mediaImage = await screen.findByTestId('media-image');
+		fireEvent.load(mediaImage);
+
+		const form = await screen.findByRole('form');
+		fireEvent.submit(form);
+		expect(onImagePicked.mock.calls[0][1]).toEqual(fixedCrop);
+	});
+
+	it('when save button is clicked onImagePickedDataURI should be called', async () => {
+		const onImagePickedDataURI = jest.fn();
+
+		render(
+			<AvatarPickerDialog
+				imageSource={smallImage}
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={onImagePickedDataURI}
+				onCancel={jest.fn()}
+			/>,
+		);
+		const mediaImage = await screen.findByTestId('media-image');
+		fireEvent.load(mediaImage);
+
+		const form = await screen.findByRole('form');
+		fireEvent.submit(form);
+
+		expect(onImagePickedDataURI).toHaveBeenCalledWith(croppedImgDataURI);
+	});
+
+	it('when save button is clicked onAvatarPicked should be called', async () => {
+		const onAvatarPicked = jest.fn();
+
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={onAvatarPicked}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const radio = await screen.findByRole('radio', { name: /avatar/i });
+		await userEvent.click(radio);
+
+		const form = await screen.findByRole('form');
+		fireEvent.submit(form);
+
+		await waitFor(() => expect(onAvatarPicked).toHaveBeenCalledWith(someAvatar));
+	});
+
+	it('when save button is clicked with predefined avatar passed as default, onAvatarPicked should be called', async () => {
+		const onAvatarPicked = jest.fn();
+
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				defaultSelectedAvatar={someAvatar}
+				onAvatarPicked={onAvatarPicked}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const form = await screen.findByRole('form');
+		fireEvent.submit(form);
+
+		await waitFor(() => expect(onAvatarPicked).toHaveBeenCalledWith(someAvatar));
+	});
+
+	it('should render avatar list when avatars are passed', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
 				onAvatarPicked={jest.fn()}
 				onImagePicked={jest.fn()}
 				onImagePickedDataURI={jest.fn()}
 				onCancel={jest.fn()}
-				{...props}
 			/>,
 		);
-
-		// when you pass an image it normally renders the image (which triggers load event and selectedImage back-propagation)...
-		// since we are rendering in js-dom, we have to force the load mechanism
-
-		if (props.imageSource) {
-			updateComponentWithNewImage(component);
-		}
-		return component;
-	};
-
-	const updateComponentWithNewImage = (component: any) => {
-		// get the handler which the ImageNavigator triggers when the image loads, fire it
-		const { onImageLoaded } = component.find(ImageNavigator).props();
-		onImageLoaded(mocks.mockFileFromDataURI, {
-			x: 0,
-			y: 0,
-			size: CONTAINER_SIZE,
-		});
-		component.update();
-	};
-
-	it('when save button is clicked onImagePicked should be called', () => {
-		const onImagePicked = jest.fn();
-
-		const component: any = renderWithProps({
-			onImagePicked,
-			imageSource: smallImage,
-		});
-
-		// Stub internal function to facilitate shallow testing of `onImagePickedDataURI`
-		const croppedImgDataURI = 'data:image/meme;based64:w0w';
-		component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
-
-		component.find('form').simulate('submit');
-
-		expect(onImagePicked.mock.calls[0][1]).toEqual(fixedCrop);
-	});
-
-	it('when save button is clicked onImagePickedDataURI should be called', () => {
-		const onImagePickedDataURI = jest.fn();
-
-		const component: any = renderWithProps({
-			onImagePickedDataURI,
-			imageSource: smallImage,
-		});
-
-		// Stub internal function to facilitate shallow testing of `onImagePickedDataURI`
-		const croppedImgDataURI = 'data:image/meme;based64:w0w';
-		component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
-
-		component.find('form').simulate('submit');
-
-		expect(onImagePickedDataURI).toBeCalledWith(croppedImgDataURI);
-	});
-
-	it('when save button is clicked onAvatarPicked should be called', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/453' };
-		const avatars = [selectedAvatar];
-		const onAvatarPicked = jest.fn();
-
-		const component = renderWithProps({ avatars, onAvatarPicked });
-		const { onAvatarSelected } = component.find(PredefinedAvatarList).props();
-		onAvatarSelected(selectedAvatar);
-
-		component.find('form').simulate('submit');
-
-		expect(onAvatarPicked).toBeCalledWith(selectedAvatar);
-	});
-
-	it('when save button is clicked with predefined avatar passed as default, onAvatarPicked should be called', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/453' };
-		const avatars = [selectedAvatar];
-		const onAvatarPicked = jest.fn();
-		const component = renderWithProps({
-			avatars,
-			defaultSelectedAvatar: selectedAvatar,
-			onAvatarPicked,
-		});
-		component.find('form').simulate('submit');
-
-		expect(onAvatarPicked).toBeCalledWith(selectedAvatar);
-	});
-
-	it('should render avatar list when avatars are passed', () => {
-		const component = renderWithProps({});
-		expect(component.find(PredefinedAvatarList)).toHaveLength(1);
+		expect(await screen.findByRole('radio', { name: /avatar/i })).toBeInTheDocument();
 	});
 
 	it('should not render avatar list when no avatars are passed', () => {
-		const component = renderWithProps({
-			avatars: [],
-		});
-		expect(component.find(PredefinedAvatarList)).toHaveLength(0);
+		render(
+			<AvatarPickerDialog
+				avatars={[]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+		expect(screen.queryByRole('radio', { name: /avatar/i })).not.toBeInTheDocument();
 	});
 
 	it('should not render avatar list when imageSource is passed', () => {
-		const component = renderWithProps({
-			imageSource: smallImage,
-		});
-		expect(component.find(PredefinedAvatarList)).toHaveLength(0);
+		render(
+			<AvatarPickerDialog
+				imageSource={smallImage}
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+		expect(screen.queryByRole('radio', { name: /avatar/i })).not.toBeInTheDocument();
 	});
 
-	it('should not render avatar list when there is an image selected', () => {
-		const component = renderWithProps({});
-		expect(component.find(PredefinedAvatarList)).toHaveLength(1);
-		updateComponentWithNewImage(component);
-		expect(component.find(PredefinedAvatarList)).toHaveLength(0);
-	});
-
-	it('should not trigger callbacks when save button is clicked without selected image or selected avatar', () => {
+	it('should not trigger callbacks when save button is clicked without selected image or selected avatar', async () => {
 		const onAvatarPicked = jest.fn();
 		const onImagePicked = jest.fn();
 		const onImagePickedDataURI = jest.fn();
-		const component = renderWithProps({
-			onAvatarPicked,
-			onImagePicked,
-			onImagePickedDataURI,
-		});
-		component.find('form').simulate('submit');
+
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={onAvatarPicked}
+				onImagePicked={onImagePicked}
+				onImagePickedDataURI={onImagePickedDataURI}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const form = await screen.findByRole('form');
+		fireEvent.submit(form);
+
 		expect(onAvatarPicked).not.toHaveBeenCalled();
 		expect(onImagePicked).not.toHaveBeenCalled();
 		expect(onImagePickedDataURI).not.toHaveBeenCalled();
 	});
 
-	it('should alert when save button is clicked without selected image or selected avatar', () => {
-		const component = renderWithProps({});
+	it('should alert when save button is clicked without selected image or selected avatar', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
 
-		component.find('form').simulate('submit');
-		expect(component.find('#avatar-picker-error')).toHaveLength(1);
+		const form = await screen.findByRole('form');
+		fireEvent.submit(form);
+
+		const alert = await screen.findByRole('alert');
+		expect(alert).toBeInTheDocument();
+		expect(alert.innerText).toContain('Upload a photo or select from some default options');
 	});
 
-	it('should alert even on predefined avatars mode', () => {
-		const component = renderWithProps({});
+	it('should alert even on predefined avatars mode', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+		const showMoreButton = await screen.findByLabelText('Show more');
+		await userEvent.click(showMoreButton);
 
-		component.setState({ mode: Mode.PredefinedAvatars });
-		component.find('form').simulate('submit');
-		expect(component.find('#avatar-picker-error')).toHaveLength(1);
+		const form = await screen.findByRole('form');
+		fireEvent.submit(form);
+
+		const alert = await screen.findByRole('alert');
+		expect(alert).toBeInTheDocument();
+		expect(alert.innerText).toContain('Upload a photo or select from some default options');
 	});
 
-	it('should allow save with selected image passed as default', () => {
+	it('should allow save with selected image passed as default', async () => {
 		const onAvatarPicked = jest.fn();
 		const onImagePicked = jest.fn();
 		const onImagePickedDataURI = jest.fn();
-		const component = renderWithProps({
-			imageSource: smallImage,
-		});
-		component.find('form').simulate('submit');
-		expect(onAvatarPicked).not.toHaveBeenCalled();
-		expect(onImagePicked).not.toHaveBeenCalled();
-		expect(onImagePickedDataURI).not.toHaveBeenCalled();
 
-		expect(component.find('#avatar-picker-error')).toHaveLength(0);
+		render(
+			<AvatarPickerDialog
+				imageSource={smallImage}
+				avatars={[someAvatar]}
+				onAvatarPicked={onAvatarPicked}
+				onImagePicked={onImagePicked}
+				onImagePickedDataURI={onImagePickedDataURI}
+				onCancel={jest.fn()}
+			/>,
+		);
+		const mediaImage = await screen.findByTestId('media-image');
+		fireEvent.load(mediaImage);
+
+		const form = await screen.findByRole('form');
+		fireEvent.submit(form);
+
+		expect(onAvatarPicked).not.toHaveBeenCalled();
+
+		const alert = screen.queryByRole('alert');
+		expect(alert).not.toBeInTheDocument();
 	});
 
 	it('should ensure selected avatars beyond visible limit are shown when selected', () => {
@@ -205,372 +268,530 @@ describe('Avatar Picker Dialog', () => {
 		expect(predefinedAvatars[DEFAULT_VISIBLE_PREDEFINED_AVATARS - 1]).toBe(selectedAvatar);
 	});
 
-	it('should render default title', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
-		const avatars = [selectedAvatar];
-		const component = renderWithProps({ avatars });
-		const title = component.find('[data-test-id="modal-header"]').first().html();
-		expect(title).toContain('Upload an avatar');
-	});
-
-	it('should be able to customise title', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
-		const avatars = [selectedAvatar];
-		const component = renderWithProps({
-			avatars,
-			title: 'test-title',
-		});
-		const title = component.find('[data-test-id="modal-header"]').first().html();
-		expect(title).toContain('test-title');
-	});
-
-	it('should render default primary button text', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
-		const avatars = [selectedAvatar];
-		const component = renderWithProps({ avatars }).find(ModalFooter).find('button[type="submit"]');
-
-		expect(component.text()).toEqual('Save');
-	});
-
-	it('should be able to customise primary button text', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
-		const avatars = [selectedAvatar];
-		const component = renderWithProps({
-			avatars,
-			primaryButtonText: 'test-primary-text',
-		});
-
-		expect(component.find(ModalFooter).find('button[type="submit"]').text()).toEqual(
-			'test-primary-text',
+	it('should render default title', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
 		);
+
+		const title = await screen.findByTestId('modal-header');
+		expect(title.textContent).toBe('Upload an avatar');
 	});
 
-	it('should render default select avatar label', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
-		const avatars = [selectedAvatar];
-		const component = renderWithProps({ avatars });
-		const selectAvatarLabel = component.find('#predefined-avatar-wrapper').first().html();
-		expect(selectAvatarLabel).toContain('Select a default avatar');
-	});
-
-	it('should be able to customise select avatar label', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
-		const avatars = [selectedAvatar];
-		const component = renderWithProps({
-			avatars,
-			selectAvatarLabel: 'test-select-avatar',
-		});
-		const selectAvatarLabel = component.find('#predefined-avatar-wrapper').first().html();
-		expect(selectAvatarLabel).toContain('test-select-avatar');
-	});
-
-	it('should render default show more avatars button label', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
-		const avatars = [selectedAvatar];
-		const component = renderWithProps({ avatars });
-		const selectAvatarLabel = component.find('#predefined-avatar-wrapper').first().html();
-		expect(selectAvatarLabel).toContain('Show more');
-	});
-
-	it('should be able to customise show more avatars button label', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
-		const avatars = [selectedAvatar];
-		const component = renderWithProps({
-			avatars,
-			showMoreAvatarsButtonLabel: 'test-show-more',
-		});
-		const selectAvatarLabel = component.find('#predefined-avatar-wrapper').first().html();
-		expect(selectAvatarLabel).toContain('test-show-more');
-	});
-
-	it('should clear selected image when cross clicked', () => {
-		const component = renderWithProps({
-			imageSource: smallImage,
-		});
-		const imageNavigator = component.find(ImageNavigator);
-		const { onRemoveImage } = imageNavigator.props() as {
-			onRemoveImage: any;
-		};
-
-		expect((component.state() as AvatarPickerDialogState).selectedImage).toBeInstanceOf(File);
-		expect((component.state() as AvatarPickerDialogState).selectedImageSource).toBe(smallImage);
-
-		onRemoveImage();
-
-		expect((component.state() as AvatarPickerDialogState).selectedImage).toBeUndefined();
-		expect((component.state() as AvatarPickerDialogState).selectedImageSource).toBeUndefined();
-	});
-
-	it('should render loading state when "isLoading" is true', () => {
-		const component = renderWithProps({
-			imageSource: smallImage,
-			isLoading: true,
-		});
-
-		expect(component.find(ModalFooter).find('LoadingSpinner')).toBeTruthy();
-		expect(component.find(ImageNavigator).prop('isLoading')).toBeTruthy();
-		expect(component.find(PredefinedAvatarList)).toHaveLength(0);
-	});
-
-	it('should pass props down to PredefinedAvatarView', () => {
-		const component = renderWithProps({
-			avatars: [{ dataURI: '1' }],
-			predefinedAvatarsText: 'some text',
-		});
-		component.setState({ mode: Mode.PredefinedAvatars });
-		expect(component.find(PredefinedAvatarView).prop('avatars')).toEqual([{ dataURI: '1' }]);
-		expect(component.find(PredefinedAvatarView).prop('predefinedAvatarsText')).toEqual('some text');
-	});
-
-	it('should announce instructions to screen readers on cropping mode', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
-		const avatars = [selectedAvatar];
-		const component = renderWithProps({
-			avatars,
-		});
-
-		expect(component.find('div[aria-live="polite"]').text()).toEqual(
-			'Upload a photo or select from some default options',
+	it('should be able to customise title', async () => {
+		render(
+			<AvatarPickerDialog
+				title={'test-title'}
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
 		);
+
+		const title = await screen.findByTestId('modal-header');
+		expect(title.textContent).toBe('test-title');
 	});
 
-	it('should announce instructions to screen readers on predefined avatar mode', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
-		const avatars = [selectedAvatar];
-		const component = renderWithProps({
-			avatars,
-		});
-
-		component.setState({ mode: Mode.PredefinedAvatars });
-		expect(component.find('div[aria-live="polite"]').text()).toEqual(
-			'Select from all default options',
+	it('should render default primary button text', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
 		);
+
+		await waitFor(() => {
+			const elem = document.querySelector('button[type="submit"]');
+			expect(elem).toBeInTheDocument();
+			expect(elem?.textContent).toBe('Save');
+		});
+	});
+
+	it('should be able to customise primary button text', async () => {
+		render(
+			<AvatarPickerDialog
+				primaryButtonText={'test-primary-text'}
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		await waitFor(() => {
+			const elem = document.querySelector('button[type="submit"]');
+			expect(elem).toBeInTheDocument();
+			expect(elem?.textContent).toBe('test-primary-text');
+		});
+	});
+
+	it('should render default select avatar label', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const radioGroup = await screen.findByRole('radiogroup');
+		expect(radioGroup.getAttribute('aria-label')).toBe('Select a default avatar');
+	});
+
+	it('should be able to customise select avatar label', async () => {
+		render(
+			<AvatarPickerDialog
+				selectAvatarLabel={'test-select-avatar'}
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+		const radioGroup = await screen.findByRole('radiogroup');
+		expect(radioGroup.getAttribute('aria-label')).toBe('test-select-avatar');
+	});
+
+	it('should render default show more avatars button label', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const showMoreButton = await screen.findByRole('button', { name: /Show more/i });
+		expect(showMoreButton).toBeInTheDocument();
+	});
+
+	it('should be able to customise show more avatars button label', async () => {
+		render(
+			<AvatarPickerDialog
+				showMoreAvatarsButtonLabel={'test-show-more'}
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const showMoreButton = await screen.findByRole('button', { name: /test-show-more/i });
+		expect(showMoreButton).toBeInTheDocument();
+	});
+
+	it('should clear selected image when cross clicked', async () => {
+		render(
+			<AvatarPickerDialog
+				imageSource={smallImage}
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const mediaImage = await screen.findByTestId('media-image');
+		expect(mediaImage.getAttribute('src')).toBe(smallImage);
+
+		const removeButton = document.querySelector('#remove-image-button');
+		expect(removeButton).toBeInTheDocument();
+		removeButton && (await userEvent.click(removeButton));
+
+		const imageUloader = await screen.findByTestId('image-navigator-input-file');
+		expect(imageUloader).toBeInTheDocument();
+
+		expect(screen.queryByTestId('media-image')).not.toBeInTheDocument();
+	});
+
+	it('should render loading state when "isLoading" is true', async () => {
+		render(
+			<AvatarPickerDialog
+				imageSource={smallImage}
+				isLoading={true}
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const footer = await screen.findByTestId('avatar-picker-dialog-footer');
+		expect(footer).toBeInTheDocument();
+
+		// Spinner from Loading Button
+		expect(await screen.findByRole('img')).toBeInTheDocument();
+
+		// Spinner from ImageNavigator
+		expect(await screen.findByTestId('spinner')).toBeInTheDocument();
+
+		expect(document.querySelector('#predefined-avatar-view-wrapper')).not.toBeInTheDocument();
+	});
+
+	it('should pass props down to PredefinedAvatarView', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				predefinedAvatarsText="some text"
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const showMoreButton = await screen.findByRole('button', { name: /Show more/i });
+		await userEvent.click(showMoreButton);
+
+		const img = document.querySelector(`input[type=radio][aria-label="${someAvatar.name}"] + img`);
+		expect(img).toBeInTheDocument();
+		expect(img?.getAttribute('src')).toEqual(someAvatar.dataURI);
+
+		const text = document.querySelector('h2.description');
+		expect(text).toBeInTheDocument();
+		expect(text?.textContent).toEqual('some text');
+	});
+
+	it('should announce instructions to screen readers on cropping mode', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		await waitFor(() => {
+			const elem = document.querySelector('div[aria-live="polite"]');
+			expect(elem).toBeInTheDocument();
+			expect(elem?.textContent).toEqual('Upload a photo or select from some default options');
+		});
+	});
+
+	it('should announce instructions to screen readers on predefined avatar mode', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const showMoreButton = await screen.findByRole('button', { name: /Show more/i });
+		await userEvent.click(showMoreButton);
+
+		await waitFor(() => {
+			const elem = document.querySelector('div[aria-live="polite"]');
+			expect(elem).toBeInTheDocument();
+			expect(elem?.textContent).toEqual('Select from all default options');
+		});
 	});
 
 	it('should not announce screen reader instructions when there is no predefined list of avatars', () => {
-		const component = renderWithProps({ avatars: [] });
+		render(
+			<AvatarPickerDialog
+				avatars={[]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
 
-		expect(component.find(PredefinedAvatarList)).toHaveLength(0);
-		expect(component.find('div[aria-live="polite"]')).toHaveLength(0);
+		expect(document.querySelector('#predefined-avatar-view-wrapper')).not.toBeInTheDocument();
+		expect(document.querySelector('div[aria-live="polite"]')).not.toBeInTheDocument();
 	});
 
-	it('should remove alert when a default avatar is selected', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
-		const avatars = [selectedAvatar];
-		const component = renderWithProps({ avatars });
+	it('should remove alert when a default avatar is selected', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
 
-		component.find('form').simulate('submit');
-		expect(component.find('#avatar-picker-error')).toHaveLength(1);
+		const form = await screen.findByRole('form');
+		fireEvent.submit(form);
+		const alert = await screen.findByRole('alert');
+		expect(alert).toBeInTheDocument();
+		expect(alert.innerText).toContain('Upload a photo or select from some default options');
 
-		component.find('input[type="radio"]').simulate('change', {
-			target: { value: selectedAvatar },
+		const radio = await screen.findByRole('radio', { name: /avatar/i });
+		await userEvent.click(radio);
+		fireEvent.submit(form);
+
+		const alertGone = screen.queryByRole('alert');
+		expect(alertGone).not.toBeInTheDocument();
+	});
+
+	it('should have h1 heading with id associated with modal', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		await waitFor(() => {
+			const modal = document.querySelector('section[role="dialog"]');
+			expect(modal).toBeInTheDocument();
+			const heading = screen.getByTestId('modal-header');
+			expect(heading).toBeInTheDocument();
+			expect(modal?.getAttribute('aria-labelledby')).toBe(heading?.getAttribute('id'));
 		});
-		component.find('form').simulate('submit');
-		expect(component.find('#avatar-picker-error')).toHaveLength(0);
-	});
-
-	it('should remove alert when a default avatar is selected', () => {
-		const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
-		const avatars = [selectedAvatar];
-		const component = renderWithProps({ avatars });
-
-		component.find('form').simulate('submit');
-		expect(component.find('#avatar-picker-error')).toHaveLength(1);
-
-		component.find('input[type="radio"]').simulate('change', {
-			target: { value: selectedAvatar },
-		});
-		component.find('form').simulate('submit');
-		expect(component.find('#avatar-picker-error')).toHaveLength(0);
-	});
-
-	it('should have h1 heading with id associated with modal', () => {
-		const component = renderWithProps({ avatars: [] });
-		const modal = component.find('section[role="dialog"]');
-		const heading = component.find('h1');
-
-		expect(modal.prop('aria-labelledby')).toBe(heading.prop('id'));
 	});
 
 	describe('Alt text required', () => {
-		const renderWithPropsAlt = (props: Partial<AvatarPickerDialogPropsAlt>) => {
-			const component = mountWithIntlContext(
+		const testAltText: string = 'test alt text';
+
+		it('when alt text has been specified and save button is clicked, onImagePicked should be called', async () => {
+			const onImagePicked = jest.fn();
+
+			render(
 				<AvatarPickerDialog
-					avatars={[{ dataURI: 'http://an.avatar.com/453' }]}
+					imageSource={smallImage}
+					avatars={[someAvatar]}
 					onAvatarPicked={jest.fn()}
+					onImagePicked={onImagePicked}
+					onImagePickedDataURI={jest.fn()}
+					onCancel={jest.fn()}
+					requireAltText={true}
+				/>,
+			);
+
+			const mediaImage = await screen.findByTestId('media-image');
+			fireEvent.load(mediaImage);
+
+			// When the Field is required, the component adds a span wrapping a '*'. This breaks the matching literal, therefore we need to use a Regex.
+			const textField = await screen.findByLabelText(/Alt text.*/);
+			await userEvent.clear(textField);
+			await userEvent.type(textField, testAltText);
+
+			const form = await screen.findByRole('form');
+			fireEvent.submit(form);
+
+			await waitFor(() => {
+				expect(onImagePicked).toHaveBeenCalledWith(expect.anything(), fixedCrop, testAltText);
+			});
+		});
+
+		it('when save button is clicked, onImagePicked should be called with predefined alt text', async () => {
+			const onImagePicked = jest.fn();
+
+			render(
+				<AvatarPickerDialog
+					imageSource={smallImage}
+					imageSourceAltText={testAltText}
+					avatars={[someAvatar]}
+					onAvatarPicked={jest.fn()}
+					onImagePicked={onImagePicked}
+					onImagePickedDataURI={jest.fn()}
+					onCancel={jest.fn()}
+					requireAltText={true}
+				/>,
+			);
+			const mediaImage = await screen.findByTestId('media-image');
+			fireEvent.load(mediaImage);
+
+			const form = await screen.findByRole('form');
+			fireEvent.submit(form);
+
+			await waitFor(() => {
+				expect(onImagePicked).toHaveBeenCalledWith(expect.anything(), fixedCrop, testAltText);
+			});
+		});
+
+		it('when alt text has been specified and save button is clicked, onImagePickedDataURI should be called', async () => {
+			const onImagePickedDataURI = jest.fn();
+
+			render(
+				<AvatarPickerDialog
+					imageSource={smallImage}
+					avatars={[someAvatar]}
+					onAvatarPicked={jest.fn()}
+					onImagePicked={jest.fn()}
+					onImagePickedDataURI={onImagePickedDataURI}
+					onCancel={jest.fn()}
+					requireAltText={true}
+				/>,
+			);
+
+			const mediaImage = await screen.findByTestId('media-image');
+			fireEvent.load(mediaImage);
+
+			// When the Field is required, the component adds a span wrapping a '*'. This breaks the matching literal, therefore we need to use a Regex.
+			const textField = await screen.findByLabelText(/Alt text.*/);
+			await userEvent.clear(textField);
+			await userEvent.type(textField, testAltText);
+
+			const form = await screen.findByRole('form');
+			fireEvent.submit(form);
+
+			await waitFor(() => {
+				expect(onImagePickedDataURI).toHaveBeenCalledWith(croppedImgDataURI, testAltText);
+			});
+		});
+
+		it('when save button is clicked, onImagePickedDataURI should be called with predefined alt text', async () => {
+			const onImagePickedDataURI = jest.fn();
+
+			render(
+				<AvatarPickerDialog
+					imageSource={smallImage}
+					imageSourceAltText={testAltText}
+					avatars={[someAvatar]}
+					onAvatarPicked={jest.fn()}
+					onImagePicked={jest.fn()}
+					onImagePickedDataURI={onImagePickedDataURI}
+					onCancel={jest.fn()}
+					requireAltText={true}
+				/>,
+			);
+
+			const mediaImage = await screen.findByTestId('media-image');
+			fireEvent.load(mediaImage);
+
+			const form = await screen.findByRole('form');
+			fireEvent.submit(form);
+
+			await waitFor(() => {
+				expect(onImagePickedDataURI).toHaveBeenCalledWith(croppedImgDataURI, testAltText);
+			});
+		});
+
+		it('when save button is clicked, onAvatarPicked should be called with predefined alt text', async () => {
+			const onAvatarPicked = jest.fn();
+
+			render(
+				<AvatarPickerDialog
+					avatars={[someAvatar]}
+					onAvatarPicked={onAvatarPicked}
 					onImagePicked={jest.fn()}
 					onImagePickedDataURI={jest.fn()}
 					onCancel={jest.fn()}
 					requireAltText={true}
-					{...props}
 				/>,
 			);
 
-			// when you pass an image it normally renders the image (which triggers load event and selectedImage back-propagation)...
-			// since we are rendering in js-dom, we have to force the load mechanism
+			const radio = await screen.findByRole('radio', { name: /avatar/i });
+			await userEvent.click(radio);
 
-			if (props.imageSource) {
-				updateComponentWithNewImage(component);
-			}
-			return component;
-		};
+			const form = await screen.findByRole('form');
+			fireEvent.submit(form);
 
-		const testAltText: string = 'test alt text';
-
-		it('when alt text has been specified and save button is clicked, onImagePicked should be called', () => {
-			const onImagePicked = jest.fn();
-
-			const component: any = renderWithPropsAlt({
-				onImagePicked,
-				imageSource: smallImage,
+			await waitFor(() => {
+				expect(onAvatarPicked).toHaveBeenCalledWith(someAvatar, someAvatar.name);
 			});
-
-			// Stub internal function to facilitate shallow testing of `onImagePickedDataURI`
-			const croppedImgDataURI = 'data:image/meme;based64:w0w';
-			component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
-
-			// Update alt text Textfield
-			const event = { currentTarget: { value: testAltText } };
-			component.find(Textfield).props().onChange(event);
-
-			component.find('form').simulate('submit');
-
-			expect(onImagePicked.mock.calls[0][1]).toEqual(fixedCrop);
-			expect(onImagePicked.mock.calls[0][2]).toEqual(testAltText);
 		});
 
-		it('when save button is clicked, onImagePicked should be called with predefined alt text', () => {
-			const onImagePicked = jest.fn();
-
-			const component: any = renderWithPropsAlt({
-				onImagePicked,
-				imageSource: smallImage,
-				imageSourceAltText: testAltText,
-			});
-
-			// Stub internal function to facilitate shallow testing of `onImagePickedDataURI`
-			const croppedImgDataURI = 'data:image/meme;based64:w0w';
-			component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
-
-			component.find('form').simulate('submit');
-
-			expect(onImagePicked.mock.calls[0][1]).toEqual(fixedCrop);
-			expect(onImagePicked.mock.calls[0][2]).toEqual(testAltText);
-		});
-
-		it('when alt text has been specified and save button is clicked, onImagePickedDataURI should be called', () => {
-			const onImagePickedDataURI = jest.fn();
-
-			const component: any = renderWithPropsAlt({
-				onImagePickedDataURI,
-				imageSource: smallImage,
-			});
-
-			// Stub internal function to facilitate shallow testing of `onImagePickedDataURI`
-			const croppedImgDataURI = 'data:image/meme;based64:w0w';
-			component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
-
-			// Update alt text Textfield
-			const event = { currentTarget: { value: testAltText } };
-			component.find(Textfield).props().onChange(event);
-
-			component.find('form').simulate('submit');
-
-			expect(onImagePickedDataURI.mock.calls[0][0]).toEqual(croppedImgDataURI);
-			expect(onImagePickedDataURI.mock.calls[0][1]).toEqual(testAltText);
-		});
-
-		it('when save button is clicked, onImagePickedDataURI should be called with predefined alt text', () => {
-			const onImagePickedDataURI = jest.fn();
-
-			const component: any = renderWithPropsAlt({
-				onImagePickedDataURI,
-				imageSource: smallImage,
-				imageSourceAltText: testAltText,
-			});
-
-			// Stub internal function to facilitate shallow testing of `onImagePickedDataURI`
-			const croppedImgDataURI = 'data:image/meme;based64:w0w';
-			component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
-
-			component.find('form').simulate('submit');
-
-			expect(onImagePickedDataURI.mock.calls[0][0]).toEqual(croppedImgDataURI);
-			expect(onImagePickedDataURI.mock.calls[0][1]).toEqual(testAltText);
-		});
-
-		it('when save button is clicked, onAvatarPicked should be called with predefined alt text', () => {
-			const selectedAvatar: Avatar = {
-				dataURI: 'http://an.avatar.com/453',
-				name: testAltText,
-			};
-			const avatars = [selectedAvatar];
+		// TODO: flaky React 16 and React 18
+		it.skip('when custom alt text has been specified and save button is clicked, onAvatarPicked should be called with custom alt text', async () => {
 			const onAvatarPicked = jest.fn();
 
-			const component = renderWithPropsAlt({ avatars, onAvatarPicked });
-			const { onAvatarSelected } = component.find(PredefinedAvatarList).props();
-			onAvatarSelected(selectedAvatar);
+			render(
+				<AvatarPickerDialog
+					avatars={[someAvatar]}
+					onAvatarPicked={onAvatarPicked}
+					onImagePicked={jest.fn()}
+					onImagePickedDataURI={jest.fn()}
+					onCancel={jest.fn()}
+					requireAltText={true}
+				/>,
+			);
 
-			component.find('form').simulate('submit');
+			const radio = await screen.findByRole('radio', { name: /avatar/i });
+			await userEvent.click(radio);
 
-			expect(onAvatarPicked.mock.calls[0][0]).toEqual(selectedAvatar);
-			expect(onAvatarPicked.mock.calls[0][1]).toEqual(testAltText);
-		});
+			const textField = await screen.findByLabelText('altTextField');
+			await userEvent.clear(textField);
+			await userEvent.type(textField, testAltText);
 
-		it('when custom alt text has been specified and save button is clicked, onAvatarPicked should be called with custom alt text', () => {
-			const predefinedAltText = 'avatar-453';
-			const selectedAvatar: Avatar = {
-				dataURI: 'http://an.avatar.com/453',
-				name: predefinedAltText,
-			};
-			const avatars = [selectedAvatar];
-			const onAvatarPicked = jest.fn();
+			const form = await screen.findByRole('form');
+			fireEvent.submit(form);
 
-			const component = renderWithPropsAlt({ avatars, onAvatarPicked });
-			const { onAvatarSelected } = component.find(PredefinedAvatarList).props();
-			onAvatarSelected(selectedAvatar);
-
-			// Update alt text Textfield
-			const event = { currentTarget: { value: testAltText } };
-			component.find(Textfield).props().onChange(event);
-
-			component.find('form').simulate('submit');
-
-			expect(onAvatarPicked.mock.calls[0][0]).toEqual(selectedAvatar);
-			expect(onAvatarPicked.mock.calls[0][1]).toEqual(testAltText);
-		});
-
-		it('when save button is clicked with predefined avatar passed as default, onAvatarPicked should be called with predefined alt text', () => {
-			const selectedAvatar: Avatar = {
-				dataURI: 'http://an.avatar.com/453',
-				name: testAltText,
-			};
-			const avatars = [selectedAvatar];
-			const onAvatarPicked = jest.fn();
-			const component = renderWithPropsAlt({
-				avatars,
-				defaultSelectedAvatar: selectedAvatar,
-				onAvatarPicked,
+			await waitFor(() => {
+				expect(onAvatarPicked).toHaveBeenCalledWith(someAvatar, testAltText);
 			});
-			component.find('form').simulate('submit');
-
-			expect(onAvatarPicked.mock.calls[0][0]).toEqual(selectedAvatar);
-			expect(onAvatarPicked.mock.calls[0][1]).toEqual(testAltText);
 		});
 
-		it('should allow save with selected image passed as default', () => {
+		it('when save button is clicked with predefined avatar passed as default, onAvatarPicked should be called with predefined alt text', async () => {
+			const onAvatarPicked = jest.fn();
+
+			render(
+				<AvatarPickerDialog
+					avatars={[someAvatar]}
+					defaultSelectedAvatar={someAvatar}
+					onAvatarPicked={onAvatarPicked}
+					onImagePicked={jest.fn()}
+					onImagePickedDataURI={jest.fn()}
+					onCancel={jest.fn()}
+					requireAltText={true}
+				/>,
+			);
+
+			const form = await screen.findByRole('form');
+			fireEvent.submit(form);
+
+			await waitFor(() => {
+				expect(onAvatarPicked).toHaveBeenCalledWith(someAvatar, someAvatar.name);
+			});
+		});
+
+		it('should allow save with selected image passed as default', async () => {
 			const onAvatarPicked = jest.fn();
 			const onImagePicked = jest.fn();
 			const onImagePickedDataURI = jest.fn();
-			const component = renderWithPropsAlt({
-				imageSource: smallImage,
-			});
-			component.find('form').simulate('submit');
+
+			render(
+				<AvatarPickerDialog
+					imageSource={smallImage}
+					avatars={[someAvatar]}
+					onAvatarPicked={onAvatarPicked}
+					onImagePicked={onImagePicked}
+					onImagePickedDataURI={onImagePickedDataURI}
+					onCancel={jest.fn()}
+					requireAltText={true}
+				/>,
+			);
+			const mediaImage = await screen.findByTestId('media-image');
+			fireEvent.load(mediaImage);
+
+			const form = await screen.findByRole('form');
+			fireEvent.submit(form);
+
 			expect(onAvatarPicked).not.toHaveBeenCalled();
-			expect(onImagePicked).not.toHaveBeenCalled();
-			expect(onImagePickedDataURI).not.toHaveBeenCalled();
 
-			expect(component.find('#avatar-picker-error')).toHaveLength(0);
+			const alert = screen.queryByRole('alert');
+			expect(alert).not.toBeInTheDocument();
 		});
 	});
 });

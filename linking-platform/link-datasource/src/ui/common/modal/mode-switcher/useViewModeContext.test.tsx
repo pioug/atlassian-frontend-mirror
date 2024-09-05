@@ -7,12 +7,21 @@ import { type DisplayViewModes } from '../../../../common/types';
 import { DatasourceViewModeProvider, useViewModeContext } from './useViewModeContext';
 
 describe('useViewModeContext custom hook', () => {
-	const setup = ({ defaultViewMode }: { defaultViewMode: DisplayViewModes | null }) => {
+	const setup = ({
+		defaultViewMode,
+		disableDisplayDropdown = false,
+	}: {
+		defaultViewMode: DisplayViewModes | null;
+		disableDisplayDropdown?: boolean;
+	}) => {
 		const wrapper = ({ children }: { children?: React.ReactNode }) => {
 			return (
 				<>
 					{defaultViewMode ? (
-						<DatasourceViewModeProvider viewMode={defaultViewMode}>
+						<DatasourceViewModeProvider
+							viewMode={defaultViewMode}
+							disableDisplayDropdown={disableDisplayDropdown}
+						>
 							{children}
 						</DatasourceViewModeProvider>
 					) : (
@@ -48,6 +57,10 @@ describe('useViewModeContext custom hook', () => {
 		});
 
 		expect(result.current.currentViewMode).toEqual('inline');
+	});
+	it('disableDisplayDropdown should be correctly set for an initial value', () => {
+		const { result } = setup({ disableDisplayDropdown: true, defaultViewMode: 'table' });
+		expect(result.current.disableDisplayDropdown).toBe(true);
 	});
 	it('should throw error if no context exists to wrap the component', () => {
 		jest.spyOn(console, 'error').mockImplementation(jest.fn());

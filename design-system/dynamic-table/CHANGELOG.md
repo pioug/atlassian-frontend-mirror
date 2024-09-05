@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 14.20.3
+
+### Patch Changes
+
+- [#137036](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137036)
+  [`a4bc59c83b1d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4bc59c83b1d9) -
+  Internally refactors stateless variant from class component to function component
+
 ## 14.20.2
 
 ### Patch Changes

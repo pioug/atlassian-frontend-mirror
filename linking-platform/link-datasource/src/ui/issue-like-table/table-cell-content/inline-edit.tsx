@@ -63,6 +63,7 @@ export const InlineEdit = ({
 	const [isEditing, setIsEditing] = useState(false);
 
 	const item = useDatasourceItem({ id: ari });
+	const { entityType, integrationKey } = item || {};
 
 	const { showErrorFlag } = useDatasourceTableFlag();
 
@@ -108,6 +109,18 @@ export const InlineEdit = ({
 		],
 	);
 
+	const onEdit = useCallback(() => {
+		setIsEditing(true);
+
+		if (integrationKey && entityType) {
+			fireEvent('ui.inlineEdit.clicked.datasource', {
+				integrationKey,
+				entityType,
+				fieldKey: columnKey,
+			});
+		}
+	}, [columnKey, entityType, fireEvent, integrationKey]);
+
 	return (
 		<Box xcss={editContainerStyles}>
 			<AKInlineEdit
@@ -116,7 +129,7 @@ export const InlineEdit = ({
 				readView={() => readView}
 				readViewFitContainerWidth
 				isEditing={isEditing}
-				onEdit={() => setIsEditing(true)}
+				onEdit={onEdit}
 				onCancel={() => setIsEditing(false)}
 				onConfirm={onCommitUpdate}
 			/>

@@ -453,8 +453,29 @@ export class TableContainer extends React.Component<
 		}
 
 		let finalTableContainerWidth = allowTableResizing ? tableWidth : 'inherit';
-		if (rendererAppearance === 'comment' && allowTableResizing) {
-			finalTableContainerWidth = tableNode?.attrs.width ? tableWidth : 'inherit';
+		if (rendererAppearance === 'comment' && allowTableResizing && !allowTableAlignment) {
+			// If table alignment is disabled and table width is akEditorDefaultLayoutWidth = 760,
+			// it is most likely a table created before "Support Table in Comments" FF was enabled
+			// and we would see a bug ED-24795. A table created before "Support Table in Comments",
+			// should inhirit the width of the renderer container.
+
+			// !NOTE: it a table resized to 760 is copied from 'full-page' editor and pasted in comment editor
+			// where (allowTableResizing && !allowTableAlignment), the table will loose 760px width.
+			finalTableContainerWidth =
+				tableNode?.attrs.width && tableNode?.attrs.width !== akEditorDefaultLayoutWidth
+					? tableWidth
+					: 'inherit';
+		}
+
+		if (rendererAppearance === 'comment' && allowTableResizing && allowTableAlignment) {
+			// If table alignment is enabled and layout is not 'align-start' or 'center', we are loading a table that was
+			// created before "Support Table in Comments" FF was enabled. So the table should have the same width as renderer container
+			// instead of 760 that was set on tableNode when the table had been published.
+			finalTableContainerWidth =
+				(tableNode?.attrs.layout === 'align-start' || tableNode?.attrs.layout === 'center') &&
+				tableNode?.attrs.width
+					? tableWidth
+					: 'inherit';
 		}
 
 		return (

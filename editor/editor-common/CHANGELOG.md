@@ -1,5 +1,38 @@
 # @atlaskit/editor-common
 
+## 88.9.0
+
+### Minor Changes
+
+- [#137234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137234)
+  [`e80c81de138e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e80c81de138e9) -
+  [ux] [ED-24803] Experiment for editor block controls which adds a button to insert quickInsert
+  elements
+
+## 88.8.3
+
+### Patch Changes
+
+- [#136760](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136760)
+  [`39e4b9c90b284`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/39e4b9c90b284) -
+  LazyNodeView update method to compare decorations
+
+## 88.8.2
+
+### Patch Changes
+
+- [#137244](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137244)
+  [`e6f32d1f22896`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e6f32d1f22896) -
+  Control show or hide editor toolbar in SSR environment
+- [#136871](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136871)
+  [`87a30d5cb3ffb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87a30d5cb3ffb) -
+  ED-24814 - Addressing a bug where changing the language on a wrapped code block caused the wrapped
+  decorator to disappear. Required changing the sequence in which we update the keys on the wrapped
+  states WeakMap. Due to the amount of changes, it has all be placed behind a bug fix feature gate
+  (editor_code_block_wrapping_language_change_bug) and the original feature gate
+  (editor_support_code_block_wrapping).
+- Updated dependencies
+
 ## 88.8.1
 
 ### Patch Changes

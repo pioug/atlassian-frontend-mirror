@@ -5,6 +5,11 @@ import { type Validator } from '../../common/types';
 type FieldProps = FieldInputProps<any, HTMLElement> & {
 	fieldId: string;
 	isInvalid: boolean;
+	isRequired?: boolean;
+	/** ID to reference an error message for the field */
+	'aria-errormessage'?: string;
+	/** ID to refer to description for field */
+	'aria-describedby'?: string;
 };
 
 export type CreateFieldProps = {

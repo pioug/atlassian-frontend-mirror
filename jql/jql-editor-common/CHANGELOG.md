@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor-common
 
+## 2.1.0
+
+### Minor Changes
+
+- [#136871](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136871)
+  [`c663f9f8a9171`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c663f9f8a9171) -
+  Add support for React 18
+
 ## 2.0.2
 
 ### Patch Changes

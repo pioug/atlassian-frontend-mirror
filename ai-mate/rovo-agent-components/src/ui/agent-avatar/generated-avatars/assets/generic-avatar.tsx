@@ -3,7 +3,7 @@ import React from 'react';
 
 import { type AvatarIconProps } from './types';
 
-export const GenericAvatar = ({ size, primaryColor, secondaryColor }: AvatarIconProps) => (
+export default ({ size, primaryColor, secondaryColor }: AvatarIconProps) => (
 	<svg
 		width={size}
 		height={size}

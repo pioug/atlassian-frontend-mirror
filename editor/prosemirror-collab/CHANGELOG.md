@@ -1,5 +1,13 @@
 # @atlaskit/prosemirror-collab
 
+## 0.9.3
+
+### Patch Changes
+
+- [#137366](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137366)
+  [`44c333f52bfa6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44c333f52bfa6) -
+  Avoid left undefined clientId in collab-provider
+
 ## 0.9.2
 
 ### Patch Changes

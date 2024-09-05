@@ -72,6 +72,7 @@ import {
 	createPlugin as createTableWidthPlugin,
 	pluginKey as tableWidthPluginKey,
 } from './pm-plugins/table-width';
+import { createPlugin as createTableWidthInCommentFixPlugin } from './pm-plugins/table-width-in-comment-fix';
 import { createPlugin as createViewModeSortPlugin } from './pm-plugins/view-mode-sort';
 import { tableNodeSpecWithFixedToDOM } from './toDOM';
 import { getToolbarConfig } from './toolbar';
@@ -82,6 +83,7 @@ import FloatingDeleteButton from './ui/FloatingDeleteButton';
 import FloatingDragMenu from './ui/FloatingDragMenu';
 import FloatingInsertButton from './ui/FloatingInsertButton';
 import { FloatingToolbarLabel } from './ui/FloatingToolbarLabel/FloatingToolbarLabel';
+import { GlobalStylesWrapper } from './ui/global-styles';
 import { FullWidthDisplay } from './ui/TableFullWidthLabel';
 import { createTableWithWidth } from './utils';
 
@@ -456,6 +458,16 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 								)
 							: undefined,
 				},
+				{
+					name: 'tableWidthInCommentFix',
+					plugin: ({ dispatch }) =>
+						options?.tableResizingEnabled && options?.isCommentEditor
+							? createTableWidthInCommentFixPlugin(
+									dispatch,
+									options?.isTableAlignmentEnabled ?? false,
+								)
+							: undefined,
+				},
 				// TODO: should be deprecated and eventually replaced with 'tableAnalyticsPlugin'
 				{
 					name: 'tableOverflowAnalyticsPlugin',
@@ -515,6 +527,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 					fallbackComponent={null}
 				>
+					<GlobalStylesWrapper featureFlags={api?.featureFlags?.sharedState.currentState()} />
 					<WithPluginState
 						plugins={{
 							tableAnalyticsPluginState: tableAnalyticsPluginKey,

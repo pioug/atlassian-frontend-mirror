@@ -4,6 +4,7 @@ import rule from '../index';
 import { migrationPathTests } from './__helpers/migration-path-helper';
 import {
 	colorTests,
+	combinationOfAutoAndManualTests,
 	exportedIconTests,
 	iconMapOrArray,
 	iconsInCustomComponent,
@@ -143,6 +144,15 @@ describe('no-legacy-icons', () => {
 				<IconTile icon={AddIcon} size="small" color="gray" label="" />
 				`,
 			},
+			{
+				options: [{ shouldErrorForAutoMigration: false }],
+				name: 'Basic, auto-migratable icon, but should not error because shouldErrorForAutoMigration is disabled',
+				code: `
+				import AddIcon from '@atlaskit/icon/glyph/add';
+
+				<AddIcon label="" size="medium" />
+				`,
+			},
 		],
 		invalid: [
 			{
@@ -163,6 +173,7 @@ describe('no-legacy-icons', () => {
 					},
 				],
 			},
+
 			{
 				options: [{ shouldUseMigrationPath: false }],
 				name: 'Basic, auto-migratable small icon, import from the final core path',
@@ -332,7 +343,7 @@ describe('no-legacy-icons', () => {
 					<AddIcon2 color="currentColor" spacing="spacious" label="" />
 				</div>
 				`,
-				errors: Array(4).fill({
+				errors: Array(2).fill({
 					messageId: 'noLegacyIconsAutoMigration',
 				}),
 			},
@@ -358,9 +369,9 @@ describe('no-legacy-icons', () => {
 				code: `
 				import AddIcon from '@atlaskit/icon/glyph/add';
 
-				const DefaultIcon = AddIcon;
+				const DefaultIcon1 = AddIcon;
 
-				<DefaultIcon label="" />
+				<DefaultIcon1 label="" />
 				`,
 				errors: [
 					{
@@ -384,15 +395,19 @@ describe('no-legacy-icons', () => {
 				name: 'Icon as a function parameter',
 				code: `
 				import AddIcon from '@atlaskit/icon/glyph/add';
+				import ActivityIcon from '@atlaskit/icon/glyph/activity';
 				import CustomComponent from '@atlaskit/custom';
 
-				const DefaultIcon = (icon) => <CustomComponent icon={icon} >something...</CustomComponent>;
+				const DefaultIcon = (icon1, icon2) => <CustomComponent iconBefore={icon1} iconAfter={icon2} >something...</CustomComponent>;
 
-				<div>{DefaultIcon(AddIcon)}</div>
+				<div>{DefaultIcon(AddIcon, ActivityIcon)}</div>
 			  `,
 				errors: [
 					{
 						messageId: 'noLegacyIconsManualMigration',
+					},
+					{
+						messageId: 'cantMigrateFunctionUnknown',
 					},
 					{
 						messageId: 'cantMigrateFunctionUnknown',
@@ -467,5 +482,9 @@ describe('no-legacy-icons', () => {
 	tester.run('Icons imported from migration paths and with shouldUseMigrationPath=false', rule, {
 		valid: [],
 		invalid: [...migrationPathTests],
+	});
+	tester.run('Icons that have both auto and manual migrations', rule, {
+		valid: [],
+		invalid: [...combinationOfAutoAndManualTests],
 	});
 });

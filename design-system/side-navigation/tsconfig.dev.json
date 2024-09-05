@@ -69,7 +69,13 @@
 			"path": "../menu/tsconfig.app.json"
 		},
 		{
+			"path": "../motion/tsconfig.app.json"
+		},
+		{
 			"path": "../onboarding/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
 		},
 		{
 			"path": "../primitives/tsconfig.app.json"

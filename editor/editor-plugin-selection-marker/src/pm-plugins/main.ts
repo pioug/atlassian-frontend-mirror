@@ -6,7 +6,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import type { SelectionMarkerPlugin } from '../types';
+import type { SelectionMarkerPlugin } from '../selectionMarkerPluginType';
 import { selectionDecoration } from '../ui/selection-decoration';
 import { createWidgetDecoration } from '../ui/widget-decoration';
 

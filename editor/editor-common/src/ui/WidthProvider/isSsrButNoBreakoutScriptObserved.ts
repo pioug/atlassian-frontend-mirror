@@ -1,4 +1,4 @@
-import { isSSR } from './isSSR';
+import { isSSR } from '../../core-utils/is-ssr';
 
 // export for testing
 export function isSsrButNoBreakoutScriptObserved(): boolean {

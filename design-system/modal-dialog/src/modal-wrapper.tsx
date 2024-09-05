@@ -7,7 +7,8 @@ import { useCallback } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import FocusLock from 'react-focus-lock';
+import FocusLockOld from 'react-focus-lock';
+import FocusLockNext from 'react-focus-lock-next';
 import ScrollLock, { TouchScrollable } from 'react-scrolllock';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
@@ -15,6 +16,7 @@ import Blanket from '@atlaskit/blanket';
 import noop from '@atlaskit/ds-lib/noop';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -84,6 +86,8 @@ const ModalWrapper = (props: ModalDialogProps) => {
 	const calculatedStackIndex = useModalStack({ onStackChange });
 	const stackIndex = stackIndexOverride || calculatedStackIndex;
 	const isForeground = stackIndex === 0;
+
+	const FocusLock = fg('platform_dst_modal-dialog-bump-focus-lock') ? FocusLockNext : FocusLockOld;
 
 	// When a user supplies a ref to focus we skip auto focus via react-focus-lock
 	const autoFocusLock = typeof autoFocus === 'boolean' ? autoFocus : false;

@@ -2,13 +2,34 @@ import memoize from 'lodash/memoize';
 
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
 import type { LazyNodeViewToDOMConfiguration } from './types';
 
 const getEditorLineWidth = memoize((view: EditorView): number => {
 	return view.dom?.clientWidth;
 });
+
+// Copied from ProseMirror NodeView
+// https://github.com/ProseMirror/prosemirror-view/blob/cfa73eb969777f63bcb39972594fd4a9110f5a93/src/viewdesc.ts#L1095-L1099
+function sameOuterDeco(a: readonly Decoration[], b: readonly Decoration[]) {
+	if (a.length !== b.length) {
+		return false;
+	}
+
+	for (let i = 0; i < a.length; i++) {
+		// @ts-expect-error type actually exist on decoration at runtime
+		if (!a[i].type) {
+			return false;
+		}
+
+		// @ts-expect-error type actually exist on decoration at runtime
+		if (!a[i].type.eq(b[i].type)) {
+			return false;
+		}
+	}
+	return true;
+}
 
 /**
  * 🧱 Internal: Editor FE Platform
@@ -19,16 +40,16 @@ export class LazyNodeView implements NodeView {
 	dom: Node;
 	contentDOM?: HTMLElement;
 	private node: PMNode;
-	private isNodeViewLoaded: boolean;
+	private outerDeco: readonly Decoration[];
 
 	constructor(
 		node: PMNode,
 		view: EditorView,
 		_getPos: () => number | undefined,
-		nodeViewLoader: Promise<unknown>,
+		outerDeco: readonly Decoration[],
 	) {
 		this.node = node;
-		this.isNodeViewLoaded = false;
+		this.outerDeco = outerDeco;
 
 		if (typeof node.type?.spec?.toDOM !== 'function') {
 			this.dom = document.createElement('div');
@@ -61,19 +82,13 @@ export class LazyNodeView implements NodeView {
 			// before the test started
 			this.dom.setAttribute('data-lazy-node-view-fallback', 'true');
 		}
-
-		nodeViewLoader.then(() => {
-			this.isNodeViewLoaded = true;
-		});
 	}
 
-	update = (node: PMNode): boolean => {
+	update = (node: PMNode, outerDeco: readonly Decoration[]): boolean => {
 		const prevNode = this.node;
 		this.node = node;
 
-		// Forcing NodeView to be re-created
-		// so that ProseMirror can replace LazyNodeView with the real one.
-		if (this.isNodeViewLoaded) {
+		if (!sameOuterDeco(outerDeco, this.outerDeco)) {
 			return false;
 		}
 

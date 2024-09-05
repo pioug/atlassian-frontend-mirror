@@ -260,13 +260,13 @@ export const newButtonTests = [
 	   	import AddIcon from '@atlaskit/icon/glyph/add';
 	   	import { IconButton } from '@atlaskit/button/new';
 
-	   	<IconButton icon={AddIcon} />
+	   	<IconButton icon={AddIcon} label="" />
 		 `,
 		output: `
 	   	import AddIcon from '@atlaskit/icon/core/migration/add';
 	   	import { IconButton } from '@atlaskit/button/new';
 
-	   	<IconButton icon={AddIcon} />
+	   	<IconButton icon={AddIcon} label="" />
 		 `,
 		errors: [
 			{
@@ -452,7 +452,7 @@ export const oldButtonTests = [
 			<CustomThemeButton iconBefore={<AddIcon color="currentColor" label="" />} > Add </CustomThemeButton>
 		</div>
 		`,
-		errors: Array(8).fill({
+		errors: Array(4).fill({
 			messageId: 'noLegacyIconsAutoMigration',
 		}),
 	},
@@ -652,7 +652,7 @@ export const colorTests = [
 				<AddIcon spacing="spacious" color={token('color.link')} label="" />
 			</div>
 	  	`,
-		errors: Array(6).fill({
+		errors: Array(3).fill({
 			messageId: 'noLegacyIconsAutoMigration',
 		}),
 	},
@@ -760,6 +760,185 @@ export const colorTests = [
 			},
 			{
 				messageId: 'cantMigrateColor',
+			},
+		],
+	},
+];
+
+/**
+ * ----- Combination of Auto and Manual tests -----------
+ */
+export const combinationOfAutoAndManualTests = [
+	{
+		name: 'Same icon used in two places - one auto, one manual - only suggestions presented - no fix',
+		code: `
+		import AddIconCombination from '@atlaskit/icon/glyph/add';
+		import {token} from '@atlaskit/tokens';
+		const iconProps = {};
+		<div>
+			<AddIconCombination
+				label=""
+				{...iconProps}
+				primaryColor={token('color.link')}
+				secondaryColor={token('color.icon.inverse')}
+				size="medium"
+			/>
+			<AddIconCombination
+				label=""
+				{...iconProps}git
+				primaryColor={token('color.link')}
+				secondaryColor={token('color.icon.inverse')}
+				size="medium"
+				{...iconProps}
+			/>
+		</div>
+	  	`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+			{
+				messageId: 'noLegacyIconsManualMigration',
+			},
+			{
+				messageId: 'cantMigrateSpreadProps',
+			},
+		],
+	},
+	{
+		name: 'Different icons used in combination - 2 auto, one manual',
+		code: `
+		import AddIconCombination from '@atlaskit/icon/glyph/add';
+		import ActivityIcon from '@atlaskit/icon/glyph/activity';
+		import {token} from '@atlaskit/tokens';
+		const iconProps = {};
+		<div>
+		    <ActivityIcon label="" size="small" />
+			<AddIconCombination
+				label=""
+				{...iconProps}
+				primaryColor={token('color.link')}
+				secondaryColor={token('color.icon.inverse')}
+				size="medium"
+			/>
+			<AddIconCombination
+				label=""
+				{...iconProps}
+				primaryColor={token('color.link')}
+				secondaryColor={token('color.icon.inverse')}
+				size="medium"
+				{...iconProps}
+			/>
+		</div>`,
+		output: `
+		import AddIconCombination from '@atlaskit/icon/glyph/add';
+		import ActivityIcon from '@atlaskit/icon/core/migration/dashboard--activity';
+		import {token} from '@atlaskit/tokens';
+		const iconProps = {};
+		<div>
+		    <ActivityIcon color="currentColor" label="" LEGACY_size="small" />
+			<AddIconCombination
+				label=""
+				{...iconProps}
+				primaryColor={token('color.link')}
+				secondaryColor={token('color.icon.inverse')}
+				size="medium"
+			/>
+			<AddIconCombination
+				label=""
+				{...iconProps}
+				primaryColor={token('color.link')}
+				secondaryColor={token('color.icon.inverse')}
+				size="medium"
+				{...iconProps}
+			/>
+		</div>`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+			{
+				messageId: 'noLegacyIconsManualMigration',
+			},
+			{
+				messageId: 'cantMigrateSpreadProps',
+			},
+		],
+	},
+	{
+		name: 'Complex multiple icon usage',
+		code: `
+		import Button from '@atlaskit/button';
+		import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+		import LoadingButton from '@atlaskit/button/loading-button';
+		import StandardButton from '@atlaskit/button/standard-button';
+		import ActivityIcon from '@atlaskit/icon/glyph/activity';
+		import AddIcon from '@atlaskit/icon/glyph/add';
+		const DefaultIcon = AddIcon;
+		const App = () => (
+			<div>
+				<Button iconBefore={<AddIcon label="" />}> Add </Button>
+				<StandardButton iconBefore={<AddIcon label="" />}> Add </StandardButton>
+				<LoadingButton iconBefore={<AddIcon label="" />}> Add </LoadingButton>
+				<CustomThemeButton iconBefore={<AddIcon label="" size="large" />}> Add </CustomThemeButton>
+				<DefaultIcon label="" />
+				<ActivityIcon label="" />
+			</div>
+		);`,
+		output: `
+		import Button from '@atlaskit/button';
+		import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+		import LoadingButton from '@atlaskit/button/loading-button';
+		import StandardButton from '@atlaskit/button/standard-button';
+		import ActivityIcon from '@atlaskit/icon/core/migration/dashboard--activity';
+		import AddIcon from '@atlaskit/icon/glyph/add';
+		const DefaultIcon = AddIcon;
+		const App = () => (
+			<div>
+				<Button iconBefore={<AddIcon label="" />}> Add </Button>
+				<StandardButton iconBefore={<AddIcon label="" />}> Add </StandardButton>
+				<LoadingButton iconBefore={<AddIcon label="" />}> Add </LoadingButton>
+				<CustomThemeButton iconBefore={<AddIcon label="" size="large" />}> Add </CustomThemeButton>
+				<DefaultIcon label="" />
+				<ActivityIcon color="currentColor" spacing="spacious" label="" />
+			</div>
+		);`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsManualMigration',
+			},
+			{
+				messageId: 'cantMigrateIdentifier',
+			},
+			{
+				messageId: 'noLegacyIconsManualMigration',
+			},
+			{
+				messageId: 'cantMigrateIdentifier',
+			},
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+			{
+				messageId: 'noLegacyIconsManualMigration',
+			},
+			{
+				messageId: 'cantFindSuitableReplacement',
+			},
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+			{
+				messageId: 'noLegacyIconsAutoMigration',
 			},
 		],
 	},

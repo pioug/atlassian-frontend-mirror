@@ -2,15 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
+import Markdown from 'markdown-to-jsx';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type SerializedStyles, css, jsx } from '@emotion/react';
-import AIStateIndicator from '../../FlexibleCard/components/blocks/ai-summary-block/ai-state-indicator';
 import UList from './ulist';
-
-const AITooltipIcon: MarkdownToJSX.Override = () => (
-	<AIStateIndicator appearance="icon-only" state="done" testId="ai-tooltip" />
-);
 
 const AISummaryCSSStyles = css({
 	fontSize: '0.75rem',
@@ -27,10 +22,6 @@ const AISummaryCSSStyles = css({
 type AISummaryProps = {
 	/* Raw markdawn format text to display.*/
 	content?: string;
-	/* Should the summary icon be shown at the end of the content */
-	showIcon?: boolean;
-	/* Optional icon component to override icon at the end of content */
-	iconComponent?: MarkdownToJSX.Override;
 	/* Additional CSS properties */
 	overrideCss?: SerializedStyles;
 	/**
@@ -52,8 +43,6 @@ type AISummaryProps = {
 
 const AISummary = ({
 	content = '',
-	showIcon = false,
-	iconComponent,
 	overrideCss,
 	testId = 'ai-summary',
 	minHeight = 0,
@@ -66,11 +55,10 @@ const AISummary = ({
 		<Markdown
 			data-testid={testId}
 			css={[AISummaryCSSStyles, overrideCss]}
-			children={showIcon ? `${content}&nbsp;<Icon />` : content}
+			children={content}
 			options={{
 				forceWrapper: true,
 				overrides: {
-					Icon: iconComponent ?? AITooltipIcon,
 					ul: UList,
 				},
 			}}

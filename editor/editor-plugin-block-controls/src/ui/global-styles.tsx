@@ -9,6 +9,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP } from './consts';
+import { emptyBlockExperimentGlobalStyles } from './empty-block-experiment/global-styles';
 
 const extendedHoverZone = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -80,7 +81,7 @@ const extendedHoverZoneNested = css({
 	'hr[data-drag-handler-anchor-name]': {
 		overflow: 'visible',
 	},
-	//Hide psudeo element at top depth level. Leave for nested depths to prevent mouseover loop.
+	//Hide pseudo element at top depth level. Leave for nested depths to prevent mouseover loop.
 	//eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-blocks-drag-handle-container="true"] + [data-drag-handler-anchor-depth="0"]::after': {
 		display: 'none',
@@ -155,6 +156,9 @@ export const GlobalStylesWrapper = () => {
 				getTextNodeStyle(),
 				withDeleteLinesStyleFix,
 				withMediaSingleStyleFix,
+				editorExperiment('platform_editor_empty_line_prompt', true, { exposure: false })
+					? emptyBlockExperimentGlobalStyles
+					: undefined,
 			]}
 		/>
 	);

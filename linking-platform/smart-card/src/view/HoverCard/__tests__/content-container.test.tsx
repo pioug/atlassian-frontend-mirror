@@ -64,7 +64,7 @@ describe('ContentContainer', () => {
 		});
 
 		it('shows AI prism', async () => {
-			(useAISummary as jest.Mock).mockReturnValue({
+			jest.mocked(useAISummary).mockReturnValue({
 				state: { status: 'loading', content: '' },
 				summariseUrl: jest.fn(),
 			});
@@ -90,7 +90,7 @@ describe('ContentContainer', () => {
 					product: productName,
 				}),
 			);
-			(useAISummary as jest.Mock).mockClear();
+			jest.mocked(useAISummary).mockClear();
 		});
 	});
 });

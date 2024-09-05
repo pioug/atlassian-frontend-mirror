@@ -159,8 +159,12 @@ export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps
 };
 
 export const DatasourceViewModeDropDown = () => {
-	const { currentViewMode, setCurrentViewMode } = useViewModeContext();
 	const userInteractions = useUserInteractions();
+	const { currentViewMode, setCurrentViewMode, disableDisplayDropdown } = useViewModeContext();
+	if (disableDisplayDropdown) {
+		return null;
+	}
+
 	const handleViewModeChange = (selectedMode: DisplayViewModes) => {
 		userInteractions.add(DatasourceAction.DISPLAY_VIEW_CHANGED);
 		setCurrentViewMode(selectedMode);

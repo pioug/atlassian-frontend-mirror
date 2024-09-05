@@ -6,6 +6,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Drag to move',
 		description: 'Use drag handle to move content',
 	},
+	insert: {
+		id: 'fabric.editor.blockControlInsert',
+		defaultMessage: 'Insert',
+		description: 'Label on button to insert content at the current cursor position',
+	},
 	moveUp: {
 		id: 'fabric.editor.blockControlMoveUp',
 		defaultMessage: 'Move up',

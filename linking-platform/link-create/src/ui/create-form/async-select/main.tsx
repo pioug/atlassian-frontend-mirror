@@ -10,6 +10,7 @@ import debounce from 'debounce-promise';
 import { useForm } from 'react-final-form';
 import { useIntl } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { AsyncSelect as AkAsyncSelect, type GroupType, type OptionType } from '@atlaskit/select';
 
 import messages from '../../../common/messages';
@@ -131,7 +132,21 @@ export function AsyncSelect<T = OptionType>({
 			validationHelpText={validationHelpText}
 			testId={testId}
 		>
-			{({ fieldId, ...fieldProps }) => {
+			{({ fieldId, isRequired, ...fieldProps }) => {
+				if (fg('linking-platform-create-field-error-association')) {
+					return (
+						<AkAsyncSelect<T>
+							inputId={fieldId}
+							{...fieldProps}
+							{...restProps}
+							required={isRequired}
+							loadOptions={debouncedLoadOptions}
+							defaultOptions={defaultOptions}
+							isLoading={isLoadingDefaultOptions}
+						/>
+					);
+				}
+
 				return (
 					<AkAsyncSelect<T>
 						inputId={fieldId}

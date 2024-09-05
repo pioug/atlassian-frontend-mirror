@@ -36,11 +36,11 @@ describe('AISummaryAction', () => {
 	) => {
 		const onEvent = jest.fn();
 		const mockSummariseUrl = jest.fn();
-		const mockAISummaryState = { status: 'ready', content: '' };
+		const mockAISummaryState: AISummaryState = { status: 'ready', content: '' };
 
-		(useFlexibleUiContext as jest.Mock).mockImplementation(() => overrideContext || mockContext);
+		jest.mocked(useFlexibleUiContext).mockImplementation(() => overrideContext || mockContext);
 
-		(useAISummary as jest.Mock).mockImplementation(() => ({
+		jest.mocked(useAISummary).mockImplementation((props) => ({
 			state: overrideAiSummaryState || mockAISummaryState,
 			summariseUrl: mockSummariseUrl.mockResolvedValue(
 				overrideAiSummaryState || mockAISummaryState,

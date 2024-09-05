@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "2.11.5",
+	"version": "2.11.6",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -69,6 +69,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
+		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/drawer": "^7.14.0",
@@ -126,6 +127,9 @@
 	},
 	"platform-feature-flags": {
 		"linking-platform-link-create-nest-exit-warning": {
+			"type": "boolean"
+		},
+		"linking-platform-create-field-error-association": {
 			"type": "boolean"
 		}
 	}

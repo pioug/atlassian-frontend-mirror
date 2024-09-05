@@ -71,8 +71,15 @@ export const Icon = ({
 	const image = url && (
 		<ImageLoader
 			src={url}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			loaded={<img css={getImageStyles(isFlexibleUi)} src={url} data-testid={`${testId}-image`} />}
+			loaded={
+				<img
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					css={getImageStyles(isFlexibleUi)}
+					src={url}
+					alt=""
+					data-testid={`${testId}-image`}
+				/>
+			}
 			errored={placeholder}
 		/>
 	);

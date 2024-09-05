@@ -1,5 +1,13 @@
 # @atlaskit/link-create
 
+## 2.11.6
+
+### Patch Changes
+
+- [#137381](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137381)
+  [`224684c4c470e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/224684c4c470e) -
+  Improves form field accessibility of error messages and help text behind a feature flag.
+
 ## 2.11.5
 
 ### Patch Changes

@@ -2,32 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import CopyIcon from '@atlaskit/icon/core/migration/copy';
-import { token } from '@atlaskit/tokens';
 import { type CardState } from '../../../state/types';
 import { type JsonLd } from 'json-ld-types';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { ActionName, CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
+import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
 import { useSmartLinkAnalytics } from '../../../state/analytics';
 import { getExtensionKey, getServices } from '../../../state/helpers';
 import { isSpecialEvent } from '../../../utils';
 import { type TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
-import { type ActionItem, type CustomActionItem } from '../../FlexibleCard/components/blocks/types';
 import { type FlexibleCardProps } from '../../FlexibleCard/types';
 import { flexibleUiOptions, titleBlockCss } from '../styled';
 import { type HoverCardContentProps } from '../types';
 import { getMetadata } from '../utils';
 import HoverCardLoadingView from './views/resolving';
 import HoverCardUnauthorisedView from './views/unauthorised';
-import HoverCardResolvedView from './views/resolved';
 import HoverCardRedesignedResolvedView from './views/resolved/redesign';
-import { FormattedMessage } from 'react-intl-next';
-import { messages } from '../../../messages';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
 import { useSmartCardState } from '../../../state/store';
 
@@ -37,27 +30,9 @@ import { getIsAISummaryEnabled } from '../../../utils/ai-summary';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
 
-export const getCopyAction = (url: string): ActionItem =>
-	({
-		name: ActionName.CustomAction,
-		icon: (
-			<CopyIcon
-				label="copy url"
-				LEGACY_size="medium"
-				spacing="spacious"
-				color={token('color.icon', '#44546F')}
-			/>
-		),
-		iconPosition: 'before',
-		onClick: async () => await navigator.clipboard.writeText(url),
-		tooltipMessage: <FormattedMessage {...messages.copy_url_to_clipboard} />,
-		testId: 'hover-card-copy-button',
-	}) as CustomActionItem;
-
 const HoverCardContent = ({
 	id = '',
 	analytics: _analytics,
-	cardActions = [],
 	cardState,
 	onActionClick,
 	onResolve,
@@ -134,17 +109,12 @@ const HoverCardContent = ({
 		[createAnalyticsEvent, cardState.status, analytics.ui, id],
 	);
 
-	const titleActions = useMemo(() => [getCopyAction(url)], [url]);
-
 	const data = cardState.details?.data as JsonLd.Data.BaseData;
 	const { subtitle } = getMetadata(extensionKey, data);
 
 	const titleMaxLines = subtitle && subtitle.length > 0 ? 1 : 2;
 
 	const titleBlockProps: TitleBlockProps = {
-		actions: getBooleanFF('platform.linking-platform.smart-card.hover-card-action-redesign')
-			? undefined
-			: titleActions,
 		maxLines: titleMaxLines,
 		overrideCss: titleBlockCss,
 		size: SmartLinkSize.Large,
@@ -194,33 +164,16 @@ const HoverCardContent = ({
 		}
 
 		if (cardState.status === 'resolved') {
-			if (getBooleanFF('platform.linking-platform.smart-card.hover-card-action-redesign')) {
-				return (
-					<HoverCardRedesignedResolvedView
-						analytics={analytics}
-						cardState={cardState}
-						extensionKey={extensionKey}
-						flexibleCardProps={flexibleCardProps}
-						isAISummaryEnabled={isAISummaryEnabled}
-						onActionClick={onActionClick}
-						titleBlockProps={titleBlockProps}
-						url={url}
-					/>
-				);
-			}
-
 			return (
-				<HoverCardResolvedView
-					id={id}
-					url={url}
-					extensionKey={extensionKey}
+				<HoverCardRedesignedResolvedView
 					analytics={analytics}
-					cardActions={cardActions}
 					cardState={cardState}
+					extensionKey={extensionKey}
 					flexibleCardProps={flexibleCardProps}
 					isAISummaryEnabled={isAISummaryEnabled}
 					onActionClick={onActionClick}
 					titleBlockProps={titleBlockProps}
+					url={url}
 				/>
 			);
 		}

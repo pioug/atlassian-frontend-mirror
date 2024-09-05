@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor",
-	"version": "4.6.1",
+	"version": "4.7.0",
 	"description": "This package allows consumers to render an advanced JQL editor component to enable autocomplete-assisted authoring and validation of JQL queries.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -12,7 +12,8 @@
 		"website": {
 			"name": "JQL Editor",
 			"category": "JQL"
-		}
+		},
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -48,7 +49,7 @@
 		"@atlaskit/icon": "^22.15.0",
 		"@atlaskit/jql-ast": "^3.3.0",
 		"@atlaskit/jql-autocomplete": "^2.0.0",
-		"@atlaskit/jql-editor-common": "^2.0.0",
+		"@atlaskit/jql-editor-common": "^2.1.0",
 		"@atlaskit/jql-parser": "^2.0.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/spinner": "^16.3.0",
@@ -71,13 +72,13 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@atlaskit/docs": "*",
-		"@atlaskit/jql-editor-autocomplete-rest": "^2.0.0",
+		"@atlaskit/jql-editor-autocomplete-rest": "^2.1.0",
 		"@atlaskit/visual-regression": "*",
 		"@storybook/addon-actions": "^5.2.5",
 		"@storybook/addon-knobs": "^5.3.18",

@@ -15,12 +15,11 @@ import Action from '../action';
 import type { PreviewActionProps } from './types';
 
 const getIconFF = () => {
-	if (fg('platform.linking-platform.smart-card.hover-card-action-redesign')) {
-		if (fg('platform.linking-platform.smart-card.action-icon-redesign')) {
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20003
-			return MediaServicesActualSizeIcon;
-		}
+	if (fg('platform.linking-platform.smart-card.action-icon-redesign')) {
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20003
+		return MediaServicesActualSizeIcon;
 	}
+
 	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20003
 	return VidFullScreenOnIcon;
 };

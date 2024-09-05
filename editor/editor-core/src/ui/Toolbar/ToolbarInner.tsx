@@ -8,7 +8,9 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import isEqual from 'lodash/isEqual';
 
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../../actions';
 
@@ -46,6 +48,11 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 		} = this.props;
 
 		if (!items || !items.length) {
+			return null;
+		}
+		if (isSSR() && fg('platform_hide_editor_toolbar_ssr')) {
+			// Toolbar in SSR environment is showing collapsed state, which caused layout shift after hydrating to SPA.
+			// Hiding toolbar in SSR until the dependency of screen width is resolved in SSR environment.
 			return null;
 		}
 

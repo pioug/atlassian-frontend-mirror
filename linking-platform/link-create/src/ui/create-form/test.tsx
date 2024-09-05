@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { act, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import { axe } from '@af/accessibility-testing';
 import { flushPromises } from '@atlaskit/link-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type Validator } from '../../common/types';
 import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
@@ -12,6 +14,7 @@ import { FormContextProvider } from '../../controllers/form-context';
 
 import { AsyncSelect } from './async-select';
 import { CreateForm, type CreateFormProps } from './main';
+import { Select } from './select';
 import { TextField } from './textfield';
 import { UserPicker } from './user-picker';
 
@@ -36,12 +39,12 @@ describe('<CreateForm />', () => {
 
 	const setUpCreateForm = (
 		children?: React.ReactNode,
-		createFormProps?: Partial<Omit<CreateFormProps<{}>, 'testId' | 'onSubmit' | 'onCancel'>>,
+		createFormProps?: Partial<Omit<CreateFormProps<{}>, 'testId' | 'onCancel'>>,
 	) => {
 		const onCreate = jest.fn();
 		const onFailure = jest.fn();
 
-		render(
+		const result = render(
 			<IntlProvider locale="en">
 				<FormContextProvider>
 					<LinkCreateCallbackProvider onCreate={onCreate} onFailure={onFailure}>
@@ -61,6 +64,7 @@ describe('<CreateForm />', () => {
 		return {
 			onCreate,
 			onFailure,
+			result,
 		};
 	};
 
@@ -220,5 +224,40 @@ describe('<CreateForm />', () => {
 			const { getByText } = within(UserPickerScreen);
 			expect(getByText('Gabby Chan')).toBeInTheDocument();
 		});
+	});
+
+	describe('a11y', () => {
+		ffTest.both(
+			'linking-platform-create-field-error-association',
+			'ff does not impact accessibility',
+			() => {
+				it('should be accessible', async () => {
+					const { container } = setUpCreateForm(
+						<Fragment>
+							<TextField label="Textfield" name="textfield" />
+							<Select label="Select" name="select" />
+							<AsyncSelect label="AsyncSelect" name="asyncselect" />
+							<UserPicker
+								label="User"
+								name="userpicker"
+								productKey="jira"
+								siteId="siteId"
+								defaultValue={undefined}
+							/>
+						</Fragment>,
+						{
+							onSubmit: () => ({
+								textfield: 'Textfield is invalid',
+								select: 'Select is invalid',
+								asyncselect: 'AsyncSelect is invalid',
+								userpicker: 'Userpicker is invalid',
+							}),
+						},
+					).result;
+
+					await axe(container);
+				});
+			},
+		);
 	});
 });

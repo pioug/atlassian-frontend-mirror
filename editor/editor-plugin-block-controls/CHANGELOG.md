@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.13.0
+
+### Minor Changes
+
+- [#137234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137234)
+  [`e80c81de138e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e80c81de138e9) -
+  [ux] [ED-24803] Experiment for editor block controls which adds a button to insert quickInsert
+  elements
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.12.10
 
 ### Patch Changes

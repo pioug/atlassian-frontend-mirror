@@ -1,5 +1,23 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.11.35
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.11.34
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.11.33
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.11.32
 
 ### Patch Changes

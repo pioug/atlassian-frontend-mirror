@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.8.4
+
+### Patch Changes
+
+- [#137234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137234)
+  [`e80c81de138e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e80c81de138e9) -
+  [ux] [ED-24803] Experiment for editor block controls which adds a button to insert quickInsert
+  elements
+- Updated dependencies
+
 ## 1.8.3
 
 ### Patch Changes

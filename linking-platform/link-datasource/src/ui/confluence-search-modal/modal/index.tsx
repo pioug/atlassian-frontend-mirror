@@ -114,12 +114,7 @@ const useUpdateParametersOnFormUpdate = (
 export const PlainConfluenceSearchConfigModal = (
 	props: ConnectedConfluenceSearchConfigModalProps,
 ) => {
-	const {
-		onCancel,
-		url: urlBeingEdited,
-		disableDisplayDropdown = false,
-		overrideParameters,
-	} = props;
+	const { onCancel, url: urlBeingEdited, overrideParameters } = props;
 
 	const { currentViewMode } = useViewModeContext();
 
@@ -393,7 +388,7 @@ export const PlainConfluenceSearchConfigModal = (
 							label={siteSelectorLabel}
 						/>
 					</ModalTitle>
-					{!hasNoConfluenceSites && !disableDisplayDropdown && <DatasourceViewModeDropDown />}
+					{!hasNoConfluenceSites && <DatasourceViewModeDropDown />}
 				</ModalHeader>
 				<ModalBody>
 					{!hasNoConfluenceSites ? (

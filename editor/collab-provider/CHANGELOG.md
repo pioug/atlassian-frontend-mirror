@@ -1,5 +1,22 @@
 # @atlaskit/collab-provider
 
+## 9.37.7
+
+### Patch Changes
+
+- [#137379](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137379)
+  [`b635019594ddd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b635019594ddd) -
+  Adding new subProduct tag in collab provider analytics event
+- Updated dependencies
+
+## 9.37.6
+
+### Patch Changes
+
+- [#137366](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137366)
+  [`44c333f52bfa6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44c333f52bfa6) -
+  Avoid left undefined clientId in collab-provider
+
 ## 9.37.5
 
 ### Patch Changes

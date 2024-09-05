@@ -595,7 +595,3 @@ export type TeamsUserQueryResponse = {
 	};
 	appType?: string;
 };
-
-export interface UserInSiteUserbase {
-	isPresent: boolean;
-}

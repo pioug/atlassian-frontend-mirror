@@ -30,6 +30,8 @@ export type ConfigModalProps<ADF, Parameters> = {
 	 * - Inline = Presents a smart link that shows the count of query results. However, if there's only one result, it converts to an inline smart link of that issue.
 	 */
 	viewMode?: DisplayViewModes;
+	/** Disable the view mode display dropdown */
+	disableDisplayDropdown?: boolean;
 } & Partial<
 	Pick<IssueLikeDataTableViewProps, 'visibleColumnKeys' | 'wrappedColumnKeys' | 'columnCustomSizes'>
 >;

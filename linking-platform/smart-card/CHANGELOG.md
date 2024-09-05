@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 27.20.1
+
+### Patch Changes
+
+- [#136464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136464)
+  [`6a5b8c86b4c6c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a5b8c86b4c6c) -
+  fixing a11y violations with smart-card icon alt text and EmbedCard title
+
+## 27.20.0
+
+### Minor Changes
+
+- [#136850](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136850)
+  [`aa33716afac49`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa33716afac49) -
+  [ux] Remove hover card redesign feature flag
+
 ## 27.19.1
 
 ### Patch Changes

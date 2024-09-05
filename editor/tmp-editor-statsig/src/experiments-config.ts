@@ -66,6 +66,16 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Add 2024-08-27
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_command_palate_improvement/
+	platform_editor_ai_command_palate_improvement: {
+		productKeys: {
+			confluence: 'platform_editor_ai_command_palate_improvement',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'test']),
+		defaultValue: 'control' as 'control' | 'test',
+	},
 	// Added 2024-08-23
 	'platform-editor-ai-condensed-floating-toobar': {
 		productKeys: {
@@ -106,6 +116,24 @@ export const editorExperimentsConfig = {
 	'table-nested-dnd': {
 		productKeys: {
 			confluence: 'platform_editor_elements_dnd_nested_table',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2024-08-29
+	'insert-menu-in-right-rail': {
+		productKeys: {
+			confluence: 'platform_editor_insert_menu_in_right_rail',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2024-09-02
+	platform_editor_empty_line_prompt: {
+		productKeys: {
+			confluence: 'platform_editor_empty_line_prompt',
 		},
 		param: 'isEnabled',
 		typeGuard: isBoolean,

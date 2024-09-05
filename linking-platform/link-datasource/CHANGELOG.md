@@ -1,5 +1,28 @@
 # @atlaskit/link-datasource
 
+## 2.12.1
+
+### Patch Changes
+
+- [#137443](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137443)
+  [`1be2afe0863d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1be2afe0863d9) -
+  Fire analytic event `ui.error.shown.inlineEdit` when error flag is shown
+
+## 2.12.0
+
+### Minor Changes
+
+- [#137119](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137119)
+  [`39898be3befdd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/39898be3befdd) -
+  Expose `disableDisplayDropdown` Prop for JiraIssuesConfigModal
+
+### Patch Changes
+
+- [#136467](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136467)
+  [`121a4c6220928`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/121a4c6220928) -
+  Fire event when user clicks on inline edit
+- Updated dependencies
+
 ## 2.11.16
 
 ### Patch Changes

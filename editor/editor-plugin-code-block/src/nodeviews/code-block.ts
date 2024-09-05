@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 import rafSchedule from 'raf-schd';
 
 import { browser } from '@atlaskit/editor-common/browser';
@@ -224,7 +225,9 @@ export class CodeBlockView {
 		}
 		if (node !== this.node) {
 			if (fg('editor_support_code_block_wrapping')) {
-				transferCodeBlockWrappedValue(this.node, node);
+				if (!fg('editor_code_block_wrapping_language_change_bug')) {
+					transferCodeBlockWrappedValue(this.node, node);
+				}
 			}
 
 			if (node.attrs.language !== this.node.attrs.language) {

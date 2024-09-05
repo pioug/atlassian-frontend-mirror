@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 10.23.0
+
+### Minor Changes
+
+- [#136484](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136484)
+  [`b41c0d44e7b21`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b41c0d44e7b21) -
+  [ux] Allow supplying custom byline to Group items
+
 ## 10.22.6
 
 ### Patch Changes

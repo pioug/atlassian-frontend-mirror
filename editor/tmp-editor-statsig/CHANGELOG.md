@@ -1,5 +1,36 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.1.5
+
+### Patch Changes
+
+- [#137234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137234)
+  [`e80c81de138e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e80c81de138e9) -
+  [ux] [ED-24803] Experiment for editor block controls which adds a button to insert quickInsert
+  elements
+
+## 2.1.4
+
+### Patch Changes
+
+- [#136760](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136760)
+  [`67e70c0779b86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67e70c0779b86) -
+  [EDF-1274](https://product-fabric.atlassian.net/browse/EDF-1274) - replace
+  platform_editor_ai_command_palate_improvement_fg FG by
+  platform_editor_ai_command_palate_improvement Statsig experiment
+
+## 2.1.3
+
+### Patch Changes
+
+- [#137041](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137041)
+  [`060aff106c5ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/060aff106c5ac) -
+  Add insert-right-rail experiment and reimplement right rail logic
+- [#137041](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137041)
+  [`060aff106c5ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/060aff106c5ac) -
+  Add new experiment for insert menu in right rail, allow right menu to be opened from main toolbar
+  '+' button
+
 ## 2.1.2
 
 ### Patch Changes

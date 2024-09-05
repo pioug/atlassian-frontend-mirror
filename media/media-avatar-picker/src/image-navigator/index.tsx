@@ -34,10 +34,11 @@ import {
 import { uploadPlaceholder, errorIcon } from './images';
 import { fileSizeMb } from '../util';
 import { ERROR, MAX_SIZE_MB, ACCEPT } from '../avatar-picker-dialog';
-import { Viewport, renderViewport } from '../viewport';
+import { Viewport } from '../viewport';
 import { Slider } from './slider';
 import { CONTAINER_SIZE, CONTAINER_PADDING } from '../avatar-picker-dialog/layout-const';
 import { DragZone } from './dragZone';
+import { exportCroppedImage } from './exportCroppedImage';
 
 export interface LoadParameters {
 	export: (outputSize?: number) => string;
@@ -180,19 +181,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 	};
 
 	exportCroppedImage = (outputSize?: number) => {
-		const { imageElement } = this;
-		if (imageElement) {
-			const canvas = renderViewport(
-				this.state.viewport,
-				imageElement,
-				document.createElement('canvas'),
-				outputSize,
-			);
-			if (canvas) {
-				return canvas.toDataURL();
-			}
-		}
-		return '';
+		return exportCroppedImage(this.state.viewport, this.imageElement, outputSize);
 	};
 
 	exportCrop(): void {
@@ -359,6 +348,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 						>
 							<FormattedMessage {...messages.upload_photo} />
 							<input
+								data-testid="image-navigator-input-file"
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								css={fileInputStyles}
 								type="file"

@@ -48,6 +48,7 @@ export const createDatasourceModal = <Parameters extends DatasourceParameters>({
 			parameters,
 			onInsert,
 			viewMode,
+			disableDisplayDropdown,
 		} = props;
 
 		return (
@@ -71,7 +72,10 @@ export const createDatasourceModal = <Parameters extends DatasourceParameters>({
 							isValidParameters={isValidParameters}
 							onInsert={onInsert}
 						>
-							<DatasourceViewModeProvider viewMode={viewMode ?? DEFAULT_VIEW_MODE}>
+							<DatasourceViewModeProvider
+								viewMode={viewMode ?? DEFAULT_VIEW_MODE}
+								disableDisplayDropdown={disableDisplayDropdown || false}
+							>
 								<ModalContent {...props} />
 							</DatasourceViewModeProvider>
 						</DatasourceContextProvider>

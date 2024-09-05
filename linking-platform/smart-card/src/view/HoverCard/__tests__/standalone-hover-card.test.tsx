@@ -1,3 +1,4 @@
+import Heading from '@atlaskit/heading';
 import '@atlaskit/link-test-helpers/jest';
 import {
 	setup,
@@ -10,12 +11,7 @@ import {
 	type HoverCardProps,
 } from '@atlaskit/smart-card/hover-card';
 import { type HoverCardInternalProps } from '../types';
-import {
-	forbiddenViewTests,
-	mockUrl,
-	runCommonHoverCardTests,
-	unauthorizedViewTests,
-} from './common/common.test-utils';
+import { forbiddenViewTests, mockUrl, runCommonHoverCardTests } from './common/common.test-utils';
 import { analyticsTests } from './common/analytics.test-utils';
 import { mockConfluenceResponse } from './__mocks__/mocks';
 import { fakeFactory } from '../../../utils/mocks';
@@ -61,6 +57,7 @@ describe('standalone hover card', () => {
 	});
 
 	afterEach(() => {
+		act(() => jest.runAllTimers()); // Suppress act errors after test ends
 		jest.useRealTimers();
 		jest.restoreAllMocks();
 	});
@@ -75,7 +72,9 @@ describe('standalone hover card', () => {
 		const hoverCardComponent = (
 			<StandaloneHoverCard url={mockUrl} {...setUpParams?.extraCardProps} {...props}>
 				<div data-testid={childTestId}>
-					<h2 data-testid={secondaryChildTestId}>Hover on me</h2>
+					<Heading testId={secondaryChildTestId} size="large">
+						Hover on me
+					</Heading>
 				</div>
 			</StandaloneHoverCard>
 		);
@@ -95,13 +94,13 @@ describe('standalone hover card', () => {
 		},
 	};
 
-	runCommonHoverCardTests((setupProps?: SetUpParams) => standaloneSetUp(setupProps), testConfig);
-
-	forbiddenViewTests((setupProps?: SetUpParams) => standaloneSetUp(setupProps));
-
-	analyticsTests((setupProps?: SetUpParams) => standaloneSetUp(setupProps), {
-		display: undefined,
-		isAnalyticsContextResolvedOnHover: false,
+	describe('Common tests', () => {
+		runCommonHoverCardTests((setupProps?: SetUpParams) => standaloneSetUp(setupProps), testConfig);
+		forbiddenViewTests((setupProps?: SetUpParams) => standaloneSetUp(setupProps));
+		analyticsTests((setupProps?: SetUpParams) => standaloneSetUp(setupProps), {
+			display: undefined,
+			isAnalyticsContextResolvedOnHover: false,
+		});
 	});
 
 	it('should render a correct view of a hover card over a div', async () => {
@@ -109,14 +108,14 @@ describe('standalone hover card', () => {
 		const titleBlock = await findByTestId('smart-block-title-resolved-view');
 		await findAllByTestId('smart-block-metadata-resolved-view');
 		const snippetBlock = await findByTestId('smart-block-snippet-resolved-view');
-		const footerBlock = await findByTestId('smart-footer-block-resolved-view');
-		//trim because the icons are causing new lines in the textContent
+		const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
+		// trim because the icons are causing new lines in the textContent
 		expect(titleBlock.textContent?.trim()).toBe('I love cheese');
 		expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
-		expect(footerBlock.textContent?.trim()).toBe('ConfluenceDownloadOpen preview');
+		expect(footerBlock.textContent?.trim()).toBe('Confluence');
 	});
 
-	it('should clear up timout if the component unmounts before the hover card shows up', async () => {
+	it('should clear up timeout if the component unmounts before the hover card shows up', async () => {
 		const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 		const testId = 'h1-hover-card-trigger';
 		const mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
@@ -126,7 +125,9 @@ describe('standalone hover card', () => {
 		const ComponentWithHoverCard = () => {
 			return (
 				<StandaloneHoverCard url={mockUrl} id={'1234'}>
-					<h1 data-testid={testId}>Hover over me!</h1>
+					<Heading testId={testId} size="xlarge">
+						Hover over me!
+					</Heading>
 				</StandaloneHoverCard>
 			);
 		};
@@ -219,7 +220,7 @@ describe('standalone hover card', () => {
 			const link = await findByTestId('smart-element-link');
 			await event.click(link);
 
-			const previewButton = await findByTestId('preview-content');
+			const previewButton = await findByTestId('smart-action-preview-action');
 			await event.click(previewButton);
 
 			expect(mockOnClick).not.toHaveBeenCalled();
@@ -260,14 +261,18 @@ describe('standalone hover card', () => {
 			});
 
 			// Delay not completed yet
-			jest.advanceTimersByTime(99);
+			act(() => {
+				jest.advanceTimersByTime(99);
+			});
 			expect(loadMetadataSpy).not.toHaveBeenCalled();
 
 			// Delay completed
 			const triggerArea = await findByTestId('hover-card-trigger-wrapper');
 			await event.unhover(triggerArea);
 
-			jest.advanceTimersByTime(1);
+			act(() => {
+				jest.advanceTimersByTime(1);
+			});
 			expect(loadMetadataSpy).not.toHaveBeenCalled();
 		});
 
@@ -277,22 +282,28 @@ describe('standalone hover card', () => {
 			});
 
 			// Hovering on the hover area for the first time and then moving the mouse before the 100 ms elapses
-			jest.advanceTimersByTime(99);
+			act(() => {
+				jest.advanceTimersByTime(99);
+			});
 			expect(loadMetadataSpy).not.toHaveBeenCalled();
 
 			const triggerArea = await findByTestId('hover-card-trigger-wrapper');
 			await event.unhover(triggerArea);
 
 			// Making sure the loadMetadata was not called
-			jest.advanceTimersByTime(1);
+			act(() => {
+				jest.advanceTimersByTime(1);
+			});
 			expect(loadMetadataSpy).not.toHaveBeenCalled();
 
 			// Hover on the hover area for the second time and waiting for 100ms
 			await event.hover(triggerArea);
-			jest.advanceTimersByTime(100);
+			act(() => {
+				jest.advanceTimersByTime(100);
+			});
 
 			// Making sure the loadMetadata was called
-			expect(loadMetadataSpy).toBeCalled();
+			expect(loadMetadataSpy).toHaveBeenCalled();
 		});
 
 		it('should call loadMetadata after a delay if link state is pending', async () => {
@@ -306,14 +317,18 @@ describe('standalone hover card', () => {
 			await event.hover(triggerArea);
 
 			// Delay not completed yet
-			jest.advanceTimersByTime(99);
+			act(() => {
+				jest.advanceTimersByTime(99);
+			});
 
 			expect(loadMetadataSpy).not.toHaveBeenCalled();
 
 			// Delay completed
-			jest.advanceTimersByTime(1);
+			act(() => {
+				jest.advanceTimersByTime(1);
+			});
 
-			expect(loadMetadataSpy).toBeCalled();
+			expect(loadMetadataSpy).toHaveBeenCalled();
 		});
 
 		it('should call loadMetadata only once if multiple mouseOver events are sent and if link state is pending', async () => {
@@ -328,26 +343,25 @@ describe('standalone hover card', () => {
 			await event.hover(triggerArea);
 
 			// Delay not completed yet
-			jest.advanceTimersByTime(1);
+			act(() => {
+				jest.advanceTimersByTime(1);
+			});
 
 			// Firing the second mouseOver event
 			await event.hover(triggerArea);
 
 			// Delay completed
-			jest.advanceTimersByTime(99);
+			act(() => {
+				jest.advanceTimersByTime(99);
+			});
 
 			expect(loadMetadataSpy).toHaveBeenCalledTimes(1);
 		});
 	});
 
-	// Unskip these tests after EDM-7412 is completed
-	describe.skip('unauthorised status', () => {
-		unauthorizedViewTests((setupProps?: SetUpParams) => standaloneSetUp(setupProps), testConfig);
-	});
-
 	describe('internal hover card props', () => {
 		describe('closeOnChildClick', () => {
-			it.each([
+			it.each<['should' | 'should not', boolean]>([
 				['should', true],
 				['should not', false],
 			])(
@@ -429,7 +443,7 @@ describe('standalone hover card', () => {
 			const testId = 'hover-test-can-open-div';
 			const contentTestId = 'smart-block-title-resolved-view';
 
-			it.each([
+			it.each<['should' | 'should not', boolean]>([
 				['should', true],
 				['should not', false],
 			])('%s show hover card when canOpen is %s', async (outcome, canOpen) => {
@@ -437,7 +451,6 @@ describe('standalone hover card', () => {
 					testId,
 					component: <TestCanOpenComponent canOpen={canOpen} testId={testId} />,
 				});
-
 				if (outcome === 'should') {
 					const hoverContent = await findByTestId(contentTestId);
 					expect(hoverContent).toBeInTheDocument();
@@ -454,20 +467,16 @@ describe('standalone hover card', () => {
 				});
 				// Element has not set canOpen value (default)
 				expect(await findByTestId(contentTestId)).toBeInTheDocument();
-
 				// Element sets to can open
 				const canOpenElement = await findByTestId(`${testId}-can-open`);
 				await event.hover(canOpenElement);
-
 				expect(await findByTestId(contentTestId)).toBeInTheDocument();
-
 				// Element sets to cannot open
 				const cannotOpenElement = await findByTestId(`${testId}-cannot-open`);
 				await act(async () => {
 					await event.hover(cannotOpenElement);
 				});
 				expect(queryByTestId(contentTestId)).not.toBeInTheDocument();
-
 				// Go back to element sets to can open again
 				const canOpenElementAgain = await findByTestId(`${testId}-can-open`);
 				await event.hover(canOpenElementAgain);
@@ -478,17 +487,14 @@ describe('standalone hover card', () => {
 		describe('z-index', () => {
 			it('renders with defaults z-index', async () => {
 				const { findByTestId } = await standaloneSetUp();
-
 				const hoverCard = await findByTestId('hover-card');
 				const portal = hoverCard.closest('.atlaskit-portal');
 				expect(portal).toHaveStyle('z-index: 510');
 			});
-
 			it('renders with provided z-index', async () => {
 				const { findByTestId } = await standaloneSetUp(undefined, {
 					zIndex: 10,
 				});
-
 				const hoverCard = await findByTestId('hover-card');
 				const portal = hoverCard.closest('.atlaskit-portal');
 				expect(portal).toHaveStyle('z-index: 10');
@@ -500,7 +506,7 @@ describe('standalone hover card', () => {
 				const { findByTestId, queryByTestId } = await standaloneSetUp(undefined, {
 					hidePreviewButton: true,
 				});
-				const footerBlock = await findByTestId('smart-footer-block-resolved-view');
+				const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
 				expect(footerBlock).toBeTruthy();
 				const fullscreenButton = queryByTestId('preview-content-button-wrapper');
 				expect(fullscreenButton).toBeFalsy();

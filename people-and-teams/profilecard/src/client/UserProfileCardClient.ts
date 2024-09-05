@@ -6,7 +6,6 @@ import type {
 	ProfileCardClientData,
 	ProfileClientOptions,
 	TeamsUserQueryResponse,
-	UserInSiteUserbase,
 } from '../types';
 import { userRequestAnalytics } from '../util/analytics';
 import { localTime } from '../util/date';
@@ -119,20 +118,6 @@ export const buildAggUserQuery = (userId: string) => ({
 	},
 });
 
-const getUserInSiteUserBase = (cloudId: string, userId: string): Promise<UserInSiteUserbase> => {
-	return fetch(
-		new Request(`/gateway/api/teams/site/${cloudId}/users/${userId}/exists`, {
-			method: 'GET',
-			credentials: 'include',
-			mode: 'cors',
-			headers: {
-				Accept: 'application/json',
-				'X-header-client-id': 'ptc-fe',
-			},
-		}),
-	).then((response) => response.json());
-};
-
 const queryAGGUser = async (url: string, userId: string): Promise<TeamsUserQueryResponse> => {
 	const query = buildAggUserQuery(userId);
 	const { user } = await AGGQuery<{ user: TeamsUserQueryResponse }>(url, query);
@@ -150,15 +135,7 @@ export default class UserProfileCardClient extends CachingClient<any> {
 	async makeRequest(cloudId: string, userId: string): Promise<ProfileCardClientData> {
 		if (fg('migrate_cloud_user_to_agg_user_query_profile_card')) {
 			const gatewayGraphqlUrl = this.options.gatewayGraphqlUrl || '/gateway/api/graphql';
-			const userCheckPromise = getUserInSiteUserBase(cloudId, userId);
 			const userQueryPromise = queryAGGUser(gatewayGraphqlUrl, userId);
-
-			const checkUserPresentInSiteRes = await userCheckPromise;
-
-			if (!checkUserPresentInSiteRes.isPresent) {
-				// Use this error message to not trouble SLO, check out getErrorAttributes for reference
-				throw new Error('Unable to fetch user: User does not exist in this site');
-			}
 
 			const user = await userQueryPromise;
 

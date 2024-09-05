@@ -12,7 +12,6 @@ import { within } from '@testing-library/dom';
 import { type setup as hoverCardSetup, type SetUpParams } from './setup.test-utils';
 import { additionalPayloadAttributes, getEventPayload } from './analytics.test-utils';
 import { CardAction, type CardActionOptions } from '../../../../view/Card/types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const userEventOptionsWithAdvanceTimers = {
 	advanceTimers: jest.advanceTimersByTime,
@@ -196,12 +195,13 @@ export const runCommonHoverCardTests = (
 	config: TestConfig,
 ) => {
 	it('should show tooltip on copy link button', async () => {
-		const { findByTestId, event } = await setup();
+		const { findByTestId, event, findByRole, queryByRole } = await setup();
 
 		const content = await findByTestId('smart-block-title-resolved-view');
-		const copyButton = await findByTestId('hover-card-copy-button');
+		const copyButton = await findByTestId('smart-action-copy-link-action');
+		expect(queryByRole('tooltip')).toBeNull();
 		await event.hover(copyButton);
-		const tooltip = await findByTestId('hover-card-copy-button-tooltip');
+		const tooltip = await findByRole('tooltip');
 
 		expect(content).toBeTruthy();
 		expect(tooltip.textContent).toBe('Copy link');
@@ -329,6 +329,7 @@ export const runCommonHoverCardTests = (
 
 			const hoverCard = await findByTestId('hover-card');
 			await event.hover(hoverCard);
+
 			await event.unhover(hoverCard);
 			act(() => {
 				jest.runAllTimers();
@@ -338,15 +339,15 @@ export const runCommonHoverCardTests = (
 		});
 
 		it('should hide the card if a mouse sends multiple mouse over events but leaves the hover area before the delay elapses', async () => {
-			const { queryByTestId, findByTestId, element, event } = await setup({
+			const { queryByTestId, findAllByTestId, element, event } = await setup({
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
 
 			act(() => {
 				jest.advanceTimersByTime(100);
 			});
-			const titleAndIcon = await findByTestId(secondaryChildTestId);
-			await event.hover(titleAndIcon);
+			const titleAndIcon = await findAllByTestId(secondaryChildTestId);
+			await event.hover(titleAndIcon[0]);
 			act(() => {
 				jest.advanceTimersByTime(199);
 			});
@@ -362,7 +363,7 @@ export const runCommonHoverCardTests = (
 		});
 
 		it('should show the card in 500ms the card if a mouse sends multiple mouse over events over children', async () => {
-			const { queryByTestId, findByTestId } = await setup({
+			const { queryByTestId, findAllByTestId } = await setup({
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
 
@@ -370,11 +371,11 @@ export const runCommonHoverCardTests = (
 				jest.advanceTimersByTime(300);
 			});
 
-			const titleAndIcon = await findByTestId(secondaryChildTestId);
+			const titleAndIcon = await findAllByTestId(secondaryChildTestId);
 
-			fireEvent.mouseOver(titleAndIcon);
+			fireEvent.mouseOver(titleAndIcon[0]);
 			fireEvent(
-				titleAndIcon,
+				titleAndIcon[0],
 				new MouseEvent('mouseleave', {
 					bubbles: false,
 					cancelable: true,
@@ -385,9 +386,9 @@ export const runCommonHoverCardTests = (
 				jest.advanceTimersByTime(100);
 			});
 
-			fireEvent.mouseOver(titleAndIcon);
+			fireEvent.mouseOver(titleAndIcon[0]);
 			fireEvent(
-				titleAndIcon,
+				titleAndIcon[0],
 				new MouseEvent('mouseleave', {
 					bubbles: false,
 					cancelable: true,
@@ -403,7 +404,9 @@ export const runCommonHoverCardTests = (
 
 		it('should hide after pressing escape', async () => {
 			const { queryByTestId, event } = await setup();
-			await event.keyboard('{Escape}');
+			await act(async () => {
+				await event.keyboard('{Escape}'); // This causes an act error
+			});
 			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
 		});
 
@@ -417,33 +420,27 @@ export const runCommonHoverCardTests = (
 		});
 	});
 
-	ffTest.on(
-		'platform.linking-platform.smart-card.hover-card-action-redesign',
-		'Redesign FF on',
-		() => {
-			it('renders hover card redesign', async () => {
-				const { findByTestId } = await setup();
-				const actionBlock = await findByTestId('smart-block-action');
-				expect(actionBlock).toBeInTheDocument();
-			});
-		},
-	);
+	it('renders hover card redesign', async () => {
+		const { findByTestId } = await setup();
+		const actionBlock = await findByTestId('smart-block-action');
+		expect(actionBlock).toBeInTheDocument();
+	});
 
 	describe('client-side actions', () => {
 		it('should render smartlink actions', async () => {
 			const { findByTestId } = await setup();
-			const downloadButton = await findByTestId('download-content');
-			const previewButton = await findByTestId('preview-content');
+			const downloadButton = await findByTestId('smart-action-download-action');
+			const previewButton = await findByTestId('smart-action-preview-action');
 
-			expect(downloadButton.textContent).toBe('Download');
+			expect(downloadButton.textContent).toBe('Download file');
 			expect(previewButton.textContent).toBe('Open preview');
 		});
 
 		it('should not render smartlinks actions if disabled', async () => {
 			const { queryByTestId } = await setup();
 
-			expect(queryByTestId('download-content')).not.toBeInTheDocument();
-			expect(queryByTestId('preview-content')).not.toBeInTheDocument();
+			expect(queryByTestId('smart-action-download-action')).not.toBeInTheDocument();
+			expect(queryByTestId('smart-action-preview-action')).not.toBeInTheDocument();
 		});
 
 		it('should not render client actions that are excluded', async () => {
@@ -453,81 +450,30 @@ export const runCommonHoverCardTests = (
 				},
 			});
 
-			expect(queryByTestId('download-content')).not.toBeInTheDocument();
-			expect(queryByTestId('preview-content')).toBeDefined();
+			expect(queryByTestId('smart-action-download-action')).not.toBeInTheDocument();
+			expect(queryByTestId('smart-action-preview-action')).toBeDefined();
 		});
 
-		describe('should open preview modal after clicking preview button', () => {
-			ffTest(
-				'platform.linking-platform.smart-card.hover-card-action-redesign',
-				async () => {
-					const { findByTestId, queryByTestId, event } = await setup();
+		it('should open preview modal after clicking preview button', async () => {
+			const { findByTestId, queryByTestId, event } = await setup();
 
-					const previewButton = await findByTestId('smart-action-preview-action');
-					await event.click(previewButton);
-					const previewModal = await findByTestId('smart-embed-preview-modal');
-					expect(previewModal).toBeInTheDocument();
+			const previewButton = await findByTestId('smart-action-preview-action');
+			await event.click(previewButton);
+			const previewModal = await findByTestId('smart-embed-preview-modal');
+			expect(previewModal).toBeInTheDocument();
 
-					await findByTestId('block-card-icon');
+			await findByTestId('block-card-icon');
 
-					const hoverCard = queryByTestId('hover-card');
-					expect(hoverCard).not.toBeInTheDocument();
-				},
-				async () => {
-					const { findByTestId, queryByTestId, event } = await setup();
-					const previewButton = await findByTestId('preview-content');
-					await event.click(previewButton);
-					const previewModal = await findByTestId('smart-embed-preview-modal');
-
-					expect(previewModal).toBeInTheDocument();
-
-					const icon = await findByTestId('block-card-icon');
-					expect(icon).toBeInTheDocument();
-
-					const hoverCard = queryByTestId('hover-card');
-					expect(hoverCard).not.toBeInTheDocument();
-				},
-			);
+			const hoverCard = queryByTestId('hover-card');
+			expect(hoverCard).not.toBeInTheDocument();
 		});
 
-		describe('renders copy link action', () => {
-			ffTest(
-				'platform.linking-platform.smart-card.hover-card-action-redesign',
-				async () => {
-					const { findByTestId } = await setup();
-					const hoverCard = await findByTestId('hover-card');
-					const block = await within(hoverCard).findByTestId('smart-block-action');
-					const button = await within(block).findByTestId('smart-action-copy-link-action');
-					expect(button).toBeInTheDocument();
-				},
-				async () => {
-					const { findByTestId } = await setup();
-					const hoverCard = await findByTestId('hover-card');
-					const block = await within(hoverCard).findByTestId('smart-block-title-resolved-view');
-					const button = await within(block).findByTestId('hover-card-copy-button');
-					expect(button).toBeInTheDocument();
-				},
-			);
-
-			// This test can be removed on cleanup.
-			// https://product-fabric.atlassian.net/browse/EDM-9556
-			ffTest(
-				'platform.linking-platform.smart-card.hover-card-action-redesign',
-				async () => {
-					// Does not render copy button on title block
-					const { findByTestId } = await setup();
-					const hoverCard = await findByTestId('hover-card');
-					const button = within(hoverCard).queryByTestId('hover-card-copy-button');
-					expect(button).not.toBeInTheDocument();
-				},
-				async () => {
-					// Does not render copy button on action block
-					const { findByTestId } = await setup();
-					const hoverCard = await findByTestId('hover-card');
-					const button = within(hoverCard).queryByTestId('smart-action-copy-link-action');
-					expect(button).not.toBeInTheDocument();
-				},
-			);
+		it('renders copy link action', async () => {
+			const { findByTestId } = await setup();
+			const hoverCard = await findByTestId('hover-card');
+			const block = await within(hoverCard).findByTestId('smart-block-action');
+			const button = await within(block).findByTestId('smart-action-copy-link-action');
+			expect(button).toBeInTheDocument();
 		});
 
 		describe('FF fix embed preview url query params', () => {
@@ -553,7 +499,7 @@ export const runCommonHoverCardTests = (
 						extraCardProps: { url: 'http://some-preview-url-test.com' },
 					});
 
-					const previewButton = await findByTestId('preview-content');
+					const previewButton = await findByTestId('smart-action-preview-action');
 					await event.click(previewButton);
 					const iframeEl = await findByTestId(`smart-embed-preview-modal-embed`);
 					expect(iframeEl).toBeTruthy();
@@ -637,7 +583,9 @@ export const runCommonHoverCardTests = (
 
 			const actionElement = await findByTestId(elementId);
 			expect(actionElement).toBeInTheDocument();
-			await event.click(actionElement);
+			await act(async () => {
+				await event.click(actionElement); // This causes an act error
+			});
 			expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
 				{
 					payload: {
@@ -656,7 +604,6 @@ export const runCommonHoverCardTests = (
 			const {
 				testIds: { erroredTestId },
 			} = config;
-
 			const mockFetch = jest.fn(() =>
 				Promise.reject({
 					error: {
@@ -667,13 +614,11 @@ export const runCommonHoverCardTests = (
 					status: 404,
 				}),
 			);
-
 			const { findByTestId } = await setup({
 				mock: mockBaseResponseWithErrorPreview,
 				mockFetch: mockFetch,
 				testId: erroredTestId,
 			});
-
 			await expect(() => findByTestId('hover-card-loading-view')).rejects.toThrow();
 		});
 	});

@@ -6,7 +6,6 @@ import {
 	type Identifier,
 	type ImportDeclaration,
 	isNodeOfType,
-	type Node,
 	type VariableDeclaration,
 } from 'eslint-codemod-utils';
 
@@ -14,7 +13,6 @@ import {
 	addToListOfRanges,
 	canAutoMigrateNewIconBasedOnSize,
 	canMigrateColor,
-	checkIfNewIconExist,
 	createAutoMigrationError,
 	createCantFindSuitableReplacementError,
 	createCantMigrateColorError,
@@ -26,20 +24,21 @@ import {
 	createCantMigrateSpreadPropsError,
 	createGuidance,
 	createHelpers,
-	createImportFix,
-	createPropFixes,
 	type ErrorListAuto,
 	type ErrorListManual,
 	getMigrationMapObject,
 	getUpcomingIcons,
 	type GuidanceList,
-	isInRangeList,
 	isInsideLegacyButton,
 	isInsideNewButton,
 	isSize,
+	type LegacyIconImportList,
 	locToString,
+	type MigrationIconImportList,
 	type RangeList,
 	type Size,
+	throwAutoErrors,
+	throwManualErrors,
 } from './helpers';
 
 type ReturnObject = {
@@ -60,13 +59,9 @@ type ReturnObject = {
 export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 	//create global variables to be shared by the checks
 	const { getPrimaryColor, getConfigFlag } = createHelpers(context);
-	const legacyIconImports: {
-		[key: string]: { packageName: string; exported: boolean; importNode?: ImportDeclaration };
-	} = {};
+	const legacyIconImports: LegacyIconImportList = {};
 
-	const migrationIconImports: {
-		[key: string]: { packageName: string; exported: boolean; importNode?: ImportDeclaration };
-	} = {};
+	const migrationIconImports: MigrationIconImportList = {};
 
 	const newButtonImports = new Set<string>();
 	const legacyButtonImports = new Set<string>();
@@ -75,8 +70,6 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 	const errorsAuto: ErrorListAuto = {};
 
 	let guidance: GuidanceList = {};
-
-	let autoIconJSXElementOccurrenceCount = 0;
 
 	// Extract parameters
 	const shouldErrorForManualMigration = getConfigFlag('shouldErrorForManualMigration', true);
@@ -109,6 +102,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 						packageName: moduleSource,
 						exported: false,
 						importNode: node,
+						importSpecifier: spec.local.name,
 					};
 				}
 			}
@@ -128,6 +122,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 						packageName: moduleSource,
 						exported: false,
 						importNode: node,
+						importSpecifier: spec.local.name,
 					};
 				}
 			});
@@ -189,6 +184,8 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 						legacyIconImports[decl.id.name] = {
 							packageName: legacyIconImports[decl.init.name].packageName,
 							exported: legacyIconImports[decl.init.name].exported || isExported,
+							importNode: legacyIconImports[decl.init.name].importNode,
+							importSpecifier: legacyIconImports[decl.init.name].importSpecifier,
 						};
 					} else if (newButtonImports.has(decl.init.name)) {
 						newButtonImports.add(decl.id.name);
@@ -243,7 +240,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 	const checkExportNamedVariables = (
 		node: ExportNamedDeclaration & Rule.NodeParentExtension,
 	): void => {
-		// export {default as AddIcon} from '@atlaskit/icon/glyph/add';
+		// Case: export {default as AddIcon} from '@atlaskit/icon/glyph/add';
 		if (
 			node.source &&
 			isNodeOfType(node.source, 'Literal') &&
@@ -267,7 +264,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				}
 			}
 		} else if (node.declaration && isNodeOfType(node.declaration, 'VariableDeclaration')) {
-			// export const Icon = AddIcon;
+			// Case: export const Icon = AddIcon;
 			for (const decl of node.declaration.declarations) {
 				if (
 					isNodeOfType(decl, 'VariableDeclarator') &&
@@ -302,6 +299,8 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 					legacyIconImports[spec.local.name] = {
 						packageName: legacyIconImports[spec.local.name].packageName,
 						exported: true,
+						importNode: legacyIconImports[spec.local.name].importNode,
+						importSpecifier: legacyIconImports[spec.local.name].importSpecifier,
 					};
 					createCantMigrateReExportError(
 						spec,
@@ -660,7 +659,6 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				!insideLegacyButton;
 
 			if (!hasManualMigration && (newIcon || upcomingIcon) && isNewIconMigratable) {
-				autoIconJSXElementOccurrenceCount++;
 				createAutoMigrationError({
 					node,
 					importSource: legacyIconImports[name].packageName,
@@ -720,132 +718,21 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 	 * Throws the relevant errors in the correct order based on configs.
 	 */
 	const throwErrors = (): void => {
+		// Throw manual errors
 		if (shouldErrorForManualMigration) {
-			for (const [key, errorList] of Object.entries(errorsManual)) {
-				const node: Node | null = 'node' in errorList.errors[0] ? errorList.errors[0].node : null;
-				const cantMigrateIdentifierError = errorList.errors.find(
-					(x) => 'messageId' in x && x.messageId === 'cantMigrateIdentifier',
-				);
-				if (node) {
-					let isInRange = false;
-					if (cantMigrateIdentifierError && isInRangeList(node, errorRanges)) {
-						isInRange = true;
-					}
-					if (
-						(isInRange && errorList.errors.length - 1 > 0) ||
-						(!isInRange && errorList.errors.length > 0)
-					) {
-						const guidanceMessage = Object.keys(guidance).includes(key) ? guidance[key] : '';
-						context.report({
-							node,
-							messageId: 'noLegacyIconsManualMigration',
-							data: {
-								iconName: errorList.iconName,
-								importSource: errorList.importSource,
-								guidance: isQuietMode
-									? guidanceMessage
-									: `${guidanceMessage}For more information see the below errors.\n`,
-							},
-						});
-						if (!isQuietMode) {
-							for (const error of errorList.errors) {
-								if (
-									'messageId' in error &&
-									(error.messageId !== 'cantMigrateIdentifier' ||
-										(error.messageId === 'cantMigrateIdentifier' && !isInRange))
-								) {
-									context.report(error);
-								}
-							}
-						}
-					}
-				}
-			}
+			throwManualErrors({ errorsManual, errorRanges, guidance, context, isQuietMode });
 		}
 
 		if (shouldErrorForAutoMigration) {
-			for (const [key, error] of Object.entries(errorsAuto)) {
-				// If there's a manual error that exists for this same component,
-				// don't throw the auto error
-				if (Object.keys(errorsManual).includes(key)) {
-					const cantMigrateIdentifierError = errorsManual[key].errors.find(
-						(x) => 'messageId' in x && x.messageId === 'cantMigrateIdentifier',
-					);
-					if (
-						!cantMigrateIdentifierError ||
-						(cantMigrateIdentifierError && errorsManual[key].errors.length > 1)
-					) {
-						delete errorsAuto[key];
-						continue;
-					}
-				}
-				const node = 'node' in error ? error.node : null;
-				if (node) {
-					const guidanceMessage = Object.keys(guidance).includes(key) ? guidance[key] : '';
-					if (Object.keys(error).includes('data') && error.data) {
-						error.data.guidance = guidanceMessage;
-					}
-
-					context.report({
-						...error,
-						fix: (fixer) => {
-							// don't migration if the new icon is not available
-							if (!error.data || (shouldUseMigrationPath && !checkIfNewIconExist(error))) {
-								return [];
-							}
-
-							const fixArguments = {
-								metadata: error.data as {
-									importSource: string;
-									spacing: string;
-									insideNewButton: string;
-								},
-								legacyImportNode: legacyIconImports[error.data.iconName]?.importNode,
-								migrationImportNode: migrationIconImports[error.data.iconName]?.importNode,
-								shouldUseMigrationPath,
-							};
-
-							const propsFixes = createPropFixes({
-								...fixArguments,
-								node,
-								fixer,
-							});
-
-							let importFixes: Rule.Fix[] = [];
-							// Otherwise if there are multiple occurrences of the icon, import path will be handled after the prop fix
-							if (autoIconJSXElementOccurrenceCount <= 1) {
-								importFixes = createImportFix({
-									...fixArguments,
-									fixer,
-								});
-							}
-							return [...propsFixes, ...importFixes];
-						},
-					});
-				}
-			}
-
-			// Update import path at the end if there are multiple occurrences of the icon
-			if (autoIconJSXElementOccurrenceCount > 1) {
-				for (const [_, error] of Object.entries(errorsAuto)) {
-					context.report({
-						...error,
-						fix: (fixer) => {
-							if (!error.data || (shouldUseMigrationPath && !checkIfNewIconExist(error))) {
-								return [];
-							}
-
-							return createImportFix({
-								metadata: error.data as { importSource: string; spacing: string },
-								fixer,
-								legacyImportNode: legacyIconImports[error.data.iconName]?.importNode,
-								migrationImportNode: migrationIconImports[error.data.iconName]?.importNode,
-								shouldUseMigrationPath,
-							});
-						},
-					});
-				}
-			}
+			throwAutoErrors({
+				errorsManual,
+				errorsAuto,
+				legacyIconImports,
+				guidance,
+				migrationIconImports,
+				shouldUseMigrationPath,
+				context,
+			});
 		}
 	};
 

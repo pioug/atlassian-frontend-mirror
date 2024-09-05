@@ -505,7 +505,7 @@ events:
             *AnalyticsContextAttributes,
             *StatusCodeGroup,
           ]
-  # Actions Events
+  # Inline Edit Events
   - actionExecution success:
       type: operational
       description: Fired when an atomic action execution is successful
@@ -544,3 +544,26 @@ events:
         Fired when the user initiates an update via inline edit through enter key press or submit
       attributes:
         <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
+  - inlineEdit clicked (datasource):
+      type: ui
+      description: Fired when inline edit is clicked to show edit mode
+      attributes:
+        <<:
+          [
+            *ComponentMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *EntityType,
+            *IntegrationKey,
+          ]
+        fieldKey:
+          type: string
+          description: Inline edit field key
+  - error shown (inlineEdit):
+      type: ui
+      description: Fired when the inline edit failed and the error flag is shown.
+      attributes:
+        <<: [*ComponentMetaDataContext, *AnalyticsContext, *AnalyticsContextAttributes]
+        reason:
+          type: ['access_denied', 'request_failed']
+          description: The reason why inline edit failed

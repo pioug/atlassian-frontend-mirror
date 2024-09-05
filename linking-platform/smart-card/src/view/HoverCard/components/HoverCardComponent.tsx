@@ -5,8 +5,7 @@
 import Popup from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { useCallback, useMemo, useRef, useEffect } from 'react';
-import { useSmartLinkActions } from '../../../state/hooks-external/useSmartLinkActions';
+import React, { useCallback, useRef, useEffect } from 'react';
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
 import HoverCardContent from '../components/HoverCardContent';
@@ -168,27 +167,9 @@ export const HoverCardComponent = ({
 		[initResolve, isOpen, setMousePosition, noFadeDelay, fadeInDelay],
 	);
 
-	const linkActions = useSmartLinkActions({
-		url,
-		appearance: CardDisplay.HoverCardPreview,
-		analyticsHandler,
-		origin: HOVER_CARD_SOURCE,
-		actionOptions,
-	});
-
-	const filteredActions = useMemo(() => {
-		return hidePreviewButton
-			? linkActions.filter((action) => action.id !== 'preview-content')
-			: linkActions;
-	}, [hidePreviewButton, linkActions]);
-
 	const onActionClick = useCallback(
 		(actionId: any) => {
-			if (
-				actionId === 'preview-content' ||
-				actionId === ActionName.PreviewAction ||
-				actionId === ActionName.AutomationAction
-			) {
+			if (actionId === ActionName.PreviewAction || actionId === ActionName.AutomationAction) {
 				hideCard();
 			}
 		},
@@ -221,7 +202,6 @@ export const HoverCardComponent = ({
 			const hoverCardContentProps: HoverCardContentProps = {
 				onMouseEnter: initShowCard,
 				onMouseLeave: initHideCard,
-				cardActions: filteredActions,
 				cardState: linkState,
 				onActionClick,
 				onResolve: update,
@@ -242,17 +222,7 @@ export const HoverCardComponent = ({
 				</SmartLinkAnalyticsContext>
 			);
 		},
-		[
-			initShowCard,
-			initHideCard,
-			filteredActions,
-			linkState,
-			onActionClick,
-			renderers,
-			actionOptions,
-			url,
-			id,
-		],
+		[initShowCard, initHideCard, linkState, onActionClick, renderers, actionOptions, url, id],
 	);
 
 	const trigger = useCallback(

@@ -117,39 +117,35 @@ describe('hover card over flexible smart links', () => {
 	});
 
 	afterEach(() => {
+		act(() => jest.runAllTimers()); // Suppress act errors after test ends
 		jest.useRealTimers();
 		jest.restoreAllMocks();
 	});
 
-	// Run common tests
-	runCommonHoverCardTests((setupProps?: SetUpParams) => setupComponent(setupProps), testConfig);
-	unauthorizedViewTests((setupProps?: SetUpParams) => setupComponent(setupProps), testConfig);
-	analyticsTests((setupProps?: SetUpParams) => setupComponent(setupProps), {
-		display: 'flexible',
-		isAnalyticsContextResolvedOnHover: true,
-	});
-
 	describe('hover card view', () => {
-		it('renders correct view of hover card', async () => {
+		it.each<[string, boolean]>([
+			['smart-element-link', true],
+			['smart-element-icon', false], // icon (outside element group)
+			['smart-element-avatar-group', false], // avatar group (metadata inside element group)
+			['smart-action-edit-action', false],
+			['action-group-more-button', false],
+		])('renders correct view of hover card for %s', async (testId, expectToBeInTheDocument) => {
 			const renderResult = await setupComponent({
 				extraCardProps: { appearance, children },
 				testId: triggerTestId,
 			});
 
-			for (const [testId, expectToBeInTheDocument] of [
-				['smart-element-link', true],
-				['smart-element-icon', false], // icon (outside element group)
-				['smart-element-avatar-group', false], // avatar group (metadata inside element group)
-				['smart-action-edit-action', false],
-				['action-group-more-button', false],
-			] as [string, boolean][]) {
-				await hoverAndVerify(renderResult, hoverCardTestId, testId, expectToBeInTheDocument);
-
-				await clickMoreActionAndVerifyNotToBeInDocument(renderResult, hoverCardTestId, testId);
-			}
+			await hoverAndVerify(renderResult, hoverCardTestId, testId, expectToBeInTheDocument);
+			await clickMoreActionAndVerifyNotToBeInDocument(renderResult, hoverCardTestId, testId);
 		});
 
-		it('does not render hover card', async () => {
+		it.each<string>([
+			'smart-element-link',
+			'smart-element-icon',
+			'smart-element-avatar-group', // icon (outside element group)
+			'smart-action-edit-action', // avatar group (metadata inside element group)
+			'action-group-more-button',
+		])('does not render hover card with testId = %s', async (testId) => {
 			const renderResult = await setupComponent({
 				extraCardProps: {
 					appearance,
@@ -160,17 +156,8 @@ describe('hover card over flexible smart links', () => {
 				testId: 'smart-links-container',
 			});
 
-			for (const testId of [
-				'smart-element-link',
-				'smart-element-icon',
-				'smart-element-avatar-group', // icon (outside element group)
-				'smart-action-edit-action', // avatar group (metadata inside element group)
-				'action-group-more-button',
-			]) {
-				await hoverAndVerify(renderResult, hoverCardTestId, testId, false);
-
-				await clickMoreActionAndVerifyNotToBeInDocument(renderResult, hoverCardTestId, testId);
-			}
+			await hoverAndVerify(renderResult, hoverCardTestId, testId, false);
+			await clickMoreActionAndVerifyNotToBeInDocument(renderResult, hoverCardTestId, testId);
 		});
 
 		it('does not render hover card when hover over action and then leave the flexible card', async () => {
@@ -196,6 +183,7 @@ describe('hover card over flexible smart links', () => {
 			expect(queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
 		});
 	});
+
 	describe('event propagation', () => {
 		const renderComponent = async (params: Parameters<typeof setupEventPropagationTest>[0]) => {
 			const testId = 'hover-card-trigger-wrapper';
@@ -221,7 +209,7 @@ describe('hover card over flexible smart links', () => {
 			const metadataBlock = await findAllByTestId('smart-block-metadata-resolved-view');
 			await event.click(metadataBlock[0]);
 
-			const previewButton = await findByTestId('smart-footer-block-resolved-view');
+			const previewButton = await findByTestId('smart-action-preview-action');
 			await event.click(previewButton);
 
 			expect(mockOnClick).not.toHaveBeenCalled();
@@ -234,6 +222,15 @@ describe('hover card over flexible smart links', () => {
 			await event.click(element);
 
 			expect(mockOnClick).toHaveBeenCalled();
+		});
+	});
+
+	describe('Common tests', () => {
+		runCommonHoverCardTests((setupProps?: SetUpParams) => setupComponent(setupProps), testConfig);
+		unauthorizedViewTests((setupProps?: SetUpParams) => setupComponent(setupProps), testConfig);
+		analyticsTests((setupProps?: SetUpParams) => setupComponent(setupProps), {
+			display: 'flexible',
+			isAnalyticsContextResolvedOnHover: true,
 		});
 	});
 });

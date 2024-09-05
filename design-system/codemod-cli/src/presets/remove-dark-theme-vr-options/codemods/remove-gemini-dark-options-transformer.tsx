@@ -9,10 +9,11 @@ function transformer(file: FileInfo, api: API) {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 
-	// check if import from @af/visual-regression
-	const imports = getImportDeclaration(j, source, '@af/visual-regression');
+	// check if import from @af/visual-regression or @atlassian/jira-vr-testing
+	const platformImports = getImportDeclaration(j, source, '@af/visual-regression');
+	const jiraImports = getImportDeclaration(j, source, '@atlassian/jira-vr-testing');
 
-	if (!imports.length) {
+	if (!platformImports.length && !jiraImports.length) {
 		return file.source;
 	}
 

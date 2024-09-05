@@ -1,8 +1,12 @@
 import React from 'react';
 
+import { type IntlShape } from 'react-intl-next';
+
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { moveNode } from './commands/move-node';
+import { createEmptyBlockExperimentPlugin } from './pm-plugins/empty-block-experiment';
 import { createPlugin, key } from './pm-plugins/main';
 import type { BlockControlsPlugin, HandleOptions } from './types';
 import { DragHandleMenu } from './ui/drag-handle-menu';
@@ -18,6 +22,15 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				name: 'blockControlsPmPlugin',
 				plugin: ({ getIntl }) => createPlugin(api, getIntl),
 			},
+			...(editorExperiment('platform_editor_empty_line_prompt', true, { exposure: true })
+				? [
+						{
+							name: 'emptyBlockExperimentPlugin',
+							plugin: ({ getIntl }: { getIntl: () => IntlShape }) =>
+								createEmptyBlockExperimentPlugin(api, getIntl),
+						},
+					]
+				: []),
 		];
 	},
 

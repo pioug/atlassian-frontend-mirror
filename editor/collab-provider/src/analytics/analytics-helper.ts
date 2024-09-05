@@ -1,7 +1,6 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
 import type { ProviderError } from '@atlaskit/editor-common/collab';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { ActionAnalyticsEvent, ErrorAnalyticsEvent, EVENT_STATUS } from '../helpers/const';
 import { EVENT_ACTION } from '../helpers/const';
 import { name as packageName, version as packageVersion } from '../version-wrapper';
@@ -77,13 +76,16 @@ export default class AnalyticsHelper {
 	analyticsClient: AnalyticsWebClient | undefined;
 	getAnalyticsClient: Promise<AnalyticsWebClient> | undefined;
 	documentAri: string;
+	subProduct: string | undefined;
 
 	constructor(
 		documentAri: string,
+		subProduct?: string,
 		analyticsClient?: AnalyticsWebClient,
 		getAnalyticsClient?: Promise<AnalyticsWebClient>,
 	) {
 		this.documentAri = documentAri;
+		this.subProduct = subProduct;
 		this.analyticsClient = analyticsClient;
 		this.getAnalyticsClient = getAnalyticsClient;
 	}
@@ -97,14 +99,13 @@ export default class AnalyticsHelper {
 			eventAction: EVENT_ACTION.ERROR,
 			attributes: {
 				documentAri: this.documentAri,
+				subProduct: this.subProduct,
 				errorMessage,
 				errorName: error instanceof Error ? error.name : undefined,
 				errorCode: (error as any).data?.code ?? undefined,
 				errorStatus: (error as any).data?.status ?? undefined,
 				errorStack:
-					error instanceof Error &&
-					loggableErrorName.includes(error.name) &&
-					getBooleanFF('platform.editor.ncs.log-error-stacks')
+					error instanceof Error && loggableErrorName.includes(error.name)
 						? error.stack
 						: undefined,
 				originalErrorMessage: this.getUGCFreeErrorMessage(error),
@@ -122,6 +123,7 @@ export default class AnalyticsHelper {
 			eventAction: EVENT_ACTION.ERROR,
 			attributes: {
 				documentAri: this.documentAri,
+				subProduct: this.subProduct,
 				errorMessage: 'Error emitted',
 				originalErrorMessage: error.message,
 				errorCode: error.code,
@@ -134,12 +136,16 @@ export default class AnalyticsHelper {
 	sendActionEvent(
 		action: ActionAnalyticsEvent['eventAction'],
 		status: EVENT_STATUS,
-		attributes?: Omit<ActionAnalyticsEvent['attributes'], 'documentAri' | 'eventStatus'>, // This breaks discriminated unions, because there is no obvious field to discriminate against any more
+		attributes?: Omit<
+			ActionAnalyticsEvent['attributes'],
+			'documentAri' | 'subProduct' | 'eventStatus'
+		>, // This breaks discriminated unions, because there is no obvious field to discriminate against any more
 	) {
 		const analyticsEvent = {
 			eventAction: action,
 			attributes: {
 				documentAri: this.documentAri,
+				subProduct: this.subProduct,
 				eventStatus: status,
 				...attributes,
 			},

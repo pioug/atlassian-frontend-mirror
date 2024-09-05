@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.18.1
+
+### Patch Changes
+
+- [`836af8b0a3b3e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/836af8b0a3b3e) -
+  Adds the ability to automigrate more complex automigration cases with multiple of the same icon.
+
 ## 10.18.0
 
 ### Minor Changes

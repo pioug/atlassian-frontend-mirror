@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { Emitter } from '../emitter';
@@ -131,6 +133,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		this.config = config;
 		this.analyticsHelper = new AnalyticsHelper(
 			this.config.documentAri,
+			this.config.productInfo?.subProduct,
 			this.config.analyticsClient,
 			this.config.getAnalyticsWebClient,
 		);
@@ -288,6 +291,12 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 				);
 			}
 			this.clientId = (collabPlugin.spec as any).config.clientID;
+
+			// generate a temporary id as clientId when it is undefined
+			// prefix temp-cp- indicates collab-provider
+			if (!this.clientId) {
+				this.clientId = `temp-cp-${uuidv4()}`;
+			}
 
 			this.documentService.setup({
 				getState,

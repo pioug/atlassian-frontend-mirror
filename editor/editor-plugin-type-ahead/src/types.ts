@@ -109,7 +109,12 @@ export type TypeAheadInputMethod =
 	| INPUT_METHOD.INSERT_MENU
 	| INPUT_METHOD.KEYBOARD
 	| INPUT_METHOD.QUICK_INSERT
-	| INPUT_METHOD.TOOLBAR;
+	| INPUT_METHOD.TOOLBAR
+	/**
+	 * For Typeahead - Empty line prompt experiment
+	 * Clean up ticket ED-24824
+	 */
+	| 'blockControl';
 
 export type TypeAheadPluginOptions = {
 	isMobile?: boolean;

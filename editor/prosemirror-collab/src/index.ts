@@ -103,9 +103,8 @@ export function collab(config: CollabConfig = {}): Plugin {
 		clientID:
 			// eslint-disable-next-line eqeqeq
 			// generate a temporary id as clientId when it is null or undefined
-			config.clientID == null || config.clientID === undefined
-				? `temp-${uuidv4()}`
-				: config.clientID,
+			// prefix temp-pc- indicates prosemirror-collab
+			config.clientID == null || !config.clientID ? `temp-pc-${uuidv4()}` : config.clientID,
 	};
 
 	return new Plugin<CollabState>({

@@ -34,7 +34,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^88.8.0",
+		"@atlaskit/editor-common": "^88.9.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-quick-insert": "^1.3.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",

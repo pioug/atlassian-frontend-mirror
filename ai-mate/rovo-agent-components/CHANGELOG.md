@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 1.2.0
+
+### Minor Changes
+
+- [#137195](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137195)
+  [`0c6a0ad6e8350`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c6a0ad6e8350) -
+  Lazy load generated avatars; add identity account id as AgentAvatar prop and use it as a priority
+
 ## 1.1.0
 
 ### Minor Changes

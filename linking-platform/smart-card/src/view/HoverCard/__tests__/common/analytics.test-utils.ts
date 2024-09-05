@@ -163,7 +163,9 @@ export const analyticsTests = (
 				isAnalyticsContextResolvedOnHover,
 				display,
 			);
-			jest.runAllTimers();
+			act(() => {
+				jest.runAllTimers();
+			});
 
 			const hoverCard = await findByTestId('hover-card');
 			const link = within(hoverCard).getByTestId('smart-element-link');
@@ -279,7 +281,7 @@ export const analyticsTests = (
 			});
 
 			await findByTestId('smart-block-title-resolved-view');
-			const button = await findByTestId('preview-content');
+			const button = await findByTestId('smart-action-preview-action');
 
 			await event.click(button);
 
@@ -317,7 +319,7 @@ export const analyticsTests = (
 			});
 
 			await findByTestId('smart-block-title-resolved-view');
-			const button = await findByTestId('download-content');
+			const button = await findByTestId('smart-action-download-action');
 
 			await event.click(button);
 
@@ -337,6 +339,7 @@ export const analyticsTests = (
 		});
 
 		it('should fire clicked event when follow button is clicked', async () => {
+			expect(true).toBe(true);
 			const { analyticsSpy, findByTestId, event } = await setup({
 				extraCardProps: { showServerActions: true },
 				mock: MockAtlasProject,
@@ -346,7 +349,9 @@ export const analyticsTests = (
 			within(hoverCard).getByTestId('smart-block-title-resolved-view');
 			const button = within(hoverCard).getByTestId('smart-action-follow-action');
 
-			await event.click(button);
+			await act(async () => {
+				await event.click(button); // This causes an act error
+			});
 
 			expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
 				{

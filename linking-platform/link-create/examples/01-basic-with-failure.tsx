@@ -26,8 +26,7 @@ function MockPluginForm() {
 	const mockHandleSubmit = async (data: FormData) => {
 		// @ts-ignore .get is undefined at runtime
 		if (data['asyncSelect-name']?.value === 'option-3') {
-			onFailure && onFailure(Error('Intentional failure'));
-			return;
+			throw new Error('Intentional failure');
 		}
 
 		if (onCreate) {

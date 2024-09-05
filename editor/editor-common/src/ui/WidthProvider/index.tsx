@@ -12,7 +12,8 @@ import rafSchedule from 'raf-schd';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { WidthObserver } from '@atlaskit/width-detector';
 
-import { isSSR } from './isSSR';
+import { isSSR } from '../../core-utils/is-ssr';
+
 import { isSsrButNoBreakoutScriptObserved } from './isSsrButNoBreakoutScriptObserved';
 
 declare global {

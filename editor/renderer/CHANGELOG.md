@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.51.6
+
+### Patch Changes
+
+- [#136023](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136023)
+  [`462ac84782509`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/462ac84782509) -
+  ED-24794: Fixed numbered column tables not scaling down in renderer
+- [#137344](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137344)
+  [`00c81bdf34c46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00c81bdf34c46) -
+  [ux] Fixes an issue where tables that existed before "Support Table in Comment" are displayed as
+  centered 760px width tables when FF for Support Table in Comment is enabled.
+
 ## 109.51.5
 
 ### Patch Changes

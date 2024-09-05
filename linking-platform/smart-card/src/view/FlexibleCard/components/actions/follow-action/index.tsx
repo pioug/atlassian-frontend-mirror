@@ -1,5 +1,5 @@
 import InviteTeamIcon from '@atlaskit/icon/glyph/invite-team';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { ActionName } from '../../../../../constants';
@@ -33,10 +33,8 @@ const getIcon = (stackIconType: string) => {
 };
 
 const getIconFF = (iconFFEnabled: JSX.Element, defaultIcon: JSX.Element) => {
-	if (getBooleanFF('platform.linking-platform.smart-card.hover-card-action-redesign')) {
-		if (getBooleanFF('platform.linking-platform.smart-card.action-icon-redesign')) {
-			return iconFFEnabled;
-		}
+	if (fg('platform.linking-platform.smart-card.action-icon-redesign')) {
+		return iconFFEnabled;
 	}
 	return defaultIcon;
 };

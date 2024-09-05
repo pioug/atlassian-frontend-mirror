@@ -23,6 +23,7 @@ export interface FrameProps {
 	testId?: string;
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 	onIframeFocus?: () => void;
+	title?: string;
 }
 
 type Refs =
@@ -54,7 +55,7 @@ const iframeStyles = css({
 });
 
 export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
-	({ url, isTrusted = false, testId, onIframeDwell, onIframeFocus }, iframeRef) => {
+	({ url, isTrusted = false, testId, onIframeDwell, onIframeFocus, title }, iframeRef) => {
 		di(IFrame);
 		const [isIframeLoaded, setIframeLoaded] = useState(false);
 		const [isMouseOver, setMouseOver] = useState(false);
@@ -140,6 +141,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
 						setIframeLoaded(true);
 					}}
 					sandbox={getIframeSandboxAttribute(isTrusted)}
+					title={title}
 				/>
 			</React.Fragment>
 		);

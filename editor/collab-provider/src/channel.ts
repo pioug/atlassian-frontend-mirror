@@ -17,7 +17,7 @@ import type {
 } from './types';
 import { createLogger, getProduct, getSubProduct } from './helpers/utils';
 import { MEASURE_NAME, startMeasure, stopMeasure } from './analytics/performance';
-import { EVENT_ACTION, EVENT_STATUS } from './helpers/const';
+import { EVENT_ACTION, EVENT_STATUS, type CatchupEventReason } from './helpers/const';
 import type { Socket } from 'socket.io-client';
 import ReconnectHelper from './connectivity/reconnect-helper';
 import type { UFOExperience } from '@atlaskit/ufo';
@@ -505,14 +505,16 @@ export class Channel extends Emitter<ChannelEvent> {
 		fromVersion: number,
 		clientId: number | string | undefined,
 		catchUpOutofSync: boolean | undefined,
+		reason?: CatchupEventReason,
 	): Promise<Catchupv2Response> => {
 		try {
-			const { steps, metadata } = await utils.requestService<any>(this.config, {
+			const { steps, metadata } = await utils.requestService<Catchupv2Response>(this.config, {
 				path: `document/${encodeURIComponent(this.config.documentAri)}/catchupv2`,
 				queryParams: {
 					version: fromVersion,
 					clientId: clientId,
 					catchUpOutofSync,
+					reason,
 				},
 				requestInit: {
 					headers: await this.commonHeaders(),

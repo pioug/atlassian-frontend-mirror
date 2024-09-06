@@ -20,8 +20,10 @@ test.describe('table scaling in comment renderer', () => {
 			viewport: { width: 760, height: 600 },
 			featureFlags: { tablePreserveWidth: true },
 			// platformFeatureFlags: {
-			// 	platform_editor_table_support_in_comment: true,
 			//  platform.editor.table.use-increased-scaling-percent: true,
+			// },
+			// editorExperiments: {
+			// 	'support_table_in_comment': true,
 			// },
 		});
 		test('table should scale down when scale percent is bigger than 0.4', async ({ renderer }) => {
@@ -53,8 +55,10 @@ test.describe('table scaling in comment renderer', () => {
 			viewport: { width: 760, height: 600 },
 			featureFlags: { tablePreserveWidth: true },
 			// platformFeatureFlags: {
-			// 	platform_editor_table_support_in_comment: true,
 			//  platform.editor.table.use-increased-scaling-percent: true,
+			// },
+			// editorExperiments: {
+			// 	'support_table_in_comment': true,
 			// },
 		});
 
@@ -91,8 +95,10 @@ test.describe('table scaling in comment renderer', () => {
 			viewport: { width: 760, height: 600 },
 			featureFlags: { tablePreserveWidth: true },
 			// platformFeatureFlags: {
-			// 	platform_editor_table_support_in_comment: true,
 			//  platform.editor.table.use-increased-scaling-percent: true,
+			// },
+			// editorExperiments: {
+			// 	'support_table_in_comment': true,
 			// },
 		});
 
@@ -153,8 +159,10 @@ test.describe('table scaling in comment renderer', () => {
 			viewport: { width: 760, height: 600 },
 			featureFlags: { tablePreserveWidth: true },
 			// platformFeatureFlags: {
-			// 	platform_editor_table_support_in_comment: true,
 			//  platform.editor.table.use-increased-scaling-percent: true,
+			// },
+			// editorExperiments: {
+			// 	'support_table_in_comment': true,
 			// },
 		});
 

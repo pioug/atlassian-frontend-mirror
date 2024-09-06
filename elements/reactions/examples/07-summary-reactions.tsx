@@ -39,6 +39,22 @@ export default () => {
 						}
 					/>
 					<hr />
+
+					<Example
+						title={'Summary mode with subtle styling'}
+						body={
+							<ConnectedReactionsView
+								store={store}
+								containerAri={`${ExampleConstants.ContainerAriPrefix}1`}
+								ari={`${ExampleConstants.AriPrefix}1`}
+								emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
+								allowAllEmojis
+								summaryViewEnabled
+								subtleReactionsSummaryAndPicker
+							/>
+						}
+					/>
+					<hr />
 				</>
 			)}
 		</ExampleWrapper>

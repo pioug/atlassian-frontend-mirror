@@ -12,6 +12,7 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import { getExtensionAutoConvertersFromProvider } from '@atlaskit/editor-common/extensions';
 import { isPastedFile as isPastedFileFromEvent, md } from '@atlaskit/editor-common/paste';
+import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
@@ -26,7 +27,6 @@ import {
 	extractSliceFromStep,
 	linkifyContent,
 	mapChildren,
-	measureRender,
 } from '@atlaskit/editor-common/utils';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';

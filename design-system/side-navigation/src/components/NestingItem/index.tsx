@@ -7,7 +7,7 @@ import React, { Fragment, useCallback, useMemo, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import RightArrow from '@atlaskit/icon/glyph/arrow-right-circle';
+import ArrowRightIcon from '@atlaskit/icon/core/migration/arrow-right--arrow-right-circle';
 import {
 	type ButtonItemProps,
 	type CSSFn,
@@ -247,9 +247,10 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 					</Box>
 				) : null}
 				<Box data-right-arrow xcss={iconContainerStyles} as="span">
-					<RightArrow
+					<ArrowRightIcon
 						testId={testId && `${testId}--item--right-arrow`}
-						secondaryColor={token('elevation.surface', N10)}
+						color="currentColor"
+						LEGACY_secondaryColor={token('elevation.surface', N10)}
 						label=""
 					/>
 				</Box>

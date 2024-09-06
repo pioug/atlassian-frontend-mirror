@@ -27,6 +27,7 @@ describe('DocumentService onRestore', () => {
 			documentAri: 'ari:coud:confluence:ABC:page/test',
 		};
 		provider = new Provider(testConfig);
+		provider.documentService.clientId = '123456';
 		const pds = provider.documentService;
 		getUnconfirmedStepsSpy = jest.spyOn(pds, 'getUnconfirmedSteps');
 		fetchReconcileSpy = jest.spyOn(pds, 'fetchReconcile');
@@ -238,6 +239,36 @@ describe('DocumentService onRestore', () => {
 				},
 			});
 			expect.assertions(10);
+		});
+	});
+
+	describe('Targeting clients', () => {
+		it('should not restore document if targetClientId is provided and does not match clientId', async () => {
+			getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);
+			getCurrentStateSpy.mockReturnValue({ content: 'something' });
+			fetchReconcileSpy.mockReturnValue('thing');
+
+			await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '999999' });
+			expect(getCurrentStateSpy).not.toHaveBeenCalled();
+			expect(fetchReconcileSpy).not.toHaveBeenCalled();
+		});
+		it('should restore document if targetClientId is provided and matches clientId', async () => {
+			getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);
+			getCurrentStateSpy.mockReturnValue({ content: 'something' });
+			fetchReconcileSpy.mockReturnValue('thing');
+
+			await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '123456' });
+			expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
+			expect(fetchReconcileSpy).toHaveBeenCalledTimes(1);
+		});
+		it('should restore document if no targetClientId is provided', async () => {
+			getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);
+			getCurrentStateSpy.mockReturnValue({ content: 'something' });
+			fetchReconcileSpy.mockReturnValue('thing');
+
+			await provider.documentService.onRestore({ ...dummyPayload });
+			expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
+			expect(fetchReconcileSpy).toHaveBeenCalledTimes(1);
 		});
 	});
 });

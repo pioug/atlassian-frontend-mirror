@@ -15,12 +15,13 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
 	Command,
+	ExtractInjectionAPI,
 	PMPluginFactoryParams,
 	TypeAheadHandler,
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, SafeStateField } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji';
 import {
@@ -33,6 +34,12 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createEmojiFragment, insertEmoji } from './commands/insert-emoji';
 import { EmojiNodeView } from './nodeviews/emoji';
+import {
+	ACTIONS,
+	openTypeAhead as openTypeAheadAction,
+	setAsciiMap as setAsciiMapAction,
+	setProvider as setProviderAction,
+} from './pm-plugins/actions';
 import { inputRulePlugin as asciiInputRulePlugin } from './pm-plugins/ascii-input-rules';
 import type { EmojiPlugin, EmojiPluginOptions, EmojiPluginState } from './types';
 
@@ -97,6 +104,7 @@ const TRIGGER = ':';
  * from `@atlaskit/editor-core`.
  */
 export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
+	let previousEmojiProvider: EmojiProvider | undefined;
 	const typeAhead: TypeAheadHandler = {
 		id: TypeAheadAvailableNodes.EMOJI,
 		trigger: TRIGGER,
@@ -220,12 +228,20 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			return [
 				{
 					name: 'emoji',
-					plugin: (pmPluginFactoryParams) => createEmojiPlugin(pmPluginFactoryParams, options),
+					plugin: (pmPluginFactoryParams) => {
+						return createEmojiPlugin(pmPluginFactoryParams, options, api);
+					},
 				},
 				{
 					name: 'emojiAsciiInputRule',
 					plugin: ({ schema, providerFactory, featureFlags }) =>
-						asciiInputRulePlugin(schema, providerFactory, featureFlags, api?.analytics?.actions),
+						asciiInputRulePlugin(
+							schema,
+							providerFactory,
+							featureFlags,
+							api?.analytics?.actions,
+							api,
+						),
 				},
 			];
 		},
@@ -234,23 +250,27 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			if (!editorState) {
 				return undefined;
 			}
-			const { emojiResourceConfig, asciiMap } = emojiPluginKey.getState(editorState) ?? {};
+			const { emojiResourceConfig, asciiMap, emojiProvider } =
+				emojiPluginKey.getState(editorState) ?? {};
 
 			return {
 				emojiResourceConfig,
 				asciiMap,
 				typeAheadHandler: typeAhead,
+				emojiProvider,
 			};
 		},
 
 		actions: {
-			openTypeAhead(inputMethod) {
-				return Boolean(
-					api?.typeAhead?.actions.open({
-						triggerHandler: typeAhead,
-						inputMethod,
-					}),
-				);
+			openTypeAhead: openTypeAheadAction(typeAhead, api),
+			setProvider: async (providerPromise) => {
+				const provider = await providerPromise;
+				// Prevent someone trying to set the exact same provider twice for performance reasons
+				if (previousEmojiProvider === provider || options?.emojiProvider === providerPromise) {
+					return false;
+				}
+				previousEmojiProvider = provider;
+				return api?.core.actions.execute(({ tr }) => setProviderTr(provider)(tr)) ?? false;
 			},
 		},
 
@@ -287,22 +307,12 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
  * Actions
  */
 
-export const ACTIONS = {
-	SET_PROVIDER: 'SET_PROVIDER',
-	SET_RESULTS: 'SET_RESULTS',
-	SET_ASCII_MAP: 'SET_ASCII_MAP',
-};
-
 const setAsciiMap =
 	(asciiMap: Map<string, EmojiDescription>): Command =>
 	(state, dispatch) => {
 		if (dispatch) {
-			dispatch(
-				state.tr.setMeta(emojiPluginKey, {
-					action: ACTIONS.SET_ASCII_MAP,
-					params: { asciiMap },
-				}),
-			);
+			const tr = setAsciiMapAction(asciiMap)(state.tr);
+			dispatch(tr);
 		}
 		return true;
 	};
@@ -357,20 +367,9 @@ const logRateWarning = () => {
 	}
 };
 
-export const setProvider: ((provider?: EmojiProvider) => Command) | undefined =
+export const setProviderTr: (provider?: EmojiProvider) => (tr: Transaction) => Transaction =
 	createRateLimitReachedFunction(
-		(provider?: EmojiProvider): Command =>
-			(state, dispatch) => {
-				if (dispatch) {
-					dispatch(
-						state.tr.setMeta(emojiPluginKey, {
-							action: ACTIONS.SET_PROVIDER,
-							params: { provider },
-						}),
-					);
-				}
-				return true;
-			},
+		(provider?: EmojiProvider) => (tr: Transaction) => setProviderAction(provider)(tr),
 		// If we change the emoji provider more than three times every 5 seconds we should warn.
 		// This seems like a really long time but the performance can be that laggy that we don't
 		// even get 3 events in 3 seconds and miss this indicator.
@@ -378,6 +377,16 @@ export const setProvider: ((provider?: EmojiProvider) => Command) | undefined =
 		3,
 		logRateWarning,
 	);
+
+export const setProvider: ((provider?: EmojiProvider) => Command) | undefined =
+	(provider?: EmojiProvider): Command =>
+	(state, dispatch) => {
+		if (dispatch) {
+			const tr = setProviderTr(provider)(state.tr);
+			dispatch(tr);
+		}
+		return true;
+	};
 
 export const emojiPluginKey = new PluginKey<EmojiPluginState>('emojiPlugin');
 
@@ -388,6 +397,7 @@ export function getEmojiPluginState(state: EditorState) {
 export function createEmojiPlugin(
 	pmPluginFactoryParams: PMPluginFactoryParams,
 	options?: EmojiPluginOptions,
+	api?: ExtractInjectionAPI<EmojiPlugin>,
 ) {
 	return new SafePlugin<EmojiPluginState>({
 		key: emojiPluginKey,
@@ -409,14 +419,18 @@ export function createEmojiPlugin(
 							...pluginState,
 							emojiProvider: params.provider,
 						};
-						pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
+						if (!fg('platform_editor_get_emoji_provider_from_config')) {
+							pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
+						}
 						return newPluginState;
 					case ACTIONS.SET_ASCII_MAP:
 						newPluginState = {
 							...pluginState,
 							asciiMap: params.asciiMap,
 						};
-						pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
+						if (!fg('platform_editor_get_emoji_provider_from_config')) {
+							pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
+						}
 						return newPluginState;
 				}
 
@@ -431,6 +445,7 @@ export function createEmojiPlugin(
 					extraComponentProps: {
 						providerFactory: pmPluginFactoryParams.providerFactory,
 						options,
+						api,
 					},
 				}),
 			},
@@ -456,12 +471,20 @@ export function createEmojiPlugin(
 				return;
 			};
 
-			pmPluginFactoryParams.providerFactory.subscribe('emojiProvider', providerHandler);
+			if (fg('platform_editor_get_emoji_provider_from_config')) {
+				if (options?.emojiProvider) {
+					providerHandler('emojiProvider', options.emojiProvider);
+				}
+			} else {
+				pmPluginFactoryParams.providerFactory.subscribe('emojiProvider', providerHandler);
+			}
 
 			return {
 				destroy() {
-					if (pmPluginFactoryParams.providerFactory) {
-						pmPluginFactoryParams.providerFactory.unsubscribe('emojiProvider', providerHandler);
+					if (!fg('platform_editor_get_emoji_provider_from_config')) {
+						if (pmPluginFactoryParams.providerFactory) {
+							pmPluginFactoryParams.providerFactory.unsubscribe('emojiProvider', providerHandler);
+						}
 					}
 				},
 			};

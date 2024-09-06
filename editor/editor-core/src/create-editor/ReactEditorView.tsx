@@ -25,13 +25,17 @@ import type {
 } from '@atlaskit/editor-common/analytics';
 import { browser } from '@atlaskit/editor-common/browser';
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
+import { countNodes } from '@atlaskit/editor-common/count-nodes';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
+import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
+import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
 import type {
 	AllEditorPresetPluginTypes,
 	EditorPresetBuilder,
 } from '@atlaskit/editor-common/preset';
 import { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
+import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import type {
 	ContextIdentifierProvider,
 	ProviderFactory,
@@ -43,17 +47,11 @@ import {
 	ExperienceStore,
 	RELIABILITY_INTERVAL,
 } from '@atlaskit/editor-common/ufo';
-import type { ErrorReporter, SEVERITY } from '@atlaskit/editor-common/utils';
-import {
-	countNodes,
-	getResponseEndTime,
-	measureRender,
-	processRawValue,
-	shouldForceTracking,
-} from '@atlaskit/editor-common/utils';
+import type { ErrorReporter } from '@atlaskit/editor-common/utils';
 import {
 	analyticsEventKey,
 	getAnalyticsEventSeverity,
+	type SEVERITY,
 } from '@atlaskit/editor-common/utils/analytics';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -68,8 +66,8 @@ import type { SetEditorAPI } from '../presets/context';
 import type { EditorAppearance, EditorConfig, EditorPlugin, EditorProps } from '../types';
 import type { EditorNextProps } from '../types/editor-props';
 import type { FeatureFlags } from '../types/feature-flags';
-import { getNodesCount } from '../utils/document';
 import { findChangedNodesFromTransaction } from '../utils/findChangedNodesFromTransaction';
+import { getNodesCount } from '../utils/getNodesCount';
 import { isFullPage } from '../utils/is-full-page';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 import measurements from '../utils/performance/measure-enum';
@@ -830,8 +828,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 				const proseMirrorRenderedTracking =
 					this.props.editorProps?.performanceTracking?.proseMirrorRenderedTracking;
 
-				const forceSeverityTracking =
-					typeof proseMirrorRenderedTracking === 'undefined' && shouldForceTracking();
+				const forceSeverityTracking = typeof proseMirrorRenderedTracking === 'undefined';
 
 				this.proseMirrorRenderedSeverity =
 					!!forceSeverityTracking || proseMirrorRenderedTracking?.trackSeverity

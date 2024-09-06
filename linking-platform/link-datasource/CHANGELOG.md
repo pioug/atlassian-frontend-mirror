@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 2.12.3
+
+### Patch Changes
+
+- [#137785](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137785)
+  [`41740396ba9c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/41740396ba9c1) -
+  Adds analytic event ui.inlineEdit.cancelled.datasource to be fired when inline edit is cancelled
+- Updated dependencies
+
+## 2.12.2
+
+### Patch Changes
+
+- [#137619](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137619)
+  [`a91489985e535`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a91489985e535) -
+  [ux] Tab and Shift+Tab now dismisses the list of opened popup select options and allows users to
+  navigate to next or previous elements accordingly.
+
 ## 2.12.1
 
 ### Patch Changes

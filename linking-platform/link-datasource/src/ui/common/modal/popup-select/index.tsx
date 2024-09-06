@@ -182,6 +182,7 @@ export const FilterPopupSelect = ({
 			searchThreshold={-1}
 			inputValue={searchTerm}
 			closeMenuOnSelect={false}
+			shouldCloseMenuOnTab={false}
 			hideSelectedOptions={false}
 			isLoading={showLoading}
 			placeholder={formatMessage(asyncPopupSelectMessages.selectPlaceholder)}

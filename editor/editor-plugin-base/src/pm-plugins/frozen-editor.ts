@@ -8,6 +8,11 @@ import {
 	BROWSER_FREEZE_INTERACTION_TYPE,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { countNodes } from '@atlaskit/editor-common/count-nodes';
+import {
+	isPerformanceAPIAvailable,
+	isPerformanceObserverAvailable,
+} from '@atlaskit/editor-common/is-performance-api-available';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	BrowserFreezetracking,
@@ -15,13 +20,7 @@ import type {
 	InputTracking,
 } from '@atlaskit/editor-common/types';
 import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
-import type { SEVERITY } from '@atlaskit/editor-common/utils';
-import {
-	countNodes,
-	getAnalyticsEventSeverity,
-	isPerformanceAPIAvailable,
-	isPerformanceObserverAvailable,
-} from '@atlaskit/editor-common/utils';
+import { getAnalyticsEventSeverity, type SEVERITY } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

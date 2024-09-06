@@ -162,6 +162,18 @@ export interface ReactionsProps
 	 * Optional prop for using an opaque button background instead of a transparent background
 	 */
 	showOpaqueBackground?: boolean;
+	/**
+	 * Optional prop for applying subtle styling to reaction summary and picker
+	 */
+	subtleReactionsSummaryAndPicker?: boolean;
+	/**
+	 * Optional prop for displaying text to add a reaction
+	 */
+	showAddReactionText?: boolean;
+	/**
+	 * Optional prop for hiding default reactions displayed when there are no existing reactions
+	 */
+	hideDefaultReactions?: boolean;
 }
 
 /**
@@ -211,6 +223,9 @@ export const Reactions = React.memo(
 		summaryViewThreshold = 3,
 		summaryViewPlacement,
 		showOpaqueBackground = false,
+		subtleReactionsSummaryAndPicker = false,
+		showAddReactionText = false,
+		hideDefaultReactions = false,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -369,9 +384,13 @@ export const Reactions = React.memo(
 		const memorizedReactions = useMemo(() => {
 			//
 			/**
-			 * If reactions not empty, don't show quick reactions Pre defined emoji or if its empty => return the current list of reactions
+			 * If reactions not empty, don't show quick reactions Pre defined emoji or if its empty and default reactions not hidden => return the current list of reactions
 			 */
-			if (reactions.length > 0 || !quickReactionEmojis) {
+			if (
+				(reactions.length === 0 && hideDefaultReactions) ||
+				reactions.length > 0 ||
+				!quickReactionEmojis
+			) {
 				return reactions;
 			}
 
@@ -389,7 +408,7 @@ export const Reactions = React.memo(
 					};
 				});
 			return reactions.concat(items);
-		}, [quickReactionEmojis, reactions]);
+		}, [quickReactionEmojis, reactions, hideDefaultReactions]);
 
 		const shouldShowSummaryView =
 			summaryViewEnabled &&
@@ -413,6 +432,7 @@ export const Reactions = React.memo(
 							onReactionMouseEnter={handleReactionMouseEnter}
 							placement={summaryViewPlacement}
 							showOpaqueBackground={showOpaqueBackground}
+							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 						/>
 					</div>
 				) : (
@@ -448,6 +468,8 @@ export const Reactions = React.memo(
 					emojiPickerSize={emojiPickerSize}
 					miniMode={miniMode}
 					showOpaqueBackground={showOpaqueBackground}
+					showAddReactionText={showAddReactionText}
+					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 				/>
 				{allowUserDialog && reactions.length > 0 && (
 					<Tooltip

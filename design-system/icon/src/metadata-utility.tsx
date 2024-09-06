@@ -238,6 +238,7 @@ const metadata: Record<string, metadata> = {
 		keywords: ['cross', 'close', 'x', 'cancel', 'icon', 'utility', 'remove', 'clear', 'x'],
 		componentName: 'CrossIcon',
 		package: '@atlaskit/icon/utility/cross',
+		oldName: ['editor/close'],
 		type: 'utility',
 		categorization: 'utility',
 		usage: 'Known uses: remove tag.',

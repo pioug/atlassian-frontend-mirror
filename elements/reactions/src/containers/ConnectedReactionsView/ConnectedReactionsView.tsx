@@ -30,6 +30,7 @@ export interface ConnectedReactionsViewProps
 			| 'emojiPickerSize'
 			| 'miniMode'
 			| 'summaryViewEnabled'
+			| 'subtleReactionsSummaryAndPicker'
 		>,
 		Pick<ReactionPickerProps, 'pickerQuickReactionEmojiIds'> {
 	/**

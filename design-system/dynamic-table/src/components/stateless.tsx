@@ -1,11 +1,6 @@
 import React, { forwardRef, lazy, Suspense, useEffect, useRef, useState } from 'react';
 
-import {
-	createAndFireEvent,
-	type UIAnalyticsEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { ASC, DESC, LARGE, SMALL } from '../internal/constants';
@@ -28,9 +23,6 @@ import LoadingContainer from './loading-container';
 import LoadingContainerAdvanced from './loading-container-advanced';
 import ManagedPagination from './managed-pagination';
 import TableHead from './table-head';
-
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 function toggleSortOrder(currentSortOrder?: SortOrderType) {
 	switch (currentSortOrder) {
@@ -59,13 +51,13 @@ const DynamicTable = ({
 	isFixedSize = false,
 	rowsPerPage = Infinity,
 	onSetPage = noop,
-	onSort = noop,
+	onSort: providedOnSort = noop,
 	page = 1,
 	emptyView,
 	isRankable = false,
 	isRankingDisabled = false,
 	onRankStart = noop,
-	onRankEnd = noop,
+	onRankEnd: providedOnRankEnd = noop,
 	loadingSpinnerSize,
 	paginationi18n = {
 		prev: 'Previous',
@@ -76,6 +68,22 @@ const DynamicTable = ({
 }: Props) => {
 	const [isRanking, setIsRanking] = useState(false);
 	const tableBodyRef = useRef<HTMLTableSectionElement>(null);
+
+	const onSort = usePlatformLeafEventHandler({
+		fn: providedOnSort,
+		action: 'sorted',
+		componentName: 'dynamicTable',
+		packageName: process.env._PACKAGE_NAME_ as string,
+		packageVersion: process.env._PACKAGE_VERSION_ as string,
+	});
+
+	const onRankEnd = usePlatformLeafEventHandler<RankEnd>({
+		fn: providedOnRankEnd,
+		action: 'ranked',
+		componentName: 'dynamicTable',
+		packageName: process.env._PACKAGE_NAME_ as string,
+		packageVersion: process.env._PACKAGE_VERSION_ as string,
+	});
 
 	useEffect(() => {
 		validateSortKey(sortKey, head);
@@ -299,42 +307,5 @@ const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(function T
 	);
 });
 
-export { DynamicTable as DynamicTableWithoutAnalytics };
-const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
-
-/**
- * __Dynamic table stateless__
- *
- * A stateless table that requires consumers to manage the sorting, drag and drop, and pagination.
- *
- * - [Examples](https://atlaskit.atlassian.com/packages/design-system/dynamic-table)
- * - [Code](https://bitbucket.org/atlassian/atlassian-frontend/packages/design-system/dynamic-table)
- */
-const DynamicTableStateless = withAnalyticsContext({
-	componentName: 'dynamicTable',
-	packageName,
-	packageVersion,
-})(
-	withAnalyticsEvents({
-		onSort: createAndFireEventOnAtlaskit({
-			action: 'sorted',
-			actionSubject: 'dynamicTable',
-			attributes: {
-				componentName: 'dynamicTable',
-				packageName,
-				packageVersion,
-			},
-		}),
-		onRankEnd: createAndFireEventOnAtlaskit({
-			action: 'ranked',
-			actionSubject: 'dynamicTable',
-			attributes: {
-				componentName: 'dynamicTable',
-				packageName,
-				packageVersion,
-			},
-		}),
-	})(DynamicTable),
-);
-
-export default DynamicTableStateless;
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default DynamicTable;

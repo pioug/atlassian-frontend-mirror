@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 109.52.0
+
+### Minor Changes
+
+- [#137755](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137755)
+  [`f3d004d4e3a3e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3d004d4e3a3e) -
+  ED-24650 fix nested node jittering issue
+
+### Patch Changes
+
+- [#137736](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137736)
+  [`2a88fdd213838`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a88fdd213838) -
+  Introducing new smaller refined entry-points for editor-common to reduce bundle size.
+- [#137404](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137404)
+  [`adae1f3dc8fca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/adae1f3dc8fca) -
+  Switches Support Table in Comment features to use Statsig experiment instead of a Feature Gate.
+- Updated dependencies
+
 ## 109.51.6
 
 ### Patch Changes

@@ -15,9 +15,19 @@ import { getOptions, getWidth } from '../utils';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
+import {
+	COLOR_PALETTE_MENU,
+	KEY_ARROW_UP,
+	KEY_ARROW_DOWN,
+	KEY_ARROW_LEFT,
+	KEY_ARROW_RIGHT,
+	KEY_TAB,
+} from '../constants';
 import { N0, N40 } from '@atlaskit/theme/colors';
 
 export type Props = {
+	/** the toggle that decides if users can tab outside the color picker (arrow keys will always cycle the focus) */
+	isFocusLockEnabled?: boolean;
 	/** color picker button label */
 	label?: string;
 	/** list of available colors */
@@ -39,6 +49,7 @@ export type Props = {
 };
 
 export const ColorPaletteMenuWithoutAnalytics = ({
+	isFocusLockEnabled = true,
 	createAnalyticsEvent,
 	onChange,
 	palette,
@@ -49,6 +60,13 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 	mode = Mode.Standard,
 	initialFocusRef,
 }: Props) => {
+	const { options, value: selectedValue } = getOptions(palette, selectedColor);
+	const fullLabel = `${label}, ${selectedValue.label} selected`;
+	const selectedColorIndex = selectedValue.value
+		? options.findIndex(({ value }) => value === selectedValue.value)
+		: 0;
+
+	const [focusedIndex, setFocusedIndex] = useState(selectedColorIndex);
 	const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
 	const changeAnalyticsCaller = () => {
@@ -73,13 +91,6 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 		onChange(value, changeAnalyticsCaller());
 	};
 
-	const { options, value: selectedValue } = getOptions(palette, selectedColor);
-	const fullLabel = `${label}, ${selectedValue.label} selected`;
-
-	const [focusedIndex, setFocusedIndex] = useState(
-		selectedValue.value ? options.findIndex(({ value }) => value === selectedValue.value) : 0,
-	);
-
 	useEffect(() => {
 		colorCardRefs[focusedIndex]?.focus();
 	}, [focusedIndex, colorCardRefs]);
@@ -89,19 +100,32 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 			const numItems = options.length;
 
 			switch (event.key) {
-				case 'ArrowRight':
-				case 'ArrowDown':
+				case KEY_ARROW_DOWN:
+				case KEY_ARROW_RIGHT:
 					setFocusedIndex((prevIndex) => (prevIndex + 1) % numItems);
 					break;
-				case 'ArrowLeft':
-				case 'ArrowUp':
+
+				case KEY_ARROW_UP:
+				case KEY_ARROW_LEFT:
 					setFocusedIndex((prevIndex) => (prevIndex - 1 + numItems) % numItems);
 					break;
+
+				case KEY_TAB: {
+					if (isFocusLockEnabled) {
+						event.preventDefault();
+						event.stopPropagation();
+
+						setFocusedIndex(selectedColorIndex);
+					}
+
+					break;
+				}
+
 				default:
 					break;
 			}
 		},
-		[setFocusedIndex, options],
+		[isFocusLockEnabled, selectedColorIndex, setFocusedIndex, options],
 	);
 
 	return (
@@ -125,6 +149,7 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 				{options.map(({ label, value }, index) => (
 					<div css={colorCardWrapperStyles} key={value}>
 						<ColorCard
+							type={COLOR_PALETTE_MENU}
 							label={label}
 							value={value}
 							checkMarkColor={checkMarkColor}
@@ -132,7 +157,9 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 							selected={value === selectedValue.value}
 							onClick={handleChange}
 							{...(fg('platform_color_palette_menu_timeline_bar_a11y') && {
-								ref: (ref) => (colorCardRefs[index] = ref),
+								ref: (ref) => {
+									colorCardRefs[index] = ref;
+								},
 								initialFocusRef: value === selectedValue.value ? initialFocusRef : undefined,
 								onKeyDown: handleKeyDown,
 							})}

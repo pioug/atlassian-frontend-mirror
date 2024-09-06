@@ -12,6 +12,8 @@ import {
 	fireAnalyticsEvent,
 	getAnalyticsEventsFromTransaction,
 } from '@atlaskit/editor-common/analytics';
+import { isPerformanceAPIAvailable } from '@atlaskit/editor-common/is-performance-api-available';
+import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	FeatureFlags,
@@ -19,7 +21,6 @@ import type {
 	OptionalPlugin,
 	PerformanceTracking,
 } from '@atlaskit/editor-common/types';
-import { isPerformanceAPIAvailable, measureRender } from '@atlaskit/editor-common/utils';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 

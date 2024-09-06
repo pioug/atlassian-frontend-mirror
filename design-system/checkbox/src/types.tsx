@@ -3,7 +3,7 @@ import type React from 'react';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type StrictXCSSProp } from '@atlaskit/css';
 
-export type Size = 'small' | 'medium' | 'large' | 'xlarge';
+export type Size = 'medium' | 'large';
 
 /**
  *
@@ -63,6 +63,9 @@ export type OwnProps = {
 	value?: number | string;
 	/**
 	 * The size of the checkbox.
+	 *
+	 * @deprecated This will later be removed and all checkboxes will be size
+	 * `medium`.
 	 */
 	size?: Size;
 	/**

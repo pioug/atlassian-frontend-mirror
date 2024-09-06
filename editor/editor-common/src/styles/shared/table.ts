@@ -58,6 +58,33 @@ export const TableSharedCssClassName = {
 	TABLE_RESIZER_CONTAINER: `${tablePrefixSelector}-resizer-container`,
 };
 
+/* first block node has 0 top margin */
+const firstNodeWithNotMarginTop = () =>
+	editorExperiment('nested-dnd', true)
+		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+			css`
+				> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span)) {
+					margin-top: 0;
+				}
+			`
+		: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+			css`
+				> :first-child:not(style),
+				> style:first-child + * {
+					margin-top: 0;
+				}
+
+				> .ProseMirror-gapcursor:first-child + *,
+				> style:first-child + .ProseMirror-gapcursor + * {
+					margin-top: 0;
+				}
+
+				> .ProseMirror-gapcursor:first-child + span + *,
+				> style:first-child + .ProseMirror-gapcursor + span + * {
+					margin-top: 0;
+				}
+			`;
+
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Appears safe to auto-fix, but leaving it up to the team to remediate as the readability only gets worse with autofixing
 const tableSharedStyle = () => css`
 	${tableCellBackgroundStyleOverride()}
@@ -141,20 +168,7 @@ const tableSharedStyle = () => css`
 					? 'background-clip: padding-box;'
 					: ''}
 
-				> :first-child:not(style),
-        > style:first-child + * {
-					margin-top: 0;
-				}
-
-				> .ProseMirror-gapcursor:first-child + *,
-				> style:first-child + .ProseMirror-gapcursor + * {
-					margin-top: 0;
-				}
-
-				> .ProseMirror-gapcursor:first-child + span + *,
-				> style:first-child + .ProseMirror-gapcursor + span + * {
-					margin-top: 0;
-				}
+				${firstNodeWithNotMarginTop()}
 
 				th p:not(:first-of-type),
 				td p:not(:first-of-type) {

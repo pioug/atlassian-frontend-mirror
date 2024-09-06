@@ -540,26 +540,11 @@ export const setSelectedCardAppearance: (
 		return false;
 	}
 
-	let attrs;
-	if (fg('platform.linking-platform.enable-datasource-appearance-toolbar')) {
-		if (appearanceForNodeType(selectedNode.type) === appearance && !selectedNode.attrs.datasource) {
-			return false;
-		}
-
-		attrs = getAttrsForAppearance(appearance, selectedNode);
-	} else {
-		if (appearanceForNodeType(selectedNode.type) === appearance) {
-			return false;
-		}
-
-		const isEmbed = appearance === 'embed';
-		attrs = isEmbed
-			? {
-					...selectedNode.attrs,
-					layout: 'center',
-				}
-			: selectedNode.attrs;
+	if (appearanceForNodeType(selectedNode.type) === appearance && !selectedNode.attrs.datasource) {
+		return false;
 	}
+
+	const attrs = getAttrsForAppearance(appearance, selectedNode);
 
 	const { from, to } = state.selection;
 	const nodeType = getLinkNodeType(appearance, state.schema.nodes as LinkNodes);
@@ -651,11 +636,7 @@ export const updateCardViaDatasource = (args: UpdateCardArgs) => {
 					...newAdf.attrs,
 				});
 			}
-		} else if (
-			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-			fg('platform.linking-platform.enable-datasource-appearance-toolbar') &&
-			node.type.isText
-		) {
+		} else if (node.type.isText) {
 			// url to datasource
 			let link: { url: string; text: string | undefined; pos: number } | undefined;
 			state.doc.nodesBetween(from, to, (node, pos) => {
@@ -748,16 +729,14 @@ export const getAttrsForAppearance = (appearance: CardAppearance, selectedNode: 
 };
 
 const updateDatasourceStash = (tr: Transaction, selectedNode?: Node) => {
-	if (fg('platform.linking-platform.enable-datasource-appearance-toolbar')) {
-		if (
-			isDatasourceNode(selectedNode) &&
-			!isDatasourceConfigEditable(selectedNode.attrs.datasource.id) &&
-			selectedNode.attrs.url
-		) {
-			setDatasourceStash(tr, {
-				url: selectedNode.attrs.url,
-				views: selectedNode.attrs.datasource.views,
-			});
-		}
+	if (
+		isDatasourceNode(selectedNode) &&
+		!isDatasourceConfigEditable(selectedNode.attrs.datasource.id) &&
+		selectedNode.attrs.url
+	) {
+		setDatasourceStash(tr, {
+			url: selectedNode.attrs.url,
+			views: selectedNode.attrs.datasource.views,
+		});
 	}
 };

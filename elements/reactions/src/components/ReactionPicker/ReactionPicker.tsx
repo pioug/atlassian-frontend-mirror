@@ -128,6 +128,14 @@ export interface ReactionPickerProps
 	 * Optional prop for using an opaque button background instead of a transparent background
 	 */
 	showOpaqueBackground?: boolean;
+	/**
+	 * Optional prop for applying subtle styling to reaction summary and picker
+	 */
+	subtleReactionsSummaryAndPicker?: boolean;
+	/**
+	 * Optional prop for displaying text to add a reaction
+	 */
+	showAddReactionText?: boolean;
 }
 
 /**
@@ -148,6 +156,8 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		tooltipContent = <FormattedMessage {...messages.addReaction} />,
 		emojiPickerSize,
 		showOpaqueBackground = false,
+		subtleReactionsSummaryAndPicker = false,
+		showAddReactionText = false,
 	} = props;
 
 	const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(null);
@@ -304,6 +314,8 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 							disabled={disabled}
 							tooltipContent={settings.isOpen ? null : tooltipContent}
 							showOpaqueBackground={showOpaqueBackground}
+							showAddReactionText={showAddReactionText}
+							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 						/>
 					)}
 				</Reference>

@@ -22,6 +22,7 @@ import { getWrappingOptions } from '@atlaskit/editor-common/utils';
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import SwitchIcon from './assets/switch';
@@ -330,6 +331,18 @@ function ToolbarInsertBlockWithInjectionApi({
 		'placeholderText',
 	]);
 
+	const getEmojiProvider = () => {
+		if (fg('platform_editor_get_emoji_provider_from_config')) {
+			if (emojiState?.emojiProvider) {
+				return Promise.resolve(emojiState?.emojiProvider);
+			}
+		} else {
+			return providers.emojiProvider;
+		}
+	};
+
+	const emojiProvider = getEmojiProvider();
+
 	return (
 		<ToolbarInsertBlock
 			pluginInjectionApi={pluginInjectionApi}
@@ -361,8 +374,8 @@ function ToolbarInsertBlockWithInjectionApi({
 			linkDisabled={
 				!hyperlinkState || !hyperlinkState.canInsertLink || !!hyperlinkState.activeLinkMark
 			}
-			emojiDisabled={!emojiState || !providers.emojiProvider}
-			emojiProvider={providers.emojiProvider}
+			emojiDisabled={!emojiState || !emojiProvider}
+			emojiProvider={emojiProvider}
 			nativeStatusSupported={options.nativeStatusSupported}
 			horizontalRuleEnabled={options.horizontalRuleEnabled}
 			onInsertBlockType={handleInsertBlockType(

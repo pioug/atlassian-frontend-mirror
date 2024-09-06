@@ -1,4 +1,4 @@
-export { getNodesCount } from './document';
+export { getNodesCount } from './getNodesCount';
 
 export { default as measurements } from './performance/measure-enum';
 

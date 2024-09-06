@@ -14,15 +14,17 @@ import React, {
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import Tooltip from '@atlaskit/tooltip';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { KEY_ENTER, KEY_SPACE } from '../constants';
+import { COLOR_PALETTE_MENU, KEY_ENTER, KEY_SPACE, KEY_TAB } from '../constants';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { N0, DN600A, B75 } from '@atlaskit/theme/colors';
 import { mergeRefs } from 'use-callback-ref';
+import type { ColorCardType } from '../types';
 
 export interface Props {
 	initialFocusRef?: Ref<HTMLDivElement>;
+	type: ColorCardType;
 	value: string;
 	label: string;
 	onClick?: (value: string) => void;
@@ -40,6 +42,7 @@ export type ColorCardRef = {
 
 const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 	const {
+		type,
 		initialFocusRef,
 		value,
 		label,
@@ -53,6 +56,10 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 
 	const ref = useRef<HTMLDivElement | null>(null);
 	const isInitialFocus = useRef<boolean>(true);
+	const isColorPaletteMenu = type === COLOR_PALETTE_MENU;
+	const isTabbingIgnored = fg('platform_color_palette_menu_timeline_bar_a11y')
+		? isColorPaletteMenu
+		: false;
 
 	const handleMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
@@ -68,50 +75,42 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 		[onClick, value],
 	);
 
-	const handleKeyDownOld = useCallback(
-		(event: React.KeyboardEvent<HTMLElement>) => {
-			const { key } = event;
-
-			if (
-				(isTabbing === undefined || isTabbing) &&
-				onClick &&
-				(key === KEY_ENTER || key === KEY_SPACE)
-			) {
-				event.preventDefault();
-				if (isTabbing) {
-					event.stopPropagation();
-				}
-				onClick(value);
-			}
-		},
-		[isTabbing, onClick, value],
-	);
-
 	const handleKeyDown = useCallback(
 		(event: React.KeyboardEvent<HTMLDivElement>) => {
-			const { key } = event;
-
-			if ((isTabbing === undefined || isTabbing) && (key === KEY_ENTER || key === KEY_SPACE)) {
+			if (
+				(isTabbingIgnored || isTabbing === undefined || isTabbing) &&
+				onClick &&
+				(event.key === KEY_ENTER || event.key === KEY_SPACE)
+			) {
 				event.preventDefault();
+
 				if (isTabbing) {
 					event.stopPropagation();
 				}
-				onClick?.(value);
+
+				onClick(value);
 			}
 
-			onKeyDown?.(event);
+			if (fg('platform_color_palette_menu_timeline_bar_a11y')) {
+				if (isColorPaletteMenu) {
+					onKeyDown?.(event);
+				} else if (event.key === KEY_TAB) {
+					event.stopPropagation();
+					event.preventDefault();
+				}
+			}
 		},
-		[isTabbing, onClick, onKeyDown, value],
+		[isTabbing, isTabbingIgnored, isColorPaletteMenu, onClick, onKeyDown, value],
 	);
 
-	// TODO: Remove this useEffect when the feature flag 'platform_color_palette_menu_timeline_bar_a11y' is cleaned up
 	useEffect(() => {
 		if (!fg('platform_color_palette_menu_timeline_bar_a11y')) {
 			const refCurrent = ref.current;
-			const handleTabKey = (e: KeyboardEvent) => {
-				if (e.key === 'Tab') {
-					e.stopPropagation();
-					e.preventDefault();
+
+			const handleTabKey = (event: KeyboardEvent) => {
+				if (event.key === KEY_TAB) {
+					event.stopPropagation();
+					event.preventDefault();
 				}
 			};
 
@@ -127,7 +126,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 		componentRef,
 		() => ({
 			focus: () => {
-				if (fg('platform_color_palette_menu_timeline_bar_a11y')) {
+				if (isTabbingIgnored) {
 					if (isInitialFocus.current) {
 						!initialFocusRef && ref.current?.focus();
 						isInitialFocus.current = false;
@@ -137,7 +136,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 				}
 			},
 		}),
-		[initialFocusRef],
+		[isTabbingIgnored, initialFocusRef],
 	);
 
 	return (
@@ -158,22 +157,16 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 						aria-label={label}
 						css={[
 							sharedColorContainerStyles,
-							(isTabbing === undefined || isTabbing) && colorCardOptionTabbingStyles,
-							focused && !isTabbing && colorCardOptionFocusedStyles,
+							(isTabbingIgnored || isTabbing === undefined || isTabbing) &&
+								colorCardOptionTabbingStyles,
+							focused && (isTabbingIgnored || !isTabbing) && colorCardOptionFocusedStyles,
 						]}
 						onClick={handleClick}
 						onMouseDown={handleMouseDown}
-						onKeyDown={
-							fg('platform_color_palette_menu_timeline_bar_a11y') ? handleKeyDown : handleKeyDownOld
-						}
+						onKeyDown={handleKeyDown}
 					>
 						<div css={colorCardWrapperStyles}>
-							<div
-								css={colorCardContentStyles}
-								style={{
-									background: value || 'transparent',
-								}}
-							>
+							<div css={colorCardContentStyles} style={{ background: value || 'transparent' }}>
 								{selected && (
 									<div css={colorCardContentCheckMarkStyles}>
 										<EditorDoneIcon primaryColor={checkMarkColor} label="" />

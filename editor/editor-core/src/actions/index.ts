@@ -1,5 +1,6 @@
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
+import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import type {
 	ContextUpdateHandler,
 	EditorActionsOptions,
@@ -7,12 +8,7 @@ import type {
 	ReplaceRawValue,
 	Transformer,
 } from '@atlaskit/editor-common/types';
-import {
-	findNodePosByLocalIds,
-	isEmptyDocument,
-	processRawValue,
-	toJSON,
-} from '@atlaskit/editor-common/utils';
+import { findNodePosByLocalIds, isEmptyDocument, toJSON } from '@atlaskit/editor-common/utils';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils/analytics';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -24,8 +20,8 @@ import type { EventDispatcher } from '../event-dispatcher';
 import { createDispatch } from '../event-dispatcher';
 import { __temporaryFixForConfigPanel, getEditorValueWithMedia } from '../utils/action';
 import deprecationWarnings from '../utils/deprecation-warnings';
-import { processRawFragmentValue } from '../utils/document';
 import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
+import { processRawFragmentValue } from '../utils/processRawFragmentValue';
 
 // TODO: ED-21786
 // Please, do not copy or use this kind of code below

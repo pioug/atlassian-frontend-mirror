@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 14.0.3
+
+### Patch Changes
+
+- [#137357](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137357)
+  [`023251c8a0af7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/023251c8a0af7) -
+  Converting the time picker from a class component into a functional component.
+
 ## 14.0.2
 
 ### Patch Changes

@@ -1,44 +1,48 @@
-import {
-	createAndFireEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+import React from 'react';
 
-import '../../time-picker';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
+import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import __noop from '@atlaskit/ds-lib/noop';
 
-// This is a global mock for this file that will mock all components wrapped with analytics
-// and replace them with an empty SFC that returns null. This includes components imported
-// directly in this file and others imported as dependencies of those imports.
-jest.mock('@atlaskit/analytics-next', () => ({
-	withAnalyticsEvents: jest.fn(() => jest.fn(() => () => null)),
-	withAnalyticsContext: jest.fn(() => jest.fn(() => () => null)),
-	createAndFireEvent: jest.fn(() => jest.fn((args) => args)),
-}));
+import TimePicker from '../../time-picker';
+
+const attributes = {
+	componentName: 'timePicker',
+	packageName: process.env._PACKAGE_NAME_ as string,
+	packageVersion: process.env._PACKAGE_VERSION_ as string,
+};
 
 describe('TimePicker', () => {
-	it('should be wrapped with analytics context', () => {
-		expect(withAnalyticsContext).toHaveBeenCalledWith({
-			componentName: 'timePicker',
-			packageName,
-			packageVersion,
-		});
-	});
-
-	it('should be wrapped with analytics events', () => {
-		expect(createAndFireEvent).toHaveBeenCalledWith('atlaskit');
-		expect(withAnalyticsEvents).toHaveBeenCalledWith({
-			onChange: {
+	it(`should fire an event on internal channel when value is changed`, async () => {
+		const user = userEvent.setup();
+		const onAtlaskitEvent = jest.fn();
+		render(
+			<AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
+				<div>
+					<label htmlFor="time">
+						Time
+						<TimePicker id="time" onChange={__noop} />
+					</label>
+				</div>
+			</AnalyticsListener>,
+		);
+		const timePickerInput = screen.getByRole('combobox') as HTMLTextAreaElement;
+		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
+			payload: {
 				action: 'selectedTime',
 				actionSubject: 'timePicker',
-				attributes: {
-					componentName: 'timePicker',
-					packageName,
-					packageVersion,
-				},
+				attributes,
 			},
 		});
+		await user.type(timePickerInput, '11:00{Enter}');
+		const mock: jest.Mock = onAtlaskitEvent;
+		// Once for select's option change and once for time picker's balue change
+		expect(mock).toHaveBeenCalledTimes(2);
+		const timePickerEvent = mock.mock.calls.find(
+			(call) => call[0].payload.actionSubject === attributes.componentName,
+		);
+		expect(timePickerEvent[0].payload).toEqual(expected.payload);
 	});
 });

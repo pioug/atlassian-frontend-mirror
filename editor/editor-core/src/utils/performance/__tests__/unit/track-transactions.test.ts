@@ -2,14 +2,18 @@ import {
 	startMeasure as startMeasureWithMark,
 	stopMeasure as stopMeasureWithMark,
 } from '@atlaskit/editor-common/performance-measures';
-import { getTimeSince } from '@atlaskit/editor-common/utils';
 
+import { getTimeSince } from '../../getTimeSince';
 import { TransactionTracker } from '../../track-transactions';
 
-jest.mock('@atlaskit/editor-common/utils', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
-	isPerformanceAPIAvailable: () => true,
+jest.mock('../../getTimeSince', () => ({
+	...jest.requireActual<Object>('../../getTimeSince'),
 	getTimeSince: jest.fn(),
+}));
+
+jest.mock('@atlaskit/editor-common/is-performance-api-available', () => ({
+	...jest.requireActual<Object>('@atlaskit/editor-common/is-performance-api-available'),
+	isPerformanceAPIAvailable: () => true,
 }));
 
 const mockGetTimeSince = getTimeSince as jest.Mock;

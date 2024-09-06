@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::87bb81d0c3b90473d208f9c02285004e>>
+ * @codegen <<SignedSource::6d4fa1aa0b65b5fb6e0cbed65f66d66e>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type ComponentMetaDataType = {
@@ -190,6 +190,11 @@ export type InlineEditClickedDatasourceAttributesType = {
 	integrationKey: string;
 	fieldKey: string;
 };
+export type InlineEditCancelledDatasourceAttributesType = {
+	entityType: string;
+	integrationKey: string;
+	fieldKey: string;
+};
 export type ErrorShownInlineEditAttributesType = {
 	reason: 'access_denied' | 'request_failed';
 };
@@ -315,6 +320,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * Fired when inline edit is clicked to show edit mode */
 	'ui.inlineEdit.clicked.datasource': InlineEditClickedDatasourceAttributesType;
+	/**
+	 * Fired when the user initiates an update via inline edit through enter key press or submit */
+	'ui.inlineEdit.cancelled.datasource': InlineEditCancelledDatasourceAttributesType;
 	/**
 	 * Fired when the inline edit failed and the error flag is shown. */
 	'ui.error.shown.inlineEdit': ErrorShownInlineEditAttributesType;

@@ -14,7 +14,9 @@ afterEach(() => {
 	jest.resetAllMocks();
 });
 
-test('should ssr then hydrate example component correctly', async () => {
+// Skipped: Test is not compatible with React 18 and has problems to run locally
+// https://product-fabric.atlassian.net/browse/CXP-3818
+test.skip('should ssr then hydrate example component correctly', async () => {
 	const elem = document.createElement('div');
 	elem.innerHTML = await ssr(Example);
 

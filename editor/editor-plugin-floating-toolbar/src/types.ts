@@ -9,6 +9,7 @@ import type { CopyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
@@ -46,6 +47,7 @@ export type FloatingToolbarPlugin = NextEditorPlugin<
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<BlockControlsPlugin>,
 			OptionalPlugin<FeatureFlagsPlugin>,
+			OptionalPlugin<EmojiPlugin>,
 		];
 		actions: { forceFocusSelector: ForceFocusSelector };
 		sharedState:

@@ -51,6 +51,8 @@ describe('MediaSvg', () => {
 		const loading = await findByRole('status');
 		expect(loading).toBeTruthy();
 
+		await waitFor(() => expect(mediaApi.getFileBinary).toHaveBeenCalled());
+
 		resolveBinary();
 
 		const elem = (await findByTestId(testId)) as unknown as HTMLImageElement;
@@ -94,7 +96,7 @@ describe('MediaSvg', () => {
 		);
 
 		await waitFor(() => expect(elem.getAttribute('data-fileid')).toBe(identifier2.id));
-		expect(mediaApi.getFileBinary).toBeCalledTimes(2);
+		await waitFor(() => expect(mediaApi.getFileBinary).toHaveBeenCalledTimes(2));
 	});
 
 	it('should call onError prop with binary-fetch if binary fetch fails', async () => {

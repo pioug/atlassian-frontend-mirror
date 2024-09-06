@@ -12,7 +12,6 @@ import {
 	JIRA_LIST_OF_LINKS_DATASOURCE_ID,
 } from '@atlaskit/link-datasource';
 import type { CardContext } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { CardInfo, CardPluginState, DatasourceNode } from './types';
@@ -124,10 +123,8 @@ export const isDatasourceConfigEditable = (datasourceId: string) => {
 	const datasourcesWithConfigModal = [
 		JIRA_LIST_OF_LINKS_DATASOURCE_ID,
 		ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+		CONFLUENCE_SEARCH_DATASOURCE_ID,
 	];
-	if (fg('platform.linking-platform.datasource.enable-confluence-search-modal')) {
-		datasourcesWithConfigModal.push(CONFLUENCE_SEARCH_DATASOURCE_ID);
-	}
 	return datasourcesWithConfigModal.includes(datasourceId);
 };
 

@@ -108,17 +108,16 @@ function HyperlinkToolbarAppearanceFunctional(props: HyperlinkToolbarAppearanceP
 				platform={platform}
 				editorAnalyticsApi={editorAnalyticsApi}
 			/>
-			{cardOptions?.allowDatasource &&
-				fg('platform.linking-platform.enable-datasource-appearance-toolbar') && (
-					<DatasourceAppearanceButton
-						intl={intl}
-						url={url}
-						editorState={editorState}
-						editorView={editorView}
-						editorAnalyticsApi={editorAnalyticsApi}
-						inputMethod={INPUT_METHOD.FLOATING_TB}
-					/>
-				)}
+			{cardOptions?.allowDatasource && (
+				<DatasourceAppearanceButton
+					intl={intl}
+					url={url}
+					editorState={editorState}
+					editorView={editorView}
+					editorAnalyticsApi={editorAnalyticsApi}
+					inputMethod={INPUT_METHOD.FLOATING_TB}
+				/>
+			)}
 			<Separator />
 		</Flex>
 	);
@@ -211,17 +210,16 @@ class HyperlinkToolbarAppearanceClass extends Component<
 					platform={platform}
 					editorAnalyticsApi={editorAnalyticsApi}
 				/>
-				{cardOptions?.allowDatasource &&
-					fg('platform.linking-platform.enable-datasource-appearance-toolbar') && (
-						<DatasourceAppearanceButton
-							intl={intl}
-							url={url}
-							editorState={editorState}
-							editorView={editorView}
-							editorAnalyticsApi={editorAnalyticsApi}
-							inputMethod={INPUT_METHOD.FLOATING_TB}
-						/>
-					)}
+				{cardOptions?.allowDatasource && (
+					<DatasourceAppearanceButton
+						intl={intl}
+						url={url}
+						editorState={editorState}
+						editorView={editorView}
+						editorAnalyticsApi={editorAnalyticsApi}
+						inputMethod={INPUT_METHOD.FLOATING_TB}
+					/>
+				)}
 				<Separator />
 			</Flex>
 		);

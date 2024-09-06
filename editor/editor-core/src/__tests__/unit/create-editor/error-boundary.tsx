@@ -1,8 +1,8 @@
 const mockStore = {
 	failAll: jest.fn(),
 };
-jest.mock('@atlaskit/editor-common/utils', () => ({
-	...jest.requireActual('@atlaskit/editor-common/utils'),
+jest.mock('../../../utils/outdatedBrowsers', () => ({
+	...jest.requireActual('../../../utils/outdatedBrowsers'),
 	isOutdatedBrowser: (userAgent: string) => userAgent === 'Unsupported',
 }));
 jest.mock('@atlaskit/editor-common/ufo', () => ({

@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.1.6
+
+### Patch Changes
+
+- [#137404](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137404)
+  [`adae1f3dc8fca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/adae1f3dc8fca) -
+  Switches Support Table in Comment features to use Statsig experiment instead of a Feature Gate.
+
 ## 2.1.5
 
 ### Patch Changes

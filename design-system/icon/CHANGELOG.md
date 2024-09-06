@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 22.16.0
+
+### Minor Changes
+
+- [#137781](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137781)
+  [`21bfb50836bad`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/21bfb50836bad) -
+  Added a new icon to the utility migration icon set: 'cross--editor-close'
+
 ## 22.15.2
 
 ### Patch Changes

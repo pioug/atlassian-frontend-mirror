@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 1.3.0
+
+### Minor Changes
+
+- [#137614](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137614)
+  [`f7efc61f35951`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7efc61f35951) -
+  Add export for plugin type from paste options toolbar. Slightly re-arrange plugins to meet linting
+  rule.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.2
 
 ### Patch Changes

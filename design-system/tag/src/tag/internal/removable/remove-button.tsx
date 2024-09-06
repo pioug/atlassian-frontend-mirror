@@ -4,7 +4,7 @@ import React, {
 	type MouseEventHandler,
 } from 'react';
 
-import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import CrossIcon from '@atlaskit/icon/utility/migration/cross--editor-close';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable, xcss } from '@atlaskit/primitives';
 
@@ -61,7 +61,6 @@ const removeButtonStylesOld = xcss({
 	margin: 'space.0',
 	padding: 'space.0',
 	position: 'absolute',
-	insetInlineEnd: 'space.0',
 	alignItems: 'center',
 	justifyContent: 'center',
 	alignSelf: 'center',
@@ -90,6 +89,13 @@ const removeButtonStylesOld = xcss({
 	},
 });
 
+const removeButtonStylesOldIcon = xcss({
+	insetInlineEnd: 'space.0',
+});
+const removeButtonStylesNewIcon = xcss({
+	insetInlineEnd: 'space.025',
+});
+
 const RemoveButton = ({
 	'aria-label': ariaLabel,
 	onClick,
@@ -102,7 +108,12 @@ const RemoveButton = ({
 }: RemoveButtonProps) => {
 	return (
 		<Pressable
-			xcss={fg('platform-component-visual-refresh') ? removeButtonStyles : removeButtonStylesOld}
+			xcss={[
+				fg('platform-component-visual-refresh') ? removeButtonStyles : removeButtonStylesOld,
+				fg('platform.design-system-team.enable-new-icons')
+					? removeButtonStylesNewIcon
+					: removeButtonStylesOldIcon,
+			]}
 			aria-label={ariaLabel}
 			onClick={onClick}
 			onFocus={onFocus}
@@ -112,7 +123,7 @@ const RemoveButton = ({
 			onMouseOut={onMouseOut}
 			testId={testId}
 		>
-			<EditorCloseIcon label="" size="small" />
+			<CrossIcon color="currentColor" label="" LEGACY_size="small" />
 		</Pressable>
 	);
 };

@@ -7,7 +7,7 @@ import { PopupSelect, type PopupSelectProps, type ValueType } from '@atlaskit/se
 import Trigger from './Trigger';
 import { type Color, type Palette, type SwatchSize } from '../types';
 import * as components from './components';
-import { KEY_ARROW_DOWN, KEY_ARROW_UP, KEY_TAB } from '../constants';
+import { KEY_ARROW_DOWN, KEY_ARROW_UP, KEY_TAB, KEY_ESCAPE } from '../constants';
 import {
 	createAndFireEvent,
 	withAnalyticsContext,
@@ -93,7 +93,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 			this.setState({ isTabbing: true });
 		} else if (key === KEY_ARROW_UP || key === KEY_ARROW_DOWN) {
 			this.setState({ isTabbing: false });
-		} else if (key === 'Escape') {
+		} else if (key === KEY_ESCAPE) {
 			e.stopPropagation();
 		}
 	};

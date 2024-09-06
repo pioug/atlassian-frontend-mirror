@@ -25,6 +25,31 @@ import { token } from '@atlaskit/tokens';
 
 export { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN };
 
+const firstNodeWithNotMarginTop = () =>
+	editorExperiment('nested-dnd', true)
+		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+			css`
+				> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span)) {
+					margin-top: 0;
+				}
+			`
+		: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+			css`
+				> :not(style):first-child,
+				> style:first-child + * {
+					margin-top: 0;
+				}
+
+				> .ProseMirror-gapcursor:first-child + *,
+				> style:first-child + .ProseMirror-gapcursor + * {
+					margin-top: 0;
+				}
+
+				> .ProseMirror-gapcursor:first-child + span + * {
+					margin-top: 0;
+				}
+			`;
+
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 	.ProseMirror {
@@ -43,25 +68,12 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 				border: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
 					${token('color.border', N40A)};
 				border-radius: 4px;
-				padding: ${LAYOUT_COLUMN_PADDING}px ${LAYOUT_COLUMN_PADDING}px ${LAYOUT_COLUMN_PADDING}px
+				padding: ${LAYOUT_COLUMN_PADDING}px
 					${LAYOUT_COLUMN_PADDING + (editorExperiment('nested-dnd', true) ? 8 : 0)}px;
 				box-sizing: border-box;
 
 				> div {
-					> :not(style):first-child,
-					> style:first-child + * {
-						margin-top: 0;
-					}
-
-					> .ProseMirror-gapcursor:first-child + *,
-					> style:first-child + .ProseMirror-gapcursor + * {
-						margin-top: 0;
-					}
-
-					> .ProseMirror-gapcursor:first-child + span + *,
-					> style:first-child + .ProseMirror-gapcursor:first-child + span + * {
-						margin-top: 0;
-					}
+					${firstNodeWithNotMarginTop()}
 
 					> .embedCardView-content-wrap:first-of-type .rich-media-item {
 						margin-top: 0;

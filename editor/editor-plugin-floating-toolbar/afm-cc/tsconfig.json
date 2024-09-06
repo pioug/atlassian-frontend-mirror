@@ -52,6 +52,9 @@
             "path": "../../editor-plugin-editor-viewmode/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-emoji/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-extension/afm-cc/tsconfig.json"
         },
         {
@@ -68,6 +71,9 @@
         },
         {
             "path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/primitives/afm-cc/tsconfig.json"

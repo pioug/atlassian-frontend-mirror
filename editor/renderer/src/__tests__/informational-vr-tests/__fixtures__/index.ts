@@ -57,16 +57,18 @@ export const adfRightWrappedMediaInsideTable: DocNode = {
 									type: 'mediaSingle',
 									attrs: {
 										layout: 'wrap-right',
+										width: 60,
+										widthType: 'pixel',
 									},
 									content: [
 										{
 											type: 'media',
 											attrs: {
-												id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+												id: 'f9d0cf77-9b10-4252-8bf0-ff9028e2683b',
 												type: 'file',
 												collection: 'MediaServicesSample',
-												width: 60,
-												height: 181,
+												width: 170,
+												height: 510,
 											},
 											marks: [
 												{
@@ -83,16 +85,18 @@ export const adfRightWrappedMediaInsideTable: DocNode = {
 									type: 'mediaSingle',
 									attrs: {
 										layout: 'wrap-right',
+										width: 60,
+										widthType: 'pixel',
 									},
 									content: [
 										{
 											type: 'media',
 											attrs: {
-												id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+												id: 'f9d0cf77-9b10-4252-8bf0-ff9028e2683b',
 												type: 'file',
 												collection: 'MediaServicesSample',
-												width: 60,
-												height: 181,
+												width: 170,
+												height: 510,
 											},
 											marks: [
 												{
@@ -198,16 +202,18 @@ export const adfLeftAndRightWrappedMediaInsideTable: DocNode = {
 									type: 'mediaSingle',
 									attrs: {
 										layout: 'wrap-left',
+										width: 60,
+										widthType: 'pixel',
 									},
 									content: [
 										{
 											type: 'media',
 											attrs: {
-												id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+												id: 'f9d0cf77-9b10-4252-8bf0-ff9028e2683b',
 												type: 'file',
 												collection: 'MediaServicesSample',
-												width: 60,
-												height: 181,
+												width: 170,
+												height: 510,
 											},
 											marks: [
 												{
@@ -224,16 +230,18 @@ export const adfLeftAndRightWrappedMediaInsideTable: DocNode = {
 									type: 'mediaSingle',
 									attrs: {
 										layout: 'wrap-right',
+										width: 60,
+										widthType: 'pixel',
 									},
 									content: [
 										{
 											type: 'media',
 											attrs: {
-												id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+												id: 'f9d0cf77-9b10-4252-8bf0-ff9028e2683b',
 												type: 'file',
 												collection: 'MediaServicesSample',
-												width: 60,
-												height: 181,
+												width: 170,
+												height: 510,
 											},
 											marks: [
 												{
@@ -339,16 +347,18 @@ export const adfLeftWrappedMediaInsideTable: DocNode = {
 									type: 'mediaSingle',
 									attrs: {
 										layout: 'wrap-left',
+										width: 60,
+										widthType: 'pixel',
 									},
 									content: [
 										{
 											type: 'media',
 											attrs: {
-												id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+												id: 'f9d0cf77-9b10-4252-8bf0-ff9028e2683b',
 												type: 'file',
 												collection: 'MediaServicesSample',
-												width: 60,
-												height: 181,
+												width: 170,
+												height: 510,
 											},
 											marks: [
 												{
@@ -365,16 +375,18 @@ export const adfLeftWrappedMediaInsideTable: DocNode = {
 									type: 'mediaSingle',
 									attrs: {
 										layout: 'wrap-left',
+										width: 60,
+										widthType: 'pixel',
 									},
 									content: [
 										{
 											type: 'media',
 											attrs: {
-												id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+												id: 'f9d0cf77-9b10-4252-8bf0-ff9028e2683b',
 												type: 'file',
 												collection: 'MediaServicesSample',
-												width: 60,
-												height: 181,
+												width: 170,
+												height: 510,
 											},
 											marks: [
 												{

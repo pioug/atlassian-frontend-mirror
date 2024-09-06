@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 17.15.2
+
+### Patch Changes
+
+- [#137619](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137619)
+  [`a91489985e535`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a91489985e535) -
+  [ux] Tab and Shift+Tab now dismisses the list of opened popup select options and allows users to
+  navigate to next or previous elements accordingly.
+
 ## 17.15.1
 
 ### Patch Changes

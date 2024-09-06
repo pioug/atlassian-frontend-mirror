@@ -55,7 +55,7 @@ const createPlugin: PMPluginFactory = (pmPluginFactoryParams: PMPluginFactoryPar
 	});
 };
 
-export type UnsupportedContentPlugin = NextEditorPlugin<'unsupportedContent'>;
+type UnsupportedContentPlugin = NextEditorPlugin<'unsupportedContent'>;
 /**
  * Unsupported content plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
  * from `@atlaskit/editor-core`.
@@ -102,3 +102,4 @@ const unsupportedContentPlugin: UnsupportedContentPlugin = () => ({
 });
 
 export { unsupportedContentPlugin };
+export type { UnsupportedContentPlugin };

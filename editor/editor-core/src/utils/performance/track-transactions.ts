@@ -1,7 +1,9 @@
+import { isPerformanceAPIAvailable } from '@atlaskit/editor-common/is-performance-api-available';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
-import { getTimeSince, isPerformanceAPIAvailable } from '@atlaskit/editor-common/utils';
 
 import type { TransactionTracking } from '../../types/performance-tracking';
+
+import { getTimeSince } from './getTimeSince';
 
 export const EVENT_NAME_STATE_APPLY = `🦉 EditorView::state::apply`;
 export const EVENT_NAME_UPDATE_STATE = `🦉 EditorView::updateState`;

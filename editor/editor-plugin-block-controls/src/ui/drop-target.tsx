@@ -23,14 +23,14 @@ import { getNestedNodeLeftPaddingMargin, nodeMargins, spaceLookupMap } from './c
 
 const DEFAULT_DROP_INDICATOR_WIDTH = 760;
 const EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH = '--editor-block-controls-drop-indicator-width';
-const EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_LEFT_MARGIN =
+const EDITOR_BLOCK_CONTROLS_DROP_TARGET_LEFT_MARGIN =
 	'--editor-block-controls-drop-indicator-leftMargin';
 
 const styleDropTarget = css({
 	height: token('space.100', '8px'),
 	marginTop: token('space.negative.100', '-8px'),
-	marginLeft: `calc(-1 * var(${EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_LEFT_MARGIN}, 0))`,
-	paddingLeft: `var(${EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_LEFT_MARGIN}, 0)`,
+	marginLeft: `calc(-1 * var(${EDITOR_BLOCK_CONTROLS_DROP_TARGET_LEFT_MARGIN}, 0))`,
+	paddingLeft: `var(${EDITOR_BLOCK_CONTROLS_DROP_TARGET_LEFT_MARGIN}, 0)`,
 	position: 'absolute',
 	left: '0',
 	display: 'block',
@@ -156,12 +156,12 @@ export const DropTarget = ({
 		return getDropTargetOffsetStyle(prevNode, nextNode);
 	}, [prevNode, nextNode, parentNode]);
 
-	const widthStyle = {
+	const dynamicStyle = {
 		width: isNestedDropTarget ? 'unset' : '100%',
 		[EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH]: isNestedDropTarget
 			? '100%'
 			: `${widthState?.lineLength || DEFAULT_DROP_INDICATOR_WIDTH}px`,
-		[EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_LEFT_MARGIN]: isNestedDropTarget
+		[EDITOR_BLOCK_CONTROLS_DROP_TARGET_LEFT_MARGIN]: isNestedDropTarget
 			? getNestedNodeLeftPaddingMargin(parentNode?.type.name)
 			: '0',
 	} as CSSProperties;
@@ -172,7 +172,7 @@ export const DropTarget = ({
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 			css={[styleDropTarget, dropTargetOffsetStyle, isNestedDropTarget && nestedDropIndicatorStyle]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={widthStyle}
+			style={dynamicStyle}
 			ref={ref}
 			data-testid="block-ctrl-drop-target"
 		>

@@ -63,7 +63,7 @@ import { MAX_STEP_REJECTED_ERROR } from '../';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { Channel } from '../../channel';
 import { catchupv2 } from '../../document/catchupv2';
-import { ACK_MAX_TRY } from '../../helpers/const';
+import { ACK_MAX_TRY, CatchupEventReason } from '../../helpers/const';
 import * as Utilities from '../../helpers/utils';
 import * as Telepointer from '../../participants/telepointers-helper';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
@@ -685,7 +685,7 @@ describe('Provider', () => {
 			});
 
 			expect(throttledCatchupv2Spy).toHaveBeenCalledTimes(1);
-			expect(throttledCatchupv2Spy).toHaveBeenCalledWith();
+			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.RECONNECTED);
 		});
 
 		it('catchupv2 : should be triggered when initial draft is present and is reconnecting after being disconnected for more than 3s', async () => {
@@ -730,7 +730,7 @@ describe('Provider', () => {
 				version: 1,
 			});
 			expect(throttledCatchupv2Spy).toHaveBeenCalledTimes(1);
-			expect(throttledCatchupv2Spy).toHaveBeenCalledWith();
+			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.RECONNECTED);
 		});
 
 		it('catchupv2 : should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
@@ -760,7 +760,7 @@ describe('Provider', () => {
 			});
 
 			expect(throttledCatchupv2Spy).toHaveBeenCalledTimes(1);
-			expect(throttledCatchupv2Spy).toHaveBeenCalledWith();
+			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.STEPS_ADDED);
 		});
 
 		it('catchupv2 : should be triggered after 15 rejected steps and reset the rejected steps counter', async () => {
@@ -779,6 +779,7 @@ describe('Provider', () => {
 			}
 
 			expect(throttledCatchupv2Spy).toHaveBeenCalledTimes(1);
+			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.STEPS_REJECTED);
 			expect(catchupv2).toHaveBeenCalledTimes(1);
 			expect(catchupv2).toHaveBeenCalledWith({
 				getCurrentPmVersion: expect.any(Function),
@@ -788,6 +789,7 @@ describe('Provider', () => {
 				clientId: 'some-random-prosemirror-client-Id',
 				onStepsAdded: expect.any(Function),
 				catchUpOutofSync: false,
+				reason: CatchupEventReason.STEPS_REJECTED,
 			});
 
 			await new Promise(process.nextTick);
@@ -797,6 +799,7 @@ describe('Provider', () => {
 			}
 
 			expect(throttledCatchupv2Spy).toHaveBeenCalledTimes(2);
+			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.STEPS_REJECTED);
 			expect(catchupv2).toHaveBeenCalledTimes(2);
 			expect(catchupv2).toHaveBeenNthCalledWith(2, {
 				getCurrentPmVersion: expect.any(Function),
@@ -805,6 +808,7 @@ describe('Provider', () => {
 				analyticsHelper: expect.any(Object),
 				clientId: 'some-random-prosemirror-client-Id',
 				onStepsAdded: expect.any(Function),
+				reason: CatchupEventReason.STEPS_REJECTED,
 			});
 		});
 

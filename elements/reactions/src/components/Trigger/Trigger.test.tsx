@@ -15,6 +15,13 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 		expect(btn).toBeInTheDocument();
 	});
 
+	it('should render "Add a reaction" text when showAddReactionText is true', async () => {
+		renderWithIntl(<Trigger tooltipContent="" showAddReactionText />);
+		await screen.findByLabelText('Add reaction');
+		const addReactionText = screen.getByText('Add a reaction');
+		expect(addReactionText).toBeInTheDocument();
+	});
+
 	it('should have miniMode css when miniMode is true', async () => {
 		renderWithIntl(<Trigger tooltipContent="" miniMode />);
 

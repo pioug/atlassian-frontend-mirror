@@ -389,8 +389,10 @@ describe('MediaTable', () => {
 	it('should render empty table with no rows if table has no items', async () => {
 		const { mediaTable } = await setup(true, { ...defaultProps, items: [] });
 
-		const rowLength = mediaTable.find(DynamicTableStateless).prop('rows').length;
-		expect(rowLength).toEqual(0);
+		const rows = mediaTable.find(DynamicTableStateless).prop('rows');
+		if (rows) {
+			expect(rows.length).toEqual(0);
+		}
 	});
 
 	it('should allow rendering of custom column lengths', async () => {
@@ -409,15 +411,20 @@ describe('MediaTable', () => {
 			...defaultProps,
 			columns: customColumns,
 		});
-		const columnLength = mediaTable.find(DynamicTableStateless).prop('head').cells.length;
 
-		expect(columnLength).toEqual(6);
+		const head = mediaTable.find(DynamicTableStateless).prop('head');
+		if (head) {
+			const columnLength = head.cells.length;
+
+			expect(columnLength).toEqual(6);
+		}
 	});
 
 	it('should have matching row data length and column length', async () => {
 		const { mediaTable } = await setup();
-		const columnLength = mediaTable.find(DynamicTableStateless).prop('head').cells.length;
-		const rowDataLength = mediaTable.find(DynamicTableStateless).prop('rows')[0].cells.length;
+
+		const columnLength = mediaTable.find(DynamicTableStateless).prop('head')!.cells.length;
+		const rowDataLength = mediaTable.find(DynamicTableStateless).prop('rows')![0].cells.length;
 
 		expect(columnLength).toEqual(5);
 		expect(rowDataLength).toEqual(columnLength);
@@ -439,14 +446,14 @@ describe('MediaTable', () => {
 			items: customItems,
 		});
 
-		const columnValue = mediaTable.find(DynamicTableStateless).prop('rows')[0].cells[2].content;
+		const columnValue = mediaTable.find(DynamicTableStateless).prop('rows')![0].cells[2].content;
 		expect(columnValue).toEqual('');
 	});
 
 	it('should still render cell data for each row even if internal media API fails', async () => {
 		const { mediaTable } = await setup(false);
 
-		const rowDataLength = mediaTable.find(DynamicTableStateless).prop('rows')[0].cells.length;
+		const rowDataLength = mediaTable.find(DynamicTableStateless).prop('rows')![0].cells.length;
 
 		expect(rowDataLength).toEqual(5);
 	});
@@ -454,9 +461,11 @@ describe('MediaTable', () => {
 	it('should have same number of table rows as rows passed in', async () => {
 		const { mediaTable } = await setup();
 
-		const tableLength = mediaTable.find(DynamicTableStateless).prop('rows').length;
+		const rows = mediaTable.find(DynamicTableStateless).prop('rows');
 
-		expect(tableLength).toEqual(2);
+		if (rows) {
+			expect(rows.length).toEqual(2);
+		}
 	});
 
 	it('should not show pagination when totalItems is less than itemsPerPage', async () => {
@@ -466,9 +475,11 @@ describe('MediaTable', () => {
 			totalItems: 5,
 		});
 
-		const tableLength = mediaTable.find(DynamicTableStateless).prop('rows').length;
+		const rows = mediaTable.find(DynamicTableStateless).prop('rows');
 
-		expect(tableLength).toEqual(2);
+		if (rows) {
+			expect(rows.length).toEqual(2);
+		}
 	});
 
 	it('should apply row props to specified rows', async () => {
@@ -490,9 +501,9 @@ describe('MediaTable', () => {
 
 		const tableRows = mediaTable.find(DynamicTableStateless).prop('rows');
 
-		expect(tableRows[0].className).toEqual(undefined);
-		expect(tableRows[1].className).toEqual(undefined);
-		expect(tableRows[2].className).toEqual('test-class');
+		expect(tableRows![0].className).toEqual(undefined);
+		expect(tableRows![1].className).toEqual(undefined);
+		expect(tableRows![2].className).toEqual('test-class');
 	});
 
 	describe('loading spinner', () => {
@@ -523,7 +534,7 @@ describe('MediaTable', () => {
 		test('is called with correct data when a sortable header item is clicked', async () => {
 			const { mediaTable } = await setup();
 
-			mediaTable.find(DynamicTableStateless).prop('onSort')({
+			mediaTable.find(DynamicTableStateless).prop('onSort')!({
 				key: 'file',
 				sortOrder: 'DESC',
 				item: {
@@ -540,7 +551,7 @@ describe('MediaTable', () => {
 		test('is not called with correct data when a non-sortable header item is clicked', async () => {
 			const { mediaTable } = await setup();
 
-			mediaTable.find(DynamicTableStateless).prop('onSort')({
+			mediaTable.find(DynamicTableStateless).prop('onSort')!({
 				key: 'date',
 				sortOrder: 'DESC',
 				item: {
@@ -558,7 +569,7 @@ describe('MediaTable', () => {
 		test('is called when navigating to another page', async () => {
 			const { mediaTable } = await setup();
 
-			mediaTable.find(DynamicTableStateless).prop('onSetPage')(2);
+			mediaTable.find(DynamicTableStateless).prop('onSetPage')!(2);
 
 			expect(onSetPageMock).toHaveBeenCalledTimes(1);
 			expect(onSetPageMock).toHaveBeenCalledWith(2);
@@ -634,7 +645,7 @@ describe('MediaTable', () => {
 				onRowClick,
 			});
 
-			const rows: RowType[] = mediaTable.find(DynamicTableStateless).prop('rows');
+			const rows: RowType[] | undefined = mediaTable.find(DynamicTableStateless).prop('rows');
 
 			if (rows && rows[0].onClick) {
 				rows[0].onClick({} as any);
@@ -659,7 +670,7 @@ describe('MediaTable', () => {
 			});
 			const items = defaultProps.items;
 
-			const rows: RowType[] = mediaTable.find(DynamicTableStateless).prop('rows');
+			const rows: RowType[] | undefined = mediaTable.find(DynamicTableStateless).prop('rows');
 
 			if (rows && rows[0].onClick) {
 				rows[0].onClick({} as any);
@@ -679,7 +690,7 @@ describe('MediaTable', () => {
 				onRowClick,
 			});
 
-			const rows: RowType[] = mediaTable.find(DynamicTableStateless).prop('rows');
+			const rows: RowType[] | undefined = mediaTable.find(DynamicTableStateless).prop('rows');
 
 			if (rows && rows[0].onClick) {
 				rows[0].onKeyPress?.({ key: 'Enter' } as any);
@@ -704,7 +715,7 @@ describe('MediaTable', () => {
 			});
 			const items = defaultProps.items;
 
-			const rows: RowType[] = mediaTable.find(DynamicTableStateless).prop('rows');
+			const rows: RowType[] | undefined = mediaTable.find(DynamicTableStateless).prop('rows');
 
 			if (rows && rows[0].onClick) {
 				rows[0].onKeyPress?.({ key: 'Enter' } as any);

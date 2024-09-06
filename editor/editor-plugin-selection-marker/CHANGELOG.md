@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 1.5.2
+
+### Patch Changes
+
+- [#136545](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136545)
+  [`4a5302d052562`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a5302d052562) -
+  Update file names due to stricter linting. No code changes
+
 ## 1.5.1
 
 ### Patch Changes

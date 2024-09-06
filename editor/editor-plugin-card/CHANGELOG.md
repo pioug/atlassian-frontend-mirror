@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-card
 
+## 2.15.0
+
+### Minor Changes
+
+- [#137404](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137404)
+  [`e7ce490e04b4f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e7ce490e04b4f) -
+  [ux] Adds button to Smart Link toolbar to switch to Smart Link List View for supporting links (by
+  cleanup of platform.linking-platform.enable-datasource-appearance-toolbar).
+- [#137156](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137156)
+  [`058afdc0d3145`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/058afdc0d3145) -
+  [ux] Introduces Confluence Smart Link List View as a valid list view modal by removing feature
+  flag platform.linking-platform.datasource.enable-confluence-search-modal
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.14.1
 
 ### Patch Changes

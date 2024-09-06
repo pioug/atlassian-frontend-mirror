@@ -11,6 +11,7 @@ import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
 import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { NodeType, Slice } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
@@ -152,13 +153,27 @@ export const moveNode =
 			if (!canMoveNodeToIndex(destParent, $to.index(), $from.node().child($from.index()))) {
 				return tr;
 			}
-			const convertedNode = transformSourceSlice(nodeCopy, destType)?.content;
+
+			const convertedNodeSlice = transformSourceSlice(nodeCopy, destType);
+			const convertedNode = convertedNodeSlice?.content;
 			if (!convertedNode) {
 				return tr;
 			}
 			tr.delete(start, end); // delete the content from the original position
 			mappedTo = tr.mapping.map(to);
-			tr.insert(mappedTo, convertedNode); // insert the content at the new position
+
+			const isDestNestedLoneEmptyParagraph =
+				destParent.type.name !== 'doc' &&
+				destParent.childCount === 1 &&
+				isEmptyParagraph($to.nodeAfter);
+
+			if (convertedNodeSlice && isDestNestedLoneEmptyParagraph) {
+				// if only a single empty paragraph within container, replace it
+				tr.replace(mappedTo, mappedTo + 1, convertedNodeSlice);
+			} else {
+				// otherwise just insert the content at the new position
+				tr.insert(mappedTo, convertedNode);
+			}
 		} else {
 			const nodeCopy = tr.doc.content.cut(start, end); // cut the content
 			tr.delete(start, end); // delete the content from the original position

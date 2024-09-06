@@ -1,5 +1,13 @@
 # @atlaskit/progress-indicator
 
+## 11.0.1
+
+### Patch Changes
+
+- [#137322](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137322)
+  [`a3aec4aa82255`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3aec4aa82255) -
+  Add border for progress indicator dots to increase color contrast
+
 ## 11.0.0
 
 ### Major Changes

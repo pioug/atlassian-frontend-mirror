@@ -242,6 +242,7 @@ function ReactEditorViewContextWrapper(props: EditorViewProps) {
 			props.editorProps.linking?.smartLinks?.provider ||
 			(smartLinks && smartLinks.provider) ||
 			(UNSAFE_cards && UNSAFE_cards.provider),
+		emojiProvider: props.editorProps.emojiProvider,
 	});
 
 	return <ReactEditorView {...props} setEditorApi={setEditorAPI} />;

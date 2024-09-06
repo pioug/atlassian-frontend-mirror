@@ -7,7 +7,7 @@ import moment from 'moment';
 import { CreatableSelect, type OptionsType } from '@atlaskit/select';
 
 import { type TimePickerBaseProps } from '../../../types';
-import { TimePickerWithoutAnalytics as TimePicker } from '../../time-picker';
+import TimePicker from '../../time-picker';
 
 jest.mock('@atlaskit/select', () => {
 	const actual = jest.requireActual('@atlaskit/select');
@@ -130,7 +130,7 @@ describe('TimePicker', () => {
 			},
 		});
 
-		expect(onChangeSpy).toBeCalledWith('01:15');
+		expect(onChangeSpy).toHaveBeenCalledWith('01:15');
 	});
 
 	it('should call default parseInputValue', () => {
@@ -146,7 +146,7 @@ describe('TimePicker', () => {
 			},
 		});
 
-		expect(onChangeSpy).toBeCalledWith('01:30');
+		expect(onChangeSpy).toHaveBeenCalledWith('01:30');
 	});
 
 	it('should return AM time with default parseInputValue', () => {
@@ -162,7 +162,7 @@ describe('TimePicker', () => {
 			},
 		});
 
-		expect(onChangeSpy).toBeCalledWith('01:44');
+		expect(onChangeSpy).toHaveBeenCalledWith('01:44');
 	});
 
 	it('should return PM time with default parseInputValue', () => {
@@ -178,7 +178,7 @@ describe('TimePicker', () => {
 			},
 		});
 
-		expect(onChangeSpy).toBeCalledWith('15:32');
+		expect(onChangeSpy).toHaveBeenCalledWith('15:32');
 	});
 
 	it('should correctly parseInputValue with default timeFormat', () => {
@@ -201,8 +201,8 @@ describe('TimePicker', () => {
 			},
 		});
 
-		expect(onParseInputValueSpy).toBeCalledWith('3:32pm', 'h:mma');
-		expect(onChangeSpy).toBeCalledWith('15:32');
+		expect(onParseInputValueSpy).toHaveBeenCalledWith('3:32pm', 'h:mma');
+		expect(onChangeSpy).toHaveBeenCalledWith('15:32');
 	});
 
 	it('should return PM time with default parseInputValue and custom timeFormat', () => {
@@ -222,7 +222,7 @@ describe('TimePicker', () => {
 			target: { value: '11:22:33 pm' },
 		});
 
-		expect(onChangeSpy).toBeCalledWith('23:22:33');
+		expect(onChangeSpy).toHaveBeenCalledWith('23:22:33');
 	});
 
 	it('should correctly parseInputValue with custom timeFormat', () => {
@@ -244,8 +244,8 @@ describe('TimePicker', () => {
 			target: { value: '3:32pm' },
 		});
 
-		expect(onParseInputValueSpy).toBeCalledWith('3:32pm', 'HH--mm:A');
-		expect(onChangeSpy).toBeCalledWith('15:32');
+		expect(onParseInputValueSpy).toHaveBeenCalledWith('3:32pm', 'HH--mm:A');
+		expect(onChangeSpy).toHaveBeenCalledWith('15:32');
 	});
 
 	it('should clear the value if the backspace key is pressed', () => {
@@ -255,7 +255,7 @@ describe('TimePicker', () => {
 		const selectInput = screen.getByDisplayValue('');
 		fireEvent.keyDown(selectInput, { key: 'Backspace', keyCode: 8 });
 
-		expect(onChangeSpy).toBeCalledWith('');
+		expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
 	});
 
 	it('should clear the value if the delete key is pressed', () => {
@@ -265,7 +265,7 @@ describe('TimePicker', () => {
 		const selectInput = screen.getByDisplayValue('');
 		fireEvent.keyDown(selectInput, { key: 'Delete', keyCode: 46 });
 
-		expect(onChangeSpy).toBeCalledWith('');
+		expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
 	});
 
 	it('should clear the value if the clear button is pressed and the menu should stay closed', () => {
@@ -280,7 +280,7 @@ describe('TimePicker', () => {
 		fireEvent.mouseMove(clearButton);
 		fireEvent.mouseDown(clearButton);
 
-		expect(onChangeSpy).toBeCalledWith('');
+		expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
 		expect(screen.queryByTestId(`test--popper--container`)).not.toBeInTheDocument();
 	});
 
@@ -306,7 +306,7 @@ describe('TimePicker', () => {
 		fireEvent.mouseMove(clearButton);
 		fireEvent.mouseDown(clearButton);
 
-		expect(onChangeSpy).toBeCalledWith('');
+		expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
 		expect(screen.getByTestId('test--popper--container')).toBeInTheDocument();
 	});
 

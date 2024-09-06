@@ -150,7 +150,22 @@ export type {
 	UnsupportedContentPayload,
 } from './unsupportedContent/types';
 export { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
-export { getDistortedDurationMonitor, measureRender } from './performance/measure-render';
+export {
+	/**
+	 * @private
+	 * @deprecated
+	 *
+	 * Please use `@atlaskit/editor-common/performance/measure-render` entry-point instead.
+	 */
+	getDistortedDurationMonitor,
+	/**
+	 * @private
+	 * @deprecated
+	 *
+	 * Please use `@atlaskit/editor-common/performance/measure-render` entry-point instead.
+	 */
+	measureRender,
+} from './performance/measure-render';
 export { startMeasure, stopMeasure, clearMeasure } from './performance/measure';
 export {
 	measureTTI,
@@ -158,10 +173,23 @@ export {
 	TTI_SEVERITY_THRESHOLD_DEFAULTS,
 	TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
 } from './performance/measure-tti';
+/**
+ * @private
+ * @deprecated
+ *
+ * Private API - should not be used. Use `@atlaskit/editor-common/is-performance-api-available` if required.
+ *
+ */
 export {
 	isPerformanceAPIAvailable,
 	isPerformanceObserverAvailable,
 } from './performance/is-performance-api-available';
+/**
+ * @private
+ * @deprecated
+ *
+ * Private API - should not be used. Use `@atlaskit/editor-common/performance/navigation` if required.
+ */
 export { getResponseEndTime } from './performance/navigation';
 export { getExtensionRenderer } from './extension-handler';
 
@@ -244,13 +272,20 @@ export {
 	nodesBetweenChanged,
 	getStepRange,
 	isEmptyDocument,
-	processRawValue,
 	hasDocAsParent,
 	bracketTyped,
 	hasVisibleContent,
 	isSelectionEndOfParagraph,
 	getChangedNodes,
 } from './document';
+
+/**
+ * @private
+ * @deprecated
+ *
+ * Use `@atlaskit/editor-common/process-raw-value` entry-point instead.
+ */
+export { processRawValue } from './processRawValue';
 
 export {
 	floatingLayouts,
@@ -280,6 +315,12 @@ export type { WalkNode } from './commands';
 
 export { GUTTER_SELECTOR, GUTTER_SIZE_IN_PX, GUTTER_SIZE_MOBILE_IN_PX } from './scroll-gutter';
 
+/**
+ * @private
+ * @deprecated
+ *
+ * Private API - do not use.
+ */
 export { getTimeSince } from './performance/get-performance-timing';
 
 export { countNodes } from './count-nodes';

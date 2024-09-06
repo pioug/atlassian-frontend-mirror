@@ -1,5 +1,15 @@
 # @atlaskit/checkbox
 
+## 14.0.0
+
+### Major Changes
+
+- [#136677](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136677)
+  [`d0453c21aafb7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0453c21aafb7) -
+  Remove `small` and `xlarge` from sizes. These are currently completely unused within Atlassian and
+  the smaller size results in less accessible interfaces. We are also deprecating the `size` prop to
+  eventually only have checkboxes render at `medium` (the default) size.
+
 ## 13.7.1
 
 ### Patch Changes

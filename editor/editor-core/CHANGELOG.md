@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 197.3.0
+
+### Minor Changes
+
+- [#136891](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136891)
+  [`388780c6348e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/388780c6348e9) -
+  Pass emoji provider via preset
+- [#137755](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137755)
+  [`f3d004d4e3a3e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3d004d4e3a3e) -
+  ED-24650 fix nested node jittering issue
+
+### Patch Changes
+
+- [#137404](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137404)
+  [`ca03548656c8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca03548656c8e) -
+  ED-24744 Align padding of layout and expand when nested dnd is enabled
+- [#137736](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137736)
+  [`2a88fdd213838`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a88fdd213838) -
+  Introducing new smaller refined entry-points for editor-common to reduce bundle size.
+- [#137404](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137404)
+  [`adae1f3dc8fca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/adae1f3dc8fca) -
+  Switches Support Table in Comment features to use Statsig experiment instead of a Feature Gate.
+- [#137800](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137800)
+  [`62a2ca89af70c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62a2ca89af70c) -
+  Fix toolbar not showing up in SSR env
+- Updated dependencies
+
 ## 197.2.7
 
 ### Patch Changes

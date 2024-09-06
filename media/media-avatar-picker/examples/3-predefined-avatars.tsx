@@ -55,7 +55,7 @@ export default () => (
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={wrapperStyles}>
 					<PredefinedAvatarView
-						avatars={generateAvatars(25)}
+						avatars={generateAvatars()}
 						onAvatarSelected={() => {
 							console.log('onAvatarSelected');
 						}}

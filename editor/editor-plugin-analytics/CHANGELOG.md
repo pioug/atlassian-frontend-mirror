@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-analytics
 
+## 1.8.4
+
+### Patch Changes
+
+- [#137736](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137736)
+  [`2a88fdd213838`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a88fdd213838) -
+  Introducing new smaller refined entry-points for editor-common to reduce bundle size.
+- Updated dependencies
+
 ## 1.8.3
 
 ### Patch Changes

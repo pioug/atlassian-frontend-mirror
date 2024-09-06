@@ -66,6 +66,9 @@
 			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-emoji/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-extension/tsconfig.app.json"
 		},
 		{
@@ -85,6 +88,9 @@
 		},
 		{
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

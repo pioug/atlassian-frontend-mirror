@@ -1,5 +1,17 @@
 # @atlaskit/toggle
 
+## 13.4.0
+
+### Minor Changes
+
+- [#137781](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137781)
+  [`21bfb50836bad`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/21bfb50836bad) -
+  Migrated to use new iconography behind a feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.3.1
 
 ### Patch Changes

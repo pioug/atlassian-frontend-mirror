@@ -3,11 +3,14 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import { Fragment } from 'react';
-import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
+
+import { css, jsx } from '@emotion/react';
+
 import Button, { IconButton } from '@atlaskit/button/new';
+import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 import { token } from '@atlaskit/tokens';
+
 import { PopupSelect } from '../src';
 
 const regions = [
@@ -61,17 +64,18 @@ const PopupSelectExample = () => (
 			<PopupSelect
 				{...defaults}
 				target={({ isOpen, ...triggerProps }) => (
-					<Button isSelected={isOpen} {...triggerProps}>
+					<Button isSelected={isOpen} {...triggerProps} testId="button-for-testing-target-two">
 						Target2
 					</Button>
 				)}
 				popperProps={{ placement: 'bottom', strategy: 'fixed' }}
 				searchThreshold={10}
+				testId="triggered-select"
 			/>
 			<PopupSelect
 				{...defaults}
 				target={({ isOpen, ...triggerProps }) => (
-					<Button isSelected={isOpen} {...triggerProps}>
+					<Button isSelected={isOpen} {...triggerProps} testId="button-for-testing-placement">
 						Placement: &ldquo;right-start&rdquo; (flip)
 					</Button>
 				)}

@@ -13,6 +13,7 @@ import type {
 	UserPermitType,
 	Activity,
 } from '@atlaskit/editor-common/collab';
+import { type CatchupEventReason } from './helpers/const';
 
 // Re-export values for the /types entry point to this package
 export type {
@@ -309,12 +310,14 @@ export interface Catchupv2Options {
 		fromVersion: number,
 		clientId: number | string | undefined,
 		catchUpOutofSync: boolean,
+		reason?: CatchupEventReason,
 	) => Promise<Catchupv2Response>;
 	updateMetadata: (metadata: Metadata | undefined) => void;
 	analyticsHelper: AnalyticsHelper | undefined;
 	clientId: number | string | undefined;
 	onStepsAdded: (data: StepsPayload) => void;
 	catchUpOutofSync: boolean;
+	reason?: CatchupEventReason;
 }
 
 export type ProductInformation = {

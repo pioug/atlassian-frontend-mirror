@@ -10,7 +10,7 @@ import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
@@ -67,8 +67,10 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 
 	const initialPluginConfiguration = {
 		tablesPlugin: {
-			tableResizingEnabled: fg('platform_editor_table_support_in_comment'),
-			isTableAlignmentEnabled: fg('platform_editor_table_support_in_comment'),
+			tableResizingEnabled: editorExperiment('support_table_in_comment', true, { exposure: true }),
+			isTableAlignmentEnabled: editorExperiment('support_table_in_comment', true, {
+				exposure: true,
+			}),
 		},
 	};
 

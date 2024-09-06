@@ -74,6 +74,7 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 					type: 'external',
 					url,
 					alt,
+					__external: true,
 				});
 
 				return api?.media.actions.insertMediaAsMediaSingle(editorView, node, inputMethod) ?? false;

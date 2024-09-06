@@ -15,12 +15,14 @@ import { buildToolbar, isToolbarVisible } from './toolbar';
 import type { PasteOtionsPluginState } from './types';
 import { pasteOptionsPluginKey, ToolbarDropdownOption } from './types';
 
-export const pasteOptionsToolbarPlugin: NextEditorPlugin<
+export type PasteOptionsToolbarPlugin = NextEditorPlugin<
 	'pasteOptionsToolbarPlugin',
 	{
 		dependencies: [OptionalPlugin<AnalyticsPlugin>, PastePlugin];
 	}
-> = ({ config, api }) => {
+>;
+
+export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
 	return {
 		name: 'pasteOptionsToolbarPlugin',

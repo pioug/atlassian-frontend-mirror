@@ -10,7 +10,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Provider } from '..';
-import { EVENT_STATUS } from '../../helpers/const';
+import { EVENT_STATUS, CatchupEventReason } from '../../helpers/const';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { AcknowledgementResponseTypes } from '../../types';
 
@@ -119,7 +119,7 @@ describe('#sendData', () => {
 			tags: ['editor'],
 		});
 		expect(catchupv2Spy).toHaveBeenCalledTimes(1);
-		expect(catchupv2Spy).toBeCalledWith();
+		expect(catchupv2Spy).toBeCalledWith(CatchupEventReason.PROCESS_STEPS);
 	});
 
 	it('broadcasts message to steps:commit when there are sendable steps', () => {

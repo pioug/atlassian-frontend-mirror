@@ -312,3 +312,11 @@ export type ActionAnalyticsEvent =
 export const ACK_MAX_TRY = 60;
 
 export const CONFLUENCE = 'confluence';
+
+/** Enumerable for attaching a reason to catchup (v2) call(s) */
+export enum CatchupEventReason {
+	STEPS_ADDED = 'onStepsAdded',
+	STEPS_REJECTED = 'onStepsRejected',
+	PROCESS_STEPS = 'processSteps',
+	RECONNECTED = 'reconnected',
+}

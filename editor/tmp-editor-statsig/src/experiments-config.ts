@@ -139,4 +139,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2024-09-05
+	support_table_in_comment: {
+		productKeys: {
+			confluence: 'platform_editor_support_table_in_comment_exp',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

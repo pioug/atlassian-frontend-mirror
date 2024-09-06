@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.3.2
+
+### Patch Changes
+
+- [#137217](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137217)
+  [`90e304a10f0b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/90e304a10f0b2) -
+  [ED-24843] Fix external flag on media-insert external node creation
+- Updated dependencies
+
 ## 2.3.1
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 22.12.0
+
+### Minor Changes
+
+- [#137371](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137371)
+  [`1eb8eea490922`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1eb8eea490922) -
+  [ux] Added props for applying subtle styling to reactions summary and picker. Added prop for
+  displaying the full "Add a reaction" text to the button UI for the reactions picker. Added prop
+  for hiding default reactions displayed when there is no existing reaction on the page.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.11.2
 
 ### Patch Changes

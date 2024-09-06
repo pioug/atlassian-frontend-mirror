@@ -121,6 +121,18 @@ export const InlineEdit = ({
 		}
 	}, [columnKey, entityType, fireEvent, integrationKey]);
 
+	const onCancelEdit = useCallback(() => {
+		setIsEditing(false);
+
+		if (integrationKey && entityType) {
+			fireEvent('ui.inlineEdit.cancelled.datasource', {
+				integrationKey,
+				entityType,
+				fieldKey: columnKey,
+			});
+		}
+	}, [columnKey, entityType, fireEvent, integrationKey]);
+
 	return (
 		<Box xcss={editContainerStyles}>
 			<AKInlineEdit
@@ -130,7 +142,7 @@ export const InlineEdit = ({
 				readViewFitContainerWidth
 				isEditing={isEditing}
 				onEdit={onEdit}
-				onCancel={() => setIsEditing(false)}
+				onCancel={onCancelEdit}
 				onConfirm={onCommitUpdate}
 			/>
 		</Box>

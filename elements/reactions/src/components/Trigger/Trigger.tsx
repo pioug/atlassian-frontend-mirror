@@ -3,10 +3,11 @@
  * @jsx jsx
  */
 import React, { type AriaAttributes } from 'react';
+import { defineMessages, useIntl } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { type AnalyticsEvent, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { Pressable, Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
 import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
@@ -45,7 +46,23 @@ export interface TriggerProps {
 	 * Optional prop for using an opaque button background instead of a transparent background
 	 */
 	showOpaqueBackground?: boolean;
+	/**
+	 * Optional prop for displaying text to add a reaction
+	 */
+	showAddReactionText?: boolean;
+	/**
+	 * Optional prop for applying subtle styling to reaction picker
+	 */
+	subtleReactionsSummaryAndPicker?: boolean;
 }
+
+const i18n = defineMessages({
+	addReaction: {
+		id: 'reaction-picker-trigger.add.reaction.message',
+		description: 'Message displayed when there are no page reactions existing on the page.',
+		defaultMessage: 'Add a reaction',
+	},
+});
 
 const triggerStyles = xcss({
 	minWidth: '32px',
@@ -58,6 +75,15 @@ const triggerStyles = xcss({
 	justifyContent: 'center',
 	alignItems: 'center',
 	lineHeight: '16px',
+});
+
+const subtleTriggerStyles = xcss({
+	minWidth: '24px',
+	border: 'none',
+});
+
+const expandedTriggerStyles = xcss({
+	minWidth: '110px',
 });
 
 const triggerStylesRefresh = xcss({
@@ -99,11 +125,19 @@ const miniModeStyles = xcss({
 	borderRadius: 'border.radius',
 });
 
+const addReactionMessageStyles = xcss({
+	fontSize: '12px',
+	color: 'color.text.subtle',
+	marginLeft: 'space.050',
+});
+
 /**
  * Render an emoji button to open the reactions select picker
  */
 export const Trigger = React.forwardRef(
 	(props: TriggerProps, ref: React.Ref<HTMLButtonElement>) => {
+		const { formatMessage } = useIntl();
+
 		const {
 			onClick,
 			miniMode,
@@ -111,6 +145,8 @@ export const Trigger = React.forwardRef(
 			disabled = false,
 			ariaAttributes = {},
 			showOpaqueBackground = false,
+			showAddReactionText = false,
+			subtleReactionsSummaryAndPicker = false,
 		} = props;
 
 		const handleMouseDown = (
@@ -128,6 +164,8 @@ export const Trigger = React.forwardRef(
 					testId={RENDER_TRIGGER_BUTTON_TESTID}
 					xcss={[
 						triggerStyles,
+						subtleReactionsSummaryAndPicker && subtleTriggerStyles,
+						showAddReactionText && expandedTriggerStyles,
 						disabled
 							? disabledTriggerStyles
 							: showOpaqueBackground
@@ -146,6 +184,9 @@ export const Trigger = React.forwardRef(
 						size="small"
 						label="Add reaction"
 					/>
+					{showAddReactionText && (
+						<Box xcss={addReactionMessageStyles}>{formatMessage(i18n.addReaction)}</Box>
+					)}
 				</Pressable>
 			</Tooltip>
 		);

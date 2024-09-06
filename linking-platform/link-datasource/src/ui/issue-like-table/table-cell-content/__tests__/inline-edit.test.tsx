@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 import { defaultRegistry } from 'react-sweet-state';
 
@@ -100,29 +101,16 @@ describe('InlineEdit', () => {
 
 		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
-		fireEvent.click(screen.getByTestId(testIds.readView));
+		await userEvent.click(screen.getByTestId(testIds.readView));
 
 		expect(screen.getByTestId(testIds.editView)).toBeInTheDocument();
 
-		fireEvent.change(screen.getByTestId(testIds.editView), { target: { value: 'FoobarFoobar' } });
-		fireEvent.submit(screen.getByTestId(testIds.editView));
+		await userEvent.clear(screen.getByTestId(testIds.editView));
+		await userEvent.type(screen.getByTestId(testIds.editView), 'FoobarFoobar');
+		await userEvent.type(screen.getByTestId(testIds.editView), '{enter}');
 
 		expect(await screen.findByTestId(testIds.readView)).toHaveTextContent('FoobarFoobar');
 		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('FoobarFoobar');
-
-		// Analytic event should be fired on successful update
-		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-			{
-				payload: {
-					action: 'submitted',
-					actionSubject: 'form',
-					actionSubjectId: 'inlineEdit',
-					attributes: {},
-					eventType: 'ui',
-				},
-			},
-			EVENT_CHANNEL,
-		);
 	});
 
 	it('should shows error flag when `execute` fails', async () => {
@@ -151,29 +139,16 @@ describe('InlineEdit', () => {
 			readView: <MockReadView ari={ari} />,
 		});
 
-		fireEvent.click(screen.getByTestId(testIds.readView));
-		fireEvent.change(screen.getByTestId(testIds.editView), { target: { value: 'FoobarFoobar' } });
-		fireEvent.submit(screen.getByTestId(testIds.editView));
+		await userEvent.click(screen.getByTestId(testIds.readView));
+		await userEvent.clear(screen.getByTestId(testIds.editView));
+		await userEvent.type(screen.getByTestId(testIds.editView), 'FoobarFoobar');
+		await userEvent.type(screen.getByTestId(testIds.editView), '{enter}');
 
 		const flag = await screen.findByRole('alert');
 		expect(flag).toBeInTheDocument();
-
-		// Analytic event should be fired on valid update that failed
-		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-			{
-				payload: {
-					action: 'submitted',
-					actionSubject: 'form',
-					actionSubjectId: 'inlineEdit',
-					attributes: {},
-					eventType: 'ui',
-				},
-			},
-			EVENT_CHANNEL,
-		);
 	});
 
-	it('should NOT update the view or state with an empty string', () => {
+	it('should NOT update the view or state with an empty string', async () => {
 		const execute = jest.fn().mockResolvedValue({});
 		const ari = testJiraAri;
 		store.storeState.setState({
@@ -202,33 +177,19 @@ describe('InlineEdit', () => {
 
 		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
-		fireEvent.click(screen.getByTestId(testIds.readView));
+		await userEvent.click(screen.getByTestId(testIds.readView));
 
 		expect(screen.getByTestId(testIds.editView)).toBeInTheDocument();
-		fireEvent.change(screen.getByTestId(testIds.editView), { target: { value: '' } });
-		fireEvent.submit(screen.getByTestId(testIds.editView));
+		await userEvent.clear(screen.getByTestId(testIds.editView));
+		await userEvent.type(screen.getByTestId(testIds.editView), '{enter}');
 
 		expect(execute).not.toHaveBeenCalled();
 		expect(screen.queryByTestId(testIds.editView)).not.toBeInTheDocument();
 		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
-
-		// No analytic event should be fired when update is invalid so no form submission occurs
-		expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
-			{
-				payload: {
-					action: 'submitted',
-					actionSubject: 'form',
-					actionSubjectId: 'inlineEdit',
-					attributes: {},
-					eventType: 'ui',
-				},
-			},
-			EVENT_CHANNEL,
-		);
 	});
 
-	it('should NOT update the view or state with the same string', () => {
+	it('should NOT update the view or state with the same string', async () => {
 		const execute = jest.fn().mockResolvedValue({});
 		const ari = testJiraAri;
 		store.storeState.setState({
@@ -257,33 +218,20 @@ describe('InlineEdit', () => {
 
 		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
-		fireEvent.click(screen.getByTestId(testIds.readView));
+		await userEvent.click(screen.getByTestId(testIds.readView));
 
 		expect(screen.getByTestId(testIds.editView)).toBeInTheDocument();
-		fireEvent.change(screen.getByTestId(testIds.editView), { target: { value: 'Blahblah' } });
-		fireEvent.submit(screen.getByTestId(testIds.editView));
+		await userEvent.clear(screen.getByTestId(testIds.editView));
+		await userEvent.type(screen.getByTestId(testIds.editView), 'Blahblah');
+		await userEvent.type(screen.getByTestId(testIds.editView), '{enter}');
 
 		expect(execute).not.toHaveBeenCalled();
 		expect(screen.queryByTestId(testIds.editView)).not.toBeInTheDocument();
 		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
-
-		// No analytic event should be fired when update is invalid so no form submission occurs
-		expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
-			{
-				payload: {
-					action: 'submitted',
-					actionSubject: 'form',
-					actionSubjectId: 'inlineEdit',
-					attributes: {},
-					eventType: 'ui',
-				},
-			},
-			EVENT_CHANNEL,
-		);
 	});
 
-	it('should NOT update the view or state on Blur', () => {
+	it('should NOT update the view or state on Blur', async () => {
 		const execute = jest.fn().mockResolvedValue({});
 		const ari = testJiraAri;
 		store.storeState.setState({
@@ -312,38 +260,19 @@ describe('InlineEdit', () => {
 
 		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
-		fireEvent.click(screen.getByTestId(testIds.readView));
+		await userEvent.click(screen.getByTestId(testIds.readView));
 
 		expect(screen.getByTestId(testIds.editView)).toBeInTheDocument();
-		fireEvent.keyDown(screen.getByTestId(testIds.editView), {
-			key: 'Escape',
-			code: 'Escape',
-			keyCode: 27,
-			charCode: 27,
-		});
+		await userEvent.type(screen.getByTestId(testIds.editView), '{Esc}');
 
 		expect(execute).not.toHaveBeenCalled();
 		expect(screen.queryByTestId(testIds.editView)).not.toBeInTheDocument();
 		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
 		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
-
-		// No analytic event should be fired when aborting form submission
-		expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
-			{
-				payload: {
-					action: 'submitted',
-					actionSubject: 'form',
-					actionSubjectId: 'inlineEdit',
-					attributes: {},
-					eventType: 'ui',
-				},
-			},
-			EVENT_CHANNEL,
-		);
 	});
 
 	describe('analytics', () => {
-		it('fires ui.inlineEdit.clicked.datasource on inline edit click', () => {
+		it('fires ui.inlineEdit.clicked.datasource on inline edit click', async () => {
 			const execute = jest.fn().mockResolvedValue({});
 			const ari = testJiraAri;
 			store.storeState.setState({
@@ -371,7 +300,7 @@ describe('InlineEdit', () => {
 				readView: <MockReadView ari={ari} />,
 			});
 
-			fireEvent.click(screen.getByTestId(testIds.readView));
+			await userEvent.click(screen.getByTestId(testIds.readView));
 
 			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
 				{
@@ -388,6 +317,214 @@ describe('InlineEdit', () => {
 					},
 				},
 				'media',
+			);
+		});
+
+		it('fires ui.inlineEdit.cancelled.datasource on inline edit cancel', async () => {
+			const execute = jest.fn().mockResolvedValue({});
+			const ari = testJiraAri;
+			store.storeState.setState({
+				items: {
+					[ari]: {
+						ari,
+						entityType: 'work-item',
+						integrationKey: 'jira',
+						data: {
+							ari: { data: ari },
+							summary: { data: 'Blahblah' },
+						},
+					},
+				},
+			});
+			mockUseExecuteAtomicAction.mockReturnValue({ execute });
+
+			const dataValues: DatasourceTypeWithOnlyValues = { type: 'string', values: ['Blahblah'] };
+
+			setup({
+				ari,
+				columnKey: 'summary',
+				execute,
+				datasourceTypeWithValues: dataValues,
+				readView: <MockReadView ari={ari} />,
+			});
+
+			await userEvent.click(screen.getByTestId(testIds.readView));
+
+			expect(screen.getByTestId(testIds.editView)).toBeInTheDocument();
+			await userEvent.type(screen.getByTestId(testIds.editView), '{Esc}');
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						eventType: 'ui',
+						action: 'clicked',
+						actionSubject: 'inlineEdit',
+						actionSubjectId: 'datasource',
+						attributes: {
+							entityType: 'work-item',
+							fieldKey: 'summary',
+							integrationKey: 'jira',
+						},
+					},
+				},
+				'media',
+			);
+			expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'submitted',
+						actionSubject: 'form',
+						actionSubjectId: 'inlineEdit',
+						attributes: {},
+						eventType: 'ui',
+					},
+				},
+				EVENT_CHANNEL,
+			);
+		});
+
+		it('should not fire ui.form.submitted.inlineEdit event when update is invalid', async () => {
+			const execute = jest.fn().mockResolvedValue({});
+			const ari = testJiraAri;
+			store.storeState.setState({
+				items: {
+					[ari]: {
+						ari,
+						entityType: 'work-item',
+						integrationKey: 'jira',
+						data: {
+							ari: { data: ari },
+							summary: { data: 'Blahblah' },
+						},
+					},
+				},
+			});
+
+			mockUseExecuteAtomicAction.mockReturnValue({ execute });
+
+			setup({
+				ari,
+				columnKey: 'summary',
+				execute,
+				datasourceTypeWithValues: dataValues,
+				readView: <MockReadView ari={ari} />,
+			});
+
+			expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
+			expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
+			await userEvent.click(screen.getByTestId(testIds.readView));
+
+			expect(screen.getByTestId(testIds.editView)).toBeInTheDocument();
+			await userEvent.clear(screen.getByTestId(testIds.editView));
+			await userEvent.type(screen.getByTestId(testIds.editView), 'Blahblah');
+			await userEvent.type(screen.getByTestId(testIds.editView), '{enter}');
+
+			expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'submitted',
+						actionSubject: 'form',
+						actionSubjectId: 'inlineEdit',
+						attributes: {},
+						eventType: 'ui',
+					},
+				},
+				EVENT_CHANNEL,
+			);
+		});
+
+		it('should fire ui.form.submitted.inlineEdit event when update is valid but fails', async () => {
+			const execute = jest.fn().mockRejectedValue({});
+			const ari = testJiraAri;
+			store.storeState.setState({
+				items: {
+					[ari]: {
+						ari,
+						entityType: 'work-item',
+						integrationKey: 'jira',
+						data: {
+							ari: { data: ari },
+							summary: { data: 'Blahblah' },
+						},
+					},
+				},
+			});
+			mockUseExecuteAtomicAction.mockReturnValue({ execute });
+
+			setup({
+				ari,
+				columnKey: 'summary',
+				execute,
+				datasourceTypeWithValues: dataValues,
+				readView: <MockReadView ari={ari} />,
+			});
+
+			await userEvent.click(screen.getByTestId(testIds.readView));
+			await userEvent.clear(screen.getByTestId(testIds.editView));
+			await userEvent.type(screen.getByTestId(testIds.editView), 'FoobarFoobar');
+			await userEvent.type(screen.getByTestId(testIds.editView), '{enter}');
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'submitted',
+						actionSubject: 'form',
+						actionSubjectId: 'inlineEdit',
+						attributes: {},
+						eventType: 'ui',
+					},
+				},
+				EVENT_CHANNEL,
+			);
+		});
+
+		it('should fire ui.form.submitted.inlineEdit event when update succeeds', async () => {
+			const execute = jest.fn().mockResolvedValue({});
+			const ari = testJiraAri;
+			store.storeState.setState({
+				items: {
+					[ari]: {
+						ari,
+						entityType: 'work-item',
+						integrationKey: 'jira',
+						data: {
+							ari: { data: ari },
+							summary: { data: 'Blahblah' },
+						},
+					},
+				},
+			});
+			mockUseExecuteAtomicAction.mockReturnValue({ execute });
+
+			setup({
+				ari,
+				columnKey: 'summary',
+				execute,
+				datasourceTypeWithValues: dataValues,
+				readView: <MockReadView ari={ari} />,
+			});
+
+			expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
+			expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
+			await userEvent.click(screen.getByTestId(testIds.readView));
+
+			expect(screen.getByTestId(testIds.editView)).toBeInTheDocument();
+
+			await userEvent.clear(screen.getByTestId(testIds.editView));
+			await userEvent.type(screen.getByTestId(testIds.editView), 'FoobarFoobar');
+			await userEvent.type(screen.getByTestId(testIds.editView), '{enter}');
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'submitted',
+						actionSubject: 'form',
+						actionSubjectId: 'inlineEdit',
+						attributes: {},
+						eventType: 'ui',
+					},
+				},
+				EVENT_CHANNEL,
 			);
 		});
 	});

@@ -1,7 +1,7 @@
 import type { ResolvedEditorState, SyncUpErrorFunction } from '@atlaskit/editor-common/collab';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import type AnalyticsHelper from '../analytics/analytics-helper';
-import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
+import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const';
 import type { MetadataService } from '../metadata/metadata-service';
 import type {
 	CatchupResponse,
@@ -146,18 +146,24 @@ export class DocumentService {
 
 	/**
 	 * To prevent calling catchup to often, use lodash throttle to reduce the frequency
+	 * @param reason - optional reason to attach.
 	 */
-	throttledCatchupv2 = throttle(() => this.catchupv2(), CATCHUP_THROTTLE, {
-		leading: false, // TODO: why shouldn't this be leading?
-		trailing: true,
-	});
+	throttledCatchupv2 = throttle(
+		(reason?: CatchupEventReason) => this.catchupv2(reason),
+		CATCHUP_THROTTLE,
+		{
+			leading: false, // TODO: why shouldn't this be leading?
+			trailing: true,
+		},
+	);
 
 	/**
 	 * Called when:
 	 *   * session established(offline -> online)
 	 *   * try to accept steps but version is behind.
+	 * @param reason - optional reason to attach.
 	 */
-	private catchupv2 = async () => {
+	private catchupv2 = async (reason?: CatchupEventReason) => {
 		const start = new Date().getTime();
 		// if the queue is already paused, we are busy with something else, so don't proceed.
 		if (this.stepQueue.isPaused()) {
@@ -202,6 +208,7 @@ export class DocumentService {
 				clientId: this.clientId,
 				onStepsAdded: this.onStepsAdded,
 				catchUpOutofSync: this.catchUpOutofSync,
+				reason,
 			});
 			const latency = new Date().getTime() - start;
 			this.analyticsHelper?.sendActionEvent(EVENT_ACTION.CATCHUP, EVENT_STATUS.SUCCESS, {
@@ -315,7 +322,7 @@ export class DocumentService {
 				logger(`Processing steps failed with error: ${error}. Triggering catch up call.`);
 				this.analyticsHelper?.sendErrorEvent(error, 'Error while processing steps');
 
-				this.throttledCatchupv2();
+				this.throttledCatchupv2(CatchupEventReason.PROCESS_STEPS);
 			}
 		}
 	}
@@ -373,7 +380,7 @@ export class DocumentService {
 				);
 				this.stepQueue.queueSteps(data);
 
-				this.throttledCatchupv2();
+				this.throttledCatchupv2(CatchupEventReason.STEPS_ADDED);
 			}
 			this.participantsService.updateLastActive(data.steps.map(({ userId }: StepJson) => userId));
 		} catch (stepsAddedError) {
@@ -392,7 +399,10 @@ export class DocumentService {
 	};
 
 	// Triggered when page recovery has emitted an 'init' event on a page client is currently connected to.
-	onRestore = async ({ doc, version, metadata }: CollabInitPayload) => {
+	onRestore = async ({ doc, version, metadata, targetClientId }: CollabInitPayload) => {
+		if (targetClientId && this.clientId !== targetClientId) {
+			return;
+		}
 		// We preserve these as they will be lost apon this.updateDocument. This is because we are using document recovery.
 		// We can then reconcile the document with the preserved state.
 		const unconfirmedSteps = this.getUnconfirmedSteps();
@@ -717,7 +727,7 @@ export class DocumentService {
 				EVENT_STATUS.INFO,
 			);
 
-			this.throttledCatchupv2();
+			this.throttledCatchupv2(CatchupEventReason.STEPS_REJECTED);
 		} else {
 			// If committing steps failed try again automatically in 1s
 			// This makes it more likely that unconfirmed steps trigger a catch-up

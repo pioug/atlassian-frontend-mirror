@@ -1,5 +1,13 @@
 # @atlaskit/media-svg
 
+## 0.2.0
+
+### Minor Changes
+
+- [#137755](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137755)
+  [`4cd74c054f138`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4cd74c054f138) -
+  Added support for React 18
+
 ## 0.1.10
 
 ### Patch Changes

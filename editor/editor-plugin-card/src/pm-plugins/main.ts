@@ -140,7 +140,7 @@ export const createPlugin =
 						cardPluginEvents.push(...events);
 					}
 
-					if (!meta && fg('platform.linking-platform.enable-datasource-appearance-toolbar')) {
+					if (!meta) {
 						if (pluginState.datasourceTableRef) {
 							if (!(tr.selection instanceof NodeSelection) || !tr.selection.node.attrs.datasource) {
 								// disable resize button when switching from datasource to block card

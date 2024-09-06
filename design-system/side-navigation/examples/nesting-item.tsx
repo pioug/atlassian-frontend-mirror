@@ -44,7 +44,13 @@ const BasicExample = () => {
 					<NestingItem id="0" title="Settings">
 						<Fragment />
 					</NestingItem>
-					<NestingItem id="1" isSelected iconBefore={<SettingsIcon label="" />} title="Settings">
+					<NestingItem
+						testId="selected"
+						id="1"
+						isSelected
+						iconBefore={<SettingsIcon label="" />}
+						title="Settings"
+					>
 						<Fragment />
 					</NestingItem>
 					<NestingItem description="I have a description" id="2" title="Settings">

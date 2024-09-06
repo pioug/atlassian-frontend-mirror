@@ -225,6 +225,10 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 
 export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSelectProps {
 	/**
+	 * Additional information to be included in the `context` of analytics events
+	 */
+	analyticsContext?: Record<string, any>;
+	/**
 	 * Set the appearance of the picker.
 	 * `subtle` will remove the borders, background, and icon.
 	 *

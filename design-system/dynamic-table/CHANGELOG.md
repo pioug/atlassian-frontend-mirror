@@ -1,5 +1,15 @@
 # @atlaskit/dynamic-table
 
+## 15.0.0
+
+### Major Changes
+
+- [#137785](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137785)
+  [`5fee01201ba15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5fee01201ba15) -
+  Removes usage of legacy analytics-next APIs internally in favor of the new APIs which do not
+  depend on legacy react context. This should not require any changes to consumers of the package,
+  however behaviors of the new APIs may result in different behavior in some cases.
+
 ## 14.20.3
 
 ### Patch Changes

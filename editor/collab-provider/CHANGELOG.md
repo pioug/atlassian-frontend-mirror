@@ -1,5 +1,26 @@
 # @atlaskit/collab-provider
 
+## 9.38.1
+
+### Patch Changes
+
+- [#136958](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136958)
+  [`e1fd99410b2a7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e1fd99410b2a7) -
+  Adding reasons for BE catchup calls
+- Updated dependencies
+
+## 9.38.0
+
+### Minor Changes
+
+- [#137505](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137505)
+  [`ed3b11d42c169`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed3b11d42c169) -
+  add ability to target a clientId for restore
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.37.7
 
 ### Patch Changes

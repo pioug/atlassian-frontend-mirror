@@ -1,53 +1,86 @@
-import {
-	createAndFireEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+import React from 'react';
 
-import '../../stateless';
+import { fireEvent, render, screen } from '@testing-library/react';
 
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
+import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-// This is a global mock for this file that will mock all components wrapped with analytics
-// and replace them with an empty SFC that returns null. This includes components imported
-// directly in this file and others imported as dependencies of those imports.
-jest.mock('@atlaskit/analytics-next', () => ({
-	withAnalyticsEvents: jest.fn(() => jest.fn(() => () => null)),
-	withAnalyticsContext: jest.fn(() => jest.fn(() => () => null)),
-	createAndFireEvent: jest.fn(() => jest.fn((args) => args)),
-}));
+import DynamicTable from '../../stateless';
+
+import { head, rows } from './_data';
 
 describe('DynamicTable', () => {
-	it('should be wrapped with analytics context', () => {
-		expect(withAnalyticsContext).toHaveBeenCalledWith({
-			componentName: 'dynamicTable',
-			packageName,
-			packageVersion,
-		});
-	});
+	it('should fire an analytics event onSort', () => {
+		const onEvent = jest.fn();
 
-	it('should be wrapped with analytics events', () => {
-		expect(createAndFireEvent).toHaveBeenCalledWith('atlaskit');
-		expect(withAnalyticsEvents).toHaveBeenLastCalledWith({
-			onSort: {
+		render(
+			<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
+				<DynamicTable head={head} rows={rows} />,
+			</AnalyticsListener>,
+		);
+
+		const column: HTMLElement = screen.getByText('First name');
+
+		fireEvent.click(column);
+
+		const expected = new UIAnalyticsEvent({
+			payload: {
 				action: 'sorted',
 				actionSubject: 'dynamicTable',
 				attributes: {
 					componentName: 'dynamicTable',
-					packageName,
-					packageVersion,
+					packageName: process.env._PACKAGE_NAME_,
+					packageVersion: process.env._PACKAGE_VERSION_,
 				},
 			},
-			onRankEnd: {
-				action: 'ranked',
+			context: [
+				{
+					componentName: 'dynamicTable',
+					packageName: process.env._PACKAGE_NAME_,
+					packageVersion: process.env._PACKAGE_VERSION_,
+				},
+			],
+		});
+
+		expect(onEvent).toHaveBeenCalledTimes(1);
+		expect(onEvent.mock.calls[0][0].payload).toEqual(expected.payload);
+		expect(onEvent.mock.calls[0][0].context).toEqual(expected.context);
+	});
+
+	it('should export analytics event to onRankEnd handler', () => {
+		const onSort = jest.fn();
+
+		render(<DynamicTable head={head} rows={rows} onSort={onSort} />);
+
+		const column: HTMLElement = screen.getByText('First name');
+
+		fireEvent.click(column);
+
+		const expected = new UIAnalyticsEvent({
+			payload: {
+				action: 'sorted',
 				actionSubject: 'dynamicTable',
 				attributes: {
 					componentName: 'dynamicTable',
-					packageName,
-					packageVersion,
+					packageName: process.env._PACKAGE_NAME_,
+					packageVersion: process.env._PACKAGE_VERSION_,
 				},
 			},
+			context: [
+				{
+					componentName: 'dynamicTable',
+					packageName: process.env._PACKAGE_NAME_,
+					packageVersion: process.env._PACKAGE_VERSION_,
+				},
+			],
 		});
+
+		expect(onSort).toHaveBeenCalledTimes(1);
+		expect(onSort).toHaveBeenCalledWith(
+			expect.anything(),
+			expect.objectContaining({
+				payload: expected.payload,
+				context: expected.context,
+			}),
+		);
 	});
 });

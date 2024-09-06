@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-floating-toolbar",
-	"version": "1.11.1",
+	"version": "1.12.0",
 	"description": "Floating toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,8 +28,8 @@
 	"dependencies": {
 		"@atlaskit/adf-utils": "^19.8.0",
 		"@atlaskit/button": "^20.1.0",
-		"@atlaskit/checkbox": "^13.7.0",
-		"@atlaskit/editor-common": "^88.9.0",
+		"@atlaskit/checkbox": "^14.0.0",
+		"@atlaskit/editor-common": "^88.11.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-block-controls": "^1.13.0",
 		"@atlaskit/editor-plugin-context-panel": "^1.3.0",
@@ -37,13 +37,15 @@
 		"@atlaskit/editor-plugin-decorations": "^1.3.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.3.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
+		"@atlaskit/editor-plugin-emoji": "^2.5.0",
 		"@atlaskit/editor-plugin-extension": "^1.14.0",
 		"@atlaskit/editor-plugin-table": "^7.25.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/emoji": "^67.7.0",
-		"@atlaskit/icon": "^22.15.0",
+		"@atlaskit/icon": "^22.16.0",
 		"@atlaskit/menu": "^2.12.0",
 		"@atlaskit/modal-dialog": "^12.15.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/select": "^17.15.0",
 		"@atlaskit/theme": "^13.0.0",
@@ -105,6 +107,11 @@
 				"dist/types-ts4.5/*",
 				"dist/types-ts4.5/index.d.ts"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_get_emoji_provider_from_config": {
+			"type": "boolean"
 		}
 	}
 }

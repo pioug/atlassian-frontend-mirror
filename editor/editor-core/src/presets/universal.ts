@@ -48,6 +48,7 @@ import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-deci
 import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-lists-indentation';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorProps } from '../types';
 import type {
@@ -243,6 +244,7 @@ export default function createUniversalPresetInternal({
 			[
 				emojiPlugin,
 				{
+					emojiProvider: props.emojiProvider,
 					emojiNodeDataProvider: initialPluginConfiguration?.emoji?.emojiNodeDataProvider,
 				},
 			],
@@ -257,10 +259,13 @@ export default function createUniversalPresetInternal({
 					dragAndDropEnabled:
 						featureFlags?.tableDragAndDrop &&
 						(isFullPage ||
-							((isComment || isChromeless) && fg('platform_editor_table_support_in_comment'))),
+							((isComment || isChromeless) &&
+								editorExperiment('support_table_in_comment', true, { exposure: true }))),
 					isTableScalingEnabled:
 						featureFlags?.tablePreserveWidth &&
-						(isFullPage || (isComment && fg('platform_editor_table_support_in_comment'))),
+						(isFullPage ||
+							(isComment &&
+								editorExperiment('support_table_in_comment', true, { exposure: true }))),
 					allowContextualMenu: !isMobile,
 					fullWidthEnabled: appearance === 'full-width',
 					wasFullWidthEnabled: prevAppearance && prevAppearance === 'full-width',

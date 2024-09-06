@@ -1,6 +1,6 @@
 import React, { forwardRef, useCallback, useState } from 'react';
 
-import LeftArrow from '@atlaskit/icon/glyph/arrow-left-circle';
+import ArrowLeftIcon from '@atlaskit/icon/core/migration/arrow-left--arrow-left-circle';
 import type { ButtonItemProps } from '@atlaskit/menu';
 import { N10 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -22,7 +22,13 @@ const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
 	(
 		{
 			cssFn,
-			iconBefore = <LeftArrow secondaryColor={token('elevation.surface', N10)} label="" />,
+			iconBefore = (
+				<ArrowLeftIcon
+					color="currentColor"
+					LEGACY_secondaryColor={token('elevation.surface', N10)}
+					label=""
+				/>
+			),
 			onClick,
 			isSelected,
 			...rest

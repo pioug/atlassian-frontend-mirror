@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-unsupported-content
 
+## 1.8.3
+
+### Patch Changes
+
+- [#137614](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137614)
+  [`f7efc61f35951`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7efc61f35951) -
+  Add export for plugin type from paste options toolbar. Slightly re-arrange plugins to meet linting
+  rule.
+- Updated dependencies
+
 ## 1.8.2
 
 ### Patch Changes

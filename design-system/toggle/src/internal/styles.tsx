@@ -2,6 +2,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -174,34 +175,16 @@ export const getStyles = (size: Size): SerializedStyles => {
 			zIndex: 1,
 		},
 
-		// icons - check and cross
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'> span': {
-			position: 'absolute',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			insetBlockStart: `${paddingUnitless}px`,
-		},
-
-		// This is the first of the two on/off symbols. The first of type is a
-		// hidden text `span` for labeling
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'> span:nth-last-of-type(2)': {
-			insetInlineStart: `3px`,
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'> span:last-of-type': {
-			insetInlineEnd: `3px`,
-		},
-
+		// Remove during new icon flag cleanup. This is required to maintain the size of legacy icons.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		...(size === 'large' && {
-			'> span': {
-				position: 'absolute',
-				height: '20px',
-				width: '20px',
-			},
-		}),
+		...(size === 'large' &&
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+			!fg('platform.design-system-team.enable-new-icons') && {
+				'> span > span': {
+					height: '20px',
+					width: '20px',
+				},
+			}),
 
 		'@media screen and (forced-colors: active)': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766

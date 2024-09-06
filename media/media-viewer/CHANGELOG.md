@@ -1,5 +1,14 @@
 # @atlaskit/media-viewer
 
+## 48.7.3
+
+### Patch Changes
+
+- [#136440](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136440)
+  [`57f424ae5180e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57f424ae5180e) -
+  removed unused type
+- Updated dependencies
+
 ## 48.7.2
 
 ### Patch Changes

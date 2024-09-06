@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.13.1
+
+### Patch Changes
+
+- [#137849](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137849)
+  [`005c00c30884a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/005c00c30884a) -
+  ED-24874 Only disable dragging top level nested nodes in tables
+- [#137156](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137156)
+  [`eccceae25389f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eccceae25389f) -
+  [ux] Don't show drop target in final container position if proceeded by empty paragraph, replace
+  it if only empty paragraph
+- [#137755](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137755)
+  [`f3d004d4e3a3e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3d004d4e3a3e) -
+  ED-24650 fix nested node jittering issue
+- Updated dependencies
+
 ## 1.13.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @atlaskit/media-avatar-picker
 
+## 24.7.0
+
+### Minor Changes
+
+- [#136440](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136440)
+  [`57f424ae5180e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57f424ae5180e) -
+  Added compatibility with React 18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.6.16
 
 ### Patch Changes

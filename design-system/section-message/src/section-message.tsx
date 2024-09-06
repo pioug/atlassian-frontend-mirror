@@ -74,8 +74,13 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 							separator="·"
 							space="space.100"
 							rowSpace="space.0"
+							role="list"
 						>
-							{actionsArray}
+							{actionsArray.map((action, id) => (
+								<Inline role="listitem" key={id}>
+									{action}
+								</Inline>
+							))}
 						</Inline>
 					)}
 				</Stack>

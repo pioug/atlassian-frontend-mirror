@@ -1,16 +1,17 @@
 import { type Avatar } from '../src/avatar-list';
+import samples from './samples';
 
-function generateAvatarIds(start: number, count: number): Array<number> {
+function generateAvatarIds(count = samples.length): Array<number> {
 	const result: Array<number> = [];
 	for (let i = 0; i < count; ++i) {
-		result[i] = start + i;
+		result[i] = (i + 1) % samples.length;
 	}
 	return result;
 }
 
-export function generateAvatars(count: number): Array<Avatar> {
-	return generateAvatarIds(18831, count).map((id) => ({
-		dataURI: `https://jdog.jira-dev.com/secure/viewavatar?avatarId=${id}&avatarType=project`,
+export function generateAvatars(count?: number): Array<Avatar> {
+	return generateAvatarIds(count).map((id) => ({
+		dataURI: samples[id],
 		name: id.toString(),
 	}));
 }

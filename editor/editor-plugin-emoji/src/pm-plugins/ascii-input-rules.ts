@@ -8,14 +8,17 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import { createRule } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
 import type { EmojiDescription } from '@atlaskit/emoji/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
+
+import { type EmojiPlugin } from '../types';
 
 let matcher: AsciiEmojiMatcher;
 
@@ -24,9 +27,10 @@ export function inputRulePlugin(
 	providerFactory: ProviderFactory,
 	featureFlags: FeatureFlags,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	pluginInjectionApi: ExtractInjectionAPI<EmojiPlugin> | undefined,
 ): SafePlugin | undefined {
 	if (schema.nodes.emoji && providerFactory) {
-		initMatcher(providerFactory);
+		initMatcher(providerFactory, pluginInjectionApi);
 		const asciiEmojiRule = createRule(
 			AsciiEmojiMatcher.REGEX,
 			inputRuleHandler(editorAnalyticsAPI),
@@ -37,7 +41,10 @@ export function inputRulePlugin(
 	return;
 }
 
-function initMatcher(providerFactory: ProviderFactory) {
+function initMatcher(
+	providerFactory: ProviderFactory,
+	pluginInjectionApi: ExtractInjectionAPI<EmojiPlugin> | undefined,
+) {
 	const handleProvider = (_name: string, provider?: Promise<EmojiProvider>) => {
 		if (!provider) {
 			return;
@@ -50,7 +57,18 @@ function initMatcher(providerFactory: ProviderFactory) {
 		});
 	};
 
-	providerFactory.subscribe('emojiProvider', handleProvider);
+	if (fg('platform_editor_get_emoji_provider_from_config')) {
+		pluginInjectionApi?.emoji.sharedState.onChange(({ nextSharedState }) => {
+			const emojiProvider = nextSharedState?.emojiProvider;
+			if (emojiProvider) {
+				emojiProvider.getAsciiMap().then((map) => {
+					matcher = new RecordingAsciiEmojiMatcher(emojiProvider, map);
+				});
+			}
+		});
+	} else {
+		providerFactory.subscribe('emojiProvider', handleProvider);
+	}
 }
 
 const inputRuleHandler =
@@ -274,10 +292,11 @@ const plugins = (
 	providerFactory: ProviderFactory,
 	featureFlags: FeatureFlags,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	pluginInjectionApi: ExtractInjectionAPI<EmojiPlugin> | undefined,
 ) => {
-	return [inputRulePlugin(schema, providerFactory, featureFlags, editorAnalyticsAPI)].filter(
-		(plugin) => !!plugin,
-	) as SafePlugin[];
+	return [
+		inputRulePlugin(schema, providerFactory, featureFlags, editorAnalyticsAPI, pluginInjectionApi),
+	].filter((plugin) => !!plugin) as SafePlugin[];
 };
 
 export default plugins;

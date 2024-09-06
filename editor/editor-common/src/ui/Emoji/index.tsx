@@ -15,6 +15,7 @@ export interface EmojiProps extends EmojiId {
 	resourceConfig?: EmojiResourceConfig;
 }
 
+// @deprecated - use Emoji from editor-plugin-emoji
 export default class EmojiNode extends PureComponent<EmojiProps, {}> {
 	static displayName = 'EmojiNode';
 	static defaultProps = {

@@ -1,5 +1,23 @@
 # @atlaskit/link
 
+## 1.2.3
+
+### Patch Changes
+
+- [#137980](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137980)
+  [`1125392e09989`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1125392e09989) -
+  Updated the icon, which displays when links open in new windows to use new iconography behind a
+  feature flag. Also adjusted the alignment and size of the icon.
+
+## 1.2.2
+
+### Patch Changes
+
+- [#137759](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137759)
+  [`6baf3b623943c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6baf3b623943c) -
+  Updated the icon, which displays when links open in new windows to use new iconography. Also
+  adjusted the alignment and size of the icon.
+
 ## 1.2.1
 
 ### Patch Changes

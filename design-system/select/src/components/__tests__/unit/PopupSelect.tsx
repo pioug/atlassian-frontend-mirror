@@ -100,47 +100,6 @@ describe('Popup Select', () => {
 		global.window.removeEventListener.mockRestore();
 	});
 
-	// If this isn't the first test, it will fail. Don't know why ¯\_(ツ)_/¯
-	it('should maintain focus in select element after tabbing when open', async () => {
-		const onChangeMock = jest.fn();
-		render(
-			<React.Fragment>
-				<PopupSelect
-					options={OPTIONS}
-					value={OPTIONS[0]}
-					testId={'PopupSelect'}
-					onChange={(value) => onChangeMock(value)}
-					target={({ ref }) => (
-						<button ref={ref} data-testid="select-trigger">
-							Target
-						</button>
-					)}
-					label="Options"
-				/>
-			</React.Fragment>,
-		);
-
-		const selectTrigger = screen.getByText('Target');
-
-		await user.click(selectTrigger);
-
-		// Has focus initially, will move to the input
-		await waitFor(() => {
-			expect(selectTrigger).not.toHaveFocus();
-			expect(PORTALED_CONTAINER.querySelector('#react-select-2-input')).toHaveFocus();
-		});
-
-		fireEvent.keyDown(selectTrigger, {
-			key: 'Tab',
-			code: 'Tab',
-		});
-
-		await waitFor(() => {
-			expect(selectTrigger).not.toHaveFocus();
-			expect(PORTALED_CONTAINER.querySelector('#react-select-2-input')).toHaveFocus();
-		});
-	});
-
 	it('should return focus to trigger element on close', async () => {
 		const onChangeMock = jest.fn();
 		render(

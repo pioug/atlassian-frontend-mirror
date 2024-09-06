@@ -40,7 +40,7 @@ const mediaSingleSharedStyle = css({
 		marginBottom: token('space.150', '12px'),
 		clear: 'both',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'&.image-wrap-left, &.image-wrap-right': {
+		'&.image-wrap-left[data-layout], &.image-wrap-right[data-layout]': {
 			clear: 'none',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:first-child': {

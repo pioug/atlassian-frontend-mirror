@@ -6,7 +6,10 @@
 import { css, jsx } from '@emotion/react';
 
 import { Emoji } from '@atlaskit/editor-common/emoji';
-import type { EmojiProps } from '@atlaskit/editor-common/emoji';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { default as EmojiNext } from './emoji-next';
+import type { EmojiProps } from './emoji-next';
 
 // eslint-disable-next-line
 const clickSelectWrapperStyle = css`
@@ -17,7 +20,11 @@ const clickSelectWrapperStyle = css`
 export default function EmojiNode(props: EmojiProps) {
 	return (
 		<span css={clickSelectWrapperStyle}>
-			<Emoji {...props} />
+			{fg('platform_editor_get_emoji_provider_from_config') ? (
+				<EmojiNext {...props} />
+			) : (
+				<Emoji {...props} />
+			)}
 		</span>
 	);
 }

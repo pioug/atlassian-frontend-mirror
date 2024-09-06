@@ -998,6 +998,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'editor/close': {
 		newIcon: { name: 'close', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'cross', type: 'utility', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',
@@ -1056,6 +1057,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'editor/done': {
 		newIcon: { name: 'check-mark', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'check-mark', type: 'utility', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap',
 			medium: 'swap',

@@ -77,6 +77,11 @@ attributes:
       type: ['datasource']
       required: true
       description: Experience identifier.
+  FieldKey: &FieldKey
+    fieldKey:
+      type: 'string'
+      required: true
+      description: The field key of the field being updated.
 
 events:
   # actionSubject action (actionSubjectId)
@@ -555,10 +560,22 @@ events:
             *AnalyticsContextAttributes,
             *EntityType,
             *IntegrationKey,
+            *FieldKey
           ]
-        fieldKey:
-          type: string
-          description: Inline edit field key
+  - inlineEdit cancelled (datasource):
+      type: ui
+      description:
+        Fired when the user initiates an update via inline edit through enter key press or submit
+      attributes:
+        <<:
+          [
+              *ComponentMetaDataContext,
+              *AnalyticsContext,
+              *AnalyticsContextAttributes,
+              *EntityType,
+              *IntegrationKey,
+              *FieldKey
+          ]
   - error shown (inlineEdit):
       type: ui
       description: Fired when the inline edit failed and the error flag is shown.

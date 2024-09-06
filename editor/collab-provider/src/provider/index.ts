@@ -38,7 +38,7 @@ import { ParticipantsService } from '../participants/participants-service';
 import { errorCodeMapper } from '../errors/error-code-mapper';
 import type { InternalError, ViewOnlyStepsError } from '../errors/internal-errors';
 import { INTERNAL_ERROR_CODE } from '../errors/internal-errors';
-import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
+import { EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const';
 import { getCollabProviderFeatureFlag } from '../feature-flags';
 import { Api } from '../api/api';
 import { shouldTelepointerBeSampled } from '../analytics/performance';
@@ -212,7 +212,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					// Offline longer than `OUT_OF_SYNC_PERIOD`
 					Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD
 				) {
-					this.documentService.throttledCatchupv2();
+					this.documentService.throttledCatchupv2(CatchupEventReason.RECONNECTED);
 				}
 				this.participantsService.startInactiveRemover(this.sessionId);
 				this.disconnectedAt = undefined;

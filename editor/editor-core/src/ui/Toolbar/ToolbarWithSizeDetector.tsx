@@ -7,6 +7,7 @@ import React, { useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
@@ -38,9 +39,10 @@ export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps) => 
 		skip: typeof width !== 'undefined',
 	});
 
+	const defaultToolbarSize = isSSR() && isFullPage(props.appearance) ? ToolbarSize.XXL : undefined;
 	const toolbarSize =
 		typeof width === 'undefined' && typeof elementWidth === 'undefined'
-			? undefined
+			? defaultToolbarSize
 			: widthToToolbarSize((width || elementWidth)!, props.appearance);
 
 	const toolbarStyle = useMemo(() => {

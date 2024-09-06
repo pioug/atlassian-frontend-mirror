@@ -22,8 +22,18 @@ jest.mock('@atlaskit/editor-common/performance-measures', () => ({
 		},
 	),
 }));
-jest.mock('@atlaskit/editor-common/utils', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+jest.mock('@atlaskit/editor-common/performance/navigation', () => ({
+	...jest.requireActual<Object>('@atlaskit/editor-common/performance/navigation'),
+	getResponseEndTime: jest.fn(() => mockResponseTime),
+}));
+
+jest.mock('@atlaskit/editor-common/is-performance-api-available', () => ({
+	...jest.requireActual<Object>('@atlaskit/editor-common/is-performance-api-available'),
+	isPerformanceAPIAvailable: jest.fn(() => true),
+}));
+
+jest.mock('@atlaskit/editor-common/performance/measure-render', () => ({
+	...jest.requireActual<Object>('@atlaskit/editor-common/performance/measure-render'),
 	measureRender: jest.fn(async (name: string, callback: Function) => {
 		await Promise.resolve(0);
 		callback({
@@ -32,8 +42,6 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
 			distortedDuration: false,
 		});
 	}),
-	isPerformanceAPIAvailable: jest.fn(() => true),
-	getResponseEndTime: jest.fn(() => mockResponseTime),
 }));
 
 const mockStore = {

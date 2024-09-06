@@ -10,16 +10,25 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('Toggle component', () => {
+	const testId = 'toggle';
 	const label = 'label';
 
 	it('should be able to switch', () => {
 		const onChange = jest.fn();
-		render(<Toggle size="large" label={label} defaultChecked={false} onChange={onChange} />);
-		const labelElement = screen.getByLabelText(label).parentElement;
+		render(
+			<Toggle
+				size="large"
+				label={label}
+				defaultChecked={false}
+				onChange={onChange}
+				testId={testId}
+			/>,
+		);
+		const labelElement = screen.getByTestId(testId);
 
 		expect(labelElement).not.toHaveAttribute('data-checked');
 
-		fireEvent.click(labelElement!);
+		fireEvent.click(labelElement);
 		expect(onChange).toHaveBeenCalled();
 
 		expect(labelElement).toHaveAttribute('data-checked', 'true');

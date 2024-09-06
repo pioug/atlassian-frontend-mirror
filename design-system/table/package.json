@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/table",
-	"version": "0.7.1",
+	"version": "0.7.2",
 	"description": "A table is used to display data.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,10 +44,10 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^20.1.0",
-		"@atlaskit/checkbox": "^13.7.0",
+		"@atlaskit/checkbox": "^14.0.0",
 		"@atlaskit/ds-lib": "^2.5.0",
 		"@atlaskit/focus-ring": "^1.6.0",
-		"@atlaskit/icon": "^22.15.0",
+		"@atlaskit/icon": "^22.16.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/tokens": "^1.59.0",
 		"@atlaskit/tooltip": "^18.7.0",

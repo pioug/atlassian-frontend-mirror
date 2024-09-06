@@ -4,7 +4,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 const key = new PluginKey<FocusState>('focusPluginHandler');
 type FocusState = { hasFocus: boolean };
-export type FocusPlugin = NextEditorPlugin<'focus', { sharedState: FocusState }>;
+type FocusPlugin = NextEditorPlugin<'focus', { sharedState: FocusState }>;
 
 /**
  * Focus plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
@@ -80,3 +80,4 @@ const focusPlugin: FocusPlugin = ({ api }) => {
 };
 
 export { focusPlugin };
+export type { FocusPlugin };

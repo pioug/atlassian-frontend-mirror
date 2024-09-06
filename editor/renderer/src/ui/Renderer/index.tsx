@@ -21,12 +21,12 @@ import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-m
 import {
 	getAnalyticsAppearance,
 	getAnalyticsEventSeverity,
-	getResponseEndTime,
 	shouldForceTracking,
 	measureTTI,
-	getDistortedDurationMonitor,
-	browser,
 } from '@atlaskit/editor-common/utils';
+import { getDistortedDurationMonitor } from '@atlaskit/editor-common/performance/measure-render';
+import { browser } from '@atlaskit/editor-common/browser';
+import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';

@@ -5,7 +5,6 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type {
 	CardContext,
 	DatasourceAdf,
@@ -113,21 +112,17 @@ const useUpdateAdf = (view: EditorView, existingNode: Node | undefined) => {
 const getExistingNode = (state: EditorState): Node | undefined => {
 	const { selection } = state;
 	let existingNode: Node | undefined;
-	if (getBooleanFF('platform.linking-platform.enable-datasource-appearance-toolbar')) {
-		// Check if the selection contains a link mark
-		const isLinkMark = state.doc
-			.resolve(selection.from)
-			.marks()
-			.some((mark) => mark.type === state.schema.marks.link);
+	// Check if the selection contains a link mark
+	const isLinkMark = state.doc
+		.resolve(selection.from)
+		.marks()
+		.some((mark) => mark.type === state.schema.marks.link);
 
-		// When selection is a TextNode and a link Mark is present return that node
-		if (selection instanceof NodeSelection) {
-			existingNode = selection.node;
-		} else if (isLinkMark) {
-			existingNode = state.doc.nodeAt(selection.from) ?? undefined;
-		}
-	} else {
-		existingNode = selection instanceof NodeSelection ? selection.node : undefined;
+	// When selection is a TextNode and a link Mark is present return that node
+	if (selection instanceof NodeSelection) {
+		existingNode = selection.node;
+	} else if (isLinkMark) {
+		existingNode = state.doc.nodeAt(selection.from) ?? undefined;
 	}
 	return existingNode;
 };

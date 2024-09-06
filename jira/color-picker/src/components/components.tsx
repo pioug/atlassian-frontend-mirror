@@ -10,6 +10,7 @@ import { getWidth } from '../utils';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { COLOR_PICKER } from '../constants';
 
 export const MenuList = (props: MenuListComponentProps<Color>) => {
 	const {
@@ -45,6 +46,7 @@ export const Option = (props: OptionProps<Color>) => {
 	return (
 		<div css={colorCardWrapperStyles} {...innerProps}>
 			<ColorCard
+				type={COLOR_PICKER}
 				label={label}
 				value={value}
 				checkMarkColor={checkMarkColor}

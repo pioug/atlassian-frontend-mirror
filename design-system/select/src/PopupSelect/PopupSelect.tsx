@@ -87,6 +87,10 @@ export interface PopupSelectProps<
 	 */
 	closeMenuOnSelect?: boolean;
 	/**
+	 * Defines whether the menu should be closed by pressing the Tab key. The default is `true`.
+	 */
+	shouldCloseMenuOnTab?: boolean;
+	/**
 	 * The footer content shown at the bottom of the popup, underneath the select options.
 	 */
 	footer?: ReactNode;
@@ -228,6 +232,7 @@ export default class PopupSelect<
 
 	static defaultProps = {
 		closeMenuOnSelect: true,
+		shouldCloseMenuOnTab: true,
 		components: {},
 		maxMenuHeight: 300,
 		maxMenuWidth: 440,
@@ -307,6 +312,14 @@ export default class PopupSelect<
 	};
 
 	handleKeyDown = (event: KeyboardEvent) => {
+		//We shouldn't close PopupSelect on tab event if there are custom interactive element.
+		if (fg('tab-event-should-close-popupSelect')) {
+			const tabEvent = (event.key === 'Tab' && event.shiftKey) || event.key === 'Tab';
+			if (this.props.shouldCloseMenuOnTab && tabEvent) {
+				this.close();
+			}
+		}
+
 		switch (event.key) {
 			case 'Escape':
 			case 'Esc':

@@ -265,23 +265,16 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 	// Need this function to check if the datasource attribute was added or not to a blockCard.
 	// If not, we return false so we can get the node to re-render properly as a block node instead.
 	// Otherwise, the node view will still consider the node as a Datasource and render a such.
-	validUpdate(currentNode: PMNode, newNode: PMNode) {
-		if (fg('platform.linking-platform.enable-datasource-appearance-toolbar')) {
-			return !!newNode.attrs?.datasource;
-		}
-		return true;
+	validUpdate(_: PMNode, newNode: PMNode) {
+		return !!newNode.attrs?.datasource;
 	}
 
 	update(
 		node: PMNode,
 		decorations: ReadonlyArray<Decoration>,
 		_innerDecorations?: DecorationSource,
-		validUpdate: (currentNode: PMNode, newNode: PMNode) => boolean = () => true,
 	) {
-		if (fg('platform.linking-platform.enable-datasource-appearance-toolbar')) {
-			return super.update(node, decorations, _innerDecorations, this.validUpdate);
-		}
-		return super.update(node, decorations, _innerDecorations, validUpdate);
+		return super.update(node, decorations, _innerDecorations, this.validUpdate);
 	}
 
 	createDomRef(): HTMLElement {

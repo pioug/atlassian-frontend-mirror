@@ -472,10 +472,7 @@ const generateToolbarItems =
 			// This code will be executed only for appearances such as "inline", "block" & "embed"
 			// For url appearance, please see HyperlinkToolbarAppearanceProps
 			if (currentAppearance) {
-				const showDatasourceAppearance =
-					allowDatasource &&
-					url &&
-					fg('platform.linking-platform.enable-datasource-appearance-toolbar');
+				const showDatasourceAppearance = allowDatasource && url;
 
 				toolbarItems.unshift(
 					...getToolbarViewedItem(url, currentAppearance),
@@ -649,13 +646,6 @@ const getDatasourceButtonGroup = (
 	const canShowAppearanceSwitch = () => {
 		// we do not show smart-link or the datasource icons when the node does not have a url to resolve
 		if (!metadata.url) {
-			return false;
-		}
-
-		if (
-			// FF that controls visibily of the additional toolbar buttons
-			!fg('platform.linking-platform.enable-datasource-appearance-toolbar')
-		) {
 			return false;
 		}
 

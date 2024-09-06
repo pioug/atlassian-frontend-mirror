@@ -155,6 +155,12 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		expect(reactionButtons.length).toEqual(0);
 	});
 
+	it('should return empty reaction list when reactions prop is empty and the hideDefaultReactions is true, even if there are pre-defined quickReactionEmojis ', async () => {
+		renderReactions({ reactions: [], quickReactionEmojis, hideDefaultReactions: true });
+		const reactionButtons = await screen.queryAllByTestId(RENDER_REACTION_TESTID);
+		expect(reactionButtons.length).toEqual(0);
+	});
+
 	it('should not show see who reacted button if allowUserDialog is disabled', async () => {
 		renderReactions({
 			reactions,

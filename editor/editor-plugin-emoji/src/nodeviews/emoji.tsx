@@ -5,8 +5,9 @@ import { useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/editor-common/emoji';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import { type EmojiPluginOptions } from '../types';
+import { type EmojiPlugin, type EmojiPluginOptions } from '../types';
 import Emoji from '../ui/Emoji';
 import { NdpEmoji } from '../ui/NdpEmoji';
 
@@ -23,6 +24,7 @@ const EmojiAssistiveTextComponent = React.memo(({ emojiShortName }: { emojiShort
 export type Props = InlineNodeViewComponentProps & {
 	providerFactory: ProviderFactory;
 	options?: EmojiPluginOptions;
+	api?: ExtractInjectionAPI<EmojiPlugin>;
 };
 
 export function EmojiNodeView(props: Props) {
@@ -38,7 +40,13 @@ export function EmojiNodeView(props: Props) {
 		<>
 			<EmojiAssistiveTextComponent emojiShortName={shortName}></EmojiAssistiveTextComponent>
 			<span>
-				<Emoji providers={props.providerFactory} id={id} shortName={shortName} fallback={text} />
+				<Emoji
+					pluginInjectionApi={props.api}
+					providers={props.providerFactory}
+					id={id}
+					shortName={shortName}
+					fallback={text}
+				/>
 			</span>
 		</>
 	);

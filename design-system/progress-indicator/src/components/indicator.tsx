@@ -11,16 +11,20 @@ import { type DotsAppearance } from './types';
 const colorMap = {
 	default: xcss({
 		backgroundColor: 'color.background.neutral',
+		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
 	}),
 	help: xcss({
 		backgroundColor: 'color.background.neutral',
+		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
 	}),
 	inverted: xcss({
 		// @ts-expect-error
 		backgroundColor: token('color.icon.subtle'),
+		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
 	}),
 	primary: xcss({
 		backgroundColor: 'color.background.neutral',
+		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
 	}),
 };
 
@@ -68,7 +72,6 @@ const commonStyles = xcss({
 
 const buttonStyles = xcss({
 	padding: 'space.0',
-	border: 0,
 	cursor: 'pointer',
 	outline: 0,
 });

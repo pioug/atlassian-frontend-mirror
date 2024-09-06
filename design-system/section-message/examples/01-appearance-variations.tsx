@@ -1,5 +1,7 @@
 import React from 'react';
 
+import noop from 'lodash/noop';
+
 import { Box, Stack, Text } from '@atlaskit/primitives';
 
 import SectionMessage, { SectionMessageAction } from '../src';
@@ -34,11 +36,11 @@ const Example = () => (
 				actions={[
 					<SectionMessageAction
 						// eslint-disable-next-line @repo/internal/react/use-noop
-						onClick={() => {}}
+						onClick={() => noop}
 					>
 						Outtake
 					</SectionMessageAction>,
-					<SectionMessageAction>Moana</SectionMessageAction>,
+					<SectionMessageAction onClick={() => noop}>Moana</SectionMessageAction>,
 				]}
 			>
 				<Stack space="space.100">

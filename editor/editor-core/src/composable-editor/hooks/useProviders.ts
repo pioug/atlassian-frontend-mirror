@@ -8,7 +8,10 @@ import type {
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { CardPlugin } from '@atlaskit/editor-plugins/card';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
+import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
+import { type EmojiProvider } from '@atlaskit/emoji';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { usePresetContext } from '../../presets/context';
 
@@ -16,6 +19,7 @@ interface UseProvidersProps {
 	contextIdentifierProvider: Promise<ContextIdentifierProvider> | undefined;
 	mediaProvider: Promise<MediaProvider> | undefined;
 	cardProvider: Promise<CardProvider> | undefined;
+	emojiProvider: Promise<EmojiProvider> | undefined;
 }
 
 /**
@@ -30,6 +34,7 @@ export const useProviders = ({
 	contextIdentifierProvider,
 	mediaProvider,
 	cardProvider,
+	emojiProvider,
 }: UseProvidersProps) => {
 	const editorApi =
 		usePresetContext<
@@ -37,6 +42,7 @@ export const useProviders = ({
 				OptionalPlugin<ContextIdentifierPlugin>,
 				OptionalPlugin<MediaPlugin>,
 				OptionalPlugin<CardPlugin>,
+				OptionalPlugin<EmojiPlugin>,
 			]
 		>();
 
@@ -66,4 +72,12 @@ export const useProviders = ({
 			editorApi?.card?.actions.setProvider(cardProvider);
 		}
 	}, [cardProvider, editorApi]);
+
+	useEffect(() => {
+		if (fg('platform_editor_get_emoji_provider_from_config')) {
+			if (emojiProvider) {
+				editorApi?.emoji?.actions.setProvider(emojiProvider);
+			}
+		}
+	}, [emojiProvider, editorApi]);
 };

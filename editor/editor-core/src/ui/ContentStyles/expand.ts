@@ -14,6 +14,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N100A, N40A, N50A, R300, R50 } from '@atlaskit/theme/colors';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const EXPAND_SELECTED_BACKGROUND = token(
@@ -29,6 +30,20 @@ const EXPAND_ICON_COLOR = () =>
 const DANGER_STATE_BACKGROUND_COLOR = token('color.background.danger', R50);
 
 const DANGER_STATE_BORDER_COLOR = token('color.border.danger', R300);
+
+const firstNodeWithNotMarginTop = () =>
+	editorExperiment('nested-dnd', true)
+		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+			css`
+				> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span)) {
+					margin-top: 0;
+				}
+
+				> div.ak-editor-expand[data-node-type='nestedExpand'] {
+					margin-top: ${token('space.050', '0.25rem')};
+				}
+			`
+		: '';
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
@@ -66,8 +81,8 @@ export const expandStyles = () => css`
 		> .${expandClassNames.type('expand')},
 		.${BreakoutCssClassName.BREAKOUT_MARK_DOM}
 		> .${expandClassNames.type('expand')} {
-		margin-left: -${akLayoutGutterOffset}px;
-		margin-right: -${akLayoutGutterOffset}px;
+		margin-left: -${akLayoutGutterOffset + (editorExperiment('nested-dnd', true) ? 8 : 0)}px;
+		margin-right: -${akLayoutGutterOffset + (editorExperiment('nested-dnd', true) ? 8 : 0)}px;
 	}
 
 	.${expandClassNames.content} {
@@ -93,6 +108,8 @@ export const expandStyles = () => css`
 
 		.${expandClassNames.content} {
 			padding-top: ${token('space.100', '8px')};
+
+			${firstNodeWithNotMarginTop()}
 		}
 	}
 

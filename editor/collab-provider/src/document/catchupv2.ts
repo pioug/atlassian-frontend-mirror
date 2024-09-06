@@ -15,6 +15,7 @@ export const catchupv2 = async (opt: Catchupv2Options): Promise<boolean> => {
 			fromVersion,
 			opt.clientId,
 			opt.catchUpOutofSync,
+			opt.reason,
 		));
 	} catch (error) {
 		opt.analyticsHelper?.sendErrorEvent(error, 'Error while fetching catchupv2 from server');

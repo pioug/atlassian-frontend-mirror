@@ -13,6 +13,9 @@ export const blockquoteSharedStyles = css({
 	'& blockquote': {
 		boxSizing: 'border-box',
 		color: 'inherit',
+		width: '100%',
+		clear: 'both',
+		display: 'inline-block',
 		paddingLeft: token('space.200', '16px'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		borderLeft: `2px solid ${token('color.border', akEditorBlockquoteBorderColor)}`,
@@ -57,6 +60,9 @@ export const blockquoteSharedStylesNew = css({
 	'& blockquote': {
 		boxSizing: 'border-box',
 		color: 'inherit',
+		width: '100%',
+		clear: 'both',
+		display: 'inline-block',
 		paddingLeft: token('space.250', '20px'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		borderLeft: `2px solid ${token('color.border', akEditorBlockquoteBorderColor)}`,

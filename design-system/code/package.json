@@ -46,7 +46,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/ds-lib": "^2.5.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "^13.3.0",
+		"@atlaskit/toggle": "^13.4.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
 		"@types/jscodeshift": "^0.11.0",

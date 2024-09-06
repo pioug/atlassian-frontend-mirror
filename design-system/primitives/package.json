@@ -133,7 +133,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/formatting": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "^13.3.0",
+		"@atlaskit/toggle": "^13.4.0",
 		"@atlaskit/tooltip": "^18.7.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/codegen": "^0.1.0",

@@ -1,8 +1,7 @@
 import { catchupv2, isOutOfSync } from '../catchupv2';
-import type { Catchupv2Options, StepJson } from '../../types';
+import type { Catchupv2Options, Catchupv2Response, Metadata, StepJson } from '../../types';
 import AnalyticsHelper from '../../analytics/analytics-helper';
-
-const newMetadata = 'new-metadata';
+import { CatchupEventReason } from '../../helpers/const';
 
 const step1 = {
 	userId: 'ari:cloud:identity::user/123',
@@ -27,6 +26,14 @@ const step2 = {
 };
 
 describe('Catchupv2 ', () => {
+	const metadata: Metadata = { prop: 'value' };
+	const clientId = 'some-random-prosemirror-client-Id';
+
+	const mockFetchCatchup = jest.fn<
+		Promise<Catchupv2Response>,
+		Parameters<Catchupv2Options['fetchCatchupv2']>
+	>();
+
 	afterEach(() => {
 		jest.resetAllMocks();
 	});
@@ -34,45 +41,57 @@ describe('Catchupv2 ', () => {
 	it('Does not call onStepsAdded when catchupv2 returns no steps', async () => {
 		const options: Catchupv2Options = {
 			getCurrentPmVersion: jest.fn().mockReturnValue(1),
-			fetchCatchupv2: jest.fn().mockResolvedValue({
+			fetchCatchupv2: mockFetchCatchup.mockResolvedValue({
 				steps: [],
-				metadata: newMetadata,
+				metadata,
 			}),
 			updateMetadata: jest.fn(),
 			analyticsHelper: new AnalyticsHelper('fake-document-ari'),
-			clientId: 'some-random-prosemirror-client-Id',
+			clientId,
 			onStepsAdded: jest.fn(),
 			catchUpOutofSync: false,
+			reason: CatchupEventReason.STEPS_ADDED,
 		};
 
 		const sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
 
 		await catchupv2(options);
-		expect(options.fetchCatchupv2).toBeCalledWith(1, 'some-random-prosemirror-client-Id', false);
-		expect(options.onStepsAdded).not.toBeCalled();
-		expect(sendErrorEventSpy).not.toBeCalled();
+		expect(options.fetchCatchupv2).toHaveBeenCalledWith(
+			1,
+			clientId,
+			false,
+			CatchupEventReason.STEPS_ADDED,
+		);
+		expect(options.onStepsAdded).not.toHaveBeenCalled();
+		expect(sendErrorEventSpy).not.toHaveBeenCalled();
 	});
 
 	it('Does not call onStepsAdded when catchupv2 returns undefined steps', async () => {
 		const options: Catchupv2Options = {
 			getCurrentPmVersion: jest.fn().mockReturnValue(1),
-			fetchCatchupv2: jest.fn().mockResolvedValue({
+			fetchCatchupv2: mockFetchCatchup.mockResolvedValue({
 				steps: undefined,
 				metadata: undefined,
 			}),
 			updateMetadata: jest.fn(),
 			analyticsHelper: new AnalyticsHelper('fake-document-ari'),
-			clientId: 'some-random-prosemirror-client-Id',
+			clientId,
 			onStepsAdded: jest.fn(),
 			catchUpOutofSync: false,
+			reason: CatchupEventReason.STEPS_ADDED,
 		};
 
 		const sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
 
 		await catchupv2(options);
-		expect(options.fetchCatchupv2).toBeCalledWith(1, 'some-random-prosemirror-client-Id', false);
-		expect(options.onStepsAdded).not.toBeCalled();
-		expect(sendErrorEventSpy).not.toBeCalled();
+		expect(options.fetchCatchupv2).toHaveBeenCalledWith(
+			1,
+			clientId,
+			false,
+			CatchupEventReason.STEPS_ADDED,
+		);
+		expect(options.onStepsAdded).not.toHaveBeenCalled();
+		expect(sendErrorEventSpy).not.toHaveBeenCalled();
 	});
 
 	it('Should add steps and update metadata', async () => {
@@ -80,11 +99,11 @@ describe('Catchupv2 ', () => {
 			getCurrentPmVersion: jest.fn().mockReturnValue(1),
 			fetchCatchupv2: jest.fn().mockResolvedValue({
 				steps: [step1, step2],
-				metadata: newMetadata,
+				metadata: { prop: 'value' },
 			}),
 			updateMetadata: jest.fn(),
 			analyticsHelper: new AnalyticsHelper('fake-document-ari'),
-			clientId: 'some-random-prosemirror-client-Id',
+			clientId,
 			onStepsAdded: jest.fn(),
 			catchUpOutofSync: false,
 		};
@@ -96,17 +115,17 @@ describe('Catchupv2 ', () => {
 			version: 3,
 		});
 		expect(options.updateMetadata).toHaveBeenCalledTimes(1);
-		expect(options.updateMetadata).toBeCalledWith(newMetadata);
+		expect(options.updateMetadata).toHaveBeenCalledWith(metadata);
 	});
 
 	it('Should send error analytics event for fetchCatchupv2 failing', async () => {
 		const error = new Error('fake error');
 		const options: Catchupv2Options = {
 			getCurrentPmVersion: jest.fn().mockReturnValue(1),
-			fetchCatchupv2: jest.fn().mockRejectedValueOnce(error),
+			fetchCatchupv2: mockFetchCatchup.mockRejectedValueOnce(error),
 			updateMetadata: jest.fn(),
 			analyticsHelper: new AnalyticsHelper('fake-document-ari'),
-			clientId: 'some-random-prosemirror-client-Id',
+			clientId,
 			onStepsAdded: jest.fn(),
 			catchUpOutofSync: false,
 		};
@@ -116,8 +135,11 @@ describe('Catchupv2 ', () => {
 		try {
 			await catchupv2(options);
 		} catch (err) {
-			expect(options.fetchCatchupv2).toBeCalledWith(1, 'some-random-prosemirror-client-Id', false);
-			expect(sendErrorEventSpy).toBeCalledWith(error, 'Error while fetching catchupv2 from server');
+			expect(options.fetchCatchupv2).toHaveBeenCalledWith(1, clientId, false, undefined);
+			expect(sendErrorEventSpy).toHaveBeenCalledWith(
+				error,
+				'Error while fetching catchupv2 from server',
+			);
 		}
 	});
 });

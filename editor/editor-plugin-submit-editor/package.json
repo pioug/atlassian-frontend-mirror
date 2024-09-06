@@ -34,7 +34,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^88.9.0",
+		"@atlaskit/editor-common": "^88.11.0",
 		"@atlaskit/editor-plugin-media": "^1.29.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@babel/runtime": "^7.0.0"

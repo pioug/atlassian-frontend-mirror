@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-svg",
-	"version": "0.1.10",
+	"version": "0.2.0",
 	"description": "For fetching and rendering SVGs secure and responsively",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -12,7 +12,8 @@
 		"website": {
 			"name": "MediaSvg",
 			"category": "Components"
-		}
+		},
+		"runReact18": true
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",
@@ -46,7 +47,7 @@
 	},
 	"peerDependencies": {
 		"@emotion/react": "^11.7.1",
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",
@@ -59,7 +60,7 @@
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/select": "^17.15.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "^13.3.0",
+		"@atlaskit/toggle": "^13.4.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
 		"react-dom": "^16.8.0",

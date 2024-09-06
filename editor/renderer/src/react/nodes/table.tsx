@@ -19,7 +19,7 @@ import {
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { RendererAppearance, StickyHeaderConfig } from '../../ui/Renderer/types';
 import { FullPagePadding } from '../../ui/Renderer/style';
@@ -45,7 +45,8 @@ type TableArrayMapped = {
 
 export const isTableResizingEnabled = (appearance: RendererAppearance) =>
 	isFullWidthOrFullPageAppearance(appearance) ||
-	(isCommentAppearance(appearance) && fg('platform_editor_table_support_in_comment'));
+	(isCommentAppearance(appearance) &&
+		editorExperiment('support_table_in_comment', true, { exposure: true }));
 const orderChildren = (
 	children: React.ReactElement[],
 	tableNode: PMNode,

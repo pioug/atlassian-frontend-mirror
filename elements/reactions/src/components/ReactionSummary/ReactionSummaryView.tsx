@@ -47,6 +47,10 @@ interface ReactionSummaryViewProps
 	 * Optional prop for using an opaque button background instead of a transparent background
 	 */
 	showOpaqueBackground?: boolean;
+	/**
+	 * Optional prop for applying subtle styling to reaction picker
+	 */
+	subtleReactionsSummaryAndPicker?: boolean;
 }
 
 export const ReactionSummaryView = ({
@@ -61,6 +65,7 @@ export const ReactionSummaryView = ({
 	onReactionFocused,
 	onReactionMouseEnter,
 	showOpaqueBackground = false,
+	subtleReactionsSummaryAndPicker = false,
 }: ReactionSummaryViewProps) => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useState<boolean>(false);
 
@@ -105,6 +110,7 @@ export const ReactionSummaryView = ({
 					reactions={reactions}
 					onClick={handleSummaryClick}
 					showOpaqueBackground={showOpaqueBackground}
+					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 				/>
 			)}
 		/>

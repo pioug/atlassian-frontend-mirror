@@ -34,6 +34,10 @@ const containerStyle = xcss({
 	position: 'relative',
 });
 
+const hideBorderStyle = xcss({
+	border: 'none',
+});
+
 interface ReactionSummaryButtonProps extends Pick<ReactionsProps, 'emojiProvider' | 'reactions'> {
 	/**
 	 * event handler when the summary button is clicked to view all reactions
@@ -49,6 +53,11 @@ interface ReactionSummaryButtonProps extends Pick<ReactionsProps, 'emojiProvider
 	 * Optional prop for using an opaque button background instead of a transparent background
 	 */
 	showOpaqueBackground?: boolean;
+
+	/**
+	 * Optional prop for applying subtle styling to reaction summary button
+	 */
+	subtleReactionsSummaryAndPicker?: boolean;
 }
 
 /**
@@ -70,6 +79,7 @@ export const ReactionSummaryButton = forwardRef(
 			emojisToShow = 3,
 			onClick,
 			showOpaqueBackground = false,
+			subtleReactionsSummaryAndPicker = false,
 		}: ReactionSummaryButtonProps,
 		ref: React.Ref<HTMLDivElement>,
 	) => {
@@ -93,13 +103,15 @@ export const ReactionSummaryButton = forwardRef(
 
 		const buttonStyles = showOpaqueBackground ? [opaqueBackgroundStyles] : [];
 
+		const subtleSummaryStyles = subtleReactionsSummaryAndPicker ? [hideBorderStyle] : [];
+
 		return (
 			<Box xcss={containerStyle} ref={ref}>
 				<ReactionButton
 					onClick={onClick}
 					testId={RENDER_SUMMARY_BUTTON_TESTID}
 					ariaLabel={intl.formatMessage(messages.summary)}
-					additionalStyles={buttonStyles}
+					additionalStyles={[...buttonStyles, ...subtleSummaryStyles]}
 				>
 					<Inline space="space.050" xcss={buttonStyle}>
 						{topReactions.map((reaction) => (

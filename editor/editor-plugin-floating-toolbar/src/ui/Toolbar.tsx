@@ -293,6 +293,7 @@ const ToolbarItems = React.memo(
 								onChange={(selected) => dispatchCommand(item.onChange(selected))}
 								mountPoint={emojiAndColourPickerMountPoint}
 								setDisableParentScroll={scrollable ? setDisableScroll : undefined}
+								pluginInjectionApi={api}
 							/>
 						);
 					}

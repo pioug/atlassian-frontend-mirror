@@ -269,6 +269,7 @@ export interface CollabInitPayload extends CollabEventInitData {
 	version: number;
 	metadata?: Metadata;
 	reserveCursor?: boolean;
+	targetClientId?: string;
 }
 
 export interface CollabEventConnectionData {

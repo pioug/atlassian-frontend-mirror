@@ -1,5 +1,14 @@
 # @atlaskit/section-message
 
+## 6.6.4
+
+### Patch Changes
+
+- [#137586](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137586)
+  [`7ef921d67c033`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7ef921d67c033) -
+  Accessibility changes. Add roles to improve semantics.
+- Updated dependencies
+
 ## 6.6.3
 
 ### Patch Changes

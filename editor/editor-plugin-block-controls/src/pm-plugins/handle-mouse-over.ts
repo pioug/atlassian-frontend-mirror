@@ -22,14 +22,15 @@ export const handleMouseOver = (
 	}
 	let rootElement = target?.closest('[data-drag-handler-anchor-name]');
 	if (rootElement) {
-		const tableElement = rootElement.closest('[data-drag-handler-node-type="table"]');
+		const parentElement = rootElement.parentElement?.closest('[data-drag-handler-anchor-name]');
 
 		if (
-			tableElement &&
+			parentElement &&
+			parentElement.getAttribute('data-drag-handler-node-type')! === 'table' &&
 			editorExperiment('nested-dnd', true) &&
 			editorExperiment('table-nested-dnd', false, { exposure: true })
 		) {
-			rootElement = tableElement;
+			rootElement = parentElement;
 		}
 		const anchorName = rootElement.getAttribute('data-drag-handler-anchor-name')!;
 		const nodeType = rootElement.getAttribute('data-drag-handler-node-type')!;

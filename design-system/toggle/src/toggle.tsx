@@ -10,13 +10,13 @@ import { useUIDSeed } from 'react-uid';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
-import CloseIcon from '@atlaskit/icon/glyph/editor/close';
-import CheckIcon from '@atlaskit/icon/glyph/editor/done';
+import type { Size as IconSize } from '@atlaskit/icon/types';
+import CheckMarkIcon from '@atlaskit/icon/utility/migration/check-mark--editor-done';
+import CloseIcon from '@atlaskit/icon/utility/migration/cross--editor-close';
 
+import IconContainer from './icon-container';
 import { getStyles } from './internal/styles';
 import { type Size, type ToggleProps } from './types';
-
-export const getIconSize = (size: Size) => (size === 'large' ? 'large' : 'small');
 
 const noop = __noop;
 
@@ -24,6 +24,11 @@ const analyticsAttributes = {
 	componentName: 'toggle',
 	packageName: process.env._PACKAGE_NAME_ as string,
 	packageVersion: process.env._PACKAGE_VERSION_ as string,
+};
+
+const iconSizeMap: Record<Size, IconSize> = {
+	regular: 'small',
+	large: 'medium',
 };
 
 /**
@@ -96,6 +101,8 @@ const Toggle = memo(
 
 		const uuid = useUIDSeed()('toggle');
 
+		const legacyIconSize = iconSizeMap[size];
+
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<label {...controlProps} css={toggleStyles}>
@@ -119,16 +126,22 @@ const Toggle = memo(
 					aria-labelledby={label ? `${uuid}-label` : undefined}
 					aria-describedby={descriptionId}
 				/>
-				<CheckIcon
-					label=""
-					size={getIconSize(size)}
-					testId={testId && `${testId}--toggle-check-icon`}
-				/>
-				<CloseIcon
-					label=""
-					size={getIconSize(size)}
-					testId={testId && `${testId}--toggle-cross-icon`}
-				/>
+				<IconContainer size={size} isHidden={!shouldChecked} position="left">
+					<CheckMarkIcon
+						label=""
+						color="currentColor"
+						LEGACY_size={legacyIconSize}
+						testId={testId && `${testId}--toggle-check-icon`}
+					/>
+				</IconContainer>
+				<IconContainer size={size} isHidden={shouldChecked} position="right">
+					<CloseIcon
+						label=""
+						color="currentColor"
+						LEGACY_size={legacyIconSize}
+						testId={testId && `${testId}--toggle-cross-icon`}
+					/>
+				</IconContainer>
 			</label>
 		);
 	}),

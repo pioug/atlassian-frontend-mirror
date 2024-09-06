@@ -6,6 +6,7 @@ import { type IntlShape, RawIntlProvider } from 'react-intl-next';
 import uuid from 'uuid';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
@@ -75,7 +76,7 @@ export const dropTargetDecorations = (
 
 	newState.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, parent, index) => {
 		let depth = 0;
-		// drop target dco at the end position
+		// drop target deco at the end position
 		let endPosDeco = null;
 		if (editorExperiment('nested-dnd', true)) {
 			depth = newState.doc.resolve(pos).depth;
@@ -97,7 +98,11 @@ export const dropTargetDecorations = (
 			}
 
 			decorationState.push({ id: pos, pos });
-			if (parent.lastChild === node && PARENT_WITH_END_DROP_TARGET.includes(parent.type.name)) {
+			if (
+				parent.lastChild === node &&
+				!isEmptyParagraph(node) &&
+				PARENT_WITH_END_DROP_TARGET.includes(parent.type.name)
+			) {
 				const endpos = pos + node.nodeSize;
 				endPosDeco = { id: endpos, pos: endpos };
 				decorationState.push({ id: endpos, pos: endpos });

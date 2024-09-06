@@ -5,14 +5,17 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import Toggle from '../../toggle';
 
 describe('Toggle component', () => {
+	const testId = 'toggle';
 	const label = 'Label';
 
 	describe('defaultChecked is absent', () => {
 		it('should be stateless when defaultChecked is absent - is not checked', () => {
 			const onChange = jest.fn();
-			render(<Toggle size="large" isChecked={false} onChange={onChange} label={label} />);
+			render(
+				<Toggle size="large" isChecked={false} onChange={onChange} label={label} testId={testId} />,
+			);
 
-			const labelElement = screen.getByLabelText(label).parentElement;
+			const labelElement = screen.getByTestId(testId);
 
 			expect(labelElement).toBeInTheDocument();
 			expect(labelElement?.getAttribute('data-checked')).toBe(null);
@@ -33,9 +36,9 @@ describe('Toggle component', () => {
 
 		it('should be stateless when defaultChecked is absent - is checked', () => {
 			const onChange = jest.fn();
-			render(<Toggle size="large" isChecked onChange={onChange} label={label} />);
+			render(<Toggle size="large" isChecked onChange={onChange} label={label} testId={testId} />);
 
-			const labelElement = screen.getByLabelText(label).parentElement;
+			const labelElement = screen.getByTestId(testId);
 
 			expect(labelElement).toBeInTheDocument();
 			expect(labelElement?.getAttribute('data-checked')).toBe('true');
@@ -50,9 +53,17 @@ describe('Toggle component', () => {
 	describe('defaultChecked is present', () => {
 		it('should be stateless when isChecked absent - toggle off', () => {
 			const onChange = jest.fn();
-			render(<Toggle size="large" defaultChecked={false} onChange={onChange} label={label} />);
+			render(
+				<Toggle
+					size="large"
+					defaultChecked={false}
+					onChange={onChange}
+					label={label}
+					testId={testId}
+				/>,
+			);
 
-			const labelElement = screen.getByLabelText(label).parentElement;
+			const labelElement = screen.getByTestId(testId);
 
 			expect(labelElement).toBeInTheDocument();
 			expect(labelElement?.getAttribute('data-checked')).toBe(null);
@@ -65,9 +76,11 @@ describe('Toggle component', () => {
 
 		it('should be stateless when isChecked absent - toggle on', () => {
 			const onChange = jest.fn();
-			render(<Toggle size="large" label={label} defaultChecked onChange={onChange} />);
+			render(
+				<Toggle size="large" label={label} defaultChecked onChange={onChange} testId={testId} />,
+			);
 
-			const labelElement = screen.getByLabelText(label).parentElement;
+			const labelElement = screen.getByTestId(testId);
 
 			expect(labelElement).toBeInTheDocument();
 
@@ -84,10 +97,17 @@ describe('Toggle component', () => {
 		it('should be use isChecked', () => {
 			const onChange = jest.fn();
 			render(
-				<Toggle size="large" defaultChecked isChecked={false} onChange={onChange} label={label} />,
+				<Toggle
+					size="large"
+					defaultChecked
+					isChecked={false}
+					onChange={onChange}
+					label={label}
+					testId={testId}
+				/>,
 			);
 
-			const labelElement = screen.getByLabelText(label);
+			const labelElement = screen.getByTestId(testId);
 
 			expect(labelElement).toBeInTheDocument();
 			expect(labelElement?.getAttribute('data-checked')).toBe(null);

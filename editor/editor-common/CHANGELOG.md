@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 88.11.0
+
+### Minor Changes
+
+- [#136891](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136891)
+  [`388780c6348e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/388780c6348e9) -
+  Pass emoji provider via preset
+- [#137736](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137736)
+  [`2a88fdd213838`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a88fdd213838) -
+  Introducing new smaller refined entry-points for editor-common to reduce bundle size.
+- [#137755](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137755)
+  [`f3d004d4e3a3e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3d004d4e3a3e) -
+  ED-24650 fix nested node jittering issue
+
+### Patch Changes
+
+- [#137217](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137217)
+  [`699039baa2c85`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/699039baa2c85) -
+  [ux] [ED-24782] Add styling for blockquotes so that when media is nested, wrapLeft and wrapRight
+  do not cause the media to sit outside the blockquotes.
+- Updated dependencies
+
+## 88.10.0
+
+### Minor Changes
+
+- [#137505](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137505)
+  [`ed3b11d42c169`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed3b11d42c169) -
+  add ability to target a clientId for restore
+
 ## 88.9.0
 
 ### Minor Changes

@@ -44,7 +44,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/eslint-utils": "^1.7.0",
-		"@atlaskit/icon": "^22.15.0",
+		"@atlaskit/icon": "^22.16.0",
 		"@atlaskit/tokens": "*",
 		"@babel/runtime": "^7.0.0",
 		"@typescript-eslint/utils": "^5.48.1",

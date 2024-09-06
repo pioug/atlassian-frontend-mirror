@@ -1,5 +1,7 @@
 import React from 'react';
 
+import noop from 'lodash/noop';
+
 import { Box, Stack, Text } from '@atlaskit/primitives';
 
 import SectionMessage, { SectionMessageAction } from '../src';
@@ -24,7 +26,7 @@ const SomeParts = ({
 						<SectionMessageAction href="https://en.wikipedia.org/wiki/Villa_Diodati">
 							Villa Diodatti
 						</SectionMessageAction>,
-						<SectionMessageAction>M. J. Godwin</SectionMessageAction>,
+						<SectionMessageAction onClick={() => noop}>M. J. Godwin</SectionMessageAction>,
 					]
 				: []
 		}

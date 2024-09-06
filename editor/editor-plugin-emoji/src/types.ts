@@ -18,6 +18,7 @@ import { type EmojiNodeDataProvider } from '@atlaskit/node-data-provider/emoji-p
 export interface EmojiPluginOptions {
 	headless?: boolean;
 	emojiNodeDataProvider?: EmojiNodeDataProvider;
+	emojiProvider?: Promise<EmojiProvider>;
 }
 
 export type EmojiPluginState = {
@@ -35,7 +36,7 @@ export type EmojiPlugin = NextEditorPlugin<
 	{
 		pluginConfiguration: EmojiPluginOptions | undefined;
 		dependencies: [OptionalPlugin<AnalyticsPlugin>, TypeAheadPlugin];
-		sharedState: Omit<EmojiPluginSharedState, 'emojiProvider'> | undefined;
+		sharedState: EmojiPluginSharedState | undefined;
 		commands: {
 			insertEmoji: (
 				emojiId: EmojiId,
@@ -45,6 +46,7 @@ export type EmojiPlugin = NextEditorPlugin<
 
 		actions: {
 			openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
+			setProvider: (provider: Promise<EmojiProvider>) => Promise<boolean>;
 		};
 	}
 >;

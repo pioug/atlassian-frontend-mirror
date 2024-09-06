@@ -1,5 +1,7 @@
 import type { SEVERITY } from '@atlaskit/editor-common/utils';
-import { getAnalyticsEventSeverity, getTimeSince } from '@atlaskit/editor-common/utils';
+import { getAnalyticsEventSeverity } from '@atlaskit/editor-common/utils/analytics';
+
+import { getTimeSince } from './getTimeSince';
 
 interface Opts {
 	dispatchAverage?: (

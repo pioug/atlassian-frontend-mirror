@@ -31,7 +31,7 @@ const TooltipButton = ({
 	id?: string;
 }) => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-	<div style={{ backgroundColor: 'white' }}>
+	<div>
 		<Tooltip content="Click me">
 			<Button id={id} onClick={onClick}>
 				{children}

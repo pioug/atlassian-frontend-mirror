@@ -1,7 +1,7 @@
 import React from 'react';
 
+import AkOverviewIcon from '@atlaskit/icon/core/migration/align-left--overview';
 import AkEditorAddonIcon from '@atlaskit/icon/glyph/editor/addon';
-import AkOverviewIcon from '@atlaskit/icon/glyph/overview';
 import { JiraIcon as AkJiraIcon } from '@atlaskit/logo';
 
 import { LineChartIcon } from '../../../../../common/ui';
@@ -9,7 +9,7 @@ import { LineChartIcon } from '../../../../../common/ui';
 export const macroIcon = (iconUrl: string, extensionKey: string, title: string) => {
 	switch (extensionKey) {
 		case 'toc':
-			return <AkOverviewIcon label={title} size="small" />;
+			return <AkOverviewIcon color="currentColor" label={title} LEGACY_size="small" />;
 
 		case 'jira':
 			return <AkJiraIcon label={title} size="small" />;
@@ -19,6 +19,8 @@ export const macroIcon = (iconUrl: string, extensionKey: string, title: string) 
 	}
 
 	if (!iconUrl) {
+		// TODO: https://product-fabric.atlassian.net/browse/DSP-20770
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		return <AkEditorAddonIcon label={title} size="medium" />;
 	}
 

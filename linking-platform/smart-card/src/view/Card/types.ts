@@ -125,4 +125,8 @@ export interface CardProps extends WithAnalyticsEventsProps {
 	 * For example, when set to true: "my name | :~:text=highlight this" will be displayed as "my name"
 	 */
 	removeTextHighlightingFromTitle?: boolean;
+	/**
+	 * When defined, this placeholder will be displayed while the smart card is resolving. This is only useful for inline cards.
+	 */
+	resolvingPlaceholder?: string;
 }

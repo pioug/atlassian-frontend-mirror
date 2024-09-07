@@ -58,4 +58,5 @@ export type CardWithUrlContentProps = {
 	placeholder?: string;
 	useLegacyBlockCard?: boolean;
 	removeTextHighlightingFromTitle?: boolean;
+	resolvingPlaceholder?: string;
 };

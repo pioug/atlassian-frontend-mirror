@@ -33,6 +33,7 @@ import {
 import { NCS_ERROR_CODE } from '../errors/ncs-errors';
 import { MetadataService } from '../metadata/metadata-service';
 import { DocumentService } from '../document/document-service';
+import { NullDocumentService } from '../document/null-document-service';
 import { NamespaceService } from '../namespace/namespace-service';
 import { ParticipantsService } from '../participants/participants-service';
 import { errorCodeMapper } from '../errors/error-code-mapper';
@@ -42,6 +43,7 @@ import { EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const
 import { getCollabProviderFeatureFlag } from '../feature-flags';
 import { Api } from '../api/api';
 import { shouldTelepointerBeSampled } from '../analytics/performance';
+import { NullApi } from '../api/null-api';
 
 const logger = createLogger('Provider', 'black');
 
@@ -53,7 +55,7 @@ export const MAX_STEP_REJECTED_ERROR_AGGRESSIVE = 2;
 type BaseEvents = Pick<CollabEditProvider<CollabEvents>, 'setup' | 'send' | 'sendMessage'>;
 
 export class Provider extends Emitter<CollabEvents> implements BaseEvents {
-	api: Api;
+	api: Api | NullApi;
 	private channel: Channel;
 	private config: Config;
 	private analyticsHelper?: AnalyticsHelper;
@@ -88,7 +90,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
 	private readonly participantsService: ParticipantsService;
 	private readonly metadataService: MetadataService;
-	private readonly documentService: DocumentService;
+	private readonly documentService: DocumentService | NullDocumentService;
 	private readonly namespaceService: NamespaceService;
 
 	/**
@@ -154,22 +156,30 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		);
 		this.metadataService = new MetadataService(this.emitCallback, this.channel.sendMetadata);
 		this.namespaceService = new NamespaceService();
-		this.documentService = new DocumentService(
-			this.participantsService,
-			this.analyticsHelper,
-			this.channel.fetchCatchup,
-			this.channel.fetchCatchupv2,
-			this.channel.fetchReconcile,
-			this.emitCallback,
-			this.channel.broadcast,
-			() => this.userId,
-			this.onErrorHandled,
-			this.metadataService,
-			this.namespaceService.getIsNamespaceLocked.bind(this.namespaceService),
-			this.config.enableErrorOnFailedDocumentApply,
-			{ __livePage: this.config.__livePage || false },
-		);
-		this.api = new Api(config, this.documentService, this.channel);
+
+		if (config.isPresenceOnly_do_not_use) {
+			// this check is specifically for the experiment teammate presence
+			// This presence feature is only for the view pages which do not need the document service or api
+			this.documentService = new NullDocumentService();
+			this.api = new NullApi();
+		} else {
+			this.documentService = new DocumentService(
+				this.participantsService,
+				this.analyticsHelper,
+				this.channel.fetchCatchup,
+				this.channel.fetchCatchupv2,
+				this.channel.fetchReconcile,
+				this.emitCallback,
+				this.channel.broadcast,
+				() => this.userId,
+				this.onErrorHandled,
+				this.metadataService,
+				this.namespaceService.getIsNamespaceLocked.bind(this.namespaceService),
+				this.config.enableErrorOnFailedDocumentApply,
+				{ __livePage: this.config.__livePage || false },
+			);
+			this.api = new Api(config, this.documentService as DocumentService, this.channel);
+		}
 
 		this.sendStepsTimer = setInterval(() => {
 			logger('Intervally sendStepsFromCurrentState');
@@ -330,6 +340,23 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			throw new ProviderInitialisationError('Provider initialisation error', initError);
 		}
 
+		return this;
+	}
+
+	// Only used for the experiment teammate presence (ATLAS-53155) - opts out of the document service and api service
+	setupPresenceOnly_do_not_use(clientId: string) {
+		this.clientId = clientId;
+		this.checkForCookies();
+		try {
+			if (!this.isChannelInitialized) {
+				this.initializeChannel();
+				this.isChannelInitialized = true;
+			}
+		} catch (initError) {
+			this.analyticsHelper?.sendErrorEvent(initError, 'Error while initialising the provider');
+			// Throw error so consumers are aware the initialisation failed when initialising themselves
+			throw new ProviderInitialisationError('Provider initialisation error', initError);
+		}
 		return this;
 	}
 

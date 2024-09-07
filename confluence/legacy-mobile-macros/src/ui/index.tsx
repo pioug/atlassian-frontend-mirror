@@ -86,6 +86,8 @@ function getConfluenceMobileMacroManifests<createPromiseType extends Function, e
 					key: macro.macroName,
 					description: macro.description,
 					icons: {
+						// TODO: https://product-fabric.atlassian.net/browse/DSP-20770
+						// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 						'48': () => Promise.resolve(addonIcon),
 					},
 					modules: {
@@ -202,6 +204,8 @@ function getChartPlaceholderManifest(): ExtensionManifest {
 		key: chartExtensionKey,
 		description: 'Placeholder for the chart extension until it can be fully supported on mobile',
 		icons: {
+			// TODO: https://product-fabric.atlassian.net/browse/DSP-20770
+			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 			'48': () => Promise.resolve(addonIcon),
 		},
 		modules: {
@@ -233,6 +237,8 @@ function getChartFallbackManifest<createPromiseType extends Function, eventDispa
 		key: chartExtensionKey,
 		description: 'Adapter to render chart extensions through macro fallback on mobile',
 		icons: {
+			// TODO: https://product-fabric.atlassian.net/browse/DSP-20770
+			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 			'48': () => Promise.resolve(addonIcon),
 		},
 		modules: {

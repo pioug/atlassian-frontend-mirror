@@ -75,6 +75,10 @@ import type { InternalError } from '../../errors/internal-errors';
 import { INTERNAL_ERROR_CODE } from '../../errors/internal-errors';
 import { NCS_ERROR_CODE } from '../../errors/ncs-errors';
 import type { UserPermitType } from '../../types';
+import { NullDocumentService } from '../../document/null-document-service';
+import { NullApi } from '../../api/null-api';
+import { DocumentService } from '../../document/document-service';
+import { Api } from '../../api/api';
 
 const testProviderConfig = {
 	url: `http://provider-url:66661`,
@@ -236,6 +240,46 @@ describe('Provider', () => {
 					numUnconfirmedSteps: 0,
 				});
 			});
+		});
+	});
+
+	describe('setupPresenceOnly_do_not_use', () => {
+		const testProviderPresenceConfig = {
+			...testProviderConfig,
+			isPresenceOnly_do_not_use: true,
+		};
+		it('should throw an error when cookies are not enabled', () => {
+			const sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
+			Object.defineProperty(global.navigator, 'cookieEnabled', {
+				value: false,
+				writable: true,
+			});
+			const provider = createSocketIOCollabProvider(testProviderPresenceConfig);
+			expect(() => {
+				provider.setupPresenceOnly_do_not_use(clientId);
+			}).toThrowErrorMatchingInlineSnapshot(
+				`"Cookies are not enabled. Please enable cookies to use collaborative editing."`,
+			);
+			expect(sendErrorEventSpy).toHaveBeenCalledWith(
+				new ProviderInitialisationError(
+					'Cookies are not enabled. Please enable cookies to use collaborative editing.',
+				),
+				'Error while initialising the provider - cookies disabled',
+			);
+			Object.defineProperty(global.navigator, 'cookieEnabled', {
+				value: true,
+			});
+		});
+
+		it('should call initializeChannel once', () => {
+			const provider = createSocketIOCollabProvider(testProviderPresenceConfig);
+			const initializeChannelSpy = jest.spyOn(provider as any, 'initializeChannel');
+			provider.setupPresenceOnly_do_not_use(clientId);
+			// make sure initializeChannel is called
+			expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
+			provider.setupPresenceOnly_do_not_use(clientId);
+			// make sure initializeChannel is not called again
+			expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
 		});
 	});
 
@@ -1353,5 +1397,24 @@ describe('Provider', () => {
 			expect(setMetadataSpy).toBeCalledTimes(0);
 			expect(getIsNamespaceLockedSpy).toBeCalledTimes(0);
 		});
+	});
+
+	it('should use NullDocumentService and NullApi when isPresenceOnly_do_not_use is true', () => {
+		const config = {
+			...testProviderConfig,
+			isPresenceOnly_do_not_use: true,
+		};
+		const provider = createSocketIOCollabProvider(config);
+		expect(provider['documentService']).toBeInstanceOf(NullDocumentService);
+		expect(provider['api']).toBeInstanceOf(NullApi);
+	});
+	it('should use DocumentService and Api when isPresenceOnly_do_not_use is false', () => {
+		const config = {
+			...testProviderConfig,
+			isPresenceOnly_do_not_use: false,
+		};
+		const provider = createSocketIOCollabProvider(config);
+		expect(provider['documentService']).toBeInstanceOf(DocumentService);
+		expect(provider['api']).toBeInstanceOf(Api);
 	});
 });

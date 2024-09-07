@@ -14,6 +14,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { layers } from '@atlaskit/theme/constants';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../types';
@@ -24,7 +25,8 @@ import { getNestedNodeLeftPaddingMargin, nodeMargins, spaceLookupMap } from './c
 const DEFAULT_DROP_INDICATOR_WIDTH = 760;
 const EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH = '--editor-block-controls-drop-indicator-width';
 const EDITOR_BLOCK_CONTROLS_DROP_TARGET_LEFT_MARGIN =
-	'--editor-block-controls-drop-indicator-leftMargin';
+	'--editor-block-controls-drop-target-leftMargin';
+const EDITOR_BLOCK_CONTROLS_DROP_TARGET_ZINDEX = '--editor-block-controls-drop-target-zindex';
 
 const styleDropTarget = css({
 	height: token('space.100', '8px'),
@@ -34,7 +36,7 @@ const styleDropTarget = css({
 	position: 'absolute',
 	left: '0',
 	display: 'block',
-	zIndex: layers.card(),
+	zIndex: `var(${EDITOR_BLOCK_CONTROLS_DROP_TARGET_ZINDEX}, 110)`,
 });
 
 const styleDropIndicator = css({
@@ -164,6 +166,9 @@ export const DropTarget = ({
 		[EDITOR_BLOCK_CONTROLS_DROP_TARGET_LEFT_MARGIN]: isNestedDropTarget
 			? getNestedNodeLeftPaddingMargin(parentNode?.type.name)
 			: '0',
+		[EDITOR_BLOCK_CONTROLS_DROP_TARGET_ZINDEX]: editorExperiment('nested-dnd', true)
+			? layers.navigation()
+			: layers.card(),
 	} as CSSProperties;
 
 	return (

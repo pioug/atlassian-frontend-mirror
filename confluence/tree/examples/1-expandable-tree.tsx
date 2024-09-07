@@ -2,8 +2,8 @@ import React, { Component, type KeyboardEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
 import Navigation, { AkNavigationItem } from '@atlaskit/navigation';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
 import Tree, {
 	mutateTree,
 	type RenderItemParams,
@@ -46,11 +46,11 @@ export default class StaticTree extends Component<void, State> {
 			/* eslint-disable jsx-a11y/click-events-have-key-events */
 			return item.isExpanded ? (
 				<div role="button" tabIndex={0} onClick={() => onCollapse(item.id)}>
-					<ChevronDownIcon label="" size="medium" />
+					<ChevronDownIcon color="currentColor" label="" LEGACY_size="medium" />
 				</div>
 			) : (
 				<div role="button" tabIndex={0} onClick={() => onExpand(item.id)}>
-					<ChevronRightIcon label="" size="medium" />
+					<ChevronRightIcon color="currentColor" label="" LEGACY_size="medium" />
 				</div>
 			);
 		}

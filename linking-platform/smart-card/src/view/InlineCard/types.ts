@@ -25,4 +25,5 @@ export type InlineCardProps = {
 	actionOptions?: CardActionOptions;
 	analytics: AnalyticsFacade;
 	removeTextHighlightingFromTitle?: boolean;
+	resolvingPlaceholder?: string;
 };

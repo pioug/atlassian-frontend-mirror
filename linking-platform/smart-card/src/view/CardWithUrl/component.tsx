@@ -59,6 +59,7 @@ function Component({
 	analyticsEvents,
 	useLegacyBlockCard,
 	removeTextHighlightingFromTitle,
+	resolvingPlaceholder,
 }: CardWithUrlContentProps) {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -317,6 +318,7 @@ function Component({
 					showAuthTooltip={showAuthTooltip}
 					actionOptions={actionOptions}
 					removeTextHighlightingFromTitle={removeTextHighlightingFromTitle}
+					resolvingPlaceholder={resolvingPlaceholder}
 				/>
 			);
 		case 'block':

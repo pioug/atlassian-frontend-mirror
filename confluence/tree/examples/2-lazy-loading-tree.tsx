@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
 import Navigation, { AkNavigationItem } from '@atlaskit/navigation';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
 import Spinner from '@atlaskit/spinner';
 import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
@@ -68,11 +68,11 @@ export default class LazyTree extends Component<void, State> {
 		if (item.hasChildren) {
 			return item.isExpanded ? (
 				<Button appearance="subtle" onClick={() => onCollapse(item.id)}>
-					<ChevronDownIcon label="" size="medium" />
+					<ChevronDownIcon color="currentColor" label="" LEGACY_size="medium" />
 				</Button>
 			) : (
 				<Button appearance="subtle" onClick={() => onExpand(item.id)}>
-					<ChevronRightIcon label="" size="medium" />
+					<ChevronRightIcon color="currentColor" label="" LEGACY_size="medium" />
 				</Button>
 			);
 		}

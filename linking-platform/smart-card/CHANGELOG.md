@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 27.21.0
+
+### Minor Changes
+
+- [#137752](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137752)
+  [`4f651813d3319`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f651813d3319) -
+  Added resolvingPlaceholder prop to allow for truncation of titles when smart cards are resolving
+
 ## 27.20.2
 
 ### Patch Changes

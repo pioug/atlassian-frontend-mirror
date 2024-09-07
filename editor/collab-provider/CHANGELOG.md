@@ -1,5 +1,16 @@
 # @atlaskit/collab-provider
 
+## 9.39.0
+
+### Minor Changes
+
+- [#138046](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138046)
+  [`0291f7bee806e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0291f7bee806e) -
+  HOT-111468: specifically for experiment teammate presence - add a new method
+  `setupPresenceOnly_do_not_use`, and opt out the document service and api by implementing the
+  `NullDocumentService` and `NullApi` objects when passed in by calling the new setup method, make
+  sure to pass in `clientId`
+
 ## 9.38.1
 
 ### Patch Changes

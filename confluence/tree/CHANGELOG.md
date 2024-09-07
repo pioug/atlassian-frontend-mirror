@@ -1,5 +1,13 @@
 # @atlaskit/tree
 
+## 8.10.0
+
+### Minor Changes
+
+- [#137636](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137636)
+  [`5bb744ad2d11f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5bb744ad2d11f) -
+  [ux] Enable new icons behind a feature flag.
+
 ## 8.9.0
 
 ### Minor Changes

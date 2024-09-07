@@ -46,7 +46,7 @@
 		"@atlaskit/media-ui": "^25.11.0",
 		"@atlaskit/media-viewer": "^48.7.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/smart-card": "^27.20.0",
+		"@atlaskit/smart-card": "^27.21.0",
 		"@atlaskit/status": "^1.4.0",
 		"@atlaskit/task-decision": "^17.10.0",
 		"@atlaskit/theme": "^13.0.0",

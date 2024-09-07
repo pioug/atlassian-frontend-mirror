@@ -9,6 +9,7 @@ import { Card } from '../../Card';
 import { Provider } from '../../..';
 import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mocks, waitFor } from '../../../utils/mocks';
+import { InlineCardResolvingView } from '../../InlineCard';
 import { IntlProvider } from 'react-intl-next';
 
 mockSimpleIntersectionObserver();
@@ -87,6 +88,41 @@ describe('smart-card: card states, inline', () => {
 				expect(await findAllByText('I love cheese')).toHaveLength(2);
 				// Should not call out to ORS again for the same URL.
 				expect(mockFetch).toHaveBeenCalledTimes(1);
+			});
+
+			// We are explicitly using the InlineCardResolvingView component for the following 2 tests
+			// in order to test the resolving state of the card and the resolvingPlaceholder prop or lack thereof
+			it('should render title with value of url prop if no resolvingPlaceholder prop is provided', async () => {
+				const urlWithLongTitleDueToTextFragment =
+					'https://some.url#:~:text=This%20is%20a%20long%20title%20due%20to%20text%20fragment';
+				const { findByText } = render(
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<InlineCardResolvingView url={urlWithLongTitleDueToTextFragment} />
+						</Provider>
+					</IntlProvider>,
+				);
+
+				const resolvingViewTitle = await findByText(urlWithLongTitleDueToTextFragment);
+				expect(resolvingViewTitle).toBeInTheDocument();
+			});
+
+			it('should render title with value of resolvingPlaceholder prop if prop is provided', async () => {
+				const urlWithLongTitleDueToTextFragment =
+					'https://some.url#:~:text=This%20is%20a%20long%20title%20due%20to%20text%20fragment';
+				const { findByText } = render(
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<InlineCardResolvingView
+								url={urlWithLongTitleDueToTextFragment}
+								resolvingPlaceholder={mockUrl}
+							/>
+						</Provider>
+					</IntlProvider>,
+				);
+
+				const resolvingViewTitle = await findByText(mockUrl);
+				expect(resolvingViewTitle).toBeInTheDocument();
 			});
 		});
 

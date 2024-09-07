@@ -217,7 +217,7 @@
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/profilecard": "^19.26.0",
 		"@atlaskit/section-message": "^6.6.0",
-		"@atlaskit/smart-card": "^27.20.0",
+		"@atlaskit/smart-card": "^27.21.0",
 		"@atlaskit/smart-user-picker": "^6.10.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/task-decision": "^17.10.0",

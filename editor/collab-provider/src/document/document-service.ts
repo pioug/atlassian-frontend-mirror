@@ -31,6 +31,7 @@ import { catchup } from './catchup';
 import { catchupv2 } from './catchupv2';
 import { StepQueueState } from './step-queue-state';
 import { CantSyncUpError, UpdateDocumentError } from '../errors/custom-errors';
+import { type DocumentServiceInterface } from './interface-document-service';
 
 const CATCHUP_THROTTLE = 1 * 1000; // 1 second
 
@@ -38,7 +39,7 @@ const noop = () => {};
 
 const logger = createLogger('documentService', 'black');
 
-export class DocumentService {
+export class DocumentService implements DocumentServiceInterface {
 	private getState: (() => EditorState) | undefined;
 	// Fires analytics to editor when collab editor cannot sync up
 	private onSyncUpError?: SyncUpErrorFunction;
@@ -50,6 +51,7 @@ export class DocumentService {
 	// ClientID is the unique ID for a prosemirror client. Used for step-rebasing.
 	private clientId?: number | string;
 
+	onErrorHandled: (error: InternalError) => void;
 	/**
 	 *
 	 * @param participantsService - The participants service, used when users are detected active when making changes to the document
@@ -85,13 +87,14 @@ export class DocumentService {
 			callback?: Function,
 		) => void,
 		private getUserId: () => string | undefined,
-		private onErrorHandled: (error: InternalError) => void,
+		onErrorHandled: (error: InternalError) => void,
 		private metadataService: MetadataService,
 		private isNameSpaceLocked: () => boolean,
 		private enableErrorOnFailedDocumentApply: boolean = false,
 		private options: { __livePage: boolean } = { __livePage: false },
 	) {
 		this.stepQueue = new StepQueueState();
+		this.onErrorHandled = onErrorHandled;
 	}
 
 	/**

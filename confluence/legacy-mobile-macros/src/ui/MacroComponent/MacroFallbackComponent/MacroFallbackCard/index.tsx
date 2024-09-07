@@ -3,7 +3,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
 
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/core/error';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -100,8 +100,9 @@ export const MacroFallbackCard = ({
 				<Error>
 					<ErrorContent>
 						<ErrorIcon
-							primaryColor={token('color.icon.danger', colors.R300)}
-							size="medium"
+							LEGACY_primaryColor={token('color.icon.danger', colors.R300)}
+							color={token('color.icon.danger', colors.R300)}
+							LEGACY_size="medium"
 							label={errorMessage}
 						/>
 						<ErrorMessage>{errorMessage}</ErrorMessage>

@@ -17,6 +17,8 @@ export interface InlineCardResolvingViewProps {
 	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
 	testId?: string;
 	titleTextColor?: string;
+	/** An optional placeholder displayed while the smart card is resolving. */
+	resolvingPlaceholder?: string;
 }
 
 export class InlineCardResolvingView extends React.Component<InlineCardResolvingViewProps> {
@@ -28,6 +30,7 @@ export class InlineCardResolvingView extends React.Component<InlineCardResolving
 			inlinePreloaderStyle,
 			testId = 'inline-card-resolving-view',
 			titleTextColor,
+			resolvingPlaceholder,
 		} = this.props;
 		if (inlinePreloaderStyle === 'on-right-without-skeleton') {
 			return (
@@ -46,7 +49,7 @@ export class InlineCardResolvingView extends React.Component<InlineCardResolving
 		} else {
 			return (
 				<Frame testId={testId} onClick={onClick} isSelected={isSelected} link={url}>
-					<IconAndTitleLayout title={url} titleTextColor={titleTextColor}>
+					<IconAndTitleLayout title={resolvingPlaceholder ?? url} titleTextColor={titleTextColor}>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
 						<SpinnerWrapper className="inline-resolving-spinner">
 							<Spinner size={14} />

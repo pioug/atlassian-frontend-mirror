@@ -105,6 +105,8 @@ export interface Config {
 	// initial draft passed on provider creation
 	initialDraft?: InitialDraft;
 	isBufferingEnabled?: boolean;
+	// specifically for the experiment teammate presence
+	isPresenceOnly_do_not_use?: boolean;
 	/**
 	 * When a page is being published this number can control the number of failed steps until a catchup is triggered.
 	 * The default value is MAX_STEP_REJECTED_ERROR (15).

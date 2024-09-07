@@ -43,6 +43,7 @@ export const InlineCard = ({
 	showAuthTooltip,
 	actionOptions,
 	removeTextHighlightingFromTitle,
+	resolvingPlaceholder,
 }: InlineCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -96,6 +97,7 @@ export const InlineCard = ({
 					onClick={handleFrameClick}
 					testId={testIdWithStatus}
 					inlinePreloaderStyle={inlinePreloaderStyle}
+					resolvingPlaceholder={resolvingPlaceholder}
 				/>
 			);
 		case 'resolved':

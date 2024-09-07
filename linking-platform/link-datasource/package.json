@@ -72,7 +72,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/select": "^17.15.0",
-		"@atlaskit/smart-card": "^27.20.0",
+		"@atlaskit/smart-card": "^27.21.0",
 		"@atlaskit/smart-user-picker": "6.10.2",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/tag": "^12.6.0",

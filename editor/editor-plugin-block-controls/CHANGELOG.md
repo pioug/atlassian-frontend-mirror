@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.13.2
+
+### Patch Changes
+
+- [#136674](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136674)
+  [`1f8459f560d36`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1f8459f560d36) -
+  [ux] Bump z-index of drop targets
+
 ## 1.13.1
 
 ### Patch Changes

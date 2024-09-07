@@ -35,6 +35,8 @@ export const LineChartIcon = () => {
 
 	return (
 		<IconWrapper>
+			{/* TODO: https://product-fabric.atlassian.net/browse/DSP-20783 */}
+			{/* eslint-disable-next-line @atlaskit/design-system/no-custom-icons */}
 			<Icon
 				glyph={lineGlyph}
 				label="Line Chart"

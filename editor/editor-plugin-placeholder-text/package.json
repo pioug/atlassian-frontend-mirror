@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-placeholder-text",
-	"version": "1.7.4",
+	"version": "1.7.5",
 	"description": "placeholder text plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -17,7 +17,7 @@
 	"atlassian": {
 		"team": "Editor: Core Experiences",
 		"singleton": true,
-		"runReact18": false,
+		"runReact18": true,
 		"integrationTests": {
 			"additionalBrowsers": [
 				"desktop-firefox",
@@ -27,7 +27,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.9.0",
-		"@atlaskit/editor-common": "^88.11.0",
+		"@atlaskit/editor-common": "^88.12.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.8.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
@@ -39,7 +39,7 @@
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0",
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {

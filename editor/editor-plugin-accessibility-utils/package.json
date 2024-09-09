@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-accessibility-utils",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"description": "Accessibility utils for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -10,7 +10,7 @@
 	"atlassian": {
 		"team": "Editor: Core Experiences",
 		"singleton": true,
-		"runReact18": false
+		"runReact18": true
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",
@@ -34,13 +34,13 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^88.11.0",
+		"@atlaskit/editor-common": "^88.12.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/visually-hidden": "^1.5.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",

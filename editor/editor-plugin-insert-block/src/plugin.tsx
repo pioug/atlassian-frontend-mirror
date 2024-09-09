@@ -9,6 +9,7 @@ import {
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type {
 	Command,
@@ -22,6 +23,7 @@ import { getWrappingOptions } from '@atlaskit/editor-common/utils';
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -99,6 +101,7 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 	const toggleDropdownMenuOptionsRef: Record<'current', null | (() => void)> = {
 		current: null,
 	};
+	const editorViewRef: Record<'current', EditorView | null> = { current: null };
 
 	const registerToggleDropdownMenuOptions = (cb: () => void) => {
 		toggleDropdownMenuOptionsRef.current = cb;
@@ -180,6 +183,18 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 					name: 'elementBrowserPmPlugin',
 					plugin: () => elementBrowserPmPlugin(),
 				},
+				{
+					name: 'elementBrowserEditorViewRef',
+					plugin: () => {
+						return new SafePlugin({
+							view: (editorView) => {
+								// Workaround - need reference to editorView for contextPanel component
+								editorViewRef.current = editorView;
+								return {};
+							},
+						});
+					},
+				},
 			];
 		},
 
@@ -248,8 +263,12 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			// If we decide to ship the feature, we will consider a separate plugin if needed.
 			// Experiment one-pager: https://hello.atlassian.net/wiki/spaces/ETM/pages/3983684902/Experiment+Drive+element+usage+via+element+templates
 			quickInsert: () => {
-				if (editorExperiment('element-level-templates', true, { exposure: true })) {
-					return templateOptions;
+				if (
+					// @ts-ignore
+					['full-page', 'full-width'].includes(options.UNSAFE_editorAppearance ?? '') &&
+					editorExperiment('element-level-templates', true, { exposure: true })
+				) {
+					return templateOptions(api);
 				}
 				return [];
 			},
@@ -271,8 +290,8 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			// api.getSharedState() will have an outdated reference to editorState on first mount of this component
 			// so instead just rely on plugin key as we don't need to be reactive to changes here
 			const pluginState = elementBrowserPmKey.getState(state);
-			if (pluginState?.menuBrowserOpen) {
-				return <InsertMenuRail api={api} />;
+			if (pluginState?.menuBrowserOpen && editorViewRef.current) {
+				return <InsertMenuRail editorView={editorViewRef.current} options={options} api={api} />;
 			}
 			return;
 		};

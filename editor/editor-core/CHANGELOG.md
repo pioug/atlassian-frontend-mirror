@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 197.4.0
+
+### Minor Changes
+
+- [#137822](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137822)
+  [`202cf9b609302`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/202cf9b609302) -
+  [ux] Deprecating toolbar component that is unused.
+- [#138305](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138305)
+  [`c79d9c18032b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c79d9c18032b6) -
+  Passing task local ID from editor mentions plugin
+
+### Patch Changes
+
+- [#138245](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138245)
+  [`e3913201044c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e3913201044c6) -
+  Cleanup internal workaround with editor actions.
+- [#138136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138136)
+  [`35938ecf46ba7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35938ecf46ba7) -
+  [ED-24755] Implement insert functionality of element templates and fire document inserted event
+  with template IDs
+- [`749c8b3e5bd5d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/749c8b3e5bd5d) -
+  Cleanup feature flag for removing the hide avatar group prop.
+- Updated dependencies
+
 ## 197.3.0
 
 ### Minor Changes

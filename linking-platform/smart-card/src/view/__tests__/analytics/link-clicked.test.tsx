@@ -11,8 +11,8 @@ import { type CardClient } from '@atlaskit/link-provider';
 import * as userAgent from '@atlaskit/linking-common/user-agent';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
-import { type CardAppearance, Provider, TitleBlock } from '../../..';
-import { Card } from '../../Card';
+import { Provider, TitleBlock } from '../../..';
+import { Card, type CardProps } from '../../Card';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 
@@ -87,44 +87,35 @@ describe('`link clicked`', () => {
 	 * These cases have different behaviour to hover card + flex UI
 	 * Browser behaviour is sometimes hijacked
 	 */
-	describe.each<[CardAppearance | 'block(flexible)', TestCaseOptions?]>([
-		['inline', { selector: () => screen.findByTestId('card-resolved-view') }],
-		['block'],
+	describe.each<[string, Pick<CardProps, 'appearance'> & Partial<CardProps>, TestCaseOptions?]>([
 		[
-			'block(flexible)',
+			'inline',
+			{ appearance: 'inline' },
+			{ selector: () => screen.findByTestId('card-resolved-view') },
+		],
+		['legacy block card', { appearance: 'block', useLegacyBlockCard: true }],
+		[
+			'block card',
+			{ appearance: 'block' },
 			{
-				featureFlags: { enableFlexibleBlockCard: true },
 				beforeClick: async () => {
 					await screen.findByTestId('smart-block-title-resolved-view');
 				},
 				context: [PACKAGE_CONTEXT],
 			},
 		],
-		['embed'],
-	])('with `%s` appearance and options %j', (testCase, options) => {
+		['embed', { appearance: 'embed' }],
+	])('with `%s` appearance', (name, cardProps, options) => {
 		const setup = async (props: Partial<React.ComponentProps<typeof Card>> = {}) => {
 			const user = userEvent.setup();
 			const spy = jest.fn();
 			const { selector, beforeClick, featureFlags } = options ?? {};
 
-			const getCardProps = () => {
-				switch (testCase) {
-					case 'block(flexible)':
-						return {
-							appearance: 'block',
-						} as const;
-					default:
-						return {
-							appearance: testCase,
-						};
-				}
-			};
-
 			render(
 				<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
 					<IntlProvider locale="en">
 						<Provider client={mockClient} featureFlags={featureFlags}>
-							<Card testId="card" url="https://atlassian.com" {...props} {...getCardProps()} />
+							<Card testId="card" url="https://atlassian.com" {...cardProps} {...props} />
 						</Provider>
 					</IntlProvider>
 				</AnalyticsListener>,
@@ -178,7 +169,7 @@ describe('`link clicked`', () => {
 				 * This is not the case for inline + embed appearances + block(flexible) when the FF is enabled
 				 */
 				const getTestCaseClickOutcome = () => {
-					if (testCase === 'block') {
+					if (name === 'legacy block card') {
 						return 'clickThroughNewTabOrWindow';
 					}
 					return 'clickThrough';

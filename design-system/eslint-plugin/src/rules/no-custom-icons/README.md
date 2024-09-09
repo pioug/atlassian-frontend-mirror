@@ -5,7 +5,7 @@ The new icon components allows your components to align with the new visual lang
 default, or when enabled via a feature flag.
 
 Custom icons are no longer supported, and should either be replaced with an existing icon from the
-`@atlaskit/icon` or `@atlassian/icon-lab` packages, or contributed to those packages.
+`@atlaskit/icon` or `@atlaskit/icon-lab` packages, or contributed to those packages.
 
 During the migration process, any custom icons should be moved into a central location to disable
 this error and allow the icon to be quickly replaced. What location to display in the error can be

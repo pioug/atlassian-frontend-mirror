@@ -8,8 +8,8 @@ default, or when enabled via a feature flag.
 
 This rule identifies usages of legacy icons from `@atlaskit/icon/glyph` and `@atlaskit/icon-object`,
 that aren't yet migrated to the new icon API. Legacy icons are only permitted when passed into a new
-"core" or "utility" icon from `@atlaskit/icon` or `@atlassian/icon-lab`, via the
-`LEGACY_fallbackIcon` prop.
+"core" or "utility" icon from `@atlaskit/icon`, `@atlaskit/icon-lab` or `@atlassian/icon-private`,
+via the `LEGACY_fallbackIcon` prop.
 
 ### Incorrect
 

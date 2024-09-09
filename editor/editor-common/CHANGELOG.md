@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 88.12.0
+
+### Minor Changes
+
+- [#137821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137821)
+  [`e26174c7d02a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e26174c7d02a6) -
+  ED-24631 Refactor how ExternalImageBadge and CommentBadge are rendered
+
+### Patch Changes
+
+- [#138136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138136)
+  [`35938ecf46ba7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35938ecf46ba7) -
+  [ED-24755] Implement insert functionality of element templates and fire document inserted event
+  with template IDs
+- [#138270](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138270)
+  [`0acb3673d32d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0acb3673d32d9) -
+  Add insert menu to right rail for experiment
+- Updated dependencies
+
 ## 88.11.0
 
 ### Minor Changes

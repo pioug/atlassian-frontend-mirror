@@ -1,5 +1,14 @@
 # @atlaskit/toggle
 
+## 13.4.1
+
+### Patch Changes
+
+- [#138350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138350)
+  [`fc4679dc7666c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc4679dc7666c) -
+  Remove `react-uid` and use an ID generator that is compatible with React16 and React 18; Strict
+  React 18 behind a flag.
+
 ## 13.4.0
 
 ### Minor Changes

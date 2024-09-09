@@ -18,7 +18,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { EventDispatcher } from '../event-dispatcher';
 import { createDispatch } from '../event-dispatcher';
-import { __temporaryFixForConfigPanel, getEditorValueWithMedia } from '../utils/action';
+import { getEditorValueWithMedia } from '../utils/action';
 import deprecationWarnings from '../utils/deprecation-warnings';
 import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
 import { processRawFragmentValue } from '../utils/processRawFragmentValue';
@@ -146,16 +146,6 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 		editorView.dispatch(tr);
 
 		return true;
-	}
-
-	async __temporaryFixForConfigPanel() {
-		// @ts-ignore Internal API not for use, just to unblock extracting extension plugin
-		const { editorView, __EDITOR_INTERNALS_DO_NOT_USE__API } = this;
-		if (!editorView || !__EDITOR_INTERNALS_DO_NOT_USE__API) {
-			return;
-		}
-
-		__temporaryFixForConfigPanel(editorView, __EDITOR_INTERNALS_DO_NOT_USE__API);
 	}
 
 	/**

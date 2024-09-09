@@ -77,6 +77,7 @@ describe('DocumentService onRestore', () => {
 					hasTitle: true,
 					numUnconfirmedSteps: 0,
 					useReconcile: false,
+					clientId: '123456',
 				});
 			});
 
@@ -99,6 +100,7 @@ describe('DocumentService onRestore', () => {
 					hasTitle: true,
 					numUnconfirmedSteps: 2,
 					useReconcile: false,
+					clientId: '123456',
 				});
 			});
 
@@ -135,6 +137,7 @@ describe('DocumentService onRestore', () => {
 						hasTitle: true,
 						numUnconfirmedSteps: 2,
 						useReconcile: true,
+						clientId: '123456',
 					});
 				});
 			});
@@ -168,6 +171,7 @@ describe('DocumentService onRestore', () => {
 			expect(sendActionEventSpy).toBeCalledWith('reinitialiseDocument', 'FAILURE', {
 				numUnconfirmedSteps: 2,
 				useReconcile: false,
+				clientId: '123456',
 			});
 			expect(sendErrorEventSpy).toBeCalledTimes(2);
 			expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
@@ -208,6 +212,7 @@ describe('DocumentService onRestore', () => {
 			expect(sendActionEventSpy).toBeCalledWith('reinitialiseDocument', 'FAILURE', {
 				numUnconfirmedSteps: 2,
 				useReconcile: false,
+				clientId: '123456',
 			});
 			expect(sendErrorEventSpy).toBeCalledTimes(2);
 			expect(sendProviderErrorEventSpy).toBeCalledTimes(1);
@@ -252,14 +257,15 @@ describe('DocumentService onRestore', () => {
 			expect(getCurrentStateSpy).not.toHaveBeenCalled();
 			expect(fetchReconcileSpy).not.toHaveBeenCalled();
 		});
-		it('should restore document if targetClientId is provided and matches clientId', async () => {
+		it('should restore document using applyLocalSteps if targetClientId is provided and matches clientId', async () => {
 			getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);
 			getCurrentStateSpy.mockReturnValue({ content: 'something' });
 			fetchReconcileSpy.mockReturnValue('thing');
 
 			await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '123456' });
 			expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
-			expect(fetchReconcileSpy).toHaveBeenCalledTimes(1);
+			expect(fetchReconcileSpy).not.toHaveBeenCalled();
+			expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
 		});
 		it('should restore document if no targetClientId is provided', async () => {
 			getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);

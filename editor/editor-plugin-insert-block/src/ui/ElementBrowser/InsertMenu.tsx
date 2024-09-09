@@ -27,6 +27,7 @@ import { withReactEditorViewOuterListeners as withOuterListeners } from '@atlask
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { borderRadius } from '@atlaskit/theme';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { InsertMenuProps, SvgGetterParams } from './types';
@@ -72,10 +73,18 @@ const InsertMenu = ({
 			if (!editorView.hasFocus()) {
 				editorView.focus();
 			}
-			pluginInjectionApi?.quickInsert?.actions.insertItem(item, INPUT_METHOD.TOOLBAR)(
-				editorView.state,
-				editorView.dispatch,
-			);
+			if (editorExperiment('insert-menu-in-right-rail', true)) {
+				pluginInjectionApi?.quickInsert?.actions.insertItem(
+					item,
+					// @ts-expect-error
+					INPUT_METHOD.INSERT_MENU_RIGHT_RAIL,
+				)(editorView.state, editorView.dispatch);
+			} else {
+				pluginInjectionApi?.quickInsert?.actions.insertItem(item, INPUT_METHOD.TOOLBAR)(
+					editorView.state,
+					editorView.dispatch,
+				);
+			}
 		},
 		[editorView, toggleVisiblity, pluginInjectionApi],
 	);
@@ -100,11 +109,26 @@ const InsertMenu = ({
 					pluginInjectionApi?.quickInsert?.actions.getSuggestions({
 						category,
 						featuredItems: true,
+						// @ts-ignore
+						templateItems: editorExperiment('element-level-templates', true),
 					}) ?? [];
-				result = quickInsertDropdownItems.concat(
-					featuredQuickInsertSuggestions,
-				) as QuickInsertItem[];
+
+				if (editorExperiment('element-level-templates', true)) {
+					// Make sure template options appear as top 5 items
+					featuredQuickInsertSuggestions.sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0));
+					const templateItems = featuredQuickInsertSuggestions.splice(0, 5);
+					result = [
+						...templateItems,
+						...quickInsertDropdownItems,
+						...featuredQuickInsertSuggestions,
+					];
+				} else {
+					result = quickInsertDropdownItems.concat(
+						featuredQuickInsertSuggestions,
+					) as QuickInsertItem[];
+				}
 			}
+
 			setItemCount(result.length);
 			return result;
 		},
@@ -166,8 +190,22 @@ const getInsertMenuHeight = ({ itemCount }: { itemCount: number }) => {
 	return 560; // For showing 6 Elements.
 };
 
-const insertMenuWrapper = (itemCount: number) =>
-	css({
+const insertMenuWrapper = (itemCount: number) => {
+	if (editorExperiment('insert-menu-in-right-rail', true)) {
+		return css({
+			display: 'flex',
+			flexDirection: 'column',
+			width: '310px',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			height: 'calc(100% - 32px)',
+			margin: `0 -10px`,
+			backgroundColor: `${token('elevation.surface.overlay', N0)}`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			borderRadius: `${borderRadius()}px`,
+		});
+	}
+
+	return css({
 		display: 'flex',
 		flexDirection: 'column',
 		width: '320px',
@@ -183,6 +221,7 @@ const insertMenuWrapper = (itemCount: number) =>
     0 0 20px -6px ${N60A}`,
 		)}`,
 	});
+};
 
 const flexWrapperStyles = css({
 	display: 'flex',

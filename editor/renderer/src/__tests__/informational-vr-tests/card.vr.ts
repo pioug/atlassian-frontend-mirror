@@ -88,33 +88,33 @@ snapshotInformational(RendererInlineCardErrored, {
 });
 snapshotInformational(RendererBlockCard, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-resolved-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-resolved-view').waitFor({ state: 'visible' });
 	},
 });
 snapshotInformational(RendererBlockCardXSS, {});
 snapshotInformational(RendererBlockCardResolving, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-resolving-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-resolving-view').waitFor({ state: 'visible' });
 	},
 });
 snapshotInformational(RendererBlockCardUnauthorized, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-unauthorized-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-unauthorized-view').waitFor({ state: 'visible' });
 	},
 });
 snapshotInformational(RendererBlockCardForbidden, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-forbidden-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 });
 snapshotInformational(RendererBlockCardNotFound, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-not-found-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-not-found-view').waitFor({ state: 'visible' });
 	},
 });
 snapshotInformational(RendererBlockCardErrored, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-errored-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-errored-view').waitFor({ state: 'visible' });
 	},
 });
 snapshotInformational(RendererEmbedCard, {
@@ -255,37 +255,37 @@ snapshotInformational(RendererInlineCardRequestAccessAccessExists, {
 
 snapshotInformational(RendererBlockCardRequestAccess, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-forbidden-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 });
 snapshotInformational(RendererBlockCardForbiddenPendingRequestAccess, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-forbidden-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 });
 snapshotInformational(RendererBlockCardRequestAccessForbidden, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-forbidden-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 });
 snapshotInformational(RendererBlockCardRequestAccessDirectAccess, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-forbidden-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 });
 snapshotInformational(RendererBlockCardRequestAccessDeniedRequestExists, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-forbidden-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 });
 snapshotInformational(RendererBlockCardForbiddenRequestApprovedRequestExists, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-forbidden-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 });
 snapshotInformational(RendererBlockCardRequestAccessAccessExists, {
 	prepare: async (page) => {
-		await page.getByTestId('block-card-forbidden-view').waitFor({ state: 'visible' });
+		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 });
 

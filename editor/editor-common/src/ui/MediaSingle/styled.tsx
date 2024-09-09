@@ -355,7 +355,8 @@ export const mediaWrapperStyle = (props: MediaWrapperProps) => css`
 
 	// Comments on media project adds comment badge as child of the media wrapper,
 	// thus we need to exclude it so that style is applied to intended div
-	& > div:not([data-comment-badge='true'], [data-external-image-badge='true']) {
+	// remove [data-comment-badge='true'] when ff platform_editor_insert_media_plugin_phase_one is cleaned up
+	& > div:not([data-comment-badge='true'], [data-media-badges='true']) {
 		position: ${props.hasFallbackContainer ? 'absolute' : 'relative'};
 		height: 100%;
 		width: 100%;

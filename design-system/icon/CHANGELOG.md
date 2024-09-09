@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 22.16.1
+
+### Patch Changes
+
+- [#137821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137821)
+  [`bcca6c1789a37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bcca6c1789a37) -
+  Rename of `@atlassian/icon-lab` to `@atlaskit/icon-lab`
+
 ## 22.16.0
 
 ### Minor Changes

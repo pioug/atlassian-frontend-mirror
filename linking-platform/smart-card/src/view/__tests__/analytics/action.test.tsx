@@ -165,12 +165,11 @@ describe('actions', () => {
 	});
 
 	describe.each([
-		['block card', { display: 'block' }],
+		['block card', { display: 'block', props: { useLegacyBlockCard: true } }],
 		[
 			'flexible block card',
 			{
 				display: 'block',
-				featureFlags: { enableFlexibleBlockCard: true },
 				isFlexibleComponent: true,
 				props: { showServerActions: true },
 			},

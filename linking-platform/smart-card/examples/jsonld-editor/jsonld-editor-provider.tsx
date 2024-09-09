@@ -9,10 +9,6 @@ import { type JsonLd } from 'json-ld-types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import JsonldEditorClient from './jsonld-editor-client';
 
-const featureFlags = {
-	enableFlexibleBlockCard: true,
-};
-
 type Props = PropsWithChildren<{
 	json?: JsonLd.Response;
 	onError?: (error: Error) => void;
@@ -40,12 +36,7 @@ const JsonldEditorProvider = ({
 	);
 
 	return (
-		<SmartCardProvider
-			client={client}
-			featureFlags={featureFlags}
-			isAdminHubAIEnabled={true}
-			product="CONFLUENCE"
-		>
+		<SmartCardProvider client={client} isAdminHubAIEnabled={true} product="CONFLUENCE">
 			{children}
 		</SmartCardProvider>
 	);

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 1.3.1
+
+### Patch Changes
+
+- [#138118](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138118)
+  [`5e4d9eb1aefe4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e4d9eb1aefe4) -
+  NOISSUE: Upgrades editor React peer dependencies to v18
+- Updated dependencies
+
 ## 1.3.0
 
 ### Minor Changes

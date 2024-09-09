@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.26.2
+
+### Patch Changes
+
+- [#137870](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137870)
+  [`92637b4b74cf7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92637b4b74cf7) -
+  Fixed the import path check in remove-gemini-dark-options transformer
+
 ## 0.26.1
 
 ### Patch Changes

@@ -13,7 +13,6 @@ import { name, version } from '../package.json';
 import { Editor } from '../src';
 import CollapsedEditor from '../src/ui/CollapsedEditor';
 import EditorContext from '../src/ui/EditorContext';
-import ToolbarFeedback from '../src/ui/ToolbarFeedback';
 import ToolbarHelp from '../src/ui/ToolbarHelp';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
@@ -131,10 +130,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
 												packageName: name,
 												labels: ['atlaskit-comment-bitbucket'],
 											}}
-											primaryToolbarComponents={[
-												<ToolbarFeedback product="bitbucket" key="toolbar-feedback" />,
-												<ToolbarHelp key="toolbar-help" />,
-											]}
+											primaryToolbarComponents={[<ToolbarHelp key="toolbar-help" />]}
 										/>
 									</CollapsedEditor>
 								</div>

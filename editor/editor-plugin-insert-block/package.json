@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-insert-block",
-	"version": "1.13.0",
+	"version": "1.14.0",
 	"description": "Insert block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^88.11.0",
+		"@atlaskit/button": "^20.1.0",
+		"@atlaskit/editor-common": "^88.12.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-block-type": "^3.14.0",
 		"@atlaskit/editor-plugin-code-block": "^3.3.0",
@@ -46,8 +47,8 @@
 		"@atlaskit/editor-plugin-hyperlink": "^2.9.0",
 		"@atlaskit/editor-plugin-image-upload": "^1.2.0",
 		"@atlaskit/editor-plugin-layout": "^1.7.0",
-		"@atlaskit/editor-plugin-media": "^1.29.0",
-		"@atlaskit/editor-plugin-mentions": "^2.5.0",
+		"@atlaskit/editor-plugin-media": "^1.30.0",
+		"@atlaskit/editor-plugin-mentions": "^2.6.0",
 		"@atlaskit/editor-plugin-panel": "^2.3.0",
 		"@atlaskit/editor-plugin-placeholder-text": "^1.7.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
@@ -60,6 +61,7 @@
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/emoji": "^67.7.0",
+		"@atlaskit/heading": "2.4.5",
 		"@atlaskit/icon": "^22.16.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.1.0",

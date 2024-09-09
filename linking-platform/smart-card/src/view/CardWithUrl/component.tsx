@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useMemo } from 'react';
 import { type MouseEvent } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
-import { useFeatureFlag } from '@atlaskit/link-provider';
 import { type CardWithUrlContentProps } from './types';
 import { SmartLinkModalProvider } from '../../state/modal';
 import { combineFrameStyle, isSpecialEvent } from '../../utils';
@@ -82,8 +81,6 @@ function Component({
 	const canBeDatasource = getCanBeDatasource(state.details);
 
 	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children), [children]);
-
-	const enableFlexibleBlockCardFlag = Boolean(useFeatureFlag('enableFlexibleBlockCard'));
 
 	const actionOptions = combineActionOptions(
 		actionOptionsProp,
@@ -340,7 +337,7 @@ function Component({
 					testId={testId}
 					actionOptions={actionOptions}
 					platform={platform}
-					enableFlexibleBlockCard={enableFlexibleBlockCardFlag && useLegacyBlockCard !== true}
+					enableFlexibleBlockCard={useLegacyBlockCard !== true}
 				/>
 			);
 		case 'embed':

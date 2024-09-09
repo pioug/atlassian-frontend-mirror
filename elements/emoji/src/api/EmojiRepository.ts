@@ -15,6 +15,7 @@ import {
 	createUsageOnlyEmojiComparator,
 } from './internal/Comparators';
 import { UsageFrequencyTracker } from './internal/UsageFrequencyTracker';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 type Token = {
 	token: string;
@@ -135,6 +136,8 @@ const findEmojiIndex = (emojis: EmojiDescription[], toFind: EmojiDescription): n
 export default class EmojiRepository {
 	private emojis: EmojiDescription[];
 	private fullSearch!: Search;
+	private fullSearchReady: boolean = false;
+
 	private shortNameMap!: EmojiByKey;
 	private idMap!: EmojiByKey;
 	private asciiMap!: Map<string, EmojiDescription>;
@@ -174,7 +177,7 @@ export default class EmojiRepository {
 
 		const { nameQuery, asciiQuery } = splitQuery(query);
 		if (nameQuery) {
-			filteredEmoji = this.fullSearch.search(nameQuery) as EmojiDescription[];
+			filteredEmoji = this.getSearchIndex().search(nameQuery) as EmojiDescription[];
 
 			if (asciiQuery) {
 				filteredEmoji = this.withAsciiMatch(asciiQuery, filteredEmoji);
@@ -226,7 +229,7 @@ export default class EmojiRepository {
 
 	addUnknownEmoji(emoji: EmojiDescription) {
 		this.emojis = [...this.emojis, emoji];
-		this.fullSearch.addDocuments([emoji]);
+		this.getSearchIndex().addDocuments([emoji]);
 		this.addToMaps(emoji);
 		this.addToDynamicCategories(emoji);
 	}
@@ -345,7 +348,9 @@ export default class EmojiRepository {
 	private initMembers(usageTracker?: UsageFrequencyTracker): void {
 		this.usageTracker = usageTracker || new UsageFrequencyTracker();
 		this.initRepositoryMetadata();
-		this.initSearchIndex();
+		if (!fg('platform_index_emoji_just_in_time')) {
+			this.initSearchIndex();
+		}
 	}
 
 	/**
@@ -379,6 +384,14 @@ export default class EmojiRepository {
 		this.fullSearch.addIndex('shortName');
 
 		this.fullSearch.addDocuments(this.getAllSearchableEmojis());
+		this.fullSearchReady = true;
+	}
+
+	private getSearchIndex() {
+		if (!this.fullSearchReady) {
+			this.initSearchIndex();
+		}
+		return this.fullSearch;
 	}
 
 	private getAllSearchableEmojis(): EmojiDescription[] {

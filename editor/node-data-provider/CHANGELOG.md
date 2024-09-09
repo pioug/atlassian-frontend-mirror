@@ -1,5 +1,13 @@
 # @atlaskit/node-data-provider
 
+## 2.0.2
+
+### Patch Changes
+
+- [#138118](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138118)
+  [`5e4d9eb1aefe4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e4d9eb1aefe4) -
+  NOISSUE: Upgrades editor React peer dependencies to v18
+
 ## 2.0.1
 
 ### Patch Changes

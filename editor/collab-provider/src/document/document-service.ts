@@ -410,7 +410,7 @@ export class DocumentService implements DocumentServiceInterface {
 		// We can then reconcile the document with the preserved state.
 		const unconfirmedSteps = this.getUnconfirmedSteps();
 		const currentState = await this.getCurrentState();
-		const useReconcile = Boolean(unconfirmedSteps?.length && currentState);
+		const useReconcile = Boolean(unconfirmedSteps?.length && currentState && !targetClientId);
 
 		try {
 			// Reset the editor,
@@ -431,6 +431,8 @@ export class DocumentService implements DocumentServiceInterface {
 			if (useReconcile && currentState) {
 				await this.fetchReconcile(JSON.stringify(currentState.content), 'fe-restore');
 			} else if (unconfirmedSteps?.length) {
+				// we don't want to use reconcile for restore triggered by catchup client out of sync (when targetClientId is provided)
+				// as this results in all changes made while the client was out of sync being lost
 				this.applyLocalSteps(unconfirmedSteps);
 			}
 
@@ -441,13 +443,20 @@ export class DocumentService implements DocumentServiceInterface {
 					numUnconfirmedSteps: unconfirmedSteps?.length,
 					hasTitle: !!metadata?.title,
 					useReconcile,
+					clientId: this.clientId,
+					targetClientId,
 				},
 			);
 		} catch (restoreError) {
 			this.analyticsHelper?.sendActionEvent(
 				EVENT_ACTION.REINITIALISE_DOCUMENT,
 				EVENT_STATUS.FAILURE,
-				{ numUnconfirmedSteps: unconfirmedSteps?.length, useReconcile },
+				{
+					numUnconfirmedSteps: unconfirmedSteps?.length,
+					useReconcile,
+					clientId: this.clientId,
+					targetClientId,
+				},
 			);
 			this.analyticsHelper?.sendErrorEvent(
 				restoreError,

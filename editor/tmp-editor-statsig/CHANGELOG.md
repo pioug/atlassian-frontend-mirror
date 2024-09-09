@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.1.8
+
+### Patch Changes
+
+- [#138377](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138377)
+  [`82a0bc6a2384e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/82a0bc6a2384e) -
+  Added lazy node experiment to config
+
+## 2.1.7
+
+### Patch Changes
+
+- [#138118](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138118)
+  [`5e4d9eb1aefe4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e4d9eb1aefe4) -
+  NOISSUE: Upgrades editor React peer dependencies to v18
+
 ## 2.1.6
 
 ### Patch Changes

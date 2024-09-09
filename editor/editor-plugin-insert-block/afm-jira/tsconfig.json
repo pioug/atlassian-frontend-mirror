@@ -18,6 +18,9 @@
   ],
   "references": [
     {
+      "path": "../../../design-system/button/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../editor-common/afm-jira/tsconfig.json"
     },
     {
@@ -91,6 +94,9 @@
     },
     {
       "path": "../../../elements/emoji/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/heading/afm-jira/tsconfig.json"
     },
     {
       "path": "../../../design-system/icon/afm-jira/tsconfig.json"

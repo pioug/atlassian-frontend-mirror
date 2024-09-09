@@ -56,9 +56,6 @@
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../../design-system/spinner/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../../elements/task-decision/afm-cc/tsconfig.json"
         },
         {

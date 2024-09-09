@@ -74,5 +74,4 @@ export interface EditorAppearanceComponentProps<Plugins extends NextEditorPlugin
 	useStickyToolbar?: UseStickyToolbarType;
 
 	innerRef?: RefObject<HTMLDivElement>;
-	hideAvatarGroup?: boolean;
 }

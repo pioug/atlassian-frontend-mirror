@@ -28,7 +28,12 @@ export interface MentionPluginOptions extends MentionPluginConfig {
 	sanitizePrivateContent?: boolean;
 	allowZeroWidthSpaceAfter?: boolean;
 	handleMentionsChanged?: (
-		mentionChanges: { type: 'added' | 'deleted'; localId: string; id: string }[],
+		mentionChanges: {
+			type: 'added' | 'deleted';
+			localId: string;
+			id: string;
+			taskLocalId?: string;
+		}[],
 	) => void;
 }
 
@@ -56,7 +61,12 @@ export type MentionsPlugin = NextEditorPlugin<
 		actions: {
 			openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
 			announceMentionsInsertion: (
-				mentionIds: { type: 'added' | 'deleted'; localId: string; id: string }[],
+				mentionIds: {
+					type: 'added' | 'deleted';
+					localId: string;
+					id: string;
+					taskLocalId?: string;
+				}[],
 			) => void;
 		};
 	}

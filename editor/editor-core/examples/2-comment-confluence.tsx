@@ -20,7 +20,6 @@ import { ComposableEditor } from '../src/composable-editor';
 import { useUniversalPreset } from '../src/preset-universal';
 import CollapsedEditor from '../src/ui/CollapsedEditor';
 import EditorContext from '../src/ui/EditorContext';
-import ToolbarFeedback from '../src/ui/ToolbarFeedback';
 import ToolbarHelp from '../src/ui/ToolbarHelp';
 import WithEditorActions from '../src/ui/WithEditorActions';
 import { usePreset } from '../src/use-preset';
@@ -186,7 +185,6 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 									}}
 									primaryToolbarComponents={
 										<>
-											<ToolbarFeedback product="bitbucket" key="toolbar-feedback" />
 											<ToolbarHelp key="toolbar-help" />
 										</>
 									}

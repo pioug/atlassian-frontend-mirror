@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/conversation",
-	"version": "16.2.35",
+	"version": "16.2.36",
 	"description": "DEPRECATED Render conversation threads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,7 +26,8 @@
 		"website": {
 			"name": "Conversation",
 			"deprecated": "This component is no longer being used and will not be actively maintained"
-		}
+		},
+		"runReact18": true
 	},
 	"config": {
 		"access": "public"
@@ -35,10 +36,10 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/avatar": "^21.15.0",
 		"@atlaskit/comment": "^11.0.0",
-		"@atlaskit/editor-common": "^88.11.0",
-		"@atlaskit/editor-core": "^197.3.0",
+		"@atlaskit/editor-common": "^88.12.0",
+		"@atlaskit/editor-core": "^197.4.0",
 		"@atlaskit/reactions": "^22.12.0",
-		"@atlaskit/renderer": "^109.52.0",
+		"@atlaskit/renderer": "^109.53.0",
 		"@babel/runtime": "^7.0.0",
 		"date-fns": "^2.17.0",
 		"lodash": "^4.17.21",
@@ -48,7 +49,7 @@
 		"redux-thunk": "^2.3.0"
 	},
 	"peerDependencies": {
-		"react-dom": "^16.8.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {

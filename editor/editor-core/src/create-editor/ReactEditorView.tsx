@@ -58,6 +58,7 @@ import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import type { Dispatch } from '../event-dispatcher';
@@ -94,7 +95,6 @@ import { createSchema } from './create-schema';
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
 import { editorMessages } from './messages';
 import ReactEditorViewContext from './ReactEditorViewContext';
-
 const EDIT_AREA_ID = 'ak-editor-textarea';
 
 export interface EditorViewProps {
@@ -266,7 +266,10 @@ export class ReactEditorView<T = {}> extends React.Component<
 		const api = this.pluginInjectionAPI.api();
 		props.setEditorApi?.(api);
 
-		if (props.editorProps.editorActions) {
+		if (
+			props.editorProps.editorActions &&
+			!fg('platform_editor_remove_editor_actions_workaround')
+		) {
 			// @ts-expect-error
 			props.editorProps.editorActions.__EDITOR_INTERNALS_DO_NOT_USE__API = api;
 		}

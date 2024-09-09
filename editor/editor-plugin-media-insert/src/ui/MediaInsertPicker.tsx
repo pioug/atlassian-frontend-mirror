@@ -19,11 +19,15 @@ import { Popup, withOuterListeners } from '@atlaskit/editor-common/ui';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import { Box } from '@atlaskit/primitives';
+import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 
 import { useFocusEditor } from '../hooks/use-focus-editor';
+import { useUnholyAutofocus } from '../hooks/use-unholy-autofocus';
 import { type MediaInsertPickerProps } from '../types';
 
-import { MediaInsertContent } from './MediaInsertContent';
+import { LocalMedia } from './LocalMedia';
+import { MediaFromURL } from './MediaFromURL';
 import { MediaInsertWrapper } from './MediaInsertWrapper';
 
 const PopupWithListeners = withOuterListeners(Popup);
@@ -72,6 +76,7 @@ export const MediaInsertPicker = ({
 	const mediaProvider = useSharedPluginState(api, ['media'])?.mediaState?.mediaProvider;
 	const intl = useIntl();
 	const focusEditor = useFocusEditor({ editorView });
+	const { autofocusRef, onPositionCalculated } = useUnholyAutofocus();
 
 	if (!isOpen || !mediaProvider) {
 		return null;
@@ -108,19 +113,42 @@ export const MediaInsertPicker = ({
 			handleEscapeKeydown={handleClose(INPUT_METHOD.KEYBOARD)}
 			scrollableElement={popupsScrollableElement}
 			preventOverflow={true}
+			onPositionCalculated={onPositionCalculated}
 			focusTrap
 		>
 			<MediaInsertWrapper>
-				<MediaInsertContent
-					mediaProvider={mediaProvider}
-					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-					closeMediaInsertPicker={() => {
-						closeMediaInsertPicker();
-						focusEditor();
-					}}
-					insertMediaSingle={insertMediaSingle}
-					insertExternalMediaSingle={insertExternalMediaSingle}
-				/>
+				<Tabs id="media-insert-tab-navigation">
+					<Box paddingBlockEnd="space.150">
+						<TabList>
+							<Tab>{intl.formatMessage(mediaInsertMessages.fileTabTitle)}</Tab>
+							<Tab>{intl.formatMessage(mediaInsertMessages.linkTabTitle)}</Tab>
+						</TabList>
+					</Box>
+					<TabPanel>
+						<LocalMedia
+							ref={autofocusRef}
+							mediaProvider={mediaProvider}
+							insertMediaSingle={insertMediaSingle}
+							closeMediaInsertPicker={() => {
+								closeMediaInsertPicker();
+								focusEditor();
+							}}
+							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+						/>
+					</TabPanel>
+					<TabPanel>
+						<MediaFromURL
+							mediaProvider={mediaProvider}
+							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+							closeMediaInsertPicker={() => {
+								closeMediaInsertPicker();
+								focusEditor();
+							}}
+							insertMediaSingle={insertMediaSingle}
+							insertExternalMediaSingle={insertExternalMediaSingle}
+						/>
+					</TabPanel>
+				</Tabs>
 			</MediaInsertWrapper>
 		</PopupWithListeners>
 	);

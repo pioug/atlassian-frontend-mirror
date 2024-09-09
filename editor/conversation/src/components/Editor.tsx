@@ -12,7 +12,6 @@ import {
 	EditorContext,
 	WithEditorActions,
 	CollapsedEditor,
-	ToolbarFeedback,
 	ToolbarHelp,
 	name as packageName,
 	version as packageVersion,
@@ -247,7 +246,7 @@ export default class Editor extends React.Component<Props, State> {
 					}
 				: undefined,
 			primaryToolbarComponents: allowFeedbackAndHelpButtons
-				? [<ToolbarFeedback key="feedback" />, <ToolbarHelp key="help" />]
+				? [<ToolbarHelp key="help" />]
 				: undefined,
 			...providers,
 		};

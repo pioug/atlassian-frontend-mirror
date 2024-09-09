@@ -13,7 +13,7 @@ export const migrationOutcomeDescriptionMap: Record<IconMigrationSizeGuidance, s
 	'product-icon':
 		'Product icons are not supported; please use the custom SVG component from `@atlaskit/icon/svg`.',
 	'icon-lab':
-		'Find an alternative icon, or create an updated icon in the new style, and contribute it to `@atlassian/icon-lab`.',
+		'Find an alternative icon, or create an updated icon in the new style, and contribute it to `@atlaskit/icon-lab`.',
 	'top-nav':
 		'This icon is only for use for top navigation; please choose a different icon if used elsewhere.',
 	'icon-tile': 'Switch to Icon Tile, use a smaller size or remove.',

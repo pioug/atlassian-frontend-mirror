@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 12.1.1
+
+### Patch Changes
+
+- [#137821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137821)
+  [`94620325283df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/94620325283df) -
+  Remove `react-uid` and use an ID generator that is compatible with React16 and React 18; Strict
+  React 18 behind a flag.
+
 ## 12.1.0
 
 ### Minor Changes

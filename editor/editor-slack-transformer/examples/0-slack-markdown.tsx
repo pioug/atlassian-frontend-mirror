@@ -23,6 +23,15 @@ export type State = {
 	isExpanded?: boolean;
 };
 
+declare global {
+	interface Window {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		jQuery: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		ATL_JQ_PAGE_PROPS: any;
+	}
+}
+
 export default function EditorWithFeedback(props: Props) {
 	const [{ hasJquery, isExpanded }, setState] = useState<State>({
 		hasJquery: false,

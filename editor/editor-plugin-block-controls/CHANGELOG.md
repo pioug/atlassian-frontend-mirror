@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.13.3
+
+### Patch Changes
+
+- [#138270](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138270)
+  [`4911de090a806`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4911de090a806) -
+  [ux] [ED-24880] Fixed bug which allowed empty block experiment insert button to appear when editor
+  is disabled
+- [#138118](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138118)
+  [`5e4d9eb1aefe4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e4d9eb1aefe4) -
+  NOISSUE: Upgrades editor React peer dependencies to v18
+- Updated dependencies
+
 ## 1.13.2
 
 ### Patch Changes

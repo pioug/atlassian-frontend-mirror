@@ -60,7 +60,7 @@ export interface CreateItemsConfig {
 	showElementBrowserLink?: boolean;
 	expandEnabled?: boolean;
 	insertMenuItems?: MenuItem[];
-	emojiProvider?: Promise<EmojiProvider>;
+	emojiProvider?: Promise<EmojiProvider> | EmojiProvider;
 	schema: Schema;
 	numberOfButtons: number;
 	formatMessage: WrappedComponentProps['intl']['formatMessage'];

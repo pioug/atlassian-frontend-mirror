@@ -13,7 +13,6 @@ import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorAppearanceComponentProps } from '../../../types';
 
@@ -116,11 +115,6 @@ export const FullPageEditor = (props: ComponentProps) => {
 						providerFactory={props.providerFactory}
 						showKeyline={showKeyline}
 						featureFlags={props.featureFlags}
-						hideAvatarGroup={
-							fg('platform_editor_remove_hide_avatar_group_prop')
-								? undefined
-								: props.hideAvatarGroup
-						}
 					/>
 				)}
 				<FullPageContentArea

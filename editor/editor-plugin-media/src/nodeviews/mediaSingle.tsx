@@ -1,6 +1,7 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * @jsxFrag
  */
 import type { MouseEvent } from 'react';
 import React, { Component, Fragment, useMemo } from 'react';
@@ -24,7 +25,7 @@ import {
 	getMaxWidthForNestedNode,
 	MEDIA_SINGLE_GUTTER_SIZE,
 } from '@atlaskit/editor-common/media-single';
-import { ExternalImageBadge } from '@atlaskit/editor-common/media-single';
+import { ExternalImageBadge, MediaBadges } from '@atlaskit/editor-common/media-single';
 import type {
 	ContextIdentifierProvider,
 	ProviderFactory,
@@ -55,7 +56,7 @@ import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
 import type { ForwardRef, getPosHandler, getPosHandlerNode, MediaOptions } from '../types';
 import CaptionPlaceholder from '../ui/CaptionPlaceholder';
-import { CommentBadge, CommentBadgeWithRef } from '../ui/CommentBadge';
+import { CommentBadge, CommentBadgeNextWrapper } from '../ui/CommentBadge';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
 import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
@@ -93,7 +94,6 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 
 	mediaSingleWrapperRef = React.createRef<HTMLDivElement>();
 	captionPlaceHolderRef = React.createRef<HTMLSpanElement>();
-	commentBadgeRef = React.createRef<HTMLDivElement>();
 
 	createOrUpdateMediaNodeUpdater = (props: MediaSingleNodeProps) => {
 		const node = this.props.node.firstChild;
@@ -421,39 +421,17 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 		const isCurrentNodeDrafting =
 			annotationPluginState?.isDrafting &&
 			annotationPluginState?.targetNodeId === node?.firstChild?.attrs.id;
+		const shouldShowExternalMediaBadge = attrs.type === 'external';
 
-		const insertMediaPluginPhaseOneFeatureFlag = fg(
-			'platform_editor_insert_media_plugin_phase_one',
-		);
-		const shouldShowExternalMediaBadge =
-			attrs.type === 'external' && attrs.__external && insertMediaPluginPhaseOneFeatureFlag;
-
-		const commentBadgeOffset = () => {
-			if (this.commentBadgeRef.current) {
-				const commentsOnMediaBugFixEnabled =
-					mediaOptions?.getEditorFeatureFlags?.()?.commentsOnMediaBugFix;
-				const commentBadgeWidth = this.commentBadgeRef.current.offsetWidth;
-				const isMediaInsideTable = () => {
-					const pos = getPos();
-					if (pos !== undefined) {
-						const $pos = view.state.doc.resolve(pos);
-						const { table } = view.state.schema.nodes;
-						const foundTableNode = findParentNodeOfTypeClosestToPos($pos, [table]);
-						return Boolean(foundTableNode);
-					}
-					return false;
-				};
-				if (commentsOnMediaBugFixEnabled && isMediaInsideTable()) {
-					return commentBadgeWidth + 2;
-				}
-				return commentBadgeWidth + 14;
-			}
-			return 0;
-		};
-
+		const pos = getPos();
+		const isInsideTable =
+			pos !== undefined &&
+			findParentNodeOfTypeClosestToPos(state.doc.resolve(pos), [state.schema.nodes.table]);
 		const currentMediaElement = () => {
-			const pos = getPos();
-			return view.domAtPos((pos as number) + 1).node as HTMLElement;
+			if (pos !== undefined) {
+				return view.domAtPos(pos + 1).node as HTMLElement;
+			}
+			return null;
 		};
 
 		const MediaChildren = (
@@ -464,45 +442,45 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 				className={MediaSingleNodeSelector}
 				onClick={this.onMediaSingleClicked}
 			>
-				{/* ExternalImageBadge and CommentBadge should be in the same container.
-					It will be refactored when the feature flag is removed - via ED-24480
-					Flag: 'platform_editor_insert_media_plugin_phase_one'
-				*/}
-				{shouldShowExternalMediaBadge && (
-					<ExternalImageBadge
-						commentBadgeRightOffset={commentBadgeOffset()}
+				{fg('platform_editor_insert_media_plugin_phase_one') && (
+					<MediaBadges
 						mediaElement={currentMediaElement()}
 						mediaHeight={height}
 						mediaWidth={width}
+						extendedResizeOffset={
+							fg('platform.editor.media.extended-resize-experience') && !isInsideTable
+						}
+					>
+						{({ badgeSize }: { badgeSize: 'small' | 'medium' }) => (
+							<>
+								{shouldShowExternalMediaBadge && <ExternalImageBadge badgeSize={badgeSize} />}
+								{commentsOnMedia && (
+									<CommentBadgeNextWrapper
+										view={view}
+										api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}
+										mediaNode={node?.firstChild}
+										getPos={getPos}
+										isDrafting={isCurrentNodeDrafting}
+										badgeSize={badgeSize}
+									/>
+								)}
+							</>
+						)}
+					</MediaBadges>
+				)}
+				{!fg('platform_editor_insert_media_plugin_phase_one') && commentsOnMedia && (
+					<CommentBadge
+						commentsOnMediaBugFixEnabled={
+							mediaOptions?.getEditorFeatureFlags?.()?.commentsOnMediaBugFix
+						}
+						view={view}
+						api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}
+						mediaNode={node?.firstChild}
+						badgeOffsetRight={badgeOffsetRight}
+						getPos={getPos}
+						isDrafting={isCurrentNodeDrafting}
 					/>
 				)}
-				{commentsOnMedia &&
-					(insertMediaPluginPhaseOneFeatureFlag ? (
-						<CommentBadgeWithRef
-							ref={this.commentBadgeRef}
-							commentsOnMediaBugFixEnabled={
-								mediaOptions?.getEditorFeatureFlags?.()?.commentsOnMediaBugFix
-							}
-							view={view}
-							api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}
-							mediaNode={node?.firstChild}
-							badgeOffsetRight={badgeOffsetRight}
-							getPos={getPos}
-							isDrafting={isCurrentNodeDrafting}
-						/>
-					) : (
-						<CommentBadge
-							commentsOnMediaBugFixEnabled={
-								mediaOptions?.getEditorFeatureFlags?.()?.commentsOnMediaBugFix
-							}
-							view={view}
-							api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}
-							mediaNode={node?.firstChild}
-							badgeOffsetRight={badgeOffsetRight}
-							getPos={getPos}
-							isDrafting={isCurrentNodeDrafting}
-						/>
-					))}
 				<div ref={this.props.forwardRef} />
 				{shouldShowPlaceholder && (
 					<CaptionPlaceholder ref={this.captionPlaceHolderRef} onClick={this.clickPlaceholder} />

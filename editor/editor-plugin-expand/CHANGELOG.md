@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.6.1
+
+### Patch Changes
+
+- [#138299](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138299)
+  [`7bab5c1cce65c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7bab5c1cce65c) -
+  [ED-24860] Split out ADF schema change for nesting nestedExpand in expand
+- [#138118](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138118)
+  [`5e4d9eb1aefe4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e4d9eb1aefe4) -
+  NOISSUE: Upgrades editor React peer dependencies to v18
+- Updated dependencies
+
 ## 2.6.0
 
 ### Minor Changes

@@ -1,5 +1,5 @@
 In an upcoming release of `@atlaskit/icon`, new icon components in `@atlaskit/icon/core`,
-`@atlaskit/icon/utility` and `@atlassian/icon-lab` are being updated so the default value of `color`
+`@atlaskit/icon/utility` and `@atlaskit/icon-lab` are being updated so the default value of `color`
 is `currentColor`.
 
 To assist with migration, this lint rule requires the `color` prop to be set.

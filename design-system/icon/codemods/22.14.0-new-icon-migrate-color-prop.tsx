@@ -54,7 +54,7 @@ export default function transformer(file: FileInfo, api: API) {
 	const iconLabIconImportDeclarations = getPartialImportDeclaration(
 		j,
 		source,
-		'@atlassian/icon-lab/core',
+		'@atlaskit/icon-lab/core',
 	);
 
 	// Get all the specifier names

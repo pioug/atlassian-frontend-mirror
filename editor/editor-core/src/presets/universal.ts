@@ -80,7 +80,12 @@ type UniversalPresetProps = DefaultPresetPluginOptions &
 export type InitialPluginConfiguration = {
 	mentionsPlugin?: {
 		handleMentionsChanged?: (
-			mentionChanges: { type: 'added' | 'deleted'; localId: string; id: string }[],
+			mentionChanges: {
+				type: 'added' | 'deleted';
+				localId: string;
+				id: string;
+				taskLocalId?: string;
+			}[],
 		) => void;
 	};
 	tablesPlugin?: {
@@ -444,6 +449,10 @@ export default function createUniversalPresetInternal({
 				showElementBrowserLink: (props.elementBrowser && props.elementBrowser.showModal) || false,
 				replacePlusMenuWithElementBrowser:
 					(props.elementBrowser && props.elementBrowser.replacePlusMenu) || false,
+				// @ts-ignore
+				// For platform_editor_element_level_templates experiment only
+				// clean up ticket ED-24873
+				UNSAFE_editorAppearance: appearance,
 			},
 		])
 		.maybeAdd(
@@ -470,11 +479,7 @@ export default function createUniversalPresetInternal({
 				collabEdit: props.collabEdit,
 				takeFullWidth: !hasBeforePrimaryToolbar(props.primaryToolbarComponents),
 				showAvatarGroup:
-					// Cleanup: `platform_editor_remove_hide_avatar_group_prop`
-					// Remove `!props.hideAvatarGroup`
-					!props.hideAvatarGroup &&
-					featureFlags.showAvatarGroupAsPlugin === true &&
-					!featureFlags.twoLineEditorToolbar,
+					featureFlags.showAvatarGroupAsPlugin === true && !featureFlags.twoLineEditorToolbar,
 			},
 		])
 		.maybeAdd(
@@ -482,9 +487,6 @@ export default function createUniversalPresetInternal({
 				findReplacePlugin,
 				{
 					takeFullWidth:
-						// Cleanup: `platform_editor_remove_hide_avatar_group_prop`
-						// Remove `!props.hideAvatarGroup`
-						!props.hideAvatarGroup &&
 						!!featureFlags.showAvatarGroupAsPlugin === false &&
 						!hasBeforePrimaryToolbar(props.primaryToolbarComponents),
 					twoLineEditorToolbar:

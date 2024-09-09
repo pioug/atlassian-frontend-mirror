@@ -1,5 +1,33 @@
 # @atlaskit/smart-card
 
+## 28.0.0
+
+### Major Changes
+
+- [#138322](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138322)
+  [`578855218c959`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/578855218c959) - ####
+  What
+
+  Linking Platform are updating block smart cards to use flexible UI internally by default, and
+  deprecating the `enableFlexibleBlockCard` provider feature flag.
+
+  When upgrading you'll see some visual and minor content changes to the block cards where the
+  legacy block card was being used.
+
+  #### Why
+
+  A majority of adopters using block smart cards are already using flexible UI by using the
+  `enableFlexibleBlockCard` feature flag within `SmartCardProvider`. There are very few use cases
+  where using the legacy block card is still required and our goal is to completely remove the
+  legacy block card.
+
+  #### How to upgrade
+
+  Upgrade the smart-card dependency to the latest major version. If breaking changes are introduced,
+  there is a `useLegacyBlockCard` prop to allow existing usages of the standalone block card to
+  persist the legacy version. Linking Platform discourage the use of the prop, please reach out to
+  #help-linking-platform for further help if its use is required.
+
 ## 27.21.0
 
 ### Minor Changes

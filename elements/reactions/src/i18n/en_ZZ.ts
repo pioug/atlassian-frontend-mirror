@@ -16,6 +16,7 @@ export default {
     '{count, plural, one {⁣⁢and one other⁫⁯‍⁠؜⁯⁠⁭⁬⁪⁡⁬‌⁫⁠⁫⁠⁠⁪⁫⁣⁤} other {⁣⁢and {count} others⁫⁯‍⁠؜⁯⁠⁭⁬⁪⁡⁬‌⁫⁠⁫⁠⁠⁪⁫⁣⁤}}',
   'fabric.reactions.reactwithemoji': '⁣⁢React with {emoji} emoji⁯⁪⁫‌⁯‍؜‍⁫⁫⁫⁫⁡⁬⁬⁭⁠⁪⁮⁫⁡⁬⁣⁤',
   'fabric.reactions.summary': '⁣⁢View all user reactions⁬‌⁡⁬⁭⁯‍⁫⁭⁡‌⁭‌⁡⁭⁮⁪‌⁠⁬‍⁮⁪⁡⁠⁣⁤',
+  'reaction-picker-trigger.add.reaction.message': '⁣⁢Add a reaction⁪‌⁮⁡‍؜⁯⁪؜⁠⁬؜⁮⁬؜⁬⁠⁬⁫⁠⁣⁤',
   'reactions.dialog.close': '⁣⁢Close‍⁡⁬⁫⁪‌؜‍⁭⁫⁯⁫⁬⁡‌⁫‌⁭⁮⁫⁯⁫⁣⁤',
   'reactions.dialog.emoji.name': '⁣⁢{emojiName}⁭⁪⁡‌⁪⁫‌‍⁯؜⁠⁡⁪‍⁡؜⁬⁠‌‌‍⁪‍⁡⁣⁤',
   'reactions.dialog.left.navigate': '⁣⁢Left Navigate⁫⁪؜⁯⁯⁫‍⁮‌⁫؜⁪⁠⁭؜⁡‍⁠⁠⁡⁭⁣⁤',

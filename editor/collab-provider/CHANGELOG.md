@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 9.40.0
+
+### Minor Changes
+
+- [#137821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137821)
+  [`2df9b55e7e2c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2df9b55e7e2c8) -
+  use applyLocalSteps for targeted onRestore, add clientId to logs
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.39.0
 
 ### Minor Changes

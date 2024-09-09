@@ -6,10 +6,10 @@ import { forwardRef, memo, useMemo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { useUIDSeed } from 'react-uid';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import type { Size as IconSize } from '@atlaskit/icon/types';
 import CheckMarkIcon from '@atlaskit/icon/utility/migration/check-mark--editor-done';
 import CloseIcon from '@atlaskit/icon/utility/migration/cross--editor-close';
@@ -99,15 +99,15 @@ const Toggle = memo(
 
 		const toggleStyles = useMemo(() => getStyles(size), [size]);
 
-		const uuid = useUIDSeed()('toggle');
-
 		const legacyIconSize = iconSizeMap[size];
+
+		const labelId = useId();
 
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<label {...controlProps} css={toggleStyles}>
 				{label ? (
-					<span id={`${uuid}-label`} hidden>
+					<span id={labelId} hidden>
 						{label}
 					</span>
 				) : null}
@@ -123,7 +123,7 @@ const Toggle = memo(
 					type="checkbox"
 					value={value}
 					data-testid={testId && `${testId}--input`}
-					aria-labelledby={label ? `${uuid}-label` : undefined}
+					aria-labelledby={label ? labelId : undefined}
 					aria-describedby={descriptionId}
 				/>
 				<IconContainer size={size} isHidden={!shouldChecked} position="left">

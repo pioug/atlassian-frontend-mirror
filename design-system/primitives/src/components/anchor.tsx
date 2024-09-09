@@ -13,12 +13,12 @@ import {
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { uid } from 'react-uid';
 import invariant from 'tiny-invariant';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-provider';
 import noop from '@atlaskit/ds-lib/noop';
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -200,9 +200,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		[providedOnClick, interactionContext, interactionName],
 	);
 
-	// TODO: Use React 18's useId() hook when we update.
-	// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
-	const opensNewWindowLabelId = uid({ ariaLabelledBy });
+	const opensNewWindowLabelId = useId();
 
 	const onClick = usePlatformLeafEventHandler({
 		fn: handleClick,

@@ -55,9 +55,6 @@
       "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
     },
     {
-      "path": "../../../design-system/spinner/afm-jira/tsconfig.json"
-    },
-    {
       "path": "../../../elements/task-decision/afm-jira/tsconfig.json"
     },
     {

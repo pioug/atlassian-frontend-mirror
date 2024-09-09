@@ -36,7 +36,8 @@ tester.run('ensure-design-token-usage', rule, {
 			code: `
 			import Icon from '@atlaskit/icon/core/add';
 			import UtilityIcon from '@atlaskit/icon/utility/add';
-			import LabIcon from '@atlassian/icon-lab/core/test';
+			import LabIcon from '@atlaskit/icon-lab/core/test';
+			import PrivateIcon from '@atlassian/icon-private/core/test';
 			import { token } from '@atlaskit/tokens';
 
       <>
@@ -44,9 +45,13 @@ tester.run('ensure-design-token-usage', rule, {
         <Icon {...iconProps} />
 				<UtilityIcon />
 				<LabIcon />
+				<PrivateIcon />
       </>
       `,
 			errors: [
+				{
+					messageId: 'missingColorProp',
+				},
 				{
 					messageId: 'missingColorProp',
 				},

@@ -787,7 +787,6 @@ export const getStartingToolbarItems = (
 	return (
 		intl: IntlShape,
 		link: string,
-		providerFactory: ProviderFactory,
 		onEditLink: Command,
 		metadata: { url: string; title: string },
 	): FloatingToolbarItem<Command>[] => {
@@ -861,7 +860,6 @@ export const getStartingToolbarItems = (
 							editorView={editorView}
 							editorState={editorView.state}
 							cardOptions={options}
-							providerFactory={providerFactory}
 							platform={options?.platform}
 							editorAnalyticsApi={api?.analytics?.actions}
 							editorPluginApi={api}

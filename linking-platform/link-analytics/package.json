@@ -43,7 +43,7 @@
 		"rusha": "^0.8.13"
 	},
 	"peerDependencies": {
-		"@atlaskit/link-provider": "^1.14.0",
+		"@atlaskit/link-provider": "^1.15.0",
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {

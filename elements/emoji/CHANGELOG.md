@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 67.7.8
+
+### Patch Changes
+
+- [#137821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137821)
+  [`f2d1d60fbb2dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2d1d60fbb2dd) -
+  Feature flagged a change to allow emoji to be lazily indexed
+
 ## 67.7.7
 
 ### Patch Changes

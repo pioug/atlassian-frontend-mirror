@@ -9,7 +9,7 @@ describe('Migrate color API', () => {
 		`
         import AddIcon from '@atlaskit/icon/core/add';
         import ChevronDownIcon from '@atlaskit/icon/utility/add';
-        import BitbucketBranchIcon from '@atlassian/icon-lab/core/bitbucket-branch';
+        import BitbucketBranchIcon from '@atlaskit/icon-lab/core/bitbucket-branch';
 
         const App = () => (
           <>
@@ -24,7 +24,7 @@ describe('Migrate color API', () => {
         import { token } from "@atlaskit/tokens";
         import AddIcon from '@atlaskit/icon/core/add';
         import ChevronDownIcon from '@atlaskit/icon/utility/add';
-        import BitbucketBranchIcon from '@atlassian/icon-lab/core/bitbucket-branch';
+        import BitbucketBranchIcon from '@atlaskit/icon-lab/core/bitbucket-branch';
 
         const App = () => (
           <>

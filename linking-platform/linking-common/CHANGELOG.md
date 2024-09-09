@@ -1,5 +1,13 @@
 # @atlaskit/linking-common
 
+## 5.11.1
+
+### Patch Changes
+
+- [#138322](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138322)
+  [`578855218c959`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/578855218c959) -
+  Deprecate the enableFlexibleBlockCard provider feature flag
+
 ## 5.11.0
 
 ### Minor Changes

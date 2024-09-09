@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 1.15.0
+
+### Minor Changes
+
+- [#136903](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136903)
+  [`6835fc4fdb6c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6835fc4fdb6c2) -
+  Enable react 18
+
 ## 1.14.1
 
 ### Patch Changes

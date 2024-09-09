@@ -224,7 +224,12 @@ type Props = {
 	fireEvent: FireElementsChannelEvent;
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
 	handleMentionsChanged?: (
-		mentionChanges: { type: 'added' | 'deleted'; localId: string; id: string }[],
+		mentionChanges: {
+			type: 'added' | 'deleted';
+			localId: string;
+			id: string;
+			taskLocalId?: string;
+		}[],
 	) => void;
 };
 export const createTypeAheadConfig = ({
@@ -379,7 +384,13 @@ export const createTypeAheadConfig = ({
 
 			const mentionLocalId = uuid();
 			if (handleMentionsChanged) {
-				handleMentionsChanged([{ type: 'added', localId: mentionLocalId, id: id }]);
+				if (taskItemId) {
+					handleMentionsChanged([
+						{ type: 'added', localId: mentionLocalId, id: id, taskLocalId: taskItemId },
+					]);
+				} else {
+					handleMentionsChanged([{ type: 'added', localId: mentionLocalId, id: id }]);
+				}
 			}
 
 			fireEvent(

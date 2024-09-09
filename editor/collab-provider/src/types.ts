@@ -173,6 +173,7 @@ export type InitPayload = {
 	version: number;
 	userId?: string;
 	metadata?: Metadata;
+	targetClientId?: string;
 };
 
 /**

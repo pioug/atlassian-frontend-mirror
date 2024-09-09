@@ -148,4 +148,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2024-09-07
+	platform_editor_exp_lazy_node_views: {
+		productKeys: {
+			confluence: 'platform_editor_exp_lazy_node_views',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

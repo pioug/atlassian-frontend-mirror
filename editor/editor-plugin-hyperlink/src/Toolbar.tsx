@@ -228,7 +228,6 @@ export const getToolbarConfig =
 					const startingToolbarItems = cardActions?.getStartingToolbarItems(
 						intl,
 						link,
-						providerFactory,
 						editInsertedLink(editorAnalyticsApi),
 						metadata,
 					) ?? [

@@ -278,7 +278,6 @@ export function MediaFromURL({
 		>
 			<Stack space="space.150" grow="fill">
 				<TextField
-					autoFocus
 					value={inputUrl}
 					placeholder={strings.pasteLinkToUpload}
 					onChange={onURLChange}

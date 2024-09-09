@@ -8,8 +8,10 @@
 
 ### Table of contents
 
-- [Main Entry Types](#main-entry-types)
-- [Peer Dependencies](#peer-dependencies)
+- [API Report File for "@atlaskit/linking-common"](#api-report-file-for-atlaskitlinking-common)
+  - [Table of contents](#table-of-contents)
+  - [Main Entry Types](#main-entry-types)
+  - [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -314,6 +316,7 @@ export interface InvokePayload<T> {
 export interface LinkingPlatformFeatureFlags {
 	// @deprecated
 	enableActionableElement?: boolean;
+	// @deprecated
 	enableFlexibleBlockCard?: boolean;
 	enableHoverCardResolutionTracking?: boolean;
 	// @deprecated

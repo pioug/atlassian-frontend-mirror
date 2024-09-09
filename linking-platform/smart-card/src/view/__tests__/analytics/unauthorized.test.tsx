@@ -9,11 +9,12 @@ import React from 'react';
 import { Card, type CardAppearance } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
-import { render, waitFor, fireEvent, cleanup } from '@testing-library/react';
+import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import * as jestExtendedMatchers from 'jest-extended';
 import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
+import userEvent from '@testing-library/user-event';
 
 mockSimpleIntersectionObserver();
 
@@ -38,8 +39,6 @@ describe('smart-card: unauthorized analytics', () => {
 	});
 
 	afterEach(() => {
-		// We moved up the cleanup function as it caused some analytics events to fire, which lead to flaky tests
-		cleanup();
 		jest.clearAllMocks();
 	});
 
@@ -47,7 +46,7 @@ describe('smart-card: unauthorized analytics', () => {
 		it('should fire clicked event when the link is clicked', async () => {
 			const mockUrl = 'https://https://this.is.a.url';
 			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-			const { getByTestId } = render(
+			render(
 				<IntlProvider locale="en">
 					<Provider client={mockClient}>
 						<Card testId="unauthorizedCard1" appearance="inline" url={mockUrl} />
@@ -56,12 +55,13 @@ describe('smart-card: unauthorized analytics', () => {
 			);
 
 			const unauthorizedLink = await waitFor(
-				() => getByTestId('unauthorizedCard1-unauthorized-view').getElementsByTagName('a')[0],
+				() =>
+					screen.getByTestId('unauthorizedCard1-unauthorized-view').getElementsByTagName('a')[0],
 
 				{ timeout: 10000 },
 			);
 			expect(unauthorizedLink).toBeTruthy();
-			fireEvent.click(unauthorizedLink);
+			await userEvent.click(unauthorizedLink);
 			expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
 			expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
 				id: 'some-uuid-1',
@@ -78,22 +78,21 @@ describe('smart-card: unauthorized analytics', () => {
 			async (appearance: string) => {
 				const mockUrl = 'https://https://this.is.a.url';
 				mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-				const { getByTestId, debug } = render(
+				render(
 					<IntlProvider locale="en">
-						<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
+						<Provider client={mockClient}>
 							<Card appearance={appearance as CardAppearance} url={mockUrl} testId="test" />
 						</Provider>
 					</IntlProvider>,
 				);
 
-				const learnMoreButton = await waitFor(
-					() => getByTestId('test-learn-more'),
-
+				const learnMoreButton = await screen.findByTestId(
+					'test-learn-more',
+					{},
 					{ timeout: 10000 },
 				);
 				expect(learnMoreButton).toBeTruthy();
-				debug(learnMoreButton);
-				fireEvent.click(learnMoreButton!);
+				await userEvent.click(learnMoreButton!);
 
 				expect(analytics.uiLearnMoreLinkClickedEvent).toHaveBeenCalledTimes(1);
 			},
@@ -102,14 +101,9 @@ describe('smart-card: unauthorized analytics', () => {
 		it('should fire clicked event when the "learn more" button is clicked on unauthorized hover card', async () => {
 			const mockUrl = 'https://this.is.a.url';
 			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-			const { getByTestId } = render(
+			render(
 				<IntlProvider locale="en">
-					<Provider
-						client={mockClient}
-						featureFlags={{
-							enableFlexibleBlockCard: true,
-						}}
-					>
+					<Provider client={mockClient}>
 						<Card
 							url={mockUrl}
 							appearance="inline"
@@ -120,21 +114,21 @@ describe('smart-card: unauthorized analytics', () => {
 				</IntlProvider>,
 			);
 
-			const unauthorizedLink = await waitFor(
-				() => getByTestId('unauthorized-inline-card-unauthorized-view'),
-
+			const unauthorizedLink = await screen.findByTestId(
+				'unauthorized-inline-card-unauthorized-view',
+				{},
 				{ timeout: 10000 },
 			);
 
-			fireEvent.mouseEnter(unauthorizedLink);
-			const authTooltip = await waitFor(() => getByTestId('hover-card-unauthorised-view'));
+			await userEvent.hover(unauthorizedLink);
+			const authTooltip = await screen.findByTestId('hover-card-unauthorised-view');
 
 			expect(authTooltip).toBeTruthy();
 
-			const learnMoreButton = getByTestId('unauthorised-view-content-learn-more');
+			const learnMoreButton = screen.getByTestId('unauthorised-view-content-learn-more');
 			expect(learnMoreButton).toBeTruthy();
 
-			fireEvent.click(learnMoreButton!);
+			await userEvent.click(learnMoreButton!);
 
 			// verify ui button clicked event is fired
 			expect(analytics.uiLearnMoreLinkClickedEvent).toHaveBeenCalledTimes(1);
@@ -143,22 +137,22 @@ describe('smart-card: unauthorized analytics', () => {
 		it('should fire analytics events when the connect button is clicked on block card', async () => {
 			const mockUrl = 'https://https://this.is.a.url';
 			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-			const { getByTestId } = render(
+			render(
 				<IntlProvider locale="en">
-					<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
+					<Provider client={mockClient}>
 						<Card appearance="block" url={mockUrl} />
 					</Provider>
 				</IntlProvider>,
 			);
 
-			const connectButton = await waitFor(
-				() => getByTestId('smart-action-connect-account'),
-
+			const connectButton = await screen.findByTestId(
+				'smart-action-connect-account',
+				{},
 				{ timeout: 10000 },
 			);
 			expect(connectButton).toBeTruthy();
 			asMockFunction(auth).mockImplementationOnce(async () => {});
-			fireEvent.click(connectButton!);
+			await userEvent.click(connectButton!);
 
 			// verify ui button clicked event is fired
 			expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
@@ -180,22 +174,18 @@ describe('smart-card: unauthorized analytics', () => {
 		it('should fire clicked event when the connect button is clicked on embed card', async () => {
 			const mockUrl = 'https://https://this.is.a.url';
 			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-			const { getByTestId } = render(
+			render(
 				<IntlProvider locale="en">
-					<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
+					<Provider client={mockClient}>
 						<Card appearance="embed" url={mockUrl} />
 					</Provider>
 				</IntlProvider>,
 			);
 
-			const connectButton = await waitFor(
-				() => getByTestId('connect-account'),
-
-				{ timeout: 10000 },
-			);
+			const connectButton = await screen.findByTestId('connect-account', {}, { timeout: 10000 });
 			expect(connectButton).toBeTruthy();
 			asMockFunction(auth).mockImplementationOnce(async () => {});
-			fireEvent.click(connectButton!);
+			await userEvent.click(connectButton!);
 
 			// verify ui button clicked event is fired
 			expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
@@ -217,7 +207,7 @@ describe('smart-card: unauthorized analytics', () => {
 		it('should fire clicked event when the connect button is clicked on unauthorized hover card', async () => {
 			const mockUrl = 'https://https://this.is.a.url';
 			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-			const { getByTestId } = render(
+			render(
 				<IntlProvider locale="en">
 					<Provider
 						client={mockClient}
@@ -235,22 +225,23 @@ describe('smart-card: unauthorized analytics', () => {
 				</IntlProvider>,
 			);
 
-			const unauthorizedLink = await waitFor(
-				() => getByTestId('unauthorized-inline-card-unauthorized-view'),
-
+			const unauthorizedLink = await screen.findByTestId(
+				'unauthorized-inline-card-unauthorized-view',
+				{},
 				{ timeout: 10000 },
 			);
 
-			fireEvent.mouseEnter(unauthorizedLink);
-			const authTooltip = await waitFor(() => getByTestId('hover-card-unauthorised-view'));
+			await userEvent.hover(unauthorizedLink);
+
+			const authTooltip = await screen.findByTestId('hover-card-unauthorised-view');
 
 			expect(authTooltip).toBeTruthy();
 
-			const connectButton = getByTestId('smart-action');
+			const connectButton = screen.getByTestId('smart-action');
 			expect(connectButton).toBeTruthy();
 
 			asMockFunction(auth).mockImplementationOnce(async () => {});
-			fireEvent.click(connectButton!);
+			await userEvent.click(connectButton!);
 
 			// verify ui button clicked event is fired
 			expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
@@ -272,7 +263,7 @@ describe('smart-card: unauthorized analytics', () => {
 		it('should fire clicked event when the connect button is clicked on unauthorized inline card', async () => {
 			const mockUrl = 'https://https://this.is.a.url';
 			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-			const { getByTestId } = render(
+			render(
 				<IntlProvider locale="en">
 					<Provider client={mockClient}>
 						<Card url={mockUrl} appearance="inline" testId="unauthorized-inline-card" />
@@ -280,16 +271,16 @@ describe('smart-card: unauthorized analytics', () => {
 				</IntlProvider>,
 			);
 
-			const connectButton = await waitFor(
-				() => getByTestId('button-connect-account'),
-
+			const connectButton = await screen.findByTestId(
+				'button-connect-account',
+				{},
 				{ timeout: 10000 },
 			);
 
 			expect(connectButton).toBeTruthy();
 
 			asMockFunction(auth).mockImplementationOnce(async () => {});
-			fireEvent.click(connectButton!);
+			await userEvent.click(connectButton!);
 
 			// verify ui button clicked event is fired
 			expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
@@ -311,7 +302,7 @@ describe('smart-card: unauthorized analytics', () => {
 		it('should fire success event when the link is rendered', async () => {
 			const mockUrl = 'https://https://this.is.a.url';
 			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-			const { getByTestId } = render(
+			render(
 				<IntlProvider locale="en">
 					<Provider client={mockClient}>
 						<Card testId="unauthorizedCard1" appearance="inline" url={mockUrl} />
@@ -319,8 +310,9 @@ describe('smart-card: unauthorized analytics', () => {
 				</IntlProvider>,
 			);
 
-			const unauthorizedLink = await waitFor(
-				() => getByTestId('unauthorizedCard1-unauthorized-view'),
+			const unauthorizedLink = await screen.findByTestId(
+				'unauthorizedCard1-unauthorized-view',
+				{},
 				{ timeout: 10000 },
 			);
 			expect(unauthorizedLink).toBeTruthy();
@@ -337,27 +329,28 @@ describe('smart-card: unauthorized analytics', () => {
 		it('should fire connectSucceeded event when auth succeeds', async () => {
 			const mockUrl = 'https://https://this.is.a.url';
 			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-			const { getByTestId, container } = render(
+			render(
 				<IntlProvider locale="en">
 					<Provider client={mockClient}>
 						<Card testId="unauthorizedCard1" appearance="inline" url={mockUrl} />
 					</Provider>
 				</IntlProvider>,
 			);
-			const unauthorizedLink = await waitFor(
-				() => getByTestId('unauthorizedCard1-unauthorized-view'),
+			const unauthorizedLink = await screen.findByTestId(
+				'unauthorizedCard1-unauthorized-view',
+				{},
 				{ timeout: 10000 },
 			);
-			const unauthorizedLinkButton = container.querySelector('[type="button"]');
+			const unauthorizedLinkButton = screen.getByTestId('button-connect-account');
 			expect(unauthorizedLink).toBeTruthy();
 			expect(unauthorizedLinkButton).toBeTruthy();
 			expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
 			// Mock out auth flow, & click connect.
 			asMockFunction(auth).mockImplementationOnce(async () => {});
-			fireEvent.click(unauthorizedLinkButton!);
+			await userEvent.click(unauthorizedLinkButton!);
 
 			mockFetch.mockImplementationOnce(async () => mocks.success);
-			const resolvedView = await waitFor(() => getByTestId('unauthorizedCard1-resolved-view'));
+			const resolvedView = await screen.findByTestId('unauthorizedCard1-resolved-view');
 			expect(resolvedView).toBeTruthy();
 			expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
 			expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
@@ -384,32 +377,34 @@ describe('smart-card: unauthorized analytics', () => {
 			async (errorType) => {
 				const mockUrl = 'https://https://this.is.the.second.url';
 				mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-				const { getByTestId, container } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card testId="unauthorizedCard2" appearance="inline" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const unauthorizedLink = await waitFor(
-					() => getByTestId('unauthorizedCard2-unauthorized-view'),
+				const unauthorizedLink = await screen.findByTestId(
+					'unauthorizedCard2-unauthorized-view',
+					{},
 					{ timeout: 10000 },
 				);
-				const unauthorizedLinkButton = container.querySelector('[type="button"]');
+				const unauthorizedLinkButton = screen.getByTestId('button-connect-account');
 				expect(unauthorizedLink).toBeTruthy();
 				expect(unauthorizedLinkButton).toBeTruthy();
-				expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
+				expect(unauthorizedLinkButton.innerHTML).toContain('Connect');
 				// Mock out auth flow, & click connect.
 				asMockFunction(auth).mockImplementationOnce(() =>
 					Promise.reject(new AuthError('', errorType)),
 				);
-				fireEvent.click(unauthorizedLinkButton!);
 
-				const unresolvedView = await waitFor(
-					() => getByTestId('unauthorizedCard2-unauthorized-view'),
-					{
-						timeout: 10000,
-					},
+				// todo: determine why this test breaks when using userEvent.click()
+				fireEvent.click(unauthorizedLinkButton);
+
+				const unresolvedView = await screen.findByTestId(
+					'unauthorizedCard2-unauthorized-view',
+					{},
+					{ timeout: 10000 },
 				);
 				expect(unresolvedView).toBeTruthy();
 				expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
@@ -437,18 +432,19 @@ describe('smart-card: unauthorized analytics', () => {
 		it('should fire connectFailed when auth dialog was closed', async () => {
 			const mockUrl = 'https://https://this.is.the.third.url';
 			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-			const { getByTestId, container } = render(
+			render(
 				<IntlProvider locale="en">
 					<Provider client={mockClient}>
 						<Card testId="unauthorizedCard3" appearance="inline" url={mockUrl} />
 					</Provider>
 				</IntlProvider>,
 			);
-			const unauthorizedLink = await waitFor(
-				() => getByTestId('unauthorizedCard3-unauthorized-view'),
+			const unauthorizedLink = await screen.findByTestId(
+				'unauthorizedCard3-unauthorized-view',
+				{},
 				{ timeout: 10000 },
 			);
-			const unauthorizedLinkButton = container.querySelector('[type="button"]');
+			const unauthorizedLinkButton = screen.getByTestId('button-connect-account');
 			expect(unauthorizedLink).toBeTruthy();
 			expect(unauthorizedLinkButton).toBeTruthy();
 			expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
@@ -456,11 +452,13 @@ describe('smart-card: unauthorized analytics', () => {
 			asMockFunction(auth).mockImplementationOnce(() =>
 				Promise.reject(new AuthError('', 'auth_window_closed')),
 			);
-			fireEvent.click(unauthorizedLinkButton!);
+			await userEvent.click(unauthorizedLinkButton!);
 
-			const resolvedView = await waitFor(() => getByTestId('unauthorizedCard3-resolved-view'), {
-				timeout: 10000,
-			});
+			const resolvedView = await screen.findByTestId(
+				'unauthorizedCard3-resolved-view',
+				{},
+				{ timeout: 10000 },
+			);
 			expect(resolvedView).toBeTruthy();
 			expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
 			expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);

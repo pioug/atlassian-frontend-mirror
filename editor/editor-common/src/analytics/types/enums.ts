@@ -171,6 +171,7 @@ export enum INPUT_METHOD {
 	FLOATING_TB = 'floatingToolbar',
 	FORMATTING = 'autoformatting',
 	INSERT_MENU = 'insertMenu',
+	INSERT_MENU_RIGHT_RAIL = 'insertMenuRightRail',
 	KEYBOARD = 'keyboard',
 	MEDIA_PICKER = 'mediaPicker',
 	MACRO_BROWSER = 'macroBrowser',

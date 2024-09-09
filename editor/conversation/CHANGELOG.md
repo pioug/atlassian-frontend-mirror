@@ -1,5 +1,17 @@
 # @atlaskit/conversation
 
+## 16.2.36
+
+### Patch Changes
+
+- [#137822](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137822)
+  [`202cf9b609302`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/202cf9b609302) -
+  [ux] Removing toolbar feedback UI as it is no longer supported.
+- [#138118](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138118)
+  [`5e4d9eb1aefe4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e4d9eb1aefe4) -
+  NOISSUE: Upgrades editor React peer dependencies to v18
+- Updated dependencies
+
 ## 16.2.35
 
 ### Patch Changes

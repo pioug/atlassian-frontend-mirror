@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.21
+
+### Patch Changes
+
+- [#137821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137821)
+  [`4d2173e85f8a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d2173e85f8a6) -
+  [ux] Fix full-width detection in Comment editor
+- [#137928](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137928)
+  [`8b30e4c176e08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b30e4c176e08) -
+  ED-24841: Fixed number column table shows a scroll in comment editor
+- [#138118](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138118)
+  [`5e4d9eb1aefe4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e4d9eb1aefe4) -
+  NOISSUE: Upgrades editor React peer dependencies to v18
+- Updated dependencies
+
 ## 7.25.20
 
 ### Patch Changes

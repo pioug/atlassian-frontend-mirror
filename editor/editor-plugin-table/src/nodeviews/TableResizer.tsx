@@ -436,45 +436,33 @@ export const TableResizer = ({
 				return;
 			}
 
-			previewScaleTable(
-				tableRef,
-				{
-					node,
-					prevNode: node,
-					start: pos + 1,
-					parentWidth: newWidth,
-				},
-				editorView.domAtPos.bind(editorView),
-				isTableScalingEnabled,
-				isTableWithFixedColumnWidthsOptionEnabled,
-				isCommentEditor,
-			);
-
 			const editorContainerWidth = isFullWidthModeEnabled
 				? lineLength + 2 * akEditorGutterPaddingDynamic()
 				: containerWidth;
 
-			const closestSnap = findClosestSnap(
-				newWidth,
-				isTableScalingEnabled
-					? defaultTablePreserveSnappingWidths(
-							PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET,
-							editorContainerWidth,
-							excludeGuidelineConfig,
-						)
-					: defaultSnappingWidths,
-				isTableScalingEnabled
-					? defaultGuidelinesForPreserveTable(
-							PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
-							editorContainerWidth,
-							excludeGuidelineConfig,
-						)
-					: defaultGuidelines,
-				TABLE_HIGHLIGHT_GAP,
-				TABLE_HIGHLIGHT_TOLERANCE,
-			);
+			const closestSnap =
+				!isCommentEditor &&
+				findClosestSnap(
+					newWidth,
+					isTableScalingEnabled
+						? defaultTablePreserveSnappingWidths(
+								PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET,
+								editorContainerWidth,
+								excludeGuidelineConfig,
+							)
+						: defaultSnappingWidths,
+					isTableScalingEnabled
+						? defaultGuidelinesForPreserveTable(
+								PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
+								editorContainerWidth,
+								excludeGuidelineConfig,
+							)
+						: defaultGuidelines,
+					TABLE_HIGHLIGHT_GAP,
+					TABLE_HIGHLIGHT_TOLERANCE,
+				);
 
-			updateActiveGuidelines(closestSnap);
+			closestSnap && updateActiveGuidelines(closestSnap);
 
 			// When snapping to the full width guideline, resize the table to be 1800px
 			const { state, dispatch } = editorView;
@@ -486,13 +474,33 @@ export const TableResizer = ({
 				excludeGuidelineConfig,
 			).filter((guideline) => guideline.isFullWidth)[0];
 
-			const isFullWidthGuidelineActive = closestSnap.keys.includes(fullWidthGuideline.key);
+			const isFullWidthGuidelineActive =
+				closestSnap && closestSnap.keys.includes(fullWidthGuideline.key);
+
 			const tableMaxWidth = isCommentEditor
-				? containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR
+				? Math.floor(containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR)
 				: TABLE_MAX_WIDTH;
-			const shouldUpdateWidthToWidest =
-				(isCommentEditor && tableMaxWidth === newWidth) ||
-				(!!isTableScalingEnabled && isFullWidthGuidelineActive);
+
+			const shouldUpdateWidthToWidest = isCommentEditor
+				? tableMaxWidth <= newWidth
+				: !!isTableScalingEnabled && isFullWidthGuidelineActive;
+
+			const previewParentWidth =
+				isCommentEditor && shouldUpdateWidthToWidest ? tableMaxWidth : newWidth;
+
+			previewScaleTable(
+				tableRef,
+				{
+					node,
+					prevNode: node,
+					start: pos + 1,
+					parentWidth: previewParentWidth,
+				},
+				editorView.domAtPos.bind(editorView),
+				isTableScalingEnabled,
+				isTableWithFixedColumnWidthsOptionEnabled,
+				isCommentEditor,
+			);
 
 			chainCommands(
 				(state, dispatch) => {

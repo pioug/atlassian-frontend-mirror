@@ -14,6 +14,7 @@ export interface LinkingPlatformFeatureFlags {
 	enableActionableElement?: boolean;
 	/**
 	 * Decide whether to render a Flexible UI Card view instead of the older Block Card view when rendering Block Card Smart Links.
+	 * @deprecated Implementation removed in EDM-10395
 	 */
 	enableFlexibleBlockCard?: boolean;
 	/**

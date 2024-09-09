@@ -39,7 +39,7 @@ const jdogURL = 'https://jdog.jira-dev.com/browse/BENTO-3922';
 export function Example() {
 	return (
 		// We must wrap the <Editor> with a provider, passing cardClient via prop
-		<SmartCardProvider client={cardClient} featureFlags={{ enableFlexibleBlockCard: true }}>
+		<SmartCardProvider client={cardClient}>
 			<div>
 				<SectionMessage title="Smart Cards in Confluence Editor">
 					<p>

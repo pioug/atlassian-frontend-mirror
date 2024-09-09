@@ -80,7 +80,12 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 				);
 			},
 			announceMentionsInsertion: (
-				mentionChanges: { type: 'added' | 'deleted'; localId: string; id: string }[],
+				mentionChanges: {
+					type: 'added' | 'deleted';
+					localId: string;
+					id: string;
+					taskLocalId?: string;
+				}[],
 			) => {
 				if (options?.handleMentionsChanged) {
 					options.handleMentionsChanged(mentionChanges);

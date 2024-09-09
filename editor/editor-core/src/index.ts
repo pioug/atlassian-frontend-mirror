@@ -6,7 +6,15 @@ export { default as WithEditorActions } from './ui/WithEditorActions';
 export { default as WithHelpTrigger } from './ui/WithHelpTrigger';
 export { default as CollapsedEditor } from './ui/CollapsedEditor';
 export { default as ToolbarHelp } from './ui/ToolbarHelp';
-export { default as ToolbarFeedback } from './ui/ToolbarFeedback';
+export {
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON.
+	 *
+	 * This was intended for rollout of bitbucket only.
+	 */
+	default as ToolbarFeedback,
+} from './ui/ToolbarFeedback';
 export {
 	/**
 	 * @deprecated

@@ -18,7 +18,10 @@ import type { EditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/edit
 import { browser, isValidPosition } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorTableToolbarSize as tableToolbarSize } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorTableNumberColumnWidth,
+	akEditorTableToolbarSize as tableToolbarSize,
+} from '@atlaskit/editor-shared-styles';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
@@ -456,7 +459,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			if (force || (!isResizing && shouldUpdateColgroup)) {
 				const resizeState = getResizeState({
 					minWidth: COLUMN_MIN_WIDTH,
-					maxSize: tableRenderWidth,
+					// When numbered column enabled, we need to subtract the width of the numbered column
+					maxSize: tableNode.attrs.isNumberColumnEnabled
+						? tableRenderWidth - akEditorTableNumberColumnWidth
+						: tableRenderWidth,
 					table: tableNode,
 					tableRef: this.table,
 					start,

@@ -4,6 +4,7 @@ import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { insertBlockNode, insertInlineNodeOrFragment } from '../insert-utils';
@@ -49,6 +50,28 @@ type CreateInsertCallbackProps = {
 	textInserted: string;
 	selectedIndex: number;
 };
+
+// For platform_editor_element_level_templates experiment only
+// clean up ticket ED-24873
+const insertTemplateFragment = ({
+	fragment,
+	tr,
+	position,
+}: {
+	fragment: Fragment;
+	tr: Transaction;
+	position: {
+		start: number;
+		end: number;
+	};
+}) => {
+	const { start } = position;
+	const trWithInsert = safeInsert(fragment, start)(tr);
+
+	tr.setSelection(trWithInsert.selection);
+	return tr;
+};
+
 const createInsertCallback =
 	({
 		editorState: state,
@@ -75,18 +98,25 @@ const createInsertCallback =
 			return tr;
 		}
 
-		node instanceof PMNode && node.isBlock
-			? insertBlockNode({
-					node,
-					tr,
-					position,
-				})
-			: insertInlineNodeOrFragment({
-					maybeFragment: node,
-					tr,
-					position,
-					selectInlineNode: Boolean(opts.selectInlineNode),
-				});
+		// For platform_editor_element_level_templates experiment only
+		// clean up ticket ED-24873
+		// @ts-ignore
+		if (opts.isTemplate) {
+			insertTemplateFragment({ fragment: node as Fragment, tr, position });
+		} else {
+			node instanceof PMNode && node.isBlock
+				? insertBlockNode({
+						node,
+						tr,
+						position,
+					})
+				: insertInlineNodeOrFragment({
+						maybeFragment: node,
+						tr,
+						position,
+						selectInlineNode: Boolean(opts.selectInlineNode),
+					});
+		}
 
 		closeHistory(tr);
 		if (wasInsertedBySpace) {

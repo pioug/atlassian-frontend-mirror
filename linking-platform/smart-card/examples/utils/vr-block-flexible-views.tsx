@@ -6,7 +6,7 @@ import type { CardAppearance } from '@atlaskit/linking-common';
 import { ErroredClient, ForbiddenClient, NotFoundClient, UnAuthClient } from './custom-client';
 
 export const renderCard = (client: CardClient, appearance: CardAppearance) => (
-	<SmartCardProvider client={client} featureFlags={{ enableFlexibleBlockCard: true }}>
+	<SmartCardProvider client={client}>
 		<Card url="https://some.url" appearance={appearance} />
 	</SmartCardProvider>
 );

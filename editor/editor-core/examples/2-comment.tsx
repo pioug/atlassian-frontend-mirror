@@ -21,7 +21,6 @@ import enMessages from '../src/i18n/en';
 import languages from '../src/i18n/languages';
 import CollapsedEditor from '../src/ui/CollapsedEditor';
 import EditorContext from '../src/ui/EditorContext';
-import ToolbarFeedback from '../src/ui/ToolbarFeedback';
 import ToolbarHelp from '../src/ui/ToolbarHelp';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
@@ -66,6 +65,15 @@ export type State = {
 	isExpanded?: boolean;
 	intlState: { locale: string; messages: { [key: string]: string } };
 };
+
+declare global {
+	interface Window {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		jQuery: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		ATL_JQ_PAGE_PROPS: any;
+	}
+}
 
 export class CommentEditorWithFeedback extends React.Component<Props, State> {
 	state = {
@@ -173,7 +181,6 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 											}}
 											primaryToolbarComponents={
 												<>
-													<ToolbarFeedback product="bitbucket" key="toolbar-feedback" />
 													<ToolbarHelp key="toolbar-help" />
 												</>
 											}

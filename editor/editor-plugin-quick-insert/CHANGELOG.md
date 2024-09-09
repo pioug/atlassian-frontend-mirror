@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 1.3.2
+
+### Patch Changes
+
+- [#138136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138136)
+  [`35938ecf46ba7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35938ecf46ba7) -
+  [ED-24755] Implement insert functionality of element templates and fire document inserted event
+  with template IDs
+- Updated dependencies
+
 ## 1.3.1
 
 ### Patch Changes

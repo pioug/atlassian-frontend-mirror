@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.53.0
+
+### Minor Changes
+
+- [#137821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137821)
+  [`e26174c7d02a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e26174c7d02a6) -
+  ED-24631 Refactor how ExternalImageBadge and CommentBadge are rendered
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.52.0
 
 ### Minor Changes

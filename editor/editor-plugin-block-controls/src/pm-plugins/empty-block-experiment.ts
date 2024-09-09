@@ -25,6 +25,10 @@ const getDecorations = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 	getIntl: () => IntlShape,
 ): DecorationSet => {
+	const isEditorDisabled = api?.editorDisabled?.sharedState.currentState()?.editorDisabled;
+	if (isEditorDisabled) {
+		return DecorationSet.empty;
+	}
 	const widget = createEmptyBlockWidgetDecoration(tr.selection, api, getIntl);
 
 	if (widget) {

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media
 
+## 1.30.0
+
+### Minor Changes
+
+- [#137821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137821)
+  [`e26174c7d02a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e26174c7d02a6) -
+  ED-24631 Refactor how ExternalImageBadge and CommentBadge are rendered
+
+### Patch Changes
+
+- [#138118](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138118)
+  [`5e4d9eb1aefe4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e4d9eb1aefe4) -
+  NOISSUE: Upgrades editor React peer dependencies to v18
+- Updated dependencies
+
 ## 1.29.9
 
 ### Patch Changes

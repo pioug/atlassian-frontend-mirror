@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.12.0
+
+### Minor Changes
+
+- [#138305](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138305)
+  [`c79d9c18032b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c79d9c18032b6) -
+  Passing task local ID from editor mentions plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.11.4
 
 ### Patch Changes

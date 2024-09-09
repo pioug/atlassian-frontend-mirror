@@ -64,6 +64,9 @@
 			"path": "../../media/icon-file-type/tsconfig.app.json"
 		},
 		{
+			"path": "../icon-lab/tsconfig.app.json"
+		},
+		{
 			"path": "../icon-object/tsconfig.app.json"
 		},
 		{
@@ -101,9 +104,6 @@
 		},
 		{
 			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
-		},
-		{
-			"path": "../icon-lab/tsconfig.app.json"
 		}
 	]
 }

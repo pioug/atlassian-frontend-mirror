@@ -289,15 +289,40 @@ function createPasteAnalyticsPayloadBySelection(
 
 		const mentionIds: string[] = [];
 		const mentionLocalIds: string[] = [];
-		const mentionsInserted: { type: 'added'; id: string; localId: string }[] = [];
 		slice.content.descendants((node) => {
 			if (node.type.name === 'mention') {
 				mentionIds.push(node.attrs.id);
 				mentionLocalIds.push(node.attrs.localId);
-				mentionsInserted.push({ type: 'added', id: node.attrs.id, localId: node.attrs.localId });
 			}
 		});
-		pluginInjectionApi?.mention?.actions?.announceMentionsInsertion(mentionsInserted);
+
+		if (pluginInjectionApi?.mention?.actions?.announceMentionsInsertion) {
+			const mentionsInserted: {
+				type: 'added';
+				id: string;
+				localId: string;
+				taskLocalId?: string;
+			}[] = [];
+			slice.content.descendants((node) => {
+				if (node.type.name === 'mention') {
+					mentionsInserted.push({ type: 'added', id: node.attrs.id, localId: node.attrs.localId });
+				}
+				if (node.type.name === 'taskItem') {
+					node.content.forEach((nodeContent) => {
+						if (nodeContent.type.name === 'mention') {
+							mentionsInserted.push({
+								type: 'added',
+								localId: nodeContent.attrs.localId,
+								id: nodeContent.attrs.id,
+								taskLocalId: node.attrs.localId,
+							});
+						}
+					});
+					return false;
+				}
+			});
+			pluginInjectionApi?.mention?.actions?.announceMentionsInsertion(mentionsInserted);
+		}
 
 		if (pasteContext.type === PasteTypes.plain) {
 			return createPastePayload(actionSubjectId, {

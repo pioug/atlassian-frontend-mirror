@@ -9,10 +9,10 @@ import { css, jsx } from '@emotion/react';
 
 import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
+import iconLabsMetadata from '@atlaskit/icon-lab/metadata';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-import iconLabsMetadata from '@atlassian/icon-lab/metadata';
 
 import FlaskIcon from '../core/flask';
 import { IconTile } from '../src';
@@ -87,7 +87,7 @@ const localIconInfo = Promise.all(
 	Object.keys(iconLabsMetadata).map(async (name: string) => {
 		const icon = await import(
 			/* webpackChunkName: "@atlaskit-internal_icon-lab" */
-			`@atlassian/icon-lab/core/${name}.js`
+			`@atlaskit/icon-lab/core/${name}.js`
 		);
 		return { name, icon: icon.default };
 	}),
@@ -234,7 +234,7 @@ const IconAllExample = () => {
 				<Inline alignBlock="center" space="space.100">
 					<IconTile size="24" appearance="green" label="" icon={FlaskIcon} />
 					<Heading size="small">
-						Icon Lab (exported from <Code>@atlassian/icon-lab/core/*</Code>)
+						Icon Lab (exported from <Code>@atlaskit/icon-lab/core/*</Code>)
 					</Heading>
 				</Inline>
 				{singlePurposeLabIcons && filterIcons(singlePurposeLabIcons, query).length > 0 && (

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.4.0
+
+### Minor Changes
+
+- [#136903](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136903)
+  [`2a9928406d4d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a9928406d4d3) -
+  [ux] [ED-24756] **@atlaskit/editor-plugin-media-insert**: Added a hook to correctly focus on the
+  Upload button when user opens media insert (preventing scrolling to the top of the editor)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.2
 
 ### Patch Changes

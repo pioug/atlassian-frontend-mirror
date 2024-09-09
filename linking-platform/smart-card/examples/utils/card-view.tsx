@@ -57,7 +57,7 @@ const CardView = ({
 	useLegacyBlockCard = false,
 	inheritDimensions,
 }: CardViewProps) => (
-	<SmartCardProvider client={client} featureFlags={{ enableFlexibleBlockCard: true }}>
+	<SmartCardProvider client={client}>
 		<EmbedCardWrapper inheritDimensions={inheritDimensions}>
 			<Card
 				appearance={appearance}

@@ -14,7 +14,9 @@ import { InlineCommentsStateContext } from '../../../ui/annotations/context';
 import { IntlProvider } from 'react-intl-next';
 
 jest.mock('@atlaskit/editor-common/media-single', () => ({
+	...jest.requireActual('@atlaskit/editor-common/media-single'),
 	CommentBadge: () => <span data-testid="comment-badge">Comment Component</span>,
+	CommentBadgeNext: () => <span data-testid="comment-badge-next">Comment Component</span>,
 	ExternalImageBadge: () => (
 		<span data-testid="external-image-badge">External Image Component</span>
 	),

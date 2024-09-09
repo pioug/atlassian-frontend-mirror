@@ -1,6 +1,7 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * @jsxFrag
  */
 import type { PropsWithChildren, SyntheticEvent } from 'react';
 import React, { PureComponent, Fragment, useEffect, useState, useMemo, useContext } from 'react';
@@ -42,9 +43,11 @@ import { AnnotationsDraftContext, ProvidersContext } from '../../../ui/annotatio
 import type { CommentBadgeProps } from '@atlaskit/editor-common/media-single';
 import {
 	CommentBadge as CommentBadgeComponent,
+	CommentBadgeNext,
 	ExternalImageBadge,
+	MediaBadges,
 } from '@atlaskit/editor-common/media-single';
-import { useIntl, injectIntl } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import {
 	useInlineCommentSubscriberContext,
 	useInlineCommentsFilter,
@@ -287,15 +290,25 @@ const CommentBadgeWrapper = ({
 	);
 };
 
-// This is a copy of above component with adding forwardRef.
-// Clean this up when removing fg('platform_editor_insert_media_plugin_phase_one') flag.
-const CommentBadgeWrapperWithRef = React.forwardRef<
-	HTMLDivElement,
-	Omit<CommentBadgeProps, 'onClick' | 'intl'> & {
-		marks?: AnnotationMarkDefinition[];
-	}
->(({ marks, mediaSingleElement, isDrafting = false, ...rest }, ref) => {
-	const intl = useIntl();
+/**
+ * Remove CommentBadgeWrapper component above
+ * and rename CommentBadgeNextWrapper to CommentBadgeWrapper
+ * when clean up platform_editor_insert_media_plugin_phase_one feature flag
+ */
+
+type CommentBadgeNextWrapperProps = {
+	mediaSingleElement?: HTMLElement | null;
+	marks?: AnnotationMarkDefinition[];
+	isDrafting?: boolean;
+	badgeSize: 'small' | 'medium';
+};
+
+const CommentBadgeNextWrapper = ({
+	marks,
+	mediaSingleElement,
+	isDrafting = false,
+	...rest
+}: CommentBadgeNextWrapperProps) => {
 	const [status, setStatus] = useState<'default' | 'active'>('default');
 	const [entered, setEntered] = useState(false);
 	const updateSubscriber = useInlineCommentSubscriberContext();
@@ -351,9 +364,7 @@ const CommentBadgeWrapperWithRef = React.forwardRef<
 	};
 
 	return (
-		<CommentBadgeComponent
-			ref={ref}
-			intl={intl}
+		<CommentBadgeNext
 			onMouseEnter={() => setEntered(true)}
 			onMouseLeave={() => setEntered(false)}
 			status={entered ? 'entered' : status}
@@ -362,14 +373,13 @@ const CommentBadgeWrapperWithRef = React.forwardRef<
 			{...rest}
 		/>
 	);
-});
+};
 
 class Media extends PureComponent<MediaProps, {}> {
 	constructor(props: MediaProps) {
 		super(props);
 		this.handleMediaLinkClickFn = this.handleMediaLinkClick.bind(this);
 	}
-	commentBadgeRef = React.createRef<HTMLDivElement>();
 	private handleMediaLinkClickFn;
 
 	private renderCard = (providers: Providers = {}) => {
@@ -408,16 +418,7 @@ class Media extends PureComponent<MediaProps, {}> {
 			featureFlags?.commentsOnMedia &&
 			!isInPageInclude &&
 			(!featureFlags?.commentsOnMediaInsertExcerpt || !isIncludeExcerpt);
-
-		const insertMediaPluginPhaseOneFlag = fg('platform_editor_insert_media_plugin_phase_one');
-		const shouldShowExternalMediaBadge =
-			this.props.type === 'external' && insertMediaPluginPhaseOneFlag;
-		const commentBadgeOffset = () => {
-			if (this.commentBadgeRef.current) {
-				return this.commentBadgeRef.current.offsetWidth + 2;
-			}
-			return 0;
-		};
+		const shouldShowExternalMediaBadge = this.props.type === 'external';
 
 		return (
 			<MediaLink mark={linkMark} onClick={this.handleMediaLinkClickFn}>
@@ -430,33 +431,37 @@ class Media extends PureComponent<MediaProps, {}> {
 								},
 							}}
 						>
-							{shouldShowExternalMediaBadge && (
-								<ExternalImageBadge
-									commentBadgeRightOffset={commentBadgeOffset()}
+							{fg('platform_editor_insert_media_plugin_phase_one') && (
+								<MediaBadges
 									mediaElement={mediaSingleElement}
 									mediaWidth={width}
 									mediaHeight={height}
+								>
+									{({ badgeSize }: { badgeSize: 'small' | 'medium' }) => (
+										<>
+											{shouldShowExternalMediaBadge && <ExternalImageBadge badgeSize={badgeSize} />}
+											{showCommentBadge && (
+												<CommentBadgeNextWrapper
+													marks={annotationMarks}
+													mediaSingleElement={mediaSingleElement}
+													isDrafting={isDrafting}
+													badgeSize={badgeSize}
+												/>
+											)}
+										</>
+									)}
+								</MediaBadges>
+							)}
+
+							{!fg('platform_editor_insert_media_plugin_phase_one') && showCommentBadge && (
+								<CommentBadgeWrapper
+									marks={annotationMarks}
+									mediaSingleElement={mediaSingleElement}
+									width={width}
+									height={height}
+									isDrafting={isDrafting}
 								/>
 							)}
-							{showCommentBadge &&
-								(insertMediaPluginPhaseOneFlag ? (
-									<CommentBadgeWrapperWithRef
-										ref={this.commentBadgeRef}
-										marks={annotationMarks}
-										mediaSingleElement={mediaSingleElement}
-										width={width}
-										height={height}
-										isDrafting={isDrafting}
-									/>
-								) : (
-									<CommentBadgeWrapper
-										marks={annotationMarks}
-										mediaSingleElement={mediaSingleElement}
-										width={width}
-										height={height}
-										isDrafting={isDrafting}
-									/>
-								))}
 							<MediaCard
 								contextIdentifierProvider={contextIdentifierProvider}
 								{...this.props}

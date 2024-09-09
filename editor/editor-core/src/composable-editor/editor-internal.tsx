@@ -83,14 +83,15 @@ export const EditorInternal = memo(
 		const setEditorApi = useCallback(
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(api: PublicPluginAPI<any>) => {
-				// This is an workaround to unblock Editor Lego Decoupling project, if you have questions ping us #cc-editor-lego
-				// We may clean up this code when EditorActions deprecation process starts
-				// @ts-expect-error 2339: Property '__EDITOR_INTERNALS_DO_NOT_USE__API' does not exist on type 'EditorActions<any>'.
-				editorActions.__EDITOR_INTERNALS_DO_NOT_USE__API = api;
+				if (!fg('platform_editor_remove_editor_actions_workaround')) {
+					// This is an workaround to unblock Editor Lego Decoupling project, if you have questions ping us #cc-editor-lego
+					// We may clean up this code when EditorActions deprecation process starts
+					// @ts-expect-error 2339: Property '__EDITOR_INTERNALS_DO_NOT_USE__API' does not exist on type 'EditorActions<any>'.
+					editorActions.__EDITOR_INTERNALS_DO_NOT_USE__API = api;
+				}
 			},
 			[editorActions],
 		);
-
 		const overriddenEditorProps = {
 			...props,
 			onSave: props.onSave ? handleSave : undefined,
@@ -189,11 +190,6 @@ export const EditorInternal = memo(
 														useStickyToolbar={props.useStickyToolbar}
 														featureFlags={featureFlags}
 														pluginHooks={config.pluginHooks}
-														hideAvatarGroup={
-															fg('platform_editor_remove_hide_avatar_group_prop')
-																? undefined
-																: props.hideAvatarGroup
-														}
 													/>
 												</BaseThemeWrapper>
 											)}

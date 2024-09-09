@@ -1,6 +1,5 @@
 import rafSchedule from 'raf-schd';
 
-import type { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles';
@@ -193,17 +192,11 @@ export const createPlugin =
 			},
 
 			view(view: EditorView) {
-				const subscriptionHandler: ProviderHandler<'cardProvider'> = (name, provider) =>
-					handleProvider(name, provider, view);
 				const domAtPos = view.domAtPos.bind(view);
 				const rafCancellationCallbacks: Function[] = [];
 
-				if (fg('platform_editor_get_card_provider_from_config')) {
-					if (options.provider) {
-						handleProvider('cardProvider', options.provider, view);
-					}
-				} else {
-					pmPluginFactoryParams.providerFactory.subscribe('cardProvider', subscriptionHandler);
+				if (options.provider) {
+					handleProvider('cardProvider', options.provider, view);
 				}
 
 				return {
@@ -296,13 +289,6 @@ export const createPlugin =
 					destroy() {
 						// Cancel any outstanding raf callbacks.
 						rafCancellationCallbacks.forEach((cancellationCallback) => cancellationCallback());
-
-						if (!fg('platform_editor_get_card_provider_from_config')) {
-							pmPluginFactoryParams.providerFactory.unsubscribe(
-								'cardProvider',
-								subscriptionHandler,
-							);
-						}
 					},
 				};
 			},

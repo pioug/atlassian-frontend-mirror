@@ -11,6 +11,11 @@ export const toolbarInsertBlockMessages = defineMessages({
 		defaultMessage: 'Create and assign action items',
 		description: '',
 	},
+	closeInsertRightRail: {
+		id: 'fabric.editor.insertRightRail.close',
+		defaultMessage: 'Close',
+		description: 'Close button label',
+	},
 	link: {
 		id: 'fabric.editor.link',
 		defaultMessage: 'Link',
@@ -30,6 +35,11 @@ export const toolbarInsertBlockMessages = defineMessages({
 		id: 'fabric.editor.addMediaFiles',
 		defaultMessage: 'Add image, video, or file',
 		description: 'Insert one or more files, videos or images',
+	},
+	insertRightRailTitle: {
+		id: 'fabric.editor.insertRightRail.title',
+		defaultMessage: 'Insert',
+		description: 'Insert a node into the document',
 	},
 	insertMediaFromUrl: {
 		id: 'fabric.editor.insertMediaFromUrl',

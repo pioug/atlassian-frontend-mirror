@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.14.0
+
+### Minor Changes
+
+- [#138136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138136)
+  [`35938ecf46ba7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35938ecf46ba7) -
+  [ED-24755] Implement insert functionality of element templates and fire document inserted event
+  with template IDs
+
+### Patch Changes
+
+- [#138270](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138270)
+  [`0acb3673d32d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0acb3673d32d9) -
+  Add insert menu to right rail for experiment
+- Updated dependencies
+
 ## 1.13.0
 
 ### Minor Changes

@@ -42,6 +42,7 @@ describe('page-layout', () => {
 				<RightPanel width={200}>Right panel</RightPanel>
 			</PageLayout>,
 		);
+		// eslint-disable-next-line testing-library/no-node-access
 		const elements = document.querySelectorAll('[data-ds--page-layout--slot]');
 		expect(elements.length).toEqual(7);
 	});
@@ -50,7 +51,7 @@ describe('page-layout', () => {
 		const bannerName = 'Banner panel';
 		const topNavName = 'Top Navigation panel';
 
-		const component = render(
+		render(
 			<PageLayout>
 				<Banner testId="banner" height={60} skipLinkTitle={bannerName} id="banner">
 					<h3 css={slotLabelStyles}>Banner</h3>
@@ -72,9 +73,9 @@ describe('page-layout', () => {
 		);
 
 		// Heading
-		expect(component.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS)).toBeInTheDocument();
+		expect(screen.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS)).toBeInTheDocument();
 
-		const skipLinks = component.getAllByRole('link');
+		const skipLinks = screen.getAllByRole('link');
 		expect(skipLinks).toHaveLength(2);
 		expect(screen.getByRole('link', { name: bannerName })).toBeInTheDocument();
 		expect(screen.getByRole('link', { name: topNavName })).toBeInTheDocument();

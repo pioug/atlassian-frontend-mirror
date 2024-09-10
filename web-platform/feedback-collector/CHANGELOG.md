@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 13.10.2
+
+### Patch Changes
+
+- [#138125](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138125)
+  [`e7e571e227493`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e7e571e227493) -
+  bump react-dom version
+
 ## 13.10.1
 
 ### Patch Changes

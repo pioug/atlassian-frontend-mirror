@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { act, render, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor, within } from '@testing-library/react';
 
 import ExitingPersistence, { useExitingPersistence } from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
@@ -44,11 +44,11 @@ describe('<ExitingPersistence />', () => {
 
 		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-		expect(baseElement.querySelector('[data-testid=element]')).toEqual(null);
+		expect(within(baseElement).queryByTestId('element')).not.toBeInTheDocument();
 	});
 
 	it('should persist a single child when being removed', () => {
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				<Motion id="element" />
 			</ExitingPersistence>,
@@ -56,7 +56,7 @@ describe('<ExitingPersistence />', () => {
 
 		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-		expect(getByTestId('element')).toBeInTheDocument();
+		expect(screen.getByTestId('element')).toBeInTheDocument();
 	});
 
 	it('should remove the child once the exit motion is finished', () => {
@@ -74,11 +74,11 @@ describe('<ExitingPersistence />', () => {
 			jest.runAllTimers();
 		});
 
-		expect(baseElement.querySelector('[data-testid=element]')).toEqual(null);
+		expect(within(baseElement).queryByTestId('element')).not.toBeInTheDocument();
 	});
 
 	it('should persist a removed child inside a list', () => {
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				{[
 					<Motion id="element1" key="element1" />,
@@ -94,7 +94,7 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		expect(getByTestId('element2')).toBeInTheDocument();
+		expect(screen.getByTestId('element2')).toBeInTheDocument();
 	});
 
 	it('should remove the child inside a list when the motion is finished', () => {
@@ -118,12 +118,12 @@ describe('<ExitingPersistence />', () => {
 			jest.runAllTimers();
 		});
 
-		expect(baseElement.querySelector('[data-testid=element2]')).toEqual(null);
+		expect(within(baseElement).queryByTestId('element2')).not.toBeInTheDocument();
 	});
 
 	it('should add back a child that was removed from the list in a previous render', () => {
 		jest.useFakeTimers();
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				{[
 					<Motion id="element1" key="Bitbucket" />,
@@ -163,11 +163,11 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		expect(getByTestId('element3')).toBeInTheDocument();
+		expect(screen.getByTestId('element3')).toBeInTheDocument();
 	});
 
 	it('should persist the child if it is replaced with another element', () => {
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				{[
 					<Motion id="element1" key="element1" />,
@@ -187,11 +187,11 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		expect(getByTestId('element2')).toBeInTheDocument();
+		expect(screen.getByTestId('element2')).toBeInTheDocument();
 	});
 
 	it('should persist a list of children if they are all removed', () => {
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				{[
 					<Motion id="element1" key="element1" />,
@@ -203,13 +203,13 @@ describe('<ExitingPersistence />', () => {
 
 		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-		expect(getByTestId('element1')).toBeInTheDocument();
-		expect(getByTestId('element2')).toBeInTheDocument();
-		expect(getByTestId('element3')).toBeInTheDocument();
+		expect(screen.getByTestId('element1')).toBeInTheDocument();
+		expect(screen.getByTestId('element2')).toBeInTheDocument();
+		expect(screen.getByTestId('element3')).toBeInTheDocument();
 	});
 
 	it('should ensure when persisting children other child elements are updated', async () => {
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				{[
 					<Motion id="element1" key="element1" color="purple" />,
@@ -227,11 +227,13 @@ describe('<ExitingPersistence />', () => {
 				]}
 			</ExitingPersistence>,
 		);
-		await waitFor(() => expect(getByTestId('element1')).toHaveAttribute('data-color', 'blue'));
+		await waitFor(() =>
+			expect(screen.getByTestId('element1')).toHaveAttribute('data-color', 'blue'),
+		);
 	});
 
 	it('should persist a child when being removed when there are multiple conditional children', () => {
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				<Motion id="element1" />
 				<Motion id="element2" />
@@ -247,7 +249,7 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		expect(getByTestId('element2')).toBeInTheDocument();
+		expect(screen.getByTestId('element2')).toBeInTheDocument();
 	});
 
 	it('should remove a child when motion is finished when there are multiple conditional children', () => {
@@ -271,7 +273,7 @@ describe('<ExitingPersistence />', () => {
 			jest.runAllTimers();
 		});
 
-		expect(baseElement.querySelector('[data-testid=element2]')).toEqual(null);
+		expect(within(baseElement).queryByTestId('element2')).not.toBeInTheDocument();
 	});
 
 	it('should not remount other children when a child is persisted', () => {
@@ -299,7 +301,7 @@ describe('<ExitingPersistence />', () => {
 	});
 
 	it('should mount a new child at the same time as one is exiting', () => {
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				<Motion id="element1" key="1" />
 			</ExitingPersistence>,
@@ -311,11 +313,11 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		expect(getByTestId('element2')).toBeInTheDocument();
+		expect(screen.getByTestId('element2')).toBeInTheDocument();
 	});
 
 	it('should splice new children added at the same time as some are exiting', () => {
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				{[
 					<Motion id="element1" key="element1" />,
@@ -335,14 +337,15 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		const element3 = getByTestId('element3');
-		const element4 = getByTestId('element4');
+		const element3 = screen.getByTestId('element3');
+		const element4 = screen.getByTestId('element4');
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(element3.nextElementSibling).toBe(element4);
 	});
 
 	it('should persist an element when switching to and from during an inflight motion', () => {
 		jest.useFakeTimers();
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				<Motion id="element1" key="1" />
 			</ExitingPersistence>,
@@ -361,13 +364,13 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		expect(getByTestId('element1')).toBeInTheDocument();
-		expect(getByTestId('element2')).toBeInTheDocument();
+		expect(screen.getByTestId('element1')).toBeInTheDocument();
+		expect(screen.getByTestId('element2')).toBeInTheDocument();
 	});
 
 	it.skip('should persist exiting children when sequential exits happen during another exit motion', () => {
 		jest.useFakeTimers();
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				{[
 					<Motion id="element1" key="element1" />,
@@ -388,9 +391,9 @@ describe('<ExitingPersistence />', () => {
 		rerender(<ExitingPersistence>{[]}</ExitingPersistence>);
 		jest.advanceTimersByTime(99);
 
-		expect(getByTestId('element1')).toBeInTheDocument();
-		expect(getByTestId('element2')).toBeInTheDocument();
-		expect(getByTestId('element3')).toBeInTheDocument();
+		expect(screen.getByTestId('element1')).toBeInTheDocument();
+		expect(screen.getByTestId('element2')).toBeInTheDocument();
+		expect(screen.getByTestId('element3')).toBeInTheDocument();
 	});
 
 	it('should remove sequential exiting children after all inflight exits have finished', () => {
@@ -421,10 +424,9 @@ describe('<ExitingPersistence />', () => {
 		act(() => {
 			jest.runAllTimers();
 		});
-
-		expect(baseElement.querySelector('[data-testid=element1]')).toEqual(null);
-		expect(baseElement.querySelector('[data-testid=element2]')).toEqual(null);
-		expect(baseElement.querySelector('[data-testid=element3]')).toEqual(null);
+		expect(within(baseElement).queryByTestId('element1')).not.toBeInTheDocument();
+		expect(within(baseElement).queryByTestId('element2')).not.toBeInTheDocument();
+		expect(within(baseElement).queryByTestId('element3')).not.toBeInTheDocument();
 	});
 
 	it('should remove exiting elements before entering new ones', () => {
@@ -440,12 +442,12 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		expect(baseElement.querySelector('[data-testid=element2]')).toEqual(null);
+		expect(within(baseElement).queryByTestId('element2')).not.toBeInTheDocument();
 	});
 
 	it('should render entering elements after exiting elements have left', () => {
 		jest.useFakeTimers();
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence exitThenEnter>
 				<Motion id="element1" key="1" />
 			</ExitingPersistence>,
@@ -460,7 +462,7 @@ describe('<ExitingPersistence />', () => {
 			jest.runAllTimers();
 		});
 
-		expect(getByTestId('element2')).toBeInTheDocument();
+		expect(screen.getByTestId('element2')).toBeInTheDocument();
 	});
 
 	it('should re-render once', () => {
@@ -504,7 +506,7 @@ describe('<ExitingPersistence />', () => {
 	});
 
 	it('should allow child motions to appear on initial mount', () => {
-		const { getByTestId } = render(
+		render(
 			<ExitingPersistence appear>
 				<KeyframesMotion
 					enteringAnimation={{}}
@@ -516,11 +518,11 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		expect(getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
+		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
 	});
 
 	it('should immediately show child motions on initial mount', () => {
-		const { getByTestId } = render(
+		render(
 			<ExitingPersistence>
 				<KeyframesMotion
 					enteringAnimation={{}}
@@ -532,11 +534,14 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		expect(getByTestId('target')).not.toHaveStyleDeclaration('animation-play-state', 'running');
+		expect(screen.getByTestId('target')).not.toHaveStyleDeclaration(
+			'animation-play-state',
+			'running',
+		);
 	});
 
 	it('should have child elements appear after the initial mount when initial mount was immediate', () => {
-		const { getByTestId, rerender } = render(<ExitingPersistence>{false}</ExitingPersistence>);
+		const { rerender } = render(<ExitingPersistence>{false}</ExitingPersistence>);
 
 		rerender(
 			<ExitingPersistence>
@@ -550,13 +555,11 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		expect(getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
+		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
 	});
 
 	it('should have child elements appear after the initial mount when initial mount they appeared', () => {
-		const { getByTestId, rerender } = render(
-			<ExitingPersistence appear>{false}</ExitingPersistence>,
-		);
+		const { rerender } = render(<ExitingPersistence appear>{false}</ExitingPersistence>);
 
 		rerender(
 			<ExitingPersistence appear>
@@ -570,11 +573,11 @@ describe('<ExitingPersistence />', () => {
 			</ExitingPersistence>,
 		);
 
-		expect(getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
+		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
 	});
 
 	it('should let motions appear by default outside of a exiting persistence', () => {
-		const { getByTestId } = render(
+		render(
 			<KeyframesMotion
 				enteringAnimation={{}}
 				animationTimingFunction={() => 'linear'}
@@ -584,6 +587,6 @@ describe('<ExitingPersistence />', () => {
 			</KeyframesMotion>,
 		);
 
-		expect(getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
+		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '100ms');
 	});
 });

@@ -8,6 +8,8 @@ import {
 	Popper as ReactPopper,
 } from 'react-popper';
 
+import { getMaxSizeModifiers } from './max-size';
+
 export { placements } from '@popperjs/core';
 // Export types from PopperJS / React Popper
 export type { Placement, VirtualElement } from '@popperjs/core';
@@ -55,26 +57,33 @@ export interface CustomPopperProps<Modifiers> {
 	 * Placement strategy used. Can be 'fixed' or 'absolute'
 	 */
 	strategy?: PopperProps<Modifiers>['strategy'];
+
+	/**
+	 * Determines if the popper will have a `max-width` and `max-height` set to
+	 * constrain it to the viewport.
+	 */
+	shouldFitViewport?: boolean;
 }
 
-type InternalModifierNames = 'flip' | 'hide' | 'offset' | 'preventOverflow';
+type InternalModifierNames =
+	| 'flip'
+	| 'hide'
+	| 'offset'
+	| 'preventOverflow'
+	| 'maxSizeData'
+	| 'maxSize';
 type ModifierProps = Modifier<InternalModifierNames>[];
+
+const viewportPadding = 5;
 
 const constantModifiers: ModifierProps = [
 	{
 		name: 'flip',
 		options: {
 			flipVariations: false,
-			padding: 5,
+			padding: viewportPadding,
 			boundary: 'clippingParents',
 			rootBoundary: 'viewport',
-		},
-	},
-	{
-		name: 'preventOverflow',
-		options: {
-			padding: 5,
-			rootBoundary: 'document',
 		},
 	},
 ];
@@ -92,13 +101,21 @@ export function Popper<CustomModifiers>({
 	referenceElement = undefined,
 	modifiers,
 	strategy = 'fixed',
+	shouldFitViewport = false,
 }: CustomPopperProps<CustomModifiers>) {
 	const [offsetX, offsetY] = offset;
 
 	type CombinedModifiers = Partial<Modifier<InternalModifierNames | CustomModifiers>>[];
 
-	// Merge a new offset modifier only if new offset values passed in
 	const internalModifiers = useMemo((): CombinedModifiers => {
+		const preventOverflowModifier: Modifier<'preventOverflow'> = {
+			name: 'preventOverflow',
+			options: {
+				padding: viewportPadding,
+				rootBoundary: shouldFitViewport ? 'viewport' : 'document',
+			},
+		};
+
 		const offsetModifier: Modifier<'offset'> = {
 			name: 'offset',
 			options: {
@@ -106,8 +123,10 @@ export function Popper<CustomModifiers>({
 			},
 		};
 
-		return [...constantModifiers, offsetModifier];
-	}, [offsetX, offsetY]);
+		const maxSizeModifiers = shouldFitViewport ? getMaxSizeModifiers({ viewportPadding }) : [];
+
+		return [...constantModifiers, preventOverflowModifier, offsetModifier, ...maxSizeModifiers];
+	}, [offsetX, offsetY, shouldFitViewport]);
 
 	// Merge custom props and memoize
 	const mergedModifiers = useMemo(() => {

@@ -71,8 +71,6 @@ const SCENARIOS: Scenario[] = [
 	},
 ];
 
-const themeModes = ['dark', 'light', 'none'] as const;
-
 describe('Mention VR Snapshot Test', () => {
 	let page: PuppeteerPage;
 
@@ -86,32 +84,24 @@ describe('Mention VR Snapshot Test', () => {
 		await waitForNoTooltip(page);
 	});
 
-	themeModes.forEach((themeMode) => {
-		SCENARIOS.forEach(({ exampleName, interactions }) => {
-			interactions.forEach((interaction) => {
-				// FIXME: This test was automatically skipped due to failure on 31/05/2023: https://product-fabric.atlassian.net/browse/QS-3026
-				it.skip(`should render ${exampleName} with theme=${themeMode} interaction=${interaction.name}`, async () => {
-					const url = getExampleUrl(
-						'elements',
-						'mention',
-						exampleName,
-						global.__BASEURL__,
-						themeMode,
-					);
+	SCENARIOS.forEach(({ exampleName, interactions }) => {
+		interactions.forEach((interaction) => {
+			// FIXME: This test was automatically skipped due to failure on 31/05/2023: https://product-fabric.atlassian.net/browse/QS-3026
+			it.skip(`should render ${exampleName} with interaction=${interaction.name}`, async () => {
+				const url = getExampleUrl('elements', 'mention', exampleName, global.__BASEURL__, 'light');
 
-					await loadPage(page, url, {
-						allowedSideEffects: {
-							tooltips: true,
-						},
-					});
-
-					if (interaction.func) {
-						await interaction.func(page);
-					}
-
-					const image = await takeElementScreenShot(page, `[data-testid="vr-tested"]`);
-					return expect(image).toMatchProdImageSnapshot();
+				await loadPage(page, url, {
+					allowedSideEffects: {
+						tooltips: true,
+					},
 				});
+
+				if (interaction.func) {
+					await interaction.func(page);
+				}
+
+				const image = await takeElementScreenShot(page, `[data-testid="vr-tested"]`);
+				return expect(image).toMatchProdImageSnapshot();
 			});
 		});
 	});

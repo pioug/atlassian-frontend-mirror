@@ -8,7 +8,6 @@ import type {
 	ReplaceRawValue,
 	Transformer,
 } from '@atlaskit/editor-common/types';
-import { findNodePosByLocalIds, isEmptyDocument, toJSON } from '@atlaskit/editor-common/utils';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils/analytics';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -22,6 +21,10 @@ import { getEditorValueWithMedia } from '../utils/action';
 import deprecationWarnings from '../utils/deprecation-warnings';
 import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
 import { processRawFragmentValue } from '../utils/processRawFragmentValue';
+
+import { isEmptyDocument } from './temp-is-empty-document';
+import { findNodePosByLocalIds } from './temp-nodes-by-localids';
+import { toJSON } from './temp-to-json';
 
 // TODO: ED-21786
 // Please, do not copy or use this kind of code below

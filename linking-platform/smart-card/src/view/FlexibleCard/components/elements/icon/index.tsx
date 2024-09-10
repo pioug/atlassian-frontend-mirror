@@ -51,13 +51,9 @@ const getCustomRenderStyles = (value: string): SerializedStyles =>
 		},
 	});
 
-const renderAtlaskitIcon = (
-	icon?: IconType,
-	label?: string,
-	testId?: string,
-): React.ReactNode | undefined => {
+const renderAtlaskitIcon = (icon?: IconType, testId?: string): React.ReactNode | undefined => {
 	if (icon) {
-		return <AtlaskitIcon icon={icon} label={label} testId={`${testId}-icon`} />;
+		return <AtlaskitIcon icon={icon} testId={`${testId}-icon`} />;
 	}
 };
 
@@ -99,7 +95,7 @@ const Icon = ({
 			overrideIcon ||
 			render?.() ||
 			renderImageIcon(defaultIcon, url, testId) ||
-			renderAtlaskitIcon(icon, label, testId) ||
+			renderAtlaskitIcon(icon, testId) ||
 			defaultIcon
 		);
 	}, [overrideIcon, icon, label, render, testId, url]);

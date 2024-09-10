@@ -1,76 +1,49 @@
-/* eslint-disable react/prop-types */
-import React, { Component } from 'react';
+import React, { type ReactElement, useState } from 'react';
+
+import { type RowProps } from '../row';
 
 import Item from './item';
 import LoaderItem from './loader-item';
 
-interface ItemsProps<Item = any> {
-	parentData?: any;
-	depth: number;
+export interface ItemsProps<Item> {
+	depth?: number;
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	items?: Item[];
+	items?: Item[] | null;
 	loadingLabel?: string;
-	render: (arg: Item) => React.ReactNode;
+	render: (arg: Item & { children?: Item[] }) => ReactElement<RowProps<Item>> | null;
 }
 
-interface State {
-	isLoaderShown: boolean;
-}
+function Items<Item extends { id: string }>({
+	depth = 0,
+	items,
+	loadingLabel,
+	render,
+}: ItemsProps<Item>) {
+	const [isLoaderShown, setIsLoaderShown] = useState(false);
 
-export default class Items<Item> extends Component<ItemsProps<Item>, State> {
-	static defaultProps = {
-		depth: 0,
-	};
+	const handleLoaderComplete = () => setIsLoaderShown(false);
 
-	state: State = {
-		isLoaderShown: false,
-	};
-
-	static getDerivedStateFromProps(nextProps: any, prevState: any) {
-		if (!nextProps.items && !prevState.isLoaderShown) {
-			return {
-				isLoaderShown: true,
-			};
-		}
-		return null;
-	}
-
-	handleLoaderComplete = () => {
-		this.setState({
-			isLoaderShown: false,
-		});
-	};
-
-	renderLoader() {
-		const { depth, items, loadingLabel } = this.props;
-		return (
-			<LoaderItem
-				isCompleting={!!(items && items.length)}
-				onComplete={this.handleLoaderComplete}
-				depth={depth + 1}
-				loadingLabel={loadingLabel}
-			/>
-		);
-	}
-
-	renderItems() {
-		const { render, items, loadingLabel, depth = 0 } = this.props;
-		return (
-			items &&
-			items.map((itemData, index) => (
+	return !items || isLoaderShown ? (
+		<LoaderItem
+			isCompleting={!!(items && items.length)}
+			onComplete={handleLoaderComplete}
+			depth={depth + 1}
+			loadingLabel={loadingLabel}
+		/>
+	) : (
+		<>
+			{items.map((data) => (
 				<Item
-					data={itemData}
+					data={data}
 					depth={depth + 1}
-					key={(itemData && (itemData as any).id) || index}
+					key={data.id}
 					render={render}
 					loadingLabel={loadingLabel}
 				/>
-			))
-		);
-	}
-
-	render() {
-		const { isLoaderShown } = this.state;
-		return isLoaderShown ? this.renderLoader() : this.renderItems();
-	}
+			))}
+		</>
+	);
 }
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default Items;

@@ -40,9 +40,9 @@ describe('@atlaskit/page-header', () => {
 	});
 
 	it('should render component as <h1> level heading', () => {
-		const { container } = render(<PageHeader>Title</PageHeader>);
+		render(<PageHeader>Title</PageHeader>);
 
-		expect(container.querySelector('h1')).toBeInTheDocument();
+		expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
 	});
 
 	it('should render passed children', () => {
@@ -69,14 +69,14 @@ describe('@atlaskit/page-header', () => {
 
 	it('should render custom component without the StyledTitle when disableTitleStyles is true', () => {
 		const CustomTitle = () => <span>Custom component</span>;
-		const { container } = render(
+		render(
 			<PageHeader disableTitleStyles>
 				<CustomTitle />
 			</PageHeader>,
 		);
 
 		expect(screen.getByText('Custom component')).toBeInTheDocument();
-		expect(container.querySelector('h1')).not.toBeInTheDocument();
+		expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument();
 	});
 
 	it('should truncate with truncateTitle prop', () => {

@@ -1,30 +1,28 @@
 import React from 'react';
 
-import {
-	fireEvent,
-	getAllByRole,
-	getByRole,
-	queryByRole,
-	render,
-	screen,
-} from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import staticData from '../../../examples/data-cleancode-toc.json';
 import TableTree, { Cell, Header, Headers, Row, Rows } from '../../index';
 
-const c = (title: any, children?: any) => ({ title, children });
+const c = (title: any, children?: any) => ({
+	title,
+	id: title.replaceAll(' ', '-').toLowerCase(),
+	children,
+});
 
 describe('TableTree', () => {
 	const Title = (props: any) => <span>{props.title}</span>;
 	const Numbering = (props: any) => <span>{props.numbering}</span>;
 	const labelValue = 'test label';
+	const { children } = staticData;
 	it('should have label', () => {
 		render(
 			<TableTree
 				headers={['Title', 'Numbering']}
 				columns={[Title, Numbering]}
 				columnWidths={['200px', '200px']}
-				items={staticData.children}
+				items={children}
 				label={labelValue}
 			/>,
 		);
@@ -39,7 +37,7 @@ describe('TableTree', () => {
 					headers={['Title', 'Numbering']}
 					columns={[Title, Numbering]}
 					columnWidths={['200px', '200px']}
-					items={staticData.children}
+					items={children}
 					referencedLabel="table-label"
 				/>
 				,
@@ -52,9 +50,9 @@ describe('TableTree', () => {
 
 test('flat tree', async () => {
 	const flatItems = [
-		{ title: 'Chapter One', page: 10 },
-		{ title: 'Chapter Two', page: 20 },
-		{ title: 'Chapter Three', page: 30 },
+		{ title: 'Chapter One', page: 10, id: 'chapter-one' },
+		{ title: 'Chapter Two', page: 20, id: 'chapter-two' },
+		{ title: 'Chapter Three', page: 30, id: 'chapter-three' },
 	];
 
 	render(
@@ -75,7 +73,7 @@ test('flat tree', async () => {
 
 	expect(rows).toHaveLength(3);
 
-	const [firstRow, secondRow, thirdRow] = rows.map((row) => getAllByRole(row, 'gridcell'));
+	const [firstRow, secondRow, thirdRow] = rows.map((row) => within(row).getAllByRole('gridcell'));
 
 	expect(firstRow[0]).toHaveTextContent('Chapter One');
 	expect(firstRow[1]).toHaveTextContent('10');
@@ -90,14 +88,17 @@ test('chevron next to items with children', async () => {
 		{
 			title: 'Chapter One',
 			page: 10,
+			id: 'chapter-one',
 		},
 		{
 			title: 'Chapter Two',
 			page: 20,
+			id: 'chapter-two',
 			children: [
 				{
 					title: 'Chapter Two Subchapter One',
 					page: 21,
+					id: 'chapter-two-subchapter-one',
 				},
 			],
 		},
@@ -119,10 +120,10 @@ test('chevron next to items with children', async () => {
 	);
 
 	const [firstRow, secondRow] = screen.getAllByRole('row');
-	const firstRowExpandChevron = queryByRole(firstRow, 'button', {
+	const firstRowExpandChevron = within(firstRow).queryByRole('button', {
 		name: /expand/i,
 	});
-	const secondRowExpandChevron = queryByRole(secondRow, 'button', {
+	const secondRowExpandChevron = within(secondRow).queryByRole('button', {
 		name: /expand/i,
 	});
 
@@ -164,43 +165,43 @@ describe('expanding and collapsing', () => {
 	});
 
 	it('should expand and collapse when using the buttons at the row header', () => {
-		const { getAllByRole, getByRole } = render(jsx);
+		render(jsx);
 
-		let rowContent = getAllByRole('gridcell');
+		let rowContent = screen.getAllByRole('gridcell');
 		expect(rowContent[0]).toHaveTextContent('Chapter 1');
 		expect(rowContent[1]).toHaveTextContent('Chapter 2');
 		expect(rowContent[2]).toHaveTextContent('Chapter 3');
 
-		const secondRowExpandButton = getByRole('button', {
+		const secondRowExpandButton = screen.getByRole('button', {
 			name: /expand/i,
 		});
 		fireEvent.click(secondRowExpandButton);
 
-		rowContent = getAllByRole('gridcell');
+		rowContent = screen.getAllByRole('gridcell');
 
 		expect(rowContent[0]).toHaveTextContent('Chapter 1');
 		expect(rowContent[1]).toHaveTextContent('Chapter 2');
 		expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
 		expect(rowContent[3]).toHaveTextContent('Chapter 3');
 
-		const secondFirstChildRowExpandButton = getByRole('button', {
+		const secondFirstChildRowExpandButton = screen.getByRole('button', {
 			name: /expand/i,
 		});
 		fireEvent.click(secondFirstChildRowExpandButton);
 
-		rowContent = getAllByRole('gridcell');
+		rowContent = screen.getAllByRole('gridcell');
 		expect(rowContent[0]).toHaveTextContent('Chapter 1');
 		expect(rowContent[1]).toHaveTextContent('Chapter 2');
 		expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
 		expect(rowContent[3]).toHaveTextContent('Chapter 2.1.1');
 		expect(rowContent[4]).toHaveTextContent('Chapter 3');
 
-		const collapseButtons = getAllByRole('button', {
+		const collapseButtons = screen.getAllByRole('button', {
 			name: /collapse/i,
 		});
 		fireEvent.click(collapseButtons[0]);
 
-		rowContent = getAllByRole('gridcell');
+		rowContent = screen.getAllByRole('gridcell');
 		expect(rowContent[0]).toHaveTextContent('Chapter 1');
 		expect(rowContent[1]).toHaveTextContent('Chapter 2');
 		expect(rowContent[2]).toHaveTextContent('Chapter 3');
@@ -223,17 +224,17 @@ describe('expanding and collapsing', () => {
 		const jsxTableTree = <TableTree items={nestedData} />;
 
 		[jsxRow, jsxTableTree].forEach((jsx) => {
-			const { getAllByRole } = render(jsx);
+			render(jsx);
 
-			const rows = getAllByRole('row');
+			const rows = screen.getAllByRole('row');
 
-			let rowContent = getAllByRole('gridcell');
+			let rowContent = screen.getAllByRole('gridcell');
 			expect(rowContent[0]).toHaveTextContent('Chapter 1');
 			expect(rowContent[1]).toHaveTextContent('Chapter 2');
 			expect(rowContent[2]).toHaveTextContent('Chapter 3');
 
 			fireEvent.click(rows[1]);
-			rowContent = getAllByRole('gridcell');
+			rowContent = screen.getAllByRole('gridcell');
 			expect(rowContent[0]).toHaveTextContent('Chapter 1');
 			expect(rowContent[1]).toHaveTextContent('Chapter 2');
 			expect(rowContent[2]).toHaveTextContent('Chapter 3');
@@ -257,24 +258,24 @@ describe('expanding and collapsing', () => {
 		const jsxTableTree = <TableTree items={nestedData} shouldExpandOnClick />;
 
 		[jsxRow, jsxTableTree].forEach((jsx) => {
-			const { getAllByRole } = render(jsx);
+			render(jsx);
 
-			const rows = getAllByRole('row');
+			const rows = screen.getAllByRole('row');
 
-			let rowContent = getAllByRole('gridcell');
+			let rowContent = screen.getAllByRole('gridcell');
 			expect(rowContent[0]).toHaveTextContent('Chapter 1');
 			expect(rowContent[1]).toHaveTextContent('Chapter 2');
 			expect(rowContent[2]).toHaveTextContent('Chapter 3');
 
 			fireEvent.click(rows[1]);
-			rowContent = getAllByRole('gridcell');
+			rowContent = screen.getAllByRole('gridcell');
 			expect(rowContent[0]).toHaveTextContent('Chapter 1');
 			expect(rowContent[1]).toHaveTextContent('Chapter 2');
 			expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
 			expect(rowContent[3]).toHaveTextContent('Chapter 3');
 
 			fireEvent.click(rows[1]);
-			rowContent = getAllByRole('gridcell');
+			rowContent = screen.getAllByRole('gridcell');
 			expect(rowContent[0]).toHaveTextContent('Chapter 1');
 			expect(rowContent[1]).toHaveTextContent('Chapter 2');
 			expect(rowContent[2]).toHaveTextContent('Chapter 3');
@@ -303,18 +304,18 @@ describe('expanding and collapsing', () => {
 		const jsxTableTree = <TableTree items={nestedData} shouldExpandOnClick />;
 
 		[jsxRow, jsxTableTree].forEach((jsx) => {
-			const { getAllByRole } = render(jsx);
+			render(jsx);
 
-			const rows = getAllByRole('row');
+			const rows = screen.getAllByRole('row');
 
-			let rowContent = getAllByRole('gridcell');
+			let rowContent = screen.getAllByRole('gridcell');
 			expect(rowContent[0]).toHaveTextContent('Chapter 1');
 			expect(rowContent[1]).toHaveTextContent('Chapter 2');
 			expect(rowContent[2]).toHaveTextContent('Chapter 3');
 
 			// Should not expand because text is selected
 			fireEvent.click(rows[1]);
-			rowContent = getAllByRole('gridcell');
+			rowContent = screen.getAllByRole('gridcell');
 			expect(rowContent[0]).toHaveTextContent('Chapter 1');
 			expect(rowContent[1]).toHaveTextContent('Chapter 2');
 			expect(rowContent[2]).toHaveTextContent('Chapter 3');
@@ -353,10 +354,10 @@ describe('expanding and collapsing', () => {
 			></TableTree>
 		);
 
-		const { getByText, queryByText } = render(jsxTableTree);
+		render(jsxTableTree);
 
-		expect(getByText(/Expand Chapter 1: Clean Code/)).toBeInTheDocument();
-		expect(queryByText(/Expand row item1/)).not.toBeInTheDocument();
+		expect(screen.getByText(/Expand Chapter 1: Clean Code/)).toBeInTheDocument();
+		expect(screen.queryByText(/Expand row item1/)).not.toBeInTheDocument();
 	});
 
 	it('should show extended span for expand and collapse button when the mainColumnForExpandCollapseLabel is passed as number', () => {
@@ -365,11 +366,13 @@ describe('expanding and collapsing', () => {
 				title: 'Chapter 1: Clean Code',
 				page: 1,
 				numbering: 'item1',
+				id: 'chapter-one',
 				children: [
 					{
 						title: 'There Will Be Code',
 						page: 4,
 						numbering: 'item1.1',
+						id: 'chapter-one-subchapter-one',
 					},
 				],
 			},
@@ -395,10 +398,10 @@ describe('expanding and collapsing', () => {
 			</TableTree>
 		);
 
-		const { getByText, queryByText } = render(jsxTableTree);
+		render(jsxTableTree);
 
-		expect(getByText(/Expand Chapter 1: Clean Code/)).toBeInTheDocument();
-		expect(queryByText(/Expand row item1/)).not.toBeInTheDocument();
+		expect(screen.getByText(/Expand Chapter 1: Clean Code/)).toBeInTheDocument();
+		expect(screen.queryByText(/Expand row item1/)).not.toBeInTheDocument();
 	});
 
 	it('should show default span for expand and collapse button when the mainColumnForExpandCollapseLabel is not passed', () => {
@@ -407,11 +410,13 @@ describe('expanding and collapsing', () => {
 				title: 'Chapter 1: Clean Code',
 				page: 1,
 				numbering: 'item1',
+				id: 'chapter-one',
 				children: [
 					{
 						title: 'There Will Be Code',
 						page: 4,
 						numbering: 'item1.1',
+						id: 'chapter-one-subchapter-one',
 					},
 				],
 			},
@@ -432,9 +437,9 @@ describe('expanding and collapsing', () => {
 			</TableTree>
 		);
 
-		const { getByText } = render(jsxTableTree);
+		render(jsxTableTree);
 
-		expect(getByText(/Expand row item1/)).toBeInTheDocument();
+		expect(screen.getByText(/Expand row item1/)).toBeInTheDocument();
 	});
 });
 
@@ -450,12 +455,7 @@ test('with isDefaultExpanded property', async () => {
 			<Rows
 				items={nestedData}
 				render={({ title, children }) => (
-					<Row
-						itemId={title}
-						items={children}
-						hasChildren={children && children.length}
-						isDefaultExpanded
-					>
+					<Row itemId={title} items={children} hasChildren={!!children} isDefaultExpanded>
 						<Cell>{title}</Cell>
 					</Row>
 				)}
@@ -464,7 +464,7 @@ test('with isDefaultExpanded property', async () => {
 	);
 
 	const rows = screen.getAllByRole('row');
-	const rowContent = rows.map((row) => getByRole(row, 'gridcell'));
+	const rowContent = rows.map((row) => within(row).getByRole('gridcell'));
 
 	expect(rowContent[0]).toHaveTextContent('Chapter 1');
 	expect(rowContent[1]).toHaveTextContent('Chapter 2');
@@ -489,7 +489,7 @@ test('with isExpanded=true property', async () => {
 					<Row
 						itemId={title}
 						items={children}
-						hasChildren={children && children.length}
+						hasChildren={!!children}
 						onCollapse={onCollapseSpy}
 						isExpanded
 					>
@@ -501,7 +501,7 @@ test('with isExpanded=true property', async () => {
 	);
 
 	let rows = screen.getAllByRole('row');
-	let rowContent = rows.map((row) => getByRole(row, 'gridcell'));
+	let rowContent = rows.map((row) => within(row).getByRole('gridcell'));
 
 	expect(rowContent[0]).toHaveTextContent('Chapter 1');
 	expect(rowContent[1]).toHaveTextContent('Chapter 2');
@@ -509,26 +509,27 @@ test('with isExpanded=true property', async () => {
 	expect(rowContent[3]).toHaveTextContent('Chapter 2.1.1');
 	expect(rowContent[4]).toHaveTextContent('Chapter 3');
 
-	const secondRowExpandButton = getByRole(rowContent[1], 'button', {
+	const secondRowExpandButton = within(rowContent[1]).getByRole('button', {
 		name: /collapse/i,
 	});
 	fireEvent.click(secondRowExpandButton);
 
 	rows = screen.getAllByRole('row');
-	rowContent = rows.map((row) => getByRole(row, 'gridcell'));
+	rowContent = rows.map((row) => within(row).getByRole('gridcell'));
 
 	expect(rowContent[0]).toHaveTextContent('Chapter 1');
 	expect(rowContent[1]).toHaveTextContent('Chapter 2');
 	expect(rowContent[2]).toHaveTextContent('Chapter 2.1');
 	expect(rowContent[3]).toHaveTextContent('Chapter 2.1.1');
 	expect(rowContent[4]).toHaveTextContent('Chapter 3');
+
+	expect(onCollapseSpy).toHaveBeenCalled();
 
 	expect(onCollapseSpy).toBeCalledWith(
 		expect.objectContaining({
 			...c('Chapter 2'),
 			children: expect.any(Array),
 		}),
-		expect.any(Object),
 	);
 });
 
@@ -548,7 +549,7 @@ test('with isExpanded=false property', async () => {
 					<Row
 						itemId={title}
 						items={children}
-						hasChildren={children && children.length}
+						hasChildren={!!children}
 						onExpand={onExpandSpy}
 						isExpanded={false}
 					>
@@ -560,18 +561,18 @@ test('with isExpanded=false property', async () => {
 	);
 
 	let rows = screen.getAllByRole('row');
-	let rowContent = rows.map((row) => getByRole(row, 'gridcell'));
+	let rowContent = rows.map((row) => within(row).getByRole('gridcell'));
 	expect(rowContent[0]).toHaveTextContent('Chapter 1');
 	expect(rowContent[1]).toHaveTextContent('Chapter 2');
 	expect(rowContent[2]).toHaveTextContent('Chapter 3');
 
-	let secondRowExpandButton = getByRole(rowContent[1], 'button', {
+	let secondRowExpandButton = within(rowContent[1]).getByRole('button', {
 		name: /expand/i,
 	});
 	fireEvent.click(secondRowExpandButton);
 
 	rows = screen.getAllByRole('row');
-	rowContent = rows.map((row) => getByRole(row, 'gridcell'));
+	rowContent = rows.map((row) => within(row).getByRole('gridcell'));
 
 	expect(rowContent[0]).toHaveTextContent('Chapter 1');
 	expect(rowContent[1]).toHaveTextContent('Chapter 2');
@@ -581,7 +582,6 @@ test('with isExpanded=false property', async () => {
 			...c('Chapter 2'),
 			children: expect.any(Array),
 		}),
-		expect.any(Object),
 	);
 });
 
@@ -590,14 +590,17 @@ test('headers and column widths', async () => {
 		{
 			title: 'Chapter One',
 			page: 10,
+			id: 'chapter-one',
 		},
 		{
 			title: 'Chapter Two',
 			page: 20,
+			id: 'chapter-two',
 			children: [
 				{
 					title: 'Chapter Two Subchapter One',
 					page: 21,
+					id: 'chapter-two-subchapter-one',
 				},
 			],
 		},
@@ -624,11 +627,11 @@ test('headers and column widths', async () => {
 	);
 
 	let [, ...rows] = screen.getAllByRole('row');
-	let rowContent = rows.map((row) => getAllByRole(row, 'gridcell'));
+	let rowContent = rows.map((row) => within(row).getAllByRole('gridcell'));
 
 	expect(rows).toHaveLength(2);
 
-	const secondRowExpandButton = getByRole(rowContent[1][0], 'button', {
+	const secondRowExpandButton = within(rowContent[1][0]).getByRole('button', {
 		name: /expand/i,
 	});
 	fireEvent.click(secondRowExpandButton);
@@ -637,9 +640,8 @@ test('headers and column widths', async () => {
 	expect(headers[1]).toHaveTextContent('Page #');
 
 	[, ...rows] = screen.getAllByRole('row');
-	screen.logTestingPlaygroundURL();
 
-	const [firstRow, secondRow, thirdRow] = rows.map((row) => getAllByRole(row, 'gridcell'));
+	const [firstRow, secondRow, thirdRow] = rows.map((row) => within(row).getAllByRole('gridcell'));
 
 	expect(rows).toHaveLength(3);
 	expect(firstRow[0]).toHaveStyle({ width: '300px' });

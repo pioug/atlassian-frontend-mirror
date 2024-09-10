@@ -54,6 +54,7 @@ export const Popup: FC<PopupProps> = memo(
 		label,
 		titleId,
 		modifiers,
+		shouldFitViewport,
 	}: PopupProps) => {
 		const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 		const getMergedTriggerRef = useGetMemoizedMergedTriggerRef();
@@ -89,6 +90,7 @@ export const Popup: FC<PopupProps> = memo(
 					label={label}
 					titleId={titleId}
 					modifiers={modifiers}
+					shouldFitViewport={shouldFitViewport}
 				/>
 			</UNSAFE_LAYERING>
 		);

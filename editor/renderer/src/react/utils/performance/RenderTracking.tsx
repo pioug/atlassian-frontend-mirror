@@ -1,11 +1,8 @@
 import { useMemo } from 'react';
 import debounce from 'lodash/debounce';
 
-import {
-	type PropsDifference,
-	type ShallowPropsDifference,
-	useComponentRenderTracking,
-} from '@atlaskit/editor-common/utils';
+import { type PropsDifference, type ShallowPropsDifference } from '@atlaskit/editor-common/utils';
+import { useComponentRenderTracking } from '@atlaskit/editor-common/use-component-render-tracking';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { EVENT_TYPE, type ACTION_SUBJECT, type ACTION } from '@atlaskit/editor-common/analytics';
 

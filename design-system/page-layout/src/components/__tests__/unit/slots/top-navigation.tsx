@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { PageLayout, TopNavigation } from '../../../index';
 
 const emptyGridState = { gridState: {} };
 describe('<TopNavigation />', () => {
 	it('should render with the height passed to it', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<TopNavigation testId="component" height={50}>
 					Contents
@@ -15,17 +15,18 @@ describe('<TopNavigation />', () => {
 			</PageLayout>,
 		);
 
-		expect(getByTestId('component')).toHaveStyleDeclaration(
+		expect(screen.getByTestId('component')).toHaveStyleDeclaration(
 			'height',
 			'var(--topNavigationHeight, 0px)',
 		);
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		// eslint-disable-next-line testing-library/no-node-access
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--topNavigationHeight:50px;}'),
 		);
 	});
 
 	it('should hydrate with the the height passed to it', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<TopNavigation testId="component" height={50}>
 					Contents
@@ -33,18 +34,19 @@ describe('<TopNavigation />', () => {
 			</PageLayout>,
 			{ hydrate: true },
 		);
-		expect(getByTestId('component')).toHaveStyleDeclaration(
+		expect(screen.getByTestId('component')).toHaveStyleDeclaration(
 			'height',
 			'var(--topNavigationHeight, 0px)',
 		);
 
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		// eslint-disable-next-line testing-library/no-node-access
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--topNavigationHeight:50px;}'),
 		);
 	});
 
 	it('should be "fixed" when isFixed prop is passed', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<TopNavigation isFixed testId="component" height={50}>
 					Contents
@@ -52,7 +54,7 @@ describe('<TopNavigation />', () => {
 			</PageLayout>,
 		);
 
-		expect(getByTestId('component')).toHaveStyleDeclaration('position', 'fixed');
+		expect(screen.getByTestId('component')).toHaveStyleDeclaration('position', 'fixed');
 	});
 
 	it('should store the height in localStorage on mount', () => {
@@ -89,7 +91,7 @@ describe('<TopNavigation />', () => {
 	});
 
 	it('should respect the shouldPersistWidth prop', () => {
-		const { rerender, getByTestId } = render(
+		const { rerender } = render(
 			<PageLayout testId="grid">
 				<TopNavigation testId="component" isFixed height={200} shouldPersistHeight>
 					Contents
@@ -97,7 +99,8 @@ describe('<TopNavigation />', () => {
 			</PageLayout>,
 		);
 
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		// eslint-disable-next-line testing-library/no-node-access
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--topNavigationHeight:200px;}'),
 		);
 
@@ -108,7 +111,8 @@ describe('<TopNavigation />', () => {
 				</TopNavigation>
 			</PageLayout>,
 		);
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		// eslint-disable-next-line testing-library/no-node-access
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--topNavigationHeight:200px;}'),
 		);
 	});

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { fireEvent, waitFor } from '@testing-library/dom';
-import { render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+import { defaultRegistry } from 'react-sweet-state';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
@@ -21,6 +21,7 @@ import {
 	type DatasourceTableState,
 	useDatasourceTableState,
 } from '../../hooks/useDatasourceTableState';
+import { Store } from '../../state';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
 import * as issueLikeModule from '../issue-like-table';
 import { type IssueLikeDataTableViewProps } from '../issue-like-table/types';
@@ -78,6 +79,20 @@ jest.mock('@atlaskit/outbound-auth-flow-client', () => ({
 
 const onAnalyticFireEvent = jest.fn();
 
+const defaultMockResponseItems: DatasourceDataResponseItem[] = [
+	{
+		myColumn: {
+			data: 'some-value',
+		},
+		id: {
+			data: 'some-id1',
+		},
+		ari: {
+			data: 'some-id1',
+		},
+	},
+];
+
 const setup = (
 	stateOverride: Partial<DatasourceTableState> & {
 		visibleColumnKeys?: string[] | null;
@@ -89,34 +104,17 @@ const setup = (
 	const { visibleColumnKeys, onVisibleColumnKeysChange, responseItems } = stateOverride;
 
 	const mockReset = jest.fn();
-	const mockResponseItems = responseItems || [
-		{
-			myColumn: {
-				data: 'some-value',
-			},
-			id: {
-				data: 'some-id1',
-			},
-		},
-	];
+	const mockResponseItems = responseItems || defaultMockResponseItems;
+
 	asMock(useDatasourceTableState).mockReturnValue({
 		reset: mockReset,
 		status: 'resolved',
 		onNextPage: jest.fn(),
 		loadDatasourceDetails: jest.fn(),
 		hasNextPage: false,
-		responseItemIds: mockResponseItems.map((item) => item.id?.data),
-		responseItems: responseItems || [
-			{
-				myColumn: {
-					data: 'some-value',
-				},
-				id: {
-					data: 'some-id1',
-				},
-			},
-		],
-		totalCount: responseItems?.length || 2,
+		responseItemIds: mockResponseItems.map((item) => item.ari?.data),
+		responseItems: mockResponseItems,
+		totalCount: mockResponseItems.length,
 		columns: [
 			{ key: 'myColumn', title: 'My Column', type: 'string' },
 			{ key: 'id', title: 'Id' },
@@ -171,23 +169,15 @@ const setupAssetsTable = (
 	const { visibleColumnKeys, onVisibleColumnKeysChange, responseItems } = stateOverride;
 
 	const mockReset = jest.fn();
-	const mockResponseItems = responseItems || [
-		{
-			myColumn: {
-				data: 'some-value',
-			},
-			id: {
-				data: 'some-id1',
-			},
-		},
-	];
+	const mockResponseItems = responseItems || defaultMockResponseItems;
+
 	asMock(useDatasourceTableState).mockReturnValue({
 		reset: mockReset,
 		status: 'resolved',
 		onNextPage: jest.fn(),
 		loadDatasourceDetails: jest.fn(),
 		hasNextPage: false,
-		responseItemIds: mockResponseItems.map((item) => item.id?.data),
+		responseItemIds: mockResponseItems.map((item) => item.ari?.data),
 		responseItems: mockResponseItems,
 		totalCount: responseItems?.length || 2,
 		columns: [
@@ -231,6 +221,13 @@ const setupAssetsTable = (
 };
 
 describe('DatasourceTableView', () => {
+	const store = defaultRegistry.getStore(Store, 'datasource');
+
+	beforeEach(() => {
+		store.storeState.resetState();
+		jest.clearAllMocks();
+	});
+
 	it('should call useDatasourceTableState with the correct arguments', () => {
 		setup();
 
@@ -244,44 +241,91 @@ describe('DatasourceTableView', () => {
 		});
 	});
 
-	it('should call IssueLikeDataTableView with right props', () => {
-		// Not exactly "correct" way of testing with React Testing Library,
-		// But in this case 4 props we want to check are just passed through and
-		// the only way to test them would be to test how they affect UI
-		// which is already tested in IssueLikeDataTableView unit tests
-		const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
-			issueLikeModule,
-			'IssueLikeDataTableView',
-		);
-		const mockOnColumnResize = jest.fn();
-		const mockOnWrappedColumnChange = jest.fn();
-		const { getByTestId } = setup(
-			{
-				visibleColumnKeys: ['myColumn'],
-			},
-			{
-				columnCustomSizes: { myColumn: 67 },
-				wrappedColumnKeys: ['myColumn'],
-				onColumnResize: mockOnColumnResize,
-				onWrappedColumnChange: mockOnWrappedColumnChange,
-			},
-		);
+	ffTest.on('enable_datasource_react_sweet_state', '', () => {
+		it('should call IssueLikeDataTableView with right props', () => {
+			store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
 
-		expect(getByTestId('myColumn-column-heading')).toHaveTextContent('My Column');
-		expect(getByTestId('datasource-table-view--row-some-id1')).toHaveTextContent('some-value');
+			// Not exactly "correct" way of testing with React Testing Library,
+			// But in this case 4 props we want to check are just passed through and
+			// the only way to test them would be to test how they affect UI
+			// which is already tested in IssueLikeDataTableView unit tests
+			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+				issueLikeModule,
+				'IssueLikeDataTableView',
+			);
+			const mockOnColumnResize = jest.fn();
+			const mockOnWrappedColumnChange = jest.fn();
+			const { getByTestId } = setup(
+				{
+					visibleColumnKeys: ['myColumn'],
+					responseItems: defaultMockResponseItems,
+				},
+				{
+					columnCustomSizes: { myColumn: 67 },
+					wrappedColumnKeys: ['myColumn'],
+					onColumnResize: mockOnColumnResize,
+					onWrappedColumnChange: mockOnWrappedColumnChange,
+				},
+			);
 
-		expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
-		const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
-			.calls[0][0] as IssueLikeDataTableViewProps;
+			expect(getByTestId('myColumn-column-heading')).toHaveTextContent('My Column');
+			expect(getByTestId('datasource-table-view--row-some-id1')).toHaveTextContent('some-value');
 
-		expect(issueLikeDataTableViewProps).toEqual(
-			expect.objectContaining({
-				columnCustomSizes: { myColumn: 67 },
-				wrappedColumnKeys: ['myColumn'],
-				onColumnResize: mockOnColumnResize,
-				onWrappedColumnChange: mockOnWrappedColumnChange,
-			}),
-		);
+			expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+			const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
+				.calls[0][0] as IssueLikeDataTableViewProps;
+
+			expect(issueLikeDataTableViewProps).toEqual(
+				expect.objectContaining({
+					columnCustomSizes: { myColumn: 67 },
+					wrappedColumnKeys: ['myColumn'],
+					onColumnResize: mockOnColumnResize,
+					onWrappedColumnChange: mockOnWrappedColumnChange,
+				}),
+			);
+		});
+	});
+
+	ffTest.off('enable_datasource_react_sweet_state', '', () => {
+		it('should call IssueLikeDataTableView with right props', () => {
+			// Not exactly "correct" way of testing with React Testing Library,
+			// But in this case 4 props we want to check are just passed through and
+			// the only way to test them would be to test how they affect UI
+			// which is already tested in IssueLikeDataTableView unit tests
+			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+				issueLikeModule,
+				'IssueLikeDataTableView',
+			);
+			const mockOnColumnResize = jest.fn();
+			const mockOnWrappedColumnChange = jest.fn();
+			const { getByTestId } = setup(
+				{
+					visibleColumnKeys: ['myColumn'],
+				},
+				{
+					columnCustomSizes: { myColumn: 67 },
+					wrappedColumnKeys: ['myColumn'],
+					onColumnResize: mockOnColumnResize,
+					onWrappedColumnChange: mockOnWrappedColumnChange,
+				},
+			);
+
+			expect(getByTestId('myColumn-column-heading')).toHaveTextContent('My Column');
+			expect(getByTestId('datasource-table-view--row-some-id1')).toHaveTextContent('some-value');
+
+			expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+			const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
+				.calls[0][0] as IssueLikeDataTableViewProps;
+
+			expect(issueLikeDataTableViewProps).toEqual(
+				expect.objectContaining({
+					columnCustomSizes: { myColumn: 67 },
+					wrappedColumnKeys: ['myColumn'],
+					onColumnResize: mockOnColumnResize,
+					onWrappedColumnChange: mockOnWrappedColumnChange,
+				}),
+			);
+		});
 	});
 
 	it('should call onVisibleColumnKeysChange with defaultVisibleColumnKeys if no visibleColumnKeys are received from props', () => {
@@ -406,10 +450,11 @@ describe('DatasourceTableView', () => {
 		expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true, shouldResetColumns: false });
 	});
 
-	describe('should call reset() with shouldResetColumns set to true when FF on and false when FF off', () => {
-		ffTest(
-			'platform.linking-platform.datasource-assets_update_refresh_button_dt3qk',
-			() => {
+	ffTest.on(
+		'platform.linking-platform.datasource-assets_update_refresh_button_dt3qk',
+		'reset() with shouldResetColumns',
+		() => {
+			it('should call reset() with shouldResetColumns', () => {
 				const { getByRole, mockReset } = setupAssetsTable();
 				asMock(mockReset).mockReset();
 				getByRole('button', { name: 'Refresh' }).click();
@@ -418,8 +463,15 @@ describe('DatasourceTableView', () => {
 					shouldForceRequest: true,
 					shouldResetColumns: true,
 				});
-			},
-			() => {
+			});
+		},
+	);
+
+	ffTest.off(
+		'platform.linking-platform.datasource-assets_update_refresh_button_dt3qk',
+		'reset() with shouldResetColumns',
+		() => {
+			it('should call reset() with shouldResetColumns', () => {
 				const { getByRole, mockReset } = setupAssetsTable();
 				asMock(mockReset).mockReset();
 				getByRole('button', { name: 'Refresh' }).click();
@@ -428,9 +480,9 @@ describe('DatasourceTableView', () => {
 					shouldForceRequest: true,
 					shouldResetColumns: false,
 				});
-			},
-		);
-	});
+			});
+		},
+	);
 
 	it('should not show duplicate response items when a new column is added', () => {
 		const { rerender, getByTestId } = setup({
@@ -771,7 +823,7 @@ describe('Analytics: DatasourceTableView', () => {
 			setup();
 
 			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-				getEventPayload({ totalItemCount: 2 }),
+				getEventPayload({ totalItemCount: 1 }),
 				EVENT_CHANNEL,
 			);
 		});

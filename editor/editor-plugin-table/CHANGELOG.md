@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.22
+
+### Patch Changes
+
+- [#138699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138699)
+  [`aa5140e59db5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa5140e59db5a) -
+  Cleanup feature flag moving styles from editor-core to tables plugin.
+- Updated dependencies
+
 ## 7.25.21
 
 ### Patch Changes

@@ -14,8 +14,6 @@ export function getURL(testName: string, colorMode: 'dark' | 'light' | 'none' = 
 	return getExampleUrl('linking-platform', 'link-picker', testName, global.__BASEURL__, colorMode);
 }
 
-const COLOR_MODES = ['dark', 'light', 'none'] as const;
-
 export async function setup(url: string, options: LoadPageOptions = {}) {
 	const { page } = global;
 	await loadPage(page, url, {
@@ -42,15 +40,12 @@ describe('link-picker', () => {
 		testSelector = '[data-testid="link-picker"]';
 	});
 
-	it.skip.each(COLOR_MODES)(
-		'should render component with results with %s tokens',
-		async (colorMode) => {
-			const url = getURL('vr-basic', colorMode);
-			const page = await setup(url);
-			const image = await takeElementScreenShot(page, testSelector);
-			expect(image).toMatchProdImageSnapshot();
-		},
-	);
+	it.skip('should render component with results with light tokens', async () => {
+		const url = getURL('vr-basic');
+		const page = await setup(url);
+		const image = await takeElementScreenShot(page, testSelector);
+		expect(image).toMatchProdImageSnapshot();
+	});
 
 	it.skip('Should render component without display text field', async () => {
 		const url = getURL('vr-hide-display-text');
@@ -83,19 +78,16 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it.skip.each(COLOR_MODES)(
-		'Should change list-item background on hover and selection with %s tokens',
-		async (colorMode) => {
-			const url = getURL('vr-basic', colorMode);
-			const page = await setup(url);
-			await page.keyboard.press('ArrowDown');
-			await page.keyboard.press('ArrowDown');
-			await page.hover('[data-testid="link-search-list-item"]');
+	it.skip('Should change list-item background on hover and selection with light tokens', async () => {
+		const url = getURL('vr-basic');
+		const page = await setup(url);
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.hover('[data-testid="link-search-list-item"]');
 
-			const image = await takeElementScreenShot(page, testSelector);
-			expect(image).toMatchProdImageSnapshot();
-		},
-	);
+		const image = await takeElementScreenShot(page, testSelector);
+		expect(image).toMatchProdImageSnapshot();
+	});
 
 	it.skip('should select the search list via keyboard tab and use arrows up/down to navigate', async () => {
 		const url = getURL('vr-basic');
@@ -175,17 +167,14 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it.skip.each(COLOR_MODES)(
-		'Should change input border-color on focus with %s tokens',
-		async (colorMode) => {
-			const url = getURL('vr-basic', colorMode);
-			const page = await setup(url);
-			await page.focus('[data-testid="link-text"]');
+	it.skip('Should change input border-color on focus with light tokens', async () => {
+		const url = getURL('vr-basic');
+		const page = await setup(url);
+		await page.focus('[data-testid="link-text"]');
 
-			const image = await takeElementScreenShot(page, testSelector);
-			expect(image).toMatchProdImageSnapshot();
-		},
-	);
+		const image = await takeElementScreenShot(page, testSelector);
+		expect(image).toMatchProdImageSnapshot();
+	});
 
 	it.skip('Should display ClearText button when input has value', async () => {
 		const url = getURL('vr-basic');

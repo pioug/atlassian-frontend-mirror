@@ -1,6 +1,7 @@
+/* eslint-disable testing-library/no-node-access */
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { PageLayout, RightPanel } from '../../../index';
 
@@ -8,21 +9,21 @@ const emptyGridState = { gridState: {} };
 
 describe('<RightPanel />', () => {
 	it('should render with width passed to it', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<RightPanel testId="component" width={200}>
 					Contents
 				</RightPanel>
 			</PageLayout>,
 		);
-		expect(getByTestId('component')).toHaveStyleDeclaration('grid-area', 'right-panel');
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		expect(screen.getByTestId('component')).toHaveStyleDeclaration('grid-area', 'right-panel');
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--rightPanelWidth:200px;}'),
 		);
 	});
 
 	it('should hydrate with the width passed to it', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<RightPanel testId="component" width={200}>
 					Contents
@@ -30,21 +31,21 @@ describe('<RightPanel />', () => {
 			</PageLayout>,
 			{ hydrate: true },
 		);
-		expect(getByTestId('component')).toHaveStyleDeclaration('grid-area', 'right-panel');
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		expect(screen.getByTestId('component')).toHaveStyleDeclaration('grid-area', 'right-panel');
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--rightPanelWidth:200px;}'),
 		);
 	});
 
 	it('should be "fixed" when isFixed prop is passed', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<RightPanel isFixed testId="component" width={200}>
 					Contents
 				</RightPanel>
 			</PageLayout>,
 		);
-		expect(getByTestId('component')).toHaveStyleDeclaration('position', 'fixed');
+		expect(screen.getByTestId('component')).toHaveStyleDeclaration('position', 'fixed');
 	});
 
 	it('should store the width in localStorage on mount', () => {
@@ -81,7 +82,7 @@ describe('<RightPanel />', () => {
 	});
 
 	it('should respect the shouldPersistWidth prop', () => {
-		const { rerender, getByTestId } = render(
+		const { rerender } = render(
 			<PageLayout testId="grid">
 				<RightPanel testId="component" isFixed width={200}>
 					Contents
@@ -89,7 +90,7 @@ describe('<RightPanel />', () => {
 			</PageLayout>,
 		);
 
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--rightPanelWidth:200px;}'),
 		);
 
@@ -101,7 +102,7 @@ describe('<RightPanel />', () => {
 			</PageLayout>,
 		);
 
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--rightPanelWidth:200px;}'),
 		);
 	});

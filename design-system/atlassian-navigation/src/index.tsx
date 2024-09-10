@@ -1,7 +1,7 @@
 export { AtlassianNavigation } from './components/AtlassianNavigation';
 export type { AtlassianNavigationProps } from './components/AtlassianNavigation/types';
 
-export { AppSwitcher } from './components/AppSwitcher';
+export { AppSwitcher, AppSwitcherNav4 } from './components/AppSwitcher';
 export type { AppSwitcherProps } from './components/AppSwitcher/types';
 
 export { Create } from './components/Create';

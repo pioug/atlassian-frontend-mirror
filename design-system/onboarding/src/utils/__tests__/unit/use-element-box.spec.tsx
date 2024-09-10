@@ -85,6 +85,7 @@ describe('use-element-box', () => {
 			</ElementBox>,
 		);
 
+		// eslint-disable-next-line testing-library/no-unnecessary-act
 		act(() => {
 			fireEvent(window, new Event('resize'));
 			(window.requestAnimationFrame as any).step();

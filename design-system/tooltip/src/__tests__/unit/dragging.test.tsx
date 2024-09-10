@@ -5,14 +5,6 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { register } from '../../internal/drag-manager';
 import Tooltip from '../../Tooltip';
 
-beforeEach(() => {
-	jest.useFakeTimers();
-});
-
-afterEach(() => {
-	jest.useRealTimers();
-});
-
 function runAllTimers() {
 	act(() => {
 		jest.runAllTimers();
@@ -54,25 +46,30 @@ const scenarios = [
 ];
 
 describe('behavior during drags', () => {
+	beforeEach(() => {
+		jest.useFakeTimers();
+	});
+
 	afterEach(() => {
 		// Ensure any ongoing drag is finished
 		fireEvent.dragEnd(window);
+		jest.useRealTimers();
 	});
 
 	scenarios.forEach(({ name, jsx }) => {
 		describe(name, () => {
 			it('should hide a visible tooltip when a drag starts', () => {
-				const { getByTestId, queryByTestId } = render(jsx);
+				render(jsx);
 
 				tryShowTooltip({ shouldRunTimers: true });
-				expect(getByTestId('tooltip')).toBeInTheDocument();
+				expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
-				fireEvent.dragStart(getByTestId('trigger'));
-				expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+				fireEvent.dragStart(screen.getByTestId('trigger'));
+				expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			});
 
 			it('should cancel a waiting-to-show tooltip when a drag starts', () => {
-				const { getByTestId, queryByTestId } = render(jsx);
+				render(jsx);
 
 				/**
 				 * Trigger the tooltip, but don't run the timers, so it is still
@@ -83,34 +80,34 @@ describe('behavior during drags', () => {
 				/**
 				 * Immediately after the drag there should not be a tooltip.
 				 */
-				fireEvent.dragStart(getByTestId('trigger'));
-				expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+				fireEvent.dragStart(screen.getByTestId('trigger'));
+				expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 
 				/**
 				 * Even after timers have run there should be no tooltip.
 				 */
 				runAllTimers();
-				expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+				expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			});
 
 			it('should not show tooltips during a drag', () => {
-				const { getByTestId, queryByTestId } = render(jsx);
+				render(jsx);
 
-				fireEvent.dragStart(getByTestId('trigger'));
+				fireEvent.dragStart(screen.getByTestId('trigger'));
 
 				tryShowTooltip({ shouldRunTimers: true });
-				expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+				expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			});
 
 			it('should not suppress tooltips after a drag', () => {
-				const { getByTestId, queryByTestId } = render(jsx);
+				render(jsx);
 
-				const trigger = getByTestId('trigger');
+				const trigger = screen.getByTestId('trigger');
 				fireEvent.dragStart(trigger);
 				fireEvent.dragEnd(trigger);
 
 				tryShowTooltip({ shouldRunTimers: true });
-				expect(queryByTestId('tooltip')).toBeInTheDocument();
+				expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 			});
 		});
 	});
@@ -145,8 +142,8 @@ describe('behavior during drags', () => {
 
 			await waitFor(() => {
 				expect(hasBoundListenerForEvent('dragstart')).toBe(true);
-				expect(hasBoundListenerForEvent('dragenter')).toBe(true);
 			});
+			expect(hasBoundListenerForEvent('dragenter')).toBe(true);
 		});
 
 		it('should only bind start listeners once', () => {

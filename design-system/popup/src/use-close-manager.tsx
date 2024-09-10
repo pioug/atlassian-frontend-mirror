@@ -32,7 +32,15 @@ export const useCloseManager = ({
 
 		const closePopup = (event: Event | React.MouseEvent | React.KeyboardEvent) => {
 			if (onClose) {
-				onClose(event);
+				if (fg('sibling-dropdown-close-issue')) {
+					let currentLevel = null;
+					if (event.target instanceof HTMLElement) {
+						currentLevel = event.target.closest(`[data-ds--level]`)?.getAttribute('data-ds--level');
+					}
+					currentLevel ? onClose(event, Number(currentLevel)) : onClose(event);
+				} else {
+					onClose(event);
+				}
 			}
 
 			if (shouldDisableFocusTrap && fg('platform_dst_popup-disable-focuslock')) {
@@ -60,8 +68,20 @@ export const useCloseManager = ({
 			}
 
 			if (isLayerDisabled()) {
-				//if it is a disabled layer, we need to disable its click listener.
-				return;
+				//if it is a disabled layer, and we clicked inside a higher layer
+				//we will disable the click event
+				if (fg('design-system-closed-all-when-click-outside')) {
+					if (target instanceof HTMLElement) {
+						const levelOfClickedLayer = target
+							.closest?.(`[data-ds--level]`)
+							?.getAttribute('data-ds--level');
+						if (levelOfClickedLayer && Number(levelOfClickedLayer) > currentLevel) {
+							return;
+						}
+					}
+				} else {
+					return;
+				}
 			}
 
 			const isClickOnPopup = popupRef && popupRef.contains(target as Node);

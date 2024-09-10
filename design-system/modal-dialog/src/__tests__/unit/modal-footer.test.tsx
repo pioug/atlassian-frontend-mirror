@@ -1,6 +1,6 @@
 import React, { type MouseEventHandler } from 'react';
 
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
@@ -12,36 +12,35 @@ jest.mock('raf-schd', () => (fn: Function) => fn);
 jest.mock('@atlaskit/ds-lib/warn-once');
 
 describe('<ModalFooter />', () => {
-	afterEach(cleanup);
 	it('should render default footer', () => {
-		const { queryByTestId } = render(
+		render(
 			<ModalDialog onClose={noop} testId="modal">
 				<ModalFooter>My footer</ModalFooter>
 			</ModalDialog>,
 		);
 
-		expect(queryByTestId('modal--footer')).toBeInTheDocument();
+		expect(screen.getByTestId('modal--footer')).toBeInTheDocument();
 	});
 
 	it('should be accessible using a user-defined test id', () => {
-		const { queryByTestId } = render(
+		render(
 			<ModalDialog onClose={noop} testId="modal">
 				<ModalFooter testId="my-footer">My footer</ModalFooter>
 			</ModalDialog>,
 		);
 
-		expect(queryByTestId('modal--footer')).not.toBeInTheDocument();
-		expect(queryByTestId('my-footer')).toBeInTheDocument();
+		expect(screen.queryByTestId('modal--footer')).not.toBeInTheDocument();
+		expect(screen.getByTestId('my-footer')).toBeInTheDocument();
 	});
 
 	it('should render custom footer', () => {
-		const { queryByTestId } = render(
+		render(
 			<ModalDialog onClose={noop}>
 				<span data-testid="custom-footer">My footer</span>
 			</ModalDialog>,
 		);
 
-		expect(queryByTestId('custom-footer')).toBeInTheDocument();
+		expect(screen.getByTestId('custom-footer')).toBeInTheDocument();
 	});
 
 	it('should invoke onClose callback on custom footer', () => {
@@ -61,13 +60,13 @@ describe('<ModalFooter />', () => {
 			);
 		};
 
-		const { getByTestId } = render(
+		render(
 			<ModalDialog onClose={callback}>
 				<CustomFooter />
 			</ModalDialog>,
 		);
 
-		fireEvent.click(getByTestId('custom-close'));
+		fireEvent.click(screen.getByTestId('custom-close'));
 		expect(callback).toHaveBeenCalledTimes(1);
 	});
 

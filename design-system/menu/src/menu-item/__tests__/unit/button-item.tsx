@@ -5,7 +5,7 @@
 import { createSerializer, matchers } from '@emotion/jest';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
@@ -23,13 +23,13 @@ window.requestAnimationFrame = (cb) => {
 describe('<ButtonItem />', () => {
 	it('should callback on click', () => {
 		const callback = jest.fn();
-		const { getByTestId } = render(
+		render(
 			<ButtonItem onClick={callback} testId="target">
 				Hello world
 			</ButtonItem>,
 		);
 
-		fireEvent.click(getByTestId('target'));
+		fireEvent.click(screen.getByTestId('target'));
 
 		expect(callback).toHaveBeenCalled();
 	});
@@ -45,7 +45,7 @@ describe('<ButtonItem />', () => {
 			backgroundColor: 'red',
 		});
 
-		const { getByTestId } = render(
+		render(
 			/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 			// @ts-ignore
 			<ButtonItem css={hackStyles} testId="link">
@@ -54,21 +54,21 @@ describe('<ButtonItem />', () => {
 			/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 		);
 
-		expect(getByTestId('link')).toHaveStyleRule('background-color', 'red');
-		expect(getByTestId('link')).toHaveStyleRule('color', 'currentColor');
+		expect(screen.getByTestId('link')).toHaveStyleRule('background-color', 'red');
+		expect(screen.getByTestId('link')).toHaveStyleRule('color', 'currentColor');
 	});
 
 	// This behaviour exists only as a side effect for spread props.
 	// When we remove the ability for spread props in a future major version
 	// This test can be deleted.
 	it('should take a data-testid directly', () => {
-		const { getByTestId } = render(<ButtonItem data-testid="link">Hello world</ButtonItem>);
+		render(<ButtonItem data-testid="link">Hello world</ButtonItem>);
 
-		expect(getByTestId('link')).toBeInTheDocument();
+		expect(screen.getByTestId('link')).toBeInTheDocument();
 	});
 
 	it('should not gain focus on mouse down when it had no initial focus', () => {
-		const { getByTestId } = render(
+		render(
 			<div>
 				<button type="button" data-testid="focused-button">
 					Button
@@ -77,47 +77,46 @@ describe('<ButtonItem />', () => {
 			</div>,
 		);
 
-		getByTestId('focused-button').focus();
-		expect(getByTestId('focused-button')).toHaveFocus();
-		const allowed: boolean = fireEvent.mouseDown(getByTestId('target'));
+		screen.getByTestId('focused-button').focus();
+		expect(screen.getByTestId('focused-button')).toHaveFocus();
+		const allowed: boolean = fireEvent.mouseDown(screen.getByTestId('target'));
 
 		// target didn't get focus
-		expect(getByTestId('target')).not.toHaveFocus();
+		expect(screen.getByTestId('target')).not.toHaveFocus();
 		// mousedown event not prevented
 		expect(allowed).toBe(true);
 	});
 
 	it('should persist focus if it was focused during mouse down', () => {
-		const { getByTestId } = render(<ButtonItem testId="target">Hello world</ButtonItem>);
+		render(<ButtonItem testId="target">Hello world</ButtonItem>);
 
-		getByTestId('target').focus();
-		fireEvent.mouseDown(getByTestId('target'));
-
-		expect(getByTestId('target') === document.activeElement).toBe(true);
+		screen.getByTestId('target').focus();
+		fireEvent.mouseDown(screen.getByTestId('target'));
+		expect(screen.getByTestId('target')).toHaveFocus();
 	});
 
 	it('should callback to user supplied mouse down prop', () => {
 		const onMouseDown = jest.fn();
-		const { getByTestId } = render(
+		render(
 			<ButtonItem onMouseDown={onMouseDown} testId="target">
 				Hello world
 			</ButtonItem>,
 		);
 
-		fireEvent.mouseDown(getByTestId('target'));
+		fireEvent.mouseDown(screen.getByTestId('target'));
 
 		expect(onMouseDown).toHaveBeenCalled();
 	});
 
 	it('should not callback on click when disabled', () => {
 		const callback = jest.fn();
-		const { getByTestId } = render(
+		render(
 			<ButtonItem isDisabled onClick={callback} testId="target">
 				Hello world
 			</ButtonItem>,
 		);
 
-		fireEvent.click(getByTestId('target'));
+		fireEvent.click(screen.getByTestId('target'));
 
 		expect(callback).not.toHaveBeenCalled();
 	});

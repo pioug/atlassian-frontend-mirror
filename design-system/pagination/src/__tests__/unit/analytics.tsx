@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
@@ -14,7 +14,7 @@ describe('Pagination analytics', () => {
 		const onChange = jest.fn();
 		const onAnalyticsEvent = jest.fn();
 
-		const renderResult = render(
+		render(
 			<AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
 				<Pagination onChange={onChange} pages={[1, 2, 3, 4]} analyticsContext={analyticsContext} />
 			</AnalyticsListener>,
@@ -33,7 +33,6 @@ describe('Pagination analytics', () => {
 		};
 
 		return {
-			renderResult,
 			onChange,
 			onAnalyticsEvent,
 			changeEventResult,
@@ -42,10 +41,10 @@ describe('Pagination analytics', () => {
 
 	describe('send change event to atlaskit/analytics', () => {
 		it('when clicked on any page', () => {
-			const { renderResult, onChange, onAnalyticsEvent, changeEventResult } =
+			const { onChange, onAnalyticsEvent, changeEventResult } =
 				setupPaginationWithAnalyticsContext();
 
-			fireEvent.click(renderResult.getByText('2'));
+			fireEvent.click(screen.getByText('2'));
 
 			expect(onChange).toHaveBeenCalledTimes(1);
 
@@ -60,11 +59,11 @@ describe('Pagination analytics', () => {
 		});
 
 		it('when navigated forwards and backwards', () => {
-			const { renderResult, onChange, onAnalyticsEvent, changeEventResult } =
+			const { onChange, onAnalyticsEvent, changeEventResult } =
 				setupPaginationWithAnalyticsContext();
 
-			fireEvent.click(renderResult.getByLabelText('next'));
-			fireEvent.click(renderResult.getByLabelText('previous'));
+			fireEvent.click(screen.getByLabelText('next'));
+			fireEvent.click(screen.getByLabelText('previous'));
 
 			expect(onChange).toHaveBeenCalledTimes(2);
 
@@ -97,10 +96,9 @@ describe('Pagination analytics', () => {
 
 		it('should allow the addition of additional context', () => {
 			const analyticsContext = { key: 'value' };
-			const { renderResult, onChange, changeEventResult } =
-				setupPaginationWithAnalyticsContext(analyticsContext);
+			const { onChange, changeEventResult } = setupPaginationWithAnalyticsContext(analyticsContext);
 
-			fireEvent.click(renderResult.getByText('2'));
+			fireEvent.click(screen.getByText('2'));
 
 			const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 				...changeEventResult,

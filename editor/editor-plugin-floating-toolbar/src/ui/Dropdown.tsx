@@ -1,6 +1,7 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * @jsxFrag
  */
 import type { ReactElement } from 'react';
 import React, { Component } from 'react';
@@ -24,6 +25,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { token } from '@atlaskit/tokens';
 
+import { Divider } from './Divider';
 import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
@@ -68,6 +70,7 @@ export interface Props {
 	// A prop to align the dropdown with the floating toolbar instead of the toolbar item
 	alignDropdownWithToolbar?: boolean;
 	onToggle?: (state: EditorState, dispatch: CommandDispatch | undefined) => boolean;
+	footer?: React.ReactNode;
 }
 
 export interface State {
@@ -98,6 +101,7 @@ export default class Dropdown extends Component<Props, State> {
 			dropdownWidth,
 			dropdownListId,
 			alignDropdownWithToolbar,
+			footer,
 		} = this.props;
 
 		let trigger;
@@ -151,6 +155,12 @@ export default class Dropdown extends Component<Props, State> {
 			: options.height;
 
 		return (
+			/**
+			 * At the moment footer diver is rendered along with footer, if it's provided
+			 * This is to provide some level of consistency
+			 * Refer to the PR for more details:
+			 * https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/137394/overview?commentId=8130003
+			 */
 			<UiDropdown
 				mountTo={mountPoint}
 				boundariesElement={boundariesElement}
@@ -171,6 +181,13 @@ export default class Dropdown extends Component<Props, State> {
 				{Array.isArray(options)
 					? this.renderArrayOptions(options)
 					: options.render({ hide: this.hide, dispatchCommand })}
+
+				{footer && (
+					<>
+						<Divider />
+						{footer}
+					</>
+				)}
 			</UiDropdown>
 		);
 	}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, render } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
@@ -20,7 +20,7 @@ describe('<ShrinkOut />', () => {
 	});
 
 	it('should do nothing on initial mount', () => {
-		const { getByTestId } = render(
+		render(
 			<ExitingPersistence>
 				<ShrinkOut>
 					{(props) => (
@@ -34,11 +34,11 @@ describe('<ShrinkOut />', () => {
 			</ExitingPersistence>,
 		);
 
-		expect(getByTestId('target')).not.toHaveAttribute('style');
+		expect(screen.getByTestId('target')).not.toHaveAttribute('style');
 	});
 
 	it('should fix exiting elements size ready for the next frame', () => {
-		const { rerender, getByTestId } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				<ShrinkOut>
 					{(props) => (
@@ -54,12 +54,12 @@ describe('<ShrinkOut />', () => {
 
 		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-		expect(getByTestId('target')).toHaveStyle({ height: '25px' });
-		expect(getByTestId('target')).toHaveStyle({ width: '100px' });
+		expect(screen.getByTestId('target')).toHaveStyle({ height: '25px' });
+		expect(screen.getByTestId('target')).toHaveStyle({ width: '100px' });
 	});
 
 	it('should apply border box when exiting to prevent sizing changing', () => {
-		const { rerender, getByTestId } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				<ShrinkOut>
 					{(props) => (
@@ -75,11 +75,11 @@ describe('<ShrinkOut />', () => {
 
 		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-		expect(getByTestId('target')).toHaveStyle({ boxSizing: 'border-box' });
+		expect(screen.getByTestId('target')).toHaveStyle({ boxSizing: 'border-box' });
 	});
 
 	it('should mark width and margin as styles that will change when exiting', () => {
-		const { rerender, getByTestId } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				<ShrinkOut>
 					{(props) => (
@@ -95,11 +95,11 @@ describe('<ShrinkOut />', () => {
 
 		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-		expect(getByTestId('target')).toHaveStyle({ willChange: 'width,margin' });
+		expect(screen.getByTestId('target')).toHaveStyle({ willChange: 'width,margin' });
 	});
 
 	it('should transition down to take no horizontal space after two frames', () => {
-		const { rerender, getByTestId } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				<ShrinkOut>
 					{(props) => (
@@ -117,15 +117,15 @@ describe('<ShrinkOut />', () => {
 		raf.step();
 		raf.step();
 
-		expect(getByTestId('target')).toHaveStyle({
+		expect(screen.getByTestId('target')).toHaveStyle({
 			transitionProperty: 'width,margin',
 		});
-		expect(getByTestId('target')).toHaveStyle({ width: '0px' });
-		expect(getByTestId('target')).toHaveStyle({ margin: '0px' });
+		expect(screen.getByTestId('target')).toHaveStyle({ width: '0px' });
+		expect(screen.getByTestId('target')).toHaveStyle({ margin: '0px' });
 	});
 
 	it('should take small duration to complete exiting', () => {
-		const { rerender, getByTestId } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				<ShrinkOut>
 					{(props) => (
@@ -143,13 +143,13 @@ describe('<ShrinkOut />', () => {
 		raf.step();
 		raf.step();
 
-		expect(getByTestId('target')).toHaveStyle({
+		expect(screen.getByTestId('target')).toHaveStyle({
 			transitionDuration: `${smallDurationMs}ms`,
 		});
 	});
 
 	it('should ease in to exiting', () => {
-		const { rerender, getByTestId } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				<ShrinkOut>
 					{(props) => (
@@ -167,7 +167,7 @@ describe('<ShrinkOut />', () => {
 		raf.step();
 		raf.step();
 
-		expect(getByTestId('target').style.transitionTimingFunction).toEqual(easeIn);
+		expect(screen.getByTestId('target').style.transitionTimingFunction).toEqual(easeIn);
 	});
 
 	it('should callback when finished exiting', () => {
@@ -223,8 +223,7 @@ describe('<ShrinkOut />', () => {
 			// jest.advanceTimersByTime(smallDurationMs);
 			jest.runAllTimers();
 		});
-
-		expect(baseElement.querySelector('[data-testid="target"]')).toEqual(null);
+		expect(within(baseElement).queryByTestId('target')).not.toBeInTheDocument();
 		jest.useRealTimers();
 	});
 });

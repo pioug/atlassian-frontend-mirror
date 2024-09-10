@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Table, { Cell, HeadCell, Row, SortableColumn, TBody, THead } from '../../index';
 
 it('@atlaskit/table components should be found by data-testid', async () => {
-	const { getByTestId } = render(
+	render(
 		<Table testId="table">
 			<THead>
 				<HeadCell testId="head-cell"></HeadCell>
@@ -22,12 +22,12 @@ it('@atlaskit/table components should be found by data-testid', async () => {
 		</Table>,
 	);
 
-	expect(getByTestId('table')).toBeInTheDocument();
-	expect(getByTestId('head-cell')).toBeInTheDocument();
+	expect(screen.getByTestId('table')).toBeInTheDocument();
+	expect(screen.getByTestId('head-cell')).toBeInTheDocument();
 	// TH element itself
-	expect(getByTestId('sortable-col')).toBeInTheDocument();
+	expect(screen.getByTestId('sortable-col')).toBeInTheDocument();
 	// Sort button inside th
-	expect(getByTestId('sortable-col--button')).toBeInTheDocument();
-	expect(getByTestId('row')).toBeInTheDocument();
-	expect(getByTestId('cell')).toBeInTheDocument();
+	expect(screen.getByTestId('sortable-col--button')).toBeInTheDocument();
+	expect(screen.getByTestId('row')).toBeInTheDocument();
+	expect(screen.getByTestId('cell')).toBeInTheDocument();
 });

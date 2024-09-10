@@ -20,7 +20,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { Box } from '@atlaskit/primitives';
-import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
+import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
 
 import { useFocusEditor } from '../hooks/use-focus-editor';
 import { useUnholyAutofocus } from '../hooks/use-unholy-autofocus';
@@ -57,6 +57,18 @@ const getDomRefFromSelection = (
 			dispatchAnalyticsEvent(payload);
 		}
 	}
+};
+
+/**
+ * A custom TabPanel that is non-focusable.
+ */
+const CustomTabPanel = ({ children }: { children: React.ReactNode }) => {
+	const tabPanelAttributes = useTabPanel();
+	return (
+		<Box paddingBlockEnd="space.150" {...tabPanelAttributes} tabIndex={-1}>
+			{children}
+		</Box>
+	);
 };
 
 export const MediaInsertPicker = ({
@@ -124,7 +136,7 @@ export const MediaInsertPicker = ({
 							<Tab>{intl.formatMessage(mediaInsertMessages.linkTabTitle)}</Tab>
 						</TabList>
 					</Box>
-					<TabPanel>
+					<CustomTabPanel>
 						<LocalMedia
 							ref={autofocusRef}
 							mediaProvider={mediaProvider}
@@ -135,8 +147,8 @@ export const MediaInsertPicker = ({
 							}}
 							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 						/>
-					</TabPanel>
-					<TabPanel>
+					</CustomTabPanel>
+					<CustomTabPanel>
 						<MediaFromURL
 							mediaProvider={mediaProvider}
 							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
@@ -147,7 +159,7 @@ export const MediaInsertPicker = ({
 							insertMediaSingle={insertMediaSingle}
 							insertExternalMediaSingle={insertExternalMediaSingle}
 						/>
-					</TabPanel>
+					</CustomTabPanel>
 				</Tabs>
 			</MediaInsertWrapper>
 		</PopupWithListeners>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import SlideIn, { slideInAnimation } from '../../../entering/slide-in';
@@ -12,36 +12,39 @@ jest.mock('../../../utils/accessibility');
 
 describe('<SlideIn />', () => {
 	it('should default to medium duration', () => {
-		const { getByTestId } = render(
+		render(
 			<SlideIn enterFrom="left">{(props) => <div data-testid="target" {...props} />}</SlideIn>,
 		);
 
-		expect(getByTestId('target')).toHaveStyleDeclaration(
+		expect(screen.getByTestId('target')).toHaveStyleDeclaration(
 			'animation-duration',
 			`${mediumDurationMs}ms`,
 		);
 	});
 
 	it('should override default duration', () => {
-		const { getByTestId } = render(
+		render(
 			<SlideIn duration={123} enterFrom="left">
 				{(props) => <div data-testid="target" {...props} />}
 			</SlideIn>,
 		);
 
-		expect(getByTestId('target')).toHaveStyleDeclaration('animation-duration', '123ms');
+		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-duration', '123ms');
 	});
 
 	it('should slide in easing out', () => {
-		const { getByTestId } = render(
+		render(
 			<SlideIn enterFrom="left">{(props) => <div data-testid="target" {...props} />}</SlideIn>,
 		);
 
-		expect(getByTestId('target')).toHaveStyleDeclaration('animation-timing-function', easeOut);
+		expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+			'animation-timing-function',
+			easeOut,
+		);
 	});
 
 	it('should slide out easing in', () => {
-		const { getByTestId, rerender } = render(
+		const { rerender } = render(
 			<ExitingPersistence>
 				<SlideIn enterFrom="left">{(props) => <div data-testid="target" {...props} />}</SlideIn>
 			</ExitingPersistence>,
@@ -49,7 +52,10 @@ describe('<SlideIn />', () => {
 
 		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-		expect(getByTestId('target')).toHaveStyleDeclaration('animation-timing-function', easeIn);
+		expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+			'animation-timing-function',
+			easeIn,
+		);
 	});
 
 	['entering', 'exiting'].forEach((state) => {

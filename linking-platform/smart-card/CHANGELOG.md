@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 28.0.1
+
+### Patch Changes
+
+- [#138717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138717)
+  [`c435b6d52ac26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c435b6d52ac26) -
+  Removing aria-label for decorative images to fix a11y violations
+
 ## 28.0.0
 
 ### Major Changes

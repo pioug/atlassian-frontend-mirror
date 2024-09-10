@@ -13,11 +13,13 @@ const staticData = [
 	{
 		title: 'Chapter one: Introduction',
 		description: 'Description One',
+		id: 'chapter-one',
 	},
 	{
 		title:
 			'Chapter two: With a very very long title that will be cut off instead of spanning multiple lines',
 		description: 'Description Two. This column can span multiple lines.',
+		id: 'chapter-two',
 	},
 ];
 

@@ -83,6 +83,7 @@ function PopperWrapper({
 	label,
 	titleId,
 	modifiers,
+	shouldFitViewport,
 }: PopperWrapperProps) {
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	const [initialFocusRef, setInitialFocusRef] = useState<HTMLElement | null>(null);
@@ -132,7 +133,13 @@ function PopperWrapper({
 	);
 
 	return (
-		<Popper placement={placement} offset={offset} modifiers={mergedModifiers} strategy={strategy}>
+		<Popper
+			placement={placement}
+			offset={offset}
+			modifiers={mergedModifiers}
+			strategy={strategy}
+			shouldFitViewport={shouldFitViewport}
+		>
 			{({ ref, style, placement, update }) => {
 				return (
 					<PopupContainer

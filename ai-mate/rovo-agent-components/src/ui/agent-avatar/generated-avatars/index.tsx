@@ -198,6 +198,16 @@ const outOfTheBoxAgentAvatar: {
 		),
 		color: yellowColor,
 	},
+	jira_issue_gardener_agent: {
+		getRender: (size: SizeType) => (
+			<BacklogBuddyAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={greenColor.primary}
+				secondaryColor={greenColor.secondary}
+			/>
+		),
+		color: greenColor,
+	},
 };
 
 /**

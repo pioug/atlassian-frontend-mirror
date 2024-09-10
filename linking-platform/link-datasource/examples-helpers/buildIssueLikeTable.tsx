@@ -29,6 +29,7 @@ interface Props {
 	canResizeColumns?: boolean;
 	canControlWrapping?: boolean;
 	skipIntl?: boolean;
+	forceLoading?: boolean;
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -40,7 +41,12 @@ const TableViewWrapper = styled.div({
 	height: '100%',
 });
 
-const ExampleBody = ({ isReadonly, canResizeColumns = true, canControlWrapping = true }: Props) => {
+const ExampleBody = ({
+	isReadonly,
+	canResizeColumns = true,
+	canControlWrapping = true,
+	forceLoading = false,
+}: Props) => {
 	const parameters = useMemo<JiraIssueDatasourceParameters>(
 		() => ({
 			cloudId: 'some-cloud-id',
@@ -89,12 +95,12 @@ const ExampleBody = ({ isReadonly, canResizeColumns = true, canControlWrapping =
 			{visibleColumnKeys.length > 0 && columns.length > 0 ? (
 				<IssueLikeDataTableView
 					testId="link-datasource"
-					items={responseItems}
-					itemIds={responseItemIds}
+					items={forceLoading ? [] : responseItems}
+					itemIds={forceLoading ? [] : responseItemIds}
 					onNextPage={onNextPage}
 					onLoadDatasourceDetails={loadDatasourceDetails}
 					hasNextPage={hasNextPage}
-					status={status}
+					status={forceLoading ? 'loading' : status}
 					columns={columns}
 					visibleColumnKeys={visibleColumnKeys}
 					onVisibleColumnKeysChange={isReadonly ? undefined : onVisibleColumnKeysChange}
@@ -114,6 +120,7 @@ export const ExampleIssueLikeTable = ({
 	isReadonly,
 	canResizeColumns,
 	canControlWrapping,
+	forceLoading,
 }: Props) => {
 	return (
 		<DatasourceExperienceIdProvider>
@@ -123,6 +130,7 @@ export const ExampleIssueLikeTable = ({
 						isReadonly={isReadonly}
 						canResizeColumns={canResizeColumns}
 						canControlWrapping={canControlWrapping}
+						forceLoading={forceLoading}
 					/>
 				</SmartCardProvider>
 			</IntlMessagesProvider>

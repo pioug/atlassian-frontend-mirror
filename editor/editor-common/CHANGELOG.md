@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 88.13.2
+
+### Patch Changes
+
+- [#137403](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137403)
+  [`1ef67ef2128a5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1ef67ef2128a5) -
+  [ux] [ED-24820] When media group is selected and we insert a quote we want it to wrap. We had to
+  update the range for media group to be wrapped.
+
+## 88.13.1
+
+### Patch Changes
+
+- [#137865](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137865)
+  [`d392fecac5384`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d392fecac5384) -
+  [EDF-1247] Added beta label to proactive ai experience, patched editor floating toolbar to support
+  a new footer component if parsed in
+
+## 88.13.0
+
+### Minor Changes
+
+- [#138801](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138801)
+  [`eeb1f7ad41211`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eeb1f7ad41211) -
+  Adding new entry-points to editor-common to optimise bundle size and move away from "utils"
+  entry-point.
+
+## 88.12.1
+
+### Patch Changes
+
+- [`1269ffa635367`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1269ffa635367) -
+  Cleanup FF platform_editor_get_card_provider_from_config
+
 ## 88.12.0
 
 ### Minor Changes

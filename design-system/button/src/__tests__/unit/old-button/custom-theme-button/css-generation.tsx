@@ -4,7 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type CSSObject, jsx } from '@emotion/react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { CustomThemeButton, type InteractionState } from '../../../../index';
 import { getCustomCss } from '../../../../old-button/custom-theme-button/theme';
@@ -77,8 +77,8 @@ it('should roll up the loading styles when loading', () => {
 });
 
 it('should not allow hover or active interactions while loading', () => {
-	const { getByTestId, rerender } = render(<CustomThemeButton testId="button" />);
-	const button = getByTestId('button');
+	const { rerender } = render(<CustomThemeButton testId="button" />);
+	const button = screen.getByTestId('button');
 	const defaultClassName: string = button.className;
 
 	// get isLoading class name

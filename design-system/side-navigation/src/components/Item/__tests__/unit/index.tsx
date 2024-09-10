@@ -1,6 +1,6 @@
 import React, { type FC } from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { ROOT_ID } from '../../../NestableNavigationContent';
 import { NestedContext } from '../../../NestableNavigationContent/context';
@@ -19,7 +19,7 @@ describe('Item', () => {
 	};
 
 	it('should render a ButtonItem when contained in an active nested view', () => {
-		const { queryByText, rerender } = render(
+		const { rerender } = render(
 			<NestedContext.Provider value={{ ...callbacks }}>
 				<NestingItem id="1" title="Nest">
 					<ButtonItem>Hello world</ButtonItem>
@@ -27,7 +27,7 @@ describe('Item', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Hello world')).toBeFalsy();
+		expect(screen.queryByText('Hello world')).not.toBeInTheDocument();
 
 		rerender(
 			<NestedContext.Provider value={{ ...callbacks, currentStackId: '1' }}>
@@ -37,11 +37,11 @@ describe('Item', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Hello world')).toBeTruthy();
+		expect(screen.getByText('Hello world')).toBeInTheDocument();
 	});
 
 	it('should render a LinkItem when contained in an active nested view', () => {
-		const { queryByText, rerender } = render(
+		const { rerender } = render(
 			<NestedContext.Provider value={{ ...callbacks }}>
 				<NestingItem id="1" title="Nest">
 					<LinkItem href="www.atlassian.com">Hello world</LinkItem>
@@ -49,7 +49,7 @@ describe('Item', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Hello world')).toBeFalsy();
+		expect(screen.queryByText('Hello world')).not.toBeInTheDocument();
 
 		rerender(
 			<NestedContext.Provider value={{ ...callbacks, currentStackId: '1' }}>
@@ -59,7 +59,7 @@ describe('Item', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Hello world')).toBeTruthy();
+		expect(screen.getByText('Hello world')).toBeInTheDocument();
 	});
 
 	it('should render a CustomItem when contained in an active nested view', () => {
@@ -68,7 +68,7 @@ describe('Item', () => {
 			<div {...props}>Hello world</div>
 		);
 
-		const { queryByText, rerender } = render(
+		const { rerender } = render(
 			<NestedContext.Provider value={{ ...callbacks }}>
 				<NestingItem id="1" title="Nest">
 					<CustomItem component={CustomButton} />
@@ -76,7 +76,7 @@ describe('Item', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Hello world')).toBeFalsy();
+		expect(screen.queryByText('Hello world')).not.toBeInTheDocument();
 
 		rerender(
 			<NestedContext.Provider value={{ ...callbacks, currentStackId: '1' }}>
@@ -86,6 +86,6 @@ describe('Item', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Hello world')).toBeTruthy();
+		expect(screen.getByText('Hello world')).toBeInTheDocument();
 	});
 });

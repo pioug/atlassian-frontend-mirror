@@ -1,13 +1,14 @@
+/* eslint-disable testing-library/no-node-access */
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { Banner, PageLayout } from '../../../index';
 
 const emptyGridState = { gridState: {} };
 describe('<Banner />', () => {
 	it('should render with the height passed to it', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<Banner testId="component" height={50}>
 					Contents
@@ -15,14 +16,17 @@ describe('<Banner />', () => {
 			</PageLayout>,
 		);
 
-		expect(getByTestId('component')).toHaveStyleDeclaration('height', 'var(--bannerHeight, 0px)');
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		expect(screen.getByTestId('component')).toHaveStyleDeclaration(
+			'height',
+			'var(--bannerHeight, 0px)',
+		);
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--bannerHeight:50px;}'),
 		);
 	});
 
 	it('should hydrate with the the height passed to it', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<Banner testId="component" height={50}>
 					Contents
@@ -31,14 +35,17 @@ describe('<Banner />', () => {
 			{ hydrate: true },
 		);
 
-		expect(getByTestId('component')).toHaveStyleDeclaration('height', 'var(--bannerHeight, 0px)');
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		expect(screen.getByTestId('component')).toHaveStyleDeclaration(
+			'height',
+			'var(--bannerHeight, 0px)',
+		);
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--bannerHeight:50px;}'),
 		);
 	});
 
 	it('should be "fixed" when isFixed prop is passed', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<Banner testId="component" isFixed height={50}>
 					Contents
@@ -46,7 +53,7 @@ describe('<Banner />', () => {
 			</PageLayout>,
 		);
 
-		expect(getByTestId('component')).toHaveStyleDeclaration('position', 'fixed');
+		expect(screen.getByTestId('component')).toHaveStyleDeclaration('position', 'fixed');
 	});
 
 	it('should store the width in localStorage on mount', () => {
@@ -83,7 +90,7 @@ describe('<Banner />', () => {
 	});
 
 	it('should respect the shouldPersistWidth prop', () => {
-		const { rerender, getByTestId } = render(
+		const { rerender } = render(
 			<PageLayout testId="grid">
 				<Banner testId="component" isFixed height={200} shouldPersistHeight>
 					Contents
@@ -91,7 +98,7 @@ describe('<Banner />', () => {
 			</PageLayout>,
 		);
 
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--bannerHeight:200px;}'),
 		);
 
@@ -103,7 +110,7 @@ describe('<Banner />', () => {
 			</PageLayout>,
 		);
 
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--bannerHeight:200px;}'),
 		);
 	});

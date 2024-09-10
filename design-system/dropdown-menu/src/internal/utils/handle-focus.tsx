@@ -1,6 +1,9 @@
 import { KEY_DOWN, KEY_END, KEY_HOME, KEY_TAB, KEY_UP } from '@atlaskit/ds-lib/keycodes';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type Action, type FocusableElement } from '../../types';
+
+import { PREFIX } from './use-generated-id';
 
 const actionMap: { [key: string]: Action } = {
 	[KEY_DOWN]: 'next',
@@ -52,15 +55,29 @@ export default function handleFocus(
 		const currentFocusedIdx = refs.findIndex((el: HTMLButtonElement | HTMLAnchorElement) =>
 			document.activeElement?.isSameNode(el),
 		);
-		if (isLayerDisabled()) {
-			// if nested dropdown isOpen we need to close on Tab key press
-			if (e.key === KEY_TAB && !e.shiftKey) {
-				onClose(e);
-			}
 
-			// if it is a nested dropdown and the level of the given dropdown is not the current level,
-			// we don't need to have focus on it
-			return;
+		if (fg('platform_dst_popup-disable-focuslock')) {
+			// if we use a popup as a nested dropdown, we must prevent the dropdown from closing.
+			const isNestedDropdown = !!document.activeElement?.closest(`[id^=${PREFIX}]`);
+			if (isLayerDisabled() && isNestedDropdown) {
+				if (e.key === KEY_TAB && !e.shiftKey) {
+					onClose(e);
+				}
+
+				// if it is a nested dropdown and the level of the given dropdown is not the current level,
+				// we don't need to have focus on it
+				return;
+			}
+		} else {
+			if (isLayerDisabled()) {
+				if (e.key === KEY_TAB && !e.shiftKey) {
+					onClose(e);
+				}
+
+				// if it is a nested dropdown and the level of the given dropdown is not the current level,
+				// we don't need to have focus on it
+				return;
+			}
 		}
 		const action = actionMap[e.key];
 

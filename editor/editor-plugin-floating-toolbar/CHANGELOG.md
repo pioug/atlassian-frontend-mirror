@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.12.2
+
+### Patch Changes
+
+- [#137865](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137865)
+  [`d392fecac5384`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d392fecac5384) -
+  [EDF-1247] Added beta label to proactive ai experience, patched editor floating toolbar to support
+  a new footer component if parsed in
+
+## 1.12.1
+
+### Patch Changes
+
+- [`1269ffa635367`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1269ffa635367) -
+  Cleanup FF platform_editor_get_card_provider_from_config
+
 ## 1.12.0
 
 ### Minor Changes

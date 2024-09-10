@@ -395,5 +395,46 @@ test.describe('Popup focus behavior', () => {
 		await page.keyboard.press('Enter');
 
 		await expect(modalDialogContent).toBeVisible();
+
+		await page.keyboard.press('Tab');
+		await expect(modalDialogContent).toBeVisible();
+	});
+
+	test('The trigger button should be focusable and not have a negative tabindex after closing with the Tab key, FF on', async ({
+		page,
+	}) => {
+		await page.visitExample(
+			'design-system',
+			'popup',
+			'testing-modal-inside-popup-inside-dropdown',
+			{
+				featureFlag: 'platform_dst_popup-disable-focuslock',
+			},
+		);
+
+		const dropdownTrigger = page.getByTestId('dropdown--trigger');
+		const dropdownContent = page.getByTestId('dropdown--content');
+		const modalDialogTrigger = page.getByTestId('modal-trigger');
+		const popupContent = page.getByTestId('popup-content');
+
+		await dropdownTrigger.focus();
+		await dropdownTrigger.press('Enter');
+
+		let triggerTabindex = await dropdownTrigger.getAttribute('tabindex');
+		await expect(triggerTabindex).toBe('-1');
+
+		await page.keyboard.press('Tab');
+		await page.keyboard.press('Tab');
+		await page.keyboard.press('Enter');
+
+		await expect(popupContent).toBeVisible();
+		await expect(modalDialogTrigger).toBeFocused();
+
+		await page.keyboard.press('Tab');
+
+		await expect(dropdownContent).toBeHidden();
+
+		triggerTabindex = await dropdownTrigger.getAttribute('tabindex');
+		await expect(triggerTabindex).toBe('0');
 	});
 });

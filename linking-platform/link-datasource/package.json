@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "2.12.4",
+	"version": "2.12.5",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -65,7 +65,7 @@
 		"@atlaskit/modal-dialog": "^12.15.0",
 		"@atlaskit/outbound-auth-flow-client": "^3.4.5",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/popup": "^1.24.0",
+		"@atlaskit/popup": "^1.25.0",
 		"@atlaskit/pragmatic-drag-and-drop": "^1.3.0",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
 		"@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^1.2.0",

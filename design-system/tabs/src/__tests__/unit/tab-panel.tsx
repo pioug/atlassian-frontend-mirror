@@ -1,13 +1,12 @@
 import React, { type ReactNode } from 'react';
 
-import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { Text } from '@atlaskit/primitives';
 
 import Tabs, { Tab, TabList, TabPanel, useTabPanel } from '../../index';
 import { TabPanelContext } from '../../internal/context';
-
-afterEach(cleanup);
 
 const CustomTabPanel = ({ children }: { children: ReactNode }) => {
 	const context = useTabPanel();
@@ -41,7 +40,7 @@ describe('@atlaskit/tabs', () => {
 		});
 
 		it('should accept any react node as a child', () => {
-			const { getByTestId } = render(
+			render(
 				<TabPanelContext.Provider
 					value={{
 						role: 'tabpanel',
@@ -57,11 +56,11 @@ describe('@atlaskit/tabs', () => {
 				</TabPanelContext.Provider>,
 			);
 
-			expect(getByTestId('panel-1')).toBeInTheDocument();
+			expect(screen.getByTestId('panel-1')).toBeInTheDocument();
 		});
 
 		it('should map props in context correctly', () => {
-			const { getByRole } = render(
+			render(
 				<TabPanelContext.Provider
 					value={{
 						role: 'tabpanel',
@@ -75,7 +74,7 @@ describe('@atlaskit/tabs', () => {
 				</TabPanelContext.Provider>,
 			);
 
-			const tabPanel = getByRole('tabpanel');
+			const tabPanel = screen.getByRole('tabpanel');
 			expect(tabPanel).toHaveAttribute('aria-labelledby', '1');
 			expect(tabPanel.id).toBe('0-1-tab');
 			expect(tabPanel.hidden).toBe(false);
@@ -85,7 +84,7 @@ describe('@atlaskit/tabs', () => {
 
 	describe('Custom tab panel using useTabPanel', () => {
 		it('will reflect changes in the TabPanelContext and render correctly', () => {
-			const { getByRole } = render(
+			render(
 				<TabPanelContext.Provider
 					value={{
 						role: 'tabpanel',
@@ -98,7 +97,7 @@ describe('@atlaskit/tabs', () => {
 				</TabPanelContext.Provider>,
 			);
 
-			const tabPanel = getByRole('tabpanel');
+			const tabPanel = screen.getByRole('tabpanel');
 			expect(tabPanel).toHaveAttribute('aria-labelledby', '1');
 			expect(tabPanel.id).toBe('1-1-tab');
 			expect(tabPanel.hidden).toBe(false);
@@ -106,30 +105,32 @@ describe('@atlaskit/tabs', () => {
 		});
 
 		it('will reflect changes in the TabPanelContext when wrapped in a div', () => {
-			const { getByRole } = render(
+			render(
 				<TabPanelContext.Provider
 					value={{
 						role: 'tabpanel',
-						'aria-labelledby': '1',
+						'aria-labelledby': 'tabpanel-label',
 						id: '1-1-tab',
 						tabIndex: 0,
 					}}
 				>
 					<div>
+						<Text id="tabpanel-label">Tabpanel</Text>
 						<CustomTabPanel>Panel 1</CustomTabPanel>
 					</div>
 				</TabPanelContext.Provider>,
 			);
 
-			const tabPanel = getByRole('tabpanel');
-			expect(tabPanel).toHaveAttribute('aria-labelledby', '1');
+			const tabPanel = screen.getByRole('tabpanel', {
+				name: 'Tabpanel',
+			});
 			expect(tabPanel.id).toBe('1-1-tab');
-			expect(tabPanel.hidden).toBe(false);
+			expect(tabPanel).toBeVisible();
 			expect(tabPanel.tabIndex).toBe(0);
 		});
 
-		it('should not unmount a custom TabPanel when changed', () => {
-			const { getByText, queryByText, getAllByRole } = render(
+		it('should not unmount a custom TabPanel when changed', async () => {
+			render(
 				<Tabs id="test">
 					<TabList>
 						<Tab>Tab 1 label</Tab>
@@ -140,15 +141,10 @@ describe('@atlaskit/tabs', () => {
 				</Tabs>,
 			);
 
-			fireEvent.click(getByText('Tab 2 label'));
+			fireEvent.click(screen.getByText('Tab 2 label'));
 
-			waitFor(() => expect(getAllByRole('tabpanel').length).toBe(2));
-			expect(getByText('Tab 1 panel')).toBeInTheDocument();
-			expect(getByText('Tab 2 panel')).toBeInTheDocument();
-			expect(queryByText('Tab 3 panel')).not.toBeInTheDocument();
-
-			expect(getByText('Tab 1 panel').hidden).toBe(true);
-			expect(getByText('Tab 2 panel').hidden).toBe(false);
+			expect(screen.getByText('Tab 1 panel')).not.toBeVisible();
+			expect(screen.getByText('Tab 2 panel')).toBeVisible();
 		});
 	});
 });

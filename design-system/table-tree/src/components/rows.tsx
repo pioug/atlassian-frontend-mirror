@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+import React, { type ReactElement } from 'react';
 
 import Items from './internal/items';
+import { type RowProps } from './row';
 
-type WithChildren<T> = T & { children?: T[] | null };
+type Content = {
+	title: string;
+	description: string;
+};
 
-export interface RowsProps<T> {
+export interface RowsProps<Item> {
 	/**
 	 * The data used to render the set of rows. Will be passed down via the `children` render prop.
 	 *
@@ -12,13 +16,14 @@ export interface RowsProps<T> {
 	 * be provided as props when rendering each cell.
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	items?: WithChildren<T>[];
+	items?: Item[];
 	/**
 	 * Render function for child rows. Render props will contain an item from the
 	 * `items` prop above.
 	 */
-	render: (args: WithChildren<T>) => React.ReactNode;
-	/* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	render: (
+		args: Item & { children?: Item[]; content?: Content },
+	) => ReactElement<RowProps<Item>> | null;
 	/**
 	 * This is an accessible name for the loading state's spinner.
 	 * The default text is "Loading".
@@ -26,13 +31,13 @@ export interface RowsProps<T> {
 	loadingLabel?: string;
 }
 
-export default class Rows<T> extends Component<RowsProps<T>> {
-	render() {
-		const { items, render, loadingLabel = 'Loading' } = this.props;
-		return (
-			<div role="rowgroup">
-				<Items items={items} loadingLabel={loadingLabel} render={render} />
-			</div>
-		);
-	}
+function Rows<T extends { id: string }>({ items, render, loadingLabel = 'Loading' }: RowsProps<T>) {
+	return (
+		<div role="rowgroup">
+			<Items items={items} loadingLabel={loadingLabel} render={render} />
+		</div>
+	);
 }
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default Rows;

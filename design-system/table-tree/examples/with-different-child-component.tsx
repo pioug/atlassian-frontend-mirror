@@ -6,21 +6,19 @@ import TableTree, { Cell, Header, Headers, Row, Rows, TableTreeDataHelper } from
 
 import exampleImage from './img/example-image.png';
 
-let uuid = 0;
-
 type Item = (typeof ROOTS)[number] & { component: ComponentType<any> };
 
 const ROOTS = [
 	{
 		title: 'Chapter 1: Clean code',
-		id: ++uuid,
+		id: 'chapter-1',
 		page: 1,
 		numbering: '1',
 		hasChildren: true,
 	},
 	{
 		title: 'Chapter 2: Meaningful names',
-		id: ++uuid,
+		id: 'chapter-2',
 		page: 17,
 		numbering: '2',
 		hasChildren: true,
@@ -32,27 +30,27 @@ function getChildren(parentItem: any) {
 		return [
 			{
 				component: EmptyState,
-				id: ++uuid,
+				id: 'empty-state',
 			},
 		];
 	}
 	return [
 		{
 			title: 'There will be code',
-			id: ++uuid,
+			id: '1.1',
 			page: 2,
 			numbering: '1.1',
 			hasChildren: true,
 		},
 		{
 			title: 'Bad code',
-			id: ++uuid,
+			id: '1.2',
 			page: 3,
 			numbering: '1.2',
 		},
 		{
 			title: 'The cost of owning a mess',
-			id: ++uuid,
+			id: '1.3',
 			page: 4,
 			numbering: '1.3',
 			hasChildren: true,

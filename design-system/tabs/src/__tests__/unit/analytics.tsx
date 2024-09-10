@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
@@ -9,14 +9,12 @@ import Tabs, { Tab, TabList, TabPanel } from '../../index';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-afterEach(cleanup);
-
 describe('Tabs analytics', () => {
 	it(`should fire an event on the public channel and the internal channel when tabs are changed`, () => {
 		const onPublicEvent = jest.fn();
 		const onAtlaskitEvent = jest.fn();
 
-		const { getByText } = render(
+		render(
 			<AnalyticsListener onEvent={onAtlaskitEvent}>
 				<AnalyticsListener onEvent={onPublicEvent}>
 					<Tabs
@@ -36,7 +34,7 @@ describe('Tabs analytics', () => {
 			</AnalyticsListener>,
 		);
 
-		const tab2: HTMLElement = getByText('Tab 2');
+		const tab2: HTMLElement = screen.getByText('Tab 2');
 		fireEvent.click(tab2);
 
 		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
@@ -73,7 +71,7 @@ describe('Tabs analytics', () => {
 		const onEvent = jest.fn();
 		const extraContext = { hello: 'world' };
 
-		const { getByText } = render(
+		render(
 			<AnalyticsListener onEvent={onEvent} channel={'atlaskit'}>
 				<Tabs
 					onChange={(index, analyticsEvent) => {
@@ -92,7 +90,7 @@ describe('Tabs analytics', () => {
 			</AnalyticsListener>,
 		);
 
-		const tab2: HTMLElement = getByText('Tab 2');
+		const tab2: HTMLElement = screen.getByText('Tab 2');
 		fireEvent.click(tab2);
 
 		expect(onEvent.mock.calls[0][0].context[0]).toEqual(expect.objectContaining(extraContext));

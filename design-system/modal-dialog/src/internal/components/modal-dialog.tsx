@@ -10,7 +10,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { useId } from '@atlaskit/ds-lib/react-uid';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import FocusRing from '@atlaskit/focus-ring';
-import { useCloseOnEscapePress } from '@atlaskit/layering';
+import { UNSAFE_useLayering, useCloseOnEscapePress } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { media } from '@atlaskit/primitives';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
@@ -132,6 +132,7 @@ const ModalDialog = (
 		isDisabled: !shouldCloseOnEscapePress,
 	});
 
+	const { currentLevel } = UNSAFE_useLayering();
 	return (
 		<Positioner
 			stackIndex={stackIndex!}
@@ -168,6 +169,7 @@ const ModalDialog = (
 									data-modal-stack={stackIndex}
 									tabIndex={-1}
 									aria-modal={true}
+									data-ds--level={currentLevel}
 								>
 									{children}
 								</section>

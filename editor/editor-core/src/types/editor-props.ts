@@ -3,6 +3,7 @@ import type { ReactElement } from 'react';
 import type { ActivityProvider } from '@atlaskit/activity-provider';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
+import type { ErrorReportingHandler } from '@atlaskit/editor-common/error-reporter';
 import type { ExtensionHandlers, ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type {
 	AllEditorPresetPluginTypes,
@@ -23,7 +24,6 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
 import type { CodeBlockOptions } from '@atlaskit/editor-plugins/code-block';

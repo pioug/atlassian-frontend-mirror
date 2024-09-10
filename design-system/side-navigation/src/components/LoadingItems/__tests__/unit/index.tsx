@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
@@ -15,48 +15,51 @@ describe('<LoadingItems />', () => {
 	);
 
 	it('should not affect position when entering', () => {
-		const { getByTestId } = render(markup());
+		render(markup());
 
-		expect(getByTestId('test--entering')).not.toHaveStyleDeclaration('position', 'absolute');
+		expect(screen.getByTestId('test--entering')).not.toHaveStyleDeclaration('position', 'absolute');
 	});
 
 	it('should position itself absolutely when exiting', () => {
-		const { getByTestId, rerender } = render(markup());
+		const { rerender } = render(markup());
 
 		rerender(markup(false));
 
-		expect(getByTestId('test--exiting')).toHaveStyleDeclaration('position', 'absolute');
+		expect(screen.getByTestId('test--exiting')).toHaveStyleDeclaration('position', 'absolute');
 	});
 
 	it('should take up all the available space when exiting', () => {
-		const { getByTestId, rerender } = render(markup());
+		const { rerender } = render(markup());
 
 		rerender(markup(false));
 
-		expect(getByTestId('test--exiting')).toHaveStyleDeclaration('top', '0');
-		expect(getByTestId('test--exiting')).toHaveStyleDeclaration('left', '0');
-		expect(getByTestId('test--exiting')).toHaveStyleDeclaration('right', '0');
+		expect(screen.getByTestId('test--exiting')).toHaveStyleDeclaration('top', '0');
+		expect(screen.getByTestId('test--exiting')).toHaveStyleDeclaration('left', '0');
+		expect(screen.getByTestId('test--exiting')).toHaveStyleDeclaration('right', '0');
 	});
 
 	it('should position entering elements over exiting elements', () => {
-		const { getByTestId, rerender } = render(markup());
+		const { rerender } = render(markup());
 
 		rerender(markup(false));
 
-		expect(getByTestId('test--exiting')).toHaveStyleDeclaration('z-index', '1');
-		expect(getByTestId('test--entering')).toHaveStyleDeclaration('z-index', '2');
+		expect(screen.getByTestId('test--exiting')).toHaveStyleDeclaration('z-index', '1');
+		expect(screen.getByTestId('test--entering')).toHaveStyleDeclaration('z-index', '2');
 	});
 
 	it('should use medium duration', () => {
-		const { getByTestId, rerender } = render(markup());
+		const { rerender } = render(markup());
 
 		rerender(markup(false));
 
-		expect(getByTestId('test--exiting')).toHaveStyleDeclaration('animation-duration', '175ms');
+		expect(screen.getByTestId('test--exiting')).toHaveStyleDeclaration(
+			'animation-duration',
+			'175ms',
+		);
 	});
 
 	it('should render nothing when not apart of the active view', () => {
-		const { queryByTestId } = render(
+		render(
 			<NestedContext.Provider
 				value={{
 					currentStackId: '1',
@@ -74,6 +77,6 @@ describe('<LoadingItems />', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByTestId('test--entering')).toBeNull();
+		expect(screen.queryByTestId('test--entering')).not.toBeInTheDocument();
 	});
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
 
 import { NestableNavigationContent, NestingItem, Section, SideNavigation } from '../../index';
@@ -94,7 +94,7 @@ describe('onUnknownNest after user interaction', () => {
 	it('calls onUnknownNest when stack becomes invalid after user interaction', async () => {
 		const unknownNestCallback = jest.fn();
 
-		const { getByTestId } = render(
+		render(
 			<SideNavigation label="project">
 				<NestableNavigationContent
 					initialStack={['1', '1-1', '1-2', '1-3', '1-1']}
@@ -113,7 +113,7 @@ describe('onUnknownNest after user interaction', () => {
 		);
 		expect(unknownNestCallback).not.toHaveBeenCalled();
 
-		fireEvent.click(getByTestId('uncontrolled-invalid--go-back-item'));
+		fireEvent.click(screen.getByTestId('uncontrolled-invalid--go-back-item'));
 
 		act(() => {
 			// @ts-ignore mocked as the test starts

@@ -3,6 +3,7 @@ type Item = {
 	numbering: string;
 	page: number;
 	children?: Item[];
+	id: string;
 };
 
 /**
@@ -13,16 +14,19 @@ export const getDefaultItems = (): Item[] => [
 		title: 'Chapter 1: Clean code',
 		page: 1,
 		numbering: '1',
+		id: 'chapter-one',
 	},
 	{
 		title: 'Chapter 2: Meaningful names',
 		page: 17,
 		numbering: '2',
+		id: 'chapter-two',
 		children: [
 			{
 				title: 'Section 2.1: Naming conventions',
 				page: 17,
 				numbering: '2.1',
+				id: 'section-two-one',
 			},
 		],
 	},
@@ -36,6 +40,7 @@ export const fetchNewItems = async (): Promise<Item[]> => {
 			title: `Section 2.${id}`,
 			numbering: `2.${id}`,
 			page: 17,
+			id: `section-two-${id}`,
 		},
 	];
 };
@@ -48,6 +53,7 @@ export const fetchItems = async (): Promise<Item[]> => {
 					title: 'Section 2.1: Naming conventions',
 					page: 17,
 					numbering: '2.1',
+					id: 'section-two-one',
 				},
 			]);
 		}, 1500);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
@@ -24,7 +24,7 @@ describe('TextArea analytics', () => {
 	].forEach((event) => {
 		it(`should fire an event on internal channel when ${event.action}`, async () => {
 			const onAtlaskitEvent = jest.fn();
-			const { getByTestId } = render(
+			render(
 				<AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
 					<div>
 						<label htmlFor="name">
@@ -34,7 +34,7 @@ describe('TextArea analytics', () => {
 					</div>
 				</AnalyticsListener>,
 			);
-			const textarea = getByTestId('test') as HTMLTextAreaElement;
+			const textarea = screen.getByTestId('test') as HTMLTextAreaElement;
 			const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 				payload: {
 					action: event.action,

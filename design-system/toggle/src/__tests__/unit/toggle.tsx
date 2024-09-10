@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
@@ -10,28 +11,18 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('Toggle component', () => {
-	const testId = 'toggle';
 	const label = 'label';
 
 	it('should be able to switch', () => {
 		const onChange = jest.fn();
-		render(
-			<Toggle
-				size="large"
-				label={label}
-				defaultChecked={false}
-				onChange={onChange}
-				testId={testId}
-			/>,
-		);
-		const labelElement = screen.getByTestId(testId);
+		render(<Toggle size="large" label={label} defaultChecked={false} onChange={onChange} />);
+		const inputElement = screen.getByLabelText(label);
+		expect(inputElement).not.toBeChecked();
 
-		expect(labelElement).not.toHaveAttribute('data-checked');
-
-		fireEvent.click(labelElement);
+		fireEvent.click(inputElement);
 		expect(onChange).toHaveBeenCalled();
 
-		expect(labelElement).toHaveAttribute('data-checked', 'true');
+		expect(inputElement).toBeChecked();
 	});
 
 	it('should be able to handle name/value', () => {
@@ -132,9 +123,10 @@ describe('Toggle component', () => {
 			);
 		});
 
-		it('should not fire anything when disabled', () => {
+		it('should not fire anything when disabled', async () => {
 			const originOnChange = jest.fn();
 			const onAnalyticsEvent = jest.fn();
+			const user = await userEvent.setup();
 
 			render(
 				<AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
@@ -148,8 +140,8 @@ describe('Toggle component', () => {
 				</AnalyticsListener>,
 			);
 
-			const labelElement = screen.getByLabelText(label).parentElement;
-			fireEvent.click(labelElement!);
+			const labelElement = screen.getByLabelText(label);
+			user.click(labelElement);
 
 			expect(originOnChange).not.toHaveBeenCalled();
 			expect(onAnalyticsEvent).not.toHaveBeenCalled();

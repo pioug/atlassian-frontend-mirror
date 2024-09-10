@@ -1,5 +1,21 @@
 # @atlaskit/popup
 
+## 1.25.0
+
+### Minor Changes
+
+- [#138688](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138688)
+  [`961d97994618c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/961d97994618c) -
+  Adds `shouldFitViewport` prop which will apply `max-width` and `max-height` to contain the
+  popper/popup within the viewport.
+
+### Patch Changes
+
+- [#138585](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138585)
+  [`b72c2c7f9a2fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b72c2c7f9a2fd) -
+  Support to close all layers when clicking outside under feature flag
+- Updated dependencies
+
 ## 1.24.2
 
 ### Patch Changes

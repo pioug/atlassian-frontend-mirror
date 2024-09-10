@@ -1,14 +1,12 @@
 import React from 'react';
 
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
 import { Tab, TabList } from '../../index';
 import { TabListContext } from '../../internal/context';
 import { type TabListAttributesType } from '../../types';
-
-afterEach(cleanup);
 
 const tabList = (
 	<TabList>
@@ -38,9 +36,9 @@ const renderTabList = (overridingValue: Partial<TabListAttributesType> = {}) => 
 describe('@atlaskit/tabs', () => {
 	describe('tab list', () => {
 		it('should have role tablist', () => {
-			const { queryByRole } = render(renderTabList());
+			render(renderTabList());
 
-			expect(queryByRole('tablist')).toBeTruthy();
+			expect(screen.getByRole('tablist')).toBeInTheDocument();
 		});
 
 		it('should throw an error if context not provided', () => {
@@ -64,7 +62,7 @@ describe('@atlaskit/tabs', () => {
 		});
 
 		it('should render correctly if one of the children is not a react element', () => {
-			const { getByTestId } = render(
+			render(
 				<TabListContext.Provider
 					value={{
 						selected: 0,
@@ -82,37 +80,37 @@ describe('@atlaskit/tabs', () => {
 			);
 
 			['tab-1', 'tab-2', 'tab-3'].forEach((testId, index) => {
-				const tab = getByTestId(testId);
+				const tab = screen.getByTestId(testId);
 				const isSelected = index === 0;
 
-				expect(tab.getAttribute('aria-controls')).toBe(`test-${index}-tab`);
-				expect(tab.getAttribute('aria-posinset')).toBe(`${index + 1}`);
-				expect(tab.getAttribute('aria-selected')).toBe(isSelected.toString());
+				expect(tab).toHaveAttribute('aria-controls', `test-${index}-tab`);
+				expect(tab).toHaveAttribute('aria-posinset', `${index + 1}`);
+				expect(tab).toHaveAttribute('aria-selected', isSelected.toString());
 				// If this fails it is including invalid children
-				expect(tab.getAttribute('aria-setsize')).toBe('3');
+				expect(tab).toHaveAttribute('aria-setsize', '3');
 				expect(tab.id).toBe(`test-${index}`);
 				expect(tab.tabIndex).toBe(isSelected ? 0 : -1);
 			});
 		});
 
 		it('should map values from context correctly', () => {
-			const { getByTestId } = render(renderTabList({ selected: 1, tabsId: 'hello' }));
+			render(renderTabList({ selected: 1, tabsId: 'hello' }));
 
 			['tab-1', 'tab-2', 'tab-3'].forEach((testId, index) => {
-				const tab = getByTestId(testId);
+				const tab = screen.getByTestId(testId);
 				const isSelected = index === 1;
 
-				expect(tab.getAttribute('aria-controls')).toBe(`hello-${index}-tab`);
-				expect(tab.getAttribute('aria-posinset')).toBe(`${index + 1}`);
-				expect(tab.getAttribute('aria-selected')).toBe(isSelected.toString());
-				expect(tab.getAttribute('aria-setsize')).toBe('3');
+				expect(tab).toHaveAttribute('aria-controls', `hello-${index}-tab`);
+				expect(tab).toHaveAttribute('aria-posinset', `${index + 1}`);
+				expect(tab).toHaveAttribute('aria-selected', isSelected.toString());
+				expect(tab).toHaveAttribute('aria-setsize', '3');
 				expect(tab.id).toBe(`hello-${index}`);
 				expect(tab.tabIndex).toBe(isSelected ? 0 : -1);
 			});
 		});
 
 		it('should map values from context correctly when wrapped in a div', () => {
-			const { getByTestId } = render(
+			render(
 				<TabListContext.Provider
 					value={{
 						selected: 1,
@@ -131,31 +129,31 @@ describe('@atlaskit/tabs', () => {
 			);
 
 			['tab-1', 'tab-2', 'tab-3'].forEach((testId, index) => {
-				const tab = getByTestId(testId);
+				const tab = screen.getByTestId(testId);
 				const isSelected = index === 1;
 
-				expect(tab.getAttribute('aria-controls')).toBe(`test-${index}-tab`);
-				expect(tab.getAttribute('aria-posinset')).toBe(`${index + 1}`);
-				expect(tab.getAttribute('aria-selected')).toBe(isSelected.toString());
-				expect(tab.getAttribute('aria-setsize')).toBe('3');
+				expect(tab).toHaveAttribute('aria-controls', `test-${index}-tab`);
+				expect(tab).toHaveAttribute('aria-posinset', `${index + 1}`);
+				expect(tab).toHaveAttribute('aria-selected', isSelected.toString());
+				expect(tab).toHaveAttribute('aria-setsize', '3');
 				expect(tab.id).toBe(`test-${index}`);
 				expect(tab.tabIndex).toBe(isSelected ? 0 : -1);
 			});
 		});
 
 		it('should render each tab with the correct attributes after changing', () => {
-			const { getByTestId, rerender } = render(renderTabList());
+			const { rerender } = render(renderTabList());
 
 			rerender(renderTabList({ selected: 2 }));
 
 			['tab-1', 'tab-2', 'tab-3'].forEach((testId, index) => {
-				const tab = getByTestId(testId);
+				const tab = screen.getByTestId(testId);
 				const isSelected = index === 2;
 
-				expect(tab.getAttribute('aria-controls')).toBe(`test-${index}-tab`);
-				expect(tab.getAttribute('aria-posinset')).toBe(`${index + 1}`);
-				expect(tab.getAttribute('aria-selected')).toBe(isSelected.toString());
-				expect(tab.getAttribute('aria-setsize')).toBe('3');
+				expect(tab).toHaveAttribute('aria-controls', `test-${index}-tab`);
+				expect(tab).toHaveAttribute('aria-posinset', `${index + 1}`);
+				expect(tab).toHaveAttribute('aria-selected', isSelected.toString());
+				expect(tab).toHaveAttribute('aria-setsize', '3');
 				expect(tab.id).toBe(`test-${index}`);
 				expect(tab.tabIndex).toBe(isSelected ? 0 : -1);
 			});
@@ -163,9 +161,9 @@ describe('@atlaskit/tabs', () => {
 
 		it('should fire onChange if a tab is clicked', () => {
 			const spy = jest.fn();
-			const { getByText } = render(renderTabList({ selected: 0, onChange: spy }));
+			render(renderTabList({ selected: 0, onChange: spy }));
 
-			getByText('Tab 2 label').click();
+			screen.getByText('Tab 2 label').click();
 
 			expect(spy).toHaveBeenCalled();
 			expect(spy).toBeCalledWith(1);
@@ -174,63 +172,63 @@ describe('@atlaskit/tabs', () => {
 		describe('can navigate via keyboard', () => {
 			it('pressing HOME fires onChange for the first tab', () => {
 				const spy = jest.fn();
-				const { getByText } = render(renderTabList({ selected: 2, onChange: spy }));
+				render(renderTabList({ selected: 2, onChange: spy }));
 
-				fireEvent.keyDown(getByText('Tab 3 label'), { key: 'Home' });
+				fireEvent.keyDown(screen.getByText('Tab 3 label'), { key: 'Home' });
 
 				expect(spy).toHaveBeenCalledWith(0);
 			});
 
 			it('pressing END fires onChange for the first tab', () => {
 				const spy = jest.fn();
-				const { getByText } = render(renderTabList({ selected: 2, onChange: spy }));
+				render(renderTabList({ selected: 2, onChange: spy }));
 
-				fireEvent.keyDown(getByText('Tab 1 label'), { key: 'End' });
+				fireEvent.keyDown(screen.getByText('Tab 1 label'), { key: 'End' });
 
 				expect(spy).toHaveBeenCalledWith(2);
 			});
 
 			it('pressing LEFT arrow fires onChange for the first tab', () => {
 				const spy = jest.fn();
-				const { getByText } = render(renderTabList({ selected: 1, onChange: spy }));
+				render(renderTabList({ selected: 1, onChange: spy }));
 
-				fireEvent.keyDown(getByText('Tab 2 label'), { key: 'ArrowLeft' });
+				fireEvent.keyDown(screen.getByText('Tab 2 label'), { key: 'ArrowLeft' });
 
 				expect(spy).toHaveBeenCalledWith(0);
 			});
 
 			it('pressing the RIGHT arrow fires onChange for the last tab', () => {
 				const spy = jest.fn();
-				const { getByText } = render(renderTabList({ selected: 1, onChange: spy }));
+				render(renderTabList({ selected: 1, onChange: spy }));
 
-				fireEvent.keyDown(getByText('Tab 2 label'), { key: 'ArrowRight' });
+				fireEvent.keyDown(screen.getByText('Tab 2 label'), { key: 'ArrowRight' });
 
 				expect(spy).toHaveBeenCalledWith(2);
 			});
 
 			it('pressing the LEFT arrow when on the first tab fires onChange for the last tab', () => {
 				const spy = jest.fn();
-				const { getByText } = render(renderTabList({ selected: 0, onChange: spy }));
+				render(renderTabList({ selected: 0, onChange: spy }));
 
-				fireEvent.keyDown(getByText('Tab 1 label'), { key: 'ArrowLeft' });
+				fireEvent.keyDown(screen.getByText('Tab 1 label'), { key: 'ArrowLeft' });
 
 				expect(spy).toHaveBeenCalledWith(2);
 			});
 
 			it('pressing the RIGHT arrow when on the last tab fires onChange for the first tab', () => {
 				const spy = jest.fn();
-				const { getByText } = render(renderTabList({ selected: 2, onChange: spy }));
+				render(renderTabList({ selected: 2, onChange: spy }));
 
-				fireEvent.keyDown(getByText('Tab 3 label'), { key: 'ArrowRight' });
+				fireEvent.keyDown(screen.getByText('Tab 3 label'), { key: 'ArrowRight' });
 
 				expect(spy).toHaveBeenCalledWith(0);
 			});
 
 			it('navigating by keyboard still works after adding a tab', () => {
 				const spy = jest.fn();
-				const { getByText, rerender } = render(renderTabList({ selected: 1, onChange: spy }));
+				const { rerender } = render(renderTabList({ selected: 1, onChange: spy }));
 
-				fireEvent.keyDown(getByText('Tab 2 label'), { key: 'ArrowRight' });
+				fireEvent.keyDown(screen.getByText('Tab 2 label'), { key: 'ArrowRight' });
 				rerender(renderTabList({ selected: 2, onChange: spy }));
 
 				rerender(
@@ -243,7 +241,7 @@ describe('@atlaskit/tabs', () => {
 						</TabList>
 					</TabListContext.Provider>,
 				);
-				fireEvent.keyDown(getByText('Tab 3 label'), { key: 'ArrowRight' });
+				fireEvent.keyDown(screen.getByText('Tab 3 label'), { key: 'ArrowRight' });
 
 				expect(spy).toHaveBeenCalledTimes(2);
 				expect(spy).toHaveBeenLastCalledWith(3);
@@ -251,9 +249,9 @@ describe('@atlaskit/tabs', () => {
 
 			it('navigating by keyboard still works after removing a tab', () => {
 				const spy = jest.fn();
-				const { getByText, rerender } = render(renderTabList({ selected: 2, onChange: spy }));
+				const { rerender } = render(renderTabList({ selected: 2, onChange: spy }));
 
-				fireEvent.keyDown(getByText('Tab 3 label'), { key: 'ArrowLeft' });
+				fireEvent.keyDown(screen.getByText('Tab 3 label'), { key: 'ArrowLeft' });
 				rerender(renderTabList({ selected: 1, onChange: spy }));
 
 				rerender(
@@ -264,7 +262,7 @@ describe('@atlaskit/tabs', () => {
 						</TabList>
 					</TabListContext.Provider>,
 				);
-				fireEvent.keyDown(getByText('Tab 2 label'), { key: 'ArrowLeft' });
+				fireEvent.keyDown(screen.getByText('Tab 2 label'), { key: 'ArrowLeft' });
 
 				expect(spy).toHaveBeenCalledTimes(2);
 				expect(spy).toHaveBeenLastCalledWith(0);

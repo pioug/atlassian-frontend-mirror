@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import CustomItem, { type CustomItemComponentProps } from '../../custom-item';
 
@@ -11,12 +11,12 @@ describe('<CustomItem />', () => {
 			<a {...props}>{children}</a>
 		);
 
-		const { getByTestId } = render(
+		render(
 			<CustomItem href="/my-details" component={Link} testId="target">
 				Hello world
 			</CustomItem>,
 		);
 
-		expect(getByTestId('target').getAttribute('href')).toEqual('/my-details');
+		expect(screen.getByTestId('target')).toHaveAttribute('href', '/my-details');
 	});
 });

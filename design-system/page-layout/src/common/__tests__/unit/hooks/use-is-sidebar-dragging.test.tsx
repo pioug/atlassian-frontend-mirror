@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
@@ -107,8 +107,8 @@ describe('useIsSidebarDragging', () => {
 		});
 
 		it('should correctly update with mouse interactions', async () => {
-			const { getByTestId } = render(<Harness />);
-			const grabArea = getByTestId(grabAreaSelector);
+			render(<Harness />);
+			const grabArea = screen.getByTestId(grabAreaSelector);
 
 			const { result, unmount } = renderHook(() => useIsSidebarDragging());
 

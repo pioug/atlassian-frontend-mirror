@@ -9,8 +9,8 @@ jest.mock('@atlaskit/editor-common/performance-measures', () => ({
 		},
 	),
 }));
-jest.mock('@atlaskit/editor-common/utils', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+jest.mock('@atlaskit/editor-common/performance/measure-tti', () => ({
+	...jest.requireActual<Object>('@atlaskit/editor-common/performance/measure-tti'),
 	measureTTI: jest.fn(),
 }));
 
@@ -27,7 +27,7 @@ import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-contex
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { measureTTI } from '@atlaskit/editor-common/utils';
+import { measureTTI } from '@atlaskit/editor-common/performance/measure-tti';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';

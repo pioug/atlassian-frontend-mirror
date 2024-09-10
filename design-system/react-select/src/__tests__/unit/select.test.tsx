@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/prefer-user-event */
 /* eslint-disable @atlaskit/ui-styling-standard/no-classname-prop */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention */
 /* eslint-disable testing-library/no-container,testing-library/no-node-access */
@@ -329,9 +330,9 @@ cases(
 cases(
 	'no option found on search based on filterOption prop',
 	({ props, searchString }) => {
-		let { getByText, rerender } = render(<Select {...props} />);
+		let { rerender } = render(<Select {...props} />);
 		rerender(<Select {...props} inputValue={searchString} />);
-		expect(getByText('No options')).toHaveClass('react-select__menu-notice--no-options');
+		expect(screen.getByText('No options')).toHaveClass('react-select__menu-notice--no-options');
 	},
 	{
 		'single Select > should show NoOptionsMessage': {
@@ -358,9 +359,11 @@ cases(
 cases(
 	'noOptionsMessage() function prop',
 	({ props, expectNoOptionsMessage, searchString }) => {
-		let { getByText, rerender } = render(<Select {...props} />);
+		let { rerender } = render(<Select {...props} />);
 		rerender(<Select {...props} inputValue={searchString} />);
-		expect(getByText(expectNoOptionsMessage)).toHaveClass('react-select__menu-notice--no-options');
+		expect(screen.getByText(expectNoOptionsMessage)).toHaveClass(
+			'react-select__menu-notice--no-options',
+		);
 	},
 	{
 		'single Select > should show NoOptionsMessage returned from noOptionsMessage function prop': {

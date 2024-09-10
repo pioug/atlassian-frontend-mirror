@@ -22,8 +22,8 @@ import {
 	getAnalyticsAppearance,
 	getAnalyticsEventSeverity,
 	shouldForceTracking,
-	measureTTI,
 } from '@atlaskit/editor-common/utils';
+import { measureTTI } from '@atlaskit/editor-common/performance/measure-tti';
 import { getDistortedDurationMonitor } from '@atlaskit/editor-common/performance/measure-render';
 import { browser } from '@atlaskit/editor-common/browser';
 import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';

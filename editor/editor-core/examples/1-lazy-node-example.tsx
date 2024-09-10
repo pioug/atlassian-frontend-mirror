@@ -25,6 +25,7 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import Heading from '@atlaskit/heading';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { Flex, Stack } from '@atlaskit/primitives';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 const createExamplePreset = () => {
 	return createDefaultPreset({})
@@ -186,6 +187,7 @@ const LazyNodeViewComparison = memo(
 
 			return false;
 		});
+		setupEditorExperiments('test', { platform_editor_exp_lazy_node_views: true });
 		const onDocChange = useMemo(
 			() =>
 				debounce((doc: PMNode) => {

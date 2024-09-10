@@ -20,10 +20,8 @@ export default function withColumnWidth<T extends object>(Cell: React.ComponentT
 		let columnWidth;
 		if (width !== null && width !== undefined) {
 			columnWidth = width;
-		} else {
-			if (columnIndex !== undefined) {
-				columnWidth = getColumnWidth(columnIndex);
-			}
+		} else if (columnIndex !== undefined) {
+			columnWidth = getColumnWidth(columnIndex);
 		}
 
 		return <Cell width={columnWidth} {...(other as T)} />;

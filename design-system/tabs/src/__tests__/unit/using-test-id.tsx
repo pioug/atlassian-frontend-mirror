@@ -1,16 +1,14 @@
 import React from 'react';
 
-import { cleanup, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Tabs, { Tab, TabList, TabPanel } from '../../index';
 
-afterEach(cleanup);
-
 describe('Tabs should be found by data-testid', () => {
-	test('Using getByTestId()', async () => {
+	test('Using screen.getByTestId()', async () => {
 		const tabsTestId = 'the-tabs';
 		const testIds = ['one', 'two', 'three'];
-		const { getByTestId } = render(
+		render(
 			<Tabs testId={tabsTestId} id="test">
 				<TabList>
 					{testIds.map((testId) => (
@@ -27,15 +25,15 @@ describe('Tabs should be found by data-testid', () => {
 			</Tabs>,
 		);
 
-		expect(getByTestId(tabsTestId)).toBeTruthy();
+		expect(screen.getByTestId(tabsTestId)).toBeInTheDocument();
 		testIds.forEach((testId) => {
-			const tab = getByTestId(testId);
-			expect(tab).toBeTruthy();
+			const tab = screen.getByTestId(testId);
+			expect(tab).toBeInTheDocument();
 			expect(tab.innerText).toBe(testId);
 		});
 		// Only selected tab panel would render
-		const tabPanel = getByTestId(`${testIds[0]}-panel`);
-		expect(tabPanel).toBeTruthy();
+		const tabPanel = screen.getByTestId(`${testIds[0]}-panel`);
+		expect(tabPanel).toBeInTheDocument();
 		expect(tabPanel.innerText).toBe(`${testIds[0]} panel`);
 	});
 });

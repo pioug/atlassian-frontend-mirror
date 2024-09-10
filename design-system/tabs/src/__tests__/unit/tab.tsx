@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { cleanup, fireEvent, render, type RenderResult } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
 import Tabs, { Tab, TabList, TabPanel, useTab } from '../../index';
 import { TabContext } from '../../internal/context';
-
-afterEach(cleanup);
 
 const CustomTab = ({ label }: { label: string }) => {
 	const tabAttributes = useTab();
@@ -45,10 +43,8 @@ describe('@atlaskit/tabs', () => {
 		describe('context', () => {
 			const onClick = jest.fn();
 			const onKeyDown = jest.fn();
-			let wrapper: RenderResult;
-
-			beforeEach(() => {
-				wrapper = render(
+			const setup = () => {
+				render(
 					<TabContext.Provider
 						value={{
 							onClick,
@@ -65,16 +61,16 @@ describe('@atlaskit/tabs', () => {
 						<Tab>Label 1</Tab>
 					</TabContext.Provider>,
 				);
-			});
+			};
 
 			afterEach(() => {
 				onClick.mockClear();
 				onKeyDown.mockClear();
-				wrapper.unmount();
 			});
 
 			it('should map context to aria attributes correctly', () => {
-				const tab = wrapper.getByRole('tab');
+				setup();
+				const tab = screen.getByRole('tab');
 				expect(tab).toHaveAttribute('aria-controls', '0-1-tab');
 				expect(tab).toHaveAttribute('aria-posinset', '2');
 				expect(tab).toHaveAttribute('aria-selected', 'true');
@@ -92,7 +88,8 @@ describe('@atlaskit/tabs', () => {
 			});
 
 			it('should call onClick when clicked', () => {
-				const tab = wrapper.getByRole('tab');
+				setup();
+				const tab = screen.getByRole('tab');
 
 				// Test methods
 				expect(onClick).not.toBeCalled();
@@ -105,7 +102,8 @@ describe('@atlaskit/tabs', () => {
 			});
 
 			it('should call onKeyDown when key down', () => {
-				const tab = wrapper.getByRole('tab');
+				setup();
+				const tab = screen.getByRole('tab');
 
 				expect(onKeyDown).not.toBeCalled();
 				fireEvent.keyDown(tab, { key: 'ArrowRight' });
@@ -114,7 +112,7 @@ describe('@atlaskit/tabs', () => {
 		});
 
 		it('should receive context even if wrapped in a div', () => {
-			const { getByRole } = render(
+			render(
 				<TabContext.Provider
 					value={{
 						onClick: noop,
@@ -132,7 +130,7 @@ describe('@atlaskit/tabs', () => {
 				</TabContext.Provider>,
 			);
 
-			const tab = getByRole('tab');
+			const tab = screen.getByRole('tab');
 			expect(tab).toHaveAttribute('aria-controls', '0-1-tab');
 			expect(tab).toHaveAttribute('aria-posinset', '2');
 			expect(tab).toHaveAttribute('aria-selected', 'true');
@@ -142,7 +140,7 @@ describe('@atlaskit/tabs', () => {
 	});
 
 	it('should accept any react node as a child', () => {
-		const { getByTestId } = render(
+		render(
 			<TabContext.Provider
 				value={{
 					onClick: noop,
@@ -162,14 +160,14 @@ describe('@atlaskit/tabs', () => {
 			</TabContext.Provider>,
 		);
 
-		expect(getByTestId('label-1')).toBeInTheDocument();
+		expect(screen.getByTestId('label-1')).toBeInTheDocument();
 	});
 
 	describe('Custom tab using useTab', () => {
 		it('can be used to create a custom tab', () => {
 			const onClick = jest.fn();
 			const onKeyDown = jest.fn();
-			const { getByRole } = render(
+			render(
 				<TabContext.Provider
 					value={{
 						onClick,
@@ -187,7 +185,7 @@ describe('@atlaskit/tabs', () => {
 				</TabContext.Provider>,
 			);
 
-			const tab = getByRole('tab');
+			const tab = screen.getByRole('tab');
 			expect(tab).toHaveAttribute('aria-controls', '0-1-tab');
 			expect(tab).toHaveAttribute('aria-posinset', '2');
 			expect(tab).toHaveAttribute('aria-selected', 'true');
@@ -207,7 +205,7 @@ describe('@atlaskit/tabs', () => {
 		it('should change the custom tab when clicked', () => {
 			const spy = jest.fn();
 
-			const { getByText } = render(
+			render(
 				<Tabs onChange={spy} id="test">
 					<TabList>
 						<CustomTab label="Tab 1 label" />
@@ -218,18 +216,18 @@ describe('@atlaskit/tabs', () => {
 				</Tabs>,
 			);
 
-			const tab2 = getByText('Tab 2 label');
+			const tab2 = screen.getByText('Tab 2 label');
 			fireEvent.click(tab2);
 
 			expect(spy).toHaveBeenCalledWith(1, expect.objectContaining({}));
-			expect(getByText('Tab 1 label')).toHaveAttribute('aria-selected', 'false');
+			expect(screen.getByText('Tab 1 label')).toHaveAttribute('aria-selected', 'false');
 			expect(tab2).toHaveAttribute('aria-selected', 'true');
 		});
 
 		it('should change the custom tab when using the right key', () => {
 			const spy = jest.fn();
 
-			const { getByText } = render(
+			render(
 				<Tabs onChange={spy} id="test">
 					<TabList>
 						<CustomTab label="Tab 1 label" />
@@ -240,8 +238,8 @@ describe('@atlaskit/tabs', () => {
 				</Tabs>,
 			);
 
-			const tab1 = getByText('Tab 1 label');
-			const tab2 = getByText('Tab 2 label');
+			const tab1 = screen.getByText('Tab 1 label');
+			const tab2 = screen.getByText('Tab 2 label');
 			fireEvent.keyDown(tab1, { key: 'ArrowRight' });
 
 			expect(spy).toHaveBeenCalledWith(1, expect.objectContaining({}));

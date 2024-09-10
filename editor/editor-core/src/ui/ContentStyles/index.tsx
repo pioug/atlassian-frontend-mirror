@@ -49,7 +49,6 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewm
 import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
-import { tableStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import {
 	akEditorDeleteBackgroundWithOpacity,
 	akEditorDeleteBorder,
@@ -61,7 +60,6 @@ import {
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N200, N30A, N500 } from '@atlaskit/theme/colors';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
@@ -250,7 +248,6 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${layoutStyles(props.viewMode)}
   ${telepointerStyle}
   ${gapCursorStyles};
-	${fg('platform_editor_move_table_styles_to_plugin') ? undefined : tableStyles(props)}
 	${panelStyles()}
 	${mentionsStyles}
   ${emojiStyles}

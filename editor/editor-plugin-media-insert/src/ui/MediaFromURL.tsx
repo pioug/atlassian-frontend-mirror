@@ -272,7 +272,22 @@ export function MediaFromURL({
 			as="form"
 			onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
 				e.preventDefault();
-				uploadExternalMedia(inputUrl);
+				// This can be triggered from an enter key event on the input even when
+				// the button is disabled, so we explicitly do nothing when in loading
+				// state.
+				if (previewState.isLoading) {
+					return;
+				}
+
+				if (previewState.previewInfo) {
+					return onInsert();
+				}
+
+				if (previewState.warning) {
+					return onExternalInsert(inputUrl);
+				}
+
+				return uploadExternalMedia(inputUrl);
 			}}
 			xcss={FormStyles}
 		>

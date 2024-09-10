@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 1.3.0
+
+### Minor Changes
+
+- [#138946](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138946)
+  [`39c8919b0ea6a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/39c8919b0ea6a) -
+  Add custom empty state for Issue organizer
+
 ## 1.2.0
 
 ### Minor Changes

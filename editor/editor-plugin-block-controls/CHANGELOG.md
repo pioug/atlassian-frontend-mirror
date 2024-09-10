@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.13.5
+
+### Patch Changes
+
+- [#138973](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138973)
+  [`8d99278240f49`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d99278240f49) -
+  ED-24407 hide drag handle for empty heading paragrah
+
+## 1.13.4
+
+### Patch Changes
+
+- [#137646](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137646)
+  [`b287e7d5873b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b287e7d5873b0) -
+  ED-24602 fix re map drop target during collab
+- Updated dependencies
+
 ## 1.13.3
 
 ### Patch Changes

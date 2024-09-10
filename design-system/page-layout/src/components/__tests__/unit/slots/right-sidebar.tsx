@@ -1,20 +1,21 @@
+/* eslint-disable testing-library/no-node-access */
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { Main, PageLayout, RightSidebar } from '../../../index';
 
 const emptyGridState = { gridState: {} };
 describe('<RightSidebar />', () => {
 	it('should respect the shouldPersistWidth prop', () => {
-		const { rerender, getByTestId } = render(
+		const { rerender } = render(
 			<PageLayout testId="grid">
 				<RightSidebar testId="component" isFixed width={200}>
 					Contents
 				</RightSidebar>
 			</PageLayout>,
 		);
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--rightSidebarWidth:200px;}'),
 		);
 
@@ -25,13 +26,13 @@ describe('<RightSidebar />', () => {
 				</RightSidebar>
 			</PageLayout>,
 		);
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--rightSidebarWidth:200px;}'),
 		);
 	});
 
 	it('should render with the width that was passed to it', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<Main>
 					<RightSidebar testId="component" width={200}>
@@ -40,17 +41,17 @@ describe('<RightSidebar />', () => {
 				</Main>
 			</PageLayout>,
 		);
-		expect(getByTestId('component')).toHaveStyleDeclaration(
+		expect(screen.getByTestId('component')).toHaveStyleDeclaration(
 			'width',
 			'var(--rightSidebarWidth, 0px)',
 		);
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--rightSidebarWidth:200px;}'),
 		);
 	});
 
 	it('should hydrate with the width that was passed to it', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<Main>
 					<RightSidebar testId="component" width={200}>
@@ -60,17 +61,17 @@ describe('<RightSidebar />', () => {
 			</PageLayout>,
 			{ hydrate: true },
 		);
-		expect(getByTestId('component')).toHaveStyleDeclaration(
+		expect(screen.getByTestId('component')).toHaveStyleDeclaration(
 			'width',
 			'var(--rightSidebarWidth, 0px)',
 		);
-		expect(getByTestId('component').querySelector('style')!.innerHTML).toEqual(
+		expect(screen.getByTestId('component').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--rightSidebarWidth:200px;}'),
 		);
 	});
 
 	it('should be "fixed" when isFixed prop is passed', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<Main>
 					<RightSidebar testId="component" width={200} isFixed>
@@ -80,10 +81,9 @@ describe('<RightSidebar />', () => {
 			</PageLayout>,
 		);
 
-		expect(getByTestId('component').querySelector('style')!.nextSibling).toHaveStyleDeclaration(
-			'position',
-			'fixed',
-		);
+		expect(
+			screen.getByTestId('component').querySelector('style')!.nextSibling,
+		).toHaveStyleDeclaration('position', 'fixed');
 	});
 
 	it('should store the width in localStorage on mount', () => {

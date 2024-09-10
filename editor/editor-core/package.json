@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "197.4.0",
+	"version": "197.4.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,8 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.1.0",
-		"@atlaskit/editor-common": "^88.12.0",
+		"@atlaskit/editor-common": "^88.13.0",
+		"@atlaskit/editor-json-transformer": "^8.18.0",
 		"@atlaskit/editor-plugins": "^4.4.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
@@ -84,7 +85,6 @@
 		"@atlaskit/adf-utils": "^19.8.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
 		"@atlaskit/collab-provider": "9.40.0",
-		"@atlaskit/editor-json-transformer": "^8.18.0",
 		"@atlaskit/editor-plugin-annotation": "1.19.4",
 		"@atlaskit/editor-plugin-card": "^2.15.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
@@ -105,7 +105,7 @@
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
-		"@atlassian/search-provider": "2.4.120",
+		"@atlassian/search-provider": "2.4.122",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -236,9 +236,6 @@
 			"referenceOnly": true
 		},
 		"editor-fix-esc-main-toolbar-navigation": {
-			"type": "boolean"
-		},
-		"platform_editor_move_table_styles_to_plugin": {
 			"type": "boolean"
 		},
 		"platform_editor_lazy-node-views": {

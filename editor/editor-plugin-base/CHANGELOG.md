@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-base
 
+## 1.11.2
+
+### Patch Changes
+
+- [#138801](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138801)
+  [`eeb1f7ad41211`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eeb1f7ad41211) -
+  Adding new entry-points to editor-common to optimise bundle size and move away from "utils"
+  entry-point.
+- Updated dependencies
+
 ## 1.11.1
 
 ### Patch Changes

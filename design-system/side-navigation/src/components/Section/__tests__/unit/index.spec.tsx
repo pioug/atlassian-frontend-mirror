@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { ROOT_ID } from '../../../NestableNavigationContent';
 import { NestedContext } from '../../../NestableNavigationContent/context';
@@ -19,7 +19,7 @@ describe('Section', () => {
 	};
 
 	it('should render a Section when contained in an active nested view', () => {
-		const { queryByText, rerender } = render(
+		const { rerender } = render(
 			<NestedContext.Provider value={{ ...callbacks }}>
 				<NestingItem id="1" title="Nest">
 					<Section>Hello world</Section>
@@ -27,7 +27,7 @@ describe('Section', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Hello world')).toBeFalsy();
+		expect(screen.queryByText('Hello world')).not.toBeInTheDocument();
 
 		rerender(
 			<NestedContext.Provider value={{ ...callbacks, currentStackId: '1' }}>
@@ -37,11 +37,11 @@ describe('Section', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Hello world')).toBeTruthy();
+		expect(screen.getByText('Hello world')).toBeInTheDocument();
 	});
 
 	it('should render a HeadingItem when contained in an active nested view', () => {
-		const { queryByText, rerender } = render(
+		const { rerender } = render(
 			<NestedContext.Provider value={{ ...callbacks }}>
 				<NestingItem id="1" title="Nest">
 					<HeadingItem>Hello world</HeadingItem>
@@ -49,7 +49,7 @@ describe('Section', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Hello world')).toBeFalsy();
+		expect(screen.queryByText('Hello world')).not.toBeInTheDocument();
 
 		rerender(
 			<NestedContext.Provider value={{ ...callbacks, currentStackId: '1' }}>
@@ -59,6 +59,6 @@ describe('Section', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Hello world')).toBeTruthy();
+		expect(screen.getByText('Hello world')).toBeInTheDocument();
 	});
 });

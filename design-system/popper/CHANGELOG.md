@@ -1,5 +1,14 @@
 # @atlaskit/popper
 
+## 6.3.0
+
+### Minor Changes
+
+- [#138688](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138688)
+  [`961d97994618c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/961d97994618c) -
+  Adds `shouldFitViewport` prop which will apply `max-width` and `max-height` to contain the
+  popper/popup within the viewport.
+
 ## 6.2.0
 
 ### Minor Changes

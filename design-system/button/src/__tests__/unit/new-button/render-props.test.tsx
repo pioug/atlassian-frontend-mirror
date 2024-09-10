@@ -9,7 +9,7 @@ import { type IconProps } from '@atlaskit/icon/types';
 import { IconButton } from '../../../new';
 
 async function assertDropdownIsVisible(icon: HTMLElement) {
-	await fireEvent.click(icon);
+	fireEvent.click(icon);
 	const dropdownMenu = screen.getByTestId('dropdown--content');
 	expect(dropdownMenu).toBeVisible();
 }

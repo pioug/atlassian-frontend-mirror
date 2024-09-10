@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Spinner from '@atlaskit/spinner';
 
@@ -7,49 +7,37 @@ import CommonCell from './common-cell';
 import { indentBase, LoaderItemContainer, TreeRowContainer } from './styled';
 
 interface LoaderItemProps {
-	depth: number;
+	/**
+	 * @default 1
+	 */
+	depth?: number;
 	onComplete: (...args: any[]) => void;
 	isCompleting?: boolean;
 	loadingLabel?: string;
 }
 
-export default class LoaderItem extends Component<LoaderItemProps, any> {
-	static defaultProps = {
-		depth: 1,
-	};
+const LoaderItem = ({ depth = 1, loadingLabel, isCompleting, onComplete }: LoaderItemProps) => {
+	const [phase, setPhase] = useState<'loading' | 'complete'>('loading');
 
-	state = {
-		phase: 'loading',
-	};
-
-	static getDerivedStateFromProps(nextProps: any, prevState: any) {
-		if (nextProps.isCompleting && prevState.phase === 'loading') {
-			return {
-				phase: 'complete',
-			};
+	useEffect(() => {
+		if (phase === 'loading' && isCompleting) {
+			setPhase(() => {
+				onComplete();
+				return 'complete';
+			});
 		}
-		return null;
-	}
+	}, [isCompleting, onComplete, phase]);
 
-	componentDidUpdate(prevProps: any, prevState: any) {
-		if (prevState.phase === 'loading' && this.state.phase === 'complete') {
-			if (this.props.onComplete) {
-				this.props.onComplete();
-			}
-		}
-	}
+	return phase === 'loading' ? (
+		<TreeRowContainer>
+			<CommonCell indent={`calc(${indentBase} * ${depth})`} width="100%">
+				<LoaderItemContainer isRoot={depth === 1}>
+					<Spinner size="small" testId="table-tree-spinner" label={loadingLabel} />
+				</LoaderItemContainer>
+			</CommonCell>
+		</TreeRowContainer>
+	) : null;
+};
 
-	render() {
-		const { depth, loadingLabel } = this.props;
-		const { phase } = this.state;
-		return phase === 'loading' ? (
-			<TreeRowContainer>
-				<CommonCell indent={`calc(${indentBase} * ${depth})`} width="100%">
-					<LoaderItemContainer isRoot={depth === 1}>
-						<Spinner size="small" testId="table-tree-spinner" label={loadingLabel} />
-					</LoaderItemContainer>
-				</CommonCell>
-			</TreeRowContainer>
-		) : null;
-	}
-}
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default LoaderItem;

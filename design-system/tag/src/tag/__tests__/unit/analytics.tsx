@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
@@ -24,7 +24,7 @@ describe('Tag analytics', () => {
 
 	it('should listen to analytics event on tag removal', async () => {
 		const onAtlaskitEvent = jest.fn();
-		const { getByLabelText } = render(
+		render(
 			<AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
 				<div>
 					<Tag {...tagProps} />,
@@ -58,13 +58,12 @@ describe('Tag analytics', () => {
 			}),
 		];
 
-		fireEvent.click(getByLabelText('Remove Post Removal Hook'));
-
+		fireEvent.click(screen.getByLabelText('Remove Post Removal Hook'));
+		const mock: jest.Mock = onAtlaskitEvent;
 		await waitFor(() => {
-			const mock: jest.Mock = onAtlaskitEvent;
 			expect(mock).toHaveBeenCalledTimes(2);
-			expect(mock.mock.calls[0][0].payload).toEqual(expected[0].payload);
-			expect(mock.mock.calls[1][0].payload).toEqual(expected[1].payload);
 		});
+		expect(mock.mock.calls[0][0].payload).toEqual(expected[0].payload);
+		expect(mock.mock.calls[1][0].payload).toEqual(expected[1].payload);
 	});
 });

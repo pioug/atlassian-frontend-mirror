@@ -6,8 +6,8 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { useConstructor } from '@atlaskit/editor-common/hooks';
 import { startMeasure } from '@atlaskit/editor-common/performance-measures';
+import { measureTTI } from '@atlaskit/editor-common/performance/measure-tti';
 import type { ExperienceStore } from '@atlaskit/editor-common/ufo';
-import { measureTTI } from '@atlaskit/editor-common/utils';
 
 import type { EditorProps } from '../../types/editor-props';
 import type { PerformanceTracking } from '../../types/performance-tracking';

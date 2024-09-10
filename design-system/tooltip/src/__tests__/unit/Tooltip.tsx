@@ -36,19 +36,19 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { queryByTestId, unmount } = render(jsx);
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			const { unmount } = render(jsx);
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			unmount();
 		});
 	});
 
 	it('should get tooltip that uses wrapped approach by role', () => {
-		const { getByRole } = render(
+		render(
 			<Tooltip testId="tooltip" content="hello world">
 				<button data-testid="trigger">focus me</button>
 			</Tooltip>,
 		);
-		expect(getByRole('presentation')).toBeInTheDocument();
+		expect(screen.getByRole('presentation')).toBeInTheDocument();
 	});
 
 	it('should be visible when trigger is hovered', () => {
@@ -69,16 +69,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			fireEvent.mouseOver(trigger);
 			act(() => {
 				jest.runAllTimers();
 			});
 
-			expect(getByTestId('tooltip')).toHaveTextContent('hello world');
+			expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
 			expect(onShow).toHaveBeenCalledTimes(1);
 			onShow.mockClear();
 			unmount();
@@ -103,16 +103,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { queryByTestId, getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			// Trigger showing tooltip
 			fireEvent.mouseOver(trigger);
 			act(() => {
 				jest.advanceTimersByTime(299);
 			});
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			expect(onShow).not.toHaveBeenCalled();
 
 			// hide the tooltip
@@ -123,7 +123,7 @@ describe('Tooltip', () => {
 				jest.runAllTimers();
 			});
 
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			expect(onShow).not.toHaveBeenCalled();
 			onShow.mockClear();
 			unmount();
@@ -148,16 +148,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { queryByTestId, getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			// Trigger showing tooltip
 			fireEvent.mouseOver(trigger);
 			act(() => {
 				jest.runAllTimers();
 			});
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 			// Trigger hiding tooltip
 			fireEvent.mouseOut(trigger);
@@ -170,7 +170,7 @@ describe('Tooltip', () => {
 				jest.runOnlyPendingTimers();
 			});
 
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			expect(onHide).toHaveBeenCalledTimes(1);
 			onHide.mockClear();
 			unmount();
@@ -199,16 +199,16 @@ describe('Tooltip', () => {
 			// This mockClear has to run first because onHide will run on unmount
 			onHide.mockClear();
 
-			const { queryByTestId, getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			// Trigger showing tooltip
 			fireEvent.mouseOver(trigger);
 			act(() => {
 				jest.runAllTimers();
 			});
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 			// Trigger hiding tooltip
 			fireEvent.mouseOut(trigger);
@@ -216,7 +216,7 @@ describe('Tooltip', () => {
 			act(() => {
 				jest.advanceTimersByTime(299);
 			});
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 			// Going back over the tooltip
 			fireEvent.mouseOver(trigger);
@@ -229,7 +229,7 @@ describe('Tooltip', () => {
 				jest.runAllTimers();
 			});
 			// Tooltip is still around being awesome
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 			expect(onHide).toHaveBeenCalledTimes(0);
 			unmount();
 		});
@@ -255,16 +255,16 @@ describe('Tooltip', () => {
 		[wrapped, renderProp].forEach((jsx) => {
 			// This mockClear has to run first because onHide will run on unmount
 			onHide.mockClear();
-			const { queryByTestId, getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			// Trigger showing tooltip
 			fireEvent.mouseOver(trigger);
 			act(() => {
 				jest.runAllTimers();
 			});
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 			// Trigger hiding tooltip
 			fireEvent.mouseOut(trigger);
@@ -277,7 +277,7 @@ describe('Tooltip', () => {
 				jest.advanceTimersByTime(1);
 			});
 			// tooltip is visible but fading out
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 			// on hide not called yet
 			expect(onHide).toHaveBeenCalledTimes(0);
 
@@ -289,7 +289,7 @@ describe('Tooltip', () => {
 			});
 
 			// But the tooltip is back and being awesome
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 			expect(onHide).toHaveBeenCalledTimes(0);
 			unmount();
 		});
@@ -312,16 +312,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			fireEvent.focus(trigger);
 			act(() => {
 				jest.runAllTimers();
 			});
 
-			expect(getByTestId('tooltip')).toHaveTextContent('hello world');
+			expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
 			unmount();
 		});
 	});
@@ -343,9 +343,9 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { queryByTestId, getByTestId, rerender, unmount } = render(jsx);
+			const { rerender, unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			fireEvent.focus(trigger);
 			act(() => {
@@ -364,7 +364,7 @@ describe('Tooltip', () => {
 				jest.runAllTimers();
 			});
 
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			unmount();
 		});
 	});
@@ -386,9 +386,9 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			fireEvent.mouseOver(trigger);
 			fireEvent.click(trigger);
@@ -396,7 +396,7 @@ describe('Tooltip', () => {
 				jest.runAllTimers();
 			});
 
-			expect(getByTestId('tooltip')).toHaveTextContent('hello world');
+			expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
 			unmount();
 		});
 	});
@@ -418,22 +418,22 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, queryByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			fireEvent.mouseOver(trigger);
 			act(() => {
 				jest.runAllTimers();
 			});
 
-			expect(getByTestId('tooltip')).toHaveTextContent('hello world');
+			expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
 
 			fireEvent.click(trigger);
 			act(() => {
 				jest.runAllTimers();
 			});
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			unmount();
 		});
 	});
@@ -455,23 +455,23 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, queryByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
+			fireEvent.mouseOver(trigger);
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
 
-			expect(getByTestId('tooltip')).toHaveTextContent('hello world');
+			expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
 
 			fireEvent.mouseDown(trigger);
 			act(() => {
 				jest.runAllTimers();
 			});
 
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			unmount();
 		});
 	});
@@ -493,23 +493,22 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, queryByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
 
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
 
-			expect(getByTestId('tooltip')).toHaveTextContent('hello world');
-
+			expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
+			fireEvent.keyDown(trigger, { key: 'Escape' });
 			act(() => {
-				fireEvent.keyDown(trigger, { key: 'Escape' });
 				jest.runAllTimers();
 			});
 
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			unmount();
 		});
 	});
@@ -539,16 +538,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
 
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
 
-			const tooltip = getByTestId('tooltip');
+			const tooltip = screen.getByTestId('tooltip');
 			expect(tooltip).toHaveTextContent('Im a custom tooltip');
 			expect(tooltip.tagName).toEqual('STRONG');
 			unmount();
@@ -556,27 +555,23 @@ describe('Tooltip', () => {
 	});
 
 	it('should render a wrapping div element by default when using the wrapped approach', () => {
-		const { getByTestId } = render(
+		render(
 			<Tooltip testId="tooltip" content="hello world">
 				<button data-testid="trigger">focus me</button>
 			</Tooltip>,
 		);
 
-		const trigger = getByTestId('trigger');
-
-		expect(trigger.parentElement!.tagName).toEqual('DIV');
+		expect(screen.getByTestId('tooltip--container').tagName).toEqual('DIV');
 	});
 
 	it('should render a wrapping span element is supplied by the tag prop when using the wrapped approach', () => {
-		const { getByTestId } = render(
+		render(
 			<Tooltip testId="tooltip" content="hello world" tag="span">
 				<button data-testid="trigger">focus me</button>
 			</Tooltip>,
 		);
 
-		const trigger = getByTestId('trigger');
-
-		expect(trigger.parentElement!.tagName).toEqual('SPAN');
+		expect(screen.getByTestId('tooltip--container').tagName).toEqual('SPAN');
 	});
 
 	it('should wait a default delay before showing', () => {
@@ -597,9 +592,9 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, queryByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			// Start showing
 			fireEvent.mouseOver(trigger);
@@ -615,7 +610,7 @@ describe('Tooltip', () => {
 			});
 
 			expect(onShow).toHaveBeenCalledTimes(1);
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 			onShow.mockClear();
 			unmount();
 		});
@@ -639,9 +634,9 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, queryByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			fireEvent.mouseOver(trigger);
 
@@ -649,13 +644,13 @@ describe('Tooltip', () => {
 				jest.advanceTimersByTime(999);
 			});
 			expect(onShow).toHaveBeenCalledTimes(0);
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 
 			act(() => {
 				jest.advanceTimersByTime(1);
 			});
 			expect(onShow).toHaveBeenCalledTimes(1);
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 			unmount();
 			onShow.mockClear();
 		});
@@ -678,16 +673,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, queryByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			// Show tooltip
 			fireEvent.mouseOver(trigger);
 			act(() => {
 				jest.runAllTimers();
 			});
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 			// start hiding
 			fireEvent.mouseOut(trigger);
@@ -695,7 +690,7 @@ describe('Tooltip', () => {
 				jest.advanceTimersByTime(299);
 			});
 			// haven't waited long enough
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 			// finish delay
 			act(() => {
@@ -703,13 +698,13 @@ describe('Tooltip', () => {
 			});
 
 			// Still present because we haven't flushed motion
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 			// Flushing motion
 			act(() => {
 				jest.runAllTimers();
 			});
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			unmount();
 		});
 	});
@@ -731,25 +726,25 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, queryByTestId, rerender, unmount } = render(jsx);
+			const { rerender, unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
 
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
 
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
+			fireEvent.mouseOut(trigger);
 
 			act(() => {
-				fireEvent.mouseOut(trigger);
 				jest.advanceTimersByTime(999);
 			});
 
 			rerender(jsx);
 
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 			act(() => {
 				jest.advanceTimersByTime(1);
@@ -762,7 +757,7 @@ describe('Tooltip', () => {
 				jest.runAllTimers();
 			});
 
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			unmount();
 		});
 	});
@@ -784,16 +779,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { queryByTestId, getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
 
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
 
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			unmount();
 		});
 	});
@@ -815,16 +810,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { queryByTestId, getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
 
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
 
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			unmount();
 		});
 	});
@@ -846,16 +841,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { queryByTestId, getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
 
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
 
-			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			unmount();
 		});
 	});
@@ -877,16 +872,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
 
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
 
-			expect(getByTestId('tooltip')).toHaveAttribute('data-placement', 'left');
+			expect(screen.getByTestId('tooltip')).toHaveAttribute('data-placement', 'left');
 			unmount();
 		});
 	});
@@ -908,16 +903,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.focus(trigger);
 
 			act(() => {
-				fireEvent.focus(trigger);
 				jest.runAllTimers();
 			});
 
-			expect(getByTestId('tooltip')).toHaveAttribute('data-placement', 'right');
+			expect(screen.getByTestId('tooltip')).toHaveAttribute('data-placement', 'right');
 			unmount();
 		});
 	});
@@ -939,16 +934,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.focus(trigger);
 
 			act(() => {
-				fireEvent.focus(trigger);
 				jest.runAllTimers();
 			});
 
-			expect(getByTestId('tooltip')).toHaveAttribute('data-placement', 'left');
+			expect(screen.getByTestId('tooltip')).toHaveAttribute('data-placement', 'left');
 			unmount();
 		});
 	});
@@ -970,16 +965,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { queryByTestId, getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
 
 			// Trigger showing tooltip
 			fireEvent.mouseOver(trigger);
 			act(() => {
 				jest.runAllTimers();
 			});
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 			// Trigger hiding tooltip
 			fireEvent.mouseOut(trigger);
@@ -987,13 +982,13 @@ describe('Tooltip', () => {
 			act(() => {
 				jest.runOnlyPendingTimers();
 			});
+			fireEvent.mouseOver(screen.queryByTestId('tooltip')!);
 			// flush motion
 			act(() => {
-				fireEvent.mouseOver(queryByTestId('tooltip')!);
 				jest.runOnlyPendingTimers();
 			});
 
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 			unmount();
 		});
 	});
@@ -1020,12 +1015,12 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, rerender, unmount } = render(jsx);
+			const { rerender, unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
 
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
 
@@ -1073,16 +1068,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { queryByTestId, getByTestId, rerender, unmount } = render(jsx);
+			const { rerender, unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
 
 			// show tooltip
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
-			expect(queryByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 			// hide tooltip
 			fireEvent.mouseOut(trigger);
@@ -1134,16 +1129,18 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
 
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
 
-			expect(getByTestId('tooltip--wrapper')).toHaveStyle('position: fixed; left: 0px; top: 0px;');
+			expect(screen.getByTestId('tooltip--wrapper')).toHaveStyle(
+				'position: fixed; left: 0px; top: 0px;',
+			);
 			unmount();
 		});
 	});
@@ -1177,16 +1174,16 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
 
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
 
-			expect(getByTestId('tooltip--wrapper')).toHaveStyle(
+			expect(screen.getByTestId('tooltip--wrapper')).toHaveStyle(
 				'position: absolute; left: 0px; top: 0px;',
 			);
 			unmount();
@@ -1210,17 +1207,17 @@ describe('Tooltip', () => {
 		);
 
 		[wrapped, renderProp].forEach((jsx) => {
-			const { getByTestId, unmount } = render(jsx);
+			const { unmount } = render(jsx);
 
-			const trigger = getByTestId('trigger');
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
 
 			act(() => {
-				fireEvent.mouseOver(trigger);
 				jest.runAllTimers();
 			});
 
 			const triggerDescriptionId = trigger.getAttribute('aria-describedby');
-			const tooltipId = getByTestId('tooltip-hidden').getAttribute('id');
+			const tooltipId = screen.getByTestId('tooltip-hidden').getAttribute('id');
 
 			expect(triggerDescriptionId).toEqual(tooltipId);
 			unmount();
@@ -1254,9 +1251,9 @@ describe('Tooltip', () => {
 				<button data-testid="trigger">focus me</button>
 			</Tooltip>,
 		);
+		fireEvent.mouseOver(screen.getByTestId('trigger'));
 
 		act(() => {
-			fireEvent.mouseOver(screen.getByTestId('trigger'));
 			jest.runAllTimers();
 		});
 

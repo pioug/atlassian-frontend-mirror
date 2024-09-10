@@ -41,8 +41,12 @@ type ElementDragSource = {
 	type: string;
 };
 
+const isHTMLElement = (element: Element | null): element is HTMLElement => {
+	return element instanceof HTMLElement;
+};
+
 const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
-	const scrollable = document.querySelector('.fabric-editor-popup-scroll-parent') as HTMLElement;
+	const scrollable = document.querySelector('.fabric-editor-popup-scroll-parent');
 
 	const cleanupFn: CleanupFn[] = [];
 
@@ -58,10 +62,14 @@ const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) =>
 		monitorForElements({
 			canMonitor: ({ source }) => source.data.type === 'element',
 			onDragStart: () => {
-				scrollable.style.setProperty('scroll-behavior', 'unset');
+				if (isHTMLElement(scrollable)) {
+					scrollable.style.setProperty('scroll-behavior', 'unset');
+				}
 			},
 			onDrop: ({ location, source }) => {
-				scrollable.style.setProperty('scroll-behavior', null);
+				if (isHTMLElement(scrollable)) {
+					scrollable.style.setProperty('scroll-behavior', null);
+				}
 				api?.core?.actions.execute(({ tr }) => {
 					const { start } = source.data as ElementDragSource;
 					// if no drop targets are rendered, assume that drop is invalid
@@ -181,6 +189,7 @@ export const createPlugin = (
 					// naive solution while we work on performance optimised approach under ED-24503
 					newNodeDecs = nodeDecorations(newState);
 					isDecsMissing = !(isDragging || meta?.isDragging) && decsLength !== newNodeDecs.length;
+					isDropTargetsMissing = (meta?.isDragging ?? isDragging) && nodeCountChanged;
 				} else {
 					isDecsMissing =
 						!(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
@@ -342,12 +351,15 @@ export const createPlugin = (
 
 				const shouldUpdateDropTargets = meta?.isDragging || isDropTargetsMissing;
 
-				const shouldMapDropTargets =
-					!shouldUpdateDropTargets &&
-					tr.docChanged &&
-					isDragging &&
-					meta?.isDragging === false &&
-					!meta?.nodeMoved;
+				// During dragging if the the document is updated by remote user, or other processes
+				// and update drop target is not required, We remap the drop target.
+				const shouldMapDropTargets = editorExperiment('nested-dnd', true)
+					? !shouldUpdateDropTargets && tr.docChanged && isDragging && !meta?.nodeMoved
+					: !shouldUpdateDropTargets &&
+						tr.docChanged &&
+						isDragging &&
+						meta?.isDragging === false &&
+						!meta?.nodeMoved;
 
 				if (meta?.isDragging === false || isDropTargetsMissing) {
 					if (editorExperiment('nested-dnd', true)) {
@@ -356,6 +368,7 @@ export const createPlugin = (
 							undefined,
 							(spec) => spec.type !== 'drop-target-decoration',
 						);
+
 						decorations = DecorationSet.create(newState.doc, remainingDecs);
 					} else {
 						// Remove drop target decoration when dragging stops
@@ -368,6 +381,16 @@ export const createPlugin = (
 					}
 				}
 
+				// Map active node position when the document changes
+				const mappedActiveNodePos =
+					tr.docChanged && activeNode
+						? (!isPerformanceFix && activeNodeWithNewNodeType) || {
+								pos: tr.mapping.map(activeNode.pos),
+								anchorName: activeNode.anchorName,
+								nodeType: activeNode.nodeType,
+							}
+						: activeNode;
+
 				if (api) {
 					// Add drop targets when node is being dragged
 					// if the transaction is only for analytics and user is dragging, continue to draw drop targets
@@ -376,7 +399,9 @@ export const createPlugin = (
 							newState,
 							api,
 							formatMessage,
-							meta?.activeNode,
+							editorExperiment('nested-dnd', true)
+								? meta?.activeNode ?? mappedActiveNodePos
+								: meta?.activeNode,
 						);
 						decorationState = updatedDecorationState;
 						decorations = decorations.add(newState.doc, decs);
@@ -412,21 +437,13 @@ export const createPlugin = (
 					decorations = decorations.add(newState.doc, [emptyParagraphNodeDecorations()]);
 				}
 
-				// Map active node position when the document changes
-				const mappedActiveNodePos =
-					tr.docChanged && activeNode
-						? (!isPerformanceFix && activeNodeWithNewNodeType) || {
-								pos: tr.mapping.map(activeNode.pos),
-								anchorName: activeNode.anchorName,
-								nodeType: activeNode.nodeType,
-							}
-						: activeNode;
+				const newActiveNode =
+					isEmptyDoc || isHandleMissing ? null : meta?.activeNode ?? mappedActiveNodePos;
 
 				return {
 					decorations,
 					decorationState,
-					activeNode:
-						isEmptyDoc || isHandleMissing ? null : meta?.activeNode ?? mappedActiveNodePos,
+					activeNode: newActiveNode,
 					isDragging: meta?.isDragging ?? isDragging,
 					isMenuOpen: meta?.toggleMenu ? !isMenuOpen : isMenuOpen,
 					editorHeight: meta?.editorHeight ?? currentState.editorHeight,

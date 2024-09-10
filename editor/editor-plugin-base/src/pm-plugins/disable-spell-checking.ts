@@ -1,10 +1,10 @@
+import { browser as browserEnv } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	Browsers,
 	DisableSpellcheckByBrowser,
 	FeatureFlags,
 } from '@atlaskit/editor-common/types';
-import { browser as browserEnv } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 

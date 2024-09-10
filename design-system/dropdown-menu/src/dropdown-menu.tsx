@@ -137,7 +137,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 	);
 
 	const handleOnClose = useCallback(
-		(event: any) => {
+		(event: any, currentLevel?: number) => {
 			if (
 				event.key !== 'Escape' &&
 				event.key !== 'Tab' &&
@@ -146,7 +146,15 @@ const DropdownMenu = <T extends HTMLElement = any>({
 				// Check if it is within dropdown and it is a trigger button
 				// if it is a nested dropdown, clicking trigger won't close the dropdown
 				// Dropdown can be closed by pressing Escape, Tab or Shift + Tab
-				return;
+				if (!currentLevel) {
+					return;
+				}
+				// if currentLevel is provided, we will compare with the given item's level
+				// when it is available and larger than currentLevel, we will proceed the close behavior
+				const toCloseLevel = itemRef.current?.dataset['ds-Level'];
+				if (toCloseLevel && Number(toCloseLevel) < currentLevel) {
+					return;
+				}
 			}
 
 			// transfer focus to the element specified by ref
@@ -226,7 +234,6 @@ const DropdownMenu = <T extends HTMLElement = any>({
 	 * types are satisfied.
 	 */
 	const conditionalProps = shouldFitContainer ? { shouldFitContainer } : { shouldRenderToParent };
-
 	return (
 		<SelectionStore>
 			<DropdownMenuProvider value={{ returnFocusRef: triggerRef }}>

@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-container, testing-library/no-node-access */
 import React, { type FC, memo, type ReactNode } from 'react';
 
 import { render } from '@testing-library/react';
@@ -46,7 +47,7 @@ describe('<AtlaskitThemeProvider />', () => {
 	});
 
 	it('should render two style elements when AKThemeProvider is mounted (theme styles itself and body style)', () => {
-		const rerender = render(
+		const view = render(
 			<>
 				<head />
 				<body>
@@ -58,11 +59,11 @@ describe('<AtlaskitThemeProvider />', () => {
 			{ container: document.documentElement },
 		);
 
-		expect(rerender.container.querySelectorAll('head style')).toHaveLength(2);
+		expect(view.container.querySelectorAll('head style')).toHaveLength(2);
 	});
 
 	it('should still render two style elements (theme styles itself and body style) when multiple AKThemeProviders are mounted', () => {
-		const rerender = render(
+		const view = render(
 			<>
 				<head />
 				<body>
@@ -76,11 +77,11 @@ describe('<AtlaskitThemeProvider />', () => {
 			{ container: document.documentElement },
 		);
 
-		expect(rerender.container.querySelectorAll('head style')).toHaveLength(2);
+		expect(view.container.querySelectorAll('head style')).toHaveLength(2);
 	});
 
 	it('theme reset style element should be prepended in the head', () => {
-		const rerender = render(
+		const view = render(
 			<>
 				<head>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
@@ -97,11 +98,11 @@ describe('<AtlaskitThemeProvider />', () => {
 			{ container: document.documentElement },
 		);
 
-		expect(rerender.container.querySelector('style')?.id).toEqual('ds--theme--ak-theme-provider');
+		expect(view.container.querySelector('style')?.id).toEqual('ds--theme--ak-theme-provider');
 	});
 
 	it('theme body background style element should be appended in the head', () => {
-		const rerender = render(
+		const view = render(
 			<>
 				<head>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
@@ -118,13 +119,13 @@ describe('<AtlaskitThemeProvider />', () => {
 			{ container: document.documentElement },
 		);
 
-		expect(rerender.container.querySelector('style:last-child')?.id).toEqual(
+		expect(view.container.querySelector('style:last-child')?.id).toEqual(
 			'ds--theme--ak-body-background',
 		);
 	});
 
 	it('theme reset should render ahead of any other style elements', () => {
-		const rerender = render(
+		const view = render(
 			<>
 				<head>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
@@ -141,11 +142,11 @@ describe('<AtlaskitThemeProvider />', () => {
 			{ container: document.documentElement },
 		);
 
-		expect(rerender.container.querySelector('style')?.id).toEqual('ds--theme--ak-theme-provider');
+		expect(view.container.querySelector('style')?.id).toEqual('ds--theme--ak-theme-provider');
 	});
 
 	it('theme reset and body should render if no style elements', () => {
-		const result = render(
+		const view = render(
 			<>
 				<head />
 				<body>
@@ -157,10 +158,10 @@ describe('<AtlaskitThemeProvider />', () => {
 			{ container: document.documentElement },
 		);
 
-		expect(result.container.querySelector('style:first-child')?.id).toEqual(
+		expect(view.container.querySelector('style:first-child')?.id).toEqual(
 			'ds--theme--ak-theme-provider',
 		);
-		expect(result.container.querySelector('style:last-child')?.id).toEqual(
+		expect(view.container.querySelector('style:last-child')?.id).toEqual(
 			'ds--theme--ak-body-background',
 		);
 	});

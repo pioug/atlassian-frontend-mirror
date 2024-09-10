@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Header from '../../index';
 
@@ -8,8 +8,8 @@ describe('<Header />', () => {
 	it('is findable by testId', () => {
 		const textContent = 'Header Content';
 
-		const { getByTestId } = render(<Header testId="header-testid">{textContent}</Header>);
+		render(<Header testId="header-testid">{textContent}</Header>);
 
-		expect(getByTestId('header-testid').textContent).toBe(textContent);
+		expect(screen.getByTestId('header-testid')).toHaveTextContent(textContent);
 	});
 });

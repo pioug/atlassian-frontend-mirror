@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { Text } from '@atlaskit/primitives';
 
@@ -43,14 +43,14 @@ const sectionMessageWrapperWithTestIds = (
 
 describe('Section Message should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
-		const { getByTestId } = render(sectionMessageWrapperWithTestIds);
-		expect(getByTestId(sectionMessageInfoId)).toBeInTheDocument();
+		render(sectionMessageWrapperWithTestIds);
+		expect(screen.getByTestId(sectionMessageInfoId)).toBeInTheDocument();
 	});
 });
 describe('Flag actions should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
-		const { getByTestId } = render(sectionMessageWrapperWithTestIds);
-		expect(getByTestId(sectionMessageInfoBBId)).toBeInTheDocument();
-		expect(getByTestId(sectionMessageInfoJiraId)).toBeInTheDocument();
+		render(sectionMessageWrapperWithTestIds);
+		expect(screen.getByTestId(sectionMessageInfoBBId)).toBeInTheDocument();
+		expect(screen.getByTestId(sectionMessageInfoJiraId)).toBeInTheDocument();
 	});
 });

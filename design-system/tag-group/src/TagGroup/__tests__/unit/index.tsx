@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Tag from '@atlaskit/tag';
 
@@ -8,17 +8,17 @@ import TagGroup from '../../index';
 
 describe('TagGroup', () => {
 	it('should export a base component', () => {
-		const { getByText } = render(
+		render(
 			<TagGroup>
 				<Tag text="test" />
 			</TagGroup>,
 		);
-		expect(getByText('test')).toBeTruthy();
+		expect(screen.getByText('test')).toBeInTheDocument();
 	});
 
 	it('should render supplied tags', () => {
 		const tags = ['Candy canes', 'Tiramisu', 'Gummi bears'];
-		const { getByText } = render(
+		render(
 			<TagGroup>
 				{tags.map((tagName) => (
 					<Tag key={tagName} text={tagName} />
@@ -26,7 +26,7 @@ describe('TagGroup', () => {
 			</TagGroup>,
 		);
 		tags.forEach((tagText) => {
-			expect(getByText(tagText)).toBeTruthy();
+			expect(screen.getByText(tagText)).toBeInTheDocument();
 		});
 	});
 

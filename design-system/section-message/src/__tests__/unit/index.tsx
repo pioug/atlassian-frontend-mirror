@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cleanup, fireEvent, queryByAttribute, render, screen } from '@testing-library/react';
+import { fireEvent, queryByAttribute, render, screen } from '@testing-library/react';
 import cases from 'jest-in-case';
 
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
@@ -48,21 +48,18 @@ const CustomLinkComponent = React.forwardRef((props = {}, ref: React.Ref<HTMLBut
 
 const getByHref = queryByAttribute.bind(null, 'href');
 
-// cleanup can be removed once we move to RTL v9
-afterEach(cleanup);
-
 describe('SectionMessage', () => {
 	it('should render correct defaults', () => {
-		const { getByText } = render(<SectionMessage>boo</SectionMessage>);
+		render(<SectionMessage>boo</SectionMessage>);
 
-		expect(getByText('boo')).toBeInTheDocument();
+		expect(screen.getByText('boo')).toBeInTheDocument();
 	});
 
 	it('should render both <Title /> and children if there is a title', () => {
-		const { getByText } = render(<SectionMessage title="things">boo</SectionMessage>);
+		render(<SectionMessage title="things">boo</SectionMessage>);
 
-		expect(getByText('things')).toBeInTheDocument();
-		expect(getByText('boo')).toBeInTheDocument();
+		expect(screen.getByText('things')).toBeInTheDocument();
+		expect(screen.getByText('boo')).toBeInTheDocument();
 	});
 
 	it('should render a custom icon and label if one is given', () => {
@@ -88,10 +85,10 @@ describe('SectionMessage', () => {
 					<Text>aye</Text>
 				</SectionMessageAction>,
 			];
-			const { getAllByText } = render(<SectionMessage actions={actions}>boo</SectionMessage>);
+			render(<SectionMessage actions={actions}>boo</SectionMessage>);
 
-			expect(getAllByText('aye')).toHaveLength(2);
-			expect(getAllByText('·')).toHaveLength(1);
+			expect(screen.getAllByText('aye')).toHaveLength(2);
+			expect(screen.getAllByText('·')).toHaveLength(1);
 		});
 
 		it('should render React Nodes as actions', () => {
@@ -101,9 +98,9 @@ describe('SectionMessage', () => {
 					<MyAction />
 				</SectionMessageAction>
 			);
-			const { getByText } = render(<SectionMessage actions={[Aye]}>boo</SectionMessage>);
+			render(<SectionMessage actions={[Aye]}>boo</SectionMessage>);
 
-			expect(getByText('Hello, World!')).toBeInTheDocument();
+			expect(screen.getByText('Hello, World!')).toBeInTheDocument();
 		});
 
 		it('should render actions separated by dividers when passed in a Fragment', () => {
@@ -117,14 +114,14 @@ describe('SectionMessage', () => {
 					</SectionMessageAction>
 				</>
 			);
-			const { getAllByText } = render(
+			render(
 				<SectionMessage testId="a" actions={actions}>
 					boo
 				</SectionMessage>,
 			);
 
-			expect(getAllByText('aye')).toHaveLength(2);
-			expect(getAllByText('·')).toHaveLength(1);
+			expect(screen.getAllByText('aye')).toHaveLength(2);
+			expect(screen.getAllByText('·')).toHaveLength(1);
 		});
 
 		it('should render a link when passed an action', () => {
@@ -165,8 +162,8 @@ describe('SectionMessage', () => {
 		it('should call "onClick" on the click of an action with "onClick" but no "href"', () => {
 			const onClick = jest.fn();
 			const action = <SectionMessageAction onClick={onClick}>aye</SectionMessageAction>;
-			const { getByText } = render(<SectionMessage actions={[action]}>boo</SectionMessage>);
-			const sectionMsgAction = getByText('aye');
+			render(<SectionMessage actions={[action]}>boo</SectionMessage>);
+			const sectionMsgAction = screen.getByText('aye');
 			fireEvent.click(sectionMsgAction);
 
 			expect(onClick).toHaveBeenCalledTimes(1);
@@ -179,8 +176,8 @@ describe('SectionMessage', () => {
 					aye
 				</SectionMessageAction>
 			);
-			const { queryAllByText } = render(<SectionMessage actions={[action]}>boo</SectionMessage>);
-			const sectionMsgAction = queryAllByText('hello world');
+			render(<SectionMessage actions={[action]}>boo</SectionMessage>);
+			const sectionMsgAction = screen.queryAllByText('hello world');
 
 			expect(sectionMsgAction).toHaveLength(0);
 		});
@@ -189,8 +186,8 @@ describe('SectionMessage', () => {
 			const action = (
 				<SectionMessageAction linkComponent={CustomLinkComponent}>aye</SectionMessageAction>
 			);
-			const { queryAllByText } = render(<SectionMessage actions={[action]}>boo</SectionMessage>);
-			const sectionMsgAction = queryAllByText('hello world');
+			render(<SectionMessage actions={[action]}>boo</SectionMessage>);
+			const sectionMsgAction = screen.queryAllByText('hello world');
 
 			expect(sectionMsgAction).toHaveLength(0);
 		});
@@ -199,18 +196,18 @@ describe('SectionMessage', () => {
 	cases(
 		'appearances',
 		({ name, icon }: { name: Appearance; icon: (props: {}) => JSX.Element }) => {
-			const { getByLabelText, getAllByRole } = render(
+			render(
 				<SectionMessage icon={icon} appearance={name}>
 					boo
 				</SectionMessage>,
 			);
 
-			const foundIcon = getByLabelText(name);
+			const foundIcon = screen.getByLabelText(name);
 
 			expect(foundIcon).toBeInTheDocument();
 			expect(foundIcon).toHaveAccessibleName(name);
 			expect(
-				getAllByRole(
+				screen.getAllByRole(
 					(content, element) =>
 						content === 'presentation' && element!.tagName.toLowerCase() === 'svg',
 				),

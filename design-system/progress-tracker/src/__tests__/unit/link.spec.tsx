@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import * as colors from '@atlaskit/theme/colors';
@@ -22,22 +22,22 @@ describe('@atlaskit/progress-tracker/link', () => {
 	beforeEach(jest.resetAllMocks);
 
 	it('sanity check', () => {
-		const { getByTestId } = render(<ProgressTrackerLink {...item} />);
-		expect(getByTestId(item.testId)).toBeDefined();
+		render(<ProgressTrackerLink {...item} />);
+		expect(screen.getByTestId(item.testId)).toBeInTheDocument();
 	});
 
 	it('should render the component as per props', () => {
-		const { getByText } = render(<ProgressTrackerLink {...item} />);
-		const element = getByText(item.label);
+		render(<ProgressTrackerLink {...item} />);
+		const element = screen.getByText(item.label);
 		expect(element).toHaveStyle(`color: ${token('color.text', colors.N800)}`);
-		expect(element.getAttribute('href')).toEqual(item.href);
+		expect(element).toHaveAttribute('href', item.href);
 	});
 
 	it('clicking visited link should trigger onClick', async () => {
 		const user = userEvent.setup();
 
-		const { getByText } = render(<ProgressTrackerLink {...item} />);
-		await user.click(getByText(item.label));
+		render(<ProgressTrackerLink {...item} />);
+		await user.click(screen.getByText(item.label));
 		expect(item.onClick).toHaveBeenCalledTimes(1);
 	});
 });

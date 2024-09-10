@@ -93,7 +93,7 @@ describe('@atlaskit/progress-tracker/stage', () => {
 			link: ({ item }: LinkComponentProps) => <ProgressTrackerLink {...item} />,
 		};
 
-		const { getByTestId } = renderFn(
+		renderFn(
 			<ProgressTrackerStage
 				item={item}
 				testId={defaultTestId}
@@ -104,9 +104,9 @@ describe('@atlaskit/progress-tracker/stage', () => {
 			/>,
 		);
 
-		const baseElement = getByTestId(defaultTestId);
-		const marker = getByTestId(`${defaultTestId}-marker`);
-		const title = getByTestId(`${defaultTestId}-title`);
+		const baseElement = screen.getByTestId(defaultTestId);
+		const marker = screen.getByTestId(`${defaultTestId}-marker`);
+		const title = screen.getByTestId(`${defaultTestId}-title`);
 
 		// get root styles
 		const styles = getComputedStyle(baseElement);
@@ -131,7 +131,7 @@ describe('@atlaskit/progress-tracker/stage', () => {
 			link: ({ item }: LinkComponentProps) => <ProgressTrackerLink {...item} />,
 		};
 
-		const { getByTestId } = renderFn(
+		renderFn(
 			<ProgressTrackerStage
 				item={item}
 				testId={defaultTestId}
@@ -142,9 +142,9 @@ describe('@atlaskit/progress-tracker/stage', () => {
 			/>,
 		);
 
-		const baseElement = getByTestId(defaultTestId);
-		const marker = getByTestId(`${defaultTestId}-marker`);
-		const title = getByTestId(`${defaultTestId}-title`);
+		const baseElement = screen.getByTestId(defaultTestId);
+		const marker = screen.getByTestId(`${defaultTestId}-marker`);
+		const title = screen.getByTestId(`${defaultTestId}-title`);
 
 		// get root styles
 		const styles = getComputedStyle(baseElement);
@@ -169,7 +169,7 @@ describe('@atlaskit/progress-tracker/stage', () => {
 			link: ({ item }: LinkComponentProps) => <ProgressTrackerLink {...item} />,
 		};
 
-		const { getByTestId } = renderFn(
+		renderFn(
 			<ProgressTrackerStage
 				item={item}
 				testId={defaultTestId}
@@ -180,9 +180,9 @@ describe('@atlaskit/progress-tracker/stage', () => {
 			/>,
 		);
 
-		const baseElement = getByTestId(defaultTestId);
-		const marker = getByTestId(`${defaultTestId}-marker`);
-		const title = getByTestId(`${defaultTestId}-title`);
+		const baseElement = screen.getByTestId(defaultTestId);
+		const marker = screen.getByTestId(`${defaultTestId}-marker`);
+		const title = screen.getByTestId(`${defaultTestId}-title`);
 
 		// get root styles
 		const styles = getComputedStyle(baseElement);

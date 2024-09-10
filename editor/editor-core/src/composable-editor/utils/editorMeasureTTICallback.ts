@@ -6,9 +6,9 @@ import {
 	EVENT_TYPE,
 	fireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
+import { getTTISeverity } from '@atlaskit/editor-common/performance/measure-tti';
 import type { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { EditorExperience } from '@atlaskit/editor-common/ufo';
-import { getTTISeverity } from '@atlaskit/editor-common/utils';
 
 import type { EditorProps } from '../../types/editor-props';
 import type { PerformanceTracking } from '../../types/performance-tracking';

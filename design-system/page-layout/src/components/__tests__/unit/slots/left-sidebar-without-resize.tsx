@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { LeftSidebarWithoutResize, Main, PageLayout } from '../../../index';
 import { getDimension } from '../__utils__/get-dimension';
@@ -38,7 +38,7 @@ describe('<LeftSidebarWithoutResize />', () => {
 	});
 
 	it('should NOT bind any mouse events to LeftSidebarWithoutResize', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<Main>
 					<LeftSidebarWithoutResize testId="component" width={200}>
@@ -48,12 +48,12 @@ describe('<LeftSidebarWithoutResize />', () => {
 			</PageLayout>,
 		);
 
-		fireEvent.mouseEnter(getByTestId('component'));
+		fireEvent.mouseEnter(screen.getByTestId('component'));
 		jest.runAllTimers();
 		expect(document.documentElement.dataset.isSidebarCollapsed).toBeUndefined();
 		expect(document.documentElement.dataset.isFlyoutOpen).toBeUndefined();
 
-		fireEvent.mouseLeave(getByTestId('component'));
+		fireEvent.mouseLeave(screen.getByTestId('component'));
 		jest.runAllTimers();
 		expect(document.documentElement.dataset.isSidebarCollapsed).toBeUndefined();
 		expect(document.documentElement.dataset.isFlyoutOpen).toBeUndefined();

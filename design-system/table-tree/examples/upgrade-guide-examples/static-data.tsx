@@ -39,11 +39,13 @@ const tableData = [
 		title: 'title One',
 		numbering: '1',
 		page: '1',
+		id: 'title-One',
 		children: [
 			{
 				title: 'child one title',
 				numbering: '1.1',
 				page: '1',
+				id: 'child-one-title',
 			},
 		],
 	},

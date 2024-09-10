@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.5.1
+
+### Patch Changes
+
+- [`45ce61e4e55b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45ce61e4e55b0) -
+  [ux] [ED-24844] Make tab panels in media insert popup non-focusable, instead users focus will go
+  to the first interactive element inside the tab panel
+
+## 2.5.0
+
+### Minor Changes
+
+- [#138801](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138801)
+  [`f742cd24b83a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f742cd24b83a1) -
+  [ux] [ED-24877] Improve keyboard UX for "from link" media uploads
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

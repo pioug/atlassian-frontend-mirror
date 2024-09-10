@@ -1,15 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, { Component, type ElementType, type ReactNode } from 'react';
+import React, { type ElementType, type ReactNode, useCallback, useMemo, useState } from 'react';
 
 import Cell from './cell';
 import Header from './header';
 import Headers from './headers';
 import { type ColumnWidth, TableTreeContext } from './internal/context';
-import type Item from './internal/item';
 import Row from './row';
 import Rows from './rows';
-
-class Content extends Object {}
 
 /**
  * This is hard-coded here because our actual <TableTree /> has no typings
@@ -19,7 +16,7 @@ class Content extends Object {}
  *
  * Defining it here for now lets us provide *something* without much headache.
  */
-export type TableTreeProps = {
+export interface TableTreeProps<Item> {
 	/**
 	 * The contents of the table.
 	 * Use this when composing `Cell`, `Header`, `Headers`, `Row`, and `Rows` components.
@@ -30,11 +27,11 @@ export type TableTreeProps = {
 	 * Each column component is used to render the cells in that column.
 	 * A cell's `content` value, specified in the data passed to `items`, is provided as props.
 	 */
-	columns?: ElementType<Content>[];
+	columns?: ElementType[];
 	/**
 	 * The widths of the columns in the table.
 	 */
-	columnWidths?: (string | number)[];
+	columnWidths?: ColumnWidth[];
 	/**
 	 * The header text of the columns of the table.
 	 */
@@ -45,11 +42,11 @@ export type TableTreeProps = {
 
     If your cells contain interactive elements, always set this to `false` to avoid unexpected expanding or collapsing.
 
-    If you aren’t using the `items` prop, `shouldExpandOnClick` should be used on the row component instead.
+    If you aren't using the `items` prop, `shouldExpandOnClick` should be used on the row component instead.
    */
 	shouldExpandOnClick?: boolean;
 	/**
-    The data used to render the table. If you’re creating a basic table, use this prop instead of composing cell, header, headers, row, and rows components.
+    The data used to render the table. If you're creating a basic table, use this prop instead of composing cell, header, headers, row, and rows components.
 
     In addition to the `items` props, any other data can be added, and it will
     be provided as props when rendering each cell.
@@ -72,101 +69,91 @@ export type TableTreeProps = {
 	 * Usage of either this, or the `label` attribute is strongly recommended.
 	 */
 	referencedLabel?: string;
-};
-
-interface State {
-	columnWidths: ColumnWidth[];
 }
 
-export default class TableTree extends Component<any, State> {
-	state: State = {
-		columnWidths: [],
-	};
+const emptyColumnWidths: ColumnWidth[] = [];
 
-	componentDidMount() {
-		const widths = this.props.columnWidths;
-		if (widths) {
-			this.setState({ columnWidths: widths }); // eslint-disable-line
-		}
-	}
+function TableTree<Item extends { id: string }>({
+	children,
+	columns,
+	columnWidths: defaultColumnWidths = emptyColumnWidths,
+	headers,
+	shouldExpandOnClick,
+	items,
+	mainColumnForExpandCollapseLabel,
+	label,
+	referencedLabel,
+}: TableTreeProps<Item>) {
+	const [columnWidths, setColumnWidths] = useState<ColumnWidth[]>(defaultColumnWidths);
 
-	setColumnWidth = (columnIndex: number, width: ColumnWidth) => {
-		const { columnWidths } = this.state;
-		if (width === columnWidths[columnIndex]) {
-			return;
-		}
-		columnWidths[columnIndex] = width;
-		this.setState({ columnWidths });
-	};
+	const setColumnWidth = useCallback(
+		(columnIndex: number, width: ColumnWidth) => {
+			if (width === columnWidths[columnIndex]) {
+				return;
+			}
 
-	getColumnWidth = (columnIndex: any) => {
-		return (this.state && this.state.columnWidths[columnIndex]) || null;
-	};
+			setColumnWidths((columnWidths) => {
+				const newColumnWidths = [...columnWidths];
+				newColumnWidths[columnIndex] = width;
+				return newColumnWidths;
+			});
+		},
+		[columnWidths],
+	);
 
-	render() {
-		const {
-			items,
-			label,
-			referencedLabel,
-			shouldExpandOnClick,
-			headers,
-			columns,
-			columnWidths = [],
-			mainColumnForExpandCollapseLabel,
-		} = this.props;
-		const heads = headers && (
-			<Headers>
-				{(headers as any[]).map((header, index) => (
-					// eslint-disable-next-line react/no-array-index-key
-					<Header key={index} columnIndex={index} width={columnWidths[index]}>
-						{header}
-					</Header>
-				))}
-			</Headers>
-		);
-		let rows: React.ReactNode = null;
-		if (columns && items) {
-			rows = (
-				<Rows
-					items={items}
-					render={({ id, children, hasChildren, content }: any) => {
-						return (
+	const getColumnWidth = useCallback(
+		(columnIndex: number) => {
+			return columnWidths[columnIndex] || null;
+		},
+		[columnWidths],
+	);
+
+	const contextValue = useMemo(
+		() => ({ setColumnWidth, getColumnWidth }),
+		[setColumnWidth, getColumnWidth],
+	);
+
+	const heads = headers && (
+		<Headers>
+			{headers.map((header, index) => (
+				<Header key={index} columnIndex={index} width={columnWidths[index]}>
+					{header}
+				</Header>
+			))}
+		</Headers>
+	);
+
+	return (
+		<TableTreeContext.Provider value={contextValue}>
+			<div role="treegrid" aria-readonly aria-label={label} aria-labelledby={referencedLabel}>
+				{heads}
+				{columns && items && (
+					<Rows
+						items={items}
+						render={({ id, children, content }) => (
 							<Row
 								itemId={id}
 								items={children}
-								hasChildren={hasChildren}
+								hasChildren={!!children && children.length > 0}
 								shouldExpandOnClick={shouldExpandOnClick}
 								mainColumnForExpandCollapseLabel={mainColumnForExpandCollapseLabel}
 							>
-								{(columns as any[]).map((CellContent, index) => (
-									<Cell
-										// eslint-disable-next-line react/no-array-index-key
-										key={index}
-										columnIndex={index}
-										width={columnWidths[index]}
-									>
-										<CellContent {...content} />
-									</Cell>
-								))}
+								{columns.map((CellContent, index) => {
+									return (
+										<Cell key={`cell-${index}`} columnIndex={index} width={columnWidths[index]}>
+											<CellContent {...content} />
+										</Cell>
+									);
+								})}
 							</Row>
-						);
-					}}
-				/>
-			);
-		}
-		return (
-			<TableTreeContext.Provider
-				value={{
-					setColumnWidth: this.setColumnWidth,
-					getColumnWidth: this.getColumnWidth,
-				}}
-			>
-				<div role="treegrid" aria-readonly aria-label={label} aria-labelledby={referencedLabel}>
-					{heads}
-					{rows}
-					{this.props.children}
-				</div>
-			</TableTreeContext.Provider>
-		);
-	}
+						)}
+					/>
+				)}
+				{children}
+			</div>
+		</TableTreeContext.Provider>
+	);
 }
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default TableTree;

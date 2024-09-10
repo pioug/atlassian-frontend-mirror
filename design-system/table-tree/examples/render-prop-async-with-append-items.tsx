@@ -4,41 +4,39 @@ import SectionMessage from '@atlaskit/section-message';
 
 import TableTree, { Cell, Header, Headers, Row, Rows, TableTreeDataHelper } from '../src';
 
-let uuid = 0;
-
 type Item = (typeof ROOTS)[number];
 
 const ROOTS = [
 	{
 		title: 'Chapter 1: Clean code',
-		id: ++uuid,
+		id: 'chapter-1-clean-code',
 		page: 1,
 		numbering: '1',
 		hasChildren: true,
 	},
 	{
 		title: 'Chapter 2: Meaningful names',
-		id: ++uuid,
+		id: 'chapter-2-meaningful-names',
 		page: 17,
 		numbering: '2',
 	},
 	{
 		title: 'Chapter 3: Functions',
-		id: ++uuid,
+		id: 'chapter-3-functions',
 		page: 17,
 		numbering: '3',
 		hasChildren: true,
 	},
 	{
 		title: 'Chapter 4: Comments',
-		id: ++uuid,
+		id: 'chapter-4-comments',
 		page: 53,
 		numbering: '4',
 		children: [],
 	},
 	{
 		title: 'Chapter 5: Formatting',
-		id: ++uuid,
+		id: 'chapter-5-formatting',
 		page: 75,
 		numbering: '5',
 		children: [],
@@ -49,20 +47,20 @@ function getChildren() {
 	return [
 		{
 			title: 'There will be code',
-			id: ++uuid,
+			id: 'there-will-be-code',
 			page: 2,
 			numbering: '1.1',
 			hasChildren: true,
 		},
 		{
 			title: 'Bad code',
-			id: ++uuid,
+			id: 'bad-code',
 			page: 3,
 			numbering: '1.2',
 		},
 		{
 			title: 'The cost of owning a mess',
-			id: ++uuid,
+			id: 'the-cost-of-owning-a-mess',
 			page: 4,
 			numbering: '1.3',
 			hasChildren: true,
@@ -94,7 +92,7 @@ export default class extends Component {
 		this.loadTableData();
 	}
 
-	loadTableData = (parentItem?: Item & { childIds: any }) => {
+	loadTableData = (parentItem?: Item & { childIds: string[] }) => {
 		if (parentItem && parentItem.childIds) {
 			return;
 		}
@@ -139,7 +137,7 @@ export default class extends Component {
 					<Rows
 						items={items}
 						render={({ title, numbering, page, hasChildren, children }) => (
-							<Row
+							<Row<Item & { childIds: string[] }>
 								expandLabel="Expand"
 								collapseLabel="Collapse"
 								itemId={numbering}

@@ -39,6 +39,7 @@ export type CardExample = {
 	idx: number;
 	example?: any;
 	children?: CardExample[];
+	id: string;
 };
 
 type GroupingMode = keyof typeof GroupingModes;
@@ -159,9 +160,11 @@ class Example extends React.Component<{}, ExampleState> {
 		let tree;
 		if (mode !== 'none') {
 			tree = sortedTitles.map((title, idx) => ({
+				id: `${title}-${idx}`,
 				idx,
 				title,
 				children: (grouped[title] || []).map((example, idx) => ({
+					id: `${example}-${idx}`,
 					idx,
 					example,
 					title: this.getTitle(mode, example),
@@ -169,9 +172,11 @@ class Example extends React.Component<{}, ExampleState> {
 			}));
 		} else {
 			tree = (grouped[''] || []).map((example, idx) => ({
+				id: `${example}-${idx}`,
 				idx,
 				example,
 				title: this.getTitle(mode, example),
+				children: [],
 			}));
 		}
 

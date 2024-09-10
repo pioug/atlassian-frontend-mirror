@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cleanup, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
@@ -11,37 +11,35 @@ jest.mock('raf-schd', () => (fn: Function) => fn);
 jest.mock('@atlaskit/ds-lib/warn-once');
 
 describe('<ModalBody />', () => {
-	afterEach(cleanup);
-
 	it('should render default body', () => {
-		const { queryByTestId } = render(
+		render(
 			<ModalDialog onClose={noop} testId="modal">
 				<ModalBody>My body</ModalBody>
 			</ModalDialog>,
 		);
 
-		expect(queryByTestId('modal--body')).toBeInTheDocument();
+		expect(screen.getByTestId('modal--body')).toBeInTheDocument();
 	});
 
 	it('should be accessible using a user-defined test id', () => {
-		const { queryByTestId } = render(
+		render(
 			<ModalDialog onClose={noop} testId="modal">
 				<ModalBody testId="my-body">My body</ModalBody>
 			</ModalDialog>,
 		);
 
-		expect(queryByTestId('modal--body')).not.toBeInTheDocument();
-		expect(queryByTestId('my-body')).toBeInTheDocument();
+		expect(screen.queryByTestId('modal--body')).not.toBeInTheDocument();
+		expect(screen.getByTestId('my-body')).toBeInTheDocument();
 	});
 
 	it('should render custom body', () => {
-		const { queryByTestId } = render(
+		render(
 			<ModalDialog onClose={noop}>
 				<span data-testid="custom-body">My body</span>
 			</ModalDialog>,
 		);
 
-		expect(queryByTestId('custom-body')).toBeInTheDocument();
+		expect(screen.getByTestId('custom-body')).toBeInTheDocument();
 	});
 
 	it('should throw an error if modal context not available', () => {

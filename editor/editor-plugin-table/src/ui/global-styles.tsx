@@ -6,7 +6,6 @@
 import { Global, jsx } from '@emotion/react';
 
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { tableStyles } from './common-styles';
 
@@ -15,7 +14,5 @@ export const GlobalStylesWrapper = ({
 }: {
 	featureFlags: FeatureFlags | undefined;
 }) => {
-	return fg('platform_editor_move_table_styles_to_plugin') ? (
-		<Global styles={tableStyles({ featureFlags })} />
-	) : null;
+	return <Global styles={tableStyles({ featureFlags })} />;
 };

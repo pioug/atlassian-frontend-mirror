@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import {
 	B200,
 	B300,
-	G300,
+	G500,
 	N0,
 	N10,
 	N100,
@@ -229,7 +229,7 @@ export const EditorView = styled.div<{
 		}
 
 		.mark-token-operator {
-			color: ${token('color.text.accent.green', G300)};
+			color: ${token('color.text.accent.green', G500)};
 		}
 
 		.mark-token-error {

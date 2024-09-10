@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 4.7.1
+
+### Patch Changes
+
+- [#138353](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138353)
+  [`1224c0d0ec5c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1224c0d0ec5c8) -
+  [ux] Increased color contrast of fallback color for jql operator to solve accessibility violation
+
 ## 4.7.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { ButtonItem, type CustomItemComponentProps } from '../../../Item';
 import { ROOT_ID } from '../../../NestableNavigationContent';
@@ -20,7 +20,7 @@ describe('<NestingItem />', () => {
 	};
 
 	it('should render a title string as the button item when closed', () => {
-		const { queryByText } = render(
+		render(
 			<NestedContext.Provider value={{ ...callbacks }}>
 				<NestingItem id="1" title="Nest">
 					<ButtonItem>Hello world</ButtonItem>
@@ -28,12 +28,12 @@ describe('<NestingItem />', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Nest')).toBeDefined();
-		expect(queryByText('Hello world')).toBeFalsy();
+		expect(screen.getByText('Nest')).toBeInTheDocument();
+		expect(screen.queryByText('Hello world')).not.toBeInTheDocument();
 	});
 
 	it('should render custom component as the button item when closed', () => {
-		const { queryByText } = render(
+		render(
 			<NestedContext.Provider value={{ ...callbacks }}>
 				<NestingItem id="1" title={<p>Custom Title</p>}>
 					<ButtonItem>Hello world</ButtonItem>
@@ -41,11 +41,11 @@ describe('<NestingItem />', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Custom Title')).toBeDefined();
+		expect(screen.getByText('Custom Title')).toBeInTheDocument();
 	});
 
 	it('should render children when it is the current layer', () => {
-		const { queryByText } = render(
+		render(
 			<NestedContext.Provider value={{ ...callbacks, currentStackId: '1' }}>
 				<NestingItem id="1" title="Nest">
 					<ButtonItem>Hello world</ButtonItem>
@@ -53,14 +53,14 @@ describe('<NestingItem />', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(queryByText('Nest')).toBe(null);
-		expect(queryByText('Hello world')).toBeDefined();
+		expect(screen.queryByText('Nest')).not.toBeInTheDocument();
+		expect(screen.getByText('Hello world')).toBeInTheDocument();
 	});
 
 	it('should callback once when clicked twice to prevent accidental double clicks', () => {
 		const callback = jest.fn();
 		const onNest = jest.fn();
-		const { getByText } = render(
+		render(
 			<NestedContext.Provider value={{ ...callbacks, onNest }}>
 				<NestingItem id="1" onClick={callback} title="Nest">
 					<ButtonItem>Hello world</ButtonItem>
@@ -68,8 +68,8 @@ describe('<NestingItem />', () => {
 			</NestedContext.Provider>,
 		);
 
-		fireEvent.click(getByText('Nest'));
-		fireEvent.click(getByText('Nest'));
+		fireEvent.click(screen.getByText('Nest'));
+		fireEvent.click(screen.getByText('Nest'));
 
 		expect(onNest).toHaveBeenCalledTimes(1);
 		expect(callback).toHaveBeenCalledTimes(1);
@@ -77,7 +77,7 @@ describe('<NestingItem />', () => {
 
 	it('should callback to nested context with id when clicked', () => {
 		const onNest = jest.fn();
-		const { getByText } = render(
+		render(
 			<NestedContext.Provider value={{ ...callbacks, onNest }}>
 				<NestingItem id="1" title="Nest">
 					<ButtonItem>Hello world</ButtonItem>
@@ -85,34 +85,32 @@ describe('<NestingItem />', () => {
 			</NestedContext.Provider>,
 		);
 
-		fireEvent.click(getByText('Nest'));
+		fireEvent.click(screen.getByText('Nest'));
 
 		expect(onNest).toHaveBeenCalledWith('1');
 	});
 
 	it('should always place a right arrow icon in the button item', () => {
-		const { queryByTestId } = render(
+		render(
 			<NestedContext.Provider value={{ ...callbacks }}>
 				<NestingItem testId="nest" title="Nest" id="more-important">
 					<ButtonItem>Hello world</ButtonItem>
 				</NestingItem>
 			</NestedContext.Provider>,
 		);
-		expect(queryByTestId('nest--item--right-arrow')).not.toBeNull();
+		expect(screen.getByTestId('nest--item--right-arrow')).toBeInTheDocument();
 	});
 
 	it('should customize the after element for the button item', () => {
-		const { container, queryByTestId, queryByText } = render(
+		render(
 			<NestedContext.Provider value={{ ...callbacks }}>
 				<NestingItem iconAfter={<span>custom</span>} testId="nest" title="Nest" id="more-important">
 					<ButtonItem>Hello world</ButtonItem>
 				</NestingItem>
 			</NestedContext.Provider>,
 		);
-
-		expect(queryByText('custom')).not.toBeNull();
-		expect(container.querySelector('[data-custom-icon]')).not.toBeNull();
-		expect(queryByTestId('nest--item--right-arrow')).not.toBeNull();
+		expect(screen.getByText('custom')).toBeInTheDocument();
+		expect(screen.getByTestId('nest--item--right-arrow')).toBeInTheDocument();
 	});
 
 	it('should pass through extra props to the component', () => {
@@ -121,7 +119,7 @@ describe('<NestingItem />', () => {
 			<a {...props}>{children}</a>
 		);
 
-		const { getByTestId } = render(
+		render(
 			<NestedContext.Provider value={{ ...callbacks }}>
 				<NestingItem id="hello" title="yeah" href="/my-details" component={Link} testId="target">
 					Hello world
@@ -129,7 +127,7 @@ describe('<NestingItem />', () => {
 			</NestedContext.Provider>,
 		);
 
-		expect(getByTestId('target--item').getAttribute('href')).toEqual('/my-details');
+		expect(screen.getByTestId('target--item')).toHaveAttribute('href', '/my-details');
 	});
 
 	describe('styles overrides', () => {
@@ -183,7 +181,7 @@ describe('<NestingItem />', () => {
 				return <a {...props}>{children}</a>;
 			};
 
-			const { getByTestId } = render(
+			render(
 				<NestedContext.Provider value={{ ...callbacks }}>
 					<NestingItem
 						id="hello"
@@ -208,7 +206,7 @@ describe('<NestingItem />', () => {
 			// only returns a style object
 			expect(nestingItemStyleSpy).toHaveReturnedWith(styleUtils.enabledCSS);
 
-			const testComponent = getByTestId('target--item');
+			const testComponent = screen.getByTestId('target--item');
 			expect(testComponent).toHaveStyleDeclaration('color', 'red');
 		});
 	});

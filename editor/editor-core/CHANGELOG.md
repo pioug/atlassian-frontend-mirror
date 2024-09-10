@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 197.4.2
+
+### Patch Changes
+
+- [#138801](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138801)
+  [`eeb1f7ad41211`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eeb1f7ad41211) -
+  Adding new entry-points to editor-common to optimise bundle size and move away from "utils"
+  entry-point.
+- [#138699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138699)
+  [`aa5140e59db5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa5140e59db5a) -
+  Cleanup feature flag moving styles from editor-core to tables plugin.
+- [#138414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138414)
+  [`24d09e931c13b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/24d09e931c13b) -
+  Added lazy node experiment to test bases
+- Updated dependencies
+
+## 197.4.1
+
+### Patch Changes
+
+- [`1269ffa635367`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1269ffa635367) -
+  Cleanup FF platform_editor_get_card_provider_from_config
+
 ## 197.4.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { cssVar } from '../../../constants';
 import * as tagStyles from '../../../styles';
@@ -10,30 +10,26 @@ import getCSSVar from '../_utils/get-css-var';
 describe('<BaseTag />', () => {
 	describe('border radius', () => {
 		it('should be determined by the css variable', () => {
-			const { getByTestId } = render(
-				<BaseTag contentElement={<span>Hello world</span>} testId="tag" />,
-			);
+			render(<BaseTag contentElement={<span>Hello world</span>} testId="tag" />);
 
-			const tag = getByTestId('tag');
+			const tag = screen.getByTestId('tag');
 			expect(tag).toHaveStyleDeclaration('border-radius', `var(${cssVar.borderRadius})`);
 		});
 
 		it('should use the default border radius', () => {
-			const { getByTestId } = render(
-				<BaseTag contentElement={<span>Hello world</span>} testId="tag" />,
-			);
+			render(<BaseTag contentElement={<span>Hello world</span>} testId="tag" />);
 
-			const tag = getByTestId('tag');
+			const tag = screen.getByTestId('tag');
 			const styles = getComputedStyle(tag);
 			expect(styles.getPropertyValue(cssVar.borderRadius)).toBe(tagStyles.borderRadius.default);
 		});
 
 		it('should be configurable using appearance', () => {
-			const { getByTestId } = render(
+			render(
 				<BaseTag contentElement={<span>Hello world</span>} appearance="rounded" testId="tag" />,
 			);
 
-			const tag = getByTestId('tag');
+			const tag = screen.getByTestId('tag');
 			const styles = getComputedStyle(tag);
 			expect(styles.getPropertyValue(cssVar.borderRadius)).toBe(tagStyles.borderRadius.rounded);
 		});
@@ -43,10 +39,8 @@ describe('<BaseTag />', () => {
 		const tagColors = [['standard'], ['blueLight']] as const;
 
 		it('should be determined by css variables', () => {
-			const { getByTestId } = render(
-				<BaseTag contentElement={<span>Hello world</span>} testId="tag" />,
-			);
-			const tag = getByTestId('tag');
+			render(<BaseTag contentElement={<span>Hello world</span>} testId="tag" />);
+			const tag = screen.getByTestId('tag');
 
 			expect(tag).toHaveStyleDeclaration(
 				'background-color',
@@ -57,10 +51,8 @@ describe('<BaseTag />', () => {
 		});
 
 		it.each(tagColors)('should be configured by the color prop (color="%s")', (tagColor) => {
-			const { getByTestId } = render(
-				<BaseTag color={tagColor} contentElement={<span>Hello world</span>} testId="tag" />,
-			);
-			const tag = getByTestId('tag');
+			render(<BaseTag color={tagColor} contentElement={<span>Hello world</span>} testId="tag" />);
+			const tag = screen.getByTestId('tag');
 
 			expect(getCSSVar(tag, cssVar.color.background.default)).toBe(
 				tagStyles.backgroundColors[tagColor],

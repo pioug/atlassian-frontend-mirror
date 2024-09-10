@@ -5,23 +5,39 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockControlsPlugin } from '../types';
 
+const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
+	if (target instanceof HTMLHeadingElement || target instanceof HTMLParagraphElement) {
+		return !target.parentElement?.classList.contains('ProseMirror') && target.textContent === '';
+	}
+	return false;
+};
+
 export const handleMouseOver = (
 	view: EditorView,
 	event: Event,
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 ) => {
 	const { isDragging, activeNode } = api?.blockControls?.sharedState.currentState() || {};
+
 	// Most mouseover events don't fire during drag but some can slip through
 	// when the drag begins. This prevents those.
 	if (isDragging) {
 		return false;
 	}
 	const target = event.target as HTMLElement;
+
 	if (target.classList.contains('ProseMirror')) {
 		return false;
 	}
 	let rootElement = target?.closest('[data-drag-handler-anchor-name]');
 	if (rootElement) {
+		if (
+			editorExperiment('nested-dnd', true, { exposure: true }) &&
+			isEmptyNestedParagraphOrHeading(rootElement)
+		) {
+			return false;
+		}
+
 		const parentElement = rootElement.parentElement?.closest('[data-drag-handler-anchor-name]');
 
 		if (

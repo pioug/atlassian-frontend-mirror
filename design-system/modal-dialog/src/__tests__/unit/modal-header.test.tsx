@@ -1,6 +1,6 @@
 import React, { type MouseEventHandler } from 'react';
 
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
@@ -12,37 +12,35 @@ jest.mock('raf-schd', () => (fn: Function) => fn);
 jest.mock('@atlaskit/ds-lib/warn-once');
 
 describe('<ModalHeader />', () => {
-	afterEach(cleanup);
-
 	it('should render default header', () => {
-		const { queryByTestId } = render(
+		render(
 			<ModalDialog onClose={noop} testId="modal">
 				<ModalHeader>My header</ModalHeader>
 			</ModalDialog>,
 		);
 
-		expect(queryByTestId('modal--header')).toBeInTheDocument();
+		expect(screen.getByTestId('modal--header')).toBeInTheDocument();
 	});
 
 	it('should be accessible using a user-defined test id', () => {
-		const { queryByTestId } = render(
+		render(
 			<ModalDialog onClose={noop} testId="modal">
 				<ModalHeader testId="my-header">My header</ModalHeader>
 			</ModalDialog>,
 		);
 
-		expect(queryByTestId('modal--header')).not.toBeInTheDocument();
-		expect(queryByTestId('my-header')).toBeInTheDocument();
+		expect(screen.queryByTestId('modal--header')).not.toBeInTheDocument();
+		expect(screen.getByTestId('my-header')).toBeInTheDocument();
 	});
 
 	it('should render custom header', () => {
-		const { queryByTestId } = render(
+		render(
 			<ModalDialog onClose={noop}>
 				<span data-testid="custom-header">My header</span>
 			</ModalDialog>,
 		);
 
-		expect(queryByTestId('custom-header')).toBeInTheDocument();
+		expect(screen.getByTestId('custom-header')).toBeInTheDocument();
 	});
 
 	it('should invoke onClose callback on custom header', () => {
@@ -62,13 +60,13 @@ describe('<ModalHeader />', () => {
 			);
 		};
 
-		const { getByTestId } = render(
+		render(
 			<ModalDialog onClose={callback}>
 				<CustomHeader />
 			</ModalDialog>,
 		);
 
-		fireEvent.click(getByTestId('custom-close'));
+		fireEvent.click(screen.getByTestId('custom-close'));
 		expect(callback).toHaveBeenCalledTimes(1);
 	});
 

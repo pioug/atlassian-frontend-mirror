@@ -18,12 +18,12 @@ const tableTreeDataHelper = new TableTreeDataHelper<Item>({ key: 'id' });
 type Item = {
 	numbering?: string;
 	title?: string;
-	id?: string;
+	id: string;
 	numberingPath: string;
 };
 
 function getItemsData(parent?: Item, count?: number) {
-	return generateChildItems(parent || { numberingPath: '' }, count || 0);
+	return generateChildItems(parent || { numberingPath: '', id: 'empty' }, count || 0);
 }
 
 function generateChildItems(parent: Item, count: number) {

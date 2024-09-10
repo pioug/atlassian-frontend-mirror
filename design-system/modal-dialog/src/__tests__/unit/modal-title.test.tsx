@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
@@ -14,7 +14,7 @@ describe('<ModalTitle />', () => {
 		const title = 'Title - This is a dialog';
 		const titleId = 'modal-dialog-title-1';
 
-		const { getByTestId } = render(
+		render(
 			<ModalDialog testId="test" onClose={noop}>
 				<ModalHeader>
 					<ModalTitle>{title}</ModalTitle>
@@ -22,10 +22,10 @@ describe('<ModalTitle />', () => {
 			</ModalDialog>,
 		);
 
-		const element = getByTestId('test');
-		expect(element.getAttribute('aria-labelledby')!).toBe(titleId);
+		const element = screen.getByTestId('test');
+		expect(element).toHaveAttribute('aria-labelledby', titleId);
 
-		const content = getByTestId('test--title-text');
+		const content = screen.getByTestId('test--title-text');
 		expect(content).toHaveAttribute('id', titleId);
 	});
 
@@ -46,24 +46,23 @@ describe('<ModalTitle />', () => {
 			);
 		};
 
-		const { getByTestId } = render(
+		render(
 			<ModalDialog testId="test">
 				<CustomHeader />
 			</ModalDialog>,
 		);
 
-		const element = getByTestId('test');
+		const element = screen.getByTestId('test');
 		expect(element).toHaveAttribute('aria-labelledby', titleId);
-
-		const text = element.querySelector(`#${titleId}`)!;
-		expect(text).not.toBeNull();
+		const text = screen.getByRole('heading', { level: 4 });
+		expect(text).toBeInTheDocument();
 		expect(text.innerHTML).toBe(title);
 	});
 
 	it('modal dialog title should be an h1 element', () => {
 		const title = 'Modal title';
 
-		const { getByTestId } = render(
+		render(
 			<ModalDialog testId="test" onClose={noop}>
 				<ModalHeader>
 					<ModalTitle>{title}</ModalTitle>
@@ -71,12 +70,12 @@ describe('<ModalTitle />', () => {
 			</ModalDialog>,
 		);
 
-		const element = getByTestId('test--title');
+		const element = screen.getByTestId('test--title');
 		expect(element.tagName).toBe('H1');
 	});
 
 	it('should add an icon if the appearance prop is provided', () => {
-		const { getByRole } = render(
+		render(
 			<ModalDialog testId="test" onClose={noop}>
 				<ModalHeader>
 					<ModalTitle appearance="danger">Title</ModalTitle>
@@ -84,7 +83,7 @@ describe('<ModalTitle />', () => {
 			</ModalDialog>,
 		);
 
-		const icon = getByRole('img');
+		const icon = screen.getByRole('img');
 		expect(icon).toHaveAccessibleName('danger');
 	});
 

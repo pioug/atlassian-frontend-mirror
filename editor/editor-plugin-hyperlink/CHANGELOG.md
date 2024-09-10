@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 2.9.8
+
+### Patch Changes
+
+- [`1269ffa635367`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1269ffa635367) -
+  Cleanup FF platform_editor_get_card_provider_from_config
+- Updated dependencies
+
 ## 2.9.7
 
 ### Patch Changes

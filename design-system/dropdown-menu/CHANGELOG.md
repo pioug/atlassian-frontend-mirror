@@ -1,5 +1,14 @@
 # @atlaskit/dropdown-menu
 
+## 12.18.1
+
+### Patch Changes
+
+- [#138585](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138585)
+  [`b72c2c7f9a2fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b72c2c7f9a2fd) -
+  Support to close sibling dropdown menu under feature flag
+- Updated dependencies
+
 ## 12.18.0
 
 ### Minor Changes

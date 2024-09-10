@@ -1,6 +1,8 @@
 import React, { forwardRef, type Ref } from 'react';
 
+import Nav4AppSwitcherIcon from '@atlaskit/icon/core/app-switcher';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
+import { token } from '@atlaskit/tokens';
 
 import { IconButton } from '../IconButton';
 
@@ -21,6 +23,35 @@ export const AppSwitcher = forwardRef((props: AppSwitcherProps, ref: Ref<any>) =
 	return (
 		<IconButton
 			icon={<AppSwitcherIcon label={typeof tooltip === 'string' ? tooltip : 'Switch apps'} />}
+			tooltip={tooltip}
+			ref={ref}
+			{...iconButtonProps}
+		/>
+	);
+});
+
+// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
+// Remove links that the component does not have (such as usage). If there are no links remove them all.
+/**
+ * __App switcher nav 4__
+ *
+ * An app switcher nav 4 {description}.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const AppSwitcherNav4 = forwardRef((props: AppSwitcherProps, ref: Ref<any>) => {
+	const { tooltip, ...iconButtonProps } = props;
+
+	return (
+		<IconButton
+			icon={
+				<Nav4AppSwitcherIcon
+					label={typeof tooltip === 'string' ? tooltip : 'Switch apps'}
+					color={token('color.icon')}
+				/>
+			}
 			tooltip={tooltip}
 			ref={ref}
 			{...iconButtonProps}

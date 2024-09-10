@@ -1,5 +1,5 @@
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { type EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
@@ -46,8 +46,23 @@ export function getWrappingOptions(
 	type: NodeType,
 	nodeAttributes?: Record<string, any>,
 ) {
-	const { $from, $to } = state.selection;
-	const range = $from.blockRange($to) as any;
+	const { $from, $to, from } = state.selection;
+
+	let range = $from.blockRange($to) as any;
+
+	const isMediaSelection =
+		state.selection instanceof NodeSelection &&
+		state.selection.node.type === state.schema.nodes.media;
+
+	/**
+	 * To wrap a media group we need to start the range from one position
+	 * before a media selection's from position.
+	 */
+	if (isMediaSelection) {
+		const prev = from - 1;
+		range = state.doc.resolve(from > 0 ? prev : from).blockRange($to);
+	}
+
 	let isAllowedChild = true;
 	/**
 	 * Added a check to avoid wrapping codeblock

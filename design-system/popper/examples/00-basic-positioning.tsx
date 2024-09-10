@@ -14,7 +14,7 @@ export default () => (
 		<Popper placement="right">
 			{({ ref, style }) => (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				<div ref={ref} style={style}>
+				<div ref={ref} style={style} data-testid="popper">
 					↔ This text is a popper placed to the right
 				</div>
 			)}

@@ -26,6 +26,7 @@ import type {
 import { browser } from '@atlaskit/editor-common/browser';
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { countNodes } from '@atlaskit/editor-common/count-nodes';
+import type { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
@@ -47,7 +48,6 @@ import {
 	ExperienceStore,
 	RELIABILITY_INTERVAL,
 } from '@atlaskit/editor-common/ufo';
-import type { ErrorReporter } from '@atlaskit/editor-common/utils';
 import {
 	analyticsEventKey,
 	getAnalyticsEventSeverity,

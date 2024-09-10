@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-node-access */
 import { waitFor } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
@@ -93,6 +94,7 @@ describe('setGlobalTheme style loading', () => {
 				});
 
 				// Validate that the data-theme attributes match the expected values
+
 				const styleElements = document.querySelectorAll('style');
 				const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
@@ -180,10 +182,9 @@ describe('setGlobalTheme style loading', () => {
 				await waitFor(() => {
 					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
 					expect(styleElements).toHaveLength(7);
-
-					const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
-					expect(customStyleElements).toHaveLength(2);
 				});
+				const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
+				expect(customStyleElements).toHaveLength(2);
 
 				const styleElements = document.querySelectorAll('style');
 
@@ -217,10 +218,9 @@ describe('setGlobalTheme style loading', () => {
 				await waitFor(() => {
 					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
 					expect(styleElements).toHaveLength(5);
-
-					const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
-					expect(customStyleElements).toHaveLength(2);
 				});
+				const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
+				expect(customStyleElements).toHaveLength(2);
 
 				const styleElements = document.querySelectorAll('style');
 

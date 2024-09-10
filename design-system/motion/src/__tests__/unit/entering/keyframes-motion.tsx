@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, render } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
@@ -16,7 +16,7 @@ describe('<KeyframesMotion />', () => {
 	});
 
 	it('should respect reduced motion', () => {
-		const { getByTestId } = render(
+		render(
 			<KeyframesMotion
 				duration={duration}
 				enteringAnimation={{}}
@@ -26,7 +26,7 @@ describe('<KeyframesMotion />', () => {
 			</KeyframesMotion>,
 		);
 
-		expect(getByTestId('target')).toHaveStyleDeclaration('animation', 'none', {
+		expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation', 'none', {
 			media: '(prefers-reduced-motion: reduce)',
 		});
 	});
@@ -36,7 +36,7 @@ describe('<KeyframesMotion />', () => {
 			jest.useRealTimers();
 		});
 		it('should fill the animation backwards to prevent a frame of the element already being entered', () => {
-			const { getByTestId } = render(
+			render(
 				<KeyframesMotion
 					animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
 					duration={duration}
@@ -46,11 +46,14 @@ describe('<KeyframesMotion />', () => {
 				</KeyframesMotion>,
 			);
 
-			expect(getByTestId('target')).toHaveStyleDeclaration('animation-fill-mode', 'backwards');
+			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+				'animation-fill-mode',
+				'backwards',
+			);
 		});
 
 		it('should use the entering timing function', () => {
-			const { getByTestId } = render(
+			render(
 				<KeyframesMotion
 					animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
 					duration={duration}
@@ -60,11 +63,14 @@ describe('<KeyframesMotion />', () => {
 				</KeyframesMotion>,
 			);
 
-			expect(getByTestId('target')).toHaveStyleDeclaration('animation-timing-function', 'ease-out');
+			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+				'animation-timing-function',
+				'ease-out',
+			);
 		});
 
 		it('should animate in', () => {
-			const { getByTestId } = render(
+			render(
 				<KeyframesMotion
 					animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
 					duration={duration}
@@ -74,11 +80,14 @@ describe('<KeyframesMotion />', () => {
 				</KeyframesMotion>,
 			);
 
-			expect(getByTestId('target')).toHaveStyleDeclaration('animation-play-state', 'running');
+			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+				'animation-play-state',
+				'running',
+			);
 		});
 
 		it('should animate over {duration} ms', () => {
-			const { getByTestId } = render(
+			render(
 				<KeyframesMotion
 					animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
 					duration={duration}
@@ -88,7 +97,10 @@ describe('<KeyframesMotion />', () => {
 				</KeyframesMotion>,
 			);
 
-			expect(getByTestId('target')).toHaveStyleDeclaration('animation-duration', `${duration}ms`);
+			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+				'animation-duration',
+				`${duration}ms`,
+			);
 		});
 
 		it('should callback when entering on finish', () => {
@@ -184,7 +196,7 @@ describe('<KeyframesMotion />', () => {
 		});
 
 		it('should not animate if appear is false', () => {
-			const { getByTestId } = render(
+			render(
 				<ExitingPersistence>
 					<KeyframesMotion
 						animationTimingFunction={() => 'linear'}
@@ -196,11 +208,14 @@ describe('<KeyframesMotion />', () => {
 				</ExitingPersistence>,
 			);
 
-			expect(getByTestId('target')).not.toHaveStyleDeclaration('animation-play-state', 'running');
+			expect(screen.getByTestId('target')).not.toHaveStyleDeclaration(
+				'animation-play-state',
+				'running',
+			);
 		});
 
 		it('should animate on mount if appear is true', () => {
-			const { getByTestId } = render(
+			render(
 				<ExitingPersistence appear>
 					<KeyframesMotion
 						animationTimingFunction={() => 'linear'}
@@ -212,8 +227,14 @@ describe('<KeyframesMotion />', () => {
 				</ExitingPersistence>,
 			);
 
-			expect(getByTestId('target')).toHaveStyleDeclaration('animation-play-state', 'running');
-			expect(getByTestId('target')).toHaveStyleDeclaration('animation-duration', `${duration}ms`);
+			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+				'animation-play-state',
+				'running',
+			);
+			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+				'animation-duration',
+				`${duration}ms`,
+			);
 		});
 	});
 
@@ -272,7 +293,7 @@ describe('<KeyframesMotion />', () => {
 		});
 
 		it('should have no delay', () => {
-			const { rerender, getByTestId } = render(
+			const { rerender } = render(
 				<ExitingPersistence>
 					<KeyframesMotion
 						animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
@@ -286,11 +307,11 @@ describe('<KeyframesMotion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-			expect(getByTestId('target')).toHaveStyleDeclaration('animation-delay', '0ms');
+			expect(screen.getByTestId('target')).toHaveStyleDeclaration('animation-delay', '0ms');
 		});
 
 		it('should fill the animation forwards to prevent a frame of the element already being exited', () => {
-			const { rerender, getByTestId } = render(
+			const { rerender } = render(
 				<ExitingPersistence>
 					<KeyframesMotion
 						animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
@@ -304,11 +325,14 @@ describe('<KeyframesMotion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-			expect(getByTestId('target')).toHaveStyleDeclaration('animation-fill-mode', 'forwards');
+			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+				'animation-fill-mode',
+				'forwards',
+			);
 		});
 
 		it('should run the animation', () => {
-			const { rerender, getByTestId } = render(
+			const { rerender } = render(
 				<ExitingPersistence>
 					<KeyframesMotion
 						animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
@@ -322,11 +346,14 @@ describe('<KeyframesMotion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-			expect(getByTestId('target')).toHaveStyleDeclaration('animation-play-state', 'running');
+			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+				'animation-play-state',
+				'running',
+			);
 		});
 
 		it('should take half the time it took when entering', () => {
-			const { rerender, getByTestId } = render(
+			const { rerender } = render(
 				<ExitingPersistence>
 					<KeyframesMotion
 						animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
@@ -340,14 +367,14 @@ describe('<KeyframesMotion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-			expect(getByTestId('target')).toHaveStyleDeclaration(
+			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
 				'animation-duration',
 				`${duration * 0.5}ms`,
 			);
 		});
 
 		it('should use its own timing function', () => {
-			const { rerender, getByTestId } = render(
+			const { rerender } = render(
 				<ExitingPersistence>
 					<KeyframesMotion
 						animationTimingFunction={(state) => (state === 'entering' ? 'ease-out' : 'ease-in')}
@@ -361,7 +388,10 @@ describe('<KeyframesMotion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-			expect(getByTestId('target')).toHaveStyleDeclaration('animation-timing-function', 'ease-in');
+			expect(screen.getByTestId('target')).toHaveStyleDeclaration(
+				'animation-timing-function',
+				'ease-in',
+			);
 		});
 	});
 });

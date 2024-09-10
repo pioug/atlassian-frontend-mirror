@@ -5,7 +5,7 @@
 import { createSerializer, matchers } from '@emotion/jest';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { HashRouter, Link } from 'react-router-dom';
 
 import type { CSSFn, CustomItemComponentProps } from '../../../types';
@@ -27,13 +27,13 @@ describe('<CustomItem />', () => {
 
 	it('should callback on click', () => {
 		const callback = jest.fn();
-		const { getByTestId } = render(
+		render(
 			<CustomItem component={Component} onClick={callback} testId="target">
 				Hello world
 			</CustomItem>,
 		);
 
-		fireEvent.click(getByTestId('target'));
+		fireEvent.click(screen.getByTestId('target'));
 
 		expect(callback).toHaveBeenCalled();
 	});
@@ -42,13 +42,13 @@ describe('<CustomItem />', () => {
 	// When we remove the ability for spread props in a future major version
 	// This test can be deleted.
 	it('should take a data-testid directly', () => {
-		const { getByTestId } = render(
+		render(
 			<CustomItem component={Component} data-testid="link">
 				Hello world
 			</CustomItem>,
 		);
 
-		expect(getByTestId('link')).toBeInTheDocument();
+		expect(screen.getByTestId('link')).toBeInTheDocument();
 	});
 
 	// The purpose of this test is to confirm that this functionality still
@@ -62,7 +62,7 @@ describe('<CustomItem />', () => {
 			backgroundColor: 'red',
 		});
 
-		const { getByTestId } = render(
+		render(
 			/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 			// @ts-ignore
 			<CustomItem component={Component} css={hackStyles} testId="link">
@@ -71,12 +71,12 @@ describe('<CustomItem />', () => {
 			/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 		);
 
-		expect(getByTestId('link')).toHaveStyleRule('background-color', 'red');
-		expect(getByTestId('link')).toHaveStyleRule('color', 'currentColor');
+		expect(screen.getByTestId('link')).toHaveStyleRule('background-color', 'red');
+		expect(screen.getByTestId('link')).toHaveStyleRule('color', 'currentColor');
 	});
 
 	it('should not gain focus on mouse down when it had no initial focus', () => {
-		const { getByTestId } = render(
+		render(
 			<div>
 				<button type="button" data-testid="focused-button">
 					Button
@@ -87,52 +87,51 @@ describe('<CustomItem />', () => {
 			</div>,
 		);
 
-		getByTestId('focused-button').focus();
-		expect(getByTestId('focused-button')).toHaveFocus();
+		screen.getByTestId('focused-button').focus();
+		expect(screen.getByTestId('focused-button')).toHaveFocus();
 
-		const allowed: boolean = fireEvent.mouseDown(getByTestId('target'));
+		const allowed: boolean = fireEvent.mouseDown(screen.getByTestId('target'));
 
 		// target didn't get focus
-		expect(getByTestId('target')).not.toHaveFocus();
+		expect(screen.getByTestId('target')).not.toHaveFocus();
 		// mousedown event not prevented
 		expect(allowed).toBe(true);
 	});
 
 	it('should persist focus if it was focused during mouse down', () => {
-		const { getByTestId } = render(
+		render(
 			<CustomItem component={Component} testId="target">
 				Hello world
 			</CustomItem>,
 		);
 
-		getByTestId('target').focus();
-		fireEvent.mouseDown(getByTestId('target'));
-
-		expect(getByTestId('target') === document.activeElement).toBe(true);
+		screen.getByTestId('target').focus();
+		fireEvent.mouseDown(screen.getByTestId('target'));
+		expect(screen.getByTestId('target')).toHaveFocus();
 	});
 
 	it('should callback to user supplied mouse down prop', () => {
 		const onMouseDown = jest.fn();
-		const { getByTestId } = render(
+		render(
 			<CustomItem component={Component} onMouseDown={onMouseDown} testId="target">
 				Hello world
 			</CustomItem>,
 		);
 
-		fireEvent.mouseDown(getByTestId('target'));
+		fireEvent.mouseDown(screen.getByTestId('target'));
 
 		expect(onMouseDown).toHaveBeenCalled();
 	});
 
 	it('should not callback on click when disabled', () => {
 		const callback = jest.fn();
-		const { getByTestId } = render(
+		render(
 			<CustomItem component={Component} isDisabled onClick={callback} testId="target">
 				Hello world
 			</CustomItem>,
 		);
 
-		fireEvent.click(getByTestId('target'));
+		fireEvent.click(screen.getByTestId('target'));
 
 		expect(callback).not.toHaveBeenCalled();
 	});
@@ -145,7 +144,7 @@ describe('<CustomItem />', () => {
 			opacity: 0.75,
 			borderRadius: '5px',
 		});
-		const { getByTestId } = render(
+		render(
 			<CustomItem
 				component={Component}
 				testId="component"
@@ -157,7 +156,7 @@ describe('<CustomItem />', () => {
 				Helloo
 			</CustomItem>,
 		);
-		const component = getByTestId('component');
+		const component = screen.getByTestId('component');
 
 		expect(component).toHaveStyleRule('padding', '10px');
 		expect(component).toHaveStyleRule('opacity', '0.75');
@@ -168,7 +167,7 @@ describe('<CustomItem />', () => {
 	it('should prevent dragging so the transparent artefact isnt shown', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
-		const { getByTestId } = render(
+		render(
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			<div onDragStart={dragStartEvent}>
 				<CustomItem component={Component} testId="target">
@@ -177,9 +176,9 @@ describe('<CustomItem />', () => {
 			</div>,
 		);
 
-		fireEvent.dragStart(getByTestId('target'));
+		fireEvent.dragStart(screen.getByTestId('target'));
 
-		expect(getByTestId('target')).toHaveAttribute('draggable', 'false');
+		expect(screen.getByTestId('target')).toHaveAttribute('draggable', 'false');
 		//  Default was prevented?
 		expect(dragStartEvent.mock.results[0].value).toEqual(true);
 	});
@@ -187,7 +186,7 @@ describe('<CustomItem />', () => {
 	it('should not prevent dragging when UNSAFE_isDraggable is true', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
-		const { getByTestId } = render(
+		render(
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			<div onDragStart={dragStartEvent}>
 				<CustomItem component={Component} testId="target" UNSAFE_isDraggable>
@@ -196,7 +195,7 @@ describe('<CustomItem />', () => {
 			</div>,
 		);
 
-		fireEvent.dragStart(getByTestId('target'));
+		fireEvent.dragStart(screen.getByTestId('target'));
 
 		expect(dragStartEvent.mock.results[0].value).toEqual(false);
 	});
@@ -210,17 +209,17 @@ describe('<CustomItem />', () => {
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		}) => <a {...props}>{children}</a>;
 
-		const { getByTestId } = render(
+		render(
 			<CustomItem href="/my-details" component={Link} testId="target">
 				Hello world
 			</CustomItem>,
 		);
 
-		expect(getByTestId('target')).toHaveAttribute('href', '/my-details');
+		expect(screen.getByTestId('target')).toHaveAttribute('href', '/my-details');
 	});
 
 	it('should work with a component from an external library', () => {
-		const { getByTestId } = render(
+		render(
 			<HashRouter>
 				<CustomItem to="/my-details" component={Link} testId="target">
 					Hello world
@@ -228,6 +227,6 @@ describe('<CustomItem />', () => {
 			</HashRouter>,
 		);
 
-		expect(getByTestId('target')).toHaveAttribute('href', '#/my-details');
+		expect(screen.getByTestId('target')).toHaveAttribute('href', '#/my-details');
 	});
 });

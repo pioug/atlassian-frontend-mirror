@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-node-access,testing-library/no-container */
 import React from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
@@ -149,7 +150,7 @@ describe('Popup Select', () => {
 
 		const selectTrigger = screen.getByText('Target');
 
-		await fireEvent.click(selectTrigger);
+		fireEvent.click(selectTrigger);
 
 		const escapeKeyDownEvent: KeyboardEvent = new KeyboardEvent('keydown', {
 			key: 'Escape',
@@ -406,7 +407,7 @@ describe('Popup Select', () => {
 		});
 
 		it('should not allow the popup to close when set to true', async () => {
-			const { getByTestId } = render(
+			render(
 				<>
 					<PopupSelectOpenTest isOpen />
 					<button data-testid="close-decoy">Close decoy</button>
@@ -414,7 +415,7 @@ describe('Popup Select', () => {
 			);
 
 			// Click elsewhere to trigger close
-			const closeDecoy = getByTestId('close-decoy');
+			const closeDecoy = screen.getByTestId('close-decoy');
 			closeDecoy.click();
 
 			// Popup should remain open
@@ -483,7 +484,7 @@ describe('Popup Select', () => {
 
 	describe('trigger button', () => {
 		const renderPopupSelect = () => {
-			const renderResult = render(
+			const view = render(
 				<PopupSelect
 					options={OPTIONS}
 					target={({ isOpen, ...triggerProps }) => <button {...triggerProps}>Target</button>}
@@ -491,7 +492,7 @@ describe('Popup Select', () => {
 				/>,
 			);
 
-			return { ...renderResult, trigger: screen.getByText('Target') };
+			return { ...view, trigger: screen.getByText('Target') };
 		};
 
 		it('should have aria-haspopup attribute', () => {
@@ -565,7 +566,7 @@ describe('Popup Select', () => {
 	describe('accessible labels and group labels', () => {
 		it('screen reader should announce the option labels, option serial number, and number of all options', async () => {
 			const renderDefaultPopupSelect = () => {
-				const renderResult = render(
+				const view = render(
 					<PopupSelect
 						options={OPTIONS}
 						target={({ isOpen, ...triggerProps }) => <button {...triggerProps}>Target</button>}
@@ -573,7 +574,7 @@ describe('Popup Select', () => {
 					/>,
 				);
 
-				return { ...renderResult, trigger: screen.getByText('Target') };
+				return { ...view, trigger: screen.getByText('Target') };
 			};
 
 			const { trigger } = renderDefaultPopupSelect();
@@ -597,7 +598,7 @@ describe('Popup Select', () => {
 
 		it('screen reader should announce the group labels, option serial number in the group, and number of options in the group', async () => {
 			const renderPopupSelectGpoupsOptions = () => {
-				const renderResult = render(
+				const view = render(
 					<PopupSelect
 						options={groupOptions}
 						target={({ isOpen, ...triggerProps }) => <button {...triggerProps}>Target</button>}
@@ -605,7 +606,7 @@ describe('Popup Select', () => {
 					/>,
 				);
 
-				return { ...renderResult, trigger: screen.getByText('Target') };
+				return { ...view, trigger: screen.getByText('Target') };
 			};
 
 			const { trigger } = renderPopupSelectGpoupsOptions();
@@ -639,7 +640,7 @@ describe('Popup Select', () => {
 
 		it('Should be the correct ariaLiveMessages text if options with groups have custom fields', async () => {
 			const renderPopupSelectCustomOptions = () => {
-				const renderResult = render(
+				const view = render(
 					<PopupSelect
 						options={customOptions}
 						target={({ isOpen, ...triggerProps }) => <button {...triggerProps}>Target</button>}
@@ -651,7 +652,7 @@ describe('Popup Select', () => {
 					/>,
 				);
 
-				return { ...renderResult, trigger: screen.getByText('Target') };
+				return { ...view, trigger: screen.getByText('Target') };
 			};
 
 			const { trigger } = renderPopupSelectCustomOptions();

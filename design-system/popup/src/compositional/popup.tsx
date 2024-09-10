@@ -133,6 +133,7 @@ type CommonContentPopupProps = Pick<
 	| 'shouldDisableFocusLock'
 	| 'strategy'
 	| 'zIndex'
+	| 'shouldFitViewport'
 > & {
 	// This type has been kept the same as the Popup `content` prop for now.
 	// It could be nice to also support ReactNode e.g. `ReactNode | ((props: ContentProps) => ReactNode)`,
@@ -177,6 +178,7 @@ export const PopupContent = ({
 	shouldRenderToParent,
 	shouldDisableFocusLock = false,
 	shouldFitContainer,
+	shouldFitViewport,
 }: PopupContentProps) => {
 	useEnsureIsInsidePopup();
 	const isOpen = useContext(IsOpenContext);
@@ -209,6 +211,7 @@ export const PopupContent = ({
 				shouldDisableFocusLock={shouldDisableFocusLock}
 				triggerRef={triggerRef}
 				strategy={strategy}
+				shouldFitViewport={shouldFitViewport}
 			/>
 		</UNSAFE_LAYERING>
 	);

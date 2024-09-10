@@ -34,6 +34,9 @@
       "path": "../../editor-common/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../editor-json-transformer/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../editor-plugins/afm-jira/tsconfig.json"
     },
     {

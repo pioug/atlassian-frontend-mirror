@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -13,45 +13,45 @@ jest.mock('@atlaskit/ds-lib/warn-once');
 (warnOnce as jest.Mock).mockImplementation(() => 42);
 
 describe('getTokenValue', () => {
-	beforeEach(() => {
+	const setup = () =>
 		render(
 			<>
 				<head>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles --  -- Ignored via go/DSP-18766 */}
 					<style>
 						{`
-            html {
-              --ds-text:${` `} #ff0000${` `};
-			  --ds-icon-subtlest:${` `} #626F86${` `};
-            }
-            html[${COLOR_MODE_ATTRIBUTE}="light"] {
-              --ds-text: #00ff00;
-			  --ds-icon-subtlest: #626F86;
-            }
-            html[${COLOR_MODE_ATTRIBUTE}="dark"] {
-              --ds-text: #0000ff;
-			  --ds-icon-subtlest: #626F86;
-            }
-            `}
+		html {
+		  --ds-text:${` `} #ff0000${` `};
+		  --ds-icon-subtlest:${` `} #626F86${` `};
+		}
+		html[${COLOR_MODE_ATTRIBUTE}="light"] {
+		  --ds-text: #00ff00;
+		  --ds-icon-subtlest: #626F86;
+		}
+		html[${COLOR_MODE_ATTRIBUTE}="dark"] {
+		  --ds-text: #0000ff;
+		  --ds-icon-subtlest: #626F86;
+		}
+		`}
 					</style>
 				</head>
 			</>,
 			{ container: document.documentElement },
 		);
-	});
 	afterEach(() => {
-		cleanup();
 		document.documentElement.removeAttribute(COLOR_MODE_ATTRIBUTE);
 	});
 
 	describe('on non-production environment', () => {
 		it('should trim the value down to remove leading/trailing spaces', () => {
+			setup();
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			const result = getTokenValue('color.text');
 			expect(result).toEqual('#ff0000');
 		});
 
 		it('should return the correct value for the current theme', () => {
+			setup();
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			expect(getTokenValue('color.text')).toEqual('#ff0000');
 			expect(getTokenValue('color.text', '#000')).toEqual('#ff0000');
@@ -68,6 +68,7 @@ describe('getTokenValue', () => {
 		});
 
 		it('should log error and return an empty value for non-existing token without fallback', () => {
+			setup();
 			// @ts-expect-error
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			const result = getTokenValue('this-token-does-not-exist');
@@ -83,6 +84,7 @@ describe('getTokenValue', () => {
 			ffTest(
 				'platform-component-visual-refresh',
 				() => {
+					setup();
 					const result = getTokenValue('color.icon.subtlest');
 					expect(result).toEqual('#626F86');
 					expect(warnOnce).not.toHaveBeenCalledWith(
@@ -90,6 +92,7 @@ describe('getTokenValue', () => {
 					);
 				},
 				() => {
+					setup();
 					const result = getTokenValue('color.icon.subtlest');
 					expect(result).toEqual('#626F86');
 					expect(warnOnce).toHaveBeenCalledWith(
@@ -100,6 +103,7 @@ describe('getTokenValue', () => {
 		});
 
 		it('should log error and use fallback for non-existing token with fallback', () => {
+			setup();
 			// @ts-expect-error
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			const result = getTokenValue('this-token-does-not-exist', '#000');
@@ -124,12 +128,14 @@ describe('getTokenValue', () => {
 		});
 
 		it('should trim the value down to remove leading/trailing spaces', () => {
+			setup();
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			const result = getTokenValue('color.text');
 			expect(result).toEqual('#ff0000');
 		});
 
 		it('should return an empty value for non-existing token without fallback', () => {
+			setup();
 			// @ts-expect-error
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			const result = getTokenValue('this-token-does-not-exist');
@@ -137,6 +143,7 @@ describe('getTokenValue', () => {
 		});
 
 		it('should return the fallback value for non-existing token with fallback', () => {
+			setup();
 			// @ts-expect-error
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			const result = getTokenValue('this-token-does-not-exist', '#000');

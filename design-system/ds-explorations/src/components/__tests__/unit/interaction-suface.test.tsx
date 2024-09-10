@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { Box, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -9,33 +9,31 @@ import { UNSAFE_InteractionSurface as InteractionSurface } from '../../../index'
 
 describe('InteractionSurface component', () => {
 	it('should render by itself', () => {
-		const { getByTestId } = render(
+		render(
 			<InteractionSurface testId="basic">
 				<></>
 			</InteractionSurface>,
 		);
-		expect(getByTestId('basic')).toBeInTheDocument();
+		expect(screen.getByTestId('basic')).toBeInTheDocument();
 	});
 	it('should render given a neutral hover interaction by default', () => {
-		const { getByTestId } = render(
+		render(
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<div style={{ position: 'relative' }}>
 				<InteractionSurface testId="surface">hello</InteractionSurface>
 			</div>,
 		);
 
-		const surfaceElement = getByTestId('surface');
+		const surfaceElement = screen.getByTestId('surface');
 		expect(getComputedStyle(surfaceElement).backgroundColor).toBe('');
-		act(() => {
-			fireEvent.mouseOver(surfaceElement);
-			expect(surfaceElement).toHaveStyle(
-				`background-color: ${token('color.background.neutral.bold.hovered')}`,
-			);
-		});
+		fireEvent.mouseOver(surfaceElement);
+		expect(surfaceElement).toHaveStyle(
+			`background-color: ${token('color.background.neutral.bold.hovered')}`,
+		);
 	});
 
 	it('should render given a brand hover interaction by if set as brand', () => {
-		const { getByTestId } = render(
+		render(
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<div style={{ position: 'relative' }}>
 				<InteractionSurface appearance="brand.bold" testId="surface">
@@ -44,18 +42,16 @@ describe('InteractionSurface component', () => {
 			</div>,
 		);
 
-		const surfaceElement = getByTestId('surface');
+		const surfaceElement = screen.getByTestId('surface');
 		expect(getComputedStyle(surfaceElement).backgroundColor).toBe('');
-		act(() => {
-			fireEvent.mouseOver(surfaceElement);
-			expect(surfaceElement).toHaveStyle(
-				`background-color: ${token('color.background.brand.bold.hovered')}`,
-			);
-		});
+		fireEvent.mouseOver(surfaceElement);
+		expect(surfaceElement).toHaveStyle(
+			`background-color: ${token('color.background.brand.bold.hovered')}`,
+		);
 	});
 
 	it('should render an inherited hover state if a Box context is present', () => {
-		const { getByTestId } = render(
+		render(
 			<Box backgroundColor="color.background.brand.bold">
 				<InteractionSurface testId="surface">
 					<Text>hello</Text>
@@ -63,13 +59,11 @@ describe('InteractionSurface component', () => {
 			</Box>,
 		);
 
-		const surfaceElement = getByTestId('surface');
+		const surfaceElement = screen.getByTestId('surface');
 		expect(getComputedStyle(surfaceElement).backgroundColor).toBe('');
-		act(() => {
-			fireEvent.mouseOver(surfaceElement);
-			expect(surfaceElement).toHaveStyle(
-				`background-color: ${token('color.background.brand.bold.hovered')}`,
-			);
-		});
+		fireEvent.mouseOver(surfaceElement);
+		expect(surfaceElement).toHaveStyle(
+			`background-color: ${token('color.background.brand.bold.hovered')}`,
+		);
 	});
 });

@@ -93,23 +93,6 @@ describe.skip('Snapshot Test', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Highlighted row should have correct colours with dark theme', async () => {
-		const url = getExampleUrl(
-			'design-system',
-			'dynamic-table',
-			'highlighted-row',
-			global.__BASEURL__,
-			'dark',
-		);
-
-		const { page } = global;
-
-		await loadPage(page, url);
-		await page.waitForSelector('table');
-		const image = await page.screenshot();
-		expect(image).toMatchProdImageSnapshot();
-	});
-
 	it('Should have correct highlighted row before and after sorting', async () => {
 		const url = getExampleUrl(
 			'design-system',

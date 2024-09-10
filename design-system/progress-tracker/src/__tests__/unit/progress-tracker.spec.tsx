@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -34,29 +34,27 @@ const generateStages = ({
 
 ffTest.both('platform-progress-tracker-functional-facade', '<ProgressTracker />', () => {
 	it('should have default label where there is no label passed', () => {
-		const { container } = render(<ProgressTracker items={generateStages({ count: 6 })} />);
+		render(<ProgressTracker items={generateStages({ count: 6 })} />);
 
-		const list = container.querySelector('ul');
-		expect(list).toBeDefined();
+		const list = screen.getByRole('list');
+		expect(list).toBeInTheDocument();
 		expect(list?.getAttribute('aria-label')).toBe('Progress');
 	});
 
 	it('should set received label as aria-label of steps list', () => {
-		const { container } = render(
-			<ProgressTracker items={generateStages({ count: 6 })} label="Test label" />,
-		);
+		render(<ProgressTracker items={generateStages({ count: 6 })} label="Test label" />);
 
-		const list = container.querySelector('ul');
-		expect(list).toBeDefined();
+		const list = screen.getByRole('list');
+		expect(list).toBeInTheDocument();
 		expect(list?.getAttribute('aria-label')).toBe('Test label');
 	});
 
 	it('stage list item should have an aria-current set as step', () => {
-		const { container } = render(
+		render(
 			<ProgressTracker items={generateStages({ count: 6, currentIndex: 3 })} label="Test label" />,
 		);
 
-		const listItems = container.querySelectorAll('li');
+		const listItems = screen.getAllByRole('listitem');
 		expect(listItems).toHaveLength(6);
 		expect(listItems[3]).toHaveAttribute('aria-current', 'step');
 	});

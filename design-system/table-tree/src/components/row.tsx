@@ -2,40 +2,41 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-/* eslint-disable @repo/internal/react/no-clone-element */
-import React, { Component, Fragment, type ReactNode } from 'react';
+import React, { Fragment, type ReactNode, useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import {
-	createAndFireEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 
 import toItemId from '../utils/to-item-id';
 
 import Chevron from './internal/chevron';
-import type Item from './internal/item';
 import { TreeRowContainer } from './internal/styled';
 
 const treeRowClickableStyles = css({
 	cursor: 'pointer',
 });
 
-const packageName = process.env._PACKAGE_NAME_;
-const packageVersion = process.env._PACKAGE_VERSION_;
+const getExtendedLabel = (
+	cellContent: any,
+	cellIndex: number,
+	mainColumnForExpandCollapseLabel?: string | number,
+) => {
+	/**
+	 * First condition - when we pass data via `items` property in `<TableTree />`
+	 * Second condition - when we pass data via `<Rows />` as children in `<TableTree />`.
+	 */
+	if (cellContent.hasOwnProperty('props')) {
+		return cellContent?.props[(mainColumnForExpandCollapseLabel as string)?.toLowerCase()];
+	} else if (cellIndex === mainColumnForExpandCollapseLabel) {
+		return cellContent;
+	}
 
-/**
- * This is hard-coded here because our actual <TableTree /> has no typings
- * for its props.
- *
- * Adding types for real *might* break things so will need a little care.
- *
- * Defining it here for now lets us provide *something* without much headache.
- */
-export type RowProps = {
+	return undefined;
+};
+
+export interface RowProps<Item> {
 	/**
 	 * Whether the row has children.
 	 */
@@ -43,7 +44,7 @@ export type RowProps = {
 	/**
 	 * Children contained in the row. Should be one or more cell components.
 	 */
-	children?: React.ReactNode;
+	children?: ReactNode;
 	/**
 	 * ID for the row item.
 	 */
@@ -60,11 +61,11 @@ export type RowProps = {
 	/**
 	 * Controls the expanded state of the row.
 	 */
-	isExpanded?: ReactNode;
+	isExpanded?: boolean;
 	/**
 	 * Sets the default expanded state of the row.
 	 */
-	isDefaultExpanded?: ReactNode;
+	isDefaultExpanded?: boolean;
 	/**
 	 * This is the accessible name for the expand chevron button, used to tell assistive technology what the button is for.
 	 */
@@ -76,11 +77,11 @@ export type RowProps = {
 	/**
 	 * Callback called when the row collapses.
 	 */
-	onCollapse?: (data: Item) => void;
+	onCollapse?: (data: Item, analytics?: UIAnalyticsEvent) => void | Promise<void>;
 	/**
 	 * Callback called when the row expands.
 	 */
-	onExpand?: (data: Item) => void;
+	onExpand?: (data: Item, analytics?: UIAnalyticsEvent) => void | Promise<void>;
 	/**
 	 * Children to render under the row.
 	 * This is normally set by the parent item component, and doesn't need to be configured.
@@ -111,89 +112,91 @@ export type RowProps = {
     Should be a number  when we pass data via the `Rows` component as children in the table tree.
    */
 	mainColumnForExpandCollapseLabel?: string | number;
-};
+}
 
-class RowComponent extends Component<any, any> {
-	state = { isExpanded: this.props.isDefaultExpanded || false };
+function Row<Item extends { id: string }>({
+	shouldExpandOnClick,
+	hasChildren,
+	depth,
+	renderChildren,
+	isDefaultExpanded,
+	data,
+	onExpand: providedOnExpand,
+	onCollapse: providedOnCollapse,
+	mainColumnForExpandCollapseLabel,
+	expandLabel,
+	collapseLabel,
+	itemId,
+	children,
+	isExpanded: isProvidedExpanded,
+}: RowProps<Item>) {
+	const [isExpandedState, setIsExpandedState] = useState(isDefaultExpanded || false);
 
-	componentDidUpdate(prevProps: any) {
-		const { isDefaultExpanded, isExpanded } = this.props;
-
+	useEffect(() => {
 		if (
-			isExpanded === undefined &&
+			isProvidedExpanded === undefined &&
 			isDefaultExpanded !== undefined &&
-			prevProps.isDefaultExpanded !== isDefaultExpanded &&
-			this.state.isExpanded !== isDefaultExpanded
+			isExpandedState !== isDefaultExpanded
 		) {
-			// eslint-disable-next-line react/no-did-update-set-state
-			this.setState({ isExpanded: isDefaultExpanded });
+			setIsExpandedState(isDefaultExpanded);
 		}
-	}
+	}, [isDefaultExpanded, isProvidedExpanded, isExpandedState]);
 
-	onExpandStateChange(isExpanded: boolean) {
-		if (this.props.data) {
-			if (isExpanded && this.props.onExpand) {
-				this.props.onExpand(this.props.data);
-			} else if (!isExpanded && this.props.onCollapse) {
-				this.props.onCollapse(this.props.data);
-			}
-		}
-	}
+	const onExpand = usePlatformLeafEventHandler<Item>({
+		fn: (value) => providedOnExpand && providedOnExpand(value),
+		action: 'expanded',
+		actionSubject: 'tableTree',
+		componentName: 'row',
+		packageName: process.env._PACKAGE_NAME_ as string,
+		packageVersion: process.env._PACKAGE_VERSION_ as string,
+	});
+
+	const onCollapse = usePlatformLeafEventHandler<Item>({
+		fn: (value) => providedOnCollapse && providedOnCollapse(value),
+		action: 'collapsed',
+		actionSubject: 'tableTree',
+		componentName: 'row',
+		packageName: process.env._PACKAGE_NAME_ as string,
+		packageVersion: process.env._PACKAGE_VERSION_ as string,
+	});
 
 	/**
 	 * This ensures a user won't trigger a click event and expand the accordion
 	 * when making a text selection.
 	 */
-	onClickHandler = (e: React.MouseEvent) => {
+	const onClickHandler = (e: React.MouseEvent) => {
 		const selection = window.getSelection()?.toString() || '';
 		if (selection?.length === 0) {
-			this.onExpandToggle();
+			onExpandToggle();
 		}
 	};
 
-	onExpandToggle = () => {
-		const { isExpanded } = this.props;
+	const onExpandStateChange = (isExpanded: boolean) => {
+		if (data) {
+			if (isExpanded && onExpand) {
+				onExpand(data);
+			} else if (!isExpanded && onCollapse) {
+				onCollapse(data);
+			}
+		}
+	};
 
-		if (isExpanded !== undefined) {
-			this.onExpandStateChange(!isExpanded);
+	const onExpandToggle = () => {
+		if (isProvidedExpanded !== undefined) {
+			onExpandStateChange(!isProvidedExpanded);
 		} else {
-			this.setState({ isExpanded: !this.state.isExpanded });
-			this.onExpandStateChange(!this.state.isExpanded);
+			setIsExpandedState((prevState) => {
+				onExpandStateChange(!prevState);
+				return !prevState;
+			});
 		}
 	};
 
-	isExpanded() {
-		const { isExpanded } = this.props;
-
-		return isExpanded !== undefined ? isExpanded : this.state.isExpanded;
-	}
-
-	getExtendedLabel = (
-		cellContent: any,
-		cellIndex: number,
-		mainColumnForExpandCollapseLabel: string | number,
-	) => {
-		/**
-		 * First condition - when we pass data via `items` property in `<TableTree />`
-		 * Second condition - when we pass data via `<Rows />` as children in `<TableTree />`.
-		 */
-		if (cellContent.hasOwnProperty('props')) {
-			return cellContent?.props[(mainColumnForExpandCollapseLabel as string)?.toLowerCase()];
-		} else if (cellIndex === mainColumnForExpandCollapseLabel) {
-			return cellContent;
-		}
-
-		return undefined;
-	};
-
-	renderCell(cell: any, cellIndex: number) {
-		const { props } = this;
-		const isExpanded = this.isExpanded();
-		const { hasChildren, depth, mainColumnForExpandCollapseLabel } = props;
+	const renderCell = (cell: any, cellIndex: number) => {
 		const isFirstCell = cellIndex === 0;
 		const indentLevel = isFirstCell ? depth : 0;
 		let cellContent = cell.props.children || [];
-		const extendedLabel = this.getExtendedLabel(
+		const extendedLabel = getExtendedLabel(
 			cellContent,
 			cellIndex,
 			mainColumnForExpandCollapseLabel,
@@ -203,16 +206,21 @@ class RowComponent extends Component<any, any> {
 			cellContent = [
 				<Chevron
 					key="chevron"
-					expandLabel={props.expandLabel}
-					collapseLabel={props.collapseLabel}
+					expandLabel={expandLabel}
+					collapseLabel={collapseLabel}
 					extendedLabel={extendedLabel}
-					isExpanded={isExpanded}
-					onExpandToggle={this.onExpandToggle}
-					ariaControls={isExpanded ? toItemId(props.itemId) : undefined}
-					rowId={props.itemId}
+					isExpanded={isProvidedExpanded !== undefined ? isProvidedExpanded : isExpandedState}
+					onExpandToggle={onExpandToggle}
+					ariaControls={
+						(isProvidedExpanded !== undefined ? isProvidedExpanded : isExpandedState) && !!itemId
+							? toItemId(itemId)
+							: undefined
+					}
+					rowId={!!itemId ? itemId : ''}
 				/>,
 			].concat(cellContent);
 		}
+		// eslint-disable-next-line @repo/internal/react/no-clone-element
 		return React.cloneElement(
 			cell,
 			{
@@ -222,65 +230,25 @@ class RowComponent extends Component<any, any> {
 			},
 			cellContent,
 		);
-	}
+	};
 
-	render() {
-		const { shouldExpandOnClick, hasChildren, depth, renderChildren } = this.props;
-		const isExpanded = this.isExpanded();
-		const ariaAttrs = {} as any;
-		if (hasChildren) {
-			ariaAttrs['aria-expanded'] = isExpanded;
-		}
-		if (depth !== undefined) {
-			ariaAttrs['aria-level'] = depth;
-		}
-		return (
-			<Fragment>
-				<TreeRowContainer
-					css={hasChildren && shouldExpandOnClick ? treeRowClickableStyles : undefined}
-					onClick={hasChildren && shouldExpandOnClick ? this.onClickHandler : undefined}
-					{...ariaAttrs}
-				>
-					{React.Children.map(this.props.children, (cell, index) => this.renderCell(cell, index))}
-				</TreeRowContainer>
-				{hasChildren && isExpanded && renderChildren && renderChildren()}
-			</Fragment>
-		);
-	}
+	return (
+		<Fragment>
+			<TreeRowContainer
+				css={hasChildren && shouldExpandOnClick ? treeRowClickableStyles : undefined}
+				onClick={hasChildren && shouldExpandOnClick ? onClickHandler : undefined}
+				aria-expanded={hasChildren ? isExpandedState : undefined}
+				aria-level={depth ? depth : undefined}
+			>
+				{React.Children.map(children, (cell, index) => renderCell(cell, index))}
+			</TreeRowContainer>
+			{hasChildren &&
+				(isProvidedExpanded !== undefined ? isProvidedExpanded : isExpandedState) &&
+				renderChildren &&
+				renderChildren()}
+		</Fragment>
+	);
 }
-
-export { RowComponent as RowWithoutAnalytics };
-const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
-
-const Row = withAnalyticsContext({
-	componentName: 'row',
-	packageName,
-	packageVersion,
-})(
-	withAnalyticsEvents({
-		onExpand: createAndFireEventOnAtlaskit({
-			action: 'expanded',
-			actionSubject: 'tableTree',
-
-			attributes: {
-				componentName: 'row',
-				packageName,
-				packageVersion,
-			},
-		}),
-
-		onCollapse: createAndFireEventOnAtlaskit({
-			action: 'collapsed',
-			actionSubject: 'tableTree',
-
-			attributes: {
-				componentName: 'row',
-				packageName,
-				packageVersion,
-			},
-		}),
-	})(RowComponent),
-);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Row;

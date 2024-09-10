@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.1.9
+
+### Patch Changes
+
+- [#138414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138414)
+  [`7869af9163f3e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7869af9163f3e) -
+  Added lazy node experiment to config
+
 ## 2.1.8
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media
 
+## 1.31.0
+
+### Minor Changes
+
+- [#138140](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138140)
+  [`d912a8053c5f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d912a8053c5f9) -
+  [ED-24869] ensure images inserted from outside media plugin are given pixel widthType
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.30.0
 
 ### Minor Changes

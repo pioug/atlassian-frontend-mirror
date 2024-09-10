@@ -9,6 +9,7 @@ type Item = {
 	numbering: string;
 	page: number;
 	children?: Item[];
+	id: string;
 };
 
 const defaultExpansionMap: Record<string, boolean> = { '2': true };

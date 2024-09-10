@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import SkeletonShimmer from '../../skeleton-shimmer';
 
@@ -20,33 +20,31 @@ describe('<SkeletonShimmer />', () => {
 	});
 
 	it('should render its child', () => {
-		const { getByTestId } = render(<SkeletonShimmer>{children}</SkeletonShimmer>);
+		render(<SkeletonShimmer>{children}</SkeletonShimmer>);
 
-		expect(getByTestId(childTestId)).toBeInTheDocument();
+		expect(screen.getByTestId(childTestId)).toBeInTheDocument();
 	});
 
 	describe('className', () => {
 		it('should provide a class name when isShimmering={true}', () => {
-			const { getByTestId } = render(<SkeletonShimmer isShimmering>{children}</SkeletonShimmer>);
+			render(<SkeletonShimmer isShimmering>{children}</SkeletonShimmer>);
 
-			const child = getByTestId(childTestId);
+			const child = screen.getByTestId(childTestId);
 			expect(typeof child.className).toBe('string');
 		});
 
 		it('should not provide a class name when isShimmering={false}', () => {
-			const { getByTestId } = render(
-				<SkeletonShimmer isShimmering={false}>{children}</SkeletonShimmer>,
-			);
+			render(<SkeletonShimmer isShimmering={false}>{children}</SkeletonShimmer>);
 
-			const child = getByTestId(childTestId);
-			expect(child.className).toBe('');
+			const child = screen.getByTestId(childTestId);
+			expect(child).toHaveClass('', { exact: true });
 		});
 
 		it('should not provide a class name by default', () => {
-			const { getByTestId } = render(<SkeletonShimmer>{children}</SkeletonShimmer>);
+			render(<SkeletonShimmer>{children}</SkeletonShimmer>);
 
-			const child = getByTestId(childTestId);
-			expect(child.className).toBe('');
+			const child = screen.getByTestId(childTestId);
+			expect(child).toHaveClass('', { exact: true });
 		});
 	});
 });

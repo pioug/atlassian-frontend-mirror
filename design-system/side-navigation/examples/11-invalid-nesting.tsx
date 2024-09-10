@@ -11,6 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 import {
 	ButtonItem,
+	GoBackItem,
 	Header,
 	NavigationHeader,
 	NestableNavigationContent,
@@ -85,7 +86,20 @@ const BasicExample = () => {
 					>
 						<Section title="Top level">
 							<NestingItem id="1" title="Item A">
-								<NestingItem id="1-1" title="Item A-1">
+								<NestingItem
+									id="1-1"
+									title="Item A-1"
+									// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+									overrides={{
+										GoBackItem: {
+											render: (props) => (
+												<GoBackItem description={'Takes us back to an invalid state.'} {...props}>
+													Go back
+												</GoBackItem>
+											),
+										},
+									}}
+								>
 									Level 1-1
 								</NestingItem>
 							</NestingItem>

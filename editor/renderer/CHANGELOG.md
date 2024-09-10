@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 109.53.1
+
+### Patch Changes
+
+- [#138801](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138801)
+  [`eeb1f7ad41211`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eeb1f7ad41211) -
+  Adding new entry-points to editor-common to optimise bundle size and move away from "utils"
+  entry-point.
+- Updated dependencies
+
 ## 109.53.0
 
 ### Minor Changes

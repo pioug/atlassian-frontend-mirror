@@ -16,6 +16,7 @@ export interface TriggerProps {
 	'aria-controls'?: string;
 	'aria-expanded': boolean;
 	'aria-haspopup': boolean | 'dialog';
+	'data-ds--level'?: string;
 }
 
 export type PopupRef = HTMLDivElement | null;
@@ -170,7 +171,10 @@ interface BaseProps {
 	 * This happens either when clicking away from the popup or pressing the escape key.
 	 * You'll want to use this to set open state accordingly, and then pump it back into the `isOpen` prop.
 	 */
-	onClose?(event: Event | React.MouseEvent | React.KeyboardEvent): void;
+	onClose?(
+		event: Event | React.MouseEvent | React.KeyboardEvent,
+		currentLevel?: number | any,
+	): void;
 
 	/**
 	 * The element that is shown when `isOpen` prop is `true`.
@@ -248,6 +252,12 @@ interface BaseProps {
 	 * for more details - https://popper.js.org/docs/v1/#modifiers
 	 */
 	modifiers?: Partial<Modifier<string, object>>[];
+
+	/**
+	 * Determines if the popup will have a `max-width` and `max-height` set to
+	 * constrain it to the viewport.
+	 */
+	shouldFitViewport?: boolean;
 }
 
 interface InternalPopupProps extends BaseProps {

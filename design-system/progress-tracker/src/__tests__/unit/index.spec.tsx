@@ -104,28 +104,34 @@ const completedStages: Stages = [
 	},
 ];
 
-const testBackwardsRenderTransitions = (progressTrackerStages: NodeListOf<HTMLLIElement>) => {
+const testBackwardsRenderTransitions = (
+	progressTrackerStages: NodeListOf<HTMLLIElement> | HTMLElement[],
+) => {
 	progressTrackerStages.forEach((stage, index) => {
 		const delay = (progressTrackerStages.length - 1 - index) * 50;
 		expect(stage).toHaveStyle(`${varTransitionDelay}: ${delay}ms`);
 	});
 };
 
-const testMultiStepRenderTransitions = (progressTrackerStages: NodeListOf<HTMLLIElement>) => {
+const testMultiStepRenderTransitions = (
+	progressTrackerStages: NodeListOf<HTMLLIElement> | HTMLElement[],
+) => {
 	progressTrackerStages.forEach((stage, index) => {
 		expect(stage).toHaveStyle(`${varTransitionDelay}: ${index * 50}ms`);
 		expect(stage).toHaveStyle(`${varTransitionEasing}: linear`);
 	});
 };
 
-const testNoOrSingleStepRenderTransitions = (progressTrackerStages: NodeListOf<HTMLLIElement>) => {
+const testNoOrSingleStepRenderTransitions = (
+	progressTrackerStages: NodeListOf<HTMLLIElement> | HTMLElement[],
+) => {
 	progressTrackerStages.forEach((stage) => {
 		expect(stage).toHaveStyle(`${varTransitionDelay}: 0ms`);
 		expect(stage).toHaveStyle(`${varTransitionEasing}: cubic-bezier(0.15,1,0.3,1)`);
 	});
 };
 
-const testNotAnimated = (progressTrackerStages: NodeListOf<HTMLLIElement>) => {
+const testNotAnimated = (progressTrackerStages: NodeListOf<HTMLLIElement> | HTMLElement[]) => {
 	progressTrackerStages.forEach((stage) => {
 		expect(stage).toHaveStyle(`${varTransitionDelay}: 0ms`);
 		expect(stage).toHaveStyle(`${varTransitionSpeed}: 0ms`);
@@ -138,6 +144,7 @@ ffTest.both('platform-progress-tracker-functional-facade', '@atlaskit/progress-t
 
 		const progressTracker = screen.getByTestId('progress-tracker');
 		expect(progressTracker).toBeInTheDocument();
+		//eslint-disable-next-line testing-library/no-node-access
 		expect(progressTracker.childElementCount).toBe(6);
 	});
 
@@ -158,44 +165,44 @@ ffTest.both('platform-progress-tracker-functional-facade', '@atlaskit/progress-t
 	});
 
 	it('should not set transition if animated prop is false', () => {
-		const { container } = render(<ProgressTracker items={items} animated={false} />);
+		render(<ProgressTracker items={items} animated={false} />);
 
-		const progressTrackerStages = container.querySelectorAll('li');
+		const progressTrackerStages = screen.getAllByRole('listitem');
 		testNotAnimated(progressTrackerStages);
 	});
 
 	it('should set initial transition', () => {
-		const { container } = render(<ProgressTracker items={items} />);
+		render(<ProgressTracker items={items} />);
 
-		const progressTrackerStages = container.querySelectorAll('li');
+		const progressTrackerStages = screen.getAllByRole('listitem');
 		testNoOrSingleStepRenderTransitions(progressTrackerStages);
 	});
 
 	it('should set backwards transition', () => {
-		const { container, rerender } = render(<ProgressTracker items={completedStages} />);
+		const { rerender } = render(<ProgressTracker items={completedStages} />);
 		rerender(<ProgressTracker items={items} />);
 
-		const progressTrackerStages = container.querySelectorAll('li');
+		const progressTrackerStages = screen.getAllByRole('listitem');
 		testBackwardsRenderTransitions(progressTrackerStages);
 	});
 
 	it('should set multistep transition on first render', () => {
-		const { container } = render(<ProgressTracker items={completedStages} />);
+		render(<ProgressTracker items={completedStages} />);
 
-		const progressTrackerStages = container.querySelectorAll('li');
+		const progressTrackerStages = screen.getAllByRole('listitem');
 		testMultiStepRenderTransitions(progressTrackerStages);
 	});
 
 	it('should set multistep transition when multiple stages are completed', () => {
-		const { container, rerender } = render(<ProgressTracker items={items} />);
+		const { rerender } = render(<ProgressTracker items={items} />);
 		rerender(<ProgressTracker items={completedStages} />);
 
-		const progressTrackerStages = container.querySelectorAll('li');
+		const progressTrackerStages = screen.getAllByRole('listitem');
 		testMultiStepRenderTransitions(progressTrackerStages);
 	});
 
 	it('should set single step transitions', () => {
-		const { container, rerender } = render(<ProgressTracker items={items} />);
+		const { rerender } = render(<ProgressTracker items={items} />);
 		const changedStages = items.map((stage) => {
 			if (stage.id === '1') {
 				const newStage: Stage = {
@@ -211,13 +218,13 @@ ffTest.both('platform-progress-tracker-functional-facade', '@atlaskit/progress-t
 		});
 		rerender(<ProgressTracker items={changedStages} />);
 
-		const progressTrackerStages = container.querySelectorAll('li');
+		const progressTrackerStages = screen.getAllByRole('listitem');
 		testNoOrSingleStepRenderTransitions(progressTrackerStages);
 	});
 
 	it('should adapt to having a stage added', () => {
-		const { container, rerender } = render(<ProgressTracker items={items} />);
-		expect(container.querySelectorAll('li')).toHaveLength(6);
+		const { rerender } = render(<ProgressTracker items={items} />);
+		expect(screen.getAllByRole('listitem')).toHaveLength(6);
 
 		const newItems = items.map((oldStage) => {
 			return {
@@ -237,16 +244,16 @@ ffTest.both('platform-progress-tracker-functional-facade', '@atlaskit/progress-t
 		newItems.push(newStage);
 
 		rerender(<ProgressTracker items={newItems} />);
-		expect(container.querySelectorAll('li')).toHaveLength(newItems.length);
+		expect(screen.getAllByRole('listitem')).toHaveLength(newItems.length);
 	});
 
 	it('should adapt to having a stage removed', () => {
-		const { container, rerender } = render(<ProgressTracker items={items} />);
-		expect(container.querySelectorAll('li')).toHaveLength(6);
+		const { rerender } = render(<ProgressTracker items={items} />);
+		expect(screen.getAllByRole('listitem')).toHaveLength(6);
 
 		const newItems = items.slice(0, 4);
 
 		rerender(<ProgressTracker items={newItems} />);
-		expect(container.querySelectorAll('li')).toHaveLength(newItems.length);
+		expect(screen.getAllByRole('listitem')).toHaveLength(newItems.length);
 	});
 });

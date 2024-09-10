@@ -28,7 +28,15 @@ export {
 	 */
 	browser,
 } from './browser';
-export { default as ErrorReporter } from './error-reporter';
+export {
+	/**
+	 * @private
+	 * @deprecated
+	 *
+	 * Please use `@atlaskit/editor-common/error-reporter` entry-point instead.
+	 */
+	ErrorReporter,
+} from './error-reporter';
 export type { ErrorReportingHandler } from './error-reporter';
 export {
 	isPastDate,
@@ -168,9 +176,29 @@ export {
 } from './performance/measure-render';
 export { startMeasure, stopMeasure, clearMeasure } from './performance/measure';
 export {
+	/**
+	 * @private
+	 * @deprecated
+	 * Private API - should not be used. Use `@atlaskit/editor-common/performance/measure-tti` if required.
+	 */
 	measureTTI,
+	/**
+	 * @private
+	 * @deprecated
+	 * Private API - should not be used. Use `@atlaskit/editor-common/performance/measure-tti` if required.
+	 */
 	getTTISeverity,
+	/**
+	 * @private
+	 * @deprecated
+	 * Private API - should not be used. Use `@atlaskit/editor-common/performance/measure-tti` if required.
+	 */
 	TTI_SEVERITY_THRESHOLD_DEFAULTS,
+	/**
+	 * @private
+	 * @deprecated
+	 * Private API - should not be used. Use `@atlaskit/editor-common/performance/measure-tti` if required.
+	 */
 	TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
 } from './performance/measure-tti';
 /**
@@ -220,7 +248,15 @@ export { RenderCountProfiler, PROFILER_KEY } from './profiler/render-count';
 export { validateADFEntity, validationErrorHandler } from './validate-using-spec';
 export { getShallowPropsDifference, getPropsDifference } from './compare-props';
 export type { ShallowPropsDifference, PropsDifference } from './compare-props';
-export { useComponentRenderTracking } from './performance/hooks/use-component-render-tracking';
+export {
+	/**
+	 * @private
+	 * @deprecated
+	 *
+	 * Private API do not use - if you really need it use `@atlaskit/editor-common/use-component-render-tracking`;
+	 */
+	useComponentRenderTracking,
+} from './performance/hooks/use-component-render-tracking';
 export type { UseComponentRenderTrackingArgs } from './performance/hooks/use-component-render-tracking';
 /**
  * @private

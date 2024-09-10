@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-node-access */
 import React, {
 	type Dispatch,
 	forwardRef,
@@ -286,7 +287,7 @@ describe('Popup', () => {
 
 	it('renders the content correctly when the popup is open', () => {
 		render(<Popup {...defaultProps} content={() => <div>content</div>} isOpen />);
-		expect(screen.queryByText('content')).toBeInTheDocument();
+		expect(screen.getByText('content')).toBeInTheDocument();
 	});
 
 	it('renders the content correctly when the popup is opened', () => {
@@ -294,7 +295,7 @@ describe('Popup', () => {
 		const { rerender } = render(<Popup {...defaultProps} content={content} isOpen={false} />);
 		rerender(<Popup {...defaultProps} content={content} isOpen />);
 
-		expect(screen.queryByText('content')).toBeInTheDocument();
+		expect(screen.getByText('content')).toBeInTheDocument();
 	});
 
 	it('does not render the custom popup when the popup is not open', () => {
@@ -333,8 +334,8 @@ describe('Popup', () => {
 			/>,
 		);
 
-		expect(screen.queryByText('popup component')).toBeInTheDocument();
-		expect(screen.queryByText('content')).toBeInTheDocument();
+		expect(screen.getByText('popup component')).toBeInTheDocument();
+		expect(screen.getByText('content')).toBeInTheDocument();
 	});
 
 	it('renders the custom popup and its content correctly when the popup is opened', () => {
@@ -354,8 +355,8 @@ describe('Popup', () => {
 
 		rerender(<Popup {...defaultProps} {...props} isOpen />);
 
-		expect(screen.queryByText('popup component')).toBeInTheDocument();
-		expect(screen.queryByText('content')).toBeInTheDocument();
+		expect(screen.getByText('popup component')).toBeInTheDocument();
+		expect(screen.getByText('content')).toBeInTheDocument();
 	});
 
 	it('does not re-render the trigger unnecessarily', () => {

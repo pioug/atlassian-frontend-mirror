@@ -1,20 +1,24 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 
 import ReactFocusLock from 'react-focus-lock';
 import ScrollLock from 'react-scrolllock';
 import invariant from 'tiny-invariant';
 
-import { defaultFocusLockSettings } from '../../constants';
 import { type FocusLockProps } from '../types';
 
-// Thin wrapper over react-focus-lock. This wrapper only exists to ensure API compatibility.
-// This component should be deleted during https://ecosystem.atlassian.net/browse/AK-5658
-export default class FocusLock extends Component<FocusLockProps> {
-	static defaultProps = { ...defaultFocusLockSettings };
-
-	componentDidMount() {
-		const { isFocusLockEnabled, autoFocusFirstElem } = this.props;
-
+/**
+ * __Focus lock__
+ *
+ * Thin wrapper over react-focus-lock. This wrapper only exists to ensure API compatibility.
+ * This component should be deleted during https://ecosystem.atlassian.net/browse/AK-5658
+ */
+const FocusLock = ({
+	isFocusLockEnabled = true,
+	autoFocusFirstElem = true,
+	shouldReturnFocus = true,
+	children,
+}: FocusLockProps) => {
+	useEffect(() => {
 		if (
 			typeof process !== 'undefined' &&
 			process.env.NODE_ENV !== 'production' &&
@@ -31,11 +35,9 @@ export default class FocusLock extends Component<FocusLockProps> {
 				elem.focus();
 			}
 		}
-	}
+	}, [autoFocusFirstElem, isFocusLockEnabled]);
 
-	getFocusTarget = () => {
-		const { shouldReturnFocus } = this.props;
-
+	const getFocusTarget = () => {
 		if (typeof shouldReturnFocus === 'boolean') {
 			return shouldReturnFocus;
 		}
@@ -43,9 +45,7 @@ export default class FocusLock extends Component<FocusLockProps> {
 		return false;
 	};
 
-	onDeactivation = () => {
-		const { shouldReturnFocus } = this.props;
-
+	const onDeactivation = () => {
 		if (typeof shouldReturnFocus !== 'boolean') {
 			window.setTimeout(() => {
 				shouldReturnFocus?.current?.focus();
@@ -53,18 +53,16 @@ export default class FocusLock extends Component<FocusLockProps> {
 		}
 	};
 
-	render() {
-		const { isFocusLockEnabled, autoFocusFirstElem, children } = this.props;
+	return (
+		<ReactFocusLock
+			disabled={!isFocusLockEnabled}
+			autoFocus={!!autoFocusFirstElem}
+			returnFocus={getFocusTarget()}
+			onDeactivation={onDeactivation}
+		>
+			<ScrollLock>{children}</ScrollLock>
+		</ReactFocusLock>
+	);
+};
 
-		return (
-			<ReactFocusLock
-				disabled={!isFocusLockEnabled}
-				autoFocus={!!autoFocusFirstElem}
-				returnFocus={this.getFocusTarget()}
-				onDeactivation={this.onDeactivation}
-			>
-				<ScrollLock>{children}</ScrollLock>
-			</ReactFocusLock>
-		);
-	}
-}
+export default FocusLock;

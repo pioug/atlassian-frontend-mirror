@@ -1,6 +1,6 @@
+import { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
+import type { ErrorReportingHandler } from '@atlaskit/editor-common/error-reporter';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { ErrorReporter } from '@atlaskit/editor-common/utils';
-import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
 
 import type { EditorConfig, EditorPlugin, PluginsOptions, PMPluginCreateConfig } from '../types';

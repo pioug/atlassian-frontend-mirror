@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Component } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -10,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import ColumnCell from './internal/common-cell';
+import CommonCell from './internal/common-cell';
 import withColumnWidth from './internal/with-column-width';
 
 const headerStyles = css({
@@ -32,20 +31,23 @@ export type HeaderProps = {
 	 * Width of the header item. Takes a string, or a number representing the width in pixels.
 	 */
 	width?: string | number;
+	/**
+	 * The contents of the header.
+	 */
+	children?: React.ReactNode;
+	onClick?: () => void;
+	id?: string;
 };
 
-class HeaderComponent extends Component<any> {
-	render() {
-		const { props } = this;
-		return (
-			// TODO: Determine whether proper `th` elements can be used instead of
-			// roles (DSP-11588)
-			<ColumnCell css={headerStyles} role="columnheader" style={{ width: props.width }} {...props}>
-				{props.children}
-			</ColumnCell>
-		);
-	}
-}
+const HeaderComponent = ({ width, children, onClick, id }: HeaderProps) => {
+	// TODO: Determine whether proper `th` elements can be used instead of
+	// roles (DSP-11588)
+	return (
+		<CommonCell css={headerStyles} role="columnheader" width={width} id={id} onClick={onClick}>
+			{children}
+		</CommonCell>
+	);
+};
 
 const Header = withColumnWidth(HeaderComponent);
 

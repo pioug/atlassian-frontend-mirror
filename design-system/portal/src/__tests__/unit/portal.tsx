@@ -1,6 +1,7 @@
+/* eslint-disable testing-library/no-node-access */
 import React, { type ReactNode, StrictMode, useEffect } from 'react';
 
-import { act, cleanup, render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import { bindAll, type UnbindFn } from 'bind-event-listener';
 import { replaceRaf } from 'raf-stub';
 
@@ -55,7 +56,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-	cleanup();
 	unbind?.();
 	unbind = null;
 });
@@ -123,8 +123,8 @@ describe('Portal container', () => {
 				</Portal>
 			</App>,
 		);
-		const container = document.querySelector('body > .atlaskit-portal-container') as HTMLElement;
-		expect(container && container.style.getPropertyValue('display')).toBe('flex');
+		const portal = document.querySelector('body > .atlaskit-portal-container') as HTMLElement;
+		expect(portal && portal.style.getPropertyValue('display')).toBe('flex');
 	});
 
 	test('should accept a string for zIndex', () => {

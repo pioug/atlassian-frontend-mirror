@@ -150,8 +150,7 @@ describe('<LinkItem />', () => {
 
 		target.focus();
 		fireEvent.mouseDown(target);
-
-		expect(target === document.activeElement).toBe(true);
+		expect(target).toHaveFocus();
 	});
 
 	describe('LinkItem used as a button (for legacy purposes only, do not do this!)', () => {

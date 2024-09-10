@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "1.24.2",
+	"version": "1.25.0",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,7 +44,7 @@
 		"@atlaskit/ds-lib": "^2.5.0",
 		"@atlaskit/layering": "^0.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/popper": "^6.2.0",
+		"@atlaskit/popper": "^6.3.0",
 		"@atlaskit/portal": "^4.9.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/theme": "^13.0.0",
@@ -112,6 +112,12 @@
 			"type": "boolean"
 		},
 		"platform-design-system-dsp-20476-dropdown-menu": {
+			"type": "boolean"
+		},
+		"design-system-closed-all-when-click-outside": {
+			"type": "boolean"
+		},
+		"sibling-dropdown-close-issue": {
 			"type": "boolean"
 		}
 	},

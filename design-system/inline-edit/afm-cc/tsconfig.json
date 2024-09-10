@@ -37,6 +37,9 @@
             "path": "../../inline-dialog/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../primitives/afm-cc/tsconfig.json"
         },
         {

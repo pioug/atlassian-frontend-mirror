@@ -5,7 +5,7 @@ export interface ErrorReportingHandler {
 	captureException: (err: Error, tags?: ErrorReporterTags) => void;
 }
 
-export default class ErrorReporter {
+export class ErrorReporter {
 	private handlerStorage: ErrorReportingHandler | null = null;
 
 	captureMessage(msg: string, tags?: ErrorReporterTags) {

@@ -8,8 +8,8 @@ import type {
 	FireAnalyticsCallback,
 } from '@atlaskit/editor-common/analytics';
 import { EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { useComponentRenderTracking } from '@atlaskit/editor-common/use-component-render-tracking';
 import type { PropsDifference, ShallowPropsDifference } from '@atlaskit/editor-common/utils';
-import { useComponentRenderTracking } from '@atlaskit/editor-common/utils';
 
 type RenderActions = ACTION.RE_RENDERED;
 type RenderActionSubjects = ACTION_SUBJECT.EDITOR | ACTION_SUBJECT.REACT_EDITOR_VIEW;

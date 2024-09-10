@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 12.15.6
+
+### Patch Changes
+
+- [#138585](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138585)
+  [`b72c2c7f9a2fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b72c2c7f9a2fd) -
+  Support to close all layers when clicking outside under feature flag
+
 ## 12.15.5
 
 ### Patch Changes

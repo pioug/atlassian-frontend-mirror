@@ -12,6 +12,7 @@ type Item = {
 	numbering: string;
 	page: number;
 	children?: Item[];
+	id: string;
 };
 
 export default () => (

@@ -1,5 +1,14 @@
 # @atlaskit/inline-edit
 
+## 13.7.2
+
+### Patch Changes
+
+- [`04ca60ed535e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04ca60ed535e8) -
+  [ux] Changes InlineEdit behaviour to call form reset() function when cancelling edit through
+  escape key press by default. Changes made behind feature flag
+  platform-design-system-inline-edit-reset-on-escape.
+
 ## 13.7.1
 
 ### Patch Changes

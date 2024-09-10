@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
@@ -45,26 +45,26 @@ describe('skip links', () => {
 		);
 
 		it('generate 3 links', () => {
-			const component = render(skipLinksWithLabel);
-			expect(component.getByText(label)).toBeInTheDocument();
-			expect(component.getAllByRole('link')).toHaveLength(2);
+			render(skipLinksWithLabel);
+			expect(screen.getByText(label)).toBeInTheDocument();
+			expect(screen.getAllByRole('link')).toHaveLength(2);
 		});
 
 		it('uses default label in the heading if skipLinksLabel is undefined', () => {
-			const component = render(skipLinksNoLabel);
-			expect(component.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS)).toBeInTheDocument();
+			render(skipLinksNoLabel);
+			expect(screen.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS)).toBeInTheDocument();
 		});
 
 		it('uses default label in the heading if skipLinksLabel is empty', () => {
-			const component = render(skipLinksEmptyLabel);
-			expect(component.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS)).toBeInTheDocument();
-			expect(() => component.getByText(emptyLabel)).toThrow();
+			render(skipLinksEmptyLabel);
+			expect(screen.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS)).toBeInTheDocument();
+			expect(() => screen.getByText(emptyLabel)).toThrow();
 		});
 
 		it('forces no heading if a skipLinksLabel comprising only of spaces is provided', () => {
-			const component = render(skipLinksSpacesLabel);
-			expect(() => component.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS)).toThrow();
-			expect(() => component.getByText(spaceLabel)).toThrow();
+			render(skipLinksSpacesLabel);
+			expect(() => screen.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS)).toThrow();
+			expect(() => screen.getByText(spaceLabel)).toThrow();
 		});
 	});
 
@@ -80,7 +80,7 @@ describe('skip links', () => {
 
 				return <div id="external-footer">external footer</div>;
 			};
-			const component = render(
+			render(
 				<PageLayout>
 					<IntroSection />
 					<ExternalFooter />
@@ -91,7 +91,7 @@ describe('skip links', () => {
 					}
 				</PageLayout>,
 			);
-			const allLinksInSkipLinks = component.getAllByRole('link');
+			const allLinksInSkipLinks = screen.getAllByRole('link');
 
 			expect(allLinksInSkipLinks).toHaveLength(3);
 			expect(allLinksInSkipLinks[0]).toHaveTextContent('Intro Section');

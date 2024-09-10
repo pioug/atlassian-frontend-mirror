@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 4.7.0
+
+### Minor Changes
+
+- [#138973](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138973)
+  [`e1150e9523e1f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e1150e9523e1f) -
+  Update AppSwitcher to support Nav4
+
 ## 4.6.0
 
 ### Minor Changes

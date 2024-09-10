@@ -53,7 +53,7 @@ describe('Messages', () => {
 			it(`${Component.name} should not render an error`, () => {
 				render(<Component {...props} key={index} />);
 				expect(screen.queryByRole('img', { name: 'error' })).not.toBeInTheDocument();
-				expect(screen.queryByRole('img', { name: 'success' })).toBeInTheDocument();
+				expect(screen.getByRole('img', { name: 'success' })).toBeInTheDocument();
 			});
 		});
 	});

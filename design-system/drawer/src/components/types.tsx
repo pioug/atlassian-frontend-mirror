@@ -169,7 +169,7 @@ export type DrawerProps = BaseProps &
 		 * This is passed to the portal component.
 		 * Defaults to `unset`.
 		 */
-		zIndex?: number;
+		zIndex?: number | 'unset';
 	};
 
 export interface FocusLockSettings {

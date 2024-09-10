@@ -24,6 +24,7 @@ import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/r
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { Box } from '@atlaskit/primitives';
 import { N40 } from '@atlaskit/theme/colors';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -467,7 +468,11 @@ export const IssueLikeDataTableView = ({
 		() => ({
 			key: 'loading',
 			cells: headerColumns.map<RowCellType>((column) => ({
-				content: (
+				content: fg('platform-datasources-enable-two-way-sync') ? (
+					<Box paddingInline="space.100">
+						<Skeleton borderRadius={8} width="100%" height={14} testId="issues-table-row-loading" />
+					</Box>
+				) : (
 					<Skeleton borderRadius={8} width="100%" height={14} testId="issues-table-row-loading" />
 				),
 				key: column.key,
@@ -822,13 +827,6 @@ export const IssueLikeDataTableView = ({
 									shouldUseWidth,
 									width,
 								});
-								// extra padding is required around skeleton loader to avoid vertical jumps when data loads
-								if (key?.includes('loading')) {
-									loadingRowStyle = {
-										...loadingRowStyle,
-										paddingBlock: token('space.100', '8px'),
-									};
-								}
 
 								// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 								if (fg('platform-datasources-enable-two-way-sync')) {
@@ -845,6 +843,14 @@ export const IssueLikeDataTableView = ({
 										</InlineEditableTableCell>
 									);
 								} else {
+									// extra padding is required around skeleton loader to avoid vertical jumps when data loads
+									if (key?.includes('loading')) {
+										loadingRowStyle = {
+											...loadingRowStyle,
+											paddingBlock: token('space.100', '8px'),
+										};
+									}
+
 									return (
 										<TableCell
 											key={cellKey}

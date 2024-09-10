@@ -27,38 +27,36 @@ describe('#useSpotlight', () => {
 		);
 
 		const wrapper = (props: {}) => testWrapper(props);
-		const renderHookResult = renderHook(() => useSpotlight(), { wrapper });
+		const utils = renderHook(() => useSpotlight(), { wrapper });
 
 		const rerender = (value = contextValue) => {
 			testWrapper = ({ children }) => (
 				<SpotlightContext.Provider value={value}>{children}</SpotlightContext.Provider>
 			);
 
-			renderHookResult.rerender();
+			utils.rerender();
 		};
 
 		return {
-			renderHookResult,
+			result: utils.result,
 			rerender,
 		};
 	};
 
 	it('should check whether target is rendered or not', () => {
-		const { renderHookResult } = setup();
+		const { result } = setup();
 
 		const {
-			result: {
-				current: { isTargetRendered },
-			},
-		} = renderHookResult;
+			current: { isTargetRendered },
+		} = result;
 
 		expect(isTargetRendered('target-1')).toBe(true);
 		expect(isTargetRendered('target-2')).toBe(false);
 	});
 
 	it('should return rerender with same reference even if #targets context value changes', () => {
-		const { renderHookResult, rerender } = setup();
-		const { current: previousResult } = renderHookResult.result;
+		const { result, rerender } = setup();
+		const { current: previousResult } = result;
 
 		rerender({
 			opened: jest.fn(),
@@ -69,7 +67,7 @@ describe('#useSpotlight', () => {
 			},
 		});
 
-		const { current: newResult } = renderHookResult.result;
+		const { current: newResult } = result;
 
 		expect(newResult.isTargetRendered('target-2')).toBe(true);
 		expect(previousResult).toBe(newResult);

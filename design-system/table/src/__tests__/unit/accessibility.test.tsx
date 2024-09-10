@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { axe, type JestAxeConfigureOptions } from '@af/accessibility-testing';
 import __noop from '@atlaskit/ds-lib/noop';
@@ -36,7 +36,6 @@ it('Basic example should not fail an aXe audit', async () => {
 	expect(results).toHaveNoViolations();
 	// Only tests we explicitly skip can be incomplete
 	expect(results.incomplete).toHaveLength(0);
-	cleanup();
 });
 
 it('Basic with actions example should not fail an aXe audit', async () => {
@@ -46,7 +45,6 @@ it('Basic with actions example should not fail an aXe audit', async () => {
 	expect(results).toHaveNoViolations();
 	// Only tests we explicitly skip can be incomplete
 	expect(results.incomplete).toHaveLength(0);
-	cleanup();
 });
 
 it('Row example should not fail an aXe audit', async () => {
@@ -60,7 +58,6 @@ it('Row example should not fail an aXe audit', async () => {
 
 	// Only tests we explicitly skip can be incomplete
 	expect(results.incomplete).toHaveLength(0);
-	cleanup();
 });
 
 it('Multi-header example should not fail an aXe audit', async () => {
@@ -69,11 +66,10 @@ it('Multi-header example should not fail an aXe audit', async () => {
 
 	// Only tests we explicitly skip can be incomplete
 	expect(results.incomplete).toHaveLength(0);
-	cleanup();
 });
 
 it('Sortable columns have programmatically defined sorting states', async () => {
-	const { getByTestId } = render(
+	render(
 		<Table>
 			<THead>
 				<SortableColumn name="Column 1" testId="col-1">
@@ -92,24 +88,24 @@ it('Sortable columns have programmatically defined sorting states', async () => 
 		</Table>,
 	);
 
-	expect(getByTestId('col-1')).toHaveAttribute('aria-sort', 'none');
-	expect(getByTestId('col-2')).toHaveAttribute('aria-sort', 'none');
+	expect(screen.getByTestId('col-1')).toHaveAttribute('aria-sort', 'none');
+	expect(screen.getByTestId('col-2')).toHaveAttribute('aria-sort', 'none');
 
-	const column1SortButton = getByTestId('col-1--button');
+	const column1SortButton = screen.getByTestId('col-1--button');
 	expect(column1SortButton).toHaveAttribute('aria-roledescription', 'Column sort button');
 	fireEvent.click(column1SortButton);
-	expect(getByTestId('col-1')).toHaveAttribute('aria-sort', 'ascending');
-	expect(getByTestId('col-2')).toHaveAttribute('aria-sort', 'none');
+	expect(screen.getByTestId('col-1')).toHaveAttribute('aria-sort', 'ascending');
+	expect(screen.getByTestId('col-2')).toHaveAttribute('aria-sort', 'none');
 	fireEvent.click(column1SortButton);
-	expect(getByTestId('col-1')).toHaveAttribute('aria-sort', 'descending');
-	expect(getByTestId('col-2')).toHaveAttribute('aria-sort', 'none');
+	expect(screen.getByTestId('col-1')).toHaveAttribute('aria-sort', 'descending');
+	expect(screen.getByTestId('col-2')).toHaveAttribute('aria-sort', 'none');
 
-	const column2SortButton = getByTestId('col-2--button');
+	const column2SortButton = screen.getByTestId('col-2--button');
 	expect(column1SortButton).toHaveAttribute('aria-roledescription', 'Column sort button');
 	fireEvent.click(column2SortButton);
-	expect(getByTestId('col-2')).toHaveAttribute('aria-sort', 'ascending');
-	expect(getByTestId('col-1')).toHaveAttribute('aria-sort', 'none');
+	expect(screen.getByTestId('col-2')).toHaveAttribute('aria-sort', 'ascending');
+	expect(screen.getByTestId('col-1')).toHaveAttribute('aria-sort', 'none');
 	fireEvent.click(column2SortButton);
-	expect(getByTestId('col-2')).toHaveAttribute('aria-sort', 'descending');
-	expect(getByTestId('col-1')).toHaveAttribute('aria-sort', 'none');
+	expect(screen.getByTestId('col-2')).toHaveAttribute('aria-sort', 'descending');
+	expect(screen.getByTestId('col-1')).toHaveAttribute('aria-sort', 'none');
 });

@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 2.12.5
+
+### Patch Changes
+
+- [`ede5da85dd723`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ede5da85dd723) -
+  [ux] Fixes loading skeleton loosing padding for two-way sync
+
 ## 2.12.4
 
 ### Patch Changes

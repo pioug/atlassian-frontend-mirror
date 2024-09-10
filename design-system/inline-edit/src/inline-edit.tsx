@@ -11,6 +11,7 @@ import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/an
 import __noop from '@atlaskit/ds-lib/noop';
 import Field from '@atlaskit/form/Field';
 import Form from '@atlaskit/form/Form';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Pressable from '@atlaskit/primitives/pressable';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -195,6 +196,9 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 					onKeyDown={(e) => {
 						onKeyDown(e);
 						if (e.key === 'Esc' || e.key === 'Escape') {
+							if (fg('platform-design-system-inline-edit-reset-on-escape')) {
+								reset();
+							}
 							onCancel();
 						}
 					}}

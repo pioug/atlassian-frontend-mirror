@@ -1,4 +1,4 @@
-import React, { Component, type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import CommonCell from './internal/common-cell';
 import OverflowContainer from './internal/overflow-container';
@@ -29,22 +29,25 @@ export interface CellProps {
 	children?: ReactNode;
 }
 
-class CellComponent extends Component<CellProps> {
-	render() {
-		const { children, singleLine, indentLevel, width, className, ...props } = this.props;
-		return (
-			<CommonCell
-				indent={indentLevel ? `calc(${indentBase} * ${indentLevel})` : undefined}
-				width={width}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={className}
-				{...props}
-			>
-				<OverflowContainer isSingleLine={singleLine}>{children}</OverflowContainer>
-			</CommonCell>
-		);
-	}
-}
+const CellComponent = ({
+	children,
+	singleLine,
+	indentLevel,
+	width,
+	className,
+	...props
+}: CellProps) => (
+	<CommonCell
+		indent={indentLevel ? `calc(${indentBase} * ${indentLevel})` : undefined}
+		width={width}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		className={className}
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+	>
+		<OverflowContainer isSingleLine={singleLine}>{children}</OverflowContainer>
+	</CommonCell>
+);
 
 const Cell = withColumnWidth(CellComponent);
 

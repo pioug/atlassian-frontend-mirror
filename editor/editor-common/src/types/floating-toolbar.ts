@@ -253,6 +253,7 @@ export type FloatingToolbarDropdown<T extends {}> = {
 	// A prop to align the dropdown with the floating toolbar instead of the toolbar item
 	alignDropdownWithToolbar?: boolean;
 	onToggle?: (state: EditorState, dispatch: CommandDispatch | undefined) => boolean;
+	footer?: React.ReactNode;
 };
 
 type FloatingToolbarExtensionsPlaceholder = {

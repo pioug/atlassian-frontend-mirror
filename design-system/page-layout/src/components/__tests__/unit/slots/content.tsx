@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { Content, LeftPanel, Main, PageLayout, RightPanel } from '../../../index';
 
 describe('<Content />', () => {
 	it('should take up all space between the panels', () => {
-		const { getByTestId } = render(
+		render(
 			<PageLayout testId="grid">
 				<Content testId="content">
 					<LeftPanel width={200}>left panel</LeftPanel>
@@ -21,8 +21,8 @@ describe('<Content />', () => {
 				'grid-template-columns:var(--leftPanelWidth, 0px) minmax(0, 1fr) var(--rightPanelWidth, 0px);',
 			),
 		);
-
-		expect(getByTestId('content').querySelector('style')!.innerHTML).toEqual(
+		// eslint-disable-next-line testing-library/no-node-access
+		expect(screen.getByTestId('content').querySelector('style')!.innerHTML).toEqual(
 			expect.stringContaining(':root{--leftPanelWidth:200px;}'),
 		);
 	});

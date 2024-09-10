@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-emoji
 
+## 2.5.2
+
+### Patch Changes
+
+- [`1269ffa635367`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1269ffa635367) -
+  Cleanup FF platform_editor_get_card_provider_from_config
+
 ## 2.5.1
 
 ### Patch Changes

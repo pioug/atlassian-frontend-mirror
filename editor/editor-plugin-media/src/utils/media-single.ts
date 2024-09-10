@@ -14,6 +14,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { safeInsert, shouldSplitSelectedNodeOnNodeInsertion } from '@atlaskit/editor-common/insert';
 import {
+	DEFAULT_IMAGE_WIDTH,
 	getMaxWidthForNestedNodeNext,
 	getMediaSingleInitialWidth,
 	MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
@@ -144,7 +145,18 @@ export const insertMediaAsMediaSingle = (
 		return false;
 	}
 
-	const mediaSingleNode = mediaSingle.create({}, node);
+	const resizeExperience = fg('platform.editor.media.extended-resize-experience');
+	const insertMediaPopup = fg('platform_editor_insert_media_plugin_phase_one');
+	const mediaSingleAttrs =
+		resizeExperience && insertMediaPopup
+			? {
+					widthType: 'pixel',
+					width: getMediaSingleInitialWidth(node.attrs.width ?? DEFAULT_IMAGE_WIDTH),
+					layout: 'center',
+				}
+			: {};
+
+	const mediaSingleNode = mediaSingle.create(mediaSingleAttrs, node);
 	const nodes = [mediaSingleNode];
 	const analyticsAttributes = {
 		inputMethod,

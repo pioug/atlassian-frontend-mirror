@@ -31,23 +31,22 @@ describe('ThemeMutationObserver', () => {
 
 		await waitFor(() => {
 			expect(callbackSpy1).toHaveBeenCalledTimes(1);
-			expect(callbackSpy2).toHaveBeenCalledTimes(1);
-			expect(callbackSpy1).toHaveBeenCalledWith(
-				expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
-			);
-			expect(callbackSpy2).toHaveBeenCalledWith(
-				expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
-			);
 		});
-
+		expect(callbackSpy2).toHaveBeenCalledTimes(1);
+		expect(callbackSpy1).toHaveBeenCalledWith(
+			expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
+		);
+		expect(callbackSpy2).toHaveBeenCalledWith(
+			expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
+		);
 		setGlobalTheme({ dark: 'legacy-dark' });
 
 		await waitFor(() => {
 			expect(callbackSpy1).toHaveBeenCalledTimes(2);
-			expect(callbackSpy2).toHaveBeenCalledTimes(2);
-			expect(callbackSpy1).toHaveBeenCalledWith(expect.objectContaining({ dark: 'legacy-dark' }));
-			expect(callbackSpy2).toHaveBeenCalledWith(expect.objectContaining({ dark: 'legacy-dark' }));
 		});
+		expect(callbackSpy2).toHaveBeenCalledTimes(2);
+		expect(callbackSpy1).toHaveBeenCalledWith(expect.objectContaining({ dark: 'legacy-dark' }));
+		expect(callbackSpy2).toHaveBeenCalledWith(expect.objectContaining({ dark: 'legacy-dark' }));
 	});
 
 	it('should not call observer callbacks once disconnected', async () => {
@@ -64,12 +63,11 @@ describe('ThemeMutationObserver', () => {
 
 		await waitFor(() => {
 			expect(callbackSpy1).toHaveBeenCalledTimes(1);
-			expect(callbackSpy2).toHaveBeenCalledTimes(0);
-			expect(callbackSpy1).toHaveBeenCalledWith(
-				expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
-			);
 		});
-
+		expect(callbackSpy2).toHaveBeenCalledTimes(0);
+		expect(callbackSpy1).toHaveBeenCalledWith(
+			expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
+		);
 		// Disconnect the final observer and verify neither is called
 		observer1.disconnect();
 		callbackSpy1.mockClear();
@@ -78,8 +76,8 @@ describe('ThemeMutationObserver', () => {
 
 		await waitFor(() => {
 			expect(callbackSpy1).toHaveBeenCalledTimes(0);
-			expect(callbackSpy2).toHaveBeenCalledTimes(0);
 		});
+		expect(callbackSpy2).toHaveBeenCalledTimes(0);
 
 		// Reconnect the observer and verify it works as expected
 		observer1.observe();
@@ -89,7 +87,7 @@ describe('ThemeMutationObserver', () => {
 
 		await waitFor(() => {
 			expect(callbackSpy1).toHaveBeenCalledTimes(0);
-			expect(callbackSpy2).toHaveBeenCalledTimes(0);
 		});
+		expect(callbackSpy2).toHaveBeenCalledTimes(0);
 	});
 });

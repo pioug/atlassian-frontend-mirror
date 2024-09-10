@@ -6,7 +6,7 @@ import { Component, type CSSProperties } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { format, isValid, lastDayOfMonth, parseISO } from 'date-fns';
+import { isValid, parseISO } from 'date-fns';
 
 import {
 	createAndFireEvent,
@@ -25,10 +25,16 @@ import Select, {
 } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
-import { defaultDateFormat, EmptyComponent, padToTwo, placeholderDatetime } from '../internal';
+import { EmptyComponent } from '../internal';
+import {
+	formatDate,
+	getParsedISO,
+	getPlaceholder,
+	isDateDisabled,
+	parseDate,
+} from '../internal/date-picker-migration';
 import { Menu } from '../internal/menu';
 import { getSafeCalendarValue, getShortISOString } from '../internal/parse-date';
-import { convertTokens } from '../internal/parse-tokens';
 import { makeSingleValue } from '../internal/single-value';
 import { type Appearance, type DatePickerBaseProps, type Spacing } from '../types';
 
@@ -119,32 +125,8 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	getValue = () => this.props.value ?? this.state.value;
 	getIsOpen = () => this.props.isOpen ?? this.state.isOpen;
 
-	isDateDisabled = (date: string) => {
-		return this.props.disabled.indexOf(date) > -1;
-	};
-
 	onCalendarChange = ({ iso }: { iso: string }) => {
-		const [year, month, date] = iso.split('-');
-		let newIso = iso;
-
-		const parsedDate = parseInt(date, 10);
-		const parsedMonth = parseInt(month, 10);
-		const parsedYear = parseInt(year, 10);
-
-		const lastDayInMonth = lastDayOfMonth(
-			new Date(
-				parsedYear,
-				parsedMonth - 1, // This needs to be -1, because the Date constructor expects an index of the given month
-			),
-		).getDate();
-
-		if (lastDayInMonth < parsedDate) {
-			newIso = `${year}-${padToTwo(parsedMonth)}-${padToTwo(lastDayInMonth)}`;
-		} else {
-			newIso = `${year}-${padToTwo(parsedMonth)}-${padToTwo(parsedDate)}`;
-		}
-
-		this.setState({ calendarValue: newIso });
+		this.setState({ calendarValue: getParsedISO({ iso }) });
 	};
 
 	onCalendarSelect = ({ iso }: { iso: string }) => {
@@ -222,7 +204,11 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		const inputValue = event.target.value;
 
 		if (inputValue) {
-			const parsed = this.parseDate(inputValue);
+			const parsed = parseDate(inputValue, {
+				parseInputValue: this.props.parseInputValue,
+				dateFormat: this.props.dateFormat,
+				l10n: this.state.l10n,
+			});
 			// Only try to set the date if we have month & day
 			if (parsed && isValid(parsed)) {
 				// We format the parsed date to YYYY-MM-DD here because
@@ -280,7 +266,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 				// using enter. See https://product-fabric.atlassian.net/browse/DSP-2501
 				// for more details.
 				event.preventDefault();
-				if (!this.isDateDisabled(calendarValue)) {
+				if (!isDateDisabled(calendarValue, { disabled: this.props.disabled })) {
 					// Get a safe `calendarValue` in case the value exceeds the maximum
 					// allowed by ISO 8601
 					const safeCalendarValue = getSafeCalendarValue(calendarValue);
@@ -350,54 +336,6 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		if (oldRef == null && ref != null) {
 			this.forceUpdate();
 		}
-	};
-
-	/**
-	 * There are two props that can change how the date is parsed.
-	 * The priority of props used is:
-	 *   1. `parseInputValue`
-	 *   2. `locale`
-	 */
-	parseDate = (date: string) => {
-		const { parseInputValue, dateFormat } = this.props;
-
-		if (parseInputValue) {
-			return parseInputValue(date, dateFormat || defaultDateFormat);
-		}
-
-		const { l10n } = this.state;
-
-		return l10n.parseDate(date);
-	};
-
-	/**
-	 * There are multiple props that can change how the date is formatted.
-	 * The priority of props used is:
-	 *   1. `formatDisplayLabel`
-	 *   2. `dateFormat`
-	 *   3. `locale`
-	 */
-	formatDate = (value: string) => {
-		const { formatDisplayLabel, dateFormat } = this.props;
-		const { l10n } = this.state;
-
-		if (formatDisplayLabel) {
-			return formatDisplayLabel(value, dateFormat || defaultDateFormat);
-		}
-
-		const date = parseISO(value);
-
-		return dateFormat ? format(date, convertTokens(dateFormat)) : l10n.formatDate(date);
-	};
-
-	getPlaceholder = () => {
-		const { placeholder } = this.props;
-		if (placeholder) {
-			return placeholder;
-		}
-
-		const { l10n } = this.state;
-		return l10n.formatDate(placeholderDatetime);
 	};
 
 	render() {
@@ -484,7 +422,11 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 
 		const initialValue = value
 			? {
-					label: this.formatDate(value),
+					label: formatDate(value, {
+						formatDisplayLabel: this.props.formatDisplayLabel,
+						dateFormat: this.props.dateFormat,
+						l10n: this.state.l10n,
+					}),
 					value,
 				}
 			: null;
@@ -520,7 +462,10 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					onChange={this.onSelectChange}
 					onFocus={this.onSelectFocus}
 					onInputChange={this.handleSelectInputChange}
-					placeholder={this.getPlaceholder()}
+					placeholder={getPlaceholder({
+						placeholder: this.props.placeholder,
+						l10n: this.state.l10n,
+					})}
 					styles={mergedStyles}
 					value={initialValue}
 					{...selectProps}

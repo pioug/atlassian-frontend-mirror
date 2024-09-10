@@ -46,6 +46,7 @@ describe('Radio Select', () => {
 			hidden: true,
 		})[1];
 
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(radioToBeSelected.parentElement).toHaveStyle(`--icon-secondary-color: transparent`);
 
 		await user.click(screen.getByText('0'));
@@ -53,7 +54,7 @@ describe('Radio Select', () => {
 		const selectedOption = screen.getAllByRole('presentation', {
 			hidden: true,
 		})[1];
-
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(selectedOption.parentElement).toHaveStyle(
 			`--icon-secondary-color: ${token('elevation.surface', '#FFFFFF')}`,
 		);

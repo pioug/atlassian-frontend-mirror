@@ -216,6 +216,7 @@ class ObjHash {
 		return uniqueId;
 	}
 }
+
 export const nodeDecorations = (newState: EditorState) => {
 	const decs: Decoration[] = [];
 	newState.doc.descendants((node, pos, _parent, index) => {

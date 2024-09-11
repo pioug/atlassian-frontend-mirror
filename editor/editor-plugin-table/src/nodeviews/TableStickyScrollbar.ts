@@ -1,6 +1,6 @@
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { TableCssClassName as ClassName } from '../types';
 
@@ -25,7 +25,7 @@ export class TableStickyScrollbar {
 		this.wrapper = wrapper;
 		this.view = view;
 
-		if (fg('platform_editor_lazy-node-views')) {
+		if (editorExperiment('platform_editor_exp_lazy_node_views', true)) {
 			requestAnimationFrame(() => {
 				this.init();
 			});

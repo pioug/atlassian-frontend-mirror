@@ -4,7 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { useMemo, useContext, useState, useRef } from 'react';
+import { useContext, useState, useRef } from 'react';
 import type { ComponentProps } from 'react';
 import { Card, EmbedResizeMessageListener } from '@atlaskit/smart-card';
 import { SmartCardContext } from '@atlaskit/link-provider';
@@ -25,7 +25,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 
-import { getPlatform } from '../../utils';
 import { CardErrorBoundary } from './fallback';
 
 import type { RendererAppearance } from '../../ui/Renderer/types';
@@ -83,7 +82,7 @@ export default function EmbedCard(props: {
 	const onClick = getCardClickHandler(eventHandlers, url);
 	const { showServerActions, actionOptions } = smartLinks || {};
 
-	const platform = useMemo(() => getPlatform(rendererAppearance), [rendererAppearance]);
+	const platform = 'web';
 
 	const cardProps: Partial<ComponentProps<typeof Card>> = {
 		url,

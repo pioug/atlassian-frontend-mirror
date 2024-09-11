@@ -77,6 +77,12 @@ export default {
     'เชื่อมต่อบัญชี {providerName} ของคุณเพื่อทำงานร่วมกันในผลิตภัณฑ์ต่าง ๆ ของ Atlassian',
   'linkDataSource.datasource.table.authScreenHeaderText': 'เชื่อมต่อบัญชี {providerName} ของคุณ',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'เรียนรู้เพิ่มเติมเกี่ยวกับสมาร์ทลิงก์ (ลิงก์อัจฉริยะ)',
+  'linkDataSource.issue-line-table.error-403-description':
+    'คุณต้องได้รับการอนุญาตอย่างถูกต้องจึงจะสามารถแก้ไขรายการนี้ได้',
+  'linkDataSource.issue-line-table.error-403-title': 'การเปลี่ยนแปลงไม่ได้ถูกบันทึก',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'เรามีปัญหาในการพยายามอัปเดตให้เสร็จสิ้น โปรดรอสักครู่ แล้วลองอีกครั้ง โปรดติดต่อฝ่ายสนับสนุน หากเกิดปัญหานี้ขึ้นอย่างต่อเนื่อง',
+  'linkDataSource.issue-line-table.error-generic-title': 'เกิดข้อผิดพลาดบางอย่าง',
   'linkDataSource.issue-line-table.unwrap-text': 'เลิกจัดข้อความล้อมรูปภาพ',
   'linkDataSource.issue-line-table.wrap-text': 'จัดข้อความล้อมรูปภาพ',
   'linkDataSource.checkConnectionWithSource':

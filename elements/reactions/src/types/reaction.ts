@@ -89,6 +89,23 @@ export type ReactionMouseEnter = (emojiId: string, event?: React.MouseEvent<any>
  */
 export type ReactionFocused = (emojiId: string, event?: React.FocusEvent<any>) => void;
 
+export enum ReactionUpdateType {
+	added = 'added',
+	removed = 'removed',
+}
+/**
+ * Event handler that is invoked when a reaction update is successful.
+ *
+ * @param {ReactionUpdateType} action - The action performed on the reaction.
+ * @param ari - The ARI (Atlassian Resource Identifier) of the entity.
+ * @param emojiId - The ID of the emoji used in the reaction.
+ */
+export type ReactionUpdateSuccess = (
+	action: ReactionUpdateType,
+	ari: string,
+	emojiId: string,
+) => void;
+
 /**
  * Condition of the reaction when gets loaded from the store
  */

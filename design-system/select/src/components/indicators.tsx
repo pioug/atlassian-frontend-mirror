@@ -1,25 +1,36 @@
+/* eslint-disable @repo/internal/react/require-jsdoc */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, css } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { components } from 'react-select';
+
+// import LegacyDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import DownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import CrossIcon from '@atlaskit/icon/utility/migration/cross-circle--select-clear';
+import { Inline, Pressable, xcss } from '@atlaskit/primitives';
+import Spinner from '@atlaskit/spinner';
+import { token } from '@atlaskit/tokens';
+
 import {
 	type ClearIndicatorProps,
 	type DropdownIndicatorProps,
 	type LoadingIndicatorProps,
 } from '../types';
-import { Pressable, xcss } from '@atlaskit/primitives';
-import Spinner from '@atlaskit/spinner';
-import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
-import DownIcon from '@atlaskit/icon/glyph/chevron-down';
 
 const iconContainerStyles = xcss({
 	all: 'unset',
 	outline: 'revert',
 	display: 'flex',
 	alignItems: 'center',
+	justifyContent: 'center',
+	padding: 'space.025',
+});
+
+const dropdownWrapperStyles = xcss({
+	padding: 'space.075',
 });
 
 export const ClearIndicator = <Option extends unknown, IsMulti extends boolean = false>(
@@ -32,7 +43,12 @@ export const ClearIndicator = <Option extends unknown, IsMulti extends boolean =
 		}}
 	>
 		<Pressable xcss={iconContainerStyles} tabIndex={-1}>
-			<SelectClearIcon size="small" label="clear" />
+			<CrossIcon
+				label="clear"
+				color="currentColor"
+				LEGACY_size="small"
+				LEGACY_margin={token('space.negative.025', '-0.125rem')}
+			/>
 		</Pressable>
 	</components.ClearIndicator>
 );
@@ -41,7 +57,13 @@ export const DropdownIndicator = <Option extends unknown, IsMulti extends boolea
 	props: DropdownIndicatorProps<Option, IsMulti>,
 ) => (
 	<components.DropdownIndicator {...props}>
-		<DownIcon label="open" />
+		<Inline as="span" xcss={dropdownWrapperStyles}>
+			<DownIcon
+				color="currentColor"
+				label="open"
+				LEGACY_margin={token('space.negative.075', '-0.375rem')}
+			/>
+		</Inline>
 	</components.DropdownIndicator>
 );
 

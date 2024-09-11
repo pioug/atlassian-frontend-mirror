@@ -79,6 +79,11 @@ export default {
     'Koppel je {providerName}-account om samen te werken op verschillende Atlassian-producten.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Koppel je {providerName}-account',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Meer informatie over Smart Links.',
+  'linkDataSource.issue-line-table.error-403-description': 'Je hebt de juiste rechten nodig om dit item te bewerken.',
+  'linkDataSource.issue-line-table.error-403-title': 'Wijzigingen niet opgeslagen',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'We hadden een probleem toen we de update probeerden te voltooien. Wacht een paar minuten en probeer het opnieuw. Neem contact op met de klantenservice als dit steeds gebeurt.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Er is iets misgegaan',
   'linkDataSource.issue-line-table.unwrap-text': 'Tekst niet teruglopen',
   'linkDataSource.issue-line-table.wrap-text': 'Tekst teruglopen',
   'linkDataSource.checkConnectionWithSource':

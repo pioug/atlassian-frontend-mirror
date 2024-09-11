@@ -1,5 +1,13 @@
 # @atlaskit/table
 
+## 0.8.0
+
+### Minor Changes
+
+- [#139165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139165)
+  [`c140497da3215`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c140497da3215) -
+  [ux] Enable new icons behind a feature flag.
+
 ## 0.7.2
 
 ### Patch Changes

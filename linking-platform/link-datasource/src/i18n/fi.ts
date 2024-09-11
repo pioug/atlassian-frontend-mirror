@@ -80,6 +80,12 @@ export default {
     'Yhdistä palvelun {providerName} tilisi ja tee yhteistyötä eri Atlassian-tuotteissa.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Yhdistä {providerName}-tilisi',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Lue lisää Smart Link -linkeistä.',
+  'linkDataSource.issue-line-table.error-403-description':
+    'Tarvitset oikeat käyttöoikeudet tämän kohteen muokkaamiseen.',
+  'linkDataSource.issue-line-table.error-403-title': 'Muutoksia ei ole tallennettu',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'Päivityksen viimeistelyssä oli ongelma. Yritä hetken päästä uudelleen. Ota yhteyttä tukeen, jos ongelma jatkuu.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Jokin meni vikaan',
   'linkDataSource.issue-line-table.unwrap-text': 'Poista tekstin rivitys',
   'linkDataSource.issue-line-table.wrap-text': 'Rivitä teksti',
   'linkDataSource.checkConnectionWithSource':

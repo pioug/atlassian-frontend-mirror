@@ -79,6 +79,11 @@ export default {
     '{providerName} アカウントを接続すると、アトラシアン製品全体でコラボレーションできます。',
   'linkDataSource.datasource.table.authScreenHeaderText': 'ご使用の {providerName} アカウントを接続',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'スマート リンクの詳細',
+  'linkDataSource.issue-line-table.error-403-description': 'このアイテムを編集するには適切な権限が必要です。',
+  'linkDataSource.issue-line-table.error-403-title': '変更は保存されません',
+  'linkDataSource.issue-line-table.error-generic-description':
+    '更新を完了しようとして問題が発生しました。しばらくしてからもう一度お試しください。この問題が引き続き発生する場合は、サポートに連絡してください。',
+  'linkDataSource.issue-line-table.error-generic-title': '問題が発生しました',
   'linkDataSource.issue-line-table.unwrap-text': 'テキストの折り返しを解除',
   'linkDataSource.issue-line-table.wrap-text': 'テキストを折り返す',
   'linkDataSource.checkConnectionWithSource':

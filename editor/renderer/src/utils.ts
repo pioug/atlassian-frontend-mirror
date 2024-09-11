@@ -5,7 +5,6 @@ import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { RendererAppearance } from './ui/Renderer/types';
 
 function createEncoder<T>(parser: Transformer<T>, encoder: Transformer<any>) {
 	return (value: T) => encoder.encode(parser.parse(value));
@@ -34,13 +33,6 @@ export const getEventHandler = (
 	eventName: string = 'onClick',
 ): any => {
 	return eventHandlers && type && eventHandlers[type] && (eventHandlers as any)[type][eventName];
-};
-
-export const getPlatform = (rendererAppearance: RendererAppearance) => {
-	if (rendererAppearance === 'mobile') {
-		return 'mobile' as const;
-	}
-	return 'web' as const;
 };
 
 /**

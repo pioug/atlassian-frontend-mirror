@@ -3,12 +3,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, PureComponent } from 'react';
+import { createRef, type CSSProperties, PureComponent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { CSSTransition } from 'react-transition-group';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -58,6 +59,9 @@ const titleStyles = css({
 export type { ProgressTrackerStageProps };
 
 export default class ProgressTrackerStage extends PureComponent<ProgressTrackerStageProps, State> {
+	nodeRefMarker = createRef<HTMLElement>();
+	nodeRefBar = createRef<HTMLElement>();
+	nodeRefTitle = createRef<HTMLElement>();
 	constructor(props: ProgressTrackerStageProps) {
 		super(props);
 		this.state = {
@@ -122,6 +126,9 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						onEntered={this.onEntered}
 						timeout={transitionDelay + transitionSpeed}
 						classNames="fade"
+						{...(fg('platform-design-system-dsp-20687-transition-group') && {
+							nodeRef: this.nodeRefMarker,
+						})}
 					>
 						<ProgressMarker testId={testId && `${testId}-marker`} />
 					</CSSTransition>
@@ -131,6 +138,9 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						onEntered={this.onEntered}
 						timeout={transitionDelay + transitionSpeed}
 						classNames="fade"
+						{...(fg('platform-design-system-dsp-20687-transition-group') && {
+							nodeRef: this.nodeRefBar,
+						})}
 					>
 						<ProgressBar
 							testId={testId && `${testId}-bar`}
@@ -143,6 +153,9 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						onEntered={this.onEntered}
 						timeout={transitionDelay + transitionSpeed}
 						classNames="fade"
+						{...(fg('platform-design-system-dsp-20687-transition-group') && {
+							nodeRef: this.nodeRefTitle,
+						})}
 					>
 						<div
 							css={titleStyles}

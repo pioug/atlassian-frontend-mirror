@@ -137,8 +137,7 @@ describe('Card ', () => {
 			// ensure that an img is never rendered
 			await expect(screen.findByTestId(imgTestId)).rejects.toThrow();
 
-			// should not render A title box
-			expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+			// should not render title box details
 			expect(screen.queryByText(fileItem.details.name)).not.toBeInTheDocument();
 			expect(screen.queryByText('04 Aug 2023, 01:40 AM')).not.toBeInTheDocument();
 			expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
@@ -1274,8 +1273,7 @@ describe('Card ', () => {
 					</MockedMediaClientProvider>,
 				);
 
-				// should not render a title box
-				expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+				// should not render title box contents
 				expect(screen.queryByText(fileItem.details.name)).not.toBeInTheDocument();
 				expect(screen.queryByText('04 Aug 2023, 01:40 AM')).not.toBeInTheDocument();
 				expect(screen.queryByLabelText('Warning')).not.toBeInTheDocument();
@@ -1611,8 +1609,7 @@ describe('Card ', () => {
 				// should never render an image
 				await expect(screen.findByTestId(imgTestId)).rejects.toThrow();
 
-				// should not render a title box
-				expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
+				// should not render title box contents
 				expect(screen.queryByText(fileItem.details.name)).not.toBeInTheDocument();
 				expect(screen.queryByText('24 Aug 2023, 05:11 AM')).not.toBeInTheDocument();
 

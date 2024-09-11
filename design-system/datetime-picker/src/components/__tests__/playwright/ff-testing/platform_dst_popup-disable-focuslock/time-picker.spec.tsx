@@ -16,8 +16,8 @@ test('When entering a new time in Timepicker, the time should be updated to the 
 	const previousTime = await page.locator(value).first().textContent();
 	await page.locator(input).first().fill('10:15');
 	await page.keyboard.press('Enter');
-	const currentTime = await page.locator(value).first().textContent();
-	expect(currentTime).toBe('10:15 AM');
+	const currentTime = page.locator(value).first();
+	await expect(currentTime).toHaveText('10:15 AM');
 	expect(currentTime).not.toBe(previousTime);
 });
 

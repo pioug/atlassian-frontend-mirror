@@ -190,7 +190,6 @@ export class MediaCardView extends Component<
 			alt,
 			featureFlags,
 			ssr,
-			rendererAppearance,
 			mediaClient,
 		} = this.props;
 
@@ -222,7 +221,7 @@ export class MediaCardView extends Component<
 				mediaViewerItems={Array.from(mediaIdentifierMap.values())}
 				featureFlags={featureFlags}
 				ssr={ssr?.mode}
-				shouldHideTooltip={rendererAppearance === 'mobile'}
+				shouldHideTooltip={false}
 			/>
 		);
 	}
@@ -263,7 +262,6 @@ export class MediaCardView extends Component<
 			occurrenceKey,
 			cardDimensions,
 			resizeMode,
-			rendererAppearance,
 			disableOverlay,
 			useInlinePlayer,
 			originalDimensions,
@@ -274,7 +272,7 @@ export class MediaCardView extends Component<
 			mediaClient,
 			dataAttributes,
 		} = this.props;
-		const isMobile = rendererAppearance === 'mobile';
+		const isMobile = false;
 		const shouldPlayInline = useInlinePlayer !== undefined ? useInlinePlayer : true;
 
 		const isInlinePlayer = isMobile ? false : shouldPlayInline;

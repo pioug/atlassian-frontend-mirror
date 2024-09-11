@@ -80,6 +80,12 @@ export default {
     'Connetti il tuo account {providerName} per collaborare al lavoro con i prodotti Atlassian.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Connetti il tuo account {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Scopri di più sui Link intelligenti.',
+  'linkDataSource.issue-line-table.error-403-description':
+    'Devi disporre delle autorizzazioni giuste per modificare questo elemento.',
+  'linkDataSource.issue-line-table.error-403-title': 'Modifiche non salvate',
+  'linkDataSource.issue-line-table.error-generic-description':
+    "Si è verificato un problema durante il completamento dell'aggiornamento. Attendi qualche minuto e riprova. Se il problema persiste, contatta l'assistenza.",
+  'linkDataSource.issue-line-table.error-generic-title': 'Si è verificato un problema',
   'linkDataSource.issue-line-table.unwrap-text': 'Non portare a capo il testo',
   'linkDataSource.issue-line-table.wrap-text': 'Porta a capo il testo',
   'linkDataSource.checkConnectionWithSource':

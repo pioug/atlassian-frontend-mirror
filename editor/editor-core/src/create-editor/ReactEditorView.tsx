@@ -992,7 +992,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 				//  don't know why that is happening.
 				// Created https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1675
 				//  to investigate further.
-				aria-multiline={this.props.editorProps.appearance !== 'mobile' ? true : false}
+				aria-multiline={true}
 				role="textbox"
 				id={EDIT_AREA_ID}
 				aria-describedby={assistiveDescribedBy}

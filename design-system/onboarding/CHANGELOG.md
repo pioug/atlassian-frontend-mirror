@@ -1,5 +1,12 @@
 # @atlaskit/onboarding
 
+## 11.14.0
+
+### Minor Changes
+
+- [`2d1da097bd763`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d1da097bd763) -
+  DSP-20687 removing usage of findDOMNode in react-transition-group behind ff
+
 ## 11.13.0
 
 ### Minor Changes

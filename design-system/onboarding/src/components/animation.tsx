@@ -2,6 +2,8 @@ import React, { type ReactNode } from 'react';
 
 import { Transition } from 'react-transition-group';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 const duration = {
 	enter: 0,
 	exit: 100,
@@ -24,21 +26,31 @@ interface FadeProps {
  *
  * @internal
  */
-export const Fade = ({ hasEntered, children, onExited }: FadeProps) => (
-	<Transition in={hasEntered} timeout={duration} onExited={onExited} unmountOnExit appear>
-		{(status: string) => {
-			const base = {
-				transition: `opacity ${duration.exit}ms`,
-				opacity: 0,
-			};
-			const anim: Animation = {
-				entered: { opacity: 1 },
-				exiting: { opacity: 0 },
-			};
+export const Fade = ({ hasEntered, children, onExited }: FadeProps) => {
+	const nodeRef = React.useRef(null);
+	return (
+		<Transition
+			in={hasEntered}
+			timeout={duration}
+			onExited={onExited}
+			unmountOnExit
+			appear
+			{...(fg('platform-design-system-dsp-20687-transition-group') && { nodeRef })}
+		>
+			{(status: string) => {
+				const base = {
+					transition: `opacity ${duration.exit}ms`,
+					opacity: 0,
+				};
+				const anim: Animation = {
+					entered: { opacity: 1 },
+					exiting: { opacity: 0 },
+				};
 
-			const style = { ...base, ...anim[status] };
+				const style = { ...base, ...anim[status] };
 
-			return children(style);
-		}}
-	</Transition>
-);
+				return children(style);
+			}}
+		</Transition>
+	);
+};

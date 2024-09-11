@@ -4,11 +4,7 @@ import { token } from '@atlaskit/tokens';
 import { responsiveSettings, getTitleBoxHeight, Breakpoint } from '../common';
 import { N0, N800 } from '@atlaskit/theme/colors';
 import { rgba } from '../styles';
-import {
-	type TitleBoxFooterProps,
-	type TitleBoxHeaderProps,
-	type TitleBoxWrapperProps,
-} from './types';
+import { type TitleBoxFooterProps, type TitleBoxHeaderProps } from './types';
 
 const generateResponsiveStyles = (breakpoint: Breakpoint = Breakpoint.SMALL) => {
 	const setting = responsiveSettings[breakpoint];
@@ -21,7 +17,17 @@ const generateResponsiveStyles = (breakpoint: Breakpoint = Breakpoint.SMALL) => 
 
 const HEX_REGEX = /^#[0-9A-F]{6}$/i;
 
-export const titleBoxWrapperStyles = ({ breakpoint, titleBoxBgColor }: TitleBoxWrapperProps) =>
+type TitleBoxWrapperStyleArgs = {
+	breakpoint: Breakpoint;
+	titleBoxBgColor?: string;
+	display?: 'none' | 'flex';
+};
+
+export const titleBoxWrapperStyles = ({
+	breakpoint,
+	display = 'flex',
+	titleBoxBgColor,
+}: TitleBoxWrapperStyleArgs) =>
 	css(
 		{
 			position: 'absolute',
@@ -35,7 +41,8 @@ export const titleBoxWrapperStyles = ({ breakpoint, titleBoxBgColor }: TitleBoxW
 			color: token('color.text', N800),
 			cursor: 'inherit',
 			pointerEvents: 'none',
-			display: 'flex',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			display,
 			flexDirection: 'column',
 			justifyContent: 'center',
 		},

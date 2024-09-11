@@ -2,7 +2,7 @@ import { mediaSingleSpec } from '@atlaskit/adf-schema';
 import type { RichMediaLayout } from '@atlaskit/adf-schema/schema';
 import type { LazyNodeViewToDOMConfiguration } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { getAttrsFromNodeMediaSingle } from './toDOMAttrs';
@@ -132,7 +132,7 @@ export const mediaSingleSpecWithFixedToDOM = (mediaSingleOption: {
 	withExtendedWidthTypes: boolean;
 }): NodeSpec => {
 	const mediaSingleNode = mediaSingleSpec(mediaSingleOption);
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return mediaSingleNode;
 	}
 

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Lorem from 'react-lorem-component';
 import { Transition } from 'react-transition-group';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { Spotlight, SpotlightManager, SpotlightTransition } from '../src';
@@ -18,7 +19,7 @@ type AnimationState = { [key: string]: any };
 
 export default class SpotlightNodeExample extends Component<Object, State> {
 	drawer = React.createRef<HTMLElement>();
-
+	nodeRef = React.createRef<HTMLElement>();
 	state = { drawerIsVisible: false, spotlightIsVisible: false };
 
 	showDrawer = () => {
@@ -69,6 +70,9 @@ export default class SpotlightNodeExample extends Component<Object, State> {
 					timeout={duration}
 					onExit={this.hideSpotlight}
 					onEntered={() => window.setTimeout(this.showSpotlight, duration)}
+					{...(fg('platform-design-system-dsp-20687-transition-group') && {
+						nodeRef: this.nodeRef,
+					})}
 				>
 					{(state: string) => {
 						if (state === 'exited') {

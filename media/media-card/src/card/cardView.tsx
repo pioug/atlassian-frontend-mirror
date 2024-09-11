@@ -4,7 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { type MouseEvent, useEffect, useState, useRef } from 'react';
+import React, { type MouseEvent, useEffect, useState, useRef, useMemo } from 'react';
 import { type MessageDescriptor } from 'react-intl-next';
 
 import { type MediaItemType, type FileDetails, type ImageResizeMode } from '@atlaskit/media-client';
@@ -27,7 +27,7 @@ import {
 } from '../types';
 import { type MediaFilePreview } from '@atlaskit/media-file-preview';
 import { createAndFireMediaCardEvent } from '../utils/analytics';
-import { type CardAction, attachDetailsToActions } from './actions';
+import { type CardAction } from './actions';
 import { ImageRenderer } from './ui/imageRenderer/imageRenderer';
 import { TitleBox } from './ui/titleBox/titleBox';
 import { FailedTitleBox } from './ui/titleBox/failedTitleBox';
@@ -49,6 +49,7 @@ import { Wrapper, ImageContainer } from './ui/wrapper';
 import { fileCardImageViewSelector } from './classnames';
 import { useBreakpoint } from './useBreakpoint';
 import OpenMediaViewerButton from './ui/openMediaViewerButton/openMediaViewerButton';
+import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 
 export interface CardViewProps {
 	readonly disableOverlay?: boolean;
@@ -195,7 +196,7 @@ export const CardViewBase = ({
 			renderImageRenderer: !!cardPreview,
 			renderPlayButton: !!cardPreview && mediaType === 'video',
 			renderBlanket: !disableOverlay,
-			renderTitleBox: !disableOverlay && !!name,
+			renderTitleBox: !disableOverlay,
 			renderTickBox: !disableOverlay && !!selectable,
 		};
 
@@ -288,11 +289,29 @@ export const CardViewBase = ({
 	// Disable tooltip for Media Single
 	const shouldDisplayTooltip = !disableOverlay && !shouldHideTooltip;
 
-	const hasTitleBox = !!(renderTitleBox || renderFailedTitleBox);
-
 	const { mediaType, mimeType, name, createdAt } = metadata || {};
 
-	const actionsWithDetails = metadata && actions ? attachDetailsToActions(actions, metadata) : [];
+	const isTitleBoxVisible = renderTitleBox && name;
+	const hasVisibleTitleBox = !!(isTitleBoxVisible || renderFailedTitleBox);
+
+	const metadataRef = useCurrentValueRef(metadata);
+
+	const actionsWithDetails = useMemo(() => {
+		if (!actions) {
+			return [];
+		}
+
+		return actions.map((action: CardAction) => ({
+			...action,
+			handler: () => {
+				if (!metadataRef.current) {
+					action.handler();
+				} else {
+					action.handler({ type: 'file', details: metadataRef.current });
+				}
+			},
+		}));
+	}, [actions, metadataRef]);
 
 	const contents = (
 		<React.Fragment>
@@ -305,7 +324,7 @@ export const CardViewBase = ({
 				source={cardPreview?.source}
 			>
 				{renderTypeIcon && (
-					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasTitleBox}>
+					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasVisibleTitleBox}>
 						<MimeTypeIcon
 							testId="media-card-file-type-icon"
 							mediaType={mediaType}
@@ -316,7 +335,7 @@ export const CardViewBase = ({
 					</IconWrapper>
 				)}
 				{renderSpinner && (
-					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasTitleBox}>
+					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasVisibleTitleBox}>
 						<SpinnerIcon testId="media-card-loading" interactionName="media-card-loading" />
 					</IconWrapper>
 				)}
@@ -334,25 +353,30 @@ export const CardViewBase = ({
 					/>
 				)}
 				{renderPlayButton && (
-					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasTitleBox}>
+					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasVisibleTitleBox}>
 						<PlayButton />
 					</IconWrapper>
 				)}
 				{renderBlanket && <Blanket isFixed={isFixedBlanket} />}
-				{renderTitleBox && name && (
+				{renderTitleBox && (
 					<TitleBox
 						name={name}
 						createdAt={overriddenCreationDate ?? createdAt}
 						breakpoint={breakpoint}
 						titleBoxIcon={titleBoxIcon}
 						titleBoxBgColor={titleBoxBgColor}
+						hidden={!isTitleBoxVisible}
 					/>
 				)}
 				{renderFailedTitleBox && (
 					<FailedTitleBox breakpoint={breakpoint} customMessage={customTitleMessage} />
 				)}
 				{renderProgressBar && (
-					<ProgressBar progress={progress} breakpoint={breakpoint} positionBottom={!hasTitleBox} />
+					<ProgressBar
+						progress={progress}
+						breakpoint={breakpoint}
+						positionBottom={!hasVisibleTitleBox}
+					/>
 				)}
 				{renderTickBox && <TickBox selected={selected} />}
 			</ImageContainer>

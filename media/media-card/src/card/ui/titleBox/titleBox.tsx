@@ -5,7 +5,7 @@ import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
 
-import { type FormattedDateProps, type TitleBoxProps } from './types';
+import { type TitleBoxProps } from './types';
 import {
 	TitleBoxWrapper,
 	TitleBoxFooter,
@@ -13,33 +13,37 @@ import {
 	TitleBoxIcon,
 } from './titleBoxComponents';
 
-export const FormattedDate: React.ComponentType<FormattedDateProps> = injectIntl(
-	({ timestamp, intl }: FormattedDateProps & WrappedComponentProps) => {
-		const { locale = 'en' } = intl || { locale: 'en' };
-		return <>{formatDate(timestamp, locale)}</>;
-	},
-);
+const placeholderText = ' ';
 
-export const TitleBox = ({
-	name,
-	createdAt,
-	breakpoint,
-	titleBoxBgColor,
-	titleBoxIcon,
-}: TitleBoxProps) => (
-	<TitleBoxWrapper breakpoint={breakpoint} titleBoxBgColor={titleBoxBgColor}>
-		<TitleBoxHeader hasIconOverlap={!!titleBoxIcon && !createdAt}>
-			<Truncate text={name} />
-		</TitleBoxHeader>
-		{createdAt ? (
+const isValidTimestamp = (timeStamp: number) => new Date(timeStamp).getTime() > 0;
+
+export const TitleBox = injectIntl(
+	({
+		name,
+		createdAt,
+		breakpoint,
+		titleBoxBgColor,
+		titleBoxIcon,
+		hidden,
+		intl,
+	}: TitleBoxProps & WrappedComponentProps) => (
+		<TitleBoxWrapper hidden={hidden} breakpoint={breakpoint} titleBoxBgColor={titleBoxBgColor}>
+			<TitleBoxHeader hasIconOverlap={!!titleBoxIcon && !createdAt}>
+				<Truncate text={name ?? placeholderText} />
+			</TitleBoxHeader>
 			<TitleBoxFooter hasIconOverlap={!!titleBoxIcon}>
-				<FormattedDate timestamp={createdAt} />
+				{createdAt !== undefined && isValidTimestamp(createdAt)
+					? formatDate(createdAt, intl?.locale ?? 'en')
+					: placeholderText}
 			</TitleBoxFooter>
-		) : null}
-		{titleBoxIcon === 'LockFilledIcon' && (
-			<TitleBoxIcon>
-				<LockFilledIcon label="" size="small" />
-			</TitleBoxIcon>
-		)}
-	</TitleBoxWrapper>
+			{titleBoxIcon === 'LockFilledIcon' && (
+				<TitleBoxIcon>
+					<LockFilledIcon label="" size="small" />
+				</TitleBoxIcon>
+			)}
+		</TitleBoxWrapper>
+	),
+	{
+		enforceContext: false,
+	},
 );

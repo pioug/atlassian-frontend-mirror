@@ -1,10 +1,17 @@
+import { type ReactionUpdateSuccess } from './reaction';
+
 /**
  * Event callback by the client to the API
  * @param containerAri the container for reactions/ari in the page (attached to the "quickReactionEmojis" prop)
  * @param ariunique Atlassian identifier for an emoji (attached to the "quickReactionEmojis" prop)
  * @param emojiId unique identifier guid for the emoji
  */
-export type ReactionAction = (containerAri: string, ari: string, emojiId: string) => void;
+export type ReactionAction = (
+	containerAri: string,
+	ari: string,
+	emojiId: string,
+	onSuccess?: ReactionUpdateSuccess,
+) => void;
 
 export type Actions = {
 	/**

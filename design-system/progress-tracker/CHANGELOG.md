@@ -1,5 +1,12 @@
 # @atlaskit/progress-tracker
 
+## 8.9.0
+
+### Minor Changes
+
+- [`2d1da097bd763`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d1da097bd763) -
+  DSP-20687 removing usage of findDOMNode in react-transition-group behind ff
+
 ## 8.8.2
 
 ### Patch Changes

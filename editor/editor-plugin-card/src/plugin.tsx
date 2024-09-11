@@ -44,7 +44,7 @@ import { isDatasourceConfigEditable } from './utils';
 export type CardPlugin = NextEditorPlugin<
 	'card',
 	{
-		pluginConfiguration: CardPluginOptions;
+		pluginConfiguration: CardPluginOptions | undefined;
 		dependencies: [
 			OptionalPlugin<FeatureFlagsPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
@@ -60,7 +60,7 @@ export type CardPlugin = NextEditorPlugin<
 	}
 >;
 
-export const cardPlugin: CardPlugin = ({ config: options, api }) => {
+export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptions, api }) => {
 	let previousCardProvider: CardProvider | undefined;
 	const cardPluginEvents = createEventsQueue<CardPluginEvent>();
 
@@ -177,7 +177,6 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
 			floatingToolbar: floatingToolbar(
 				options,
 				options.lpLinkPicker ?? false,
-				options.platform,
 				options.linkPicker,
 				api,
 				options.disableFloatingToolbar,

@@ -73,6 +73,11 @@ export default {
     '关联您的 {providerName} 帐户，以便跨 Atlassian 产品协作处理工作。',
   'linkDataSource.datasource.table.authScreenHeaderText': '连接您的 {providerName} 帐户',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': '了解有关智能链接的更多信息。',
+  'linkDataSource.issue-line-table.error-403-description': '您需要有相应的权限才能编辑此项目。',
+  'linkDataSource.issue-line-table.error-403-title': '更改未保存',
+  'linkDataSource.issue-line-table.error-generic-description':
+    '我们在尝试完成更新时遇到问题。请稍等几分钟，然后重试。如果此情况持续发生，请联系支持团队。',
+  'linkDataSource.issue-line-table.error-generic-title': '出错了',
   'linkDataSource.issue-line-table.unwrap-text': '取消换行',
   'linkDataSource.issue-line-table.wrap-text': '换行',
   'linkDataSource.checkConnectionWithSource': '请检查连接并刷新，或<a>在 Jira 中打开此查询</a>以进行查看。',

@@ -24,6 +24,9 @@
       "path": "../../button/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../ds-lib/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../icon/afm-jira/tsconfig.json"
     },
     {

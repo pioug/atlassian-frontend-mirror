@@ -14,7 +14,7 @@ import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { DOMOutputSpec, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { getListTypes, insertTaskDecisionAction, insertTaskDecisionCommand } from './commands';
@@ -36,7 +36,7 @@ type HTMLInputElementAttrs = { type: 'checkbox'; checked?: 'true'; id: string; n
 
 // @nodeSpecException:toDOM patch
 export const taskItemSpecWithFixedToDOM = () => {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return taskItem;
 	}
 

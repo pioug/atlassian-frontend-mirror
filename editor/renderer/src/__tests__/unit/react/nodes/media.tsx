@@ -299,7 +299,7 @@ describe('Media', () => {
 			await Loadable.preloadAll();
 		});
 
-		const cardView = await waitFor(() => screen.getByTestId('media-file-card-view'));
+		const cardView = await screen.findByTestId('media-file-card-view');
 		await userEvent.click(cardView);
 
 		expect(mediaOnClick).toHaveBeenCalledTimes(1);
@@ -487,11 +487,6 @@ describe('Media', () => {
 		});
 
 		it('should pass shouldOpenMediaViewer=true if renderer appearance is not mobile', () => {
-			const cardMobile = mount(
-				<MediaClientProvider clientConfig={mediaClientConfig}>
-					<MediaCard type="file" id="1" rendererAppearance={'mobile'} />
-				</MediaClientProvider>,
-			);
 			const cardNoMobile = mount(
 				<MediaClientProvider clientConfig={mediaClientConfig}>
 					<MediaCard type="file" id="1" />
@@ -499,8 +494,6 @@ describe('Media', () => {
 			);
 
 			expect(cardNoMobile.find(Card).prop('shouldOpenMediaViewer')).toBeTruthy();
-			expect(cardMobile.find(Card).prop('shouldOpenMediaViewer')).toBeFalsy();
-			cardMobile.unmount();
 			cardNoMobile.unmount();
 		});
 
@@ -516,17 +509,6 @@ describe('Media', () => {
 				</MediaClientProvider>,
 			);
 
-			const cardMobile = mount(
-				<MediaClientProvider clientConfig={mediaClientConfig}>
-					<MediaCard
-						type="file"
-						id="1"
-						shouldOpenMediaViewer={true}
-						rendererAppearance={'mobile'}
-					/>
-				</MediaClientProvider>,
-			);
-
 			const cardWithoutOnClick = mount(
 				<MediaClientProvider clientConfig={mediaClientConfig}>
 					<MediaCard type="file" id="1" shouldOpenMediaViewer={true} />
@@ -535,10 +517,8 @@ describe('Media', () => {
 
 			expect(cardWithOnClick.find(Card).prop('shouldOpenMediaViewer')).toBeTruthy();
 			expect(cardWithoutOnClick.find(Card).prop('shouldOpenMediaViewer')).toBeTruthy();
-			expect(cardMobile.find(Card).prop('shouldOpenMediaViewer')).toBeTruthy();
 			cardWithOnClick.unmount();
 			cardWithoutOnClick.unmount();
-			cardMobile.unmount();
 		});
 
 		it('should pass shouldOpenMediaViewer=false if property shouldOpenMediaViewer is set to false', () => {
@@ -557,23 +537,11 @@ describe('Media', () => {
 					<MediaCard type="file" id="1" shouldOpenMediaViewer={false} />
 				</MediaClientProvider>,
 			);
-			const cardMobile = mount(
-				<MediaClientProvider clientConfig={mediaClientConfig}>
-					<MediaCard
-						type="file"
-						id="1"
-						shouldOpenMediaViewer={false}
-						rendererAppearance={'mobile'}
-					/>
-				</MediaClientProvider>,
-			);
 
 			expect(cardWithOnClick.find(Card).prop('shouldOpenMediaViewer')).toBeFalsy();
 			expect(cardWithoutOnClick.find(Card).prop('shouldOpenMediaViewer')).toBeFalsy();
-			expect(cardMobile.find(Card).prop('shouldOpenMediaViewer')).toBeFalsy();
 			cardWithOnClick.unmount();
 			cardWithoutOnClick.unmount();
-			cardMobile.unmount();
 		});
 
 		it('should call passed onClick', () => {

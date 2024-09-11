@@ -79,6 +79,12 @@ export default {
     'Anslut ditt {providerName}-konto för att samarbeta kring projekt i flera Atlassian-produkter.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Anslut ditt {providerName}-konto',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Läs mer om smarta länkar.',
+  'linkDataSource.issue-line-table.error-403-description':
+    'Du måste ha rätt behörigheter för att redigera denna uppgift.',
+  'linkDataSource.issue-line-table.error-403-title': 'Ändringarna har inte sparats',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'Vi stötte på ett problem när vi försökte slutföra uppdateringen. Vänta några minuter och försök sedan igen. Kontakta supporten om detta fortsätter att hända.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Något gick fel',
   'linkDataSource.issue-line-table.unwrap-text': 'Radbryt inte text',
   'linkDataSource.issue-line-table.wrap-text': 'Radbryt text',
   'linkDataSource.checkConnectionWithSource':

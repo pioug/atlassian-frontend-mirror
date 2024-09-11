@@ -1,12 +1,12 @@
 import { ExtensionNodeView } from '@atlaskit/editor-common/extensibility';
 import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export function lazyExtensionNodeView(
 	nodeName: string,
 	...params: Parameters<typeof ExtensionNodeView>
 ) {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return ExtensionNodeView(...params);
 	}
 

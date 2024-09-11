@@ -1,6 +1,6 @@
 import { mediaGroup } from '@atlaskit/adf-schema';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 /**
  * Duplicate consts from `media-card`.
@@ -59,7 +59,7 @@ export const getDefaultCardDimensions = (
 
 // @nodeSpecException:toDOM patch
 export const mediaGroupSpecWithFixedToDOM = () => {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return mediaGroup;
 	}
 	return {

@@ -13,6 +13,7 @@ import {
 	type ReactionSummary,
 	type StorePropInput,
 } from '../../types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('@atlaskit/reactions/containers/ConnectedReactionsView', () => {
 	mockReactDomWarningGlobal();
@@ -111,13 +112,6 @@ describe('@atlaskit/reactions/containers/ConnectedReactionsView', () => {
 			expect(actions.getReactions).toHaveBeenCalledWith(containerAri, ari);
 		});
 
-		it('should call toggleReaction onReactionClick', () => {
-			mapDispatchToPropsHelper(actions, containerAri, ari).onReactionClick('emojiA');
-
-			expect(actions.toggleReaction).toHaveBeenCalledTimes(1);
-			expect(actions.toggleReaction).toHaveBeenCalledWith(containerAri, ari, 'emojiA');
-		});
-
 		it('should call getDetailedReaction on getReactionDetails', () => {
 			mapDispatchToPropsHelper(actions, containerAri, ari).getReactionDetails('emojiA');
 
@@ -125,12 +119,74 @@ describe('@atlaskit/reactions/containers/ConnectedReactionsView', () => {
 			expect(actions.getDetailedReaction).toHaveBeenCalledWith(containerAri, ari, 'emojiA');
 		});
 
-		it('should call addReaction onSelection', () => {
-			mapDispatchToPropsHelper(actions, containerAri, ari).onSelection('emojiA');
+		ffTest.off(
+			'platform_reaction_success_callback',
+			'with platform_reaction_success_callback FG OFF',
+			() => {
+				it('should call toggleReaction onReactionClick without passing a param for success callback', () => {
+					mapDispatchToPropsHelper(actions, containerAri, ari).onReactionClick('emojiA');
 
-			expect(actions.addReaction).toHaveBeenCalledTimes(1);
-			expect(actions.addReaction).toHaveBeenCalledWith(containerAri, ari, 'emojiA');
-		});
+					expect(actions.toggleReaction).toHaveBeenCalledTimes(1);
+					expect(actions.toggleReaction).toHaveBeenCalledWith(containerAri, ari, 'emojiA');
+				});
+
+				it('should call addReaction onSelection without passing a param for success callback', () => {
+					mapDispatchToPropsHelper(actions, containerAri, ari).onSelection('emojiA');
+
+					expect(actions.addReaction).toHaveBeenCalledTimes(1);
+					expect(actions.addReaction).toHaveBeenCalledWith(containerAri, ari, 'emojiA');
+				});
+			},
+		);
+
+		ffTest.on(
+			'platform_reaction_success_callback',
+			'with platform_reaction_success_callback FG OFF',
+			() => {
+				const successCallBack = jest.fn();
+				it('should call toggleReaction onReactionClick passing through success callback if present', () => {
+					mapDispatchToPropsHelper(actions, containerAri, ari, successCallBack).onReactionClick(
+						'emojiA',
+					);
+
+					expect(actions.toggleReaction).toHaveBeenCalledTimes(1);
+					expect(actions.toggleReaction).toHaveBeenCalledWith(
+						containerAri,
+						ari,
+						'emojiA',
+						successCallBack,
+					);
+				});
+
+				it('should call addReaction onSelection passing through success callback if present', () => {
+					mapDispatchToPropsHelper(actions, containerAri, ari, successCallBack).onSelection(
+						'emojiA',
+					);
+
+					expect(actions.addReaction).toHaveBeenCalledTimes(1);
+					expect(actions.addReaction).toHaveBeenCalledWith(
+						containerAri,
+						ari,
+						'emojiA',
+						successCallBack,
+					);
+				});
+
+				it('should call toggleReaction onReactionClick without passing success callback if not passed to onReactionClick', () => {
+					mapDispatchToPropsHelper(actions, containerAri, ari).onReactionClick('emojiA');
+
+					expect(actions.toggleReaction).toHaveBeenCalledTimes(1);
+					expect(actions.toggleReaction).toHaveBeenCalledWith(containerAri, ari, 'emojiA');
+				});
+
+				it('should call addReaction onSelection without passing success callback if not passed to onSelection', () => {
+					mapDispatchToPropsHelper(actions, containerAri, ari).onSelection('emojiA');
+
+					expect(actions.addReaction).toHaveBeenCalledTimes(1);
+					expect(actions.addReaction).toHaveBeenCalledWith(containerAri, ari, 'emojiA');
+				});
+			},
+		);
 	});
 
 	it('should set createAnalyticsEvent function in the store in the componentDidMount', async () => {

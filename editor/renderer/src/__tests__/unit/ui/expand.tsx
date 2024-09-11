@@ -16,17 +16,4 @@ describe('Expand', () => {
 
 		expect(queryByTestId('tooltip--container')).toBeInTheDocument();
 	});
-
-	it('should render without a tooltip in mobile', () => {
-		const { queryByTestId } = renderWithIntl(
-			<ExpandWithInt
-				title={'Expand test title'}
-				nodeType={'expand'}
-				children={<p>Text inside expand</p>}
-				rendererAppearance={'mobile'}
-			/>,
-		);
-
-		expect(queryByTestId('tooltip--container')).not.toBeInTheDocument();
-	});
 });

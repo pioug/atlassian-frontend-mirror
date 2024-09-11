@@ -80,6 +80,12 @@ export default {
     'Connectez votre compte {providerName} pour collaborer sur le travail dans les produits Atlassian.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Connectez votre compte {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'En savoir plus sur les liens intelligents.',
+  'linkDataSource.issue-line-table.error-403-description':
+    'Vous avez besoin des autorisations adéquates pour modifier cette tâche.',
+  'linkDataSource.issue-line-table.error-403-title': 'Changements non enregistrés',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'Nous avons rencontré un problème lors de la tentative de mise à jour. Patientez quelques minutes, puis réessayez. Contactez le support si le problème persiste.',
+  'linkDataSource.issue-line-table.error-generic-title': "Une erreur s'est produite",
   'linkDataSource.issue-line-table.unwrap-text': 'Ne pas revenir à la ligne',
   'linkDataSource.issue-line-table.wrap-text': 'Revenir à la ligne',
   'linkDataSource.checkConnectionWithSource':

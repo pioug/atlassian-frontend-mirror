@@ -34,7 +34,7 @@ const createPreset = () =>
 		appearance: 'full-page',
 	})
 		.add(gridPlugin)
-		.add([cardPlugin, { platform: 'web' }])
+		.add(cardPlugin)
 		.add([extensionPlugin, { extensionHandlers }])
 		.add(alignmentPlugin)
 		.add(layoutPlugin);

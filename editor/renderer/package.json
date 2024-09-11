@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "109.53.1",
+	"version": "109.53.3",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,7 +46,7 @@
 		"@atlaskit/media-ui": "^25.11.0",
 		"@atlaskit/media-viewer": "^48.7.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/smart-card": "^28.0.0",
+		"@atlaskit/smart-card": "^28.1.0",
 		"@atlaskit/status": "^1.4.0",
 		"@atlaskit/task-decision": "^17.10.0",
 		"@atlaskit/theme": "^13.0.0",
@@ -144,6 +144,9 @@
 			"type": "boolean"
 		},
 		"platform-fix-table-ssr-resizing": {
+			"type": "boolean"
+		},
+		"platform_editor_allow_annotation_triple_click": {
 			"type": "boolean"
 		}
 	},

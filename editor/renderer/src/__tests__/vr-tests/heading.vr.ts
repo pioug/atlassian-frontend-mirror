@@ -1,4 +1,4 @@
-import { snapshot, Device } from '@af/visual-regression';
+import { snapshot } from '@af/visual-regression';
 import {
 	HeadingRenderer,
 	HeadingsCenterRenderer,
@@ -7,12 +7,6 @@ import {
 	HeadingsRTLSymbolsWithHighlighterRenderer,
 	HeadingCommentRenderer,
 	HeadingMultilineRenderer,
-	HeadingsRightMobileRenderer,
-	HeadingsLeftMobileRenderer,
-	HeadingsCenterMobileRenderer,
-	HeadingRightStatusRenderer,
-	HeadingRightSymbolsRenderer,
-	HeadingRightEmojiRenderer,
 } from './heading.fixture';
 
 snapshot(HeadingRenderer);
@@ -21,38 +15,6 @@ snapshot(HeadingsLeftRenderer);
 snapshot(HeadingsRightRenderer);
 // With the highlight renderer enabled it should not show symbols incorrectly
 snapshot(HeadingsRTLSymbolsWithHighlighterRenderer);
-
-/**
- * Should only apply RTL to copy link
- *
- * Note: We are only using "mobile" variant so we can force all the anchor links
- * to display.
- */
-snapshot(HeadingRightStatusRenderer, {
-	description: 'should not apply RTL to status',
-	variants: [{ name: 'mobile', device: Device.MOBILE_CHROME }],
-});
-snapshot(HeadingRightSymbolsRenderer, {
-	description: 'should not apply RTL to symbols',
-	variants: [{ name: 'mobile', device: Device.MOBILE_CHROME }],
-});
-snapshot(HeadingRightEmojiRenderer, {
-	description: 'should not apply RTL to emoji',
-	variants: [{ name: 'mobile', device: Device.MOBILE_CHROME }],
-});
-
-/**
- * Mobile tests
- */
-snapshot(HeadingsRightMobileRenderer, {
-	variants: [{ name: 'mobile', device: Device.MOBILE_CHROME }],
-});
-snapshot(HeadingsLeftMobileRenderer, {
-	variants: [{ name: 'mobile', device: Device.MOBILE_CHROME }],
-});
-snapshot(HeadingsCenterMobileRenderer, {
-	variants: [{ name: 'mobile', device: Device.MOBILE_CHROME }],
-});
 
 /**
  * Other cases

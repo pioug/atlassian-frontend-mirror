@@ -43,7 +43,6 @@ import { intlRequiredDoc } from '../../__fixtures__/intl-required-doc';
 import { invalidDoc } from '../../__fixtures__/invalid-doc';
 import * as linkDoc from '../../__fixtures__/links.adf.json';
 import { tableLayout } from '../../__fixtures__/table';
-import { setupMultipleRendersTestHelper } from '../../__helpers/render';
 
 const mockMeasureTTI = measureTTI as jest.Mock<typeof measureTTI>;
 
@@ -425,89 +424,6 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 					);
 
 					expect(measureTTI).not.toHaveBeenCalled();
-				});
-			});
-		});
-
-		describe('renderer reRendered tracking (render count)', () => {
-			describe('when rendererRenderTracking is enabled', () => {
-				const { expectAnalyticsEventAfterNthRenders } = setupMultipleRendersTestHelper();
-
-				const renderTrackingEnabled = {
-					['renderer-render-tracking']: JSON.stringify({
-						renderer: {
-							enabled: true,
-							useShallow: false,
-						},
-					}),
-				};
-
-				const TestRenderer = (props: Partial<RendererProps>) => (
-					<Renderer document={initialDoc} featureFlags={renderTrackingEnabled} {...props} />
-				);
-
-				describe('props changing on each render', () => {
-					const changingProps = [{ propA: 10 }, { propA: 99 }, { propA: 30 }, { propA: 200 }];
-
-					it('should fire debounced "renderer reRendered" event with correct total render count and latest prop differences', (done) => {
-						const expectedEvent = expect.objectContaining({
-							action: 'reRendered',
-							actionSubject: 'renderer',
-							attributes: expect.objectContaining({
-								// we expect 3 not 4 because render count is 0 based.
-								count: 3,
-								propsDifference: {
-									added: [],
-									changed: expect.arrayContaining([{ key: 'propA', oldValue: 30, newValue: 200 }]),
-									removed: [],
-								},
-								componentId: expect.any(String),
-							}),
-						});
-
-						expectAnalyticsEventAfterNthRenders(
-							TestRenderer,
-							4,
-							changingProps,
-							expectedEvent,
-							done,
-						);
-					});
-				});
-
-				describe('props changing 1 times out of 5', () => {
-					const changingProps = [
-						{ propA: 'a' },
-						{ propA: 'b' },
-						{ propA: 'b' },
-						{ propA: 'b' },
-						{ propA: 'b' },
-					];
-					it('should fire debounced "renderer reRendered" event with correct total render count and latest prop differences', (done) => {
-						const expectedEvent = expect.objectContaining({
-							action: 'reRendered',
-							actionSubject: 'renderer',
-							attributes: expect.objectContaining({
-								// we expect 1 not 2 because render count is 0 based.
-								// we expect 1 re-render because despite force rendering 5 times, we only changed the props once.
-								count: 1,
-								propsDifference: {
-									added: [],
-									changed: expect.arrayContaining([{ key: 'propA', oldValue: 'a', newValue: 'b' }]),
-									removed: [],
-								},
-								componentId: expect.any(String),
-							}),
-						});
-
-						expectAnalyticsEventAfterNthRenders(
-							TestRenderer,
-							5,
-							changingProps,
-							expectedEvent,
-							done,
-						);
-					});
 				});
 			});
 		});

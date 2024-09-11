@@ -6,7 +6,7 @@ const overlayStyles = xcss({
 	display: 'flex',
 	position: 'absolute',
 	inset: 'space.0',
-	left: 'space.400',
+	insetInlineStart: 'space.400',
 });
 
 /**

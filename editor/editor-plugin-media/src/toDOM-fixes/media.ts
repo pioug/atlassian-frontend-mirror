@@ -1,6 +1,6 @@
 import { media } from '@atlaskit/adf-schema';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { getMediaAttrs } from './toDOMAttrs';
@@ -25,7 +25,7 @@ export const defaultImageCardDimensions = {
 
 // @nodeSpecException:toDOM patch
 export const mediaSpecWithFixedToDOM = () => {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return media;
 	}
 	return {

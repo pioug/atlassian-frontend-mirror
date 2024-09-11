@@ -1,3 +1,5 @@
+import * as allAdfSchemaSteps from '@atlaskit/adf-schema/steps';
+import * as allAtlaskitCustomSteps from '@atlaskit/custom-steps';
 import type {
 	CollabEditProvider,
 	CollabEventConnectionData,
@@ -15,6 +17,14 @@ import { receiveTransaction } from '@atlaskit/prosemirror-collab';
 
 import type { PrivateCollabEditOptions } from './types';
 import { replaceDocument } from './utils';
+
+/*
+ * This is a non-op function to force ProseMirror to load and register all custom steps in the same bundle
+ */
+export const registerAllCustomSteps = () => {
+	Object.entries(allAtlaskitCustomSteps).forEach(() => {});
+	Object.entries(allAdfSchemaSteps).forEach(() => {});
+};
 
 export const handleInit = (
 	initData: CollabEventInitData,

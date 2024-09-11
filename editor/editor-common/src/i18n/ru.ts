@@ -321,16 +321,19 @@ export default {
     '{newMediaWidth, plural, one {Ширина объекта мультимедиа увеличена до {newMediaWidth,number} пикселя.} few {Ширина объекта мультимедиа увеличена до {newMediaWidth,number} пикселей.} many {Ширина объекта мультимедиа увеличена до {newMediaWidth,number} пикселей.} other {Ширина объекта мультимедиа увеличена до {newMediaWidth,number} пикселя.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Размер медиа уменьшен до минимума',
   'fabric.editor.media.insert.cancel': 'Отмена',
-  'fabric.editor.media.insert.errorMessage':
-    'Невозможно добавить изображение по этой ссылке. Загрузите изображение, а затем перетащите его на страницу.',
+  'fabric.editor.media.insert.fileTabTitle': 'Файл',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'Это изображение может быть скрыто от других пользователей из-за ограничений источника. Вместо этого попробуйте загрузить файл.',
   'fabric.editor.media.insert.insert': 'Вставить',
   'fabric.editor.media.insert.linkTabTitle': 'Ссылка',
   'fabric.editor.media.insert.loadPreview': 'Загрузить предпросмотр',
+  'fabric.editor.media.insert.localFileErrorMessage': 'Не удалось загрузить файл.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'Ошибка загрузки файла. Проверьте путь к файлу или подключение к сети.',
   'fabric.editor.media.insert.mediaAlt': 'Предпросмотр загруженного изображения или видеофайла',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Средство выбора медиафайлов',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Вставьте ссылку, чтобы загрузить файл',
-  'fabric.editor.media.insert.warning':
-    'Это изображение может быть скрыто от других пользователей из-за ограничений источника. Вместо этого попробуйте загрузить файл.',
+  'fabric.editor.media.insert.upload': 'Загрузить',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Размер медиа увеличен до максимума',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'ввод высоты',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Высота',

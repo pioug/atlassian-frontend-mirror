@@ -16,8 +16,8 @@ test('[i18n] When entering a new time in Timepicker Editable, the time should be
 	const previousTime = await page.locator(timePickerValue).first().inputValue();
 	await page.locator(timePickerInput).first().fill('1:45pm');
 	await page.keyboard.press('Enter');
-	const currentTime = await page.locator(timePickerValue).first().inputValue();
-	expect(currentTime).toBe('13:45');
+	const currentTime = page.locator(timePickerValue).first();
+	await expect(currentTime).toHaveValue('13:45');
 	expect(currentTime).not.toBe(previousTime);
 });
 

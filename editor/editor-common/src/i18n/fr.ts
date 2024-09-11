@@ -321,16 +321,19 @@ export default {
     '{newMediaWidth, plural, one {La largeur du média a été augmentée à {newMediaWidth,number} pixel.} other {La largeur du média a été augmentée à {newMediaWidth,number} pixels.}}',
   'fabric.editor.media.MediaWidthIsMin': 'La taille des médias a été réduite au minimum',
   'fabric.editor.media.insert.cancel': 'Annuler',
-  'fabric.editor.media.insert.errorMessage':
-    "Malheureusement, nous ne pouvons pas ajouter le lien vers cette image. Téléchargez l'image, puis faites-la glisser sur la page.",
+  'fabric.editor.media.insert.fileTabTitle': 'Fichier',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    "Cette image n'est peut-être pas visible pour les autres en raison de restrictions source. Envisagez plutôt d'importer le fichier.",
   'fabric.editor.media.insert.insert': 'Insérer',
   'fabric.editor.media.insert.linkTabTitle': 'Lien',
   'fabric.editor.media.insert.loadPreview': "Charger l'aperçu",
+  'fabric.editor.media.insert.localFileErrorMessage': 'Impossible de charger ce fichier.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    "Erreur de chargement du fichier. Vérifiez le chemin d'accès au fichier ou le réseau.",
   'fabric.editor.media.insert.mediaAlt': 'Aperçu du fichier image ou vidéo importé',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Sélecteur de contenu multimédia',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Coller un lien pour importer',
-  'fabric.editor.media.insert.warning':
-    "Cette image n'est peut-être pas visible pour les autres en raison de restrictions source. Envisagez plutôt d'importer le fichier.",
+  'fabric.editor.media.insert.upload': 'Importer',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'La taille des médias a été augmentée au maximum',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'saisie de la hauteur',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Hauteur',

@@ -1,5 +1,13 @@
 # @atlaskit/link
 
+## 1.2.4
+
+### Patch Changes
+
+- [#138899](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138899)
+  [`681abcfc0d92a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/681abcfc0d92a) -
+  Add style textDecoration: 'underline', when link is focused.
+
 ## 1.2.3
 
 ### Patch Changes

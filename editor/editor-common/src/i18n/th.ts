@@ -313,16 +313,19 @@ export default {
     '{newMediaWidth, plural, other {ความกว้างของสื่อเพิ่มขึ้นเป็น {newMediaWidth,number} พิกเซล}}',
   'fabric.editor.media.MediaWidthIsMin': 'ลดขนาดสื่อเป็นขนาดต่ำสุด',
   'fabric.editor.media.insert.cancel': 'ยกเลิก',
-  'fabric.editor.media.insert.errorMessage':
-    'ขออภัย เราไม่สามารถเพิ่มลิงก์รูปภาพนี้ได้ ดาวน์โหลดรูปภาพ จากนั้นลากและวางบนหน้าข้อมูล',
+  'fabric.editor.media.insert.fileTabTitle': 'ไฟล์',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'คนอื่น ๆ อาจไม่สามารถมองเห็นรูปภาพนี้ได้เนื่องจากข้อจำกัดของแหล่งข้อมูล ให้ลองอัปโหลดไฟล์แทน',
   'fabric.editor.media.insert.insert': 'แทรก',
   'fabric.editor.media.insert.linkTabTitle': 'ลิงก์',
   'fabric.editor.media.insert.loadPreview': 'โหลดตัวอย่าง',
+  'fabric.editor.media.insert.localFileErrorMessage': 'ไม่สามารถอัปโหลดไฟล์นี้ได้',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'ข้อผิดพลาดในการอัปโหลดไฟล์ ตรวจสอบเส้นทางของไฟล์หรือเครือข่าย',
   'fabric.editor.media.insert.mediaAlt': 'ดูตัวอย่างสำหรับไฟล์รูปภาพหรือวิดีโอที่อัปโหลด',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'ตัวเลือกสื่อ',
   'fabric.editor.media.insert.pasteLinkToUpload': 'วางลิงก์เพื่ออัปโหลด',
-  'fabric.editor.media.insert.warning':
-    'คนอื่น ๆ อาจไม่สามารถมองเห็นรูปภาพนี้ได้เนื่องจากข้อจำกัดของแหล่งข้อมูล ให้ลองอัปโหลดไฟล์แทน',
+  'fabric.editor.media.insert.upload': 'อัปโหลด',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'เพิ่มขนาดสื่อเป็นขนาดสูงสุด',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'ข้อมูลความสูงที่ป้อน',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'ความสูง',

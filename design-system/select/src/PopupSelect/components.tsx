@@ -8,7 +8,7 @@ import { type CSSProperties, type FC, forwardRef, type ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 import { components } from 'react-select';
 
-import SearchIcon from '@atlaskit/icon/glyph/editor/search';
+import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
 import { N40A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -83,7 +83,7 @@ const dropdownStyles = css({
 
 const DropdownIndicator = () => (
 	<div css={dropdownStyles}>
-		<SearchIcon label="open" />
+		<SearchIcon color="currentColor" spacing="spacious" label="open" />
 	</div>
 );
 

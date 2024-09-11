@@ -575,7 +575,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			clearHoverSelection()(view.state, view.dispatch);
 		}
 
-		if (this.props.options?.isCommentEditor && options?.isTableResizingEnabled) {
+		if (
+			this.props.options?.isCommentEditor &&
+			options?.isTableResizingEnabled &&
+			!options?.isTableScalingEnabled
+		) {
 			this.removeInlineTableWidth();
 		}
 

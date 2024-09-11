@@ -43,7 +43,7 @@ export function keymapPlugin(): SafePlugin | undefined {
 				schema: { nodes },
 				tr,
 			} = state;
-			const { panel, blockquote, orderedList, bulletList } = nodes;
+			const { panel, blockquote, orderedList, bulletList, mediaSingle, mediaGroup } = nodes;
 
 			const { $from, $to } = selection;
 			// Don't do anything if selection is a range
@@ -64,7 +64,12 @@ export function keymapPlugin(): SafePlugin | undefined {
 			const isPreviousNodeAPanel = previousNodeType === panel;
 			const isParentNodeAPanel = parentNodeType === panel;
 			const nodeBeforePanel = $previousPos?.nodeBefore;
-			const hasParentNodeofTypeList = hasParentNodeOfType([bulletList, orderedList])(selection);
+
+			const isPreviousNodeMedia =
+				previousNodeType === mediaSingle || previousNodeType === mediaGroup;
+
+			const isPreviousNodeAList =
+				previousNodeType === bulletList || previousNodeType === orderedList;
 
 			// Stops merging panels when deleting empty paragraph in between
 			// Stops merging blockquotes with panels when deleting from start of blockquote
@@ -72,7 +77,9 @@ export function keymapPlugin(): SafePlugin | undefined {
 			if (
 				(isPreviousNodeAPanel && !isParentNodeAPanel) ||
 				isInsideAnEmptyNode(selection, panel, state.schema) ||
-				(hasParentNodeOfType(blockquote)(selection) && !hasParentNodeofTypeList) ||
+				(hasParentNodeOfType(blockquote)(selection) &&
+					!isPreviousNodeAList &&
+					!isPreviousNodeMedia) ||
 				// Lift line of panel content up and out of the panel, when backspacing
 				// at the start of a panel, if the node before the panel is an 'isolating' node
 				// (for e.g. a table, or an expand), otherwise the default prosemirror backspace

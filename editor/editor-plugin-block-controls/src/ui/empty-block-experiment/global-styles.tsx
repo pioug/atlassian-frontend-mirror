@@ -10,6 +10,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 const emptyBlockExperimentWidget = '.ProseMirror-widget[data-empty-block-experiment="true"]';
 const quickInsertWidget = '.ProseMirror-widget[data-type-ahead="typeaheadDecoration"]';
 const formattingElement = 'div.fabric-editor-block-mark';
+const markFragment = 'div[data-mark-type="fragment"]';
 const elementWithEmptyBlockExperiment = `+ p > ${emptyBlockExperimentWidget}, + h1 > ${emptyBlockExperimentWidget}, + h2 > ${emptyBlockExperimentWidget}, + h3 > ${emptyBlockExperimentWidget}, + h4 > ${emptyBlockExperimentWidget}, + h5 > ${emptyBlockExperimentWidget}, + h6 > ${emptyBlockExperimentWidget}`;
 // Selectors for when contained withing a formatting container mark (eg. indent, centering, right-align)
 const elementWithEmptyBlockExperimentFormatted = `+ ${formattingElement} > p > ${emptyBlockExperimentWidget}, + ${formattingElement} > h1 > ${emptyBlockExperimentWidget}, + ${formattingElement} > h2 > ${emptyBlockExperimentWidget}, + ${formattingElement} > h3 > ${emptyBlockExperimentWidget}, + ${formattingElement} > h4 > ${emptyBlockExperimentWidget}, + ${formattingElement} > h5 > ${emptyBlockExperimentWidget}, + ${formattingElement} > h6 > ${emptyBlockExperimentWidget}`;
@@ -20,7 +21,14 @@ const dragHandleSelector = 'button[data-testid="block-ctrl-drag-handle"]';
 // Hides the drag handle when the block contains the empty block experiment
 // Override is consistent with how the drag handle is hidden when the block contains a placeholder
 const dragHandleWithInlineNodeStyle = css({
-	[`.ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${elementWithEmptyBlockExperiment}), .ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${elementWithEmptyBlockExperimentFormatted})`]:
+	[`${dragHandleContainer}:has(${elementWithEmptyBlockExperiment}),
+		${dragHandleContainer}:has(${elementWithEmptyBlockExperimentFormatted}),` +
+	// In certain circumstances - eg. a paragraph after an indent, or after a table fragment, the dragHandleContainer
+	// is nested in the previous div. These selectors are to handle those cases.
+	`${formattingElement}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperiment}) > ${dragHandleContainer}:last-child,
+		${markFragment}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperiment}) > ${dragHandleContainer}:last-child,
+		${formattingElement}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${dragHandleContainer}:last-child,
+		${markFragment}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${dragHandleContainer}:last-child`]:
 		{
 			display: 'none !important',
 		},
@@ -34,7 +42,14 @@ const dragHandleWithInlineNodeStyle = css({
  * https://product-fabric.atlassian.net/browse/ED-24136
  */
 const dragHandleWithInlineNodeStyleWithChromeFix = css({
-	[`${dragHandleContainer}:has(${elementWithEmptyBlockExperiment}) ${dragHandleSelector}, ${dragHandleContainer}:has(${elementWithEmptyBlockExperimentFormatted}) ${dragHandleSelector}`]:
+	[`${dragHandleContainer}:has(${elementWithEmptyBlockExperiment}) ${dragHandleSelector},
+		${dragHandleContainer}:has(${elementWithEmptyBlockExperimentFormatted}) ${dragHandleSelector},` +
+	// In certain circumstances - eg. a paragraph after an indent, or after a table fragment, the dragHandleContainer
+	// is nested in the previous div. These selectors are to handle those cases.
+	`${formattingElement}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperiment}) > ${dragHandleContainer}:last-child ${dragHandleSelector},
+		${markFragment}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperiment}) > ${dragHandleContainer}:last-child ${dragHandleSelector},
+		${formattingElement}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${dragHandleContainer}:last-child ${dragHandleSelector},
+		${markFragment}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${dragHandleContainer}:last-child ${dragHandleSelector}`]:
 		{
 			transform: 'scale(0)',
 		},

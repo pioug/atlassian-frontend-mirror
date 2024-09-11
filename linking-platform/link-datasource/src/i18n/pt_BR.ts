@@ -81,6 +81,12 @@ export default {
     'Conecte a conta {providerName} para colaborar no trabalho em todos os produtos da Atlassian.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Conectar a conta do {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Saiba mais sobre os links inteligentes.',
+  'linkDataSource.issue-line-table.error-403-description':
+    'Você precisa das permissões corretas para editar esse item.',
+  'linkDataSource.issue-line-table.error-403-title': 'As alterações não foram salvas',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'Houve um erro na tentativa de concluir a atualização. Aguarde alguns minutos e tente de novo. Entre em contato com o suporte se isso continuar acontecendo.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Algo deu errado',
   'linkDataSource.issue-line-table.unwrap-text': 'Não quebrar linha',
   'linkDataSource.issue-line-table.wrap-text': 'Quebrar linha',
   'linkDataSource.checkConnectionWithSource':

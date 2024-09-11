@@ -8,12 +8,7 @@ import type {
 
 import type { AEP } from './enums';
 
-import type {
-	PropsDifference,
-	SEVERITY,
-	ShallowPropsDifference,
-	UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
-} from '@atlaskit/editor-common/utils';
+import type { SEVERITY, UNSUPPORTED_CONTENT_LEVEL_SEVERITY } from '@atlaskit/editor-common/utils';
 import type {
 	UnsupportedContentPayload,
 	UnsupportedContentTooltipPayload,
@@ -50,18 +45,6 @@ type RendererRenderedAEP = AEP<
 		ttfb?: number;
 		nodes: Record<string, number>;
 		severity?: SEVERITY;
-	},
-	EVENT_TYPE.OPERATIONAL
->;
-
-type RendererReRenderedAEP<Props> = AEP<
-	ACTION.RE_RENDERED,
-	ACTION_SUBJECT.RENDERER,
-	undefined,
-	{
-		propsDifference: PropsDifference<Props> | ShallowPropsDifference<Props>;
-		count: number;
-		componentId?: string;
 	},
 	EVENT_TYPE.OPERATIONAL
 >;
@@ -295,7 +278,6 @@ type RendererTTIAEP = AEP<
 export type AnalyticsEventPayload<T = void> =
 	| RendererStartAEP
 	| RendererRenderedAEP
-	| RendererReRenderedAEP<T>
 	| ComponentCrashErrorAEP
 	| RendererUnsupportedContentLevelsTrackingSucceeded
 	| RendererUnsupportedContentLevelsTrackingErrored
@@ -317,3 +299,7 @@ export type AnalyticsEventPayload<T = void> =
 	| MediaLnkTransformedAEP
 	| InvalidProsemirrorDocumentErrorAEP
 	| RendererTTIAEP;
+
+export type FireAnalyticsCallback = <T = void>(
+	payload: AnalyticsEventPayload<T>,
+) => void | undefined;

@@ -1,7 +1,8 @@
 import React from 'react';
+
 import Button from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import { PopupSelect, CheckboxOption } from '@atlaskit/select';
+import { CheckboxOption, PopupSelect } from '@atlaskit/select';
 const options = [
 	{
 		label: 'Standard issue types',

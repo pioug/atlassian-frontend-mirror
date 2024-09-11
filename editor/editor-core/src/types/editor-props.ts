@@ -87,7 +87,6 @@ interface EditorBaseProps {
   - `comment` - should be used for things like comments where you have a field input but require a toolbar & save/cancel buttons
   - `full-page` - should be used for a full page editor where it is the user focus of the page
   - `chromeless` - is essentially the `comment` editor but without the editor chrome, like toolbar & save/cancel buttons
-  - `mobile` - is used when consumed in a mobile web view (by mobile bridge).
   */
 	appearance?: EditorAppearance;
 
@@ -121,7 +120,7 @@ interface EditorBaseProps {
 
 	contentTransformerProvider?: (schema: Schema) => Transformer<string>;
 
-	// Set to configure the maximum editor height in pixels for `comment`, `chromeless` and `mobile` editor modes.
+	// Set to configure the maximum editor height in pixels for `comment` and `chromeless` editor modes.
 	maxHeight?: number;
 
 	// Set to configure the minimum editor height in pixels for `comment`, `chromeless` editor modes.

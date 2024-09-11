@@ -1,11 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Locator } from '@playwright/test';
 
-import { snapshotInformational, Device } from '@af/visual-regression';
-import {
-	MobileRendererWithAnnotations,
-	RendererWithAnnotations,
-} from '../__helpers/rendererWithAnnotations';
+import { snapshotInformational } from '@af/visual-regression';
+import { RendererWithAnnotations } from '../__helpers/rendererWithAnnotations';
 import { selectors } from '../__helpers/page-objects/_annotation';
 
 snapshotInformational(RendererWithAnnotations, {
@@ -22,20 +19,6 @@ snapshotInformational(RendererWithAnnotations, {
 			//short delay in between mouse down and up
 			delay: 10,
 		});
-	},
-});
-
-snapshotInformational(MobileRendererWithAnnotations, {
-	description: 'does not display touch feedback when tapped on mobile',
-	variants: [
-		{
-			name: 'mobile device',
-			device: Device.MOBILE_CHROME,
-		},
-	],
-	prepare: async (page) => {
-		await page.waitForSelector(selectors.annotation);
-		await page.locator(selectors.annotation).tap();
 	},
 });
 

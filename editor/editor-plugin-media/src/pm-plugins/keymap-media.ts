@@ -6,7 +6,11 @@ import { isEmptyNode, isSelectionInsideLastNodeInDocument } from '@atlaskit/edit
 import { selectNodeBackward } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import {
+	type EditorState,
+	NodeSelection,
+	type Selection,
+} from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
 /**
@@ -132,10 +136,10 @@ function handleSelectionAfterWrapRight(isEmptyNode: (node: Node) => boolean) {
 	};
 }
 
-const maybeRemoveMediaSingleNode = (schema: Schema): Command => {
+const backspaceAfterMediaNode = (schema: Schema): Command => {
 	const isEmptyNodeInSchema = isEmptyNode(schema);
 	return (state, dispatch) => {
-		const { selection, schema } = state;
+		const { selection, schema, tr } = state;
 		const { $from } = selection;
 
 		if (!isEmptySelectionAtStart(state.selection)) {
@@ -147,25 +151,45 @@ const maybeRemoveMediaSingleNode = (schema: Schema): Command => {
 		}
 
 		const previousSibling = -1;
-		if (!isSiblingOfType(state.selection, schema.nodes.mediaSingle, previousSibling)) {
-			// no media single
+
+		// no media single or media group
+		if (
+			!isSiblingOfType(state.selection, schema.nodes.mediaSingle, previousSibling) &&
+			!isSiblingOfType(state.selection, schema.nodes.mediaGroup, previousSibling)
+		) {
 			return false;
 		}
 
-		const mediaSingle = getSibling(state.selection, previousSibling)!;
+		const media = getSibling(state.selection, previousSibling)!;
 
-		if (mediaSingle.attrs.layout === 'wrap-right') {
-			return handleSelectionAfterWrapRight(isEmptyNodeInSchema)(state, dispatch);
+		// if media single
+		if (media.type === schema.nodes.mediaSingle) {
+			if (media.attrs.layout === 'wrap-right') {
+				return handleSelectionAfterWrapRight(isEmptyNodeInSchema)(state, dispatch);
+			}
+
+			if (dispatch) {
+				// Select media single, and remove paragraph if it's empty.
+				selectNodeBackward(state, (tr) => {
+					if (isEmptyNodeInSchema($from.parent) && !atTheEndOfDoc(state)) {
+						tr.replace($from.pos - 1, $from.pos + $from.parent.nodeSize - 1); // Remove node
+					}
+					dispatch(tr);
+				});
+			}
+			return true;
 		}
 
+		// if media group
 		if (dispatch) {
-			// Select media single, and remove paragraph if it's empty.
-			selectNodeBackward(state, (tr) => {
-				if (isEmptyNodeInSchema($from.parent) && !atTheEndOfDoc(state)) {
-					tr.replace($from.pos - 1, $from.pos + $from.parent.nodeSize - 1); // Remove node
-				}
-				dispatch(tr);
-			});
+			// select media group, and remove paragraph if it's empty.
+			if (isEmptyNodeInSchema($from.parent)) {
+				tr.replace($from.pos - 1, $from.pos + $from.parent.nodeSize - 1); // remove node
+				tr.setSelection(
+					new NodeSelection(tr.doc.resolve($from.pos - media.nodeSize)),
+				).scrollIntoView(); // select media
+			}
+			dispatch(tr);
 		}
 
 		return true;
@@ -174,9 +198,8 @@ const maybeRemoveMediaSingleNode = (schema: Schema): Command => {
 
 export default function keymapPlugin(schema: Schema): SafePlugin {
 	const list = {};
-	const removeMediaSingleCommand = maybeRemoveMediaSingleNode(schema);
-
-	bindKeymapWithCommand(backspace.common!, removeMediaSingleCommand, list);
+	const backspaceAfterMediaCommand = backspaceAfterMediaNode(schema);
+	bindKeymapWithCommand(backspace.common!, backspaceAfterMediaCommand, list);
 
 	return keymap(list) as SafePlugin;
 }

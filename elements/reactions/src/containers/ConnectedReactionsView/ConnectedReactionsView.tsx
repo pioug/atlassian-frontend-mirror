@@ -16,6 +16,8 @@ import {
 	type StorePropInput,
 	type OnChangeCallback,
 } from '../../types';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { type ReactionUpdateSuccess } from '../../types/reaction';
 
 export interface ConnectedReactionsViewProps
 	extends Pick<
@@ -51,6 +53,11 @@ export interface ConnectedReactionsViewProps
 	 * Optional boolean to control if particle animation on reactions appear
 	 */
 	particleEffectByEmojiEnabled?: boolean;
+
+	/**
+	 * Callback function when a reaction is successfully added
+	 */
+	onReactionSuccess?: ReactionUpdateSuccess;
 }
 
 /**
@@ -102,18 +109,33 @@ export const mapStateToPropsHelper = (
 /**
  * Export the mapper function outside the component so easier to do unit tests
  */
-export const mapDispatchToPropsHelper = (actions: Actions, containerAri: string, ari: string) => {
+export const mapDispatchToPropsHelper = (
+	actions: Actions,
+	containerAri: string,
+	ari: string,
+	successCallBack?: ReactionUpdateSuccess,
+) => {
 	return {
 		loadReaction: () => {
 			actions.getReactions(containerAri, ari);
 		},
 		onReactionClick: (emojiId: string) => {
+			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+			if (fg('platform_reaction_success_callback') && successCallBack) {
+				actions.toggleReaction(containerAri, ari, emojiId, successCallBack);
+				return;
+			}
 			actions.toggleReaction(containerAri, ari, emojiId);
 		},
 		getReactionDetails: (emojiId: string) => {
 			actions.getDetailedReaction(containerAri, ari, emojiId);
 		},
 		onSelection: (emojiId: string) => {
+			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+			if (fg('platform_reaction_success_callback') && successCallBack) {
+				actions.addReaction(containerAri, ari, emojiId, successCallBack);
+				return;
+			}
 			actions.addReaction(containerAri, ari, emojiId);
 		},
 	};
@@ -122,7 +144,8 @@ export const mapDispatchToPropsHelper = (actions: Actions, containerAri: string,
 export const ConnectedReactionsView = (
 	props: React.PropsWithChildren<ConnectedReactionsViewProps>,
 ) => {
-	const { ari, containerAri, store, particleEffectByEmojiEnabled, ...rest } = props;
+	const { ari, containerAri, store, particleEffectByEmojiEnabled, onReactionSuccess, ...rest } =
+		props;
 	/**
 	 * Reference to the <Reactions /> component instance mandatory props
 	 */
@@ -167,9 +190,9 @@ export const ConnectedReactionsView = (
 	 */
 	const mapDispatchToProps: (actions: Actions) => DispatchProps = useCallback(
 		(actions) => {
-			return mapDispatchToPropsHelper(actions, containerAri, ari);
+			return mapDispatchToPropsHelper(actions, containerAri, ari, onReactionSuccess);
 		},
-		[ari, containerAri],
+		[ari, containerAri, onReactionSuccess],
 	);
 
 	useEffect(() => {

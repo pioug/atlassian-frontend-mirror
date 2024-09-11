@@ -320,16 +320,19 @@ export default {
     "{newMediaWidth, plural, one {La larghezza dell'elemento multimediale è stata aumentata a {newMediaWidth,number} pixel.} other {La larghezza dell'elemento multimediale è stata aumentata a {newMediaWidth,number} pixel.}}",
   'fabric.editor.media.MediaWidthIsMin': 'Elemento multimediale ridotto alla dimensione minima',
   'fabric.editor.media.insert.cancel': 'Annulla',
-  'fabric.editor.media.insert.errorMessage':
-    "Impossibile aggiungere il link a questa immagine. Scarica l'immagine, quindi trascinala nella pagina.",
+  'fabric.editor.media.insert.fileTabTitle': 'File',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    "L'immagine potrebbe non essere visibile agli altri a causa di limitazioni dell'origine. Prova a caricare i file come alternativa.",
   'fabric.editor.media.insert.insert': 'Inserisci',
   'fabric.editor.media.insert.linkTabTitle': 'Link',
   'fabric.editor.media.insert.loadPreview': 'Carica anteprima',
+  'fabric.editor.media.insert.localFileErrorMessage': 'Questo file non può essere caricato.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'Errore di caricamento del file. Controlla il percorso del file o la rete.',
   'fabric.editor.media.insert.mediaAlt': "Anteprima del file del video o dell'immagine caricato",
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Selettore di file multimediali',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Incolla il link per caricare',
-  'fabric.editor.media.insert.warning':
-    "L'immagine potrebbe non essere visibile agli altri a causa di limitazioni dell'origine. Prova a caricare i file come alternativa.",
+  'fabric.editor.media.insert.upload': 'Carica',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Elemento multimediale aumentato alla dimensione massima',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': "campo di inserimento dell'altezza",
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Altezza',

@@ -35,6 +35,7 @@ import {
 	ReactionsRemove,
 	sampledReactionsRendered,
 } from '../ufo';
+import { type ReactionUpdateSuccess, ReactionUpdateType } from '../types/reaction';
 
 /**
  * Set of all available UFO experiences relating to reaction element
@@ -251,7 +252,12 @@ export class MemoryReactionsStore implements Store {
 		reactedCallback: Updater<ReactionSummary>,
 		notReactedCallback?: Updater<ReactionSummary>,
 	) {
-		return (containerAri: string, ari: string, emojiId: string) => {
+		return (
+			containerAri: string,
+			ari: string,
+			emojiId: string,
+			onSuccess?: ReactionUpdateSuccess,
+		) => {
 			this.withReadyReaction(
 				containerAri,
 				ari,
@@ -266,7 +272,7 @@ export class MemoryReactionsStore implements Store {
 				const callback: Updater<ReactionSummary> =
 					reaction.reacted || !notReactedCallback ? reactedCallback : notReactedCallback;
 
-				const updatedReaction = callback(reaction);
+				const updatedReaction = callback(reaction, onSuccess);
 				if (updatedReaction && !(updatedReaction instanceof Function)) {
 					return readyState(
 						reactionsState.reactions.map(
@@ -281,7 +287,7 @@ export class MemoryReactionsStore implements Store {
 		};
 	}
 
-	private doAddReaction = (reaction: ReactionSummary) => {
+	private doAddReaction = (reaction: ReactionSummary, onSuccess?: ReactionUpdateSuccess) => {
 		const { containerAri, ari, emojiId } = reaction;
 		this.optmisticUpdate(containerAri, ari, emojiId)(addOne);
 		this.flash(reaction);
@@ -306,6 +312,7 @@ export class MemoryReactionsStore implements Store {
 				}
 				// ufo add reaction success
 				exp.success();
+				onSuccess?.(ReactionUpdateType.added, ari, emojiId);
 			})
 			.catch((error) => {
 				if (isRealErrorFromService(error.code)) {
@@ -328,7 +335,7 @@ export class MemoryReactionsStore implements Store {
 			});
 	};
 
-	private doRemoveReaction = (reaction: ReactionSummary) => {
+	private doRemoveReaction = (reaction: ReactionSummary, onSuccess?: ReactionUpdateSuccess) => {
 		const { containerAri, ari, emojiId } = reaction;
 		const exp = ufoExperiences.remove.getInstance(`${ari}|${emojiId}`);
 		this.setParticleEffectForEmoji(containerAri, ari, emojiId, false);
@@ -349,6 +356,7 @@ export class MemoryReactionsStore implements Store {
 			.then((_) => {
 				// ufo add reaction success
 				exp.success();
+				onSuccess?.(ReactionUpdateType.removed, ari, emojiId);
 			})
 			.catch((error) => {
 				// ufo add reaction failure

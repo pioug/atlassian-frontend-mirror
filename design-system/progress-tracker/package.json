@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/progress-tracker",
-	"version": "8.8.2",
+	"version": "8.9.0",
 	"description": "A progress tracker displays the steps and progress through a journey.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -89,6 +89,9 @@
 	"homepage": "https://atlassian.design/components/progress-tracker/",
 	"platform-feature-flags": {
 		"platform-progress-tracker-functional-facade": {
+			"type": "boolean"
+		},
+		"platform-design-system-dsp-20687-transition-group": {
 			"type": "boolean"
 		}
 	}

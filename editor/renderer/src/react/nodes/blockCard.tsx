@@ -2,14 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { Card } from '@atlaskit/smart-card';
 import { UnsupportedBlock, UnsupportedInline, WidthConsumer } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
-import { getPlatform } from '../../utils';
 import { CardErrorBoundary } from './fallback';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
@@ -44,11 +42,11 @@ export default function BlockCard(props: {
 	layout?: string;
 	isNodeNested?: boolean;
 }) {
-	const { url, data, eventHandlers, portal, rendererAppearance, smartLinks, isNodeNested } = props;
+	const { url, data, eventHandlers, portal, smartLinks, isNodeNested } = props;
 	const { showServerActions, actionOptions } = smartLinks || {};
 	const onClick = getCardClickHandler(eventHandlers, url);
 
-	const platform = useMemo(() => getPlatform(rendererAppearance), [rendererAppearance]);
+	const platform = 'web';
 
 	const cardProps = {
 		url,
@@ -75,10 +73,6 @@ export default function BlockCard(props: {
 	};
 
 	if (props.datasource) {
-		if (platform === 'mobile') {
-			return <InlineCard {...props} />;
-		}
-
 		const views = props.datasource.views as DatasourceAdfView[];
 		const tableView = views.find((view) => view.type === 'table');
 		const shouldRenderDatasource = tableView && canRenderDatasource(props.datasource.id);

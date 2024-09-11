@@ -316,16 +316,19 @@ export default {
     '{newMediaWidth, plural, one {Mediebredden er økt til {newMediaWidth,number} piksel.} other {Mediebredden er økt til {newMediaWidth,number} piksler.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Mediet er redusert til minimumsstørrelsen',
   'fabric.editor.media.insert.cancel': 'Avbryt',
-  'fabric.editor.media.insert.errorMessage':
-    'Dessverre kan vi ikke legge til denne bildekoblingen. Last ned bildet. Deretter drar og slipper du det på siden.',
+  'fabric.editor.media.insert.fileTabTitle': 'Fil',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'Dette bildet vises kanskje ikke for andre på grunn av kildebegrensninger. Vurder å laste opp filen i stedet.',
   'fabric.editor.media.insert.insert': 'Sett inn',
   'fabric.editor.media.insert.linkTabTitle': 'Kobling',
   'fabric.editor.media.insert.loadPreview': 'Last inn forhåndsvisning',
+  'fabric.editor.media.insert.localFileErrorMessage': 'Denne filen kunne ikke lastes opp.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'Feil ved opplasting av fil. Kontroller filbanen eller nettverket.',
   'fabric.editor.media.insert.mediaAlt': 'Forhåndsvisning av opplastet bilde- eller videofil',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Medievelger',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Lim inn kobling for å laste opp',
-  'fabric.editor.media.insert.warning':
-    'Dette bildet vises kanskje ikke for andre på grunn av kildebegrensninger. Vurder å laste opp filen i stedet.',
+  'fabric.editor.media.insert.upload': 'Last opp',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Mediet er økt til maksimumsstørrelsen',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'angi høyde',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Høyde',

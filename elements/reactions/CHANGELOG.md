@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 22.13.0
+
+### Minor Changes
+
+- [#138899](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138899)
+  [`5d280e98cb44f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d280e98cb44f) -
+  Add on reactions success callback to reactions component
+
 ## 22.12.1
 
 ### Patch Changes

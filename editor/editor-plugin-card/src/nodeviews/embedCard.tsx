@@ -232,8 +232,7 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 				? this.context.contextAdapter.card
 				: undefined;
 
-			const hasPreview =
-				cardContext && cardContext.value.extractors.getPreview(url, this.props.platform);
+			const hasPreview = cardContext && cardContext.value.extractors.getPreview(url, 'web');
 
 			if (!hasPreview) {
 				this.setState({
@@ -351,7 +350,6 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 		const {
 			node,
 			cardContext,
-			platform,
 			allowResizing,
 			fullWidthMode,
 			view,
@@ -393,7 +391,7 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 				onError={this.onError}
 				frameStyle="show"
 				inheritDimensions={true}
-				platform={platform}
+				platform={'web'}
 				container={this.scrollContainer}
 				embedIframeRef={this.embedIframeRef}
 				actionOptions={actionOptions}
@@ -442,7 +440,6 @@ export type EmbedCardNodeViewProps = Pick<
 	SmartCardProps,
 	| 'eventDispatcher'
 	| 'allowResizing'
-	| 'platform'
 	| 'fullWidthMode'
 	| 'dispatchAnalyticsEvent'
 	| 'pluginInjectionApi'
@@ -464,22 +461,20 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
-		if (this.reactComponentProps.platform !== 'mobile') {
-			// It is a tradeoff for the bug mentioned that occurs in Chrome: https://product-fabric.atlassian.net/browse/ED-5379, https://github.com/ProseMirror/prosemirror/issues/884
-			if (fg('linking-platform-contenteditable-false-live-view')) {
-				this.unsubscribe =
-					this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.onChange(
-						({ nextSharedState }) => this.updateContentEditable(nextSharedState, domRef),
-					);
-				this.updateContentEditable(
-					this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState(),
-					domRef,
+		// It is a tradeoff for the bug mentioned that occurs in Chrome: https://product-fabric.atlassian.net/browse/ED-5379, https://github.com/ProseMirror/prosemirror/issues/884
+		if (fg('linking-platform-contenteditable-false-live-view')) {
+			this.unsubscribe =
+				this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.onChange(
+					({ nextSharedState }) => this.updateContentEditable(nextSharedState, domRef),
 				);
-			} else {
-				domRef.contentEditable = 'true';
-			}
-			domRef.setAttribute('spellcheck', 'false');
+			this.updateContentEditable(
+				this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState(),
+				domRef,
+			);
+		} else {
+			domRef.contentEditable = 'true';
 		}
+		domRef.setAttribute('spellcheck', 'false');
 		return domRef;
 	}
 
@@ -494,7 +489,6 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 		const {
 			eventDispatcher,
 			allowResizing,
-			platform,
 			fullWidthMode,
 			dispatchAnalyticsEvent,
 			pluginInjectionApi,
@@ -508,7 +502,6 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 				eventDispatcher={eventDispatcher}
 				getPos={this.getPos}
 				allowResizing={allowResizing}
-				platform={platform}
 				fullWidthMode={fullWidthMode}
 				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 				pluginInjectionApi={pluginInjectionApi}
@@ -524,7 +517,6 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 
 export interface EmbedCardNodeViewProperties {
 	allowResizing: EmbedCardNodeViewProps['allowResizing'];
-	platform: EmbedCardNodeViewProps['platform'];
 	fullWidthMode: EmbedCardNodeViewProps['fullWidthMode'];
 	pmPluginFactoryParams: PMPluginFactoryParams;
 	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
@@ -536,7 +528,6 @@ export interface EmbedCardNodeViewProperties {
 export const embedCardNodeView =
 	({
 		allowResizing,
-		platform,
 		fullWidthMode,
 		pmPluginFactoryParams,
 		pluginInjectionApi,
@@ -549,7 +540,6 @@ export const embedCardNodeView =
 		const reactComponentProps: EmbedCardNodeViewProps = {
 			eventDispatcher,
 			allowResizing,
-			platform,
 			fullWidthMode,
 			dispatchAnalyticsEvent,
 			pluginInjectionApi,

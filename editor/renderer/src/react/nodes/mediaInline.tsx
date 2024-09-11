@@ -126,8 +126,8 @@ const RenderMediaInline = ({
 		}
 	};
 
-	const shouldOpenMediaViewer = rendererAppearance !== 'mobile';
-	const shouldDisplayToolTip = rendererAppearance !== 'mobile';
+	const shouldOpenMediaViewer = true;
+	const shouldDisplayToolTip = true;
 	const { id, collection } = clipboardAttrs;
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/prefer-primitives

@@ -4,7 +4,7 @@ import { table } from '@atlaskit/adf-schema';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/src/types';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getAlignmentStyle } from './nodeviews/table-container-styles';
 import { generateColgroup } from './pm-plugins/table-resizing/utils/colgroup';
@@ -15,7 +15,7 @@ type Config = {
 	getEditorContainerWidth: GetEditorContainerWidth;
 };
 export const tableNodeSpecWithFixedToDOM = (config: Config): typeof table => {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return table;
 	}
 

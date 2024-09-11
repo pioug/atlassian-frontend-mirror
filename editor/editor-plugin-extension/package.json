@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-extension",
-	"version": "1.14.6",
+	"version": "1.14.7",
 	"description": "editor-plugin-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -51,13 +51,14 @@
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/section-message": "^6.6.0",
-		"@atlaskit/select": "^17.15.0",
+		"@atlaskit/select": "^17.16.0",
 		"@atlaskit/smart-user-picker": "^6.10.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/tabs": "^16.4.0",
 		"@atlaskit/textarea": "^5.6.0",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/theme": "^13.0.0",
+		"@atlaskit/tmp-editor-statsig": "^2.1.8",
 		"@atlaskit/toggle": "^13.4.0",
 		"@atlaskit/tokens": "^1.59.0",
 		"@atlaskit/tooltip": "^18.7.0",
@@ -115,9 +116,6 @@
 	},
 	"platform-feature-flags": {
 		"platform.editor.multi-bodied-extension_0rygg": {
-			"type": "boolean"
-		},
-		"platform_editor_lazy-node-views": {
 			"type": "boolean"
 		}
 	}

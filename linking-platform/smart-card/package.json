@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "28.0.1",
+	"version": "28.1.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -54,7 +54,7 @@
 		"@atlaskit/popup": "^1.25.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/section-message": "^6.6.0",
-		"@atlaskit/select": "^17.15.0",
+		"@atlaskit/select": "^17.16.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/textarea": "^5.6.0",
 		"@atlaskit/textfield": "^6.5.0",
@@ -161,9 +161,6 @@
 	},
 	"platform-feature-flags": {
 		"platform.linking-platform.smart-card.action-icon-redesign": {
-			"type": "boolean"
-		},
-		"platform.linking-platfom.smart-card.confluence.page.automation-action_xcdoi": {
 			"type": "boolean"
 		},
 		"platform.linking-platform.smart-card.enable-view-related-urls-action": {

@@ -81,6 +81,12 @@ export default {
     'Verbinden Sie Ihr {providerName}-Konto, um an verschiedenen Atlassian-Produkten mitzuarbeiten.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Verbinden Sie Ihr {providerName}-Konto',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Mehr über intelligente Links erfahren',
+  'linkDataSource.issue-line-table.error-403-description':
+    'Sie benötigen die richtigen Berechtigungen, um dieses Element bearbeiten zu können.',
+  'linkDataSource.issue-line-table.error-403-title': 'Änderungen nicht gespeichert',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'Beim Versuch, das Update abzuschließen, ist ein Fehler aufgetreten. Bitte warten Sie ein paar Minuten und versuchen Sie es erneut. Wenden Sie sich an den Support, wenn das Problem weiterhin besteht.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Etwas ist schiefgelaufen',
   'linkDataSource.issue-line-table.unwrap-text': 'Textumbruch aufheben',
   'linkDataSource.issue-line-table.wrap-text': 'Textumbruch anwenden',
   'linkDataSource.checkConnectionWithSource':

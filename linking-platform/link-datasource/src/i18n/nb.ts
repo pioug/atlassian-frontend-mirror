@@ -79,6 +79,12 @@ export default {
     'Koble til {providerName}-kontoen din for å samarbeide mellom flere Atlassian-produkter.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Koble til {providerName}-kontoen din',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Finn ut mer om smartkoblinger.',
+  'linkDataSource.issue-line-table.error-403-description':
+    'Du trenger riktige tillatelser for å redigere dette elementet.',
+  'linkDataSource.issue-line-table.error-403-title': 'Endringene ble ikke lagret',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'Vi hadde et problem med å fullføre oppdateringen. Vent noen minutter og prøv på nytt. Kontakt støtte hvis dette vedvarer.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Det oppstod en feil',
   'linkDataSource.issue-line-table.unwrap-text': 'Fjern linjebryting',
   'linkDataSource.issue-line-table.wrap-text': 'Legg til linjebryting',
   'linkDataSource.checkConnectionWithSource':

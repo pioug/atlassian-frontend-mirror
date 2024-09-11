@@ -20,17 +20,6 @@ describe('TruncateText', () => {
 	});
 
 	describe('Truncate Component', () => {
-		it('it should not create left and right elements when enough size', () => {
-			const el = setup({
-				text: '1234567890.ext',
-				startFixedChars: 14,
-				endFixedChars: 0,
-			});
-			expect(el.find(TruncateLeft)).toHaveLength(0);
-			expect(el.find(TruncateRight)).toHaveLength(0);
-			expect(el.text()).toEqual('1234567890.ext');
-		});
-
 		it('it should create left and right elements when required', () => {
 			const el = setup({
 				text: '1234567890.ext',

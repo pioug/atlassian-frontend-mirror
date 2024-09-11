@@ -5,7 +5,7 @@ import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import type { MediaOptions } from '../types';
@@ -19,7 +19,7 @@ export const lazyMediaView = (
 	options: MediaOptions = {},
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 ): NodeViewConstructor => {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return ReactMediaNode(portalProviderAPI, eventDispatcher, providerFactory, options, api);
 	}
 

@@ -177,8 +177,7 @@ interface TableState {
 	headerRowHeight: number;
 }
 
-const canUseLinelength = (appearance: RendererAppearance) =>
-	appearance === 'full-page' || appearance === 'mobile';
+const canUseLinelength = (appearance: RendererAppearance) => appearance === 'full-page';
 
 export class TableContainer extends React.Component<
 	TableProps & OverflowShadowProps & WithSmartCardStorageProps,

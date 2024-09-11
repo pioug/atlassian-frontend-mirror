@@ -397,7 +397,7 @@ export const handleMouseDown = (
 				isTableScalingEnabled && isCommentEditor && !table.attrs?.width
 					? getScalingPercentForTableWithoutWidth(table, dom)
 					: getTableScalingPercent(originalTable, dom, shouldUseIncreasedScalingPercent);
-			// This function is called for Full-page/Fixed-page tables and table that have width attr value in Comment editor
+
 			resizeColumn(
 				resizeState,
 				colIndex,

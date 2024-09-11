@@ -317,16 +317,19 @@ export default {
     '{newMediaWidth, plural, one {Mediebredde øget til {newMediaWidth,number} pixel.} other {Mediebredde øget til {newMediaWidth,number} pixels.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Medier reduceret til minimumsstørrelsen',
   'fabric.editor.media.insert.cancel': 'Annuller',
-  'fabric.editor.media.insert.errorMessage':
-    'Vi kan desværre ikke tilføje dette billedlink. Download billedet, og træk og slip det til her på siden.',
+  'fabric.editor.media.insert.fileTabTitle': 'Fil',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'Billedet er muligvis ikke synligt for andre på grund af kildebegrænsninger. Du kan prøve at uploade filen i stedet.',
   'fabric.editor.media.insert.insert': 'Indsæt',
   'fabric.editor.media.insert.linkTabTitle': 'Link',
   'fabric.editor.media.insert.loadPreview': 'Indlæs forhåndsvisning',
+  'fabric.editor.media.insert.localFileErrorMessage': 'Filen kunne ikke overføres.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'Fejl ved overførsel af fil. Kontrollér filstien eller netværket.',
   'fabric.editor.media.insert.mediaAlt': 'Forhåndsvisning af uploadet billede eller videofil',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Medievælger',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Kopiér og indsæt link for at uploade',
-  'fabric.editor.media.insert.warning':
-    'Billedet er muligvis ikke synligt for andre på grund af kildebegrænsninger. Du kan prøve at uploade filen i stedet.',
+  'fabric.editor.media.insert.upload': 'Upload',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Medier øget til maksimumsstørrelsen',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'højdeinput',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Højde',

@@ -1,5 +1,15 @@
 # @atlaskit/table-tree
 
+## 10.0.0
+
+### Major Changes
+
+- [#138959](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138959)
+  [`779f52fe8935c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/779f52fe8935c) -
+  `id` is now a required property in the `Item` type that is passed into the `data` and `items`
+  properties. Internal re-factor to move from class components to function components. Refactored
+  analytics-next usages to move away from legacy React context.
+
 ## 9.12.2
 
 ### Patch Changes

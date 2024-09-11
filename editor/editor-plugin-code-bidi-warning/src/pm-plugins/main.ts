@@ -21,21 +21,14 @@ export const createPlugin = (
 	return new SafePlugin({
 		key: codeBidiWarningPluginKey,
 		state: createPluginState(dispatch, (state) => {
-			// The appearance being mobile indicates we are in an editor being
-			// rendered by mobile bridge in a web view.
-			// The tooltip is likely to have unexpected behaviour there, with being cut
-			// off, so we disable it. This is also to keep the behaviour consistent with
-			// the rendering in the mobile Native Renderer.
-			const tooltipEnabled = appearance !== 'mobile';
-
 			return {
 				decorationSet: createBidiWarningsDecorationSetFromDoc({
 					doc: state.doc,
 					codeBidiWarningLabel,
-					tooltipEnabled,
+					tooltipEnabled: true,
 				}),
 				codeBidiWarningLabel,
-				tooltipEnabled,
+				tooltipEnabled: true,
 			};
 		}),
 		props: {

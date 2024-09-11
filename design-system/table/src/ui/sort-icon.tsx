@@ -8,8 +8,8 @@ import { type FC, memo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import ArrowDownIcon from '@atlaskit/icon/glyph/arrow-down';
-import ArrowUpIcon from '@atlaskit/icon/glyph/arrow-up';
+import ArrowDownIcon from '@atlaskit/icon/utility/migration/arrow-down';
+import ArrowUpIcon from '@atlaskit/icon/utility/migration/arrow-up';
 
 import { useTable } from '../hooks/use-table';
 
@@ -24,9 +24,23 @@ export const SortIcon: FC<{ name: string }> = memo(({ name }) => {
 	if (sortKey === name) {
 		switch (sortDirection) {
 			case 'ascending':
-				return <ArrowUpIcon size="small" label="" primaryColor="inherit" />;
+				return (
+					<ArrowUpIcon
+						color="currentColor"
+						LEGACY_size="small"
+						label=""
+						LEGACY_primaryColor="inherit"
+					/>
+				);
 			case 'descending':
-				return <ArrowDownIcon size="small" label="" primaryColor="inherit" />;
+				return (
+					<ArrowDownIcon
+						color="currentColor"
+						LEGACY_size="small"
+						label=""
+						LEGACY_primaryColor="inherit"
+					/>
+				);
 		}
 	}
 

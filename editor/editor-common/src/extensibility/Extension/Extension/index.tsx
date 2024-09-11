@@ -73,9 +73,8 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		macroInteractionDesignFeatureFlags || {};
 	const hasBody = ['bodiedExtension', 'multiBodiedExtension'].includes(node.type.name);
 
-	const isMobile = editorAppearance === 'mobile';
 	const hasChildren = !!children;
-	const removeBorder = showMacroInteractionDesignUpdates || !!(hideFrame && !isMobile && !hasBody);
+	const removeBorder = showMacroInteractionDesignUpdates || !!(hideFrame && !hasBody);
 
 	const { getPos, view } = props;
 	const isTopLevelNode = React.useMemo(() => {

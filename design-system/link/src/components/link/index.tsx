@@ -36,6 +36,10 @@ const defaultAppearanceStyles = xcss({
 	':active': {
 		color: 'color.link.pressed',
 	},
+
+	':focus': {
+		textDecoration: 'underline',
+	},
 });
 
 const subtleAppearanceStyles = xcss({
@@ -63,6 +67,10 @@ const inverseAppearanceStyles = xcss({
 
 	':active': {
 		color: 'color.text.inverse',
+	},
+
+	':focus': {
+		textDecoration: 'underline',
 	},
 });
 

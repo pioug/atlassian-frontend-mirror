@@ -35,19 +35,19 @@ test.describe('Popup focus behavior', () => {
 		await trigger.press('Enter');
 		await expect(trigger).not.toBeFocused();
 
-		let triggerTabindex = await trigger.getAttribute('tabindex');
+		let triggerTabindex = trigger;
 		// Ensuring the trigger is not in focus order,
 		// so that when we Shift+Tab, the focus moves to the element before trigger
-		await expect(triggerTabindex).toBe('-1');
+		await expect(triggerTabindex).toHaveAttribute('tabindex', '-1');
 
 		await page.keyboard.press('Shift+Tab');
 		await expect(popupContainer).toBeHidden();
 		// The button before trigger should be in focus
 		await expect(page.getByTestId('button-0')).toBeFocused();
 
-		triggerTabindex = await trigger.getAttribute('tabindex');
+		triggerTabindex = trigger;
 		// The tabindex value on trigger should be restored
-		await expect(triggerTabindex).toBe('0');
+		await expect(triggerTabindex).toHaveAttribute('tabindex', '0');
 
 		await trigger.focus();
 		await trigger.press('Enter');
@@ -421,6 +421,7 @@ test.describe('Popup focus behavior', () => {
 		await dropdownTrigger.press('Enter');
 
 		let triggerTabindex = await dropdownTrigger.getAttribute('tabindex');
+		// eslint-disable-next-line playwright/prefer-web-first-assertions
 		await expect(triggerTabindex).toBe('-1');
 
 		await page.keyboard.press('Tab');
@@ -435,6 +436,7 @@ test.describe('Popup focus behavior', () => {
 		await expect(dropdownContent).toBeHidden();
 
 		triggerTabindex = await dropdownTrigger.getAttribute('tabindex');
+		// eslint-disable-next-line playwright/prefer-web-first-assertions
 		await expect(triggerTabindex).toBe('0');
 	});
 });

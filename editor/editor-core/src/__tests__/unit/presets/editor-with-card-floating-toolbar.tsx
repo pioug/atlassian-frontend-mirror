@@ -20,7 +20,6 @@ describe('floatingToolbar is called with the right config', () => {
 		expect(floatingToolbar).toHaveBeenCalledWith(
 			expect.objectContaining({}),
 			false,
-			'web',
 			undefined,
 			expect.objectContaining({}),
 			undefined,
@@ -40,7 +39,6 @@ describe('floatingToolbar is called with the right config', () => {
 		expect(floatingToolbar).toHaveBeenCalledWith(
 			expect.objectContaining({}),
 			true,
-			'web',
 			undefined,
 			expect.objectContaining({}),
 			undefined,
@@ -60,7 +58,6 @@ describe('floatingToolbar is called with the right config', () => {
 		expect(floatingToolbar).toHaveBeenCalledWith(
 			expect.objectContaining({}),
 			false,
-			'web',
 			undefined,
 			expect.objectContaining({}),
 			undefined,

@@ -127,7 +127,6 @@ export default function createUniversalPresetInternal({
 	prevAppearance?: EditorAppearance;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 }) {
-	const isMobile = appearance === 'mobile';
 	const isComment = appearance === 'comment';
 	const isChromeless = appearance === 'chromeless';
 	const isFullPage = fullPageCheck(appearance);
@@ -191,7 +190,7 @@ export default function createUniversalPresetInternal({
 		)
 		.maybeAdd(
 			guidelinePlugin,
-			Boolean(!isMobile && !isComment && !isChromeless && (props.media || props.allowTables)),
+			Boolean(!isComment && !isChromeless && (props.media || props.allowTables)),
 		)
 		.maybeAdd([gridPlugin, { shouldCalcBreakoutGridLines: isFullPage }], Boolean(props.media))
 		.maybeAdd([annotationPlugin, props.annotationProviders], Boolean(props.annotationProviders))
@@ -200,7 +199,7 @@ export default function createUniversalPresetInternal({
 				mediaPlugin,
 				{
 					...props.media,
-					allowLazyLoading: !isMobile,
+					allowLazyLoading: true,
 					allowBreakoutSnapPoints: isFullPage,
 					allowAdvancedToolBarOptions:
 						typeof props.media?.allowAdvancedToolBarOptions !== 'undefined'
@@ -208,15 +207,15 @@ export default function createUniversalPresetInternal({
 							: isFullPage || isComment,
 					allowCommentsOnMedia: isFullPage && Boolean(props.annotationProviders),
 					allowDropzoneDropLine: isFullPage,
-					allowMediaSingleEditable: !isMobile,
-					allowRemoteDimensionsFetch: !isMobile,
-					allowMarkingUploadsAsIncomplete: isMobile,
+					allowMediaSingleEditable: true,
+					allowRemoteDimensionsFetch: true,
+					allowMarkingUploadsAsIncomplete: false,
 					allowImagePreview: isFullPage && fg('platform.editor.media.preview-in-full-page'),
 					fullWidthEnabled: appearance === 'full-width',
 					editorAppearance: appearance,
 					uploadErrorHandler: props.uploadErrorHandler,
 					waitForMediaUpload: props.waitForMediaUpload,
-					isCopyPasteEnabled: !isMobile,
+					isCopyPasteEnabled: true,
 					alignLeftOnInsert:
 						typeof props.media?.alignLeftOnInsert !== 'undefined'
 							? props.media?.alignLeftOnInsert
@@ -237,7 +236,7 @@ export default function createUniversalPresetInternal({
 				{
 					sanitizePrivateContent: props.sanitizePrivateContent,
 					insertDisplayName: props.mention?.insertDisplayName ?? props.mentionInsertDisplayName,
-					allowZeroWidthSpaceAfter: !isMobile,
+					allowZeroWidthSpaceAfter: true,
 					HighlightComponent: props.mention?.HighlightComponent,
 					profilecardProvider: props.mention?.profilecardProvider,
 					...initialPluginConfiguration?.mentionsPlugin,
@@ -271,7 +270,7 @@ export default function createUniversalPresetInternal({
 						(isFullPage ||
 							(isComment &&
 								editorExperiment('support_table_in_comment', true, { exposure: true }))),
-					allowContextualMenu: !isMobile,
+					allowContextualMenu: true,
 					fullWidthEnabled: appearance === 'full-width',
 					wasFullWidthEnabled: prevAppearance && prevAppearance === 'full-width',
 					getEditorFeatureFlags,
@@ -406,7 +405,6 @@ export default function createUniversalPresetInternal({
 					...props.UNSAFE_cards,
 					...props.smartLinks,
 					...props.linking?.smartLinks,
-					platform: isMobile ? 'mobile' : 'web',
 					fullWidthMode: appearance === 'full-width',
 					linkPicker: props.linking?.linkPicker,
 					lpLinkPicker: featureFlags.lpLinkPicker ?? false,
@@ -423,7 +421,7 @@ export default function createUniversalPresetInternal({
 				statusPlugin,
 				{
 					menuDisabled: statusMenuDisabled,
-					allowZeroWidthSpaceAfter: !isMobile,
+					allowZeroWidthSpaceAfter: true,
 				},
 			],
 			Boolean(props.allowStatus),

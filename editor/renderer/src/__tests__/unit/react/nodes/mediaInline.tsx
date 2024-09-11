@@ -76,9 +76,7 @@ describe('MediaInline', () => {
 		providerFactory.setProvider('mediaProvider', Promise.resolve({} as MediaProvider));
 		renderWithIntl(<MediaInline providers={providerFactory} {...mockFile} />);
 
-		const mediaInlineLoadingView = await waitFor(() =>
-			screen.getByTestId('media-inline-card-loading-view'),
-		);
+		const mediaInlineLoadingView = await screen.findByTestId('media-inline-card-loading-view');
 		expect(mediaInlineLoadingView).toBeVisible();
 		expect(mediaInlineLoadingView).toHaveTextContent('');
 		expect(mediaInlineLoadingView).not.toHaveFocus();
@@ -107,20 +105,6 @@ describe('MediaInline', () => {
 		});
 		wrapper.update();
 		expect(wrapper.find(MediaInlineCard).prop('shouldOpenMediaViewer')).toEqual(true);
-		wrapper.unmount();
-	});
-
-	it('should render with shouldOpenMediaViewer set to false when appearance is mobile', async () => {
-		const wrapper = mountWithIntl(
-			<MediaClientContext.Provider value={fakeMediaClient()}>
-				<MediaInline providers={providerFactory} rendererAppearance="mobile" {...mockFile} />
-			</MediaClientContext.Provider>,
-		);
-		await act(async () => {
-			await flushPromises();
-		});
-		wrapper.update();
-		expect(wrapper.find(MediaInlineCard).prop('shouldOpenMediaViewer')).toEqual(false);
 		wrapper.unmount();
 	});
 

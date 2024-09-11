@@ -540,6 +540,7 @@ export const TableResizer = ({
 		(originalState, delta) => {
 			isResizing.current = false;
 			let newWidth: number | undefined = originalState.width + delta.width;
+			const originalNewWidth = newWidth;
 			const { state, dispatch } = editorView;
 			const pos = getPos();
 			const currentTableNodeLocalId = node?.attrs?.localId ?? '';
@@ -585,7 +586,10 @@ export const TableResizer = ({
 						node: newNode,
 						prevNode: node,
 						start: pos + 1,
-						parentWidth: newWidth,
+						// We use originalNewWidth in comment editor, because in comment editor
+						// newWidth can be underined when table is resized to 'full-width'
+						// scaleTable function needs number value to work correctly.
+						parentWidth: isCommentEditor ? originalNewWidth : newWidth,
 					},
 					editorView.domAtPos.bind(editorView),
 					pluginInjectionApi,

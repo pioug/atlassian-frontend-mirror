@@ -1,5 +1,3 @@
-import { expandPlugin } from '@atlaskit/editor-plugins/expand';
-
 import type { EditorProps } from '../../../types';
 import createPluginsListBase from '../../create-plugins-list';
 import { createUniversalPreset } from '../../create-universal-preset';
@@ -66,34 +64,6 @@ describe('create-plugins-list without mock tests', () => {
 			expect(plugins).not.toEqual(
 				expect.arrayContaining([expect.objectContaining({ name: 'codeBlock' })]),
 			);
-		});
-	});
-
-	describe('expand', () => {
-		afterEach(() => {
-			jest.resetAllMocks();
-		});
-
-		it('should pass allowCompositionInputOverride when mobile editor', () => {
-			createPluginsList({
-				appearance: 'full-page',
-				allowExpand: { allowInsertion: true },
-			});
-			expect(expandPlugin).toHaveBeenCalledWith({
-				config: {
-					allowInsertion: true,
-					allowInteractiveExpand: true,
-					useLongPressSelection: false,
-					appearance: 'full-page',
-				},
-			});
-		});
-
-		it('should pass allowCompositionInputOverride when mobile editor', () => {
-			createPluginsList({
-				appearance: 'full-page',
-			});
-			expect(expandPlugin).toHaveBeenCalledTimes(0);
 		});
 	});
 });

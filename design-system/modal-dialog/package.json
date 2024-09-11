@@ -59,7 +59,7 @@
 		"@atlaskit/dropdown-menu": "^12.18.0",
 		"@atlaskit/popup": "^1.25.0",
 		"@atlaskit/radio": "^6.5.0",
-		"@atlaskit/select": "^17.15.0",
+		"@atlaskit/select": "^17.16.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/tooltip": "^18.7.0",

@@ -320,16 +320,19 @@ export default {
     '{newMediaWidth, plural, one {Szerokość multimediów została zwiększona do {newMediaWidth,number} piksela.} few {Szerokość multimediów została zwiększona do {newMediaWidth,number} pikseli.} many {Szerokość multimediów została zwiększona do {newMediaWidth,number} pikseli.} other {Szerokość multimediów została zwiększona do {newMediaWidth,number} piksela.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Rozmiar multimediów zmniejszony do minimalnego',
   'fabric.editor.media.insert.cancel': 'Anuluj',
-  'fabric.editor.media.insert.errorMessage':
-    'Niestety nie można dodać obrazu, do którego prowadzi łącze. Pobierz obraz, a następnie przeciągnij i upuść na stronie.',
+  'fabric.editor.media.insert.fileTabTitle': 'Plik',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'Ten obraz może nie być widoczny dla innych z powodu ograniczeń źródła. Zamiast tego rozważ przekazanie pliku.',
   'fabric.editor.media.insert.insert': 'Wstaw',
   'fabric.editor.media.insert.linkTabTitle': 'Łącze',
   'fabric.editor.media.insert.loadPreview': 'Załaduj podgląd',
+  'fabric.editor.media.insert.localFileErrorMessage': 'Nie można przekazać tego pliku.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'Błąd przekazywania pliku. Sprawdź ścieżkę pliku lub połączenie sieciowe.',
   'fabric.editor.media.insert.mediaAlt': 'Podgląd przekazanego obrazu lub pliku wideo',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Selektor multimediów',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Wklej łącze, aby przekazać',
-  'fabric.editor.media.insert.warning':
-    'Ten obraz może nie być widoczny dla innych z powodu ograniczeń źródła. Zamiast tego rozważ przekazanie pliku.',
+  'fabric.editor.media.insert.upload': 'Przekaż',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Rozmiar multimediów zwiększony do maksymalnego',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'Pole wprowadzania wysokości',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Wysokość',

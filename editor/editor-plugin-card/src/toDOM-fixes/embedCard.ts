@@ -16,7 +16,7 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 // From `packages/editor/editor-common/src/ui/MediaSingle/styled.tsx`
@@ -59,7 +59,7 @@ const LINE_LENGTH = 760;
 
 // @nodeSpecException:toDOM patch
 export const embedCardSpecWithFixedToDOM = () => {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return embedCard;
 	}
 

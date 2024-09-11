@@ -40,7 +40,7 @@ const smartCardClient = new ConfluenceCardClient('stg');
 const createPreset = () =>
 	createDefaultPreset({ featureFlags: {}, paste: {} })
 		.add(gridPlugin)
-		.add([cardPlugin, { platform: 'web', provider: Promise.resolve(cardProviderStaging) }])
+		.add([cardPlugin, { provider: Promise.resolve(cardProviderStaging) }])
 		.add(listPlugin);
 
 interface ListToolbarProps {

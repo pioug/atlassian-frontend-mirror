@@ -10,8 +10,6 @@ import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
 
-const GUTTER_SIZE_MOBILE_IN_PX = 36; // Gutter size for Mobile
-
 const isCodeBlockAllowed = (options?: Pick<BlockTypePluginOptions, 'allowBlockType'>) => {
 	const exclude =
 		options && options.allowBlockType && options.allowBlockType.exclude
@@ -22,21 +20,12 @@ const isCodeBlockAllowed = (options?: Pick<BlockTypePluginOptions, 'allowBlockTy
 };
 
 export function getScrollGutterOptions(props: EditorProps): ScrollGutterPluginOptions | undefined {
-	const { appearance, persistScrollGutter } = props;
+	const { appearance } = props;
 
 	if (fullPageCheck(appearance)) {
 		// Full Page appearance uses a scrollable div wrapper.
 		return {
 			getScrollElement: () => document.querySelector('.fabric-editor-popup-scroll-parent'),
-		};
-	}
-	if (appearance === 'mobile') {
-		// Mobile appearance uses body scrolling for improved performance on low powered devices.
-		return {
-			getScrollElement: () => document.body,
-			allowCustomScrollHandler: false,
-			persistScrollGutter,
-			gutterSize: GUTTER_SIZE_MOBILE_IN_PX,
 		};
 	}
 	return undefined;
@@ -48,7 +37,6 @@ export function getDefaultPresetOptionsFromEditorProps(
 	// Omit placeholder since it's an existing prop in `DefaultPresetPluginOptions` and will get overidden there
 ): DefaultPresetPluginOptions & Omit<EditorPluginFeatureProps, 'placeholder'> {
 	const appearance = props.appearance;
-	const isMobile = appearance === 'mobile';
 
 	const inputTracking = props.performanceTracking?.inputTracking;
 	const cardOptions = props.linking?.smartLinks || props.smartLinks || props.UNSAFE_cards;
@@ -57,7 +45,7 @@ export function getDefaultPresetOptionsFromEditorProps(
 		...props,
 		createAnalyticsEvent,
 		typeAhead: {
-			isMobile,
+			isMobile: false,
 		},
 		featureFlags: createFeatureFlagsFromProps(props),
 		paste: {
@@ -65,7 +53,7 @@ export function getDefaultPresetOptionsFromEditorProps(
 			sanitizePrivateContent: props.sanitizePrivateContent,
 		},
 		base: {
-			allowInlineCursorTarget: !isMobile,
+			allowInlineCursorTarget: true,
 			allowScrollGutter: getScrollGutterOptions(props),
 			inputTracking,
 			browserFreezeTracking: props.performanceTracking?.bFreezeTracking,
@@ -91,8 +79,8 @@ export function getDefaultPresetOptionsFromEditorProps(
 		quickInsert: {
 			enableElementBrowser: props.elementBrowser && props.elementBrowser.showModal,
 			elementBrowserHelpUrl: props.elementBrowser && props.elementBrowser.helpUrl,
-			disableDefaultItems: isMobile,
-			headless: isMobile,
+			disableDefaultItems: false,
+			headless: false,
 			emptyStateHandler: props.elementBrowser && props.elementBrowser.emptyStateHandler,
 		},
 		selection: { useLongPressSelection: false },
@@ -100,12 +88,12 @@ export function getDefaultPresetOptionsFromEditorProps(
 			editorAppearance: props.appearance,
 			linkPicker: props.linking?.linkPicker,
 			onClickCallback: cardOptions?.onClickCallback,
-			platform: isMobile ? 'mobile' : 'web',
+			platform: 'web',
 		},
 		codeBlock: {
 			...props.codeBlock,
 			useLongPressSelection: false,
-			allowCompositionInputOverride: isMobile,
+			allowCompositionInputOverride: false,
 		},
 	};
 }

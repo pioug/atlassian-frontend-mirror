@@ -7,17 +7,10 @@ import { jsx } from '@emotion/react';
 import { Component } from 'react';
 
 import { type CardAction } from '../../../actions';
-import { CardActionIconButton, type CardActionIconButtonProps } from './cardActionIconButton';
+import { CardActionIconButton } from './cardActionIconButton';
 import { type CardActionIconButtonVariant, wrapperStyles } from './styles';
 import { CardActionsDropdownMenu } from './cardActionsDropdownMenu';
 import { PreventClickThrough } from '../../../../utils/preventClickThrough';
-import { createAndFireMediaCardEvent } from '../../../../utils/analytics';
-import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-
-type CardActionIconButtonPropsWithAnalytics = CardActionIconButtonProps & WithAnalyticsEventsProps;
-const CardActionIconButtonWithProps = (props: CardActionIconButtonPropsWithAnalytics) => (
-	<CardActionIconButton {...props} />
-);
 
 export interface CardActionsViewProps {
 	readonly actions: CardAction[];
@@ -53,26 +46,13 @@ export class CardActionsView extends Component<CardActionsViewProps> {
 	private renderActionIconButton(action: CardAction, isPrimary?: boolean): JSX.Element {
 		const { triggerColor, filename, variant } = this.props;
 		const { icon, handler, label } = action;
-		const actionSubjectId = isPrimary
-			? 'mediaCardPrimaryActionButton'
-			: 'mediaCardSecondaryActionButton';
-
-		const CardActionIconButtonWithAnalytics = withAnalyticsEvents({
-			onClick: createAndFireMediaCardEvent({
-				eventType: 'ui',
-				action: 'clicked',
-				actionSubject: 'button',
-				actionSubjectId,
-				attributes: {
-					label,
-				},
-			}),
-		})(CardActionIconButtonWithProps);
 
 		return (
-			<CardActionIconButtonWithAnalytics
+			<CardActionIconButton
 				icon={icon}
-				label={filename ? `${filename} — ${label}` : label}
+				label={label}
+				filename={filename}
+				isPrimary={isPrimary}
 				triggerColor={triggerColor}
 				onClick={() => handler()}
 				variant={variant}

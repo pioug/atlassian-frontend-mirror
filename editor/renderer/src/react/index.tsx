@@ -616,7 +616,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		// The tooltip is likely to have unexpected behaviour there, with being cut
 		// off, so we disable it. This is also to keep the behaviour consistent with
 		// the rendering in the mobile Native Renderer.
-		const codeBidiWarningTooltipEnabled = this.appearance !== 'mobile';
+		const codeBidiWarningTooltipEnabled = false;
 
 		return {
 			...this.getProps(node),
@@ -786,7 +786,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 					// The tooltip is likely to have unexpected behaviour there, with being cut
 					// off, so we disable it. This is also to keep the behaviour consistent with
 					// the rendering in the mobile Native Renderer.
-					codeBidiWarningTooltipEnabled: this.appearance !== 'mobile',
+					codeBidiWarningTooltipEnabled: false,
 				}
 			: {};
 

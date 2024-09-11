@@ -20,7 +20,6 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CardContext } from '@atlaskit/link-provider';
-import type { CardPlatform } from '@atlaskit/smart-card';
 
 import { LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR } from '../common/local-storage';
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
@@ -38,7 +37,6 @@ export interface LinkToolbarAppearanceProps {
 	url?: string;
 	allowEmbeds?: boolean;
 	allowBlockCards?: boolean;
-	platform?: CardPlatform;
 	showUpgradeDiscoverability?: boolean;
 	isDatasourceView?: boolean;
 }
@@ -59,13 +57,12 @@ export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearance
 			editorState,
 			allowEmbeds,
 			allowBlockCards = true,
-			platform,
 			editorAnalyticsApi,
 			showUpgradeDiscoverability = true,
 			isDatasourceView,
 		} = this.props;
 		const preview =
-			allowEmbeds && cardContext && url && cardContext.extractors.getPreview(url, platform);
+			allowEmbeds && cardContext && url && cardContext.extractors.getPreview(url, 'web');
 
 		const defaultCommand: Command = () => false;
 

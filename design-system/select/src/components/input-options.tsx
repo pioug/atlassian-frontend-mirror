@@ -3,12 +3,13 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { Component } from 'react';
 
-import RadioIcon from '@atlaskit/icon/glyph/radio';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
+
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
-import { B300, B400, B75, N20A, N0, N100, N20, N30, N70 } from '@atlaskit/theme/colors';
+import RadioIcon from '@atlaskit/icon/glyph/radio';
+import { B300, B400, B75, N0, N100, N20, N20A, N30, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type OptionProps, type OptionType } from '../types';
@@ -123,24 +124,21 @@ const getBorderColor = ({ isActive, isDisabled, isFocused, isSelected }: Control
 };
 
 const baseIconStyles = css({
-	alignItems: 'center',
 	display: 'flex ',
+	alignItems: 'center',
 	flexShrink: 0,
 	paddingInlineEnd: token('space.050', '4px'),
-	// Here we are adding a border to the Checkbox and Radio SVG icons
-	// This is an a11y fix for Select only for now but it may be rolled
-	// into the `@atlaskit/icon` package's Checkbox and Radio SVGs later
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'& svg rect, & svg circle:first-of-type': {
-		strokeWidth: token('border.width', '1px'),
 		strokeLinejoin: 'round',
+		strokeWidth: token('border.width', '1px'),
 	},
 });
 
 const baseOptionStyles = css({
-	textOverflow: 'ellipsis',
-	overflowX: 'hidden',
 	flexGrow: 1,
+	overflowX: 'hidden',
+	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
 });
 
@@ -148,6 +146,7 @@ interface OptionState {
 	isActive?: boolean;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class ControlOption<Option = OptionType, IsMulti extends boolean = false> extends Component<
 	OptionProps<Option, IsMulti>,
 	OptionState
@@ -215,10 +214,20 @@ class ControlOption<Option = OptionType, IsMulti extends boolean = false> extend
 	}
 }
 
+/**
+ * __Checkbox option__
+ */
 export const CheckboxOption = <OptionT extends OptionType>(
 	props: OptionProps<OptionT, true>,
+	// TODO https://product-fabric.atlassian.net/browse/DSP-20768
+	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 ): JSX.Element => <ControlOption<OptionT, true> Icon={CheckboxIcon} {...props} />;
 
+/**
+ * __Radio option__
+ */
 export const RadioOption = <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => (
+	// TODO https://product-fabric.atlassian.net/browse/DSP-20769
+	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 	<ControlOption Icon={RadioIcon} {...props} />
 );

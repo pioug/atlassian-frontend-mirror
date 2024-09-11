@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dropdown-menu",
-	"version": "12.18.1",
+	"version": "12.18.2",
 	"description": "A dropdown menu displays a list of actions or options to a user.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -71,16 +71,7 @@
 	],
 	"platform-feature-flags": {
 		"platform_dst_popup-disable-focuslock": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"sibling-dropdown-close-issue": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"design-system-closed-all-when-click-outside": {
-			"type": "boolean",
-			"referenceOnly": true
+			"type": "boolean"
 		}
 	},
 	"techstack": {
@@ -121,11 +112,6 @@
 	"exports": {
 		".": "./src/index.tsx",
 		"./types": "./src/types.tsx"
-	},
-	"platform-feature-flags": {
-		"platform_dst_popup-disable-focuslock": {
-			"type": "boolean"
-		}
 	},
 	"homepage": "https://atlassian.design/components/dropdown-menu/"
 }

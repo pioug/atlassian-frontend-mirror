@@ -64,6 +64,19 @@ function.
 - `domainNamesToReplace`: (Optional) A list of domain names that should be replaced with the current
   base URL for EP before applying any URL shimming. <br>
 
+- `spaceKeyFilter`: (Optional) A list of connected space keys for which URLs should be should be
+  shimmed. <br>
+
+  - Example: If 3rd party tenant is `https://domain1.com/`, the `shimUrl` value is
+    `https://domain1.com/xyz`, and the `spaceKeyFilter` list contained `XXX` as a connected space
+    key, here is what would happen two different URLs in Embedded Confluence:
+
+    | URL in Embedded Confluence                  | `spaceKeyFilter` is `[ 'XXX' ]`             |
+    | ------------------------------------------- | ------------------------------------------- |
+    | `https://domain1.com/wiki/a/b/c`            | `https://domain1.com/wiki/a/b/c`            |
+    | `https://domain1.com/wiki/spaces/XXX/a/b/c` | `https://domain1.com/xyz/spaces/XXX/a/b/c`  |
+    | `https://domain1.com/wiki/spaces/YYY/a/b/c` | `https://domain1.com/wiki/spaces/YYY/a/b/c` |
+
 ### `navigationPolicy` examples
 
 1. Parent product chooses not to proceed with the default navigation under some conditions.

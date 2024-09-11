@@ -315,16 +315,19 @@ export default {
     '{newMediaWidth, plural, other {メディア幅が {newMediaWidth,number} ピクセルに拡大しました。}}',
   'fabric.editor.media.MediaWidthIsMin': 'メディアが最小サイズに縮小されました',
   'fabric.editor.media.insert.cancel': 'キャンセル',
-  'fabric.editor.media.insert.errorMessage':
-    '残念ながら、この画像リンクは追加できません。画像をダウンロードして、ページにドラッグ & ドロップしてください。',
+  'fabric.editor.media.insert.fileTabTitle': 'ファイル',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'ソースの制限によってはこの画像がユーザーに表示されない可能性があります。代わりにファイルをアップロードすることをご検討ください。',
   'fabric.editor.media.insert.insert': '挿入',
   'fabric.editor.media.insert.linkTabTitle': 'リンク',
   'fabric.editor.media.insert.loadPreview': 'プレビューを読み込む',
+  'fabric.editor.media.insert.localFileErrorMessage': 'このファイルをアップロードできませんでした。',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'ファイルのアップロード エラーが発生しました。ファイル パスまたはネットワークを確認してください。',
   'fabric.editor.media.insert.mediaAlt': 'アップロードした画像または動画ファイルのプレビュー',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'メディア ピッカー',
   'fabric.editor.media.insert.pasteLinkToUpload': 'リンクを貼り付けてアップロード',
-  'fabric.editor.media.insert.warning':
-    'ソースの制限によってはこの画像がユーザーに表示されない可能性があります。代わりにファイルをアップロードすることをご検討ください。',
+  'fabric.editor.media.insert.upload': 'アップロード',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'メディアが最大サイズに拡大されました',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': '高さの入力',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': '高さ',

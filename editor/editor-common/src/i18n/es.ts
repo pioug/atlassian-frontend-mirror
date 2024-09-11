@@ -319,16 +319,19 @@ export default {
     '{newMediaWidth, plural, one {Ancho de multimedia aumentado a {newMediaWidth,number} píxel.} other {Ancho de multimedia aumentado a {newMediaWidth,number} píxeles.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Medio reducido al tamaño mínimo',
   'fabric.editor.media.insert.cancel': 'Cancelar',
-  'fabric.editor.media.insert.errorMessage':
-    'Lamentablemente, no se puede añadir este enlace a la imagen. Descarga la imagen y, a continuación, arrástrala y suéltala en la página.',
+  'fabric.editor.media.insert.fileTabTitle': 'Fichero',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'Puede que esta imagen no esté visible para otras personas debido a restricciones de origen. Considera subir el archivo en su lugar.',
   'fabric.editor.media.insert.insert': 'Insertar',
   'fabric.editor.media.insert.linkTabTitle': 'Enlace',
   'fabric.editor.media.insert.loadPreview': 'Cargar vista previa',
+  'fabric.editor.media.insert.localFileErrorMessage': 'No se ha podido subir este archivo.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'Se ha producido un error al subir el archivo. Comprueba la ruta del archivo o la red.',
   'fabric.editor.media.insert.mediaAlt': 'Vista previa del archivo de imagen o vídeo subido',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Selector de archivos multimedia',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Pegar enlace para subirlo',
-  'fabric.editor.media.insert.warning':
-    'Puede que esta imagen no esté visible para otras personas debido a restricciones de origen. Considera subir el archivo en su lugar.',
+  'fabric.editor.media.insert.upload': 'Cargar',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Medio aumentado al tamaño máximo',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'entrada de altura',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Altura',

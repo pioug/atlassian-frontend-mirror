@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import ModalDialog, { ModalTransition, ModalBody } from '@atlaskit/modal-dialog';
-import Drawer from '@atlaskit/drawer';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import Drawer from '@atlaskit/drawer';
+import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
 
 import { PopupSelect } from '../../src';
 

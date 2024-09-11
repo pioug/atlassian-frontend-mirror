@@ -5,7 +5,7 @@ import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PluginInjectionAPI } from '../types';
 
@@ -27,7 +27,7 @@ type TableViewOptions = {
 };
 
 export const lazyTableView = (options: TableViewOptions) => {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 			return createTableView(
 				node,
@@ -101,7 +101,7 @@ type TableCellViewOptions = {
 	pluginInjectionApi?: PluginInjectionAPI;
 };
 export const lazyTableCellView = (options: TableCellViewOptions) => {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 			return new TableCell(
 				node,
@@ -148,7 +148,7 @@ export const lazyTableCellView = (options: TableCellViewOptions) => {
 };
 
 export const lazyTableHeaderView = (options: TableCellViewOptions) => {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 			return new TableCell(
 				node,
@@ -195,7 +195,7 @@ export const lazyTableHeaderView = (options: TableCellViewOptions) => {
 };
 
 export const lazyTableRowView = (options: TableCellViewOptions) => {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 			return new TableRow(node, view, getPos, options.eventDispatcher);
 		};

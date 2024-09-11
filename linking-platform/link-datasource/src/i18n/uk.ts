@@ -82,6 +82,11 @@ export default {
     'Підключіть свій обліковий запис {providerName}, щоб співпрацювати з іншими в продуктах Atlassian.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Підключіть обліковий запис {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Докладніше про смарт-посилання.',
+  'linkDataSource.issue-line-table.error-403-description': 'Для редагування цього пункту потрібен відповідний дозвіл.',
+  'linkDataSource.issue-line-table.error-403-title': 'Зміни не збережено',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'Не вдалося завершити оновлення. Повторіть спробу через кілька хвилин. Якщо проблема не зникне, зверніться до служби підтримки.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Сталася помилка',
   'linkDataSource.issue-line-table.unwrap-text': 'Розгорнути текст',
   'linkDataSource.issue-line-table.wrap-text': 'Згорнути текст',
   'linkDataSource.checkConnectionWithSource':

@@ -96,6 +96,7 @@ const BasicExample = () => {
 							isSelected
 							title="Queues view"
 							iconBefore={<QueueIcon label="" />}
+							aria-current={true}
 						>
 							<Section title="Queues" isList>
 								<ButtonItem>Untriaged</ButtonItem>

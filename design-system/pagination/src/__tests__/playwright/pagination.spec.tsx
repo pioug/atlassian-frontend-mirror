@@ -28,8 +28,7 @@ test('A user will be able to navigate to next page by clicking Next button', asy
 	const nextButton = page.locator(nextPageBtnSelector).first();
 	await nextButton.click();
 	const elm = page.locator(pageTextSelector).first();
-	const pageText = await elm.textContent();
-	expect(pageText).toBe('selected page from onChange hook: 2');
+	await expect(elm).toHaveText('selected page from onChange hook: 2');
 });
 
 test('A user will be able to navigate to previous page by clicking Previous button', async ({
@@ -41,8 +40,7 @@ test('A user will be able to navigate to previous page by clicking Previous butt
 	const prevButton = page.locator(previousPageBtnSelector).first();
 	await prevButton.click();
 	const elm = page.locator(pageTextSelector).first();
-	const pageText = await elm.textContent();
-	expect(pageText).toBe('selected page from onChange hook: 2');
+	await expect(elm).toHaveText('selected page from onChange hook: 2');
 });
 
 test('A user will be able to see page buttons along with both ellipsis', async ({ page }) => {

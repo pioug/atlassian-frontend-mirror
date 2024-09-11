@@ -313,16 +313,19 @@ export default {
     '{newMediaWidth, plural, other {미디어 너비를 {newMediaWidth,number}픽셀로 늘렸습니다.}}',
   'fabric.editor.media.MediaWidthIsMin': '미디어를 최소 크기로 줄였습니다',
   'fabric.editor.media.insert.cancel': '취소',
-  'fabric.editor.media.insert.errorMessage':
-    '죄송합니다. 이 이미지 링크를 추가할 수 없습니다. 이미지를 다운로드한 후 페이지로 끌어 놓으세요.',
+  'fabric.editor.media.insert.fileTabTitle': '파일',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    '소스 제한으로 다른 사용자에게 이 이미지가 표시되지 않을 수 있습니다. 대신 파일 업로드를 고려하세요.',
   'fabric.editor.media.insert.insert': '삽입',
   'fabric.editor.media.insert.linkTabTitle': '링크',
   'fabric.editor.media.insert.loadPreview': '미리 보기 로드',
+  'fabric.editor.media.insert.localFileErrorMessage': '이 파일은 업로드할 수 없습니다.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    '파일 업로드 오류입니다. 파일 경로 또는 네트워크를 확인하세요.',
   'fabric.editor.media.insert.mediaAlt': '업로드된 이미지 또는 동영상 파일 미리 보기',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': '미디어 선택기',
   'fabric.editor.media.insert.pasteLinkToUpload': '업로드할 링크 붙여넣기',
-  'fabric.editor.media.insert.warning':
-    '소스 제한으로 다른 사용자에게 이 이미지가 표시되지 않을 수 있습니다. 대신 파일 업로드를 고려하세요.',
+  'fabric.editor.media.insert.upload': '업로드',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': '미디어를 최대 크기로 늘렸습니다',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': '높이 입력',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': '높이',

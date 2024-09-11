@@ -69,7 +69,6 @@ export const createPlugin =
 	(pmPluginFactoryParams: PMPluginFactoryParams): SafePlugin<CardPluginState> => {
 		const {
 			editorAppearance,
-			platform,
 			allowResizing,
 			useAlternativePreloader,
 			fullWidthMode,
@@ -84,7 +83,7 @@ export const createPlugin =
 			__livePage,
 		} = options;
 
-		const enableInlineUpgradeFeatures = !!showUpgradeDiscoverability && platform !== 'mobile';
+		const enableInlineUpgradeFeatures = !!showUpgradeDiscoverability;
 
 		const inlineCardViewProducer = getInlineNodeViewProducer({
 			pmPluginFactoryParams,
@@ -298,7 +297,6 @@ export const createPlugin =
 					inlineCard: inlineCardViewProducer,
 					blockCard: lazyBlockCardView({
 						pmPluginFactoryParams,
-						platform,
 						actionOptions,
 						showServerActions,
 						pluginInjectionApi,
@@ -308,7 +306,6 @@ export const createPlugin =
 					}),
 					embedCard: lazyEmbedCardView({
 						allowResizing,
-						platform,
 						fullWidthMode,
 						pmPluginFactoryParams,
 						pluginInjectionApi,

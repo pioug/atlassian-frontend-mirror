@@ -67,21 +67,6 @@ export const annotationInlineCommentProvider: InlineCommentAnnotationProvider = 
 	updateSubscriber: new AnnotationUpdateEmitterMock(),
 };
 
-export function MobileRendererWithAnnotations() {
-	return (
-		<Renderer
-			adfStage={'stage0'}
-			document={annotationAdf}
-			appearance={'mobile'}
-			allowAnnotations={true}
-			annotationProvider={{
-				inlineComment: annotationInlineCommentProvider,
-			}}
-			schema={getSchemaBasedOnStage('stage0')}
-		/>
-	);
-}
-
 export function RendererWithAnnotations() {
 	return (
 		<Renderer

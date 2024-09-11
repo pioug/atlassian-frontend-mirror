@@ -80,6 +80,12 @@ export default {
     'Połącz swoje konto {providerName}, aby współpracować w różnych produktach Atlassian.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Połącz konto {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Dowiedz się więcej o inteligentnych łączach.',
+  'linkDataSource.issue-line-table.error-403-description':
+    'Do edycji tego elementu potrzebne są odpowiednie uprawnienia.',
+  'linkDataSource.issue-line-table.error-403-title': 'Nie zapisano zmian',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'Wystąpił problem podczas próby ukończenia aktualizacji. Poczekaj kilka minut, a potem spróbuj ponownie. Jeżeli sytuacja będzie się powtarzać, skontaktuj się z działem wsparcia.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Coś poszło nie tak',
   'linkDataSource.issue-line-table.unwrap-text': 'Cofnij zawijanie tekstu',
   'linkDataSource.issue-line-table.wrap-text': 'Zawijaj tekst',
   'linkDataSource.checkConnectionWithSource':

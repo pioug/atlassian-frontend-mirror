@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 78.2.3
+
+### Patch Changes
+
+- [#139310](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139310)
+  [`3037eb69f8dbc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3037eb69f8dbc) -
+  Updated Media card and UI to avoid unnecessary re-renders to avoid contributing to TTVC metrics
+
 ## 78.2.2
 
 ### Patch Changes

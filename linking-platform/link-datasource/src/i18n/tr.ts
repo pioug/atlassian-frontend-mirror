@@ -79,6 +79,12 @@ export default {
     'Atlassian ürünlerindeki çalışmalarda iş birliği yapmak için {providerName} hesabınızı bağlayın.',
   'linkDataSource.datasource.table.authScreenHeaderText': '{providerName} hesabınızı bağlayın',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Akıllı Bağlantılar hakkında daha fazla bilgi edinin.',
+  'linkDataSource.issue-line-table.error-403-description':
+    'Bu öğeyi düzenlemek için doğru izinlere sahip olmanız gerekir.',
+  'linkDataSource.issue-line-table.error-403-title': 'Değişiklikler kaydedilmedi',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'Güncellemeyi tamamlamaya çalışırken bir sorun yaşandı. Birkaç dakika bekleyip ardından yeniden deneyin. Bu sorun devam ederse destek ekibiyle iletişime geçin.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Bir hata oluştu',
   'linkDataSource.issue-line-table.unwrap-text': 'Metnin kaydırmasını kaldır',
   'linkDataSource.issue-line-table.wrap-text': 'Metni kaydır',
   'linkDataSource.checkConnectionWithSource':

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-panel
 
+## 2.3.5
+
+### Patch Changes
+
+- [#139335](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139335)
+  [`ac5e66fc71394`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac5e66fc71394) -
+  ED-24798 bug-fix: pressing Backspace before media that is nested in a quote should move your
+  selection to the media
+
 ## 2.3.4
 
 ### Patch Changes

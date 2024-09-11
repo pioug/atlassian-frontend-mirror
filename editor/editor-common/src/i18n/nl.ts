@@ -316,16 +316,19 @@ export default {
     '{newMediaWidth, plural, one {Mediabreedte verhoogd tot {newMediaWidth,number} pixel.} other {Mediabreedte verhoogd tot {newMediaWidth,number} pixels.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Media verkleind tot het minimale formaat',
   'fabric.editor.media.insert.cancel': 'Annuleren',
-  'fabric.editor.media.insert.errorMessage':
-    'We kunnen deze afbeeldingslink helaas niet toevoegen. Download de afbeelding en sleep deze vervolgens op de pagina.',
+  'fabric.editor.media.insert.fileTabTitle': 'Bestand',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'Deze afbeelding is mogelijk niet zichtbaar voor anderen vanwege bronbeperkingen. Overweeg om in plaats daarvan het bestand te uploaden.',
   'fabric.editor.media.insert.insert': 'Invoegen',
   'fabric.editor.media.insert.linkTabTitle': 'Link',
   'fabric.editor.media.insert.loadPreview': 'Voorvertoning laden',
+  'fabric.editor.media.insert.localFileErrorMessage': 'Dit bestand kon niet geüpload worden.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'Fout bij uploaden bestand. Controleer het bestandspad of netwerk.',
   'fabric.editor.media.insert.mediaAlt': 'Voorvertoning van geüploade afbeelding of videobestand',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Mediakiezer',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Plak de link om te uploaden',
-  'fabric.editor.media.insert.warning':
-    'Deze afbeelding is mogelijk niet zichtbaar voor anderen vanwege bronbeperkingen. Overweeg om in plaats daarvan het bestand te uploaden.',
+  'fabric.editor.media.insert.upload': 'Uploaden',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Media vergroot tot het maximale formaat',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'hoogte-invoer',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Hoogte',

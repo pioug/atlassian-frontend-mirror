@@ -8,7 +8,7 @@ import { forwardRef, type MouseEvent } from 'react';
 import { jsx } from '@emotion/react';
 
 import AddItemIcon from '@atlaskit/icon/glyph/add-item';
-import OpenIcon from '@atlaskit/icon/glyph/open';
+import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import { Box } from '@atlaskit/primitives';
 
 import { CustomItem, type CustomItemComponentProps } from '../src';
@@ -35,7 +35,11 @@ const Example = () => (
 		<CustomItem href="/create-article-3" component={CustomLink} isDisabled>
 			Custom create article
 		</CustomItem>
-		<CustomItem href="/create-article-4" component={CustomLink} iconAfter={<OpenIcon label="" />}>
+		<CustomItem
+			href="/create-article-4"
+			component={CustomLink}
+			iconAfter={<EmojiAtlassianIcon label="" />}
+		>
 			Custom create article
 		</CustomItem>
 		<CustomItem
@@ -56,7 +60,7 @@ const Example = () => (
 			href="/create-article-7"
 			component={CustomLink}
 			iconBefore={<AddItemIcon label="" />}
-			iconAfter={<OpenIcon label="" />}
+			iconAfter={<EmojiAtlassianIcon label="" />}
 		>
 			Custom create article
 		</CustomItem>
@@ -74,7 +78,7 @@ const Example = () => (
 			component={CustomLink}
 			description="Will create an article"
 			iconBefore={<AddItemIcon label="" />}
-			iconAfter={<OpenIcon label="" />}
+			iconAfter={<EmojiAtlassianIcon label="" />}
 		>
 			Custom create article
 		</CustomItem>

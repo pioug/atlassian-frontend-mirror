@@ -1,5 +1,14 @@
 # @atlaskit/embedded-confluence
 
+## 2.19.0
+
+### Minor Changes
+
+- [#139168](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139168)
+  [`61ab5a7324f67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61ab5a7324f67) -
+  [CBT-2509] Adds support to NavigationPolicy for spaceKeyFilter array prop, which filters
+  ConfluenceURLs for shimming based an array of connected space keys
+
 ## 2.18.2
 
 ### Patch Changes

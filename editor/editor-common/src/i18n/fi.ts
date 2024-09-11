@@ -315,16 +315,19 @@ export default {
     '{newMediaWidth, plural, one {Median leveys lisättiin {newMediaWidth,number} pikseliin.} other {Median leveys lisättiin {newMediaWidth,number} pikseliin.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Media pienennettiin vähimmäiskokoon',
   'fabric.editor.media.insert.cancel': 'Peruuta',
-  'fabric.editor.media.insert.errorMessage':
-    'Valitettavasti emme voi lisätä tätä kuvalinkkiä. Lataa kuva ja vedä ja pudota se sitten sivulle.',
+  'fabric.editor.media.insert.fileTabTitle': 'Tiedosto',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'Tämä kuva ei ehkä näy muille lähderajoitusten vuoksi. Harkitse sen sijaan tiedoston lataamista.',
   'fabric.editor.media.insert.insert': 'Lisää',
   'fabric.editor.media.insert.linkTabTitle': 'Linkki',
   'fabric.editor.media.insert.loadPreview': 'Lataa esikatselu',
+  'fabric.editor.media.insert.localFileErrorMessage': 'Tätä tiedostoa ei voitu ladata.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'Tiedoston lähetysvirhe. Tarkista tiedostopolku tai verkko.',
   'fabric.editor.media.insert.mediaAlt': 'Lähetetyn kuvan tai videotiedoston esikatselu',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Mediavalitsin',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Liitä linkki ladattavaksi',
-  'fabric.editor.media.insert.warning':
-    'Tämä kuva ei ehkä näy muille lähderajoitusten vuoksi. Harkitse sen sijaan tiedoston lataamista.',
+  'fabric.editor.media.insert.upload': 'Lataa',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Media suurennettiin enimmäiskokoon',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'korkeuden arvo',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Korkeus',

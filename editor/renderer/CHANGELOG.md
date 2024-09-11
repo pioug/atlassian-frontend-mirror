@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 109.53.3
+
+### Patch Changes
+
+- [#138899](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138899)
+  [`e18d6c037fd51`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e18d6c037fd51) -
+  Fix comment button disabled on triple click
+
+## 109.53.2
+
+### Patch Changes
+
+- [#139453](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139453)
+  [`6ca31cec5324f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ca31cec5324f) -
+  EDF-957 Removed renderer re-render tracking analytics.
+
 ## 109.53.1
 
 ### Patch Changes

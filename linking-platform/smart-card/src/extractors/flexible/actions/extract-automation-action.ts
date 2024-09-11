@@ -1,17 +1,12 @@
 import type { JsonLd } from 'json-ld-types';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 import { type AutomationActionData } from '../../../state/flexible-ui-context/types';
 import { ActionName } from '../../../constants';
 
 export const extractAutomationAction = (
 	response: JsonLd.Response,
 ): AutomationActionData | undefined => {
-	if (
-		!getBooleanFF('platform.linking-platfom.smart-card.confluence.page.automation-action_xcdoi') ||
-		!response.data
-	) {
+	if (!response.data) {
 		return undefined;
 	}
 	if (!response?.meta?.supportedFeature?.includes(ActionName.AutomationAction)) {

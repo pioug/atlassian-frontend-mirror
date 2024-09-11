@@ -12,7 +12,7 @@ import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-id
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import { history } from '@atlaskit/editor-prosemirror/history';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { setKeyboardHeight } from './commands';
 import disableSpellcheckingPlugin from './pm-plugins/disable-spell-checking';
@@ -73,7 +73,7 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 				},
 			];
 
-			if (fg('platform_editor_lazy-node-views')) {
+			if (editorExperiment('platform_editor_exp_lazy_node_views', true, { exposure: true })) {
 				plugins.push({
 					name: 'lazyNodeViewDecorationsPlugin',
 					plugin: () => createLazyNodeViewDecorationPlugin(),

@@ -54,13 +54,13 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../input-rules/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/task-decision/tsconfig.app.json"
+		},
+		{
+			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"

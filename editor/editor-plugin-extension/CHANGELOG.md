@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.14.7
+
+### Patch Changes
+
+- [#139034](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139034)
+  [`517cdc0f7ea1a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/517cdc0f7ea1a) -
+  Used experiment for lazy node view
+
 ## 1.14.6
 
 ### Patch Changes

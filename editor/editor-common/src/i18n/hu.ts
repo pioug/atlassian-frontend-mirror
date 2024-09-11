@@ -320,16 +320,19 @@ export default {
     '{newMediaWidth, plural, one {A média szélessége {newMediaWidth,number} pixelre növelve.} other {A média szélessége {newMediaWidth,number} pixelre növelve.}}',
   'fabric.editor.media.MediaWidthIsMin': 'A média mérete a minimálisra csökkentve',
   'fabric.editor.media.insert.cancel': 'Mégse',
-  'fabric.editor.media.insert.errorMessage':
-    'Sajnos nem tudjuk hozzáadni ezt a képlinket. Töltsd le a képet, majd húzd erre az oldalra.',
+  'fabric.editor.media.insert.fileTabTitle': 'Fájl',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'A forrás korlátozásai miatt előfordulhat, hogy ezt a képet nem fogják látni mások. Fontold meg inkább a fájl feltöltését.',
   'fabric.editor.media.insert.insert': 'Beszúrás',
   'fabric.editor.media.insert.linkTabTitle': 'Link',
   'fabric.editor.media.insert.loadPreview': 'Előnézet betöltése',
+  'fabric.editor.media.insert.localFileErrorMessage': 'A fájlt nem sikerült feltölteni.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'Fájlfeltöltési hiba. Ellenőrizd az elérési utat vagy a hálózatot.',
   'fabric.editor.media.insert.mediaAlt': 'Feltöltött kép- vagy videófájl előnézete',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Médiaválasztó',
   'fabric.editor.media.insert.pasteLinkToUpload': 'A feltöltéshez illessz be egy linket',
-  'fabric.editor.media.insert.warning':
-    'A forrás korlátozásai miatt előfordulhat, hogy ezt a képet nem fogják látni mások. Fontold meg inkább a fájl feltöltését.',
+  'fabric.editor.media.insert.upload': 'Feltöltés',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'A média mérete a maximálisra növelve',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'magasság megadása',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Magasság',

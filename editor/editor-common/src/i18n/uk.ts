@@ -319,16 +319,19 @@ export default {
     '{newMediaWidth, plural, one {Ширину мультимедіа збільшено до {newMediaWidth,number} пікселя.} few {Ширину мультимедіа збільшено до {newMediaWidth,number} пікселів.} many {Ширину мультимедіа збільшено до {newMediaWidth,number} пікселів.} other {Ширину мультимедіа збільшено до {newMediaWidth,number} пікселів.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Об’єкт зменшено до мінімального розміру',
   'fabric.editor.media.insert.cancel': 'Скасувати',
-  'fabric.editor.media.insert.errorMessage':
-    'На жаль, ми не можемо додати це посилання на зображення. Завантажте зображення, а потім перетягніть на сторінку.',
+  'fabric.editor.media.insert.fileTabTitle': 'Файл',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'Це зображення може не відображатися для інших через обмеження щодо його джерела. Спробуйте натомість передати файл.',
   'fabric.editor.media.insert.insert': 'Вставити',
   'fabric.editor.media.insert.linkTabTitle': 'Посилання',
   'fabric.editor.media.insert.loadPreview': 'Завантажити попередню версію',
+  'fabric.editor.media.insert.localFileErrorMessage': 'Не вдалося передати цей файл.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'Помилка передавання файлу. Перевірте правильність шляху до файлу або наявність підключення до мережі.',
   'fabric.editor.media.insert.mediaAlt': 'Попередня версія переданого зображення або відеофайлу',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Засіб вибору медіафайлу',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Вставте посилання для передавання',
-  'fabric.editor.media.insert.warning':
-    'Це зображення може не відображатися для інших через обмеження щодо його джерела. Спробуйте натомість передати файл.',
+  'fabric.editor.media.insert.upload': 'Завантажити',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Об’єкт збільшено до максимального розміру',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'введення значення висоти',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Висота',

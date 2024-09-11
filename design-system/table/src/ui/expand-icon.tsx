@@ -11,8 +11,8 @@ import { jsx } from '@emotion/react';
 // TODO: Using HipChat icons as the standard icon set is missing large
 // versions of `chevron-up` and `chevron-down`, despite already including
 // `chevron-left-large` and `chevron-right-large`...
-import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
-import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down--hipchat-chevron-down';
+import ChevronUpIcon from '@atlaskit/icon/utility/migration/chevron-up--hipchat-chevron-up';
 
 /**
  * __Expand icon__
@@ -22,8 +22,22 @@ import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
 export const ExpandIcon = memo(({ isExpanded }: { isExpanded: boolean }) => {
 	switch (isExpanded) {
 		case true:
-			return <ChevronUpIcon size="small" label="" primaryColor="inherit" />;
+			return (
+				<ChevronUpIcon
+					color="currentColor"
+					LEGACY_size="small"
+					label=""
+					LEGACY_primaryColor="inherit"
+				/>
+			);
 		case false:
-			return <ChevronDownIcon size="small" label="" primaryColor="inherit" />;
+			return (
+				<ChevronDownIcon
+					color="currentColor"
+					LEGACY_size="small"
+					label=""
+					LEGACY_primaryColor="inherit"
+				/>
+			);
 	}
 });

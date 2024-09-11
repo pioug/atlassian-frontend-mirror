@@ -2,12 +2,12 @@ import { blockCard } from '@atlaskit/adf-schema';
 import type { DatasourceAttributes, DataType, UrlType } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 // @nodeSpecException:toDOM patch
 export const blockCardSpecWithFixedToDOM = () => {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return blockCard;
 	}
 

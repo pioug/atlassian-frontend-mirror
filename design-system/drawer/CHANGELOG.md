@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 7.14.3
+
+### Patch Changes
+
+- [#138959](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138959)
+  [`787e6d015c8cd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/787e6d015c8cd) -
+  Internal change only: Convert from class components to function components.
+
 ## 7.14.2
 
 ### Patch Changes

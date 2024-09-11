@@ -66,6 +66,8 @@ export const calculateTruncation = (
 const fontFaceScaleFactor = (fontSizePX: number) =>
 	(fontSizePX / 11) * 0.46; /* factor for fontSize of 11px */
 
+const placeholder = ' ';
+
 export const Truncate: React.FC<TruncateProps> = ({
 	text,
 	fontSizePX = 11, // Must be calibrated with fontSize
@@ -77,9 +79,7 @@ export const Truncate: React.FC<TruncateProps> = ({
 		startFixedChars,
 		endFixedChars,
 	);
-	if (leftStr === rightStr) {
-		return <>{text}</>;
-	}
+
 	return (
 		<>
 			<TruncateLeft
@@ -94,7 +94,7 @@ export const Truncate: React.FC<TruncateProps> = ({
 				startFixedChars={startFixedChars}
 				endFixedChars={endFixedChars}
 			>
-				{rightStr}
+				{leftStr === rightStr ? placeholder : rightStr}
 			</TruncateRight>
 		</>
 	);

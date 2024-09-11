@@ -80,6 +80,12 @@ export default {
     'Conecta tu cuenta de {providerName} para colaborar en el trabajo a través de los productos de Atlassian.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Conecta tu cuenta de {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Más información sobre los enlaces inteligentes.',
+  'linkDataSource.issue-line-table.error-403-description':
+    'Necesitas los permisos adecuados para editar este elemento.',
+  'linkDataSource.issue-line-table.error-403-title': 'Cambios no guardados',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'Se ha producido un error al completar la actualización. Espera unos minutos y vuelve a intentarlo. Ponte en contacto con el servicio de soporte si el problema persiste.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Se ha producido un error',
   'linkDataSource.issue-line-table.unwrap-text': 'Desajustar texto',
   'linkDataSource.issue-line-table.wrap-text': 'Ajustar texto',
   'linkDataSource.checkConnectionWithSource':

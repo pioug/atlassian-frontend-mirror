@@ -40,7 +40,7 @@ import { TELEPOINTER_ID, rendererStyles } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
 import type { RendererAppearance, NodeComponentsProps } from './types';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayload } from '../../analytics/events';
+import type { AnalyticsEventPayload, FireAnalyticsCallback } from '../../analytics/events';
 import { PLATFORM, MODE } from '../../analytics/events';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { Provider as SmartCardStorageProvider } from '../SmartCardStorage';
@@ -51,7 +51,7 @@ import {
 	RendererContext as ActionsContext,
 } from '../RendererActionsContext';
 import { ActiveHeaderIdProvider } from '../active-header-id-provider';
-import type { NormalizedObjectFeatureFlags, RendererProps } from '../renderer-props';
+import type { RendererProps } from '../renderer-props';
 import { AnnotationsWrapper } from '../annotations';
 import { getActiveHeadingId, isNestedHeaderLinksEnabled } from '../../react/utils/links';
 import { findInTree } from '../../utils';
@@ -59,8 +59,6 @@ import { isInteractiveElement } from './click-to-edit';
 import { RendererContextProvider } from '../../renderer-context';
 import memoizeOne from 'memoize-one';
 import { ErrorBoundary } from './ErrorBoundary';
-import type { FireAnalyticsCallback } from '../../react/utils/performance/RenderTracking';
-import { RenderTracking } from '../../react/utils/performance/RenderTracking';
 import { EditorMediaClientProvider } from '../../react/utils/EditorMediaClientProvider';
 import { nodeToReact } from '../../react/nodes';
 
@@ -270,12 +268,7 @@ export class Renderer extends PureComponent<RendererProps> {
 	}
 
 	private featureFlags = memoizeOne((featureFlags: RendererProps['featureFlags']) => {
-		const normalizedFeatureFlags = normalizeFeatureFlags<NormalizedObjectFeatureFlags>(
-			featureFlags,
-			{
-				objectFlagKeys: ['rendererRenderTracking'],
-			},
-		);
+		const normalizedFeatureFlags = normalizeFeatureFlags(featureFlags);
 		return {
 			featureFlags: normalizedFeatureFlags,
 		};
@@ -503,25 +496,7 @@ export class Renderer extends PureComponent<RendererProps> {
 				rendererOutput
 			);
 
-			const rendererRenderTracking =
-				featureFlags?.featureFlags?.rendererRenderTracking?.[ACTION_SUBJECT.RENDERER];
-
-			const reRenderTracking = rendererRenderTracking?.enabled && (
-				<RenderTracking
-					componentProps={this.props}
-					action={ACTION.RE_RENDERED}
-					actionSubject={ACTION_SUBJECT.RENDERER}
-					handleAnalyticsEvent={this.fireAnalyticsEvent}
-					useShallow={rendererRenderTracking.useShallow}
-				/>
-			);
-
-			return (
-				<Fragment>
-					{reRenderTracking}
-					{rendererResult}
-				</Fragment>
-			);
+			return <Fragment>{rendererResult}</Fragment>;
 		} catch (e) {
 			if (onError) {
 				onError(e);

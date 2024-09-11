@@ -8,7 +8,7 @@ export function getBaseFontSize(appearance?: EditorAppearance): number | undefin
 	if (appearance === undefined) {
 		return akEditorFullPageDefaultFontSize;
 	}
-	return !['comment', 'chromeless', 'mobile'].includes(appearance)
+	return !['comment', 'chromeless'].includes(appearance)
 		? akEditorFullPageDefaultFontSize
 		: undefined;
 }

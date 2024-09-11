@@ -5,13 +5,15 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type Slice } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../../types';
 import { setExpandRef } from '../commands';
 import ExpandNodeView from '../nodeviews';
-import { findExpand } from '../utils';
+import { findExpand, transformSliceNestedExpandToExpand } from '../utils';
 
 import { createPluginState, getPluginState, pluginKey } from './plugin-factory';
 
@@ -29,7 +31,7 @@ export const createPlugin = (
 	__livePage: boolean = false,
 ) => {
 	const state = createPluginState(dispatch, {});
-	const isMobile = appearance === 'mobile';
+	const isMobile = false;
 
 	return new SafePlugin({
 		state: state,
@@ -65,6 +67,12 @@ export const createPlugin = (
 				(target) => target.classList.contains(expandClassNames.prefix),
 				{ useLongPressSelection },
 			),
+			handleDrop(view, event, slice, moved) {
+				if (fg('platform_editor_nest_nested_expand_drag_fix')) {
+					return handleDraggingOfNestedExpand(view, event, slice);
+				}
+				return false;
+			},
 		},
 		// @see ED-8027 to follow up on this work-around
 		filterTransaction(tr) {
@@ -96,3 +104,59 @@ export const createPlugin = (
 		},
 	});
 };
+
+/**
+ * As the nestedExpand node is not supported outside of the expand node, it must be converted to an expand node when dragged outside of the expand node.
+ */
+export function handleDraggingOfNestedExpand(
+	view: EditorView,
+	event: DragEvent,
+	slice: Slice,
+): boolean {
+	const { state, dispatch } = view;
+	const tr = state.tr;
+	const { selection } = state;
+	const { from, to } = selection;
+	const supportedDropLocations = [
+		state.schema.nodes.doc,
+		state.schema.nodes.layoutSection,
+		state.schema.nodes.layoutColumn,
+	];
+
+	// Check if the contents of the dragged slice contain a nested expand node.
+	if (slice.content.firstChild?.type !== state.schema.nodes.nestedExpand) {
+		return false;
+	}
+
+	const dropPos = view.posAtCoords({ left: event.clientX, top: event.clientY });
+
+	if (!dropPos) {
+		return false;
+	}
+
+	const resolvedPos = state.doc.resolve(dropPos.pos);
+
+	// If not dropping into the root of the document, check if the parent node type of the drop location is supported.
+	if (resolvedPos.depth > 1) {
+		const parentNodeType = resolvedPos.node(resolvedPos.depth - 1).type;
+		// If you're not dropping into a doc or layoutSection, don't transform the nested expand, return false and allow default behaviour.
+		if (!supportedDropLocations.includes(parentNodeType)) {
+			return false;
+		}
+	}
+
+	const updatedSlice = transformSliceNestedExpandToExpand(slice, state.schema);
+
+	if (updatedSlice.eq(slice)) {
+		return false;
+	}
+
+	// The drop position will be affected when the original slice is deleted from the document.
+	const updatedDropPos = dropPos.pos > from ? dropPos.pos - updatedSlice.content.size : dropPos.pos;
+
+	tr.delete(from, to);
+	tr.insert(updatedDropPos, updatedSlice.content);
+
+	dispatch(tr);
+	return true;
+}

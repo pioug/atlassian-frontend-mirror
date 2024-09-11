@@ -349,7 +349,7 @@ const fullPageStyles = (
 	{ appearance }: RendererWrapperProps,
 	{ theme }: { [index: string]: any },
 ) => {
-	if (appearance !== 'full-page' && appearance !== 'mobile') {
+	if (appearance !== 'full-page') {
 		return '';
 	}
 

@@ -12,7 +12,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
-import type { CardPlatform } from '@atlaskit/smart-card';
 
 import { type CardPlugin } from '../plugin';
 
@@ -25,7 +24,6 @@ export interface HyperlinkToolbarAppearanceProps {
 	editorState: EditorState;
 	url: string;
 	editorView?: EditorView;
-	platform?: CardPlatform;
 	cardOptions?: CardOptions;
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined;
 	editorPluginApi: ExtractInjectionAPI<CardPlugin> | undefined;
@@ -35,7 +33,7 @@ export function HyperlinkToolbarAppearance(props: HyperlinkToolbarAppearanceProp
 	const [supportedUrlsMap, setSupportedUrlsMap] = useState<Map<string, boolean>>(new Map());
 	const cardProvider = useRef<CardProvider | undefined>(undefined);
 
-	const { url, intl, editorView, editorState, cardOptions, platform, editorAnalyticsApi } = props;
+	const { url, intl, editorView, editorState, cardOptions, editorAnalyticsApi } = props;
 
 	const getProvider = async (): Promise<CardProvider> => {
 		if (props.cardOptions?.provider) {
@@ -100,7 +98,6 @@ export function HyperlinkToolbarAppearance(props: HyperlinkToolbarAppearanceProp
 				editorState={editorState}
 				allowEmbeds={cardOptions?.allowEmbeds}
 				allowBlockCards={cardOptions?.allowBlockCards}
-				platform={platform}
 				editorAnalyticsApi={editorAnalyticsApi}
 			/>
 			{cardOptions?.allowDatasource && (

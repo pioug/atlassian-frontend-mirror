@@ -77,6 +77,11 @@ export default {
     '{providerName} 계정을 연결하여 Atlassian 제품 전반에서 공동 작업하세요.',
   'linkDataSource.datasource.table.authScreenHeaderText': '{providerName} 계정 연결',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': '스마트 링크에 대해 자세히 알아보세요.',
+  'linkDataSource.issue-line-table.error-403-description': '이 항목을 편집하려면 적절한 권한이 필요합니다.',
+  'linkDataSource.issue-line-table.error-403-title': '변경 사항 저장되지 않음',
+  'linkDataSource.issue-line-table.error-generic-description':
+    '업데이트를 완료하는 동안 문제가 발생했습니다. 몇 분 후에 다시 시도하세요. 이 문제가 지속되면 지원 팀에 문의하세요.',
+  'linkDataSource.issue-line-table.error-generic-title': '문제가 발생했습니다',
   'linkDataSource.issue-line-table.unwrap-text': '텍스트 줄 바꿈 해제',
   'linkDataSource.issue-line-table.wrap-text': '텍스트 줄 바꿈',
   'linkDataSource.checkConnectionWithSource':

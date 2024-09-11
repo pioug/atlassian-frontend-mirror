@@ -29,7 +29,7 @@ test.describe('DatasourceTableView', () => {
 
 		const header = page.getByTestId('link-datasource--head');
 
-		const headerContentBeforeNextPageCall = await header.textContent();
+		const headerContentBeforeNextPageCall = header;
 
 		// confirming first page has loaded
 		const totalRowsAfterInitialLoad = await page
@@ -52,7 +52,7 @@ test.describe('DatasourceTableView', () => {
 
 		const headerContentAfterNextPageCall = await header.textContent();
 
-		expect(headerContentBeforeNextPageCall).toEqual(headerContentAfterNextPageCall);
+		await expect(headerContentBeforeNextPageCall).toHaveText(headerContentAfterNextPageCall!);
 	});
 
 	test('datasource table reload after auth connection action', async ({ page }) => {

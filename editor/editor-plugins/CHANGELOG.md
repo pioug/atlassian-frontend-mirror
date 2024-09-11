@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 4.4.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.4.9
+
+### Patch Changes
+
+- [#139034](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139034)
+  [`517cdc0f7ea1a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/517cdc0f7ea1a) -
+  Cleaned up feature gate
+- Updated dependencies
+
+## 4.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.7
 
 ### Patch Changes

@@ -77,6 +77,11 @@ export default {
     'Kết nối tài khoản {providerName} của bạn để cộng tác trong công việc trên khắp các sản phẩm Atlassian.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Kết nối tài khoản {providerName} của bạn',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Tìm hiểu thêm về Liên kết Thông minh.',
+  'linkDataSource.issue-line-table.error-403-description': 'BẠN CẦN CÓ QUYỀN PHÙ HỢP ĐỂ SỬA MỤC NÀY.',
+  'linkDataSource.issue-line-table.error-403-title': 'KHÔNG LƯU ĐƯỢC THAY ĐỔI',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'CHÚNG TÔI ĐÃ GẶP VẤN ĐỀ KHI TÌM CÁCH HOÀN TẤT VIỆC CẬP NHẬT. HÃY CHỜ MỘT VÀI PHÚT, SAU ĐÓ THỬ LẠI. LIÊN HỆ VỚI BỘ PHẬN HỖ TRỢ NẾU ĐIỀU NÀY TIẾP TỤC XẢY RA.',
+  'linkDataSource.issue-line-table.error-generic-title': 'ĐÃ XẢY RA LỖI',
   'linkDataSource.issue-line-table.unwrap-text': 'Không xuống dòng tự động',
   'linkDataSource.issue-line-table.wrap-text': 'Xuống dòng tự động',
   'linkDataSource.checkConnectionWithSource':

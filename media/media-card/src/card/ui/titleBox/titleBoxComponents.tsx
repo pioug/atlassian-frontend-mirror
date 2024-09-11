@@ -19,7 +19,7 @@ import {
 } from './types';
 
 export const TitleBoxWrapper = (props: TitleBoxWrapperProps) => {
-	const { breakpoint, titleBoxBgColor } = props;
+	const { breakpoint, titleBoxBgColor, hidden } = props;
 
 	return (
 		<div
@@ -28,6 +28,7 @@ export const TitleBoxWrapper = (props: TitleBoxWrapperProps) => {
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={titleBoxWrapperStyles({
 				breakpoint: breakpoint,
+				display: hidden ? 'none' : 'flex',
 				titleBoxBgColor: titleBoxBgColor,
 			})}
 		>
@@ -39,8 +40,12 @@ export const TitleBoxWrapper = (props: TitleBoxWrapperProps) => {
 export const TitleBoxHeader = (props: TitleBoxHeaderProps) => {
 	const { hasIconOverlap } = props;
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<div id="titleBoxHeader" css={titleBoxHeaderStyles({ hasIconOverlap })}>
+		<div
+			id="titleBoxHeader"
+			data-testid="title-box-header"
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			css={titleBoxHeaderStyles({ hasIconOverlap })}
+		>
 			{props.children}
 		</div>
 	);
@@ -49,8 +54,12 @@ export const TitleBoxHeader = (props: TitleBoxHeaderProps) => {
 export const TitleBoxFooter = (props: TitleBoxFooterProps) => {
 	const { hasIconOverlap } = props;
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<div id="titleBoxFooter" css={titleBoxFooterStyles({ hasIconOverlap })}>
+		<div
+			id="titleBoxFooter"
+			data-testid="title-box-footer"
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			css={titleBoxFooterStyles({ hasIconOverlap })}
+		>
 			{props.children}
 		</div>
 	);
@@ -58,8 +67,12 @@ export const TitleBoxFooter = (props: TitleBoxFooterProps) => {
 
 export const TitleBoxIcon = (props: any) => {
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<div id="titleBoxIcon" css={titleBoxIconStyles}>
+		<div
+			id="titleBoxIcon"
+			data-testid="title-box-icon"
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			css={titleBoxIconStyles}
+		>
 			{props.children}
 		</div>
 	);

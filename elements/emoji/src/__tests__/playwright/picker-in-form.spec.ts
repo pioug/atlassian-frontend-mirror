@@ -11,28 +11,28 @@ const formNotSubmittedMsg = 'You have not submitted yet';
 const titleInputTestId = 'input-title';
 const selectedEmojiTestId = 'selected-emoji';
 
-test.describe('EmojiPicker In Form', async () => {
+test.describe('EmojiPicker In Form', () => {
 	test('Pressing Enter on input inside emoji picker should NOT trigger form submit, but Enter on form input should trigger form submit', async ({
 		page,
 	}) => {
 		await page.visitExample('elements', 'emoji', 'emoji-picker-in-form');
 		await page.waitForSelector(submitForm);
 		await page.type(submitFormTextfield, 'smile', { delay: 200 });
-		await page.getByText('Search results');
+		page.getByText('Search results');
 		const emojis = await page.getByRole('gridcell').all();
 		expect(emojis.length).toBe(7);
 		await page.keyboard.press('Enter');
-		await expect(await page.getByTestId(formMessageTestId)).toHaveText(formNotSubmittedMsg);
+		await expect(page.getByTestId(formMessageTestId)).toHaveText(formNotSubmittedMsg);
 		// select emoji
 		await emojis[0].getByRole('button').focus();
 		await page.keyboard.press('Enter');
-		await page.getByTestId(selectedEmojiTestId).getByLabel(':smile:');
+		page.getByTestId(selectedEmojiTestId).getByLabel(':smile:');
 		// fill in title
 		await page.getByTestId(titleInputTestId).locator('input').fill('tada');
 		// enter on text input should submit form automatically
 		await page.keyboard.press('Enter');
-		await expect(await page.getByTestId(formMessageTestId)).toHaveText(formSubmittedMsg);
-		await expect(await page.getByTestId(formSubmittedData)).toHaveText(
+		await expect(page.getByTestId(formMessageTestId)).toHaveText(formSubmittedMsg);
+		await expect(page.getByTestId(formSubmittedData)).toHaveText(
 			'{"title":"tada","emoji":":smile:"}',
 		);
 	});
@@ -43,21 +43,21 @@ test.describe('EmojiPicker In Form', async () => {
 		await page.visitExample('elements', 'emoji', 'emoji-picker-in-form');
 		await page.waitForSelector(submitForm);
 		await page.type(submitFormTextfield, 'smile', { delay: 200 });
-		await page.getByText('Search results');
+		page.getByText('Search results');
 		const emojis = await page.getByRole('gridcell').all();
 		expect(emojis.length).toBe(7);
 		await page.keyboard.press('Control+Enter');
-		await expect(await page.getByTestId(formMessageTestId)).toHaveText(formNotSubmittedMsg);
+		await expect(page.getByTestId(formMessageTestId)).toHaveText(formNotSubmittedMsg);
 		// select emoji
 		await emojis[0].getByRole('button').focus();
 		await page.keyboard.press('Control+Enter');
-		await page.getByTestId(selectedEmojiTestId).getByLabel(':smile:');
+		page.getByTestId(selectedEmojiTestId).getByLabel(':smile:');
 		// fill in title
 		await page.getByTestId(titleInputTestId).locator('input').type('tada');
 		// enter on text input should submit form automatically
 		await page.keyboard.press('Control+Enter');
-		await expect(await page.getByTestId(formMessageTestId)).toHaveText(formSubmittedMsg);
-		await expect(await page.getByTestId(formSubmittedData)).toHaveText(
+		await expect(page.getByTestId(formMessageTestId)).toHaveText(formSubmittedMsg);
+		await expect(page.getByTestId(formSubmittedData)).toHaveText(
 			'{"title":"tada","emoji":":smile:"}',
 		);
 	});
@@ -74,21 +74,21 @@ test.describe('EmojiPicker In Form', async () => {
 		page.locator('button[aria-haspopup="true"]').click();
 
 		await page.type(submitFormTextfield, 'smile', { delay: 200 });
-		await page.getByText('Search results');
+		page.getByText('Search results');
 		const emojis = await page.getByRole('gridcell').all();
 		expect(emojis.length).toBe(7);
 		await page.keyboard.press('Enter');
-		await expect(await page.getByTestId(formMessageTestId)).toHaveText(formNotSubmittedMsg);
+		await expect(page.getByTestId(formMessageTestId)).toHaveText(formNotSubmittedMsg);
 		// select emoji
 		await emojis[0].getByRole('button').focus();
 		await page.keyboard.press('Enter');
-		await page.getByTestId(selectedEmojiTestId).getByLabel(':smile:');
+		page.getByTestId(selectedEmojiTestId).getByLabel(':smile:');
 		// fill in title
 		await page.getByTestId(titleInputTestId).locator('input').fill('tada');
 		// enter on text input should submit form automatically
 		await page.keyboard.press('Enter');
-		await expect(await page.getByTestId(formMessageTestId)).toHaveText(formSubmittedMsg);
-		await expect(await page.getByTestId(formSubmittedData)).toHaveText(
+		await expect(page.getByTestId(formMessageTestId)).toHaveText(formSubmittedMsg);
+		await expect(page.getByTestId(formSubmittedData)).toHaveText(
 			'{"title":"tada","emoji":":smile:"}',
 		);
 	});
@@ -105,21 +105,21 @@ test.describe('EmojiPicker In Form', async () => {
 		page.locator('button[aria-haspopup="true"]').click();
 
 		await page.type(submitFormTextfield, 'smile', { delay: 200 });
-		await page.getByText('Search results');
+		page.getByText('Search results');
 		const emojis = await page.getByRole('gridcell').all();
 		expect(emojis.length).toBe(7);
 		await page.keyboard.press('Control+Enter');
-		await expect(await page.getByTestId(formMessageTestId)).toHaveText(formNotSubmittedMsg);
+		await expect(page.getByTestId(formMessageTestId)).toHaveText(formNotSubmittedMsg);
 		// select emoji
 		await emojis[0].getByRole('button').focus();
 		await page.keyboard.press('Control+Enter');
-		await page.getByTestId(selectedEmojiTestId).getByLabel(':smile:');
+		page.getByTestId(selectedEmojiTestId).getByLabel(':smile:');
 		// fill in title
 		await page.getByTestId(titleInputTestId).locator('input').fill('tada');
 		// enter on text input should submit form automatically
 		await page.keyboard.press('Control+Enter');
-		await expect(await page.getByTestId(formMessageTestId)).toHaveText(formSubmittedMsg);
-		await expect(await page.getByTestId(formSubmittedData)).toHaveText(
+		await expect(page.getByTestId(formMessageTestId)).toHaveText(formSubmittedMsg);
+		await expect(page.getByTestId(formSubmittedData)).toHaveText(
 			'{"title":"tada","emoji":":smile:"}',
 		);
 	});

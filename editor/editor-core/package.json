@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "197.4.2",
+	"version": "197.4.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -99,7 +99,7 @@
 		"@atlaskit/modal-dialog": "^12.15.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/renderer": "^109.53.0",
-		"@atlaskit/smart-card": "^28.0.0",
+		"@atlaskit/smart-card": "^28.1.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.4.0",
 		"@atlaskit/util-data-test": "^17.9.0",
@@ -237,10 +237,6 @@
 		},
 		"editor-fix-esc-main-toolbar-navigation": {
 			"type": "boolean"
-		},
-		"platform_editor_lazy-node-views": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"editor_support_code_block_wrapping": {
 			"type": "boolean",

@@ -78,6 +78,12 @@ export default {
     'Tilknyt din {providerName}-konto for at samarbejde om arbejde på tværs af Atlassian-produkter.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Forbind din {providerName}-konto',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Få mere at vide om intelligente links.',
+  'linkDataSource.issue-line-table.error-403-description':
+    'Du skal have de rette tilladelser til at redigere dette element.',
+  'linkDataSource.issue-line-table.error-403-title': 'Ændringerne blev ikke gemt',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'Vi havde problemer med at gennemføre opdateringen. Prøv igen om et par minutter. Kontakt support, hvis problemet varer ved.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Noget gik galt',
   'linkDataSource.issue-line-table.unwrap-text': 'Fjern ombrydning af tekst',
   'linkDataSource.issue-line-table.wrap-text': 'Ombryd tekst',
   'linkDataSource.checkConnectionWithSource':

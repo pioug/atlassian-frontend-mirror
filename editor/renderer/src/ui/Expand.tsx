@@ -4,7 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import {
@@ -25,7 +25,6 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import type { AnalyticsEventPayload } from '../analytics/events';
 import { MODE, PLATFORM } from '../analytics/events';
-import { getPlatform } from '../utils';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';
 import type { RendererAppearance } from './Renderer/types';
 
@@ -155,10 +154,7 @@ function Expand({
 	const [expanded, setExpanded] = React.useState(false);
 	const [focused, setFocused] = React.useState(false);
 
-	const isMobile = useMemo(
-		() => getPlatform(rendererAppearance) === 'mobile',
-		[rendererAppearance],
-	);
+	const isMobile = false;
 	const label = intl.formatMessage(
 		expanded ? expandMessages.collapseNode : expandMessages.expandNode,
 	);

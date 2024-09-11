@@ -80,6 +80,12 @@ export default {
     'Csatlakoztasd a(z) {providerName}-fiókodat, hogy együtt dolgozhassatok több Atlassian-termékben is.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Kapcsold össze a fiókodat: {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'További információ az okoslinkekről.',
+  'linkDataSource.issue-line-table.error-403-description':
+    'A tétel szerkesztéséhez megfelelő jogosultságokra van szükséged.',
+  'linkDataSource.issue-line-table.error-403-title': 'Nem mentetted a változtatásokat',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'Hiba történt, amikor megpróbáltuk befejezni a frissítést. Várj néhány percet, majd próbálkozz újra. Ha a probléma továbbra is fennáll, vedd fel a kapcsolatot a támogatással.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Hiba történt',
   'linkDataSource.issue-line-table.unwrap-text': 'Szöveg több sorba rendezésének kikapcsolása',
   'linkDataSource.issue-line-table.wrap-text': 'Szöveg több sorba rendezése sortöréssel',
   'linkDataSource.checkConnectionWithSource':

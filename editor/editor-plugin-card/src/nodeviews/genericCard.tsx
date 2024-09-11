@@ -18,7 +18,7 @@ import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { type CardContext } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
-import type { APIError, CardProps as BaseCardProps, CardPlatform } from '@atlaskit/smart-card';
+import type { APIError, CardProps as BaseCardProps } from '@atlaskit/smart-card';
 
 import type { cardPlugin } from '../index';
 import type { CardPlugin } from '../plugin';
@@ -30,7 +30,6 @@ export type EditorContext<T> = React.Context<T> & { value: T };
 
 export interface CardNodeViewProps extends ReactComponentProps {
 	providerFactory?: ProviderFactory;
-	platform?: CardPlatform;
 	eventDispatcher?: EventDispatcher;
 }
 
@@ -40,7 +39,6 @@ export interface CardProps extends CardNodeViewProps {
 	view: EditorView;
 	getPos: getPosHandler;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	isMobile?: boolean;
 	eventDispatcher?: EventDispatcher;
 	allowResizing?: boolean;
 	fullWidthMode?: boolean;

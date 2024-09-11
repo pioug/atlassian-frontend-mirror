@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 88.13.3
+
+### Patch Changes
+
+- [#138899](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138899)
+  [`e18d6c037fd51`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e18d6c037fd51) -
+  Fix comment button disabled on triple click
+
 ## 88.13.2
 
 ### Patch Changes

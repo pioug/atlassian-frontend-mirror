@@ -23,7 +23,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import Heading from '@atlaskit/heading';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { Flex, Stack } from '@atlaskit/primitives';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
@@ -180,13 +179,6 @@ const LazyNodeViewComparison = memo(
 		const onMockedReady = useCallback(() => {
 			setMockedReady(true);
 		}, []);
-		setBooleanFeatureFlagResolver((ffName) => {
-			if (ffName === 'platform_editor_lazy-node-views') {
-				return true;
-			}
-
-			return false;
-		});
 		setupEditorExperiments('test', { platform_editor_exp_lazy_node_views: true });
 		const onDocChange = useMemo(
 			() =>

@@ -314,16 +314,19 @@ export default {
     '{newMediaWidth, plural, one {Medya genişliği {newMediaWidth,number} piksele çıkarıldı.} other {Medya genişliği {newMediaWidth,number} piksele çıkarıldı.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Medya minimum boyuta düşürüldü',
   'fabric.editor.media.insert.cancel': 'İptal',
-  'fabric.editor.media.insert.errorMessage':
-    'Üzgünüz, bu görsel bağlantısı eklenemiyor. Görselin indirin, ardından sürükleyip sayfaya bırakın.',
+  'fabric.editor.media.insert.fileTabTitle': 'Dosya',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'Kaynak kısıtlamaları nedeniyle bu görsel başkaları tarafından görülemeyebilir. Bunun yerine dosyayı yüklemenizi öneririz.',
   'fabric.editor.media.insert.insert': 'Ekle',
   'fabric.editor.media.insert.linkTabTitle': 'Bağlantı',
   'fabric.editor.media.insert.loadPreview': 'Önizlemeyi yükle',
+  'fabric.editor.media.insert.localFileErrorMessage': 'Bu dosya yüklenemedi.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'Dosya yükleme hatası. Dosya yolunu veya ağı kontrol edin.',
   'fabric.editor.media.insert.mediaAlt': 'Yüklenen görsel veya video dosyasının önizlemesi',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Medya seçici',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Yüklemek için bağlantıyı yapıştırın',
-  'fabric.editor.media.insert.warning':
-    'Kaynak kısıtlamaları nedeniyle bu görsel başkaları tarafından görülemeyebilir. Bunun yerine dosyayı yüklemenizi öneririz.',
+  'fabric.editor.media.insert.upload': 'Yükle',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Medya maksimum boyuta artırıldı',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'yükseklik girdisi',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Yükseklik',

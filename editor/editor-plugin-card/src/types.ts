@@ -114,7 +114,6 @@ export type CardPluginState = {
 
 export type CardPluginOptions = CardOptions & {
 	editorAppearance?: EditorAppearance;
-	platform: 'mobile' | 'web';
 	fullWidthMode?: boolean;
 	linkPicker?: LinkPickerOptions;
 	cardPluginEvents?: EditorCardPluginEvents<CardPluginEvent>;

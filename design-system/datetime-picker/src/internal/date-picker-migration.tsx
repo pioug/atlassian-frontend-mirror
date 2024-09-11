@@ -32,6 +32,7 @@ export const isDateDisabled = (date: string, di: { disabled: string[] }) => {
 export const getParsedISO = (di: { iso: string }) => {
 	const { iso } = di;
 	const [year, month, date] = iso.split('-');
+
 	let newIso = iso;
 
 	const parsedDate = parseInt(date, 10);
@@ -46,9 +47,9 @@ export const getParsedISO = (di: { iso: string }) => {
 	).getDate();
 
 	if (lastDayInMonth < parsedDate) {
-		newIso = `${year}-${padToTwo(parsedMonth)}-${padToTwo(lastDayInMonth)}`;
+		newIso = `${parsedYear}-${padToTwo(parsedMonth)}-${padToTwo(lastDayInMonth)}`;
 	} else {
-		newIso = `${year}-${padToTwo(parsedMonth)}-${padToTwo(parsedDate)}`;
+		newIso = `${parsedYear}-${padToTwo(parsedMonth)}-${padToTwo(parsedDate)}`;
 	}
 
 	return newIso;

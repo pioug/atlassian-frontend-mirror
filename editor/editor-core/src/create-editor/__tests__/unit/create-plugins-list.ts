@@ -1,11 +1,11 @@
 jest.mock('@atlaskit/editor-plugins/hyperlink');
 jest.mock('@atlaskit/editor-plugins/feedback-dialog');
 jest.mock('@atlaskit/editor-plugins/placeholder');
-jest.mock('@atlaskit/editor-plugins/code-block');
 jest.mock('@atlaskit/editor-plugins/layout');
 jest.mock('@atlaskit/editor-plugins/submit-editor');
 jest.mock('@atlaskit/editor-plugins/quick-insert');
 jest.mock('@atlaskit/editor-plugins/card');
+jest.mock('@atlaskit/editor-plugins/code-block');
 jest.mock('@atlaskit/editor-plugins/table');
 jest.mock('@atlaskit/editor-plugins/context-panel');
 jest.mock('@atlaskit/editor-plugins/help-dialog');
@@ -152,7 +152,6 @@ describe('createPluginsList', () => {
 			expect.objectContaining({
 				config: expect.objectContaining({
 					allowEmbeds: true,
-					platform: 'web',
 					fullWidthMode: false,
 					linkPicker: {
 						plugins: linkPickerPlugins,
@@ -175,7 +174,6 @@ describe('createPluginsList', () => {
 			expect.objectContaining({
 				config: expect.objectContaining({
 					allowEmbeds: true,
-					platform: 'web',
 					fullWidthMode: false,
 					linkPicker: {
 						plugins: linkPickerPlugins,
@@ -202,7 +200,6 @@ describe('createPluginsList', () => {
 			expect.objectContaining({
 				config: expect.objectContaining({
 					allowEmbeds: false,
-					platform: 'web',
 					fullWidthMode: false,
 					linkPicker: {
 						plugins: linkPickerPlugins,

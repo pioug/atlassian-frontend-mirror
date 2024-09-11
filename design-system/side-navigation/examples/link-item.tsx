@@ -2,7 +2,7 @@
 import React, { type MouseEvent } from 'react';
 
 import BookIcon from '@atlaskit/icon/glyph/book';
-import OpenIcon from '@atlaskit/icon/glyph/open';
+import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import { Box } from '@atlaskit/primitives';
 
 import { LinkItem } from '../src';
@@ -13,7 +13,7 @@ const Example = () => (
 		<LinkItem href="#" isDisabled>
 			My articles
 		</LinkItem>
-		<LinkItem href="#" iconAfter={<OpenIcon label="" />}>
+		<LinkItem href="#" iconAfter={<EmojiAtlassianIcon label="" />}>
 			My articles
 		</LinkItem>
 		<LinkItem href="#" description="Will create an article">
@@ -22,7 +22,11 @@ const Example = () => (
 		<LinkItem href="#" iconBefore={<BookIcon label="" />}>
 			My articles
 		</LinkItem>
-		<LinkItem href="#" iconBefore={<BookIcon label="" />} iconAfter={<OpenIcon label="" />}>
+		<LinkItem
+			href="#"
+			iconBefore={<BookIcon label="" />}
+			iconAfter={<EmojiAtlassianIcon label="" />}
+		>
 			My articles
 		</LinkItem>
 		<LinkItem href="#" description="Will create an article" iconBefore={<BookIcon label="" />}>
@@ -32,7 +36,7 @@ const Example = () => (
 			href="#"
 			description="Will create an article"
 			iconBefore={<BookIcon label="" />}
-			iconAfter={<OpenIcon label="" />}
+			iconAfter={<EmojiAtlassianIcon label="" />}
 		>
 			My articles
 		</LinkItem>

@@ -2,7 +2,7 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { TasksAndDecisionsPlugin } from '../types';
 
@@ -13,7 +13,7 @@ export const lazyDecisionView = (
 	eventDispatcher: EventDispatcher,
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
 ) => {
-	if (!fg('platform_editor_lazy-node-views')) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return decisionItemNodeView(portalProviderAPI, eventDispatcher, api);
 	}
 

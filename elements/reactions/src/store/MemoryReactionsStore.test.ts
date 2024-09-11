@@ -9,7 +9,7 @@ import {
 import type { FakeUFOInstance } from '../__tests__/_testing-library';
 import { ari, containerAri, getReactionSummary, getUser } from '../MockReactionsClient';
 import { MemoryReactionsStore, ufoExperiences } from './MemoryReactionsStore';
-import { waitFor } from '@testing-library/dom';
+import { waitFor } from '@testing-library/react';
 
 const fakeCreateAndFireSafe = jest.fn();
 const spyCreateAndFireSafe = jest.spyOn(AnalyticsModule, 'createAndFireSafe');
@@ -89,6 +89,8 @@ describe('MemoryReactionsStore', () => {
 			getReactionSummary(':clap:', 1, true),
 		],
 	});
+
+	const successCallBackFn = jest.fn();
 
 	/**
 	 * Mock the getInstance method for all different UfoExperience object
@@ -419,6 +421,16 @@ describe('MemoryReactionsStore', () => {
 			expect(fakeClient.addReaction).not.toHaveBeenCalled();
 		});
 
+		it('should call success callback passed to add reaction using toggle action if defined', async () => {
+			const response = Promise.resolve(getReactionSummary(':thumbsup:', 4, true));
+
+			(fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(response);
+
+			await store.toggleReaction(containerAri, ari, '1f44d', successCallBackFn);
+
+			expect(successCallBackFn).toHaveBeenCalledTimes(1);
+		});
+
 		it('should call adaptor to remove reaction', () => {
 			(fakeClient.deleteReaction as jest.Mock<any>).mockRejectedValueOnce(
 				new Error('delete error'),
@@ -440,6 +452,15 @@ describe('MemoryReactionsStore', () => {
 					},
 				},
 			});
+		});
+
+		it('should call success callback passed to remove reaction using toggle action if defined', () => {
+			const response = Promise.resolve();
+			(fakeClient.deleteReaction as jest.Mock<any>).mockReturnValueOnce(response);
+
+			store.toggleReaction(containerAri, ari, '1f44f', successCallBackFn);
+
+			expect(successCallBackFn).toHaveBeenCalledTimes(1);
 		});
 	});
 

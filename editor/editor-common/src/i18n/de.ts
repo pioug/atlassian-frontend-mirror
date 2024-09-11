@@ -320,16 +320,19 @@ export default {
     '{newMediaWidth, plural, one {Die Medienbreite wurde auf {newMediaWidth,number} Pixel erhöht.} other {Die Medienbreite wurde auf {newMediaWidth,number} Pixel erhöht.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Medien auf Mindestgröße verringert',
   'fabric.editor.media.insert.cancel': 'Abbrechen',
-  'fabric.editor.media.insert.errorMessage':
-    'Leider kann dieser Bildlink nicht hinzugefügt werden. Laden Sie das Bild herunter und ziehen Sie es anschließend per Drag-and-Drop auf die Seite.',
+  'fabric.editor.media.insert.fileTabTitle': 'Datei',
+  'fabric.editor.media.insert.fromUrlErrorMessage':
+    'Dieses Bild ist aufgrund von Quellenbeschränkungen möglicherweise nicht für andere sichtbar. Erwägen Sie stattdessen, die Datei hochzuladen.',
   'fabric.editor.media.insert.insert': 'Einfügen',
   'fabric.editor.media.insert.linkTabTitle': 'Link',
   'fabric.editor.media.insert.loadPreview': 'Vorschau laden',
+  'fabric.editor.media.insert.localFileErrorMessage': 'Diese Datei konnte nicht hochgeladen werden.',
+  'fabric.editor.media.insert.localFileNetworkErrorMessage':
+    'Fehler beim Hochladen der Datei. Überprüfen Sie den Dateipfad oder das Netzwerk.',
   'fabric.editor.media.insert.mediaAlt': 'Vorschau für die hochgeladene Bild- oder Videodatei',
   'fabric.editor.media.insert.mediaPickerPopupAriaLabel': 'Medienauswahl',
   'fabric.editor.media.insert.pasteLinkToUpload': 'Link zum Hochladen einfügen',
-  'fabric.editor.media.insert.warning':
-    'Dieses Bild ist aufgrund von Quellenbeschränkungen möglicherweise nicht für andere sichtbar. Erwägen Sie stattdessen, die Datei hochzuladen.',
+  'fabric.editor.media.insert.upload': 'Hochladen',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Medien auf maximale Größe erhöht',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'Eingabe der Höhe',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Höhe',

@@ -88,7 +88,6 @@ export type DefaultPresetPluginOptions = {
  * their placement in the editor toolbar
  */
 export function createDefaultPreset(options: DefaultPresetPluginOptions) {
-	const isMobile = options.appearance === 'mobile';
 	const isFullPage = fullPageCheck(options.appearance);
 
 	const preset = new EditorPresetBuilder()
@@ -115,7 +114,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions) {
 		.add([basePlugin, options.base])
 		.add(decorationsPlugin)
 		.add([typeAheadPlugin, options.typeAhead])
-		.maybeAdd(historyPlugin, Boolean(isMobile || options.allowUndoRedoButtons))
+		.maybeAdd(historyPlugin, Boolean(options.allowUndoRedoButtons))
 		.add(primaryToolbarPlugin)
 		.maybeAdd(
 			undoRedoPlugin,

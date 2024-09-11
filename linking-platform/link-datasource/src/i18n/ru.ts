@@ -82,6 +82,11 @@ export default {
     'Подключите свой аккаунт {providerName} для совместной работы в продуктах Atlassian.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Подключите свой аккаунт {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Подробнее об интеллектуальных ссылках.',
+  'linkDataSource.issue-line-table.error-403-description': 'Для редактирования этого элемента требуются права доступа.',
+  'linkDataSource.issue-line-table.error-403-title': 'Изменения не сохранены',
+  'linkDataSource.issue-line-table.error-generic-description':
+    'При обновлении возникла ошибка. Подождите несколько минут и повторите попытку. Если ошибка продолжает возникать, обратитесь в службу поддержки.',
+  'linkDataSource.issue-line-table.error-generic-title': 'Произошла ошибка',
   'linkDataSource.issue-line-table.unwrap-text': 'Не переносить текст',
   'linkDataSource.issue-line-table.wrap-text': 'Переносить текст',
   'linkDataSource.checkConnectionWithSource':

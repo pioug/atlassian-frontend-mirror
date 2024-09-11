@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "78.2.2",
+	"version": "78.2.3",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -90,6 +90,7 @@
 		"@atlaskit/toggle": "^13.4.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
+		"@atlassian/react-ufo": "*",
 		"@atlassian/ufo": "^0.4.0",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",

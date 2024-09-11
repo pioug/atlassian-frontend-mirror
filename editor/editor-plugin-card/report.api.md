@@ -73,7 +73,7 @@ type CardPluginEvent = DatasourceEvent | LinkEvent;
 // @public (undocumented)
 type CardPluginOptions = CardOptions & {
 	editorAppearance?: EditorAppearance;
-	platform: 'mobile' | 'web';
+	platform: 'web';
 	fullWidthMode?: boolean;
 	linkPicker?: LinkPickerOptions;
 	cardPluginEvents?: EditorCardPluginEvents<CardPluginEvent>;

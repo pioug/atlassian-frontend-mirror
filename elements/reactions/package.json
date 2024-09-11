@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "22.12.1",
+	"version": "22.13.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -64,6 +64,7 @@
 	"devDependencies": {
 		"@atlaskit/elements-test-helpers": "^0.7.0",
 		"@atlaskit/util-data-test": "^17.9.0",
+		"@atlassian/feature-flags-test-utils": "^0.2.0",
 		"@emotion/jest": "^11.8.0",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/jest-dom": "^6.4.5",
@@ -115,6 +116,9 @@
 	},
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
+			"type": "boolean"
+		},
+		"platform_reaction_success_callback": {
 			"type": "boolean"
 		}
 	}

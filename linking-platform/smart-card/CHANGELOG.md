@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 28.1.0
+
+### Minor Changes
+
+- [#139290](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139290)
+  [`cd190eb743523`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd190eb743523) -
+  Remove FF Automation Action
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.0.1
 
 ### Patch Changes

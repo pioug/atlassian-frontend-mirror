@@ -1,5 +1,15 @@
 # @atlaskit/dropdown-menu
 
+## 12.18.2
+
+### Patch Changes
+
+- [#139091](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139091)
+  [`142645f92833a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/142645f92833a) -
+  Fix a bug that caused the launch button to lose the ability to focus after closing a popup window
+  by pressing the Tab key that opened from a dropdown menu. This problem was reproduced only when
+  the `platform_dst_popup-disable-focuslock` feature flag was enabled.
+
 ## 12.18.1
 
 ### Patch Changes

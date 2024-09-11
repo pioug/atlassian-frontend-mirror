@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.13.6
+
+### Patch Changes
+
+- [#139441](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139441)
+  [`b215909b0f7ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b215909b0f7ab) -
+  [ux] [ED-24882] Add additional CSS overrides to emtpy block experiment to handle drag handle edge
+  cases
+
 ## 1.13.5
 
 ### Patch Changes

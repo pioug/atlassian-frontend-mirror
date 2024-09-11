@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 14.0.5
+
+### Patch Changes
+
+- [#138676](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138676)
+  [`9f9a53335523d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f9a53335523d) -
+  Use parsed year instead of ISO year in internal `getParsedISO` function.
+
 ## 14.0.4
 
 ### Patch Changes

@@ -82,7 +82,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 	};
 
 	render() {
-		const { node, cardContext, platform, actionOptions, showServerActions, onClick } = this.props;
+		const { node, cardContext, actionOptions, showServerActions, onClick } = this.props;
 		const { url, data } = node.attrs;
 
 		const cardInner = (
@@ -96,7 +96,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 					onClick={onClick}
 					onResolve={this.onResolve}
 					onError={this.onError}
-					platform={platform}
+					platform={'web'}
 					actionOptions={actionOptions}
 					showServerActions={showServerActions}
 				/>
@@ -121,7 +121,7 @@ const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlock);
 
 export type BlockCardNodeViewProps = Pick<
 	SmartCardProps,
-	'platform' | 'actionOptions' | 'showServerActions' | 'pluginInjectionApi' | 'onClickCallback'
+	'actionOptions' | 'showServerActions' | 'pluginInjectionApi' | 'onClickCallback'
 >;
 
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
@@ -129,23 +129,21 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
-		if (this.reactComponentProps.platform !== 'mobile') {
-			// workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
-			// see also: https://github.com/ProseMirror/prosemirror/issues/884
-			if (fg('linking-platform-contenteditable-false-live-view')) {
-				this.unsubscribe =
-					this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.onChange(
-						({ nextSharedState }) => this.updateContentEditable(nextSharedState, domRef),
-					);
-				this.updateContentEditable(
-					this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState(),
-					domRef,
+		// workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
+		// see also: https://github.com/ProseMirror/prosemirror/issues/884
+		if (fg('linking-platform-contenteditable-false-live-view')) {
+			this.unsubscribe =
+				this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.onChange(
+					({ nextSharedState }) => this.updateContentEditable(nextSharedState, domRef),
 				);
-			} else {
-				domRef.contentEditable = 'true';
-			}
-			domRef.setAttribute('spellcheck', 'false');
+			this.updateContentEditable(
+				this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState(),
+				domRef,
+			);
+		} else {
+			domRef.contentEditable = 'true';
 		}
+		domRef.setAttribute('spellcheck', 'false');
 		return domRef;
 	}
 
@@ -172,7 +170,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 	}
 
 	render() {
-		const { platform, actionOptions, showServerActions, pluginInjectionApi, onClickCallback } =
+		const { actionOptions, showServerActions, pluginInjectionApi, onClickCallback } =
 			this.reactComponentProps;
 
 		return (
@@ -180,7 +178,6 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 				node={this.node}
 				view={this.view}
 				getPos={this.getPos}
-				platform={platform}
 				actionOptions={actionOptions}
 				showServerActions={showServerActions}
 				pluginInjectionApi={pluginInjectionApi}
@@ -196,7 +193,6 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 
 export interface BlockCardNodeViewProperties {
 	pmPluginFactoryParams: PMPluginFactoryParams;
-	platform: BlockCardNodeViewProps['platform'];
 	actionOptions: BlockCardNodeViewProps['actionOptions'];
 	showServerActions: BlockCardNodeViewProps['showServerActions'];
 	pluginInjectionApi: BlockCardNodeViewProps['pluginInjectionApi'];
@@ -208,7 +204,6 @@ export interface BlockCardNodeViewProperties {
 export const blockCardNodeView =
 	({
 		pmPluginFactoryParams,
-		platform,
 		actionOptions,
 		showServerActions,
 		pluginInjectionApi,
@@ -224,7 +219,6 @@ export const blockCardNodeView =
 	) => {
 		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
 		const reactComponentProps: BlockCardNodeViewProps = {
-			platform,
 			actionOptions,
 			showServerActions,
 			pluginInjectionApi,
@@ -233,11 +227,7 @@ export const blockCardNodeView =
 		const isDatasource = isDatasourceNode(node);
 
 		if (isDatasource) {
-			if (
-				allowDatasource &&
-				platform !== 'mobile' &&
-				canRenderDatasource(node?.attrs?.datasource?.id)
-			) {
+			if (allowDatasource && canRenderDatasource(node?.attrs?.datasource?.id)) {
 				const datasourcePosition = typeof getPos === 'function' && getPos();
 
 				const datasourceResolvedPosition =

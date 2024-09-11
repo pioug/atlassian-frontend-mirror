@@ -30,7 +30,7 @@ import { lazyMediaSingleView } from './nodeviews/lazy-media-single';
 import { createPlugin as createMediaAltTextPlugin } from './pm-plugins/alt-text';
 import keymapMediaAltTextPlugin from './pm-plugins/alt-text/keymap';
 import keymapPlugin from './pm-plugins/keymap';
-import keymapMediaSinglePlugin from './pm-plugins/keymap-media-single';
+import keymapMediaSinglePlugin from './pm-plugins/keymap-media';
 import linkingPlugin from './pm-plugins/linking';
 import keymapLinkingPlugin from './pm-plugins/linking/keymap';
 import { createPlugin, stateKey } from './pm-plugins/main';

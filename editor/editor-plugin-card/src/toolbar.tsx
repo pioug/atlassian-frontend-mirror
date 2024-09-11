@@ -50,7 +50,7 @@ import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { fg } from '@atlaskit/platform-feature-flags';
-import type { CardAppearance, CardPlatform } from '@atlaskit/smart-card';
+import type { CardAppearance } from '@atlaskit/smart-card';
 
 import { changeSelectedCardToText } from './pm-plugins/doc';
 import { pluginKey } from './pm-plugins/main';
@@ -168,7 +168,6 @@ export const openLinkSettings =
 export const floatingToolbar = (
 	cardOptions: CardOptions,
 	lpLinkPicker: boolean,
-	platform?: CardPlatform,
 	linkPickerOptions?: LinkPickerOptions,
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
 	disableFloatingToolbar?: boolean,
@@ -232,7 +231,6 @@ export const floatingToolbar = (
 				providerFactory,
 				cardOptions,
 				lpLinkPicker,
-				platform,
 				linkPickerOptions,
 				pluginInjectionApi,
 			),
@@ -314,7 +312,6 @@ const generateToolbarItems =
 		providerFactory: ProviderFactory,
 		cardOptions: CardOptions,
 		lpLinkPicker: boolean,
-		platform?: CardPlatform,
 		linkPicker?: LinkPickerOptions,
 		pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
 	) =>
@@ -332,22 +329,18 @@ const generateToolbarItems =
 			};
 		}
 
-		const pluginState: CardPluginState | undefined = pluginKey.getState(state);
-
 		const currentAppearance = appearanceForNodeType(node.type);
 		const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
 
 		const isDatasource = isDatasourceNode(node);
+		const pluginState: CardPluginState | undefined = pluginKey.getState(state);
 
 		const shouldRenderDatasourceToolbar =
 			isDatasource &&
-			// not showing toolbar in mobile for now since not sure what our plans are for it
-			platform !== 'mobile' &&
 			cardOptions.allowDatasource &&
 			canRenderDatasource(node?.attrs?.datasource?.id);
 
-		/* mobile builds toolbar natively using toolbarItems */
-		if (pluginState?.showLinkingToolbar && platform !== 'mobile') {
+		if (pluginState?.showLinkingToolbar) {
 			return [
 				buildEditLinkToolbar({
 					providerFactory,
@@ -368,13 +361,11 @@ const generateToolbarItems =
 				state,
 				cardOptions,
 				currentAppearance,
-				platform,
 			);
 		} else {
 			const { inlineCard } = state.schema.nodes;
 
 			const isEditDropdownEnabled =
-				platform !== 'mobile' &&
 				cardOptions.allowDatasource &&
 				fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar');
 
@@ -489,7 +480,6 @@ const generateToolbarItems =
 								editorState={state}
 								allowEmbeds={allowEmbeds}
 								allowBlockCards={allowBlockCards}
-								platform={platform}
 								editorAnalyticsApi={editorAnalyticsApi}
 								showUpgradeDiscoverability={showUpgradeDiscoverability}
 							/>
@@ -520,9 +510,7 @@ const generateToolbarItems =
 			}
 
 			const shouldShowDatasourceEditButton =
-				platform !== 'mobile' &&
-				allowDatasource &&
-				!fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar');
+				allowDatasource && !fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar');
 
 			if (shouldShowDatasourceEditButton) {
 				toolbarItems.unshift({
@@ -620,7 +608,6 @@ const getDatasourceButtonGroup = (
 	state: EditorState,
 	cardOptions: CardOptions,
 	currentAppearance: CardAppearance | undefined,
-	platform?: CardPlatform,
 ): FloatingToolbarItem<Command>[] => {
 	const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
 
@@ -675,7 +662,6 @@ const getDatasourceButtonGroup = (
 							editorState={state}
 							allowEmbeds={allowEmbeds}
 							allowBlockCards={allowBlockCards}
-							platform={platform}
 							editorAnalyticsApi={editorAnalyticsApi}
 							showUpgradeDiscoverability={showUpgradeDiscoverability}
 							isDatasourceView
@@ -791,7 +777,6 @@ export const getStartingToolbarItems = (
 		metadata: { url: string; title: string },
 	): FloatingToolbarItem<Command>[] => {
 		const isEditDropdownEnabled =
-			options.platform !== 'mobile' &&
 			options.allowDatasource &&
 			fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar');
 
@@ -860,7 +845,6 @@ export const getStartingToolbarItems = (
 							editorView={editorView}
 							editorState={editorView.state}
 							cardOptions={options}
-							platform={options?.platform}
 							editorAnalyticsApi={api?.analytics?.actions}
 							editorPluginApi={api}
 						/>

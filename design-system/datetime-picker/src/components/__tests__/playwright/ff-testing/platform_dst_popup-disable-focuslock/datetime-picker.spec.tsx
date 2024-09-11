@@ -15,10 +15,10 @@ test('When DateTimePicker is focused & backspace pressed, the date value should 
 	await page.locator(dateTimePickerDate).first().click();
 	await page.locator(date).first().click();
 	const previousDate = await page.locator(dateTimePickerDate).first().textContent();
-	const previousTime = await page.locator(dateTimePickerTime).first().textContent();
+	const previousTime = page.locator(dateTimePickerTime).first();
 	await page.keyboard.press('Backspace');
-	const afterDate = await page.locator(dateTimePickerDate).first().textContent();
+	const afterDate = page.locator(dateTimePickerDate).first();
 	const afterTime = await page.locator(dateTimePickerTime).first().textContent();
-	expect(afterDate).not.toBe(previousDate);
-	expect(previousTime).toBe(afterTime);
+	await expect(afterDate).not.toHaveText(previousDate!);
+	await expect(previousTime).toHaveText(afterTime!);
 });

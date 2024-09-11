@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.24
+
+### Patch Changes
+
+- [#139034](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139034)
+  [`517cdc0f7ea1a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/517cdc0f7ea1a) -
+  Used experiment for lazy node view
+
+## 7.25.23
+
+### Patch Changes
+
+- [#139279](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139279)
+  [`70db87daa2f22`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70db87daa2f22) -
+  [ux] Fix for column resizing for table that were resized to full-width in comment editor.
+
 ## 7.25.22
 
 ### Patch Changes

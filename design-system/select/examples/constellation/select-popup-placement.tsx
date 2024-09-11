@@ -1,6 +1,8 @@
 import React from 'react';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+
 import Button from '@atlaskit/button/new';
+import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+
 import { PopupSelect } from '../../src';
 
 const options = [

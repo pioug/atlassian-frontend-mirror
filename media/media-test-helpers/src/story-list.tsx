@@ -16,21 +16,20 @@ const styles: {
 	column: {
 		statesWrapper: {
 			listStyle: 'none',
-			padding: '10px',
-			margin: '10px',
-			borderRadius: '3px',
+			padding: token('space.100'),
+			margin: token('space.100'),
+			borderRadius: token('border.radius'),
 			display: 'inline-block',
 		},
 		stateItem: {
-			// TODO: From AK2 migration – TypeScript error, doesn't make sense
-			flexDirection: 'column' as any,
-			borderRadius: '3px',
-			padding: '10px',
-			margin: '10px',
+			flexDirection: 'column',
+			borderRadius: token('border.radius'),
+			padding: token('space.100'),
+			margin: token('space.100'),
 		},
 		stateTitle: {
 			borderBottom: `1px solid ${token('color.border', '#ccc')}`,
-			marginBottom: '7px',
+			marginBottom: token('space.100'),
 			color: token('color.text', '#606369'),
 			width: '100%',
 			textTransform: 'capitalize',
@@ -39,21 +38,20 @@ const styles: {
 	row: {
 		statesWrapper: {
 			listStyle: 'none',
-			padding: '10px',
-			margin: '10px',
-			borderRadius: '3px',
+			padding: token('space.100'),
+			margin: token('space.100'),
+			borderRadius: token('border.radius'),
 		},
 		stateItem: {
 			display: 'inline-flex',
-			// TODO: From AK2 migration – TypeScript error, doesn't make sense
-			flexDirection: 'column' as any,
-			borderRadius: '3px',
-			padding: '10px',
-			margin: '10px',
+			flexDirection: 'column',
+			borderRadius: token('border.radius'),
+			padding: token('space.100'),
+			margin: token('space.100'),
 		},
 		stateTitle: {
 			borderBottom: `1px solid ${token('color.border', '#ccc')}`,
-			marginBottom: '7px',
+			marginBottom: token('space.100'),
 			color: token('color.text', '#606369'),
 			width: '100%',
 			textTransform: 'capitalize',

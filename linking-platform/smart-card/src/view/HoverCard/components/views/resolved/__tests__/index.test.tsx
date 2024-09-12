@@ -24,7 +24,7 @@ import {
 	mockJiraResponse,
 	mockJiraResponseWithDatasources,
 } from '../../../../__tests__/__mocks__/mocks';
-import HoverCardResolvedView from '../redesign';
+import HoverCardResolvedView from '../index';
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => {
 	const original = jest.requireActual('../../../../../../state/hooks/use-ai-summary');

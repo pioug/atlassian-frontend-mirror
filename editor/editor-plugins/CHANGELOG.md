@@ -1,5 +1,47 @@
 # @atlaskit/editor-plugins
 
+## 4.5.0
+
+### Minor Changes
+
+- [#139831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139831)
+  [`181c907365d7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/181c907365d7d) -
+  Pass autoformat provider via preset
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.4.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.4.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.4.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.4.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.4.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.11
 
 ### Patch Changes

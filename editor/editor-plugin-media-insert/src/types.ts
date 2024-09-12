@@ -8,7 +8,10 @@ import type {
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
-import { type MediaState } from '@atlaskit/editor-plugin-media/types';
+import {
+	type MediaState,
+	type MediaStateEventSubscriber,
+} from '@atlaskit/editor-plugin-media/types';
 
 export type MediaInsertPluginState = {
 	isOpen?: boolean;
@@ -33,6 +36,12 @@ export type InsertExternalMediaSingle = (props: {
 	inputMethod: InputMethodInsertMedia;
 }) => boolean;
 
+export type InsertFile = (props: {
+	mediaState: MediaState;
+	inputMethod: InputMethodInsertMedia;
+	onMediaStateChanged: MediaStateEventSubscriber;
+}) => boolean;
+
 export type MediaInsertPickerProps = Pick<
 	UiComponentFactoryParams,
 	| 'editorView'
@@ -46,4 +55,5 @@ export type MediaInsertPickerProps = Pick<
 	mediaProvider?: Providers['mediaProvider'];
 	insertMediaSingle: InsertMediaSingle;
 	insertExternalMediaSingle: InsertExternalMediaSingle;
+	insertFile: InsertFile;
 };

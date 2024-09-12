@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': 'Mégse',
   'fabric.linkPicker.button.insert': 'Beszúrás',
   'fabric.linkPicker.button.save': 'Mentés',
-  'fabric.linkPicker.clearLink': 'Link törlése',
+  'fabric.linkPicker.clearLink': 'Törlés',
   'fabric.linkPicker.clearLinkText': 'Szöveg törlése',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {nincs találat} one {{count,number} találat} other {{count,number} találat}}',

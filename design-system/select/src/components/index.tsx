@@ -10,7 +10,6 @@ import LegacySelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import CrossIcon from '@atlaskit/icon/utility/cross';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import { type MultiValueRemoveProps } from '../types';
 
@@ -37,31 +36,44 @@ const iconWrapperStyles = xcss({
 export const MultiValueRemove = (props: MultiValueRemoveProps<any>) => {
 	const { isDisabled } = props.selectProps;
 
+	const renderIcon = () => {
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+		if (fg('platform-component-visual-refresh')) {
+			return <CrossIcon label="Clear" color="currentColor" />;
+		}
+
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+		if (fg('platform-visual-refresh-icons-legacy-facade')) {
+			return (
+				<Inline xcss={iconWrapperStyles}>
+					<CrossIcon label="Clear" color="currentColor" />
+				</Inline>
+			);
+		}
+
+		return (
+			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+			<LegacySelectClearIcon
+				label="Clear"
+				primaryColor="transparent"
+				size="small"
+				secondaryColor="inherit"
+			/>
+		);
+	};
+
 	return (
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		<components.MultiValueRemove {...props}>
 			<div
 				css={isDisabled ? disabledStyles : enabledStyles}
 				data-testid={isDisabled ? 'hide-clear-icon' : 'show-clear-icon'}
 			>
-				{fg('platform-component-visual-refresh') ? (
-					// eslint-disable-next-line @atlaskit/design-system/ensure-icon-color
-					<CrossIcon label="Clear" />
-				) : (
-					<Inline xcss={iconWrapperStyles}>
-						<CrossIcon
-							label="Clear"
-							color="currentColor"
-							LEGACY_fallbackIcon={LegacySelectClearIcon}
-							LEGACY_size="small"
-							LEGACY_primaryColor="transparent"
-							LEGACY_secondaryColor="inherit"
-							LEGACY_margin={token('space.negative.025')}
-						/>
-					</Inline>
-				)}
+				{renderIcon()}
 			</div>
 		</components.MultiValueRemove>
 	);
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IndicatorSeparator = null;

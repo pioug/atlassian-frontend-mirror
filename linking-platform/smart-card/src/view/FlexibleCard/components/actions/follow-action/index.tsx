@@ -1,5 +1,3 @@
-import InviteTeamIcon from '@atlaskit/icon/glyph/invite-team';
-import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { ActionName } from '../../../../../constants';
@@ -7,7 +5,6 @@ import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import ServerAction from '../action/server-action';
 import { type FollowActionProps } from './types';
-import UnfollowIcon from './unfollow-icon';
 import { importIcon } from '../../utils';
 import { getFollowActionErrorMessage } from './utils';
 
@@ -30,13 +27,6 @@ const getIcon = (stackIconType: string) => {
 		return null;
 	}
 	return importIcon(importFn);
-};
-
-const getIconFF = (iconFFEnabled: JSX.Element, defaultIcon: JSX.Element) => {
-	if (fg('platform.linking-platform.smart-card.action-icon-redesign')) {
-		return iconFFEnabled;
-	}
-	return defaultIcon;
 };
 
 const FollowAction = (props: FollowActionProps) => {
@@ -70,15 +60,11 @@ const FollowAction = (props: FollowActionProps) => {
 	const stackTooltipMessage = isProject ? projectTooltipMessage : goalTooltipMessage;
 	const tooltipMessage = isStackItem ? stackTooltipMessage : message;
 
-	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
-	const icon = value ? <InviteTeamIcon label="Follow" /> : <UnfollowIcon label="Unfollow" />;
-
 	const stackIconType = isProject ? 'projects' : 'goal';
 	const ImportedIcon = getIcon(stackIconType);
-	const stackIcon = (
+	const followIcon = (
 		<ImportedIcon label="Follow" testId={`smart-action-follow-action-${stackIconType}-icon`} />
 	);
-	const followIcon: JSX.Element = isStackItem ? stackIcon : getIconFF(stackIcon, icon);
 
 	const handleError = () => {
 		const { onError: onErrorCallback } = props;

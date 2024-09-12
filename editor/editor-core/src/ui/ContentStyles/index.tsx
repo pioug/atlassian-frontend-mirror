@@ -50,8 +50,13 @@ import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles'
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
 import {
+	akEditorCalculatedWideLayoutWidth,
+	akEditorCalculatedWideLayoutWidthSmallViewport,
+	akEditorDefaultLayoutWidth,
 	akEditorDeleteBackgroundWithOpacity,
 	akEditorDeleteBorder,
+	akEditorFullWidthLayoutWidth,
+	akEditorGutterPadding,
 	akEditorSelectedBorderColor,
 	akEditorSelectedBorderSize,
 	akEditorSelectedNodeClassName,
@@ -201,7 +206,38 @@ export const placeholderStyles = css({
 	},
 });
 
+// The breakpoint for small devices is 1266px, copied from getBreakpoint in platform/packages/editor/editor-common/src/ui/WidthProvider/index.tsx
+const akEditorBreakpointForSmallDevice = `1266px`;
 const contentStyles = (props: ContentStylesProps) => css`
+	--ak-editor--default-gutter-padding: ${akEditorGutterPadding}px;
+	/* 52 is from akEditorGutterPaddingDynamic via editor-shared-styles */
+	--ak-editor--large-gutter-padding: 52px;
+	--ak-editor--default-layout-width: ${akEditorDefaultLayoutWidth}px;
+	--ak-editor--full-width-layout-width: ${akEditorFullWidthLayoutWidth}px;
+	/* calculate editor line length, 100cqw is the editor container width */
+	--ak-editor--line-length: min(
+		calc(100cqw - var(--ak-editor--large-gutter-padding) * 2),
+		var(--ak-editor--default-layout-width)
+	);
+	--ak-editor--breakout-wide-layout-width: ${akEditorCalculatedWideLayoutWidthSmallViewport}px;
+	--ak-editor--breakout-full-page-guttering-padding: calc(
+		var(--ak-editor--large-gutter-padding) * 2 + var(--ak-editor--default-gutter-padding)
+	);
+
+	.fabric-editor--full-width-mode {
+		--ak-editor--line-length: min(
+			calc(100cqw - var(--ak-editor--large-gutter-padding) * 2),
+			var(--ak-editor--full-width-layout-width)
+		);
+	}
+
+	/* container editor-area is defined in platform/packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts */
+	@container editor-area (min-width: ${akEditorBreakpointForSmallDevice}) {
+		.ProseMirror {
+			--ak-editor--breakout-wide-layout-width: ${akEditorCalculatedWideLayoutWidth}px;
+		}
+	}
+
 	.ProseMirror {
 		outline: none;
 		font-size: ${editorFontSize({ theme: props.theme })}px;

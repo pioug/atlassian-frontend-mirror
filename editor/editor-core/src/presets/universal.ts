@@ -415,7 +415,15 @@ export default function createUniversalPresetInternal({
 			],
 			Boolean(props.linking?.smartLinks || props.smartLinks || props.UNSAFE_cards),
 		)
-		.maybeAdd(customAutoformatPlugin, Boolean(props.autoformattingProvider))
+		.maybeAdd(
+			[
+				customAutoformatPlugin,
+				{
+					autoformattingProvider: props.autoformattingProvider,
+				},
+			],
+			Boolean(props.autoformattingProvider),
+		)
 		.maybeAdd(
 			[
 				statusPlugin,

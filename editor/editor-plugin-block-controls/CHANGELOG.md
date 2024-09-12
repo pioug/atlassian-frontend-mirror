@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.13.10
+
+### Patch Changes
+
+- [#139974](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139974)
+  [`6fad81c12f150`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6fad81c12f150) -
+  Remove unnecessary psudo-elements when table-nested-dnd disabled
+- Updated dependencies
+
+## 1.13.9
+
+### Patch Changes
+
+- [#139334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139334)
+  [`30793649657c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30793649657c0) -
+  [HOT-111629] We had an incident where the last character disappears when hitting the enter key on
+  windows OS for Korean characters. Bumping to prosemirror-view@1.34.2 for the fix.
+
+## 1.13.8
+
+### Patch Changes
+
+- [#139292](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139292)
+  [`9e05a4e4221a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e05a4e4221a3) -
+  [ux] ED-24414 Hide drag handle for first nested node in panel
+
+## 1.13.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.13.6
 
 ### Patch Changes

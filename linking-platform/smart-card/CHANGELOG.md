@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 28.1.2
+
+### Patch Changes
+
+- [#140089](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140089)
+  [`5377b7d8df2f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5377b7d8df2f4) -
+  Hover card redesign file rename
+
+## 28.1.1
+
+### Patch Changes
+
+- [#139817](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139817)
+  [`5c1428bee9fb8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c1428bee9fb8) -
+  Removing code references of smart card action icon redesign FF
+
 ## 28.1.0
 
 ### Minor Changes

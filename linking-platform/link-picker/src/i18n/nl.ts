@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': 'Annuleren',
   'fabric.linkPicker.button.insert': 'Invoegen',
   'fabric.linkPicker.button.save': 'Opslaan',
-  'fabric.linkPicker.clearLink': 'Link wissen',
+  'fabric.linkPicker.clearLink': 'Wissen',
   'fabric.linkPicker.clearLinkText': 'Tekst wissen',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {geen resultaten gevonden} one {{count,number} resultaat gevonden} other {{count,number} resultaten gevonden}}',

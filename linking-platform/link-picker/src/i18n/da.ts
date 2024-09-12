@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': 'Annullér',
   'fabric.linkPicker.button.insert': 'Indsæt',
   'fabric.linkPicker.button.save': 'Gem',
-  'fabric.linkPicker.clearLink': 'Ryd link',
+  'fabric.linkPicker.clearLink': 'Ryd',
   'fabric.linkPicker.clearLinkText': 'Ryd tekst',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {ingen resultater fundet} one {Der blev fundet {count,number} resultat} other {Der blev fundet {count,number} resultater}}',

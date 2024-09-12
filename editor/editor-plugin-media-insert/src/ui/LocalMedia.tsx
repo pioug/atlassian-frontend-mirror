@@ -6,7 +6,7 @@ import Button from '@atlaskit/button/new';
 import { type DispatchAnalyticsEvent, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { type MediaState } from '@atlaskit/editor-plugin-media/types';
+import { type MediaState, type MediaStateEventListener } from '@atlaskit/editor-plugin-media/types';
 import UploadIcon from '@atlaskit/icon/glyph/upload';
 import {
 	Browser,
@@ -18,13 +18,13 @@ import {
 import { Stack } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 
-import { type InsertMediaSingle } from '../types';
+import { type InsertFile } from '../types';
 
 import { useAnalyticsEvents } from './useAnalyticsEvents';
 
 type Props = {
 	mediaProvider: MediaProvider;
-	insertMediaSingle: InsertMediaSingle;
+	insertFile: InsertFile;
 	closeMediaInsertPicker: () => void;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 };
@@ -66,10 +66,7 @@ const isImagePreview = (preview: Preview): preview is ImagePreview => {
 };
 
 export const LocalMedia = React.forwardRef<HTMLButtonElement, Props>(
-	(
-		{ mediaProvider, insertMediaSingle, dispatchAnalyticsEvent, closeMediaInsertPicker }: Props,
-		ref,
-	) => {
+	({ mediaProvider, dispatchAnalyticsEvent, closeMediaInsertPicker, insertFile }: Props, ref) => {
 		const intl = useIntl();
 		const strings = {
 			upload: intl.formatMessage(mediaInsertMessages.upload),
@@ -85,9 +82,16 @@ export const LocalMedia = React.forwardRef<HTMLButtonElement, Props>(
 		} = useAnalyticsEvents(dispatchAnalyticsEvent);
 
 		const [uploadState, dispatch] = React.useReducer(uploadReducer, INITIAL_UPLOAD_STATE);
+		const erroredFileIds = React.useState(new Set<string>())[0];
 
 		const onUpload = ({ file, preview }: UploadPreviewUpdateEventPayload): void => {
 			onUploadSuccessAnalytics('local');
+
+			const isErroredFile = erroredFileIds.has(file.id);
+
+			const { dimensions, scaleFactor } = isImagePreview(preview)
+				? preview
+				: { dimensions: undefined, scaleFactor: undefined };
 
 			const mediaState: MediaState = {
 				id: file.id,
@@ -95,17 +99,21 @@ export const LocalMedia = React.forwardRef<HTMLButtonElement, Props>(
 				fileMimeType: file.type,
 				fileSize: file.size,
 				fileName: file.name,
-				dimensions: undefined,
+				dimensions,
+				scaleFactor,
+				status: isErroredFile ? 'error' : undefined,
 			};
 
-			if (isImagePreview(preview)) {
-				mediaState.dimensions = {
-					width: preview.dimensions.width,
-					height: preview.dimensions.height,
-				};
-			}
+			const onStateChanged = (_cb: MediaStateEventListener) => {
+				// no-op
+			};
 
-			insertMediaSingle({ mediaState, inputMethod: INPUT_METHOD.MEDIA_PICKER });
+			insertFile({
+				mediaState,
+				inputMethod: INPUT_METHOD.MEDIA_PICKER,
+				onMediaStateChanged: onStateChanged,
+			});
+
 			closeMediaInsertPicker();
 
 			// Probably not needed but I guess it _could_ fail to close for some reason
@@ -136,7 +144,7 @@ export const LocalMedia = React.forwardRef<HTMLButtonElement, Props>(
 				{uploadMediaClientConfig && uploadParams && (
 					<Browser
 						isOpen={uploadState.isOpen}
-						config={{ uploadParams: uploadParams }}
+						config={{ uploadParams: uploadParams, multiple: true }}
 						mediaClientConfig={uploadMediaClientConfig}
 						onUploadsStart={() => {
 							onUploadCommencedAnalytics('local');
@@ -145,11 +153,16 @@ export const LocalMedia = React.forwardRef<HTMLButtonElement, Props>(
 						// NOTE: this will fire for some errors like network failures, but not
 						// for others like empty files. Those have their own feedback toast
 						// owned by media.
-						onError={(payload) => {
-							onUploadFailureAnalytics(payload.error.name, 'local');
-							dispatch({ type: 'error', error: payload.error.name });
+						onError={({ error, fileId }) => {
+							// Dispatch the error events
+							onUploadFailureAnalytics(error.name, 'local');
+							dispatch({ type: 'error', error: error.name });
+
+							// Update the status of the errored file
+							erroredFileIds.add(fileId);
 						}}
 						onClose={() => {
+							erroredFileIds.clear();
 							dispatch({ type: 'close' });
 						}}
 					/>

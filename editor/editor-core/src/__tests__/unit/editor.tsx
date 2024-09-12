@@ -103,14 +103,20 @@ expect.extend(matchers);
 describe(`Editor`, () => {
 	describe('errors', () => {
 		it('should not have any unknown console errors on mount', () => {
-			const knownErrors = ['The pseudo class ":first-child" is potentially'];
+			const knownErrors = [
+				'The pseudo class ":first-child" is potentially',
+				'Could not parse CSS stylesheet', // JSDOM version (22) doesn't support the new @container CSS rule
+			];
 			jest.clearAllMocks();
 			const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
 			const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
 			render(<Editor allowAnalyticsGASV3 />);
 			const calls = consoleErrorSpy.mock.calls
 				.map((call) => call[0])
-				.filter((call) => !knownErrors.some((error) => call.startsWith(error)));
+				.filter((call) => {
+					const callMessage = typeof call === 'string' ? call : call.message;
+					return !knownErrors.some((error) => callMessage.startsWith(error));
+				});
 			expect(calls.length).toBe(0);
 			consoleErrorSpy.mockRestore();
 			consoleWarnSpy.mockRestore();

@@ -1,8 +1,7 @@
 import React, { Fragment, useRef } from 'react';
 
-import { uid } from 'react-uid';
-
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -527,9 +526,7 @@ const useButtonBase = <TagName extends HTMLElement>({
 }: UseButtonBaseArgs<TagName>): UseButtonBaseReturn<TagName> => {
 	const localRef = useRef<TagName | null>(null);
 	const splitButtonContext = useSplitButtonContext();
-	// TODO: Use React 18's useId() hook when we update.
-	// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
-	const loadingLabelId = uid({ ariaLabelledBy });
+	const loadingLabelId = useId();
 
 	const isSplitButton = Boolean(splitButtonContext);
 	const isNavigationSplitButton = splitButtonContext?.isNavigationSplitButton || false;

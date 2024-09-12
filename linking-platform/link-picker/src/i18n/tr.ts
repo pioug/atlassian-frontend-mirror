@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': 'İptal',
   'fabric.linkPicker.button.insert': 'Ekle',
   'fabric.linkPicker.button.save': 'Kaydet',
-  'fabric.linkPicker.clearLink': 'Bağlantıyı temizle',
+  'fabric.linkPicker.clearLink': 'Temizle',
   'fabric.linkPicker.clearLinkText': 'Metni temizle',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {sonuç bulunamadı} one {{count,number} sonuç bulundu} other {{count,number} sonuç bulundu}}',

@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.26
+
+### Patch Changes
+
+- [#137474](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137474)
+  [`53c1e842c98c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53c1e842c98c7) -
+  ED-24840: Fix for pasting default table in comment losing width
+- [#139334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139334)
+  [`30793649657c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30793649657c0) -
+  [HOT-111629] We had an incident where the last character disappears when hitting the enter key on
+  windows OS for Korean characters. Bumping to prosemirror-view@1.34.2 for the fix.
+- Updated dependencies
+
+## 7.25.25
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.25.24
 
 ### Patch Changes

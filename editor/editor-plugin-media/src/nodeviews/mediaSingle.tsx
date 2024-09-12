@@ -427,9 +427,11 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 		const isInsideTable =
 			pos !== undefined &&
 			findParentNodeOfTypeClosestToPos(state.doc.resolve(pos), [state.schema.nodes.table]);
+
 		const currentMediaElement = () => {
 			if (pos !== undefined) {
-				return view.domAtPos(pos + 1).node as HTMLElement;
+				const mediaNode = view.domAtPos(pos + 1).node;
+				return mediaNode instanceof HTMLElement ? mediaNode : null;
 			}
 			return null;
 		};

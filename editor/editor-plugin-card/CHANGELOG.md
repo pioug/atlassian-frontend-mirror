@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-card
 
+## 3.0.1
+
+### Patch Changes
+
+- [#139334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139334)
+  [`30793649657c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30793649657c0) -
+  [HOT-111629] We had an incident where the last character disappears when hitting the enter key on
+  windows OS for Korean characters. Bumping to prosemirror-view@1.34.2 for the fix.
+- Updated dependencies
+
+## 3.0.0
+
+### Major Changes
+
+- [#139052](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139052)
+  [`6e5c1f6bbf028`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e5c1f6bbf028) -
+  Removed mobile specific support from card plugin, as the Editor no longer supports this appearance
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.15.3
 
 ### Patch Changes

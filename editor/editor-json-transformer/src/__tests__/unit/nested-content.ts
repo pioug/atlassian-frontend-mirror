@@ -87,6 +87,9 @@ describe('JSONTransformer - Nested content', () => {
 		});
 
 		it('should encode a document with codeblock nested in quote', () => {
+			(fg as jest.Mock).mockImplementation(
+				(name) => name === 'platform_editor_nest_in_quotes_adf_change',
+			);
 			const document = doc(blockquote(code_block()('This is a codeblock in a blockquote.')));
 			const { editorView } = createEditor({
 				doc: document,
@@ -121,6 +124,9 @@ describe('JSONTransformer - Nested content', () => {
 		});
 
 		it('should encode a document with mediaSingle nested in quote', () => {
+			(fg as jest.Mock).mockImplementation(
+				(name) => name === 'platform_editor_nest_in_quotes_adf_change',
+			);
 			const document = doc(
 				blockquote(
 					mediaSingle({
@@ -196,6 +202,9 @@ describe('JSONTransformer - Nested content', () => {
 		});
 
 		it('should encode a document with mediaGroup nested in quote', () => {
+			(fg as jest.Mock).mockImplementation(
+				(name) => name === 'platform_editor_nest_in_quotes_adf_change',
+			);
 			const document = doc(
 				blockquote(
 					mediaGroup(

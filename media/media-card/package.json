@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "78.2.3",
+	"version": "78.2.4",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/dropdown-menu": "^12.18.0",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
-		"@atlaskit/icon": "^22.16.0",
+		"@atlaskit/icon": "^22.17.0",
 		"@atlaskit/media-client": "^27.6.0",
 		"@atlaskit/media-client-react": "^2.2.0",
 		"@atlaskit/media-common": "^11.4.0",
@@ -83,7 +83,7 @@
 		"@atlaskit/media-picker": "^66.5.0",
 		"@atlaskit/media-state": "^1.1.0",
 		"@atlaskit/media-test-data": "^2.6.0",
-		"@atlaskit/media-test-helpers": "^34.1.0",
+		"@atlaskit/media-test-helpers": "^34.2.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/range": "^7.4.0",
 		"@atlaskit/ssr": "*",
@@ -112,6 +112,9 @@
 			"type": "boolean"
 		},
 		"platform.media-card-performance-observer_a803k": {
+			"type": "boolean"
+		},
+		"platform.media-cdn-single-host": {
 			"type": "boolean"
 		}
 	},

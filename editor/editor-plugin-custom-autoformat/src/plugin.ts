@@ -1,18 +1,32 @@
-import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { AutoformattingProvider, Providers } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { NextEditorPlugin, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
-import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { buildHandler, completeReplacements } from './doc';
 import type { InputRule } from './input-rules';
 import { triggerInputRule } from './input-rules';
 import reducers from './reducers';
-import type { CustomAutoformatAction, CustomAutoformatState } from './types';
-import { getPluginState, pluginKey } from './utils';
+import type {
+	CustomAutoformatAction,
+	CustomAutoformatPlugin,
+	CustomAutoformatPluginOptions,
+	CustomAutoformatState,
+} from './types';
+import { autoformatAction, getPluginState, pluginKey } from './utils';
 
-export const createPMPlugin = ({ providerFactory }: PMPluginFactoryParams) => {
+export const createPMPlugin = (
+	{ providerFactory }: PMPluginFactoryParams,
+	options: CustomAutoformatPluginOptions,
+	api?: ExtractInjectionAPI<CustomAutoformatPlugin>,
+) => {
 	const rules: Array<InputRule> = [];
 
 	return new SafePlugin({
@@ -21,6 +35,7 @@ export const createPMPlugin = ({ providerFactory }: PMPluginFactoryParams) => {
 				return {
 					resolving: [],
 					matches: [],
+					autoformattingProvider: undefined,
 				};
 			},
 
@@ -86,7 +101,13 @@ export const createPMPlugin = ({ providerFactory }: PMPluginFactoryParams) => {
 				});
 			};
 
-			providerFactory.subscribe('autoformattingProvider', handleProvider);
+			if (fg('platform_editor_autoformatting_provider_from_plugin_config')) {
+				if (options?.autoformattingProvider) {
+					handleProvider('autoformattingProvider', options.autoformattingProvider);
+				}
+			} else {
+				providerFactory.subscribe('autoformattingProvider', handleProvider);
+			}
 
 			return {
 				update(view: EditorView) {
@@ -101,7 +122,9 @@ export const createPMPlugin = ({ providerFactory }: PMPluginFactoryParams) => {
 					}
 				},
 				destroy() {
-					providerFactory.unsubscribe('autoformattingProvider', handleProvider);
+					if (!fg('platform_editor_autoformatting_provider_from_plugin_config')) {
+						providerFactory.unsubscribe('autoformattingProvider', handleProvider);
+					}
 				},
 			};
 		},
@@ -110,12 +133,55 @@ export const createPMPlugin = ({ providerFactory }: PMPluginFactoryParams) => {
 	});
 };
 
-export type CustomAutoformatPlugin = NextEditorPlugin<'customAutoformat'>;
+export const setProvider = (provider?: AutoformattingProvider) => (tr: Transaction) => {
+	return autoformatAction(tr, { action: 'setProvider', provider });
+};
 
-export const customAutoformatPlugin: CustomAutoformatPlugin = () => ({
-	name: 'customAutoformat',
+export const customAutoformatPlugin: CustomAutoformatPlugin = ({ api, config: options }) => {
+	let previousProvider: AutoformattingProvider | undefined;
 
-	pmPlugins() {
-		return [{ name: 'customAutoformat', plugin: createPMPlugin }];
-	},
-});
+	if (fg('platform_editor_autoformatting_provider_from_plugin_config')) {
+		if (options?.autoformattingProvider) {
+			options.autoformattingProvider.then((provider) => {
+				api?.core.actions.execute(({ tr }) => setProvider(provider)(tr));
+			});
+		}
+	}
+
+	return {
+		name: 'customAutoformat',
+
+		pmPlugins() {
+			return [
+				{
+					name: 'customAutoformat',
+					plugin: (pmPluginFactoryParams) => {
+						return createPMPlugin(pmPluginFactoryParams, options, api);
+					},
+				},
+			];
+		},
+
+		getSharedState(editorState) {
+			if (!editorState) {
+				return;
+			}
+			const { autoformattingProvider } = getPluginState(editorState) ?? {};
+			return {
+				autoformattingProvider,
+			};
+		},
+
+		actions: {
+			setProvider: async (providerPromise: Promise<AutoformattingProvider>) => {
+				const provider = await providerPromise;
+				// Prevent someone trying to set the exact same provider twice for performance reasons+
+				if (previousProvider === provider || options?.autoformattingProvider === providerPromise) {
+					return false;
+				}
+				previousProvider = provider;
+				return api?.core.actions.execute(({ tr }) => setProvider(provider)(tr)) ?? false;
+			},
+		},
+	};
+};

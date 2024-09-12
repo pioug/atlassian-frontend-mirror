@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': 'Avbryt',
   'fabric.linkPicker.button.insert': 'Infoga',
   'fabric.linkPicker.button.save': 'Spara',
-  'fabric.linkPicker.clearLink': 'Rensa länk',
+  'fabric.linkPicker.clearLink': 'Rensa',
   'fabric.linkPicker.clearLinkText': 'Rensa text',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {inga resultat hittades} one {{count,number} resultat hittades} other {{count,number} resultat hittades}}',

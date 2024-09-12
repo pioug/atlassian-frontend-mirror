@@ -453,6 +453,7 @@ export class TableContainer extends React.Component<
 		}
 
 		let finalTableContainerWidth = allowTableResizing ? tableWidth : 'inherit';
+
 		if (rendererAppearance === 'comment' && allowTableResizing && !allowTableAlignment) {
 			// If table alignment is disabled and table width is akEditorDefaultLayoutWidth = 760,
 			// it is most likely a table created before "Support Table in Comments" FF was enabled

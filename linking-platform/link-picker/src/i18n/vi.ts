@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': 'Hủy',
   'fabric.linkPicker.button.insert': 'Chèn',
   'fabric.linkPicker.button.save': 'Lưu',
-  'fabric.linkPicker.clearLink': 'Xóa liên kết',
+  'fabric.linkPicker.clearLink': 'Xóa',
   'fabric.linkPicker.clearLinkText': 'Xóa văn bản',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {không tìm thấy kết quả} other {Đã tìm thấy {count,number} kết quả}}',

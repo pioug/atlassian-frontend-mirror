@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': 'Отмена',
   'fabric.linkPicker.button.insert': 'Вставить',
   'fabric.linkPicker.button.save': 'Сохранить',
-  'fabric.linkPicker.clearLink': 'Удалить ссылку',
+  'fabric.linkPicker.clearLink': 'Очистить',
   'fabric.linkPicker.clearLinkText': 'Удалить текст',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {Ничего не найдено} one {Найден {count,number} результат} few {Найдено {count,number} результата} many {Найдено {count,number} результатов} other {Найдено {count,number} результата}}',

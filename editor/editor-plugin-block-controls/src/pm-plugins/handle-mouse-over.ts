@@ -39,15 +39,26 @@ export const handleMouseOver = (
 		}
 
 		const parentElement = rootElement.parentElement?.closest('[data-drag-handler-anchor-name]');
+		const parentElementType = parentElement?.getAttribute('data-drag-handler-node-type');
+
+		if (parentElement && parentElementType === 'panel' && editorExperiment('nested-dnd', true)) {
+			const eventTargetPos = view.posAtDOM(rootElement, 0, -1);
+			const $eventTargetPos = view.state.doc.resolve(eventTargetPos);
+			const depth = $eventTargetPos.depth > 1 ? $eventTargetPos.depth - 1 : $eventTargetPos.depth;
+			if ($eventTargetPos.node(depth).firstChild === $eventTargetPos.node()) {
+				return false;
+			}
+		}
 
 		if (
 			parentElement &&
-			parentElement.getAttribute('data-drag-handler-node-type')! === 'table' &&
+			parentElementType === 'table' &&
 			editorExperiment('nested-dnd', true) &&
 			editorExperiment('table-nested-dnd', false, { exposure: true })
 		) {
 			rootElement = parentElement;
 		}
+
 		const anchorName = rootElement.getAttribute('data-drag-handler-anchor-name')!;
 		const nodeType = rootElement.getAttribute('data-drag-handler-node-type')!;
 

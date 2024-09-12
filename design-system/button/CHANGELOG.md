@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 20.1.1
+
+### Patch Changes
+
+- [#139966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139966)
+  [`1e6883fdd5111`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1e6883fdd5111) -
+  Change `react-uid` to use ID generator that is compatible with React16 and React 18; Strict React
+  18 behind a flag.
+
 ## 20.1.0
 
 ### Minor Changes

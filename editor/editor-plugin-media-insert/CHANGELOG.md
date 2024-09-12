@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.6.0
+
+### Minor Changes
+
+- [#140146](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140146)
+  [`1d9fce7fc2523`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1d9fce7fc2523) -
+  [ux] [ED-24912] **@atlaskit/editor-plugin-media-insert**: Makes sure that users can upload
+  non-media files, users can also select multiple files from their local media browser to upload at
+  once **@atlaskit/editor-plugin-media**: Adds a type export for `MediaStateEventListener` &
+  `MediaStateEventSubscriber`
+
+## 2.5.3
+
+### Patch Changes
+
+- [#139334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139334)
+  [`30793649657c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30793649657c0) -
+  [HOT-111629] We had an incident where the last character disappears when hitting the enter key on
+  windows OS for Korean characters. Bumping to prosemirror-view@1.34.2 for the fix.
+
+## 2.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.5.1
 
 ### Patch Changes

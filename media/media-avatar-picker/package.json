@@ -39,7 +39,7 @@
 		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/flag": "^15.8.0",
 		"@atlaskit/form": "^10.5.0",
-		"@atlaskit/icon": "^22.16.0",
+		"@atlaskit/icon": "^22.17.0",
 		"@atlaskit/media-ui": "^25.11.0",
 		"@atlaskit/modal-dialog": "^12.15.0",
 		"@atlaskit/primitives": "^12.1.0",
@@ -60,7 +60,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/media-core": "^34.3.0",
-		"@atlaskit/media-test-helpers": "^34.1.0",
+		"@atlaskit/media-test-helpers": "^34.2.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",

@@ -1,4 +1,5 @@
-import React, { type PropsWithChildren, useState } from 'react';
+import { Stack, xcss } from '@atlaskit/primitives';
+import React, { useState } from 'react';
 import Textfield from '@atlaskit/textfield';
 import { type MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { getMediaFeatureFlags, clearAllLocalFeatureFlags, setLocalFeatureFlag } from './helpers';
@@ -26,10 +27,6 @@ const Container = styled.div({
 	margin: `${token('space.250', '20px')} auto`,
 });
 
-const ItemWrapper = ({ children }: PropsWithChildren<{}>) => (
-	<div style={{ padding: `10px ${token('space.250', '20px')}` }}>{children}</div>
-);
-
 const CheckboxItem = ({
 	name,
 	initialValue,
@@ -39,18 +36,16 @@ const CheckboxItem = ({
 	initialValue: boolean;
 	onChange: () => void;
 }) => (
-	<ItemWrapper>
-		<Checkbox
-			defaultChecked={initialValue}
-			label={camelCaseToSentenceCase(name)}
-			onChange={() => {
-				const value = !initialValue;
-				setLocalFeatureFlag(name, value);
-				onChange();
-			}}
-			name={`media-feature-flag-check-${name}`}
-		/>
-	</ItemWrapper>
+	<Checkbox
+		defaultChecked={initialValue}
+		label={camelCaseToSentenceCase(name)}
+		onChange={() => {
+			const value = !initialValue;
+			setLocalFeatureFlag(name, value);
+			onChange();
+		}}
+		name={`media-feature-flag-check-${name}`}
+	/>
 );
 
 const TextFieldItem = ({
@@ -71,7 +66,7 @@ const TextFieldItem = ({
 	}, 500);
 
 	return (
-		<ItemWrapper>
+		<div>
 			<label htmlFor={`media-feature-flag-text-${name}`}>{camelCaseToSentenceCase(name)}:</label>
 			<Textfield
 				name={`media-feature-flag-text-${name}`}
@@ -79,7 +74,7 @@ const TextFieldItem = ({
 				onChange={(e) => fieldChanged(e.currentTarget.value)}
 				type={isNumber ? 'number' : 'text'}
 			/>
-		</ItemWrapper>
+		</div>
 	);
 };
 
@@ -88,7 +83,7 @@ const FeatureFlagItems = ({ onUpdate }: { onUpdate: () => void }) => {
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div style={{ maxHeight: '200px', padding: '10px 0' }}>
+		<Stack xcss={featureFlagItemStyles}>
 			{flagItems.length > 0 ? (
 				flagItems.map(([key, currentValue]) => {
 					const name = key as keyof MediaFeatureFlags;
@@ -118,11 +113,17 @@ const FeatureFlagItems = ({ onUpdate }: { onUpdate: () => void }) => {
 					}
 				})
 			) : (
-				<ItemWrapper>No flags available</ItemWrapper>
+				<div>No flags available</div>
 			)}
-		</div>
+		</Stack>
 	);
 };
+
+const featureFlagItemStyles = xcss({
+	maxHeight: '200px',
+	gap: 'space.100',
+	padding: 'space.150',
+});
 
 export type MediaFeatureFlagsDropdownProps = {
 	onFlagChanged: () => void;

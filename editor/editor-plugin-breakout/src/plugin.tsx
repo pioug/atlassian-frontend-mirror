@@ -17,12 +17,12 @@ import type { WidthPlugin, WidthPluginState } from '@atlaskit/editor-plugin-widt
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorView, type NodeView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorGutterPaddingDynamic,
 	akEditorSwoopCubicBezier,
 } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { pluginKey } from './plugin-key';
 import type { BreakoutPluginState } from './types';
@@ -32,7 +32,7 @@ import { findSupportedNodeForBreakout } from './utils/find-breakout-node';
 
 type BreakoutPMMark = Omit<PMMark, 'attrs'> & { attrs: BreakoutMarkAttrs };
 
-class BreakoutView {
+class BreakoutViewOld {
 	dom: HTMLElement;
 	contentDOM: HTMLElement;
 	view: EditorView;
@@ -51,16 +51,19 @@ class BreakoutView {
 	) {
 		const contentDOM = document.createElement('div');
 		contentDOM.className = BreakoutCssClassName.BREAKOUT_MARK_DOM;
+		contentDOM.setAttribute('data-testid', 'ak-editor-breakout-mark-dom');
 
 		const dom = document.createElement('div');
 		dom.className = BreakoutCssClassName.BREAKOUT_MARK;
 		dom.setAttribute('data-layout', mark.attrs.mode);
+		dom.setAttribute('data-testid', 'ak-editor-breakout-mark');
 		dom.appendChild(contentDOM);
 
 		this.dom = dom;
 		this.mark = mark as unknown as BreakoutPMMark;
 		this.view = view;
 		this.contentDOM = contentDOM;
+
 		this.unsubscribe = pluginInjectionApi?.width?.sharedState.onChange(({ nextSharedState }) =>
 			this.updateWidth(nextSharedState),
 		);
@@ -80,11 +83,10 @@ class BreakoutView {
 
 		// when editor padding = 32px the breakout padding is calculated as 96px (32 * 3)
 		// the extra '32' ensures nodes with breakout applied default to line length its below default width
-		const padding = getBooleanFF('platform.editor.core.increase-full-page-guttering')
+		const padding = fg('platform.editor.core.increase-full-page-guttering')
 			? akEditorGutterPaddingDynamic() * 2 + 32
 			: undefined;
 		let breakoutWidthPx = calcBreakoutWidthPx(this.mark.attrs.mode, widthState.width, padding);
-
 		if (widthState.lineLength) {
 			if (breakoutWidthPx < widthState.lineLength) {
 				breakoutWidthPx = widthState.lineLength;
@@ -138,6 +140,52 @@ class BreakoutView {
 	}
 }
 
+class BreakoutView implements NodeView {
+	dom: HTMLElement;
+	contentDOM: HTMLElement;
+	view: EditorView;
+	mark: BreakoutPMMark;
+
+	constructor(
+		/**
+		 * Note: this is actually a PMMark -- however our version
+		 * of the prosemirror and prosemirror types mean using PMNode
+		 * is not problematic.
+		 */
+		mark: PMNode,
+		view: EditorView,
+	) {
+		const dom = document.createElement('div');
+		const contentDOM = document.createElement('div');
+		contentDOM.className = BreakoutCssClassName.BREAKOUT_MARK_DOM;
+		contentDOM.setAttribute('data-testid', 'ak-editor-breakout-mark-dom');
+
+		dom.className = BreakoutCssClassName.BREAKOUT_MARK;
+		dom.setAttribute('data-layout', mark.attrs.mode);
+		dom.setAttribute('data-testid', 'ak-editor-breakout-mark');
+		dom.appendChild(contentDOM);
+
+		dom.style.transform = 'none';
+		dom.style.display = 'flex';
+		dom.style.justifyContent = 'center';
+
+		contentDOM.style.transition = `min-width 0.5s ${akEditorSwoopCubicBezier}`;
+
+		// original breakout algorithm is in calcBreakoutWidth from platform/packages/editor/editor-common/src/utils/breakout.ts
+		if (mark.attrs.mode === 'full-width') {
+			contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(--ak-editor--full-width-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+		}
+		if (mark.attrs.mode === 'wide') {
+			contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(--ak-editor--breakout-wide-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+		}
+
+		this.dom = dom;
+		this.mark = mark as unknown as BreakoutPMMark;
+		this.view = view;
+		this.contentDOM = contentDOM;
+	}
+}
+
 function shouldPluginStateUpdate(
 	newBreakoutNode?: ContentNodeWithPos,
 	currentBreakoutNode?: ContentNodeWithPos,
@@ -181,7 +229,10 @@ function createPlugin(
 				// See the following link for more details:
 				// https://prosemirror.net/docs/ref/#view.EditorProps.nodeViews.
 				breakout: (mark: PMNode, view: EditorView) => {
-					return new BreakoutView(mark, view, pluginInjectionApi);
+					if (fg('platform_editor_breakout_use_css')) {
+						return new BreakoutView(mark, view);
+					}
+					return new BreakoutViewOld(mark, view, pluginInjectionApi);
 				},
 			},
 		},

@@ -205,6 +205,7 @@ class ControlOption<Option = OptionType, IsMulti extends boolean = false> extend
 								...this.props,
 								...this.state,
 							})}
+							isFacadeDisabled={true}
 						/>
 					) : null}
 				</div>
@@ -220,7 +221,7 @@ class ControlOption<Option = OptionType, IsMulti extends boolean = false> extend
 export const CheckboxOption = <OptionT extends OptionType>(
 	props: OptionProps<OptionT, true>,
 	// TODO https://product-fabric.atlassian.net/browse/DSP-20768
-	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons, @repo/internal/react/no-unsafe-spread-props
 ): JSX.Element => <ControlOption<OptionT, true> Icon={CheckboxIcon} {...props} />;
 
 /**
@@ -228,6 +229,6 @@ export const CheckboxOption = <OptionT extends OptionType>(
  */
 export const RadioOption = <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => (
 	// TODO https://product-fabric.atlassian.net/browse/DSP-20769
-	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons, @repo/internal/react/no-unsafe-spread-props
 	<ControlOption Icon={RadioIcon} {...props} />
 );

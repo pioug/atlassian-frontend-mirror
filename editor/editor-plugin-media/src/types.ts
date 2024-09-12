@@ -158,3 +158,7 @@ export type ForwardRef = (node: HTMLElement | null) => void;
 
 export type { InsertMediaAsMediaSingle } from './utils/media-single';
 export type { MediaPluginState } from './pm-plugins/types';
+
+type MediaStateEvent = MediaState;
+export type MediaStateEventListener = (evt: MediaStateEvent) => void;
+export type MediaStateEventSubscriber = (listener: MediaStateEventListener) => void;

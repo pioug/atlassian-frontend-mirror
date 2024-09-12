@@ -75,6 +75,20 @@ const extendedHoverZoneNested = css({
 			cursor: 'default',
 			zIndex: -1,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&& :is(.pm-table-cell-content-wrap, .pm-table-header-content-wrap) > [data-drag-handler-anchor-name]::after':
+			{
+				content: '""',
+				position: 'absolute',
+				top: 0,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				left: `-${editorExperiment('table-nested-dnd', true) ? DRAG_HANDLE_MAX_WIDTH_PLUS_GAP : 0}px`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				width: `${editorExperiment('table-nested-dnd', true) ? DRAG_HANDLE_MAX_WIDTH_PLUS_GAP : 0}px`,
+				height: '100%',
+				cursor: 'default',
+				zIndex: 1,
+			},
 	},
 	// TODO - ED-23995 this style override needs to be moved to the Rule styles after FF cleanup - packages/editor/editor-common/src/styles/shared/rule.ts
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

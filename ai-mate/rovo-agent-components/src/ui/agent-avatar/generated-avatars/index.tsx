@@ -208,6 +208,16 @@ const outOfTheBoxAgentAvatar: {
 		),
 		color: greenColor,
 	},
+	it_ops_agent: {
+		getRender: (size: SizeType) => (
+			<OpsAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={purpleColor.primary}
+				secondaryColor={purpleColor.secondary}
+			/>
+		),
+		color: purpleColor,
+	},
 };
 
 /**

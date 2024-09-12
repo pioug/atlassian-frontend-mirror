@@ -46,15 +46,13 @@ import * as helpers from '../commands/helpers';
 import { updateMediaNodeAttrs } from '../commands/helpers';
 import type { MediaPluginOptions } from '../media-plugin-options';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
-import type {
-	MediaStateEventListener,
-	MediaStateEventSubscriber,
-	PickerFacadeConfig,
-} from '../picker-facade';
+import type { PickerFacadeConfig } from '../picker-facade';
 import PickerFacade from '../picker-facade';
 import type {
 	MediaOptions,
 	MediaState,
+	MediaStateEventListener,
+	MediaStateEventSubscriber,
 	getPosHandlerNode as ProsemirrorGetPosHandler,
 } from '../types';
 import type { PlaceholderType } from '../ui/Media/DropPlaceholder';

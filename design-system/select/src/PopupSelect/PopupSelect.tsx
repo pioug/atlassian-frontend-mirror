@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React, {
 	type FC,
 	type KeyboardEventHandler,
@@ -192,6 +193,7 @@ const defaultPopperProps: PopperPropsNoChildren<defaultModifiers> = {
 
 const isEmpty = (obj: Object) => Object.keys(obj).length === 0;
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class PopupSelect<
 	Option = OptionType,
 	IsMulti extends boolean = false,

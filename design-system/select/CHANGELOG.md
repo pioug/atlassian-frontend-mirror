@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 17.17.0
+
+### Minor Changes
+
+- [#139873](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139873)
+  [`141a2cdfda71c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/141a2cdfda71c) -
+  Fix select and radio icons when icon facade feature flag is enabled by opting out of new icons.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.16.0
 
 ### Minor Changes

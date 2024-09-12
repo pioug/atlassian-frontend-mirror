@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help-article",
-	"version": "4.1.12",
+	"version": "4.1.13",
 	"description": "A cross-product help-article component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,8 +36,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/css-reset": "^6.10.0",
-		"@atlaskit/icon": "^22.16.0",
-		"@atlaskit/renderer": "^109.53.0",
+		"@atlaskit/icon": "^22.17.0",
+		"@atlaskit/renderer": "^110.0.0",
 		"@atlaskit/tokens": "^1.59.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0",

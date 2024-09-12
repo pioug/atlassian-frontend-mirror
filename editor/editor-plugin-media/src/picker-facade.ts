@@ -10,7 +10,13 @@ import type {
 	UploadPreviewUpdateEventPayload,
 } from '@atlaskit/media-picker/types';
 
-import type { CustomMediaPicker, MediaState, MobileUploadEndEventPayload } from './types';
+import type {
+	CustomMediaPicker,
+	MediaState,
+	MediaStateEventListener,
+	MediaStateEventSubscriber,
+	MobileUploadEndEventPayload,
+} from './types';
 
 type PickerType = 'clipboard' | 'dropzone' | 'customMediaPicker';
 type ExtendedComponentConfigs = {
@@ -25,10 +31,6 @@ export type PickerFacadeConfig = {
 	featureFlags?: MediaFeatureFlags;
 };
 
-type MediaStateEvent = MediaState;
-export type MediaStateEventListener = (evt: MediaStateEvent) => void;
-
-export type MediaStateEventSubscriber = (listener: MediaStateEventListener) => void;
 type NewMediaEvent = (
 	state: MediaState,
 	onStateChanged: MediaStateEventSubscriber,

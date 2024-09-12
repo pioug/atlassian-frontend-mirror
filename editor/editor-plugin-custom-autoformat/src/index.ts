@@ -1,2 +1,6 @@
 export { customAutoformatPlugin } from './plugin';
-export type { CustomAutoformatPlugin } from './plugin';
+export type {
+	CustomAutoformatPlugin,
+	CustomAutoformatPluginOptions,
+	CustomAutoformatPluginSharedState,
+} from './types';

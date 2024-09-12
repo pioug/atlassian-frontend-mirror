@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': 'Anuluj',
   'fabric.linkPicker.button.insert': 'Wstaw',
   'fabric.linkPicker.button.save': 'Zapisz',
-  'fabric.linkPicker.clearLink': 'Wyczyść łącze',
+  'fabric.linkPicker.clearLink': 'Wyczyść',
   'fabric.linkPicker.clearLinkText': 'Wyczyść tekst',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {Nie znaleziono wyników} one {Znaleziono {count,number} wynik} few {Znaleziono {count,number} wyniki} many {Znaleziono {count,number} wyników} other {Znaleziono {count,number} wyniku}}',

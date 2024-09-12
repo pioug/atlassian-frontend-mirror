@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.13.0
+
+### Minor Changes
+
+- [#140163](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140163)
+  [`8393ffa4eb45a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8393ffa4eb45a) -
+  PGEXP-275 Extend floating toolbar API to pass config list
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.12.4
+
+### Patch Changes
+
+- [#139334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139334)
+  [`30793649657c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30793649657c0) -
+  [HOT-111629] We had an incident where the last character disappears when hitting the enter key on
+  windows OS for Korean characters. Bumping to prosemirror-view@1.34.2 for the fix.
+
+## 1.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.12.2
 
 ### Patch Changes

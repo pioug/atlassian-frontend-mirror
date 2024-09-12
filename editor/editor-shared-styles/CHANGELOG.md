@@ -1,5 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 2.13.4
+
+### Patch Changes
+
+- [#137474](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137474)
+  [`7ca1c34ebf2d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7ca1c34ebf2d5) -
+  make breakout to use css to fix SSR issue on live edit page
+
 ## 2.13.3
 
 ### Patch Changes

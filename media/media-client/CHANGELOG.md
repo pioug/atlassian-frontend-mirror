@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 27.6.1
+
+### Patch Changes
+
+- [#139979](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139979)
+  [`7db4a3764719f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7db4a3764719f) -
+  Implementing a safe guard for platform.media-cdn-delivery against FedRAMP environment
+
 ## 27.6.0
 
 ### Minor Changes

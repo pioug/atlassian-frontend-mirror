@@ -1,6 +1,4 @@
-import VidFullScreenOnIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
 import MediaServicesActualSizeIcon from '@atlaskit/icon/glyph/media-services/actual-size';
-import { fg } from '@atlaskit/platform-feature-flags';
 import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { ActionName } from '../../../../../constants';
@@ -13,16 +11,6 @@ import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-
 import { openEmbedModalWithFlexibleUiIcon } from '../../utils';
 import Action from '../action';
 import type { PreviewActionProps } from './types';
-
-const getIconFF = () => {
-	if (fg('platform.linking-platform.smart-card.action-icon-redesign')) {
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20003
-		return MediaServicesActualSizeIcon;
-	}
-
-	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20003
-	return VidFullScreenOnIcon;
-};
 
 const PreviewAction = ({ onClick: onClickCallback, ...props }: PreviewActionProps) => {
 	const context = useFlexibleUiContext();
@@ -55,14 +43,13 @@ const PreviewAction = ({ onClick: onClickCallback, ...props }: PreviewActionProp
 	}, [analytics, data, invoke, onClickCallback]);
 
 	const isStackItem = props.as === 'stack-item';
-	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20003
-	const Icon = isStackItem ? MediaServicesActualSizeIcon : getIconFF();
 	const tooltipMessage = isStackItem ? messages.preview_description : messages.preview_improved;
 
 	return data ? (
 		<Action
 			content={<FormattedMessage {...messages.preview_improved} />}
-			icon={<Icon label="Open preview" />}
+			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20003
+			icon={<MediaServicesActualSizeIcon label="Open preview" />}
 			onClick={onClick}
 			testId="smart-action-preview-action"
 			tooltipMessage={<FormattedMessage {...tooltipMessage} />}

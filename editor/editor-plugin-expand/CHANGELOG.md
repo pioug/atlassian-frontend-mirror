@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.6.4
+
+### Patch Changes
+
+- [#139334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139334)
+  [`30793649657c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30793649657c0) -
+  [HOT-111629] We had an incident where the last character disappears when hitting the enter key on
+  windows OS for Korean characters. Bumping to prosemirror-view@1.34.2 for the fix.
+
+## 2.6.3
+
+### Patch Changes
+
+- [#139631](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139631)
+  [`0c5d47f791446`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c5d47f791446) -
+  ED-24839 - Added logic to handleDrop for the expand plugin so nested expands are converted to
+  expand nodes when dragged outside of an expand. Prosemirror was automatically wrapping them in an
+  empty parent expand.
+
+## 2.6.2
+
+### Patch Changes
+
+- [#139052](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139052)
+  [`6e5c1f6bbf028`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e5c1f6bbf028) -
+  removed 'platform' from cardPlugin configs
+- Updated dependencies
+
 ## 2.6.1
 
 ### Patch Changes

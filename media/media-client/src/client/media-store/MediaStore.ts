@@ -43,6 +43,7 @@ import {
 import { resolveAuth, resolveInitialAuth } from './resolveAuth';
 import { ChunkHashAlgorithm } from '@atlaskit/media-core';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { isFedRamp } from '../../utils/isFedRamp';
 
 const MEDIA_API_REGION = 'media-api-region';
 const MEDIA_API_ENVIRONMENT = 'media-api-environment';
@@ -263,7 +264,7 @@ export class MediaStore implements MediaApi {
 			auth,
 		};
 
-		const imageEndpoint = fg('platform.media-cdn-delivery') ? 'image/cdn' : 'image';
+		const imageEndpoint = !isFedRamp() && fg('platform.media-cdn-delivery') ? 'image/cdn' : 'image';
 
 		return mapToMediaCdnUrl(createUrl(`${auth.baseUrl}/file/${id}/${imageEndpoint}`, options));
 	}
@@ -275,7 +276,8 @@ export class MediaStore implements MediaApi {
 	): Promise<Blob> {
 		const headers: RequestHeaders = {};
 
-		const binaryEndpoint = fg('platform.media-cdn-delivery') ? 'binary/cdn' : 'binary';
+		const binaryEndpoint =
+			!isFedRamp() && fg('platform.media-cdn-delivery') ? 'binary/cdn' : 'binary';
 
 		const metadata: RequestMetadata = {
 			method: 'GET',
@@ -313,7 +315,8 @@ export class MediaStore implements MediaApi {
 			auth,
 		};
 
-		const binaryEndpoint = fg('platform.media-cdn-delivery') ? 'binary/cdn' : 'binary';
+		const binaryEndpoint =
+			!isFedRamp() && fg('platform.media-cdn-delivery') ? 'binary/cdn' : 'binary';
 
 		return mapToMediaCdnUrl(createUrl(`${auth.baseUrl}/file/${id}/${binaryEndpoint}`, options));
 	}
@@ -355,7 +358,7 @@ export class MediaStore implements MediaApi {
 			headers.accept = 'image/webp,image/*,*/*;q=0.8';
 		}
 
-		const imageEndpoint = fg('platform.media-cdn-delivery') ? 'image/cdn' : 'image';
+		const imageEndpoint = !isFedRamp() && fg('platform.media-cdn-delivery') ? 'image/cdn' : 'image';
 
 		const metadata: RequestMetadata = {
 			method: 'GET',

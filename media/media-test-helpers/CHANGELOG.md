@@ -1,5 +1,13 @@
 # @atlaskit/media-test-helpers
 
+## 34.2.0
+
+### Minor Changes
+
+- [#138969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138969)
+  [`a4b5df20bef88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4b5df20bef88) -
+  Replace hardcoded spacing values with design system tokens
+
 ## 34.1.1
 
 ### Patch Changes

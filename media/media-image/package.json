@@ -57,7 +57,7 @@
 	"devDependencies": {
 		"@atlaskit/docs": "^9.1.0",
 		"@atlaskit/media-test-data": "^2.6.0",
-		"@atlaskit/media-test-helpers": "^34.1.0",
+		"@atlaskit/media-test-helpers": "^34.2.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.59.0",
 		"@emotion/react": "^11.7.1",

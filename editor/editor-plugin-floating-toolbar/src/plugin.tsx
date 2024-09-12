@@ -15,7 +15,6 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
-import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
@@ -30,11 +29,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { PopupPosition as Position } from '@atlaskit/editor-common/ui';
 import { Popup } from '@atlaskit/editor-common/ui';
-import type {
-	EditorState,
-	ReadonlyTransaction,
-	Selection,
-} from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -159,10 +154,9 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 				{
 					// Should be after all toolbar plugins
 					name: 'floatingToolbar',
-					plugin: ({ dispatch, providerFactory, getIntl }) =>
+					plugin: ({ providerFactory, getIntl }) =>
 						floatingToolbarPluginFactory({
 							floatingToolbarHandlers,
-							dispatch,
 							providerFactory,
 							getIntl,
 						}),
@@ -443,25 +437,28 @@ function sanitizeFloatingToolbarConfig(config: FloatingToolbarConfig): FloatingT
 	return config;
 }
 
-function floatingToolbarPluginFactory(options: {
+export function floatingToolbarPluginFactory(options: {
 	floatingToolbarHandlers: Array<FloatingToolbarHandler>;
 	getIntl: () => IntlShape;
-	dispatch: Dispatch<FloatingToolbarPluginState>;
 	providerFactory: ProviderFactory;
 }) {
 	const { floatingToolbarHandlers, providerFactory, getIntl } = options;
 	const intl = getIntl();
 	const getConfigWithNodeInfo = (editorState: EditorState) => {
-		const activeConfigs = floatingToolbarHandlers
-			.map((handler) => handler(editorState, intl, providerFactory))
-			.filter(filterUndefined)
-			.map((config) => sanitizeFloatingToolbarConfig(config));
+		let activeConfigs: Array<FloatingToolbarConfig> = [];
+		for (let index = 0; index < floatingToolbarHandlers.length; index++) {
+			const handler = floatingToolbarHandlers[index];
+			const config = handler(editorState, intl, providerFactory, activeConfigs);
+			if (config) {
+				activeConfigs.push(sanitizeFloatingToolbarConfig(config));
+			}
+		}
 
 		const relevantConfig = activeConfigs && getRelevantConfig(editorState.selection, activeConfigs);
 		return relevantConfig;
 	};
 
-	const apply = (tr: ReadonlyTransaction, pluginState: FloatingToolbarPluginState) => {
+	const apply = () => {
 		const newPluginState: FloatingToolbarPluginState = {
 			getConfigWithNodeInfo,
 		};

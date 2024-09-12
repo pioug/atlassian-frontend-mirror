@@ -81,6 +81,7 @@ export const MediaInsertPicker = ({
 	closeMediaInsertPicker,
 	insertMediaSingle,
 	insertExternalMediaSingle,
+	insertFile,
 }: MediaInsertPickerProps) => {
 	const targetRef = getDomRefFromSelection(editorView, dispatchAnalyticsEvent);
 
@@ -140,12 +141,12 @@ export const MediaInsertPicker = ({
 						<LocalMedia
 							ref={autofocusRef}
 							mediaProvider={mediaProvider}
-							insertMediaSingle={insertMediaSingle}
 							closeMediaInsertPicker={() => {
 								closeMediaInsertPicker();
 								focusEditor();
 							}}
 							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+							insertFile={insertFile}
 						/>
 					</CustomTabPanel>
 					<CustomTabPanel>

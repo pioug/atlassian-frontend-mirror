@@ -38,7 +38,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.16.0",
+		"@atlaskit/icon": "^22.17.0",
 		"@atlaskit/media-card": "^78.2.0",
 		"@atlaskit/media-client": "^27.6.0",
 		"@atlaskit/media-common": "^11.4.0",
@@ -54,7 +54,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/media-core": "^34.3.0",
-		"@atlaskit/media-test-helpers": "^34.1.0",
+		"@atlaskit/media-test-helpers": "^34.2.0",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^12.1.5",
 		"@types/debounce": "^1.2.0",

@@ -18,7 +18,6 @@ import type {
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
@@ -80,18 +79,6 @@ export const EditorInternal = memo(
 		preset,
 		AppearanceComponent,
 	}: InternalProps) => {
-		const setEditorApi = useCallback(
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(api: PublicPluginAPI<any>) => {
-				if (!fg('platform_editor_remove_editor_actions_workaround')) {
-					// This is an workaround to unblock Editor Lego Decoupling project, if you have questions ping us #cc-editor-lego
-					// We may clean up this code when EditorActions deprecation process starts
-					// @ts-expect-error 2339: Property '__EDITOR_INTERNALS_DO_NOT_USE__API' does not exist on type 'EditorActions<any>'.
-					editorActions.__EDITOR_INTERNALS_DO_NOT_USE__API = api;
-				}
-			},
-			[editorActions],
-		);
 		const overriddenEditorProps = {
 			...props,
 			onSave: props.onSave ? handleSave : undefined,
@@ -143,7 +130,6 @@ export const EditorInternal = memo(
 											onEditorDestroyed={onEditorDestroyed}
 											disabled={props.disabled}
 											preset={preset}
-											setEditorApi={setEditorApi}
 											render={({
 												editor,
 												view,
@@ -208,7 +194,6 @@ export const EditorInternal = memo(
 
 function ReactEditorViewContextWrapper(props: EditorViewProps) {
 	const setInternalEditorAPI = useSetPresetContext();
-	const { setEditorApi: setExternalEditorAPI } = props;
 
 	/**
 	 * We use the context to retrieve the editorAPI
@@ -222,9 +207,8 @@ function ReactEditorViewContextWrapper(props: EditorViewProps) {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(api: PublicPluginAPI<any>) => {
 			setInternalEditorAPI?.(api);
-			setExternalEditorAPI?.(api);
 		},
-		[setInternalEditorAPI, setExternalEditorAPI],
+		[setInternalEditorAPI],
 	);
 
 	// TODO: Remove these when we deprecate these props from editor-props - smartLinks is unfortunately still used in some places, we can sidestep this problem if we move everyone across to ComposableEditor and deprecate Editor
@@ -239,6 +223,7 @@ function ReactEditorViewContextWrapper(props: EditorViewProps) {
 			(smartLinks && smartLinks.provider) ||
 			(UNSAFE_cards && UNSAFE_cards.provider),
 		emojiProvider: props.editorProps.emojiProvider,
+		autoformattingProvider: props.editorProps.autoformattingProvider,
 	});
 
 	return <ReactEditorView {...props} setEditorApi={setEditorAPI} />;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-content-insertion",
-	"version": "1.8.2",
+	"version": "1.8.4",
 	"description": "Content insertion plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,9 +34,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^88.13.0",
+		"@atlaskit/editor-common": "^89.1.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
-		"@atlaskit/editor-prosemirror": "5.0.1",
+		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

@@ -40,7 +40,7 @@
 	},
 	"devDependencies": {
 		"@af/yarn-utils": "*",
-		"@atlaskit/icon": "^22.16.0",
+		"@atlaskit/icon": "^22.17.0",
 		"glob": "9.0.0",
 		"jsdom": "^22.0.0",
 		"mkdirp": "^0.5.1",

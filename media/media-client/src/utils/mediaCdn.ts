@@ -1,4 +1,5 @@
 import { fg } from '@atlaskit/platform-feature-flags';
+import { isFedRamp } from './isFedRamp';
 
 export const MEDIA_CDN_MAP: { [key: string]: string } = {
 	'api.media.atlassian.com': 'media-cdn.atlassian.com',
@@ -7,7 +8,7 @@ export const MEDIA_CDN_MAP: { [key: string]: string } = {
 
 export function mapToMediaCdnUrl(url: string) {
 	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-	if (fg('platform.media-cdn-delivery') && fg('platform.media-cdn-single-host')) {
+	if (!isFedRamp() && fg('platform.media-cdn-delivery') && fg('platform.media-cdn-single-host')) {
 		try {
 			const parsedUrl = new URL(url);
 			const cdnHost = MEDIA_CDN_MAP[parsedUrl.host];

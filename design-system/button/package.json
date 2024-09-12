@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/button",
-	"version": "20.1.0",
+	"version": "20.1.1",
 	"description": "A button triggers an event or action. They let users know what will happen next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -94,7 +94,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/ds-lib": "^2.5.0",
 		"@atlaskit/focus-ring": "^1.6.0",
-		"@atlaskit/icon": "^22.16.0",
+		"@atlaskit/icon": "^22.17.0",
 		"@atlaskit/interaction-context": "^2.1.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.1.0",
@@ -104,8 +104,7 @@
 		"@atlaskit/tooltip": "^18.7.0",
 		"@atlaskit/visually-hidden": "^1.5.0",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"react-uid": "^2.2.0"
+		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"

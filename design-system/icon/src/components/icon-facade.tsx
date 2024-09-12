@@ -26,9 +26,11 @@ export const IconFacade = memo(function IconFacade({
 	const size: IconFacadeProps['size'] = props.size ?? 'medium';
 	const spacing: NewIconProps['spacing'] = size === 'small' ? 'none' : 'spacious';
 
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	const useNewIcon =
-		fg('platform-visual-refresh-icons-legacy-facade') && sizesEligibleForNewIcons.includes(size);
+		!props.isFacadeDisabled &&
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+		fg('platform-visual-refresh-icons-legacy-facade') &&
+		sizesEligibleForNewIcons.includes(size);
 
 	if (useNewIcon && NewIcon) {
 		return (

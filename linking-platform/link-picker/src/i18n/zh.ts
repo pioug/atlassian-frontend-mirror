@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': '取消',
   'fabric.linkPicker.button.insert': '插入',
   'fabric.linkPicker.button.save': '保存',
-  'fabric.linkPicker.clearLink': '清除链接',
+  'fabric.linkPicker.clearLink': '清除',
   'fabric.linkPicker.clearLinkText': '清除文本',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {未找到结果} other {找到 {count,number} 个结果}}',

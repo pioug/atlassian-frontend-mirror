@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.19.7
+
+### Patch Changes
+
+- [#139334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139334)
+  [`30793649657c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30793649657c0) -
+  [HOT-111629] We had an incident where the last character disappears when hitting the enter key on
+  windows OS for Korean characters. Bumping to prosemirror-view@1.34.2 for the fix.
+- Updated dependencies
+
+## 1.19.6
+
+### Patch Changes
+
+- [`687733bda724c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/687733bda724c) -
+  [No Issue] Enforce custom steps register
+- Updated dependencies
+
 ## 1.19.5
 
 ### Patch Changes

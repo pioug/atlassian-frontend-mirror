@@ -86,8 +86,8 @@ export const CommentBadge = forwardRef<HTMLDivElement, CommentBadgeProps>(
 				}),
 			);
 
-			if (mediaSingleElement) {
-				observer.observe(mediaSingleElement as HTMLElement);
+			if (mediaSingleElement instanceof HTMLElement) {
+				observer.observe(mediaSingleElement);
 			}
 			return () => {
 				observer.disconnect();

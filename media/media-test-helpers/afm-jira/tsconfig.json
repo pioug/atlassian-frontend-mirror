@@ -42,6 +42,9 @@
       "path": "../../../design-system/popup/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/tabs/afm-jira/tsconfig.json"
     },
     {

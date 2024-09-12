@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': 'Zrušit',
   'fabric.linkPicker.button.insert': 'Vložit',
   'fabric.linkPicker.button.save': 'Uložit',
-  'fabric.linkPicker.clearLink': 'Vymazat odkaz',
+  'fabric.linkPicker.clearLink': 'Vymazat',
   'fabric.linkPicker.clearLinkText': 'Vymazat text',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {nebyly nalezeny žádné výsledky} one {{count,number} nalezený výsledek} few {{count,number} nalezené výsledky} many {{count,number} nalezeného výsledku} other {{count,number} nalezených výsledků}}',

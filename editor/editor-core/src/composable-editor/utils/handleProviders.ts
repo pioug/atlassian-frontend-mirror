@@ -53,7 +53,9 @@ export default function handleProviders(
 		providerFactory.setProvider('cardProvider', cardProvider);
 	}
 
-	providerFactory.setProvider('autoformattingProvider', autoformattingProvider);
+	if (!fg('platform_editor_autoformatting_provider_from_plugin_config')) {
+		providerFactory.setProvider('autoformattingProvider', autoformattingProvider);
+	}
 
 	if (extensionProvider) {
 		providerFactory.setProvider('extensionProvider', Promise.resolve(extensionProvider));

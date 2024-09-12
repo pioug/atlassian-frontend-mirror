@@ -44,9 +44,30 @@ const scrollStyles = css(
 	scrollbarStyles,
 );
 
+// Added containerType and containerName to enable breakout plugin to calculate the width of the container
+const scrollStylesWitContainerType = css(
+	{
+		flexGrow: 1,
+		height: '100%',
+		overflowY: 'scroll',
+		position: 'relative',
+		display: 'flex',
+		flexDirection: 'column',
+		scrollBehavior: 'smooth',
+		containerType: 'inline-size',
+		containerName: 'editor-area',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	scrollbarStyles,
+);
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ScrollContainer = createEditorContentStyle(scrollStyles);
 ScrollContainer.displayName = 'ScrollContainer';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const ScrollContainerNext = createEditorContentStyle(scrollStylesWitContainerType);
+ScrollContainerNext.displayName = 'ScrollContainer';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const contentArea = () => {

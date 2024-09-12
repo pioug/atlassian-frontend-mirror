@@ -1,5 +1,57 @@
 # @atlaskit/editor-core
 
+## 197.6.0
+
+### Minor Changes
+
+- [#139831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139831)
+  [`181c907365d7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/181c907365d7d) -
+  Pass autoformat provider via preset
+
+### Patch Changes
+
+- Updated dependencies
+
+## 197.5.3
+
+### Patch Changes
+
+- [#138334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138334)
+  [`5bc7950824d2d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5bc7950824d2d) -
+  Removing dangerous and deprecated internal API
+
+## 197.5.2
+
+### Patch Changes
+
+- [#139334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139334)
+  [`30793649657c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30793649657c0) -
+  [HOT-111629] We had an incident where the last character disappears when hitting the enter key on
+  windows OS for Korean characters. Bumping to prosemirror-view@1.34.2 for the fix.
+- [#137474](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137474)
+  [`7ca1c34ebf2d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7ca1c34ebf2d5) -
+  make breakout to use css to fix SSR issue on live edit page
+
+## 197.5.1
+
+### Patch Changes
+
+- [#139538](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139538)
+  [`572cbc5bad5db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/572cbc5bad5db) -
+  ED-24901 fix more flickering issue from DnD
+
+## 197.5.0
+
+### Minor Changes
+
+- [#139052](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139052)
+  [`6e5c1f6bbf028`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e5c1f6bbf028) -
+  Clean up of mobile specific features/appearances as we no longer support mobile for the Editor.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 197.4.3
 
 ### Patch Changes

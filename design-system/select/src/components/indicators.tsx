@@ -7,7 +7,6 @@
 import { css, jsx } from '@emotion/react';
 import { components } from 'react-select';
 
-// import LegacyDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import DownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import CrossIcon from '@atlaskit/icon/utility/migration/cross-circle--select-clear';
 import { Inline, Pressable, xcss } from '@atlaskit/primitives';
@@ -56,6 +55,7 @@ export const ClearIndicator = <Option extends unknown, IsMulti extends boolean =
 export const DropdownIndicator = <Option extends unknown, IsMulti extends boolean = false>(
 	props: DropdownIndicatorProps<Option, IsMulti>,
 ) => (
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	<components.DropdownIndicator {...props}>
 		<Inline as="span" xcss={dropdownWrapperStyles}>
 			<DownIcon

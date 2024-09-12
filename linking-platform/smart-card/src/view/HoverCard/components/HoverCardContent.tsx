@@ -20,7 +20,7 @@ import { type HoverCardContentProps } from '../types';
 import { getMetadata } from '../utils';
 import HoverCardLoadingView from './views/resolving';
 import HoverCardUnauthorisedView from './views/unauthorised';
-import HoverCardRedesignedResolvedView from './views/resolved/redesign';
+import HoverCardResolvedView from './views/resolved';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
 import { useSmartCardState } from '../../../state/store';
 
@@ -165,7 +165,7 @@ const HoverCardContent = ({
 
 		if (cardState.status === 'resolved') {
 			return (
-				<HoverCardRedesignedResolvedView
+				<HoverCardResolvedView
 					analytics={analytics}
 					cardState={cardState}
 					extensionKey={extensionKey}

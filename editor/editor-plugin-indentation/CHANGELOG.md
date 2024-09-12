@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-indentation
 
+## 1.7.5
+
+### Patch Changes
+
+- [#139334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139334)
+  [`30793649657c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30793649657c0) -
+  [HOT-111629] We had an incident where the last character disappears when hitting the enter key on
+  windows OS for Korean characters. Bumping to prosemirror-view@1.34.2 for the fix.
+
+## 1.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.3
 
 ### Patch Changes

@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 89.1.0
+
+### Minor Changes
+
+- [#140163](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140163)
+  [`8393ffa4eb45a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8393ffa4eb45a) -
+  PGEXP-275 Extend floating toolbar API to pass config list
+
+## 89.0.2
+
+### Patch Changes
+
+- [#139475](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139475)
+  [`6402db241c334`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6402db241c334) -
+  ED-24899 fix media disappears after dnd
+
+## 89.0.1
+
+### Patch Changes
+
+- [#139334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139334)
+  [`30793649657c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30793649657c0) -
+  [HOT-111629] We had an incident where the last character disappears when hitting the enter key on
+  windows OS for Korean characters. Bumping to prosemirror-view@1.34.2 for the fix.
+- Updated dependencies
+
+## 89.0.0
+
+### Major Changes
+
+- [#139052](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139052)
+  [`6e5c1f6bbf028`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e5c1f6bbf028) -
+  Clean up of mobile specific features/appearances as we no longer support mobile for the Editor.
+
 ## 88.13.3
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import type {
+	AutoformattingProvider,
 	CardProvider,
 	ContextIdentifierProvider,
 	MediaProvider,
@@ -8,6 +9,7 @@ import type {
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { CardPlugin } from '@atlaskit/editor-plugins/card';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
+import { type CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';
 import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import { type EmojiProvider } from '@atlaskit/emoji';
@@ -20,6 +22,7 @@ interface UseProvidersProps {
 	mediaProvider: Promise<MediaProvider> | undefined;
 	cardProvider: Promise<CardProvider> | undefined;
 	emojiProvider: Promise<EmojiProvider> | undefined;
+	autoformattingProvider: Promise<AutoformattingProvider> | undefined;
 }
 
 /**
@@ -35,6 +38,7 @@ export const useProviders = ({
 	mediaProvider,
 	cardProvider,
 	emojiProvider,
+	autoformattingProvider,
 }: UseProvidersProps) => {
 	const editorApi =
 		usePresetContext<
@@ -43,6 +47,7 @@ export const useProviders = ({
 				OptionalPlugin<MediaPlugin>,
 				OptionalPlugin<CardPlugin>,
 				OptionalPlugin<EmojiPlugin>,
+				OptionalPlugin<CustomAutoformatPlugin>,
 			]
 		>();
 
@@ -80,4 +85,12 @@ export const useProviders = ({
 			}
 		}
 	}, [emojiProvider, editorApi]);
+
+	useEffect(() => {
+		if (fg('platform_editor_autoformatting_provider_from_plugin_config')) {
+			if (autoformattingProvider) {
+				editorApi?.customAutoformat?.actions.setProvider(autoformattingProvider);
+			}
+		}
+	}, [autoformattingProvider, editorApi]);
 };

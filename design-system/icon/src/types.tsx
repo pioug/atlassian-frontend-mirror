@@ -89,6 +89,11 @@ export interface OtherGlyphProps {
 	 * serving as a hook for automated tests.
 	 */
 	testId?: string;
+
+	/**
+	 * Used to opt out of the icon facade and only display the legacy icon regardless of the feature flag.
+	 */
+	isFacadeDisabled?: boolean;
 }
 
 interface IconInternalGlyphProps {

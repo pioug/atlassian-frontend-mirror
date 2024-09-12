@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 78.2.4
+
+### Patch Changes
+
+- [#139885](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139885)
+  [`e135d3c606ebc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e135d3c606ebc) -
+  Added feature flag status to performance analytics event
+
 ## 78.2.3
 
 ### Patch Changes

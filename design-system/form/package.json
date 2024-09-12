@@ -25,7 +25,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/heading": "^2.4.0",
-		"@atlaskit/icon": "^22.16.0",
+		"@atlaskit/icon": "^22.17.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.59.0",
@@ -51,7 +51,7 @@
 		"@atlaskit/modal-dialog": "^12.15.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/range": "^7.4.0",
-		"@atlaskit/select": "^17.16.0",
+		"@atlaskit/select": "^17.17.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/toggle": "^13.4.0",

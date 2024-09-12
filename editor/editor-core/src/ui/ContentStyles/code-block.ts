@@ -14,6 +14,7 @@ import {
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { R75 } from '@atlaskit/theme/colors';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const GutterDangerOverlay = () => css`
@@ -27,6 +28,25 @@ const GutterDangerOverlay = () => css`
 		background-color: ${token('color.blanket.danger', 'none')};
 	}
 `;
+
+/* When code-block is inside the panel  */
+const firstCodeBlockWithNoMargin = editorExperiment('nested-dnd', true)
+	? css`
+			.ak-editor-panel__content {
+				> .code-block:first-child,
+				> .ProseMirror-widget:first-child + .code-block,
+				> .ProseMirror-widget:first-child + .ProseMirror-widget + .code-block {
+					margin: 0 0 0 0 !important;
+				}
+			}
+		`
+	: css`
+			.ak-editor-panel__content {
+				> .code-block:first-child {
+					margin: 0 0 0 0 !important;
+				}
+			}
+		`;
 
 export const codeBlockStyles = () => css`
 	.ProseMirror {
@@ -81,10 +101,5 @@ export const codeBlockStyles = () => css`
 		}
 	}
 
-	/* When code-block is inside the panel  */
-	.ak-editor-panel__content {
-		> .code-block:first-child {
-			margin: 0 0 0 0 !important;
-		}
-	}
+	${firstCodeBlockWithNoMargin}
 `;

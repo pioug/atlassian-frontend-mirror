@@ -88,7 +88,14 @@ const CommentBadgeWrapper = ({
 		return null;
 	}
 
-	const mediaSingleElement = view.domAtPos((pos as number) + 1).node as HTMLElement;
+	/**
+	 * After performing certain operations like drag and drop,
+	 * the position may momentarily shift. It will NOT always be an HTML element;
+	 * it could also be plain text.
+	 */
+	const maybeMediaSingleElement = view.domAtPos((pos as number) + 1).node;
+	const mediaSingleElement =
+		maybeMediaSingleElement instanceof HTMLElement ? maybeMediaSingleElement : null;
 
 	return (
 		<CommentBadgeComponent
@@ -183,7 +190,9 @@ export const CommentBadgeNextWrapper = ({
 		return null;
 	}
 
-	const mediaSingleElement = view.domAtPos((pos as number) + 1).node as HTMLElement;
+	const maybeMediaSingleElement = view.domAtPos((pos as number) + 1).node;
+	const mediaSingleElement =
+		maybeMediaSingleElement instanceof HTMLElement ? maybeMediaSingleElement : null;
 
 	return (
 		<CommentBadgeNext

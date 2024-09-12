@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': 'ยกเลิก',
   'fabric.linkPicker.button.insert': 'แทรก',
   'fabric.linkPicker.button.save': 'บันทึก',
-  'fabric.linkPicker.clearLink': 'ล้างลิงก์',
+  'fabric.linkPicker.clearLink': 'ล้าง',
   'fabric.linkPicker.clearLinkText': 'ล้างข้อความ',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {ไม่พบผลลัพธ์} other {พบผลลัพธ์ {count,number} รายการ}}',

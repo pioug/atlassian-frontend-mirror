@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import LocaleSelect, { type Locale, defaultLocales } from '@atlaskit/locale/LocaleSelect';
 import { locales } from '@atlaskit/media-ui/locales';
+import { Box, xcss } from '@atlaskit/primitives';
 
 function getMessages(localeValue: string) {
 	const lang = localeValue.substring(0, 2);
@@ -31,10 +32,9 @@ export const I18NWrapper = ({ children }: I18NWrapperProps) => {
 	const messages = getMessages(locale.value);
 	return (
 		<>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ marginBottom: 10, marginTop: 10 }}>
+			<Box xcss={localeBoxStyles}>
 				<LocaleSelect onLocaleChange={setLocale} locales={selectableLocales} />
-			</div>
+			</Box>
 			<IntlProvider
 				locale={lang}
 				messages={messages}
@@ -47,3 +47,5 @@ export const I18NWrapper = ({ children }: I18NWrapperProps) => {
 		</>
 	);
 };
+
+const localeBoxStyles = xcss({ marginBottom: 'space.150', marginTop: 'space.150' });

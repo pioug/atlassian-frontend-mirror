@@ -71,6 +71,7 @@ export {
 	akEditorTableToolbarSize,
 	akEditorUnitZIndex,
 	akEditorCalculatedWideLayoutWidth,
+	akEditorCalculatedWideLayoutWidthSmallViewport,
 	akEditorWideLayoutWidth,
 	akLayoutGutterOffset,
 	akRichMediaResizeZIndex,

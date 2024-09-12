@@ -1,5 +1,6 @@
 import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/analytics';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const MEDIA_CARD_PERF_STATE_KEY = '__mediaCardPerfState_asflkajsdflja';
 
@@ -51,6 +52,9 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 						fileId: fileId,
 						mediaClientId: clientId,
 						startedAt: entry.startTime - (navigationTime?.domContentLoadedEventEnd || 0),
+						featureFlags: {
+							'media-cdn-single-host': fg('platform.media-cdn-single-host'),
+						},
 
 						/**
 						 * Performance resource timing data regarding the loading of an

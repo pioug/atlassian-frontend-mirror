@@ -156,10 +156,9 @@ export type BlockTypePlugin = NextEditorPlugin<
 >;
 
 const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
-	// Confluence is injecting the FF through editor props, from an experiment
-	// Jira is pulling it in through platform feature flags, from a feature gate
-	const isNestingMediaAndCodeblockInQuoteSupported =
-		api?.featureFlags?.sharedState.currentState()?.nestMediaAndCodeblockInQuote ||
+	// Confluence and Jira is pulling it in through platform feature flags, from a feature gate
+	const isNestingInQuoteSchemaChanged =
+		fg('platform_editor_nest_in_quotes_adf_change') ||
 		fg('editor_nest_media_and_codeblock_in_quotes_jira');
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
@@ -201,7 +200,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 				{ name: 'heading', node: heading },
 				{
 					name: 'blockquote',
-					node: isNestingMediaAndCodeblockInQuoteSupported
+					node: isNestingInQuoteSchemaChanged
 						? blockquoteWithNestedCodeblockOrMedia
 						: blockquoteWithList,
 				},

@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.14.7
+
+### Patch Changes
+
+- [#139334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139334)
+  [`30793649657c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30793649657c0) -
+  [HOT-111629] We had an incident where the last character disappears when hitting the enter key on
+  windows OS for Korean characters. Bumping to prosemirror-view@1.34.2 for the fix.
+
+## 3.14.6
+
+### Patch Changes
+
+- [#139784](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139784)
+  [`47d08e6f06b2e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/47d08e6f06b2e) -
+  [ux] [ED-24861] Toggle between ProseMirror node based on feature gate instead of existing
+  experiment for node nesting media and codeblocks in blockquotes.
+
+## 3.14.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.14.4
 
 ### Patch Changes

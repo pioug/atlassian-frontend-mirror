@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': 'Peruuta',
   'fabric.linkPicker.button.insert': 'Lisää',
   'fabric.linkPicker.button.save': 'Tallenna',
-  'fabric.linkPicker.clearLink': 'Tyhjennä linkki',
+  'fabric.linkPicker.clearLink': 'Tyhjennä',
   'fabric.linkPicker.clearLinkText': 'Tyhjennä teksti',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {tuloksia ei löytynyt} one {{count,number} tulos löytyi} other {{count,number} tulosta löytyi}}',

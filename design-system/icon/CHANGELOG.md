@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 22.17.0
+
+### Minor Changes
+
+- [#139873](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139873)
+  [`141a2cdfda71c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/141a2cdfda71c) -
+  Add support to opt out of icon facade via the `isFacadeDisabled` prop.
+
 ## 22.16.1
 
 ### Patch Changes

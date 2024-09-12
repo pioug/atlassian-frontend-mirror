@@ -1,34 +1,51 @@
 # @atlaskit/help-article
 
+## 4.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.12
 
 ### Patch Changes
 
-- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`
 
 ## 4.1.11
 
 ### Patch Changes
 
-- [#80509](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80509) [`fcf7481f594f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fcf7481f594f) - Upgrade dependency of `@emotion/styled` to version 11
+- [#80509](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80509)
+  [`fcf7481f594f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fcf7481f594f) -
+  Upgrade dependency of `@emotion/styled` to version 11
 
 ## 4.1.10
 
 ### Patch Changes
 
-- [#77102](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77102) [`b93a56e5ee66`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b93a56e5ee66) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#77102](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77102)
+  [`b93a56e5ee66`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b93a56e5ee66) -
+  Internal change to enforce token usage for spacing properties. There is no expected visual or
+  behaviour change.
 
 ## 4.1.9
 
 ### Patch Changes
 
-- [#72381](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72381) [`613a669ad9bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/613a669ad9bb) - Enrolling help packages to push model in JFE.
+- [#72381](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72381)
+  [`613a669ad9bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/613a669ad9bb) -
+  Enrolling help packages to push model in JFE.
 
 ## 4.1.8
 
 ### Patch Changes
 
-- [#68561](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68561) [`6a1919bf8400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a1919bf8400) - Migrate packages to use declarative entry points
+- [#68561](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68561)
+  [`6a1919bf8400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a1919bf8400) -
+  Migrate packages to use declarative entry points
 
 ## 4.1.7
 
@@ -46,38 +63,51 @@
 
 ### Patch Changes
 
-- [#41087](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41087) [`7d066a73736`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d066a73736) - Fix ts errors by adding type definition and removing unused parameter
+- [#41087](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41087)
+  [`7d066a73736`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d066a73736) - Fix ts
+  errors by adding type definition and removing unused parameter
 
 ## 4.1.4
 
 ### Patch Changes
 
-- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162)
+  [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete
+  version.json
 - Updated dependencies
 
 ## 4.1.3
 
 ### Patch Changes
 
-- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
+  [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
+  legacy types are published for TS 4.5-4.8
 
 ## 4.1.2
 
 ### Patch Changes
 
-- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
+  [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade
+  Typescript from `4.5.5` to `4.9.5`
 
 ## 4.1.1
 
 ### Patch Changes
 
-- [#33218](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33218) [`7e051bad115`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e051bad115) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#33218](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33218)
+  [`7e051bad115`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e051bad115) - Internal
+  change to enforce token usage for spacing properties. There is no expected visual or behaviour
+  change.
 
 ## 4.1.0
 
 ### Minor Changes
 
-- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
+  [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
+  minor dependency bump
 
 ### Patch Changes
 
@@ -87,7 +117,9 @@
 
 ### Patch Changes
 
-- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424) [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY remove before merging to master; dupe adf-schema via adf-utils
+- [#32424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32424)
+  [`2e01c9c74b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e01c9c74b5) - DUMMY
+  remove before merging to master; dupe adf-schema via adf-utils
 
 ## 4.0.37
 
@@ -105,9 +137,12 @@
 
 ### Patch Changes
 
-- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090) [`224a2482244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224a2482244) - [ED-16166] Changes the renderer prop document type from any to DocNode
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090)
+  [`224a2482244`](https://bitbucket.org/atlassian/atlassian-frontend/commits/224a2482244) -
+  [ED-16166] Changes the renderer prop document type from any to DocNode
 
-  BREAKING for `@atlaskit/renderer`: Previously the `document` prop for the renderer component had the type of `any`. This has now been changed to `DocNode` which comes from `@atlaskit/adf-schema`.
+  BREAKING for `@atlaskit/renderer`: Previously the `document` prop for the renderer component had
+  the type of `any`. This has now been changed to `DocNode` which comes from `@atlaskit/adf-schema`.
 
   Documents being passed into the renderer component will need to be updated to use this type.
 
@@ -117,9 +152,9 @@
   import { DocNode } from '@atlaskit/adf-schema';
 
   const emptyDoc: DocNode = {
-    type: 'doc',
-    version: 1,
-    content: [],
+  	type: 'doc',
+  	version: 1,
+  	content: [],
   };
   ```
 
@@ -135,7 +170,9 @@
 
 ### Patch Changes
 
-- [#26424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26424) [`0c19f354255`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c19f354255) - Consolidate In Product Help & Self-Help Experiences ownership
+- [#26424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26424)
+  [`0c19f354255`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c19f354255) -
+  Consolidate In Product Help & Self-Help Experiences ownership
 
 ## 4.0.32
 
@@ -153,13 +190,17 @@
 
 ### Patch Changes
 
-- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874)
+  [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade
+  Typescript from `4.3.5` to `4.5.5`
 
 ## 4.0.29
 
 ### Patch Changes
 
-- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492)
+  [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade
+  Typescript from `4.2.4` to `4.3.5`.
 
 ## 4.0.28
 
@@ -213,7 +254,9 @@
 
 ### Patch Changes
 
-- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650)
+  [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade
+  to TypeScript 4.2.4
 
 ## 4.0.19
 
@@ -273,13 +316,17 @@
 
 ### Patch Changes
 
-- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475) [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
+- [#17475](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17475)
+  [`c55c736ecea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c55c736ecea) - Patch
+  VULN AFP-3486 AFP-3487 AFP-3488 AFP-3489
 
 ## 4.0.9
 
 ### Patch Changes
 
-- [#16630](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16630) [`360ccde3275`](https://bitbucket.org/atlassian/atlassian-frontend/commits/360ccde3275) - [ux] Open all links in a new tab
+- [#16630](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16630)
+  [`360ccde3275`](https://bitbucket.org/atlassian/atlassian-frontend/commits/360ccde3275) - [ux]
+  Open all links in a new tab
 
 ## 4.0.8
 
@@ -321,7 +368,9 @@
 
 ### Patch Changes
 
-- [#13328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13328) [`df9dc928897`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df9dc928897) - Update the team information in the packages maintained by the In Product Help team
+- [#13328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13328)
+  [`df9dc928897`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df9dc928897) - Update
+  the team information in the packages maintained by the In Product Help team
 
 ## 4.0.1
 
@@ -333,7 +382,12 @@
 
 ### Major Changes
 
-- [#11927](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11927) [`bc46b0b34ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc46b0b34ed) - [ux] @atlaskit/help-article: Updated component interfaze and removed unused props onArticleRenderBegin and onArticleRenderDone. @atlaskit/help-artilce: major changes in the component interfaze, added "What's new" articles search and articles view. Moved the search input to the header. Updated navigation logic and unit tests
+- [#11927](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11927)
+  [`bc46b0b34ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc46b0b34ed) - [ux]
+  @atlaskit/help-article: Updated component interfaze and removed unused props onArticleRenderBegin
+  and onArticleRenderDone. @atlaskit/help-artilce: major changes in the component interfaze, added
+  "What's new" articles search and articles view. Moved the search input to the header. Updated
+  navigation logic and unit tests
 
 ## 3.0.2
 
@@ -351,21 +405,30 @@
 
 ### Major Changes
 
-- [#10745](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10745) [`f88acfa4736`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f88acfa4736) - [ux] Add support for ADF documents. The prop "body" now accepts String and ADF object. The prop "bodyType" was added so the developer can specify which type of content the the "body" prop has ("html" or "adf")
+- [#10745](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10745)
+  [`f88acfa4736`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f88acfa4736) - [ux] Add
+  support for ADF documents. The prop "body" now accepts String and ADF object. The prop "bodyType"
+  was added so the developer can specify which type of content the the "body" prop has ("html" or
+  "adf")
 
 ## 2.0.5
 
 ### Patch Changes
 
-- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857)
+  [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile
+  packages using babel rather than tsc
 
 ## 2.0.4
 
 ### Patch Changes
 
-- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
-  This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
-  Also add `typescript` to `devDependencies` to denote version that the package was built with.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497)
+  [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export
+  types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules
+  compiler option. This requires version 3.8 of Typescript, read more about how we handle Typescript
+  versions here: https://atlaskit.atlassian.com/get-started Also add `typescript` to
+  `devDependencies` to denote version that the package was built with.
 
 ## 2.0.3
 
@@ -377,23 +440,30 @@
 
 ### Patch Changes
 
-- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885)
+  [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded
+  to TypeScript 3.9.6 and tslib to 2.0.0
 
-  Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
-  to prevent duplicates of tslib being bundled.
+  Since tslib is a dependency for all our packages we recommend that products also follow this tslib
+  upgrade to prevent duplicates of tslib being bundled.
 
 ## 2.0.1
 
 ### Patch Changes
 
-- [#3226](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3226) [`0c532edf6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c532edf6e) - Use the 'lodash' package instead of single-function 'lodash.\*' packages
+- [#3226](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3226)
+  [`0c532edf6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c532edf6e) - Use the
+  'lodash' package instead of single-function 'lodash.\*' packages
 
 ## 2.0.0
 
 ### Major Changes
 
-- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
-  For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335)
+  [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially
+  dropping IE11 support, from this version onwards there are no warranties of the package working in
+  IE11. For more information see:
+  https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
 
@@ -403,19 +473,25 @@
 
 ### Patch Changes
 
-- [#2742](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2742) [`f2a658ac8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2a658ac8a) - Fixed atlaskit default styles
+- [#2742](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2742)
+  [`f2a658ac8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2a658ac8a) - Fixed
+  atlaskit default styles
 
 ## 1.0.7
 
 ### Patch Changes
 
-- [#2731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2731) [`a5815adf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5815adf37) - Fixed es2019 distributable missing a version.json file
+- [#2731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2731)
+  [`a5815adf37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5815adf37) - Fixed
+  es2019 distributable missing a version.json file
 
 ## 1.0.6
 
 ### Patch Changes
 
-- [#2099](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2099) [`131cee6d7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/131cee6d7a) - Add missing tslib dependency
+- [#2099](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2099)
+  [`131cee6d7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/131cee6d7a) - Add
+  missing tslib dependency
 
 ## 1.0.5
 
@@ -439,7 +515,8 @@
 
 - [patch][6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
 
-  Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
+  Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
+  [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
 
   - @atlaskit/docs@8.3.2
   - @atlaskit/button@13.3.7
@@ -451,7 +528,8 @@
 
 ### Patch Changes
 
-- Updated dependencies [c0102a3ea2](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0102a3ea2):
+- Updated dependencies
+  [c0102a3ea2](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0102a3ea2):
   - @atlaskit/icon@20.0.0
   - @atlaskit/docs@8.3.1
   - @atlaskit/button@13.3.6
@@ -486,7 +564,8 @@
 
 - [patch][6f156e8e80](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6f156e8e80):
 
-  Bugfix - Add extra padding to the iframe. Replaced the article injection using srcdoc for a plain JS one (Microsoft Edge and IE11 doesn't support srcdoc)
+  Bugfix - Add extra padding to the iframe. Replaced the article injection using srcdoc for a plain
+  JS one (Microsoft Edge and IE11 doesn't support srcdoc)
 
 ## 0.7.2
 
@@ -494,7 +573,8 @@
 
 - [patch][c17a72abc4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c17a72abc4):
 
-  Bugfix - Added allow-popups to the sandbox attribute of the article iframe so we can open popups from within
+  Bugfix - Added allow-popups to the sandbox attribute of the article iframe so we can open popups
+  from within
 
 ## 0.7.1
 
@@ -566,7 +646,8 @@
 
 - [patch][097b696613](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/097b696613):
 
-  Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving non-relative imports as relative imports
+  Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving
+  non-relative imports as relative imports
 
 ## 0.5.2
 
@@ -588,8 +669,10 @@
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
   - Creating folders at the root for entry-points
-  - Removing the generation of the entry-points at the root
-    Please see this [ticket](https://product-fabric.atlassian.net/browse/BUILDTOOLS-118) or this [page](https://hello.atlassian.net/wiki/spaces/FED/pages/452325500/Finishing+Atlaskit+multiple+entry+points) for further details
+  - Removing the generation of the entry-points at the root Please see this
+    [ticket](https://product-fabric.atlassian.net/browse/BUILDTOOLS-118) or this
+    [page](https://hello.atlassian.net/wiki/spaces/FED/pages/452325500/Finishing+Atlaskit+multiple+entry+points)
+    for further details
 
 ## 0.5.0
 
@@ -619,11 +702,13 @@
 
 - [patch][b0ef06c685](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0ef06c685):
 
-  - This is just a safety release in case anything strange happened in in the previous one. See Pull Request #5942 for details
+  - This is just a safety release in case anything strange happened in in the previous one. See Pull
+    Request #5942 for details
 
 ## 0.4.4
 
-- Updated dependencies [6dd86f5b07](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6dd86f5b07):
+- Updated dependencies
+  [6dd86f5b07](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6dd86f5b07):
   - @atlaskit/theme@9.0.2
   - @atlaskit/section-message@4.0.0
 

@@ -69,7 +69,7 @@ import {
 	transformSliceToFixHardBreakProblemOnCopyFromCell,
 	transformSliceToRemoveOpenTable,
 } from '../utils';
-import { isHeaderRowRequired } from '../utils/paste';
+import { isHeaderRowRequired, transformSliceTableLayoutDefaultToCenter } from '../utils/paste';
 
 import { defaultHoveredCell, defaultTableSelection } from './default-table-selection';
 import { createPluginState, getPluginState } from './plugin-factory';
@@ -260,6 +260,17 @@ export const createPlugin = (
 				// row of content we see, if required
 				if (!insideTable(editorState) && isHeaderRowRequired(editorState)) {
 					slice = transformSliceToAddTableHeaders(slice, schema);
+				}
+
+				// fix for when pasting a table with default layout into comment editor
+				// table lose width and expand to full width
+				if (
+					!insideTable(editorState) &&
+					isCommentEditor &&
+					isTableAlignmentEnabled &&
+					isTableScalingEnabled
+				) {
+					slice = transformSliceTableLayoutDefaultToCenter(slice, schema);
 				}
 
 				slice = transformSliceToFixHardBreakProblemOnCopyFromCell(slice, schema);

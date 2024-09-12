@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': 'キャンセル',
   'fabric.linkPicker.button.insert': '挿入',
   'fabric.linkPicker.button.save': '保存',
-  'fabric.linkPicker.clearLink': 'リンクをクリア',
+  'fabric.linkPicker.clearLink': 'クリア',
   'fabric.linkPicker.clearLinkText': 'テキストをクリア',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {検索結果がありませんでした。} other {{count,number} 件の検索結果が見つかりました。}}',

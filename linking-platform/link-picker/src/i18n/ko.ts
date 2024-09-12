@@ -10,7 +10,7 @@ export default {
   'fabric.linkPicker.button.cancel': '취소',
   'fabric.linkPicker.button.insert': '삽입',
   'fabric.linkPicker.button.save': '저장',
-  'fabric.linkPicker.clearLink': '링크 지우기',
+  'fabric.linkPicker.clearLink': '지우기',
   'fabric.linkPicker.clearLinkText': '텍스트 지우기',
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {결과를 찾을 수 없습니다} other {{count,number}개의 결과를 찾았습니다}}',

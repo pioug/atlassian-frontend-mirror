@@ -13,7 +13,12 @@ import { IconImages } from '@atlaskit/editor-common/quick-insert';
 import { closeMediaInsertPicker, showMediaInsertPopup } from './actions';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
-import type { InsertExternalMediaSingle, InsertMediaSingle, MediaInsertPlugin } from './types';
+import type {
+	InsertExternalMediaSingle,
+	InsertFile,
+	InsertMediaSingle,
+	MediaInsertPlugin,
+} from './types';
 import { MediaInsertPicker } from './ui/MediaInsertPicker';
 
 export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
@@ -80,6 +85,15 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 				return api?.media.actions.insertMediaAsMediaSingle(editorView, node, inputMethod) ?? false;
 			};
 
+			const insertFile: InsertFile = ({ mediaState, inputMethod, onMediaStateChanged }) => {
+				const collection = mediaState.collection;
+				return collection !== undefined
+					? api?.media.sharedState
+							.currentState()
+							?.insertFile(mediaState, onMediaStateChanged, inputMethod) ?? false
+					: false;
+			};
+
 			return (
 				<MediaInsertPicker
 					api={api}
@@ -93,6 +107,7 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 					}
 					insertMediaSingle={insertMediaSingle}
 					insertExternalMediaSingle={insertExternalMediaSingle}
+					insertFile={insertFile}
 				/>
 			);
 		},

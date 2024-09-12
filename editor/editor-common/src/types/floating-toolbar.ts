@@ -356,4 +356,5 @@ export type FloatingToolbarHandler = (
 	state: EditorState,
 	intl: IntlShape,
 	providerFactory: ProviderFactory,
+	processedConfigs?: Array<FloatingToolbarConfig>,
 ) => FloatingToolbarConfig | undefined;

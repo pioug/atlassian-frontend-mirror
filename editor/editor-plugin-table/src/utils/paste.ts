@@ -1,4 +1,4 @@
-import { flatmap, mapSlice } from '@atlaskit/editor-common/utils';
+import { flatmap, mapChildren, mapSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -148,3 +148,19 @@ export function isHeaderRowRequired(state: EditorState) {
 	const tableState = getPluginState(state);
 	return tableState && tableState.pluginConfig.isHeaderRowRequired;
 }
+
+export const transformSliceTableLayoutDefaultToCenter = (slice: Slice, schema: Schema): Slice => {
+	const { table } = schema.nodes;
+	const children = [] as PMNode[];
+	mapChildren(slice.content, (node: PMNode) => {
+		if (node.type === table && node.attrs.layout === 'default') {
+			children.push(
+				table.createChecked({ ...node.attrs, layout: 'center' }, node.content, node.marks),
+			);
+		} else {
+			children.push(node);
+		}
+	});
+
+	return new Slice(Fragment.fromArray(children), slice.openStart, slice.openEnd);
+};

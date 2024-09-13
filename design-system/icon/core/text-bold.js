@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::90e3a425c184f77776a1f437eb3dca6a>>
+ * @codegen <<SignedSource::0a9723eb04a3e7fdc402e486e5fddb62>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -17,7 +17,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Please reach out in #icon-contributions before using these in production.
  *
  * Icon: "TextBold".
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for bolding text.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7f8c6b2e7f1983f9caf24e4d2032361a>>
+ * @codegen <<SignedSource::79d3ff5a19eef15cda86466d9f8aa0ee>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -17,7 +17,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Please reach out in #icon-contributions before using these in production.
  *
  * Icon: "ContentWidthWide".
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for setting media and content to a wide width.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

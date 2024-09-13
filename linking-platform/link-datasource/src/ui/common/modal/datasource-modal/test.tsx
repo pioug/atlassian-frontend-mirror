@@ -7,6 +7,7 @@ import '@atlaskit/link-test-helpers/jest';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FlagsProvider } from '@atlaskit/flag';
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 
 import { InlineEdit } from '../../../issue-like-table/table-cell-content/inline-edit';
 
@@ -48,17 +49,19 @@ describe('DatasourceModal', () => {
 		const onClose = jest.fn();
 		const executeFn = jest.fn();
 		const { container } = render(
-			<DatasourceModal onClose={onClose}>
-				<FlagsProvider>
-					<InlineEdit
-						ari="fake-ari"
-						columnKey="fake-column"
-						execute={executeFn}
-						datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
-						readView={<p>Test</p>}
-					/>
-				</FlagsProvider>
-			</DatasourceModal>,
+			<SmartCardProvider client={new CardClient()}>
+				<DatasourceModal onClose={onClose}>
+					<FlagsProvider>
+						<InlineEdit
+							ari="fake-ari"
+							columnKey="fake-column"
+							execute={executeFn}
+							datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
+							readView={<p>Test</p>}
+						/>
+					</FlagsProvider>
+				</DatasourceModal>
+			</SmartCardProvider>,
 		);
 
 		fireEvent.keyDown(container, {
@@ -75,17 +78,19 @@ describe('DatasourceModal', () => {
 		const onModalCloseFn = jest.fn();
 		const executeFn = jest.fn();
 		const { getByTestId } = render(
-			<DatasourceModal onClose={onModalCloseFn}>
-				<FlagsProvider>
-					<InlineEdit
-						ari="fake-ari"
-						columnKey="fake-column"
-						execute={executeFn}
-						datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
-						readView={<MockReadView />}
-					/>
-				</FlagsProvider>
-			</DatasourceModal>,
+			<SmartCardProvider client={new CardClient()}>
+				<DatasourceModal onClose={onModalCloseFn}>
+					<FlagsProvider>
+						<InlineEdit
+							ari="fake-ari"
+							columnKey="fake-column"
+							execute={executeFn}
+							datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
+							readView={<MockReadView />}
+						/>
+					</FlagsProvider>
+				</DatasourceModal>
+			</SmartCardProvider>,
 		);
 		fireEvent.click(getByTestId(testIds.readView));
 

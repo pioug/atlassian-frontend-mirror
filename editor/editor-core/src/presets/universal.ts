@@ -95,6 +95,10 @@ export type InitialPluginConfiguration = {
 	emoji?: {
 		emojiNodeDataProvider?: EmojiPluginOptions['emojiNodeDataProvider'];
 	};
+	tasksAndDecisionsPlugin?: {
+		hasEditPermission?: boolean;
+		requestEditPermission?: () => void;
+	};
 };
 
 /**
@@ -289,6 +293,7 @@ export default function createUniversalPresetInternal({
 					allowNestedTasks: props.allowNestedTasks,
 					consumeTabs: isFullPage,
 					useLongPressSelection: false,
+					...initialPluginConfiguration?.tasksAndDecisionsPlugin,
 				},
 			],
 			Boolean(props.allowTasksAndDecisions || props.taskDecisionProvider),

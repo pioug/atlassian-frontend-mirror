@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "22.17.0",
+	"version": "22.18.0",
 	"description": "An icon is a visual representation of a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -147,6 +147,9 @@
 			"showOnWebsiteForTransitiveDependencies": true
 		},
 		"platform-design-system-new-icon-default-color": {
+			"type": "boolean"
+		},
+		"platform-design-system-new-icon-default-color-2": {
 			"type": "boolean"
 		}
 	}

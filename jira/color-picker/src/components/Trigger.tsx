@@ -4,6 +4,7 @@
  */
 import { type MouseEvent, useCallback } from 'react';
 import Tooltip from '@atlaskit/tooltip';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
@@ -52,7 +53,9 @@ const ColorCard = ({
 					sharedColorContainerStyles,
 					swatchSize === 'small' ? smallColorContainerSize : defaultColorContainerSize,
 					colorCardButtonStyles,
-					expanded && colorCardButtonFocusedStyles,
+					expanded &&
+						!fg('platform-design-system-dsp-20821-color-pickr-focus') &&
+						colorCardButtonFocusedStyles,
 				]}
 				disabled={isDisabled}
 				onClick={handleClick}

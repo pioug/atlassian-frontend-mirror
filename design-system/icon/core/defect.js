@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5e01b216eb7aed8ec3868bc7ae375ac2>>
+ * @codegen <<SignedSource::71f824cc4e1de05f46fbcf5d006260d9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -17,9 +17,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Please reach out in #icon-contributions before using these in production.
  *
  * Icon: "Defect".
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for 'Defect' Jira issue type.
+ * Usage guidance: Single purpose - Reserved for Defect Jira issue type.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

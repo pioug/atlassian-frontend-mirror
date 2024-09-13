@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor-autocomplete-rest",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Autocomplete REST API integration for the JQL Editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,7 +40,7 @@
 		"@atlaskit/jql-editor-common": "^2.1.0",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21",
-		"react-magnetic-di": "^2.2.6",
+		"react-magnetic-di": "^3.1.4",
 		"react-sweet-state": "^2.6.5",
 		"rxjs": "^5.5.0"
 	},

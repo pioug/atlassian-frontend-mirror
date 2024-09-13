@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6092a8ef51e3f4ac81b0f306e7ceb00e>>
+ * @codegen <<SignedSource::39e27640fff2ebb489a7cb5df5ed6425>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -17,7 +17,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Please reach out in #icon-contributions before using these in production.
  *
  * Icon: "LayoutThreeColumnsSidebars".
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for 3 column layout with left and right sidebars option in Confluence Editor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

@@ -204,7 +204,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'content-align-center': {
 		keywords: ['content', 'media', 'image', 'alignment', 'centre'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -212,7 +212,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'content-align-left': {
 		keywords: ['content', 'media', 'image', 'alignment', 'left'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -220,7 +220,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'content-align-right': {
 		keywords: ['content', 'media', 'image', 'alignment', 'right'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -228,7 +228,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'content-width-narrow': {
 		keywords: ['content', 'media', 'image', 'width', 'fixed', 'narrow'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -236,7 +236,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'content-width-wide': {
 		keywords: ['content', 'media', 'image', 'width', 'fixed', 'wide'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -244,7 +244,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'content-wrap-left': {
 		keywords: ['content', 'media', 'image', 'alignment', 'left', 'inline', 'wrap'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -252,7 +252,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'content-wrap-right': {
 		keywords: ['content', 'media', 'image', 'alignment', 'right', 'inline', 'wrap'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -292,11 +292,11 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	defect: {
 		keywords: ['square', 'broken', 'defect', 'fragile', 'cracked'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		usage: "Single purpose - Reserved for 'Defect' Jira issue type.",
+		usage: 'Single purpose - Reserved for Defect Jira issue type.',
 	},
 	delete: {
 		keywords: ['trash', 'bin', 'remove'],
@@ -350,7 +350,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'edit-bulk': {
 		keywords: ['edit', 'pencil', 'multiple', 'bulk', 'change'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -501,6 +501,14 @@ const metadata: UNSAFE_IconMetadata = {
 		type: 'core',
 		usage: 'Single purpose - Reserved for increasing the height of an element.',
 	},
+	highlight: {
+		keywords: [' highlight', 'highlighter', 'stabilo', 'pen'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'core',
+		usage: 'Single purpose - Reserved for highlight text tool in Confluence Editor.',
+	},
 	home: {
 		keywords: ['house', 'building'],
 		categorization: 'single-purpose',
@@ -550,9 +558,17 @@ const metadata: UNSAFE_IconMetadata = {
 		type: 'core',
 		usage: 'Single purpose - Reserved for objectives.',
 	},
+	'layout-one-column': {
+		keywords: ['layout', 'columns', '1 col'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'core',
+		usage: 'Single purpose - Reserved for single column layout option in Confluence Editor',
+	},
 	'layout-three-columns': {
 		keywords: ['layout', 'columns', '3 col', '3 cols'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -560,7 +576,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'layout-three-columns-sidebars': {
 		keywords: ['layout', 'columns', '3 col', '3 cols', 'sidebars', 'asides'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -569,7 +585,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'layout-two-columns': {
 		keywords: ['layout', 'columns', '2 col', '2 cols'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -577,7 +593,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'layout-two-columns-sidebar-left': {
 		keywords: ['layout', 'columns', '2 col', '2 cols', 'sidebar', 'aside'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -586,7 +602,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'layout-two-columns-sidebar-right': {
 		keywords: ['layout', 'columns', '2 col', '2 cols', 'sidebar', 'aside'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -595,7 +611,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	library: {
 		keywords: ['library', 'drawer', 'drawers', 'filing cabinet'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -769,7 +785,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	objective: {
 		keywords: ['target', 'bullseye', 'objective'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -777,7 +793,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'on-call': {
 		keywords: ['phone', 'on-call', 'support'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -785,7 +801,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	operations: {
 		keywords: ['incident management', 'alerting', 'opsgenie', 'it operations', 'it ops', 'radar'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -1227,7 +1243,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	target: {
 		keywords: ['target', 'bullseye'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -1267,7 +1283,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'text-bold': {
 		keywords: ['text', 'type', 'bold', 'font'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -1275,7 +1291,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'text-indent-left': {
 		keywords: ['text', 'outdent', 'left', 'arrow'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -1283,7 +1299,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'text-indent-right': {
 		keywords: ['text', 'indent', 'right', 'arrow'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -1291,7 +1307,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'text-italic': {
 		keywords: ['text', 'type', 'italic', 'font'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -1299,7 +1315,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	'text-spellcheck': {
 		keywords: ['text', 'spelling', 'typo', 'spellcheck'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
@@ -1315,7 +1331,7 @@ const metadata: UNSAFE_IconMetadata = {
 	},
 	theme: {
 		keywords: ['theme', 'light mode', 'dark mode', 'theme switcher'],
-		categorization: 'multi-purpose',
+		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',

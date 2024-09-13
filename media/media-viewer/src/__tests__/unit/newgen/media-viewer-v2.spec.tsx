@@ -43,7 +43,6 @@ import { MediaViewer as MediaViewerV1 } from '../../../media-viewer';
 import { type MediaViewerExtensions } from '../../../components/types';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import * as MediaClientProviderModule from '@atlaskit/media-client-react';
 import * as analytics from '../../../analytics';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
@@ -490,7 +489,7 @@ describe('<MediaViewer />', () => {
 		});
 	});
 
-	ffTest.on('platform.media-svg-rendering', 'SVG Native Rendering', () => {
+	describe('SVG Native Rendering', () => {
 		describe('Media Viewer v2', () => {
 			it('should render SVG natively', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.svg();

@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor-autocomplete-rest
 
+## 2.1.1
+
+### Patch Changes
+
+- [#136861](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136861)
+  [`d640bacacaa13`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d640bacacaa13) -
+  bumped react-magnetic-di to 3.1.4
+
 ## 2.1.0
 
 ### Minor Changes

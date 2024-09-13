@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e430bb3ba4c9f8cdaba76a070a7fc1b7>>
+ * @codegen <<SignedSource::45933d9aa4e43f0e1c5860aaa1b44c0e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -17,7 +17,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Please reach out in #icon-contributions before using these in production.
  *
  * Icon: "ContentAlignLeft".
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for left aligning media and content.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

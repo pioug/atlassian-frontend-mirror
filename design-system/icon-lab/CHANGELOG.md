@@ -1,5 +1,33 @@
 # @atlaskit/icon-lab
 
+## 0.2.0
+
+### Minor Changes
+
+- [#140548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140548)
+  [`c66b92f724af1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c66b92f724af1) - ###
+  Summary:
+
+  - Fixes issue where icons with arrows sometimes rendered incorrectly.
+  - Adds `status` icon.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `status`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `highlight`: now feature smaller icon with room for a color indicator underneath.
+  - Icons containing arrows have corrected paths
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.0
 
 ### Minor Changes

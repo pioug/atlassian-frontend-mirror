@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 3.0.1
+
+### Patch Changes
+
+- [#139854](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139854)
+  [`02487a1a06283`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/02487a1a06283) -
+  fix an issue where jira issue hover card is not updated after user updates the summary via j2ws
+
 ## 3.0.0
 
 ### Major Changes

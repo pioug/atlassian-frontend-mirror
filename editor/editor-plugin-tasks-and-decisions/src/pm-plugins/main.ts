@@ -51,6 +51,7 @@ export function createPlugin(
 	dispatch: Dispatch,
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
 	useLongPressSelection: boolean = false,
+	hasEditPermission?: boolean,
 ) {
 	return new SafePlugin({
 		props: {
@@ -201,7 +202,7 @@ export function createPlugin(
 		},
 		state: {
 			init() {
-				return { insideTaskDecisionItem: false };
+				return { insideTaskDecisionItem: false, hasEditPermission };
 			},
 			apply(tr, pluginState) {
 				const { action, data } = tr.getMeta(stateKey) || {

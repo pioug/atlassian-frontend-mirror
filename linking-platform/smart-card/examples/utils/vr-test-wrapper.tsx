@@ -27,7 +27,7 @@ const iframeContent = `
 </html>
 `;
 
-const MockIFrame: typeof IFrame = injectable(IFrame, ({ childRef, ...props }) => (
+const MockIFrame = injectable(IFrame, ({ childRef, ...props }) => (
 	<iframe ref={childRef} {...props} srcDoc={iframeContent} />
 ));
 

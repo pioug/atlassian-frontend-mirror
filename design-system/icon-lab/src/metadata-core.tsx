@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `UNSAFE_createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::5cdf67bfa1b09f0b2b18ce9fe05cffe6>>
+ * @codegen <<SignedSource::2d16b88a415798c547f1c341061067bd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -225,6 +225,15 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+	},
+	status: {
+		keywords: ['status', 'icon', 'icon-lab', 'core', 'insert', 'status', 'badge'],
+		componentName: 'StatusIcon',
+		package: '@atlaskit/icon-lab/core/status',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for inserting status lozenges in Editor.',
+		team: 'Editor',
 	},
 	'takeout-container': {
 		keywords: [

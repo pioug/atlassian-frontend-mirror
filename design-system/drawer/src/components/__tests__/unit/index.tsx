@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Drawer from '../../index';
 import { type DrawerProps } from '../../types';
@@ -28,6 +29,34 @@ const createDrawer = (props: DrawerProps) => (
 		<code>Drawer contents</code>
 	</Drawer>
 );
+
+describe('esc key', () => {
+	beforeEach(() => {
+		jest.spyOn(global.window, 'addEventListener');
+		jest.spyOn(global.window, 'removeEventListener');
+	});
+
+	afterEach(() => {
+		global.window.addEventListener.mockRestore();
+		global.window.removeEventListener.mockRestore();
+	});
+
+	ffTest('platform.design-system-team.inline-message-layering_wfp1p', () => {
+		let isOpen = true;
+
+		const onClose = jest.fn(() => {
+			isOpen = false;
+		});
+
+		render(createDrawer({ isOpen: isOpen, onClose: onClose }));
+
+		expect(screen.getByTestId('drawer-contents')).toBeInTheDocument();
+
+		fireEvent.keyDown(screen.getByTestId('drawer-contents'), { key: 'Escape' });
+
+		expect(onClose).toHaveBeenCalled();
+	});
+});
 
 describe('Drawer Transitions', () => {
 	beforeEach(() => {

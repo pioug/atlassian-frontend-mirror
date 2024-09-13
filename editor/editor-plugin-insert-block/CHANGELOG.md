@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.14.4
+
+### Patch Changes
+
+- [#140550](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140550)
+  [`b4f8f21029b8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b4f8f21029b8f) -
+  Update main toolbar icon for right rail experiment, add analytics
+- Updated dependencies
+
 ## 1.14.3
 
 ### Patch Changes

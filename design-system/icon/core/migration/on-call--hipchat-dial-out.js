@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e47a8ea87927faae7faffd8febb4eb98>>
+ * @codegen <<SignedSource::b85bd1a937ed9d086193f908c527e646>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Migration Icon component for OnCallIcon.
  * This component is OnCallIcon, with `UNSAFE_fallbackIcon` set to "HipchatDialOutIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for representing on-call across Atlassian products.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

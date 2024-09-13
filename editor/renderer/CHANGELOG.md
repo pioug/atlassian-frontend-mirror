@@ -1,5 +1,31 @@
 # @atlaskit/renderer
 
+## 110.0.4
+
+### Patch Changes
+
+- [#136861](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136861)
+  [`d640bacacaa13`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d640bacacaa13) -
+  bumped react-magnetic-di to 3.1.4
+
+## 110.0.3
+
+### Patch Changes
+
+- [#140548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140548)
+  [`93e3974b2538e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93e3974b2538e) -
+  Fix annotation range on triple click when text containing an inline code
+- [#140574](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140574)
+  [`91964e2471abb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91964e2471abb) -
+  Select input content when select all is triggered inside an input
+- Updated dependencies
+
+## 110.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.0.1
 
 ### Patch Changes

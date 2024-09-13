@@ -39,7 +39,7 @@
 	"homepage": "https://atlassian.design/components/page-layout/",
 	"dependencies": {
 		"@atlaskit/ds-lib": "^2.5.0",
-		"@atlaskit/icon": "^22.17.0",
+		"@atlaskit/icon": "^22.18.0",
 		"@atlaskit/link": "^1.2.0",
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/primitives": "^12.1.0",
@@ -59,7 +59,7 @@
 		"@af/integration-testing": "*",
 		"@atlaskit/atlassian-navigation": "^4.7.0",
 		"@atlaskit/atlassian-notifications": "^0.4.0",
-		"@atlaskit/drawer": "^7.14.0",
+		"@atlaskit/drawer": "^8.0.0",
 		"@atlaskit/logo": "^14.2.0",
 		"@atlaskit/menu": "^2.12.0",
 		"@atlaskit/notification-indicator": "^9.3.0",

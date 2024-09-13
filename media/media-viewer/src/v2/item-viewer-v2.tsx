@@ -39,7 +39,6 @@ import {
 } from '../analytics/ufoExperiences';
 import { type FileStateFlags } from '../components/types';
 import type { SvgViewerProps } from '../viewers/svg';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const ImageViewerV2 = Loadable({
 	loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
@@ -246,11 +245,7 @@ export const ItemViewerV2Base = ({
 			return <CodeViewerV2 onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />;
 		}
 
-		if (
-			getBooleanFF('platform.media-svg-rendering') &&
-			isFileIdentifier(identifier) &&
-			fileItem.mimeType === 'image/svg+xml'
-		) {
+		if (isFileIdentifier(identifier) && fileItem.mimeType === 'image/svg+xml') {
 			return (
 				<SvgViewer
 					identifier={identifier}

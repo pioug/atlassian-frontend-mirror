@@ -32,6 +32,7 @@ import { token } from '@atlaskit/tokens';
 
 import { toggleInsertMenuRightRail } from '../../pm-plugins/commands';
 import type { OnInsert } from '../ElementBrowser/types';
+import { RightRailIcon } from '../ElementRail/MainToolBarIcon';
 
 import { BlockInsertMenu } from './block-insert-menu';
 import type { BlockMenuItem } from './create-items';
@@ -398,7 +399,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
 
 	render() {
 		const { buttons, dropdownItems, emojiPickerOpen, isTableSelectorOpen } = this.state;
-		const { isDisabled, isReducedSpacing } = this.props;
+		const { isDisabled, isReducedSpacing, editorAppearance } = this.props;
 
 		const isTableButtonVisible = buttons.some(({ value }) => value.name === 'table');
 
@@ -502,31 +503,36 @@ export class ToolbarInsertBlock extends React.PureComponent<
 				<span css={wrapperStyle}>
 					{this.renderPopup()}
 					{this.renderTableSelectorPopup()}
-					<BlockInsertMenu
-						popupsMountPoint={this.props.popupsMountPoint}
-						popupsBoundariesElement={this.props.popupsBoundariesElement}
-						popupsScrollableElement={this.props.popupsScrollableElement}
-						disabled={this.props.isDisabled ?? false}
-						editorView={this.props.editorView}
-						spacing={this.props.isReducedSpacing ? 'none' : 'default'}
-						label={this.props.intl.formatMessage(messages.insertMenu)}
-						open={this.state.isPlusMenuOpen}
-						plusButtonRef={this.plusButtonRef}
-						items={this.state.dropdownItems}
-						onRef={this.handleDropDownButtonRef}
-						onPlusButtonRef={this.handlePlusButtonRef}
-						onClick={this.handleClick}
-						onKeyDown={this.handleOpenByKeyboard}
-						onItemActivated={this.insertInsertMenuItem}
-						onInsert={this.insertInsertMenuItem as OnInsert}
-						onOpenChange={this.onOpenChange}
-						togglePlusMenuVisibility={this.togglePlusMenuVisibility}
-						replacePlusMenuWithElementBrowser={
-							this.props.replacePlusMenuWithElementBrowser ?? false
-						}
-						showElementBrowserLink={this.props.showElementBrowserLink || false}
-						pluginInjectionApi={this.props.pluginInjectionApi}
-					/>
+					{editorExperiment('insert-menu-in-right-rail', true) &&
+					['full-page', 'full-width'].includes(editorAppearance ?? '') ? (
+						<RightRailIcon onClick={this.handleClick} />
+					) : (
+						<BlockInsertMenu
+							popupsMountPoint={this.props.popupsMountPoint}
+							popupsBoundariesElement={this.props.popupsBoundariesElement}
+							popupsScrollableElement={this.props.popupsScrollableElement}
+							disabled={this.props.isDisabled ?? false}
+							editorView={this.props.editorView}
+							spacing={this.props.isReducedSpacing ? 'none' : 'default'}
+							label={this.props.intl.formatMessage(messages.insertMenu)}
+							open={this.state.isPlusMenuOpen}
+							plusButtonRef={this.plusButtonRef}
+							items={this.state.dropdownItems}
+							onRef={this.handleDropDownButtonRef}
+							onPlusButtonRef={this.handlePlusButtonRef}
+							onClick={this.handleClick}
+							onKeyDown={this.handleOpenByKeyboard}
+							onItemActivated={this.insertInsertMenuItem}
+							onInsert={this.insertInsertMenuItem as OnInsert}
+							onOpenChange={this.onOpenChange}
+							togglePlusMenuVisibility={this.togglePlusMenuVisibility}
+							replacePlusMenuWithElementBrowser={
+								this.props.replacePlusMenuWithElementBrowser ?? false
+							}
+							showElementBrowserLink={this.props.showElementBrowserLink || false}
+							pluginInjectionApi={this.props.pluginInjectionApi}
+						/>
+					)}
 				</span>
 				{!this.props.pluginInjectionApi?.primaryToolbar && this.props.showSeparator && (
 					/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
@@ -543,9 +549,21 @@ export class ToolbarInsertBlock extends React.PureComponent<
 		 * - Clean up ticket ED-24801
 		 */
 		if (editorExperiment('insert-menu-in-right-rail', true, { exposure: true })) {
-			this.props.pluginInjectionApi?.core.actions.execute(({ tr }) => {
+			const { pluginInjectionApi } = this.props;
+			if (!pluginInjectionApi) {
+				return;
+			}
+			pluginInjectionApi.core.actions.execute(({ tr }) => {
 				toggleInsertMenuRightRail(tr);
-				this.props.pluginInjectionApi?.contextPanel?.actions.applyChange(tr);
+				pluginInjectionApi.contextPanel?.actions.applyChange(tr);
+				pluginInjectionApi.analytics?.actions.attachAnalyticsEvent({
+					action: ACTION.CLICKED,
+					// @ts-expect-error
+					actionSubject: ACTION_SUBJECT.TOOLBAR_BUTTON,
+					// @ts-expect-error
+					actionSubjectId: INPUT_METHOD.INSERT_MENU_RIGHT_RAIL,
+					eventType: EVENT_TYPE.UI,
+				})(tr);
 				return tr;
 			});
 			return;

@@ -415,6 +415,13 @@ function ToolbarInsertBlockWithInjectionApi({
 			showElementBrowserLink={options.showElementBrowserLink}
 			showSeparator={!isLastItem && toolbarSize <= ToolbarSize.S}
 			registerToggleDropdownMenuOptions={registerToggleDropdownMenuOptions}
+			/**
+			 * For insert menu in right rail experiment, ignore for now since editorAppearance has been kept
+			 * internal due to temporary nature of experiment
+			 * - Clean up ticket ED-24801
+			 */
+			// @ts-expect-error
+			editorAppearance={options.UNSAFE_editorAppearance}
 		/>
 	);
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-image",
-	"version": "19.1.1",
+	"version": "19.1.2",
 	"description": "Media image element - provides single display of image",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,7 +44,7 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/media-client": "^27.6.0",
+		"@atlaskit/media-client": "^28.0.0",
 		"@atlaskit/media-client-react": "^2.2.0",
 		"@atlaskit/media-common": "^11.4.0",
 		"@atlaskit/media-file-preview": "^0.8.0",

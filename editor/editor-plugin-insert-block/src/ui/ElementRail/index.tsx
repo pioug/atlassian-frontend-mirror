@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
@@ -176,6 +176,36 @@ export const InsertMenuRail = ({
 			// leaving this blank for now
 		}
 	};
+
+	useEffect(() => {
+		if (!api) {
+			return;
+		}
+		api.core.actions.execute(({ tr }) => {
+			api.analytics?.actions.attachAnalyticsEvent({
+				action: ACTION.OPENED,
+				// @ts-expect-error
+				actionSubject: INPUT_METHOD.INSERT_MENU_RIGHT_RAIL,
+				eventType: EVENT_TYPE.UI,
+			})(tr);
+			return tr;
+		});
+
+		return () => {
+			if (!api) {
+				return;
+			}
+			api.core.actions.execute(({ tr }) => {
+				api.analytics?.actions.attachAnalyticsEvent({
+					action: ACTION.CLOSED,
+					// @ts-expect-error
+					actionSubject: INPUT_METHOD.INSERT_MENU_RIGHT_RAIL,
+					eventType: EVENT_TYPE.UI,
+				})(tr);
+				return tr;
+			});
+		};
+	}, [api]);
 
 	return (
 		<Box xcss={panelWrapper}>

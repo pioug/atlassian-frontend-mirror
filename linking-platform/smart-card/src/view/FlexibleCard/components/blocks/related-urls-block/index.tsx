@@ -30,9 +30,8 @@ const RelatedUrlsBlock = ({
 	renderers,
 	...blockProps
 }: RelatedUrlBlockProps) => {
-	const { createAnalyticsEvent } = useAnalyticsEvents();
-
 	di(useRelatedUrls);
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const [loadingRelatedUrls, setLoadingRelatedUrls] = useState(true);
 	const [err, setErr] = useState<Error>();
 	const [relatedUrls, setRelatedUrls] = useState<RelatedUrlsResponse>();

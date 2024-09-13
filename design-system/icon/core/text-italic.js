@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d8125771f29b1467b50fa8bd38b8cfc3>>
+ * @codegen <<SignedSource::4e8e7e2cf996b2066ce4ad21f2de9c05>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -17,7 +17,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Please reach out in #icon-contributions before using these in production.
  *
  * Icon: "TextItalic".
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for italicizing text.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

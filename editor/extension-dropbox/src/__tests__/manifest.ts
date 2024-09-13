@@ -77,14 +77,9 @@ describe('dropbox extension manifest', () => {
 		});
 	});
 	it('should load modal if canMountInIframe check returns true', async () => {
-		let mockRender = asMock(ReactDOM.render).mockImplementation((comp, targetDiv) => {
-			component = comp;
-			mountPoint = targetDiv;
-		});
+		let mockRender = asMock(ReactDOM.render);
 
-		let mockUnmount = asMock(ReactDOM.unmountComponentAtNode).mockImplementation((targetDiv) => {
-			unMountPoint = targetDiv;
-		});
+		let mockUnmount = asMock(ReactDOM.unmountComponentAtNode);
 
 		window.Dropbox = {
 			choose: ({ success }) => {

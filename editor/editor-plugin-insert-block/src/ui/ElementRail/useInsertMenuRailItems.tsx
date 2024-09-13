@@ -66,7 +66,9 @@ export const useInsertMenuRailItems = (
 			availableWrapperBlockTypes: blockTypeState && blockTypeState.availableWrapperBlockTypes,
 			insertMenuItems: options.insertMenuItems,
 			schema: editorView.state.schema,
-			numberOfButtons: 10,
+			// numberOfButtons controls what items are returned and eventually display in the insert menu - but it relies on the main toolbar width which
+			// is not easily available here. I've used 7 as it's the value used for most widths see toolbarSizeToButtons
+			numberOfButtons: 7,
 			formatMessage,
 			isNewMenuEnabled: true,
 		});

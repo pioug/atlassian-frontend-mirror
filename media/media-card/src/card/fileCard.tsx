@@ -1,5 +1,4 @@
 import { useAnalyticsEvents, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import {
 	type FileDetails,
@@ -427,7 +426,7 @@ export const FileCard = ({
 	};
 
 	const onImageError = (newCardPreview?: MediaFilePreview) => {
-		if (metadata.mimeType === 'image/svg+xml' && fg('platform.media-card-svg-rendering_6tdbv')) {
+		if (metadata.mimeType === 'image/svg+xml') {
 			return;
 		}
 		onImageErrorBase(newCardPreview);
@@ -438,7 +437,7 @@ export const FileCard = ({
 	};
 
 	const onImageLoad = (newCardPreview?: MediaFilePreview) => {
-		if (metadata.mimeType === 'image/svg+xml' && fg('platform.media-card-svg-rendering_6tdbv')) {
+		if (metadata.mimeType === 'image/svg+xml') {
 			return;
 		}
 		onImageLoadBase(newCardPreview);
@@ -614,8 +613,7 @@ export const FileCard = ({
 			 */
 			isCardVisible &&
 			metadata.mimeType === 'image/svg+xml' &&
-			disableOverlay && // SVG won't be supported when overlay is on
-			fg('platform.media-card-svg-rendering_6tdbv')
+			disableOverlay // SVG won't be supported when overlay is on
 		) {
 			setShouldRenderSVG(true);
 		}

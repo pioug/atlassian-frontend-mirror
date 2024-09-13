@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::28dd082a71c0afd491c4c0a3bfdc75a7>>
+ * @codegen <<SignedSource::9c765a73e50f292d111ceb1b6ed59418>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Migration Icon component for LayoutTwoColumnsIcon.
  * This component is LayoutTwoColumnsIcon, with `UNSAFE_fallbackIcon` set to "EditorLayoutTwoEqualIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for 2 column layout option in Confluence Editor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

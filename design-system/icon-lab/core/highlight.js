@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fe1a23bc44cfe15c7353a43ab60db862>>
+ * @codegen <<SignedSource::5d50894a3b22e9b9b5b7f0718dd9e14e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const HighlightIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M13.25 16v-3.25M2.75 16v-3.25m3.5-8H5.5L5 7.5l-2.09 3.715a1.25 1.25 0 0 0-.16.612v.923m3.5-8v-4L9.75 2v2.75m-3.5 0h3.5m0 0h.75L11 7.5l2.09 3.715c.105.187.16.398.16.612v.923m-10.5 0h10.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M4.125 9.375 3.5 8.75l1.25-3.5L10.946.925a.625.625 0 0 1 .8.07l1.259 1.26a.625.625 0 0 1 .07.8L8.75 9.25l-3.5 1.25-.625-.625m-.5-.5L3 10.5l.5.5 1.125-1.125m-.5-.5.5.5m.12-4.632 4 4"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 HighlightIcon.displayName = 'HighlightIcon';

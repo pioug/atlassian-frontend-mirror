@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::71a2e5c72d660bcc8de2d0798757664e>>
+ * @codegen <<SignedSource::238463209b8cf58f013ec08b5b8ef825>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ExpandHorizontalIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M.75 1v14m14.5-14v14m-5.5-9.5 2.5 2.5m0 0-2.5 2.5m2.5-2.5h-8.5m2.5-2.5L3.75 8m0 0 2.5 2.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M.75 1v14m14.5-14v14m-5.5-9.5 2.5 2.5-2.5 2.5m-3.5-5L3.75 8l2.5 2.5m5.5-2.5h-7.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ExpandHorizontalIcon.displayName = 'ExpandHorizontalIcon';

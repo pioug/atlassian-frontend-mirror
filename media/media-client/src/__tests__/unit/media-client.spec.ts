@@ -27,7 +27,6 @@ import {
 import { getFileStreamsCache } from '../../file-streams-cache';
 import { uploadFile } from '../../uploader';
 import * as resolveAuth from '../../client/media-store/resolveAuth';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const auth = {
 	token: 'some-token-that-does-not-really-matter-in-this-tests',
@@ -250,89 +249,40 @@ describe('MediaClient', () => {
 			});
 
 			describe('with preview', () => {
-				ffTest(
-					'platform.media-svg-rendering',
-					() => {
-						const { controller, mediaClient, uploadableFileUpfrontIds, mockUploadFile } = setup();
+				const { controller, mediaClient, uploadableFileUpfrontIds, mockUploadFile } = setup();
 
-						const file: UploadableFile = {
-							content: new Blob(),
-						};
+				const file: UploadableFile = {
+					content: new Blob(),
+				};
 
-						mockUploadFile.mockReturnValue({ cancel: jest.fn() });
+				mockUploadFile.mockReturnValue({ cancel: jest.fn() });
 
-						const subscription = new Subscription();
-						subscription.add(
-							mediaClient.file.upload(file, controller, uploadableFileUpfrontIds).subscribe({
+				const subscription = new Subscription();
+				subscription.add(
+					mediaClient.file.upload(file, controller, uploadableFileUpfrontIds).subscribe({
+						next(state) {
+							const fileId = state.id;
+							const occurrenceKey = state.occurrenceKey;
+							mediaClient.file.getFileState(fileId).subscribe({
 								next(state) {
-									const fileId = state.id;
-									const occurrenceKey = state.occurrenceKey;
-									mediaClient.file.getFileState(fileId).subscribe({
-										next(state) {
-											const expectedState: UploadingFileState = {
-												id: fileId,
-												status: 'uploading',
-												progress: 0,
-												name: '',
-												mediaType: 'unknown',
-												mimeType: '',
-												size: 0,
-												occurrenceKey,
-												preview: { value: expect.any(Blob), origin: 'local' },
-											};
-											expect(state).toEqual(expectedState);
-											expect(mediaClient.mediaStore.getFile).not.toBeCalled();
-											subscription.unsubscribe();
-										},
-									});
+									const expectedState: UploadingFileState = {
+										id: fileId,
+										status: 'uploading',
+										progress: 0,
+										name: '',
+										mediaType: 'unknown',
+										mimeType: '',
+										size: 0,
+										occurrenceKey,
+										preview: { value: expect.any(Blob), origin: 'local' },
+									};
+									expect(state).toEqual(expectedState);
+									expect(mediaClient.mediaStore.getFile).not.toBeCalled();
+									subscription.unsubscribe();
 								},
-							}),
-						);
-					},
-					() => {
-						const { controller, mediaClient, uploadableFileUpfrontIds, mockUploadFile } = setup();
-
-						const file: UploadableFile = {
-							content: new Blob(),
-						};
-
-						mockUploadFile.mockReturnValue({ cancel: jest.fn() });
-
-						const subscription = new Subscription();
-						subscription.add(
-							mediaClient.file
-								.upload(
-									file,
-
-									controller,
-									uploadableFileUpfrontIds,
-								)
-								.subscribe({
-									next(state) {
-										const fileId = state.id;
-										const occurrenceKey = state.occurrenceKey;
-										mediaClient.file.getFileState(fileId).subscribe({
-											next(state) {
-												const expectedState: UploadingFileState = {
-													id: fileId,
-													status: 'uploading',
-													progress: 0,
-													name: '',
-													mediaType: 'unknown',
-													mimeType: '',
-													size: 0,
-													occurrenceKey,
-												};
-												expect(state).toEqual(expectedState);
-												expect(mediaClient.mediaStore.getFile).not.toBeCalled();
-												subscription.unsubscribe();
-												// done();
-											},
-										});
-									},
-								}),
-						);
-					},
+							});
+						},
+					}),
 				);
 			});
 		});

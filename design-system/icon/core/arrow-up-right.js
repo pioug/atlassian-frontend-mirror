@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e91f147fe60ea6a83ac4e3275d8b97ba>>
+ * @codegen <<SignedSource::96b1cfcfc0931d844464cb4903dfa64b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ArrowUpRightIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M12.75 3.25 3 13m2.75-9.75h7v7"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m3 13 9.25-9.25m-6.5-.5h7v7"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ArrowUpRightIcon.displayName = 'ArrowUpRightIcon';

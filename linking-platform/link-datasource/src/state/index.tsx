@@ -16,7 +16,7 @@ type Actions = typeof actions;
 
 type UniqueIdentifier = string;
 
-interface DatasourceItem {
+export interface DatasourceItem {
 	ari: string | undefined;
 	entityType: string | undefined;
 	integrationKey: string | undefined;

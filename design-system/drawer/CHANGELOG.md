@@ -1,5 +1,14 @@
 # @atlaskit/drawer
 
+## 8.0.0
+
+### Major Changes
+
+- [#140090](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140090)
+  [`89833597971da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89833597971da) -
+  Refactor of analytics handling to remove usages of legacy AnalyticsContext. Removed
+  WithAnalyticsEventsProps from type.
+
 ## 7.14.3
 
 ### Patch Changes

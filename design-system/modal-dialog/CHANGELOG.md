@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 12.15.7
+
+### Patch Changes
+
+- [#140090](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140090)
+  [`2f4fd6db3e451`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f4fd6db3e451) -
+  Removes unused devDep react-beautiful-dnd
+
 ## 12.15.6
 
 ### Patch Changes

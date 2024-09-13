@@ -41,6 +41,7 @@ export const useUserSelectionRange = (props: Props): [Range | null, Range | null
 				if (rendererDOM && isRangeInsideOfRendererContainer(rendererDOM, _range)) {
 					if (fg('platform_editor_allow_annotation_triple_click')) {
 						const { startContainer, endContainer, commonAncestorContainer } = _range;
+						const parentNode = startContainer.parentNode;
 
 						// ED-23493
 						// On triple-click in Chrome and Safari, the native Selection API's range has endContainer as a non-text node
@@ -54,8 +55,17 @@ export const useUserSelectionRange = (props: Props): [Range | null, Range | null
 						// platform/packages/editor/renderer/src/steps/index.ts Line 180
 
 						// This workaround ensures the endContainer is set to a text node when endContainer is non-text and the parent container is the root element
-						if (isTripleClick && isRoot(commonAncestorContainer as HTMLElement)) {
-							_range.setEnd(startContainer, (startContainer as Text).length || 0);
+						if (
+							isTripleClick &&
+							isRoot(commonAncestorContainer as HTMLElement) &&
+							parentNode?.nodeName === 'P' // ignore if the parent node is strong, em, etc.
+						) {
+							const lastChild =
+								parentNode?.lastChild && parentNode?.lastChild?.nodeType === Node.TEXT_NODE
+									? parentNode?.lastChild
+									: parentNode?.lastChild?.childNodes[0];
+
+							_range.setEnd(lastChild as Node, (lastChild as Text).length || 0);
 						}
 					}
 					setRange(_range.cloneRange());

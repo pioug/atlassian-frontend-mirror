@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9909deb03aebbe07e5563487a0ba0457>>
+ * @codegen <<SignedSource::0242f688f592f4c00bc05d3f109e2008>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Migration Icon component for ContentAlignCenterIcon.
  * This component is ContentAlignCenterIcon, with `UNSAFE_fallbackIcon` set to "EditorAlignImageCenterIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for center aligning media and content.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ccb353025eaeb7d4b7dabfb8df9aa0a1>>
+ * @codegen <<SignedSource::87af33c6c4cce76c9a9b75eefce3cb84>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const GrowHorizontalIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m11.75 4.5 3.5 3.5m0 0-3.5 3.5m3.5-3.5H9M4.25 4.5.75 8m0 0 3.5 3.5M.75 8H7"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m11.75 4.5 3.5 3.5-3.5 3.5M9 8h5.75M4.25 4.5.75 8l3.5 3.5M7 8H1.25"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 GrowHorizontalIcon.displayName = 'GrowHorizontalIcon';

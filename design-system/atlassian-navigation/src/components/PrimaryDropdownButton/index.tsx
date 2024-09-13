@@ -7,7 +7,9 @@ import { forwardRef, type Ref } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import ChevronIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronIconOld from '@atlaskit/icon/glyph/chevron-down';
+import ChevronIcon from '@atlaskit/icon/utility/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Bleed, xcss } from '@atlaskit/primitives';
 
 import { PrimaryButton } from '../PrimaryButton';
@@ -32,9 +34,13 @@ export const PrimaryDropdownButton = forwardRef<HTMLElement, PrimaryDropdownButt
 		return (
 			<PrimaryButton
 				iconAfter={
-					<Bleed xcss={chevronIconStylesWithSpacingFixStyles} inline="space.100">
-						<ChevronIcon label="" />
-					</Bleed>
+					fg('platform-component-visual-refresh') ? (
+						<ChevronIcon label="" color="currentColor" />
+					) : (
+						<Bleed xcss={chevronIconStylesWithSpacingFixStyles} inline="space.100">
+							<ChevronIconOld label="" />
+						</Bleed>
+					)
 				}
 				ref={ref}
 				{...props}

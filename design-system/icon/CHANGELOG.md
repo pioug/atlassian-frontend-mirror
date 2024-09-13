@@ -1,5 +1,36 @@
 # @atlaskit/icon
 
+## 22.18.0
+
+### Minor Changes
+
+- [#140548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140548)
+  [`c66b92f724af1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c66b92f724af1) - ###
+  Summary:
+
+  - Fixes issue where icons with arrows sometimes rendered incorrectly.
+  - Adds and updates some icons used in Editor.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `highlight`
+  - `layout-one-column`
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `text-style`: now feature smaller text with room for a color indicator underneath.
+  - Icons containing arrows have corrected paths
+
+### Patch Changes
+
+- [#140615](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140615)
+  [`5415fdcac6ff6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5415fdcac6ff6) -
+  Updates to internal feature flag logic
+
 ## 22.17.0
 
 ### Minor Changes

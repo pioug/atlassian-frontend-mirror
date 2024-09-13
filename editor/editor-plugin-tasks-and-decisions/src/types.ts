@@ -44,9 +44,36 @@ export type AddItemTransactionCreator = (opts: {
 	itemAttrs?: AddItemAttrs;
 }) => Transaction | null;
 
+/**
+ * Interface representing the options for the TaskDecisionPlugin.
+ * Extends the LongPressSelectionPluginOptions interface.
+ */
+/**
+ * Represents the options for the TaskDecisionPlugin.
+ */
 export interface TaskDecisionPluginOptions extends LongPressSelectionPluginOptions {
+	/**
+	 * Indicates whether nested tasks are allowed.
+	 * @default false
+	 */
 	allowNestedTasks?: boolean;
+
+	/**
+	 * Indicates whether tab key presses should be consumed.
+	 * @default false
+	 */
 	consumeTabs?: boolean;
+
+	/**
+	 * Indicates whether the user has permission to edit.
+	 * @default false
+	 */
+	hasEditPermission?: boolean;
+
+	/**
+	 * Function to request edit permission.
+	 */
+	requestEditPermission?: () => void;
 }
 
 export type TaskAndDecisionsSharedState = {
@@ -54,6 +81,7 @@ export type TaskAndDecisionsSharedState = {
 	indentDisabled: boolean;
 	outdentDisabled: boolean;
 	isInsideTask: boolean;
+	hasEditPermission?: boolean;
 };
 
 export type TasksAndDecisionsPlugin = NextEditorPlugin<

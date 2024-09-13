@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c3e35b0c162ada20ab409c785dcc0e9b>>
+ * @codegen <<SignedSource::9a043c301a7fe2d2ea788335f965925a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Migration Icon component for LayoutThreeColumnsSidebarsIcon.
  * This component is LayoutThreeColumnsSidebarsIcon, with `UNSAFE_fallbackIcon` set to "EditorLayoutThreeWithSidebarsIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for 3 column layout with left and right sidebars option in Confluence Editor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

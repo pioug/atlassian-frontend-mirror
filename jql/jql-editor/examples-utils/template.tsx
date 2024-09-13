@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { action } from '@storybook/addon-actions';
 import { boolean } from '@storybook/addon-knobs';
-import { type Dependency, DiProvider } from 'react-magnetic-di';
+import { DiProvider, type Injectable } from 'react-magnetic-di';
 import { defaults as stateDefaults } from 'react-sweet-state';
 
 import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest';
@@ -23,7 +23,7 @@ export type TemplateArgs = {
 	enableRichInlineNodes?: boolean;
 	batchUpdates?: boolean;
 	Editor?: typeof JQLEditor;
-	deps?: Dependency[];
+	deps?: Injectable[];
 };
 
 export const Template = ({

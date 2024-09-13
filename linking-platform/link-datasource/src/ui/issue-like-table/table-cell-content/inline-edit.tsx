@@ -5,12 +5,14 @@ import { type AtomicActionExecuteResponse } from '@atlaskit/linking-types';
 import {
 	type DatasourceDataResponseItem,
 	type DatasourceType,
+	type Link,
 } from '@atlaskit/linking-types/datasource';
 import { Box, xcss } from '@atlaskit/primitives';
+import { useSmartLinkReload } from '@atlaskit/smart-card/hooks';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { useDatasourceTableFlag } from '../../../hooks/useDatasourceTableFlag';
-import { useDatasourceActions, useDatasourceItem } from '../../../state';
+import { type DatasourceItem, useDatasourceActions, useDatasourceItem } from '../../../state';
 import { editType } from '../edit-type';
 import type { DatasourceTypeWithOnlyValues } from '../types';
 
@@ -53,6 +55,21 @@ const isNewValue = (
 	return newItem[columnKey].data && newItem[columnKey].data !== existingData[columnKey].data;
 };
 
+const useRefreshDatasourceItem = (item: DatasourceItem | undefined) => {
+	const url = (item?.data?.key?.data as Link)?.url;
+
+	// passing empty string to the hook isn't ideal, but the alternatives are too much effort for this small fix.
+	const reloadSmartLinkAction = useSmartLinkReload({
+		url: url || '',
+	});
+
+	return useCallback(() => {
+		if (url) {
+			reloadSmartLinkAction();
+		}
+	}, [reloadSmartLinkAction, url]);
+};
+
 export const InlineEdit = ({
 	ari,
 	execute,
@@ -71,6 +88,7 @@ export const InlineEdit = ({
 
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
+	const refreshDatasourceItem = useRefreshDatasourceItem(item);
 	const onCommitUpdate = useCallback(
 		(value: string) => {
 			if (!item) {
@@ -90,11 +108,13 @@ export const InlineEdit = ({
 
 			fireEvent('ui.form.submitted.inlineEdit', {});
 
-			execute(value).catch((error) => {
-				const status = error && typeof error === 'object' ? error.status : undefined;
-				showErrorFlag({ status });
-				onUpdateItem(ari, existingData);
-			});
+			execute(value)
+				.then(refreshDatasourceItem)
+				.catch((error) => {
+					const status = error && typeof error === 'object' ? error.status : undefined;
+					showErrorFlag({ status });
+					onUpdateItem(ari, existingData);
+				});
 			setIsEditing(false);
 		},
 		[
@@ -103,8 +123,9 @@ export const InlineEdit = ({
 			columnKey,
 			onUpdateItem,
 			ari,
-			execute,
+			refreshDatasourceItem,
 			fireEvent,
+			execute,
 			showErrorFlag,
 		],
 	);

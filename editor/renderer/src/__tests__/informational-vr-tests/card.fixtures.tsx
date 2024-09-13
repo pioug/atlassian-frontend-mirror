@@ -35,9 +35,9 @@ mockDatasourceFetchRequests({
 	delayedResponse: false,
 });
 
-const MockIFrame: typeof IFrame = injectable(IFrame, ({ childRef, ...props }) => (
+const MockIFrame: typeof IFrame = ({ childRef, ...props }) => (
 	<iframe ref={childRef} {...props} srcDoc={embedContent} />
-));
+);
 
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 const providerFactory = ProviderFactory.create({
@@ -153,7 +153,7 @@ const buildRendererExampleAttributes = (width: string) => {
 const SmartCardTestWrapper = ({ adf, client }: { adf: unknown; client: CardClient }) => {
 	return (
 		<SmartCardProvider client={client}>
-			<DiProvider use={[MockIFrame]}>
+			<DiProvider use={[injectable(IFrame, MockIFrame)]}>
 				<MockMediaClientProvider>
 					<Renderer
 						adfStage={'stage0'}

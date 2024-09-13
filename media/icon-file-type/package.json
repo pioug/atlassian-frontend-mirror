@@ -46,7 +46,7 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.17.0",
+		"@atlaskit/icon": "^22.18.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

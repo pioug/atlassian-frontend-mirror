@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5e1e458900ba648ff1441bd4c3cd4b08>>
+ * @codegen <<SignedSource::1a6a081a3964cba71407502ef6503e67>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SprintIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M13.5 6.25a5.5 5.5 0 1 0-5.5 5.5m0 0h7.25m-7.25 0H0m11.75-3.5 3.5 3.5-3.5 3.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M13.5 6.25a5.5 5.5 0 1 0-5.5 5.5m0 0H0m8 0h6.75m-3-3.5 3.5 3.5-3.5 3.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SprintIcon.displayName = 'SprintIcon';

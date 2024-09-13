@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bbe28a01095e2a3431ba1549e57b0fd6>>
+ * @codegen <<SignedSource::b234b71a3e551ecdc3a85d121573493f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Migration Icon component for LayoutTwoColumnsSidebarLeftIcon.
  * This component is LayoutTwoColumnsSidebarLeftIcon, with `UNSAFE_fallbackIcon` set to "EditorLayoutTwoLeftSidebarIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for 2 column layout with left sidebar option in Confluence Editor.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

@@ -39,6 +39,9 @@ snapshot(SkeletonButtonsExample, {
 			},
 		},
 	],
+	featureFlags: {
+		'platform-component-visual-refresh': true,
+	},
 });
 
 snapshot(NavigationSkeletonExample, {

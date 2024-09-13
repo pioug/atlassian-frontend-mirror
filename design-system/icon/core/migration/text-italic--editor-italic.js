@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::98643afbe9ea8359b8ca06cb5f4a4261>>
+ * @codegen <<SignedSource::e38292b4773591a136b047eebeaca826>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Migration Icon component for TextItalicIcon.
  * This component is TextItalicIcon, with `UNSAFE_fallbackIcon` set to "EditorItalicIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for italicizing text.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

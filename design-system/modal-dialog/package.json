@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/modal-dialog",
-	"version": "12.15.6",
+	"version": "12.15.7",
 	"description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/ds-lib": "^2.5.0",
 		"@atlaskit/focus-ring": "^1.6.0",
-		"@atlaskit/icon": "^22.17.0",
+		"@atlaskit/icon": "^22.18.0",
 		"@atlaskit/layering": "^0.4.0",
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -70,9 +70,7 @@
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
 		"@types/raf-schd": "^4.0.1",
-		"@types/react-beautiful-dnd": "^12.2.1",
 		"jscodeshift": "^0.13.0",
-		"react-beautiful-dnd": "^12.2.0",
 		"react-dom": "^16.8.0",
 		"react-lorem-component": "^0.13.0",
 		"storybook-addon-performance": "^0.16.0",

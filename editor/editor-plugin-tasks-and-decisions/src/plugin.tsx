@@ -136,7 +136,7 @@ const addItem =
 	};
 
 export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
-	config: { allowNestedTasks, consumeTabs, useLongPressSelection } = {},
+	config: { allowNestedTasks, consumeTabs, useLongPressSelection, hasEditPermission } = {},
 	api,
 }) => {
 	const getIdentifierProvider = () =>
@@ -169,6 +169,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 				isInsideTask: isInsideTask(editorState),
 				indentDisabled: itemIndex === 0 || indentLevel >= MAX_INDENTATION_LEVEL,
 				outdentDisabled: indentLevel <= 1,
+				hasEditPermission: pluginState?.hasEditPermission,
 			};
 		},
 
@@ -190,6 +191,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 							dispatch,
 							api,
 							useLongPressSelection,
+							hasEditPermission,
 						);
 					},
 				},

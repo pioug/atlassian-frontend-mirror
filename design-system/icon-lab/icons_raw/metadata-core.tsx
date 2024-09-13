@@ -17,6 +17,14 @@ const metadata: UNSAFE_IconMetadata = {
 		type: 'core',
 		usage: 'Single purpose - Reserved for highlight text tool in Confluence Editor.',
 	},
+	status: {
+		keywords: ['insert', 'status', 'badge'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Editor',
+		type: 'core',
+		usage: 'Reserved for inserting status lozenges in Editor.',
+	},
 	'roadmaps-plan': {
 		keywords: ['roadmaps', 'roadmap', 'plan'],
 		categorization: 'single-purpose',

@@ -42,7 +42,7 @@
 		"./editor-experiments-test-utils": "./src/editor-experiments-test-utils.ts"
 	},
 	"dependencies": {
-		"@atlaskit/feature-gate-js-client": "^4.17.0",
+		"@atlaskit/feature-gate-js-client": "^4.19.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

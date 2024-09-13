@@ -1,5 +1,14 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.19.0
+
+### Minor Changes
+
+- [#140090](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140090)
+  [`69b1ce7f8cfc5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/69b1ce7f8cfc5) -
+  Introduce `productIntegrationsVendorId`, `bitbucketConnectAppId` and `bitbucketRepositoryId`
+  identifier types
+
 ## 4.18.0
 
 ### Minor Changes

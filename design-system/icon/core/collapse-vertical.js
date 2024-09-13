@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8f88a99ad7b3ddcdb8da2b53bab28639>>
+ * @codegen <<SignedSource::d58f4bc448d70df3aa393021972b5d2d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CollapseVerticalIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1 8h14M5.5 2.75 8 5.25m0 0 2.5-2.5M8 5.25V0M5.5 13.25l2.5-2.5m0 0 2.5 2.5M8 10.75V16"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1 8h14M5.5 2.75 8 5.25l2.5-2.5M8 0v4.75m-2.5 8.5 2.5-2.5 2.5 2.5M8 16v-4.75"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CollapseVerticalIcon.displayName = 'CollapseVerticalIcon';

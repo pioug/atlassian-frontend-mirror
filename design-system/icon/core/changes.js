@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a703dfdfe1b0821457ae2c936c28db02>>
+ * @codegen <<SignedSource::dd40a0a6332c9544aded5cbbf3552358>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChangesIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m5 8-3.25 3.25m0 0L5 14.5m-3.25-3.25H14M11 1.5l3.25 3.25m0 0L11 8m3.25-3.25H2"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m5 8-3.25 3.25L5 14.5m9-3.25H2.25M11 1.5l3.25 3.25L11 8M2 4.75h11.75"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ChangesIcon.displayName = 'ChangesIcon';

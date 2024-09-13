@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a9aaf4aeb0306f2d3ee9684dc41f2c22>>
+ * @codegen <<SignedSource::eb1ef1149a66571c4f3afc5dc7ecc365>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DownloadIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 9v4c0 .69.56 1.25 1.25 1.25h10c.69 0 1.25-.56 1.25-1.25V9M8 10.25V1"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m4 6.25 4 4 4-4"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 9v4c0 .69.56 1.25 1.25 1.25h10c.69 0 1.25-.56 1.25-1.25V9M8 1v8.75m-4-3.5 4 4 4-4"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DownloadIcon.displayName = 'DownloadIcon';

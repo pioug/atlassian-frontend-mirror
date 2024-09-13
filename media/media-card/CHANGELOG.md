@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 78.3.0
+
+### Minor Changes
+
+- [#139803](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139803)
+  [`573e2dccbc940`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/573e2dccbc940) -
+  Render SVG Images natively when overlay is disabled (no longer behind a featue flag)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 78.2.4
 
 ### Patch Changes

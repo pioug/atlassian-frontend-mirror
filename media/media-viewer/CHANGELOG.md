@@ -1,5 +1,17 @@
 # @atlaskit/media-viewer
 
+## 48.8.0
+
+### Minor Changes
+
+- [#139803](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139803)
+  [`573e2dccbc940`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/573e2dccbc940) -
+  Render SVG Images natively (no longer behind a featue flag)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 48.7.3
 
 ### Patch Changes

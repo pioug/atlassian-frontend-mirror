@@ -41,10 +41,7 @@ import { convertBase64ToBlob } from '../../utils/convertBase64ToBlob';
 import { toPromise, fromObservable, type MediaSubscribable } from '../../utils/mediaSubscribable';
 import { getDimensionsFromBlob, type Dimensions } from '../../utils/getDimensionsFromBlob';
 import { createMediaSubject } from '../../utils/createMediaSubject';
-import {
-	isMimeTypeSupportedByBrowser,
-	getMediaTypeFromMimeType,
-} from '@atlaskit/media-common/mediaTypeUtils';
+import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils';
 import { shouldFetchRemoteFileStates } from '../../utils/shouldFetchRemoteFileStates';
 import { PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
@@ -58,8 +55,6 @@ import {
 	type MediaStore,
 	mediaStore,
 } from '@atlaskit/media-state';
-
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export type { FileFetcherErrorAttributes, FileFetcherErrorReason } from './error';
 export { isFileFetcherError, FileFetcherError } from './error';
@@ -403,12 +398,10 @@ export class FileFetcherImpl implements FileFetcher {
 		if (content instanceof Blob) {
 			size = content.size;
 			mimeType = content.type;
-			if (isMimeTypeSupportedByBrowser(content.type) || fg('platform.media-svg-rendering')) {
-				preview = {
-					value: content,
-					origin: 'local',
-				};
-			}
+			preview = {
+				value: content,
+				origin: 'local',
+			};
 		}
 		const mediaType = getMediaTypeFromUploadableFile(file);
 

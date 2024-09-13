@@ -42,7 +42,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/calendar": "^15.0.0",
 		"@atlaskit/ds-lib": "^2.5.0",
-		"@atlaskit/icon": "^22.17.0",
+		"@atlaskit/icon": "^22.18.0",
 		"@atlaskit/layering": "^0.4.0",
 		"@atlaskit/locale": "^2.8.0",
 		"@atlaskit/popper": "^6.3.0",

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.5.0
+
+### Minor Changes
+
+- [#140548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140548)
+  [`36d26892db64c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36d26892db64c) -
+  ED-24762 Add support for hasEditPermission in tasks and decision plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.7
 
 ### Patch Changes

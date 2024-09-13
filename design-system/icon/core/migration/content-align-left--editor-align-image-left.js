@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::18cc03b448b58642120916a4d0e2eda7>>
+ * @codegen <<SignedSource::c4cf8c08261256e183b471075a447a79>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Migration Icon component for ContentAlignLeftIcon.
  * This component is ContentAlignLeftIcon, with `UNSAFE_fallbackIcon` set to "EditorAlignImageLeftIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for left aligning media and content.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

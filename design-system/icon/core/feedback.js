@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2fdc79421e640da36581eab376b367cc>>
+ * @codegen <<SignedSource::0df978b45a8a270a3a96f94adac63c42>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FeedbackIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M10.25 7H3c-.69 0-1.25-.56-1.25-1.25V3c0-.69.56-1.25 1.25-1.25h10c.69 0 1.25.56 1.25 1.25v8c0 .69-.56 1.25-1.25 1.25H6L1.75 15V9.5"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m7.75 4.5 2.5 2.5-2.5 2.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 9.5V15L6 12.25h7c.69 0 1.25-.56 1.25-1.25V3c0-.69-.56-1.25-1.25-1.25H3c-.69 0-1.25.56-1.25 1.25v2.75C1.75 6.44 2.31 7 3 7h6.75m-2-2.5 2.5 2.5-2.5 2.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 FeedbackIcon.displayName = 'FeedbackIcon';

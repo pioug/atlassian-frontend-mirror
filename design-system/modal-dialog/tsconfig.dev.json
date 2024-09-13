@@ -96,9 +96,6 @@
 			"path": "../inline-dialog/tsconfig.app.json"
 		},
 		{
-			"path": "../inline-message/tsconfig.app.json"
-		},
-		{
 			"path": "../link/tsconfig.app.json"
 		},
 		{

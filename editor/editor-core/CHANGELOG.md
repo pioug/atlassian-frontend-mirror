@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 197.7.0
+
+### Minor Changes
+
+- [#140548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140548)
+  [`36d26892db64c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36d26892db64c) -
+  ED-24762 Add support for hasEditPermission in tasks and decision plugin
+
+### Patch Changes
+
+- [#140548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140548)
+  [`05d7b5dc7aae5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/05d7b5dc7aae5) -
+  [ux] ED-24770 removed disabled style for task and decision
+- Updated dependencies
+
 ## 197.6.0
 
 ### Minor Changes

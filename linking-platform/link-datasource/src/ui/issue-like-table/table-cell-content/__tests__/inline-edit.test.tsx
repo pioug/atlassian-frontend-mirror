@@ -7,6 +7,7 @@ import { defaultRegistry } from 'react-sweet-state';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FlagsProvider } from '@atlaskit/flag';
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { Store, StoreContainer } from '../../../../state';
@@ -45,13 +46,15 @@ const testJiraAri = 'ari:test:something:with:issue/123123';
 describe('InlineEdit', () => {
 	const setup = (props: React.ComponentProps<typeof InlineEdit>) => {
 		render(
-			<IntlProvider locale="en">
-				<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
-					<FlagsProvider>
-						<InlineEdit {...props} />,
-					</FlagsProvider>
-				</AnalyticsListener>
-			</IntlProvider>,
+			<SmartCardProvider client={new CardClient()}>
+				<IntlProvider locale="en">
+					<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+						<FlagsProvider>
+							<InlineEdit {...props} />,
+						</FlagsProvider>
+					</AnalyticsListener>
+				</IntlProvider>
+			</SmartCardProvider>,
 		);
 	};
 

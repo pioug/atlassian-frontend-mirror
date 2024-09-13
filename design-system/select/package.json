@@ -28,7 +28,7 @@
 			"name": "Select",
 			"category": "Components"
 		},
-		"runReact18": false
+		"runReact18": true
 	},
 	"af:exports": {
 		"./AsyncSelect": "./src/entry-points/async-select.tsx",
@@ -46,7 +46,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/icon": "^22.17.0",
+		"@atlaskit/icon": "^22.18.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/spinner": "^16.3.0",

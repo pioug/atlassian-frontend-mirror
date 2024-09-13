@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3ec2a2ada55397a742e61b5c252e6d8a>>
+ * @codegen <<SignedSource::5f5f47df5af815c966e0304927980064>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Migration Icon component for ContentWidthWideIcon.
  * This component is ContentWidthWideIcon, with `UNSAFE_fallbackIcon` set to "EditorMediaWideIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for setting media and content to a wide width.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

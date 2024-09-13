@@ -1,5 +1,13 @@
 # @atlaskit/side-navigation
 
+## 3.5.1
+
+### Patch Changes
+
+- [#140090](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140090)
+  [`2f4fd6db3e451`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f4fd6db3e451) -
+  Removes unused devDep react-beautiful-dnd
+
 ## 3.5.0
 
 ### Minor Changes

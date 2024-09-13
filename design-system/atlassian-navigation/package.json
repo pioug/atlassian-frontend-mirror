@@ -50,7 +50,7 @@
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/ds-lib": "^2.5.0",
-		"@atlaskit/icon": "^22.17.0",
+		"@atlaskit/icon": "^22.18.0",
 		"@atlaskit/logo": "*",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popup": "^1.25.0",
@@ -107,6 +107,9 @@
 	"homepage": "https://atlassian.design/components/atlassian-navigation/",
 	"platform-feature-flags": {
 		"platform.design-system-team.navigation-v2-no-jank_5yhbd": {
+			"type": "boolean"
+		},
+		"platform-component-visual-refresh": {
 			"type": "boolean"
 		}
 	}

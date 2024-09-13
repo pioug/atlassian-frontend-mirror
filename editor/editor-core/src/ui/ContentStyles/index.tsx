@@ -65,6 +65,7 @@ import {
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N200, N30A, N500 } from '@atlaskit/theme/colors';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
@@ -82,7 +83,6 @@ import { mediaStyles } from './media';
 import { panelStyles } from './panel';
 import { statusStyles } from './status';
 import { taskDecisionStyles } from './tasks-and-decisions';
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const linkStyles = css`
 	.ProseMirror {
@@ -249,10 +249,14 @@ const contentStyles = (props: ContentStylesProps) => css`
 		${InlineNodeViewSharedStyles};
 	}
 
-	.ProseMirror[contenteditable='false'] .taskItemView-content-wrap {
-		pointer-events: none;
-		opacity: 0.7;
-	}
+	${fg('editor_request_to_edit_task')
+		? null
+		: css`
+				.ProseMirror[contenteditable='false'] .taskItemView-content-wrap {
+					pointer-events: none;
+					opacity: 0.7;
+				}
+			`}
 
 	.ProseMirror-hideselection *::selection {
 		background: transparent;

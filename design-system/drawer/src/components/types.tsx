@@ -9,7 +9,6 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type CSSObject } from '@emotion/react';
 
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { type Direction } from '@atlaskit/motion';
 
 export type Widths = {
@@ -150,7 +149,6 @@ export interface DrawerPrimitiveProps extends BaseProps, FocusLockSettings, Draw
 
 export type DrawerProps = BaseProps &
 	FocusLockSettings &
-	WithAnalyticsEventsProps &
 	DrawerLabel & {
 		/**
 		 * Callback function called while the drawer is displayed and `keydown` event is triggered.
@@ -159,7 +157,7 @@ export type DrawerProps = BaseProps &
 		/**
 		 * Callback function called when the drawer is closed.
 		 */
-		onClose?: (event: SyntheticEvent<HTMLElement>, analyticsEvent: any) => void;
+		onClose?: (event: SyntheticEvent<HTMLElement>, analyticsEvent?: any) => void;
 		/**
 		 * Controls if the drawer is open or closed.
 		 */

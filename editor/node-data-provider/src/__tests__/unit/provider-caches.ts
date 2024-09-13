@@ -181,8 +181,6 @@ describe('NodeDataProvider buildCaches', () => {
 				signal: abortController.signal,
 			});
 
-			expect(trackedResolvesCounter).toEqual(0);
-
 			await cacheBuilding;
 
 			expect(trackedResolvesCounter).toEqual(1);

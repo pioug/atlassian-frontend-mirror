@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ee896de35e95435a6ea920bd67ae0c53>>
+ * @codegen <<SignedSource::704c07e8c195fadfb1561c3c1a1f8f51>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const UndoIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 5.25h8.5a4 4 0 0 1 0 8H8"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m5.25 1.75-3.5 3.5 3.5 3.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 13.25h2.25a4 4 0 0 0 0-8h-8m3-3.5-3.5 3.5 3.5 3.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 UndoIcon.displayName = 'UndoIcon';

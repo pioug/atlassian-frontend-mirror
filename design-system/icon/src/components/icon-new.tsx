@@ -123,7 +123,10 @@ export const Icon = memo(function Icon(props: NewIconProps) {
 	} = props as InternalIconPropsNew;
 
 	let fallbackColor: NewIconProps['color'] = token('color.icon');
-	if (fg('platform-design-system-new-icon-default-color')) {
+	if (
+		fg('platform-design-system-new-icon-default-color') ||
+		fg('platform-design-system-new-icon-default-color-2')
+	) {
 		fallbackColor = 'currentColor';
 	}
 	const color = providedColor ?? fallbackColor;

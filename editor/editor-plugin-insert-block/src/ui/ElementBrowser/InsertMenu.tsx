@@ -195,10 +195,10 @@ const insertMenuWrapper = (itemCount: number) => {
 		return css({
 			display: 'flex',
 			flexDirection: 'column',
-			width: '310px',
+			width: '314px',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			height: 'calc(100% - 32px)',
-			margin: `0 -10px`,
+			margin: `0 -12px`,
 			backgroundColor: `${token('elevation.surface.overlay', N0)}`,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderRadius: `${borderRadius()}px`,

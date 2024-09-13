@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::03e2a0acabd5774aad5f5e2559df7d05>>
+ * @codegen <<SignedSource::7c36d9538ae355f3b15448880d69da07>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextStyleIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M2.75 15v-.25l1.644-4.5M13.25 15v-.25l-1.644-4.5m0 0L8.5 1.75h-1l-3.106 8.5m7.212 0H4.394"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M3.75 11v-.375L5.032 7.25M12.25 11v-.375L10.974 7.25m0 0L8.518.75H7.5l-2.468 6.5m5.942 0H5.032"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TextStyleIcon.displayName = 'TextStyleIcon';

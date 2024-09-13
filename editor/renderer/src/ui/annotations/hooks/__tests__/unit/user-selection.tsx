@@ -313,7 +313,9 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 								<div id="renderer-container">
 									<ol>
 										<li>
-											<p>item 1</p>
+											<p>
+												item 1<code>abc</code>
+											</p>
 										</li>
 										<li>
 											<p>item 2</p>
@@ -330,7 +332,9 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 							<div id="renderer-container">
 								<ol>
 									<li>
-										<p>item 1</p>
+										<p>
+											item 1<code>abc</code>
+										</p>
 									</li>
 									<li>
 										<p>item 2</p>
@@ -355,6 +359,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 
 							const myFakeValidRangeUpdated: Range = {
 								...myFakeValidRange,
+								startContainer: lastListItem,
 								endContainer: lastListItem,
 								endOffset: 5,
 								commonAncestorContainer: lastListItem.parentNode as Node,
@@ -416,6 +421,44 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 							expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledWith(
 								lastListItem,
 								6,
+							);
+							expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
+						});
+
+						it('should change the endContainer when endContainer is not textNode and selection include inline code', async () => {
+							rendererDOM.classList.add('ak-renderer-document');
+							const firstListItem = document.querySelector('li:first-child p') as Node;
+
+							const myFakeValidRangeUpdated: Range = {
+								...myFakeValidRange,
+								startContainer: firstListItem.childNodes[0],
+								startOffset: 0,
+								endContainer: rendererDOM as Node,
+								endOffset: 0,
+								commonAncestorContainer: rendererDOM as Node,
+								setEnd: jest.fn(),
+								cloneRange: jest.fn(),
+							};
+
+							await renderDummyComponentWithDraftContext(null);
+
+							// @ts-ignore
+							const myFakeSelection: Selection = {
+								type: 'Range',
+								rangeCount: 1,
+								getRangeAt: jest.fn().mockReturnValue(myFakeValidRangeUpdated),
+							};
+							jest.spyOn(document, 'getSelection').mockReturnValue(myFakeSelection);
+
+							act(() => {
+								dispatchFakeSelectionChange();
+								jest.runAllTimers();
+							});
+
+							expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledTimes(1);
+							expect(document.getSelection()?.getRangeAt(0).setEnd).toHaveBeenCalledWith(
+								firstListItem.lastChild!.childNodes[0], // text node abc
+								3,
 							);
 							expect(document.getSelection()?.getRangeAt(0).cloneRange).toHaveBeenCalledTimes(1);
 						});

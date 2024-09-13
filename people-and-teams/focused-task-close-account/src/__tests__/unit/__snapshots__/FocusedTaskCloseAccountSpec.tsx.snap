@@ -2,7 +2,7 @@
 
 exports[`isOpen snapshot 1`] = `
 <injectIntl(MessagesIntlProvider)>
-  <WithAnalyticsContext(WithAnalyticsEvents(DrawerBase))
+  <Drawer
     icon={[Function]}
     isOpen={false}
     onClose={[MockFunction]}
@@ -38,7 +38,7 @@ exports[`isOpen snapshot 1`] = `
         }
       />
     </Styled(div)>
-  </WithAnalyticsContext(WithAnalyticsEvents(DrawerBase))>
+  </Drawer>
 </injectIntl(MessagesIntlProvider)>
 `;
 

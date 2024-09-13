@@ -397,11 +397,11 @@ export default class PopupSelect<
 			onMenuOpen();
 		}
 
-		this.setState({ isOpen: true });
-
-		if (this.selectRef) {
-			this.selectRef.select?.openMenu('first');
-		}
+		this.setState({ isOpen: true }, () => {
+			if (this.selectRef) {
+				this.selectRef.select?.openMenu('first');
+			}
+		});
 
 		if (typeof window === 'undefined') {
 			return;

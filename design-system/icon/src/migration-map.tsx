@@ -1222,11 +1222,16 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/layout-single': {
+		newIcon: {
+			name: 'layout-one-column',
+			type: 'core',
+			package: '@atlaskit/icon',
+		},
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/layout-three-equal': {

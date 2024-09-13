@@ -10,9 +10,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
 import { ORS_ACTIONS_DISCOVERY_ENDPOINT } from '@atlaskit/link-test-helpers/datasource';
 import {
-	type ActionsServiceDiscoveryResponse,
 	type AtomicActionInterface,
-	type DatasourceDataResponse,
 	type DatasourceDataResponseItem,
 	type DatasourceDataSchema,
 } from '@atlaskit/linking-types';
@@ -21,6 +19,11 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id';
 import { ActionsStore } from '../../state/actions';
 
+import {
+	mockActionKey,
+	mockActionsDiscoveryEndpoint,
+	mockFetchDatasourceDataEndpoint,
+} from './__tests__/_utils';
 import { DatasourceTableView } from './datasourceTableView';
 
 jest.mock('@atlaskit/link-client-extension', () => {
@@ -45,9 +48,6 @@ jest.mock('@atlaskit/link-client-extension', () => {
 });
 
 ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
-	const ORS_FETCH_DATASOURCE_DATA_ENDPOINT =
-		/\/gateway\/api\/object\-resolver\/datasource\/[^/]+\/fetch\/data/;
-
 	describe('2-way sync', () => {
 		const actionsStore = defaultRegistry.getStore(ActionsStore);
 
@@ -86,28 +86,6 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 			});
 		};
 
-		const mockFetchDatasourceDataEndpoint = (
-			overrides: {
-				meta: Partial<DatasourceDataResponse['meta']>;
-				data: DatasourceDataResponse['data'];
-			} & Omit<DatasourceDataResponse, 'meta' | 'data'>,
-		) => {
-			fetchMock.post(
-				ORS_FETCH_DATASOURCE_DATA_ENDPOINT,
-				async (): Promise<DatasourceDataResponse> => ({
-					meta: {
-						access: 'granted',
-						visibility: 'restricted',
-						...overrides.meta,
-					},
-					data: overrides.data,
-				}),
-				{ overwriteRoutes: false, repeat: 1 },
-			);
-		};
-
-		const mockActionKey = (fieldKey: string) => `atlassian:issue:update:${fieldKey}`;
-
 		const mockActionsDiscovery = (mockItems: ItemWithPermissionMock[], integrationKey: string) => {
 			const actions: AtomicActionInterface[] = Array.from(
 				new Set(mockItems.map((item) => item.fieldKey)),
@@ -131,20 +109,6 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 					data: permissions,
 				},
 			});
-		};
-
-		const mockActionsDiscoveryEndpoint = (overrides?: Partial<ActionsServiceDiscoveryResponse>) => {
-			fetchMock.post(
-				ORS_ACTIONS_DISCOVERY_ENDPOINT,
-				async (): Promise<ActionsServiceDiscoveryResponse> => ({
-					actions: [],
-					permissions: {
-						data: [],
-					},
-					...overrides,
-				}),
-				{ overwriteRoutes: false, repeat: 1 },
-			);
 		};
 
 		const mockOnePageOfItemsWithPermissions = ({

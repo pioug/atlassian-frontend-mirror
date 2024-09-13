@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9bf69f2e81ef2daf767f685a4d2420cc>>
+ * @codegen <<SignedSource::cf4f0681c19e7b69959b3fb556330037>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Migration Icon component for TextIndentLeftIcon.
  * This component is TextIndentLeftIcon, with `UNSAFE_fallbackIcon` set to "EditorOutdentIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for shifting the indent of text content left.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

@@ -1,5 +1,16 @@
 # @atlaskit/media-client
 
+## 28.0.0
+
+### Major Changes
+
+- [#139803](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139803)
+  [`573e2dccbc940`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/573e2dccbc940) -
+  BREAKING CHANGE: Attribute `preview` in File State is now set unnconditionally in the file state.
+  No longer when it's supported by the broswer. If your application relies on this attribute, check
+  the file mimetype to ensure that you are using it properly. This change was released in `v27.0.0`
+  behind a feature flag. Now, it is a permanent change.
+
 ## 27.6.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3f2ad7090034de3781bb0efd8604a739>>
+ * @codegen <<SignedSource::c4933bf44687bb6f7c689a91fdbcfe96>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const RefreshIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M6.25 1.75V6m0-4.25H2m4.25 0c-1.5 1.5-4.5 3-4.5 6.75 0 3.284 2.532 5.476 5.75 5.73m2.25 0V9.98m0 4.25H14m-4.25 0c1.5-1.5 4.5-3 4.5-6.75 0-3.283-2.532-5.475-5.75-5.73"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M6.25 6V1.75H2m5.5 12.48c-3.218-.254-5.75-2.447-5.75-5.73 0-3.368 2.42-4.921 4-6.29m4 7.77v4.25H14M8.5 1.75c3.218.255 5.75 2.447 5.75 5.73 0 3.352-2.397 4.906-3.977 6.27"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 RefreshIcon.displayName = 'RefreshIcon';

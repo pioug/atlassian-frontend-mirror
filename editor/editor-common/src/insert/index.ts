@@ -367,7 +367,13 @@ export const shouldSplitSelectedNodeOnNodeInsertion = ({
 export function contentAllowedInCodeBlock(state: EditorState): boolean {
 	const { $from, $to } = state.selection;
 	let isAllowedChild = true;
-	state.doc.nodesBetween($from.pos, $to.pos, (node) => {
+	state.doc.nodesBetween($from.pos, $to.pos, (node, pos) => {
+		const withinSelection = $from.pos <= pos && pos + node.nodeSize <= $to.pos;
+
+		if (!withinSelection) {
+			return;
+		}
+
 		if (!isAllowedChild) {
 			return false;
 		}

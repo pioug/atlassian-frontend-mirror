@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::43f40b4d80938630027ccb274cad32ea>>
+ * @codegen <<SignedSource::8702c26040f01b5c696d991b20050baf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CollapseHorizontalIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M13.25 5.5 10.75 8m0 0 2.5 2.5M10.75 8H16M2.75 5.5 5.25 8m0 0-2.5 2.5M5.25 8H0m8-7v14"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M13.25 5.5 10.75 8l2.5 2.5M16 8h-4.75m-8.5-2.5L5.25 8l-2.5 2.5M0 8h4.75M8 1v14"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CollapseHorizontalIcon.displayName = 'CollapseHorizontalIcon';

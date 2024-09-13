@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::396e38059af6523f91dbdc6707580b26>>
+ * @codegen <<SignedSource::0982a0299162b3a0e6fe63a5d313aec9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ExpandVerticalIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m5.5 9.75 2.5 2.5m0 0 2.5-2.5M8 12.25v-8.5m-7 11.5h14M1 .75h14m-9.5 5.5L8 3.75m0 0 2.5 2.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m5.5 9.75 2.5 2.5 2.5-2.5M1 15.25h14M1 .75h14m-9.5 5.5L8 3.75l2.5 2.5M8 11.75v-7.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ExpandVerticalIcon.displayName = 'ExpandVerticalIcon';

@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 4.7.3
+
+### Patch Changes
+
+- [#136861](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/136861)
+  [`d640bacacaa13`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d640bacacaa13) -
+  bumped react-magnetic-di to 3.1.4
+
 ## 4.7.2
 
 ### Patch Changes

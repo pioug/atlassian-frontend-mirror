@@ -3,6 +3,7 @@ import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
 	Command,
 	EditorActionsOptions as EditorActions,
+	EditorAppearance,
 	ExtractInjectionAPI,
 	ImageUploadPluginReferenceEvent,
 } from '@atlaskit/editor-common/types';
@@ -61,6 +62,7 @@ export interface Props {
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	pluginInjectionApi?: ExtractInjectionAPI<InsertBlockPlugin>;
 	mentionsDisabled?: boolean;
+	editorAppearance?: EditorAppearance;
 }
 
 export interface State {

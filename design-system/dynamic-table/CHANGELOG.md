@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 15.0.1
+
+### Patch Changes
+
+- [#140090](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140090)
+  [`2f4fd6db3e451`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f4fd6db3e451) -
+  Adds `@types/react-beautiful-dnd` which was previously missing
+
 ## 15.0.0
 
 ### Major Changes

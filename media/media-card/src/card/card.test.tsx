@@ -53,7 +53,6 @@ import { completeUfoExperience, abortUfoExperience } from '../utils/ufoExperienc
 import { MediaCardError } from '../errors';
 import { MockIntersectionObserver } from '../utils/mockIntersectionObserver';
 import { DateOverrideContext } from '../dateOverrideContext';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 
 const event = { fire: jest.fn() };
@@ -4395,7 +4394,7 @@ describe('Card ', () => {
 		});
 	});
 
-	ffTest.on('platform.media-card-svg-rendering_6tdbv', 'SVG', () => {
+	describe('SVG', () => {
 		it('should render SVG natively when the overlay is disbled', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.svg();
 			const { mediaApi } = createMockedMediaApi(fileItem);

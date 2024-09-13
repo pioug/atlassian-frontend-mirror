@@ -45,7 +45,6 @@ import {
 import { type FileStateFlags } from './components/types';
 import { MediaClientProvider } from '@atlaskit/media-client-react';
 import { type SvgViewerProps } from './viewers/svg';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const ImageViewer = Loadable({
 	loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
@@ -225,11 +224,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
 			return <CodeViewer onSuccess={this.onSuccess} onError={this.onLoadFail} {...viewerProps} />;
 		}
 
-		if (
-			getBooleanFF('platform.media-svg-rendering') &&
-			isFileIdentifier(identifier) &&
-			fileState.mimeType === `image/svg+xml`
-		) {
+		if (isFileIdentifier(identifier) && fileState.mimeType === `image/svg+xml`) {
 			return (
 				<MediaClientProvider clientConfig={mediaClient.config}>
 					<SvgViewer

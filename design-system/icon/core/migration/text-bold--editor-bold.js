@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::055631809f31060029b0461284663ac3>>
+ * @codegen <<SignedSource::bbe29052caf3497c614e843906a80494>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Migration Icon component for TextBoldIcon.
  * This component is TextBoldIcon, with `UNSAFE_fallbackIcon` set to "EditorBoldIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for bolding text.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

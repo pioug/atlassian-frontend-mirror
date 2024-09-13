@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 89.1.2
+
+### Patch Changes
+
+- [#140615](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140615)
+  [`9fcd397540837`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9fcd397540837) -
+  [ux] [ED-24523] Fix selection set after inserting codeblock via typeahead or toolbar
+- [#140550](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140550)
+  [`b4f8f21029b8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b4f8f21029b8f) -
+  Update main toolbar icon for right rail experiment, add analytics
+- Updated dependencies
+
+## 89.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 89.1.0
 
 ### Minor Changes

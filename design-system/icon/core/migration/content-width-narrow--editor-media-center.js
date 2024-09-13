@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fb9ece94f04cbd8f50370a04a4820d3a>>
+ * @codegen <<SignedSource::142c9bb589c004730fb4f9a3d9240c47>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Migration Icon component for ContentWidthNarrowIcon.
  * This component is ContentWidthNarrowIcon, with `UNSAFE_fallbackIcon` set to "EditorMediaCenterIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
  * Usage guidance: Single purpose - Reserved for setting media and content to a narrow width.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)

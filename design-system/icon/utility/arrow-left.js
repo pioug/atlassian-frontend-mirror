@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1ff09d75b59c128504feca76a39b7398>>
+ * @codegen <<SignedSource::a78d99b0ced69dcc38c46a39b06ca9a7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ArrowLeftIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m5.75 2-4 4m0 0 4 4m-4-4H11"/>`,
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m5.75 2-4 4 4 4M11 6H2.25"/>`,
   type: 'utility'
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

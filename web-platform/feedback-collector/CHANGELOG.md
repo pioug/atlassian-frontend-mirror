@@ -1,5 +1,14 @@
 # @atlaskit/feedback-collector
 
+## 13.11.0
+
+### Minor Changes
+
+- [`a5f64e450ae8c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a5f64e450ae8c) -
+  Added an underline to in-product help links in the feedback collector for accessibility, behind a
+  feature flag. Now the links will always be underlined, instead of only on hover. If this fix is
+  successful it will be available in a later release.
+
 ## 13.10.2
 
 ### Patch Changes

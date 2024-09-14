@@ -19,7 +19,7 @@ export function MyTagGroup({ alignment }: MyTagGroupProps) {
 	};
 
 	return (
-		<TagGroup alignment={alignment}>
+		<TagGroup alignment={alignment} label="Tags with handlers">
 			{tags.map((text) => (
 				<Tag
 					key={text}

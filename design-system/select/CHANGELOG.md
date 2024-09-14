@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 17.18.0
+
+### Minor Changes
+
+- [#134622](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134622)
+  [`66b5d35764e86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66b5d35764e86) -
+  Updated select open menu handler and fixed tests
+  (https://product-fabric.atlassian.net/browse/DSP-20454)
+
 ## 17.17.0
 
 ### Minor Changes

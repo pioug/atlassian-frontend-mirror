@@ -56,15 +56,18 @@ const tagNames = [
 ];
 
 export default () => (
-	<TagGroup>
-		{tagNames.map((sweet) => (
-			<Tag
-				appearance="rounded"
-				elemBefore={<Avatar size="xsmall" />}
-				href="http://www.cupcakeipsum.com/"
-				key={sweet}
-				text={sweet}
-			/>
-		))}
-	</TagGroup>
+	<>
+		<h2 id="group-label">Tags with rounded appearance</h2>
+		<TagGroup titleId="group-label">
+			{tagNames.map((sweet) => (
+				<Tag
+					appearance="rounded"
+					elemBefore={<Avatar size="xsmall" />}
+					href="http://www.cupcakeipsum.com/"
+					key={sweet}
+					text={sweet}
+				/>
+			))}
+		</TagGroup>
+	</>
 );

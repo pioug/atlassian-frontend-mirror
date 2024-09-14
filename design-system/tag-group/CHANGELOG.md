@@ -1,5 +1,14 @@
 # @atlaskit/tag-group
 
+## 10.6.0
+
+### Minor Changes
+
+- [#140301](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140301)
+  [`f9f50b90f0693`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f9f50b90f0693) -
+  [ux] Assistive technologies now define TagGroup as a group. Additionally `label` and `titleId`
+  props introduced to label the current group.
+
 ## 10.5.0
 
 ### Minor Changes

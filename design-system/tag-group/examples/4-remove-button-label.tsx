@@ -6,7 +6,8 @@ import TagGroup from '../src';
 
 export default () => (
 	<div>
-		<TagGroup alignment="start">
+		<h2 id="group-label">Tags with labels for remove button</h2>
+		<TagGroup titleId="group-label" alignment="start">
 			<SimpleTag text="Base Tag" />
 			<SimpleTag text="Linked Tag" href="/components/tag" />
 			<SimpleTag text="Rounded Tag" appearance="rounded" />

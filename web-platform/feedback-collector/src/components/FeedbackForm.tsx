@@ -6,6 +6,7 @@ import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { Field, Fieldset, RequiredAsterisk } from '@atlaskit/form';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import Link from '@atlaskit/link';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
 import SectionMessage from '@atlaskit/section-message';
@@ -269,14 +270,22 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 																<FormattedMessage
 																	{...messages.canBeContactedLabel}
 																	values={{
-																		a: (chunks: React.ReactNode[]) => (
-																			<a
-																				href="https://www.atlassian.com/legal/privacy-policy"
-																				target="_blank"
-																			>
-																				{chunks}
-																			</a>
-																		),
+																		a: (chunks: React.ReactNode[]) =>
+																			fg('underlined_iph_links') ? (
+																				<Link
+																					href="https://www.atlassian.com/legal/privacy-policy"
+																					target="_blank"
+																				>
+																					{chunks}
+																				</Link>
+																			) : (
+																				<a
+																					href="https://www.atlassian.com/legal/privacy-policy"
+																					target="_blank"
+																				>
+																					{chunks}
+																				</a>
+																			),
 																	}}
 																/>
 															)

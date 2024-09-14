@@ -1,5 +1,4 @@
 import React, {
-	type AriaAttributes,
 	Component,
 	type FocusEventHandler,
 	type FormEventHandler,
@@ -68,38 +67,20 @@ export interface FormatOptionLabelMeta<Option> {
 
 export interface SelectProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {
 	/**
-	 * HTML ID of an element containing an error message related to the input
-	 */
-	'aria-errormessage'?: AriaAttributes['aria-errormessage'];
-	/**
-	 * Indicate if the value entered in the field is invalid
-	 */
-	'aria-invalid'?: AriaAttributes['aria-invalid'];
-	/**
-	 * Aria label (for assistive tech)
-	 */
-	'aria-label'?: AriaAttributes['aria-label'];
-	/**
-	 * HTML ID of an element that should be used as the label (for assistive tech)
-	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	'aria-labelledby'?: AriaAttributes['aria-labelledby'];
-	'aria-describedby'?: AriaAttributes['aria-describedby'];
-	/**
-	 * Used to set the priority with which screen reader should treat updates to live regions. The possible settings are: off, polite (default) or assertive
-	 */
-	'aria-live'?: AriaAttributes['aria-live'];
-	/**
 	 * Customise the messages used by the aria-live component
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	ariaLiveMessages?: AriaLiveMessages<Option, IsMulti, Group>;
 	/**
-	 * Focus the control when it is mounted
+	 * Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.
 	 */
 	autoFocus?: boolean;
 	/**
 	 * Remove the currently focused option when the user presses backspace when Select isClearable or isMulti
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}. Will soon be handled automatically to support expected keyboard accessibility.
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	backspaceRemovesValue: boolean;
@@ -110,6 +91,8 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	blurInputOnSelect: boolean;
 	/**
 	 * When the user reaches the top/bottom of the menu, prevent scroll on the scroll-parent
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	captureMenuScroll: boolean;
@@ -143,6 +126,8 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	 *
 	 * This is useful when you have a scrollable modal and want to portal the menu out,
 	 * but want to avoid graphical issues.
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
 	 */
 	closeMenuOnScroll: boolean | ((event: Event) => boolean);
 	/**
@@ -157,15 +142,25 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	components: SelectComponentsConfig<Option, IsMulti, Group>;
 	/**
 	 * Whether the value of the select, e.g. SingleValue, should be displayed in the control.
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	controlShouldRenderValue: boolean;
 	/**
 	 * Delimiter used to join multiple values into a single HTML Input value
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
 	 */
 	delimiter?: string;
 	/**
-	 * Clear all values when the user presses escape AND the menu is closed
+	 * This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.
+	 */
+	descriptionId?: string;
+	/**
+	 * Clear all values when the user presses escape AND the menu is closed.
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}. Will soon be handled automatically to support expected keyboard accessibility.
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	escapeClearsValue: boolean;
@@ -227,6 +222,10 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	 */
 	isDisabled: boolean;
 	/**
+	 * Is the select invalid
+	 */
+	isInvalid?: boolean;
+	/**
 	 * Is the select in a state of loading (async)
 	 */
 	isLoading: boolean;
@@ -245,13 +244,29 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	 */
 	isMulti: IsMulti;
 	/**
+	 * This prop indicates if the component is required.
+	 */
+	isRequired?: boolean;
+	/**
 	 * Is the select direction right-to-left
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
 	 */
 	isRtl: boolean;
 	/**
 	 * Whether to enable search functionality
 	 */
 	isSearchable: boolean;
+	/**
+	 * This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.
+	 */
+	label?: string;
+	/**
+	 * This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.
+	 */
+	// This prop is not used for translation, it accepts a space separated list of id's.
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	labelId?: string;
 	/**
 	 * Async: Text to display when loading options
 	 */
@@ -286,6 +301,8 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	menuPortalTarget?: HTMLElement | null;
 	/**
 	 * Whether to block scroll events when the menu is open
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	menuShouldBlockScroll: boolean;
@@ -340,11 +357,15 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	onMenuScrollToBottom?: (event: WheelEvent | TouchEvent) => void;
 	/**
 	 * Allows control of whether the menu is opened when the Select is focused
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}. Will soon be removed to support expected accessibility interactions.
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	openMenuOnFocus: boolean;
 	/**
 	 * Allows control of whether the menu is opened when the Select is clicked
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}. Will soon be removed to support expected accessibility interactions.
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	openMenuOnClick: boolean;
@@ -362,6 +383,8 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	placeholder: ReactNode;
 	/**
 	 * Status to relay to screen readers
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
 	 */
 	screenReaderStatus: (obj: { count: number }) => string;
 	/**
@@ -372,15 +395,20 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	styles: StylesConfig<Option, IsMulti, Group>;
 	/**
 	 * Theme modifier method
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	theme?: ThemeConfig;
 	/**
-	 * Sets the tabIndex attribute on the input
+	 * Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.
+	 *
 	 */
 	tabIndex: number;
 	/**
 	 * Select the currently focused option when the user presses tab
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}. Will soon be handled automatically to support expected keyboard accessibility.
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	tabSelectsValue: boolean;
@@ -397,15 +425,9 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	 * Sets the form attribute on the input
 	 */
 	form?: string;
-	/**
-	 * Marks the value-holding input as required for form validation
-	 */
-	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-	required?: boolean;
 }
 
 export const defaultProps = {
-	'aria-live': 'polite',
 	backspaceRemovesValue: true,
 	blurInputOnSelect: isTouchCapable(),
 	captureMenuScroll: !isTouchCapable(),
@@ -1775,8 +1797,20 @@ export default class Select<
 	// Renderers
 	// ==============================
 	renderInput() {
-		const { isDisabled, isSearchable, inputId, inputValue, tabIndex, form, menuIsOpen, required } =
-			this.props;
+		const {
+			descriptionId,
+			form,
+			inputId,
+			inputValue,
+			isDisabled,
+			isInvalid,
+			isRequired,
+			isSearchable,
+			label,
+			labelId,
+			menuIsOpen,
+			tabIndex,
+		} = this.props;
 		const { Input } = this.getComponents();
 		const { inputIsHidden, ariaSelection } = this.state;
 		const { commonProps } = this;
@@ -1788,12 +1822,11 @@ export default class Select<
 			'aria-autocomplete': 'list' as const,
 			'aria-expanded': menuIsOpen,
 			'aria-haspopup': 'listbox',
-			'aria-errormessage': this.props['aria-errormessage'],
-			'aria-describedby': this.props['aria-describedby'],
-			'aria-invalid': this.props['aria-invalid'],
-			'aria-label': this.props['aria-label'],
-			'aria-labelledby': this.props['aria-labelledby'],
-			'aria-required': required,
+			'aria-describedby': descriptionId,
+			'aria-invalid': isInvalid,
+			'aria-label': label,
+			'aria-labelledby': labelId,
+			'aria-required': isRequired,
 			role: 'combobox',
 			'aria-activedescendant': this.isAppleDevice ? undefined : this.state.focusedOptionId,
 			...(menuIsOpen && {
@@ -1804,10 +1837,14 @@ export default class Select<
 			}),
 			...(this.hasValue()
 				? ariaSelection?.action === 'initial-input-focus' && {
-						'aria-describedby': this.getElementId('live-region'),
+						'aria-describedby': descriptionId
+							? [descriptionId, this.getElementId('live-region')].join(' ')
+							: this.getElementId('live-region'),
 					}
 				: {
-						'aria-describedby': this.getElementId('placeholder'),
+						'aria-describedby': descriptionId
+							? [descriptionId, this.getElementId('placeholder')].join(' ')
+							: this.getElementId('placeholder'),
 					}),
 		};
 
@@ -2182,10 +2219,10 @@ export default class Select<
 		);
 	}
 	renderFormField() {
-		const { delimiter, isDisabled, isMulti, name, required } = this.props;
+		const { delimiter, isDisabled, isMulti, isRequired, name } = this.props;
 		const { selectValue } = this.state;
 
-		if (required && !this.hasValue() && !isDisabled) {
+		if (isRequired && !this.hasValue() && !isDisabled) {
 			return <RequiredInput name={name} onFocus={this.onValueInputFocus} />;
 		}
 

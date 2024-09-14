@@ -54,14 +54,13 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 		isMulti,
 		isOptionDisabled,
 		isSearchable,
+		label,
 		menuIsOpen,
 		options,
 		screenReaderStatus,
 		tabSelectsValue,
 		isLoading,
 	} = selectProps;
-	const ariaLabel = selectProps['aria-label'];
-	const ariaLive = selectProps['aria-live'];
 
 	// Update aria live message configuration when prop changes
 	const messages = useMemo(
@@ -158,7 +157,7 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 		if (messages.guidance) {
 			const context = focusedValue ? 'value' : menuIsOpen ? 'menu' : 'input';
 			guidanceMsg = messages.guidance({
-				'aria-label': ariaLabel,
+				'aria-label': label,
 				context,
 				isDisabled: focusedOption && isOptionDisabled(focusedOption, selectValue),
 				isMulti,
@@ -169,7 +168,7 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 		}
 		return guidanceMsg;
 	}, [
-		ariaLabel,
+		label,
 		focusedOption,
 		focusedValue,
 		isMulti,
@@ -196,7 +195,7 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 			{/* We use 'aria-describedby' linked to this component for the initial focus */}
 			{/* action, then for all other actions we use the live region below */}
 			<A11yText id={id}>{isInitialFocus && ScreenReaderText}</A11yText>
-			<A11yText aria-live={ariaLive} aria-atomic="false" aria-relevant="additions text" role="log">
+			<A11yText aria-live="polite" aria-atomic="false" aria-relevant="additions text" role="log">
 				{isFocused && !isInitialFocus && ScreenReaderText}
 			</A11yText>
 		</Fragment>

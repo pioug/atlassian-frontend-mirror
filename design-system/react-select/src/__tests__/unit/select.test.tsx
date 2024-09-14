@@ -2041,20 +2041,17 @@ test('accessibility > aria-activedescendant should not exist if hideSelectedOpti
 });
 
 cases(
-	'accessibility > passes through aria-labelledby prop',
-	({ props = { ...BASIC_PROPS, 'aria-labelledby': 'testing' } }) => {
-		let { container } = render(<Select {...props} />);
-		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
-			'aria-labelledby',
-			'testing',
-		);
+	'accessibility > passes through labelId (aria-labelledby) prop',
+	({ props = { ...BASIC_PROPS, labelId: 'testing' } }) => {
+		render(<Select {...props} />);
+		expect(screen.getByRole('combobox')).toHaveAttribute('aria-labelledby', 'testing');
 	},
 	{
-		'single select > should pass aria-labelledby prop down to input': {},
-		'multi select > should pass aria-labelledby prop down to input': {
+		'single select > should pass labelId (aria-labelledby) prop down to input': {},
+		'multi select > should pass labelId (aria-labelledby) prop down to input': {
 			props: {
 				...BASIC_PROPS,
-				'aria-labelledby': 'testing',
+				labelId: 'testing',
 				isMulti: true,
 			},
 		},
@@ -2062,20 +2059,20 @@ cases(
 );
 
 cases(
-	'accessibility > passes through aria-errormessage prop',
-	({ props = { ...BASIC_PROPS, 'aria-errormessage': 'error-message' } }) => {
-		let { container } = render(<Select {...props} />);
-		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
-			'aria-errormessage',
-			'error-message',
+	'accessibility > passes through descriptionId (aria-describedby) prop',
+	({ props = { ...BASIC_PROPS, descriptionId: 'testing' } }) => {
+		render(<Select {...props} />);
+		expect(screen.getByRole('combobox')).toHaveAttribute(
+			'aria-describedby',
+			expect.stringContaining('testing'),
 		);
 	},
 	{
-		'single select > should pass aria-errormessage prop down to input': {},
-		'multi select > should pass aria-errormessage prop down to input': {
+		'single select > should pass descriptionId (aria-describedby) prop down to input': {},
+		'multi select > should pass descriptionId (aria-describedby) prop down to input': {
 			props: {
 				...BASIC_PROPS,
-				'aria-errormessage': 'error-message',
+				descriptionId: 'testing',
 				isMulti: true,
 			},
 		},
@@ -2083,20 +2080,17 @@ cases(
 );
 
 cases(
-	'accessibility > passes through aria-invalid prop',
-	({ props = { ...BASIC_PROPS, 'aria-invalid': true } }) => {
-		let { container } = render(<Select {...props} />);
-		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
-			'aria-invalid',
-			'true',
-		);
+	'accessibility > passes through isRequired (aria-required) prop',
+	({ props = { ...BASIC_PROPS, isRequired: true } }) => {
+		render(<Select {...props} />);
+		expect(screen.getByRole('combobox')).toBeRequired();
 	},
 	{
-		'single select > should pass aria-invalid prop down to input': {},
-		'multi select > should pass aria-invalid prop down to input': {
+		'single select > should pass isRequired (aria-required) prop down to input': {},
+		'multi select > should pass isRequired (aria-required) prop down to input': {
 			props: {
 				...BASIC_PROPS,
-				'aria-invalid': true,
+				isRequired: true,
 				isMulti: true,
 			},
 		},
@@ -2104,20 +2098,36 @@ cases(
 );
 
 cases(
-	'accessibility > passes through aria-label prop',
-	({ props = { ...BASIC_PROPS, 'aria-label': 'testing' } }) => {
-		let { container } = render(<Select {...props} />);
-		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
-			'aria-label',
-			'testing',
-		);
+	'accessibility > passes through isInvalid (aria-invalid) prop',
+	({ props = { ...BASIC_PROPS, isInvalid: true } }) => {
+		render(<Select {...props} />);
+
+		expect(screen.getByRole('combobox')).toBeInvalid();
 	},
 	{
-		'single select > should pass aria-labelledby prop down to input': {},
-		'multi select > should pass aria-labelledby prop down to input': {
+		'single select > should pass isInvalid (aria-invalid) prop down to input': {},
+		'multi select > should pass isInvalid (aria-invalid) prop down to input': {
 			props: {
 				...BASIC_PROPS,
-				'aria-label': 'testing',
+				isInvalid: true,
+				isMulti: true,
+			},
+		},
+	},
+);
+
+cases(
+	'accessibility > passes through label (aria-label) prop',
+	({ props = { ...BASIC_PROPS, label: 'testing' } }) => {
+		render(<Select {...props} />);
+		expect(screen.getByRole('combobox')).toHaveAttribute('aria-label', 'testing');
+	},
+	{
+		'single select > should pass label (aria-label) prop down to input': {},
+		'multi select > should pass label (aria-label) prop down to input': {
+			props: {
+				...BASIC_PROPS,
+				label: 'testing',
 				isMulti: true,
 			},
 		},
@@ -3050,7 +3060,7 @@ cases(
 	({ props = BASIC_PROPS }) => {
 		const components = (value: Option | null | undefined = null) => (
 			<form id="formTest">
-				<Select {...props} required value={value} />
+				<Select {...props} isRequired value={value} />
 			</form>
 		);
 

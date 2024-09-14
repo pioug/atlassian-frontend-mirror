@@ -19,25 +19,25 @@ const layoutStyles = css({
 
 export default () => (
 	<div css={layoutStyles}>
-		<TagGroup>
+		<TagGroup label="Simple tags">
 			<SimpleTag text="Tag" />
 			<SimpleTag text="Tag" />
 			<SimpleTag text="Tag" />
 			<SimpleTag text="Tag" />
 		</TagGroup>
-		<TagGroup>
+		<TagGroup label="Link tags">
 			<SimpleTag text="Tag link" href="/components/tag-group" />
 			<SimpleTag text="Tag link" href="/components/tag-group" />
 			<SimpleTag text="Tag link" href="/components/tag-group" />
 			<SimpleTag text="Tag link" href="/components/tag-group" />
 		</TagGroup>
-		<TagGroup>
+		<TagGroup label="Rounded tags">
 			<SimpleTag text="Rounded tag" appearance="rounded" />
 			<SimpleTag text="Rounded tag" appearance="rounded" />
 			<SimpleTag text="Rounded tag" appearance="rounded" />
 			<SimpleTag text="Rounded tag" appearance="rounded" />
 		</TagGroup>
-		<TagGroup>
+		<TagGroup label="Removable tags">
 			<Tag text="Removable tag" />
 			<Tag text="Removable tag" />
 			<Tag text="Removable tag" />

@@ -47,4 +47,24 @@ describe('TagGroup', () => {
 		);
 		expect(container.firstChild).toHaveStyle(`justify-content: flex-end`);
 	});
+	it('should should have attribute role="group"', () => {
+		render(
+			<TagGroup label="test tags" alignment="end">
+				<Tag text="test" />
+				<Tag text="test" />
+				<Tag text="test" />
+			</TagGroup>,
+		);
+		expect(screen.getByRole('group')).toBeInTheDocument();
+	});
+	it('should add label prop value to an aria-label attribute', () => {
+		render(
+			<TagGroup label="test tags" alignment="end">
+				<Tag text="test" />
+				<Tag text="test" />
+				<Tag text="test" />
+			</TagGroup>,
+		);
+		expect(screen.getByRole('group')).toHaveAttribute('aria-label', 'test tags');
+	});
 });

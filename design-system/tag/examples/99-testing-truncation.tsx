@@ -17,13 +17,13 @@ export default () => (
 			<SimpleTag text="Base Tag" testId="standard" />
 			<SimpleTag text="Linked Tag" href="/components/tag" />
 			<SimpleTag text="Rounded Tag" appearance="rounded" />
-			<Tag text="Removable button" removeButtonLabel="Aria label" />
+			<Tag text="Removable button" />
 		</TagGroup>
 		<TagGroup alignment="end">
 			<SimpleTag text="Base Tag" />
 			<SimpleTag text="Linked Tag" href="/components/tag" />
 			<SimpleTag text="Rounded Tag" appearance="rounded" />
-			<Tag text="Removable button" removeButtonLabel="Aria label" />
+			<Tag text="Removable button" />
 		</TagGroup>
 	</Box>
 );

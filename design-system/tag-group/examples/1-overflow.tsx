@@ -55,9 +55,12 @@ const tagNames = [
 ];
 
 export default () => (
-	<TagGroup>
-		{tagNames.map((sweet) => (
-			<Tag href="http://www.cupcakeipsum.com/" key={sweet} text={sweet} />
-		))}
-	</TagGroup>
+	<>
+		<h2 id="group-label">Atlassian sweets</h2>
+		<TagGroup titleId="group-label">
+			{tagNames.map((sweet) => (
+				<Tag href="http://www.cupcakeipsum.com/" key={sweet} text={sweet} />
+			))}
+		</TagGroup>
+	</>
 );

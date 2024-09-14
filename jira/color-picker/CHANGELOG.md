@@ -1,5 +1,18 @@
 # @atlaskit/color-picker
 
+## 3.3.0
+
+### Minor Changes
+
+- [#134622](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/134622)
+  [`66b5d35764e86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66b5d35764e86) -
+  Added feature flag for hiding trigger focus styles on expand
+  (https://product-fabric.atlassian.net/browse/DSP-20821)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.27
 
 ### Patch Changes

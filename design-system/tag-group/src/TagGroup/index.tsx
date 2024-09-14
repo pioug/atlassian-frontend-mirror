@@ -19,6 +19,16 @@ export interface TagGroupProps {
 	 * Tags to render within the tag group.
 	 */
 	children: ReactNode;
+	/**
+	 * Refers to an `aria-label` attribute. Sets an accessible name for the tags group wrapper to announce it to users of assistive technology.
+	 * Usage of either this, or the `titleId` attribute is strongly recommended.
+	 */
+	label?: string;
+	/**
+	 * ID referenced by the tag group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group-button title element.
+	 * Usage of either this, or the `label` attribute is strongly recommended.
+	 */
+	titleId?: string;
 }
 
 const baseStyles = css({
@@ -39,19 +49,24 @@ const justifyEndStyles = css({ justifyContent: 'flex-end' });
  * - [Code](https://atlassian.design/components/tag-group/code)
  * - [Usage](https://atlassian.design/components/tag-group/usage)
  */
-const TagGroup = forwardRef<any, TagGroupProps>(({ alignment = 'start', children }, ref) => {
-	return (
-		<div
-			ref={ref}
-			css={[
-				baseStyles,
-				alignment === 'start' && justifyStartStyles,
-				alignment === 'end' && justifyEndStyles,
-			]}
-		>
-			{children}
-		</div>
-	);
-});
+const TagGroup = forwardRef<any, TagGroupProps>(
+	({ alignment = 'start', titleId, label, children }, ref) => {
+		return (
+			<div
+				role="group"
+				ref={ref}
+				aria-label={label}
+				aria-labelledby={titleId}
+				css={[
+					baseStyles,
+					alignment === 'start' && justifyStartStyles,
+					alignment === 'end' && justifyEndStyles,
+				]}
+			>
+				{children}
+			</div>
+		);
+	},
+);
 
 export default TagGroup;

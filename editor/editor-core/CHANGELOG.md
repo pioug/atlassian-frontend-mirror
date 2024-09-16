@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 197.7.3
+
+### Patch Changes
+
+- [#140707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140707)
+  [`972fb840acf35`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/972fb840acf35) -
+  Switch from fg to experiment for media-from-url
+- Updated dependencies
+
+## 197.7.2
+
+### Patch Changes
+
+- [#140703](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140703)
+  [`11fdcb79f3b3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/11fdcb79f3b3a) -
+  ED-24903 fix nested dnd adding blue line to nested expands
+- Updated dependencies
+
+## 197.7.1
+
+### Patch Changes
+
+- [#140717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140717)
+  [`142a506a3f170`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/142a506a3f170) -
+  ED-24958 prevent confluence full page editor crashing when loading from draft doc
+- [#140717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140717)
+  [`d3922f33f7268`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3922f33f7268) -
+  [ux] Removing token fallbacks for styling. For apps supporting tokens this has no difference, for
+  those not there may be slight variations in colors to align with tokens.
+- [#140665](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140665)
+  [`a578027283b8c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a578027283b8c) -
+  added deprecation notice to the Legacy Editor Component
+
 ## 197.7.0
 
 ### Minor Changes

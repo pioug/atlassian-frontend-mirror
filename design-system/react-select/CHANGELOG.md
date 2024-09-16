@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.0.1
+
+### Patch Changes
+
+- [#140869](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140869)
+  [`f08b672eb884b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f08b672eb884b) -
+  Add back removed props as deprecated for easier migration
+
 ## 1.0.0
 
 ### Major Changes

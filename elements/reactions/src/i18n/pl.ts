@@ -16,6 +16,7 @@ export default {
     '{count, plural, one {i jeszcze 1} few {i jeszcze {count}} many {i jeszcze {count}} other {i jeszcze {count}}}',
   'fabric.reactions.reactwithemoji': 'Zareaguj za pomocą emoji {emoji}',
   'fabric.reactions.summary': 'Wyświetl wszystkie reakcje użytkowników',
+  'reaction-picker-trigger.add.reaction.message': 'Dodaj reakcję',
   'reactions.dialog.close': 'Zamknij',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Przejdź w lewo',

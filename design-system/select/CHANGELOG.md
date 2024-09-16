@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 17.19.0
+
+### Minor Changes
+
+- [#140648](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140648)
+  [`0fee45dd431ca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fee45dd431ca) -
+  Updated group heading styles to align to new modernised typography styles. Headings are no longer
+  all uppercase and are now bold. This change is behind a feature flag.
+
 ## 17.18.0
 
 ### Minor Changes

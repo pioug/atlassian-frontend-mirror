@@ -15,6 +15,7 @@ export default {
   'fabric.reactions.other.reacted.users': '{count, plural, other {、他 {count} 人}}',
   'fabric.reactions.reactwithemoji': '絵文字 {emoji} でリアクション',
   'fabric.reactions.summary': 'ユーザーによるすべてのリアクションを表示',
+  'reaction-picker-trigger.add.reaction.message': 'リアクションを追加',
   'reactions.dialog.close': '閉じる',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': '左に移動',

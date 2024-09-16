@@ -7,24 +7,23 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, keyframes } from '@emotion/react';
 
-import { R100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const pulseBackground = keyframes({
 	'50%': {
-		backgroundColor: token('color.blanket.danger', R100),
+		backgroundColor: token('color.blanket.danger'),
 	},
 });
 
 const pulseBackgroundReverse = keyframes({
 	'0%': {
-		backgroundColor: token('color.blanket.danger', R100),
+		backgroundColor: token('color.blanket.danger'),
 	},
 	'50%': {
 		backgroundColor: 'auto',
 	},
 	'100%': {
-		backgroundColor: token('color.blanket.danger', R100),
+		backgroundColor: token('color.blanket.danger'),
 	},
 });
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/css",
-	"version": "0.4.0",
+	"version": "0.5.0",
 	"description": "Style components backed by Atlassian Design System design tokens powered by Compiled CSS-in-JS.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,15 +29,15 @@
 		}
 	},
 	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
+	"atlaskit:src": "src/index.tsx",
 	"af:exports": {
-		".": "./src/index.ts"
+		".": "./src/index.tsx"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^1.59.0",
+		"@atlaskit/tokens": "^1.60.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.17.3"
 	},

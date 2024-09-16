@@ -15,6 +15,7 @@ export default {
   'fabric.reactions.other.reacted.users': '{count, plural, one {en één andere} other {en {count} andere}}',
   'fabric.reactions.reactwithemoji': 'Reageren met emoticon {emoji}',
   'fabric.reactions.summary': 'Alle reacties van gebruikers bekijken',
+  'reaction-picker-trigger.add.reaction.message': 'Voeg een reactie toe',
   'reactions.dialog.close': 'Sluiten',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigeer naar links',

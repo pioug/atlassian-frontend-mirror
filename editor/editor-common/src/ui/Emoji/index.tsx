@@ -1,22 +1,24 @@
 import React, { PureComponent } from 'react';
 
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
-import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import type { EmojiProvider, EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import type { EmojiId } from '@atlaskit/emoji/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Providers } from '../../provider-factory';
 import { ProviderFactory, WithProviders } from '../../provider-factory';
 
 export interface EmojiProps extends EmojiId {
 	allowTextFallback?: boolean;
+	// @deprecated - remains for compatability with legacy emoji props
 	providers?: ProviderFactory;
 	fitToHeight?: number;
 	showTooltip?: boolean;
 	resourceConfig?: EmojiResourceConfig;
+	emojiProvider?: EmojiProvider;
 }
 
-// @deprecated - use Emoji from editor-plugin-emoji
-export default class EmojiNode extends PureComponent<EmojiProps, {}> {
+class EmojiNodeClass extends PureComponent<EmojiProps, {}> {
 	static displayName = 'EmojiNode';
 	static defaultProps = {
 		showTooltip: true,
@@ -84,3 +86,60 @@ export default class EmojiNode extends PureComponent<EmojiProps, {}> {
 		);
 	}
 }
+
+const EmojiNodeFunctional = (props: EmojiProps) => {
+	const {
+		allowTextFallback,
+		shortName,
+		id,
+		fallback,
+		fitToHeight,
+		showTooltip,
+		resourceConfig,
+		emojiProvider,
+	} = props;
+
+	if (allowTextFallback && !emojiProvider) {
+		return (
+			<span
+				data-emoji-id={id}
+				data-emoji-short-name={shortName}
+				data-emoji-text={fallback || shortName}
+			>
+				{fallback || shortName}
+			</span>
+		);
+	}
+
+	if (!emojiProvider) {
+		return null;
+	}
+
+	return (
+		<ResourcedEmoji
+			emojiId={{ id, fallback, shortName }}
+			emojiProvider={Promise.resolve(emojiProvider)}
+			showTooltip={showTooltip}
+			fitToHeight={fitToHeight}
+			optimistic
+			optimisticImageURL={resourceConfig?.optimisticImageApi?.getUrl({
+				id,
+				fallback,
+				shortName,
+			})}
+			editorEmoji={true}
+		/>
+	);
+};
+
+const EmojiNode = (props: EmojiProps) => {
+	if (fg('platform_editor_get_emoji_provider_from_config')) {
+		if (props.emojiProvider) {
+			return <EmojiNodeFunctional {...props} />;
+		}
+	}
+
+	return <EmojiNodeClass {...props} />;
+};
+
+export default EmojiNode;

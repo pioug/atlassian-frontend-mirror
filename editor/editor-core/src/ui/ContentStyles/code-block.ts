@@ -13,7 +13,6 @@ import {
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { R75 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -78,7 +77,7 @@ export const codeBlockStyles = () => css`
 			${token('color.border.danger', akEditorDeleteBorder)};
 
 		.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER} {
-			background-color: ${token('color.background.danger', R75)};
+			background-color: ${token('color.background.danger')};
 			color: ${token('color.text.danger', akEditorDeleteIconColor)};
 			${GutterDangerOverlay()};
 		}

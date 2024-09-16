@@ -106,8 +106,7 @@ function getDocChildrenCount(newState: EditorState): number {
 
 const initialState: PluginState = {
 	decorations: DecorationSet.empty,
-	decorationState: [],
-	activeNode: null,
+	activeNode: undefined,
 	isDragging: false,
 	isMenuOpen: false,
 	editorHeight: 0,
@@ -139,7 +138,6 @@ export const createPlugin = (
 					activeNode,
 					decorations,
 					isMenuOpen,
-					decorationState,
 					editorHeight,
 					editorWidthLeft,
 					editorWidthRight,
@@ -149,12 +147,18 @@ export const createPlugin = (
 					childCount,
 				} = currentState;
 
+				// Remap existing decorations when document changes
+				if (tr.docChanged) {
+					decorations = decorations.map(tr.mapping, tr.doc);
+				}
+
+				const meta = tr.getMeta(key);
 				const isPerformanceFix =
 					editorExperiment('dnd-input-performance-optimisation', true, {
 						exposure: true,
 					}) || editorExperiment('nested-dnd', true);
 				let activeNodeWithNewNodeType = null;
-				const meta = tr.getMeta(key);
+
 				const newChildCount =
 					tr.docChanged && editorExperiment('nested-dnd', true)
 						? getDocChildrenCount(newState)
@@ -349,18 +353,6 @@ export const createPlugin = (
 					decorations = decorations.add(newState.doc, [decs]);
 				}
 
-				const shouldUpdateDropTargets = meta?.isDragging || isDropTargetsMissing;
-
-				// During dragging if the the document is updated by remote user, or other processes
-				// and update drop target is not required, We remap the drop target.
-				const shouldMapDropTargets = editorExperiment('nested-dnd', true)
-					? !shouldUpdateDropTargets && tr.docChanged && isDragging && !meta?.nodeMoved
-					: !shouldUpdateDropTargets &&
-						tr.docChanged &&
-						isDragging &&
-						meta?.isDragging === false &&
-						!meta?.nodeMoved;
-
 				if (meta?.isDragging === false || isDropTargetsMissing) {
 					if (editorExperiment('nested-dnd', true)) {
 						const remainingDecs = decorations.find(
@@ -391,11 +383,12 @@ export const createPlugin = (
 							}
 						: activeNode;
 
+				const shouldCreateDropTargets = meta?.isDragging || isDropTargetsMissing;
 				if (api) {
 					// Add drop targets when node is being dragged
 					// if the transaction is only for analytics and user is dragging, continue to draw drop targets
-					if (shouldUpdateDropTargets || isBlocksDragTargetDebug()) {
-						const { decs, decorationState: updatedDecorationState } = dropTargetDecorations(
+					if (shouldCreateDropTargets || isBlocksDragTargetDebug()) {
+						const decs = dropTargetDecorations(
 							newState,
 							api,
 							formatMessage,
@@ -403,24 +396,8 @@ export const createPlugin = (
 								? meta?.activeNode ?? mappedActiveNodePos
 								: meta?.activeNode,
 						);
-						decorationState = updatedDecorationState;
 						decorations = decorations.add(newState.doc, decs);
 					}
-				}
-
-				//Map drop target decoration positions when the document changes
-				if (shouldMapDropTargets) {
-					decorationState = decorationState.map(({ id, pos }) => {
-						return {
-							id,
-							pos: tr.mapping.map(pos),
-						};
-					});
-				}
-
-				// Map decorations if document changes and node decorations do not need to be redrawn
-				if (shouldMapDropTargets || (tr.docChanged && !redrawDecorations)) {
-					decorations = decorations.map(tr.mapping, tr.doc);
 				}
 
 				const isEmptyDoc = editorExperiment('nested-dnd', true)
@@ -442,7 +419,6 @@ export const createPlugin = (
 
 				return {
 					decorations,
-					decorationState,
 					activeNode: newActiveNode,
 					isDragging: meta?.isDragging ?? isDragging,
 					isMenuOpen: meta?.toggleMenu ? !isMenuOpen : isMenuOpen,

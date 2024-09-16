@@ -1,5 +1,6 @@
 import React, { type FocusEvent, type ReactNode } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives';
 
 import {
@@ -114,7 +115,11 @@ const JQLEditorLayout = (props: Props) => {
 					onFocus={onEditorViewFocus}
 					onTransitionEnd={onEditorViewTransitionEnd}
 				/>
-				<EditorControls isSearch={isSearch} isCompact={isCompact}>
+				<EditorControls
+					isSearch={isSearch}
+					isCompact={isCompact}
+					isVisualRefresh={fg('platform-component-visual-refresh')}
+				>
 					{EditorControlsContent}
 				</EditorControls>
 			</EditorViewContainer>

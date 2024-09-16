@@ -118,7 +118,7 @@ export const CommentBadge = injectIntl(CommentBadgeWrapper);
 /**
  * Remove CommentBadgeWrapper component above
  * and rename CommentBadgeNextWrapper to CommentBadgeWrapper
- * when clean up platform_editor_insert_media_plugin_phase_one feature flag
+ * when clean up platform_editor_add_media_from_url feature flag
  */
 
 type CommentBadgeNextWrapperProps = {

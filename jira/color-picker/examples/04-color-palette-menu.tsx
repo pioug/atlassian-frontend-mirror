@@ -21,7 +21,7 @@ class ColorPaletteMenuExample extends React.Component<{}, { color: string }> {
 					label="Change color"
 					palette={simplePalette}
 					selectedColor={this.state.color}
-					onChange={(newColor: string) => this.setState({ color: newColor })}
+					onChange={(_, newColor: string) => this.setState({ color: newColor })}
 					cols={3}
 				/>
 			</IntlProvider>

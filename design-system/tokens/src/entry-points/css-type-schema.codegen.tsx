@@ -3,12 +3,142 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::73ea861e90cff1941e5848336ce46260>>
+ * @codegen <<SignedSource::21c2ae52ced4fa9337277f9daca4b814>>
  * @codegenCommand yarn build tokens
  */
+export type BackgroundColorHovered =
+	| 'var(--ds-background-accent-lime-subtlest-hovered)'
+	| 'var(--ds-background-accent-lime-subtler-hovered)'
+	| 'var(--ds-background-accent-lime-subtle-hovered)'
+	| 'var(--ds-background-accent-lime-bolder-hovered)'
+	| 'var(--ds-background-accent-red-subtlest-hovered)'
+	| 'var(--ds-background-accent-red-subtler-hovered)'
+	| 'var(--ds-background-accent-red-subtle-hovered)'
+	| 'var(--ds-background-accent-red-bolder-hovered)'
+	| 'var(--ds-background-accent-orange-subtlest-hovered)'
+	| 'var(--ds-background-accent-orange-subtler-hovered)'
+	| 'var(--ds-background-accent-orange-subtle-hovered)'
+	| 'var(--ds-background-accent-orange-bolder-hovered)'
+	| 'var(--ds-background-accent-yellow-subtlest-hovered)'
+	| 'var(--ds-background-accent-yellow-subtler-hovered)'
+	| 'var(--ds-background-accent-yellow-subtle-hovered)'
+	| 'var(--ds-background-accent-yellow-bolder-hovered)'
+	| 'var(--ds-background-accent-green-subtlest-hovered)'
+	| 'var(--ds-background-accent-green-subtler-hovered)'
+	| 'var(--ds-background-accent-green-subtle-hovered)'
+	| 'var(--ds-background-accent-green-bolder-hovered)'
+	| 'var(--ds-background-accent-teal-subtlest-hovered)'
+	| 'var(--ds-background-accent-teal-subtler-hovered)'
+	| 'var(--ds-background-accent-teal-subtle-hovered)'
+	| 'var(--ds-background-accent-teal-bolder-hovered)'
+	| 'var(--ds-background-accent-blue-subtlest-hovered)'
+	| 'var(--ds-background-accent-blue-subtler-hovered)'
+	| 'var(--ds-background-accent-blue-subtle-hovered)'
+	| 'var(--ds-background-accent-blue-bolder-hovered)'
+	| 'var(--ds-background-accent-purple-subtlest-hovered)'
+	| 'var(--ds-background-accent-purple-subtler-hovered)'
+	| 'var(--ds-background-accent-purple-subtle-hovered)'
+	| 'var(--ds-background-accent-purple-bolder-hovered)'
+	| 'var(--ds-background-accent-magenta-subtlest-hovered)'
+	| 'var(--ds-background-accent-magenta-subtler-hovered)'
+	| 'var(--ds-background-accent-magenta-subtle-hovered)'
+	| 'var(--ds-background-accent-magenta-bolder-hovered)'
+	| 'var(--ds-background-accent-gray-subtlest-hovered)'
+	| 'var(--ds-background-accent-gray-subtler-hovered)'
+	| 'var(--ds-background-accent-gray-subtle-hovered)'
+	| 'var(--ds-background-accent-gray-bolder-hovered)'
+	| 'var(--ds-background-input-hovered)'
+	| 'var(--ds-background-inverse-subtle-hovered)'
+	| 'var(--ds-background-neutral-hovered)'
+	| 'var(--ds-background-neutral-subtle-hovered)'
+	| 'var(--ds-background-neutral-bold-hovered)'
+	| 'var(--ds-background-selected-hovered)'
+	| 'var(--ds-background-selected-bold-hovered)'
+	| 'var(--ds-background-brand-subtlest-hovered)'
+	| 'var(--ds-background-brand-bold-hovered)'
+	| 'var(--ds-background-brand-boldest-hovered)'
+	| 'var(--ds-background-danger-hovered)'
+	| 'var(--ds-background-danger-bold-hovered)'
+	| 'var(--ds-background-warning-hovered)'
+	| 'var(--ds-background-warning-bold-hovered)'
+	| 'var(--ds-background-success-hovered)'
+	| 'var(--ds-background-success-bold-hovered)'
+	| 'var(--ds-background-discovery-hovered)'
+	| 'var(--ds-background-discovery-bold-hovered)'
+	| 'var(--ds-background-information-hovered)'
+	| 'var(--ds-background-information-bold-hovered)'
+	| 'var(--ds-surface-hovered)'
+	| 'var(--ds-surface-overlay-hovered)'
+	| 'var(--ds-surface-raised-hovered)';
+export type BackgroundColorPressed =
+	| 'var(--ds-background-accent-lime-subtlest-pressed)'
+	| 'var(--ds-background-accent-lime-subtler-pressed)'
+	| 'var(--ds-background-accent-lime-subtle-pressed)'
+	| 'var(--ds-background-accent-lime-bolder-pressed)'
+	| 'var(--ds-background-accent-red-subtlest-pressed)'
+	| 'var(--ds-background-accent-red-subtler-pressed)'
+	| 'var(--ds-background-accent-red-subtle-pressed)'
+	| 'var(--ds-background-accent-red-bolder-pressed)'
+	| 'var(--ds-background-accent-orange-subtlest-pressed)'
+	| 'var(--ds-background-accent-orange-subtler-pressed)'
+	| 'var(--ds-background-accent-orange-subtle-pressed)'
+	| 'var(--ds-background-accent-orange-bolder-pressed)'
+	| 'var(--ds-background-accent-yellow-subtlest-pressed)'
+	| 'var(--ds-background-accent-yellow-subtler-pressed)'
+	| 'var(--ds-background-accent-yellow-subtle-pressed)'
+	| 'var(--ds-background-accent-yellow-bolder-pressed)'
+	| 'var(--ds-background-accent-green-subtlest-pressed)'
+	| 'var(--ds-background-accent-green-subtler-pressed)'
+	| 'var(--ds-background-accent-green-subtle-pressed)'
+	| 'var(--ds-background-accent-green-bolder-pressed)'
+	| 'var(--ds-background-accent-teal-subtlest-pressed)'
+	| 'var(--ds-background-accent-teal-subtler-pressed)'
+	| 'var(--ds-background-accent-teal-subtle-pressed)'
+	| 'var(--ds-background-accent-teal-bolder-pressed)'
+	| 'var(--ds-background-accent-blue-subtlest-pressed)'
+	| 'var(--ds-background-accent-blue-subtler-pressed)'
+	| 'var(--ds-background-accent-blue-subtle-pressed)'
+	| 'var(--ds-background-accent-blue-bolder-pressed)'
+	| 'var(--ds-background-accent-purple-subtlest-pressed)'
+	| 'var(--ds-background-accent-purple-subtler-pressed)'
+	| 'var(--ds-background-accent-purple-subtle-pressed)'
+	| 'var(--ds-background-accent-purple-bolder-pressed)'
+	| 'var(--ds-background-accent-magenta-subtlest-pressed)'
+	| 'var(--ds-background-accent-magenta-subtler-pressed)'
+	| 'var(--ds-background-accent-magenta-subtle-pressed)'
+	| 'var(--ds-background-accent-magenta-bolder-pressed)'
+	| 'var(--ds-background-accent-gray-subtlest-pressed)'
+	| 'var(--ds-background-accent-gray-subtler-pressed)'
+	| 'var(--ds-background-accent-gray-subtle-pressed)'
+	| 'var(--ds-background-accent-gray-bolder-pressed)'
+	| 'var(--ds-background-input-pressed)'
+	| 'var(--ds-background-inverse-subtle-pressed)'
+	| 'var(--ds-background-neutral-pressed)'
+	| 'var(--ds-background-neutral-subtle-pressed)'
+	| 'var(--ds-background-neutral-bold-pressed)'
+	| 'var(--ds-background-selected-pressed)'
+	| 'var(--ds-background-selected-bold-pressed)'
+	| 'var(--ds-background-brand-subtlest-pressed)'
+	| 'var(--ds-background-brand-bold-pressed)'
+	| 'var(--ds-background-brand-boldest-pressed)'
+	| 'var(--ds-background-danger-pressed)'
+	| 'var(--ds-background-danger-bold-pressed)'
+	| 'var(--ds-background-warning-pressed)'
+	| 'var(--ds-background-warning-bold-pressed)'
+	| 'var(--ds-background-success-pressed)'
+	| 'var(--ds-background-success-bold-pressed)'
+	| 'var(--ds-background-discovery-pressed)'
+	| 'var(--ds-background-discovery-bold-pressed)'
+	| 'var(--ds-background-information-pressed)'
+	| 'var(--ds-background-information-bold-pressed)'
+	| 'var(--ds-surface-pressed)'
+	| 'var(--ds-surface-overlay-pressed)'
+	| 'var(--ds-surface-raised-pressed)';
 export type BackgroundColor =
 	| 'transparent'
 	| 'currentcolor'
+	| BackgroundColorHovered
+	| BackgroundColorPressed
 	| 'var(--ds-background-accent-lime-subtlest)'
 	| 'var(--ds-background-accent-lime-subtler)'
 	| 'var(--ds-background-accent-lime-subtle)'
@@ -77,138 +207,22 @@ export type BackgroundColor =
 	| 'var(--ds-surface-raised)'
 	| 'var(--ds-surface-sunken)'
 	| 'var(--ds-elevation-surface-current)';
-
-export type BackgroundColorHovered =
-	| 'var(--ds-background-accent-lime-subtlest-hovered)'
-	| 'var(--ds-background-accent-lime-subtler-hovered)'
-	| 'var(--ds-background-accent-lime-subtle-hovered)'
-	| 'var(--ds-background-accent-lime-bolder-hovered)'
-	| 'var(--ds-background-accent-red-subtlest-hovered)'
-	| 'var(--ds-background-accent-red-subtler-hovered)'
-	| 'var(--ds-background-accent-red-subtle-hovered)'
-	| 'var(--ds-background-accent-red-bolder-hovered)'
-	| 'var(--ds-background-accent-orange-subtlest-hovered)'
-	| 'var(--ds-background-accent-orange-subtler-hovered)'
-	| 'var(--ds-background-accent-orange-subtle-hovered)'
-	| 'var(--ds-background-accent-orange-bolder-hovered)'
-	| 'var(--ds-background-accent-yellow-subtlest-hovered)'
-	| 'var(--ds-background-accent-yellow-subtler-hovered)'
-	| 'var(--ds-background-accent-yellow-subtle-hovered)'
-	| 'var(--ds-background-accent-yellow-bolder-hovered)'
-	| 'var(--ds-background-accent-green-subtlest-hovered)'
-	| 'var(--ds-background-accent-green-subtler-hovered)'
-	| 'var(--ds-background-accent-green-subtle-hovered)'
-	| 'var(--ds-background-accent-green-bolder-hovered)'
-	| 'var(--ds-background-accent-teal-subtlest-hovered)'
-	| 'var(--ds-background-accent-teal-subtler-hovered)'
-	| 'var(--ds-background-accent-teal-subtle-hovered)'
-	| 'var(--ds-background-accent-teal-bolder-hovered)'
-	| 'var(--ds-background-accent-blue-subtlest-hovered)'
-	| 'var(--ds-background-accent-blue-subtler-hovered)'
-	| 'var(--ds-background-accent-blue-subtle-hovered)'
-	| 'var(--ds-background-accent-blue-bolder-hovered)'
-	| 'var(--ds-background-accent-purple-subtlest-hovered)'
-	| 'var(--ds-background-accent-purple-subtler-hovered)'
-	| 'var(--ds-background-accent-purple-subtle-hovered)'
-	| 'var(--ds-background-accent-purple-bolder-hovered)'
-	| 'var(--ds-background-accent-magenta-subtlest-hovered)'
-	| 'var(--ds-background-accent-magenta-subtler-hovered)'
-	| 'var(--ds-background-accent-magenta-subtle-hovered)'
-	| 'var(--ds-background-accent-magenta-bolder-hovered)'
-	| 'var(--ds-background-accent-gray-subtlest-hovered)'
-	| 'var(--ds-background-accent-gray-subtler-hovered)'
-	| 'var(--ds-background-accent-gray-subtle-hovered)'
-	| 'var(--ds-background-accent-gray-bolder-hovered)'
-	| 'var(--ds-background-input-hovered)'
-	| 'var(--ds-background-inverse-subtle-hovered)'
-	| 'var(--ds-background-neutral-hovered)'
-	| 'var(--ds-background-neutral-subtle-hovered)'
-	| 'var(--ds-background-neutral-bold-hovered)'
-	| 'var(--ds-background-selected-hovered)'
-	| 'var(--ds-background-selected-bold-hovered)'
-	| 'var(--ds-background-brand-subtlest-hovered)'
-	| 'var(--ds-background-brand-bold-hovered)'
-	| 'var(--ds-background-brand-boldest-hovered)'
-	| 'var(--ds-background-danger-hovered)'
-	| 'var(--ds-background-danger-bold-hovered)'
-	| 'var(--ds-background-warning-hovered)'
-	| 'var(--ds-background-warning-bold-hovered)'
-	| 'var(--ds-background-success-hovered)'
-	| 'var(--ds-background-success-bold-hovered)'
-	| 'var(--ds-background-discovery-hovered)'
-	| 'var(--ds-background-discovery-bold-hovered)'
-	| 'var(--ds-background-information-hovered)'
-	| 'var(--ds-background-information-bold-hovered)'
-	| 'var(--ds-surface-hovered)'
-	| 'var(--ds-surface-overlay-hovered)'
-	| 'var(--ds-surface-raised-hovered)';
-
-export type BackgroundColorPressed =
-	| 'var(--ds-background-accent-lime-subtlest-pressed)'
-	| 'var(--ds-background-accent-lime-subtler-pressed)'
-	| 'var(--ds-background-accent-lime-subtle-pressed)'
-	| 'var(--ds-background-accent-lime-bolder-pressed)'
-	| 'var(--ds-background-accent-red-subtlest-pressed)'
-	| 'var(--ds-background-accent-red-subtler-pressed)'
-	| 'var(--ds-background-accent-red-subtle-pressed)'
-	| 'var(--ds-background-accent-red-bolder-pressed)'
-	| 'var(--ds-background-accent-orange-subtlest-pressed)'
-	| 'var(--ds-background-accent-orange-subtler-pressed)'
-	| 'var(--ds-background-accent-orange-subtle-pressed)'
-	| 'var(--ds-background-accent-orange-bolder-pressed)'
-	| 'var(--ds-background-accent-yellow-subtlest-pressed)'
-	| 'var(--ds-background-accent-yellow-subtler-pressed)'
-	| 'var(--ds-background-accent-yellow-subtle-pressed)'
-	| 'var(--ds-background-accent-yellow-bolder-pressed)'
-	| 'var(--ds-background-accent-green-subtlest-pressed)'
-	| 'var(--ds-background-accent-green-subtler-pressed)'
-	| 'var(--ds-background-accent-green-subtle-pressed)'
-	| 'var(--ds-background-accent-green-bolder-pressed)'
-	| 'var(--ds-background-accent-teal-subtlest-pressed)'
-	| 'var(--ds-background-accent-teal-subtler-pressed)'
-	| 'var(--ds-background-accent-teal-subtle-pressed)'
-	| 'var(--ds-background-accent-teal-bolder-pressed)'
-	| 'var(--ds-background-accent-blue-subtlest-pressed)'
-	| 'var(--ds-background-accent-blue-subtler-pressed)'
-	| 'var(--ds-background-accent-blue-subtle-pressed)'
-	| 'var(--ds-background-accent-blue-bolder-pressed)'
-	| 'var(--ds-background-accent-purple-subtlest-pressed)'
-	| 'var(--ds-background-accent-purple-subtler-pressed)'
-	| 'var(--ds-background-accent-purple-subtle-pressed)'
-	| 'var(--ds-background-accent-purple-bolder-pressed)'
-	| 'var(--ds-background-accent-magenta-subtlest-pressed)'
-	| 'var(--ds-background-accent-magenta-subtler-pressed)'
-	| 'var(--ds-background-accent-magenta-subtle-pressed)'
-	| 'var(--ds-background-accent-magenta-bolder-pressed)'
-	| 'var(--ds-background-accent-gray-subtlest-pressed)'
-	| 'var(--ds-background-accent-gray-subtler-pressed)'
-	| 'var(--ds-background-accent-gray-subtle-pressed)'
-	| 'var(--ds-background-accent-gray-bolder-pressed)'
-	| 'var(--ds-background-input-pressed)'
-	| 'var(--ds-background-inverse-subtle-pressed)'
-	| 'var(--ds-background-neutral-pressed)'
-	| 'var(--ds-background-neutral-subtle-pressed)'
-	| 'var(--ds-background-neutral-bold-pressed)'
-	| 'var(--ds-background-selected-pressed)'
-	| 'var(--ds-background-selected-bold-pressed)'
-	| 'var(--ds-background-brand-subtlest-pressed)'
-	| 'var(--ds-background-brand-bold-pressed)'
-	| 'var(--ds-background-brand-boldest-pressed)'
-	| 'var(--ds-background-danger-pressed)'
-	| 'var(--ds-background-danger-bold-pressed)'
-	| 'var(--ds-background-warning-pressed)'
-	| 'var(--ds-background-warning-bold-pressed)'
-	| 'var(--ds-background-success-pressed)'
-	| 'var(--ds-background-success-bold-pressed)'
-	| 'var(--ds-background-discovery-pressed)'
-	| 'var(--ds-background-discovery-bold-pressed)'
-	| 'var(--ds-background-information-pressed)'
-	| 'var(--ds-background-information-bold-pressed)'
-	| 'var(--ds-surface-pressed)'
-	| 'var(--ds-surface-overlay-pressed)'
-	| 'var(--ds-surface-raised-pressed)';
-
+export type FontShorthand =
+	| 'var(--ds-font-heading-xxlarge)'
+	| 'var(--ds-font-heading-xlarge)'
+	| 'var(--ds-font-heading-large)'
+	| 'var(--ds-font-heading-medium)'
+	| 'var(--ds-font-heading-small)'
+	| 'var(--ds-font-heading-xsmall)'
+	| 'var(--ds-font-heading-xxsmall)'
+	| 'var(--ds-font-body-large)'
+	| 'var(--ds-font-body)'
+	| 'var(--ds-font-body-small)'
+	| 'var(--ds-font-body-UNSAFE_small)'
+	| 'var(--ds-font-code)';
+export type IconColorPressed = 'var(--ds-link-pressed)' | 'var(--ds-link-visited-pressed)';
 export type IconColor =
+	| IconColorPressed
 	| 'var(--ds-link)'
 	| 'var(--ds-link-visited)'
 	| 'var(--ds-icon)'
@@ -234,10 +248,8 @@ export type IconColor =
 	| 'var(--ds-icon-information)'
 	| 'var(--ds-icon-subtlest)'
 	| 'var(--ds-icon-subtle)';
-
-export type IconColorPressed = 'var(--ds-link-pressed)' | 'var(--ds-link-visited-pressed)';
-
 export type BorderColor =
+	| 'transparent'
 	| 'var(--ds-border)'
 	| 'var(--ds-border-accent-lime)'
 	| 'var(--ds-border-accent-red)'
@@ -261,12 +273,6 @@ export type BorderColor =
 	| 'var(--ds-border-discovery)'
 	| 'var(--ds-border-information)'
 	| 'var(--ds-border-bold)';
-
-export type BorderWidth =
-	| 'var(--ds-border-width)'
-	| 'var(--ds-border-width-indicator)'
-	| 'var(--ds-border-width-outline)';
-
 export type BorderRadius =
 	| 'var(--ds-border-radius-050)'
 	| 'var(--ds-border-radius)'
@@ -275,9 +281,19 @@ export type BorderRadius =
 	| 'var(--ds-border-radius-300)'
 	| 'var(--ds-border-radius-400)'
 	| 'var(--ds-border-radius-circle)';
-
-export type SizeIntrinsic = `${number}px` | `${number}rem` | '100%';
-
+export type BorderWidth =
+	| 'var(--ds-border-width)'
+	| 'var(--ds-border-width-indicator)'
+	| 'var(--ds-border-width-outline)';
+export type BorderShorthand = 'none' | `${BorderWidth} solid ${BorderColor}`;
+export type SizeIntrinsic =
+	| `${number}px`
+	| `${number}rem`
+	| '100%'
+	| 'min-content'
+	| 'max-content'
+	| 'fit-content'
+	| 'auto';
 export type Space =
 	| 'var(--ds-space-0)'
 	| 'var(--ds-space-025)'
@@ -302,18 +318,17 @@ export type Space =
 	| 'var(--ds-space-negative-250)'
 	| 'var(--ds-space-negative-300)'
 	| 'var(--ds-space-negative-400)';
-
 export type SpaceMargin = Space | 'auto' | '0 auto' | '0';
-
 export type Shadow =
 	| 'var(--ds-shadow-overflow)'
 	| 'var(--ds-shadow-overflow-perimeter)'
 	| 'var(--ds-shadow-overflow-spread)'
 	| 'var(--ds-shadow-overlay)'
 	| 'var(--ds-shadow-raised)';
-
+export type TextColorPressed = 'var(--ds-link-pressed)' | 'var(--ds-link-visited-pressed)';
 export type TextColor =
 	| 'transparent'
+	| TextColorPressed
 	| 'var(--ds-text)'
 	| 'var(--ds-text-accent-lime)'
 	| 'var(--ds-text-accent-lime-bolder)'
@@ -349,9 +364,6 @@ export type TextColor =
 	| 'var(--ds-text-subtle)'
 	| 'var(--ds-link)'
 	| 'var(--ds-link-visited)';
-
-export type TextColorPressed = 'var(--ds-link-pressed)' | 'var(--ds-link-visited-pressed)';
-
 export type Opacity = 'var(--ds-opacity-disabled)' | 'var(--ds-opacity-loading)';
 
 export interface CSSPropertiesHovered {
@@ -366,6 +378,17 @@ export interface CSSPropertiesActive {
 export interface DesignTokenStyles {
 	'&:active': CSSPropertiesActive;
 	'&:hover': CSSPropertiesHovered;
+	border: BorderShorthand;
+	borderBlock: BorderShorthand;
+	borderBlockEnd: BorderShorthand;
+	borderBlockStart: BorderShorthand;
+	borderBottom: BorderShorthand;
+	borderInline: BorderShorthand;
+	borderInlineEnd: BorderShorthand;
+	borderInlineStart: BorderShorthand;
+	borderLeft: BorderShorthand;
+	borderRight: BorderShorthand;
+	borderTop: BorderShorthand;
 	appearance: 'none' | 'auto';
 	backgroundColor: BackgroundColor;
 	blockSize: SizeIntrinsic;
@@ -411,7 +434,7 @@ export interface DesignTokenStyles {
 	containerName: never;
 	containerType: never;
 	float: never;
-	font: never;
+	font: FontShorthand;
 	fontFamily: never;
 	fontSize: never;
 	fontSizeAdjust: never;

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.7.4
+
+### Patch Changes
+
+- [#141306](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141306)
+  [`afce5e7baf293`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/afce5e7baf293) -
+  Addition of feature-flags/no-module-level-eval-nav4 eslint rule
+
 ## 0.7.3
 
 ### Patch Changes

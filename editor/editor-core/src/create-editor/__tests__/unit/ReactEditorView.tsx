@@ -90,6 +90,7 @@ import type {
 	FireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import * as ProcessRawValueModule from '@atlaskit/editor-common/process-raw-value';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { EditorExperience, RELIABILITY_INTERVAL } from '@atlaskit/editor-common/ufo';
@@ -100,6 +101,8 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -115,8 +118,10 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import type { MentionProvider } from '@atlaskit/mention/resource';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { mountWithIntl } from '../../../__tests__/__helpers/enzyme';
 import type { EditorAppearance, EditorProps } from '../../../types';
@@ -1498,4 +1503,81 @@ describe('@atlaskit/editor-core', () => {
 			expect(schema === instance.view?.state.schema).toBeTruthy();
 		});
 	});
+
+	ffTest.on(
+		'editor_load_conf_collab_docs_without_checks',
+		'calling processRawValue in createEditorState',
+		() => {
+			it('When setup without the collab plugin -- should call processRawValue', () => {
+				// call feature gate to avoid the ffTest failing
+				fg('editor_load_conf_collab_docs_without_checks');
+				const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
+				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
+				createEditorFactory()({
+					editorProps: {
+						defaultValue: mockDocument,
+					},
+				});
+
+				expect(processRawValueSpy).toHaveBeenCalled();
+			});
+
+			it('When setup with the collab plugin -- should not call processRawValue', () => {
+				const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
+				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
+				const processRawValueWithoutTransformationSpy = jest.spyOn(
+					ProcessRawValueModule,
+					'processRawValueWithoutTransformation',
+				);
+				createEditorFactory()({
+					editorProps: {
+						defaultValue: mockDocument,
+						collabEdit: {},
+					},
+				});
+
+				expect(processRawValueSpy).not.toHaveBeenCalled();
+				expect(processRawValueWithoutTransformationSpy).toHaveBeenCalled();
+			});
+		},
+	);
+
+	ffTest.off(
+		'editor_load_conf_collab_docs_without_checks',
+		'calling processRawValue in createEditorState',
+		() => {
+			it('When setup without the collab plugin -- should call processRawValue', () => {
+				// call feature gate to avoid the ffTest failing
+				fg('editor_load_conf_collab_docs_without_checks');
+				const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
+				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
+
+				createEditorFactory()({
+					editorProps: {
+						defaultValue: mockDocument,
+					},
+				});
+
+				expect(processRawValueSpy).toHaveBeenCalled();
+			});
+
+			it('When setup with the collab plugin -- should call processRawValue', () => {
+				const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
+				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
+				const processRawValueWithoutTransformationSpy = jest.spyOn(
+					ProcessRawValueModule,
+					'processRawValueWithoutTransformation',
+				);
+				createEditorFactory()({
+					editorProps: {
+						defaultValue: mockDocument,
+						collabEdit: {},
+					},
+				});
+
+				expect(processRawValueSpy).toHaveBeenCalled();
+				expect(processRawValueWithoutTransformationSpy).not.toHaveBeenCalled();
+			});
+		},
+	);
 });

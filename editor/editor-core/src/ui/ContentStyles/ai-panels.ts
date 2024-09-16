@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, keyframes } from '@emotion/react';
 
-import { N0, N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const isFirefox: boolean =
@@ -71,7 +70,7 @@ const prismBorderStyles = (colorMode?: 'light' | 'dark', hover?: boolean) =>
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...(hover
 			? {
-					background: token('color.border.input', N500),
+					background: token('color.border.input'),
 				}
 			: isFirefox
 				? {
@@ -118,7 +117,7 @@ export const aiPanelStyles = (colorMode?: 'light' | 'dark') => css`
 			position: relative;
 			box-shadow: none;
 			overflow: unset;
-			background-color: ${token('elevation.surface', N0)} !important;
+			background-color: ${token('elevation.surface')} !important;
 			&::before,
 			&::after {
 				${prismBorderStyles(colorMode)}
@@ -130,7 +129,7 @@ export const aiPanelStyles = (colorMode?: 'light' | 'dark') => css`
 				}
 			}
 			& .with-margin-styles {
-				background-color: ${token('elevation.surface', N0)} !important;
+				background-color: ${token('elevation.surface')} !important;
 				border-radius: ${token('border.radius.100', '3px')};
 			}
 		}
@@ -152,7 +151,7 @@ export const aiPanelStyles = (colorMode?: 'light' | 'dark') => css`
 	// This styles the ai panel correctly when a user is hovering over the delete button in the floating panel
 	div[extensionType='com.atlassian.ai-blocks'].danger {
 		.extension-container {
-			box-shadow: 0 0 0 1px ${token('color.border.danger', R400)};
+			box-shadow: 0 0 0 1px ${token('color.border.danger')};
 		}
 	}
 

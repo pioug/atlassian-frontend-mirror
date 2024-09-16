@@ -24,7 +24,6 @@ export default () => (
 				appearance="block"
 				url={'https://product-fabric.atlassian.net/wiki/spaces/EM'}
 				showHoverPreview={true}
-				ui={{ hideHoverCardPreviewButton: true }}
 				actionOptions={{ hide: true }}
 			>
 				<TitleBlock hideTitleTooltip={true} />

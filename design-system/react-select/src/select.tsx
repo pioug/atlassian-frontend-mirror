@@ -1,4 +1,5 @@
 import React, {
+	type AriaAttributes,
 	Component,
 	type FocusEventHandler,
 	type FormEventHandler,
@@ -66,6 +67,49 @@ export interface FormatOptionLabelMeta<Option> {
 }
 
 export interface SelectProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {
+	/**
+	 * HTML ID of an element containing an error message related to the input
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
+	 * aria-errormessage is not supported widely by assistive technologies. Do not use!
+	 */
+	'aria-errormessage'?: AriaAttributes['aria-errormessage'];
+	/**
+	 * Indicate if the value entered in the field is invalid
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
+	 * Use `isInvalid` instead.
+	 */
+	'aria-invalid'?: AriaAttributes['aria-invalid'];
+	/**
+	 * Aria label (for assistive tech)
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
+	 * Use `label` instead.
+	 */
+	'aria-label'?: AriaAttributes['aria-label'];
+	/**
+	 * HTML ID of an element that should be used as the label (for assistive tech)
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
+	 * Use `labelId` instead.
+	 */
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	'aria-labelledby'?: AriaAttributes['aria-labelledby'];
+	/**
+	 * HTML ID of an element that should be used as a description (for assistive tech)
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
+	 * Use `descriptionId` instead.
+	 */
+	'aria-describedby'?: AriaAttributes['aria-describedby'];
+	/**
+	 * Used to set the priority with which screen reader should treat updates to live regions. The possible settings are: off, polite (default) or assertive
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
+	 * Will be removed in future versions.
+	 */
+	'aria-live'?: AriaAttributes['aria-live'];
 	/**
 	 * Customise the messages used by the aria-live component
 	 *
@@ -425,9 +469,18 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	 * Sets the form attribute on the input
 	 */
 	form?: string;
+	/**
+	 * Marks the value-holding input as required for form validation
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
+	 * Use `isRequired` instead.
+	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
+	required?: boolean;
 }
 
 export const defaultProps = {
+	'aria-live': 'polite',
 	backspaceRemovesValue: true,
 	blurInputOnSelect: isTouchCapable(),
 	captureMenuScroll: !isTouchCapable(),
@@ -1809,6 +1862,7 @@ export default class Select<
 			label,
 			labelId,
 			menuIsOpen,
+			required,
 			tabIndex,
 		} = this.props;
 		const { Input } = this.getComponents();
@@ -1817,16 +1871,19 @@ export default class Select<
 
 		const id = inputId || this.getElementId('input');
 
+		const description = this.props['aria-describedby'] || descriptionId || null;
+
 		// aria attributes makes the JSX "noisy", separated for clarity
 		const ariaAttributes = {
 			'aria-autocomplete': 'list' as const,
+			'aria-errormessage': this.props['aria-errormessage'],
 			'aria-expanded': menuIsOpen,
 			'aria-haspopup': 'listbox',
-			'aria-describedby': descriptionId,
-			'aria-invalid': isInvalid,
-			'aria-label': label,
-			'aria-labelledby': labelId,
-			'aria-required': isRequired,
+			'aria-describedby': description,
+			'aria-invalid': this.props['aria-invalid'] || isInvalid,
+			'aria-label': this.props['aria-label'] || label,
+			'aria-labelledby': this.props['aria-labelledby'] || labelId,
+			'aria-required': required || isRequired,
 			role: 'combobox',
 			'aria-activedescendant': this.isAppleDevice ? undefined : this.state.focusedOptionId,
 			...(menuIsOpen && {
@@ -1837,13 +1894,13 @@ export default class Select<
 			}),
 			...(this.hasValue()
 				? ariaSelection?.action === 'initial-input-focus' && {
-						'aria-describedby': descriptionId
-							? [descriptionId, this.getElementId('live-region')].join(' ')
+						'aria-describedby': description
+							? [description, this.getElementId('live-region')].join(' ')
 							: this.getElementId('live-region'),
 					}
 				: {
-						'aria-describedby': descriptionId
-							? [descriptionId, this.getElementId('placeholder')].join(' ')
+						'aria-describedby': description
+							? [description, this.getElementId('placeholder')].join(' ')
 							: this.getElementId('placeholder'),
 					}),
 		};
@@ -2219,10 +2276,12 @@ export default class Select<
 		);
 	}
 	renderFormField() {
-		const { delimiter, isDisabled, isMulti, isRequired, name } = this.props;
+		const { delimiter, isDisabled, isMulti, isRequired, required, name } = this.props;
 		const { selectValue } = this.state;
 
-		if (isRequired && !this.hasValue() && !isDisabled) {
+		const req = required || isRequired || null;
+
+		if (req && !this.hasValue() && !isDisabled) {
 			return <RequiredInput name={name} onFocus={this.onValueInputFocus} />;
 		}
 

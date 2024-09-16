@@ -11,6 +11,7 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-inserti
 import { copyButtonPlugin } from '@atlaskit/editor-plugins/copy-button';
 import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugins/editor-disabled';
+import { emojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';
 import { focusPlugin } from '@atlaskit/editor-plugins/focus';
 import { gridPlugin } from '@atlaskit/editor-plugins/grid';
@@ -65,9 +66,10 @@ describe('@atlaskit/editor-core/utils insert', () => {
 				.add(compositionPlugin)
 				.add(contentInsertionPlugin)
 				.add(layoutPlugin)
+				.add(typeAheadPlugin)
+				.add(emojiPlugin)
 				.add(panelPlugin)
 				.add(rulePlugin)
-				.add(typeAheadPlugin)
 				.add(selectionPlugin)
 				.add([annotationPlugin, { inlineComment: { ...inlineCommentProvider } }])
 				.add([mediaPlugin, { allowMediaSingle: true }])

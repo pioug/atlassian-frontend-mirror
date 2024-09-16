@@ -16,6 +16,7 @@ export default {
     '{count, plural, one {і ще {count} особа} few {і ще {count} особи} many {і ще {count} осіб} other {і ще {count} особи}}',
   'fabric.reactions.reactwithemoji': 'Вставити емодзі {emoji}',
   'fabric.reactions.summary': 'Переглянути всі реакції користувачів',
+  'reaction-picker-trigger.add.reaction.message': 'Додайте реакцію',
   'reactions.dialog.close': 'Закрити',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Перейти вліво',

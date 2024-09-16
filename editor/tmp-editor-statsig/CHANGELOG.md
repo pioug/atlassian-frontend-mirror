@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.1.11
+
+### Patch Changes
+
+- [#140707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140707)
+  [`972fb840acf35`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/972fb840acf35) -
+  Switch from fg to experiment for media-from-url
+
+## 2.1.10
+
+### Patch Changes
+
+- [#138791](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138791)
+  [`80669e45a30e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80669e45a30e0) -
+  EDF-1548 Added experiment config for AI button for block elements.
+
 ## 2.1.9
 
 ### Patch Changes

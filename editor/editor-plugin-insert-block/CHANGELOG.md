@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.14.6
+
+### Patch Changes
+
+- [#141109](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141109)
+  [`466f39066bd56`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/466f39066bd56) -
+  Enforce appearance check for all experiment code
+
+## 1.14.5
+
+### Patch Changes
+
+- [`8c1e1dea50327`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c1e1dea50327) -
+  [ED-24967] Add in code English locale targeting for `platform_editor_element_level_templates`
+  experiment
+- Updated dependencies
+
 ## 1.14.4
 
 ### Patch Changes

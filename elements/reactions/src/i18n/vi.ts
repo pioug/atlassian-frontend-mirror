@@ -15,6 +15,7 @@ export default {
   'fabric.reactions.other.reacted.users': '{count, plural, other {và {count} người khác}}',
   'fabric.reactions.reactwithemoji': 'Bày tỏ biểu tượng cảm xúc {emoji}',
   'fabric.reactions.summary': 'Xem tất cả tương tác của người dùng',
+  'reaction-picker-trigger.add.reaction.message': 'Thêm tương tác',
   'reactions.dialog.close': 'Đóng',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Sang trái',

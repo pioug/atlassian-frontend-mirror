@@ -13,7 +13,7 @@ const buttonStyles = cssMap({
 		color: 'var(--ds-text-inverse)',
 		backgroundColor: 'var(--ds-background-brand-bold)',
 		borderRadius: 'var(--ds-border-radius-100)',
-		border: 0,
+		border: 'none',
 		paddingBlock: 'var(--ds-space-150)',
 		paddingInline: 'var(--ds-space-100)',
 		'&:hover': {

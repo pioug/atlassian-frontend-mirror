@@ -15,6 +15,7 @@ export default {
   'fabric.reactions.other.reacted.users': '{count, plural, one {ja yksi muu} other {ja {count} muuta}}',
   'fabric.reactions.reactwithemoji': 'Reagoi emojilla {emoji}',
   'fabric.reactions.summary': 'Näytä kaikki käyttäjäreaktiot',
+  'reaction-picker-trigger.add.reaction.message': 'Lisää reaktio',
   'reactions.dialog.close': 'Sulje',
   'reactions.dialog.left.navigate': 'Navigointi vasemmalle',
   'reactions.dialog.reactions.count': '{count, plural, one {{count,number} reaktio} other {{count,number} reaktiota}}',

@@ -54,7 +54,11 @@ export const HoverCardComponent = ({
 	const analytics = useSmartLinkAnalytics(url, undefined, id);
 	const { loadMetadata } = useSmartCardActions(id, url, analytics);
 
-	const actionOptions = combineActionOptions(actionOptionsProp, showServerActions);
+	const actionOptions = combineActionOptions({
+		actionOptions: actionOptionsProp,
+		showServerActions,
+		hidePreviewButton,
+	});
 
 	const setMousePosition = useCallback(
 		(event: any) => {

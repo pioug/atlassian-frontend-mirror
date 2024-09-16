@@ -22,10 +22,11 @@ import {
 	calcMediaSinglePixelWidth,
 	DEFAULT_IMAGE_HEIGHT,
 	DEFAULT_IMAGE_WIDTH,
+	ExternalImageBadge,
 	getMaxWidthForNestedNode,
 	MEDIA_SINGLE_GUTTER_SIZE,
+	MediaBadges,
 } from '@atlaskit/editor-common/media-single';
-import { ExternalImageBadge, MediaBadges } from '@atlaskit/editor-common/media-single';
 import type {
 	ContextIdentifierProvider,
 	ProviderFactory,
@@ -50,6 +51,7 @@ import type { CardEvent } from '@atlaskit/media-card';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
@@ -421,6 +423,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 		const isCurrentNodeDrafting =
 			annotationPluginState?.isDrafting &&
 			annotationPluginState?.targetNodeId === node?.firstChild?.attrs.id;
+
 		const shouldShowExternalMediaBadge = attrs.type === 'external';
 
 		const pos = getPos();
@@ -444,7 +447,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 				className={MediaSingleNodeSelector}
 				onClick={this.onMediaSingleClicked}
 			>
-				{fg('platform_editor_insert_media_plugin_phase_one') && (
+				{editorExperiment('add-media-from-url', true) && (
 					<MediaBadges
 						mediaElement={currentMediaElement()}
 						mediaHeight={height}
@@ -470,7 +473,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 						)}
 					</MediaBadges>
 				)}
-				{!fg('platform_editor_insert_media_plugin_phase_one') && commentsOnMedia && (
+				{!editorExperiment('add-media-from-url', true) && commentsOnMedia && (
 					<CommentBadge
 						commentsOnMediaBugFixEnabled={
 							mediaOptions?.getEditorFeatureFlags?.()?.commentsOnMediaBugFix

@@ -9,7 +9,6 @@ import { PureComponent } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers';
-import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
@@ -18,7 +17,7 @@ import { content } from '../example-helpers/styles';
 import { Editor } from '../src';
 
 const boundary = css({
-	border: `2px solid ${token('color.border', N40)}`,
+	border: `2px solid ${token('color.border')}`,
 	padding: `130px 60px 10px ${token('space.500', '40px')}`,
 });
 
@@ -140,7 +139,7 @@ class PortalInScrollContainerExample extends PureComponent<any, any> {
 					height: 200,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					position: 'relative',
-					border: `1px solid ${token('color.border', N40)}`,
+					border: `1px solid ${token('color.border')}`,
 				}}
 				ref={this.handleBoundryRef}
 			>

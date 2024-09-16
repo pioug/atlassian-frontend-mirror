@@ -61,6 +61,9 @@
             "path": "../../../design-system/textfield/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
         }
     ]

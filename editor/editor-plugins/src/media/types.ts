@@ -20,4 +20,6 @@ export type {
 	ForwardRef,
 	InsertMediaAsMediaSingle,
 	MediaPluginState,
+	MediaStateEventListener,
+	MediaStateEventSubscriber,
 } from '@atlaskit/editor-plugin-media/types';

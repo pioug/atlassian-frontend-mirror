@@ -5,6 +5,11 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
+jest.mock('@atlaskit/platform-feature-flags');
+const mockGetBooleanFG = fg as jest.MockedFunction<typeof fg>;
+
 describe('Analytics on Tigger', () => {
 	const mockFn = jest.fn();
 
@@ -43,6 +48,10 @@ describe('Analytics on Tigger', () => {
 	});
 
 	describe('FFs true', () => {
+		beforeEach(() => {
+			mockGetBooleanFG.mockReturnValue(true);
+		});
+
 		it('Analytics event should occur on color change', async () => {
 			const { getByLabelText } = renderUI();
 			// get color button or Trigger

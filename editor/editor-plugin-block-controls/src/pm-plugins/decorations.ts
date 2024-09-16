@@ -40,15 +40,17 @@ const getNestedDepth = () => (editorExperiment('nested-dnd', true) ? 100 : 0);
 
 const createDropTargetDecoration = (
 	pos: number,
-	dropTargetDec: React.FunctionComponentElement<DropTargetProps>,
+	dropTargetDec: (
+		getPos: () => number | undefined,
+	) => React.FunctionComponentElement<DropTargetProps>,
 ) => {
 	return Decoration.widget(
 		pos,
-		() => {
+		(_, getPos) => {
 			const element = document.createElement('div');
 			element.setAttribute('data-blocks-drop-target-container', 'true');
 			element.style.clear = 'unset';
-			ReactDOM.render(dropTargetDec, element);
+			ReactDOM.render(dropTargetDec(getPos), element);
 			return element;
 		},
 		{
@@ -66,18 +68,15 @@ export const dropTargetDecorations = (
 ) => {
 	const decs: Decoration[] = [];
 	unmountDecorations('data-blocks-drop-target-container');
-	// Decoration state is used to keep track of the position of the drop targets
-	// and allows us to easily map the updated position in the plugin apply method.
-	const decorationState: { id: number; pos: number }[] = [];
 	let prevNode: PMNode | undefined;
 	const activeNodePos = activeNode?.pos;
 	const activePMNode =
 		typeof activeNodePos === 'number' && newState.doc.resolve(activeNodePos).nodeAfter;
 
-	newState.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, parent, index) => {
+	newState.doc.descendants((node, pos, parent, index) => {
 		let depth = 0;
 		// drop target deco at the end position
-		let endPosDeco = null;
+		let endPos;
 		if (editorExperiment('nested-dnd', true)) {
 			depth = newState.doc.resolve(pos).depth;
 			if (node.isInline || !parent) {
@@ -97,41 +96,35 @@ export const dropTargetDecorations = (
 				return false; //not valid pos, so nested not valid either
 			}
 
-			decorationState.push({ id: pos, pos });
 			if (
 				parent.lastChild === node &&
 				!isEmptyParagraph(node) &&
 				PARENT_WITH_END_DROP_TARGET.includes(parent.type.name)
 			) {
-				const endpos = pos + node.nodeSize;
-				endPosDeco = { id: endpos, pos: endpos };
-				decorationState.push({ id: endpos, pos: endpos });
+				endPos = pos + node.nodeSize;
 			}
-		} else {
-			decorationState.push({ id: index, pos });
 		}
 
+		const previousNode = prevNode; // created scoped variable
 		decs.push(
-			createDropTargetDecoration(
-				pos,
+			createDropTargetDecoration(pos, (getPos) =>
 				createElement(DropTarget, {
 					api,
-					id: editorExperiment('nested-dnd', true) ? pos : index,
-					formatMessage,
-					prevNode,
+					getPos,
+					prevNode: previousNode,
 					nextNode: node,
 					parentNode: parent,
+					formatMessage,
 				} as DropTargetProps),
 			),
 		);
 
-		if (endPosDeco) {
+		if (endPos !== undefined) {
 			decs.push(
-				createDropTargetDecoration(
-					endPosDeco.pos,
+				createDropTargetDecoration(endPos, (getPos) =>
 					createElement(DropTarget, {
 						api,
-						id: endPosDeco.id,
+						getPos,
 						parentNode: parent,
 						formatMessage,
 					} as DropTargetProps),
@@ -143,36 +136,17 @@ export const dropTargetDecorations = (
 		return depth < getNestedDepth();
 	});
 
-	/**
-	 * We are adding a drop target at the end of the document because by default we
-	 * draw all drop targets at the top of every node. It's better to draw the drop targets
-	 * at the top of each node because that way we only need to know the start position of the
-	 * node and not its size.
-	 *
-	 */
-	const lastPos = newState.doc.content.size;
-	if (editorExperiment('nested-dnd', true)) {
-		decorationState.push({
-			id: lastPos,
-			pos: lastPos,
-		});
-	} else {
-		decorationState.push({
-			id: decorationState.length + 1,
-			pos: newState.doc.nodeSize - 2,
-		});
-	}
-
+	//TODO: Should this use createDropTargetDecoration?
 	decs.push(
 		Decoration.widget(
 			newState.doc.nodeSize - 2,
-			() => {
+			(_, getPos) => {
 				const element = document.createElement('div');
 				element.setAttribute('data-blocks-drop-target-container', 'true');
 				ReactDOM.render(
 					createElement(DropTarget, {
 						api,
-						id: editorExperiment('nested-dnd', true) ? lastPos : decorationState.length,
+						getPos,
 						formatMessage,
 					}),
 					element,
@@ -185,7 +159,7 @@ export const dropTargetDecorations = (
 		),
 	);
 
-	return { decs, decorationState };
+	return decs;
 };
 
 export const emptyParagraphNodeDecorations = () => {

@@ -1,5 +1,18 @@
 # @atlaskit/tokens
 
+## 1.60.0
+
+### Minor Changes
+
+- [#138792](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138792)
+  [`59c6812e1be91`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/59c6812e1be91) -
+  Update the @atlaskit/css schema to include:
+
+  - `border` and `font` shorthand token values
+  - Background and color `-hovered` and `-pressed` tokens are available in the non-psuedo-states for
+    patterns like `<div css={[isHovered && hoveredStyles]} />`
+  - Adds more commonly used media queries
+
 ## 1.59.1
 
 ### Patch Changes

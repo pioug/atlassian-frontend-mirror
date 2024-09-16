@@ -174,7 +174,11 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		},
 
 		pmPlugins: () => {
-			if (!editorExperiment('insert-menu-in-right-rail', true)) {
+			if (
+				// @ts-ignore
+				!['full-page', 'full-width'].includes(options.UNSAFE_editorAppearance ?? '') ||
+				!editorExperiment('insert-menu-in-right-rail', true)
+			) {
 				[];
 			}
 
@@ -262,12 +266,15 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			// This is not the most ideal plugin to add this to, but it is suitable for experiment purpose
 			// If we decide to ship the feature, we will consider a separate plugin if needed.
 			// Experiment one-pager: https://hello.atlassian.net/wiki/spaces/ETM/pages/3983684902/Experiment+Drive+element+usage+via+element+templates
-			quickInsert: () => {
-				if (
+			quickInsert: (intl) => {
+				const { locale } = intl;
+
+				const isEligible =
+					locale.startsWith('en') &&
 					// @ts-ignore
-					['full-page', 'full-width'].includes(options.UNSAFE_editorAppearance ?? '') &&
-					editorExperiment('element-level-templates', true, { exposure: true })
-				) {
+					['full-page', 'full-width'].includes(options.UNSAFE_editorAppearance ?? '');
+
+				if (isEligible && editorExperiment('element-level-templates', true, { exposure: true })) {
 					return templateOptions(api);
 				}
 				return [];
@@ -285,7 +292,11 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
 
-	if (editorExperiment('insert-menu-in-right-rail', true)) {
+	if (
+		// @ts-ignore
+		['full-page', 'full-width'].includes(options.UNSAFE_editorAppearance ?? '') &&
+		editorExperiment('insert-menu-in-right-rail', true)
+	) {
 		plugin.pluginsOptions!.contextPanel = (state) => {
 			// api.getSharedState() will have an outdated reference to editorState on first mount of this component
 			// so instead just rely on plugin key as we don't need to be reactive to changes here

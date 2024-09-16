@@ -15,6 +15,7 @@ export default {
   'fabric.reactions.other.reacted.users': '{count, plural, other {및 그 외 {count}명}}',
   'fabric.reactions.reactwithemoji': '{emoji} 이모지로 반응',
   'fabric.reactions.summary': '사용자 반응 모두 보기',
+  'reaction-picker-trigger.add.reaction.message': '반응 추가',
   'reactions.dialog.close': '닫기',
   'reactions.dialog.left.navigate': '왼쪽 탐색',
   'reactions.dialog.reactions.count': '{count, plural, other {반응 {count,number}개}}',

@@ -9,7 +9,6 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
-import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { default as FullPageExample } from './5-full-page';
@@ -41,7 +40,7 @@ const frame = xcss({
 	maxWidth: '280px',
 	paddingInline: 'space.200',
 	paddingBlock: 'space.150',
-	border: `1px solid ${token('color.border', N40)}`,
+	border: `1px solid ${token('color.border')}`,
 	borderRadius: 'border.radius',
 	boxShadow: 'elevation.shadow.overlay',
 	justifyContent: 'space-between',
@@ -50,7 +49,7 @@ const frame = xcss({
 const editorWrapper = css({
 	padding: token('space.100', '8px'),
 	backgroundColor: 'white',
-	border: `1px solid ${token('color.border', N40)}`,
+	border: `1px solid ${token('color.border')}`,
 	borderRadius: '4px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror': {

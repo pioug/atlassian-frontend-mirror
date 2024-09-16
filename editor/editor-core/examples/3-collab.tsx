@@ -26,7 +26,6 @@ import type { ConfigResponse, ShareResponse } from '@atlaskit/share';
 import { ShareDialogContainer } from '@atlaskit/share';
 import type { OptionData, User } from '@atlaskit/smart-user-picker';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import {
@@ -61,7 +60,7 @@ export const content = css({
 			background: akEditorCodeBackground,
 			padding: token('space.150', '12px'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			borderRadius: `${borderRadius()}px`,
+			borderRadius: token('border.radius', '3px'),
 		},
 	},
 });

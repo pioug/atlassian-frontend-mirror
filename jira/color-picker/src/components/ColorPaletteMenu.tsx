@@ -2,9 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState, useCallback, useEffect, useMemo, type KeyboardEvent, type Ref } from 'react';
+import {
+	useState,
+	useCallback,
+	useEffect,
+	useMemo,
+	type KeyboardEvent,
+	type MouseEvent,
+	type Ref,
+} from 'react';
 import { Mode, type Palette } from '../types';
 import {
+	type UIAnalyticsEvent,
 	createAndFireEvent,
 	withAnalyticsContext,
 	withAnalyticsEvents,
@@ -38,8 +47,15 @@ export type Props = {
 	cols: number;
 	/** color of checkmark on selected color */
 	checkMarkColor?: string;
+	/** onChange handler deprecated */
+	onChangeOld?: (value: string, analyticsEvent?: UIAnalyticsEvent) => void;
+	// Set to required on FG cleanup platform_color_palette-expose-event
 	/** onChange handler */
-	onChange: (value: string, analyticsEvent?: object) => void;
+	onChange?: (
+		event: MouseEvent | KeyboardEvent,
+		value: string,
+		analyticsEvent?: UIAnalyticsEvent,
+	) => void;
 	/** You should not be accessing this prop under any circumstances. It is provided by @atlaskit/analytics-next. */
 	createAnalyticsEvent?: any;
 	/** style of the color-picker, either 'Compact' or 'Standard', default value is 'Standard' */
@@ -52,6 +68,7 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 	isFocusLockEnabled = true,
 	createAnalyticsEvent,
 	onChange,
+	onChangeOld,
 	palette,
 	selectedColor,
 	checkMarkColor,
@@ -87,8 +104,13 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 
 	const colorCardRefs = useMemo<(ColorCardRef | null)[]>(() => [], []);
 
-	const handleChange = (value: string) => {
-		onChange(value, changeAnalyticsCaller());
+	const handleChangeOld = (value: string) => {
+		onChangeOld?.(value, changeAnalyticsCaller());
+	};
+
+	const handleChange = (event: MouseEvent | KeyboardEvent, value: string) => {
+		// Set to required on FG cleanup platform_color_palette-expose-event
+		onChange?.(event, value, changeAnalyticsCaller());
 	};
 
 	useEffect(() => {
@@ -155,7 +177,9 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 							checkMarkColor={checkMarkColor}
 							isOption
 							selected={value === selectedValue.value}
-							onClick={handleChange}
+							{...(fg('platform_color_palette-expose-event')
+								? { onClick: handleChange }
+								: { onClickOld: handleChangeOld })}
 							{...(fg('platform_color_palette_menu_timeline_bar_a11y') && {
 								ref: (ref) => {
 									colorCardRefs[index] = ref;

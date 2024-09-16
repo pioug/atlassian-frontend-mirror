@@ -13,6 +13,7 @@ import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decor
 import ensurePublishValid from './rules/ensure-publish-valid';
 import ensureNativeAndAfExportsSynced from './rules/ensure-native-and-af-exports-synced';
 import noModuleLevelEval from './rules/no-module-level-eval';
+import noModuleLevelEvalNav4 from './rules/no-module-level-eval-nav4';
 import staticFeatureFlags from './rules/static-feature-flags';
 import noPreconditioning from './rules/no-preconditioning';
 import inlineUsage from './rules/inline-usage';
@@ -34,6 +35,7 @@ export const rules = {
 	'ensure-publish-valid': ensurePublishValid,
 	'ensure-native-and-af-exports-synced': ensureNativeAndAfExportsSynced,
 	'no-module-level-eval': noModuleLevelEval,
+	'no-module-level-eval-nav4': noModuleLevelEvalNav4,
 	'static-feature-flags': staticFeatureFlags,
 	'no-preconditioning': noPreconditioning,
 	'inline-usage': inlineUsage,
@@ -57,6 +59,7 @@ export const configs = {
 			'@atlaskit/platform/no-invalid-storybook-decorator-usage': 'error',
 			'@atlaskit/platform/ensure-atlassian-team': 'error',
 			'@atlaskit/platform/no-module-level-eval': 'error',
+			'@atlaskit/platform/no-module-level-eval-nav4': 'error',
 			'@atlaskit/platform/static-feature-flags': 'error',
 			'@atlaskit/platform/no-preconditioning': 'error',
 			'@atlaskit/platform/inline-usage': 'error',

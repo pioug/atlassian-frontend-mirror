@@ -82,12 +82,12 @@ function Component({
 
 	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children), [children]);
 
-	const actionOptions = combineActionOptions(
-		actionOptionsProp,
+	const actionOptions = combineActionOptions({
+		actionOptions: actionOptionsProp,
 		showServerActions,
 		showActions,
 		platform,
-	);
+	});
 
 	const frameStyle = combineFrameStyle(frameStyleProp, isFrameVisible);
 

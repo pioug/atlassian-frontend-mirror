@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/color-picker",
-	"version": "3.3.0",
+	"version": "3.3.1",
 	"description": "Jira Color Picker Component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,9 +32,9 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/icon": "^22.18.0",
 		"@atlaskit/platform-feature-flags": "0.3.0",
-		"@atlaskit/select": "^17.18.0",
+		"@atlaskit/select": "^17.19.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.59.0",
+		"@atlaskit/tokens": "^1.60.0",
 		"@atlaskit/tooltip": "^18.7.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -80,6 +80,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_color_palette_menu_timeline_bar_a11y": {
+			"type": "boolean"
+		},
+		"platform_color_palette-expose-event": {
 			"type": "boolean"
 		},
 		"platform-design-system-dsp-20821-color-pickr-focus": {

@@ -548,7 +548,10 @@ export class ToolbarInsertBlock extends React.PureComponent<
 		 * For insert menu in right rail experiment
 		 * - Clean up ticket ED-24801
 		 */
-		if (editorExperiment('insert-menu-in-right-rail', true, { exposure: true })) {
+		if (
+			['full-page', 'full-width'].includes(this.props.editorAppearance ?? '') &&
+			editorExperiment('insert-menu-in-right-rail', true, { exposure: true })
+		) {
 			const { pluginInjectionApi } = this.props;
 			if (!pluginInjectionApi) {
 				return;
@@ -578,7 +581,10 @@ export class ToolbarInsertBlock extends React.PureComponent<
 			 * For insert menu in right rail experiment
 			 * - Clean up ticket ED-24801
 			 */
-			if (editorExperiment('insert-menu-in-right-rail', true, { exposure: true })) {
+			if (
+				['full-page', 'full-width'].includes(this.props.editorAppearance ?? '') &&
+				editorExperiment('insert-menu-in-right-rail', true, { exposure: true })
+			) {
 				this.props.pluginInjectionApi?.core.actions.execute(({ tr }) => {
 					toggleInsertMenuRightRail(tr);
 					this.props.pluginInjectionApi?.contextPanel?.actions.applyChange(tr);

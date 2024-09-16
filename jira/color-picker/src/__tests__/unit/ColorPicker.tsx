@@ -5,6 +5,10 @@ import Trigger from '../../components/Trigger';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+jest.mock('@atlaskit/platform-feature-flags');
+const mockGetBooleanFG = fg as jest.MockedFunction<typeof fg>;
 
 describe('ColorPicker', () => {
 	const mockFn = jest.fn();
@@ -62,6 +66,10 @@ describe('ColorPicker', () => {
 	});
 
 	describe('FFs enabled', () => {
+		beforeEach(() => {
+			mockGetBooleanFG.mockReturnValue(true);
+		});
+
 		test('should render ColorPicker', () => {
 			const { getByLabelText } = renderUI();
 			const colorButton = getByLabelText('Blue selected, Color picker');
@@ -80,7 +88,7 @@ describe('ColorPicker', () => {
 			expect(colorButton).toHaveAttribute('aria-expanded', 'true');
 
 			// popup to have color options
-			expect(getAllByRole('radio')).toHaveLength(2);
+			expect(getAllByRole('menuitemradio')).toHaveLength(2);
 		});
 
 		test('should not submit form when click on trigger', async () => {

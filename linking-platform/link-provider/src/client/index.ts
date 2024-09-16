@@ -356,16 +356,19 @@ export default class CardClient implements CardClientInterface {
 				// a blue link to mitigate customer impact.
 				case 'ResolveBadRequestError':
 				case 'SearchBadRequestError':
+				case 'BadRequestError':
 					return new APIError('fallback', hostname, errorMessage, errorType, extensionKey);
 				// AuthError - if the user logs in, we may be able
 				// to recover. Render an unauthorized card.
 				case 'ResolveAuthError':
 				case 'SearchAuthError':
+				case 'AuthError':
 					return new APIError('auth', hostname, errorMessage, errorType, extensionKey);
 				// UnsupportedError - we do not know how to render this URL.
 				// Bail out and ask the Editor to render as a blue link.
 				case 'ResolveUnsupportedError': // URL isn't supported
 				case 'SearchUnsupportedError': // Search isn't supported
+				case 'UnsupportedError': // URL isn't supported
 					return new APIError('fatal', hostname, errorMessage, errorType, extensionKey);
 				case 'ResolveFailedError': // Failed
 				case 'SearchFailedError':
@@ -374,21 +377,9 @@ export default class CardClient implements CardClientInterface {
 				case 'SearchRateLimitError': //Rate Limit Error
 				case 'ResolveRateLimitError':
 				case 'InternalServerError': // ORS failures
+				case 'TimeoutError':
+				case 'RateLimitError':
 					return new APIError('error', hostname, errorMessage, errorType, extensionKey);
-			}
-
-			if (fg('map_new_ors_generic_error_types_in_link_provider')) {
-				switch (errorType) {
-					case 'BadRequestError':
-						return new APIError('fallback', hostname, errorMessage, errorType, extensionKey);
-					case 'AuthError':
-						return new APIError('auth', hostname, errorMessage, errorType, extensionKey);
-					case 'UnsupportedError': // URL isn't supported
-						return new APIError('fatal', hostname, errorMessage, errorType, extensionKey);
-					case 'TimeoutError':
-					case 'RateLimitError':
-						return new APIError('error', hostname, errorMessage, errorType, extensionKey);
-				}
 			}
 		}
 		// Catch all: we don't know this error, bail out.

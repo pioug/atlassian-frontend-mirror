@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.0.0
+
+### Major Changes
+
+- [#140703](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140703)
+  [`a0d838419dd0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a0d838419dd0d) -
+  [ux] Refactor decoration and plugin state for reliable collab drag and drop. DecorationState has
+  been removed from the plugin state. This is now handled internally.
+
+## 1.13.11
+
+### Patch Changes
+
+- [#139586](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139586)
+  [`9ef836177ca84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ef836177ca84) -
+  ED-24948 Change color of empty line prompt experiment button
+
 ## 1.13.10
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 1.31.7
+
+### Patch Changes
+
+- [#140707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140707)
+  [`972fb840acf35`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/972fb840acf35) -
+  Switch from fg to experiment for media-from-url
+- Updated dependencies
+
 ## 1.31.6
 
 ### Patch Changes

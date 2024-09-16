@@ -136,15 +136,13 @@ const DragHandleInternal = ({
 	const handleOnClick = useCallback(() => {
 		setDragHandleSelected(!dragHandleSelected);
 		api?.core?.actions.execute(({ tr }) => {
-			const startPos = fg('platform_editor_element_drag_and_drop_ed_24304') ? getPos() : start;
+			const startPos = getPos();
 
 			if (startPos === undefined) {
 				return tr;
 			}
 
 			tr = selectNode(tr, startPos, nodeType);
-			tr.setMeta(key, { pos: startPos });
-
 			const resolvedMovingNode = tr.doc.resolve(startPos);
 			const maybeNode = resolvedMovingNode.nodeAfter;
 
@@ -164,22 +162,14 @@ const DragHandleInternal = ({
 		});
 
 		view.focus();
-	}, [
-		dragHandleSelected,
-		api?.core?.actions,
-		api?.analytics?.actions,
-		view,
-		getPos,
-		start,
-		nodeType,
-	]);
+	}, [dragHandleSelected, api?.core?.actions, api?.analytics?.actions, view, getPos, nodeType]);
 
 	// TODO - This needs to be investigated further. Drag preview generation is not always working
 	// as expected with a node selection. This workaround sets the selection to the node on mouseDown,
 	// but ensures the preview is generated correctly.
 	const handleMouseDown = useCallback(() => {
 		api?.core?.actions.execute(({ tr }) => {
-			const startPos = fg('platform_editor_element_drag_and_drop_ed_24304') ? getPos() : start;
+			const startPos = getPos();
 			if (startPos === undefined) {
 				return tr;
 			}
@@ -191,10 +181,9 @@ const DragHandleInternal = ({
 			const $startPos = tr.doc.resolve(startPos + node.nodeSize);
 			const selection = new TextSelection($startPos);
 			tr.setSelection(selection);
-			tr.setMeta(key, { pos: startPos });
 			return tr;
 		});
-	}, [api?.core?.actions, getPos, start]);
+	}, [api?.core?.actions, getPos]);
 
 	const handleKeyDown = useCallback(
 		(e: KeyboardEvent<HTMLButtonElement>) => {
@@ -202,7 +191,7 @@ const DragHandleInternal = ({
 				// allow user to use spacebar to select the node
 
 				if (!e.repeat && e.key === ' ') {
-					const startPos = fg('platform_editor_element_drag_and_drop_ed_24304') ? getPos() : start;
+					const startPos = getPos();
 					api?.core?.actions.execute(({ tr }) => {
 						if (startPos === undefined) {
 							return tr;
@@ -215,7 +204,7 @@ const DragHandleInternal = ({
 						const $startPos = tr.doc.resolve(startPos + node.nodeSize);
 						const selection = new TextSelection($startPos);
 						tr.setSelection(selection);
-						tr.setMeta(key, { pos: startPos });
+						tr.setMeta(key, { pos: startPos }); ////WHERE IS THIS USED?
 						return tr;
 					});
 				} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {
@@ -225,7 +214,7 @@ const DragHandleInternal = ({
 				}
 			}
 		},
-		[getPos, start, api?.core?.actions, view],
+		[getPos, api?.core?.actions, view],
 	);
 
 	useEffect(() => {
@@ -259,7 +248,7 @@ const DragHandleInternal = ({
 					return;
 				}
 				api?.core?.actions.execute(({ tr }) => {
-					api?.blockControls?.commands.setNodeDragged(start, anchorName, nodeType)({ tr });
+					api?.blockControls?.commands.setNodeDragged(getPos, anchorName, nodeType)({ tr });
 
 					const resolvedMovingNode = tr.doc.resolve(start);
 					const maybeNode = resolvedMovingNode.nodeAfter;
@@ -280,7 +269,7 @@ const DragHandleInternal = ({
 				view.focus();
 			},
 		});
-	}, [anchorName, api, nodeType, view, start]);
+	}, [anchorName, api, getPos, nodeType, start, view]);
 
 	const macroInteractionUpdates = featureFlagsState?.macroInteractionUpdates;
 
@@ -419,7 +408,9 @@ const DragHandleInternal = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={positionStyles}
 			onClick={handleOnClick}
-			onMouseDown={handleMouseDown}
+			onMouseDown={
+				fg('platform_editor_element_drag_and_drop_ed_24885') ? undefined : handleMouseDown
+			}
 			onKeyDown={handleKeyDown}
 			data-testid="block-ctrl-drag-handle"
 		>

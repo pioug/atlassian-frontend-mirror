@@ -37,13 +37,14 @@ export type HeaderProps = {
 	children?: React.ReactNode;
 	onClick?: () => void;
 	id?: string;
+	role?: string;
 };
 
-const HeaderComponent = ({ width, children, onClick, id }: HeaderProps) => {
+const HeaderComponent = ({ width, children, onClick, id, role = 'columnheader' }: HeaderProps) => {
 	// TODO: Determine whether proper `th` elements can be used instead of
 	// roles (DSP-11588)
 	return (
-		<CommonCell css={headerStyles} role="columnheader" width={width} id={id} onClick={onClick}>
+		<CommonCell css={headerStyles} role={role} width={width} id={id} onClick={onClick}>
 			{children}
 		</CommonCell>
 	);

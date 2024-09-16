@@ -22,14 +22,7 @@ import {
 	IconPanelSuccess,
 	IconPanelWarning,
 } from '@atlaskit/editor-common/quick-insert';
-import type {
-	Command,
-	ExtractInjectionAPI,
-	NextEditorPlugin,
-	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { T50 } from '@atlaskit/theme/colors';
 
@@ -37,18 +30,7 @@ import { insertPanelWithAnalytics } from './actions';
 import keymap from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
 import { getToolbarConfig } from './toolbar';
-import type { PanelPluginOptions } from './types';
-
-export type PanelPlugin = NextEditorPlugin<
-	'panel',
-	{
-		pluginConfiguration: PanelPluginOptions | undefined;
-		dependencies: [typeof decorationsPlugin, OptionalPlugin<typeof analyticsPlugin>];
-		actions: {
-			insertPanel: (inputMethod: INPUT_METHOD) => Command;
-		};
-	}
->;
+import { type PanelPlugin } from './types';
 
 const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 	name: 'panel',
@@ -63,7 +45,8 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 		return [
 			{
 				name: 'panel',
-				plugin: ({ providerFactory, dispatch }) => createPlugin(dispatch, providerFactory, options),
+				plugin: ({ providerFactory, dispatch }) =>
+					createPlugin(dispatch, providerFactory, options, api),
 			},
 			{
 				name: 'panelKeyMap',

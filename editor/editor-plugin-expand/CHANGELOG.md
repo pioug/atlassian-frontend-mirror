@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.6.5
+
+### Patch Changes
+
+- [#140869](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140869)
+  [`e69985951ade3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e69985951ade3) -
+  ED-24557: Cleaned up platform_editor_single_player_expand_ed_24536
+
 ## 2.6.4
 
 ### Patch Changes

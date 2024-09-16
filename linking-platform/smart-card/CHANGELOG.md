@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 28.1.4
+
+### Patch Changes
+
+- [`d716377afe79d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d716377afe79d) -
+  deprecating hidePreviewButton and hideHoverCardPreviewButton in hover card
+
 ## 28.1.3
 
 ### Patch Changes

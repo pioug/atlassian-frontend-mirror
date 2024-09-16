@@ -4,10 +4,12 @@ import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugins/better-type-history';
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
 import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
+import { emojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
 import { panelPlugin } from '@atlaskit/editor-plugins/panel';
 import { pastePlugin } from '@atlaskit/editor-plugins/paste';
+import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -27,6 +29,8 @@ describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
 			.add([pastePlugin, {}])
 			.add(decorationsPlugin)
 			.add(listPlugin)
+			.add(typeAheadPlugin)
+			.add(emojiPlugin)
 			.add(panelPlugin)
 			.add(blockTypePlugin);
 		return createEditor({

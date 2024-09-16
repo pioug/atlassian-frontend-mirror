@@ -37,7 +37,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^20.1.0",
-		"@atlaskit/editor-common": "^89.1.0",
+		"@atlaskit/editor-common": "^89.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
@@ -47,7 +47,7 @@
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.59.0",
+		"@atlaskit/tokens": "^1.60.0",
 		"@atlaskit/tooltip": "^18.7.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

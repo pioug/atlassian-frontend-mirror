@@ -1,4 +1,13 @@
-import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
+import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type {
+	Command,
+	LongPressSelectionPluginOptions,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { type EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 export const pluginKey = new PluginKey('panelPlugin');
@@ -24,3 +33,14 @@ export type EmojiInfo = {
 	shortName: string;
 	id: string;
 };
+
+export type PanelPlugin = NextEditorPlugin<
+	'panel',
+	{
+		pluginConfiguration: PanelPluginOptions | undefined;
+		dependencies: [typeof decorationsPlugin, OptionalPlugin<typeof analyticsPlugin>, EmojiPlugin];
+		actions: {
+			insertPanel: (inputMethod: INPUT_METHOD) => Command;
+		};
+	}
+>;

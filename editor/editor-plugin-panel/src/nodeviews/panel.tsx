@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import type { PanelAttributes } from '@atlaskit/adf-schema';
 import { PanelType } from '@atlaskit/adf-schema';
 import { Emoji } from '@atlaskit/editor-common/emoji';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
 	PanelErrorIcon,
 	PanelInfoIcon,
@@ -14,14 +15,18 @@ import {
 } from '@atlaskit/editor-common/icons';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { getPosHandler, getPosHandlerNode } from '@atlaskit/editor-common/types';
+import type {
+	ExtractInjectionAPI,
+	getPosHandler,
+	getPosHandlerNode,
+} from '@atlaskit/editor-common/types';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import TipIcon from '@atlaskit/icon/glyph/editor/hint';
 
-import type { PanelPluginOptions } from '../types';
+import type { PanelPlugin, PanelPluginOptions } from '../types';
 import { panelAttrsToDom } from '../utils';
 
 export const panelIcons: {
@@ -40,18 +45,27 @@ interface PanelIconAttributes {
 	panelAttributes: PanelAttributes;
 	providerFactory?: ProviderFactory;
 	allowCustomPanel?: boolean;
+	pluginInjectionApi: ExtractInjectionAPI<PanelPlugin> | undefined;
 }
+
+const useEmojiProvider = (pluginInjectionApi: ExtractInjectionAPI<PanelPlugin> | undefined) => {
+	const { emojiState } = useSharedPluginState(pluginInjectionApi, ['emoji']);
+	return emojiState?.emojiProvider;
+};
 
 export const PanelIcon = (props: PanelIconAttributes) => {
 	const {
 		allowCustomPanel,
 		providerFactory,
+		pluginInjectionApi,
 		panelAttributes: { panelType, panelIcon, panelIconId, panelIconText },
 	} = props;
+	const emojiProvider = useEmojiProvider(pluginInjectionApi);
 
 	if (allowCustomPanel && panelIcon && panelType === PanelType.CUSTOM) {
 		return (
 			<Emoji
+				emojiProvider={emojiProvider}
 				providers={providerFactory}
 				shortName={panelIcon}
 				id={panelIconId}
@@ -82,6 +96,7 @@ class PanelNodeView {
 		view: EditorView,
 		getPos: getPosHandlerNode,
 		pluginOptions: PanelPluginOptions,
+		api: ExtractInjectionAPI<PanelPlugin> | undefined,
 		providerFactory?: ProviderFactory,
 	) {
 		this.providerFactory = providerFactory;
@@ -105,6 +120,7 @@ class PanelNodeView {
 		this.icon.contentEditable = 'false';
 		ReactDOM.render(
 			<PanelIcon
+				pluginInjectionApi={api}
 				allowCustomPanel={pluginOptions.allowCustomPanel}
 				panelAttributes={node.attrs as PanelAttributes}
 				providerFactory={this.providerFactory}
@@ -126,13 +142,18 @@ class PanelNodeView {
 }
 
 export const getPanelNodeView =
-	(pluginOptions: PanelPluginOptions, providerFactory?: ProviderFactory) =>
+	(
+		pluginOptions: PanelPluginOptions,
+		api: ExtractInjectionAPI<PanelPlugin> | undefined,
+		providerFactory?: ProviderFactory,
+	) =>
 	(node: Node, view: EditorView, getPos: getPosHandler): PanelNodeView => {
 		return new PanelNodeView(
 			node,
 			view,
 			getPos as getPosHandlerNode,
 			pluginOptions,
+			api,
 			providerFactory,
 		);
 	};

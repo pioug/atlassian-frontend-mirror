@@ -1,6 +1,6 @@
 import React from 'react';
 import { type JsonLd } from 'json-ld-types';
-import { Card, Client, Provider, TitleBlock } from '../../src';
+import { Card, CardAction, Client, Provider, TitleBlock } from '../../src';
 import { response3 } from './example-responses';
 
 class CustomClient extends Client {
@@ -13,9 +13,9 @@ export default () => (
 	<Provider client={new CustomClient('stg')}>
 		<Card
 			appearance="inline"
-			ui={{ hideHoverCardPreviewButton: true }}
 			showHoverPreview={true}
 			url={response3.data.url}
+			actionOptions={{ hide: false, exclude: [CardAction.PreviewAction] }}
 		>
 			<TitleBlock />
 		</Card>

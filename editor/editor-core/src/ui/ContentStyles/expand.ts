@@ -7,13 +7,13 @@ import {
 	sharedExpandStyles,
 } from '@atlaskit/editor-common/styles';
 import {
+	akEditorSelectedBorder,
 	akEditorSelectedNodeClassName,
 	akLayoutGutterOffset,
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N100A, N40A, N50A, R300, R50 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -24,12 +24,12 @@ const EXPAND_SELECTED_BACKGROUND = token(
 
 const EXPAND_ICON_COLOR = () =>
 	css({
-		color: token('color.icon.subtle', N100A),
+		color: token('color.icon.subtle'),
 	});
 
-const DANGER_STATE_BACKGROUND_COLOR = token('color.background.danger', R50);
+const DANGER_STATE_BACKGROUND_COLOR = token('color.background.danger');
 
-const DANGER_STATE_BORDER_COLOR = token('color.border.danger', R300);
+const DANGER_STATE_BORDER_COLOR = token('color.border.danger');
 
 const firstNodeWithNotMarginTop = () =>
 	editorExperiment('nested-dnd', true)
@@ -68,7 +68,9 @@ export const expandStyles = () => css`
 		}
 
 		&.${akEditorSelectedNodeClassName}:not(.danger) {
-			${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.Border])}
+			${editorExperiment('nested-dnd', true)
+				? getSelectionStyles([SelectionStyle.Blanket]) + `border: ${akEditorSelectedBorder};`
+				: getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.Border])}
 		}
 
 		&.danger {
@@ -104,7 +106,7 @@ export const expandStyles = () => css`
 
 	.${expandClassNames.expanded} {
 		background: ${EXPAND_SELECTED_BACKGROUND};
-		border-color: ${token('color.border', N40A)};
+		border-color: ${token('color.border')};
 
 		.${expandClassNames.content} {
 			padding-top: ${token('space.100', '8px')};
@@ -145,7 +147,7 @@ export const expandStyles = () => css`
 			border-color: transparent;
 
 			&:hover {
-				border-color: ${token('color.border', N50A)};
+				border-color: ${token('color.border')};
 				background: ${EXPAND_SELECTED_BACKGROUND};
 			}
 		}

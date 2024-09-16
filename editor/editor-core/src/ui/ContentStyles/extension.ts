@@ -10,21 +10,20 @@ import {
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { B400, B50, R400, R50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 const extensionLabelStyles = css`
 	&.danger > span > div > .extension-label {
-		background-color: ${token('color.background.accent.red.subtler', R50)};
-		color: ${token('color.text.danger', R400)};
+		background-color: ${token('color.background.accent.red.subtler')};
+		color: ${token('color.text.danger')};
 		opacity: 1;
 		box-shadow: none;
 	}
 
 	&:not(.danger).${akEditorSelectedNodeClassName} > span > div > .extension-label {
-		background-color: ${token('color.background.selected', B50)};
-		color: ${token('color.text.selected', B400)};
+		background-color: ${token('color.background.selected')};
+		color: ${token('color.text.selected')};
 		opacity: 1;
 		box-shadow: none;
 	}

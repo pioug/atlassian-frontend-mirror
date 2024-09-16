@@ -12,7 +12,8 @@
 		"website": {
 			"name": "Give Kudos"
 		},
-		"i18n": true
+		"i18n": true,
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -50,13 +51,13 @@
 		"@atlaskit/modal-dialog": "^12.15.0",
 		"@atlaskit/portal": "^4.9.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.59.0",
+		"@atlaskit/tokens": "^1.60.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0",
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {

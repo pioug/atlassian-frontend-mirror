@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 110.1.1
+
+### Patch Changes
+
+- [#140707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140707)
+  [`972fb840acf35`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/972fb840acf35) -
+  Switch from fg to experiment for media-from-url
+- Updated dependencies
+
+## 110.1.0
+
+### Minor Changes
+
+- [#140717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140717)
+  [`b68c21839cdb7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b68c21839cdb7) -
+  Remove platform.comments-on-media.bug.incorrect-badge-highlight feature gate
+
 ## 110.0.4
 
 ### Patch Changes

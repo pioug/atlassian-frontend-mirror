@@ -218,7 +218,7 @@ export function MediaFromURL({
 	const onExternalInsert = React.useCallback(
 		(url: string) => {
 			if (previewState.warning) {
-				insertExternalMediaSingle({ url, alt: url, inputMethod: INPUT_METHOD.MEDIA_PICKER });
+				insertExternalMediaSingle({ url, alt: '', inputMethod: INPUT_METHOD.MEDIA_PICKER });
 			}
 			closeMediaInsertPicker();
 		},

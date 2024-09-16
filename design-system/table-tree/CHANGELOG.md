@@ -1,5 +1,13 @@
 # @atlaskit/table-tree
 
+## 10.0.1
+
+### Patch Changes
+
+- [`f3b4f24e5f14a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3b4f24e5f14a) -
+  Refactors HeaderComponent props
+- Updated dependencies
+
 ## 10.0.0
 
 ### Major Changes

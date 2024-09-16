@@ -17,8 +17,7 @@ import { snapshot } from '@af/visual-regression';
 
 snapshot(OverflowLayoutRenderer);
 snapshot(Layout2ColRenderer);
-//FIXME: Skipping this test for merging changes for UTEST-1347 for fixing Gemini CI vs local font inconsistency issue
-snapshot.skip(LayoutWithDefaultBreakoutMarkRenderer);
+snapshot(LayoutWithDefaultBreakoutMarkRenderer);
 snapshot(Layout3ColRenderer);
 snapshot(LayoutLeftSidebarRenderer);
 snapshot(LayoutRightSidebarRenderer);

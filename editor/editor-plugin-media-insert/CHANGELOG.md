@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.7.1
+
+### Patch Changes
+
+- [#140707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140707)
+  [`972fb840acf35`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/972fb840acf35) -
+  Switch from fg to experiment for media-from-url
+- Updated dependencies
+
+## 2.7.0
+
+### Minor Changes
+
+- [#141109](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141109)
+  [`cba4ebf07d83b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cba4ebf07d83b) -
+  [ux] [ED-24926] When clicking on media insert from element browser, correctly position the media
+  insert popup and scroll into view
+
+## 2.6.2
+
+### Patch Changes
+
+- [#140631](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140631)
+  [`deed1759cb1d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/deed1759cb1d3) -
+  Remove passing url to alt for external images
+
 ## 2.6.1
 
 ### Patch Changes

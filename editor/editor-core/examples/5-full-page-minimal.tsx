@@ -6,7 +6,6 @@
 import { css, jsx } from '@emotion/react';
 
 import { akEditorCodeBackground, akEditorCodeFontFamily } from '@atlaskit/editor-shared-styles';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { Editor } from '../src';
@@ -32,7 +31,7 @@ export const content: any = css({
 			background: akEditorCodeBackground,
 			padding: token('space.150', '12px'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			borderRadius: `${borderRadius()}px`,
+			borderRadius: token('border.radius', '3px'),
 		},
 	},
 });

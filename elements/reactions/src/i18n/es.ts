@@ -15,6 +15,7 @@ export default {
   'fabric.reactions.other.reacted.users': '{count, plural, one {y 1 más} other {y {count} más}}',
   'fabric.reactions.reactwithemoji': 'Reaccionar con el emoticono {emoji}',
   'fabric.reactions.summary': 'Ver todas las reacciones de los usuarios',
+  'reaction-picker-trigger.add.reaction.message': 'Añade una reacción',
   'reactions.dialog.close': 'Cerrar',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Desplazarse hacia la izquierda',

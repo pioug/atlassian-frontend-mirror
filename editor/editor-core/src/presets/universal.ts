@@ -231,7 +231,7 @@ export default function createUniversalPresetInternal({
 		)
 		.maybeAdd(
 			mediaInsertPlugin,
-			Boolean(props.media && fg('platform_editor_insert_media_plugin_phase_one')),
+			Boolean(props.media && editorExperiment('add-media-from-url', true)),
 		)
 		.maybeAdd(captionPlugin, Boolean(props.media?.allowCaptions))
 		.maybeAdd(

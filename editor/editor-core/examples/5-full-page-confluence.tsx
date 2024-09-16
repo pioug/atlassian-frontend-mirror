@@ -76,6 +76,10 @@ const ExampleEditorComponent = () => {
 						}),
 						inviteToEditComponent: InviteToEditButton,
 					},
+					elementBrowser: {
+						showModal: true,
+						replacePlusMenu: true,
+					},
 					disabled,
 					appearance,
 					shouldFocus: true,

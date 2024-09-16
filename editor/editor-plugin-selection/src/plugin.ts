@@ -1,12 +1,14 @@
 import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
 import type { EditorCommand, NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { selectNearNode } from './commands';
 import gapCursorKeymapPlugin from './pm-plugins/gap-cursor-keymap';
 import gapCursorPlugin from './pm-plugins/gap-cursor-main';
 import { gapCursorPluginKey } from './pm-plugins/gap-cursor-plugin-key';
 import selectionKeymapPlugin from './pm-plugins/keymap';
+import { createMarkBoundaryCursorPlugin } from './pm-plugins/mark-boundary-cursor-main';
 import { createPlugin } from './pm-plugins/selection-main';
 import type { EditorSelectionAPI, SelectionPluginOptions } from './types';
 import { selectionPluginKey } from './types';
@@ -76,6 +78,14 @@ export const selectionPlugin: SelectionPlugin = ({ config: options }) => ({
 				name: 'gapCursor',
 				plugin: () => gapCursorPlugin,
 			},
+			...(fg('platform_editor_mark_boundary_cursor')
+				? [
+						{
+							name: 'markBoundaryCursor',
+							plugin: () => createMarkBoundaryCursorPlugin(),
+						},
+					]
+				: []),
 		];
 	},
 });

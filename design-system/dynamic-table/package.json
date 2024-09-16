@@ -47,7 +47,7 @@
 		"@atlaskit/pagination": "^14.8.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.59.0",
+		"@atlaskit/tokens": "^1.60.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"react-beautiful-dnd": "^12.2.0"

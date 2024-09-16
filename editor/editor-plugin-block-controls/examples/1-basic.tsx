@@ -17,6 +17,7 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-inserti
 import { copyButtonPlugin } from '@atlaskit/editor-plugins/copy-button';
 import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugins/editor-disabled';
+import { emojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import { expandPlugin } from '@atlaskit/editor-plugins/expand';
 import { extensionPlugin } from '@atlaskit/editor-plugins/extension';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';
@@ -71,6 +72,7 @@ export default function Editor() {
 					fullWidthEnabled: true,
 				},
 			])
+			.add(emojiPlugin)
 			.add(panelPlugin)
 			.add(rulePlugin)
 			.add(tasksAndDecisionsPlugin)

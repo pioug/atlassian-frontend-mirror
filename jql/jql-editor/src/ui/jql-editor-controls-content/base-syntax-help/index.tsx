@@ -1,7 +1,10 @@
 import React, { type MouseEvent } from 'react';
 
 import Button from '@atlaskit/button';
+import { LinkIconButton } from '@atlaskit/button/new';
+import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import QuestionIcon from '@atlaskit/icon/glyph/question';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -15,7 +18,19 @@ type Props = {
 };
 
 export const BaseSyntaxHelp = ({ describedby, isDisabled, label, onClick }: Props) => {
-	return (
+	return fg('platform-component-visual-refresh') ? (
+		<LinkIconButton
+			aria-describedby={describedby}
+			label={label}
+			isDisabled={isDisabled}
+			appearance="subtle"
+			spacing="compact"
+			onClick={onClick}
+			target="blank"
+			href="https://confluence.atlassian.com/display/SERVICEDESKCLOUD/Advanced+searching"
+			icon={(iconProps) => <QuestionCircleIcon {...iconProps} color={token('color.icon.subtle')} />}
+		/>
+	) : (
 		<SyntaxHelpContainer>
 			<Button
 				aria-describedby={describedby}

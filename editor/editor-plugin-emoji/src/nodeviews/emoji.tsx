@@ -3,6 +3,7 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { messages } from '@atlaskit/editor-common/emoji';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -27,8 +28,15 @@ export type Props = InlineNodeViewComponentProps & {
 	api?: ExtractInjectionAPI<EmojiPlugin>;
 };
 
+const useEmojiProvider = (pluginInjectionApi: ExtractInjectionAPI<EmojiPlugin> | undefined) => {
+	const { emojiState } = useSharedPluginState(pluginInjectionApi, ['emoji']);
+	return emojiState?.emojiProvider;
+};
+
 export function EmojiNodeView(props: Props) {
 	const { shortName, id, text } = props.node.attrs;
+
+	const emojiProvider = useEmojiProvider(props.api);
 
 	if (props.options?.emojiNodeDataProvider) {
 		return (
@@ -41,7 +49,7 @@ export function EmojiNodeView(props: Props) {
 			<EmojiAssistiveTextComponent emojiShortName={shortName}></EmojiAssistiveTextComponent>
 			<span>
 				<Emoji
-					pluginInjectionApi={props.api}
+					emojiProvider={emojiProvider}
 					providers={props.providerFactory}
 					id={id}
 					shortName={shortName}

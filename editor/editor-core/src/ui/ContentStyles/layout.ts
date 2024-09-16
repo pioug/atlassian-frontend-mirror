@@ -19,7 +19,6 @@ import {
 	gridMediumMaxWidth,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { N40A, N50A } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -66,7 +65,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 				flex: 1;
 				min-width: 0;
 				border: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
-					${token('color.border', N40A)};
+					${token('color.border')};
 				border-radius: 4px;
 				padding: ${LAYOUT_COLUMN_PADDING}px
 					${LAYOUT_COLUMN_PADDING + (editorExperiment('nested-dnd', true) ? 8 : 0)}px;
@@ -145,7 +144,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 			&.selected [data-layout-column],
 			&:hover [data-layout-column] {
 				border: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
-					${token('color.border', N50A)};
+					${token('color.border')};
 			}
 
 			&.selected.danger > [data-layout-column] {

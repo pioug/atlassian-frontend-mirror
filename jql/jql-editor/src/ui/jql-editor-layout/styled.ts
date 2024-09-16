@@ -294,6 +294,7 @@ export const ReadOnlyEditorView = styled(EditorView)`
 export const EditorControls = styled.div<{
 	isSearch: boolean;
 	isCompact: boolean;
+	isVisualRefresh?: boolean;
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 }>((props) => ({
 	alignItems: 'center',
@@ -311,4 +312,6 @@ export const EditorControls = styled.div<{
 	top: 0,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: `${rowHeight + 2 * getEditorInputVerticalPadding(props.isCompact)}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	gap: props.isVisualRefresh ? token('space.025') : 'unset',
 }));

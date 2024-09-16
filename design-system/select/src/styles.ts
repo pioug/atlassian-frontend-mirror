@@ -346,6 +346,10 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 			...css,
 			font: token('font.body.small'),
 			color: token('color.text.subtle', N200),
+			...(fg('platform_design_system_team_select_typography') && {
+				fontWeight: `${token('font.weight.bold')} !important`,
+				textTransform: 'none',
+			}),
 		}),
 	};
 }

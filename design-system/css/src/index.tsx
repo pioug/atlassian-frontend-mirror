@@ -9,11 +9,27 @@ import {
 import { type DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
 
 type MediaQuery =
+	// "media.above" breakpoints
 	| '(min-width: 30rem)'
 	| '(min-width: 48rem)'
 	| '(min-width: 64rem)'
 	| '(min-width: 90rem)'
-	| '(min-width: 110.5rem)';
+	| '(min-width: 110.5rem)'
+	// "media.below" breakpoints
+	| 'not all and (min-width: 30rem)'
+	| 'not all and (min-width: 48rem)'
+	| 'not all and (min-width: 64rem)'
+	| 'not all and (min-width: 90rem)'
+	| 'not all and (min-width: 110.5rem)'
+	// "media.only" breakpoints
+	| '(min-width: 0rem) and (max-width: 29.99rem)'
+	| '(min-width: 30rem) and (max-width: 47.99rem)'
+	| '(min-width: 48rem) and (max-width: 63.99rem)'
+	| '(min-width: 64rem) and (max-width: 89.99rem)'
+	| '(min-width: 90rem) and (max-width: 110.49rem)'
+	// Generic media queries
+	| '(prefers-reduced-motion: reduce)'
+	| 'screen and (forced-colors: active), screen and (-ms-high-contrast: active)';
 
 const { XCSSProp, css, cssMap, cx } = createStrictAPI<DesignTokenStyles, { media: MediaQuery }>();
 

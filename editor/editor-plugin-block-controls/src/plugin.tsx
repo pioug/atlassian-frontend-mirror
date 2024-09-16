@@ -3,6 +3,7 @@ import React from 'react';
 import { type IntlShape } from 'react-intl-next';
 
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { moveNode } from './commands/move-node';
@@ -43,19 +44,22 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				return tr;
 			},
 		setNodeDragged:
-			(pos: number, anchorName: string, nodeType: string) =>
+			(getPos: () => number | undefined, anchorName: string, nodeType: string) =>
 			({ tr }: { tr: Transaction }) => {
+				const pos = getPos();
 				if (pos === undefined) {
 					return tr;
 				}
 
-				let newTr = tr;
-				newTr = selectNode(newTr, pos, nodeType);
-				newTr.setMeta(key, {
+				if (!fg('platform_editor_element_drag_and_drop_ed_24885')) {
+					tr = selectNode(tr, pos, nodeType);
+				}
+
+				tr.setMeta(key, {
 					isDragging: true,
 					activeNode: { pos, anchorName, nodeType },
 				});
-				return newTr;
+				return tr;
 			},
 	},
 
@@ -65,8 +69,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		}
 		return {
 			isMenuOpen: key.getState(editorState)?.isMenuOpen ?? false,
-			activeNode: key.getState(editorState)?.activeNode ?? null,
-			decorationState: key.getState(editorState)?.decorationState ?? [],
+			activeNode: key.getState(editorState)?.activeNode ?? undefined,
 			isDragging: key.getState(editorState)?.isDragging ?? false,
 			isPMDragging: key.getState(editorState)?.isPMDragging ?? false,
 		};

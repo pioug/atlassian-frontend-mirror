@@ -116,14 +116,14 @@ export const InsertMenuRail = ({
 				api.emoji?.actions.openTypeAhead(inputMethod);
 				break;
 			case 'codeblock':
-				api.codeBlock?.actions.insertCodeBlock(inputMethod);
+				api.codeBlock?.actions.insertCodeBlock(inputMethod)(state, dispatch);
 				break;
 			case 'blockquote':
 				// @ts-expect-error
-				api.blockType?.actions.insertBlockQuote(inputMethod);
+				api.blockType?.actions.insertBlockQuote(inputMethod)(state, dispatch);
 				break;
 			case 'panel':
-				api.panel?.actions.insertPanel(inputMethod);
+				api.panel?.actions.insertPanel(inputMethod)(state, dispatch);
 				break;
 			case 'action':
 				// @ts-expect-error

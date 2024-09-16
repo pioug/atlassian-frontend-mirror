@@ -17,12 +17,12 @@ const styles = cssMap({
 	},
 	interactive: {
 		cursor: 'pointer',
-		border: `1px solid ${token('color.border')}`,
+		border: `${token('border.width')} solid ${token('color.border')}`,
 	},
 	focused: {
 		color: 'var(--ds-text-selected)',
 		backgroundColor: 'var(--ds-background-selected)',
-		border: `1px solid ${token('color.border.selected')}`,
+		border: `${token('border.width')} solid ${token('color.border.selected')}`,
 	},
 	dashedBorder: {
 		borderStyle: 'dashed',

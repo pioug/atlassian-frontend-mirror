@@ -16,6 +16,7 @@ export default {
     '{count, plural, one {и еще один} few {и еще {count}} many {и еще {count}} other {и еще {count}}}',
   'fabric.reactions.reactwithemoji': 'Отреагировать с помощью эмодзи {emoji}',
   'fabric.reactions.summary': 'Посмотреть все реакции пользователей',
+  'reaction-picker-trigger.add.reaction.message': 'Добавьте реакцию',
   'reactions.dialog.close': 'Закрыть',
   'reactions.dialog.left.navigate': 'Навигация влево',
   'reactions.dialog.reactions.count':

@@ -66,7 +66,6 @@ import {
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N200, N30A, N500 } from '@atlaskit/theme/colors';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
@@ -122,7 +121,7 @@ const mentionsStyles = css`
 
 			/* need to specify dark text colour because personal mentions
          (in dark blue) have white text by default */
-      color: ${token('color.text.subtle', N500)};
+      color: ${token('color.text.subtle')};
 		}
 	}
 
@@ -135,8 +134,8 @@ const mentionsStyles = css`
 			background-color: ${token('color.background.danger', akEditorDeleteBackgroundWithOpacity)};
 		}
 		.${MentionSharedCssClassName.MENTION_CONTAINER} > span > span > span {
-			background-color: ${token('color.background.neutral', N30A)};
-			color: ${token('color.text.subtle', N500)};
+			background-color: ${token('color.background.neutral')};
+			color: ${token('color.text.subtle')};
 		}
 	}
 `;
@@ -192,7 +191,7 @@ const emojiStyles = css`
 export const placeholderStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror .placeholder-decoration': {
-		color: token('color.text.subtlest', N200),
+		color: token('color.text.subtlest'),
 		width: '100%',
 		pointerEvents: 'none',
 		userSelect: 'none',
@@ -273,6 +272,17 @@ const contentStyles = (props: ContentStylesProps) => css`
 	.ProseMirror-selectednode:empty {
 		outline: 2px solid ${token('color.border.focused', '#8cf')};
 	}
+
+	${fg('platform_editor_mark_boundary_cursor')
+		? css`
+				.ProseMirror.ProseMirror-focused:has(.ProseMirror-mark-boundary-cursor) {
+					caret-color: transparent;
+				}
+				.ProseMirror:not(.ProseMirror-focused) .ProseMirror-mark-boundary-cursor {
+					display: none;
+				}
+			`
+		: null}
 
 	${placeholderTextStyles}
 	${placeholderStyles}

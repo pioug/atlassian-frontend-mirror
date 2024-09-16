@@ -91,7 +91,7 @@ const getDropTargetOffsetStyle = (prevNode?: PMNode, nextNode?: PMNode) => {
 
 export type DropTargetProps = {
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
-	id: number;
+	getPos: () => number | undefined;
 	prevNode?: PMNode;
 	nextNode?: PMNode;
 	parentNode?: PMNode;
@@ -100,7 +100,7 @@ export type DropTargetProps = {
 
 export const DropTarget = ({
 	api,
-	id,
+	getPos,
 	prevNode,
 	nextNode,
 	parentNode,
@@ -130,13 +130,11 @@ export const DropTarget = ({
 				setIsDraggedOver(false);
 			},
 			onDrop: () => {
-				const { activeNode, decorationState } =
-					api?.blockControls?.sharedState.currentState() || {};
-				if (!activeNode || !decorationState) {
+				const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
+				if (!activeNode) {
 					return;
 				}
-				const { pos } = decorationState.find((dec) => dec.id === id) || {};
-
+				const pos = getPos();
 				if (activeNode && pos !== undefined) {
 					const { pos: start } = activeNode;
 					api?.core?.actions.execute(
@@ -145,7 +143,7 @@ export const DropTarget = ({
 				}
 			},
 		});
-	}, [id, api, formatMessage]);
+	}, [api, formatMessage, getPos]);
 
 	const dropTargetOffsetStyle = useMemo(() => {
 		/**

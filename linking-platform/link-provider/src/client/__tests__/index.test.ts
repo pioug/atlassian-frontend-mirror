@@ -611,197 +611,95 @@ describe('Smart Card: Client', () => {
 			}
 		});
 
-		ffTest.on(
-			'map_new_ors_generic_error_types_in_link_provider',
-			'Map new error types within link-provider',
-			() => {
-				it('returns correct error for generic bad request error', async () => {
-					mockRequest.mockImplementationOnce(async () => mocks.invokeBadRequestError);
-					const client = new SmartCardClient();
-					try {
-						await client.search({
-							key: 'not-a-valid-provider',
-							action: { query: '', context: { id: 'some-id' } },
-						});
-					} catch (error) {
-						expect(error).toBeInstanceOf(APIError);
-						expect(error).toMatchObject({
-							kind: 'fallback',
-							hostname: '',
-							type: 'BadRequestError',
-						});
-					}
+		it('returns correct error for generic bad request error', async () => {
+			mockRequest.mockImplementationOnce(async () => mocks.invokeBadRequestError);
+			const client = new SmartCardClient();
+			try {
+				await client.search({
+					key: 'not-a-valid-provider',
+					action: { query: '', context: { id: 'some-id' } },
 				});
+			} catch (error) {
+				expect(error).toBeInstanceOf(APIError);
+				expect(error).toMatchObject({
+					kind: 'fallback',
+					hostname: '',
+					type: 'BadRequestError',
+				});
+			}
+		});
 
-				it('returns correct error for generic auth error', async () => {
-					mockRequest.mockImplementationOnce(async () => mocks.invokeAuthError);
-					const client = new SmartCardClient();
-					try {
-						await client.search({
-							key: 'not-a-valid-provider',
-							action: { query: '', context: { id: 'some-id' } },
-						});
-					} catch (error) {
-						expect(error).toBeInstanceOf(APIError);
-						expect(error).toMatchObject({
-							kind: 'auth',
-							hostname: '',
-							type: 'AuthError',
-						});
-					}
+		it('returns correct error for generic auth error', async () => {
+			mockRequest.mockImplementationOnce(async () => mocks.invokeAuthError);
+			const client = new SmartCardClient();
+			try {
+				await client.search({
+					key: 'not-a-valid-provider',
+					action: { query: '', context: { id: 'some-id' } },
 				});
+			} catch (error) {
+				expect(error).toBeInstanceOf(APIError);
+				expect(error).toMatchObject({
+					kind: 'auth',
+					hostname: '',
+					type: 'AuthError',
+				});
+			}
+		});
 
-				it('returns correct error for generic unsupported error', async () => {
-					mockRequest.mockImplementationOnce(async () => mocks.invokeUnsupportedError);
-					const client = new SmartCardClient();
-					try {
-						await client.search({
-							key: 'not-a-valid-provider',
-							action: { query: '', context: { id: 'some-id' } },
-						});
-					} catch (error) {
-						expect(error).toBeInstanceOf(APIError);
-						expect(error).toMatchObject({
-							kind: 'fatal',
-							hostname: '',
-							type: 'UnsupportedError',
-						});
-					}
+		it('returns correct error for generic unsupported error', async () => {
+			mockRequest.mockImplementationOnce(async () => mocks.invokeUnsupportedError);
+			const client = new SmartCardClient();
+			try {
+				await client.search({
+					key: 'not-a-valid-provider',
+					action: { query: '', context: { id: 'some-id' } },
 				});
+			} catch (error) {
+				expect(error).toBeInstanceOf(APIError);
+				expect(error).toMatchObject({
+					kind: 'fatal',
+					hostname: '',
+					type: 'UnsupportedError',
+				});
+			}
+		});
 
-				it('returns correct error for generic timeout error', async () => {
-					mockRequest.mockImplementationOnce(async () => mocks.invokeTimeoutError);
-					const client = new SmartCardClient();
-					try {
-						await client.search({
-							key: 'not-a-valid-provider',
-							action: { query: '', context: { id: 'some-id' } },
-						});
-					} catch (error) {
-						expect(error).toBeInstanceOf(APIError);
-						expect(error).toMatchObject({
-							kind: 'error',
-							hostname: '',
-							type: 'TimeoutError',
-						});
-					}
+		it('returns correct error for generic timeout error', async () => {
+			mockRequest.mockImplementationOnce(async () => mocks.invokeTimeoutError);
+			const client = new SmartCardClient();
+			try {
+				await client.search({
+					key: 'not-a-valid-provider',
+					action: { query: '', context: { id: 'some-id' } },
 				});
+			} catch (error) {
+				expect(error).toBeInstanceOf(APIError);
+				expect(error).toMatchObject({
+					kind: 'error',
+					hostname: '',
+					type: 'TimeoutError',
+				});
+			}
+		});
 
-				it('returns correct error for generic rate limit error', async () => {
-					mockRequest.mockImplementationOnce(async () => mocks.invokeRateLimitError);
-					const client = new SmartCardClient();
-					try {
-						await client.search({
-							key: 'not-a-valid-provider',
-							action: { query: '', context: { id: 'some-id' } },
-						});
-					} catch (error) {
-						expect(error).toBeInstanceOf(APIError);
-						expect(error).toMatchObject({
-							kind: 'error',
-							hostname: '',
-							type: 'RateLimitError',
-						});
-					}
+		it('returns correct error for generic rate limit error', async () => {
+			mockRequest.mockImplementationOnce(async () => mocks.invokeRateLimitError);
+			const client = new SmartCardClient();
+			try {
+				await client.search({
+					key: 'not-a-valid-provider',
+					action: { query: '', context: { id: 'some-id' } },
 				});
-			},
-		);
-
-		ffTest.off(
-			'map_new_ors_generic_error_types_in_link_provider',
-			'Do not map new error types within link-provider',
-			() => {
-				it('returns correct error for generic bad request error', async () => {
-					mockRequest.mockImplementationOnce(async () => mocks.invokeBadRequestError);
-					const client = new SmartCardClient();
-					try {
-						await client.search({
-							key: 'not-a-valid-provider',
-							action: { query: '', context: { id: 'some-id' } },
-						});
-					} catch (error) {
-						expect(error).toBeInstanceOf(APIError);
-						expect(error).toMatchObject({
-							kind: 'fatal',
-							hostname: '',
-							type: 'UnexpectedError',
-						});
-					}
+			} catch (error) {
+				expect(error).toBeInstanceOf(APIError);
+				expect(error).toMatchObject({
+					kind: 'error',
+					hostname: '',
+					type: 'RateLimitError',
 				});
-
-				it('returns correct error for generic auth error', async () => {
-					mockRequest.mockImplementationOnce(async () => mocks.invokeAuthError);
-					const client = new SmartCardClient();
-					try {
-						await client.search({
-							key: 'not-a-valid-provider',
-							action: { query: '', context: { id: 'some-id' } },
-						});
-					} catch (error) {
-						expect(error).toBeInstanceOf(APIError);
-						expect(error).toMatchObject({
-							kind: 'fatal',
-							hostname: '',
-							type: 'UnexpectedError',
-						});
-					}
-				});
-
-				it('returns correct error for generic unsupported error', async () => {
-					mockRequest.mockImplementationOnce(async () => mocks.invokeUnsupportedError);
-					const client = new SmartCardClient();
-					try {
-						await client.search({
-							key: 'not-a-valid-provider',
-							action: { query: '', context: { id: 'some-id' } },
-						});
-					} catch (error) {
-						expect(error).toBeInstanceOf(APIError);
-						expect(error).toMatchObject({
-							kind: 'fatal',
-							hostname: '',
-							type: 'UnexpectedError',
-						});
-					}
-				});
-
-				it('returns correct error for generic timeout error', async () => {
-					mockRequest.mockImplementationOnce(async () => mocks.invokeTimeoutError);
-					const client = new SmartCardClient();
-					try {
-						await client.search({
-							key: 'not-a-valid-provider',
-							action: { query: '', context: { id: 'some-id' } },
-						});
-					} catch (error) {
-						expect(error).toBeInstanceOf(APIError);
-						expect(error).toMatchObject({
-							kind: 'fatal',
-							hostname: '',
-							type: 'UnexpectedError',
-						});
-					}
-				});
-
-				it('returns correct error for generic rate limit error', async () => {
-					mockRequest.mockImplementationOnce(async () => mocks.invokeRateLimitError);
-					const client = new SmartCardClient();
-					try {
-						await client.search({
-							key: 'not-a-valid-provider',
-							action: { query: '', context: { id: 'some-id' } },
-						});
-					} catch (error) {
-						expect(error).toBeInstanceOf(APIError);
-						expect(error).toMatchObject({
-							kind: 'fatal',
-							hostname: '',
-							type: 'UnexpectedError',
-						});
-					}
-				});
-			},
-		);
+			}
+		});
 	});
 
 	describe('prefetchData', () => {

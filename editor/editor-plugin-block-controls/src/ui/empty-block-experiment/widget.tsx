@@ -38,7 +38,7 @@ const buttonStyles = xcss({
 	border: 'none',
 	backgroundColor: 'color.background.neutral',
 	borderRadius: '50%',
-	color: 'color.text',
+	color: 'color.text.accent.gray',
 	zIndex: 'card',
 	outline: 'none',
 

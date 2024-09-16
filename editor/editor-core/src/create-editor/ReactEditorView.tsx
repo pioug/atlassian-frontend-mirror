@@ -36,7 +36,10 @@ import type {
 	EditorPresetBuilder,
 } from '@atlaskit/editor-common/preset';
 import { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
-import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
+import {
+	processRawValue,
+	processRawValueWithoutTransformation,
+} from '@atlaskit/editor-common/process-raw-value';
 import type {
 	ContextIdentifierProvider,
 	ProviderFactory,
@@ -58,6 +61,7 @@ import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import type { Dispatch } from '../event-dispatcher';
@@ -574,18 +578,26 @@ export class ReactEditorView<T = {}> extends React.Component<
 
 		let doc;
 
+		const api = this.pluginInjectionAPI.api();
+		// If we have a doc prop, we need to process it into a PMNode
+
 		if (options.doc) {
-			doc = processRawValue(
-				schema,
-				options.doc,
-				options.props.providerFactory,
-				options.props.editorProps.sanitizePrivateContent,
-				this.contentTransformer,
-				this.dispatchAnalyticsEvent,
-			);
+			// if the collabEdit API is set, skip this validation due to potential pm validation errors
+			// from docs that end up with invalid marks after processing (See #hot-111702 for more details)
+			if (api?.collabEdit !== undefined && fg('editor_load_conf_collab_docs_without_checks')) {
+				doc = processRawValueWithoutTransformation(schema, options.doc);
+			} else {
+				doc = processRawValue(
+					schema,
+					options.doc,
+					options.props.providerFactory,
+					options.props.editorProps.sanitizePrivateContent,
+					this.contentTransformer,
+					this.dispatchAnalyticsEvent,
+				);
+			}
 		}
 
-		const api = this.pluginInjectionAPI.api();
 		const isViewMode = api?.editorViewMode?.sharedState.currentState().mode === 'view';
 
 		let selection: Selection | undefined;

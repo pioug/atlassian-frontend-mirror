@@ -42,28 +42,7 @@
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-analytics/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-plugin-decorations/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-plugin-feature-flags/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-test-helpers/tsconfig.app.json"
-		},
-		{
-			"path": "../../elements/emoji/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/theme/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
-		},
-		{
-			"path": "../../elements/util-data-test/tsconfig.app.json"
 		}
 	]
 }

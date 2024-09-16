@@ -20,6 +20,12 @@ import { sanitizeNodeForPrivacy } from './filter/privacy-filter';
 import { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
 import { validateADFEntity } from './validate-using-spec';
 
+export function processRawValueWithoutTransformation(schema: Schema, value?: ReplaceRawValue) {
+	const parsedDoc = Node.fromJSON(schema, value);
+
+	return parsedDoc;
+}
+
 export function processRawValue(
 	schema: Schema,
 	value?: ReplaceRawValue,

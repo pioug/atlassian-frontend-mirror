@@ -39,6 +39,13 @@ const getDomRefFromSelection = (
 	try {
 		const domRef = findDomRefAtPos(view.state.selection.from, view.domAtPos.bind(view));
 		if (domRef instanceof HTMLElement) {
+			// If element is not a paragraph, we need to find the closest paragraph parent
+			if (domRef.nodeName !== 'P') {
+				const paragraphRef = domRef.closest('p');
+				if (paragraphRef) {
+					return paragraphRef;
+				}
+			}
 			return domRef;
 		} else {
 			throw new Error('Invalid DOM reference');

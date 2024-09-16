@@ -27,7 +27,8 @@ export interface Props {
 	type: ColorCardType;
 	value: string;
 	label: string;
-	onClick?: (value: string) => void;
+	onClickOld?: (value: string) => void;
+	onClick?: (event: React.MouseEvent | React.KeyboardEvent, value: string) => void;
 	onKeyDown?: KeyboardEventHandler<HTMLElement>;
 	checkMarkColor?: string;
 	selected?: boolean;
@@ -51,6 +52,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 		checkMarkColor = N0,
 		isTabbing,
 		onClick,
+		onClickOld,
 		onKeyDown,
 	} = props;
 
@@ -67,19 +69,27 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 
 	const handleClick = useCallback(
 		(event: React.MouseEvent<HTMLDivElement>) => {
-			if (onClick) {
-				event.preventDefault();
-				onClick(value);
+			if (fg('platform_color_palette-expose-event')) {
+				if (onClick) {
+					event.preventDefault();
+					onClick(event, value);
+				}
+			} else {
+				if (onClickOld) {
+					event.preventDefault();
+					onClickOld(value);
+				}
 			}
 		},
-		[onClick, value],
+		[onClick, onClickOld, value],
 	);
 
 	const handleKeyDown = useCallback(
 		(event: React.KeyboardEvent<HTMLDivElement>) => {
 			if (
 				(isTabbingIgnored || isTabbing === undefined || isTabbing) &&
-				onClick &&
+				((onClickOld && !fg('platform_color_palette-expose-event')) ||
+					(onClick && fg('platform_color_palette-expose-event'))) &&
 				(event.key === KEY_ENTER || event.key === KEY_SPACE)
 			) {
 				event.preventDefault();
@@ -88,7 +98,8 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 					event.stopPropagation();
 				}
 
-				onClick(value);
+				// Remove optional call on FG cleanup platform_color_palette-expose-event
+				fg('platform_color_palette-expose-event') ? onClick?.(event, value) : onClickOld?.(value);
 			}
 
 			if (fg('platform_color_palette_menu_timeline_bar_a11y')) {
@@ -100,7 +111,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 				}
 			}
 		},
-		[isTabbing, isTabbingIgnored, isColorPaletteMenu, onClick, onKeyDown, value],
+		[isTabbingIgnored, isTabbing, onClick, onClickOld, value, isColorPaletteMenu, onKeyDown],
 	);
 
 	useEffect(() => {

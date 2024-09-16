@@ -18,7 +18,6 @@ import {
 	inlinePlayerClassName,
 	newFileExperienceClassName,
 } from '@atlaskit/media-card';
-import { B200, N60, Y500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -121,7 +120,7 @@ export const mediaStyles = css`
 
 	.${richMediaClassName}:hover .richMedia-resize-handle-left::after,
 	.${richMediaClassName}:hover .richMedia-resize-handle-right::after {
-		background: ${token('color.border', N60)};
+		background: ${token('color.border')};
 	}
 
 	.${akEditorSelectedNodeClassName} .richMedia-resize-handle-right::after,
@@ -130,7 +129,7 @@ export const mediaStyles = css`
 	.${richMediaClassName} .richMedia-resize-handle-left:hover::after,
 	.${richMediaClassName}.is-resizing .richMedia-resize-handle-right::after,
 	.${richMediaClassName}.is-resizing .richMedia-resize-handle-left::after {
-		background: ${token('color.border.focused', B200)};
+		background: ${token('color.border.focused')};
 	}
 
 	.__resizable_base__ {
@@ -191,19 +190,19 @@ export const mediaStyles = css`
 	.warning {
 		/* Media single */
 		.${richMediaClassName} .${fileCardImageViewSelector}::after {
-			border: 1px solid ${token('color.border.warning', Y500)};
+			border: 1px solid ${token('color.border.warning')};
 		}
 
 		.${richMediaClassName} .${inlinePlayerClassName}::after {
-			border: 1px solid ${token('color.border.warning', Y500)};
+			border: 1px solid ${token('color.border.warning')};
 		}
 
 		.${richMediaClassName} .${newFileExperienceClassName} {
-			box-shadow: 0 0 0 1px ${token('color.border.warning', Y500)} !important;
+			box-shadow: 0 0 0 1px ${token('color.border.warning')} !important;
 		}
 
 		.resizer-handle-thumb {
-			background: ${token('color.icon.warning', Y500)} !important;
+			background: ${token('color.icon.warning')} !important;
 		}
 	}
 

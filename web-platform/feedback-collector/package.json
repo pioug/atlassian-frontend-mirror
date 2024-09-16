@@ -53,10 +53,10 @@
 		"@atlaskit/modal-dialog": "^12.15.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/section-message": "^6.6.0",
-		"@atlaskit/select": "^17.18.0",
+		"@atlaskit/select": "^17.19.0",
 		"@atlaskit/textarea": "^5.6.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.59.0",
+		"@atlaskit/tokens": "^1.60.0",
 		"@babel/runtime": "^7.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},

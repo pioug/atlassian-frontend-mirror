@@ -17,7 +17,6 @@ import {
 	akEditorContextPanelWidth,
 	akEditorSwoopCubicBezier,
 } from '@atlaskit/editor-shared-styles';
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export type Props = {
@@ -40,7 +39,7 @@ export const panel = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transition: `width ${ANIM_SPEED_MS}ms ${akEditorSwoopCubicBezier}`,
 	overflow: 'hidden',
-	boxShadow: `inset 2px 0 0 0 ${token('color.border', N30)}`,
+	boxShadow: `inset 2px 0 0 0 ${token('color.border')}`,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

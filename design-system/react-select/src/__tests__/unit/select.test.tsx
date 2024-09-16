@@ -2041,6 +2041,48 @@ test('accessibility > aria-activedescendant should not exist if hideSelectedOpti
 });
 
 cases(
+	'accessibility > passes through aria-errormessage prop',
+	({ props = { ...BASIC_PROPS, 'aria-errormessage': 'error-message' } }) => {
+		let { container } = render(<Select {...props} />);
+		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
+			'aria-errormessage',
+			'error-message',
+		);
+	},
+	{
+		'single select > should pass aria-errormessage prop down to input': {},
+		'multi select > should pass aria-errormessage prop down to input': {
+			props: {
+				...BASIC_PROPS,
+				'aria-errormessage': 'error-message',
+				isMulti: true,
+			},
+		},
+	},
+);
+
+cases(
+	'accessibility > passes through aria-labelledby prop',
+	({ props = { ...BASIC_PROPS, 'aria-labelledby': 'testing' } }) => {
+		let { container } = render(<Select {...props} />);
+		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
+			'aria-labelledby',
+			'testing',
+		);
+	},
+	{
+		'single select > should pass aria-labelledby prop down to input': {},
+		'multi select > should pass aria-labelledby prop down to input': {
+			props: {
+				...BASIC_PROPS,
+				'aria-labelledby': 'testing',
+				isMulti: true,
+			},
+		},
+	},
+);
+
+cases(
 	'accessibility > passes through labelId (aria-labelledby) prop',
 	({ props = { ...BASIC_PROPS, labelId: 'testing' } }) => {
 		render(<Select {...props} />);
@@ -2098,6 +2140,48 @@ cases(
 );
 
 cases(
+	'accessibility > passes through aria-invalid prop',
+	({ props = { ...BASIC_PROPS, 'aria-invalid': true } }) => {
+		let { container } = render(<Select {...props} />);
+		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
+			'aria-invalid',
+			'true',
+		);
+	},
+	{
+		'single select > should pass aria-invalid prop down to input': {},
+		'multi select > should pass aria-invalid prop down to input': {
+			props: {
+				...BASIC_PROPS,
+				'aria-invalid': true,
+				isMulti: true,
+			},
+		},
+	},
+);
+
+cases(
+	'accessibility > passes through aria-invalid prop',
+	({ props = { ...BASIC_PROPS, 'aria-invalid': true } }) => {
+		let { container } = render(<Select {...props} />);
+		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
+			'aria-invalid',
+			'true',
+		);
+	},
+	{
+		'single select > should pass aria-invalid prop down to input': {},
+		'multi select > should pass aria-invalid prop down to input': {
+			props: {
+				...BASIC_PROPS,
+				'aria-invalid': true,
+				isMulti: true,
+			},
+		},
+	},
+);
+
+cases(
 	'accessibility > passes through isInvalid (aria-invalid) prop',
 	({ props = { ...BASIC_PROPS, isInvalid: true } }) => {
 		render(<Select {...props} />);
@@ -2110,6 +2194,27 @@ cases(
 			props: {
 				...BASIC_PROPS,
 				isInvalid: true,
+				isMulti: true,
+			},
+		},
+	},
+);
+
+cases(
+	'accessibility > passes through aria-label prop',
+	({ props = { ...BASIC_PROPS, 'aria-label': 'testing' } }) => {
+		let { container } = render(<Select {...props} />);
+		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
+			'aria-label',
+			'testing',
+		);
+	},
+	{
+		'single select > should pass aria-labelledby prop down to input': {},
+		'multi select > should pass aria-labelledby prop down to input': {
+			props: {
+				...BASIC_PROPS,
+				'aria-label': 'testing',
 				isMulti: true,
 			},
 		},
@@ -3057,6 +3162,42 @@ test('renders with custom theme', () => {
 
 cases(
 	'`required` prop',
+	({ props = BASIC_PROPS }) => {
+		const components = (value: Option | null | undefined = null) => (
+			<form id="formTest">
+				<Select {...props} required value={value} />
+			</form>
+		);
+
+		const { container, rerender } = render(components());
+
+		expect(container.querySelector<HTMLFormElement>('#formTest')?.checkValidity()).toEqual(false);
+		rerender(components(props.options[0]));
+		expect(container.querySelector<HTMLFormElement>('#formTest')?.checkValidity()).toEqual(true);
+	},
+	{
+		'single select > should validate with value': {
+			props: {
+				...BASIC_PROPS,
+			},
+		},
+		'single select (isSearchable is false) > should validate with value': {
+			props: {
+				...BASIC_PROPS,
+				isSearchable: false,
+			},
+		},
+		'multi select > should validate with value': {
+			props: {
+				...BASIC_PROPS,
+				isMulti: true,
+			},
+		},
+	},
+);
+
+cases(
+	'`isRequired` prop',
 	({ props = BASIC_PROPS }) => {
 		const components = (value: Option | null | undefined = null) => (
 			<form id="formTest">

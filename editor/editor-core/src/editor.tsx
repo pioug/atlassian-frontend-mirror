@@ -57,6 +57,13 @@ interface EditorPropsWithInitialPluginConfiguration extends EditorProps {
 	initialPluginConfiguration?: InitialPluginConfiguration;
 }
 
+/**
+ * @deprecated - Please use the `ComposableEditor` component instead.
+ * We strongly encourage the use of custom presets, however your easiest migration path is to use the `useUniversalPreset` hook.
+ * The `ComposableEditor` component is a more flexible and customizable alternative to the `Editor` component.
+ * It allows you to create an editor with a custom set of plugins and configurations.
+ * For more information, see the documentation for the `ComposableEditor` component here: https://atlaskit.atlassian.com/packages/editor/editor-core
+ */
 export default class Editor extends React.Component<EditorPropsWithInitialPluginConfiguration> {
 	static defaultProps: EditorProps = {
 		appearance: 'comment',

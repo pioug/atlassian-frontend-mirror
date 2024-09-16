@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 1.16.0
+
+### Minor Changes
+
+- [#141074](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141074)
+  [`8e945d5784e6a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e945d5784e6a) -
+  Clean up the `map_new_ors_generic_error_types_in_link_provider` feature flag
+
 ## 1.15.0
 
 ### Minor Changes

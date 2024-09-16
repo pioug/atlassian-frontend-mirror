@@ -15,6 +15,7 @@ export default {
   'fabric.reactions.other.reacted.users': '{count, plural, one {és egy másik} other {és {count} másik}}',
   'fabric.reactions.reactwithemoji': 'Reagálás {emoji} emojival',
   'fabric.reactions.summary': 'Minden felhasználói reakció megtekintése',
+  'reaction-picker-trigger.add.reaction.message': 'Reakció hozzáadása',
   'reactions.dialog.close': 'Bezárás',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Balra navigálás',

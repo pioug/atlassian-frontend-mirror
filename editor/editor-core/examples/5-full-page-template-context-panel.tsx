@@ -12,7 +12,6 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { type createUniversalPresetInternal } from '@atlaskit/editor-core/preset-universal';
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
-import { N10, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import breakoutAdf from '../example-helpers/templates/breakout.adf.json';
@@ -58,12 +57,12 @@ templates[1] = {
 };
 
 const templateCard = css({
-	border: `1px solid ${token('color.border', N30)}`,
+	border: `1px solid ${token('color.border')}`,
 	padding: token('space.100', '8px'),
 	marginBottom: token('space.100', '8px'),
 	borderRadius: '5px',
 	'&:hover': {
-		background: N10,
+		background: token('color.background.accent.gray.subtler'),
 	},
 });
 

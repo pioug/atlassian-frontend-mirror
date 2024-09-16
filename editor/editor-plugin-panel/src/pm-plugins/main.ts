@@ -3,10 +3,10 @@ import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import { getPanelNodeView } from '../nodeviews/panel';
-import type { PanelPluginOptions } from '../types';
-import { pluginKey } from '../types';
+import { type PanelPlugin, type PanelPluginOptions, pluginKey } from '../types';
 import { handleCut } from '../utils';
 
 export type PanelOptions = {
@@ -20,6 +20,7 @@ export const createPlugin = (
 	dispatch: Dispatch,
 	providerFactory: ProviderFactory,
 	pluginOptions: PanelPluginOptions,
+	api: ExtractInjectionAPI<PanelPlugin> | undefined,
 ) => {
 	const { useLongPressSelection = false } = pluginOptions;
 	return new SafePlugin({
@@ -32,7 +33,7 @@ export const createPlugin = (
 		},
 		props: {
 			nodeViews: {
-				panel: getPanelNodeView(pluginOptions, providerFactory),
+				panel: getPanelNodeView(pluginOptions, api, providerFactory),
 			},
 			handleClickOn: createSelectionClickHandler(
 				['panel'],

@@ -1,5 +1,14 @@
 # @atlaskit/jql-editor
 
+## 4.7.4
+
+### Patch Changes
+
+- [#141027](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141027)
+  [`54b27406e5181`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/54b27406e5181) -
+  [ux] Update icons and buttons on jql
+- Updated dependencies
+
 ## 4.7.3
 
 ### Patch Changes

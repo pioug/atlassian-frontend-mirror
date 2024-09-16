@@ -103,6 +103,15 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2024-08-29
+	'add-media-from-url': {
+		productKeys: {
+			confluence: 'platform_editor_add_media_from_url',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 	// Added 2024-08-30
 	'nested-dnd': {
 		productKeys: {
@@ -156,5 +165,15 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
+	},
+	// Add 2024-09-16
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_ai_button_block_elements/setup
+	platform_editor_ai_ai_button_block_elements: {
+		productKeys: {
+			confluence: 'platform_editor_ai_ai_button_block_elements',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'test']),
+		defaultValue: 'control' as 'control' | 'test',
 	},
 } satisfies Record<string, EditorExperimentConfigValue>;

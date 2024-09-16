@@ -45,7 +45,7 @@
 		"@atlaskit/media-ui": "^25.11.0",
 		"@atlaskit/media-viewer": "^48.8.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.59.0",
+		"@atlaskit/tokens": "^1.60.0",
 		"@atlaskit/tooltip": "^18.7.0",
 		"@babel/runtime": "^7.0.0",
 		"memoize-one": "^6.0.0"

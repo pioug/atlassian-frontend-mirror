@@ -43,7 +43,9 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	closeOnChildClick?: boolean;
 
 	/**
-	 * Determines if the hover card should display the "Open preview" button.
+	 * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-14817 Internal documentation for deprecation (no external access)}
+	 *
+	 * Prefer 'actionOptions' prop. Determines if the hover card should display the "Open preview" button.
 	 */
 	hidePreviewButton?: boolean;
 

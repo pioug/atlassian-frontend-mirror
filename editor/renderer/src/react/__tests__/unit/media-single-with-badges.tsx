@@ -1,6 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen } from '@testing-library/react';
 import MediaWithDraftAnnotation from '../../nodes/media';
 import {
 	type AnnotationMarkDefinition,
@@ -12,6 +11,7 @@ import {
 } from '@atlaskit/adf-schema';
 import { InlineCommentsStateContext } from '../../../ui/annotations/context';
 import { IntlProvider } from 'react-intl-next';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 jest.mock('@atlaskit/editor-common/media-single', () => ({
 	...jest.requireActual('@atlaskit/editor-common/media-single'),
@@ -194,81 +194,68 @@ describe('MediaWithDraftAnnotation', () => {
 	});
 
 	describe('ExternalImageBadge', () => {
-		ffTest.off(
-			'platform_editor_insert_media_plugin_phase_one',
-			'check external image badge not showing when flag is off',
-			() => {
-				it('should not show ExternalImageBadge when node type is external', () => {
-					const { queryByTestId } = render(
-						<IntlProvider locale="en">
-							<InlineCommentsStateContext.Provider value={nextState}>
-								<MediaWithDraftAnnotation
-									{...createMockProps({
-										commentsOnMedia: false,
-										commentsOnMediaInsertExcerpt: false,
-										includeNodeType: false,
-										excerptIncludeClass: false,
-										type: 'external',
-									})}
-								/>
-							</InlineCommentsStateContext.Provider>
-							,
-						</IntlProvider>,
-					);
+		describe('should show ExternalImageBadge when node type is external', () => {
+			const renderExternal = () =>
+				render(
+					<IntlProvider locale="en">
+						<InlineCommentsStateContext.Provider value={nextState}>
+							<MediaWithDraftAnnotation
+								{...createMockProps({
+									commentsOnMedia: false,
+									commentsOnMediaInsertExcerpt: false,
+									includeNodeType: false,
+									excerptIncludeClass: false,
+									type: 'external',
+								})}
+							/>
+						</InlineCommentsStateContext.Provider>
+					</IntlProvider>,
+				);
 
-					const externalImageBadge = queryByTestId('external-image-badge');
-					expect(externalImageBadge).toBeNull();
-				});
-			},
-		);
-		ffTest.on(
-			'platform_editor_insert_media_plugin_phase_one',
-			'check external image badge when flag is on',
-			() => {
-				it('should show ExternalImageBadge when node type is external', () => {
-					const { queryByTestId } = render(
-						<IntlProvider locale="en">
-							<InlineCommentsStateContext.Provider value={nextState}>
-								<MediaWithDraftAnnotation
-									{...createMockProps({
-										commentsOnMedia: false,
-										commentsOnMediaInsertExcerpt: false,
-										includeNodeType: false,
-										excerptIncludeClass: false,
-										type: 'external',
-									})}
-								/>
-							</InlineCommentsStateContext.Provider>
-							,
-						</IntlProvider>,
-					);
-
-					const externalImageBadge = queryByTestId('external-image-badge');
+			eeTest('add-media-from-url', {
+				true: () => {
+					renderExternal();
+					const externalImageBadge = screen.queryByTestId('external-image-badge');
 					expect(externalImageBadge).not.toBeNull();
-				});
-
-				it('should not show ExternalImageBadge when node type is not external', () => {
-					const { queryByTestId } = render(
-						<IntlProvider locale="en">
-							<InlineCommentsStateContext.Provider value={nextState}>
-								<MediaWithDraftAnnotation
-									{...createMockProps({
-										commentsOnMedia: false,
-										commentsOnMediaInsertExcerpt: false,
-										includeNodeType: false,
-										excerptIncludeClass: false,
-										type: 'file',
-									})}
-								/>
-							</InlineCommentsStateContext.Provider>
-							,
-						</IntlProvider>,
-					);
-
-					const externalImageBadge = queryByTestId('external-image-badge');
+				},
+				false: () => {
+					renderExternal();
+					const externalImageBadge = screen.queryByTestId('external-image-badge');
 					expect(externalImageBadge).toBeNull();
-				});
-			},
-		);
+				},
+			});
+		});
+
+		describe('should not show ExternalImageBadge when node type is not external', () => {
+			const renderFile = () =>
+				render(
+					<IntlProvider locale="en">
+						<InlineCommentsStateContext.Provider value={nextState}>
+							<MediaWithDraftAnnotation
+								{...createMockProps({
+									commentsOnMedia: false,
+									commentsOnMediaInsertExcerpt: false,
+									includeNodeType: false,
+									excerptIncludeClass: false,
+									type: 'file',
+								})}
+							/>
+						</InlineCommentsStateContext.Provider>
+					</IntlProvider>,
+				);
+
+			eeTest('add-media-from-url', {
+				true: () => {
+					renderFile();
+					const externalImageBadge = screen.queryByTestId('external-image-badge');
+					expect(externalImageBadge).toBeNull();
+				},
+				false: () => {
+					renderFile();
+					const externalImageBadge = screen.queryByTestId('external-image-badge');
+					expect(externalImageBadge).toBeNull();
+				},
+			});
+		});
 	});
 });

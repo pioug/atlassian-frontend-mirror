@@ -1,5 +1,42 @@
 # @atlaskit/editor-plugins
 
+## 5.1.0
+
+### Minor Changes
+
+- [#140949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140949)
+  [`f0496e4dd21b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f0496e4dd21b2) -
+  Make Panel Plugin use Emoji component from editor-plugin-emoji
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.0
+
+### Major Changes
+
+- [#140703](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140703)
+  [`a0d838419dd0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a0d838419dd0d) -
+  Refactor decoration and plugin state in editor-plugin-block-controls for reliable collab drag and
+  drop. DecorationState has been removed from the plugin state. This is now handled internally.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.5.2
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-panel
 
+## 2.4.0
+
+### Minor Changes
+
+- [#140949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140949)
+  [`f0496e4dd21b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f0496e4dd21b2) -
+  Make Panel Plugin use Emoji component from editor-plugin-emoji
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.7
 
 ### Patch Changes

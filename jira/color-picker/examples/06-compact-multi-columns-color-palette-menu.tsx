@@ -20,7 +20,7 @@ class ColorPaletteMenuExample extends React.Component<{}, { color: string }> {
 					palette={extendedPalette}
 					selectedColor={this.state.color}
 					cols={6}
-					onChange={(newColor: string) => this.setState({ color: newColor })}
+					onChange={(_, newColor: string) => this.setState({ color: newColor })}
 					mode={Compact}
 				/>
 			</IntlProvider>

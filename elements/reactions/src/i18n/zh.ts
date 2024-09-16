@@ -15,6 +15,7 @@ export default {
   'fabric.reactions.other.reacted.users': '{count, plural, other {以及其他 {count} 个人}}',
   'fabric.reactions.reactwithemoji': '使用 {emoji} 表情回应',
   'fabric.reactions.summary': '查看所有用户回应',
+  'reaction-picker-trigger.add.reaction.message': '添加反应',
   'reactions.dialog.close': '关闭',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': '向左导航',

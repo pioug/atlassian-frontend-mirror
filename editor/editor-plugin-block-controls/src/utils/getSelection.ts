@@ -6,17 +6,18 @@ export const getSelection = (tr: Transaction, start: number) => {
 	const isNodeSelection = node && NodeSelection.isSelectable(node);
 	const nodeSize = node ? node.nodeSize : 1;
 	const $startPos = tr.doc.resolve(start);
+	const nodeName = node?.type.name;
 
 	// decisionList node is not selectable, but we want to select the whole node not just text
-	if (isNodeSelection || node?.type.name === 'decisionList') {
+	if (isNodeSelection || nodeName === 'decisionList') {
 		return new NodeSelection($startPos);
-	} else if (node?.type.name === 'mediaGroup' && node.childCount === 1) {
+	} else if (nodeName === 'mediaGroup' && node?.childCount === 1) {
 		const $mediaStartPos = tr.doc.resolve(start + 1);
 		return new NodeSelection($mediaStartPos);
 	} else if (
 		// Even though mediaGroup is not selectable,
 		// we need a quick way to make all child media nodes appear as selected without the need for a custom selection
-		node?.type.name === 'mediaGroup'
+		nodeName === 'mediaGroup'
 	) {
 		return new NodeSelection($startPos);
 	} else {

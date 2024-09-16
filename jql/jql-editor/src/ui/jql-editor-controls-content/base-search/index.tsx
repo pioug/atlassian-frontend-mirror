@@ -1,7 +1,10 @@
 import React, { type CSSProperties, useCallback } from 'react';
 
 import { LoadingButton } from '@atlaskit/button';
-import SearchIcon from '@atlaskit/icon/glyph/editor/search';
+import { IconButton } from '@atlaskit/button/new';
+import SearchIcon from '@atlaskit/icon/core/search';
+import SearchIconOld from '@atlaskit/icon/glyph/editor/search';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const style: CSSProperties = {
 	// Fixes an issue where loading button makes the editor flicker with a scrollbar
@@ -23,7 +26,19 @@ export const BaseSearch = ({ isDisabled, isSearching, label, onSearch }: Props) 
 		}
 	}, []);
 
-	return (
+	return fg('platform-component-visual-refresh') ? (
+		<IconButton
+			label={label}
+			isDisabled={isDisabled}
+			testId="jql-editor-search"
+			appearance={'primary'}
+			spacing="compact"
+			onClick={onSearch}
+			onKeyDown={preventRepeatClick}
+			isLoading={isSearching}
+			icon={SearchIcon}
+		/>
+	) : (
 		<LoadingButton
 			aria-label={label}
 			isDisabled={isDisabled}
@@ -35,7 +50,7 @@ export const BaseSearch = ({ isDisabled, isSearching, label, onSearch }: Props) 
 			onClick={onSearch}
 			onKeyDown={preventRepeatClick}
 			isLoading={isSearching}
-			iconBefore={<SearchIcon label={''} size={'medium'} />}
+			iconBefore={<SearchIconOld label={''} size={'medium'} />}
 		/>
 	);
 };

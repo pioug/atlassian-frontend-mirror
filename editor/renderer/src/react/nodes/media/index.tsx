@@ -53,7 +53,7 @@ import {
 	useInlineCommentsFilter,
 } from '../../../ui/annotations/hooks';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export type MediaProps = MediaCardProps & {
 	providers?: ProviderFactory;
@@ -242,8 +242,7 @@ const CommentBadgeWrapper = ({
 				if (mutation.attributeName === 'data-has-focus') {
 					const isMediaCaption = parentNode?.closest('[data-media-caption="true"]');
 					const elementHasFocus =
-						parentNode?.querySelector('[data-has-focus="true"]') &&
-						(!fg('platform.comments-on-media.bug.incorrect-badge-highlight') || !isMediaCaption);
+						parentNode?.querySelector('[data-has-focus="true"]') && !isMediaCaption;
 					elementHasFocus ? setStatus('active') : setStatus('default');
 				}
 			});
@@ -293,7 +292,7 @@ const CommentBadgeWrapper = ({
 /**
  * Remove CommentBadgeWrapper component above
  * and rename CommentBadgeNextWrapper to CommentBadgeWrapper
- * when clean up platform_editor_insert_media_plugin_phase_one feature flag
+ * when clean up platform_editor_add_media_from_url feature flag
  */
 
 type CommentBadgeNextWrapperProps = {
@@ -326,8 +325,7 @@ const CommentBadgeNextWrapper = ({
 				if (mutation.attributeName === 'data-has-focus') {
 					const isMediaCaption = parentNode?.closest('[data-media-caption="true"]');
 					const elementHasFocus =
-						parentNode?.querySelector('[data-has-focus="true"]') &&
-						(!fg('platform.comments-on-media.bug.incorrect-badge-highlight') || !isMediaCaption);
+						parentNode?.querySelector('[data-has-focus="true"]') && !isMediaCaption;
 					elementHasFocus ? setStatus('active') : setStatus('default');
 				}
 			});
@@ -431,7 +429,7 @@ class Media extends PureComponent<MediaProps, {}> {
 								},
 							}}
 						>
-							{fg('platform_editor_insert_media_plugin_phase_one') && (
+							{editorExperiment('add-media-from-url', true) && (
 								<MediaBadges
 									mediaElement={mediaSingleElement}
 									mediaWidth={width}
@@ -453,7 +451,7 @@ class Media extends PureComponent<MediaProps, {}> {
 								</MediaBadges>
 							)}
 
-							{!fg('platform_editor_insert_media_plugin_phase_one') && showCommentBadge && (
+							{!editorExperiment('add-media-from-url', true) && showCommentBadge && (
 								<CommentBadgeWrapper
 									marks={annotationMarks}
 									mediaSingleElement={mediaSingleElement}

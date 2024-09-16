@@ -15,6 +15,7 @@ export default {
   'fabric.reactions.other.reacted.users': '{count, plural, one {ve bir kişi daha} other {ve {count} kişi daha}}',
   'fabric.reactions.reactwithemoji': "{emoji} emoji'siyle tepki verin",
   'fabric.reactions.summary': 'Tüm kullanıcı tepkilerini görüntüleyin',
+  'reaction-picker-trigger.add.reaction.message': 'Tepki ekleyin',
   'reactions.dialog.close': 'Kapat',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Sol Gezinme',

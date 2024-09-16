@@ -20,7 +20,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { InsertMethod } from '../types';
 import { isNestedInExpand } from '../utils';
@@ -49,36 +48,25 @@ export const insertExpandWithInputMethod =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, isNestingExpandsSupported?: boolean) =>
 	(inputMethod: InsertMethod): Command =>
 	(state, dispatch) => {
-		const expandNode = fg('platform_editor_single_player_expand_ed_24536')
-			? createExpandNode(state, false, isNestingExpandsSupported)
-			: createExpandNode(state, undefined, isNestingExpandsSupported);
+		const expandNode = createExpandNode(state, false, isNestingExpandsSupported);
 
 		if (!expandNode) {
 			return false;
 		}
 
 		let tr;
-		if (fg('platform_editor_single_player_expand_ed_24536')) {
-			if (state.selection.empty) {
-				tr = safeInsert(expandNode)(state.tr).scrollIntoView();
-				expandedState.set(expandNode!, true);
-			} else {
-				tr = createWrapSelectionTransaction({
-					state,
-					type: expandNode.type,
-				});
-				const wrapperNode = findParentNodeOfType(expandNode.type)(tr.selection);
-				if (wrapperNode) {
-					expandedState.set(wrapperNode.node, true);
-				}
-			}
+		if (state.selection.empty) {
+			tr = safeInsert(expandNode)(state.tr).scrollIntoView();
+			expandedState.set(expandNode!, true);
 		} else {
-			tr = state.selection.empty
-				? safeInsert(expandNode)(state.tr).scrollIntoView()
-				: createWrapSelectionTransaction({
-						state,
-						type: expandNode.type,
-					});
+			tr = createWrapSelectionTransaction({
+				state,
+				type: expandNode.type,
+			});
+			const wrapperNode = findParentNodeOfType(expandNode.type)(tr.selection);
+			if (wrapperNode) {
+				expandedState.set(wrapperNode.node, true);
+			}
 		}
 
 		const payload: AnalyticsEventPayload = {

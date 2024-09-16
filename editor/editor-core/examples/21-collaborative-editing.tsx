@@ -7,6 +7,7 @@ import React, { Fragment, useEffect } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { IntlProvider } from 'react-intl-next';
 import URLSearchParams from 'url-search-params';
 
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -102,15 +103,23 @@ export const content: any = css({
 
 const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => {
 	const onClickPublish = () => {
-		props.editorActions.getResolvedEditorState().then((value) => {
-			console.log(value);
-		});
+		const win = window.parent || window;
+		const url = new URL(win.location.href);
+		const draftDoc = props.editorActions._privateGetEditorView()?.state.doc.toJSON();
+		url.searchParams.set(
+			'draftDocWithDocumentId',
+			JSON.stringify({
+				documentId: getQueryParam('documentId'),
+				draftDoc,
+			}),
+		);
+		win.history.pushState({}, '', url.toString());
 	};
 
 	return (
 		<ButtonGroup>
 			<Button appearance="primary" onClick={onClickPublish}>
-				Publish
+				Save draft
 			</Button>
 			<Button appearance="subtle" onClick={() => props.editorActions.clear()}>
 				Close
@@ -149,6 +158,10 @@ export type State = {
 	isInviteToEditButtonSelected: boolean;
 	documentId?: string;
 	collabUrl?: string;
+	/**
+	 * document to preload into the editor prior to collab booting up
+	 */
+	draftDoc?: string;
 	documentIdInput?: HTMLInputElement;
 	collabUrlInput?: HTMLInputElement;
 	hasError?: boolean;
@@ -200,6 +213,7 @@ const FullPageComposableEditor = (props: any) => {
 
 	return (
 		<ComposableEditor
+			defaultValue={props.defaultValue}
 			preset={fullPagePreset}
 			appearance={props.appearance}
 			placeholder={props.placeholder}
@@ -228,6 +242,12 @@ export default class Example extends React.Component<Props, State> {
 		need404: getQueryParam('need404'),
 		documentIdInput: undefined,
 		collabUrlInput: undefined,
+		draftDoc: ((draftDocWithDocumentId) => {
+			if (draftDocWithDocumentId?.documentId === getQueryParam('documentId')) {
+				return draftDocWithDocumentId.draftDoc;
+			}
+			return undefined;
+		})(JSON.parse(getQueryParam('draftDocWithDocumentId'))),
 		hasError: false,
 		title: localStorage.getItem(LOCALSTORAGE_defaultTitleKey) || '',
 		__livePage: getQueryParam('__livePage') === 'true' || false,
@@ -403,6 +423,7 @@ export default class Example extends React.Component<Props, State> {
 					{(parentContainer) => (
 						<EditorContext>
 							<FullPageComposableEditor
+								defaultValue={this.state.draftDoc}
 								__livePage={this.state.__livePage}
 								appearance="full-page"
 								allowBreakout={true}
@@ -516,7 +537,7 @@ export default class Example extends React.Component<Props, State> {
 
 	render() {
 		if (this.state.documentId) {
-			return this.renderEditor();
+			return <IntlProvider locale="en">{this.renderEditor()}</IntlProvider>;
 		}
 
 		return (

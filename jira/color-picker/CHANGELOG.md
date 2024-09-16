@@ -1,5 +1,14 @@
 # @atlaskit/color-picker
 
+## 3.3.1
+
+### Patch Changes
+
+- [#141027](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141027)
+  [`0d28a5b25436c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d28a5b25436c) -
+  [ux] Technical change - Expose event in onChange callback of ColorPaletteMenu
+- Updated dependencies
+
 ## 3.3.0
 
 ### Minor Changes

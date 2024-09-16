@@ -22,8 +22,6 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-tool
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N100 } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import messages from '../../../messages';
@@ -51,10 +49,10 @@ const commentEditorStyles = css({
 	minWidth: '272px',
 	height: 'auto',
 	backgroundColor: token('color.background.input', 'white'),
-	border: `1px solid ${token('color.border.input', N100)}`,
+	border: `1px solid ${token('color.border.input')}`,
 	boxSizing: 'border-box',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: `${borderRadius()}px`,
+	borderRadius: token('border.radius', '3px'),
 	maxWidth: 'inherit',
 	wordWrap: 'break-word',
 });

@@ -12,8 +12,6 @@ import { diffLines } from 'diff';
 
 import Button from '@atlaskit/button/new';
 import TextArea from '@atlaskit/textarea';
-import { G75, N10, N40, N900, R75 } from '@atlaskit/theme/colors';
-import { codeFontFamily } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const container = css({
@@ -36,10 +34,10 @@ const diffContainer = css({
 	flex: '1 1 auto',
 	height: '100%',
 	whiteSpace: 'pre',
-	fontFamily: codeFontFamily(),
-	color: N900,
-	backgroundColor: N10,
-	border: `2px solid ${token('color.border', N40)}`,
+	fontFamily: token('font.family.code'),
+	color: token('color.text.accent.gray'),
+	backgroundColor: token('color.background.neutral.subtle'),
+	border: `2px solid ${token('color.border')}`,
 	borderRadius: '3px',
 	boxSizing: 'border-box',
 	fontSize: '14px',
@@ -60,11 +58,11 @@ const lineStyle = css({
 });
 
 const addedLineStyle = css({
-	backgroundColor: G75,
+	backgroundColor: token('color.background.accent.green.subtler'),
 });
 
 const removedLineStyle = css({
-	backgroundColor: R75,
+	backgroundColor: token('color.background.accent.red.subtler'),
 });
 
 type LineProps = {
@@ -80,7 +78,7 @@ const RemovedLine = ({ children }: LineProps) => (
 const label = css({
 	width: '100%',
 	textAlign: 'center',
-	borderTop: `1px solid ${token('color.border', N40)}`,
+	borderTop: `1px solid ${token('color.border')}`,
 	fontSize: '16px',
 	paddingTop: token('space.200', '16px'),
 });

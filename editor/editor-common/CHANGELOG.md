@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 89.2.0
+
+### Minor Changes
+
+- [#140949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140949)
+  [`f0496e4dd21b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f0496e4dd21b2) -
+  Make Panel Plugin use Emoji component from editor-plugin-emoji
+
+## 89.1.3
+
+### Patch Changes
+
+- [#140717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140717)
+  [`142a506a3f170`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/142a506a3f170) -
+  ED-24958 prevent confluence full page editor crashing when loading from draft doc
+
 ## 89.1.2
 
 ### Patch Changes

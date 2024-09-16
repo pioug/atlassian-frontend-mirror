@@ -23,13 +23,12 @@ export type ActiveNode = {
 
 export interface PluginState {
 	decorations: DecorationSet;
-	decorationState: DecorationState;
 	isDragging: boolean;
 	isMenuOpen?: boolean;
 	editorHeight: number;
 	editorWidthLeft: number;
 	editorWidthRight: number;
-	activeNode: ActiveNode | null;
+	activeNode?: ActiveNode;
 	isResizerResizing: boolean;
 	/**
 	 * @private
@@ -48,8 +47,7 @@ export type ReleaseHiddenDecoration = () => boolean | undefined;
 export type BlockControlsSharedState =
 	| {
 			isMenuOpen: boolean;
-			activeNode: ActiveNode | null;
-			decorationState: DecorationState;
+			activeNode?: ActiveNode;
 			isDragging: boolean;
 			isPMDragging: boolean;
 	  }
@@ -86,15 +84,14 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				nodeType: string,
 				handleOptions?: HandleOptions,
 			) => EditorCommand;
-			setNodeDragged: (posNumber: number, anchorName: string, nodeType: string) => EditorCommand;
+			setNodeDragged: (
+				getPos: () => number | undefined,
+				anchorName: string,
+				nodeType: string,
+			) => EditorCommand;
 		};
 	}
 >;
-
-export type DecorationState = {
-	id: number;
-	pos: number;
-}[];
 
 export type BlockControlsMeta = {
 	activeNode: ActiveNode;

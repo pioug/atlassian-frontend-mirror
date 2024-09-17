@@ -34,7 +34,6 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -140,11 +139,7 @@ export type BlockTypePlugin = NextEditorPlugin<
 	'blockType',
 	{
 		pluginConfiguration: BlockTypePluginOptions | undefined;
-		dependencies: [
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<PrimaryToolbarPlugin>,
-			OptionalPlugin<FeatureFlagsPlugin>,
-		];
+		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<PrimaryToolbarPlugin>];
 		sharedState: BlockTypeState | undefined;
 		actions: {
 			insertBlockQuote: (inputMethod: InputMethod) => Command;
@@ -156,7 +151,6 @@ export type BlockTypePlugin = NextEditorPlugin<
 >;
 
 const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
-	// Confluence and Jira is pulling it in through platform feature flags, from a feature gate
 	const isNestingInQuoteSchemaChanged =
 		fg('platform_editor_nest_in_quotes_adf_change') ||
 		fg('editor_nest_media_and_codeblock_in_quotes_jira');

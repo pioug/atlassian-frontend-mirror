@@ -13,7 +13,12 @@ const featureLibraryFunctions = new Set([
 	 * Slack thread: https://atlassian.slack.com/archives/CFGLH1ZS8/p1726449739284819
 	 */
 	'isVisualRefreshEnabled',
+	'getMetaBoolean',
+	'getNav4Rollout',
+	'getWillShowNav3',
 	'getWillShowNav4',
+	'getWillShowNav4UserOptIn',
+	'getWillShowNav4UserOptOut',
 ]);
 
 const isInFunctionLevel = (context: Rule.RuleContext) => {

@@ -5,7 +5,8 @@ import {
 	type FileState,
 	globalMediaEventEmitter,
 } from '@atlaskit/media-client';
-import AudioIcon from '@atlaskit/icon/glyph/media-services/audio';
+import AudioIcon from '@atlaskit/icon/core/migration/audio--media-services-audio';
+
 import { Outcome } from '../domain';
 import { MediaViewerError } from '../errors';
 import {
@@ -19,7 +20,6 @@ import { type BaseState, BaseViewer } from './base-viewer';
 import { isIE } from '../utils/isIE';
 import { CustomMediaPlayer, type WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
-import { blanketColor } from '../styles';
 
 export type Props = Readonly<
 	{
@@ -40,10 +40,12 @@ const defaultCover = (
 	<DefaultCoverWrapper>
 		<AudioIcon
 			label="cover"
-			size="xlarge"
-			primaryColor={blanketColor}
+			LEGACY_size="xlarge"
+			color="currentColor"
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			secondaryColor="#9FADBC"
+			LEGACY_primaryColor="#22272B"
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			LEGACY_secondaryColor="#9FADBC"
 		/>
 	</DefaultCoverWrapper>
 );

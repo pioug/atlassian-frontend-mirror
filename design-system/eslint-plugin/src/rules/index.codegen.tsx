@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c2a140a3f690737dd938e746ef8fb9d5>>
+ * @codegen <<SignedSource::4c05727190930e765289a0d292c2928f>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -42,6 +42,7 @@ import useMenuSectionTitle from './use-menu-section-title';
 import usePopupLabel from './use-popup-label';
 import usePrimitives from './use-primitives';
 import usePrimitivesText from './use-primitives-text';
+import useTagGroupLabel from './use-tag-group-label';
 import useTokensSpace from './use-tokens-space';
 import useTokensTypography from './use-tokens-typography';
 import useVisuallyHidden from './use-visually-hidden';
@@ -86,6 +87,7 @@ export default {
 	'use-popup-label': usePopupLabel,
 	'use-primitives': usePrimitives,
 	'use-primitives-text': usePrimitivesText,
+	'use-tag-group-label': useTagGroupLabel,
 	'use-tokens-space': useTokensSpace,
 	'use-tokens-typography': useTokensTypography,
 	'use-visually-hidden': useVisuallyHidden,

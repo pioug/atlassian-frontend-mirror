@@ -155,7 +155,6 @@ export class ToolbarInsertBlock extends React.PureComponent<
 			schema: props.editorView.state.schema,
 			numberOfButtons: props.buttons,
 			formatMessage: props.intl.formatMessage,
-			isNewMenuEnabled: props.replacePlusMenuWithElementBrowser,
 		});
 
 		return {
@@ -263,17 +262,10 @@ export class ToolbarInsertBlock extends React.PureComponent<
 
 	private renderPopup() {
 		const { emojiPickerOpen } = this.state;
-		const {
-			popupsMountPoint,
-			popupsBoundariesElement,
-			popupsScrollableElement,
-			emojiProvider,
-			replacePlusMenuWithElementBrowser,
-		} = this.props;
+		const { popupsMountPoint, popupsBoundariesElement, popupsScrollableElement, emojiProvider } =
+			this.props;
 		const dropdownEmoji = this.state.dropdownItems.some(({ value: { name } }) => name === 'emoji');
-		const dropDownButtonRef = replacePlusMenuWithElementBrowser
-			? this.plusButtonRef
-			: this.dropdownButtonRef;
+		const dropDownButtonRef = this.plusButtonRef;
 		const ref = dropdownEmoji ? dropDownButtonRef : this.emojiButtonRef;
 
 		if (!emojiPickerOpen || !ref || !emojiProvider) {
@@ -526,9 +518,6 @@ export class ToolbarInsertBlock extends React.PureComponent<
 							onInsert={this.insertInsertMenuItem as OnInsert}
 							onOpenChange={this.onOpenChange}
 							togglePlusMenuVisibility={this.togglePlusMenuVisibility}
-							replacePlusMenuWithElementBrowser={
-								this.props.replacePlusMenuWithElementBrowser ?? false
-							}
 							showElementBrowserLink={this.props.showElementBrowserLink || false}
 							pluginInjectionApi={this.props.pluginInjectionApi}
 						/>

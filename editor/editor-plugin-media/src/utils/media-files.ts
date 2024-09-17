@@ -30,8 +30,12 @@ import {
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { canInsert, hasParentNode, safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import {
+	canInsert,
+	type ContentNodeWithPos,
+	hasParentNode,
+	safeInsert,
+} from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { MediaState } from '../types';
@@ -217,6 +221,7 @@ export const insertMediaGroupNode =
 		mediaStates: MediaState[],
 		collection: string,
 		inputMethod?: InputMethodInsertMedia,
+		isNestingInQuoteSupported?: boolean,
 	): void => {
 		const { state, dispatch } = view;
 		const { tr, schema } = state;
@@ -243,6 +248,21 @@ export const insertMediaGroupNode =
 			parent.type === schema.nodes.mediaGroup
 				? mediaNodes // If parent is a mediaGroup do not wrap items again.
 				: [schema.nodes.mediaGroup.createChecked({}, mediaNodes)];
+
+		/** we only allow the insertion of media groups inside a blockquote if nesting in quotes is supported */
+		const grandParentNode = state.selection.$from.node(-1);
+		const grandParentNodeType = grandParentNode?.type.name;
+
+		if (grandParentNodeType === 'blockquote' && !isNestingInQuoteSupported) {
+			const grandparentEndPos = state.selection.$from.start(-1) + grandParentNode.nodeSize - 1;
+			safeInsert(content[0], grandparentEndPos)(tr).scrollIntoView();
+			editorAnalyticsAPI?.attachAnalyticsEvent(
+				getInsertMediaGroupAnalytics(mediaStates, inputMethod),
+			)(tr);
+			dispatch(tr);
+			return;
+		}
+
 		if (shouldSplit) {
 			content = withParagraph ? content.concat(paragraph.create()) : content;
 			// delete the selection or empty paragraph

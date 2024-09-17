@@ -75,6 +75,7 @@ function insertNodesWithOptionalParagraph(
 		previousType?: MediaSwitchType;
 	} = {},
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	isNestingInQuoteSupported?: boolean,
 ): Command {
 	return function (state, dispatch) {
 		const { tr, schema } = state;
@@ -88,7 +89,14 @@ function insertNodesWithOptionalParagraph(
 			openEnd = 1;
 		}
 
-		if (state.selection.empty) {
+		/** we only allow the insertion of media singles inside a blockquote if nesting in quotes is supported */
+		const grandParentNode = state.selection.$from.node(-1);
+		const grandParentNodeType = grandParentNode?.type.name;
+
+		if (grandParentNodeType === 'blockquote' && !isNestingInQuoteSupported) {
+			const grandparentEndPos = state.selection.$from.start(-1) + grandParentNode.nodeSize - 1;
+			pmSafeInsert(nodes[0], grandparentEndPos)(tr).scrollIntoView();
+		} else if (state.selection.empty) {
 			tr.insert(state.selection.from, nodes);
 			// Set the cursor position at the end of the insertion
 			const endPos =
@@ -123,6 +131,7 @@ export type InsertMediaAsMediaSingle = (
 	view: EditorView,
 	node: PMNode,
 	inputMethod: InputMethodInsertMedia,
+	isNestingInQuoteSupported?: boolean,
 ) => boolean;
 
 export const insertMediaAsMediaSingle = (
@@ -130,6 +139,7 @@ export const insertMediaAsMediaSingle = (
 	node: PMNode,
 	inputMethod: InputMethodInsertMedia,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	isNestingInQuoteSupported?: boolean,
 ): boolean => {
 	const { state, dispatch } = view;
 	const { mediaSingle, media } = state.schema.nodes;
@@ -167,6 +177,7 @@ export const insertMediaAsMediaSingle = (
 		nodes,
 		analyticsAttributes,
 		editorAnalyticsAPI,
+		isNestingInQuoteSupported,
 	)(state, dispatch);
 };
 
@@ -187,6 +198,7 @@ export const insertMediaSingleNode = (
 	widthPluginState?: WidthPluginState | undefined,
 	editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 	onNodeInserted?: (id: string, selectionPosition: number) => void,
+	isNestingInQuoteSupported?: boolean,
 ): boolean => {
 	if (collection === undefined) {
 		return false;
@@ -232,6 +244,7 @@ export const insertMediaSingleNode = (
 			[node],
 			{ fileExtension, inputMethod },
 			editorAnalyticsAPI,
+			isNestingInQuoteSupported,
 		)(state, dispatch);
 	} else {
 		let tr: Transaction | null = null;

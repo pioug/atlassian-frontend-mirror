@@ -20,8 +20,8 @@ import {
 } from './__tests__/_utils';
 import { DatasourceTableView } from './datasourceTableView';
 
-ffTest.on('platform-datasources-enable-two-way-sync', 'requires 2 way sync', () => {
-	ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
+ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
+	ffTest.on('platform-datasources-enable-two-way-sync', 'requires 2 way sync', () => {
 		const integrationKey = 'acme';
 		const ari = 'ari:cloud:platform::site/123';
 
@@ -66,6 +66,7 @@ ffTest.on('platform-datasources-enable-two-way-sync', 'requires 2 way sync', () 
 				meta: {
 					product: integrationKey,
 					destinationObjectTypes: ['issue'],
+					objectTypesEntity: 'work-item',
 				},
 				data: {
 					items,

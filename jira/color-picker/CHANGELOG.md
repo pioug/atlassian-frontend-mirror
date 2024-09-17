@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 3.3.2
+
+### Patch Changes
+
+- [#141841](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141841)
+  [`c47656cb21bcc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c47656cb21bcc) -
+  Clean up color palette menu A11y FG
+
 ## 3.3.1
 
 ### Patch Changes

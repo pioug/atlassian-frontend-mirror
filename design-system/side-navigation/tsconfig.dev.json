@@ -54,6 +54,9 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../dropdown-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
@@ -61,6 +64,9 @@
 		},
 		{
 			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../image/tsconfig.app.json"
 		},
 		{
 			"path": "../logo/tsconfig.app.json"
@@ -76,6 +82,15 @@
 		},
 		{
 			"path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/live-region/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/react-accessibility/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/react-drop-indicator/tsconfig.app.json"
 		},
 		{
 			"path": "../primitives/tsconfig.app.json"

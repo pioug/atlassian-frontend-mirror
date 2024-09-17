@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 67.7.10
+
+### Patch Changes
+
+- [#141656](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141656)
+  [`9210f1a8e795c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9210f1a8e795c) -
+  Change alt value from shortName to name to avoid confusion for AT users
+
 ## 67.7.9
 
 ### Patch Changes

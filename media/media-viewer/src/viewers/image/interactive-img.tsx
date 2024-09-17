@@ -110,6 +110,8 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			<HDIconGroupWrapper className={hideControlsClassName}>
 				{isHDActivating ? <Spinner appearance="invert" /> : undefined}
+				{/* TODO: https://product-fabric.atlassian.net/browse/DSP-20900 */}
+				{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons */}
 				<HDIcon
 					primaryColor={hdPrimaryColor}
 					secondaryColor={hdSecondaryColor}

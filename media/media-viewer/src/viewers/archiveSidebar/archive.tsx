@@ -15,12 +15,11 @@ import {
 	DefaultCoverWrapper,
 	ListWrapper,
 } from '../../styleWrappers';
-import AudioIcon from '@atlaskit/icon/glyph/media-services/audio';
+import AudioIcon from '@atlaskit/icon/core/migration/audio--media-services-audio';
 import ErrorMessage from '../../errorMessage';
 import { BaseViewer } from '../base-viewer';
 import { InteractiveImg } from '../image/interactive-img';
 import { PDFRenderer } from '../doc/pdfRenderer';
-import { blanketColor } from '../../styles';
 import { ArchiveItemViewerWrapper, ArchiveLayout, ArchiveViewerWrapper } from './styleWrappers';
 import ArchiveSidebarRenderer from './archive-sidebar-renderer';
 import { getMediaTypeFromFilename, getMimeTypeFromFilename, rejectAfter } from '../../utils';
@@ -293,10 +292,12 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 								<DefaultCoverWrapper>
 									<AudioIcon
 										label="cover"
-										size="xlarge"
-										primaryColor={blanketColor}
+										LEGACY_size="xlarge"
+										color="currentColor"
 										// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-										secondaryColor="#9FADBC"
+										LEGACY_primaryColor="#22272B"
+										// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+										LEGACY_secondaryColor="#9FADBC"
 									/>
 								</DefaultCoverWrapper>
 								<CustomAudioPlayerWrapper>

@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/media-client';
 import { KeyboardEventWithKeyCode, fakeMediaClient, asMock } from '@atlaskit/media-test-helpers';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
+import EditorPanelIcon from '@atlaskit/icon/core/migration/information--editor-panel';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -152,7 +152,7 @@ describe('<MediaViewer />', () => {
 
 		const extensions: MediaViewerExtensions = {
 			sidebar: {
-				icon: <EditorPanelIcon label="sidebar" />,
+				icon: <EditorPanelIcon color="currentColor" spacing="spacious" label="sidebar" />,
 				renderer: mockSidebarRenderer,
 			},
 		};

@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 22.13.1
+
+### Patch Changes
+
+- [#141784](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141784)
+  [`4659618940d86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4659618940d86) -
+  Pass reactions count into success callback
+
 ## 22.13.0
 
 ### Minor Changes

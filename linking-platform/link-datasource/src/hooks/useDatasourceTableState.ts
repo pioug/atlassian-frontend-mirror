@@ -238,7 +238,15 @@ export const useDatasourceTableState = ({
 
 			try {
 				const {
-					meta: { access, destinationObjectTypes, product, extensionKey, auth, providerName },
+					meta: {
+						access,
+						destinationObjectTypes,
+						product,
+						extensionKey,
+						auth,
+						providerName,
+						objectTypesEntity,
+					},
 					data: { items, nextPageCursor, totalCount, schema },
 				} = await getDatasourceData(datasourceId, datasourceDataRequest, shouldForceRequest);
 				/**
@@ -271,7 +279,12 @@ export const useDatasourceTableState = ({
 					 * Product is typed as any.
 					 */
 					const integrationKey: unknown = product;
-					const entityType = destinationObjectTypes?.length ? destinationObjectTypes[0] : undefined;
+
+					/**
+					 * When `entityType` is undefined, we should not discover actions it prevents unnecessary requests to Actions service
+					 */
+					const entityType = objectTypesEntity;
+
 					const newIds = onAddItems(
 						items,
 						typeof integrationKey === 'string' ? integrationKey : undefined,

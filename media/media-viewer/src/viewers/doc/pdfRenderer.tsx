@@ -33,7 +33,6 @@ export const pdfViewerClassName = 'pdfViewer';
 
 // Styles are partially copied from https://github.com/mozilla/pdfjs-dist/blob/v2.9.359/web/pdf_viewer.css
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 const globalStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`.${pdfViewerClassName}`]: {
@@ -85,7 +84,6 @@ const globalStyles = css({
 		'.annotationLayer .linkAnnotation > a, .annotationLayer .buttonWidgetAnnotation.pushButton > a':
 			{
 				position: 'absolute',
-				fontSize: '1em',
 				top: 0,
 				left: 0,
 				width: '100%',

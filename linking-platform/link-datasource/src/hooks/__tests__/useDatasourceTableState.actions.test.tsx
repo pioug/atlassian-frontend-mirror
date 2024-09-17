@@ -6,6 +6,7 @@ import { defaultRegistry } from 'react-sweet-state';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import {
 	mockActionsDiscoveryResponse,
+	mockDatasourceDataNoActionsResponse,
 	mockDatasourceDataResponse,
 	mockDatasourceDataResponseWithSchema,
 	useDatasourceClientExtension,
@@ -132,10 +133,21 @@ describe('useDatasourceTableState', () => {
 					expect(getDatasourceActionsAndPermissions).toHaveBeenCalled();
 				});
 
+				it('should not call discovery when objectTypesEntity is not in the datasource response', async () => {
+					asMock(getDatasourceData).mockResolvedValueOnce({
+						...mockDatasourceDataNoActionsResponse,
+					});
+					const { waitForNextUpdate } = setup();
+					await waitForNextUpdate();
+
+					expect(getDatasourceActionsAndPermissions).not.toHaveBeenCalled();
+				});
+
 				it('should fire analytic event when `discoverActions` is successful', async () => {
 					asMock(getDatasourceData).mockResolvedValueOnce({
 						...mockDatasourceDataResponseWithSchema,
 					});
+
 					asMock(getDatasourceActionsAndPermissions).mockResolvedValueOnce({
 						...mockActionsDiscoveryResponse,
 					});
@@ -151,7 +163,7 @@ describe('useDatasourceTableState', () => {
 								eventType: 'operational',
 								attributes: {
 									datasourceId: null,
-									entityType: 'issue',
+									entityType: 'work-item',
 									experience: 'datasource',
 									integrationKey: 'jira',
 								},

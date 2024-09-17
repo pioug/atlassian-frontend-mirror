@@ -1,8 +1,8 @@
 import React from 'react';
 
-import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
+import ArrowLeftIcon from '@atlaskit/icon/core/migration/arrow-left';
 import { ButtonItem } from '@atlaskit/side-navigation';
-import HomeIcon from '@atlaskit/icon/glyph/home';
+import HomeIcon from '@atlaskit/icon/core/migration/home';
 
 import { getFormattedFolderName } from '../../utils';
 import { SidebarHeaderEntry, SidebarHeaderIcon, SidebarHeaderWrapper } from './styleWrappers';
@@ -15,7 +15,11 @@ export type HeaderProps = {
 
 export class ArchiveSidebarHeader extends React.Component<HeaderProps> {
 	private getHeaderIcon = () =>
-		!!this.props.folderName ? <ArrowLeftIcon label="Back" /> : <HomeIcon label="Home" />;
+		!!this.props.folderName ? (
+			<ArrowLeftIcon color="currentColor" spacing="spacious" label="Back" />
+		) : (
+			<HomeIcon color="currentColor" spacing="spacious" label="Home" />
+		);
 
 	render() {
 		const { folderName, onHeaderClick } = this.props;

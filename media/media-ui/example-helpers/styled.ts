@@ -16,11 +16,6 @@ export const PreviewList = styled.ul({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const PreviewInfo = styled.pre({
-	fontSize: '80%',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const PreviewItem = styled.li({
 	borderRadius: token('space.100', '8px'),
 	border: `1px solid ${token('color.border', '#ccc')}`,
@@ -37,7 +32,7 @@ export const Code = styled.code({
 	borderRadius: token('space.050', '4px'),
 	backgroundColor: token('color.background.inverse.subtle', '#0002'),
 	color: token('color.text', N900),
-	fontSize: '80%',
+	font: token('font.code'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

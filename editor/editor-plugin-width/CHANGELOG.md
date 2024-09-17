@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-width
 
+## 1.3.4
+
+### Patch Changes
+
+- [#141343](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141343)
+  [`3893ae8e037fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3893ae8e037fb) -
+  Rearranging plugins to meet folder structure linting guidelines.
+
 ## 1.3.3
 
 ### Patch Changes

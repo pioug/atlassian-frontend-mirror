@@ -47,5 +47,5 @@ For internal Atlassian, visit the slack channel
 ---
 
 Please see
-[Atlassian Frontend - License](https://developer.atlassian.com/cloud/framework/atlassian-frontend/#license)
+[Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#Platform-License)
 for more licensing information.

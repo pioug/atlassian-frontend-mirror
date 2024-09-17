@@ -34,7 +34,7 @@ jest.mock('pdfjs-dist/legacy/web/pdf_viewer', () => ({
 import React, { useState } from 'react';
 import { type MediaClient, getFileStreamsCache } from '@atlaskit/media-client';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
+import EditorPanelIcon from '@atlaskit/icon/core/migration/information--editor-panel';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import { createMockedMediaClientProvider } from './utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { useMediaClient } from '@atlaskit/media-client-react';
@@ -377,7 +377,7 @@ describe('<MediaViewer />', () => {
 
 			sidebarExtension = {
 				sidebar: {
-					icon: <EditorPanelIcon label="sidebar" />,
+					icon: <EditorPanelIcon color="currentColor" spacing="spacious" label="sidebar" />,
 					renderer: mockSidebarRenderer,
 				},
 			};

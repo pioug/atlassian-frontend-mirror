@@ -456,6 +456,7 @@ export const isEmptyNode = (schema: Schema) => {
 	const {
 		doc,
 		paragraph,
+		expand,
 		codeBlock,
 		blockquote,
 		panel,
@@ -483,6 +484,7 @@ export const isEmptyNode = (schema: Schema) => {
 			case taskItem:
 			case decisionItem:
 				return node.content.size === 0;
+			case expand:
 			case blockquote:
 			case panel:
 			case listItem:

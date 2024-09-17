@@ -1,5 +1,5 @@
-import { batchSteps } from './batch-steps-action';
-import type { BatchAttributeUpdatesPlugin } from './types';
+import type { BatchAttributeUpdatesPlugin } from './batchAttributeUpdatesPluginType';
+import { batchSteps } from './editor-actions/batch-steps-action';
 
 export const batchAttributeUpdatesPlugin: BatchAttributeUpdatesPlugin = () => {
 	return {

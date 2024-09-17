@@ -77,6 +77,7 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 				meta: {
 					product: 'acme',
 					destinationObjectTypes: ['issue'],
+					objectTypesEntity: 'work-item',
 				},
 				data: {
 					items,

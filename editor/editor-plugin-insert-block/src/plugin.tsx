@@ -58,7 +58,6 @@ export interface InsertBlockOptions {
 	insertMenuItems?: any;
 	horizontalRuleEnabled?: boolean;
 	nativeStatusSupported?: boolean;
-	replacePlusMenuWithElementBrowser?: boolean;
 	showElementBrowserLink?: boolean;
 	tableSelectorSupported?: boolean;
 }
@@ -422,7 +421,6 @@ function ToolbarInsertBlockWithInjectionApi({
 			insertMenuItems={options.insertMenuItems}
 			editorActions={editorActions}
 			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-			replacePlusMenuWithElementBrowser={options.replacePlusMenuWithElementBrowser}
 			showElementBrowserLink={options.showElementBrowserLink}
 			showSeparator={!isLastItem && toolbarSize <= ToolbarSize.S}
 			registerToggleDropdownMenuOptions={registerToggleDropdownMenuOptions}

@@ -1,14 +1,16 @@
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { mapSlice, timestampToString } from '@atlaskit/editor-common/utils';
-import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
 export function transformToCodeBlockAction(
 	state: EditorState,
 	start: number,
 	attrs?: any,
+	isNestingInQuoteSupported?: boolean,
 ): Transaction {
 	const startOfCodeBlockText = state.selection.$from;
 	const endPosition =
@@ -70,6 +72,21 @@ export function transformToCodeBlockAction(
 
 	const codeBlock: NodeType = state.schema.nodes.codeBlock;
 	const codeBlockNode = codeBlock.createChecked(attrs, codeBlockSlice.content);
+
+	/** we only allow the insertion of a codeblock inside a blockquote if nesting in quotes is supported */
+	const grandParentNode = state.selection.$from.node(-1);
+	const grandParentNodeType = grandParentNode?.type.name;
+
+	if (grandParentNodeType === 'blockquote' && !isNestingInQuoteSupported) {
+		const grandparentEndPos = startOfCodeBlockText.start(-1) + grandParentNode.nodeSize - 1;
+		safeInsert(
+			codeBlock.createChecked(attrs, codeBlockSlice.content) as PMNode,
+			grandparentEndPos,
+		)(tr).scrollIntoView();
+		tr.delete(startMapped, Math.min(endPosition, tr.doc.content.size));
+		return tr;
+	}
+
 	tr.replaceWith(startMapped, Math.min(endPosition, tr.doc.content.size), codeBlockNode);
 
 	// Reposition cursor when inserting into layouts or table headers

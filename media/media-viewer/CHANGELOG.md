@@ -1,5 +1,25 @@
 # @atlaskit/media-viewer
 
+## 48.10.0
+
+### Minor Changes
+
+- [#141509](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141509)
+  [`60385582ed07f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/60385582ed07f) -
+  [ux] Enable new icons behind a feature flag.
+
+## 48.9.0
+
+### Minor Changes
+
+- [#140915](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140915)
+  [`36b5acc412af5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36b5acc412af5) -
+  Design system typography uplift
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 48.8.0
 
 ### Minor Changes

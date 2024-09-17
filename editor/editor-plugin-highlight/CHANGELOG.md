@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.17.0
+
+### Minor Changes
+
+- [#140915](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140915)
+  [`eaccad51157d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eaccad51157d6) -
+  [ux] Migrate new icons including color, highlight and task on Editor primary toolbar
+
 ## 1.16.5
 
 ### Patch Changes

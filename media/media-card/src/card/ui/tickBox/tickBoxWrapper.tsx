@@ -23,7 +23,7 @@ const wrapperStyles = (selected?: boolean) =>
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		transition && transition(),
 		{
-			fontSize: '14px',
+			font: token('font.body'),
 			width: '14px',
 			height: '14px',
 			position: 'absolute',

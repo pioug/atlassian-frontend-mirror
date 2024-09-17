@@ -36,6 +36,8 @@ export type {
 	onDialogSelectReactionChange,
 } from './types';
 
+export { ReactionUpdateType } from './types';
+
 export const constants = {
 	DefaultReactions,
 	DefaultReactionsByShortName,

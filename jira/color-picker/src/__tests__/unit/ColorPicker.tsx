@@ -50,7 +50,7 @@ describe('ColorPicker', () => {
 		expect(colorButton).toHaveAttribute('aria-expanded', 'true');
 
 		// popup to have color options
-		expect(getAllByRole('radio')).toHaveLength(2);
+		expect(getAllByRole('menuitemradio')).toHaveLength(2);
 	});
 
 	test('should not submit form when click on trigger', async () => {

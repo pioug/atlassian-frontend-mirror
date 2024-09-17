@@ -4,13 +4,13 @@
 import React from 'react';
 import { Component } from 'react';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import PlayIcon from '@atlaskit/icon/glyph/vid-play';
-import PauseIcon from '@atlaskit/icon/glyph/vid-pause';
-import FullScreenIconOn from '@atlaskit/icon/glyph/vid-full-screen-on';
-import FullScreenIconOff from '@atlaskit/icon/glyph/vid-full-screen-off';
-import SoundIcon from '@atlaskit/icon/glyph/hipchat/outgoing-sound';
+import PlayIcon from '@atlaskit/icon/core/migration/video-play--vid-play';
+import PauseIcon from '@atlaskit/icon/core/migration/video-pause--vid-pause';
+import FullScreenIconOn from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
+import FullScreenIconOff from '@atlaskit/icon/core/migration/shrink-diagonal--vid-full-screen-off';
+import SoundIcon from '@atlaskit/icon/core/migration/volume-high--hipchat-outgoing-sound';
 import HDIcon from '@atlaskit/icon/glyph/vid-hd-circle';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import { type MediaFeatureFlags, withMediaAnalyticsContext } from '@atlaskit/media-common';
 
 import { xcss, Box, Flex } from '@atlaskit/primitives';
@@ -289,6 +289,8 @@ export class CustomMediaPlayerBase extends Component<
 						: undefined
 				}
 				iconBefore={
+					//TODO: https://product-fabric.atlassian.net/browse/DSP-20900
+					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 					<HDIcon primaryColor={primaryColor} secondaryColor={secondaryColor} label="hd" />
 				}
 			/>
@@ -328,7 +330,10 @@ export class CustomMediaPlayerBase extends Component<
 					testId="custom-media-player-volume-toggle-button"
 					onClick={this.getMediaButtonClickHandler(actions.toggleMute, 'muteButton')}
 					iconBefore={
-						<SoundIcon label={this.props.intl.formatMessage(messages.volumeMuteButtonAria)} />
+						<SoundIcon
+							color="currentColor"
+							label={this.props.intl.formatMessage(messages.volumeMuteButtonAria)}
+						/>
 					}
 					aria-pressed={videoState.isMuted}
 				/>
@@ -383,9 +388,9 @@ export class CustomMediaPlayerBase extends Component<
 
 		const { isFullScreenEnabled } = this.state;
 		const icon = isFullScreenEnabled ? (
-			<FullScreenIconOff label={formatMessage(messages.disable_fullscreen)} />
+			<FullScreenIconOff color="currentColor" label={formatMessage(messages.disable_fullscreen)} />
 		) : (
-			<FullScreenIconOn label={formatMessage(messages.enable_fullscreen)} />
+			<FullScreenIconOn color="currentColor" label={formatMessage(messages.enable_fullscreen)} />
 		);
 
 		return (
@@ -407,7 +412,7 @@ export class CustomMediaPlayerBase extends Component<
 			<MediaButton
 				testId="custom-media-player-download-button"
 				onClick={this.getMediaButtonClickHandler(onDownloadClick, 'downloadButton')}
-				iconBefore={<DownloadIcon label="download" />}
+				iconBefore={<DownloadIcon color="currentColor" label="download" />}
 			/>
 		);
 	};
@@ -467,9 +472,9 @@ export class CustomMediaPlayerBase extends Component<
 		} = this.props;
 
 		const toggleButtonIcon = isPlaying ? (
-			<PauseIcon label={formatMessage(messages.pause)} />
+			<PauseIcon color="currentColor" label={formatMessage(messages.pause)} />
 		) : (
-			<PlayIcon label={formatMessage(messages.play)} />
+			<PlayIcon color="currentColor" label={formatMessage(messages.play)} />
 		);
 
 		return (

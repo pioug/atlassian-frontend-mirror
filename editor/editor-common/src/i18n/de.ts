@@ -37,6 +37,7 @@ export default {
   'fabric.editor.blockCardUnavailable':
     'Die Ansicht des Inline-Links kann nicht geändert werden, da sich der Link innerhalb von {node} befindet.',
   'fabric.editor.blockControlDragHandleUsageInfo': 'Zum Verschieben ziehen',
+  'fabric.editor.blockControlInsert': 'Einfügen',
   'fabric.editor.blockControlMoveDown': 'Nach unten verschieben',
   'fabric.editor.blockControlMoveUp': 'Nach oben verschieben',
   'fabric.editor.blockControlMovedDown': 'Inhalt wurde nach unten verschoben',
@@ -291,6 +292,8 @@ export default {
   'fabric.editor.insertMediaFromUrl': 'Bild per Link',
   'fabric.editor.insertMediaFromUrlDescription': 'Bild oder Video per Link hinzufügen',
   'fabric.editor.insertMenu': 'Elemente einfügen',
+  'fabric.editor.insertRightRail.close': 'Schließen',
+  'fabric.editor.insertRightRail.title': 'Einfügen',
   'fabric.editor.insertRow': 'Zeile unten einfügen',
   'fabric.editor.insertRowDrag': 'Zeile einfügen',
   'fabric.editor.insertTableColumn': 'Tabellenspalte einfügen',

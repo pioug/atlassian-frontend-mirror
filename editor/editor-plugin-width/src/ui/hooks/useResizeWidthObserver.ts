@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
+import type { EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { pluginKey } from './plugin-key';
-import type { WidthPluginState } from './types';
+import { pluginKey } from '../../pm-plugins/plugin-key';
 
 const setEditorWidth = (props: Partial<WidthPluginState>) => (editorView: EditorView) => {
 	const {

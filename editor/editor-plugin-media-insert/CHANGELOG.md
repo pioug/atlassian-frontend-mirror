@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.7.2
+
+### Patch Changes
+
+- [#141594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141594)
+  [`3f6b2eb7bd493`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f6b2eb7bd493) -
+  [ux] [ED-24867] This change moves nesting codeblocks and media in blockquotes via insertion
+  methods behind an experiment gate.
+- Updated dependencies
+
 ## 2.7.1
 
 ### Patch Changes

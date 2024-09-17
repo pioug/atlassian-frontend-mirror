@@ -1,5 +1,13 @@
 # @atlaskit/link-client-extension
 
+## 2.4.0
+
+### Minor Changes
+
+- [#141472](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141472)
+  [`fa7d87963ed8a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa7d87963ed8a) -
+  Export new mock `mockDatasourceDataNoActionsResponse` for DS without actions
+
 ## 2.3.0
 
 ### Minor Changes

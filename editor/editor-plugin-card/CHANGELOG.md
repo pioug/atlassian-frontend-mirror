@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-card
 
+## 3.0.2
+
+### Patch Changes
+
+- [#139456](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139456)
+  [`a788f5ceac7a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a788f5ceac7a2) -
+  [ux] When FF hardcoded-embeds-only-on-new-line is true pasting of some urls (like youtube or jira
+  dashboard or conny whiteboards) will only become embed right away if pasted on a new line in a
+  root of the document
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

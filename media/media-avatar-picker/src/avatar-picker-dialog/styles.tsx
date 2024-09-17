@@ -27,7 +27,6 @@ export const modalHeaderStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
 		margin: token('space.200', '16px'),
-		fontWeight: 500,
-		fontSize: '20px',
+		font: token('font.heading.medium'),
 	},
 });

@@ -14,8 +14,8 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import AkModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 
-import { closeHelpCommand } from '../commands';
-import type { HelpDialogPlugin } from '../types';
+import type { HelpDialogPlugin } from '../helpDialogPluginType';
+import { closeHelpCommand } from '../pm-plugins/commands';
 
 import type { Format } from './Format';
 import { getSupportedFormatting } from './formatting';

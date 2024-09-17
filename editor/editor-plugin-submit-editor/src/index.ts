@@ -1,2 +1,2 @@
-export { submitEditorPlugin } from './plugin';
-export type { SubmitEditorPlugin, SubmitEditorPluginOptions } from './plugin';
+export { submitEditorPlugin } from './submitEditorPlugin';
+export type { SubmitEditorPlugin, SubmitEditorPluginOptions } from './submitEditorPluginType';

@@ -363,6 +363,7 @@ const defaultCoverWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
+	color: token('color.text', '#9FADBC'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		transform: 'scale(2)',

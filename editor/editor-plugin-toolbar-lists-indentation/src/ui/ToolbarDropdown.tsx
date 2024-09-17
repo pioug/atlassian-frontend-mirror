@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import { indentationMessages, listMessages } from '@atlaskit/editor-common/messages';
 import {
-	expandIconWrapperStyle,
+	expandIconContainerStyle,
 	separatorStyles,
 	wrapperStyle,
 } from '@atlaskit/editor-common/styles';
@@ -27,8 +27,9 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import type { DropdownItem } from '@atlaskit/editor-plugin-block-type';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import BulletListIcon from '@atlaskit/icon/glyph/editor/bullet-list';
+import BulletListIcon from '@atlaskit/icon/core/migration/list-bulleted--editor-bullet-list';
+import ExpandIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ButtonName, ToolbarProps } from '../types';
 
@@ -122,10 +123,17 @@ export function ToolbarDropdown(props: DropdownProps) {
 					iconBefore={
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						<span css={wrapperStyle}>
-							<BulletListIcon label={labelLists} />
+							<BulletListIcon color="currentColor" spacing="spacious" label={labelLists} />
 							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-							<span css={expandIconWrapperStyle}>
-								<ExpandIcon label="" />
+							<span
+								css={[
+									// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
+									fg('platform.design-system-team.enable-new-icons') &&
+										//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+										expandIconContainerStyle,
+								]}
+							>
+								<ExpandIcon color="currentColor" label="" LEGACY_margin="0 0 0 -8px" />
 							</span>
 						</span>
 					}

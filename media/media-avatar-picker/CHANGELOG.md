@@ -1,5 +1,17 @@
 # @atlaskit/media-avatar-picker
 
+## 24.8.0
+
+### Minor Changes
+
+- [#140915](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140915)
+  [`36b5acc412af5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36b5acc412af5) -
+  Design system typography uplift
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.7.0
 
 ### Minor Changes

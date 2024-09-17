@@ -6,12 +6,38 @@ import type {
 	CardProvider,
 	DatasourceAdf,
 } from '@atlaskit/editor-common/provider-factory';
-import { canRenderDatasource } from '@atlaskit/editor-common/utils';
+import { canRenderDatasource, hasDocAsParent } from '@atlaskit/editor-common/utils';
+import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Request } from '../../types';
 import { setProvider } from '../actions';
 import { handleFallbackWithAnalytics, replaceQueuedUrlWithCard } from '../doc';
+
+const isFreshlyPastedOnNewLine = (view: EditorView) => {
+	const { selection } = view.state;
+	const { $cursor, $anchor } = selection as TextSelection;
+
+	if (!$cursor) {
+		return false;
+	}
+
+	if (!hasDocAsParent($anchor)) {
+		return false;
+	}
+
+	const node = $cursor.node();
+	if (!node) {
+		return false;
+	}
+
+	if (node.type.name !== 'paragraph') {
+		return false;
+	}
+
+	return node.childCount === 1; // The pasted blue link itself
+};
 
 // ============================================================================ //
 // ============================== PROVIDER UTILS ============================== //
@@ -26,14 +52,19 @@ export const resolveWithProvider = (
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 	createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
 ) => {
+	const isEmbedFriendlyLocation = fg('hardcoded-embeds-only-on-new-line')
+		? isFreshlyPastedOnNewLine(view)
+		: true;
+
 	// When user manually changes appearance from blue link to smart link, we should respect that,
 	let shouldForceAppearance =
 		// This flag is set to true only in one place atm:
 		// packages/editor/editor-core/src/plugins/card/pm-plugins/doc.ts @ convertHyperlinkToSmartCard
 		// Which is used when user switching from URL to smart link appearance.
 		!!request.shouldReplaceLink;
+
 	const handleResolve = provider
-		.resolve(request.url, request.appearance, shouldForceAppearance)
+		.resolve(request.url, request.appearance, shouldForceAppearance, isEmbedFriendlyLocation)
 		.then(
 			handleResolved(view, request, editorAnalyticsApi, createAnalyticsEvent, options),
 			handleRejected(view, request, editorAnalyticsApi),

@@ -37,6 +37,7 @@ export default {
   'fabric.editor.blockCardUnavailable':
     'A beillesztett link a(z) {node} csomóponton belül található, és nem módosítható a nézete',
   'fabric.editor.blockControlDragHandleUsageInfo': 'Az áthelyezéshez húzd át',
+  'fabric.editor.blockControlInsert': 'Beszúrás',
   'fabric.editor.blockControlMoveDown': 'Mozgatás le',
   'fabric.editor.blockControlMoveUp': 'Mozgatás fel',
   'fabric.editor.blockControlMovedDown': 'A tartalom lejjebb lett helyezve',
@@ -291,6 +292,8 @@ export default {
   'fabric.editor.insertMediaFromUrl': 'Kép linkből',
   'fabric.editor.insertMediaFromUrlDescription': 'Kép vagy videó hozzáadása egy linkből',
   'fabric.editor.insertMenu': 'Elemek beszúrása',
+  'fabric.editor.insertRightRail.close': 'Bezárás',
+  'fabric.editor.insertRightRail.title': 'Beszúrás',
   'fabric.editor.insertRow': 'Sor beszúrása alább',
   'fabric.editor.insertRowDrag': 'Sor beszúrása',
   'fabric.editor.insertTableColumn': 'Oszlop beszúrása a táblázatba',

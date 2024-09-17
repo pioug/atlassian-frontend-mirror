@@ -9,16 +9,23 @@ import {
 import { insertBlock } from '@atlaskit/editor-common/commands';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { InputRuleWrapper } from '@atlaskit/editor-common/types';
-import { inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
-import { createRule } from '@atlaskit/editor-common/utils';
+import { createRule, inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 
 import { isConvertableToCodeBlock, transformToCodeBlockAction } from '../transform-to-code-block';
 
-export function createCodeBlockInputRule(schema: Schema, editorAnalyticsAPI?: EditorAnalyticsAPI) {
-	const rules: Array<InputRuleWrapper> = getCodeBlockRules(editorAnalyticsAPI, schema);
+export function createCodeBlockInputRule(
+	schema: Schema,
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
+	isNestingInQuoteSupported?: boolean,
+) {
+	const rules: Array<InputRuleWrapper> = getCodeBlockRules(
+		editorAnalyticsAPI,
+		schema,
+		isNestingInQuoteSupported,
+	);
 	return new SafePlugin(
 		createPlugin('code-block-input-rule', rules, {
 			isBlockNodeRule: true,
@@ -35,6 +42,7 @@ export function createCodeBlockInputRule(schema: Schema, editorAnalyticsAPI?: Ed
 function getCodeBlockRules(
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	schema: Schema,
+	isNestingInQuoteSupported?: boolean,
 ): InputRuleWrapper[] {
 	const ruleAnalytics = inputRuleWithAnalytics(
 		{
@@ -60,7 +68,7 @@ function getCodeBlockRules(
 		}
 
 		if (isConvertableToCodeBlock(state)) {
-			return transformToCodeBlockAction(state, start, attributes);
+			return transformToCodeBlockAction(state, start, attributes, isNestingInQuoteSupported);
 		}
 
 		const tr = state.tr;

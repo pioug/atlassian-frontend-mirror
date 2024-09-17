@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 15.1.0
+
+### Minor Changes
+
+- [`6467f4a7a7a99`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6467f4a7a7a99) -
+  Updated header styles to align to new modernised typography styles. Header styles are now slightly
+  darker. This change is behind a feature flag.
+
 ## 15.0.1
 
 ### Patch Changes

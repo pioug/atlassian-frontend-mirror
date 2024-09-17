@@ -3,7 +3,6 @@
  * @jsx jsx
  */
 import { type MenuListComponentProps, type OptionProps } from '@atlaskit/select';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type Color } from '../types';
 import ColorCard from './ColorCard';
 import { getWidth } from '../utils';
@@ -22,7 +21,7 @@ export const MenuList = (props: MenuListComponentProps<Color>) => {
 	return (
 		<div
 			css={colorPaletteContainerStyles}
-			role={fg('platform_color_palette_menu_timeline_bar_a11y') ? 'group' : 'radiogroup'}
+			role="group"
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				maxWidth: cols ? getWidth(cols) : undefined,

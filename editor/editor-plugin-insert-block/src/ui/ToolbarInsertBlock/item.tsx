@@ -17,9 +17,10 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import FieldTextIcon from '@atlaskit/icon-lab/core/field-text';
+import StatusIcon from '@atlaskit/icon-lab/core/status';
 import AngleBracketsIcon from '@atlaskit/icon/core/migration/angle-brackets--editor-code';
 import CalendarIcon from '@atlaskit/icon/core/migration/calendar--editor-date';
-import CheckboxCheckedIcon from '@atlaskit/icon/core/migration/checkbox-checked--editor-task';
 import DecisionIcon from '@atlaskit/icon/core/migration/decision--editor-decision';
 import EmojiIcon from '@atlaskit/icon/core/migration/emoji--editor-emoji';
 import GridIcon from '@atlaskit/icon/core/migration/grid--editor-table';
@@ -31,8 +32,10 @@ import MentionIcon from '@atlaskit/icon/core/migration/mention--editor-mention';
 import HorizontalRuleIcon from '@atlaskit/icon/core/migration/minus--editor-horizontal-rule';
 import QuotationMarkIcon from '@atlaskit/icon/core/migration/quotation-mark--quote';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
+import TaskIcon from '@atlaskit/icon/core/task';
+import CheckboxCheckedIconLegacy from '@atlaskit/icon/glyph/editor/task';
 import PlaceholderTextIcon from '@atlaskit/icon/glyph/media-services/text';
-import StatusIcon from '@atlaskit/icon/glyph/status';
+import StatusIconLegacy from '@atlaskit/icon/glyph/status';
 import type Icon from '@atlaskit/icon/UNSAFE_base-new';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import ExpandNodeIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-circle';
@@ -90,7 +93,14 @@ export const action = mem((init: CreateInit) => {
 		disabled: init.disabled,
 		name: 'action',
 		shortcut: '[]',
-		Icon: CheckboxCheckedIcon,
+		Icon: () => (
+			<TaskIcon
+				label=""
+				color="currentColor"
+				spacing="spacious"
+				LEGACY_fallbackIcon={CheckboxCheckedIconLegacy}
+			/>
+		),
 		'aria-keyshortcuts': '[ ] Space',
 	});
 });
@@ -274,7 +284,14 @@ export const placeholder = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'placeholder text',
-		Icon: () => <PlaceholderTextIcon label="" />,
+		Icon: () => (
+			<FieldTextIcon
+				label=""
+				spacing="spacious"
+				color="currentColor"
+				LEGACY_fallbackIcon={PlaceholderTextIcon}
+			/>
+		),
 	}),
 );
 
@@ -284,7 +301,14 @@ export const status = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'status',
-		Icon: StatusIcon,
+		Icon: () => (
+			<StatusIcon
+				label=""
+				color="currentColor"
+				spacing="spacious"
+				LEGACY_fallbackIcon={StatusIconLegacy}
+			/>
+		),
 	}),
 );
 

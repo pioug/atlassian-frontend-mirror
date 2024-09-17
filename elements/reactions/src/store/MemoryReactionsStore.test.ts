@@ -1,5 +1,5 @@
 import waitForExpect from 'wait-for-expect';
-import { type Client, ReactionStatus } from '../types';
+import { type Client, ReactionStatus, ReactionUpdateType } from '../types';
 import * as AnalyticsModule from '../analytics';
 import {
 	mockReactDomWarningGlobal,
@@ -422,13 +422,21 @@ describe('MemoryReactionsStore', () => {
 		});
 
 		it('should call success callback passed to add reaction using toggle action if defined', async () => {
-			const response = Promise.resolve(getReactionSummary(':thumbsup:', 4, true));
+			const REACTIONS_COUNT = 4;
+			const response = Promise.resolve(getReactionSummary(':thumbsup:', REACTIONS_COUNT, true));
 
 			(fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(response);
 
 			await store.toggleReaction(containerAri, ari, '1f44d', successCallBackFn);
 
 			expect(successCallBackFn).toHaveBeenCalledTimes(1);
+
+			expect(successCallBackFn).toHaveBeenCalledWith(
+				ReactionUpdateType.added,
+				ari,
+				'1f44d',
+				REACTIONS_COUNT,
+			);
 		});
 
 		it('should call adaptor to remove reaction', () => {

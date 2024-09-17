@@ -51,7 +51,6 @@ export interface Props {
 	insertMenuItems?: MenuItem[];
 	showElementBrowserLink?: boolean;
 	showSeparator?: boolean;
-	replacePlusMenuWithElementBrowser?: boolean;
 	onShowMediaPicker?: () => void;
 	onInsertBlockType?: (name: string) => Command;
 	onInsertMacroFromMacroBrowser?: (
@@ -60,7 +59,7 @@ export interface Props {
 		isEditing?: boolean,
 	) => (view: EditorView) => void;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	pluginInjectionApi?: ExtractInjectionAPI<InsertBlockPlugin>;
+	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
 	mentionsDisabled?: boolean;
 	editorAppearance?: EditorAppearance;
 }

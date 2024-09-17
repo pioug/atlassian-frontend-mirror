@@ -1,5 +1,21 @@
 # @atlaskit/media-ui
 
+## 25.13.0
+
+### Minor Changes
+
+- [#141607](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141607)
+  [`6c376c877f98a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c376c877f98a) -
+  [ux] Enable new icons behind a feature flag.
+
+## 25.12.0
+
+### Minor Changes
+
+- [#140915](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140915)
+  [`36b5acc412af5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36b5acc412af5) -
+  Design system typography uplift
+
 ## 25.11.1
 
 ### Patch Changes

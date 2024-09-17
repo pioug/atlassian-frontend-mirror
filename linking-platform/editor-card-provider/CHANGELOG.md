@@ -1,5 +1,22 @@
 # @atlaskit/editor-card-provider
 
+## 3.9.0
+
+### Minor Changes
+
+- [#139456](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139456)
+  [`a788f5ceac7a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a788f5ceac7a2) -
+  [ux] Add optional forth optional parameter to EditorCardProvider.resolve method called
+  `isEmbedFriendlyLocation` which when given `false` value will prevent auto-conversion (on link
+  paste) to an embed based on FE speciafied regexp rules. If value is not given it will act as true
+  and remain old behaviour
+
+## 3.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.8.1
 
 ### Patch Changes

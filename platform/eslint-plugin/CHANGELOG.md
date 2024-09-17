@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.7.5
+
+### Patch Changes
+
+- [#131612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131612)
+  [`898640d108441`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/898640d108441) -
+  Add other nav4 functions to the lint rule for no-module-level-eval-nav4
+
 ## 0.7.4
 
 ### Patch Changes

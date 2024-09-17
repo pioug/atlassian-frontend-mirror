@@ -1,2 +1,5 @@
-export { batchAttributeUpdatesPlugin } from './plugin';
-export type { BatchAttributeUpdatesPlugin, BatchStepsAction } from './types';
+export { batchAttributeUpdatesPlugin } from './batchAttributeUpdatesPlugin';
+export type {
+	BatchAttributeUpdatesPlugin,
+	BatchStepsAction,
+} from './batchAttributeUpdatesPluginType';

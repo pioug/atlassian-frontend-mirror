@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.0.3
+
+### Patch Changes
+
+- [#141841](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141841)
+  [`2d44681e217b4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d44681e217b4) -
+  ED-24896 disable drag list item into list
+- [#141841](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141841)
+  [`b1bb0f6a6bfe5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b1bb0f6a6bfe5) -
+  ED-24394 hide top level empty line drag handle
+
+## 2.0.2
+
+### Patch Changes
+
+- [#138575](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/138575)
+  [`d97bfb713c2b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d97bfb713c2b9) -
+  [ux] Fix handles not showing or in wrong pos for divider nodes in panels/expands
+- Updated dependencies
+
+## 2.0.1
+
+### Patch Changes
+
+- [#141656](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141656)
+  [`3d7bc0bff5bea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d7bc0bff5bea) -
+  [ux] ED-24969 Add CSS override to prevent drag handle overlap with empty line prompt button when
+  under an expanded code block
+
 ## 2.0.0
 
 ### Major Changes

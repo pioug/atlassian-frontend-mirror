@@ -59,11 +59,15 @@ describe('Navigation', () => {
 
 	it('should show right arrow if there are items on the right', () => {
 		const el = mount(<Navigation onChange={() => {}} items={items} selectedItem={identifier} />);
+		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowRightCircleIcon)).toHaveLength(1);
 	});
 
 	it('should show left arrow if there are items on the left', () => {
 		const el = mount(<Navigation onChange={() => {}} items={items} selectedItem={identifier3} />);
+		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowLeftCircleIcon)).toHaveLength(1);
 	});
 
@@ -71,7 +75,11 @@ describe('Navigation', () => {
 		const el = mount(
 			<Navigation onChange={() => {}} items={[identifier]} selectedItem={identifier} />,
 		);
+		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowLeftCircleIcon)).toHaveLength(0);
+		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowRightCircleIcon)).toHaveLength(0);
 	});
 
@@ -79,13 +87,21 @@ describe('Navigation', () => {
 		const el = mount(
 			<Navigation onChange={() => {}} items={items} selectedItem={identifier2Duplicated} />,
 		);
+		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowLeftCircleIcon)).toHaveLength(1);
+		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowRightCircleIcon)).toHaveLength(1);
 	});
 
 	it('should show both arrows if there are items in both sides', () => {
 		const el = mount(<Navigation onChange={() => {}} items={items} selectedItem={identifier2} />);
+		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowLeftCircleIcon)).toHaveLength(1);
+		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowRightCircleIcon)).toHaveLength(1);
 	});
 
@@ -108,7 +124,11 @@ describe('Navigation', () => {
 		const el = mount(
 			<Navigation onChange={onChange} items={items} selectedItem={nonFoundIdentifier} />,
 		);
+		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowRightCircleIcon)).toHaveLength(0);
+		// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		expect(el.find(ArrowLeftCircleIcon)).toHaveLength(0);
 	});
 

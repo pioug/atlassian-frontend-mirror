@@ -1,5 +1,13 @@
 # @atlassian/give-kudos
 
+## 2.1.11
+
+### Patch Changes
+
+- [#141350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141350)
+  [`85981116041dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85981116041dd) -
+  Added react 18 to peer dependency
+
 ## 2.1.10
 
 ### Patch Changes

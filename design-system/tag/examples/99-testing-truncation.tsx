@@ -13,13 +13,13 @@ const truncateStyles = xcss({
 
 export default () => (
 	<Box xcss={truncateStyles} role="group" aria-label="Truncation examples">
-		<TagGroup>
+		<TagGroup label="Tag types">
 			<SimpleTag text="Base Tag" testId="standard" />
 			<SimpleTag text="Linked Tag" href="/components/tag" />
 			<SimpleTag text="Rounded Tag" appearance="rounded" />
 			<Tag text="Removable button" />
 		</TagGroup>
-		<TagGroup alignment="end">
+		<TagGroup alignment="end" label="Tag types with alignment">
 			<SimpleTag text="Base Tag" />
 			<SimpleTag text="Linked Tag" href="/components/tag" />
 			<SimpleTag text="Rounded Tag" appearance="rounded" />

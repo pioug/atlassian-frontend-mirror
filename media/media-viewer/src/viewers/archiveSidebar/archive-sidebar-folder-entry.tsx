@@ -3,7 +3,7 @@ import { type ZipEntry } from 'unzipit';
 
 import { ButtonItem } from '@atlaskit/side-navigation';
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import { downloadUrl } from '@atlaskit/media-common';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { type MediaClient } from '@atlaskit/media-client';
@@ -64,7 +64,7 @@ export class ArchiveSidebarFolderEntry extends React.Component<ArchiveSidebarFol
 	private renderDownloadButton = (entry: ZipEntry, root: string) => {
 		return (
 			<ArchiveDownloadButtonWrapper onClick={() => this.downloadZipEntry(entry, root)}>
-				<DownloadIcon label="Download" />
+				<DownloadIcon color="currentColor" spacing="spacious" label="Download" />
 			</ArchiveDownloadButtonWrapper>
 		);
 	};

@@ -11,6 +11,8 @@ const emptyBlockExperimentWidget = '.ProseMirror-widget[data-empty-block-experim
 const quickInsertWidget = '.ProseMirror-widget[data-type-ahead="typeaheadDecoration"]';
 const formattingElement = 'div.fabric-editor-block-mark';
 const markFragment = 'div[data-mark-type="fragment"]';
+const breakoutMark = 'div.fabric-editor-breakout-mark';
+const breakoutMarkDom = 'div.fabric-editor-breakout-mark-dom';
 const elementWithEmptyBlockExperiment = `+ p > ${emptyBlockExperimentWidget}, + h1 > ${emptyBlockExperimentWidget}, + h2 > ${emptyBlockExperimentWidget}, + h3 > ${emptyBlockExperimentWidget}, + h4 > ${emptyBlockExperimentWidget}, + h5 > ${emptyBlockExperimentWidget}, + h6 > ${emptyBlockExperimentWidget}`;
 // Selectors for when contained withing a formatting container mark (eg. indent, centering, right-align)
 const elementWithEmptyBlockExperimentFormatted = `+ ${formattingElement} > p > ${emptyBlockExperimentWidget}, + ${formattingElement} > h1 > ${emptyBlockExperimentWidget}, + ${formattingElement} > h2 > ${emptyBlockExperimentWidget}, + ${formattingElement} > h3 > ${emptyBlockExperimentWidget}, + ${formattingElement} > h4 > ${emptyBlockExperimentWidget}, + ${formattingElement} > h5 > ${emptyBlockExperimentWidget}, + ${formattingElement} > h6 > ${emptyBlockExperimentWidget}`;
@@ -25,10 +27,16 @@ const dragHandleWithInlineNodeStyle = css({
 		${dragHandleContainer}:has(${elementWithEmptyBlockExperimentFormatted}),` +
 	// In certain circumstances - eg. a paragraph after an indent, or after a table fragment, the dragHandleContainer
 	// is nested in the previous div. These selectors are to handle those cases.
+	// -------------------
+	// Empty block in new paragraph after indent
 	`${formattingElement}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperiment}) > ${dragHandleContainer}:last-child,
-		${markFragment}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperiment}) > ${dragHandleContainer}:last-child,
-		${formattingElement}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${dragHandleContainer}:last-child,
-		${markFragment}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${dragHandleContainer}:last-child`]:
+	${formattingElement}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${dragHandleContainer}:last-child,` +
+	// Empty block in new paragraph after table
+	`${markFragment}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperiment}) > ${dragHandleContainer}:last-child,
+		${markFragment}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${dragHandleContainer}:last-child,` +
+	// Empty block in new paragraph after breakout mark
+	`${breakoutMark}:has(> ${breakoutMarkDom} > ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperiment}) > ${breakoutMarkDom} > ${dragHandleContainer}:last-child,
+	${breakoutMark}:has(> ${breakoutMarkDom} > ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${breakoutMarkDom} > ${dragHandleContainer}:last-child`]:
 		{
 			display: 'none !important',
 		},
@@ -46,10 +54,16 @@ const dragHandleWithInlineNodeStyleWithChromeFix = css({
 		${dragHandleContainer}:has(${elementWithEmptyBlockExperimentFormatted}) ${dragHandleSelector},` +
 	// In certain circumstances - eg. a paragraph after an indent, or after a table fragment, the dragHandleContainer
 	// is nested in the previous div. These selectors are to handle those cases.
+	// -------------------
+	// Empty block in new paragraph after indent
 	`${formattingElement}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperiment}) > ${dragHandleContainer}:last-child ${dragHandleSelector},
-		${markFragment}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperiment}) > ${dragHandleContainer}:last-child ${dragHandleSelector},
-		${formattingElement}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${dragHandleContainer}:last-child ${dragHandleSelector},
-		${markFragment}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${dragHandleContainer}:last-child ${dragHandleSelector}`]:
+	${formattingElement}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${dragHandleContainer}:last-child ${dragHandleSelector},` +
+	// Empty block in new paragraph after table
+	`${markFragment}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperiment}) > ${dragHandleContainer}:last-child ${dragHandleSelector},
+		${markFragment}:has(> ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${dragHandleContainer}:last-child ${dragHandleSelector},` +
+	// Empty block in new paragraph after breakout mark
+	`${breakoutMark}:has(> ${breakoutMarkDom} > ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperiment}) > ${breakoutMarkDom} > ${dragHandleContainer}:last-child ${dragHandleSelector},
+		${breakoutMark}:has(> ${breakoutMarkDom} > ${dragHandleContainer}:last-child):has(${elementWithEmptyBlockExperimentFormatted}) > ${breakoutMarkDom} > ${dragHandleContainer}:last-child ${dragHandleSelector}`]:
 		{
 			transform: 'scale(0)',
 		},

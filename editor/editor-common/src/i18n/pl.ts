@@ -37,6 +37,7 @@ export default {
   'fabric.editor.blockCardUnavailable':
     'Łącze bezpośrednio w tekście jest wewnątrz węzła {node} i nie można zmienić jego widoku',
   'fabric.editor.blockControlDragHandleUsageInfo': 'Przeciągnij, aby przenieść',
+  'fabric.editor.blockControlInsert': 'Wstaw',
   'fabric.editor.blockControlMoveDown': 'Przenieś niżej',
   'fabric.editor.blockControlMoveUp': 'Przenieś wyżej',
   'fabric.editor.blockControlMovedDown': 'Zawartość została przeniesiona w dół',
@@ -291,6 +292,8 @@ export default {
   'fabric.editor.insertMediaFromUrl': 'Obraz z łącza',
   'fabric.editor.insertMediaFromUrlDescription': 'Dodaj obraz lub film z łącza',
   'fabric.editor.insertMenu': 'Wstaw elementy',
+  'fabric.editor.insertRightRail.close': 'Zamknij',
+  'fabric.editor.insertRightRail.title': 'Wstaw',
   'fabric.editor.insertRow': 'Wstaw wiersz poniżej',
   'fabric.editor.insertRowDrag': 'Wstaw wiersz',
   'fabric.editor.insertTableColumn': 'Wstaw kolumnę tabeli',

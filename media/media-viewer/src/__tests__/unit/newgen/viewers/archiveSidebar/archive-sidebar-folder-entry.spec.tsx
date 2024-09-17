@@ -15,7 +15,7 @@ import {
 } from '../../../../../viewers/archiveSidebar/styleWrappers';
 import { type ZipEntry } from 'unzipit';
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import * as MediaCommon from '@atlaskit/media-common';
 

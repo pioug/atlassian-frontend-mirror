@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 28.1.6
+
+### Patch Changes
+
+- [#141841](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141841)
+  [`929e38c3f9676`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/929e38c3f9676) -
+  [ux] adds title extraction to hovercard content, minor adjustments to search-ai's sources inline
+  smart card
+
+## 28.1.5
+
+### Patch Changes
+
+- [#141715](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141715)
+  [`d2037bfc8439b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2037bfc8439b) -
+  aria allowed attr
+
 ## 28.1.4
 
 ### Patch Changes

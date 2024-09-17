@@ -37,6 +37,7 @@ export default {
   'fabric.editor.blockCardUnavailable':
     "Il collegamento in linea è all'interno di {node} e non è possibile modificare la relativa visualizzazione",
   'fabric.editor.blockControlDragHandleUsageInfo': 'Trascina per spostare',
+  'fabric.editor.blockControlInsert': 'Inserisci',
   'fabric.editor.blockControlMoveDown': 'Sposta giù',
   'fabric.editor.blockControlMoveUp': 'Sposta su',
   'fabric.editor.blockControlMovedDown': 'Il contenuto è stato spostato verso il basso',
@@ -291,6 +292,8 @@ export default {
   'fabric.editor.insertMediaFromUrl': 'Immagine dal link',
   'fabric.editor.insertMediaFromUrlDescription': "Aggiungi un'immagine o un video da un link",
   'fabric.editor.insertMenu': 'Inserisci elementi',
+  'fabric.editor.insertRightRail.close': 'Chiudi',
+  'fabric.editor.insertRightRail.title': 'Inserisci',
   'fabric.editor.insertRow': 'Inserisci riga sotto',
   'fabric.editor.insertRowDrag': 'Inserisci riga',
   'fabric.editor.insertTableColumn': 'Inserisci la colonna della tabella',

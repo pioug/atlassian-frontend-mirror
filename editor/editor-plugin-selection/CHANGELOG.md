@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection
 
+## 1.4.4
+
+### Patch Changes
+
+- [#140867](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140867)
+  [`17b58500a94e3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17b58500a94e3) -
+  [ux] ED-24255 Adding a custom mark boundary cursor to fix the cursor position in inline code
+
 ## 1.4.3
 
 ### Patch Changes

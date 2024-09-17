@@ -41,6 +41,7 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import * as helpers from '../commands/helpers';
@@ -382,6 +383,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		const { state } = this.view;
 		const editorAnalyticsAPI = this.pluginInjectionApi?.analytics?.actions;
 
+		const isNestingInQuoteSupported =
+			this.pluginInjectionApi?.featureFlags?.sharedState.currentState()
+				?.nestMediaAndCodeblockInQuote || fg('editor_nest_media_and_codeblock_in_quotes_jira');
+
 		const mediaStateWithContext: MediaState = {
 			...mediaState,
 			contextId: this.contextIdentifierProvider
@@ -435,6 +440,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 					widthPluginState,
 					editorAnalyticsAPI,
 					this.onNodeInserted,
+					isNestingInQuoteSupported,
 				);
 				break;
 			case 'group':
@@ -443,6 +449,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 					[mediaStateWithContext],
 					collection,
 					this.getInputMethod(pickerType),
+					isNestingInQuoteSupported,
 				);
 				break;
 		}

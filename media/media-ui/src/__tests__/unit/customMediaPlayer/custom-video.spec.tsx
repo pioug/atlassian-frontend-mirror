@@ -11,11 +11,11 @@ jest.mock('../../../customMediaPlayer/fullscreen', () => {
 jest.mock('../../../customMediaPlayer/simultaneousPlayManager');
 jest.mock('@atlaskit/width-detector');
 
-import DownloadIcon from '@atlaskit/icon/glyph/download';
-import FullScreenIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import FullScreenIcon from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
 import VidHdCircleIcon from '@atlaskit/icon/glyph/vid-hd-circle';
-import VidPlayIcon from '@atlaskit/icon/glyph/vid-play';
-import VidPauseIcon from '@atlaskit/icon/glyph/vid-pause';
+import VidPlayIcon from '@atlaskit/icon/core/migration/video-play--vid-play';
+import VidPauseIcon from '@atlaskit/icon/core/migration/video-pause--vid-pause';
 import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
 import { SkipTenBackwardIcon, SkipTenForwardIcon } from '../../../customMediaPlayer/icons';
 import { fakeIntl, mountWithIntlContext } from '../../../test-helpers';
@@ -384,7 +384,8 @@ describe('<CustomMediaPlayer />', () => {
 				const { hdButton } = setup({
 					isHDAvailable: true,
 				});
-
+				//TODO: https://product-fabric.atlassian.net/browse/DSP-20900
+				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 				expect(hdButton.find(VidHdCircleIcon)).toHaveLength(1);
 			});
 			it('should fire callback when hd button is clicked', () => {

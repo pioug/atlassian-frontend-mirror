@@ -34,7 +34,6 @@ import {
 } from './item';
 import { messages } from './messages';
 import { shallowEquals } from './shallow-equals';
-import { sortItems } from './sort-items';
 
 export interface CreateItemsConfig {
 	isTypeAheadAllowed?: boolean;
@@ -118,7 +117,6 @@ const createInsertBlockItems = (
 		numberOfButtons,
 		schema,
 		formatMessage,
-		isNewMenuEnabled,
 	} = config;
 
 	const items: MenuItem[] = [];
@@ -336,7 +334,7 @@ const createInsertBlockItems = (
 		.slice(numButtonsWithoutTableSelector)
 		.filter(({ value: { name } }) => name !== 'table selector');
 
-	const dropdownItems = (!isNewMenuEnabled ? sortItems(remainingItems) : remainingItems).map(
+	const dropdownItems = remainingItems.map(
 		buttonToDropdownItem(formatMessage(messages.insertMenu)),
 	);
 

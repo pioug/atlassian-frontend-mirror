@@ -7,6 +7,7 @@ export {
 	mockDatasourceDetailsResponse as mockDatasourceResponse,
 	mockDatasourceDetailsResponse,
 	mockDatasourceDataResponse,
+	mockDatasourceDataNoActionsResponse,
 	mockDatasourceDataResponseWithSchema,
 	mockActionsDiscoveryResponse,
 	mockActionsDiscoveryEmptyResponse,

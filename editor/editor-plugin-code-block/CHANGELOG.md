@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.3.17
+
+### Patch Changes
+
+- [#141594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141594)
+  [`3f6b2eb7bd493`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f6b2eb7bd493) -
+  [ux] [ED-24867] This change moves nesting codeblocks and media in blockquotes via insertion
+  methods behind an experiment gate.
+
 ## 3.3.16
 
 ### Patch Changes

@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconImages } from '@atlaskit/editor-common/quick-insert';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { closeMediaInsertPicker, showMediaInsertPopup } from './actions';
 import { createPlugin } from './pm-plugins/main';
@@ -22,6 +23,10 @@ import type {
 import { MediaInsertPicker } from './ui/MediaInsertPicker';
 
 export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
+	const isNestingInQuoteSupported =
+		api?.featureFlags?.sharedState.currentState()?.nestMediaAndCodeblockInQuote ||
+		fg('editor_nest_media_and_codeblock_in_quotes_jira');
+
 	return {
 		name: 'mediaInsert',
 
@@ -71,7 +76,14 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 					__fileMimeType: mediaState.fileMimeType,
 				});
 
-				return api?.media.actions.insertMediaAsMediaSingle(editorView, node, inputMethod) ?? false;
+				return (
+					api?.media.actions.insertMediaAsMediaSingle(
+						editorView,
+						node,
+						inputMethod,
+						isNestingInQuoteSupported,
+					) ?? false
+				);
 			};
 
 			const insertExternalMediaSingle: InsertExternalMediaSingle = ({ url, alt, inputMethod }) => {
@@ -82,7 +94,14 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 					__external: true,
 				});
 
-				return api?.media.actions.insertMediaAsMediaSingle(editorView, node, inputMethod) ?? false;
+				return (
+					api?.media.actions.insertMediaAsMediaSingle(
+						editorView,
+						node,
+						inputMethod,
+						isNestingInQuoteSupported,
+					) ?? false
+				);
 			};
 
 			const insertFile: InsertFile = ({ mediaState, inputMethod, onMediaStateChanged }) => {

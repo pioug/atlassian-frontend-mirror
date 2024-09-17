@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.14.8
+
+### Patch Changes
+
+- [#140915](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140915)
+  [`eaccad51157d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eaccad51157d6) -
+  [ux] Migrate new icons including color, highlight and task on Editor primary toolbar
+- [#141594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141594)
+  [`3f6b2eb7bd493`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f6b2eb7bd493) -
+  [ux] [ED-24867] This change moves nesting codeblocks and media in blockquotes via insertion
+  methods behind an experiment gate.
+
 ## 3.14.7
 
 ### Patch Changes

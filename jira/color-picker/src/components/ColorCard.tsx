@@ -6,7 +6,6 @@ import React, {
 	type KeyboardEventHandler,
 	type Ref,
 	useCallback,
-	useEffect,
 	useRef,
 	useImperativeHandle,
 	forwardRef,
@@ -23,7 +22,9 @@ import { mergeRefs } from 'use-callback-ref';
 import type { ColorCardType } from '../types';
 
 export interface Props {
+	autoFocus?: boolean;
 	initialFocusRef?: Ref<HTMLDivElement>;
+	isInsideMenu?: boolean;
 	type: ColorCardType;
 	value: string;
 	label: string;
@@ -44,7 +45,9 @@ export type ColorCardRef = {
 const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 	const {
 		type,
+		autoFocus = true,
 		initialFocusRef,
+		isInsideMenu = true,
 		value,
 		label,
 		selected,
@@ -59,9 +62,6 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 	const ref = useRef<HTMLDivElement | null>(null);
 	const isInitialFocus = useRef<boolean>(true);
 	const isColorPaletteMenu = type === COLOR_PALETTE_MENU;
-	const isTabbingIgnored = fg('platform_color_palette_menu_timeline_bar_a11y')
-		? isColorPaletteMenu
-		: false;
 
 	const handleMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
@@ -87,7 +87,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 	const handleKeyDown = useCallback(
 		(event: React.KeyboardEvent<HTMLDivElement>) => {
 			if (
-				(isTabbingIgnored || isTabbing === undefined || isTabbing) &&
+				(isColorPaletteMenu || isTabbing === undefined || isTabbing) &&
 				((onClickOld && !fg('platform_color_palette-expose-event')) ||
 					(onClick && fg('platform_color_palette-expose-event'))) &&
 				(event.key === KEY_ENTER || event.key === KEY_SPACE)
@@ -102,44 +102,23 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 				fg('platform_color_palette-expose-event') ? onClick?.(event, value) : onClickOld?.(value);
 			}
 
-			if (fg('platform_color_palette_menu_timeline_bar_a11y')) {
-				if (isColorPaletteMenu) {
-					onKeyDown?.(event);
-				} else if (event.key === KEY_TAB) {
-					event.stopPropagation();
-					event.preventDefault();
-				}
+			if (isColorPaletteMenu) {
+				onKeyDown?.(event);
+			} else if (event.key === KEY_TAB) {
+				event.preventDefault();
+				event.stopPropagation();
 			}
 		},
-		[isTabbingIgnored, isTabbing, onClick, onClickOld, value, isColorPaletteMenu, onKeyDown],
+		[isColorPaletteMenu, isTabbing, value, onClick, onClickOld, onKeyDown],
 	);
-
-	useEffect(() => {
-		if (!fg('platform_color_palette_menu_timeline_bar_a11y')) {
-			const refCurrent = ref.current;
-
-			const handleTabKey = (event: KeyboardEvent) => {
-				if (event.key === KEY_TAB) {
-					event.stopPropagation();
-					event.preventDefault();
-				}
-			};
-
-			refCurrent?.addEventListener('keydown', handleTabKey);
-
-			return () => {
-				refCurrent?.removeEventListener('keydown', handleTabKey);
-			};
-		}
-	}, []);
 
 	useImperativeHandle(
 		componentRef,
 		() => ({
 			focus: () => {
-				if (isTabbingIgnored) {
+				if (isColorPaletteMenu) {
 					if (isInitialFocus.current) {
-						!initialFocusRef && ref.current?.focus();
+						autoFocus && !initialFocusRef && ref.current?.focus();
 						isInitialFocus.current = false;
 					} else {
 						ref.current?.focus();
@@ -147,7 +126,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 				}
 			},
 		}),
-		[isTabbingIgnored, initialFocusRef],
+		[autoFocus, isColorPaletteMenu, initialFocusRef],
 	);
 
 	return (
@@ -162,15 +141,15 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 								? mergeRefs([ref, tooltipProps.ref, initialFocusRef])
 								: mergeRefs([ref, tooltipProps.ref])
 						}
-						role={fg('platform_color_palette_menu_timeline_bar_a11y') ? 'menuitemradio' : 'radio'}
-						tabIndex={fg('platform_color_palette_menu_timeline_bar_a11y') ? (selected ? 0 : -1) : 0}
+						role={isInsideMenu ? 'menuitemradio' : 'radio'}
+						tabIndex={selected ? 0 : -1}
 						aria-checked={selected}
 						aria-label={label}
 						css={[
 							sharedColorContainerStyles,
-							(isTabbingIgnored || isTabbing === undefined || isTabbing) &&
+							(isColorPaletteMenu || isTabbing === undefined || isTabbing) &&
 								colorCardOptionTabbingStyles,
-							focused && (isTabbingIgnored || !isTabbing) && colorCardOptionFocusedStyles,
+							focused && (isColorPaletteMenu || !isTabbing) && colorCardOptionFocusedStyles,
 						]}
 						onClick={handleClick}
 						onMouseDown={handleMouseDown}

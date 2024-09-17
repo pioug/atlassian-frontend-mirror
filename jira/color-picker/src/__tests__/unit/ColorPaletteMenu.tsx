@@ -33,11 +33,11 @@ describe('ColorPaletteMenu', () => {
 	test('should render ColorPaletteMenu with ColorCard', async () => {
 		const { getByRole, getAllByRole } = renderUI(false);
 
-		const colorPaletteMenu = getByRole('radiogroup');
+		const colorPaletteMenu = getByRole('group');
 		expect(colorPaletteMenu).toBeInTheDocument();
 		expect(colorPaletteMenu).toHaveAttribute('aria-label', 'Color picker, Blue selected');
 
-		const colorCard = getAllByRole('radio');
+		const colorCard = getAllByRole('menuitemradio');
 		expect(colorCard).toHaveLength(2);
 		expect(colorCard[0]).toHaveAttribute('aria-label', 'Blue');
 		expect(colorCard[0]).toHaveAttribute('aria-checked', 'true');
@@ -46,11 +46,11 @@ describe('ColorPaletteMenu', () => {
 	test('should call onChange prop onClick and onKeydown', async () => {
 		const { getByRole, getAllByRole } = renderUI(false);
 
-		const colorPaletteMenu = getByRole('radiogroup');
+		const colorPaletteMenu = getByRole('group');
 		expect(colorPaletteMenu).toBeInTheDocument();
 
 		// render - blue selected
-		const colorCard = getAllByRole('radio');
+		const colorCard = getAllByRole('menuitemradio');
 		expect(colorCard).toHaveLength(2);
 		const [blueOption, redOption] = colorCard;
 		expect(blueOption).toHaveAttribute('aria-checked', 'true');

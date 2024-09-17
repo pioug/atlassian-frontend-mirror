@@ -29,7 +29,7 @@ export const mockFetchDatasourceDataEndpoint = (
 	);
 };
 
-export const mockActionKey = (fieldKey: string) => `atlassian:issue:update:${fieldKey}`;
+export const mockActionKey = (fieldKey: string) => `atlassian:work-item:update:${fieldKey}`;
 
 export const mockActionsDiscoveryEndpoint = (
 	overrides?: Partial<ActionsServiceDiscoveryResponse>,

@@ -1,5 +1,13 @@
 # @atlaskit/css-reset
 
+## 6.11.0
+
+### Minor Changes
+
+- [#141343](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141343)
+  [`95f59fd3d63f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/95f59fd3d63f9) -
+  Tokenize small element on CSS reset inline with new typography system.
+
 ## 6.10.1
 
 ### Patch Changes

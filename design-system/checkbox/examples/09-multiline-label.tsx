@@ -1,4 +1,10 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Fragment } from 'react';
+
+import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { Stack } from '@atlaskit/primitives';
@@ -11,7 +17,7 @@ const styles = cssMap({
 
 export default function MultilineLabelExample() {
 	return (
-		<>
+		<Fragment>
 			<Checkbox
 				label={
 					<Stack>
@@ -36,6 +42,6 @@ export default function MultilineLabelExample() {
 				name="multiline-label"
 				testId="multiline-label"
 			/>
-		</>
+		</Fragment>
 	);
 }

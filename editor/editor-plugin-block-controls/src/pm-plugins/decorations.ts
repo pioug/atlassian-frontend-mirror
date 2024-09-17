@@ -36,6 +36,8 @@ const PARENT_WITH_END_DROP_TARGET = [
 	'nestedExpand',
 	'bodiedExtension',
 ];
+const DISABLE_CHILD_DROP_TARGET = ['orderedList', 'bulletList'];
+
 const getNestedDepth = () => (editorExperiment('nested-dnd', true) ? 100 : 0);
 
 const createDropTargetDecoration = (
@@ -79,7 +81,7 @@ export const dropTargetDecorations = (
 		let endPos;
 		if (editorExperiment('nested-dnd', true)) {
 			depth = newState.doc.resolve(pos).depth;
-			if (node.isInline || !parent) {
+			if (node.isInline || !parent || DISABLE_CHILD_DROP_TARGET.includes(parent.type.name)) {
 				prevNode = node;
 				return false;
 			}

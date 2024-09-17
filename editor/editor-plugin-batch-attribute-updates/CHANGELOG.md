@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-batch-attribute-updates
 
+## 1.0.4
+
+### Patch Changes
+
+- [#141343](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141343)
+  [`3893ae8e037fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3893ae8e037fb) -
+  Rearranging plugins to meet folder structure linting guidelines.
+
 ## 1.0.3
 
 ### Patch Changes

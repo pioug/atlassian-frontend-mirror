@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 89.3.0
+
+### Minor Changes
+
+- [#139456](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139456)
+  [`a788f5ceac7a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a788f5ceac7a2) -
+  [ux] Add optional forth optional parameter to EditorCardProvider.resolve method called
+  `isEmbedFriendlyLocation` which when given `false` value will prevent auto-conversion (on link
+  paste) to an embed based on FE speciafied regexp rules. If value is not given it will act as true
+  and remain old behaviour
+
+### Patch Changes
+
+- [#139456](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139456)
+  [`eb325a760c365`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb325a760c365) -
+  [ux] [ED-24443] This change allows users to backspace inside empty expands with empty nested
+  expands, without deleting both expands.
+- Updated dependencies
+
+## 89.2.1
+
+### Patch Changes
+
+- [#140915](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140915)
+  [`eaccad51157d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eaccad51157d6) -
+  [ux] Migrate new icons including color, highlight and task on Editor primary toolbar
+- Updated dependencies
+
 ## 89.2.0
 
 ### Minor Changes

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
 import { hideControlsClassName, MediaButton } from '@atlaskit/media-ui';
-import ZoomOutIcon from '@atlaskit/icon/glyph/media-services/zoom-out';
-import ZoomInIcon from '@atlaskit/icon/glyph/media-services/zoom-in';
+import ZoomOutIcon from '@atlaskit/icon/core/migration/zoom-out--media-services-zoom-out';
+import ZoomInIcon from '@atlaskit/icon/core/migration/zoom-in--media-services-zoom-in';
 import { type ZoomLevel } from './domain/zoomLevel';
 import {
 	ZoomWrapper,
@@ -60,12 +60,24 @@ export class ZoomControlsBase extends Component<ZoomControlsProps & WrappedCompo
 					<MediaButton
 						isDisabled={!zoomLevel.canZoomOut}
 						onClick={this.zoomOut}
-						iconBefore={<ZoomOutIcon label={formatMessage(messages.zoom_out)} />}
+						iconBefore={
+							<ZoomOutIcon
+								color="currentColor"
+								spacing="spacious"
+								label={formatMessage(messages.zoom_out)}
+							/>
+						}
 					/>
 					<MediaButton
 						isDisabled={!zoomLevel.canZoomIn}
 						onClick={this.zoomIn}
-						iconBefore={<ZoomInIcon label={formatMessage(messages.zoom_in)} />}
+						iconBefore={
+							<ZoomInIcon
+								color="currentColor"
+								spacing="spacious"
+								label={formatMessage(messages.zoom_in)}
+							/>
+						}
 					/>
 				</ZoomCenterControls>
 				<ZoomRightControls>

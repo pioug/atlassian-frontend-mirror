@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugins
 
+## 5.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.0
+
+### Minor Changes
+
+- [#141343](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141343)
+  [`3893ae8e037fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3893ae8e037fb) -
+  Rearranging plugins to meet folder structure linting guidelines.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.0
 
 ### Minor Changes

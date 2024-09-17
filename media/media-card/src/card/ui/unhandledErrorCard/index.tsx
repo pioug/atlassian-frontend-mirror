@@ -8,7 +8,6 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import { N20, N800, Y500 } from '@atlaskit/theme/colors';
-import { fontSize } from '@atlaskit/theme/constants';
 import { center, borderRadius } from '@atlaskit/media-ui';
 import { type CardDimensions } from '../../../types';
 import { type UnhandledErrorCardProps } from './types';
@@ -66,7 +65,7 @@ const wrapperStyles = (dimensions: CardDimensions = defaultImageCardDimensions) 
 				flexDirection: 'column',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				p: {
-					fontSize: `${fontSize()}px`,
+					font: token('font.body'),
 					textAlign: 'center',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					display: shouldShowText(getConvertedDimension(dimensions)) ? 'block' : 'none',

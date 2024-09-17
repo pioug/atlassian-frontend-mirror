@@ -10,7 +10,6 @@ import { jsx } from '@emotion/react';
 import Icon from '@atlaskit/icon';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
 import { Anchor, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import { Footer } from '../../src';
 
@@ -29,7 +28,7 @@ export const CustomItemFooter = ({ children, ...props }: CustomItemComponentProp
 };
 
 const descriptionLinkStyles = xcss({
-	fontWeight: token('font.weight.medium'),
+	fontWeight: 'font.weight.medium',
 	color: 'color.text.subtle',
 	textDecoration: 'none',
 
@@ -55,7 +54,7 @@ const ExampleFooter = () => (
 				</Anchor>
 			</Fragment>
 		}
-		iconBefore={<Icon label="mode" glyph={SampleIcon} />}
+		iconBefore={<Icon label="" glyph={SampleIcon} />}
 	>
 		You're in a next-gen project
 	</Footer>

@@ -23,14 +23,12 @@ export const codeViewerHeaderBarStyles = css({
 	height: '75px',
 	backgroundColor: '#1d2125',
 });
-/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const codeViewerHTMLStyles = css({
 	display: 'flex',
-	lineHeight: '20px',
 	overflowX: 'auto',
 	whiteSpace: 'pre',
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 	padding: token('space.100', '8px'),
 });

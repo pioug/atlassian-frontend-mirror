@@ -20,6 +20,7 @@ import {
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	expandIconContainerStyle,
+	expandIconWrapperStyle,
 	triggerWrapperStylesWithPadding,
 } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -27,8 +28,9 @@ import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import EditFilledIcon from '@atlaskit/icon/core/migration/edit--edit-filled';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import HighlightIcon from '@atlaskit/icon-lab/core/highlight';
+import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 
@@ -132,12 +134,12 @@ const PrimaryToolbarHighlightColor = ({
 									<DynamicStrokeIconDecoration
 										selectedColor={activeColorToken}
 										disabled={highlightState.disabled}
-										icon={<EditFilledIcon label="" color="currentColor" spacing="spacious" />}
+										icon={<HighlightIcon label="" color="currentColor" spacing="spacious" />}
 									/>
 									{
 										//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 										<span css={expandIconContainerStyle}>
-											<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
+											<ChevronDownIcon label="" color="currentColor" />
 										</span>
 									}
 								</div>
@@ -150,9 +152,9 @@ const PrimaryToolbarHighlightColor = ({
 
 									<span
 										// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-										css={expandIconContainerStyle}
+										css={expandIconWrapperStyle}
 									>
-										<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
+										<ExpandIcon label="" />
 									</span>
 								</Flex>
 							)

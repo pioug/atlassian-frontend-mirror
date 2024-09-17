@@ -24,13 +24,15 @@ export const handleMouseOver = (
 	if (isDragging) {
 		return false;
 	}
-	const target = event.target as HTMLElement;
 
+	const target = event.target as HTMLElement;
 	if (target.classList.contains('ProseMirror')) {
 		return false;
 	}
+
 	let rootElement = target?.closest('[data-drag-handler-anchor-name]');
 	if (rootElement) {
+		// We want to exlude handles from showing for empty paragraph and heading nodes
 		if (
 			editorExperiment('nested-dnd', true, { exposure: true }) &&
 			isEmptyNestedParagraphOrHeading(rootElement)
@@ -40,16 +42,7 @@ export const handleMouseOver = (
 
 		const parentElement = rootElement.parentElement?.closest('[data-drag-handler-anchor-name]');
 		const parentElementType = parentElement?.getAttribute('data-drag-handler-node-type');
-
-		if (parentElement && parentElementType === 'panel' && editorExperiment('nested-dnd', true)) {
-			const eventTargetPos = view.posAtDOM(rootElement, 0, -1);
-			const $eventTargetPos = view.state.doc.resolve(eventTargetPos);
-			const depth = $eventTargetPos.depth > 1 ? $eventTargetPos.depth - 1 : $eventTargetPos.depth;
-			if ($eventTargetPos.node(depth).firstChild === $eventTargetPos.node()) {
-				return false;
-			}
-		}
-
+		// We want to exlude handles from showing for direct decendant of table nodes (i.e. nodes in cells)
 		if (
 			parentElement &&
 			parentElementType === 'table' &&
@@ -60,12 +53,12 @@ export const handleMouseOver = (
 		}
 
 		const anchorName = rootElement.getAttribute('data-drag-handler-anchor-name')!;
-		const nodeType = rootElement.getAttribute('data-drag-handler-node-type')!;
-
+		// No need to update handle position if its already there
 		if (activeNode?.anchorName === anchorName) {
 			return false;
 		}
 
+		// We want to exlude handles from showing for wrapped nodes
 		if (
 			['wrap-right', 'wrap-left'].includes(rootElement.getAttribute('layout') || '') &&
 			fg('platform_editor_element_drag_and_drop_ed_24227')
@@ -73,31 +66,35 @@ export const handleMouseOver = (
 			return false;
 		}
 
-		const pos = view.posAtDOM(rootElement, 0, -1);
+		const parentRootElement = rootElement.parentElement;
+		let pos: number;
+		if (parentRootElement && editorExperiment('nested-dnd', true, { exposure: true })) {
+			const childNodes = Array.from(parentRootElement.childNodes);
+			const index = childNodes.indexOf(rootElement);
+			pos = view.posAtDOM(parentRootElement, index);
 
-		let rootPos;
+			// We want to exlude handles showing for first element in a Panel, ignoring widgets like gapcursor
+			const firstChildIsWidget =
+				parentRootElement?.children[0]?.classList.contains('ProseMirror-widget');
+			if (
+				parentElement &&
+				parentElementType === 'panel' &&
+				(index === 0 || (firstChildIsWidget && index === 1))
+			) {
+				return false;
+			}
+		} else {
+			pos = view.posAtDOM(rootElement, 0);
+		}
+
+		let rootPos: number;
 		if (editorExperiment('nested-dnd', true, { exposure: true })) {
-			const $rootPos = view.state.doc.resolve(pos);
-
-			const depth = $rootPos.depth;
-			const isParentAnIsolatingNode =
-				$rootPos.parent?.type.name !== 'doc' && $rootPos.parent?.type.spec.isolating;
-			const isCurrentNodeAtom = $rootPos.nodeAfter?.isAtom;
-
-			/**
-			 * If the parent node is an isolating node, the sides of nodes of this type are considered boundaries, such as a table cell.
-			 * And the current node, as a direct child, is an atom node, meaning it does not have directly editable content.
-			 * e.g. a card or an extension
-			 * We maintain the original position by adding 1 to the depth.
-			 * This prevents the decoration from being inserted in the wrong position, like between table cells.
-			 */
-			const posDepth = isParentAnIsolatingNode && isCurrentNodeAtom ? depth + 1 : depth;
-
-			rootPos = depth ? $rootPos.before(posDepth) : $rootPos.pos;
+			rootPos = view.state.doc.resolve(pos).pos;
 		} else {
 			rootPos = view.state.doc.resolve(pos).start(1) - 1;
 		}
 
+		const nodeType = rootElement.getAttribute('data-drag-handler-node-type');
 		if (nodeType) {
 			api?.core?.actions.execute(
 				api?.blockControls?.commands.showDragHandleAt(rootPos, anchorName, nodeType),

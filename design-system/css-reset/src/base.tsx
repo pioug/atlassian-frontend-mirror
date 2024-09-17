@@ -194,8 +194,7 @@ export default evaluateInner`
 
   /* Other typographical elements */
   small {
-    ${typography.h100()}
-    font-weight: normal;
+    font: ${token('font.body.small', typography.fontFallback.body.small)};
   }
 
   code,

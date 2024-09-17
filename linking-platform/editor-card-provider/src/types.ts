@@ -1,7 +1,12 @@
 import { type CardAppearance } from '@atlaskit/linking-common';
 
 export interface CardProvider {
-	resolve(url: string, appearance: CardAppearance, shouldForceAppearance?: boolean): Promise<any>;
+	resolve(
+		url: string,
+		appearance: CardAppearance,
+		shouldForceAppearance?: boolean,
+		isEmbedFriendlyLocation?: boolean,
+	): Promise<any>;
 }
 export type ORSCheckResponse = {
 	isSupported: boolean;

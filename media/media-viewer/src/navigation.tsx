@@ -71,6 +71,8 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 								testId={prevNavButtonId}
 								onClick={prev('mouse')}
 								iconBefore={
+									// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
+									// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 									<ArrowLeftCircleIcon
 										// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 										primaryColor="#9FADBC"
@@ -94,6 +96,8 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 								testId={nextNavButtonId}
 								onClick={next('mouse')}
 								iconBefore={
+									// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
+									// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 									<ArrowRightCircleIcon
 										// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 										primaryColor="#9FADBC"

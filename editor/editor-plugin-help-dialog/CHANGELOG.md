@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 1.8.5
+
+### Patch Changes
+
+- [#141343](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141343)
+  [`3893ae8e037fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3893ae8e037fb) -
+  Rearranging plugins to meet folder structure linting guidelines.
+
 ## 1.8.4
 
 ### Patch Changes

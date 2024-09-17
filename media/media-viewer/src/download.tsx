@@ -1,5 +1,5 @@
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import {
 	type FileState,
 	type Identifier,
@@ -16,7 +16,7 @@ import { createFailedPreviewDownloadButtonClickedEvent } from './analytics/event
 import { DownloadButtonWrapper } from './styleWrappers';
 import { type MediaViewerError } from './errors';
 
-const downloadIcon = <DownloadIcon label="Download" />;
+const downloadIcon = <DownloadIcon color="currentColor" spacing="spacious" label="Download" />;
 
 type DownloadButtonProps = React.ComponentProps<typeof MediaButton> & {
 	analyticspayload: Record<string, any>;

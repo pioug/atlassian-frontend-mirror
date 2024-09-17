@@ -73,7 +73,7 @@ const InlineEditExample = () => {
 						<ReadViewContainer>{selectLabel}</ReadViewContainer>
 					) : (
 						<Box padding="space.050">
-							<Group>
+							<Group label="Selected fruits">
 								{editValue &&
 									editValue.map((option: OptionType) => (
 										<Tag text={option.label} key={option.label} />

@@ -8,6 +8,7 @@ import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B100, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -67,6 +68,22 @@ const headCellBaseStyles = css({
 	borderBlockEnd: `2px solid ${tableBorder.borderColor}`,
 	color: token('color.text.subtlest', `var(${CSS_VAR_TEXT_COLOR})`),
 	font: token('font.heading.xxsmall'),
+	textAlign: 'left',
+	verticalAlign: 'top',
+	'&:focus-visible': {
+		outline: `solid 2px ${token('color.border.focused', B100)}`,
+	},
+});
+
+const headCellBaseStylesModernized = css({
+	boxSizing: 'border-box',
+	position: 'relative',
+	border: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	borderBlockEnd: `2px solid ${tableBorder.borderColor}`,
+	color: token('color.text.subtle', `var(${CSS_VAR_TEXT_COLOR})`),
+	font: token('font.body.UNSAFE_small'),
+	fontWeight: token('font.weight.bold'),
 	textAlign: 'left',
 	verticalAlign: 'top',
 	'&:focus-visible': {
@@ -214,7 +231,9 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
 				css={[
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					cellStyles,
-					headCellBaseStyles,
+					fg('design_system_team_dynamic_table_typography')
+						? headCellBaseStylesModernized
+						: headCellBaseStyles,
 					onClick && onClickStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					truncationWidthStyles,

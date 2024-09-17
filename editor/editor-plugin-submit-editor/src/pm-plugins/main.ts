@@ -9,19 +9,15 @@ import {
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { submit } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-	CommandDispatch,
-	ExtractInjectionAPI,
-	NextEditorPlugin,
-	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
+import type { CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils';
-import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-function createPlugin(
+import { type SubmitEditorPlugin } from '../submitEditorPluginType';
+
+export function createPlugin(
 	eventDispatch: Dispatch,
 	api: ExtractInjectionAPI<SubmitEditorPlugin> | undefined,
 	onSave?: (editorView: EditorView) => void,
@@ -64,28 +60,5 @@ const analyticsPayload = (state: EditorState): { payload: AnalyticsEventPayload 
 			// TODO add individual node counts - tables, headings, lists, mediaSingles, mediaGroups, mediaCards, panels, extensions, decisions, action, codeBlocks
 		},
 		eventType: EVENT_TYPE.UI,
-	},
-});
-
-export type SubmitEditorPluginOptions = (editorView: EditorView) => void;
-
-export type SubmitEditorPlugin = NextEditorPlugin<
-	'submitEditor',
-	{
-		pluginConfiguration: SubmitEditorPluginOptions | undefined;
-		dependencies: [OptionalPlugin<MediaPlugin>];
-	}
->;
-
-export const submitEditorPlugin: SubmitEditorPlugin = ({ config: onSave, api }) => ({
-	name: 'submitEditor',
-
-	pmPlugins() {
-		return [
-			{
-				name: 'submitEditor',
-				plugin: ({ dispatch }) => createPlugin(dispatch, api, onSave),
-			},
-		];
 	},
 });

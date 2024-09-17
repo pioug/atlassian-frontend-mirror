@@ -465,6 +465,7 @@ export const createPlugin = (
 						return false;
 					}
 
+					// TODO: Review usage of posAtDOM here
 					const domPos = fg('platform_editor_element_drag_and_drop_ed_24304')
 						? Math.max(view.posAtDOM(nodeElement, 0) - 1, 0)
 						: view.posAtDOM(nodeElement, 0) - 1;

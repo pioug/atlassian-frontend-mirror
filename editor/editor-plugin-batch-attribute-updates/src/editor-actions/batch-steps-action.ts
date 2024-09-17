@@ -2,7 +2,7 @@ import { BatchAttrsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { BatchAttrsStepData } from '@atlaskit/adf-schema/steps';
 import { AttrStep, type Step } from '@atlaskit/editor-prosemirror/transform';
 
-import type { BatchStepsAction } from './types';
+import type { BatchStepsAction } from '../batchAttributeUpdatesPluginType';
 
 type AttributeData = {
 	position: number;

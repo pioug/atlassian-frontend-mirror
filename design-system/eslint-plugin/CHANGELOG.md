@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.19.0
+
+### Minor Changes
+
+- [#141841](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141841)
+  [`80d8b75d97395`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80d8b75d97395) -
+  Introducing new rule to encourage adding/referencing accessible name to a TagGroup component.
+
 ## 10.18.2
 
 ### Patch Changes

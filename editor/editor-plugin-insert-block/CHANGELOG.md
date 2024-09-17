@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.0.0
+
+### Major Changes
+
+- [#141573](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141573)
+  [`2360742cbceac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2360742cbceac) -
+  [ux] Removing replacePlusMenuWithElementBrowser option from insert-block plugin. This is to ensure
+  consistent UI and reduce unnecessary code bundled with the editor. If you are currently using this
+  option you must remove it and it will use the new approach only now.
+
+### Minor Changes
+
+- [#140915](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140915)
+  [`eaccad51157d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eaccad51157d6) -
+  [ux] Migrate new icons including color, highlight and task on Editor primary toolbar
+
 ## 1.14.6
 
 ### Patch Changes

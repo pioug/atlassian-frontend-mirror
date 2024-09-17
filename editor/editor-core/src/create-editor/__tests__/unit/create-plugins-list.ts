@@ -309,7 +309,6 @@ describe('createPluginsList', () => {
 			allowTables: true,
 			insertMenuItems: customItems,
 			nativeStatusSupported: false,
-			replacePlusMenuWithElementBrowser: false,
 			showElementBrowserLink: false,
 		};
 

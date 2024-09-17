@@ -1,3 +1,3 @@
-export { widthPlugin } from './plugin';
-export type { WidthPlugin } from './plugin';
-export type { WidthPluginState } from './types';
+export { widthPlugin } from './widthPlugin';
+export type { WidthPlugin } from './widthPluginType';
+export type { EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types';

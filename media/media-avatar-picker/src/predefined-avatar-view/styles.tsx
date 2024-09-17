@@ -49,8 +49,7 @@ export const predefinedAvatarViewWrapperStyles = css({
 		'.description': {
 			paddingLeft: token('space.100', '8px'),
 			margin: 0,
-			fontSize: '14px',
-			fontWeight: 400,
+			font: token('font.body'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.back-button': {

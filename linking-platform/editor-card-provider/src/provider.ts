@@ -274,6 +274,7 @@ export class EditorCardProvider implements CardProvider {
 		url: string,
 		appearance: CardAppearance,
 		shouldForceAppearance?: boolean,
+		isEmbedFriendlyLocation?: boolean,
 	): Promise<CardAdf | DatasourceAdf> {
 		try {
 			if (shouldForceAppearance === true) {
@@ -306,7 +307,8 @@ export class EditorCardProvider implements CardProvider {
 							(userPreference as CardAppearance) ||
 							// If user's default choice is "inline" or user hasn't specified preferences at all,
 							// we check whatever one of the hardcoded providers match url (jira /timeline, polaris, etc)
-							hardCodedAppearance ||
+							((isEmbedFriendlyLocation || isEmbedFriendlyLocation === undefined) &&
+								hardCodedAppearance) ||
 							// If non match, we see if this provider has default appearance for this particular regexp
 							providerDefaultAppearance ||
 							// If not, we pick what editor (or any other client) requested

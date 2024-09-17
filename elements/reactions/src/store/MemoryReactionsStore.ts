@@ -312,7 +312,7 @@ export class MemoryReactionsStore implements Store {
 				}
 				// ufo add reaction success
 				exp.success();
-				onSuccess?.(ReactionUpdateType.added, ari, emojiId);
+				onSuccess?.(ReactionUpdateType.added, ari, emojiId, reaction.count + 1);
 			})
 			.catch((error) => {
 				if (isRealErrorFromService(error.code)) {
@@ -356,7 +356,7 @@ export class MemoryReactionsStore implements Store {
 			.then((_) => {
 				// ufo add reaction success
 				exp.success();
-				onSuccess?.(ReactionUpdateType.removed, ari, emojiId);
+				onSuccess?.(ReactionUpdateType.removed, ari, emojiId, reaction.count - 1);
 			})
 			.catch((error) => {
 				// ufo add reaction failure

@@ -7,6 +7,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
 import {
 	type MediaState,
@@ -25,7 +26,11 @@ export type InsertMediaSingle = (props: {
 export type MediaInsertPlugin = NextEditorPlugin<
 	'mediaInsert',
 	{
-		dependencies: [OptionalPlugin<AnalyticsPlugin>, MediaPlugin];
+		dependencies: [
+			OptionalPlugin<AnalyticsPlugin>,
+			MediaPlugin,
+			OptionalPlugin<FeatureFlagsPlugin>,
+		];
 		sharedState: MediaInsertPluginState;
 	}
 >;

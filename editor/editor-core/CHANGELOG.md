@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 197.7.6
+
+### Patch Changes
+
+- [#139456](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139456)
+  [`a788f5ceac7a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a788f5ceac7a2) -
+  [ux] When FF hardcoded-embeds-only-on-new-line is true pasting of some urls (like youtube or jira
+  dashboard or conny whiteboards) will only become embed right away if pasted on a new line in a
+  root of the document
+- Updated dependencies
+
+## 197.7.5
+
+### Patch Changes
+
+- [#141573](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141573)
+  [`2360742cbceac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2360742cbceac) -
+  [ux] Removing replacePlusMenuWithElementBrowser option from insert-block plugin. This is to ensure
+  consistent UI and reduce unnecessary code bundled with the editor. If you are currently using this
+  option you must remove it and it will use the new approach only now.
+- Updated dependencies
+
+## 197.7.4
+
+### Patch Changes
+
+- [#140867](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140867)
+  [`17b58500a94e3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17b58500a94e3) -
+  [ux] ED-24255 Adding a custom mark boundary cursor to fix the cursor position in inline code
+
 ## 197.7.3
 
 ### Patch Changes

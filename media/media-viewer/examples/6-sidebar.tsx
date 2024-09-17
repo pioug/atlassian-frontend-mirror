@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import AkSpinner from '@atlaskit/spinner';
 import DetailViewIcon from '@atlaskit/icon/glyph/detail-view';
-import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';
+import ArrowRightIcon from '@atlaskit/icon/core/migration/arrow-right';
 import {
 	type ExternalImageIdentifier,
 	type Identifier,
@@ -106,6 +106,8 @@ export default class Example extends React.Component<{}, State> {
 						extensions={{
 							sidebar: {
 								renderer: this.sidebarRenderer,
+								// TODO: https://product-fabric.atlassian.net/browse/DSP-20899
+								// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 								icon: <DetailViewIcon label="sidebar" />,
 							},
 						}}
@@ -200,7 +202,9 @@ const Sidebar = (props: SidebarProps) => {
 				<Button
 					onClick={actions.close}
 					aria-label="Close panel"
-					iconBefore={<ArrowRightIcon primaryColor={token('color.icon', N0)} label="" />}
+					iconBefore={
+						<ArrowRightIcon spacing="spacious" color={token('color.icon', N0)} label="" />
+					}
 				/>
 			</MVSidebarHeader>
 			{identifier.mediaItemType === 'file'

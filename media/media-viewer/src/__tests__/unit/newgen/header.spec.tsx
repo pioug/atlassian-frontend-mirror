@@ -6,8 +6,8 @@ import {
 	type Identifier,
 	createMediaSubscribable,
 } from '@atlaskit/media-client';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
-import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import EditorPanelIcon from '@atlaskit/icon/core/migration/information--editor-panel';
 import {
 	fakeIntl,
 	fakeMediaClient,
@@ -374,7 +374,7 @@ describe('<Header />', () => {
 					identifier={identifier}
 					extensions={{
 						sidebar: {
-							icon: <EditorPanelIcon label="sidebar" />,
+							icon: <EditorPanelIcon color="currentColor" spacing="spacious" label="sidebar" />,
 							renderer: () => <div />,
 						},
 					}}

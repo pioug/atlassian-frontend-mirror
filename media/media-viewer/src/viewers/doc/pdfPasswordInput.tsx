@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';
-import LockIcon from '@atlaskit/icon/glyph/lock';
+import LockIcon from '@atlaskit/icon/core/migration/lock-locked--lock';
 import Form, { Field, type OnSubmitHandler } from '@atlaskit/form';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
@@ -13,7 +13,7 @@ import { xcss, Box, Flex } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 
 interface PDFPasswordInputProps {
 	onSubmit: OnSubmitHandler<{ password: string }>;
@@ -24,7 +24,8 @@ interface PDFPasswordInputProps {
 const COLOR_SHADE = '#b6c2cf';
 
 const headingStyle = css({
-	fontSize: '14px',
+	font: token('font.body'),
+	fontWeight: token('font.weight.bold'),
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	color: COLOR_SHADE,
 });
@@ -33,8 +34,9 @@ const errorMessageWrapperStyle = css({
 	marginTop: token('space.050', '4px'),
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	color: '#FD9891',
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 	display: 'flex',
+	alignItems: 'center',
 });
 
 const errorMessageStyle = css({
@@ -84,7 +86,7 @@ export const PDFPasswordInput = ({
 			{({ formProps, submitting }) => (
 				<form {...formProps}>
 					<Flex justifyContent="center">
-						<LockIcon label="" size="xlarge" primaryColor={COLOR_SHADE} />
+						<LockIcon label="" LEGACY_size="xlarge" color={COLOR_SHADE as any} />
 					</Flex>
 					<Box xcss={headerStyles}>
 						<h1 css={headingStyle}>
@@ -108,7 +110,7 @@ export const PDFPasswordInput = ({
 								/>
 								{formError && (
 									<div css={errorMessageWrapperStyle} id={`${fieldProps.id}-error`}>
-										<ErrorIcon size="small" label="" />
+										<ErrorIcon color="currentColor" LEGACY_size="small" label="" />
 										<p css={errorMessageStyle}>
 											<FormattedMessage {...messages.incorrect_password} />
 										</p>

@@ -104,6 +104,7 @@ export type ReactionUpdateSuccess = (
 	action: ReactionUpdateType,
 	ari: string,
 	emojiId: string,
+	count: number,
 ) => void;
 
 /**

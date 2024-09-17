@@ -5,7 +5,7 @@ import TagGroup from '@atlaskit/tag-group';
 import { SimpleTag as Tag } from '../../src';
 
 export default () => (
-	<TagGroup>
+	<TagGroup label="Colored tags">
 		<Tag text="standard Tag" color="standard" />
 		<Tag text="blue Tag" color="blue" />
 		<Tag text="green Tag" color="green" />

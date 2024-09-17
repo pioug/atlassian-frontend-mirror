@@ -6,6 +6,7 @@ import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-id
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
@@ -34,6 +35,7 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			FocusPlugin,
 			SelectionPlugin,
 			OptionalPlugin<AnnotationPlugin>,
+			OptionalPlugin<FeatureFlagsPlugin>,
 		];
 		sharedState: MediaPluginState | null;
 		actions: {

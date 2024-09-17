@@ -1,5 +1,5 @@
 export type { ReactionAction, Actions } from './Actions';
-export { ReactionStatus } from './reaction';
+export { ReactionStatus, ReactionUpdateType } from './reaction';
 export type {
 	ReactionSource,
 	ReactionsError,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component, type ReactElement } from 'react';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import { MediaButton, hideControlsClassName, InactivityDetector } from '@atlaskit/media-ui';
 import { CloseButtonWrapper, ContentWrapper } from './styleWrappers';
 import { type WithShowControlMethodProp } from '@atlaskit/media-ui';
@@ -33,7 +33,7 @@ export class Content extends Component<ContentProps> {
 									<MediaButton
 										testId="media-viewer-close-button"
 										onClick={onClose}
-										iconBefore={<CrossIcon label="Close" />}
+										iconBefore={<CrossIcon color="currentColor" spacing="spacious" label="Close" />}
 									/>
 								</CloseButtonWrapper>
 								{children}

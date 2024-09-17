@@ -102,20 +102,33 @@ const extendedHoverZoneNested = css({
 	},
 });
 
-const paragraphWithTrailingBreakAsOnlyChild = '+ p > .ProseMirror-trailingBreak:only-child';
+const paragraphWithTrailingBreakAsOnlyChild =
+	'+ :is(p, h1, h2, h3, h4, h5, h6) > .ProseMirror-trailingBreak:only-child';
+const indentatedParagraphWithTrailingBreakAsOnlyChild =
+	'+ div.fabric-editor-indentation-mark > :is(p, h1, h2, h3, h4, h5, h6) > .ProseMirror-trailingBreak:only-child';
 const paragraphWithPlaceholder = '+ p > .placeholder-decoration';
 const dragHandleContainer = '.ProseMirror-widget[data-blocks-drag-handle-container="true"]';
 const dragHandleSelector = 'button[data-testid="block-ctrl-drag-handle"]';
 
+const withInlineNodeStyleSelectors = [
+	`.ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${paragraphWithTrailingBreakAsOnlyChild})`,
+	`.ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${indentatedParagraphWithTrailingBreakAsOnlyChild})`,
+	`.ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${paragraphWithPlaceholder})`,
+].join(', ');
+
 const withInlineNodeStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-	[`.ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${paragraphWithTrailingBreakAsOnlyChild}), .ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${paragraphWithPlaceholder})`]:
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			display: 'none !important',
-		},
+	[withInlineNodeStyleSelectors]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		display: 'none !important',
+	},
 });
 
+const withInlineNodeStyleWithChromeFixSelectors = [
+	`${dragHandleContainer}:has(${paragraphWithTrailingBreakAsOnlyChild}) ${dragHandleSelector}`,
+	`${dragHandleContainer}:has(${indentatedParagraphWithTrailingBreakAsOnlyChild}) ${dragHandleSelector}`,
+	`${dragHandleContainer}:has(${paragraphWithPlaceholder}) ${dragHandleSelector}`,
+].join(', ');
 /**
  * Please do not change change transform to display:none, or visibility:hidden
  * Otherwise it might break composition input for Chrome
@@ -123,8 +136,7 @@ const withInlineNodeStyle = css({
  */
 const withInlineNodeStyleWithChromeFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-	[`${dragHandleContainer}:has(${paragraphWithTrailingBreakAsOnlyChild}) ${dragHandleSelector},
-	  ${dragHandleContainer}:has(${paragraphWithPlaceholder}) ${dragHandleSelector}`]: {
+	[withInlineNodeStyleWithChromeFixSelectors]: {
 		transform: 'scale(0)',
 	},
 });
@@ -145,6 +157,7 @@ const globalStyles = editorExperiment('nested-dnd', true)
 				marginTop: '0 !important',
 			},
 		});
+
 const withDeleteLinesStyleFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 	[`p[data-drag-handler-anchor-name] ${dragHandleContainer}`]: {

@@ -37,6 +37,7 @@ export default {
   'fabric.editor.blockCardUnavailable':
     'Встроенная ссылка находится внутри узла {node} — нельзя изменить представление',
   'fabric.editor.blockControlDragHandleUsageInfo': 'Перетаскивайте, чтобы переместить',
+  'fabric.editor.blockControlInsert': 'Вставить',
   'fabric.editor.blockControlMoveDown': 'Переместить блок вниз',
   'fabric.editor.blockControlMoveUp': 'Переместить блок вверх',
   'fabric.editor.blockControlMovedDown': 'Контент перемещен вниз',
@@ -292,6 +293,8 @@ export default {
   'fabric.editor.insertMediaFromUrl': 'Изображение по ссылке',
   'fabric.editor.insertMediaFromUrlDescription': 'Добавить изображение или видео по ссылке',
   'fabric.editor.insertMenu': 'Вставить элементы',
+  'fabric.editor.insertRightRail.close': 'Закрыть',
+  'fabric.editor.insertRightRail.title': 'Вставить',
   'fabric.editor.insertRow': 'Вставить строку ниже',
   'fabric.editor.insertRowDrag': 'Вставить строку',
   'fabric.editor.insertTableColumn': 'Вставить столбец таблицы',

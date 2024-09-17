@@ -358,49 +358,11 @@ describe('providers > editor', () => {
 			'Giphy Clip',
 			'https://giphy.com/clips/studiosoriginals-omg-shocked-surprised-2P4BzWM98c2IzSoqN5',
 		],
-	])(
-		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
-		async (_, url) => {
-			const provider = setupEditorCardProvider();
-			mockFetch.mockResolvedValueOnce({
-				json: async () => getMockProvidersResponse(),
-				ok: true,
-			});
-			// Mocking call to /resolve/batch
-			mockFetch.mockResolvedValueOnce({
-				json: async () => [{ body: mocks.success, status: 200 }],
-				ok: true,
-			});
-			const adf = await provider.resolve(url, 'inline', false);
-			expect(adf).toEqual(expectedEmbedAdf(url));
-		},
-	);
-
-	describe.each<[string, string]>([
 		['Youtube Video', 'https://www.youtube.com/watch?v=Hd0JflMdqyM'],
 		['Youtube Video Mobile', 'https://m.youtube.com/watch?v=Hd0JflMdqyM'],
 		['Youtube Short', 'https://www.youtube.com/shorts/_RVT1ZM2W9A'],
 		['Youtu.be link', 'https://youtu.be/fFGS4zZWGoA'],
 		['Youtube.ch link', 'https://www.youtube.ch/watch?v=w7ejDZ8SWv8'],
-	])(
-		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
-		async (_, url) => {
-			const provider = new EditorCardProvider();
-			mockFetch.mockResolvedValueOnce({
-				json: async () => getMockProvidersResponse(),
-				ok: true,
-			});
-			// Mocking call to /resolve/batch
-			mockFetch.mockResolvedValueOnce({
-				json: async () => [{ body: mocks.success, status: 200 }],
-				ok: true,
-			});
-			const adf = await provider.resolve(url, 'inline', false);
-			expect(adf).toEqual(expectedEmbedAdf(url));
-		},
-	);
-
-	it.each<[string, string]>([
 		['Loom Video share', 'https://www.loom.com:44/share/4e890d2246f945aa9239e1f38c64ec05'],
 		['Loom Video embed', 'https://www.loom.com/embed/4e890d2246f945aa9239e1f38c64ec05'],
 		[
@@ -411,49 +373,11 @@ describe('providers > editor', () => {
 			'Loom Video human readable section',
 			'https://www.loom.com/share/human-readable-text-9b62d620bbea4476bbf2286a6b0c83cf',
 		],
-	])(
-		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
-		async (_, url) => {
-			const provider = new EditorCardProvider();
-			mockFetch.mockResolvedValueOnce({
-				json: async () => getMockProvidersResponse(),
-				ok: true,
-			});
-			// Mocking call to /resolve/batch
-			mockFetch.mockResolvedValueOnce({
-				json: async () => [{ body: mocks.success, status: 200 }],
-				ok: true,
-			});
-			const adf = await provider.resolve(url, 'inline', false);
-			expect(adf).toEqual(expectedEmbedAdf(url));
-		},
-	);
-
-	it.each<[string, string]>([
 		['A whiteboard', 'https://pug.jira-dev.com/wiki/spaces/BT2/whiteboard/452724424706'],
 		[
 			'A whiteboard with query params',
 			'https://pug.jira-dev.com/wiki/spaces/BT2/whiteboard/452724424706?myQueryParam=foo&bar=baz',
 		],
-	])(
-		'returns embedCard when %s confluence whiteboard is inserted, calling /providers endpoint',
-		async (_, url) => {
-			const provider = new EditorCardProvider();
-			mockFetch.mockResolvedValueOnce({
-				json: async () => getMockProvidersResponse(),
-				ok: true,
-			});
-			// Mocking call to /resolve/batch
-			mockFetch.mockResolvedValueOnce({
-				json: async () => [{ body: mocks.success, status: 200 }],
-				ok: true,
-			});
-			const adf = await provider.resolve(url, 'inline', false);
-			expect(adf).toEqual(expectedEmbedAdf(url));
-		},
-	);
-
-	it.each<[string, string]>([
 		[
 			'A database with a user space',
 			'https://databases-playground.jira-dev.com/wiki/spaces/~123456789/database/12345',
@@ -486,49 +410,6 @@ describe('providers > editor', () => {
 			'A database with both a savedViewId and unsavedView query parameter',
 			'https://pug.jira-dev.com/wiki/spaces/~448762021/database/452927129132?savedViewId=7318ab9e-6269-4997-9941-5c92f86e5d56&unsavedView=7b7b1118-86b2-427d-ac31-ae09141ab3e6',
 		],
-	])(
-		'returns embedCard when %s confluence database is inserted, calling /providers endpoint',
-		async (_, url) => {
-			const provider = new EditorCardProvider();
-			mockFetch.mockResolvedValueOnce({
-				json: async () => getMockProvidersResponse(),
-				ok: true,
-			});
-			// Mocking call to /resolve/batch
-			mockFetch.mockResolvedValueOnce({
-				json: async () => [{ body: mocks.success, status: 200 }],
-				ok: true,
-			});
-			const adf = await provider.resolve(url, 'inline', false);
-			expect(adf).toEqual(expectedEmbedAdf(url));
-		},
-	);
-
-	it.each<[string, string]>([
-		[
-			'Domain ending in "giphy"',
-			'https://dodgygiphy.com/gifs/happy-kawaii-nice-yCZEmKBKejysx5V2Yaa',
-		],
-		['Giphy profile', 'https://giphy.com/Ellienka'],
-	])(
-		'returns inlineCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
-		async (_, url) => {
-			const provider = setupEditorCardProvider();
-			mockFetch.mockResolvedValueOnce({
-				json: async () => getMockProvidersResponse(),
-				ok: true,
-			});
-			// Mocking call to /resolve/batch
-			mockFetch.mockResolvedValueOnce({
-				json: async () => [{ body: mocks.success, status: 200 }],
-				ok: true,
-			});
-			const adf = await provider.resolve(url, 'inline', false);
-			expect(adf).toEqual(expectedInlineAdf(url));
-		},
-	);
-
-	it.each<[string, string]>([
 		[
 			'roadmap embed',
 			'https://jdog.jira-dev.com/jira/software/projects/DL39857/boards/3186/roadmap',
@@ -614,15 +495,57 @@ describe('providers > editor', () => {
 			'https://jdog.jira-dev.com/jira/servicedesk/projects/PROFORMA/forms/form/direct/10/10048?requestTypeId=509',
 		],
 		['Jira list embed', 'https://jdog.jira-dev.com/jira/software/c/projects/DL39857/list'],
-	])('returns embedCard when %s link inserted, calling /providers endpoint', async (_, url) => {
-		const provider = setupEditorCardProvider();
-		mockFetch.mockResolvedValueOnce({
-			json: async () => getMockProvidersResponse(),
-			ok: true,
-		});
-		const adf = await provider.resolve(url, 'inline', false);
-		expect(adf).toEqual(expectedEmbedAdf(url));
-	});
+		['Jira Dashboard', 'https://product-fabric.atlassian.net/jira/dashboards/15429'],
+		['Jira Dashboard embed', 'https://product-fabric.atlassian.net/jira/dashboards/15429/embed'],
+		[
+			'Jira Dashboard gadget',
+			'https://product-fabric.atlassian.net/jira/dashboards/15429?maximized=26563',
+		],
+		[
+			'Jira Dashboard gadget embed',
+			'https://product-fabric.atlassian.net/jira/dashboards/15429/embed?maximized=26563',
+		],
+	])(
+		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
+		async (_, url) => {
+			const provider = new EditorCardProvider();
+			mockFetch.mockResolvedValueOnce({
+				json: async () => getMockProvidersResponse(),
+				ok: true,
+			});
+			// Mocking call to /resolve/batch
+			mockFetch.mockResolvedValueOnce({
+				json: async () => [{ body: mocks.success, status: 200 }],
+				ok: true,
+			});
+			const adf = await provider.resolve(url, 'inline', false);
+			expect(adf).toEqual(expectedEmbedAdf(url));
+		},
+	);
+
+	it.each<[string, string]>([
+		[
+			'Domain ending in "giphy"',
+			'https://dodgygiphy.com/gifs/happy-kawaii-nice-yCZEmKBKejysx5V2Yaa',
+		],
+		['Giphy profile', 'https://giphy.com/Ellienka'],
+	])(
+		'returns inlineCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
+		async (_, url) => {
+			const provider = setupEditorCardProvider();
+			mockFetch.mockResolvedValueOnce({
+				json: async () => getMockProvidersResponse(),
+				ok: true,
+			});
+			// Mocking call to /resolve/batch
+			mockFetch.mockResolvedValueOnce({
+				json: async () => [{ body: mocks.success, status: 200 }],
+				ok: true,
+			});
+			const adf = await provider.resolve(url, 'inline', false);
+			expect(adf).toEqual(expectedInlineAdf(url));
+		},
+	);
 
 	it('returns datasource when jql link inserted, calling /resolve endpoint', async () => {
 		const url =
@@ -1525,32 +1448,43 @@ describe('providers > editor', () => {
 		});
 	});
 
-	it.each<[string, string]>([
-		['Jira Dashboard', 'https://product-fabric.atlassian.net/jira/dashboards/15429'],
-		['Jira Dashboard embed', 'https://product-fabric.atlassian.net/jira/dashboards/15429/embed'],
-		[
-			'Jira Dashboard gadget',
-			'https://product-fabric.atlassian.net/jira/dashboards/15429?maximized=26563',
-		],
-		[
-			'Jira Dashboard gadget embed',
-			'https://product-fabric.atlassian.net/jira/dashboards/15429/embed?maximized=26563',
-		],
-	])(
-		'returns embedCard when %s link is inserted, calling /providers and /resolve/batch endpoint',
-		async (_, url) => {
-			const provider = new EditorCardProvider();
+	describe('when consumer calls function with isEmbedFriendlyLocation as false', () => {
+		it('should not use hardcoded appearance even if it matches regexp', async () => {
+			const provider = setupEditorCardProvider();
 			mockFetch.mockResolvedValueOnce({
-				json: async () => getMockProvidersResponse(),
+				json: async () =>
+					getMockProvidersResponse({
+						userPreferences: {
+							defaultAppearance: 'inline',
+							appearances: [],
+						},
+					}),
 				ok: true,
 			});
-			// Mocking call to /resolve/batch
+
+			const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/board';
+			const adf = await provider.resolve(url, 'inline', false, false);
+			expect(adf).toEqual(expectedInlineAdf(url));
+		});
+	});
+
+	describe('when consumer calls function with isEmbedFriendlyLocation as true', () => {
+		it('should use hardcoded appearance if it matches regexp', async () => {
+			const provider = setupEditorCardProvider();
 			mockFetch.mockResolvedValueOnce({
-				json: async () => [{ body: mocks.success, status: 200 }],
+				json: async () =>
+					getMockProvidersResponse({
+						userPreferences: {
+							defaultAppearance: 'inline',
+							appearances: [],
+						},
+					}),
 				ok: true,
 			});
-			const adf = await provider.resolve(url, 'embed', false);
+
+			const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/board';
+			const adf = await provider.resolve(url, 'inline', false, true);
 			expect(adf).toEqual(expectedEmbedAdf(url));
-		},
-	);
+		});
+	});
 });

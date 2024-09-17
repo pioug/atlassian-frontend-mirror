@@ -85,7 +85,7 @@ const InlineEditCustomSelectExample = () => {
 						<Box xcss={readViewContainerStyles}>{selectLabel}</Box>
 					) : (
 						<Box xcss={tagGroupContainerStyles}>
-							<Group>
+							<Group label="Selected skills">
 								{editValue &&
 									editValue.map((option: OptionType) => (
 										<Tag text={option.label} key={option.label} />

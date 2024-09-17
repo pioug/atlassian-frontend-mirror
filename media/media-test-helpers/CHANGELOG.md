@@ -1,5 +1,17 @@
 # @atlaskit/media-test-helpers
 
+## 34.3.0
+
+### Minor Changes
+
+- [#140915](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140915)
+  [`36b5acc412af5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36b5acc412af5) -
+  Design system typography uplift
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.2.2
 
 ### Patch Changes

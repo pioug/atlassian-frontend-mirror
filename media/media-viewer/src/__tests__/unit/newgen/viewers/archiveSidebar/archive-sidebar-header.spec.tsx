@@ -5,8 +5,8 @@ import {
 	type HeaderProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-header';
 import { ButtonItem } from '@atlaskit/side-navigation';
-import HomeIcon from '@atlaskit/icon/glyph/home';
-import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
+import HomeIcon from '@atlaskit/icon/core/migration/home';
+import ArrowLeftIcon from '@atlaskit/icon/core/migration/arrow-left';
 
 describe('ArchiveSidebarHeader', () => {
 	function mountBaseComponent(props: HeaderProps) {

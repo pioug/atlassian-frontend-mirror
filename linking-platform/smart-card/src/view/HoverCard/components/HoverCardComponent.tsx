@@ -17,7 +17,7 @@ import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAna
 import { combineActionOptions } from '../../../utils/actions/combine-action-options';
 import { useSmartCardActions } from '../../../state/actions';
 import { useSmartLinkAnalytics } from '../../../state/analytics';
-
+import { fg } from '@atlaskit/platform-feature-flags';
 const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
 
 const FADE_IN_DELAY = 500;
@@ -234,6 +234,7 @@ export const HoverCardComponent = ({
 			<span ref={parentSpan}>
 				<span
 					{...triggerProps}
+					{...(fg('platform-hover-card-aria-expanded-a11y-fix') && { role: 'button' })}
 					onMouseOver={initShowCard}
 					onMouseLeave={initHideCard}
 					onMouseMove={setMousePosition}

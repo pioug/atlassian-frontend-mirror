@@ -1,5 +1,15 @@
 # @atlaskit/link-datasource
 
+## 3.0.2
+
+### Patch Changes
+
+- [#141472](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141472)
+  [`fa7d87963ed8a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa7d87963ed8a) -
+  Uses `objectTypesEntity` when available in DS data response as the Actions `entityType`. When
+  `entityType` is undefined it will not make request to `discoverActions`.
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

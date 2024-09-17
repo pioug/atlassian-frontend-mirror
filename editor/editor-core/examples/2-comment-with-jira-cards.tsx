@@ -5,7 +5,7 @@ import React from 'react';
 import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import type { CardAppearance, ResolveResponse } from '@atlaskit/smart-card';
+import type { ResolveResponse } from '@atlaskit/smart-card';
 
 import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
@@ -20,11 +20,9 @@ export class JiraCardProvider extends EditorCardProvider {
 	/**
 	 * This method must resolve to a valid ADF that will be used to
 	 * replace a blue link after user pastes URL.
-	 *
-	 * @param url The pasted URL
-	 * @param appearance Appearance requested by the Editor
 	 */
-	async resolve(url: string, appearance: CardAppearance): Promise<any> {
+	async resolve(...args: Parameters<EditorCardProvider['resolve']>): Promise<any> {
+		const [url] = args;
 		// This example uses a regex .match() but we could use a backend call here
 		if (url.match(jiraUrlMatch)) {
 			return {
@@ -36,7 +34,7 @@ export class JiraCardProvider extends EditorCardProvider {
 		}
 
 		// If the URL doesn't look like something we should handle, try native provider
-		return super.resolve(url, appearance);
+		return super.resolve.apply(this, args);
 	}
 }
 

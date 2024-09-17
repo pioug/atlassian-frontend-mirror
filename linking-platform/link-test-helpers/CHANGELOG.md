@@ -1,5 +1,13 @@
 # @atlaskit/link-test-helpers
 
+## 7.5.1
+
+### Patch Changes
+
+- [#141472](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141472)
+  [`fa7d87963ed8a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa7d87963ed8a) -
+  Update Datasource jira mocks with `objectTypesEntity`
+
 ## 7.5.0
 
 ### Minor Changes

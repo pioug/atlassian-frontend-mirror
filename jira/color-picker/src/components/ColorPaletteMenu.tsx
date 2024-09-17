@@ -35,8 +35,12 @@ import {
 import { N0, N40 } from '@atlaskit/theme/colors';
 
 export type Props = {
+	/** the toggle that decides if the selected color will be automatically focused on load */
+	autoFocus?: boolean;
 	/** the toggle that decides if users can tab outside the color picker (arrow keys will always cycle the focus) */
 	isFocusLockEnabled?: boolean;
+	/** the toggle that decides if menu-related assistive technology should be applied */
+	isInsideMenu?: boolean;
 	/** color picker button label */
 	label?: string;
 	/** list of available colors */
@@ -65,7 +69,9 @@ export type Props = {
 };
 
 export const ColorPaletteMenuWithoutAnalytics = ({
+	autoFocus = true,
 	isFocusLockEnabled = true,
+	isInsideMenu = true,
 	createAnalyticsEvent,
 	onChange,
 	onChangeOld,
@@ -153,7 +159,7 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 	return (
 		<div
 			aria-label={fullLabel}
-			role={fg('platform_color_palette_menu_timeline_bar_a11y') ? 'group' : 'radiogroup'}
+			role={isInsideMenu ? 'group' : 'radiogroup'}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={[colorPaletteMenuStyles, mode === Mode.Standard && colorPaletteMenuStandardStyles]}
 			style={{
@@ -180,13 +186,13 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 							{...(fg('platform_color_palette-expose-event')
 								? { onClick: handleChange }
 								: { onClickOld: handleChangeOld })}
-							{...(fg('platform_color_palette_menu_timeline_bar_a11y') && {
-								ref: (ref) => {
-									colorCardRefs[index] = ref;
-								},
-								initialFocusRef: value === selectedValue.value ? initialFocusRef : undefined,
-								onKeyDown: handleKeyDown,
-							})}
+							ref={(ref) => {
+								colorCardRefs[index] = ref;
+							}}
+							autoFocus={autoFocus}
+							initialFocusRef={value === selectedValue.value ? initialFocusRef : undefined}
+							isInsideMenu={isInsideMenu}
+							onKeyDown={handleKeyDown}
 						/>
 					</div>
 				))}

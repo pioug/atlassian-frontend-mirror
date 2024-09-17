@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { ButtonItem, HeadingItem, NavigationContent, Section } from '../src';
+import { ButtonItem, NavigationContent, Section } from '../src';
 
 const Example = () => (
 	<NavigationContent testId="navigation-content-for-sections">
 		<Section title="Primary actions">
 			<ButtonItem>Create issue</ButtonItem>
 		</Section>
-		<Section aria-labelledby="secondary-actions" hasSeparator>
-			<HeadingItem id="secondary-actions">Secondary actions</HeadingItem>
+		<Section title="Secondary actions" hasSeparator>
 			<ButtonItem>Create issue</ButtonItem>
-			<HeadingItem>More Actions</HeadingItem>
+		</Section>
+		<Section title="More Actions">
 			<ButtonItem>Create issue</ButtonItem>
 		</Section>
 	</NavigationContent>

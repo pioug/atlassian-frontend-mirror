@@ -4,7 +4,6 @@ import { readImageMetaData, getFileInfo, type ImageMetaData, getScaleFactor } fr
 import {
 	InputWrapper,
 	PreviewList,
-	PreviewInfo,
 	PreviewItem,
 	PreviewImageContainer,
 	Code,
@@ -110,7 +109,7 @@ class Example extends React.Component<{}, ExampleState> {
 					</div>
 					<PreviewImageContainer>
 						<img src={preview.src} />
-						<PreviewInfo>{JSON.stringify(preview.metadata, null, 4)}</PreviewInfo>
+						<pre>{JSON.stringify(preview.metadata, null, 4)}</pre>
 					</PreviewImageContainer>
 					<CloseButton onClick={this.onRemovePreview(i)}>X</CloseButton>
 				</PreviewItem>

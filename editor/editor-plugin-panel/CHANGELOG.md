@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-panel
 
+## 2.5.0
+
+### Minor Changes
+
+- [#141652](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141652)
+  [`1cbce9d217a8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1cbce9d217a8e) -
+  [ux] EDF-1549 AI button added in floating toolbar of panel, table, layout and expand behind
+  experiment.
+
 ## 2.4.0
 
 ### Minor Changes

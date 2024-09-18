@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import { N200, N20A } from '@atlaskit/theme/colors';
 import checkboxTheme from './theme';
 
 /*
@@ -48,7 +47,7 @@ export const decisionStyles = () =>
 		padding: token('space.100', '8px'),
 		paddingLeft: token('space.150', '12px'),
 		borderRadius: token('border.radius.100', '3px'),
-		backgroundColor: token('color.background.neutral', N20A),
+		backgroundColor: token('color.background.neutral'),
 		position: 'relative',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.decision-item': {
@@ -61,7 +60,7 @@ export const placeholderStyles = (offset: number) =>
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		margin: `0 0 0 ${offset}px`,
 		position: 'absolute',
-		color: token('color.text.subtlest', N200),
+		color: token('color.text.subtlest'),
 		pointerEvents: 'none',
 		textOverflow: 'ellipsis',
 		overflow: 'hidden',

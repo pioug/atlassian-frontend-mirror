@@ -1,5 +1,28 @@
 # @atlaskit/media-card
 
+## 78.5.0
+
+### Minor Changes
+
+- [#142249](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142249)
+  [`40949f8ce34cf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40949f8ce34cf) -
+  [ux] Enable new icons behind a feature flag.
+
+## 78.4.1
+
+### Patch Changes
+
+- [#141583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141583)
+  [`ba6def6b9d3ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba6def6b9d3ce) -
+  Updated Media card and UI to avoid contributing to TTVC metrics
+
+  - Media card will always render the `img`, even while it is still loading (in that case, the `img`
+    will just be hidden). It will also use a custom loading spinner with no interaction context.
+  - Media image will allow a null value for the image source. It will also always render the `img`
+    tag and switch the css prop `display` according to the `src` value.
+
+- Updated dependencies
+
 ## 78.4.0
 
 ### Minor Changes

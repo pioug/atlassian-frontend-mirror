@@ -1,5 +1,5 @@
 import { useAnalyticsEvents, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import {
 	type FileDetails,
 	type FileIdentifier,
@@ -305,7 +305,7 @@ export const FileCard = ({
 		if (finalStatus === 'failed-processing' || shouldEnableDownloadButton) {
 			const downloadAction = {
 				label: 'Download',
-				icon: <DownloadIcon label="Download" />,
+				icon: <DownloadIcon color="currentColor" spacing="spacious" label="Download" />,
 				handler: () =>
 					mediaClient.file.downloadBinary(identifier.id, metadata.name, identifier.collectionName),
 			};

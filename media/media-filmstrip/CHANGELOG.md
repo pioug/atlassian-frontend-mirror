@@ -1,5 +1,17 @@
 # @atlaskit/media-filmstrip
 
+## 47.3.0
+
+### Minor Changes
+
+- [#141754](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141754)
+  [`71bcccc5aa956`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/71bcccc5aa956) -
+  Enable new icons behind a feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 47.2.4
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 3.0.3
+
+### Patch Changes
+
+- [#142171](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142171)
+  [`e76645cc58176`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e76645cc58176) -
+  Cleanup platform.linking-platform.datasources.enable-sentry-client FF
+
 ## 3.0.2
 
 ### Patch Changes

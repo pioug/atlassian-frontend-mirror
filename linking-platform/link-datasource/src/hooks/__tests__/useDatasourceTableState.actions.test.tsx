@@ -173,65 +173,33 @@ describe('useDatasourceTableState', () => {
 					);
 				});
 
-				ffTest.off('platform.linking-platform.datasources.enable-sentry-client', 'flag on', () => {
-					it('when `discoverActions` fails with an `Error`, it should log to Splunk and log to Sentry conditionally based on FF', async () => {
-						const mockError = new Error('Mock error');
-						asMock(getDatasourceData).mockResolvedValueOnce({
-							...mockDatasourceDataResponseWithSchema,
-						});
-						asMock(getDatasourceActionsAndPermissions).mockRejectedValueOnce(mockError);
-
-						const { waitForNextUpdate } = setup();
-						await waitForNextUpdate();
-
-						expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-							{
-								payload: {
-									action: 'operationFailed',
-									actionSubject: 'datasource',
-									eventType: 'operational',
-									attributes: {
-										errorLocation: 'actionDiscovery',
-										status: null,
-										traceId: null,
-									},
-								},
-							},
-							EVENT_CHANNEL,
-						);
-						expect(captureException).toHaveBeenCalledTimes(0);
+				it('when `discoverActions` fails with an `Error`, it should log to Splunk and log to Sentry conditionally based on FF', async () => {
+					const mockError = new Error('Mock error');
+					asMock(getDatasourceData).mockResolvedValueOnce({
+						...mockDatasourceDataResponseWithSchema,
 					});
-				});
+					asMock(getDatasourceActionsAndPermissions).mockRejectedValueOnce(mockError);
 
-				ffTest.on('platform.linking-platform.datasources.enable-sentry-client', 'flag off', () => {
-					it('when `discoverActions` fails with an `Error`, it should log to Splunk and log to Sentry conditionally based on FF', async () => {
-						const mockError = new Error('Mock error');
-						asMock(getDatasourceData).mockResolvedValueOnce({
-							...mockDatasourceDataResponseWithSchema,
-						});
-						asMock(getDatasourceActionsAndPermissions).mockRejectedValueOnce(mockError);
+					const { waitForNextUpdate } = setup();
+					await waitForNextUpdate();
 
-						const { waitForNextUpdate } = setup();
-						await waitForNextUpdate();
-
-						expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-							{
-								payload: {
-									action: 'operationFailed',
-									actionSubject: 'datasource',
-									eventType: 'operational',
-									attributes: {
-										errorLocation: 'actionDiscovery',
-										status: null,
-										traceId: null,
-									},
+					expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+						{
+							payload: {
+								action: 'operationFailed',
+								actionSubject: 'datasource',
+								eventType: 'operational',
+								attributes: {
+									errorLocation: 'actionDiscovery',
+									status: null,
+									traceId: null,
 								},
 							},
-							EVENT_CHANNEL,
-						);
-						expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
-							datasourceId: mockDatasourceId,
-						});
+						},
+						EVENT_CHANNEL,
+					);
+					expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
+						datasourceId: mockDatasourceId,
 					});
 				});
 			});

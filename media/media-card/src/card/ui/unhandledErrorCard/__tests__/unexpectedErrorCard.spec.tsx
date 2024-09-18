@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
 import { UnhandledErrorCard } from '..';
 
 describe('<UnhandledErrorCard />', () => {
@@ -9,7 +9,7 @@ describe('<UnhandledErrorCard />', () => {
 			<UnhandledErrorCard dimensions={{ width: '50px', height: '50px' }} />,
 		);
 
-		expect(component.find(WarningIcon).props().size).toBe('medium');
+		expect(component.find(WarningIcon).props().LEGACY_size).toBe('medium');
 	});
 
 	it('should fire onClick event when clicked', () => {

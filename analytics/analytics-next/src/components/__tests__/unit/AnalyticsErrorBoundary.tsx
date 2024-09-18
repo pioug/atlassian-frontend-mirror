@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
 import AnalyticsErrorBoundary from '../../AnalyticsErrorBoundary';
 
@@ -12,8 +11,15 @@ const props = {
 		packageName: '@atlaskit/button',
 		componentVersion: '999.9.9',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-	children: <div className="child-component" />,
+};
+
+const ChildComponent = () => <div data-testid="child-component" />;
+
+const SomethingWithError = ({ error: hasError }: { error: boolean }) => {
+	if (hasError) {
+		throw new Error('Error');
+	}
+	return <ChildComponent />;
 };
 
 describe('AnalyticsErrorBoundary', () => {
@@ -27,55 +33,39 @@ describe('AnalyticsErrorBoundary', () => {
 
 	it('should render the child component', () => {
 		const onError = jest.fn();
-		const wrapper = mount(<AnalyticsErrorBoundary {...props} onError={onError} />);
+		render(
+			<AnalyticsErrorBoundary {...props} onError={onError}>
+				<ChildComponent />
+			</AnalyticsErrorBoundary>,
+		);
 
 		expect(onError).not.toHaveBeenCalled();
-		expect(wrapper.find('.child-component')).toHaveLength(1);
+		expect(screen.getByTestId('child-component')).toBeInTheDocument();
 	});
 
 	it('should render error component when error occurs', async () => {
 		const onError = jest.fn();
 
-		const error = new Error('Error');
-		const Something = (p: { error: boolean }) => {
-			if (p.error) {
-				throw error;
-			}
-			// this is just a placeholder
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			return <div className="child-component" />;
-		};
-
 		const ErrorScreen = () => {
 			return <div>Error occurred</div>;
 		};
 
-		const { findByText } = render(
+		render(
 			<AnalyticsErrorBoundary {...props} ErrorComponent={ErrorScreen} onError={onError}>
-				<Something error />
+				<SomethingWithError error={true} />
 			</AnalyticsErrorBoundary>,
 		);
 
 		expect(onError).toHaveBeenCalledTimes(1);
-		expect(await findByText('Error occurred')).toBeInTheDocument();
+		expect(screen.getByText('Error occurred')).toBeInTheDocument();
 	});
 
 	it('should render empty DOM when error occurs and no ErrorComponent', async () => {
 		const onError = jest.fn();
 
-		const error = new Error('Error');
-		const Something = (p: { error: boolean }) => {
-			if (p.error) {
-				throw error;
-			}
-			// this is just a placeholder
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			return <div className="child-component" />;
-		};
-
 		const { container } = render(
 			<AnalyticsErrorBoundary {...props} onError={onError}>
-				<Something error />
+				<SomethingWithError error={true} />
 			</AnalyticsErrorBoundary>,
 		);
 

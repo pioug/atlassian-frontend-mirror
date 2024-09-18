@@ -4,7 +4,7 @@ import deburr from 'lodash/deburr';
 import noop from 'lodash/noop';
 
 import Icon from '@atlaskit/icon';
-import InfoIcon from '@atlaskit/icon/glyph/editor/panel';
+import InfoIcon from '@atlaskit/icon/core/migration/information--editor-panel';
 import { normaliseJqlString } from '@atlaskit/jql-ast';
 import { type Position } from '@atlaskit/jql-autocomplete';
 import { N400 } from '@atlaskit/theme/colors';
@@ -163,9 +163,10 @@ const AutocompleteOption = forwardRef<HTMLLIElement, Props>((props, ref) => {
 					{optionName}
 					<Tooltip content={deprecatedTooltipContent} position={'right'}>
 						<InfoIcon
+							spacing="spacious"
 							testId="jql-editor-deprecated-icon"
 							label=""
-							primaryColor={token('color.icon', N400)}
+							color={token('color.icon', N400)}
 						/>
 					</Tooltip>
 				</DeprecatedOptionContainer>

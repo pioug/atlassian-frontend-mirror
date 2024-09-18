@@ -416,6 +416,8 @@ export class ToolbarInsertBlock extends React.PureComponent<
 			}
 		}
 
+		const isFullPageAppearance = ['full-page', 'full-width'].includes(editorAppearance ?? '');
+
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<span css={buttonGroupStyle}>
@@ -495,9 +497,8 @@ export class ToolbarInsertBlock extends React.PureComponent<
 				<span css={wrapperStyle}>
 					{this.renderPopup()}
 					{this.renderTableSelectorPopup()}
-					{editorExperiment('insert-menu-in-right-rail', true) &&
-					['full-page', 'full-width'].includes(editorAppearance ?? '') ? (
-						<RightRailIcon onClick={this.handleClick} />
+					{isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true) ? (
+						<RightRailIcon onClick={this.handleClick} isDisabled={this.props.isDisabled ?? false} />
 					) : (
 						<BlockInsertMenu
 							popupsMountPoint={this.props.popupsMountPoint}
@@ -520,6 +521,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
 							togglePlusMenuVisibility={this.togglePlusMenuVisibility}
 							showElementBrowserLink={this.props.showElementBrowserLink || false}
 							pluginInjectionApi={this.props.pluginInjectionApi}
+							isFullPageAppearance={isFullPageAppearance}
 						/>
 					)}
 				</span>

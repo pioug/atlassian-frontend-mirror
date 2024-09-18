@@ -9,10 +9,19 @@ export const ONE_DAY_IN_MILLISECONDS = 86400000;
 const storageClient = new StorageClient(LOCAL_STORAGE_CLIENT_KEY);
 
 export const isLocalStorageKeyDiscovered = (key: string) => {
-	const localStorageValue = storageClient.getItem(key);
-	return !!localStorageValue && localStorageValue === LOCAL_STORAGE_DISCOVERED_KEY;
+	try {
+		const localStorageValue = storageClient.getItem(key);
+		return !!localStorageValue && localStorageValue === LOCAL_STORAGE_DISCOVERED_KEY;
+	} catch {
+		// If localStorage is not available, don't show feature discovery component. Treat it as 'discovered'.
+		return true;
+	}
 };
 
 export const markLocalStorageKeyDiscovered = (key: string, expiration?: number) => {
-	storageClient.setItemWithExpiry(key, LOCAL_STORAGE_DISCOVERED_KEY, expiration);
+	try {
+		storageClient.setItemWithExpiry(key, LOCAL_STORAGE_DISCOVERED_KEY, expiration);
+	} catch {
+		// silent error
+	}
 };

@@ -35,6 +35,7 @@ import { CardContextProvider } from './CardContextProvider';
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
 
 export interface EditDatasourceButtonProps {
+	datasourceId?: string;
 	intl: IntlShape;
 	editorAnalyticsApi?: EditorAnalyticsAPI;
 	url?: string;
@@ -51,17 +52,20 @@ const buttonStyles = css({
 // if they can resolve into a datasource.
 const EditDatasourceButtonWithCardContext = ({
 	cardContext,
+	datasourceId: datasourceIdFromAdf,
 	intl,
 	editorAnalyticsApi,
 	url,
 	editorView,
 	currentAppearance,
 }: EditDatasourceButtonProps) => {
-	const { datasourceId, extensionKey } = useFetchDatasourceInfo({
+	const { datasourceId: datasourceIdFromUrl, extensionKey } = useFetchDatasourceInfo({
 		isRegularCardNode: true,
 		url,
 		cardContext,
 	});
+
+	const datasourceId = datasourceIdFromUrl ?? datasourceIdFromAdf;
 
 	const onEditDatasource = useCallback(() => {
 		if (editorView && datasourceId) {
@@ -102,6 +106,7 @@ const EditDatasourceButtonWithCardContext = ({
 };
 
 export const EditDatasourceButton = ({
+	datasourceId,
 	intl,
 	editorAnalyticsApi,
 	url,
@@ -112,6 +117,7 @@ export const EditDatasourceButton = ({
 		<CardContextProvider>
 			{({ cardContext }) => (
 				<EditDatasourceButtonWithCardContext
+					datasourceId={datasourceId}
 					url={url}
 					intl={intl}
 					editorAnalyticsApi={editorAnalyticsApi}

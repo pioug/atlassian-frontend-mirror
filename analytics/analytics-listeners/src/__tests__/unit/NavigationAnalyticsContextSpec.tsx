@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { FabricChannel } from '../../types';
@@ -14,7 +14,7 @@ describe('<NavigationAnalyticsContext />', () => {
 		const compOnClick = jest.fn();
 		const listenerHandler = jest.fn();
 
-		const component = mount(
+		render(
 			<AnalyticsListener onEvent={listenerHandler} channel={FabricChannel.navigation}>
 				<NavigationAnalyticsContext data={{ greeting: 'hello' }}>
 					<NavigationComponentWithAnalytics onClick={compOnClick} />
@@ -22,13 +22,10 @@ describe('<NavigationAnalyticsContext />', () => {
 			</AnalyticsListener>,
 		);
 
-		const analyticsListener = component.find(AnalyticsListener);
-		expect(analyticsListener.props()).toHaveProperty('channel', FabricChannel.navigation);
+		const dummyButton = screen.getByRole('button', { name: 'Test' });
+		fireEvent.click(dummyButton);
 
-		const dummy = analyticsListener.find('#dummy');
-		dummy.simulate('click');
-
-		expect(listenerHandler).toBeCalledWith(
+		expect(listenerHandler).toHaveBeenCalledWith(
 			expect.objectContaining({
 				context: [{ navigationCtx: { greeting: 'hello' } }],
 				payload: {

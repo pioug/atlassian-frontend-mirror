@@ -188,17 +188,20 @@ const EditToolbarButtonWithUrl = (props: EditDatasourceToolbarButtonWithUrlProps
 	const {
 		cardContext,
 		currentAppearance,
+		datasourceId: datasourceIdFromAdf,
 		editorAnalyticsApi,
 		editorView,
 		intl,
 		onLinkEditClick,
 		url,
 	} = props;
-	const { extensionKey, datasourceId } = useFetchDatasourceInfo({
+	const { extensionKey, datasourceId: datasourceIdFromUrl } = useFetchDatasourceInfo({
 		isRegularCardNode: true,
 		url,
 		cardContext,
 	});
+
+	const datasourceId = datasourceIdFromUrl ?? datasourceIdFromAdf;
 
 	const editVariant = useMemo<EditVariant>(() => {
 		if (!datasourceId || !isDatasourceConfigEditable(datasourceId)) {
@@ -293,6 +296,7 @@ export const EditToolbarButton = (props: EditDatasourceToolbarButtonProps) => {
 					if (props.url) {
 						return (
 							<EditToolbarButtonWithUrl
+								datasourceId={datasourceId}
 								url={props.url}
 								intl={intl}
 								editorAnalyticsApi={editorAnalyticsApi}

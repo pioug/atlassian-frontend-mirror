@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { Component } from 'react';
-import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
 
 import { errorIconWrapperStyles } from './styles';
 
@@ -23,7 +23,7 @@ export class ErrorIcon extends Component<ErrorIconProps, {}> {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={errorIconWrapperStyles}>
-				<WarningIcon label="Error" size={size} />
+				<WarningIcon color="currentColor" label="Error" LEGACY_size={size} />
 			</div>
 		);
 	}

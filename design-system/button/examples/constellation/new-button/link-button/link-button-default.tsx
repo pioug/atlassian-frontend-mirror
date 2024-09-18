@@ -2,8 +2,8 @@ import React from 'react';
 
 import { LinkButton } from '../../../../src/new';
 
-const LinkButtonExample = () => {
-	return <LinkButton href="https://atlassian.com/">Link button</LinkButton>;
+const LinkButtonDefaultExample = () => {
+	return <LinkButton href="https://atlassian.com/">Default Link button</LinkButton>;
 };
 
-export default LinkButtonExample;
+export default LinkButtonDefaultExample;

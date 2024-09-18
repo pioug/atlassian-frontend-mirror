@@ -5,7 +5,6 @@ import { defaultRegistry } from 'react-sweet-state';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { captureException } from '@atlaskit/linking-common/sentry';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ActionsStore, type ActionsStoreState, useExecuteAtomicAction } from '../actions';
 
@@ -144,7 +143,7 @@ describe('useExecuteAtomicAction', () => {
 			});
 		});
 
-		it('should capture error when action fails with analytic event', async () => {
+		it('should capture error and fire analytics event AND log to sentry	when action fails', async () => {
 			actionsStore.storeState.setState(mockActionsStoreState);
 			const mockedError = new Error('some error');
 			mockExecuteAction.mockRejectedValue(mockedError);
@@ -165,41 +164,10 @@ describe('useExecuteAtomicAction', () => {
 				traceId: null,
 			});
 
-			// Should not have logged to sentry
-			expect(captureException).not.toHaveBeenCalled();
+			// Should have logged to sentry
+			expect(captureException).toHaveBeenCalledWith(mockedError, 'link-datasource', {
+				integrationKey: 'jira',
+			});
 		});
-
-		ffTest.on(
-			'platform.linking-platform.datasources.enable-sentry-client',
-			'with sentry client enabled',
-			() => {
-				it('should capture error and fire analytics event AND log to sentry	when action fails', async () => {
-					actionsStore.storeState.setState(mockActionsStoreState);
-					const mockedError = new Error('some error');
-					mockExecuteAction.mockRejectedValue(mockedError);
-
-					const { result } = setup();
-
-					const execute = result.current.execute;
-					try {
-						execute && (await execute('new summary'));
-					} catch (err: any) {
-						// Error although caught and logged should be rethrown
-						expect(err.message).toBe('some error');
-					}
-
-					expect(mockFireEvent).toHaveBeenCalledWith('operational.datasource.operationFailed', {
-						errorLocation: 'actionExecution',
-						status: null,
-						traceId: null,
-					});
-
-					// Should have logged to sentry
-					expect(captureException).toHaveBeenCalledWith(mockedError, 'link-datasource', {
-						integrationKey: 'jira',
-					});
-				});
-			},
-		);
 	});
 });

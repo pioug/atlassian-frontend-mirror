@@ -8,10 +8,11 @@ import type {
 	HeadingLevels,
 	HeadingLevelsAndNormalText,
 } from '@atlaskit/editor-common/types';
-import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	BLOCK_QUOTE,
@@ -214,6 +215,51 @@ export const createPlugin = (
 
 				return false;
 			},
+			handleDrop(view, event, slice, moved) {
+				return handleBlockQuoteDND(view, event, slice);
+			},
 		},
 	});
+};
+
+export const handleBlockQuoteDND = (view: EditorView, event: DragEvent, slice: Slice) => {
+	// Throwaway code for the sake of the expiriment. handleDrop can be removed after experiment complete.
+	if (editorExperiment('nest-media-and-codeblock-in-quote', false)) {
+		let sliceContainsCodeBlockOrMedia = false;
+
+		slice.content.forEach((node) => {
+			if (node.type === view.state.schema.nodes.codeBlock) {
+				sliceContainsCodeBlockOrMedia = true;
+			} else if (node.type === view.state.schema.nodes.mediaSingle) {
+				sliceContainsCodeBlockOrMedia = true;
+			} else if (node.type === view.state.schema.nodes.mediaGroup) {
+				sliceContainsCodeBlockOrMedia = true;
+			}
+		});
+
+		if (sliceContainsCodeBlockOrMedia) {
+			const { state } = view;
+			const { schema } = state;
+			const dropPos = view.posAtCoords({ left: event.clientX, top: event.clientY });
+
+			if (!dropPos) {
+				return false;
+			}
+
+			const resolvedPos = state.doc.resolve(dropPos.pos);
+			const dropLocationNodeType = resolvedPos.node().type;
+			const dropLocationParentNodeType =
+				resolvedPos.depth > 0 ? resolvedPos.node(resolvedPos.depth - 1).type : dropLocationNodeType;
+
+			if (
+				dropLocationNodeType === schema.nodes.blockquote ||
+				dropLocationParentNodeType === schema.nodes.blockquote
+			) {
+				event.preventDefault();
+				return true;
+			}
+		}
+	}
+
+	return false;
 };

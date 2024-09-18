@@ -3,12 +3,19 @@ import React, { type MouseEvent } from 'react';
 import Button from '@atlaskit/button';
 import { LinkIconButton } from '@atlaskit/button/new';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
-import QuestionIcon from '@atlaskit/icon/glyph/question';
+import LegacyQuestionIcon from '@atlaskit/icon/glyph/question';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { SyntaxHelpContainer } from './styled';
+
+// Fixes icon margin issus after new icon migration
+const iconStyle = xcss({
+	margin: 'space.025',
+	display: 'inline-flex',
+});
 
 type Props = {
 	describedby?: string;
@@ -41,13 +48,17 @@ export const BaseSyntaxHelp = ({ describedby, isDisabled, label, onClick }: Prop
 				target={'blank'}
 				href="https://confluence.atlassian.com/display/SERVICEDESKCLOUD/Advanced+searching"
 				iconBefore={
-					<QuestionIcon
-						label={''}
-						primaryColor={
-							isDisabled ? token('color.icon.disabled', N0) : token('color.icon.inverse', N0)
-						}
-						size={'small'}
-					/>
+					<Box xcss={iconStyle}>
+						<QuestionCircleIcon
+							label={''}
+							color={
+								isDisabled ? token('color.icon.disabled', N0) : token('color.icon.inverse', N0)
+							}
+							LEGACY_size={'small'}
+							LEGACY_fallbackIcon={LegacyQuestionIcon}
+							LEGACY_margin="-2px"
+						/>
+					</Box>
 				}
 				onClick={onClick}
 			/>

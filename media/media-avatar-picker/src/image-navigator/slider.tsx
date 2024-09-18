@@ -31,6 +31,7 @@ export class Slider extends Component<SliderProps, {}> {
 				<Button
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="zoom_button zoom_button_small"
+					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20874
 					iconAfter={<ScaleSmallIcon label="scale-small-icon" />}
 					onClick={() => onChange(0)}
 				/>
@@ -38,6 +39,7 @@ export class Slider extends Component<SliderProps, {}> {
 				<Button
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="zoom_button zoom_button_large"
+					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20874
 					iconAfter={<ScaleLargeIcon label="scale-large-icon" />}
 					onClick={() => onChange(100)}
 				/>

@@ -1,5 +1,18 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.1.12
+
+### Patch Changes
+
+- [#139038](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139038)
+  [`86a6dad9fb62e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/86a6dad9fb62e) -
+  [ux] Enables Table sticky scrollbar in Renderer under an experiment FF.
+- [#141778](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141778)
+  [`1c6f578277694`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c6f578277694) -
+  ED-24870 & ED-24864 - Add the logic to gate the nested media in quotes functionality behind the
+  nest-media-and-codeblock-in-quote experiment. Also adjust the logic so the nested expands are now
+  behind the nested-expand-in-expand experiment.
+
 ## 2.1.11
 
 ### Patch Changes

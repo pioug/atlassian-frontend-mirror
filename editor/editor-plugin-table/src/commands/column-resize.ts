@@ -15,7 +15,6 @@ import {
 	isSelectionType,
 	nextCell,
 } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getDecorations } from '../pm-plugins/decorations/plugin';
 import {
@@ -327,9 +326,7 @@ export const changeColumnWidthByStep =
 			isTableScalingEnabledOnCurrentTable = originalTable.attrs.displayMode !== 'fixed';
 		}
 
-		let shouldUseIncreasedScalingPercent =
-			isTableScalingWithFixedColumnWidthsOptionEnabled &&
-			fg('platform.editor.table.use-increased-scaling-percent');
+		let shouldUseIncreasedScalingPercent = isTableScalingWithFixedColumnWidthsOptionEnabled;
 
 		if (isTableScalingEnabled && isCommentEditor) {
 			isTableScalingEnabledOnCurrentTable = true;

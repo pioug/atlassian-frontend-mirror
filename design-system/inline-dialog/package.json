@@ -64,7 +64,7 @@
 		"@atlaskit/datetime-picker": "^14.0.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/dropdown-menu": "^12.18.0",
-		"@atlaskit/modal-dialog": "^12.15.0",
+		"@atlaskit/modal-dialog": "^12.16.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/select": "^17.19.0",
 		"@atlaskit/ssr": "*",

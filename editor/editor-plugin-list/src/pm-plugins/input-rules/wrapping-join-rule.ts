@@ -1,11 +1,10 @@
 import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-common/analytics';
 import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common/types';
-import { createRule, isOrderedList, isOrderedListContinuous } from '@atlaskit/editor-common/utils';
+import { createRule } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { canJoin, findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Attrs = Record<string, any>;
@@ -96,13 +95,7 @@ export const createWrappingJoinRule = ({
 					JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST.JOINED_TO_LIST_ABOVE,
 				))
 		) {
-			if (
-				!getBooleanFF('platform.editor.ordered-list-auto-join-improvements_mrlv5') ||
-				!isOrderedList(before) ||
-				(nodeWithPos?.node && isOrderedListContinuous(before, nodeWithPos.node))
-			) {
-				tr.join(fixedStart - 1);
-			}
+			tr.join(fixedStart - 1);
 		}
 
 		return tr;

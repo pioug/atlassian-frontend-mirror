@@ -6,8 +6,7 @@
 import { jsx } from '@emotion/react';
 
 import { AvatarList, type Avatar } from '../avatar-list';
-
-import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
+import EditorMoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
 import Button from '@atlaskit/button/standard-button';
 import { predefinedAvatarsWrapperStyles } from './styles';
 import { useIntl } from 'react-intl-next';
@@ -48,7 +47,7 @@ export const PredefinedAvatarList = ({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="show-more-button"
 				appearance="subtle"
-				iconAfter={<EditorMoreIcon label="" size="large" />}
+				iconAfter={<EditorMoreIcon label="" LEGACY_size="large" color="currentColor" />}
 				onClick={onShowMore}
 			/>
 		</div>

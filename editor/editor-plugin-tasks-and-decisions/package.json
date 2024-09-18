@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "2.5.0",
+	"version": "2.5.1",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,7 +43,7 @@
 		"@atlaskit/editor-plugin-type-ahead": "^1.8.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/icon": "^22.18.0",
-		"@atlaskit/platform-feature-flags": "0.3.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
 		"@atlaskit/task-decision": "^17.10.0",
 		"@atlaskit/tmp-editor-statsig": "^2.1.8",
@@ -101,6 +101,9 @@
 	},
 	"platform-feature-flags": {
 		"editor_request_to_edit_task": {
+			"type": "boolean"
+		},
+		"platform_editor_action_decisions_ssr_fix": {
 			"type": "boolean"
 		}
 	}

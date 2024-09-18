@@ -48,6 +48,9 @@
       "path": "../../portal/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../pragmatic-drag-and-drop/core/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../primitives/afm-jira/tsconfig.json"
     },
     {

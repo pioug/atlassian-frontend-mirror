@@ -282,8 +282,6 @@ export {
 	isParagraphNode,
 	isListItemNode,
 	isBulletList,
-	isOrderedList,
-	isOrderedListContinuous,
 } from './list';
 
 export {

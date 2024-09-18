@@ -1,5 +1,13 @@
 # @af/ufo-types
 
+## 0.3.1
+
+### Patch Changes
+
+- [#141583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141583)
+  [`2573c7152094d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2573c7152094d) -
+  Package.json dependecies update
+
 ## 0.3.0
 
 ### Minor Changes

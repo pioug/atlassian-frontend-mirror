@@ -9,6 +9,7 @@ export {
 	transformSliceToRemoveOpenExpand,
 	transformSliceToRemoveOpenNestedExpand,
 	transformSliceNestedExpandToExpand,
+	transformSliceExpandToNestedExpand,
 } from './expand';
 export {
 	transformSliceToRemoveOpenBodiedExtension,

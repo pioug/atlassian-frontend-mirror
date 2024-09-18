@@ -14,7 +14,7 @@ import {
 	type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
-import SpinnerIcon from '@atlaskit/spinner';
+import CardSpinner from './ui/cardSpinner/cardSpinner';
 import Tooltip from '@atlaskit/tooltip';
 import { messages } from '@atlaskit/media-ui';
 
@@ -193,7 +193,7 @@ export const CardViewBase = ({
 
 		const defaultConfig: RenderConfigByStatus = {
 			renderTypeIcon: !didImageRender,
-			renderImageRenderer: !!cardPreview,
+			renderImageRenderer: true,
 			renderPlayButton: !!cardPreview && mediaType === 'video',
 			renderBlanket: !disableOverlay,
 			renderTitleBox: !disableOverlay,
@@ -336,10 +336,10 @@ export const CardViewBase = ({
 				)}
 				{renderSpinner && (
 					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasVisibleTitleBox}>
-						<SpinnerIcon testId="media-card-loading" interactionName="media-card-loading" />
+						<CardSpinner testId="media-card-loading" interactionName="media-card-loading" />
 					</IconWrapper>
 				)}
-				{renderImageRenderer && !!cardPreview && (
+				{renderImageRenderer && (
 					<ImageRenderer
 						cardPreview={cardPreview}
 						mediaType={metadata?.mediaType || 'unknown'}

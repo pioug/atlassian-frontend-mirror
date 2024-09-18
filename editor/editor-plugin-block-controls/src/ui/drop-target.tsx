@@ -120,6 +120,35 @@ export const DropTarget = ({
 			return;
 		}
 
+		// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
+		if (editorExperiment('nest-media-and-codeblock-in-quote', false)) {
+			const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
+			const parentNodeType = parentNode?.type.name;
+			const activeNodeType = activeNode?.nodeType;
+
+			if (
+				parentNodeType === 'blockquote' &&
+				(activeNodeType === 'mediaGroup' ||
+					activeNodeType === 'mediaSingle' ||
+					activeNodeType === 'codeBlock')
+			) {
+				return;
+			}
+		}
+
+		if (editorExperiment('nested-expand-in-expand', false)) {
+			const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
+			const parentNodeType = parentNode?.type.name;
+			const activeNodeType = activeNode?.nodeType;
+
+			if (
+				parentNodeType === 'expand' &&
+				(activeNodeType === 'expand' || activeNodeType === 'nestedExpand')
+			) {
+				return;
+			}
+		}
+
 		return dropTargetForElements({
 			element,
 			getIsSticky: () => true,
@@ -134,6 +163,7 @@ export const DropTarget = ({
 				if (!activeNode) {
 					return;
 				}
+
 				const pos = getPos();
 				if (activeNode && pos !== undefined) {
 					const { pos: start } = activeNode;
@@ -143,7 +173,7 @@ export const DropTarget = ({
 				}
 			},
 		});
-	}, [api, formatMessage, getPos]);
+	}, [api, formatMessage, getPos, parentNode]);
 
 	const dropTargetOffsetStyle = useMemo(() => {
 		/**

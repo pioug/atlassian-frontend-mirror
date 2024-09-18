@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.0.2",
+	"version": "3.0.3",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -62,7 +62,7 @@
 		"@atlaskit/linking-types": "^9.0.0",
 		"@atlaskit/logo": "^14.2.0",
 		"@atlaskit/lozenge": "^11.10.0",
-		"@atlaskit/modal-dialog": "^12.15.0",
+		"@atlaskit/modal-dialog": "^12.16.0",
 		"@atlaskit/outbound-auth-flow-client": "^3.4.5",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popup": "^1.25.0",
@@ -183,9 +183,6 @@
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource-word_wrap": {
-			"type": "boolean"
-		},
-		"platform.linking-platform.datasources.enable-sentry-client": {
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource.limit-total-results_8wqcd": {

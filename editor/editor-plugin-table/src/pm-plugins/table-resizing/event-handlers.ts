@@ -13,7 +13,6 @@ import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/e
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { stopKeyboardColumnResizing } from '../../commands/column-resize';
 import { updateResizeHandleDecorations } from '../../commands/misc';
@@ -113,9 +112,7 @@ export const handleMouseDown = (
 		shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 	}
 
-	let shouldUseIncreasedScalingPercent =
-		isTableScalingWithFixedColumnWidthsOptionEnabled &&
-		fg('platform.editor.table.use-increased-scaling-percent');
+	let shouldUseIncreasedScalingPercent = isTableScalingWithFixedColumnWidthsOptionEnabled;
 
 	if (isTableScalingEnabled && isCommentEditor) {
 		shouldScale = tableDepth === 0;
@@ -231,8 +228,7 @@ export const handleMouseDown = (
 
 				const resizedDelta = clientX - startX;
 				const shouldUseIncreasedScalingPercent =
-					(isTableScalingWithFixedColumnWidthsOptionEnabled &&
-						fg('platform.editor.table.use-increased-scaling-percent')) ||
+					isTableScalingWithFixedColumnWidthsOptionEnabled ||
 					(isTableScalingEnabled && !!isCommentEditor);
 
 				if (isNewColumnResizingEnabled && !isTableNested(state, tablePos)) {
@@ -371,8 +367,7 @@ export const handleMouseDown = (
 		let shouldScale = tableDepth === 0 && isTableScalingEnabled;
 
 		const shouldUseIncreasedScalingPercent =
-			(isTableScalingWithFixedColumnWidthsOptionEnabled &&
-				fg('platform.editor.table.use-increased-scaling-percent')) ||
+			isTableScalingWithFixedColumnWidthsOptionEnabled ||
 			(isTableScalingEnabled && isCommentEditor);
 
 		if (isTableScalingWithFixedColumnWidthsOptionEnabled) {

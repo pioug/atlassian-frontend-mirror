@@ -59,7 +59,7 @@ import { RendererCssClassName } from '../../consts';
 import type { RendererAppearance } from './types';
 import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
 import { getLightWeightCodeBlockStylesForRootRendererStyleSheet } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
-import { isTableResizingEnabled } from '../../react/nodes/table';
+import { isTableResizingEnabled, isStickyScrollbarEnabled } from '../../react/nodes/table';
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -473,11 +473,43 @@ function getAnnotationStyles({ allowAnnotations }: RendererWrapperProps) {
 	});
 }
 
+const tableRowHeight = 44;
+const stickyScrollbarStyles = `
+	position: relative;
+	flex-direction: column;
+
+	> .${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER} {
+	  width: 100%;
+	  display: none;
+	  overflow-x: auto;
+	  position: sticky;
+	  bottom: ${token('space.0', '0px')};
+	  z-index: 1;
+	}
+
+	> .${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM},
+	> .${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP} {
+	   position: absolute;
+	   width: 100%;
+	   height: 1px;
+	   margin-top: -1px;
+	   // need this to avoid sentinel being focused via keyboard
+	   // this still allows it to be detected by intersection observer
+	   visibility: hidden;
+	 }
+	 > .${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP} {
+	   top: ${tableRowHeight * 3}px;
+	 }
+	 > .${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM} {
+	   bottom:  ${token('space.250', '20px')}; // MAX_BROWSER_SCROLLBAR_HEIGHT = 20;
+	 }
+  `;
+
 export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: any) => {
 	const { colorMode } = getGlobalTheme();
 	// This is required to be compatible with styled-components prop structure.
 	const themeProps = { theme };
-	const { useBlockRenderForCodeBlock } = wrapperProps;
+	const { useBlockRenderForCodeBlock, appearance } = wrapperProps;
 
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression
 	return css`
@@ -677,6 +709,8 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 			}
 
 			${getShadowOverrides()}
+
+			${isStickyScrollbarEnabled(appearance) ? stickyScrollbarStyles : ''}
 
 			&
           .${shadowObserverClassNames.SENTINEL_LEFT},

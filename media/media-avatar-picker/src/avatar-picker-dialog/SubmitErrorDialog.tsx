@@ -8,7 +8,7 @@ import { useRef, useEffect } from 'react';
 
 import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import Flag from '@atlaskit/flag';
 import { messages } from '@atlaskit/media-ui';
 import { useIntl } from 'react-intl-next';
@@ -30,7 +30,12 @@ export const SubmitErrorDialog = () => {
 			<Flag
 				appearance="error"
 				icon={
-					<ErrorIcon label="Error" secondaryColor={token('color.background.danger.bold', R400)} />
+					<ErrorIcon
+						label="Error"
+						color="currentColor"
+						LEGACY_secondaryColor={token('color.background.danger.bold', R400)}
+						spacing="spacious"
+					/>
 				}
 				id="avatar-picker-error"
 				key="error"

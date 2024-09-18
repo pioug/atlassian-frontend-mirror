@@ -9,7 +9,7 @@ import { messages } from '@atlaskit/media-ui';
 import { largeAvatarImageStyles, predefinedAvatarViewWrapperStyles } from './styles';
 import { type Avatar } from '../avatar-list';
 
-import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
+import ArrowLeftIcon from '@atlaskit/icon/core/migration/arrow-left';
 import Button from '@atlaskit/button/standard-button';
 
 export interface PredefinedAvatarViewProps {
@@ -70,7 +70,7 @@ export const PredefinedAvatarView = ({
 					aria-label={intl.formatMessage(messages.avatar_picker_back_btn_label)}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="back-button"
-					iconAfter={<ArrowLeftIcon label="" />}
+					iconAfter={<ArrowLeftIcon color="currentColor" label="" />}
 					onClick={onGoBack}
 				/>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}

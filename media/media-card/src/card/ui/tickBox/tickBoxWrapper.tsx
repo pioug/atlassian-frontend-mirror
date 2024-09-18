@@ -39,6 +39,8 @@ const wrapperStyles = (selected?: boolean) =>
 					height: '14px',
 				},
 			},
+			display: 'grid',
+			placeItems: 'center',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		getSelectedStyles(selected),

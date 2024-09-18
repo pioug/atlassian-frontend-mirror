@@ -90,10 +90,19 @@ export const titleBoxIconStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const newTitleBoxIconStyles = css({
+	position: 'absolute',
+	right: token('space.050', '4px'),
+	bottom: token('space.050', '4px'),
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const errorMessageWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'flex-start',
+	paddingInlineStart: token('space.025'),
+	gap: token('space.025'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	span: {
 		verticalAlign: 'middle',

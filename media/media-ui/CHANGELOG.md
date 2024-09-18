@@ -1,5 +1,18 @@
 # @atlaskit/media-ui
 
+## 25.14.0
+
+### Minor Changes
+
+- [#141583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141583)
+  [`ba6def6b9d3ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba6def6b9d3ce) -
+  Updated Media card and UI to avoid contributing to TTVC metrics
+
+  - Media card will always render the `img`, even while it is still loading (in that case, the `img`
+    will just be hidden). It will also use a custom loading spinner with no interaction context.
+  - Media image will allow a null value for the image source. It will also always render the `img`
+    tag and switch the css prop `display` according to the `src` value.
+
 ## 25.13.0
 
 ### Minor Changes

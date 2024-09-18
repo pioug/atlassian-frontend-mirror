@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import DropdownMenu, { DropdownItemGroup, DropdownItem } from '@atlaskit/dropdown-menu';
 
 import { type CardAction } from '../../../actions';
@@ -73,7 +73,7 @@ export class CardActionsDropdownMenu extends Component<CardActionsDropdownMenuPr
 							ref={triggerRef}
 							{...providedProps}
 						>
-							<MoreIcon label="more" />
+							<MoreIcon color="currentColor" spacing="spacious" label="more" />
 						</CardActionButtonWithAnalytics>
 					)}
 				>

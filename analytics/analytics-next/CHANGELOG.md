@@ -1,5 +1,13 @@
 # @atlaskit/analytics-next
 
+## 10.1.1
+
+### Patch Changes
+
+- [#141583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141583)
+  [`2573c7152094d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2573c7152094d) -
+  Package.json dependecies update
+
 ## 10.1.0
 
 ### Minor Changes

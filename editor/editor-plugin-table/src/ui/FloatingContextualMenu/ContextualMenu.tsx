@@ -683,8 +683,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 
 		const shouldUseIncreasedScalingPercent =
 			isTableScalingEnabled &&
-			((tableWithFixedColumnWidthsOption &&
-				fg('platform.editor.table.use-increased-scaling-percent')) ||
+			(tableWithFixedColumnWidthsOption ||
 				// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
 				isCommentEditor);
 

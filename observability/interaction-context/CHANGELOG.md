@@ -1,5 +1,13 @@
 # @atlaskit/interaction-context
 
+## 2.1.6
+
+### Patch Changes
+
+- [#141583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141583)
+  [`2573c7152094d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2573c7152094d) -
+  Package.json dependecies update
+
 ## 2.1.5
 
 ### Patch Changes

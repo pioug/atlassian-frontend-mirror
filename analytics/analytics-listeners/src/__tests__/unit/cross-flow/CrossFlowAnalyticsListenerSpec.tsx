@@ -2,7 +2,7 @@ import React from 'react';
 import CrossFlowAnalyticsListener from '../../../cross-flow/CrossFlowAnalyticsListener';
 import { type AnalyticsWebClient, FabricChannel } from '../../../types';
 import type Logger from '../../../helpers/logger';
-import { mount } from 'enzyme';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { createAnalyticsContexts, createLoggerMock } from '../../_testUtils';
 import { createButtonWithAnalytics } from '../../../../examples/helpers';
 import { UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
@@ -183,15 +183,17 @@ describe('CrossFlowAnalyticsListener', () => {
 			const AnalyticsContexts = createAnalyticsContexts(context);
 			const spy = jest.fn();
 			const ButtonWithAnalytics = createButtonWithAnalytics(eventPayload, FabricChannel.crossFlow);
-			const component = mount(
+			render(
 				<CrossFlowAnalyticsListener client={analyticsWebClientMock} logger={loggerMock}>
 					<AnalyticsContexts>
 						<ButtonWithAnalytics onClick={spy} />
 					</AnalyticsContexts>
 				</CrossFlowAnalyticsListener>,
 			);
-			component.find(ButtonWithAnalytics).simulate('click');
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalledWith(expectedEvent);
+
+			const dummyButton = screen.getByRole('button', { name: 'Test [click on me]' });
+			fireEvent.click(dummyButton);
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(expectedEvent);
 		});
 	});
 });

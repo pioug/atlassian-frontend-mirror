@@ -216,24 +216,4 @@ describe('Drawer Transitions', () => {
 
 		expect(onClose).not.toHaveBeenCalled();
 	});
-	// this funtionality is currently broken and
-	// will be fixed by https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6444
-	it.skip('should NOT retain Drawer contents by default', () => {
-		render(createDrawer({ isOpen: true }));
-
-		// TODO: rewrite assertion with RTL once functionality is fixed.
-		// expect(
-		//   (wrapper.find('Slide').find('Transition').props() as any).unmountOnExit,
-		// ).toBeTruthy();
-	});
-
-	// this funtionality is currently broken and
-	// will be fixed by https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6444
-	it.skip('should retain Drawer contents when shouldUnmountOnExit is passed', () => {
-		render(createDrawer({ isOpen: true, shouldUnmountOnExit: false }));
-
-		// expect(
-		//   (wrapper.find('Slide').find('Transition').props() as any).unmountOnExit,
-		// ).toBeFalsy();
-	});
 });

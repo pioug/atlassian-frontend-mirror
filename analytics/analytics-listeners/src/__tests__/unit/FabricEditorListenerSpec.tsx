@@ -1,5 +1,5 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { mount } from 'enzyme';
+import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import {
 	createComponentWithAnalytics,
@@ -36,17 +36,16 @@ describe('<FabricEditorsListener />', () => {
 
 	const fireAndVerifySentEvent = (Component: React.ComponentType<OwnProps>, expectedEvent: any) => {
 		const compOnClick = jest.fn();
-		const component = mount(
+		render(
 			<FabricEditorListener client={analyticsWebClientMock} logger={loggerMock}>
-				<Component onClick={compOnClick} />
+				<AnalyticsListener channel={FabricChannel.editor} onEvent={() => {}}>
+					<Component onClick={compOnClick} />
+				</AnalyticsListener>
 			</FabricEditorListener>,
 		);
 
-		const analyticsListener = component.find(AnalyticsListener);
-		expect(analyticsListener.props()).toHaveProperty('channel', FabricChannel.editor);
-
-		const dummy = analyticsListener.find('#dummy');
-		dummy.simulate('click');
+		const dummyElement = screen.getByRole('button', { name: 'editor' });
+		fireEvent.click(dummyElement);
 
 		expect(analyticsWebClientMock.sendUIEvent).toBeCalledWith(expectedEvent);
 	};

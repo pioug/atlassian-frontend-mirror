@@ -46,11 +46,24 @@ const buttonStyles = xcss({
 	},
 });
 
+const disabledStyles = xcss({
+	color: 'color.text.disabled',
+	backgroundColor: 'color.background.neutral',
+	':hover': {
+		backgroundColor: 'color.background.neutral',
+	},
+
+	':active': {
+		backgroundColor: 'color.background.neutral',
+	},
+});
+
 type Props = {
 	onClick: () => void;
+	isDisabled: boolean;
 };
 
-export const RightRailIcon = ({ onClick }: Props) => {
+export const RightRailIcon = ({ onClick, isDisabled }: Props) => {
 	const { formatMessage } = useIntl();
 
 	return (
@@ -67,8 +80,9 @@ export const RightRailIcon = ({ onClick }: Props) => {
 				<Pressable
 					type="button"
 					aria-label={formatMessage(toolbarInsertBlockMessages.insertMenu)}
-					xcss={[buttonStyles]}
+					xcss={[buttonStyles, isDisabled ? disabledStyles : undefined]}
 					onClick={onClick}
+					isDisabled={isDisabled}
 				>
 					<EditorAddIcon
 						label={formatMessage(toolbarInsertBlockMessages.insertMenu)}

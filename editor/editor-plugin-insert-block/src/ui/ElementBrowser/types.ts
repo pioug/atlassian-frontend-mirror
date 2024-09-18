@@ -15,6 +15,7 @@ export interface InsertMenuProps {
 	toggleVisiblity: SimpleEventHandler<MouseEvent | KeyboardEvent>;
 	onInsert: OnInsert;
 	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
+	isFullPageAppearance?: boolean;
 }
 
 export type SvgGetterParams = {

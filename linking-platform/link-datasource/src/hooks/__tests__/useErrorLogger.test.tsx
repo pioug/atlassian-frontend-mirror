@@ -5,7 +5,6 @@ import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { captureException } from '@atlaskit/linking-common/sentry';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import useErrorLogger, { type UseErrorLoggerProps } from '../useErrorLogger';
@@ -79,94 +78,59 @@ describe('useErrorLogger', () => {
 		expect(captureException).toHaveBeenCalledTimes(0);
 	});
 
-	ffTest.off(
-		'platform.linking-platform.datasources.enable-sentry-client',
-		'when sentry client not enabled',
-		() => {
-			it('does not call captureException with error', () => {
-				const { result } = setup();
+	describe('when sentry client enabled', () => {
+		it('should capture error exception', () => {
+			const { result } = setup();
 
-				const mockError = new Error('mockError');
+			const mockError = new Error('mockError');
 
-				result.current.captureError('onNextPage', mockError);
+			result.current.captureError('onNextPage', mockError);
 
-				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'operationFailed',
-							actionSubject: 'datasource',
-							eventType: 'operational',
-							attributes: {
-								errorLocation: 'onNextPage',
-								status: null,
-								traceId: null,
-							},
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'operationFailed',
+						actionSubject: 'datasource',
+						eventType: 'operational',
+						attributes: {
+							errorLocation: 'onNextPage',
+							status: null,
+							traceId: null,
 						},
 					},
-					EVENT_CHANNEL,
-				);
-				expect(captureException).toHaveBeenCalledTimes(0);
+				},
+				EVENT_CHANNEL,
+			);
+			expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
+				datasourceId: mockDatasourceId,
 			});
-		},
-	);
+		});
 
-	ffTest.on(
-		'platform.linking-platform.datasources.enable-sentry-client',
-		'when sentry client enabled',
-		() => {
-			it('should capture error exception', () => {
-				const { result } = setup();
+		it('should capture error exception with integrationKey ', () => {
+			const { result } = setup({ integrationKey: 'test' });
 
-				const mockError = new Error('mockError');
+			const mockError = new Error('mockError');
 
-				result.current.captureError('onNextPage', mockError);
+			result.current.captureError('onNextPage', mockError);
 
-				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'operationFailed',
-							actionSubject: 'datasource',
-							eventType: 'operational',
-							attributes: {
-								errorLocation: 'onNextPage',
-								status: null,
-								traceId: null,
-							},
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'operationFailed',
+						actionSubject: 'datasource',
+						eventType: 'operational',
+						attributes: {
+							errorLocation: 'onNextPage',
+							status: null,
+							traceId: null,
 						},
 					},
-					EVENT_CHANNEL,
-				);
-				expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
-					datasourceId: mockDatasourceId,
-				});
+				},
+				EVENT_CHANNEL,
+			);
+			expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
+				integrationKey: 'test',
 			});
-
-			it('should capture error exception with integrationKey ', () => {
-				const { result } = setup({ integrationKey: 'test' });
-
-				const mockError = new Error('mockError');
-
-				result.current.captureError('onNextPage', mockError);
-
-				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'operationFailed',
-							actionSubject: 'datasource',
-							eventType: 'operational',
-							attributes: {
-								errorLocation: 'onNextPage',
-								status: null,
-								traceId: null,
-							},
-						},
-					},
-					EVENT_CHANNEL,
-				);
-				expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
-					integrationKey: 'test',
-				});
-			});
-		},
-	);
+		});
+	});
 });

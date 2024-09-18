@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4c05727190930e765289a0d292c2928f>>
+ * @codegen <<SignedSource::2c61c8c9aa86b4fb1d11e0bcba9d83a1>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -11,6 +11,7 @@ import iconLabel from './icon-label';
 import noBannedImports from './no-banned-imports';
 import noCssTaggedTemplateExpression from './no-css-tagged-template-expression';
 import noCustomIcons from './no-custom-icons';
+import noDarkThemeVrTests from './no-dark-theme-vr-tests';
 import noDeprecatedApis from './no-deprecated-apis';
 import noDeprecatedDesignTokenUsage from './no-deprecated-design-token-usage';
 import noDeprecatedImports from './no-deprecated-imports';
@@ -56,6 +57,7 @@ export default {
 	'no-banned-imports': noBannedImports,
 	'no-css-tagged-template-expression': noCssTaggedTemplateExpression,
 	'no-custom-icons': noCustomIcons,
+	'no-dark-theme-vr-tests': noDarkThemeVrTests,
 	'no-deprecated-apis': noDeprecatedApis,
 	'no-deprecated-design-token-usage': noDeprecatedDesignTokenUsage,
 	'no-deprecated-imports': noDeprecatedImports,

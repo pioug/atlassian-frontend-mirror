@@ -1,5 +1,15 @@
 # @atlaskit/modal-dialog
 
+## 12.16.0
+
+### Minor Changes
+
+- [#141279](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141279)
+  [`a38f3af4bfc79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a38f3af4bfc79) -
+  [ux] Adding a workaround for a Chrome bug where drag and drop cannot occur in an element
+  positioned on top of an `<iframe>` on a different origin. The workaround is being added behind a
+  feature flag.
+
 ## 12.15.7
 
 ### Patch Changes

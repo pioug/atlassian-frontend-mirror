@@ -10,9 +10,9 @@ import { atlassianLogoUrl, tallImage, wideTransparentImage } from '@atlaskit/med
 import { token } from '@atlaskit/tokens';
 import { Checkbox } from '@atlaskit/checkbox';
 import Select from '@atlaskit/select';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
-import TrashIcon from '@atlaskit/icon/glyph/trash';
-import EditIcon from '@atlaskit/icon/glyph/edit';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import TrashIcon from '@atlaskit/icon/core/migration/delete--trash';
+import EditIcon from '@atlaskit/icon/core/migration/edit';
 import { type CardAction, type CardStatus } from '../src';
 import { CardView } from '../src/card/cardView';
 import { type FileDetails, type MediaType } from '@atlaskit/media-client';
@@ -309,19 +309,19 @@ class Example extends React.Component<{}, State> {
 		const actions: CardAction[] = [
 			{
 				handler: () => console.log('trash clicked'),
-				icon: <TrashIcon label="delete-icon" />,
+				icon: <TrashIcon color="currentColor" spacing="spacious" label="delete-icon" />,
 				label: 'Delete',
 			},
 			{
 				handler: () => console.log('clicked me'),
-				icon: <DownloadIcon label="download-icon" />,
+				icon: <DownloadIcon color="currentColor" spacing="spacious" label="download-icon" />,
 				label: 'Download',
 			},
 			...(hasManyActions
 				? [
 						{
 							handler: () => console.log('clicked edit'),
-							icon: <EditIcon label="edit-icon" />,
+							icon: <EditIcon color="currentColor" spacing="spacious" label="edit-icon" />,
 							label: 'Replace',
 						},
 					]

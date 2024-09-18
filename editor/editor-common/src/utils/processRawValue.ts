@@ -20,8 +20,29 @@ import { sanitizeNodeForPrivacy } from './filter/privacy-filter';
 import { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
 import { validateADFEntity } from './validate-using-spec';
 
+interface NodeType {
+	[key: string]: any;
+}
+
 export function processRawValueWithoutTransformation(schema: Schema, value?: ReplaceRawValue) {
-	const parsedDoc = Node.fromJSON(schema, value);
+	if (!value) {
+		return;
+	}
+
+	let node: NodeType | ADFEntity;
+
+	if (typeof value === 'string') {
+		try {
+			node = JSON.parse(value);
+		} catch (e) {
+			// eslint-disable-next-line no-console
+			console.error(`Error processing value: ${value} isn't a valid JSON`);
+			return;
+		}
+	} else {
+		node = value;
+	}
+	const parsedDoc = Node.fromJSON(schema, node);
 
 	return parsedDoc;
 }
@@ -36,9 +57,6 @@ export function processRawValue(
 ): Node | undefined {
 	if (!value) {
 		return;
-	}
-	interface NodeType {
-		[key: string]: any;
 	}
 
 	let node: NodeType | ADFEntity;

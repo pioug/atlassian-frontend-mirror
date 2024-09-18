@@ -11,7 +11,6 @@ import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
 import Item from './Item';
 import { type Appearance, type ContentRef } from '../types';
 import { token } from '@atlaskit/tokens';
-import { G400, N100 } from '@atlaskit/theme/colors';
 
 const iconStyles = (showPlaceholder: boolean | undefined) => {
 	return css({
@@ -20,7 +19,7 @@ const iconStyles = (showPlaceholder: boolean | undefined) => {
 		width: '16px',
 		margin: `${token('space.050', '4px')} ${token('space.150', '12px')} 0 0`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		color: showPlaceholder ? token('color.icon.subtle', N100) : token('color.icon.success', G400),
+		color: showPlaceholder ? token('color.icon.subtle') : token('color.icon.success'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
 			margin: token('space.negative.100', '-8px'),

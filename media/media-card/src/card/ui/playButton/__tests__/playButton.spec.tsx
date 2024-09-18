@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { PlayButton } from '../playButton';
-import VidPlayIcon from '@atlaskit/icon/glyph/vid-play';
+import VidPlayIcon from '@atlaskit/icon/core/video-play-overlay';
 import { PlayButtonWrapper } from '../playButtonWrapper';
 import { PlayButtonBackground } from '../playButtonBackground';
 

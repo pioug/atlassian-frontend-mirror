@@ -53,20 +53,3 @@ export function isListItemNode(node: Node | null | undefined) {
 export function isBulletList(node: Node | null | undefined) {
 	return Boolean(node && node.type && 'bulletList' === node.type.name);
 }
-
-export function isOrderedList(node: Node | null | undefined) {
-	return Boolean(node && node.type && 'orderedList' === node.type.name);
-}
-
-export const isOrderedListContinuous = (
-	firstOrderedList: Node,
-	secondOrderedList: Node,
-): boolean => {
-	if (!(isOrderedList(firstOrderedList) && isOrderedList(secondOrderedList))) {
-		return false;
-	}
-	return (
-		getOrderFromOrderedListNode(firstOrderedList) + firstOrderedList.childCount ===
-		getOrderFromOrderedListNode(secondOrderedList)
-	);
-};

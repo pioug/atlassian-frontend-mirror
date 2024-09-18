@@ -4,9 +4,11 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	errorMessageWrapperStyles,
+	newTitleBoxIconStyles,
 	titleBoxFooterStyles,
 	titleBoxHeaderStyles,
 	titleBoxIconStyles,
@@ -70,8 +72,13 @@ export const TitleBoxIcon = (props: any) => {
 		<div
 			id="titleBoxIcon"
 			data-testid="title-box-icon"
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={titleBoxIconStyles}
+			css={
+				fg('platform.design-system-team.enable-new-icons')
+					? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						newTitleBoxIconStyles
+					: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						titleBoxIconStyles
+			}
 		>
 			{props.children}
 		</div>

@@ -237,6 +237,7 @@ export const InsertMenuRail = ({
 				toggleVisiblity={() => {}}
 				showElementBrowserLink={true}
 				pluginInjectionApi={api}
+				isFullPageAppearance
 			/>
 		</Box>
 	);

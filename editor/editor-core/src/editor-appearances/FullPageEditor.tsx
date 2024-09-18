@@ -4,7 +4,34 @@ import { CoreEditor } from '../composable-editor/core-editor';
 import { type EditorNextProps } from '../types/editor-props';
 import FullPage from '../ui/Appearance/FullPage';
 
-export type FullPageEditorProps = Pick<EditorNextProps, 'preset'>;
+export type FullPageEditorProps = Pick<
+	EditorNextProps,
+	| 'preset'
+	| 'defaultValue'
+	| 'disabled'
+	| 'mentionProvider'
+	| 'contextIdentifierProvider'
+	| 'searchProvider'
+	| 'annotationProviders'
+	| 'collabEditProvider'
+	| 'collabEdit'
+	| 'taskDecisionProvider'
+	| 'extensionProviders'
+	| 'shouldFocus'
+	| 'performanceTracking'
+	| 'quickInsert'
+	| 'secondaryToolbarComponents'
+	| 'featureFlags'
+	| 'trackValidTransactions'
+	| 'primaryToolbarComponents'
+	| 'contextPanel'
+	| 'contentComponents'
+	| 'primaryToolbarIconBefore'
+	| 'sanitizePrivateContent'
+> & {
+	onChange?: () => void;
+	onEditorReady?: () => void;
+};
 
 /**
  * Editor component based on `ComposableEditor` which sets the `appearance` to "full-page".

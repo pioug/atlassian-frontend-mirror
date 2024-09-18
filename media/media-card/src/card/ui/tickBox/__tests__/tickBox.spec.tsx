@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { TickBox } from '../tickBox';
-import TickIcon from '@atlaskit/icon/glyph/check';
+import TickIcon from '@atlaskit/icon/utility/migration/check-mark--check';
 import { TickBoxWrapper } from '../tickBoxWrapper';
 
 describe('TickBox', () => {

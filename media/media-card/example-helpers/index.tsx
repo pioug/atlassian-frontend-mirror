@@ -11,7 +11,7 @@ import {
 	createPollingMaxAttemptsError,
 	createRateLimitedError,
 } from '@atlaskit/media-client/test-helpers';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { payloadPublisher } from '@atlassian/ufo';
 
@@ -79,7 +79,7 @@ export const deleteAction = {
 	handler: () => {
 		console.log('delete');
 	},
-	icon: <CrossIcon size="small" label="delete" />,
+	icon: <CrossIcon color="currentColor" LEGACY_size="small" label="delete" />,
 };
 
 export const annotateCardAction: CardAction = {
@@ -87,10 +87,11 @@ export const annotateCardAction: CardAction = {
 	handler: () => {
 		console.log('annotate');
 	},
+	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO: no icon available (https://product-fabric.atlassian.net/browse/DSP-20852)
 	icon: <AnnotateIcon size="small" label="annotate" />,
 };
 
-export const actions = [openAction, closeAction, annotateCardAction, deleteAction];
+export const actions = [openAction, closeAction, deleteAction, annotateCardAction];
 
 export const anotherAction: CardAction = {
 	label: 'Some other action',

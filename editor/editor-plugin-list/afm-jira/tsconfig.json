@@ -27,9 +27,6 @@
       "path": "../../editor-plugin-feature-flags/afm-jira/tsconfig.json"
     },
     {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
       "path": "../../input-rules/afm-jira/tsconfig.json"
     }
   ]

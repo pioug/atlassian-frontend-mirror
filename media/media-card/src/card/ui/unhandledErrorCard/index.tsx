@@ -6,7 +6,7 @@ import { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
 import { N20, N800, Y500 } from '@atlaskit/theme/colors';
 import { center, borderRadius } from '@atlaskit/media-ui';
 import { type CardDimensions } from '../../../types';
@@ -82,7 +82,12 @@ export class UnhandledErrorCard extends Component<UnhandledErrorCardProps, {}> {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<div css={wrapperStyles(dimensions)} onClick={onClick}>
-				<WarningIcon label="Error" primaryColor={token('color.icon.warning', Y500)} size="medium" />
+				<WarningIcon
+					label="Error"
+					color={token('color.icon.warning', Y500)}
+					LEGACY_size="medium"
+					spacing="spacious"
+				/>
 				<p>We couldn't load this content</p>
 			</div>
 		);

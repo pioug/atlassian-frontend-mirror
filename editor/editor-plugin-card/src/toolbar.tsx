@@ -333,6 +333,7 @@ const generateToolbarItems =
 		const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
 
 		const isDatasource = isDatasourceNode(node);
+		const datasourceId = node?.attrs?.datasource?.id;
 		const pluginState: CardPluginState | undefined = pluginKey.getState(state);
 
 		const shouldRenderDatasourceToolbar =
@@ -518,6 +519,7 @@ const generateToolbarItems =
 					fallback: [],
 					render: (editorView) => (
 						<EditDatasourceButton
+							datasourceId={datasourceId}
 							intl={intl}
 							editorAnalyticsApi={editorAnalyticsApi}
 							url={url}

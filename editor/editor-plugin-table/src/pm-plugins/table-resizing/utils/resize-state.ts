@@ -5,7 +5,6 @@ import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getSelectedTableInfo } from '../../../utils';
 
@@ -373,9 +372,7 @@ export const getNewResizeStateFromSelectedColumns = (
 		isTableScalingEnabledOnCurrentTable = table.node.attrs.displayMode !== 'fixed';
 	}
 
-	let shouldUseIncreasedScalingPercent =
-		isTableScalingWithFixedColumnWidthsOptionEnabled &&
-		fg('platform.editor.table.use-increased-scaling-percent');
+	let shouldUseIncreasedScalingPercent = isTableScalingWithFixedColumnWidthsOptionEnabled;
 
 	if (isTableScalingEnabled && isCommentEditor) {
 		isTableScalingEnabledOnCurrentTable = true;

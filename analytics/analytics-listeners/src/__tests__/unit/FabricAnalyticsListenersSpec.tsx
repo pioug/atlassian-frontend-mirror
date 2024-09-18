@@ -1,31 +1,9 @@
-import { mount, shallow } from 'enzyme';
+import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
-import {
-	createComponentWithAnalytics,
-	DummyAtlaskitComponent,
-	DummyElementsComponent,
-	DummyMediaComponent,
-	DummyNavigationComponent,
-	DummyNotificationsComponent,
-	DummyPeopleTeamsComponent,
-	DummyCrossFlowComponent,
-	DummyPostOfficeComponent,
-	IncorrectEventType,
-	DummyAIMateComponent,
-	DummyAVPComponent,
-} from '../../../examples/helpers';
-import AtlaskitListener from '../../atlaskit/AtlaskitListener';
-import FabricElementsListener from '../../fabric/FabricElementsListener';
+import { createComponentWithAnalytics, IncorrectEventType } from '../../../examples/helpers';
 import FabricAnalyticsListeners from '../../FabricAnalyticsListeners';
 import { LOG_LEVEL } from '../../helpers/logger';
-import NavigationListener from '../../navigation/NavigationListener';
-import PeopleTeamsAnalyticsListener from '../../peopleTeams/PeopleTeamsAnalyticsListener';
 import { type AnalyticsWebClient, FabricChannel } from '../../types';
-import NotificationsAnalyticsListener from '../../notifications/NotificationsAnalyticsListener';
-import CrossFlowAnalyticsListener from '../../cross-flow/CrossFlowAnalyticsListener';
-import PostOfficeAnalyticsListener from '../../postOffice/PostOfficeAnalyticsListener';
-import AIMateAnalyticsListener from '../../aiMate/AIMateAnalyticsListener';
-import AVPAnalyticsListener from '../../avp/AVPAnalyticsListener';
 
 declare const global: any;
 
@@ -65,7 +43,8 @@ describe('<FabricAnalyticsListeners />', () => {
 	afterEach(() => {
 		global.console.warn.mockRestore();
 		global.console.error.mockRestore();
-		(Reflect as any).deleteProperty(global.console, 'hasError');
+		// @ts-ignore
+		Reflect.deleteProperty(global.console, 'hasError');
 
 		analyticsWebClientMock = {
 			sendUIEvent: jest.fn(),
@@ -79,7 +58,7 @@ describe('<FabricAnalyticsListeners />', () => {
 		it('should not throw an error when no client is provided', () => {
 			const compOnClick = jest.fn();
 			expect(() =>
-				mount(
+				render(
 					// @ts-ignore
 					<FabricAnalyticsListeners>
 						<DummyElementsCompWithAnalytics onClick={compOnClick} />
@@ -88,28 +67,27 @@ describe('<FabricAnalyticsListeners />', () => {
 			).not.toThrow();
 		});
 
-		it('should accept and handle a promise-like client', (done) => {
+		it('should accept and handle a promise-like client', async () => {
 			const promiseLikeClient: Promise<AnalyticsWebClient> = {
 				// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
 				//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
 				then: jest.fn(() => promiseLikeClient),
-				catch: jest.fn(() => done()),
+				catch: jest.fn(),
 				finally: jest.fn(() => promiseLikeClient),
 				[Symbol.toStringTag]: '',
 			};
 
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={promiseLikeClient} logLevel={LOG_LEVEL.ERROR}>
 					<DummyElementsCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(FabricElementsListener);
-			const dummyComponent = analyticsListener.find(DummyElementsComponent);
-			expect(dummyComponent).toHaveLength(1);
+			const dummyComponent = screen.getByRole('button', { name: 'fabric-elements' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			dummyComponent.simulate('click');
+			await fireEvent.click(dummyComponent);
 		});
 
 		it('should not explode if something explodes in callback', () => {
@@ -120,653 +98,547 @@ describe('<FabricAnalyticsListeners />', () => {
 			};
 
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={promiseLikeClient as any} logLevel={LOG_LEVEL.WARN}>
 					<DummyElementsCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(FabricElementsListener);
-			const dummyComponent = analyticsListener.find(DummyElementsComponent);
-			expect(dummyComponent).toHaveLength(1);
+			const dummyComponent = screen.getByRole('button', { name: 'fabric-elements' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			dummyComponent.simulate('click');
+			fireEvent.click(dummyComponent);
 		});
 
 		it('should log an error when an invalid event type is captured and error logging is enabled', () => {
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock} logLevel={LOG_LEVEL.ERROR}>
 					<AtlaskitIncorrectEventType onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(FabricElementsListener);
-			const dummyComponent = analyticsListener.find(DummyAtlaskitComponent);
-			expect(dummyComponent).toHaveLength(1);
+			const dummyComponent = screen.getByRole('button', { name: 'atlaskit' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			dummyComponent.simulate('click');
+			fireEvent.click(dummyComponent);
 			expect(global.console.error).toHaveBeenCalledTimes(1);
 		});
 
 		it('should render all listeners', () => {
-			const component = shallow(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<div>Child</div>
 				</FabricAnalyticsListeners>,
 			);
 
-			expect(component).toMatchSnapshot();
+			expect(screen.getByText('Child')).toBeInTheDocument();
 		});
 
 		it('should render a FabricElementsListener', () => {
-			const component = shallow(
+			const component = render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
-					<div>Child</div>
+					<DummyElementsCompWithAnalytics onClick={() => {}} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const elementsListener = component.find(FabricElementsListener);
+			const dummyComponent = screen.getByRole('button', { name: 'fabric-elements' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			expect(elementsListener).toHaveLength(1);
-			expect(elementsListener.props()).toEqual(
-				expect.objectContaining({
-					client: analyticsWebClientMock,
-				}),
-			);
+			expect(component.container).toMatchSnapshot();
 		});
 
 		it('should render an AtlaskitListener', () => {
-			const component = shallow(
+			const component = render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
-					<div>Child</div>
+					<DummyAtlaskitCompWithAnalytics onClick={() => {}} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const atlaskitListener = component.find(AtlaskitListener);
+			const dummyComponent = screen.getByRole('button', { name: 'atlaskit' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			expect(atlaskitListener).toHaveLength(1);
-			expect(atlaskitListener.props()).toEqual(
-				expect.objectContaining({
-					client: analyticsWebClientMock,
-				}),
-			);
+			expect(component.container).toMatchSnapshot();
 		});
 
 		it('should render a NavigationListener', () => {
-			const component = shallow(
+			const component = render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
-					<div>Child</div>
+					<DummyNavigationCompWithAnalytics onClick={() => {}} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const navigationListener = component.find(NavigationListener);
+			const dummyComponent = screen.getByRole('button', { name: 'navigation' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			expect(navigationListener).toHaveLength(1);
-			expect(navigationListener.props()).toEqual(
-				expect.objectContaining({
-					client: analyticsWebClientMock,
-				}),
-			);
+			expect(component.container).toMatchSnapshot();
 		});
 
 		it('should render a PostOfficeListener', () => {
-			const component = shallow(
+			const component = render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
-					<div>Child</div>
+					<DummyPostOfficeCompWithAnalytics onClick={() => {}} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const navigationListener = component.find(PostOfficeAnalyticsListener);
+			const dummyComponent = screen.getByRole('button', { name: 'postOffice' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			expect(navigationListener).toHaveLength(1);
-			expect(navigationListener.props()).toEqual(
-				expect.objectContaining({
-					client: analyticsWebClientMock,
-				}),
-			);
+			expect(component.container).toMatchSnapshot();
 		});
 
 		it('should exclude the AtlaskitListener if excludedChannels includes atlaskit', () => {
-			const component = shallow(
+			render(
 				<FabricAnalyticsListeners
 					client={analyticsWebClientMock}
 					excludedChannels={[FabricChannel.atlaskit]}
 				>
-					<div>Child</div>
+					<DummyElementsCompWithAnalytics onClick={() => {}} />
+					<DummyAtlaskitCompWithAnalytics onClick={() => {}} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const atlaskitListener = component.find(AtlaskitListener);
+			const dummyElementsComponent = screen.getByRole('button', { name: 'fabric-elements' });
+			expect(dummyElementsComponent).toBeInTheDocument();
 
-			expect(atlaskitListener).toHaveLength(0);
-
-			const elementsListener = component.find(FabricElementsListener);
-			expect(elementsListener).toHaveLength(1);
+			const dummyAtlaskitComponent = screen.queryByRole('dummy-atlaskit');
+			expect(dummyAtlaskitComponent).not.toBeInTheDocument();
 		});
 
 		it('should exclude the ElementsListener if excludedChannels includes elements', () => {
-			const component = shallow(
+			render(
 				<FabricAnalyticsListeners
 					client={analyticsWebClientMock}
 					excludedChannels={[FabricChannel.elements]}
 				>
-					<div>Child</div>
+					<DummyElementsCompWithAnalytics onClick={() => {}} />
+					<DummyAtlaskitCompWithAnalytics onClick={() => {}} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const elementsListener = component.find(FabricElementsListener);
+			const dummyAtlaskitComponent = screen.getByRole('button', { name: 'atlaskit' });
+			expect(dummyAtlaskitComponent).toBeInTheDocument();
 
-			expect(elementsListener).toHaveLength(0);
-
-			const atlaskitListener = component.find(AtlaskitListener);
-			expect(atlaskitListener).toHaveLength(1);
+			const dummyElementsComponent = screen.queryByRole('fabric-elements');
+			expect(dummyElementsComponent).not.toBeInTheDocument();
 		});
 
 		it('should exclude the NavigationListener if excludedChannels includes navigation', () => {
-			const component = shallow(
+			render(
 				<FabricAnalyticsListeners
 					client={analyticsWebClientMock}
 					excludedChannels={[FabricChannel.navigation]}
 				>
-					<div>Child</div>
+					<DummyNavigationCompWithAnalytics onClick={() => {}} />
+					<DummyAtlaskitCompWithAnalytics onClick={() => {}} />
+					<DummyElementsCompWithAnalytics onClick={() => {}} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const navigationListener = component.find(NavigationListener);
+			const dummyAtlaskitComponent = screen.getByRole('button', { name: 'atlaskit' });
+			expect(dummyAtlaskitComponent).toBeInTheDocument();
 
-			expect(navigationListener).toHaveLength(0);
+			const dummyElementsComponent = screen.getByRole('button', { name: 'fabric-elements' });
+			expect(dummyElementsComponent).toBeInTheDocument();
 
-			const atlaskitListener = component.find(AtlaskitListener);
-			expect(atlaskitListener).toHaveLength(1);
-
-			const elementsListener = component.find(FabricElementsListener);
-			expect(elementsListener).toHaveLength(1);
+			const dummyNavigationComponent = screen.queryByRole('dummy-navigation');
+			expect(dummyNavigationComponent).not.toBeInTheDocument();
 		});
 
 		it('should exclude both atlaskit and elements listeners if excludedChannels includes both their channels', () => {
-			const component = shallow(
+			render(
 				<FabricAnalyticsListeners
 					client={analyticsWebClientMock}
 					excludedChannels={[FabricChannel.elements, FabricChannel.atlaskit]}
 				>
+					<DummyElementsCompWithAnalytics onClick={() => {}} />
+					<DummyAtlaskitCompWithAnalytics onClick={() => {}} />
 					<div>Child</div>
 				</FabricAnalyticsListeners>,
 			);
 
-			const elementsListener = component.find(FabricElementsListener);
+			const dummyElementsComponent = screen.queryByRole('fabric-elements');
+			expect(dummyElementsComponent).not.toBeInTheDocument();
 
-			expect(elementsListener).toHaveLength(0);
+			const dummyAtlaskitComponent = screen.queryByRole('dummy-atlaskit');
+			expect(dummyAtlaskitComponent).not.toBeInTheDocument();
 
-			const atlaskitListener = component.find(AtlaskitListener);
-			expect(atlaskitListener).toHaveLength(0);
-
-			expect(component.find('div').text()).toBe('Child');
+			expect(screen.getByText('Child')).toBeInTheDocument();
 		});
 
 		it('should not exclude any listeners if excludeChannels is empty', () => {
-			const component = shallow(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock} excludedChannels={[]}>
-					<div>Child</div>
+					<DummyElementsCompWithAnalytics onClick={() => {}} />
+					<DummyAtlaskitCompWithAnalytics onClick={() => {}} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const elementsListener = component.find(FabricElementsListener);
+			const dummyElementsComponent = screen.getByRole('button', { name: 'fabric-elements' });
+			expect(dummyElementsComponent).toBeInTheDocument();
 
-			expect(elementsListener).toHaveLength(1);
-
-			const atlaskitListener = component.find(AtlaskitListener);
-			expect(atlaskitListener).toHaveLength(1);
+			const dummyAtlaskitComponent = screen.getByRole('button', { name: 'atlaskit' });
+			expect(dummyAtlaskitComponent).toBeInTheDocument();
 		});
 	});
 
 	describe('<FabricElementsListener />', () => {
-		it('should listen and fire a UI event with analyticsWebClient', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyElementsCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(FabricElementsListener);
-			expect(analyticsListener.props()).toHaveProperty('client', analyticsWebClientMock);
+			const dummyComponent = screen.getByRole('button', { name: 'fabric-elements' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyElementsComponent);
-			expect(dummyComponent).toHaveLength(1);
-
-			dummyComponent.simulate('click');
+			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 
-		it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
-			analyticsWebClientMock.sendUIEvent = jest.fn(() => {
-				done();
-			});
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
 
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
 					<DummyElementsCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(FabricElementsListener);
-			expect(analyticsListener.props()).toHaveProperty(
-				'client',
-				Promise.resolve(analyticsWebClientMock),
-			);
+			const dummyComponent = screen.getByRole('button', { name: 'fabric-elements' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyElementsComponent);
-			expect(dummyComponent).toHaveLength(1);
+			await fireEvent.click(dummyComponent);
 
-			dummyComponent.simulate('click');
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 	});
 
 	describe('<AtlaskitListener />', () => {
-		it('should listen and fire a UI event with analyticsWebClient', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyAtlaskitCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(AtlaskitListener);
-			expect(analyticsListener.props()).toHaveProperty('client', analyticsWebClientMock);
+			const dummyComponent = screen.getByRole('button', { name: 'atlaskit' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyAtlaskitComponent);
-			expect(dummyComponent).toHaveLength(1);
-
-			dummyComponent.simulate('click');
+			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 
-		it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
-			analyticsWebClientMock.sendUIEvent = jest.fn(() => {
-				done();
-			});
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
 
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
 					<DummyAtlaskitCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(FabricElementsListener);
-			expect(analyticsListener.props()).toHaveProperty(
-				'client',
-				Promise.resolve(analyticsWebClientMock),
-			);
+			const dummyComponent = screen.getByRole('button', { name: 'atlaskit' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyAtlaskitComponent);
-			expect(dummyComponent).toHaveLength(1);
+			await fireEvent.click(dummyComponent);
 
-			dummyComponent.simulate('click');
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 	});
 
 	describe('<NavigationListener />', () => {
-		it('should listen and fire a UI event with analyticsWebClient', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyNavigationCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(NavigationListener);
-			expect(analyticsListener.props()).toHaveProperty('client', analyticsWebClientMock);
+			const dummyComponent = screen.getByRole('button', { name: 'navigation' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyNavigationComponent);
-			expect(dummyComponent).toHaveLength(1);
-
-			dummyComponent.simulate('click');
+			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 
-		it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
-			analyticsWebClientMock.sendUIEvent = jest.fn(() => {
-				done();
-			});
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
 
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
 					<DummyNavigationCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(FabricElementsListener);
-			expect(analyticsListener.props()).toHaveProperty(
-				'client',
-				Promise.resolve(analyticsWebClientMock),
-			);
+			const dummyComponent = screen.getByRole('button', { name: 'navigation' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyNavigationComponent);
-			expect(dummyComponent).toHaveLength(1);
+			await fireEvent.click(dummyComponent);
 
-			dummyComponent.simulate('click');
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 	});
 
 	describe('<MediaListener />', () => {
-		it('should listen and fire a UI event with analyticsWebClient', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyMediaCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(NavigationListener);
-			expect(analyticsListener.props()).toHaveProperty('client', analyticsWebClientMock);
+			const dummyComponent = screen.getByRole('button', { name: 'media' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyMediaComponent);
-			expect(dummyComponent).toHaveLength(1);
-
-			dummyComponent.simulate('click');
+			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 
-		it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
-			analyticsWebClientMock.sendUIEvent = jest.fn(() => {
-				done();
-			});
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
 
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
 					<DummyMediaCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(FabricElementsListener);
-			expect(analyticsListener.props()).toHaveProperty(
-				'client',
-				Promise.resolve(analyticsWebClientMock),
-			);
+			const dummyComponent = screen.getByRole('button', { name: 'media' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyMediaComponent);
-			expect(dummyComponent).toHaveLength(1);
+			await fireEvent.click(dummyComponent);
 
-			dummyComponent.simulate('click');
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 	});
 
 	describe('<PeopleTeamsAnalyticsListener />', () => {
-		it('should listen and fire a UI event with analyticsWebClient', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyPeopleTeamsCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(PeopleTeamsAnalyticsListener);
-			expect(analyticsListener.props()).toHaveProperty('client', analyticsWebClientMock);
+			const dummyComponent = screen.getByRole('button', { name: 'peopleTeams' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyPeopleTeamsComponent);
-			expect(dummyComponent).toHaveLength(1);
-
-			dummyComponent.simulate('click');
+			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 
-		it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
-			analyticsWebClientMock.sendUIEvent = jest.fn(() => {
-				done();
-			});
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
 
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
 					<DummyPeopleTeamsCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(PeopleTeamsAnalyticsListener);
-			expect(analyticsListener.props()).toHaveProperty(
-				'client',
-				Promise.resolve(analyticsWebClientMock),
-			);
+			const dummyComponent = screen.getByRole('button', { name: 'peopleTeams' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyPeopleTeamsComponent);
-			expect(dummyComponent).toHaveLength(1);
+			await fireEvent.click(dummyComponent);
 
-			dummyComponent.simulate('click');
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 	});
 
 	describe('<NotificationsAnalyticsListener />', () => {
-		it('should listen and fire a UI event with analyticsWebClient', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyNotificationsCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(NotificationsAnalyticsListener);
-			expect(analyticsListener.props()).toHaveProperty('client', analyticsWebClientMock);
+			const dummyComponent = screen.getByRole('button', { name: 'notifications' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyNotificationsComponent);
-			expect(dummyComponent).toHaveLength(1);
-
-			dummyComponent.simulate('click');
+			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 
-		it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
-			analyticsWebClientMock.sendUIEvent = jest.fn(() => {
-				done();
-			});
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
 
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
 					<DummyNotificationsCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(NotificationsAnalyticsListener);
-			expect(analyticsListener.props()).toHaveProperty(
-				'client',
-				Promise.resolve(analyticsWebClientMock),
-			);
+			const dummyComponent = screen.getByRole('button', { name: 'notifications' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyNotificationsComponent);
-			expect(dummyComponent).toHaveLength(1);
+			await fireEvent.click(dummyComponent);
 
-			dummyComponent.simulate('click');
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 	});
 
 	describe('<CrossFlowAnalyticsListener />', () => {
-		it('should listen and fire a UI event with analyticsWebClient', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyCrossFlowCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(CrossFlowAnalyticsListener);
-			expect(analyticsListener.props()).toHaveProperty('client', analyticsWebClientMock);
+			const dummyComponent = screen.getByRole('button', { name: 'crossFlow' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyCrossFlowComponent);
-			expect(dummyComponent).toHaveLength(1);
-
-			dummyComponent.simulate('click');
+			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 
-		it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
-			analyticsWebClientMock.sendUIEvent = jest.fn(() => {
-				done();
-			});
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
 
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
-					<DummyNotificationsCompWithAnalytics onClick={compOnClick} />
+					<DummyCrossFlowCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(CrossFlowAnalyticsListener);
-			expect(analyticsListener.props()).toHaveProperty(
-				'client',
-				Promise.resolve(analyticsWebClientMock),
-			);
+			const dummyComponent = screen.getByRole('button', { name: 'crossFlow' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyNotificationsComponent);
-			expect(dummyComponent).toHaveLength(1);
+			await fireEvent.click(dummyComponent);
 
-			dummyComponent.simulate('click');
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 	});
 
 	describe('<PostOfficeAnalyticsListener />', () => {
-		it('should listen and fire a UI event with analyticsWebClient', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyPostOfficeCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(PostOfficeAnalyticsListener);
-			expect(analyticsListener.props()).toHaveProperty('client', analyticsWebClientMock);
+			const dummyComponent = screen.getByRole('button', { name: 'postOffice' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyPostOfficeComponent);
-			expect(dummyComponent).toHaveLength(1);
-
-			dummyComponent.simulate('click');
+			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 
-		it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
-			analyticsWebClientMock.sendUIEvent = jest.fn(() => {
-				done();
-			});
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
 
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
 					<DummyPostOfficeCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(PostOfficeAnalyticsListener);
-			expect(analyticsListener.props()).toHaveProperty(
-				'client',
-				Promise.resolve(analyticsWebClientMock),
-			);
+			const dummyComponent = screen.getByRole('button', { name: 'postOffice' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyPostOfficeComponent);
-			expect(dummyComponent).toHaveLength(1);
+			await fireEvent.click(dummyComponent);
 
-			dummyComponent.simulate('click');
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 	});
 
 	describe('<AIMateAnalyticsListener />', () => {
-		it('should listen and fire a UI event with analyticsWebClient', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyAIMateCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(AIMateAnalyticsListener);
-			expect(analyticsListener.props()).toHaveProperty('client', analyticsWebClientMock);
+			const dummyComponent = screen.getByRole('button', { name: 'aiMate' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyAIMateComponent);
-			expect(dummyComponent).toHaveLength(1);
-
-			dummyComponent.simulate('click');
+			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 
-		it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
-			analyticsWebClientMock.sendUIEvent = jest.fn(() => {
-				done();
-			});
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
 
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
 					<DummyAIMateCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(AIMateAnalyticsListener);
-			expect(analyticsListener.props()).toHaveProperty(
-				'client',
-				Promise.resolve(analyticsWebClientMock),
-			);
+			const dummyComponent = screen.getByRole('button', { name: 'aiMate' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyAIMateComponent);
-			expect(dummyComponent).toHaveLength(1);
+			await fireEvent.click(dummyComponent);
 
-			dummyComponent.simulate('click');
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 	});
 
 	describe('<AVPAnalyticsListener />', () => {
-		it('should listen and fire a UI event with analyticsWebClient', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={analyticsWebClientMock}>
 					<DummyAVPCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(AVPAnalyticsListener);
-			expect(analyticsListener.props()).toHaveProperty('client', analyticsWebClientMock);
+			const dummyComponent = screen.getByRole('button', { name: 'avp' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyAVPComponent);
-			expect(dummyComponent).toHaveLength(1);
-
-			dummyComponent.simulate('click');
+			await fireEvent.click(dummyComponent);
 
 			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 
-		it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
-			analyticsWebClientMock.sendUIEvent = jest.fn(() => {
-				done();
-			});
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
 
 			const compOnClick = jest.fn();
-			const component = mount(
+			render(
 				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
 					<DummyAVPCompWithAnalytics onClick={compOnClick} />
 				</FabricAnalyticsListeners>,
 			);
 
-			const analyticsListener = component.find(AVPAnalyticsListener);
-			expect(analyticsListener.props()).toHaveProperty(
-				'client',
-				Promise.resolve(analyticsWebClientMock),
-			);
+			const dummyComponent = screen.getByRole('button', { name: 'avp' });
+			expect(dummyComponent).toBeInTheDocument();
 
-			const dummyComponent = analyticsListener.find(DummyAVPComponent);
-			expect(dummyComponent).toHaveLength(1);
+			await fireEvent.click(dummyComponent);
 
-			dummyComponent.simulate('click');
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
 		});
 	});
 });

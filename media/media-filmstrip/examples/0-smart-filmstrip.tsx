@@ -15,7 +15,7 @@ import {
 	defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
 import { type CardEvent, type CardAction } from '@atlaskit/media-card';
-import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import EditorCloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
 import {
 	type FileItem,
 	type FileState,
@@ -92,7 +92,7 @@ class Example extends Component<{}, ExampleState> {
 		actions: [
 			{
 				handler: this.onClose,
-				icon: <EditorCloseIcon label="close" />,
+				icon: <EditorCloseIcon color="currentColor" spacing="spacious" label="close" />,
 			},
 		],
 	};
@@ -146,7 +146,7 @@ class Example extends Component<{}, ExampleState> {
 		return [
 			{
 				handler,
-				icon: <EditorCloseIcon label="close" />,
+				icon: <EditorCloseIcon color="currentColor" spacing="spacious" label="close" />,
 			},
 		];
 	};

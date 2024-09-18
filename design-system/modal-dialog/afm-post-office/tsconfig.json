@@ -48,6 +48,9 @@
       "path": "../../portal/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../../pragmatic-drag-and-drop/core/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../primitives/afm-post-office/tsconfig.json"
     },
     {

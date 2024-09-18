@@ -6,7 +6,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getCellsInRow, getSelectedCellInfo } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -228,9 +227,7 @@ const destroyFn = (
 								isTableScalingEnabledOnCurrentTable = true;
 							}
 							const shouldUseIncreasedScalingPercent =
-								(isTableScalingWithFixedColumnWidthsOptionEnabled &&
-									fg('platform.editor.table.use-increased-scaling-percent')) ||
-								// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
+								isTableScalingWithFixedColumnWidthsOptionEnabled ||
 								(isTableScalingEnabled && isCommentEditor);
 
 							insertColgroupFromNode(

@@ -8,7 +8,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { SharedTableProps } from './types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { useFeatureFlags } from '../../../use-feature-flags';
 import type { RendererContextProps } from '../../../renderer-context';
 
@@ -198,11 +197,9 @@ const renderScaleDownColgroup = (
 	const isTableWidthFixed =
 		isTableScalingWithFixedColumnWidthsOptionEnabled &&
 		props.tableNode?.attrs.displayMode === 'fixed';
-	const maxScalingPercent =
-		isTableScalingWithFixedColumnWidthsOptionEnabled &&
-		fg('platform.editor.table.use-increased-scaling-percent')
-			? MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION
-			: MAX_SCALING_PERCENT;
+	const maxScalingPercent = isTableScalingWithFixedColumnWidthsOptionEnabled
+		? MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION
+		: MAX_SCALING_PERCENT;
 
 	// fixes migration tables with zero-width columns
 	if (zeroWidthColumnsCount > 0) {

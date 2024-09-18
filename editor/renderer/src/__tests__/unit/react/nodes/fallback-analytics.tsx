@@ -3,7 +3,6 @@ import { render, waitFor } from '@testing-library/react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
 import { captureException } from '@atlaskit/linking-common/sentry';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('@atlaskit/linking-common/sentry', () => {
 	const originalModule = jest.requireActual('@atlaskit/link-client-extension');
@@ -74,77 +73,46 @@ describe('Renderer - Fallback analytics', () => {
 		jest.clearAllMocks();
 	});
 
-	describe('fires datasource renderFailed event when error is caught by boundary and log to Sentry conditionally based on FF', () => {
-		ffTest(
-			'platform.linking-platform.datasources.enable-sentry-client',
-			async () => {
-				const onAnalyticFireEvent = await setup(<ErrorChild />, {
-					url,
-					datasourceId,
-				});
-				await waitFor(() => {
-					expect(captureException).toHaveBeenCalled();
-				});
-				expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-				expect(onAnalyticFireEvent).toBeCalledWith(
-					expect.objectContaining(renderFailedPayload),
-					EVENT_CHANNEL,
-				);
-				expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
-					datasourceId,
-				});
-			},
-			async () => {
-				const onAnalyticFireEvent = await setup(<ErrorChild />, { url });
-
-				expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-				expect(onAnalyticFireEvent).toBeCalledWith(
-					expect.objectContaining(renderFailedPayload),
-					EVENT_CHANNEL,
-				);
-				expect(captureException).not.toHaveBeenCalled();
-			},
-		);
+	describe('when error is caught by boundary and log to Sentry', () => {
+		it('should fire datasource renderFailed event', async () => {
+			const onAnalyticFireEvent = await setup(<ErrorChild />, {
+				url,
+				datasourceId,
+			});
+			await waitFor(() => {
+				expect(captureException).toHaveBeenCalled();
+			});
+			expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+			expect(onAnalyticFireEvent).toBeCalledWith(
+				expect.objectContaining(renderFailedPayload),
+				EVENT_CHANNEL,
+			);
+			expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
+				datasourceId,
+			});
+		});
 	});
 
-	describe('fires datasource renderFailed event when error is caught by boundary, unsafe URL provided and log to Sentry conditionally based on FF', () => {
-		ffTest(
-			'platform.linking-platform.datasources.enable-sentry-client',
-			async () => {
-				const unsafeUrl = 'javascript:alert(1)';
+	describe('when error is caught by boundary, unsafe URL provided and log to Sentry', () => {
+		it('should fire datasource renderFailed event', async () => {
+			const unsafeUrl = 'javascript:alert(1)';
 
-				const onAnalyticFireEvent = await setup(<ErrorChild />, {
-					url: unsafeUrl,
-					datasourceId,
-				});
-				await waitFor(() => {
-					expect(captureException).toHaveBeenCalled();
-				});
-				expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-				expect(onAnalyticFireEvent).toBeCalledWith(
-					expect.objectContaining(renderFailedPayload),
-					EVENT_CHANNEL,
-				);
-				expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
-					datasourceId,
-				});
-			},
-			async () => {
-				const unsafeUrl = 'javascript:alert(1)';
-
-				const onAnalyticFireEvent = await setup(<ErrorChild />, {
-					url: unsafeUrl,
-					datasourceId,
-				});
-
-				expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-				expect(onAnalyticFireEvent).toBeCalledWith(
-					expect.objectContaining(renderFailedPayload),
-					EVENT_CHANNEL,
-				);
-				expect(captureException).not.toHaveBeenCalled();
-			},
-		);
+			const onAnalyticFireEvent = await setup(<ErrorChild />, {
+				url: unsafeUrl,
+				datasourceId,
+			});
+			await waitFor(() => {
+				expect(captureException).toHaveBeenCalled();
+			});
+			expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+			expect(onAnalyticFireEvent).toBeCalledWith(
+				expect.objectContaining(renderFailedPayload),
+				EVENT_CHANNEL,
+			);
+			expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
+				datasourceId,
+			});
+		});
 	});
 
 	describe('fires datasource renderFailed event when non error type is caught by boundary and do not log to Sentry', () => {

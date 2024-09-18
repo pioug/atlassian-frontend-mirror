@@ -2,7 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, useMemo } from 'react';
+
+import { type CSSProperties, useEffect, useMemo } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -12,6 +13,8 @@ import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import FocusRing from '@atlaskit/focus-ring';
 import { UNSAFE_useLayering, useCloseOnEscapePress } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { media } from '@atlaskit/primitives';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
@@ -20,6 +23,9 @@ import type { KeyboardOrMouseEvent, ModalDialogProps } from '../../types';
 import { borderRadius, textColor } from '../constants';
 import { ModalContext, ScrollContext } from '../context';
 import useOnMotionFinish from '../hooks/use-on-motion-finish';
+import { disableDraggingToCrossOriginIFramesForElement } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/element';
+import { disableDraggingToCrossOriginIFramesForExternal } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/external';
+import { disableDraggingToCrossOriginIFramesForTextSelection } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';
 import { dialogHeight, dialogWidth } from '../utils';
 
 import Positioner from './positioner';
@@ -110,6 +116,27 @@ const ModalDialog = (
 
 	const id = useId();
 	const titleId = `modal-dialog-title-${id}`;
+
+	useEffect(() => {
+		// This fix is currently behind a feature flag to reduce risk further.
+		if (!fg('platform_design_system_team_modal_dnd_fix')) {
+			return;
+		}
+
+		// Modal dialogs can appear on top of iframe elements that are on another domain.
+		// There is a Chrome bug where drag and drop in an element on top of a cross domain
+		// iframe is not working. We are applying the workaround for this bug in modal so
+		// that consumers of our modal don't have to worry about this bug and are free to
+		// create whatever drag and drop experience they like inside a modal
+		//
+		// Chrome bug: https://issues.chromium.org/issues/362301053
+
+		return combine(
+			disableDraggingToCrossOriginIFramesForElement(),
+			disableDraggingToCrossOriginIFramesForTextSelection(),
+			disableDraggingToCrossOriginIFramesForExternal(),
+		);
+	}, []);
 
 	useAutoFocus(
 		typeof autoFocus === 'object' ? autoFocus : undefined,

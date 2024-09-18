@@ -21,6 +21,7 @@ export interface EditDatasourceToolbarButtonWithCommonProps {
 export interface EditDatasourceToolbarButtonWithUrlProps
 	extends EditDatasourceToolbarButtonWithCommonProps {
 	cardContext?: CardContext;
+	datasourceId?: string;
 	url: string;
 }
 

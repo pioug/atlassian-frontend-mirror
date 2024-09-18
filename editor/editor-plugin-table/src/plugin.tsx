@@ -169,8 +169,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 
 	const shouldUseIncreasedScalingPercent =
 		options?.isTableScalingEnabled &&
-		((isTableFixedColumnWidthsOptionEnabled &&
-			fg('platform.editor.table.use-increased-scaling-percent')) ||
+		(isTableFixedColumnWidthsOptionEnabled ||
 			// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
 			options?.isCommentEditor);
 

@@ -2,25 +2,24 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type FC, useCallback, useEffect, useState, type CSSProperties } from 'react';
+import { type CSSProperties, type FC, useCallback, useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, css } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
-import { Inline, Stack, Box, xcss } from '@atlaskit/primitives';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import Heading from '@atlaskit/heading';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
+import Heading from '@atlaskit/heading';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { DEFAULT_APPEARANCE } from './constants';
-import { flagTextColor, flagBackgroundColor, flagIconColor, flagTextColorToken } from './theme';
-import type { FlagProps } from './types';
-
 import Actions from './flag-actions';
 import { useFlagGroup } from './flag-group';
-import { Expander, DismissButton } from './internal';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import { DismissButton, Expander } from './internal';
+import { flagBackgroundColor, flagIconColor, flagTextColor, flagTextColorToken } from './theme';
+import type { FlagProps } from './types';
 
 const CSS_VAR_ICON_COLOR = '--flag-icon-color';
 

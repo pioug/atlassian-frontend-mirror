@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages, MediaImage } from '@atlaskit/media-ui';
 import { isImageRemote } from './isImageRemote';
@@ -179,7 +179,9 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 				<Box id="remove-image-container" xcss={removeImageContainerStyles}>
 					<IconButton
 						id="remove-image-button"
-						icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
+						icon={(iconProps) => (
+							<CrossIcon {...iconProps} LEGACY_size="small" color="currentColor" />
+						)}
 						onClick={onRemoveImage}
 						label={formatMessage(messages.remove_image)}
 						spacing="compact"

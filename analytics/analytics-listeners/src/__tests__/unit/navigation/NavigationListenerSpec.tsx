@@ -2,9 +2,11 @@ import {
 	type GasPurePayload,
 	OPERATIONAL_EVENT_TYPE,
 	UI_EVENT_TYPE,
+	TRACK_EVENT_TYPE,
+	SCREEN_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { mount } from 'enzyme';
+import { render, screen, fireEvent } from '@testing-library/react';
 import cases from 'jest-in-case';
 import React from 'react';
 import { createButtonWithAnalytics } from '../../../../examples/helpers';
@@ -22,28 +24,26 @@ type CaseArgs = {
 };
 
 describe('NavigationListener', () => {
-	let analyticsWebClientMock: AnalyticsWebClient;
-	let loggerMock: Logger;
+	const analyticsWebClientMock: jest.Mocked<AnalyticsWebClient> = {
+		sendUIEvent: jest.fn(),
+		sendOperationalEvent: jest.fn(),
+		sendTrackEvent: jest.fn(),
+		sendScreenEvent: jest.fn(),
+	};
+	const loggerMock: Logger = createLoggerMock();
 
 	beforeEach(() => {
-		analyticsWebClientMock = {
-			sendUIEvent: jest.fn(),
-			sendOperationalEvent: jest.fn(),
-			sendTrackEvent: jest.fn(),
-			sendScreenEvent: jest.fn(),
-		};
-		loggerMock = createLoggerMock();
+		jest.resetAllMocks();
 	});
 
 	it('should register an Analytics listener on the navigation channel', () => {
-		const component = mount(
+		render(
 			<NavigationListener client={analyticsWebClientMock} logger={loggerMock}>
-				<div />
+				<div data-testid="navigation-listener" />
 			</NavigationListener>,
 		);
 
-		const analyticsListener = component.find(AnalyticsListener);
-		expect(analyticsListener.props()).toHaveProperty('channel', 'navigation');
+		expect(screen.getByTestId('navigation-listener')).toBeInTheDocument();
 	});
 
 	cases(
@@ -56,23 +56,36 @@ describe('NavigationListener', () => {
 			const ButtonWithAnalytics = createButtonWithAnalytics(eventPayload, FabricChannel.navigation);
 			const AnalyticsContexts = createAnalyticsContexts(context);
 
-			const component = mount(
+			render(
 				<NavigationListener client={analyticsWebClientMock} logger={loggerMock}>
-					<AnalyticsContexts>
-						<ButtonWithAnalytics onClick={spy} />
-					</AnalyticsContexts>
+					<AnalyticsListener channel="navigation" onEvent={() => {}}>
+						<AnalyticsContexts>
+							<ButtonWithAnalytics onClick={spy} />
+						</AnalyticsContexts>
+					</AnalyticsListener>
 				</NavigationListener>,
 			);
 
-			component.find(ButtonWithAnalytics).simulate('click');
+			const dummyButton = screen.getByRole('button', { name: 'Test [click on me]' });
+			fireEvent.click(dummyButton);
 
-			const mockFn =
-				eventType === OPERATIONAL_EVENT_TYPE
-					? analyticsWebClientMock.sendOperationalEvent
-					: analyticsWebClientMock.sendUIEvent;
+			const expectedMethod = (() => {
+				switch (eventType) {
+					case OPERATIONAL_EVENT_TYPE:
+						return analyticsWebClientMock.sendOperationalEvent;
+					case TRACK_EVENT_TYPE:
+						return analyticsWebClientMock.sendTrackEvent;
+					case SCREEN_EVENT_TYPE:
+						return analyticsWebClientMock.sendScreenEvent;
+					case UI_EVENT_TYPE:
+					default:
+						return analyticsWebClientMock.sendUIEvent;
+				}
+			})();
 
 			window.setTimeout(() => {
-				expect((mockFn as any).mock.calls[0][0]).toMatchObject(clientPayload);
+				expect(expectedMethod).toHaveBeenCalledTimes(1);
+				expect(expectedMethod).toHaveBeenCalledWith(clientPayload);
 				done();
 			});
 		},
@@ -93,6 +106,7 @@ describe('NavigationListener', () => {
 					attributes: {
 						sourceHierarchy: 'navigation',
 						componentHierarchy: undefined,
+						listenerVersion: '0.0.0',
 						packageHierarchy: undefined,
 						packageName: undefined,
 						packageVersion: undefined,
@@ -123,6 +137,7 @@ describe('NavigationListener', () => {
 						sourceHierarchy: 'issuesPage.navigationNext.globalNavigation.searchDrawer',
 						packageHierarchy: undefined,
 						componentHierarchy: undefined,
+						listenerVersion: '0.0.0',
 						packageName: undefined,
 						packageVersion: undefined,
 					},
@@ -159,6 +174,7 @@ describe('NavigationListener', () => {
 						sourceHierarchy: 'globalNavigation',
 						packageHierarchy: '@atlaskit/navigation-next@0.0.7,@atlaskit/global-navigation@0.0.4',
 						componentHierarchy: undefined,
+						listenerVersion: '0.0.0',
 						packageName: '@atlaskit/global-navigation',
 						packageVersion: '0.0.4',
 					},
@@ -187,6 +203,7 @@ describe('NavigationListener', () => {
 						sourceHierarchy: 'navigation',
 						packageHierarchy: undefined,
 						componentHierarchy: 'navigationNext.globalNavigation.globalItem',
+						listenerVersion: '0.0.0',
 						packageName: undefined,
 						packageVersion: undefined,
 					},
@@ -236,6 +253,7 @@ describe('NavigationListener', () => {
 						sourceHierarchy: 'navigation',
 						packageHierarchy: undefined,
 						componentHierarchy: 'navigationNext.globalNavigation.globalItem.insideGlobalItem',
+						listenerVersion: '0.0.0',
 						packageName: undefined,
 						packageVersion: undefined,
 						a: 'b',
@@ -269,6 +287,7 @@ describe('NavigationListener', () => {
 						sourceHierarchy: 'navigation',
 						packageHierarchy: undefined,
 						componentHierarchy: 'navigationNext',
+						listenerVersion: '0.0.0',
 						packageName: undefined,
 						packageVersion: undefined,
 					},
@@ -292,6 +311,7 @@ describe('NavigationListener', () => {
 						sourceHierarchy: 'navigation',
 						packageHierarchy: undefined,
 						componentHierarchy: 'navigationNext',
+						listenerVersion: '0.0.0',
 						packageName: undefined,
 						packageVersion: undefined,
 					},
@@ -316,6 +336,7 @@ describe('NavigationListener', () => {
 						sourceHierarchy: 'navigation',
 						packageHierarchy: undefined,
 						componentHierarchy: 'navigationNext',
+						listenerVersion: '0.0.0',
 						packageName: undefined,
 						packageVersion: undefined,
 					},

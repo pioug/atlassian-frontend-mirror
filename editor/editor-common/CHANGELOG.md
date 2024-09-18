@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 89.3.2
+
+### Patch Changes
+
+- [#141728](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141728)
+  [`4de004a0f879d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4de004a0f879d) -
+  [ux] EDF-1388: Cleanup platform.editor.ordered-list-auto-join-improvements_mrlv5 and paths
+- [#141037](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141037)
+  [`0c5cb40ae3a67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c5cb40ae3a67) -
+  Consider string documents when not validating incoming documents in Confluence Cloud
+- Updated dependencies
+
+## 89.3.1
+
+### Patch Changes
+
+- [#142108](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142108)
+  [`a1776d86877fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1776d86877fe) -
+  ED-24864 ED-24931 Add logic to handle dragging expands inside and outside of eachother, converting
+  them to and from nested expands when required. Also add experiment gating for nested-dnd.
+
 ## 89.3.0
 
 ### Minor Changes

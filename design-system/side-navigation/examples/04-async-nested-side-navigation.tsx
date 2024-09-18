@@ -7,12 +7,11 @@ import { type FC, useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import Button from '@atlaskit/button/new';
 import AsyncIcon from '@atlaskit/icon/glyph/emoji/frequent';
 import VidBackwardIcon from '@atlaskit/icon/glyph/vid-backward';
 
 import {
-	Footer,
-	NavigationFooter,
 	NavigationHeader,
 	NestableNavigationContent,
 	NestingItem,
@@ -22,7 +21,6 @@ import {
 } from '../src';
 
 import AppFrame from './common/app-frame';
-import { CustomItemFooter } from './common/sample-footer';
 import SampleHeader from './common/sample-header';
 
 let isLoaded: Record<string, boolean> = {};
@@ -72,16 +70,13 @@ const BasicExample = () => {
 						<DelayedComponent id={1} />
 					</Section>
 				</NestableNavigationContent>
-				<NavigationFooter>
-					<Footer
-						iconBefore={<VidBackwardIcon label="" />}
-						description="Will load everything again"
-						component={CustomItemFooter}
-						onClick={reset}
-					>
-						Reset
-					</Footer>
-				</NavigationFooter>
+				<Button
+					iconBefore={VidBackwardIcon}
+					aria-label="Will load everything again"
+					onClick={reset}
+				>
+					Reset
+				</Button>
 			</SideNavigation>
 		</AppFrame>
 	);

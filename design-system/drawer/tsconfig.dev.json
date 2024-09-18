@@ -51,9 +51,6 @@
 			"path": "../button/tsconfig.app.json"
 		},
 		{
-			"path": "../checkbox/tsconfig.app.json"
-		},
-		{
 			"path": "../code/tsconfig.app.json"
 		},
 		{
@@ -97,9 +94,6 @@
 		},
 		{
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
-		},
-		{
-			"path": "../textarea/tsconfig.app.json"
 		},
 		{
 			"path": "../theme/tsconfig.app.json"

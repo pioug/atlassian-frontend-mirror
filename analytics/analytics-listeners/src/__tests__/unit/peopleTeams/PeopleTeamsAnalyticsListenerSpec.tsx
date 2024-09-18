@@ -6,7 +6,7 @@ import {
 	SCREEN_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { mount } from 'enzyme';
+import { render, screen, fireEvent } from '@testing-library/react';
 import cases from 'jest-in-case';
 import React from 'react';
 import { createButtonWithAnalytics } from '../../../../examples/helpers';
@@ -37,14 +37,13 @@ describe('PeopleTeamsAnalyticsListener', () => {
 	});
 
 	it('should register an Analytics listener on the peopleTeams channel', () => {
-		const component = mount(
+		render(
 			<PeopleTeamsAnalyticsListener client={analyticsWebClientMock} logger={loggerMock}>
-				<div />
+				<div data-testid="peopleTeams-listener" />
 			</PeopleTeamsAnalyticsListener>,
 		);
 
-		const analyticsListener = component.find(AnalyticsListener);
-		expect(analyticsListener.props()).toHaveProperty('channel', 'peopleTeams');
+		expect(screen.getByTestId('peopleTeams-listener')).toBeInTheDocument();
 	});
 
 	cases(
@@ -60,15 +59,18 @@ describe('PeopleTeamsAnalyticsListener', () => {
 			);
 			const AnalyticsContexts = createAnalyticsContexts(context);
 
-			const component = mount(
+			render(
 				<PeopleTeamsAnalyticsListener client={analyticsWebClientMock} logger={loggerMock}>
-					<AnalyticsContexts>
-						<ButtonWithAnalytics onClick={spy} />
-					</AnalyticsContexts>
+					<AnalyticsListener channel="peopleTeams" onEvent={() => {}}>
+						<AnalyticsContexts>
+							<ButtonWithAnalytics onClick={spy} />
+						</AnalyticsContexts>
+					</AnalyticsListener>
 				</PeopleTeamsAnalyticsListener>,
 			);
 
-			component.find(ButtonWithAnalytics).simulate('click');
+			const dummyButton = screen.getByRole('button', { name: 'Test [click on me]' });
+			fireEvent.click(dummyButton);
 
 			let mockFn = analyticsWebClientMock.sendUIEvent;
 

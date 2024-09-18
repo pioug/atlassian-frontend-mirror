@@ -30,10 +30,14 @@ const FeatureDiscovery = ({ children, testId }: FeatureDiscoveryProps): JSX.Elem
 
 	const storageClient = useMemo(() => new StorageClient(LOCAL_STORAGE_CLIENT_KEY), []);
 
-	const discovered = useMemo(
-		() => storageClient.getItem(LOCAL_STORAGE_DISCOVERY_KEY) === LOCAL_STORAGE_DISCOVERY_VALUE,
-		[storageClient],
-	);
+	const discovered = useMemo(() => {
+		try {
+			return storageClient.getItem(LOCAL_STORAGE_DISCOVERY_KEY) === LOCAL_STORAGE_DISCOVERY_VALUE;
+		} catch {
+			// If localStorage is not available, don't show feature discovery component. Treat it as 'discovered'.
+			return true;
+		}
+	}, [storageClient]);
 
 	useEffect(() => {
 		renderedTime.current = Date.now();
@@ -42,11 +46,15 @@ const FeatureDiscovery = ({ children, testId }: FeatureDiscoveryProps): JSX.Elem
 			if (!discovered && renderedTime.current) {
 				const duration = Date.now() - renderedTime.current;
 				if (duration > LOCAL_STORAGE_DISCOVERY_REQUIRED_TIME) {
-					storageClient.setItemWithExpiry(
-						LOCAL_STORAGE_DISCOVERY_KEY,
-						LOCAL_STORAGE_DISCOVERY_VALUE,
-						LOCAL_STORAGE_DISCOVERY_EXPIRY_IN_MS,
-					);
+					try {
+						storageClient.setItemWithExpiry(
+							LOCAL_STORAGE_DISCOVERY_KEY,
+							LOCAL_STORAGE_DISCOVERY_VALUE,
+							LOCAL_STORAGE_DISCOVERY_EXPIRY_IN_MS,
+						);
+					} catch {
+						// silent error
+					}
 				}
 			}
 		};

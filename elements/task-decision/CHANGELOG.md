@@ -1,5 +1,13 @@
 # @atlaskit/task-decision
 
+## 17.10.4
+
+### Patch Changes
+
+- [#141679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141679)
+  [`b005c6bc8be60`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b005c6bc8be60) -
+  improve decision item on SSR
+
 ## 17.10.3
 
 ### Patch Changes

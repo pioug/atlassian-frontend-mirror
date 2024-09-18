@@ -22,6 +22,7 @@ const MediaPreviewButton = (props: Props & WrappedComponentProps) => {
 		<Button
 			appearance="subtle"
 			testId="preview-button"
+			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20884
 			iconAfter={<EditorFilePreviewIcon label={formatMessage(messages.preview)} />}
 			onKeyPress={(event) => event.stopPropagation()}
 			onClick={(event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {

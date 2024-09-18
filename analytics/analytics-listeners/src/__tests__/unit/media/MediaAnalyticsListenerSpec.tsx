@@ -4,7 +4,7 @@ import {
 	type AnalyticsEventPayload,
 	type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { mount } from 'enzyme';
+import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { createButtonWithAnalytics } from '../../../../examples/helpers';
 import type Logger from '../../../helpers/logger';
@@ -59,26 +59,28 @@ describe('MediaAnalyticsListener', () => {
 			context,
 		);
 
-		const component = mount(
+		render(
 			<MediaAnalyticsListener client={analyticsWebClientMock} logger={loggerMock}>
-				<ButtonWithAnalytics onClick={spy} />
+				<AnalyticsListener channel={FabricChannel.media} onEvent={() => {}}>
+					<ButtonWithAnalytics onClick={spy} />
+				</AnalyticsListener>
 			</MediaAnalyticsListener>,
 		);
-		const button = component.find(ButtonWithAnalytics);
-		button.simulate('click');
 
-		expect(analyticsWebClientMock.sendUIEvent).toBeCalledWith(expectedEvent);
+		const button = screen.getByRole('button', { name: 'Test [click on me]' });
+		fireEvent.click(button);
+
+		expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(expectedEvent);
 	};
 
 	it('should register an Analytics listener on the media channel', () => {
-		const component = mount(
+		render(
 			<MediaAnalyticsListener client={analyticsWebClientMock} logger={loggerMock}>
-				<div />
+				<div data-testid="media-listener" />
 			</MediaAnalyticsListener>,
 		);
 
-		const analyticsListener = component.find(AnalyticsListener);
-		expect(analyticsListener.props()).toHaveProperty('channel', FabricChannel.media);
+		expect(screen.getByTestId('media-listener')).toBeInTheDocument();
 	});
 
 	it('should send event with default source', () => {

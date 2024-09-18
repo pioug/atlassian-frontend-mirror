@@ -1,9 +1,9 @@
 import React from 'react';
 import { createEvent, fireEvent, render, type RenderResult, within } from '@testing-library/react';
-import { screen } from '@testing-library/dom';
+import { screen } from '@testing-library/react';
 
 import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import { AnalyticsListener, type UIAnalyticsEventHandler } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 
@@ -22,12 +22,13 @@ describe('CardActions', () => {
 	const annotateAction = {
 		label: 'Annotate',
 		handler: jest.fn(),
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO: no icon available (https://product-fabric.atlassian.net/browse/DSP-20852)
 		icon: <AnnotateIcon size="small" label="annotate" />,
 	};
 	const deleteAction = {
 		label: 'Delete',
 		handler: jest.fn(),
-		icon: <CrossIcon size="small" label="delete" />,
+		icon: <CrossIcon color="currentColor" LEGACY_size="small" label="delete" />,
 	};
 	const actionButtonTestId = 'media-card-primary-action';
 	const dropdownItemsTestId = 'media-card-actions-menu-item';

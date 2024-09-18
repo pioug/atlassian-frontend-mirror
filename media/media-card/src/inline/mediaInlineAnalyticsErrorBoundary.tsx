@@ -3,7 +3,7 @@ import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { token } from '@atlaskit/tokens';
 import { B300, R300, N30A, N900 } from '@atlaskit/theme/colors';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/utility/migration/warning';
 import { type AnalyticsErrorBoundaryInlinePayload, fireMediaCardEvent } from '../utils/analytics';
 export type MediaInlineAnalyticsErrorBoundaryProps = PropsWithChildren<
 	{
@@ -51,7 +51,9 @@ const ErrorBoundaryComponent: React.FC<ErrorBoundaryProps> = ({ message, isSelec
 		padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
 		marginRight: token('space.negative.025', '-2px'),
 		WebkitBoxDecorationBreak: 'clone',
-		display: 'inline',
+		display: 'inline-flex',
+		gap: token('space.050'),
+		alignItems: 'center',
 		borderRadius: '3px',
 		color: token('color.text', N900),
 		backgroundColor: token('color.background.neutral', N30A),
@@ -64,7 +66,12 @@ const ErrorBoundaryComponent: React.FC<ErrorBoundaryProps> = ({ message, isSelec
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<span style={style}>
-			<WarningIcon label="error" size="small" primaryColor={token('color.icon.danger', R300)} />
+			<WarningIcon
+				LEGACY_margin={`0 ${token('space.negative.050')} 0 0`}
+				label="error"
+				LEGACY_size="small"
+				color={token('color.icon.danger', R300)}
+			/>
 			{message}
 		</span>
 	);

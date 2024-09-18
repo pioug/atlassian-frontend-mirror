@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 110.2.1
+
+### Patch Changes
+
+- [#139038](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139038)
+  [`86a6dad9fb62e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/86a6dad9fb62e) -
+  [ux] Enables Table sticky scrollbar in Renderer under an experiment FF.
+- Updated dependencies
+
+## 110.2.0
+
+### Minor Changes
+
+- [#142155](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142155)
+  [`9749eb9ba2987`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9749eb9ba2987) -
+  Remove platform.editor.table.use-increased-scaling-percent feature flag
+
 ## 110.1.1
 
 ### Patch Changes

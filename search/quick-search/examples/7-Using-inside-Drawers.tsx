@@ -69,7 +69,7 @@ export default class IssueUsingDrawers extends React.Component<any, State> {
 					isOpen={this.state.isDrawerOpen}
 					key="search"
 					primaryIcon={null}
-					shouldUnmountOnExit={this.state.shouldUnmountOnExit}
+					shouldUnmountOnExit={!this.state.shouldRenderNewDrawer && this.state.shouldUnmountOnExit}
 				>
 					<BasicQuickSearch ref={this.setQuickSearchRef} />
 				</Wrapper>

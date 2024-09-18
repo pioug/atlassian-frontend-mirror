@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 
 import { captureException } from '@atlaskit/linking-common/sentry';
 import { getTraceId } from '@atlaskit/linking-common/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { type DatasourceOperationFailedAttributesType } from '../analytics/generated/analytics.types';
@@ -27,7 +26,7 @@ export const logToSentry = (
 	error: unknown,
 	...captureExceptionParams: Tail<Parameters<typeof captureException>>
 ) => {
-	if (error instanceof Error && fg('platform.linking-platform.datasources.enable-sentry-client')) {
+	if (error instanceof Error) {
 		captureException(error, ...captureExceptionParams);
 	}
 };

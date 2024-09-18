@@ -37,6 +37,9 @@ import {
 	isFullWidthAppearance,
 	isFullWidthOrFullPageAppearance,
 } from '../utils/appearance';
+import { token } from '@atlaskit/tokens';
+
+import { TableStickyScrollbar } from './TableStickyScrollbar';
 
 type TableArrayMapped = {
 	rowNodes: Array<PMNode | null>;
@@ -47,6 +50,11 @@ export const isTableResizingEnabled = (appearance: RendererAppearance) =>
 	isFullWidthOrFullPageAppearance(appearance) ||
 	(isCommentAppearance(appearance) &&
 		editorExperiment('support_table_in_comment', true, { exposure: true }));
+
+export const isStickyScrollbarEnabled = (appearance: RendererAppearance) =>
+	isFullWidthOrFullPageAppearance(appearance) &&
+	editorExperiment('platform_renderer_table_sticky_scrollbar', true, { exposure: true });
+
 const orderChildren = (
 	children: React.ReactElement[],
 	tableNode: PMNode,
@@ -191,10 +199,12 @@ export class TableContainer extends React.Component<
 
 	tableRef = React.createRef<HTMLTableElement>();
 	stickyHeaderRef = React.createRef<HTMLElement>();
+	stickyScrollbarRef = React.createRef<HTMLDivElement>();
 
 	// used for sync scroll + copying wrapper width to sticky header
 	stickyWrapperRef = React.createRef<HTMLDivElement>();
 	wrapperRef = React.createRef<HTMLDivElement>();
+	stickyScrollbar?: TableStickyScrollbar;
 
 	nextFrame: number | undefined;
 	overflowParent: OverflowParent | null = null;
@@ -237,6 +247,10 @@ export class TableContainer extends React.Component<
 			this.overflowParent = OverflowParent.fromElement(this.tableRef.current);
 			this.overflowParent.addEventListener('scroll', this.onScroll);
 		}
+
+		if (this.wrapperRef.current && isStickyScrollbarEnabled(this.props.rendererAppearance)) {
+			this.stickyScrollbar = new TableStickyScrollbar(this.wrapperRef.current);
+		}
 	}
 
 	componentDidUpdate(prevProps: TableProps, prevState: TableState) {
@@ -270,6 +284,10 @@ export class TableContainer extends React.Component<
 
 		if (this.resizeObserver) {
 			this.resizeObserver.disconnect();
+		}
+
+		if (this.stickyScrollbar) {
+			this.stickyScrollbar.dispose();
 		}
 	};
 
@@ -319,6 +337,10 @@ export class TableContainer extends React.Component<
 		}
 
 		this.stickyWrapperRef.current.scrollLeft = this.wrapperRef.current.scrollLeft;
+
+		if (this.stickyScrollbarRef.current) {
+			this.stickyScrollbarRef.current.scrollLeft = this.wrapperRef.current.scrollLeft;
+		}
 	};
 
 	get pinTop() {
@@ -494,6 +516,13 @@ export class TableContainer extends React.Component<
 						marginLeft: shouldCalculateLeftForAlignment && left !== undefined ? -left : undefined,
 					}}
 				>
+					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP}
+							data-testid="sticky-scrollbar-sentinel-top"
+						/>
+					)}
 					{stickyHeaders && tableCanBeSticky(tableNode, children) && (
 						<StickyTable
 							isNumberColumnEnabled={isNumberColumnEnabled}
@@ -536,6 +565,37 @@ export class TableContainer extends React.Component<
 							{this.grabFirstRowRef(children)}
 						</Table>
 					</div>
+
+					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
+							ref={this.stickyScrollbarRef}
+							style={{
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								display: 'block',
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+								width: '100%',
+							}}
+						>
+							<div
+								style={{
+									width: this.tableRef.current?.clientWidth,
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									height: '100%',
+								}}
+							></div>
+						</div>
+					)}
+					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}
+							data-testid="sticky-scrollbar-sentinel-bottom"
+						/>
+					)}
 				</div>
 			</>
 		);

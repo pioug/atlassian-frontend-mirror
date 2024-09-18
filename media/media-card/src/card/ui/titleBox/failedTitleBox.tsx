@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
-import EditorWarningIcon from '@atlaskit/icon/glyph/editor/warning';
+import EditorWarningIcon from '@atlaskit/icon/utility/migration/warning--editor-warning';
 import { messages } from '@atlaskit/media-ui';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -17,8 +17,9 @@ export const FailedTitleBox: React.FC<FailedTitleBoxProps> = ({
 			<ErrorMessageWrapper>
 				<EditorWarningIcon
 					label={'Warning'}
-					size={'small'}
-					primaryColor={token('color.text.danger', R300)}
+					LEGACY_size={'small'}
+					LEGACY_margin={`0 ${token('space.negative.025')}`}
+					color={token('color.text.danger', R300)}
 				/>
 				<span>
 					<FormattedMessage {...customMessage} />

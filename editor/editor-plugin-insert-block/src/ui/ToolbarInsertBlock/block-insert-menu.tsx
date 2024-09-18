@@ -33,6 +33,7 @@ export interface BlockInsertMenuProps {
 	togglePlusMenuVisibility(): void;
 	onKeyDown?: React.KeyboardEventHandler;
 	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
+	isFullPageAppearance?: boolean;
 }
 
 export const BlockInsertMenu = (props: BlockInsertMenuProps) => {
@@ -78,6 +79,7 @@ export const BlockInsertMenu = (props: BlockInsertMenuProps) => {
 			togglePlusMenuVisibility={props.togglePlusMenuVisibility}
 			showElementBrowserLink={props.showElementBrowserLink}
 			pluginInjectionApi={props.pluginInjectionApi}
+			isFullPageAppearance={props.isFullPageAppearance}
 		/>
 	);
 };

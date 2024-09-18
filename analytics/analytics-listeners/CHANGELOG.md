@@ -1,5 +1,13 @@
 # @atlaskit/analytics-listeners
 
+## 8.11.1
+
+### Patch Changes
+
+- [#141583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141583)
+  [`2573c7152094d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2573c7152094d) -
+  Package.json dependecies update
+
 ## 8.11.0
 
 ### Minor Changes

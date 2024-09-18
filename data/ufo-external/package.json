@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ufo",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "UFO external part",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -11,7 +11,8 @@
 		"team": "UIP Frontend Observability",
 		"website": {
 			"name": "UFO"
-		}
+		},
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -49,11 +50,8 @@
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
-	"runReact18": true,
 	"devDependencies": {
-		"@testing-library/react": "^12.1.5",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

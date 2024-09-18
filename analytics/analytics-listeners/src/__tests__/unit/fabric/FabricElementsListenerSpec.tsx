@@ -1,254 +1,366 @@
-import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import {
-	AnalyticsContext,
-	AnalyticsListener,
-	withAnalyticsEvents,
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
-import { mount } from 'enzyme';
+	type GasPurePayload,
+	OPERATIONAL_EVENT_TYPE,
+	UI_EVENT_TYPE,
+	TRACK_EVENT_TYPE,
+	SCREEN_EVENT_TYPE,
+} from '@atlaskit/analytics-gas-types';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { render, screen, fireEvent } from '@testing-library/react';
+import cases from 'jest-in-case';
 import React from 'react';
-import {
-	createComponentWithAnalytics,
-	createComponentWithAttributesWithAnalytics,
-	createTaggedComponentWithAnalytics,
-	type OwnProps,
-} from '../../../../examples/helpers';
-import FabricElementsListener, { ELEMENTS_TAG } from '../../../fabric/FabricElementsListener';
+import { createButtonWithAnalytics } from '../../../../examples/helpers';
 import type Logger from '../../../helpers/logger';
+import PeopleTeamsAnalyticsListener from '../../../peopleTeams/PeopleTeamsAnalyticsListener';
 import { type AnalyticsWebClient, FabricChannel } from '../../../types';
-import { createLoggerMock } from '../../_testUtils';
+import { createAnalyticsContexts, createLoggerMock } from '../../_testUtils';
 
-const DummyCompWithAttributesWithAnalytics = createComponentWithAttributesWithAnalytics(
-	FabricChannel.elements,
-);
+type CaseArgs = {
+	name: string;
+	eventPayload: GasPurePayload;
+	clientPayload: GasPurePayload;
+	eventType?: string;
+	context: any[];
+};
 
-const DummyElementsComp = createComponentWithAnalytics(FabricChannel.elements);
-const DummyTaggedElementsComp = createTaggedComponentWithAnalytics(
-	FabricChannel.elements,
-	ELEMENTS_TAG,
-);
-
-describe('<FabricElementsListener />', () => {
-	let analyticsWebClientMock: AnalyticsWebClient;
-	let loggerMock: Logger;
+describe('PeopleTeamsAnalyticsListener', () => {
+	const analyticsWebClientMock: AnalyticsWebClient = {
+		sendUIEvent: jest.fn(),
+		sendOperationalEvent: jest.fn(),
+		sendTrackEvent: jest.fn(),
+		sendScreenEvent: jest.fn(),
+	};
+	const loggerMock: Logger = createLoggerMock();
 
 	beforeEach(() => {
-		analyticsWebClientMock = {
-			sendUIEvent: jest.fn(),
-			sendOperationalEvent: jest.fn(),
-			sendTrackEvent: jest.fn(),
-			sendScreenEvent: jest.fn(),
-		};
-		loggerMock = createLoggerMock();
+		jest.resetAllMocks();
 	});
 
-	const fireAndVerifySentEvent = (Component: React.ComponentType<OwnProps>, expectedEvent: any) => {
-		const compOnClick = jest.fn();
-		const component = mount(
-			<FabricElementsListener client={analyticsWebClientMock} logger={loggerMock}>
-				<Component onClick={compOnClick} />
-			</FabricElementsListener>,
+	it('should register an Analytics listener on the peopleTeams channel', () => {
+		render(
+			<PeopleTeamsAnalyticsListener client={analyticsWebClientMock} logger={loggerMock}>
+				<div data-testid="peopleTeams-listener" />
+			</PeopleTeamsAnalyticsListener>,
 		);
 
-		const analyticsListener = component.find(AnalyticsListener);
-		expect(analyticsListener.props()).toHaveProperty('channel', FabricChannel.elements);
+		expect(screen.getByTestId('peopleTeams-listener')).toBeInTheDocument();
+	});
 
-		const dummy = analyticsListener.find('#dummy');
-		dummy.simulate('click');
+	cases(
+		'should transform events from analyticsListener and fire UI and Operational events to the analyticsWebClient',
+		(
+			{ eventPayload, clientPayload, eventType = UI_EVENT_TYPE, context = [] }: CaseArgs,
+			done: Function,
+		) => {
+			const spy = jest.fn();
+			const ButtonWithAnalytics = createButtonWithAnalytics(
+				eventPayload,
+				FabricChannel.peopleTeams,
+			);
+			const AnalyticsContexts = createAnalyticsContexts(context);
 
-		expect(analyticsWebClientMock.sendUIEvent).toBeCalledWith(expectedEvent);
-	};
-
-	describe('Listen and fire an UI event with analyticsWebClient', () => {
-		it('should fire event with elements tag', () => {
-			fireAndVerifySentEvent(DummyElementsComp, {
-				action: 'someAction',
-				actionSubject: 'someComponent',
-				source: 'unknown',
-				tags: [ELEMENTS_TAG],
-			});
-		});
-
-		it('should fire event without duplicating the tag', () => {
-			fireAndVerifySentEvent(DummyTaggedElementsComp, {
-				action: 'someAction',
-				actionSubject: 'someComponent',
-				source: 'unknown',
-				tags: [ELEMENTS_TAG, 'foo'],
-			});
-		});
-
-		it('should fire event with context merged into the attributes', () => {
-			const component = mount(
-				<FabricElementsListener client={analyticsWebClientMock} logger={loggerMock}>
-					<FabricElementsAnalyticsContext data={{ issueId: 100, greeting: 'hello' }}>
-						<AnalyticsContext data={{ issueId: 200, msg: 'boo' }}>
-							<FabricElementsAnalyticsContext data={{ issueId: 300 }}>
-								<DummyCompWithAttributesWithAnalytics onClick={jest.fn()} />
-							</FabricElementsAnalyticsContext>
-						</AnalyticsContext>
-					</FabricElementsAnalyticsContext>
-				</FabricElementsListener>,
+			render(
+				<PeopleTeamsAnalyticsListener client={analyticsWebClientMock} logger={loggerMock}>
+					<AnalyticsListener channel="peopleTeams" onEvent={() => {}}>
+						<AnalyticsContexts>
+							<ButtonWithAnalytics onClick={spy} />
+						</AnalyticsContexts>
+					</AnalyticsListener>
+				</PeopleTeamsAnalyticsListener>,
 			);
 
-			const analyticsListener = component.find(AnalyticsListener);
-			const dummy = analyticsListener.find('#dummy');
-			dummy.simulate('click');
+			const dummyButton = screen.getByRole('button', { name: 'Test [click on me]' });
+			fireEvent.click(dummyButton);
 
-			// note: AnalyticsContext data should not be in propagated in the attributes, only FabricElementsAnalyticsContext
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalledWith(
-				expect.objectContaining({
-					action: 'someAction',
-					actionSubject: 'someComponent',
-					source: 'unknown',
-					attributes: {
-						packageName: '@atlaskit/foo',
-						packageVersion: '1.0.0',
-						componentName: 'foo',
-						fooBar: 'yay',
-						greeting: 'hello',
-						issueId: 300, // right most object attribute wins the conflict
-					},
-					tags: [ELEMENTS_TAG],
-				}),
-			);
-		});
+			let mockFn = analyticsWebClientMock.sendUIEvent;
 
-		describe('with source from context', () => {
-			class DummyComponent extends React.Component<WithAnalyticsEventsProps> {
-				render() {
-					return (
-						<div
-							onClick={() =>
-								this.props.createAnalyticsEvent &&
-								this.props
-									.createAnalyticsEvent({
-										action: 'some-action',
-										actionSubject: 'some-component',
-										eventType: 'ui',
-									})
-									.fire(FabricChannel.elements)
-							}
-						/>
-					);
-				}
+			if (eventType === OPERATIONAL_EVENT_TYPE) {
+				mockFn = analyticsWebClientMock.sendOperationalEvent;
 			}
 
-			const DummyComponentWithAnalytics: React.ComponentType<{}> = withAnalyticsEvents({})(
-				DummyComponent,
-			);
+			if (eventType === TRACK_EVENT_TYPE) {
+				mockFn = analyticsWebClientMock.sendTrackEvent;
+			}
 
-			it('should fire event with source from the context', () => {
-				const component = mount(
-					<AnalyticsContext data={{ source: 'jira-issue' }}>
-						<FabricElementsListener client={analyticsWebClientMock} logger={loggerMock}>
-							<DummyComponentWithAnalytics />
-						</FabricElementsListener>
-					</AnalyticsContext>,
-				);
+			if (eventType === SCREEN_EVENT_TYPE) {
+				analyticsWebClientMock.sendScreenEvent;
+			}
 
-				component.find(DummyComponent).find('div').simulate('click');
-
-				expect(analyticsWebClientMock.sendUIEvent).toBeCalledWith(
-					expect.objectContaining({
-						action: 'some-action',
-						actionSubject: 'some-component',
-						source: 'jira-issue',
-					}),
-				);
+			window.setTimeout(() => {
+				expect((mockFn as any).mock.calls[0][0]).toMatchObject(clientPayload);
+				done();
 			});
+		},
+		[
+			{
+				name: 'basic',
+				eventPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					eventType: UI_EVENT_TYPE,
+				},
+				context: [{ source: 'peopleTeams' }],
+				clientPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					attributes: {
+						sourceHierarchy: 'peopleTeams',
+						componentHierarchy: undefined,
+						packageHierarchy: undefined,
+						packageName: undefined,
+						packageVersion: undefined,
+					},
+					source: 'peopleTeams',
+					tags: ['peopleTeams'],
+				},
+			},
+			{
+				name: 'withSources',
+				eventPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					eventType: UI_EVENT_TYPE,
+				},
+				context: [
+					{ source: 'issuesPage' },
+					{ peopleTeamsCtx: { source: 'peopleTeamsNext' } },
+					{ peopleTeamsCtx: { source: 'globalpeopleTeams' } },
+					{ peopleTeamsCtx: { source: 'searchDrawer' } },
+				],
+				clientPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					attributes: {
+						sourceHierarchy: 'issuesPage.peopleTeamsNext.globalpeopleTeams.searchDrawer',
+						packageHierarchy: undefined,
+						componentHierarchy: undefined,
+						packageName: undefined,
+						packageVersion: undefined,
+					},
+					source: 'searchDrawer',
+					tags: ['peopleTeams'],
+				},
+			},
+			{
+				name: 'withPackageInfo',
+				eventPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					eventType: UI_EVENT_TYPE,
+				},
+				context: [
+					{
+						peopleTeamsCtx: {
+							packageName: '@atlaskit/peopleTeams-next',
+							packageVersion: '0.0.7',
+						},
+					},
+					{
+						source: 'globalpeopleTeams',
+						packageName: '@atlaskit/global-peopleTeams',
+						packageVersion: '0.0.4',
+					},
+				],
+				clientPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					attributes: {
+						sourceHierarchy: 'globalpeopleTeams',
+						packageHierarchy: '@atlaskit/peopleTeams-next@0.0.7,@atlaskit/global-peopleTeams@0.0.4',
+						componentHierarchy: undefined,
+						packageName: '@atlaskit/global-peopleTeams',
+						packageVersion: '0.0.4',
+					},
+					source: 'globalpeopleTeams',
+					tags: ['peopleTeams'],
+				},
+			},
+			{
+				name: 'withComponentInfo',
+				eventPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					eventType: UI_EVENT_TYPE,
+				},
+				context: [
+					{ component: 'peopleTeamsNext', source: 'peopleTeams' },
+					{ peopleTeamsCtx: { component: 'globalpeopleTeams' } },
+					{ component: 'globalItem' },
+				],
+				clientPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					attributes: {
+						sourceHierarchy: 'peopleTeams',
+						packageHierarchy: undefined,
+						componentHierarchy: 'peopleTeamsNext.globalpeopleTeams.globalItem',
+						packageName: undefined,
+						packageVersion: undefined,
+					},
+					source: 'peopleTeams',
+					tags: ['peopleTeams'],
+				},
+			},
+			{
+				name: 'extraAttributesViaContext',
+				eventPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					attributes: {
+						a: 'b',
+						c: {
+							d: 'e',
+							z: 'y',
+						},
+					},
+					eventType: UI_EVENT_TYPE,
+				},
+				context: [
+					{ component: 'peopleTeamsNext', source: 'peopleTeams' },
+					{
+						peopleTeamsCtx: {
+							component: 'globalpeopleTeams',
+							attributes: { f: 'l', c: { m: 'n' } },
+						},
+					},
+					{
+						peopleTeamsCtx: {
+							component: 'globalItem',
+							attributes: { f: 'g', c: { h: 'i', z: 'x' } },
+						},
+					},
+					{
+						component: 'insideGlobalItem',
+						attributes: { f: 'z', c: { y: 'w', v: 'u' } },
+					},
+				],
+				clientPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					attributes: {
+						sourceHierarchy: 'peopleTeams',
+						packageHierarchy: undefined,
+						componentHierarchy: 'peopleTeamsNext.globalpeopleTeams.globalItem.insideGlobalItem',
+						packageName: undefined,
+						packageVersion: undefined,
+						a: 'b',
+						c: {
+							d: 'e',
+							h: 'i',
+							m: 'n',
+							z: 'y',
+						},
+						f: 'g',
+					},
+					source: 'peopleTeams',
+					tags: ['peopleTeams'],
+				},
+			},
+			{
+				name: 'tags',
+				eventPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					tags: ['somethingInteresting'],
+					eventType: UI_EVENT_TYPE,
+				},
+				context: [{ component: 'peopleTeamsNext', source: 'peopleTeams' }],
+				clientPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					attributes: {
+						sourceHierarchy: 'peopleTeams',
+						packageHierarchy: undefined,
+						componentHierarchy: 'peopleTeamsNext',
+						packageName: undefined,
+						packageVersion: undefined,
+					},
+					source: 'peopleTeams',
+					tags: ['somethingInteresting', 'peopleTeams'],
+				},
+			},
+			{
+				name: 'without event type',
+				eventPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+				},
+				context: [{ component: 'peopleTeamsNext', source: 'peopleTeams' }],
+				clientPayload: {
+					action: 'someAction',
+					actionSubject: 'someComponent',
+					actionSubjectId: 'someComponentId',
+					attributes: {
+						sourceHierarchy: 'peopleTeams',
+						packageHierarchy: undefined,
+						componentHierarchy: 'peopleTeamsNext',
+						packageName: undefined,
+						packageVersion: undefined,
+					},
+					source: 'peopleTeams',
+					tags: ['peopleTeams'],
+				},
+			},
 
-			it('should fire event with source and attributes from context', () => {
-				const component = mount(
-					<AnalyticsContext data={{ source: 'jira-issue' }}>
-						<FabricElementsListener client={analyticsWebClientMock} logger={loggerMock}>
-							<FabricElementsAnalyticsContext data={{ ari: 'some-ari' }}>
-								<DummyComponentWithAnalytics />
-							</FabricElementsAnalyticsContext>
-						</FabricElementsListener>
-					</AnalyticsContext>,
-				);
-
-				component.find(DummyComponent).find('div').simulate('click');
-
-				expect(analyticsWebClientMock.sendUIEvent).toBeCalledWith(
-					expect.objectContaining({
-						action: 'some-action',
-						actionSubject: 'some-component',
-						source: 'jira-issue',
-						attributes: expect.objectContaining({
-							ari: 'some-ari',
-						}),
-					}),
-				);
-			});
-
-			it('should use nearest context', () => {
-				const component = mount(
-					<AnalyticsContext data={{ source: 'jira' }}>
-						<AnalyticsContext data={{ source: 'issue' }}>
-							<FabricElementsListener client={analyticsWebClientMock} logger={loggerMock}>
-								<DummyComponentWithAnalytics />
-							</FabricElementsListener>
-						</AnalyticsContext>
-					</AnalyticsContext>,
-				);
-
-				component.find(DummyComponent).find('div').simulate('click');
-
-				expect(analyticsWebClientMock.sendUIEvent).toBeCalledWith(
-					expect.objectContaining({
-						action: 'some-action',
-						actionSubject: 'some-component',
-						source: 'issue',
-					}),
-				);
-			});
-
-			it('should use more specific context', () => {
-				const component = mount(
-					<FabricElementsListener client={analyticsWebClientMock} logger={loggerMock}>
-						<AnalyticsContext data={{ source: 'jira' }}>
-							<AnalyticsContext data={{ source: 'issue' }}>
-								<DummyComponentWithAnalytics />
-							</AnalyticsContext>
-						</AnalyticsContext>
-					</FabricElementsListener>,
-				);
-
-				component.find(DummyComponent).find('div').simulate('click');
-
-				expect(analyticsWebClientMock.sendUIEvent).toBeCalledWith(
-					expect.objectContaining({
-						action: 'some-action',
-						actionSubject: 'some-component',
-						source: 'issue',
-					}),
-				);
-			});
-
-			it('should set unknown when no source is provided', () => {
-				const component = mount(
-					<FabricElementsListener client={analyticsWebClientMock} logger={loggerMock}>
-						<FabricElementsAnalyticsContext data={{ ari: 'some-ari' }}>
-							<DummyComponentWithAnalytics />
-						</FabricElementsAnalyticsContext>
-					</FabricElementsListener>,
-				);
-
-				component.find(DummyComponent).find('div').simulate('click');
-
-				expect(analyticsWebClientMock.sendUIEvent).toBeCalledWith(
-					expect.objectContaining({
-						action: 'some-action',
-						actionSubject: 'some-component',
-						source: 'unknown',
-						attributes: expect.objectContaining({
-							ari: 'some-ari',
-						}),
-					}),
-				);
-			});
-		});
-	});
+			{
+				name: 'with operational event type',
+				eventType: OPERATIONAL_EVENT_TYPE,
+				eventPayload: {
+					action: 'initialised',
+					actionSubject: 'someComponent',
+					eventType: OPERATIONAL_EVENT_TYPE,
+				},
+				context: [{ component: 'peopleTeamsNext', source: 'peopleTeams' }],
+				clientPayload: {
+					action: 'initialised',
+					actionSubject: 'someComponent',
+					attributes: {
+						sourceHierarchy: 'peopleTeams',
+						packageHierarchy: undefined,
+						componentHierarchy: 'peopleTeamsNext',
+						packageName: undefined,
+						packageVersion: undefined,
+					},
+					source: 'peopleTeams',
+					tags: ['peopleTeams'],
+				},
+			},
+			{
+				name: 'with track event type',
+				eventType: TRACK_EVENT_TYPE,
+				eventPayload: {
+					action: 'requested',
+					actionSubject: 'someComponent',
+					eventType: TRACK_EVENT_TYPE,
+				},
+				context: [{ component: 'peopleTeamsNext', source: 'peopleTeams' }],
+				clientPayload: {
+					action: 'requested',
+					actionSubject: 'someComponent',
+					attributes: {
+						sourceHierarchy: 'peopleTeams',
+						packageHierarchy: undefined,
+						componentHierarchy: 'peopleTeamsNext',
+						packageName: undefined,
+						packageVersion: undefined,
+					},
+					source: 'peopleTeams',
+					tags: ['peopleTeams'],
+				},
+			},
+		],
+	);
 });

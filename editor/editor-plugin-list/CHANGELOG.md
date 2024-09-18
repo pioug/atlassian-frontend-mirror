@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-list
 
+## 3.8.7
+
+### Patch Changes
+
+- [#141728](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141728)
+  [`4de004a0f879d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4de004a0f879d) -
+  [ux] EDF-1388: Cleanup platform.editor.ordered-list-auto-join-improvements_mrlv5 and paths
+
 ## 3.8.6
 
 ### Patch Changes

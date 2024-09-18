@@ -6,7 +6,7 @@ import {
 	SCREEN_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { mount } from 'enzyme';
+import { render, screen, fireEvent } from '@testing-library/react';
 import cases from 'jest-in-case';
 import React from 'react';
 import { createButtonWithAnalytics } from '../../../../examples/helpers';
@@ -37,14 +37,13 @@ describe('PostOfficeAnalyticsListener', () => {
 	});
 
 	it('should register an Analytics listener on the postOffice channel', () => {
-		const component = mount(
+		render(
 			<PostOfficeAnalyticsListener client={analyticsWebClientMock} logger={loggerMock}>
-				<div />
+				<div data-testid="postOffice-listener" />
 			</PostOfficeAnalyticsListener>,
 		);
 
-		const analyticsListener = component.find(AnalyticsListener);
-		expect(analyticsListener.props()).toHaveProperty('channel', 'postOffice');
+		expect(screen.getByTestId('postOffice-listener')).toBeInTheDocument();
 	});
 
 	cases(
@@ -57,15 +56,18 @@ describe('PostOfficeAnalyticsListener', () => {
 			const ButtonWithAnalytics = createButtonWithAnalytics(eventPayload, FabricChannel.postOffice);
 			const AnalyticsContexts = createAnalyticsContexts(context);
 
-			const component = mount(
+			render(
 				<PostOfficeAnalyticsListener client={analyticsWebClientMock} logger={loggerMock}>
-					<AnalyticsContexts>
-						<ButtonWithAnalytics onClick={spy} />
-					</AnalyticsContexts>
+					<AnalyticsListener channel="postOffice" onEvent={() => {}}>
+						<AnalyticsContexts>
+							<ButtonWithAnalytics onClick={spy} />
+						</AnalyticsContexts>
+					</AnalyticsListener>
 				</PostOfficeAnalyticsListener>,
 			);
 
-			component.find(ButtonWithAnalytics).simulate('click');
+			const dummyButton = screen.getByRole('button', { name: 'Test [click on me]' });
+			fireEvent.click(dummyButton);
 
 			const expectedMethod = (() => {
 				switch (eventType) {

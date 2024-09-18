@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-	fireEvent,
-	render,
-	screen,
-	waitFor,
-	waitForElementToBeRemoved,
-} from '@testing-library/react';
+import { fireEvent, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 
@@ -21,7 +15,6 @@ describe('Drawer primitive', () => {
 		testId: 'test',
 		width: 'wide' as DrawerWidth,
 		in: true,
-		shouldUnmountOnExit: false,
 		label: 'Default drawer',
 		onClose: () => null,
 	};
@@ -77,58 +70,6 @@ describe('Drawer primitive', () => {
 		expect(screen.getByRole('button', { name: closeLabel })).toBeInTheDocument();
 	});
 
-	it('should unmount the node if receives shouldUnmountOnExit prop', async () => {
-		const props = { ...commonProps, shouldUnmountOnExit: true };
-
-		const { rerender } = render(
-			<DrawerPrimitive {...props}>
-				<DrawerContent />
-			</DrawerPrimitive>,
-		);
-		expect(screen.getByTestId('test')).toBeInTheDocument();
-
-		rerender(
-			<DrawerPrimitive {...props} in={false}>
-				<DrawerContent />
-			</DrawerPrimitive>,
-		);
-
-		await waitFor(() => expect(screen.queryByTestId('test')).not.toBeInTheDocument());
-	});
-
-	/**
-	 * TODO:
-	 * Worked on the primitive until now, but not the exported drawer component
-	 * since version 4.1.4 was released 3 years ago.
-	 * i.e. the exported drawer will ALWAYS unmount on exit.
-	 *
-	 * This test's coverage isn't very useful, and the behavior it checks is hard
-	 * to replicate with motion (which relies on unmounting for exit animations).
-	 *
-	 * See: https://atlaskit.atlassian.com/examples/design-system/drawer/retain-drawer-contents-on-close,
-	 * which is broken on version 4.1.4+ of drawer.
-	 */
-	it.skip('should NOT unmount the node if shouldUnmountOnExit is false', async () => {
-		const onCloseComplete = jest.fn();
-		const props = { ...commonProps, onCloseComplete };
-
-		const { rerender } = render(
-			<DrawerPrimitive {...props}>
-				<DrawerContent />
-			</DrawerPrimitive>,
-		);
-		expect(screen.getByTestId('test')).toBeInTheDocument();
-
-		rerender(
-			<DrawerPrimitive {...props} in={false}>
-				<DrawerContent />
-			</DrawerPrimitive>,
-		);
-
-		await waitFor(() => expect(onCloseComplete).toHaveBeenCalled());
-		expect(screen.getByTestId('test')).toBeInTheDocument();
-	});
-
 	it('should render with medium width', () => {
 		const props = { ...commonProps, width: 'medium' as DrawerWidth };
 		render(
@@ -163,7 +104,6 @@ describe('Drawer primitive', () => {
 		const props = {
 			...commonProps,
 			onCloseComplete,
-			shouldUnmountOnExit: true,
 		};
 
 		const { rerender } = render(

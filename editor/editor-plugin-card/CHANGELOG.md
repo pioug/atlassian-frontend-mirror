@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 3.0.3
+
+### Patch Changes
+
+- [#142202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142202)
+  [`bd97acf1388d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd97acf1388d4) -
+  Fix edit datasource option not available on links with empty result or invalid jql
+
 ## 3.0.2
 
 ### Patch Changes

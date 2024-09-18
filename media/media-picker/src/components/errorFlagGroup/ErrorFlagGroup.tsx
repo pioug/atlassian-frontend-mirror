@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
-import FailIcon from '@atlaskit/icon/glyph/cross-circle';
+import FailIcon from '@atlaskit/icon/core/migration/cross-circle';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -56,7 +56,12 @@ const FlagGroupContent = ({ flagData, onFlagDismissed }: ErrorFlagGroupProps) =>
 				<AutoDismissFlag
 					id={i}
 					icon={
-						<FailIcon primaryColor={token('color.icon.danger', R300)} label="Fail" size="medium" />
+						<FailIcon
+							color={token('color.icon.danger', R300)}
+							label="Fail"
+							LEGACY_size="medium"
+							spacing="spacious"
+						/>
 					}
 					key={i}
 					title={intl.formatMessage(errorFlagMessages.errorTitle)}

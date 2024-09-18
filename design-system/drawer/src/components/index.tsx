@@ -49,7 +49,6 @@ export const Drawer = ({
 	icon,
 	closeLabel,
 	scrollContentLabel,
-	shouldUnmountOnExit,
 	onCloseComplete,
 	onOpenComplete,
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
@@ -143,7 +142,6 @@ export const Drawer = ({
 				enterFrom={enterFrom}
 				label={label}
 				titleId={titleId}
-				shouldUnmountOnExit={shouldUnmountOnExit}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 				overrides={overrides}
 				autoFocusFirstElem={autoFocusFirstElem}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "197.7.6",
+	"version": "197.8.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,12 +45,12 @@
 		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/editor-common": "^89.3.0",
 		"@atlaskit/editor-json-transformer": "^8.18.0",
-		"@atlaskit/editor-plugins": "^5.2.0",
+		"@atlaskit/editor-plugins": "^5.3.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/emoji": "^67.7.0",
 		"@atlaskit/icon": "^22.18.0",
-		"@atlaskit/media-card": "^78.4.0",
+		"@atlaskit/media-card": "^78.5.0",
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.10.0",
@@ -94,10 +94,10 @@
 		"@atlaskit/logo": "^14.2.0",
 		"@atlaskit/media-core": "^34.3.0",
 		"@atlaskit/media-integration-test-helpers": "^3.1.0",
-		"@atlaskit/media-test-helpers": "^34.3.0",
-		"@atlaskit/modal-dialog": "^12.15.0",
+		"@atlaskit/media-test-helpers": "^34.4.0",
+		"@atlaskit/modal-dialog": "^12.16.0",
 		"@atlaskit/primitives": "^12.1.0",
-		"@atlaskit/renderer": "^110.1.0",
+		"@atlaskit/renderer": "^110.2.0",
 		"@atlaskit/smart-card": "^28.1.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.4.0",
@@ -105,7 +105,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.133",
+		"@atlassian/search-provider": "2.4.134",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -207,10 +207,6 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform.editor.table.use-increased-scaling-percent": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
 		"platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -273,11 +269,14 @@
 			"type": "boolean"
 		},
 		"platform_editor_nest_in_quotes_adf_change": {
-			"type": "boolean",
-			"referenceOnly": true
+			"type": "boolean"
 		},
 		"platform_editor_mark_boundary_cursor": {
 			"type": "boolean"
+		},
+		"platform_editor_action_decisions_ssr_fix": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"stricter": {
@@ -302,6 +301,8 @@
 		"./use-preset": "./src/use-preset.ts",
 		"./use-preset-context": "./src/presets/context.tsx",
 		"./preset-builder": "./src/preset-builder.ts",
+		"./appearance-editor-full-page": "./src/editor-appearances/FullPageEditor.tsx",
+		"./appearance-editor-full-width": "./src/editor-appearances/FullWidthEditor.tsx",
 		"./version-wrapper": "./src/version-wrapper.ts"
 	},
 	"exports": {
@@ -322,6 +323,8 @@
 		"./use-preset": "./src/use-preset.ts",
 		"./use-preset-context": "./src/presets/context.tsx",
 		"./preset-builder": "./src/preset-builder.ts",
+		"./appearance-editor-full-page": "./src/editor-appearances/FullPageEditor.tsx",
+		"./appearance-editor-full-width": "./src/editor-appearances/FullWidthEditor.tsx",
 		"./version-wrapper": "./src/version-wrapper.ts",
 		"./package.json": "./package.json"
 	}

@@ -39,6 +39,7 @@ const InsertMenu = ({
 	onInsert,
 	toggleVisiblity,
 	pluginInjectionApi,
+	isFullPageAppearance,
 }: InsertMenuProps) => {
 	const [itemCount, setItemCount] = useState(0);
 
@@ -73,7 +74,7 @@ const InsertMenu = ({
 			if (!editorView.hasFocus()) {
 				editorView.focus();
 			}
-			if (editorExperiment('insert-menu-in-right-rail', true)) {
+			if (isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true)) {
 				pluginInjectionApi?.quickInsert?.actions.insertItem(
 					item,
 					// @ts-expect-error
@@ -86,7 +87,7 @@ const InsertMenu = ({
 				);
 			}
 		},
-		[editorView, toggleVisiblity, pluginInjectionApi],
+		[editorView, toggleVisiblity, pluginInjectionApi, isFullPageAppearance],
 	);
 
 	const getItems = useCallback(
@@ -110,10 +111,11 @@ const InsertMenu = ({
 						category,
 						featuredItems: true,
 						// @ts-ignore
-						templateItems: editorExperiment('element-level-templates', true),
+						templateItems:
+							isFullPageAppearance && editorExperiment('element-level-templates', true),
 					}) ?? [];
 
-				if (editorExperiment('element-level-templates', true)) {
+				if (isFullPageAppearance && editorExperiment('element-level-templates', true)) {
 					// Make sure template options appear as top 5 items
 					featuredQuickInsertSuggestions.sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0));
 					const templateItems = featuredQuickInsertSuggestions.splice(0, 5);
@@ -132,7 +134,7 @@ const InsertMenu = ({
 			setItemCount(result.length);
 			return result;
 		},
-		[pluginInjectionApi?.quickInsert?.actions, quickInsertDropdownItems],
+		[pluginInjectionApi?.quickInsert?.actions, quickInsertDropdownItems, isFullPageAppearance],
 	);
 
 	const emptyStateHandler =
@@ -140,7 +142,7 @@ const InsertMenu = ({
 
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-		<div css={insertMenuWrapper(itemCount)}>
+		<div css={insertMenuWrapper(itemCount, isFullPageAppearance)}>
 			<ElementBrowserWrapper
 				handleClickOutside={toggleVisiblity}
 				handleEscapeKeydown={toggleVisiblity}
@@ -190,8 +192,8 @@ const getInsertMenuHeight = ({ itemCount }: { itemCount: number }) => {
 	return 560; // For showing 6 Elements.
 };
 
-const insertMenuWrapper = (itemCount: number) => {
-	if (editorExperiment('insert-menu-in-right-rail', true)) {
+const insertMenuWrapper = (itemCount: number, isFullPageAppearance?: boolean) => {
+	if (isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true)) {
 		return css({
 			display: 'flex',
 			flexDirection: 'column',

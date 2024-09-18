@@ -113,6 +113,7 @@ export interface CardProps extends WithAnalyticsEventsProps {
 	analyticsEvents?: AnalyticsFacade;
 	placeholder?: string;
 	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15021 Internal documentation for deprecation (no external access)}
 	 * When enabled the legacy block card is always used, even if the enableFlexibleBlockCard flag is set to true.
 	 * Usage is strongly discouraged. This should only be used if there is a specific reason you're
 	 * unable to use the new flexible block cards.

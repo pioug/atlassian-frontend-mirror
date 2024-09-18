@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.0.4
+
+### Patch Changes
+
+- [#141778](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141778)
+  [`1c6f578277694`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c6f578277694) -
+  ED-24870 & ED-24864 - Add the logic to gate the nested media in quotes functionality behind the
+  nest-media-and-codeblock-in-quote experiment. Also adjust the logic so the nested expands are now
+  behind the nested-expand-in-expand experiment.
+
 ## 2.0.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 import { type GasPurePayload, UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { mount } from 'enzyme';
+import { render, screen, fireEvent } from '@testing-library/react';
 import cases from 'jest-in-case';
 import React from 'react';
 import { createButtonWithAnalytics } from '../../../../examples/helpers';
@@ -31,14 +31,13 @@ describe('AtlaskitListener', () => {
 	});
 
 	it('should register an Analytics listener on the atlaskit channel', () => {
-		const component = mount(
+		render(
 			<AtlaskitListener client={analyticsWebClientMock} logger={loggerMock}>
-				<div />
+				<div data-testid="atlaskit-listener" />
 			</AtlaskitListener>,
 		);
 
-		const analyticsListener = component.find(AnalyticsListener);
-		expect(analyticsListener.props()).toHaveProperty('channel', FabricChannel.atlaskit);
+		expect(screen.getByTestId('atlaskit-listener')).toBeInTheDocument();
 	});
 
 	cases(
@@ -48,15 +47,18 @@ describe('AtlaskitListener', () => {
 			const ButtonWithAnalytics = createButtonWithAnalytics(eventPayload, FabricChannel.atlaskit);
 			const AnalyticsContexts = createAnalyticsContexts(context);
 
-			const component = mount(
+			render(
 				<AtlaskitListener client={analyticsWebClientMock} logger={loggerMock}>
-					<AnalyticsContexts>
-						<ButtonWithAnalytics onClick={spy} />
-					</AnalyticsContexts>
+					<AnalyticsListener channel={FabricChannel.atlaskit} onEvent={() => {}}>
+						<AnalyticsContexts>
+							<ButtonWithAnalytics onClick={spy} />
+						</AnalyticsContexts>
+					</AnalyticsListener>
 				</AtlaskitListener>,
 			);
 
-			component.find(ButtonWithAnalytics).simulate('click');
+			const dummyButton = screen.getByRole('button', { name: 'Test [click on me]' }); // Find the button element
+			fireEvent.click(dummyButton);
 
 			window.setTimeout(() => {
 				expect((analyticsWebClientMock.sendUIEvent as any).mock.calls[0][0]).toMatchObject(

@@ -3,7 +3,7 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { N40 } from '@atlaskit/theme/colors';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import Button from '@atlaskit/button/custom-theme-button';
 import { messages } from '@atlaskit/media-ui';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -24,7 +24,7 @@ const MediaDownloadButton = (props: Props & WrappedComponentProps) => {
 		<Button
 			appearance="subtle"
 			testId="download-button"
-			iconAfter={<DownloadIcon label={formatMessage(messages.download)} />}
+			iconAfter={<DownloadIcon color="currentColor" label={formatMessage(messages.download)} />}
 			onKeyPress={(event) => event.stopPropagation()}
 			onClick={(event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
 				analyticsEvent

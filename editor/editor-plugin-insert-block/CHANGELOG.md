@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.0.1
+
+### Patch Changes
+
+- [#142202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142202)
+  [`030b6385e8e47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/030b6385e8e47) -
+  Add disabled state for right rail experiment, and add appearance checks for experiments
+
 ## 2.0.0
 
 ### Major Changes

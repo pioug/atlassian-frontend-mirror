@@ -5,7 +5,7 @@ import { ImageComponent } from './styled';
 import { getCssFromImageOrientation, isRotated } from '../imageMetaData';
 
 export interface MediaImageProps {
-	dataURI: string;
+	dataURI?: string;
 	alt?: string;
 	crop?: boolean;
 	stretch?: boolean;
@@ -410,7 +410,7 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
 			}
 		}
 
-		if (!showImage) {
+		if (!showImage || !dataURI) {
 			style.display = 'none';
 		}
 

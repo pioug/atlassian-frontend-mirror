@@ -451,9 +451,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				!!this.props.options?.isTableScalingEnabled && tableWithFixedColumnWidthsOption;
 
 			const shouldUseIncreasedScalingPercent =
-				(isTableScalingWithFixedColumnWidthsOptionEnabled &&
-					fg('platform.editor.table.use-increased-scaling-percent')) ||
-				// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
+				isTableScalingWithFixedColumnWidthsOptionEnabled ||
 				(!!this.props.options?.isTableScalingEnabled && !!this.props.options?.isCommentEditor);
 
 			if (force || (!isResizing && shouldUpdateColgroup)) {
@@ -555,8 +553,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const isTableScalingWithFixedColumnWidthsOptionEnabled =
 			!!isTableScalingEnabled && tableWithFixedColumnWidthsOption;
 		const shouldUseIncreasedScalingPercent =
-			(isTableScalingWithFixedColumnWidthsOptionEnabled &&
-				fg('platform.editor.table.use-increased-scaling-percent')) ||
+			isTableScalingWithFixedColumnWidthsOptionEnabled ||
 			(!!isTableScalingEnabled && !!this.props.options?.isCommentEditor);
 
 		if (
@@ -850,9 +847,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		const shouldUseIncreasedScalingPercent =
 			!!isTableScalingEnabled &&
-			((tableWithFixedColumnWidthsOption &&
-				fg('platform.editor.table.use-increased-scaling-percent')) ||
-				!!this.props.options?.isCommentEditor);
+			(tableWithFixedColumnWidthsOption || !!this.props.options?.isCommentEditor);
 
 		return (
 			<TableContainer

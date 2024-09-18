@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.20.0
+
+### Minor Changes
+
+- [#142315](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142315)
+  [`4810530a99092`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4810530a99092) -
+  Add `no-dark-theme-vr-tests` rule
+
 ## 10.19.0
 
 ### Minor Changes

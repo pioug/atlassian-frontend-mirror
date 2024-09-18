@@ -104,7 +104,13 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import {
+	blockquote,
+	code_block,
+	doc,
+	p,
+	unsupportedNodeAttribute,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { media, mediaGroup, mention } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -177,9 +183,7 @@ describe('@atlaskit/editor-core', () => {
 		(fireAnalyticsEvent as jest.Mock).mockReturnValue(mockFire);
 	});
 
-	afterEach(() => {
-		jest.clearAllMocks();
-	});
+	afterEach(jest.clearAllMocks);
 
 	describe('<ReactEditorView />', () => {
 		it('should place the initial selection at the end of the document', () => {
@@ -1513,13 +1517,18 @@ describe('@atlaskit/editor-core', () => {
 				fg('editor_load_conf_collab_docs_without_checks');
 				const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
 				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
-				createEditorFactory()({
+				const { editorView } = createEditorFactory()({
 					editorProps: {
 						defaultValue: mockDocument,
 					},
 				});
 
-				expect(processRawValueSpy).toHaveBeenCalled();
+				expect(processRawValueSpy).toHaveBeenCalledTimes(1);
+
+				expect(editorView.state.doc.toJSON()).toEqual({
+					...mockDocument,
+					version: undefined,
+				});
 			});
 
 			it('When setup with the collab plugin -- should not call processRawValue', () => {
@@ -1529,7 +1538,8 @@ describe('@atlaskit/editor-core', () => {
 					ProcessRawValueModule,
 					'processRawValueWithoutTransformation',
 				);
-				createEditorFactory()({
+
+				const { editorView } = createEditorFactory()({
 					editorProps: {
 						defaultValue: mockDocument,
 						collabEdit: {},
@@ -1537,7 +1547,36 @@ describe('@atlaskit/editor-core', () => {
 				});
 
 				expect(processRawValueSpy).not.toHaveBeenCalled();
-				expect(processRawValueWithoutTransformationSpy).toHaveBeenCalled();
+				expect(processRawValueWithoutTransformationSpy).toHaveBeenCalledTimes(1);
+
+				expect(editorView.state.doc.toJSON()).toEqual({
+					...mockDocument,
+					version: undefined,
+				});
+			});
+
+			it('When setup with the collab plugin -- with string document', () => {
+				const mockDocument =
+					'{"type":"doc","content":[{"type":"blockquote","content":[{"type":"codeBlock","attrs":{"language":null,"uniqueId":null}}]}]}';
+				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
+				const processRawValueWithoutTransformationSpy = jest.spyOn(
+					ProcessRawValueModule,
+					'processRawValueWithoutTransformation',
+				);
+
+				const { editorView } = createEditorFactory()({
+					editorProps: {
+						defaultValue: mockDocument,
+						collabEdit: {},
+					},
+				});
+
+				expect(processRawValueSpy).not.toHaveBeenCalled();
+				expect(processRawValueWithoutTransformationSpy).toHaveBeenCalledTimes(1);
+
+				expect(editorView.state.doc.toJSON()).toEqual(
+					doc(blockquote(code_block()()))(defaultSchema).toJSON(),
+				);
 			});
 		},
 	);
@@ -1552,13 +1591,18 @@ describe('@atlaskit/editor-core', () => {
 				const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
 				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
 
-				createEditorFactory()({
+				const { editorView } = createEditorFactory()({
 					editorProps: {
 						defaultValue: mockDocument,
 					},
 				});
 
-				expect(processRawValueSpy).toHaveBeenCalled();
+				expect(processRawValueSpy).toHaveBeenCalledTimes(1);
+
+				expect(editorView.state.doc.toJSON()).toEqual({
+					...mockDocument,
+					version: undefined,
+				});
 			});
 
 			it('When setup with the collab plugin -- should call processRawValue', () => {
@@ -1568,15 +1612,54 @@ describe('@atlaskit/editor-core', () => {
 					ProcessRawValueModule,
 					'processRawValueWithoutTransformation',
 				);
-				createEditorFactory()({
+
+				const { editorView } = createEditorFactory()({
 					editorProps: {
 						defaultValue: mockDocument,
 						collabEdit: {},
 					},
 				});
 
-				expect(processRawValueSpy).toHaveBeenCalled();
+				expect(processRawValueSpy).toHaveBeenCalledTimes(1);
 				expect(processRawValueWithoutTransformationSpy).not.toHaveBeenCalled();
+
+				expect(editorView.state.doc.toJSON()).toEqual({
+					...mockDocument,
+					version: undefined,
+				});
+			});
+
+			ffTest.on('platform_editor_nest_in_quotes_adf_change', '', () => {
+				it('When setup with the collab plugin -- with string document', () => {
+					const mockDocument =
+						'{"type":"doc","content":[{"type":"blockquote","content":[{"type":"codeBlock","attrs":{"language":null,"uniqueId":null}}]}]}';
+					const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
+					const processRawValueWithoutTransformationSpy = jest.spyOn(
+						ProcessRawValueModule,
+						'processRawValueWithoutTransformation',
+					);
+
+					const { editorView } = createEditorFactory()({
+						editorProps: {
+							defaultValue: mockDocument,
+							collabEdit: {},
+						},
+					});
+
+					expect(processRawValueSpy).toHaveBeenCalledTimes(1);
+					expect(processRawValueWithoutTransformationSpy).not.toHaveBeenCalled();
+
+					expect(editorView.state.doc.toJSON()).toEqual(
+						doc(
+							blockquote(
+								unsupportedNodeAttribute({
+									type: { nodeType: 'codeBlock' },
+									unsupported: { uniqueId: null },
+								})(code_block()()),
+							),
+						)(defaultSchema).toJSON(),
+					);
+				});
 			});
 		},
 	);

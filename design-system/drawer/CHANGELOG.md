@@ -1,5 +1,14 @@
 # @atlaskit/drawer
 
+## 9.0.0
+
+### Major Changes
+
+- [#142249](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142249)
+  [`fee9fd211df7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fee9fd211df7b) -
+  Remove deprecated prop `shouldUnmountOnExit` which was deprecated in version 7.1.9. This prop can
+  be safely removed from your code as it has been non-functional for several years.
+
 ## 8.0.0
 
 ### Major Changes

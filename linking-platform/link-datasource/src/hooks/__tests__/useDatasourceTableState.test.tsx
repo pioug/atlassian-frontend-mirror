@@ -1157,60 +1157,33 @@ describe('useDatasourceTableState', () => {
 				asMock(captureException).mockReset();
 			});
 
-			describe('when getDatasourceData fails with an `Error`, it should log to Splunk and log to Sentry conditionally based on FF', () => {
-				ffTest(
-					'platform.linking-platform.datasources.enable-sentry-client',
-					async () => {
-						const mockError = new Error('Mock error');
-						asMock(getDatasourceData).mockRejectedValueOnce(new Error('Mock error'));
+			describe('when getDatasourceData fails with an `Error`', () => {
+				it('should log to Splunk and log to Sentry', async () => {
+					const mockError = new Error('Mock error');
+					asMock(getDatasourceData).mockRejectedValueOnce(new Error('Mock error'));
 
-						const { waitForNextUpdate } = setup();
-						await waitForNextUpdate();
+					const { waitForNextUpdate } = setup();
+					await waitForNextUpdate();
 
-						expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-							{
-								payload: {
-									action: 'operationFailed',
-									actionSubject: 'datasource',
-									eventType: 'operational',
-									attributes: {
-										errorLocation: 'onNextPage',
-										status: null,
-										traceId: null,
-									},
+					expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+						{
+							payload: {
+								action: 'operationFailed',
+								actionSubject: 'datasource',
+								eventType: 'operational',
+								attributes: {
+									errorLocation: 'onNextPage',
+									status: null,
+									traceId: null,
 								},
 							},
-							EVENT_CHANNEL,
-						);
-						expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
-							datasourceId: mockDatasourceId,
-						});
-					},
-					async () => {
-						const mockError = new Error('Mock error');
-						asMock(getDatasourceData).mockRejectedValueOnce(mockError);
-
-						const { waitForNextUpdate } = setup();
-						await waitForNextUpdate();
-
-						expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-							{
-								payload: {
-									action: 'operationFailed',
-									actionSubject: 'datasource',
-									eventType: 'operational',
-									attributes: {
-										errorLocation: 'onNextPage',
-										status: null,
-										traceId: null,
-									},
-								},
-							},
-							EVENT_CHANNEL,
-						);
-						expect(captureException).toHaveBeenCalledTimes(0);
-					},
-				);
+						},
+						EVENT_CHANNEL,
+					);
+					expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
+						datasourceId: mockDatasourceId,
+					});
+				});
 			});
 
 			it('when getDatasourceData fails with a `Response`, it should log to Splunk and log to Sentry conditionally based on FF', async () => {
@@ -1242,74 +1215,40 @@ describe('useDatasourceTableState', () => {
 				expect(captureException).toHaveBeenCalledTimes(0);
 			});
 
-			describe('when `getDatasourceDetails` fails with an `Error`, it should log to Splunk and log to Sentry conditionally based on FF', () => {
-				ffTest(
-					'platform.linking-platform.datasources.enable-sentry-client',
-					async () => {
-						const mockError = new Error('Mock error');
-						asMock(getDatasourceData).mockResolvedValueOnce({
-							...mockDatasourceDataResponseWithSchema,
-						});
-						asMock(getDatasourceDetails).mockRejectedValueOnce(new Error('Mock error'));
+			describe('when `getDatasourceDetails` fails with an `Error`', () => {
+				it('should log to Splunk and log to Sentry', async () => {
+					const mockError = new Error('Mock error');
+					asMock(getDatasourceData).mockResolvedValueOnce({
+						...mockDatasourceDataResponseWithSchema,
+					});
+					asMock(getDatasourceDetails).mockRejectedValueOnce(new Error('Mock error'));
 
-						const { result, waitForNextUpdate } = setup();
-						await waitForNextUpdate();
-						act(() => {
-							result.current.loadDatasourceDetails();
-						});
-						await waitForNextUpdate();
+					const { result, waitForNextUpdate } = setup();
+					await waitForNextUpdate();
+					act(() => {
+						result.current.loadDatasourceDetails();
+					});
+					await waitForNextUpdate();
 
-						expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-							{
-								payload: {
-									action: 'operationFailed',
-									actionSubject: 'datasource',
-									eventType: 'operational',
-									attributes: {
-										errorLocation: 'loadDatasourceDetails',
-										status: null,
-										traceId: null,
-									},
+					expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+						{
+							payload: {
+								action: 'operationFailed',
+								actionSubject: 'datasource',
+								eventType: 'operational',
+								attributes: {
+									errorLocation: 'loadDatasourceDetails',
+									status: null,
+									traceId: null,
 								},
 							},
-							EVENT_CHANNEL,
-						);
-						expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
-							datasourceId: mockDatasourceId,
-						});
-					},
-					async () => {
-						const mockError = new Error('Mock error');
-						asMock(getDatasourceData).mockResolvedValueOnce({
-							...mockDatasourceDataResponseWithSchema,
-						});
-						asMock(getDatasourceDetails).mockRejectedValueOnce(mockError);
-
-						const { result, waitForNextUpdate } = setup();
-						await waitForNextUpdate();
-						act(() => {
-							result.current.loadDatasourceDetails();
-						});
-						await waitForNextUpdate();
-
-						expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-							{
-								payload: {
-									action: 'operationFailed',
-									actionSubject: 'datasource',
-									eventType: 'operational',
-									attributes: {
-										errorLocation: 'loadDatasourceDetails',
-										status: null,
-										traceId: null,
-									},
-								},
-							},
-							EVENT_CHANNEL,
-						);
-						expect(captureException).toHaveBeenCalledTimes(0);
-					},
-				);
+						},
+						EVENT_CHANNEL,
+					);
+					expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
+						datasourceId: mockDatasourceId,
+					});
+				});
 			});
 
 			it('when `getDatasourceDetails` fails with a `Response`, it should log to Splunk only', async () => {

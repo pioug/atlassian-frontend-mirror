@@ -59,11 +59,6 @@ export interface BaseProps {
 	 */
 	onCloseComplete?: (node: HTMLElement | null) => void;
 	/**
-	 * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release.
-	 * Boolean that controls if drawer should be retained/discarded
-	 */
-	shouldUnmountOnExit?: boolean;
-	/**
 	 * Avoid overrides whenever possible. The `overrides` prop allows granular customisation of the drawer. Both the sidebar and content components can be overridden.
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions

@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 197.8.2
+
+### Patch Changes
+
+- [#141037](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141037)
+  [`0c5cb40ae3a67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c5cb40ae3a67) -
+  Consider string documents when not validating incoming documents in Confluence Cloud
+- Updated dependencies
+
+## 197.8.1
+
+### Patch Changes
+
+- [#142155](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142155)
+  [`9749eb9ba2987`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9749eb9ba2987) -
+  Remove platform.editor.table.use-increased-scaling-percent feature flag
+- Updated dependencies
+
+## 197.8.0
+
+### Minor Changes
+
+- [#142076](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142076)
+  [`b18a99f9877b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b18a99f9877b7) -
+  Introduce new editor components that are decoupled from other appearances: `FullPageEditor` and
+  `FullWidthEditor`. These have a similar API as `ComposableEditor` except have the UI code and
+  state only from the relevant appearance.
+
 ## 197.7.6
 
 ### Patch Changes

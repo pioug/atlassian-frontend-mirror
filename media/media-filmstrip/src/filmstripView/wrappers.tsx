@@ -5,8 +5,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import React, { type ReactNode, type MouseEvent, forwardRef } from 'react';
-import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
-import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
+import ArrowLeft from '@atlaskit/icon/core/migration/arrow-left';
+import ArrowRight from '@atlaskit/icon/core/migration/arrow-right';
 import { MediaFilmStripListItemSelector } from '.';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
@@ -162,7 +162,7 @@ export const ArrowRightWrapper = ({
 export const LeftArrow: React.FC<OnClick> = ({ onClick }: OnClick) => (
 	<ShadowLeft>
 		<ArrowLeftWrapper onClick={onClick}>
-			<ArrowLeft label="left" />
+			<ArrowLeft color="currentColor" spacing="spacious" label="left" />
 		</ArrowLeftWrapper>
 	</ShadowLeft>
 );
@@ -170,7 +170,7 @@ export const LeftArrow: React.FC<OnClick> = ({ onClick }: OnClick) => (
 export const RightArrow: React.FC<OnClick> = ({ onClick }: OnClick) => (
 	<ShadowRight>
 		<ArrowRightWrapper onClick={onClick}>
-			<ArrowRight label="right" />
+			<ArrowRight color="currentColor" spacing="spacious" label="right" />
 		</ArrowRightWrapper>
 	</ShadowRight>
 );

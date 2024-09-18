@@ -3,7 +3,9 @@ import React, { type ReactNode } from 'react';
 import { di } from 'react-magnetic-di';
 
 import { HelperMessage } from '@atlaskit/form';
-import InfoIcon from '@atlaskit/icon/glyph/info';
+import LegacyInfoIcon from '@atlaskit/icon/glyph/info';
+import InfoIcon from '@atlaskit/icon/utility/information';
+import { Box } from '@atlaskit/primitives';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -32,11 +34,15 @@ export const InfoMessages = () => {
 	return infoMessage != null ? (
 		<MessageContainer>
 			<HelperMessage testId="jql-editor-info-message">
-				<InfoIcon
-					label=""
-					primaryColor={token('color.icon.information', colors.B500)}
-					size="small"
-				/>
+				<Box as="span" paddingInlineEnd="space.050">
+					<InfoIcon
+						label=""
+						color={token('color.icon.information', colors.B500)}
+						LEGACY_size="small"
+						LEGACY_fallbackIcon={LegacyInfoIcon}
+						LEGACY_margin="0 -4px 0 0"
+					/>
+				</Box>
 				{infoMessage}
 			</HelperMessage>
 		</MessageContainer>

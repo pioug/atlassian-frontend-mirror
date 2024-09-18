@@ -30,21 +30,30 @@ const LOCAL_STORAGE_DISCOVERY_EXPIRY_IN_MS = 15552000000; // 180 days
  */
 const FeatureDiscovery = ({ children, testId }: FeatureDiscoveryProps) => {
 	const storageClient = useMemo(() => new StorageClient(LOCAL_STORAGE_CLIENT_KEY), []);
+
 	// Set this to `false` if you want to always show the feature discovery pulse.
 	// (or open Application tab in your devtools and delete the relevent row)
-	const discovered = useMemo(
-		() => storageClient.getItem(LOCAL_STORAGE_DISCOVERY_KEY) === LOCAL_STORAGE_DISCOVERY_VALUE,
-		[storageClient],
-	);
+	const discovered = useMemo(() => {
+		try {
+			return storageClient.getItem(LOCAL_STORAGE_DISCOVERY_KEY) === LOCAL_STORAGE_DISCOVERY_VALUE;
+		} catch {
+			// If localStorage is not available, don't show feature discovery component. Treat it as 'discovered'.
+			return true;
+		}
+	}, [storageClient]);
 
 	useEffect(() => {
 		return () => {
 			if (!discovered) {
-				storageClient.setItemWithExpiry(
-					LOCAL_STORAGE_DISCOVERY_KEY,
-					LOCAL_STORAGE_DISCOVERY_VALUE,
-					LOCAL_STORAGE_DISCOVERY_EXPIRY_IN_MS,
-				);
+				try {
+					storageClient.setItemWithExpiry(
+						LOCAL_STORAGE_DISCOVERY_KEY,
+						LOCAL_STORAGE_DISCOVERY_VALUE,
+						LOCAL_STORAGE_DISCOVERY_EXPIRY_IN_MS,
+					);
+				} catch {
+					// silent error
+				}
 			}
 		};
 	}, [storageClient, discovered]);

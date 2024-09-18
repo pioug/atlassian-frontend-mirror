@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import Textfield from '@atlaskit/textfield';
 import { type MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { getMediaFeatureFlags, clearAllLocalFeatureFlags, setLocalFeatureFlag } from './helpers';
-import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
-import HipchatChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
+import SelectClearIcon from '@atlaskit/icon/core/migration/cross-circle--select-clear';
+import HipchatChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down--hipchat-chevron-down';
 import Button from '@atlaskit/button/standard-button';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -143,7 +143,7 @@ const MediaFeatureFlagsDropdown = ({ onFlagChanged }: MediaFeatureFlagsDropdownP
 						{...triggerProps}
 						isSelected={isOpen}
 						onClick={() => setIsOpen(!isOpen)}
-						iconAfter={<HipchatChevronDownIcon label="" size="small" />}
+						iconAfter={<HipchatChevronDownIcon color="currentColor" label="" LEGACY_size="small" />}
 					>
 						Media Feature Flags
 					</Button>
@@ -153,7 +153,9 @@ const MediaFeatureFlagsDropdown = ({ onFlagChanged }: MediaFeatureFlagsDropdownP
 				<Button
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={{ marginLeft: 10 }}
-					iconBefore={<SelectClearIcon label="Star icon" size="small" />}
+					iconBefore={
+						<SelectClearIcon color="currentColor" label="Star icon" LEGACY_size="small" />
+					}
 					onClick={() => {
 						clearAllLocalFeatureFlags();
 						onFlagChanged();

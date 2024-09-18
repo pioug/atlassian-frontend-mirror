@@ -158,7 +158,7 @@ export const SvgViewBase = ({
 						}}
 						ref={imgRef}
 					/>
-					{!!cardPreview && !didSvgRender && (
+					{!didSvgRender && (
 						<ImageRenderer
 							cardPreview={cardPreview}
 							onImageLoad={onPreviewLoad}

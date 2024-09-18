@@ -2,14 +2,20 @@ import React, { type CSSProperties, useCallback } from 'react';
 
 import { LoadingButton } from '@atlaskit/button';
 import { IconButton } from '@atlaskit/button/new';
+import SearchIconOld from '@atlaskit/icon/core/migration/search--editor-search';
 import SearchIcon from '@atlaskit/icon/core/search';
-import SearchIconOld from '@atlaskit/icon/glyph/editor/search';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
 
 const style: CSSProperties = {
 	// Fixes an issue where loading button makes the editor flicker with a scrollbar
 	overflow: 'hidden',
 };
+// Fixes icon margin issus after new icon migration
+const iconStyle = xcss({
+	margin: 'space.050',
+	display: 'flex',
+});
 
 type Props = {
 	isDisabled?: boolean;
@@ -50,7 +56,16 @@ export const BaseSearch = ({ isDisabled, isSearching, label, onSearch }: Props) 
 			onClick={onSearch}
 			onKeyDown={preventRepeatClick}
 			isLoading={isSearching}
-			iconBefore={<SearchIconOld label={''} size={'medium'} />}
+			iconBefore={
+				<Box xcss={iconStyle}>
+					<SearchIconOld
+						color="currentColor"
+						label={''}
+						LEGACY_size={'medium'}
+						LEGACY_margin="-4px"
+					/>
+				</Box>
+			}
 		/>
 	);
 };

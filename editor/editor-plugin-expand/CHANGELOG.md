@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.7.2
+
+### Patch Changes
+
+- [#141778](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141778)
+  [`1c6f578277694`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c6f578277694) -
+  ED-24870 & ED-24864 - Add the logic to gate the nested media in quotes functionality behind the
+  nest-media-and-codeblock-in-quote experiment. Also adjust the logic so the nested expands are now
+  behind the nested-expand-in-expand experiment.
+
+## 2.7.1
+
+### Patch Changes
+
+- [#142108](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142108)
+  [`a1776d86877fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1776d86877fe) -
+  ED-24864 ED-24931 Add logic to handle dragging expands inside and outside of eachother, converting
+  them to and from nested expands when required. Also add experiment gating for nested-dnd.
+
+## 2.7.0
+
+### Minor Changes
+
+- [#141652](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141652)
+  [`1cbce9d217a8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1cbce9d217a8e) -
+  [ux] EDF-1549 AI button added in floating toolbar of panel, table, layout and expand behind
+  experiment.
+
 ## 2.6.5
 
 ### Patch Changes

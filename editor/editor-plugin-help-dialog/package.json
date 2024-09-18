@@ -41,7 +41,7 @@
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/icon": "^22.18.0",
-		"@atlaskit/modal-dialog": "^12.15.0",
+		"@atlaskit/modal-dialog": "^12.16.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/theme": "^13.0.0",

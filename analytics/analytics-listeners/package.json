@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-listeners",
-	"version": "8.11.0",
+	"version": "8.11.1",
 	"description": "Fabric analytics listeners to be used by the products",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,7 +36,8 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
-		"team": "UIP Frontend Observability"
+		"team": "UIP Frontend Observability",
+		"runReact18": true
 	},
 	"config": {
 		"access": "public"
@@ -51,12 +52,10 @@
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
-	"runReact18": true,
 	"devDependencies": {
 		"@atlaskit/tokens": "^1.60.0",
-		"enzyme": "^3.10.0",
+		"@testing-library/react": "^12.1.5",
 		"jest-in-case": "^1.0.2",
-		"react": "^16.8.0",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

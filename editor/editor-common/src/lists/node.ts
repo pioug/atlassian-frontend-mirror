@@ -1,9 +1,8 @@
 import type { NodeType, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { isListItemNode, isListNode, isOrderedList, isOrderedListContinuous } from '../utils';
+import { isListItemNode, isListNode } from '../utils';
 
 import { wrapTaskListIntoListAbove } from './replace-content';
 
@@ -66,15 +65,6 @@ export const joinSiblingLists = ({
 			return;
 		}
 
-		if (
-			getBooleanFF('platform.editor.ordered-list-auto-join-improvements_mrlv5') &&
-			isOrderedList(nodeBefore) &&
-			isOrderedList(nodeAfter) &&
-			!isOrderedListContinuous(nodeBefore, nodeAfter)
-		) {
-			return;
-		}
-
 		const isNestedList = isListItemNode(parent);
 
 		if (!isNestedList && nodeBefore.type !== nodeAfter.type && !forceListType) {
@@ -117,18 +107,7 @@ export const joinSiblingLists = ({
 			isListNode(nodeAfter) &&
 			nodeAfter.type === nodeBefore.type
 		) {
-			if (
-				!getBooleanFF('platform.editor.ordered-list-auto-join-improvements_mrlv5') ||
-				/**
-				 * Both lists have the same type so one check is sufficient.
-				 * If the lists are ordered, only join if continuous.
-				 * Otherwise, if unordered, always join.
-				 */
-				!isOrderedList(nodeBefore) ||
-				isOrderedListContinuous(nodeBefore, nodeAfter)
-			) {
-				joins.push(resolvedPos.pos);
-			}
+			joins.push(resolvedPos.pos);
 		}
 	}
 

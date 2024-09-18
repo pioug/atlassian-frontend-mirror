@@ -6,7 +6,7 @@ import { type CardPreview } from '../../../types';
 import { useCurrentValueRef } from '../../../utils/useCurrentValueRef';
 
 export type ImageRendererProps = {
-	readonly cardPreview: CardPreview;
+	readonly cardPreview?: CardPreview;
 	readonly mediaType: MediaType;
 	readonly alt?: string;
 	readonly resizeMode?: ImageResizeMode;
@@ -37,18 +37,18 @@ export const ImageRenderer: React.FC<ImageRendererProps> = ({
 	}, [mediaType, onDisplayImageRef]);
 
 	const onLoad = () => {
-		onImageLoad && onImageLoad(cardPreview);
+		onImageLoad && cardPreview && onImageLoad(cardPreview);
 	};
 
 	const onError = () => {
-		onImageError && onImageError(cardPreview);
+		onImageError && cardPreview && onImageError(cardPreview);
 	};
 
 	return (
 		<MediaImage
-			dataURI={cardPreview.dataURI}
+			dataURI={cardPreview?.dataURI}
 			alt={alt}
-			previewOrientation={cardPreview.orientation}
+			previewOrientation={cardPreview?.orientation}
 			onImageLoad={onLoad}
 			onImageError={onError}
 			loading={nativeLazyLoad ? 'lazy' : undefined}

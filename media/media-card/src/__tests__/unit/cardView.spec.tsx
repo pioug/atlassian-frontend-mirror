@@ -21,7 +21,7 @@ import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
 
 const cardPreview = {
 	dataURI: 'some-data',
@@ -183,17 +183,6 @@ describe('CardView', () => {
 				const mediaImage = screen.getByTestId(imgTestId);
 				fireEvent.error(mediaImage);
 				expect(mediaImage).not.toBeVisible();
-			},
-		);
-
-		it.each(nonErrorStatuses)(
-			'should not render image when there is no cardPreview and when status is %s',
-			(status) => {
-				renderCardViewBase({
-					status,
-				});
-				const mediaImage = screen.queryByTestId(imgTestId);
-				expect(mediaImage).toBeNull();
 			},
 		);
 	});
@@ -655,7 +644,7 @@ describe('CardView', () => {
 		const downloadAction = {
 			label: 'Download',
 			handler: jest.fn(),
-			icon: <DownloadIcon size="small" label="annotate" />,
+			icon: <DownloadIcon color="currentColor" LEGACY_size="small" label="annotate" />,
 		};
 
 		const screen = render(

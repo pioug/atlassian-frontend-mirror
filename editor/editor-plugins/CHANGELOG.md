@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugins
 
+## 5.3.1
+
+### Patch Changes
+
+- [#141728](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141728)
+  [`4de004a0f879d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4de004a0f879d) -
+  [ux] EDF-1388: Cleanup platform.editor.ordered-list-auto-join-improvements_mrlv5 and paths
+- Updated dependencies
+
+## 5.3.0
+
+### Minor Changes
+
+- [#142155](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142155)
+  [`9749eb9ba2987`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9749eb9ba2987) -
+  Remove platform.editor.table.use-increased-scaling-percent feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.3
 
 ### Patch Changes

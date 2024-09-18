@@ -31,6 +31,7 @@ export interface BlockInsertElementBrowserProps {
 	onInsert: OnInsert;
 	togglePlusMenuVisibility: SimpleEventHandler<MouseEvent | KeyboardEvent>;
 	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
+	isFullPageAppearance?: boolean;
 }
 
 export const BlockInsertElementBrowser = (props: BlockInsertElementBrowserProps) => {
@@ -55,6 +56,7 @@ export const BlockInsertElementBrowser = (props: BlockInsertElementBrowserProps)
 						toggleVisiblity={props.togglePlusMenuVisibility}
 						showElementBrowserLink={props.showElementBrowserLink}
 						pluginInjectionApi={props.pluginInjectionApi}
+						isFullPageAppearance={props.isFullPageAppearance}
 					/>
 				</Popup>
 			)}

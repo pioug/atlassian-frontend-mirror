@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import DeleteIcon from '@atlaskit/icon/glyph/trash';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
-import EditIcon from '@atlaskit/icon/glyph/edit';
+import DeleteIcon from '@atlaskit/icon/core/migration/delete--trash';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import EditIcon from '@atlaskit/icon/core/migration/edit';
 
 import { type CardAction } from '../../../actions';
 
@@ -14,17 +14,17 @@ describe('ActionsBar', () => {
 	const deleteAction: CardAction = {
 		label: 'Delete',
 		handler: jest.fn(),
-		icon: <DeleteIcon label="delete-icon" />,
+		icon: <DeleteIcon color="currentColor" spacing="spacious" label="delete-icon" />,
 	};
 	const downloadAction: CardAction = {
 		label: 'Download',
 		handler: jest.fn(),
-		icon: <DownloadIcon label="download-icon" />,
+		icon: <DownloadIcon color="currentColor" spacing="spacious" label="download-icon" />,
 	};
 	const replaceAction: CardAction = {
 		label: 'Replace',
 		handler: jest.fn(),
-		icon: <EditIcon label="replace-icon" />,
+		icon: <EditIcon color="currentColor" spacing="spacious" label="replace-icon" />,
 	};
 
 	it('will not render on empty actions', () => {

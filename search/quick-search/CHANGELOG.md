@@ -1,5 +1,13 @@
 # @atlaskit/quick-search
 
+## 8.2.0
+
+### Minor Changes
+
+- [#137629](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137629)
+  [`bad4c98fa19ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bad4c98fa19ac) -
+  Enable new icons behind a feature flag.
+
 ## 8.1.11
 
 ### Patch Changes

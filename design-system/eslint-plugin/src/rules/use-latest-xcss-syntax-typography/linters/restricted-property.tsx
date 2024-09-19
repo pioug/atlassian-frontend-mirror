@@ -2,7 +2,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
-import { type MetaData } from './common';
+import { isPropertyName, type MetaData } from './common';
 
 export const RestrictedProperty = {
 	lint(node: Rule.Node, { context, config }: MetaData) {
@@ -29,10 +29,7 @@ export const RestrictedProperty = {
 		}
 
 		// Prevent font weight being used in combination with heading tokens
-		if (
-			(isNodeOfType(node, 'Identifier') && node.name === 'fontWeight') ||
-			(isNodeOfType(node, 'Literal') && node.value === 'fontWeight')
-		) {
+		if (isPropertyName(node, 'fontWeight')) {
 			if (isNodeOfType(node.parent.parent, 'ObjectExpression')) {
 				for (const property of node.parent.parent.properties) {
 					// Only looking for heading token on `font` property

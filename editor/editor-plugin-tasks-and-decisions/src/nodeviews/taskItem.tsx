@@ -101,6 +101,24 @@ class Task extends ReactNodeView<Props> {
 		);
 		tr.setMeta('scrollIntoView', false);
 
+		/**
+		 * This is a test implementation to call the request to edit mutation
+		 * from within editor when toggling a task where a user has no edit access.
+		 *
+		 * This will eventially be handled by https://product-fabric.atlassian.net/browse/ED-24773
+		 * to connect up the correct user action
+		 */
+		if (
+			!this.api?.taskDecision?.sharedState.currentState()?.hasEditPermission &&
+			fg('editor_request_to_edit_task')
+		) {
+			const requestToEdit =
+				this.api?.taskDecision?.sharedState.currentState()?.requestToEditContent;
+			if (requestToEdit) {
+				requestToEdit();
+			}
+		}
+
 		this.view.dispatch(tr);
 	};
 

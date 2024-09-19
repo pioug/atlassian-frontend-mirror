@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 1.45.1
+
+### Patch Changes
+
+- [#142271](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142271)
+  [`b6147e8a87a2d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6147e8a87a2d) -
+  Add try/catch around localStorage usages
+
 ## 1.45.0
 
 ### Minor Changes

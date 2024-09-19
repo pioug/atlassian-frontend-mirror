@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { IntlShape } from 'react-intl-next';
+import { type IntlShape, useIntl } from 'react-intl-next';
 
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
@@ -54,6 +54,7 @@ export type QuickInsertPlugin = NextEditorPlugin<
 		};
 		commands: {
 			openElementBrowserModal: EditorCommand;
+			addQuickInsertItem: (item: QuickInsertHandler) => EditorCommand;
 		};
 	}
 >;
@@ -81,6 +82,8 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 			return (item as QuickInsertItem).action(insert, state);
 		},
 	};
+
+	let intl: IntlShape;
 	return {
 		name: 'quickInsert',
 
@@ -155,6 +158,20 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 
 		commands: {
 			openElementBrowserModal,
+			addQuickInsertItem:
+				(item: QuickInsertHandler): EditorCommand =>
+				({ tr }) => {
+					const { lazyDefaultItems } = api?.quickInsert?.sharedState.currentState() ?? {};
+					const defaultItems = lazyDefaultItems ? lazyDefaultItems() : [];
+					const memoisedNewItems = memoProcessQuickInsertItems([item], intl);
+					return tr.setMeta(pluginKey, {
+						lazyDefaultItems: () => [...defaultItems, ...memoisedNewItems],
+					});
+				},
+		},
+
+		usePluginHook: () => {
+			intl = useIntl();
 		},
 	};
 };

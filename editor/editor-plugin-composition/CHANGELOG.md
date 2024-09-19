@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-composition
 
+## 1.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.4
 
 ### Patch Changes

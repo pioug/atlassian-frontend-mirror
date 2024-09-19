@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.0
+
+### Minor Changes
+
+- [`d70ae7f097e84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d70ae7f097e84) -
+  ED-24767 create useRequestToEditContent hook and call from tasks and decisions plugin
+
 ## 2.5.1
 
 ### Patch Changes

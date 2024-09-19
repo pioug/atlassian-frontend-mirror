@@ -45,10 +45,13 @@ export const useCloseManager = ({
 
 			if (shouldDisableFocusTrap && fg('platform_dst_popup-disable-focuslock')) {
 				// Restoring the normal focus order for trigger.
-				triggerRef?.setAttribute('tabindex', '0');
-				if (popupRef && autoFocus) {
-					popupRef.setAttribute('tabindex', '0');
-				}
+				requestFrame(() => {
+					triggerRef?.setAttribute('tabindex', '0');
+
+					if (popupRef && autoFocus) {
+						popupRef.setAttribute('tabindex', '0');
+					}
+				});
 			}
 		};
 

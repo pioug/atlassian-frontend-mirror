@@ -1,5 +1,7 @@
+/* eslint-disable @atlaskit/ui-styling-standard/use-compiled */
 import React, { createElement } from 'react';
 
+import { keyframes } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import {
 	injectIntl,
@@ -15,6 +17,7 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import { type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import EditorAddIcon from '@atlaskit/icon/glyph/editor/add';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -25,6 +28,18 @@ const wrapperStyles = xcss({
 	position: 'absolute',
 	top: `calc('50%' - ${token('space.150')})`,
 	left: `calc(${token('space.negative.300')} + ${token('space.negative.100')})`,
+});
+
+const appear = keyframes({
+	from: { visibility: 'hidden' },
+	to: { visibility: 'visible' },
+});
+
+const delayedAppearance = xcss({
+	visibility: 'hidden',
+	animation: `${appear} 0.1s`,
+	animationDelay: '2s',
+	animationFillMode: 'forwards',
 });
 
 const buttonStyles = xcss({
@@ -66,7 +81,7 @@ export const TypeAheadControl = ({
 	intl: { formatMessage },
 }: Props & WrappedComponentProps) => {
 	return (
-		<Box xcss={[wrapperStyles]}>
+		<Box xcss={[wrapperStyles]} testId="editor-empty-line-prompt-experiment">
 			<Tooltip
 				content={
 					<ToolTipContent description={formatMessage(messages.insert)} shortcutOverride="/" />
@@ -75,7 +90,10 @@ export const TypeAheadControl = ({
 				<Pressable
 					type="button"
 					aria-label={formatMessage(messages.insert)}
-					xcss={[buttonStyles]}
+					xcss={[
+						buttonStyles,
+						...(fg('platform_editor_empty_line_prompt_delay') ? [delayedAppearance] : []),
+					]}
 					onClick={() => {
 						api?.core?.actions.execute(({ tr }) => {
 							const start = getPos();
@@ -101,11 +119,16 @@ const toDOM = (
 	getPos: () => number | undefined,
 	getIntl: () => IntlShape,
 ) => {
+	const wrapper = document.createElement('span');
+	wrapper.contentEditable = 'false';
+	wrapper.setAttribute('data-empty-block-experiment', 'true');
+	wrapper.setAttribute('class', 'empty-block-experiment');
+
 	const element = document.createElement('span');
 	element.contentEditable = 'false';
-	element.setAttribute('style', 'position: relative');
-	element.setAttribute('class', 'empty-block-experiment');
-	element.setAttribute('data-empty-block-experiment', 'true');
+	element.setAttribute('style', 'position: absolute;');
+
+	wrapper.appendChild(element);
 
 	ReactDOM.render(
 		createElement(
@@ -123,9 +146,9 @@ const toDOM = (
 	// // Cursor height cannot be controlled via CSS and is handled by the browser.
 	// // see Prosemirror forum: https://discuss.prosemirror.net/t/chrome-caret-cursor-larger-than-the-text-with-inlined-items/5946
 	const cursorHack = document.createTextNode(ZERO_WIDTH_SPACE);
-	element.appendChild(cursorHack);
+	wrapper.appendChild(cursorHack);
 
-	return element;
+	return wrapper;
 };
 
 export const createEmptyBlockWidgetDecoration = (

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 3.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.4
+
+### Patch Changes
+
+- [#142271](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142271)
+  [`b6147e8a87a2d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6147e8a87a2d) -
+  Add try/catch around localStorage usages
+
 ## 3.0.3
 
 ### Patch Changes

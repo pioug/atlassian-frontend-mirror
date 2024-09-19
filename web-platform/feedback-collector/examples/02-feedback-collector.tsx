@@ -31,6 +31,7 @@ const DisplayFeedback = () => {
 
 			{isOpen && (
 				<FeedbackCollector
+					locale={'en'}
 					url={'https://api-private.atlassian.com'}
 					onClose={close}
 					onSubmit={displayFlagTrue}

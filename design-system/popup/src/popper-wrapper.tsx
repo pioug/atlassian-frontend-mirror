@@ -6,7 +6,9 @@ import { forwardRef, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import FocusRing from '@atlaskit/focus-ring';
 import { UNSAFE_useLayering } from '@atlaskit/layering';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Popper } from '@atlaskit/popper';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
@@ -141,7 +143,7 @@ function PopperWrapper({
 			shouldFitViewport={shouldFitViewport}
 		>
 			{({ ref, style, placement, update }) => {
-				return (
+				const popupContainer = (
 					<PopupContainer
 						id={id}
 						data-ds--level={currentLevel}
@@ -177,6 +179,11 @@ function PopperWrapper({
 							})}
 						</RepositionOnUpdate>
 					</PopupContainer>
+				);
+				return !initialFocusRef && fg('platform-design-system-apply-popup-wrapper-focus') ? (
+					<FocusRing>{popupContainer}</FocusRing>
+				) : (
+					popupContainer
 				);
 			}}
 		</Popper>

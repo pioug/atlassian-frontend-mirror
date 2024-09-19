@@ -32,7 +32,7 @@ class DisplayFeedback extends Component<{}, State> {
 					Display Feedback Form
 				</Button>
 
-				{isOpen && <FeedbackForm onClose={this.close} onSubmit={this.submitForm} />}
+				{isOpen && <FeedbackForm locale={'en'} onClose={this.close} onSubmit={this.submitForm} />}
 			</div>
 		);
 	}

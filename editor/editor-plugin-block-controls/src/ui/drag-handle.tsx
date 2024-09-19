@@ -98,6 +98,7 @@ const DragHandleInternal = ({
 	nodeType,
 	intl: { formatMessage },
 	handleOptions,
+	isTopLevelNode = true,
 }: {
 	view: EditorView;
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
@@ -105,6 +106,7 @@ const DragHandleInternal = ({
 	anchorName: string;
 	nodeType: string;
 	handleOptions?: HandleOptions;
+	isTopLevelNode?: Boolean;
 } & WrappedComponentProps) => {
 	const start = getPos();
 	const buttonRef = useRef<HTMLButtonElement>(null);
@@ -418,7 +420,7 @@ const DragHandleInternal = ({
 		</button>
 	);
 
-	return fg('platform_editor_element_drag_and_drop_ed_23873') ? (
+	return isTopLevelNode && fg('platform_editor_element_drag_and_drop_ed_23873') ? (
 		<Tooltip
 			content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
 			ignoreTooltipPointerEvents={true}

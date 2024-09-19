@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.19.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.19.8
+
+### Patch Changes
+
+- [#141244](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141244)
+  [`df87e6ab23533`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df87e6ab23533) -
+  Remove references to webdriver tooling in editor packages
+
 ## 1.19.7
 
 ### Patch Changes

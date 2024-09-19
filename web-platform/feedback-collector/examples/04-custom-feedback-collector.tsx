@@ -73,6 +73,7 @@ const DisplayFeedback = () => {
 
 			{isOpen && (
 				<FeedbackCollector
+					locale={'en'}
 					onClose={close}
 					onSubmit={displayFlagTrue}
 					atlassianAccountId={aaid}

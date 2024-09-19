@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 1.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.0
+
+### Minor Changes
+
+- [#141244](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141244)
+  [`972ec7421443c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/972ec7421443c) -
+  [ED-24939] Add addQuickInsertItem command to support adding new quick insert items
+
 ## 1.3.4
 
 ### Patch Changes

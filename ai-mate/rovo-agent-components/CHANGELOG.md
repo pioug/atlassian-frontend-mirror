@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 1.4.0
+
+### Minor Changes
+
+- [#142806](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142806)
+  [`638c9a4e4fc33`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/638c9a4e4fc33) -
+  [ux] Enable new icons behind a feature flag.
+
 ## 1.3.0
 
 ### Minor Changes

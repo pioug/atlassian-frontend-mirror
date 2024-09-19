@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 197.9.0
+
+### Minor Changes
+
+- [#142806](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142806)
+  [`f73667130fb7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f73667130fb7d) -
+  [ux] Update styles for nested dnd to only apply to full page editor. Removed
+  blockquoteSharedStylesNew export.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 197.8.4
+
+### Patch Changes
+
+- [#141244](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141244)
+  [`972ec7421443c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/972ec7421443c) -
+  [ED-24939] Add dependency, @atlaskit/editor-plugin-quick-insert, to fix tsconfig issue
+- [#141244](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141244)
+  [`df87e6ab23533`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df87e6ab23533) -
+  Remove references to webdriver tooling in editor packages
+- Updated dependencies
+
+## 197.8.3
+
+### Patch Changes
+
+- [#142267](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142267)
+  [`9ed8707898875`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ed8707898875) -
+  [ux] ED-24996 Delay appearance of line prompt quickinsert button
+
 ## 197.8.2
 
 ### Patch Changes

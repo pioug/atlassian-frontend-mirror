@@ -15,6 +15,14 @@ type SkeletonProps = {
 	 */
 	borderRadius?: string | number;
 	/**
+	 * Overrides the default color of skeleton, and overrides the default shimmering start color if ShimmeringEndColor also provided.
+	 */
+	color?: string;
+	/**
+	 * Overrides the default shimmering ending color of skeleton.
+	 */
+	ShimmeringEndColor?: string;
+	/**
 	 * Enables the shimmering animation.
 	 */
 	isShimmering?: boolean;
@@ -41,6 +49,18 @@ const activeShimmerStyles = css({
 	animationName: `${shimmerKeyframes}`,
 });
 
+const getKeyframes = (fromColor: string, toColor: string) =>
+	keyframes({
+		from: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			backgroundColor: fromColor,
+		},
+		to: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			backgroundColor: toColor,
+		},
+	});
+
 /**
  * __Skeleton__
  *
@@ -53,6 +73,8 @@ const Skeleton = ({
 	width,
 	height,
 	borderRadius = '100px',
+	color,
+	ShimmeringEndColor,
 	isShimmering = false,
 	groupName,
 	testId,
@@ -66,7 +88,14 @@ const Skeleton = ({
 				skeletonStyles,
 				isShimmering && activeShimmerStyles,
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-				{ width, height, borderRadius },
+				{
+					width,
+					height,
+					borderRadius,
+					backgroundColor: color,
+					animationName:
+						color && ShimmeringEndColor ? getKeyframes(color, ShimmeringEndColor) : undefined,
+				},
 			]}
 			{...(groupDataAttribute && { [groupDataAttribute]: 'true' })}
 		/>

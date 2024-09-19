@@ -11,7 +11,7 @@ import styled from '@emotion/styled';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
-import RefreshIcon from '@atlaskit/icon/glyph/refresh';
+import RefreshIcon from '@atlaskit/icon/core/migration/refresh';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 import { N0, N40, N90 } from '@atlaskit/theme/colors';
@@ -119,8 +119,13 @@ export const TableFooter = ({
 							<Button
 								onClick={onRefresh}
 								appearance="subtle"
-								// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19585
-								iconBefore={<RefreshIcon label={intl.formatMessage(footerMessages.refreshLabel)} />}
+								iconBefore={
+									<RefreshIcon
+										label={intl.formatMessage(footerMessages.refreshLabel)}
+										color="currentColor"
+										spacing="spacious"
+									/>
+								}
 								isDisabled={isLoading}
 								testId="refresh-button"
 							/>

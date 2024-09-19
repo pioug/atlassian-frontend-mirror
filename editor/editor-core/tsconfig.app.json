@@ -53,6 +53,9 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-quick-insert/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugins/tsconfig.app.json"
 		},
 		{

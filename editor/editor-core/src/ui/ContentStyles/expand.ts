@@ -83,9 +83,18 @@ export const expandStyles = () => css`
 		> .${expandClassNames.type('expand')},
 		.${BreakoutCssClassName.BREAKOUT_MARK_DOM}
 		> .${expandClassNames.type('expand')} {
-		margin-left: -${akLayoutGutterOffset + (editorExperiment('nested-dnd', true) ? 8 : 0)}px;
-		margin-right: -${akLayoutGutterOffset + (editorExperiment('nested-dnd', true) ? 8 : 0)}px;
+		margin-left: -${akLayoutGutterOffset}px;
+		margin-right: -${akLayoutGutterOffset}px;
 	}
+
+	${editorExperiment('nested-dnd', true) &&
+	`.ak-editor-content-area.appearance-full-page .ProseMirror
+		> .${expandClassNames.type('expand')},
+		.${BreakoutCssClassName.BREAKOUT_MARK_DOM}
+		> .${expandClassNames.type('expand')} {
+		margin-left: -${akLayoutGutterOffset + 8}px;
+		margin-right: -${akLayoutGutterOffset + 8}px;
+	}`}
 
 	.${expandClassNames.content} {
 		${sharedExpandStyles.contentStyles({ expanded: false, focused: false })()}

@@ -141,6 +141,7 @@ class DisplayFeedback extends Component<{}, State> {
 
 				{isOpen && (
 					<FeedbackCollector
+						locale={'en'}
 						customContent={
 							<>
 								<WarningContent />

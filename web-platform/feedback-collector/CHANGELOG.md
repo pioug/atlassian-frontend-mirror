@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 13.12.0
+
+### Minor Changes
+
+- [#141944](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/141944)
+  [`b8add80d52126`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b8add80d52126) -
+  [ux] locale parameter is now required
+
 ## 13.11.0
 
 ### Minor Changes

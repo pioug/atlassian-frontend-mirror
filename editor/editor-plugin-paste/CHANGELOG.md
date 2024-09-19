@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.12.4
+
+### Patch Changes
+
+- [#142433](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142433)
+  [`896303d4b4390`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/896303d4b4390) -
+  ED-24552 Update document moved event to fire when nested nodes are cut/paste into nodes and add
+  nodeDepth attributes
+- Updated dependencies
+
 ## 1.12.3
 
 ### Patch Changes

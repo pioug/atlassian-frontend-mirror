@@ -7,6 +7,8 @@ type MoveContentAEP = TrackAEP<
 	ACTION_SUBJECT_ID.NODE,
 	{
 		nodeType?: string;
+		nodeDepth?: number;
+		destinationNodeDepth?: number;
 	},
 	undefined
 >;

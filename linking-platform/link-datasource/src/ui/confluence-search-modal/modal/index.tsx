@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -46,7 +46,6 @@ import DatasourcesTableInModalPreview from '../../common/modal/datasources-table
 import { InsertButton } from '../../common/modal/insert-button';
 import { DatasourceViewModeDropDown } from '../../common/modal/mode-switcher';
 import { useViewModeContext } from '../../common/modal/mode-switcher/useViewModeContext';
-import { type DateRangeType } from '../../common/modal/popup-select/types';
 import TableSearchCount from '../../common/modal/search-count';
 import { SiteSelector } from '../../common/modal/site-selector';
 import { EmptyState } from '../../issue-like-table';
@@ -72,44 +71,8 @@ const isValidParameters = (parameters: DatasourceParameters | undefined): boolea
 	!!(
 		parameters &&
 		parameters.cloudId &&
-		(parameters.searchString !== undefined ||
-			parameters.contributorAccountIds?.length ||
-			parameters.lastModified ||
-			parameters.lastModifiedFrom ||
-			parameters.lastModifiedTo)
+		Object.values(parameters).filter((v) => v !== undefined).length > 1
 	);
-
-const useUpdateParametersOnFormUpdate = (
-	cloudId: string | undefined,
-	searchString: string | undefined,
-	lastModified: { value: DateRangeType | undefined; from?: string; to?: string } | undefined,
-	contributorAccountIds: string[],
-	overrideParameters: Partial<ConfluenceSearchDatasourceParameters> | undefined,
-) => {
-	const { setParameters } = useDatasourceContext<ConfluenceSearchDatasourceParameters>();
-
-	useEffect(() => {
-		setParameters((parameters) => {
-			return {
-				...parameters,
-				cloudId: cloudId || '',
-				searchString,
-				lastModified: lastModified?.value,
-				lastModifiedFrom: lastModified?.from,
-				lastModifiedTo: lastModified?.to,
-				contributorAccountIds: contributorAccountIds.length > 0 ? contributorAccountIds : undefined,
-				...(overrideParameters ?? {}),
-			};
-		});
-	}, [
-		cloudId,
-		searchString,
-		lastModified,
-		contributorAccountIds,
-		setParameters,
-		overrideParameters,
-	]);
-};
 
 export const PlainConfluenceSearchConfigModal = (
 	props: ConnectedConfluenceSearchConfigModalProps,
@@ -131,37 +94,43 @@ export const PlainConfluenceSearchConfigModal = (
 		},
 		visibleColumnCount,
 		parameters,
+		setParameters,
 	} = useDatasourceContext<ConfluenceSearchDatasourceParameters>();
 
-	const [cloudId, setCloudId] = useState(parameters?.cloudId);
 	const { availableSites, selectedSite: selectedConfluenceSite } = useAvailableSites(
 		'confluence',
-		cloudId,
-	);
-	const [searchString, setSearchString] = useState<string | undefined>(parameters?.searchString);
-	const [contributorAccountIds, setContributorAccountIds] = useState<string[]>(
-		parameters?.contributorAccountIds || [],
-	);
-	const [lastModified, setLastModified] = useState(
-		parameters?.lastModified
-			? {
-					value: parameters?.lastModified,
-					from: parameters?.lastModifiedFrom,
-					to: parameters?.lastModifiedTo,
-				}
-			: undefined,
+		parameters?.cloudId,
 	);
 
 	// analytics related parameters
 	const searchCount = useRef(0);
 	const userInteractions = useUserInteractions();
 
-	useUpdateParametersOnFormUpdate(
-		cloudId,
-		searchString,
-		lastModified,
-		contributorAccountIds,
-		overrideParameters,
+	const setParametersWithOverrides = useCallback(
+		(
+			setStateAction:
+				| ConfluenceSearchDatasourceParameters
+				| undefined
+				| ((
+						prev: ConfluenceSearchDatasourceParameters | undefined,
+				  ) => Partial<ConfluenceSearchDatasourceParameters>),
+		) => {
+			if (typeof setStateAction !== 'function') {
+				setParameters({
+					...setStateAction,
+					cloudId: setStateAction?.cloudId || '',
+					...overrideParameters,
+				});
+			} else {
+				setParameters((prev) => ({
+					...prev,
+					cloudId: prev?.cloudId || '',
+					...setStateAction(prev),
+					...overrideParameters,
+				}));
+			}
+		},
+		[setParameters, overrideParameters],
 	);
 
 	const { fireEvent } = useDatasourceAnalyticsEvents();
@@ -180,23 +149,40 @@ export const PlainConfluenceSearchConfigModal = (
 	// TODO: further refactoring in EDM-9573
 	// https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6828283
 	useEffect(() => {
-		if (selectedConfluenceSite && (!cloudId || cloudId !== selectedConfluenceSite.cloudId)) {
-			setCloudId(selectedConfluenceSite.cloudId);
+		if (
+			selectedConfluenceSite &&
+			(!parameters?.cloudId || parameters?.cloudId !== selectedConfluenceSite.cloudId)
+		) {
+			/**
+			 * This code is primarily to set the cloudId in the parameters when the site selector loads a default value
+			 * but there is no "onChange" emitted from the site picker
+			 */
+			setParameters((prev) => ({ ...prev, cloudId: selectedConfluenceSite.cloudId }));
 		}
-	}, [cloudId, selectedConfluenceSite]);
+	}, [parameters, setParameters, selectedConfluenceSite]);
 
 	// TODO: further refactoring in EDM-9573
 	// https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6829171
 	const onSiteSelection = useCallback(
 		(site: Site) => {
 			userInteractions.add(DatasourceAction.INSTANCE_UPDATED);
-			setSearchString(undefined);
-			setLastModified(undefined);
-			setContributorAccountIds([]);
-			setCloudId(site.cloudId);
+
+			/**
+			 * Clear the state of the form filters when the site is changed
+			 */
+			setParameters((prev) => ({
+				...prev,
+				searchString: undefined,
+				lastModified: undefined,
+				lastModifiedFrom: undefined,
+				lastModifiedTo: undefined,
+				contributorAccountIds: undefined,
+				cloudId: site.cloudId,
+			}));
+
 			reset({ shouldForceRequest: true });
 		},
-		[reset, userInteractions],
+		[reset, setParameters, userInteractions],
 	);
 
 	const siteSelectorLabel =
@@ -206,34 +192,34 @@ export const PlainConfluenceSearchConfigModal = (
 
 	const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
 
-	const hasConfluenceSearchParams = selectedConfluenceSite && searchString;
+	const hasConfluenceSearchParams = selectedConfluenceSite && parameters?.searchString;
 
 	const selectedConfluenceSiteUrl = selectedConfluenceSite?.url;
 	const confluenceSearchUrl = useMemo(() => {
-		if (!selectedConfluenceSiteUrl || searchString === undefined) {
+		if (!selectedConfluenceSiteUrl || parameters?.searchString === undefined) {
 			return undefined;
 		}
 
 		const params = new URLSearchParams();
-		// we are appending "text" without checking searchString as we need the url to have "text" when a user does an empty search
-		params.append('text', searchString);
+		// we are appending "text" without checking searchString as we need the url to have "text" when a user does an empty search)
+		params.append('text', parameters?.searchString || '');
 
-		if (contributorAccountIds.length > 0) {
-			params.append('contributors', contributorAccountIds.join(','));
+		if (parameters?.contributorAccountIds?.length) {
+			params.append('contributors', parameters.contributorAccountIds.join(','));
 		}
 
-		if (lastModified?.value) {
-			params.append('lastModified', lastModified.value);
+		if (parameters?.lastModified) {
+			params.append('lastModified', parameters.lastModified);
 		}
-		if (lastModified?.from) {
-			params.append('from', lastModified?.from);
+		if (parameters?.lastModifiedFrom) {
+			params.append('from', parameters.lastModifiedFrom);
 		}
-		if (lastModified?.to) {
-			params.append('to', lastModified?.to);
+		if (parameters?.lastModifiedTo) {
+			params.append('to', parameters.lastModifiedTo);
 		}
 
 		return `${selectedConfluenceSiteUrl}/wiki/search?${params.toString()}`;
-	}, [contributorAccountIds, lastModified, searchString, selectedConfluenceSiteUrl]);
+	}, [parameters, selectedConfluenceSiteUrl]);
 
 	const analyticsPayload = useMemo(
 		() => ({
@@ -346,24 +332,32 @@ export const PlainConfluenceSearchConfigModal = (
 					const updatedDateRangeOption = lastModifiedList.find((range) => range.value);
 
 					if (updatedDateRangeOption?.optionType === 'dateRange') {
-						setLastModified({
-							value: updatedDateRangeOption.value,
-							from: updatedDateRangeOption.from,
-							to: updatedDateRangeOption.to,
-						});
+						setParametersWithOverrides((prev) => ({
+							...prev,
+							lastModified: updatedDateRangeOption.value,
+							lastModifiedFrom: updatedDateRangeOption.from,
+							lastModifiedTo: updatedDateRangeOption.to,
+						}));
 					}
 				}
 
 				if (editedOrCreatedBy) {
 					const accountIds = editedOrCreatedBy.map((user) => user.value);
-					setContributorAccountIds(accountIds);
+					setParametersWithOverrides((prev) => ({
+						...prev,
+						contributorAccountIds: accountIds,
+					}));
 				}
 			}
 
-			setSearchString(newSearchString);
+			setParametersWithOverrides((prev) => ({
+				...prev,
+				searchString: newSearchString,
+			}));
+
 			reset({ shouldForceRequest: true });
 		},
-		[reset, userInteractions],
+		[reset, userInteractions, setParametersWithOverrides],
 	);
 
 	const getButtonAnalyticsPayload = useCallback(() => {
@@ -468,7 +462,19 @@ export const ConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalPr
 	if (fg('platform-datasources-use-refactored-config-modal')) {
 		return (
 			<StoreContainer>
-				<ConnectedConfluenceSearchConfigModal {...props} />
+				<ConnectedConfluenceSearchConfigModal
+					{...props}
+					/**
+					 * If the intial parameters are not valid, we will not initialise the modal state
+					 * with `overrideParameters`. This is to allow the modal to be opened without
+					 * any initial parameters and require the user to perform a search.
+					 */
+					parameters={
+						props.overrideParameters && isValidParameters(props.parameters)
+							? { ...props.parameters, ...props.overrideParameters }
+							: props.parameters
+					}
+				/>
 			</StoreContainer>
 		);
 	}

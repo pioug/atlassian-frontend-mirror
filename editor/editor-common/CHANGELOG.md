@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 90.0.0
+
+### Major Changes
+
+- [#142806](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142806)
+  [`f73667130fb7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f73667130fb7d) -
+  [ux] Update styles for nested dnd to only apply to full page editor. Removed
+  blockquoteSharedStylesNew export.
+
+### Patch Changes
+
+- [#142433](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142433)
+  [`896303d4b4390`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/896303d4b4390) -
+  ED-24552 Update document moved event to fire when nested nodes are cut/paste into nodes and add
+  nodeDepth attributes
+- Updated dependencies
+
 ## 89.3.2
 
 ### Patch Changes

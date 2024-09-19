@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.15.0
+
+### Minor Changes
+
+- [#142806](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142806)
+  [`f73667130fb7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f73667130fb7d) -
+  [ux] Update styles for nested dnd to only apply to full page editor. Removed
+  blockquoteSharedStylesNew export.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.14.9
 
 ### Patch Changes

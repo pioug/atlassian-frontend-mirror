@@ -249,6 +249,7 @@ export const useDatasourceTableState = ({
 					},
 					data: { items, nextPageCursor, totalCount, schema },
 				} = await getDatasourceData(datasourceId, datasourceDataRequest, shouldForceRequest);
+
 				/**
 				 * Let the response finish and store in cache, but throw error if signal is aborted
 				 */

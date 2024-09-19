@@ -38,7 +38,6 @@ import {
 	Y50,
 	Y75,
 } from '@atlaskit/theme/colors';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const lightPanelColors = {
@@ -258,9 +257,7 @@ export const panelSharedStylesWithoutPrefix = () => css`
 		height: ${token('space.300', '24px')};
 		width: ${token('space.300', '24px')};
 		box-sizing: content-box;
-		padding-right: ${editorExperiment('nested-dnd', true)
-			? token('space.150', '12px')
-			: token('space.100', '8px')};
+		padding-right: ${token('space.100', '8px')};
 		text-align: center;
 		user-select: none;
 		-moz-user-select: none;

@@ -11,6 +11,7 @@ export type ContentMoved = {
 	nodeName?: NodeName;
 	size?: number;
 	currentActions: Array<ActionType>;
+	nodeDepth?: number;
 };
 
 export type MoveAnalyticsPluginState = {
@@ -21,6 +22,7 @@ export const defaultState = {
 	contentMoved: {
 		nodeName: undefined,
 		size: undefined,
+		nodeDepth: undefined,
 		currentActions: [],
 	},
 } as MoveAnalyticsPluginState;

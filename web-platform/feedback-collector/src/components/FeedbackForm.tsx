@@ -345,7 +345,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 	);
 };
 
-const FeedbackFormWithIntl: FunctionComponent<Props & { locale?: string }> = ({
+const FeedbackFormWithIntl: FunctionComponent<Props & { locale: string }> = ({
 	locale,
 	...props
 }) => {

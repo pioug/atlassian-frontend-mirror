@@ -38,7 +38,7 @@ export const getFontWeight = (status: Status) => {
 		case 'current':
 		case 'visited':
 		case 'disabled':
-			return token('font.weight.semibold');
+			return token('font.weight.bold');
 		default:
 			return undefined;
 	}

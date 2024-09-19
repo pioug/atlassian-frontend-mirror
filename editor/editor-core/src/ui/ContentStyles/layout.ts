@@ -55,8 +55,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 		${columnLayoutSharedStyle} [data-layout-section] {
 			// TODO: Migrate away from gridSize
 			// Recommendation: Replace directly with 7px
-			margin: ${token('space.100', '8px')} -${akLayoutGutterOffset +
-				(editorExperiment('nested-dnd', true) ? 8 : 0)}px 0;
+			margin: ${token('space.100', '8px')} -${akLayoutGutterOffset}px 0;
 			transition: border-color 0.3s ${akEditorSwoopCubicBezier};
 			cursor: ${viewMode === 'view' ? 'default' : 'pointer'};
 
@@ -167,4 +166,9 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 			}
 		}
 	}
+
+	${editorExperiment('nested-dnd', true) &&
+	`.ak-editor-content-area.appearance-full-page .ProseMirror [data-layout-section] {
+				margin: ${token('space.100', '8px')} -${akLayoutGutterOffset + 8}px 0;
+				}`}
 `;

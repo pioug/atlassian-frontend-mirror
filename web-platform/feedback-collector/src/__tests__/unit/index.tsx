@@ -25,6 +25,7 @@ jest
 const renderFeedbackCollector = (props = {}) =>
 	render(
 		<FeedbackCollector
+			locale={'en'}
 			onClose={() => {}}
 			onSubmit={() => {}}
 			name="name"
@@ -718,7 +719,7 @@ We have some formatting here
 	describe('Feedback Form integration', () => {
 		test('FeedbackForm should select only by default', async () => {
 			const { getAllByRole } = render(
-				<FeedbackForm onClose={() => {}} onSubmit={async () => {}} />,
+				<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} />,
 			);
 
 			expect(getAllByRole('combobox')).toHaveLength(1);
@@ -726,7 +727,7 @@ We have some formatting here
 
 		test('FeedbackForm should render textarea when something is selected', () => {
 			const { getAllByRole } = render(
-				<FeedbackForm onClose={() => {}} onSubmit={async () => {}} />,
+				<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} />,
 			);
 
 			const select = getAllByRole('combobox')[0];
@@ -739,7 +740,7 @@ We have some formatting here
 
 		test('FeedbackForm should render checkboxes and textarea when something is selected', () => {
 			const { getByRole, getAllByRole } = render(
-				<FeedbackForm onClose={() => {}} onSubmit={async () => {}} />,
+				<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} />,
 			);
 
 			const select = getByRole('combobox', { name: 'Select feedback' });
@@ -753,7 +754,12 @@ We have some formatting here
 
 		test('FeedbackForm should render textarea and anon panel when something is selected', async () => {
 			const { getByRole, getAllByRole } = render(
-				<FeedbackForm onClose={() => {}} onSubmit={async () => {}} anonymousFeedback={true} />,
+				<FeedbackForm
+					locale={'en'}
+					onClose={() => {}}
+					onSubmit={async () => {}}
+					anonymousFeedback={true}
+				/>,
 			);
 			const select = getByRole('combobox', { name: 'Select feedback' });
 			fireEvent.change(select, { target: { value: 'comment' } });
@@ -766,7 +772,12 @@ We have some formatting here
 
 		test('should render a correct field label name when selectLabel is passed in', () => {
 			render(
-				<FeedbackForm onClose={() => {}} onSubmit={async () => {}} selectLabel="test label name" />,
+				<FeedbackForm
+					locale={'en'}
+					onClose={() => {}}
+					onSubmit={async () => {}}
+					selectLabel="test label name"
+				/>,
 			);
 			const label = screen.getByText('test label name');
 			expect(label).toBeInTheDocument();
@@ -812,6 +823,7 @@ We have some formatting here
 				() => {
 					const { getByRole } = render(
 						<FeedbackForm
+							locale={'en'}
 							onClose={() => {}}
 							onSubmit={async () => {}}
 							customFeedbackOptions={customFeedbackOptions}
@@ -827,6 +839,7 @@ We have some formatting here
 				() => {
 					const { getByRole } = render(
 						<FeedbackForm
+							locale={'en'}
 							onClose={() => {}}
 							onSubmit={async () => {}}
 							customFeedbackOptions={customFeedbackOptions}

@@ -10,11 +10,11 @@ import { type DotsAppearance } from './types';
 // TODO Token usages are not consistent for dots https://product-fabric.atlassian.net/browse/DSP-3180
 const colorMap = {
 	default: xcss({
-		backgroundColor: 'color.background.neutral',
+		backgroundColor: 'elevation.surface',
 		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
 	}),
 	help: xcss({
-		backgroundColor: 'color.background.neutral',
+		backgroundColor: 'elevation.surface',
 		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
 	}),
 	inverted: xcss({
@@ -23,7 +23,7 @@ const colorMap = {
 		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
 	}),
 	primary: xcss({
-		backgroundColor: 'color.background.neutral',
+		backgroundColor: 'elevation.surface',
 		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
 	}),
 };

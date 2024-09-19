@@ -1,5 +1,13 @@
 # @atlaskit/progress-tracker
 
+## 8.9.1
+
+### Patch Changes
+
+- [#142762](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142762)
+  [`2bbc16219edd2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2bbc16219edd2) -
+  [ux] Disabled, visited and current step indicator font weight change from semibold to bold.
+
 ## 8.9.0
 
 ### Minor Changes

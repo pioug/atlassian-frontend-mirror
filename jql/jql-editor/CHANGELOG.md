@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 4.8.0
+
+### Minor Changes
+
+- [#142408](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142408)
+  [`90a34a6487eb3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/90a34a6487eb3) -
+  Enable new icons behind a feature flag.
+
 ## 4.7.4
 
 ### Patch Changes

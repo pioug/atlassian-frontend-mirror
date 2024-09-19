@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-data-consumer",
-	"version": "1.6.4",
+	"version": "1.6.5",
 	"description": "Data consumer plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.9.0",
-		"@atlaskit/editor-common": "^89.3.0",
+		"@atlaskit/editor-common": "^90.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

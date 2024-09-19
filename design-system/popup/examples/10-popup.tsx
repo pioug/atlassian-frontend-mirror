@@ -103,10 +103,16 @@ const PopupPlacementExample = () => {
 			<div css={spacerStyles}>
 				<Popup
 					isOpen={isOpen}
+					testId="popup-content-wrapper"
 					onClose={() => setIsOpen(false)}
 					content={() => <PopupContent setPosition={setPlacement} placement={placement} />}
 					trigger={(triggerProps) => (
-						<Button id="popup-trigger" {...triggerProps} onClick={() => setIsOpen(!isOpen)}>
+						<Button
+							id="popup-trigger"
+							{...triggerProps}
+							testId="popup-trigger"
+							onClick={() => setIsOpen(!isOpen)}
+						>
 							{isOpen ? 'Close' : 'Open'} Popup
 						</Button>
 					)}

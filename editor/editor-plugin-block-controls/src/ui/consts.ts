@@ -34,7 +34,7 @@ export const getNestedNodeLeftPaddingMargin = (nodeType?: string) => {
 		case 'layoutColumn':
 			return '20px';
 		case 'panel':
-			return '44px';
+			return '40px';
 		case 'tableCell':
 			return '8px';
 		case 'tableHeader':

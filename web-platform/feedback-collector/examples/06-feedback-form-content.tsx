@@ -14,7 +14,7 @@ class DisplayFeedback extends Component {
 	};
 
 	render() {
-		return <FeedbackForm onClose={this.close} onSubmit={this.submitForm} />;
+		return <FeedbackForm locale={'en'} onClose={this.close} onSubmit={this.submitForm} />;
 	}
 }
 

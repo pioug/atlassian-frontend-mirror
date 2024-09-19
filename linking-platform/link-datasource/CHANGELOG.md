@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 3.1.0
+
+### Minor Changes
+
+- [#142268](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142268)
+  [`f54558fb5ccd1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f54558fb5ccd1) -
+  Enable new icons behind a feature flag.
+
+## 3.0.4
+
+### Patch Changes
+
+- [#142151](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142151)
+  [`3f0c2aaf2773b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f0c2aaf2773b) -
+  Adds a bugfix for feature flag platform-datasources-use-refactored-config-modal for the confluence
+  search modal
+
 ## 3.0.3
 
 ### Patch Changes

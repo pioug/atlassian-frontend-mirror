@@ -21,6 +21,9 @@
       "path": "../../ds-lib/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../focus-ring/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../layering/afm-post-office/tsconfig.json"
     },
     {

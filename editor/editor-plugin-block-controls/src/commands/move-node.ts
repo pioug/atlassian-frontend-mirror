@@ -183,7 +183,7 @@ export const moveNode =
 		tr = selectNode(tr, mappedTo, node.type.name);
 		tr.setMeta(key, { nodeMoved: true });
 		api?.core.actions.focus();
-
+		const $mappedTo = tr.doc.resolve(mappedTo);
 		api?.analytics?.actions.attachAnalyticsEvent({
 			eventType: EVENT_TYPE.TRACK,
 			action: ACTION.MOVED,
@@ -192,6 +192,9 @@ export const moveNode =
 			attributes: {
 				nodeDepth: resolvedNode.depth,
 				nodeType: node.type.name,
+				...(editorExperiment('nested-dnd', true) && {
+					destinationNodeDepth: $mappedTo?.depth,
+				}),
 				...(fg('platform_editor_element_drag_and_drop_ed_23873') && { inputMethod }),
 			},
 		})(tr);

@@ -4,6 +4,8 @@ order: 0
 
 import BasicSkeleton from '../../examples/constellation/skeleton-basic';
 import ShimmeringSkeleton from '../../examples/constellation/skeleton-shimmering';
+import ColorCostomizedSkeleton from '../../examples/constellation/skeleton-customized-color.tsx';
+import AnimationColorCostomizedSkeleton from '../../examples/constellation/skeleton-customized-animation-color.tsx';
 
 ## Basic
 
@@ -14,3 +16,16 @@ import ShimmeringSkeleton from '../../examples/constellation/skeleton-shimmering
 The shimmering animation can be controlled via the `isShimmering` prop.
 
 <Example Component={ShimmeringSkeleton} packageName="@atlaskit/skeleton" />
+
+## Customized color
+
+The default skeleton color can be overrided via the `color` prop.
+
+<Example Component={ColorCostomizedSkeleton} packageName="@atlaskit/skeleton" />
+
+## Customized shimmering animation color
+
+The default shimmering animation `from` and `to` colors can be overrided via the `color` and
+`ShimmeringEndColor` prop.
+
+<Example Component={AnimationColorCostomizedSkeleton} packageName="@atlaskit/skeleton" />

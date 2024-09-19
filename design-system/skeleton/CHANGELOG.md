@@ -1,5 +1,13 @@
 # @atlaskit/skeleton
 
+## 0.5.2
+
+### Patch Changes
+
+- [#142024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142024)
+  [`a25bee9de4d3c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a25bee9de4d3c) -
+  Support to override color and shimmering color in keyframes
+
 ## 0.5.1
 
 ### Patch Changes

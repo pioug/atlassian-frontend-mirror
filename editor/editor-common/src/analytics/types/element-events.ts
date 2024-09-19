@@ -5,6 +5,7 @@ type ElementAttributes = {
 	nodeDepth: number;
 	nodeType: string;
 	inputMethod?: string;
+	destinationNodeDepth?: number;
 };
 
 type ElementMovedAEP = TrackAEP<

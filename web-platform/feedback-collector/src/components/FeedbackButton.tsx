@@ -16,6 +16,7 @@ type Props = PropsWithChildren<{
 	entrypointId: string;
 	atlassianAccountId?: string;
 	shouldGetEntitlementDetails?: boolean;
+	locale: string;
 }>;
 
 /*
@@ -25,7 +26,7 @@ const FeedbackButton = (props: Props) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [displayFlag, setDisplayFlag] = useState(false);
 	const { formatMessage } = useIntl();
-	const { entrypointId, atlassianAccountId, shouldGetEntitlementDetails } = props;
+	const { entrypointId, atlassianAccountId, shouldGetEntitlementDetails, locale } = props;
 
 	return (
 		<>
@@ -38,6 +39,7 @@ const FeedbackButton = (props: Props) => {
 
 			{isOpen && (
 				<FeedbackCollector
+					locale={locale}
 					onClose={() => setIsOpen(false)}
 					onSubmit={() => setDisplayFlag(true)}
 					atlassianAccountId={atlassianAccountId}

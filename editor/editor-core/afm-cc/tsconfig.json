@@ -38,6 +38,9 @@
             "path": "../../editor-json-transformer/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-quick-insert/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugins/afm-cc/tsconfig.json"
         },
         {

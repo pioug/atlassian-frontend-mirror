@@ -3,7 +3,7 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
-import StarIcon from '@atlaskit/icon/glyph/star';
+import StarIcon from '@atlaskit/icon/utility/migration/star-unstarred--star';
 import { AtlassianIcon, RovoIcon } from '@atlaskit/logo';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import Skeleton from '@atlaskit/skeleton';
@@ -25,7 +25,8 @@ const countStyles = xcss({
 	font: token('font.body.small'),
 	display: 'flex',
 	alignItems: 'center',
-	gap: 'space.025',
+	gap: 'space.050',
+	paddingInlineStart: 'space.025',
 });
 
 const nameStyles = xcss({
@@ -141,7 +142,12 @@ export const AgentStarCount = ({
 
 	return (
 		<Box xcss={countStyles}>
-			<StarIcon label="" size="small" />
+			<StarIcon
+				LEGACY_margin={`0 ${token('space.negative.025')}`}
+				color="currentColor"
+				label=""
+				LEGACY_size="small"
+			/>
 			{isLoading ? (
 				<Skeleton
 					testId="agent-profile-info-star-count-skeleton"

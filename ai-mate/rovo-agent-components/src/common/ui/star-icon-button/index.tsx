@@ -2,7 +2,7 @@ import React, { type KeyboardEvent, type MouseEvent, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import StarIcon from '@atlaskit/icon/glyph/star';
+import StarIcon from '@atlaskit/icon/core/migration/star-unstarred--star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import { Pressable, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -40,6 +40,7 @@ export const StarIconButton = ({
 			onMouseLeave={() => setIsHovered(false)}
 		>
 			{isStarred || isHovered ? (
+				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO: color mapping not available in new icon (https://product-fabric.atlassian.net/browse/DSP-20918)
 				<StarFilledIcon
 					size="medium"
 					label={formatMessage(messages.removeFromFavouritesLabel)}
@@ -47,9 +48,10 @@ export const StarIconButton = ({
 				/>
 			) : (
 				<StarIcon
-					size="medium"
+					LEGACY_size="medium"
+					spacing="spacious"
 					label={formatMessage(messages.clickToFavouriteLabel)}
-					primaryColor={token('color.background.accent.gray.bolder.hovered')}
+					color={'var(--ds-text-accent-gray)'}
 				/>
 			)}
 		</Pressable>

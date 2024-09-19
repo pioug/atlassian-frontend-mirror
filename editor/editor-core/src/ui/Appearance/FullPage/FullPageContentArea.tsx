@@ -131,6 +131,7 @@ const Content = React.forwardRef<
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={[
 									'ak-editor-content-area',
+									'appearance-full-page',
 									fullWidthMode ? 'fabric-editor--full-width-mode' : '',
 								].join(' ')}
 								ref={contentAreaRef}
@@ -187,6 +188,7 @@ const Content = React.forwardRef<
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={[
 									'ak-editor-content-area',
+									'appearance-full-page',
 									fullWidthMode ? 'fabric-editor--full-width-mode' : '',
 								].join(' ')}
 								ref={contentAreaRef}

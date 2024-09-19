@@ -263,14 +263,24 @@ export const dragHandleDecoration = (
 			element.style.display = 'inline';
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
 			element.setAttribute('data-blocks-drag-handle-container', 'true');
+			let isTopLevelNode = true;
 
 			if (editorExperiment('nested-dnd', true)) {
-				unbind = bind(element, {
-					type: 'mouseover',
-					listener: (e) => {
-						e.stopPropagation();
-					},
-				});
+				const $pos = view.state.doc.resolve(pos);
+				isTopLevelNode = $pos?.parent.type.name === 'doc';
+				/*
+				 * We disable mouseover event to fix flickering issue on hover
+				 * However, the tooltip for nested drag handle is not long working.
+				 */
+				if (!isTopLevelNode) {
+					// This will also hide the tooltip.
+					unbind = bind(element, {
+						type: 'mouseover',
+						listener: (e) => {
+							e.stopPropagation();
+						},
+					});
+				}
 			}
 
 			unmountDecorations('data-blocks-drag-handle-container');
@@ -290,6 +300,7 @@ export const dragHandleDecoration = (
 						anchorName,
 						nodeType,
 						handleOptions,
+						isTopLevelNode,
 					}),
 				),
 				element,

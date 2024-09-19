@@ -1,5 +1,44 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.1.0
+
+### Minor Changes
+
+- [#142740](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142740)
+  [`a9e5ecde7f694`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a9e5ecde7f694) -
+  Remove redundant childnode checks to improve performance
+
+### Patch Changes
+
+- [#142433](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142433)
+  [`896303d4b4390`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/896303d4b4390) -
+  ED-24552 Update document moved event to fire when nested nodes are cut/paste into nodes and add
+  nodeDepth attributes
+- [#142806](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142806)
+  [`f73667130fb7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f73667130fb7d) -
+  [ux] Update drop target margin for nested panels
+- [#142433](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142433)
+  [`a4f9e2c346c40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4f9e2c346c40) -
+  ED-24925 re-enable tooltip for top level draghandle
+- Updated dependencies
+
+## 2.0.6
+
+### Patch Changes
+
+- [#142709](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142709)
+  [`7ca7608c6b4c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7ca7608c6b4c8) -
+  [ux] ED-24883 Fixed bug which caused empty line prompt button to jump around in Firefox
+- Updated dependencies
+
+## 2.0.5
+
+### Patch Changes
+
+- [#142267](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142267)
+  [`9ed8707898875`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ed8707898875) -
+  [ux] ED-24996 Delay appearance of line prompt quickinsert button
+
 ## 2.0.4
 
 ### Patch Changes

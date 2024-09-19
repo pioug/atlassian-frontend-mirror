@@ -98,8 +98,8 @@ export interface Props {
 	onClose: () => void;
 	/** Function that will be called optimistically after a delay when the feedback is submitted. */
 	onSubmit: (formFields: FormFields) => void;
-	/**  Optional locale for i18n */
-	locale?: string;
+	/**  Locale for i18n */
+	locale: string;
 	/** Optional custom modal content */
 	customContent?: React.ReactChild;
 	/**  Override to hide the default text fields for feedback */
@@ -138,6 +138,7 @@ export default class FeedbackCollector extends Component<Props> {
 	}
 
 	static defaultProps = {
+		locale: 'en',
 		url: '/gateway/api',
 		shouldGetEntitlementDetails: true,
 		canBeContactedFieldId: 'customfield_10043',

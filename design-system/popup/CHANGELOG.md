@@ -1,5 +1,14 @@
 # @atlaskit/popup
 
+## 1.26.0
+
+### Minor Changes
+
+- [#142538](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142538)
+  [`3979d0196514a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3979d0196514a) -
+  [ux] We are testing focus ring for popup wrapper `onKeyDown`. Changes are implemented behind
+  feature flag. If this fix is successful, it will be available in a later release.
+
 ## 1.25.0
 
 ### Minor Changes

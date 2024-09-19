@@ -15,7 +15,6 @@ import {
 	tableSharedStyle,
 	columnLayoutSharedStyle,
 	blockquoteSharedStyles,
-	blockquoteSharedStylesNew,
 	headingsSharedStyles,
 	ruleSharedStyles,
 	whitespaceSharedStyles,
@@ -583,7 +582,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 
 		${telepointerStyles(colorMode)}
 		${whitespaceSharedStyles};
-		${editorExperiment('nested-dnd', true) ? blockquoteSharedStylesNew : blockquoteSharedStyles};
+		${blockquoteSharedStyles};
 		${headingsSharedStyles()};
 		${ruleSharedStyles()};
 		${paragraphSharedStyles};

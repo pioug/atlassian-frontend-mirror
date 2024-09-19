@@ -1,5 +1,13 @@
 # @atlaskit/progress-indicator
 
+## 11.0.2
+
+### Patch Changes
+
+- [#140413](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140413)
+  [`8b29068863297`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b29068863297) -
+  [ux] Update background color of progress indicator dots
+
 ## 11.0.1
 
 ### Patch Changes

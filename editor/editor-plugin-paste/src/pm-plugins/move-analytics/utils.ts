@@ -1,12 +1,16 @@
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
-import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
+import {
+	findParentNodeClosestToPos,
+	findParentNodeOfTypeClosestToPos,
+} from '@atlaskit/editor-prosemirror/utils';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 const excludedNodes = [
 	'caption',
 	'layoutColumn',
 	'listItem',
-	'nestedExpand',
 	'tableHeader',
 	'tableCell',
 	'tableRow',
@@ -15,15 +19,13 @@ const excludedNodes = [
 	'unsupportedBlock',
 	'unsupportedInline',
 	'hardBreak',
-	'media',
 	'confluenceUnsupportedBlock',
 	'confluenceUnsupportedInline',
-	'bulletList',
-	'orderedList',
-	'taskList',
 	'taskItem',
-	'decisionList',
 	'decisionItem',
+	...(editorExperiment('nested-dnd', false)
+		? ['bulletList', 'orderedList', 'taskList', 'decisionList', 'nestedExpand', 'media']
+		: []),
 ];
 export const isExcludedNode = (nodeName: string) => excludedNodes.includes(nodeName);
 
@@ -34,6 +36,16 @@ export const isCursorSelectionAndInsideTopLevelNode = (selection: Selection) => 
 	}
 
 	return true;
+};
+
+export const isCursorSelectionAtTopLevel = (selection: Selection) => {
+	const { from, to, $from } = selection;
+
+	if (from !== to) {
+		return false;
+	}
+
+	return $from.parentOffset === 0;
 };
 
 const inlineNodes = [
@@ -92,6 +104,31 @@ const parentNodes = ['expand', 'extension', 'bodiedExtension', 'layoutSection'];
 export const isNestedTable = (selection: Selection) => {
 	const parentNode = selection.$anchor.node(1);
 	return parentNode && parentNodes.includes(parentNode.type.name);
+};
+
+export const isNestedInTable = (state: EditorState) => {
+	const { schema, selection } = state;
+	if (selection instanceof CellSelection) {
+		return false;
+	}
+	const { table } = schema.nodes;
+
+	const tableNode = findParentNodeOfTypeClosestToPos(selection.$from, table);
+	if (!tableNode) {
+		return false;
+	}
+	return true;
+};
+
+export const getParentNodeDepth = (selection: Selection) => {
+	const parentNode = findParentNodeClosestToPos(selection.$from, () => true);
+	if (!parentNode) {
+		return 0;
+	}
+
+	return parentNode.node.type.name === 'heading' || parentNode.node.type.name === 'paragraph'
+		? parentNode.depth - 1
+		: parentNode.depth;
 };
 
 const getPastedNameOfInlineNode = (nodeName: string) => {
@@ -176,4 +213,10 @@ export const isEntireTopLevelBlockquoteSelected = (state: EditorState) => {
 	});
 
 	return selectedNodesCount === blockquoteNode.node.childCount;
+};
+
+export const isEntireNestedParagraphOrHeadingSelected = (selection: Selection) => {
+	const { $from, $to } = selection;
+
+	return $from.textOffset === 0 && $to.textOffset === 0;
 };

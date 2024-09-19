@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-indentation
 
+## 1.7.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.5
 
 ### Patch Changes

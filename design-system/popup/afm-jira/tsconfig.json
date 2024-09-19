@@ -21,6 +21,9 @@
       "path": "../../ds-lib/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../focus-ring/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../layering/afm-jira/tsconfig.json"
     },
     {

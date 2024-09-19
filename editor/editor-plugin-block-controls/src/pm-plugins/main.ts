@@ -1,6 +1,7 @@
 import rafSchedule from 'raf-schd';
 import { type IntlShape } from 'react-intl-next';
 
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -10,8 +11,10 @@ import {
 import { browser } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isTextInput } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { type Step } from '@atlaskit/editor-prosemirror/transform';
 import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
@@ -96,14 +99,6 @@ const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) =>
 	return combine(...cleanupFn);
 };
 
-function getDocChildrenCount(newState: EditorState): number {
-	let size = 0;
-	newState.doc.descendants((node) => {
-		size += node.childCount;
-	});
-	return size;
-}
-
 const initialState: PluginState = {
 	decorations: DecorationSet.empty,
 	activeNode: undefined,
@@ -160,15 +155,17 @@ export const createPlugin = (
 				let activeNodeWithNewNodeType = null;
 
 				const newChildCount =
-					tr.docChanged && editorExperiment('nested-dnd', true)
-						? getDocChildrenCount(newState)
-						: childCount;
+					tr.docChanged && editorExperiment('nested-dnd', true) ? 0 : childCount;
 				// If tables or media are being resized, we want to hide the drag handle
 				const resizerMeta = tr.getMeta('is-resizer-resizing');
 				isResizerResizing = resizerMeta ?? isResizerResizing;
+
+				const canIgnoreTr = () => !tr.steps.every((e: Step) => e instanceof AnalyticsStep);
+
 				const nodeCountChanged = editorExperiment('nested-dnd', true)
-					? childCount !== newChildCount
+					? !isTextInput(tr) && tr.docChanged && canIgnoreTr()
 					: oldState.doc.childCount !== newState.doc.childCount;
+
 				const shouldRemoveHandle = !tr.getMeta('isRemote');
 
 				// During resize, remove the drag handle widget so its dom positioning doesn't need to be maintained
@@ -190,10 +187,9 @@ export const createPlugin = (
 
 				let newNodeDecs;
 				if (editorExperiment('nested-dnd', true)) {
-					// naive solution while we work on performance optimised approach under ED-24503
-					newNodeDecs = nodeDecorations(newState);
-					isDecsMissing = !(isDragging || meta?.isDragging) && decsLength !== newNodeDecs.length;
-					isDropTargetsMissing = (meta?.isDragging ?? isDragging) && nodeCountChanged;
+					isDecsMissing = !(isDragging || meta?.isDragging) && nodeCountChanged;
+					isDropTargetsMissing =
+						(meta?.isDragging ?? isDragging) && nodeCountChanged && !meta?.nodeMoved;
 				} else {
 					isDecsMissing =
 						!(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
@@ -226,7 +222,7 @@ export const createPlugin = (
 				const maybeTableWidthUpdated =
 					meta?.activeNode &&
 					meta?.activeNode?.nodeType === 'table' &&
-					(isPerformanceFix || meta.activeNode.anchorName === activeNode?.anchorName);
+					meta.activeNode.anchorName === activeNode?.anchorName;
 
 				const redrawDecorations =
 					decorations === DecorationSet.empty ||
@@ -248,7 +244,7 @@ export const createPlugin = (
 						(spec) => spec.type !== 'drop-target-decoration',
 					);
 					decorations = decorations.remove(oldNodeDecs);
-					newNodeDecs = newNodeDecs ?? nodeDecorations(newState);
+					newNodeDecs = nodeDecorations(newState);
 					decorations = decorations.add(newState.doc, [...newNodeDecs]);
 
 					if (activeNode && !meta?.nodeMoved && !isDecsMissing) {

@@ -5,7 +5,7 @@
 import React from 'react';
 import { AkSearchDrawer } from '@atlaskit/navigation';
 import Drawer from '@atlaskit/drawer';
-import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
+import ArrowLeftIcon from '@atlaskit/icon/core/migration/arrow-left';
 import BasicQuickSearch from './utils/BasicQuickSearch';
 import { token } from '@atlaskit/tokens';
 
@@ -65,7 +65,14 @@ export default class IssueUsingDrawers extends React.Component<any, State> {
 				<Wrapper
 					onClose={this.closeDrawer}
 					onBackButton={this.closeDrawer}
-					backIcon={<ArrowLeftIcon label="Back icon" size="medium" />}
+					backIcon={
+						<ArrowLeftIcon
+							color="currentColor"
+							label="Back icon"
+							LEGACY_size="medium"
+							spacing="spacious"
+						/>
+					}
 					isOpen={this.state.isDrawerOpen}
 					key="search"
 					primaryIcon={null}

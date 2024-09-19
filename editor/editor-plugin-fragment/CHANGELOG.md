@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-fragment
 
+## 1.8.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.4
 
 ### Patch Changes

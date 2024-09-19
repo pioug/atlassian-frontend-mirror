@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.21.0
+
+### Minor Changes
+
+- [#142522](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142522)
+  [`42f1b0abdb783`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/42f1b0abdb783) -
+  Disallow ALL CAPS styles in XCSS using the `use-latest-xcss-syntax-typography` rule.
+
 ## 10.20.0
 
 ### Minor Changes

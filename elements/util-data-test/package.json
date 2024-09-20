@@ -118,7 +118,7 @@
 		"@atlaskit/emoji": "67.7.10",
 		"@atlaskit/icon": "^22.18.0",
 		"@atlaskit/mention": "23.2.3",
-		"@atlaskit/profilecard": "^19.26.0",
+		"@atlaskit/profilecard": "^19.27.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.60.0",
 		"@atlaskit/user-picker": "10.23.0",

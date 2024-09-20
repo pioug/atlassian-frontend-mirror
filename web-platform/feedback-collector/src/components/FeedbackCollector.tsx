@@ -378,17 +378,33 @@ export default class FeedbackCollector extends Component<Props> {
 		}
 	}
 
+	addAccountIdToContext(atlassianID: string | undefined) {
+		if (atlassianID) {
+			const contextField = this.props.additionalFields.find((field) => {
+				return field.id === 'customfield_10047';
+			});
+			if (contextField) {
+				contextField.value = `${contextField.value}
+			atlassian-account-id: ${atlassianID}`;
+			}
+		}
+	}
+
 	async mapFormToJSD(formValues: FormFields) {
 		let entitlementInformation: FieldType[] | [] | null = null;
 
 		if (this.props?.shouldGetEntitlementDetails) {
 			entitlementInformation = await this.getEntitlementInformation();
 		}
+
 		if (this.props?.email) {
 			this.addEmailToContext();
 		}
 
 		const atlassianID = await this.getAtlassianID();
+		if (fg('jsw_feedback_account_id')) {
+			this.addAccountIdToContext(atlassianID);
+		}
 
 		return {
 			fields: [

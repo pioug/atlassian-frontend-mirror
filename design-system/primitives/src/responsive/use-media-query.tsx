@@ -1,6 +1,8 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { bind } from 'bind-event-listener';
+
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 
 import { UNSAFE_media } from './media-helper';
 

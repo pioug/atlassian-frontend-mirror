@@ -40,7 +40,7 @@ export const AgentProfileCardTrigger = ({
 			case 'SYSTEM':
 				return { type: 'SYSTEM' as const };
 
-			case 'THIRD_PARTY':
+			case 'THIRD_PARTY' || 'FORGE':
 				return { type: 'THIRD_PARTY' as const, name: creator ?? '' };
 
 			case 'CUSTOMER':

@@ -24,7 +24,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/ds-lib": "^2.5.0",
+		"@atlaskit/ds-lib": "^2.6.0",
 		"@atlaskit/tokens": "^1.60.0",
 		"@babel/runtime": "^7.0.0"
 	},

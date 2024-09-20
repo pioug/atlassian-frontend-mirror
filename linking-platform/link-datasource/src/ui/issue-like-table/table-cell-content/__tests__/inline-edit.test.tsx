@@ -76,6 +76,41 @@ describe('InlineEdit', () => {
 
 	const dataValues: DatasourceTypeWithOnlyValues = { type: 'string', values: ['Blahblah'] };
 
+	// This ensures that the id value is not changed to ensure filterTransaction works in packages/editor/editor-plugin-card/src/pm-plugins/main.ts
+	it('should have correct id value for when in edit view for prosemirror transaction filtering', async () => {
+		const execute = jest.fn().mockResolvedValue({});
+		const ari = testJiraAri;
+		store.storeState.setState({
+			items: {
+				[ari]: {
+					ari,
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: {
+						ari: { data: ari },
+						summary: { data: 'Blahblah' },
+					},
+				},
+			},
+		});
+		mockUseExecuteAtomicAction.mockReturnValue({ execute });
+
+		setup({
+			ari,
+			columnKey: 'summary',
+			execute,
+			datasourceTypeWithValues: dataValues,
+			readView: <MockReadView ari={ari} />,
+		});
+		expect(store.storeState.getState().items[ari].data.summary.data).toEqual('Blahblah');
+		expect(screen.getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
+		await userEvent.click(screen.getByTestId(testIds.readView));
+
+		const editView = screen.getByTestId(testIds.editView);
+		expect(editView).toBeInTheDocument();
+		expect(editView.id).toEqual('sllv-active-inline-edit');
+	});
+
 	it('should respond to the commit click and update the view and state when `execute` from `useExecuteAtomicAction` exists and its call resolves successfully', async () => {
 		const execute = jest.fn().mockResolvedValue({});
 		const ari = testJiraAri;

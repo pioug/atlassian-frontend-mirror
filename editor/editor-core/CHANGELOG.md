@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 197.9.1
+
+### Patch Changes
+
+- [#143311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143311)
+  [`994ae05bb80fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/994ae05bb80fc) -
+  ED-24709: FF platform.editor.media.preview-in-full-page clean up
+- Updated dependencies
+
 ## 197.9.0
 
 ### Minor Changes

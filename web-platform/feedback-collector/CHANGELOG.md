@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 13.12.1
+
+### Patch Changes
+
+- [#142062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142062)
+  [`3e38da9d60e87`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e38da9d60e87) -
+  Add user account id onto feedback ticket for jira
+
 ## 13.12.0
 
 ### Minor Changes

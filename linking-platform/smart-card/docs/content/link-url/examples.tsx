@@ -6,8 +6,8 @@ export default customMd`
 
 ${(
 	<CustomExample
-		Component={require('../../../examples/link-url').default}
-		source={require('!!raw-loader!../../../examples/link-url')}
+		Component={require('../../../examples/content/link-url').default}
+		source={require('!!raw-loader!../../../examples/content/link-url')}
 	/>
 )}
 `;

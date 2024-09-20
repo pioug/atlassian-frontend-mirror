@@ -18,7 +18,7 @@ export function renderTextSegments(
 		}
 
 		return (
-			<span data-highlighted>
+			<span data-highlighted data-vc="highlighted-text">
 				<Component
 					match={segment.text}
 					groups={segment.groups}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -12,12 +12,12 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import Popup from '@atlaskit/popup';
 
 import type { TasksAndDecisionsPlugin } from '../types';
 import TaskItem from '../ui/Task';
 
 import { useShowPlaceholder } from './hooks/use-show-placeholder';
-
 type ForwardRef = (node: HTMLElement | null) => void;
 type getPosHandler = getPosHandlerNode | boolean;
 type getPosHandlerNode = () => number | undefined;
@@ -49,6 +49,7 @@ const TaskItemWrapper = ({
 }: TaskItemWrapperProps) => {
 	const { taskDecisionState } = useSharedPluginState(api, ['taskDecision']);
 	const isFocused = Boolean(taskDecisionState?.focusedTaskItemLocalId === localId);
+	const [isOpen, setIsOpen] = useState(false);
 
 	const showPlaceholder = useShowPlaceholder({
 		editorView,
@@ -57,15 +58,71 @@ const TaskItemWrapper = ({
 		api,
 	});
 
+	const onHandleClick = (): false | undefined => {
+		if (fg('editor_request_to_edit_task')) {
+			setIsOpen(true);
+			const { tr } = editorView.state;
+			const nodePos = (getPos as getPosHandlerNode)();
+
+			if (typeof nodePos !== 'number') {
+				return false;
+			}
+			tr.setMeta('scrollIntoView', false);
+
+			/**
+			 * This is a test implementation to call the request to edit mutation
+			 * from within editor when toggling a task where a user has no edit access.
+			 *
+			 * This will eventially be handled by https://product-fabric.atlassian.net/browse/ED-24773
+			 * to connect up the correct user action
+			 */
+			if (!api?.taskDecision?.sharedState.currentState()?.hasEditPermission) {
+				const requestToEdit = api?.taskDecision?.sharedState.currentState()?.requestToEditContent;
+				if (requestToEdit) {
+					requestToEdit();
+				}
+			}
+
+			editorView.dispatch(tr);
+		}
+	};
+
+	if (!fg('editor_request_to_edit_task')) {
+		return (
+			<TaskItem
+				taskId={localId}
+				contentRef={forwardRef}
+				isDone={isDone}
+				onChange={onChange}
+				isFocused={isFocused}
+				showPlaceholder={showPlaceholder}
+				providers={providerFactory}
+			/>
+		);
+	}
+
 	return (
-		<TaskItem
-			taskId={localId}
-			contentRef={forwardRef}
-			isDone={isDone}
-			onChange={onChange}
-			isFocused={isFocused}
-			showPlaceholder={showPlaceholder}
-			providers={providerFactory}
+		<Popup
+			isOpen={isOpen}
+			onClose={() => setIsOpen(false)}
+			content={() => <div>Content</div>}
+			trigger={(triggerProps) => {
+				return (
+					<TaskItem
+						taskId={localId}
+						contentRef={forwardRef}
+						inputRef={triggerProps.ref}
+						isDone={isDone}
+						onChange={onChange}
+						onClick={onHandleClick}
+						isFocused={isFocused}
+						showPlaceholder={showPlaceholder}
+						providers={providerFactory}
+						disableOnChange={true}
+					/>
+				);
+			}}
+			placement={'bottom'}
 		/>
 	);
 };
@@ -100,24 +157,6 @@ class Task extends ReactNodeView<Props> {
 			}),
 		);
 		tr.setMeta('scrollIntoView', false);
-
-		/**
-		 * This is a test implementation to call the request to edit mutation
-		 * from within editor when toggling a task where a user has no edit access.
-		 *
-		 * This will eventially be handled by https://product-fabric.atlassian.net/browse/ED-24773
-		 * to connect up the correct user action
-		 */
-		if (
-			!this.api?.taskDecision?.sharedState.currentState()?.hasEditPermission &&
-			fg('editor_request_to_edit_task')
-		) {
-			const requestToEdit =
-				this.api?.taskDecision?.sharedState.currentState()?.requestToEditContent;
-			if (requestToEdit) {
-				requestToEdit();
-			}
-		}
 
 		this.view.dispatch(tr);
 	};
@@ -187,6 +226,7 @@ class Task extends ReactNodeView<Props> {
 	render(props: Props, forwardRef: ForwardRef) {
 		const { localId, state } = this.node.attrs;
 		const isContentNodeEmpty = this.isContentEmpty(this.node);
+
 		return (
 			<AnalyticsListener channel="fabric-elements" onEvent={this.addListAnalyticsData}>
 				<TaskItemWrapper

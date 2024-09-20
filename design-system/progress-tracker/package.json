@@ -24,7 +24,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^12.1.0",
+		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.60.0",
 		"@babel/runtime": "^7.0.0",
@@ -37,7 +37,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/ds-lib": "^2.5.0",
+		"@atlaskit/ds-lib": "^2.6.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",

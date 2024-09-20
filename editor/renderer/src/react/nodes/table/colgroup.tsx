@@ -6,6 +6,7 @@ import {
 	akEditorTableNumberColumnWidth,
 	akEditorTableLegacyCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { SharedTableProps } from './types';
 import { useFeatureFlags } from '../../../use-feature-flags';
@@ -197,9 +198,11 @@ const renderScaleDownColgroup = (
 	const isTableWidthFixed =
 		isTableScalingWithFixedColumnWidthsOptionEnabled &&
 		props.tableNode?.attrs.displayMode === 'fixed';
-	const maxScalingPercent = isTableScalingWithFixedColumnWidthsOptionEnabled
-		? MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION
-		: MAX_SCALING_PERCENT;
+	const maxScalingPercent =
+		isTableScalingWithFixedColumnWidthsOptionEnabled ||
+		(isTableScalingEnabled && rendererAppearance === 'comment')
+			? MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION
+			: MAX_SCALING_PERCENT;
 
 	// fixes migration tables with zero-width columns
 	if (zeroWidthColumnsCount > 0) {
@@ -245,12 +248,17 @@ export const Colgroup = (props: SharedTableProps) => {
 
 	const colStyles = renderScaleDownColgroup({
 		...props,
-		isTableScalingEnabled: !!(flags && 'tablePreserveWidth' in flags && flags.tablePreserveWidth),
-		isTableFixedColumnWidthsOptionEnabled: !!(
-			flags &&
-			'tableWithFixedColumnWidthsOption' in flags &&
-			flags.tableWithFixedColumnWidthsOption
-		),
+		isTableScalingEnabled:
+			!!(flags && 'tablePreserveWidth' in flags && flags.tablePreserveWidth) ||
+			(props.rendererAppearance === 'comment' &&
+				editorExperiment('support_table_in_comment', true, { exposure: true })),
+		isTableFixedColumnWidthsOptionEnabled:
+			!!(
+				flags &&
+				'tableWithFixedColumnWidthsOption' in flags &&
+				flags.tableWithFixedColumnWidthsOption
+			) &&
+			(props.rendererAppearance === 'full-page' || props.rendererAppearance === 'full-width'),
 	});
 
 	if (!colStyles) {

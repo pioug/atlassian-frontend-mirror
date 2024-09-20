@@ -21,6 +21,7 @@ import {
 	type PopupProps as LegacyPopupProps,
 	type TriggerProps,
 } from '../types';
+import { usePopupAppearance } from '../use-appearance';
 import { useGetMemoizedMergedTriggerRef } from '../use-get-memoized-merged-trigger-ref';
 
 const IsOpenContext = createContext<boolean>(false);
@@ -118,6 +119,8 @@ const defaultLayer = layers.layer();
 
 type CommonContentPopupProps = Pick<
 	LegacyPopupProps,
+	| 'xcss'
+	| 'appearance'
 	| 'boundary'
 	| 'offset'
 	| 'onClose'
@@ -161,6 +164,8 @@ export type PopupContentProps = ShouldFitContainerContentPopupProps | StandardPo
  * It must be a child of the Popup component.
  */
 export const PopupContent = ({
+	xcss,
+	appearance: inAppearance = 'default',
 	children,
 	boundary,
 	offset,
@@ -175,7 +180,7 @@ export const PopupContent = ({
 	autoFocus = true,
 	zIndex = defaultLayer,
 	shouldUseCaptureOnOutsideClick = false,
-	shouldRenderToParent,
+	shouldRenderToParent: inShouldRenderToParent,
 	shouldDisableFocusLock = false,
 	shouldFitContainer,
 	shouldFitViewport,
@@ -184,6 +189,10 @@ export const PopupContent = ({
 	const isOpen = useContext(IsOpenContext);
 	const id = useContext(IdContext);
 	const triggerRef = useContext(TriggerRefContext);
+	const { appearance, shouldRenderToParent } = usePopupAppearance({
+		appearance: inAppearance,
+		shouldRenderToParent: inShouldRenderToParent,
+	});
 
 	if (!isOpen) {
 		return null;
@@ -192,6 +201,9 @@ export const PopupContent = ({
 	const popperWrapper = (
 		<UNSAFE_LAYERING isDisabled={false}>
 			<PopperWrapper
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				xcss={xcss}
+				appearance={appearance}
 				content={children}
 				isOpen={isOpen}
 				placement={placement}

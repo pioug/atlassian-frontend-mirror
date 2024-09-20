@@ -214,7 +214,7 @@ export default () => {
 				id="react-select-datetimepicker-4--input"
 				defaultValue="2018-01-02T14:30+10:00"
 				onChange={onChange}
-				timeIsEditable
+				timePickerProps={{ timeIsEditable: true }}
 			/>
 			<Label htmlFor="react-select-datetimepicker-input">
 				Date / time picker (editable times with value (UTC+10:00))

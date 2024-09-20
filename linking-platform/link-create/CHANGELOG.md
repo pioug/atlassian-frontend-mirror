@@ -1,5 +1,17 @@
 # @atlaskit/link-create
 
+## 2.12.0
+
+### Minor Changes
+
+- [#143386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143386)
+  [`56176a0b84544`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56176a0b84544) -
+  Exposing CreateField as something that can be imported
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.11.6
 
 ### Patch Changes

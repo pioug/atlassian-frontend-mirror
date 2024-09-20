@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.8.0
+
+### Minor Changes
+
+- [#142802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142802)
+  [`09c0d0a18b491`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09c0d0a18b491) -
+  [ux] [ED-24935] [ED24921] Add URL validation and enforce max length for input field
+
 ## 2.7.3
 
 ### Patch Changes

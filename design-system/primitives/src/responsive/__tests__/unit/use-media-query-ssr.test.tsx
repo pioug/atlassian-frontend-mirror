@@ -16,11 +16,7 @@ test('should ssr then hydrate correctly', async () => {
 
 	// eslint-disable-next-line no-console
 	const mockCalls = (console.error as jest.Mock).mock.calls;
-	expect(mockCalls).toEqual([
-		expect.arrayContaining([
-			expect.stringMatching(/Warning.*useLayoutEffect does nothing on the server/),
-		]),
-	]);
+	expect(mockCalls.length).toEqual(0);
 
 	cleanup();
 	consoleMock.mockRestore();

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-helpers",
-	"version": "34.4.0",
+	"version": "34.4.1",
 	"description": "Collection of test helpers used in media component stories and specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,9 +32,9 @@
 		"@atlaskit/locale": "^2.8.0",
 		"@atlaskit/media-client": "^28.0.0",
 		"@atlaskit/media-common": "^11.4.0",
-		"@atlaskit/media-ui": "^25.14.0",
-		"@atlaskit/popup": "^1.26.0",
-		"@atlaskit/primitives": "12.1.2",
+		"@atlaskit/media-ui": "^25.15.0",
+		"@atlaskit/popup": "^1.27.0",
+		"@atlaskit/primitives": "12.2.0",
 		"@atlaskit/tabs": "^16.4.0",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/tokens": "^1.60.0",

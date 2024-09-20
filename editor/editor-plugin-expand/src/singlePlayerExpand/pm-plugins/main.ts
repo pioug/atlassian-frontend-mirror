@@ -134,6 +134,9 @@ export function handleExpandDrag(view: EditorView, event: DragEvent, slice: Slic
 	const isNodeAtDropPosInsideNodesWithNestedExpandSupport =
 		nodesWithNestedExpandSupport.includes(dropLocationNodeType) ||
 		nodesWithNestedExpandSupport.includes(dropLocationParentNodeType);
+	const isNodeBeingDroppedInsideNestedExpand =
+		dropLocationNodeType === state.schema.nodes.nestedExpand ||
+		dropLocationParentNodeType === state.schema.nodes.nestedExpand;
 
 	if (editorExperiment('nested-expand-in-expand', false)) {
 		if (
@@ -150,7 +153,11 @@ export function handleExpandDrag(view: EditorView, event: DragEvent, slice: Slic
 
 	if (sliceContainsExpand && isNodeAtDropPosInsideNodesWithNestedExpandSupport) {
 		updatedSlice = transformSliceExpandToNestedExpand(slice);
-	} else if (sliceContainsNestedExpand && !isNodeAtDropPosInsideNodesWithNestedExpandSupport) {
+	} else if (
+		sliceContainsNestedExpand &&
+		!isNodeAtDropPosInsideNodesWithNestedExpandSupport &&
+		!isNodeBeingDroppedInsideNestedExpand
+	) {
 		updatedSlice = transformSliceNestedExpandToExpand(slice, state.schema);
 	}
 

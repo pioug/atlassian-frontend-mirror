@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.0.3
+
+### Patch Changes
+
+- [#142470](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142470)
+  [`0d498622a7ca6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d498622a7ca6) -
+  Change background colour of icon to match surface behind it
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

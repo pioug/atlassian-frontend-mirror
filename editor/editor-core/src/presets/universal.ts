@@ -47,7 +47,6 @@ import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-lists-indentation';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorProps } from '../types';
@@ -214,7 +213,7 @@ export default function createUniversalPresetInternal({
 					allowMediaSingleEditable: true,
 					allowRemoteDimensionsFetch: true,
 					allowMarkingUploadsAsIncomplete: false,
-					allowImagePreview: isFullPage && fg('platform.editor.media.preview-in-full-page'),
+					allowImagePreview: isFullPage,
 					fullWidthEnabled: appearance === 'full-width',
 					editorAppearance: appearance,
 					uploadErrorHandler: props.uploadErrorHandler,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type RefObject } from 'react';
 import { PureComponent } from 'react';
 import TaskItem from './TaskItem';
 import {
@@ -17,6 +17,7 @@ export interface Props {
 	isRenderer?: boolean;
 	isFocused?: boolean;
 	onChange?: (taskId: string, isChecked: boolean) => void;
+	onClick?: () => void;
 	contentRef?: ContentRef;
 	children?: any;
 	taskDecisionProvider?: Promise<TaskDecisionProvider>;
@@ -26,6 +27,8 @@ export interface Props {
 	appearance?: Appearance;
 	disabled?: boolean;
 	dataAttributes?: { [key: string]: string | number };
+	inputRef?: RefObject<HTMLInputElement>;
+	disableOnChange?: boolean;
 }
 
 export interface State {
@@ -109,7 +112,12 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
 	};
 
 	private handleOnChange = (taskId: string, isDone: boolean) => {
-		const { taskDecisionProvider, objectAri, onChange } = this.props;
+		const { taskDecisionProvider, objectAri, onChange, disableOnChange } = this.props;
+
+		if (disableOnChange) {
+			return;
+		}
+
 		// Optimistically update the task
 		this.setState({ isDone });
 
@@ -135,6 +143,13 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
 		}
 	};
 
+	private handleOnClick = () => {
+		const { onClick } = this.props;
+		if (onClick) {
+			onClick();
+		}
+	};
+
 	render() {
 		const { isDone } = this.state;
 		const {
@@ -149,8 +164,8 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
 			dataAttributes,
 			isRenderer,
 			isFocused,
+			inputRef,
 		} = this.props;
-
 		return (
 			<FabricElementsAnalyticsContext
 				data={{
@@ -163,12 +178,14 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
 					isFocused={isFocused}
 					taskId={taskId}
 					onChange={this.handleOnChange}
+					onClick={this.handleOnClick}
 					appearance={appearance}
 					contentRef={contentRef}
 					showPlaceholder={showPlaceholder}
 					placeholder={placeholder}
 					disabled={disabled}
 					dataAttributes={dataAttributes}
+					inputRef={inputRef}
 				>
 					{children}
 				</TaskItem>

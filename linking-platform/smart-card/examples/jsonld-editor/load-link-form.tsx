@@ -1,42 +1,13 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import React, { useCallback, useMemo } from 'react';
 import Button from '@atlaskit/button/new';
 import Form, { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
+import { Anchor, Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+import React, { useCallback, useMemo } from 'react';
 
-const labelHelpMessageStyles = css({
-	fontWeight: 'normal',
-	fontSize: '0.9em',
-	verticalAlign: 'text-top',
+const tooltipAnchorStyles = xcss({
+	color: 'color.text.inverse',
 });
-
-const textFieldStyles = css({
-	alignContent: 'stretch',
-	alignItems: 'center',
-	display: 'flex',
-	gap: '1rem',
-});
-
-const tooltipStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	a: {
-		color: token('color.background.accent.blue.subtle', '#579DFF'),
-		'&:active': {
-			color: token('color.text.information', '#85B8FF'),
-		},
-		'&:hover': {
-			color: token('color.background.accent.blue.subtle', '#579DFF'),
-		},
-	},
-});
-
 const urlPattern = new RegExp(
 	'^(https?:\\/\\/)?' + // protocol
 		'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
@@ -85,23 +56,24 @@ const LoadLinkForm = ({
 		() => (
 			<Tooltip
 				content={
-					<div css={tooltipStyles}>
-						<p>
+					<Box padding="space.075">
+						<Box>
 							We know it's not a usual "log in" but we need to acquire ASAP-signed JWT token through
 							a micros static server for our Atlaskit examples.{' '}
-							<a
+							<Anchor
 								href="https://product-fabric.atlassian.net/wiki/spaces/MEX/pages/3057025945"
 								target="_blank"
+								xcss={tooltipAnchorStyles}
 							>
 								Read more about that here.
-							</a>
-						</p>
-						<p>
+							</Anchor>
+						</Box>
+						<Box>
 							For Atlassian product links such as Confluence or Jira, please use staging links such
 							as pug or jdog. Production links including hello and product fabric will not resolve
 							on staging environment.
-						</p>
-					</div>
+						</Box>
+					</Box>
 				}
 			>
 				{(tooltipProps) => (
@@ -118,36 +90,43 @@ const LoadLinkForm = ({
 		() => (
 			<Tooltip
 				content={
-					<div css={tooltipStyles}>
-						<p>
+					<Box padding="space.075">
+						<Box>
 							Third-party Smart Links are typically installed on{' '}
-							<a
+							<Anchor
 								href="https://developer.atlassian.com/platform/atlassian-resource-identifier/resource-owners/registry/"
 								target="_blank"
+								xcss={tooltipAnchorStyles}
 							>
 								ARIs
-							</a>
+							</Anchor>
 							.
-						</p>
-						<p>
+						</Box>
+						<Box>
 							To load link from a specific ARI, please enter the ARI in following format;
 							ari:cloud:confluence::site/your-site-id
-						</p>
-						<p>
+						</Box>
+						<Box>
 							Your site ID can be found by navigating to the{' '}
-							<a href="https://pug.jira-dev.com/_edge/tenant_info" target="_blank">
+							<Anchor
+								href="https://pug.jira-dev.com/_edge/tenant_info"
+								target="_blank"
+								xcss={tooltipAnchorStyles}
+							>
 								instance with the installed resolver
-							</a>{' '}
+							</Anchor>{' '}
 							and appending "/_edge/tenant_info" to the domain.
-						</p>
-					</div>
+						</Box>
+					</Box>
 				}
 				tag="span"
 			>
 				{(tooltipProps) => (
-					<span {...tooltipProps}>
-						ARI <span css={labelHelpMessageStyles}>(?)</span>
-					</span>
+					<Box {...tooltipProps}>
+						<Inline alignBlock="center" space="space.025">
+							<Box>ARI</Box> <Text size="small">(?)</Text>
+						</Inline>
+					</Box>
 				)}
 			</Tooltip>
 		),
@@ -158,60 +137,57 @@ const LoadLinkForm = ({
 		<Form onSubmit={handleSubmit}>
 			{({ formProps }) => (
 				<form {...formProps} name="load-link">
-					<Field
-						aria-required={true}
-						defaultValue=""
-						label="URL"
-						isRequired
-						name="url"
-						validate={validateUrl}
-					>
-						{({ fieldProps, error, meta: { dirtySinceLastSubmit } }: any) => (
-							<React.Fragment>
-								<div css={textFieldStyles}>
+					<Stack>
+						<Field
+							aria-required={true}
+							defaultValue=""
+							label="URL"
+							isRequired
+							name="url"
+							validate={validateUrl}
+						>
+							{({ fieldProps, error, meta: { dirtySinceLastSubmit } }: any) => (
+								<React.Fragment>
 									<Textfield {...fieldProps} />
-								</div>
-								{error === 'INCORRECT_URL_FORMAT' && (
-									<ErrorMessage>Please enter a valid url.</ErrorMessage>
-								)}
-								{!dirtySinceLastSubmit && urlError && <ErrorMessage>{urlError}</ErrorMessage>}
-							</React.Fragment>
-						)}
-					</Field>
-					<Field label={ariLabel} name="ari" validate={validateAri} defaultValue="">
-						{({ fieldProps, error }: any) => (
-							<React.Fragment>
-								<div css={textFieldStyles}>
+									{error === 'INCORRECT_URL_FORMAT' && (
+										<ErrorMessage>Please enter a valid url.</ErrorMessage>
+									)}
+									{!dirtySinceLastSubmit && urlError && <ErrorMessage>{urlError}</ErrorMessage>}
+								</React.Fragment>
+							)}
+						</Field>
+						<Field label={ariLabel} name="ari" validate={validateAri} defaultValue="">
+							{({ fieldProps, error }: any) => (
+								<React.Fragment>
 									<Textfield {...fieldProps} />
-								</div>
-								{error === 'INCORRECT_ARI_FORMAT' && (
-									<ErrorMessage>Please enter a valid ARI.</ErrorMessage>
-								)}
-							</React.Fragment>
-						)}
-					</Field>
-					<Field
-						label="Branch Deploy"
-						name="branchDeploy"
-						validate={validateBranchDeploy}
-						defaultValue={branchDeploy}
-					>
-						{({ fieldProps, error }: any) => (
-							<React.Fragment>
-								<div css={textFieldStyles}>
+									{error === 'INCORRECT_ARI_FORMAT' && (
+										<ErrorMessage>Please enter a valid ARI.</ErrorMessage>
+									)}
+								</React.Fragment>
+							)}
+						</Field>
+						<Field
+							label="Branch deploy"
+							name="branchDeploy"
+							validate={validateBranchDeploy}
+							defaultValue={branchDeploy}
+						>
+							{({ fieldProps, error }: any) => (
+								<React.Fragment>
 									<Textfield {...fieldProps} />
-								</div>
-								{error === 'INCORRECT_BRANCH_DEPLOY_FORMAT' && (
-									<ErrorMessage>Please enter a valid Branch Deploy</ErrorMessage>
-								)}
-							</React.Fragment>
-						)}
-					</Field>
-					<HelperMessage>{helpMessageUrl}</HelperMessage>
-					<p></p>
-					<Button type="submit" appearance="primary">
-						Load URL
-					</Button>
+									{error === 'INCORRECT_BRANCH_DEPLOY_FORMAT' && (
+										<ErrorMessage>Please enter a valid Branch Deploy</ErrorMessage>
+									)}
+								</React.Fragment>
+							)}
+						</Field>
+						<HelperMessage>{helpMessageUrl}</HelperMessage>
+						<Box paddingBlockStart="space.100">
+							<Button type="submit" appearance="primary">
+								Load URL
+							</Button>
+						</Box>
+					</Stack>
 				</form>
 			)}
 		</Form>

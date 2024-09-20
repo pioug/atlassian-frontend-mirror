@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 3.0.6
+
+### Patch Changes
+
+- [#143055](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143055)
+  [`1580619590f3e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1580619590f3e) -
+  [ux] Adds a filterTransaction to the editor-card plugin to ignore bug-causing click transaction
+  when inline editing is active and user clicks on scroll gutter of the editor, ignoring the
+  transaction coming from editor-core click-area-helper in this edge case.
+
 ## 3.0.5
 
 ### Patch Changes

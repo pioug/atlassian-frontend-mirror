@@ -9,7 +9,6 @@ import CustomerIcon from '@atlaskit/icon/glyph/person';
 
 import {
 	ButtonItem,
-	HeadingItem,
 	NavigationHeader,
 	NestableNavigationContent,
 	NestingItem,
@@ -30,9 +29,8 @@ const BasicExample = () => {
 					<SampleHeader />
 				</NavigationHeader>
 				<NestableNavigationContent stack={['nested']}>
-					<Section>
-						<NestingItem id="nested" title="Nested">
-							<HeadingItem>Heading</HeadingItem>
+					<NestingItem id="nested" title="Nested">
+						<Section title="Heading">
 							<SkeletonHeadingItem />
 							<SkeletonItem hasAvatar />
 							<SkeletonItem hasIcon />
@@ -41,8 +39,8 @@ const BasicExample = () => {
 							<SkeletonItem />
 							<SkeletonItem />
 							<ButtonItem>Create</ButtonItem>
-						</NestingItem>
-					</Section>
+						</Section>
+					</NestingItem>
 				</NestableNavigationContent>
 			</SideNavigation>
 		</AppFrame>

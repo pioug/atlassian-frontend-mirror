@@ -33,6 +33,9 @@
       "path": "../../editor-shared-styles/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../design-system/form/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/icon/afm-jira/tsconfig.json"
     },
     {

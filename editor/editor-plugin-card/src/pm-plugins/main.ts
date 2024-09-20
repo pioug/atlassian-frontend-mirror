@@ -4,7 +4,7 @@ import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-vi
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -188,6 +188,23 @@ export const createPlugin =
 
 					return newState;
 				},
+			},
+
+			filterTransaction(tr: Transaction) {
+				if (fg('platform_linking_enable_transaction_filtering')) {
+					const isOutsideClicked = tr.getMeta('outsideProsemirrorEditorClicked');
+
+					if (isOutsideClicked) {
+						const isInlineEditingActive = document.getElementById('sllv-active-inline-edit');
+						if (isInlineEditingActive) {
+							return false;
+						}
+					}
+
+					return true;
+				} else {
+					return true;
+				}
 			},
 
 			view(view: EditorView) {

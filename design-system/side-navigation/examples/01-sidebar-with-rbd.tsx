@@ -36,10 +36,10 @@ import { token } from '@atlaskit/tokens';
 import {
 	ButtonItem,
 	CustomItem,
-	HeadingItem,
 	NavigationHeader,
 	NestableNavigationContent,
 	NestingItem,
+	Section,
 	SideNavigation,
 } from '../src';
 
@@ -201,7 +201,7 @@ const generateDraggableCustomItems = (n: number): CustomDraggable[] => {
 	const CustomComponent = forwardRef<any, CustomItemComponentProps>(
 		({ children, 'data-testid': testId, ...rest }, ref) => {
 			return (
-				<Box ref={ref} testId={testId} {...rest}>
+				<Box ref={ref} testId={testId} {...rest} tabIndex={0}>
 					{children}
 				</Box>
 			);
@@ -296,20 +296,25 @@ const RBDExample = () => {
 						iconBefore={<RBDIcon label="" />}
 						title="Draggable <ButtonItem/>s"
 					>
-						<HeadingItem>Click and drag the items below to rearrange</HeadingItem>
-						<ADragDropView items={generateDraggableButtonItems(10)} />
+						<Section title="Click and drag the items below to rearrange">
+							<ADragDropView items={generateDraggableButtonItems(10)} />
+						</Section>
 					</NestingItem>
+
 					<NestingItem
 						id="draggable-custom-items"
 						iconBefore={<RBDIcon label="" />}
 						title="Draggable <CustomItem/>s"
 					>
-						<HeadingItem>Click and drag the items below to rearrange</HeadingItem>
-						<ADragDropView items={generateDraggableCustomItems(10)} />
+						<Section title="Click and drag the items below to rearrange">
+							<ADragDropView items={generateDraggableCustomItems(10)} />
+						</Section>
 					</NestingItem>
 					<NestingItem id="3" iconBefore="🐱" title="Draggable Cats">
-						<HeadingItem>Click and drag the items below to rearrange</HeadingItem>
 						<ADragDropView items={generateDraggableCats()} />
+						<Section title="Click and drag the items below to rearrange">
+							<ADragDropView items={generateDraggableCats()} />
+						</Section>
 					</NestingItem>
 				</NestableNavigationContent>
 			</SideNavigation>

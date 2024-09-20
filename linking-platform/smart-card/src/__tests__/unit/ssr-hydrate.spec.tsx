@@ -1,12 +1,30 @@
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { ssr } from '@atlaskit/ssr';
 import React from 'react';
 
 import ReactDOM from 'react-dom';
-import { ssr } from '@atlaskit/ssr';
+import { Client, Provider, TitleBlock } from '../..';
 
-import Example from '../../../examples/14-ssr';
+import { cardState, url } from '../../../examples/utils/smart-card-ssr-state';
+import { CardSSR } from '../../ssr';
 
 // @ts-ignore
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
+
+const storeOptions: CardProviderStoreOpts = {
+	initialState: {
+		[url]: cardState,
+	},
+};
+
+const Example = () => (
+	<Provider storeOptions={storeOptions} client={new Client('stg')}>
+		<CardSSR appearance="inline" url={url} />
+		<CardSSR appearance="block" url={url}>
+			<TitleBlock />
+		</CardSSR>
+	</Provider>
+);
 
 afterEach(() => {
 	jest.resetAllMocks();

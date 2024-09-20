@@ -18,6 +18,7 @@ import { layers } from '@atlaskit/theme/constants';
 
 import PopperWrapper from './popper-wrapper';
 import { type PopupProps } from './types';
+import { usePopupAppearance } from './use-appearance';
 import { useGetMemoizedMergedTriggerRef } from './use-get-memoized-merged-trigger-ref';
 import { useGetMemoizedMergedTriggerRefNew } from './use-get-memoized-merged-trigger-ref-new';
 
@@ -29,6 +30,8 @@ const wrapperStyles = xcss({
 
 export const Popup: FC<PopupProps> = memo(
 	({
+		xcss,
+		appearance: inAppearance = 'default',
 		isOpen,
 		id: providedId,
 		offset,
@@ -45,7 +48,7 @@ export const Popup: FC<PopupProps> = memo(
 		autoFocus = true,
 		zIndex = defaultLayer,
 		shouldUseCaptureOnOutsideClick = false,
-		shouldRenderToParent = false,
+		shouldRenderToParent: inShouldRenderToParent = false,
 		shouldFitContainer = false,
 		shouldDisableFocusLock = false,
 		shouldReturnFocus = true,
@@ -59,13 +62,20 @@ export const Popup: FC<PopupProps> = memo(
 		const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 		const getMergedTriggerRef = useGetMemoizedMergedTriggerRef();
 		const getMergedTriggerRefNew = useGetMemoizedMergedTriggerRefNew();
-
 		const generatedId = useId();
+		const { appearance, shouldRenderToParent } = usePopupAppearance({
+			appearance: inAppearance,
+			shouldRenderToParent: inShouldRenderToParent,
+		});
+
 		const id = providedId || generatedId;
 
 		const renderPopperWrapper = (
 			<UNSAFE_LAYERING isDisabled={false}>
 				<PopperWrapper
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+					xcss={xcss}
+					appearance={appearance}
 					content={content}
 					isOpen={isOpen}
 					placement={placement}

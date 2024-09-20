@@ -1,21 +1,10 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import { useCallback } from 'react';
 import * as examples from '../../examples-helpers/_jsonLDExamples';
 import Button from '@atlaskit/button/new';
 import { getJsonLdResponse } from '../utils/flexible-ui';
 import { type ResolveResponse } from '../../src';
-
-const jsonldExampleStyles = css({
-	display: 'flex',
-	flexWrap: 'wrap',
-	gap: '0.25rem',
-	margin: '0.75rem 0',
-});
+import React from 'react';
+import { Flex } from '@atlaskit/primitives';
 
 const JsonldExample = ({
 	defaultValue,
@@ -33,7 +22,7 @@ const JsonldExample = ({
 	);
 
 	return (
-		<div css={jsonldExampleStyles}>
+		<Flex gap="space.050" wrap="wrap">
 			<Button onClick={() => handleOnClick(defaultValue)} spacing="compact">
 				🦄
 			</Button>
@@ -42,7 +31,7 @@ const JsonldExample = ({
 					{key}
 				</Button>
 			))}
-		</div>
+		</Flex>
 	);
 };
 

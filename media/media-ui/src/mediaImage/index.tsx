@@ -426,6 +426,7 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
 			<ImageComponent
 				loading={loading}
 				data-testid="media-image"
+				data-vc="media-image"
 				draggable={false}
 				alt={alt}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

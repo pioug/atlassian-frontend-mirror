@@ -9,6 +9,7 @@ import {
 	type SetStateAction,
 } from 'react';
 
+import { type StrictXCSSProp } from '@atlaskit/css';
 import { type Modifier, type Placement, type PopperChildrenProps } from '@atlaskit/popper';
 
 export interface TriggerProps {
@@ -76,6 +77,8 @@ export interface PopupComponentProps {
 	 */
 	style: CSSProperties;
 
+	xcss?: StrictXCSSProp<'padding' | 'paddingInline' | 'paddingBlock' | 'width', never>;
+
 	/**
 	 * Tab index passed through by the parent popup.
 	 */
@@ -96,6 +99,12 @@ export interface PopupComponentProps {
 	shouldFitContainer?: boolean;
 
 	/**
+	 * The "default" appearance is used for standard popups.
+	 * The "UNSAFE_modal-below-sm" appearance makes the popup appear as a modal when the viewport is smaller than "sm".
+	 */
+	appearance?: 'default' | 'UNSAFE_modal-below-sm';
+
+	/**
 	 * Use this to set the accessibility role for the popup.
 	 * We strongly recommend using only `menu` or `dialog`.
 	 */
@@ -103,6 +112,14 @@ export interface PopupComponentProps {
 }
 
 interface BaseProps {
+	/**
+	 * The "default" appearance is used for standard popups.
+	 * The "UNSAFE_modal-below-sm" appearance makes the popup appear as a modal when the viewport is smaller than "sm".
+	 */
+	appearance?: 'default' | 'UNSAFE_modal-below-sm';
+
+	xcss?: StrictXCSSProp<'padding' | 'paddingInline' | 'paddingBlock' | 'width', never>;
+
 	/**
 	 * Use this to either show or hide the popup.
 	 * When set to `false` the popup will not render anything to the DOM.

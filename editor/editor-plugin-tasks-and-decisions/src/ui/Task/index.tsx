@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { ReactElement, Ref } from 'react';
 import React, { PureComponent } from 'react';
 
 import type { WrappedComponentProps } from 'react-intl-next';
@@ -17,11 +17,14 @@ export interface TaskProps {
 	isFocused?: boolean;
 	contentRef?: ContentRef;
 	onChange?: (taskId: string, isChecked: boolean) => void;
+	onClick?: () => void;
 	showPlaceholder?: boolean;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children?: ReactElement<any>;
 	providers?: ProviderFactory;
 	disabled?: boolean;
+	disableOnChange?: boolean;
+	inputRef?: Ref<HTMLInputElement>;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

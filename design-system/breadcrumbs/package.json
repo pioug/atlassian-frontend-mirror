@@ -43,7 +43,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.1.0",
-		"@atlaskit/ds-lib": "^2.5.0",
+		"@atlaskit/ds-lib": "^2.6.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.60.0",
 		"@atlaskit/tooltip": "^18.7.0",

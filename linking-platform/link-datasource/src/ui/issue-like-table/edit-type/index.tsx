@@ -7,6 +7,9 @@ import { type DatasourceTypeWithOnlyValues } from '../types';
 
 import TextEditType from './text';
 
+// This is used in editor-card-plugin to identify if any type of inline edit is active.
+const ACTIVE_INLINE_EDIT_ID = 'sllv-active-inline-edit';
+
 export const editType = (
 	item: DatasourceTypeWithOnlyValues,
 ): Pick<React.ComponentProps<typeof InlineEdit>, 'defaultValue' | 'editView'> => {
@@ -16,7 +19,7 @@ export const editType = (
 			return {
 				defaultValue: stringValue,
 				editView: ({ value, ...fieldProps }) => (
-					<TextEditType {...fieldProps} value={value as string} />
+					<TextEditType {...fieldProps} value={value as string} id={ACTIVE_INLINE_EDIT_ID} />
 				),
 			};
 		default:

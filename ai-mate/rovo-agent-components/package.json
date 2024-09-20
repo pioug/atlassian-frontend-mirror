@@ -43,7 +43,7 @@
 		"@atlaskit/heading": "^2.4.3",
 		"@atlaskit/icon": "^22.18.0",
 		"@atlaskit/logo": "^14.2.0",
-		"@atlaskit/primitives": "^12.1.0",
+		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/skeleton": "^0.5.0",
 		"@atlaskit/tokens": "^1.60.0",
 		"@atlaskit/tooltip": "^18.7.0",

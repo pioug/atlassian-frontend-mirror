@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 90.1.0
+
+### Minor Changes
+
+- [#142880](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142880)
+  [`a1dc15fcb29ef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1dc15fcb29ef) -
+  Clean up `platform_editor_fix_embed_subpixel_rendering` FF
+
+### Patch Changes
+
+- Updated dependencies
+
+## 90.0.1
+
+### Patch Changes
+
+- [#142802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142802)
+  [`09c0d0a18b491`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09c0d0a18b491) -
+  [ux] [ED-24935] [ED24921] Add URL validation and enforce max length for input field
+
 ## 90.0.0
 
 ### Major Changes

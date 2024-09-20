@@ -74,4 +74,9 @@ export const mediaInsertMessages = defineMessages({
 		defaultMessage: 'Media picker',
 		description: 'Accessibility label for the media picker popup',
 	},
+	invalidUrlErrorMessage: {
+		id: 'fabric.editor.media.insert.invalidUrlErrorMessage',
+		defaultMessage: 'Invalid link',
+		description: 'Error message displayed when a user tries to insert media from an invalid URL',
+	},
 });

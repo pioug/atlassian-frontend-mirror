@@ -498,7 +498,11 @@ export class ToolbarInsertBlock extends React.PureComponent<
 					{this.renderPopup()}
 					{this.renderTableSelectorPopup()}
 					{isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true) ? (
-						<RightRailIcon onClick={this.handleClick} isDisabled={this.props.isDisabled ?? false} />
+						<RightRailIcon
+							onClick={this.handleClick}
+							isDisabled={this.props.isDisabled ?? false}
+							api={this.props.pluginInjectionApi}
+						/>
 					) : (
 						<BlockInsertMenu
 							popupsMountPoint={this.props.popupsMountPoint}

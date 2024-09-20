@@ -14,7 +14,6 @@ import {
 	akEditorFullPageMaxWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { nonWrappedLayouts } from '../../utils';
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
@@ -234,27 +233,24 @@ export const MediaSingleDimensionHelper = ({
 	isNestedNode = false,
 	isInsideOfInlineExtension = false,
 }: MediaSingleWrapperProps) => {
-	let calculatedWidth = isExtendedResizeExperienceOn
-		? `${mediaSingleWidth || width}px`
-		: mediaSingleWidth
-			? calcResizedWidth(layout, width || 0, containerWidth)
-			: calcLegacyWidth(
-					layout,
-					width || 0,
-					containerWidth,
-					fullWidthMode,
-					isResized,
-					isInsideOfInlineExtension,
-				);
+	const calculatedWidth = roundToClosestEvenPxValue(
+		isExtendedResizeExperienceOn
+			? `${mediaSingleWidth || width}px`
+			: mediaSingleWidth
+				? calcResizedWidth(layout, width || 0, containerWidth)
+				: calcLegacyWidth(
+						layout,
+						width || 0,
+						containerWidth,
+						fullWidthMode,
+						isResized,
+						isInsideOfInlineExtension,
+					),
+	);
 
-	let calculatedMaxWidth = isExtendedResizeExperienceOn
-		? `${containerWidth}px`
-		: calcMaxWidth(layout, containerWidth);
-
-	if (fg('platform_editor_fix_embed_subpixel_rendering')) {
-		calculatedWidth = roundToClosestEvenPxValue(calculatedWidth);
-		calculatedMaxWidth = roundToClosestEvenPxValue(calculatedMaxWidth);
-	}
+	const calculatedMaxWidth = roundToClosestEvenPxValue(
+		isExtendedResizeExperienceOn ? `${containerWidth}px` : calcMaxWidth(layout, containerWidth),
+	);
 
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 	return css`

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 1.31.10
+
+### Patch Changes
+
+- [#143311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143311)
+  [`994ae05bb80fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/994ae05bb80fc) -
+  ED-24709: FF platform.editor.media.preview-in-full-page clean up
+- Updated dependencies
+
 ## 1.31.9
 
 ### Patch Changes

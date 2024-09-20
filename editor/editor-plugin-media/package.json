@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "1.31.9",
+	"version": "1.31.10",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,7 +40,7 @@
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.1.0",
-		"@atlaskit/editor-common": "^90.0.0",
+		"@atlaskit/editor-common": "^90.1.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-annotation": "1.19.7",
@@ -64,10 +64,10 @@
 		"@atlaskit/media-common": "^11.4.0",
 		"@atlaskit/media-filmstrip": "^47.3.0",
 		"@atlaskit/media-picker": "^66.7.0",
-		"@atlaskit/media-ui": "^25.14.0",
+		"@atlaskit/media-ui": "^25.15.0",
 		"@atlaskit/media-viewer": "^48.10.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^12.1.0",
+		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tmp-editor-statsig": "^2.1.8",
@@ -135,9 +135,6 @@
 		"platform.media-experience.media-viewer-v2_hgsii": {
 			"type": "boolean",
 			"referenceOnly": "true"
-		},
-		"platform.editor.media.preview-in-full-page": {
-			"type": "boolean"
 		},
 		"platform.editor.live-view.comments-in-media-toolbar-button": {
 			"type": "boolean"

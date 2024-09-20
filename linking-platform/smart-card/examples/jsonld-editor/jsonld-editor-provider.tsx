@@ -1,9 +1,3 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import React, { type PropsWithChildren, useCallback, useMemo } from 'react';
 import { type JsonLd } from 'json-ld-types';
 import { SmartCardProvider } from '@atlaskit/link-provider';

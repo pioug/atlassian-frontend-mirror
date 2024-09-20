@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useMemo, useRef } from 'react';
+import React, { type RefObject, useMemo, useRef } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
@@ -18,6 +18,7 @@ export interface Props {
 	isFocused?: boolean;
 	isRenderer?: boolean;
 	onChange?: (taskId: string, isChecked: boolean) => void;
+	onClick?: () => void;
 	contentRef?: ContentRef;
 	children?: any;
 	placeholder?: string;
@@ -25,6 +26,7 @@ export interface Props {
 	appearance?: Appearance;
 	disabled?: boolean;
 	dataAttributes?: { [key: string]: string | number };
+	inputRef?: RefObject<HTMLInputElement>;
 }
 
 let taskCount = 0;
@@ -44,7 +46,9 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 		dataAttributes,
 		taskId,
 		onChange,
+		onClick,
 		createAnalyticsEvent,
+		inputRef: inputRefFromProps,
 	} = props;
 
 	const checkBoxId = useMemo(() => getCheckBoxId(taskId), [taskId]);
@@ -78,7 +82,9 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 		[handleOnChange],
 	);
 
-	const inputRef = useRef<HTMLInputElement>(null);
+	const defaultInputRef = useRef<HTMLInputElement>(null);
+	const inputRef = inputRefFromProps ?? defaultInputRef;
+
 	const icon = (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={checkboxStyles(isRenderer)} contentEditable={false}>
@@ -88,6 +94,7 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 				name={checkBoxId}
 				type="checkbox"
 				onChange={handleOnChange}
+				onClick={onClick}
 				checked={!!isDone}
 				disabled={!!disabled}
 				suppressHydrationWarning={true}
@@ -106,7 +113,7 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 				inputRef.current?.focus();
 			}, 100);
 		}
-	}, [isFocused]);
+	}, [isFocused, inputRef]);
 
 	return (
 		<Item

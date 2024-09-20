@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
-import InlineCardDefault from '../../../examples/vr-inline-card-default-icon';
-import InlineCardTextWrap from '../../../examples/vr-inline-card-text-wrap';
+import InlineCardDefault from '../../../examples/vr-inline-card/vr-inline-card-default-icon';
+import InlineCardTextWrap from '../../../examples/vr-inline-card/vr-inline-card-text-wrap';
 import InlineCardError from '../../../examples/vr-inline-card/vr-inline-card-error';
 import InlineCardForbidden from '../../../examples/vr-inline-card/vr-inline-card-forbidden';
 import InlineCardForbiddenRequestAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-request-access';

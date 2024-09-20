@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.6.2
+
+### Patch Changes
+
+- [#143105](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143105)
+  [`96a8bff98afdc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/96a8bff98afdc) -
+  Added data attributes to toDOM
+- Updated dependencies
+
 ## 2.6.1
 
 ### Patch Changes

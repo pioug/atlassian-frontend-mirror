@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, useMemo, useState } from 'react';
+import { forwardRef, Fragment, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -19,12 +19,12 @@ import { type PopperWrapperProps, type PopupComponentProps } from './types';
 import { useCloseManager } from './use-close-manager';
 import { useFocusManager } from './use-focus-manager';
 
-const popupFullWidthStyles = css({ width: '100%' });
-const popupStyles = css({
+const fullWidthStyles = css({ width: '100%' });
+
+const rootStyles = css({
 	display: 'block',
 	boxSizing: 'border-box',
 	zIndex: layers.layer(),
-	flex: '1 1 auto',
 	backgroundColor: token('elevation.surface.overlay', N0),
 	borderRadius: token('border.radius', '3px'),
 	boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
@@ -37,19 +37,44 @@ const popupStyles = css({
 		outline: 'none',
 	},
 });
-const popupOverflowStyles = css({
+
+const scrollableStyles = css({
 	overflow: 'auto',
 });
 
+const blanketStyles = css({
+	position: 'fixed',
+	inset: 0,
+	backgroundColor: token('color.blanket'),
+});
+
+const modalStyles = css({
+	maxHeight: '50vh',
+	position: 'fixed',
+	insetBlockStart: token('space.050'),
+	insetInline: token('space.050'),
+});
+
 const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>((props, ref) => {
-	const { shouldRenderToParent, shouldFitContainer, children, ...htmlAttributes } = props;
+	const {
+		shouldRenderToParent,
+		shouldFitContainer,
+		children,
+		appearance,
+		xcss,
+		...htmlAttributes
+	} = props;
 
 	return (
 		<div
+			// We suppress this for now as we can't use the Compiled pragma until this module has migrated to Compiled.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @compiled/jsx-pragma
+			className={xcss as string}
 			css={[
-				popupStyles,
-				!shouldRenderToParent && popupOverflowStyles,
-				shouldFitContainer && popupFullWidthStyles,
+				rootStyles,
+				appearance === 'UNSAFE_modal-below-sm' && modalStyles,
+				!shouldRenderToParent && scrollableStyles,
+				shouldFitContainer && fullWidthStyles,
 			]}
 			{...htmlAttributes}
 			ref={ref}
@@ -60,6 +85,7 @@ const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>((p
 });
 
 function PopperWrapper({
+	xcss,
 	isOpen,
 	id,
 	offset,
@@ -86,12 +112,11 @@ function PopperWrapper({
 	titleId,
 	modifiers,
 	shouldFitViewport,
+	appearance = 'default',
 }: PopperWrapperProps) {
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	const [initialFocusRef, setInitialFocusRef] = useState<HTMLElement | null>(null);
-
-	// We have cases where we need to close the Popup on Tab press.
-	// Example: DropdownMenu
+	// We have cases where we need to close the Popup on Tab press, e.g. DropdownMenu
 	const shouldCloseOnTab = shouldRenderToParent && shouldDisableFocusLock;
 	const shouldDisableFocusTrap = role !== 'dialog';
 
@@ -104,6 +129,7 @@ function PopperWrapper({
 		shouldDisableFocusTrap,
 		shouldReturnFocus,
 	});
+
 	useCloseManager({
 		isOpen,
 		onClose,
@@ -145,6 +171,9 @@ function PopperWrapper({
 			{({ ref, style, placement, update }) => {
 				const popupContainer = (
 					<PopupContainer
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+						xcss={xcss}
+						appearance={appearance}
 						id={id}
 						data-ds--level={currentLevel}
 						data-placement={placement}
@@ -163,7 +192,7 @@ function PopperWrapper({
 							}
 						}}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={style}
+						style={appearance === 'UNSAFE_modal-below-sm' ? {} : style}
 						// using tabIndex={-1} would cause a bug where Safari focuses
 						// first on the browser address bar when using keyboard
 						tabIndex={autoFocus ? 0 : undefined}
@@ -180,10 +209,17 @@ function PopperWrapper({
 						</RepositionOnUpdate>
 					</PopupContainer>
 				);
+
 				return !initialFocusRef && fg('platform-design-system-apply-popup-wrapper-focus') ? (
-					<FocusRing>{popupContainer}</FocusRing>
+					<Fragment>
+						<FocusRing>{popupContainer}</FocusRing>
+						{appearance === 'UNSAFE_modal-below-sm' && <div css={blanketStyles} />}
+					</Fragment>
 				) : (
-					popupContainer
+					<Fragment>
+						{popupContainer}
+						{appearance === 'UNSAFE_modal-below-sm' && <div css={blanketStyles} />}
+					</Fragment>
 				);
 			}}
 		</Popper>

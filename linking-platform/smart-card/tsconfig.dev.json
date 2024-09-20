@@ -143,9 +143,6 @@
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/table-tree/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/tabs/tsconfig.app.json"
 		},
 		{

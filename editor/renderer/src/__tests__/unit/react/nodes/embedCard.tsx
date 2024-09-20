@@ -99,13 +99,13 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
 			});
 		};
 
-		runScenarios(2000, { 'full-width': '1800px', wide: '1011px' });
+		runScenarios(2000, { 'full-width': '1800px', wide: '1010px' });
 		runScenarios(1000, { 'full-width': '904px', wide: '904px' });
 		runScenarios(600, { 'full-width': '504px', wide: '100%' });
 		runScenarios(200, { 'full-width': '104px', wide: '100%' });
 
 		// when embedcard is rendered inside of inline extension
-		runScenarios(2000, { 'full-width': '1800px', wide: '1011px' });
+		runScenarios(2000, { 'full-width': '1800px', wide: '1010px' });
 		runScenarios(1000, { 'full-width': '904px', wide: '904px' });
 		runScenarios(600, { 'full-width': '504px', wide: '600px' }, true);
 		runScenarios(200, { 'full-width': '104px', wide: '200px' }, true);

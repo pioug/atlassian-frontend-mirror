@@ -1,5 +1,22 @@
 # @atlaskit/popup
 
+## 1.27.0
+
+### Minor Changes
+
+- [#143323](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143323)
+  [`4fdf6347eb506`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4fdf6347eb506) -
+  Popup and compositional popup now take an xcss prop that can adjust the popup contents padding and
+  width.
+- [#143323](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143323)
+  [`4fdf6347eb506`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4fdf6347eb506) -
+  Popup and compositional popup now have a new appearance prop. Pass it "modal" to enable the popup
+  to appear as a modal on small viewports.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.26.0
 
 ### Minor Changes

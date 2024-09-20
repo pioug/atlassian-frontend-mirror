@@ -1,5 +1,21 @@
 # @atlaskit/datetime-picker
 
+## 14.1.0
+
+### Minor Changes
+
+- [#142807](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142807)
+  [`e4b42ed1ea941`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e4b42ed1ea941) -
+  These two props that were removed on 14.0.0 and no longer impacted the functionality of the
+  `DateTimePicker` were misrepresented in the type interface as options and have been fully removed
+  now.
+
+  - `timeIsEditable`
+  - `times`
+
+  We recommend running the codemod provided in major change 14.0.0. If you have already run this
+  once, it does not need to be run again.
+
 ## 14.0.5
 
 ### Patch Changes

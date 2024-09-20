@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 25.15.0
+
+### Minor Changes
+
+- [#142588](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142588)
+  [`982e6ecf05d18`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/982e6ecf05d18) -
+  Add data vc to some components
+
 ## 25.14.0
 
 ### Minor Changes

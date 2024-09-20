@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.7.4
+
+### Patch Changes
+
+- [#142470](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142470)
+  [`3f2dc4e949e05`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f2dc4e949e05) -
+  ED-25000 - Add logic to handle when nested expand dragged into another nested expand.
+- Updated dependencies
+
 ## 2.7.3
 
 ### Patch Changes

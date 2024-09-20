@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
+import { isSafeUrl } from '@atlaskit/adf-schema';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import {
@@ -15,6 +16,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { ErrorMessage } from '@atlaskit/form';
 import EditorFilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
@@ -68,6 +70,20 @@ const INITIAL_PREVIEW_STATE: Readonly<PreviewState> = Object.freeze({
 	previewInfo: null,
 });
 
+const MAX_URL_LENGTH = 2048;
+export const isValidUrl = (value: string): boolean => {
+	try {
+		// Check for spaces and length first to avoid the expensive URL parsing
+		if (/\s/.test(value) || value.length > MAX_URL_LENGTH) {
+			return false;
+		}
+		new URL(value);
+	} catch (e) {
+		return false;
+	}
+	return isSafeUrl(value);
+};
+
 const previewStateReducer = (state: PreviewState, action: PreviewStateAction) => {
 	switch (action.type) {
 		case 'loading':
@@ -108,10 +124,13 @@ export function MediaFromURL({
 		cancel: intl.formatMessage(mediaInsertMessages.cancel),
 		errorMessage: intl.formatMessage(mediaInsertMessages.fromUrlErrorMessage),
 		warning: intl.formatMessage(mediaInsertMessages.fromUrlWarning),
+		invalidUrl: intl.formatMessage(mediaInsertMessages.invalidUrlErrorMessage),
 	};
 
 	const [inputUrl, setUrl] = React.useState<string>('');
+	const [hasUrlError, setHasUrlError] = React.useState<boolean>();
 	const [previewState, dispatch] = React.useReducer(previewStateReducer, INITIAL_PREVIEW_STATE);
+	const [isInputFocused, setInputFocused] = React.useState<boolean>(false);
 	const pasteFlag = React.useRef(false);
 
 	const {
@@ -176,12 +195,35 @@ export function MediaFromURL({
 		],
 	);
 
+	const errorAttributes: { [key: string]: string } = {};
+
+	if (!isInputFocused) {
+		errorAttributes['aria-relevant'] = 'all';
+		errorAttributes['aria-atomic'] = 'false';
+	}
+
+	const onBlur = React.useCallback(() => {
+		if (!isValidUrl(inputUrl)) {
+			setHasUrlError(true);
+		}
+		setInputFocused(false);
+	}, [inputUrl]);
+
+	const onFocus = React.useCallback(() => {
+		setInputFocused(true);
+	}, []);
+
 	const onURLChange = React.useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			const url = e.target.value;
 			setUrl(url);
 			dispatch({ type: 'reset' });
-
+			if (!isValidUrl(url)) {
+				setHasUrlError(true);
+				return;
+			} else {
+				setHasUrlError(false);
+			}
 			if (pasteFlag.current === true) {
 				pasteFlag.current = false;
 				uploadExternalMedia(url);
@@ -195,7 +237,7 @@ export function MediaFromURL({
 			// Note: this is a little weird, but the paste event will always be
 			// fired before the change event when pasting. We don't really want to
 			// duplicate logic by handling pastes separately to changes, so we're
-			// just noting paste occured to then be handled in the onURLChange fn
+			// just noting paste occurred to then be handled in the onURLChange fn
 			// above. The one exception to this is where paste inputs exactly what was
 			// already in the input, in which case we want to ignore it.
 			if (e.clipboardData.getData('text') !== inputUrl) {
@@ -275,7 +317,7 @@ export function MediaFromURL({
 				// This can be triggered from an enter key event on the input even when
 				// the button is disabled, so we explicitly do nothing when in loading
 				// state.
-				if (previewState.isLoading) {
+				if (previewState.isLoading || hasUrlError) {
 					return;
 				}
 
@@ -295,10 +337,21 @@ export function MediaFromURL({
 				<TextField
 					value={inputUrl}
 					placeholder={strings.pasteLinkToUpload}
+					isInvalid={hasUrlError}
+					maxLength={MAX_URL_LENGTH}
 					onChange={onURLChange}
 					onKeyPress={onInputKeyPress}
 					onPaste={onPaste}
+					onBlur={onBlur}
+					onFocus={onFocus}
 				/>
+				{hasUrlError && (
+					<ErrorMessage>
+						<Box as="span" {...errorAttributes}>
+							{strings.invalidUrl}
+						</Box>
+					</ErrorMessage>
+				)}
 				{previewState.previewInfo && (
 					<Inline
 						alignInline="center"
@@ -320,7 +373,7 @@ export function MediaFromURL({
 						<Button
 							type="submit"
 							isLoading={previewState.isLoading}
-							isDisabled={inputUrl.length === 0}
+							isDisabled={inputUrl.length === 0 || hasUrlError}
 							iconBefore={EditorFilePreviewIcon}
 						>
 							{strings.loadPreview}

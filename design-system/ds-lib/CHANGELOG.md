@@ -1,5 +1,13 @@
 # @atlaskit/ds-lib
 
+## 2.6.0
+
+### Minor Changes
+
+- [#143323](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143323)
+  [`4fdf6347eb506`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4fdf6347eb506) -
+  Add new entrypoint called "use-layout-effect" to ds-lib and use it inside primitives pkg.
+
 ## 2.5.0
 
 ### Minor Changes

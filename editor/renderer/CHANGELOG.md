@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 110.4.1
+
+### Patch Changes
+
+- [#143055](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143055)
+  [`a596a018303f2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a596a018303f2) -
+  [ux] Use 40 as max scaling percent in comment renderer when Table scaling is enabled in Comment
+  Renderer
+
+## 110.4.0
+
+### Minor Changes
+
+- [#142588](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142588)
+  [`982e6ecf05d18`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/982e6ecf05d18) -
+  Add data vc to some components
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 110.3.0
 
 ### Minor Changes

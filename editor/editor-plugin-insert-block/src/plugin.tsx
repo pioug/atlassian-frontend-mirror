@@ -172,6 +172,28 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			},
 		},
 
+		/**
+		 * For insert menu in right rail experiment - I don't want to expose state as it might not ship
+		 * - Clean up ticket ED-24801
+		 */
+		// @ts-expect-error
+		getSharedState: (editorState) => {
+			if (
+				!editorState ||
+				// @ts-ignore
+				!['full-page', 'full-width'].includes(options.UNSAFE_editorAppearance ?? '') ||
+				!editorExperiment('insert-menu-in-right-rail', true)
+			) {
+				return;
+			}
+
+			const pluginState = elementBrowserPmKey.getState(editorState);
+
+			return {
+				menuBrowserOpen: pluginState?.menuBrowserOpen,
+			};
+		},
+
 		pmPlugins: () => {
 			if (
 				// @ts-ignore

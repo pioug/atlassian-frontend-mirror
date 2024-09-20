@@ -52,10 +52,17 @@ export const taskItemSpecWithFixedToDOM = () => {
 			if (checked) {
 				inputAttrs.checked = 'true';
 			}
+
+			const dataAttrs = {
+				'data-task-local-id': node.attrs.localId,
+				'data-task-state': node.attrs.state,
+			};
+
 			return [
 				'div',
 				{
 					class: TaskDecisionSharedCssClassName.TASK_CONTAINER,
+					...dataAttrs,
 					style: convertToInlineCss({
 						listStyleType: 'none',
 						lineHeight: '24px',

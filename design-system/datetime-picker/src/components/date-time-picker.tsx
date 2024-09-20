@@ -18,7 +18,7 @@ import { mergeStyles, type StylesConfig } from '@atlaskit/select';
 import { N500, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { defaultTimes, formatDateTimeZoneIntoIso } from '../internal';
+import { formatDateTimeZoneIntoIso } from '../internal';
 import { DateTimePickerContainer } from '../internal/date-time-picker-container';
 import { convertTokens } from '../internal/parse-tokens';
 import { type DateTimePickerBaseProps } from '../types';
@@ -28,8 +28,6 @@ import TimePicker from './time-picker';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
-type DateTimePickerProps = typeof dateTimePickerDefaultProps & DateTimePickerBaseProps;
 
 interface State {
 	dateValue: string;
@@ -85,11 +83,7 @@ const styles: StylesConfig = {
 	}),
 };
 
-const dateTimePickerDefaultProps = {
-	appearance: 'default' as NonNullable<DateTimePickerBaseProps['appearance']>,
-	autoFocus: false,
-	isDisabled: false,
-	name: '',
+const dateTimePickerDefaultProps: DateTimePickerBaseProps = {
 	// These disables are here for proper typing when used as defaults. They
 	// should *not* use the `noop` function.
 	/* eslint-disable @repo/internal/react/use-noop */
@@ -97,16 +91,6 @@ const dateTimePickerDefaultProps = {
 	onChange: (_value: string) => {},
 	onFocus: (_event: React.FocusEvent<HTMLInputElement>) => {},
 	/* eslint-enable @repo/internal/react/use-noop */
-	innerProps: {},
-	id: '',
-	defaultValue: '',
-	timeIsEditable: false,
-	isInvalid: false,
-	datePickerProps: {},
-	timePickerProps: {},
-	times: defaultTimes,
-	spacing: 'default' as NonNullable<DateTimePickerBaseProps['spacing']>,
-	locale: 'en-US',
 	// Not including a default prop for value as it will
 	// Make the component a controlled component
 };
@@ -114,14 +98,14 @@ const dateTimePickerDefaultProps = {
 export const datePickerDefaultAriaLabel = 'Date';
 export const timePickerDefaultAriaLabel = 'Time';
 
-class DateTimePickerComponent extends React.Component<DateTimePickerProps, State> {
-	static defaultProps: DateTimePickerProps = dateTimePickerDefaultProps;
+class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, State> {
+	static defaultProps = dateTimePickerDefaultProps;
 
 	state: State = {
 		dateValue: '',
 		isFocused: false,
 		timeValue: '',
-		value: this.props.defaultValue,
+		value: this.props.defaultValue || '',
 		zoneValue: '',
 	};
 
@@ -172,12 +156,12 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 
 	onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
 		this.setState({ isFocused: false });
-		this.props.onBlur(event);
+		this.props.onBlur?.(event);
 	};
 
 	onFocus = (event: React.FocusEvent<HTMLInputElement>) => {
 		this.setState({ isFocused: true });
-		this.props.onFocus(event);
+		this.props.onFocus?.(event);
 	};
 
 	onDateChange = (dateValue: string) => {
@@ -222,29 +206,29 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 			const { zoneValue: parsedZone } = this.parseValue(value, dateValue, timeValue, zoneValue);
 			const valueWithValidZone = formatDateTimeZoneIntoIso(dateValue, timeValue, parsedZone);
 			this.setState({ value: valueWithValidZone });
-			this.props.onChange(valueWithValidZone);
+			this.props.onChange?.(valueWithValidZone);
 			// If the date or time value was cleared when there is an existing datetime value, then clear the value.
 		} else if (this.getValue()) {
 			this.setState({ value: '' });
-			this.props.onChange('');
+			this.props.onChange?.('');
 		}
 	}
 
 	render() {
 		const {
 			'aria-describedby': ariaDescribedBy,
-			appearance,
-			autoFocus,
-			datePickerProps: datePickerPropsWithSelectProps,
-			id,
-			innerProps,
-			isDisabled,
-			isInvalid,
-			locale,
-			name,
-			spacing,
+			appearance = 'default' as NonNullable<DateTimePickerBaseProps['appearance']>,
+			autoFocus = false,
+			datePickerProps = {},
+			id = '',
+			innerProps = {},
+			isDisabled = false,
+			isInvalid = false,
+			locale = 'en-US',
+			name = '',
+			spacing = 'default' as NonNullable<DateTimePickerBaseProps['spacing']>,
 			testId,
-			timePickerProps: timePickerPropsWithSelectProps,
+			timePickerProps = {},
 		} = this.props;
 		const value = this.getValue();
 		const { isFocused } = this.state;
@@ -252,9 +236,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 		const dateValue = parsedValues?.dateValue;
 		const timeValue = parsedValues?.timeValue;
 
-		const { selectProps: datePickerSelectProps, ...datePickerProps } =
-			datePickerPropsWithSelectProps;
-
+		const datePickerSelectProps = datePickerProps?.selectProps;
 		const datePickerAriaDescribedBy = datePickerProps['aria-describedby'] || ariaDescribedBy;
 		const datePickerLabel = datePickerProps.label || datePickerDefaultAriaLabel;
 
@@ -263,9 +245,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 			styles: mergeStyles(styles, datePickerSelectProps?.styles),
 		};
 
-		const { selectProps: timePickerSelectProps, ...timePickerProps } =
-			timePickerPropsWithSelectProps;
-
+		const timePickerSelectProps = timePickerProps?.selectProps;
 		const timePickerAriaDescribedBy = timePickerProps['aria-describedby'] || ariaDescribedBy;
 		const timePickerLabel = timePickerProps.label || timePickerDefaultAriaLabel;
 

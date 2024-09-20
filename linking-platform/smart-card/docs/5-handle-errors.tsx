@@ -45,9 +45,9 @@ type OnErrorCallback = (data: {
 
 ${(
 	<Example
-		Component={require('../examples/19-error-handler').default}
+		Component={require('../examples/content/handle-errors').default}
 		title="An example"
-		source={require('!!raw-loader!../examples/19-error-handler')}
+		source={require('!!raw-loader!../examples/content/handle-errors')}
 	/>
 )}
 `;

@@ -21,7 +21,7 @@ const containerStyles = xcss({
 });
 
 const CustomPopupContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
-	({ children, 'data-testid': testId, ...props }, ref) => (
+	({ children, 'data-testid': testId, xcss: _xcss, ...props }, ref) => (
 		<Box xcss={containerStyles} testId={testId} {...props} ref={ref}>
 			{children}
 		</Box>

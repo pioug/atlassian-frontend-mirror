@@ -22,7 +22,7 @@ export default () => {
 				id="react-select-datetime--input"
 				value={value}
 				onChange={onChange}
-				timeIsEditable
+				timePickerProps={{ timeIsEditable: true }}
 				isInvalid={invalid}
 			/>
 		</div>

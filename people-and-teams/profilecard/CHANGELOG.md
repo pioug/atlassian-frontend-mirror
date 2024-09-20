@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 19.27.0
+
+### Minor Changes
+
+- [#140194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/140194)
+  [`868514af9180e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/868514af9180e) -
+  [ux] Support custom forge avatar for agents
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.26.1
 
 ### Patch Changes

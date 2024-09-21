@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 14.1.1
+
+### Patch Changes
+
+- [#143394](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143394)
+  [`ed5f5f38c610a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed5f5f38c610a) -
+  [ux] update time picker to use updated primitives
+
 ## 14.1.0
 
 ### Minor Changes

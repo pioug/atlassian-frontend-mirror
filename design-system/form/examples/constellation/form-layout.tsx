@@ -4,10 +4,23 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { RadioGroup } from '@atlaskit/radio';
-import Select, { type OptionType, type ValueType } from '@atlaskit/select';
+import Select, {
+	components,
+	type InputProps,
+	type OptionType,
+	type ValueType,
+} from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
 
 import Form, { Field, FormFooter, FormHeader, FormSection, RequiredAsterisk } from '../../src';
+
+const RequiredInput = (props: InputProps<OptionType, false>) => {
+	const newProps = {
+		...props,
+		'aria-required': true,
+	};
+	return <components.Input {...newProps} />;
+};
 
 const FormLayoutExample = () => {
 	return (
@@ -74,6 +87,7 @@ const FormLayoutExample = () => {
 							>
 								{({ fieldProps: { id, ...rest } }) => (
 									<Select
+										components={{ Input: RequiredInput }} // Needed to explicitly set required on the Select
 										id={`${id}-select`}
 										options={[
 											{ label: 'Atlaskit', value: 'atlaskit' },

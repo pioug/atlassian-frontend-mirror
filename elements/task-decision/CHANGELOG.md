@@ -1,5 +1,13 @@
 # @atlaskit/task-decision
 
+## 17.10.5
+
+### Patch Changes
+
+- [#142911](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142911)
+  [`f661df7842ec7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f661df7842ec7) -
+  [ux] [ED-24772] create request to edit component under feature toggle
+
 ## 17.10.4
 
 ### Patch Changes

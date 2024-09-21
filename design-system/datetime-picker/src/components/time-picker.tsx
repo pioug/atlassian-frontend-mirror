@@ -15,8 +15,6 @@ import Select, {
 	type SelectComponentsConfig,
 	type ValueType,
 } from '@atlaskit/select';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
 
 import { defaultTimeFormat, defaultTimes, EmptyComponent, placeholderDatetime } from '../internal';
 import { FixedLayerMenu } from '../internal/fixed-layer-menu';
@@ -201,6 +199,7 @@ const TimePicker = forwardRef(
 		};
 
 		const ICON_PADDING = 2;
+		const GRID_SIZE = 8;
 		const l10n: LocalizationProvider = createLocalizationProvider(locale);
 		const { styles: selectStyles = {}, ...otherSelectProps } = selectProps;
 		const SelectComponent = timeIsEditable ? CreatableSelect : Select;
@@ -281,7 +280,7 @@ const TimePicker = forwardRef(
 			indicatorsContainer: (base) => ({
 				...base,
 				paddingLeft: renderIconContainer ? ICON_PADDING : 0,
-				paddingRight: renderIconContainer ? gridSize() - ICON_PADDING : 0,
+				paddingRight: renderIconContainer ? GRID_SIZE - ICON_PADDING : 0,
 			}),
 		});
 

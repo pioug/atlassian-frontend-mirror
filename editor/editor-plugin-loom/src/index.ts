@@ -9,4 +9,7 @@ export type {
 	GetClientResult,
 	LoomPluginErrorMessages,
 	LoomSDKErrorMessages,
+	ButtonComponentProps,
+	ButtonComponent,
+	RenderButton,
 } from './types';

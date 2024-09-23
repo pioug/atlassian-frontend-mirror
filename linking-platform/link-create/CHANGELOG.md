@@ -1,5 +1,21 @@
 # @atlaskit/link-create
 
+## 2.13.0
+
+### Minor Changes
+
+- [#143696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143696)
+  [`9221200c924cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9221200c924cb) -
+  Improves accessibility of CreateField form fields (association of helper and error texts) (by
+  clean up of ff linking-platform-create-field-error-association).
+
+### Patch Changes
+
+- [#143696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143696)
+  [`9221200c924cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9221200c924cb) -
+  Fixes bugged closing behaviour when pressing escape after opening the exit warning dialog (by
+  cleanup of ff linking-platform-link-create-nest-exit-warning).
+
 ## 2.12.0
 
 ### Minor Changes

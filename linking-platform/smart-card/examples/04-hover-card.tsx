@@ -26,7 +26,7 @@ const params =
 const param = params ? params.get('url') : null;
 const defaultURL = param
 	? param
-	: 'https://pug.jira-dev.com/wiki/spaces/~6360339afe5ff375235b4167/pages/452478435635/Sample+Pages';
+	: 'https://pug.jira-dev.com/wiki/spaces/~712020144e46c6280746719ae82d63fbc6c91d/pages/453328568380/Hovercard+Redesign+Testing+Links';
 
 const codeStyles = css({
 	display: 'inline-grid',
@@ -42,179 +42,179 @@ export interface ExampleState {
 	id: string;
 }
 
-class Example extends React.Component<{}, ExampleState> {
-	state: ExampleState = {
-		url: defaultURL,
-		hidePreviewButton: false,
-		closeOnChildClick: false,
-		canOpen: true,
-		id: 'NULL',
-		showServerActions: false,
-	};
+type RenderHoverCardProps = {
+	url: string;
+	hidePreviewButton: boolean;
+	closeOnChildClick: boolean;
+	canOpen: boolean;
+	id: string;
+	showServerActions: boolean;
+};
 
-	preventDefaultAndSetUrl(url: string) {
-		return (e: React.MouseEvent<HTMLButtonElement>) => {
-			e.preventDefault();
-			this.setState({ url });
-		};
+const RenderHoverCard = ({
+	url,
+	hidePreviewButton,
+	closeOnChildClick,
+	canOpen,
+	id,
+	showServerActions,
+}: RenderHoverCardProps) => {
+	if (!url) {
+		return <div></div>;
 	}
+	return (
+		<HoverCard
+			url={url}
+			hidePreviewButton={hidePreviewButton}
+			closeOnChildClick={closeOnChildClick}
+			canOpen={canOpen}
+			id={id}
+			showServerActions={showServerActions}
+		>
+			<h1
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					paddingTop: token('space.150', '12px'),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					cursor: 'pointer',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					display: 'inline-block',
+				}}
+			>
+				Hover over me!
+			</h1>
+		</HoverCard>
+	);
+};
 
-	handleUrlChange = (event: React.FormEvent<HTMLInputElement>) => {
-		this.setState({ url: (event.target as HTMLInputElement).value });
-	};
+const Example = (): JSX.Element => {
+	const [url, setUrl] = React.useState(defaultURL);
+	const [hidePreviewButton, setHidePreviewButton] = React.useState(false);
+	const [canOpen, setCanOpen] = React.useState(true);
+	const [id, setId] = React.useState('NULL');
+	const [showServerActions, setShowServerActions] = React.useState(false);
+	const [closeOnChildClick, setCloseOnChildClick] = React.useState(false);
 
-	handleIdChange = (event: React.FormEvent<HTMLInputElement>) => {
-		this.setState({ id: (event.target as HTMLInputElement).value });
-	};
+	const handleUrlChange = React.useCallback((event: React.FormEvent<HTMLInputElement>) => {
+		setUrl(event.currentTarget.value);
+	}, []);
 
-	handleHidePreviewButtonChange = (event: React.FormEvent<HTMLInputElement>) => {
-		this.setState({
-			hidePreviewButton: (event.target as HTMLInputElement).checked,
-		});
-	};
+	const handleIdChange = React.useCallback((event: React.FormEvent<HTMLInputElement>) => {
+		setId(event.currentTarget.value);
+	}, []);
 
-	handleCloseOnChildClickChange = (event: React.FormEvent<HTMLInputElement>) => {
-		this.setState({
-			closeOnChildClick: (event.target as HTMLInputElement).checked,
-		});
-	};
+	const handleHidePreviewButtonChange = React.useCallback(
+		(event: React.FormEvent<HTMLInputElement>) => {
+			setHidePreviewButton(event.currentTarget.checked);
+		},
+		[],
+	);
+	const handleCloseOnChildClickChange = React.useCallback(
+		(event: React.FormEvent<HTMLInputElement>) => {
+			setCloseOnChildClick(event.currentTarget.checked);
+		},
+		[],
+	);
+	const handleCanOpen = React.useCallback((event: React.FormEvent<HTMLInputElement>) => {
+		setCanOpen(event.currentTarget.checked);
+	}, []);
 
-	handleCanOpen = (event: React.FormEvent<HTMLInputElement>) => {
-		this.setState({
-			canOpen: (event.target as HTMLInputElement).checked,
-		});
-	};
+	const handleShowServerActions = React.useCallback((event: React.FormEvent<HTMLInputElement>) => {
+		setShowServerActions(event.currentTarget.checked);
+	}, []);
 
-	handleShowServerActions = (event: React.FormEvent<HTMLInputElement>) => {
-		this.setState({
-			showServerActions: (event.target as HTMLInputElement).checked,
-		});
-	};
+	const code = React.useMemo(() => {
+		return `<HoverCard ${toComponentProps({
+			url,
+			id,
+			hidePreviewButton,
+			closeOnChildClick,
+			canOpen,
+			showServerActions,
+		})}\n>\n\t\t{yourComponent}\n</HoverCard>`;
+	}, [url, id, hidePreviewButton, closeOnChildClick, canOpen, showServerActions]);
 
-	getCode = () => {
-		return `<HoverCard ${toComponentProps(this.state)}\n>\n\t\t{yourComponent}\n</HoverCard>`;
-	};
+	return (
+		<IntlProvider locale="en">
+			<Provider client={new SmartCardClient('staging')}>
+				<Page>
+					<Grid>
+						<GridColumn medium={12} key={url}>
+							<div
+								style={{
+									margin: `${token('space.250', '20px')} 0`,
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									minHeight: 180,
+									borderBottom: `1px solid ${token('color.border', '#eee')}`,
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									textAlign: 'center',
+								}}
+							>
+								{
+									<RenderHoverCard
+										url={url}
+										hidePreviewButton={hidePreviewButton}
+										closeOnChildClick={closeOnChildClick}
+										canOpen={canOpen}
+										id={id}
+										showServerActions={showServerActions}
+									/>
+								}
+							</div>
+						</GridColumn>
+						<GridColumn medium={6}>
+							<Form onSubmit={() => {}}>
+								{() => (
+									<form>
+										<FormHeader title="Hover Card options" />
+										<Field name="url" label="Url">
+											{() => <Textfield onChange={handleUrlChange} value={url} autoFocus />}
+										</Field>
+										<Field name="id" label="Id used for analytics">
+											{() => <Textfield onChange={handleIdChange} value={id} autoFocus />}
+										</Field>
+										<Checkbox
+											isChecked={hidePreviewButton}
+											onChange={handleHidePreviewButtonChange}
+											label="Hide Preview Button"
+											value="hidePreviewButton"
+											name="hidePreviewButton"
+										/>
+										<Checkbox
+											isChecked={closeOnChildClick}
+											onChange={handleCloseOnChildClickChange}
+											label="Close Child on Click"
+											value="closeChildOnClick"
+											name="closeChildOnClick"
+										/>
+										<Checkbox
+											isChecked={canOpen}
+											onChange={handleCanOpen}
+											label="Can Open"
+											value="canOpen"
+											name="canOpen"
+										/>
+										<Checkbox
+											isChecked={showServerActions}
+											onChange={handleShowServerActions}
+											label="Show server actions"
+											value="showServerActions"
+											name="showServerActions"
+										/>
+									</form>
+								)}
+							</Form>
+						</GridColumn>
+						<GridColumn medium={6}>
+							<div css={codeStyles}>
+								<CodeBlock language="jsx" text={code} />
+							</div>
+						</GridColumn>
+					</Grid>
+				</Page>
+			</Provider>
+		</IntlProvider>
+	);
+};
 
-	renderHoverCard(
-		url: string,
-		hidePreviewButton: boolean,
-		closeOnChildClick: boolean,
-		canOpen: boolean,
-		id: string,
-		showServerActions: boolean,
-	) {
-		if (url) {
-			return (
-				<HoverCard
-					url={url}
-					hidePreviewButton={hidePreviewButton}
-					closeOnChildClick={closeOnChildClick}
-					canOpen={canOpen}
-					id={id}
-					showServerActions={showServerActions}
-				>
-					<h1
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							paddingTop: token('space.150', '12px'),
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							cursor: 'pointer',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							display: 'inline-block',
-						}}
-					>
-						Hover over me!
-					</h1>
-				</HoverCard>
-			);
-		}
-		return null;
-	}
-
-	render() {
-		const { url, hidePreviewButton, closeOnChildClick, canOpen, id, showServerActions } =
-			this.state;
-
-		return (
-			<IntlProvider locale="en">
-				<Provider client={new SmartCardClient('staging')}>
-					<Page>
-						<Grid>
-							<GridColumn medium={12} key={url}>
-								<div
-									style={{
-										margin: `${token('space.250', '20px')} 0`,
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-										minHeight: 180,
-										borderBottom: `1px solid ${token('color.border', '#eee')}`,
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-										textAlign: 'center',
-									}}
-								>
-									{this.renderHoverCard(
-										url,
-										hidePreviewButton,
-										closeOnChildClick,
-										canOpen,
-										id,
-										showServerActions,
-									)}
-								</div>
-							</GridColumn>
-							<GridColumn medium={6}>
-								<Form onSubmit={() => {}}>
-									{() => (
-										<form>
-											<FormHeader title="Hover Card options" />
-											<Field name="url" label="Url">
-												{() => <Textfield onChange={this.handleUrlChange} value={url} autoFocus />}
-											</Field>
-											<Field name="id" label="Id used for analytics">
-												{() => <Textfield onChange={this.handleIdChange} value={id} autoFocus />}
-											</Field>
-											<Checkbox
-												isChecked={hidePreviewButton}
-												onChange={this.handleHidePreviewButtonChange}
-												label="Hide Preview Button"
-												value="hidePreviewButton"
-												name="hidePreviewButton"
-											/>
-											<Checkbox
-												isChecked={closeOnChildClick}
-												onChange={this.handleCloseOnChildClickChange}
-												label="Close Child on Click"
-												value="closeChildOnClick"
-												name="closeChildOnClick"
-											/>
-											<Checkbox
-												isChecked={canOpen}
-												onChange={this.handleCanOpen}
-												label="Can Open"
-												value="canOpen"
-												name="canOpen"
-											/>
-											<Checkbox
-												isChecked={showServerActions}
-												onChange={this.handleShowServerActions}
-												label="Show server actions"
-												value="showServerActions"
-												name="showServerActions"
-											/>
-										</form>
-									)}
-								</Form>
-							</GridColumn>
-							<GridColumn medium={6}>
-								<div css={codeStyles}>
-									<CodeBlock language="jsx" text={this.getCode()} />
-								</div>
-							</GridColumn>
-						</Grid>
-					</Page>
-				</Provider>
-			</IntlProvider>
-		);
-	}
-}
-
-export default () => <Example />;
+export default Example;

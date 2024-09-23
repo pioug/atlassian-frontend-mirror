@@ -2,14 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 import { Field } from 'react-final-form';
 
-import { ErrorMessage, HelperMessage, Label, RequiredAsterisk } from '@atlaskit/form';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { Label, RequiredAsterisk } from '@atlaskit/form';
 import { token } from '@atlaskit/tokens';
 
 import { Message } from '../../common/ui/message';
@@ -64,45 +62,26 @@ export function CreateField({
 							...input,
 							fieldId,
 							isInvalid,
-							...(fg('linking-platform-create-field-error-association')
-								? {
-										isRequired,
-										'aria-errormessage': ariaErrorMessage,
-										'aria-describedby': describedById,
-									}
-								: {}),
+							isRequired,
+							'aria-errormessage': ariaErrorMessage,
+							'aria-describedby': describedById,
 						})}
-						{fg('linking-platform-create-field-error-association') ? (
-							<div id={describedById}>
-								{!hasError && validationHelpText && (
-									<Message testId={`${testId}-helper-message`}>{validationHelpText}</Message>
-								)}
-								<div aria-live="polite">
-									{showErrorMessage && (
-										<Message
-											id={errorMessageId}
-											appearance="error"
-											testId={`${testId}-error-message`}
-										>
-											{submitError || error}
-										</Message>
-									)}
-								</div>
-							</div>
-						) : (
-							<Fragment>
-								{!hasError && validationHelpText && (
-									<HelperMessage testId={`${testId}-helper-message`}>
-										{validationHelpText}
-									</HelperMessage>
-								)}
-								{hasError && isInvalid && (
-									<ErrorMessage testId={`${testId}-error-message`}>
+						<div id={describedById}>
+							{!hasError && validationHelpText && (
+								<Message testId={`${testId}-helper-message`}>{validationHelpText}</Message>
+							)}
+							<div aria-live="polite">
+								{showErrorMessage && (
+									<Message
+										id={errorMessageId}
+										appearance="error"
+										testId={`${testId}-error-message`}
+									>
 										{submitError || error}
-									</ErrorMessage>
+									</Message>
 								)}
-							</Fragment>
-						)}
+							</div>
+						</div>
 					</div>
 				);
 			}}

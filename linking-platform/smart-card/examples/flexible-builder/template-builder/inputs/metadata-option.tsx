@@ -1,17 +1,11 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-import { useCallback, useMemo } from 'react';
-import Select from '@atlaskit/select/Select';
-import { type ElementItem, type ElementName } from '../../../../src';
-import { type OptionsType, type ValueType as Value } from '@atlaskit/select';
 import { Field } from '@atlaskit/form';
-import { type ChangeParams, handleOnChange } from '../../utils';
-import { type BlockTemplate } from '../../types';
+import { type OptionsType, type ValueType as Value } from '@atlaskit/select';
+import Select from '@atlaskit/select/Select';
+import React, { useCallback, useMemo } from 'react';
+import { type ElementItem, type ElementName } from '../../../../src';
 import { metadataElements } from '../../../utils/flexible-ui';
+import { type BlockTemplate } from '../../types';
+import { type ChangeParams, handleOnChange } from '../../utils';
 
 const options = metadataElements.map((name) => ({
 	label: name,

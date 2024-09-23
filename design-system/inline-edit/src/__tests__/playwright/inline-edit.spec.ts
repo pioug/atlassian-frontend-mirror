@@ -83,6 +83,21 @@ test.describe('Default Inline Edit', () => {
 		const cancel = page.getByRole('button', { name: 'Cancel' });
 		await expect(cancel).toBeFocused();
 	});
+
+	test('Should edit content after clicking outside', async ({ page }) => {
+		const readView = page.locator(readViewContentWrapper);
+		await readView.click();
+
+		const input = page.getByRole('textbox', { name: 'Inline edit' });
+		await expect(input).toBeFocused();
+
+		input.clear();
+		input.fill('New content');
+		await expect(input).toHaveValue('New content');
+
+		page.click('body');
+		await expect(page.getByTestId('read-view')).toHaveText('New content');
+	});
 });
 
 test.describe('Inline Edit with Datepicker', () => {

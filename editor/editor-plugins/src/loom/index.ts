@@ -10,4 +10,7 @@ export type {
 	GetClientResult,
 	LoomPluginErrorMessages,
 	LoomSDKErrorMessages,
+	ButtonComponentProps,
+	ButtonComponent,
+	RenderButton,
 } from '@atlaskit/editor-plugin-loom';

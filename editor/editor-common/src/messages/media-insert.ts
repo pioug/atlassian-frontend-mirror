@@ -33,7 +33,7 @@ export const mediaInsertMessages = defineMessages({
 			'Error message displayed when a user tries to insert an image from a URL that cannot be loaded. This may be because the URL is invalid, there is a network error or any other reason the preview upload does not succeed. When this occurs the suggestion is to attempt downloading the linked file manually and using a local upload instead.',
 	},
 	fromUrlWarning: {
-		id: 'fabric.editor.media.insert.fromUrlErrorMessage',
+		id: 'fabric.editor.media.insert.fromUrlWarning',
 		defaultMessage:
 			'This image might not be visible to others due to source restrictions. Consider uploading the file instead.',
 		description:

@@ -42,7 +42,7 @@ const getThemeStyles = async (
 		themePreferences = themeIdsWithOverrides;
 
 		// CLEANUP: Remove
-		if (!fg('platform.design-system-team.increased-contrast-themes')) {
+		if (!fg('platform_increased-contrast-themes')) {
 			themePreferences = themePreferences.filter(
 				(n) => n !== 'light-increased-contrast' && n !== 'dark-increased-contrast',
 			);

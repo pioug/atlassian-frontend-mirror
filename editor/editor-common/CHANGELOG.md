@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 91.0.0
+
+### Major Changes
+
+- [#143799](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143799)
+  [`28c4ecb75a634`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28c4ecb75a634) -
+  removed editorActions from onClick in Props, updated toolbar reference to it
+
+## 90.2.0
+
+### Minor Changes
+
+- [#143146](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143146)
+  [`8f698f1278514`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f698f1278514) -
+  [ux] [ED-24905] Main change: make loom plugin config, loomProvider, optional, and add optional
+  config, renderButton, to support customising loom button, e.g. adding pulse, spotlight. This
+  change is required to support loom cross-sell flow. In this flow, loom SDK will not be initialised
+  unless loomProvider is passed in. Once loomProvider is ready, `initLoom` action can be used to
+  initialise SDK. This change should be backwards compatible and will not impact the existing flow.
+
+### Patch Changes
+
+- [#143310](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143310)
+  [`f55df006dcd59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f55df006dcd59) -
+  ED-24822 - Add padding to panels with no icon and unhide drag handle in first bodied node
+- [#143644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143644)
+  [`b5352e3195293`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b5352e3195293) -
+  [ux] [ED-24327] Integrate new media popup into toolbar and quick action
+- Updated dependencies
+
 ## 90.1.0
 
 ### Minor Changes

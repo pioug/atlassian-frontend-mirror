@@ -55,13 +55,27 @@ export const panelStyles = () => css`
 	}
 
 	${editorExperiment('nested-dnd', true) &&
-	`.ak-editor-content-area.appearance-full-page .ProseMirror .ak-editor-panel .${PanelSharedCssClassName.icon} {
+	`.ak-editor-content-area.appearance-full-page .ProseMirror {
+		.ak-editor-panel .${PanelSharedCssClassName.icon} {
 			padding-right: ${token('space.150', '12px')};
-		}`};
+		}
+
+		.ak-editor-panel.${PanelSharedCssClassName.noIcon} {
+			padding-left: ${token('space.250', '20px')};
+			padding-right: ${token('space.250', '20px')};
+		}
+	}`};
 
 	/* Don't want extra padding for inline editor (nested) */
 	${editorExperiment('nested-dnd', true) &&
-	`.ak-editor-content-area .ak-editor-content-area .ProseMirror .ak-editor-panel .${PanelSharedCssClassName.icon} {
-		padding-right: ${token('space.100', '8px')};
+	`.ak-editor-content-area .ak-editor-content-area .ProseMirror {
+		.ak-editor-panel .${PanelSharedCssClassName.icon} {
+			padding-right: ${token('space.100', '8px')};
+		}
+		.ak-editor-panel.${PanelSharedCssClassName.noIcon} {
+			padding-right: ${token('space.150', '12px')};
+			padding-left: ${token('space.150', '12px')};
+
+		}
 	}`};
 `;

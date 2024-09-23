@@ -10,6 +10,7 @@ import {
 	findParentNodeOfType,
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { DomPanelAtrrs } from './types';
 
@@ -39,11 +40,11 @@ export const panelAttrsToDom = (
 
 	const style = [
 		`${panelColor && isCustomPanel ? `background-color: ${panelBackgroundColor};` : ''}`,
-		`${hasIcon ? '' : 'padding-left: 12px;padding-right: 12px;'}`,
+		`${!hasIcon && editorExperiment('nested-dnd', false) ? `padding-left: 12px;padding-right: 12px;` : ''}`,
 	].join('');
 
 	let panelAttrs: DomPanelAtrrs = {
-		class: PanelSharedCssClassName.prefix,
+		class: `${PanelSharedCssClassName.prefix}${!hasIcon && editorExperiment('nested-dnd', true) ? ` ${PanelSharedCssClassName.noIcon}` : ''}`,
 		'data-panel-type': panelType || PanelType.INFO,
 		'data-testid': 'panel-node-view',
 		style,

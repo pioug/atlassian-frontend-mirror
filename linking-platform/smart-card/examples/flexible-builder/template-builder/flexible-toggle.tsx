@@ -1,27 +1,14 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
-import Tooltip from '@atlaskit/tooltip';
-import { token } from '@atlaskit/tokens';
+import { Inline, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
+import React from 'react';
 import { type TemplateDisplay } from '../types';
 
-const containerStyles = css({
-	display: 'flex',
-	alignItems: 'center',
-	borderBottom: `1px solid ${token('color.border', '#091E4224')}`,
-	gap: '0.3rem',
-	paddingBottom: '0.5rem',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	h5: {
-		marginTop: 'inherit',
-	},
+const containerStyles = xcss({
+	borderBottom: `1px solid ${token('color.border')}`,
 });
 
 const FlexibleToggle = ({
@@ -32,7 +19,7 @@ const FlexibleToggle = ({
 	onChange: (e: React.SyntheticEvent<HTMLInputElement>) => void;
 }) => {
 	return (
-		<div css={containerStyles}>
+		<Inline alignBlock="center" space="space.050" xcss={containerStyles}>
 			<Toggle
 				id="toggle-flexible"
 				label="Flexible Smart Link"
@@ -60,7 +47,7 @@ const FlexibleToggle = ({
 					/>
 				)}
 			</Tooltip>
-		</div>
+		</Inline>
 	);
 };
 export default FlexibleToggle;

@@ -1,4 +1,4 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { COLOR_MODE_ATTRIBUTE, CONTRAST_MODE_ATTRIBUTE } from './constants';
 import { type ThemeState } from './theme-config';
@@ -31,7 +31,7 @@ const getSSRAutoScript = (
 			: '';
 
 	const setContrastMode =
-		getBooleanFF('platform.design-system-team.increased-contrast-themes') && contrastMode === 'auto'
+		contrastMode === 'auto' && fg('platform_increased-contrast-themes')
 			? `\n  try {
     const contrastModeMql = window.matchMedia('${moreContrastMediaQuery}');
     const contrastMode = contrastModeMql.matches ? 'more' : 'no-preference';

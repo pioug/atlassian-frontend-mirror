@@ -175,6 +175,7 @@ interface EditorBaseProps {
 	/**
 	 * @default undefined
 	 * @description Enables valid transaction events to be tracked in analytics (at a sampled rate)
+	 * @deprecated Tracking is no longer supported for performance reasons
 	 */
 	trackValidTransactions?:
 		| {

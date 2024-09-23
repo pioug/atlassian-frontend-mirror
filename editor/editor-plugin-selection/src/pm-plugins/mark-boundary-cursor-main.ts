@@ -15,9 +15,9 @@ export const createMarkBoundaryCursorPlugin = () => {
 				decorations: DecorationSet.empty,
 			}),
 			apply(tr, currentState) {
-				const { selection, storedMarks, doc, selectionSet, storedMarksSet } = tr;
+				const { selection, storedMarks, doc, selectionSet, storedMarksSet, docChanged } = tr;
 
-				if (!selectionSet && !storedMarksSet) {
+				if (!selectionSet && !storedMarksSet && !docChanged) {
 					return currentState;
 				}
 

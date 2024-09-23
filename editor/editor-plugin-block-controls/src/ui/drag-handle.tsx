@@ -379,19 +379,25 @@ const DragHandleInternal = ({
 		}
 	}, [buttonRef, handleOptions?.isFocused, view]);
 
-	const helpDescriptors = [
-		{
-			description: formatMessage(blockControlsMessages.dragToMove),
-		},
-		{
-			description: formatMessage(blockControlsMessages.moveUp),
-			keymap: dragToMoveUp,
-		},
-		{
-			description: formatMessage(blockControlsMessages.moveDown),
-			keymap: dragToMoveDown,
-		},
-	];
+	const helpDescriptors = isTopLevelNode
+		? [
+				{
+					description: formatMessage(blockControlsMessages.dragToMove),
+				},
+				{
+					description: formatMessage(blockControlsMessages.moveUp),
+					keymap: dragToMoveUp,
+				},
+				{
+					description: formatMessage(blockControlsMessages.moveDown),
+					keymap: dragToMoveDown,
+				},
+			]
+		: [
+				{
+					description: formatMessage(blockControlsMessages.dragToMove),
+				},
+			];
 
 	const message = helpDescriptors
 		.map((descriptor) => {
@@ -420,7 +426,7 @@ const DragHandleInternal = ({
 		</button>
 	);
 
-	return isTopLevelNode && fg('platform_editor_element_drag_and_drop_ed_23873') ? (
+	return fg('platform_editor_element_drag_and_drop_ed_23873') ? (
 		<Tooltip
 			content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
 			ignoreTooltipPointerEvents={true}

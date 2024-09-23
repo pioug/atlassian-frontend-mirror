@@ -1,16 +1,10 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-import { useMemo } from 'react';
-import CheckboxOption from './inputs/checkbox-option';
 import { type CardProps } from '@atlaskit/smart-card';
-import SelectOption from './inputs/select-option';
-import TextOption from './inputs/text-option';
+import React, { useMemo } from 'react';
 import { type TemplateDisplay } from '../types';
 import Fieldset from './fieldset';
+import CheckboxOption from './inputs/checkbox-option';
+import SelectOption from './inputs/select-option';
+import TextOption from './inputs/text-option';
 
 const appearanceOptions = [
 	{ label: 'inline', value: 'inline' },

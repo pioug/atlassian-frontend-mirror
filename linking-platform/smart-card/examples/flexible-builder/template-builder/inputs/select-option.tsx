@@ -1,14 +1,9 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-import { useCallback, useMemo } from 'react';
-import Select from '@atlaskit/select/Select';
 import { Field } from '@atlaskit/form';
 import { type ValueType as Value } from '@atlaskit/select';
-import { type ChangeParams, excludeStyles, handleOnChange } from '../../utils';
+import Select from '@atlaskit/select/Select';
+import React, { useCallback, useMemo } from 'react';
+import { type ChangeParams, handleOnChange } from '../../utils';
+import Label from './label';
 
 type Props<T> = {
 	defaultValue: T[keyof T];
@@ -31,7 +26,6 @@ const SelectOption = <T extends object>({
 	options,
 	template,
 }: Props<T>) => {
-	const styles = useMemo(() => (exclude ? [excludeStyles] : []), [exclude]);
 	const handleOnSelectChange = useCallback(
 		<T extends object>(...params: ChangeParams<T>) =>
 			(option: { label: string; value: T[keyof T] } | null) => {
@@ -47,19 +41,19 @@ const SelectOption = <T extends object>({
 	}, [defaultValue, options, propName, template]);
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-		<span css={styles}>
-			<Field<Value<{ label: string; value: string }>> name={name} label={label}>
-				{({ fieldProps: { id, ...rest } }) => (
-					<Select
-						{...rest}
-						onChange={handleOnSelectChange(onChange, template, propName, defaultValue)}
-						options={options}
-						value={value}
-					/>
-				)}
-			</Field>
-		</span>
+		<Field<Value<{ label: string; value: string }>>
+			name={name}
+			label={<Label content={label} exclude={exclude} />}
+		>
+			{({ fieldProps: { id, ...rest } }) => (
+				<Select
+					{...rest}
+					onChange={handleOnSelectChange(onChange, template, propName, defaultValue)}
+					options={options}
+					value={value}
+				/>
+			)}
+		</Field>
 	);
 };
 

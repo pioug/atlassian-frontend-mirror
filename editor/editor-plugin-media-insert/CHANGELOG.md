@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.1
+
+### Patch Changes
+
+- [#143644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143644)
+  [`b5352e3195293`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b5352e3195293) -
+  [ux] [ED-24327] Integrate new media popup into toolbar and quick action
+- Updated dependencies
+
 ## 2.8.0
 
 ### Minor Changes

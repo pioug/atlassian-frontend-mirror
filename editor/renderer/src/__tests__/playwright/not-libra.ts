@@ -1,6 +1,7 @@
 import { test as base, expect as baseExpect } from '@af/integration-testing';
 import type { DocNode } from '@atlaskit/adf-schema';
 
+import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/setup';
 import type { Expect, Page, Locator } from '@af/integration-testing';
 import type { RendererProps } from '@atlaskit/renderer';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
@@ -169,10 +170,14 @@ class RendererPageModel implements RendererPageInterface {
 		rendererProps,
 		rendererMountOptions,
 		adf,
+		platformFeatureFlags,
+		editorExperiments,
 	}: {
 		rendererProps: RendererPropsOptional;
 		rendererMountOptions: MountRendererOptions;
 		adf: DocNode | string | Record<string, unknown> | undefined;
+		platformFeatureFlags?: Record<string, boolean>;
+		editorExperiments?: EditorExperimentOverrides;
 	}) {
 		await this.rendererContainer.waitFor({ state: 'attached' });
 
@@ -184,6 +189,8 @@ class RendererPageModel implements RendererPageInterface {
 			_props: unknown;
 			_mountOptions: MountRendererOptions;
 			_adf: DocNode | string | Record<string, unknown> | undefined;
+			platformFeatureFlags?: Record<string, boolean>;
+			editorExperiments?: EditorExperimentOverrides;
 		};
 		type DoEvaluate = (arg: RendererMountEvaluateProps) => void;
 
@@ -191,6 +198,8 @@ class RendererPageModel implements RendererPageInterface {
 			_props,
 			_mountOptions,
 			_adf,
+			platformFeatureFlags,
+			editorExperiments,
 		}: RendererMountEvaluateProps) => {
 			(window as any).__mountRenderer(
 				{
@@ -198,6 +207,8 @@ class RendererPageModel implements RendererPageInterface {
 					..._mountOptions,
 				},
 				_adf,
+				platformFeatureFlags,
+				editorExperiments,
 			);
 		};
 
@@ -207,6 +218,8 @@ class RendererPageModel implements RendererPageInterface {
 				_props: rendererProps,
 				_mountOptions: rendererMountOptions,
 				_adf: adf,
+				platformFeatureFlags: platformFeatureFlags,
+				editorExperiments: editorExperiments,
 			};
 			await (
 				this.page.evaluate as (arg1: DoEvaluate, arg2: RendererMountEvaluateProps) => Promise<void>
@@ -242,12 +255,19 @@ export const rendererTestCase = base.extend<{
 	rendererProps: RendererPropsOptional;
 	rendererMountOptions: MountRendererOptions;
 	adf: DocNode | string | Record<string, unknown> | undefined;
+	platformFeatureFlags?: Record<string, boolean>;
+	editorExperiments?: EditorExperimentOverrides;
 }>({
 	rendererProps: {},
 	rendererMountOptions: {},
 	adf: undefined,
+	platformFeatureFlags: {},
+	editorExperiments: {},
 
-	renderer: async ({ page, adf, rendererProps, rendererMountOptions }, use) => {
+	renderer: async (
+		{ page, adf, rendererProps, rendererMountOptions, platformFeatureFlags, editorExperiments },
+		use,
+	) => {
 		// Mock the date for testing purposes
 		await mockDate(page, { year: 2017, month: 8, day: 16 });
 
@@ -255,7 +275,13 @@ export const rendererTestCase = base.extend<{
 
 		const rendererInstance = RendererPageModel.from(page);
 
-		await rendererInstance.mount({ adf, rendererProps, rendererMountOptions });
+		await rendererInstance.mount({
+			adf,
+			rendererProps,
+			rendererMountOptions,
+			platformFeatureFlags,
+			editorExperiments,
+		});
 
 		await use(rendererInstance);
 	},

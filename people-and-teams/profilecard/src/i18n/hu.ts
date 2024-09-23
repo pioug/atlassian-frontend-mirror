@@ -7,6 +7,23 @@
  */
 //Hungarian
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Hiba történt az ügynök törlésekor. Próbáld újra kicsit később.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Az ügynök törlése nem sikerült',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': '{agentName} törölve',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Ügynök törölve',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Mégse',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Törlés',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Biztosan törölni szeretnéd ezt az ügynököt? Ez a művelet nem vonható vissza.',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'Törlöd a következőt: „{agentName}”?',
+  'profilecard.agent-profile.delete-agent-error': 'Nem sikerült törölni az ügynököt',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use':
+    'Az ügynök jelenleg használatban van. Próbáld újra később.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'Ez az ügynök nem található.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'Nem törölhetsz olyan ügynököket, amelyeket nem te hoztál létre. Vedd fel a kapcsolatot az ügynök tulajdonosával.',
+  'profilecard.agent-profile.delete-agent-success': 'Ügynök törölve!',
   'profilecard.user.trigger.aria-label': 'További információ a következőről: {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'További információ erről a felhasználóról',
   'pt.profile-card.closed.account': 'A fiók törölve.',

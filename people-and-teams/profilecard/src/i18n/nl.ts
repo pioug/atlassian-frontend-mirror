@@ -7,6 +7,23 @@
  */
 //Dutch (Netherlands)
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Er is iets misgegaan bij het verwijderen van de agent. Probeer het over enkele ogenblikken opnieuw.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Kon agent niet verwijderen',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'Je hebt {agentName} verwijderd',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Agent verwijderd',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Annuleren',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Verwijderen',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Weet je zeker dat je deze agent wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.',
+  'profilecard.agent-profile.delete-agent-confirm-title': '{agentName} verwijderen?',
+  'profilecard.agent-profile.delete-agent-error': 'Kon de agent niet verwijderen',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use':
+    'Agent wordt momenteel gebruikt. Probeer het later opnieuw.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'We konden die agent niet vinden.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'Je kunt geen agents verwijderen die je niet zelf hebt aangemaakt. Neem contact op met de agenteigenaar.',
+  'profilecard.agent-profile.delete-agent-success': 'De agent is verwijderd.',
   'profilecard.user.trigger.aria-label': 'Meer informatie over {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'Meer informatie over deze gebruiker',
   'pt.profile-card.closed.account': 'Account verwijderd',

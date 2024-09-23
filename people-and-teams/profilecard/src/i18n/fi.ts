@@ -7,6 +7,23 @@
  */
 //Finnish
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Jotakin meni pieleen asiakaspalvelijaa poistettaessa. Yritä uudelleen hetken kuluttua.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Asiakaspalvelijan poisto epäonnistui',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'Poistit asiakaspalvelijan {agentName}',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Asiakaspalvelija poistettu',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Peruuta',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Poista',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Haluatko varmasti poistaa tämän asiakaspalvelijan? Tätä toimintoa ei voi peruuttaa.',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'Poistetaanko {agentName}?',
+  'profilecard.agent-profile.delete-agent-error': 'Asiakaspalvelijaa ei voitu poistaa',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use':
+    'Asiakaspalvelija on tällä hetkellä käytössä. Yritä myöhemmin uudelleen.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'Kyseistä asiakaspalvelijaa ei löytynyt.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'Et voi poistaa asiakaspalvelijoita, joita et ole itse luonut. Ota yhteys asiakaspalvelijan omistajaan.',
+  'profilecard.agent-profile.delete-agent-success': 'Asiakaspalvelija on poistettu!',
   'profilecard.user.trigger.aria-label': 'Lisätietoja kohteesta {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'Lisätietoja tästä käyttäjästä',
   'pt.profile-card.closed.account': 'Tili poistettu',

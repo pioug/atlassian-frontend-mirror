@@ -149,6 +149,43 @@ describe('InlineEdit component', () => {
 
 			expect(screen.getByTestId('read-view')).toHaveTextContent('New content');
 		});
+
+		it('Should return to default value on click of Cancel', () => {
+			const defaultValue = 'Some text';
+			const editedValue = 'Edited text';
+			const onConfirm = jest.fn();
+
+			render(
+				<InlineEdit
+					defaultValue={defaultValue}
+					label="Inline edit"
+					editView={({ errorMessage, ...fieldProps }) => (
+						<Textfield testId="edit-view" {...fieldProps} />
+					)}
+					readView={() => (
+						<div data-testid="read-view">{defaultValue || 'Click to enter value'}</div>
+					)}
+					onConfirm={onConfirm}
+					testId="inline-edit"
+				/>,
+			);
+
+			const read = screen.queryByTestId('read-view') as HTMLElement;
+			expect(read).toBeInTheDocument();
+			expect(read).toHaveTextContent(defaultValue);
+
+			fireEvent.click(read);
+
+			const textField = screen.getByTestId('edit-view');
+			fireEvent.change(textField, { target: { value: editedValue } });
+			expect(textField).toHaveValue(editedValue);
+
+			const cancel = screen.getByTestId(/--cancel/i);
+			expect(cancel).toBeInTheDocument();
+
+			fireEvent.click(cancel);
+			expect(read).toHaveTextContent(defaultValue);
+		});
 	});
 
 	describe('Reset on escape key press', () => {

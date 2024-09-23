@@ -11,7 +11,9 @@ export const useMemoEditorProps = (
 	passedProps: EditorProps & EditorNextProps & WithAppearanceComponent,
 ) => {
 	const memodProps: EditorProps & EditorNextProps & WithAppearanceComponent = useMemo(() => {
-		type All = Complete<EditorNextProps> & Complete<EditorProps> & WithAppearanceComponent;
+		type All = Complete<Omit<EditorNextProps, 'trackValidTransactions'>> &
+			Complete<Omit<EditorProps, 'trackValidTransactions'>> &
+			WithAppearanceComponent;
 		// That sounds awful but this is the only way to make sure we didn't missed any EditorProps
 		const allProps: All = {
 			preset: passedProps.preset,
@@ -44,7 +46,6 @@ export const useMemoEditorProps = (
 			inputSamplingLimit: passedProps.inputSamplingLimit,
 			extensionProviders: passedProps.extensionProviders,
 			UNSAFE_useAnalyticsContext: passedProps.UNSAFE_useAnalyticsContext,
-			trackValidTransactions: passedProps.trackValidTransactions,
 			useStickyToolbar: passedProps.useStickyToolbar,
 			featureFlags: passedProps.featureFlags,
 			onSave: passedProps.onSave,
@@ -157,7 +158,6 @@ export const useMemoEditorProps = (
 		passedProps.inputSamplingLimit,
 		passedProps.extensionProviders,
 		passedProps.UNSAFE_useAnalyticsContext,
-		passedProps.trackValidTransactions,
 		passedProps.useStickyToolbar,
 		passedProps.featureFlags,
 		passedProps.onSave,

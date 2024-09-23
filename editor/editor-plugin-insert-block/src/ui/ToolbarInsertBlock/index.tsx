@@ -701,7 +701,9 @@ export class ToolbarInsertBlock extends React.PureComponent<
 				dispatchAnalyticsEvent({
 					action: ACTION.OPENED,
 					actionSubject: ACTION_SUBJECT.PICKER,
-					actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,
+					actionSubjectId: editorExperiment('add-media-from-url', true)
+						? ACTION_SUBJECT_ID.PICKER_MEDIA
+						: ACTION_SUBJECT_ID.PICKER_CLOUD,
 					attributes: { inputMethod },
 					eventType: EVENT_TYPE.UI,
 				});
@@ -778,7 +780,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
 		item: MenuItem;
 		inputMethod: TOOLBAR_MENU_TYPE;
 	}): void => {
-		const { editorView, editorActions, handleImageUpload, expandEnabled } = this.props;
+		const { editorView, handleImageUpload, expandEnabled } = this.props;
 
 		// need to do this before inserting nodes so scrollIntoView works properly
 		if (!editorView.hasFocus()) {
@@ -849,8 +851,8 @@ export class ToolbarInsertBlock extends React.PureComponent<
 
 			// eslint-disable-next-line no-fallthrough
 			default:
-				if (item && item.onClick && editorActions) {
-					item.onClick(editorActions);
+				if (item && item.onClick) {
+					item.onClick();
 					break;
 				}
 		}

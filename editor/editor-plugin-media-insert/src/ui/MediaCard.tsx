@@ -50,6 +50,7 @@ export const MediaCard = ({ attrs, mediaProvider }: Props) => {
 			originalDimensions={dimensions}
 			identifier={identifier}
 			alt={mediaAlt}
+			disableOverlay
 		/>
 	);
 };

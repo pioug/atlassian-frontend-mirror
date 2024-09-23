@@ -1,16 +1,11 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import { useMemo } from 'react';
-import { withErrorBoundary } from 'react-error-boundary';
 import { CodeBlock } from '@atlaskit/code';
-import { type BlockTemplate, type FlexibleTemplate } from './types';
+import { Box, xcss } from '@atlaskit/primitives';
+import React, { useMemo } from 'react';
+import { withErrorBoundary } from 'react-error-boundary';
 import { toComponentProps, toObjectString } from '../utils/common';
+import { type BlockTemplate, type FlexibleTemplate } from './types';
 
-const codeStyles = css({
+const codeStyles = xcss({
 	display: 'inline-grid',
 	tabSize: 2,
 });
@@ -36,9 +31,9 @@ const Code = ({ template }: { template: FlexibleTemplate }) => {
 	}, [template]);
 
 	return (
-		<div css={codeStyles}>
+		<Box xcss={codeStyles}>
 			<CodeBlock language="jsx" text={text} />
-		</div>
+		</Box>
 	);
 };
 

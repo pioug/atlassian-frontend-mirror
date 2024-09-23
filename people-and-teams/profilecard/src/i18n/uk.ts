@@ -7,6 +7,23 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Під час видалення агента сталася помилка. Повторіть спробу пізніше.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Не вдалося видалити агента',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'Ви видалили агента {agentName}',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Агента видалено',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Скасувати',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Видалити',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Дійсно видалити вказаного агента? Цю дію неможливо скасувати.',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'Видалити агента «{agentName}»?',
+  'profilecard.agent-profile.delete-agent-error': 'Не вдалося видалити агента',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use':
+    'Агент зараз використовується. Повторіть спробу пізніше.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'Не вдалося знайти агента.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'Ви не можете видаляти агентів, яких не створювали самі. Зв’яжіться з власником агента.',
+  'profilecard.agent-profile.delete-agent-success': 'Агента видалено!',
   'profilecard.user.trigger.aria-label': 'Докладніше про {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'Докладніше про цього користувача',
   'pt.profile-card.closed.account': 'Обліковий запис видалено',

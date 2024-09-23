@@ -7,6 +7,22 @@
  */
 //Korean
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    '에이전트를 삭제하는 동안 문제가 발생했습니다. 잠시 후에 다시 시도하세요.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': '에이전트를 삭제하지 못함',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': '{agentName} 님을 삭제했습니다',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': '에이전트 삭제',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': '취소',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': '삭제',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    '이 에이전트를 삭제하시겠습니까? 이 작업은 실행 취소할 수 없습니다.',
+  'profilecard.agent-profile.delete-agent-confirm-title': '"{agentName}"을(를) 삭제하시겠습니까?',
+  'profilecard.agent-profile.delete-agent-error': '에이전트를 삭제할 수 없음',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use': '에이전트가 현재 사용 중입니다. 나중에 다시 시도하세요.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': '에이전트를 찾을 수 없습니다.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    '직접 만들지 않은 에이전트는 삭제할 수 없습니다. 에이전트 소유자에게 문의하세요.',
+  'profilecard.agent-profile.delete-agent-success': '에이전트를 삭제했습니다.',
   'profilecard.user.trigger.aria-label': '{fullName}에 관한 추가 정보',
   'profilecard.user.trigger.fallback-aria-label': '이 사용자에 대한 추가 정보',
   'pt.profile-card.closed.account': '계정이 삭제됨',

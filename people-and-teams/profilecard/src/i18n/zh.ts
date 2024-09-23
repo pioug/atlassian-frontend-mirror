@@ -7,6 +7,20 @@
  */
 //Chinese (Simplified)
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description': '删除支持人员时出错。请稍后重试。',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': '无法删除支持人员',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': '您已删除 {agentName}',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': '支持人员已删除',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': '取消',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': '删除',
+  'profilecard.agent-profile.delete-agent-confirm-body': '确定要删除此支持人员吗？此操作无法撤消。',
+  'profilecard.agent-profile.delete-agent-confirm-title': '是否删除 "{agentName}"？',
+  'profilecard.agent-profile.delete-agent-error': '无法删除支持人员',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use': '支持人员当前正在使用中。请稍后重试。',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': '未找到该支持人员。',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    '无法删除非由您自己创建的支持人员。请联系支持人员负责人。',
+  'profilecard.agent-profile.delete-agent-success': '支持人员已删除！',
   'profilecard.user.trigger.aria-label': '关于 {fullName} 的更多信息',
   'profilecard.user.trigger.fallback-aria-label': '关于此用户的更多信息',
   'pt.profile-card.closed.account': '已删除的帐户',

@@ -9,7 +9,6 @@ import Button from '@atlaskit/button/standard-button';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { captureException } from '@atlaskit/linking-common/sentry';
 import Popup from '@atlaskit/popup';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import type { LinkCreatePlugin, LinkCreateProps, LinkCreateWithModalProps } from '../common/types';
@@ -361,7 +360,7 @@ describe('Link create', () => {
 			setup({ onCancel: onCancelMock });
 
 			screen.getByTestId('close-button').click();
-			expect(onCancelMock).toBeCalled();
+			expect(onCancelMock).toHaveBeenCalled();
 		});
 
 		it('should trigger onComplete if it is provided', async () => {
@@ -496,70 +495,33 @@ describe('Confirm dismiss dialog', () => {
 			);
 		};
 
-		ffTest.on(
-			'linking-platform-link-create-nest-exit-warning',
-			'when exit warning modal is rendered nested in create modal',
-			() => {
-				it('should not close popup when pressing escape in modal after dismissing exit warning', async () => {
-					renderWithWrapper(<PopupWithCreate />);
+		it('should not close popup when pressing escape in modal after dismissing exit warning', async () => {
+			renderWithWrapper(<PopupWithCreate />);
 
-					// dirty form
-					await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
-					await userEvent.keyboard('Hello');
-					// try exit the form by pressing escape
-					await userEvent.keyboard('{Escape}');
+			// dirty form
+			await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
+			await userEvent.keyboard('Hello');
+			// try exit the form by pressing escape
+			await userEvent.keyboard('{Escape}');
 
-					// should see exit warning
-					expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
+			// should see exit warning
+			expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
 
-					// close exit warning
-					await userEvent.click(await screen.findByRole('button', { name: 'Go back' }));
-					await waitForElementToBeRemoved(screen.getByTestId(dismissDialogTestId));
+			// close exit warning
+			await userEvent.click(await screen.findByRole('button', { name: 'Go back' }));
+			await waitForElementToBeRemoved(screen.queryByTestId(dismissDialogTestId));
 
-					// refocus on the text field
-					await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
-					await userEvent.keyboard(' world');
-					// try exit again
-					await userEvent.keyboard('{Escape}');
+			// refocus on the text field
+			await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
+			await userEvent.keyboard(' world');
+			// try exit again
+			await userEvent.keyboard('{Escape}');
 
-					// should see exit warning
-					expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
-					// popup should still be open
-					expect(await screen.findByTestId('popup')).toBeInTheDocument();
-				});
-			},
-		);
-
-		ffTest.off(
-			'linking-platform-link-create-nest-exit-warning',
-			'when exit warning modal is rendered parallel to create modal',
-			() => {
-				it('will close popup when pressing escape in modal after dismissing exit warning', async () => {
-					renderWithWrapper(<PopupWithCreate />);
-
-					// dirty form
-					await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
-					await userEvent.keyboard('title text content');
-					// try exit the form by pressing escape
-					await userEvent.keyboard('{Escape}');
-
-					// should see exit warning
-					expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
-
-					// close exit warning
-					await userEvent.click(await screen.findByRole('button', { name: 'Go back' }));
-					await waitForElementToBeRemoved(screen.getByTestId(dismissDialogTestId));
-
-					// refocus on the text field
-					await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
-
-					// link create modal is removed undesireably
-					expect(screen.queryByTestId(DEFAULT_TEST_ID)).not.toBeInTheDocument();
-					// popup component is removed undesireably
-					expect(screen.queryByTestId('popup')).not.toBeInTheDocument();
-				});
-			},
-		);
+			// should see exit warning
+			expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
+			// popup should still be open
+			expect(await screen.findByTestId('popup')).toBeInTheDocument();
+		});
 	});
 
 	describe('Inline create', () => {
@@ -955,7 +917,7 @@ describe('Plugin edit view', () => {
 			);
 			// the onCreate callback is awaited before onComplete is called
 			await flushPromises();
-			expect(onCompleteMock).toBeCalled();
+			expect(onCompleteMock).toHaveBeenCalled();
 		});
 
 		it('with create form + edit view should NOT render editView when close button is clicked', async () => {

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-feedback-dialog
 
+## 1.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.3
 
 ### Patch Changes

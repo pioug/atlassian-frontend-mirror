@@ -77,7 +77,7 @@ describe('setGlobalTheme style loading', () => {
 
 	describe('should load theme CSS on the page when specified', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				await setGlobalTheme({
 					dark: 'dark',
@@ -169,7 +169,7 @@ describe('setGlobalTheme style loading', () => {
 
 	describe('should load custom theme CSS on the page when specified', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				// prompt a duplication of styles
 				await setGlobalTheme({
@@ -305,7 +305,7 @@ describe('setGlobalTheme style loading', () => {
 
 	describe('should load theme CSS on the page without duplicates', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				// prompt a duplication of styles
 				await setGlobalTheme({
@@ -419,7 +419,7 @@ describe('setGlobalTheme style loading', () => {
 
 	describe('should set the correct themes, contrast mode, and color mode when a theme loader is provided', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				await setGlobalTheme(
 					{
@@ -490,7 +490,7 @@ describe('setGlobalTheme style loading', () => {
 
 	describe('should use the provided theme loader to load styles', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				const themeLoaderMock = jest.fn();
 
@@ -632,7 +632,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 		beforeEach(cleanDOM);
 		describe('should set the correct themes, color mode, and contrast mode', () => {
 			ffTest(
-				'platform.design-system-team.increased-contrast-themes',
+				'platform_increased-contrast-themes',
 				async () => {
 					await themeSetter({
 						light: 'legacy-light',
@@ -674,7 +674,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 		describe('should set the correct custom theme attribute, contrast mode, and color mode when customTheme specified', () => {
 			ffTest(
-				'platform.design-system-team.increased-contrast-themes',
+				'platform_increased-contrast-themes',
 				async () => {
 					await themeSetter({
 						light: 'legacy-light',
@@ -720,7 +720,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 		describe('should set the default themes, color mode, and contrast mode when they are not specified', () => {
 			ffTest(
-				'platform.design-system-team.increased-contrast-themes',
+				'platform_increased-contrast-themes',
 				async () => {
 					await themeSetter();
 					const htmlElement = document.getElementsByTagName('html')[0];
@@ -777,7 +777,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 		describe('contrast mode', () => {
 			describe('should automatically switch theme by default', () => {
 				ffTest(
-					'platform.design-system-team.increased-contrast-themes',
+					'platform_increased-contrast-themes',
 					async () => {
 						setMatchMedia(true);
 
@@ -801,7 +801,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 			describe('should switch theme correctly when contrastMode set to "auto" (no preference)', () => {
 				ffTest(
-					'platform.design-system-team.increased-contrast-themes',
+					'platform_increased-contrast-themes',
 					async () => {
 						await themeSetter({ contrastMode: 'auto' });
 						const htmlElement = document.getElementsByTagName('html')[0];
@@ -824,7 +824,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 			describe('should switch theme correctly when contrastMode set to "auto" (prefers more contrast)', () => {
 				ffTest(
-					'platform.design-system-team.increased-contrast-themes',
+					'platform_increased-contrast-themes',
 					async () => {
 						setMatchMedia(true);
 
@@ -849,7 +849,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 		describe('should set the correct themes, contrast mode, and color mode when a theme loader is provided', () => {
 			ffTest(
-				'platform.design-system-team.increased-contrast-themes',
+				'platform_increased-contrast-themes',
 				async () => {
 					await themeSetter(
 						{
@@ -901,7 +901,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 		describe('should use the provided theme loader to load styles', () => {
 			ffTest(
-				'platform.design-system-team.increased-contrast-themes',
+				'platform_increased-contrast-themes',
 				async () => {
 					const themeLoaderMock = jest.fn();
 

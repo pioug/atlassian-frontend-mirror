@@ -1,5 +1,21 @@
 # @atlaskit/collab-provider
 
+## 9.40.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.40.5
+
+### Patch Changes
+
+- [#143146](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143146)
+  [`5df86b2c5407e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5df86b2c5407e) -
+  Retire getVersion using getCollabState from prosemirror-collab, and adding error events on
+  checking undefined collab state in all collab-provider usages
+- Updated dependencies
+
 ## 9.40.4
 
 ### Patch Changes

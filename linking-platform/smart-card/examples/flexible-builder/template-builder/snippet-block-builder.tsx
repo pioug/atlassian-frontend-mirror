@@ -1,9 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React from 'react';
 import { type BlockBuilderProps } from '../types';
 import MaxLinesOption from './inputs/max-lines-option';
 import TextOption from './inputs/text-option';
@@ -12,7 +7,7 @@ const DEFAULT_MAX_LINES = 3;
 
 const SnippetBlockBuilder = ({ onChange, template }: BlockBuilderProps) => {
 	return (
-		<div>
+		<>
 			<MaxLinesOption
 				defaultValue={DEFAULT_MAX_LINES}
 				label="Max lines"
@@ -30,7 +25,7 @@ const SnippetBlockBuilder = ({ onChange, template }: BlockBuilderProps) => {
 				propName="text"
 				template={template}
 			/>
-		</div>
+		</>
 	);
 };
 

@@ -27,7 +27,6 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { token } from '@atlaskit/tokens';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
@@ -470,7 +469,6 @@ export default class Example extends React.Component<Props, State> {
 									/>
 								}
 								allowExtension={true}
-								insertMenuItems={customInsertMenuItems}
 								extensionHandlers={extensionHandlers}
 								contentComponents={
 									<WithEditorActions

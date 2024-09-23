@@ -45,7 +45,7 @@ const setGlobalTheme = async (
 ): Promise<UnbindFn> => {
 	// CLEANUP: Remove. This blocks application of increased contrast themes
 	// without the feature flag enabled.
-	if (!fg('platform.design-system-team.increased-contrast-themes')) {
+	if (!fg('platform_increased-contrast-themes')) {
 		if (light === 'light-increased-contrast') {
 			light = 'light';
 		}

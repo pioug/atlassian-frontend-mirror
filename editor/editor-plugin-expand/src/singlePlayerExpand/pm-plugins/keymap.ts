@@ -17,6 +17,7 @@ import { isEmptyNode, isPositionNearTableRow } from '@atlaskit/editor-common/uti
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { isInTable } from '@atlaskit/editor-tables/utils';
 
 import type { ExpandPlugin } from '../../types';
 import { deleteExpand, focusIcon, focusTitle } from '../commands';
@@ -84,19 +85,24 @@ export function expandKeymap(
 			if (editorView && editorView.dom instanceof HTMLElement) {
 				const { from } = state.selection;
 
+				// if the node selected is an expand
 				if (isExpandSelected(state.selection)) {
 					const expand = editorView.nodeDOM(from);
-					if (!expand || !(expand instanceof HTMLElement)) {
+					if (!expand) {
 						return false;
 					}
 					return focusIcon(expand)(state, dispatch, editorView);
-				} else if (state.selection instanceof TextSelection) {
-					const dom = editorView.domAtPos(from);
-					const expand = dom.node.parentElement?.parentElement;
-					if (!expand || !(expand instanceof HTMLElement)) {
-						return false;
+				}
+
+				// if the text selection is inside an expand
+				else if (state.selection instanceof TextSelection && !isInTable(state)) {
+					const expand = findExpand(state);
+					if (expand) {
+						const expandNode = editorView.nodeDOM(expand.pos);
+						if (expandNode) {
+							return focusIcon(expandNode)(state, dispatch, editorView);
+						}
 					}
-					return focusIcon(expand)(state, dispatch, editorView);
 				}
 			}
 

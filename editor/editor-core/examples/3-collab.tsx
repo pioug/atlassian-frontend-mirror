@@ -19,7 +19,6 @@ import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
 import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import type { ResolvingMentionProvider } from '@atlaskit/mention/resource';
 import type { ConfigResponse, ShareResponse } from '@atlaskit/share';
@@ -265,7 +264,6 @@ const editorProps = ({
 	quickInsert: { provider: Promise.resolve(quickInsertProvider) },
 	contentComponents: <TitleInput innerRef={(ref) => ref && ref.focus()} />,
 	primaryToolbarComponents: undefined,
-	insertMenuItems: customInsertMenuItems,
 	extensionHandlers: extensionHandlers,
 });
 

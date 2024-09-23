@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.12.5
+
+### Patch Changes
+
+- [#143700](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143700)
+  [`9ef9b7e3bc1d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ef9b7e3bc1d7) -
+  [ux] [ED-24868] Paste gating for codeblock and media in quotes.
+- Updated dependencies
+
 ## 1.12.4
 
 ### Patch Changes

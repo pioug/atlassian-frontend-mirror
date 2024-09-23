@@ -7,6 +7,23 @@
  */
 //German (Germany)
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Beim Löschen des Agenten ist ein Fehler aufgetreten. Versuchen Sie es später erneut.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Agent konnte nicht gelöscht werden',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'Sie haben {agentName} gelöscht.',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Agent gelöscht',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Abbrechen',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Löschen',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Möchten Sie diesen Agenten wirklich löschen? Der Vorgang kann nicht rückgängig gemacht werden.',
+  'profilecard.agent-profile.delete-agent-confirm-title': '"{agentName}" löschen?',
+  'profilecard.agent-profile.delete-agent-error': 'Agent konnte nicht gelöscht werden',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use':
+    'Der Agent wird derzeit verwendet. Versuchen Sie es später erneut.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'Dieser Agent wurde nicht gefunden.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'Sie können keine Agenten löschen, die Sie nicht selbst erstellt haben. Bitte kontaktieren Sie den Besitzer des Agenten.',
+  'profilecard.agent-profile.delete-agent-success': 'Agent wurde gelöscht.',
   'profilecard.user.trigger.aria-label': 'Weitere Informationen zu {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'Weitere Informationen zu diesem Benutzer',
   'pt.profile-card.closed.account': 'Account gelöscht',

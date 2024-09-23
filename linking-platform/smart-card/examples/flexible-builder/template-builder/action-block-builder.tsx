@@ -9,7 +9,7 @@ const ActionBlockBuilder = ({
 	template,
 }: BlockBuilderProps) => {
 	return (
-		<div>
+		<>
 			<EnumOption
 				defaultValue={size}
 				label="Size (inherit)"
@@ -19,7 +19,7 @@ const ActionBlockBuilder = ({
 				source={SmartLinkSize}
 				template={template}
 			/>
-		</div>
+		</>
 	);
 };
 

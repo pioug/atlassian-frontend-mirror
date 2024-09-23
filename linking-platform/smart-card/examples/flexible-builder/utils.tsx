@@ -1,15 +1,13 @@
+import PremiumIcon from '@atlaskit/icon/core/migration/premium';
+import { token } from '@atlaskit/tokens';
 import React from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
-import { type FlexibleTemplate } from './types';
 import {
 	ComponentStorageValue,
 	DefaultTemplate,
 	ExampleStorageKey,
 	FunctionStorageValue,
 } from './constants';
-import PremiumIcon from '@atlaskit/icon/core/migration/premium';
-import { token } from '@atlaskit/tokens';
+import { type FlexibleTemplate } from './types';
 
 export type ChangeParams<T extends object> = [
 	onChange: (template: T) => void,
@@ -81,11 +79,3 @@ export const setExampleToLocalStorage = (template: FlexibleTemplate) => {
 		}),
 	);
 };
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const excludeStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'label, label > span, div': {
-		color: token('color.text.disabled', '#091E424F'),
-	},
-});

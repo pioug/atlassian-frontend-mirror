@@ -10,6 +10,7 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
+import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/setup';
 import type { RendererProps } from '../../src/ui/renderer-props';
 import { default as Renderer } from '../../src/ui/Renderer';
 import { document as defaultDoc } from '../helper/story-data';
@@ -18,6 +19,8 @@ import type { MentionProvider } from '@atlaskit/mention/types';
 import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
 import AnalyticsListeners from '@atlaskit/analytics-listeners';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import { RendererActionsContext as RendererContext } from '../../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../../src/ui/RendererActionsContext/WithRendererActions';
@@ -58,6 +61,8 @@ function renderRenderer({
 	props: MountProps;
 	adf: any;
 	setMode?: (mode: boolean) => void;
+	platformFeatureFlags?: Record<string, boolean>;
+	editorExperiments?: EditorExperimentOverrides;
 }) {
 	const { showSidebar, ...reactProps } = props;
 	return (
@@ -119,12 +124,25 @@ export function createRendererWindowBindings(win: Window, enableClickToEdit?: bo
 		events,
 	};
 
-	(window as any)['__mountRenderer'] = (props: MountProps, adf: any = defaultDoc) => {
+	(window as any)['__mountRenderer'] = (
+		props: MountProps,
+		adf: any = defaultDoc,
+		platformFeatureFlags?: Record<string, boolean>,
+		editorExperiments?: EditorExperimentOverrides,
+	) => {
 		const target = document.getElementById('renderer-container');
 
 		if (!target) {
 			return;
 		}
+
+		if (platformFeatureFlags) {
+			setBooleanFeatureFlagResolver((ffName) => {
+				return platformFeatureFlags[ffName] ?? false;
+			});
+		}
+
+		setupEditorExperiments('test', editorExperiments || {});
 
 		if (props && props.mockInlineComments) {
 			mockAnnotationProps(props);

@@ -1,4 +1,4 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	COLOR_MODE_ATTRIBUTE,
@@ -56,7 +56,7 @@ const getThemeHtmlAttrs = ({
 		[COLOR_MODE_ATTRIBUTE]: colorMode === 'auto' ? (defaultColorMode as string) : colorMode,
 	};
 
-	if (getBooleanFF('platform.design-system-team.increased-contrast-themes')) {
+	if (fg('platform_increased-contrast-themes')) {
 		result = {
 			...result,
 			// CLEANUP: Move this to the initial `result` assignment above

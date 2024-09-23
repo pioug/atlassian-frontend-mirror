@@ -19,7 +19,7 @@ var getThemePreferences = exports.getThemePreferences = function getThemePrefere
   var autoColorModeThemes = [light, dark];
   var themePreferences = [];
   if (colorMode === 'auto') {
-    if (contrastMode !== 'no-preference' && (0, _platformFeatureFlags.fg)('platform.design-system-team.increased-contrast-themes')) {
+    if (contrastMode !== 'no-preference' && (0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
       autoColorModeThemes.forEach(function (normalTheme) {
         var increasedContrastTheme = (0, _getIncreasedContrastTheme.default)(normalTheme);
         if (increasedContrastTheme) {
@@ -30,7 +30,7 @@ var getThemePreferences = exports.getThemePreferences = function getThemePrefere
     themePreferences.push.apply(themePreferences, autoColorModeThemes);
   } else {
     themePreferences.push(themeState[colorMode]);
-    if (contrastMode !== 'no-preference' && (0, _platformFeatureFlags.fg)('platform.design-system-team.increased-contrast-themes')) {
+    if (contrastMode !== 'no-preference' && (0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
       var increasedContrastTheme = (0, _getIncreasedContrastTheme.default)(themeState[colorMode]);
       if (increasedContrastTheme) {
         themePreferences.push(increasedContrastTheme);

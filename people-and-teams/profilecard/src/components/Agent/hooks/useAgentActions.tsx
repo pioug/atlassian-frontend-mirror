@@ -23,7 +23,7 @@ const createRovoParams = (params: {
 export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 	const onEditAgent = useCallback(
 		(agentId: string) => {
-			const url = `${getATLContextUrl('home')}/agents/${agentId}/edit`;
+			const url = `${getATLContextUrl('home')}/chat/agents/${agentId}/edit`;
 			const urlWithParams = encodeParamsToUrl(url, {
 				cloudId,
 				...createRovoParams({ cloudId }),

@@ -26,6 +26,7 @@ export const handleMouseOver = (
 	}
 
 	const target = event.target as HTMLElement;
+
 	if (target.classList.contains('ProseMirror')) {
 		return false;
 	}

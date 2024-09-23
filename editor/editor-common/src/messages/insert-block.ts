@@ -41,16 +41,6 @@ export const toolbarInsertBlockMessages = defineMessages({
 		defaultMessage: 'Insert',
 		description: 'Insert a node into the document',
 	},
-	insertMediaFromUrl: {
-		id: 'fabric.editor.insertMediaFromUrl',
-		defaultMessage: 'Image from link',
-		description: 'Upload image from URL',
-	},
-	insertMediaFromUrlDescription: {
-		id: 'fabric.editor.insertMediaFromUrlDescription',
-		defaultMessage: 'Add an image or video from a link',
-		description: 'Upload a image to your page from external URL',
-	},
 	mediaFilesDescription: {
 		id: 'fabric.editor.mediaFiles.description',
 		defaultMessage: 'Add images and other files to your page',

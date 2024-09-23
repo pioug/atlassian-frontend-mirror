@@ -76,7 +76,7 @@ describe('getSSRAutoScript', () => {
 
 	describe('returns a script that correctly sets the data-contrast-mode attribute based on the system color preference', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				// Get the SSR auto script
 				const result = getSSRAutoScript('light', 'auto');

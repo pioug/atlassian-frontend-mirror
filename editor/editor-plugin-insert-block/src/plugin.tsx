@@ -394,6 +394,20 @@ function ToolbarInsertBlockWithInjectionApi({
 
 	const emojiProvider = getEmojiProvider();
 
+	const onShowMediaPicker = () => {
+		if (!mediaState) {
+			return;
+		}
+
+		if (editorExperiment('add-media-from-url', true)) {
+			pluginInjectionApi?.core?.actions.execute(
+				pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup,
+			);
+		} else {
+			mediaState.showMediaPicker();
+		}
+	};
+
 	return (
 		<ToolbarInsertBlock
 			pluginInjectionApi={pluginInjectionApi}
@@ -415,7 +429,7 @@ function ToolbarInsertBlockWithInjectionApi({
 			layoutSectionEnabled={Boolean(pluginInjectionApi?.layout)}
 			expandEnabled={!!options.allowExpand}
 			mediaUploadsEnabled={(mediaState && mediaState.allowsUploads) ?? undefined}
-			onShowMediaPicker={(mediaState && mediaState.showMediaPicker) ?? undefined}
+			onShowMediaPicker={onShowMediaPicker}
 			mediaSupported={!!mediaState}
 			imageUploadSupported={!!pluginInjectionApi?.imageUpload}
 			imageUploadEnabled={imageUploadState?.enabled}

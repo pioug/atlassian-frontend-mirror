@@ -7,6 +7,22 @@
  */
 //Thai (Thailand)
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'เกิดข้อผิดพลาดบางประการขณะลบพนักงาน โปรดรอสักครู่แล้วลองอีกครั้ง',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'ลบพนักงานไม่สำเร็จ',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'คุณลบ {agentName} แล้ว',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'ลบพนักงานแล้ว',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'ยกเลิก',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'ลบ',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'คุณแน่ใจหรือไม่ว่าต้องการลบพนักงานรายนี้ การดำเนินการนี้ไม่สามารถยกเลิกได้',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'ลบ "{agentName}" หรือไม่',
+  'profilecard.agent-profile.delete-agent-error': 'ไม่สามารถลบพนักงานได้',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use': 'มีการใช้พนักงานอยู่ในขณะนี้ ลองอีกครั้งในภายหลัง',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'ไม่พบพนักงานรายนั้น',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'คุณไม่สามารถลบพนักงานที่คุณไม่ได้สร้างขึ้นด้วยตัวเองได้ โปรดติดต่อเจ้าของพนักงาน',
+  'profilecard.agent-profile.delete-agent-success': 'พนักงานถูกลบแล้ว',
   'profilecard.user.trigger.aria-label': 'ข้อมูลเพิ่มเติมเกี่ยวกับ {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'ข้อมูลเพิ่มเติมเกี่ยวกับผู้ใช้รายนี้',
   'pt.profile-card.closed.account': 'ลบบัญชีแล้ว',

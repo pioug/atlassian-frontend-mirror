@@ -1,27 +1,14 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import type { PropsWithChildren } from 'react';
-import { useCallback, useState } from 'react';
 import { IconButton } from '@atlaskit/button/new';
+import { Box, Grid, Pressable, xcss } from '@atlaskit/primitives';
+import type { PropsWithChildren } from 'react';
+import React, { useCallback, useState } from 'react';
 import ChevronIcon from './chevron-icon';
 
-const containerStyles = css({
-	marginTop: '0.5rem',
-	padding: '0.1rem 0',
+const buttonStyles = xcss({
+	textAlign: 'left',
+	width: '100%',
 });
-const headerStyles = css({
-	display: 'flex',
-	alignItems: 'center',
-	cursor: 'pointer',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	h6: {
-		flex: '2 0 auto',
-	},
-});
+
 const Fieldset = ({
 	children,
 	defaultOpen = true,
@@ -34,13 +21,19 @@ const Fieldset = ({
 	const handleOnClick = useCallback(() => setOpen(!open), [open]);
 
 	return (
-		<div css={containerStyles}>
-			<div css={headerStyles} onClick={handleOnClick}>
-				<h6>{legend}</h6>
-				<IconButton spacing="compact" icon={() => <ChevronIcon open={open} />} label="" />
-			</div>
+		<Box paddingBlockEnd="space.025" paddingBlockStart="space.100">
+			<Pressable
+				backgroundColor="color.background.neutral.subtle"
+				onClick={handleOnClick}
+				xcss={buttonStyles}
+			>
+				<Grid alignItems="center" columnGap="space.100" templateColumns="1fr 24px">
+					<h6>{legend}</h6>
+					<IconButton spacing="compact" icon={() => <ChevronIcon open={open} />} label="" />
+				</Grid>
+			</Pressable>
 			{open && children}
-		</div>
+		</Box>
 	);
 };
 

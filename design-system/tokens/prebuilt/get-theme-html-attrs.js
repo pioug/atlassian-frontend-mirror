@@ -58,7 +58,7 @@ var getThemeHtmlAttrs = function getThemeHtmlAttrs() {
     typography: typography
   });
   var result = (_result = {}, (0, _defineProperty2.default)(_result, _constants.THEME_DATA_ATTRIBUTE, themeAttribute), (0, _defineProperty2.default)(_result, _constants.COLOR_MODE_ATTRIBUTE, colorMode === 'auto' ? defaultColorMode : colorMode), _result);
-  if ((0, _platformFeatureFlags.getBooleanFF)('platform.design-system-team.increased-contrast-themes')) {
+  if ((0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
     result = _objectSpread(_objectSpread({}, result), {}, (0, _defineProperty2.default)({}, _constants.CONTRAST_MODE_ATTRIBUTE, contrastMode === 'auto' ? defaultContrastMode : contrastMode));
   }
   if (UNSAFE_themeOptions && (0, _colorUtils.isValidBrandHex)(UNSAFE_themeOptions.brandColor)) {

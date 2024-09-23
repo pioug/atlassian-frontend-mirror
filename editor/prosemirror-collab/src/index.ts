@@ -241,8 +241,9 @@ export function sendableSteps(state: EditorState): {
 	};
 }
 
-/// Get the version up to which the collab plugin has synced with the
-/// central authority.
-export function getVersion(state: EditorState): number {
-	return collabKey.getState(state)?.version || 0;
+/// Get the collab state which would holds the version up to which the collab plugin has synced with the central authority.
+/// Override getVersion to getCollabState to gain the benefit on analytics / monitoring in collab-provider
+/// Override PR: https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/142331/overview
+export function getCollabState(state: EditorState): CollabState | undefined {
+	return collabKey.getState(state);
 }

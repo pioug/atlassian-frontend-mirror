@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 1.61.0
+
+### Minor Changes
+
+- [#143310](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143310)
+  [`b41f7cad2418e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b41f7cad2418e) -
+  Migrated feature flag for increased contrast themes to new provider
+
 ## 1.60.0
 
 ### Minor Changes

@@ -42,7 +42,7 @@
 		"@atlaskit/editor-test-helpers": "^19.0.0",
 		"@atlaskit/emoji": "^67.7.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.60.0",
+		"@atlaskit/tokens": "^1.61.0",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@emotion/react": "^11.7.1",
 		"typescript": "~5.4.2"

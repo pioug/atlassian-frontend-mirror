@@ -1,4 +1,4 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import getThemeHtmlAttrs from '../get-theme-html-attrs';
 import { type ThemeState } from '../theme-config';
@@ -20,7 +20,7 @@ export default function configurePage(themeState: ThemeState) {
 		ColorModeObserver.unbind();
 	}
 
-	if (getBooleanFF('platform.design-system-team.increased-contrast-themes')) {
+	if (fg('platform_increased-contrast-themes')) {
 		if (themeState.contrastMode === 'auto') {
 			// Set contrastMode based on the user preference
 			themeState.contrastMode = ContrastModeObserver.getContrastMode();
@@ -39,7 +39,7 @@ export default function configurePage(themeState: ThemeState) {
 
 	return () => {
 		ColorModeObserver.unbind();
-		if (getBooleanFF('platform.design-system-team.increased-contrast-themes')) {
+		if (fg('platform_increased-contrast-themes')) {
 			ContrastModeObserver.unbind();
 		}
 	};

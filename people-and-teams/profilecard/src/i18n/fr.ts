@@ -7,6 +7,23 @@
  */
 //French (France)
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    "Une erreur s'est produite lors de la suppression de l'agent. Réessayez dans quelques instants.",
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': "Impossible de supprimer l'agent",
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'Vous avez supprimé {agentName}',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Agent supprimé',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Annuler',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Supprimer',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Voulez-vous vraiment supprimer cet agent ? Cette action est irréversible.',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'Supprimer « {agentName} » ?',
+  'profilecard.agent-profile.delete-agent-error': "Impossible de supprimer l'agent",
+  'profilecard.agent-profile.delete-agent-error.agent-in-use':
+    "L'agent est en cours d'utilisation. Réessayez ultérieurement.",
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'Cet agent est introuvable.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    "Vous ne pouvez pas supprimer des agents que vous n'avez pas vous-même créés. Veuillez contacter le propriétaire de l'agent.",
+  'profilecard.agent-profile.delete-agent-success': "L'agent a été supprimé !",
   'profilecard.user.trigger.aria-label': 'En savoir plus sur {fullName}',
   'profilecard.user.trigger.fallback-aria-label': "Plus d'informations sur cet utilisateur",
   'pt.profile-card.closed.account': 'Compte supprimé',

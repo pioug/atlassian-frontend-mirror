@@ -22,7 +22,7 @@ jest.mock('../../provider/commit-step');
 jest.mock('../../provider');
 jest.mock('@atlaskit/prosemirror-collab', () => {
 	return {
-		getVersion: jest.fn(),
+		getCollabState: jest.fn(),
 		sendableSteps: jest.fn(),
 	};
 });
@@ -32,7 +32,7 @@ import type { CollabInitPayload } from '@atlaskit/editor-common/collab';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
-import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
+import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 import type AnalyticsHelper from '../../analytics/analytics-helper';
 import { ACK_MAX_TRY } from '../../helpers/const';
 import step from '../../helpers/__tests__/__fixtures__/clean-step-for-empty-doc.json';
@@ -69,6 +69,57 @@ describe('document-service', () => {
 			afterAll(() => {
 				jest.useRealTimers();
 			});
+
+			const runCommitUnconfirmedStepsTest = async ({
+				collabState,
+				expectedVersion = 0,
+				expectErrorAnalytics = false,
+				errorAnalyticsParams,
+			}: {
+				collabState: any; // You can replace 'any' with a more specific type if known
+				expectedVersion: number;
+				expectErrorAnalytics: boolean;
+				errorAnalyticsParams: any;
+			}) => {
+				expect.assertions(expectErrorAnalytics ? 5 : 3);
+
+				(service.getUnconfirmedSteps as jest.Mock).mockReturnValue(['mockStep']);
+				(service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue(['mockStep']);
+				service.setup({
+					getState: jest.fn(),
+					onSyncUpError: jest.fn(),
+					clientId: 'test',
+				});
+
+				(getCollabState as jest.Mock).mockReturnValue(collabState);
+				const commitPromise = service.commitUnconfirmedSteps();
+				const expectThrowPromise = expect(commitPromise).rejects.toThrowError(
+					"Can't sync up with Collab Service",
+				);
+
+				for (let i = 0; i <= ACK_MAX_TRY; i++) {
+					await Promise.resolve();
+					jest.runAllTimers();
+				}
+
+				await expectThrowPromise;
+				expect(service.sendStepsFromCurrentState).toBeCalledTimes(61);
+				// @ts-ignore
+				expect(service.onSyncUpError).toBeCalledWith({
+					clientId: 'test',
+					lengthOfUnconfirmedSteps: 1,
+					maxRetries: 60,
+					tries: 61,
+					version: expectedVersion,
+				});
+				if (expectErrorAnalytics) {
+					expect(analyticsMock.sendErrorEvent).toBeCalledTimes(64);
+					expect(analyticsMock.sendErrorEvent).toBeCalledWith(
+						new Error(errorAnalyticsParams.errorMessage),
+						errorAnalyticsParams.errorContext,
+					);
+				}
+			};
 
 			it('Does nothing if there are no steps to be saved', async () => {
 				(service.getUnconfirmedSteps as jest.Mock).mockReturnValue([]);
@@ -193,37 +244,40 @@ describe('document-service', () => {
 			});
 
 			it('Calls onSyncUpError when it failed to commit steps', async () => {
-				expect.assertions(3);
-				(service.getUnconfirmedSteps as jest.Mock).mockReturnValue(['mockStep']);
-				(service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue(['mockStep']);
-				service.setup({
-					getState: jest.fn(),
-					onSyncUpError: jest.fn(),
-					clientId: 'test',
+				await runCommitUnconfirmedStepsTest({
+					collabState: { version: 1 },
+					expectedVersion: 1,
+					expectErrorAnalytics: false,
+					errorAnalyticsParams: {},
 				});
-				(getVersion as jest.Mock).mockReturnValue(1);
-				const commitPromise = service.commitUnconfirmedSteps();
-				// Call done when the commitPromise throws
-				const expectThrowPromise = expect(commitPromise).rejects.toThrowError(
-					"Can't sync up with Collab Service",
-				);
+			});
 
-				for (let i = 0; i <= ACK_MAX_TRY; i++) {
-					await Promise.resolve(); // Force commitUnconfirmedSteps to start executing until the first sleep
-					jest.runAllTimers();
-				}
-				await expectThrowPromise;
-				expect(service.sendStepsFromCurrentState).toBeCalledTimes(61);
-				// @ts-ignore
-				expect(service.onSyncUpError).toBeCalledWith({
-					clientId: 'test',
-					lengthOfUnconfirmedSteps: 1,
-					maxRetries: 60,
-					tries: 61,
-					version: 1,
+			it('Calls onSyncUpError when it failed to commit steps, version 0 for missing collab state and log error event', async () => {
+				await runCommitUnconfirmedStepsTest({
+					collabState: undefined,
+					expectedVersion: 0,
+					expectErrorAnalytics: true,
+					errorAnalyticsParams: {
+						errorMessage: 'No collab state when calling ProseMirror function',
+						errorContext: 'collab-provider: commitUnconfirmedSteps called without collab state',
+					},
+				});
+			});
+
+			it('Calls onSyncUpError when it failed to commit steps, version 0 for collab state missing version info and log error event', async () => {
+				await runCommitUnconfirmedStepsTest({
+					collabState: {},
+					expectedVersion: 0,
+					expectErrorAnalytics: true,
+					errorAnalyticsParams: {
+						errorMessage: 'Collab state missing version info when calling ProseMirror function',
+						errorContext:
+							'collab-provider: commitUnconfirmedSteps called with collab state missing version info',
+					},
 				});
 			});
 		});
+
 		describe('getFinalAcknowledgedState', () => {
 			beforeEach(() => {
 				jest.useFakeTimers({ legacyFakeTimers: true });
@@ -520,7 +574,7 @@ describe('document-service', () => {
 				service.setup({
 					getState: jest.fn().mockReturnValue({ doc: mockPMDocument }),
 				});
-				(getVersion as jest.Mock).mockReturnValue(1);
+				(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 				const state = await service.getCurrentState();
 				expect(state).toEqual({
@@ -533,26 +587,84 @@ describe('document-service', () => {
 				});
 			});
 
-			it('Handles errors', async () => {
+			const runGetCurrentStateTest = async ({
+				state,
+				collabState,
+				expectedState,
+				actionEventCalls,
+				errorEvents,
+			}: {
+				state: any;
+				collabState: any;
+				expectedState: any;
+				actionEventCalls: number;
+				errorEvents: Array<[Error, string]>;
+			}) => {
 				const { service, analyticsHelperMock } = createMockService();
 				// @ts-ignore
 				service.setup({
-					getState: jest.fn().mockReturnValue(undefined), // Throws when trying to read undefined state
+					getState: jest.fn().mockReturnValue(state),
 				});
-				await expect(service.getCurrentState()).rejects.toThrowError();
-				expect(analyticsHelperMock.sendActionEvent).toBeCalledTimes(1);
-				expect(analyticsHelperMock.sendActionEvent).toBeCalledWith('getCurrentState', 'FAILURE', {
-					latency: undefined,
+				(getCollabState as jest.Mock).mockReturnValue(collabState);
+				if (expectedState instanceof Error) {
+					await expect(service.getCurrentState()).rejects.toThrowError();
+				} else {
+					const state = await service.getCurrentState();
+					expect(state).toEqual(expectedState);
+				}
+				expect(analyticsHelperMock.sendActionEvent).toBeCalledTimes(actionEventCalls);
+				errorEvents.forEach(([error, message]) => {
+					expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(error, message);
 				});
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(2);
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
-					new Error('Editor state is undefined'),
-					'getCurrentState called without state',
-				);
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
-					expect.any(Error),
-					'Error while returning ADF version of current draft document',
-				);
+			};
+
+			it('Handles errors when missing editor state', async () => {
+				await runGetCurrentStateTest({
+					state: undefined,
+					collabState: undefined,
+					expectedState: new Error(),
+					actionEventCalls: 1,
+					errorEvents: [
+						[new Error('Editor state is undefined'), 'getCurrentState called without state'],
+						[expect.any(Error), 'Error while returning ADF version of current draft document'],
+					],
+				});
+			});
+
+			it('Log error event when missing collab state and using version 0 instead', async () => {
+				await runGetCurrentStateTest({
+					state: { doc: mockPMDocument },
+					collabState: undefined,
+					expectedState: {
+						content: mockDocument,
+						stepVersion: 0,
+					},
+					actionEventCalls: 1,
+					errorEvents: [
+						[
+							new Error('No collab state when calling ProseMirror function'),
+							'collab-provider: getCurrentState called without collab state',
+						],
+					],
+				});
+			});
+
+			it('Log error event when collab state missing version 0 and using version 0 instead', async () => {
+				await runGetCurrentStateTest({
+					state: { doc: mockPMDocument },
+					collabState: {},
+					expectedState: {
+						content: mockDocument,
+						stepVersion: 0,
+					},
+					actionEventCalls: 1,
+					errorEvents: [
+						[
+							new Error('Collab state missing version info when calling ProseMirror function'),
+							'collab-provider: getCurrentState called with collab state missing version info',
+						],
+					],
+				});
 			});
 		});
 
@@ -652,14 +764,55 @@ describe('document-service', () => {
 		});
 
 		describe('getCurrentPmVersion', () => {
-			it('Logs error and returns version as 0 when no state is setup', () => {
+			const setupService = (
+				state: any,
+				collabState: any,
+			): { service: any; analyticsHelperMock: any } => {
 				const { service, analyticsHelperMock } = createMockService();
-				service.setup({ getState: jest.fn(), clientId: 'id' });
-				expect(service.getCurrentPmVersion()).toEqual(0);
+				service.setup({ getState: jest.fn().mockReturnValue(state), clientId: 'id' });
+				(getCollabState as jest.Mock).mockReturnValue(collabState);
+				return { service, analyticsHelperMock };
+			};
+
+			const expectErrorLoggingAndVersion = (
+				analyticsHelperMock: { sendErrorEvent: jest.Mock },
+				errorMessage: string,
+				errorContext: string,
+			): void => {
 				expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
 				expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
-					new Error('No editor state when calling ProseMirror function'),
+					new Error(errorMessage),
+					errorContext,
+				);
+			};
+
+			it('Logs error and returns version as 0 when no editor state is setup', () => {
+				const { service, analyticsHelperMock } = setupService(undefined, undefined);
+				expect(service.getCurrentPmVersion()).toEqual(0);
+				expectErrorLoggingAndVersion(
+					analyticsHelperMock,
+					'No editor state when calling ProseMirror function',
 					'getCurrentPmVersion called without state',
+				);
+			});
+
+			it('Logs error and returns version as 0 when no collab state is setup', () => {
+				const { service, analyticsHelperMock } = setupService('mockState', undefined);
+				expect(service.getCurrentPmVersion()).toEqual(0);
+				expectErrorLoggingAndVersion(
+					analyticsHelperMock,
+					'No collab state when calling ProseMirror function',
+					'collab-provider: getCurrentPmVersion called without collab state',
+				);
+			});
+
+			it('Logs error and returns version as 0 when collab state missing version info', () => {
+				const { service, analyticsHelperMock } = setupService('mockState', {});
+				expect(service.getCurrentPmVersion()).toEqual(0);
+				expectErrorLoggingAndVersion(
+					analyticsHelperMock,
+					'Collab state missing version info when calling ProseMirror function',
+					'collab-provider: getCurrentPmVersion called with collab state missing version info',
 				);
 			});
 
@@ -669,12 +822,12 @@ describe('document-service', () => {
 					getState: jest.fn().mockReturnValue('mockState'),
 					clientId: 'id',
 				});
-				(getVersion as jest.Mock).mockReturnValue('mockVersion');
+				(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 				const returnValue = service.getCurrentPmVersion();
-				expect(returnValue).toEqual('mockVersion');
+				expect(returnValue).toEqual(1);
 				expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(0);
-				expect(getVersion).toBeCalledTimes(1);
-				expect(getVersion).toBeCalledWith('mockState');
+				expect(getCollabState).toBeCalledTimes(1);
+				expect(getCollabState).toBeCalledWith('mockState');
 			});
 		});
 
@@ -700,6 +853,55 @@ describe('document-service', () => {
 		});
 
 		describe('send', () => {
+			const runSendTest = ({
+				collabState,
+				expectedVersion,
+				shouldLogError,
+				errorMessage,
+				errorContext,
+			}: {
+				collabState: any;
+				expectedVersion: number;
+				shouldLogError: boolean;
+				errorMessage?: string;
+				errorContext?: string;
+			}) => {
+				const {
+					service,
+					broadcastMock,
+					analyticsHelperMock,
+					onErrorHandledMock,
+					providerEmitCallbackMock,
+				} = createMockService();
+				(sendableSteps as jest.Mock).mockReturnValue({
+					steps: ['step'],
+				});
+				(getCollabState as jest.Mock).mockReturnValue(collabState);
+				service.send(null, null, 'state' as any);
+				expect(sendableSteps).toBeCalledWith('state');
+				expect(commitStepQueue).toBeCalledWith({
+					broadcast: broadcastMock,
+					userId: undefined,
+					clientId: undefined,
+					emit: providerEmitCallbackMock,
+					steps: ['step'],
+					version: expectedVersion,
+					onStepsAdded: service.onStepsAdded,
+					onErrorHandled: onErrorHandledMock,
+					analyticsHelper: analyticsHelperMock,
+					__livePage: false,
+				});
+				if (shouldLogError) {
+					expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
+					expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
+						new Error(errorMessage),
+						errorContext,
+					);
+				} else {
+					expect(analyticsHelperMock.sendErrorEvent).not.toBeCalled();
+				}
+			};
+
 			it('Does nothing when there is no unconfirmedStepsData', () => {
 				const { service } = createMockService();
 				(sendableSteps as jest.Mock).mockReturnValue(undefined);
@@ -717,29 +919,30 @@ describe('document-service', () => {
 			});
 
 			it('Sends steps to be committed', () => {
-				const {
-					service,
-					broadcastMock,
-					analyticsHelperMock,
-					onErrorHandledMock,
-					providerEmitCallbackMock,
-				} = createMockService();
-				(sendableSteps as jest.Mock).mockReturnValue({
-					steps: ['step'],
+				runSendTest({
+					collabState: { version: 1 },
+					expectedVersion: 1,
+					shouldLogError: false,
 				});
-				service.send(null, null, 'state' as any);
-				expect(sendableSteps).toBeCalledWith('state');
-				expect(commitStepQueue).toBeCalledWith({
-					broadcast: broadcastMock,
-					userId: undefined,
-					clientId: undefined,
-					emit: providerEmitCallbackMock,
-					steps: ['step'],
-					version: 'mockVersion',
-					onStepsAdded: service.onStepsAdded,
-					onErrorHandled: onErrorHandledMock,
-					analyticsHelper: analyticsHelperMock,
-					__livePage: false,
+			});
+
+			it('Sends steps from version 0 to be committed when missing collab state and log error event', () => {
+				runSendTest({
+					collabState: undefined,
+					expectedVersion: 0,
+					shouldLogError: true,
+					errorMessage: 'No collab state when calling ProseMirror function',
+					errorContext: 'collab-provider: send called without collab state',
+				});
+			});
+
+			it('Sends steps from version 0 to be committed when collab state missing version info and log error event', () => {
+				runSendTest({
+					collabState: {},
+					expectedVersion: 0,
+					shouldLogError: true,
+					errorMessage: 'Collab state missing version info when calling ProseMirror function',
+					errorContext: 'collab-provider: send called with collab state missing version info',
 				});
 			});
 		});
@@ -790,7 +993,7 @@ describe('document-service', () => {
 					getState: jest.fn().mockReturnValue('mockState'),
 					clientId: 'unused',
 				});
-				(getVersion as jest.Mock).mockReturnValue(1);
+				(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 				service.updateDocument(updateDocumentData);
 				expect(providerEmitCallbackMock).toBeCalledTimes(1);
@@ -818,7 +1021,7 @@ describe('document-service', () => {
 					getState: jest.fn().mockReturnValue({ schema }),
 					clientId: 'unused',
 				});
-				(getVersion as jest.Mock).mockReturnValue(1);
+				(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 				service.updateDocument({
 					...{ ...updateDocumentData, version: 2 },
@@ -848,7 +1051,7 @@ describe('document-service', () => {
 					getState: jest.fn().mockReturnValue({ schema }),
 					clientId: 'unused',
 				});
-				(getVersion as jest.Mock).mockReturnValue(3);
+				(getCollabState as jest.Mock).mockReturnValue({ version: 3 });
 
 				service.updateDocument({
 					...{ ...updateDocumentData, version: 2 },
@@ -867,7 +1070,7 @@ describe('document-service', () => {
 					getState: jest.fn().mockReturnValue({ schema }),
 					clientId: 'unused',
 				});
-				(getVersion as jest.Mock).mockReturnValue(1);
+				(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 				expect(() =>
 					service.updateDocument({

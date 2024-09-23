@@ -275,10 +275,11 @@ export const focusTitle =
 export const focusIcon =
 	(expand: Node): Command =>
 	(state, dispatch, editorView) => {
-		if (!expand || !(expand instanceof HTMLElement)) {
+		if (!(expand instanceof HTMLElement)) {
 			return false;
 		}
 
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const iconContainer = expand.querySelector(`.${expandClassNames.iconContainer}`) as HTMLElement;
 		if (iconContainer && iconContainer.focus) {
 			const { tr } = state;

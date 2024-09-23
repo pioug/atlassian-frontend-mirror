@@ -1,5 +1,14 @@
 # @atlaskit/inline-edit
 
+## 13.7.3
+
+### Patch Changes
+
+- [#143699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143699)
+  [`95773a1f97047`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/95773a1f97047) -
+  Safari: prevent blur actions when Cancel control is clicked
+- Updated dependencies
+
 ## 13.7.2
 
 ### Patch Changes

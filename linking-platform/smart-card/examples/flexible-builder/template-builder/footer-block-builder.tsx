@@ -10,7 +10,7 @@ const FooterBlockBuilder = ({
 	template,
 }: BlockBuilderProps) => {
 	return (
-		<div>
+		<>
 			<EnumOption
 				defaultValue={size}
 				label="Size (inherit)"
@@ -26,7 +26,7 @@ const FooterBlockBuilder = ({
 				propName="actions"
 				template={template}
 			/>
-		</div>
+		</>
 	);
 };
 

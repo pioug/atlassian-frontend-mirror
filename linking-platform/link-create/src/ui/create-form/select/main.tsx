@@ -9,7 +9,6 @@ import { type PropsWithChildren } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline } from '@atlaskit/primitives';
 import AkSelect, {
 	components,
@@ -54,12 +53,7 @@ export function Select<T = OptionType>({
 			testId={testId}
 		>
 			{({ fieldId, isRequired, ...fieldProps }) => {
-				if (fg('linking-platform-create-field-error-association')) {
-					return (
-						<AkSelect required={isRequired} inputId={fieldId} {...fieldProps} {...restProps} />
-					);
-				}
-				return <AkSelect inputId={fieldId} {...fieldProps} {...restProps} />;
+				return <AkSelect required={isRequired} inputId={fieldId} {...fieldProps} {...restProps} />;
 			}}
 		</CreateField>
 	);

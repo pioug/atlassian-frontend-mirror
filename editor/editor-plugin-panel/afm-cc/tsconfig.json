@@ -44,6 +44,9 @@
         },
         {
             "path": "../../../design-system/theme/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
         }
     ]
 }

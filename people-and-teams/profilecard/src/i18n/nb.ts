@@ -7,6 +7,22 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Noe gikk galt under sletting av agenten. Prøv igjen om en liten stund.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Kan ikke slette agent',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'Du slettet {agentName}',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Agenten er slettet',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Avbryt',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Slett',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Er du sikker på at du vil slette denne agenten? Denne handlingen kan ikke angres.',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'Vil du slette «{agentName}»?',
+  'profilecard.agent-profile.delete-agent-error': 'Kan ikke slette agenten',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use': 'Agenten er i bruk. Prøv igjen senere.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'Vi finner ikke den agenten.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'Du kan ikke slette agenter du ikke selv har opprettet. Kontakt agenteieren.',
+  'profilecard.agent-profile.delete-agent-success': 'Agenten er slettet',
   'profilecard.user.trigger.aria-label': 'Mer informasjon om {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'Mer informasjon om denne brukeren',
   'pt.profile-card.closed.account': 'Kontoen er slettet',

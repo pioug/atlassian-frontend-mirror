@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.1.1
+
+### Patch Changes
+
+- [#143799](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143799)
+  [`28c4ecb75a634`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28c4ecb75a634) -
+  removed editorActions from onClick in Props, updated toolbar reference to it
+- Updated dependencies
+
+## 2.1.0
+
+### Minor Changes
+
+- [#143644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143644)
+  [`b5352e3195293`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b5352e3195293) -
+  [ux] [ED-24327] Integrate new media popup into toolbar and quick action
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.3
 
 ### Patch Changes

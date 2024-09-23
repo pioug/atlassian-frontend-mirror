@@ -6,7 +6,6 @@ import { IntlProvider } from 'react-intl-next';
 
 import { axe } from '@af/accessibility-testing';
 import { flushPromises } from '@atlaskit/link-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type Validator } from '../../common/types';
 import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
@@ -227,37 +226,31 @@ describe('<CreateForm />', () => {
 	});
 
 	describe('a11y', () => {
-		ffTest.both(
-			'linking-platform-create-field-error-association',
-			'ff does not impact accessibility',
-			() => {
-				it('should be accessible', async () => {
-					const { container } = setUpCreateForm(
-						<Fragment>
-							<TextField label="Textfield" name="textfield" />
-							<Select label="Select" name="select" />
-							<AsyncSelect label="AsyncSelect" name="asyncselect" />
-							<UserPicker
-								label="User"
-								name="userpicker"
-								productKey="jira"
-								siteId="siteId"
-								defaultValue={undefined}
-							/>
-						</Fragment>,
-						{
-							onSubmit: () => ({
-								textfield: 'Textfield is invalid',
-								select: 'Select is invalid',
-								asyncselect: 'AsyncSelect is invalid',
-								userpicker: 'Userpicker is invalid',
-							}),
-						},
-					).result;
+		it('should be accessible', async () => {
+			const { container } = setUpCreateForm(
+				<Fragment>
+					<TextField label="Textfield" name="textfield" />
+					<Select label="Select" name="select" />
+					<AsyncSelect label="AsyncSelect" name="asyncselect" />
+					<UserPicker
+						label="User"
+						name="userpicker"
+						productKey="jira"
+						siteId="siteId"
+						defaultValue={undefined}
+					/>
+				</Fragment>,
+				{
+					onSubmit: () => ({
+						textfield: 'Textfield is invalid',
+						select: 'Select is invalid',
+						asyncselect: 'AsyncSelect is invalid',
+						userpicker: 'Userpicker is invalid',
+					}),
+				},
+			).result;
 
-					await axe(container);
-				});
-			},
-		);
+			await axe(container);
+		});
 	});
 });

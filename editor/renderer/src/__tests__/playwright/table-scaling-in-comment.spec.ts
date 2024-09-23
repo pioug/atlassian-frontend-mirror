@@ -1,6 +1,3 @@
-// Feature gate is always 'false' in Playwright test at the moment, so these test fail.
-// If feature gate removed, the tests work as expected.
-/*
 import { rendererTestCase as test, expect } from './not-libra';
 import {
 	tableWithoutWidthAdf,
@@ -18,13 +15,9 @@ test.describe('table scaling in comment renderer', () => {
 				UNSTABLE_allowTableResizing: true,
 			},
 			viewport: { width: 760, height: 600 },
-			featureFlags: { tablePreserveWidth: true },
-			// platformFeatureFlags: {
-			//  platform.editor.table.use-increased-scaling-percent: true,
-			// },
-			// editorExperiments: {
-			// 	'support_table_in_comment': true,
-			// },
+			editorExperiments: {
+				support_table_in_comment: true,
+			},
 		});
 		test('table should scale down when scale percent is bigger than 0.4', async ({ renderer }) => {
 			const table = renderer.page.getByRole('table');
@@ -53,13 +46,9 @@ test.describe('table scaling in comment renderer', () => {
 				UNSTABLE_allowTableResizing: true,
 			},
 			viewport: { width: 760, height: 600 },
-			featureFlags: { tablePreserveWidth: true },
-			// platformFeatureFlags: {
-			//  platform.editor.table.use-increased-scaling-percent: true,
-			// },
-			// editorExperiments: {
-			// 	'support_table_in_comment': true,
-			// },
+			editorExperiments: {
+				support_table_in_comment: true,
+			},
 		});
 
 		test('table should scale down when scale percent is bigger than 0.4', async ({ renderer }) => {
@@ -93,13 +82,9 @@ test.describe('table scaling in comment renderer', () => {
 				UNSTABLE_allowTableResizing: true,
 			},
 			viewport: { width: 760, height: 600 },
-			featureFlags: { tablePreserveWidth: true },
-			// platformFeatureFlags: {
-			//  platform.editor.table.use-increased-scaling-percent: true,
-			// },
-			// editorExperiments: {
-			// 	'support_table_in_comment': true,
-			// },
+			editorExperiments: {
+				support_table_in_comment: true,
+			},
 		});
 
 		test('table should not scale down when scale percent is bigger than 0.4', async ({
@@ -157,13 +142,9 @@ test.describe('table scaling in comment renderer', () => {
 				UNSTABLE_allowTableResizing: true,
 			},
 			viewport: { width: 760, height: 600 },
-			featureFlags: { tablePreserveWidth: true },
-			// platformFeatureFlags: {
-			//  platform.editor.table.use-increased-scaling-percent: true,
-			// },
-			// editorExperiments: {
-			// 	'support_table_in_comment': true,
-			// },
+			editorExperiments: {
+				support_table_in_comment: true,
+			},
 		});
 
 		test('table should not scale down when scale percent is bigger than 0.4', async ({
@@ -175,7 +156,7 @@ test.describe('table scaling in comment renderer', () => {
 			expect(beforeWidth).toBe(760);
 			// scale percent from 760 -> 380 is 0.5
 			await renderer.page.setViewportSize({ width: 380, height: 600 });
-			const targetWidth = 454;
+			const targetWidth = 457;
 
 			await renderer.page.waitForFunction(
 				(targetWidth) => {
@@ -187,7 +168,7 @@ test.describe('table scaling in comment renderer', () => {
 			);
 
 			const afterWidth = (await table.boundingBox())?.width;
-			expect(afterWidth).toBeCloseTo(454, 0);
+			expect(afterWidth).toBeCloseTo(457, 0);
 		});
 
 		test('table should scale down when scale percent is smaller than 0.4', async ({ renderer }) => {
@@ -213,4 +194,3 @@ test.describe('table scaling in comment renderer', () => {
 		});
 	});
 });
-*/

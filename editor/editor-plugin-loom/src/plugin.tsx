@@ -1,9 +1,5 @@
-import React from 'react';
-
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
-import { logException } from '@atlaskit/editor-common/monitoring';
+import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	EditorCommand,
@@ -14,15 +10,16 @@ import type {
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
+import { type QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { LoomIcon } from '@atlaskit/logo';
 
-import { insertLoom, recordVideo, recordVideoFailed } from './commands';
+import { insertLoom, recordVideo, setupLoom } from './commands';
 import type { LoomPluginState } from './pm-plugin';
 import { createPlugin, loomPluginKey } from './pm-plugin';
-import type { LoomPluginOptions, PositionType, VideoMeta } from './types';
-import LoomToolbarButton from './ui/ToolbarButton';
+import type { LoomPluginOptions, LoomProviderOptions, PositionType, VideoMeta } from './types';
+import { loomPrimaryToolbarComponent } from './ui/PrimaryToolbarButton';
+import { getQuickInsertItem } from './ui/quickInsert';
 
 export type LoomPlugin = NextEditorPlugin<
 	'loom',
@@ -34,6 +31,7 @@ export type LoomPlugin = NextEditorPlugin<
 			WidthPlugin,
 			HyperlinkPlugin,
 			OptionalPlugin<PrimaryToolbarPlugin>,
+			OptionalPlugin<QuickInsertPlugin>,
 		];
 		sharedState: LoomPluginState | undefined;
 		actions: {
@@ -52,6 +50,16 @@ export type LoomPlugin = NextEditorPlugin<
 			 * @returns {boolean} If the loom was successfully inserted
 			 */
 			insertLoom: (video: VideoMeta, positionType: PositionType) => boolean;
+
+			/**
+			 * Given loom provider, initialise loom SDK
+			 * @returns error message if initialisation failed
+			 */
+			initLoom: ({
+				loomProvider,
+			}: {
+				loomProvider: LoomProviderOptions;
+			}) => Promise<{ error?: string }>;
 		};
 	}
 >;
@@ -63,12 +71,10 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 	// The hyperlink plugin (and the card plugin) are deeply tied into using the Prosemirror Command
 	// Ideally one day we refactor those and we can remove this.
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
-	const primaryToolbarComponent: ToolbarUIComponentFactory = ({ disabled, appearance }) => {
-		if (!config.shouldShowToolbarButton) {
-			return null;
-		}
-		return <LoomToolbarButton disabled={disabled} api={api} appearance={appearance} />;
-	};
+	const primaryToolbarComponent: ToolbarUIComponentFactory = loomPrimaryToolbarComponent(
+		config,
+		api,
+	);
 	api?.primaryToolbar?.actions.registerComponent({
 		name: 'loom',
 		component: primaryToolbarComponent,
@@ -81,6 +87,9 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 			recordVideo,
 			insertLoom: (video, positionType) =>
 				insertLoom(editorViewRef.current, api, video, positionType),
+			initLoom: ({ loomProvider }) => {
+				return setupLoom(loomProvider, api, editorViewRef.current, true);
+			},
 		},
 
 		pmPlugins: () => [
@@ -116,45 +125,12 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 
 		pluginsOptions: {
 			// Enable inserting Loom recordings through the slash command
-			quickInsert: ({ formatMessage }) => [
-				{
-					id: 'loom',
-					title: formatMessage(toolbarInsertBlockMessages.recordVideo),
-					description: formatMessage(toolbarInsertBlockMessages.recordVideoDescription),
-					keywords: ['loom', 'record', 'video'],
-					priority: 800,
-					icon: () => <LoomIcon appearance="brand" />,
-					action(insert, editorState) {
-						const tr = insert(undefined);
-
-						const loomState = loomPluginKey.getState(editorState);
-						if (!loomState?.isEnabled) {
-							const errorMessage = loomState?.error;
-							logException(new Error(errorMessage), {
-								location: 'editor-plugin-loom/quick-insert-record-video',
-							});
-							return (
-								recordVideoFailed({
-									inputMethod: INPUT_METHOD.QUICK_INSERT,
-									error: errorMessage,
-									editorAnalyticsAPI,
-								})({
-									tr,
-								}) ?? false
-							);
-						}
-
-						return (
-							recordVideo({
-								inputMethod: INPUT_METHOD.QUICK_INSERT,
-								editorAnalyticsAPI,
-							})({
-								tr,
-							}) ?? false
-						);
-					},
-				},
-			],
+			quickInsert: (intl) => {
+				if (config.loomProvider) {
+					return getQuickInsertItem(editorAnalyticsAPI)(intl);
+				}
+				return [];
+			},
 		},
 
 		// Enable inserting Loom recordings through main toolbar

@@ -7,6 +7,20 @@
  */
 //Chinese (Traditional)
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description': '刪除客服人員時發生錯誤。請稍後再試一次。',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': '無法刪除客服人員',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': '你已刪除「{agentName}」',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': '已刪除客服人員',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': '取消',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': '刪除',
+  'profilecard.agent-profile.delete-agent-confirm-body': '您確定要刪除此客服人員嗎？此動作無法復原。',
+  'profilecard.agent-profile.delete-agent-confirm-title': '要刪除「{agentName}」嗎？',
+  'profilecard.agent-profile.delete-agent-error': '無法刪除客服人員',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use': '客服人員目前正在忙碌中，請稍後再試一次。',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': '找不到該客服人員。',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    '您無法刪除並非自己建立的客服人員。請連絡客服人員負責人。',
+  'profilecard.agent-profile.delete-agent-success': '客服人員已被刪除！',
   'profilecard.user.trigger.aria-label': '{fullName} 的更多資訊',
   'profilecard.user.trigger.fallback-aria-label': '有關此使用者的更多資訊',
   'pt.profile-card.closed.account': '帳戶已刪除',

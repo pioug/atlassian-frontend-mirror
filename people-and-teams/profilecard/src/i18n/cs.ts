@@ -7,6 +7,22 @@
  */
 //Czech
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Při odstraňování agenta došlo k chybě. Zkuste to za chvíli znovu.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Odstranění agenta se nezdařilo',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'Odstranili jste agenta {agentName}.',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Agent byl odstraněn',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Zrušit',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Odstranit',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Opravdu chcete odstranit tohoto agenta? Akci nejde vrátit zpět.',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'Odstranit agenta „{agentName}“?',
+  'profilecard.agent-profile.delete-agent-error': 'Odstranění agenta se nezdařilo.',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use': 'Agent se aktuálně používá. Zkuste to znovu později.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'Daného agenta se nepodařilo najít.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'Agenty, které jste sami nevytvořili, nemůžete odstranit. Obraťte se na vlastníka agenta.',
+  'profilecard.agent-profile.delete-agent-success': 'Agent byl odstraněn',
   'profilecard.user.trigger.aria-label': 'Další informace o položce {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'Další informace o tomto uživateli',
   'pt.profile-card.closed.account': 'Smazaný účet',

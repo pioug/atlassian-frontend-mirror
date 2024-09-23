@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.1
+
+### Patch Changes
+
+- [#143310](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143310)
+  [`f55df006dcd59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f55df006dcd59) -
+  ED-24822 - Add padding to panels with no icon and unhide drag handle in first bodied node
+- [#142323](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142323)
+  [`e21459718836f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e21459718836f) -
+  ED-24925 update nested drag handler tooltip
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # @atlaskit/logo
 
+## 14.3.0
+
+### Minor Changes
+
+- [`a51c26afee964`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a51c26afee964) -
+  Adds the loom attribution logo to the logo package.
+
 ## 14.2.2
 
 ### Patch Changes

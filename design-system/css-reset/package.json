@@ -27,7 +27,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.60.0",
+		"@atlaskit/tokens": "^1.61.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

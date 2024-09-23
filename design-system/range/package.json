@@ -25,7 +25,7 @@
 	"dependencies": {
 		"@atlaskit/ds-lib": "^2.6.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.60.0",
+		"@atlaskit/tokens": "^1.61.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

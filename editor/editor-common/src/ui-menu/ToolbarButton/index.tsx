@@ -49,7 +49,17 @@ export type Props = {
 	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
 	'aria-pressed'?: React.AriaAttributes['aria-pressed'];
 	'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
-} & Pick<ButtonProps, 'aria-label' | 'children'>;
+	'data-ds--level'?: string;
+} & Pick<
+	ButtonProps,
+	| 'aria-label'
+	| 'children'
+	| 'onFocus'
+	| 'onBlur'
+	| 'onMouseEnter'
+	| 'onMouseLeave'
+	| 'aria-controls'
+>;
 
 const buttonWrapper = css({
 	display: 'flex',
@@ -80,9 +90,15 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>((props, ref) => 
 		'aria-expanded': ariaExpanded,
 		'aria-pressed': ariaPressed,
 		'aria-keyshortcuts': ariaKeyShortcuts,
+		'aria-controls': ariaControls,
+		'data-ds--level': dataDsLevel,
 		onClick,
 		onKeyDown,
 		onItemClick,
+		onFocus,
+		onBlur,
+		onMouseEnter,
+		onMouseLeave,
 	} = props;
 
 	const handleClick = useCallback(
@@ -132,11 +148,17 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>((props, ref) => 
 			target={target}
 			shouldFitContainer
 			aria-expanded={ariaExpanded}
+			aria-controls={ariaControls}
 			aria-haspopup={ariaHasPopup}
 			aria-label={ariaLabel}
 			aria-pressed={ariaPressed}
 			aria-keyshortcuts={ariaKeyShortcuts}
 			onKeyDown={onKeyDown}
+			onFocus={onFocus}
+			onBlur={onBlur}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+			data-ds--level={dataDsLevel}
 		>
 			{children}
 		</Button>

@@ -1,18 +1,13 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import React, { useCallback, useMemo, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { Label } from '@atlaskit/form';
+import { Grid } from '@atlaskit/primitives';
 import Select from '@atlaskit/select/Select';
 import Textfield from '@atlaskit/textfield';
+import React, { useCallback, useMemo, useState } from 'react';
 import { ActionName } from '../../../../src';
-import { type ChangeParams, getCustomActionIcon, handleOnChange } from '../../utils';
 import { type BlockTemplate } from '../../types';
+import { type ChangeParams, getCustomActionIcon, handleOnChange } from '../../utils';
 
 type ActionProp = {
 	name: ActionName;
@@ -21,21 +16,6 @@ type ActionProp = {
 	hideContent?: boolean;
 	icon?: React.ReactNode;
 };
-
-const selectionStyles = css({
-	display: 'flex',
-	alignItems: 'center',
-	gap: '0.5rem',
-	justifyContent: 'space-between',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.action-select': {
-		flex: '1 1 auto',
-	},
-});
-
-const listStyles = css({
-	paddingLeft: '0.5rem',
-});
 
 const options = Object.values(ActionName)
 	/**
@@ -158,18 +138,12 @@ const ActionOption = ({
 	);
 
 	return (
-		<div>
+		<Grid rowGap="space.050">
 			<Label htmlFor={name}>Actions</Label>
-			<div css={selectionStyles}>
-				<Select
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className="action-select"
-					onChange={handleOnActionChange}
-					options={options}
-					placeholder="Choose an action"
-				/>
+			<Grid alignItems="center" columnGap="space.100" templateColumns="1fr 67px">
+				<Select onChange={handleOnActionChange} options={options} placeholder="Choose an action" />
 				<Button onClick={handleOnAddClick(onChange, template, propName, [])}>Add</Button>
-			</div>
+			</Grid>
 			<Checkbox
 				isChecked={hideIcon}
 				label="Hide action icon"
@@ -180,29 +154,31 @@ const ActionOption = ({
 				label="Hide action content"
 				onChange={handleOnHideContentChange(onChange, template, propName, [])}
 			/>
-			<ul css={listStyles}>
-				{actions.map(({ name, content = '' }: ActionProp, idx: number) => (
-					<li key={`${name}-${idx}`} css={selectionStyles}>
-						{name === ActionName.CustomAction ? (
-							<Textfield
-								onChange={handleOnActionNameChange(idx, onChange, template, propName, [])}
-								placeholder="Custom action text"
-								value={content}
-							/>
-						) : (
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							<span className="action-select">{name}</span>
-						)}
-						<Button
-							appearance="danger"
-							onClick={handleOnDeleteClick(idx, onChange, template, propName, [])}
-						>
-							Delete
-						</Button>
-					</li>
-				))}
-			</ul>
-		</div>
+			{actions.map(({ name, content = '' }: ActionProp, idx: number) => (
+				<Grid
+					alignItems="center"
+					columnGap="space.100"
+					key={`${name}-${idx}`}
+					templateColumns="1fr 67px"
+				>
+					{name === ActionName.CustomAction ? (
+						<Textfield
+							onChange={handleOnActionNameChange(idx, onChange, template, propName, [])}
+							placeholder="Custom action text"
+							value={content}
+						/>
+					) : (
+						<span>{name}</span>
+					)}
+					<Button
+						appearance="danger"
+						onClick={handleOnDeleteClick(idx, onChange, template, propName, [])}
+					>
+						Delete
+					</Button>
+				</Grid>
+			))}
+		</Grid>
 	);
 };
 

@@ -217,8 +217,10 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 							{({ fieldProps, error }) => (
 								<div
 									css={fieldStyles}
-									onBlur={() => {
-										onEditViewWrapperBlur(fieldProps.isInvalid, onSubmit, formRef);
+									onBlur={(e) => {
+										if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+											onEditViewWrapperBlur(fieldProps.isInvalid, onSubmit, formRef);
+										}
 									}}
 									onFocus={onEditViewWrapperFocus}
 								>

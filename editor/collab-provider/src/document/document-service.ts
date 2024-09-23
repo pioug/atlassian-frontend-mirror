@@ -12,7 +12,7 @@ import type {
 } from '../types';
 
 import type { CollabEvents, CollabInitPayload, StepJson } from '@atlaskit/editor-common/collab';
-import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
+import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -230,6 +230,28 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 	};
 
+	private getVersionFromCollabState(state: EditorState, resource: string) {
+		const collabState = getCollabState(state);
+		if (!collabState) {
+			this.analyticsHelper?.sendErrorEvent(
+				new Error('No collab state when calling ProseMirror function'),
+				`${resource} called without collab state`,
+			);
+			return 0;
+		}
+
+		// This should not happen in usual, just add error event in case it happens
+		if (collabState.version === undefined) {
+			this.analyticsHelper?.sendErrorEvent(
+				new Error('Collab state missing version info when calling ProseMirror function'),
+				`${resource} called with collab state missing version info`,
+			);
+			return 0;
+		}
+
+		return collabState.version;
+	}
+
 	getCurrentPmVersion = () => {
 		const state = this.getState?.();
 		if (!state) {
@@ -239,7 +261,8 @@ export class DocumentService implements DocumentServiceInterface {
 			);
 			return 0;
 		}
-		return getVersion(state);
+
+		return this.getVersionFromCollabState(state, 'collab-provider: getCurrentPmVersion');
 	};
 
 	private processQueue() {
@@ -276,11 +299,12 @@ export class DocumentService implements DocumentServiceInterface {
 			}
 			const state = this.getState!();
 			const adfDocument = new JSONTransformer().encode(state.doc);
+			const version = this.getVersionFromCollabState(state, 'collab-provider: getCurrentState');
 
 			const currentState = {
 				content: adfDocument,
 				title: this.metadataService.getTitle(),
-				stepVersion: getVersion(state),
+				stepVersion: version,
 			};
 
 			const measure = stopMeasure(MEASURE_NAME.GET_CURRENT_STATE, this.analyticsHelper);
@@ -636,13 +660,17 @@ export class DocumentService implements DocumentServiceInterface {
 					if (!isLastTrConfirmed && count++ >= ACK_MAX_TRY) {
 						if (this.onSyncUpError) {
 							const state = this.getState!();
+							const version = this.getVersionFromCollabState(
+								state,
+								'collab-provider: commitUnconfirmedSteps',
+							);
 
 							this.onSyncUpError({
 								lengthOfUnconfirmedSteps: nextUnconfirmedSteps?.length,
 								tries: count,
 								maxRetries: ACK_MAX_TRY,
 								clientId: this.clientId,
-								version: getVersion(state),
+								version,
 							});
 						}
 						const unconfirmedStepsInfoUGCRemoved: UGCFreeStepDetails[] | undefined =
@@ -760,7 +788,7 @@ export class DocumentService implements DocumentServiceInterface {
 		sendAnalyticsEvent?: boolean,
 	) {
 		const unconfirmedStepsData = sendableSteps(newState);
-		const version = getVersion(newState) || 0; // To mimic the default value customisation introduced in the prosemirror-collab fork
+		const version = this.getVersionFromCollabState(newState, 'collab-provider: send');
 
 		// Don't send any steps before we're ready.
 		if (!unconfirmedStepsData) {

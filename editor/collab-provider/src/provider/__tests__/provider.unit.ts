@@ -5,8 +5,8 @@ jest.mock('@atlaskit/prosemirror-collab', () => {
 		sendableSteps: function (state: any) {
 			return state.collab;
 		},
-		getVersion: (state: any) => {
-			return (state.collab as any).version;
+		getCollabState: (state: any) => {
+			return state.collab;
 		},
 	};
 });
@@ -1017,36 +1017,25 @@ describe('Provider', () => {
 				}
 			});
 
-			it('should reject if the prosemirror-collab plugin fails to retrieve the current version', async () => {
-				expect.assertions(5);
-				const fakeProseMirrorCollabError = new Error("Cannot read property 'version' of undefined");
-				jest.spyOn(ProseMirrorCollab, 'getVersion').mockImplementationOnce(() => {
-					throw fakeProseMirrorCollabError;
+			it('should log error event when missing collab state and use version 0 instead', async () => {
+				expect.assertions(3);
+				jest.spyOn(ProseMirrorCollab, 'getCollabState').mockImplementationOnce(() => {
+					return undefined;
 				});
 
-				try {
-					await provider.getCurrentState();
-				} catch (error) {
-					expect(error).toEqual(fakeProseMirrorCollabError);
-					expect(sendErrorEventSpy).toHaveBeenCalledTimes(2);
-					expect(sendErrorEventSpy).toHaveBeenCalledWith(
-						fakeProseMirrorCollabError,
-						'Error while returning ADF version of current draft document',
-					);
-					expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
-					expect(sendActionEventSpy).toHaveBeenCalledWith(
-						'getCurrentState',
-						'FAILURE',
-						{ latency: undefined }, // Performance API undefined when running jest tests
-					);
-				}
+				const currentState = await provider.getCurrentState();
+				expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+				expect(sendErrorEventSpy).toHaveBeenCalledWith(
+					new Error('No collab state when calling ProseMirror function'),
+					'collab-provider: getCurrentState called without collab state',
+				);
+				expect(currentState.stepVersion).toEqual(0);
 			});
 
 			it('should return the title if set', async () => {
 				channel.emit('metadata:changed', {
 					title: "What's in a better title?",
 				});
-
 				const currentState = await provider.getCurrentState();
 				expect(currentState.title).toEqual("What's in a better title?");
 				expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
@@ -1334,7 +1323,7 @@ describe('Provider', () => {
 							lengthOfUnconfirmedSteps: 1,
 							maxRetries: 60,
 							tries: 61,
-							version: undefined,
+							version: 0,
 						});
 					});
 				});

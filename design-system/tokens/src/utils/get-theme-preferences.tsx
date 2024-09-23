@@ -11,10 +11,7 @@ export const getThemePreferences = (themeState: ThemeState): ThemeIdsWithOverrid
 	const themePreferences: ThemeIdsWithOverrides[] = [];
 
 	if (colorMode === 'auto') {
-		if (
-			contrastMode !== 'no-preference' &&
-			fg('platform.design-system-team.increased-contrast-themes')
-		) {
+		if (contrastMode !== 'no-preference' && fg('platform_increased-contrast-themes')) {
 			autoColorModeThemes.forEach((normalTheme) => {
 				const increasedContrastTheme = getIncreasedContrastTheme(normalTheme);
 				if (increasedContrastTheme) {
@@ -27,10 +24,7 @@ export const getThemePreferences = (themeState: ThemeState): ThemeIdsWithOverrid
 	} else {
 		themePreferences.push(themeState[colorMode]);
 
-		if (
-			contrastMode !== 'no-preference' &&
-			fg('platform.design-system-team.increased-contrast-themes')
-		) {
+		if (contrastMode !== 'no-preference' && fg('platform_increased-contrast-themes')) {
 			const increasedContrastTheme = getIncreasedContrastTheme(themeState[colorMode]);
 
 			if (increasedContrastTheme) {

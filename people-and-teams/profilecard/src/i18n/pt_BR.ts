@@ -7,6 +7,23 @@
  */
 //Portuguese (Brazil)
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Algo deu errado ao excluir o agente. Tente de novo em alguns instantes.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Falha ao excluir agente',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'Você excluiu {agentName}',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Agente excluído',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Cancelar',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Excluir',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Tem certeza de que quer excluir este agente? A ação não pode ser desfeita.',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'Excluir "{agentName}"?',
+  'profilecard.agent-profile.delete-agent-error': 'Não foi possível excluir o agente',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use':
+    'O agente está em uso no momento. Tente de novo mais tarde.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'Não foi possível encontrar esse agente.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'Você não pode excluir agentes criados por outras pessoas. Entre em contato com o proprietário do agente.',
+  'profilecard.agent-profile.delete-agent-success': 'O agente foi excluído!',
   'profilecard.user.trigger.aria-label': 'Mais informações sobre {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'Mais informações sobre este usuário',
   'pt.profile-card.closed.account': 'Conta excluída',

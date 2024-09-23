@@ -7,13 +7,15 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { logException } from '@atlaskit/editor-common/monitoring';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { LoomPlugin } from './plugin';
 import { LoomPluginAction, loomPluginKey } from './pm-plugin';
-import type { PositionType, VideoMeta } from './types';
+import type { LoomProviderOptions, PositionType, VideoMeta } from './types';
+import { getQuickInsertItem } from './ui/quickInsert';
 
 export const enableLoom =
 	({ loomButton }: { loomButton: HTMLButtonElement }): EditorCommand =>
@@ -145,4 +147,93 @@ export const insertLoom = (
 			'embed', // Convert to embed card instead of inline
 		)(state, dispatch) ?? false
 	);
+};
+
+export const executeRecordVideo = (api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
+	api?.core?.actions.execute(
+		recordVideo({
+			inputMethod: INPUT_METHOD.TOOLBAR,
+			editorAnalyticsAPI: api?.analytics?.actions,
+		}),
+	);
+};
+
+export const setupLoom = async (
+	loomProvider: LoomProviderOptions,
+	api: ExtractInjectionAPI<LoomPlugin> | undefined,
+	editorView: EditorView | null,
+	isAfterEditorLoaded?: boolean,
+): Promise<{ error?: string }> => {
+	const clientResult = await loomProvider.getClient();
+
+	if (clientResult.status === 'error') {
+		api?.core?.actions.execute(disableLoom({ error: clientResult.message }));
+		logException(new Error(clientResult.message), {
+			location: 'editor-plugin-loom/sdk-initialisation',
+		});
+		api?.analytics?.actions.fireAnalyticsEvent({
+			action: ACTION.ERRORED,
+			actionSubject: ACTION_SUBJECT.LOOM,
+			eventType: EVENT_TYPE.OPERATIONAL,
+			attributes: { error: clientResult.message },
+		});
+		return { error: clientResult.message };
+	}
+
+	const { attachToButton } = clientResult.client;
+
+	// Hidden element to work around the SDK API
+	const loomButton = document.createElement('button');
+	attachToButton({
+		button: loomButton,
+		onInsert: (video) => {
+			if (!editorView) {
+				return;
+			}
+			const { state, dispatch } = editorView;
+			const pos = state.selection.from;
+			api?.hyperlink?.actions.insertLink(
+				INPUT_METHOD.TYPEAHEAD,
+				pos, // from === to, don't replace text to avoid accidental content loss
+				pos,
+				video.sharedUrl,
+				video.title,
+				undefined,
+				undefined,
+				undefined,
+				'embed', // Convert to embed card instead of inline
+			)(state, dispatch);
+
+			api?.core?.actions.execute(
+				insertVideo({ editorAnalyticsAPI: api?.analytics?.actions, video }),
+			);
+		},
+	});
+
+	api?.core?.actions.execute(({ tr }) => {
+		enableLoom({ loomButton })({ tr });
+		if (isAfterEditorLoaded) {
+			api?.quickInsert?.commands.addQuickInsertItem(getQuickInsertItem(api?.analytics?.actions))({
+				tr,
+			});
+			api?.analytics?.actions.attachAnalyticsEvent({
+				action: ACTION.INITIALISED,
+				actionSubject: ACTION_SUBJECT.LOOM,
+				eventType: EVENT_TYPE.OPERATIONAL,
+			})(tr);
+		}
+		return tr;
+	});
+
+	if (!isAfterEditorLoaded) {
+		// We're not combining the analytics steps into the enable / disable commands because the collab-edit plugin
+		// filters out any transactions with steps (even analytics) when it's initialising
+		api?.analytics?.actions.fireAnalyticsEvent({
+			action: ACTION.INITIALISED,
+			actionSubject: ACTION_SUBJECT.LOOM,
+			eventType: EVENT_TYPE.OPERATIONAL,
+		});
+	}
+
+	return {};
 };

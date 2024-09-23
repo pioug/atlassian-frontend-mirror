@@ -7,6 +7,22 @@
  */
 //Swedish
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Något gick fel när agenten skulle tas bort. Försök igen om en stund.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Det gick inte att ta bort agenten',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'Du tog bort {agentName}',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Agenten har tagits bort',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Avbryt',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Radera',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Är du säker på att du vill radera agenten? Åtgärden kan inte ångras.',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'Vill du radera "{agentName}"?',
+  'profilecard.agent-profile.delete-agent-error': 'Det gick inte att radera agenten',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use': 'Agenten används för närvarande. Försök igen senare.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'Hittade inte agenten.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'Du kan bara radera agenter som du har skapat själv. Kontakta agentägaren.',
+  'profilecard.agent-profile.delete-agent-success': 'Agenten har tagits bort!',
   'profilecard.user.trigger.aria-label': 'Mer information om {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'Mer information om denna användare',
   'pt.profile-card.closed.account': 'Kontot är borttaget',

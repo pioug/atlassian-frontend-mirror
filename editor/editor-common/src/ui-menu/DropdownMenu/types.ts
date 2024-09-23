@@ -1,6 +1,5 @@
 import type React from 'react';
 
-import type { EditorActionsOptions as EditorActions } from '../../types';
 import type { ArrowKeyNavigationProviderOptions } from '../ArrowKeyNavigationProvider/types';
 
 type SectionOptions = { hasSeparator?: boolean; title?: string };
@@ -50,7 +49,7 @@ export interface MenuItem {
 	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
 	'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
 	'data-testid'?: string;
-	onClick?: (editorActions: EditorActions) => void;
+	onClick?: () => void;
 	'aria-expanded'?: React.AriaAttributes['aria-expanded'];
 	wrapperTabIndex?: number | null;
 }

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection
 
+## 1.4.6
+
+### Patch Changes
+
+- [#143799](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143799)
+  [`854fc7c6e6522`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/854fc7c6e6522) -
+  [ux] ED-24255 update mark boundary cursor on any doc change
+- Updated dependencies
+
 ## 1.4.5
 
 ### Patch Changes

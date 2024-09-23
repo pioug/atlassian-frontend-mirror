@@ -7,6 +7,22 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Đã xảy ra lỗi trong khi xóa nhân viên. Hãy thử lại sau giây lát.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Không xóa được Nhân viên',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'Bạn đã xóa {agentName}',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Đã xóa nhân viên',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Hủy',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Xóa',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'BẠN CÓ CHẮC CHẮN MUỐN XÓA NHÂN VIÊN NÀY KHÔNG? KHÔNG THỂ HOÀN TÁC HÀNH ĐỘNG NÀY.',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'XÓA "{agentName}"?',
+  'profilecard.agent-profile.delete-agent-error': 'KHÔNG THỂ XÓA NHÂN VIÊN',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use': 'NHÂN VIÊN HIỆN ĐANG ĐƯỢC SỬ DỤNG. THỬ LẠI SAU.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'KHÔNG THỂ TÌM THẤY NHÂN VIÊN NÀY.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'BẠN KHÔNG THỂ XÓA CÁC NHÂN VIÊN KHÔNG PHẢI DO BẠN TẠO. VUI LÒNG LIÊN HỆ VỚI CHỦ SỞ HỮU NHÂN VIÊN.',
+  'profilecard.agent-profile.delete-agent-success': 'NHÂN VIÊN ĐÃ BỊ XÓA!',
   'profilecard.user.trigger.aria-label': 'Thông tin khác về {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'Thông tin khác về người dùng này',
   'pt.profile-card.closed.account': 'Tài khoản đã bị xóa',

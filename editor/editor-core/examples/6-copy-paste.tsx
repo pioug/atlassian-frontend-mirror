@@ -24,7 +24,6 @@ import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
 import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
@@ -473,7 +472,6 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 									primaryToolbarComponents={[
 										<SaveAndCancelButtons key={collectionName} editorActions={actions} />,
 									]}
-									insertMenuItems={customInsertMenuItems}
 									extensionHandlers={extensionHandlers}
 									{...this.props}
 									appearance={this.state.appearance}

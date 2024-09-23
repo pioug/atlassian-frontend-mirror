@@ -9,7 +9,6 @@ import { getTranslations, LanguagePicker } from '@af/editor-examples-helpers/uti
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
 import { token } from '@atlaskit/tokens';
 
@@ -185,7 +184,6 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 												</>
 											}
 											allowExtension={true}
-											insertMenuItems={customInsertMenuItems}
 											extensionHandlers={extensionHandlers}
 											secondaryToolbarComponents={[
 												<LockCircleIcon key="permission" size="large" label="Permissions" />,

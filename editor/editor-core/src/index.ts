@@ -1,7 +1,14 @@
 // Used in products integration code
 export { name, version } from './version-wrapper';
 export { default as Editor } from './editor';
-export { default as EditorContext } from './ui/EditorContext';
+export {
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-core/editor-context`.
+	 */
+	default as EditorContext,
+} from './ui/EditorContext';
 export { default as WithEditorActions } from './ui/WithEditorActions';
 export { default as WithHelpTrigger } from './ui/WithHelpTrigger';
 export { default as CollapsedEditor } from './ui/CollapsedEditor';
@@ -22,18 +29,65 @@ export {
 	 */
 	ContextPanel,
 } from './ui/ContextPanel';
-export { EmojiResource } from '@atlaskit/emoji/resource';
-export { MentionResource } from '@atlaskit/mention/resource';
-export type { MentionProvider, PresenceProvider } from '@atlaskit/mention/resource';
-export { TeamMentionResource } from '@atlaskit/mention/team-resource';
+export {
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/emoji/resource`.
+	 */
+	EmojiResource,
+} from '@atlaskit/emoji/resource';
+export {
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/mention/resource`.
+	 */
+	MentionResource,
+} from '@atlaskit/mention/resource';
+export type {
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/mention/resource`.
+	 */
+	MentionProvider,
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/mention/resource`.
+	 */
+	PresenceProvider,
+} from '@atlaskit/mention/resource';
+export {
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/mention/team-resource`.
+	 */
+	TeamMentionResource,
+} from '@atlaskit/mention/team-resource';
 /**
  * @deprecated
  * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
- * This is here while we work to extract the annotation plugin.
  * Please use the export from `@atlaskit/editor-common/annotation`.
  */
-export { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
-export type { UpdateEvent } from '@atlaskit/editor-common/annotation';
+export {
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-common/annotation`.
+	 */
+	AnnotationUpdateEmitter,
+} from '@atlaskit/editor-common/annotation';
+export type {
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-common/annotation`.
+	 */
+	UpdateEvent,
+} from '@atlaskit/editor-common/annotation';
 /**
  * @deprecated
  * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
@@ -51,12 +105,44 @@ export type {
 	InlineCommentState,
 } from '@atlaskit/editor-plugins/annotation';
 // Used in mobile bridge
-export type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
+export type {
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-common/provider-factory`.
+	 */
+	TypeAheadItem,
+} from '@atlaskit/editor-common/provider-factory';
 export {
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-common/analytics`.
+	 */
 	INPUT_METHOD,
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-common/analytics`.
+	 */
 	ACTION,
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-common/analytics`.
+	 */
 	ACTION_SUBJECT,
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-common/analytics`.
+	 */
 	ACTION_SUBJECT_ID,
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-common/analytics`.
+	 */
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 export type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
@@ -68,9 +154,29 @@ export type { Command, EditorPlugin, EditorProps, EditorInstance, CommandDispatc
 export { default as EditorActions } from './actions';
 // Re-export from provider factory to not cause a breaking change
 export type {
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-common/provider-factory`.
+	 */
 	MacroProvider,
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-common/provider-factory`.
+	 */
 	MacroAttributes,
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-common/provider-factory`.
+	 */
 	ExtensionType,
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
+	 * Please use the export from `@atlaskit/editor-common/provider-factory`.
+	 */
 	CardProvider,
 } from '@atlaskit/editor-common/provider-factory';
 

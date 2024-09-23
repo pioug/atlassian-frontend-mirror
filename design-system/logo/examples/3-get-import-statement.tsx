@@ -43,6 +43,8 @@ const products: Product[] = [
 	{ label: 'AtlassianAdmin', value: 'AtlassianAdmin' },
 	{ label: 'AtlassianAdministration', value: 'AtlassianAdministration' },
 	{ label: 'AtlassianAccess', value: 'AtlassianAccess' },
+	{ label: 'Loom', value: 'Loom' },
+	{ label: 'LoomAttribution', value: 'LoomAttribution' },
 ];
 
 const files: File[] = [

@@ -7,6 +7,23 @@
  */
 //Japanese
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'エージェントの削除中に問題が発生しました。しばらくしてからもう一度お試しください。',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'エージェントを削除できませんでした',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': '{agentName} を削除しました',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'エージェントが削除されました',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'キャンセル',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': '削除',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'このエージェントを削除してもよろしいですか? この操作は元に戻せません。',
+  'profilecard.agent-profile.delete-agent-confirm-title': '"{agentName}" を削除しますか?',
+  'profilecard.agent-profile.delete-agent-error': 'エージェントを削除できませんでした',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use':
+    'エージェントは現在使用中です。しばらくしてからもう一度お試しください。',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'そのエージェントは見つかりませんでした。',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'あなた自身が作成していないエージェントは削除できません。エージェントの所有者にお問い合わせください。',
+  'profilecard.agent-profile.delete-agent-success': 'エージェントが削除されました!',
   'profilecard.user.trigger.aria-label': '{fullName} の詳細情報',
   'profilecard.user.trigger.fallback-aria-label': 'このユーザーに関する詳細情報',
   'pt.profile-card.closed.account': '削除済みアカウント',

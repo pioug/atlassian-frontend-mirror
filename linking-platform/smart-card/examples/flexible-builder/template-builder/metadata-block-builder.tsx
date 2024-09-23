@@ -1,14 +1,9 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-import { type BlockBuilderProps } from '../types';
-import MetadataOption from './inputs/metadata-option';
-import MaxLinesOption from './inputs/max-lines-option';
+import React from 'react';
 import { SmartLinkSize } from '../../../src';
+import { type BlockBuilderProps } from '../types';
 import EnumOption from './inputs/enum-option';
+import MaxLinesOption from './inputs/max-lines-option';
+import MetadataOption from './inputs/metadata-option';
 
 const DEFAULT_MAX_LINES = 2;
 
@@ -18,7 +13,7 @@ const MetadataBlockBuilder = ({
 	template,
 }: BlockBuilderProps) => {
 	return (
-		<div>
+		<>
 			<MaxLinesOption
 				defaultValue={DEFAULT_MAX_LINES}
 				label="Max lines"
@@ -51,7 +46,7 @@ const MetadataBlockBuilder = ({
 				source={SmartLinkSize}
 				template={template}
 			/>
-		</div>
+		</>
 	);
 };
 

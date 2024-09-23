@@ -43,7 +43,7 @@ var getThemeStyles = /*#__PURE__*/function () {
             themePreferences = _themeConfig.themeIdsWithOverrides;
 
             // CLEANUP: Remove
-            if (!(0, _platformFeatureFlags.fg)('platform.design-system-team.increased-contrast-themes')) {
+            if (!(0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
               themePreferences = themePreferences.filter(function (n) {
                 return n !== 'light-increased-contrast' && n !== 'dark-increased-contrast';
               });

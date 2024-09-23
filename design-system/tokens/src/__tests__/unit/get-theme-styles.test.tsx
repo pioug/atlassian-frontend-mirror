@@ -26,7 +26,7 @@ function getThemeData(themes: ThemeStyles[]) {
 describe('getThemeStyles', () => {
 	describe('returns an array of ThemeStyles when given non-default theme state', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				let results = await getThemeStyles({
 					light: 'legacy-light',
@@ -74,7 +74,7 @@ describe('getThemeStyles', () => {
 
 	describe('returns an array of the default ThemeStyles when a theme state argument is not provided', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				let results = await getThemeStyles();
 
@@ -116,7 +116,7 @@ describe('getThemeStyles', () => {
 
 	describe('returns an array of ThemeStyles that includes custom themes when theme options provided', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				let results = await getThemeStyles({
 					colorMode: 'auto',
@@ -200,7 +200,7 @@ describe('getThemeStyles', () => {
 
 	describe('returns an array of ThemeStyles that does not include custom themes when brand color is invalid', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				let results = await getThemeStyles({
 					colorMode: 'auto',
@@ -242,7 +242,7 @@ describe('getThemeStyles', () => {
 
 	describe('returns a minimal set of ThemeStyles when auto switching is disabled', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				let results = await getThemeStyles({
 					colorMode: 'light',
@@ -282,7 +282,7 @@ describe('getThemeStyles', () => {
 
 	describe('returns an array of ThemeStyles without duplicates', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				// prompt a duplication
 				const results = await getThemeStyles({
@@ -322,7 +322,7 @@ describe('getThemeStyles', () => {
 
 	describe('skips invalid themes when given invalid theme state', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				const results = await getThemeStyles({
 					//@ts-ignore
@@ -354,7 +354,7 @@ describe('getThemeStyles', () => {
 
 	describe('returns all theme styles when provided "all" as an argument', () => {
 		ffTest(
-			'platform.design-system-team.increased-contrast-themes',
+			'platform_increased-contrast-themes',
 			async () => {
 				const results = await getThemeStyles('all');
 

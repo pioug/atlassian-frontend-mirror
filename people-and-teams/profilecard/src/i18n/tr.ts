@@ -7,6 +7,23 @@
  */
 //Turkish (Turkey)
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Temsilci silinirken bir hata oluştu. Birkaç dakika sonra tekrar deneyin.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Temsilci silinemedi',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': '{agentName} adlı temsilciyi sildiniz',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Temsilci silindi',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'İptal',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Sil',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Bu temsilciyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.',
+  'profilecard.agent-profile.delete-agent-confirm-title': '"{agentName}" silinsin mi?',
+  'profilecard.agent-profile.delete-agent-error': 'Temsilci silinemedi',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use':
+    'Temsilci şu anda kullanılıyor. Daha sonra yeniden deneyin.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'Bu temsilci bulunamadı.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'Kendi oluşturmadığınız temsilcileri silemezsiniz. Lütfen temsilcinin sahibiyle iletişime geçin.',
+  'profilecard.agent-profile.delete-agent-success': 'Temsilci silindi!',
   'profilecard.user.trigger.aria-label': '{fullName} hakkında daha fazla bilgi',
   'profilecard.user.trigger.fallback-aria-label': 'Bu kullanıcı hakkında daha fazla bilgi',
   'pt.profile-card.closed.account': 'Hesap silindi',

@@ -12,6 +12,7 @@ import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { ImageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
 import type { LayoutPlugin } from '@atlaskit/editor-plugin-layout';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
+import type { MediaInsertPlugin } from '@atlaskit/editor-plugin-media-insert';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { PanelPlugin } from '@atlaskit/editor-plugin-panel';
 import type { PlaceholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
@@ -37,6 +38,7 @@ export type InsertBlockPluginDependencies = [
 	OptionalPlugin<CodeBlockPlugin>,
 	OptionalPlugin<PanelPlugin>,
 	OptionalPlugin<MediaPlugin>,
+	OptionalPlugin<MediaInsertPlugin>,
 	OptionalPlugin<MentionsPlugin>,
 	OptionalPlugin<StatusPlugin>,
 	OptionalPlugin<LayoutPlugin>,

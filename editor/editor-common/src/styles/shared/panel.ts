@@ -38,6 +38,7 @@ import {
 	Y50,
 	Y75,
 } from '@atlaskit/theme/colors';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const lightPanelColors = {
@@ -192,6 +193,7 @@ export const PanelSharedCssClassName = {
 	prefix,
 	content: `${prefix}__content`,
 	icon: `${prefix}__icon`,
+	noIcon: `${prefix}__no-icon`,
 };
 
 export const PanelSharedSelectors = {
@@ -336,6 +338,12 @@ export const panelSharedStylesWithoutPrefix = () => css`
 			${iconDynamicStyles(PanelType.SUCCESS)}
 		}
 	}
+
+	${editorExperiment('nested-dnd', true) &&
+	`&.${PanelSharedCssClassName.noIcon} {
+			padding-right: ${token('space.150', '12px')};
+			padding-left: ${token('space.150', '12px')};
+		}`}
 `;
 
 export const panelSharedStyles = () =>

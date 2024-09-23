@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 110.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.4.2
+
+### Patch Changes
+
+- [#142938](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142938)
+  [`c6118de2fd43e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6118de2fd43e) -
+  Adds support for platformFeatureFlags and editorExperiments in Renderer Playwright tests.
+
 ## 110.4.1
 
 ### Patch Changes

@@ -1,35 +1,26 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import { useCallback } from 'react';
+import { Box } from '@atlaskit/primitives';
+import React, { useCallback } from 'react';
 // Allowing existing usage of non Pragmatic drag and drop solution
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import {
 	DragDropContext,
 	Draggable,
 	Droppable,
-	type OnDragEndResponder,
 	type DropResult,
+	type OnDragEndResponder,
 } from 'react-beautiful-dnd';
+import { type SmartLinkSize } from '../../../src';
+import { BlockName } from '../constants';
+import { type BlockTemplate } from '../types';
 import ActionBlockBuilder from './action-block-builder';
 import BlockBuilderContainer from './block-builder-container';
-import { type BlockTemplate } from '../types';
-import { BlockName } from '../constants';
+import Fieldset from './fieldset';
 import FooterBlockBuilder from './footer-block-builder';
+import BlockOption from './inputs/block-option';
 import MetadataBlockBuilder from './metadata-block-builder';
 import PreviewBlockBuilder from './preview-block-builder';
 import SnippetBlockBuilder from './snippet-block-builder';
 import TitleBlockBuilder from './title-block-builder';
-import { type SmartLinkSize } from '../../../src';
-import BlockOption from './inputs/block-option';
-import Fieldset from './fieldset';
-
-const listStyles = css({
-	marginTop: '1rem',
-});
 
 const blockBuilderMapper = {
 	[BlockName.ActionBlock]: ActionBlockBuilder,
@@ -125,7 +116,7 @@ const BlockBuilder = ({
 			<DragDropContext onDragEnd={handleOnBlockDragEnd}>
 				<Droppable droppableId="droppable">
 					{(provided) => (
-						<div {...provided.droppableProps} ref={provided.innerRef} css={listStyles}>
+						<Box {...provided.droppableProps} ref={provided.innerRef} paddingBlockStart="space.200">
 							{blocks.map((blockTemplate, idx) => {
 								const { name } = blockTemplate;
 								const BlockBuilderItem =
@@ -134,7 +125,7 @@ const BlockBuilder = ({
 									return (
 										<Draggable key={`${idx}-${name}`} draggableId={`${name}-${idx}`} index={idx}>
 											{(provided) => (
-												<div
+												<Box
 													ref={provided.innerRef}
 													{...provided.draggableProps}
 													{...provided.dragHandleProps}
@@ -152,14 +143,14 @@ const BlockBuilder = ({
 															template={blockTemplate}
 														/>
 													</BlockBuilderContainer>
-												</div>
+												</Box>
 											)}
 										</Draggable>
 									);
 								}
 							})}
 							{provided.placeholder}
-						</div>
+						</Box>
 					)}
 				</Droppable>
 			</DragDropContext>

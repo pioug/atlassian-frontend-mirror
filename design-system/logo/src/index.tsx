@@ -15,6 +15,7 @@ export {
 } from './jira-service-management-logo';
 export { JiraSoftwareIcon, JiraSoftwareLogo } from './jira-software-logo';
 export { JiraWorkManagementLogo, JiraWorkManagementIcon } from './jira-work-management-logo';
+export { LoomAttributionIcon, LoomAttributionLogo } from './loom-attribution-logo';
 export { LoomIcon, LoomLogo } from './loom-logo';
 export { OpsgenieIcon, OpsgenieLogo } from './opsgenie-logo';
 export { StatuspageIcon, StatuspageLogo } from './statuspage-logo';

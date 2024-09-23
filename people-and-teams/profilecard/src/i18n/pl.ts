@@ -7,6 +7,22 @@
  */
 //Polish (Poland)
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Coś poszło nie tak podczas usuwania agenta. Spróbuj ponownie za chwilę.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Nie można usunąć agenta',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'Usunięto {agentName}',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Agent usunięty',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Anuluj',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Usuń',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Na pewno chcesz usunąć tego agenta? Tej czynności nie można cofnąć.',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'Usunąć agenta „{agentName}”?',
+  'profilecard.agent-profile.delete-agent-error': 'Nie można usunąć agenta',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use': 'Agent jest obecnie używany. Spróbuj ponownie później.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'Nie można znaleźć tego agenta.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'Nie możesz usuwać agentów nieutworzonych przez Ciebie. Skontaktuj się z właścicielem agenta.',
+  'profilecard.agent-profile.delete-agent-success': 'Usunięto agenta',
   'profilecard.user.trigger.aria-label': 'Dodatkowe informacje o {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'Więcej informacji o tym użytkowniku',
   'pt.profile-card.closed.account': 'Konto zostało usunięte',

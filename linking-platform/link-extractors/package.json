@@ -39,7 +39,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/logo": "^14.2.0",
+		"@atlaskit/logo": "^14.3.0",
 		"@babel/runtime": "^7.0.0",
 		"json-ld-types": "^4.1.0"
 	},

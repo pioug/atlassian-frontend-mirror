@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 197.9.3
+
+### Patch Changes
+
+- [#143693](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143693)
+  [`46b2a48c6b4bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46b2a48c6b4bf) -
+  Remove tracking for editor transactions
+- [#143799](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143799)
+  [`bf053258fe95f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf053258fe95f) -
+  Mark most unnecessary exports as deprecated as they will be removed in a future version.
+- Updated dependencies
+
+## 197.9.2
+
+### Patch Changes
+
+- [#143310](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143310)
+  [`f55df006dcd59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f55df006dcd59) -
+  ED-24822 - Add padding to panels with no icon and unhide drag handle in first bodied node
+- Updated dependencies
+
 ## 197.9.1
 
 ### Patch Changes

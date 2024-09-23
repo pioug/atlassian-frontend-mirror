@@ -12,7 +12,7 @@ const placementOptions = [
 
 const PreviewBlockBuilder = ({ onChange, template }: BlockBuilderProps) => {
 	return (
-		<div>
+		<>
 			<SelectOption
 				defaultValue=""
 				label="Placement"
@@ -29,7 +29,7 @@ const PreviewBlockBuilder = ({ onChange, template }: BlockBuilderProps) => {
 				propName="ignoreContainerPadding"
 				template={template}
 			/>
-		</div>
+		</>
 	);
 };
 

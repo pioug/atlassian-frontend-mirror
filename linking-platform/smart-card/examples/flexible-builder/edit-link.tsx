@@ -1,20 +1,15 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import React, { useCallback, useState } from 'react';
-import { type JsonLd } from 'json-ld-types';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import LoadLinkForm from '../jsonld-editor/load-link-form';
-import JsonldExample from '../jsonld-editor/jsonld-example';
+import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { type JsonLd } from 'json-ld-types';
+import React, { useCallback, useState } from 'react';
 import JsonldEditorInput from '../jsonld-editor/jsonld-editor-input';
-import type { FlexibleTemplate } from './types';
+import JsonldExample from '../jsonld-editor/jsonld-example';
+import LoadLinkForm from '../jsonld-editor/load-link-form';
 import Code from './code';
+import type { FlexibleTemplate } from './types';
 
-const buttonGroupStyles = css({
+const buttonGroupStyles = xcss({
 	textAlign: 'right',
 });
 
@@ -48,8 +43,8 @@ const EditLink = ({
 	const onShowJsonldClick = useCallback(() => setShowJsonld(!showJsonld), [showJsonld]);
 
 	return (
-		<React.Fragment>
-			<div css={buttonGroupStyles}>
+		<Stack space="space.200">
+			<Box xcss={buttonGroupStyles}>
 				<ButtonGroup>
 					<Button appearance="subtle" onClick={onShowCodeClick} spacing="compact">
 						Code
@@ -61,7 +56,7 @@ const EditLink = ({
 						Edit JSON-LD
 					</Button>
 				</ButtonGroup>
-			</div>
+			</Box>
 			{showCode && <Code template={template} />}
 			{showEditLink && (
 				<React.Fragment>
@@ -70,7 +65,7 @@ const EditLink = ({
 				</React.Fragment>
 			)}
 			{showJsonld && <JsonldEditorInput error={jsonError} onChange={onTextChange} value={text} />}
-		</React.Fragment>
+		</Stack>
 	);
 };
 

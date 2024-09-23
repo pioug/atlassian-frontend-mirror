@@ -20,7 +20,7 @@ var getSSRAutoScript = function getSSRAutoScript(colorMode, contrastMode) {
     return undefined;
   }
   var setColorMode = colorMode === 'auto' ? "\n  try {\n    const darkModeMql = window.matchMedia('".concat(_themeLoading.darkModeMediaQuery, "');\n    const colorMode = darkModeMql.matches ? 'dark' : 'light';\n    document.documentElement.setAttribute('").concat(_constants.COLOR_MODE_ATTRIBUTE, "', colorMode);\n  } catch (e) {}") : '';
-  var setContrastMode = (0, _platformFeatureFlags.getBooleanFF)('platform.design-system-team.increased-contrast-themes') && contrastMode === 'auto' ? "\n  try {\n    const contrastModeMql = window.matchMedia('".concat(_themeLoading.moreContrastMediaQuery, "');\n    const contrastMode = contrastModeMql.matches ? 'more' : 'no-preference';\n    document.documentElement.setAttribute('").concat(_constants.CONTRAST_MODE_ATTRIBUTE, "', contrastMode);\n  } catch (e) {}") : '';
+  var setContrastMode = contrastMode === 'auto' && (0, _platformFeatureFlags.fg)('platform_increased-contrast-themes') ? "\n  try {\n    const contrastModeMql = window.matchMedia('".concat(_themeLoading.moreContrastMediaQuery, "');\n    const contrastMode = contrastModeMql.matches ? 'more' : 'no-preference';\n    document.documentElement.setAttribute('").concat(_constants.CONTRAST_MODE_ATTRIBUTE, "', contrastMode);\n  } catch (e) {}") : '';
   return "(() => {".concat(setColorMode).concat(setContrastMode, "})()");
 };
 var _default = exports.default = getSSRAutoScript;

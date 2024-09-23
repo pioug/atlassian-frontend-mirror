@@ -1,6 +1,7 @@
 import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type {
+	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
 	UiComponentFactoryParams,
@@ -32,6 +33,9 @@ export type MediaInsertPlugin = NextEditorPlugin<
 			OptionalPlugin<FeatureFlagsPlugin>,
 		];
 		sharedState: MediaInsertPluginState;
+		commands: {
+			showMediaInsertPopup: EditorCommand;
+		};
 	}
 >;
 

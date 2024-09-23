@@ -19,9 +19,6 @@ const options: OptionsType = {
 
 snapshotInformational(CreateFormWithRequiredFields, {
 	...options,
-	featureFlags: {
-		'linking-platform-create-field-error-association': [true, false],
-	},
 	prepare: async (_: Page, component: Locator) => {
 		await component.getByRole('button', { name: 'Create' }).click();
 	},

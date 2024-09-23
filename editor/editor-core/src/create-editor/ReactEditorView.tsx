@@ -88,7 +88,6 @@ import {
 import { validateNodes, validNode } from '../utils/validateNodes';
 
 import {
-	DEFAULT_SAMPLING_RATE_VALID_TRANSACTIONS,
 	PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 	PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
 } from './consts';
@@ -196,7 +195,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 	dispatch: Dispatch;
 	proseMirrorRenderedSeverity?: SEVERITY;
 	transactionTracker: TransactionTracker;
-	validTransactionCount: number;
 	experienceStore?: ExperienceStore;
 
 	editorRef = React.createRef<HTMLDivElement>();
@@ -282,8 +280,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 			.withNodeCounts(() => this.countNodes())
 			.withOptions(() => this.transactionTracking)
 			.withTransactionTracker(() => this.transactionTracker);
-
-		this.validTransactionCount = 0;
 
 		this.featureFlags = createFeatureFlagsFromProps(this.props.editorProps);
 		const featureFlagsEnabled = this.featureFlags
@@ -653,26 +649,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 		});
 	};
 
-	private trackValidTransactions = () => {
-		const { editorProps } = this.props;
-
-		if (!this.isTransactionTrackingExplicitlyDisabled() && editorProps?.trackValidTransactions) {
-			this.validTransactionCount++;
-			const samplingRate =
-				(typeof editorProps.trackValidTransactions === 'object' &&
-					editorProps.trackValidTransactions.samplingRate) ||
-				DEFAULT_SAMPLING_RATE_VALID_TRANSACTIONS;
-			if (this.validTransactionCount >= samplingRate) {
-				this.dispatchAnalyticsEvent({
-					action: ACTION.DISPATCHED_VALID_TRANSACTION,
-					actionSubject: ACTION_SUBJECT.EDITOR,
-					eventType: EVENT_TYPE.OPERATIONAL,
-				});
-				this.validTransactionCount = 0;
-			}
-		}
-	};
-
 	private dispatchTransaction = (unsafeTransaction: Transaction) => {
 		if (!this.view) {
 			return;
@@ -711,8 +687,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 					startTime + duration,
 				);
 			});
-
-			this.trackValidTransactions();
 
 			if (editorState === oldEditorState) {
 				return;

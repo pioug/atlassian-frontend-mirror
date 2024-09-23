@@ -21,6 +21,7 @@ import type {
 import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from './next-plugin-type';
 import { lazyMediaView } from './nodeviews/lazy-media';
@@ -295,30 +296,33 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 		},
 
 		pluginsOptions: {
-			quickInsert: ({ formatMessage }) => [
-				{
-					id: 'media',
-					title: formatMessage(messages.mediaFiles),
-					description: formatMessage(messages.mediaFilesDescription),
-					priority: 400,
-					keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video', 'file'],
-					icon: () => <IconImages />,
-					action(insert, state) {
-						const pluginState = stateKey.getState(state);
-						pluginState?.showMediaPicker();
-						const tr = insert('');
-						api?.analytics?.actions.attachAnalyticsEvent({
-							action: ACTION.OPENED,
-							actionSubject: ACTION_SUBJECT.PICKER,
-							actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,
-							attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
-							eventType: EVENT_TYPE.UI,
-						})(tr);
+			quickInsert: ({ formatMessage }) =>
+				editorExperiment('add-media-from-url', true)
+					? []
+					: [
+							{
+								id: 'media',
+								title: formatMessage(messages.mediaFiles),
+								description: formatMessage(messages.mediaFilesDescription),
+								priority: 400,
+								keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video', 'file'],
+								icon: () => <IconImages />,
+								action(insert, state) {
+									const pluginState = stateKey.getState(state);
+									pluginState?.showMediaPicker();
+									const tr = insert('');
+									api?.analytics?.actions.attachAnalyticsEvent({
+										action: ACTION.OPENED,
+										actionSubject: ACTION_SUBJECT.PICKER,
+										actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,
+										attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+										eventType: EVENT_TYPE.UI,
+									})(tr);
 
-						return tr;
-					},
-				},
-			],
+									return tr;
+								},
+							},
+						],
 
 			floatingToolbar: (state, intl, providerFactory) =>
 				floatingToolbar(

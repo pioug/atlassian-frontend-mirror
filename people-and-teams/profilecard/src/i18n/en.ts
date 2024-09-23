@@ -7,6 +7,22 @@
  */
 //
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'Something went wrong while deleting the agent. Try again in a few moments.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Failed to delete Agent',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'You deleted {agentName}',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Agent deleted',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Cancel',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Delete',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Are you sure you want to delete this agent? This action cannot be undone.',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'Delete "{agentName}"?',
+  'profilecard.agent-profile.delete-agent-error': 'Could not delete agent',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use': 'Agent is currently in use. Try again later.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'That agent could not be found.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'You cannot delete agents you have not created yourself. Please contact the agent owner.',
+  'profilecard.agent-profile.delete-agent-success': 'Agent has been deleted!',
   'profilecard.user.trigger.aria-label': 'More information about {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'More information about this user',
   'pt.profile-card.closed.account': 'Account deleted',
@@ -43,4 +59,9 @@ export default {
     'Team • {count} {count, plural, one {member} other {members}}, including you',
   'pt.team-profile-card.team.member.many': 'Team • 50+ members',
   'pt.team-profile-card.team.member.many-including-you': 'Team • 50+ members, including you',
+  'ptc-directory.agent-profile.action.dropdown.chat-to-agent.nonfinal': 'Chat to Agent',
+  'ptc-directory.agent-profile.action.dropdown.copy-link.nonfinal': 'Copy link',
+  'ptc-directory.agent-profile.action.dropdown.delete.nonfinal': 'Delete Agent',
+  'ptc-directory.agent-profile.action.dropdown.duplicate.nonfinal': 'Duplicate Agent',
+  'ptc-directory.agent-profile.action.dropdown.edit.nonfinal': 'Edit Agent',
 };

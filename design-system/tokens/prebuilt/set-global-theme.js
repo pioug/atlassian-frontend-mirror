@@ -80,7 +80,7 @@ var setGlobalTheme = /*#__PURE__*/function () {
           themeLoader = _args3.length > 1 ? _args3[1] : undefined;
           // CLEANUP: Remove. This blocks application of increased contrast themes
           // without the feature flag enabled.
-          if (!(0, _platformFeatureFlags.fg)('platform.design-system-team.increased-contrast-themes')) {
+          if (!(0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
             if (light === 'light-increased-contrast') {
               light = 'light';
             }

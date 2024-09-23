@@ -5,7 +5,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import AkTextfield from '@atlaskit/textfield';
 
 import { CreateField } from '../../../controllers/create-field';
@@ -42,17 +41,7 @@ export function TextField({
 			testId={testId}
 		>
 			{({ fieldId, ...fieldProps }) => {
-				if (fg('linking-platform-create-field-error-association')) {
-					return <AkTextfield id={fieldId} {...fieldProps} {...restProps} />;
-				}
-				return (
-					<AkTextfield
-						id={fieldId}
-						{...fieldProps}
-						{...restProps}
-						isRequired={false} // Remove the default browser validation
-					/>
-				);
+				return <AkTextfield id={fieldId} {...fieldProps} {...restProps} />;
 			}}
 		</CreateField>
 	);

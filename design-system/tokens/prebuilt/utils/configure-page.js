@@ -23,7 +23,7 @@ function configurePage(themeState) {
   } else {
     _colorModeListeners.default.unbind();
   }
-  if ((0, _platformFeatureFlags.getBooleanFF)('platform.design-system-team.increased-contrast-themes')) {
+  if ((0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
     if (themeState.contrastMode === 'auto') {
       // Set contrastMode based on the user preference
       themeState.contrastMode = _contrastModeListeners.default.getContrastMode();
@@ -42,7 +42,7 @@ function configurePage(themeState) {
   });
   return function () {
     _colorModeListeners.default.unbind();
-    if ((0, _platformFeatureFlags.getBooleanFF)('platform.design-system-team.increased-contrast-themes')) {
+    if ((0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
       _contrastModeListeners.default.unbind();
     }
   };

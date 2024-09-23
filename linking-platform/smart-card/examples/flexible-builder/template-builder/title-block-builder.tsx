@@ -1,18 +1,12 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import React from 'react';
-import { type BlockBuilderProps } from '../types';
-import MetadataOption from './inputs/metadata-option';
-import MaxLinesOption from './inputs/max-lines-option';
 import { SmartLinkPosition, SmartLinkSize } from '../../../src';
-import EnumOption from './inputs/enum-option';
-import CheckboxOption from './inputs/checkbox-option';
-import SelectOption from './inputs/select-option';
+import { type BlockBuilderProps } from '../types';
 import ActionOption from './inputs/action-option';
+import CheckboxOption from './inputs/checkbox-option';
+import EnumOption from './inputs/enum-option';
+import MaxLinesOption from './inputs/max-lines-option';
+import MetadataOption from './inputs/metadata-option';
+import SelectOption from './inputs/select-option';
 import TextOption from './inputs/text-option';
 
 const DEFAULT_MAX_LINES = 2;
@@ -29,7 +23,7 @@ const TitleBlockBuilder = ({
 	size = SmartLinkSize.Medium,
 	template,
 }: BlockBuilderProps) => (
-	<React.Fragment>
+	<>
 		<MaxLinesOption
 			defaultValue={DEFAULT_MAX_LINES}
 			label="Max lines"
@@ -117,7 +111,7 @@ const TitleBlockBuilder = ({
 			propName="hideRetry"
 			template={template}
 		/>
-	</React.Fragment>
+	</>
 );
 
 export default TitleBlockBuilder;

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-loom
 
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.0
+
+### Major Changes
+
+- [#143146](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143146)
+  [`8f698f1278514`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f698f1278514) -
+  [ux] [ED-24905] Main change: make loom plugin config, loomProvider, optional, and add optional
+  config, renderButton, to support customising loom button, e.g. adding pulse, spotlight. This
+  change is required to support loom cross-sell flow. In this flow, loom SDK will not be initialised
+  unless loomProvider is passed in. Once loomProvider is ready, `initLoom` action can be used to
+  initialise SDK. This change should be backwards compatible and will not impact the existing flow.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.8.4
 
 ### Patch Changes

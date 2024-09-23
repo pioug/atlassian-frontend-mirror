@@ -14,7 +14,6 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
 
@@ -134,7 +133,6 @@ export class ExampleEditor extends React.Component<Props> {
 										/>
 									}
 									onSave={SAVE_ACTION}
-									insertMenuItems={customInsertMenuItems}
 									extensionHandlers={extensionHandlers}
 								/>
 							)}

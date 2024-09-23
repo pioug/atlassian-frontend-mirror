@@ -230,8 +230,11 @@ export function createPlugin(
 					/**
 					 * We want to return false for external copied image to allow
 					 * it to be uploaded by the client.
+					 *
+					 * Scenario where we are pasting an external image inside a block quote
+					 * is skipped and handled in handleRichText
 					 */
-					if (htmlContainsSingleFile(html)) {
+					if (htmlContainsSingleFile(html) && !isInsideBlockQuote(view.state)) {
 						return true;
 					}
 
@@ -663,11 +666,17 @@ export function createPlugin(
 						return true;
 					}
 
+					const isNestingMediaOrCodeblockSupported =
+						pluginInjectionApi?.featureFlags?.sharedState.currentState()
+							?.nestMediaAndCodeblockInQuote ||
+						fg('editor_nest_media_and_codeblock_in_quotes_jira');
+
 					return handleRichTextWithAnalytics(
 						view,
 						event,
 						slice,
 						pluginInjectionApi,
+						isNestingMediaOrCodeblockSupported,
 					)(state, dispatch);
 				}
 				return false;

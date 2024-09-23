@@ -7,6 +7,23 @@
  */
 //Russian
 export default {
+  'profilecard.agent-profile-card.delete-agent-error-flag-description':
+    'При удалении агента произошла ошибка. Повторите попытку через некоторое время.',
+  'profilecard.agent-profile-card.delete-agent-error-flag-title': 'Не удалось удалить агента',
+  'profilecard.agent-profile-card.delete-agent-success-flag-description': 'Агент {agentName} удален',
+  'profilecard.agent-profile-card.delete-agent-success-flag-title': 'Агент удален',
+  'profilecard.agent-profile.agent-delete-confirm.cancel-text': 'Отмена',
+  'profilecard.agent-profile.agent-delete-confirm.confirm-text': 'Удалить',
+  'profilecard.agent-profile.delete-agent-confirm-body':
+    'Действительно удалить этого агента? Это действие нельзя отменить.',
+  'profilecard.agent-profile.delete-agent-confirm-title': 'Удалить агента {agentName}?',
+  'profilecard.agent-profile.delete-agent-error': 'Не удалось удалить агента',
+  'profilecard.agent-profile.delete-agent-error.agent-in-use':
+    'В настоящее время агент используется. Повторите попытку позже.',
+  'profilecard.agent-profile.delete-agent-error.agent-not-found': 'Не удалось найти агента.',
+  'profilecard.agent-profile.delete-agent-error.incorrect-owner':
+    'Вы не можете удалять агентов, созданных другими пользователями. Обратитесь к владельцу агента.',
+  'profilecard.agent-profile.delete-agent-success': 'Агент удален.',
   'profilecard.user.trigger.aria-label': 'Дополнительные сведения о пользователе {fullName}',
   'profilecard.user.trigger.fallback-aria-label': 'Дополнительные сведения о пользователе',
   'pt.profile-card.closed.account': 'Аккаунт удален',

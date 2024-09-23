@@ -56,6 +56,8 @@ test.describe('Escape Keydown: insert block', () => {
 		platformFeatureFlags: {
 			'editor-fix-esc-main-toolbar-navigation': true,
 		},
+		// Small viewport to trigger the plus menu overflow
+		viewport: { width: 400, height: 720 },
 	});
 
 	test('escape keydown event should not bubble to document when menu open', async ({ editor }) => {

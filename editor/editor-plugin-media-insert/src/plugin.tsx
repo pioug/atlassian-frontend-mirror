@@ -51,6 +51,10 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 			};
 		},
 
+		commands: {
+			showMediaInsertPopup: ({ tr }) => showMediaInsertPopup(tr),
+		},
+
 		contentComponent: ({
 			editorView,
 			dispatchAnalyticsEvent,
@@ -135,16 +139,16 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 			quickInsert: ({ formatMessage }) => [
 				{
 					id: 'media-insert',
-					title: formatMessage(messages.insertMediaFromUrl),
-					description: formatMessage(messages.insertMediaFromUrlDescription),
+					title: formatMessage(messages.mediaFiles),
+					description: formatMessage(messages.mediaFilesDescription),
 					priority: 400,
-					keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video'],
+					keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video', 'file'],
 					icon: () => <IconImages />,
 					action(insert) {
 						// Insert empty string to remove the typeahead raw text
 						// close the quick insert immediately
 						const tr = insert('');
-						showMediaInsertPopup(tr);
+						api?.mediaInsert.commands.showMediaInsertPopup({ tr });
 
 						api?.analytics?.actions?.attachAnalyticsEvent({
 							action: ACTION.OPENED,

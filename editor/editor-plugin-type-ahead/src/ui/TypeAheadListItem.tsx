@@ -279,6 +279,9 @@ export const TypeAheadListItem = React.memo(
 					isSelected={isSelected}
 					aria-selected={isSelected}
 					aria-label={title}
+					// TODO: aria-description is in draft for ARIA 1.3.
+					// For now replace it with aria-describedby.
+					// eslint-disable-next-line jsx-a11y/aria-props
 					aria-description={`${descriptionText} ${shortcutText}`}
 					aria-setsize={itemsLength}
 					aria-posinset={itemIndex}

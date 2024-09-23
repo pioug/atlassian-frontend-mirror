@@ -1,4 +1,4 @@
-import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
+import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -20,7 +20,7 @@ jest.mock('@atlaskit/prosemirror-collab', () => {
 	return {
 		...originPC,
 		sendableSteps: jest.fn(),
-		getVersion: jest.fn(),
+		getCollabState: jest.fn(),
 	};
 });
 
@@ -85,7 +85,7 @@ describe('#sendData', () => {
 			provider.documentService as any,
 			'catchupv2',
 		);
-
+		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 		//@ts-expect-error private method call but it's okay we're testing
 		provider.documentService.processSteps({
 			version: 1625,
@@ -126,7 +126,7 @@ describe('#sendData', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],
 		});
-		(getVersion as jest.Mock).mockReturnValue(1);
+		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 		provider.send(null, null, anyEditorState);
 		expect(documentServiceBroadcastSpy).toHaveBeenCalledWith(
@@ -140,7 +140,7 @@ describe('#sendData', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],
 		});
-		(getVersion as jest.Mock).mockReturnValue(1);
+		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 		provider.send(null, null, anyEditorState);
 		expect(documentServiceBroadcastSpy).toHaveBeenCalledWith(
@@ -160,7 +160,7 @@ describe('#sendData', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],
 		});
-		(getVersion as jest.Mock).mockReturnValue(1);
+		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 		provider.send(null, null, anyEditorState);
 
@@ -220,7 +220,7 @@ describe('#sendData', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],
 		});
-		(getVersion as jest.Mock).mockReturnValue(1);
+		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 		provider.send(null, null, anyEditorState);
 
@@ -293,7 +293,7 @@ describe('#sendData', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],
 		});
-		(getVersion as jest.Mock).mockReturnValue(1);
+		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 		provider.send(null, null, anyEditorState);
 
@@ -365,7 +365,7 @@ describe('#sendData', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],
 		});
-		(getVersion as jest.Mock).mockReturnValue(1);
+		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 		provider.send(null, null, anyEditorState);
 
@@ -411,7 +411,7 @@ describe('#sendData', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],
 		});
-		(getVersion as jest.Mock).mockReturnValue(1);
+		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 		provider.send(null, null, anyEditorState);
 
@@ -517,7 +517,7 @@ describe('#sendData', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],
 		});
-		(getVersion as jest.Mock).mockReturnValue(1);
+		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 		provider.send(null, null, anyEditorState);
 

@@ -38,15 +38,17 @@ describe('GroupOption', () => {
 		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', N200));
 		// emotion css doesn't play well with component equality
 		expect(avatarItemOption.prop('avatar')).toMatchInlineSnapshot(`
-      <span
-        css="unknown styles"
-      >
-        <PeopleIcon
-          label="group-icon"
-          size="medium"
-        />
-      </span>
-    `);
+		<span
+		  css="unknown styles"
+		>
+		  <PeopleGroupIcon
+		    LEGACY_size="medium"
+		    color="currentColor"
+		    label="group-icon"
+		    spacing="spacious"
+		  />
+		</span>
+	`);
 		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
 
 		expect(primaryText[0].key).toEqual('name');

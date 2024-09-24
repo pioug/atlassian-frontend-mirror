@@ -66,20 +66,29 @@ const actionsWrapperStyles = xcss({
 const buildAgentActions = ({
 	onDuplicateAgent,
 	onCopyAgent,
+	isForgeAgent,
 }: {
 	onCopyAgent: () => void;
 	onDuplicateAgent: () => void;
+	isForgeAgent: boolean;
 }): ActionMenuItem[] => {
-	return [
-		{
-			text: <FormattedMessage {...messages.actionDuplicate} />,
-			onClick: onDuplicateAgent,
-		},
-		{
-			text: <FormattedMessage {...messages.actionCopyLink} />,
-			onClick: onCopyAgent,
-		},
-	];
+	return isForgeAgent
+		? [
+				{
+					text: <FormattedMessage {...messages.actionCopyLink} />,
+					onClick: onCopyAgent,
+				},
+			]
+		: [
+				{
+					text: <FormattedMessage {...messages.actionDuplicate} />,
+					onClick: onDuplicateAgent,
+				},
+				{
+					text: <FormattedMessage {...messages.actionCopyLink} />,
+					onClick: onCopyAgent,
+				},
+			];
 };
 const buildAgentSettings = ({
 	onEditAgent,
@@ -112,7 +121,11 @@ export const AgentActions = ({
 	const { formatMessage } = useIntl();
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-	const agentActions = buildAgentActions({ onDuplicateAgent, onCopyAgent });
+	const agentActions = buildAgentActions({
+		onDuplicateAgent,
+		onCopyAgent,
+		isForgeAgent: agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY',
+	});
 	const agentSetting = buildAgentSettings({
 		onEditAgent,
 		onDeleteAgent: () => {

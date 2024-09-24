@@ -98,10 +98,13 @@ const TableFloatingColumnControls = ({
 	const colWidths = getColumnsWidths(editorView);
 
 	if (stickyTop) {
+		const columnControlTopOffsetFromParent = '-12px';
 		const headerRowHeight = hasHeaderRow && stickyTop !== undefined ? rowHeights?.[0] ?? 0 : 0;
 		containerRef?.current?.style.setProperty(
 			'top',
-			`${stickyTop! - headerRowHeight + 33}px`, // 33px is padding and margin applied on tr.sticky
+			fg('platform_editor_breakout_use_css')
+				? columnControlTopOffsetFromParent
+				: `${stickyTop! - headerRowHeight + 33}px`, // 33px is padding and margin applied on tr.sticky
 		);
 	} else {
 		containerRef?.current?.style.removeProperty('top');

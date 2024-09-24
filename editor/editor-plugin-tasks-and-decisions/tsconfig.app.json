@@ -48,7 +48,13 @@
 			"path": "../editor-plugin-context-identifier/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-type-ahead/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/heading/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"
@@ -58,6 +64,9 @@
 		},
 		{
 			"path": "../../design-system/popup/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../input-rules/tsconfig.app.json"

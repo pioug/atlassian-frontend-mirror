@@ -6,7 +6,6 @@ import { type FC, type ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import kebabCase from 'lodash/kebabCase';
 
 import Avatar from '@atlaskit/avatar';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
@@ -21,6 +20,13 @@ interface President {
 	name: string;
 	party: string;
 	term: string;
+}
+
+function kebabCase(input: string) {
+	return input
+		.match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)!
+		.map((x) => x.toLowerCase())
+		.join('-');
 }
 
 function createKey(input: string) {

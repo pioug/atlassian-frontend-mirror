@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-custom-autoformat",
-	"version": "1.3.2",
+	"version": "1.4.0",
 	"description": "Custom autoformat plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -87,7 +87,7 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_autoformatting_provider_from_plugin_config": {
+		"platform_editor_af_provider_from_plugin_config": {
 			"type": "boolean"
 		}
 	}

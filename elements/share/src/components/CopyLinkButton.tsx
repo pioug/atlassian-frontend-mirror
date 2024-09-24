@@ -7,8 +7,8 @@ import React, { type ReactElement } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
-import LinkFilledIcon from '@atlaskit/icon/glyph/link-filled';
+import LinkFilledIcon from '@atlaskit/icon/core/migration/link--link-filled';
+import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -32,6 +32,10 @@ export const messageContainerStyle = css({
 	alignItems: 'center',
 	margin: `${token('space.negative.100', '-8px')}
     ${token('space.negative.200', '-16px')}`,
+});
+
+const boxWrapperStyle = xcss({
+	marginRight: 'space.025',
 });
 
 const messageTextStyle = xcss({
@@ -126,7 +130,18 @@ export class CopyLinkButton extends React.Component<Props, State> {
 				// TODO: (from codemod)"link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.
 				// https://product-fabric.atlassian.net/browse/DSP-18980
 				appearance="subtle-link"
-				iconBefore={iconBefore || <LinkFilledIcon label="" size="medium" />}
+				iconBefore={
+					iconBefore || (
+						<Box xcss={boxWrapperStyle}>
+							<LinkFilledIcon
+								LEGACY_margin={`0 ${token('space.negative.025')} 0 0`}
+								color="currentColor"
+								label=""
+								LEGACY_size="medium"
+							/>
+						</Box>
+					)
+				}
 				onClick={this.handleClick}
 				ref={triggerProps.ref}
 			>
@@ -157,7 +172,11 @@ export class CopyLinkButton extends React.Component<Props, State> {
 						<InlineDialogContentWrapper>
 							<div css={messageContainerStyle} data-testid="message-container" aria-hidden>
 								<React.Fragment>
-									<CheckCircleIcon label="" primaryColor={token('color.icon.success', G300)} />
+									<CheckCircleIcon
+										spacing="spacious"
+										label=""
+										color={token('color.icon.success', G300)}
+									/>
 									<Box xcss={messageTextStyle}>{copiedToClipboardText}</Box>
 								</React.Fragment>
 							</div>

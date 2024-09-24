@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 197.10.1
+
+### Patch Changes
+
+- [#144540](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144540)
+  [`3624684595b56`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3624684595b56) -
+  Disable instrumented plugin for editor core as it affects performance and is no longer used.
+- Updated dependencies
+
+## 197.10.0
+
+### Minor Changes
+
+- [#142414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142414)
+  [`4d4914bf56307`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d4914bf56307) -
+  Remove card provider feature flag and rename autoformatting provider feature flag, Improve
+  performance of setting card provider, Feature Gate the autoformatting Provider being passed to
+  ComposableEditor in Confluence
+
 ## 197.9.3
 
 ### Patch Changes

@@ -22,7 +22,7 @@ import ToneSelector from './ToneSelector';
 import TonePreviewButton from './TonePreviewButton';
 import { messages } from '../i18n';
 import AkButton from '@atlaskit/button/standard-button';
-import AddIcon from '@atlaskit/icon/glyph/add';
+import AddIcon from '@atlaskit/icon/core/migration/add';
 import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 import {
 	addCustomEmoji,
@@ -33,6 +33,8 @@ import {
 } from './styles';
 import { emojiActionsContainerWithBottomShadow, emojiPickerFooter } from '../picker/styles';
 import { DEFAULT_TONE } from '../../util/constants';
+import { Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 export interface Props {
 	selectedTone?: ToneSelection;
@@ -58,6 +60,8 @@ export interface Props {
 export const emojiActionsTestId = 'emoji-actions';
 export const uploadEmojiTestId = 'upload-emoji';
 
+const iconStyles = xcss({ marginLeft: 'space.negative.050', marginRight: 'space.negative.025' });
+
 // Generic Type for the wrapped functional component
 type PropsWithWrappedComponentPropsType = Props & WrappedComponentProps;
 
@@ -74,7 +78,16 @@ const AddOwnEmoji = (props: AddOwnEmojiProps) => {
 						{(label) => (
 							<AkButton
 								onClick={onOpenUpload}
-								iconBefore={<AddIcon label="" size="small" />}
+								iconBefore={
+									<Box xcss={iconStyles}>
+										<AddIcon
+											LEGACY_margin={`0 ${token('space.025')} 0 ${token('space.050')}`}
+											color="currentColor"
+											label=""
+											LEGACY_size="small"
+										/>
+									</Box>
+								}
 								appearance="subtle"
 								// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

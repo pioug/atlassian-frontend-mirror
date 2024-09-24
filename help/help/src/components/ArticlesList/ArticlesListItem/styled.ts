@@ -137,6 +137,11 @@ export const ArticlesListItemViewCount = styled.span({
 export const ArticlesListItemHelpfulCount = styled.span({
 	display: 'inline-flex',
 	paddingRight: token('space.100', '8px'),
+	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& > span': {
+		marginRight: token('space.025', '2px'),
+	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-styled -- Ignored via go/DSP-18766

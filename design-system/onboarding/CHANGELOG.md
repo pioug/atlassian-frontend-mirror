@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 11.15.0
+
+### Minor Changes
+
+- [#144362](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144362)
+  [`73d292c184200`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73d292c184200) -
+  [ux] Fix for bug DSP-21004. Update cloned content on mutation
+
 ## 11.14.0
 
 ### Minor Changes

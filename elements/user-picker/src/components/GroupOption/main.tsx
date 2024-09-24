@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import { N20, B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import PeopleIcon from '@atlaskit/icon/glyph/people';
+import PeopleIcon from '@atlaskit/icon/core/migration/people-group--people';
 
 import { type Group } from '../../types';
 import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
@@ -53,7 +53,7 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
 
 	private renderAvatar = () => (
 		<span css={groupOptionIconWrapper}>
-			<PeopleIcon label="group-icon" size="medium" />
+			<PeopleIcon color="currentColor" label="group-icon" LEGACY_size="medium" spacing="spacious" />
 		</span>
 	);
 

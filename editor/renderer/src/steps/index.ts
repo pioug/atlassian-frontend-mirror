@@ -223,52 +223,27 @@ interface AnnotationStepOptions {
 	annotationType: 'inlineComment';
 }
 
-export function getPosFromRange(
-	range: Range,
-	isCommentsOnMediaBugFixEnabled?: boolean,
-	isCommentsOnMediaBugVideoCommentEnabled?: boolean,
-): { from: number; to: number } | false {
+export function getPosFromRange(range: Range): { from: number; to: number } | false {
 	const { startContainer, startOffset, endContainer, endOffset } = range;
 
 	const possibleMediaOrMediaSingleElement = findParent(startContainer);
 
-	if (isCommentsOnMediaBugVideoCommentEnabled) {
-		// Video hover targets return media single, not media, thus, the extra check in condition.
-		const isMediaOrMediaSingle =
-			possibleMediaOrMediaSingleElement &&
-			/media|mediaSingle/.test(getNodeType(possibleMediaOrMediaSingleElement) || '');
-		if (isMediaOrMediaSingle) {
-			let pos;
-			const mediaSingleElement =
-				getNodeType(possibleMediaOrMediaSingleElement) === 'mediaSingle'
-					? possibleMediaOrMediaSingleElement
-					: findMediaParent(possibleMediaOrMediaSingleElement);
-			if (mediaSingleElement) {
-				pos = getStartPos(mediaSingleElement);
-			}
-
-			if (pos !== undefined) {
-				return { from: pos, to: pos };
-			}
+	// Video hover targets return media single, not media, thus, the extra check in condition.
+	const isMediaOrMediaSingle =
+		possibleMediaOrMediaSingleElement &&
+		/media|mediaSingle/.test(getNodeType(possibleMediaOrMediaSingleElement) || '');
+	if (isMediaOrMediaSingle) {
+		let pos;
+		const mediaSingleElement =
+			getNodeType(possibleMediaOrMediaSingleElement) === 'mediaSingle'
+				? possibleMediaOrMediaSingleElement
+				: findMediaParent(possibleMediaOrMediaSingleElement);
+		if (mediaSingleElement) {
+			pos = getStartPos(mediaSingleElement);
 		}
-	} else {
-		if (
-			possibleMediaOrMediaSingleElement &&
-			getNodeType(possibleMediaOrMediaSingleElement) === 'media'
-		) {
-			let pos;
-			if (isCommentsOnMediaBugFixEnabled) {
-				const mediaSingleElement = findMediaParent(possibleMediaOrMediaSingleElement);
-				if (mediaSingleElement) {
-					pos = getStartPos(mediaSingleElement);
-				}
-			} else {
-				pos = getStartPos(possibleMediaOrMediaSingleElement);
-			}
 
-			if (pos !== undefined) {
-				return { from: pos, to: pos };
-			}
+		if (pos !== undefined) {
+			return { from: pos, to: pos };
 		}
 	}
 

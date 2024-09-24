@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import EmailIcon from '@atlaskit/icon/glyph/email';
+import EmailIcon from '@atlaskit/icon/core/migration/email';
 import { N40, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -19,6 +19,7 @@ const getEmailAvatarWrapperStyle = (isLozenge?: boolean) => {
 		borderRadius: '50%',
 		display: 'flex',
 		alignItems: 'center',
+		marginLeft: token('space.025', '2px'),
 	});
 };
 
@@ -36,8 +37,9 @@ export const AddOptionAvatar: React.FunctionComponent<AddOptionAvatarProps> = ({
 		<div css={getEmailAvatarWrapperStyle(isLozenge)}>
 			<EmailIcon
 				label={label}
-				size={isLozenge ? 'small' : 'medium'}
-				primaryColor={token('color.text.subtle', N500)}
+				LEGACY_size={isLozenge ? 'small' : 'medium'}
+				LEGACY_margin="0 0 0 -2px"
+				color={token('color.text.subtle', N500)}
 			/>
 		</div>
 	);

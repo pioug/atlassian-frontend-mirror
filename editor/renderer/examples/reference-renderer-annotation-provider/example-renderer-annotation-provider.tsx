@@ -61,7 +61,6 @@ export const useExampleRendererAnnotationProvider = () => {
 			viewComponent: () => <div data-testid="rap-view-component">view component</div>,
 			updateSubscriber: getRendererAnnotationEventEmitter(),
 			isCommentsOnMediaBugFixEnabled: true,
-			isCommentsOnMediaBugVideoCommentEnabled: true,
 		},
 	};
 

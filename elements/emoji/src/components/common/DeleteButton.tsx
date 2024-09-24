@@ -5,16 +5,22 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
-import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
+import CrossCircleIcon from '@atlaskit/icon/utility/migration/cross-circle';
 import { token } from '@atlaskit/tokens';
 import { N500 } from '@atlaskit/theme/colors';
 import { deleteEmojiLabel } from '../../util/constants';
 import { emojiDeleteButton, deleteButton } from './styles';
+import { Box, xcss } from '@atlaskit/primitives';
 
 /**
  * Test id for wrapper Emoji delete button
  */
 export const RENDER_EMOJI_DELETE_BUTTON_TESTID = 'render-emoji-delete-button';
+
+const boxWrapperStyle = xcss({
+	width: '18px',
+	height: '18px',
+});
 
 const DeleteButton = (props: ButtonProps) => (
 	<span
@@ -26,11 +32,13 @@ const DeleteButton = (props: ButtonProps) => (
 	>
 		<Button
 			iconBefore={
-				<CrossCircleIcon
-					label={deleteEmojiLabel}
-					primaryColor={token('color.text.subtle', N500)}
-					size="small"
-				/>
+				<Box xcss={boxWrapperStyle}>
+					<CrossCircleIcon
+						label={deleteEmojiLabel}
+						color={token('color.text.subtle', N500)}
+						LEGACY_size="small"
+					/>
+				</Box>
 			}
 			onClick={props.onClick}
 			// TODO: (from codemod) "link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.

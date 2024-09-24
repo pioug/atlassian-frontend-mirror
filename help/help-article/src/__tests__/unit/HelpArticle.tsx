@@ -1,7 +1,7 @@
 /* eslint-disable no-undef, import/no-extraneous-dependencies */
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import HelpArticle from '../../components/HelpArticle';
 import { ArticleContentTitleLink } from '../../components/styled';
 import ArticleBody from '../../components/ArticleBody';

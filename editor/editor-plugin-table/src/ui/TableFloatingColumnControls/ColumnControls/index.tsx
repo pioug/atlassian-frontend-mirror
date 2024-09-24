@@ -10,6 +10,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	clearHoverSelection,
@@ -95,7 +96,8 @@ export const ColumnControls = ({
 	const firstRow = tableRef.querySelector('tr');
 	const hasHeaderRow = firstRow ? firstRow.getAttribute('data-header-row') : false;
 
-	const marginTop = hasHeaderRow && stickyTop !== undefined ? rowHeights?.[0] ?? 0 : 0;
+	const rowControlStickyTop = fg('platform_editor_breakout_use_css') ? 45 : rowHeights?.[0];
+	const marginTop = hasHeaderRow && stickyTop !== undefined ? rowControlStickyTop ?? 0 : 0;
 
 	const handleClick = useCallback(
 		(event: MouseEvent) => {

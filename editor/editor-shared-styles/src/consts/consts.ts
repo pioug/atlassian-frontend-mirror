@@ -5,54 +5,29 @@ import {
 	B300,
 	B400,
 	B50,
-	B500,
 	B75,
 	DN50,
 	DN70,
-	G100,
-	G300,
-	G500,
 	N0,
 	N100,
 	N20,
-	N200,
 	N30,
 	N40,
 	N50,
 	N500,
-	N70,
 	N700,
-	N800,
 	N900,
-	P100,
-	P300,
-	P500,
-	R100,
 	R300,
 	R400,
 	R50,
-	R500,
 	R75,
-	T100,
-	T300,
-	T500,
-	Y100,
-	Y300,
-	Y500,
 } from '@atlaskit/theme/colors';
-import {
-	codeFontFamily,
-	fontSize as defaultFontSize,
-	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-	gridSize,
-	layers,
-} from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorTheme } from './types';
 
 export const akEditorFullPageDefaultFontSize = 16;
-export const akEditorCodeFontFamily = codeFontFamily();
+export const akEditorCodeFontFamily = token('font.family.code');
 export const akEditorInactiveForeground = N500;
 export const akEditorFocus = B100;
 export const akEditorSubtleAccent = N40;
@@ -78,11 +53,9 @@ export const akEditorSelectedBlanketColor = B75;
 export const akEditorSelectedBorderSize = 1;
 export const akEditorSelectedBorder = `${akEditorSelectedBorderSize}px solid ${token(
 	'color.border.selected',
-	akEditorSelectedBorderColor,
 )}`;
 export const akEditorSelectedBoxShadow = `0 0 0 ${akEditorSelectedBorderSize}px ${token(
 	'color.border.selected',
-	akEditorSelectedBorderColor,
 )}`;
 export const akEditorSelectedIconColor = B400;
 export const akEditorSelectedBorderBoldSize = 2;
@@ -94,9 +67,9 @@ export const akEditorSmallZIndex = akEditorStickyHeaderZIndex + 1;
 export const akEditorGridLineZIndex = 2;
 // z-index for main menu bar -
 // this is highest as it should be above anything else in editor below.
-export const akEditorMenuZIndex = layers.blanket();
+export const akEditorMenuZIndex = 500;
 // z-index used for floating toolbars like code block, table etc
-export const akEditorFloatingPanelZIndex = layers.layer();
+export const akEditorFloatingPanelZIndex = 400;
 // z-index used for pickers (date, emoji, mentions) and type-aheads, hyperlinks
 export const akEditorFloatingDialogZIndex = akEditorMenuZIndex + 10;
 // z-index used for table cell menu options button on a sticky header
@@ -141,7 +114,7 @@ export const breakoutWideScaleRatio = 1.33;
 export const akEditorCalculatedWideLayoutWidthSmallViewport = 905; // from breakoutConsts.calcWideWidth, layoutMaxWidth * breakoutConsts.wideScaleRatio = 904.8 ~ 905 This is a resulting width value that is applied to nodes that currently use breakouts (except table) and are set to `wide` when the viewport's width is <= 1266px.
 export const akEditorCalculatedWideLayoutWidth = 1011; // = akEditorDefaultLayoutWidth * breakoutWideScaleRatio = 1010.8 ~ 1011 This is a resulting width value that is applied to nodes that currently use breakouts (except table) and are set to `wide` when the viewport's width is > 1329px.
 export const akRichMediaResizeZIndex = akEditorUnitZIndex * 99;
-export const akLayoutGutterOffset = gridSize() * 1.5;
+export const akLayoutGutterOffset = 12;
 export const akEditorLineHeight = 1.714;
 export const akEditorRuleBackground = N30;
 export const akEditorRuleBorderRadius = '1px';
@@ -161,6 +134,8 @@ export const MAX_BROWSER_SCROLLBAR_HEIGHT = 20;
 // @deprecated
 export const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
 
+const DEFAULT_FONT_SIZE = 14;
+
 export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = () =>
 	fg('platform.confluence.frontend.narrow-full-page-editor-toolbar')
 		? token('space.500', '40px')
@@ -169,7 +144,7 @@ export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = () =>
 export const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
 export const editorFontSize = ({ theme }: { theme: { baseFontSize?: number } | undefined }) =>
-	theme && theme.baseFontSize ? theme.baseFontSize : defaultFontSize();
+	theme && theme.baseFontSize ? theme.baseFontSize : DEFAULT_FONT_SIZE;
 
 export const relativeSize =
 	(multiplier: number) =>
@@ -239,25 +214,25 @@ export function getTableCellBackgroundDarkModeColorCSS(
 }
 
 export const avatarColors = [
-	token('color.icon.accent.red', R100),
-	token('color.background.accent.red.bolder.hovered', R300),
-	token('color.icon.accent.magenta', R500),
-	token('color.background.accent.magenta.bolder.hovered', Y100),
-	token('color.icon.accent.orange', Y300),
-	token('color.background.accent.orange.bolder.hovered', Y500),
-	token('color.icon.accent.green', G100),
-	token('color.background.accent.green.bolder.hovered', G300),
-	token('color.icon.accent.blue', G500),
-	token('color.background.accent.blue.bolder.hovered', T100),
-	token('color.icon.accent.teal', T300),
-	token('color.background.accent.teal.bolder.hovered', T500),
-	token('color.icon.accent.lime', B100),
-	token('color.background.accent.lime.bolder.hovered', B300),
-	token('color.icon.accent.purple', B500),
-	token('color.background.accent.purple.bolder.hovered', N70),
-	token('color.icon.accent.gray', N200),
-	token('color.background.accent.gray.bolder.hovered', N800),
-	token('color.icon.accent.yellow', P100),
-	token('color.background.accent.yellow.bolder.hovered', P300),
-	token('color.background.accent.yellow.bolder.pressed', P500),
+	token('color.icon.accent.red'),
+	token('color.background.accent.red.bolder.hovered'),
+	token('color.icon.accent.magenta'),
+	token('color.background.accent.magenta.bolder.hovered'),
+	token('color.icon.accent.orange'),
+	token('color.background.accent.orange.bolder.hovered'),
+	token('color.icon.accent.green'),
+	token('color.background.accent.green.bolder.hovered'),
+	token('color.icon.accent.blue'),
+	token('color.background.accent.blue.bolder.hovered'),
+	token('color.icon.accent.teal'),
+	token('color.background.accent.teal.bolder.hovered'),
+	token('color.icon.accent.lime'),
+	token('color.background.accent.lime.bolder.hovered'),
+	token('color.icon.accent.purple'),
+	token('color.background.accent.purple.bolder.hovered'),
+	token('color.icon.accent.gray'),
+	token('color.background.accent.gray.bolder.hovered'),
+	token('color.icon.accent.yellow'),
+	token('color.background.accent.yellow.bolder.hovered'),
+	token('color.background.accent.yellow.bolder.pressed'),
 ];

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "197.9.3",
+	"version": "197.10.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,12 +49,12 @@
 		"@atlaskit/editor-plugins": "^5.3.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
-		"@atlaskit/emoji": "^67.7.0",
+		"@atlaskit/emoji": "^67.8.0",
 		"@atlaskit/icon": "^22.18.0",
 		"@atlaskit/media-card": "^78.5.0",
-		"@atlaskit/mention": "^23.2.0",
+		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/task-decision": "^17.10.0",
+		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/tmp-editor-statsig": "*",
 		"@atlaskit/tokens": "^1.61.0",
 		"@atlaskit/tooltip": "^18.7.0",
@@ -86,7 +86,7 @@
 		"@atlaskit/analytics-listeners": "^8.11.0",
 		"@atlaskit/collab-provider": "9.40.6",
 		"@atlaskit/editor-plugin-annotation": "1.19.8",
-		"@atlaskit/editor-plugin-card": "^3.0.0",
+		"@atlaskit/editor-plugin-card": "^3.1.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-plugin-list": "^3.8.0",
 		"@atlaskit/editor-plugin-paste": "^1.12.0",
@@ -234,13 +234,13 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_disable_instrumented_plugin": {
+			"type": "boolean"
+		},
 		"platform_editor_drag_and_drop_expand_style_fix": {
 			"type": "boolean"
 		},
 		"platform_hide_editor_toolbar_ssr": {
-			"type": "boolean"
-		},
-		"platform_editor_card_provider_from_plugin_config": {
 			"type": "boolean"
 		},
 		"platform_editor_media_batch_updates": {
@@ -257,7 +257,7 @@
 		"platform_editor_breakout_use_css": {
 			"type": "boolean"
 		},
-		"platform_editor_autoformatting_provider_from_plugin_config": {
+		"platform_editor_af_provider_from_plugin_config": {
 			"type": "boolean"
 		},
 		"editor_request_to_edit_task": {

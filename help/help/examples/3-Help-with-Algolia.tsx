@@ -6,7 +6,7 @@ import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import Page from '@atlaskit/page';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-import ShipIcon from '@atlaskit/icon/glyph/ship';
+import ShipIcon from '@atlaskit/icon/core/migration/release--ship';
 import * as colors from '@atlaskit/theme/colors';
 import { Field, HelperMessage } from '@atlaskit/form';
 
@@ -714,8 +714,9 @@ const Example = () => {
 												href: 'https://www.google.com',
 												icon: (
 													<ShipIcon
-														primaryColor={token('color.icon.subtle', colors.N600)}
-														size="medium"
+														color={token('color.icon.subtle', colors.N600)}
+														LEGACY_size="medium"
+														spacing="spacious"
 														label=""
 													/>
 												),

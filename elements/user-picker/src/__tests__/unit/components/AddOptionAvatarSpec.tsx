@@ -1,4 +1,4 @@
-import EmailIcon from '@atlaskit/icon/glyph/email';
+import EmailIcon from '@atlaskit/icon/core/migration/email';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';
@@ -19,8 +19,8 @@ describe('AddOptionAvatar', () => {
 		expect(inviteIcon).toHaveLength(1);
 		expect(inviteIcon.props()).toMatchObject({
 			label: 'Invite',
-			size: 'medium',
-			primaryColor: token('color.text.subtle', N500),
+			LEGACY_size: 'medium',
+			color: token('color.text.subtle', N500),
 		});
 	});
 });

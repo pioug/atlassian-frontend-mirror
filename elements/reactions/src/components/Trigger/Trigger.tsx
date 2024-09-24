@@ -10,7 +10,7 @@ import { type AnalyticsEvent, type UIAnalyticsEvent } from '@atlaskit/analytics-
 import { Pressable, Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
-import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
+import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
@@ -179,9 +179,10 @@ export const Trigger = React.forwardRef(
 					ref={ref}
 					{...ariaAttributes}
 				>
+					{/* TODO: https://product-fabric.atlassian.net/browse/DSP-21007  */}
 					<EmojiAddIcon
-						primaryColor={disabled ? token('color.icon.disabled') : token('color.icon')}
-						size="small"
+						color={disabled ? token('color.icon.disabled') : token('color.icon')}
+						LEGACY_size="small"
 						label="Add reaction"
 					/>
 					{showAddReactionText && (

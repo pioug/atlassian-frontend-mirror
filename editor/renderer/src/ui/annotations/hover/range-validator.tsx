@@ -9,7 +9,6 @@ import {
 	useAnnotationRangeState,
 } from '../contexts/AnnotationRangeContext';
 import { useAnnotationHoverContext } from '../contexts/AnnotationHoverContext';
-import { ProvidersContext } from '../context';
 
 type Props = {
 	component: React.ComponentType<InlineCommentHoverComponentProps>;
@@ -31,21 +30,12 @@ export const RangeValidator = (props: Props) => {
 	const { clearHoverRange } = useAnnotationRangeDispatch();
 	const { range, type } = useAnnotationRangeState();
 	const { isWithinRange } = useAnnotationHoverContext();
-	const providers = useContext(ProvidersContext);
-	const isCommentsOnMediaBugFixEnabled =
-		providers?.inlineComment.isCommentsOnMediaBugFixEnabled ?? false;
-	const isCommentsOnMediaBugVideoCommentEnabled =
-		providers?.inlineComment.isCommentsOnMediaBugVideoCommentEnabled ?? false;
 
 	if (!range || type !== 'hover') {
 		return null;
 	}
 
-	const documentPosition = actions.getPositionFromRange(
-		range,
-		isCommentsOnMediaBugFixEnabled,
-		isCommentsOnMediaBugVideoCommentEnabled,
-	);
+	const documentPosition = actions.getPositionFromRange(range);
 	return (
 		<Mounter
 			isWithinRange={isWithinRange}

@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 
+import { useIntl } from 'react-intl-next';
+
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import Heading from '@atlaskit/heading';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
+import { Box, Pressable, Stack, xcss } from '@atlaskit/primitives';
 
 import type { TasksAndDecisionsPlugin } from '../types';
 import TaskItem from '../ui/Task';
@@ -36,6 +41,44 @@ type TaskItemWrapperProps = {
 	onChange: (taskId: string, isChecked: boolean) => false | undefined;
 	editorView: EditorView;
 };
+
+const wrapperStyles = xcss({
+	display: 'flex',
+	flexDirection: 'column',
+	maxWidth: '333px',
+	paddingTop: 'space.200',
+	paddingRight: 'space.300',
+	paddingBottom: 'space.200',
+	paddingLeft: 'space.300',
+});
+
+const wrapperBoxStyles = xcss({
+	display: 'flex',
+	gap: 'space.050',
+});
+
+const dotStyles = xcss({
+	margin: 'space.100',
+	display: 'inline-block',
+	width: '2px',
+	height: '2px',
+	backgroundColor: 'color.background.accent.blue.bolder',
+	borderRadius: '50%',
+	transform: 'translateY(2px)',
+});
+
+const pressableStyles = xcss({
+	color: 'color.text.brand',
+	backgroundColor: 'color.background.neutral.subtle',
+	':hover': {
+		textDecoration: 'underline',
+	},
+	':active': {
+		color: 'color.text.information',
+	},
+	padding: 'space.0',
+});
+
 const TaskItemWrapper = ({
 	localId,
 	forwardRef,
@@ -50,6 +93,7 @@ const TaskItemWrapper = ({
 	const { taskDecisionState } = useSharedPluginState(api, ['taskDecision']);
 	const isFocused = Boolean(taskDecisionState?.focusedTaskItemLocalId === localId);
 	const [isOpen, setIsOpen] = useState(false);
+	const { formatMessage } = useIntl();
 
 	const showPlaceholder = useShowPlaceholder({
 		editorView,
@@ -58,14 +102,14 @@ const TaskItemWrapper = ({
 		api,
 	});
 
-	const onHandleClick = (): false | undefined => {
+	const onHandleClick = () => {
 		if (fg('editor_request_to_edit_task')) {
 			setIsOpen(true);
 			const { tr } = editorView.state;
 			const nodePos = (getPos as getPosHandlerNode)();
 
 			if (typeof nodePos !== 'number') {
-				return false;
+				return;
 			}
 			tr.setMeta('scrollIntoView', false);
 
@@ -105,7 +149,29 @@ const TaskItemWrapper = ({
 		<Popup
 			isOpen={isOpen}
 			onClose={() => setIsOpen(false)}
-			content={() => <div>Content</div>}
+			content={() => (
+				<Box xcss={wrapperStyles}>
+					<Stack space="space.150">
+						<Heading size="xsmall">
+							{formatMessage(tasksAndDecisionsMessages.editAccessTitle)}
+						</Heading>
+						<div>{formatMessage(tasksAndDecisionsMessages.requestToEditDescription)}</div>
+						<Box xcss={wrapperBoxStyles}>
+							<Box>
+								<Pressable xcss={pressableStyles}>
+									{formatMessage(tasksAndDecisionsMessages.requestToEdit)}
+								</Pressable>
+							</Box>
+							<Box xcss={dotStyles}></Box>
+							<Box>
+								<Pressable onClick={() => setIsOpen(false)} xcss={pressableStyles}>
+									{formatMessage(tasksAndDecisionsMessages.dismiss)}
+								</Pressable>
+							</Box>
+						</Box>
+					</Stack>
+				</Box>
+			)}
 			trigger={(triggerProps) => {
 				return (
 					<TaskItem
@@ -114,15 +180,21 @@ const TaskItemWrapper = ({
 						inputRef={triggerProps.ref}
 						isDone={isDone}
 						onChange={onChange}
-						onClick={onHandleClick}
+						onClick={
+							api?.editorViewMode?.sharedState.currentState()?.mode === 'view'
+								? onHandleClick
+								: undefined
+						}
 						isFocused={isFocused}
 						showPlaceholder={showPlaceholder}
 						providers={providerFactory}
-						disableOnChange={true}
+						disableOnChange={
+							!api?.taskDecision?.sharedState.currentState()?.hasEditPermission && true
+						}
 					/>
 				);
 			}}
-			placement={'bottom'}
+			placement={'bottom-start'}
 		/>
 	);
 };
@@ -157,6 +229,24 @@ class Task extends ReactNodeView<Props> {
 			}),
 		);
 		tr.setMeta('scrollIntoView', false);
+
+		/**
+		 * This is a test implementation to call the request to edit mutation
+		 * from within editor when toggling a task where a user has no edit access.
+		 *
+		 * This will eventially be handled by https://product-fabric.atlassian.net/browse/ED-24773
+		 * to connect up the correct user action
+		 */
+		if (
+			!this.api?.taskDecision?.sharedState.currentState()?.hasEditPermission &&
+			fg('editor_request_to_edit_task')
+		) {
+			const requestToEdit =
+				this.api?.taskDecision?.sharedState.currentState()?.requestToEditContent;
+			if (requestToEdit) {
+				requestToEdit();
+			}
+		}
 
 		this.view.dispatch(tr);
 	};

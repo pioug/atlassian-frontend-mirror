@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-custom-autoformat
 
+## 1.4.0
+
+### Minor Changes
+
+- [#142414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142414)
+  [`4d4914bf56307`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d4914bf56307) -
+  Remove card provider feature flag and rename autoformatting provider feature flag, Improve
+  performance of setting card provider, Feature Gate the autoformatting Provider being passed to
+  ComposableEditor in Confluence
+
 ## 1.3.2
 
 ### Patch Changes

@@ -15,8 +15,8 @@ import {
 } from '@atlaskit/analytics-next';
 import { type Appearance } from '@atlaskit/button';
 import { type IconProps } from '@atlaskit/icon';
-import ShareIcon from '@atlaskit/icon/glyph/share';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import ShareIcon from '@atlaskit/icon/core/migration/share';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -72,6 +72,8 @@ export const defaultShareContentState: ShareData = {
 type ShareDialogWithTriggerInternalProps = ShareDialogWithTriggerProps &
 	WrappedComponentProps &
 	WithAnalyticsEventsProps;
+
+export const IconShare = () => <ShareIcon spacing="spacious" label="" color="currentColor" />;
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ShareDialogWithTriggerInternal extends React.PureComponent<
@@ -444,7 +446,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 		} = this.props;
 
 		let button: React.ReactNode;
-		const ShareButtonIcon: React.ComponentType<IconProps> = triggerButtonIcon || ShareIcon;
+		const ShareButtonIcon: React.ComponentType<IconProps> = triggerButtonIcon || IconShare;
 
 		// Render a custom or standard button.
 		if (renderCustomTriggerButton) {
@@ -657,9 +659,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 						dialogPlacement,
 					})}
 					shouldRenderToParent={
-						getBooleanFF('platform.enable-appropriate-reading-order-in-share-dialog_fu49')
-							? true
-							: false
+						fg('platform.enable-appropriate-reading-order-in-share-dialog_fu49') ? true : false
 					}
 				/>
 

@@ -1,5 +1,13 @@
 # @atlaskit/help-article
 
+## 4.2.0
+
+### Minor Changes
+
+- [#144303](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144303)
+  [`de9cfac4c3629`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de9cfac4c3629) -
+  [ux] Enable new icons behind a feature flag.
+
 ## 4.1.13
 
 ### Patch Changes

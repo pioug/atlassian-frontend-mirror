@@ -1,5 +1,14 @@
 # @atlaskit/editor-shared-styles
 
+## 2.13.5
+
+### Patch Changes
+
+- [#143733](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143733)
+  [`db2f2648fd208`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db2f2648fd208) -
+  [ux] Removing token fallbacks for styling. For apps supporting tokens this has no difference, for
+  those not there may be slight variations in colors to align with tokens.
+
 ## 2.13.4
 
 ### Patch Changes

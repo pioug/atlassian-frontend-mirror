@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type IconButtonProps } from '@atlaskit/button/new';
-import WorldIcon from '@atlaskit/icon/glyph/world';
+import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
 import Select from '@atlaskit/select';
 import { type OptionData } from '@atlaskit/smart-user-picker';
 import { ufologger } from '@atlaskit/ufo';
@@ -156,6 +156,8 @@ const listenerHandler = (event: UIAnalyticsEvent, channel?: string) => {
 	);
 };
 
+const Globe = () => <WorldIcon color="currentColor" spacing="spacious" label="" />;
+
 export default function Example() {
 	const defaultProps: State = {
 		isAutoOpenDialog: false,
@@ -255,7 +257,7 @@ export default function Example() {
 									showFlags={showFlags}
 									enableSmartUserPicker={state.enableSmartUserPicker}
 									triggerButtonAppearance={state.triggerButtonAppearance}
-									triggerButtonIcon={state.customTriggerButtonIcon ? WorldIcon : undefined}
+									triggerButtonIcon={state.customTriggerButtonIcon ? Globe : undefined}
 									triggerButtonStyle={state.triggerButtonStyle}
 									triggerButtonTooltipText={
 										state.customTooltipText ? 'Custom Tooltip Text' : undefined

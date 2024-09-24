@@ -12,7 +12,7 @@ import EmojiPicker, {
 import { EmojiTypeAheadTextInput } from './03-standard-emoji-typeahead';
 import { Popup } from '@atlaskit/popup';
 import { IconButton } from '@atlaskit/button/new';
-import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
+import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
 /**
  * Emoji Picker in Popup
  * @param emojiProvider
@@ -44,7 +44,9 @@ export const EmojiPickerPopup = ({
 						label="Add reaction"
 						{...triggerProps}
 						onClick={() => setEmojiPickerOpen(true)}
-						icon={(iconProps) => <EmojiAddIcon {...iconProps} size="small" />}
+						icon={(iconProps) => (
+							<EmojiAddIcon color="currentColor" {...iconProps} LEGACY_size="small" />
+						)}
 						spacing="compact"
 					/>
 				)}

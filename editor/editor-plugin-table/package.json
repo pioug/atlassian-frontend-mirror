@@ -126,6 +126,9 @@
 		},
 		"platform_editor_announce_cell_options_hotkeys": {
 			"type": "boolean"
+		},
+		"platform_editor_breakout_use_css": {
+			"type": "boolean"
 		}
 	}
 }

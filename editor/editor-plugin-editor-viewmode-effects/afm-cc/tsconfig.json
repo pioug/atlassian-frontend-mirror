@@ -26,9 +26,6 @@
         },
         {
             "path": "../../editor-plugin-editor-viewmode/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         }
     ]
 }

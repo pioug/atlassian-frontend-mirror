@@ -5,7 +5,7 @@
 import React, { type RefObject, useMemo, useRef } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
+import CheckboxIcon from '@atlaskit/icon/core/migration/checkbox-checked--checkbox';
 import Item from './Item';
 import { type Appearance, type ContentRef } from '../types';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
@@ -101,7 +101,7 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 				onKeyPress={handleOnKeyPress}
 				ref={inputRef}
 			/>
-			<CheckboxIcon label="" />
+			<CheckboxIcon color="currentColor" spacing="spacious" label="" />
 		</span>
 	);
 

@@ -12,7 +12,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type IconButtonProps } from '@atlaskit/button/new';
-import WorldIcon from '@atlaskit/icon/glyph/world';
+import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import { type OptionData } from '@atlaskit/smart-user-picker';
@@ -336,6 +336,8 @@ const defaultProps: State = {
 	locale: 'en-US',
 };
 
+const Globe = () => <WorldIcon color="currentColor" spacing="spacious" label="" />;
+
 export default function Example() {
 	const [state, setState] = useState<State>(defaultProps);
 
@@ -407,7 +409,7 @@ export default function Example() {
 									showFlags={showFlags}
 									enableSmartUserPicker={state.enableSmartUserPicker}
 									triggerButtonAppearance={state.triggerButtonAppearance}
-									triggerButtonIcon={state.customTriggerButtonIcon ? WorldIcon : undefined}
+									triggerButtonIcon={state.customTriggerButtonIcon ? Globe : undefined}
 									triggerButtonStyle={state.triggerButtonStyle}
 									triggerButtonTooltipText={
 										state.customTooltipText ? 'Custom Tooltip Text' : undefined

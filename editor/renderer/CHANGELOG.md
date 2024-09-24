@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 110.4.4
+
+### Patch Changes
+
+- [#144052](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144052)
+  [`f4124cac65f65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f4124cac65f65) -
+  [ux] ED-24711 Clean up feature flag for media comment video bug
+
 ## 110.4.3
 
 ### Patch Changes

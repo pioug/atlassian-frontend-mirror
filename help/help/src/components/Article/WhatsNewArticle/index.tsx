@@ -3,7 +3,7 @@ import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 import HelpArticleContent from '@atlaskit/help-article';
 import { token } from '@atlaskit/tokens';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
 
@@ -79,7 +79,7 @@ export const WhatsNewArticle: React.FC<Props & WrappedComponentProps> = ({
 										{formatMessage(messages.help_whats_new_related_link_support)}
 									</Button>
 									<ExternalLinkIconContainer>
-										<ShortcutIcon size="small" label="" />
+										<ShortcutIcon color="currentColor" LEGACY_size="small" label="" />
 									</ExternalLinkIconContainer>
 								</RelatedLinkContainer>
 							)}
@@ -95,7 +95,7 @@ export const WhatsNewArticle: React.FC<Props & WrappedComponentProps> = ({
 										{formatMessage(messages.help_whats_new_related_link_community)}
 									</Button>
 									<ExternalLinkIconContainer>
-										<ShortcutIcon size="small" label="" />
+										<ShortcutIcon color="currentColor" LEGACY_size="small" label="" />
 									</ExternalLinkIconContainer>
 								</RelatedLinkContainer>
 							)}

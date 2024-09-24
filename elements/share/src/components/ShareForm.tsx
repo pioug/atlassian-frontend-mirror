@@ -11,8 +11,8 @@ import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import Form, { RequiredAsterisk } from '@atlaskit/form';
-import EmailIcon from '@atlaskit/icon/glyph/email';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import EmailIcon from '@atlaskit/icon/core/migration/email';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import { MenuGroup } from '@atlaskit/menu';
 import { Box, xcss } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -246,8 +246,9 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 							position="top"
 						>
 							<ErrorIcon
+								spacing="spacious"
 								label={formatMessage(messages.shareFailureIconLabel)}
-								primaryColor={token('color.icon.danger', R400)}
+								color={token('color.icon.danger', R400)}
 							/>
 						</Tooltip>
 					)}
@@ -329,7 +330,9 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 							onClickHandler={() => this.changeMenuItem('Slack')}
 						/>
 						<ShareMenuItem
-							iconName={<EmailIcon label="" size="medium" />}
+							iconName={
+								<EmailIcon color="currentColor" label="" LEGACY_size="medium" spacing="spacious" />
+							}
 							labelId={messages.emailMenuItemText}
 							onClickHandler={() => this.changeMenuItem('default')}
 						/>

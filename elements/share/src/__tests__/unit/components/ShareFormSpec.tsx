@@ -7,7 +7,7 @@ import { FormattedMessage, IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button/new';
 import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Form, { type FormProps, HelperMessage } from '@atlaskit/form';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import { MenuGroup } from '@atlaskit/menu';
 import { Box } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';

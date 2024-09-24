@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.32.2
+
+### Patch Changes
+
+- [#144324](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144324)
+  [`28ccc12f4b59f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28ccc12f4b59f) -
+  Cleanup LD FF for Add comment button in the media toolbar
+
 ## 1.32.1
 
 ### Patch Changes

@@ -7,7 +7,7 @@ import React from 'react';
 
 import { mount, type ReactWrapper } from 'enzyme';
 
-import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
+import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
 import Popup from '@atlaskit/popup';
 import Tooltip from '@atlaskit/tooltip';
 

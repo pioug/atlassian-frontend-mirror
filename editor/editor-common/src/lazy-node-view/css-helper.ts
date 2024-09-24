@@ -13,10 +13,15 @@ function hyphenate(property: string): string {
  * @param properties - CSS properties object.
  * @returns CSS string.
  */
-export function convertToInlineCss(properties: React.CSSProperties): string {
+export function convertToInlineCss(
+	properties: React.CSSProperties | Record<`--${string}`, string>,
+): string {
 	const cssString = Object.entries(properties)
 		.sort(([a], [b]) => a.localeCompare(b))
-		.map(([property, value]) => `${hyphenate(property)}: ${value};`)
+		.map(
+			([property, value]) =>
+				`${property.startsWith('--') ? property : hyphenate(property)}: ${value};`,
+		)
 		.join(' ');
 
 	return cssString;

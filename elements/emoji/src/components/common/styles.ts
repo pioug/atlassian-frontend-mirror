@@ -25,6 +25,10 @@ export const deleteButton = css({
 	top: token('space.negative.100', '-8px'),
 	right: token('space.negative.100', '-8px'),
 	zIndex: 1,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& span': {
+		lineHeight: 0,
+	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

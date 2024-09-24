@@ -140,6 +140,35 @@ const InsertMenu = ({
 	const emptyStateHandler =
 		pluginInjectionApi?.quickInsert?.sharedState.currentState()?.emptyStateHandler;
 
+	/**
+	 * For insert menu in right rail experiment
+	 * - Clean up ticket ED-24801
+	 *
+	 * The insert menu is not rendered in a popup so need to avoid wrapping it in outer click
+	 * listeners because it will cause the editor to focus certain extensions (e.g. Jira legacy)
+	 */
+
+	if (isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true)) {
+		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			<div css={insertMenuWrapper(itemCount, isFullPageAppearance)}>
+				<FlexWrapper>
+					<ElementBrowser
+						mode="inline"
+						getItems={getItems}
+						emptyStateHandler={emptyStateHandler}
+						onInsertItem={onInsertItem}
+						showSearch
+						showCategories={false}
+						// On page resize we want the InlineElementBrowser to show updated tools/overflow items
+						key={quickInsertDropdownItems.length}
+						viewMoreItem={viewMoreItem}
+					/>
+				</FlexWrapper>
+			</div>
+		);
+	}
+
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 		<div css={insertMenuWrapper(itemCount, isFullPageAppearance)}>

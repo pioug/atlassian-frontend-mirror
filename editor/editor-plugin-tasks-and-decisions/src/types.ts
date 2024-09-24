@@ -8,6 +8,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -91,6 +92,7 @@ export type TasksAndDecisionsPlugin = NextEditorPlugin<
 			OptionalPlugin<TypeAheadPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<ContextIdentifierPlugin>,
+			OptionalPlugin<EditorViewModePlugin>,
 		];
 		actions: {
 			insertTaskDecision: ReturnType<typeof insertTaskDecisionCommand>;

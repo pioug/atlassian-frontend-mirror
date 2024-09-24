@@ -16,7 +16,7 @@ import {
 } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { type OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

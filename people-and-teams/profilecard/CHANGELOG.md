@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 19.28.1
+
+### Patch Changes
+
+- [#144303](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144303)
+  [`5d72a8fdef7ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d72a8fdef7ec) -
+  Disallow duplicate agent option for forge agents
+
 ## 19.28.0
 
 ### Minor Changes

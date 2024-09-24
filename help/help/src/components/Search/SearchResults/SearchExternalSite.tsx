@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/analytics-next';
 import * as colors from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { messages } from '../../../messages';
@@ -51,10 +51,10 @@ export const SearchExternalSite: React.FC<Props & WrappedComponentProps> = ({
 						appearance="link"
 						iconAfter={
 							<ShortcutIcon
-								size="small"
+								LEGACY_size="small"
 								label=""
-								primaryColor={token('color.icon.subtle', colors.N90)}
-								secondaryColor={token('color.icon.subtle', colors.N90)}
+								color={token('color.icon.subtle', colors.N90)}
+								LEGACY_secondaryColor={token('color.icon.subtle', colors.N90)}
 							/>
 						}
 						spacing="compact"

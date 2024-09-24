@@ -287,16 +287,12 @@ export default class RendererActions
 	/**
 	 * Note: False indicates that the selection not able to be calculated.
 	 */
-	getPositionFromRange(
-		range: Range | null,
-		isCommentsOnMediaBugFixEnabled?: boolean,
-		isCommentsOnMediaBugVideoComment?: boolean,
-	): Position | false {
+	getPositionFromRange(range: Range | null): Position | false {
 		if (!this.doc || !this.schema || !range) {
 			return false;
 		}
 
-		return getPosFromRange(range, isCommentsOnMediaBugFixEnabled, isCommentsOnMediaBugVideoComment);
+		return getPosFromRange(range);
 	}
 
 	getAnnotationMarks() {
@@ -349,7 +345,6 @@ export default class RendererActions
 		pos: Position,
 		annotation: Annotation,
 		isCommentsOnMediaBugFixEnabled?: boolean,
-		isCommentsOnMediaBugVideoCommentEnabled?: boolean,
 	): AnnotationActionResult {
 		if (!this.doc || !pos || !this.schema) {
 			return false;

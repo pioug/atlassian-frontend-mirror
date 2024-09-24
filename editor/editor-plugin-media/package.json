@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "1.32.1",
+	"version": "1.32.2",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -135,9 +135,6 @@
 		"platform.media-experience.media-viewer-v2_hgsii": {
 			"type": "boolean",
 			"referenceOnly": "true"
-		},
-		"platform.editor.live-view.comments-in-media-toolbar-button": {
-			"type": "boolean"
 		},
 		"platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
 			"type": "boolean"

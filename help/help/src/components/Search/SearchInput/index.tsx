@@ -13,8 +13,8 @@ import Textfield from '@atlaskit/textfield';
 import Button from '@atlaskit/button/custom-theme-button';
 import { gridSize } from '@atlaskit/theme/constants';
 import Spinner from '@atlaskit/spinner';
-import SearchIcon from '@atlaskit/icon/glyph/search';
-import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import SearchIcon from '@atlaskit/icon/core/migration/search';
+import EditorCloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
@@ -106,7 +106,7 @@ export const SearchInput: React.FC<WrappedComponentProps> = ({ intl: { formatMes
 				name="help-search-input"
 				elemBeforeInput={
 					<SearchIconContainer>
-						<SearchIcon label="" />
+						<SearchIcon LEGACY_margin="0 2px" color="currentColor" spacing="spacious" label="" />
 					</SearchIconContainer>
 				}
 				elemAfterInput={
@@ -120,7 +120,7 @@ export const SearchInput: React.FC<WrappedComponentProps> = ({ intl: { formatMes
 								spacing="none"
 								aria-label="Clear field"
 							>
-								<EditorCloseIcon label="" />
+								<EditorCloseIcon color="currentColor" spacing="spacious" label="" />
 							</Button>
 						)}
 					</CloseButtonAndSpinnerContainer>

@@ -19,11 +19,15 @@ jest.mock('@atlaskit/select', () => {
 	};
 });
 
+const testId = 'test';
+
 const createTimePicker = (props: TimePickerBaseProps = {}) => (
-	<TimePicker label="Time" testId="test" {...props} />
+	<TimePicker label="Time" testId={testId} {...props} />
 );
 
 describe('TimePicker', () => {
+	const queryMenu = () => screen.queryByTestId(`${testId}--popper--container`);
+
 	beforeEach(() => {
 		(CreatableSelect as unknown as jest.Mock).mockImplementation((props) => {
 			const options: OptionsType = props.options || [];
@@ -89,6 +93,68 @@ describe('TimePicker', () => {
 				{ locale: 'id', result: `${hour}.${minute}` },
 			],
 		);
+	});
+
+	it('should have an empty value if none is provided', () => {
+		render(createTimePicker());
+
+		const input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue('');
+	});
+
+	it('should use provided value', () => {
+		render(createTimePicker({ value: '11:30 AM' }));
+
+		const input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue('11:30 AM');
+	});
+
+	it('should use provided default value', () => {
+		render(createTimePicker({ defaultValue: '11:30 AM' }));
+
+		const input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue('11:30 AM');
+	});
+
+	it('should handle a controlled value', () => {
+		const { rerender } = render(createTimePicker({ value: '11:30 AM' }));
+		let input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue('11:30 AM');
+
+		rerender(createTimePicker({ value: '12:30 AM' }));
+		input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue('12:30 AM');
+	});
+
+	it('should start closed if isOpen is not provided', () => {
+		render(createTimePicker());
+
+		const menu = queryMenu();
+		expect(menu).not.toBeInTheDocument();
+	});
+
+	it('should have menu open if isOpen is set to true', () => {
+		render(createTimePicker({ isOpen: true }));
+
+		const menu = queryMenu();
+		expect(menu).toBeInTheDocument();
+	});
+
+	it('should use provided defaultIsOpen', () => {
+		render(createTimePicker({ defaultIsOpen: true }));
+
+		const menu = queryMenu();
+		expect(menu).toBeInTheDocument();
+	});
+
+	it('should handle a controlled isOpen', () => {
+		const { rerender } = render(createTimePicker({ isOpen: false }));
+		let menu = queryMenu();
+		expect(menu).not.toBeInTheDocument();
+
+		rerender(createTimePicker({ isOpen: true }));
+		menu = queryMenu();
+		expect(menu).toBeInTheDocument();
 	});
 
 	it('should render the time in a custom timeFormat', () => {

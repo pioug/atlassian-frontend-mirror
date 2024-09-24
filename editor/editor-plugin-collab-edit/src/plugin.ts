@@ -95,6 +95,8 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 						firstContentBodyChangeAfterInitAt: null,
 						lastLocalOrganicChangeAt: null,
 						lastRemoteOrganicChangeAt: null,
+						lastLocalOrganicBodyChangeAt: null,
+						lastRemoteOrganicBodyChangeAt: null,
 					},
 					activeParticipants: undefined,
 					sessionId: undefined,
@@ -114,6 +116,10 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					firstContentBodyChangeAfterInitAt: metadata?.firstContentBodyChangeAfterInitAt || null,
 					lastLocalOrganicChangeAt: lastOrganicChangeState?.lastLocalOrganicChangeAt || null,
 					lastRemoteOrganicChangeAt: lastOrganicChangeState?.lastRemoteOrganicChangeAt || null,
+					lastLocalOrganicBodyChangeAt:
+						lastOrganicChangeState?.lastLocalOrganicBodyChangeAt || null,
+					lastRemoteOrganicBodyChangeAt:
+						lastOrganicChangeState?.lastRemoteOrganicBodyChangeAt || null,
 				},
 			};
 		},

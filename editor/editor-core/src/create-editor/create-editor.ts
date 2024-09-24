@@ -2,6 +2,7 @@ import { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/error-reporter';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorConfig, EditorPlugin, PluginsOptions, PMPluginCreateConfig } from '../types';
 import { InstrumentedPlugin } from '../utils/performance/instrumented-plugin';
@@ -130,18 +131,19 @@ export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
 		);
 	}
 
-	const instrumentPlugin = useInstrumentedPlugin
-		? (plugin: SafePlugin): SafePlugin =>
-				InstrumentedPlugin.fromPlugin(
-					plugin,
-					{
-						uiTracking,
-						transactionTracking,
-						dispatchAnalyticsEvent,
-					},
-					transactionTracker,
-				)
-		: (plugin: SafePlugin): SafePlugin => plugin;
+	const instrumentPlugin =
+		!fg('platform_editor_disable_instrumented_plugin') && useInstrumentedPlugin
+			? (plugin: SafePlugin): SafePlugin =>
+					InstrumentedPlugin.fromPlugin(
+						plugin,
+						{
+							uiTracking,
+							transactionTracking,
+							dispatchAnalyticsEvent,
+						},
+						transactionTracker,
+					)
+			: (plugin: SafePlugin): SafePlugin => plugin;
 
 	return editorConfig.pmPlugins
 		.sort(sortByOrder('plugins'))

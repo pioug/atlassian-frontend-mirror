@@ -1,7 +1,7 @@
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
+import LockCircleIcon from '@atlaskit/icon/core/migration/lock-locked--lock-circle';
 import { type ReactWrapper } from 'enzyme';
 import React, { type ReactChildren } from 'react';
 import MentionItem from '../../../components/MentionItem';

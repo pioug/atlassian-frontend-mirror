@@ -1,7 +1,6 @@
 import { token } from '@atlaskit/tokens';
 
 import {
-	akEditorSelectedBgColor,
 	akEditorSelectedBorder,
 	akEditorSelectedBorderColor,
 	akEditorSelectedBoxShadow,
@@ -61,7 +60,7 @@ const getSelectionStyle = (style: SelectionStyle): string => {
         border-color: transparent;
         `;
 		case SelectionStyle.Background:
-			return `background-color: ${token('color.background.selected', akEditorSelectedBgColor)};`;
+			return `background-color: ${token('color.background.selected')};`;
 		case SelectionStyle.Blanket:
 			return `
         position: relative;
@@ -80,7 +79,7 @@ const getSelectionStyle = (style: SelectionStyle): string => {
           width: 100%;
           pointer-events: none;
           z-index: ${akEditorSmallZIndex};
-          background-color: ${token('color.blanket.selected', '#B3D4FF4C')}
+          background-color: ${token('color.blanket.selected')}
         }`;
 		default:
 			return '';

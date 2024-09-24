@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
+import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import { N50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { Pressable, xcss } from '@atlaskit/primitives';
@@ -80,14 +80,14 @@ export default class Color extends PureComponent<ColorProps> {
 							aria-pressed={isSelected}
 							style={{
 								backgroundColor: backgroundColor || 'transparent',
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+								color: iconColor,
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								borderColor,
 							}}
 							ref={setRef}
 						>
-							{isSelected && (
-								<EditorDoneIcon primaryColor={iconColor} label={labels[0] as string} />
-							)}
+							{isSelected && <EditorDoneIcon color="currentColor" label={labels[0] as string} />}
 						</Pressable>
 					)}
 				</FormattedMessage>

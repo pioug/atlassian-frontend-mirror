@@ -38,7 +38,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.9.0",
 		"@atlaskit/adf-utils": "^19.8.0",
-		"@atlaskit/emoji": "^67.7.0",
+		"@atlaskit/emoji": "^67.8.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

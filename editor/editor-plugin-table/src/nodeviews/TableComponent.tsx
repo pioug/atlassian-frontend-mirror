@@ -838,10 +838,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		const isNested = isTableNested(view.state, tablePos);
 
-		const topStickyShadowPosition = isDragAndDropEnabled
-			? this.state.stickyHeader && this.state.stickyHeader.top + this.state.stickyHeader.padding + 2
-			: this.state.stickyHeader &&
-				this.state.stickyHeader.top + this.state.stickyHeader.padding + shadowPadding + 2;
+		const topShadowPadding = isDragAndDropEnabled ? 0 : shadowPadding;
+		const topOffset = fg('platform_editor_breakout_use_css')
+			? 0
+			: this.state.stickyHeader?.top ?? 0;
+
+		let topStickyShadowPosition =
+			this.state.stickyHeader && topOffset + this.state.stickyHeader.padding + topShadowPadding + 2;
 
 		const { stickyScrollbar, tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 

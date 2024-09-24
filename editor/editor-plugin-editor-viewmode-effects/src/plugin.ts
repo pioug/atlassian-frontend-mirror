@@ -6,7 +6,6 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type EditorViewModeEffectsPlugin } from './types';
 import { ViewModeNodeStep, ViewModeStep } from './viewModeStep';
@@ -26,16 +25,9 @@ const createFilterStepsPlugin =
 				}
 
 				const viewModeSteps = tr.steps.reduce<(ViewModeStep | ViewModeNodeStep)[]>((acc, s) => {
-					if (fg('platform.editor.live-view.comments-in-media-toolbar-button')) {
-						if (s instanceof ViewModeNodeStep || s instanceof ViewModeStep) {
-							acc.push(s);
-						}
-					} else {
-						if (s instanceof ViewModeStep) {
-							acc.push(s);
-						}
+					if (s instanceof ViewModeNodeStep || s instanceof ViewModeStep) {
+						acc.push(s);
 					}
-
 					return acc;
 				}, []);
 
@@ -51,27 +43,17 @@ const createFilterStepsPlugin =
 					}
 
 					if (step.mark.type.name === 'annotation') {
-						if (fg('platform.editor.live-view.comments-in-media-toolbar-button')) {
-							if (step instanceof ViewModeNodeStep) {
-								api.collabEdit?.actions.addInlineCommentNodeMark({
-									mark: step.mark,
-									pos: step.pos,
-								});
-							} else if (step instanceof ViewModeStep) {
-								api.collabEdit?.actions.addInlineCommentMark({
-									mark: step.mark,
-									from: step.from,
-									to: step.to,
-								});
-							}
-						} else {
-							if (step instanceof ViewModeStep) {
-								api.collabEdit?.actions.addInlineCommentMark({
-									mark: step.mark,
-									from: step.from,
-									to: step.to,
-								});
-							}
+						if (step instanceof ViewModeNodeStep) {
+							api.collabEdit?.actions.addInlineCommentNodeMark({
+								mark: step.mark,
+								pos: step.pos,
+							});
+						} else if (step instanceof ViewModeStep) {
+							api.collabEdit?.actions.addInlineCommentMark({
+								mark: step.mark,
+								from: step.from,
+								to: step.to,
+							});
 						}
 					}
 				});
@@ -126,14 +108,8 @@ export const editorViewModeEffectsPlugin: EditorViewModeEffectsPlugin = ({ api }
 				(AddMarkStep | AddNodeMarkStep)[]
 			>((acc, s) => {
 				// TODO: We probably want to check the RemoveMarkStep flow too.
-				if (fg('platform.editor.live-view.comments-in-media-toolbar-button')) {
-					if (s instanceof AddMarkStep || s instanceof AddNodeMarkStep) {
-						acc.push(s);
-					}
-				} else {
-					if (s instanceof AddMarkStep) {
-						acc.push(s);
-					}
+				if (s instanceof AddMarkStep || s instanceof AddNodeMarkStep) {
+					acc.push(s);
 				}
 
 				return acc;
@@ -143,17 +119,13 @@ export const editorViewModeEffectsPlugin: EditorViewModeEffectsPlugin = ({ api }
 				return false;
 			}
 
-			marksSteps.reverse().map((s) => {
-				if (fg('platform.editor.live-view.comments-in-media-toolbar-button')) {
+			marksSteps
+				.reverse()
+				.map((s) =>
 					s instanceof AddNodeMarkStep
 						? tr.step(ViewModeNodeStep.from(s))
-						: tr.step(ViewModeStep.from(s));
-				} else {
-					if (s instanceof AddMarkStep) {
-						tr.step(ViewModeStep.from(s));
-					}
-				}
-			});
+						: tr.step(ViewModeStep.from(s)),
+				);
 
 			return true;
 		},

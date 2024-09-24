@@ -116,7 +116,7 @@ describe('steps', () => {
 					to: firstValidParagraphPosition + paragraphNode.nodeSize,
 				});
 
-				expect(getPosFromRange(myRange, true)).toEqual({
+				expect(getPosFromRange(myRange)).toEqual({
 					from: firstValidParagraphPosition,
 					to: firstValidParagraphPosition + paragraphNode.nodeSize,
 				});
@@ -137,7 +137,7 @@ describe('steps', () => {
 					to: firstValidParagraphPosition + textNode.nodeSize,
 				});
 
-				expect(getPosFromRange(myRange, true)).toEqual({
+				expect(getPosFromRange(myRange)).toEqual({
 					from: firstValidParagraphPosition,
 					to: firstValidParagraphPosition + textNode.nodeSize,
 				});
@@ -157,7 +157,7 @@ describe('steps', () => {
 					to: firstValidParagraphPosition + textNode.nodeSize,
 				});
 
-				expect(getPosFromRange(myRange, true)).toEqual({
+				expect(getPosFromRange(myRange)).toEqual({
 					from: firstValidParagraphPosition,
 					to: firstValidParagraphPosition + textNode.nodeSize,
 				});
@@ -268,14 +268,9 @@ describe('steps', () => {
 				myRange.setStart(imageContainer, 0);
 				myRange.setEnd(imageContainer, 0);
 
-				expect(getPosFromRange(myRange, true)).toEqual({
+				expect(getPosFromRange(myRange)).toEqual({
 					from: 1,
 					to: 1,
-				});
-
-				expect(getPosFromRange(myRange, false)).toEqual({
-					from: 2,
-					to: 2,
 				});
 			});
 
@@ -289,7 +284,7 @@ describe('steps', () => {
 					myRange.setEnd(textNode, 6);
 				}
 
-				expect(getPosFromRange(myRange, true)).toEqual(getPosFromRange(myRange, false));
+				expect(getPosFromRange(myRange)).toEqual({ from: 4, to: 9 });
 			});
 
 			it('should calc the position of the nested image', async () => {
@@ -301,18 +296,13 @@ describe('steps', () => {
 				myRange.setStart(imageContainer, 0);
 				myRange.setEnd(imageContainer, 0);
 
-				expect(getPosFromRange(myRange, true)).toEqual({
+				expect(getPosFromRange(myRange)).toEqual({
 					from: 10,
 					to: 10,
 				});
-
-				expect(getPosFromRange(myRange, false)).toEqual({
-					from: 11,
-					to: 11,
-				});
 			});
 
-			it('should calc the position of the nested image', async () => {
+			it('should calc the position of the caption of nested image', async () => {
 				await setup({ doc: docWithImageInTable, smartLinksSsr: false });
 				const captionContainer = container?.querySelector('[data-media-caption="true"]');
 				const myRange = new Range();
@@ -322,7 +312,7 @@ describe('steps', () => {
 					myRange.setEnd(textNode, 4);
 				}
 
-				expect(getPosFromRange(myRange, true)).toEqual(getPosFromRange(myRange, true));
+				expect(getPosFromRange(myRange)).toEqual({ from: 12, to: 16 });
 			});
 		});
 	});

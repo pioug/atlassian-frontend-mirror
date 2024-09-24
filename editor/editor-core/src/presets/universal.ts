@@ -64,7 +64,7 @@ import { version as coreVersion } from '../version-wrapper';
 import { createDefaultPreset } from './default';
 import type { DefaultPresetPluginOptions } from './default';
 
-type UniversalPresetProps = DefaultPresetPluginOptions &
+export type UniversalPresetProps = DefaultPresetPluginOptions &
 	EditorSharedPropsWithPlugins &
 	// Omit placeholder since it's an existing prop in `DefaultPresetPluginOptions` and will get overidden there
 	Omit<EditorPluginFeatureProps, 'placeholder'> &

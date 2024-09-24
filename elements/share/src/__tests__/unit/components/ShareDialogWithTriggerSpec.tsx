@@ -8,8 +8,7 @@ import {
 	type WrappedComponentProps,
 } from 'react-intl-next';
 
-import ShareIcon from '@atlaskit/icon/glyph/share';
-import WorldIcon from '@atlaskit/icon/glyph/world';
+import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 import Aktooltip from '@atlaskit/tooltip';
@@ -19,6 +18,7 @@ import Aktooltip from '@atlaskit/tooltip';
 import ShareButton, { type Props as ShareButtonProps } from '../../../components/ShareButton';
 import {
 	defaultShareContentState,
+	IconShare,
 	ShareDialogWithTriggerInternal,
 } from '../../../components/ShareDialogWithTrigger';
 import { ShareForm } from '../../../components/ShareForm';
@@ -259,7 +259,7 @@ describe('ShareDialogWithTrigger', () => {
 			wrapper.setState({ isDialogOpen: true });
 			expect(wrapper.find(Popup).find(ShareButton).prop('text')).toBeNull();
 			const iconBefore = wrapper.find(Popup).find(ShareButton).prop('iconBefore');
-			expect(iconBefore.type).toBe(ShareIcon);
+			expect(iconBefore.type).toBe(IconShare);
 			expect(wrapper.find(Popup).find(ShareButton).prop('aria-label')).toBe('Share');
 		});
 
@@ -274,7 +274,7 @@ describe('ShareDialogWithTrigger', () => {
 			expect(text.props).toMatchObject(messages.shareTriggerButtonText);
 
 			const iconBefore = wrapper.find(Popup).find(ShareButton).prop('iconBefore');
-			expect(iconBefore.type).toBe(ShareIcon);
+			expect(iconBefore.type).toBe(IconShare);
 			expect(wrapper.find(Popup).find(ShareButton).prop('aria-label')).toBe('Share');
 		});
 
@@ -309,7 +309,7 @@ describe('ShareDialogWithTrigger', () => {
 			wrapper.setState({ isDialogOpen: true });
 
 			const iconBefore = wrapper.find(Popup).find(ShareButton).prop('iconBefore');
-			expect(iconBefore.type).toBe(ShareIcon);
+			expect(iconBefore.type).toBe(IconShare);
 			expect(wrapper.find(Popup).find(ShareButton).prop('aria-label')).toBe('Share');
 		});
 	});

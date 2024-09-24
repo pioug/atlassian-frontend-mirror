@@ -32,7 +32,7 @@ export interface SpotlightInnerProps extends SpotlightProps {
 	onClosed: () => any;
 
 	/**
-	 * Whether or not to display a pulse animation around the spotlighted element.
+	 * Whether to display a pulse animation around the spotlighted element.
 	 *
 	 * Same as `SpotlightProps` but required instead of optional.
 	 */

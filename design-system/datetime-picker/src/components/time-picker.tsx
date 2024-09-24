@@ -1,6 +1,5 @@
-import React, { type CSSProperties, forwardRef, useReducer, useState } from 'react';
+import React, { type CSSProperties, forwardRef, useEffect, useReducer, useState } from 'react';
 
-// eslint-disable-next-line no-restricted-imports
 import { format, isValid } from 'date-fns';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
@@ -98,8 +97,8 @@ const TimePicker = forwardRef(
 		const [clearingFromIcon, setClearingFromIcon] = useState<boolean>(false);
 		// TODO: Remove isFocused? Does it do anything?
 		const [_, setIsFocused] = useState<boolean>(false);
-		const [isOpen, setIsOpen] = useState<boolean>(providedIsOpen || defaultIsOpen);
-		const [value, setValue] = useState<string>(providedValue || defaultValue);
+		const [isOpen, setIsOpen] = useState<boolean>(defaultIsOpen);
+		const [value, setValue] = useState<string>(defaultValue);
 
 		// Hack to force update: https://legacy.reactjs.org/docs/hooks-faq.html#is-there-something-like-forceupdate
 		const [, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -110,6 +109,18 @@ const TimePicker = forwardRef(
 			analyticsData: analyticsContext,
 			...analyticsAttributes,
 		});
+
+		useEffect(() => {
+			if (providedValue) {
+				setValue(providedValue);
+			}
+		}, [providedValue]);
+
+		useEffect(() => {
+			if (providedIsOpen) {
+				setIsOpen(providedIsOpen);
+			}
+		}, [providedIsOpen]);
 
 		const onChange = (
 			newValue: ValueType<OptionType> | string,
@@ -320,6 +331,8 @@ const TimePicker = forwardRef(
 					styles={mergedStyles}
 					value={initialValue}
 					spacing={spacing}
+					// We need this to get things to work, even though it's not supported.
+					// @ts-ignore
 					fixedLayerRef={containerRef}
 					isInvalid={isInvalid}
 					testId={testId}

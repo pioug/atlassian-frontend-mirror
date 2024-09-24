@@ -13,7 +13,7 @@ import { SizeableAvatar } from './SizeableAvatar';
 import { messages } from './i18n';
 import { getAvatarUrl, isEmail, isGroup } from './utils';
 import { type Option, type UserPickerProps } from '../types';
-import PeopleIcon from '@atlaskit/icon/glyph/people';
+import PeopleIcon from '@atlaskit/icon/core/migration/people-group--people';
 import { type MultiValueProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
@@ -32,6 +32,7 @@ export const scrollToValue = (valueContainer: HTMLDivElement, control: HTMLEleme
 
 const groupTagContainer = xcss({
 	paddingLeft: 'space.025',
+	marginTop: 'space.025',
 });
 
 const nameWrapper = css({
@@ -111,7 +112,12 @@ export class MultiValue extends React.Component<Props> {
 		if (isGroup(data)) {
 			return (
 				<Box xcss={groupTagContainer}>
-					<PeopleIcon label="group-icon" size="small" />
+					<PeopleIcon
+						LEGACY_margin="-2px 0 0 0"
+						color="currentColor"
+						label="group-icon"
+						LEGACY_size="small"
+					/>
 				</Box>
 			);
 		}

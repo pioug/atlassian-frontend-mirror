@@ -55,7 +55,7 @@ import DownloadIcon from '@atlaskit/icon/glyph/download';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
 import { messages } from '@atlaskit/media-ui';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { showLinkingToolbar } from '../commands/linking';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
@@ -283,7 +283,7 @@ const generateMediaSingleFloatingToolbar = (
 		let isChangingLayoutDisabled = false;
 		const selectedNode = getSelectedMediaSingle(state);
 
-		if (getBooleanFF('platform.editor.media.extended-resize-experience')) {
+		if (fg('platform.editor.media.extended-resize-experience')) {
 			const contentWidth = widthPlugin?.sharedState.currentState()?.lineLength;
 			const selectedNodeMaxWidth = pluginState.currentMaxWidth || contentWidth;
 
@@ -383,9 +383,9 @@ const generateMediaSingleFloatingToolbar = (
 		const { selection } = state;
 		const isWithinTable = hasParentNodeOfType([state.schema.nodes.table])(selection);
 		if (
-			getBooleanFF('platform.editor.media.extended-resize-experience') &&
 			allowResizing &&
-			(!isWithinTable || allowResizingInTables === true)
+			(!isWithinTable || allowResizingInTables === true) &&
+			fg('platform.editor.media.extended-resize-experience')
 		) {
 			const selectedMediaSingleNode = getSelectedMediaSingle(state);
 
@@ -507,13 +507,7 @@ const generateMediaSingleFloatingToolbar = (
 			toolbarButtons.push({ type: 'separator' });
 		}
 
-		if (
-			editorFeatureFlags &&
-			editorFeatureFlags.commentsOnMedia &&
-			allowCommentsOnMedia &&
-			(!isViewOnly ||
-				(isViewOnly && getBooleanFF('platform.editor.live-view.comments-in-media-toolbar-button'))) //This is required until this fix is merged: https://product-fabric.atlassian.net/browse/ED-23180
-		) {
+		if (editorFeatureFlags && editorFeatureFlags.commentsOnMedia && allowCommentsOnMedia) {
 			toolbarButtons.push(commentButton(intl, state, pluginInjectionApi), {
 				type: 'separator',
 				supportsViewMode: true,
@@ -778,7 +772,7 @@ export const floatingToolbar = (
 		mediaAssistiveMessage: assistiveMessage,
 	};
 
-	if (getBooleanFF('platform.editor.media.extended-resize-experience') && allowResizing) {
+	if (allowResizing && fg('platform.editor.media.extended-resize-experience')) {
 		return {
 			...toolbarConfig,
 			width: mediaPluginState.isResizing ? undefined : getMaxToolbarWidth(),

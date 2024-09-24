@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.20.0
+
+### Minor Changes
+
+- [`028de08a07c15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/028de08a07c15) -
+  Added fields to distinguish between comment and body changes
+
 ## 1.19.10
 
 ### Patch Changes

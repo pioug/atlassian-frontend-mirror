@@ -161,7 +161,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 			setProvider: async (providerPromise) => {
 				const provider = await providerPromise;
 				// Prevent someone trying to set the exact same provider twice for performance reasons
-				if (previousCardProvider === provider) {
+				if (previousCardProvider === provider || options?.provider === providerPromise) {
 					return false;
 				}
 				previousCardProvider = provider;

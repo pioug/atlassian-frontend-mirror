@@ -39,7 +39,7 @@
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-annotation": "^1.19.0",
 		"@atlaskit/editor-plugin-better-type-history": "^1.8.0",
-		"@atlaskit/editor-plugin-card": "^3.0.0",
+		"@atlaskit/editor-plugin-card": "^3.1.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
 		"@atlaskit/editor-plugin-list": "^3.8.0",
 		"@atlaskit/editor-plugin-media": "^1.32.0",

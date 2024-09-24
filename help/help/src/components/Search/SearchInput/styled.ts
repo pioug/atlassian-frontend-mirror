@@ -20,6 +20,7 @@ export const SearchIconContainer = styled.div({
 	width: token('space.300', '24px'),
 	height: token('space.300', '24px'),
 	paddingLeft: token('space.050', '4px'),
+	marginLeft: token('space.negative.025', '-2px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > span': {
 		paddingLeft: token('space.050', '4px'),

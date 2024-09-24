@@ -5,12 +5,12 @@ import {
 	type UIAnalyticsEvent,
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { token } from '@atlaskit/tokens';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { type ArticleItem } from '../../../model/Article';
-import LikeIcon from '@atlaskit/icon/glyph/like';
+import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
 import {
 	ArticlesListItemWrapper,
 	ArticlesListItemContainer,
@@ -108,10 +108,10 @@ export const ArticlesListItem: React.FC<Props & Partial<ArticleItem> & WrappedCo
 				{href && (
 					<ArticlesListItemLinkIcon>
 						<ShortcutIcon
-							size="small"
+							LEGACY_size="small"
 							label=""
-							primaryColor={token('color.icon.subtle', colors.N90)}
-							secondaryColor={token('color.icon.subtle', colors.N90)}
+							color={token('color.icon.subtle', colors.N90)}
+							LEGACY_secondaryColor={token('color.icon.subtle', colors.N90)}
 						/>
 					</ArticlesListItemLinkIcon>
 				)}
@@ -126,7 +126,12 @@ export const ArticlesListItem: React.FC<Props & Partial<ArticleItem> & WrappedCo
 					)}
 					{isHelpfulCountVisible && (
 						<ArticlesListItemHelpfulCount>
-							<LikeIcon label="Like" size="small" />
+							<LikeIcon
+								LEGACY_margin="0 -0.25px 0 0"
+								color="currentColor"
+								label="Like"
+								LEGACY_size="small"
+							/>
 							{trustFactors.helpfulCount}
 						</ArticlesListItemHelpfulCount>
 					)}

@@ -1,10 +1,10 @@
-import React, { type MouseEvent } from 'react';
+import React, { type MouseEvent, useMemo } from 'react';
 
 import { TargetInner, TargetOverlay } from '../styled/target';
-
+import { useElementObserver } from '../utils/use-element-observer';
 export interface CloneProps {
 	/**
-	 * Whether or not to display a pulse animation around the spotlighted element.
+	 * Whether to display a pulse animation around the spotlighted element.
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	pulse: boolean;
@@ -32,13 +32,16 @@ export interface CloneProps {
 	 * The border radius of the element being highlighted.
 	 */
 	targetRadius?: number;
-
 	/**
 	 * A `testId` prop is provided for specified elements,
 	 * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
 	 * serving as a hook for automated tests.
 	 */
 	testId?: string;
+	/**
+	 * Whether to watch for html content changes on the target
+	 */
+	shouldWatch?: boolean;
 }
 
 type CloneableStyleAttribute =
@@ -84,8 +87,24 @@ function cloneAndOverrideStyles(node: HTMLElement): HTMLElement {
  * @internal
  */
 const Clone = (props: CloneProps) => {
-	const { pulse, style, target, targetBgColor, targetOnClick, targetNode, targetRadius, testId } =
-		props;
+	const {
+		pulse,
+		style,
+		shouldWatch,
+		target,
+		targetBgColor,
+		targetOnClick,
+		targetNode,
+		targetRadius,
+		testId,
+	} = props;
+
+	const contentVersion = useElementObserver(targetNode, { disableWatch: !shouldWatch });
+	const contentHTML = useMemo(
+		() => cloneAndOverrideStyles(targetNode).outerHTML,
+		// eslint-disable-next-line react-hooks/exhaustive-deps -- We only want to update when the content changes
+		[contentVersion, targetNode],
+	);
 
 	return (
 		<TargetInner
@@ -98,9 +117,7 @@ const Clone = (props: CloneProps) => {
 		>
 			<div
 				// eslint-disable-next-line react/no-danger
-				dangerouslySetInnerHTML={{
-					__html: cloneAndOverrideStyles(targetNode).outerHTML,
-				}}
+				dangerouslySetInnerHTML={{ __html: contentHTML }}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={{ height: '100%', pointerEvents: 'none' }}
 			/>

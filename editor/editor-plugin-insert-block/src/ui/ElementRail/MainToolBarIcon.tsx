@@ -52,13 +52,13 @@ const buttonStyles = xcss({
 
 const disabledStyles = xcss({
 	color: 'color.text.disabled',
-	backgroundColor: 'color.background.neutral',
+	backgroundColor: 'color.background.neutral.subtle',
 	':hover': {
-		backgroundColor: 'color.background.neutral',
+		backgroundColor: 'color.background.neutral.subtle',
 	},
 
 	':active': {
-		backgroundColor: 'color.background.neutral',
+		backgroundColor: 'color.background.neutral.subtle',
 	},
 });
 

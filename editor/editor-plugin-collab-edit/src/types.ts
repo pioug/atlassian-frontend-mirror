@@ -49,6 +49,8 @@ export type CollabInitializedMetadata = {
 export type LastOrganicChangeMetadata = {
 	lastLocalOrganicChangeAt: null | number;
 	lastRemoteOrganicChangeAt: null | number;
+	lastLocalOrganicBodyChangeAt: null | number;
+	lastRemoteOrganicBodyChangeAt: null | number;
 };
 
 export type TrackSpammingStepsMetadata = {

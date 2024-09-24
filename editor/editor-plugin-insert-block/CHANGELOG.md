@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.1.2
+
+### Patch Changes
+
+- [#144556](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144556)
+  [`69f78b13edfbe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/69f78b13edfbe) -
+  Don't wrap outer click listeners for insert menu when insert-menu-in-right-rail experiment is
+  rendered to fix focus issues with confluence legacy macros
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

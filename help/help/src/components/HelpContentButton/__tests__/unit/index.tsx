@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import ShipIcon from '@atlaskit/icon/glyph/ship';
+import ShipIcon from '@atlaskit/icon/core/migration/release--ship';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
@@ -43,7 +43,7 @@ describe('HelpContentButton', () => {
 					notificationMax={9}
 					notificationLogProvider={notificationLogProvider}
 					text={buttonLabel}
-					icon={<ShipIcon size="medium" label="" />}
+					icon={<ShipIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />}
 					onClick={mockOnClick}
 				/>
 			</AnalyticsListener>
@@ -66,7 +66,7 @@ describe('HelpContentButton', () => {
 					notificationMax={9}
 					notificationLogProvider={notificationLogProvider}
 					text={buttonLabel}
-					icon={<ShipIcon size="medium" label="" />}
+					icon={<ShipIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />}
 					onClick={mockOnClick}
 				/>
 			</AnalyticsListener>
@@ -93,7 +93,7 @@ describe('HelpContentButton', () => {
 					notificationMax={notificationMax}
 					notificationLogProvider={notificationLogProvider}
 					text={buttonLabel}
-					icon={<ShipIcon size="medium" label="" />}
+					icon={<ShipIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />}
 					onClick={mockOnClick}
 				/>
 			</AnalyticsListener>
@@ -115,7 +115,7 @@ describe('HelpContentButton', () => {
 					href="https://www.atlassian.com/"
 					notificationMax={notificationMax}
 					text={buttonLabel}
-					icon={<ShipIcon size="medium" label="" />}
+					icon={<ShipIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />}
 					onClick={mockOnClick}
 				/>
 			</AnalyticsListener>
@@ -135,7 +135,7 @@ describe('HelpContentButton', () => {
 					href="https://www.atlassian.com/"
 					notificationMax={notificationMax}
 					text={buttonLabel}
-					icon={<ShipIcon size="medium" label="" />}
+					icon={<ShipIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />}
 					onClick={mockOnClick}
 				/>
 			</AnalyticsListener>
@@ -155,7 +155,7 @@ describe('HelpContentButton', () => {
 					href="https://www.atlassian.com/"
 					notificationMax={notificationMax}
 					text={buttonLabel}
-					icon={<ShipIcon size="medium" label="" />}
+					icon={<ShipIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />}
 					onClick={mockOnClick}
 				/>
 			</AnalyticsListener>
@@ -174,7 +174,7 @@ describe('HelpContentButton', () => {
 					id="testHelpContentButton"
 					notificationMax={notificationMax}
 					text={buttonLabel}
-					icon={<ShipIcon size="medium" label="" />}
+					icon={<ShipIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />}
 					onClick={mockOnClick}
 				/>
 			</AnalyticsListener>
@@ -193,7 +193,7 @@ describe('HelpContentButton', () => {
 					id="testHelpContentButton"
 					notificationMax={notificationMax}
 					text={buttonLabel}
-					icon={<ShipIcon size="medium" label="" />}
+					icon={<ShipIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />}
 					onClick={mockOnClick}
 				/>
 			</AnalyticsListener>

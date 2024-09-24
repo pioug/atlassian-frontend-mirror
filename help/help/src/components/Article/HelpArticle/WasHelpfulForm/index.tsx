@@ -19,7 +19,7 @@ import { RadioGroup } from '@atlaskit/radio';
 import { Checkbox } from '@atlaskit/checkbox';
 import TextArea from '@atlaskit/textarea';
 import { token } from '@atlaskit/tokens';
-import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
+import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
@@ -298,7 +298,11 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 							verticalAlign: 'middle',
 						}}
 					>
-						<CheckCircleIcon primaryColor={token('color.icon.success', colors.G400)} label="" />
+						<CheckCircleIcon
+							spacing="spacious"
+							color={token('color.icon.success', colors.G400)}
+							label=""
+						/>
 					</span>
 					<ArticleFeedbackText role="alert" aria-live="polite">
 						{formatMessage(messages.help_article_rating_form_Success)}

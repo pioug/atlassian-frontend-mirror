@@ -4,6 +4,7 @@ import rafSchedule from 'raf-schd';
 import { createPortal } from 'react-dom';
 
 import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
@@ -131,6 +132,8 @@ export const FixedButton = ({
 
 	const targetCellRect = targetCellRef.getBoundingClientRect();
 
+	const fixedButtonTop = fg('platform_editor_breakout_use_css') ? 0 : stickyHeader.top;
+
 	// Using a portal here to ensure wrapperRef has the tableWrapper as an
 	// ancestor. This is required to make the Intersection Observer work.
 	return createPortal(
@@ -159,7 +162,7 @@ export const FixedButton = ({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					position: 'fixed',
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-					top: stickyHeader.top + stickyHeader.padding + offset * 2,
+					top: fixedButtonTop + stickyHeader.padding + offset * 2,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					zIndex: akEditorTableCellOnStickyHeaderZIndex,
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview

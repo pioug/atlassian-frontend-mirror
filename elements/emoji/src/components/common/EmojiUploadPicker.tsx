@@ -17,7 +17,7 @@ import {
 import { jsx } from '@emotion/react';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import TextField from '@atlaskit/textfield';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import AkButton from '@atlaskit/button/standard-button';
 import FocusLock from 'react-focus-lock';
 
@@ -156,7 +156,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						shouldFitContainer={true}
 						testId={cancelEmojiUploadPickerTestId}
 					>
-						<CrossIcon size="small" label={cancelLabel} />
+						<CrossIcon color="currentColor" LEGACY_size="small" label={cancelLabel} />
 					</AkButton>
 				</div>
 			</div>

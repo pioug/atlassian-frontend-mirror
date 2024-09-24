@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button';
-import CheckIcon from '@atlaskit/icon/glyph/check';
-import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
-import ChevronRightLargeIcon from '@atlaskit/icon/glyph/chevron-right-large';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CheckIcon from '@atlaskit/icon/core/migration/check-mark--check';
+import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
+import ChevronRightLargeIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-large';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import { Radio } from '@atlaskit/radio';
 import Spinner from '@atlaskit/spinner';
 import {
@@ -20,6 +20,16 @@ import {
 	NavAction,
 } from './styled';
 import { type QuizElement, type QuizInterface } from './types';
+import { Flex, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
+
+const boxWrapperStyles = xcss({
+	width: '32px',
+	height: '32px',
+	// NOTE: custom color is used here
+	// @ts-ignore
+	color: '#5e6c84',
+});
 
 export interface Props {
 	// Content for the quiz
@@ -97,9 +107,19 @@ const QuizWidget = (props: Props) => {
 									{props.score && correctAnswer && (
 										<span>
 											{answer === correctAnswer ? (
-												<CheckIcon label="right" primaryColor="green" />
+												<CheckIcon
+													spacing="spacious"
+													label="right"
+													color={token('color.icon.success')}
+												/>
 											) : (
-												answer === checkedAnswer && <CrossIcon label="wrong" primaryColor="red" />
+												answer === checkedAnswer && (
+													<CrossIcon
+														spacing="spacious"
+														label="wrong"
+														color={token('color.icon.danger')}
+													/>
+												)
 											)}
 										</span>
 									)}
@@ -123,8 +143,12 @@ const QuizWidget = (props: Props) => {
 					}}
 					onClick={handlePrevClick}
 				>
-					<ChevronLeftLargeIcon label="prev" primaryColor="#5e6c84" size="large" />
-					<NavAction>{isLastSlide && props.score ? 'Review' : 'Previous'}</NavAction>
+					<Flex alignItems="center">
+						<Flex xcss={boxWrapperStyles} alignItems="center" justifyContent="center">
+							<ChevronLeftLargeIcon label="prev" color="currentColor" LEGACY_size="large" />
+						</Flex>
+						<NavAction>{isLastSlide && props.score ? 'Review' : 'Previous'}</NavAction>
+					</Flex>
 				</NavQuiz>
 				{isLastQuestion && !props.score ? (
 					<Button appearance="primary" onClick={onSubmitButtonClick} isDisabled={isDisabledSubmit}>
@@ -132,13 +156,21 @@ const QuizWidget = (props: Props) => {
 					</Button>
 				) : isLastSlide ? (
 					<NavQuiz>
-						<NavAction>Learn More</NavAction>
-						<ChevronRightLargeIcon label="next" primaryColor="#5e6c84" size="large" />
+						<Flex alignItems="center">
+							<NavAction>Learn More</NavAction>
+							<Flex xcss={boxWrapperStyles} alignItems="center" justifyContent="center">
+								<ChevronRightLargeIcon label="next" color="currentColor" LEGACY_size="large" />
+							</Flex>
+						</Flex>
 					</NavQuiz>
 				) : (
 					<NavQuiz onClick={handleNextClick}>
-						<NavAction>Next</NavAction>
-						<ChevronRightLargeIcon label="next" primaryColor="#5e6c84" size="large" />
+						<Flex alignItems="center">
+							<NavAction>Next</NavAction>
+							<Flex xcss={boxWrapperStyles} alignItems="center" justifyContent="center">
+								<ChevronRightLargeIcon label="next" color="currentColor" LEGACY_size="large" />
+							</Flex>
+						</Flex>
 					</NavQuiz>
 				)}
 			</Footer>

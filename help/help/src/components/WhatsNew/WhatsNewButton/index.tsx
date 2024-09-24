@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { type UIAnalyticsEvent, AnalyticsContext } from '@atlaskit/analytics-next';
 import * as colors from '@atlaskit/theme/colors';
-import LightbulbIcon from '@atlaskit/icon/glyph/lightbulb';
+import LightbulbIcon from '@atlaskit/icon/core/migration/lightbulb';
 import { token } from '@atlaskit/tokens';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
@@ -59,8 +59,9 @@ export const WhatsNewButton: React.FC<WrappedComponentProps & WhatsNewButtonProp
 			}
 			icon={
 				<LightbulbIcon
-					primaryColor={token('color.icon.subtle', colors.N600)}
-					size="medium"
+					color={token('color.icon.subtle', colors.N600)}
+					LEGACY_size="medium"
+					spacing="spacious"
 					label=""
 				/>
 			}

@@ -1,5 +1,5 @@
 import React from 'react';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 
 import { BODY_FORMAT_TYPES } from '../model/HelpArticle';
 import type { HelpArticle as HelpArticleType } from '../model/HelpArticle';
@@ -26,7 +26,7 @@ const HelpArticle = (props: HelpArticleType) => {
 							<h2>
 								{title}
 								<span> </span>
-								<ShortcutIcon label="link icon" size="small" />
+								<ShortcutIcon color="currentColor" label="link icon" LEGACY_size="small" />
 							</h2>
 						</ArticleContentTitleLink>
 					) : (

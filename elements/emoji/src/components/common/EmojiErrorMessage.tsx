@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, type SerializedStyles } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import type { Message } from '../../types';
 import { useIntl } from 'react-intl-next';
 
@@ -32,8 +32,10 @@ const EmojiErrorMessage = (props: Props) => {
 		<div css={messageStyles} data-testid={emojiErrorMessageTestId}>
 			<Tooltip content={message} position="top" testId={emojiErrorMessageTooltipTestId}>
 				<ErrorIcon
+					color="currentColor"
 					label={formatMessage(messages.error)}
-					size="medium"
+					LEGACY_size="medium"
+					spacing="spacious"
 					testId={emojiErrorIconTestId}
 				/>
 			</Tooltip>
@@ -41,7 +43,7 @@ const EmojiErrorMessage = (props: Props) => {
 	) : (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={messageStyles} data-testid={emojiErrorMessageTestId}>
-			<ErrorIcon label={formatMessage(messages.error)} size="small" />
+			<ErrorIcon color="currentColor" label={formatMessage(messages.error)} LEGACY_size="small" />
 			{message}
 		</div>
 	);

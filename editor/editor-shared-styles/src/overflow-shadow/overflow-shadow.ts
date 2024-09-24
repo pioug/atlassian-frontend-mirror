@@ -2,7 +2,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const overflowShadow = ({
@@ -21,50 +20,50 @@ export const overflowShadow = ({
 /* shadow cover left */
   linear-gradient(
     to right,
-    ${token('color.background.neutral', N20)} ${leftCoverWidthResolved},
+    ${token('color.background.neutral')} ${leftCoverWidthResolved},
     transparent ${leftCoverWidthResolved}
   ),
 /* shadow cover background left */
   linear-gradient(
     to right,
-    ${token('elevation.surface.raised', 'transparent')} ${leftCoverWidthResolved},
+    ${token('elevation.surface.raised')} ${leftCoverWidthResolved},
     transparent ${leftCoverWidthResolved}
   ),
 /* shadow cover right */
   linear-gradient(
     to left,
-    ${token('color.background.neutral', N20)} ${rightCoverWidthResolved},
+    ${token('color.background.neutral')} ${rightCoverWidthResolved},
     transparent ${rightCoverWidthResolved}
   ),
 /* shadow cover background right */
   linear-gradient(
     to left,
-    ${token('elevation.surface.raised', 'transparent')} ${rightCoverWidthResolved},
+    ${token('elevation.surface.raised')} ${rightCoverWidthResolved},
     transparent ${rightCoverWidthResolved}
   ),
 /* overflow shadow right spread */
   linear-gradient(
     to left,
-    ${token('elevation.shadow.overflow.spread', 'rgba(9, 30, 66, 0.13)')} 0,
-    ${token('utility.UNSAFE.transparent', 'rgba(99, 114, 130, 0)')}  ${width}
+    ${token('elevation.shadow.overflow.spread')} 0,
+    ${token('utility.UNSAFE.transparent')}  ${width}
   ),
   /* overflow shadow right perimeter */
   linear-gradient(
     to left,
-    ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0,
-    ${token('utility.UNSAFE.transparent', 'transparent')}  ${width}
+    ${token('elevation.shadow.overflow.perimeter')} 0,
+    ${token('utility.UNSAFE.transparent')}  ${width}
   ),
   /* overflow shadow left spread */
   linear-gradient(
     to right,
-    ${token('elevation.shadow.overflow.spread', 'rgba(9, 30, 66, 0.13)')} 0,
-    ${token('utility.UNSAFE.transparent', 'rgba(99, 114, 130, 0)')}  ${width}
+    ${token('elevation.shadow.overflow.spread')} 0,
+    ${token('utility.UNSAFE.transparent')}  ${width}
   ),
   /* overflow shadow left perimeter */
   linear-gradient(
     to right,
-    ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0,
-    ${token('utility.UNSAFE.transparent', 'transparent')}  ${width}
+    ${token('elevation.shadow.overflow.perimeter')} 0,
+    ${token('utility.UNSAFE.transparent')}  ${width}
   )
 `;
 };

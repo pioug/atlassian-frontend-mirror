@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import SearchIcon from '@atlaskit/icon/glyph/search';
+import SearchIcon from '@atlaskit/icon/core/migration/search';
 import TextField from '@atlaskit/textfield';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -78,7 +78,12 @@ export const EmojiPickerListSearch = (props: Props) => {
 				elemBeforeInput={
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<span css={searchIcon}>
-						<SearchIcon label="" />
+						<SearchIcon
+							LEGACY_margin="0 0 0 2px"
+							color="currentColor"
+							spacing="spacious"
+							label=""
+						/>
 					</span>
 				}
 				testId={emojiPickerSearchTestId}

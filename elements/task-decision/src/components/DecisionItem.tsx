@@ -6,7 +6,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
+import DecisionIcon from '@atlaskit/icon/core/migration/decision--editor-decision';
 
 import Item from './Item';
 import { type Appearance, type ContentRef } from '../types';
@@ -20,10 +20,9 @@ const iconStyles = (showPlaceholder: boolean | undefined) => {
 		margin: `${token('space.050', '4px')} ${token('space.150', '12px')} 0 0`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		color: showPlaceholder ? token('color.icon.subtle') : token('color.icon.success'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'> span': {
-			margin: token('space.negative.100', '-8px'),
-		},
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
 	});
 };
 
@@ -47,7 +46,7 @@ const DecisionItem = ({
 	const icon = (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<span contentEditable={false} css={iconStyles(showPlaceholder)}>
-			<DecisionIcon label="Decision" size="large" />
+			<DecisionIcon label="Decision" spacing="spacious" color="currentColor" LEGACY_size="large" />
 		</span>
 	);
 

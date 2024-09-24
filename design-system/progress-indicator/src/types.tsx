@@ -9,11 +9,15 @@ export interface ProgressDotsProps {
 	appearance?: DotsAppearance;
 	/**
 	 * If interaction is enabled, use `ariaControls` to tell assistive technology what elements are controlled by the progress indicator.
+	 *
+	 * @default 'panel'
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	ariaControls?: string;
 	/**
 	 * Describes what the indicator represents to assistive technology. The selected index number will be appended to the label.
+	 *
+	 * @default 'tab'
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	ariaLabel?: string;

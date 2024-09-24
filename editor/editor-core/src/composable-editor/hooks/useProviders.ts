@@ -87,7 +87,7 @@ export const useProviders = ({
 	}, [emojiProvider, editorApi]);
 
 	useEffect(() => {
-		if (fg('platform_editor_autoformatting_provider_from_plugin_config')) {
+		if (fg('platform_editor_af_provider_from_plugin_config')) {
 			if (autoformattingProvider) {
 				editorApi?.customAutoformat?.actions.setProvider(autoformattingProvider);
 			}

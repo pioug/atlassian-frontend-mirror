@@ -101,7 +101,7 @@ export const createPMPlugin = (
 				});
 			};
 
-			if (fg('platform_editor_autoformatting_provider_from_plugin_config')) {
+			if (fg('platform_editor_af_provider_from_plugin_config')) {
 				if (options?.autoformattingProvider) {
 					handleProvider('autoformattingProvider', options.autoformattingProvider);
 				}
@@ -122,7 +122,7 @@ export const createPMPlugin = (
 					}
 				},
 				destroy() {
-					if (!fg('platform_editor_autoformatting_provider_from_plugin_config')) {
+					if (!fg('platform_editor_af_provider_from_plugin_config')) {
 						providerFactory.unsubscribe('autoformattingProvider', handleProvider);
 					}
 				},
@@ -140,7 +140,7 @@ export const setProvider = (provider?: AutoformattingProvider) => (tr: Transacti
 export const customAutoformatPlugin: CustomAutoformatPlugin = ({ api, config: options }) => {
 	let previousProvider: AutoformattingProvider | undefined;
 
-	if (fg('platform_editor_autoformatting_provider_from_plugin_config')) {
+	if (fg('platform_editor_af_provider_from_plugin_config')) {
 		if (options?.autoformattingProvider) {
 			options.autoformattingProvider.then((provider) => {
 				api?.core.actions.execute(({ tr }) => setProvider(provider)(tr));

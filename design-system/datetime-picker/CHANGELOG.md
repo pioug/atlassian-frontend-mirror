@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 14.1.2
+
+### Patch Changes
+
+- [`728a2eb75d298`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/728a2eb75d298) -
+  Fix bug in handling controlled values.
+
 ## 14.1.1
 
 ### Patch Changes

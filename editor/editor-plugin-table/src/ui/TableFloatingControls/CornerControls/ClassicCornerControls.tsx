@@ -7,6 +7,7 @@ import { injectIntl } from 'react-intl-next';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, isTableSelected, selectTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clearHoverSelection, hoverTable } from '../../../commands';
 import { TableCssClassName as ClassName } from '../../../types';
@@ -36,7 +37,13 @@ class CornerControlComponent extends Component<CornerControlProps & WrappedCompo
 				})}
 				style={{
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-					top: this.props.stickyTop !== undefined ? `${this.props.stickyTop}px` : undefined,
+					top: fg('platform_editor_breakout_use_css')
+						? this.props.stickyTop !== undefined
+							? `0px`
+							: undefined
+						: this.props.stickyTop !== undefined
+							? `${this.props.stickyTop}px`
+							: undefined,
 				}}
 				contentEditable={false}
 			>

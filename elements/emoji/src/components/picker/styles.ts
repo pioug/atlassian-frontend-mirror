@@ -94,6 +94,7 @@ export const virtualList = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const searchIcon = css({
 	opacity: 0.5,
+	marginLeft: token('space.negative.025', '-2px'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

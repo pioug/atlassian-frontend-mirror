@@ -49,11 +49,7 @@ export default function handleProviders(
 	providerFactory.setProvider('presenceProvider', presenceProvider);
 	providerFactory.setProvider('macroProvider', macroProvider);
 
-	if (!fg('platform_editor_card_provider_from_plugin_config')) {
-		providerFactory.setProvider('cardProvider', cardProvider);
-	}
-
-	if (!fg('platform_editor_autoformatting_provider_from_plugin_config')) {
+	if (!fg('platform_editor_af_provider_from_plugin_config')) {
 		providerFactory.setProvider('autoformattingProvider', autoformattingProvider);
 	}
 

@@ -30,7 +30,7 @@
 		"@atlaskit/adf-utils": "^19.8.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/avatar": "^21.15.0",
-		"@atlaskit/button": "^20.1.0",
+		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/checkbox": "^14.0.0",
 		"@atlaskit/datetime-picker": "^14.1.0",
 		"@atlaskit/editor-common": "^91.0.0",

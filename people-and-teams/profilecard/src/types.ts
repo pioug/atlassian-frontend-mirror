@@ -5,7 +5,10 @@ import { type IntlShape } from 'react-intl-next';
 import { type AnalyticsEventPayload, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import type RovoAgentCardClient from './client/RovoAgentCardClient';
-import type TeamCentralCardClient from './client/TeamCentralCardClient';
+import {
+	type default as TeamCentralCardClient,
+	type TeamCentralCardClientOptions,
+} from './client/TeamCentralCardClient';
 import type TeamProfileCardClient from './client/TeamProfileCardClient';
 import type UserProfileCardClient from './client/UserProfileCardClient';
 
@@ -543,7 +546,7 @@ export type TeamProfileCardErrorType = {
 	reason: 'default' | 'NotFound' | 'TEAMS_FORBIDDEN';
 } | null;
 
-export interface ProfileClientOptions {
+export interface ProfileClientOptions extends TeamCentralCardClientOptions {
 	/**
 	 * pf-directory url
 	 * When we clean up CloudUser migration FF, we should remove this prop
@@ -556,10 +559,6 @@ export interface ProfileClientOptions {
 	gatewayGraphqlUrl?: string;
 	cacheSize?: number;
 	cacheMaxAge?: number;
-	/** Enables Team Central functionality if enabled e.g. /gateway/api/watermelon/graphql*/
-	teamCentralUrl?: string;
-	/** URL to the Team Central app e.g. team.atlassian.com */
-	teamCentralBaseUrl?: string;
 	/** Name of integrating product e.g. jira, atlas, confluence **/
 	productIdentifier?: string;
 	cloudId?: string;

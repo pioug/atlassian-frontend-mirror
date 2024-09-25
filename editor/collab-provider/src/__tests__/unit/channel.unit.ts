@@ -628,40 +628,6 @@ describe('Channel unit tests', () => {
 		} as any);
 	});
 
-	it('should send x-token when making catchup call if tokenRefresh exist', async () => {
-		const permissionTokenRefresh = jest.fn().mockResolvedValue(Promise.resolve('new-token'));
-		const configuration = {
-			...testChannelConfig,
-			permissionTokenRefresh,
-		};
-		const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({
-			doc: 'doc',
-			version: 1,
-			stepMaps: 'step-map',
-			metadata: 'meta',
-		});
-
-		const channel = getChannel(configuration);
-		await channel.fetchCatchup(1, 'some-random-prosemirror-client-Id');
-
-		expect(permissionTokenRefresh).toBeCalledTimes(2);
-		expect(spy).toHaveBeenCalledTimes(1);
-		expect(spy).toHaveBeenCalledWith(expect.anything(), {
-			path: 'document/ari%3Acloud%3Aconfluence%3Aa436116f-02ce-4520-8fbb-7301462a1674%3Apage%2F1731046230/catchup',
-			queryParams: {
-				version: 1,
-				clientId: 'some-random-prosemirror-client-Id',
-			},
-			requestInit: {
-				headers: {
-					'x-token': 'new-token',
-					'x-product': 'unknown',
-					'x-subproduct': 'unknown',
-				},
-			},
-		});
-	});
-
 	it('should send x-token when making catchupv2 call if tokenRefresh exist', async () => {
 		const permissionTokenRefresh = jest.fn().mockResolvedValue(Promise.resolve('new-token'));
 		const configuration = {
@@ -756,38 +722,6 @@ describe('Channel unit tests', () => {
 			channel.getSocket()?.close();
 			channel.getSocket()?.connect();
 		}, 2000);
-
-		it('Gets new token on fetchCatchup and passes it as x-token header if token not cached', async () => {
-			const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({
-				doc: 'doc',
-				version: 1,
-				stepMaps: 'step-map',
-				metadata: 'meta',
-			});
-
-			//force token to be unset
-			channel.getSocket()!.emit('permission:invalidateToken', { reason: 'test' });
-			expect(channel.getToken()).toBeUndefined();
-
-			//using differet return to identify new token
-			permissionTokenRefresh.mockResolvedValue('brand-new-token');
-
-			await channel.fetchCatchup(1, 'some-random-prosemirror-client-Id');
-			//making sure permissionTokenRefresh is called a second time in fetchCatchup
-			expect(permissionTokenRefresh).toBeCalledTimes(2);
-			expect(spy).toBeCalledWith(
-				expect.anything(),
-				expect.objectContaining({
-					requestInit: {
-						headers: {
-							'x-token': 'brand-new-token',
-							'x-product': 'unknown',
-							'x-subproduct': 'unknown',
-						},
-					},
-				}),
-			);
-		});
 
 		it('Gets new token on fetchCatchupv2 and passes it as x-token header if token not cached', async () => {
 			const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({
@@ -946,34 +880,6 @@ describe('Channel unit tests', () => {
 			);
 		});
 
-		it('should send the product headers along with the catch-up request', async () => {
-			const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({});
-			const configuration = {
-				...testChannelConfig,
-				productInfo: {
-					product: 'embeddedConfluence',
-					subProduct: 'JSM',
-				},
-			};
-			const channel = getChannel(configuration);
-			await channel.fetchCatchup(1, 'some-random-prosemirror-client-Id');
-
-			expect(spy).toHaveBeenCalledTimes(1);
-			expect(spy).toHaveBeenCalledWith(expect.any(Object), {
-				path: 'document/ari%3Acloud%3Aconfluence%3Aa436116f-02ce-4520-8fbb-7301462a1674%3Apage%2F1731046230/catchup',
-				queryParams: {
-					version: 1,
-					clientId: 'some-random-prosemirror-client-Id',
-				},
-				requestInit: {
-					headers: {
-						'x-product': 'embeddedConfluence',
-						'x-subproduct': 'JSM',
-					},
-				},
-			});
-		});
-
 		it('should send the product headers along with the catchupv2 request', async () => {
 			const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({});
 			const configuration = {
@@ -1021,7 +927,7 @@ describe('Channel unit tests', () => {
 			}
 		});
 		channel
-			.fetchCatchup(1, 'some-random-prosemirror-client-Id')
+			.fetchCatchupv2(1, 'some-random-prosemirror-client-Id', undefined)
 			.then((data) => expect(data).toEqual({}));
 	});
 

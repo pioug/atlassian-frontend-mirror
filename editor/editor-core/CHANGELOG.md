@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 197.11.0
+
+### Minor Changes
+
+- [#145026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145026)
+  [`98399b2cfafdc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98399b2cfafdc) -
+  Remove references to showActions and showServerActions
+
+## 197.10.3
+
+### Patch Changes
+
+- [#144122](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144122)
+  [`5edb8d0467311`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5edb8d0467311) -
+  fix layout shift issue on first block node on SSR
+- Updated dependencies
+
+## 197.10.2
+
+### Patch Changes
+
+- [#144162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144162)
+  [`2b2233eed311a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b2233eed311a) -
+  ED-24858: fixes layout shifts for tables under SSR
+
 ## 197.10.1
 
 ### Patch Changes

@@ -218,7 +218,6 @@ const editorProps: EditorProps = {
 			],
 			allowBlockCards: true,
 			allowEmbeds: true,
-			showServerActions: true,
 			allowDatasource: true,
 		},
 		linkPicker: {

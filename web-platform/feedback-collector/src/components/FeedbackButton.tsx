@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import { FlagGroup } from '@atlaskit/flag';
-import FeedbackIcon from '@atlaskit/icon/glyph/feedback';
+import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
 
 import { messages } from '../messages';
 
@@ -32,7 +32,9 @@ const FeedbackButton = (props: Props) => {
 		<>
 			<Button
 				onClick={() => setIsOpen(true)}
-				iconBefore={(iconProps) => <FeedbackIcon {...iconProps} size="small" />}
+				iconBefore={(iconProps) => (
+					<FeedbackIcon LEGACY_size="small" color="currentColor" {...iconProps} />
+				)}
 			>
 				{formatMessage(messages.giveFeedback)}
 			</Button>

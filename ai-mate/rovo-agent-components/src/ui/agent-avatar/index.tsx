@@ -47,6 +47,8 @@ type AgentAvatarProps = {
 	agentIdentityAccountId?: string | null | undefined;
 	agentNamedId?: string;
 	agentId?: string;
+	isForgeAgent?: boolean;
+	forgeAgentIconUrl?: string | null;
 };
 
 export const AgentAvatar = ({
@@ -58,7 +60,10 @@ export const AgentAvatar = ({
 	agentIdentityAccountId,
 	agentNamedId,
 	showBorder = true,
+	isForgeAgent,
+	forgeAgentIconUrl,
 }: AgentAvatarProps) => {
+	const imgUrl = isForgeAgent && forgeAgentIconUrl ? forgeAgentIconUrl : imageUrl;
 	return (
 		<Box
 			aria-label={label}
@@ -74,8 +79,8 @@ export const AgentAvatar = ({
 		>
 			<Box xcss={innerShapeStyles}>
 				<Box xcss={avatarContentContainer}>
-					{imageUrl ? (
-						<Box as="img" xcss={imageStyles} src={imageUrl} alt={name} />
+					{imgUrl ? (
+						<Box as="img" xcss={imageStyles} src={imgUrl} alt={name} />
 					) : (
 						<GeneratedAvatar
 							agentId={agentId}

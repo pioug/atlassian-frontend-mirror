@@ -12,7 +12,6 @@ export const createMockService = (config: Partial<Config> = {}) => {
 		emitTelepointersFromSteps: jest.fn(),
 	} as unknown as ParticipantsService;
 
-	const fetchCatchupMock = jest.fn();
 	const fetchCatchupv2Mock = jest.fn();
 	const fetchReconcileMock = jest.fn();
 	const providerEmitCallbackMock = jest.fn();
@@ -28,7 +27,6 @@ export const createMockService = (config: Partial<Config> = {}) => {
 		participantsServiceMock,
 		// @ts-expect-error - mock class
 		new AnalyticsHelper(),
-		fetchCatchupMock,
 		fetchCatchupv2Mock,
 		fetchReconcileMock,
 		providerEmitCallbackMock,
@@ -50,7 +48,6 @@ export const createMockService = (config: Partial<Config> = {}) => {
 		service,
 		analyticsHelperMock,
 		participantsServiceMock,
-		fetchCatchupMock,
 		fetchCatchupv2Mock,
 		fetchReconcileMock,
 		providerEmitCallbackMock,

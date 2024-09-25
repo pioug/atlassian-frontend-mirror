@@ -5,6 +5,11 @@ export interface AISummaryServiceInt {
 	state: AISummaryState;
 	subscribe: (stateSetter: StateSetter) => () => void;
 }
+export class ChunkProcessingError extends Error {
+	constructor(error: any) {
+		super(error);
+	}
+}
 
 export type AISummaryServiceProps = {
 	baseUrl?: string;
@@ -63,7 +68,7 @@ export type ErrorMessage = (typeof errorMessages)[number];
 export type AISummaryState = {
 	content: string;
 	status: AISummaryStatus;
-	error?: ErrorMessage;
+	error?: string;
 };
 
 export type StateSetter = (state: AISummaryState) => any;

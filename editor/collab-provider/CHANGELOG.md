@@ -1,5 +1,21 @@
 # @atlaskit/collab-provider
 
+## 9.41.1
+
+### Patch Changes
+
+- [#144942](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144942)
+  [`9f19a184c951d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f19a184c951d) -
+  Removing stale code for catchup v1
+
+## 9.41.0
+
+### Minor Changes
+
+- [#144504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144504)
+  [`b193c17f3732d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b193c17f3732d) -
+  Expose method to get ProseMirror version to collab provider
+
 ## 9.40.6
 
 ### Patch Changes

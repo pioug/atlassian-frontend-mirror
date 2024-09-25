@@ -73,7 +73,6 @@ export const createPlugin =
 			useAlternativePreloader,
 			fullWidthMode,
 			actionOptions,
-			showServerActions,
 			cardPluginEvents,
 			showUpgradeDiscoverability,
 			allowEmbeds,
@@ -91,7 +90,6 @@ export const createPlugin =
 			extraComponentProps: {
 				useAlternativePreloader,
 				actionOptions,
-				showServerActions,
 				enableInlineUpgradeFeatures,
 				allowEmbeds,
 				allowBlockCards,
@@ -315,7 +313,6 @@ export const createPlugin =
 					blockCard: lazyBlockCardView({
 						pmPluginFactoryParams,
 						actionOptions,
-						showServerActions,
 						pluginInjectionApi,
 						onClickCallback,
 						allowDatasource: options.allowDatasource,
@@ -327,7 +324,6 @@ export const createPlugin =
 						pmPluginFactoryParams,
 						pluginInjectionApi,
 						actionOptions,
-						showServerActions,
 						onClickCallback: options.onClickCallback,
 					}),
 				},

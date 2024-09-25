@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 91.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 91.0.3
+
+### Patch Changes
+
+- [#144261](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144261)
+  [`db163b6e55bdb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db163b6e55bdb) -
+  [ux] ED-24773 implement request to edit link in request to edit dialog
+- Updated dependencies
+
+## 91.0.2
+
+### Patch Changes
+
+- [#144162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144162)
+  [`89ef180d8e16e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89ef180d8e16e) -
+  [ux] ED-24772 add popup content for create request to edit component
+- [#144162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144162)
+  [`2b2233eed311a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b2233eed311a) -
+  ED-24858: fixes layout shifts for tables under SSR
+
 ## 91.0.1
 
 ### Patch Changes

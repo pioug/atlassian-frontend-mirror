@@ -40,7 +40,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/button": "^20.1.0",
+		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/ds-lib": "^2.6.0",
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/modal-dialog": "^12.16.0",

@@ -93,15 +93,6 @@ describe('Renderer - React/Nodes/BlockCard', () => {
 		expect(node.find(Card).prop('onClick')).toBeUndefined();
 	});
 
-	it('should render with showServerActions if defined in smartLinks options', () => {
-		node = mount(
-			<Provider client={new Client('staging')}>
-				<BlockCard url={url} smartLinks={{ showServerActions: true }} />
-			</Provider>,
-		);
-		expect(node.find(Card).prop('showServerActions')).toEqual(true);
-	});
-
 	describe('rendering a datasource', () => {
 		const datasourceAttributeProperties: DatasourceAttributeProperties = {
 			id: 'mock-datasource-id',
@@ -125,11 +116,7 @@ describe('Renderer - React/Nodes/BlockCard', () => {
 		it('should render a DatasourceTableView if datasource is provided with JQL and a table view', () => {
 			node = mount(
 				<Provider client={new Client('staging')}>
-					<BlockCard
-						url={url}
-						datasource={datasourceAttributeProperties}
-						smartLinks={{ showServerActions: true }}
-					/>
+					<BlockCard url={url} datasource={datasourceAttributeProperties} />
 				</Provider>,
 			);
 			expect(node.find(Card).length).toBe(0);
@@ -173,11 +160,7 @@ describe('Renderer - React/Nodes/BlockCard', () => {
 			node = mount(
 				<Provider client={new Client('staging')}>
 					<IntlProvider locale="en">
-						<BlockCard
-							url={url}
-							datasource={datasourceAttributePropertiesNoCustomSizes}
-							smartLinks={{ showServerActions: true }}
-						/>
+						<BlockCard url={url} datasource={datasourceAttributePropertiesNoCustomSizes} />
 					</IntlProvider>
 				</Provider>,
 			);
@@ -196,7 +179,6 @@ describe('Renderer - React/Nodes/BlockCard', () => {
 						<BlockCard
 							url={url}
 							datasource={datasourceAttributeProperties}
-							smartLinks={{ showServerActions: true }}
 							layout="full-width"
 							isNodeNested={true}
 						/>
@@ -214,12 +196,7 @@ describe('Renderer - React/Nodes/BlockCard', () => {
 				<Provider client={new Client('staging')}>
 					<IntlProvider locale="en">
 						<WidthContext.Provider value={{ width: 500, breakpoint: 'S' }}>
-							<BlockCard
-								url={url}
-								datasource={datasourceAttributeProperties}
-								smartLinks={{ showServerActions: true }}
-								layout="full-width"
-							/>
+							<BlockCard url={url} datasource={datasourceAttributeProperties} layout="full-width" />
 						</WidthContext.Provider>
 					</IntlProvider>
 				</Provider>,
@@ -244,11 +221,7 @@ describe('Renderer - React/Nodes/BlockCard', () => {
 			node = mount(
 				<Provider client={new Client('staging')}>
 					<IntlProvider locale="en">
-						<BlockCard
-							url={url}
-							datasource={notRenderableDatasource}
-							smartLinks={{ showServerActions: true }}
-						/>
+						<BlockCard url={url} datasource={notRenderableDatasource} />
 					</IntlProvider>
 				</Provider>,
 			);
@@ -266,11 +239,7 @@ describe('Renderer - React/Nodes/BlockCard', () => {
 			node = mount(
 				<Provider client={new Client('staging')}>
 					<IntlProvider locale="en">
-						<BlockCard
-							url={url}
-							datasource={datasourceAttributePropertiesWithRealJiraId}
-							smartLinks={{ showServerActions: true }}
-						/>
+						<BlockCard url={url} datasource={datasourceAttributePropertiesWithRealJiraId} />
 					</IntlProvider>
 				</Provider>,
 			);

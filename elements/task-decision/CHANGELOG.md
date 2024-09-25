@@ -1,5 +1,13 @@
 # @atlaskit/task-decision
 
+## 17.11.1
+
+### Patch Changes
+
+- [#144162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144162)
+  [`89ef180d8e16e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89ef180d8e16e) -
+  [ux] ED-24772 add popup content for create request to edit component
+
 ## 17.11.0
 
 ### Minor Changes

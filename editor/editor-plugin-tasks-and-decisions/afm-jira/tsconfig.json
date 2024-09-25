@@ -33,7 +33,13 @@
       "path": "../../editor-plugin-context-identifier/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../editor-plugin-editor-viewmode/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../editor-plugin-type-ahead/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/heading/afm-jira/tsconfig.json"
     },
     {
       "path": "../../../design-system/icon/afm-jira/tsconfig.json"
@@ -43,6 +49,9 @@
     },
     {
       "path": "../../../design-system/popup/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
     },
     {
       "path": "../../input-rules/afm-jira/tsconfig.json"

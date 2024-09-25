@@ -15,9 +15,11 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import Heading from '@atlaskit/heading';
+import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { Box, Pressable, Stack, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import type { TasksAndDecisionsPlugin } from '../types';
 import TaskItem from '../ui/Task';
@@ -55,6 +57,7 @@ const wrapperStyles = xcss({
 const wrapperBoxStyles = xcss({
 	display: 'flex',
 	gap: 'space.050',
+	color: 'color.text.disabled',
 });
 
 const dotStyles = xcss({
@@ -77,7 +80,29 @@ const pressableStyles = xcss({
 		color: 'color.text.information',
 	},
 	padding: 'space.0',
+	fontSize: '14px',
 });
+
+const RequestedMessage = () => {
+	const { formatMessage } = useIntl();
+	return (
+		<>
+			{formatMessage(tasksAndDecisionsMessages.requestToEdit)}
+			<EditorDoneIcon label="requested-to-edit" primaryColor={token('color.icon.disabled')} />
+		</>
+	);
+};
+
+const RequestToEditButton = ({ onClick }: { onClick?: () => void }) => {
+	const { formatMessage } = useIntl();
+	return (
+		<Box>
+			<Pressable onClick={onClick} xcss={pressableStyles}>
+				{formatMessage(tasksAndDecisionsMessages.requestToEdit)}
+			</Pressable>
+		</Box>
+	);
+};
 
 const TaskItemWrapper = ({
 	localId,
@@ -93,6 +118,7 @@ const TaskItemWrapper = ({
 	const { taskDecisionState } = useSharedPluginState(api, ['taskDecision']);
 	const isFocused = Boolean(taskDecisionState?.focusedTaskItemLocalId === localId);
 	const [isOpen, setIsOpen] = useState(false);
+	const [requested, setRequested] = useState(false);
 	const { formatMessage } = useIntl();
 
 	const showPlaceholder = useShowPlaceholder({
@@ -102,9 +128,9 @@ const TaskItemWrapper = ({
 		api,
 	});
 
-	const onHandleClick = () => {
+	const onHandleEdit = () => {
 		if (fg('editor_request_to_edit_task')) {
-			setIsOpen(true);
+			setRequested(true);
 			const { tr } = editorView.state;
 			const nodePos = (getPos as getPosHandlerNode)();
 
@@ -113,13 +139,6 @@ const TaskItemWrapper = ({
 			}
 			tr.setMeta('scrollIntoView', false);
 
-			/**
-			 * This is a test implementation to call the request to edit mutation
-			 * from within editor when toggling a task where a user has no edit access.
-			 *
-			 * This will eventially be handled by https://product-fabric.atlassian.net/browse/ED-24773
-			 * to connect up the correct user action
-			 */
 			if (!api?.taskDecision?.sharedState.currentState()?.hasEditPermission) {
 				const requestToEdit = api?.taskDecision?.sharedState.currentState()?.requestToEditContent;
 				if (requestToEdit) {
@@ -128,6 +147,12 @@ const TaskItemWrapper = ({
 			}
 
 			editorView.dispatch(tr);
+		}
+	};
+
+	const onHandleClick = () => {
+		if (fg('editor_request_to_edit_task')) {
+			setIsOpen(true);
 		}
 	};
 
@@ -157,11 +182,17 @@ const TaskItemWrapper = ({
 						</Heading>
 						<div>{formatMessage(tasksAndDecisionsMessages.requestToEditDescription)}</div>
 						<Box xcss={wrapperBoxStyles}>
-							<Box>
-								<Pressable xcss={pressableStyles}>
-									{formatMessage(tasksAndDecisionsMessages.requestToEdit)}
-								</Pressable>
-							</Box>
+							{requested ? (
+								<RequestedMessage />
+							) : (
+								<RequestToEditButton
+									onClick={
+										api?.editorViewMode?.sharedState.currentState()?.mode === 'view'
+											? onHandleEdit
+											: undefined
+									}
+								/>
+							)}
 							<Box xcss={dotStyles}></Box>
 							<Box>
 								<Pressable onClick={() => setIsOpen(false)} xcss={pressableStyles}>
@@ -180,17 +211,11 @@ const TaskItemWrapper = ({
 						inputRef={triggerProps.ref}
 						isDone={isDone}
 						onChange={onChange}
-						onClick={
-							api?.editorViewMode?.sharedState.currentState()?.mode === 'view'
-								? onHandleClick
-								: undefined
-						}
+						onClick={onHandleClick}
 						isFocused={isFocused}
 						showPlaceholder={showPlaceholder}
 						providers={providerFactory}
-						disableOnChange={
-							!api?.taskDecision?.sharedState.currentState()?.hasEditPermission && true
-						}
+						disableOnChange={!api?.taskDecision?.sharedState.currentState()?.hasEditPermission}
 					/>
 				);
 			}}

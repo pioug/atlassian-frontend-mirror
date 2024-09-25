@@ -3,13 +3,7 @@ import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/trans
 import type AnalyticsHelper from '../analytics/analytics-helper';
 import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const';
 import type { MetadataService } from '../metadata/metadata-service';
-import type {
-	CatchupResponse,
-	Catchupv2Response,
-	ChannelEvent,
-	ReconcileResponse,
-	StepsPayload,
-} from '../types';
+import type { Catchupv2Response, ChannelEvent, ReconcileResponse, StepsPayload } from '../types';
 
 import type { CollabEvents, CollabInitPayload, StepJson } from '@atlaskit/editor-common/collab';
 import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
@@ -27,7 +21,6 @@ import { createLogger, getStepUGCFreeDetails, sleep } from '../helpers/utils';
 import type { ParticipantsService } from '../participants/participants-service';
 import { MAX_STEP_REJECTED_ERROR, MAX_STEP_REJECTED_ERROR_AGGRESSIVE } from '../provider';
 import { commitStepQueue } from '../provider/commit-step';
-import { catchup } from './catchup';
 import { catchupv2 } from './catchupv2';
 import { StepQueueState } from './step-queue-state';
 import { CantSyncUpError, UpdateDocumentError } from '../errors/custom-errors';
@@ -57,7 +50,6 @@ export class DocumentService implements DocumentServiceInterface {
 	 * @param participantsService - The participants service, used when users are detected active when making changes to the document
 	 * and to emit their telepointers from steps they add
 	 * @param analyticsHelper - Helper for analytics events
-	 * @param fetchCatchup - StepMap based - Function to fetch "catchup" data, data required to rebase current steps to the latest version.
 	 * @param fetchCatchupv2 - Step based - Function to fetch "catchupv2" data, data required to rebase current steps to the latest version.
 	 * @param fetchReconcile - Function to call "reconcile" from NCS backend
 	 * @param providerEmitCallback - Callback for emitting events to listeners on the provider
@@ -70,10 +62,6 @@ export class DocumentService implements DocumentServiceInterface {
 	constructor(
 		private participantsService: ParticipantsService,
 		private analyticsHelper: AnalyticsHelper | undefined,
-		private fetchCatchup: (
-			fromVersion: number,
-			clientId: number | string | undefined,
-		) => Promise<CatchupResponse>,
 		private fetchCatchupv2: (
 			fromVersion: number,
 			clientId: number | string | undefined,
@@ -96,56 +84,6 @@ export class DocumentService implements DocumentServiceInterface {
 		this.stepQueue = new StepQueueState();
 		this.onErrorHandled = onErrorHandled;
 	}
-
-	/**
-	 * To prevent calling catchup to often, use lodash throttle to reduce the frequency
-	 */
-	throttledCatchup = throttle(() => this.catchup(), CATCHUP_THROTTLE, {
-		leading: false, // TODO: why shouldn't this be leading?
-		trailing: true,
-	});
-
-	/**
-	 * Called when:
-	 *   * session established(offline -> online)
-	 *   * try to accept steps but version is behind.
-	 */
-	private catchup = async () => {
-		const start = new Date().getTime();
-		// if the queue is already paused, we are busy with something else, so don't proceed.
-		if (this.stepQueue.isPaused()) {
-			logger(`Queue is paused. Aborting.`);
-			return;
-		}
-		this.stepQueue.pauseQueue();
-		try {
-			await catchup({
-				getCurrentPmVersion: this.getCurrentPmVersion,
-				fetchCatchup: this.fetchCatchup,
-				getUnconfirmedSteps: this.getUnconfirmedSteps,
-				filterQueue: this.stepQueue.filterQueue,
-				applyLocalSteps: this.applyLocalSteps,
-				updateDocument: this.updateDocument,
-				updateMetadata: this.metadataService.updateMetadata,
-				analyticsHelper: this.analyticsHelper,
-				clientId: this.clientId,
-			});
-			const latency = new Date().getTime() - start;
-			this.analyticsHelper?.sendActionEvent(EVENT_ACTION.CATCHUP, EVENT_STATUS.SUCCESS, {
-				latency,
-			});
-		} catch (error) {
-			const latency = new Date().getTime() - start;
-			this.analyticsHelper?.sendActionEvent(EVENT_ACTION.CATCHUP, EVENT_STATUS.FAILURE, {
-				latency,
-			});
-		} finally {
-			this.stepQueue.resumeQueue();
-			this.processQueue();
-			this.sendStepsFromCurrentState(); // this will eventually retry catchup as it calls commitStepQueue which will either catchup on onStepsAdded or onErrorHandled
-			this.stepRejectCounter = 0;
-		}
-	};
 
 	/**
 	 * To prevent calling catchup to often, use lodash throttle to reduce the frequency

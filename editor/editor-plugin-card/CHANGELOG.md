@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-card
 
+## 3.2.0
+
+### Minor Changes
+
+- [#145026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145026)
+  [`98399b2cfafdc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98399b2cfafdc) -
+  Remove references to showActions and showServerActions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.0
 
 ### Minor Changes

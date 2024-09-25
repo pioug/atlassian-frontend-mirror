@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { Field, Fieldset, RequiredAsterisk } from '@atlaskit/form';
-import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import EditorCloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
 import Link from '@atlaskit/link';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -181,8 +181,9 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 								appearance={'subtle'}
 							>
 								<EditorCloseIcon
+									spacing="spacious"
 									label="Close Modal"
-									primaryColor={token('color.text.subtle', N500)}
+									color={token('color.text.subtle', N500)}
 								/>
 							</Button>
 						</ModalHeader>

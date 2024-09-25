@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 7.28.0
+
+### Minor Changes
+
+- [#144162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144162)
+  [`2b2233eed311a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b2233eed311a) -
+  ED-24858: fixes layout shifts for tables under SSR
+
 ## 7.27.2
 
 ### Patch Changes

@@ -3,7 +3,7 @@ import React, { type FunctionComponent } from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { AutoDismissFlag } from '@atlaskit/flag';
-import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
 import { G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -21,7 +21,9 @@ const FeedbackFlag = ({ description, title }: AkProps) => {
 	const { formatMessage } = useIntl();
 	return (
 		<AutoDismissFlag
-			icon={<SuccessIcon primaryColor={token('color.icon.success', G300)} label="Success" />}
+			icon={
+				<SuccessIcon spacing="spacious" color={token('color.icon.success', G300)} label="Success" />
+			}
 			id="feedbackSent"
 			description={description || formatMessage(messages.feedbackSuccessFlagDescription)}
 			title={title || formatMessage(messages.feedbackSuccessFlagTitle)}

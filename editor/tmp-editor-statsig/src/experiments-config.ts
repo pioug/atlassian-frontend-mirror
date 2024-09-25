@@ -205,4 +205,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2024-09-24
+	platform_editor_ai_command_palette_post_ga: {
+		productKeys: {
+			confluence: 'platform_editor_ai_command_palette_post_ga',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'test']),
+		defaultValue: 'control' as 'control' | 'test',
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

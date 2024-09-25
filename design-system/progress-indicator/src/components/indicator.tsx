@@ -18,9 +18,9 @@ const colorMap = {
 		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
 	}),
 	inverted: xcss({
-		// @ts-expect-error
-		backgroundColor: token('color.icon.subtle'),
-		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
+		// @ts-ignore
+		backgroundColor: token('color.background.neutral.subtle'),
+		border: `${token('border.width', '1px')} solid ${token('color.border.inverse')}`,
 	}),
 	primary: xcss({
 		backgroundColor: 'elevation.surface',

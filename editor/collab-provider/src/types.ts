@@ -6,7 +6,6 @@ import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { GetUserType } from './participants/participants-helper';
 import type AnalyticsHelper from './analytics/analytics-helper';
 import type {
-	CollabInitPayload,
 	StepJson,
 	CollabSendableSelection,
 	Metadata,
@@ -271,13 +270,6 @@ export type ChannelEvent = {
 	status: NamespaceStatus;
 };
 
-export interface CatchupResponse {
-	doc?: string;
-	version?: number;
-	stepMaps?: any[];
-	metadata?: Metadata;
-}
-
 export interface Catchupv2Response {
 	steps?: Step[];
 	metadata?: Metadata;
@@ -288,22 +280,6 @@ export interface ReconcileResponse {
 	version: number;
 	ari?: string;
 	metadata?: Metadata;
-}
-
-// Catchup
-export interface CatchupOptions {
-	getCurrentPmVersion: () => number;
-	fetchCatchup: (
-		fromVersion: number,
-		clientId: number | string | undefined,
-	) => Promise<CatchupResponse>;
-	filterQueue: (condition: (stepsPayload: StepsPayload) => boolean) => void;
-	getUnconfirmedSteps: () => readonly Step[] | undefined;
-	applyLocalSteps: (steps: Step[]) => void;
-	updateDocument: ({ doc, version, metadata, reserveCursor }: CollabInitPayload) => void;
-	updateMetadata: (metadata: Metadata | undefined) => void;
-	analyticsHelper: AnalyticsHelper | undefined;
-	clientId: number | string | undefined;
 }
 
 // CatchupV2

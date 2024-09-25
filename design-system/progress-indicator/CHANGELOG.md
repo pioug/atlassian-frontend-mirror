@@ -1,5 +1,13 @@
 # @atlaskit/progress-indicator
 
+## 11.0.3
+
+### Patch Changes
+
+- [#144637](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144637)
+  [`0878427e3e316`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0878427e3e316) -
+  [ux] Update border for inverted appearance
+
 ## 11.0.2
 
 ### Patch Changes

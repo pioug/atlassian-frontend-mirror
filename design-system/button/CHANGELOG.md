@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 20.2.0
+
+### Minor Changes
+
+- [#113952](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113952)
+  [`2071254d3ad65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2071254d3ad65) -
+  IconButton now passes through the tooltip ignoreTooltipPointerEvents override prop
+
 ## 20.1.2
 
 ### Patch Changes

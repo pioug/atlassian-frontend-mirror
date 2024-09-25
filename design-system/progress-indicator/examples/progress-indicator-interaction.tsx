@@ -1,7 +1,15 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { type ReactNode, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
+import Lorem from 'react-lorem-component';
+
 import Button from '@atlaskit/button/new';
-import { Box, Inline } from '@atlaskit/primitives';
+import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 
 import { ProgressIndicator } from '../src';
 
@@ -13,22 +21,17 @@ const SpreadInlineLayout = ({ children }: { children: ReactNode }) => {
 	);
 };
 
-interface ExampleProps {
-	selectedIndex: number;
-	values: string[];
-}
+const displayBlockStyles = xcss({ display: 'block' });
+const displayNoneStyles = xcss({ display: 'none' });
 
-const Example = ({ values = ['one', 'two', 'three'] }: ExampleProps) => {
+const pageStyles = xcss({
+	maxWidth: '840px',
+	marginInline: 'auto',
+});
+
+const Example = () => {
 	const [selectedIndex, setSelectedIndex] = useState(0);
-
-	const handleSelect = ({
-		index: selectedIndex,
-	}: {
-		event: React.MouseEvent<HTMLButtonElement>;
-		index: number;
-	}): void => {
-		setSelectedIndex(selectedIndex);
-	};
+	const values = ['first', 'second', 'third'];
 
 	const handlePrev = () => {
 		setSelectedIndex((prevState) => prevState - 1);
@@ -38,8 +41,38 @@ const Example = ({ values = ['one', 'two', 'three'] }: ExampleProps) => {
 		setSelectedIndex((prevState) => prevState + 1);
 	};
 
+	const handleSelect = ({
+		event,
+		index: selectedIndex,
+	}: {
+		event: React.MouseEvent<HTMLButtonElement>;
+		index: number;
+	}): void => {
+		setSelectedIndex(selectedIndex);
+	};
+
 	return (
-		<Box paddingInline="space.200" paddingBlock="space.200">
+		<Box xcss={pageStyles}>
+			<Box paddingBlock="space.400">
+				{values.map((v, i) => {
+					const selected = i === selectedIndex;
+					const panelId = `custom-panel${i}`;
+					return (
+						<Box
+							aria-hidden={!selected}
+							aria-labelledby={`tab${i}`}
+							key={v}
+							id={panelId}
+							role="tabpanel"
+						>
+							<Stack space="space.100" xcss={selected ? displayBlockStyles : displayNoneStyles}>
+								<Text as="strong">Panel {i + 1}</Text>
+								<Lorem count={3} />
+							</Stack>
+						</Box>
+					);
+				})}
+			</Box>
 			<SpreadInlineLayout>
 				<Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
 					Previous
@@ -48,6 +81,7 @@ const Example = ({ values = ['one', 'two', 'three'] }: ExampleProps) => {
 					onSelect={handleSelect}
 					selectedIndex={selectedIndex}
 					values={values}
+					ariaControls="custom-panel"
 					size="default"
 				/>
 				<Button isDisabled={selectedIndex === values.length - 1} onClick={handleNext}>

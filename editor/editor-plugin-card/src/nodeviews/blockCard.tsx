@@ -82,7 +82,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 	};
 
 	render() {
-		const { node, cardContext, actionOptions, showServerActions, onClick } = this.props;
+		const { node, cardContext, actionOptions, onClick } = this.props;
 		const { url, data } = node.attrs;
 
 		const cardInner = (
@@ -98,7 +98,6 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 					onError={this.onError}
 					platform={'web'}
 					actionOptions={actionOptions}
-					showServerActions={showServerActions}
 				/>
 				{this.gapCursorSpan()}
 			</>
@@ -121,7 +120,7 @@ const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlock);
 
 export type BlockCardNodeViewProps = Pick<
 	SmartCardProps,
-	'actionOptions' | 'showServerActions' | 'pluginInjectionApi' | 'onClickCallback'
+	'actionOptions' | 'pluginInjectionApi' | 'onClickCallback'
 >;
 
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
@@ -170,8 +169,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 	}
 
 	render() {
-		const { actionOptions, showServerActions, pluginInjectionApi, onClickCallback } =
-			this.reactComponentProps;
+		const { actionOptions, pluginInjectionApi, onClickCallback } = this.reactComponentProps;
 
 		return (
 			<WrappedBlockCard
@@ -179,7 +177,6 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 				view={this.view}
 				getPos={this.getPos}
 				actionOptions={actionOptions}
-				showServerActions={showServerActions}
 				pluginInjectionApi={pluginInjectionApi}
 				onClickCallback={onClickCallback}
 			/>
@@ -194,7 +191,6 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 export interface BlockCardNodeViewProperties {
 	pmPluginFactoryParams: PMPluginFactoryParams;
 	actionOptions: BlockCardNodeViewProps['actionOptions'];
-	showServerActions: BlockCardNodeViewProps['showServerActions'];
 	pluginInjectionApi: BlockCardNodeViewProps['pluginInjectionApi'];
 	onClickCallback: BlockCardNodeViewProps['onClickCallback'];
 	allowDatasource: boolean | undefined;
@@ -205,7 +201,6 @@ export const blockCardNodeView =
 	({
 		pmPluginFactoryParams,
 		actionOptions,
-		showServerActions,
 		pluginInjectionApi,
 		onClickCallback,
 		allowDatasource,
@@ -220,7 +215,6 @@ export const blockCardNodeView =
 		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
 		const reactComponentProps: BlockCardNodeViewProps = {
 			actionOptions,
-			showServerActions,
 			pluginInjectionApi,
 			onClickCallback: onClickCallback,
 		};

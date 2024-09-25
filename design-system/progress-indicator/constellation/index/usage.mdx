@@ -18,10 +18,11 @@ This component is typically accompanied by a carousel or another UI device.
 ## Accessibility
 
 - Always provide an `ariaLabel` that explains what the indicator represents. For example, "Account
-  setup". The progress number will be appended to the label.
-- If interaction is enabled, use the `ariaControls` prop to tell assistive technology what elements
-  are controlled by the progress indicator. For example, if interacting with the progress indicator
-  changes tabs, specify this with `ariaControls`.
+  setup". The progress number will be appended to the label - "tab" is the default tab ID prefix
+  value.
+- If interaction is enabled, make sure to reference the `id` of associated tabpanel using the
+  `ariaControls` prop. This way assistive technologies would identify the element whose content is
+  controlled by the progress indicator.
 - Once an interactive progress indicator is in focus, people can navigate through each step using
   the left and right arrow keys.
 

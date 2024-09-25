@@ -42,7 +42,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/blanket": "^13.3.0",
-		"@atlaskit/button": "^20.1.0",
+		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/icon": "^22.18.0",
 		"@atlaskit/layering": "^0.4.0",
 		"@atlaskit/motion": "^1.9.0",

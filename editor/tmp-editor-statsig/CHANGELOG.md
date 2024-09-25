@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.1.13
+
+### Patch Changes
+
+- [#144888](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144888)
+  [`ac1408cf343b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac1408cf343b5) -
+  [ux] EDF-1569 Removed Rovo footer from agents screen, behind
+  platform_editor_ai_command_palette_post_ga experiment. Added experiment to editor config.
+
 ## 2.1.12
 
 ### Patch Changes

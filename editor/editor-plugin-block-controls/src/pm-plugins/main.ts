@@ -110,13 +110,14 @@ const initialState: PluginState = {
 	isResizerResizing: false,
 	isDocSizeLimitEnabled: null,
 	isPMDragging: false,
-	childCount: 0,
 };
 
 export const createPlugin = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 	getIntl: () => IntlShape,
 ) => {
+	const { formatMessage } = getIntl();
+	const isNestedEnabled = editorExperiment('nested-dnd', true, { exposure: true });
 	return new SafePlugin({
 		key,
 		state: {
@@ -139,30 +140,28 @@ export const createPlugin = (
 					isResizerResizing,
 					isDragging,
 					isPMDragging,
-					childCount,
 				} = currentState;
 
-				// Remap existing decorations when document changes
+				// Remap existing decorations when steps exist
 				if (tr.docChanged) {
 					decorations = decorations.map(tr.mapping, tr.doc);
 				}
 
 				const meta = tr.getMeta(key);
 				const isPerformanceFix =
+					isNestedEnabled ||
 					editorExperiment('dnd-input-performance-optimisation', true, {
 						exposure: true,
-					}) || editorExperiment('nested-dnd', true);
+					});
 				let activeNodeWithNewNodeType = null;
 
-				const newChildCount =
-					tr.docChanged && editorExperiment('nested-dnd', true) ? 0 : childCount;
 				// If tables or media are being resized, we want to hide the drag handle
 				const resizerMeta = tr.getMeta('is-resizer-resizing');
 				isResizerResizing = resizerMeta ?? isResizerResizing;
 
 				const canIgnoreTr = () => !tr.steps.every((e: Step) => e instanceof AnalyticsStep);
 
-				const nodeCountChanged = editorExperiment('nested-dnd', true)
+				const maybeNodeCountChanged = isNestedEnabled
 					? !isTextInput(tr) && tr.docChanged && canIgnoreTr()
 					: oldState.doc.childCount !== newState.doc.childCount;
 
@@ -171,38 +170,35 @@ export const createPlugin = (
 				// During resize, remove the drag handle widget so its dom positioning doesn't need to be maintained
 				// Also remove the handle when the node is moved or the node count changes. This helps prevent incorrect positioning
 				// Don't remove the handle if remote changes are changing the node count, its prosemirror position can be mapped instead
-				if (isResizerResizing || (nodeCountChanged && shouldRemoveHandle) || meta?.nodeMoved) {
-					const oldHandle = decorations.find().filter(({ spec }) => spec.id === 'drag-handle');
+				if (isResizerResizing || (maybeNodeCountChanged && shouldRemoveHandle) || meta?.nodeMoved) {
+					const oldHandle = decorations.find(
+						undefined,
+						undefined,
+						(spec) => spec.id === 'drag-handle',
+					);
 					decorations = decorations.remove(oldHandle);
 				}
 
-				let isDecsMissing = false;
-				let isDropTargetsMissing = false;
-				// Ensure decorations stay in sync when nodes are added or removed from the doc
-				const isHandleMissing =
-					!meta?.activeNode && !decorations.find().some(({ spec }) => spec.id === 'drag-handle');
-				const decsLength = editorExperiment('nested-dnd', true)
-					? decorations.find().filter(({ spec }) => spec.type === 'node-decoration').length
+				const decsLength = isNestedEnabled
+					? decorations.find(undefined, undefined, (spec) => spec.type === 'node-decoration').length
 					: decorations.find().filter(({ spec }) => spec.id !== 'drag-handle').length;
 
-				let newNodeDecs;
-				if (editorExperiment('nested-dnd', true)) {
-					isDecsMissing = !(isDragging || meta?.isDragging) && nodeCountChanged;
+				let isDecsMissing = false;
+				let isDropTargetsMissing = false;
+
+				if (isNestedEnabled) {
+					isDecsMissing = !(isDragging || meta?.isDragging) && maybeNodeCountChanged;
 					isDropTargetsMissing =
-						(meta?.isDragging ?? isDragging) && nodeCountChanged && !meta?.nodeMoved;
+						(meta?.isDragging ?? isDragging) && maybeNodeCountChanged && !meta?.nodeMoved;
 				} else {
 					isDecsMissing =
 						!(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
-				}
+					const dropTargetLen = decorations.find(
+						undefined,
+						undefined,
+						(spec) => spec.type === 'drop-target-decoration',
+					).length;
 
-				const dropTargetLen = decorations.find(
-					undefined,
-					undefined,
-					(spec) => spec.type === 'drop-target-decoration',
-				).length;
-
-				const { formatMessage } = getIntl();
-				if (editorExperiment('nested-dnd', false)) {
 					isDropTargetsMissing =
 						isDragging &&
 						meta?.isDragging !== false &&
@@ -211,7 +207,9 @@ export const createPlugin = (
 
 				// This is not targeted enough - it's trying to catch events like expand being set to breakout
 				const maybeWidthUpdated =
-					tr.docChanged && oldState.doc.nodeSize === newState.doc.nodeSize && !nodeCountChanged;
+					tr.docChanged &&
+					oldState.doc.nodeSize === newState.doc.nodeSize &&
+					!maybeNodeCountChanged;
 
 				// This addresses scenarios such as undoing table resizing,
 				// where a keyboard shortcut triggers a width change, and
@@ -230,7 +228,7 @@ export const createPlugin = (
 					(meta?.editorWidthLeft !== undefined && meta?.editorWidthLeft !== editorWidthLeft) ||
 					(meta?.editorWidthRight !== undefined && meta?.editorWidthRight !== editorWidthRight) ||
 					maybeWidthUpdated ||
-					nodeCountChanged ||
+					maybeNodeCountChanged ||
 					maybeTableWidthUpdated ||
 					resizerMeta === false ||
 					isDecsMissing ||
@@ -244,7 +242,7 @@ export const createPlugin = (
 						(spec) => spec.type !== 'drop-target-decoration',
 					);
 					decorations = decorations.remove(oldNodeDecs);
-					newNodeDecs = nodeDecorations(newState);
+					const newNodeDecs = nodeDecorations(newState);
 					decorations = decorations.add(newState.doc, [...newNodeDecs]);
 
 					if (activeNode && !meta?.nodeMoved && !isDecsMissing) {
@@ -253,7 +251,7 @@ export const createPlugin = (
 
 						// When a node type changed to be nested inside another node, the position of the active node is off by 1
 						// This is a workaround to fix the position of the active node when it is nested
-						if (tr.docChanged && !nodeCountChanged && mappedPosisiton === prevMappedPos + 1) {
+						if (tr.docChanged && !maybeNodeCountChanged && mappedPosisiton === prevMappedPos + 1) {
 							mappedPosisiton = prevMappedPos;
 						}
 						const newActiveNode = tr.doc.nodeAt(mappedPosisiton);
@@ -350,23 +348,13 @@ export const createPlugin = (
 				}
 
 				if (meta?.isDragging === false || isDropTargetsMissing) {
-					if (editorExperiment('nested-dnd', true)) {
-						const remainingDecs = decorations.find(
-							undefined,
-							undefined,
-							(spec) => spec.type !== 'drop-target-decoration',
-						);
-
-						decorations = DecorationSet.create(newState.doc, remainingDecs);
-					} else {
-						// Remove drop target decoration when dragging stops
-						const dropTargetDecs = decorations.find(
-							undefined,
-							undefined,
-							(spec) => spec.type === 'drop-target-decoration',
-						);
-						decorations = decorations.remove(dropTargetDecs);
-					}
+					// Remove drop target decoration when dragging stops
+					const dropTargetDecs = decorations.find(
+						undefined,
+						undefined,
+						(spec) => spec.type === 'drop-target-decoration',
+					);
+					decorations = decorations.remove(dropTargetDecs);
 				}
 
 				// Map active node position when the document changes
@@ -388,30 +376,37 @@ export const createPlugin = (
 							newState,
 							api,
 							formatMessage,
-							editorExperiment('nested-dnd', true)
-								? meta?.activeNode ?? mappedActiveNodePos
-								: meta?.activeNode,
+							isNestedEnabled ? meta?.activeNode ?? mappedActiveNodePos : meta?.activeNode,
 						);
 						decorations = decorations.add(newState.doc, decs);
 					}
 				}
 
-				const isEmptyDoc = editorExperiment('nested-dnd', true)
+				const isEmptyDoc = isNestedEnabled
 					? newState.doc.childCount === 1 &&
 						newState.doc.nodeSize <= 4 &&
 						(newState.doc.firstChild === null || newState.doc.firstChild.nodeSize <= 2)
 					: newState.doc.childCount === 1 && newState.doc.nodeSize <= 4;
 
-				const hasNodeDecoration = decorations
-					.find()
-					.some(({ spec }) => spec.type === 'node-decoration');
+				if (isEmptyDoc) {
+					const hasNodeDecoration = !!decorations.find(
+						undefined,
+						undefined,
+						(spec) => spec.type === 'node-decoration',
+					).length;
 
-				if (!hasNodeDecoration && isEmptyDoc) {
-					decorations = decorations.add(newState.doc, [emptyParagraphNodeDecorations()]);
+					if (!hasNodeDecoration) {
+						decorations = decorations.add(newState.doc, [emptyParagraphNodeDecorations()]);
+					}
 				}
 
 				const newActiveNode =
-					isEmptyDoc || isHandleMissing ? null : meta?.activeNode ?? mappedActiveNodePos;
+					isEmptyDoc ||
+					(!meta?.activeNode &&
+						decorations.find(undefined, undefined, (spec) => spec.id === 'drag-handle').length ===
+							0)
+						? null
+						: meta?.activeNode ?? mappedActiveNodePos;
 
 				return {
 					decorations,
@@ -424,7 +419,6 @@ export const createPlugin = (
 					isResizerResizing: isResizerResizing,
 					isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
 					isPMDragging: meta?.isPMDragging ?? isPMDragging,
-					childCount: newChildCount,
 				};
 			},
 		},
@@ -509,7 +503,6 @@ export const createPlugin = (
 						event.ctrlKey &&
 						fg('platform_editor_element_drag_and_drop_ed_23873')
 					) {
-						const { formatMessage } = getIntl();
 						//prevent holding down key combo from firing repeatedly
 						if (!event.repeat && boundKeydownHandler(api, formatMessage)(view, event)) {
 							event.preventDefault();

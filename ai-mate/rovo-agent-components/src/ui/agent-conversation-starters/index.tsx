@@ -6,7 +6,7 @@ import { IconButton } from '@atlaskit/button/new';
 import RetryIcon from '@atlaskit/icon/core/retry';
 import { Inline } from '@atlaskit/primitives';
 
-import { ChatPill } from '../../common/ui/chat-pill';
+import { BrowseAgentsPill, ChatPill } from '../../common/ui/chat-pill';
 
 import { messages } from './messages';
 
@@ -94,6 +94,7 @@ export type ConversationStartersProps = {
 	onConversationStarterClick: (conversationStarter: string) => void;
 	showReloadButton?: boolean;
 	onReloadButtonClick?: () => void;
+	onBrowseAgentsClick?: () => void;
 };
 
 export const ConversationStarters = ({
@@ -101,6 +102,7 @@ export const ConversationStarters = ({
 	onConversationStarterClick,
 	showReloadButton = false,
 	onReloadButtonClick = () => {},
+	onBrowseAgentsClick,
 }: ConversationStartersProps) => {
 	return (
 		<>
@@ -131,6 +133,8 @@ export const ConversationStarters = ({
 					chatPill
 				);
 			})}
+
+			{!!onBrowseAgentsClick && <BrowseAgentsPill onClick={onBrowseAgentsClick} />}
 		</>
 	);
 };

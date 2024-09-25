@@ -60,7 +60,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/button": "^20.1.0",
+		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/codemod-utils": "4.2.4",
 		"@atlaskit/docs": "*",
 		"@atlaskit/form": "^10.5.0",

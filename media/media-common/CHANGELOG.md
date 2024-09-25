@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 11.5.0
+
+### Minor Changes
+
+- [#144888](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144888)
+  [`de9029605ff53`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de9029605ff53) -
+  [ED-24681] Clean up FD `confluence.frontend.comments-on-media.bug.insert.excerpt`
+
 ## 11.4.1
 
 ### Patch Changes

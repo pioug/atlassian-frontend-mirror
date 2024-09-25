@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import AnalyticsEvent, {
 	type AnalyticsEventPayload,
 	type AnalyticsEventProps,

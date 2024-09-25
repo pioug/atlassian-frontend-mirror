@@ -92,17 +92,4 @@ describe('useAISummary', () => {
 		expect(result.current.state?.content).toBe('');
 		expect(result.current.state?.error).toBe('NETWORK_ERROR');
 	});
-
-	it('sets error on error mid stream with an unexpected error message', async () => {
-		fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
-		(readStream as jest.Mock).mockImplementationOnce(aiSummaryMocks.readStreamErrorUnexpectedMulti);
-
-		const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
-		await act(async () => {
-			await result.current.summariseUrl();
-		});
-		expect(result.current.state?.status).toBe('error');
-		expect(result.current.state?.content).toBe('');
-		expect(result.current.state?.error).toBe('UNEXPECTED');
-	});
 });

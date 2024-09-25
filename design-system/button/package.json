@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/button",
-	"version": "20.1.2",
+	"version": "20.2.0",
 	"description": "A button triggers an event or action. They let users know what will happen next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

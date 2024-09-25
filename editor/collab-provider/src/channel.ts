@@ -6,7 +6,6 @@ import type {
 	StepsPayload,
 	InitAndAuthData,
 	InitPayload,
-	CatchupResponse,
 	Catchupv2Response,
 	PresencePayload,
 	NamespaceStatus,
@@ -452,53 +451,6 @@ export class Channel extends Emitter<ChannelEvent> {
 			}
 		} else {
 			this.emit('steps:added', data);
-		}
-	};
-
-	fetchCatchup = async (
-		fromVersion: number,
-		clientId: number | string | undefined,
-	): Promise<CatchupResponse> => {
-		try {
-			const { doc, version, stepMaps, metadata } = await utils.requestService<any>(this.config, {
-				path: `document/${encodeURIComponent(this.config.documentAri)}/catchup`,
-				queryParams: {
-					version: fromVersion,
-					clientId: clientId,
-				},
-				requestInit: {
-					headers: await this.commonHeaders(),
-				},
-			});
-			return {
-				doc,
-				version,
-				stepMaps,
-				metadata,
-			};
-		} catch (error: any) {
-			if (error.code === 404) {
-				const errorNotFound: DocumentNotFoundError = {
-					message: 'The requested document is not found',
-					data: {
-						status: error.code,
-						code: INTERNAL_ERROR_CODE.DOCUMENT_NOT_FOUND,
-					},
-				};
-				this.emit('error', errorNotFound);
-				return {};
-			}
-
-			logger("Can't fetch the catchup", error.message);
-			const errorCatchup: CatchUpFailedError = {
-				message: 'Cannot fetch catchup from collab service',
-				data: {
-					status: error.status,
-					code: INTERNAL_ERROR_CODE.CATCHUP_FAILED,
-				},
-			};
-			this.emit('error', errorCatchup);
-			throw error;
 		}
 	};
 

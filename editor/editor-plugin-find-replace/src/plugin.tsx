@@ -1,6 +1,7 @@
 import React from 'react';
 
-import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import { ToolbarSize, type ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import FindReplaceToolbarButtonWithState from './FindReplaceToolbarButtonWithState';
 import keymapPlugin from './pm-plugins/keymap';
@@ -14,10 +15,14 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 		popupsMountPoint,
 		popupsScrollableElement,
 		isToolbarReducedSpacing,
+		toolbarSize,
 		editorView,
 		containerElement,
 		dispatchAnalyticsEvent,
 	}) => {
+		const isButtonHidden = fg('platform_editor_toolbar_responsive_fixes')
+			? toolbarSize < ToolbarSize.XL
+			: false;
 		if (props?.twoLineEditorToolbar) {
 			return null;
 		} else {
@@ -32,6 +37,7 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 					takeFullWidth={props?.takeFullWidth}
 					api={api}
+					isButtonHidden={isButtonHidden}
 				/>
 			);
 		}

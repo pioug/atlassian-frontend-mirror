@@ -114,15 +114,6 @@ describe('Renderer - React/Nodes/InlineCard', () => {
 		);
 		expect(node.find(Card).prop('showAuthTooltip')).toEqual(true);
 	});
-
-	it('should render with showServerActions if defined in smartLinks options', () => {
-		node = mount(
-			<Provider client={new Client('staging')}>
-				<InlineCard url={url} smartLinks={{ showServerActions: true }} />
-			</Provider>,
-		);
-		expect(node.find(Card).prop('showServerActions')).toEqual(true);
-	});
 });
 
 describe('Renderer - React/Nodes/InlineCard (RTL)', () => {
@@ -200,7 +191,6 @@ describe('Renderer - React/Nodes/InlineCard (RTL)', () => {
 					smartLinks={{
 						ssr: true,
 						showAuthTooltip: true,
-						showServerActions: true,
 					}}
 					eventHandlers={mockEventHandlers}
 				/>
@@ -212,7 +202,6 @@ describe('Renderer - React/Nodes/InlineCard (RTL)', () => {
 				url,
 				appearance: 'inline',
 				showAuthTooltip: true,
-				showServerActions: true,
 				showHoverPreview: true,
 				onClick: expect.any(Function),
 			}),

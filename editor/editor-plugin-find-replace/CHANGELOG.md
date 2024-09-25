@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 1.7.6
+
+### Patch Changes
+
+- [#143665](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143665)
+  [`4a6a4168461a8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a6a4168461a8) -
+  remove find replace toolbar button on smaller screens
+
 ## 1.7.5
 
 ### Patch Changes

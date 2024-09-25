@@ -1,5 +1,18 @@
 # @atlaskit/profilecard
 
+## 20.0.0
+
+### Major Changes
+
+- [#144443](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144443)
+  [`8e1afd419b5e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e1afd419b5e4) -
+  Add flagged behaviour to call Atlassian Home APIs via sharded routes, and centralise the
+  configuration of Stargate routes so that we can appropriately shard the calls
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.28.1
 
 ### Patch Changes

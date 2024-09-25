@@ -23,7 +23,7 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/button": "^20.1.0",
+		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/heading": "^2.3.2",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.2.0",

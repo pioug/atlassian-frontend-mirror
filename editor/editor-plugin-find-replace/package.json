@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-find-replace",
-	"version": "1.7.5",
+	"version": "1.7.6",
 	"description": "find replace plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 		"./styles": "./src/styles.ts"
 	},
 	"dependencies": {
-		"@atlaskit/button": "^20.1.0",
+		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/editor-common": "^91.0.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
@@ -44,6 +44,7 @@
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/icon": "^22.18.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/theme": "^13.0.0",
@@ -106,6 +107,11 @@
 			"exclude": [
 				"@atlaskit/editor-plugin-analytics"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_toolbar_responsive_fixes": {
+			"type": "boolean"
 		}
 	}
 }

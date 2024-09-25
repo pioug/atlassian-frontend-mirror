@@ -40,6 +40,7 @@ export type FindReplaceToolbarButtonWithStateProps = {
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	takeFullWidth?: boolean;
 	api: ExtractInjectionAPI<FindReplacePlugin> | undefined;
+	isButtonHidden?: boolean;
 };
 
 export type FindReplaceToolbarButtonActionProps = Omit<

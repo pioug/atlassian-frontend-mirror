@@ -19,7 +19,6 @@ export const InlineCardWithAwareness = memo(
 		node,
 		cardContext,
 		actionOptions,
-		showServerActions,
 		useAlternativePreloader,
 		view,
 		getPos,
@@ -66,7 +65,6 @@ export const InlineCardWithAwareness = memo(
 					getPos={getPos}
 					useAlternativePreloader={useAlternativePreloader}
 					actionOptions={actionOptions}
-					showServerActions={showServerActions}
 					onResolve={onResolve}
 					onClick={onClick}
 					cardContext={cardContext}
@@ -81,7 +79,6 @@ export const InlineCardWithAwareness = memo(
 				node,
 				onClick,
 				onResolve,
-				showServerActions,
 				useAlternativePreloader,
 				view,
 			],

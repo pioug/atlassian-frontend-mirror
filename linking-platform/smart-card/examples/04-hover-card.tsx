@@ -1,16 +1,12 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import Form, { Field, FormHeader } from '@atlaskit/form';
+import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { CardClient as SmartCardClient } from '@atlaskit/link-provider';
+import { CheckboxSelect } from '@atlaskit/select';
 import { Provider } from '../src';
 import { Checkbox } from '@atlaskit/checkbox';
 import { ufologger } from '@atlaskit/ufo';
@@ -18,6 +14,9 @@ import { token } from '@atlaskit/tokens';
 import { HoverCard } from '../src/hoverCard';
 import { CodeBlock } from '@atlaskit/code';
 import { toComponentProps } from './utils/common';
+import { type CardActionOptions, CardAction } from '../src/view/Card/types';
+import { type MultiValue } from 'react-select';
+import Heading from '@atlaskit/heading';
 
 ufologger.enable();
 
@@ -28,72 +27,80 @@ const defaultURL = param
 	? param
 	: 'https://pug.jira-dev.com/wiki/spaces/~712020144e46c6280746719ae82d63fbc6c91d/pages/453328568380/Hovercard+Redesign+Testing+Links';
 
-const codeStyles = css({
+const codeStyles = xcss({
 	display: 'inline-grid',
 	tabSize: 2,
 });
 
-export interface ExampleState {
-	url: string;
-	hidePreviewButton: boolean;
-	closeOnChildClick: boolean;
-	canOpen: boolean;
-	showServerActions: boolean;
-	id: string;
-}
-
 type RenderHoverCardProps = {
 	url: string;
-	hidePreviewButton: boolean;
 	closeOnChildClick: boolean;
 	canOpen: boolean;
 	id: string;
-	showServerActions: boolean;
+	actionOptions: CardActionOptions;
 };
+
+const headingStyles = xcss({
+	paddingTop: 'space.150',
+	cursor: 'pointer',
+	display: 'inline-block',
+});
+
+const hoverCardBoxStyle = xcss({
+	margin: `space.250`,
+	minHeight: '180px',
+	borderBottom: `1px solid ${token('color.border', '#eee')}`,
+	textAlign: 'center',
+});
 
 const RenderHoverCard = ({
 	url,
-	hidePreviewButton,
 	closeOnChildClick,
 	canOpen,
 	id,
-	showServerActions,
+	actionOptions,
 }: RenderHoverCardProps) => {
 	if (!url) {
-		return <div></div>;
+		return <></>;
 	}
 	return (
 		<HoverCard
 			url={url}
-			hidePreviewButton={hidePreviewButton}
 			closeOnChildClick={closeOnChildClick}
 			canOpen={canOpen}
 			id={id}
-			showServerActions={showServerActions}
+			actionOptions={actionOptions}
 		>
-			<h1
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					paddingTop: token('space.150', '12px'),
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					cursor: 'pointer',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					display: 'inline-block',
-				}}
-			>
-				Hover over me!
-			</h1>
+			<Box xcss={headingStyles}>
+				<Heading size="xxlarge">Hover over me!</Heading>
+			</Box>
 		</HoverCard>
 	);
 };
 
+const generateActionOptions = (hide: boolean, excludeActions: CardAction[]): CardActionOptions => {
+	if (hide) {
+		return {
+			hide: true,
+		};
+	}
+	return {
+		hide: false,
+		exclude: excludeActions,
+	};
+};
+
+const listOfActions = Object.values(CardAction).map((action) => {
+	return { value: action, label: action };
+});
+
 const Example = (): JSX.Element => {
 	const [url, setUrl] = React.useState(defaultURL);
-	const [hidePreviewButton, setHidePreviewButton] = React.useState(false);
 	const [canOpen, setCanOpen] = React.useState(true);
 	const [id, setId] = React.useState('NULL');
-	const [showServerActions, setShowServerActions] = React.useState(false);
 	const [closeOnChildClick, setCloseOnChildClick] = React.useState(false);
+	const [hideActions, setHideActions] = React.useState(false);
+	const [excludeActions, setExcludeActions] = React.useState<CardAction[]>([]);
 
 	const handleUrlChange = React.useCallback((event: React.FormEvent<HTMLInputElement>) => {
 		setUrl(event.currentTarget.value);
@@ -103,36 +110,47 @@ const Example = (): JSX.Element => {
 		setId(event.currentTarget.value);
 	}, []);
 
-	const handleHidePreviewButtonChange = React.useCallback(
-		(event: React.FormEvent<HTMLInputElement>) => {
-			setHidePreviewButton(event.currentTarget.checked);
-		},
-		[],
-	);
 	const handleCloseOnChildClickChange = React.useCallback(
 		(event: React.FormEvent<HTMLInputElement>) => {
 			setCloseOnChildClick(event.currentTarget.checked);
 		},
 		[],
 	);
+
 	const handleCanOpen = React.useCallback((event: React.FormEvent<HTMLInputElement>) => {
 		setCanOpen(event.currentTarget.checked);
 	}, []);
 
-	const handleShowServerActions = React.useCallback((event: React.FormEvent<HTMLInputElement>) => {
-		setShowServerActions(event.currentTarget.checked);
+	const handleHideActions = React.useCallback((event: React.FormEvent<HTMLInputElement>) => {
+		setHideActions(event.currentTarget.checked);
 	}, []);
+
+	const handleExcludeActions = React.useCallback(
+		(
+			e: MultiValue<{
+				value: CardAction;
+				label: CardAction;
+			}>,
+		) => {
+			setExcludeActions(e.map((action) => action.value));
+		},
+		[],
+	);
+
+	const actionOptions = React.useMemo(
+		() => generateActionOptions(hideActions, excludeActions),
+		[hideActions, excludeActions],
+	);
 
 	const code = React.useMemo(() => {
 		return `<HoverCard ${toComponentProps({
 			url,
 			id,
-			hidePreviewButton,
 			closeOnChildClick,
 			canOpen,
-			showServerActions,
+			actionOptions,
 		})}\n>\n\t\t{yourComponent}\n</HoverCard>`;
-	}, [url, id, hidePreviewButton, closeOnChildClick, canOpen, showServerActions]);
+	}, [url, id, closeOnChildClick, canOpen, actionOptions]);
 
 	return (
 		<IntlProvider locale="en">
@@ -140,32 +158,20 @@ const Example = (): JSX.Element => {
 				<Page>
 					<Grid>
 						<GridColumn medium={12} key={url}>
-							<div
-								style={{
-									margin: `${token('space.250', '20px')} 0`,
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									minHeight: 180,
-									borderBottom: `1px solid ${token('color.border', '#eee')}`,
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									textAlign: 'center',
-								}}
-							>
-								{
-									<RenderHoverCard
-										url={url}
-										hidePreviewButton={hidePreviewButton}
-										closeOnChildClick={closeOnChildClick}
-										canOpen={canOpen}
-										id={id}
-										showServerActions={showServerActions}
-									/>
-								}
-							</div>
+							<Box xcss={hoverCardBoxStyle}>
+								<RenderHoverCard
+									url={url}
+									closeOnChildClick={closeOnChildClick}
+									canOpen={canOpen}
+									id={id}
+									actionOptions={actionOptions}
+								/>
+							</Box>
 						</GridColumn>
 						<GridColumn medium={6}>
 							<Form onSubmit={() => {}}>
 								{() => (
-									<form>
+									<>
 										<FormHeader title="Hover Card options" />
 										<Field name="url" label="Url">
 											{() => <Textfield onChange={handleUrlChange} value={url} autoFocus />}
@@ -173,12 +179,23 @@ const Example = (): JSX.Element => {
 										<Field name="id" label="Id used for analytics">
 											{() => <Textfield onChange={handleIdChange} value={id} autoFocus />}
 										</Field>
+										<Field name="excludeActions" label="Actions to exclude">
+											{() => (
+												<CheckboxSelect
+													inputId="checkbox-select-example"
+													classNamePrefix="select"
+													options={listOfActions}
+													onChange={handleExcludeActions}
+													isDisabled={hideActions}
+												/>
+											)}
+										</Field>
 										<Checkbox
-											isChecked={hidePreviewButton}
-											onChange={handleHidePreviewButtonChange}
-											label="Hide Preview Button"
-											value="hidePreviewButton"
-											name="hidePreviewButton"
+											isChecked={hideActions}
+											onChange={handleHideActions}
+											label="Hide Actions"
+											value="hideActions"
+											name="hideActions"
 										/>
 										<Checkbox
 											isChecked={closeOnChildClick}
@@ -194,21 +211,14 @@ const Example = (): JSX.Element => {
 											value="canOpen"
 											name="canOpen"
 										/>
-										<Checkbox
-											isChecked={showServerActions}
-											onChange={handleShowServerActions}
-											label="Show server actions"
-											value="showServerActions"
-											name="showServerActions"
-										/>
-									</form>
+									</>
 								)}
 							</Form>
 						</GridColumn>
 						<GridColumn medium={6}>
-							<div css={codeStyles}>
+							<Box xcss={codeStyles}>
 								<CodeBlock language="jsx" text={code} />
-							</div>
+							</Box>
 						</GridColumn>
 					</Grid>
 				</Page>

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 import moment from 'moment';
 
@@ -36,8 +37,7 @@ describe('TimePicker', () => {
 				<>
 					<button
 						type="button"
-						// @ts-ignore hack to pass data from tests
-						onClick={(event) => props.onCreateOption(event.target.value)}
+						onClick={(event) => props.onCreateOption((event.target as HTMLButtonElement).value)}
 					>
 						Create Item
 					</button>
@@ -160,7 +160,7 @@ describe('TimePicker', () => {
 	it('should render the time in a custom timeFormat', () => {
 		render(createTimePicker({ value: '12:00', timeFormat: 'HH--mm--SSS' }));
 
-		const container = screen.getByTestId('test--container');
+		const container = screen.getByTestId(`${testId}--container`);
 
 		expect(container).toHaveTextContent('12--00--000');
 	});
@@ -190,11 +190,9 @@ describe('TimePicker', () => {
 		const createButton = screen.getByRole('button', {
 			name: 'Create Item',
 		});
-		fireEvent.click(createButton, {
-			target: {
-				value: 'asdf', // our custom parseInputValue ignores this
-			},
-		});
+		// TODO: Why are we adding a value to a target on a click? See DSP-21008
+		// eslint-disable-next-line testing-library/prefer-user-event
+		fireEvent.click(createButton, { target: { value: 'asdf' } }); // our custom parseInputValue ignores this
 
 		expect(onChangeSpy).toHaveBeenCalledWith('01:15');
 	});
@@ -206,11 +204,9 @@ describe('TimePicker', () => {
 		const createButton = screen.getByRole('button', {
 			name: 'Create Item',
 		});
-		fireEvent.click(createButton, {
-			target: {
-				value: '01:30',
-			},
-		});
+		// TODO: Why are we adding a value to a target on a click? See DSP-21008
+		// eslint-disable-next-line testing-library/prefer-user-event
+		fireEvent.click(createButton, { target: { value: '01:30' } });
 
 		expect(onChangeSpy).toHaveBeenCalledWith('01:30');
 	});
@@ -222,11 +218,9 @@ describe('TimePicker', () => {
 		const createButton = screen.getByRole('button', {
 			name: 'Create Item',
 		});
-		fireEvent.click(createButton, {
-			target: {
-				value: '01:44am',
-			},
-		});
+		// TODO: Why are we adding a value to a target on a click? See DSP-21008
+		// eslint-disable-next-line testing-library/prefer-user-event
+		fireEvent.click(createButton, { target: { value: '01:44am' } });
 
 		expect(onChangeSpy).toHaveBeenCalledWith('01:44');
 	});
@@ -238,11 +232,9 @@ describe('TimePicker', () => {
 		const createButton = screen.getByRole('button', {
 			name: 'Create Item',
 		});
-		fireEvent.click(createButton, {
-			target: {
-				value: '3:32pm',
-			},
-		});
+		// TODO: Why are we adding a value to a target on a click? See DSP-21008
+		// eslint-disable-next-line testing-library/prefer-user-event
+		fireEvent.click(createButton, { target: { value: '3:32pm' } });
 
 		expect(onChangeSpy).toHaveBeenCalledWith('15:32');
 	});
@@ -261,11 +253,9 @@ describe('TimePicker', () => {
 		const createButton = screen.getByRole('button', {
 			name: 'Create Item',
 		});
-		fireEvent.click(createButton, {
-			target: {
-				value: '3:32pm',
-			},
-		});
+		// TODO: Why are we adding a value to a target on a click? See DSP-21008
+		// eslint-disable-next-line testing-library/prefer-user-event
+		fireEvent.click(createButton, { target: { value: '3:32pm' } });
 
 		expect(onParseInputValueSpy).toHaveBeenCalledWith('3:32pm', 'h:mma');
 		expect(onChangeSpy).toHaveBeenCalledWith('15:32');
@@ -284,9 +274,9 @@ describe('TimePicker', () => {
 			name: 'Create Item',
 		});
 
-		fireEvent.click(createButton, {
-			target: { value: '11:22:33 pm' },
-		});
+		// TODO: Why are we adding a value to a target on a click? See DSP-21008
+		// eslint-disable-next-line testing-library/prefer-user-event
+		fireEvent.click(createButton, { target: { value: '11:22:33 pm' } });
 
 		expect(onChangeSpy).toHaveBeenCalledWith('23:22:33');
 	});
@@ -306,35 +296,38 @@ describe('TimePicker', () => {
 		const createButton = screen.getByRole('button', {
 			name: 'Create Item',
 		});
-		fireEvent.click(createButton, {
-			target: { value: '3:32pm' },
-		});
+		// TODO: Why are we adding a value to a target on a click? See DSP-21008
+		// eslint-disable-next-line testing-library/prefer-user-event
+		fireEvent.click(createButton, { target: { value: '3:32pm' } });
 
 		expect(onParseInputValueSpy).toHaveBeenCalledWith('3:32pm', 'HH--mm:A');
 		expect(onChangeSpy).toHaveBeenCalledWith('15:32');
 	});
 
-	it('should clear the value if the backspace key is pressed', () => {
+	it('should clear the value if the backspace key is pressed', async () => {
+		const user = userEvent.setup();
 		const onChangeSpy = jest.fn();
 		render(createTimePicker({ value: '15:32', onChange: onChangeSpy }));
 
 		const selectInput = screen.getByDisplayValue('');
-		fireEvent.keyDown(selectInput, { key: 'Backspace', keyCode: 8 });
+		await user.type(selectInput, '{Backspace}');
 
 		expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
 	});
 
-	it('should clear the value if the delete key is pressed', () => {
+	it('should clear the value if the delete key is pressed', async () => {
+		const user = userEvent.setup();
 		const onChangeSpy = jest.fn();
 		render(createTimePicker({ value: '15:32', onChange: onChangeSpy }));
 
 		const selectInput = screen.getByDisplayValue('');
-		fireEvent.keyDown(selectInput, { key: 'Delete', keyCode: 46 });
+		await user.type(selectInput, '{Delete}');
 
 		expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
 	});
 
-	it('should clear the value if the clear button is pressed and the menu should stay closed', () => {
+	it('should clear the value if the clear button is pressed and the menu should stay closed', async () => {
+		const user = userEvent.setup();
 		const onChangeSpy = jest.fn();
 		render(createTimePicker({ value: '15:32', onChange: onChangeSpy }));
 		const clearButton = screen.getByRole('button', { name: /clear/i });
@@ -342,17 +335,15 @@ describe('TimePicker', () => {
 			throw new Error('Expected button to be non-null');
 		}
 
-		fireEvent.mouseOver(clearButton);
-		fireEvent.mouseMove(clearButton);
-		fireEvent.mouseDown(clearButton);
+		await user.click(clearButton);
 
 		expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
-		expect(screen.queryByTestId(`test--popper--container`)).not.toBeInTheDocument();
+		expect(screen.queryByTestId(`${testId}--popper--container`)).not.toBeInTheDocument();
 	});
 
-	it('should clear the value and leave the menu open if the clear button is pressed while menu is open', () => {
+	it('should clear the value and leave the menu open if the clear button is pressed while menu is open', async () => {
+		const user = userEvent.setup();
 		const onChangeSpy = jest.fn();
-		const testId = 'test';
 
 		render(
 			createTimePicker({
@@ -368,12 +359,10 @@ describe('TimePicker', () => {
 			throw new Error('Expected button to be non-null');
 		}
 
-		fireEvent.mouseOver(clearButton);
-		fireEvent.mouseMove(clearButton);
-		fireEvent.mouseDown(clearButton);
+		await user.click(clearButton);
 
 		expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
-		expect(screen.getByTestId('test--popper--container')).toBeInTheDocument();
+		expect(screen.getByTestId(`${testId}--popper--container`)).toBeInTheDocument();
 	});
 
 	it('should never apply an ID to the hidden input', () => {
@@ -383,7 +372,7 @@ describe('TimePicker', () => {
 		allImplementations.forEach((jsx) => {
 			const { unmount } = render(jsx);
 
-			const hiddenInput = screen.getByTestId(`test--input`);
+			const hiddenInput = screen.getByTestId(`${testId}--input`);
 
 			expect(hiddenInput).toHaveAttribute('type', 'hidden');
 			expect(hiddenInput).not.toHaveAttribute('id');
@@ -393,10 +382,11 @@ describe('TimePicker', () => {
 	});
 
 	it('should add aria-label when label prop is supplied', () => {
-		render(createTimePicker());
+		const label = 'label';
+		render(createTimePicker({ label }));
 
 		const input = screen.getByRole('combobox');
-		expect(input).toHaveAttribute('aria-label', 'Time');
+		expect(input).toHaveAttribute('aria-label', label);
 	});
 
 	it('should add aria-describedby when prop is supplied', () => {

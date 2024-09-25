@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import createFocusTrap, { type FocusTrap } from 'focus-trap';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { UNSAFE_useLayering } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FocusManagerHook } from './types';
@@ -16,8 +17,10 @@ export const useFocusManager = ({
 	shouldCloseOnTab,
 	shouldDisableFocusTrap,
 	shouldReturnFocus,
+	shouldRenderToParent,
 }: FocusManagerHook): void => {
 	const { requestFrame, cancelAllFrames } = useAnimationFrame();
+	const { currentLevel } = UNSAFE_useLayering();
 
 	useEffect(() => {
 		if (!popupRef || shouldCloseOnTab) {
@@ -25,17 +28,21 @@ export const useFocusManager = ({
 		}
 
 		if (shouldDisableFocusTrap && fg('platform_dst_popup-disable-focuslock')) {
-			// Plucking trigger & popup content container from the tab order so that
-			// when we Shift+Tab, the focus moves to the element before trigger
-			requestFrame(() => {
-				triggerRef?.setAttribute('tabindex', '-1');
-				if (popupRef && autoFocus) {
-					popupRef.setAttribute('tabindex', '-1');
-				}
-				(initialFocusRef || popupRef).focus();
-			});
+			const isDropdown = popupRef.matches('[id^=ds--dropdown--]');
+			const popups = document.querySelectorAll(`[data-ds--level="${currentLevel - 1}"]`);
 
-			return noop;
+			if (!(popups[popups.length - 1] && !shouldRenderToParent && isDropdown)) {
+				// Plucking trigger & popup content container from the tab order so that
+				// when we Shift+Tab, the focus moves to the element before trigger
+				requestFrame(() => {
+					triggerRef?.setAttribute('tabindex', '-1');
+					if (popupRef && autoFocus) {
+						popupRef.setAttribute('tabindex', '-1');
+					}
+					(initialFocusRef || popupRef).focus();
+				});
+				return noop;
+			}
 		}
 
 		const trapConfig = {
@@ -67,5 +74,7 @@ export const useFocusManager = ({
 		requestFrame,
 		cancelAllFrames,
 		shouldReturnFocus,
+		shouldRenderToParent,
+		currentLevel,
 	]);
 };

@@ -43,7 +43,7 @@ export default function BlockCard(props: {
 	isNodeNested?: boolean;
 }) {
 	const { url, data, eventHandlers, portal, smartLinks, isNodeNested } = props;
-	const { showServerActions, actionOptions } = smartLinks || {};
+	const { actionOptions } = smartLinks || {};
 	const onClick = getCardClickHandler(eventHandlers, url);
 
 	const platform = 'web';
@@ -55,7 +55,6 @@ export default function BlockCard(props: {
 		container: portal,
 		isDatasource: !!props.datasource,
 		actionOptions,
-		showServerActions,
 	};
 
 	const analyticsData = {

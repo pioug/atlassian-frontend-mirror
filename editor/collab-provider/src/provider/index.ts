@@ -166,7 +166,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			this.documentService = new DocumentService(
 				this.participantsService,
 				this.analyticsHelper,
-				this.channel.fetchCatchup,
 				this.channel.fetchCatchupv2,
 				this.channel.fetchReconcile,
 				this.emitCallback,
@@ -631,6 +630,15 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
 	getUnconfirmedSteps = (): readonly ProseMirrorStep[] | undefined => {
 		return this.documentService.getUnconfirmedSteps();
+	};
+
+	/**
+	 * Provides a synchronous method to retreive the version from the Document Service / Editor State
+	 *
+	 * @returns {number} Returns the current ProseMirror version from the Editor State
+	 */
+	getCurrentPmVersion = (): number => {
+		return this.documentService.getCurrentPmVersion();
 	};
 
 	/**

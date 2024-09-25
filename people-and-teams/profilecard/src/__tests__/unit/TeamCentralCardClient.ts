@@ -52,7 +52,6 @@ function initClient() {
 	return new TeamCentralCardClient({
 		cacheSize: 10,
 		cacheMaxAge: 5000,
-		url: EXAMPLE_TEAM_CENTRAL_URL,
 		teamCentralUrl: EXAMPLE_TEAM_CENTRAL_URL,
 	});
 }
@@ -61,7 +60,6 @@ function initProfileCardClient(cloudId: string) {
 	const teamCentralClient = new TeamCentralCardClient({
 		cacheSize: 10,
 		cacheMaxAge: 5000,
-		url: EXAMPLE_TEAM_CENTRAL_URL,
 		teamCentralUrl: EXAMPLE_TEAM_CENTRAL_URL,
 		teamCentralBaseUrl: EXAMPLE_TEAM_CENTRAL_URL,
 		cloudId: cloudId,
@@ -76,7 +74,6 @@ function initProfileCardClientWithNoCloudId() {
 	const teamCentralClient = new TeamCentralCardClient({
 		cacheSize: 10,
 		cacheMaxAge: 5000,
-		url: EXAMPLE_TEAM_CENTRAL_URL,
 		teamCentralUrl: EXAMPLE_TEAM_CENTRAL_URL,
 		teamCentralBaseUrl: EXAMPLE_TEAM_CENTRAL_URL,
 	});

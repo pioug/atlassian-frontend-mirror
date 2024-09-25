@@ -3,8 +3,7 @@ import { mockBaseResponseWithDownload, mockBaseResponseWithPreview } from '../__
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';
 import * as HoverCardComponent from '../../components/HoverCardComponent';
 import { type setup as hoverCardSetup, type SetUpParams } from './setup.test-utils';
-import { within } from '@testing-library/dom';
-import { act } from '@testing-library/react';
+import { act, within, screen } from '@testing-library/react';
 
 type AnalyticsTestConfig = {
 	/**
@@ -99,8 +98,8 @@ export const analyticsTests = (
 		const { display, isAnalyticsContextResolvedOnHover } = config;
 
 		it('should fire hover card viewed event with correct data in the analytics context', async () => {
-			const { findByTestId, analyticsSpy } = await setup();
-			await findByTestId('hover-card');
+			const { analyticsSpy } = await setup();
+			await screen.findByTestId('hover-card');
 
 			expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
 				payload: {
@@ -114,11 +113,10 @@ export const analyticsTests = (
 
 		it('should fire viewed event when hover card is opened', async () => {
 			const mock = jest.spyOn(analytics, 'uiHoverCardViewedEvent');
+			await setup();
 
-			const { findByTestId } = await setup();
-
-			//wait for card to be resolved
-			const hoverCard = await findByTestId('hover-card');
+			// wait for card to be resolved
+			const hoverCard = await screen.findByTestId('hover-card');
 			within(hoverCard).getByTestId('smart-block-title-resolved-view');
 			expect(analytics.uiHoverCardViewedEvent).toHaveBeenCalledTimes(1);
 			expect(mock.mock.results[0].value).toEqual(
@@ -133,15 +131,15 @@ export const analyticsTests = (
 		it('should fire closed event when hover card is opened then closed', async () => {
 			const mock = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
 
-			const { queryByTestId, findByTestId, element, event } = await setup();
+			const { element, event } = await setup();
 			// wait for card to be resolved
-			const hoverCard = await findByTestId('hover-card');
+			const hoverCard = await screen.findByTestId('hover-card');
 			within(hoverCard).getByTestId('smart-block-title-resolved-view');
 			await event.unhover(element);
 			act(() => {
 				jest.runAllTimers();
 			});
-			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
 
 			expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledTimes(1);
 			expect(mock.mock.results[0].value).toEqual(
@@ -158,7 +156,7 @@ export const analyticsTests = (
 
 		it('should fire clicked event when title is clicked', async () => {
 			const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
-			const { findByTestId, analyticsSpy, event } = await setup();
+			const { analyticsSpy, event } = await setup();
 			const contextAttributes = getHoverCardContextResolvedAttributes(
 				isAnalyticsContextResolvedOnHover,
 				display,
@@ -167,7 +165,7 @@ export const analyticsTests = (
 				jest.runAllTimers();
 			});
 
-			const hoverCard = await findByTestId('hover-card');
+			const hoverCard = await screen.findByTestId('hover-card');
 			const link = within(hoverCard).getByTestId('smart-element-link');
 
 			await event.click(link);
@@ -208,10 +206,10 @@ export const analyticsTests = (
 		});
 
 		it('should fire clicked event when title is middle clicked', async () => {
-			const { findByTestId, analyticsSpy, event } = await setup();
+			const { analyticsSpy, event } = await setup();
 
-			await findByTestId('smart-block-title-resolved-view');
-			const link = await findByTestId('smart-element-link');
+			await screen.findByTestId('smart-block-title-resolved-view');
+			const link = await screen.findByTestId('smart-element-link');
 
 			await event.click(link);
 
@@ -227,10 +225,10 @@ export const analyticsTests = (
 		});
 
 		it('should fire clicked event when title is right clicked', async () => {
-			const { findByTestId, analyticsSpy, event } = await setup();
+			const { analyticsSpy, event } = await setup();
 
-			await findByTestId('smart-block-title-resolved-view');
-			const link = await findByTestId('smart-element-link');
+			await screen.findByTestId('smart-block-title-resolved-view');
+			const link = await screen.findByTestId('smart-element-link');
 
 			// @ts-ignore
 			await event.click(link, { button: 2 });
@@ -247,11 +245,11 @@ export const analyticsTests = (
 		});
 
 		it('should fire link clicked event with attributes from SmartLinkAnalyticsContext if link is resolved', async () => {
-			const { findByTestId, analyticsSpy, event } = await setup({
+			const { analyticsSpy, event } = await setup({
 				extraCardProps: { id: 'some-id' },
 			});
 
-			const hoverCard = await findByTestId('hover-card');
+			const hoverCard = await screen.findByTestId('hover-card');
 			within(hoverCard).getByTestId('smart-block-title-resolved-view');
 			const link = within(hoverCard).getByTestId('smart-element-link');
 
@@ -276,12 +274,12 @@ export const analyticsTests = (
 			const clickSpy = jest.spyOn(analytics, 'uiActionClickedEvent');
 			const closeSpy = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
 
-			const { findByTestId, event } = await setup({
+			const { event } = await setup({
 				mock: mockBaseResponseWithPreview,
 			});
 
-			await findByTestId('smart-block-title-resolved-view');
-			const button = await findByTestId('smart-action-preview-action');
+			await screen.findByTestId('smart-block-title-resolved-view');
+			const button = await screen.findByTestId('smart-action-preview-action');
 
 			await event.click(button);
 
@@ -314,12 +312,12 @@ export const analyticsTests = (
 
 		it('should fire clicked event when download button is clicked', async () => {
 			const spy = jest.spyOn(analytics, 'uiActionClickedEvent');
-			const { findByTestId, event } = await setup({
+			const { event } = await setup({
 				mock: mockBaseResponseWithDownload,
 			});
 
-			await findByTestId('smart-block-title-resolved-view');
-			const button = await findByTestId('smart-action-download-action');
+			await screen.findByTestId('smart-block-title-resolved-view');
+			const button = await screen.findByTestId('smart-action-download-action');
 
 			await event.click(button);
 
@@ -340,12 +338,11 @@ export const analyticsTests = (
 
 		it('should fire clicked event when follow button is clicked', async () => {
 			expect(true).toBe(true);
-			const { analyticsSpy, findByTestId, event } = await setup({
-				extraCardProps: { showServerActions: true },
+			const { analyticsSpy, event } = await setup({
 				mock: MockAtlasProject,
 			});
 
-			const hoverCard = await findByTestId('hover-card');
+			const hoverCard = await screen.findByTestId('hover-card');
 			within(hoverCard).getByTestId('smart-block-title-resolved-view');
 			const button = within(hoverCard).getByTestId('smart-action-follow-action');
 

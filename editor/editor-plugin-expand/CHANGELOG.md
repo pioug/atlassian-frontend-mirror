@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.7.6
+
+### Patch Changes
+
+- [#144606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144606)
+  [`20ab1284d9880`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20ab1284d9880) -
+  ED-24990 - Bugfix: cursor was going outside of parent expand and table cell when nested expand was
+  deleted.
+
 ## 2.7.5
 
 ### Patch Changes

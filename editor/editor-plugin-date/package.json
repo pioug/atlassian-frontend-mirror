@@ -63,7 +63,7 @@
 		"@atlaskit/editor-plugin-guideline": "^1.2.0",
 		"@atlaskit/editor-plugin-quick-insert": "^1.4.0",
 		"@atlaskit/editor-plugin-selection": "^1.4.0",
-		"@atlaskit/editor-plugin-table": "^7.27.0",
+		"@atlaskit/editor-plugin-table": "^7.28.0",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "^2.6.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.8.0",
 		"@atlaskit/editor-plugin-width": "^1.3.0",

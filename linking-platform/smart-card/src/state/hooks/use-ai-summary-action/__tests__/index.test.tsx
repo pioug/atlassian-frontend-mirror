@@ -13,6 +13,7 @@ import { aiSummaryMocks } from '../../__tests__/__mocks__/ai-summary-mocks';
 import { readStream } from '../../use-ai-summary/ai-summary-service/readStream';
 import { AISummariesStore } from '../../use-ai-summary/ai-summary-service/store';
 import useAISummaryAction from '../index';
+import { ChunkProcessingError } from '../../use-ai-summary/ai-summary-service/types';
 
 jest.mock('uuid', () => ({
 	...jest.requireActual('uuid'),
@@ -88,6 +89,7 @@ describe('useAISummaryAction', () => {
 		});
 		expect(result.current.state?.status).toBe('error');
 		expect(result.current.state?.content).toBe('');
+		expect(result.current.state?.error).toBe('UNEXPECTED');
 	});
 
 	it('sets status on summariseUrl successful response with error message', async () => {
@@ -114,19 +116,6 @@ describe('useAISummaryAction', () => {
 		expect(result.current.state?.status).toBe('error');
 		expect(result.current.state?.content).toBe('');
 		expect(result.current.state?.error).toBe('NETWORK_ERROR');
-	});
-
-	it('sets error on error mid stream with an unexpected error message', async () => {
-		fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
-		(readStream as jest.Mock).mockImplementationOnce(aiSummaryMocks.readStreamErrorUnexpectedMulti);
-
-		const { result } = renderHook(() => useAISummaryAction(url), { wrapper });
-		await act(async () => {
-			await result.current.summariseUrl();
-		});
-		expect(result.current.state?.status).toBe('error');
-		expect(result.current.state?.content).toBe('');
-		expect(result.current.state?.error).toBe('UNEXPECTED');
 	});
 
 	describe('with analytics', () => {
@@ -169,7 +158,7 @@ describe('useAISummaryAction', () => {
 		])(
 			'sends summary failed event with %s for isSloError when reason is %s',
 			async (expected: boolean, reason?: string) => {
-				fetchMock.mockRejectOnce(new Error(reason));
+				fetchMock.mockRejectOnce(new ChunkProcessingError(reason));
 
 				const { result } = renderHook(() => useAISummaryAction(url), { wrapper });
 				await act(async () => {

@@ -1,9 +1,11 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { isFedRamp } from '@atlaskit/atlassian-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type AgentIdType,
 	type ClientOverrides,
+	type ProfileClient,
 	type ProfileClientOptions,
 	type TeamCentralReportingLinesData,
 } from '../types';
@@ -17,7 +19,7 @@ const defaultConfig: Partial<ProfileClientOptions> = {
 	gatewayGraphqlUrl: '/gateway/api/graphql',
 };
 
-class ProfileCardClient {
+class ProfileCardClient implements ProfileClient {
 	userClient: UserProfileCardClient;
 	teamClient: TeamProfileCardClient;
 	tcClient?: TeamCentralCardClient;
@@ -100,8 +102,10 @@ function maybeCreateTeamCentralClient(config: ProfileClientOptions, clients?: Cl
 	if (clients?.teamCentralClient) {
 		return clients.teamCentralClient;
 	}
-	const teamCentralUrl = config.teamCentralUrl;
-	return teamCentralUrl ? new TeamCentralCardClient({ ...config, teamCentralUrl }) : undefined;
+	const teamCentralEnabled = fg('enable_ptc_sharded_townsquare_calls')
+		? config.teamCentralDisabled !== true
+		: config.teamCentralUrl;
+	return teamCentralEnabled ? new TeamCentralCardClient({ ...config }) : undefined;
 }
 
 export default ProfileCardClient;

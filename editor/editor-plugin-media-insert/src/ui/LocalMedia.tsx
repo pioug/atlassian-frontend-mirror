@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
@@ -13,6 +13,8 @@ import {
 	type ImagePreview,
 	type MediaErrorName,
 	type Preview,
+	type UploadEndEventPayload,
+	type UploadErrorEventPayload,
 	type UploadPreviewUpdateEventPayload,
 } from '@atlaskit/media-picker';
 import { Stack } from '@atlaskit/primitives';
@@ -84,7 +86,23 @@ export const LocalMedia = React.forwardRef<HTMLButtonElement, Props>(
 		const [uploadState, dispatch] = React.useReducer(uploadReducer, INITIAL_UPLOAD_STATE);
 		const erroredFileIds = React.useState(new Set<string>())[0];
 
-		const onUpload = ({ file, preview }: UploadPreviewUpdateEventPayload): void => {
+		// This is a bit horrendous. Fundementally though, `insertFile` takes a
+		// callback that can ask for us to add listeners to any and all of the
+		// `Browser` events for each file uplaoded. We add a track those in a
+		// ref, call the CBs so the media-plugin can do it's thing, and then
+		// remove all listeners `onEnd`.
+		const eventSubscribers = React.useRef<Record<string, MediaStateEventListener[]>>({});
+		const onStateChanged = React.useCallback(
+			(fileId: string) => (cb: MediaStateEventListener) => {
+				eventSubscribers.current = {
+					...eventSubscribers.current,
+					[fileId]: [...(eventSubscribers.current?.[fileId] ?? []), cb],
+				};
+			},
+			[],
+		);
+
+		const onPreviewUpdate = ({ file, preview }: UploadPreviewUpdateEventPayload): void => {
 			onUploadSuccessAnalytics('local');
 
 			const isErroredFile = erroredFileIds.has(file.id);
@@ -104,14 +122,10 @@ export const LocalMedia = React.forwardRef<HTMLButtonElement, Props>(
 				status: isErroredFile ? 'error' : undefined,
 			};
 
-			const onStateChanged = (_cb: MediaStateEventListener) => {
-				// no-op
-			};
-
 			insertFile({
 				mediaState,
 				inputMethod: INPUT_METHOD.MEDIA_PICKER,
-				onMediaStateChanged: onStateChanged,
+				onMediaStateChanged: onStateChanged(file.id),
 			});
 
 			closeMediaInsertPicker();
@@ -121,6 +135,38 @@ export const LocalMedia = React.forwardRef<HTMLButtonElement, Props>(
 		};
 
 		const { uploadParams, uploadMediaClientConfig } = mediaProvider;
+
+		const onEnd = useCallback((payload: UploadEndEventPayload) => {
+			eventSubscribers.current?.[payload.file.id]?.forEach((cb) =>
+				cb({
+					id: payload.file.id,
+					status: 'ready',
+				}),
+			);
+			delete eventSubscribers.current?.[payload.file.id];
+		}, []);
+
+		const onError = useCallback(
+			({ error, fileId }: UploadErrorEventPayload): void => {
+				// Dispatch the error events
+				onUploadFailureAnalytics(error.name, 'local');
+				dispatch({ type: 'error', error: error.name });
+
+				// Update the status of the errored file
+				erroredFileIds.add(fileId);
+
+				// Update and remove listeners
+				eventSubscribers.current?.[fileId]?.forEach((cb) =>
+					cb({
+						id: fileId,
+						status: 'error',
+						error: error,
+					}),
+				);
+				delete eventSubscribers.current?.[fileId];
+			},
+			[erroredFileIds, onUploadFailureAnalytics],
+		);
 
 		return (
 			<Stack grow="fill" space="space.200">
@@ -146,21 +192,13 @@ export const LocalMedia = React.forwardRef<HTMLButtonElement, Props>(
 						isOpen={uploadState.isOpen}
 						config={{ uploadParams: uploadParams, multiple: true }}
 						mediaClientConfig={uploadMediaClientConfig}
-						onUploadsStart={() => {
-							onUploadCommencedAnalytics('local');
-						}}
-						onPreviewUpdate={onUpload}
+						onUploadsStart={() => onUploadCommencedAnalytics('local')}
+						onPreviewUpdate={onPreviewUpdate}
+						onEnd={onEnd}
 						// NOTE: this will fire for some errors like network failures, but not
 						// for others like empty files. Those have their own feedback toast
 						// owned by media.
-						onError={({ error, fileId }) => {
-							// Dispatch the error events
-							onUploadFailureAnalytics(error.name, 'local');
-							dispatch({ type: 'error', error: error.name });
-
-							// Update the status of the errored file
-							erroredFileIds.add(fileId);
-						}}
+						onError={onError}
 						onClose={() => {
 							erroredFileIds.clear();
 							dispatch({ type: 'close' });

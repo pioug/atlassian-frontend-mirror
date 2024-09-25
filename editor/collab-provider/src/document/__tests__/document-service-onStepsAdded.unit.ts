@@ -23,7 +23,6 @@ describe('onStepsAdded', () => {
 		processStepsMock = jest.spyOn(service, 'processSteps');
 		// @ts-ignore access private variable
 		queueStepsSpy = jest.spyOn(service.stepQueue, 'queueSteps');
-		jest.spyOn(service, 'throttledCatchup').mockImplementation();
 		service.getCurrentState = jest.fn().mockResolvedValue('mockState');
 		// @ts-ignore access private variable
 		onErrorHandledMock = service.onErrorHandled;

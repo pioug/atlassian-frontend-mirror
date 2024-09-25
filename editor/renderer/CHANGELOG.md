@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 110.5.0
+
+### Minor Changes
+
+- [#145026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145026)
+  [`98399b2cfafdc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98399b2cfafdc) -
+  Remove references to showActions and showServerActions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.4.5
+
+### Patch Changes
+
+- [#144888](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144888)
+  [`de9029605ff53`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de9029605ff53) -
+  [ED-24681] Clean up FD `confluence.frontend.comments-on-media.bug.insert.excerpt`
+- Updated dependencies
+
 ## 110.4.4
 
 ### Patch Changes

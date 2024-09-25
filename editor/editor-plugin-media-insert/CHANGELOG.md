@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.8.3
+
+### Patch Changes
+
+- [#144608](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144608)
+  [`d5049f3552bfa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d5049f3552bfa) -
+  [ux] [ED-25088] Hook up insertFile event subscribers to fix comment button state
+
 ## 2.8.2
 
 ### Patch Changes

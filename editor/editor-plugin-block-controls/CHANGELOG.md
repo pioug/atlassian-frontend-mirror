@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.1.3
+
+### Patch Changes
+
+- [#144997](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144997)
+  [`8bf63082ba73e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8bf63082ba73e) -
+  Reduce cost of apply method to improve input latency
+
 ## 2.1.2
 
 ### Patch Changes

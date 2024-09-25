@@ -1,10 +1,8 @@
-import {
-	type ProfileClientOptions,
-	type ReportingLinesUser,
-	type TeamCentralReportingLinesData,
-} from '../types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-import CachingClient from './CachingClient';
+import { type ReportingLinesUser, type TeamCentralReportingLinesData } from '../types';
+
+import CachingClient, { type CacheConfig } from './CachingClient';
 import { directoryGraphqlQuery } from './graphqlUtils';
 
 export const buildReportingLinesQuery = (aaid: string) => ({
@@ -38,41 +36,18 @@ export const buildReportingLinesQuery = (aaid: string) => ({
 	},
 });
 
-export const buildCheckFeatureFlagQuery = (
-	featureKey: string,
-	context?: FeatureFlagExtraContext[],
-) => ({
-	query: `
-    query isFeatureKeyEnabled($featureKey: String!, $context: [IsFeatureEnabledContextInput]) {
-      isFeatureEnabled(featureKey: $featureKey, context: $context) {
-        enabled
-      }
-    }
-  `,
-	variables: {
-		featureKey,
-		context: context || [],
-	},
-});
-
-type TeamCentralCardClientOptions = ProfileClientOptions & {
-	teamCentralUrl: string;
+export type TeamCentralCardClientOptions = CacheConfig & {
+	cloudId?: string;
+	teamCentralDisabled?: boolean;
+	/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required */
+	/**
+	 * @deprecated
+	 * Enables Team Central functionality if enabled e.g. /gateway/api/watermelon/graphql
+	 */
+	teamCentralUrl?: string;
+	/** URL to the Team Central app e.g. team.atlassian.com */
+	teamCentralBaseUrl?: string;
 };
-
-type FeatureFlagExtraContext = {
-	key: string;
-	value: string;
-};
-
-function hasTCWorkspace(config: ProfileClientOptions) {
-	return config.cloudId
-		? fetch(
-				`/gateway/api/watermelon/organization/containsAnyWorkspace?cloudId=${config.cloudId}`,
-			).then((res) => {
-				return !res || (res && res.ok);
-			})
-		: Promise.resolve(false);
-}
 
 let isTCReadyPromiseMap: Map<string, Promise<boolean>> = new Map();
 
@@ -87,58 +62,25 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	 * catch a pretty specific edge case.
 	 */
 	bypassOnFailure: boolean;
-	featureFlagKeys: Map<string, boolean>;
 	isTCReadyPromise: Promise<boolean>;
 
 	constructor(options: TeamCentralCardClientOptions) {
 		super(options);
 		this.options = options;
 		this.bypassOnFailure = false;
-		this.featureFlagKeys = new Map();
 		this.isTCReadyPromise = this.createTcReadyPromise(options);
 	}
 
-	public createTcReadyPromise(config: ProfileClientOptions): Promise<boolean> {
+	createTcReadyPromise(config: TeamCentralCardClientOptions): Promise<boolean> {
 		if (config.cloudId) {
 			let promise = isTCReadyPromiseMap.get(config.cloudId);
 			if (!promise) {
-				promise = hasTCWorkspace(config);
+				promise = this.hasTCWorkspace(config);
 				isTCReadyPromiseMap.set(config.cloudId, promise);
 			}
 			return promise;
 		}
 		return Promise.resolve(true);
-	}
-
-	async makeFeatureFlagCheckRequest(featureKey: string, context?: FeatureFlagExtraContext[]) {
-		if (!this.options.teamCentralUrl) {
-			throw new Error(
-				'options.teamCentralUrl is a required parameter for retrieving Team Central data',
-			);
-		}
-		const query = buildCheckFeatureFlagQuery(featureKey, context);
-
-		const response = await directoryGraphqlQuery<{
-			isFeatureEnabled: { enabled: boolean };
-		}>(`${this.options.teamCentralUrl}?operationName=isFeatureKeyEnabled`, query);
-
-		return response.isFeatureEnabled.enabled;
-	}
-
-	async makeRequest(userId: string) {
-		if (!this.options.teamCentralUrl) {
-			throw new Error(
-				'options.teamCentralUrl is a required parameter for retrieving Team Central data',
-			);
-		}
-
-		const query = buildReportingLinesQuery(userId);
-
-		const response = await directoryGraphqlQuery<{
-			reportingLines: TeamCentralReportingLinesData;
-		}>(`${this.options.teamCentralUrl}?operationName=ReportingLines`, query);
-
-		return response.reportingLines;
 	}
 
 	getReportingLines(userId: string): Promise<TeamCentralReportingLinesData> {
@@ -191,43 +133,37 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		);
 	}
 
-	getFlagEnabled(featureKey: string, productIdentifier?: string): Promise<boolean> {
-		return this.isTCReadyPromise.then(
-			(workSpaceExists) => {
-				if (workSpaceExists) {
-					if (!featureKey) {
-						return Promise.reject(new Error('featureKey missing'));
-					}
+	/**
+	 * `public` so that mock client can override it; do not use it otherwise!
+	 */
+	async makeRequest(userId: string) {
+		if (fg('enable_ptc_sharded_townsquare_calls')) {
+			if (this.options.teamCentralDisabled === true) {
+				throw new Error('makeRequest cannot be called when the client has been disabled');
+			}
 
-					if (this.featureFlagKeys.has(featureKey)) {
-						return Promise.resolve(this.featureFlagKeys.get(featureKey)!);
-					}
+			const query = buildReportingLinesQuery(userId);
 
-					if (this.bypassOnFailure) {
-						return Promise.resolve(false);
-					}
+			const response = await directoryGraphqlQuery<{
+				reportingLines: TeamCentralReportingLinesData;
+			}>('/gateway/api/watermelon/graphql?operationName=ReportingLines', query);
 
-					const context = [{ key: 'productIdentifier', value: productIdentifier || 'unset' }];
+			return response.reportingLines;
+		} else {
+			if (!this.options.teamCentralUrl) {
+				throw new Error(
+					'options.teamCentralUrl is a required parameter for retrieving Team Central data',
+				);
+			}
 
-					return new Promise((resolve) => {
-						this.makeFeatureFlagCheckRequest(featureKey, context)
-							.then((enabled: boolean) => {
-								this.featureFlagKeys.set(featureKey, enabled);
-								resolve(enabled);
-							})
-							.catch((error: any) => {
-								if (error?.status === 401 || error?.status === 403) {
-									// Trigger circuit breaker
-									this.bypassOnFailure = true;
-								}
-								resolve(false);
-							});
-					});
-				}
-				return Promise.resolve(false);
-			},
-			() => Promise.resolve(false),
-		);
+			const query = buildReportingLinesQuery(userId);
+
+			const response = await directoryGraphqlQuery<{
+				reportingLines: TeamCentralReportingLinesData;
+			}>(`${this.options.teamCentralUrl}?operationName=ReportingLines`, query);
+
+			return response.reportingLines;
+		}
 	}
 
 	checkWorkspaceExists(): Promise<boolean> {
@@ -240,6 +176,21 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 			},
 			() => Promise.resolve(false),
 		);
+	}
+
+	private hasTCWorkspace(config: TeamCentralCardClientOptions) {
+		if (config.cloudId) {
+			const maybeShardedPath = fg('enable_ptc_sharded_townsquare_calls')
+				? `/townsquare/s/${config.cloudId}`
+				: '/watermelon';
+			return fetch(
+				`/gateway/api${maybeShardedPath}/organization/containsAnyWorkspace?cloudId=${config.cloudId}`,
+			).then((res) => {
+				return !res || (res && res.ok);
+			});
+		} else {
+			return Promise.resolve(false);
+		}
 	}
 
 	private filterReportingLinesUser(users: ReportingLinesUser[] = []): ReportingLinesUser[] {

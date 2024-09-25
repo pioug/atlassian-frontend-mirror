@@ -33,9 +33,9 @@ const CardBuilder = ({
 	template?: Partial<CardProps>;
 }) => {
 	const isInline = useMemo(() => display === 'inline', [display]);
-	const isBlock = useMemo(() => display === 'block', [display]);
 	const isEmbed = useMemo(() => display === 'embed', [display]);
 	const isFlexible = useMemo(() => display === 'flexible', [display]);
+
 	return (
 		<Fieldset legend="Smart Links Options" defaultOpen={false}>
 			<SelectOption
@@ -62,24 +62,6 @@ const CardBuilder = ({
 				name="showHoverPreview"
 				onChange={onChange}
 				propName="showHoverPreview"
-				template={template}
-			/>
-			<CheckboxOption
-				defaultValue={true}
-				exclude={!isBlock}
-				label="Show actions (block)"
-				name="showActions"
-				onChange={onChange}
-				propName="showActions"
-				template={template}
-			/>
-			<CheckboxOption
-				defaultValue={false}
-				exclude={!isFlexible}
-				label="Show server actions (inline, block, flexible)"
-				name="showServerActions"
-				onChange={onChange}
-				propName="showServerActions"
 				template={template}
 			/>
 			<CheckboxOption

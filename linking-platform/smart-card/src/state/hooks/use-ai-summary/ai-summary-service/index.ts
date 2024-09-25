@@ -1,5 +1,6 @@
 import uuid from 'uuid';
 import {
+	ChunkProcessingError,
 	type AISummaryServiceConfig,
 	type AISummaryServiceProps,
 	type AISummaryServiceInt,
@@ -7,8 +8,6 @@ import {
 	type StreamMessage,
 	type StateSetter,
 	type PostAgentPayload,
-	errorMessages,
-	type ErrorMessage,
 } from './types';
 import { addPath, getXProductHeaderValue } from './utils';
 import { readStream } from './readStream';
@@ -118,7 +117,7 @@ export class AISummaryService implements AISummaryServiceInt {
 				}
 
 				if (chunk.type === 'ERROR') {
-					throw new Error(chunk?.message?.message_template);
+					throw new ChunkProcessingError(chunk?.message?.message_template);
 				}
 			}
 
@@ -129,8 +128,7 @@ export class AISummaryService implements AISummaryServiceInt {
 				content: bufferContent,
 			};
 		} catch (err) {
-			let message =
-				err instanceof Error && this.isExpectedError(err.message) ? err.message : 'UNEXPECTED';
+			let message = err instanceof ChunkProcessingError ? err.message : 'UNEXPECTED';
 			this.onError?.(id, message);
 			this.state = { status: 'error', content: '', error: message };
 		}
@@ -140,10 +138,6 @@ export class AISummaryService implements AISummaryServiceInt {
 		}
 
 		return this.state;
-	}
-
-	private isExpectedError(value: unknown): value is ErrorMessage {
-		return typeof value === 'string' && errorMessages.some((a) => a === value);
 	}
 
 	public subscribe(stateSetter: StateSetter) {

@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 2.12.3
+
+### Patch Changes
+
+- [#144779](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144779)
+  [`de2f4742e3595`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de2f4742e3595) -
+  [ux] Removed menu section header capitalisation.
+
 ## 2.12.2
 
 ### Patch Changes

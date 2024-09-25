@@ -33,7 +33,7 @@
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
-		"@atlaskit/button": "^20.1.0",
+		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/modal-dialog": "^12.16.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",

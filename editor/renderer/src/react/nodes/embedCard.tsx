@@ -80,7 +80,7 @@ export default function EmbedCard(props: {
 	} = props;
 	const embedIframeRef = useRef(null);
 	const onClick = getCardClickHandler(eventHandlers, url);
-	const { showServerActions, actionOptions } = smartLinks || {};
+	const { actionOptions } = smartLinks || {};
 
 	const platform = 'web';
 
@@ -92,7 +92,6 @@ export default function EmbedCard(props: {
 		platform,
 		frameStyle: smartLinks?.frameStyle ?? 'show',
 		actionOptions,
-		showServerActions,
 	};
 
 	const [liveHeight, setLiveHeight] = useState<number | null>(null);

@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 13.13.0
+
+### Minor Changes
+
+- [#144606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144606)
+  [`92e041153fa2e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92e041153fa2e) -
+  [ux] Enable new icons behind a feature flag.
+
 ## 13.12.1
 
 ### Patch Changes

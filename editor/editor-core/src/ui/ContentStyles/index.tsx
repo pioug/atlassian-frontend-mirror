@@ -17,15 +17,18 @@ import { telepointerStyle } from '@atlaskit/editor-common/collab';
 import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 import {
 	annotationSharedStyles,
 	backgroundColorStyles,
 	blockMarksSharedStyles,
 	codeBlockInListSafariFix,
+	CodeBlockSharedCssClassName,
 	codeMarkSharedStyles,
 	dateSharedStyle,
 	embedCardStyles,
+	expandClassNames,
 	gridStyles,
 	indentationSharedStyles,
 	linkSharedStyle,
@@ -205,6 +208,32 @@ export const placeholderStyles = css({
 	},
 });
 
+const firstBlockNodeStyles = css`
+	.ProseMirror {
+		> .${PanelSharedCssClassName.prefix},
+			> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER},
+			> .${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER},
+			> div[data-task-list-local-id],
+		> div[data-layout-section],
+		> .${expandClassNames.prefix} {
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+
+		> hr:first-of-type {
+			margin-top: 0;
+		}
+	}
+`;
+
+/**
+ * fix layout issue of first block node
+ */
+export const fixBlockControlStylesSSR = () => {
+	return fg('platform_editor_ssr_fix_block_controls') ? firstBlockNodeStyles : null;
+};
+
 // The breakpoint for small devices is 1266px, copied from getBreakpoint in platform/packages/editor/editor-common/src/ui/WidthProvider/index.tsx
 const akEditorBreakpointForSmallDevice = `1266px`;
 const contentStyles = (props: ContentStylesProps) => css`
@@ -320,6 +349,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${unsupportedStyles}
   ${resizerStyles}
   ${aiPanelStyles(props.colorMode)}
+  ${fixBlockControlStylesSSR()}
 
   .panelView-content-wrap {
 		box-sizing: border-box;

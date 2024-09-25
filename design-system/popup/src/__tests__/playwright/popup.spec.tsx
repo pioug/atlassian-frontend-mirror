@@ -420,9 +420,7 @@ test.describe('Popup focus behavior', () => {
 		await dropdownTrigger.focus();
 		await dropdownTrigger.press('Enter');
 
-		let triggerTabindex = await dropdownTrigger.getAttribute('tabindex');
-		// eslint-disable-next-line playwright/prefer-web-first-assertions
-		await expect(triggerTabindex).toBe('-1');
+		await expect(dropdownTrigger).toHaveAttribute('tabindex', '-1');
 
 		await page.keyboard.press('Tab');
 		await page.keyboard.press('Tab');
@@ -435,8 +433,62 @@ test.describe('Popup focus behavior', () => {
 
 		await expect(dropdownContent).toBeHidden();
 
-		triggerTabindex = await dropdownTrigger.getAttribute('tabindex');
-		// eslint-disable-next-line playwright/prefer-web-first-assertions
-		await expect(triggerTabindex).toBe('0');
+		await expect(dropdownTrigger).toHaveAttribute('tabindex', '0');
+	});
+
+	test('Should open dropdown menu inside popup and close on Escape, FF off', async ({ page }) => {
+		await page.visitExample('design-system', 'popup', 'testing-dropdown-inside-popup');
+
+		const dropdownTrigger = page.getByTestId('dropdown--trigger');
+		const dropdownContent = page.getByTestId('dropdown--content');
+		const popupTrigger = page.getByTestId('popup-trigger');
+		const popupContent = page.getByTestId('popup-content');
+
+		await popupTrigger.focus();
+		await popupTrigger.press('Enter');
+
+		await page.keyboard.press('Tab');
+		await page.keyboard.press('Enter');
+
+		await expect(dropdownContent).toBeVisible();
+		await page.keyboard.press('Escape');
+
+		await expect(dropdownContent).toBeHidden();
+		await expect(dropdownTrigger).toBeFocused();
+		await expect(popupContent).toBeVisible();
+
+		await page.keyboard.press('Escape');
+
+		await expect(popupContent).toBeHidden();
+		await expect(popupTrigger).toBeFocused();
+	});
+
+	test('Should open dropdown menu inside popup and close on Escape, FF on', async ({ page }) => {
+		await page.visitExample('design-system', 'popup', 'testing-dropdown-inside-popup', {
+			featureFlag: 'platform_dst_popup-disable-focuslock',
+		});
+
+		const dropdownTrigger = page.getByTestId('dropdown--trigger');
+		const dropdownContent = page.getByTestId('dropdown--content');
+		const popupTrigger = page.getByTestId('popup-trigger');
+		const popupContent = page.getByTestId('popup-content');
+
+		await popupTrigger.focus();
+		await popupTrigger.press('Enter');
+
+		await page.keyboard.press('Tab');
+		await page.keyboard.press('Enter');
+
+		await expect(dropdownContent).toBeVisible();
+		await page.keyboard.press('Escape');
+
+		await expect(dropdownContent).toBeHidden();
+		await expect(dropdownTrigger).toBeFocused();
+		await expect(popupContent).toBeVisible();
+
+		await page.keyboard.press('Escape');
+
+		await expect(popupContent).toBeHidden();
+		await expect(popupTrigger).toBeFocused();
 	});
 });

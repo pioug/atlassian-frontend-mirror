@@ -60,7 +60,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/button": "^20.1.0",
+		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/datetime-picker": "^14.1.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/dropdown-menu": "^12.18.0",

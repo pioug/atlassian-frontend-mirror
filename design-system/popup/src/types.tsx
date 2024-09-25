@@ -327,6 +327,7 @@ export type FocusManagerHook = {
 	autoFocus: boolean;
 	shouldDisableFocusTrap: boolean;
 	shouldReturnFocus: boolean;
+	shouldRenderToParent?: boolean;
 };
 
 export type RepositionOnUpdateProps = PropsWithChildren<{

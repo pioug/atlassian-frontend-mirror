@@ -35,8 +35,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	const { url, data, eventHandlers, portal, smartLinks } = props;
 	const onClick = getCardClickHandler(eventHandlers, url);
 	const cardProps = { url, data, onClick, container: portal };
-	const { showAuthTooltip, hideHoverPreview, showServerActions, actionOptions, ssr } =
-		smartLinks || {};
+	const { showAuthTooltip, hideHoverPreview, actionOptions, ssr } = smartLinks || {};
 
 	const analyticsData = {
 		attributes: {
@@ -67,7 +66,6 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 							showAuthTooltip={showAuthTooltip}
 							showHoverPreview={!hideHoverPreview}
 							actionOptions={actionOptions}
-							showServerActions={showServerActions}
 							onClick={onClick}
 						/>
 					</AnalyticsContext>
@@ -82,7 +80,6 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 					showAuthTooltip={showAuthTooltip}
 					showHoverPreview={!hideHoverPreview}
 					actionOptions={actionOptions}
-					showServerActions={showServerActions}
 					onClick={onClick}
 				/>
 			</AnalyticsContext>
@@ -109,7 +106,6 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 						showHoverPreview={!hideHoverPreview}
 						showAuthTooltip={showAuthTooltip}
 						actionOptions={actionOptions}
-						showServerActions={showServerActions}
 						{...cardProps}
 						onResolve={(data) => {
 							if (!data.url || !data.title) {

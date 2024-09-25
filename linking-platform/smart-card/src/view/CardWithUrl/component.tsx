@@ -43,8 +43,6 @@ function Component({
 	onResolve,
 	onError,
 	testId,
-	showActions,
-	showServerActions,
 	actionOptions: actionOptionsProp,
 	inheritDimensions,
 	embedIframeRef,
@@ -84,8 +82,6 @@ function Component({
 
 	const actionOptions = combineActionOptions({
 		actionOptions: actionOptionsProp,
-		showServerActions,
-		showActions,
 		platform,
 	});
 

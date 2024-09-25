@@ -1262,4 +1262,48 @@ describe('Tooltip', () => {
 			screen.getByTestId('tooltip');
 		}).not.toThrow();
 	});
+
+	describe('pointer events', () => {
+		it('should not disable pointer events by default', () => {
+			const { rerender } = render(
+				<Tooltip testId="tooltip" content="Save">
+					{null}
+				</Tooltip>,
+			);
+
+			rerender(
+				<Tooltip testId="tooltip" content="Save">
+					<button data-testid="trigger">focus me</button>
+				</Tooltip>,
+			);
+			fireEvent.mouseOver(screen.getByTestId('trigger'));
+
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			expect(screen.getByTestId('tooltip--wrapper')).not.toHaveStyle('pointer-events: none');
+		});
+
+		it('should disable pointer events if ignorePointerEvents is true', () => {
+			const { rerender } = render(
+				<Tooltip testId="tooltip" content="Save">
+					{null}
+				</Tooltip>,
+			);
+
+			rerender(
+				<Tooltip testId="tooltip" content="Save" ignoreTooltipPointerEvents>
+					<button data-testid="trigger">focus me</button>
+				</Tooltip>,
+			);
+			fireEvent.mouseOver(screen.getByTestId('trigger'));
+
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			expect(screen.getByTestId('tooltip--wrapper')).toHaveStyle('pointer-events: none');
+		});
+	});
 });

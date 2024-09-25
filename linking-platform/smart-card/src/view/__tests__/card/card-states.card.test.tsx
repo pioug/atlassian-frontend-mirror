@@ -494,19 +494,11 @@ describe('smart-card: card states, block', () => {
 				const resolvedLinkText = 'I love cheese';
 				const actionElementTestId = 'smart-element-lozenge--trigger';
 
-				const renderWithShowServerActions = (
-					showServerActions?: boolean,
-					actionOptions?: CardActionOptions,
-				) =>
+				const renderWithActionOptions = (actionOptions?: CardActionOptions) =>
 					render(
 						<IntlProvider locale="en">
 							<Provider client={mockClient}>
-								<Card
-									appearance="block"
-									showServerActions={showServerActions}
-									actionOptions={actionOptions}
-									url={mockUrl}
-								/>
+								<Card appearance="block" actionOptions={actionOptions} url={mockUrl} />
 							</Provider>
 						</IntlProvider>,
 					);
@@ -541,8 +533,8 @@ describe('smart-card: card states, block', () => {
 					}));
 				});
 
-				it('block: renders with server actions when showServerActions is true', async () => {
-					renderWithShowServerActions(true);
+				it('block: renders with actions by default', async () => {
+					renderWithActionOptions();
 
 					await screen.findByText(resolvedLinkText);
 					const actionElement = screen.getByTestId(actionElementTestId);
@@ -550,8 +542,8 @@ describe('smart-card: card states, block', () => {
 					expect(actionElement).toBeInTheDocument();
 				});
 
-				it('block: does not render with server actions when showServerActions is false', async () => {
-					renderWithShowServerActions(false);
+				it('block: does not render with actions when hidden', async () => {
+					renderWithActionOptions({ hide: true });
 
 					await screen.findByText(resolvedLinkText);
 					const actionElement = screen.queryByTestId(actionElementTestId);
@@ -559,8 +551,8 @@ describe('smart-card: card states, block', () => {
 					expect(actionElement).not.toBeInTheDocument();
 				});
 
-				it('block: does render with server actions when showServerActions and action options are not provided', async () => {
-					renderWithShowServerActions();
+				it('block: does render with actions when action options are not hidden', async () => {
+					renderWithActionOptions({ hide: false });
 
 					await screen.findByText(resolvedLinkText);
 					const actionElement = screen.queryByTestId(actionElementTestId);
@@ -568,29 +560,8 @@ describe('smart-card: card states, block', () => {
 					expect(actionElement).toBeInTheDocument();
 				});
 
-				it('block: does render with server actions when showServerActions is not provided and action options are not hidden', async () => {
-					renderWithShowServerActions(undefined, {
-						hide: false,
-					});
-
-					await screen.findByText(resolvedLinkText);
-					const actionElement = screen.queryByTestId(actionElementTestId);
-
-					expect(actionElement).toBeInTheDocument();
-				});
-
-				// testing that action options takes precendence over showServerActions
-				it('block: does render with server actions when showServerActions is false and action options are not hidden', async () => {
-					renderWithShowServerActions(false, { hide: false });
-
-					await screen.findByText(resolvedLinkText);
-					const actionElement = screen.queryByTestId(actionElementTestId);
-
-					expect(actionElement).toBeInTheDocument();
-				});
-
-				it('block: renders with server actions and fires click event when showServerActions is true', async () => {
-					renderWithShowServerActions(true);
+				it('block: renders with actions and fires click event', async () => {
+					renderWithActionOptions();
 
 					await screen.findByText(resolvedLinkText);
 					const actionElement = screen.getByTestId(actionElementTestId);

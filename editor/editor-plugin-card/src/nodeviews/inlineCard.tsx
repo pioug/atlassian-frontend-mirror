@@ -25,7 +25,6 @@ export const InlineCard = memo(
 		node,
 		cardContext,
 		actionOptions,
-		showServerActions,
 		useAlternativePreloader,
 		view,
 		getPos,
@@ -99,7 +98,6 @@ export const InlineCard = memo(
 					onError={onError}
 					inlinePreloaderStyle={useAlternativePreloader ? 'on-right-without-skeleton' : undefined}
 					actionOptions={actionOptions}
-					showServerActions={showServerActions}
 					isHovered={isHovered}
 					showHoverPreview={showHoverPreview}
 					hoverPreviewOptions={hoverPreviewOptions}
@@ -114,7 +112,6 @@ export const InlineCard = memo(
 				onError,
 				useAlternativePreloader,
 				actionOptions,
-				showServerActions,
 				isHovered,
 				showHoverPreview,
 				hoverPreviewOptions,
@@ -138,7 +135,6 @@ export type InlineCardNodeViewProps = Pick<
 	SmartCardProps,
 	| 'useAlternativePreloader'
 	| 'actionOptions'
-	| 'showServerActions'
 	| 'allowEmbeds'
 	| 'allowBlockCards'
 	| 'enableInlineUpgradeFeatures'
@@ -156,7 +152,6 @@ export function InlineCardNodeView(
 		view,
 		getPos,
 		actionOptions,
-		showServerActions,
 		allowEmbeds,
 		allowBlockCards,
 		enableInlineUpgradeFeatures,
@@ -184,7 +179,6 @@ export function InlineCardNodeView(
 				view={view}
 				getPos={getPos}
 				actionOptions={actionOptions}
-				showServerActions={showServerActions}
 				useAlternativePreloader={useAlternativePreloader}
 				onClickCallback={onClickCallback}
 				showHoverPreview={showHoverPreview}
@@ -219,7 +213,6 @@ export function InlineCardNodeView(
 			view={view}
 			getPos={getPos}
 			actionOptions={actionOptions}
-			showServerActions={showServerActions}
 			useAlternativePreloader={useAlternativePreloader}
 			pluginInjectionApi={pluginInjectionApi}
 			onClickCallback={onClickCallback}

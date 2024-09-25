@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.6.6
+
+### Patch Changes
+
+- [#144261](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144261)
+  [`db163b6e55bdb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db163b6e55bdb) -
+  [ux] ED-24773 implement request to edit link in request to edit dialog
+
+## 2.6.5
+
+### Patch Changes
+
+- [#144162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144162)
+  [`89ef180d8e16e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89ef180d8e16e) -
+  [ux] ED-24772 add popup content for create request to edit component
+
 ## 2.6.4
 
 ### Patch Changes

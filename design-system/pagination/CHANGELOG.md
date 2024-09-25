@@ -1,5 +1,13 @@
 # @atlaskit/pagination
 
+## 14.9.0
+
+### Minor Changes
+
+- [#144888](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144888)
+  [`36d431fde8b6f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36d431fde8b6f) -
+  Enable new icons behind a feature flag.
+
 ## 14.8.1
 
 ### Patch Changes

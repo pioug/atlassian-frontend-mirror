@@ -1,4 +1,6 @@
-import TeamCentralCardClient from '../client/TeamCentralCardClient';
+import TeamCentralCardClient, {
+	type TeamCentralCardClientOptions,
+} from '../client/TeamCentralCardClient';
 import UserProfileCardClient from '../client/UserProfileCardClient';
 import { type ClientOverrides, type ProfileClientOptions } from '../types';
 
@@ -40,9 +42,10 @@ export default function getMockProfileClient(BaseProfileClient: any, modifyRespo
 	}
 
 	class MockTeamCentralClient extends TeamCentralCardClient {
-		createTcReadyPromise(config: ProfileClientOptions): Promise<boolean> {
+		createTcReadyPromise(config: TeamCentralCardClientOptions): Promise<boolean> {
 			return Promise.resolve(true);
 		}
+
 		makeRequest(userId: string) {
 			const timeout = random(1500) + 500;
 			const matchError = userId.match(/^error:([0-9a-zA-Z\-]+)$/);
@@ -56,9 +59,6 @@ export default function getMockProfileClient(BaseProfileClient: any, modifyRespo
 					return resolve(reportingLinesData);
 				}, timeout);
 			});
-		}
-		getFlagEnabled(featureKey: string): Promise<boolean> {
-			return Promise.resolve(true);
 		}
 	}
 

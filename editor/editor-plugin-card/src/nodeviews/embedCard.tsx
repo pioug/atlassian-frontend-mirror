@@ -357,7 +357,6 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 			getPos,
 			pluginInjectionApi,
 			actionOptions,
-			showServerActions,
 			onClick,
 		} = this.props;
 
@@ -395,7 +394,6 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 				container={this.scrollContainer}
 				embedIframeRef={this.embedIframeRef}
 				actionOptions={actionOptions}
-				showServerActions={showServerActions}
 			/>
 		);
 
@@ -444,7 +442,6 @@ export type EmbedCardNodeViewProps = Pick<
 	| 'dispatchAnalyticsEvent'
 	| 'pluginInjectionApi'
 	| 'actionOptions'
-	| 'showServerActions'
 	| 'onClickCallback'
 >;
 
@@ -521,7 +518,6 @@ export interface EmbedCardNodeViewProperties {
 	pmPluginFactoryParams: PMPluginFactoryParams;
 	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 	actionOptions: EmbedCardNodeViewProps['actionOptions'];
-	showServerActions: EmbedCardNodeViewProps['showServerActions'];
 	onClickCallback: EmbedCardNodeViewProps['onClickCallback'];
 }
 
@@ -532,7 +528,6 @@ export const embedCardNodeView =
 		pmPluginFactoryParams,
 		pluginInjectionApi,
 		actionOptions,
-		showServerActions,
 		onClickCallback,
 	}: EmbedCardNodeViewProperties) =>
 	(node: PMNode, view: EditorView, getPos: () => number | undefined) => {
@@ -544,7 +539,6 @@ export const embedCardNodeView =
 			dispatchAnalyticsEvent,
 			pluginInjectionApi,
 			actionOptions,
-			showServerActions,
 			onClickCallback: onClickCallback,
 		};
 		return new EmbedCard(

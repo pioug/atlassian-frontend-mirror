@@ -33,7 +33,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/button": "^20.1.0",
+		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/icon": "^22.18.0",

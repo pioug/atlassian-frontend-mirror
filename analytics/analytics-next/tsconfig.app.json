@@ -28,6 +28,7 @@
 	],
 	"compilerOptions": {
 		"baseUrl": "./",
+		"types": ["node"],
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__analytics-next/app"
 	},

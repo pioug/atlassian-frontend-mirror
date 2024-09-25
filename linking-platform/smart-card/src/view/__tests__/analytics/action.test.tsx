@@ -1,18 +1,17 @@
 import * as jestExtendedMatchers from 'jest-extended';
 import React from 'react';
 import { type JsonLd } from 'json-ld-types';
-import { act, fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import uuid from 'uuid';
 
 import '@atlaskit/link-test-helpers/jest';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { ProviderProps } from '@atlaskit/link-provider';
-import { SmartLinkActionType } from '@atlaskit/linking-types';
+
 import { type CardClient } from '@atlaskit/link-provider';
-import { flushPromises, mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 
 import { ActionName, Card, Provider, TitleBlock } from '../../../index';
-import * as useInvoke from '../../../state/hooks/use-invoke';
 import { fakeFactory } from '../../../utils/mocks';
 import * as utils from '../../../utils';
 import * as analytics from '../../../utils/analytics/analytics';
@@ -171,7 +170,6 @@ describe('actions', () => {
 			{
 				display: 'block',
 				isFlexibleComponent: true,
-				props: { showServerActions: true },
 			},
 		],
 		[
@@ -189,7 +187,6 @@ describe('actions', () => {
 							]}
 						/>
 					),
-					showServerActions: true,
 				},
 			},
 		],
@@ -207,13 +204,7 @@ describe('actions', () => {
 				resolvedTestId?: string;
 			},
 		) => {
-			const {
-				display,
-				featureFlags,
-				isFlexibleComponent,
-				props,
-				resolvedTestId = 'smart-block-title-resolved-view',
-			} = componentOptions;
+			const { display, featureFlags, isFlexibleComponent, props } = componentOptions;
 
 			describe.each([
 				[
@@ -316,13 +307,17 @@ describe('actions', () => {
 							}),
 						});
 
-						expect(ufoStartSpy).toBeCalledWith('smart-link-action-invocation', EXPERIENCE_TEST_ID, {
-							actionType,
-							display,
-							extensionKey: 'object-provider',
-							invokeType: 'client',
-						});
-						expect(ufoSucceedSpy).toBeCalledWith(
+						expect(ufoStartSpy).toHaveBeenCalledWith(
+							'smart-link-action-invocation',
+							EXPERIENCE_TEST_ID,
+							{
+								actionType,
+								display,
+								extensionKey: 'object-provider',
+								invokeType: 'client',
+							},
+						);
+						expect(ufoSucceedSpy).toHaveBeenCalledWith(
 							'smart-link-action-invocation',
 							EXPERIENCE_TEST_ID,
 						);
@@ -385,183 +380,26 @@ describe('actions', () => {
 							}),
 						});
 
-						expect(ufoStartSpy).toBeCalledWith('smart-link-action-invocation', EXPERIENCE_TEST_ID, {
-							actionType,
-							display,
-							extensionKey: 'object-provider',
-							invokeType: 'client',
-						});
+						expect(ufoStartSpy).toHaveBeenCalledWith(
+							'smart-link-action-invocation',
+							EXPERIENCE_TEST_ID,
+							{
+								actionType,
+								display,
+								extensionKey: 'object-provider',
+								invokeType: 'client',
+							},
+						);
 
-						expect(ufoFailSpy).toBeCalledWith('smart-link-action-invocation', EXPERIENCE_TEST_ID);
+						expect(ufoFailSpy).toHaveBeenCalledWith(
+							'smart-link-action-invocation',
+							EXPERIENCE_TEST_ID,
+						);
 
 						expect(ufoStartSpy).toHaveBeenCalledBefore(ufoFailSpy as jest.Mock);
 					});
 				},
 			);
-
-			if (props?.showServerActions) {
-				describe.each([
-					[
-						'follow',
-						{
-							actionSubjectId: 'smartLinkFollowButton',
-							actionType: 'Follow',
-							response: toJsonLdResponse({
-								'atlassian:serverAction': [
-									{
-										'@type': 'UpdateAction',
-										name: 'UpdateAction',
-										dataUpdateAction: {
-											'@type': 'UpdateAction',
-											name: SmartLinkActionType.FollowEntityAction,
-										},
-										resourceIdentifiers: { ari: 'some-id' },
-										refField: 'button',
-									},
-								],
-							}),
-							testId: 'smart-action-follow-action',
-						},
-					],
-					[
-						'unfollow',
-						{
-							actionSubjectId: 'smartLinkFollowButton',
-							actionType: 'Unfollow',
-							response: toJsonLdResponse({
-								'atlassian:serverAction': [
-									{
-										'@type': 'UpdateAction',
-										name: 'UpdateAction',
-										dataUpdateAction: {
-											'@type': 'UpdateAction',
-											name: SmartLinkActionType.UnfollowEntityAction,
-										},
-										resourceIdentifiers: { ari: 'some-id' },
-										refField: 'button',
-									},
-								],
-							}),
-							testId: 'smart-action-follow-action',
-						},
-					],
-				])(
-					'server action: %s',
-					(
-						actionName,
-						testOptions: {
-							actionSubjectId: string;
-							actionType: string;
-							response: JsonLd.Response;
-							testId: string;
-						},
-					) => {
-						const { actionSubjectId, actionType, response, testId } = testOptions;
-						const setupOptions = { featureFlags, props, response };
-
-						it('fires button click and track success', async () => {
-							jest.spyOn(useInvoke, 'default').mockReturnValue(jest.fn());
-
-							const { findByTestId, mockAnalyticsClient } = setup(setupOptions);
-
-							await findByTestId(resolvedTestId);
-							const button = await findByTestId(testId);
-							act(() => {
-								fireEvent.click(button);
-							});
-							await flushPromises();
-
-							expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith({
-								...EXPECTED_CHANNEL_CONTEXT,
-								action: 'clicked',
-								actionSubject: 'button',
-								actionSubjectId,
-								attributes: expect.objectContaining({
-									...EXPECTED_COMMON_ATTRIBUTES,
-									display,
-									id: TEST_ID,
-								}),
-							});
-
-							expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenNthCalledWith(1, {
-								...EXPECTED_CHANNEL_CONTEXT,
-								action: 'started',
-								actionSubject: 'smartLinkQuickAction',
-								attributes: expect.objectContaining({
-									...EXPECTED_COMMON_ATTRIBUTES,
-									display,
-									id: TEST_ID,
-									smartLinkActionType: actionType,
-								}),
-							});
-
-							expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenNthCalledWith(2, {
-								...EXPECTED_CHANNEL_CONTEXT,
-								action: 'success',
-								actionSubject: 'smartLinkQuickAction',
-								attributes: expect.objectContaining({
-									...EXPECTED_COMMON_ATTRIBUTES,
-									display,
-									id: TEST_ID,
-									smartLinkActionType: actionType,
-								}),
-							});
-						});
-
-						it('fires button click and track failed', async () => {
-							const mockInvoke = jest.fn().mockImplementationOnce(() => {
-								throw new Error();
-							});
-							jest.spyOn(useInvoke, 'default').mockReturnValue(mockInvoke);
-
-							const { findByTestId, mockAnalyticsClient } = setup(setupOptions);
-
-							const button = await findByTestId(testId);
-							act(() => {
-								fireEvent.click(button);
-							});
-							await flushPromises();
-
-							expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith({
-								...EXPECTED_CHANNEL_CONTEXT,
-								action: 'clicked',
-								actionSubject: 'button',
-								actionSubjectId,
-								attributes: expect.objectContaining({
-									...EXPECTED_COMMON_ATTRIBUTES,
-									display,
-									id: TEST_ID,
-								}),
-							});
-
-							expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenNthCalledWith(1, {
-								...EXPECTED_CHANNEL_CONTEXT,
-								action: 'started',
-								actionSubject: 'smartLinkQuickAction',
-								attributes: expect.objectContaining({
-									...EXPECTED_COMMON_ATTRIBUTES,
-									display,
-									id: TEST_ID,
-									smartLinkActionType: actionType,
-								}),
-							});
-
-							expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenNthCalledWith(2, {
-								...EXPECTED_CHANNEL_CONTEXT,
-								action: 'failed',
-								actionSubject: 'smartLinkQuickAction',
-								actionSubjectId: undefined,
-								attributes: expect.objectContaining({
-									...EXPECTED_COMMON_ATTRIBUTES,
-									display,
-									id: TEST_ID,
-									smartLinkActionType: actionType,
-								}),
-							});
-						});
-					},
-				);
-			}
 		},
 	);
 });

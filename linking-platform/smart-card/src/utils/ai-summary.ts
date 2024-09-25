@@ -2,7 +2,6 @@ import type { JsonLd } from 'json-ld-types';
 import type { MessageDescriptor } from 'react-intl-next';
 import { CONTENT_URL_ACCEPTABLE_USE_POLICY, CONTENT_URL_AI_TROUBLESHOOTING } from '../constants';
 import { messages } from '../messages';
-import type { ErrorMessage } from '../state/hooks/use-ai-summary/ai-summary-service/types';
 
 export const getIsAISummaryEnabled = (
 	isAdminHubAIEnabled: boolean = false,
@@ -10,7 +9,7 @@ export const getIsAISummaryEnabled = (
 ) => Boolean(isAdminHubAIEnabled && response?.meta?.supportedFeature?.includes('AISummary'));
 
 export const getAISummaryErrorMessage = (
-	error?: ErrorMessage,
+	error?: string,
 ): { message: MessageDescriptor; url?: string } => {
 	switch (error) {
 		case 'ACCEPTABLE_USE_VIOLATIONS':

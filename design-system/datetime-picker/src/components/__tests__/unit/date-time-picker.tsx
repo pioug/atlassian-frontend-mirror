@@ -5,6 +5,7 @@ import userEvent, { type UserEvent } from '@testing-library/user-event';
 
 import Select, { type OptionsType } from '@atlaskit/select';
 
+import { type DateTimePickerBaseProps } from '../../../types';
 import {
 	datePickerDefaultAriaLabel,
 	DateTimePickerWithoutAnalytics as DateTimePicker,
@@ -22,10 +23,22 @@ jest.mock('@atlaskit/select', () => {
 });
 
 describe('DateTimePicker', () => {
+	const testId = 'testId';
+	const today = new Date();
+	const todayISO = today.toISOString();
+
+	const createDateTimePicker = (props?: DateTimePickerBaseProps) => (
+		<label htmlFor={props?.id || 'datetime'}>
+			Datetime
+			{/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
+			<DateTimePicker id={props?.id || 'datetime'} testId={testId} {...props} />
+		</label>
+	);
+
 	const firePickerEvent = {
 		// We can't convert these to userEvent at this point. Unsure of why, but not
 		// worth figuring out at the moment.
-		changeDate(testId: string, value: string) {
+		changeDate(value: string) {
 			const input = screen.getByTestId(`${testId}--datepicker--input`);
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.input(input, {
@@ -38,23 +51,23 @@ describe('DateTimePicker', () => {
 				key: 'Enter',
 			});
 		},
-		focusDate(testId: string) {
+		focusDate() {
 			const select = screen.getByTestId(`${testId}--datepicker--select`);
 			fireEvent.focus(select);
 		},
-		blurDate(testId: string) {
+		blurDate() {
 			const select = screen.getByTestId(`${testId}--datepicker--select`);
 			fireEvent.blur(select);
 		},
-		async changeTime(testId: string, value: string, user: UserEvent) {
+		async changeTime(value: string, user: UserEvent) {
 			const select = screen.getByTestId(`${testId}--timepicker--select`);
 			await user.selectOptions(select, value);
 		},
-		focusTime(testId: string) {
+		focusTime() {
 			const select = screen.getByTestId(`${testId}--timepicker--select`);
 			fireEvent.focus(select);
 		},
-		blurTime(testId: string) {
+		blurTime() {
 			const select = screen.getByTestId(`${testId}--timepicker--select`);
 			fireEvent.blur(select);
 		},
@@ -85,8 +98,42 @@ describe('DateTimePicker', () => {
 		jest.resetAllMocks();
 	});
 
+	it('should have an empty value if none is provided', () => {
+		render(createDateTimePicker());
+
+		const input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue('');
+	});
+
+	it('should use provided value', () => {
+		render(createDateTimePicker({ value: todayISO }));
+
+		const input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue(todayISO);
+	});
+
+	it('should use provided default value', () => {
+		render(createDateTimePicker({ defaultValue: todayISO }));
+
+		const input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue(todayISO);
+	});
+
+	it('should handle a controlled value', () => {
+		const { rerender } = render(createDateTimePicker({ value: todayISO }));
+		let input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue(todayISO);
+
+		const tomorrow = new Date(today);
+		tomorrow.setDate(today.getDate() + 1);
+		const tomorrowISO = tomorrow.toISOString();
+
+		rerender(createDateTimePicker({ value: tomorrowISO }));
+		input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue(tomorrowISO);
+	});
+
 	it('should use custom parseValue when accessing state', () => {
-		const testId = 'test';
 		const onChange = jest.fn();
 		const dateValue = new Date('05/02/2018').toISOString();
 		const customParseValue = jest.fn().mockImplementation(() => ({
@@ -96,17 +143,16 @@ describe('DateTimePicker', () => {
 		}));
 
 		render(
-			<DateTimePicker
-				defaultValue="2018-05-02"
-				parseValue={customParseValue}
-				onChange={onChange}
-				testId={testId}
-			/>,
+			createDateTimePicker({
+				defaultValue: '2018-05-02',
+				parseValue: customParseValue,
+				onChange: onChange,
+			}),
 		);
 
 		expect(customParseValue).toHaveBeenCalledWith('2018-05-02', '', '', '');
 
-		firePickerEvent.changeDate(testId, '06/08/2018');
+		firePickerEvent.changeDate('06/08/2018');
 
 		expect(customParseValue).toHaveBeenCalledWith(
 			'2018-06-08T08:30+0800',
@@ -120,40 +166,35 @@ describe('DateTimePicker', () => {
 	});
 
 	it('should not parse the date time value into the specified timezone', () => {
-		const testId = 'test';
 		const onChange = jest.fn();
-		render(
-			<DateTimePicker value="2018-05-02T08:00:00.000+0800" onChange={onChange} testId={testId} />,
-		);
+		render(createDateTimePicker({ value: '2018-05-02T08:00:00.000+0800', onChange: onChange }));
 
-		firePickerEvent.changeDate(testId, '02/05/2018');
+		firePickerEvent.changeDate('02/05/2018');
 
 		expect(onChange).toHaveBeenCalledWith('2018-02-05T00:00+0000');
 	});
 
 	it('should only be fired onChange when a valid date is supplied', async () => {
 		const user = userEvent.setup();
-		const testId = 'test';
 		const onChange = jest.fn();
-		render(<DateTimePicker onChange={onChange} testId={testId} />);
+		render(createDateTimePicker({ onChange: onChange }));
 
-		firePickerEvent.changeDate(testId, '2018/05/02');
+		firePickerEvent.changeDate('2018/05/02');
 		expect(onChange).not.toHaveBeenCalled();
 
-		await firePickerEvent.changeTime(testId, '10:30', user);
+		await firePickerEvent.changeTime('10:30', user);
 		// iso will use current date (build/configs/jest-config/setup/setup-dates.js)
 		// because we triggered date change in incorrect format.
 		expect(onChange).toHaveBeenCalledWith('2017-08-16T10:30+0000');
 
 		onChange.mockClear();
-		firePickerEvent.changeDate(testId, '02/05/2018');
+		firePickerEvent.changeDate('02/05/2018');
 		// iso will use updated date because we triggered date change in correct format.
 		expect(onChange).toHaveBeenCalledWith('2018-02-05T10:30+0000');
 	});
 
 	it('should call onChange with the date, time and zone offset in the correct format', async () => {
 		const user = userEvent.setup();
-		const testId = 'test';
 		const zoneValue = '+0800';
 		const customParseValue = jest.fn().mockImplementation((_value, date, time, _zone) => {
 			return {
@@ -164,10 +205,10 @@ describe('DateTimePicker', () => {
 		});
 		const onChange = jest.fn();
 
-		render(<DateTimePicker onChange={onChange} parseValue={customParseValue} testId={testId} />);
+		render(createDateTimePicker({ onChange: onChange, parseValue: customParseValue }));
 
-		firePickerEvent.changeDate(testId, '05/02/2018');
-		await firePickerEvent.changeTime(testId, '10:30', user);
+		firePickerEvent.changeDate('05/02/2018');
+		await firePickerEvent.changeTime('10:30', user);
 
 		expect(onChange).toHaveBeenCalledWith(`2018-05-02T10:30${zoneValue}`);
 		expect(onChange).toHaveBeenCalledTimes(1);
@@ -175,13 +216,12 @@ describe('DateTimePicker', () => {
 
 	it('fires onChange with empty string when the time is cleared, and there is a datetime value', async () => {
 		const user = userEvent.setup();
-		const testId = 'test';
 		const onChange = jest.fn();
 		const dateTimeValue = '2018-05-02T08:00:00.000+0800';
 
-		render(<DateTimePicker value={dateTimeValue} onChange={onChange} testId={testId} />);
+		render(createDateTimePicker({ value: dateTimeValue, onChange: onChange }));
 
-		await firePickerEvent.changeTime(testId, '', user);
+		await firePickerEvent.changeTime('', user);
 
 		expect(onChange).toHaveBeenCalledWith('');
 		expect(onChange).toHaveBeenCalledTimes(1);
@@ -189,13 +229,12 @@ describe('DateTimePicker', () => {
 
 	it('fires onChange with empty string when the time is cleared, and there is a default datetime value', async () => {
 		const user = userEvent.setup();
-		const testId = 'test';
 		const onChange = jest.fn();
 		const dateTimeValue = '2018-05-02T08:00:00.000+0800';
 
-		render(<DateTimePicker defaultValue={dateTimeValue} onChange={onChange} testId={testId} />);
+		render(createDateTimePicker({ defaultValue: dateTimeValue, onChange: onChange }));
 
-		await firePickerEvent.changeTime(testId, '', user);
+		await firePickerEvent.changeTime('', user);
 
 		expect(onChange).toHaveBeenCalledWith('');
 		expect(onChange).toHaveBeenCalledTimes(1);
@@ -203,53 +242,48 @@ describe('DateTimePicker', () => {
 
 	it('should not fire onChange when the date or time is cleared, but there is no datetime value', async () => {
 		const user = userEvent.setup();
-		const testId = 'test';
 		const onChange = jest.fn();
 
-		render(<DateTimePicker onChange={onChange} testId={testId} />);
+		render(createDateTimePicker({ onChange: onChange }));
 
-		firePickerEvent.changeDate(testId, '');
-		await firePickerEvent.changeTime(testId, '', user);
+		firePickerEvent.changeDate('');
+		await firePickerEvent.changeTime('', user);
 
 		expect(onChange).not.toHaveBeenCalled();
 	});
 
 	it('should fire onFocus prop when datepicker is focused', () => {
-		const testId = 'test';
 		const onFocus = jest.fn();
-		render(<DateTimePicker onFocus={onFocus} testId={testId} />);
+		render(createDateTimePicker({ onFocus: onFocus }));
 
-		firePickerEvent.focusDate(testId);
+		firePickerEvent.focusDate();
 
 		expect(onFocus).toHaveBeenCalled();
 	});
 
 	it('should fire onBlur prop when datepicker is blurred', () => {
-		const testId = 'test';
 		const onBlur = jest.fn();
-		render(<DateTimePicker onBlur={onBlur} testId={testId} />);
+		render(createDateTimePicker({ onBlur: onBlur }));
 
-		firePickerEvent.blurDate(testId);
+		firePickerEvent.blurDate();
 
 		expect(onBlur).toHaveBeenCalled();
 	});
 
 	it('should fire onFocus prop when timepicker is focused', () => {
-		const testId = 'test';
 		const onFocus = jest.fn();
-		render(<DateTimePicker onFocus={onFocus} testId={testId} />);
+		render(createDateTimePicker({ onFocus: onFocus }));
 
-		firePickerEvent.focusTime(testId);
+		firePickerEvent.focusTime();
 
 		expect(onFocus).toHaveBeenCalled();
 	});
 
 	it('should fire onBlur prop when timepicker is blurred', () => {
-		const testId = 'test';
 		const onBlur = jest.fn();
-		render(<DateTimePicker onBlur={onBlur} testId={testId} />);
+		render(createDateTimePicker({ onBlur: onBlur }));
 
-		firePickerEvent.blurTime(testId);
+		firePickerEvent.blurTime();
 
 		expect(onBlur).toHaveBeenCalled();
 	});
@@ -259,7 +293,7 @@ describe('DateTimePicker', () => {
 		const onChange = jest.fn();
 		const dateTimeValue = '2018-05-02T08:00:00.000+0800';
 
-		render(<DateTimePicker value={dateTimeValue} onChange={onChange} />);
+		render(createDateTimePicker({ value: dateTimeValue, onChange: onChange }));
 
 		const clearButton = screen.getByRole('button');
 		await user.click(clearButton);
@@ -271,7 +305,7 @@ describe('DateTimePicker', () => {
 	it('should have a clear button with a tabindex of -1', () => {
 		const dateTimeValue = '2018-05-02T08:00:00.000+0800';
 
-		render(<DateTimePicker value={dateTimeValue} />);
+		render(createDateTimePicker({ value: dateTimeValue }));
 
 		const button = screen.getByRole('button');
 
@@ -281,11 +315,7 @@ describe('DateTimePicker', () => {
 
 	it('should never apply an ID to the hidden input', () => {
 		const id = 'test';
-		const testId = 'testId';
-		const allImplementations = [
-			<DateTimePicker testId={testId} />,
-			<DateTimePicker testId={testId} id={id} />,
-		];
+		const allImplementations = [createDateTimePicker(), createDateTimePicker({ id: id })];
 
 		allImplementations.forEach((jsx) => {
 			const { unmount } = render(jsx);
@@ -301,12 +331,11 @@ describe('DateTimePicker', () => {
 
 	describe('Accessible names and descriptions', () => {
 		const label = 'Hibernation start date';
-		const testId = 'test';
 		const datePickerTestId = `${testId}--datepicker--select`;
 		const timePickerTestId = `${testId}--timepicker--select`;
 
 		it('should have a default aria-label on the internal DatePicker and TimePicker', () => {
-			render(<DateTimePicker testId={testId} />);
+			render(createDateTimePicker());
 
 			const datePicker = screen.getByTestId(datePickerTestId);
 			const timePicker = screen.getByTestId(timePickerTestId);
@@ -317,11 +346,10 @@ describe('DateTimePicker', () => {
 
 		it('should not use the default aria-label on the internal date picker if `label` prop is provided by [date|time]PickerProps', () => {
 			render(
-				<DateTimePicker
-					datePickerProps={{ label: label }}
-					timePickerProps={{ label: label }}
-					testId={testId}
-				/>,
+				createDateTimePicker({
+					datePickerProps: { label: label },
+					timePickerProps: { label: label },
+				}),
 			);
 
 			const datePicker = screen.getByTestId(datePickerTestId);
@@ -337,7 +365,7 @@ describe('DateTimePicker', () => {
 
 		it('should add aria-describedby when prop is supplied', () => {
 			const describedBy = 'description';
-			render(<DateTimePicker aria-describedby={describedBy} testId={testId} />);
+			render(createDateTimePicker({ 'aria-describedby': describedBy }));
 
 			const datePicker = screen.getByTestId(datePickerTestId);
 			expect(datePicker).toHaveAttribute('aria-describedby', describedBy);

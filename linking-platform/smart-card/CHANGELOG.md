@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 28.2.0
+
+### Minor Changes
+
+- [#145026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145026)
+  [`98399b2cfafdc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98399b2cfafdc) -
+  Remove references to showActions and showServerActions
+
+### Patch Changes
+
+- [#144894](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144894)
+  [`c70fcb7df4d14`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c70fcb7df4d14) -
+  Update AI summary errors to account for all messages sent by ConvoAI when streaming summary
+  content
+
 ## 28.1.7
 
 ### Patch Changes

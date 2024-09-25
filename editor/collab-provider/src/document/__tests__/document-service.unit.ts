@@ -1,11 +1,5 @@
 import { CantSyncUpError, UpdateDocumentError } from '../../errors/custom-errors';
 
-jest.mock('../catchup', () => {
-	return {
-		__esModule: true,
-		catchup: jest.fn(),
-	};
-});
 jest.mock('../catchupv2', () => {
 	return {
 		__esModule: true,

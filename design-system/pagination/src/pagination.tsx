@@ -3,9 +3,10 @@ import React, { forwardRef, memo, type SyntheticEvent } from 'react';
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
-import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
-import ChevronRightLargeIcon from '@atlaskit/icon/glyph/chevron-right-large';
+import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
+import ChevronRightLargeIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-large';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import Navigator from './internal/components/navigator';
 import PageComponent from './internal/components/page';
@@ -33,6 +34,20 @@ const paginationMenuStyles = xcss({
 const paginationMenuItemStyles = xcss({
 	marginBlockStart: 'space.0',
 });
+
+const navigatorIconWrapperStyles = xcss({
+	paddingInline: 'space.075',
+});
+
+function NavigatorIcon({ chevronDirection }: { chevronDirection: 'left' | 'right' }) {
+	const Chevron = chevronDirection === 'left' ? ChevronLeftLargeIcon : ChevronRightLargeIcon;
+
+	return (
+		<Box as="span" xcss={navigatorIconWrapperStyles}>
+			<Chevron label="" LEGACY_margin={`0 ${token('space.negative.075')}`} color="currentColor" />
+		</Box>
+	);
+}
 
 function InnerPagination<T extends React.ReactNode>(
 	{
@@ -119,7 +134,7 @@ function InnerPagination<T extends React.ReactNode>(
 						})
 					}
 					isDisabled={isDisabled || selectedIndexValue === 0}
-					iconBefore={<ChevronLeftLargeIcon label="" />}
+					iconBefore={<NavigatorIcon chevronDirection="left" />}
 					aria-label={previousLabel}
 					testId={testId && `${testId}--left-navigator`}
 				/>
@@ -145,7 +160,7 @@ function InnerPagination<T extends React.ReactNode>(
 						})
 					}
 					isDisabled={isDisabled || selectedIndexValue === pages.length - 1}
-					iconBefore={<ChevronRightLargeIcon label="" />}
+					iconBefore={<NavigatorIcon chevronDirection="right" />}
 					aria-label={nextLabel}
 					testId={testId && `${testId}--right-navigator`}
 				/>

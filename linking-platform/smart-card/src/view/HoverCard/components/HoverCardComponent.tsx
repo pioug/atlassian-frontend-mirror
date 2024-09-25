@@ -32,7 +32,6 @@ export const HoverCardComponent = ({
 	canOpen = true,
 	closeOnChildClick = false,
 	hidePreviewButton = false,
-	showServerActions,
 	actionOptions: actionOptionsProp,
 	allowEventPropagation = false,
 	zIndex = HOVER_CARD_Z_INDEX,
@@ -56,7 +55,6 @@ export const HoverCardComponent = ({
 
 	const actionOptions = combineActionOptions({
 		actionOptions: actionOptionsProp,
-		showServerActions,
 		hidePreviewButton,
 	});
 

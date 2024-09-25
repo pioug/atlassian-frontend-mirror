@@ -46,6 +46,7 @@ const FindReplaceToolbarButtonWithState = ({
 	dispatchAnalyticsEvent,
 	takeFullWidth,
 	api,
+	isButtonHidden,
 }: FindReplaceToolbarButtonWithStateProps) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
 	const { findReplaceState } = useSharedPluginStateNoDebounce(api);
@@ -170,6 +171,7 @@ const FindReplaceToolbarButtonWithState = ({
 			onReplace={handleReplace}
 			onReplaceAll={handleReplaceAll}
 			takeFullWidth={!!takeFullWidth}
+			isButtonHidden={isButtonHidden}
 		/>
 	);
 };

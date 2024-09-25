@@ -24,25 +24,18 @@ jest.mock('@atlaskit/editor-common/media-single', () => ({
 
 type Props = {
 	commentsOnMedia: boolean;
-	commentsOnMediaInsertExcerpt: boolean;
 	includeNodeType: boolean;
 	excerptIncludeClass: boolean;
 	type?: MediaType;
 };
 
 const createMockProps = (props: Props) => {
-	const {
-		commentsOnMedia,
-		commentsOnMediaInsertExcerpt,
-		includeNodeType,
-		excerptIncludeClass,
-		type,
-	} = props;
+	const { commentsOnMedia, includeNodeType, excerptIncludeClass, type } = props;
 
 	const mockProps = {
 		type: type ?? ('file' as MediaType),
 		marks: [mockAnnotationMark, mockLinkDefinition, mockBorderMark],
-		featureFlags: { commentsOnMedia, commentsOnMediaInsertExcerpt },
+		featureFlags: { commentsOnMedia },
 		mediaSingleElement: document.createElement('div'),
 		isBorderMark: () => true,
 		isLinkMark: () => true,
@@ -95,7 +88,6 @@ describe('MediaWithDraftAnnotation', () => {
 					<MediaWithDraftAnnotation
 						{...createMockProps({
 							commentsOnMedia: true,
-							commentsOnMediaInsertExcerpt: false,
 							includeNodeType: false,
 							excerptIncludeClass: false,
 						})}
@@ -116,7 +108,6 @@ describe('MediaWithDraftAnnotation', () => {
 					<MediaWithDraftAnnotation
 						{...createMockProps({
 							commentsOnMedia: false,
-							commentsOnMediaInsertExcerpt: false,
 							includeNodeType: false,
 							excerptIncludeClass: false,
 						})}
@@ -137,7 +128,6 @@ describe('MediaWithDraftAnnotation', () => {
 					<MediaWithDraftAnnotation
 						{...createMockProps({
 							commentsOnMedia: true,
-							commentsOnMediaInsertExcerpt: false,
 							includeNodeType: true,
 							excerptIncludeClass: false,
 						})}
@@ -151,35 +141,13 @@ describe('MediaWithDraftAnnotation', () => {
 		expect(commentBadge).toBeNull();
 	});
 
-	it('should show CommentBadge when commentsOnMediaInsertExcerpt is false and closest className is ak-excerpt-include', () => {
+	it('should not show CommentBadge when closest className is ak-excerpt-include', () => {
 		const { queryByTestId } = render(
 			<IntlProvider locale="en">
 				<InlineCommentsStateContext.Provider value={nextState}>
 					<MediaWithDraftAnnotation
 						{...createMockProps({
 							commentsOnMedia: true,
-							commentsOnMediaInsertExcerpt: false,
-							includeNodeType: false,
-							excerptIncludeClass: true,
-						})}
-					/>
-				</InlineCommentsStateContext.Provider>
-				,
-			</IntlProvider>,
-		);
-
-		const commentBadge = queryByTestId('comment-badge');
-		expect(commentBadge).not.toBeNull();
-	});
-
-	it('should not show CommentBadge when commentsOnMediaInsertExcerpt is true and closest className is ak-excerpt-include', () => {
-		const { queryByTestId } = render(
-			<IntlProvider locale="en">
-				<InlineCommentsStateContext.Provider value={nextState}>
-					<MediaWithDraftAnnotation
-						{...createMockProps({
-							commentsOnMedia: true,
-							commentsOnMediaInsertExcerpt: true,
 							includeNodeType: false,
 							excerptIncludeClass: true,
 						})}
@@ -202,7 +170,6 @@ describe('MediaWithDraftAnnotation', () => {
 							<MediaWithDraftAnnotation
 								{...createMockProps({
 									commentsOnMedia: false,
-									commentsOnMediaInsertExcerpt: false,
 									includeNodeType: false,
 									excerptIncludeClass: false,
 									type: 'external',
@@ -234,7 +201,6 @@ describe('MediaWithDraftAnnotation', () => {
 							<MediaWithDraftAnnotation
 								{...createMockProps({
 									commentsOnMedia: false,
-									commentsOnMediaInsertExcerpt: false,
 									includeNodeType: false,
 									excerptIncludeClass: false,
 									type: 'file',

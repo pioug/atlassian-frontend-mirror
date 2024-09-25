@@ -19,7 +19,6 @@ const headingStyles = css({
 	font: token('font.heading.xxsmall'),
 	paddingBlock: token('space.0', '0px'),
 	paddingInline: token('space.200', '16px'),
-	textTransform: 'uppercase',
 });
 
 /**

@@ -106,6 +106,7 @@ const IconButton = React.memo(
 					component={tooltip?.component}
 					hideTooltipOnClick={tooltip?.hideTooltipOnClick}
 					hideTooltipOnMouseDown={tooltip?.hideTooltipOnMouseDown}
+					ignoreTooltipPointerEvents={tooltip?.ignoreTooltipPointerEvents}
 				>
 					{(triggerProps) => (
 						<Pressable

@@ -19,6 +19,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { InsertMethod } from '../types';
 import { isNestedInExpand } from '../utils';
@@ -59,6 +60,17 @@ export const deleteExpandAtPos =
 			const { tr } = state;
 			tr.delete(expandNodePos, expandNodePos + expandNode.nodeSize);
 			editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
+
+			if (editorExperiment('nested-expand-in-expand', true)) {
+				if (expandNode.type === state.schema.nodes.nestedExpand) {
+					const resolvedPos = tr.doc.resolve(expandNodePos + 1);
+
+					if (resolvedPos) {
+						tr.setSelection(Selection.near(resolvedPos, -1));
+					}
+				}
+			}
+
 			dispatch(tr);
 		}
 

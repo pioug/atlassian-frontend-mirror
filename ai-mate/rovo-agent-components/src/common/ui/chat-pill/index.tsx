@@ -1,10 +1,15 @@
 import React from 'react';
 
+import { useIntl } from 'react-intl-next';
+
 import { type ButtonProps } from '@atlaskit/button';
+import AgentIcon from '@atlaskit/icon/core/ai-agent';
 import { Box, Inline, Pressable, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { ChatPillIcon } from '../chat-icon';
+
+import messages from './messages';
 
 const buttonStyles = xcss({
 	color: 'color.text',
@@ -52,4 +57,21 @@ export const ChatPill = React.forwardRef<HTMLButtonElement, ChatPillProps>(
 			</Inline>
 		</Pressable>
 	),
+);
+
+export type BrowseAgentsPillProps = Omit<ButtonProps, 'iconBefore' | 'children'>;
+
+export const BrowseAgentsPill = React.forwardRef<HTMLButtonElement, BrowseAgentsPillProps>(
+	(props, ref) => {
+		const { formatMessage } = useIntl();
+
+		return (
+			<Pressable ref={ref} {...props} xcss={buttonStyles}>
+				<Inline space="space.050" xcss={buttonInlineStyles}>
+					<AgentIcon color="currentColor" label="" />
+					<Box xcss={queryTextStyles}>{formatMessage(messages.browseAgentsPillLabel)}</Box>
+				</Inline>
+			</Pressable>
+		);
+	},
 );

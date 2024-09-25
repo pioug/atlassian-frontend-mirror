@@ -30,6 +30,7 @@ import {
 	akEditorMobileMaxWidth,
 } from '@atlaskit/editor-shared-styles';
 import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { FindReplaceProps } from './FindReplace';
@@ -49,8 +50,23 @@ const toolbarButtonWrapper = css`
 	}
 `;
 
-const toolbarButtonWrapperFullWith = css({
+const TriggerButtonWrapper = ({
+	isButtonHidden,
+	children,
+}: {
+	isButtonHidden: boolean;
+	children: React.ReactNode;
+}) => {
+	return <div css={{ display: isButtonHidden ? 'none' : 'block' }}>{children}</div>;
+};
+
+const toolbarButtonWrapperFullWidth = css({
 	flexGrow: 1,
+});
+
+const toolbarButtonWrapperHidden = css({
+	flexGrow: 0,
+	padding: 0,
 });
 
 const wrapper = css({
@@ -71,6 +87,7 @@ export interface FindReplaceToolbarButtonProps extends Omit<FindReplaceProps, 'c
 	popupsScrollableElement?: HTMLElement;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	takeFullWidth: boolean;
+	isButtonHidden?: boolean;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -112,6 +129,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 			numMatches,
 			intl: { formatMessage },
 			takeFullWidth,
+			isButtonHidden = false,
 		} = this.props;
 
 		const title = formatMessage(messages.findReplaceToolbarButton);
@@ -119,7 +137,15 @@ class FindReplaceToolbarButton extends React.PureComponent<
 
 		const keymap = findKeymapByDescription('Find');
 		return (
-			<div css={[toolbarButtonWrapper, takeFullWidth && toolbarButtonWrapperFullWith]}>
+			<div
+				css={[
+					toolbarButtonWrapper,
+					takeFullWidth && toolbarButtonWrapperFullWidth,
+					isButtonHidden &&
+						fg('platform_editor_toolbar_responsive_fixes') &&
+						toolbarButtonWrapperHidden,
+				]}
+			>
 				<Dropdown
 					mountTo={popupsMountPoint}
 					boundariesElement={popupsBoundariesElement}
@@ -141,20 +167,39 @@ class FindReplaceToolbarButton extends React.PureComponent<
 						disableArrowKeyNavigation: true,
 					}}
 					trigger={
-						<ToolbarButton
-							buttonId={TOOLBAR_BUTTON.FIND_REPLACE}
-							testId={`editor-toolbar__${TOOLBAR_BUTTON.FIND_REPLACE}`}
-							spacing={isReducedSpacing ? 'none' : 'default'}
-							selected={isActive}
-							title={<ToolTipContent description={title} keymap={keymap} />}
-							iconBefore={<EditorSearchIcon label={title} />}
-							onClick={this.toggleOpen}
-							aria-expanded={isActive}
-							aria-haspopup
-							aria-label={keymap ? tooltip(keymap, title) : title}
-							aria-keyshortcuts={getAriaKeyshortcuts(keymap)}
-							ref={this.toolbarButtonRef}
-						/>
+						fg('platform_editor_toolbar_responsive_fixes') ? (
+							<TriggerButtonWrapper isButtonHidden={isButtonHidden}>
+								<ToolbarButton
+									buttonId={TOOLBAR_BUTTON.FIND_REPLACE}
+									testId={`editor-toolbar__${TOOLBAR_BUTTON.FIND_REPLACE}`}
+									spacing={isReducedSpacing ? 'none' : 'default'}
+									selected={isActive}
+									title={<ToolTipContent description={title} keymap={keymap} />}
+									iconBefore={<EditorSearchIcon label={title} />}
+									onClick={this.toggleOpen}
+									aria-expanded={isActive}
+									aria-haspopup
+									aria-label={keymap ? tooltip(keymap, title) : title}
+									aria-keyshortcuts={getAriaKeyshortcuts(keymap)}
+									ref={this.toolbarButtonRef}
+								/>
+							</TriggerButtonWrapper>
+						) : (
+							<ToolbarButton
+								buttonId={TOOLBAR_BUTTON.FIND_REPLACE}
+								testId={`editor-toolbar__${TOOLBAR_BUTTON.FIND_REPLACE}`}
+								spacing={isReducedSpacing ? 'none' : 'default'}
+								selected={isActive}
+								title={<ToolTipContent description={title} keymap={keymap} />}
+								iconBefore={<EditorSearchIcon label={title} />}
+								onClick={this.toggleOpen}
+								aria-expanded={isActive}
+								aria-haspopup
+								aria-label={keymap ? tooltip(keymap, title) : title}
+								aria-keyshortcuts={getAriaKeyshortcuts(keymap)}
+								ref={this.toolbarButtonRef}
+							/>
+						)
 					}
 				>
 					<div css={wrapper}>

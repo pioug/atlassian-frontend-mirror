@@ -1,0 +1,79 @@
+{
+	"name": "@atlaskit/feature-gate-fetcher",
+	"version": "0.0.1",
+	"description": "Provides fetch logic to get feature gate values from the feature-flag-service. To be used in providers for @atlaskit/feature-gate-js-client",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "MEP: Switcheroo"
+	},
+	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": [
+		"*.compiled.css"
+	],
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0",
+		"statsig-js-lite": "^1.4.0"
+	},
+	"devDependencies": {
+		"jest-fetch-mock": "^3.0.3",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"compiled"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	}
+}

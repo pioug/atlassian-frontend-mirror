@@ -28,7 +28,6 @@ jest.mock('../../channel', () => {
 			}),
 			connect: jest.fn(),
 			broadcast: () => jest.fn(),
-			fetchCatchup: () => jest.fn(),
 			fetchCatchupv2: () => jest.fn(),
 			sendMetadata: () => jest.fn(),
 			fetchReconcile: () => jest.fn(),
@@ -36,12 +35,6 @@ jest.mock('../../channel', () => {
 	}
 	return {
 		Channel,
-	};
-});
-
-jest.mock('../../document/catchup', () => {
-	return {
-		catchup: jest.fn().mockImplementation(() => Promise.resolve()),
 	};
 });
 
@@ -1339,6 +1332,25 @@ describe('Provider', () => {
 				);
 				expect(provider.getUnconfirmedSteps()).toEqual([]);
 				expect(documentServiceGetUnconfirmedStepsSpy).toBeCalledTimes(1);
+			});
+		});
+
+		describe('Get current ProseMirror version', () => {
+			it('returns current ProseMirror version', () => {
+				provider.initialize(() => ({
+					...editorState,
+					collab: {
+						steps: [],
+						origins: [],
+						version: 8,
+					},
+				}));
+				let getCurrentPmVersionSpy = jest.spyOn(
+					(provider as any).documentService,
+					'getCurrentPmVersion',
+				);
+				expect(provider.getCurrentPmVersion()).toEqual(8);
+				expect(getCurrentPmVersionSpy).toHaveBeenCalledTimes(1);
 			});
 		});
 

@@ -22,7 +22,7 @@ import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../../types';
 import {
@@ -51,8 +51,8 @@ const toDOM = (
 		// prettier-ignore
 		'class': buildExpandClassName(
       node.type.name,
-      getBooleanFF('platform.editor.live-pages-expand-divergence') &&
-        __livePage
+	  __livePage &&
+      fg('platform.editor.live-pages-expand-divergence')
         ? !node.attrs.__expanded
         : node.attrs.__expanded,
     ),
@@ -89,8 +89,7 @@ const toDOM = (
 						expandMessages.expandPlaceholderText.defaultMessage,
 					type: 'text',
 					readonly:
-						getBooleanFF('platform.editor.live-view.disable-editing-in-view-mode_fi1rx') &&
-						titleReadOnly
+						titleReadOnly && fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
 							? 'true'
 							: undefined,
 				},
@@ -103,8 +102,7 @@ const toDOM = (
 			// prettier-ignore
 			class: expandClassNames.content,
 			contenteditable:
-				getBooleanFF('platform.editor.live-view.disable-editing-in-view-mode_fi1rx') &&
-				contentEditable
+				contentEditable && fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
 					? contentEditable
 						? 'true'
 						: 'false'
@@ -201,7 +199,7 @@ export class ExpandNodeView implements NodeView {
 
 		if (
 			this.api?.editorDisabled &&
-			getBooleanFF('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
+			fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
 		) {
 			this.cleanUpEditorDisabledOnChange = this.api.editorDisabled.sharedState.onChange(
 				(sharedState) => {
@@ -270,7 +268,7 @@ export class ExpandNodeView implements NodeView {
 				intl={intl}
 				allowInteractiveExpand={this.allowInteractiveExpand}
 				expanded={
-					getBooleanFF('platform.editor.live-pages-expand-divergence') && this.__livePage
+					this.__livePage && fg('platform.editor.live-pages-expand-divergence')
 						? !__expanded
 						: __expanded
 				}
@@ -457,7 +455,7 @@ export class ExpandNodeView implements NodeView {
 	};
 
 	private isCollapsed = () => {
-		if (getBooleanFF('platform.editor.live-pages-expand-divergence') && this.__livePage) {
+		if (this.__livePage && fg('platform.editor.live-pages-expand-divergence')) {
 			return this.node.attrs.__expanded;
 		}
 		return !this.node.attrs.__expanded;
@@ -577,13 +575,13 @@ export class ExpandNodeView implements NodeView {
 
 	private getContentEditable = (node: PmNode): boolean => {
 		const contentEditable =
-			getBooleanFF('platform.editor.live-pages-expand-divergence') && this.__livePage
+			this.__livePage && fg('platform.editor.live-pages-expand-divergence')
 				? !node.attrs.__expanded
 				: node.attrs.__expanded;
 		if (
-			getBooleanFF('platform.editor.live-view.disable-editing-in-view-mode_fi1rx') &&
 			this.api &&
-			this.api.editorDisabled
+			this.api.editorDisabled &&
+			fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
 		) {
 			return !this.api.editorDisabled.sharedState.currentState()?.editorDisabled && contentEditable;
 		}

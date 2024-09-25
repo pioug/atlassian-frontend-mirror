@@ -1,5 +1,21 @@
 # @atlaskit/rovo-agent-components
 
+## 1.6.0
+
+### Minor Changes
+
+- [#143665](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143665)
+  [`5b80eb79ccf08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b80eb79ccf08) -
+  Add browse agents chat pill
+
+## 1.5.0
+
+### Minor Changes
+
+- [#144185](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144185)
+  [`ee1cf2e1eb652`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee1cf2e1eb652) -
+  Support custom forge avatar
+
 ## 1.4.0
 
 ### Minor Changes

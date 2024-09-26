@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/right-side-panel",
-	"version": "1.2.11",
+	"version": "1.2.12",
 	"description": "A cross-product right-side-panel component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,7 +32,8 @@
 		"team": "Self-Help Experiences",
 		"website": {
 			"name": "Right Side Panel"
-		}
+		},
+		"runReact18": true
 	},
 	"dependencies": {
 		"@atlaskit/theme": "^13.0.0",
@@ -43,8 +44,8 @@
 		"react-transition-group": "^4.4.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0",
+		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {

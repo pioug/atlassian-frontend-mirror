@@ -76,6 +76,16 @@ const isJiraDashboard = (url: string) => {
 	return url.match(/^https:\/\/.*?\/jira\/dashboards\/[0-9]+.*/);
 };
 
+const isJiraBacklog = (url: string) => {
+	return url.match(
+		/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/\d\/backlog\??.*/,
+	);
+};
+
+const isJiraBoard = (url: string) => {
+	return url.match(/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/\d\??.*/);
+};
+
 export class EditorCardProvider implements CardProvider {
 	private baseUrl: string;
 	private resolverUrl: string;
@@ -223,7 +233,9 @@ export class EditorCardProvider implements CardProvider {
 			isConfluenceDatabase(url) ||
 			isYoutubeVideo(url) ||
 			isLoomUrl(url) ||
-			isJiraDashboard(url)
+			isJiraDashboard(url) ||
+			isJiraBacklog(url) ||
+			isJiraBoard(url)
 		) {
 			return 'embed';
 		}

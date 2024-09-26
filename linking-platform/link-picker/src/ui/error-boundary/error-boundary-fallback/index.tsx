@@ -6,14 +6,10 @@
 import { css, jsx } from '@emotion/react';
 import { defineMessages, useIntl } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { LINK_PICKER_MIN_HEIGHT_IN_PX_FALLBACK } from '../../../common/constants';
 import { GenericErrorSVG } from '../../../common/generic-error-svg';
 import { EmptyState } from '../../../common/ui/empty-state';
 import { MinHeightContainer } from '../../../common/ui/min-height-container';
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
-import { rootContainerStyles } from '../../link-picker/styled';
 
 const errorBoundaryFallbackStyles = css({
 	lineHeight: 'initial',
@@ -37,29 +33,17 @@ export const ErrorBoundaryFallback = () => {
 	const header = intl.formatMessage(messages.heading);
 	const description = intl.formatMessage(messages.description);
 
-	if (fg('platform.linking-platform.link-picker.fixed-height-search-results')) {
-		return (
-			<MinHeightContainer
-				css={errorBoundaryFallbackStyles}
-				minHeight={LINK_PICKER_MIN_HEIGHT_IN_PX_FALLBACK}
-				data-testid="link-picker-root-error-boundary-ui"
-			>
-				<EmptyState
-					header={header}
-					renderImage={() => <GenericErrorSVG />}
-					description={description}
-				/>
-			</MinHeightContainer>
-		);
-	}
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<div css={rootContainerStyles} data-testid="link-picker-root-error-boundary-ui">
+		<MinHeightContainer
+			css={errorBoundaryFallbackStyles}
+			minHeight={LINK_PICKER_MIN_HEIGHT_IN_PX_FALLBACK}
+			data-testid="link-picker-root-error-boundary-ui"
+		>
 			<EmptyState
 				header={header}
 				renderImage={() => <GenericErrorSVG />}
 				description={description}
 			/>
-		</div>
+		</MinHeightContainer>
 	);
 };

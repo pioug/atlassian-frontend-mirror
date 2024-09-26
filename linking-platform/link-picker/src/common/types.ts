@@ -158,6 +158,8 @@ export interface LinkPickerProps {
 	component?: React.ComponentType<Partial<LinkPickerProps> & { children: React.ReactElement }>;
 	/** Allows for customisation of text in the link picker. */
 	customMessages?: CustomLinkPickerMessages;
+	/** Allows height of search results to adapt to the number of results being displayed. */
+	adaptiveHeight?: boolean;
 	featureFlags?: Record<string, unknown>;
 	/** Controls showing a "submission in-progres" UX */
 	isSubmitting?: boolean;

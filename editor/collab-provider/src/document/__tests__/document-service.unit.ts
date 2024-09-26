@@ -516,7 +516,7 @@ describe('document-service', () => {
 
 			it('catchupv2 : Handles errors thrown', () => {
 				const { service, providerEmitCallbackMock, analyticsHelperMock } = createMockService({
-					featureFlags: { reconcileOnRecovery: false },
+					featureFlags: {},
 				});
 
 				jest.spyOn(service, 'throttledCatchupv2').mockImplementation();
@@ -699,9 +699,7 @@ describe('document-service', () => {
 			});
 
 			it('catchupv2 : Processes all the steps in the queue after catchupv2', async () => {
-				const mocks = createMockService({
-					featureFlags: { reconcileOnRecovery: false, enableCatchupv2: true },
-				});
+				const mocks = createMockService();
 				service = mocks.service;
 				// @ts-ignore - processSteps is private function
 				processStepsSpy = jest.spyOn(service, 'processSteps');
@@ -958,7 +956,7 @@ describe('document-service', () => {
 
 			it('catchupv2 : Calls catchupv2 after trying "MAX_STEP_REJECTED_ERROR" times', () => {
 				const { service } = createMockService({
-					featureFlags: { reconcileOnRecovery: false },
+					featureFlags: {},
 				});
 				jest.spyOn(service, 'throttledCatchupv2');
 

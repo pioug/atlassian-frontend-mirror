@@ -428,11 +428,8 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 		if (!jql || !selectedJiraSite?.url) {
 			return;
 		}
-		// During insertion, we want the JQL of the datasource to be whatever is in the search bar,
-		// even if the user didn't previously click search
-		const upToDateJql = searchBarJql ?? jql;
 
-		const upToDateJqlUrl = `${selectedJiraSite.url}/issues/?jql=${encodeURIComponent(upToDateJql)}`;
+		const upToDateJqlUrl = `${selectedJiraSite.url}/issues/?jql=${encodeURIComponent(jql)}`;
 
 		return currentViewMode === 'inline' && responseItems.length === 1
 			? retrieveUrlForSmartCardRender()
@@ -442,16 +439,8 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 		parameters?.jql,
 		responseItems,
 		retrieveUrlForSmartCardRender,
-		searchBarJql,
 		selectedJiraSite?.url,
 	]);
-
-	const updateParametersBeforeInsert = (parameters: JiraIssueDatasourceParameters) => ({
-		cloudId: parameters.cloudId,
-		// searchBarJql will not be null at this point, since this function is only called when user press insert button
-		//
-		jql: searchBarJql || '',
-	});
 
 	return (
 		<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>
@@ -512,7 +501,6 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 							<InsertButton<JiraIssueDatasourceParameters>
 								testId="jira-datasource-modal--insert-button"
 								url={urlToInsert}
-								overwriteParameters={updateParametersBeforeInsert}
 								getAnalyticsPayload={getInsertButtonAnalyticsPayload}
 							>
 								<FormattedMessage {...modalMessages.insertIssuesButtonText} />

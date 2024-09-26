@@ -78,6 +78,7 @@ describe('DocumentService onRestore', () => {
 					numUnconfirmedSteps: 0,
 					useReconcile: false,
 					clientId: '123456',
+					triggeredByCatchup: false,
 				});
 			});
 
@@ -101,6 +102,7 @@ describe('DocumentService onRestore', () => {
 					numUnconfirmedSteps: 2,
 					useReconcile: false,
 					clientId: '123456',
+					triggeredByCatchup: false,
 				});
 			});
 
@@ -138,6 +140,7 @@ describe('DocumentService onRestore', () => {
 						numUnconfirmedSteps: 2,
 						useReconcile: true,
 						clientId: '123456',
+						triggeredByCatchup: false,
 					});
 				});
 			});
@@ -172,6 +175,7 @@ describe('DocumentService onRestore', () => {
 				numUnconfirmedSteps: 2,
 				useReconcile: false,
 				clientId: '123456',
+				triggeredByCatchup: false,
 			});
 			expect(sendErrorEventSpy).toBeCalledTimes(2);
 			expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
@@ -213,6 +217,7 @@ describe('DocumentService onRestore', () => {
 				numUnconfirmedSteps: 2,
 				useReconcile: false,
 				clientId: '123456',
+				triggeredByCatchup: false,
 			});
 			expect(sendErrorEventSpy).toBeCalledTimes(2);
 			expect(sendProviderErrorEventSpy).toBeCalledTimes(1);
@@ -266,6 +271,14 @@ describe('DocumentService onRestore', () => {
 			expect(getCurrentStateSpy).toHaveBeenCalledTimes(1);
 			expect(fetchReconcileSpy).not.toHaveBeenCalled();
 			expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
+			expect(sendActionEventSpy).toHaveBeenCalledWith('reinitialiseDocument', 'SUCCESS', {
+				numUnconfirmedSteps: 2,
+				useReconcile: false,
+				clientId: '123456',
+				hasTitle: true,
+				targetClientId: '123456',
+				triggeredByCatchup: true,
+			});
 		});
 		it('should restore document if no targetClientId is provided', async () => {
 			getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);

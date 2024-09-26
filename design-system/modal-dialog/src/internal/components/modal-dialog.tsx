@@ -13,7 +13,6 @@ import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import FocusRing from '@atlaskit/focus-ring';
 import { UNSAFE_useLayering, useCloseOnEscapePress } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { media } from '@atlaskit/primitives';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
@@ -118,11 +117,6 @@ const ModalDialog = (
 	const titleId = `modal-dialog-title-${id}`;
 
 	useEffect(() => {
-		// This fix is currently behind a feature flag to reduce risk further.
-		if (!fg('platform_design_system_team_modal_dnd_fix')) {
-			return;
-		}
-
 		// Modal dialogs can appear on top of iframe elements that are on another domain.
 		// There is a Chrome bug where drag and drop in an element on top of a cross domain
 		// iframe is not working. We are applying the workaround for this bug in modal so

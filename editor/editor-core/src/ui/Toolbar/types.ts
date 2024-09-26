@@ -1,4 +1,9 @@
-export { ToolbarSize, ToolbarWidths, ToolbarWidthsFullPage } from '@atlaskit/editor-common/types';
+export {
+	ToolbarSize,
+	ToolbarWidths,
+	ToolbarWidthsFullPage,
+	ToolbarWidthsFullPageNext,
+} from '@atlaskit/editor-common/types';
 export type {
 	ToolbarUiComponentFactoryParams,
 	ToolbarUIComponentFactory,

@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 3.10.0
+
+### Minor Changes
+
+- [#144036](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144036)
+  [`0509cf0b76664`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0509cf0b76664) -
+  [ux] Update editor card provider to return embed card for backlog and board links
+
 ## 3.9.0
 
 ### Minor Changes

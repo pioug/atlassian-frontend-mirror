@@ -1,5 +1,14 @@
 # @atlaskit/popup
 
+## 1.27.1
+
+### Patch Changes
+
+- [#144902](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144902)
+  [`16cce78563062`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/16cce78563062) -
+  Fixes a bug that caused the trigger to lose the ability to have focus after closing a dropdown
+  menu using the Escape key inside the popup content.
+
 ## 1.27.0
 
 ### Minor Changes

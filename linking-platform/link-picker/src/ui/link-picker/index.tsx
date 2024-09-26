@@ -15,7 +15,7 @@ import {
 } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 import uuid from 'uuid';
 
@@ -24,6 +24,7 @@ import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
@@ -48,10 +49,24 @@ import { FormFooter, testIds as formFooterTestIds } from './form-footer';
 import { LinkPickerSubmitButton } from './form-footer/link-picker-submit-button';
 import { formMessages, linkMessages, linkTextMessages, searchMessages } from './messages';
 import { SearchResults, testIds as searchTestIds } from './search-results';
-import { formFooterMargin, rootContainerStyles } from './styled';
 import { testIds as textFieldTestIds, TextInput } from './text-input';
 import { TrackMount } from './track-mount';
 import { getDataSource, getScreenReaderText } from './utils';
+
+const rootContainerStyles = css({
+	paddingLeft: 'var(--link-picker-padding-left)',
+	paddingRight: 'var(--link-picker-padding-right)',
+	paddingTop: 'var(--link-picker-padding-top)',
+	paddingBottom: 'var(--link-picker-padding-bottom)',
+	boxSizing: 'border-box',
+	lineHeight: 'initial',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	display: 'block !important',
+});
+
+const formFooterMargin = css({
+	marginTop: token('space.200', '16px'),
+});
 
 export const testIds = {
 	linkPickerRoot: 'link-picker-root',
@@ -128,6 +143,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			featureFlags,
 			customMessages,
 			isSubmitting = false,
+			adaptiveHeight = false,
 			UNSAFE_moveSubmitButton = false,
 		}: LinkPickerProps) => {
 			const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -430,7 +446,6 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			return (
 				<form
 					data-testid={testIds.linkPicker}
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={rootContainerStyles}
 					// Use onSubmitCapture instead of onSubmit so that any possible parent form isn't submitted
 					onSubmitCapture={handleSubmit}
@@ -537,6 +552,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 							handleSelected={handleSelected}
 							handleTabChange={handleTabChange}
 							handleSearchListOnChange={handleSearchListOnChange}
+							adaptiveHeight={adaptiveHeight}
 							retry={retry}
 						/>
 					)}

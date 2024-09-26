@@ -8,7 +8,7 @@ import {
 	mainThemes,
 	verifyBrandRefreshColors,
 	verifyNonBrandRefreshColors,
-} from './brand-refresh-assertion-helper';
+} from './brand-refresh-assertion-helper.mock';
 
 const UNSAFE_themeOptions: ThemeOptionsSchema = {
 	brandColor: '#ff0000',

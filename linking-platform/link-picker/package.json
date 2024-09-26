@@ -43,9 +43,6 @@
 		"platform.linking-platform.link-picker.enable-empty-state": {
 			"type": "boolean"
 		},
-		"platform.linking-platform.link-picker.fixed-height-search-results": {
-			"type": "boolean"
-		},
 		"platform.linking-platform.link-picker.enable-jira-create": {
 			"type": "boolean"
 		}

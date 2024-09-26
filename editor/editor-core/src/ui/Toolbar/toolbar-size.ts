@@ -1,8 +1,23 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { EditorAppearance } from '../../types';
 import { isFullPage } from '../../utils/is-full-page';
 
 import type { ToolbarBreakPoint } from './toolbar-types';
-import { ToolbarSize, ToolbarWidths, ToolbarWidthsFullPage } from './types';
+import {
+	ToolbarSize,
+	ToolbarWidths,
+	ToolbarWidthsFullPage,
+	ToolbarWidthsFullPageNext,
+} from './types';
+
+const toolbarSizesFullPageNext: ToolbarBreakPoint[] = [
+	{ width: ToolbarWidthsFullPageNext.XXL, size: ToolbarSize.XXL },
+	{ width: ToolbarWidthsFullPageNext.XL, size: ToolbarSize.XL },
+	{ width: ToolbarWidthsFullPageNext.L, size: ToolbarSize.L },
+	{ width: ToolbarWidthsFullPageNext.M, size: ToolbarSize.M },
+	{ width: ToolbarWidthsFullPageNext.S, size: ToolbarSize.S },
+];
 
 // Toolbar sizes for full page editor a little bit different, because it has more buttons e.g. actions button...
 const toolbarSizesFullPage: ToolbarBreakPoint[] = [
@@ -22,7 +37,11 @@ const toolbarSizes: ToolbarBreakPoint[] = [
 ];
 
 const toolbarSizesForAppearance = (appearance?: EditorAppearance) =>
-	isFullPage(appearance) ? toolbarSizesFullPage : toolbarSizes;
+	isFullPage(appearance)
+		? fg('platform_editor_toolbar_responsive_fixes')
+			? toolbarSizesFullPageNext
+			: toolbarSizesFullPage
+		: toolbarSizes;
 
 export const toolbarSizeToWidth = (toolbarSize: ToolbarSize, appearance?: EditorAppearance) => {
 	return (

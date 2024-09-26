@@ -103,6 +103,7 @@ type ReInitDocFailAnalyticsEvent = {
 	attributes: {
 		eventStatus: EVENT_STATUS.FAILURE;
 		numUnconfirmedSteps: number;
+		triggeredByCatchup?: boolean;
 	} & BaseActionAnalyticsEventAttributes;
 };
 
@@ -111,6 +112,7 @@ type ReInitDocSuccessAnalyticsEvent = {
 	attributes: {
 		eventStatus: EVENT_STATUS.SUCCESS;
 		numUnconfirmedSteps: number;
+		triggeredByCatchup?: boolean;
 	} & BaseActionAnalyticsEventAttributes;
 };
 

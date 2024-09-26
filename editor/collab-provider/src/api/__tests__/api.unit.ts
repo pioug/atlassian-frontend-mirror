@@ -1,10 +1,22 @@
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 
-jest.mock('../../channel', () => ({
-	Channel: () => ({
-		getChannelToken: () => jest.fn(),
-	}),
-}));
+jest.mock('../../channel', () => {
+	class MockChannel {
+		// @ts-ignore
+		constructor(config, analyticsHelper) {
+			// @ts-ignore
+			this.config = config;
+			// @ts-ignore
+			this.analyticsHelper = analyticsHelper;
+		}
+		getChannelToken() {
+			return jest.fn();
+		}
+	}
+	return {
+		Channel: MockChannel,
+	};
+});
 
 describe('addComment', () => {
 	const mockSteps = [{ stepType: 'mockStep' }];

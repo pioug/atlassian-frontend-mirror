@@ -31,6 +31,7 @@ export type FullPageEditorProps = Pick<
 > & {
 	onChange?: () => void;
 	onEditorReady?: () => void;
+	appearance: 'full-page' | 'full-width';
 };
 
 /**
@@ -44,5 +45,11 @@ export type FullPageEditorProps = Pick<
  * @returns Editor component
  */
 export function FullPageEditor(props: FullPageEditorProps) {
-	return <CoreEditor {...props} appearance="full-page" AppearanceComponent={FullPage} />;
+	return (
+		<CoreEditor
+			{...props}
+			appearance={props.appearance ?? 'full-page'}
+			AppearanceComponent={FullPage}
+		/>
+	);
 }

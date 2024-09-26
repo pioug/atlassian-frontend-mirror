@@ -24,14 +24,12 @@ export type InsertButtonProps<Parameters extends DatasourceParameters> = PropsWi
 	testId?: string;
 	url: string | undefined;
 	getAnalyticsPayload: () => Record<string, any>;
-	overwriteParameters?: (parameters: Parameters) => Parameters;
 }>;
 
 export const InsertButton = <Parameters extends DatasourceParameters>({
 	testId,
 	url,
 	getAnalyticsPayload,
-	overwriteParameters,
 	children,
 }: InsertButtonProps<Parameters>) => {
 	const {
@@ -94,7 +92,7 @@ export const InsertButton = <Parameters extends DatasourceParameters>({
 					buildDatasourceAdf(
 						{
 							id: datasourceId,
-							parameters: overwriteParameters ? overwriteParameters(parameters) : parameters,
+							parameters,
 							views: [
 								{
 									type: 'table',
@@ -125,7 +123,6 @@ export const InsertButton = <Parameters extends DatasourceParameters>({
 			getAnalyticsPayload,
 			isValidParameters,
 			onInsert,
-			overwriteParameters,
 			parameters,
 			totalCount,
 			url,

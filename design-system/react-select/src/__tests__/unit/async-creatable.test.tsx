@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 
 import AsyncCreatable from '../../async-creatable';
 
-import { type Option, OPTIONS } from './constants';
+import { type Option, OPTIONS } from './constants.mock';
 
 test('defaults - snapshot', () => {
 	const { container } = render(<AsyncCreatable />);

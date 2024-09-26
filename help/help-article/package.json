@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help-article",
-	"version": "4.2.0",
+	"version": "4.2.1",
 	"description": "A cross-product help-article component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,7 +32,8 @@
 		"team": "Self-Help Experiences",
 		"website": {
 			"name": "Help Article"
-		}
+		},
+		"runReact18": true
 	},
 	"dependencies": {
 		"@atlaskit/css-reset": "^6.11.0",
@@ -44,8 +45,8 @@
 		"lodash": "^4.17.21"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"devDependencies": {
 		"enzyme": "^3.10.0",

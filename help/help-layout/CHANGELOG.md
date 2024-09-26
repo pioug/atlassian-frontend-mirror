@@ -1,5 +1,13 @@
 # @atlaskit/help-layout
 
+## 4.3.6
+
+### Patch Changes
+
+- [#144706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144706)
+  [`8b74177bff7a7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b74177bff7a7) -
+  Updated to React 18
+
 ## 4.3.5
 
 ### Patch Changes

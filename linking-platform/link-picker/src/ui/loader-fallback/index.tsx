@@ -5,7 +5,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 
 import { MinHeightContainer } from '../../common/ui/min-height-container';
@@ -28,9 +27,6 @@ const LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_PLUGIN_WITH_DISPLAYTEXT = '
 const LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_PLUGIN_WITHOUT_DISPLAYTEXT = '429px';
 const LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_DISPLAYTEXT = '218px';
 const LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITHOUT_DISPLAYTEXT = '141px';
-// EDM-7122: can delete these two consts once min height container for link picker is firm for the loader
-const LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_DISPLAYTEXT = '142px';
-const LINK_PICKER_MIN_HEIGHT_IN_PX_WITH_DISPLAYTEXT = '220px';
 
 const getEstimatedMinHeight = ({
 	hideDisplayText,
@@ -38,38 +34,32 @@ const getEstimatedMinHeight = ({
 	plugins,
 	url,
 }: LoaderFallbackProps) => {
-	if (fg('platform.linking-platform.link-picker.fixed-height-search-results')) {
+	/**
+	 * "Insert mode" (search results shown initially)
+	 */
+	if (!url) {
 		/**
-		 * "Insert mode" (search results shown initially)
+		 * With tabs
 		 */
-		if (!url) {
-			/**
-			 * With tabs
-			 */
-			if ((plugins && plugins.length > 1) || isLoadingPlugins) {
-				return hideDisplayText
-					? LINK_PICKER_MIN_HEIGHT_IN_PX_WITH_TABS_WITHOUT_DISPLAYTEXT
-					: LINK_PICKER_MIN_HEIGHT_IN_PX_WITH_TABS_WITH_DISPLAYTEXT;
-			}
-
-			/**
-			 * Without tabs
-			 */
-			if (plugins?.length === 1) {
-				return hideDisplayText
-					? LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_PLUGIN_WITHOUT_DISPLAYTEXT
-					: LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_PLUGIN_WITH_DISPLAYTEXT;
-			}
+		if ((plugins && plugins.length > 1) || isLoadingPlugins) {
+			return hideDisplayText
+				? LINK_PICKER_MIN_HEIGHT_IN_PX_WITH_TABS_WITHOUT_DISPLAYTEXT
+				: LINK_PICKER_MIN_HEIGHT_IN_PX_WITH_TABS_WITH_DISPLAYTEXT;
 		}
 
-		return hideDisplayText
-			? LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITHOUT_DISPLAYTEXT
-			: LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_DISPLAYTEXT;
+		/**
+		 * Without tabs
+		 */
+		if (plugins?.length === 1) {
+			return hideDisplayText
+				? LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_PLUGIN_WITHOUT_DISPLAYTEXT
+				: LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_PLUGIN_WITH_DISPLAYTEXT;
+		}
 	}
 
 	return hideDisplayText
-		? LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_DISPLAYTEXT
-		: LINK_PICKER_MIN_HEIGHT_IN_PX_WITH_DISPLAYTEXT;
+		? LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITHOUT_DISPLAYTEXT
+		: LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_DISPLAYTEXT;
 };
 
 /**

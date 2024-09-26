@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.7.1
+
+### Patch Changes
+
+- [#144706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144706)
+  [`8b74177bff7a7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b74177bff7a7) -
+  Updated to React 18
+
 ## 7.7.0
 
 ### Minor Changes

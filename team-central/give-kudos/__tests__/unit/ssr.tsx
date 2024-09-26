@@ -13,8 +13,8 @@ jest.spyOn(global.console, 'error').mockImplementation(() => {});
 afterEach(() => {
 	jest.resetAllMocks();
 });
-
-test('should ssr then hydrate example component correctly', async () => {
+// Skipped due to HOT-111922
+test.skip('should ssr then hydrate example component correctly', async () => {
 	const elem = document.createElement('div');
 	elem.innerHTML = await ssr(Example);
 

@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 2.12.4
+
+### Patch Changes
+
+- [#144715](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144715)
+  [`dac4cd0c2919b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dac4cd0c2919b) -
+  Added UFO interaction metrics to ButtonItem
+
 ## 2.12.3
 
 ### Patch Changes

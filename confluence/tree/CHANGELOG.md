@@ -1,5 +1,13 @@
 # @atlaskit/tree
 
+## 8.11.0
+
+### Minor Changes
+
+- [#145244](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145244)
+  [`6596773e57775`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6596773e57775) -
+  Adding a deprecation note
+
 ## 8.10.0
 
 ### Minor Changes

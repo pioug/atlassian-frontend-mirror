@@ -9,7 +9,7 @@ import {
 	verifyDarkNonBrandRefershColor,
 	verifyLightBrandRefershColor,
 	verifyLightNonBrandRefershColor,
-} from './brand-refresh-assertion-helper';
+} from './brand-refresh-assertion-helper.mock';
 
 describe('loadAndAppendThemeCss', () => {
 	beforeEach(() => {

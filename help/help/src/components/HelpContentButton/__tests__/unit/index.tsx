@@ -54,8 +54,8 @@ describe('HelpContentButton', () => {
 
 		expect(container.firstChild).toMatchSnapshot();
 	});
-	// FIXME: https://hello.jira.atlassian.cloud/browse/SELF-2047
-	it.skip('Should display the notification icon with the number returned by the notificationLogProvider', async () => {
+
+	it('Should display the notification icon with the number returned by the notificationLogProvider', async () => {
 		const notificationsClient = new MockNotificationLogClient(5);
 		const notificationLogProvider = Promise.resolve(notificationsClient);
 		const component = (
@@ -73,10 +73,12 @@ describe('HelpContentButton', () => {
 		);
 		const { queryByText } = render(component);
 
-		await waitFor(() => notificationLogProvider);
+		await waitFor(() => {
+			notificationLogProvider;
 
-		const notificationCounterElm = queryByText(`${notificationNumber}`);
-		expect(notificationCounterElm).not.toBeNull();
+			const notificationCounterElm = queryByText(`${notificationNumber}`);
+			expect(notificationCounterElm).not.toBeNull();
+		});
 	});
 
 	it(`Should display the notification icon with the number specified in the prop notificationMax
@@ -100,10 +102,12 @@ describe('HelpContentButton', () => {
 		);
 		const { queryByText } = render(component);
 
-		await waitFor(() => notificationLogProvider);
+		await waitFor(() => {
+			notificationLogProvider;
 
-		const notificationCounterElm = queryByText(`${notificationMax}+`);
-		expect(notificationCounterElm).not.toBeNull();
+			const notificationCounterElm = queryByText(`${notificationMax}+`);
+			expect(notificationCounterElm).not.toBeNull();
+		});
 	});
 
 	it(`Should not display the notification icon when notificationLogProvider is not defined`, async () => {

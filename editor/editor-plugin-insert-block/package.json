@@ -127,6 +127,9 @@
 	"platform-feature-flags": {
 		"platform_editor_get_emoji_provider_from_config": {
 			"type": "boolean"
+		},
+		"platform_editor_toolbar_responsive_fixes": {
+			"type": "boolean"
 		}
 	}
 }

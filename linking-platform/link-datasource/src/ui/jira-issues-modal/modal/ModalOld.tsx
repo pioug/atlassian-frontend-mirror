@@ -327,14 +327,8 @@ export const PlainJiraIssuesConfigModalOld = (props: JiraConfigModalProps) => {
 				return;
 			}
 
-			// During insertion, we want the JQL of the datasource to be whatever is in the search bar,
-			// even if the user didn't previously click search
-			const upToDateJql = searchBarJql ?? jql;
-
 			const upToDateJqlUrl =
-				selectedJiraSite &&
-				jql &&
-				`${selectedJiraSite.url}/issues/?jql=${encodeURIComponent(upToDateJql)}`;
+				selectedJiraSite && jql && `${selectedJiraSite.url}/issues/?jql=${encodeURIComponent(jql)}`;
 
 			const filterSelectionCount = availableBasicFilterTypes.reduce(
 				(current, filter) => ({
@@ -403,7 +397,7 @@ export const PlainJiraIssuesConfigModalOld = (props: JiraConfigModalProps) => {
 							id: datasourceId,
 							parameters: {
 								cloudId,
-								jql: upToDateJql, // TODO support non JQL type
+								jql,
 							},
 							views: [
 								{
@@ -432,7 +426,6 @@ export const PlainJiraIssuesConfigModalOld = (props: JiraConfigModalProps) => {
 			isParametersSet,
 			jql,
 			selectedJiraSite,
-			searchBarJql,
 			analyticsPayload,
 			totalCount,
 			currentViewMode,

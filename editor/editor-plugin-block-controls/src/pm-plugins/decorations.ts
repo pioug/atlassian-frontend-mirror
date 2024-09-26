@@ -10,6 +10,7 @@ import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin, HandleOptions } from '../types';
@@ -193,6 +194,15 @@ class ObjHash {
 	}
 }
 
+const shouldIgnoreNode = (node: PMNode) => {
+	if ('mediaSingle' === node.type.name && fg('platform_editor_element_dnd_nested_fix_patch_1')) {
+		if (['wrap-right', 'wrap-left'].includes(node.attrs.layout)) {
+			return true;
+		}
+	}
+	return IGNORE_NODES.includes(node.type.name);
+};
+
 export const nodeDecorations = (newState: EditorState) => {
 	const decs: Decoration[] = [];
 	newState.doc.descendants((node, pos, _parent, index) => {
@@ -213,7 +223,8 @@ export const nodeDecorations = (newState: EditorState) => {
 			if (node.isInline) {
 				return false;
 			}
-			if (IGNORE_NODES.includes(node.type.name)) {
+
+			if (shouldIgnoreNode(node)) {
 				return shouldDescend; //skip over, don't consider it a valid depth
 			}
 

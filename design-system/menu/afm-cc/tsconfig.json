@@ -28,6 +28,9 @@
             "path": "../../focus-ring/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../observability/interaction-context/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {

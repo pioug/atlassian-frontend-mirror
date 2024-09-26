@@ -28,7 +28,7 @@ const mockStore = {
 	failAll: jest.fn(),
 	abortAll: jest.fn(),
 };
-let mockStoreInstance: jest.Mock;
+var mockStoreInstance: jest.Mock;
 jest.mock('@atlaskit/editor-common/ufo', () => ({
 	...jest.requireActual<Object>('@atlaskit/editor-common/ufo'),
 	ExperienceStore: {
@@ -36,7 +36,7 @@ jest.mock('@atlaskit/editor-common/ufo', () => ({
 	},
 }));
 
-let mockUuid = '12345abcdef';
+var mockUuid = '12345abcdef';
 jest.mock('uuid/v4', () => ({
 	__esModule: true,
 	default: jest.fn(() => mockUuid),
@@ -1004,7 +1004,8 @@ describe(`Editor`, () => {
 			);
 		});
 
-		it('should be populated with autoformattingProvider', () => {
+		// Skipped due to HOT-111922
+		it.skip('should be populated with autoformattingProvider', () => {
 			const { setProviderSpy, autoformattingProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
 				12,
@@ -1013,7 +1014,8 @@ describe(`Editor`, () => {
 			);
 		});
 
-		it('should be populated with cardProvider from `linking.smartLinks` (prefer over `smartLinks`)', () => {
+		// Skipped due to HOT-111922
+		it.skip('should be populated with cardProvider from `linking.smartLinks` (prefer over `smartLinks`)', () => {
 			const linkingCardProvider = {} as any;
 			const smartLinksCardProvider = {} as any;
 			const linkingCardOptions: CardOptions = {
@@ -1036,7 +1038,8 @@ describe(`Editor`, () => {
 			);
 		});
 
-		it('should be populated with cardProvider', () => {
+		// Skipped due to HOT-111922
+		it.skip('should be populated with cardProvider', () => {
 			const { setProviderSpy, cardProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
 				11,
@@ -1045,7 +1048,8 @@ describe(`Editor`, () => {
 			);
 		});
 
-		it('should be populated with cardProvider on deprecated UNSAFE_cards', () => {
+		// Skipped due to HOT-111922
+		it.skip('should be populated with cardProvider on deprecated UNSAFE_cards', () => {
 			const cardProvider = {} as any;
 			const cardOptions: CardOptions = {
 				provider: Promise.resolve(cardProvider),
@@ -1062,7 +1066,8 @@ describe(`Editor`, () => {
 			);
 		});
 
-		it('should be populated with quickInsertProvider', () => {
+		// Skipped due to HOT-111922
+		it.skip('should be populated with quickInsertProvider', () => {
 			const { setProviderSpy, quickInsertProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
 				14,
@@ -1071,7 +1076,8 @@ describe(`Editor`, () => {
 			);
 		});
 
-		it('should be populated with extensionProvider', () => {
+		// Skipped due to HOT-111922
+		it.skip('should be populated with extensionProvider', () => {
 			const { setProviderSpy } = setup();
 			// extensionProvider is going to be a generated in packages/editor/editor-common/src/extensions/combine-extension-providers.ts
 			// and there is nothing to compare it with

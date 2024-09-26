@@ -8,7 +8,7 @@ import cases from 'jest-in-case';
 
 import Select from '../../index';
 
-import { type Option, OPTIONS } from './constants';
+import { type Option, OPTIONS } from './constants.mock';
 
 function openMenu(container: HTMLElement) {
 	expect(container.querySelector('.react-select__menu')).not.toBeInTheDocument();

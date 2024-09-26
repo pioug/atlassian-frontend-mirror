@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 20.1.0
+
+### Minor Changes
+
+- [#144036](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144036)
+  [`a78d6e7aa1bf4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a78d6e7aa1bf4) -
+  Add custom forge avatar to profile card and profile page
+
 ## 20.0.0
 
 ### Major Changes

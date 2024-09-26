@@ -10,39 +10,11 @@ import {
 	LazyLoadingWithoutDisplayTextWithPluginsExample,
 } from '../../examples';
 
-snapshot(LazyLoadingWithDisplayTextExample, {
-	featureFlags: {
-		'platform.linking-platform.link-picker.fixed-height-search-results': [true, false],
-	},
-});
-snapshot(LazyLoadingWithDisplayTextWithOnePluginExample, {
-	featureFlags: {
-		'platform.linking-platform.link-picker.fixed-height-search-results': [true, false],
-	},
-});
-snapshot(LazyLoadingWithDisplayTextWithPluginsExample, {
-	featureFlags: {
-		'platform.linking-platform.link-picker.fixed-height-search-results': [true, false],
-	},
-});
+snapshot(LazyLoadingWithDisplayTextExample);
+snapshot(LazyLoadingWithDisplayTextWithOnePluginExample);
+snapshot(LazyLoadingWithDisplayTextWithPluginsExample);
 
-snapshot(LazyLoadingWithoutDisplayTextExample, {
-	featureFlags: {
-		'platform.linking-platform.link-picker.fixed-height-search-results': [true, false],
-	},
-});
-snapshot(LazyLoadingWithoutDisplayTextWithOnePluginExample, {
-	featureFlags: {
-		'platform.linking-platform.link-picker.fixed-height-search-results': [true, false],
-	},
-});
-snapshot(LazyLoadingWithoutDisplayTextWithPluginsExample, {
-	featureFlags: {
-		'platform.linking-platform.link-picker.fixed-height-search-results': [true, false],
-	},
-});
-snapshot(LazyLoadingEditModeWithDisplayTextWithPluginsExample, {
-	featureFlags: {
-		'platform.linking-platform.link-picker.fixed-height-search-results': [true, false],
-	},
-});
+snapshot(LazyLoadingWithoutDisplayTextExample);
+snapshot(LazyLoadingWithoutDisplayTextWithOnePluginExample);
+snapshot(LazyLoadingWithoutDisplayTextWithPluginsExample);
+snapshot(LazyLoadingEditModeWithDisplayTextWithPluginsExample);

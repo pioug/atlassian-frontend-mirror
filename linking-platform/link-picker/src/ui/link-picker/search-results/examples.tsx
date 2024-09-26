@@ -51,6 +51,7 @@ const createExample = (props: Partial<SearchResultsProps> = {}): React.Component
 					handleTabChange={NOOP}
 					handleSearchListOnChange={NOOP}
 					retry={NOOP}
+					adaptiveHeight={false}
 					{...props}
 				/>
 			</div>
@@ -60,8 +61,17 @@ const createExample = (props: Partial<SearchResultsProps> = {}): React.Component
 
 export const DefaultExample = createExample();
 
+export const DefaultAdaptiveHeightExample = createExample({
+	adaptiveHeight: true,
+});
+
 export const LoadingPlugins = createExample({
 	isLoadingPlugins: true,
+});
+
+export const LoadingPluginsWithAdaptiveHeight = createExample({
+	isLoadingPlugins: true,
+	adaptiveHeight: true,
 });
 
 export const LoadingResultsWithTabs = createExample({
@@ -69,9 +79,21 @@ export const LoadingResultsWithTabs = createExample({
 	tabs,
 });
 
+export const LoadingResultsWithTabsAdaptive = createExample({
+	isLoadingResults: true,
+	tabs,
+	adaptiveHeight: true,
+});
+
 export const NoResults = createExample({
 	tabs,
 	items: [],
+});
+
+export const NoResultsAdaptive = createExample({
+	tabs,
+	items: [],
+	adaptiveHeight: true,
 });
 
 export const ErrorExample = createExample({

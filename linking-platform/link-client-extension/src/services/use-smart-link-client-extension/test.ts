@@ -157,7 +157,7 @@ describe('useSmartLinkClientExtension', () => {
 				});
 
 				await expect(result.current.invoke(data)).rejects.toThrow(
-					new InvokeError('Unexpected end of JSON input', 400),
+					new InvokeError(`Expected property name or '}' in JSON at position 1`, 400),
 				);
 			});
 		};

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tree",
-	"version": "8.10.0",
+	"version": "8.11.0",
 	"description": "A React Component for displaying expandable and sortable tree hierarchies",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,7 +25,8 @@
 	"atlassian": {
 		"team": "Confluence Discovery & Organization",
 		"website": {
-			"name": "Tree"
+			"name": "Tree",
+			"deprecated": "This package has been deprecated."
 		}
 	},
 	"af:exports": {

@@ -2,12 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { MinHeightContainer } from '../../../../common/ui/min-height-container';
 
@@ -18,19 +16,36 @@ const flexColumn = css({
 	width: '100%',
 });
 
-type SearchResultsContainerProps = React.HTMLAttributes<HTMLDivElement> & {
+type SearchResultsContainerProps = {
+	adaptiveHeight: boolean;
+	isLoadingResults: boolean;
 	hasTabs?: boolean;
 	children?: React.ReactNode;
 };
 
-export const SearchResultsContainer = forwardRef<HTMLDivElement, SearchResultsContainerProps>(
-	({ hasTabs, ...props }: SearchResultsContainerProps, ref) => {
-		const minHeight = hasTabs ? '347px' : '302px';
-		const ffMinHeight = fg('platform.linking-platform.link-picker.fixed-height-search-results')
-			? minHeight
-			: 'auto';
+export const SearchResultsContainer = ({
+	hasTabs,
+	adaptiveHeight,
+	isLoadingResults,
+	children,
+}: SearchResultsContainerProps) => {
+	const ref = useRef<HTMLDivElement>(null);
+	const currentHeight: React.MutableRefObject<number | null> = useRef<number>(null);
 
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		return <MinHeightContainer ref={ref} minHeight={ffMinHeight} css={flexColumn} {...props} />;
-	},
-);
+	const fixedMinHeight = hasTabs ? '347px' : '302px';
+	const adaptiveMinHeight =
+		isLoadingResults && !!currentHeight.current ? `${currentHeight.current}px` : 'auto';
+	const minheight = adaptiveHeight ? adaptiveMinHeight : fixedMinHeight;
+
+	useLayoutEffect(() => {
+		if (ref.current && adaptiveHeight && !isLoadingResults) {
+			currentHeight.current = ref.current.getBoundingClientRect().height;
+		}
+	});
+
+	return (
+		<MinHeightContainer ref={ref} minHeight={minheight} css={flexColumn}>
+			{children}
+		</MinHeightContainer>
+	);
+};

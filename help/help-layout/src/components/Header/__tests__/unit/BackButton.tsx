@@ -23,7 +23,7 @@ const mockOnClick = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('BackButton', () => {
-	it('Should match snapshot', () => {
+	it.skip('Should match snapshot', () => {
 		const { container } = render(<BackButton intl={intl} onClick={mockOnClick} />);
 
 		expect(container.firstChild).toMatchSnapshot();

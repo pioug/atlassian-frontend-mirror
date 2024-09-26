@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 91.0.5
+
+### Patch Changes
+
+- [#144925](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144925)
+  [`9faf9ff89ad37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9faf9ff89ad37) -
+  ED-24822 - Add padding to panels with no icon and unhide drag handle in first bodied node
+- Updated dependencies
+
 ## 91.0.4
 
 ### Patch Changes

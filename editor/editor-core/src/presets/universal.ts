@@ -457,10 +457,7 @@ export default function createUniversalPresetInternal({
 				tableSelectorSupported: featureFlags?.tableSelector && isFullPage,
 				nativeStatusSupported: !statusMenuDisabled,
 				showElementBrowserLink: (props.elementBrowser && props.elementBrowser.showModal) || false,
-				// @ts-ignore
-				// For platform_editor_element_level_templates experiment only
-				// clean up ticket ED-24873
-				UNSAFE_editorAppearance: appearance,
+				appearance,
 			},
 		])
 		.maybeAdd(

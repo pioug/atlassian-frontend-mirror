@@ -15,20 +15,12 @@ import { pluginKey } from './plugin-key';
 import { defaultState } from './types';
 import {
 	getParentNodeDepth,
-	isBlockNodeWithoutTable,
-	isCursorSelectionAndInsideTopLevelNode,
 	isCursorSelectionAtTopLevel,
 	isEntireNestedParagraphOrHeadingSelected,
-	isEntireTopLevelBlockquoteSelected,
-	isEntireTopLevelHeadingOrParagraphSelected,
 	isExcludedNode,
 	isInlineNode,
 	isNestedInlineNode,
 	isNestedInTable,
-	isNestedTable,
-	isNodeSelection,
-	isTextSelection,
-	isValidNodeName,
 } from './utils';
 
 // This plugin exists only in FullPage/FullWidth Editor and is used to register an event that tells us
@@ -62,26 +54,10 @@ export const createPlugin = (
 					return;
 				}
 
-				const { content, size } = slice;
+				const { content } = slice;
 				const nodeName = content.firstChild?.type.name;
 
-				// We should not account for pastes that go inside another node and create nested content as DnD can't do it when nested-dnd is disabled
-				if (
-					(!nodeName ||
-						!contentMoved?.nodeName ||
-						!isValidNodeName(contentMoved?.nodeName, nodeName) ||
-						size !== contentMoved?.size ||
-						!isCursorSelectionAndInsideTopLevelNode(state.selection)) &&
-					editorExperiment('nested-dnd', false)
-				) {
-					return;
-				}
-
-				if (
-					!nodeName ||
-					!contentMoved?.nodeName ||
-					(!isCursorSelectionAtTopLevel(state.selection) && editorExperiment('nested-dnd', true))
-				) {
+				if (!nodeName || !contentMoved?.nodeName || !isCursorSelectionAtTopLevel(state.selection)) {
 					return;
 				}
 
@@ -93,10 +69,9 @@ export const createPlugin = (
 					eventType: EVENT_TYPE.TRACK,
 					attributes: {
 						nodeType: contentMoved?.nodeName,
-						...(editorExperiment('nested-dnd', true) && {
-							nodeDepth: contentMoved?.nodeDepth,
-							destinationNodeDepth: getParentNodeDepth(state.selection),
-						}),
+						nodeDepth: contentMoved?.nodeDepth,
+						destinationNodeDepth: getParentNodeDepth(state.selection),
+
 						// keep nodeName from copied slice
 					},
 				})(tr);
@@ -135,42 +110,8 @@ export const createPlugin = (
 					resetState = true;
 				}
 				const { selection } = state;
-				// DnD can't drag part of text in a paragraph/heading. DnD will select the whole node with all the text inside.
-				// So we are only interested in cut slices that contain the entire node, not just a part of it.
-				if (
-					!resetState &&
-					nodeName === 'paragraph' &&
-					!isEntireTopLevelHeadingOrParagraphSelected(selection, nodeName) &&
-					editorExperiment('nested-dnd', false)
-				) {
-					resetState = true;
-				}
 
-				if (
-					!resetState &&
-					nodeName === 'heading' &&
-					!isEntireTopLevelHeadingOrParagraphSelected(selection, nodeName) &&
-					editorExperiment('nested-dnd', false)
-				) {
-					resetState = true;
-				}
-
-				if (
-					!resetState &&
-					!isEntireNestedParagraphOrHeadingSelected(selection) &&
-					editorExperiment('nested-dnd', true)
-				) {
-					resetState = true;
-				}
-
-				// DnD can't drag just one paragraph (when blockquote contains multiple paragraphs) or just a part of a paragraph in the blockquote.
-				// DnD will select and drag the whole blockquote. So we need to register cut events that have the entire blockquote too.
-				if (
-					!resetState &&
-					nodeName === 'blockquote' &&
-					!isEntireTopLevelBlockquoteSelected(state) &&
-					editorExperiment('nested-dnd', false)
-				) {
+				if (!resetState && !isEntireNestedParagraphOrHeadingSelected(selection)) {
 					resetState = true;
 				}
 
@@ -178,43 +119,7 @@ export const createPlugin = (
 					resetState = true;
 				}
 
-				if (
-					!resetState &&
-					nodeName === 'table' &&
-					isNestedTable(selection) &&
-					editorExperiment('nested-dnd', false)
-				) {
-					resetState = true;
-				}
-
-				if (
-					!resetState &&
-					isNestedInTable(state) &&
-					editorExperiment('nested-dnd', true) &&
-					editorExperiment('table-nested-dnd', false)
-				) {
-					resetState = true;
-				}
-
-				const isBlockNode = isBlockNodeWithoutTable(nodeName);
-				if (
-					!resetState &&
-					isNodeSelection(selection) &&
-					isBlockNode &&
-					selection.$anchor.node().type.name !== 'doc' &&
-					editorExperiment('nested-dnd', false) // checks that the block node is not a topLevel node
-				) {
-					resetState = true;
-				}
-
-				// Some blockNodes can have text inside of them cut, in that case TextSelection occurs, we don't need to track
-				// these cut events.
-				if (
-					!resetState &&
-					isTextSelection(selection) &&
-					isBlockNode &&
-					editorExperiment('nested-dnd', false)
-				) {
+				if (!resetState && isNestedInTable(state) && editorExperiment('table-nested-dnd', false)) {
 					resetState = true;
 				}
 
@@ -225,9 +130,7 @@ export const createPlugin = (
 						{
 							size: size,
 							nodeName: nodeName,
-							...(editorExperiment('nested-dnd', true) && {
-								nodeDepth: getParentNodeDepth(selection),
-							}),
+							nodeDepth: getParentNodeDepth(selection),
 						},
 						'contentCut',
 					)(state, dispatch);

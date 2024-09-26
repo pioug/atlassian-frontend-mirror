@@ -26,7 +26,7 @@ import {
 	OPTIONS_DISABLED,
 	OPTIONS_GROUPED,
 	OPTIONS_NUMBER_VALUE,
-} from './constants';
+} from './constants.mock';
 
 interface BasicProps {
 	readonly className: string;

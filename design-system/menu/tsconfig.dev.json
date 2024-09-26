@@ -66,6 +66,9 @@
 			"path": "../icon-object/tsconfig.app.json"
 		},
 		{
+			"path": "../../observability/interaction-context/tsconfig.app.json"
+		},
+		{
 			"path": "../link/tsconfig.app.json"
 		},
 		{
@@ -82,6 +85,9 @@
 		},
 		{
 			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	]
 }

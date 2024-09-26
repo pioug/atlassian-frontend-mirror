@@ -505,6 +505,38 @@ describe('providers > editor', () => {
 			'Jira Dashboard gadget embed',
 			'https://product-fabric.atlassian.net/jira/dashboards/15429/embed?maximized=26563',
 		],
+		[
+			'Jira backlog embed (team managed)',
+			'https://pgayee.jira-dev.com/jira/software/projects/T1/boards/2/backlog',
+		],
+		[
+			'Jira backlog embed (company managed)',
+			'https://pgayee.jira-dev.com/jira/software/c/projects/T2/boards/3/backlog',
+		],
+		[
+			'Jira backlog embed (team managed) with query params',
+			'https://pgayee.jira-dev.com/jira/software/projects/T1/boards/2/backlog?assignee=6334ac9ab2e3c5ad0fa50712',
+		],
+		[
+			'Jira backlog embed (company managed) with query params',
+			'https://pgayee.jira-dev.com/jira/software/c/projects/T2/boards/3/backlog?assignee=712020%3A415eb090-5446-408d-b958-82871ce65b6b',
+		],
+		[
+			'Jira board embed (team managed)',
+			'https://maguilar-stg.jira-dev.com/jira/software/projects/MT/boards/1',
+		],
+		[
+			'Jira board embed (team managed) with query params',
+			'https://maguilar-stg.jira-dev.com/jira/software/projects/MT/boards/1?assignee=712020%3A415eb090-5446-408d-b958-82871ce65b6b%2C6154a4939cdb9300722dff44',
+		],
+		[
+			'Jira board embed (company managed)',
+			'https://maguilar-stg.jira-dev.com/jira/software/c/projects/ACMP/boards/2',
+		],
+		[
+			'Jira board embed (company managed) with query params',
+			'https://maguilar-stg.jira-dev.com/jira/software/c/projects/ACMP/boards/2?assignee=712020%3A415eb090-5446-408d-b958-82871ce65b6b',
+		],
 	])(
 		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
 		async (_, url) => {

@@ -10,7 +10,7 @@ import {
 	darkViolationsVisualRefresh,
 	lightViolations,
 	lightViolationsVisualRefresh,
-} from './contrast-violation-registry';
+} from './contrast-violation-registry.mock';
 
 const getViolations = (
 	results: typeof lightResults.fullResults,

@@ -25,6 +25,7 @@ function mockSizing(
 	element: CommonWrapper<{}, Readonly<{}>, any>,
 	bufferWidth = BUFFER_WIDTH,
 	windowWidth = WINDOW_WIDTH,
+	childWidth = CHILD_WIDTH,
 ) {
 	const instance = element.instance();
 
@@ -51,7 +52,7 @@ function mockSizing(
 			right: 0,
 			bottom: 0,
 			left: 0,
-			width: CHILD_WIDTH,
+			width: childWidth,
 			height: 0,
 			toJSON() {
 				return JSON.stringify(this);
@@ -218,6 +219,22 @@ describe('FilmstripView', () => {
 				animate: true,
 			});
 		});
+
+		it('should scroll left when the container is narrower than the child', () => {
+			const onScroll = jest.fn();
+			const element = shallow(
+				<FilmstripView offset={25} onScroll={onScroll}>
+					{['a', 'b', 'c']}
+				</FilmstripView>,
+			);
+			mockSizing(element, 100, 10, 15); // child wider than viewport
+			element.find(LeftArrow).simulate('click', { stopPropagation() {} });
+			expect(onScroll).toHaveBeenCalledWith({
+				direction: 'left',
+				offset: 15,
+				animate: true,
+			});
+		});
 	});
 
 	describe('.handleRightClick()', () => {
@@ -233,6 +250,22 @@ describe('FilmstripView', () => {
 			expect(onScroll).toBeCalledWith({
 				direction: 'right',
 				offset: 14,
+				animate: true,
+			});
+		});
+
+		it('should scroll right when the container is narrower than the child', () => {
+			const onScroll = jest.fn();
+			const element = shallow(
+				<FilmstripView offset={9} onScroll={onScroll}>
+					{['a', 'b', 'c']}
+				</FilmstripView>,
+			);
+			mockSizing(element, 100, 10, 15); // child wider than viewport
+			element.find(RightArrow).simulate('click', { stopPropagation() {} });
+			expect(onScroll).toHaveBeenCalledWith({
+				direction: 'right',
+				offset: 19,
 				animate: true,
 			});
 		});

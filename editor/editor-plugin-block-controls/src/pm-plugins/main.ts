@@ -118,6 +118,11 @@ export const createPlugin = (
 ) => {
 	const { formatMessage } = getIntl();
 	const isNestedEnabled = editorExperiment('nested-dnd', true, { exposure: true });
+
+	if (fg('platform_editor_element_dnd_nested_fix_patch_2')) {
+		// TODO: Remove this once FG is used in code
+	}
+
 	return new SafePlugin({
 		key,
 		state: {

@@ -2,6 +2,7 @@ import { snapshot } from '@af/visual-regression';
 
 import {
 	CustomEmptyStateExample,
+	CustomEmptyStateWithAdaptiveHeightExample,
 	DefaultExample,
 	DisableWidth300Example,
 	DisableWidth500Example,
@@ -37,9 +38,6 @@ snapshot(DefaultExample, allVariantsOptions);
 snapshot(WithCancelExample, allVariantsOptions);
 snapshot(ErrorBoundaryExample, {
 	...allVariantsOptions,
-	featureFlags: {
-		'platform.linking-platform.link-picker.fixed-height-search-results': [true, false],
-	},
 	ignoredErrors: [
 		{
 			pattern: /replace is not a function/,
@@ -78,6 +76,11 @@ snapshot(VaryingPaddingsExample);
 
 /** Custom empty state */
 snapshot(CustomEmptyStateExample, {
+	featureFlags: {
+		'platform.linking-platform.link-picker.enable-empty-state': [true, false],
+	},
+});
+snapshot(CustomEmptyStateWithAdaptiveHeightExample, {
 	featureFlags: {
 		'platform.linking-platform.link-picker.enable-empty-state': [true, false],
 	},

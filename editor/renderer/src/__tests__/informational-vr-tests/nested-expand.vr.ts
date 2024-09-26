@@ -36,9 +36,14 @@ snapshotInformational(NestedExpandRenderer, {
 		},
 	],
 	prepare: async (page: Page) => {
-		const expand = page.getByLabel('Expand content').nth(0);
-		expand.click();
-		const nestedExpand = page.getByLabel('Expand content').nth(1);
-		nestedExpand.click();
+		const expandToggle = page.getByLabel('Expand content').nth(0);
+		await expandToggle.click();
+
+		const nestedExpandToggle = page.getByLabel('Expand content').nth(0);
+		await nestedExpandToggle.click();
+
+		// Move mouse hover to remove tooltip causing flakey tests
+		const nestedExpandNode = page.locator('[data-node-type="nestedExpand"]');
+		await nestedExpandNode.hover();
 	},
 });

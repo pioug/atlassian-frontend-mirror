@@ -182,3 +182,29 @@ export const CustomEmptyStateExample = createExample({
 		},
 	],
 });
+export const CustomEmptyStateWithAdaptiveHeightExample = createExample({
+	adaptiveHeight: true,
+	plugins: [
+		{
+			resolve: () =>
+				Promise.resolve({
+					data: [],
+				}),
+			emptyStateNoResults: () => (
+				<Flex xcss={containerStyles} direction="column" alignItems="center" gap="space.300">
+					<Flex direction="column" alignItems="center" gap="space.200">
+						<Flex justifyContent="center">
+							<Flex justifyContent="center" alignItems="center" xcss={mockImageStyles}>
+								<Text>:)</Text>
+							</Flex>
+						</Flex>
+						<Heading size="medium">Custom empty state</Heading>
+						<Text as="p" color="color.text">
+							Looks like you're new here
+						</Text>
+					</Flex>
+				</Flex>
+			),
+		},
+	],
+});

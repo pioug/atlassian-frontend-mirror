@@ -889,7 +889,7 @@ describe('JiraIssuesConfigModal', () => {
 					expect(button).not.toBeDisabled();
 				});
 
-				it('should call onInsert with query from search bar even if user did not click search previously', async () => {
+				it('should call onInsert with previous query (not from search bar) if user did not click search previously', async () => {
 					const { onInsert, getByRole, getByTestId, getByPlaceholderText } = await setup();
 					act(() => {
 						fireEvent.click(getByTestId('mode-toggle-basic'));
@@ -905,12 +905,12 @@ describe('JiraIssuesConfigModal', () => {
 						{
 							type: 'blockCard',
 							attrs: {
-								url: 'https://hello.atlassian.net/issues/?jql=text%20~%20%22testing*%22%20or%20summary%20~%20%22testing*%22%20ORDER%20BY%20created%20DESC',
+								url: 'https://hello.atlassian.net/issues/?jql=some-query',
 								datasource: {
 									id: 'some-jira-datasource-id',
 									parameters: {
 										cloudId: '67899',
-										jql: 'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
+										jql: 'some-query',
 									},
 									views: [
 										{

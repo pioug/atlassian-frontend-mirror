@@ -2,13 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, memo, type Ref } from 'react';
+import { forwardRef, memo, type Ref, useCallback, useContext } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
+import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { ButtonItemProps } from '../types';
@@ -44,9 +46,20 @@ const ButtonItem = memo(
 				// picked it out and supressed the expected type error.
 				// @ts-expect-error
 				className: UNSAFE_className,
+				interactionName,
 				...rest
 			} = props;
 			const onMouseDownHandler = onMouseDown;
+
+			const interactionContext = useContext<InteractionContextType | null>(InteractionContext);
+
+			const handleClick = useCallback(
+				(e: React.MouseEvent<HTMLButtonElement>) => {
+					interactionContext?.tracePress(interactionName, e.timeStamp);
+					onClick?.(e);
+				},
+				[onClick, interactionContext, interactionName],
+			);
 
 			if (!children) {
 				return null;
@@ -91,7 +104,7 @@ const ButtonItem = memo(
 							className={className}
 							ref={ref as Ref<HTMLButtonElement>}
 							disabled={isDisabled}
-							onClick={onClick}
+							onClick={fg('platform_button_item-add-ufo-metrics') ? handleClick : onClick}
 							onMouseDown={onMouseDownHandler}
 							type="button"
 						>

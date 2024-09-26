@@ -49,7 +49,11 @@ export default function Editor() {
 			>
 				{fullWidth ? 'Use full-page' : 'Use full-width'}
 			</Button>
-			{fullWidth ? <FullWidthEditor preset={preset} /> : <FullPageEditor preset={preset} />}
+			{fullWidth ? (
+				<FullWidthEditor preset={preset} />
+			) : (
+				<FullPageEditor appearance="full-page" preset={preset} />
+			)}
 		</>
 	);
 }

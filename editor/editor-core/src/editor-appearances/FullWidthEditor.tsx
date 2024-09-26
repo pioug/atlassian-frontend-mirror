@@ -42,6 +42,7 @@ export type FullWidthEditorProps = Pick<
  *
  * @param props FullWidthEditorProps
  * @returns Editor component
+ * @deprecated In favour of `FullPageEditor` with appearance "full-width"
  */
 export function FullWidthEditor(props: FullWidthEditorProps) {
 	return <CoreEditor {...props} appearance="full-width" AppearanceComponent={FullPage} />;

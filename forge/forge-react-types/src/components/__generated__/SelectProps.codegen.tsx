@@ -3,14 +3,42 @@
  *
  * Extract component prop types from UIKit 2 components - SelectProps
  *
- * @codegen <<SignedSource::a382208b82dd9aabba9d2db6c1647c3e>>
+ * @codegen <<SignedSource::fabe92555f9719783df92aea020d8f40>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/select/__generated__/index.partial.tsx <<SignedSource::c500f98dd082115d2b2925bb87f29338>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/select/index.tsx <<SignedSource::fc28a764d3f41f08f055dafdd7317278>>
  */
 import type { SelectProps as PlatformSelectProps } from '@atlaskit/select';
 
 export type SelectProps = Pick<
-PlatformSelectProps<any, true | false>,
-  'spacing' | 'appearance' | 'testId' | 'autoFocus' | 'defaultValue' | 'closeMenuOnSelect' | 'inputValue' | 'inputId' | 'isClearable' | 'isLoading' | 'isMulti' | 'isSearchable' | 'menuIsOpen' | 'onInputChange' | 'options' | 'placeholder' | 'onChange'
- | 'id' | 'isDisabled' | 'isInvalid' | 'onBlur' | 'onFocus' | 'value' | 'aria-invalid' | 'aria-labelledby' | 'name' | 'openMenuOnFocus'
+	PlatformSelectProps<any, true | false>,
+	| 'appearance'
+	| 'aria-invalid'
+	| 'aria-labelledby'
+	| 'autoFocus'
+	| 'closeMenuOnScroll'
+	| 'closeMenuOnSelect'
+	| 'defaultInputValue'
+	| 'defaultMenuIsOpen'
+	| 'defaultValue'
+	| 'id'
+	| 'inputId'
+	| 'inputValue'
+	| 'isClearable'
+	| 'isDisabled'
+	| 'isInvalid'
+	| 'isLoading'
+	| 'isMulti'
+	| 'isSearchable'
+	| 'menuIsOpen'
+	| 'name'
+	| 'onBlur'
+	| 'onChange'
+	| 'onFocus'
+	| 'onInputChange'
+	| 'openMenuOnFocus'
+	| 'options'
+	| 'placeholder'
+	| 'spacing'
+	| 'testId'
+	| 'value'
 > & { isRequired?: boolean };

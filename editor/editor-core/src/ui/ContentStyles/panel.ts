@@ -75,7 +75,6 @@ export const panelStyles = () => css`
 		.ak-editor-panel.${PanelSharedCssClassName.noIcon} {
 			padding-right: ${token('space.150', '12px')};
 			padding-left: ${token('space.150', '12px')};
-
 		}
 	}`};
 `;

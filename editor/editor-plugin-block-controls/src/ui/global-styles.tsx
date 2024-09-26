@@ -116,6 +116,9 @@ const withInlineNodeStyleSelectors = [
 	`.ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${paragraphWithPlaceholder})`,
 ].join(', ');
 
+const dividerBodiedInCustomPanelWithNoIconSelector =
+	'[data-panel-type].ak-editor-panel__no-icon .ProseMirror-widget:first-child + .ProseMirror-widget:nth-child(2) + hr, [data-panel-type] hr:first-child';
+
 const withInlineNodeStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 	[withInlineNodeStyleSelectors]: {
@@ -158,6 +161,14 @@ const globalStyles = editorExperiment('nested-dnd', true)
 			},
 		});
 
+const withDividerInPanelStyleFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`${dividerBodiedInCustomPanelWithNoIconSelector}`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		marginTop: '0 !important',
+	},
+});
+
 const withDeleteLinesStyleFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 	[`p[data-drag-handler-anchor-name] ${dragHandleContainer}`]: {
@@ -194,6 +205,9 @@ export const GlobalStylesWrapper = () => {
 				withMediaSingleStyleFix,
 				editorExperiment('platform_editor_empty_line_prompt', true, { exposure: false })
 					? emptyBlockExperimentGlobalStyles
+					: undefined,
+				fg('platform_editor_element_dnd_nested_fix_patch_1')
+					? withDividerInPanelStyleFix
 					: undefined,
 			]}
 		/>

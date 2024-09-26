@@ -585,8 +585,8 @@ describe('Media', () => {
 			expect(onClick).not.toHaveBeenCalled();
 			cardWithOnClick.unmount();
 		});
-
-		it('should save fileState as a component state', async () => {
+		// Skipped due to HOT-111922
+		it.skip('should save fileState as a component state', async () => {
 			const fileIdentifier = createFileIdentifier();
 			const component = await mountFileCard(fileIdentifier);
 

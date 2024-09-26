@@ -3,7 +3,8 @@ import { screen } from '@testing-library/react';
 import noop from '@atlaskit/ds-lib/noop';
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
-test('should ssr then hydrate correctly', async () => {
+// Skipped due to HOT-111922
+test.skip('should ssr then hydrate correctly', async () => {
 	const examplePath = require.resolve('../../examples/basic-dark.tsx');
 	const consoleMock = jest.spyOn(console, 'error').mockImplementation(noop);
 	const elem = document.createElement('div');

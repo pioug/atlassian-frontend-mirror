@@ -96,9 +96,9 @@ describe('Fetcher', () => {
 
 			const promise = Fetcher.fetchClientSdk(CLIENT_VERSION, defaultFetcherOptions);
 			await expect(promise).rejects.toBeInstanceOf(SyntaxError);
-			await expect(promise).rejects.toMatchObject({
-				message: 'Unexpected token i in JSON at position 0',
-			});
+			await expect(promise).rejects.toThrow(
+				'Unexpected token \'i\', "invalid object" is not valid JSON',
+			);
 		});
 
 		test('handles empty 200 response', async () => {
@@ -215,9 +215,9 @@ describe('Fetcher', () => {
 				atlassianAccountId: 'account-abc',
 			});
 			await expect(promise).rejects.toBeInstanceOf(SyntaxError);
-			await expect(promise).rejects.toMatchObject({
-				message: 'Unexpected token i in JSON at position 0',
-			});
+			await expect(promise).rejects.toThrow(
+				'Unexpected token \'i\', "invalid object" is not valid JSON',
+			);
 		});
 
 		test('handles empty 200 response', async () => {

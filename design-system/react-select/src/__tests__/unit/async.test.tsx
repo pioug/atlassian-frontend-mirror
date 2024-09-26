@@ -8,7 +8,7 @@ import cases from 'jest-in-case';
 
 import Async from '../../async';
 
-import { type Option, OPTIONS } from './constants';
+import { type Option, OPTIONS } from './constants.mock';
 
 test('defaults - snapshot', () => {
 	const { container } = render(<Async />);

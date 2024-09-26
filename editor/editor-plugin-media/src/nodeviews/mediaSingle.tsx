@@ -213,6 +213,16 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 		this.setState({
 			contextIdentifierProvider: await contextIdentifierProvider,
 		});
+
+		// No-op but logging an exposure when an external image is rendered
+		// Remove this block when cleaning up platform_editor_add_media_from_url
+		if (this.props.node.firstChild?.attrs.type === 'external') {
+			if (editorExperiment('add-media-from-url', true)) {
+				editorExperiment('add-media-from-url', true, { exposure: true });
+			} else {
+				editorExperiment('add-media-from-url', true, { exposure: false });
+			}
+		}
 	}
 
 	selectMediaSingle = ({ event }: CardEvent) => {

@@ -7,7 +7,7 @@ import cases from 'jest-in-case';
 
 import Creatable from '../../creatable';
 
-import { type Option, OPTIONS } from './constants';
+import { type Option, OPTIONS } from './constants.mock';
 
 interface BasicProps {
 	readonly className: string;

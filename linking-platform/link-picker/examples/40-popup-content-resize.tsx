@@ -2,11 +2,11 @@ import React, { Fragment, useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button';
 import Popup from '@atlaskit/popup';
+import { Box, Stack } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
-import { token } from '@atlaskit/tokens';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';
-import { LinkPicker, type LinkPickerState } from '../src';
+import LinkPicker, { type LinkPickerState } from '../src';
 import { MockLinkPickerPromisePlugin } from '../src/__tests__/__helpers/mock-plugins';
 
 /**
@@ -32,38 +32,8 @@ function TestContentResize() {
 	const [isOpen, setIsOpen] = useState(false);
 	const handleToggle = useCallback(() => setIsOpen((prev) => !prev), []);
 	const [isUpdateOn, setIsUpdateOn] = useState(false);
+	const [isAdaptiveHeight, setIsAdaptiveHeight] = useState(false);
 	const plugins = useRef([new Plugin()]);
-
-	const linkPickerPopup = (
-		<Popup
-			isOpen={isOpen}
-			autoFocus={false}
-			onClose={handleToggle}
-			content={({ update }) => (
-				<LinkPicker
-					plugins={plugins.current}
-					onSubmit={handleToggle}
-					onCancel={handleToggle}
-					onContentResize={isUpdateOn ? update : noop}
-				/>
-			)}
-			placement="right-start"
-			trigger={({ ref, ...triggerProps }) => (
-				<Button
-					{...triggerProps}
-					testId="trigger"
-					ref={ref}
-					appearance="primary"
-					isSelected={isOpen}
-					onClick={handleToggle}
-					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					style={{ position: 'fixed', bottom: 350 }}
-				>
-					Toggle
-				</Button>
-			)}
-		/>
-	);
 
 	return (
 		<Fragment>
@@ -83,18 +53,59 @@ function TestContentResize() {
 					off-screen when a full set of results are loaded.
 				</p>
 			</PageHeader>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ marginTop: token('space.250', '20px') }}>
-				<Toggle
-					id="provide-updateFn-toggle"
-					testId="provide-updateFn-toggle"
-					size="large"
-					isChecked={isUpdateOn}
-					onChange={() => setIsUpdateOn((prev) => !prev)}
-				/>
-				<label htmlFor="provide-updateFn-toggle">Updates {isUpdateOn ? 'on' : 'off'}</label>
-			</div>
-			{linkPickerPopup}
+			<Stack space="space.200">
+				<Box>
+					<Toggle
+						id="provide-updateFn-toggle"
+						testId="provide-updateFn-toggle"
+						size="large"
+						isChecked={isUpdateOn}
+						onChange={() => setIsUpdateOn((prev) => !prev)}
+					/>
+					<label htmlFor="provide-updateFn-toggle">Updates {isUpdateOn ? 'on' : 'off'}</label>
+				</Box>
+				<Box>
+					<Toggle
+						id="provide-adaptiveHeight-toggle"
+						testId="provide-adaptiveHeight-toggle"
+						size="large"
+						isChecked={isAdaptiveHeight}
+						onChange={() => setIsAdaptiveHeight((prev) => !prev)}
+					/>
+					<label htmlFor="provide-adaptiveHeight-toggle">
+						Adaptive Height {isAdaptiveHeight ? 'on' : 'off'}
+					</label>
+				</Box>
+			</Stack>
+			<Popup
+				isOpen={isOpen}
+				autoFocus={false}
+				onClose={handleToggle}
+				content={({ update }) => (
+					<LinkPicker
+						plugins={plugins.current}
+						onSubmit={handleToggle}
+						onCancel={handleToggle}
+						onContentResize={isUpdateOn ? update : noop}
+						adaptiveHeight={isAdaptiveHeight}
+					/>
+				)}
+				placement="right-start"
+				trigger={({ ref, ...triggerProps }) => (
+					<Button
+						{...triggerProps}
+						testId="trigger"
+						ref={ref}
+						appearance="primary"
+						isSelected={isOpen}
+						onClick={handleToggle}
+						// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						style={{ position: 'fixed', bottom: 350 }}
+					>
+						Toggle
+					</Button>
+				)}
+			/>
 		</Fragment>
 	);
 }

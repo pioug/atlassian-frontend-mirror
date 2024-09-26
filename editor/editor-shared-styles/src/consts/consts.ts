@@ -1,55 +1,22 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import {
-	B100,
-	B300,
-	B400,
-	B50,
-	B75,
-	DN50,
-	DN70,
-	N0,
-	N100,
-	N20,
-	N30,
-	N40,
-	N50,
-	N500,
-	N700,
-	N900,
-	R300,
-	R400,
-	R50,
-	R75,
-} from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorTheme } from './types';
 
 export const akEditorFullPageDefaultFontSize = 16;
 export const akEditorCodeFontFamily = token('font.family.code');
-export const akEditorInactiveForeground = N500;
-export const akEditorFocus = B100;
-export const akEditorSubtleAccent = N40;
-export const akEditorActiveBackground = N500;
-export const akEditorActiveForeground = N0;
-export const akEditorBlockquoteBorderColor = N40;
-export const akEditorDropdownActiveBackground = N900;
-export const akEditorPopupBackground = N700;
-export const akEditorPopupText = B50;
-export const akEditorPrimaryButton = B400;
-export const akEditorCodeBackground = N20;
+export const akEditorSubtleAccent = token('color.background.accent.gray.subtler');
+export const akEditorBlockquoteBorderColor = token('color.border');
+export const akEditorCodeBackground = token('color.background.accent.gray.subtlest');
 export const akEditorCodeBlockPadding = '12px';
 export const akEditorCodeInlinePadding = '2px 4px';
-export const akEditorDeleteBackground = R50;
-export const akEditorDeleteBackgroundShaded = R50;
+export const akEditorDeleteBackground = token('color.background.danger');
 export const akEditorDeleteBackgroundWithOpacity = 'rgba(255, 189, 173, 0.5)'; // R75 with 50% opacity
-export const akEditorDeleteBorder = R300;
-export const akEditorDeleteIconColor = R400;
+export const akEditorDeleteBorder = token('color.border.danger');
+export const akEditorDeleteIconColor = token('color.icon.danger');
 export const akEditorCustomIconSize = 20;
-export const akEditorSelectedBorderColor = B300;
-export const akEditorSelectedBgColor = B50;
-export const akEditorSelectedBlanketColor = B75;
+export const akEditorSelectedBorderColor = token('color.border.selected');
 export const akEditorSelectedBorderSize = 1;
 export const akEditorSelectedBorder = `${akEditorSelectedBorderSize}px solid ${token(
 	'color.border.selected',
@@ -57,7 +24,6 @@ export const akEditorSelectedBorder = `${akEditorSelectedBorderSize}px solid ${t
 export const akEditorSelectedBoxShadow = `0 0 0 ${akEditorSelectedBorderSize}px ${token(
 	'color.border.selected',
 )}`;
-export const akEditorSelectedIconColor = B400;
 export const akEditorSelectedBorderBoldSize = 2;
 export const akEditorSelectedBlanketOpacity = 0.3;
 export const akEditorUnitZIndex = 1;
@@ -76,21 +42,12 @@ export const akEditorFloatingDialogZIndex = akEditorMenuZIndex + 10;
 export const akEditorTableCellOnStickyHeaderZIndex = akEditorFloatingDialogZIndex - 5;
 // z-index used for floating toolbars table cell menu which are above block toolbars
 export const akEditorFloatingOverlapPanelZIndex = akEditorFloatingPanelZIndex + 5;
-export const akEditorMentionSelected = N100;
 export const akEditorTableToolbarSize = 11;
-export const akEditorTableBorder = N50;
-export const akEditorTableBorderDark = DN70;
-export const akEditorTableToolbar = N20;
-export const akEditorTableToolbarDark = DN50;
-export const akEditorTableFloatingControls = N20;
-export const akEditorTableCellSelected = B75;
+export const akEditorTableBorder = token('color.background.accent.gray.subtler');
+export const akEditorTableToolbar = token('color.background.accent.gray.subtlest');
 export const akEditorTableHeaderCellBackground = '#F1F2F4';
 export const akEditorTableHeaderCellBackgroundDark = '#2C333A';
-export const akEditorTableToolbarSelected = B100;
-export const akEditorTableBorderSelected = B300;
-export const akEditorTableCellDelete = R50;
-export const akEditorTableBorderDelete = R300;
-export const akEditorTableToolbarDelete = R75;
+export const akEditorTableBorderSelected = token('color.border.focused');
 export const akEditorTableBorderRadius = '3px';
 export const akEditorTableCellBackgroundOpacity = 0.5;
 export const akEditorFullPageMaxWidth = 680;
@@ -116,7 +73,6 @@ export const akEditorCalculatedWideLayoutWidth = 1011; // = akEditorDefaultLayou
 export const akRichMediaResizeZIndex = akEditorUnitZIndex * 99;
 export const akLayoutGutterOffset = 12;
 export const akEditorLineHeight = 1.714;
-export const akEditorRuleBackground = N30;
 export const akEditorRuleBorderRadius = '1px';
 export const akEditorToolbarKeylineHeight = 2;
 export const akEditorContextPanelWidth = 320;

@@ -21,7 +21,7 @@ import {
 	mainThemes,
 	verifyBrandRefreshColors,
 	verifyNonBrandRefreshColors,
-} from './brand-refresh-assertion-helper';
+} from './brand-refresh-assertion-helper.mock';
 
 // Mock window.matchMedia before importing setGlobalTheme
 const matchMediaObject = {

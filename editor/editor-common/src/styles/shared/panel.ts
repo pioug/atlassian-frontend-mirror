@@ -339,11 +339,12 @@ export const panelSharedStylesWithoutPrefix = () => css`
 		}
 	}
 
-	${editorExperiment('nested-dnd', true) &&
-	`&.${PanelSharedCssClassName.noIcon} {
+	${editorExperiment('nested-dnd', true)
+		? `&.${PanelSharedCssClassName.noIcon} {
 			padding-right: ${token('space.150', '12px')};
 			padding-left: ${token('space.150', '12px')};
-		}`}
+		}`
+		: ''}
 `;
 
 export const panelSharedStyles = () =>

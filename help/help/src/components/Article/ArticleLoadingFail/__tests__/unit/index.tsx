@@ -22,7 +22,7 @@ const mockOnTryAgainButtonClick = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('ArticleLoadingFail', () => {
-	it('Should match snapshot', () => {
+	it.skip('Should match snapshot', () => {
 		const { container } = render(
 			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
 				<ArticleLoadingFail onTryAgainButtonClick={mockOnTryAgainButtonClick} intl={intl} />

@@ -39,6 +39,70 @@ describe('DatePicker', () => {
 		},
 	};
 
+	const queryMenu = () => screen.queryByTestId(`${testId}--popper--container`);
+
+	it('should have an empty value if none is provided', () => {
+		render(createDatePicker());
+
+		const input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue('');
+	});
+
+	it('should use provided value', () => {
+		render(createDatePicker({ value: exampleDate.iso }));
+
+		const input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue(exampleDate.iso);
+	});
+
+	it('should use provided default value', () => {
+		render(createDatePicker({ defaultValue: exampleDate.iso }));
+
+		const input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue(exampleDate.iso);
+	});
+
+	it('should handle a controlled value', () => {
+		const { rerender } = render(createDatePicker({ value: exampleDate.iso }));
+		let input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue(exampleDate.iso);
+
+		rerender(createDatePicker({ value: '1969-04-20' }));
+		input = screen.getByTestId(`${testId}--input`);
+		expect(input).toHaveValue('1969-04-20');
+	});
+
+	it('should start closed if isOpen is not provided', () => {
+		render(createDatePicker());
+
+		const menu = queryMenu();
+		expect(menu).not.toBeInTheDocument();
+	});
+
+	it('should have menu open if isOpen is set to true', () => {
+		render(createDatePicker({ isOpen: true }));
+
+		const menu = queryMenu();
+		expect(menu).toBeInTheDocument();
+	});
+
+	it('should use provided defaultIsOpen', () => {
+		render(createDatePicker({ defaultIsOpen: true }));
+
+		const menu = queryMenu();
+		expect(menu).toBeInTheDocument();
+	});
+
+	it('should handle a controlled isOpen', () => {
+		const { rerender } = render(createDatePicker({ isOpen: false }));
+		let menu = queryMenu();
+		expect(menu).not.toBeInTheDocument();
+
+		rerender(createDatePicker({ isOpen: true }));
+		menu = queryMenu();
+		expect(menu).toBeInTheDocument();
+	});
+
 	describe('Event handlers', () => {
 		describe('onChange', () => {
 			it('should call onChange only once when a date is selected and enter is pressed', () => {

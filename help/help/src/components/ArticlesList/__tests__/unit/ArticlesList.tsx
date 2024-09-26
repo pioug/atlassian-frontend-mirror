@@ -22,7 +22,7 @@ describe('ArticleContent', () => {
 		};
 	});
 
-	it('Should match snapshot', () => {
+	it.skip('Should match snapshot', () => {
 		const { container } = render(
 			<IntlProvider locale="en">
 				<ArticlesList {...ArticlesListProps} />

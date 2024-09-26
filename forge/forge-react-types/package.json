@@ -65,7 +65,7 @@
 	},
 	"devDependencies": {
 		"@atlassian/codegen": "^0.1.2",
-		"@types/node": "~18.19.31",
+		"@types/node": "~20.16.5",
 		"react": "^16.8.0",
 		"ts-morph": "^17.0.0",
 		"ts-node": "^10.9.1",

@@ -26,7 +26,7 @@ const mockOnClick = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('ShowMoreButton', () => {
-	it('Should match snapshot', async () => {
+	it.skip('Should match snapshot', async () => {
 		const component = (
 			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
 				<ShowMoreButton

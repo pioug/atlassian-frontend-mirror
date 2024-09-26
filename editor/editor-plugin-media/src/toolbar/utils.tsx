@@ -1,6 +1,6 @@
 import memoizeOne from 'memoize-one';
 
-import type { MediaBaseAttributes, RichMediaLayout } from '@atlaskit/adf-schema';
+import type { ExternalMediaAttributes, MediaADFAttrs, RichMediaLayout } from '@atlaskit/adf-schema';
 import type { LayoutIcon } from '@atlaskit/editor-common/card';
 import { wrappedLayouts } from '@atlaskit/editor-common/media-single';
 import { nonWrappedLayouts } from '@atlaskit/editor-common/utils';
@@ -19,29 +19,33 @@ import { getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaPluginState } from '../pm-plugins/types';
 import { isVideo } from '../utils/media-single';
 
+export const isExternalMedia = (attrs: MediaADFAttrs): attrs is ExternalMediaAttributes => {
+	return attrs.type === 'external';
+};
+
 const getSelectedMediaContainerNodeAttrs = (
 	mediaPluginState: MediaPluginState,
-): MediaBaseAttributes | null => {
+): MediaADFAttrs | null => {
 	const selectedNode = mediaPluginState.selectedMediaContainerNode?.();
 	if (selectedNode && selectedNode.attrs) {
-		return selectedNode.attrs as MediaBaseAttributes;
+		return selectedNode.attrs as MediaADFAttrs;
 	}
 	return null;
 };
 
 export const getSelectedNearestMediaContainerNodeAttrs = (
 	mediaPluginState: MediaPluginState,
-): MediaBaseAttributes | null => {
+): MediaADFAttrs | null => {
 	const selectedNode = mediaPluginState.selectedMediaContainerNode?.();
 	if (selectedNode) {
 		switch (selectedNode.type.name) {
 			case 'mediaSingle': {
 				const childNode = selectedNode.firstChild;
-				return childNode?.attrs as MediaBaseAttributes;
+				return childNode?.attrs as MediaADFAttrs;
 			}
 
 			default:
-				return selectedNode.attrs as MediaBaseAttributes;
+				return selectedNode.attrs as MediaADFAttrs;
 		}
 	}
 	return null;
@@ -55,7 +59,11 @@ export const downloadMedia = async (
 		const selectedNodeAttrs = isViewMode
 			? getSelectedNearestMediaContainerNodeAttrs(mediaPluginState)
 			: getSelectedMediaContainerNodeAttrs(mediaPluginState);
-		if (selectedNodeAttrs && mediaPluginState.mediaClientConfig) {
+		if (
+			selectedNodeAttrs &&
+			mediaPluginState.mediaClientConfig &&
+			!isExternalMedia(selectedNodeAttrs)
+		) {
 			const { id, collection = '' } = selectedNodeAttrs;
 			const mediaClient = getMediaClient(mediaPluginState.mediaClientConfig);
 			const fileState = await mediaClient.file.getCurrentState(id, {

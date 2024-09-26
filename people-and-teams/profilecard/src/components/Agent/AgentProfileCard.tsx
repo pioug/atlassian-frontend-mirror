@@ -154,6 +154,8 @@ const AgentProfileCard = ({
 						agentNamedId={agent.named_id}
 						agentIdentityAccountId={agent.identity_account_id}
 						size="xlarge"
+						isForgeAgent={agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY'}
+						forgeAgentIconUrl={agent.icon}
 					/>
 				</Box>
 

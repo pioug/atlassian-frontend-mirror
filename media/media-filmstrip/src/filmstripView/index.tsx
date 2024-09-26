@@ -315,7 +315,12 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		const { onScroll } = this.props;
 		if (onScroll) {
 			const { windowWidth } = this.state;
-			const newOffset = this.getClosestForLeft(this.offset - windowWidth);
+			let newOffset = this.getClosestForLeft(this.offset - windowWidth);
+			if (newOffset >= this.offset) {
+				// if for some reason we tried to scroll left but it didn't scroll or scrolls right instead (can happen when container is too narrow)
+				// just try to scroll by the windowWidth
+				newOffset = Math.max(this.offset - windowWidth, this.minOffset);
+			}
 			onScroll({
 				direction: 'left',
 				offset: newOffset,
@@ -332,7 +337,12 @@ export class FilmstripView extends React.Component<FilmstripViewProps, Filmstrip
 		const { onScroll } = this.props;
 		if (onScroll) {
 			const { windowWidth } = this.state;
-			const newOffset = this.getClosestForRight(this.offset + windowWidth);
+			let newOffset = this.getClosestForRight(this.offset + windowWidth);
+			if (newOffset <= this.offset) {
+				// if for some reason we tried to scroll right but it didn't scroll or scrolls left instead (can happen when container is too narrow)
+				// just try to scroll by the windowWidth
+				newOffset = Math.min(this.offset + windowWidth, this.maxOffset);
+			}
 			onScroll({
 				direction: 'right',
 				offset: newOffset,

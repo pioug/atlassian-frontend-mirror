@@ -138,9 +138,6 @@
 		"platform_dst_modal-dialog-bump-focus-lock": {
 			"type": "boolean"
 		},
-		"platform_design_system_team_modal_dnd_fix": {
-			"type": "boolean"
-		},
 		"design-system-closed-all-when-click-outside": {
 			"type": "boolean",
 			"referenceOnly": true

@@ -407,6 +407,7 @@ export class DocumentService implements DocumentServiceInterface {
 					useReconcile,
 					clientId: this.clientId,
 					targetClientId,
+					triggeredByCatchup: targetClientId ? true : false,
 				},
 			);
 		} catch (restoreError) {
@@ -418,6 +419,7 @@ export class DocumentService implements DocumentServiceInterface {
 					useReconcile,
 					clientId: this.clientId,
 					targetClientId,
+					triggeredByCatchup: targetClientId ? true : false,
 				},
 			);
 			this.analyticsHelper?.sendErrorEvent(

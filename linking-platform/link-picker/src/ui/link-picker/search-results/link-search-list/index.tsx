@@ -57,6 +57,7 @@ export interface LinkSearchListProps
 	isLoading: boolean;
 	selectedIndex: number;
 	activeIndex: number;
+	adaptiveHeight: boolean;
 	onChange: (objectId: string) => void;
 	onSelect: (objectId: string) => void;
 	onKeyDown?: (e: KeyboardEvent<LinkSearchListElement>) => void;
@@ -90,6 +91,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			id,
 			hasSearchTerm,
 			activePlugin,
+			adaptiveHeight,
 			...restProps
 		},
 		ref,
@@ -185,7 +187,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 					<ul
 						id={id}
 						role={role}
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 						css={listStyles}
 						aria-controls="fabric.smartcard.linkpicker.suggested.results"
 						aria-labelledby={testIds.resultListTitle}
@@ -216,12 +218,8 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 		if (isLoading) {
 			loadingContent = (
 				<MinHeightContainer
-					minHeight={
-						fg('platform.linking-platform.link-picker.fixed-height-search-results')
-							? '50px'
-							: '80px'
-					}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					minHeight={adaptiveHeight ? '80px' : '50px'}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					css={spinnerContainerStyles}
 				>
 					<Spinner

@@ -25,6 +25,7 @@ describe('<LinkSearchList />', () => {
 			ariaLabelledBy: '',
 			role: '',
 			id: '',
+			adaptiveHeight: false,
 		} as const;
 		const options = {
 			...defaultOptions,

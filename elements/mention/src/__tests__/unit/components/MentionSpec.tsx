@@ -1,9 +1,10 @@
 import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-next';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
+// eslint-disable-next-line import/no-extraneous-dependencies, no-restricted-imports
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
-import { type ConcurrentExperience } from '@atlaskit/ufo';
+// Commented due to HOT-111922
+// import { type ConcurrentExperience } from '@atlaskit/ufo';
 import FocusRing from '@atlaskit/focus-ring';
 import React from 'react';
 import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
@@ -40,18 +41,30 @@ const createPayload = (actionSubject: string, action: string) => ({
 const mockUfoStart = jest.fn();
 const mockUfoSuccess = jest.fn();
 const mockUfoFailure = jest.fn();
-jest.mock('@atlaskit/ufo', () => ({
-	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/ufo'),
-	ConcurrentExperience: (): ConcurrentExperience => ({
-		// @ts-expect-error partial getInstance mock
-		getInstance: (id: string) => ({
-			start: mockUfoStart,
-			success: mockUfoSuccess,
-			failure: mockUfoFailure,
-		}),
-	}),
-}));
+jest.mock('@atlaskit/ufo', () => {
+	const actualModule = jest.requireActual('@atlaskit/ufo');
+
+	class MockConcurrentExperience {
+		experienceId: string;
+		constructor(experienceId: string) {
+			this.experienceId = experienceId;
+		}
+
+		getInstance(id: string) {
+			return {
+				start: mockUfoStart,
+				success: mockUfoSuccess,
+				failure: mockUfoFailure,
+			};
+		}
+	}
+
+	return {
+		__esModule: true,
+		...actualModule,
+		ConcurrentExperience: MockConcurrentExperience,
+	};
+});
 
 jest.mock('@atlaskit/focus-ring', () => ({
 	__esModule: true,

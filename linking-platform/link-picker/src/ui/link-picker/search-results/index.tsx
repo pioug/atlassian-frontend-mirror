@@ -12,7 +12,6 @@ import Spinner from '@atlaskit/spinner/spinner';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 
 import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../../common/types';
-import { useFixHeight } from '../../../controllers/use-fix-height';
 
 import { LinkSearchError, testIds as searchErrorTestIds } from './link-search-error';
 import { LinkSearchList, testIds as listTestIds } from './link-search-list';
@@ -59,6 +58,7 @@ export type SearchResultsProps = {
 	handleSelected: (objectId: string) => void;
 	handleKeyDown: (e: KeyboardEvent<HTMLElement>) => void;
 	error?: unknown;
+	adaptiveHeight: boolean;
 	retry: () => void;
 };
 
@@ -80,12 +80,10 @@ export const SearchResults = ({
 	selectedIndex,
 	handleSelected,
 	handleKeyDown,
+	adaptiveHeight,
 	retry,
 }: SearchResultsProps) => {
 	const isActivePlugin = !!activePlugin;
-
-	// This will be redundant if we move towards fixed height search results section
-	const fixListHeightProps = useFixHeight(isLoadingResults);
 
 	const tabList = (
 		<TabList>
@@ -98,7 +96,11 @@ export const SearchResults = ({
 	);
 
 	return (
-		<SearchResultsContainer hasTabs={!!tabs.length || isLoadingPlugins} {...fixListHeightProps}>
+		<SearchResultsContainer
+			hasTabs={!!tabs.length || isLoadingPlugins}
+			adaptiveHeight={adaptiveHeight}
+			isLoadingResults={isLoadingResults}
+		>
 			{isLoadingPlugins && !!queryState && (
 				<div css={spinnerContainerStyles}>
 					<Spinner
@@ -141,6 +143,7 @@ export const SearchResults = ({
 							onKeyDown={handleKeyDown}
 							hasSearchTerm={!!queryState?.query.length}
 							activePlugin={activePlugin}
+							adaptiveHeight={adaptiveHeight}
 						/>
 					)}
 					{error ? activePlugin?.errorFallback?.(error, retry) ?? <LinkSearchError /> : null}

@@ -2,14 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Fragment, memo } from 'react';
+import React, { memo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { LazySuspense } from 'react-loosely-lazy';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { COMPONENT_NAME, LINK_PICKER_WIDTH_IN_PX } from '../common/constants';
@@ -51,22 +50,6 @@ export const composeLinkPicker = (Component: React.ComponentType<LinkPickerProps
 		const { component } = props;
 		const RootComponent = component ?? DefaultRootComponent;
 
-		/**
-		 * When ff enabled: root container will provide width to component + loader + error boundary
-		 * When ff disabled: component + loader + error boundary each providing their own width
-		 * Cannot make this change easier at risk of regression as external adopters may have css override on the form element
-		 */
-		const RootFixedWidthContainer = fg(
-			'platform.linking-platform.link-picker.fixed-height-search-results',
-		)
-			? FixedWidthContainer
-			: Fragment;
-		const LoaderFallbackContainer = fg(
-			'platform.linking-platform.link-picker.fixed-height-search-results',
-		)
-			? Fragment
-			: FixedWidthContainer;
-
 		return (
 			<AnalyticsContext data={PACKAGE_DATA}>
 				<LinkPickerSessionProvider>
@@ -87,18 +70,16 @@ export const composeLinkPicker = (Component: React.ComponentType<LinkPickerProps
 									props.paddingBottom ?? token('space.200', '16px'),
 							}}
 						>
-							<RootFixedWidthContainer>
+							<FixedWidthContainer>
 								<ErrorBoundary>
 									<LazySuspense
 										fallback={
-											<LoaderFallbackContainer>
-												<LoaderFallback
-													url={props.url}
-													hideDisplayText={props.hideDisplayText}
-													isLoadingPlugins={props.isLoadingPlugins}
-													plugins={props.plugins}
-												/>
-											</LoaderFallbackContainer>
+											<LoaderFallback
+												url={props.url}
+												hideDisplayText={props.hideDisplayText}
+												isLoadingPlugins={props.isLoadingPlugins}
+												plugins={props.plugins}
+											/>
 										}
 									>
 										<RootComponent {...props} data-testid={testIds.linkPickerRoot}>
@@ -106,7 +87,7 @@ export const composeLinkPicker = (Component: React.ComponentType<LinkPickerProps
 										</RootComponent>
 									</LazySuspense>
 								</ErrorBoundary>
-							</RootFixedWidthContainer>
+							</FixedWidthContainer>
 						</div>
 					</MessagesProvider>
 				</LinkPickerSessionProvider>

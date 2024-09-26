@@ -14,6 +14,7 @@ import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type {
 	Command,
 	DropdownOptions,
+	EditorAppearance,
 	ExtractInjectionAPI,
 	NextEditorPlugin,
 	ToolbarUIComponentFactory,
@@ -35,7 +36,19 @@ import { templateOptions } from './ui/templateOptions';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import { transformationOptions } from './ui/transformOptions';
 
-const toolbarSizeToButtons = (toolbarSize: ToolbarSize) => {
+const toolbarSizeToButtons = (toolbarSize: ToolbarSize, appearance?: EditorAppearance) => {
+	if (appearance === 'full-page' && fg('platform_editor_toolbar_responsive_fixes')) {
+		switch (toolbarSize) {
+			case ToolbarSize.XXL:
+			case ToolbarSize.XL:
+				return 7;
+			case ToolbarSize.L:
+				return 5;
+
+			default:
+				return 0;
+		}
+	}
 	switch (toolbarSize) {
 		case ToolbarSize.XXL:
 		case ToolbarSize.XL:
@@ -60,6 +73,7 @@ export interface InsertBlockOptions {
 	nativeStatusSupported?: boolean;
 	showElementBrowserLink?: boolean;
 	tableSelectorSupported?: boolean;
+	appearance?: EditorAppearance;
 }
 
 /**
@@ -140,6 +154,7 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 					providers={providers}
 					options={options}
 					registerToggleDropdownMenuOptions={registerToggleDropdownMenuOptions}
+					appearance={options.appearance}
 				/>
 			);
 		};
@@ -181,7 +196,7 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			if (
 				!editorState ||
 				// @ts-ignore
-				!['full-page', 'full-width'].includes(options.UNSAFE_editorAppearance ?? '') ||
+				!['full-page', 'full-width'].includes(options.appearance ?? '') ||
 				!editorExperiment('insert-menu-in-right-rail', true)
 			) {
 				return;
@@ -197,7 +212,7 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		pmPlugins: () => {
 			if (
 				// @ts-ignore
-				!['full-page', 'full-width'].includes(options.UNSAFE_editorAppearance ?? '') ||
+				!['full-page', 'full-width'].includes(options.appearance ?? '') ||
 				!editorExperiment('insert-menu-in-right-rail', true)
 			) {
 				[];
@@ -293,7 +308,7 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 				const isEligible =
 					locale.startsWith('en') &&
 					// @ts-ignore
-					['full-page', 'full-width'].includes(options.UNSAFE_editorAppearance ?? '');
+					['full-page', 'full-width'].includes(options.appearance ?? '');
 
 				if (isEligible && editorExperiment('element-level-templates', true, { exposure: true })) {
 					return templateOptions(api);
@@ -315,7 +330,7 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 
 	if (
 		// @ts-ignore
-		['full-page', 'full-width'].includes(options.UNSAFE_editorAppearance ?? '') &&
+		['full-page', 'full-width'].includes(options.appearance ?? '') &&
 		editorExperiment('insert-menu-in-right-rail', true)
 	) {
 		plugin.pluginsOptions!.contextPanel = (state) => {
@@ -341,6 +356,7 @@ interface ToolbarInsertBlockWithInjectionApiProps
 	pluginInjectionApi: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined;
 	options: InsertBlockOptions;
 	registerToggleDropdownMenuOptions: (cb: () => void) => () => void;
+	appearance: EditorAppearance | undefined;
 }
 
 function ToolbarInsertBlockWithInjectionApi({
@@ -358,8 +374,9 @@ function ToolbarInsertBlockWithInjectionApi({
 	pluginInjectionApi,
 	options,
 	registerToggleDropdownMenuOptions,
+	appearance,
 }: ToolbarInsertBlockWithInjectionApiProps) {
-	const buttons = toolbarSizeToButtons(toolbarSize);
+	const buttons = toolbarSizeToButtons(toolbarSize, appearance);
 	const {
 		dateState,
 		hyperlinkState,
@@ -460,13 +477,7 @@ function ToolbarInsertBlockWithInjectionApi({
 			showElementBrowserLink={options.showElementBrowserLink}
 			showSeparator={!isLastItem && toolbarSize <= ToolbarSize.S}
 			registerToggleDropdownMenuOptions={registerToggleDropdownMenuOptions}
-			/**
-			 * For insert menu in right rail experiment, ignore for now since editorAppearance has been kept
-			 * internal due to temporary nature of experiment
-			 * - Clean up ticket ED-24801
-			 */
-			// @ts-expect-error
-			editorAppearance={options.UNSAFE_editorAppearance}
+			editorAppearance={options.appearance}
 		/>
 	);
 }

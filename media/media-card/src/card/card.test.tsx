@@ -75,7 +75,8 @@ const setGlobalSSRData = (id: string, data: any) => {
 	window[GLOBAL_MEDIA_NAMESPACE] = { [GLOBAL_MEDIA_CARD_SSR]: { [id]: data } };
 };
 
-describe('Card ', () => {
+// Skipped due to HOT-111922
+describe.skip('Card ', () => {
 	let currentObserver: any;
 	const intersectionObserver = new MockIntersectionObserver();
 

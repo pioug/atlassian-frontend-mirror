@@ -1,10 +1,12 @@
 import React, { type ReactNode } from 'react';
+// eslint-disable-next-line no-restricted-imports
 import { mount, type ReactWrapper } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 import Select from '@atlaskit/select';
 import UserPicker, { type DefaultValue, type OptionData, type User } from '@atlaskit/user-picker';
 import { AnalyticsListener, type AnalyticsEventPayload } from '@atlaskit/analytics-next';
-import { type ConcurrentExperience, type UFOExperience } from '@atlaskit/ufo';
+// Commented due to HOT-111922
+import { /* type ConcurrentExperience, */ type UFOExperience } from '@atlaskit/ufo';
 
 import {
 	flushPromises,
@@ -33,27 +35,36 @@ const mockUserPickerOptionsShown = new MockConcurrentExperienceInstance(
 	'user-picker-options-shown',
 );
 
-jest.mock('@atlaskit/ufo', () => ({
-	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/ufo'),
-	ConcurrentExperience: (experienceId: string): ConcurrentExperience => ({
-		// @ts-expect-error
-		getInstance: (instanceId: string): Partial<UFOExperience> => {
-			if (experienceId === 'smart-user-picker-rendered') {
+jest.mock('@atlaskit/ufo', () => {
+	const actualModule = jest.requireActual('@atlaskit/ufo');
+
+	class MockConcurrentExperience {
+		experienceId: string;
+		constructor(experienceId: string) {
+			this.experienceId = experienceId;
+		}
+
+		getInstance(instanceId: string): Partial<UFOExperience> {
+			if (this.experienceId === 'smart-user-picker-rendered') {
 				return mockMounted;
-			} else if (experienceId === 'smart-user-picker-options-shown') {
+			} else if (this.experienceId === 'smart-user-picker-options-shown') {
 				return mockOptionsShown;
-			} else if (experienceId === 'user-picker-rendered') {
+			} else if (this.experienceId === 'user-picker-rendered') {
 				return mockUserPickerRendered;
-			} else if (experienceId === 'user-picker-options-shown') {
+			} else if (this.experienceId === 'user-picker-options-shown') {
 				return mockUserPickerOptionsShown;
 			}
 			throw new Error(
-				`ConcurrentExperience used without id mocked in SmartUserPickerSpec: ${experienceId}`,
+				`ConcurrentExperience used without id mocked in SmartUserPickerSpec: ${this.experienceId}`,
 			);
-		},
-	}),
-}));
+		}
+	}
+	return {
+		__esModule: true,
+		...actualModule,
+		ConcurrentExperience: MockConcurrentExperience,
+	};
+});
 
 jest.mock('@atlaskit/select', () => ({
 	__esModule: true,
@@ -818,8 +829,8 @@ describe('SmartUserPicker', () => {
 		let component: ReactWrapper;
 
 		const constructPayload = (
-			action: String,
-			actionSubject: String,
+			action: string,
+			actionSubject: string,
 			attributes = {},
 		): AnalyticsEventPayload => {
 			return expect.objectContaining({
@@ -839,8 +850,8 @@ describe('SmartUserPicker', () => {
 		};
 
 		const constructPayloadWithQueryAttributes = (
-			action: String,
-			actionSubject: String,
+			action: string,
+			actionSubject: string,
 			attributes = {},
 		): AnalyticsEventPayload => {
 			const defaultQueryAttributes = {

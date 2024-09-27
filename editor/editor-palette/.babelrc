@@ -1,5 +1,5 @@
 {
   "plugins": [
-    ["@atlaskit/tokens/babel-plugin", { "shouldUseAutoFallback": true }]
+    ["@atlaskit/tokens/babel-plugin"]
   ]
 }

@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.8.0
+
+### Minor Changes
+
+- [#143784](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143784)
+  [`dd1180ff23e22`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd1180ff23e22) -
+  Created new rule `@atlaskit/platform/ensure-valid-workspace-protocol-usage` which validates the
+  yarn workspace protocol is only used in private packages.
+
 ## 0.7.5
 
 ### Patch Changes

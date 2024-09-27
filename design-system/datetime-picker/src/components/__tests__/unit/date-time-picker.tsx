@@ -252,6 +252,39 @@ describe('DateTimePicker', () => {
 		expect(onChange).not.toHaveBeenCalled();
 	});
 
+	it('should still parse date and time values if onChange is provided to underlying pickers', async () => {
+		const user = userEvent.setup();
+		const onChange = jest.fn();
+		const parseValue = jest.fn();
+		const dateOnChange = jest.fn();
+		const timeOnChange = jest.fn();
+
+		render(
+			createDateTimePicker({
+				onChange,
+				parseValue,
+				datePickerProps: { onChange: dateOnChange },
+				timePickerProps: { onChange: timeOnChange },
+			}),
+		);
+
+		expect(parseValue).toHaveBeenCalled();
+		parseValue.mockClear();
+
+		firePickerEvent.changeDate('');
+		expect(dateOnChange).toHaveBeenCalled();
+		expect(parseValue).toHaveBeenCalled();
+		parseValue.mockClear();
+
+		await firePickerEvent.changeTime('', user);
+		expect(timeOnChange).toHaveBeenCalled();
+		expect(parseValue).toHaveBeenCalled();
+		parseValue.mockClear();
+
+		// Because a valid date was not given
+		expect(onChange).not.toHaveBeenCalled();
+	});
+
 	it('should fire onFocus prop when datepicker is focused', () => {
 		const onFocus = jest.fn();
 		render(createDateTimePicker({ onFocus: onFocus }));

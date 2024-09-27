@@ -1,5 +1,19 @@
 # @atlaskit/editor-shared-styles
 
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.0
+
+### Major Changes
+
+- [#145684](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145684)
+  [`8faa0ce1c97d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8faa0ce1c97d3) -
+  [ux] Removed unused consts and updated colours to use tokens instead of the theme package
+
 ## 2.13.5
 
 ### Patch Changes

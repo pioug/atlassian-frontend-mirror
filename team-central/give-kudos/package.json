@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/give-kudos",
-	"version": "2.1.12",
+	"version": "2.1.13",
 	"description": "Give Kudos experience ",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -48,10 +48,10 @@
 		"@atlaskit/drawer": "^9.0.0",
 		"@atlaskit/icon": "^22.18.0",
 		"@atlaskit/intl-messages-provider": "^1.0.2",
-		"@atlaskit/modal-dialog": "^12.16.0",
+		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/portal": "^4.9.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.61.0",
+		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"react-intl-next": "npm:react-intl@^5.18.1"

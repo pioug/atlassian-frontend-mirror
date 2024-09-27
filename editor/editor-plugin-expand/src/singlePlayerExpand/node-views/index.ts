@@ -20,7 +20,6 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../../types';
 import {
@@ -108,10 +107,7 @@ export class ExpandNodeView implements NodeView {
 		this.titleContainer.addEventListener('focus', this.handleFocus);
 		this.icon.addEventListener('keydown', this.handleIconKeyDown);
 
-		if (
-			this.api?.editorDisabled &&
-			fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
-		) {
+		if (this.api?.editorDisabled) {
 			this.cleanUpEditorDisabledOnChange = this.api.editorDisabled.sharedState.onChange(
 				(sharedState) => {
 					const editorDisabled = sharedState.nextSharedState.editorDisabled;
@@ -465,11 +461,7 @@ export class ExpandNodeView implements NodeView {
 
 	private getContentEditable = (node: PmNode): boolean => {
 		const contentEditable = !isExpandCollapsed(node);
-		if (
-			this.api &&
-			this.api.editorDisabled &&
-			fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
-		) {
+		if (this.api && this.api.editorDisabled) {
 			return !this.api.editorDisabled.sharedState.currentState()?.editorDisabled && contentEditable;
 		}
 		return contentEditable;

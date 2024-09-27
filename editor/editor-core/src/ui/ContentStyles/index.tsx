@@ -428,16 +428,17 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 		const { colorMode } = useThemeObserver();
 		const editorAPI = usePresetContext<[OptionalPlugin<EditorViewModePlugin>]>();
 		const { editorViewModeState } = useSharedPluginState(editorAPI, ['editorViewMode']);
-		const viewMode = editorViewModeState?.mode;
 		const memoizedStyle = useMemo(
 			() =>
 				contentStyles({
 					theme,
 					colorMode,
 					featureFlags,
-					viewMode,
+					viewMode: fg('platform_editor_remove_use_preset_context')
+						? props.viewMode
+						: editorViewModeState?.mode,
 				}),
-			[theme, colorMode, featureFlags, viewMode],
+			[theme, colorMode, featureFlags, editorViewModeState?.mode, props.viewMode],
 		);
 
 		return (

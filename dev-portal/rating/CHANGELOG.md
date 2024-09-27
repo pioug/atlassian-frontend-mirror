@@ -1,5 +1,19 @@
 # @atlaskit/rating
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.0
+
+### Major Changes
+
+- [#139574](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/139574)
+  [`ed3b5e8faa7e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed3b5e8faa7e0) -
+  Added react 18 support
+
 ## 0.3.29
 
 ### Patch Changes

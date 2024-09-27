@@ -37,37 +37,48 @@ const mainToolbarTwoLineStyle = () => {
 	});
 };
 
+const flexibleIconSize = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& span svg': {
+		maxWidth: '100%',
+	},
+});
+
 const mainToolbar = () => {
 	const editorToolbarHeight = FULL_PAGE_EDITOR_TOOLBAR_HEIGHT();
-	return css({
-		position: 'relative',
-		alignItems: 'center',
-		boxShadow: 'none',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		borderBottom: fg('platform.confluence.frontend.narrow-full-page-editor-toolbar')
-			? `1px solid ${token('color.border')}`
-			: undefined,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		transition: `box-shadow 200ms ${akEditorSwoopCubicBezier}`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		zIndex: akEditorFloatingDialogZIndex,
-		display: 'flex',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: editorToolbarHeight,
-		flexShrink: 0,
-		backgroundColor: token('elevation.surface', 'white'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'& object': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-			height: '0 !important',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		[`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
-			display: 'grid',
+	return css(
+		{
+			position: 'relative',
+			alignItems: 'center',
+			boxShadow: 'none',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			height: `calc(${editorToolbarHeight} * 2)`,
+			borderBottom: fg('platform.confluence.frontend.narrow-full-page-editor-toolbar')
+				? `1px solid ${token('color.border')}`
+				: undefined,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			transition: `box-shadow 200ms ${akEditorSwoopCubicBezier}`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			zIndex: akEditorFloatingDialogZIndex,
+			display: 'flex',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			height: editorToolbarHeight,
+			flexShrink: 0,
+			backgroundColor: token('elevation.surface', 'white'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			'& object': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+				height: '0 !important',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			[`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
+				display: 'grid',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				height: `calc(${editorToolbarHeight} * 2)`,
+			},
 		},
-	});
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/ui-styling-standard/no-unsafe-values
+		fg('platform.design-system-team.enable-new-icons') && flexibleIconSize,
+	);
 };
 
 export const mainToolbarStyle = (showKeyline: boolean, twoLineEditorToolbar: boolean) => [

@@ -35,6 +35,8 @@ export interface InlineCardResolvedViewProps {
 	hoverPreviewOptions?: HoverPreviewOptions;
 	/** Configure visibility of server and client actions */
 	actionOptions?: CardActionOptions;
+	/** Truncates the card to one line */
+	truncateInline?: boolean;
 }
 
 export class InlineCardResolvedView extends React.Component<InlineCardResolvedViewProps> {
@@ -74,6 +76,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 			showHoverPreview = false,
 			hoverPreviewOptions,
 			actionOptions,
+			truncateInline,
 		} = this.props;
 
 		const inlineCardResolvedView = (
@@ -83,6 +86,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 				isSelected={isSelected}
 				isHovered={isHovered}
 				onClick={onClick}
+				truncateInline={truncateInline}
 			>
 				<IconAndTitleLayout
 					emoji={titlePrefix}

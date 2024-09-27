@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "17.19.0",
+	"version": "17.19.1",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,7 +51,7 @@
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.61.0",
+		"@atlaskit/tokens": "^2.0.0",
 		"@atlaskit/visually-hidden": "^1.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -74,7 +74,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/checkbox": "^14.0.0",
 		"@atlaskit/ds-lib": "^2.6.0",
-		"@atlaskit/modal-dialog": "^12.16.0",
+		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",

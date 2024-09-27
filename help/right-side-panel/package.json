@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/right-side-panel",
-	"version": "1.2.12",
+	"version": "1.2.13",
 	"description": "A cross-product right-side-panel component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,7 +37,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.61.0",
+		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0",
 		"exenv": "^1.2.2",

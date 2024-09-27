@@ -67,18 +67,20 @@ export function deleteBlockContent(
 		const isParentNodeOfTypePanel = hasParentNodeOfType([state.schema.nodes.panel])(
 			state.selection,
 		);
+		const isParentNodeOfTypeBlockQuote = hasParentNodeOfType([state.schema.nodes.blockquote])(
+			state.selection,
+		);
 
-		// If decision is inside panel and the decision list have only one decision item which is selected,
-		// delete the whole decision list.
-		// Also, checks if selection is a mediaGroup node within a panel
 		if (
-			isParentNodeOfTypePanel &&
-			(isSelectedNodeSoleDecisionItem(state) || isSelectedNodeMediaGroup(state))
+			isSelectedNodeMediaGroup(state) &&
+			(isParentNodeOfTypePanel || isParentNodeOfTypeBlockQuote)
 		) {
-			tr.setSelection(new TextSelection(tr.doc.resolve($from.before()))).delete(
-				$from.before(),
-				$from.after(),
-			);
+			return false;
+		}
+
+		if (isParentNodeOfTypePanel && isSelectedNodeSoleDecisionItem(state)) {
+			tr.setSelection(new TextSelection(tr.doc.resolve($from.before())));
+			tr.delete($from.before(), $from.after());
 		} else {
 			tr.delete($from.pos, $to.pos);
 		}

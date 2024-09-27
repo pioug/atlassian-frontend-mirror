@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 91.1.2
+
+### Patch Changes
+
+- [#145623](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145623)
+  [`f7a9eb3237204`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7a9eb3237204) -
+  [ux] [ED-24821] This change prevents codeblocks from stretching up when they are nested with
+  floating images inside blockquotes or panels.
+
+## 91.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 91.1.0
+
+### Minor Changes
+
+- [#144047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144047)
+  [`0e77caf52a59d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e77caf52a59d) -
+  add new full page toolbar breakpoints
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 91.0.5
 
 ### Patch Changes

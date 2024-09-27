@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, memo, useCallback } from 'react';
+import { Fragment, memo, useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -16,8 +16,14 @@ import type {
 	EditorPresetBuilder,
 } from '@atlaskit/editor-common/preset';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
+import type { OptionalPlugin, PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
+import type { CardPlugin } from '@atlaskit/editor-plugins/card';
+import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
+import { type CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';
+import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
+import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
@@ -26,7 +32,7 @@ import type { EditorViewProps } from '../create-editor/ReactEditorView';
 import ReactEditorView from '../create-editor/ReactEditorView';
 import type { EventDispatcher } from '../event-dispatcher';
 import { ContextAdapter } from '../nodeviews/context-adapter';
-import { useSetPresetContext } from '../presets/context';
+import { usePresetContext, useSetPresetContext } from '../presets/context';
 import { type EditorAppearanceComponentProps } from '../types';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
@@ -192,8 +198,25 @@ export const EditorInternal = memo(
 	},
 );
 
-function ReactEditorViewContextWrapper(props: EditorViewProps) {
+type ReactEditorViewPlugins = [
+	OptionalPlugin<ContextIdentifierPlugin>,
+	OptionalPlugin<MediaPlugin>,
+	OptionalPlugin<CardPlugin>,
+	OptionalPlugin<EmojiPlugin>,
+	OptionalPlugin<CustomAutoformatPlugin>,
+];
+
+type ReactEditorViewContextWrapperProps = Omit<EditorViewProps, 'editorAPI'>;
+
+function ReactEditorViewContextWrapper(props: ReactEditorViewContextWrapperProps) {
+	// deprecated, unable to be FF due to hook usage
 	const setInternalEditorAPI = useSetPresetContext();
+	const presetContextEditorAPI = usePresetContext<ReactEditorViewPlugins>();
+
+	// new way of storing the editorApi when FF platform_editor_remove_use_preset_context is enabled
+	const [editorAPI, setEditorAPI] = useState<PublicPluginAPI<ReactEditorViewPlugins> | undefined>(
+		undefined,
+	);
 
 	/**
 	 * We use the context to retrieve the editorAPI
@@ -203,12 +226,16 @@ function ReactEditorViewContextWrapper(props: EditorViewProps) {
 	 * so we should also set the value for the `EditorContext` that is used in
 	 * `EditorInternal`.
 	 */
-	const setEditorAPI = useCallback(
+	const setPresetContextEditorAPI = useCallback(
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(api: PublicPluginAPI<any>) => {
-			setInternalEditorAPI?.(api);
+			if (fg('platform_editor_remove_use_preset_context')) {
+				setEditorAPI(api as PublicPluginAPI<ReactEditorViewPlugins>);
+			} else {
+				setInternalEditorAPI?.(api);
+			}
 		},
-		[setInternalEditorAPI],
+		[setInternalEditorAPI, setEditorAPI],
 	);
 
 	// TODO: Remove these when we deprecate these props from editor-props - smartLinks is unfortunately still used in some places, we can sidestep this problem if we move everyone across to ComposableEditor and deprecate Editor
@@ -216,6 +243,7 @@ function ReactEditorViewContextWrapper(props: EditorViewProps) {
 	const smartLinks = (props.editorProps as EditorProps).smartLinks;
 
 	useProviders({
+		editorApi: fg('platform_editor_remove_use_preset_context') ? editorAPI : presetContextEditorAPI,
 		contextIdentifierProvider: props.editorProps.contextIdentifierProvider,
 		mediaProvider: props.editorProps.media?.provider,
 		cardProvider:
@@ -226,5 +254,7 @@ function ReactEditorViewContextWrapper(props: EditorViewProps) {
 		autoformattingProvider: props.editorProps.autoformattingProvider,
 	});
 
-	return <ReactEditorView {...props} setEditorApi={setEditorAPI} />;
+	return (
+		<ReactEditorView {...props} editorAPI={editorAPI} setEditorApi={setPresetContextEditorAPI} />
+	);
 }

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.12.6
+
+### Patch Changes
+
+- [`037ce68784704`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/037ce68784704) -
+  ED-25123 Update document moved to fire for all cases
+- Updated dependencies
+
 ## 1.12.5
 
 ### Patch Changes

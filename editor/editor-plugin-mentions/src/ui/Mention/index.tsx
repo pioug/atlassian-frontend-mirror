@@ -1,11 +1,17 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { browser } from '@atlaskit/editor-common/browser';
-import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import { MentionWithProfileCard } from '@atlaskit/editor-common/mention';
+import { type ProfilecardProvider } from '@atlaskit/editor-common/src/provider-factory/profile-card-provider';
 import type { MentionEventHandlers } from '@atlaskit/editor-common/ui';
 import { ResourcedMention } from '@atlaskit/mention/element';
-import type { MentionProvider } from '@atlaskit/mention/resource';
+import {
+	isResolvingMentionProvider,
+	type MentionNameDetails,
+	MentionNameStatus,
+	type MentionProvider,
+} from '@atlaskit/mention/resource';
+import { isPromise, type MentionEventHandler } from '@atlaskit/mention/types';
 
 // Workaround for a firefox issue where dom selection is off sync
 // https://product-fabric.atlassian.net/browse/ED-12442
@@ -23,28 +29,57 @@ const refreshBrowserSelection = () => {
 
 export interface MentionProps {
 	id: string;
-	providers?: ProviderFactory;
 	eventHandlers?: MentionEventHandlers;
 	text: string;
 	accessLevel?: string;
 	localId?: string;
+	mentionProvider?: Promise<MentionProvider>;
+	profilecardProvider?: Promise<ProfilecardProvider>;
 }
 
-/**
- * @deprecated should be replaced with `editor-plugin-mentions/src/ui/Mention/mention.tsx`
- * when the feature flag `platform.editor.mentions-in-editor-popup-on-click` is tidied up.
- */
-export default class Mention extends PureComponent<MentionProps, {}> {
-	static displayName = 'Mention';
+export const Mention = (props: MentionProps) => {
+	const {
+		accessLevel,
+		eventHandlers,
+		id,
+		text,
+		localId,
+		mentionProvider,
+		profilecardProvider: profilecardProviderPromise,
+	} = props;
 
-	private providerFactory: ProviderFactory;
+	const [profilecardProvider, setProfilecardProvider] = useState<ProfilecardProvider | undefined>(
+		undefined,
+	);
 
-	constructor(props: MentionProps) {
-		super(props);
-		this.providerFactory = props.providers || new ProviderFactory();
-	}
+	const resolvedName = useResolvedName(id, text, mentionProvider);
 
-	componentDidMount() {
+	// Resolve the profilecard provider
+	useEffect(() => {
+		let isCancelled = false;
+		const resolveProfilecardProvider = async () => {
+			try {
+				const profilecardProvider = await profilecardProviderPromise;
+				if (!isCancelled) {
+					setProfilecardProvider(profilecardProvider);
+				}
+			} catch (error) {
+				if (!isCancelled) {
+					setProfilecardProvider(undefined);
+				}
+			}
+		};
+
+		if (profilecardProviderPromise) {
+			resolveProfilecardProvider();
+		}
+
+		return () => {
+			isCancelled = true;
+		};
+	}, [profilecardProviderPromise]);
+
+	useEffect(() => {
 		// Workaround an issue where the selection is not updated immediately after adding
 		// a mention when "sanitizePrivateContent" is enabled in the editor on safari.
 		// This affects both insertion and paste behaviour it is applied to the component.
@@ -52,46 +87,71 @@ export default class Mention extends PureComponent<MentionProps, {}> {
 		if (browser.safari) {
 			setTimeout(refreshBrowserSelection, 0);
 		}
-	}
+	}, []);
 
-	componentWillUnmount() {
-		if (!this.props.providers) {
-			// new ProviderFactory is created if no `providers` has been set
-			// in this case when component is unmounted it's safe to destroy this providerFactory
-			this.providerFactory.destroy();
-		}
-	}
+	const actionHandlers: Record<string, MentionEventHandler> = {};
+	['onClick', 'onMouseEnter', 'onMouseLeave'].forEach((handler) => {
+		actionHandlers[handler] = (eventHandlers && (eventHandlers as any)[handler]) || (() => {});
+	});
 
-	private renderWithProvider = (providers: Providers) => {
-		const { accessLevel, eventHandlers, id, text, localId } = this.props;
-		const { mentionProvider } = providers as {
-			mentionProvider?: Promise<MentionProvider>;
-		};
-
-		const actionHandlers: Record<string, any> = {};
-		['onClick', 'onMouseEnter', 'onMouseLeave'].forEach((handler) => {
-			actionHandlers[handler] = (eventHandlers && (eventHandlers as any)[handler]) || (() => {});
-		});
-
+	if (profilecardProvider) {
 		return (
-			<ResourcedMention
+			<MentionWithProfileCard
+				autoFocus={false}
 				id={id}
-				text={text}
+				text={resolvedName}
 				accessLevel={accessLevel}
-				localId={localId}
 				mentionProvider={mentionProvider}
+				profilecardProvider={profilecardProvider}
+				localId={localId}
 				{...actionHandlers}
 			/>
 		);
-	};
-
-	render() {
+	} else {
 		return (
-			<WithProviders
-				providers={['mentionProvider', 'profilecardProvider']}
-				providerFactory={this.providerFactory}
-				renderNode={this.renderWithProvider}
+			<ResourcedMention
+				id={id}
+				text={resolvedName}
+				accessLevel={accessLevel}
+				mentionProvider={mentionProvider}
+				localId={localId}
+				{...actionHandlers}
 			/>
 		);
 	}
-}
+};
+
+const useResolvedName = (id: string, text: string, mentionProvider?: Promise<MentionProvider>) => {
+	const [resolvedName, setResolvedName] = useState(text);
+
+	const processName = (name: MentionNameDetails): string => {
+		if (name.status === MentionNameStatus.OK) {
+			return `@${name.name || ''}`;
+		} else {
+			return `@_|unknown|_`;
+		}
+	};
+
+	useEffect(() => {
+		if (mentionProvider) {
+			mentionProvider
+				.then(async (provider) => {
+					if (!text && isResolvingMentionProvider(provider)) {
+						const nameDetail = provider.resolveMentionName(id);
+						if (isPromise(nameDetail)) {
+							return processName(await nameDetail);
+						} else {
+							return processName(nameDetail);
+						}
+					} else {
+						return text;
+					}
+				})
+				.then((resolvedName) => {
+					setResolvedName(resolvedName);
+				});
+		}
+	}, [id, text, mentionProvider]);
+
+	return resolvedName;
+};

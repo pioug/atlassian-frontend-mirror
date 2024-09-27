@@ -57,6 +57,7 @@ function Component({
 	useLegacyBlockCard,
 	removeTextHighlightingFromTitle,
 	resolvingPlaceholder,
+	truncateInline,
 }: CardWithUrlContentProps) {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -312,6 +313,7 @@ function Component({
 					actionOptions={actionOptions}
 					removeTextHighlightingFromTitle={removeTextHighlightingFromTitle}
 					resolvingPlaceholder={resolvingPlaceholder}
+					truncateInline={truncateInline}
 				/>
 			);
 		case 'block':

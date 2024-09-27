@@ -42,6 +42,7 @@ describe('ReactEditorView/reconfigureState', () => {
 					{...defaultProps}
 					editorProps={editorProps}
 					preset={createUniversalPreset({ props: editorProps })}
+					editorAPI={{}}
 				/>,
 			);
 

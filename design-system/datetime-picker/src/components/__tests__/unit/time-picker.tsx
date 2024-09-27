@@ -194,7 +194,7 @@ describe('TimePicker', () => {
 		// eslint-disable-next-line testing-library/prefer-user-event
 		fireEvent.click(createButton, { target: { value: 'asdf' } }); // our custom parseInputValue ignores this
 
-		expect(onChangeSpy).toHaveBeenCalledWith('01:15');
+		expect(onChangeSpy.mock.calls[0][0]).toBe('01:15');
 	});
 
 	it('should call default parseInputValue', () => {
@@ -208,7 +208,7 @@ describe('TimePicker', () => {
 		// eslint-disable-next-line testing-library/prefer-user-event
 		fireEvent.click(createButton, { target: { value: '01:30' } });
 
-		expect(onChangeSpy).toHaveBeenCalledWith('01:30');
+		expect(onChangeSpy.mock.calls[0][0]).toBe('01:30');
 	});
 
 	it('should return AM time with default parseInputValue', () => {
@@ -222,7 +222,7 @@ describe('TimePicker', () => {
 		// eslint-disable-next-line testing-library/prefer-user-event
 		fireEvent.click(createButton, { target: { value: '01:44am' } });
 
-		expect(onChangeSpy).toHaveBeenCalledWith('01:44');
+		expect(onChangeSpy.mock.calls[0][0]).toBe('01:44');
 	});
 
 	it('should return PM time with default parseInputValue', () => {
@@ -236,7 +236,7 @@ describe('TimePicker', () => {
 		// eslint-disable-next-line testing-library/prefer-user-event
 		fireEvent.click(createButton, { target: { value: '3:32pm' } });
 
-		expect(onChangeSpy).toHaveBeenCalledWith('15:32');
+		expect(onChangeSpy.mock.calls[0][0]).toBe('15:32');
 	});
 
 	it('should correctly parseInputValue with default timeFormat', () => {
@@ -258,7 +258,7 @@ describe('TimePicker', () => {
 		fireEvent.click(createButton, { target: { value: '3:32pm' } });
 
 		expect(onParseInputValueSpy).toHaveBeenCalledWith('3:32pm', 'h:mma');
-		expect(onChangeSpy).toHaveBeenCalledWith('15:32');
+		expect(onChangeSpy.mock.calls[0][0]).toBe('15:32');
 	});
 
 	it('should return PM time with default parseInputValue and custom timeFormat', () => {
@@ -278,7 +278,7 @@ describe('TimePicker', () => {
 		// eslint-disable-next-line testing-library/prefer-user-event
 		fireEvent.click(createButton, { target: { value: '11:22:33 pm' } });
 
-		expect(onChangeSpy).toHaveBeenCalledWith('23:22:33');
+		expect(onChangeSpy.mock.calls[0][0]).toBe('23:22:33');
 	});
 
 	it('should correctly parseInputValue with custom timeFormat', () => {
@@ -301,7 +301,7 @@ describe('TimePicker', () => {
 		fireEvent.click(createButton, { target: { value: '3:32pm' } });
 
 		expect(onParseInputValueSpy).toHaveBeenCalledWith('3:32pm', 'HH--mm:A');
-		expect(onChangeSpy).toHaveBeenCalledWith('15:32');
+		expect(onChangeSpy.mock.calls[0][0]).toBe('15:32');
 	});
 
 	it('should clear the value if the backspace key is pressed', async () => {

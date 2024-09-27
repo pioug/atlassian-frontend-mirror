@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-caption
 
+## 1.10.0
+
+### Minor Changes
+
+- [#146025](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146025)
+  [`03eae90c614d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/03eae90c614d1) -
+  Remove platform.editor.live-view.disable-editing-in-view-mode_fi1rx feature flag
+
 ## 1.9.8
 
 ### Patch Changes

@@ -1,5 +1,44 @@
 # @atlaskit/editor-plugins
 
+## 5.4.0
+
+### Minor Changes
+
+- [#146025](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146025)
+  [`03eae90c614d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/03eae90c614d1) -
+  Remove platform.editor.live-view.disable-editing-in-view-mode_fi1rx feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.27
+
+### Patch Changes
+
+- [#145765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145765)
+  [`eded181672815`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eded181672815) -
+  [ED-23481] Clean up `platform.editor.mentions-in-editor-popup-on-click`
+- Updated dependencies
+
+## 5.3.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.23
 
 ### Patch Changes

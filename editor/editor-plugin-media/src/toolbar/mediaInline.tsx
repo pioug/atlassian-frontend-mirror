@@ -25,6 +25,7 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { messages } from '@atlaskit/media-ui';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { showLinkingToolbar } from '../commands/linking';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
@@ -180,6 +181,9 @@ const getMediaInlineImageToolbar = (
 	const mediaSingleTitle = intl.formatMessage(mediaAndEmbedToolbarMessages.changeToMediaSingle);
 	const widthPluginState = pluginInjectionApi?.width?.sharedState.currentState();
 	const inlineImageItems: FloatingToolbarItem<Command>[] = [];
+	const isNestingInQuoteSupported =
+		pluginInjectionApi?.featureFlags?.sharedState.currentState()?.nestMediaAndCodeblockInQuote ||
+		fg('editor_nest_media_and_codeblock_in_quotes_jira');
 
 	if (shouldShowImageBorder(state)) {
 		inlineImageItems.push({
@@ -224,7 +228,11 @@ const getMediaInlineImageToolbar = (
 			type: 'button',
 			title: mediaSingleTitle,
 			icon: () => <IconEmbed size="medium" label={mediaSingleTitle} />,
-			onClick: changeMediaInlineToMediaSingle(editorAnalyticsAPI, widthPluginState),
+			onClick: changeMediaInlineToMediaSingle(
+				editorAnalyticsAPI,
+				widthPluginState,
+				isNestingInQuoteSupported,
+			),
 		},
 		{ type: 'separator' },
 	);

@@ -3,7 +3,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
-import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
+import { AddMarkStep, RemoveMarkStep } from '@atlaskit/editor-prosemirror/transform';
 
 import type { LastOrganicChangeMetadata } from '../types';
 import { isOrganicChange } from '../utils';
@@ -35,7 +35,9 @@ export const createPlugin = () => {
 
 				// Inline comment annotations are not considered as edits to the document body
 				const isAnnotationStep = !!transaction.steps.find(
-					(step: Step) => step instanceof AddMarkStep && step.mark?.type?.name === 'annotation',
+					(step: Step) =>
+						(step instanceof AddMarkStep || step instanceof RemoveMarkStep) &&
+						step.mark?.type?.name === 'annotation',
 				);
 
 				if (isDocumentReplaceFromRemote) {

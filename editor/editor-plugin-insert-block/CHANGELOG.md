@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.0
+
+### Minor Changes
+
+- [#144047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144047)
+  [`0e77caf52a59d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e77caf52a59d) -
+  add new full page toolbar breakpoints
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.2
 
 ### Patch Changes

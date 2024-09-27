@@ -1,5 +1,28 @@
 # @atlaskit/datetime-picker
 
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- [#145902](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145902)
+  [`7d95e270ddda2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d95e270ddda2) -
+  Ensure provided onChange handlers on in `*PickerProps` run alongside internal parsing logic
+  instead of overriding it.
+
+## 15.0.0
+
+### Major Changes
+
+- [#145306](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145306)
+  [`3b17d85b64fcd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b17d85b64fcd) -
+  Remove unused analyticsContext prop and add unit tests for analytics.
+
 ## 14.1.2
 
 ### Patch Changes

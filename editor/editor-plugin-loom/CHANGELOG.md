@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-loom
 
+## 3.0.2
+
+### Patch Changes
+
+- [#145206](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145206)
+  [`cca8cc490ec20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cca8cc490ec20) -
+  [ED-25135] Fix: loom is not initialised correctly if `initLoom` is called when collab-edit plugin
+  is not ready
+
 ## 3.0.1
 
 ### Patch Changes

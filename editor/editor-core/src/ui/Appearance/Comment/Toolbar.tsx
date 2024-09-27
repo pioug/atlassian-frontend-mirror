@@ -10,10 +10,12 @@ import { css, jsx } from '@emotion/react';
 
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import { akEditorMenuZIndex, akEditorToolbarKeylineHeight } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
 
+/* eslint-disable @atlaskit/platform/ensure-feature-flag-registration */
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 const mainToolbarWrapperStyle = (isTwoLineEditorToolbar = false) => css`
 	position: relative;
@@ -54,7 +56,10 @@ const mainToolbarWrapperStyle = (isTwoLineEditorToolbar = false) => css`
 	.block-type-btn {
 		padding-left: 0;
 	}
+
+	${fg('platform.design-system-team.enable-new-icons') && 'span svg { max-width: 100%; }'}
 `;
+/* eslint-enable @atlaskit/platform/ensure-feature-flag-registration */
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const stickyToolbarWrapperStyle = css`

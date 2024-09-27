@@ -74,6 +74,9 @@ export default function plugin() {
 					path: NodePath<t.Program>,
 					state: {
 						opts: {
+							/**
+							 * @default true
+							 */
 							shouldUseAutoFallback?: boolean;
 							shouldForceAutoFallback?: boolean;
 							defaultTheme?: DefaultColorTheme;
@@ -113,7 +116,7 @@ export default function plugin() {
 
 							// if no fallback is set, optionally find one from the default theme
 							if (path.node.arguments.length < 2) {
-								if (state.opts.shouldUseAutoFallback) {
+								if (state.opts.shouldUseAutoFallback !== false) {
 									replacementNode = t.stringLiteral(
 										`var(${cssTokenValue}, ${getDefaultFallback(
 											tokenName,

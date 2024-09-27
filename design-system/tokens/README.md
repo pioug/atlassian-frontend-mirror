@@ -39,9 +39,9 @@ Add the plugin to your babel configuration:
 
 ### Options
 
-Currently the plugin supports one option, `shouldUseAutoFallback`. When enabled, the plugin will
-fetch the token's value in the default Atlassian theme (currently `atlassian-light`) and use it as
-the fallback value.
+Currently the plugin supports one option, `shouldUseAutoFallback`. When not disabled, the plugin
+will fetch the token's value in the default Atlassian theme (currently `atlassian-light`) and use it
+as the fallback value.
 
 This is useful for cases where tokens are in use, but token definitions aren't guaranteed to be
 present in the top-level page CSS.

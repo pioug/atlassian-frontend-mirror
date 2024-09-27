@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 1.14.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.14.7
 
 ### Patch Changes

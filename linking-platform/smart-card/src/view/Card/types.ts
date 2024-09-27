@@ -130,4 +130,6 @@ export interface CardProps extends WithAnalyticsEventsProps {
 	 * When defined, this placeholder will be displayed while the smart card is resolving. This is only useful for inline cards.
 	 */
 	resolvingPlaceholder?: string;
+	/** When set to true, inline cards will be truncated to one line. */
+	truncateInline?: boolean;
 }

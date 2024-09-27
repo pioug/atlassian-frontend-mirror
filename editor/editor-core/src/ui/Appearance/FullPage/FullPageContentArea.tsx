@@ -19,6 +19,7 @@ import type {
 	ReactHookFactory,
 } from '@atlaskit/editor-common/types';
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
+import { type ViewMode } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -65,6 +66,7 @@ interface FullPageEditorContentAreaProps {
 	providerFactory: ProviderFactory;
 	wrapperElement: HTMLElement | null;
 	featureFlags?: FeatureFlags;
+	viewMode: ViewMode | undefined;
 	isEditorToolbarHidden?: boolean;
 }
 
@@ -115,6 +117,7 @@ const Content = React.forwardRef<
 				className="fabric-editor-popup-scroll-parent"
 				featureFlags={props.featureFlags}
 				ref={scrollContainerRef}
+				viewMode={fg('platform_editor_remove_use_preset_context') ? props?.viewMode : undefined}
 			>
 				<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 					<div

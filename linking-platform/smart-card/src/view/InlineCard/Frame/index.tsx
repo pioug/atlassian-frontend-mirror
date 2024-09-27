@@ -16,11 +16,22 @@ export interface FrameViewProps {
 	className?: string;
 	/** A flag that determines whether a card is in hover state in edit mode. */
 	isHovered?: boolean;
+	/** A flag that determines whether a card is truncated to 1 line */
+	truncateInline?: boolean;
 }
 
 export const Frame = forwardRef<HTMLSpanElement & null, FrameViewProps>((props, ref) => {
-	const { isSelected, children, onClick, link, withoutBackground, testId, className, isHovered } =
-		props;
+	const {
+		isSelected,
+		children,
+		onClick,
+		link,
+		withoutBackground,
+		testId,
+		className,
+		isHovered,
+		truncateInline,
+	} = props;
 
 	const handleClick = useCallback(
 		(event: MouseEvent) => {
@@ -70,6 +81,7 @@ export const Frame = forwardRef<HTMLSpanElement & null, FrameViewProps>((props, 
 			className={className}
 			ref={ref}
 			isHovered={isHovered}
+			truncateInline={truncateInline}
 		>
 			{children}
 		</Wrapper>

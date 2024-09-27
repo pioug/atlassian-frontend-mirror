@@ -156,6 +156,7 @@ const requiredProps = () => ({
 	editorProps: {},
 	intl: createIntl({ locale: 'en' }),
 	preset: createUniversalPreset({ props: {} }),
+	editorAPI: {},
 });
 
 const analyticsProps = () => ({

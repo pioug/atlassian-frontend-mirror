@@ -55,11 +55,7 @@ const toDOM = (node: Node, contentEditable: boolean, formattedAriaLabel: string)
 					{
 						'data-language': node.attrs.language || '',
 						spellcheck: 'false',
-						contenteditable: fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
-							? contentEditable
-								? 'true'
-								: 'false'
-							: 'true',
+						contenteditable: contentEditable ? 'true' : 'false',
 						'data-testid': 'code-block--code',
 						'aria-label': formattedAriaLabel,
 					},
@@ -121,10 +117,7 @@ export class CodeBlockView {
 	}
 
 	handleEditorDisabledChanged() {
-		if (
-			this.api?.editorDisabled &&
-			fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
-		) {
+		if (this.api?.editorDisabled) {
 			this.cleanupEditorDisabledListener = this.api.editorDisabled.sharedState.onChange(
 				(sharedState) => {
 					if (this.contentDOM) {

@@ -1,5 +1,19 @@
 # @atlaskit/emoji
 
+## 67.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 67.8.1
+
+### Patch Changes
+
+- [#145874](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145874)
+  [`eff2c975a0993`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eff2c975a0993) -
+  ESS-6182 upgrade react dep
+
 ## 67.8.0
 
 ### Minor Changes

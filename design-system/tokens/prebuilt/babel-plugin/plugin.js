@@ -90,7 +90,7 @@ function plugin() {
 
               // if no fallback is set, optionally find one from the default theme
               if (path.node.arguments.length < 2) {
-                if (state.opts.shouldUseAutoFallback) {
+                if (state.opts.shouldUseAutoFallback !== false) {
                   replacementNode = t.stringLiteral("var(".concat(cssTokenValue, ", ").concat(getDefaultFallback(tokenName, state.opts.defaultTheme), ")"));
                 } else {
                   replacementNode = t.stringLiteral("var(".concat(cssTokenValue, ")"));

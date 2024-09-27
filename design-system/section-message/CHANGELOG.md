@@ -1,5 +1,11 @@
 # @atlaskit/section-message
 
+## 6.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.6.4
 
 ### Patch Changes

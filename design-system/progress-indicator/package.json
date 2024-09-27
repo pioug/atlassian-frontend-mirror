@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/progress-indicator",
-	"version": "11.0.3",
+	"version": "11.0.4",
 	"description": "A progress indicator shows the user where they are along the steps of a journey.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/ds-lib": "^2.6.0",
 		"@atlaskit/primitives": "^12.2.0",
-		"@atlaskit/tokens": "^1.61.0",
+		"@atlaskit/tokens": "^2.0.0",
 		"@atlaskit/visually-hidden": "^1.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

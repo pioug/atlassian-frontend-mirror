@@ -7,7 +7,6 @@ import { expandedState } from '@atlaskit/editor-common/expand';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
 import { expandMessages } from '@atlaskit/editor-common/ui';
 import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { ExpandButton } from '../ui/ExpandButton';
 
@@ -65,11 +64,7 @@ export const toDOM = (
 							intl.formatMessage(expandMessages.expandPlaceholderText)) ||
 						expandMessages.expandPlaceholderText.defaultMessage,
 					type: 'text',
-					readonly:
-						getBooleanFF('platform.editor.live-view.disable-editing-in-view-mode_fi1rx') &&
-						titleReadOnly
-							? 'true'
-							: undefined,
+					readonly: titleReadOnly ? 'true' : undefined,
 				},
 			],
 		],
@@ -80,12 +75,7 @@ export const toDOM = (
 			// prettier-ignore
 			class: expandClassNames.content,
 			contenteditable:
-				getBooleanFF('platform.editor.live-view.disable-editing-in-view-mode_fi1rx') &&
-				contentEditable
-					? contentEditable
-						? 'true'
-						: 'false'
-					: undefined,
+				contentEditable !== undefined ? (contentEditable ? 'true' : 'false') : undefined,
 		},
 		0,
 	],

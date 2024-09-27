@@ -34,6 +34,7 @@ ${(<AtlassianInternalWarning />)}
   ## Usage
 
   ### [Legacy Editor](editor-core/docs/legacy-editor)
+  Note: The legacy editor is deprecated. There is an example to help with migration at https://atlaskit.atlassian.com/examples/editor/editor-core/legacy-editor-migrator
 
 
   ### Composable Editor

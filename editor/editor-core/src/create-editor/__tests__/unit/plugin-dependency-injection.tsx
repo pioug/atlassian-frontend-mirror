@@ -30,6 +30,7 @@ const requiredProps = () => ({
 	editorProps: {},
 	intl: createIntl({ locale: 'en' }),
 	render: ({ editor }: { editor: React.ReactChild }) => <div>{editor}</div>,
+	editorAPI: {},
 });
 
 replaceRaf();

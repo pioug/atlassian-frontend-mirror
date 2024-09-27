@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.5
+
+### Patch Changes
+
+- [#144914](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144914)
+  [`5c53f0507a346`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c53f0507a346) -
+  ED-25125 Add patch 2 Fg
+- [#142749](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/142749)
+  [`273fc31422520`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/273fc31422520) -
+  ED-25019 fix wrapped image z index issue
+- Updated dependencies
+
 ## 2.1.4
 
 ### Patch Changes

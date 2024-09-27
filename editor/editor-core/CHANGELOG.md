@@ -1,5 +1,54 @@
 # @atlaskit/editor-core
 
+## 197.13.3
+
+### Patch Changes
+
+- [#146025](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146025)
+  [`03eae90c614d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/03eae90c614d1) -
+  Remove platform.editor.live-view.disable-editing-in-view-mode_fi1rx feature flag
+- Updated dependencies
+
+## 197.13.2
+
+### Patch Changes
+
+- [#145765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145765)
+  [`eded181672815`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eded181672815) -
+  [ED-23481] Clean up `platform.editor.mentions-in-editor-popup-on-click`
+- Updated dependencies
+
+## 197.13.1
+
+### Patch Changes
+
+- [#145587](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145587)
+  [`fc390fa3a6b2a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc390fa3a6b2a) -
+  [ux] Fix Editor toolbar overflow issue for new icons on small screen
+
+## 197.13.0
+
+### Minor Changes
+
+- [#144103](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144103)
+  [`fa7b54fa5353e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa7b54fa5353e) -
+  Remove the use of usePresetContext in editor-core
+
+## 197.12.0
+
+### Minor Changes
+
+- [#144047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144047)
+  [`0e77caf52a59d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e77caf52a59d) -
+  add new full page toolbar breakpoints
+- [#145317](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145317)
+  [`ecfdb14f93474`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ecfdb14f93474) -
+  Add appearance prop for FullPageEditor so that it can be re-used for full-width mode.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 197.11.1
 
 ### Patch Changes

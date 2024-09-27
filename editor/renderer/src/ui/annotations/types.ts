@@ -15,6 +15,11 @@ export type AnnotationsWrapperProps = React.PropsWithChildren<{
 	annotationProvider: AnnotationProviders | null | undefined;
 	rendererRef: React.RefObject<HTMLDivElement>;
 	isNestedRender: boolean;
+	onLoadComplete?: ({
+		numberOfUnresolvedInlineComments,
+	}: {
+		numberOfUnresolvedInlineComments: number;
+	}) => void;
 }>;
 
 export type TextPosition = {

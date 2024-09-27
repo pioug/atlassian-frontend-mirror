@@ -1,4 +1,11 @@
-import React, { type CSSProperties, forwardRef, useEffect, useReducer, useState } from 'react';
+import React, {
+	type CSSProperties,
+	forwardRef,
+	useCallback,
+	useEffect,
+	useReducer,
+	useState,
+} from 'react';
 
 import { format, isValid } from 'date-fns';
 
@@ -58,7 +65,6 @@ const TimePicker = forwardRef(
 	(
 		{
 			'aria-describedby': ariaDescribedBy,
-			analyticsContext,
 			appearance = 'default' as Appearance,
 			autoFocus = false,
 			defaultIsOpen = false,
@@ -106,7 +112,6 @@ const TimePicker = forwardRef(
 		const providedOnChangeWithAnalytics = usePlatformLeafEventHandler({
 			fn: providedOnChange,
 			action: 'selectedTime',
-			analyticsData: analyticsContext,
 			...analyticsAttributes,
 		});
 
@@ -122,20 +127,20 @@ const TimePicker = forwardRef(
 			}
 		}, [providedIsOpen]);
 
-		const onChange = (
-			newValue: ValueType<OptionType> | string,
-			action?: ActionMeta<OptionType>,
-		): void => {
-			const rawValue = newValue ? (newValue as OptionType).value || newValue : '';
-			const finalValue = rawValue.toString();
-			setValue(finalValue);
+		const onChange = useCallback(
+			(newValue: ValueType<OptionType> | string, action?: ActionMeta<OptionType>) => {
+				const rawValue = newValue ? (newValue as OptionType).value || newValue : '';
+				const finalValue = rawValue.toString();
+				setValue(finalValue);
 
-			if (action && action.action === 'clear') {
-				setClearingFromIcon(true);
-			}
+				if (action && action.action === 'clear') {
+					setClearingFromIcon(true);
+				}
 
-			providedOnChangeWithAnalytics(finalValue);
-		};
+				providedOnChangeWithAnalytics(finalValue);
+			},
+			[providedOnChangeWithAnalytics],
+		);
 
 		/**
 		 * Only allow custom times if timeIsEditable prop is true
@@ -156,9 +161,9 @@ const TimePicker = forwardRef(
 				const formattedValue = format(sanitizedInput, formatFormat) || '';
 
 				setValue(formattedValue);
-				providedOnChange(formattedValue);
+				providedOnChangeWithAnalytics(formattedValue);
 			} else {
-				providedOnChange(inputValue);
+				providedOnChangeWithAnalytics(inputValue);
 			}
 		};
 

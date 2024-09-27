@@ -9,11 +9,13 @@ import { css, jsx } from '@emotion/react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { type OptionalPlugin } from '@atlaskit/editor-common/types';
+import { type EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type {
 	MaxContentSizePlugin,
 	MaxContentSizePluginState,
 } from '@atlaskit/editor-plugins/max-content-size';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearance, EditorAppearanceComponentProps } from '../../types';
@@ -51,7 +53,9 @@ const chromelessEditorStyles = css(
 const ContentArea = createEditorContentStyle();
 ContentArea.displayName = 'ContentArea';
 
-type AppearanceProps = EditorAppearanceComponentProps<[OptionalPlugin<MaxContentSizePlugin>]>;
+type AppearanceProps = EditorAppearanceComponentProps<
+	[OptionalPlugin<MaxContentSizePlugin>, OptionalPlugin<EditorViewModePlugin>]
+>;
 
 export default class Editor extends React.Component<AppearanceProps> {
 	static displayName = 'ChromelessEditorAppearance';
@@ -80,6 +84,8 @@ export default class Editor extends React.Component<AppearanceProps> {
 		} = this.props;
 		const maxContentSizeReached = Boolean(maxContentSize?.maxContentSizeReached);
 
+		const { editorViewModeState } = useSharedPluginState(this.props.editorAPI, ['editorViewMode']);
+
 		return (
 			<WithFlash animate={maxContentSizeReached}>
 				<div
@@ -104,6 +110,11 @@ export default class Editor extends React.Component<AppearanceProps> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className="ak-editor-content-area"
 						featureFlags={featureFlags}
+						viewMode={
+							fg('platform_editor_remove_use_preset_context')
+								? editorViewModeState?.mode
+								: undefined
+						}
 					>
 						{customContentComponents && 'before' in customContentComponents
 							? customContentComponents.before

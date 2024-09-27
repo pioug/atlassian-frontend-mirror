@@ -169,6 +169,7 @@ export const changeMediaInlineToMediaSingle =
 	(
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 		widthPluginState: WidthPluginState | undefined,
+		isNestingInQuoteSupported?: boolean,
 	): Command =>
 	(state, dispatch, view) => {
 		const { mediaInline } = state.schema.nodes;
@@ -187,6 +188,7 @@ export const changeMediaInlineToMediaSingle =
 				selectedNode,
 				widthPluginState,
 				editorAnalyticsAPI,
+				isNestingInQuoteSupported,
 			);
 		}
 		return true;

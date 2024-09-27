@@ -103,11 +103,13 @@ type ComponentProps = EditorAppearanceComponentProps<
 
 export const CommentEditorWithIntl = (props: ComponentProps) => {
 	const { editorAPI } = props;
-	const { mediaState, maxContentSizeState, primaryToolbarState } = useSharedPluginState(editorAPI, [
-		'media',
-		'maxContentSize',
-		'primaryToolbar',
-	]);
+	const { mediaState, maxContentSizeState, primaryToolbarState, editorViewModeState } =
+		useSharedPluginState(editorAPI, [
+			'media',
+			'maxContentSize',
+			'primaryToolbar',
+			'editorViewMode',
+		]);
 	const intl = useIntl();
 	const {
 		editorDOMElement,
@@ -259,6 +261,11 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 											'less-margin': width < akEditorMobileBreakoutPoint,
 										})}
 										featureFlags={featureFlags}
+										viewMode={
+											fg('platform_editor_remove_use_preset_context')
+												? editorViewModeState?.mode
+												: undefined
+										}
 									>
 										{customContentComponents && 'before' in customContentComponents
 											? customContentComponents.before

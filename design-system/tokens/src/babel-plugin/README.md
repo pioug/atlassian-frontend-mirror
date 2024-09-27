@@ -15,15 +15,15 @@ Add the plugin to your babel configuration:
 
 ```
 {
-  "plugins": ["@atlaskit/babel-plugin-tokens"]
+  "plugins": ["@atlaskit/tokens/babel-plugin", { "shouldUseAutoFallback": false }]
 }
 ```
 
 ### Options
 
 Currently the plugin supports two options, `shouldUseAutoFallback` and `defaultTheme`. When
-`shouldUseAutoFallback` is enabled, the plugin will fetch the token's value from the default theme
-(either `light` or `legacy-light`) and use it as the fallback value.
+`shouldUseAutoFallback` is not disabled, the plugin will fetch the token's value from the default
+theme (either `light` or `legacy-light`) and use it as the fallback value.
 
 This is useful for cases where tokens are in use, but token definitions aren't present in the
 top-level page CSS.

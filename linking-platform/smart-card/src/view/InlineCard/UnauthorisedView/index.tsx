@@ -37,6 +37,8 @@ export interface InlineCardUnauthorizedViewProps {
 	analytics: AnalyticsFacade;
 	/** An identifier of the provider which will be executing the action. */
 	extensionKey?: string;
+	/** Truncates the card to one line */
+	truncateInline?: boolean;
 }
 
 const FallbackUnauthorizedIcon = (
@@ -87,10 +89,16 @@ export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauth
 			isSelected,
 			testId = 'inline-card-unauthorized-view',
 			showAuthTooltip = false,
+			truncateInline,
 		} = this.props;
 
 		const inlineCardUnauthenticatedView = (
-			<Frame testId={testId} isSelected={isSelected} ref={this.frameRef}>
+			<Frame
+				testId={testId}
+				isSelected={isSelected}
+				ref={this.frameRef}
+				truncateInline={truncateInline}
+			>
 				<IconAndTitleLayout
 					icon={icon ? icon : FallbackUnauthorizedIcon}
 					title={url}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/table-tree",
-	"version": "10.0.1",
+	"version": "10.0.2",
 	"description": "A table tree is an expandable table for showing nested hierarchies of information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
 		"@atlaskit/icon": "^22.18.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.61.0",
+		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"lodash": "^4.17.21"

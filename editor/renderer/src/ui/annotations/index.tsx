@@ -14,15 +14,23 @@ import { AnnotationHoverContext } from './contexts/AnnotationHoverContext';
 type LoadAnnotationsProps = {
 	adfDocument: JSONDocNode;
 	isNestedRender: boolean;
+	onLoadComplete?: ({
+		numberOfUnresolvedInlineComments,
+	}: {
+		numberOfUnresolvedInlineComments: number;
+	}) => void;
 };
 
-const LoadAnnotations = React.memo<LoadAnnotationsProps>(({ adfDocument, isNestedRender }) => {
-	useLoadAnnotations({ adfDocument, isNestedRender });
-	return null;
-});
+const LoadAnnotations = React.memo<LoadAnnotationsProps>(
+	({ adfDocument, isNestedRender, onLoadComplete }) => {
+		useLoadAnnotations({ adfDocument, isNestedRender, onLoadComplete });
+		return null;
+	},
+);
 
 export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
-	const { children, annotationProvider, rendererRef, adfDocument, isNestedRender } = props;
+	const { children, annotationProvider, rendererRef, adfDocument, isNestedRender, onLoadComplete } =
+		props;
 	const updateSubscriber =
 		annotationProvider &&
 		annotationProvider.inlineComment &&
@@ -44,7 +52,11 @@ export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
 							createAnalyticsEvent={createAnalyticsEvent}
 							rendererRef={rendererRef}
 						>
-							<LoadAnnotations adfDocument={adfDocument} isNestedRender={isNestedRender} />
+							<LoadAnnotations
+								adfDocument={adfDocument}
+								isNestedRender={isNestedRender}
+								onLoadComplete={onLoadComplete}
+							/>
 							<AnnotationView createAnalyticsEvent={createAnalyticsEvent} />
 							{children}
 						</AnnotationsContextWrapper>

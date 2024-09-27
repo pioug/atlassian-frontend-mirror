@@ -220,7 +220,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 			if (editorExperiment('add-media-from-url', true)) {
 				editorExperiment('add-media-from-url', true, { exposure: true });
 			} else {
-				editorExperiment('add-media-from-url', true, { exposure: false });
+				editorExperiment('add-media-from-url', false, { exposure: true });
 			}
 		}
 	}
@@ -426,9 +426,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 			isSelected &&
 			state.selection instanceof NodeSelection;
 
-		if (fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')) {
-			shouldShowPlaceholder = !editorDisabled && shouldShowPlaceholder;
-		}
+		shouldShowPlaceholder = !editorDisabled && shouldShowPlaceholder;
 
 		const isCurrentNodeDrafting =
 			annotationPluginState?.isDrafting &&

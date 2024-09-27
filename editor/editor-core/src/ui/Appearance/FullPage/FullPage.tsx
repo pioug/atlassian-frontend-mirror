@@ -138,6 +138,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 					pluginHooks={props.pluginHooks}
 					featureFlags={props.featureFlags}
 					isEditorToolbarHidden={isEditorToolbarHidden}
+					viewMode={editorViewModeState?.mode}
 				/>
 			</div>
 		</ContextPanelWidthProvider>

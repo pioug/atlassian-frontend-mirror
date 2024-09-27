@@ -1,5 +1,30 @@
 # @atlaskit/tokens
 
+## 2.0.0
+
+### Major Changes
+
+- [#145551](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145551)
+  [`d477dc32ae480`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d477dc32ae480) -
+  Changes the `@atlaskit/tokens/babel-plugin`'s 'shouldUseAutoFallback' configuration to be true by
+  default as this is currently the expectation within a majority of Atlassian's frontend code.
+
+  To opt-out (which likely means you must be using fallbacks manually or can guarantee theming is
+  turned on), you would have config like this in Babel, Webpack, or similar:
+
+  ```json
+  "plugins": [
+    ["@atlaskit/tokens/babel-plugin", { "shouldUseAutoFallback": false }]
+  ]
+  ```
+
+### Patch Changes
+
+- [#145551](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145551)
+  [`d477dc32ae480`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d477dc32ae480) -
+  Removes 'shouldUseAutoFallbacks' config on '@atlaskit/tokens/babel-plugin' as this is now the
+  default.
+
 ## 1.61.0
 
 ### Minor Changes

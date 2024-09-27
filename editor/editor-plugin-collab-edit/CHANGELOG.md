@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.21.0
+
+### Minor Changes
+
+- [#144601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144601)
+  [`50d30f4383c39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/50d30f4383c39) -
+  Add check for removing comments in last-organic-change plugin
+
+## 1.20.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.20.0
 
 ### Minor Changes

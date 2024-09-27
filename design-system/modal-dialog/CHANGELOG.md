@@ -1,5 +1,20 @@
 # @atlaskit/modal-dialog
 
+## 12.17.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.17.0
+
+### Minor Changes
+
+- [#144047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144047)
+  [`de70c65e3e5ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de70c65e3e5ff) -
+  The Chrome bug workaround shipped in `12.16.0` behind a feature flag is now turned on for everyone
+  and is no longer behind a feature flag.
+
 ## 12.16.0
 
 ### Minor Changes

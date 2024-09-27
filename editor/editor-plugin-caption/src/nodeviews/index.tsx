@@ -16,7 +16,6 @@ import type {
 import { Caption } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CaptionPlugin } from '../types';
 
@@ -47,9 +46,7 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 			viewShouldUpdate,
 		);
 		this.pluginInjectionApi = pluginInjectionApi;
-		if (fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')) {
-			this.handleEditorDisabledChanged();
-		}
+		this.handleEditorDisabledChanged();
 	}
 
 	createDomRef() {
@@ -63,14 +60,12 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 		// setting a className prevents PM/Chrome mutation observer from
 		// incorrectly deleting nodes
 		dom.className = 'caption-wrapper';
-		if (fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')) {
-			dom.setAttribute(
-				'contenteditable',
-				this.pluginInjectionApi?.editorDisabled?.sharedState.currentState()?.editorDisabled
-					? 'false'
-					: 'true',
-			);
-		}
+		dom.setAttribute(
+			'contenteditable',
+			this.pluginInjectionApi?.editorDisabled?.sharedState.currentState()?.editorDisabled
+				? 'false'
+				: 'true',
+		);
 		return { dom };
 	}
 

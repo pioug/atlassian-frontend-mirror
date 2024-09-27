@@ -1,5 +1,36 @@
 # @atlaskit/smart-card
 
+## 28.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.3.0
+
+### Minor Changes
+
+- [#129695](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129695)
+  [`0b33b1a47217a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0b33b1a47217a) -
+  [ux] Added truncateInline prop to allow for limiting inline cards to one line with truncation.
+
+## 28.2.1
+
+### Patch Changes
+
+- [#144103](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144103)
+  [`13f839001af02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/13f839001af02) -
+  revert FG platform-hover-card-aria-expanded-a11y-fix
+- [#144103](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144103)
+  [`13f839001af02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/13f839001af02) -
+  reverting FG as it increases violation
+- [#144103](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144103)
+  [`13f839001af02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/13f839001af02) -
+  clean up FG platform-hover-card-aria-expanded-a11y-fix
+- [#144103](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144103)
+  [`13f839001af02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/13f839001af02) -
+  revert FG
+
 ## 28.2.0
 
 ### Minor Changes

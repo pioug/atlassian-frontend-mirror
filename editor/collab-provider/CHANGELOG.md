@@ -1,5 +1,19 @@
 # @atlaskit/collab-provider
 
+## 9.42.0
+
+### Minor Changes
+
+- [`5fa9ea9b315ed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5fa9ea9b315ed) -
+  add triggeredByCatchup attribute to restore analytics events
+
+### Patch Changes
+
+- [#145458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145458)
+  [`8110e24294e2b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8110e24294e2b) -
+  Deep cleanup of enablecatchupv2 FF
+- Updated dependencies
+
 ## 9.41.1
 
 ### Patch Changes

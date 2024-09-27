@@ -275,6 +275,7 @@ export const changeFromMediaInlineToMediaSingleNode = (
 	fromNode: PMNode,
 	widthPluginState?: WidthPluginState | undefined,
 	editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+	isNestingInQuoteSupported?: boolean,
 ): boolean => {
 	const { state, dispatch } = view;
 	const { mediaInline } = state.schema.nodes;
@@ -316,6 +317,7 @@ export const changeFromMediaInlineToMediaSingleNode = (
 				previousType: ACTION_SUBJECT_ID.MEDIA_INLINE,
 			},
 			editorAnalyticsAPI,
+			isNestingInQuoteSupported,
 		)(state, dispatch);
 	} else {
 		const nodePos = state.tr.doc.resolve(state.selection.from).end();

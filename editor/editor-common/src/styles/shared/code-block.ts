@@ -64,6 +64,7 @@ export const codeBlockSharedStyles = () => css`
 		font-family: ${akEditorCodeFontFamily};
 		min-width: ${akEditorTableCellMinWidth}px;
 		cursor: pointer;
+		clear: both;
 
 		--ds--code--bg-color: transparent;
 

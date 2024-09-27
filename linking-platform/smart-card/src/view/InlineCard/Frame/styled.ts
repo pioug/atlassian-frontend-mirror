@@ -9,7 +9,10 @@ export interface WrapperProps {
 	isInteractive?: boolean;
 	withoutBackground?: boolean;
 	isHovered?: boolean;
+	truncateInline?: boolean;
 }
+
+const lineHeight = 22;
 
 const selectedStyles = {
 	cursor: 'pointer',
@@ -77,7 +80,7 @@ const hoveredWihBorderStyles = (props: WrapperProps) =>
 // NB: `box-decoration-break` required for retaining properties (border-radius) on wrap.
 const baseWrapperStyles = (props: WrapperProps) =>
 	({
-		lineHeight: '22px',
+		lineHeight: `${lineHeight}px`,
 		padding: `${token('space.025', '2px')} 0px`,
 		...(props.withoutBackground
 			? { paddingLeft: 0, marginLeft: token('space.negative.025', '-2px') }
@@ -107,12 +110,46 @@ const baseWrapperStyles = (props: WrapperProps) =>
 		...(props.isHovered ? hoveredWihBorderStyles(props) : undefined),
 	}) as const;
 
+const truncateStyles = {
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	wordBreak: 'break-all',
+
+	// The height of a truncated card is 1px higher than that of a non-truncated card, so we subtract 1px from the line height.
+	lineHeight: `${lineHeight - 1}px`,
+
+	display: '-webkit-inline-box',
+	WebkitLineClamp: 1,
+	WebkitBoxOrient: 'vertical',
+
+	// We need to remove the padding because display: -webkit-inline-box will cause any padding to be
+	// added to the total height, causing truncated cards to have greater height than non-truncated cards which use display: inline.
+	padding: 0,
+
+	'@supports not (-webkit-line-clamp: 1)': {
+		display: 'inline-block',
+		maxHeight: `${lineHeight}px`,
+		// If the browser does not support webkit, we don't need to remove the padding
+		padding: `${token('space.025', '2px')} 0px`,
+	},
+} as const;
+
+const isTruncated = ({ truncateInline }: WrapperProps) => {
+	if (truncateInline) {
+		return truncateStyles;
+	}
+
+	return undefined;
+};
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const WrapperAnchor = styled.a<WrapperProps>((props) => ({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	...baseWrapperStyles(props),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	...isInteractive(props),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	...isTruncated(props),
 }));
 
 WrapperAnchor.displayName = 'WrapperAnchor';
@@ -121,6 +158,8 @@ WrapperAnchor.displayName = 'WrapperAnchor';
 export const WrapperSpan = styled.span<WrapperProps>((props) => ({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	...baseWrapperStyles(props),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	...isTruncated(props),
 }));
 
 WrapperSpan.displayName = 'WrapperSpan';

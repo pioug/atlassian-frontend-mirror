@@ -35,7 +35,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.9.0",
-		"@atlaskit/editor-common": "^91.0.0",
+		"@atlaskit/editor-common": "^91.1.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@babel/runtime": "^7.0.0"
 	},

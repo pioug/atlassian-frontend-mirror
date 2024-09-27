@@ -20,6 +20,7 @@ export type CardViewProps = {
 	 * Enabling this is required to test card content overflow issues.
 	 */
 	inheritDimensions?: boolean;
+	truncateInline?: boolean;
 };
 
 const embedCardWrapperStyles = css({
@@ -56,6 +57,7 @@ const CardView = ({
 	url = 'https://some.url',
 	useLegacyBlockCard = false,
 	inheritDimensions,
+	truncateInline,
 }: CardViewProps) => (
 	<SmartCardProvider client={client}>
 		<EmbedCardWrapper inheritDimensions={inheritDimensions}>
@@ -67,6 +69,7 @@ const CardView = ({
 				isSelected={isSelected}
 				useLegacyBlockCard={useLegacyBlockCard}
 				inheritDimensions={inheritDimensions}
+				truncateInline={truncateInline}
 			/>
 		</EmbedCardWrapper>
 	</SmartCardProvider>

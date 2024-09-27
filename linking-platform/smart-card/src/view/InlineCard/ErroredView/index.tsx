@@ -29,6 +29,8 @@ export interface InlineCardErroredViewProps {
 	icon?: React.ReactNode;
 	/** Enables showing a custom preview on hover of link */
 	showHoverPreview?: boolean;
+	/** Truncates the card to one line */
+	truncateInline?: boolean;
 }
 
 export class InlineCardErroredView extends React.Component<InlineCardErroredViewProps> {
@@ -70,10 +72,16 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
 			testId = 'inline-card-errored-view',
 			icon,
 			message,
+			truncateInline,
 		} = this.props;
 
 		const content = (
-			<Frame testId={testId} isSelected={isSelected} ref={this.frameRef}>
+			<Frame
+				testId={testId}
+				isSelected={isSelected}
+				ref={this.frameRef}
+				truncateInline={truncateInline}
+			>
 				<IconAndTitleLayout
 					icon={
 						icon || (

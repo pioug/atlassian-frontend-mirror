@@ -61,6 +61,7 @@ export function CardWithURLRenderer(props: CardProps) {
 		useLegacyBlockCard,
 		removeTextHighlightingFromTitle,
 		resolvingPlaceholder,
+		truncateInline,
 	} = props;
 
 	const analytics = useSmartLinkAnalytics(url ?? '', undefined, id);
@@ -132,6 +133,7 @@ export function CardWithURLRenderer(props: CardProps) {
 		useLegacyBlockCard,
 		removeTextHighlightingFromTitle,
 		resolvingPlaceholder,
+		truncateInline,
 	};
 
 	return (

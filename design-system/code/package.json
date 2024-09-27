@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "15.6.0",
+	"version": "15.6.1",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.61.0",
+		"@atlaskit/tokens": "^2.0.0",
 		"@atlaskit/tooltip": "^18.7.0",
 		"@atlaskit/visually-hidden": "^1.5.0",
 		"@babel/runtime": "^7.0.0",

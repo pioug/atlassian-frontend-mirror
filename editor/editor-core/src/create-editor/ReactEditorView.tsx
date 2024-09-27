@@ -108,6 +108,7 @@ export interface EditorViewProps {
 	portalProviderAPI: PortalProviderAPI;
 	disabled?: boolean;
 	experienceStore?: ExperienceStore;
+	editorAPI: PublicPluginAPI<any> | undefined;
 	setEditorApi?: SetEditorAPI;
 	render?: (props: {
 		editor: JSX.Element;
@@ -986,6 +987,40 @@ export class ReactEditorView<T = {}> extends React.Component<
 			this.props.editorProps.performanceTracking?.renderTracking?.reactEditorView;
 		const renderTrackingEnabled = renderTracking?.enabled;
 		const useShallow = renderTracking?.useShallow;
+
+		if (fg('platform_editor_remove_use_preset_context')) {
+			return (
+				<ReactEditorViewContext.Provider
+					value={{
+						editorRef: this.editorRef,
+						editorView: this.view,
+						popupsMountPoint: this.props.editorProps.popupsMountPoint,
+					}}
+				>
+					{renderTrackingEnabled && (
+						<RenderTracking
+							componentProps={this.props}
+							action={ACTION.RE_RENDERED}
+							actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
+							handleAnalyticsEvent={this.handleAnalyticsEvent}
+							useShallow={useShallow}
+						/>
+					)}
+					{this.props.render
+						? this.props.render?.({
+								editor: this.editor,
+								view: this.view,
+								config: this.config,
+								eventDispatcher: this.eventDispatcher,
+								transformer: this.contentTransformer,
+								dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
+								editorRef: this.editorRef,
+								editorAPI: this.props.editorAPI,
+							}) ?? this.editor
+						: this.editor}
+				</ReactEditorViewContext.Provider>
+			);
+		}
 
 		return (
 			<ReactEditorViewContext.Provider

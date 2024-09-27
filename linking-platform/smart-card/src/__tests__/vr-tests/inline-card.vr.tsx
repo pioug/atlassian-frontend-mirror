@@ -11,6 +11,12 @@ import InlineCardForbiddenDeniedSiteAccess from '../../../examples/vr-inline-car
 import InlineCardNotFound from '../../../examples/vr-inline-card/vr-inline-card-not-found';
 import InlineCardUnauthorised from '../../../examples/vr-inline-card/vr-inline-card-unauthorised';
 import InlineCardUnauthorisedNoAuth from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-no-auth';
+import InlineCardDefaultTruncate from '../../../examples/vr-inline-card/vr-inline-card-default-truncate';
+import InlineCardErrorTruncate from '../../../examples/vr-inline-card/vr-inline-card-error-truncate';
+import InlineCardForbiddenTruncate from '../../../examples/vr-inline-card/vr-inline-card-forbidden-truncate';
+import InlineCardForbiddenSiteRequestAccessTruncate from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-request-access-truncate';
+import InlineCardNotFoundTruncate from '../../../examples/vr-inline-card/vr-inline-card-not-found-truncate';
+import InlineCardUnauthorisedTruncate from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-truncate';
 
 snapshot(InlineCardDefault, {
 	description: 'inline card with default icon',
@@ -39,6 +45,20 @@ snapshot(InlineCardDefault, {
 		'linking-platform-increase-inline-card-icon-size': [true, false],
 	},
 });
+snapshot(InlineCardDefaultTruncate, {
+	description: 'inline card with default icon and truncation',
+	ignoredErrors: [
+		{
+			pattern: /Failed to load resource/,
+			ignoredBecause: 'This error is expected when rendering an error boundary in a dev build',
+			jiraIssueId: 'TODO-1',
+		},
+	],
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
+});
+
 snapshot(InlineCardTextWrap, {
 	description: 'inline card with wrapped text renders correctly',
 	ignoredErrors: [
@@ -65,6 +85,12 @@ snapshot(InlineCardError, {
 		'linking-platform-increase-inline-card-icon-size': [true, false],
 	},
 });
+snapshot(InlineCardErrorTruncate, {
+	description: 'inline card error view with truncation',
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
+});
 snapshot(InlineCardForbidden, {
 	description: 'inline card forbidden view',
 	featureFlags: {
@@ -79,6 +105,14 @@ snapshot(InlineCardForbidden, {
 		'linking-platform-increase-inline-card-icon-size': [true, false],
 	},
 });
+
+snapshot(InlineCardForbiddenTruncate, {
+	description: 'inline card forbidden view with truncation',
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
+});
+
 snapshot(InlineCardForbiddenRequestAccess, {
 	description: 'inline card forbidden view with request access to object',
 	featureFlags: {
@@ -91,6 +125,14 @@ snapshot(InlineCardForbiddenSiteRequestAccess, {
 		'linking-platform-increase-inline-card-icon-size': [true, false],
 	},
 });
+
+snapshot(InlineCardForbiddenSiteRequestAccessTruncate, {
+	description: 'inline card forbidden view with request access to site and truncation',
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
+});
+
 snapshot(InlineCardForbiddenDirectAccess, {
 	description: 'inline card forbidden view with direct access',
 	featureFlags: {
@@ -123,6 +165,14 @@ snapshot(InlineCardNotFound, {
 		'linking-platform-increase-inline-card-icon-size': [true, false],
 	},
 });
+
+snapshot(InlineCardNotFoundTruncate, {
+	description: `inline card can't find link view with truncation`,
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
+});
+
 snapshot(InlineCardUnauthorised, {
 	description: `inline card unauthorised view`,
 	featureFlags: {
@@ -142,6 +192,14 @@ snapshot(InlineCardUnauthorised, {
 		'linking-platform-increase-inline-card-icon-size': [true, false],
 	},
 });
+
+snapshot(InlineCardUnauthorisedTruncate, {
+	description: `inline card unauthorised view with truncation`,
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
+});
+
 snapshot(InlineCardUnauthorised, {
 	description: 'inline card unauthorised view renders correctly when hovering over connect account',
 	states: [{ state: 'hovered', selector: { byTestId: 'button-connect-account' } }],

@@ -34,6 +34,8 @@ export interface InlineCardForbiddenViewProps {
 	requestAccessContext?: RequestAccessContextProps;
 	/** Enables showing a custom preview on hover of link */
 	showHoverPreview?: boolean;
+	/** Truncates the card to one line */
+	truncateInline?: boolean;
 }
 
 const FallbackForbiddenIcon = (
@@ -127,10 +129,22 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
 	};
 
 	render() {
-		const { url, icon, onClick, isSelected, testId = 'inline-card-forbidden-view' } = this.props;
+		const {
+			url,
+			icon,
+			onClick,
+			isSelected,
+			testId = 'inline-card-forbidden-view',
+			truncateInline,
+		} = this.props;
 
 		const content = (
-			<Frame testId={testId} isSelected={isSelected} ref={this.frameRef}>
+			<Frame
+				testId={testId}
+				isSelected={isSelected}
+				ref={this.frameRef}
+				truncateInline={truncateInline}
+			>
 				<IconAndTitleLayout
 					icon={icon ? icon : FallbackForbiddenIcon}
 					link={url}

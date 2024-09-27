@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.15.4
+
+### Patch Changes
+
+- [#145991](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145991)
+  [`07586b8ad11ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07586b8ad11ec) -
+  [ux] [ED-24900] This change handles deleting nested media groups inside blockquotes via the
+  backspace key.
+
+## 3.15.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.15.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.15.1
 
 ### Patch Changes

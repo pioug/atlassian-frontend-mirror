@@ -1,5 +1,27 @@
 # @atlaskit/link-datasource
 
+## 3.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.2
+
+### Patch Changes
+
+- [#145338](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145338)
+  [`79fd934f962e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/79fd934f962e9) -
+  Fix the problem where user can change JQL in Jira SLLV and insert before they searched. Now it
+  will behave as Confluence SLLV such that only searched query/result will be inserted.
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

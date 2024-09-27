@@ -19,6 +19,8 @@ export interface InlineCardResolvingViewProps {
 	titleTextColor?: string;
 	/** An optional placeholder displayed while the smart card is resolving. */
 	resolvingPlaceholder?: string;
+	/** Truncates the card to one line */
+	truncateInline?: boolean;
 }
 
 export class InlineCardResolvingView extends React.Component<InlineCardResolvingViewProps> {
@@ -31,10 +33,17 @@ export class InlineCardResolvingView extends React.Component<InlineCardResolving
 			testId = 'inline-card-resolving-view',
 			titleTextColor,
 			resolvingPlaceholder,
+			truncateInline,
 		} = this.props;
 		if (inlinePreloaderStyle === 'on-right-without-skeleton') {
 			return (
-				<Frame withoutBackground={true} testId={testId} onClick={onClick} isSelected={isSelected}>
+				<Frame
+					withoutBackground={true}
+					testId={testId}
+					onClick={onClick}
+					isSelected={isSelected}
+					truncateInline={truncateInline}
+				>
 					<IconTitleWrapper>
 						{url}
 						<RightIconPositionWrapper>
@@ -48,7 +57,13 @@ export class InlineCardResolvingView extends React.Component<InlineCardResolving
 			);
 		} else {
 			return (
-				<Frame testId={testId} onClick={onClick} isSelected={isSelected} link={url}>
+				<Frame
+					testId={testId}
+					onClick={onClick}
+					isSelected={isSelected}
+					link={url}
+					truncateInline={truncateInline}
+				>
 					<IconAndTitleLayout title={resolvingPlaceholder ?? url} titleTextColor={titleTextColor}>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
 						<SpinnerWrapper className="inline-resolving-spinner">

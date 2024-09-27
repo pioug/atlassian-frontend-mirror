@@ -1,5 +1,20 @@
 # @atlaskit/forge-react-types
 
+## 0.27.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.27.17
+
+### Patch Changes
+
+- [#144783](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144783)
+  [`5edbcec532188`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5edbcec532188) -
+  Fix Select dropdown menu not showing ontop of ModalBody
+- Updated dependencies
+
 ## 0.27.16
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @atlaskit/media-filmstrip
 
+## 47.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 47.4.0
+
+### Minor Changes
+
+- [#144914](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144914)
+  [`83a3c9c9facb8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83a3c9c9facb8) -
+  [ux] Adjusted scroll behaviour to address edge case when container is narrower than a single child
+
 ## 47.3.0
 
 ### Minor Changes

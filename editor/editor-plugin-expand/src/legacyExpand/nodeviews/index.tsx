@@ -51,8 +51,7 @@ const toDOM = (
 		// prettier-ignore
 		'class': buildExpandClassName(
       node.type.name,
-	  __livePage &&
-      fg('platform.editor.live-pages-expand-divergence')
+        __livePage && fg('platform.editor.live-pages-expand-divergence')
         ? !node.attrs.__expanded
         : node.attrs.__expanded,
     ),
@@ -88,10 +87,7 @@ const toDOM = (
 						(intl && intl.formatMessage(expandMessages.expandPlaceholderText)) ||
 						expandMessages.expandPlaceholderText.defaultMessage,
 					type: 'text',
-					readonly:
-						titleReadOnly && fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
-							? 'true'
-							: undefined,
+					readonly: titleReadOnly ? 'true' : undefined,
 				},
 			],
 		],
@@ -102,11 +98,7 @@ const toDOM = (
 			// prettier-ignore
 			class: expandClassNames.content,
 			contenteditable:
-				contentEditable && fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
-					? contentEditable
-						? 'true'
-						: 'false'
-					: undefined,
+				contentEditable !== undefined ? (contentEditable ? 'true' : 'false') : undefined,
 		},
 		0,
 	],
@@ -197,10 +189,7 @@ export class ExpandNodeView implements NodeView {
 			this.icon.addEventListener('keydown', this.handleIconKeyDown);
 		}
 
-		if (
-			this.api?.editorDisabled &&
-			fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
-		) {
+		if (this.api?.editorDisabled) {
 			this.cleanUpEditorDisabledOnChange = this.api.editorDisabled.sharedState.onChange(
 				(sharedState) => {
 					const editorDisabled = sharedState.nextSharedState.editorDisabled;
@@ -578,11 +567,7 @@ export class ExpandNodeView implements NodeView {
 			this.__livePage && fg('platform.editor.live-pages-expand-divergence')
 				? !node.attrs.__expanded
 				: node.attrs.__expanded;
-		if (
-			this.api &&
-			this.api.editorDisabled &&
-			fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
-		) {
+		if (this.api && this.api.editorDisabled) {
 			return !this.api.editorDisabled.sharedState.currentState()?.editorDisabled && contentEditable;
 		}
 		return contentEditable;

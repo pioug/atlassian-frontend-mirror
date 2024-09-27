@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.8.0
+
+### Minor Changes
+
+- [#146025](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146025)
+  [`03eae90c614d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/03eae90c614d1) -
+  Remove platform.editor.live-view.disable-editing-in-view-mode_fi1rx feature flag
+
+## 2.7.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.6
 
 ### Patch Changes

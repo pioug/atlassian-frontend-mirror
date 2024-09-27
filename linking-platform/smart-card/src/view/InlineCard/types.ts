@@ -26,4 +26,5 @@ export type InlineCardProps = {
 	analytics: AnalyticsFacade;
 	removeTextHighlightingFromTitle?: boolean;
 	resolvingPlaceholder?: string;
+	truncateInline?: boolean;
 };

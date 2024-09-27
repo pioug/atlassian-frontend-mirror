@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-mentions
 
+## 2.6.5
+
+### Patch Changes
+
+- [#145765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145765)
+  [`eded181672815`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eded181672815) -
+  [ED-23481] Clean up `platform.editor.mentions-in-editor-popup-on-click`
+- Updated dependencies
+
 ## 2.6.4
 
 ### Patch Changes

@@ -1,5 +1,51 @@
 # @atlaskit/editor-plugin-media
 
+## 1.34.0
+
+### Minor Changes
+
+- [#146025](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146025)
+  [`03eae90c614d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/03eae90c614d1) -
+  Remove platform.editor.live-view.disable-editing-in-view-mode_fi1rx feature flag
+
+## 1.33.3
+
+### Patch Changes
+
+- [#145926](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145926)
+  [`5da502417a091`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5da502417a091) -
+  [ED-25128] Fixed the false exposure that would not fire for external images
+- Updated dependencies
+
+## 1.33.2
+
+### Patch Changes
+
+- [#145874](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145874)
+  [`6299dbbe3a0b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6299dbbe3a0b5) -
+  ED-25038: Bug where media inline inside a block quote was not deleted when transformed to a media
+  single via the floating toolbar. Also caused the new media single to appear below the block quote.
+
+## 1.33.1
+
+### Patch Changes
+
+- [#145306](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145306)
+  [`ca98d98a06d25`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca98d98a06d25) -
+  ED-25128 Add exposure point for when external media is rendered platform_editor_add_media_from_url
+
+## 1.33.0
+
+### Minor Changes
+
+- [#145463](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145463)
+  [`d63935e60e04b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d63935e60e04b) -
+  [ux] ED-24924 Fix media preview broken for external images
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.32.2
 
 ### Patch Changes

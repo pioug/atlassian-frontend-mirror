@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 5.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.11.1
 
 ### Patch Changes

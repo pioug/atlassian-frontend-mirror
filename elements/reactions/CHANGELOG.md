@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 22.14.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.14.2
+
+### Patch Changes
+
+- [#145874](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145874)
+  [`eff2c975a0993`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eff2c975a0993) -
+  ESS-6182 upgrade react dep
+
 ## 22.14.1
 
 ### Patch Changes

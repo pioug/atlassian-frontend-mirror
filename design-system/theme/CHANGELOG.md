@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.0
 
 ### Major Changes

@@ -2,6 +2,8 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import EditorActions from '../../actions';
 import { PresetContextProvider } from '../../presets/context';
 
@@ -31,10 +33,18 @@ export default class LegacyEditorContext extends React.Component<EditorContextPr
 	}
 
 	render() {
-		return (
-			<EditorContext.Provider value={this.getChildContext()}>
-				<PresetContextProvider>{this.props.children}</PresetContextProvider>
-			</EditorContext.Provider>
-		);
+		if (fg('platform_editor_remove_use_preset_context')) {
+			return (
+				<EditorContext.Provider value={this.getChildContext()}>
+					{this.props.children}
+				</EditorContext.Provider>
+			);
+		} else {
+			return (
+				<EditorContext.Provider value={this.getChildContext()}>
+					<PresetContextProvider>{this.props.children}</PresetContextProvider>
+				</EditorContext.Provider>
+			);
+		}
 	}
 }

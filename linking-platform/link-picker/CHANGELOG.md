@@ -1,5 +1,25 @@
 # @atlaskit/link-picker
 
+## 1.46.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.46.0
+
+### Minor Changes
+
+- [#145714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145714)
+  [`bf057f6cc9712`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf057f6cc9712) -
+  Updates the search results section to have a minimum height (by cleanup of ff
+  platform.linking-platform.link-picker.fixed-height-search-results). Can be opt-ed out by using the
+  newly added `adaptiveHeight` prop.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.45.1
 
 ### Patch Changes

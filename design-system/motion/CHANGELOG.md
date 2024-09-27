@@ -1,5 +1,14 @@
 # @atlaskit/motion
 
+## 1.9.1
+
+### Patch Changes
+
+- [#145306](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145306)
+  [`43b81fd5ead81`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43b81fd5ead81) -
+  Remove react-router-dom from devDependencies as it is incompatible with React 18, and was only
+  used in an example.
+
 ## 1.9.0
 
 ### Minor Changes

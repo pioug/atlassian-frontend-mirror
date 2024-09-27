@@ -44,6 +44,7 @@ export const InlineCard = ({
 	actionOptions,
 	removeTextHighlightingFromTitle,
 	resolvingPlaceholder,
+	truncateInline,
 }: InlineCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -98,6 +99,7 @@ export const InlineCard = ({
 					testId={testIdWithStatus}
 					inlinePreloaderStyle={inlinePreloaderStyle}
 					resolvingPlaceholder={resolvingPlaceholder}
+					truncateInline={truncateInline}
 				/>
 			);
 		case 'resolved':
@@ -113,6 +115,7 @@ export const InlineCard = ({
 					isHovered={isHovered}
 					onClick={handleFrameClick}
 					testId={testIdWithStatus}
+					truncateInline={truncateInline}
 				/>
 			);
 		case 'unauthorized':
@@ -130,6 +133,7 @@ export const InlineCard = ({
 					id={id}
 					analytics={analytics}
 					extensionKey={extensionKey}
+					truncateInline={truncateInline}
 				/>
 			);
 		case 'forbidden':
@@ -153,6 +157,7 @@ export const InlineCard = ({
 					testId={testIdWithStatus}
 					requestAccessContext={requestAccessContext}
 					showHoverPreview={showHoverPreview}
+					truncateInline={truncateInline}
 				/>
 			);
 		case 'not_found':
@@ -166,6 +171,7 @@ export const InlineCard = ({
 					onClick={handleFrameClick}
 					testId={testIdWithStatus || 'inline-card-not-found-view'}
 					showHoverPreview={showHoverPreview}
+					truncateInline={truncateInline}
 				/>
 			);
 		case 'fallback':
@@ -177,6 +183,7 @@ export const InlineCard = ({
 					isSelected={isSelected}
 					onClick={handleFrameClick}
 					testId={testIdWithStatus || 'inline-card-errored-view'}
+					truncateInline={truncateInline}
 				/>
 			);
 	}

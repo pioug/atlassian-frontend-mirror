@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block",
-	"version": "3.3.19",
+	"version": "3.4.0",
 	"description": "Code block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.9.0",
 		"@atlaskit/code": "^15.6.0",
-		"@atlaskit/editor-common": "^91.0.0",
+		"@atlaskit/editor-common": "^91.1.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-composition": "^1.2.0",
 		"@atlaskit/editor-plugin-decorations": "^1.3.0",
@@ -101,9 +101,6 @@
 			"type": "boolean"
 		},
 		"editor_code_block_wrapping_language_change_bug": {
-			"type": "boolean"
-		},
-		"platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
 			"type": "boolean"
 		},
 		"editor_nest_media_and_codeblock_in_quotes_jira": {

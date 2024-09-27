@@ -162,7 +162,10 @@ export const setupLoom = async (
 	loomProvider: LoomProviderOptions,
 	api: ExtractInjectionAPI<LoomPlugin> | undefined,
 	editorView: EditorView | null,
-	isAfterEditorLoaded?: boolean,
+	/**
+	 * Whether loom initialisation is evoked via `initLoom` command.
+	 */
+	initViaCommand?: boolean,
 ): Promise<{ error?: string }> => {
 	const clientResult = await loomProvider.getClient();
 
@@ -212,28 +215,23 @@ export const setupLoom = async (
 
 	api?.core?.actions.execute(({ tr }) => {
 		enableLoom({ loomButton })({ tr });
-		if (isAfterEditorLoaded) {
+		if (initViaCommand) {
 			api?.quickInsert?.commands.addQuickInsertItem(getQuickInsertItem(api?.analytics?.actions))({
 				tr,
 			});
-			api?.analytics?.actions.attachAnalyticsEvent({
-				action: ACTION.INITIALISED,
-				actionSubject: ACTION_SUBJECT.LOOM,
-				eventType: EVENT_TYPE.OPERATIONAL,
-			})(tr);
 		}
 		return tr;
 	});
 
-	if (!isAfterEditorLoaded) {
-		// We're not combining the analytics steps into the enable / disable commands because the collab-edit plugin
-		// filters out any transactions with steps (even analytics) when it's initialising
-		api?.analytics?.actions.fireAnalyticsEvent({
-			action: ACTION.INITIALISED,
-			actionSubject: ACTION_SUBJECT.LOOM,
-			eventType: EVENT_TYPE.OPERATIONAL,
-		});
-	}
+	// We're not combining the analytics steps into the enable / disable commands because the collab-edit plugin
+	// filters out any transactions with steps (even analytics) when it's initialising.
+	// Even if `initViaCommand` is true, collab-edit might not be ready depending on when `initLoom` is called,
+	// hence the analytics step is added separately in both cases
+	api?.analytics?.actions.fireAnalyticsEvent({
+		action: ACTION.INITIALISED,
+		actionSubject: ACTION_SUBJECT.LOOM,
+		eventType: EVENT_TYPE.OPERATIONAL,
+	});
 
 	return {};
 };

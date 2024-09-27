@@ -1,5 +1,11 @@
 # @atlaskit/badge
 
+## 16.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.4.0
 
 ### Minor Changes

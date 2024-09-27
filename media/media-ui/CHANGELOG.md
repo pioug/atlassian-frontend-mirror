@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 25.15.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.15.0
 
 ### Minor Changes

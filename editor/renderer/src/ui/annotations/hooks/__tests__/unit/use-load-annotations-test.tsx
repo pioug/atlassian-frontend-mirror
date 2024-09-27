@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import type { AnnotationProviders, AnnotationState } from '@atlaskit/editor-common/types';
 import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
@@ -21,6 +22,16 @@ function createFakeMark(id: string): Mark {
 
 	return fakeMark;
 }
+
+type CustomCompProps = {
+	adfDocument?: JSONDocNode;
+	isNestedRender?: boolean;
+	onLoadComplete?: ({
+		numberOfUnresolvedInlineComments,
+	}: {
+		numberOfUnresolvedInlineComments: number;
+	}) => void;
+};
 
 function createFakeAnnotationState(id: string): AnnotationState<AnnotationTypes.INLINE_COMMENT> {
 	return {
@@ -84,8 +95,12 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 	});
 
 	describe('#useLoadAnnotations', () => {
-		const CustomComp = ({ adfDocument = defaultAdfDocument, isNestedRender = false }) => {
-			useLoadAnnotations({ adfDocument, isNestedRender });
+		const CustomComp = ({
+			adfDocument = defaultAdfDocument,
+			isNestedRender = false,
+			onLoadComplete = () => {},
+		}: CustomCompProps) => {
+			useLoadAnnotations({ adfDocument, isNestedRender, onLoadComplete });
 			return null;
 		};
 
@@ -118,11 +133,9 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 
 		describe('when the document changes', () => {
 			it('should call getState again', () => {
-				const CustomComp = ({
-					myAdfDocument,
-				}: React.PropsWithChildren<Record<'myAdfDocument', JSONDocNode>>) => {
+				const CustomComp = ({ adfDocument = defaultAdfDocument }: CustomCompProps) => {
 					useLoadAnnotations({
-						adfDocument: myAdfDocument,
+						adfDocument,
 						isNestedRender: false,
 					});
 					return null;
@@ -134,7 +147,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 						root.render(
 							<RendererContext.Provider value={actionsFake}>
 								<ProvidersContext.Provider value={providers}>
-									<CustomComp myAdfDocument={defaultAdfDocument} />
+									<CustomComp adfDocument={defaultAdfDocument} />
 								</ProvidersContext.Provider>
 							</RendererContext.Provider>,
 						);
@@ -144,7 +157,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 						render(
 							<RendererContext.Provider value={actionsFake}>
 								<ProvidersContext.Provider value={providers}>
-									<CustomComp myAdfDocument={defaultAdfDocument} />
+									<CustomComp adfDocument={defaultAdfDocument} />
 								</ProvidersContext.Provider>
 							</RendererContext.Provider>,
 							container,
@@ -160,7 +173,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 						root.render(
 							<RendererContext.Provider value={actionsFake}>
 								<ProvidersContext.Provider value={providers}>
-									<CustomComp myAdfDocument={sameDocument} />
+									<CustomComp adfDocument={sameDocument} />
 								</ProvidersContext.Provider>
 							</RendererContext.Provider>,
 						);
@@ -170,7 +183,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 						render(
 							<RendererContext.Provider value={actionsFake}>
 								<ProvidersContext.Provider value={providers}>
-									<CustomComp myAdfDocument={sameDocument} />
+									<CustomComp adfDocument={sameDocument} />
 								</ProvidersContext.Provider>
 							</RendererContext.Provider>,
 							container,
@@ -190,7 +203,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 						root.render(
 							<RendererContext.Provider value={actionsFake}>
 								<ProvidersContext.Provider value={providers}>
-									<CustomComp myAdfDocument={newAdfDocument} />
+									<CustomComp adfDocument={newAdfDocument} />
 								</ProvidersContext.Provider>
 							</RendererContext.Provider>,
 						);
@@ -200,7 +213,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 						render(
 							<RendererContext.Provider value={actionsFake}>
 								<ProvidersContext.Provider value={providers}>
-									<CustomComp myAdfDocument={newAdfDocument} />
+									<CustomComp adfDocument={newAdfDocument} />
 								</ProvidersContext.Provider>
 							</RendererContext.Provider>,
 							container,
@@ -339,6 +352,50 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 						expected,
 					);
 					done();
+				});
+			});
+		});
+
+		describe('callback function', () => {
+			it('calls onLoadComplete with correct annotation count after annotations are loaded', async () => {
+				const mockOnLoadComplete = jest.fn();
+
+				render(
+					<RendererContext.Provider value={actionsFake}>
+						<ProvidersContext.Provider value={providers}>
+							<CustomComp onLoadComplete={mockOnLoadComplete} />
+						</ProvidersContext.Provider>
+					</RendererContext.Provider>,
+					container,
+				);
+
+				await waitFor(() => {
+					expect(mockOnLoadComplete).toHaveBeenCalledWith({
+						numberOfUnresolvedInlineComments: 3,
+					});
+				});
+			});
+
+			it('calls onLoadComplete with zero when there are no annotations', async () => {
+				const fakeMarksIds: string[] = []; // Empty array for zero marks
+				const fakeDataReturn = fakeMarksIds.map(createFakeAnnotationState);
+				getStateFake.mockReturnValue(Promise.resolve(fakeDataReturn));
+
+				const mockOnLoadComplete = jest.fn();
+
+				render(
+					<RendererContext.Provider value={actionsFake}>
+						<ProvidersContext.Provider value={providers}>
+							<CustomComp onLoadComplete={mockOnLoadComplete} />
+						</ProvidersContext.Provider>
+					</RendererContext.Provider>,
+					container,
+				);
+
+				await waitFor(() => {
+					expect(mockOnLoadComplete).toHaveBeenCalledWith({
+						numberOfUnresolvedInlineComments: 0,
+					});
 				});
 			});
 		});

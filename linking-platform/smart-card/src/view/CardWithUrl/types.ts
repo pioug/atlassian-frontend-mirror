@@ -59,4 +59,5 @@ export type CardWithUrlContentProps = {
 	useLegacyBlockCard?: boolean;
 	removeTextHighlightingFromTitle?: boolean;
 	resolvingPlaceholder?: string;
+	truncateInline?: boolean;
 };

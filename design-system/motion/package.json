@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "1.9.0",
+	"version": "1.9.1",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -72,7 +72,6 @@
 		"@testing-library/react-hooks": "^8.0.1",
 		"raf-stub": "^2.0.1",
 		"react-dom": "^16.8.0",
-		"react-router-dom": "^4.2.2",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

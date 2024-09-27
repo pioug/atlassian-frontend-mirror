@@ -171,6 +171,9 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 			timeValue: parsedValues.timeValue,
 			zoneValue: parsedValues.zoneValue,
 		});
+		if (this.props.datePickerProps?.onChange) {
+			this.props.datePickerProps.onChange(dateValue);
+		}
 	};
 
 	onTimeChange = (timeValue: string) => {
@@ -180,6 +183,9 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 			timeValue,
 			zoneValue: parsedValues.zoneValue,
 		});
+		if (this.props.timePickerProps?.onChange) {
+			this.props.timePickerProps.onChange(timeValue);
+		}
 	};
 
 	onClear = () => {
@@ -189,6 +195,12 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 			timeValue: '',
 			zoneValue: parsedValues.zoneValue,
 		});
+		if (this.props.datePickerProps?.onChange) {
+			this.props.datePickerProps.onChange('');
+		}
+		if (this.props.timePickerProps?.onChange) {
+			this.props.timePickerProps.onChange('');
+		}
 	};
 
 	onValueChange({
@@ -293,7 +305,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 						name={datePickerProps.name}
 						nextMonthLabel={datePickerProps.nextMonthLabel}
 						onBlur={datePickerProps.onBlur || this.onBlur}
-						onChange={datePickerProps.onChange || this.onDateChange}
+						onChange={this.onDateChange}
 						onFocus={datePickerProps.onFocus || this.onFocus}
 						parseInputValue={datePickerProps.parseInputValue}
 						placeholder={datePickerProps.placeholder}
@@ -323,7 +335,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 						locale={timePickerProps.locale || locale}
 						name={timePickerProps.name}
 						onBlur={timePickerProps.onBlur || this.onBlur}
-						onChange={timePickerProps.onChange || this.onTimeChange}
+						onChange={this.onTimeChange}
 						onFocus={timePickerProps.onFocus || this.onFocus}
 						parseInputValue={timePickerProps.parseInputValue}
 						placeholder={timePickerProps.placeholder}

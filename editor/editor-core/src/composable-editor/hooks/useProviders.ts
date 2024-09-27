@@ -6,7 +6,7 @@ import type {
 	ContextIdentifierProvider,
 	MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { CardPlugin } from '@atlaskit/editor-plugins/card';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
 import { type CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';
@@ -15,9 +15,18 @@ import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import { type EmojiProvider } from '@atlaskit/emoji';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { usePresetContext } from '../../presets/context';
-
 interface UseProvidersProps {
+	editorApi:
+		| PublicPluginAPI<
+				[
+					OptionalPlugin<ContextIdentifierPlugin>,
+					OptionalPlugin<MediaPlugin>,
+					OptionalPlugin<CardPlugin>,
+					OptionalPlugin<EmojiPlugin>,
+					OptionalPlugin<CustomAutoformatPlugin>,
+				]
+		  >
+		| undefined;
 	contextIdentifierProvider: Promise<ContextIdentifierProvider> | undefined;
 	mediaProvider: Promise<MediaProvider> | undefined;
 	cardProvider: Promise<CardProvider> | undefined;
@@ -34,23 +43,13 @@ interface UseProvidersProps {
  * In the future ideally consumers implement this behaviour themselves.
  */
 export const useProviders = ({
+	editorApi,
 	contextIdentifierProvider,
 	mediaProvider,
 	cardProvider,
 	emojiProvider,
 	autoformattingProvider,
 }: UseProvidersProps) => {
-	const editorApi =
-		usePresetContext<
-			[
-				OptionalPlugin<ContextIdentifierPlugin>,
-				OptionalPlugin<MediaPlugin>,
-				OptionalPlugin<CardPlugin>,
-				OptionalPlugin<EmojiPlugin>,
-				OptionalPlugin<CustomAutoformatPlugin>,
-			]
-		>();
-
 	useEffect(() => {
 		async function setProvider() {
 			if (!contextIdentifierProvider) {

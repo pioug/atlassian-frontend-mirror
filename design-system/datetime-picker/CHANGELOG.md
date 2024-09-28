@@ -1,5 +1,16 @@
 # @atlaskit/datetime-picker
 
+## 15.0.3
+
+### Patch Changes
+
+- [#146278](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146278)
+  [`c3cf99e129677`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3cf99e129677) -
+  Make default value from inner pickers work correctly with datetime picker values.
+- [#145891](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145891)
+  [`b4b387856090d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b4b387856090d) -
+  Ensure inner picker event blur and focus handlers don't interfere or replace internal logic.
+
 ## 15.0.2
 
 ### Patch Changes

@@ -119,6 +119,20 @@ describe('DateTimePicker', () => {
 		expect(input).toHaveValue(todayISO);
 	});
 
+	it('should use defaultValue from inner pickers', () => {
+		const defaultTime = '23:59';
+		const onChangeSpy = jest.fn();
+		render(
+			createDateTimePicker({
+				onChange: onChangeSpy,
+				timePickerProps: { defaultValue: defaultTime },
+			}),
+		);
+
+		firePickerEvent.changeDate(todayISO);
+		expect(onChangeSpy).toHaveBeenCalledWith(expect.stringContaining(defaultTime));
+	});
+
 	it('should handle a controlled value', () => {
 		const { rerender } = render(createDateTimePicker({ value: todayISO }));
 		let input = screen.getByTestId(`${testId}--input`);
@@ -319,6 +333,40 @@ describe('DateTimePicker', () => {
 		firePickerEvent.blurTime();
 
 		expect(onBlur).toHaveBeenCalled();
+	});
+
+	it('should fire date or time picker onFocus', () => {
+		const onDateFocus = jest.fn();
+		const onTimeFocus = jest.fn();
+		render(
+			createDateTimePicker({
+				datePickerProps: { onFocus: onDateFocus },
+				timePickerProps: { onFocus: onTimeFocus },
+			}),
+		);
+
+		firePickerEvent.focusDate();
+		expect(onDateFocus).toHaveBeenCalled();
+
+		firePickerEvent.focusTime();
+		expect(onTimeFocus).toHaveBeenCalled();
+	});
+
+	it('should fire date or time picker onBlur', () => {
+		const onDateBlur = jest.fn();
+		const onTimeBlur = jest.fn();
+		render(
+			createDateTimePicker({
+				datePickerProps: { onBlur: onDateBlur },
+				timePickerProps: { onBlur: onTimeBlur },
+			}),
+		);
+
+		firePickerEvent.blurDate();
+		expect(onDateBlur).toHaveBeenCalled();
+
+		firePickerEvent.blurTime();
+		expect(onTimeBlur).toHaveBeenCalled();
 	});
 
 	it('should fire onClear event when cleared', async () => {

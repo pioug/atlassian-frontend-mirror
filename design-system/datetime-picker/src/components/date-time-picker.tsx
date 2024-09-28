@@ -102,9 +102,9 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 	static defaultProps = dateTimePickerDefaultProps;
 
 	state: State = {
-		dateValue: '',
+		dateValue: this.props.datePickerProps?.defaultValue || '',
 		isFocused: false,
-		timeValue: '',
+		timeValue: this.props.timePickerProps?.defaultValue || '',
 		value: this.props.defaultValue || '',
 		zoneValue: '',
 	};
@@ -154,14 +154,36 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 			: { dateValue, timeValue, zoneValue };
 	}
 
-	onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+	onDateBlur = (event: React.FocusEvent<HTMLInputElement>) => {
 		this.setState({ isFocused: false });
 		this.props.onBlur?.(event);
+		if (this.props.datePickerProps?.onBlur) {
+			this.props.datePickerProps.onBlur(event);
+		}
 	};
 
-	onFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+	onTimeBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+		this.setState({ isFocused: false });
+		this.props.onBlur?.(event);
+		if (this.props.timePickerProps?.onBlur) {
+			this.props.timePickerProps.onBlur(event);
+		}
+	};
+
+	onDateFocus = (event: React.FocusEvent<HTMLInputElement>) => {
 		this.setState({ isFocused: true });
 		this.props.onFocus?.(event);
+		if (this.props.datePickerProps?.onFocus) {
+			this.props.datePickerProps.onFocus(event);
+		}
+	};
+
+	onTimeFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+		this.setState({ isFocused: true });
+		this.props.onFocus?.(event);
+		if (this.props.timePickerProps?.onFocus) {
+			this.props.timePickerProps.onFocus(event);
+		}
 	};
 
 	onDateChange = (dateValue: string) => {
@@ -304,9 +326,9 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 						minDate={datePickerProps.minDate}
 						name={datePickerProps.name}
 						nextMonthLabel={datePickerProps.nextMonthLabel}
-						onBlur={datePickerProps.onBlur || this.onBlur}
+						onBlur={this.onDateBlur}
 						onChange={this.onDateChange}
-						onFocus={datePickerProps.onFocus || this.onFocus}
+						onFocus={this.onDateFocus}
 						parseInputValue={datePickerProps.parseInputValue}
 						placeholder={datePickerProps.placeholder}
 						previousMonthLabel={datePickerProps.previousMonthLabel}
@@ -334,9 +356,9 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 						label={timePickerLabel}
 						locale={timePickerProps.locale || locale}
 						name={timePickerProps.name}
-						onBlur={timePickerProps.onBlur || this.onBlur}
+						onBlur={this.onTimeBlur}
 						onChange={this.onTimeChange}
-						onFocus={timePickerProps.onFocus || this.onFocus}
+						onFocus={this.onTimeFocus}
 						parseInputValue={timePickerProps.parseInputValue}
 						placeholder={timePickerProps.placeholder}
 						selectProps={mergedTimePickerSelectProps}

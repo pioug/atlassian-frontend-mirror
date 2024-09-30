@@ -12,7 +12,7 @@ import { content } from './styles';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { MentionResource } from '@atlaskit/editor-core';
+import { MentionResource } from '@atlaskit/mention/resource';
 import { token } from '@atlaskit/tokens';
 
 const rejectedPromise = Promise.reject(new Error('Simulated provider rejection'));

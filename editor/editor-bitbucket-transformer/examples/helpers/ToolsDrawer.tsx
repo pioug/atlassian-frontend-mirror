@@ -6,8 +6,8 @@
 import { jsx } from '@emotion/react';
 import React from 'react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { MentionProvider } from '@atlaskit/editor-core';
-import { MentionResource } from '@atlaskit/editor-core';
+import type { MentionProvider } from '@atlaskit/mention/resource';
+import { MentionResource } from '@atlaskit/mention/resource';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import type { ActivityProvider } from '@atlaskit/activity';

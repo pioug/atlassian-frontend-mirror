@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
+import uuid from 'uuid/v4';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import {
@@ -955,6 +956,8 @@ export class ReactEditorView<T = {}> extends React.Component<
 		}
 	};
 
+	private editorId = uuid();
+
 	private createEditor = (assistiveLabel?: string, assistiveDescribedBy?: string) => {
 		return (
 			<div
@@ -974,6 +977,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 				role="textbox"
 				id={EDIT_AREA_ID}
 				aria-describedby={assistiveDescribedBy}
+				data-editor-id={this.editorId}
 			/>
 		);
 	};

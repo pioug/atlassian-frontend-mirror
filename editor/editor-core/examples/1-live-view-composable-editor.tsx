@@ -84,12 +84,11 @@ function ComposableEditorPage() {
 				replacePlusMenu: true,
 			},
 			linking: {
-				// Currently there is an issue with the linking prop for presets so the provider
-				// needs to be passed through the Composable Editor component
 				smartLinks: {
 					allowBlockCards: true,
 					allowEmbeds: true,
 					allowResizing: true,
+					provider: Promise.resolve(smartLinksProvider),
 				},
 			},
 			__livePage: true,
@@ -141,11 +140,6 @@ function ComposableEditorPage() {
 				appearance={appearance}
 				preset={preset}
 				defaultValue={getDefaultValue()}
-				linking={{
-					smartLinks: {
-						provider: Promise.resolve(smartLinksProvider),
-					},
-				}}
 				onChange={(adf) => onDocumentChanged(adf)}
 				mentionProvider={Promise.resolve(mentionResourceProvider)}
 			/>

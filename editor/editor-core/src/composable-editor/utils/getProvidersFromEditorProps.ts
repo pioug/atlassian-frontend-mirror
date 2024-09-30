@@ -8,11 +8,7 @@ type Complete<T> = {
 
 type EditorProviderProps = Pick<
 	EditorProps,
-	| 'linking'
-	| 'smartLinks'
-	| 'UNSAFE_cards'
 	| 'autoformattingProvider'
-	| 'media'
 	| 'emojiProvider'
 	| 'mentionProvider'
 	| 'taskDecisionProvider'
@@ -29,16 +25,17 @@ type EditorProviderProps = Pick<
 type RequiredProviders = Complete<
 	Omit<
 		Providers,
-		'reactionsStore' | 'profilecardProvider' | 'extensionProvider' | 'quickInsertProvider'
+		| 'reactionsStore'
+		| 'profilecardProvider'
+		| 'extensionProvider'
+		| 'quickInsertProvider'
+		| 'cardProvider'
+		| 'mediaProvider'
 	>
 >;
 
 export default function getProvidersFromEditorProps({
-	linking,
-	smartLinks,
-	UNSAFE_cards,
 	autoformattingProvider,
-	media,
 	emojiProvider,
 	mentionProvider,
 	legacyImageUploadProvider,
@@ -51,16 +48,10 @@ export default function getProvidersFromEditorProps({
 	collabEditProvider,
 	presenceProvider,
 }: EditorProviderProps): RequiredProviders {
-	const cardProvider =
-		linking?.smartLinks?.provider ||
-		(smartLinks && smartLinks.provider) ||
-		(UNSAFE_cards && UNSAFE_cards.provider);
 	return {
-		mediaProvider: media?.provider,
 		emojiProvider: emojiProvider,
 		mentionProvider: mentionProvider,
 		autoformattingProvider: autoformattingProvider,
-		cardProvider,
 		activityProvider: activityProvider,
 		imageUploadProvider: legacyImageUploadProvider,
 		taskDecisionProvider: taskDecisionProvider,

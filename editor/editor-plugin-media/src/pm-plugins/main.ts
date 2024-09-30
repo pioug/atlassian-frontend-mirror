@@ -9,6 +9,7 @@ import { RawIntlProvider } from 'react-intl-next';
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { type InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
 import {
@@ -379,6 +380,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		mediaState: MediaState,
 		onMediaStateChanged: MediaStateEventSubscriber,
 		pickerType?: string,
+		insertMediaVia?: InsertMediaVia,
 	) => {
 		const { state } = this.view;
 		const editorAnalyticsAPI = this.pluginInjectionApi?.analytics?.actions;
@@ -424,6 +426,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 					collection,
 					this.allowInlineImages,
 					this.getInputMethod(pickerType),
+					insertMediaVia,
 				);
 				break;
 			case 'block':
@@ -441,6 +444,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 					editorAnalyticsAPI,
 					this.onNodeInserted,
 					isNestingInQuoteSupported,
+					insertMediaVia,
 				);
 				break;
 			case 'group':
@@ -450,6 +454,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 					collection,
 					this.getInputMethod(pickerType),
 					isNestingInQuoteSupported,
+					insertMediaVia,
 				);
 				break;
 		}
@@ -707,6 +712,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 	private getInputMethod = (pickerType?: string): InputMethodInsertMedia | undefined => {
 		switch (pickerType) {
+			case INPUT_METHOD.PICKER_CLOUD:
+				return INPUT_METHOD.PICKER_CLOUD;
+			case INPUT_METHOD.MEDIA_PICKER:
+				return INPUT_METHOD.MEDIA_PICKER;
 			case 'clipboard':
 				return INPUT_METHOD.CLIPBOARD;
 			case 'dropzone':

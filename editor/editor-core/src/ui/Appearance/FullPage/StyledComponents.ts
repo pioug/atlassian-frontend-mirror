@@ -79,6 +79,12 @@ export const contentAreaContainerTypeInlineSize = () => {
 		transition: `padding 0ms ${akEditorSwoopCubicBezier}`,
 		containerType: 'inline-size',
 		containerName: 'editor-area',
+		// Chrome 129 Regression!
+		// By the spec, when the container-type: inline-size is used
+		// The browser should apply the bewlo properties to the element.
+		// However, for reasons that goes beyond my knowledge.
+		// Chrome 129 broke that behavior, and now we need to make it explicity.
+		contain: 'layout style inline-size',
 	});
 };
 

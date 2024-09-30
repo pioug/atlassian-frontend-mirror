@@ -13,6 +13,7 @@ import {
 	type DispatchAnalyticsEvent,
 	EVENT_TYPE,
 	INPUT_METHOD,
+	INSERT_MEDIA_VIA,
 } from '@atlaskit/editor-common/analytics';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
@@ -252,6 +253,7 @@ export function MediaFromURL({
 			insertMediaSingle({
 				mediaState: previewState.previewInfo,
 				inputMethod: INPUT_METHOD.MEDIA_PICKER,
+				insertMediaVia: INSERT_MEDIA_VIA.EXTERNAL_UPLOAD,
 			});
 		}
 		closeMediaInsertPicker();
@@ -260,7 +262,11 @@ export function MediaFromURL({
 	const onExternalInsert = React.useCallback(
 		(url: string) => {
 			if (previewState.warning) {
-				insertExternalMediaSingle({ url, alt: '', inputMethod: INPUT_METHOD.MEDIA_PICKER });
+				insertExternalMediaSingle({
+					url,
+					alt: '',
+					inputMethod: INPUT_METHOD.MEDIA_PICKER,
+				});
 			}
 			closeMediaInsertPicker();
 		},

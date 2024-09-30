@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "91.1.2",
+	"version": "91.2.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -205,7 +205,7 @@
 		"@atlaskit/editor-shared-styles": "^3.0.0",
 		"@atlaskit/editor-tables": "^2.8.0",
 		"@atlaskit/emoji": "^67.8.0",
-		"@atlaskit/icon": "^22.18.0",
+		"@atlaskit/icon": "^22.19.0",
 		"@atlaskit/icon-object": "^6.5.0",
 		"@atlaskit/link-datasource": "^3.1.0",
 		"@atlaskit/link-picker": "^1.46.0",

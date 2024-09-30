@@ -10,6 +10,7 @@ import noInvalidFeatureFlagUsage from './rules/no-invalid-feature-flag-usage';
 import ensureFeatureFlagPrefix from './rules/ensure-feature-flag-prefix';
 import ensureCriticalDependencyResolutions from './rules/ensure-critical-dependency-resolutions';
 import ensureValidWorkspaceProtocolUsage from './rules/ensure-valid-workspace-protocol-usage';
+import ensureValidBinValues from './rules/ensure-valid-bin-values';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
 import ensureNativeAndAfExportsSynced from './rules/ensure-native-and-af-exports-synced';
@@ -30,6 +31,7 @@ export const rules = {
 	'ensure-atlassian-team': ensureAtlassianTeam,
 	'ensure-critical-dependency-resolutions': ensureCriticalDependencyResolutions,
 	'ensure-valid-workspace-protocol-usage': ensureValidWorkspaceProtocolUsage,
+	'ensure-valid-bin-values': ensureValidBinValues,
 	'no-duplicate-dependencies': noDuplicateDependencies,
 	'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
 	'no-pre-post-install-scripts': noPreAndPostInstallScripts,

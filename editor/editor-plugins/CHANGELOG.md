@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugins
 
+## 5.5.1
+
+### Patch Changes
+
+- [#146417](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146417)
+  [`4302239b19be5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4302239b19be5) -
+  Migrate table useSharedStateHook FF from LD to Statsig experiment.
+- Updated dependencies
+
+## 5.5.0
+
+### Minor Changes
+
+- [#146446](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146446)
+  [`725ff855c13b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/725ff855c13b6) -
+  ED-24965 Adds new command to update hasEditPermission from outside plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.4.0
 
 ### Minor Changes

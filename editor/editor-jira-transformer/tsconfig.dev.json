@@ -49,6 +49,9 @@
 			"path": "../editor-test-helpers/tsconfig.app.json"
 		},
 		{
+			"path": "../../elements/mention/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/theme/tsconfig.app.json"
 		},
 		{

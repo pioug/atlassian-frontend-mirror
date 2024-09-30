@@ -1,5 +1,99 @@
 # @atlaskit/editor-core
 
+## 198.0.1
+
+### Patch Changes
+
+- [#146417](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146417)
+  [`4302239b19be5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4302239b19be5) -
+  Migrate table useSharedStateHook FF from LD to Statsig experiment.
+
+## 198.0.0
+
+### Major Changes
+
+- [#146378](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146378)
+  [`134a849673ebd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/134a849673ebd) -
+  This change removes the following public API from the @atlaskit/editor-core entry-point.
+
+  ### WHY?
+
+  We are making the editor-core package smaller to reduce bundle size and make it easier to scale as
+  its functionality grows.
+
+  The long term goal is that the core editor is lightweight and its feature set is enriched by the
+  powerful plugin system developed (and used via the `ComposableEditor`).
+
+  This change is made to reduce how the core editor is coupled to its functionality by removing
+  exports that can be imported from other packages and cleanup up props that are unused internally.
+
+  ### WHAT/HOW?
+
+  The following lists the exports removed as well as where they can now be found if required.
+
+  Exports removed:
+
+  - ToolbarFeedback (removed)
+  - EmojiResource (moved to -> @atlaskit/emoji/resource)
+  - MentionResource (moved to -> @atlaskit/mention/resource)
+  - MentionProvider (moved to -> @atlaskit/mention/resource)
+  - PresenceProvider (moved to -> @atlaskit/mention/resource)
+  - TeamMentionProvider (moved to -> @atlaskit/mention/team-resource)
+  - AnnotationUpdateEmitter (moved to -> @atlaskit/editor-common/annotation)
+  - UpdateEvent (moved to -> @atlaskit/editor-common/annotation)
+  - AnnotationProviders (moved to -> @atlaskit/editor-plugins/annotation)
+  - InlineCommentAnnotationProvider (moved to -> @atlaskit/editor-plugins/annotation)
+  - InlineCommentCreateComponentProps (moved to -> @atlaskit/editor-plugins/annotation)
+  - InlineCommentViewComponentProps (moved to -> @atlaskit/editor-plugins/annotation)
+  - AnnotationInfo (moved to -> @atlaskit/editor-plugins/annotation)
+  - AnnotationState (moved to -> @atlaskit/editor-plugins/annotation)
+  - AnnotationTypeProvider (moved to -> @atlaskit/editor-plugins/annotation)
+  - InlineCommentState (moved to -> @atlaskit/editor-plugins/annotation)
+  - TypeAheadItem (moved to -> @atlaskit/editor-common/provider-factory)
+  - INPUT_METHOD (moved to -> @atlaskit/editor-common/analytics)
+  - ACTION (moved to -> @atlaskit/editor-common/analytics)
+  - ACTION_SUBJECT (moved to -> @atlaskit/editor-common/analytics)
+  - ACTION_SUBJECT_ID (moved to -> @atlaskit/editor-common/analytics)
+  - EVENT_TYPE (moved to -> @atlaskit/editor-common/analytics)
+  - MacroProvider (moved to -> @atlaskit/editor-common/provider-factory) (except proforma-dc)
+  - MacroAttributes (moved to -> @atlaskit/editor-common/provider-factory) (except proforma-dc)
+  - ExtensionType (moved to -> @atlaskit/editor-common/provider-factory)
+  - CardProvider (moved to -> @atlaskit/editor-common/provider-factory)
+  - MediaProvider (moved to -> @atlaskit/editor-common/provider-factory)
+  - MediaOptions (moved to -> @atlaskit/editor-plugins/media/types)
+  - QuickInsertItem (moved to -> @atlaskit/editor-common/provider-factory)
+  - QuickInsertProvider (moved to -> @atlaskit/editor-common/provider-factory)
+
+  The following lists the editor props removed. Generally these are not used by the editor at all
+  and can be safely removed without any change in functionality
+
+  EditorProps removed:
+
+  - trackValidTransactions (unused internally, please remove)
+  - hideAvatarGroup (unused internally, please remove)
+  - placeholder (unused internally for `ComposableEditor` - please pass to the `placeholderPlugin`
+    options)
+  - placeholderBracketHint (unused internally for `ComposableEditor` - please pass to the
+    `placeholderPlugin` options)
+  - allowJiraIssue (unused internally, please remove)
+  - allowNewInsertionBehaviour (unused internally, please remove)
+  - UNSAFE_allowBorderMark (use `allowBorderMark` instead)
+
+## 197.14.0
+
+### Minor Changes
+
+- [#146455](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146455)
+  [`b692485729f1c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b692485729f1c) -
+  improve comment editor toolbar responsiveness
+
+### Patch Changes
+
+- [#145959](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145959)
+  [`ea00ae7d7d94f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea00ae7d7d94f) -
+  [ED-25130] Make contain explicity for the container-type: inline-size
+- Updated dependencies
+
 ## 197.13.3
 
 ### Patch Changes

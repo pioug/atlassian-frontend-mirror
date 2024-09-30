@@ -1,6 +1,12 @@
 import type { ExtensionLayout, PanelType } from '@atlaskit/adf-schema';
 
-import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
+import type {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	INPUT_METHOD,
+	INSERT_MEDIA_VIA,
+} from './enums';
 import type { InsertSmartLinkAEP } from './smart-links';
 import type { InsertAEP, TrackAEP } from './utils';
 
@@ -150,12 +156,18 @@ export type InputMethodInsertMedia =
 	| INPUT_METHOD.BROWSER
 	| INPUT_METHOD.MEDIA_PICKER;
 
+export type InsertMediaVia =
+	| INSERT_MEDIA_VIA.EXTERNAL_UPLOAD
+	| INSERT_MEDIA_VIA.EXTERNAL_URL
+	| INSERT_MEDIA_VIA.LOCAL_UPLOAD;
+
 type InsertMediaSingleAEP = InsertAEP<
 	ACTION_SUBJECT_ID.MEDIA,
 	{
 		inputMethod: InputMethodInsertMedia;
 		fileExtension?: string;
 		type: ACTION_SUBJECT_ID.MEDIA_SINGLE | ACTION_SUBJECT_ID.MEDIA_GROUP;
+		insertMediaVia?: InsertMediaVia;
 	},
 	undefined
 >;
@@ -166,6 +178,7 @@ type InsertMediaGroupAEP = InsertAEP<
 		inputMethod?: InputMethodInsertMedia;
 		fileExtension?: string;
 		type: ACTION_SUBJECT_ID.MEDIA_SINGLE | ACTION_SUBJECT_ID.MEDIA_GROUP;
+		insertMediaVia?: InsertMediaVia;
 	},
 	undefined
 >;
@@ -176,6 +189,7 @@ type InsertMediaInlineAEP = InsertAEP<
 		inputMethod?: InputMethodInsertMedia;
 		fileExtension?: string;
 		type: ACTION_SUBJECT_ID.MEDIA_INLINE;
+		insertMediaVia?: InsertMediaVia;
 	},
 	undefined
 >;
@@ -230,6 +244,7 @@ type InsertMediaLinkAEP = InsertAEP<
 	ACTION_SUBJECT_ID.MEDIA_LINK,
 	{
 		inputMethod: INPUT_METHOD.TYPEAHEAD | INPUT_METHOD.MANUAL;
+		insertType?: INSERT_MEDIA_VIA;
 	},
 	undefined
 >;

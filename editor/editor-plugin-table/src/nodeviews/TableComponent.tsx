@@ -26,6 +26,7 @@ import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { autoSizeTable, clearHoverSelection } from '../commands';
@@ -117,7 +118,7 @@ interface ComponentProps {
 	pluginInjectionApi?: PluginInjectionAPI;
 	intl: IntlShape;
 
-	// marking props as option to ensure backward compatibility when platform.editor.table.use-shared-state-hook disabled
+	// marking props as option to ensure backward compatibility when platform_editor_table_use_shared_state_hook disabled
 	isInDanger?: boolean;
 	hoveredRows?: number[];
 	hoveredCell?: CellHoverMeta;
@@ -536,7 +537,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		const table = findTable(view.state.selection);
 
-		if (!fg('platform.editor.table.use-shared-state-hook')) {
+		if (editorExperiment('platform_editor_table_use_shared_state_hook', false)) {
 			const pluginState = getPluginState(view.state);
 			isInDanger = pluginState.isInDanger;
 		}
@@ -749,7 +750,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const { showBeforeShadow, showAfterShadow } = this.state;
 		const node = getNode();
 
-		if (!fg('platform.editor.table.use-shared-state-hook')) {
+		if (editorExperiment('platform_editor_table_use_shared_state_hook', false)) {
 			const pluginState = getPluginState(view.state);
 			isInDanger = pluginState.isInDanger;
 			hoveredRows = pluginState.hoveredRows;

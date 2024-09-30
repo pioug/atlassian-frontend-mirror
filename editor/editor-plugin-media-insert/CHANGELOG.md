@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 3.1.0
+
+### Minor Changes
+
+- [#146643](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146643)
+  [`6b3dec2ad5378`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b3dec2ad5378) -
+  [ux] ED-25116 Pin media popup to toolbar when triggered from toolbar
+
+### Patch Changes
+
+- [#146446](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146446)
+  [`c98c34dd5f307`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c98c34dd5f307) -
+  [ED-24941] Added analytics for media-insert
+
+  - **@atlaskit/editor-common**: Add enums and types for new anaylics params
+  - **@atlaskit/editor-plugin-media**: Include 'insertMediaVia' on analytics events for inserting
+    media into the document
+  - **@atlaskit/editor-plugin-media-insert**: Set 'insertMediaVia' field for particular
+    'externalUpload', 'externalUrl' or 'localUpload' media inserts
+
 ## 3.0.0
 
 ### Patch Changes

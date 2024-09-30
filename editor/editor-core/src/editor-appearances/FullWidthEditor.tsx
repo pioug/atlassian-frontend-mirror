@@ -22,7 +22,6 @@ export type FullWidthEditorProps = Pick<
 	| 'quickInsert'
 	| 'secondaryToolbarComponents'
 	| 'featureFlags'
-	| 'trackValidTransactions'
 	| 'primaryToolbarComponents'
 	| 'contextPanel'
 	| 'contentComponents'

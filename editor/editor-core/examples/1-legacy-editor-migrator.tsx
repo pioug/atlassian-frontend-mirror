@@ -73,12 +73,8 @@ const allComposableEditorProps: Complete<EditorNextProps> = {
 	macroProvider: undefined,
 	contextIdentifierProvider: undefined,
 	autoformattingProvider: undefined,
-	placeholder: undefined,
 	linking: undefined,
 	media: undefined,
-	placeholderBracketHint: undefined,
-	trackValidTransactions: undefined,
-	hideAvatarGroup: undefined,
 };
 
 const pluginNameExceptions = {

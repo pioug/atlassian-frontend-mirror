@@ -76,9 +76,6 @@ const editorProps: EditorProps = {
 	placeholder:
 		"Type /ai for Atlassian Intelligence, / to add elements, or @ to mention someone (we'll let them know).",
 	//defaultValue: '{"type":"doc","content":[{"type":"paragraph"}],"version":1}',
-	trackValidTransactions: {
-		samplingRate: 300,
-	},
 	featureFlags: {
 		'add-column-custom-step': false,
 		'ai-feedback-collector_49l2q': true,
@@ -230,9 +227,6 @@ const editorProps: EditorProps = {
 			],
 		},
 	},
-	// Cleanup: `platform_editor_remove_hide_avatar_group_prop`
-	// Remove `hideAvatarGroup` prop
-	hideAvatarGroup: true,
 	allowExpand: {
 		allowInsertion: true,
 		allowInteractiveExpand: true,

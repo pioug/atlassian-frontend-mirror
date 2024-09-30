@@ -1,14 +1,26 @@
-import React, { Fragment } from 'react';
-import { type NewIconProps } from '../src/types';
+import React, { Fragment, type FunctionComponent } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-import { IconTile } from '../src';
-import AddIcon from '../core/add';
-
-import { Inline, Stack, xcss } from '@atlaskit/primitives';
 import Heading from '@atlaskit/heading';
+import { Inline, Stack, xcss } from '@atlaskit/primitives';
+
+import AddIcon from '../core/add';
+import { IconTile } from '../src';
+import { type IconProps } from '../src/types';
 
 const styles = xcss({ padding: 'space.200' });
 const IconSizeExample = () => {
+	const [NewFeatureIconObject, setNewFeatureIconObject] = useState<
+		FunctionComponent<IconProps> | undefined
+	>(undefined);
+
+	useEffect(() => {
+		import(`@atlaskit/icon-object/glyph/new-feature/24.js`).then((module) => {
+			setNewFeatureIconObject(() => module.default as unknown as FunctionComponent<IconProps>);
+		});
+	});
+
 	const sizes = ['16', '24', '32', '40', '48'] as const;
 	const appearances = [
 		'blue',
@@ -37,7 +49,21 @@ const IconSizeExample = () => {
 	return (
 		<Stack space="space.200" alignInline="start" xcss={styles}>
 			{/* Icon tile examples */}
-			<Heading size="small">Icon Tile</Heading>
+			<Heading size="medium">Icon Tile</Heading>
+			<Heading size="small">Example using LEGACY_fallbackComponent</Heading>
+
+			<IconTile
+				icon={AddIcon}
+				label=""
+				appearance="greenBold"
+				shape="square"
+				size="24"
+				LEGACY_fallbackComponent={
+					NewFeatureIconObject ? <NewFeatureIconObject label="" /> : undefined
+				}
+			/>
+
+			<Heading size="small">All appearances</Heading>
 			{sizes.map((size) => (
 				<>
 					<Heading size="xsmall">Size: {size}</Heading>
@@ -47,7 +73,7 @@ const IconSizeExample = () => {
 								{shapes.map((shape) => (
 									<IconTile
 										key={shape}
-										icon={(props: NewIconProps) => <AddIcon {...props} />}
+										icon={AddIcon}
 										label=""
 										appearance={appearance}
 										shape={shape}

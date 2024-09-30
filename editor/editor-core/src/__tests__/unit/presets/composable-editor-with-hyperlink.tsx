@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import Button from '@atlaskit/button/new';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractPresetAPI } from '@atlaskit/editor-common/preset';
 
 import { ComposableEditor } from '../../../composable-editor';
-import { EditorContext, INPUT_METHOD } from '../../../index';
+import { EditorContext } from '../../../index';
 import { createDefaultPreset } from '../../../labs-next';
 import { usePreset } from '../../../use-preset';
 
@@ -24,7 +25,7 @@ describe('hyperlink lpLinkPicker flag behaviour in composable editor with defaul
 		const toolbarButton = screen.getByText('Click me!');
 		fireEvent.click(toolbarButton);
 		// check that the link picker is rendered
-		await waitFor(() => expect(screen.getByTestId('link-picker')).toBeInTheDocument());
+		await screen.findByTestId('link-picker');
 		expect(screen.queryByTestId('hyperlink-add-toolbar')).not.toBeInTheDocument();
 	});
 
@@ -40,7 +41,7 @@ describe('hyperlink lpLinkPicker flag behaviour in composable editor with defaul
 		const toolbarButton = screen.getByText('Click me!');
 		fireEvent.click(toolbarButton);
 		// check that the link picker is rendered
-		await waitFor(() => expect(screen.getByTestId('link-picker')).toBeInTheDocument());
+		await screen.findByTestId('link-picker');
 		expect(screen.queryByTestId('hyperlink-add-toolbar')).not.toBeInTheDocument();
 	});
 
@@ -56,7 +57,7 @@ describe('hyperlink lpLinkPicker flag behaviour in composable editor with defaul
 		const toolbarButton = screen.getByText('Click me!');
 		fireEvent.click(toolbarButton);
 		// check that the old link picker is rendered
-		await waitFor(() => expect(screen.getByTestId('hyperlink-add-toolbar')).toBeInTheDocument());
+		await screen.findByTestId('hyperlink-add-toolbar');
 		expect(screen.queryByTestId('link-picker')).not.toBeInTheDocument();
 	});
 });

@@ -110,7 +110,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 					fg('platform_editor_a11y_table_context_menu') ? focusToContextMenuTrigger : undefined
 				}
 				onClick={handleClick}
-				iconBefore={<ExpandIcon label="" />}
+				iconBefore={<ExpandIcon label="" isFacadeDisabled={true} />}
 				aria-label={labelCellOptions}
 				aria-expanded={
 					fg('platform_editor_a11y_table_context_menu') ? isContextualMenuOpen : undefined

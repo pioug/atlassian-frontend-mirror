@@ -1,12 +1,15 @@
 import { useMemo } from 'react';
 
 import type { ToolbarSize } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	DefaultButtonsMenu,
 	DefaultButtonsToolbar,
-	ResponsiveCustomButtonToolbar,
-	ResponsiveCustomMenu,
+	ResponsiveCustomButtonToolbar as ResponsiveCustomButtonToolbarLegacy,
+	ResponsiveCustomButtonToolbarNext,
+	ResponsiveCustomMenu as ResponsiveCustomMenuLegacy,
+	ResponsiveCustomMenuNext,
 } from '../constants';
 import type { MenuIconItem } from '../types';
 
@@ -17,7 +20,13 @@ export const useResponsiveIconTypeButtons = ({
 	toolbarSize: ToolbarSize;
 	responsivenessEnabled: boolean;
 }) => {
-	const iconTypeList = useMemo(() => ResponsiveCustomButtonToolbar[toolbarSize], [toolbarSize]);
+	const ResponsiveCustomButtonToolbar = fg('platform_editor_toolbar_responsive_fixes')
+		? ResponsiveCustomButtonToolbarNext
+		: ResponsiveCustomButtonToolbarLegacy;
+	const iconTypeList = useMemo(
+		() => ResponsiveCustomButtonToolbar[toolbarSize],
+		[toolbarSize, ResponsiveCustomButtonToolbar],
+	);
 
 	return responsivenessEnabled ? iconTypeList : DefaultButtonsToolbar;
 };
@@ -29,7 +38,13 @@ export const useResponsiveIconTypeMenu = ({
 	toolbarSize: ToolbarSize;
 	responsivenessEnabled: boolean;
 }) => {
-	const iconTypeList = useMemo(() => ResponsiveCustomMenu[toolbarSize], [toolbarSize]);
+	const ResponsiveCustomMenu = fg('platform_editor_toolbar_responsive_fixes')
+		? ResponsiveCustomMenuNext
+		: ResponsiveCustomMenuLegacy;
+	const iconTypeList = useMemo(
+		() => ResponsiveCustomMenu[toolbarSize],
+		[toolbarSize, ResponsiveCustomMenu],
+	);
 
 	return responsivenessEnabled ? iconTypeList : DefaultButtonsMenu;
 };

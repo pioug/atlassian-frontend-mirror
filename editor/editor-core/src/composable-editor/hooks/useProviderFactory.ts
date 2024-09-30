@@ -7,11 +7,7 @@ import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-facto
 import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
 
 import type EditorActions from '../../actions';
-import type {
-	EditorNextProps,
-	EditorProps,
-	ExtensionProvidersProp,
-} from '../../types/editor-props';
+import type { EditorNextProps, ExtensionProvidersProp } from '../../types/editor-props';
 import prepareExtensionProvider from '../../utils/prepare-extension-provider';
 import prepareQuickInsertProvider from '../../utils/prepare-quick-insert-provider';
 import getProvidersFromEditorProps from '../utils/getProvidersFromEditorProps';
@@ -56,9 +52,7 @@ export default function useProviderFactory(
 	createAnalyticsEvent: CreateUIAnalyticsEvent,
 ): ProviderFactory {
 	const {
-		linking,
 		autoformattingProvider,
-		media,
 		emojiProvider,
 		mentionProvider,
 		legacyImageUploadProvider,
@@ -74,18 +68,10 @@ export default function useProviderFactory(
 		extensionProviders,
 	} = props;
 
-	// TODO: Remove these when we deprecate these props from editor-props - smartLinks is unfortunately still used in some places, we can sidestep this problem if we move everyone across to ComposableEditor and deprecate Editor
-	const UNSAFE_cards = (props as EditorProps).UNSAFE_cards;
-	const smartLinks = (props as EditorProps).smartLinks;
-
 	const providers = useMemo(
 		() =>
 			getProvidersFromEditorProps({
-				linking,
-				smartLinks,
-				UNSAFE_cards,
 				autoformattingProvider,
-				media,
 				emojiProvider,
 				mentionProvider,
 				legacyImageUploadProvider,
@@ -99,11 +85,7 @@ export default function useProviderFactory(
 				presenceProvider,
 			}),
 		[
-			linking,
-			smartLinks,
-			UNSAFE_cards,
 			autoformattingProvider,
-			media,
 			emojiProvider,
 			mentionProvider,
 			legacyImageUploadProvider,

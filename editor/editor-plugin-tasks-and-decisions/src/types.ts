@@ -2,6 +2,7 @@ import type { DecisionItemDefinition, TaskItemDefinition } from '@atlaskit/adf-s
 import type { INPUT_METHOD, USER_CONTEXT } from '@atlaskit/editor-common/analytics';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
+	EditorCommand,
 	LongPressSelectionPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
@@ -98,6 +99,9 @@ export type TasksAndDecisionsPlugin = NextEditorPlugin<
 			insertTaskDecision: ReturnType<typeof insertTaskDecisionCommand>;
 			indentTaskList: ReturnType<typeof getIndentCommand>;
 			outdentTaskList: ReturnType<typeof getUnindentCommand>;
+		};
+		commands: {
+			updateEditPermission: (hasEditPermission: boolean | undefined) => EditorCommand;
 		};
 	}
 >;

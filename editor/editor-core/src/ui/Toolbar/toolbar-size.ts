@@ -9,8 +9,10 @@ import {
 	ToolbarWidths,
 	ToolbarWidthsFullPage,
 	ToolbarWidthsFullPageNext,
+	ToolbarWidthsNext,
 } from './types';
 
+// Toolbar sizes for full page editor a little bit different, because it has more buttons e.g. actions button...
 const toolbarSizesFullPageNext: ToolbarBreakPoint[] = [
 	{ width: ToolbarWidthsFullPageNext.XXL, size: ToolbarSize.XXL },
 	{ width: ToolbarWidthsFullPageNext.XL, size: ToolbarSize.XL },
@@ -19,7 +21,10 @@ const toolbarSizesFullPageNext: ToolbarBreakPoint[] = [
 	{ width: ToolbarWidthsFullPageNext.S, size: ToolbarSize.S },
 ];
 
-// Toolbar sizes for full page editor a little bit different, because it has more buttons e.g. actions button...
+/** @deprecated
+ * To be removed as part of ED-25129 in favour of toolbarSizesFullPageNext along with references
+ * to platform_editor_toolbar_responsive_fixes feature gate
+ */
 const toolbarSizesFullPage: ToolbarBreakPoint[] = [
 	{ width: ToolbarWidthsFullPage.XXL, size: ToolbarSize.XXL },
 	{ width: ToolbarWidthsFullPage.XL, size: ToolbarSize.XL },
@@ -28,6 +33,18 @@ const toolbarSizesFullPage: ToolbarBreakPoint[] = [
 	{ width: ToolbarWidthsFullPage.S, size: ToolbarSize.S },
 ];
 
+const toolbarSizesNext: ToolbarBreakPoint[] = [
+	{ width: ToolbarWidthsNext.XXL, size: ToolbarSize.XXL },
+	{ width: ToolbarWidthsNext.XL, size: ToolbarSize.XL },
+	{ width: ToolbarWidthsNext.L, size: ToolbarSize.L },
+	{ width: ToolbarWidthsNext.M, size: ToolbarSize.M },
+	{ width: ToolbarWidthsNext.S, size: ToolbarSize.S },
+];
+
+/** @deprecated
+ * To be removed as part of ED-25129 in favour of toolbarSizesNext along with references
+ * to platform_editor_toolbar_responsive_fixes feature gate
+ */
 const toolbarSizes: ToolbarBreakPoint[] = [
 	{ width: ToolbarWidths.XXL, size: ToolbarSize.XXL },
 	{ width: ToolbarWidths.XL, size: ToolbarSize.XL },
@@ -41,7 +58,9 @@ const toolbarSizesForAppearance = (appearance?: EditorAppearance) =>
 		? fg('platform_editor_toolbar_responsive_fixes')
 			? toolbarSizesFullPageNext
 			: toolbarSizesFullPage
-		: toolbarSizes;
+		: fg('platform_editor_toolbar_responsive_fixes')
+			? toolbarSizesNext
+			: toolbarSizes;
 
 export const toolbarSizeToWidth = (toolbarSize: ToolbarSize, appearance?: EditorAppearance) => {
 	return (

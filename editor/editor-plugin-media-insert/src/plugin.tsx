@@ -6,6 +6,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
+	INSERT_MEDIA_VIA,
 } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconImages } from '@atlaskit/editor-common/quick-insert';
@@ -45,14 +46,18 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 					isOpen: false,
 				};
 			}
-			const { isOpen } = pluginKey.getState(editorState) || {};
+			const { isOpen, target } = pluginKey.getState(editorState) || {};
 			return {
 				isOpen,
+				target,
 			};
 		},
 
 		commands: {
-			showMediaInsertPopup: ({ tr }) => showMediaInsertPopup(tr),
+			showMediaInsertPopup:
+				(target) =>
+				({ tr }) =>
+					showMediaInsertPopup(tr, target),
 		},
 
 		contentComponent: ({
@@ -62,7 +67,11 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 			popupsBoundariesElement,
 			popupsScrollableElement,
 		}) => {
-			const insertMediaSingle: InsertMediaSingle = ({ mediaState, inputMethod }) => {
+			const insertMediaSingle: InsertMediaSingle = ({
+				mediaState,
+				inputMethod,
+				insertMediaVia,
+			}) => {
 				const { id, dimensions, contextId, scaleFactor = 1, fileName, collection } = mediaState;
 				const { width, height } = dimensions || {
 					height: undefined,
@@ -86,6 +95,7 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 						node,
 						inputMethod,
 						isNestingInQuoteSupported,
+						insertMediaVia,
 					) ?? false
 				);
 			};
@@ -104,6 +114,7 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 						node,
 						inputMethod,
 						isNestingInQuoteSupported,
+						INSERT_MEDIA_VIA.EXTERNAL_URL,
 					) ?? false
 				);
 			};
@@ -113,7 +124,12 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 				return collection !== undefined
 					? api?.media.sharedState
 							.currentState()
-							?.insertFile(mediaState, onMediaStateChanged, inputMethod) ?? false
+							?.insertFile(
+								mediaState,
+								onMediaStateChanged,
+								inputMethod,
+								INSERT_MEDIA_VIA.LOCAL_UPLOAD,
+							) ?? false
 					: false;
 			};
 
@@ -148,7 +164,7 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 						// Insert empty string to remove the typeahead raw text
 						// close the quick insert immediately
 						const tr = insert('');
-						api?.mediaInsert.commands.showMediaInsertPopup({ tr });
+						api?.mediaInsert.commands.showMediaInsertPopup()({ tr });
 
 						api?.analytics?.actions?.attachAnalyticsEvent({
 							action: ACTION.OPENED,

@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clearHoverSelection } from '../../../commands';
 import { TableCssClassName as ClassName } from '../../../types';
@@ -111,9 +112,11 @@ export default class NumberColumn extends Component<Props, any> {
 	private getCellStyles = (index: number, rowHeight: number) => {
 		const { stickyTop, hasHeaderRow } = this.props;
 		if (stickyTop && hasHeaderRow && index === 0) {
+			const topOffset = fg('platform_editor_breakout_use_css') ? 0 : stickyTop;
+
 			return {
 				height: rowHeight,
-				top: `${stickyTop}px`,
+				top: `${topOffset}px`,
 			};
 		}
 		return {

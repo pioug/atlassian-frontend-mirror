@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 110.5.4
+
+### Patch Changes
+
+- [#146688](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146688)
+  [`f834ba0388625`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f834ba0388625) -
+  [ux] Fix double horizontal scrollbar issue on table in the Preview.
+
 ## 110.5.3
 
 ### Patch Changes

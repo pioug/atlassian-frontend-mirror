@@ -1,5 +1,14 @@
 # @atlaskit/lozenge
 
+## 11.11.0
+
+### Minor Changes
+
+- [#146405](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146405)
+  [`a92a52978058c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a92a52978058c) -
+  Adds an experimental Compiled CSS-in-JS entrypoint for our Lozenge component. This requires
+  specific setup that is not documented fully and is not intended for external consumption.
+
 ## 11.10.2
 
 ### Patch Changes

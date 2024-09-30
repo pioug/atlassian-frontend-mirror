@@ -174,17 +174,6 @@ interface EditorBaseProps {
 
 	/**
 	 * @default undefined
-	 * @description Enables valid transaction events to be tracked in analytics (at a sampled rate)
-	 * @deprecated Tracking is no longer supported for performance reasons
-	 */
-	trackValidTransactions?:
-		| {
-				samplingRate: number;
-		  }
-		| boolean;
-
-	/**
-	 * @default undefined
 	 * @description
 	 * Enables the sticky toolbar in the comment/standard editor.
 	 * If a boolean is specified and it's `true`, the sticky toolbar will be enabled, sticking to the top of the scroll parent.
@@ -256,12 +245,6 @@ export interface EditorSharedPropsWithPlugins {
 
 	// Enable undo/redo buttons within the editor.
 	allowUndoRedoButtons?: boolean;
-
-	/**
-	 * @deprecated
-	 * This prop is no longer in use and will be removed soon.
-	 */
-	hideAvatarGroup?: boolean;
 }
 
 export interface EditorProps
@@ -289,20 +272,6 @@ export interface EditorNextProps
 		EditorSharedPropsWithPlugins,
 		EditorProviderProps {
 	preset: EditorPresetBuilder<AllPluginNames[], AllEditorPresetPluginTypes[]>;
-	/**
-	 * @deprecated
-	 * This prop does nothing and will be removed soon.
-	 * Configuration of this parameter should be done via `editor-plugin-placeholder` or the `default` preset.
-	 */
-	placeholder?: string;
-
-	/**
-	 * @deprecated
-	 * This prop does nothing and will be removed soon.
-	 * Configuration of this parameter should be done via `editor-plugin-placeholder` or the `default` preset.
-	 */
-	placeholderBracketHint?: string;
-
 	/**
 	 * @deprecated
 	 * This prop does nothing and will be removed soon.
@@ -336,6 +305,7 @@ export interface EditorNextProps
 	 * ```
 	 */
 	media?: MediaOptions;
+
 	// Editor assitive describedby. Set aria-describedby to make the editor announcement to include the information
 	// the associated component's content
 	assistiveDescribedBy?: string;
@@ -387,14 +357,6 @@ export interface EditorPluginFeatureProps {
 	// Enable the editor help dialog.
 	allowHelpDialog?: boolean;
 
-	/**
-	 * @deprecated
-	 * This was a temporary setting for Confluence until we shipped smart cards. **Please do not use.*
-	 * We have now shipped and no-longer require.
-	 * This will be deprecated very soon.
-	 */
-	allowJiraIssue?: boolean;
-
 	// Enable panel blocks, the thing that displays a coloured box with icons aka info, warning macros.
 	// You will most likely need backend ADF storage for this feature.
 	allowPanel?: boolean | PanelPluginConfig;
@@ -435,23 +397,9 @@ export interface EditorPluginFeatureProps {
 	// Enable showing of indentaion buttons in editor toolbar
 	showIndentationButtons?: boolean;
 
-	/**
-	 * @deprecated
-	 * This enables new insertion behaviour only for horizontal rule and media single in certain conditions.
-	 * The idea of this new behaviour is to have a consistent outcome regardless of the insertion method.
-	 **/
-	allowNewInsertionBehaviour?: boolean;
-
 	// Enable find/replace functionality within the editor.
 	// You can use the object form to enable additional individual features e.g. case-matching toggle.
 	allowFindReplace?: boolean | FindReplaceOptions;
-
-	/**
-	 * Enable experimental support for the "border" mark.
-	 * Refer to ADF Change proposal #65 for more details.
-	 * @deprecated Use allowBorderMark instead.
-	 */
-	UNSAFE_allowBorderMark?: boolean;
 
 	/**
 	 * Enable support for the "border" mark.

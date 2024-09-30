@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "7.28.2",
+	"version": "7.28.4",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
 		"@atlaskit/adf-schema": "^40.9.0",
 		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/custom-steps": "^0.7.0",
-		"@atlaskit/editor-common": "^91.1.0",
+		"@atlaskit/editor-common": "^91.2.0",
 		"@atlaskit/editor-palette": "1.6.1",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
@@ -43,7 +43,7 @@
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.0.0",
 		"@atlaskit/editor-tables": "^2.8.0",
-		"@atlaskit/icon": "^22.18.0",
+		"@atlaskit/icon": "^22.19.0",
 		"@atlaskit/menu": "^2.12.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/pragmatic-drag-and-drop": "^1.3.0",
@@ -112,9 +112,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.editor.table.use-shared-state-hook": {
-			"type": "boolean"
-		},
 		"platform_editor_batch_steps_table": {
 			"type": "boolean"
 		},

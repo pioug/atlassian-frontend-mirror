@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.1.14
+
+### Patch Changes
+
+- [#146417](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146417)
+  [`4302239b19be5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4302239b19be5) -
+  Migrate table useSharedStateHook FF from LD to Statsig experiment.
+
 ## 2.1.13
 
 ### Patch Changes

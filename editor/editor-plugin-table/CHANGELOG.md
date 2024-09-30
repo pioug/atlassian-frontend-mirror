@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-table
 
+## 7.28.4
+
+### Patch Changes
+
+- [#146656](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146656)
+  [`2c23467e86c29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c23467e86c29) -
+  [ux] No-issue: Set isFacadeDisabled to true for table cell dropdown
+- [#146417](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146417)
+  [`4302239b19be5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4302239b19be5) -
+  Migrate table useSharedStateHook FF from LD to Statsig experiment.
+
+## 7.28.3
+
+### Patch Changes
+
+- [#145959](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145959)
+  [`ea00ae7d7d94f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea00ae7d7d94f) -
+  [ED-25130] Fix sticky header numbered column when using the new breakout css logic
+  (container-type)
+- Updated dependencies
+
 ## 7.28.2
 
 ### Patch Changes

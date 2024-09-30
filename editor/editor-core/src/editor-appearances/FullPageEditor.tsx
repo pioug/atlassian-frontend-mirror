@@ -22,7 +22,6 @@ export type FullPageEditorProps = Pick<
 	| 'quickInsert'
 	| 'secondaryToolbarComponents'
 	| 'featureFlags'
-	| 'trackValidTransactions'
 	| 'primaryToolbarComponents'
 	| 'contextPanel'
 	| 'contentComponents'

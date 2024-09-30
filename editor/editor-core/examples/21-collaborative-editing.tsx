@@ -215,10 +215,8 @@ const FullPageComposableEditor = (props: any) => {
 			defaultValue={props.defaultValue}
 			preset={fullPagePreset}
 			appearance={props.appearance}
-			placeholder={props.placeholder}
 			// Providers
 			mentionProvider={props.mentionProvider}
-			media={props.media}
 			emojiProvider={props.emojiProvider}
 			contextIdentifierProvider={props.contextIdentifierProvider}
 			collabEdit={props.collabEdit}

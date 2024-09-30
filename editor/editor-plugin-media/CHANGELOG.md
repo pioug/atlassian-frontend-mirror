@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-media
 
+## 1.34.1
+
+### Patch Changes
+
+- [#146446](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146446)
+  [`c98c34dd5f307`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c98c34dd5f307) -
+  [ED-24941] Added analytics for media-insert
+
+  - **@atlaskit/editor-common**: Add enums and types for new anaylics params
+  - **@atlaskit/editor-plugin-media**: Include 'insertMediaVia' on analytics events for inserting
+    media into the document
+  - **@atlaskit/editor-plugin-media-insert**: Set 'insertMediaVia' field for particular
+    'externalUpload', 'externalUrl' or 'localUpload' media inserts
+
 ## 1.34.0
 
 ### Minor Changes

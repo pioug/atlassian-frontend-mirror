@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 
 import rafSchedule from 'raf-schd';
 import { createPortal } from 'react-dom';
@@ -130,9 +130,28 @@ export const FixedButton = ({
 		isContextualMenuOpen,
 	]);
 
-	const targetCellRect = targetCellRef.getBoundingClientRect();
-
 	const fixedButtonTop = fg('platform_editor_breakout_use_css') ? 0 : stickyHeader.top;
+
+	const containerLeft = useMemo(() => {
+		if (!fg('platform_editor_breakout_use_css')) {
+			return 0;
+		}
+
+		const container = targetCellRef.closest('[data-testid="ak-editor-fp-content-area"]');
+		return container?.getBoundingClientRect().left || 0;
+	}, [targetCellRef]);
+
+	const left = useMemo(() => {
+		const targetCellRect = targetCellRef.getBoundingClientRect();
+		const baseLeft = calcLeftPos({
+			buttonWidth: BUTTON_WIDTH,
+			cellRectLeft: targetCellRect.left,
+			cellRefWidth: targetCellRef.clientWidth,
+			offset,
+		});
+
+		return baseLeft - containerLeft;
+	}, [containerLeft, targetCellRef, offset]);
 
 	// Using a portal here to ensure wrapperRef has the tableWrapper as an
 	// ancestor. This is required to make the Intersection Observer work.
@@ -166,12 +185,7 @@ export const FixedButton = ({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					zIndex: akEditorTableCellOnStickyHeaderZIndex,
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-					left: calcLeftPos({
-						buttonWidth: BUTTON_WIDTH,
-						cellRectLeft: targetCellRect.left,
-						cellRefWidth: targetCellRef.clientWidth,
-						offset,
-					}),
+					left,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					width: token('space.250', '20px'), // BUTTON_WIDTH
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

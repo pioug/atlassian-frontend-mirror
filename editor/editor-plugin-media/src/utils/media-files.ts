@@ -10,6 +10,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { type InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import { DEFAULT_IMAGE_HEIGHT, DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-inline';
 import {
 	atTheBeginningOfBlock,
@@ -64,6 +65,7 @@ export const canInsertMediaInline = (state: EditorState): boolean => {
 const getInsertMediaGroupAnalytics = (
 	mediaState: MediaState[],
 	inputMethod?: InputMethodInsertMedia,
+	insertMediaVia?: InsertMediaVia,
 ): InsertEventPayload => {
 	let media = '';
 	if (mediaState.length === 1) {
@@ -80,6 +82,7 @@ const getInsertMediaGroupAnalytics = (
 			type: ACTION_SUBJECT_ID.MEDIA_GROUP,
 			inputMethod,
 			fileExtension: media,
+			insertMediaVia,
 		},
 		eventType: EVENT_TYPE.TRACK,
 	};
@@ -88,6 +91,7 @@ const getInsertMediaGroupAnalytics = (
 const getInsertMediaInlineAnalytics = (
 	mediaState: MediaState,
 	inputMethod?: InputMethodInsertMedia,
+	insertMediaVia?: InsertMediaVia,
 ): InsertEventPayload => {
 	const media = mediaState.fileMimeType || 'unknown';
 
@@ -99,6 +103,7 @@ const getInsertMediaInlineAnalytics = (
 			type: ACTION_SUBJECT_ID.MEDIA_INLINE,
 			inputMethod,
 			fileExtension: media,
+			insertMediaVia,
 		},
 		eventType: EVENT_TYPE.TRACK,
 	};
@@ -155,6 +160,7 @@ export const insertMediaInlineNode =
 		collection: string,
 		allowInlineImages: boolean,
 		inputMethod?: InputMethodInsertMedia,
+		insertMediaVia?: InsertMediaVia,
 	): boolean => {
 		const { state, dispatch } = view;
 		const { schema, tr } = state;
@@ -201,7 +207,7 @@ export const insertMediaInlineNode =
 		}
 
 		editorAnalyticsAPI?.attachAnalyticsEvent(
-			getInsertMediaInlineAnalytics(mediaState, inputMethod),
+			getInsertMediaInlineAnalytics(mediaState, inputMethod, insertMediaVia),
 		)(tr);
 		dispatch(tr);
 		return true;
@@ -222,6 +228,7 @@ export const insertMediaGroupNode =
 		collection: string,
 		inputMethod?: InputMethodInsertMedia,
 		isNestingInQuoteSupported?: boolean,
+		insertMediaVia?: InsertMediaVia,
 	): void => {
 		const { state, dispatch } = view;
 		const { tr, schema } = state;
@@ -275,7 +282,7 @@ export const insertMediaGroupNode =
 				tr.insert(mediaInsertPos, content).deleteRange(deleteRange.start, deleteRange.end);
 			}
 			editorAnalyticsAPI?.attachAnalyticsEvent(
-				getInsertMediaGroupAnalytics(mediaStates, inputMethod),
+				getInsertMediaGroupAnalytics(mediaStates, inputMethod, insertMediaVia),
 			)(tr);
 			dispatch(tr);
 			setSelectionAfterMediaInsertion(view);
@@ -287,7 +294,7 @@ export const insertMediaGroupNode =
 			content.push(paragraph.create());
 		}
 		editorAnalyticsAPI?.attachAnalyticsEvent(
-			getInsertMediaGroupAnalytics(mediaStates, inputMethod),
+			getInsertMediaGroupAnalytics(mediaStates, inputMethod, insertMediaVia),
 		)(tr);
 
 		dispatch(safeInsert(Fragment.fromArray(content), mediaInsertPos)(tr));

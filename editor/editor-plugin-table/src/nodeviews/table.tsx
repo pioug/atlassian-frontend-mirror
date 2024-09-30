@@ -19,7 +19,7 @@ import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state'
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { pluginConfig as getPluginConfig } from '../create-plugin-config';
 import { pluginKey as tableDragAndDropPluginKey } from '../pm-plugins/drag-and-drop';
@@ -182,7 +182,7 @@ export default class TableView extends ReactNodeView<Props> {
 	};
 
 	render(props: Props, forwardRef: ForwardRef) {
-		if (fg('platform.editor.table.use-shared-state-hook')) {
+		if (editorExperiment('platform_editor_table_use_shared_state_hook', true)) {
 			return (
 				<TableComponentWithSharedState
 					forwardRef={forwardRef}

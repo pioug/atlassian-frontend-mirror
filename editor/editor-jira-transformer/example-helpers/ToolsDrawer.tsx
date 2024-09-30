@@ -12,7 +12,7 @@ import { JIRATransformer } from '../src';
 
 import { content } from './styles';
 
-import { MentionResource } from '@atlaskit/editor-core';
+import { MentionResource } from '@atlaskit/mention/resource';
 import { token } from '@atlaskit/tokens';
 
 const rejectedPromise = Promise.reject(new Error('Simulated provider rejection'));

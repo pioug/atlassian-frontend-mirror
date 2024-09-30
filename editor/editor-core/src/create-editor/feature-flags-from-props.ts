@@ -42,8 +42,6 @@ export function createFeatureFlagsFromProps(props: Omit<EditorNextProps, 'preset
 	return {
 		...normalizedFeatureFlags,
 
-		placeholderBracketHint: !!props.placeholderBracketHint,
-
 		catchAllTracking: props.performanceTracking?.catchAllTracking?.enabled,
 
 		showAvatarGroupAsPlugin: Boolean(

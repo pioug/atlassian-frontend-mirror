@@ -4,6 +4,7 @@ export {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
+	INSERT_MEDIA_VIA,
 	TRIGGER_METHOD,
 	CONTENT_COMPONENT,
 	FLOATING_CONTROLS_TITLE,
@@ -41,6 +42,7 @@ export { LINK_REPRESENTATION, LINK_RESOURCE, LINK_STATUS, USER_CONTEXT } from '.
 export type {
 	InputMethodInsertLink,
 	InputMethodInsertMedia,
+	InsertMediaVia,
 	InsertEventPayload,
 } from './insert-events';
 export {

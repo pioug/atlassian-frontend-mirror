@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 12.2.2
+
+### Patch Changes
+
+- [#146405](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146405)
+  [`a92a52978058c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a92a52978058c) -
+  Exports a temporary UNSAFE_SurfaceContext export that may be removed in a future minor version to
+  decouple Compiled migrations from Primitives
+
 ## 12.2.1
 
 ### Patch Changes

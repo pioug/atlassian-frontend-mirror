@@ -163,10 +163,14 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		disabled,
 		isToolbarReducedSpacing,
 	}) => {
-		const isSmall =
+		let isSmall =
 			options && options.isUndoRedoButtonsEnabled
 				? toolbarSize < ToolbarSize.XXL
 				: toolbarSize < ToolbarSize.XL;
+
+		if (fg('platform_editor_toolbar_responsive_fixes')) {
+			isSmall = toolbarSize < ToolbarSize.XXL;
+		}
 
 		return (
 			<PrimaryToolbarComponent

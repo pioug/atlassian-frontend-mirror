@@ -8,15 +8,22 @@ export type MediaInsertPluginAction = typeof ACTION_OPEN_POPUP | typeof ACTION_C
 export const ACTION_OPEN_POPUP = 'OPEN_POPUP';
 export const ACTION_CLOSE_POPUP = 'CLOSE_POPUP';
 
-const setPopupMeta = ({ type, tr }: { type: MediaInsertPluginAction; tr: Transaction }) =>
-	tr.setMeta(pluginKey, { type });
+const setPopupMeta = ({
+	type,
+	tr,
+	target,
+}: {
+	type: MediaInsertPluginAction;
+	target?: HTMLElement;
+	tr: Transaction;
+}) => tr.setMeta(pluginKey, { type, target });
 
-export const showMediaInsertPopup = (tr: Transaction) => {
+export const showMediaInsertPopup = (tr: Transaction, target?: HTMLElement) => {
 	// Log exposure here but don't actually switch anything on it
 	editorExperiment('add-media-from-url', true, {
 		exposure: true,
 	});
-	return setPopupMeta({ type: ACTION_OPEN_POPUP, tr });
+	return setPopupMeta({ type: ACTION_OPEN_POPUP, target, tr });
 };
 
 export const closeMediaInsertPicker = (tr: Transaction) => {

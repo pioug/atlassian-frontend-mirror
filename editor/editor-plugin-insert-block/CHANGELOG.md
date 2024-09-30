@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.2.3
+
+### Patch Changes
+
+- [#146643](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146643)
+  [`6b3dec2ad5378`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b3dec2ad5378) -
+  [ux] ED-25116 Pin media popup to toolbar when triggered from toolbar
+- Updated dependencies
+
+## 2.2.2
+
+### Patch Changes
+
+- [#146455](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146455)
+  [`b692485729f1c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b692485729f1c) -
+  improve comment editor toolbar responsiveness
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

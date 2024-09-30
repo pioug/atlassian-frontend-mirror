@@ -12,6 +12,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { type InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import { safeInsert, shouldSplitSelectedNodeOnNodeInsertion } from '@atlaskit/editor-common/insert';
 import {
 	DEFAULT_IMAGE_WIDTH,
@@ -48,12 +49,14 @@ interface MediaSingleState extends MediaState {
 const getInsertMediaAnalytics = (
 	inputMethod: InputMethodInsertMedia,
 	fileExtension?: string,
+	insertMediaVia?: InsertMediaVia,
 ): InsertEventPayload => ({
 	action: ACTION.INSERTED,
 	actionSubject: ACTION_SUBJECT.DOCUMENT,
 	actionSubjectId: ACTION_SUBJECT_ID.MEDIA,
 	attributes: {
 		inputMethod,
+		insertMediaVia,
 		fileExtension,
 		type: ACTION_SUBJECT_ID.MEDIA_SINGLE,
 	},
@@ -76,6 +79,7 @@ function insertNodesWithOptionalParagraph(
 	} = {},
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	isNestingInQuoteSupported?: boolean,
+	insertMediaVia?: InsertMediaVia,
 ): Command {
 	return function (state, dispatch) {
 		const { tr, schema } = state;
@@ -108,9 +112,9 @@ function insertNodesWithOptionalParagraph(
 		}
 
 		if (inputMethod) {
-			editorAnalyticsAPI?.attachAnalyticsEvent(getInsertMediaAnalytics(inputMethod, fileExtension))(
-				tr,
-			);
+			editorAnalyticsAPI?.attachAnalyticsEvent(
+				getInsertMediaAnalytics(inputMethod, fileExtension, insertMediaVia),
+			)(tr);
 		}
 		if (newType && previousType) {
 			editorAnalyticsAPI?.attachAnalyticsEvent(
@@ -132,6 +136,7 @@ export type InsertMediaAsMediaSingle = (
 	node: PMNode,
 	inputMethod: InputMethodInsertMedia,
 	isNestingInQuoteSupported?: boolean,
+	insertMediaVia?: InsertMediaVia,
 ) => boolean;
 
 export const insertMediaAsMediaSingle = (
@@ -140,6 +145,7 @@ export const insertMediaAsMediaSingle = (
 	inputMethod: InputMethodInsertMedia,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	isNestingInQuoteSupported?: boolean,
+	insertMediaVia?: InsertMediaVia,
 ): boolean => {
 	const { state, dispatch } = view;
 	const { mediaSingle, media } = state.schema.nodes;
@@ -178,6 +184,7 @@ export const insertMediaAsMediaSingle = (
 		analyticsAttributes,
 		editorAnalyticsAPI,
 		isNestingInQuoteSupported,
+		insertMediaVia,
 	)(state, dispatch);
 };
 
@@ -199,6 +206,7 @@ export const insertMediaSingleNode = (
 	editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 	onNodeInserted?: (id: string, selectionPosition: number) => void,
 	isNestingInQuoteSupported?: boolean,
+	insertMediaVia?: InsertMediaVia,
 ): boolean => {
 	if (collection === undefined) {
 		return false;
@@ -245,6 +253,7 @@ export const insertMediaSingleNode = (
 			{ fileExtension, inputMethod },
 			editorAnalyticsAPI,
 			isNestingInQuoteSupported,
+			insertMediaVia,
 		)(state, dispatch);
 	} else {
 		let tr: Transaction | null = null;
@@ -258,9 +267,9 @@ export const insertMediaSingleNode = (
 		}
 
 		if (inputMethod) {
-			editorAnalyticsAPI?.attachAnalyticsEvent(getInsertMediaAnalytics(inputMethod, fileExtension))(
-				tr,
-			);
+			editorAnalyticsAPI?.attachAnalyticsEvent(
+				getInsertMediaAnalytics(inputMethod, fileExtension, insertMediaVia),
+			)(tr);
 		}
 		dispatch(tr);
 	}

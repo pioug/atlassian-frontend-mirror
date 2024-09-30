@@ -1,5 +1,12 @@
 # @atlaskit/icon
 
+## 22.19.0
+
+### Minor Changes
+
+- [`318191402c2ad`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/318191402c2ad) -
+  Add LEGACY_fallbackComponent prop to Icon Tile
+
 ## 22.18.1
 
 ### Patch Changes

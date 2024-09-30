@@ -42,7 +42,6 @@
 	"dependencies": {
 		"@babel/runtime": "^7.0.0"
 	},
-	"peerDependencies": {},
 	"bugs": {
 		"url": "https://bitbucket.org/atlassian/atlassian-frontend-mirror/issues"
 	},

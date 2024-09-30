@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import {
 	ExampleCreateInlineCommentComponent,
 	ExampleViewInlineCommentComponent,
@@ -8,7 +9,6 @@ import {
 import { token } from '@atlaskit/tokens';
 
 import { exampleDocumentWithComments } from '../example-helpers/example-doc-with-comments';
-import { AnnotationUpdateEmitter } from '../src';
 
 import { default as FullPageExample } from './5-full-page';
 

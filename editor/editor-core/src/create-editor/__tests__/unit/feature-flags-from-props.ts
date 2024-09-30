@@ -26,21 +26,6 @@ describe('Feature Flags from Props', () => {
 		});
 	});
 
-	describe('placeholder text', () => {
-		it('should default placeholderBracketHint to false if a no placeholderBracketHint string is provided', () => {
-			const flags = createFeatureFlagsFromProps({
-				placeholderBracketHint: undefined,
-			});
-			expect(flags.placeholderBracketHint).toBe(false);
-		});
-		it('should set placeholderBracketHint to true if a placeholderBracketHint string is provided', () => {
-			const flags = createFeatureFlagsFromProps({
-				placeholderBracketHint: 'hello world',
-			});
-			expect(flags.placeholderBracketHint).toBe(true);
-		});
-	});
-
 	describe('featureFlags', () => {
 		it('should merge mapFeatureFlagsProp result', () => {
 			expect(

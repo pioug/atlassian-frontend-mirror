@@ -21,6 +21,7 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import type { ResolvingMentionProvider } from '@atlaskit/mention/resource';
+import type { MentionProvider } from '@atlaskit/mention/resource';
 import type { ConfigResponse, ShareResponse } from '@atlaskit/share';
 import { ShareDialogContainer } from '@atlaskit/share';
 import type { OptionData, User } from '@atlaskit/smart-user-picker';
@@ -35,7 +36,6 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
 
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
-import type { MentionProvider } from '../src';
 import type { EditorProps } from '../src';
 import { Editor } from '../src';
 import { usePresetContext } from '../src/presets/context';
@@ -218,9 +218,6 @@ const editorProps = ({
 	allowDate: true,
 	allowPanel: true,
 	allowFindReplace: true,
-	// Cleanup: `platform_editor_remove_hide_avatar_group_prop`
-	// Remove `hideAvatarGroup` prop
-	hideAvatarGroup: true,
 	featureFlags: {
 		showAvatarGroupAsPlugin: true,
 		collabAvatarScroll: true,

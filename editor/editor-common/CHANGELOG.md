@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 91.2.1
+
+### Patch Changes
+
+- [#146446](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146446)
+  [`c98c34dd5f307`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c98c34dd5f307) -
+  [ED-24941] Added analytics for media-insert
+
+  - **@atlaskit/editor-common**: Add enums and types for new anaylics params
+  - **@atlaskit/editor-plugin-media**: Include 'insertMediaVia' on analytics events for inserting
+    media into the document
+  - **@atlaskit/editor-plugin-media-insert**: Set 'insertMediaVia' field for particular
+    'externalUpload', 'externalUrl' or 'localUpload' media inserts
+
+## 91.2.0
+
+### Minor Changes
+
+- [#146455](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146455)
+  [`b692485729f1c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b692485729f1c) -
+  improve comment editor toolbar responsiveness
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 91.1.2
 
 ### Patch Changes

@@ -8,7 +8,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { hoverCell, hoverRows, selectRow, selectRows } from '../../commands';
 import type { TablePlugin } from '../../plugin';
@@ -163,7 +163,7 @@ export const TableFloatingControls = ({
 						{isDragAndDropEnabled ? (
 							<>
 								{shouldShowCornerControls &&
-									(fg('platform.editor.table.use-shared-state-hook') ? (
+									(editorExperiment('platform_editor_table_use_shared_state_hook', true) ? (
 										<DragCornerControlsWithSelection
 											editorView={editorView}
 											tableRef={tableRef}
@@ -195,7 +195,7 @@ export const TableFloatingControls = ({
 									updateCellHoverLocation={updateCellHoverLocation}
 								/>
 							</>
-						) : fg('platform.editor.table.use-shared-state-hook') ? (
+						) : editorExperiment('platform_editor_table_use_shared_state_hook', true) ? (
 							<FloatingControlsWithSelection
 								editorView={editorView}
 								tableRef={tableRef}

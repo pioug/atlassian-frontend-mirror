@@ -94,7 +94,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/ds-lib": "^2.6.0",
 		"@atlaskit/focus-ring": "^1.6.0",
-		"@atlaskit/icon": "^22.18.0",
+		"@atlaskit/icon": "^22.19.0",
 		"@atlaskit/interaction-context": "^2.1.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.2.0",

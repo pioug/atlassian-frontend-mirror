@@ -2,6 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import type { MacroAttributes, MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Node } from '@atlaskit/editor-prosemirror/model';
@@ -24,7 +25,6 @@ import {
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
 import Editor from '../../../editor';
-import type { MacroAttributes, MacroProvider } from '../../../index';
 import { EditorActions } from '../../../index';
 
 describe('Editor Actions', () => {

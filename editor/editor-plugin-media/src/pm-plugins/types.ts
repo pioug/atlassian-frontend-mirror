@@ -1,4 +1,5 @@
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import { type InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -51,6 +52,7 @@ export interface MediaPluginState {
 		mediaState: MediaState,
 		onMediaStateChanged: MediaStateEventSubscriber,
 		pickerType?: string,
+		insertMediaVia?: InsertMediaVia,
 	) => void;
 	addPendingTask: (promise: Promise<any>) => void;
 	splitMediaGroup: () => boolean;

@@ -1,5 +1,3 @@
-import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
-
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 
 type SentinelState = 'above' | 'visible' | 'below';
@@ -56,9 +54,7 @@ export class TableStickyScrollbar {
 	}
 
 	private createIntersectionObserver() {
-		this.rendererScrollableElement =
-			findOverflowScrollParent(window.document.querySelector('.pm-table-container')) ||
-			window.document;
+		this.rendererScrollableElement = window.document;
 
 		if (!this.rendererScrollableElement || !this.wrapper) {
 			return;
@@ -72,11 +68,6 @@ export class TableStickyScrollbar {
 
 				entries.forEach((entry) => {
 					const target = entry.target as HTMLElement;
-					// if the rootBounds has 0 height, e.g. confluence preview mode, we do nothing.
-					if (entry.rootBounds?.height === 0) {
-						return;
-					}
-
 					if (
 						target.classList.contains(
 							TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM,

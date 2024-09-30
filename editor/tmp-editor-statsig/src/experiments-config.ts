@@ -214,4 +214,13 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
 	},
+	// Added 2024-09-26
+	platform_editor_table_use_shared_state_hook: {
+		productKeys: {
+			confluence: 'platform_editor_table_use_shared_state_hook',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

@@ -51,7 +51,7 @@ export interface Props {
 	insertMenuItems?: MenuItem[];
 	showElementBrowserLink?: boolean;
 	showSeparator?: boolean;
-	onShowMediaPicker?: () => void;
+	onShowMediaPicker?: (ref?: HTMLElement) => void;
 	onInsertBlockType?: (name: string) => Command;
 	onInsertMacroFromMacroBrowser?: (
 		macroProvider: MacroProvider,

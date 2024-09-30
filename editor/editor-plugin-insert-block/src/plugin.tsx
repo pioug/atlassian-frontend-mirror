@@ -37,6 +37,7 @@ import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import { transformationOptions } from './ui/transformOptions';
 
 const toolbarSizeToButtons = (toolbarSize: ToolbarSize, appearance?: EditorAppearance) => {
+	// Different button numbers for full-page to better match full page toolbar breakpoints
 	if (appearance === 'full-page' && fg('platform_editor_toolbar_responsive_fixes')) {
 		switch (toolbarSize) {
 			case ToolbarSize.XXL:
@@ -49,18 +50,35 @@ const toolbarSizeToButtons = (toolbarSize: ToolbarSize, appearance?: EditorAppea
 				return 0;
 		}
 	}
-	switch (toolbarSize) {
-		case ToolbarSize.XXL:
-		case ToolbarSize.XL:
-		case ToolbarSize.L:
-		case ToolbarSize.M:
-			return 7;
 
-		case ToolbarSize.S:
-			return 2;
+	if (fg('platform_editor_toolbar_responsive_fixes')) {
+		switch (toolbarSize) {
+			case ToolbarSize.XXL:
+				return 7;
+			case ToolbarSize.XL:
+				return 5;
+			case ToolbarSize.L:
+			case ToolbarSize.M:
+			case ToolbarSize.S:
+				return 2;
 
-		default:
-			return 0;
+			default:
+				return 0;
+		}
+	} else {
+		switch (toolbarSize) {
+			case ToolbarSize.XXL:
+			case ToolbarSize.XL:
+			case ToolbarSize.L:
+			case ToolbarSize.M:
+				return 7;
+
+			case ToolbarSize.S:
+				return 2;
+
+			default:
+				return 0;
+		}
 	}
 };
 
@@ -411,14 +429,14 @@ function ToolbarInsertBlockWithInjectionApi({
 
 	const emojiProvider = getEmojiProvider();
 
-	const onShowMediaPicker = () => {
+	const onShowMediaPicker = (targetRef?: HTMLElement) => {
 		if (!mediaState) {
 			return;
 		}
 
 		if (editorExperiment('add-media-from-url', true)) {
 			pluginInjectionApi?.core?.actions.execute(
-				pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup,
+				pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(targetRef),
 			);
 		} else {
 			mediaState.showMediaPicker();

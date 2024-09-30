@@ -187,6 +187,13 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 			};
 		},
 
+		commands: {
+			updateEditPermission:
+				(hasEditPermission: boolean | undefined) =>
+				({ tr }) =>
+					tr.setMeta(taskPluginKey, { hasEditPermission }),
+		},
+
 		actions: {
 			insertTaskDecision: insertTaskDecisionCommand(api?.analytics?.actions, getIdentifierProvider),
 			indentTaskList: getIndentCommand(api?.analytics?.actions),

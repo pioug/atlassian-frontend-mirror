@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.7.0
+
+### Minor Changes
+
+- [#146446](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146446)
+  [`725ff855c13b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/725ff855c13b6) -
+  ED-24965 Adds new command to update hasEditPermission from outside plugin
+
+## 2.6.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.8
 
 ### Patch Changes

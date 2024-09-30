@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "197.13.3",
+	"version": "198.0.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,14 +43,14 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.2.0",
-		"@atlaskit/editor-common": "^91.1.0",
+		"@atlaskit/editor-common": "^91.2.0",
 		"@atlaskit/editor-json-transformer": "^8.18.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.4.3",
-		"@atlaskit/editor-plugins": "^5.4.0",
+		"@atlaskit/editor-plugins": "^5.5.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.0.0",
 		"@atlaskit/emoji": "^67.8.0",
-		"@atlaskit/icon": "^22.18.0",
+		"@atlaskit/icon": "^22.19.0",
 		"@atlaskit/media-card": "^78.5.0",
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -79,7 +79,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@af/editor-examples-helpers": "0.3.14",
+		"@af/editor-examples-helpers": "0.3.15",
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.8.0",
@@ -184,10 +184,6 @@
 		"editor_inline_comments_paste_insert_nodes": {
 			"type": "boolean",
 			"referenceOnly": "true"
-		},
-		"platform.editor.table.use-shared-state-hook": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform.editor.media.extended-resize-experience": {
 			"type": "boolean",

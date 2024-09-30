@@ -500,7 +500,7 @@ export default function createUniversalPresetInternal({
 			],
 			Boolean(props.allowFindReplace),
 		)
-		.maybeAdd(borderPlugin, Boolean(props.allowBorderMark || props.UNSAFE_allowBorderMark))
+		.maybeAdd(borderPlugin, Boolean(props.allowBorderMark))
 		.maybeAdd(fragmentPlugin, Boolean(props.allowFragmentMark))
 		.add(pasteOptionsToolbarPlugin)
 		.add([

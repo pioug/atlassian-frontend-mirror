@@ -116,7 +116,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/emoji": "67.8.2",
-		"@atlaskit/icon": "^22.18.0",
+		"@atlaskit/icon": "^22.19.0",
 		"@atlaskit/mention": "23.3.1",
 		"@atlaskit/profilecard": "^20.1.0",
 		"@atlaskit/theme": "^13.0.0",

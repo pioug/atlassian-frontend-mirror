@@ -1,6 +1,7 @@
 export {
 	ToolbarSize,
 	ToolbarWidths,
+	ToolbarWidthsNext,
 	ToolbarWidthsFullPage,
 	ToolbarWidthsFullPageNext,
 } from '@atlaskit/editor-common/types';

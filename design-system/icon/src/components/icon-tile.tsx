@@ -3,12 +3,15 @@
  * @jsx jsx
  */
 import { type ComponentType } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { type SerializedStyles, css, jsx } from '@emotion/react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx, type SerializedStyles } from '@emotion/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { type IconTileProps, type IconTileSize, type IconTileAppearance } from '../types';
+import { type IconTileAppearance, type IconTileProps, type IconTileSize } from '../types';
+
 import { type InternalIconPropsNew } from './icon-new';
 
 const sizeMap: { [K in IconTileSize]: SerializedStyles } = {
@@ -143,12 +146,24 @@ const iconTileStyles = css({
  *
  */
 export default function IconTile(props: IconTileProps) {
-	const { icon: Icon, label, appearance, size = '24', shape = 'square' } = props;
+	const {
+		icon: Icon,
+		label,
+		appearance,
+		size = '24',
+		shape = 'square',
+		LEGACY_fallbackComponent,
+	} = props;
 
 	const ExpandedIcon = Icon as ComponentType<InternalIconPropsNew>;
-	return (
-		<span css={[iconTileStyles, appearanceMap[appearance], sizeMap[size], shapeMap[shape]]}>
-			<ExpandedIcon color="currentColor" label={label} spacing="spacious" shouldScale={true} />
-		</span>
-	);
+
+	if (LEGACY_fallbackComponent && !fg('platform.design-system-team.enable-new-icons')) {
+		return LEGACY_fallbackComponent;
+	} else {
+		return (
+			<span css={[iconTileStyles, appearanceMap[appearance], sizeMap[size], shapeMap[shape]]}>
+				<ExpandedIcon color="currentColor" label={label} spacing="spacious" shouldScale={true} />
+			</span>
+		);
+	}
 }

@@ -1,4 +1,4 @@
-import type { ComponentType, ReactNode, SVGProps as ReactSVGProps } from 'react';
+import type { ComponentType, ReactElement, ReactNode, SVGProps as ReactSVGProps } from 'react';
 
 import type {
 	IconColor,
@@ -120,7 +120,7 @@ export interface IconProps extends GlyphProps, IconInternalGlyphProps {
 
 export interface NewIconProps extends NewGlyphProps, IconInternalGlyphProps {
 	/**
-	 * Legacy icon component to render when feature flag turned off.
+	 * Legacy icon component to render when the icon refresh feature flag is turned off.
 	 * The legacy icon defaults to "medium" size, with `primaryColor` set to the value of the `color` prop.
 	 */
 	LEGACY_fallbackIcon?: ComponentType<IconProps>;
@@ -193,6 +193,10 @@ export interface IconTileProps {
 	 * Shape of the tile background. Defaults to "square"
 	 */
 	shape?: 'square' | 'circle';
+	/**
+	 * Legacy component to render when the icon refresh feature flag is turned off.
+	 */
+	LEGACY_fallbackComponent?: ReactElement;
 }
 
 export interface SkeletonProps {

@@ -47,7 +47,6 @@
 		},
 		"runReact18": true
 	},
-	"scripts": {},
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",

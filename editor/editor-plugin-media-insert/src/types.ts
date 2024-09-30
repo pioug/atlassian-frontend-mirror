@@ -1,4 +1,5 @@
 import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
+import { type InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type {
 	EditorCommand,
@@ -17,11 +18,13 @@ import {
 
 export type MediaInsertPluginState = {
 	isOpen?: boolean;
+	target?: HTMLElement;
 };
 
 export type InsertMediaSingle = (props: {
 	mediaState: MediaState;
 	inputMethod: InputMethodInsertMedia;
+	insertMediaVia: InsertMediaVia;
 }) => boolean;
 
 export type MediaInsertPlugin = NextEditorPlugin<
@@ -34,7 +37,7 @@ export type MediaInsertPlugin = NextEditorPlugin<
 		];
 		sharedState: MediaInsertPluginState;
 		commands: {
-			showMediaInsertPopup: EditorCommand;
+			showMediaInsertPopup: (target?: HTMLElement) => EditorCommand;
 		};
 	}
 >;

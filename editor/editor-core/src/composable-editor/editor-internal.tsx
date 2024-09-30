@@ -245,9 +245,9 @@ function ReactEditorViewContextWrapper(props: ReactEditorViewContextWrapperProps
 	useProviders({
 		editorApi: fg('platform_editor_remove_use_preset_context') ? editorAPI : presetContextEditorAPI,
 		contextIdentifierProvider: props.editorProps.contextIdentifierProvider,
-		mediaProvider: props.editorProps.media?.provider,
+		mediaProvider: (props.editorProps as EditorProps).media?.provider,
 		cardProvider:
-			props.editorProps.linking?.smartLinks?.provider ||
+			(props.editorProps as EditorProps).linking?.smartLinks?.provider ||
 			(smartLinks && smartLinks.provider) ||
 			(UNSAFE_cards && UNSAFE_cards.provider),
 		emojiProvider: props.editorProps.emojiProvider,

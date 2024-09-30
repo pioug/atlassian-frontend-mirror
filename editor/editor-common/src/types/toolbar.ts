@@ -11,6 +11,10 @@ export enum ToolbarSize {
 	XXXS = 1,
 }
 
+/** @deprecated
+ * To be removed as part of ED-25129 in favour of ToolbarWidthsNext along with references
+ * to platform_editor_toolbar_responsive_fixes feature gate
+ */
 export enum ToolbarWidths {
 	XXL = 610,
 	XL = 540,
@@ -19,6 +23,18 @@ export enum ToolbarWidths {
 	S = 410,
 }
 
+export enum ToolbarWidthsNext {
+	XXL = 768,
+	XL = 576,
+	L = 460,
+	M = 450,
+	S = 410,
+}
+
+/** @deprecated
+ * To be removed as part of ED-25129 in favour of ToolbarWidthsFullPageNext along with references
+ * to platform_editor_toolbar_responsive_fixes feature gate
+ */
 export enum ToolbarWidthsFullPage {
 	XXL = 650,
 	XL = 580,

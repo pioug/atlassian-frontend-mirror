@@ -45,7 +45,6 @@ import type { Props, State } from './types';
  * Checks if an element is detached (i.e. not in the current document)
  */
 const isDetachedElement = (el: HTMLElement) => !document.body.contains(el);
-const noop = () => {};
 
 const EmojiPickerWithListeners = withOuterListeners(AkEmojiPicker);
 const TABLE_SELECTOR_STRING = 'table selector';
@@ -108,6 +107,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
 > {
 	private dropdownButtonRef?: HTMLElement;
 	private emojiButtonRef?: HTMLElement;
+	private mediaButtonRef?: HTMLElement;
 	private plusButtonRef?: HTMLElement;
 	private tableButtonRef = React.createRef<HTMLElement>();
 	private tableSelectorButtonRef = React.createRef<HTMLElement>();
@@ -298,11 +298,22 @@ export class ToolbarInsertBlock extends React.PureComponent<
 		);
 	}
 
-	private handleEmojiButtonRef = (ref: ToolbarButtonRef): void => {
-		if (ref) {
-			this.emojiButtonRef = ref;
-		}
-	};
+	private handleToolbarRef =
+		(buttonName: string) =>
+		(ref: ToolbarButtonRef): void => {
+			if (!ref) {
+				return;
+			}
+
+			switch (buttonName) {
+				case 'emoji':
+					this.emojiButtonRef = ref;
+					break;
+				case 'media':
+					this.mediaButtonRef = ref;
+					break;
+			}
+		};
 
 	private handlePlusButtonRef = (ref: ToolbarButtonRef): void => {
 		if (ref) {
@@ -426,7 +437,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
 						<ToolbarButton
 							item={btn}
 							testId={String(btn.content)}
-							ref={btn.value.name === 'emoji' ? this.handleEmojiButtonRef : noop}
+							ref={this.handleToolbarRef(btn.value.name)}
 							key={btn.value.name}
 							spacing={isReducedSpacing ? 'none' : 'default'}
 							disabled={isDisabled || btn.isDisabled}
@@ -696,7 +707,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
 	private openMediaPicker = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
 		const { onShowMediaPicker, dispatchAnalyticsEvent } = this.props;
 		if (onShowMediaPicker) {
-			onShowMediaPicker();
+			onShowMediaPicker(this.mediaButtonRef);
 			if (dispatchAnalyticsEvent) {
 				dispatchAnalyticsEvent({
 					action: ACTION.OPENED,

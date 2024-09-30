@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.9.0
+
+### Minor Changes
+
+- [#146603](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146603)
+  [`73a0361be46a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73a0361be46a2) -
+  Created new rule `@atlaskit/platform/ensure-valid-bin-values` which validates bin values in
+  package.json files are valid point to files, not directories.
+
 ## 0.8.0
 
 ### Minor Changes

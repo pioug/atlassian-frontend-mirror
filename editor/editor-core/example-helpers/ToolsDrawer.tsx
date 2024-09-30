@@ -21,13 +21,13 @@ import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock'
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { EmojiResource } from '@atlaskit/emoji/resource';
+import { MentionResource } from '@atlaskit/mention/resource';
+import { TeamMentionResource } from '@atlaskit/mention/team-resource';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-
-import { MentionResource, TeamMentionResource } from '../src';
 
 import { buttonGroup, content } from './styles';
 

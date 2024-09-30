@@ -39,7 +39,7 @@
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/inline-edit": "^13.7.0",
-		"@atlaskit/lozenge": "^11.10.0",
+		"@atlaskit/lozenge": "^11.11.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/popup": "^1.27.0",
 		"@atlaskit/primitives": "^12.2.0",

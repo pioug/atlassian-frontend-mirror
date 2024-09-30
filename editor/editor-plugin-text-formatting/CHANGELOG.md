@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 1.14.9
+
+### Patch Changes
+
+- [#146455](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146455)
+  [`b692485729f1c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b692485729f1c) -
+  improve comment editor toolbar responsiveness
+- Updated dependencies
+
 ## 1.14.8
 
 ### Patch Changes

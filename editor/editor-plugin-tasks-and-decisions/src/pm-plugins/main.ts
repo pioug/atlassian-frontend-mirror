@@ -11,6 +11,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { lazyDecisionView } from '../nodeviews/decision-lazy-node-view';
 import { lazyTaskView } from '../nodeviews/task-lazy-node-view';
@@ -206,12 +207,14 @@ export function createPlugin(
 				return { insideTaskDecisionItem: false, hasEditPermission, requestToEditContent };
 			},
 			apply(tr, pluginState) {
-				const { action, data } = tr.getMeta(stateKey) || {
+				const metaData = tr.getMeta(stateKey);
+				const { action, data } = metaData || {
 					action: null,
 					data: null,
 				};
 				let newPluginState = pluginState;
 
+				// Actions
 				switch (action) {
 					case ACTIONS.FOCUS_BY_LOCALID:
 						newPluginState = {
@@ -221,6 +224,15 @@ export function createPlugin(
 						break;
 				}
 
+				// Commands
+				if (metaData && 'hasEditPermission' in metaData && fg('editor_request_to_edit_task')) {
+					newPluginState = {
+						...newPluginState,
+						hasEditPermission: metaData.hasEditPermission,
+					};
+				}
+
+				// Dispatch
 				dispatch(stateKey, newPluginState);
 				return newPluginState;
 			},

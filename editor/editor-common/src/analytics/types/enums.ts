@@ -189,6 +189,12 @@ export enum INPUT_METHOD {
 	BROWSER = 'browser',
 }
 
+export enum INSERT_MEDIA_VIA {
+	LOCAL_UPLOAD = 'localUpload',
+	EXTERNAL_URL = 'externalUrl',
+	EXTERNAL_UPLOAD = 'externalUpload',
+}
+
 export enum TRIGGER_METHOD {
 	BUTTON = 'button',
 	KEYBOARD = 'keyboard', // single key, e.g. Esc, Enter

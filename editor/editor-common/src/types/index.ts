@@ -77,6 +77,7 @@ export type { ToolbarUiComponentFactoryParams, ToolbarUIComponentFactory } from 
 export {
 	ToolbarSize,
 	ToolbarWidths,
+	ToolbarWidthsNext,
 	ToolbarWidthsFullPage,
 	ToolbarWidthsFullPageNext,
 } from './toolbar';

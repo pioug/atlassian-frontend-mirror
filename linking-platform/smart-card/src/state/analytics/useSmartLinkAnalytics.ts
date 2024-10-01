@@ -1,10 +1,6 @@
 import { useMemo } from 'react';
 import { getUrl } from '@atlaskit/linking-common';
-import {
-	type AnalyticsHandler,
-	type AnalyticsName,
-	type AnalyticsPayload,
-} from '../../utils/types';
+import { type AnalyticsName, type AnalyticsPayload } from '../../utils/types';
 import {
 	chunkloadFailedEvent,
 	connectFailedEvent,
@@ -94,35 +90,14 @@ const applyCommonAttributes = (event: AnalyticsPayload, commonAttributes: Common
  * This hook provides usage of Smart Link analytics outside of the Card component.
  * Can be provided to Card via the analyticsEvents prop to change the analytics events.
  *
- * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
- * This hook's external use is deprecated and may no longer be exported from this package in future releases.
- * Please avoid using it in conjunction with the `analyticsEvents` prop.
- *
  * @param url URL of the link
  * @param dispatchAnalytics dispatchAnalytics function
  * @param id fallback id of the events sent if no id is available
  * @param defaultLocation location attribute to be used
  * @returns
  */
-export const useSmartLinkAnalytics = (
-	url: string,
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
-	 * Overriding the analytics dispatch method is deprecated. Please omit this argument.
-	 */
-	_dispatchAnalytics?: AnalyticsHandler,
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
-	 * Provide this via the id prop on the `<Card />` component.
-	 */
-	id?: string,
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
-	 * Provide this attribute via analytics context.
-	 */
-	defaultLocation?: string,
-) => {
-	const { dispatchAnalytics } = useDispatchAnalytics(_dispatchAnalytics);
+export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?: string) => {
+	const { dispatchAnalytics } = useDispatchAnalytics();
 
 	const defaultId = id || 'NULL';
 	// We don't want to trigger a re-render by using useSmartCardState
@@ -374,7 +349,6 @@ export const useSmartLinkAnalytics = (
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
 			 * @param actionType The type of the action that was clicked, e.g. PreviewAction
 			 * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
-			 * @param invokeType @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
 			 * @returns
 			 */
 			actionClickedEvent: ({
@@ -973,12 +947,6 @@ export const useSmartLinkAnalytics = (
 						commonAttributes,
 					),
 				),
-
-			/**
-			 * Removed in EDM-5153: This is an even from an experiment.
-			 * @deprecated
-			 */
-			linkUpdated: () => {},
 
 			/**
 			 * This fires a tracking event before an action invoke api call is made

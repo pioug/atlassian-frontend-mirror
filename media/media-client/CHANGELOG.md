@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 28.0.1
+
+### Patch Changes
+
+- [#147039](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147039)
+  [`f29b4d6055c5e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f29b4d6055c5e) -
+  fix media cdn errors caused by excessive media token length
+
 ## 28.0.0
 
 ### Major Changes

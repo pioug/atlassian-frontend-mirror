@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "3.2.3",
+	"version": "3.4.0",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,7 +37,7 @@
 		"@atlaskit/adf-schema": "^40.9.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/custom-steps": "^0.7.0",
-		"@atlaskit/editor-common": "^91.2.0",
+		"@atlaskit/editor-common": "^92.0.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-decorations": "^1.3.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.3.0",
@@ -58,7 +58,7 @@
 		"@atlaskit/menu": "2.12.5",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.2.0",
-		"@atlaskit/smart-card": "^28.3.0",
+		"@atlaskit/smart-card": "^29.0.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tmp-editor-statsig": "^2.1.8",
 		"@atlaskit/tokens": "^2.0.0",
@@ -142,6 +142,9 @@
 			"type": "boolean"
 		},
 		"platform_linking_enable_transaction_filtering": {
+			"type": "boolean"
+		},
+		"linking_platform_disable_live_view_inline_overlay": {
 			"type": "boolean"
 		}
 	},

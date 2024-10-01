@@ -319,15 +319,6 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Toggle fix to mediaInline node with annotation
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-23094
-	 * @default false
-	 */
-	commentsOnMediaMediaInlineBugFix?: boolean;
-
-	/**
-	 * @description
 	 * Enables extra analytics to be added for comments on media
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/ED-23355

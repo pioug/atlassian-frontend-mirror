@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.1.15
+
+### Patch Changes
+
+- [#147137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147137)
+  [`339de234bcb4c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/339de234bcb4c) -
+  [EDF-1508] Initial spike for Multi Prompt experiment
+
 ## 2.1.14
 
 ### Patch Changes

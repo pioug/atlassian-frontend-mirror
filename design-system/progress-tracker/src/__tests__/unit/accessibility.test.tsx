@@ -4,7 +4,6 @@ import { render } from '@testing-library/react';
 import cases from 'jest-in-case';
 
 import { axe } from '@af/accessibility-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ProgressTracker, type Stages } from '../../index';
 
@@ -48,7 +47,7 @@ const items: Stages = [
 	},
 ];
 
-ffTest.both('platform-progress-tracker-functional-facade', 'should pass basic aXe audit', () => {
+describe('should pass basic aXe audit', () => {
 	cases(
 		'ProgressTracker',
 		async ({ jsx }: { jsx: ReactElement }) => {

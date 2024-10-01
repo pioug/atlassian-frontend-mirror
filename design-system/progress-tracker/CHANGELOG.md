@@ -1,5 +1,14 @@
 # @atlaskit/progress-tracker
 
+## 8.9.3
+
+### Patch Changes
+
+- [#145688](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145688)
+  [`8b5cef4cf858b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b5cef4cf858b) -
+  Removal of FF platform-progress-tracker-functional-facade which was added during the functional
+  component conversion
+
 ## 8.9.2
 
 ### Patch Changes

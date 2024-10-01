@@ -72,13 +72,10 @@ export function deleteBlockContent(
 		);
 
 		if (
-			isSelectedNodeMediaGroup(state) &&
-			(isParentNodeOfTypePanel || isParentNodeOfTypeBlockQuote)
+			((isParentNodeOfTypePanel || isParentNodeOfTypeBlockQuote) &&
+				isSelectedNodeMediaGroup(state)) ||
+			(isParentNodeOfTypePanel && isSelectedNodeSoleDecisionItem(state))
 		) {
-			return false;
-		}
-
-		if (isParentNodeOfTypePanel && isSelectedNodeSoleDecisionItem(state)) {
 			tr.setSelection(new TextSelection(tr.doc.resolve($from.before())));
 			tr.delete($from.before(), $from.after());
 		} else {

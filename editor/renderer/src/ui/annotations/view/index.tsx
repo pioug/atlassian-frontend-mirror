@@ -22,13 +22,9 @@ const AnnotationView = (props: Props) => {
 	const updateSubscriber =
 		(inlineCommentProvider && inlineCommentProvider.updateSubscriber) || null;
 
-	const isCommentsOnMediaAnalyticsEnabled =
-		inlineCommentProvider?.isCommentsOnMediaAnalyticsEnabled;
-
 	const viewComponentProps = useAnnotationClickEvent({
 		updateSubscriber,
 		createAnalyticsEvent: props.createAnalyticsEvent,
-		isCommentsOnMediaAnalyticsEnabled,
 	});
 
 	const ViewComponent = inlineCommentProvider && inlineCommentProvider.viewComponent;

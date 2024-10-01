@@ -223,4 +223,14 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2024-09-23
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/editor_ai_-_multi_prompts/setup
+	'editor_ai_-_multi_prompts': {
+		productKeys: {
+			confluence: 'editor_ai_-_multi_prompts',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'test']),
+		defaultValue: 'control' as 'control' | 'test',
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

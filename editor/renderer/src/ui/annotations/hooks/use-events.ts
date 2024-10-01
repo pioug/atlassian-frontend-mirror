@@ -122,13 +122,11 @@ type AnnotationsWithClickTarget = Pick<
 > | null;
 
 export const useAnnotationClickEvent = (
-	props: Pick<ListenEventProps, 'updateSubscriber' | 'createAnalyticsEvent'> & {
-		isCommentsOnMediaAnalyticsEnabled?: boolean;
-	},
+	props: Pick<ListenEventProps, 'updateSubscriber' | 'createAnalyticsEvent'>,
 ): AnnotationsWithClickTarget => {
 	const [annotationClickEvent, setAnnotationClickEvent] =
 		useState<AnnotationsWithClickTarget>(null);
-	const { updateSubscriber, createAnalyticsEvent, isCommentsOnMediaAnalyticsEnabled } = props;
+	const { updateSubscriber, createAnalyticsEvent } = props;
 	const isInlineCommentsKbAccessible = FeatureGates.checkGate(
 		'inline_comments_keyboard_accessible_renderer',
 	);
@@ -159,10 +157,8 @@ export const useAnnotationClickEvent = (
 					eventType: EVENT_TYPE.TRACK,
 					attributes: {
 						overlap: annotationsByType.length || 0,
-						...(isCommentsOnMediaAnalyticsEnabled && {
-							targetNodeType: eventTargetType,
-							method: viewMethod,
-						}),
+						targetNodeType: eventTargetType,
+						method: viewMethod,
 					},
 				}).fire(FabricChannel.editor);
 			}
@@ -190,12 +186,7 @@ export const useAnnotationClickEvent = (
 			updateSubscriber.off(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, clickCb);
 			updateSubscriber.off(AnnotationUpdateEvent.DESELECT_ANNOTATIONS, deselectCb);
 		};
-	}, [
-		updateSubscriber,
-		createAnalyticsEvent,
-		isCommentsOnMediaAnalyticsEnabled,
-		isInlineCommentsKbAccessible,
-	]);
+	}, [updateSubscriber, createAnalyticsEvent, isInlineCommentsKbAccessible]);
 
 	return annotationClickEvent;
 };

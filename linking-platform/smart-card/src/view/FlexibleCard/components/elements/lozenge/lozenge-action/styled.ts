@@ -30,13 +30,6 @@ export const triggerButtonStyles = css({
 export const triggerLozengeStyles = css({
 	alignItems: 'center',
 	display: 'flex',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	"span[role='img']": {
-		margin: `${token('space.negative.050', '-4px')} ${token(
-			'space.negative.100',
-			'-8px',
-		)} ${token('space.negative.050', '-4px')} -1px`,
-	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

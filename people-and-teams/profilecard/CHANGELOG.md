@@ -1,5 +1,22 @@
 # @atlaskit/profilecard
 
+## 20.3.0
+
+### Minor Changes
+
+- [#147255](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147255)
+  [`c757a53e7cbf1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c757a53e7cbf1) -
+  Prioritise the usage of agent.external_config_references instead of age.t.named_id, because the
+  OOTB agent migration will change agent.named_id to uuid
+
+## 20.2.0
+
+### Minor Changes
+
+- [#146229](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146229)
+  [`d15674651dd75`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d15674651dd75) -
+  [ux] Add forge type for agent creator type
+
 ## 20.1.2
 
 ### Patch Changes

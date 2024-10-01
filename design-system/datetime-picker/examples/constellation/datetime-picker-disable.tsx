@@ -12,7 +12,11 @@ const disabledDates = [
 ];
 
 const DateTimePickerDisabledExample = () => (
-	<DateTimePicker defaultValue="2020-12-15" datePickerProps={{ disabled: disabledDates }} />
+	<DateTimePicker
+		defaultValue="2020-12-15"
+		datePickerProps={{ disabled: disabledDates }}
+		clearControlLabel="Clear disabled dates"
+	/>
 );
 
 export default DateTimePickerDisabledExample;

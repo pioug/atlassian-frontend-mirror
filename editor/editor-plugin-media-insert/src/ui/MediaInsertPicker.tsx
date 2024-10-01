@@ -90,10 +90,10 @@ export const MediaInsertPicker = ({
 	insertExternalMediaSingle,
 	insertFile,
 }: MediaInsertPickerProps) => {
-	const { isOpen, target } = useSharedPluginState(api, ['mediaInsert'])?.mediaInsertState ?? {};
+	const { isOpen } = useSharedPluginState(api, ['mediaInsert'])?.mediaInsertState ?? {};
 
 	// If targetRef is undefined, target the selection in the editor
-	const targetRef = target ?? getDomRefFromSelection(editorView, dispatchAnalyticsEvent);
+	const targetRef = getDomRefFromSelection(editorView, dispatchAnalyticsEvent);
 
 	const mediaProvider = useSharedPluginState(api, ['media'])?.mediaState?.mediaProvider;
 	const intl = useIntl();
@@ -124,7 +124,7 @@ export const MediaInsertPicker = ({
 		<PopupWithListeners
 			ariaLabel={intl.formatMessage(mediaInsertMessages.mediaPickerPopupAriaLabel)}
 			offset={[0, 12]}
-			target={target ?? targetRef}
+			target={targetRef}
 			zIndex={akEditorFloatingDialogZIndex}
 			fitHeight={390}
 			fitWidth={340}

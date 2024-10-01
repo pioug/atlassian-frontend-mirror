@@ -1,5 +1,15 @@
 # @atlassian/give-kudos
 
+## 2.2.0
+
+### Minor Changes
+
+- [#144464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144464)
+  [`6c617d6eb76ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c617d6eb76ba) -
+  [ux] Added flag event type KUDOS_FAILED for when a generic error occurs while creating a kudos.
+  You can now send a message to the parent which will add a generic kudos error flag in the root
+  container.
+
 ## 2.1.13
 
 ### Patch Changes

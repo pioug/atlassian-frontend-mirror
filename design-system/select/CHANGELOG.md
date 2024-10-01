@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 17.19.2
+
+### Patch Changes
+
+- [#147255](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147255)
+  [`f344b9735b94a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f344b9735b94a) -
+  Updated dependencies
+
 ## 17.19.1
 
 ### Patch Changes

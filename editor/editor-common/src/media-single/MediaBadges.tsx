@@ -77,8 +77,10 @@ export const MediaBadges = ({
 
 	return (
 		<Box
+			as="div"
 			testId="media-badges"
 			data-media-badges="true"
+			contentEditable={false}
 			xcss={[
 				containerStyles,
 				extendedResizeOffset && resizeOffsetStyles,

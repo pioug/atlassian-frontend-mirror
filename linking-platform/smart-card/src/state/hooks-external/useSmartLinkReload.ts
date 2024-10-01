@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 import uuid from 'uuid';
 
-import type { AnalyticsHandler } from '../../utils/types';
-
 import { useSmartCardActions as useLinkActions } from '../actions';
 import { useSmartLinkAnalytics as useLinkAnalytics } from '../analytics';
 
@@ -12,14 +10,6 @@ export interface UseSmartLinkReloadOpts {
 	 * @example https://start.atlassian.com
 	 */
 	url: string;
-	/**
-	 * Callback for sending analytics events.
-	 * @description Accepts an analytics payload and fires it to a system.
-	 *
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
-	 * Overriding the analytics dispatch method is deprecated. Please omit this property.
-	 */
-	analyticsHandler?: AnalyticsHandler;
 }
 
 /**
@@ -27,10 +17,10 @@ export interface UseSmartLinkReloadOpts {
  * @param
  * @returns
  */
-export function useSmartLinkReload({ url, analyticsHandler }: UseSmartLinkReloadOpts) {
-	const id = useMemo(() => uuid(), []);
+export function useSmartLinkReload({ url }: UseSmartLinkReloadOpts) {
+	const id: string = useMemo(() => uuid(), []);
 
-	const linkAnalytics = useLinkAnalytics(url, analyticsHandler, id);
+	const linkAnalytics = useLinkAnalytics(url, id);
 	const linkActions = useLinkActions(id, url, linkAnalytics);
 
 	return linkActions.reload;

@@ -33,13 +33,10 @@ export default function handleProviders(
 	extensionProvider?: ExtensionProvider,
 	quickInsertProvider?: Promise<QuickInsertProvider>,
 ): void {
-	if (!fg('platform_editor_get_emoji_provider_from_config')) {
-		providerFactory.setProvider('emojiProvider', emojiProvider);
-	}
+	providerFactory.setProvider('emojiProvider', emojiProvider);
 	providerFactory.setProvider('mentionProvider', mentionProvider);
 	providerFactory.setProvider('taskDecisionProvider', taskDecisionProvider);
 	providerFactory.setProvider('contextIdentifierProvider', contextIdentifierProvider);
-
 	providerFactory.setProvider('imageUploadProvider', imageUploadProvider);
 	providerFactory.setProvider('collabEditProvider', collabEditProvider);
 	providerFactory.setProvider('activityProvider', activityProvider);

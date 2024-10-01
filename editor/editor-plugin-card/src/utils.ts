@@ -190,6 +190,7 @@ export const getAwarenessProps = (
 	getPos: getPosHandler,
 	allowEmbeds?: boolean,
 	allowBlockCards?: boolean,
+	disableOverlay = false,
 ) => {
 	const getPosFunction = typeof getPos !== 'boolean' ? getPos : undefined;
 	const linkPosition = getPosFunction?.();
@@ -211,7 +212,7 @@ export const getAwarenessProps = (
 
 	return {
 		isPulseEnabled: canBeUpgradedToEmbed,
-		isOverlayEnabled: canBeUpgradedToEmbed || canBeUpgradedToBlock,
+		isOverlayEnabled: !disableOverlay && (canBeUpgradedToEmbed || canBeUpgradedToBlock),
 		isSelected,
 	};
 };

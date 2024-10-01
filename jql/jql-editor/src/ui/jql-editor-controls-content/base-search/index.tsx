@@ -2,8 +2,7 @@ import React, { type CSSProperties, useCallback } from 'react';
 
 import { LoadingButton } from '@atlaskit/button';
 import { IconButton } from '@atlaskit/button/new';
-import SearchIconOld from '@atlaskit/icon/core/migration/search--editor-search';
-import SearchIcon from '@atlaskit/icon/core/search';
+import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 
@@ -15,6 +14,11 @@ const style: CSSProperties = {
 const iconStyle = xcss({
 	margin: 'space.050',
 	display: 'flex',
+});
+
+// Fixes an issue where loading button makes the editor flicker with a scrollbar
+const buttonContainerStyle = xcss({
+	overflow: 'hidden',
 });
 
 type Props = {
@@ -33,17 +37,19 @@ export const BaseSearch = ({ isDisabled, isSearching, label, onSearch }: Props) 
 	}, []);
 
 	return fg('platform-component-visual-refresh') ? (
-		<IconButton
-			label={label}
-			isDisabled={isDisabled}
-			testId="jql-editor-search"
-			appearance={'primary'}
-			spacing="compact"
-			onClick={onSearch}
-			onKeyDown={preventRepeatClick}
-			isLoading={isSearching}
-			icon={SearchIcon}
-		/>
+		<Box xcss={buttonContainerStyle}>
+			<IconButton
+				label={label}
+				isDisabled={isDisabled}
+				testId="jql-editor-search"
+				appearance={'primary'}
+				spacing="compact"
+				onClick={onSearch}
+				onKeyDown={preventRepeatClick}
+				isLoading={isSearching}
+				icon={SearchIcon}
+			/>
+		</Box>
 	) : (
 		<LoadingButton
 			aria-label={label}
@@ -58,12 +64,7 @@ export const BaseSearch = ({ isDisabled, isSearching, label, onSearch }: Props) 
 			isLoading={isSearching}
 			iconBefore={
 				<Box xcss={iconStyle}>
-					<SearchIconOld
-						color="currentColor"
-						label={''}
-						LEGACY_size={'medium'}
-						LEGACY_margin="-4px"
-					/>
+					<SearchIcon color="currentColor" label={''} LEGACY_size={'medium'} LEGACY_margin="-4px" />
 				</Box>
 			}
 		/>

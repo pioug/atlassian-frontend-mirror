@@ -2,18 +2,24 @@ import * as jestExtendedMatchers from 'jest-extended';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { fireEvent, render, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import {
+	type RenderOptions,
+	render,
+	waitFor,
+	waitForElementToBeRemoved,
+	screen,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import uuid from 'uuid';
 import { messages } from '../../../messages';
 import { MAX_MODAL_SIZE } from '../constants';
-import type { AnalyticsFacade } from '../../../state/analytics';
-import { mockAnalytics, mocks } from '../../../utils/mocks';
+import { mocks } from '../../../utils/mocks';
 import { useSmartLinkAnalytics } from '../../../state/analytics/useSmartLinkAnalytics';
 import EmbedModal from '../index';
 import * as utils from '../../../utils';
 import * as ufo from '../../../state/analytics/ufoExperiences';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 
 jest.mock('uuid', () => ({
 	...jest.requireActual('uuid'),
@@ -54,21 +60,40 @@ const ThrowError = () => {
 describe('EmbedModal', () => {
 	const testId = 'embed-modal';
 	let mockWindowOpen: jest.Mock;
+	const id = 'test-id';
+	const location = 'test-location';
+	const spy = jest.fn();
 
-	const renderEmbedModal = (props?: Partial<React.ComponentProps<typeof EmbedModal>>) =>
-		render(
-			<IntlProvider locale="en">
-				<EmbedModal
-					analytics={mockAnalytics}
-					extensionKey="object-provider"
-					iframeName="iframe-name"
-					onClose={() => {}}
-					showModal={true}
-					testId={testId}
-					{...props}
-				/>
-			</IntlProvider>,
+	const wrapper: RenderOptions['wrapper'] = ({ children }) => (
+		<IntlProvider locale="en">
+			<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
+				{children}
+			</AnalyticsListener>
+		</IntlProvider>
+	);
+
+	const TestComponent = ({
+		incomingProps,
+	}: {
+		incomingProps?: Partial<React.ComponentProps<typeof EmbedModal>>;
+	}): JSX.Element => {
+		const analyticsEvents = useSmartLinkAnalytics('test-url', id, location);
+		return (
+			<EmbedModal
+				extensionKey="object-provider"
+				iframeName="iframe-name"
+				onClose={() => {}}
+				showModal={true}
+				testId={testId}
+				{...incomingProps}
+				analytics={analyticsEvents}
+			/>
 		);
+	};
+
+	const renderEmbedModal = (props?: Partial<React.ComponentProps<typeof EmbedModal>>) => {
+		return render(<TestComponent incomingProps={props} />, { wrapper });
+	};
 
 	const expectModalSize = (modal: HTMLElement, size: string) => {
 		// This check is not ideal but it is the only value on DS modal dialog
@@ -92,35 +117,35 @@ describe('EmbedModal', () => {
 	});
 
 	it('renders embed modal', async () => {
-		const { findByTestId } = renderEmbedModal();
-		const modal = await findByTestId(testId);
+		renderEmbedModal();
+		const modal = await screen.findByTestId(testId);
 		expect(modal).toBeDefined();
 	});
 
 	it('renders embed modal without analytics', async () => {
-		const { findByTestId } = render(
+		render(
 			<IntlProvider locale="en">
 				<EmbedModal iframeName="iframe-name" onClose={() => {}} showModal={true} testId={testId} />
 			</IntlProvider>,
 		);
-		const modal = await findByTestId(testId);
+		const modal = await screen.findByTestId(testId);
 		expect(modal).toBeDefined();
 	});
 
 	it('renders a link info', async () => {
 		const title = 'Link title';
-		const { findByTestId } = renderEmbedModal({
+		renderEmbedModal({
 			title,
 		});
 
-		expect((await findByTestId(`${testId}-title`)).textContent).toEqual(title);
+		expect((await screen.findByTestId(`${testId}-title`)).textContent).toEqual(title);
 	});
 
 	it('renders an iframe', async () => {
 		const iframeName = 'iframe-name';
 		const src = 'https://link-url';
-		const { findByTestId } = renderEmbedModal({ iframeName, src });
-		const iframe = await findByTestId(`${testId}-embed`);
+		renderEmbedModal({ iframeName, src });
+		const iframe = await screen.findByTestId(`${testId}-embed`);
 
 		expect(iframe).toBeDefined();
 		expect(iframe.getAttribute('name')).toEqual(iframeName);
@@ -131,65 +156,46 @@ describe('EmbedModal', () => {
 	describe('with buttons', () => {
 		it('closes modal and trigger close callback when clicking close button', async () => {
 			const onClose = jest.fn();
-			const { getByTestId, findByTestId, queryByTestId } = renderEmbedModal({
+			renderEmbedModal({
 				onClose,
 			});
 
-			const button = await findByTestId(`${testId}-close-button`);
+			const button = await screen.findByTestId(`${testId}-close-button`);
 
-			fireEvent.mouseOver(button);
+			await userEvent.hover(button);
 
-			// the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
-			await waitFor(
-				() => {
-					expect(getByTestId(`${testId}-close-tooltip`)).toBeInTheDocument();
-				},
-				{ timeout: 2000 },
-			);
+			expect(await screen.findByTestId(`${testId}-close-tooltip`)).toBeInTheDocument();
 
-			const tooltip = await findByTestId(`${testId}-close-tooltip`);
+			const tooltip = await screen.findByTestId(`${testId}-close-tooltip`);
 			expect(tooltip.textContent).toBe(messages.preview_close.defaultMessage);
 
 			await user.click(button);
-			await waitForElementToBeRemoved(() => queryByTestId(testId));
-			const modal = queryByTestId(testId);
+			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+			const modal = screen.queryByTestId(testId);
 			expect(modal).not.toBeInTheDocument();
 			expect(onClose).toHaveBeenCalledTimes(1);
 		});
 
 		it('resizes modal when clicking resize button', async () => {
-			const { getByTestId, findByTestId } = renderEmbedModal();
-			const modal = await findByTestId(testId);
-			const button = await findByTestId(`${testId}-resize-button`);
+			renderEmbedModal();
+			const modal = await screen.findByTestId(testId);
+			const button = await screen.findByTestId(`${testId}-resize-button`);
 
 			// Resize to min size
-			fireEvent.mouseOver(button);
+			await userEvent.hover(button);
 
-			// the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
-			await waitFor(
-				() => {
-					expect(getByTestId(`${testId}-resize-tooltip`)).toBeInTheDocument();
-				},
-				{ timeout: 2000 },
-			);
+			expect(await screen.findByTestId(`${testId}-resize-tooltip`)).toBeInTheDocument();
 
-			const minTooltip = await findByTestId(`${testId}-resize-tooltip`);
+			const minTooltip = await screen.findByTestId(`${testId}-resize-tooltip`);
 			expect(minTooltip.textContent).toBe(messages.preview_min_size.defaultMessage);
 			await user.click(button);
 			expectModalMinSize(modal);
 
 			// Resize to max size
-			fireEvent.mouseOver(button);
+			await userEvent.hover(button);
+			expect(await screen.findByTestId(`${testId}-resize-tooltip`)).toBeInTheDocument();
 
-			// the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
-			await waitFor(
-				() => {
-					expect(getByTestId(`${testId}-resize-tooltip`)).toBeInTheDocument();
-				},
-				{ timeout: 2000 },
-			);
-
-			const maxTooltip = await findByTestId(`${testId}-resize-tooltip`);
+			const maxTooltip = await screen.findByTestId(`${testId}-resize-tooltip`);
 			expect(maxTooltip.textContent).toBe(messages.preview_max_size.defaultMessage);
 			await user.click(button);
 			expectModalMaxSize(modal);
@@ -197,52 +203,40 @@ describe('EmbedModal', () => {
 
 		describe('with url button', () => {
 			it('renders url button', async () => {
-				const { getByTestId, findByTestId } = renderEmbedModal({
+				renderEmbedModal({
 					url: 'https://link-url',
 				});
-				const button = await findByTestId(`${testId}-url-button`);
+				const button = await screen.findByTestId(`${testId}-url-button`);
 				expect(button).toBeInTheDocument();
 
-				fireEvent.mouseOver(button);
+				await userEvent.hover(button);
 
-				// the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
-				await waitFor(
-					() => {
-						expect(getByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
-					},
-					{ timeout: 2000 },
-				);
+				expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
 
-				const tooltip = await findByTestId(`${testId}-url-tooltip`);
+				const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
 				expect(tooltip.textContent).toBe(messages.viewOriginal.defaultMessage);
 			});
 
 			it('renders url button with provider name', async () => {
-				const { getByTestId, findByTestId } = renderEmbedModal({
+				renderEmbedModal({
 					providerName: 'Confluence',
 					url: 'https://link-url',
 				});
-				const button = await findByTestId(`${testId}-url-button`);
-				fireEvent.mouseOver(button);
+				const button = await screen.findByTestId(`${testId}-url-button`);
 
-				// the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
-				await waitFor(
-					() => {
-						expect(getByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
-					},
-					{ timeout: 2000 },
-				);
+				await userEvent.hover(button);
+				expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
 
-				const tooltip = await findByTestId(`${testId}-url-tooltip`);
+				const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
 				expect(tooltip.textContent).toBe('View in Confluence');
 			});
 
 			it('trigger open url when clicking url button', async () => {
 				const openUrlSpy = jest.spyOn(utils, 'openUrl');
-				const { findByTestId } = renderEmbedModal({
+				renderEmbedModal({
 					url: 'https://link-url',
 				});
-				const button = await findByTestId(`${testId}-url-button`);
+				const button = await screen.findByTestId(`${testId}-url-button`);
 				await user.click(button);
 				await flushPromises();
 
@@ -250,53 +244,39 @@ describe('EmbedModal', () => {
 			});
 
 			it('does not render url button when url is not provided', () => {
-				const { queryByTestId } = renderEmbedModal();
-				const button = queryByTestId(`${testId}-url-button`);
+				renderEmbedModal();
+				const button = screen.queryByTestId(`${testId}-url-button`);
 				expect(button).not.toBeInTheDocument();
 			});
 		});
 
 		describe('with download button', () => {
 			it('renders download button', async () => {
-				const { getByTestId, findByTestId } = renderEmbedModal({
+				renderEmbedModal({
 					download: 'https://download-url',
 				});
-				const button = await findByTestId(`${testId}-download-button`);
+				const button = await screen.findByTestId(`${testId}-download-button`);
 				expect(button).toBeInTheDocument();
 
-				fireEvent.mouseOver(button);
+				await userEvent.hover(button);
+				expect(await screen.findByTestId(`${testId}-download-tooltip`)).toBeInTheDocument();
 
-				// the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
-				await waitFor(
-					() => {
-						expect(getByTestId(`${testId}-download-tooltip`)).toBeInTheDocument();
-					},
-					{ timeout: 2000 },
-				);
-
-				const tooltip = await findByTestId(`${testId}-download-tooltip`);
+				const tooltip = await screen.findByTestId(`${testId}-download-tooltip`);
 				expect(tooltip.textContent).toBe(messages.download.defaultMessage);
 			});
 
 			it('triggers download when clicking download button', async () => {
 				const downloadUrlSpy = jest.spyOn(utils, 'downloadUrl');
 				const url = 'https://download-url';
-				const { getByTestId, findByTestId } = renderEmbedModal({
+				renderEmbedModal({
 					download: url,
 				});
-				const button = await findByTestId(`${testId}-download-button`);
+				const button = await screen.findByTestId(`${testId}-download-button`);
 
-				fireEvent.mouseOver(button);
+				await userEvent.hover(button);
+				expect(await screen.findByTestId(`${testId}-download-tooltip`)).toBeInTheDocument();
 
-				// the below `findByTestId` is flakey in the pipelines, so adding the below `waitFor`
-				await waitFor(
-					() => {
-						expect(getByTestId(`${testId}-download-tooltip`)).toBeInTheDocument();
-					},
-					{ timeout: 2000 },
-				);
-
-				const tooltip = await findByTestId(`${testId}-download-tooltip`);
+				const tooltip = await screen.findByTestId(`${testId}-download-tooltip`);
 				expect(tooltip.textContent).toBe(messages.download.defaultMessage);
 
 				await user.click(button);
@@ -306,8 +286,8 @@ describe('EmbedModal', () => {
 			});
 
 			it('does not render download button when download url is not provided', () => {
-				const { queryByTestId } = renderEmbedModal();
-				const button = queryByTestId(`${testId}-download-button`);
+				renderEmbedModal();
+				const button = screen.queryByTestId(`${testId}-download-button`);
 				expect(button).not.toBeInTheDocument();
 			});
 		});
@@ -323,147 +303,159 @@ describe('EmbedModal', () => {
 	});
 
 	describe('with analytics', () => {
-		const id = 'test-id';
-		const location = 'test-location';
-		const dispatchAnalytics = jest.fn();
-		let analytics: AnalyticsFacade;
-
 		beforeEach(() => {
-			const { result } = renderHook(() =>
-				useSmartLinkAnalytics('test-url', dispatchAnalytics, id, location),
-			);
-			analytics = result.current;
-		});
-
-		afterEach(() => {
 			jest.clearAllMocks();
 			jest.restoreAllMocks();
+			spy.mockClear();
 		});
 
 		it('dispatches analytics event on modal open', async () => {
 			const onOpen = jest.fn();
-			const { findByTestId } = renderEmbedModal({
-				analytics,
+			renderEmbedModal({
 				onOpen,
 				origin: 'smartLinkPreviewHoverCard',
 			});
-			await findByTestId(testId);
+			await screen.findByTestId(testId);
 
 			await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
 
-			expect(dispatchAnalytics).toHaveBeenCalledTimes(2);
-			expect(dispatchAnalytics).toHaveBeenNthCalledWith(1, {
-				action: 'viewed',
-				actionSubject: 'embedPreviewModal',
-				name: 'embedPreviewModal',
-				attributes: {
-					...EXPECTED_COMMON_ATTRIBUTES,
-					id,
-					origin: 'smartLinkPreviewHoverCard',
-					size: 'large',
-				},
-				eventType: 'screen',
-			});
-			expect(dispatchAnalytics).toHaveBeenNthCalledWith(2, {
-				action: 'renderSuccess',
-				actionSubject: 'smartLink',
-				attributes: {
-					id,
-					componentName: 'smart-cards',
-					definitionId: 'spaghetti-id',
-					display: 'embedPreview',
-					destinationProduct: 'spaghetti-product',
-					destinationSubproduct: 'spaghetti-subproduct',
-					extensionKey: 'spaghetti-key',
-					location,
-					packageName: expect.any(String),
-					packageVersion: expect.any(String),
-					resourceType: 'spaghetti-resource',
-					destinationObjectType: 'spaghetti-resource',
-					status: 'resolved',
-					canBeDatasource: false,
-				},
-				eventType: 'ui',
-			});
+			expect(spy).toHaveBeenCalledTimes(2);
+			expect(spy).toHaveBeenNthCalledWith(
+				1,
+				expect.objectContaining({
+					payload: {
+						action: 'viewed',
+						actionSubject: 'embedPreviewModal',
+						name: 'embedPreviewModal',
+						attributes: {
+							...EXPECTED_COMMON_ATTRIBUTES,
+							id,
+							origin: 'smartLinkPreviewHoverCard',
+							size: 'large',
+						},
+						eventType: 'screen',
+					},
+				}),
+				ANALYTICS_CHANNEL,
+			);
+			expect(spy).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					payload: {
+						action: 'renderSuccess',
+						actionSubject: 'smartLink',
+						attributes: {
+							id,
+							componentName: 'smart-cards',
+							definitionId: 'spaghetti-id',
+							display: 'embedPreview',
+							destinationProduct: 'spaghetti-product',
+							destinationSubproduct: 'spaghetti-subproduct',
+							extensionKey: 'spaghetti-key',
+							location,
+							packageName: expect.any(String),
+							packageVersion: expect.any(String),
+							resourceType: 'spaghetti-resource',
+							destinationObjectType: 'spaghetti-resource',
+							status: 'resolved',
+							canBeDatasource: false,
+						},
+						eventType: 'ui',
+					},
+				}),
+				ANALYTICS_CHANNEL,
+			);
 		});
 
 		it('dispatches analytics event on modal open failed', async () => {
 			const onOpenFailed = jest.fn();
 			renderEmbedModal({
-				analytics,
 				icon: { icon: <ThrowError /> },
 				onOpenFailed,
 			});
 
 			await waitFor(() => expect(onOpenFailed).toHaveBeenCalledTimes(1));
-			expect(dispatchAnalytics).toHaveBeenCalledWith({
-				action: 'renderFailed',
-				actionSubject: 'smartLink',
-				attributes: {
-					...EXPECTED_COMMON_ATTRIBUTES,
-					id,
-					display: 'embedPreview',
-					error: expect.any(Object),
-					errorInfo: expect.any(Object),
-				},
-				eventType: 'ui',
-			});
+			expect(spy).toHaveBeenCalledTimes(1);
+			expect(spy).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payload: {
+						action: 'renderFailed',
+						actionSubject: 'smartLink',
+						attributes: {
+							...EXPECTED_COMMON_ATTRIBUTES,
+							id,
+							display: 'embedPreview',
+							error: expect.any(Object),
+							errorInfo: expect.any(Object),
+						},
+						eventType: 'ui',
+					},
+				}),
+				ANALYTICS_CHANNEL,
+			);
 		});
 
 		it('dispatches analytics event on modal close', async () => {
 			const onClose = jest.fn();
 			const onOpen = jest.fn();
-			const { findByTestId, queryByTestId } = renderEmbedModal({
-				analytics,
+			renderEmbedModal({
 				onClose,
 				onOpen,
 				origin: 'smartLinkCard',
 			});
 			await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
-			const button = await findByTestId(`${testId}-close-button`);
+			const button = await screen.findByTestId(`${testId}-close-button`);
 			await user.click(button);
-			await waitForElementToBeRemoved(() => queryByTestId(testId));
+			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
 
 			expect(onClose).toHaveBeenCalledTimes(1);
-			expect(dispatchAnalytics).toHaveBeenLastCalledWith({
-				action: 'closed',
-				actionSubject: 'modal',
-				actionSubjectId: 'embedPreview',
-				attributes: {
-					...EXPECTED_COMMON_ATTRIBUTES,
-					id,
-					origin: 'smartLinkCard',
-					previewTime: expect.any(Number),
-					size: 'large',
-				},
-				eventType: 'ui',
-			});
+			expect(spy).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					payload: {
+						action: 'closed',
+						actionSubject: 'modal',
+						actionSubjectId: 'embedPreview',
+						attributes: {
+							...EXPECTED_COMMON_ATTRIBUTES,
+							id,
+							origin: 'smartLinkCard',
+							previewTime: expect.any(Number),
+							size: 'large',
+						},
+						eventType: 'ui',
+					},
+				}),
+				ANALYTICS_CHANNEL,
+			);
 		});
 
 		it('dispatches analytics event on resize modal', async () => {
 			const onResize = jest.fn();
-			const { findByTestId } = renderEmbedModal({
-				analytics,
+			renderEmbedModal({
 				onResize,
 				origin: 'smartLinkCard',
 			});
 
-			const button = await findByTestId(`${testId}-resize-button`);
+			const button = await screen.findByTestId(`${testId}-resize-button`);
 			await user.click(button);
 
-			expect(dispatchAnalytics).toHaveBeenCalledWith({
-				action: 'clicked',
-				actionSubject: 'button',
-				actionSubjectId: 'embedPreviewResize',
-				attributes: {
-					...EXPECTED_COMMON_ATTRIBUTES,
-					id,
-					newSize: 'small',
-					origin: 'smartLinkCard',
-					previousSize: 'large',
-				},
-				eventType: 'ui',
-			});
+			expect(spy).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payload: {
+						action: 'clicked',
+						actionSubject: 'button',
+						actionSubjectId: 'embedPreviewResize',
+						attributes: {
+							...EXPECTED_COMMON_ATTRIBUTES,
+							id,
+							newSize: 'small',
+							origin: 'smartLinkCard',
+							previousSize: 'large',
+						},
+						eventType: 'ui',
+					},
+				}),
+				ANALYTICS_CHANNEL,
+			);
 			expect(onResize).toHaveBeenCalledTimes(1);
 		});
 
@@ -472,54 +464,66 @@ describe('EmbedModal', () => {
 			const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
 			uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
 
-			const { findByTestId } = renderEmbedModal({
-				analytics,
+			renderEmbedModal({
 				url: 'https://link-url',
 			});
 
 			// Wait for stable and clear all ufo experience calls right before act.
-			await findByTestId(testId);
+			await screen.findByTestId(testId);
 			await flushPromises();
 			ufoStartSpy.mockReset();
 			ufoSucceedSpy.mockReset();
 
-			const button = await findByTestId(`${testId}-url-button`);
+			const button = await screen.findByTestId(`${testId}-url-button`);
 			await user.click(button);
 			await flushPromises();
 
-			expect(dispatchAnalytics).toHaveBeenCalledWith({
-				action: 'clicked',
-				actionSubject: 'button',
-				actionSubjectId: 'shortcutGoToLink',
-				attributes: {
-					...EXPECTED_COMMON_ATTRIBUTES,
-					id,
-					actionType: 'ViewAction',
-					display: 'embedPreview',
-				},
-				eventType: 'ui',
-			});
-			expect(dispatchAnalytics).toHaveBeenCalledWith({
-				action: 'resolved',
-				actionSubject: 'smartLinkAction',
-				attributes: {
-					...EXPECTED_COMMON_ATTRIBUTES,
-					id,
-					actionType: 'ViewAction',
-					display: 'embedPreview',
-				},
-				eventType: 'operational',
-			});
+			expect(spy).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payload: {
+						action: 'clicked',
+						actionSubject: 'button',
+						actionSubjectId: 'shortcutGoToLink',
+						attributes: {
+							...EXPECTED_COMMON_ATTRIBUTES,
+							id,
+							actionType: 'ViewAction',
+							display: 'embedPreview',
+						},
+						eventType: 'ui',
+					},
+				}),
+				ANALYTICS_CHANNEL,
+			);
+			expect(spy).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payload: {
+						action: 'resolved',
+						actionSubject: 'smartLinkAction',
+						attributes: {
+							...EXPECTED_COMMON_ATTRIBUTES,
+							id,
+							actionType: 'ViewAction',
+							display: 'embedPreview',
+						},
+						eventType: 'operational',
+					},
+				}),
+				ANALYTICS_CHANNEL,
+			);
 
 			expect(ufoStartSpy).toHaveBeenCalledTimes(1);
-			expect(ufoStartSpy).toBeCalledWith('smart-link-action-invocation', EXPERIENCE_TEST_ID, {
+			expect(ufoStartSpy).toHaveBeenCalledWith('smart-link-action-invocation', EXPERIENCE_TEST_ID, {
 				actionType: 'ViewAction',
 				display: 'embedPreview',
 				extensionKey: 'object-provider',
 				invokeType: 'client',
 			});
 			expect(ufoSucceedSpy).toHaveBeenCalledTimes(1);
-			expect(ufoSucceedSpy).toBeCalledWith('smart-link-action-invocation', EXPERIENCE_TEST_ID);
+			expect(ufoSucceedSpy).toHaveBeenCalledWith(
+				'smart-link-action-invocation',
+				EXPERIENCE_TEST_ID,
+			);
 			expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
 		});
 
@@ -529,53 +533,65 @@ describe('EmbedModal', () => {
 			uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
 			const url = 'https://download-url';
 
-			const { findByTestId } = renderEmbedModal({
-				analytics,
+			renderEmbedModal({
 				download: url,
 			});
 
 			// Wait for stable and clear all ufo experience calls right before act.
-			await findByTestId(testId);
+			await screen.findByTestId(testId);
 			await flushPromises();
 			ufoStartSpy.mockReset();
 			ufoSucceedSpy.mockReset();
 
-			const button = await findByTestId(`${testId}-download-button`);
+			const button = await screen.findByTestId(`${testId}-download-button`);
 			await user.click(button);
 			await flushPromises();
 
-			expect(dispatchAnalytics).toHaveBeenCalledWith({
-				action: 'clicked',
-				actionSubject: 'button',
-				actionSubjectId: 'downloadDocument',
-				attributes: {
-					...EXPECTED_COMMON_ATTRIBUTES,
-					id,
-					actionType: 'DownloadAction',
-					display: 'embedPreview',
-				},
-				eventType: 'ui',
-			});
-			expect(dispatchAnalytics).toHaveBeenCalledWith({
-				action: 'resolved',
-				actionSubject: 'smartLinkAction',
-				attributes: {
-					...EXPECTED_COMMON_ATTRIBUTES,
-					id,
-					actionType: 'DownloadAction',
-					display: 'embedPreview',
-				},
-				eventType: 'operational',
-			});
+			expect(spy).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payload: {
+						action: 'clicked',
+						actionSubject: 'button',
+						actionSubjectId: 'downloadDocument',
+						attributes: {
+							...EXPECTED_COMMON_ATTRIBUTES,
+							id,
+							actionType: 'DownloadAction',
+							display: 'embedPreview',
+						},
+						eventType: 'ui',
+					},
+				}),
+				ANALYTICS_CHANNEL,
+			);
+			expect(spy).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payload: {
+						action: 'resolved',
+						actionSubject: 'smartLinkAction',
+						attributes: {
+							...EXPECTED_COMMON_ATTRIBUTES,
+							id,
+							actionType: 'DownloadAction',
+							display: 'embedPreview',
+						},
+						eventType: 'operational',
+					},
+				}),
+				ANALYTICS_CHANNEL,
+			);
 			expect(ufoStartSpy).toHaveBeenCalledTimes(1);
-			expect(ufoStartSpy).toBeCalledWith('smart-link-action-invocation', EXPERIENCE_TEST_ID, {
+			expect(ufoStartSpy).toHaveBeenCalledWith('smart-link-action-invocation', EXPERIENCE_TEST_ID, {
 				actionType: 'DownloadAction',
 				display: 'embedPreview',
 				extensionKey: 'object-provider',
 				invokeType: 'client',
 			});
 			expect(ufoSucceedSpy).toHaveBeenCalledTimes(1);
-			expect(ufoSucceedSpy).toBeCalledWith('smart-link-action-invocation', EXPERIENCE_TEST_ID);
+			expect(ufoSucceedSpy).toHaveBeenCalledWith(
+				'smart-link-action-invocation',
+				EXPERIENCE_TEST_ID,
+			);
 			expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
 		});
 	});

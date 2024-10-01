@@ -6,9 +6,18 @@ export const MEDIA_CDN_MAP: { [key: string]: string } = {
 	'media.staging.atl-paas.net': 'media-cdn.stg.atlassian.com',
 };
 
-export function mapToMediaCdnUrl(url: string) {
+// Cloudfront has a hard limit of 8,192 bytes
+// https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html
+// Assuming other parts of the URL make up a max of ~1000 (in reality it's lower), the token can be ~7000
+const MEDIA_TOKEN_LENGTH_LIMIT = 7000;
+
+export function mapToMediaCdnUrl(url: string, token: string) {
+	const tokenLength = token?.length ?? 0;
+	if (isFedRamp() || tokenLength > MEDIA_TOKEN_LENGTH_LIMIT) {
+		return url;
+	}
 	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-	if (!isFedRamp() && fg('platform.media-cdn-delivery') && fg('platform.media-cdn-single-host')) {
+	if (fg('platform.media-cdn-delivery') && fg('platform.media-cdn-single-host')) {
 		try {
 			const parsedUrl = new URL(url);
 			const cdnHost = MEDIA_CDN_MAP[parsedUrl.host];

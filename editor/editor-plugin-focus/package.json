@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-focus",
-	"version": "1.4.2",
+	"version": "1.4.3",
 	"description": "Focus plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^91.2.0",
+		"@atlaskit/editor-common": "^92.0.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@babel/runtime": "^7.0.0"
 	},

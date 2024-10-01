@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 92.0.0
+
+### Major Changes
+
+- [#147220](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147220)
+  [`07a9416026f88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07a9416026f88) -
+  Remove showActions and showServerActions from smart-card
+
+### Patch Changes
+
+- [#147094](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147094)
+  [`9e12a8f47cfef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e12a8f47cfef) -
+  [ED-24721] Clean up FF `confluence.frontend.fabric.editor.comments-on-media-analytics`
+- Updated dependencies
+
+## 91.2.3
+
+### Patch Changes
+
+- [#146966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146966)
+  [`ee4562a10804e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee4562a10804e) -
+  cleaned up platform_editor_get_emoji_provider_from_config feature flag
+- Updated dependencies
+
+## 91.2.2
+
+### Patch Changes
+
+- [#146658](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146658)
+  [`005fd63af6943`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/005fd63af6943) -
+  ED-24930 Fix external image badge allows a cursor inside it
+- [#146981](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146981)
+  [`1bb47674cd3df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1bb47674cd3df) -
+  [ED-24683] clean up `confluence.frontend.fabric.editor.comments-on-media-media-inline-bug-fix`
+- Updated dependencies
+
 ## 91.2.1
 
 ### Patch Changes

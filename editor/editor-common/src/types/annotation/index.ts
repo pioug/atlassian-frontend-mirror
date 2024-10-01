@@ -168,7 +168,6 @@ interface AnnotationTypeProvider<Type> {
 	allowDraftMode?: boolean;
 	allowCommentsOnMedia?: boolean;
 	isCommentsOnMediaBugFixEnabled?: boolean;
-	isCommentsOnMediaAnalyticsEnabled?: boolean;
 }
 
 export type InlineCommentAnnotationProvider =

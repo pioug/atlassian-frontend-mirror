@@ -11,7 +11,6 @@ jest.mock('../../analytics', () => ({
 }));
 
 const url = 'https://start.atlassian.com';
-const analytics = () => {};
 
 describe(useSmartLinkReload.name, () => {
 	it('returns reload action', () => {
@@ -24,7 +23,7 @@ describe(useSmartLinkReload.name, () => {
 		};
 		jest.mocked(useSmartCardActions).mockReturnValue(mockedActions);
 
-		const { result } = renderHook(() => useSmartLinkReload({ url, analyticsHandler: analytics }));
+		const { result } = renderHook(() => useSmartLinkReload({ url }));
 
 		expect(result.current).toEqual(mockedActions.reload);
 	});

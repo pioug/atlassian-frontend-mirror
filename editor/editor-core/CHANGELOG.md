@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 198.2.0
+
+### Minor Changes
+
+- [#146905](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146905)
+  [`fde71f816ee10`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fde71f816ee10) -
+  Add AssistiveLabel for CollapsedEditor(passing label down to chrome collapse) to improve a11y
+
+### Patch Changes
+
+- Updated dependencies
+
+## 198.1.1
+
+### Patch Changes
+
+- [#146966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146966)
+  [`ee4562a10804e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee4562a10804e) -
+  cleaned up platform_editor_get_emoji_provider_from_config feature flag
+
+## 198.1.0
+
+### Minor Changes
+
+- [#146229](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146229)
+  [`a22cd98ea95ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a22cd98ea95ee) -
+  [ux] EDF-1218: Attach unique data IDs to editor instances (for use by AI event hub plugin)
+
 ## 198.0.1
 
 ### Patch Changes

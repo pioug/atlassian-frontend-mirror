@@ -6,6 +6,7 @@ import { IntlProviderIfMissingWrapper } from '../IntlProviderIfMissingWrapper/In
 
 export interface Props {
 	placeholder?: string;
+	assistiveLabel?: string;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children?: any;
 	isExpanded?: boolean;
@@ -49,7 +50,11 @@ export default class CollapsedEditor extends React.Component<Props, State> {
 		if (!this.props.isExpanded) {
 			return (
 				<IntlProviderIfMissingWrapper>
-					<ChromeCollapsed onFocus={this.props.onFocus} text={this.props.placeholder} />
+					<ChromeCollapsed
+						onFocus={this.props.onFocus}
+						text={this.props.placeholder}
+						label={this.props.assistiveLabel}
+					/>
 				</IntlProviderIfMissingWrapper>
 			);
 		}

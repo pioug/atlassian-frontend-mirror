@@ -13,6 +13,7 @@ const DateTimePickerDisableComplexExample = () => (
 	<DateTimePicker
 		defaultValue="2020-12-15"
 		datePickerProps={{ disabledDateFilter: weekendFilter }}
+		clearControlLabel="Clear complex dates"
 	/>
 );
 

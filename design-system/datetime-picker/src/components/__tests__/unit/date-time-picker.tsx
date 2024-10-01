@@ -453,5 +453,17 @@ describe('DateTimePicker', () => {
 			const timePicker = screen.getByTestId(timePickerTestId);
 			expect(timePicker).toHaveAttribute('aria-describedby', describedBy);
 		});
+
+		it('should have a label for the clear button label when prop is supplied', async () => {
+			const clearControlLabel = 'clear dtp';
+			const user = userEvent.setup();
+			const onChange = jest.fn();
+			render(createDateTimePicker({ onChange: onChange, clearControlLabel: clearControlLabel }));
+
+			firePickerEvent.changeDate('05/02/2018');
+			await firePickerEvent.changeTime('10:30', user);
+
+			expect(screen.getByRole('button', { name: clearControlLabel })).toBeInTheDocument();
+		});
 	});
 });

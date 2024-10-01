@@ -32,7 +32,15 @@
 		"./option": "./src/option.ts"
 	},
 	"atlassian": {
-		"team": "Search Platform: Search Experience"
+		"team": "Search Platform: Search Experience",
+		"slack": {
+			"channel": "#search-plex-prs",
+			"notifications": {
+				"mergedPR": {
+					"message": "A PR was merged in @atlaskit/smart-user-picker without maintainer approval."
+				}
+			}
+		}
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",

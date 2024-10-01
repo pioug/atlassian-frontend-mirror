@@ -92,11 +92,7 @@ const getSelectionChangedHandler =
 			};
 		}
 
-		const selectedAnnotations = findAnnotationsInSelection(
-			tr.selection,
-			tr.doc,
-			pluginState.featureFlagsPluginState?.commentsOnMediaMediaInlineBugFix,
-		);
+		const selectedAnnotations = findAnnotationsInSelection(tr.selection, tr.doc);
 
 		if (selectedAnnotations.length === 0) {
 			return {

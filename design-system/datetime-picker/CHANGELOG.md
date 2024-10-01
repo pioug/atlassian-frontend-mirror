@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 15.1.0
+
+### Minor Changes
+
+- [#146815](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146815)
+  [`ef585df54488c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ef585df54488c) -
+  [ux] add clearButtonLabel prop in datetime-picker component
+
 ## 15.0.3
 
 ### Patch Changes

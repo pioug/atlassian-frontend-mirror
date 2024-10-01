@@ -246,19 +246,15 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 					selectedAnnotations,
 					isVisible,
 					isInlineCommentViewClosed,
-					featureFlagsPluginState,
 				} = getPluginState(state) || {};
 
 				let decorations = draftDecorationSet ?? DecorationSet.empty;
 				const focusDecorations: Decoration[] = [];
 
-				const isCommentsOnMediaMediaInlineBugFixEnabled =
-					featureFlagsPluginState?.commentsOnMediaMediaInlineBugFix;
-
 				state.doc.descendants((node: PMNode, pos: number) => {
 					// Inline comment on mediaInline is not supported as part of comments on media project
 					// Thus, we skip the decoration for mediaInline node
-					if (isCommentsOnMediaMediaInlineBugFixEnabled && node.type.name === 'mediaInline') {
+					if (node.type.name === 'mediaInline') {
 						return false;
 					}
 					const isSupportedBlockNode =

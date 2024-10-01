@@ -28,6 +28,17 @@ describe('CollapsedEditor', () => {
 		expect(screen.queryByTestId('chrome-collapsed')).not.toBeNull();
 	});
 
+	it('should have the label for chrome-collapsed', () => {
+		const { container } = render(
+			<CollapsedEditor isExpanded={false} assistiveLabel="Test Label">
+				<Editor />
+			</CollapsedEditor>,
+		);
+		const editorElement = container.getElementsByClassName('akEditor');
+		expect(editorElement.length).toBe(0);
+		expect(screen.getByLabelText('Test Label')).toBeInTheDocument();
+	});
+
 	it('should not render the editor when isExpanded is false', () => {
 		const { container } = renderWithIntl(
 			<CollapsedEditor isExpanded={false}>

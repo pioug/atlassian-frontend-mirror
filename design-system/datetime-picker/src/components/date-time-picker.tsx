@@ -253,6 +253,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 			'aria-describedby': ariaDescribedBy,
 			appearance = 'default' as NonNullable<DateTimePickerBaseProps['appearance']>,
 			autoFocus = false,
+			clearControlLabel = 'clear',
 			datePickerProps = {},
 			id = '',
 			innerProps = {},
@@ -378,7 +379,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 						tabIndex={-1}
 						type="button"
 					>
-						<SelectClearIcon size="small" primaryColor="inherit" label="clear" />
+						<SelectClearIcon size="small" primaryColor="inherit" label={clearControlLabel} />
 					</button>
 				) : null}
 			</DateTimePickerContainer>

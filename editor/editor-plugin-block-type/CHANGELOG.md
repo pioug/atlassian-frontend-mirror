@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.15.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.15.6
+
+### Patch Changes
+
+- [#147080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147080)
+  [`3c9bbcfd3436f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c9bbcfd3436f) -
+  [ux] [ED-24900] This change fixes a bug when deleting media groups from empty panels and
+  blockquotes with Backspace.
+
 ## 3.15.5
 
 ### Patch Changes

@@ -1,14 +1,12 @@
 import React from 'react';
-import { renderHook } from '@testing-library/react-hooks';
 import { IntlProvider } from 'react-intl-next';
 import { render, screen } from '@testing-library/react';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { useSmartLinkAnalytics } from '../../../../../../';
+import { useSmartLinkAnalytics } from '../../../../../../state/';
 import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,
 	CONTENT_URL_SECURITY_AND_PERMISSIONS,
 } from '../../../../../../constants';
-import { type AnalyticsFacade } from '../../../../../../state/analytics';
 import HoverCardUnauthorisedView from '../index';
 import { type HoverCardUnauthorisedProps } from '../types';
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
@@ -42,22 +40,15 @@ describe('Unauthorised Hover Card', () => {
 
 	const id = 'unauthorized-test-id';
 	const location = 'unauthorized-test-location';
-	const dispatchAnalytics = jest.fn();
-	let analyticsEvents: AnalyticsFacade;
 
-	beforeEach(() => {
-		const { result } = renderHook(() =>
-			useSmartLinkAnalytics('test-url', dispatchAnalytics, id, location),
-		);
-		analyticsEvents = result.current;
-	});
+	const TestComponent = ({
+		propOverrides,
+	}: {
+		propOverrides?: Partial<HoverCardUnauthorisedProps>;
+	}): JSX.Element => {
+		const analyticsEvents = useSmartLinkAnalytics('test-url', id, location);
 
-	afterEach(() => {
-		jest.clearAllMocks();
-	});
-
-	const setUpHoverCard = (propOverrides?: Partial<HoverCardUnauthorisedProps>) => {
-		render(
+		return (
 			<IntlProvider locale="en">
 				<HoverCardUnauthorisedView
 					analytics={analyticsEvents}
@@ -75,8 +66,16 @@ describe('Unauthorised Hover Card', () => {
 					}}
 					{...propOverrides}
 				/>
-			</IntlProvider>,
+			</IntlProvider>
 		);
+	};
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
+	const setUpHoverCard = (propOverrides?: Partial<HoverCardUnauthorisedProps>) => {
+		render(<TestComponent propOverrides={propOverrides} />);
 	};
 
 	it('renders Unauthorised hover card content', () => {

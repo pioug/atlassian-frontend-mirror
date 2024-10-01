@@ -370,6 +370,10 @@ export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
 	 */
 	autoFocus?: boolean;
 	/**
+	 * Set the `aria-label` for the clear icon button.
+	 */
+	clearControlLabel?: string;
+	/**
 	 * The default for `value`.
 	 */
 	defaultValue?: string;

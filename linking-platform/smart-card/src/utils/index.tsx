@@ -2,7 +2,6 @@ import React from 'react';
 import Loadable from 'react-loadable';
 
 import type { CardProps } from '../view/Card';
-import { type FrameStyle } from '../view/EmbedCard/types';
 import { type ActiveThemeState } from '@atlaskit/tokens';
 import { themeObjectToString } from '@atlaskit/tokens';
 
@@ -258,23 +257,6 @@ export const openUrl = async (url?: string) => {
 		return;
 	}
 	window.open(url, '_blank', 'noopener=yes');
-};
-
-/**
- * Migrate internal usages of the deprecated isFrameVisible to frameStyle
- * This function is to be removed on deprecation of isFrameVisible.
- */
-export const combineFrameStyle = (
-	frameStyle?: CardProps['frameStyle'],
-	isFrameVisible?: CardProps['isFrameVisible'],
-): FrameStyle | undefined => {
-	if (frameStyle !== undefined) {
-		return frameStyle;
-	}
-
-	if (isFrameVisible) {
-		return 'show';
-	}
 };
 
 /**

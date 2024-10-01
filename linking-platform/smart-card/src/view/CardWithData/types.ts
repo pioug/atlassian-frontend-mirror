@@ -11,12 +11,6 @@ export interface CardWithDataContentProps {
 	isSelected?: boolean;
 	testId?: string;
 	onResolve?: OnResolveCallback;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
-	 *
-	 * Prefer 'actionOptions' prop. Determines whether to show available server actions.
-	 */
-	showActions?: boolean;
 	actionOptions?: CardActionOptions;
 	inlinePreloaderStyle?: InlinePreloaderStyle;
 }

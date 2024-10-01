@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-loom
 
+## 3.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.3
+
+### Patch Changes
+
+- [#146839](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146839)
+  [`5150b3ba1d31d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5150b3ba1d31d) -
+  Subscribe to plugin state changes within custom Loom editor toolbar button
+
 ## 3.0.2
 
 ### Patch Changes

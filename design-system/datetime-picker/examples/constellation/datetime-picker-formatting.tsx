@@ -15,6 +15,7 @@ const DateTimePickerFormattingExample = () => (
 			timeFormat: 'HH:mm',
 			placeholder: '13:30',
 		}}
+		clearControlLabel="Clear date and time"
 	/>
 );
 

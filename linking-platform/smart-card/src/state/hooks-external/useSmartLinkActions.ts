@@ -1,7 +1,7 @@
 import { type JsonLd } from 'json-ld-types';
 import { useMemo } from 'react';
 import uuid from 'uuid';
-import type { AnalyticsHandler, AnalyticsOrigin } from '../../utils/types';
+import type { AnalyticsOrigin } from '../../utils/types';
 import type { CardActionOptions, CardInnerAppearance } from '../../view/Card/types';
 import { extractBlockProps as extractCardProps } from '../../extractors/block';
 
@@ -41,14 +41,6 @@ export interface UseSmartLinkActionsOpts {
 	 */
 	appearance: CardInnerAppearance;
 	/**
-	 * Callback for sending analytics events.
-	 * @description Accepts an analytics payload and fires it to a system.
-	 *
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
-	 * Overriding the analytics dispatch method is deprecated. Please omit this property.
-	 */
-	analyticsHandler?: AnalyticsHandler;
-	/**
 	 * Platform on which actions are being invoked.
 	 * @default 'web'
 	 */
@@ -66,15 +58,14 @@ export interface UseSmartLinkActionsOpts {
 export function useSmartLinkActions({
 	url,
 	appearance,
-	analyticsHandler,
 	platform = 'web',
 	origin,
 	actionOptions,
 }: UseSmartLinkActionsOpts) {
-	const id = useMemo(() => uuid(), []);
+	const id: string = useMemo(() => uuid(), []);
 
 	const linkState = useLinkState(url);
-	const linkAnalytics = useLinkAnalytics(url, analyticsHandler, id);
+	const linkAnalytics = useLinkAnalytics(url, id);
 	const linkActions = useLinkActions(id, url, linkAnalytics);
 
 	if (linkState.details && !actionOptions?.hide) {

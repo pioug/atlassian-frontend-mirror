@@ -34,10 +34,7 @@ export const handleMouseOver = (
 	let rootElement = target?.closest('[data-drag-handler-anchor-name]');
 	if (rootElement) {
 		// We want to exlude handles from showing for empty paragraph and heading nodes
-		if (
-			editorExperiment('nested-dnd', true, { exposure: true }) &&
-			isEmptyNestedParagraphOrHeading(rootElement)
-		) {
+		if (editorExperiment('nested-dnd', true) && isEmptyNestedParagraphOrHeading(rootElement)) {
 			return false;
 		}
 
@@ -71,7 +68,7 @@ export const handleMouseOver = (
 
 		const parentRootElement = rootElement.parentElement;
 		let pos: number;
-		if (parentRootElement && editorExperiment('nested-dnd', true, { exposure: true })) {
+		if (parentRootElement && editorExperiment('nested-dnd', true)) {
 			const childNodes = Array.from(parentRootElement.childNodes);
 			const index = childNodes.indexOf(rootElement);
 			pos = view.posAtDOM(parentRootElement, index);
@@ -94,7 +91,7 @@ export const handleMouseOver = (
 		}
 
 		let rootPos: number;
-		if (editorExperiment('nested-dnd', true, { exposure: true })) {
+		if (editorExperiment('nested-dnd', true)) {
 			rootPos = view.state.doc.resolve(pos).pos;
 		} else {
 			rootPos = view.state.doc.resolve(pos).start(1) - 1;

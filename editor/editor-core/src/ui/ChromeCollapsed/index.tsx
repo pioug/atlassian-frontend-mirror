@@ -16,6 +16,7 @@ import { inputStyle } from './styles';
 export interface Props {
 	text?: string;
 	onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+	label?: string;
 }
 
 class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, {}> {
@@ -53,6 +54,7 @@ class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, {}> {
 				ref={this.handleInputRef}
 				onFocus={this.focusHandler}
 				placeholder={placeholder}
+				aria-label={this.props.label}
 			/>
 		);
 	}

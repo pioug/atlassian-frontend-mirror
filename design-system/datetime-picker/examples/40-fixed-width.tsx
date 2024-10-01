@@ -30,7 +30,11 @@ export default () => {
 			</Box>
 			<Label htmlFor="react-select-date-time--input">Date / time picker</Label>
 			<Box xcss={dateTimepickerBoxStyles}>
-				<DateTimePicker id="react-select-date-time--input" onChange={console.log} />
+				<DateTimePicker
+					id="react-select-date-time--input"
+					onChange={console.log}
+					clearControlLabel="Clear datetime picker"
+				/>
 			</Box>
 		</div>
 	);

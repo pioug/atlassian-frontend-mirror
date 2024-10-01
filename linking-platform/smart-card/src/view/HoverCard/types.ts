@@ -43,18 +43,11 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	closeOnChildClick?: boolean;
 
 	/**
-	 * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-14817 Internal documentation for deprecation (no external access)}
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14817 Internal documentation for deprecation (no external access)}
 	 *
 	 * Prefer 'actionOptions' prop. Determines if the hover card should display the "Open preview" button.
 	 */
 	hidePreviewButton?: boolean;
-
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
-	 *
-	 * Prefer 'actionOptions' prop. Determines whether to show available server actions.
-	 */
-	showServerActions?: boolean;
 
 	/**
 	 * Configure visibility of server and client actions
@@ -66,7 +59,6 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	 * This is passed to the portal component.
 	 */
 	zIndex?: number;
-
 	hoverPreviewOptions?: HoverPreviewOptions;
 }
 

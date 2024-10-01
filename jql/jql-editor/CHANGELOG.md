@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 4.8.2
+
+### Patch Changes
+
+- [#146607](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146607)
+  [`abcdffd9cb56d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/abcdffd9cb56d) -
+  [ux] Correcting flicker when search button show loading. It needs an extra style for hiding.
+
 ## 4.8.1
 
 ### Patch Changes

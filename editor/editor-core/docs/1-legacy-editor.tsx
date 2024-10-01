@@ -74,6 +74,7 @@ ${code`
           placeholder="What would you like to say?"
           isExpanded={this.state.isExpanded}
           onFocus={this.expandEditor}
+		  assistiveLabel="What would you like to say?"
         >
           <Editor
             appearance="comment"
@@ -89,6 +90,10 @@ ${code`
   ## What is EditorContext?!?!
 
   EditorContext allows you, in conjunction with WithEditorActions, to manipulate the editor from anywhere inside the EditorContext. In the example below, notice that no reference is kept to the editor instance.
+
+  ## New assistiveLabel prop(optional)
+
+  assistiveLabel prop allosws you to set an aria-label for ChromeCollapsed to improve a11y
 
 ${code`
   import { EditorContext, WithEditorActions } from '@atlaskit/editor-core';

@@ -137,6 +137,13 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						),
 					});
 					break;
+				case FlagEventType.KUDOS_FAILED:
+					handleCreateOrFail({
+						title: <FormattedMessage {...messages.kudosCreationFailedFlag} />,
+						id: `jiraKudosCreationFailedFlag-${flagEvent.kudosUuid}`,
+						description: <FormattedMessage {...messages.kudosCreationFailedDescriptionFlag} />,
+					});
+					break;
 				case FlagEventType.JIRA_KUDOS_CREATED:
 					handleCreateOrFail({
 						title: <FormattedMessage {...messages.JiraKudosCreatedFlag} />,

@@ -23,7 +23,15 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Search Platform: Search Experience"
+		"team": "Search Platform: Search Experience",
+		"slack": {
+			"channel": "#search-plex-prs",
+			"notifications": {
+				"mergedPR": {
+					"message": "A PR was merged in @atlaskit/smart-common without maintainer approval."
+				}
+			}
+		}
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0"

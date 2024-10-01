@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-better-type-history
 
+## 1.8.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.6
 
 ### Patch Changes

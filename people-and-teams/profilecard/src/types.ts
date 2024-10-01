@@ -87,6 +87,7 @@ export interface RovoAgent {
 	favourite_count: number;
 	deactivated?: boolean;
 	icon?: string | null;
+	external_config_reference?: string;
 }
 
 export interface RovoAgentCreatorInfo {

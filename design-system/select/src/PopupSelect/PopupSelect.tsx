@@ -10,7 +10,8 @@ import React, {
 import { type Placement } from '@popperjs/core';
 import { bind, type UnbindFn } from 'bind-event-listener';
 import { createPortal } from 'react-dom';
-import FocusLock from 'react-focus-lock';
+import FocusLockOld from 'react-focus-lock';
+import FocusLockNext from 'react-focus-lock-next';
 import NodeResolver from 'react-node-resolver';
 import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'react-popper';
 import {
@@ -171,6 +172,8 @@ interface State<Modifiers = string> {
 // ==============================
 // Class
 // ==============================
+
+const FocusLock = fg('platform_dst_select-bump-react-focus-lock') ? FocusLockNext : FocusLockOld;
 
 const modifiers: Modifier<'offset' | 'preventOverflow'>[] = [
 	{ name: 'offset', options: { offset: [0, 8] } },

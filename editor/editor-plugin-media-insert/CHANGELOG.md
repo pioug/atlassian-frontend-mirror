@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 3.1.1
+
+### Patch Changes
+
+- [#147220](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147220)
+  [`6d387adfcf115`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d387adfcf115) -
+  [ux] [ED-25164] Disable media popup toolbar pinning
+- Updated dependencies
+
 ## 3.1.0
 
 ### Minor Changes

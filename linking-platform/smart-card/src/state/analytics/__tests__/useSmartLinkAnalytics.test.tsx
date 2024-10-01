@@ -21,33 +21,46 @@ const url = 'test-url';
 
 describe('useSmartLinkAnalytics', () => {
 	it('fires a specified event', () => {
-		let mockedAnalyticsHandler = jest.fn();
-		const { result } = renderHook(() => useSmartLinkAnalytics(url, mockedAnalyticsHandler));
+		const spy = jest.fn();
+
+		const { result } = renderHook(() => useSmartLinkAnalytics(url), {
+			wrapper: ({ children }) => (
+				<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
+					{children}
+				</AnalyticsListener>
+			),
+		});
+
 		result.current.ui.cardClickedEvent({
 			id: 'test-id',
 			display: CardDisplay.Flexible,
 			status: 'resolved',
 		});
-		expect(mockedAnalyticsHandler).toBeCalled();
-		expect(mockedAnalyticsHandler).toBeCalledWith({
-			action: 'clicked',
-			actionSubject: 'smartLink',
-			attributes: {
-				id: 'test-id',
-				componentName: 'smart-cards',
-				display: 'flexible',
-				definitionId: 'spaghetti-id',
-				extensionKey: 'spaghetti-key',
-				destinationProduct: 'spaghetti-product',
-				destinationSubproduct: 'spaghetti-subproduct',
-				packageName: expect.any(String),
-				packageVersion: expect.any(String),
-				status: 'resolved',
-				resourceType: 'spaghetti-resource',
-				destinationObjectType: 'spaghetti-resource',
-			},
-			eventType: 'ui',
-		});
+
+		expect(spy).toHaveBeenCalledWith(
+			expect.objectContaining({
+				payload: {
+					action: 'clicked',
+					actionSubject: 'smartLink',
+					attributes: {
+						id: 'test-id',
+						componentName: 'smart-cards',
+						display: 'flexible',
+						definitionId: 'spaghetti-id',
+						extensionKey: 'spaghetti-key',
+						destinationProduct: 'spaghetti-product',
+						destinationSubproduct: 'spaghetti-subproduct',
+						packageName: expect.any(String),
+						packageVersion: expect.any(String),
+						status: 'resolved',
+						resourceType: 'spaghetti-resource',
+						destinationObjectType: 'spaghetti-resource',
+					},
+					eventType: 'ui',
+				},
+			}),
+			ANALYTICS_CHANNEL,
+		);
 	});
 
 	it.each([
@@ -69,30 +82,43 @@ describe('useSmartLinkAnalytics', () => {
 	])(
 		'action ui event %s fires with expected payload',
 		(eventName, eventType, actionSubject, action, actionSubjectId) => {
-			const mockedAnalyticsHandler = jest.fn();
-			const { result } = renderHook(() => useSmartLinkAnalytics(url, mockedAnalyticsHandler));
-			const event = (result.current as any)[eventType][eventName] as any;
-			event();
-			expect(mockedAnalyticsHandler).toBeCalledTimes(1);
-			expect(mockedAnalyticsHandler).toBeCalledWith({
-				action,
-				actionSubject,
-				actionSubjectId,
-				attributes: {
-					componentName: 'smart-cards',
-					definitionId: 'spaghetti-id',
-					extensionKey: 'spaghetti-key',
-					destinationProduct: 'spaghetti-product',
-					destinationSubproduct: 'spaghetti-subproduct',
-					packageName: expect.any(String),
-					packageVersion: expect.any(String),
-					resourceType: 'spaghetti-resource',
-					destinationObjectType: 'spaghetti-resource',
-					location: undefined,
-					id: 'NULL',
-				},
-				eventType,
+			const spy = jest.fn();
+
+			const { result } = renderHook(() => useSmartLinkAnalytics(url), {
+				wrapper: ({ children }) => (
+					<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
+						{children}
+					</AnalyticsListener>
+				),
 			});
+			const event = (result.current as any)[eventType][eventName] as any;
+
+			event();
+			expect(spy).toHaveBeenCalledTimes(1);
+			expect(spy).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payload: {
+						action,
+						actionSubject,
+						actionSubjectId,
+						attributes: {
+							componentName: 'smart-cards',
+							definitionId: 'spaghetti-id',
+							extensionKey: 'spaghetti-key',
+							destinationProduct: 'spaghetti-product',
+							destinationSubproduct: 'spaghetti-subproduct',
+							packageName: expect.any(String),
+							packageVersion: expect.any(String),
+							resourceType: 'spaghetti-resource',
+							destinationObjectType: 'spaghetti-resource',
+							location: undefined,
+							id: 'NULL',
+						},
+						eventType,
+					},
+				}),
+				ANALYTICS_CHANNEL,
+			);
 		},
 	);
 
@@ -107,30 +133,42 @@ describe('useSmartLinkAnalytics', () => {
 		'action track event %s fires with expected payload',
 		(eventName, eventType, actionSubject, action) => {
 			const smartLinkActionType = TrackQuickActionType.StatusUpdate;
-			const mockedAnalyticsHandler = jest.fn();
-			const { result } = renderHook(() => useSmartLinkAnalytics(url, mockedAnalyticsHandler));
+			const spy = jest.fn();
+
+			const { result } = renderHook(() => useSmartLinkAnalytics(url), {
+				wrapper: ({ children }) => (
+					<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
+						{children}
+					</AnalyticsListener>
+				),
+			});
 			const event = (result.current as any)[eventType][eventName] as any;
 			event({ smartLinkActionType });
-			expect(mockedAnalyticsHandler).toBeCalledTimes(1);
-			expect(mockedAnalyticsHandler).toBeCalledWith({
-				action,
-				actionSubject,
-				attributes: {
-					componentName: 'smart-cards',
-					definitionId: 'spaghetti-id',
-					extensionKey: 'spaghetti-key',
-					destinationProduct: 'spaghetti-product',
-					destinationSubproduct: 'spaghetti-subproduct',
-					packageName: expect.any(String),
-					packageVersion: expect.any(String),
-					resourceType: 'spaghetti-resource',
-					destinationObjectType: 'spaghetti-resource',
-					location: undefined,
-					id: 'NULL',
-					smartLinkActionType,
-				},
-				eventType,
-			});
+			expect(spy).toHaveBeenCalledTimes(1);
+			expect(spy).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payload: {
+						action,
+						actionSubject,
+						attributes: {
+							componentName: 'smart-cards',
+							definitionId: 'spaghetti-id',
+							extensionKey: 'spaghetti-key',
+							destinationProduct: 'spaghetti-product',
+							destinationSubproduct: 'spaghetti-subproduct',
+							packageName: expect.any(String),
+							packageVersion: expect.any(String),
+							resourceType: 'spaghetti-resource',
+							destinationObjectType: 'spaghetti-resource',
+							location: undefined,
+							id: 'NULL',
+							smartLinkActionType,
+						},
+						eventType,
+					},
+				}),
+				ANALYTICS_CHANNEL,
+			);
 		},
 	);
 

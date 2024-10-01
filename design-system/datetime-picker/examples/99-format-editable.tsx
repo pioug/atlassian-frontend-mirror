@@ -24,6 +24,7 @@ export default () => {
 				onChange={onChange}
 				timePickerProps={{ timeIsEditable: true }}
 				isInvalid={invalid}
+				clearControlLabel="Clear current time"
 			/>
 		</div>
 	);

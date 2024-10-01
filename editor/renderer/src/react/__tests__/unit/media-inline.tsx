@@ -12,7 +12,6 @@ describe('Renderer - ReactSerializer - MediaInline', () => {
 		beforeAll(() => {
 			const reactSerializer = new ReactSerializer({
 				allowAnnotations: true,
-				isCommentsOnMediaMediaInlineBugFixEnabled: true,
 			});
 			const docFromSchema = schema.nodeFromJSON(mediaInlineWithAnnotation);
 			const withIntl = () => (

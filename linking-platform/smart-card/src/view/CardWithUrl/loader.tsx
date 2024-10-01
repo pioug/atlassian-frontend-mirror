@@ -22,7 +22,7 @@ export const LazyCardWithUrlContent = lazy(() =>
 
 export function CardWithURLRenderer(props: CardProps) {
 	di(LazyCardWithUrlContent);
-	const [id] = useState(() => (props.id ? props.id : uuid()));
+	const [id] = useState(() => (props.id ? props.id : uuid()) satisfies string);
 
 	useEffect(() => {
 		// ComponentWillUnmount
@@ -37,7 +37,6 @@ export function CardWithURLRenderer(props: CardProps) {
 		appearance,
 		isSelected,
 		isHovered,
-		isFrameVisible,
 		frameStyle,
 		onClick,
 		container,
@@ -55,7 +54,6 @@ export function CardWithURLRenderer(props: CardProps) {
 		showHoverPreview,
 		hoverPreviewOptions,
 		showAuthTooltip,
-		analyticsEvents,
 		placeholder,
 		fallbackComponent,
 		useLegacyBlockCard,
@@ -64,7 +62,7 @@ export function CardWithURLRenderer(props: CardProps) {
 		truncateInline,
 	} = props;
 
-	const analytics = useSmartLinkAnalytics(url ?? '', undefined, id);
+	const analytics = useSmartLinkAnalytics(url ?? '', id);
 	const isFlexibleUi = isFlexibleUiCard(children);
 	const errorHandler = useCallback(
 		(error: Error, info: ErrorInfo) => {
@@ -112,7 +110,6 @@ export function CardWithURLRenderer(props: CardProps) {
 		onClick,
 		isSelected,
 		isHovered,
-		isFrameVisible,
 		frameStyle,
 		container,
 		onResolve,
@@ -128,7 +125,6 @@ export function CardWithURLRenderer(props: CardProps) {
 		showHoverPreview,
 		hoverPreviewOptions,
 		showAuthTooltip,
-		analyticsEvents,
 		placeholder,
 		useLegacyBlockCard,
 		removeTextHighlightingFromTitle,

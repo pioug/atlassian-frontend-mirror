@@ -5,6 +5,7 @@ export enum KudosType {
 
 export enum FlagEventType {
 	KUDOS_CREATED = 'kudos-created',
+	KUDOS_FAILED = 'kudos-failed',
 	JIRA_KUDOS_CREATED = 'jira-kudos-created',
 	JIRA_KUDOS_FAILED = 'jira-kudos-failed',
 	DIRTY = 'dirty',

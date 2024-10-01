@@ -1,9 +1,7 @@
 import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { type CardAppearance, type CardState } from '@atlaskit/linking-common';
-
 import { type CardPlatform } from '@atlaskit/link-extractors';
 
-import { type AnalyticsFacade } from '../../state/analytics';
 import { type FlexibleUiOptions } from '../FlexibleCard/types';
 import { type ErrorCardType, type InlinePreloaderStyle, type OnErrorCallback } from '../types';
 import { type FrameStyle } from '../EmbedCard/types';
@@ -44,11 +42,6 @@ export interface CardProps extends WithAnalyticsEventsProps {
 	isSelected?: boolean;
 	/** A flag that determines whether a card is in a hover state in edit mode. Currently used for inline links only */
 	isHovered?: boolean;
-	/**
-	 * @deprecated please use 'frameStyle' prop instead. Current usages will be converted in the following manner:
-	 * isFrameVisible: true => frameStyle: 'show', isFrameVisible: false => frameStyle: 'showOnHover'
-	 */
-	isFrameVisible?: boolean;
 	/** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
 	frameStyle?: FrameStyle;
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
@@ -62,19 +55,6 @@ export interface CardProps extends WithAnalyticsEventsProps {
 	data?: any;
 	url?: string;
 	testId?: string;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
-	 *
-	 * Prefer `actionOptions` prop. Show client actions, e.g. preview, download, etc.
-	 * These actions do not change the link resource.
-	 */
-	showActions?: boolean;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
-	 *
-	 * Prefer `actionOptions` prop. Show server actions that change the link resource, e.g. update status.
-	 */
-	showServerActions?: boolean;
 	actionOptions?: CardActionOptions;
 	onResolve?: OnResolveCallback;
 	/**
@@ -105,12 +85,6 @@ export interface CardProps extends WithAnalyticsEventsProps {
 	showHoverPreview?: boolean;
 	hoverPreviewOptions?: HoverPreviewOptions;
 	showAuthTooltip?: boolean;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
-	 * The use of `useSmartLinkAnalytics` external use in conjunction with `analyticsEvents` prop is deprecated and may be removed in future releases.
-	 * Please avoid using this prop.
-	 */
-	analyticsEvents?: AnalyticsFacade;
 	placeholder?: string;
 	/**
 	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15021 Internal documentation for deprecation (no external access)}

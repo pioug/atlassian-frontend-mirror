@@ -2,16 +2,22 @@
 import styled from '@emotion/styled';
 import { token } from '@atlaskit/tokens';
 
+// Wraps all icons represented in Inline Links. Icons have three sources/types:
+// - JSON-LD: from the generator.icon property coming back from ORS.
+// - @atlaskit/icon: for lock icons, unauthorized, etc.
+// - @atlaskit/icon-object: for object icons, e.g. repository, branch, etc.
+// NB: the first set of overrides style icons imported from @atlaskit/icon-object correctly.
+// NB: the second set of overrides style icons imported from @atlaskit/icon correctly.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+
 // TODO: remove this override behaviour for @atlaskit/icon-object
-// Replace with IconObjectOverridesResized during linking-platform-increase-inline-card-icon-size cleanup (EDM=10529)
 export const IconObjectOverrides = `
   & > span {
     height: 16px;
-    width: 14px;
+    width: 16px;
     position: absolute;
     top: 3px;
     left: 0;
-    line-height: 14px;
     & > svg {
       position: absolute;
       top: 50%;
@@ -22,12 +28,10 @@ export const IconObjectOverrides = `
 `;
 
 // TODO: remove this override behaviour for @atlaskit/icon
-// Replace with IconOverridesResized during linking-platform-increase-inline-card-icon-size cleanup (EDM=10529)
 export const IconOverrides = `
-
   & > * > span {
     height: 16px;
-    width: 14px;
+    width: 16px;
     position: absolute;
     left: 0;
     & > svg {
@@ -39,13 +43,6 @@ export const IconOverrides = `
   }
 `;
 
-// Wraps all icons represented in Inline Links. Icons have three sources/types:
-// - JSON-LD: from the generator.icon property coming back from ORS.
-// - @atlaskit/icon: for lock icons, unauthorized, etc.
-// - @atlaskit/icon-object: for object icons, e.g. repository, branch, etc.
-// NB: the first set of overrides style icons imported from @atlaskit/icon-object correctly.
-// NB: the second set of overrides style icons imported from @atlaskit/icon correctly.
-// Replace with IconWrapperResized during linking-platform-increase-inline-card-icon-size cleanup (EDM=10529)
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const IconWrapper = styled.span(
 	{
@@ -57,52 +54,7 @@ export const IconWrapper = styled.span(
 	IconObjectOverrides,
 );
 
-// TODO: remove this override behaviour for @atlaskit/icon-object
-export const IconObjectOverridesResized = `
-  & > span {
-    height: 16px;
-    width: 16px;
-    position: absolute;
-    top: 3px;
-    left: 0;
-    & > svg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
-`;
-
-// TODO: remove this override behaviour for @atlaskit/icon
-export const IconOverridesResized = `
-  & > * > span {
-    height: 16px;
-    width: 16px;
-    position: absolute;
-    left: 0;
-    & > svg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
-`;
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const IconWrapperResized = styled.span(
-	{
-		userSelect: 'none',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	IconOverridesResized,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	IconObjectOverridesResized,
-);
-
 // Wraps all emoji in Inline Links similar to icon
-// Replace with EmojiWrapperResized during linking-platform-increase-inline-card-icon-size cleanup (EDM=10529)
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const EmojiWrapper = styled.span(
 	{
@@ -114,19 +66,6 @@ export const EmojiWrapper = styled.span(
 	IconOverrides,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	IconObjectOverrides,
-);
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const EmojiWrapperResized = styled.span(
-	{
-		display: 'inline-block',
-		marginRight: token('space.025', '2px'),
-		userSelect: 'none',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	IconOverridesResized,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	IconObjectOverridesResized,
 );
 
 // The main 'wrapping' element, title of the content.
@@ -165,17 +104,8 @@ export const IconPositionWrapper = styled.span({
 	display: 'inline-block',
 });
 
-// Replace with IconEmptyWrapperResized during linking-platform-increase-inline-card-icon-size cleanup (EDM=10529)
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const IconEmptyWrapper = styled.span({
-	width: '14px',
-	height: '100%',
-	display: 'inline-block',
-	opacity: 0,
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const IconEmptyWrapperResized = styled.span({
 	width: '16px',
 	height: '100%',
 	display: 'inline-block',

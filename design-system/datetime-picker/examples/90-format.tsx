@@ -34,6 +34,7 @@ export default () => {
 				datePickerProps={{
 					dateFormat: 'Do MMMM YYYY',
 				}}
+				clearControlLabel="Clear dateTimePicker - dateFormat (HH:mm) & timeFormat (Do MMMM YYYY)"
 			/>
 		</div>
 	);

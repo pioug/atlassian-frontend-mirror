@@ -49,7 +49,7 @@ export const HoverCardComponent = ({
 	const renderers = useSmartLinkRenderers();
 	const linkState = useLinkState(url);
 
-	const analytics = useSmartLinkAnalytics(url, undefined, id);
+	const analytics = useSmartLinkAnalytics(url, id);
 	const { loadMetadata } = useSmartCardActions(id, url, analytics);
 
 	const actionOptions = combineActionOptions({

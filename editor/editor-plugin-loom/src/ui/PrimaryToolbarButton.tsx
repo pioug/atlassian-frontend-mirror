@@ -13,24 +13,22 @@ import type {
 	ExtractInjectionAPI,
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { executeRecordVideo } from '../commands';
 import type { LoomPlugin } from '../plugin';
-import { loomPluginKey } from '../pm-plugin';
 import { type ButtonComponentProps, type LoomPluginOptions } from '../types';
 
 import ToolbarButtonComponent from './ToolbarButtonComponent';
 
 const CustomisableLoomToolbarButton = (
-	editorView: EditorView,
 	disabled: boolean,
 	appearance: EditorAppearance,
 	api: ExtractInjectionAPI<LoomPlugin> | undefined,
 ) =>
 	React.forwardRef<HTMLElement, ButtonComponentProps>((props, ref) => {
 		const { onClickBeforeInit, isDisabled = false, href, ...restProps } = props;
-		const isLoomEnabled = loomPluginKey.getState(editorView.state)?.isEnabled;
+		const { loomState } = useSharedPluginState(api, ['loom']);
+		const isLoomEnabled = !!loomState?.isEnabled;
 		const handleOnClick = useCallback(
 			(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
 				if (isLoomEnabled) {
@@ -87,15 +85,13 @@ export const loomPrimaryToolbarComponent =
 		config: LoomPluginOptions,
 		api: ExtractInjectionAPI<LoomPlugin> | undefined,
 	): ToolbarUIComponentFactory =>
-	({ disabled, appearance, editorView }) => {
+	({ disabled, appearance }) => {
 		if (config.shouldShowToolbarButton === false) {
 			return null;
 		}
 
 		if (config.renderButton) {
-			return config.renderButton(
-				CustomisableLoomToolbarButton(editorView, disabled, appearance, api),
-			);
+			return config.renderButton(CustomisableLoomToolbarButton(disabled, appearance, api));
 		}
 
 		if (config.shouldShowToolbarButton) {

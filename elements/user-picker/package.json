@@ -37,6 +37,14 @@
 	},
 	"atlassian": {
 		"team": "Search Platform: Search Experience",
+		"slack": {
+			"channel": "#search-plex-prs",
+			"notifications": {
+				"mergedPR": {
+					"message": "A PR was merged in @atlaskit/user-picker without maintainer approval."
+				}
+			}
+		},
 		"website": {
 			"name": "User Picker"
 		}

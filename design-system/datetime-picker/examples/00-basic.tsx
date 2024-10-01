@@ -178,6 +178,7 @@ export default () => {
 			<h3>Date / time picker</h3>
 			<Label htmlFor="react-select-datetimepicker-1--input">Date / time picker (default)</Label>
 			<DateTimePicker
+				clearControlLabel="Clear date / time picker (default)"
 				onChange={onChange}
 				testId={'dateTimePicker'}
 				datePickerProps={{ label: 'Arrival date' }}
@@ -191,6 +192,7 @@ export default () => {
 			<Controlled initialValue="2018-01-02T14:30-08:00">
 				{({ value, onValueChange }) => (
 					<DateTimePicker
+						clearControlLabel="Clear date / time picker (controlled (UTC-08:00))"
 						value={value}
 						onChange={onValueChange}
 						id="react-select-datetimepicker-2--input"
@@ -202,6 +204,7 @@ export default () => {
 				Date / time picker (uncontrolled (UTC+10:00))
 			</Label>
 			<DateTimePicker
+				clearControlLabel="Clear date / time picker (uncontrolled (UTC+10:00))"
 				id="react-select-datetimepicker-3--input"
 				defaultValue="2018-01-02T14:30+10:00"
 				onChange={onChange}
@@ -211,6 +214,7 @@ export default () => {
 				Date / time picker (editable times (UTC+10:00))
 			</Label>
 			<DateTimePicker
+				clearControlLabel="Clear date / time picker (editable times (UTC+10:00))"
 				id="react-select-datetimepicker-4--input"
 				defaultValue="2018-01-02T14:30+10:00"
 				onChange={onChange}
@@ -219,7 +223,11 @@ export default () => {
 			<Label htmlFor="react-select-datetimepicker-input">
 				Date / time picker (editable times with value (UTC+10:00))
 			</Label>
-			<DateTimePicker onChange={(v) => setValue(v)} id="react-select-datetimepicker-input" />
+			<DateTimePicker
+				clearControlLabel="Clear date / time picker (editable times with value (UTC+10:00))"
+				onChange={(v) => setValue(v)}
+				id="react-select-datetimepicker-input"
+			/>
 			<pre>{value}</pre>
 		</div>
 	);

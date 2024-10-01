@@ -16,7 +16,7 @@ export default () => {
 			</Field>
 
 			<Field name="datetime" label="Datetime">
-				{({ fieldProps }) => <DateTimePicker {...fieldProps} />}
+				{({ fieldProps }) => <DateTimePicker {...fieldProps} clearControlLabel="Clear datetime" />}
 			</Field>
 		</div>
 	);

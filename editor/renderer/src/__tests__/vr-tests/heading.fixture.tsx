@@ -79,7 +79,6 @@ export const HeadingsRTLSymbolsWithHighlighterRenderer = generateRendererCompone
 		inlineComment: {
 			allowDraftMode: true,
 			allowCommentsOnMedia: true,
-			isCommentsOnMediaAnalyticsEnabled: true,
 			getState: () => Promise.resolve([]),
 		},
 	},

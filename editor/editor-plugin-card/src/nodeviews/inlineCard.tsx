@@ -217,7 +217,14 @@ export function InlineCardNodeView(
 			pluginInjectionApi={pluginInjectionApi}
 			onClickCallback={onClickCallback}
 			{...(enableInlineUpgradeFeatures &&
-				getAwarenessProps(view.state, getPos, allowEmbeds, allowBlockCards))}
+				getAwarenessProps(
+					view.state,
+					getPos,
+					allowEmbeds,
+					allowBlockCards,
+					fg('linking_platform_disable_live_view_inline_overlay') &&
+						editorViewModeState?.mode === 'view',
+				))}
 		/>
 	);
 }

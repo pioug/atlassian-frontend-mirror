@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.13.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.13.5
+
+### Patch Changes
+
+- [#146966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146966)
+  [`ee4562a10804e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee4562a10804e) -
+  cleaned up platform_editor_get_emoji_provider_from_config feature flag
+
 ## 1.13.4
 
 ### Patch Changes

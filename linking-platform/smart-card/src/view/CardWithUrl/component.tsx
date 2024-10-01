@@ -4,7 +4,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { type CardWithUrlContentProps } from './types';
 import { SmartLinkModalProvider } from '../../state/modal';
-import { combineFrameStyle, isSpecialEvent } from '../../utils';
+import { isSpecialEvent } from '../../utils';
 import * as measure from '../../utils/performance';
 import {
 	getDefinitionId,
@@ -34,12 +34,10 @@ function Component({
 	url,
 	isSelected,
 	isHovered,
-	isFrameVisible,
-	frameStyle: frameStyleProp,
+	frameStyle,
 	platform,
 	onClick,
 	appearance,
-	dispatchAnalytics,
 	onResolve,
 	onError,
 	testId,
@@ -69,7 +67,7 @@ function Component({
 		config,
 		renderers,
 		error,
-	} = useSmartLink(id, url, dispatchAnalytics);
+	} = useSmartLink(id, url);
 	const analytics = analyticsEvents || defaultAnalytics;
 	const definitionId = getDefinitionId(state.details);
 	const extensionKey = getExtensionKey(state.details);
@@ -85,8 +83,6 @@ function Component({
 		actionOptions: actionOptionsProp,
 		platform,
 	});
-
-	const frameStyle = combineFrameStyle(frameStyleProp, isFrameVisible);
 
 	// Setup UI handlers.
 	const handleClickWrapper = useCallback(

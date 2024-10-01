@@ -78,10 +78,8 @@ export const useProviders = ({
 	}, [cardProvider, editorApi]);
 
 	useEffect(() => {
-		if (fg('platform_editor_get_emoji_provider_from_config')) {
-			if (emojiProvider) {
-				editorApi?.emoji?.actions.setProvider(emojiProvider);
-			}
+		if (emojiProvider) {
+			editorApi?.emoji?.actions.setProvider(emojiProvider);
 		}
 	}, [emojiProvider, editorApi]);
 

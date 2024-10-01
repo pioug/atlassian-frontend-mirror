@@ -14,7 +14,12 @@ export default () => {
 			<DatePicker id="react-select-date--input" onChange={console.log} isInvalid />
 
 			<Label htmlFor="react-select-datetime--input">DateTimePicker - isInvalid</Label>
-			<DateTimePicker id="react-select-datetime--input" onChange={console.log} isInvalid />
+			<DateTimePicker
+				id="react-select-datetime--input"
+				onChange={console.log}
+				isInvalid
+				clearControlLabel="Clear datetime picker is invalid"
+			/>
 		</div>
 	);
 };

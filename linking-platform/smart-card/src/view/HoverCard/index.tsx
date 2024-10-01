@@ -19,7 +19,7 @@ const HoverCardWithErrorBoundary = (props: HoverCardProps & HoverCardInternalPro
 
 	const { url, id, children } = props;
 
-	const analytics = useSmartLinkAnalytics(url, undefined, id);
+	const analytics = useSmartLinkAnalytics(url, id);
 
 	const onError = useCallback(
 		(error: Error, info: ErrorInfo) => {

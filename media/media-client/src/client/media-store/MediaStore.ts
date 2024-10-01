@@ -266,7 +266,10 @@ export class MediaStore implements MediaApi {
 
 		const imageEndpoint = !isFedRamp() && fg('platform.media-cdn-delivery') ? 'image/cdn' : 'image';
 
-		return mapToMediaCdnUrl(createUrl(`${auth.baseUrl}/file/${id}/${imageEndpoint}`, options));
+		return mapToMediaCdnUrl(
+			createUrl(`${auth.baseUrl}/file/${id}/${imageEndpoint}`, options),
+			auth.token,
+		);
 	}
 
 	async getFileBinary(
@@ -318,7 +321,10 @@ export class MediaStore implements MediaApi {
 		const binaryEndpoint =
 			!isFedRamp() && fg('platform.media-cdn-delivery') ? 'binary/cdn' : 'binary';
 
-		return mapToMediaCdnUrl(createUrl(`${auth.baseUrl}/file/${id}/${binaryEndpoint}`, options));
+		return mapToMediaCdnUrl(
+			createUrl(`${auth.baseUrl}/file/${id}/${binaryEndpoint}`, options),
+			auth.token,
+		);
 	}
 
 	async getArtifactURL(
@@ -341,7 +347,7 @@ export class MediaStore implements MediaApi {
 			auth,
 		};
 
-		return createUrl(artifactUrl, options);
+		return createUrl(mapToMediaCdnUrl(artifactUrl, auth.token), options);
 	}
 
 	async getImage(
@@ -505,7 +511,7 @@ export class MediaStore implements MediaApi {
 		let url = `${auth.baseUrl}${path}`;
 
 		if (useMediaCdn) {
-			url = mapToMediaCdnUrl(url);
+			url = mapToMediaCdnUrl(url, auth.token);
 		}
 
 		const response = await request(

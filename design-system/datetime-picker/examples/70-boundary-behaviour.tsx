@@ -18,6 +18,7 @@ interface State {
 	textBelow: number;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class MyComponent extends Component<{}, State> {
 	state = {
 		datePickerValue: '2018-01-02',
@@ -98,7 +99,11 @@ export default class MyComponent extends Component<{}, State> {
 								/>
 								{textAbove > 0 ? <Lorem count={textAbove} /> : null}
 								<Label htmlFor="react-select-above--input">Date</Label>
-								<DateTimePicker id="react-select-above--input" defaultValue={dateTimePickerValue} />
+								<DateTimePicker
+									id="react-select-above--input"
+									defaultValue={dateTimePickerValue}
+									clearControlLabel="Clear date"
+								/>
 								<Label htmlFor="paragraphs-below">Paragraphs below: {textBelow}</Label>
 								<Range
 									id="paragraphs-below"

@@ -1,5 +1,14 @@
 # @atlaskit/page-header
 
+## 10.9.4
+
+### Patch Changes
+
+- [#145246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145246)
+  [`edb1983fa6cf7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/edb1983fa6cf7) -
+  Fix bug which caused a scrollbar to show up in FireFox on `PageHeader.title` when
+  `truncateTitle={true}`.
+
 ## 10.9.3
 
 ### Patch Changes

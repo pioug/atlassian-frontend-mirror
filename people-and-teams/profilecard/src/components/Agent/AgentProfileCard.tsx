@@ -144,14 +144,14 @@ const AgentProfileCard = ({
 			<Box xcss={cardContainerStyles}>
 				<AgentBanner
 					agentId={agent.id}
-					agentNamedId={agent.named_id}
+					agentNamedId={agent.external_config_reference ?? agent.named_id}
 					height={96}
 					agentIdentityAccountId={agent.identity_account_id}
 				/>
 				<Box xcss={avatarStyles}>
 					<AgentAvatar
 						agentId={agent.id}
-						agentNamedId={agent.named_id}
+						agentNamedId={agent.external_config_reference ?? agent.named_id}
 						agentIdentityAccountId={agent.identity_account_id}
 						size="xlarge"
 						isForgeAgent={agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY'}

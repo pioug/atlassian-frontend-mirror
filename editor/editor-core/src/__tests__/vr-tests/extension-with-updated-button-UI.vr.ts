@@ -13,17 +13,11 @@ import {
 } from './extension-with-updated-button-UI.fixtures';
 
 snapshot(BlockExtension);
-snapshot(BlockExtensionWithSmartLink, {
-	featureFlags: { 'linking-platform-increase-inline-card-icon-size': [true, false] },
-});
+snapshot(BlockExtensionWithSmartLink);
 snapshot(BodiedExtension);
-snapshot(BodiedExtensionWithSmartLink, {
-	featureFlags: { 'linking-platform-increase-inline-card-icon-size': [true, false] },
-});
+snapshot(BodiedExtensionWithSmartLink);
 snapshot(InlineExtension);
 snapshot(InlineExtensionCenterAligned);
 snapshot(InlineExtensionRightAligned);
-snapshot(InlineExtensionWithSmartLink, {
-	featureFlags: { 'linking-platform-increase-inline-card-icon-size': [true, false] },
-});
+snapshot(InlineExtensionWithSmartLink);
 snapshot(HeadingWithInlineExtension);

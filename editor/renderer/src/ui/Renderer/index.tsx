@@ -261,7 +261,6 @@ export class Renderer extends PureComponent<RendererProps> {
 			isInsideOfInlineExtension:
 				fg('platform.editor.inline_extension.extended_lcqdn') && props.isInsideOfInlineExtension,
 			textHighlighter: props.UNSTABLE_textHighlighter,
-			isCommentsOnMediaMediaInlineBugFixEnabled: featureFlags?.commentsOnMediaMediaInlineBugFix,
 			allowTableAlignment: props.UNSTABLE_allowTableAlignment,
 			allowTableResizing: props.UNSTABLE_allowTableResizing,
 		};

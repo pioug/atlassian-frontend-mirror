@@ -1,5 +1,43 @@
 # @atlaskit/renderer
 
+## 111.0.0
+
+### Major Changes
+
+- [#147220](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147220)
+  [`07a9416026f88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07a9416026f88) -
+  Remove showActions and showServerActions from smart-card
+
+### Patch Changes
+
+- [#147094](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147094)
+  [`9e12a8f47cfef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e12a8f47cfef) -
+  [ED-24721] Clean up FF `confluence.frontend.fabric.editor.comments-on-media-analytics`
+- Updated dependencies
+
+## 110.6.0
+
+### Minor Changes
+
+- [#146966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146966)
+  [`ee4562a10804e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee4562a10804e) -
+  cleaned up platform_editor_get_emoji_provider_from_config feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 110.5.5
+
+### Patch Changes
+
+- [#146981](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146981)
+  [`1bb47674cd3df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1bb47674cd3df) -
+  [ED-24683] clean up `confluence.frontend.fabric.editor.comments-on-media-media-inline-bug-fix`
+- [#146246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146246)
+  [`2a4fc73d45dfd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a4fc73d45dfd) -
+  Reverting change to add onLoadComplete callback for useLoadAnnotations annotations hook
+
 ## 110.5.4
 
 ### Patch Changes

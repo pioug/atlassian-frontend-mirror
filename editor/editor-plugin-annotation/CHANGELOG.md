@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.19.10
+
+### Patch Changes
+
+- [#147094](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147094)
+  [`9e12a8f47cfef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e12a8f47cfef) -
+  [ED-24721] Clean up FF `confluence.frontend.fabric.editor.comments-on-media-analytics`
+- Updated dependencies
+
+## 1.19.9
+
+### Patch Changes
+
+- [#146981](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146981)
+  [`1bb47674cd3df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1bb47674cd3df) -
+  [ED-24683] clean up `confluence.frontend.fabric.editor.comments-on-media-media-inline-bug-fix`
+
 ## 1.19.8
 
 ### Patch Changes

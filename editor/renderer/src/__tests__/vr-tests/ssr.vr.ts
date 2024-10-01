@@ -81,9 +81,6 @@ if (process.env.IS_REACT_18 !== 'true') {
 	snapshot(RendererSSRSmartCard, {
 		description: 'SSR renderering of smart card',
 		ignoredErrors,
-		featureFlags: {
-			'linking-platform-increase-inline-card-icon-size': [true, false],
-		},
 	});
 
 	snapshot(RendererSSRSmartCardUrlIcon, {

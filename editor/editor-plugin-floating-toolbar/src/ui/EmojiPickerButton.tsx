@@ -9,15 +9,13 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type { ProviderFactory, Providers } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji';
 import { EmojiPicker } from '@atlaskit/emoji';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type FloatingToolbarPlugin } from '../types';
@@ -83,22 +81,6 @@ export const EmojiPickerButton = (props: {
 		buttonRef.current?.focus();
 	};
 
-	const renderPicker = (providers: Providers) => {
-		if (!providers.emojiProvider) {
-			return null;
-		}
-
-		return (
-			<EmojiPickerWithListener
-				emojiProvider={providers.emojiProvider}
-				onSelection={updateEmoji}
-				onPickerRef={() => {}}
-				handleClickOutside={handleEmojiClickOutside}
-				handleEscapeKeydown={handleEmojiPressEscape}
-			/>
-		);
-	};
-
 	const EmojiPickerWithProvider = () => {
 		const { emojiState } = useSharedPluginState(props.pluginInjectionApi, ['emoji']);
 		const emojiProvider = emojiState?.emojiProvider
@@ -138,15 +120,7 @@ export const EmojiPickerButton = (props: {
 				zIndex={props.setDisableParentScroll ? 600 : undefined}
 				focusTrap
 			>
-				{fg('platform_editor_get_emoji_provider_from_config') ? (
-					<EmojiPickerWithProvider />
-				) : (
-					<WithProviders
-						providers={['emojiProvider']}
-						providerFactory={props.providerFactory!}
-						renderNode={renderPicker}
-					/>
-				)}
+				<EmojiPickerWithProvider />
 			</Popup>
 		);
 	};

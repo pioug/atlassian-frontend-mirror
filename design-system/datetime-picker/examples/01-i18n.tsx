@@ -92,6 +92,7 @@ export default () => {
 				datePickerProps={{
 					weekStartDay,
 				}}
+				clearControlLabel="Clear date / time picker (default)"
 			/>
 		</div>
 	);

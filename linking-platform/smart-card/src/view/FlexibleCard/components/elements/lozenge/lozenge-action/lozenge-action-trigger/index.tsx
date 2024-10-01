@@ -6,10 +6,16 @@
 import { jsx } from '@emotion/react';
 import { useCallback, useMemo, useState } from 'react';
 import Lozenge from '@atlaskit/lozenge';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { triggerButtonStyles, triggerLozengeStyles } from '../styled';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import { type LozengeActionTriggerProps } from './type';
+
+const chevronDownStyles = xcss({
+	marginLeft: 'space.075',
+	display: 'flex',
+});
 
 const LozengeActionTrigger = ({
 	appearance,
@@ -29,8 +35,14 @@ const LozengeActionTrigger = ({
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<span css={triggerLozengeStyles}>
 					<span>{text}</span>
-					{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19514 */}
-					<ChevronDownIcon label="options" size="medium" />
+					<Box as="span" xcss={chevronDownStyles}>
+						<ChevronDownIcon
+							color="currentColor"
+							label="options"
+							LEGACY_size="medium"
+							LEGACY_margin="-4px -8px -4px -7px"
+						/>
+					</Box>
 				</span>
 			</Lozenge>
 		),

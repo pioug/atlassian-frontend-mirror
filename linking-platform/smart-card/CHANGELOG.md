@@ -1,5 +1,33 @@
 # @atlaskit/smart-card
 
+## 29.0.0
+
+### Major Changes
+
+- [#147220](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147220)
+  [`07a9416026f88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07a9416026f88) -
+  Remove isFrameVisible from smart card public export
+- [#147220](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147220)
+  [`07a9416026f88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07a9416026f88) -
+  Remove showActions and showServerActions from smart-card
+- [#147220](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147220)
+  [`07a9416026f88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07a9416026f88) -
+  Remove useSmartLinkAnalytics from publicly exported API and remove analyticsEvents from Card
+
+### Minor Changes
+
+- [#147259](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147259)
+  [`33c2291672ccf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/33c2291672ccf) -
+  Enable new icons behind a feature flag.
+
+## 28.4.0
+
+### Minor Changes
+
+- [#147041](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147041)
+  [`d0989d8277f3f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0989d8277f3f) -
+  Clean up inline icon size FF
+
 ## 28.3.1
 
 ### Patch Changes

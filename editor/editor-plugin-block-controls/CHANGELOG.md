@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.1.7
+
+### Patch Changes
+
+- [#147259](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147259)
+  [`887b742b313c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/887b742b313c6) -
+  Experiment flag update
+- Updated dependencies
+
 ## 2.1.6
 
 ### Patch Changes

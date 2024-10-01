@@ -4,7 +4,7 @@ import { DateTimePicker } from '../../src';
 
 const DateTimePickerLocaleExample = () => (
 	<>
-		<DateTimePicker locale={'en-US'} />
+		<DateTimePicker locale={'en-US'} clearControlLabel="Clear local example" />
 		<br />
 		<DateTimePicker locale={'ja-JP'} />
 	</>

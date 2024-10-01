@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "28.3.1",
+	"version": "29.0.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -161,9 +161,6 @@
 	},
 	"platform-feature-flags": {
 		"platform.linking-platform.smart-card.enable-view-related-urls-action": {
-			"type": "boolean"
-		},
-		"linking-platform-increase-inline-card-icon-size": {
 			"type": "boolean"
 		}
 	}

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-card
 
+## 3.4.0
+
+### Minor Changes
+
+- [#147220](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147220)
+  [`07a9416026f88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07a9416026f88) -
+  Remove showActions and showServerActions from smart-card
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.0
+
+### Minor Changes
+
+- [#146630](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146630)
+  [`eaf8a37e7f139`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eaf8a37e7f139) -
+  [ux] Fix configure overlay appearing in live view editor contexts
+
 ## 3.2.3
 
 ### Patch Changes

@@ -234,14 +234,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 				},
 				{
 					name: 'emojiAsciiInputRule',
-					plugin: ({ schema, providerFactory, featureFlags }) =>
-						asciiInputRulePlugin(
-							schema,
-							providerFactory,
-							featureFlags,
-							api?.analytics?.actions,
-							api,
-						),
+					plugin: ({ schema }) => asciiInputRulePlugin(schema, api?.analytics?.actions, api),
 				},
 			];
 		},
@@ -419,18 +412,14 @@ export function createEmojiPlugin(
 							...pluginState,
 							emojiProvider: params.provider,
 						};
-						if (!fg('platform_editor_get_emoji_provider_from_config')) {
-							pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
-						}
+						pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
 						return newPluginState;
 					case ACTIONS.SET_ASCII_MAP:
 						newPluginState = {
 							...pluginState,
 							asciiMap: params.asciiMap,
 						};
-						if (!fg('platform_editor_get_emoji_provider_from_config')) {
-							pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
-						}
+						pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
 						return newPluginState;
 				}
 
@@ -471,20 +460,14 @@ export function createEmojiPlugin(
 				return;
 			};
 
-			if (fg('platform_editor_get_emoji_provider_from_config')) {
-				if (options?.emojiProvider) {
-					providerHandler('emojiProvider', options.emojiProvider);
-				}
-			} else {
-				pmPluginFactoryParams.providerFactory.subscribe('emojiProvider', providerHandler);
+			if (options?.emojiProvider) {
+				providerHandler('emojiProvider', options.emojiProvider);
 			}
 
 			return {
 				destroy() {
-					if (!fg('platform_editor_get_emoji_provider_from_config')) {
-						if (pmPluginFactoryParams.providerFactory) {
-							pmPluginFactoryParams.providerFactory.unsubscribe('emojiProvider', providerHandler);
-						}
+					if (pmPluginFactoryParams.providerFactory) {
+						pmPluginFactoryParams.providerFactory.unsubscribe('emojiProvider', providerHandler);
 					}
 				},
 			};

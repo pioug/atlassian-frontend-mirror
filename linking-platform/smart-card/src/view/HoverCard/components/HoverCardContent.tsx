@@ -43,7 +43,7 @@ const HoverCardContent = ({
 	actionOptions,
 }: HoverCardContentProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const defaultAnalytics = useSmartLinkAnalytics(url, undefined, id);
+	const defaultAnalytics = useSmartLinkAnalytics(url, id);
 	const analytics = _analytics ?? defaultAnalytics;
 	const extensionKey = useMemo(() => getExtensionKey(cardState.details), [cardState.details]);
 	const linkState = useSmartCardState(url);

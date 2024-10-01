@@ -18,6 +18,7 @@ import { token } from '@atlaskit/tokens';
 
 const truncateStyles = css({
 	overflowX: 'hidden',
+	overflowY: 'hidden', // `overflow-y` necessary to prevent a scrollbar from showing in FF: https://product-fabric.atlassian.net/browse/PYX-1035
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
 });

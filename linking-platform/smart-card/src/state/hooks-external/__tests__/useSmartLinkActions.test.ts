@@ -29,7 +29,6 @@ jest.mock('../../../extractors/block', () => ({
 
 const url = 'https://start.atlassian.com';
 const appearance = 'block';
-const analytics = () => {};
 
 const mockNoActions = () => {
 	const details = { ...mocks.success };
@@ -96,9 +95,7 @@ describe(useSmartLinkActions.name, () => {
 	it('returns empty list when no data available', () => {
 		mockNoActions();
 
-		const { result } = renderHook(() =>
-			useSmartLinkActions({ url, appearance, analyticsHandler: analytics }),
-		);
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		expect(result.current).toEqual([]);
 	});
@@ -106,9 +103,7 @@ describe(useSmartLinkActions.name, () => {
 	it('returns list of actions when data available', () => {
 		mockWithActions();
 
-		const { result } = renderHook(() =>
-			useSmartLinkActions({ url, appearance, analyticsHandler: analytics }),
-		);
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		expect(result.current).toHaveLength(2);
 	});
@@ -116,9 +111,7 @@ describe(useSmartLinkActions.name, () => {
 	it('returns server-based action', () => {
 		mockWithActions();
 
-		const { result } = renderHook(() =>
-			useSmartLinkActions({ url, appearance, analyticsHandler: analytics }),
-		);
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		expect(result.current?.[0]).toMatchObject({ id: 'comment' });
 	});
@@ -126,9 +119,7 @@ describe(useSmartLinkActions.name, () => {
 	it('returns client-based action', () => {
 		mockWithActions();
 
-		const { result } = renderHook(() =>
-			useSmartLinkActions({ url, appearance, analyticsHandler: analytics }),
-		);
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		expect(result.current?.[1]).toMatchObject({ id: 'preview' });
 	});
@@ -136,9 +127,7 @@ describe(useSmartLinkActions.name, () => {
 	it('invokes correct promise on trigger of action (first)', () => {
 		const actionHandler = mockWithActions();
 
-		const { result } = renderHook(() =>
-			useSmartLinkActions({ url, appearance, analyticsHandler: analytics }),
-		);
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		result.current?.[0].invoke();
 		expect(actionHandler).toHaveBeenCalledTimes(1);
@@ -147,9 +136,7 @@ describe(useSmartLinkActions.name, () => {
 	it('invokes correct promise on trigger of action (second)', () => {
 		const actionHandler = mockWithActions();
 
-		const { result } = renderHook(() =>
-			useSmartLinkActions({ url, appearance, analyticsHandler: analytics }),
-		);
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		result.current?.[1].invoke();
 		expect(actionHandler).toHaveBeenCalledTimes(1);
@@ -162,7 +149,6 @@ describe(useSmartLinkActions.name, () => {
 			useSmartLinkActions({
 				url,
 				appearance,
-				analyticsHandler: analytics,
 				actionOptions: { hide: true },
 			}),
 		);
@@ -173,9 +159,7 @@ describe(useSmartLinkActions.name, () => {
 	it('returns actions as expected when useSmartCardState changes', () => {
 		mockLifecycle();
 
-		const { result, rerender } = renderHook(() =>
-			useSmartLinkActions({ url, appearance, analyticsHandler: analytics }),
-		);
+		const { result, rerender } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
 		// pending state
 		expect(result.current).toEqual([]);

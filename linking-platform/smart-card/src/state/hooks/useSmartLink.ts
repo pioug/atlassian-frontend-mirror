@@ -3,22 +3,13 @@ import { useSmartCardState as useSmartLinkState } from '../store';
 import { useSmartCardActions as useSmartLinkActions } from '../actions';
 import { useSmartLinkConfig } from '../config';
 import { useSmartLinkAnalytics } from '../analytics';
-import { type AnalyticsHandler } from '../../utils/types';
 import { useSmartLinkRenderers } from '../renderers';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 
-export function useSmartLink(
-	id: string,
-	url: string,
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
-	 * Avoid prop drilling analytics handlers. Continue passing a handler for now if there's already one in place.
-	 */
-	dispatchAnalytics?: AnalyticsHandler,
-) {
+export function useSmartLink(id: string, url: string) {
 	const state = useSmartLinkState(url);
 	const { store } = useSmartLinkContext();
-	const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+	const analytics = useSmartLinkAnalytics(url, id);
 	const actions = useSmartLinkActions(id, url, analytics);
 	const config = useSmartLinkConfig();
 	const renderers = useSmartLinkRenderers();

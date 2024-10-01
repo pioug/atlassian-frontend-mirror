@@ -2,8 +2,6 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { ProgressTracker, type Stages } from '../../index';
 
 const generateStages = ({
@@ -32,7 +30,7 @@ const generateStages = ({
 	}));
 };
 
-ffTest.both('platform-progress-tracker-functional-facade', '<ProgressTracker />', () => {
+describe('<ProgressTracker />', () => {
 	it('should have default label where there is no label passed', () => {
 		render(<ProgressTracker items={generateStages({ count: 6 })} />);
 

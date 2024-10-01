@@ -43,12 +43,6 @@ export interface CardProps extends CardNodeViewProps {
 	allowResizing?: boolean;
 	fullWidthMode?: boolean;
 	useAlternativePreloader?: boolean;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6348 Internal documentation for deprecation (no external access)}
-	 *
-	 * Prefer `actionOptions` prop.
-	 */
-	showServerActions?: boolean;
 	actionOptions?: BaseCardProps['actionOptions'];
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
 	onClickCallback?: OnClickCallback;

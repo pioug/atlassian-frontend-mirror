@@ -17,6 +17,16 @@ const messages = defineMessages({
 		description:
 			'Description text for the kudos created flag. This includes a link to view the newly created kudos.',
 	},
+	kudosCreationFailedFlag: {
+		id: 'team-central.give-kudos.creation.failed.title.flag',
+		defaultMessage: 'Something went wrong',
+		description: 'Title text for kudos creation failed flag.',
+	},
+	kudosCreationFailedDescriptionFlag: {
+		id: 'team-central.give-kudos.creation.failed.description.flag',
+		defaultMessage: "We couldn't create your kudos.",
+		description: 'Description text for the kudos creation failed flag.',
+	},
 	JiraKudosCreatedFlag: {
 		id: 'team-central.give-jira-kudos.created.title.flag',
 		defaultMessage: 'Kudos created',
@@ -31,15 +41,15 @@ const messages = defineMessages({
 	},
 	JiraKudosCreationFailedFlag: {
 		id: 'team-central.give-jira-kudos.creation.failed.title.flag',
-		defaultMessage: "We couldn't send the gift",
+		defaultMessage: 'Something went wrong',
 		description: 'Title text for jira kudos creation failed flag.',
 	},
 	JiraKudosCreationFailedDescriptionFlag: {
 		id: 'team-central.give-jira-kudos.creation.failed.description.flag',
 		defaultMessage:
-			"We sent the kudos but we couldn't send the gift due to an error. Please raise a separate ticket at <a>go/kudos</a>.",
+			"We couldn't create your kudos or send the gift. Try raising a separate ticket at <a>go/kudos</a>..",
 		description:
-			'Description text for the jira kudos creation failed flag. This includes a link to the atlas kudos and jira kudos form.',
+			'Description text for the jira kudos creation failed flag. This includes a link to the jira kudos form.',
 	},
 	unsavedKudosWarning: {
 		id: 'team-central.give-kudos.unsaved.warning',

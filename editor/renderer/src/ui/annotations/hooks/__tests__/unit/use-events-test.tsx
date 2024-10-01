@@ -401,7 +401,6 @@ describe('Annotations: Hooks/useEvents', () => {
 				const annotations = useAnnotationClickEvent({
 					updateSubscriber: updateSubscriberFake,
 					createAnalyticsEvent: createAnalyticsEventFake,
-					isCommentsOnMediaAnalyticsEnabled: true,
 				});
 
 				fakeFunction(annotations);

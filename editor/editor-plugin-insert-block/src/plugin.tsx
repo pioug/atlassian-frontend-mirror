@@ -54,10 +54,10 @@ const toolbarSizeToButtons = (toolbarSize: ToolbarSize, appearance?: EditorAppea
 	if (fg('platform_editor_toolbar_responsive_fixes')) {
 		switch (toolbarSize) {
 			case ToolbarSize.XXL:
-				return 7;
 			case ToolbarSize.XL:
-				return 5;
+				return 7;
 			case ToolbarSize.L:
+				return 5;
 			case ToolbarSize.M:
 			case ToolbarSize.S:
 				return 2;
@@ -418,12 +418,8 @@ function ToolbarInsertBlockWithInjectionApi({
 	]);
 
 	const getEmojiProvider = () => {
-		if (fg('platform_editor_get_emoji_provider_from_config')) {
-			if (emojiState?.emojiProvider) {
-				return Promise.resolve(emojiState?.emojiProvider);
-			}
-		} else {
-			return providers.emojiProvider;
+		if (emojiState?.emojiProvider) {
+			return Promise.resolve(emojiState?.emojiProvider);
 		}
 	};
 

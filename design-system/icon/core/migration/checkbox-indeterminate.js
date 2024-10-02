@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e41364d3416039af8ab6389983966cee>>
+ * @codegen <<SignedSource::1cf327bc25b611aa0591b78464df2d4e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _checkboxIndeterminate = _interopRequireDefault(require("@atlaskit/icon/core/checkbox-indeterminate"));
 var _checkboxIndeterminate2 = _interopRequireDefault(require("@atlaskit/icon/glyph/checkbox-indeterminate"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

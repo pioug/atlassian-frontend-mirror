@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bcf3ac75c8dcc7631ddc4d2e628b292b>>
+ * @codegen <<SignedSource::b76701fdeded2ed2baf8d7b2cda2dab9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _chartBar = _interopRequireDefault(require("@atlaskit/icon/core/chart-bar"));
 var _presentation = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/presentation"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

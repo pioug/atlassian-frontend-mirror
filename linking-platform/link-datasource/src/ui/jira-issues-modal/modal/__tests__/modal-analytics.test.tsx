@@ -454,7 +454,13 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 								searchCount: 1,
 							});
 
-							const { assertAnalyticsAfterButtonClick, searchWithNewBasic } = await setup();
+							// Override bogus initial parameters so that modal initializes into basic mode (JQL is not complex)
+							const { assertAnalyticsAfterButtonClick, searchWithNewBasic } = await setup({
+								parameters: {
+									cloudId: '67899',
+									jql: 'ORDER BY key ASC',
+								},
+							});
 
 							await searchWithNewBasic('new_search');
 							await assertAnalyticsAfterButtonClick(INSERT_BUTTON_NAME, expectedPayload);
@@ -480,8 +486,14 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 								searchCount: 4,
 							});
 
+							// Override bogus initial parameters so that modal initializes into basic mode (JQL is not complex)
 							const { assertAnalyticsAfterButtonClick, searchWithNewJql, searchWithNewBasic } =
-								await setup();
+								await setup({
+									parameters: {
+										cloudId: '67899',
+										jql: 'ORDER BY key ASC',
+									},
+								});
 
 							await searchWithNewBasic('basic_search');
 							await searchWithNewBasic('basic_search_2');
@@ -549,8 +561,14 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 									searchCount: 3,
 								});
 
+								// Override bogus initial parameters so that modal initializes into basic mode (JQL is not complex)
 								const { assertAnalyticsAfterButtonClick, searchWithNewJql, searchWithNewBasic } =
-									await setup();
+									await setup({
+										parameters: {
+											cloudId: '67899',
+											jql: 'ORDER BY key ASC',
+										},
+									});
 
 								if (searchMode === 'basic') {
 									searchWithNewBasic('new_search');

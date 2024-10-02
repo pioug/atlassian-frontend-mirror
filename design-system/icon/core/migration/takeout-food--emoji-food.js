@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::217e3eb8cedcf519ff608e8c1ee78662>>
+ * @codegen <<SignedSource::c37923222138f3cc86c754e727be7291>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _takeoutFood = _interopRequireDefault(require("@atlaskit/icon/core/takeout-food"));
 var _food = _interopRequireDefault(require("@atlaskit/icon/glyph/emoji/food"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

@@ -42,9 +42,10 @@ const toolbarSizeToButtons = (toolbarSize: ToolbarSize, appearance?: EditorAppea
 		switch (toolbarSize) {
 			case ToolbarSize.XXL:
 			case ToolbarSize.XL:
-				return 7;
 			case ToolbarSize.L:
-				return 5;
+				return 7;
+			case ToolbarSize.M:
+				return 3;
 
 			default:
 				return 0;
@@ -425,14 +426,14 @@ function ToolbarInsertBlockWithInjectionApi({
 
 	const emojiProvider = getEmojiProvider();
 
-	const onShowMediaPicker = (targetRef?: HTMLElement) => {
+	const onShowMediaPicker = (mountInfo?: { ref: HTMLElement; mountPoint: HTMLElement }) => {
 		if (!mediaState) {
 			return;
 		}
 
 		if (editorExperiment('add-media-from-url', true)) {
 			pluginInjectionApi?.core?.actions.execute(
-				pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(targetRef),
+				pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(mountInfo),
 			);
 		} else {
 			mediaState.showMediaPicker();

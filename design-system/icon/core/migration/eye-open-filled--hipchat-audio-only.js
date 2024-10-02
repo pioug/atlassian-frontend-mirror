@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::de84edd642c5dc2b11c3ebbbc5eaccdb>>
+ * @codegen <<SignedSource::da1697ebf50ca101c664091c18b83c0d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _eyeOpenFilled = _interopRequireDefault(require("@atlaskit/icon/core/eye-open-filled"));
 var _audioOnly = _interopRequireDefault(require("@atlaskit/icon/glyph/hipchat/audio-only"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

@@ -14,15 +14,31 @@ import { AnnotationHoverContext } from './contexts/AnnotationHoverContext';
 type LoadAnnotationsProps = {
 	adfDocument: JSONDocNode;
 	isNestedRender: boolean;
+	onLoadComplete?: ({
+		numberOfUnresolvedInlineComments,
+	}: {
+		numberOfUnresolvedInlineComments: number;
+	}) => void;
 };
 
-const LoadAnnotations = React.memo<LoadAnnotationsProps>(({ adfDocument, isNestedRender }) => {
-	useLoadAnnotations({ adfDocument, isNestedRender });
-	return null;
+const LoadAnnotations = React.memo<LoadAnnotationsProps>(
+	({ adfDocument, isNestedRender, onLoadComplete }) => {
+		useLoadAnnotations({ adfDocument, isNestedRender, onLoadComplete });
+		return null;
+	},
+);
+
+// This is used by renderers when setting the data-start-pos attribute on commentable nodes
+// By default it is 1 (the possible starting position of any document).
+// The bodied extension component then sets a new value for this context based on its on position
+// in the document.
+export const AnnotationsPositionContext = React.createContext<{ startPos: number }>({
+	startPos: 1,
 });
 
 export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
-	const { children, annotationProvider, rendererRef, adfDocument, isNestedRender } = props;
+	const { children, annotationProvider, rendererRef, adfDocument, isNestedRender, onLoadComplete } =
+		props;
 	const updateSubscriber =
 		annotationProvider &&
 		annotationProvider.inlineComment &&
@@ -44,7 +60,11 @@ export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
 							createAnalyticsEvent={createAnalyticsEvent}
 							rendererRef={rendererRef}
 						>
-							<LoadAnnotations adfDocument={adfDocument} isNestedRender={isNestedRender} />
+							<LoadAnnotations
+								adfDocument={adfDocument}
+								isNestedRender={isNestedRender}
+								onLoadComplete={onLoadComplete}
+							/>
 							<AnnotationView createAnalyticsEvent={createAnalyticsEvent} />
 							{children}
 						</AnnotationsContextWrapper>

@@ -167,7 +167,6 @@ interface AnnotationTypeProvider<Type> {
 	updateSubscriber?: AnnotationUpdateEmitter;
 	allowDraftMode?: boolean;
 	allowCommentsOnMedia?: boolean;
-	isCommentsOnMediaBugFixEnabled?: boolean;
 }
 
 export type InlineCommentAnnotationProvider =

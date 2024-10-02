@@ -2,6 +2,7 @@ import React from 'react';
 import type { ComponentType } from 'react';
 import type { Fragment, Mark, Node } from '@atlaskit/editor-prosemirror/model';
 import { MarkType } from '@atlaskit/editor-prosemirror/model';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { Serializer } from '../';
 import type {
 	RendererAppearance,
@@ -44,7 +45,14 @@ import { isCodeMark } from './marks/code';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { segmentText } from './utils/segment-text';
 import { renderTextSegments } from './utils/render-text-segments';
+
 export interface ReactSerializerInit {
+	/**
+	 * Used for to set positions on nodes for annotations.
+	 *
+	 * When not provided defaults to 1.
+	 */
+	startPos?: number;
 	providers?: ProviderFactory;
 	eventHandlers?: EventHandlers;
 	extensionHandlers?: ExtensionHandlers;
@@ -163,7 +171,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private allowAltTextOnImages?: boolean;
 	private stickyHeaders?: StickyHeaderConfig;
 	private allowMediaLinking?: boolean;
-	private startPos: number = 1;
+	private initStartPos: number;
+	private startPos: number;
 	private surroundTextNodesWithTextWrapper: boolean = false;
 	private media?: MediaOptions;
 	private emojiResourceConfig?: EmojiResourceConfig;
@@ -179,6 +188,13 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private allowTableResizing?: boolean;
 
 	constructor(init: ReactSerializerInit) {
+		if (editorExperiment('comment_on_bodied_extensions', true)) {
+			this.initStartPos = init.startPos || 1;
+			this.startPos = init.startPos || 1;
+		} else {
+			this.initStartPos = 1;
+			this.startPos = 1;
+		}
 		this.providers = init.providers;
 		this.eventHandlers = init.eventHandlers;
 		this.extensionHandlers = init.extensionHandlers;
@@ -215,7 +231,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private resetState() {
 		this.headingIds = [];
 		this.expandHeadingIds = [];
-		this.startPos = 1;
+		this.startPos = this.initStartPos;
 	}
 
 	private getNodeProps(node: Node, parentInfo?: ParentInfo) {
@@ -633,6 +649,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	};
 
 	private getProps(node: Node, path: Array<Node> = []): NodeMeta {
+		const startPos = this.startPos + path.length;
+
 		return {
 			text: node.text,
 			providers: this.providers,
@@ -655,8 +673,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			dataAttributes: {
 				// We need to account for depth (path.length gives up depth) here
 				// but depth doesnt increment the pos, only accounted for.
-				'data-renderer-start-pos': this.startPos + path.length,
+				'data-renderer-start-pos': startPos,
 			},
+			startPos,
 			path,
 			...node.attrs,
 		};

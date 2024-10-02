@@ -12,6 +12,7 @@ import type { EditorActions } from '@atlaskit/editor-core';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import { extensionPlugin } from '@atlaskit/editor-plugin-extension';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
@@ -20,16 +21,27 @@ import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decis
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import Heading from '@atlaskit/heading';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { Flex, Stack } from '@atlaskit/primitives';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+
+const smartCardClient = new ConfluenceCardClient('stg');
+const EXAMPLE_NAME = 'lazy-node-example';
+
+function getDefaultAdf() {
+	const doc = localStorage ? localStorage.getItem(`${EXAMPLE_NAME}-doc`) : undefined;
+	return doc ? JSON.parse(doc) : undefined;
+}
 
 const createExamplePreset = () => {
 	return createDefaultPreset({})
 		.add(guidelinePlugin)
 		.add(gridPlugin)
+		.add(cardPlugin)
 		.add(tasksAndDecisionsPlugin)
 		.add([extensionPlugin, { extensionHandlers }])
 		.add([
@@ -92,7 +104,9 @@ const EditorWithNodeViewFallbacked = memo(
 		}, [editorApi, adf]);
 
 		return (
-			<ComposableEditor preset={preset} appearance={appearance} onEditorReady={onEditorReady} />
+			<SmartCardProvider client={smartCardClient}>
+				<ComposableEditor preset={preset} appearance={appearance} onEditorReady={onEditorReady} />
+			</SmartCardProvider>
 		);
 	},
 );
@@ -102,10 +116,12 @@ const EditorWithhRealNodeView = memo(
 		appearance,
 		onReady,
 		onDocChange,
+		adf,
 	}: {
 		appearance: EditorAppearance;
 		onReady: () => void;
 		onDocChange: (doc: PMNode) => void;
+		adf?: Object;
 	}) => {
 		const onEditorReady = useCallback(
 			(editorActions: EditorActions) => {
@@ -155,19 +171,22 @@ const EditorWithhRealNodeView = memo(
 		);
 
 		return (
-			<ComposableEditor
-				preset={preset}
-				appearance={appearance}
-				onEditorReady={onEditorReady}
-				onChange={onChange}
-			/>
+			<SmartCardProvider client={smartCardClient}>
+				<ComposableEditor
+					preset={preset}
+					appearance={appearance}
+					onEditorReady={onEditorReady}
+					onChange={onChange}
+					defaultValue={adf}
+				/>
+			</SmartCardProvider>
 		);
 	},
 );
 
 const LazyNodeViewComparison = memo(
 	({ name, appearance }: { name: string; appearance: EditorAppearance }) => {
-		const [liveAdf, setLiveADF] = useState(undefined);
+		const [liveAdf, setLiveADF] = useState(getDefaultAdf());
 
 		const [mockedReady, setMockedReady] = useState(false);
 		const [notMockedReady, setNotMockedReady] = useState(false);
@@ -183,7 +202,9 @@ const LazyNodeViewComparison = memo(
 		const onDocChange = useMemo(
 			() =>
 				debounce((doc: PMNode) => {
-					setLiveADF(doc.toJSON());
+					const docJSON = doc.toJSON();
+					setLiveADF(docJSON);
+					localStorage.setItem(`${EXAMPLE_NAME}-doc`, JSON.stringify(docJSON));
 				}, 100),
 			[],
 		);
@@ -200,6 +221,7 @@ const LazyNodeViewComparison = memo(
 							appearance={appearance}
 							onReady={onNotMockedReady}
 							onDocChange={onDocChange}
+							adf={liveAdf}
 						/>
 					</Stack>
 					<Stack grow="fill">

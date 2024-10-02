@@ -10,6 +10,8 @@ import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/new';
 import fileTypeIconMetadata from '@atlaskit/icon-file-type/metadata';
 import objectIconMetadata from '@atlaskit/icon-object/metadata';
+import Link from '@atlaskit/link';
+import SectionMessage from '@atlaskit/section-message';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -184,6 +186,13 @@ const IconAllExample = () => {
 
 	return (
 		<div>
+			<SectionMessage title="New icons coming soon">
+				<p>
+					Atlassians, check out the{' '}
+					<Link href="https://go.atlassian.com/icon-migration-overview">icons alpha program</Link>{' '}
+					for documentation and details. We'll update this page once internal testing is complete.
+				</p>
+			</SectionMessage>
 			<Textfield
 				value={query}
 				placeholder="Search for an icon..."

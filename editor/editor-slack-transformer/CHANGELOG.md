@@ -1,5 +1,13 @@
 # @atlaskit/editor-slack-transformer
 
+## 3.7.4
+
+### Patch Changes
+
+- [#147003](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147003)
+  [`f4f413727e260`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f4f413727e260) -
+  [EDF-1041] Remove platform typings prosemirror-markdown from project
+
 ## 3.7.3
 
 ### Patch Changes

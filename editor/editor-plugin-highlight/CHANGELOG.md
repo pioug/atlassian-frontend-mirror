@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.17.6
+
+### Patch Changes
+
+- [#147410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147410)
+  [`7300bd8281c70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7300bd8281c70) -
+  Updated icon usage to new endpoints
+- Updated dependencies
+
 ## 1.17.5
 
 ### Patch Changes

@@ -219,11 +219,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 					annotationId: 'annotationId',
 					annotationType: AnnotationTypes.INLINE_COMMENT,
 				};
-				expect(fakeApplyAnnotation).toHaveBeenCalledWith(
-					fakeDocumentPosition,
-					fakeAnnotation,
-					false,
-				);
+				expect(fakeApplyAnnotation).toHaveBeenCalledWith(fakeDocumentPosition, fakeAnnotation);
 			});
 		});
 
@@ -273,11 +269,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 
 				onCreateCallback('annotationId');
 
-				expect(fakeApplyAnnotation).toHaveBeenCalledWith(
-					fakeDocumentPosition,
-					fakeAnnotation,
-					false,
-				);
+				expect(fakeApplyAnnotation).toHaveBeenCalledWith(fakeDocumentPosition, fakeAnnotation);
 			});
 
 			it('sends insert analytics event', () => {

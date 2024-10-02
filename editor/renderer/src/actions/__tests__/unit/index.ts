@@ -121,57 +121,32 @@ describe('RendererActions', () => {
 
 		it('should apply annotation to the plain text', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 0, to: 9 }, newAnnotation, false)).toMatchSnapshot();
-
-			expect(actions.applyAnnotation({ from: 0, to: 9 }, newAnnotation, true)).toMatchObject(
-				actions.applyAnnotation({ from: 0, to: 9 }, newAnnotation, false),
-			);
+			expect(actions.applyAnnotation({ from: 0, to: 9 }, newAnnotation)).toMatchSnapshot();
 		});
 
 		it('should apply annotation to the formatted text', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 18, to: 30 }, newAnnotation, false)).toMatchSnapshot();
-
-			expect(actions.applyAnnotation({ from: 18, to: 30 }, newAnnotation, true)).toMatchObject(
-				actions.applyAnnotation({ from: 18, to: 30 }, newAnnotation, false),
-			);
+			expect(actions.applyAnnotation({ from: 18, to: 30 }, newAnnotation)).toMatchSnapshot();
 		});
 
 		it('should apply annotation to the top-level media', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 40, to: 40 }, newAnnotation, false)).toMatchSnapshot();
-
-			expect(actions.applyAnnotation({ from: 39, to: 39 }, newAnnotation, true)).toMatchObject(
-				actions.applyAnnotation({ from: 40, to: 40 }, newAnnotation, false),
-			);
+			expect(actions.applyAnnotation({ from: 39, to: 39 }, newAnnotation)).toMatchSnapshot();
 		});
 
 		it('should apply annotation to caption of top level media', () => {
 			const actions = initActions(docWithTextAndMedia);
-
-			expect(actions.applyAnnotation({ from: 41, to: 45 }, newAnnotation, false)).toMatchSnapshot();
-
-			expect(actions.applyAnnotation({ from: 41, to: 45 }, newAnnotation, true)).toMatchObject(
-				actions.applyAnnotation({ from: 41, to: 45 }, newAnnotation, false),
-			);
+			expect(actions.applyAnnotation({ from: 41, to: 45 }, newAnnotation)).toMatchSnapshot();
 		});
 
 		it('should apply annotation to the nested media', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 62, to: 62 }, newAnnotation, false)).toMatchSnapshot();
-
-			expect(actions.applyAnnotation({ from: 61, to: 61 }, newAnnotation, true)).toMatchObject(
-				actions.applyAnnotation({ from: 62, to: 62 }, newAnnotation, false),
-			);
+			expect(actions.applyAnnotation({ from: 61, to: 61 }, newAnnotation)).toMatchSnapshot();
 		});
 
 		it('should apply annotation to the caption of nested media', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 68, to: 71 }, newAnnotation, false)).toMatchSnapshot();
-
-			expect(actions.applyAnnotation({ from: 68, to: 71 }, newAnnotation, true)).toMatchObject(
-				actions.applyAnnotation({ from: 68, to: 71 }, newAnnotation, false),
-			);
+			expect(actions.applyAnnotation({ from: 68, to: 71 }, newAnnotation)).toMatchSnapshot();
 		});
 
 		it('should apply annotation to text with inline nodes', () => {
@@ -182,30 +157,19 @@ describe('RendererActions', () => {
 			const actions = initActions(docWithInlineNodes);
 			const pos = { from: 0, to: 29 };
 
-			expect(actions.applyAnnotation(pos, newAnnotation, false)).toMatchSnapshot();
-
-			expect(actions.applyAnnotation(pos, newAnnotation, true)).toMatchObject(
-				actions.applyAnnotation(pos, newAnnotation, false),
-			);
-		});
-
-		it('should not return targetNodeType when commentOnMediaBugFix is disabled', () => {
-			const actions = initActions(docWithTextAndMedia);
-			expect(
-				actions.applyAnnotation({ from: 39, to: 39 }, newAnnotation, false),
-			).not.toHaveProperty('targetNodeType');
+			expect(actions.applyAnnotation(pos, newAnnotation)).toMatchSnapshot();
 		});
 
 		it('should return targetNodeType for media when commentOnMediaBugFix is enabled', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 39, to: 39 }, newAnnotation, true)).toEqual(
+			expect(actions.applyAnnotation({ from: 39, to: 39 }, newAnnotation)).toEqual(
 				expect.objectContaining({ targetNodeType: 'media' }),
 			);
 		});
 
 		it('should return targetNodeType for text when commentOnMediaBugFix is enabled', () => {
 			const actions = initActions(docWithTextAndMedia);
-			expect(actions.applyAnnotation({ from: 18, to: 30 }, newAnnotation, true)).toEqual(
+			expect(actions.applyAnnotation({ from: 18, to: 30 }, newAnnotation)).toEqual(
 				expect.objectContaining({ targetNodeType: 'text' }),
 			);
 		});

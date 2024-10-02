@@ -4,6 +4,7 @@ import { canUseDOM } from 'exenv';
 import ScrollLock from 'react-scrolllock';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
+import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -16,7 +17,6 @@ import Clone from './clone';
 import NodeResolverSpotlightInner from './node-resolver-spotlight-inner';
 import SpotlightDialog from './spotlight-dialog';
 import { SpotlightTransitionConsumer } from './spotlight-transition';
-
 export interface SpotlightInnerProps extends SpotlightProps {
 	/**
 	 * The spotlight target DOM element.
@@ -126,7 +126,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 					<Portal zIndex={layers.spotlight() + 1}>
 						{TargetReplacement ? (
 							<NodeResolverSpotlightInner
-								hasNodeResolver={!fg('platform-design-system-dsp-20262-spotlight-inner')}
+								hasNodeResolver={!fg('platform_design_system_team_onboarding_noderesolve')}
 								innerRef={(elem: HTMLElement | null) => this.setState({ replacementElement: elem })}
 							>
 								<ElementBox element={targetNode}>
@@ -158,21 +158,25 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 						{TargetReplacement && !replacementElement ? null : (
 							<Fade hasEntered={isOpen} onExited={onExited}>
 								{(animationStyles) => (
-									<SpotlightDialog
-										testId={`${testId}--dialog`}
-										actions={this.props.actions}
-										actionsBeforeElement={this.props.actionsBeforeElement}
-										children={this.props.children}
-										dialogPlacement={this.props.dialogPlacement}
-										dialogWidth={this.props.dialogWidth}
-										footer={this.props.footer}
-										header={this.props.header}
-										heading={this.props.heading}
-										headingAfterElement={this.props.headingAfterElement}
-										image={this.props.image}
-										targetNode={replacementElement || targetNode}
-										animationStyles={animationStyles}
-									/>
+									<UNSAFE_LAYERING
+										isDisabled={fg('platform_design_system_team_spotlight_layering') ? false : true}
+									>
+										<SpotlightDialog
+											testId={`${testId}--dialog`}
+											actions={this.props.actions}
+											actionsBeforeElement={this.props.actionsBeforeElement}
+											children={this.props.children}
+											dialogPlacement={this.props.dialogPlacement}
+											dialogWidth={this.props.dialogWidth}
+											footer={this.props.footer}
+											header={this.props.header}
+											heading={this.props.heading}
+											headingAfterElement={this.props.headingAfterElement}
+											image={this.props.image}
+											targetNode={replacementElement || targetNode}
+											animationStyles={animationStyles}
+										/>
+									</UNSAFE_LAYERING>
 								)}
 							</Fade>
 						)}

@@ -239,7 +239,7 @@ export const plugin = (
 							};
 
 					state = {
-						...(__livePage && fg('platform.linking-platform.smart-links-in-live-pages') && state),
+						...(__livePage && fg('linking_platform_smart_links_in_live_pages') && state),
 						activeText: state.activeText,
 						canInsertLink: state.canInsertLink,
 						inputMethod,
@@ -248,7 +248,7 @@ export const plugin = (
 						...stateForAnalytics,
 					};
 
-					if (fg('platform.linking-platform.smart-links-in-live-pages')) {
+					if (fg('linking_platform_smart_links_in_live_pages')) {
 						const isViewMode =
 							pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 
@@ -351,7 +351,7 @@ export const plugin = (
 		key: stateKey,
 		props: {
 			decorations: (state: EditorState) => {
-				if (__livePage && fg('platform.linking-platform.smart-links-in-live-pages')) {
+				if (__livePage && fg('linking_platform_smart_links_in_live_pages')) {
 					const { decorations } = stateKey.getState(state) ?? {};
 					return decorations;
 				} else {
@@ -393,7 +393,7 @@ export const plugin = (
 				},
 			},
 			...(__livePage &&
-				fg('platform.linking-platform.smart-links-in-live-pages') && {
+				fg('linking_platform_smart_links_in_live_pages') && {
 					markViews: {
 						link: (mark, view, inline) => {
 							const toDOM = mark.type.spec.toDOM;

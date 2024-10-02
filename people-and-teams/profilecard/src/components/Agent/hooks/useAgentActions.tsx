@@ -59,11 +59,11 @@ export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 		window.open(urlWithParams, '_blank', 'noopener, noreferrer');
 	};
 
-	const onOpenChat = () => {
+	const onOpenChat = (agentId: string) => {
 		const baseUrl = `${getATLContextUrl('home')}/chat`;
 		const urlWithParams = encodeParamsToUrl(baseUrl, {
 			cloudId,
-			...createRovoParams({ cloudId }),
+			...createRovoParams({ cloudId, agentId }),
 		});
 		window.open(urlWithParams, '_blank', 'noopener, noreferrer');
 	};

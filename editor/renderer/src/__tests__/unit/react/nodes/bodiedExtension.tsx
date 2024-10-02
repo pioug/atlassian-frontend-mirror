@@ -1,6 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import BodiedExtension from '../../../../react/nodes/bodiedExtension';
+import { ReactRenderer } from '../../../../index';
 
 import type { RendererContext } from '../../../../react/types';
 import ReactSerializer from '../../../../react';
@@ -91,6 +93,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 				extensionType="com.atlassian.fabric"
 				extensionKey="default"
 				localId="c145e554-f571-4208-a0f1-2170e1987722"
+				startPos={1}
 			>
 				<p>This is the default content of the extension</p>
 			</BodiedExtension>,
@@ -112,6 +115,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 				extensionType="com.atlassian.fabric"
 				extensionKey="react"
 				localId="c145e554-f571-4208-a0f1-2170e1987722"
+				startPos={1}
 			/>,
 		);
 
@@ -129,6 +133,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 				extensionType="com.atlassian.fabric"
 				extensionKey="error"
 				localId="c145e554-f571-4208-a0f1-2170e1987722"
+				startPos={1}
 			>
 				<p>This is the default content of the extension</p>
 			</BodiedExtension>,
@@ -161,6 +166,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 				extensionKey="react"
 				localId="c145e554-f571-4208-a0f1-2170e1987722"
 				marks={[fragmentMark]}
+				startPos={1}
 			/>,
 		);
 
@@ -205,6 +211,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 					extensionKey="expand"
 					content="body"
 					localId="c145e554-f571-4208-a0f1-2170e1987722"
+					startPos={1}
 				/>,
 			);
 
@@ -234,6 +241,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 					extensionKey="expand"
 					content="body"
 					localId="c145e554-f571-4208-a0f1-2170e1987722"
+					startPos={1}
 				/>,
 			);
 
@@ -257,6 +265,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 					extensionKey="expand"
 					content="body"
 					localId="c145e554-f571-4208-a0f1-2170e1987722"
+					startPos={1}
 				/>,
 			);
 
@@ -267,6 +276,56 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 			extension.update();
 
 			expect(extension.text()).toEqual('Extension provider: body');
+
+			extension.unmount();
+		});
+	});
+
+	eeTest.describe('comment_on_bodied_extensions', 'Commenting features').variant(true, () => {
+		it('should render bodied extensions with incremented start positions when inside a document', async () => {
+			const providerFactory = ProviderFactory.create({});
+
+			const extensionHandlers: ExtensionHandlers = {
+				'fake.confluence': (ext) => {
+					return (
+						<ReactRenderer
+							adfStage="stage0"
+							document={{ type: 'doc', version: 1, content: ext.content as any }}
+							allowAnnotations={false}
+						/>
+					);
+				},
+			};
+
+			const startPos = 10;
+
+			const extension = mount(
+				<BodiedExtension
+					providers={providerFactory}
+					serializer={serializer}
+					extensionHandlers={extensionHandlers}
+					rendererContext={rendererContext}
+					extensionType="fake.confluence"
+					extensionKey="expand"
+					content={[
+						{
+							type: 'paragraph',
+							content: [{ type: 'text', text: 'This is a ADF node' }],
+						},
+					]}
+					localId="c145e554-f571-4208-a0f1-2170e1987722"
+					startPos={startPos}
+				/>,
+			);
+
+			await act(async () => {
+				await Loadable.preloadAll();
+			});
+
+			extension.update();
+
+			// The paragraph inside the extension should have a data-renderer-start-pos attribute with the incremented value
+			expect(extension.html()).toContain(`data-renderer-start-pos="${startPos + 1}"`);
 
 			extension.unmount();
 		});

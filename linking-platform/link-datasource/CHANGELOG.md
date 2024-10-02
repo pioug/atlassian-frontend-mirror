@@ -1,5 +1,20 @@
 # @atlaskit/link-datasource
 
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.0
+
+### Minor Changes
+
+- [#147374](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147374)
+  [`8f647e8fa0041`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f647e8fa0041) -
+  Introduces basic filters for Jira smart link list view config modal as a permanent feature by
+  removing feature flag platform.linking-platform.datasource.show-jlol-basic-filters
+
 ## 3.1.5
 
 ### Patch Changes

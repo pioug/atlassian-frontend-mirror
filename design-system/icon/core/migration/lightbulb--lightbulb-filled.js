@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dba4fd174d63d84f0f18d9e9e7aa7d8d>>
+ * @codegen <<SignedSource::df8f0b48aaecd2c4ab51bb751e7e591f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _lightbulb = _interopRequireDefault(require("@atlaskit/icon/core/lightbulb"));
 var _lightbulbFilled = _interopRequireDefault(require("@atlaskit/icon/glyph/lightbulb-filled"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

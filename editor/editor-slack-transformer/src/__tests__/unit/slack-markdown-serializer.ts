@@ -43,6 +43,7 @@ import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 import { MarkdownSerializer, marks, nodes } from '../../serializer';
 
+// @ts-expect-error - Our node definitions are not compatible with prosemirror-markdown types
 const markdownSerializer = new MarkdownSerializer(nodes, marks);
 
 describe('SlackTransformer: serializer', () => {

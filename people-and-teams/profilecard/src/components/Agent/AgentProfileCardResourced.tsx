@@ -151,6 +151,7 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 				onChatClick={props.onChatClick}
 				addFlag={props.addFlag}
 				resourceClient={props.resourceClient}
+				cloudId={props.cloudId}
 			/>
 		);
 	}

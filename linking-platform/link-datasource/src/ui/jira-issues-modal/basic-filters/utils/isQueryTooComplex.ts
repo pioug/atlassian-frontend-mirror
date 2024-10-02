@@ -12,7 +12,6 @@ import {
 	type OrderByField,
 	type TerminalClause,
 } from '@atlaskit/jql-ast';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ALLOWED_ORDER_BY_KEYS } from '../../jira-search-container';
 
@@ -135,7 +134,7 @@ class JqlClauseCollectingVisitor extends AbstractJastVisitor<ClauseMap> {
 }
 
 export const isQueryTooComplex = (jql: string) => {
-	if (!fg('platform.linking-platform.datasource.show-jlol-basic-filters') || !jql) {
+	if (!jql) {
 		return false;
 	}
 

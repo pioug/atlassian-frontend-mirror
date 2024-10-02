@@ -1,5 +1,14 @@
 # @atlaskit/pagination
 
+## 14.9.2
+
+### Patch Changes
+
+- [#147416](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147416)
+  [`a820e507f83f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a820e507f83f7) -
+  [ux] [EDF-1566] Made the rovo agents equal heights
+- Updated dependencies
+
 ## 14.9.1
 
 ### Patch Changes

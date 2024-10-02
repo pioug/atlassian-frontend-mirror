@@ -57,6 +57,7 @@ export interface ButtonComponentProps
 		| 'aria-haspopup'
 		| 'href'
 		| 'target'
+		| 'rel'
 	> {
 	'data-ds--level'?: string;
 	/**

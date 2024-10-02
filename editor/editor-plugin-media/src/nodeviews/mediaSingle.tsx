@@ -483,9 +483,6 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 				)}
 				{!editorExperiment('add-media-from-url', true) && commentsOnMedia && (
 					<CommentBadge
-						commentsOnMediaBugFixEnabled={
-							mediaOptions?.getEditorFeatureFlags?.()?.commentsOnMediaBugFix
-						}
 						view={view}
 						api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}
 						mediaNode={node?.firstChild}

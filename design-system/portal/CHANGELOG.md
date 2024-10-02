@@ -1,5 +1,13 @@
 # @atlaskit/portal
 
+## 4.9.2
+
+### Patch Changes
+
+- [#146891](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146891)
+  [`1946e3bf8c6c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1946e3bf8c6c9) -
+  Internal change only: update feature flag names.
+
 ## 4.9.1
 
 ### Patch Changes

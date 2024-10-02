@@ -9,6 +9,7 @@ import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model'
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { reduce } from '@atlaskit/adf-utils/traverse';
 import { ProviderFactory, ProviderFactoryProvider } from '@atlaskit/editor-common/provider-factory';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import {
 	UnsupportedBlock,
 	BaseTheme,
@@ -52,7 +53,7 @@ import {
 } from '../RendererActionsContext';
 import { ActiveHeaderIdProvider } from '../active-header-id-provider';
 import type { RendererProps } from '../renderer-props';
-import { AnnotationsWrapper } from '../annotations';
+import { AnnotationsPositionContext, AnnotationsWrapper } from '../annotations';
 import { getActiveHeadingId, isNestedHeaderLinksEnabled } from '../../react/utils/links';
 import { findInTree } from '../../utils';
 import { isInteractiveElement } from './click-to-edit';
@@ -70,7 +71,10 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export const defaultNodeComponents: NodeComponentsProps = nodeToReact;
 
-export class Renderer extends PureComponent<RendererProps> {
+/**
+ * Exported due to enzyme test reliance on this component.
+ */
+export class __RendererClassComponent extends PureComponent<RendererProps & { startPos?: number }> {
 	private providerFactory: ProviderFactory;
 	private serializer: ReactSerializer;
 	private editorRef: React.RefObject<HTMLDivElement>;
@@ -83,7 +87,7 @@ export class Renderer extends PureComponent<RendererProps> {
 	 */
 	private renderedMeasurementDistortedDurationMonitor? = getDistortedDurationMonitor();
 
-	constructor(props: RendererProps) {
+	constructor(props: RendererProps & { startPos: number }) {
 		super(props);
 		this.providerFactory = props.dataProviders || new ProviderFactory();
 		this.serializer = new ReactSerializer(this.deriveSerializerProps(props));
@@ -191,7 +195,7 @@ export class Renderer extends PureComponent<RendererProps> {
 		});
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: RendererProps) {
+	UNSAFE_componentWillReceiveProps(nextProps: RendererProps & { startPos: number }) {
 		const nextMedia = nextProps.media || {};
 		const media = this.props.media || {};
 
@@ -209,7 +213,7 @@ export class Renderer extends PureComponent<RendererProps> {
 		}
 	}
 
-	private deriveSerializerProps(props: RendererProps): ReactSerializerInit {
+	private deriveSerializerProps(props: RendererProps & { startPos: number }): ReactSerializerInit {
 		// if just passed a boolean, change shape into object to simplify type
 		const stickyHeaders = props.stickyHeaders
 			? props.stickyHeaders === true
@@ -226,6 +230,7 @@ export class Renderer extends PureComponent<RendererProps> {
 		const { featureFlags } = this.featureFlags(props.featureFlags);
 
 		return {
+			startPos: props.startPos,
 			providers: this.providerFactory,
 			eventHandlers: props.eventHandlers,
 			extensionHandlers: props.extensionHandlers,
@@ -534,6 +539,16 @@ export class Renderer extends PureComponent<RendererProps> {
 	}
 }
 
+export function Renderer(props: RendererProps) {
+	const { startPos } = React.useContext(AnnotationsPositionContext);
+
+	// eslint-disable-next-line react/jsx-pascal-case
+	return <__RendererClassComponent {...props} startPos={startPos} />;
+}
+
+// Usage notes:
+// Used by Confluence for View page renderer
+// For the nested renderers - see RendererWithAnnotationSelection.
 export const RendererWithAnalytics = React.memo((props: RendererProps) => (
 	<FabricEditorAnalyticsContext
 		data={{
@@ -695,6 +710,8 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 	);
 });
 
+const RootRendererContext = React.createContext<{ doc?: PMNode } | null>(null);
+
 function RendererActionsInternalUpdater({
 	children,
 	doc,
@@ -706,21 +723,49 @@ function RendererActionsInternalUpdater({
 	children: JSX.Element | null;
 	onAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 }) {
+	const rootRendererContextValue = React.useContext(RootRendererContext);
 	const actions = useContext(ActionsContext);
 	const rendererRef = useRef(null);
+
+	// This doc is used by the renderer actions when applying comments to the document.
+	// (via hand crafted steps based on non prosemirror based position calculations)
+	// It is set to the root renderer's doc as otherwise the resulting document will
+	// be incorrect (nested renderers use a fake document which represents a subset
+	// of the actual document).
+	let _doc: PMNode | undefined;
+
+	if (editorExperiment('comment_on_bodied_extensions', true) && rootRendererContextValue) {
+		// If rootRendererContextValue is set -- we are inside a nested renderer
+		// and should always use the doc from the root renderer
+		_doc = rootRendererContextValue.doc;
+	} else {
+		// If rootRendererContextValue is not set -- we are in the root renderer
+		// and set the doc to the current doc.
+		_doc = doc;
+	}
+
 	useLayoutEffect(() => {
-		if (doc) {
-			actions._privateRegisterRenderer(rendererRef, doc, schema, onAnalyticsEvent);
+		if (_doc) {
+			actions._privateRegisterRenderer(rendererRef, _doc, schema, onAnalyticsEvent);
 		} else {
 			actions._privateUnregisterRenderer();
 		}
 
 		return () => actions._privateUnregisterRenderer();
-	}, [actions, schema, doc, onAnalyticsEvent]);
+	}, [actions, schema, _doc, onAnalyticsEvent]);
+
+	if (editorExperiment('comment_on_bodied_extensions', true)) {
+		return (
+			<RootRendererContext.Provider value={{ doc: _doc }}>{children}</RootRendererContext.Provider>
+		);
+	}
 
 	return children;
 }
 
+// Usage notes:
+// Used by Confluence for nested renderers
+// For the View page renderer - see RendererWithAnalytics
 const RendererWithAnnotationSelection = (props: RendererProps) => {
 	const { allowAnnotations, document: adfDocument } = props;
 	const localRef = React.useRef<HTMLDivElement>(null);

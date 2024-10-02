@@ -71,13 +71,13 @@ export const smartCardStyles = () => css`
 		.${SmartCardSharedCssClassName.LOADER_WRAPPER} > div {
 			cursor: ${
 				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-				fg('platform.linking-platform.smart-links-in-live-pages') ? 'text' : 'pointer'
+				fg('linking_platform_smart_links_in_live_pages') ? 'text' : 'pointer'
 			};
 
 			a {
 				cursor: ${
 					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-					fg('platform.linking-platform.smart-links-in-live-pages') ? 'pointer' : 'auto'
+					fg('linking_platform_smart_links_in_live_pages') ? 'pointer' : 'auto'
 				};
 			}
 		}
@@ -136,7 +136,7 @@ export const smartCardStyles = () => css`
 			a {
 				cursor: ${
 					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-					fg('platform.linking-platform.smart-links-in-live-pages') ? 'pointer' : 'auto'
+					fg('linking_platform_smart_links_in_live_pages') ? 'pointer' : 'auto'
 				};
 			}
 			&::after {

@@ -529,7 +529,7 @@ describe('Popup Select', () => {
 
 	describe('onMenuOpen and onMenuClose handlers', () => {
 		ffTest.on(
-			'platform-design-system-dsp-19701-no-node-resolver',
+			'platform_design_system_team_select_node_resolver',
 			' - with no node-resolver',
 			() => {
 				it('should trigger onMenuOpen and onMenuClose methods when opened and closed respectively', async () => {

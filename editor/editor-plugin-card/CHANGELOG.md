@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 3.4.1
+
+### Patch Changes
+
+- [#146891](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146891)
+  [`17f2c59f06b04`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17f2c59f06b04) -
+  Migrate smart links in live pages feature flag to Statsig
+- Updated dependencies
+
 ## 3.4.0
 
 ### Minor Changes

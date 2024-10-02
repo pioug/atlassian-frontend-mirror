@@ -90,10 +90,18 @@ export const MediaInsertPicker = ({
 	insertExternalMediaSingle,
 	insertFile,
 }: MediaInsertPickerProps) => {
-	const { isOpen } = useSharedPluginState(api, ['mediaInsert'])?.mediaInsertState ?? {};
+	const { isOpen, mountInfo } = useSharedPluginState(api, ['mediaInsert'])?.mediaInsertState ?? {};
 
-	// If targetRef is undefined, target the selection in the editor
-	const targetRef = getDomRefFromSelection(editorView, dispatchAnalyticsEvent);
+	let targetRef: HTMLElement | undefined;
+	let mountPoint: HTMLElement | undefined;
+	if (mountInfo) {
+		targetRef = mountInfo.ref;
+		mountPoint = mountInfo.mountPoint;
+	} else {
+		// If targetRef is undefined, target the selection in the editor
+		targetRef = getDomRefFromSelection(editorView, dispatchAnalyticsEvent);
+		mountPoint = popupsMountPoint;
+	}
 
 	const mediaProvider = useSharedPluginState(api, ['media'])?.mediaState?.mediaProvider;
 	const intl = useIntl();
@@ -128,7 +136,7 @@ export const MediaInsertPicker = ({
 			zIndex={akEditorFloatingDialogZIndex}
 			fitHeight={390}
 			fitWidth={340}
-			mountTo={popupsMountPoint}
+			mountTo={mountPoint}
 			boundariesElement={popupsBoundariesElement}
 			handleClickOutside={handleClose(INPUT_METHOD.MOUSE)}
 			handleEscapeKeydown={handleClose(INPUT_METHOD.KEYBOARD)}

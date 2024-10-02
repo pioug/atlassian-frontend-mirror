@@ -157,11 +157,7 @@ const stickyScrollbarContainerStyles = `.${ClassName.TABLE_CONTAINER} {
   }
 }`;
 
-const stickyScrollbarStyles = (featureFlags?: FeatureFlags) => {
-	return featureFlags?.stickyScrollbar
-		? `${stickyScrollbarContainerStyles} ${stickyScrollbarSentinelStyles}`
-		: '';
-};
+const stickyScrollbarStyles = `${stickyScrollbarContainerStyles} ${stickyScrollbarSentinelStyles}`;
 
 const shadowSentinelStyles = `
   .${ClassName.TABLE_SHADOW_SENTINEL_LEFT},
@@ -492,7 +488,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 
 	${sentinelStyles}
 	${OverflowShadow(props.featureFlags?.tableDragAndDrop)}
-    ${stickyScrollbarStyles(props.featureFlags)}
+    ${stickyScrollbarStyles}
 
     .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
 		height: 0; // stop overflow flash & set correct height in update-overflow-shadows.ts

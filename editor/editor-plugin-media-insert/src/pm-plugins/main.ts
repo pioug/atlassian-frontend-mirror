@@ -12,7 +12,7 @@ export const createPlugin = (): SafePlugin<MediaInsertPluginState> => {
 			init(): MediaInsertPluginState {
 				return {
 					isOpen: false,
-					target: undefined,
+					mountInfo: undefined,
 				};
 			},
 
@@ -20,7 +20,7 @@ export const createPlugin = (): SafePlugin<MediaInsertPluginState> => {
 				const meta = tr.getMeta(pluginKey);
 				switch (meta?.type) {
 					case ACTION_OPEN_POPUP:
-						return { isOpen: true, target: meta.target };
+						return { isOpen: true, mountInfo: meta.mountInfo };
 					case ACTION_CLOSE_POPUP:
 						return { isOpen: false };
 					default:

@@ -56,12 +56,13 @@ export const mediaSpecWithFixedToDOM = () => {
 						background-image: url("${dataUrl}");
 						margin-left: 0;
 						margin-right: 4px;
-						border-radius: ${skeletonStyling};
+						border-radius: 3px;
+						outline: none;
 
 						flex-basis: ${defaultImageCardDimensions.width}px;
-						background-color: var(--media-card-background-color, unset);
-						width: var(--media-card-width, 0);
-						height: var(--media-card-height, 0);
+						background-color: var(--media-card-background-color);
+						width: var(--media-card-width, ${node.attrs.width || width}px);
+						height: var(--media-card-height, ${node.attrs.height || height}px);
 						`,
 					},
 				];

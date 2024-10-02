@@ -168,7 +168,7 @@ export function InlineCardNodeView(
 	]);
 	const floatingToolbarNode = floatingToolbarState?.configWithNodeInfo?.node;
 
-	if (__livePage && fg('platform.linking-platform.smart-links-in-live-pages')) {
+	if (__livePage && fg('linking_platform_smart_links_in_live_pages')) {
 		const showHoverPreview = floatingToolbarNode !== node;
 		const livePagesHoverCardFadeInDelay = 800;
 

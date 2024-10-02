@@ -18,7 +18,7 @@ import {
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import FieldTextIcon from '@atlaskit/icon-lab/core/field-text';
-import StatusIcon from '@atlaskit/icon-lab/core/status';
+import LozengeIcon from '@atlaskit/icon-lab/core/lozenge';
 import AngleBracketsIcon from '@atlaskit/icon/core/migration/angle-brackets--editor-code';
 import CalendarIcon from '@atlaskit/icon/core/migration/calendar--editor-date';
 import DecisionIcon from '@atlaskit/icon/core/migration/decision--editor-decision';
@@ -302,7 +302,7 @@ export const status = mem((init: CreateInit) =>
 		disabled: init.disabled,
 		name: 'status',
 		Icon: () => (
-			<StatusIcon
+			<LozengeIcon
 				label=""
 				color="currentColor"
 				spacing="spacious"

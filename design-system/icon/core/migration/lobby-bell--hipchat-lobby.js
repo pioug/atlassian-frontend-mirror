@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::086b2f1d98124d6e94c7505130906225>>
+ * @codegen <<SignedSource::ccf41253e39bd1add675b8247fec1e06>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _lobbyBell = _interopRequireDefault(require("@atlaskit/icon/core/lobby-bell"));
 var _lobby = _interopRequireDefault(require("@atlaskit/icon/glyph/hipchat/lobby"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

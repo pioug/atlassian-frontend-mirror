@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.2.8
+
+### Patch Changes
+
+- [#147412](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147412)
+  [`aa848a0cd334a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa848a0cd334a) -
+  fix button number issue, show more buttons on smaller screens
+- Updated dependencies
+
+## 2.2.7
+
+### Patch Changes
+
+- [#147461](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147461)
+  [`acef010cdb706`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/acef010cdb706) -
+  [ux] [ED-25164] Pass mounting point to media insert plugin for correct toolbar popup positioning
+
+## 2.2.6
+
+### Patch Changes
+
+- [#147410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147410)
+  [`7300bd8281c70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7300bd8281c70) -
+  Updated icon usage to new endpoints
+- Updated dependencies
+
 ## 2.2.5
 
 ### Patch Changes

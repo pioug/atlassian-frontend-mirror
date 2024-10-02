@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d5755f9e0a94fdd261ca5948ea533e9b>>
+ * @codegen <<SignedSource::6640ac50dac0baf46ec25e07652f162c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _video = _interopRequireDefault(require("@atlaskit/icon/core/video"));
 var _vidCameraOn = _interopRequireDefault(require("@atlaskit/icon/glyph/vid-camera-on"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

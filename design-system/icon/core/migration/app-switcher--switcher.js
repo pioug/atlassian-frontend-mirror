@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0c1dbb32cfb4da2def13fad9b53eebdf>>
+ * @codegen <<SignedSource::eeb8c01a0386c41e7072d5a671a292df>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _appSwitcher = _interopRequireDefault(require("@atlaskit/icon/core/app-switcher"));
 var _switcher = _interopRequireDefault(require("@atlaskit/icon/glyph/switcher"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

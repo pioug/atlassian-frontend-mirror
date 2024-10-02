@@ -27,16 +27,6 @@ describe('Breadcrumbs container', () => {
 		expect(screen.queryAllByRole('navigation')).toHaveLength(1);
 	});
 
-	it('should not render a navigation role if `isNavigation` is false', () => {
-		render(
-			<Breadcrumbs testId="bcs" isNavigation={false}>
-				<BreadcrumbsItem text="item" />
-			</Breadcrumbs>,
-		);
-
-		expect(screen.queryAllByRole('navigation')).toHaveLength(0);
-	});
-
 	it('should render multiple children', () => {
 		render(
 			<Breadcrumbs testId="breadcrumbs-container">

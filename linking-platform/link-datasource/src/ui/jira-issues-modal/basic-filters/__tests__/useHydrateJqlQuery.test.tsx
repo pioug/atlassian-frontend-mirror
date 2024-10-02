@@ -148,30 +148,33 @@ describe('useHydrateJqlQuery', () => {
 		});
 	});
 
-	it.each<string>([
-		'text=hello',
-		'text=hello or summary=world',
-		'text=hello or summary=world or key=EDM-123',
-		'text ~ "hello*" or summary ~ "hello*" ORDER BY created DESC',
-		'text ~ "hello*" or summary ~ "world*" ORDER BY created DESC',
-	])('should return correct basicInputTextValue value when jql is %s', async (jql) => {
-		const { result, waitForNextUpdate } = setup(jql);
-		await result.current.fetchHydratedJqlOptions();
+	it.each<[string, boolean]>([
+		['text=hello', false],
+		['text=hello or summary=world', true],
+		['text=hello or summary=world or key=EDM-123', true],
+		['text ~ "hello*" or summary ~ "hello*" ORDER BY created DESC', false],
+		['text ~ "hello*" or summary ~ "world*" ORDER BY created DESC', true],
+	])(
+		'should return correct basicInputTextValue value when non-complex jql is %s',
+		async (jql, isTestJqlQueryComplex) => {
+			const { result, waitForNextUpdate } = setup(jql);
+			await result.current.fetchHydratedJqlOptions();
 
-		act(() => {
-			waitForNextUpdate();
-		});
+			act(() => {
+				waitForNextUpdate();
+			});
 
-		expect(result.current).toEqual({
-			hydratedOptions: {
-				basicInputTextValue: 'hello',
-				...hydrateJqlStandardResponseMapped,
-			},
-			fetchHydratedJqlOptions: expect.any(Function),
-			status: 'resolved',
-			errors: [],
-		});
-	});
+			expect(result.current).toEqual({
+				hydratedOptions: {
+					basicInputTextValue: isTestJqlQueryComplex ? undefined : 'hello',
+					...hydrateJqlStandardResponseMapped,
+				},
+				fetchHydratedJqlOptions: expect.any(Function),
+				status: 'resolved',
+				errors: [],
+			});
+		},
+	);
 
 	it('should not include basicInputTextValue if the value is undefined', async () => {
 		const { result, waitForNextUpdate } = setup('created >= -30d order by created DESC');

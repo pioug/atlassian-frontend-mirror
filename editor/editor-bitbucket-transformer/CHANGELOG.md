@@ -1,5 +1,13 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 8.8.5
+
+### Patch Changes
+
+- [#147003](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147003)
+  [`f4f413727e260`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f4f413727e260) -
+  [EDF-1041] Remove platform typings prosemirror-markdown from project
+
 ## 8.8.4
 
 ### Patch Changes

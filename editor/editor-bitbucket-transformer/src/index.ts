@@ -13,6 +13,7 @@ export interface TransformerOptions {
 }
 
 export class BitbucketTransformer implements Transformer<string> {
+	// @ts-expect-error - Our node definitions are not compatible with prosemirror-markdown types
 	private serializer = new MarkdownSerializer(nodes, marks);
 	private schema: Schema;
 	private options: TransformerOptions;

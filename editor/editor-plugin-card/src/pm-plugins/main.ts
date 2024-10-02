@@ -37,7 +37,7 @@ const LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK = 'smart-link-upgrade-pulse';
 export const ALLOW_EVENTS_CLASSNAME = 'card-plugin-element-allow-events';
 
 export const stopEvent = (event: Event): boolean => {
-	if (!fg('platform.linking-platform.smart-links-in-live-pages')) {
+	if (!fg('linking_platform_smart_links_in_live_pages')) {
 		return false;
 	}
 
@@ -98,7 +98,7 @@ export const createPlugin =
 				__livePage,
 			},
 			...(__livePage &&
-				fg('platform.linking-platform.smart-links-in-live-pages') && {
+				fg('linking_platform_smart_links_in_live_pages') && {
 					extraNodeViewProps: {
 						stopEvent,
 					},

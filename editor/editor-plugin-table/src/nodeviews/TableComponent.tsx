@@ -238,7 +238,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		this?.table?.addEventListener('mouseover', this.handleMouseOver);
 
-		const { tableWithFixedColumnWidthsOption = false, stickyScrollbar } = getEditorFeatureFlags();
+		const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 
 		if (isTableScalingEnabled && !tableWithFixedColumnWidthsOption) {
 			this.handleColgroupUpdates(true);
@@ -257,10 +257,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				passive: true,
 			});
 
-			if (stickyScrollbar) {
-				if (this.table) {
-					this.stickyScrollbar = new TableStickyScrollbar(this.wrapper, this.props.view);
-				}
+			if (this.table) {
+				this.stickyScrollbar = new TableStickyScrollbar(this.wrapper, this.props.view);
 			}
 
 			if (isDragAndDropEnabled) {
@@ -301,13 +299,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	}
 
 	componentWillUnmount() {
-		const {
-			allowColumnResizing,
-			eventDispatcher,
-			options,
-			isDragAndDropEnabled,
-			getEditorFeatureFlags,
-		} = this.props;
+		const { allowColumnResizing, eventDispatcher, options, isDragAndDropEnabled } = this.props;
 		if (this.wrapper && !isIE11) {
 			this.wrapper.removeEventListener('scroll', this.handleScrollDebounced);
 		}
@@ -318,12 +310,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		this.resizeObserver?.disconnect();
 
-		const { stickyScrollbar } = getEditorFeatureFlags();
-
-		if (stickyScrollbar) {
-			if (this.stickyScrollbar) {
-				this.stickyScrollbar.dispose();
-			}
+		if (this.stickyScrollbar) {
+			this.stickyScrollbar.dispose();
 		}
 
 		this.handleScrollDebounced.cancel();
@@ -847,7 +835,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		let topStickyShadowPosition =
 			this.state.stickyHeader && topOffset + this.state.stickyHeader.padding + topShadowPadding + 2;
 
-		const { stickyScrollbar, tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
+		const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 
 		const shouldUseIncreasedScalingPercent =
 			!!isTableScalingEnabled &&
@@ -885,14 +873,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					className={ClassName.TABLE_STICKY_SENTINEL_TOP}
 					data-testid="sticky-sentinel-top"
 				/>
-				{stickyScrollbar && (
-					<div
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP}
-						data-testid="sticky-scrollbar-sentinel-top"
-					/>
-				)}
-
+				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP}
+					data-testid="sticky-scrollbar-sentinel-top"
+				/>
 				{allowControls && rowControls}
 				{isDragAndDropEnabled && (
 					<ExternalDropTargets
@@ -946,28 +931,26 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				>
 					{allowControls && colControls}
 				</div>
-				{stickyScrollbar && (
+				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
+					style={{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						display: 'none',
+						// prevent unwanted scroll during table resize without removing scrollbar container from the dom
+						width: isResizing ? token('space.0', '0px') : '100%',
+					}}
+				>
 					<div
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
 						style={{
+							width: tableRef?.clientWidth,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							display: 'none',
-							// prevent unwanted scroll during table resize without removing scrollbar container from the dom
-							width: isResizing ? token('space.0', '0px') : '100%',
+							height: '100%',
 						}}
-					>
-						<div
-							style={{
-								width: tableRef?.clientWidth,
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								height: '100%',
-							}}
-						></div>
-					</div>
-				)}
+					></div>
+				</div>
 				<div
 					contentEditable={false}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -1004,13 +987,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					className={ClassName.TABLE_STICKY_SENTINEL_BOTTOM}
 					data-testid="sticky-sentinel-bottom"
 				/>
-				{stickyScrollbar && (
-					<div
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}
-						data-testid="sticky-scrollbar-sentinel-bottom"
-					/>
-				)}
+				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}
+					data-testid="sticky-scrollbar-sentinel-bottom"
+				/>
 			</TableContainer>
 		);
 	}
@@ -1020,12 +1001,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			return;
 		}
 
-		const { stickyScrollbar } = this.props.getEditorFeatureFlags();
-
-		if (stickyScrollbar) {
-			if (this.stickyScrollbar) {
-				this.stickyScrollbar.scrollLeft(this.wrapper.scrollLeft);
-			}
+		if (this.stickyScrollbar) {
+			this.stickyScrollbar.scrollLeft(this.wrapper.scrollLeft);
 		}
 
 		if (this.table) {

@@ -10,6 +10,7 @@ import { jsx } from '@emotion/react';
 
 import { useId } from '@atlaskit/ds-lib/react-uid';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
+import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
@@ -69,6 +70,8 @@ export const Popup: FC<PopupProps> = memo(
 		});
 
 		const id = providedId || generatedId;
+
+		useNotifyOpenLayerObserver({ isOpen });
 
 		const renderPopperWrapper = (
 			<UNSAFE_LAYERING isDisabled={false}>

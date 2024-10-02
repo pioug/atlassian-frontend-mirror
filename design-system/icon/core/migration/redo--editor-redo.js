@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7a33ae9d7df19c0ec54c33c822356cf3>>
+ * @codegen <<SignedSource::54fdc2d0a66ff84d8c2d9eab8613723c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _redo = _interopRequireDefault(require("@atlaskit/icon/core/redo"));
 var _redo2 = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/redo"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

@@ -1,5 +1,26 @@
 # @atlaskit/layering
 
+## 0.5.0
+
+### Minor Changes
+
+- [#147187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147187)
+  [`f3fc0c5bb919d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3fc0c5bb919d) -
+  Adds a new experimental open-layer-observer entrypoint. It contains:
+
+  - OpenLayerObserver: a context provider that contains a ref that tracks the number of open layered
+    components underneath it in the React DOM.
+  - useNotifyOpenLayerObserver: a hook for use within layering components (e.g. popup) that will
+    notify its ancestor `OpenLayerObserver`s.
+    - This hook is behind a feature flag.
+  - useOpenLayerCount: a hook to be used within a `OpenLayerObserver`, that will return the layer
+    count ref.
+
+  The use case for this entrypoint is enabling wrapper components to determine if there are any open
+  layering components contained within them. For example, the nav4 side nav will need to know if
+  there are any popups or dropdown menus currently open within the side nav, so that if it is in
+  flyout mode, it will stay locked open until the layered components are hidden or unmounted.
+
 ## 0.4.1
 
 ### Patch Changes

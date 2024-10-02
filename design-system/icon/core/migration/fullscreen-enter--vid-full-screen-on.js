@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aaad434ee2e3df626d1a95390bfba18f>>
+ * @codegen <<SignedSource::3c924d7aa97536feacf0cc0682b2e7ba>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _fullscreenEnter = _interopRequireDefault(require("@atlaskit/icon/core/fullscreen-enter"));
 var _vidFullScreenOn = _interopRequireDefault(require("@atlaskit/icon/glyph/vid-full-screen-on"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

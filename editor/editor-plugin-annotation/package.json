@@ -35,12 +35,12 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.9.0",
-		"@atlaskit/editor-common": "^92.0.0",
+		"@atlaskit/editor-common": "^92.1.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-editor-viewmode-effects": "^1.1.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
-		"@atlaskit/icon": "^22.19.0",
+		"@atlaskit/icon": "^22.20.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0"
 	},

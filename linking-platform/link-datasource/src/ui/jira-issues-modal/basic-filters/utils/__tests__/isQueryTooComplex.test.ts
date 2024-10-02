@@ -134,23 +134,11 @@ const allFieldsCases: [string, boolean][] = [
 ];
 
 describe('Testing checkIfQueryIsComplex', () => {
-	describe('when FF is ON', () => {
-		it.each<[string, boolean]>([...nonComplexCases, ...complexCases, ...allFieldsCases])(
-			'should evaluate %s and return result as %s',
-			(jql, expected) => {
-				asMock(fg).mockReturnValue(true);
-				expect(isQueryTooComplex(jql)).toBe(expected);
-			},
-		);
-	});
-
-	describe('when FF is OFF', () => {
-		it.each<[string, boolean]>([...nonComplexCases, ...complexCases, ...allFieldsCases])(
-			'should evaluate %s and return result as %s',
-			(jql) => {
-				asMock(fg).mockReturnValue(false);
-				expect(isQueryTooComplex(jql)).toBe(false);
-			},
-		);
-	});
+	it.each<[string, boolean]>([...nonComplexCases, ...complexCases, ...allFieldsCases])(
+		'should evaluate %s and return result as %s',
+		(jql, expected) => {
+			asMock(fg).mockReturnValue(true);
+			expect(isQueryTooComplex(jql)).toBe(expected);
+		},
+	);
 });

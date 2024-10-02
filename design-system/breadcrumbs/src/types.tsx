@@ -10,12 +10,6 @@ export interface BreadcrumbsProps extends WithAnalyticsEventsProps {
 	 */
 	isExpanded?: boolean;
 	/**
-	 * Uses the `nav` element if true and `div` if false. Defaults to true. Use
-	 * to reduce noise for assistive technologies, like screen readers, on pages
-	 * where multiple breadcrumbs exist.
-	 */
-	isNavigation?: boolean;
-	/**
 	 * Set the maximum number of breadcrumbs to display. When there are more
 	 * than the maximum number, only the first and last will be shown, with an
 	 * ellipsis in between.

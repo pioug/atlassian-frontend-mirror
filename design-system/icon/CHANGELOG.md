@@ -1,5 +1,111 @@
 # @atlaskit/icon
 
+## 22.20.1
+
+### Patch Changes
+
+- [#147485](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147485)
+  [`d4cfb478a5f36`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4cfb478a5f36) -
+  Re-generated glyph icons after dependencies were updated
+
+## 22.20.0
+
+### Minor Changes
+
+- [#147410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147410)
+  [`7300bd8281c70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7300bd8281c70) -
+  This release adds a supplementary set of icons to `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `api`
+  - `arrow-down-left`
+  - `arrow-down-right`
+  - `arrow-up-left`
+  - `assets`
+  - `border`
+  - `border-weight-medium`
+  - `border-weight-thick`
+  - `border-weight-thin`
+  - `border`
+  - `calendar-plus`
+  - `card`
+  - `chat-widget`
+  - `clipboard`
+  - `curly-brackets`
+  - `data-number`
+  - `data-string`
+  - `emoji-casual`
+  - `emoji-neutral`
+  - `emoji-remove`
+  - `field-alert`
+  - `field-checkbox-group`
+  - `field-dropdown`
+  - `field-radio-group`
+  - `form`
+  - `glasses`
+  - `image-fullscreen`
+  - `image-inline`
+  - `image-scaled`
+  - `markdown`
+  - `person-remove`
+  - `person-warning`
+  - `project-status`
+  - `radio-checked`
+  - `radio-unchecked`
+  - `screen-plus`
+  - `sidebar-left`
+  - `sidebar-right`
+  - `smart-link-card`
+  - `smart-link-embed`
+  - `smart-link-inline`
+  - `smart-link-list`
+  - `smart-link`
+  - `status-verified`
+  - `summarize`
+  - `support`
+  - `table-cell-clear`
+  - `table-cell-merge`
+  - `table-cell-split`
+  - `table-column-add-left`
+  - `table-column-add-right`
+  - `table-column-delete`
+  - `table-column-move-left`
+  - `table-column-move-right`
+  - `table-columns-distribute`
+  - `table-row-add-above`
+  - `table-row-add-below`
+  - `table-row-delete`
+  - `table-row-move-down`
+  - `table-row-move-up`
+  - `task-in-progress`
+  - `task-to-do`
+  - `text-shorten`
+  - `text-wrap`
+  - `translate`
+  - `video-skip-backward-ten`
+  - `video-skip-forward-ten`
+  - `video-stop-overlay`
+  - `video-stop`
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `edit`
+  - `link-broken`
+  - `link-external`
+  - `thumbs-down`
+  - `thumbs-up`
+
+### Patch Changes
+
+- [#147477](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147477)
+  [`18de563a8433b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18de563a8433b) -
+  Re-generated icons after dependencies were updated
+
 ## 22.19.0
 
 ### Minor Changes

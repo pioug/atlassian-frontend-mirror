@@ -34,6 +34,8 @@ export default () => {
 					id="react-select-date-time--input"
 					onChange={console.log}
 					clearControlLabel="Clear datetime picker"
+					datePickerProps={{ label: 'Date, Date / time picker' }}
+					timePickerProps={{ label: 'Time, Date / time picker' }}
 				/>
 			</Box>
 		</div>

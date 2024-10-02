@@ -2,26 +2,88 @@ import { editorExperiment } from '../experiments';
 import { eeTest } from '../editor-experiments-test-utils';
 import { _overrides } from '../setup';
 
-jest.mock('../experiments-config', () => ({
-	editorExperimentsConfig: {
-		'example-boolean': {
-			productKeys: {
-				confluence: 'confluence_boolean_example',
+jest.mock('../experiments-config', () => {
+	const { isBoolean, oneOf } = jest.requireActual('../type-guards');
+	return {
+		editorExperimentsConfig: {
+			'example-boolean': {
+				productKeys: {
+					confluence: 'confluence_boolean_example',
+				},
+				param: 'isEnabled',
+				typeGuard: isBoolean,
+				defaultValue: false,
 			},
-			param: 'isEnabled',
-			typeGuard: (value: unknown) => typeof value === 'boolean',
-			defaultValue: false,
-		},
-		'example-multivariate': {
-			productKeys: {
-				confluence: 'confluence_multivariate_example',
+			'example-multivariate': {
+				productKeys: {
+					confluence: 'confluence_multivariate_example',
+				},
+				param: 'variation',
+				typeGuard: oneOf(['one', 'two', 'three']),
+				defaultValue: 'default value' as const,
 			},
-			param: 'variation',
-			typeGuard: (value: unknown) => ['one', 'two', 'three'].includes(value as string),
-			defaultValue: 'default value' as const,
 		},
-	},
-}));
+	};
+});
+
+describe('eeTest describe', () => {
+	describe('boolean experiments', () => {
+		eeTest.describe('example-boolean', 'Works with a single override').variant(true, () => {
+			it('should do the thing', () => {
+				expect(editorExperiment('example-boolean', true)).toBe(true);
+			});
+		});
+		eeTest.describe('example-boolean', 'Works with a single override').variant(false, () => {
+			it('should do the thing', () => {
+				expect(editorExperiment('example-boolean', false)).toBe(true);
+			});
+		});
+		let results: boolean[] = [];
+		eeTest.describe('example-boolean', 'Works with a single override').each(() => {
+			it('should do the thing', () => {
+				results.push(editorExperiment('example-boolean', true));
+				// This is being tested in the following it, and this is to prevent the test from failing
+				// due to no expectations.
+				expect(true).toBeTruthy();
+			});
+		});
+		it('should have run 2 tests with true and false', () => {
+			expect(results).toEqual([true, false]);
+		});
+	});
+	describe('multivariate experiments', () => {
+		eeTest.describe('example-multivariate', 'Works with a single override').variant('one', () => {
+			it('should do the thing', () => {
+				expect(editorExperiment('example-multivariate', 'one')).toBe(true);
+			});
+		});
+		eeTest.describe('example-multivariate', 'Works with a single override').variant('three', () => {
+			it('should do the thing', () => {
+				expect(editorExperiment('example-multivariate', 'three')).toBe(true);
+			});
+		});
+		let results: [boolean, boolean, boolean][] = [];
+		eeTest.describe('example-multivariate', 'Works with a single override').each(() => {
+			it('should do the thing', () => {
+				results.push([
+					editorExperiment('example-multivariate', 'one'),
+					editorExperiment('example-multivariate', 'two'),
+					editorExperiment('example-multivariate', 'three'),
+				]);
+				// This is being tested in the following it, and this is to prevent the test from failing
+				// due to no expectations.
+				expect(true).toBeTruthy();
+			});
+		});
+		it('should have run 3 tests, with the values', () => {
+			expect(results).toEqual([
+				[true, false, false],
+				[false, true, false],
+				[false, false, true],
+			]);
+		});
+	});
+});
 
 describe('eeTest', () => {
 	describe('Booleans', () => {

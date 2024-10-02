@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a1757c5dad5fad9e531ab0527b5458f1>>
+ * @codegen <<SignedSource::85acb22e5cd4019b983e2ace7e55fce6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _textIndentRight = _interopRequireDefault(require("@atlaskit/icon/core/text-indent-right"));
 var _indent = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/indent"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

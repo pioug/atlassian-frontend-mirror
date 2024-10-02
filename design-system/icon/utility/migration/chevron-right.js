@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6accc9b4e4e95f66ace7177810f50eb2>>
+ * @codegen <<SignedSource::dd0c4f11f827f6080939e644e65ebdde>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _chevronRight = _interopRequireDefault(require("@atlaskit/icon/utility/chevron-right"));
 var _chevronRight2 = _interopRequireDefault(require("@atlaskit/icon/glyph/chevron-right"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

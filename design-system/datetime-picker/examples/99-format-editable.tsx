@@ -22,9 +22,10 @@ export default () => {
 				id="react-select-datetime--input"
 				value={value}
 				onChange={onChange}
-				timePickerProps={{ timeIsEditable: true }}
+				timePickerProps={{ label: `Time, Current time is: ${value}`, timeIsEditable: true }}
 				isInvalid={invalid}
 				clearControlLabel="Clear current time"
+				datePickerProps={{ label: `Date, Current time is: ${value}` }}
 			/>
 		</div>
 	);

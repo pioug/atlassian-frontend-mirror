@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2dddaecdf5dff9e9b72ef37cd9d8f5ea>>
+ * @codegen <<SignedSource::7026b6097ab19088955c98f9452b76e9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _chevronDown = _interopRequireDefault(require("@atlaskit/icon/utility/chevron-down"));
 var _chevronDown2 = _interopRequireDefault(require("@atlaskit/icon/glyph/hipchat/chevron-down"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

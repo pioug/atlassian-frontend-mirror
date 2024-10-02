@@ -1,5 +1,14 @@
 # @atlaskit/link-test-helpers
 
+## 7.5.2
+
+### Patch Changes
+
+- [#147374](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147374)
+  [`8f647e8fa0041`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f647e8fa0041) -
+  Update mockBasicFilterAGGFetchRequests to include optional prop withJiraFilterHydration in order
+  to prevent VR tests hydrating basic filters
+
 ## 7.5.1
 
 ### Patch Changes

@@ -25,7 +25,6 @@ type CommentBadgeProps = {
 	getPos: getPosHandler;
 	isDrafting: boolean;
 	badgeOffsetRight?: string;
-	commentsOnMediaBugFixEnabled?: boolean;
 };
 
 const CommentBadgeWrapper = ({
@@ -36,7 +35,6 @@ const CommentBadgeWrapper = ({
 	intl,
 	isDrafting,
 	badgeOffsetRight,
-	commentsOnMediaBugFixEnabled,
 }: CommentBadgeProps) => {
 	const [entered, setEntered] = useState(false);
 	const { annotationState } = useSharedPluginState(api, ['annotation']);
@@ -99,7 +97,6 @@ const CommentBadgeWrapper = ({
 
 	return (
 		<CommentBadgeComponent
-			commentsOnMediaBugFixEnabled={commentsOnMediaBugFixEnabled}
 			badgeOffsetRight={badgeOffsetRight}
 			width={mediaNode.attrs.width}
 			height={mediaNode.attrs.height}

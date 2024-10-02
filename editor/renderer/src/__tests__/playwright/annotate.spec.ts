@@ -185,4 +185,37 @@ test.describe('annotations: nested', () => {
 		expect(result).toBeTruthy();
 		expect(result as Record<string, unknown>).toMatchDocumentSnapshot();
 	});
+
+	test.describe('bodied extensions', () => {
+		test.use({
+			rendererMountOptions: { exampleType: 'annotations-new-playwright' },
+		});
+
+		test('Can create an annotation on a bodied extension', async ({ renderer }) => {
+			// Click on the first word in the second paragraph (the test document is setup to have an extension there)
+			await renderer.page
+				.locator('p')
+				.nth(1)
+				.dblclick({ position: { x: 10, y: 10 } });
+
+			const draftComment = renderer.page.locator('[data-annotation-draft-mark]');
+			const commentButton = renderer.page.getByText('comment (enabled)');
+
+			// Ensure the comment button is shown -- and then click on it.
+			await expect(commentButton).toBeVisible();
+			await commentButton.click();
+
+			// Ensure the draft comment is shown and has the correct text.
+			await expect(draftComment).toBeVisible();
+			await expect(draftComment).toHaveText('nested');
+
+			await expect(renderer.page.getByText('save comment')).toBeVisible();
+			await renderer.page.getByText('save comment').click();
+
+			// Ensure the comment is committed to the document
+			const savedComment = renderer.page.locator('[data-mark-annotation-state=active]');
+			await expect(savedComment).toBeVisible();
+			await expect(savedComment).toHaveText('nested');
+		});
+	});
 });

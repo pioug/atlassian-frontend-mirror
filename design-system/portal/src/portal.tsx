@@ -14,7 +14,7 @@ export default function Portal({ zIndex = 0, children, mountStrategy = 'effect' 
 	useFirePortalEvent(zIndex);
 
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	return !fg('dsp-19516-design-system-portal-logic-update') ? (
+	return !fg('platform_design_system_team_portal_logic_r18_fix') ? (
 		isSubsequentRender ? (
 			<InternalPortal zIndex={zIndex}>{children}</InternalPortal>
 		) : null

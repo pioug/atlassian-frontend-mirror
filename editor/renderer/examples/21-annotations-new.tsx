@@ -1,101 +1,23 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { jsx } from '@emotion/react';
-import { IntlProvider } from 'react-intl-next';
 import { AnnotationMarkStates, type DocNode } from '@atlaskit/adf-schema';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
-import { RendererWithAnalytics, AnnotationsWrapper, ReactRenderer } from '../src/';
+import { RendererWithAnnotationsAndBodiedExtensions } from './reference-renderer-annotation-provider/RendererWithAnnotationsAndBodiedExtensions';
 
-import {
-	ExampleAnnotationProductState,
-	ExampleAnnotationProductStateContext,
-	useExampleRendererAnnotationProvider,
-} from './reference-renderer-annotation-provider/example-renderer-annotation-provider';
-import { RendererActionsContext } from '../src/actions';
-
-const App = () => {
-	const { document } = React.useContext(ExampleAnnotationProductStateContext);
-	const { rendererAnnotationProvider, highlightsMountPoint } =
-		useExampleRendererAnnotationProvider();
-	const localRef = React.useRef<HTMLDivElement | null>(null);
-	/**
-	 * The renderer user selection tracking is only set up correctly if the renderer ref is assigned.
-	 * This requires a second render to ensure this is setup.
-	 */
-	const [_, setInnerRefAssigned] = React.useState<boolean>(false);
-
+export default function Example() {
 	return (
-		<React.Fragment>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop */}
-			<div style={{ height: '3rem' }}></div>
-			{highlightsMountPoint}
-			<RendererActionsContext>
-				<AnnotationsWrapper
-					rendererRef={localRef}
-					adfDocument={document}
-					annotationProvider={rendererAnnotationProvider}
-					isNestedRender={false}
-				>
-					{/* This is used instead of the ReactRenderer, as the ReactRenderer overwrites any RendererActionsContext */}
-					<RendererWithAnalytics
-						useSpecBasedValidator={true}
-						extensionHandlers={{
-							'com.atlassian.confluence.macro.core': (ext, doc, actions) => {
-								return (
-									<RendererActionsContext>
-										{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop */}
-										<div style={{ border: '1px blue dashed', padding: '10px' }}>
-											<ReactRenderer
-												adfStage="stage0"
-												document={{ type: 'doc', version: 1, content: ext.content as any }}
-											/>
-										</div>
-									</RendererActionsContext>
-								);
-							},
-						}}
-						adfStage="stage0"
-						appearance="full-page"
-						allowAnnotations
-						document={document}
-						annotationProvider={rendererAnnotationProvider}
-						// @ts-ignore - Type '(ref: any) => void' is not assignable to type 'RefObject<HTMLDivElement>'.ts(2322)
-						innerRef={(ref) => {
-							// This is required to ensure the annotations wrapper gets a second render following the rendererRef
-							// being set (which is required to set up the user selection tracking correctly)
-							localRef.current = ref;
-							setInnerRefAssigned(true);
-						}}
-					/>
-				</AnnotationsWrapper>
-			</RendererActionsContext>
-		</React.Fragment>
-	);
-};
-
-export default function ExampleAnnotationProduct() {
-	return (
-		<IntlProvider locale="en">
-			<ExampleAnnotationProductState
-				initialAnnotationState={initialData}
+		<SmartCardProvider client={new CardClient('stg')}>
+			<RendererWithAnnotationsAndBodiedExtensions
 				initialDoc={exampleDocumentWithComments as DocNode}
-			>
-				<SmartCardProvider client={new CardClient('stg')}>
-					<App />
-				</SmartCardProvider>
-			</ExampleAnnotationProductState>
-		</IntlProvider>
+				initialData={initialData}
+			/>
+		</SmartCardProvider>
 	);
 }
 
 const initialData = {
 	'12e213d7-badd-4c2a-881e-f5d6b9af3752': {
-		state: AnnotationMarkStates.RESOLVED,
+		state: AnnotationMarkStates.ACTIVE,
 		comments: ['demo comment 1'],
 	},
 	'13272b41-b9a9-427a-bd58-c00766999638': {
@@ -115,7 +37,7 @@ const initialData = {
 		comments: ['demo comment 5'],
 	},
 	'53500c44-4f1e-41eb-b215-9ccfaaa79397': {
-		state: AnnotationMarkStates.RESOLVED,
+		state: AnnotationMarkStates.ACTIVE,
 		comments: ['demo comment 6'],
 	},
 };
@@ -165,6 +87,28 @@ const exampleDocumentWithComments = {
 						{
 							type: 'text',
 							text: 'this is an example bodied extension',
+						},
+					],
+				},
+				{
+					type: 'paragraph',
+					content: [
+						{
+							type: 'text',
+							text: 'Second line with ',
+						},
+						{
+							type: 'text',
+							text: 'annotation',
+							marks: [
+								{
+									type: 'annotation',
+									attrs: {
+										annotationType: 'inlineComment',
+										id: '53500c44-4f1e-41eb-b215-9ccfaaa79397',
+									},
+								},
+							],
 						},
 					],
 				},
@@ -268,13 +212,13 @@ const exampleDocumentWithComments = {
 						{
 							type: 'strong',
 						},
-						// {
-						// 	type: 'annotation',
-						// 	attrs: {
-						// 		id: '12e213d7-badd-4c2a-881e-f5d6b9af3752',
-						// 		annotationType: 'inlineComment',
-						// 	},
-						// },
+						{
+							type: 'annotation',
+							attrs: {
+								id: '12e213d7-badd-4c2a-881e-f5d6b9af3752',
+								annotationType: 'inlineComment',
+							},
+						},
 					],
 				},
 				{
@@ -669,15 +613,6 @@ const exampleDocumentWithComments = {
 						{
 							text: 'This is a ',
 							type: 'text',
-							marks: [
-								// {
-								// 	type: 'annotation',
-								// 	attrs: {
-								// 		annotationType: 'inlineComment',
-								// 		id: '53500c44-4f1e-41eb-b215-9ccfaaa79397',
-								// 	},
-								// },
-							],
 						},
 					],
 				},

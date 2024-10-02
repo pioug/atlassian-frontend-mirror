@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a175dcd5ec18bd1d2c4d18c76abf4ef9>>
+ * @codegen <<SignedSource::5a98d0fddef0c1de79879968369a6016>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _logOut = _interopRequireDefault(require("@atlaskit/icon/core/log-out"));
 var _signOut = _interopRequireDefault(require("@atlaskit/icon/glyph/sign-out"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

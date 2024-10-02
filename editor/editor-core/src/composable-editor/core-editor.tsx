@@ -13,7 +13,6 @@ import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-con
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { ACTION, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { useConstructor } from '@atlaskit/editor-common/hooks';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
@@ -34,7 +33,6 @@ import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
 import useMemoEditorProps from './hooks/useMemoEditorProps';
 import useProviderFactory from './hooks/useProviderFactory';
 import sendDurationAnalytics from './utils/sendDurationAnalytics';
-import trackEditorActions from './utils/trackEditorActions';
 
 /**
  * Editor wrapper that deals with the lifecycle logic of the editor
@@ -59,12 +57,6 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 		},
 		[createAnalyticsEvent],
 	);
-
-	useConstructor(() => {
-		trackEditorActions(editorActions, props.performanceTracking, (value) =>
-			handleAnalyticsEvent(value),
-		);
-	});
 
 	const getExperienceStore = useCallback(() => {
 		return experienceStore.current;

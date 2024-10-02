@@ -184,11 +184,7 @@ describe('Annotations: Mounter', () => {
 					annotationId: 'annotationId',
 					annotationType: AnnotationTypes.INLINE_COMMENT,
 				};
-				expect(fakeApplyAnnotation).toHaveBeenCalledWith(
-					fakeDocumentPosition,
-					fakeAnnotation,
-					false,
-				);
+				expect(fakeApplyAnnotation).toHaveBeenCalledWith(fakeDocumentPosition, fakeAnnotation);
 			});
 		});
 
@@ -236,11 +232,7 @@ describe('Annotations: Mounter', () => {
 
 				onCreateCallback('annotationId');
 
-				expect(fakeApplyAnnotation).toHaveBeenCalledWith(
-					fakeDocumentPosition,
-					fakeAnnotation,
-					false,
-				);
+				expect(fakeApplyAnnotation).toHaveBeenCalledWith(fakeDocumentPosition, fakeAnnotation);
 			});
 
 			it('sends insert analytics event', () => {

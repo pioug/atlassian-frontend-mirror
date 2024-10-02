@@ -31,7 +31,7 @@ const SpotlightTarget = ({ children, name }: SpotlightTargetProps) => (
 			targetRef ? (
 				<NodeResolverSpotlightTarget
 					name={name}
-					hasNodeResolver={!fg('platform-design-system-dsp-20262-spotlight-target')}
+					hasNodeResolver={!fg('platform_design_system_team_onboarding_noderesolve')}
 					targetRef={targetRef}
 				>
 					<>{children}</>

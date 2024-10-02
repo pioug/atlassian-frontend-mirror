@@ -123,12 +123,9 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 	// analytics related parameters
 	const searchCount = useRef(0);
 	const userInteractions = useUserInteractions();
-	const initialSearchMethod: JiraSearchMethod =
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		fg('platform.linking-platform.datasource.show-jlol-basic-filters') &&
-		!isQueryTooComplex(initialJql || '')
-			? 'basic'
-			: 'jql';
+	const initialSearchMethod: JiraSearchMethod = !isQueryTooComplex(initialJql || '')
+		? 'basic'
+		: 'jql';
 	const [currentSearchMethod, setCurrentSearchMethod] =
 		useState<JiraSearchMethod>(initialSearchMethod);
 	const searchMethodSearchedWith = useRef<JiraSearchMethod | null>(null);
@@ -350,7 +347,6 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 						<EmptyState testId={`jira-datasource-modal--empty-state`} />
 					) : (
 						<InitialStateView
-							showBeta={!fg('platform.linking-platform.datasource.show-jlol-basic-filters')}
 							icon={<JiraInitialStateSVG />}
 							title={modalMessages.searchJiraTitle}
 							description={

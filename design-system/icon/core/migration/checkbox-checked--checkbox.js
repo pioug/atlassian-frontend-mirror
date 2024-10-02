@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::da01c0687c229185121c7a5b404b7a19>>
+ * @codegen <<SignedSource::8460b4a4853dc0252dfb00d13b13bde7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _checkboxChecked = _interopRequireDefault(require("@atlaskit/icon/core/checkbox-checked"));
 var _checkbox = _interopRequireDefault(require("@atlaskit/icon/glyph/checkbox"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

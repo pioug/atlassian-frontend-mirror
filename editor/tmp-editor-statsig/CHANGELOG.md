@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.2.0
+
+### Minor Changes
+
+- [#147660](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147660)
+  [`a407a8fbc874b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a407a8fbc874b) -
+  ED-24365 Support commenting inside bodied extension content in the Renderer
+
 ## 2.1.15
 
 ### Patch Changes

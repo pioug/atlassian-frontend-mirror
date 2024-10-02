@@ -60,7 +60,6 @@ export const useExampleRendererAnnotationProvider = () => {
 			// hoverComponent: ({ children }) => <span data-testid="rap-hover-component">{children}</span>,
 			viewComponent: () => <div data-testid="rap-view-component">view component</div>,
 			updateSubscriber: getRendererAnnotationEventEmitter(),
-			isCommentsOnMediaBugFixEnabled: true,
 		},
 	};
 

@@ -37,11 +37,7 @@ interface RendererActionsOptions {
 	isValidAnnotationRange: (range: Range) => boolean;
 }
 
-export type ApplyAnnotation = (
-	pos: Position,
-	annotation: Annotation,
-	isCommentsOnMediaBugFixEnabled?: boolean,
-) => AnnotationActionResult;
+export type ApplyAnnotation = (pos: Position, annotation: Annotation) => AnnotationActionResult;
 
 interface AnnotationsRendererActionsOptions {
 	isValidAnnotationPosition: (pos: Position) => boolean;
@@ -341,11 +337,7 @@ export default class RendererActions
 		return getAnnotationIdsFromRange(pos, this.doc, this.schema);
 	}
 
-	applyAnnotation(
-		pos: Position,
-		annotation: Annotation,
-		isCommentsOnMediaBugFixEnabled?: boolean,
-	): AnnotationActionResult {
+	applyAnnotation(pos: Position, annotation: Annotation): AnnotationActionResult {
 		if (!this.doc || !pos || !this.schema) {
 			return false;
 		}
@@ -354,13 +346,9 @@ export default class RendererActions
 		let step;
 		let targetNodeType;
 
-		const beforeNodePos = isCommentsOnMediaBugFixEnabled
-			? // As part of fix for RAP, `from` points to the position right before media node
-				// hence, -1 is not needed
-				from
-			: // If from points to a node position,
-				// we need to 1 position before it for nodeAt to return the node itself
-				Math.max(from - 1, 0);
+		// As part of fix for RAP, `from` points to the position right before media node
+		// hence, -1 is not needed
+		const beforeNodePos = from;
 		const possibleNode = this.doc.nodeAt(beforeNodePos);
 		if (possibleNode?.type.name === 'media') {
 			targetNodeType = 'media';
@@ -407,7 +395,7 @@ export default class RendererActions
 			numMatches,
 			matchIndex,
 			pos: blockNodePos,
-			...(isCommentsOnMediaBugFixEnabled && { targetNodeType }),
+			...{ targetNodeType },
 		};
 	}
 

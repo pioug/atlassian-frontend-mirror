@@ -43,16 +43,6 @@ const mockResponseWithReader = async (messages: string[]) => {
 	};
 };
 
-const mockRequestThatNeverCompletes = async () => ({
-	body: {
-		getReader: () => ({
-			read: () => {
-				return new Promise(() => {});
-			},
-		}),
-	},
-});
-
 const consumeMessageEvents = async (
 	eventEmitter: EventEmitter2,
 	expectedNumberOfEvents: number,
@@ -74,12 +64,6 @@ const restoreStub = (stub: any) => {
 	if (stub.restore) {
 		stub.restore();
 	}
-};
-
-const wait = (time: number = 100) => {
-	return new Promise((resolve) => {
-		setTimeout(resolve, time);
-	});
 };
 
 describe('HttpTransport', () => {
@@ -166,21 +150,6 @@ describe('HttpTransport', () => {
 			expect(msg2).toStrictEqual({ type: 'event', payload: 'goodbye' });
 
 			httpTransport.close();
-		});
-	});
-
-	describe('#close', () => {
-		it('does not try to reconnect when subscription is closed', async () => {
-			sinon.stub(window, 'fetch').resolves(mockRequestThatNeverCompletes());
-
-			httpTransport.subscribe(new Set(['channel-1']));
-
-			await wait(0);
-
-			httpTransport.close();
-
-			// @ts-ignore
-			expect(window.fetch.callCount).toBe(1);
 		});
 	});
 });

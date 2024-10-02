@@ -326,15 +326,19 @@ const createInsertBlockItems = (
 		);
 	}
 
-	let numButtonsWithoutTableSelector = numberOfButtons;
-	if (!fg('platform_editor_toolbar_responsive_fixes')) {
-		numButtonsWithoutTableSelector =
+	let numButtonsAdjusted = numberOfButtons;
+	if (fg('platform_editor_toolbar_responsive_fixes')) {
+		if (items.slice(0, numButtonsAdjusted).some((item) => item.value.name === 'table selector')) {
+			numButtonsAdjusted++;
+		}
+	} else {
+		numButtonsAdjusted =
 			tableSupported && tableSelectorSupported ? numberOfButtons + 1 : numberOfButtons;
 	}
-	const buttonItems = items.slice(0, numButtonsWithoutTableSelector).map(buttonToItem);
+	const buttonItems = items.slice(0, numButtonsAdjusted).map(buttonToItem);
 
 	const remainingItems = items
-		.slice(numButtonsWithoutTableSelector)
+		.slice(numButtonsAdjusted)
 		.filter(({ value: { name } }) => name !== 'table selector');
 
 	const dropdownItems = remainingItems.map(

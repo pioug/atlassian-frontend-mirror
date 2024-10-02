@@ -4,7 +4,6 @@ import {
 	findParentNodeOfTypeClosestToPos,
 } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 const excludedNodes = [
 	'caption',
@@ -22,9 +21,6 @@ const excludedNodes = [
 	'confluenceUnsupportedInline',
 	'taskItem',
 	'decisionItem',
-	...(editorExperiment('nested-dnd', false)
-		? ['bulletList', 'orderedList', 'taskList', 'decisionList', 'nestedExpand', 'media']
-		: []),
 ];
 export const isExcludedNode = (nodeName: string) => excludedNodes.includes(nodeName);
 

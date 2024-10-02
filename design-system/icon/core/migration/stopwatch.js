@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::64a2342ab75d96385fbaa4390cc943b9>>
+ * @codegen <<SignedSource::bef99f1a2edb80cb2c217355be84450e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _stopwatch = _interopRequireDefault(require("@atlaskit/icon/core/stopwatch"));
 var _stopwatch2 = _interopRequireDefault(require("@atlaskit/icon/glyph/stopwatch"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

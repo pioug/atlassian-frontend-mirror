@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 20.4.0
+
+### Minor Changes
+
+- [#144898](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144898)
+  [`6fff66dce97ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6fff66dce97ec) -
+  Pass agent id to full screen agent chat
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.3.0
 
 ### Minor Changes

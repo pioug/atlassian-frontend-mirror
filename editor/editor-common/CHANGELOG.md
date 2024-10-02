@@ -1,5 +1,45 @@
 # @atlaskit/editor-common
 
+## 92.1.1
+
+### Patch Changes
+
+- [#147660](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147660)
+  [`eeb74f2c973d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eeb74f2c973d9) -
+  Clean up FF platform_editor_tables_sticky_scrollbar
+- Updated dependencies
+
+## 92.1.0
+
+### Minor Changes
+
+- [#146891](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146891)
+  [`de72f151473eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de72f151473eb) -
+  [ED-25167] Allow ButtonComponent to accept `rel` prop
+
+### Patch Changes
+
+- [#147547](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147547)
+  [`46defc30fb9dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46defc30fb9dd) -
+  Cleanup of a FF for comments on media bug fix
+- [#147569](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147569)
+  [`0ded515d78e6c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ded515d78e6c) -
+  ED-25140 Use idle callback when available
+- [#146891](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146891)
+  [`17f2c59f06b04`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17f2c59f06b04) -
+  Migrate smart links in live pages feature flag to Statsig
+- [`9499e2f456edb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9499e2f456edb) -
+  [ED-24689] clean up `confluence.frontend.fabric.editor.comments-on-media-bug-fix`
+- Updated dependencies
+
+## 92.0.1
+
+### Patch Changes
+
+- [#147528](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147528)
+  [`76697633ae0d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76697633ae0d5) -
+  ED-25126 adding analytic events for requestToEdit and dismiss functionality
+
 ## 92.0.0
 
 ### Major Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::94ac4ae41af2f9f66e4deb97d62bc72a>>
+ * @codegen <<SignedSource::91b0c684ab99e7afef721778c04a15c2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _checkCircle = _interopRequireDefault(require("@atlaskit/icon/utility/check-circle"));
 var _productivity = _interopRequireDefault(require("@atlaskit/icon/glyph/emoji/productivity"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

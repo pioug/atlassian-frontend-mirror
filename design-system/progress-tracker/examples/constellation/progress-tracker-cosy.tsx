@@ -5,7 +5,7 @@ import { Box, xcss } from '@atlaskit/primitives';
 import { ProgressTracker, type Stages } from '../../src';
 
 const containerStyles = xcss({
-	maxWidth: '300px',
+	maxWidth: '400px',
 	margin: 'auto',
 });
 

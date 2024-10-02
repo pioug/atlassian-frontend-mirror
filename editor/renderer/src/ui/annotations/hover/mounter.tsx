@@ -16,7 +16,6 @@ import {
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
-import { ProvidersContext } from '../context';
 
 type Props = {
 	range: Range;
@@ -51,10 +50,6 @@ export const Mounter = React.memo((props: Props) => {
 	const [draftDocumentPosition, setDraftDocumentPosition] = useState<Position | null>();
 
 	const actions = useContext(ActionsContext);
-	const providers = useContext(ProvidersContext);
-	const isCommentsOnMediaBugFixEnabled = Boolean(
-		providers?.inlineComment.isCommentsOnMediaBugFixEnabled,
-	);
 
 	const onCreateCallback = useCallback(
 		(annotationId: string) => {
@@ -76,11 +71,7 @@ export const Mounter = React.memo((props: Props) => {
 				}).fire(FabricChannel.editor);
 			}
 
-			return applyAnnotation(
-				draftDocumentPosition || documentPosition,
-				annotation,
-				isCommentsOnMediaBugFixEnabled,
-			);
+			return applyAnnotation(draftDocumentPosition || documentPosition, annotation);
 		},
 		[
 			isAnnotationAllowed,
@@ -88,7 +79,6 @@ export const Mounter = React.memo((props: Props) => {
 			applyAnnotation,
 			draftDocumentPosition,
 			createAnalyticsEvent,
-			isCommentsOnMediaBugFixEnabled,
 		],
 	);
 
@@ -158,7 +148,7 @@ export const Mounter = React.memo((props: Props) => {
 				annotationType: AnnotationTypes.INLINE_COMMENT,
 			};
 
-			return applyAnnotation(positionToAnnotate, annotation, isCommentsOnMediaBugFixEnabled);
+			return applyAnnotation(positionToAnnotate, annotation);
 		},
 		[
 			documentPosition,
@@ -167,7 +157,6 @@ export const Mounter = React.memo((props: Props) => {
 			createAnalyticsEvent,
 			applyAnnotation,
 			draftDocumentPosition,
-			isCommentsOnMediaBugFixEnabled,
 			actions,
 			range,
 		],

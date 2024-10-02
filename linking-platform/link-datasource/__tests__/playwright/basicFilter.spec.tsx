@@ -3,9 +3,7 @@ import { expect, type Page, test } from '@af/integration-testing';
 const basicFilterContainerTestId = 'jlol-basic-filter-container';
 
 const loadExample = (page: Page) =>
-	page.visitExample('linking-platform', 'link-datasource', 'with-issues-modal', {
-		featureFlag: 'platform.linking-platform.datasource.show-jlol-basic-filters',
-	});
+	page.visitExample('linking-platform', 'link-datasource', 'with-issues-modal');
 
 test.describe('JiraIssuesModal: Basic Filters', () => {
 	test('should not be visible when in JQL search mode', async ({ page }) => {

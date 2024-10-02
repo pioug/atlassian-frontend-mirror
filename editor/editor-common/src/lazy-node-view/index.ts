@@ -4,6 +4,7 @@ import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemir
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 
+import { cancelCallback, scheduleCallback } from './lazy-scheduler';
 import { LazyNodeView } from './node-view';
 import type { LazyNodeViewToDOMConfiguration, NodeViewConstructor } from './types';
 
@@ -136,6 +137,7 @@ export function testOnlyIgnoreLazyNodeView(view: EditorView) {
  *
  * // Then, use `lazyTableView` in ProseMirror editor setup to enhance 'table' nodes with lazy loading
  */
+
 export const withLazyLoading = <Options>({
 	nodeName,
 	loader,
@@ -180,20 +182,20 @@ export const withLazyLoading = <Options>({
 			 * Triggering lazyNodeViewDecoration plugin to apply decorations
 			 * to nodes with newly loaded NodeViews.
 			 */
-			const [raf, nodeTypes] = debounceToEditorViewMap.get(view) || [null, new Set()];
-			if (raf) {
-				cancelAnimationFrame(raf);
+			const [callbackId, nodeTypes] = debounceToEditorViewMap.get(view) || [null, new Set()];
+			if (callbackId) {
+				cancelCallback(callbackId);
 			}
 
 			nodeTypes.add(node.type.name);
-			const nextRaf = requestAnimationFrame(() => {
+			const nextCallbackId = scheduleCallback(() => {
 				debounceToEditorViewMap.set(view, [null, new Set()]);
 				const tr = view.state.tr;
 				tr.setMeta(lazyNodeViewDecorationPluginKey, { type: 'add', nodeTypes });
 				view.dispatch(tr);
 			});
 
-			debounceToEditorViewMap.set(view, [nextRaf, nodeTypes]);
+			debounceToEditorViewMap.set(view, [nextCallbackId, nodeTypes]);
 			/**
 			 * END triggering LazyNodeViewDecoration plugin
 			 */

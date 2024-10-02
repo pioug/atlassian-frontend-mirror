@@ -4,7 +4,7 @@
  * @jsxFrag
  */
 import type { PropsWithChildren, SyntheticEvent } from 'react';
-import React, { PureComponent, Fragment, useEffect, useState, useMemo, useContext } from 'react';
+import React, { PureComponent, Fragment, useEffect, useState, useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -39,7 +39,7 @@ import {
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { MODE, PLATFORM } from '../../../analytics/events';
 import AnnotationComponent from '../../marks/annotation';
-import { AnnotationsDraftContext, ProvidersContext } from '../../../ui/annotations/context';
+import { AnnotationsDraftContext } from '../../../ui/annotations/context';
 import type { CommentBadgeProps } from '@atlaskit/editor-common/media-single';
 import {
 	CommentBadge as CommentBadgeComponent,
@@ -515,8 +515,6 @@ class Media extends PureComponent<MediaProps, {}> {
 
 const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
 	const draftPosition = React.useContext(AnnotationsDraftContext);
-	const providers = useContext(ProvidersContext);
-	const isCommentsOnMediaBugFixEnabled = !!providers?.inlineComment.isCommentsOnMediaBugFixEnabled;
 
 	const { dataAttributes } = props;
 	const pos = dataAttributes && dataAttributes['data-renderer-start-pos'];
@@ -528,9 +526,8 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
 		if (pos === undefined) {
 			return;
 		}
-		const posToCheck = isCommentsOnMediaBugFixEnabled
-			? (draftPosition?.from ?? 0) + 1
-			: draftPosition?.from;
+		const posToCheck = (draftPosition?.from ?? 0) + 1;
+
 		if (draftPosition !== null && posToCheck === pos) {
 			setShouldApplyDraftAnnotation(true);
 			setPosition(posToCheck);
@@ -538,7 +535,7 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
 			setShouldApplyDraftAnnotation(false);
 			setPosition(undefined);
 		}
-	}, [draftPosition, pos, shouldApplyDraftAnnotation, isCommentsOnMediaBugFixEnabled]);
+	}, [draftPosition, pos, shouldApplyDraftAnnotation]);
 
 	const applyDraftAnnotation =
 		props.allowAnnotationsDraftMode && shouldApplyDraftAnnotation && position !== undefined;

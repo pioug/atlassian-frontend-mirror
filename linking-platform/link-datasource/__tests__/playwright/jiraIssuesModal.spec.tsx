@@ -32,6 +32,8 @@ test.describe('JiraIssuesModal', () => {
 	test('should provide autocomplete for JQL fields', async ({ page }) => {
 		await setup(page, 'linking-platform', 'link-datasource', 'jira-issues-config-modal-no-results');
 
+		await page.getByTestId('mode-toggle-jql').click();
+
 		const jqlTextField = page.getByTestId('jql-editor-input');
 		await jqlTextField.click({ clickCount: 3 });
 		await page.keyboard.press('Backspace');
@@ -42,6 +44,8 @@ test.describe('JiraIssuesModal', () => {
 
 	test('should provide query suggestions for JQL fields', async ({ page }) => {
 		await setup(page);
+
+		await page.getByTestId('mode-toggle-jql').click();
 
 		const jqlTextField = page.getByTestId('jql-editor-input');
 		await jqlTextField.click({ clickCount: 3 });
@@ -106,7 +110,7 @@ test.describe('JiraIssuesModal', () => {
 		await setup(page);
 		await page.locator(sitePickerSelector).click();
 		await page.getByText('testNetworkError', { exact: true }).click();
-		await page.getByTestId('jql-editor-search').click();
+		await page.getByTestId('jira-datasource-modal--basic-search-button').click();
 		await expect(page.getByTestId('datasource-modal--loading-error')).toBeVisible();
 	});
 
@@ -114,7 +118,7 @@ test.describe('JiraIssuesModal', () => {
 		await setup(page);
 		await page.locator(sitePickerSelector).click();
 		await page.getByText('testNoAccess', { exact: true }).click();
-		await page.getByTestId('jql-editor-search').click();
+		await page.getByTestId('jira-datasource-modal--basic-search-button').click();
 		await expect(page.getByText("You don't have access to the following site:")).toBeVisible();
 		await expect(page.getByText('https://test7.atlassian.net')).toBeVisible();
 		await expect(
@@ -131,8 +135,8 @@ test.describe('JiraIssuesModal', () => {
 	test('table and table text in dropdown render correctly when table view is selected', async ({
 		page,
 	}) => {
-		await setup(page);
-		await page.getByTestId('jql-editor-search').click();
+		await setup(page, 'linking-platform', 'link-datasource', 'with-issues-modal');
+		await page.getByTestId('jira-datasource-modal--basic-search-button').click();
 		await expect(page.getByTestId('datasource-modal--view-drop-down--trigger')).toHaveText('List');
 		await expect(page.getByTestId('jira-datasource-table')).toBeVisible();
 	});
@@ -141,7 +145,7 @@ test.describe('JiraIssuesModal', () => {
 		page,
 	}) => {
 		await setup(page);
-		await page.getByTestId('jql-editor-search').click();
+		await page.getByTestId('jira-datasource-modal--basic-search-button').click();
 		await openDropDown(page);
 		await page.getByTestId('dropdown-item-inline-link').click();
 		await expect(page.getByTestId('datasource-modal--view-drop-down--trigger')).toHaveText(
@@ -154,7 +158,7 @@ test.describe('JiraIssuesModal', () => {
 		await setup(page);
 		await page.locator(sitePickerSelector).click();
 		await page.getByText('testSingleIssue', { exact: true }).click();
-		await page.getByTestId('jql-editor-search').click();
+		await page.getByTestId('jira-datasource-modal--basic-search-button').click();
 		await openDropDown(page);
 		await page.getByTestId('dropdown-item-inline-link').click();
 		await expect(page.getByTestId('link-datasource-render-type--link-resolved-view')).toBeVisible();
@@ -164,7 +168,7 @@ test.describe('JiraIssuesModal', () => {
 		page,
 	}) => {
 		await setup(page);
-		await page.getByTestId('jql-editor-search').click();
+		await page.getByTestId('jira-datasource-modal--basic-search-button').click();
 		await openDropDown(page);
 		await page.getByTestId('dropdown-item-inline-link').click();
 		await expect(page.getByTestId('link-datasource-render-type--link-resolved-view')).toHaveText(

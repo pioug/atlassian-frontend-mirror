@@ -49,7 +49,7 @@
 		"lodash": "^4.17.21"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-plugin-highlight": "1.17.5",
+		"@atlaskit/editor-plugin-highlight": "1.17.6",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"react": "^16.8.0",
 		"typescript": "~5.4.2"

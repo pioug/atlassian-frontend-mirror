@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7c685b6be27f13b293bf0a9cb4e2c55e>>
+ * @codegen <<SignedSource::7bd99930550f5cde51fc2e868728f289>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _quotationMark = _interopRequireDefault(require("@atlaskit/icon/core/quotation-mark"));
 var _quote = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/quote"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

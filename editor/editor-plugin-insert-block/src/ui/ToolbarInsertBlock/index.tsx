@@ -707,7 +707,13 @@ export class ToolbarInsertBlock extends React.PureComponent<
 	private openMediaPicker = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
 		const { onShowMediaPicker, dispatchAnalyticsEvent } = this.props;
 		if (onShowMediaPicker) {
-			onShowMediaPicker(this.mediaButtonRef);
+			const args = this.mediaButtonRef
+				? {
+						ref: this.mediaButtonRef,
+						mountPoint: this.props.popupsMountPoint ?? this.mediaButtonRef,
+					}
+				: undefined;
+			onShowMediaPicker(args);
 			if (dispatchAnalyticsEvent) {
 				dispatchAnalyticsEvent({
 					action: ACTION.OPENED,

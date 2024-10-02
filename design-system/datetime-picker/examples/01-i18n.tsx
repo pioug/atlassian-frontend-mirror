@@ -91,6 +91,10 @@ export default () => {
 				defaultValue="2021-01-01"
 				datePickerProps={{
 					weekStartDay,
+					label: 'Date, Date / time picker (default)',
+				}}
+				timePickerProps={{
+					label: 'Time, Date / time picker (default)',
 				}}
 				clearControlLabel="Clear date / time picker (default)"
 			/>

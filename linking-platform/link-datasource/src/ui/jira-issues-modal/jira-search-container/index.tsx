@@ -9,7 +9,6 @@ import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex, xcss } from '@atlaskit/primitives';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -91,13 +90,6 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 	const [orderDirection, setOrderDirection] = useState<string | undefined>();
 	const [filterSelections, setFilterSelections] = useState<SelectedOptionsMap>({});
 
-	const showBasicFilters = useMemo(() => {
-		if (fg('platform.linking-platform.datasource.show-jlol-basic-filters')) {
-			return true;
-		}
-		return false;
-	}, []);
-
 	const modeSwitcherOptionsMap: Record<
 		JiraSearchMethod,
 		ModeSwitcherPropsOption<JiraSearchMethod>
@@ -117,11 +109,8 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 	);
 
 	const modeSwitcherOptions = useMemo(
-		() =>
-			showBasicFilters
-				? [modeSwitcherOptionsMap.basic, modeSwitcherOptionsMap.jql]
-				: [modeSwitcherOptionsMap.jql, modeSwitcherOptionsMap.basic],
-		[modeSwitcherOptionsMap, showBasicFilters],
+		() => [modeSwitcherOptionsMap.basic, modeSwitcherOptionsMap.jql],
+		[modeSwitcherOptionsMap],
 	);
 
 	const {
@@ -196,7 +185,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 
 			setIsComplexQuery(isCurrentQueryComplex);
 
-			if (showBasicFilters && !isCurrentQueryComplex) {
+			if (!isCurrentQueryComplex) {
 				fetchHydratedJqlOptions();
 			}
 		}
@@ -207,7 +196,6 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 		fireEvent,
 		searchBarJql,
 		onSearch,
-		showBasicFilters,
 	]);
 
 	const [debouncedBasicFilterSelectionChange] = useDebouncedCallback(
@@ -254,7 +242,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 
 		setIsComplexQuery(isCurrentQueryComplex);
 
-		if (showBasicFilters && !isCurrentQueryComplex && searchBarJql !== DEFAULT_JQL_QUERY) {
+		if (!isCurrentQueryComplex && searchBarJql !== DEFAULT_JQL_QUERY) {
 			fetchHydratedJqlOptions();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -294,17 +282,15 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 						searchTerm={basicSearchTerm}
 						placeholder={basicSearchInputMessages.basicTextSearchLabel}
 						testId="jira-datasource-modal"
-						fullWidth={!showBasicFilters}
+						fullWidth={false}
 					/>
-					{showBasicFilters && (
-						<BasicFilters
-							jql={searchBarJql}
-							site={site}
-							onChange={handleBasicFilterSelectionChange}
-							selections={filterSelections}
-							isJQLHydrating={basicFilterHydrationStatus === 'loading'}
-						/>
-					)}
+					<BasicFilters
+						jql={searchBarJql}
+						site={site}
+						onChange={handleBasicFilterSelectionChange}
+						selections={filterSelections}
+						isJQLHydrating={basicFilterHydrationStatus === 'loading'}
+					/>
 				</Flex>
 			)}
 			{currentSearchMethod === 'jql' && (

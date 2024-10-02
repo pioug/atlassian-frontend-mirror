@@ -57,7 +57,7 @@
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/frontend-utilities": "^2.7.0",
 		"@atlaskit/heading": "^2.4.0",
-		"@atlaskit/icon": "^22.19.0",
+		"@atlaskit/icon": "^22.20.0",
 		"@atlaskit/intl-messages-provider": "^1.0.2",
 		"@atlaskit/linking-common": "^5.11.0",
 		"@atlaskit/onboarding": "^11.15.0",

@@ -1,5 +1,38 @@
 # @atlaskit/icon-lab
 
+## 1.0.0
+
+### Major Changes
+
+- [#147410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147410)
+  [`7300bd8281c70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7300bd8281c70) -
+  This release adds a supplementary set of icons to `@atlaskit/icon-lab` and removes a few icons.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `book-open`
+  - `lozenge`
+  - `vulnerability`
+
+  ### Renamed:
+
+  - `status → lozenge`
+
+  ### Removed entrypoints:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `highlight`
+
+### Patch Changes
+
+- [#147477](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147477)
+  [`2d3fe080da9cf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d3fe080da9cf) -
+  Re-generated icon-lab icons after dependencies were updated
+- Updated dependencies
+
 ## 0.2.0
 
 ### Minor Changes

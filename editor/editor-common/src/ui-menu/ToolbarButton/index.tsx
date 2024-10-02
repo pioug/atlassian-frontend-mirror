@@ -59,6 +59,7 @@ export type Props = {
 	| 'onMouseEnter'
 	| 'onMouseLeave'
 	| 'aria-controls'
+	| 'rel'
 >;
 
 const buttonWrapper = css({
@@ -85,6 +86,7 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>((props, ref) => 
 		keymap,
 		titlePosition = 'top',
 		item,
+		rel,
 		'aria-label': ariaLabel,
 		'aria-haspopup': ariaHasPopup,
 		'aria-expanded': ariaExpanded,
@@ -159,6 +161,7 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>((props, ref) => 
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
 			data-ds--level={dataDsLevel}
+			rel={rel}
 		>
 			{children}
 		</Button>

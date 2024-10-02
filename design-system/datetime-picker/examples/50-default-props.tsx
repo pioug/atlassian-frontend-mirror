@@ -28,6 +28,8 @@ export default () => {
 				id="react-select-date-time--input"
 				defaultValue="2018-01-02T14:30-08:00"
 				onChange={console.log}
+				datePickerProps={{ label: 'Date, DateTimePicker defaultValue' }}
+				timePickerProps={{ label: 'Time, DateTimePicker defaultValue' }}
 			/>
 		</div>
 	);

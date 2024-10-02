@@ -34,13 +34,13 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^92.0.0",
+		"@atlaskit/editor-common": "^92.1.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-quick-insert": "^1.4.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.0.0",
 		"@atlaskit/heading": "^2.4.0",
-		"@atlaskit/icon": "^22.19.0",
+		"@atlaskit/icon": "^22.20.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.2.0",

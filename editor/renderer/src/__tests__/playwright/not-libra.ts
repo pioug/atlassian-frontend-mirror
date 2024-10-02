@@ -256,6 +256,11 @@ export const rendererTestCase = base.extend<{
 	rendererMountOptions: MountRendererOptions;
 	adf: DocNode | string | Record<string, unknown> | undefined;
 	platformFeatureFlags?: Record<string, boolean>;
+	/**
+	 * Note: This is not available when used with the `exampleType` option.
+	 * This is because custom examples will have their application loaded
+	 * prior to the experiment overrides being applied.
+	 */
 	editorExperiments?: EditorExperimentOverrides;
 }>({
 	rendererProps: {},
@@ -268,6 +273,15 @@ export const rendererTestCase = base.extend<{
 		{ page, adf, rendererProps, rendererMountOptions, platformFeatureFlags, editorExperiments },
 		use,
 	) => {
+		if (
+			editorExperiments &&
+			Object.keys(editorExperiments).length &&
+			rendererMountOptions.exampleType
+		) {
+			throw new Error(
+				`Cannot use 'editorExperiments' with 'exampleType', received exampleType: ${rendererMountOptions.exampleType}, editorExperiments: ${JSON.stringify(editorExperiments)} `,
+			);
+		}
 		// Mock the date for testing purposes
 		await mockDate(page, { year: 2017, month: 8, day: 16 });
 

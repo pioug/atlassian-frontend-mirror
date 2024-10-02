@@ -4,7 +4,6 @@ import Button from '@atlaskit/button/new';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
 	defaultInitialVisibleJiraColumnKeys,
-	mockBasicFilterAGGFetchRequests,
 	mockDatasourceFetchRequests,
 	mockSiteData,
 } from '@atlaskit/link-test-helpers/datasource';
@@ -22,7 +21,6 @@ mockDatasourceFetchRequests({
 		}))
 		.filter((site) => !['test1', 'test2', 'test4'].includes(site.displayName)),
 });
-mockBasicFilterAGGFetchRequests();
 
 export default () => {
 	const [showModal, setShowModal] = useState(false);

@@ -36,7 +36,7 @@ import { IntlProvider } from 'react-intl-next';
 import { Media } from '../../../react/nodes';
 import * as renderDocumentModule from '../../../render-document';
 import type { RendererProps } from '../../../ui/renderer-props';
-import Renderer, { Renderer as BaseRenderer } from '../../../ui/Renderer';
+import Renderer, { __RendererClassComponent as BaseRenderer } from '../../../ui/Renderer';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
 import { initialDoc } from '../../__fixtures__/initial-doc';
 import { intlRequiredDoc } from '../../__fixtures__/intl-required-doc';

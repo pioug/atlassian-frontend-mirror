@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/layering",
-	"version": "0.4.1",
+	"version": "0.5.0",
 	"description": "Layering provides consistent and accessible layered experience",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -19,13 +19,16 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.tsx",
 	"af:exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./experimental/open-layer-observer": "./src/entry-points/experimental/open-layer-observer.tsx"
 	},
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./experimental/open-layer-observer": "./src/entry-points/experimental/open-layer-observer.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "^2.6.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0"
 	},
@@ -37,6 +40,7 @@
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
+		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
@@ -70,6 +74,11 @@
 				"dist/types-ts4.5/*",
 				"dist/types-ts4.5/index.d.ts"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_design_system_team_layering_observer": {
+			"type": "boolean"
 		}
 	}
 }

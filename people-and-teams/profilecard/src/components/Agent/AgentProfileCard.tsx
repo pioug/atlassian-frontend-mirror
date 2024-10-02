@@ -54,7 +54,7 @@ const AgentProfileCard = ({
 		onEditAgent,
 		onCopyAgent,
 		onDuplicateAgent,
-		onOpenChat: onOpenChatFullScreecn,
+		onOpenChat: onOpenChatFullScreen,
 		onConversationStarter,
 	} = useAgentUrlActions({
 		cloudId: cloudId || '',
@@ -199,7 +199,7 @@ const AgentProfileCard = ({
 					onCopyAgent={() => onCopyAgent(agent.id)}
 					onDuplicateAgent={() => onDuplicateAgent(agent.id)}
 					onDeleteAgent={handleOnDelete}
-					onChatClick={() => (onChatClick ? onChatClick() : onOpenChatFullScreecn())}
+					onChatClick={() => (onChatClick ? onChatClick() : onOpenChatFullScreen(agent.id))}
 				/>
 			</Box>
 		</AgentProfileCardWrapper>

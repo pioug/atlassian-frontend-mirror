@@ -789,9 +789,10 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'detail-view': {
+		newIcon: { name: 'sidebar-right', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
 			large: 'icon-lab',
 			xlarge: 'icon-lab',
 		},
@@ -2287,9 +2288,10 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'media-services/line': {
+		newIcon: { name: 'border-weight-thin', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
 			large: 'icon-lab',
 			xlarge: 'icon-lab',
 		},
@@ -2335,9 +2337,10 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'media-services/preselected': {
+		newIcon: { name: 'radio-unchecked', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
 			large: 'icon-lab',
 			xlarge: 'icon-lab',
 		},
@@ -2776,9 +2779,10 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	radio: {
+		newIcon: { name: 'radio-checked', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
+			small: 'swap-slight-visual-change',
+			medium: 'swap-slight-visual-change',
 			large: 'icon-lab',
 			xlarge: 'icon-lab',
 		},
@@ -2829,25 +2833,28 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'room-menu': {
+		newIcon: { name: 'sidebar-right', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
 			large: 'icon-lab',
 			xlarge: 'icon-lab',
 		},
 	},
 	'schedule-filled': {
+		newIcon: { name: 'calendar-plus', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
 			large: 'icon-lab',
 			xlarge: 'icon-lab',
 		},
 	},
 	schedule: {
+		newIcon: { name: 'calendar-plus', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
 			large: 'icon-lab',
 			xlarge: 'icon-lab',
 		},

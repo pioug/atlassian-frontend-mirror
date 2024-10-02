@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::39bad8757a27ac747fa4eda906e8b7d0>>
+ * @codegen <<SignedSource::b1f020b52f532dd63303bdd95008cda2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _dragHandle = _interopRequireDefault(require("@atlaskit/icon/core/drag-handle"));
 var _dragHandler = _interopRequireDefault(require("@atlaskit/icon/glyph/drag-handler"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

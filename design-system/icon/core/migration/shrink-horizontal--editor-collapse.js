@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e41550b8799cd497f1a74f46421e4eec>>
+ * @codegen <<SignedSource::b5f50c4cd55787140328acbc8b112e91>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _shrinkHorizontal = _interopRequireDefault(require("@atlaskit/icon/core/shrink-horizontal"));
 var _collapse = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/collapse"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

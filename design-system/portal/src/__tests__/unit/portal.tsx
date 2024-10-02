@@ -430,22 +430,26 @@ describe('Portal container', () => {
 });
 
 describe('new portal logic enable test', () => {
-	ffTest.on('dsp-19516-design-system-portal-logic-update', 'new portal logic enable test', () => {
-		test('should be able to render a portal', () => {
-			const { container } = render(
-				<StrictMode>
-					<App>
-						<Portal>
-							<div>Hi</div>
-						</Portal>
-					</App>
-				</StrictMode>,
-			);
+	ffTest.on(
+		'platform_design_system_team_portal_logic_r18_fix',
+		'new portal logic enable test',
+		() => {
+			test('should be able to render a portal', () => {
+				const { container } = render(
+					<StrictMode>
+						<App>
+							<Portal>
+								<div>Hi</div>
+							</Portal>
+						</App>
+					</StrictMode>,
+				);
 
-			const elements = document.getElementsByClassName('atlaskit-portal');
-			expect(container.innerHTML).toBe('<div></div>');
-			expect(elements).toHaveLength(1);
-			expect(elements[0].innerHTML).toBe('<div>Hi</div>');
-		});
-	});
+				const elements = document.getElementsByClassName('atlaskit-portal');
+				expect(container.innerHTML).toBe('<div></div>');
+				expect(elements).toHaveLength(1);
+				expect(elements[0].innerHTML).toBe('<div>Hi</div>');
+			});
+		},
+	);
 });

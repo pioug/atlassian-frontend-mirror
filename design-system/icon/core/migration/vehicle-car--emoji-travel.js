@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::13c8246ba24d8ab792783927055c77c7>>
+ * @codegen <<SignedSource::9a2f425b96362e3859d2364565be1ed9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _vehicleCar = _interopRequireDefault(require("@atlaskit/icon/core/vehicle-car"));
 var _travel = _interopRequireDefault(require("@atlaskit/icon/glyph/emoji/travel"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

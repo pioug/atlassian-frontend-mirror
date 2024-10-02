@@ -11,6 +11,7 @@ import invariant from 'tiny-invariant';
 import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/react-uid';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
+import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -193,6 +194,8 @@ export const PopupContent = ({
 		appearance: inAppearance,
 		shouldRenderToParent: inShouldRenderToParent,
 	});
+
+	useNotifyOpenLayerObserver({ isOpen });
 
 	if (!isOpen) {
 		return null;

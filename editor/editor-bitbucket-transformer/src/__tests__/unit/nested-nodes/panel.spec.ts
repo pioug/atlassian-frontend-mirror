@@ -2,6 +2,7 @@ import { MarkdownSerializer, marks, nodes } from '../../../serializer';
 import { code_block, doc, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
+// @ts-expect-error - Our node definitions are not compatible with prosemirror-markdown types
 const markdownSerializer = new MarkdownSerializer(nodes, marks);
 
 describe('Unsupported Node: panel', () => {

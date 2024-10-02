@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::49a8d59c290b5518f7665dee50d6a250>>
+ * @codegen <<SignedSource::30ee2b534a2bec180cbfd88b8e0511fa>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _personAdd = _interopRequireDefault(require("@atlaskit/icon/core/person-add"));
 var _inviteTeam = _interopRequireDefault(require("@atlaskit/icon/glyph/invite-team"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

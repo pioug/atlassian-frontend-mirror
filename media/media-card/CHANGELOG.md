@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 78.5.3
+
+### Patch Changes
+
+- [`9ec2d0a84a183`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ec2d0a84a183) -
+  add initiatorType and responseEnd to mediaCardPerfObserver event
+
 ## 78.5.2
 
 ### Patch Changes

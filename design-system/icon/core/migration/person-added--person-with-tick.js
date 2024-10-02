@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c23b19b32d5da93ae4a9337d454a5eed>>
+ * @codegen <<SignedSource::983834d3dd6726b7b917f0ed6313a913>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _personAdded = _interopRequireDefault(require("@atlaskit/icon/core/person-added"));
 var _personWithTick = _interopRequireDefault(require("@atlaskit/icon/glyph/person-with-tick"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

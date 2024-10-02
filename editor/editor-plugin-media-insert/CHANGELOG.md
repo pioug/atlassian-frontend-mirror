@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 3.1.3
+
+### Patch Changes
+
+- [`83ae273817f38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83ae273817f38) -
+  ED-24999 Convert External Image Upload form to use components from @atlaskit/form
+- Updated dependencies
+
+## 3.1.2
+
+### Patch Changes
+
+- [#147461](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147461)
+  [`acef010cdb706`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/acef010cdb706) -
+  [ux] [ED-25164] Pass mounting point to media insert plugin for correct toolbar popup positioning
+- [#147206](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147206)
+  [`c3f82dfdeaf62`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3f82dfdeaf62) -
+  [ED-25157] Make sure document inserted for media from the media insert plugin has the correct
+  attributes (insertMediaVia)
+
 ## 3.1.1
 
 ### Patch Changes

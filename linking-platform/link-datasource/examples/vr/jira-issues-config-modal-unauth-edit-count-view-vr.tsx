@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
 	defaultInitialVisibleJiraColumnKeys,
+	mockBasicFilterAGGFetchRequests,
 	mockDatasourceFetchRequests,
 	mockSiteData,
 } from '@atlaskit/link-test-helpers/datasource';
@@ -17,6 +18,7 @@ mockDatasourceFetchRequests({
 	delayedResponse: false,
 	availableSitesOverride: mockSiteData.slice(0, 3),
 });
+mockBasicFilterAGGFetchRequests({ withJiraFilterHydration: false });
 
 const parameters = {
 	cloudId: '44444',

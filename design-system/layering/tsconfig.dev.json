@@ -41,6 +41,9 @@
 		},
 		{
 			"path": "../modal-dialog/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	],
 	"files": []

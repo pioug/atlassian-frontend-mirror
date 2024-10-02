@@ -192,9 +192,7 @@ export const moveNode =
 			attributes: {
 				nodeDepth: resolvedNode.depth,
 				nodeType: node.type.name,
-				...(editorExperiment('nested-dnd', true) && {
-					destinationNodeDepth: $mappedTo?.depth,
-				}),
+				destinationNodeDepth: $mappedTo?.depth,
 				...(fg('platform_editor_element_drag_and_drop_ed_23873') && { inputMethod }),
 			},
 		})(tr);

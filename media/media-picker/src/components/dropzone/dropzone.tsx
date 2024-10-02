@@ -86,19 +86,21 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
 		}
 	}
 
-	private addContainerListeners = (container: HTMLElement = this.getContainer()) => {
+	private addContainerListeners = (container: HTMLElement | undefined) => {
+		const target = container ?? this.getContainer();
 		// TODO: migrate this file to Pragmatic drag and drop
 		/* eslint-disable @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop */
-		container.addEventListener('dragover', this.onDragOver, false);
-		container.addEventListener('dragleave', this.onDragLeave, false);
-		container.addEventListener('drop', this.onFileDropped);
+		target.addEventListener('dragover', this.onDragOver, false);
+		target.addEventListener('dragleave', this.onDragLeave, false);
+		target.addEventListener('drop', this.onFileDropped);
 		/* eslint-enable @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop */
 	};
 
-	private removeContainerListeners = (container: HTMLElement = this.getContainer()) => {
-		container.removeEventListener('dragover', this.onDragOver, false);
-		container.removeEventListener('dragleave', this.onDragLeave, false);
-		container.removeEventListener('drop', this.onFileDropped);
+	private removeContainerListeners = (container: HTMLElement | undefined) => {
+		const target = container ?? this.getContainer();
+		target.removeEventListener('dragover', this.onDragOver, false);
+		target.removeEventListener('dragleave', this.onDragLeave, false);
+		target.removeEventListener('drop', this.onFileDropped);
 	};
 
 	private onDragOver = (event: DragEvent): void => {

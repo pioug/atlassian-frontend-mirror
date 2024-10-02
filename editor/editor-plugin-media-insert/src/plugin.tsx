@@ -46,18 +46,18 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 					isOpen: false,
 				};
 			}
-			const { isOpen, target } = pluginKey.getState(editorState) || {};
+			const { isOpen, mountInfo } = pluginKey.getState(editorState) || {};
 			return {
 				isOpen,
-				target,
+				mountInfo,
 			};
 		},
 
 		commands: {
 			showMediaInsertPopup:
-				(target) =>
+				(mountInfo) =>
 				({ tr }) =>
-					showMediaInsertPopup(tr, target),
+					showMediaInsertPopup(tr, mountInfo),
 		},
 
 		contentComponent: ({
@@ -67,11 +67,7 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 			popupsBoundariesElement,
 			popupsScrollableElement,
 		}) => {
-			const insertMediaSingle: InsertMediaSingle = ({
-				mediaState,
-				inputMethod,
-				insertMediaVia,
-			}) => {
+			const insertMediaSingle: InsertMediaSingle = ({ mediaState, inputMethod }) => {
 				const { id, dimensions, contextId, scaleFactor = 1, fileName, collection } = mediaState;
 				const { width, height } = dimensions || {
 					height: undefined,
@@ -95,7 +91,7 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 						node,
 						inputMethod,
 						isNestingInQuoteSupported,
-						insertMediaVia,
+						INSERT_MEDIA_VIA.EXTERNAL_UPLOAD,
 					) ?? false
 				);
 			};

@@ -1,5 +1,21 @@
 # @atlaskit/onboarding
 
+## 11.15.3
+
+### Patch Changes
+
+- [#146891](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146891)
+  [`1946e3bf8c6c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1946e3bf8c6c9) -
+  Internal change only: update feature flag names.
+
+## 11.15.2
+
+### Patch Changes
+
+- [#146525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146525)
+  [`2ec1031034a2b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ec1031034a2b) -
+  Integrate layering into spotlight
+
 ## 11.15.1
 
 ### Patch Changes

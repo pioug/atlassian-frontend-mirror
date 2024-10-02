@@ -1,12 +1,64 @@
 import {
 	MarkdownSerializer as PMMarkdownSerializer,
 	MarkdownSerializerState as PMMarkdownSerializerState,
+	type NodeSerializerSpec,
+	type MarkSerializerSpec,
 } from '@atlaskit/editor-prosemirror/markdown';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { escapeMarkdown } from './util';
 
 export class MarkdownSerializerState extends PMMarkdownSerializerState {
+	nodes: NodeSerializerSpec;
+	marks: { [mark: string]: MarkSerializerSpec };
+
+	/**
+	 * Defines the internal variables used in the markdown serializer
+	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L172
+	 */
+	delim: string = '';
+	out: string = '';
+	closed: Node | null = null;
+
+	/**
+	 * Defines the internal atBlank method used in the markdown serializer
+	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L241
+	 */
+	atBlank() {
+		return /(^|\n)$/.test(this.out);
+	}
+
+	/**
+	 * Defines the internal flushClose method used in the markdown serializer
+	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L202
+	 */
+	flushClose(size: number = 2) {
+		if (this.closed) {
+			if (!this.atBlank()) {
+				this.out += '\n';
+			}
+			if (size > 1) {
+				let delimMin = this.delim;
+				let trim = /\s+$/.exec(delimMin);
+				if (trim) {
+					delimMin = delimMin.slice(0, delimMin.length - trim[0].length);
+				}
+				for (let i = 1; i < size; i++) {
+					this.out += delimMin + '\n';
+				}
+			}
+			this.closed = null;
+		}
+	}
+
+	constructor(nodes: NodeSerializerSpec, marks: { [mark: string]: MarkSerializerSpec }) {
+		// @ts-ignore-next-line
+		super(nodes, marks, {});
+
+		this.nodes = nodes;
+		this.marks = marks;
+	}
+
 	renderContent(parent: PMNode): void {
 		parent.forEach((child: PMNode, _offset: number, index: number) => {
 			if (
@@ -26,8 +78,8 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 }
 
 export class MarkdownSerializer extends PMMarkdownSerializer {
-	serialize(content: PMNode, options?: { [key: string]: any }): string {
-		const state = new MarkdownSerializerState(this.nodes, this.marks, options || {});
+	serialize(content: PMNode): string {
+		const state = new MarkdownSerializerState(this.nodes, this.marks);
 
 		state.renderContent(content);
 
@@ -103,7 +155,7 @@ const unsupportedNodes = {
 
 export const nodes = {
 	blockquote(state: MarkdownSerializerState, node: PMNode) {
-		state.wrapBlock('> ', undefined, node, () => state.renderContent(node));
+		state.wrapBlock('> ', null, node, () => state.renderContent(node));
 	},
 	codeBlock(state: MarkdownSerializerState, node: PMNode) {
 		state.write('```');
@@ -147,7 +199,7 @@ export const nodes = {
 			if (i === 0) {
 				state.wrapBlock('  ', delimiter, node, () => state.render(child, parent, i));
 			} else {
-				state.wrapBlock('    ', undefined, node, () => state.render(child, parent, i));
+				state.wrapBlock('    ', null, node, () => state.render(child, parent, i));
 			}
 
 			if (child.type.name === 'paragraph' && i > 0) {

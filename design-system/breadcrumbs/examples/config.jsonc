@@ -4,18 +4,14 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "0-basic.tsx",
-    "1-long.tsx",
-    "10-with-on-click-no-href.tsx",
-    "11-truncation.tsx",
-    "14-with-element-next-to-breadcrumbs.tsx",
-    "4-icons.tsx",
-    "5-with-markup.tsx",
-    "7-many-in-container.tsx"
-  ],
-  "exampleDependencies": [
-    "react-router",
-    "react-router-dom"
-  ]
+	"testExamples": [
+		"0-basic.tsx",
+		"1-long.tsx",
+		"10-with-on-click-no-href.tsx",
+		"11-truncation.tsx",
+		"14-with-element-next-to-breadcrumbs.tsx",
+		"4-icons.tsx",
+		"5-with-markup.tsx",
+		"7-many-in-container.tsx",
+	],
 }

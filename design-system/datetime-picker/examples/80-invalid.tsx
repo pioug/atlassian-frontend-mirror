@@ -19,6 +19,8 @@ export default () => {
 				onChange={console.log}
 				isInvalid
 				clearControlLabel="Clear datetime picker is invalid"
+				datePickerProps={{ label: 'Date, DateTimePicker - isInvalid' }}
+				timePickerProps={{ label: 'Time, DateTimePicker - isInvalid' }}
 			/>
 		</div>
 	);

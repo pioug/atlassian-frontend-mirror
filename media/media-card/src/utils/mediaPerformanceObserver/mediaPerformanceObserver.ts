@@ -64,6 +64,8 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 						transferSize: entry.transferSize,
 						decodedBodySize: entry.decodedBodySize,
 						totalDuration: entry.duration,
+						initiatorType: entry.initiatorType, // value can be 'fetch' or 'img'
+						responseEnd: entry.responseEnd,
 						tcpHandshakeTime: entry.connectEnd - entry.connectStart,
 						dnsLookupTime: entry.domainLookupEnd - entry.domainLookupStart,
 						redirectTimeTaken: entry.redirectEnd - entry.redirectStart,

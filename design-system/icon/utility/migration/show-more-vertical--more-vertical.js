@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aa5ff74400b52865e0dd5986c4e9e877>>
+ * @codegen <<SignedSource::1826acca0039ac0e69702046af4ba27b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _showMoreVertical = _interopRequireDefault(require("@atlaskit/icon/utility/show-more-vertical"));
 var _moreVertical = _interopRequireDefault(require("@atlaskit/icon/glyph/more-vertical"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

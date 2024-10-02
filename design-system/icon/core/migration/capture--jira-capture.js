@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f3c4f6e552cf9682ded4177dfdfa52b1>>
+ * @codegen <<SignedSource::104aaa6014a7d23d5fd2eff17f7ece79>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _capture = _interopRequireDefault(require("@atlaskit/icon/core/capture"));
 var _capture2 = _interopRequireDefault(require("@atlaskit/icon/glyph/jira/capture"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

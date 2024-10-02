@@ -11,19 +11,22 @@ export const ACTION_CLOSE_POPUP = 'CLOSE_POPUP';
 const setPopupMeta = ({
 	type,
 	tr,
-	target,
+	mountInfo,
 }: {
 	type: MediaInsertPluginAction;
-	target?: HTMLElement;
+	mountInfo?: { ref: HTMLElement; mountPoint: HTMLElement };
 	tr: Transaction;
-}) => tr.setMeta(pluginKey, { type, target });
+}) => tr.setMeta(pluginKey, { type, mountInfo });
 
-export const showMediaInsertPopup = (tr: Transaction, target?: HTMLElement) => {
+export const showMediaInsertPopup = (
+	tr: Transaction,
+	mountInfo?: { ref: HTMLElement; mountPoint: HTMLElement },
+) => {
 	// Log exposure here but don't actually switch anything on it
 	editorExperiment('add-media-from-url', true, {
 		exposure: true,
 	});
-	return setPopupMeta({ type: ACTION_OPEN_POPUP, target, tr });
+	return setPopupMeta({ type: ACTION_OPEN_POPUP, mountInfo, tr });
 };
 
 export const closeMediaInsertPicker = (tr: Transaction) => {

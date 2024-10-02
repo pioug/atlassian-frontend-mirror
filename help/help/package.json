@@ -50,7 +50,7 @@
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/help-article": "^4.2.0",
 		"@atlaskit/help-layout": "^4.3.0",
-		"@atlaskit/icon": "^22.19.0",
+		"@atlaskit/icon": "^22.20.0",
 		"@atlaskit/notification-indicator": "^9.3.0",
 		"@atlaskit/notification-log-client": "^6.1.0",
 		"@atlaskit/radio": "^6.5.0",

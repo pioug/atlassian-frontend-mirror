@@ -1,5 +1,54 @@
 # @atlaskit/breadcrumbs
 
+## 13.0.0
+
+### Major Changes
+
+- [#145675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/145675)
+  [`9b27f479611e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b27f479611e2) -
+  Remove `isNavigation` prop. `Breadcrumbs` is intended to be used as a navigation component, and so
+  should always render as a `<nav>`.
+
+  **Migration:**
+
+  1. For usages which set `href`:
+
+  ```tsx
+  // Incorrect
+  <Breadcrumbs isNavigation={false}>
+  	<BreadcrumbItem href="/page"></BreadcrumbItem>
+  </Breadcrumbs>
+  ```
+
+  Remove the `isNavigation` prop:
+
+  ```tsx
+  // Correct
+  <Breadcrumbs>
+  	<BreadcrumbItem href="/page"></BreadcrumbItem>
+  </Breadcrumbs>
+  ```
+
+  This is semantically correct, and will help you avoid accessibility violations.
+
+  2. For usages which don't set `href`:
+
+  ```tsx
+  // Incorrect
+  <Breadcrumbs isNavigation={false}>
+  	<BreadcrumbItem></BreadcrumbItem>
+  </Breadcrumbs>
+  ```
+
+  Use `@atlaskit/primitives` `Inline` instead:
+
+  ```tsx
+  // Correct
+  <Inline separator="/">
+  	<BreadcrumbItem></BreadcrumbItem>
+  </Inline>
+  ```
+
 ## 12.5.3
 
 ### Patch Changes

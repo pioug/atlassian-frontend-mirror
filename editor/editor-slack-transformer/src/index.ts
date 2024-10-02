@@ -8,6 +8,7 @@ interface Transformer<T> {
 import { MarkdownSerializer, marks, nodes } from './serializer';
 
 export class SlackTransformer implements Transformer<string> {
+	// @ts-expect-error - Our node definitions are not compatible with prosemirror-markdown types
 	private serializer = new MarkdownSerializer(nodes, marks);
 
 	encode(node: PMNode): string {

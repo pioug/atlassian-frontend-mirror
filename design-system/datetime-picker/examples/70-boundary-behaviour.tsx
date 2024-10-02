@@ -1,124 +1,81 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 import Modal, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import { Box, Text } from '@atlaskit/primitives';
 import Range from '@atlaskit/range';
 
 import { DateTimePicker } from '../src';
 
-interface State {
-	datePickerValue: string;
-	timePickerValue: string;
-	dateTimePickerValue: string;
-	isModalOpen: boolean;
-	textAbove: number;
-	textBelow: number;
-}
+export default () => {
+	const [dateTimePickerValue, setDateTimePickerValue] = useState<string>('2018-01-02T14:30+11:00');
+	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+	const [textAbove, setTextAbove] = useState<number>(1);
+	const [textBelow, setTextBelow] = useState<number>(1);
 
-// eslint-disable-next-line @repo/internal/react/no-class-components
-export default class MyComponent extends Component<{}, State> {
-	state = {
-		datePickerValue: '2018-01-02',
-		timePickerValue: '14:30',
-		dateTimePickerValue: '2018-01-02T14:30+11:00',
-		isModalOpen: false,
-		textAbove: 1,
-		textBelow: 1,
+	const onDateTimePickerChange = (e: any) => {
+		setDateTimePickerValue(e.target.value);
 	};
 
-	onDatePickerChange = (e: any) => {
-		this.setState({
-			datePickerValue: e.target.value,
-		});
+	const handleTextAboveChange = (value: number) => {
+		setTextAbove(value);
 	};
 
-	onTimePickerChange = (e: any) => {
-		this.setState({
-			timePickerValue: e.target.value,
-		});
+	const handleTextBelowChange = (value: number) => {
+		setTextBelow(value);
 	};
 
-	onDateTimePickerChange = (e: any) => {
-		this.setState({
-			dateTimePickerValue: e.target.value,
-		});
-	};
+	return (
+		<Box>
+			<Text as="p">
+				This demonstrates displaying the date time picker display behaviour within a modal. In
+				particular, what happens when it overflows the modal body and what happens when it renders
+				near the bottom of the viewport.
+			</Text>
 
-	openModal = () => {
-		this.setState({
-			isModalOpen: true,
-		});
-	};
-
-	closeModal = () => {
-		this.setState({
-			isModalOpen: false,
-		});
-	};
-
-	onTextAboveChange = (value: number) => {
-		this.setState({
-			textAbove: value,
-		});
-	};
-
-	onTextBelowChange = (value: number) => {
-		this.setState({
-			textBelow: value,
-		});
-	};
-
-	render() {
-		const { dateTimePickerValue, isModalOpen, textAbove, textBelow } = this.state;
-		return (
-			<div>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<p style={{ paddingBottom: 10 }}>
-					This demonstrates displaying the date time picker display behaviour within a modal. In
-					particular, what happens when it overflows the modal body and what happens when it renders
-					near the bottom of the viewport.
-				</p>
-
-				<Button onClick={this.openModal}>Open modal</Button>
-
-				<ModalTransition>
-					{isModalOpen && (
-						<Modal onClose={this.closeModal}>
-							<ModalBody>
-								<Label htmlFor="paragraphs-above">Paragraphs above: {textAbove}</Label>
-								<Range
-									id="paragraphs-above"
-									value={textAbove}
-									min={0}
-									max={10}
-									step={1}
-									onChange={this.onTextAboveChange}
-								/>
-								{textAbove > 0 ? <Lorem count={textAbove} /> : null}
-								<Label htmlFor="react-select-above--input">Date</Label>
-								<DateTimePicker
-									id="react-select-above--input"
-									defaultValue={dateTimePickerValue}
-									clearControlLabel="Clear date"
-								/>
-								<Label htmlFor="paragraphs-below">Paragraphs below: {textBelow}</Label>
-								<Range
-									id="paragraphs-below"
-									value={textBelow}
-									min={0}
-									max={10}
-									step={1}
-									onChange={this.onTextBelowChange}
-								/>
-								{textBelow > 0 ? <Lorem count={textBelow} /> : null}
-							</ModalBody>
-						</Modal>
-					)}
-				</ModalTransition>
-			</div>
-		);
-	}
-}
+			<Box paddingBlockStart="space.100">
+				<Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
+			</Box>
+			<ModalTransition>
+				{isModalOpen && (
+					<Modal onClose={() => setIsModalOpen(false)}>
+						<ModalBody>
+							<Label htmlFor="paragraphs-above">Paragraphs above: {textAbove}</Label>
+							<Range
+								id="paragraphs-above"
+								value={textAbove}
+								min={0}
+								max={10}
+								step={1}
+								onChange={handleTextAboveChange}
+							/>
+							{textAbove > 0 ? <Lorem count={textAbove} /> : null}
+							<Label htmlFor="react-select-above--input">DateTime</Label>
+							<DateTimePicker
+								id="react-select-above--input"
+								defaultValue={dateTimePickerValue}
+								onChange={onDateTimePickerChange}
+								datePickerProps={{ label: 'Date, DateTime' }}
+								timePickerProps={{ label: 'Time, DateTime' }}
+								clearControlLabel="Clear DateTime"
+							/>
+							<Label htmlFor="paragraphs-below">Paragraphs below: {textBelow}</Label>
+							<Range
+								id="paragraphs-below"
+								value={textBelow}
+								min={0}
+								max={10}
+								step={1}
+								onChange={handleTextBelowChange}
+							/>
+							{textBelow > 0 ? <Lorem count={textBelow} /> : null}
+						</ModalBody>
+					</Modal>
+				)}
+			</ModalTransition>
+		</Box>
+	);
+};

@@ -1,5 +1,18 @@
 # @atlaskit/popup
 
+## 1.28.0
+
+### Minor Changes
+
+- [#147187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147187)
+  [`f3fc0c5bb919d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3fc0c5bb919d) -
+  Adds usage of the useNotifyLayerObserver hook from the layering package. The hook is behind a
+  feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.27.2
 
 ### Patch Changes

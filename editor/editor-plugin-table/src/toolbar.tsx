@@ -597,14 +597,12 @@ export const getToolbarConfig =
 				});
 			}
 
-			const { stickyScrollbar } = getEditorFeatureFlags();
-
 			return {
 				title: 'Table floating controls',
 				getDomRef,
 				nodeType,
 				offset: [0, 18],
-				absoluteOffset: stickyScrollbar ? { top: -6 } : { top: 0 },
+				absoluteOffset: { top: -6 },
 				zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
 				items: [
 					menu,

@@ -396,7 +396,7 @@ export default class PopupSelect<
 			onOpen();
 		}
 
-		if (onMenuOpen && fg('platform-design-system-dsp-19701-no-node-resolver')) {
+		if (onMenuOpen && fg('platform_design_system_team_select_node_resolver')) {
 			onMenuOpen();
 		}
 
@@ -433,7 +433,7 @@ export default class PopupSelect<
 			onClose();
 		}
 
-		if (onMenuClose && fg('platform-design-system-dsp-19701-no-node-resolver')) {
+		if (onMenuClose && fg('platform_design_system_team_select_node_resolver')) {
 			onMenuClose();
 		}
 
@@ -541,7 +541,7 @@ export default class PopupSelect<
 			onMenuClose,
 			...props
 		} = this.props;
-		const menuHandlers = !fg('platform-design-system-dsp-19701-no-node-resolver')
+		const menuHandlers = !fg('platform_design_system_team_select_node_resolver')
 			? { onMenuOpen, onMenuClose }
 			: {};
 
@@ -636,10 +636,10 @@ export default class PopupSelect<
 				}}
 			>
 				{({ placement, ref, style }) => (
-					// When the feature flag 'platform-design-system-dsp-19701-no-node-resolver' is enabled,
+					// When the feature flag 'platform_design_system_team_select_node_resolver' is enabled,
 					// we directly pass the ref to MenuDialog instead of wrapping it with NodeResolver.
 					<ConditionalNodeResolverWrapper
-						hasNodeResolver={!fg('platform-design-system-dsp-19701-no-node-resolver')}
+						hasNodeResolver={!fg('platform_design_system_team_select_node_resolver')}
 						innerRef={this.resolveMenuRef(ref)}
 					>
 						<MenuDialog
@@ -651,7 +651,7 @@ export default class PopupSelect<
 							id={this.popperWrapperId}
 							testId={testId}
 							ref={
-								!fg('platform-design-system-dsp-19701-no-node-resolver')
+								!fg('platform_design_system_team_select_node_resolver')
 									? null
 									: this.resolveMenuRef(ref)
 							}

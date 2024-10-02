@@ -1,9 +1,8 @@
-// File has been copied to packages/editor/editor-plugin-ai/src/provider/prosemirror-transformer/serializer.ts
-// If changes are made to this file, please make the same update in the linked file.
-
 import {
 	MarkdownSerializer as PMMarkdownSerializer,
 	MarkdownSerializerState as PMMarkdownSerializerState,
+	type NodeSerializerSpec,
+	type MarkSerializerSpec,
 } from '@atlaskit/editor-prosemirror/markdown';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { escapeMarkdown, stringRepeat } from './util';
@@ -32,6 +31,56 @@ export const generateOuterBacktickChain: (text: string, minLength?: number) => s
 export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	context = { insideTable: false };
 
+	nodes: NodeSerializerSpec;
+	marks: { [mark: string]: MarkSerializerSpec };
+
+	/**
+	 * Defines the internal variables used in the markdown serializer
+	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L172
+	 */
+	delim: string = '';
+	out: string = '';
+	closed: Node | null = null;
+
+	constructor(nodes: NodeSerializerSpec, marks: { [mark: string]: MarkSerializerSpec }) {
+		// @ts-ignore-next-line
+		super(nodes, marks, {});
+
+		this.nodes = nodes;
+		this.marks = marks;
+	}
+
+	/**
+	 * Defines the internal atBlank method used in the markdown serializer
+	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L241
+	 */
+	atBlank() {
+		return /(^|\n)$/.test(this.out);
+	}
+
+	/**
+	 * Defines the internal flushClose method used in the markdown serializer
+	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L202
+	 */
+	flushClose(size: number = 2) {
+		if (this.closed) {
+			if (!this.atBlank()) {
+				this.out += '\n';
+			}
+			if (size > 1) {
+				let delimMin = this.delim;
+				let trim = /\s+$/.exec(delimMin);
+				if (trim) {
+					delimMin = delimMin.slice(0, delimMin.length - trim[0].length);
+				}
+				for (let i = 1; i < size; i++) {
+					this.out += delimMin + '\n';
+				}
+			}
+			this.closed = null;
+		}
+	}
+
 	renderContent(parent: PMNode): void {
 		parent.forEach((child: PMNode, _offset: number, index: number) => {
 			if (
@@ -54,7 +103,6 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	 * Bitbucket uses python-markdown which does not honor escaped backtick escape sequences \`
 	 * inside a backtick fence.
 	 *
-	 * @see node_modules/prosemirror-markdown/src/to_markdown.js
 	 * @see MarkdownSerializerState.renderInline()
 	 */
 	renderInline(parent: PMNode): void {
@@ -132,7 +180,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 
 			// Close the marks that need to be closed
 			while (keep < active.length) {
-				this.text(this.markString(active.pop()!, false), false);
+				this.text(this.markString(active.pop()!, false, parent, index!), false);
 			}
 
 			// Output any previously expelled trailing whitespace outside the marks
@@ -144,7 +192,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 			while (active.length < len) {
 				const add = marks[active.length];
 				active.push(add);
-				this.text(this.markString(add, true), false);
+				this.text(this.markString(add, true, parent, index!), false);
 			}
 
 			if (node) {
@@ -178,8 +226,8 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 }
 
 export class MarkdownSerializer extends PMMarkdownSerializer {
-	serialize(content: PMNode, options?: { [key: string]: any }): string {
-		const state = new MarkdownSerializerState(this.nodes, this.marks, options || {});
+	serialize(content: PMNode): string {
+		const state = new MarkdownSerializerState(this.nodes, this.marks);
 
 		state.renderContent(content);
 		return state.out === '\u200c' ? '' : state.out; // Return empty string if editor only contains a zero-non-width character
@@ -188,7 +236,7 @@ export class MarkdownSerializer extends PMMarkdownSerializer {
 
 const editorNodes = {
 	blockquote(state: MarkdownSerializerState, node: PMNode) {
-		state.wrapBlock('> ', undefined, node, () => state.renderContent(node));
+		state.wrapBlock('> ', null, node, () => state.renderContent(node));
 	},
 	codeBlock(state: MarkdownSerializerState, node: PMNode) {
 		const backticks = generateOuterBacktickChain(node.textContent, 3);
@@ -234,7 +282,7 @@ const editorNodes = {
 			if (i === 0) {
 				state.wrapBlock('  ', delimiter, node, () => state.render(child, parent, i));
 			} else {
-				state.wrapBlock('    ', undefined, node, () => state.render(child, parent, i));
+				state.wrapBlock('    ', null, node, () => state.render(child, parent, i));
 			}
 			if (child.type.name === 'paragraph' && i > 0) {
 				state.write('\n');

@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 198.2.2
+
+### Patch Changes
+
+- [#147660](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147660)
+  [`eeb74f2c973d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eeb74f2c973d9) -
+  Clean up FF platform_editor_tables_sticky_scrollbar
+- Updated dependencies
+
+## 198.2.1
+
+### Patch Changes
+
+- [#147461](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147461)
+  [`5f0dad925df3b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f0dad925df3b) -
+  Remove content retrieval tracking to decouple editor-core from editor actions. Should have no
+  affect on functionality.
+
 ## 198.2.0
 
 ### Minor Changes

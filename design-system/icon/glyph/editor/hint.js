@@ -7,7 +7,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _base = require("@atlaskit/icon/base");
 var _lightbulb = _interopRequireDefault(require("@atlaskit/icon/core/lightbulb"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 const EditorHintIcon = props => /*#__PURE__*/_react.default.createElement(_base.UNSAFE_IconFacade, Object.assign({
   dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fill="currentcolor" fill-rule="evenodd" d="M14 16h-4s0-.5-1-2-2.5-3-2.5-5S7 4 12 4s5.5 3 5.5 5-1.5 3.5-2.5 5-1 2-1 2m-4 1h4v1l-1.5 2h-1L10 18z"/></svg>`
 }, props, {

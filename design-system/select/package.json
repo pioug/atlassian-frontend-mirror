@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "17.19.2",
+	"version": "17.19.3",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,7 +46,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/icon": "^22.19.0",
+		"@atlaskit/icon": "^22.20.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/spinner": "^16.3.0",
@@ -107,7 +107,7 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform-design-system-dsp-19701-no-node-resolver": {
+		"platform_design_system_team_select_node_resolver": {
 			"type": "boolean"
 		},
 		"platform-component-visual-refresh": {

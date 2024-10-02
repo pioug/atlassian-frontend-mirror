@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::07b0790c1d7218b5d4de57571db2dd63>>
+ * @codegen <<SignedSource::e61dc39b18b304a887ae906e7b81aeeb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _crossCircle = _interopRequireDefault(require("@atlaskit/icon/core/cross-circle"));
 var _error = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/error"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

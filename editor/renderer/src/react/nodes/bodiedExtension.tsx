@@ -11,6 +11,7 @@ import { ErrorBoundary } from '../../ui/Renderer/ErrorBoundary';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
 import { ACTION_SUBJECT } from '../../analytics/enums';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
+import { AnnotationsPositionContext } from '../../ui/annotations';
 
 interface Props {
 	serializer: Serializer<any>;
@@ -26,6 +27,7 @@ interface Props {
 	layout?: ExtensionLayout;
 	localId?: string;
 	marks?: PMMark[];
+	startPos: number;
 }
 
 const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
@@ -43,36 +45,42 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
 			createAnalyticsEvent={createAnalyticsEvent}
 			additionalInfo={`${extensionType}: ${extensionKey} `}
 		>
-			<ExtensionRenderer {...props} type="bodiedExtension">
-				{({ result }) => {
-					try {
-						if (result && React.isValidElement(result)) {
-							// Return the content directly if it's a valid JSX.Element
-							return renderExtension(
-								result,
-								layout,
-								{
-									isTopLevel: path.length < 1,
-								},
-								removeOverflow,
-							);
+			{/**
+			 * This allows nested renderers to have their positions reported in a way
+			 * that the annotations positions can be calculated correctly.
+			 */}
+			<AnnotationsPositionContext.Provider value={{ startPos: props.startPos + 1 }}>
+				<ExtensionRenderer {...props} type="bodiedExtension">
+					{({ result }) => {
+						try {
+							if (result && React.isValidElement(result)) {
+								// Return the content directly if it's a valid JSX.Element
+								return renderExtension(
+									result,
+									layout,
+									{
+										isTopLevel: path.length < 1,
+									},
+									removeOverflow,
+								);
+							}
+						} catch (e) {
+							/** We don't want this error to block renderer */
+							/** We keep rendering the default content */
 						}
-					} catch (e) {
-						/** We don't want this error to block renderer */
-						/** We keep rendering the default content */
-					}
 
-					// Always return default content if anything goes wrong
-					return renderExtension(
-						children,
-						layout,
-						{
-							isTopLevel: path.length < 1,
-						},
-						removeOverflow,
-					);
-				}}
-			</ExtensionRenderer>
+						// Always return default content if anything goes wrong
+						return renderExtension(
+							children,
+							layout,
+							{
+								isTopLevel: path.length < 1,
+							},
+							removeOverflow,
+						);
+					}}
+				</ExtensionRenderer>
+			</AnnotationsPositionContext.Provider>
 		</ErrorBoundary>
 	);
 };

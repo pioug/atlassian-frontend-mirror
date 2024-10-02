@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
+import userEvent, { type UserEvent } from '@testing-library/user-event';
 import cases from 'jest-in-case';
 import moment from 'moment';
 
@@ -28,6 +28,22 @@ const createTimePicker = (props: TimePickerBaseProps = {}) => (
 
 describe('TimePicker', () => {
 	const queryMenu = () => screen.queryByTestId(`${testId}--popper--container`);
+	/**
+	 * This is necessary for entering values in the mock time picker above. Why we
+	 * use this mock and not the real deal is beyond me at this point. I would
+	 * love to remove that as well.
+	 *
+	 * @param value New time value.
+	 * @param user A `userEvent.setup()` object.
+	 */
+	const selectCustomTime = async (value: string, user: UserEvent) => {
+		const createButton = screen.getByRole('button', {
+			name: 'Create Item',
+		}) as HTMLButtonElement;
+
+		createButton.value = value;
+		await user.click(createButton);
+	};
 
 	beforeEach(() => {
 		(CreatableSelect as unknown as jest.Mock).mockImplementation((props) => {
@@ -177,7 +193,8 @@ describe('TimePicker', () => {
 		expect(label).toBeInTheDocument();
 	});
 
-	it('should call custom parseInputValue - AM', () => {
+	it('should call custom parseInputValue - AM', async () => {
+		const user = userEvent.setup();
 		const onChangeSpy = jest.fn();
 		render(
 			createTimePicker({
@@ -187,59 +204,45 @@ describe('TimePicker', () => {
 			}),
 		);
 
-		const createButton = screen.getByRole('button', {
-			name: 'Create Item',
-		});
-		// TODO: Why are we adding a value to a target on a click? See DSP-21008
-		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.click(createButton, { target: { value: 'asdf' } }); // our custom parseInputValue ignores this
+		await selectCustomTime('asdf', user);
 
+		expect(onChangeSpy).toHaveBeenCalledTimes(1);
 		expect(onChangeSpy.mock.calls[0][0]).toBe('01:15');
 	});
 
-	it('should call default parseInputValue', () => {
+	it('should call default parseInputValue', async () => {
+		const user = userEvent.setup();
 		const onChangeSpy = jest.fn();
 		render(createTimePicker({ timeIsEditable: true, onChange: onChangeSpy }));
 
-		const createButton = screen.getByRole('button', {
-			name: 'Create Item',
-		});
-		// TODO: Why are we adding a value to a target on a click? See DSP-21008
-		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.click(createButton, { target: { value: '01:30' } });
+		await selectCustomTime('01:30', user);
 
+		expect(onChangeSpy).toHaveBeenCalledTimes(1);
 		expect(onChangeSpy.mock.calls[0][0]).toBe('01:30');
 	});
 
-	it('should return AM time with default parseInputValue', () => {
+	it('should return AM time with default parseInputValue', async () => {
+		const user = userEvent.setup();
 		const onChangeSpy = jest.fn();
 		render(createTimePicker({ timeIsEditable: true, onChange: onChangeSpy }));
 
-		const createButton = screen.getByRole('button', {
-			name: 'Create Item',
-		});
-		// TODO: Why are we adding a value to a target on a click? See DSP-21008
-		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.click(createButton, { target: { value: '01:44am' } });
+		await selectCustomTime('01:44am', user);
 
 		expect(onChangeSpy.mock.calls[0][0]).toBe('01:44');
 	});
 
-	it('should return PM time with default parseInputValue', () => {
+	it('should return PM time with default parseInputValue', async () => {
+		const user = userEvent.setup();
 		const onChangeSpy = jest.fn();
 		render(createTimePicker({ timeIsEditable: true, onChange: onChangeSpy }));
 
-		const createButton = screen.getByRole('button', {
-			name: 'Create Item',
-		});
-		// TODO: Why are we adding a value to a target on a click? See DSP-21008
-		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.click(createButton, { target: { value: '3:32pm' } });
+		await selectCustomTime('03:32pm', user);
 
 		expect(onChangeSpy.mock.calls[0][0]).toBe('15:32');
 	});
 
-	it('should correctly parseInputValue with default timeFormat', () => {
+	it('should correctly parseInputValue with default timeFormat', async () => {
+		const user = userEvent.setup();
 		const onChangeSpy = jest.fn();
 		const onParseInputValueSpy = jest.fn().mockReturnValue(moment('3:32pm', 'h:mma').toDate());
 		render(
@@ -250,18 +253,14 @@ describe('TimePicker', () => {
 			}),
 		);
 
-		const createButton = screen.getByRole('button', {
-			name: 'Create Item',
-		});
-		// TODO: Why are we adding a value to a target on a click? See DSP-21008
-		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.click(createButton, { target: { value: '3:32pm' } });
+		await selectCustomTime('3:32pm', user);
 
 		expect(onParseInputValueSpy).toHaveBeenCalledWith('3:32pm', 'h:mma');
 		expect(onChangeSpy.mock.calls[0][0]).toBe('15:32');
 	});
 
-	it('should return PM time with default parseInputValue and custom timeFormat', () => {
+	it('should return PM time with default parseInputValue and custom timeFormat', async () => {
+		const user = userEvent.setup();
 		const onChangeSpy = jest.fn();
 		render(
 			createTimePicker({
@@ -270,18 +269,14 @@ describe('TimePicker', () => {
 				timeFormat: 'hh:mm:ss a',
 			}),
 		);
-		const createButton = screen.getByRole('button', {
-			name: 'Create Item',
-		});
 
-		// TODO: Why are we adding a value to a target on a click? See DSP-21008
-		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.click(createButton, { target: { value: '11:22:33 pm' } });
+		await selectCustomTime('11:22:33 pm', user);
 
 		expect(onChangeSpy.mock.calls[0][0]).toBe('23:22:33');
 	});
 
-	it('should correctly parseInputValue with custom timeFormat', () => {
+	it('should correctly parseInputValue with custom timeFormat', async () => {
+		const user = userEvent.setup();
 		const onChangeSpy = jest.fn();
 		const onParseInputValueSpy = jest.fn().mockReturnValue(moment('3:32pm', 'h:mma').toDate());
 		render(
@@ -293,12 +288,7 @@ describe('TimePicker', () => {
 			}),
 		);
 
-		const createButton = screen.getByRole('button', {
-			name: 'Create Item',
-		});
-		// TODO: Why are we adding a value to a target on a click? See DSP-21008
-		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.click(createButton, { target: { value: '3:32pm' } });
+		await selectCustomTime('3:32pm', user);
 
 		expect(onParseInputValueSpy).toHaveBeenCalledWith('3:32pm', 'HH--mm:A');
 		expect(onChangeSpy.mock.calls[0][0]).toBe('15:32');

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b2f9edc1312f59a8f76981d1fdd61e53>>
+ * @codegen <<SignedSource::cac5a72d7466b1013dda7da8cfdf1ce3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _calendar = _interopRequireDefault(require("@atlaskit/icon/core/calendar"));
 var _calendarFilled = _interopRequireDefault(require("@atlaskit/icon/glyph/calendar-filled"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

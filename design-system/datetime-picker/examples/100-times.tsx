@@ -17,7 +17,11 @@ export default () => {
 				testId={'timePicker'}
 			/>
 			<Label htmlFor="react-select-datetimepicker--input">DateTimePicker - times</Label>
-			<DateTimePicker id="react-select-datetimepicker--input" timePickerProps={{ times }} />
+			<DateTimePicker
+				id="react-select-datetimepicker--input"
+				timePickerProps={{ label: 'Time, DateTimePicker - times', times }}
+				datePickerProps={{ label: 'Date, DateTimePicker - times' }}
+			/>
 		</div>
 	);
 };

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::496af900b1a2cc85ae833643ca0f5a83>>
+ * @codegen <<SignedSource::b989d27dd80defd532e98f9428628e41>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _flagFilled = _interopRequireDefault(require("@atlaskit/icon/core/flag-filled"));
 var _flagFilled2 = _interopRequireDefault(require("@atlaskit/icon/glyph/flag-filled"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

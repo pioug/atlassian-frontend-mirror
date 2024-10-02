@@ -70,7 +70,6 @@ snapshotInformational(WithModal, {
 	},
 	description: 'basic mode with basic filters',
 	featureFlags: {
-		'platform.linking-platform.datasource.show-jlol-basic-filters': true,
 		'platform.linking-platform.datasource-word_wrap': true,
 	},
 });
@@ -82,9 +81,6 @@ snapshotInformational(WithIssueModalWithParameters, {
 		await page.getByTestId('jira-datasource-table').waitFor({ state: 'visible' });
 	},
 	description: 'basic mode with basic filters with each filter selected',
-	featureFlags: {
-		'platform.linking-platform.datasource.show-jlol-basic-filters': true,
-	},
 	selector: {
 		byTestId: 'jlol-basic-filter-container',
 	},

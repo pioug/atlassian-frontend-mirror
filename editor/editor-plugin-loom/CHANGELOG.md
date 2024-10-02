@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-loom
 
+## 3.1.0
+
+### Minor Changes
+
+- [#146891](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146891)
+  [`de72f151473eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de72f151473eb) -
+  [ED-25167] Allow ButtonComponent to accept `rel` prop
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.4
 
 ### Patch Changes

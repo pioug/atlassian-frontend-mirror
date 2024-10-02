@@ -1,5 +1,13 @@
 # @atlaskit/media-picker
 
+## 66.7.2
+
+### Patch Changes
+
+- [#147737](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147737)
+  [`a67a7c1e2381a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a67a7c1e2381a) -
+  Fixed null container being passed to Dropzone breaking the component
+
 ## 66.7.1
 
 ### Patch Changes

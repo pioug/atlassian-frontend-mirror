@@ -1,113 +1,93 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import { Label } from '@atlaskit/form';
+import Heading from '@atlaskit/heading';
+import { Box, Text } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
 
 import { DatePicker, DateTimePicker, TimePicker } from '../src';
-
-interface State {
-	datePickerValue: string;
-	datePickerInput: string;
-	timePickerValue: string;
-	timePickerInput: string;
-	dateTimePickerValue: string;
-	dateTimePickerInput: string;
-}
 
 const dateId = 'datepicker-input';
 const timeId = 'timepicker-input';
 const datetimeId = 'datetimepicker-input';
 
-export default class MyComponent extends Component<{}, State> {
-	state = {
-		datePickerValue: '2018-01-02',
-		datePickerInput: '2018-01-02',
-		timePickerValue: '14:30',
-		timePickerInput: '14:30',
-		dateTimePickerValue: '2018-01-02T14:30+11:00',
-		dateTimePickerInput: '2018-01-02T14:30+11:00',
+export default () => {
+	const [datePickerValue, setDatePickerValue] = useState<string>('2018-01-02');
+	const [datePickerInput, setDatePickerInput] = useState<string>('2018-01-02');
+	const [timePickerValue, setTimePickerValue] = useState<string>('14:30');
+	const [timePickerInput, setTimePickerInput] = useState<string>('14:30');
+	const [dateTimePickerValue, setDateTimePickerValue] = useState<string>('2018-01-02T14:30+11:00');
+	const [dateTimePickerInput, setDateTimePickerInput] = useState<string>('2018-01-02T14:30+11:00');
+
+	const handleOnBlur = () => {
+		setDatePickerValue(datePickerInput);
+		setTimePickerValue(timePickerInput);
+		setDateTimePickerValue(dateTimePickerInput);
 	};
 
-	onBlur = () => {
-		this.setState({
-			datePickerValue: this.state.datePickerInput,
-			timePickerValue: this.state.timePickerInput,
-			dateTimePickerValue: this.state.dateTimePickerInput,
-		});
+	const handleDatePickerChange = (e: any) => {
+		setDatePickerInput(e.target.value);
 	};
 
-	onDatePickerChange = (e: any) => {
-		this.setState({
-			datePickerInput: e.target.value,
-		});
+	const handleTimePickerChange = (e: any) => {
+		setTimePickerInput(e.target.value);
 	};
 
-	onTimePickerChange = (e: any) => {
-		this.setState({
-			timePickerInput: e.target.value,
-		});
+	const handleDateTimePickerChange = (e: any) => {
+		setDateTimePickerInput(e.target.value);
 	};
 
-	onDateTimePickerChange = (e: any) => {
-		this.setState({
-			dateTimePickerInput: e.target.value,
-		});
-	};
+	return (
+		<Box>
+			<Text as="p">This demonstrates updating each pickers value via an external source.</Text>
 
-	render() {
-		const {
-			datePickerValue,
-			datePickerInput,
-			timePickerValue,
-			timePickerInput,
-			dateTimePickerValue,
-			dateTimePickerInput,
-		} = this.state;
-
-		return (
-			<div>
-				<p>This demonstrates updating each pickers value via an external source.</p>
-				<h3>Date picker</h3>
+			<Box paddingBlock="space.150">
+				<Heading size="large">Date picker</Heading>
 				<Label htmlFor="date-picker-override">Datepicker textfield input</Label>
 				<TextField
 					id="date-picker-override"
 					value={datePickerInput}
-					onBlur={this.onBlur}
-					onChange={this.onDatePickerChange}
+					onBlur={handleOnBlur}
+					onChange={handleDatePickerChange}
 				/>
 
 				<Label htmlFor={dateId}>Date</Label>
 				<DatePicker value={datePickerValue} isDisabled onChange={console.log} id={dateId} />
-
-				<h3>Time picker</h3>
+			</Box>
+			<Box paddingBlock="space.150">
+				<Heading size="large">Time picker</Heading>
 				<Label htmlFor="time-picker-override">Timepicker textfield input</Label>
 				<TextField
 					id="time-picker-override"
 					value={timePickerInput}
-					onBlur={this.onBlur}
-					onChange={this.onTimePickerChange}
+					onBlur={handleOnBlur}
+					onChange={handleTimePickerChange}
 				/>
 
 				<Label htmlFor={timeId}>Time</Label>
 				<TimePicker value={timePickerValue} isDisabled onChange={console.log} id={timeId} />
-
-				<h3>Datetime picker</h3>
+			</Box>
+			<Box paddingBlock="space.150">
+				<Heading size="large">Datetime picker</Heading>
 				<Label htmlFor="datetime-picker-override">Datetime picker textfield input</Label>
 				<TextField
 					id="datetime-picker-override"
 					value={dateTimePickerInput}
-					onBlur={this.onBlur}
-					onChange={this.onDateTimePickerChange}
+					onBlur={handleOnBlur}
+					onChange={handleDateTimePickerChange}
 				/>
 
 				<Label htmlFor={datetimeId}>Date / time</Label>
 				<DateTimePicker
+					clearControlLabel="Clear date / time"
 					value={dateTimePickerValue}
 					isDisabled
 					onChange={console.log}
 					id={datetimeId}
+					datePickerProps={{ label: 'Date, Date / time' }}
+					timePickerProps={{ label: 'Time, Date / time' }}
 				/>
-			</div>
-		);
-	}
-}
+			</Box>
+		</Box>
+	);
+};

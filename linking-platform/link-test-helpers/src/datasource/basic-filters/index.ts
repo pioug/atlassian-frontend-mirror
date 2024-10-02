@@ -13,7 +13,9 @@ import {
 	successfulUserQueryResponse,
 } from './mocks';
 
-export const mockBasicFilterAGGFetchRequests = () => {
+export const mockBasicFilterAGGFetchRequests = (
+	opts: { withJiraFilterHydration: boolean } = { withJiraFilterHydration: true },
+) => {
 	fetchMock.post(new RegExp(`/graphql`), async (_url: string, details: any) => {
 		return new Promise((resolve) => {
 			const requestBody = JSON.parse(details.body);
@@ -28,7 +30,7 @@ export const mockBasicFilterAGGFetchRequests = () => {
 			}
 
 			// JLOL basic filter hydration for VR testing
-			if (requestBody.operationName === 'hydrate') {
+			if (requestBody.operationName === 'hydrate' && opts.withJiraFilterHydration) {
 				return resolve(hydrateJqlStandardResponseForVRTesting);
 			}
 

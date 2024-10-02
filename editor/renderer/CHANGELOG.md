@@ -1,5 +1,34 @@
 # @atlaskit/renderer
 
+## 111.1.0
+
+### Minor Changes
+
+- [#147660](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147660)
+  [`a407a8fbc874b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a407a8fbc874b) -
+  ED-24365 Support commenting inside bodied extension content in the Renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.0.2
+
+### Patch Changes
+
+- [#147547](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147547)
+  [`46defc30fb9dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46defc30fb9dd) -
+  Cleanup of a FF for comments on media bug fix
+- Updated dependencies
+
+## 111.0.1
+
+### Patch Changes
+
+- [#147384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147384)
+  [`dd88ce6ba197e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd88ce6ba197e) -
+  Adds a onLoadComplete callback for useLoadAnnotations annotations hook
+
 ## 111.0.0
 
 ### Major Changes

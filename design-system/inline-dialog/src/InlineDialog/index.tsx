@@ -197,7 +197,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 							}
 							// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 						}}
-						hasNodeResolver={!fg('dsp-19516-design-system-portal-logic-update')}
+						hasNodeResolver={!fg('platform_design_system_team_portal_logic_r18_fix')}
 					>
 						<React.Fragment>{children}</React.Fragment>
 					</NodeResolverWrapper>

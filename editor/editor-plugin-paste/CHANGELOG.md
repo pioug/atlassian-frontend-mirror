@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.12.8
+
+### Patch Changes
+
+- [#147660](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147660)
+  [`bc7f5f6bfe9ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc7f5f6bfe9ff) -
+  Remove nested dnd gating from analytics events
+- Updated dependencies
+
 ## 1.12.7
 
 ### Patch Changes

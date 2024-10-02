@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-context-panel
 
+## 1.3.10
+
+### Patch Changes
+
+- [#147017](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147017)
+  [`d08342ae8ee66`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d08342ae8ee66) -
+  ED-25008 Bugfix for context panel to support multiple editor plugins to use context panels without
+  error
+
 ## 1.3.9
 
 ### Patch Changes

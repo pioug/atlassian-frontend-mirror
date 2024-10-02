@@ -3,6 +3,8 @@
 import { type EditorExperimentOverrides, setupEditorExperiments } from './setup';
 import { type EditorExperimentsConfig, editorExperimentsConfig } from './experiments-config';
 
+type DescribeBody = Parameters<typeof describe>[1];
+
 /**
  * This is a utility function for testing editor experiments.
  *
@@ -10,11 +12,11 @@ import { type EditorExperimentsConfig, editorExperimentsConfig } from './experim
  * ```ts
  * eeTest('example-boolean', {
  *   true: () => {
- * 	   expect(editorExperiment('example-boolean', true)).toBe(true);
- * 		 expect(editorExperiment('example-boolean', false)).toBe(false);
+ *     expect(editorExperiment('example-boolean', true)).toBe(true);
+ *     expect(editorExperiment('example-boolean', false)).toBe(false);
  *   },
  *   false: () => {
- *	   expect(editorExperiment('example-boolean', false)).toBe(true);
+ *     expect(editorExperiment('example-boolean', false)).toBe(true);
  *     expect(editorExperiment('example-boolean', true)).toBe(false);
  *   },
  * })
@@ -24,25 +26,28 @@ import { type EditorExperimentsConfig, editorExperimentsConfig } from './experim
  * ```ts
  * eeTest('example-multivariate', {
  *   one: () => {
- * 	   expect(editorExperiment('example-multivariate', 'one')).toBe(true);
- * 		 expect(editorExperiment('example-multivariate', 'two')).toBe(false);
+ *     expect(editorExperiment('example-multivariate', 'one')).toBe(true);
+ *     expect(editorExperiment('example-multivariate', 'two')).toBe(false);
  *   },
  *   two: () => {
- * 	   expect(editorExperiment('example-multivariate', 'two')).toBe(true);
- * 		 expect(editorExperiment('example-multivariate', 'one')).toBe(false);
+ *     expect(editorExperiment('example-multivariate', 'two')).toBe(true);
+ *     expect(editorExperiment('example-multivariate', 'one')).toBe(false);
  *   },
  *   three: () => {
- * 	   expect(editorExperiment('example-multivariate', 'three')).toBe(true);
- * 		 expect(editorExperiment('example-multivariate', 'one')).toBe(false);
+ *     expect(editorExperiment('example-multivariate', 'three')).toBe(true);
+ *     expect(editorExperiment('example-multivariate', 'one')).toBe(false);
  *   },
  * })
  * ```
+ *
+ * API based on Legacy ffTest API
+ * - https://hello.atlassian.net/wiki/spaces/AF/pages/2569505829/Task+Testing+your+feature+flag+in+platform+and+product#Legacy-API-lEGACY
  */
-export function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
+function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
 	experimentName: ExperimentName,
 	cases: EditorExperimentsConfig[ExperimentName]['defaultValue'] extends string
-		? Record<EditorExperimentsConfig[ExperimentName]['defaultValue'], () => void | Promise<void>>
-		: { true: () => void | Promise<void>; false: () => void | Promise<void> },
+		? Record<EditorExperimentsConfig[ExperimentName]['defaultValue'], DescribeBody>
+		: { true: DescribeBody; false: DescribeBody },
 	otherExperiments?: EditorExperimentOverrides,
 ) {
 	setupEditorExperiments('test', {});
@@ -83,3 +88,85 @@ export function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
 		});
 	});
 }
+
+/**
+ * eeTest.describe() Wrapper utility for describe() that runs a test with a editor experiment overides.
+ *
+ * @example Single experiment
+ * ```ts
+ * eeTest.describe('Description of test "suite" containing nested suites and tests.', { 'example-boolean': true }, () => {
+ *  it('should do the thing', () => {
+ * 		expect(editorExperiment('example-boolean', true)).toBe(true);
+ * 	});
+ * });
+ * ```
+ *
+ *
+ * @example Multiple experiment
+ * ```ts
+ * eeTest.describe('Description of test "suite" containing nested suites and tests.', { 'example-boolean': true, 'example-multivariate': 'three' }, () => {
+ *  it('should do the thing', () => {
+ * 		expect(editorExperiment('example-boolean', true)).toBe(true);
+ * 	});
+ * });
+ * ```
+ *
+ * API based on next gen ffTest API
+ * - https://hello.atlassian.net/wiki/spaces/AF/pages/2569505829/Task+Testing+your+feature+flag+in+platform+and+product#Next-Generation-API-%E2%9C%A8
+ */
+eeTest.describe = function eeTestDescribe<ExperimentName extends keyof EditorExperimentsConfig>(
+	experimentName: ExperimentName,
+	describeName: string,
+): {
+	variant: (
+		value: EditorExperimentsConfig[ExperimentName]['defaultValue'],
+		describeBody: DescribeBody,
+	) => void;
+	each: (describeBody: DescribeBody) => void;
+} {
+	function eeTest(
+		value: EditorExperimentsConfig[ExperimentName]['defaultValue'],
+		describeBody: Parameters<typeof describe>[1] = () => {},
+	) {
+		describe(`${describeName} [${value}]`, () => {
+			beforeEach(() => {
+				setupEditorExperiments('test', { [experimentName]: value });
+			});
+			afterEach(() => {
+				setupEditorExperiments('test', {});
+			});
+			describeBody();
+		});
+
+		setupEditorExperiments('test', {});
+	}
+
+	function variant(
+		value: EditorExperimentsConfig[ExperimentName]['defaultValue'],
+		describeBody: DescribeBody,
+	) {
+		eeTest(value, describeBody);
+	}
+
+	function each(describeBody: DescribeBody) {
+		let possibleValues: EditorExperimentsConfig[ExperimentName]['defaultValue'][] =
+			// @ts-ignore
+			editorExperimentsConfig[experimentName].typeGuard.values;
+		if (possibleValues) {
+			for (const value of possibleValues) {
+				eeTest(value, describeBody);
+			}
+		} else {
+			// if there are no possible values, it's a boolean experiment
+			eeTest(true, describeBody);
+			eeTest(false, describeBody);
+		}
+	}
+
+	return {
+		variant,
+		each,
+	};
+};
+
+export { eeTest };

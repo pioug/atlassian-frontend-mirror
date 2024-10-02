@@ -105,11 +105,9 @@ export const PlainJiraIssuesConfigModalOld = (props: JiraConfigModalProps) => {
 	// analytics related parameters
 	const searchCount = useRef(0);
 	const userInteractions = useUserInteractions();
-	const initialSearchMethod: JiraSearchMethod =
-		fg('platform.linking-platform.datasource.show-jlol-basic-filters') &&
-		!isQueryTooComplex(initialParameters?.jql || '')
-			? 'basic'
-			: 'jql';
+	const initialSearchMethod: JiraSearchMethod = !isQueryTooComplex(initialParameters?.jql || '')
+		? 'basic'
+		: 'jql';
 	const [currentSearchMethod, setCurrentSearchMethod] =
 		useState<JiraSearchMethod>(initialSearchMethod);
 	const searchMethodSearchedWith = useRef<JiraSearchMethod | null>(null);
@@ -563,7 +561,6 @@ export const PlainJiraIssuesConfigModalOld = (props: JiraConfigModalProps) => {
 						<EmptyState testId={`jira-datasource-modal--empty-state`} />
 					) : (
 						<InitialStateView
-							showBeta={!fg('platform.linking-platform.datasource.show-jlol-basic-filters')}
 							icon={<JiraInitialStateSVG />}
 							title={modalMessages.searchJiraTitle}
 							description={

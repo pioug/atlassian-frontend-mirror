@@ -51,6 +51,7 @@ const LoomToolbarButtonInternal = React.forwardRef<HTMLElement, Props & WrappedC
 			href,
 			target,
 			hideTooltip,
+			rel,
 		},
 		ref,
 	) => {
@@ -85,6 +86,7 @@ const LoomToolbarButtonInternal = React.forwardRef<HTMLElement, Props & WrappedC
 				data-ds--level={dataDsLevel}
 				onClick={onClick}
 				target={target}
+				rel={rel}
 			>
 				{shouldShowRecordText && formatMessage(toolbarInsertBlockMessages.recordLoomShortTitle)}
 			</ToolbarButton>

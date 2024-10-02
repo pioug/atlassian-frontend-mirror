@@ -13,11 +13,10 @@ import {
 	type DispatchAnalyticsEvent,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	INSERT_MEDIA_VIA,
 } from '@atlaskit/editor-common/analytics';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { ErrorMessage } from '@atlaskit/form';
+import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
 import EditorFilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
@@ -40,10 +39,6 @@ const PreviewBoxStyles = xcss({
 
 const PreviewImageStyles = xcss({
 	height: '200px',
-});
-
-const ButtonGroupStyles = xcss({
-	alignSelf: 'end',
 });
 
 const FormStyles = xcss({
@@ -128,10 +123,7 @@ export function MediaFromURL({
 		invalidUrl: intl.formatMessage(mediaInsertMessages.invalidUrlErrorMessage),
 	};
 
-	const [inputUrl, setUrl] = React.useState<string>('');
-	const [hasUrlError, setHasUrlError] = React.useState<boolean>();
 	const [previewState, dispatch] = React.useReducer(previewStateReducer, INITIAL_PREVIEW_STATE);
-	const [isInputFocused, setInputFocused] = React.useState<boolean>(false);
 	const pasteFlag = React.useRef(false);
 
 	const {
@@ -175,7 +167,7 @@ export function MediaFromURL({
 					// media plugin. This hard coded error message could be changed at any
 					// point and we need a unit test to break to stop people changing it.
 					onUploadFailureAnalytics(e, 'url');
-					dispatch({ type: 'warning', warning: e, url: inputUrl });
+					dispatch({ type: 'warning', warning: e, url });
 				} else if (e instanceof Error) {
 					const message = 'Image preview fetch failed';
 					onUploadFailureAnalytics(message, 'url');
@@ -192,40 +184,17 @@ export function MediaFromURL({
 			onUploadCommencedAnalytics,
 			onUploadSuccessAnalytics,
 			onUploadFailureAnalytics,
-			inputUrl,
 		],
 	);
 
-	const errorAttributes: { [key: string]: string } = {};
-
-	if (!isInputFocused) {
-		errorAttributes['aria-relevant'] = 'all';
-		errorAttributes['aria-atomic'] = 'false';
-	}
-
-	const onBlur = React.useCallback(() => {
-		if (!isValidUrl(inputUrl)) {
-			setHasUrlError(true);
-		}
-		setInputFocused(false);
-	}, [inputUrl]);
-
-	const onFocus = React.useCallback(() => {
-		setInputFocused(true);
-	}, []);
-
 	const onURLChange = React.useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => {
-			const url = e.target.value;
-			setUrl(url);
+		(e: React.FormEvent<HTMLInputElement>) => {
+			const url = e.currentTarget.value;
 			dispatch({ type: 'reset' });
 			if (!isValidUrl(url)) {
-				setHasUrlError(true);
 				return;
-			} else {
-				setHasUrlError(false);
 			}
-			if (pasteFlag.current === true) {
+			if (pasteFlag.current) {
 				pasteFlag.current = false;
 				uploadExternalMedia(url);
 			}
@@ -234,7 +203,7 @@ export function MediaFromURL({
 	);
 
 	const onPaste = React.useCallback(
-		(e: React.ClipboardEvent<HTMLInputElement>) => {
+		(e: React.ClipboardEvent<HTMLInputElement>, inputUrl: string) => {
 			// Note: this is a little weird, but the paste event will always be
 			// fired before the change event when pasting. We don't really want to
 			// duplicate logic by handling pastes separately to changes, so we're
@@ -245,7 +214,7 @@ export function MediaFromURL({
 				pasteFlag.current = true;
 			}
 		},
-		[inputUrl],
+		[],
 	);
 
 	const onInsert = React.useCallback(() => {
@@ -253,7 +222,6 @@ export function MediaFromURL({
 			insertMediaSingle({
 				mediaState: previewState.previewInfo,
 				inputMethod: INPUT_METHOD.MEDIA_PICKER,
-				insertMediaVia: INSERT_MEDIA_VIA.EXTERNAL_UPLOAD,
 			});
 		}
 		closeMediaInsertPicker();
@@ -272,16 +240,6 @@ export function MediaFromURL({
 		},
 		[closeMediaInsertPicker, insertExternalMediaSingle, previewState.warning],
 	);
-
-	const onInsertClick = React.useCallback(() => {
-		if (previewState.previewInfo) {
-			return onInsert();
-		}
-
-		if (previewState.warning) {
-			return onExternalInsert(inputUrl);
-		}
-	}, [previewState.previewInfo, previewState.warning, onInsert, onExternalInsert, inputUrl]);
 
 	const onInputKeyPress = React.useCallback(
 		(event: React.KeyboardEvent<HTMLInputElement> | undefined) => {
@@ -316,14 +274,12 @@ export function MediaFromURL({
 	}, [closeMediaInsertPicker, dispatchAnalyticsEvent]);
 
 	return (
-		<Box
-			as="form"
-			onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-				e.preventDefault();
+		<Form<{ inputUrl: string }>
+			onSubmit={({ inputUrl }, form) => {
 				// This can be triggered from an enter key event on the input even when
 				// the button is disabled, so we explicitly do nothing when in loading
 				// state.
-				if (previewState.isLoading || hasUrlError) {
+				if (previewState.isLoading || form.getState().invalid) {
 					return;
 				}
 
@@ -337,70 +293,92 @@ export function MediaFromURL({
 
 				return uploadExternalMedia(inputUrl);
 			}}
-			xcss={FormStyles}
 		>
-			<Stack space="space.150" grow="fill">
-				<TextField
-					value={inputUrl}
-					placeholder={strings.pasteLinkToUpload}
-					isInvalid={hasUrlError}
-					maxLength={MAX_URL_LENGTH}
-					onChange={onURLChange}
-					onKeyPress={onInputKeyPress}
-					onPaste={onPaste}
-					onBlur={onBlur}
-					onFocus={onFocus}
-				/>
-				{hasUrlError && (
-					<ErrorMessage>
-						<Box as="span" {...errorAttributes}>
-							{strings.invalidUrl}
-						</Box>
-					</ErrorMessage>
-				)}
-				{previewState.previewInfo && (
-					<Inline
-						alignInline="center"
-						alignBlock="center"
-						xcss={PreviewImageStyles}
-						space="space.200"
-					>
-						<MediaCard attrs={previewState.previewInfo} mediaProvider={mediaProvider} />
-					</Inline>
-				)}
-				{previewState.error && (
-					<SectionMessage appearance="error">{strings.errorMessage}</SectionMessage>
-				)}
-				{previewState.warning && (
-					<SectionMessage appearance="warning">{strings.warning}</SectionMessage>
-				)}
-				{!previewState.previewInfo && !previewState.error && !previewState.warning && (
-					<Flex xcss={PreviewBoxStyles} alignItems="center" justifyContent="center">
-						<Button
-							type="submit"
-							isLoading={previewState.isLoading}
-							isDisabled={inputUrl.length === 0 || hasUrlError}
-							iconBefore={EditorFilePreviewIcon}
+			{({ formProps }) => (
+				<Box as="form" {...formProps} xcss={FormStyles}>
+					<Stack space="space.150" grow="fill">
+						<Field
+							aria-required={true}
+							isRequired={true}
+							name="inputUrl"
+							validate={(value) => (value && isValidUrl(value) ? undefined : strings.invalidUrl)}
 						>
-							{strings.loadPreview}
-						</Button>
-					</Flex>
-				)}
-				<Box xcss={ButtonGroupStyles}>
-					<ButtonGroup>
-						<Button appearance="subtle" onClick={onCancel}>
-							{strings.cancel}
-						</Button>
-						<Button
-							appearance="primary"
-							isDisabled={!previewState.previewInfo && !previewState.warning}
-							onClick={onInsertClick}
-						>
-							{strings.insert}
-						</Button>
-					</ButtonGroup>
+							{({ fieldProps: { value, onChange, ...rest }, error, meta }) => (
+								<Stack space="space.150" grow="fill">
+									<Box>
+										<TextField
+											{...rest}
+											value={value}
+											placeholder={strings.pasteLinkToUpload}
+											maxLength={MAX_URL_LENGTH}
+											onKeyPress={onInputKeyPress}
+											onPaste={(event) => onPaste(event, value)}
+											onChange={(value) => {
+												onURLChange(value);
+												onChange(value);
+											}}
+										/>
+										{error && (
+											<ErrorMessage>
+												<Box
+													as="span"
+													{...(meta.touched || meta.dirty
+														? { 'aria-relevant': 'all', 'aria-atomic': 'false' }
+														: {})}
+												>
+													{error}
+												</Box>
+											</ErrorMessage>
+										)}
+									</Box>
+									{!previewState.previewInfo && !previewState.error && !previewState.warning && (
+										<Flex xcss={PreviewBoxStyles} alignItems="center" justifyContent="center">
+											<Button
+												type="submit"
+												isLoading={previewState.isLoading}
+												isDisabled={!!error || !meta.dirty}
+												iconBefore={EditorFilePreviewIcon}
+											>
+												{strings.loadPreview}
+											</Button>
+										</Flex>
+									)}
+								</Stack>
+							)}
+						</Field>
+						{previewState.previewInfo && (
+							<Inline
+								alignInline="center"
+								alignBlock="center"
+								xcss={PreviewImageStyles}
+								space="space.200"
+							>
+								<MediaCard attrs={previewState.previewInfo} mediaProvider={mediaProvider} />
+							</Inline>
+						)}
+						{previewState.error && (
+							<SectionMessage appearance="error">{strings.errorMessage}</SectionMessage>
+						)}
+						{previewState.warning && (
+							<SectionMessage appearance="warning">{strings.warning}</SectionMessage>
+						)}
+						<FormFooter>
+							<ButtonGroup>
+								<Button appearance="subtle" onClick={onCancel}>
+									{strings.cancel}
+								</Button>
+								<Button
+									type="submit"
+									appearance="primary"
+									isDisabled={!previewState.previewInfo && !previewState.warning}
+								>
+									{strings.insert}
+								</Button>
+							</ButtonGroup>
+						</FormFooter>
+					</Stack>
 				</Box>
-			</Stack>
-		</Box>
+			)}
+		</Form>
 	);
 }

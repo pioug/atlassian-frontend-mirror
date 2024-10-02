@@ -28,13 +28,10 @@ const commentBadgeWrapper = css({
 	zIndex: akEditorUnitZIndex * 10,
 });
 
-const commentBadgeEditorOverrides = (
-	commentsOnMediaBugFixEnabled?: boolean,
-	badgeOffsetRight?: string,
-) =>
+const commentBadgeEditorOverrides = (badgeOffsetRight?: string) =>
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		right: commentsOnMediaBugFixEnabled ? badgeOffsetRight : '14px',
+		right: badgeOffsetRight,
 		zIndex: layers.card(),
 	});
 
@@ -55,7 +52,6 @@ export type CommentBadgeProps = {
 	isEditor?: boolean;
 	isDrafting?: boolean;
 	badgeOffsetRight?: string;
-	commentsOnMediaBugFixEnabled?: boolean;
 };
 
 export const CommentBadge = forwardRef<HTMLDivElement, CommentBadgeProps>(
@@ -70,7 +66,6 @@ export const CommentBadge = forwardRef<HTMLDivElement, CommentBadgeProps>(
 			onMouseEnter,
 			onMouseLeave,
 			badgeOffsetRight,
-			commentsOnMediaBugFixEnabled,
 		},
 		ref,
 	) => {
@@ -115,7 +110,7 @@ export const CommentBadge = forwardRef<HTMLDivElement, CommentBadgeProps>(
 						? [
 								commentBadgeWrapper,
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								commentBadgeEditorOverrides(commentsOnMediaBugFixEnabled, badgeOffsetRight),
+								commentBadgeEditorOverrides(badgeOffsetRight),
 							]
 						: commentBadgeWrapper
 				}

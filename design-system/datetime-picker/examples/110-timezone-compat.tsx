@@ -2,6 +2,8 @@ import React from 'react';
 
 import moment from 'moment';
 
+import { Label } from '@atlaskit/form';
+
 import { DateTimePicker } from '../src';
 
 // 8 AM in GMT+8
@@ -20,9 +22,15 @@ const parseValue = (value: string, date: string, time: string, timezone: string)
 };
 
 export default () => (
-	<DateTimePicker
-		onChange={logValue}
-		parseValue={parseValue}
-		defaultValue={jiraServerValueConvertedToHKTime}
-	/>
+	<div>
+		<Label htmlFor="timezone-compat">Timezone Compatible Datetime</Label>
+		<DateTimePicker
+			id="timezone-compat"
+			onChange={logValue}
+			parseValue={parseValue}
+			defaultValue={jiraServerValueConvertedToHKTime}
+			datePickerProps={{ label: 'Date, Timezone Compatible Datetime' }}
+			timePickerProps={{ label: 'Time, Timezone Compatible Datetime' }}
+		/>
+	</div>
 );

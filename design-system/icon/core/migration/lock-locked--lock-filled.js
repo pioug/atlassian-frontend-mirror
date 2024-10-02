@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c0dbfbe8b1ac11947c432070712fb450>>
+ * @codegen <<SignedSource::eeba4aefb98c8fb975fb3f72e8129cdf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _lockLocked = _interopRequireDefault(require("@atlaskit/icon/core/lock-locked"));
 var _lockFilled = _interopRequireDefault(require("@atlaskit/icon/glyph/lock-filled"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

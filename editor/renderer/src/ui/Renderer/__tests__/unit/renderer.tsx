@@ -19,7 +19,7 @@ import type { CreateUIAnalyticsEvent, UIAnalyticsEvent } from '@atlaskit/analyti
 import RendererDefaultComponent, {
 	DEGRADED_SEVERITY_THRESHOLD,
 	NORMAL_SEVERITY_THRESHOLD,
-	Renderer,
+	__RendererClassComponent as Renderer,
 } from '../../';
 import { Paragraph } from '../../../../react/nodes';
 import { AnnotationsContextWrapper } from '../../../annotations/wrapper';
@@ -330,8 +330,8 @@ describe('unsupported content levels severity', () => {
 		jest.useFakeTimers();
 		jest.resetModules();
 		jest.isolateModules(() => {
-			let { Renderer } = require('../..');
-			RendererIsolated = Renderer;
+			let { __RendererClassComponent } = require('../..');
+			RendererIsolated = __RendererClassComponent;
 		});
 	});
 
@@ -653,8 +653,8 @@ describe('unsupported content levels severity', () => {
 				}));
 
 				jest.isolateModules(() => {
-					let { Renderer } = require('../..');
-					RendererIsolated = Renderer;
+					let { __RendererClassComponent } = require('../..');
+					RendererIsolated = __RendererClassComponent;
 				});
 
 				renderDoc = (doc: any, unsupportedContentLevelsTracking: any) => {

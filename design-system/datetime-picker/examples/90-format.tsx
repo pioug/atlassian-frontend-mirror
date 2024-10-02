@@ -30,9 +30,11 @@ export default () => {
 				onChange={console.log}
 				timePickerProps={{
 					timeFormat: 'HH:mm',
+					label: 'Time, DateTimePicker - dateFormat (HH:mm) & timeFormat (Do MMMM YYYY)',
 				}}
 				datePickerProps={{
 					dateFormat: 'Do MMMM YYYY',
+					label: 'Date, DateTimePicker - dateFormat (HH:mm) & timeFormat (Do MMMM YYYY)',
 				}}
 				clearControlLabel="Clear dateTimePicker - dateFormat (HH:mm) & timeFormat (Do MMMM YYYY)"
 			/>

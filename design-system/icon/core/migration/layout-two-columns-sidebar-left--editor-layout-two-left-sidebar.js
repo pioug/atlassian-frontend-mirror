@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b234b71a3e551ecdc3a85d121573493f>>
+ * @codegen <<SignedSource::d714267f784dab97fad7e043a67cf6e6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _layoutTwoColumnsSidebarLeft = _interopRequireDefault(require("@atlaskit/icon/core/layout-two-columns-sidebar-left"));
 var _layoutTwoLeftSidebar = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/layout-two-left-sidebar"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

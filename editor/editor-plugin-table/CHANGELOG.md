@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 7.28.6
+
+### Patch Changes
+
+- [#147660](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147660)
+  [`eeb74f2c973d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eeb74f2c973d9) -
+  Clean up FF platform_editor_tables_sticky_scrollbar
+- Updated dependencies
+
 ## 7.28.5
 
 ### Patch Changes

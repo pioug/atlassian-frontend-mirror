@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-media
 
+## 1.34.6
+
+### Patch Changes
+
+- [#146513](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146513)
+  [`a72a93b5cd7c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a72a93b5cd7c8) -
+  Set height for lazy node to cater for captions
+- Updated dependencies
+
+## 1.34.5
+
+### Patch Changes
+
+- [`9499e2f456edb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9499e2f456edb) -
+  [ED-24689] clean up `confluence.frontend.fabric.editor.comments-on-media-bug-fix`
+- Updated dependencies
+
+## 1.34.4
+
+### Patch Changes
+
+- [#147206](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147206)
+  [`c3f82dfdeaf62`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3f82dfdeaf62) -
+  [ED-25157] Make sure document inserted for media from the media insert plugin has the correct
+  attributes (insertMediaVia)
+
 ## 1.34.3
 
 ### Patch Changes

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.4
+
+### Patch Changes
+
+- [#147528](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147528)
+  [`76697633ae0d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76697633ae0d5) -
+  ED-25126 adding analytic events for requestToEdit and dismiss functionality
+- Updated dependencies
+
+## 2.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.2
 
 ### Patch Changes

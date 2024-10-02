@@ -18,7 +18,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { getRendererRangeInlineNodeNames } from '../../../actions/get-renderer-range-inline-node-names';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
-import { ProvidersContext } from '../context';
 
 type Props = {
 	range: Range | null;
@@ -53,8 +52,6 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 	const [draftDocumentPosition, setDraftDocumentPosition] = useState<Position | null>();
 
 	const actions = useContext(ActionsContext);
-	const providers = useContext(ProvidersContext);
-	const isCommentsOnMediaBugFixEnabled = !!providers?.inlineComment.isCommentsOnMediaBugFixEnabled;
 
 	const inlineNodeTypes = useMemo(() => {
 		if (fg('annotations_defensive_node_name_calculations')) {
@@ -116,7 +113,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 				}).fire(FabricChannel.editor);
 			}
 
-			return applyAnnotation(positionToAnnotate, annotation, isCommentsOnMediaBugFixEnabled);
+			return applyAnnotation(positionToAnnotate, annotation);
 		},
 		[
 			actions,
@@ -124,7 +121,6 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 			applyAnnotation,
 			draftDocumentPosition,
 			createAnalyticsEvent,
-			isCommentsOnMediaBugFixEnabled,
 			inlineNodeTypes,
 		],
 	);
@@ -198,7 +194,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 				annotationType: AnnotationTypes.INLINE_COMMENT,
 			};
 
-			return applyAnnotation(positionToAnnotate, annotation, isCommentsOnMediaBugFixEnabled);
+			return applyAnnotation(positionToAnnotate, annotation);
 		},
 		[
 			documentPosition,
@@ -207,7 +203,6 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 			createAnalyticsEvent,
 			applyAnnotation,
 			draftDocumentPosition,
-			isCommentsOnMediaBugFixEnabled,
 			actions,
 			range,
 			inlineNodeTypes,

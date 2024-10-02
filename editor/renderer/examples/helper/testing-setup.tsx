@@ -10,7 +10,6 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
-import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/setup';
 import type { RendererProps } from '../../src/ui/renderer-props';
 import { default as Renderer } from '../../src/ui/Renderer';
 import { document as defaultDoc } from '../helper/story-data';
@@ -20,7 +19,10 @@ import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-help
 import AnalyticsListeners from '@atlaskit/analytics-listeners';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+import {
+	setupEditorExperiments,
+	type EditorExperimentOverrides,
+} from '@atlaskit/tmp-editor-statsig/setup';
 
 import { RendererActionsContext as RendererContext } from '../../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../../src/ui/RendererActionsContext/WithRendererActions';

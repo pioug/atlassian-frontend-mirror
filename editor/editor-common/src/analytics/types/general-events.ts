@@ -472,6 +472,17 @@ type CodeBlockWordWrapToggleAEP = TrackAEP<
 	undefined
 >;
 
+export type RequestToEditAEP = UIAEP<
+	ACTION.REQUEST_TO_EDIT | ACTION.DISMISSED,
+	ACTION_SUBJECT.REQUEST_TO_EDIT_POP_UP,
+	undefined,
+	{
+		platform: PLATFORMS;
+		mode: MODE;
+	},
+	undefined
+>;
+
 export type GeneralEventPayload<T = void> =
 	| AnnotateButtonAEP
 	| AnnotationAEP
@@ -517,4 +528,5 @@ export type GeneralEventPayload<T = void> =
 	| InvalidMediaContentTransformedAEP
 	| HeadingAnchorLinkButtonAEP
 	| CollabStepsTrackerPayloadAEP
-	| CodeBlockWordWrapToggleAEP;
+	| CodeBlockWordWrapToggleAEP
+	| RequestToEditAEP;

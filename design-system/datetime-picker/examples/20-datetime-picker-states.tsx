@@ -12,6 +12,8 @@ export default () => {
 				id="react-select-stock--input"
 				onChange={console.log}
 				clearControlLabel="Clear stock"
+				datePickerProps={{ label: 'Date, Stock' }}
+				timePickerProps={{ label: 'Time, Stock' }}
 			/>
 
 			<Label htmlFor="react-select-stock-value--input">Stock with value</Label>
@@ -20,10 +22,18 @@ export default () => {
 				onChange={console.log}
 				defaultValue="2020-10-10"
 				clearControlLabel="Clear stock with value"
+				datePickerProps={{ label: 'Date, Stock with value' }}
+				timePickerProps={{ label: 'Time, Stock with value' }}
 			/>
 
 			<Label htmlFor="react-select-disabled--input">Disabled input</Label>
-			<DateTimePicker id="react-select-disabled--input" isDisabled onChange={console.log} />
+			<DateTimePicker
+				id="react-select-disabled--input"
+				isDisabled
+				onChange={console.log}
+				datePickerProps={{ label: 'Date, Disabled input' }}
+				timePickerProps={{ label: 'Time, Disabled input' }}
+			/>
 
 			<Label htmlFor="react-select-disabled-value--input">Disabled input with value</Label>
 			<DateTimePicker
@@ -31,6 +41,8 @@ export default () => {
 				isDisabled
 				onChange={console.log}
 				defaultValue="2020-10-10"
+				datePickerProps={{ label: 'Date, Disabled input with value' }}
+				timePickerProps={{ label: 'Time, Disabled input with value' }}
 			/>
 
 			<Label htmlFor="react-select-custom-date--input">Custom date format</Label>
@@ -40,8 +52,10 @@ export default () => {
 				datePickerProps={{
 					dateFormat: 'DD/MMM/YY',
 					placeholder: 'e.g. 31/Dec/18',
+					label: 'Date, Custom date format',
 				}}
 				clearControlLabel="Clear custom date format"
+				timePickerProps={{ label: 'Time, Custom date format' }}
 			/>
 
 			<Label htmlFor="react-select-custom-value--input">Custom date format with value</Label>
@@ -51,9 +65,11 @@ export default () => {
 				datePickerProps={{
 					dateFormat: 'DD/MMM/YY',
 					placeholder: 'e.g. 31/Dec/18',
+					label: 'Date, Custom date format with value',
 				}}
 				defaultValue="2020-10-10"
 				clearControlLabel="Clear custom date format with value"
+				timePickerProps={{ label: 'Time, Custom date format with value' }}
 			/>
 		</div>
 	);

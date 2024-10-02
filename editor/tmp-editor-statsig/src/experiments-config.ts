@@ -1,11 +1,4 @@
-function isBoolean(value: unknown): value is boolean {
-	return typeof value === 'boolean';
-}
-function oneOf<T extends string>(values: T[]): (value: unknown) => value is T {
-	return (value: unknown): value is T => {
-		return values.includes(value as T);
-	};
-}
+import { isBoolean, oneOf } from './type-guards';
 
 export type EditorExperimentsConfig = typeof editorExperimentsConfig;
 
@@ -232,5 +225,14 @@ export const editorExperimentsConfig = {
 		param: 'cohort',
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
+	},
+	// Added 2024-10-01
+	comment_on_bodied_extensions: {
+		productKeys: {
+			confluence: 'platform_editor_comment_on_bodied_extensions',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
 	},
 } satisfies Record<string, EditorExperimentConfigValue>;

@@ -211,15 +211,6 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Enables the sticky scrollbar for tables
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-19773
-	 * @default false
-	 */
-	stickyScrollbar?: boolean | undefined;
-
-	/**
-	 * @description
 	 * Enables the drag and drop rows/columns for tables
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/ED-21807
@@ -307,15 +298,6 @@ export type FeatureFlags = {
 	 * @default false
 	 */
 	macroInteractionButtonUpdates?: boolean;
-
-	/**
-	 * @description
-	 * Enables bug fix on media comments
-	 *
-	//  * @see https://product-fabric.atlassian.net/browse/ED-23093
-	 * @default false
-	 */
-	commentsOnMediaBugFix?: boolean;
 
 	/**
 	 * @description

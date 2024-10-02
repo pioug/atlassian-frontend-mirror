@@ -183,6 +183,7 @@ exports[`RendererActions applyAnnotation should apply annotation to caption of t
     "stepType": "addMark",
     "to": 45,
   },
+  "targetNodeType": "caption",
 }
 `;
 
@@ -297,6 +298,7 @@ exports[`RendererActions applyAnnotation should apply annotation to text with in
     "stepType": "addMark",
     "to": 29,
   },
+  "targetNodeType": "text",
 }
 `;
 
@@ -483,6 +485,7 @@ exports[`RendererActions applyAnnotation should apply annotation to the caption 
     "stepType": "addMark",
     "to": 71,
   },
+  "targetNodeType": "caption",
 }
 `;
 
@@ -678,6 +681,7 @@ exports[`RendererActions applyAnnotation should apply annotation to the formatte
     "stepType": "addMark",
     "to": 30,
   },
+  "targetNodeType": "text",
 }
 `;
 
@@ -859,6 +863,7 @@ exports[`RendererActions applyAnnotation should apply annotation to the nested m
     "pos": 61,
     "stepType": "addNodeMark",
   },
+  "targetNodeType": "media",
 }
 `;
 
@@ -1045,6 +1050,7 @@ exports[`RendererActions applyAnnotation should apply annotation to the plain te
     "stepType": "addMark",
     "to": 9,
   },
+  "targetNodeType": "text",
 }
 `;
 
@@ -1226,6 +1232,7 @@ exports[`RendererActions applyAnnotation should apply annotation to the top-leve
     "pos": 39,
     "stepType": "addNodeMark",
   },
+  "targetNodeType": "media",
 }
 `;
 

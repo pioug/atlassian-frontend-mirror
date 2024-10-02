@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bb12ce63367700299419edb69c0bdbd1>>
+ * @codegen <<SignedSource::c21a9bb13a8d6da0d79ca9ba44d96a29>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _listBulleted = _interopRequireDefault(require("@atlaskit/icon/core/list-bulleted"));
 var _bulletList = _interopRequireDefault(require("@atlaskit/icon/glyph/bullet-list"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

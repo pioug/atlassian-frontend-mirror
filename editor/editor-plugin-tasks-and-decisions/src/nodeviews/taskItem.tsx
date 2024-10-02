@@ -5,11 +5,20 @@ import { useIntl } from 'react-intl-next';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	type EditorAnalyticsAPI,
+	EVENT_TYPE,
+	MODE,
+	PLATFORMS,
+} from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+import { type RequestToEditAEP } from '@atlaskit/editor-common/src/analytics/types/general-events';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -104,6 +113,20 @@ const RequestToEditButton = ({ onClick }: { onClick?: () => void }) => {
 	);
 };
 
+const anaylyticsEventPayload = (
+	action: ACTION.REQUEST_TO_EDIT | ACTION.DISMISSED,
+): RequestToEditAEP => {
+	return {
+		action,
+		actionSubject: ACTION_SUBJECT.REQUEST_TO_EDIT_POP_UP,
+		eventType: EVENT_TYPE.UI,
+		attributes: {
+			platform: PLATFORMS.WEB,
+			mode: MODE.EDITOR,
+		},
+	};
+};
+
 const TaskItemWrapper = ({
 	localId,
 	forwardRef,
@@ -128,7 +151,7 @@ const TaskItemWrapper = ({
 		api,
 	});
 
-	const onHandleEdit = () => {
+	const onHandleEdit = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => {
 		if (fg('editor_request_to_edit_task')) {
 			setRequested(true);
 			const { tr } = editorView.state;
@@ -137,6 +160,7 @@ const TaskItemWrapper = ({
 			if (typeof nodePos !== 'number') {
 				return;
 			}
+
 			tr.setMeta('scrollIntoView', false);
 
 			if (!api?.taskDecision?.sharedState.currentState()?.hasEditPermission) {
@@ -146,8 +170,14 @@ const TaskItemWrapper = ({
 				}
 			}
 
+			editorAnalyticsAPI?.attachAnalyticsEvent(anaylyticsEventPayload(ACTION.REQUEST_TO_EDIT))(tr);
 			editorView.dispatch(tr);
 		}
+	};
+
+	const onHandleDismiss = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => {
+		editorAnalyticsAPI?.fireAnalyticsEvent(anaylyticsEventPayload(ACTION.DISMISSED));
+		setIsOpen(false);
 	};
 
 	const onHandleClick = () => {
@@ -173,7 +203,7 @@ const TaskItemWrapper = ({
 	return (
 		<Popup
 			isOpen={isOpen}
-			onClose={() => setIsOpen(false)}
+			onClose={() => onHandleDismiss(api?.analytics?.actions)}
 			content={() => (
 				<Box xcss={wrapperStyles}>
 					<Stack space="space.150">
@@ -188,14 +218,17 @@ const TaskItemWrapper = ({
 								<RequestToEditButton
 									onClick={
 										api?.editorViewMode?.sharedState.currentState()?.mode === 'view'
-											? onHandleEdit
+											? () => onHandleEdit(api?.analytics?.actions)
 											: undefined
 									}
 								/>
 							)}
 							<Box xcss={dotStyles}></Box>
 							<Box>
-								<Pressable onClick={() => setIsOpen(false)} xcss={pressableStyles}>
+								<Pressable
+									onClick={() => onHandleDismiss(api?.analytics?.actions)}
+									xcss={pressableStyles}
+								>
 									{formatMessage(tasksAndDecisionsMessages.dismiss)}
 								</Pressable>
 							</Box>

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::36d41aeb39d4142f53da92f71b49b1b6>>
+ * @codegen <<SignedSource::38760da480cb7ec33098d79c412c44b7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _volumeMuted = _interopRequireDefault(require("@atlaskit/icon/core/volume-muted"));
 var _vidVolumeMuted = _interopRequireDefault(require("@atlaskit/icon/glyph/vid-volume-muted"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

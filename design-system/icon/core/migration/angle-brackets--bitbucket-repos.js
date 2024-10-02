@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::68b6c60702a5201c0e4259ee0aab7941>>
+ * @codegen <<SignedSource::79ef7e08f33e3d216dc13b14a93def2a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -12,7 +12,7 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 var _angleBrackets = _interopRequireDefault(require("@atlaskit/icon/core/angle-brackets"));
 var _repos = _interopRequireDefault(require("@atlaskit/icon/glyph/bitbucket/repos"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *

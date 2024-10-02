@@ -45,7 +45,6 @@ const InnerBreadcrumbs = forwardRef((props: BreadcrumbsProps, ref: React.Ref<any
 	const {
 		defaultExpanded = false,
 		isExpanded,
-		isNavigation = true,
 		maxItems = defaultMaxItems,
 		itemsBeforeCollapse = 1,
 		itemsAfterCollapse = 1,
@@ -150,10 +149,8 @@ const InnerBreadcrumbs = forwardRef((props: BreadcrumbsProps, ref: React.Ref<any
 
 	const breadcrumbsItems = shouldDisplayItems ? breadcrumbsArray : renderItemsWithEllipsis();
 
-	const Component = isNavigation ? 'nav' : 'div';
-
 	return (
-		<Component aria-label={label} ref={mergeRefs([ref, wrapperRef])} tabIndex={-1}>
+		<nav aria-label={label} ref={mergeRefs([ref, wrapperRef])} tabIndex={-1}>
 			<ol
 				data-testid={testId}
 				css={breadcrumbStyles}
@@ -162,7 +159,7 @@ const InnerBreadcrumbs = forwardRef((props: BreadcrumbsProps, ref: React.Ref<any
 			>
 				{breadcrumbsItems}
 			</ol>
-		</Component>
+		</nav>
 	);
 });
 

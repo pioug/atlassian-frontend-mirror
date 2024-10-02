@@ -1,6 +1,3 @@
-// File has been copied to packages/editor/editor-plugin-ai/src/provider/prosemirror-transformer/tableSerializer.ts
-// If changes are made to this file, please make the same update in the linked file.
-
 import type { MarkdownSerializerState } from '@atlaskit/editor-prosemirror/markdown';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 

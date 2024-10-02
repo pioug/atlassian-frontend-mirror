@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Fragment, useState } from 'react';
+
+import { jsx } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
@@ -35,7 +41,7 @@ export default function Example() {
 	const [isFocused, setIsFocused] = useState(false);
 
 	return (
-		<>
+		<Fragment>
 			<Inline grow="hug" space="space.100" xcss={styles.dashedBorder} alignInline="center">
 				<Box xcss={styles.root}>Static</Box>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
@@ -48,6 +54,6 @@ export default function Example() {
 					Conditionally composed
 				</Box>
 			</Inline>
-		</>
+		</Fragment>
 	);
 }

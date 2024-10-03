@@ -38,7 +38,7 @@ const fadeStyles = xcss({
  * padding inside Button while also maintaining spacing for the existing icons.
  *
  * These styles can be removed once the new icons are fully rolled out, feature flag
- * platform.design-system-team.enable-new-icons is cleaned up,
+ * platform-visual-refresh-icons is cleaned up,
  * and we bump Button to set padding based on the new icons.
  */
 const beforeIconStyles = xcss({

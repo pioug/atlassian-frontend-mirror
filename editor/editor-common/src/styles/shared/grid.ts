@@ -2,7 +2,6 @@
 import { css } from '@emotion/react';
 
 import { akEditorGridLineZIndex } from '@atlaskit/editor-shared-styles';
-import { B200, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const GRID_GUTTER = 12;
@@ -27,7 +26,7 @@ export const gridStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.gridLine': {
-		borderLeft: `1px solid ${token('color.border', N30A)}`,
+		borderLeft: `1px solid ${token('color.border')}`,
 		display: 'inline-block',
 		boxSizing: 'border-box',
 		height: '100%',
@@ -38,6 +37,6 @@ export const gridStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.highlight': {
-		borderLeft: `1px solid ${token('color.border.focused', B200)}`,
+		borderLeft: `1px solid ${token('color.border.focused')}`,
 	},
 });

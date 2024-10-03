@@ -40,7 +40,7 @@ snapshot(HoverCardActions, {
 	description: 'Hover card actions with related urls',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform.linking-platform.smart-card.enable-view-related-urls-action': [true],
+		'platform-smart-card-view-related-urls-action': [true],
 	},
 	states: [
 		{

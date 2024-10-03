@@ -7,9 +7,6 @@ import {
 	akLayoutGutterOffset,
 	relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
-import { B300, N200, N200A, N300A, N40A, N50A } from '@atlaskit/theme/colors';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const BORDER_RADIUS = token('border.radius.100', '4px');
@@ -17,9 +14,9 @@ const BORDER_RADIUS = token('border.radius.100', '4px');
 const EXPAND_COLLAPSED_BACKGROUND = token('color.background.neutral.subtle', 'transparent');
 const EXPAND_SELECTED_BACKGROUND = token('elevation.surface', 'rgba(255, 255, 255, 0.6)');
 
-const EXPAND_FOCUSED_BORDER_COLOR = token('color.border.focused', B300);
+const EXPAND_FOCUSED_BORDER_COLOR = token('color.border.focused');
 const EXPAND_COLLAPSED_BORDER_COLOR = 'transparent';
-const EXPAND_EXPANDED_BORDER_COLOR = token('color.border', N40A);
+const EXPAND_EXPANDED_BORDER_COLOR = token('color.border');
 
 export interface StyleProps {
 	expanded?: boolean;
@@ -57,13 +54,6 @@ const containerStyles = (styleProps: StyleProps) => {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			transition: `background 0.3s ${akEditorSwoopCubicBezier}, border-color 0.3s ${akEditorSwoopCubicBezier}`,
 			padding: token('space.100', '8px'),
-			'&:hover': {
-				// TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
-				// This is because the default state already uses the same token and, as such, the hover style won't change anything.
-				// https://product-fabric.atlassian.net/browse/DSP-4152
-				border: `1px solid ${token('color.border', N50A)}`,
-				background: EXPAND_SELECTED_BACKGROUND,
-			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'td > :not(style):first-child, td > style:first-child + *': {
 				marginTop: 0,
@@ -109,11 +99,11 @@ const titleInputStyles = () =>
 		outline: 'none',
 		border: 'none',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		fontSize: relativeFontSizeToBase16(fontSize()),
+		fontSize: relativeFontSizeToBase16(14),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		lineHeight: akEditorLineHeight,
 		fontWeight: 'normal',
-		color: token('color.text.subtlest', N200A),
+		color: token('color.text.subtlest'),
 		background: 'transparent',
 		display: 'flex',
 		flex: 1,
@@ -121,7 +111,7 @@ const titleInputStyles = () =>
 		width: '100%',
 		'&::placeholder': {
 			opacity: 1,
-			color: token('color.text.subtlest', N200),
+			color: token('color.text.subtlest'),
 		},
 	});
 
@@ -133,9 +123,9 @@ const titleContainerStyles = () =>
 		background: 'none',
 		border: 'none',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		fontSize: relativeFontSizeToBase16(fontSize()),
+		fontSize: relativeFontSizeToBase16(14),
 		width: '100%',
-		color: token('color.text.subtle', N300A),
+		color: token('color.text.subtle'),
 		overflow: 'hidden',
 		cursor: 'pointer',
 		'&:focus': {

@@ -1,6 +1,3 @@
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 import { darkPanelColors } from '../../../panel';
@@ -11,29 +8,29 @@ import { type PaletteColor } from './type';
 /** this is not new usage - old code extracted from editor-core */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export const panelBackgroundPalette: PaletteColor[] = [
-	{ label: 'White', value: colors.N0 },
-	{ label: 'Light blue', value: colors.B50 },
-	{ label: 'Light teal', value: colors.T50 },
-	{ label: 'Light green', value: colors.G50 },
-	{ label: 'Light yellow', value: colors.Y50 },
-	{ label: 'Light red', value: colors.R50 },
-	{ label: 'Light purple', value: colors.P50 },
+	{ label: 'White', value: '#FFFFFF' },
+	{ label: 'Light blue', value: '#DEEBFF' },
+	{ label: 'Light teal', value: '#E6FCFF' },
+	{ label: 'Light green', value: '#E3FCEF' },
+	{ label: 'Light yellow', value: '#FFFAE6' },
+	{ label: 'Light red', value: '#FFEBE6' },
+	{ label: 'Light purple', value: '#EAE6FF' },
 
-	{ label: 'Light gray', value: colors.N20 },
-	{ label: 'Blue', value: colors.B75 },
-	{ label: 'Teal', value: colors.T75 },
-	{ label: 'Green', value: colors.G75 },
-	{ label: 'Yellow', value: colors.Y75 },
-	{ label: 'Red', value: colors.R75 },
-	{ label: 'Purple', value: colors.P75 },
+	{ label: 'Light gray', value: '#F4F5F7' },
+	{ label: 'Blue', value: '#B3D4FF' },
+	{ label: 'Teal', value: '#B3F5FF' },
+	{ label: 'Green', value: '#ABF5D1' },
+	{ label: 'Yellow', value: '#FFF0B3' },
+	{ label: 'Red', value: '#FFBDAD' },
+	{ label: 'Purple', value: '#C0B6F2' },
 
-	{ label: 'Gray', value: colors.N60 },
-	{ label: 'Dark blue', value: colors.B100 },
-	{ label: 'Dark teal', value: colors.T100 },
-	{ label: 'Dark green', value: colors.G200 },
-	{ label: 'Dark yellow', value: colors.Y200 },
-	{ label: 'Dark red', value: colors.R100 },
-	{ label: 'Dark purple', value: colors.P100 },
+	{ label: 'Gray', value: '#B3BAC5' },
+	{ label: 'Dark blue', value: '#4C9AFF' },
+	{ label: 'Dark teal', value: '#79E2F2' },
+	{ label: 'Dark green', value: '#57D9A3' },
+	{ label: 'Dark yellow', value: '#FFC400' },
+	{ label: 'Dark red', value: '#FF8F73' },
+	{ label: 'Dark purple', value: '#998DD9' },
 ].map((color) => ({
 	...color,
 	border: token('color.border', DEFAULT_BORDER_COLOR),

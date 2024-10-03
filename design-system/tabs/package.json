@@ -50,7 +50,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/ds-lib": "^2.6.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/tooltip": "^18.7.0",
+		"@atlaskit/tooltip": "^18.8.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
 		"jscodeshift": "^0.13.0",

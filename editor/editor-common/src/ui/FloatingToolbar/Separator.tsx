@@ -5,11 +5,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const separator = css({
-	background: token('color.border', N30),
+	background: token('color.border'),
 	width: '1px',
 	height: '20px',
 	margin: `0 ${token('space.050', '4px')}`,

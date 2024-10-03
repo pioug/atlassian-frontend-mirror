@@ -4,7 +4,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import Tooltip from '../../Tooltip';
+import Tooltip from '../../tooltip';
 
 const analyticsAttributes = {
 	componentName: 'tooltip',

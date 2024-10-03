@@ -8,7 +8,6 @@ import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N20, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -38,13 +37,13 @@ const buttonStyles = css`
 	top: 0;
 	border: 2px solid ${token('color.border', '#fff')};
 	border-radius: ${token('border.radius.100', '4px')};
-	background-color: ${token('elevation.surface.overlay', N20)};
+	background-color: ${token('elevation.surface.overlay')};
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
 
 	&:hover {
-		background-color: ${token('elevation.surface.overlay.hovered', N30)};
+		background-color: ${token('elevation.surface.overlay.hovered')};
 	}
 
 	&:active {

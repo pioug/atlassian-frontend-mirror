@@ -8,7 +8,6 @@ import { PureComponent } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Spinner from '@atlaskit/spinner';
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import LinkSearchListItem from './LinkSearchListItem';
@@ -17,7 +16,7 @@ import type { LinkSearchListItemData } from './types';
 const listContainer = css({
 	paddingTop: 0,
 	marginTop: token('space.150', '12px'),
-	borderTop: `1px solid ${token('color.border', N30)}`,
+	borderTop: `1px solid ${token('color.border')}`,
 });
 
 const spinnerContainer = css({

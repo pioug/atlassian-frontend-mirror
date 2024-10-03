@@ -25,6 +25,9 @@
       "path": "../../ds-lib/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../layering/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../motion/afm-post-office/tsconfig.json"
     },
     {

@@ -3,10 +3,9 @@ import { md, Props } from '@atlaskit/docs';
 
 export default md`
 
+### Props
+
 ${(
-	<Props
-		heading="HoverCardProps"
-		props={require('!!extract-react-types-loader!../../utils/props-hover-card')}
-	/>
+	<Props heading="" props={require('!!extract-react-types-loader!../../utils/props-hover-card')} />
 )}
 `;

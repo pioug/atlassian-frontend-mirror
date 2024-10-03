@@ -2,7 +2,6 @@
 import { css } from '@emotion/react';
 
 import { akEditorDeleteIconColor } from '@atlaskit/editor-shared-styles';
-import { B200, B50, N60 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 /*
@@ -40,7 +39,7 @@ export const resizerStyles = css`
 
 		&.is-resizing {
 			& .${resizerHandleThumbClassName} {
-				background: ${token('color.border.focused', B200)};
+				background: ${token('color.border.focused')};
 			}
 		}
 
@@ -121,7 +120,7 @@ export const resizerStyles = css`
 
 		&:hover {
 			& .${resizerHandleThumbClassName} {
-				background: ${token('color.border.focused', B200)};
+				background: ${token('color.border.focused')};
 			}
 
 			& .${resizerHandleTrackClassName} {
@@ -144,7 +143,7 @@ export const resizerStyles = css`
 		z-index: 2;
 		outline: none;
 		min-height: 24px;
-		background: ${token('color.border', N60)};
+		background: ${token('color.border')};
 
 		&:hover {
 			cursor: col-resize;
@@ -184,11 +183,11 @@ export const resizerStyles = css`
 		}
 
 		&.shadow {
-			background: ${token('color.background.selected', B50)};
+			background: ${token('color.background.selected')};
 		}
 
 		&.full-height {
-			background: ${token('color.background.selected', B50)};
+			background: ${token('color.background.selected')};
 			height: 100%;
 			min-height: 36px;
 		}
@@ -196,7 +195,7 @@ export const resizerStyles = css`
 
 	.${akEditorSelectedNodeClassName} {
 		& .${resizerHandleThumbClassName} {
-			background: ${token('color.border.focused', B200)};
+			background: ${token('color.border.focused')};
 		}
 	}
 

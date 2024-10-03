@@ -4,7 +4,7 @@
  */
 import React, { Fragment, useContext, useLayoutEffect, useRef, PureComponent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { reduce } from '@atlaskit/adf-utils/traverse';
@@ -24,7 +24,6 @@ import {
 	getAnalyticsEventSeverity,
 	shouldForceTracking,
 } from '@atlaskit/editor-common/utils';
-import { measureTTI } from '@atlaskit/editor-common/performance/measure-tti';
 import { getDistortedDurationMonitor } from '@atlaskit/editor-common/performance/measure-render';
 import { browser } from '@atlaskit/editor-common/browser';
 import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
@@ -69,6 +68,12 @@ export const DEGRADED_SEVERITY_THRESHOLD = 3000;
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
+const setAsQueryContainerStyles = css({
+	containerName: 'ak-renderer-wrapper',
+	containerType: 'inline-size',
+	contain: 'layout style inline-size',
+});
+
 export const defaultNodeComponents: NodeComponentsProps = nodeToReact;
 
 /**
@@ -94,19 +99,6 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 		this.editorRef = props.innerRef || React.createRef();
 		this.id = uuid();
 		startMeasure(`Renderer Render Time: ${this.id}`);
-
-		const featureFlags = this.featureFlags(this.props.featureFlags).featureFlags;
-
-		if (featureFlags?.rendererTtiTracking) {
-			measureTTI((tti, ttiFromInvocation, canceled) => {
-				this.fireAnalyticsEvent({
-					action: ACTION.RENDERER_TTI,
-					actionSubject: ACTION_SUBJECT.RENDERER,
-					attributes: { tti, ttiFromInvocation, canceled },
-					eventType: EVENT_TYPE.OPERATIONAL,
-				});
-			});
-		}
 	}
 
 	private anchorLinkAnalytics() {
@@ -673,7 +665,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 		}
 	}, [innerRef, addTelepointer]);
 
-	return (
+	const renderer = (
 		<WidthProvider
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={`ak-renderer-wrapper is-${appearance}`}
@@ -707,6 +699,20 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 				</EditorMediaClientProvider>
 			</BaseTheme>
 		</WidthProvider>
+	);
+
+	// We can only make the wrapper div query container when we have a known width.
+	// This is also required for SSR to work correctly. As WidthProvider/WithConsumer will not have the correct width during SSR.
+	//
+	// We are setting this wrapper div as query container conditionally.
+	// Only apply container-type = inline-size when having a known width in full-page/full-width/comment mode.
+	// Otherwise when appearance is unspecified the renderer size is decided by the content.
+	// In this case we can't set the container-type = inline-size as it will collapse width to 0.
+	return (appearance === 'full-page' || appearance === 'full-width' || appearance === 'comment') &&
+		fg('platform-fix-table-ssr-resizing') ? (
+		<div css={setAsQueryContainerStyles}>{renderer}</div>
+	) : (
+		renderer
 	);
 });
 

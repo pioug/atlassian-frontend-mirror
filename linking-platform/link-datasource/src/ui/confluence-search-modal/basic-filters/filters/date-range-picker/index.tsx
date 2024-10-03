@@ -188,6 +188,7 @@ export const DateRangePicker = ({
 											LEGACY_size="small"
 											color={token('color.icon.danger', R400)}
 											label="Date range error"
+											LEGACY_margin={`0 ${token('space.negative.025')}`}
 										/>
 										{invalidDateRange}
 									</DateRangeErrorMessage>

@@ -7,3 +7,8 @@ export type {
 	LoadParameters,
 } from './image-navigator';
 export type { Avatar } from './avatar-list';
+export { default as ImageCropper } from './image-cropper';
+export { Slider } from './image-navigator/slider';
+export { Viewport } from './viewport';
+export { checkeredBg } from './image-navigator/images';
+export { exportCroppedImage } from './image-navigator/exportCroppedImage';

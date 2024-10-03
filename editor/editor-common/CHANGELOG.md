@@ -1,5 +1,40 @@
 # @atlaskit/editor-common
 
+## 93.0.0
+
+### Major Changes
+
+- [#147736](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147736)
+  [`b87d619f458cf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b87d619f458cf) -
+  [ux] Removed the `theme` package from editor-common. Some colours have been adjusted to use
+  tokens, and some unused code has been removed.
+
+  WHAT? We have removed the following exports:
+
+  - `getPanelDarkColor` and `getPanelBackgroundDarkModeColors`. Remedy: Was used for
+    `editor-mobile-bridge` and is no longer used. Use `panelDarkModeBackgroundPalette` to access
+    panel dark mode colors.
+  - `lightModeStatusColorPalette` and `darkModeStatusColorPalette` from `editor-common`. Remedy:
+    Status colours come from `@atlaskit/status/picker`.
+
+  WHY? Because styling is moving to tokens and we no longer require these.
+
+### Patch Changes
+
+- [#147736](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147736)
+  [`b6868597a50cd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6868597a50cd) -
+  [ux] Fix table resizing when rendering with AK renderer in SSR
+- Updated dependencies
+
+## 92.1.2
+
+### Patch Changes
+
+- [#148109](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148109)
+  [`ac5a4bdf86ac6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac5a4bdf86ac6) -
+  Fix selection sync in React 18 for certain nodes.
+- Updated dependencies
+
 ## 92.1.1
 
 ### Patch Changes

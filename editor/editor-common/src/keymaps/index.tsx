@@ -8,7 +8,6 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 import { base, keyName } from 'w3c-keyname';
 
-import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { editorCommandToPMCommand } from '../preset/editor-commands';
@@ -159,7 +158,7 @@ const arrowKeysMap: Record<string, string> = {
 
 const tooltipShortcutStyle = css({
 	borderRadius: '2px',
-	backgroundColor: token('color.background.inverse.subtle', N400),
+	backgroundColor: token('color.background.inverse.subtle'),
 	padding: `0 ${token('space.025', '2px')}`,
 	// NOTE: This might not actually do anything: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E
 	label: 'tooltip-shortcut',

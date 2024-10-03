@@ -9,7 +9,7 @@ export default customMd`
 
 ## FlexibleUiOptions
 
-The UI options is a new prop on Card component used to configure Flexible Smart Links.
+The UI options is a prop on Card component used to configure Flexible Smart Links.
 It can be combined to provide a wide range of integrations.
 
 ${(

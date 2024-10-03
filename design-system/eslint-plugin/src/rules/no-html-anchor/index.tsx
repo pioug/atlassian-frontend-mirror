@@ -8,6 +8,7 @@ const rule = createLintRule({
 	meta: {
 		name: 'no-html-anchor',
 		type: 'suggestion',
+		hasSuggestions: true,
 		docs: {
 			description:
 				'Discourage direct usage of HTML anchor elements in favor of Atlassian Design System link components.',

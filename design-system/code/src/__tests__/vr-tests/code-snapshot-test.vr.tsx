@@ -37,6 +37,9 @@ snapshot(InlineCodeBasic, {
 	],
 });
 snapshot(CodeBlockBasic, {
+	featureFlags: {
+		platform_design_system_team_code_new_typography: [false, true],
+	},
 	variants: [
 		{
 			name: 'Default',

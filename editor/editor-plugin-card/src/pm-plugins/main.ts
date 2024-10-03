@@ -17,6 +17,7 @@ import type { cardPlugin } from '../index';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
 import { lazyBlockCardView } from '../nodeviews/lazy-block-card';
 import { lazyEmbedCardView } from '../nodeviews/lazy-embed-card';
+import { lazyInlineCardView } from '../nodeviews/lazy-inline-card';
 import type { CardPluginOptions, CardPluginState } from '../types';
 import { isDatasourceTableLayout } from '../ui/LayoutButton/utils';
 import { isBlockSupportedAtPosition, isEmbedSupportedAtPosition } from '../utils';
@@ -309,7 +310,9 @@ export const createPlugin =
 
 			props: {
 				nodeViews: {
-					inlineCard: inlineCardViewProducer,
+					inlineCard: lazyInlineCardView({
+						inlineCardViewProducer,
+					}),
 					blockCard: lazyBlockCardView({
 						pmPluginFactoryParams,
 						actionOptions,

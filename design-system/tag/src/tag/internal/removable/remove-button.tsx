@@ -110,9 +110,7 @@ const RemoveButton = ({
 		<Pressable
 			xcss={[
 				fg('platform-component-visual-refresh') ? removeButtonStyles : removeButtonStylesOld,
-				fg('platform.design-system-team.enable-new-icons')
-					? removeButtonStylesNewIcon
-					: removeButtonStylesOldIcon,
+				fg('platform-visual-refresh-icons') ? removeButtonStylesNewIcon : removeButtonStylesOldIcon,
 			]}
 			aria-label={ariaLabel}
 			onClick={onClick}

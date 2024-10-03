@@ -2,7 +2,6 @@
 import { css } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N60A, Y300, Y75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const annotationPrefix = 'ak-editor-annotation';
@@ -18,9 +17,6 @@ export const BlockAnnotationSharedClassNames = {
 	blur: `${blockAnnotationPrefix}-blur`,
 	draft: `${blockAnnotationPrefix}-draft`,
 };
-
-const Yellow100 = 'rgb(255, 247, 214)';
-const Y200a = 'rgba(255, 196, 0, 0.82)';
 
 export const AnnotationSharedCSSByState = () => {
 	if (fg('editor_inline_comments_on_inline_nodes')) {
@@ -43,20 +39,20 @@ export const AnnotationSharedCSSByState = () => {
 					: {
 							paddingTop: '4px',
 							border: 'none',
-							boxShadow: `0 2px 0 0 ${token('color.border.accent.yellow', Y200a)}`,
+							boxShadow: `0 2px 0 0 ${token('color.border.accent.yellow')}`,
 						},
 				'&:has(.date-lozenger-container)': {
 					paddingTop: '2px',
 				},
 			},
 			focus: css({
-				background: token('color.background.accent.yellow.subtler', Y75),
-				borderBottomColor: token('color.border.accent.yellow', Y300),
-				boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
+				background: token('color.background.accent.yellow.subtler'),
+				borderBottomColor: token('color.border.accent.yellow'),
+				boxShadow: token('elevation.shadow.overlay'),
 			}),
 			blur: css({
-				background: token('color.background.accent.yellow.subtlest', Yellow100),
-				borderBottomColor: token('color.border.accent.yellow', Y200a),
+				background: token('color.background.accent.yellow.subtlest'),
+				borderBottomColor: token('color.border.accent.yellow'),
 			}),
 		};
 	} else {
@@ -64,15 +60,15 @@ export const AnnotationSharedCSSByState = () => {
 			focus: css({
 				// Background is not coming through in confluence, suspecting to be caused by some specific combination of
 				// emotion and token look up
-				background: token('color.background.accent.yellow.subtler', Y75),
-				borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
+				background: token('color.background.accent.yellow.subtler'),
+				borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
 				// TODO: https://product-fabric.atlassian.net/browse/DSP-4147
-				boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
+				boxShadow: token('elevation.shadow.overlay'),
 				cursor: 'pointer',
 			}),
 			blur: css({
-				background: token('color.background.accent.yellow.subtlest', Yellow100),
-				borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
+				background: token('color.background.accent.yellow.subtlest'),
+				borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
 				cursor: 'pointer',
 			}),
 		};

@@ -9,18 +9,9 @@ import { css, jsx } from '@emotion/react';
 import memoizeOne from 'memoize-one';
 import rafSchedule from 'raf-schd';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { WidthObserver } from '@atlaskit/width-detector';
 
 import { isSSR } from '../../core-utils/is-ssr';
-
-import { isSsrButNoBreakoutScriptObserved } from './isSsrButNoBreakoutScriptObserved';
-
-declare global {
-	interface Window {
-		__SSR_BREAKOUT_OBSERVED?: boolean;
-	}
-}
 
 const styles = css({
 	position: 'relative',
@@ -88,10 +79,7 @@ export const WidthProvider = ({
 	shouldCheckExistingValue,
 	children,
 }: WidthProviderProps) => {
-	const shouldFixTableResizing = Boolean(fg('platform-fix-table-ssr-resizing'));
-	const containerRef = useRef<HTMLDivElement>(null);
 	const existingContextValue: WidthConsumerContext = useContext(WidthContext);
-	const [isInitialWidthUpdated, setIsInitialWidthUpdated] = useState(false);
 	const [width, setWidth] = useState<number>(getBodyWidth);
 	const widthRef = useRef(width);
 	const isMountedRef = useRef(true);
@@ -118,44 +106,16 @@ export const WidthProvider = ({
 
 	React.useLayoutEffect(() => {
 		isMountedRef.current = true;
-		if (shouldFixTableResizing && !isInitialWidthUpdated) {
-			// useLayoutEffect is not run in SSR mode
-			// The visibility change for SSR is done in packages/editor/renderer/src/ui/Renderer/breakout-ssr.tsx
-			setIsInitialWidthUpdated(true);
-			if (containerRef.current) {
-				setWidth(containerRef.current.offsetWidth);
-			}
-		}
 		return () => {
 			isMountedRef.current = false;
 		};
-	}, [isInitialWidthUpdated, shouldFixTableResizing, width]);
+	}, []);
 
 	return (
 		<div
 			css={styles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
-			ref={containerRef}
-			// Using style not css prop because we need to also reset these style in SSR
-			// It is done in packages/editor/renderer/src/ui/Renderer/breakout-ssr.tsx
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Intended
-			style={
-				// The hidden visibility is relying on the observer in breakout-ssr.tsx to clear.
-				// Do not hide if the observer is not observed. This happens in editor SSR.
-				shouldFixTableResizing && !isSsrButNoBreakoutScriptObserved() && !isInitialWidthUpdated
-					? {
-							// Width is initialized with body width but in Confluence this is too wide as side nav takes some space.
-							// Putting the div into hidden until we can get the correct width.
-							// Only setting the visibility so children still takes space which will make scrollbar to correct appear.
-							// Scrollbar has width too it needs to be taken into account otherwise table is going to shrink after appeared.
-							visibility: 'hidden',
-							// Because the body width is too wide, the horizontal scrollbar gonna shown
-							// Temporary hide it until we get the correct width
-							overflowX: 'hidden',
-						}
-					: {}
-			}
 		>
 			{!skipWidthDetection && (
 				<Fragment>

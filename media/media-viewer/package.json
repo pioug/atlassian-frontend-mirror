@@ -85,7 +85,7 @@
 		"@atlaskit/media-test-data": "^2.6.0",
 		"@atlaskit/media-test-helpers": "^34.4.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "13.4.2",
+		"@atlaskit/toggle": "13.4.3",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@atlassian/ufo": "^0.4.0",

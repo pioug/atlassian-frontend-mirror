@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { N20, N20A, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { BODIED_EXT_PADDING, EXTENSION_PADDING } from '../../styles';
@@ -10,7 +9,7 @@ export { EXTENSION_PADDING as padding, BODIED_EXT_PADDING };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const wrapperDefault = css({
-	background: token('color.background.neutral', N20),
+	background: token('color.background.neutral'),
 	borderRadius: token('border.radius', '3px'),
 	position: 'relative',
 	verticalAlign: 'middle',
@@ -18,7 +17,7 @@ export const wrapperDefault = css({
 	'&.with-overlay': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.extension-overlay': {
-			background: token('color.background.neutral.hovered', N20A),
+			background: token('color.background.neutral.hovered'),
 			color: 'transparent',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -57,7 +56,7 @@ export const placeholderFallbackParams = css({
 	display: 'inline-block',
 	maxWidth: '200px',
 	marginLeft: token('space.050', '4px'),
-	color: token('color.text.subtlest', N70),
+	color: token('color.text.subtlest'),
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
 	overflow: 'hidden',

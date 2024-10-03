@@ -50,7 +50,7 @@ const IconContainer = ({ children, size, isHidden, position }: IconContainerProp
 			as="span"
 			xcss={[
 				iconContainerStyles,
-				isHidden && fg('platform.design-system-team.enable-new-icons') && hiddenStyles,
+				isHidden && fg('platform-visual-refresh-icons') && hiddenStyles,
 				size === 'regular' && iconContainerRegularStyles,
 				size === 'large' && iconContainerLargeStyles,
 				position === 'left' && leftStyles,

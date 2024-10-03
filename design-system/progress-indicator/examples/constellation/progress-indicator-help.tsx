@@ -1,21 +1,9 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Inline } from '@atlaskit/primitives';
 
 import { ProgressIndicator } from '../../src';
-
-const containerStyles = css({
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'space-between',
-});
 
 const HelpExample = () => {
 	const [selectedIndex, setSelectedIndex] = useState(0);
@@ -30,7 +18,7 @@ const HelpExample = () => {
 	};
 
 	return (
-		<div css={containerStyles}>
+		<Inline alignBlock="center" spread="space-between">
 			<Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
 				Previous
 			</Button>
@@ -38,7 +26,7 @@ const HelpExample = () => {
 			<Button isDisabled={selectedIndex === values.length - 1} onClick={handleNext}>
 				Next
 			</Button>
-		</div>
+		</Inline>
 	);
 };
 

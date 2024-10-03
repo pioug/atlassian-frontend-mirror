@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 15.1.2
+
+### Patch Changes
+
+- [#147913](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147913)
+  [`cc70a6a79755c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc70a6a79755c) -
+  Refactor internal prop destructuring in date picker.
+
 ## 15.1.1
 
 ### Patch Changes

@@ -4,12 +4,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { FullPagePadding } from './style';
 
-declare global {
-	interface Window {
-		__SSR_BREAKOUT_OBSERVED?: boolean;
-	}
-}
-
 /**
  * Inline Script that updates breakout node width on client side,
  * before main JavaScript bundle is ready.
@@ -39,11 +33,10 @@ export function BreakoutSSRInlineScript() {
 }
 
 export function createBreakoutInlineScript(id: number) {
-	const shouldFixTableResizing = String(Boolean(fg('platform-fix-table-ssr-resizing')));
 	return `
   (function(window){
     ${breakoutInlineScriptContext};
-    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${shouldFixTableResizing});
+    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${Boolean(fg('platform-fix-table-ssr-resizing'))});
   })(window);
 `;
 }
@@ -105,42 +98,35 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 						return;
 					}
 
-					if (node.classList.contains('pm-table-container') && mode === 'custom') {
-						const isFullPage = renderer!.classList.contains('is-full-page');
-						const rendererWidth = renderer!.offsetWidth;
-
-						let effectiveWidth;
-						if (shouldFixTableResizing) {
-							// Logic from https://stash.atlassian.com/projects/atlassian/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/renderer/src/react/nodes/table.tsx?at=d3af2ef54521ccf10e9b094996ad9528ec05c7e3#610
-							effectiveWidth = isFullPage
-								? rendererWidth - 2 * breakoutConsts.FullPagePadding
-								: rendererWidth;
+					// When flag is on we are using CSS to calculate the table width thus don't need logic below to set the width and left.
+					if (!shouldFixTableResizing) {
+						if (node.classList.contains('pm-table-container') && mode === 'custom') {
+							const rendererWidth = renderer!.offsetWidth;
+							const effectiveWidth = rendererWidth - breakoutConsts.padding;
+							width = `${Math.min(parseInt(node.style.width), effectiveWidth)}px`;
 						} else {
-							effectiveWidth = rendererWidth - breakoutConsts.padding;
+							width = breakoutConsts.calcBreakoutWidth(mode, renderer!.offsetWidth);
 						}
-						width = `${Math.min(parseInt(node.style.width), effectiveWidth)}px`;
-					} else {
-						width = breakoutConsts.calcBreakoutWidth(mode, renderer!.offsetWidth);
-					}
 
-					if (node.style.width === width) {
-						return;
-					}
-					node.style.width = width;
+						if (node.style.width === width) {
+							return;
+						}
+						node.style.width = width;
 
-					// Tables require some special logic, as they are not using common css transform approach,
-					// because it breaks with sticky headers. This logic is copied from a table node:
-					// https://bitbucket.org/atlassian/atlassian-frontend/src/77938aee0c140d02ff99b98a03849be1236865b4/packages/editor/renderer/src/react/nodes/table.tsx#table.tsx-235:245
-					if (
-						node.classList.contains('pm-table-container') &&
-						!renderer!.classList.contains('is-full-width')
-					) {
-						const lineLength = breakoutConsts.calcLineLength();
-						const left = lineLength / 2 - parseInt(width) / 2;
-						if (left < 0 && parseInt(width) > lineLength) {
-							node.style.left = left + 'px';
-						} else {
-							node.style.left = '';
+						// Tables require some special logic, as they are not using common css transform approach,
+						// because it breaks with sticky headers. This logic is copied from a table node:
+						// https://bitbucket.org/atlassian/atlassian-frontend/src/77938aee0c140d02ff99b98a03849be1236865b4/packages/editor/renderer/src/react/nodes/table.tsx#table.tsx-235:245
+						if (
+							node.classList.contains('pm-table-container') &&
+							!renderer!.classList.contains('is-full-width')
+						) {
+							const lineLength = breakoutConsts.calcLineLength();
+							const left = lineLength / 2 - parseInt(width) / 2;
+							if (left < 0 && parseInt(width) > lineLength) {
+								node.style.left = left + 'px';
+							} else {
+								node.style.left = '';
+							}
 						}
 					}
 				});
@@ -157,16 +143,6 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 				applyMediaBreakout(item.target as HTMLElement);
 			}
 		});
-
-		// Renderer is initially set to hidden until we figure out the proper width in packages/editor/editor-common/src/ui/WidthProvider/index.tsx
-		if (renderer.style.visibility === 'hidden') {
-			// Hiding until we get the correct width. But didn't remove them from the DOM so vertical scrollbar can still be correctly calculated.
-			renderer.style.visibility = '';
-			// Since we don't have a screen width to use as initial value.
-			// The width is set to a fix number. This will cause horizontal scrollbar to appear.
-			// Hide it until we have the correct width.
-			renderer.style.overflowX = '';
-		}
 	});
 
 	const applyMediaBreakout = (card: HTMLElement) => {
@@ -200,9 +176,6 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 		childList: true,
 		subtree: true,
 	});
-	if (shouldFixTableResizing) {
-		window.__SSR_BREAKOUT_OBSERVED = true;
-	}
 
 	/**
 	 * Using window load event to unsubscribe from mutation observer, as at this stage document is fully rendered.

@@ -53,6 +53,7 @@ export function createPlugin(
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
 	useLongPressSelection: boolean = false,
 	hasEditPermission?: boolean,
+	hasRequestedEditPermission?: boolean,
 	requestToEditContent?: () => void,
 ) {
 	return new SafePlugin({
@@ -204,7 +205,12 @@ export function createPlugin(
 		},
 		state: {
 			init() {
-				return { insideTaskDecisionItem: false, hasEditPermission, requestToEditContent };
+				return {
+					insideTaskDecisionItem: false,
+					hasEditPermission,
+					hasRequestedEditPermission,
+					requestToEditContent,
+				};
 			},
 			apply(tr, pluginState) {
 				const metaData = tr.getMeta(stateKey);
@@ -229,6 +235,17 @@ export function createPlugin(
 					newPluginState = {
 						...newPluginState,
 						hasEditPermission: metaData.hasEditPermission,
+					};
+				}
+
+				if (
+					metaData &&
+					'hasRequestedEditPermission' in metaData &&
+					fg('editor_request_to_edit_task')
+				) {
+					newPluginState = {
+						...newPluginState,
+						hasRequestedEditPermission: metaData.hasRequestedEditPermission,
 					};
 				}
 

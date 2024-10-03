@@ -149,7 +149,7 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 					&#65279;
 					{/* Unfortunately Shortcut Icon had to be copied directly below to support visited styles.
           This is because icons have a default `color` and although it's set to inherit text color, due to strict security restrictions for visited links it did not allow the color to pass through to the SVG */}
-					{fg('platform.design-system-team.enable-new-icons') ? (
+					{fg('platform-visual-refresh-icons') ? (
 						<svg width="12" height="12" viewBox="0 0 12 12" fill="none" css={iconStyles}>
 							<path
 								fillRule="evenodd"

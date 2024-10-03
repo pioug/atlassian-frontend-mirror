@@ -12,7 +12,6 @@ import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { N0, N50A, N60A, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Layer from '../Layer';
@@ -65,13 +64,10 @@ class DropList extends Component<Props> {
 	/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 	private menuWrapper = () => {
 		return css({
-			color: token('color.text', N900),
-			backgroundColor: token('elevation.surface.overlay', N0),
+			color: token('color.text'),
+			backgroundColor: token('elevation.surface.overlay'),
 			borderRadius: token('border.radius', '3px'),
-			boxShadow: token(
-				'elevation.shadow.overlay',
-				`0 4px 8px calc(-1 * 2px) ${N50A}, 0 0 1px ${N60A}`,
-			),
+			boxShadow: token('elevation.shadow.overlay'),
 			boxSizing: 'border-box',
 			overflow: 'auto',
 			padding: `${token('space.050', '4px')} 0`,

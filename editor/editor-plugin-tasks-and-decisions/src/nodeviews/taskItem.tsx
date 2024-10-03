@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
@@ -53,6 +53,8 @@ type TaskItemWrapperProps = {
 	editorView: EditorView;
 };
 
+const TRYING_REQUEST_TIMEOUT = 3000;
+
 const wrapperStyles = xcss({
 	display: 'flex',
 	flexDirection: 'column',
@@ -102,7 +104,7 @@ const RequestedMessage = () => {
 	);
 };
 
-const RequestToEditButton = ({ onClick }: { onClick?: () => void }) => {
+const RequestToEditButton = ({ onClick }: { onClick?: () => void; isDisabled?: boolean }) => {
 	const { formatMessage } = useIntl();
 	return (
 		<Box>
@@ -141,8 +143,25 @@ const TaskItemWrapper = ({
 	const { taskDecisionState } = useSharedPluginState(api, ['taskDecision']);
 	const isFocused = Boolean(taskDecisionState?.focusedTaskItemLocalId === localId);
 	const [isOpen, setIsOpen] = useState(false);
-	const [requested, setRequested] = useState(false);
+	const [requested, setRequested] = useState(taskDecisionState?.hasRequestedEditPermission);
+	const [tryingRequest, setTryingRequest] = useState(false);
 	const { formatMessage } = useIntl();
+
+	useEffect(() => {
+		if (fg('editor_request_to_edit_task')) {
+			setRequested(taskDecisionState?.hasRequestedEditPermission);
+		}
+	}, [taskDecisionState?.hasRequestedEditPermission]);
+
+	useEffect(() => {
+		if (!tryingRequest && fg('editor_request_to_edit_task')) {
+			const timout = setTimeout(() => {
+				setTryingRequest(false);
+			}, TRYING_REQUEST_TIMEOUT);
+
+			return () => clearTimeout(timout);
+		}
+	}, [tryingRequest]);
 
 	const showPlaceholder = useShowPlaceholder({
 		editorView,
@@ -153,7 +172,7 @@ const TaskItemWrapper = ({
 
 	const onHandleEdit = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => {
 		if (fg('editor_request_to_edit_task')) {
-			setRequested(true);
+			setTryingRequest(true);
 			const { tr } = editorView.state;
 			const nodePos = (getPos as getPosHandlerNode)();
 
@@ -212,7 +231,7 @@ const TaskItemWrapper = ({
 						</Heading>
 						<div>{formatMessage(tasksAndDecisionsMessages.requestToEditDescription)}</div>
 						<Box xcss={wrapperBoxStyles}>
-							{requested ? (
+							{tryingRequest || requested ? (
 								<RequestedMessage />
 							) : (
 								<RequestToEditButton

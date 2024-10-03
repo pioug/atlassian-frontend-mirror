@@ -12,8 +12,6 @@ import { injectIntl } from 'react-intl-next';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import QuestionsIcon from '@atlaskit/icon/glyph/question-circle';
-import { N30, N50 } from '@atlaskit/theme/colors';
-import { borderRadius, fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -24,15 +22,15 @@ import { trackUnsupportedContentTooltipDisplayedFor } from '../../utils/track-un
 import { getUnsupportedContent } from '../unsupported-content-helper';
 
 const blockNodeStyle = css({
-	background: token('color.background.disabled', N30),
-	border: `1px dashed ${token('color.border.disabled', N50)}`,
+	background: token('color.background.disabled'),
+	border: `1px dashed ${token('color.border.disabled')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: `${borderRadius()}px`,
+	borderRadius: token('border.radius', '3px'),
 	boxSizing: 'border-box',
 	cursor: 'default',
 	display: 'flex',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: relativeFontSizeToBase16(fontSize()),
+	fontSize: relativeFontSizeToBase16(14),
 	margin: `${token('space.100', '8px')} 0`,
 	minHeight: '24px',
 	padding: token('space.150', '12px'),

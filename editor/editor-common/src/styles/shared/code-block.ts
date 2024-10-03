@@ -10,8 +10,6 @@ import {
 	overflowShadow,
 	relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
-import { N20, N30, N400, N800 } from '@atlaskit/theme/colors';
-import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 export const CodeBlockSharedCssClassName = {
@@ -58,7 +56,7 @@ export const codeBlockSharedStyles = () => css`
 
 	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} {
 		position: relative;
-		background-color: ${token('elevation.surface.raised', 'transparent')};
+		background-color: ${token('elevation.surface.raised')};
 		border-radius: ${token('border.radius', '3px')};
 		margin: ${blockNodesVerticalMargin} 0 0 0;
 		font-family: ${akEditorCodeFontFamily};
@@ -88,7 +86,7 @@ export const codeBlockSharedStyles = () => css`
 		}
 
 		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} {
-			background-color: ${token('color.background.neutral', N20)};
+			background-color: ${token('color.background.neutral')};
 			display: flex;
 			border-radius: ${token('border.radius', '3px')};
 			width: 100%;
@@ -132,7 +130,7 @@ export const codeBlockSharedStyles = () => css`
 		.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER} {
 			flex-shrink: 0;
 			text-align: right;
-			background-color: ${token('color.background.neutral', N30)};
+			background-color: ${token('color.background.neutral')};
 			padding: ${token('space.100', '8px')};
 			position: relative;
 
@@ -145,20 +143,20 @@ export const codeBlockSharedStyles = () => css`
 					display: inline-block;
 					content: counter(line);
 					counter-increment: line;
-					color: ${token('color.text.subtlest', N400)};
-					font-size: ${relativeFontSizeToBase16(fontSize())};
+					color: ${token('color.text.subtlest')};
+					font-size: ${relativeFontSizeToBase16(14)};
 					line-height: 1.5rem;
 				}
 			}
 		}
 
 		.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER_FG} {
-			background-color: ${token('color.background.neutral', N30)};
+			background-color: ${token('color.background.neutral')};
 			position: relative;
 			width: var(--lineNumberGutterWidth, 2rem);
 			padding: 0px ${token('space.100', '8px')};
 			flex-shrink: 0;
-			font-size: ${relativeFontSizeToBase16(fontSize())};
+			font-size: ${relativeFontSizeToBase16(14)};
 			box-sizing: content-box;
 		}
 
@@ -170,11 +168,11 @@ export const codeBlockSharedStyles = () => css`
 				flex-grow: 1;
 				tab-size: 4;
 				cursor: text;
-				color: ${token('color.text', N800)};
+				color: ${token('color.text')};
 				border-radius: ${token('border.radius', '3px')};
 				margin: ${token('space.100', '8px')};
 				white-space: pre;
-				font-size: ${relativeFontSizeToBase16(fontSize())};
+				font-size: ${relativeFontSizeToBase16(14)};
 				line-height: 1.5rem;
 			}
 		}
@@ -183,10 +181,10 @@ export const codeBlockSharedStyles = () => css`
 			code {
 				tab-size: 4;
 				cursor: text;
-				color: ${token('color.text', N800)};
+				color: ${token('color.text')};
 				border-radius: ${token('border.radius', '3px')};
 				margin: ${token('space.100', '8px')};
-				font-size: ${relativeFontSizeToBase16(fontSize())};
+				font-size: ${relativeFontSizeToBase16(14)};
 				line-height: 1.5rem;
 			}
 		}
@@ -197,7 +195,7 @@ export const codeBlockSharedStyles = () => css`
 			width: var(--lineNumberGutterWidth, 2rem);
 			left: 0;
 			position: absolute;
-			font-size: ${relativeFontSizeToBase16(fontSize())};
+			font-size: ${relativeFontSizeToBase16(14)};
 			padding: 0px ${token('space.100', '8px')};
 			line-height: 1.5rem;
 			text-align: right;

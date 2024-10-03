@@ -8,13 +8,13 @@ import {
 	akLayoutGutterOffset,
 	gridMediumMaxWidth,
 } from '@atlaskit/editor-shared-styles';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
 
 import { BODIED_EXT_PADDING } from '../styles/shared/extension';
 import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles/shared/layout';
 import type { EditorContainerWidth } from '../types/editor-container-width';
 import { absoluteBreakoutWidth } from '../utils/breakout';
+
+const GRID_SIZE = 8;
 
 export const layoutToWidth = {
 	default: akEditorDefaultLayoutWidth,
@@ -93,17 +93,15 @@ export const getParentNodeWidth = (
 			parentWidth -= BODIED_EXT_PADDING * 2;
 			break;
 
-		// TODO: Migrate away from gridSize
-		// Recommendation: Replace gridSize with 8
 		case schema.nodes.expand:
 			// padding
-			parentWidth -= gridSize() * 2;
+			parentWidth -= GRID_SIZE * 2;
 			// gutter offset
-			parentWidth += gridSize() * 1.5 * 2;
+			parentWidth += GRID_SIZE * 1.5 * 2;
 			// padding right
-			parentWidth -= gridSize();
+			parentWidth -= GRID_SIZE;
 			// padding left
-			parentWidth -= gridSize() * 4 - gridSize() / 2;
+			parentWidth -= GRID_SIZE * 4 - GRID_SIZE / 2;
 			break;
 	}
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import Tooltip from '../../Tooltip';
+import Tooltip from '../../tooltip';
 
 describe('Unmounting tooltip', () => {
 	beforeEach(() => {

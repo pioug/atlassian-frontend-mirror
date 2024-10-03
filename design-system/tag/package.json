@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag",
-	"version": "12.6.1",
+	"version": "12.6.2",
 	"description": "A tag labels UI objects for quick recognition and navigation.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -98,7 +98,7 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
-		"platform.design-system-team.enable-new-icons": {
+		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		}
 	}

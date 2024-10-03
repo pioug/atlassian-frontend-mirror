@@ -11,13 +11,17 @@ import CustomBlockDoc from './content/custom-block';
 import UIOptionsDoc from './content/ui-options';
 import customMd from './utils/custom-md';
 import LinkTabs from './utils/link-tabs';
+import DocQuickLinks from './utils/doc-quick-links';
 
 export default customMd`
+
+${(<DocQuickLinks />)}
+
 ${(
 	<LinkTabs
 		tabs={[
-			{ name: 'Introduction', content: FlexibleCardDoc },
-			{ name: 'FlexibleUiOptions', content: UIOptionsDoc },
+			{ name: 'Overview', content: FlexibleCardDoc },
+			{ name: 'UI', content: UIOptionsDoc },
 			{ name: 'TitleBlock', content: TitleBlockDoc },
 			{ name: 'MetadataBlock', content: MetadataBlockDoc },
 			{ name: 'PreviewBlock', content: PreviewBlockDoc },

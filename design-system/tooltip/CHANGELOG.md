@@ -1,5 +1,14 @@
 # @atlaskit/tooltip
 
+## 18.8.0
+
+### Minor Changes
+
+- [#148344](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148344)
+  [`025feb57ca48b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/025feb57ca48b) -
+  Adds usage of the useNotifyLayerObserver hook from the layering package. The hook is behind a
+  feature flag.
+
 ## 18.7.3
 
 ### Patch Changes

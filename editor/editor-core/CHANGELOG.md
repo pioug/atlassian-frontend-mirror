@@ -1,5 +1,46 @@
 # @atlaskit/editor-core
 
+## 198.3.2
+
+### Patch Changes
+
+- [#147708](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147708)
+  [`82148eb4038af`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/82148eb4038af) -
+  add lazy node view for inline card
+- Updated dependencies
+
+## 198.3.1
+
+### Patch Changes
+
+- [#147863](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147863)
+  [`422082d3df962`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/422082d3df962) -
+  Remove TTI tracking analytics
+- [#147531](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147531)
+  [`8ae1e110621b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ae1e110621b7) -
+  Internal changes to feature flag used to toggle new icons
+
+## 198.3.0
+
+### Minor Changes
+
+- [#147579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147579)
+  [`b08b21a69d62d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b08b21a69d62d) -
+  Introduce new CommentEditor and ChromelessEditor components that only include relevant apperarance
+  code to optimise bundle size and the required parameters.
+
+  These can be accessed like so:
+
+  ```ts
+  import { CommentEditor } from '@atlaskit/editor-core/appearance-editor-comment';
+  ```
+
+  and
+
+  ```ts
+  import { ChromelessEditor } from '@atlaskit/editor-core/appearance-editor-chromeless';
+  ```
+
 ## 198.2.2
 
 ### Patch Changes

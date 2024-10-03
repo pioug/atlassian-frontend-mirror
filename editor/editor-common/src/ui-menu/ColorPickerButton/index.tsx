@@ -12,7 +12,6 @@ import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext'
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import Button from '@atlaskit/button/standard-button';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -52,8 +51,8 @@ const colorPickerExpandContainer = css({
 const colorPickerWrapper = () =>
 	css({
 		borderRadius: token('border.radius', '3px'),
-		backgroundColor: token('elevation.surface.overlay', N0),
-		boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`),
+		backgroundColor: token('elevation.surface.overlay'),
+		boxShadow: token('elevation.shadow.overlay'),
 		padding: `${token('space.100', '8px')} 0px`,
 	});
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
@@ -247,7 +246,7 @@ const ColorPickerButton = (props: Props) => {
 				margin: `0px ${token('space.025', '2px')}`,
 			},
 			'&:hover': {
-				background: token('color.background.neutral.subtle.hovered', N30A),
+				background: token('color.background.neutral.subtle.hovered'),
 			},
 		});
 	return (

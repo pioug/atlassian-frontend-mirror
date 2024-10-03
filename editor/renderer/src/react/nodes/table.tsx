@@ -6,6 +6,7 @@ import type { TableLayout, UrlType } from '@atlaskit/adf-schema';
 import { TableSharedCssClassName, tableMarginTop } from '@atlaskit/editor-common/styles';
 import { WidthConsumer, overflowShadow } from '@atlaskit/editor-common/ui';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	createCompareNodes,
@@ -196,7 +197,6 @@ export class TableContainer extends React.Component<
 		wrapperWidth: 0,
 		headerRowHeight: 0,
 	};
-
 	tableRef = React.createRef<HTMLTableElement>();
 	stickyHeaderRef = React.createRef<HTMLElement>();
 	stickyScrollbarRef = React.createRef<HTMLDivElement>();
@@ -393,31 +393,41 @@ export class TableContainer extends React.Component<
 		// `renderWidth` cannot be depended on during SSR
 		const isRenderWidthValid = !!renderWidth && renderWidth > 0;
 
+		const renderWidthCSS =
+			rendererAppearance === 'full-page' ? `100cqw - ${FullPagePadding}px * 2` : `100cqw`;
+
 		const calcDefaultLayoutWidthByAppearance = (
 			rendererAppearance: RendererAppearance,
 			tableNode?: PMNode,
-		) => {
+		): [number, string] => {
 			if (rendererAppearance === 'full-width' && !tableNode?.attrs.width) {
-				return isRenderWidthValid
-					? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
-					: akEditorFullWidthLayoutWidth;
+				return [
+					isRenderWidthValid
+						? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
+						: akEditorFullWidthLayoutWidth,
+					`min(${akEditorFullWidthLayoutWidth}px, ${renderWidthCSS})`,
+				];
 			} else if (
 				rendererAppearance === 'comment' &&
 				allowTableResizing &&
 				!tableNode?.attrs.width
 			) {
 				const tableContainerWidth = getTableContainerWidth(tableNode);
-				return isRenderWidthValid ? renderWidth : tableContainerWidth;
+				return [isRenderWidthValid ? renderWidth : tableContainerWidth, renderWidthCSS];
 			} else {
 				// custom width, or width mapped to breakpoint
 				const tableContainerWidth = getTableContainerWidth(tableNode);
-				return isRenderWidthValid
-					? Math.min(tableContainerWidth, renderWidth)
-					: tableContainerWidth;
+				return [
+					isRenderWidthValid ? Math.min(tableContainerWidth, renderWidth) : tableContainerWidth,
+					`min(${tableContainerWidth}px, ${renderWidthCSS})`,
+				];
 			}
 		};
 
-		const tableWidth = calcDefaultLayoutWidthByAppearance(rendererAppearance, tableNode);
+		const [tableWidth, tableWidthCSS] = calcDefaultLayoutWidthByAppearance(
+			rendererAppearance,
+			tableNode,
+		);
 
 		// Logic for table alignment in renderer
 		const isTableAlignStart =
@@ -429,33 +439,44 @@ export class TableContainer extends React.Component<
 		const fullWidthLineLength = isRenderWidthValid
 			? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
 			: akEditorFullWidthLayoutWidth;
+		const fullWidthLineLengthCSS = `min(${akEditorFullWidthLayoutWidth}px, ${renderWidthCSS})`;
 
 		const commentLineLength = isRenderWidthValid ? renderWidth : lineLengthFixedWidth;
 		const isCommentAppearanceAndTableAlignmentEnabled =
 			isCommentAppearance(rendererAppearance) && allowTableAlignment;
-		let lineLength = isFullWidthAppearance(rendererAppearance)
+		const lineLength = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLength
 			: isCommentAppearanceAndTableAlignmentEnabled
 				? commentLineLength
 				: lineLengthFixedWidth;
+		const lineLengthCSS = isFullWidthAppearance(rendererAppearance)
+			? fullWidthLineLengthCSS
+			: isCommentAppearanceAndTableAlignmentEnabled
+				? renderWidthCSS
+				: `${lineLengthFixedWidth}px`;
 
+		const fixTableSSRResizing = fg('platform-fix-table-ssr-resizing');
+		const tableWidthNew = fixTableSSRResizing ? getTableContainerWidth(tableNode) : tableWidth;
 		const shouldCalculateLeftForAlignment =
 			!isInsideOfBlockNode &&
 			isTableAlignStart &&
-			((isFullPageAppearance(rendererAppearance) && tableWidth <= lineLengthFixedWidth) ||
+			((isFullPageAppearance(rendererAppearance) && tableWidthNew <= lineLengthFixedWidth) ||
 				isFullWidthAppearance(rendererAppearance) ||
 				isCommentAppearanceAndTableAlignmentEnabled);
 
+		let leftCSS: string | undefined;
 		if (shouldCalculateLeftForAlignment) {
 			left = (tableWidth - lineLength) / 2;
+			leftCSS = `(${tableWidthCSS} - ${lineLengthCSS}) / 2`;
 		}
 
 		if (
 			!shouldCalculateLeftForAlignment &&
 			canUseLinelength(rendererAppearance) &&
-			tableWidth > lineLengthFixedWidth
+			tableWidthNew > lineLengthFixedWidth
 		) {
 			left = lineLengthFixedWidth / 2 - tableWidth / 2;
+			leftCSS = `${lineLengthCSS} / 2 - ${tableWidthCSS} / 2`;
 		}
 
 		const children = React.Children.toArray(this.props.children);
@@ -474,7 +495,17 @@ export class TableContainer extends React.Component<
 			updatedLayout = layout;
 		}
 
-		let finalTableContainerWidth = allowTableResizing ? tableWidth : 'inherit';
+		let finalTableContainerWidth = allowTableResizing ? tableWidthNew : 'inherit';
+
+		// We can only use CSS to determine the width when we have a known width in container.
+		// When appearance is full-page, full-width or comment we use CSS based width calculation.
+		// Otherwise it's fixed table width (customized width) or inherit.
+		if (
+			(rendererAppearance === 'full-page' || rendererAppearance === 'full-width') &&
+			fixTableSSRResizing
+		) {
+			finalTableContainerWidth = allowTableResizing ? `calc(${tableWidthCSS})` : 'inherit';
+		}
 
 		if (rendererAppearance === 'comment' && allowTableResizing && !allowTableAlignment) {
 			// If table alignment is disabled and table width is akEditorDefaultLayoutWidth = 760,
@@ -486,7 +517,9 @@ export class TableContainer extends React.Component<
 			// where (allowTableResizing && !allowTableAlignment), the table will loose 760px width.
 			finalTableContainerWidth =
 				tableNode?.attrs.width && tableNode?.attrs.width !== akEditorDefaultLayoutWidth
-					? tableWidth
+					? fixTableSSRResizing
+						? `calc(${tableWidthCSS})`
+						: tableWidth
 					: 'inherit';
 		}
 
@@ -497,8 +530,28 @@ export class TableContainer extends React.Component<
 			finalTableContainerWidth =
 				(tableNode?.attrs.layout === 'align-start' || tableNode?.attrs.layout === 'center') &&
 				tableNode?.attrs.width
-					? tableWidth
+					? fixTableSSRResizing
+						? `calc(${tableWidthCSS})`
+						: tableWidth
 					: 'inherit';
+		}
+
+		let style;
+		if (fixTableSSRResizing) {
+			style = {
+				width: finalTableContainerWidth,
+				left: leftCSS ? `calc(${leftCSS})` : undefined,
+				marginLeft:
+					shouldCalculateLeftForAlignment && leftCSS !== undefined
+						? `calc(-1 * (${leftCSS}))`
+						: undefined,
+			};
+		} else {
+			style = {
+				width: finalTableContainerWidth,
+				left: left,
+				marginLeft: shouldCalculateLeftForAlignment && left !== undefined ? -left : undefined,
+			};
 		}
 
 		return (
@@ -510,11 +563,8 @@ export class TableContainer extends React.Component<
 					}`}
 					data-layout={updatedLayout}
 					ref={this.props.handleRef}
-					style={{
-						width: finalTableContainerWidth,
-						left: left,
-						marginLeft: shouldCalculateLeftForAlignment && left !== undefined ? -left : undefined,
-					}}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={style}
 				>
 					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
 						<div
@@ -574,8 +624,10 @@ export class TableContainer extends React.Component<
 							style={{
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
+								// Follow editor to hide by default so it does not show empty gap in SSR
+								// https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/editor-plugin-table/src/nodeviews/TableComponent.tsx#957
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								display: 'block',
+								display: fixTableSSRResizing ? 'none' : 'block',
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 								width: '100%',
 							}}

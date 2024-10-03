@@ -36,7 +36,7 @@ import {
 import { Menu } from '../internal/menu';
 import { getSafeCalendarValue, getShortISOString } from '../internal/parse-date';
 import { makeSingleValue } from '../internal/single-value';
-import { type Appearance, type DatePickerBaseProps, type Spacing } from '../types';
+import { type DatePickerBaseProps } from '../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -61,20 +61,11 @@ interface State {
 }
 
 const datePickerDefaultProps = {
-	appearance: 'default' as Appearance,
-	autoFocus: false,
 	defaultIsOpen: false,
 	defaultValue: '',
 	disabled: [] as string[],
 	disabledDateFilter: (_: string) => false,
-	hideIcon: false,
-	icon: CalendarIcon as unknown as React.ComponentType<DropdownIndicatorProps<OptionType>>,
-	id: '',
-	innerProps: {},
-	isDisabled: false,
-	isInvalid: false,
-	label: '',
-	name: '',
+	locale: 'en-US',
 	// These disables are here for proper typing when used as defaults. They
 	// should *not* use the `noop` function.
 	/* eslint-disable @repo/internal/react/use-noop */
@@ -82,9 +73,6 @@ const datePickerDefaultProps = {
 	onChange: (_value: string) => {},
 	onFocus: (_event: React.FocusEvent<HTMLInputElement>) => {},
 	/* eslint-enable @repo/internal/react/use-noop */
-	selectProps: {},
-	spacing: 'default' as Spacing,
-	locale: 'en-US',
 	// Not including a default prop for value as it will
 	// Make the component a controlled component
 };
@@ -100,7 +88,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			isOpen: this.props.defaultIsOpen,
 			isFocused: false,
 			clearingFromIcon: false,
-			selectInputValue: this.props.selectProps.inputValue || '',
+			selectInputValue: this.props.selectProps?.inputValue || '',
 			value: this.props.value || this.props.defaultValue,
 			calendarValue: this.props.value || this.props.defaultValue || getShortISOString(new Date()),
 			l10n: createLocalizationProvider(this.props.locale),
@@ -321,7 +309,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	};
 
 	handleSelectInputChange = (selectInputValue: string, actionMeta: InputActionMeta) => {
-		const { onInputChange } = this.props.selectProps;
+		const onInputChange = this.props.selectProps?.onInputChange;
 		if (onInputChange) {
 			onInputChange(selectInputValue, actionMeta);
 		}
@@ -340,26 +328,27 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 
 	render() {
 		const {
-			appearance,
+			appearance = 'default',
 			'aria-describedby': ariaDescribedBy,
-			autoFocus,
+			autoFocus = false,
 			disabled,
-			hideIcon,
-			icon,
-			id,
-			innerProps,
-			isDisabled,
 			disabledDateFilter,
+			hideIcon = false,
+			// TODO: Resolve this typing to be more intuitive
+			icon = CalendarIcon as unknown as React.ComponentType<DropdownIndicatorProps<OptionType>>,
+			id = '',
+			innerProps = {},
+			isDisabled = false,
+			isInvalid = false,
+			label = '',
+			locale,
 			maxDate,
 			minDate,
-			isInvalid,
-			label,
-			name,
+			name = '',
 			nextMonthLabel,
 			previousMonthLabel,
-			selectProps,
-			spacing,
-			locale,
+			selectProps = {},
+			spacing = 'default',
 			testId,
 			weekStartDay,
 		} = this.props;

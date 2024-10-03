@@ -1,14 +1,17 @@
+import { code } from '@atlaskit/docs';
 import React from 'react';
-
-import ContentTabs from './utils/content-tabs';
-import { TabName } from './utils';
+import LinkUrl from '../src/view/LinkUrl';
 import examples from './content/link-url/examples';
 import reference from './content/link-url/reference';
+import { TabName } from './utils';
+
+import ContentTabs from './utils/content-tabs';
 import customMd from './utils/custom-md';
-import { code } from '@atlaskit/docs';
-import LinkUrl from '../src/view/LinkUrl';
+import DocQuickLinks from './utils/doc-quick-links';
 
 export default customMd`
+
+${(<DocQuickLinks />)}
 
 We want to warn users if a link description text looks like a URL but the actual link destination is different.
 

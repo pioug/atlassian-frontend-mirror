@@ -57,7 +57,7 @@
 	"devDependencies": {
 		"@af/icon-build-process": "^2.1.0",
 		"@atlaskit/textfield": "^6.5.0",
-		"@atlaskit/tooltip": "^18.7.0",
+		"@atlaskit/tooltip": "^18.8.0",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",
 		"fs-extra": "^4.0.2",

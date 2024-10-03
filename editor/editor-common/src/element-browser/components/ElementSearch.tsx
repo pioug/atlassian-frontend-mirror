@@ -14,7 +14,6 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import Textfield from '@atlaskit/textfield';
-import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { QuickInsertItem } from '../../provider-factory';
@@ -187,7 +186,7 @@ const wrapperInline = css({
 
 const elementBeforeInput = css({
 	margin: `1px ${token('space.075', '6px')} 0 ${token('space.100', '8px')}`,
-	color: token('color.icon', N200),
+	color: token('color.icon'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'span, svg': {
 		height: '20px',

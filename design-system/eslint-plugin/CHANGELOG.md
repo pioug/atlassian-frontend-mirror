@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.22.0
+
+### Minor Changes
+
+- [#147366](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147366)
+  [`7f5bab6a1ebd1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f5bab6a1ebd1) -
+  Add fixes for html anchors in the no-html-anchor rule
+
 ## 10.21.0
 
 ### Minor Changes

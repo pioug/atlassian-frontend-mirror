@@ -10,7 +10,6 @@ import chromatism from 'chromatism';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { N0, N500 } from '@atlaskit/theme/colors';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import Color from './Color';
@@ -68,7 +67,7 @@ function getCheckMarkColor(color: string, useIconToken: boolean): string {
 	const colorValue = !!tokenVal ? tokenVal : color;
 
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	const contrastColor = [N0, N500].sort(
+	const contrastColor = ['#FFFFFF', '#42526E'].sort(
 		(a, b) => chromatism.difference(b, colorValue) - chromatism.difference(a, colorValue),
 	)[0];
 
@@ -80,7 +79,7 @@ function getCheckMarkColor(color: string, useIconToken: boolean): string {
 	// they are only intended for use with text colors (and there are different tokens
 	// planned to be used when this extended to be used with other palettes).
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	return contrastColor === N0 ? token('color.icon.inverse', N0) : token('color.icon', N500);
+	return contrastColor === '#FFFFFF' ? token('color.icon.inverse') : token('color.icon');
 }
 
 const ColorPalette = (props: Props & WrappedComponentProps) => {

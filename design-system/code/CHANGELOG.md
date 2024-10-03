@@ -1,5 +1,14 @@
 # @atlaskit/code
 
+## 15.6.2
+
+### Patch Changes
+
+- [#146968](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146968)
+  [`55f40e0488d9e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/55f40e0488d9e) -
+  [ux] Use typography tokens where possible for code block component behind a feature flag. If
+  successful, these changes will be made available in a later release.
+
 ## 15.6.1
 
 ### Patch Changes

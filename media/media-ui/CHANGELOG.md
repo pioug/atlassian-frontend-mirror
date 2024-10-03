@@ -1,5 +1,14 @@
 # @atlaskit/media-ui
 
+## 25.15.2
+
+### Patch Changes
+
+- [#144896](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/144896)
+  [`8c10a30335655`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c10a30335655) -
+  Updated intl ids for alt text helper and label
+- Updated dependencies
+
 ## 25.15.1
 
 ### Patch Changes

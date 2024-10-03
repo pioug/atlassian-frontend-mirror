@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { N0, N50, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 /** this is not new usage - old code extracted from editor-core */
@@ -10,10 +9,10 @@ import { token } from '@atlaskit/tokens';
 export const buttonStyle = css({
 	height: '26px',
 	width: '26px',
-	background: token('color.background.neutral', N900),
+	background: token('color.background.neutral'),
 	padding: 0,
 	borderRadius: '4px',
-	border: `1px solid ${token('color.border.inverse', N0)}`,
+	border: `1px solid ${token('color.border.inverse')}`,
 	cursor: 'pointer',
 	display: 'block',
 });
@@ -31,7 +30,7 @@ export const buttonWrapperStyle = css({
 	borderRadius: '6px',
 	'&:focus-within, &:focus, &:hover': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		borderColor: `${token('color.border', N50)} !important`,
+		borderColor: `${token('color.border')} !important`,
 	},
 });
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */

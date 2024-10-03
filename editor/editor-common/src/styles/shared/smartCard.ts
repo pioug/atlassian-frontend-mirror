@@ -9,8 +9,6 @@ import {
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N0, N40 } from '@atlaskit/theme/colors';
-import { N60A, Y300, Y75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { SmartCardSharedCssClassName } from './smart-card';
@@ -27,12 +25,9 @@ export const smartCardStyles = () => css`
 		word-break: break-all;
 		${fg('editor_inline_comments_on_inline_nodes')
 			? `.card-with-comment {
-          background: ${token('color.background.accent.yellow.subtler', Y75)};
-          border-bottom: 2px solid ${token('color.border.accent.yellow', Y300)};
-          box-shadow: ${token(
-						'elevation.shadow.overlay',
-						`1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`,
-					)};
+          background: ${token('color.background.accent.yellow.subtler')};
+          border-bottom: 2px solid ${token('color.border.accent.yellow')};
+          box-shadow: ${token('elevation.shadow.overlay')};
         }`
 			: ''}
 		.card {
@@ -101,9 +96,9 @@ export const smartCardStyles = () => css`
 
 		.${DATASOURCE_INNER_CONTAINER_CLASSNAME} {
 			cursor: pointer;
-			background-color: ${token('color.background.neutral.subtle', N0)};
+			background-color: ${token('color.background.neutral.subtle')};
 			border-radius: ${token('border.radius.200', '8px')};
-			border: 1px solid ${token('color.border', N40)};
+			border: 1px solid ${token('color.border')};
 		}
 
 		&.${akEditorSelectedNodeClassName} {

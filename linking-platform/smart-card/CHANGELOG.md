@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 29.0.1
+
+### Patch Changes
+
+- [#146547](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146547)
+  [`b0acda68f75b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b0acda68f75b2) -
+  Update CardProps type for documentation
+
 ## 29.0.0
 
 ### Major Changes

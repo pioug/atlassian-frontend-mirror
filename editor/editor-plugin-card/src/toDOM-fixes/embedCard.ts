@@ -16,6 +16,7 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
+import { B400 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -102,11 +103,19 @@ export const embedCardSpecWithFixedToDOM = () => {
 					'a',
 					{
 						style: convertToInlineCss({
-							marginLeft: token('space.negative.025', '-2px'),
-							boxDecorationBreak: 'clone',
-							WebkitBoxDecorationBreak: 'clone',
 							padding: `${token('space.025', '2px')} 0px`,
+							marginLeft: token('space.negative.025', '-2px'),
+							display: 'inline',
+							boxDecorationBreak: 'clone',
+							borderRadius: token('border.radius.100', '4px'),
+							color: token('color.link', B400),
 							lineHeight: '22px',
+							WebkitTransition: '0.1s all ease-in-out',
+							transition: '0.1s all ease-in-out',
+							userSelect: 'text',
+							WebkitUserSelect: 'text',
+							msUserSelect: 'text',
+							MozUserSelect: 'none', // -moz-user-select
 						}),
 					},
 					url ?? '',

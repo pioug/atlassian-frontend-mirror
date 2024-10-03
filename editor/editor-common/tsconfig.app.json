@@ -149,9 +149,6 @@
 			"path": "../../design-system/textfield/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/theme/tsconfig.app.json"
-		},
-		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		},
 		{

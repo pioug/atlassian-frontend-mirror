@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 67.8.3
+
+### Patch Changes
+
+- [#148344](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148344)
+  [`980b03261e807`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/980b03261e807) -
+  Skipping duplicated resource id for now
+- Updated dependencies
+
 ## 67.8.2
 
 ### Patch Changes

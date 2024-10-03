@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { B300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -87,7 +86,7 @@ export const wrapperStyle = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const selectedStyle = css({
 	cursor: 'pointer',
-	boxShadow: `0 0 0 1px ${token('color.border.selected', B300)}`,
+	boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
 	outline: 'none',
 });
 

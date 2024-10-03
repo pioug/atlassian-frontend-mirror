@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import Button, { type ThemeProps, type ThemeTokens } from '@atlaskit/button/custom-theme-button';
-import { B400, B50, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -160,11 +159,9 @@ function CategoryListItem({
 					height: '100%',
 					width: '100%',
 					color:
-						category.name !== selectedCategory
-							? token('color.text', N800)
-							: token('color.text.selected', B400),
+						category.name !== selectedCategory ? token('color.text') : token('color.text.selected'),
 					...(category.name === selectedCategory && {
-						background: token('color.background.selected', B50),
+						background: token('color.background.selected'),
 					}),
 				},
 				...rest,

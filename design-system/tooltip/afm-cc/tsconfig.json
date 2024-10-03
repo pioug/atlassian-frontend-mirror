@@ -26,6 +26,9 @@
             "path": "../../ds-lib/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../layering/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../motion/afm-cc/tsconfig.json"
         },
         {

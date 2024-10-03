@@ -12,8 +12,6 @@ import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext'
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import PreferencesIcon from '@atlaskit/icon/glyph/preferences';
-import { N0 } from '@atlaskit/theme/colors';
-import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -25,11 +23,11 @@ import { useLinkOverlayAnalyticsEvents } from './useLinkOverlayAnalyticsEvents';
 
 const buttonWrapperStyles = css({
 	position: 'absolute',
-	zIndex: layers.card(),
+	zIndex: 100,
 	display: 'inline-flex',
 	top: '50%',
 	transform: 'translateY(-50%)',
-	background: token('elevation.surface.raised', N0),
+	background: token('elevation.surface.raised'),
 	borderRadius: token('border.radius', '3px'),
 });
 

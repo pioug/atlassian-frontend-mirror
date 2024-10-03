@@ -4,6 +4,6 @@ import LegacyIconColorExample from '../../../../examples/105-new-icon-legacy-col
 
 snapshot(LegacyIconColorExample, {
 	featureFlags: {
-		'platform.design-system-team.enable-new-icons': [true, false],
+		'platform-visual-refresh-icons': [true, false],
 	},
 });

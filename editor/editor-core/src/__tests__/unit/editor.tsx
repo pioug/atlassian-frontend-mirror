@@ -1,6 +1,4 @@
 const mockStopMeasureDuration = 1234;
-const tti = 1000;
-const ttiFromInvocation = 500;
 
 jest.mock('@atlaskit/editor-common/performance-measures', () => ({
 	...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
@@ -11,11 +9,6 @@ jest.mock('@atlaskit/editor-common/performance-measures', () => ({
 		},
 	),
 }));
-jest.mock('@atlaskit/editor-common/performance/measure-tti', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/performance/measure-tti'),
-	measureTTI: jest.fn(),
-}));
-
 const mockStore = {
 	get: jest.fn(),
 	getAll: jest.fn(),
@@ -70,8 +63,6 @@ import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-contex
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import * as measure from '@atlaskit/editor-common/performance-measures';
-import { measureTTI as mockMeasureTTI } from '@atlaskit/editor-common/performance/measure-tti';
-import * as utils from '@atlaskit/editor-common/performance/measure-tti';
 import type {
 	AutoformattingProvider,
 	QuickInsertProvider,
@@ -95,8 +86,6 @@ import { EditorActions } from '../../index';
 import type { EditorAppearance } from '../../types';
 import measurements from '../../utils/performance/measure-enum';
 import { name as packageName, version as packageVersion } from '../../version-wrapper';
-
-const measureTTI: any = mockMeasureTTI;
 
 expect.extend(matchers);
 
@@ -390,43 +379,6 @@ describe(`Editor`, () => {
 			);
 		});
 
-		it('should dispatch an tti (time-to-interactive) editor event after the editor has mounted', async () => {
-			const mockAnalyticsClient = (): AnalyticsWebClient => {
-				const analyticsEventHandler = (event: GasPurePayload | GasPureScreenEventPayload) => {
-					expect(event).toEqual(
-						expect.objectContaining({
-							action: 'tti',
-							actionSubject: 'editor',
-							attributes: expect.objectContaining({
-								tti,
-								ttiFromInvocation,
-								canceled: false,
-								ttiSeverity: 'normal',
-								ttiFromInvocationSeverity: 'normal',
-							}),
-						}),
-					);
-
-					measureTTI.mockClear();
-				};
-				return analyticsClient(analyticsEventHandler);
-			};
-
-			render(
-				<FabricAnalyticsListeners client={mockAnalyticsClient()}>
-					<Editor
-						allowAnalyticsGASV3
-						performanceTracking={{
-							ttiTracking: { enabled: true, trackSeverity: true },
-						}}
-					/>
-				</FabricAnalyticsListeners>,
-			);
-			await flushPromises();
-			const [ttiCallback] = measureTTI.mock.calls[0];
-			ttiCallback(tti, ttiFromInvocation, false);
-		});
-
 		describe('onEditorReady prop', () => {
 			it('should dispatch an onEditorReadyCallback event after the editor has called the onEditorReady callback', (done) => {
 				const mockAnalyticsClient = (done: jest.DoneCallback): AnalyticsWebClient => {
@@ -498,27 +450,6 @@ describe(`Editor`, () => {
 				expect(startMeasureSpy).toHaveBeenCalledWith(measurements.EDITOR_MOUNTED);
 				startMeasureSpy.mockRestore();
 			});
-
-			it('should call the editorMeasureTTICallback once', () => {
-				const measureTTICallback = jest.spyOn(utils, 'measureTTI');
-				const { rerender } = render(
-					<Editor
-						performanceTracking={{
-							ttiTracking: { enabled: true },
-						}}
-					/>,
-				);
-				rerender(
-					<Editor
-						performanceTracking={{
-							ttiTracking: { enabled: true },
-						}}
-					/>,
-				);
-
-				expect(measureTTICallback).toHaveBeenCalledTimes(1);
-				measureTTICallback.mockRestore();
-			});
 		});
 	});
 
@@ -572,19 +503,6 @@ describe(`Editor`, () => {
 					'mounted',
 					mockStopMeasureDuration + 1,
 				);
-			});
-
-			it('marks editor tti on editor load experience', () => {
-				const [ttiCallback] = measureTTI.mock.calls[0];
-				ttiCallback(tti, ttiFromInvocation, false);
-				expect(mockStore.mark).toHaveBeenCalledWith(EditorExperience.loadEditor, 'tti', tti);
-			});
-
-			it('succeeds editor load experience on tti', () => {
-				expect(mockStore.success).not.toHaveBeenCalled();
-				const [ttiCallback] = measureTTI.mock.calls[0];
-				ttiCallback(tti, ttiFromInvocation, false);
-				expect(mockStore.success).toHaveBeenCalled();
 			});
 
 			it('adds objectId as metadata to editor load experience', async () => {

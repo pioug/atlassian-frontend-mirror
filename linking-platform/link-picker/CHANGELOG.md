@@ -1,5 +1,15 @@
 # @atlaskit/link-picker
 
+## 1.47.0
+
+### Minor Changes
+
+- [#147531](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147531)
+  [`b599457543db5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b599457543db5) -
+  Officially enables/uses the `emptyStateNoResults` option from plugins to render a custom empty
+  state screen when there is no active query (via cleanup of
+  platform.linking-platform.link-picker.enable-empty-state ff).
+
 ## 1.46.1
 
 ### Patch Changes

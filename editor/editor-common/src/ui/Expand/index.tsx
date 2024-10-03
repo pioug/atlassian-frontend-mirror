@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import { defineMessages } from 'react-intl-next';
 
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
-import { N30A, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const messages = defineMessages({
@@ -57,12 +56,12 @@ const expandIconWrapperStyle = () =>
 	css({
 		cursor: 'pointer',
 		display: 'flex',
-		color: token('color.icon', N90),
+		color: token('color.icon'),
 		borderRadius: token('border.radius.100', '4px'),
 		width: '24px',
 		height: '24px',
 		'&:hover': {
-			background: token('color.background.neutral.subtle.hovered', N30A),
+			background: token('color.background.neutral.subtle.hovered'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		svg: {

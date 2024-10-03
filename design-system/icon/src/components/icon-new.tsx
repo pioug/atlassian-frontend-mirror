@@ -138,7 +138,7 @@ export const Icon = memo(function Icon(props: NewIconProps) {
 		: undefined;
 
 	// Fall back to old icon
-	if (FallbackIcon && !fg('platform.design-system-team.enable-new-icons')) {
+	if (FallbackIcon && !fg('platform-visual-refresh-icons')) {
 		// parse out unnecessary props
 		return (
 			<FallbackIcon

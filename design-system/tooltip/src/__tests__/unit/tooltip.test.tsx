@@ -4,8 +4,8 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
-import Tooltip from '../../Tooltip';
-import { type TooltipPrimitiveProps } from '../../TooltipPrimitive';
+import Tooltip from '../../tooltip';
+import { type TooltipPrimitiveProps } from '../../tooltip-primitive';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -17,7 +16,7 @@ export const buttonGroupStyle = css({
 // If you make change here, change in above file as well.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const separatorStyles = css({
-	background: token('color.border', N30),
+	background: token('color.border'),
 	width: '1px',
 	height: '24px',
 	display: 'inline-block',

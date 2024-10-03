@@ -75,13 +75,5 @@ snapshot(LargePaddingUsingTokensExample, {
 snapshot(VaryingPaddingsExample);
 
 /** Custom empty state */
-snapshot(CustomEmptyStateExample, {
-	featureFlags: {
-		'platform.linking-platform.link-picker.enable-empty-state': [true, false],
-	},
-});
-snapshot(CustomEmptyStateWithAdaptiveHeightExample, {
-	featureFlags: {
-		'platform.linking-platform.link-picker.enable-empty-state': [true, false],
-	},
-});
+snapshot(CustomEmptyStateExample);
+snapshot(CustomEmptyStateWithAdaptiveHeightExample);

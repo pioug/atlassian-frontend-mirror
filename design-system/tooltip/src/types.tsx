@@ -3,9 +3,10 @@ import { type ComponentType, type ReactNode } from 'react';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type Placement } from '@atlaskit/popper';
 
-import { type TooltipPrimitiveProps } from './TooltipPrimitive';
+import { type TooltipPrimitiveProps } from './tooltip-primitive';
 
 export type PositionTypeBase = Placement;
+// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export type PositionType = PositionTypeBase | 'mouse';
 
 export interface TriggerProps {

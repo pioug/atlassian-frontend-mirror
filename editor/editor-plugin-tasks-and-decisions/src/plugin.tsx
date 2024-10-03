@@ -148,6 +148,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		consumeTabs,
 		useLongPressSelection,
 		hasEditPermission,
+		hasRequestedEditPermission,
 		requestToEditContent,
 	} = {},
 	api,
@@ -184,6 +185,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 				outdentDisabled: indentLevel <= 1,
 				hasEditPermission: pluginState?.hasEditPermission,
 				requestToEditContent: pluginState?.requestToEditContent,
+				hasRequestedEditPermission: pluginState?.hasRequestedEditPermission,
 			};
 		},
 
@@ -192,6 +194,10 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 				(hasEditPermission: boolean | undefined) =>
 				({ tr }) =>
 					tr.setMeta(taskPluginKey, { hasEditPermission }),
+			updateHasRequestedEditPermission:
+				(hasRequestedEditPermission: boolean | undefined) =>
+				({ tr }) =>
+					tr.setMeta(taskPluginKey, { hasRequestedEditPermission }),
 		},
 
 		actions: {
@@ -213,6 +219,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 							api,
 							useLongPressSelection,
 							hasEditPermission,
+							hasRequestedEditPermission,
 							requestToEditContent,
 						);
 					},

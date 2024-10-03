@@ -9,24 +9,26 @@ import { css, jsx } from '@emotion/react';
 
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
-import { G400, N200, R400 } from '@atlaskit/theme/colors';
-import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 const errorColor = css({
-	color: token('color.text.danger', R400),
+	color: token('color.text.danger'),
 });
 
 const validColor = css({
-	color: token('color.text.success', G400),
+	color: token('color.text.success'),
 });
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const messageStyle = () =>
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	css(h200(), {
+	css({
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		fontSize: `${12 / 14}em`,
+		fontStyle: 'inherit',
+		lineHeight: 16 / 12,
 		fontWeight: 'normal',
-		color: token('color.text.subtlest', N200),
+		color: token('color.text.subtlest'),
 		marginTop: token('space.050', '4px'),
 		display: 'flex',
 		justifyContent: 'baseline',

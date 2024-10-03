@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "198.2.2",
+	"version": "198.3.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,9 +43,9 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.2.0",
-		"@atlaskit/editor-common": "^92.1.0",
+		"@atlaskit/editor-common": "^93.0.0",
 		"@atlaskit/editor-json-transformer": "^8.18.0",
-		"@atlaskit/editor-plugin-quick-insert": "1.4.4",
+		"@atlaskit/editor-plugin-quick-insert": "1.4.5",
 		"@atlaskit/editor-plugins": "^5.5.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.0.0",
@@ -57,7 +57,7 @@
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/tmp-editor-statsig": "*",
 		"@atlaskit/tokens": "^2.0.0",
-		"@atlaskit/tooltip": "^18.7.0",
+		"@atlaskit/tooltip": "^18.8.0",
 		"@atlaskit/width-detector": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -79,13 +79,13 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@af/editor-examples-helpers": "0.3.16",
+		"@af/editor-examples-helpers": "0.3.17",
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.8.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
-		"@atlaskit/collab-provider": "9.42.2",
-		"@atlaskit/editor-plugin-annotation": "1.19.10",
+		"@atlaskit/collab-provider": "9.42.3",
+		"@atlaskit/editor-plugin-annotation": "1.19.11",
 		"@atlaskit/editor-plugin-card": "^3.4.0",
 		"@atlaskit/editor-plugin-list": "^3.8.0",
 		"@atlaskit/editor-plugin-paste": "^1.12.0",
@@ -105,7 +105,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.141",
+		"@atlassian/search-provider": "2.4.142",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -270,6 +270,10 @@
 		"platform_editor_remove_use_preset_context": {
 			"type": "boolean"
 		},
+		"platform_editor_ssr_fix_smartlinks": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_context_panel_support_multiple": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -299,6 +303,8 @@
 		"./preset-builder": "./src/preset-builder.ts",
 		"./appearance-editor-full-page": "./src/editor-appearances/FullPageEditor.tsx",
 		"./appearance-editor-full-width": "./src/editor-appearances/FullWidthEditor.tsx",
+		"./appearance-editor-comment": "./src/editor-appearances/CommentEditor.tsx",
+		"./appearance-editor-chromeless": "./src/editor-appearances/ChromelessEditor.tsx",
 		"./version-wrapper": "./src/version-wrapper.ts"
 	},
 	"exports": {
@@ -321,6 +327,8 @@
 		"./preset-builder": "./src/preset-builder.ts",
 		"./appearance-editor-full-page": "./src/editor-appearances/FullPageEditor.tsx",
 		"./appearance-editor-full-width": "./src/editor-appearances/FullWidthEditor.tsx",
+		"./appearance-editor-comment": "./src/editor-appearances/CommentEditor.tsx",
+		"./appearance-editor-chromeless": "./src/editor-appearances/ChromelessEditor.tsx",
 		"./version-wrapper": "./src/version-wrapper.ts",
 		"./package.json": "./package.json"
 	}

@@ -20,7 +20,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import { Pressable, xcss } from '@atlaskit/primitives';
-import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -82,7 +81,7 @@ const textLabelMargin = css({
 });
 
 const inputLabel = css({
-	color: token('color.text.subtlest', N200),
+	color: token('color.text.subtlest'),
 	paddingBottom: token('space.050', '4px'),
 	font: token('font.body.small'),
 	fontWeight: token('font.weight.medium'),

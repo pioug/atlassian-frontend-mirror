@@ -123,7 +123,7 @@ describe('extractActions', () => {
 			supportedFeature: ['RelatedLinks'],
 		};
 		ffTest(
-			'platform.linking-platform.smart-card.enable-view-related-urls-action',
+			'platform-smart-card-view-related-urls-action',
 			/** Should return ViewRelatedLinksAction with url when FF is true*/
 			() => {
 				expect(

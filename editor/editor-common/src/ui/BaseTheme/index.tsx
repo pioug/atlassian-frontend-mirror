@@ -4,7 +4,6 @@ import React, { useMemo } from 'react';
 import { ThemeProvider } from '@emotion/react';
 
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
-import { fontSize } from '@atlaskit/theme/constants';
 
 import type { Breakpoints } from '../WidthProvider';
 import { WidthConsumer } from '../WidthProvider';
@@ -35,7 +34,7 @@ declare module '@emotion/react' {
 export function BaseThemeWrapper({ baseFontSize, children }: BaseThemeWrapperProps) {
 	const memoizedTheme = useMemo(
 		() => ({
-			baseFontSize: baseFontSize || fontSize(),
+			baseFontSize: baseFontSize || 14,
 			layoutMaxWidth: akEditorDefaultLayoutWidth,
 		}),
 		[baseFontSize],

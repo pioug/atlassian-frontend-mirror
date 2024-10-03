@@ -73,7 +73,7 @@ export const TitleBoxIcon = (props: any) => {
 			id="titleBoxIcon"
 			data-testid="title-box-icon"
 			css={
-				fg('platform.design-system-team.enable-new-icons')
+				fg('platform-visual-refresh-icons')
 					? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						newTitleBoxIconStyles
 					: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

@@ -4,6 +4,6 @@ import LegacyIconMarginExample from '../../../../examples/106-new-icon-legacy-ma
 
 snapshot(LegacyIconMarginExample, {
 	featureFlags: {
-		'platform.design-system-team.enable-new-icons': [true, false],
+		'platform-visual-refresh-icons': [true, false],
 	},
 });

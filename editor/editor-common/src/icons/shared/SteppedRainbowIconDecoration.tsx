@@ -5,7 +5,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { N40, N60, N80, P300, R400, T300, Y400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const createSteppedRainbow = (colors: string[]) => {
@@ -34,8 +33,19 @@ const createSteppedRainbow = (colors: string[]) => {
     )`;
 };
 
-const rainbow = createSteppedRainbow([P300, T300, Y400, R400]);
-const disabledRainbow = createSteppedRainbow([N80, N60, N40, N60]);
+const rainbow = createSteppedRainbow([
+	token('color.background.accent.purple.bolder'),
+	token('color.background.accent.teal.subtle'),
+	token('color.background.accent.orange.subtle'),
+	token('color.background.accent.red.bolder'),
+]);
+
+const disabledRainbow = createSteppedRainbow([
+	token('color.background.accent.gray.subtle'),
+	token('color.background.accent.gray.subtle.hovered'),
+	token('color.background.accent.gray.subtle.pressed'),
+	token('color.background.accent.gray.subtle.hovered'),
+]);
 
 const barStyles = css({
 	position: 'absolute',

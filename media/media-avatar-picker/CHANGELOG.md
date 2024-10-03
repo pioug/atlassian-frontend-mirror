@@ -1,5 +1,13 @@
 # @atlaskit/media-avatar-picker
 
+## 24.10.0
+
+### Minor Changes
+
+- [#147918](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147918)
+  [`69a0b2ce324dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/69a0b2ce324dd) -
+  Export ImageCropper, Slider, Viewport, exportCroppedImage, and checkeredBg
+
 ## 24.9.1
 
 ### Patch Changes

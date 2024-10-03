@@ -1,7 +1,12 @@
+import { AtlassianInternalWarning, code, Example, Props } from '@atlaskit/docs';
 import React from 'react';
-import { code, md, Example, Props, AtlassianInternalWarning } from '@atlaskit/docs';
+import customMd from './utils/custom-md';
+import DocQuickLinks from './utils/doc-quick-links';
 
-export default md`
+export default customMd`
+
+${(<DocQuickLinks />)}
+
 ${(<AtlassianInternalWarning />)}
 
 Turns a URL into a card with metadata sourced from either:

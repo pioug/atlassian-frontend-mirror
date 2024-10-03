@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tooltip",
-	"version": "18.7.3",
+	"version": "18.8.0",
 	"description": "A tooltip is a floating, non-actionable label used to explain a user interface element or feature.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,23 +32,24 @@
 	},
 	"af:exports": {
 		".": "./src/index.ts",
-		"./Tooltip": "./src/Tooltip.tsx",
-		"./TooltipContainer": "./src/TooltipContainer.tsx",
-		"./TooltipPrimitive": "./src/TooltipPrimitive.tsx",
+		"./Tooltip": "./src/tooltip.tsx",
+		"./TooltipContainer": "./src/tooltip-container.tsx",
+		"./TooltipPrimitive": "./src/tooltip-primitive.tsx",
 		"./types": "./src/types.tsx",
 		"./utilities": "./src/utilities.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./Tooltip": "./src/Tooltip.tsx",
-		"./TooltipContainer": "./src/TooltipContainer.tsx",
-		"./TooltipPrimitive": "./src/TooltipPrimitive.tsx",
+		"./Tooltip": "./src/tooltip.tsx",
+		"./TooltipContainer": "./src/tooltip-container.tsx",
+		"./TooltipPrimitive": "./src/tooltip-primitive.tsx",
 		"./types": "./src/types.tsx",
 		"./utilities": "./src/utilities.ts"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/ds-lib": "^2.6.0",
+		"@atlaskit/layering": "^0.5.0",
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/popper": "^6.3.0",
 		"@atlaskit/portal": "^4.9.0",

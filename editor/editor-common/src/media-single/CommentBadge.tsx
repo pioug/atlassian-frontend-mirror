@@ -12,7 +12,6 @@ import type { IntlShape } from 'react-intl-next';
 import CustomThemeButton from '@atlaskit/button/custom-theme-button';
 import { akEditorUnitZIndex } from '@atlaskit/editor-shared-styles';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
-import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -32,7 +31,7 @@ const commentBadgeEditorOverrides = (badgeOffsetRight?: string) =>
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		right: badgeOffsetRight,
-		zIndex: layers.card(),
+		zIndex: 100,
 	});
 
 export const getBadgeSize = (width?: number, height?: number) => {

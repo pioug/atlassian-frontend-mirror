@@ -57,7 +57,7 @@ const mainToolbarWrapperStyle = (isTwoLineEditorToolbar = false) => css`
 		padding-left: 0;
 	}
 
-	${fg('platform.design-system-team.enable-new-icons') && 'span svg { max-width: 100%; }'}
+	${fg('platform-visual-refresh-icons') && 'span svg { max-width: 100%; }'}
 `;
 /* eslint-enable @atlaskit/platform/ensure-feature-flag-registration */
 

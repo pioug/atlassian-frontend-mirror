@@ -16,8 +16,6 @@ import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext'
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
-import { B100, N200 } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -49,7 +47,7 @@ export const itemIcon = css({
 	overflow: 'hidden',
 	border: `1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: `${borderRadius()}px`,
+	borderRadius: token('border.radius', '3px'),
 	boxSizing: 'border-box',
 	display: 'flex',
 	justifyContent: 'center',
@@ -399,7 +397,7 @@ const elementItemsWrapper = css({
 		outline: 'none',
 		'&:focus': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			boxShadow: `0 0 0 ${ELEMENT_LIST_PADDING}px ${token('color.border.focused', B100)}`,
+			boxShadow: `0 0 0 ${ELEMENT_LIST_PADDING}px ${token('color.border.focused')}`,
 		},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -448,7 +446,7 @@ const itemDescription = css(multilineStyle, {
 	overflow: 'hidden',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(11.67),
-	color: token('color.text.subtle', N200),
+	color: token('color.text.subtle'),
 	marginTop: token('space.025', '2px'),
 });
 

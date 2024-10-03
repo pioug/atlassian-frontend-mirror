@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { inlineCard } from '@atlaskit/adf-schema';
 import type { CardPluginActions } from '@atlaskit/editor-common/card';
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import type { CardProvider, QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
@@ -33,6 +32,7 @@ import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { blockCardSpecWithFixedToDOM } from './toDOM-fixes/blockCard';
 import { embedCardSpecWithFixedToDOM } from './toDOM-fixes/embedCard';
+import { inlineCardSpecWithFixedToDOM } from './toDOM-fixes/inlineCard';
 import { floatingToolbar, getEndingToolbarItems, getStartingToolbarItems } from './toolbar';
 import type { CardPluginOptions, CardPluginState } from './types';
 import DatasourceModalWithState from './ui/DatasourceModal/ModalWithState';
@@ -76,7 +76,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 
 		nodes() {
 			const nodes = [
-				{ name: 'inlineCard', node: inlineCard },
+				{ name: 'inlineCard', node: inlineCardSpecWithFixedToDOM() },
 				{ name: 'blockCard', node: blockCardSpecWithFixedToDOM() },
 			];
 

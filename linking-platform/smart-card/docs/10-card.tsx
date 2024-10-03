@@ -1,50 +1,28 @@
 import React from 'react';
+import examples from './content/card/examples';
+import reference from './content/card/reference';
+import { TabName } from './utils';
+import ContentTabs from './utils/content-tabs';
 import customMd from './utils/custom-md';
+import DocQuickLinks from './utils/doc-quick-links';
 import InProgressMessage from './utils/in-progress-message';
 
 export default customMd`
 
 ${(<InProgressMessage />)}
 
-## Card
+${(<DocQuickLinks />)}
 
-*< description />*
+${(
+	<ContentTabs
+		tabs={[
+			{ name: TabName.Examples, content: examples },
+			{ name: TabName.Reference, content: reference },
+		]}
+	/>
+)}
 
-### Appearance
 
-Card component has three default appearances.
-
-#### Inline
-
-*< brief description />*
-
-*< example of inline card />*
-
-[Go to inline card docs](./inline-card)
-
-#### Block
-
-*< brief description />*
-
-*< example of block card />*
-
-[Go to block card docs](./block-card)
-
-#### Embed
-
-*< brief description />*
-
-*< example of embed card />*
-
-[Go to embed card docs](./embed-card)
-
-### Configurable card (FlexibleCard)
-
-*< brief description />*
-
-[Go to flexible card docs](./flexible-card)
-
-### *< common props />*
 
 
 `;

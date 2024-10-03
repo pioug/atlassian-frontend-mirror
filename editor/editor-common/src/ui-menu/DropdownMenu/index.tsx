@@ -12,7 +12,6 @@ import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import type { CustomItemComponentProps } from '@atlaskit/menu';
 import { CustomItem, MenuGroup, Section } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { B100, N70, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import type { PositionType } from '@atlaskit/tooltip';
 import Tooltip from '@atlaskit/tooltip';
@@ -38,7 +37,7 @@ const wrapper = css({
 });
 
 const focusedMenuItemStyle = css({
-	boxShadow: `inset 0px 0px 0px 2px ${token('color.border.focused', B100)}`,
+	boxShadow: `inset 0px 0px 0px 2px ${token('color.border.focused')}`,
 	outline: 'none',
 });
 
@@ -67,7 +66,7 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 		// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 		return css`
 			> span:hover[aria-disabled='false'] {
-				color: ${token('color.text', N900)};
+				color: ${token('color.text')};
 				background-color: ${token('color.background.neutral.subtle.hovered', 'rgb(244, 245, 247)')};
 			}
 			${!submenuActive &&
@@ -76,7 +75,7 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 						background-color: ${token('color.background.neutral.subtle.pressed', 'rgb(179, 212, 255)')};
 					}`}
 			> span[aria-disabled='true'] {
-				color: ${token('color.text.disabled', N70)};
+				color: ${token('color.text.disabled')};
 			}
 			:focus > span[aria-disabled='false'] {
 				${focusedMenuItemStyle};

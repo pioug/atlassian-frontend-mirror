@@ -8,7 +8,6 @@ import { forwardRef, Fragment, type KeyboardEvent, useCallback, useRef } from 'r
 import { jsx } from '@emotion/react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -149,12 +148,10 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 		);
 
 		if (items?.length === 0) {
-			if (fg('platform.linking-platform.link-picker.enable-empty-state')) {
-				if (!hasSearchTerm) {
-					const emptyState = activePlugin?.emptyStateNoResults?.();
-					if (emptyState) {
-						return <Box xcss={emptyStateNoResultsWrapper}>{emptyState}</Box>;
-					}
+			if (!hasSearchTerm) {
+				const emptyState = activePlugin?.emptyStateNoResults?.();
+				if (emptyState) {
+					return <Box xcss={emptyStateNoResultsWrapper}>{emptyState}</Box>;
 				}
 			}
 

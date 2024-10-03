@@ -10,44 +10,16 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { emojiImage, emojiSprite } from '@atlaskit/emoji';
-import {
-	B100,
-	B400,
-	B50,
-	B75,
-	G200,
-	G400,
-	G50,
-	G75,
-	N0,
-	N20,
-	N60,
-	P100,
-	P400,
-	P50,
-	P75,
-	R100,
-	R400,
-	R50,
-	R75,
-	T100,
-	T50,
-	T75,
-	Y200,
-	Y400,
-	Y50,
-	Y75,
-} from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const lightPanelColors = {
-	info: B50,
-	note: P50,
-	tip: G50,
-	success: G50,
-	warning: Y50,
-	error: R50,
+	info: '#DEEBFF',
+	note: '#EAE6FF',
+	tip: '#E3FCEF',
+	success: '#E3FCEF',
+	warning: '#FFFAE6',
+	error: '#FFEBE6',
 };
 
 export const darkPanelColors = {
@@ -128,56 +100,18 @@ export const darkPanelColors = {
 };
 
 const lightIconColor = {
-	info: token('color.icon.information', B400),
-	note: token('color.icon.discovery', P400),
-	tip: token('color.icon.success', G400),
-	success: token('color.icon.success', G400),
-	warning: token('color.icon.warning', Y400),
-	error: token('color.icon.danger', R400),
+	info: token('color.icon.information'),
+	note: token('color.icon.discovery'),
+	tip: token('color.icon.success'),
+	success: token('color.icon.success'),
+	warning: token('color.icon.warning'),
+	error: token('color.icon.danger'),
 };
 
 // New custom icons are a little smaller than predefined icons.
 // To fix alignment issues with custom icons, vertical alignment is updated.
 const panelEmojiSpriteVerticalAlignment = -(8 * 3 - akEditorCustomIconSize) / 2;
 const panelEmojiImageVerticalAlignment = panelEmojiSpriteVerticalAlignment - 1;
-
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4066
-const panelDarkModeColors = [
-	[B50, darkPanelColors.B1200S],
-	[B75, darkPanelColors.B900],
-	[B100, darkPanelColors.B800S],
-	[N0, darkPanelColors.LightGray],
-	[N20, darkPanelColors.Gray],
-	[N60, darkPanelColors.DarkGray],
-	[T50, darkPanelColors.T1200S],
-	[T75, darkPanelColors.T900],
-	[T100, darkPanelColors.T900S],
-	[G50, darkPanelColors.G1200S],
-	[G75, darkPanelColors.G900],
-	[G200, darkPanelColors.G900S],
-	[Y50, darkPanelColors.Y1200S],
-	[Y75, darkPanelColors.Y900],
-	[Y200, darkPanelColors.Y800S],
-	[R50, darkPanelColors.R1200S],
-	[R75, darkPanelColors.R900],
-	[R100, darkPanelColors.R800S],
-	[P50, darkPanelColors.P1200S],
-	[P75, darkPanelColors.P900],
-	[P100, darkPanelColors.P800S],
-];
-
-// used for custom panels
-export const getPanelDarkColor = (panelColor: string) => {
-	const colorObject = panelDarkModeColors.find(
-		(color) => color[0] === panelColor || color[1] === panelColor,
-	);
-	return colorObject ? colorObject[1] : darkPanelColors.B1200S;
-};
-
-// used for custom panels
-export const getPanelBackgroundDarkModeColors = panelDarkModeColors
-	.map(([colorName, colorValue]) => getPanelDarkModeCSS(colorName, colorValue))
-	.join('\n');
 
 export function getPanelDarkModeCSS(colorName: string, colorValue: string): string {
 	return `

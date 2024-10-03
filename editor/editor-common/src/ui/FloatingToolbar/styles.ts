@@ -1,5 +1,3 @@
-import { hexToRgba } from '@atlaskit/adf-schema';
-import { B75, DN400, N30A, N400, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const iconOnlySpacing = {
@@ -39,12 +37,12 @@ const background: Property = {
 	danger: {
 		default: { light: 'inherit', dark: 'inherit' },
 		hover: {
-			light: token('color.background.neutral.subtle.hovered', N30A),
-			dark: token('color.background.neutral.subtle.hovered', N30A),
+			light: token('color.background.neutral.subtle.hovered'),
+			dark: token('color.background.neutral.subtle.hovered'),
 		},
 		active: {
-			light: token('color.background.neutral.pressed', `${hexToRgba(B75, 0.6)}`),
-			dark: token('color.background.neutral.pressed', `${hexToRgba(B75, 0.6)}`),
+			light: token('color.background.neutral.pressed'),
+			dark: token('color.background.neutral.pressed'),
 		},
 	},
 };
@@ -52,16 +50,16 @@ const background: Property = {
 const color = {
 	danger: {
 		default: {
-			light: token('color.icon', N400),
-			dark: token('color.icon', DN400),
+			light: token('color.icon'),
+			dark: token('color.icon'),
 		},
 		hover: {
-			light: token('color.icon.danger', R400),
-			dark: token('color.icon.danger', R400),
+			light: token('color.icon.danger'),
+			dark: token('color.icon.danger'),
 		},
 		active: {
-			light: token('color.icon.danger', R400),
-			dark: token('color.icon.danger', R400),
+			light: token('color.icon.danger'),
+			dark: token('color.icon.danger'),
 		},
 	},
 };

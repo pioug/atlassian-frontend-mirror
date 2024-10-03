@@ -8,7 +8,6 @@ import React, { type ReactElement } from 'react';
 import { jsx } from '@emotion/react';
 
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
-import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -36,10 +35,7 @@ const Color = (props: Props) => {
 		label,
 		isSelected,
 		borderColor,
-
-		/** this is not new usage - old code extracted from editor-core */
-		/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-		checkMarkColor = N0,
+		checkMarkColor = '#FFFFFF',
 		/**
 		 * When hexToPaletteColor prop is set,
 		 * it will be used to get background color style based on

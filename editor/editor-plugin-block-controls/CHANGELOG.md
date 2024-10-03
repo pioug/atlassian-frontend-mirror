@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.10
+
+### Patch Changes
+
+- [#147228](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147228)
+  [`ff45a3671e9a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff45a3671e9a6) -
+  Remove the handle from decorations when hovering on empty paragraphs.
+
 ## 2.1.9
 
 ### Patch Changes

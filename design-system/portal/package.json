@@ -54,7 +54,7 @@
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/tokens": "^2.0.0",
-		"@atlaskit/tooltip": "^18.7.0",
+		"@atlaskit/tooltip": "^18.8.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
 		"@emotion/react": "^11.7.1",

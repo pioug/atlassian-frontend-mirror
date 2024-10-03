@@ -12,10 +12,6 @@ export {
 	panelBackgroundPalette,
 	panelDarkModeBackgroundPalette,
 } from './ColorPalette/Palettes/panelBackgroundPalette';
-export {
-	lightModeStatusColorPalette,
-	darkModeStatusColorPalette,
-} from './ColorPalette/Palettes/statusColorPalette';
 export { textColorPalette } from './ColorPalette/Palettes/textColorPalette';
 export {
 	highlightColorPalette,

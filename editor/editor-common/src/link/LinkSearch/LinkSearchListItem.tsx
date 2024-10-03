@@ -12,8 +12,6 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import { N20, N300, N800 } from '@atlaskit/theme/colors';
-import { fontSizeSmall } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { getCorrectAltByIconUrl } from './listItemAlts';
@@ -31,7 +29,7 @@ export const container = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const containerSelected = css({
-	backgroundColor: token('color.background.neutral.subtle.hovered', N20),
+	backgroundColor: token('color.background.neutral.subtle.hovered'),
 });
 
 const nameWrapper = css({
@@ -40,7 +38,7 @@ const nameWrapper = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const nameStyle = css({
-	color: token('color.text', N800),
+	color: token('color.text'),
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
@@ -49,10 +47,10 @@ export const nameStyle = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const containerName = css({
-	color: token('color.text.subtlest', N300),
+	color: token('color.text.subtlest'),
 	lineHeight: '14px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: relativeFontSizeToBase16(fontSizeSmall()),
+	fontSize: relativeFontSizeToBase16(11),
 });
 
 const iconStyle = css({

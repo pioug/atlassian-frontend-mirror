@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 22.20.2
+
+### Patch Changes
+
+- [#147531](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147531)
+  [`8ae1e110621b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ae1e110621b7) -
+  Internal changes to feature flag used to toggle new icons
+
 ## 22.20.1
 
 ### Patch Changes

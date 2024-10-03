@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 111.1.2
+
+### Patch Changes
+
+- [#147736](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147736)
+  [`b6868597a50cd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6868597a50cd) -
+  [ux] Fix table resizing when rendering with AK renderer in SSR
+- Updated dependencies
+
+## 111.1.1
+
+### Patch Changes
+
+- [#147863](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147863)
+  [`422082d3df962`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/422082d3df962) -
+  Remove TTI tracking analytics
+
 ## 111.1.0
 
 ### Minor Changes

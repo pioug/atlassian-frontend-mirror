@@ -1,23 +1,13 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import { token } from '@atlaskit/tokens';
+import { Inline, xcss } from '@atlaskit/primitives';
 
 import { ProgressIndicator } from '../../src';
 
-const containerStyles = css({
-	display: 'flex',
-	padding: token('space.200', '16px'),
-	alignItems: 'center',
-	justifyContent: 'space-between',
-	backgroundColor: token('color.text'),
+const containerStyles = xcss({
+	padding: 'space.200',
+	backgroundColor: 'color.background.neutral.bold',
 });
 
 const InvertedExample = () => {
@@ -33,7 +23,7 @@ const InvertedExample = () => {
 	};
 
 	return (
-		<div css={containerStyles}>
+		<Inline alignBlock="center" spread="space-between" xcss={containerStyles}>
 			<Button isDisabled={selectedIndex === 0} onClick={handlePrev} appearance="primary">
 				Previous
 			</Button>
@@ -45,7 +35,7 @@ const InvertedExample = () => {
 			>
 				Next
 			</Button>
-		</div>
+		</Inline>
 	);
 };
 

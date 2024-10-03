@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 3.3.0
+
+### Minor Changes
+
+- [#148132](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148132)
+  [`48f3efa1e757b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48f3efa1e757b) -
+  [ux] New icon space fix (https://product-fabric.atlassian.net/browse/DSP-19884)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.1
 
 ### Patch Changes

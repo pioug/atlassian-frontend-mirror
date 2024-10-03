@@ -13,7 +13,7 @@ export const lazyBlockCardView = (props: BlockCardNodeViewProperties) => {
 		getNodeViewOptions: () => {},
 		loader: () => {
 			const result = import(
-				/* webpackChunkName: "@atlaskit-internal_editor-plugin-tasks-and-decisions_task-item-nodeview" */
+				/* webpackChunkName: "@atlaskit-internal_editor-plugin-block-card-item-nodeview" */
 				'./blockCard'
 			).then(({ blockCardNodeView }) => {
 				return blockCardNodeView(props);

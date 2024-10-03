@@ -8,6 +8,7 @@ import { Prop, Props } from '@atlaskit/docs';
 
 export const TabName = {
 	Examples: 'Examples',
+	Overview: 'Overview',
 	Reference: 'Reference',
 };
 
@@ -15,6 +16,10 @@ export const toAbsolutePath = (path?: string) => {
 	if (path?.startsWith('./')) {
 		const current = window.location.href;
 		const parent = current.slice(0, current.lastIndexOf('/'));
+
+		if (current.indexOf('/docs') === -1) {
+			return `${current}/docs/${path.replace('./', '')}`;
+		}
 		return path.replace(path[0], parent);
 	}
 	return path;

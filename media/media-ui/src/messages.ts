@@ -425,12 +425,12 @@ export const messages: Messages = defineMessages({
 		description: 'Indicates that the user can drag and drop images in that area',
 	},
 	alt_text: {
-		id: 'fabric.media.alt_text',
+		id: 'fabric.media.alt_text_label',
 		defaultMessage: 'Alt text',
 		description: 'Shown above the alt text field',
 	},
 	alt_text_description: {
-		id: 'fabric.media.alt_text',
+		id: 'fabric.media.alt_text_helper_message',
 		defaultMessage: 'How would you describe the selected image to someone with low vision?',
 		description: 'Shown below the alt text field',
 	},

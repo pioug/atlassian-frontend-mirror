@@ -5,7 +5,10 @@ import rafSchedule from 'raf-schd';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { handleNavigation } from '@atlaskit/editor-common/link';
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
+import { type getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { findOverflowScrollParent, UnsupportedInline } from '@atlaskit/editor-common/ui';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
@@ -228,3 +231,18 @@ export function InlineCardNodeView(
 		/>
 	);
 }
+
+export interface InlineCardNodeViewProperties {
+	inlineCardViewProducer: ReturnType<typeof getInlineNodeViewProducer>;
+}
+
+export const inlineCardNodeView =
+	({ inlineCardViewProducer }: InlineCardNodeViewProperties) =>
+	(
+		node: PMNode,
+		view: EditorView,
+		getPos: () => number | undefined,
+		decorations: readonly Decoration[],
+	) => {
+		return inlineCardViewProducer(node, view, getPos, decorations);
+	};

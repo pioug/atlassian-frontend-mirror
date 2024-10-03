@@ -70,6 +70,12 @@ export interface TaskDecisionPluginOptions extends LongPressSelectionPluginOptio
 	hasEditPermission?: boolean;
 
 	/**
+	 * Indicates whether the user has requested permission to edit.
+	 * @default false
+	 */
+	hasRequestedEditPermission?: boolean;
+
+	/**
 	 * Function to request edit permission.
 	 */
 	requestToEditContent?: () => void;
@@ -81,6 +87,7 @@ export type TaskAndDecisionsSharedState = {
 	outdentDisabled: boolean;
 	isInsideTask: boolean;
 	hasEditPermission?: boolean;
+	hasRequestedEditPermission?: boolean;
 	requestToEditContent?: () => void;
 };
 
@@ -102,6 +109,7 @@ export type TasksAndDecisionsPlugin = NextEditorPlugin<
 		};
 		commands: {
 			updateEditPermission: (hasEditPermission: boolean | undefined) => EditorCommand;
+			updateHasRequestedEditPermission: (hasRequestedEditPermission: boolean) => EditorCommand;
 		};
 	}
 >;

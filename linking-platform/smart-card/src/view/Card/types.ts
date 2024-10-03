@@ -1,5 +1,6 @@
 import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { type CardAppearance, type CardState } from '@atlaskit/linking-common';
+
 import { type CardPlatform } from '@atlaskit/link-extractors';
 
 import { type FlexibleUiOptions } from '../FlexibleCard/types';
@@ -35,28 +36,27 @@ export type CardActionOptions =
 	  }
 	| { hide: false; exclude?: Array<CardAction> };
 
-export interface CardProps extends WithAnalyticsEventsProps {
+interface ActionProps {
+	actionOptions?: CardActionOptions;
+}
+
+interface HoverPreviewProps extends ActionProps {
+	showHoverPreview?: boolean;
+	hoverPreviewOptions?: HoverPreviewOptions;
+	showAuthTooltip?: boolean;
+}
+
+export interface BaseCardProps {
 	appearance: CardAppearance;
-	id?: string;
-	platform?: CardPlatform;
-	isSelected?: boolean;
-	/** A flag that determines whether a card is in a hover state in edit mode. Currently used for inline links only */
-	isHovered?: boolean;
-	/** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
-	frameStyle?: FrameStyle;
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-	importer?: (target: any) => void;
 	container?: HTMLElement;
 	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3226 Internal documentation for deprecation (no external access)}
-	 * Likely here for legacy reason where editor would store data in ADF instead of resolving it everytime
-	 * https://product-fabric.atlassian.net/browse/EDM-6813
+	 * A component that will be rendered when smart card fails to render
+	 * because of uncaught errors
 	 */
-	data?: any;
-	url?: string;
-	testId?: string;
-	actionOptions?: CardActionOptions;
-	onResolve?: OnResolveCallback;
+	fallbackComponent?: React.ComponentType;
+	id?: string;
+	isSelected?: boolean;
+	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 	/**
 	 * A callback function currently invoked in two cases
 	 * 1. When the {@link CardState.status} is one of {@link ErrorCardType}. "err" property in argument will be undefined in this case
@@ -68,31 +68,16 @@ export interface CardProps extends WithAnalyticsEventsProps {
 	 *    If fallbackComponent is not provided, smart card will render null
 	 */
 	onError?: OnErrorCallback;
-	/**
-	 * A component that will be rendered when smart card fails to render
-	 * because of uncaught errors
-	 */
-	fallbackComponent?: React.ComponentType;
-	/** This props determines if dimensions of an embed card are to be inherited from the parent.
-	 * The parent container needs to override a style '.loader-wrapper' and set the desirable height there. (for instance, 'height: 100%')
-	 */
-	inheritDimensions?: boolean;
-	embedIframeRef?: React.Ref<HTMLIFrameElement>;
-	embedIframeUrlType?: EmbedIframeUrlType;
-	inlinePreloaderStyle?: InlinePreloaderStyle;
-	ui?: FlexibleUiOptions;
-	children?: React.ReactNode;
-	showHoverPreview?: boolean;
-	hoverPreviewOptions?: HoverPreviewOptions;
-	showAuthTooltip?: boolean;
+	onResolve?: OnResolveCallback;
 	placeholder?: string;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15021 Internal documentation for deprecation (no external access)}
-	 * When enabled the legacy block card is always used, even if the enableFlexibleBlockCard flag is set to true.
-	 * Usage is strongly discouraged. This should only be used if there is a specific reason you're
-	 * unable to use the new flexible block cards.
-	 */
-	useLegacyBlockCard?: boolean;
+	testId?: string;
+	url?: string;
+}
+
+export interface InlineProps extends HoverPreviewProps {
+	inlinePreloaderStyle?: InlinePreloaderStyle;
+	/** A flag that determines whether a card is in a hover state in edit mode. Currently used for inline links only */
+	isHovered?: boolean;
 	/**
 	 * When set to true, the text fragment will be removed from the title.
 	 * This will have no impact on the url and text highlighting will still persist in the url,
@@ -106,4 +91,52 @@ export interface CardProps extends WithAnalyticsEventsProps {
 	resolvingPlaceholder?: string;
 	/** When set to true, inline cards will be truncated to one line. */
 	truncateInline?: boolean;
+}
+
+export interface BlockProps extends ActionProps {
+	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15021 Internal documentation for deprecation (no external access)}
+	 * When enabled the legacy block card is always used, even if the enableFlexibleBlockCard flag is set to true.
+	 * Usage is strongly discouraged. This should only be used if there is a specific reason you're
+	 * unable to use the new flexible block cards.
+	 */
+	useLegacyBlockCard?: boolean;
+}
+
+export interface EmbedProps {
+	embedIframeRef?: React.Ref<HTMLIFrameElement>;
+	embedIframeUrlType?: EmbedIframeUrlType;
+	/** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
+	frameStyle?: FrameStyle;
+	/** This props determines if dimensions of an embed card are to be inherited from the parent.
+	 * The parent container needs to override a style '.loader-wrapper' and set the desirable height there. (for instance, 'height: 100%')
+	 */
+	inheritDimensions?: boolean;
+	platform?: CardPlatform;
+}
+
+export interface FlexibleProps extends ActionProps, HoverPreviewProps {
+	children?: React.ReactNode;
+	ui?: FlexibleUiOptions;
+}
+
+export interface CardProps
+	extends BaseCardProps,
+		InlineProps,
+		BlockProps,
+		EmbedProps,
+		FlexibleProps,
+		WithAnalyticsEventsProps {
+	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3226 Internal documentation for deprecation (no external access)}
+	 * Likely here for legacy reason where editor would store data in ADF instead of resolving it everytime
+	 * https://product-fabric.atlassian.net/browse/EDM-10930
+	 */
+	data?: any;
+	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3226 Internal documentation for deprecation (no external access)}
+	 * Likely here for legacy reason where editor would store data in ADF instead of resolving it everytime
+	 * https://product-fabric.atlassian.net/browse/EDM-10930
+	 */
+	importer?: (target: any) => void;
 }

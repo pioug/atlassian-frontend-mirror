@@ -179,7 +179,7 @@ export const getStyles = (size: Size): SerializedStyles => {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...(size === 'large' &&
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-			!fg('platform.design-system-team.enable-new-icons') && {
+			!fg('platform-visual-refresh-icons') && {
 				'> span > span': {
 					height: '20px',
 					width: '20px',

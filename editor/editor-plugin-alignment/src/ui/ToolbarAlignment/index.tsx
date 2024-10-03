@@ -110,7 +110,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 								<div
 									css={
 										// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-										fg('platform.design-system-team.enable-new-icons')
+										fg('platform-visual-refresh-icons')
 											? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 												triggerWrapperStylesWithPadding
 											: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -122,7 +122,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 										<span
 											css={[
 												// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-												fg('platform.design-system-team.enable-new-icons') &&
+												fg('platform-visual-refresh-icons') &&
 													//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 													expandIconContainerStyle,
 											]}

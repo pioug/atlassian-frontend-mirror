@@ -4,7 +4,6 @@
 import { css } from '@emotion/react';
 
 import { akEditorShadowZIndex } from '@atlaskit/editor-shared-styles';
-import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { shadowClassNames } from '../../ui/OverflowShadow';
@@ -47,7 +46,6 @@ const shadowSharedStyle = css({
 	[`& .${shadowClassNames.LEFT_SHADOW}::before`]: {
 		background: `linear-gradient( to left, transparent 0, ${token(
 			'elevation.shadow.overflow.spread',
-			N40A,
 		)} 140% ), linear-gradient( to right, ${token(
 			'elevation.shadow.overflow.perimeter',
 			'transparent',
@@ -60,7 +58,6 @@ const shadowSharedStyle = css({
 	[`& .${shadowClassNames.RIGHT_SHADOW}::after`]: {
 		background: `linear-gradient( to right, transparent 0, ${token(
 			'elevation.shadow.overflow.spread',
-			N40A,
 		)} 140% ), linear-gradient( to left, ${token(
 			'elevation.shadow.overflow.perimeter',
 			'transparent',

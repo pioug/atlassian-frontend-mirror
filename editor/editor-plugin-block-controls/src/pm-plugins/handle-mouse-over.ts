@@ -12,6 +12,16 @@ const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
 	return false;
 };
 
+const isDocFirstChildEmptyLine = (elem: Element) => {
+	const parentElement = elem.parentElement;
+	return (
+		parentElement?.firstElementChild === elem &&
+		['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(elem.nodeName) &&
+		elem.childNodes.length === 1 &&
+		elem.firstElementChild?.classList.contains('ProseMirror-trailingBreak')
+	);
+};
+
 export const handleMouseOver = (
 	view: EditorView,
 	event: Event,
@@ -33,6 +43,13 @@ export const handleMouseOver = (
 
 	let rootElement = target?.closest('[data-drag-handler-anchor-name]');
 	if (rootElement) {
+		if (
+			isDocFirstChildEmptyLine(rootElement) &&
+			fg('confluence_frontend_page_title_enter_improvements')
+		) {
+			api?.core?.actions.execute(api?.blockControls?.commands.hideDragHandle());
+			return;
+		}
 		// We want to exlude handles from showing for empty paragraph and heading nodes
 		if (editorExperiment('nested-dnd', true) && isEmptyNestedParagraphOrHeading(rootElement)) {
 			return false;

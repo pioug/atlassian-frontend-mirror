@@ -7,7 +7,6 @@
 import { jsx } from '@emotion/react';
 
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -38,7 +37,7 @@ export const InlineImageCardErrorView = ({
 						<WarningIcon
 							label="error"
 							size={height > ICON_SIZE_THRESOLD ? 'medium' : 'small'}
-							primaryColor={token('color.icon.danger', R300)}
+							primaryColor={token('color.icon.danger')}
 						/>
 					)}
 				</IconWrapper>

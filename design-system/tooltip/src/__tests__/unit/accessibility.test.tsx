@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import { axe } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/new';
 
-import Tooltip from '../../Tooltip';
+import Tooltip from '../../tooltip';
 
 it('Basic Tooltip should not fail aXe audit', async () => {
 	const { container } = render(

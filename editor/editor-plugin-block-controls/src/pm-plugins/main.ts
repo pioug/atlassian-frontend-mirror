@@ -175,7 +175,12 @@ export const createPlugin = (
 				// During resize, remove the drag handle widget so its dom positioning doesn't need to be maintained
 				// Also remove the handle when the node is moved or the node count changes. This helps prevent incorrect positioning
 				// Don't remove the handle if remote changes are changing the node count, its prosemirror position can be mapped instead
-				if (isResizerResizing || (maybeNodeCountChanged && shouldRemoveHandle) || meta?.nodeMoved) {
+				if (
+					(meta?.hideDragHandle && fg('confluence_frontend_page_title_enter_improvements')) ||
+					isResizerResizing ||
+					(maybeNodeCountChanged && shouldRemoveHandle) ||
+					meta?.nodeMoved
+				) {
 					const oldHandle = decorations.find(
 						undefined,
 						undefined,

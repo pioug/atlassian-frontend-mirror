@@ -29,12 +29,7 @@ export default function useMeasureEditorMountTime(
 	getExperienceStore: () => ExperienceStore | undefined,
 	createAnalyticsEvent: CreateUIAnalyticsEvent,
 ): void {
-	useEditorConstructor(
-		props.performanceTracking,
-		props.featureFlags,
-		getExperienceStore,
-		createAnalyticsEvent,
-	);
+	useEditorConstructor();
 
 	useEffect(() => {
 		stopMeasure(

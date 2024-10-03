@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { wrapperDefault } from '../styles';
@@ -27,7 +26,7 @@ export const wrapperStyle = css(wrapperDefault, {
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-hover-border': {
-		boxShadow: `0 0 0 1px ${token('color.border.input', N500)}`,
+		boxShadow: `0 0 0 1px ${token('color.border.input')}`,
 	},
 });
 

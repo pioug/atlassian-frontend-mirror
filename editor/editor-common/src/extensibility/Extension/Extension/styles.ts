@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { wrapperDefault } from '../styles';
@@ -22,11 +21,11 @@ export const wrapperStyle = css(wrapperDefault, {
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-bodied-border': {
-		boxShadow: `0 0 0 1px ${token('color.border', N30)}`,
+		boxShadow: `0 0 0 1px ${token('color.border')}`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-hover-border': {
-		boxShadow: `0 0 0 1px ${token('color.border.input', N500)}`,
+		boxShadow: `0 0 0 1px ${token('color.border.input')}`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
@@ -56,7 +55,7 @@ export const header = css({
 export const content = css({
 	padding: token('space.100', '8px'),
 	background: token('elevation.surface', 'white'),
-	border: `1px solid ${token('color.border', N30)}`,
+	border: `1px solid ${token('color.border')}`,
 	borderRadius: token('border.radius', '3px'),
 	cursor: 'initial',
 	width: '100%',

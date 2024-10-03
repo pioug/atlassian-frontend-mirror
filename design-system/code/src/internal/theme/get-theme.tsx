@@ -1,8 +1,9 @@
 import memoizeOne from 'memoize-one';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import * as colors from '@atlaskit/theme/colors';
 import { codeFontFamily } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
+import { getTokenValue, token } from '@atlaskit/tokens';
 
 import type { CodeBlockTheme, CodeTheme } from './types';
 
@@ -12,15 +13,19 @@ const T800 = '#067384';
 const Y1100 = '#7A5D1A';
 
 export const getBaseTheme = (): CodeTheme => ({
-	fontFamily: codeFontFamily(),
-	fontFamilyItalic: `SFMono-MediumItalic, ${codeFontFamily()}`,
+	fontFamily: fg('platform_design_system_team_code_new_typography')
+		? token('font.family.code')
+		: codeFontFamily(),
+	fontFamilyItalic: `SFMono-MediumItalic, ${
+		fg('platform_design_system_team_code_new_typography')
+			? getTokenValue('font.family.code')
+			: codeFontFamily()
+	}`,
 	backgroundColor: token('color.background.neutral', colors.N20),
 	textColor: token('color.text', colors.N800),
 	lineNumberColor: token('color.text.subtlest', colors.N400),
 	lineNumberBgColor: token('color.background.neutral', colors.N30),
 });
-
-export const defaultBaseTheme = getBaseTheme();
 
 export const getColorPalette = memoizeOne((): CodeBlockTheme => {
 	return {

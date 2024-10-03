@@ -4,7 +4,7 @@ import Example from '../../../../examples/vr/vr-new-icon-button';
 
 snapshot(Example, {
 	featureFlags: {
-		['platform.design-system-team.enable-new-icons']: [true, false],
+		['platform-visual-refresh-icons']: [true, false],
 	},
 	variants: [
 		{

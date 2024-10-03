@@ -77,7 +77,7 @@ const mainToolbar = () => {
 			},
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/ui-styling-standard/no-unsafe-values
-		fg('platform.design-system-team.enable-new-icons') && flexibleIconSize,
+		fg('platform-visual-refresh-icons') && flexibleIconSize,
 	);
 };
 

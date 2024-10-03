@@ -61,7 +61,8 @@ export const EmojiPickerListSearch = (props: Props) => {
 			<VisuallyHidden id="emoji-search-results-status" role="status">
 				{dirty && query === '' && formatMessage(messages.searchResultsStatusSeeAll)}
 				{query !== '' &&
-					formatMessage(messages.searchResultsStatus, {
+					formatMessage(messages.searchResultsStatusSeeAll, {
+						// change to messages.searchResultsStatus once translated
 						count: resultsCount,
 					})}
 			</VisuallyHidden>

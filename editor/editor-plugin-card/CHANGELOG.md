@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 3.4.2
+
+### Patch Changes
+
+- [#147708](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147708)
+  [`82148eb4038af`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/82148eb4038af) -
+  add lazy node view for inline card
+- Updated dependencies
+
 ## 3.4.1
 
 ### Patch Changes

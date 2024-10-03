@@ -157,7 +157,7 @@ export default function IconTile(props: IconTileProps) {
 
 	const ExpandedIcon = Icon as ComponentType<InternalIconPropsNew>;
 
-	if (LEGACY_fallbackComponent && !fg('platform.design-system-team.enable-new-icons')) {
+	if (LEGACY_fallbackComponent && !fg('platform-visual-refresh-icons')) {
 		return LEGACY_fallbackComponent;
 	} else {
 		return (

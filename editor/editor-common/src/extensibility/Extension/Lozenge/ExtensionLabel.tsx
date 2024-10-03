@@ -11,7 +11,6 @@ import classnames from 'classnames';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import PreferencesIcon from '@atlaskit/icon/glyph/preferences';
-import { N0, N30, N40, N500, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -52,11 +51,11 @@ const sharedLabelStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.bodied-background': {
-		background: token('elevation.surface', N0),
+		background: token('elevation.surface'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.bodied-border': {
-		boxShadow: `0 0 0 1px ${token('color.border', N30)}`,
+		boxShadow: `0 0 0 1px ${token('color.border')}`,
 	},
 });
 
@@ -66,8 +65,8 @@ const buttonLabelStyles = css({
 	borderRadius: token('border.radius', '3px'),
 	paddingLeft: token('space.100', '8px'),
 	paddingRight: token('space.100', '8px'),
-	color: token('color.text.subtle', N800),
-	backgroundColor: token('color.background.accent.gray.subtlest', N30),
+	color: token('color.text.subtle'),
+	backgroundColor: token('color.background.accent.gray.subtlest'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.remove-left-margin': {
 		marginLeft: token('space.negative.150', '-12px'),
@@ -92,11 +91,11 @@ const textStyles = css({
 });
 
 const originalLabelStyles = css({
-	background: token('color.background.accent.gray.subtle.pressed', N40),
+	background: token('color.background.accent.gray.subtle.pressed'),
 	borderRadius: `${token('border.radius', '3px')} ${token('border.radius', '3px')} 0 0`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.show-label': {
-		color: token('color.text.subtle', N500),
+		color: token('color.text.subtle'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.inline': {

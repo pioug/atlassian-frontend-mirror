@@ -4,7 +4,27 @@ import { CoreEditor } from '../composable-editor/core-editor';
 import { type EditorNextProps } from '../types/editor-props';
 import Comment from '../ui/Appearance/Comment';
 
-export type CommentEditorProps = Pick<EditorNextProps, 'preset'>;
+export type CommentEditorProps = Pick<
+	EditorNextProps,
+	| 'preset'
+	| 'defaultValue'
+	| 'assistiveLabel'
+	| 'disabled'
+	| 'shouldFocus'
+	| 'performanceTracking'
+	| 'quickInsert'
+	| 'secondaryToolbarComponents'
+	| 'featureFlags'
+	| 'onChange'
+	| 'onDestroy'
+	| 'onEditorReady'
+	| 'onSave'
+	| 'onCancel'
+	| 'mentionProvider'
+	| 'contextIdentifierProvider'
+	| 'searchProvider'
+	| 'extensionProviders'
+>;
 
 /**
  * Editor component based on `ComposableEditor` which sets the `appearance` to "comment".

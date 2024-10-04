@@ -1,10 +1,17 @@
 import React, { useEffect } from 'react';
 
-import ReactFocusLock from 'react-focus-lock';
+import ReactFocusLockOld from 'react-focus-lock';
+import ReactFocusLockNext from 'react-focus-lock-next';
 import ScrollLock from 'react-scrolllock';
 import invariant from 'tiny-invariant';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { type FocusLockProps } from '../types';
+
+const ReactFocusLock = fg('platform_dst_drawer-bump-react-focus-lock')
+	? ReactFocusLockNext
+	: ReactFocusLockOld;
 
 /**
  * __Focus lock__

@@ -620,6 +620,54 @@ export const sizeTests = [
 			},
 		],
 	},
+	{
+		name: 'Different sizes for core icon',
+		code: `
+	    import AddIcon from '@atlaskit/icon/glyph/add';
+		() =>
+			<div>
+				<AddIcon label="" />
+				<AddIcon size="small" label="" />
+				<AddIcon size="medium" label="" />
+			</div>
+	  	`,
+		output: `
+	    import AddIcon from '@atlaskit/icon/core/migration/add';
+		() =>
+			<div>
+				<AddIcon color="currentColor" spacing="spacious" label="" />
+				<AddIcon color="currentColor" LEGACY_size="small" label="" />
+				<AddIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />
+			</div>
+	  	`,
+		errors: Array(3).fill({
+			messageId: 'noLegacyIconsAutoMigration',
+		}),
+	},
+	{
+		name: 'Different sizes for utility icon',
+		code: `
+		import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
+		() =>
+			<div>
+				<ChevronDown label="" />
+				<ChevronDown size="small" label="" />
+				<ChevronDown size="medium" label="" />
+			</div>
+	  	`,
+		output: `
+		import ChevronDown from '@atlaskit/icon/utility/migration/chevron-down';
+		() =>
+			<div>
+				<ChevronDown color="currentColor" spacing="spacious" label="" />
+				<ChevronDown color="currentColor" LEGACY_size="small" spacing="compact" label="" />
+				<ChevronDown color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />
+			</div>
+	  	`,
+		errors: Array(3).fill({
+			messageId: 'noLegacyIconsAutoMigration',
+		}),
+	},
 ];
 
 /**

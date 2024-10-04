@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 12.17.3
+
+### Patch Changes
+
+- [#148281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148281)
+  [`3c4de48168ffe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c4de48168ffe) -
+  Update the import path of `useId*` from `@atlaskit/ds-lib`
+- Updated dependencies
+
 ## 12.17.2
 
 ### Patch Changes

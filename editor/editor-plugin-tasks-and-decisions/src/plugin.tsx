@@ -14,10 +14,17 @@ import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { DOMOutputSpec, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
+import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import { getListTypes, insertTaskDecisionAction, insertTaskDecisionCommand } from './commands';
+import {
+	getListTypes,
+	insertTaskDecisionAction,
+	insertTaskDecisionCommand,
+	setProvider,
+} from './commands';
 import { getCurrentIndentLevel, getTaskItemIndex, isInsideTask } from './pm-plugins/helpers';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymap, { getIndentCommand, getUnindentCommand } from './pm-plugins/keymaps';
@@ -150,11 +157,22 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		hasEditPermission,
 		hasRequestedEditPermission,
 		requestToEditContent,
+		taskDecisionProvider,
 	} = {},
 	api,
 }) => {
 	const getIdentifierProvider = () =>
 		api?.contextIdentifier?.sharedState.currentState()?.contextIdentifierProvider;
+	let previousTaskAndDecisionProvider: TaskDecisionProvider | undefined;
+
+	if (fg('platform_editor_td_provider_from_plugin_config')) {
+		if (taskDecisionProvider) {
+			taskDecisionProvider.then((provider) => {
+				api?.core.actions.execute(({ tr }) => setProvider(provider)(tr));
+			});
+		}
+	}
+
 	return {
 		name: 'taskDecision',
 		nodes() {
@@ -186,6 +204,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 				hasEditPermission: pluginState?.hasEditPermission,
 				requestToEditContent: pluginState?.requestToEditContent,
 				hasRequestedEditPermission: pluginState?.hasRequestedEditPermission,
+				taskDecisionProvider: pluginState?.taskDecisionProvider,
 			};
 		},
 
@@ -204,6 +223,18 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 			insertTaskDecision: insertTaskDecisionCommand(api?.analytics?.actions, getIdentifierProvider),
 			indentTaskList: getIndentCommand(api?.analytics?.actions),
 			outdentTaskList: getUnindentCommand(api?.analytics?.actions),
+			setProvider: async (providerPromise: Promise<TaskDecisionProvider>) => {
+				const provider = await providerPromise;
+				// Prevent someone trying to set the exact same provider twice for performance reasons+
+				if (
+					previousTaskAndDecisionProvider === provider ||
+					taskDecisionProvider === providerPromise
+				) {
+					return false;
+				}
+				previousTaskAndDecisionProvider = provider;
+				return api?.core.actions.execute(({ tr }) => setProvider(provider)(tr)) ?? false;
+			},
 		},
 
 		pmPlugins() {

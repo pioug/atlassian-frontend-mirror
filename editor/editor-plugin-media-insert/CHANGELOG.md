@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 3.1.5
+
+### Patch Changes
+
+- [#148355](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148355)
+  [`128902be1556b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/128902be1556b) -
+  [ux] ED-25117 Set image from link width based on image size
+- Updated dependencies
+
 ## 3.1.4
 
 ### Patch Changes

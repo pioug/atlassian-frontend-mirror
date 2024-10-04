@@ -9,7 +9,7 @@ import React, {
 import invariant from 'tiny-invariant';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { useId } from '@atlaskit/ds-lib/react-uid';
+import { useId } from '@atlaskit/ds-lib/use-id';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { Manager, Reference } from '@atlaskit/popper';

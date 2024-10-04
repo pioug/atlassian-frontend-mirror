@@ -665,6 +665,8 @@ describe(`Editor`, () => {
 			);
 		});
 
+		// TODO - When cleaning up FG platform_editor_td_provider_from_plugin_config this test no longer applies and will fail other after it
+		// Tests in packages/editor/editor-plugin-tasks-and-decisions-tests/src/__tests__/unit/plugin.tsx cover this, so can remove this test
 		it('should be populated with taskDecisionProvider', () => {
 			const { setProviderSpy, taskDecisionProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(

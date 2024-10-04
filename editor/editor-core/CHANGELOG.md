@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 198.4.0
+
+### Minor Changes
+
+- [#137506](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137506)
+  [`75c4ebf9d7515`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75c4ebf9d7515) -
+  Pass TaskDecisionProvider via preset
+
+### Patch Changes
+
+- [#148229](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148229)
+  [`c93af357bcf75`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c93af357bcf75) -
+  ED-24121: Removes legacy context type from reacteditorview
+- Updated dependencies
+
 ## 198.3.2
 
 ### Patch Changes

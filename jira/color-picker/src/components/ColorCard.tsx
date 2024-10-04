@@ -10,7 +10,7 @@ import React, {
 	useImperativeHandle,
 	forwardRef,
 } from 'react';
-import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
+import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import Tooltip from '@atlaskit/tooltip';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { COLOR_PALETTE_MENU, KEY_ENTER, KEY_SPACE, KEY_TAB } from '../constants';
@@ -20,6 +20,7 @@ import { token } from '@atlaskit/tokens';
 import { N0, DN600A, B75 } from '@atlaskit/theme/colors';
 import { mergeRefs } from 'use-callback-ref';
 import type { ColorCardType } from '../types';
+import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 
 export interface Props {
 	autoFocus?: boolean;
@@ -158,9 +159,12 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 						<div css={colorCardWrapperStyles}>
 							<div css={colorCardContentStyles} style={{ background: value || 'transparent' }}>
 								{selected && (
-									<div css={colorCardContentCheckMarkStyles}>
-										<EditorDoneIcon primaryColor={checkMarkColor} label="" />
-									</div>
+									<EditorDoneIcon
+										color={checkMarkColor as IconColor}
+										label=""
+										spacing="spacious"
+										LEGACY_margin="1px"
+									/>
 								)}
 							</div>
 						</div>
@@ -182,11 +186,6 @@ const colorCardOptionTabbingStyles = css({
 
 const colorCardOptionFocusedStyles = css({
 	borderColor: token('color.border.focused', B75),
-});
-
-const colorCardContentCheckMarkStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	margin: '1px',
 });
 
 const sharedColorContainerStyles = css({

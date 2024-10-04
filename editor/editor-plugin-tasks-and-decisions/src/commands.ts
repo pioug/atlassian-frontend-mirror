@@ -24,7 +24,10 @@ import {
 	safeInsert,
 	setTextSelection,
 } from '@atlaskit/editor-prosemirror/utils';
+import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
+import { stateKey } from './pm-plugins/plugin-key';
+import { ACTIONS } from './pm-plugins/types';
 import type {
 	AddItemAttrs,
 	AddItemTransactionCreator,
@@ -387,4 +390,11 @@ export const createListAtSelection = (
 	}
 
 	return safeInsert(emptyList)(tr);
+};
+
+export const setProvider = (provider?: TaskDecisionProvider) => (tr: Transaction) => {
+	return tr.setMeta(stateKey, {
+		action: ACTIONS.SET_PROVIDER,
+		data: provider,
+	});
 };

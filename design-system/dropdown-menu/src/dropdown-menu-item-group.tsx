@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import { useId } from '@atlaskit/ds-lib/react-uid';
+import { useId } from '@atlaskit/ds-lib/use-id';
 import { Section, type SectionProps } from '@atlaskit/menu';
 
 import GroupTitle from './internal/components/group-title';

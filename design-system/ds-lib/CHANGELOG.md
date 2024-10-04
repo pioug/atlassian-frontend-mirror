@@ -1,5 +1,13 @@
 # @atlaskit/ds-lib
 
+## 2.7.0
+
+### Minor Changes
+
+- [#148281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148281)
+  [`3c4de48168ffe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c4de48168ffe) -
+  Rename export of react-uid to use-id to fix import errors due to naming conflict
+
 ## 2.6.0
 
 ### Minor Changes

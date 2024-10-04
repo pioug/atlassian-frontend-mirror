@@ -1,4 +1,10 @@
 import type { GasPayload } from '@atlaskit/analytics-gas-types';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -146,7 +152,15 @@ export function createMentionPlugin(
 									sendAnalytics,
 								);
 							})
-							.catch(() => setProvider(undefined)(editorView.state, editorView.dispatch));
+							.catch(() => {
+								fireEvent({
+									action: ACTION.ERRORED,
+									actionSubject: ACTION_SUBJECT.MENTION,
+									actionSubjectId: ACTION_SUBJECT_ID.MENTION_PROVIDER,
+									eventType: EVENT_TYPE.OPERATIONAL,
+								});
+								return setProvider(undefined)(editorView.state, editorView.dispatch);
+							});
 						break;
 				}
 				return;

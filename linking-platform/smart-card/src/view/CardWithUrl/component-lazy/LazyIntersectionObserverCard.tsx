@@ -5,6 +5,8 @@ import { usePrefetch } from '../../../state';
 import { CardWithUrlContent } from '../component';
 import { LoadingCardLink } from './LoadingCardLink';
 import { startUfoExperience } from '../../../state/analytics/ufoExperiences';
+import { shouldSample } from '../../../utils/shouldSample';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 // This property enables the intersection observer to be run once the
 // HTML element being observed is within `X` px of the target container it is
@@ -16,6 +18,7 @@ export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
 	const ref = useRef<HTMLDivElement | null>(null);
 
 	const [isIntersecting, setIsIntersecting] = useState(false);
+	const [shouldSendRenderedUFOEvent] = useState(shouldSample());
 	const { appearance, url, id } = props;
 	const prefetch = usePrefetch(url);
 
@@ -26,14 +29,20 @@ export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
 		(entries, observer) => {
 			const isVisible = entries.some((entry) => entry.isIntersecting);
 			if (isVisible) {
-				startUfoExperience('smart-link-rendered', id);
+				if (fg('send-smart-link-rendered-ufo-event-half-time')) {
+					if (shouldSendRenderedUFOEvent) {
+						startUfoExperience('smart-link-rendered', id);
+					}
+				} else {
+					startUfoExperience('smart-link-rendered', id);
+				}
 				setIsIntersecting(true);
 				observer.disconnect();
 			} else {
 				prefetch();
 			}
 		},
-		[prefetch, id],
+		[id, prefetch, shouldSendRenderedUFOEvent],
 	);
 
 	useEffect(() => {

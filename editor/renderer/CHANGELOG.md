@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 111.1.4
+
+### Patch Changes
+
+- [#148229](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148229)
+  [`e79a40a7122b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e79a40a7122b6) -
+  Fix table offset in renderer when SSR fix is enabled
+- Updated dependencies
+
+## 111.1.3
+
+### Patch Changes
+
+- [#148476](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148476)
+  [`4a3547a1691e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a3547a1691e2) -
+  Reverting change to add onLoadComplete callback for useLoadAnnotations annotations hook
+
 ## 111.1.2
 
 ### Patch Changes

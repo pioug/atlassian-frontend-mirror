@@ -79,19 +79,17 @@ describe('Tables with a width attribute', () => {
 					it('should have the correct styles and layout attribute', () => {
 						(fg as jest.Mock).mockReturnValue(widthCalculatedByCSS);
 						const { container } = render(<Component />);
-						container.innerHTML;
+
 						if (widthCalculatedByCSS) {
 							if (
 								appearance === 'full-width' ||
 								appearance === 'full-page' ||
 								appearance === 'comment'
 							) {
-								expect(container.firstChild!).toHaveStyle(
-									'width: calc(min(800px, 100cqw - 32px * 2))',
-								);
-								expect(container.firstChild!).toHaveStyle(
-									'left: calc(760px / 2 - min(800px, 100cqw - 32px * 2) / 2)',
-								);
+								expect(container.firstChild!).toHaveStyle({
+									width: 'calc(min(800px, 100cqw - 32px * 2))',
+									left: 'calc(min(0px, 800px - min(800px, 100cqw - 32px * 2)) / 2)',
+								});
 							} else {
 								expect(container.firstChild!).toHaveStyle('width: 800px');
 							}
@@ -134,17 +132,18 @@ describe('Tables without a width attribute', () => {
 					it('should have the correct styles and layout attribute', () => {
 						(fg as jest.Mock).mockReturnValue(widthCalculatedByCSS);
 						const { container } = render(<Component />);
-						container.innerHTML;
 
 						if (widthCalculatedByCSS) {
 							if (appearance === 'full-page') {
-								expect(container.firstChild!).toHaveStyle(
-									`width: calc(min(800px, 100cqw - 32px * 2))`,
-								);
+								expect(container.firstChild!).toHaveStyle({
+									width: 'calc(min(760px, 100cqw - 32px * 2))',
+									left: 'calc(min(0px, 760px - min(760px, 100cqw - 32px * 2)) / 2)',
+								});
 							} else if (appearance === 'full-width') {
-								expect(container.firstChild!).toHaveStyle(
-									`width: calc(min(800px, 100cqw - 32px * 2))`,
-								);
+								expect(container.firstChild!).toHaveStyle({
+									width: 'calc(min(760px, 100cqw - 32px * 2))',
+									left: 'calc(min(0px, 760px - min(760px, 100cqw - 32px * 2)) / 2)',
+								});
 								expect(container.firstChild!).toHaveAttribute('data-layout', 'full-width');
 							} else {
 								expect(container.firstChild!).toHaveStyle('width: inherit');

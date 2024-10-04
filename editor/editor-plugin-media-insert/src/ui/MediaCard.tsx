@@ -24,10 +24,10 @@ export const MediaCard = ({ attrs, mediaProvider }: Props) => {
 
 	const dimensions = React.useMemo(() => {
 		return {
-			width: attrs.width,
-			height: attrs.height,
+			width: attrs.dimensions.width,
+			height: attrs.dimensions.height,
 		};
-	}, [attrs.width, attrs.height]);
+	}, [attrs.dimensions.width, attrs.dimensions.height]);
 
 	const identifier: Identifier = React.useMemo(
 		() => ({

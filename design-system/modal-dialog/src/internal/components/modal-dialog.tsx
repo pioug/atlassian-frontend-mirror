@@ -8,8 +8,8 @@ import { type CSSProperties, useEffect, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { useId } from '@atlaskit/ds-lib/react-uid';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
+import { useId } from '@atlaskit/ds-lib/use-id';
 import FocusRing from '@atlaskit/focus-ring';
 import { UNSAFE_useLayering, useCloseOnEscapePress } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';

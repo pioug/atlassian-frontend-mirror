@@ -81,10 +81,9 @@ describe('Fetcher', () => {
 			});
 
 			const promise = Fetcher.fetchClientSdk(CLIENT_VERSION, defaultFetcherOptions);
-			await expect(promise).rejects.toBeInstanceOf(ResponseError);
-			await expect(promise).rejects.toMatchObject({
-				message: 'Non 2xx response status received, status: 500, body: "something went wrong"',
-			});
+			await expect(promise).rejects.toEqual(
+				new ResponseError('Non 2xx response status received', 500, 'something went wrong'),
+			);
 		});
 
 		test('handles error 200 response', async () => {
@@ -97,7 +96,7 @@ describe('Fetcher', () => {
 			const promise = Fetcher.fetchClientSdk(CLIENT_VERSION, defaultFetcherOptions);
 			await expect(promise).rejects.toBeInstanceOf(SyntaxError);
 			await expect(promise).rejects.toThrow(
-				'Unexpected token \'i\', "invalid object" is not valid JSON',
+				`Unexpected token 'i', \"invalid object\" is not valid JSON`,
 			);
 		});
 
@@ -182,10 +181,7 @@ describe('Fetcher', () => {
 			const promise = Fetcher.fetchExperimentValues(CLIENT_VERSION, defaultFetcherOptions, {
 				atlassianAccountId: 'account-abc',
 			});
-			await expect(promise).rejects.toBeInstanceOf(ResponseError);
-			await expect(promise).rejects.toMatchObject({
-				message: 'Unexpected 204 response',
-			});
+			await expect(promise).rejects.toEqual(new ResponseError('Unexpected 204 response', 204, ''));
 		});
 
 		test('returns response error on failure', async () => {
@@ -198,10 +194,9 @@ describe('Fetcher', () => {
 			const promise = Fetcher.fetchExperimentValues(CLIENT_VERSION, defaultFetcherOptions, {
 				atlassianAccountId: 'account-abc',
 			});
-			await expect(promise).rejects.toBeInstanceOf(ResponseError);
-			await expect(promise).rejects.toMatchObject({
-				message: 'Non 2xx response status received, status: 500, body: "something went wrong"',
-			});
+			await expect(promise).rejects.toEqual(
+				new ResponseError('Non 2xx response status received', 500, 'something went wrong'),
+			);
 		});
 
 		test('handles error 200 response', async () => {
@@ -216,7 +211,7 @@ describe('Fetcher', () => {
 			});
 			await expect(promise).rejects.toBeInstanceOf(SyntaxError);
 			await expect(promise).rejects.toThrow(
-				'Unexpected token \'i\', "invalid object" is not valid JSON',
+				`Unexpected token 'i', \"invalid object\" is not valid JSON`,
 			);
 		});
 

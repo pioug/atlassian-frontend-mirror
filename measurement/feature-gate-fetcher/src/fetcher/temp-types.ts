@@ -67,15 +67,15 @@ export interface FrontendExperimentsResult extends InitializeValues {
 }
 
 export interface Provider {
+	setClientVersion: (clientVersion: string) => void;
 	setApplyUpdateCallback?: (
 		applyUpdate: (experimentsResult: FrontendExperimentsResult) => void,
 	) => void;
 	getExperimentValues: (
-		clientVersion: string,
 		clientOptions: ClientOptions,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	) => Promise<FrontendExperimentsResult>;
-	getClientSdkKey: (clientVersion: string, clientOptions: ClientOptions) => Promise<string>;
+	getClientSdkKey: (clientOptions: ClientOptions) => Promise<string>;
 	getApiKey?: () => string;
 }

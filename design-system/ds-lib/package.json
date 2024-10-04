@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ds-lib",
-	"version": "2.6.0",
+	"version": "2.7.0",
 	"description": "Reusable utilities and hooks specific to design system.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,7 +37,7 @@
 		"./deprecation-warning": "./src/utils/deprecation-warning.tsx",
 		"./warn-once": "./src/utils/warn-once.tsx",
 		"./merge-refs": "./src/utils/merge-refs.tsx",
-		"./react-uid": "./src/utils/react-uid.tsx",
+		"./use-id": "./src/utils/use-id.tsx",
 		"./use-controlled": "./src/hooks/use-controlled.tsx",
 		"./use-lazy-ref": "./src/hooks/use-lazy-ref.tsx",
 		"./use-lazy-callback": "./src/hooks/use-lazy-callback.tsx",
@@ -53,7 +53,7 @@
 		"./keycodes": "./src/utils/keycodes.tsx",
 		"./noop": "./src/utils/noop.tsx",
 		"./deprecation-warning": "./src/utils/deprecation-warning.tsx",
-		"./react-uid": "./src/utils/react-uid.tsx",
+		"./use-id": "./src/utils/use-id.tsx",
 		"./warn-once": "./src/utils/warn-once.tsx",
 		"./merge-refs": "./src/utils/merge-refs.tsx",
 		"./use-controlled": "./src/hooks/use-controlled.tsx",

@@ -8,7 +8,7 @@ import { memo, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
-import { useId } from '@atlaskit/ds-lib/react-uid';
+import { useId } from '@atlaskit/ds-lib/use-id';
 import Heading from '@atlaskit/heading';
 import ArrowleftIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ArrowrightIcon from '@atlaskit/icon/glyph/chevron-right-large';

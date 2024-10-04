@@ -1,5 +1,14 @@
 # @atlaskit/popup
 
+## 1.28.1
+
+### Patch Changes
+
+- [#148281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148281)
+  [`3c4de48168ffe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c4de48168ffe) -
+  Update the import path of `useId*` from `@atlaskit/ds-lib`
+- Updated dependencies
+
 ## 1.28.0
 
 ### Minor Changes

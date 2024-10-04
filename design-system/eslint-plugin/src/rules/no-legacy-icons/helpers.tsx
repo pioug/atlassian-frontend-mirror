@@ -388,14 +388,14 @@ export const createAutoMigrationError = ({
 	importSource,
 	iconName,
 	errors,
-	shouldAddSpaciousSpacing,
+	spacing,
 	insideNewButton,
 }: {
 	node: Node;
 	importSource: string;
 	iconName: string;
 	errors: ErrorListAuto;
-	shouldAddSpaciousSpacing?: boolean;
+	spacing?: string;
 	insideNewButton?: boolean;
 }) => {
 	const myError: IconMigrationError = {
@@ -404,7 +404,7 @@ export const createAutoMigrationError = ({
 		data: {
 			importSource,
 			iconName,
-			spacing: shouldAddSpaciousSpacing ? 'spacious' : '',
+			spacing: spacing ?? '',
 			// value type need to be a string in Rule.ReportDescriptor
 			insideNewButton: String(insideNewButton),
 		},
@@ -681,15 +681,10 @@ const createPropFixes = ({
 }) => {
 	const fixes: Rule.Fix[] = [];
 
-	const { importSource, spacing, insideNewButton } = metadata;
+	const { spacing, insideNewButton } = metadata;
 	if (shouldUseMigrationPath && !legacyImportNode) {
 		return fixes;
 	}
-	const importPath = migrationImportNode
-		? importSource.replace('/migration', '').split('--')[0]
-		: getNewIconNameAndImportPath(importSource, shouldUseMigrationPath).importPath;
-
-	const iconType = importPath?.startsWith('@atlaskit/icon/core') ? 'core' : 'utility';
 
 	if (node.type === 'JSXElement') {
 		const { openingElement } = node;
@@ -730,7 +725,7 @@ const createPropFixes = ({
 		const sizeProp = findProp(attributes, 'size');
 		const spacingProp = findProp(attributes, 'spacing');
 
-		if (spacing && !spacingProp && iconType === 'core' && !migrationImportNode) {
+		if (spacing && !spacingProp && !migrationImportNode) {
 			fixes.push(fixer.insertTextAfter(sizeProp || openingElement.name, ` spacing="${spacing}"`));
 		}
 

@@ -9,6 +9,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as gridSizeFn, layers } from '@atlaskit/theme/constants';
@@ -96,6 +97,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 	trigger,
 	zIndex = layers.modal(),
 	label,
+	interactionName,
 }: DropdownMenuProps<T>) => {
 	const [isLocalOpen, setLocalIsOpen] = useControlledState(isOpen, () => defaultOpen);
 	const triggerRef = useRef<HTMLElement | null>(null);
@@ -133,7 +135,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 			setLocalIsOpen(newValue);
 			onOpenChange({ isOpen: newValue, event });
 		},
-		[itemRef, onOpenChange, isLocalOpen, setLocalIsOpen],
+		[isLocalOpen, setLocalIsOpen, onOpenChange, itemRef],
 	);
 
 	const handleOnClose = useCallback(
@@ -283,6 +285,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 								onClick={handleTriggerClicked}
 								testId={testId && `${testId}--trigger`}
 								aria-label={label}
+								{...(fg('platform_button_item-add-ufo-metrics') && { interactionName })}
 							>
 								{trigger}
 							</Button>

@@ -13,6 +13,7 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 import type { insertTaskDecisionCommand } from './commands';
 import type { getIndentCommand, getUnindentCommand } from './pm-plugins/keymaps';
@@ -79,16 +80,34 @@ export interface TaskDecisionPluginOptions extends LongPressSelectionPluginOptio
 	 * Function to request edit permission.
 	 */
 	requestToEditContent?: () => void;
+
+	/**
+	 * The provider for tasks and decisions.
+	 */
+	taskDecisionProvider?: Promise<TaskDecisionProvider>;
 }
 
-export type TaskAndDecisionsSharedState = {
+export type TaskDecisionPluginState = {
+	insideTaskDecisionItem: boolean;
 	focusedTaskItemLocalId: string | null;
-	indentDisabled: boolean;
-	outdentDisabled: boolean;
-	isInsideTask: boolean;
 	hasEditPermission?: boolean;
 	hasRequestedEditPermission?: boolean;
 	requestToEditContent?: () => void;
+	taskDecisionProvider: TaskDecisionProvider | undefined;
+};
+
+export type TaskAndDecisionsSharedState = Pick<
+	TaskDecisionPluginState,
+	| 'focusedTaskItemLocalId'
+	| 'hasEditPermission'
+	| 'requestToEditContent'
+	| 'taskDecisionProvider'
+	| 'hasRequestedEditPermission'
+> & {
+	// derived state
+	isInsideTask: boolean;
+	indentDisabled: boolean;
+	outdentDisabled: boolean;
 };
 
 export type TasksAndDecisionsPlugin = NextEditorPlugin<
@@ -106,6 +125,7 @@ export type TasksAndDecisionsPlugin = NextEditorPlugin<
 			insertTaskDecision: ReturnType<typeof insertTaskDecisionCommand>;
 			indentTaskList: ReturnType<typeof getIndentCommand>;
 			outdentTaskList: ReturnType<typeof getUnindentCommand>;
+			setProvider: (provider: Promise<TaskDecisionProvider>) => Promise<boolean>;
 		};
 		commands: {
 			updateEditPermission: (hasEditPermission: boolean | undefined) => EditorCommand;

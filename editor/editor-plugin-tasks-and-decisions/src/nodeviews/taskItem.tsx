@@ -215,6 +215,7 @@ const TaskItemWrapper = ({
 				isFocused={isFocused}
 				showPlaceholder={showPlaceholder}
 				providers={providerFactory}
+				api={api}
 			/>
 		);
 	}
@@ -268,6 +269,7 @@ const TaskItemWrapper = ({
 						showPlaceholder={showPlaceholder}
 						providers={providerFactory}
 						disableOnChange={!api?.taskDecision?.sharedState.currentState()?.hasEditPermission}
+						api={api}
 					/>
 				);
 			}}

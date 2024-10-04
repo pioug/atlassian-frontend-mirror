@@ -26,6 +26,8 @@ import {
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
 	dragToMoveDown,
+	dragToMoveLeft,
+	dragToMoveRight,
 	dragToMoveUp,
 	getAriaKeyshortcuts,
 	TooltipContentWithMultipleShortcuts,
@@ -33,6 +35,7 @@ import {
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -424,7 +427,7 @@ const DragHandleInternal = ({
 		}
 	}, [buttonRef, handleOptions?.isFocused, view]);
 
-	const helpDescriptors = isTopLevelNode
+	let helpDescriptors = isTopLevelNode
 		? [
 				{
 					description: formatMessage(blockControlsMessages.dragToMove),
@@ -442,8 +445,40 @@ const DragHandleInternal = ({
 				{
 					description: formatMessage(blockControlsMessages.dragToMove),
 				},
+				{
+					description: formatMessage(blockControlsMessages.moveUp),
+					keymap: dragToMoveUp,
+				},
+				{
+					description: formatMessage(blockControlsMessages.moveDown),
+					keymap: dragToMoveDown,
+				},
 			];
 
+	let isParentNodeOfTypeLayout;
+	if (
+		!isTopLevelNode &&
+		handleOptions?.isFocused &&
+		fg('platform_editor_element_dnd_nested_a11y')
+	) {
+		isParentNodeOfTypeLayout =
+			nodeType === 'layoutSection' ||
+			!!findParentNodeOfType([view.state.schema.nodes.layoutSection])(view.state.selection);
+
+		if (isParentNodeOfTypeLayout) {
+			helpDescriptors = [
+				...helpDescriptors,
+				{
+					description: formatMessage(blockControlsMessages.moveLeft),
+					keymap: dragToMoveLeft,
+				},
+				{
+					description: formatMessage(blockControlsMessages.moveRight),
+					keymap: dragToMoveRight,
+				},
+			];
+		}
+	}
 	const message = helpDescriptors
 		.map((descriptor) => {
 			return descriptor.keymap

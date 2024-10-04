@@ -1,5 +1,13 @@
 # @atlaskit/contextual-survey
 
+## 2.4.0
+
+### Minor Changes
+
+- [#147230](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147230)
+  [`0450aceb2400a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0450aceb2400a) -
+  Enable new icons behind a feature flag.
+
 ## 2.3.3
 
 ### Patch Changes

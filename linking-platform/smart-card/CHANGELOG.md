@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 29.0.2
+
+### Patch Changes
+
+- [#147818](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147818)
+  [`56e97352c27dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56e97352c27dc) -
+  Send smart-link-rendered UFO event only half of the time
+
 ## 29.0.1
 
 ### Patch Changes

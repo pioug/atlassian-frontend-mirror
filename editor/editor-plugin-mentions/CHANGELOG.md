@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-mentions
 
+## 2.7.0
+
+### Minor Changes
+
+- [#148601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148601)
+  [`e11f6a141cfe5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e11f6a141cfe5) -
+  [ED-23460] **@atlaskit/editor-plugin-mentions**: Track when mention providers fail to resolve
+  **@atlaskit/editor-common**: Add enums for mention provider reporting
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.7
 
 ### Patch Changes

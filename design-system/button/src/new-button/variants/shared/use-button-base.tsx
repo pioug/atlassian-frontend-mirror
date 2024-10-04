@@ -1,8 +1,8 @@
 import React, { Fragment, useRef } from 'react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { useId } from '@atlaskit/ds-lib/react-uid';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
+import { useId } from '@atlaskit/ds-lib/use-id';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import * as colors from '@atlaskit/theme/colors';
@@ -102,8 +102,8 @@ const hardCodedButtonStyles = xcss({
 });
 
 const tokenizedButtonStyles = xcss({
-	font: token('font.body'),
-	fontWeight: token('font.weight.medium'),
+	font: 'font.body',
+	fontWeight: 'font.weight.medium',
 	paddingBlock: 'space.075',
 });
 

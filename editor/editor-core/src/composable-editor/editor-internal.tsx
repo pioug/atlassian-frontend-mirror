@@ -252,6 +252,7 @@ function ReactEditorViewContextWrapper(props: ReactEditorViewContextWrapperProps
 			(UNSAFE_cards && UNSAFE_cards.provider),
 		emojiProvider: props.editorProps.emojiProvider,
 		autoformattingProvider: props.editorProps.autoformattingProvider,
+		taskDecisionProvider: props.editorProps.taskDecisionProvider,
 	});
 
 	return (

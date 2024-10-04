@@ -4,6 +4,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import ButtonItem from '@atlaskit/menu/button-item';
 import CustomItem from '@atlaskit/menu/custom-item';
 import LinkItem from '@atlaskit/menu/link-item';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
 import { type CustomItemHtmlProps, type DropdownItemProps } from './types';
@@ -36,6 +37,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 			testId,
 			UNSAFE_shouldDisableRouterLink,
 			returnFocusRef,
+			interactionName,
 			...rest
 		}: DropdownItemProps,
 		ref,
@@ -74,6 +76,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 					// @ts-expect-error
 					target={target}
 					rel={rel}
+					{...(fg('platform_button_item-add-ufo-metrics') && { interactionName })}
 					// DSP-13312 TODO: remove spread props in future major release
 					{...rest}
 				>
@@ -98,6 +101,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 					target={target}
 					testId={testId}
 					UNSAFE_shouldDisableRouterLink={UNSAFE_shouldDisableRouterLink}
+					{...(fg('platform_button_item-add-ufo-metrics') && { interactionName })}
 					// DSP-13312 TODO: remove spread props in future major release
 					{...rest}
 				>
@@ -123,6 +127,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 					// @ts-expect-error
 					target={target}
 					rel={rel}
+					{...(fg('platform_button_item-add-ufo-metrics') && { interactionName })}
 					// DSP-13312 TODO: remove spread props in future major release
 					{...rest}
 				>

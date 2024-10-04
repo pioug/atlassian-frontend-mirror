@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-card
 
+## 3.4.4
+
+### Patch Changes
+
+- [#147230](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147230)
+  [`9221804a29ac8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9221804a29ac8) -
+  [ux] Remove FF platform.linking-platform.datasource-enable-toolbar-buttons-for-all-datasources
+- Updated dependencies
+
+## 3.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.2
 
 ### Patch Changes

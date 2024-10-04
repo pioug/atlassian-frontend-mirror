@@ -292,6 +292,7 @@ export default function createUniversalPresetInternal({
 					allowNestedTasks: props.allowNestedTasks,
 					consumeTabs: isFullPage,
 					useLongPressSelection: false,
+					taskDecisionProvider: props.taskDecisionProvider,
 					...initialPluginConfiguration?.tasksAndDecisionsPlugin,
 				},
 			],

@@ -6,7 +6,7 @@
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import { N0, N50, N50A, N60A } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -41,7 +41,7 @@ export default ({ children, onDismiss }: Props) => {
 				})}
 			>
 				<Button
-					iconBefore={<CrossIcon label="" primaryColor={token('color.icon.subtle', N50)} />}
+					iconBefore={<CrossIcon label="" color={token('color.icon.subtle', N50)} />}
 					aria-label="Dismiss"
 					appearance="subtle"
 					onClick={onDismiss}

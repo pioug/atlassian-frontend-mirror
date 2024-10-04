@@ -9,7 +9,7 @@ import { jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
-import { useId } from '@atlaskit/ds-lib/react-uid';
+import { useId } from '@atlaskit/ds-lib/use-id';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import Header from './internal/components/header';

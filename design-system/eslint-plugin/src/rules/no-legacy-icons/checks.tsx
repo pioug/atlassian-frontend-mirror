@@ -517,7 +517,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				importSource: migrationIconImports[name].packageName,
 				iconName: name,
 				errors: errorsAuto,
-				shouldAddSpaciousSpacing,
+				spacing: shouldAddSpaciousSpacing ? 'spacious' : undefined,
 				insideNewButton,
 			});
 		}
@@ -641,22 +641,27 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 					: migrationMapObject?.sizeGuidance[size ?? 'medium'],
 			);
 
-			// Add spacious spacing if:
-			// 1. size is medium, or not set (default is medium)
+			// Add spacing if:
+			// 1. size is medium for core/utility icons or small for utility icons, or not set (default is medium for core and small for utility icons)
 			// 2. not inside a new or legacy button
 			const sizeProp = node.openingElement.attributes.find(
 				(attribute) =>
 					attribute.type === 'JSXAttribute' &&
 					(attribute.name.name === 'size' || attribute.name.name === 'LEGACY_size'),
 			);
-			const shouldAddSpaciousSpacing =
-				((sizeProp &&
-					sizeProp.type === 'JSXAttribute' &&
-					sizeProp.value?.type === 'Literal' &&
-					sizeProp.value.value === 'medium') ||
-					!sizeProp) &&
-				!insideNewButton &&
-				!insideLegacyButton;
+
+			let spacing: string | undefined;
+			if (!insideNewButton && !insideLegacyButton) {
+				if (sizeProp && sizeProp.type === 'JSXAttribute' && sizeProp.value?.type === 'Literal') {
+					if (sizeProp.value.value === 'medium') {
+						spacing = 'spacious';
+					} else if (sizeProp.value.value === 'small' && newIcon?.type === 'utility') {
+						spacing = 'compact';
+					}
+				} else if (!sizeProp) {
+					spacing = 'spacious';
+				}
+			}
 
 			if (!hasManualMigration && (newIcon || upcomingIcon) && isNewIconMigratable) {
 				createAutoMigrationError({
@@ -664,7 +669,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 					importSource: legacyIconImports[name].packageName,
 					iconName: name,
 					errors: errorsAuto,
-					shouldAddSpaciousSpacing,
+					spacing,
 					insideNewButton,
 				});
 			} else if (((!newIcon && !upcomingIcon) || !isNewIconMigratable) && size) {

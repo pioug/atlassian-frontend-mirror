@@ -18,6 +18,8 @@ export type {
 	FrontendClientSdkKeyResponse,
 } from './types';
 
+export { ResponseError } from './errors';
+
 const DEFAULT_REQUEST_TIMEOUT_MS = 5000;
 
 const PROD_BASE_URL = 'https://api.atlassian.com/flags';
@@ -27,6 +29,7 @@ export const FEDM_STAGING_BASE_URL = 'https://api.stg.atlassian-us-gov-mod.com/f
 export const FEDM_PROD_BASE_URL = 'https://api.atlassian-us-gov-mod.com/flags';
 
 export const GATEWAY_BASE_URL = '/gateway/api/flags';
+export const EXPERIMENT_VALUES_API_VERSION = 'v2';
 
 type Method = 'GET' | 'POST';
 
@@ -62,7 +65,7 @@ export default class Fetcher {
 		try {
 			return await this.fetchRequest(
 				clientVersion,
-				'/api/v2/frontend/experimentValues',
+				`/api/${EXPERIMENT_VALUES_API_VERSION}/frontend/experimentValues`,
 				'POST',
 				fetcherOptions,
 				requestBody,
@@ -80,14 +83,14 @@ export default class Fetcher {
 			// Use text() instead of json() as the error body might not be json data
 			const body = await response.text();
 			throw new ResponseError(
-				`Non 2xx response status received, status: ${
-					response.status
-				}, body: ${JSON.stringify(body)}`,
+				'Non 2xx response status received',
+				response.status,
+				JSON.stringify(body),
 			);
 		}
 
 		if (response.status === 204) {
-			throw new ResponseError('Unexpected 204 response');
+			throw new ResponseError('Unexpected 204 response', response.status, '');
 		}
 	}
 

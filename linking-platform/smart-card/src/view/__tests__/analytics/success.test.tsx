@@ -1,8 +1,11 @@
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 jest.mock('../../../utils', () => ({
 	...jest.requireActual<Object>('../../../utils'),
 	downloadUrl: jest.fn(),
 	isSpecialEvent: jest.fn(() => false),
 }));
+jest.mock('../../../utils/shouldSample');
 
 import './success.test.mock';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
@@ -19,6 +22,7 @@ import { type JestFunction, asMock } from '@atlaskit/media-test-helpers';
 import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
 import { isSpecialEvent } from '../../../utils';
+import { shouldSample } from '../../../utils/shouldSample';
 import * as cardWithUrlContent from '../../CardWithUrl/component';
 
 mockSimpleIntersectionObserver();
@@ -146,9 +150,52 @@ describe('smart-card: success analytics', () => {
 			expect(mockSucceedUfoExperience).toHaveBeenCalledAfter(mockStartUfoExperience as jest.Mock);
 		});
 
+		ffTest.on('send-smart-link-rendered-ufo-event-half-time', '', () => {
+			it('should not fire UFO render experience analytics event when coin flip ends with tail', async () => {
+				asMock(shouldSample).mockReturnValue(false);
+				const mockUrl = 'https://this.is.the.sixth.url';
+				const { findByTestId, getByRole } = render(
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
+						</Provider>
+					</IntlProvider>,
+				);
+				const resolvedView = await findByTestId('resolvedCard1-resolved-view');
+				const resolvedCard = getByRole('button');
+				expect(resolvedView).toBeTruthy();
+				expect(resolvedCard).toBeTruthy();
+
+				expect(mockStartUfoExperience).not.toHaveBeenCalledWith(
+					'smart-link-rendered',
+					'some-uuid-1',
+				);
+			});
+		});
+
+		ffTest.off('send-smart-link-rendered-ufo-event-half-time', '', () => {
+			it('should fire UFO render experience analytics event when coin flip ends with tail', async () => {
+				asMock(shouldSample).mockReturnValue(false);
+				const mockUrl = 'https://this.is.the.sixth.url';
+				const { findByTestId, getByRole } = render(
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
+						</Provider>
+					</IntlProvider>,
+				);
+				const resolvedView = await findByTestId('resolvedCard1-resolved-view');
+				const resolvedCard = getByRole('button');
+				expect(resolvedView).toBeTruthy();
+				expect(resolvedCard).toBeTruthy();
+
+				expect(mockStartUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1');
+			});
+		});
+
 		it('should not send repeated render success events when nonessential props are changed', async () => {
 			const mockUrl = 'https://this.is.the.sixth.url';
-			const { getByTestId, rerender } = render(
+			const { rerender, findByTestId } = render(
 				<Provider client={mockClient}>
 					<Card
 						testId="resolvedCard1"
@@ -162,9 +209,7 @@ describe('smart-card: success analytics', () => {
 				</Provider>,
 			);
 
-			await waitFor(() => getByTestId('resolvedCard1-resolved-view'), {
-				timeout: 10000,
-			});
+			await findByTestId('resolvedCard1-resolved-view');
 
 			rerender(
 				<Provider client={mockClient}>
@@ -177,14 +222,12 @@ describe('smart-card: success analytics', () => {
 
 		it('should add the cached tag to UFO render experience when the same link url is rendered again', async () => {
 			const mockUrl = 'https://this.is.the.seventh.url';
-			const { rerender, getByTestId } = render(
+			const { rerender, findByTestId } = render(
 				<Provider client={mockClient}>
 					<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
 				</Provider>,
 			);
-			await waitFor(() => getByTestId('resolvedCard1-resolved-view'), {
-				timeout: 10000,
-			});
+			await findByTestId('resolvedCard1-resolved-view');
 
 			expect(mockAddMetadataToExperience).not.toHaveBeenCalled();
 
@@ -195,12 +238,8 @@ describe('smart-card: success analytics', () => {
 				</Provider>,
 			);
 
-			await waitFor(() => getByTestId('resolvedCard1-resolved-view'), {
-				timeout: 10000,
-			});
-			await waitFor(() => getByTestId('resolvedCard2-resolved-view'), {
-				timeout: 10000,
-			});
+			await findByTestId('resolvedCard1-resolved-view');
+			await findByTestId('resolvedCard2-resolved-view');
 
 			expect(mockStartUfoExperience.mock.calls).toIncludeAllMembers([
 				['smart-link-rendered', 'some-uuid-1'],

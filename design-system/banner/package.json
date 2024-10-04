@@ -50,7 +50,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/ds-lib": "^2.6.0",
+		"@atlaskit/ds-lib": "^2.7.0",
 		"@atlaskit/icon": "^22.20.0",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^12.1.5",

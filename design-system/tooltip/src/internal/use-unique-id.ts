@@ -1,4 +1,4 @@
-import { useIdSeed } from '@atlaskit/ds-lib/react-uid';
+import { useIdSeed } from '@atlaskit/ds-lib/use-id';
 
 /**
  * Generates unique ID.

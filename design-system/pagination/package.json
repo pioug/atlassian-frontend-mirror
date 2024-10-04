@@ -43,7 +43,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/ds-lib": "^2.6.0",
+		"@atlaskit/ds-lib": "^2.7.0",
 		"@atlaskit/icon": "^22.20.0",
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/tokens": "^2.0.0",

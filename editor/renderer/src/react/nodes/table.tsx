@@ -186,8 +186,6 @@ interface TableState {
 	headerRowHeight: number;
 }
 
-const canUseLinelength = (appearance: RendererAppearance) => appearance === 'full-page';
-
 export class TableContainer extends React.Component<
 	TableProps & OverflowShadowProps & WithSmartCardStorageProps,
 	TableState
@@ -470,13 +468,21 @@ export class TableContainer extends React.Component<
 			leftCSS = `(${tableWidthCSS} - ${lineLengthCSS}) / 2`;
 		}
 
-		if (
-			!shouldCalculateLeftForAlignment &&
-			canUseLinelength(rendererAppearance) &&
-			tableWidthNew > lineLengthFixedWidth
-		) {
-			left = lineLengthFixedWidth / 2 - tableWidth / 2;
-			leftCSS = `${lineLengthCSS} / 2 - ${tableWidthCSS} / 2`;
+		if (fixTableSSRResizing) {
+			if (!shouldCalculateLeftForAlignment && isFullPageAppearance(rendererAppearance)) {
+				// Note tableWidthCSS here is the renderer width
+				// When the screen is super wide we want table to break out.
+				// However if screen is smaller than 760px. We want table align to left.
+				leftCSS = `min(0px, ${lineLengthCSS} - ${tableWidthCSS}) / 2`;
+			}
+		} else {
+			if (
+				!shouldCalculateLeftForAlignment &&
+				isFullPageAppearance(rendererAppearance) &&
+				tableWidthNew > lineLengthFixedWidth
+			) {
+				left = lineLengthFixedWidth / 2 - tableWidth / 2;
+			}
 		}
 
 		const children = React.Children.toArray(this.props.children);

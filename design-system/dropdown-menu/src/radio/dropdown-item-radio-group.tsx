@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { useId } from '@atlaskit/ds-lib/react-uid';
+import { useId } from '@atlaskit/ds-lib/use-id';
 import { Section, type SectionProps } from '@atlaskit/menu';
 
 import GroupTitle from '../internal/components/group-title';

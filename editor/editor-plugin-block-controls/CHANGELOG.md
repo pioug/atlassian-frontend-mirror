@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.2.0
+
+### Minor Changes
+
+- [#148229](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148229)
+  [`657f160f0cfc0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/657f160f0cfc0) -
+  Add a11y support on moving nested elements
+
+### Patch Changes
+
+- [#137506](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137506)
+  [`bc1742c9fd32e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc1742c9fd32e) -
+  ED-24902: Fix to only check when to hide drag handle on doc level (behind
+  confluence_frontend_page_title_enter_improvements)
+- Updated dependencies
+
 ## 2.1.11
 
 ### Patch Changes

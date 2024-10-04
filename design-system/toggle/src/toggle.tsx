@@ -9,7 +9,7 @@ import { jsx } from '@emotion/react';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
-import { useId } from '@atlaskit/ds-lib/react-uid';
+import { useId } from '@atlaskit/ds-lib/use-id';
 import type { Size as IconSize } from '@atlaskit/icon/types';
 import CheckMarkIcon from '@atlaskit/icon/utility/migration/check-mark--editor-done';
 import CloseIcon from '@atlaskit/icon/utility/migration/cross--editor-close';

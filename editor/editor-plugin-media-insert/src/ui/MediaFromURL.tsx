@@ -155,8 +155,7 @@ export function MediaFromURL({
 					payload: {
 						id: uploadableFileUpfrontIds.id,
 						collection,
-						height: dimensions.height,
-						width: dimensions.width,
+						dimensions,
 						occurrenceKey: uploadableFileUpfrontIds.occurrenceKey,
 						fileMimeType: mimeType,
 					},

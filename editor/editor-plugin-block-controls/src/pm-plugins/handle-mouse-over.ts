@@ -15,6 +15,7 @@ const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
 const isDocFirstChildEmptyLine = (elem: Element) => {
 	const parentElement = elem.parentElement;
 	return (
+		parentElement?.classList.contains('ProseMirror') &&
 		parentElement?.firstElementChild === elem &&
 		['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(elem.nodeName) &&
 		elem.childNodes.length === 1 &&

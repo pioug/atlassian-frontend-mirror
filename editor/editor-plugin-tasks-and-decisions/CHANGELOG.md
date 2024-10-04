@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.9.0
+
+### Minor Changes
+
+- [#137506](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/137506)
+  [`75c4ebf9d7515`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75c4ebf9d7515) -
+  Pass TaskDecisionProvider via preset
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.0
+
+### Minor Changes
+
+- [#148391](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148391)
+  [`3588af87c8dc3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3588af87c8dc3) -
+  [ux] ED-24964 Sync up request to edit between plugin and confluence
+
 ## 2.7.7
 
 ### Patch Changes

@@ -31,7 +31,7 @@
 		"codegen-tokens": "run-ts ./scripts/style-dictionary/build.tsx && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/heading && yarn codegen"
 	},
 	"dependencies": {
-		"@atlaskit/ds-lib": "^2.6.0",
+		"@atlaskit/ds-lib": "^2.7.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@babel/traverse": "^7.23.2",

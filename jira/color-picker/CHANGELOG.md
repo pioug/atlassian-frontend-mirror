@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 3.4.0
+
+### Minor Changes
+
+- [#148825](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148825)
+  [`6ae0fe514c103`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ae0fe514c103) -
+  Enable new icons behind a feature flag.
+
 ## 3.3.3
 
 ### Patch Changes

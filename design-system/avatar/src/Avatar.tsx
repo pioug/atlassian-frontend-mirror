@@ -21,7 +21,7 @@ import { ClassNames, jsx } from '@emotion/react';
 import { type CSSInterpolation } from '@emotion/serialize';
 
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { useId } from '@atlaskit/ds-lib/react-uid';
+import { useId } from '@atlaskit/ds-lib/use-id';
 import FocusRing from '@atlaskit/focus-ring';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N70A } from '@atlaskit/theme/colors';

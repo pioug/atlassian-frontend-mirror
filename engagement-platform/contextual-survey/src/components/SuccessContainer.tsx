@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
+import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
 import { G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -24,11 +24,17 @@ export default ({ children }: Props) => (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={css({
 				position: 'absolute',
-				top: token('space.300', '24px'),
+				top: token('space.250', '20px'),
 				left: token('space.300', '24px'),
 			})}
 		>
-			<CheckCircleIcon label="" aria-hidden primaryColor={token('color.icon.success', G300)} />
+			<CheckCircleIcon
+				spacing="spacious"
+				label=""
+				aria-hidden
+				color={token('color.icon.success', G300)}
+				LEGACY_margin="4px 0 0 0"
+			/>
 		</div>
 		{children}
 	</section>

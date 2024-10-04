@@ -309,6 +309,13 @@ export interface EditorNextProps
 	// Editor assitive describedby. Set aria-describedby to make the editor announcement to include the information
 	// the associated component's content
 	assistiveDescribedBy?: string;
+
+	// @deprecated - pass provider directly to emojiPlugin via the preset
+	emojiProvider?: Providers['emojiProvider'];
+	// @deprecated - pass taskDecisionProvider directly to taskDecisionPlugin via the preset
+	taskDecisionProvider?: Promise<TaskDecisionProvider>;
+	// @deprecated - pass autoformattingProvider directly to customAutoformatPlugin via the preset
+	autoformattingProvider?: Providers['autoformattingProvider'];
 }
 
 export interface EditorProviderProps {

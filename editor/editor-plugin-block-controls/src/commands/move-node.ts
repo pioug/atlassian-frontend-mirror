@@ -14,6 +14,7 @@ import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/edit
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { NodeType, Slice } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -53,7 +54,7 @@ function transformSourceSlice(nodeCopy: Slice, destType: NodeType): Slice | null
  *
  * @returns the start position of a node if the node can be moved, otherwise -1
  */
-const getCurrentNodePos = (state: EditorState): number => {
+const getCurrentNodePos = (state: EditorState, isParentNodeOfTypeLayout?: boolean): number => {
 	const { selection } = state;
 	const { activeNode } = key.getState(state) || {};
 	let currentNodePos = -1;
@@ -72,6 +73,13 @@ const getCurrentNodePos = (state: EditorState): number => {
 		// 2. caret cursor is inside the node
 		// 3. the start of the selection is inside the node
 		currentNodePos = selection.$from.before(1);
+
+		if (fg('platform_editor_element_dnd_nested_a11y')) {
+			currentNodePos =
+				selection.$from.depth > (isParentNodeOfTypeLayout ? 2 : 1)
+					? selection.$from.before(selection.$from.depth)
+					: selection.$from.before(1);
+		}
 	}
 	return currentNodePos;
 };
@@ -82,16 +90,50 @@ export const moveNodeViaShortcut = (
 	formatMessage?: IntlShape['formatMessage'],
 ): Command => {
 	return (state) => {
-		const currentNodePos = getCurrentNodePos(state);
+		let isParentNodeOfTypeLayout;
+		if (fg('platform_editor_element_dnd_nested_a11y')) {
+			isParentNodeOfTypeLayout = !!findParentNodeOfType([state.schema.nodes.layoutSection])(
+				state.selection,
+			);
+		}
+
+		const currentNodePos = getCurrentNodePos(state, isParentNodeOfTypeLayout);
+
 		if (currentNodePos > -1) {
 			const $pos = state.doc.resolve(currentNodePos);
 			let moveToPos = -1;
 
-			if (direction === DIRECTION.UP) {
-				const nodeBefore = $pos.nodeBefore;
-				if (nodeBefore) {
-					moveToPos = currentNodePos - nodeBefore.nodeSize;
+			const nodeIndex = $pos.index();
+
+			if (direction === DIRECTION.LEFT && fg('platform_editor_element_dnd_nested_a11y')) {
+				if ($pos.depth < 2 || !isParentNodeOfTypeLayout) {
+					return false;
 				}
+
+				// get the previous layoutSection node
+				const index = $pos.index($pos.depth - 1);
+				const grandParent = $pos.node($pos.depth - 1);
+				const previousNode = grandParent ? grandParent.maybeChild(index - 1) : null;
+
+				moveToPos = $pos.start() - (previousNode?.nodeSize || 1);
+			} else if (direction === DIRECTION.RIGHT && fg('platform_editor_element_dnd_nested_a11y')) {
+				if ($pos.depth < 2 || !isParentNodeOfTypeLayout) {
+					return false;
+				}
+
+				moveToPos = $pos.after($pos.depth) + 1;
+			} else if (direction === DIRECTION.UP) {
+				const nodeBefore =
+					$pos.depth > 1 && nodeIndex === 0 && fg('platform_editor_element_dnd_nested_a11y')
+						? $pos.node($pos.depth)
+						: $pos.nodeBefore;
+
+				moveToPos =
+					$pos.depth > 1 && nodeIndex === 0 && fg('platform_editor_element_dnd_nested_a11y')
+						? $pos.before($pos.depth) - 1
+						: nodeBefore
+							? currentNodePos - nodeBefore.nodeSize
+							: moveToPos;
 			} else {
 				const endOfDoc = $pos.end();
 				const nodeAfterPos = $pos.posAtIndex($pos.index() + 1);
@@ -104,7 +146,13 @@ export const moveNodeViaShortcut = (
 			}
 
 			const nodeType = state.doc.nodeAt(currentNodePos)?.type.name;
-			if (moveToPos > -1) {
+
+			// only move the node if the destination is at the same depth, not support moving a nested node to a parent node
+			const shouldMoveNode = fg('platform_editor_element_dnd_nested_a11y')
+				? moveToPos > -1 && $pos.depth === state.doc.resolve(moveToPos).depth
+				: moveToPos > -1;
+
+			if (shouldMoveNode) {
 				api?.core?.actions.execute(({ tr }) => {
 					moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.SHORTCUT, formatMessage)({ tr });
 					tr.scrollIntoView();

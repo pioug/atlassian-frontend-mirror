@@ -51,6 +51,7 @@ describe('SingeFetchProvider', () => {
 		});
 		mockedFetcher.fetchClientSdk.mockResolvedValue({ clientSdkKey: mockClientSdkKey });
 		provider = new SingleFetchProvider(providerOptions);
+		provider.setClientVersion(mockClientVersion);
 	});
 
 	afterEach(() => {
@@ -61,12 +62,7 @@ describe('SingeFetchProvider', () => {
 	describe('getExperimentValues', function () {
 		test('successfully', async () => {
 			await expect(
-				provider.getExperimentValues(
-					mockClientVersion,
-					mockClientOptions,
-					mockIdentifiers,
-					mockCustomAttributes,
-				),
+				provider.getExperimentValues(mockClientOptions, mockIdentifiers, mockCustomAttributes),
 			).resolves.toStrictEqual({
 				experimentValues: mockExperimentValues,
 				customAttributesFromFetch: mockCustomAttributesFromFetch,
@@ -92,12 +88,7 @@ describe('SingeFetchProvider', () => {
 			);
 
 			await expect(
-				provider.getExperimentValues(
-					mockClientVersion,
-					mockClientOptions,
-					mockIdentifiers,
-					mockCustomAttributes,
-				),
+				provider.getExperimentValues(mockClientOptions, mockIdentifiers, mockCustomAttributes),
 			).rejects.toThrow('failed to fetch experiment values');
 			await expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledWith(
 				mockClientVersion,
@@ -116,9 +107,7 @@ describe('SingeFetchProvider', () => {
 
 	describe('getClientSdkKey', function () {
 		test('successfully', async () => {
-			await expect(provider.getClientSdkKey(mockClientVersion, mockClientOptions)).resolves.toBe(
-				mockClientSdkKey,
-			);
+			await expect(provider.getClientSdkKey(mockClientOptions)).resolves.toBe(mockClientSdkKey);
 			await expect(mockedFetcher.fetchClientSdk).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
@@ -131,7 +120,7 @@ describe('SingeFetchProvider', () => {
 		test('error thrown when fetch rejects', async () => {
 			mockedFetcher.fetchClientSdk.mockRejectedValue(new Error('failed to fetch client sdk key'));
 
-			await expect(provider.getClientSdkKey(mockClientVersion, mockClientOptions)).rejects.toThrow(
+			await expect(provider.getClientSdkKey(mockClientOptions)).rejects.toThrow(
 				'failed to fetch client sdk key',
 			);
 			await expect(mockedFetcher.fetchClientSdk).toHaveBeenCalledWith(mockClientVersion, {

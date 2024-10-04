@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "2.1.11",
+	"version": "2.2.0",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.9.0",
-		"@atlaskit/editor-common": "^93.0.0",
+		"@atlaskit/editor-common": "^93.1.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.3.0",
@@ -149,6 +149,9 @@
 			"type": "boolean"
 		},
 		"confluence_frontend_page_title_enter_improvements": {
+			"type": "boolean"
+		},
+		"platform_editor_element_dnd_nested_a11y": {
 			"type": "boolean"
 		}
 	}

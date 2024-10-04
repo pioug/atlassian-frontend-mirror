@@ -249,6 +249,11 @@ export interface MenuItemProps {
 	 * When `true`, the description of the item will wrap multiple lines if it's long enough.
 	 */
 	shouldDescriptionWrap?: boolean;
+
+	/**
+	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+	 */
+	interactionName?: string;
 }
 
 export interface ButtonItemProps extends MenuItemProps {
@@ -261,11 +266,6 @@ export interface ButtonItemProps extends MenuItemProps {
 	 * Use this to override the accessibility role for the element.
 	 */
 	role?: string;
-
-	/**
-	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
-	 */
-	interactionName?: string;
 }
 
 export interface LinkItemProps extends MenuItemProps {

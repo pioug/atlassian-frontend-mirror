@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 2.12.6
+
+### Patch Changes
+
+- [#148720](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148720)
+  [`fcf151627c8de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fcf151627c8de) -
+  Added interactionName to components in menu and dropdownmenu
+
 ## 2.12.5
 
 ### Patch Changes

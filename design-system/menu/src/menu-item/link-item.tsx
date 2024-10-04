@@ -2,7 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, type KeyboardEvent, memo, type MouseEvent, type Ref } from 'react';
+import {
+	forwardRef,
+	type KeyboardEvent,
+	memo,
+	type MouseEvent,
+	type MouseEventHandler,
+	type Ref,
+	useCallback,
+	useContext,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -10,6 +19,8 @@ import { jsx } from '@emotion/react';
 import { useRouterLink } from '@atlaskit/app-provider';
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
+import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { LinkItemProps } from '../types';
@@ -55,11 +66,21 @@ const LinkItem = memo(
 				className: UNSAFE_className,
 				UNSAFE_shouldDisableRouterLink,
 				UNSAFE_isDraggable,
+				interactionName,
 				...rest
 			} = props;
 			const onMouseDownHandler = onMouseDown;
 
 			const RouterLink = useRouterLink();
+			const interactionContext = useContext<InteractionContextType | null>(InteractionContext);
+
+			const handleClick: MouseEventHandler<HTMLAnchorElement> = useCallback(
+				(e) => {
+					interactionContext?.tracePress(interactionName, e.timeStamp);
+					onClick?.(e);
+				},
+				[onClick, interactionContext, interactionName],
+			);
 
 			if (!children) {
 				return null;
@@ -129,7 +150,13 @@ const LinkItem = memo(
 							href={isDisabled ? undefined : href}
 							{...(UNSAFE_isDraggable ? {} : { draggable: false, onDragStart: preventEvent })}
 							onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
-							onClick={isDisabled ? preventEvent : onClick}
+							onClick={
+								isDisabled
+									? preventEvent
+									: fg('platform_button_item-add-ufo-metrics')
+										? handleClick
+										: onClick
+							}
 							aria-current={isSelected ? 'page' : undefined}
 							aria-disabled={isDisabled}
 							ref={ref as Ref<HTMLAnchorElement>}

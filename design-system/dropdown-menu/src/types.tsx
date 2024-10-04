@@ -209,6 +209,11 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	 * If ref is passed, focus returns to that specific ref element after dropdown dismissed.
 	 */
 	returnFocusRef?: RefObject<HTMLElement>;
+
+	/**
+	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+	 */
+	interactionName?: string;
 }
 
 type StandardDropdownMenuProps<TriggerElement extends HTMLElement = any> =
@@ -322,6 +327,11 @@ export interface DropdownItemProps {
 	 * If ref is passed, focus returns to that specific ref element after dropdown item clicked.
 	 */
 	returnFocusRef?: RefObject<HTMLElement>;
+
+	/**
+	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+	 */
+	interactionName?: string;
 }
 
 export interface DropdownItemCheckboxProps {
@@ -381,6 +391,11 @@ export interface DropdownItemCheckboxProps {
 	 * serving as a hook for automated tests.
 	 */
 	testId?: string;
+
+	/**
+	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+	 */
+	interactionName?: string;
 }
 
 export interface DropdownItemRadioProps {
@@ -440,6 +455,11 @@ export interface DropdownItemRadioProps {
 	 * serving as a hook for automated tests.
 	 */
 	testId?: string;
+
+	/**
+	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+	 */
+	interactionName?: string;
 }
 
 export interface CustomItemHtmlProps extends CustomItemComponentProps {

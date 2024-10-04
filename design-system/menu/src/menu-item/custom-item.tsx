@@ -3,13 +3,15 @@
  * @jsx jsx
  */
 
-import { forwardRef, memo, type MouseEventHandler } from 'react';
+import { forwardRef, memo, type MouseEventHandler, useCallback, useContext } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
+import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { CustomItemComponentProps, CustomItemProps } from '../types';
@@ -60,12 +62,23 @@ const CustomItem = memo(
 				// @ts-expect-error
 				className: UNSAFE_className,
 				UNSAFE_isDraggable,
+				interactionName,
 				...rest
 			}: // Type needed on props to extract types with extract react types.
 			CustomItemProps,
 			ref,
 		) => {
 			const onMouseDownHandler = onMouseDown;
+
+			const interactionContext = useContext<InteractionContextType | null>(InteractionContext);
+
+			const handleClick = useCallback(
+				(e: React.MouseEvent<HTMLElement>) => {
+					interactionContext?.tracePress(interactionName, e.timeStamp);
+					onClick?.(e);
+				},
+				[onClick, interactionContext, interactionName],
+			);
 
 			if (!Component) {
 				return null;
@@ -112,7 +125,13 @@ const CustomItem = memo(
 							ref={ref}
 							{...(UNSAFE_isDraggable ? {} : { draggable: false, onDragStart: preventEvent })}
 							onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
-							onClick={isDisabled ? preventEvent : onClick}
+							onClick={
+								isDisabled
+									? preventEvent
+									: fg('platform_button_item-add-ufo-metrics')
+										? handleClick
+										: onClick
+							}
 							tabIndex={isDisabled ? -1 : undefined}
 							aria-disabled={isDisabled}
 						>

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { replaceRaf, type Stub } from 'raf-stub';
 
 import { KEY_DOWN, KEY_END, KEY_HOME, KEY_UP } from '@atlaskit/ds-lib/keycodes';
@@ -21,7 +21,7 @@ describe('dropdown menu keyboard navigation', () => {
 	function openDropdownWithClick(element: HTMLElement) {
 		// JSDOM sets clientX and clientY to 0,0
 		// for all click events. This breaks the if condition
-		// used inside dropdown menu to diffrenciate mouse clicks
+		// used inside dropdown menu to differentiate mouse clicks
 		// from the "clicks" triggered by the keyboard
 		// when Enter or Space is pressed.
 		fireEvent.click(element, {
@@ -188,6 +188,54 @@ describe('dropdown menu keyboard navigation', () => {
 		const lastMenuItem = screen.getAllByRole('menuitem')[1];
 		expect(lastMenuItem).toHaveAccessibleName(items[1]);
 		expect(lastMenuItem).toHaveFocus();
+	});
+
+	it('should focus the next element on pressing the DOWN arrow for async loaded content', async () => {
+		let updateAsyncContent: ((show: boolean) => void) | undefined;
+		const AsyncDropdownItem = () => {
+			const [shouldShowAsyncContent, setShowAsyncContent] = React.useState(false);
+			useEffect(() => {
+				updateAsyncContent = (show: boolean) => setShowAsyncContent(show);
+			}, []);
+			return shouldShowAsyncContent ? (
+				<>
+					<DropdownItem>Async 1</DropdownItem>
+					<DropdownItem>Async 2</DropdownItem>
+				</>
+			) : null;
+		};
+
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId}>
+				<AsyncDropdownItem key="async" />
+				{items.map((text) => (
+					<DropdownItem key={text}>{text}</DropdownItem>
+				))}
+			</DropdownMenu>,
+		);
+
+		const dropdownElement = screen.getByTestId(`${testId}--trigger`);
+
+		openDropdownWithClick(dropdownElement);
+
+		const initialMenuItems = screen.getAllByRole('menuitem');
+		expect(initialMenuItems.length).toEqual(3);
+		expect(initialMenuItems.map((e) => e.textContent)).toEqual(items);
+
+		await act(async () => {
+			updateAsyncContent?.(true);
+			requestAnimationFrame.flush();
+		});
+
+		fireEvent.keyDown(dropdownElement, {
+			key: KEY_DOWN,
+			code: KEY_DOWN,
+		});
+
+		const asyncMenuItems = screen.getAllByRole('menuitem');
+		expect(asyncMenuItems.length).toEqual(5);
+		expect(asyncMenuItems.map((e) => e.textContent)).toEqual(['Async 1', 'Async 2', ...items]);
+		expect(asyncMenuItems[0]).toHaveFocus();
 	});
 
 	it('should skip over disabled items while keyboard navigating', () => {

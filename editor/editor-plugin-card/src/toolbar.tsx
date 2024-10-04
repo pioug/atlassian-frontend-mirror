@@ -637,11 +637,7 @@ const getDatasourceButtonGroup = (
 		if (!metadata.url) {
 			return false;
 		}
-
-		// FF to enable additional toolbar buttons based on if the datasource is configurable or not
-		return fg('platform.linking-platform.datasource-enable-toolbar-buttons-for-all-datasources')
-			? true
-			: !isDatasourceConfigEditable(datasourceId);
+		return true;
 	};
 
 	if (canShowAppearanceSwitch()) {

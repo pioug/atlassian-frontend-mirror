@@ -1,4 +1,5 @@
 jest.mock('../../../utils/analytics/analytics');
+jest.mock('../../../utils/shouldSample');
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock('react-transition-group/Transition', () => (data: any) => data.children);
 jest.mock('uuid', () => {
@@ -24,6 +25,8 @@ import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import * as jestExtendedMatchers from 'jest-extended';
 import uuid from 'uuid';
 import { type JestFunction } from '@atlaskit/media-test-helpers';
+// ShouldSample needs to be loaded for beforeEach inside to be picked up before test runs
+import '../../../utils/shouldSample';
 
 expect.extend(jestExtendedMatchers);
 
@@ -102,12 +105,12 @@ describe('smart-card: prefetching of content', () => {
 
 	it('does prefetch URLs if they are not visible, rendering as lazy rendering placeholder', async () => {
 		mockGetEntries.mockImplementation(() => [{ isIntersecting: false }]);
-		const { getByTestId } = render(
+		const { findByTestId } = render(
 			<Provider client={mockClient}>
 				<Card appearance="inline" url={mockUrl} />
 			</Provider>,
 		);
-		const lazyPlaceholderView = await waitFor(() => getByTestId('lazy-render-placeholder'));
+		const lazyPlaceholderView = await findByTestId('lazy-render-placeholder');
 		// In this test, the prefetch path is privileged, since the URL is not
 		// in the viewport. The result in the DOM should be a placeholder for the link.
 		// - Assertions that we rendered the correct Smart Link ⬇️.
@@ -127,12 +130,12 @@ describe('smart-card: prefetching of content', () => {
 
 	it('loads a lazy rendering placeholder with the title text override if it is provided', async () => {
 		mockGetEntries.mockImplementation(() => [{ isIntersecting: false }]);
-		const { getByTestId } = render(
+		const { findByTestId } = render(
 			<Provider client={mockClient}>
 				<Card appearance="inline" url={mockUrl} placeholder="spaghetti" />
 			</Provider>,
 		);
-		const lazyPlaceholderView = await waitFor(() => getByTestId('lazy-render-placeholder'));
+		const lazyPlaceholderView = await findByTestId('lazy-render-placeholder');
 		// In this test, the prefetch path is privileged, since the URL is not
 		// in the viewport. The result in the DOM should be a placeholder for the link.
 		// - Assertions that we rendered the correct Smart Link ⬇️.

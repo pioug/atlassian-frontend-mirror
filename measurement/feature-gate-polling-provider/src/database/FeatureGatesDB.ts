@@ -6,8 +6,13 @@ import {
 	StoreName,
 } from '../database/constants';
 
-import { type ClientSdkKeyEntry, type ExperiemntValuesEntry, type RequestEvent } from './types';
-import { commitTransaction, requestToPromise } from './utils';
+import {
+	type ClientSdkKeyEntry,
+	type ClientSdkKeyEntryWithoutKey,
+	type ExperiemntValuesEntry as ExperimentValuesEntry,
+	type RequestEvent,
+} from './types';
+import { commitTransaction, getClientSdkKeyDBKey, requestToPromise } from './utils';
 
 // Expire after 7 days
 export const EXPERIMENT_VALUES_EXPIRY_PERIOD = 1000 * 60 * 60 * 24 * 7;
@@ -64,7 +69,7 @@ export default class FeatureGatesDB {
 					}
 					const db: IDBDatabase = request.result;
 					const clientSdkKeyStore = db.createObjectStore(StoreName.CLIENT_SDK_KEY_STORE_NAME, {
-						keyPath: 'targetApp',
+						keyPath: 'dbKey',
 					});
 					clientSdkKeyStore.createIndex(CLIENT_SDK_KEY_TIMESTAMP_INDEX, 'timestamp', {
 						unique: false,
@@ -100,29 +105,43 @@ export default class FeatureGatesDB {
 		});
 	}
 
-	async setExperimentValues(entry: ExperiemntValuesEntry): Promise<void> {
-		this.setItem(StoreName.CLIENT_SDK_KEY_STORE_NAME, entry.profileHash, entry);
+	async setExperimentValues(entry: ExperimentValuesEntry): Promise<void> {
+		this.setItem<ExperimentValuesEntry>(
+			StoreName.CLIENT_SDK_KEY_STORE_NAME,
+			entry.profileHash,
+			entry,
+		);
 	}
 
-	async getExperimentValues(profileHash: string): Promise<ExperiemntValuesEntry | null> {
-		return this.getItem(StoreName.EXPERIMENT_VALUES_STORE_NAME, profileHash);
+	async getExperimentValues(profileHash: string): Promise<ExperimentValuesEntry | null> {
+		return this.getItem<ExperimentValuesEntry>(StoreName.EXPERIMENT_VALUES_STORE_NAME, profileHash);
 	}
 
-	async setClientSdkKey(entry: ClientSdkKeyEntry): Promise<void> {
-		this.setItem(StoreName.CLIENT_SDK_KEY_STORE_NAME, entry.targetApp, entry);
+	async setClientSdkKey(entry: ClientSdkKeyEntryWithoutKey): Promise<void> {
+		const dbKey = getClientSdkKeyDBKey(entry);
+		this.setItem<ClientSdkKeyEntry>(StoreName.CLIENT_SDK_KEY_STORE_NAME, dbKey, {
+			...entry,
+			dbKey,
+		});
 	}
 
-	async getClientSdkKey(targetApp: string): Promise<ClientSdkKeyEntry | null> {
-		return this.getItem(StoreName.CLIENT_SDK_KEY_STORE_NAME, targetApp);
+	async getClientSdkKey(entry: {
+		targetApp: string;
+		environment: string;
+		perimeter?: string;
+	}): Promise<ClientSdkKeyEntry | null> {
+		return this.getItem<ClientSdkKeyEntry>(
+			StoreName.CLIENT_SDK_KEY_STORE_NAME,
+			getClientSdkKeyDBKey(entry),
+		);
 	}
 
 	async purgeStaleEntries(): Promise<void> {
-		await this.purgeStaleExperimentValues();
-		await this.purgeStaleClientSdkKeys();
+		await Promise.all([this.purgeStaleExperimentValues(), this.purgeStaleClientSdkKeys()]);
 	}
 
 	private async purgeStaleExperimentValues(): Promise<void> {
-		this.purgeOldEntries<ExperiemntValuesEntry>(
+		this.purgeOldEntries<ExperimentValuesEntry>(
 			StoreName.EXPERIMENT_VALUES_STORE_NAME,
 			EXPERIMENT_VALUES_TIMESTAMP_INDEX,
 			EXPERIMENT_VALUES_EXPIRY_PERIOD,
@@ -164,7 +183,7 @@ export default class FeatureGatesDB {
 		}
 	}
 
-	private async getItem<T>(storeName: StoreName, key: string): Promise<T | null> {
+	private async getItem<T>(storeName: StoreName, key: string | string[]): Promise<T | null> {
 		try {
 			const { transaction, objectStore } = await this.getObjectStoreAndTransaction(
 				storeName,

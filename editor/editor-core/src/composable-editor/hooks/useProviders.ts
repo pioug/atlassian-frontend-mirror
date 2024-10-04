@@ -12,8 +12,10 @@ import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-i
 import { type CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';
 import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
+import { type TasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { type EmojiProvider } from '@atlaskit/emoji';
 import { fg } from '@atlaskit/platform-feature-flags';
+import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 interface UseProvidersProps {
 	editorApi:
@@ -24,6 +26,7 @@ interface UseProvidersProps {
 					OptionalPlugin<CardPlugin>,
 					OptionalPlugin<EmojiPlugin>,
 					OptionalPlugin<CustomAutoformatPlugin>,
+					OptionalPlugin<TasksAndDecisionsPlugin>,
 				]
 		  >
 		| undefined;
@@ -32,6 +35,7 @@ interface UseProvidersProps {
 	cardProvider: Promise<CardProvider> | undefined;
 	emojiProvider: Promise<EmojiProvider> | undefined;
 	autoformattingProvider: Promise<AutoformattingProvider> | undefined;
+	taskDecisionProvider: Promise<TaskDecisionProvider> | undefined;
 }
 
 /**
@@ -49,6 +53,7 @@ export const useProviders = ({
 	cardProvider,
 	emojiProvider,
 	autoformattingProvider,
+	taskDecisionProvider,
 }: UseProvidersProps) => {
 	useEffect(() => {
 		async function setProvider() {
@@ -90,4 +95,12 @@ export const useProviders = ({
 			}
 		}
 	}, [autoformattingProvider, editorApi]);
+
+	useEffect(() => {
+		if (fg('platform_editor_td_provider_from_plugin_config')) {
+			if (taskDecisionProvider) {
+				editorApi?.taskDecision?.actions.setProvider(taskDecisionProvider);
+			}
+		}
+	}, [taskDecisionProvider, editorApi]);
 };

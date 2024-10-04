@@ -1,5 +1,11 @@
 import { type TransactionsWithCommit } from './types';
 
+export const getClientSdkKeyDBKey = (entry: {
+	targetApp: string;
+	environment: string;
+	perimeter?: string;
+}): string => entry.targetApp + entry.environment + entry.perimeter;
+
 // Not to be used on cursors or other requests that may call onsuccess multiple times.
 export const requestToPromise = (request: IDBRequest): Promise<Event> => {
 	return new Promise((resolve, reject) => {

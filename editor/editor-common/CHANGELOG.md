@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 93.1.0
+
+### Minor Changes
+
+- [#148229](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148229)
+  [`657f160f0cfc0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/657f160f0cfc0) -
+  Add a11y support on moving nested elements
+
+### Patch Changes
+
+- [#148601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148601)
+  [`e11f6a141cfe5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e11f6a141cfe5) -
+  [ED-23460] **@atlaskit/editor-plugin-mentions**: Track when mention providers fail to resolve
+  **@atlaskit/editor-common**: Add enums for mention provider reporting
+- Updated dependencies
+
 ## 93.0.0
 
 ### Major Changes

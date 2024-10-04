@@ -1,7 +1,7 @@
 import {
 	type ClientOptions,
 	type CustomAttributes,
-	type FrontendExperimentsResult,
+	type FrontendExperimentsResponse,
 	type Identifiers,
 } from '@atlaskit/feature-gate-fetcher';
 
@@ -12,20 +12,22 @@ export type RulesetProfile = Pick<ClientOptions, 'environment' | 'targetApp' | '
 
 export interface TransactionsWithCommit extends IDBTransaction {}
 
-export interface ObjectWithTimestamp {
+export type ObjectWithTimestamp = {
 	timestamp: number;
-}
+};
 
-export interface ExperiemntValuesEntry extends ObjectWithTimestamp {
+export type ExperiemntValuesEntry = {
 	profileHash: string;
-	context: RulesetProfile;
-	experimentValues: FrontendExperimentsResult;
-}
+	rulesetProfile: RulesetProfile;
+	experimentValuesResponse: FrontendExperimentsResponse;
+} & ObjectWithTimestamp;
 
-export interface ClientSdkKeyEntry extends ObjectWithTimestamp {
+export type ClientSdkKeyEntry = Pick<ClientOptions, 'environment' | 'targetApp' | 'perimeter'> & {
 	clientSdkKey: string;
-	targetApp: string;
-}
+	dbKey: string;
+} & ObjectWithTimestamp;
+
+export type ClientSdkKeyEntryWithoutKey = Omit<ClientSdkKeyEntry, 'dbKey'>;
 
 export type RequestEvent<T> = Event & {
 	target: {

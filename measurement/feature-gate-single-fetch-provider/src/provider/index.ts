@@ -15,24 +15,32 @@ export type { ProviderOptions } from './types';
 
 export default class SingleFetchProvider implements Provider {
 	private readonly providerOptions: ProviderOptions;
+	private clientVersion: string | undefined;
 
 	constructor(providerOptions: ProviderOptions) {
 		this.providerOptions = providerOptions;
 	}
 
+	setClientVersion(clientVersion: string): void {
+		this.clientVersion = clientVersion;
+	}
+
 	async getExperimentValues(
-		clientVersion: string,
 		clientOptions: ClientOptions,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<FrontendExperimentsResult> {
+		if (!this.clientVersion) {
+			throw new Error('Client version has not been set');
+		}
+
 		const fetcherOptions: FetcherOptions = {
 			...clientOptions,
 			...this.providerOptions,
 		};
 
 		return await Fetcher.fetchExperimentValues(
-			clientVersion,
+			this.clientVersion,
 			fetcherOptions,
 			identifiers,
 			customAttributes,
@@ -43,14 +51,18 @@ export default class SingleFetchProvider implements Provider {
 		}));
 	}
 
-	async getClientSdkKey(clientVersion: string, clientOptions: ClientOptions): Promise<string> {
+	async getClientSdkKey(clientOptions: ClientOptions): Promise<string> {
+		if (!this.clientVersion) {
+			throw new Error('Client version has not been set');
+		}
+
 		const fetcherOptions: FetcherOptions = {
 			...clientOptions,
 			...this.providerOptions,
 		};
 
 		const result: FrontendClientSdkKeyResponse = await Fetcher.fetchClientSdk(
-			clientVersion,
+			this.clientVersion,
 			fetcherOptions,
 		);
 		return result.clientSdkKey;

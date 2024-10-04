@@ -8,10 +8,11 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button/standard-button';
-import BoardIcon from '@atlaskit/icon/glyph/board';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import Button from '@atlaskit/button/new';
+import BoardIcon from '@atlaskit/icon/core/migration/board';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { Box, xcss } from '@atlaskit/primitives';
 import {
 	CheckboxOption,
 	createFilter,
@@ -27,6 +28,11 @@ import { useDatasourceExperienceId } from '../../../contexts/datasource-experien
 import { ConcatenatedMenuList } from './concatenated-menu-list';
 import { columnPickerMessages } from './messages';
 import { type ColumnPickerProps } from './types';
+
+const chevronIconStyles = xcss({
+	display: 'flex',
+	alignItems: 'center',
+});
 
 export const ColumnPicker = ({
 	columns,
@@ -145,18 +151,24 @@ export const ColumnPicker = ({
 							{...tooltipProps}
 							{...triggerProps}
 							isSelected={isOpen}
-							iconBefore={
-								<div>
-									{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19549 */}
-									<BoardIcon label="board" size="medium" />
-									{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19549 */}
-									<ChevronDownIcon label="down" size="medium" />
-								</div>
-							}
 							spacing="compact"
 							appearance="subtle"
 							testId="column-picker-trigger-button"
-						/>
+							iconBefore={() => (
+								<Box as="span" xcss={chevronIconStyles}>
+									<BoardIcon
+										color="currentColor"
+										label="board"
+										LEGACY_size="medium"
+										spacing="spacious"
+										LEGACY_margin="0 0 0 4px"
+									/>
+									<ChevronDownIcon color="currentColor" label="down" LEGACY_size="medium" />
+								</Box>
+							)}
+						>
+							{''}
+						</Button>
 					)}
 				</Tooltip>
 			)}

@@ -18,7 +18,7 @@ import invariant from 'tiny-invariant';
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-provider';
 import noop from '@atlaskit/ds-lib/noop';
-import { useId } from '@atlaskit/ds-lib/react-uid';
+import { useId } from '@atlaskit/ds-lib/use-id';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 

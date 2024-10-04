@@ -1,3 +1,4 @@
+jest.mock('../../../utils/shouldSample');
 import './unauthorized.test.mock';
 
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
@@ -15,6 +16,8 @@ import * as jestExtendedMatchers from 'jest-extended';
 import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
 import userEvent from '@testing-library/user-event';
+// ShouldSample needs to be loaded for beforeEach inside to be picked up before test runs
+import '../../../utils/shouldSample';
 
 mockSimpleIntersectionObserver();
 

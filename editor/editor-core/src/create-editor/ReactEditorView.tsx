@@ -1,6 +1,5 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
 import uuid from 'uuid/v4';
@@ -200,10 +199,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 	experienceStore?: ExperienceStore;
 
 	editorRef = React.createRef<HTMLDivElement>();
-
-	static contextTypes = {
-		getAtlaskitAnalyticsEventHandlers: PropTypes.func,
-	};
 
 	// ProseMirror is instantiated prior to the initial React render cycle,
 	// so we allow transactions by default, to avoid discarding the initial one.

@@ -42,7 +42,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/ds-lib": "^2.6.0",
+		"@atlaskit/ds-lib": "^2.7.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",

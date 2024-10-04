@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 9.0.3
+
+### Patch Changes
+
+- [#148431](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148431)
+  [`61d309ff981d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61d309ff981d8) -
+  Updated dependencies
+
 ## 9.0.2
 
 ### Patch Changes

@@ -223,7 +223,7 @@ describe('no-legacy-icons', () => {
 				output: `
 				import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
 
-				<ChevronLeftIcon color="currentColor" label=""  />
+				<ChevronLeftIcon color="currentColor" label=""  spacing="spacious" />
 				`,
 				errors: [
 					{
@@ -317,7 +317,7 @@ describe('no-legacy-icons', () => {
 				output: `
 				import {default as ChevronDownIcon} from '@atlaskit/icon/utility/migration/chevron-down';
 
-				<ChevronDownIcon color="currentColor" label="" />
+				<ChevronDownIcon color="currentColor" spacing="spacious" label="" />
 				`,
 				errors: [
 					{

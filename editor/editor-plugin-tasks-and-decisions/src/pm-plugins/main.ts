@@ -15,8 +15,9 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { lazyDecisionView } from '../nodeviews/decision-lazy-node-view';
 import { lazyTaskView } from '../nodeviews/task-lazy-node-view';
-import type { TasksAndDecisionsPlugin } from '../types';
+import type { TaskDecisionPluginState, TasksAndDecisionsPlugin } from '../types';
 
+import { focusTaskDecision, setProvider } from './actions';
 import {
 	focusCheckboxAndUpdateSelection,
 	getTaskItemDataAtPos,
@@ -24,7 +25,7 @@ import {
 	removeCheckboxFocus,
 } from './helpers';
 import { stateKey } from './plugin-key';
-import { ACTIONS } from './types';
+import { ACTIONS, type TaskDecisionPluginAction, type TaskDecisionPluginCommand } from './types';
 
 type ChangedFn = (
 	node: PMNode,
@@ -56,7 +57,7 @@ export function createPlugin(
 	hasRequestedEditPermission?: boolean,
 	requestToEditContent?: () => void,
 ) {
-	return new SafePlugin({
+	return new SafePlugin<TaskDecisionPluginState>({
 		props: {
 			nodeViews: {
 				taskItem: lazyTaskView(portalProviderAPI, eventDispatcher, providerFactory, api),
@@ -210,11 +211,14 @@ export function createPlugin(
 					hasEditPermission,
 					hasRequestedEditPermission,
 					requestToEditContent,
+					focusedTaskItemLocalId: null,
+					taskDecisionProvider: undefined,
 				};
 			},
 			apply(tr, pluginState) {
-				const metaData = tr.getMeta(stateKey);
-				const { action, data } = metaData || {
+				const metaData: (TaskDecisionPluginAction & TaskDecisionPluginCommand) | undefined =
+					tr.getMeta(stateKey);
+				const { action, data } = metaData ?? {
 					action: null,
 					data: null,
 				};
@@ -223,10 +227,17 @@ export function createPlugin(
 				// Actions
 				switch (action) {
 					case ACTIONS.FOCUS_BY_LOCALID:
-						newPluginState = {
-							...pluginState,
-							focusedTaskItemLocalId: data,
-						};
+						newPluginState = focusTaskDecision(newPluginState, {
+							action: ACTIONS.FOCUS_BY_LOCALID,
+							data,
+						});
+						break;
+
+					case ACTIONS.SET_PROVIDER:
+						newPluginState = setProvider(newPluginState, {
+							action: ACTIONS.SET_PROVIDER,
+							data,
+						});
 						break;
 				}
 

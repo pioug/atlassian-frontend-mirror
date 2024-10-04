@@ -35,7 +35,9 @@ export default function handleProviders(
 ): void {
 	providerFactory.setProvider('emojiProvider', emojiProvider);
 	providerFactory.setProvider('mentionProvider', mentionProvider);
-	providerFactory.setProvider('taskDecisionProvider', taskDecisionProvider);
+	if (!fg('platform_editor_td_provider_from_plugin_config')) {
+		providerFactory.setProvider('taskDecisionProvider', taskDecisionProvider);
+	}
 	providerFactory.setProvider('contextIdentifierProvider', contextIdentifierProvider);
 	providerFactory.setProvider('imageUploadProvider', imageUploadProvider);
 	providerFactory.setProvider('collabEditProvider', collabEditProvider);

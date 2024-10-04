@@ -3,6 +3,8 @@ import { type IntlShape } from 'react-intl-next';
 import {
 	bindKeymapWithCommand,
 	dragToMoveDown,
+	dragToMoveLeft,
+	dragToMoveRight,
 	dragToMoveUp,
 	showElementDragHandle,
 } from '@atlaskit/editor-common/keymaps';
@@ -41,6 +43,19 @@ function keymapList(
 			moveNodeViaShortcut(api, DIRECTION.DOWN, formatMessage),
 			keymapList,
 		);
+
+		fg('platform_editor_element_dnd_nested_a11y') &&
+			bindKeymapWithCommand(
+				dragToMoveLeft.common!,
+				moveNodeViaShortcut(api, DIRECTION.LEFT, formatMessage),
+				keymapList,
+			);
+		fg('platform_editor_element_dnd_nested_a11y') &&
+			bindKeymapWithCommand(
+				dragToMoveRight.common!,
+				moveNodeViaShortcut(api, DIRECTION.RIGHT, formatMessage),
+				keymapList,
+			);
 	}
 	return keymapList;
 }

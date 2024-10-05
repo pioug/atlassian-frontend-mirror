@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
+import { Box } from '@atlaskit/primitives';
 
 import { DateTimePicker, TimePicker } from '../src';
 
@@ -8,7 +9,7 @@ export default () => {
 	const times: Array<string> = ['10:00', '10:15', '10:30', '10:45', '11:00'];
 
 	return (
-		<div>
+		<Box>
 			<Label htmlFor="react-select-timepicker-input">TimePicker - times</Label>
 			<TimePicker
 				id="react-select-timepicker-input"
@@ -22,6 +23,6 @@ export default () => {
 				timePickerProps={{ label: 'Time, DateTimePicker - times', times }}
 				datePickerProps={{ label: 'Date, DateTimePicker - times' }}
 			/>
-		</div>
+		</Box>
 	);
 };

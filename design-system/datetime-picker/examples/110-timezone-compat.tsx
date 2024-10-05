@@ -3,6 +3,7 @@ import React from 'react';
 import moment from 'moment';
 
 import { Label } from '@atlaskit/form';
+import { Box } from '@atlaskit/primitives';
 
 import { DateTimePicker } from '../src';
 
@@ -22,7 +23,7 @@ const parseValue = (value: string, date: string, time: string, timezone: string)
 };
 
 export default () => (
-	<div>
+	<Box>
 		<Label htmlFor="timezone-compat">Timezone Compatible Datetime</Label>
 		<DateTimePicker
 			id="timezone-compat"
@@ -32,5 +33,5 @@ export default () => (
 			datePickerProps={{ label: 'Date, Timezone Compatible Datetime' }}
 			timePickerProps={{ label: 'Time, Timezone Compatible Datetime' }}
 		/>
-	</div>
+	</Box>
 );

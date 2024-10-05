@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
+import { Box } from '@atlaskit/primitives';
 
 import { DatePicker, DateTimePicker, TimePicker } from '../src';
 
 export default () => {
 	return (
-		<div>
+		<Box>
 			<Label htmlFor="react-select-date--input">DatePicker defaultValue defaultIsOpen</Label>
 			<DatePicker
 				id="react-select-date--input"
@@ -31,6 +32,6 @@ export default () => {
 				datePickerProps={{ label: 'Date, DateTimePicker defaultValue' }}
 				timePickerProps={{ label: 'Time, DateTimePicker defaultValue' }}
 			/>
-		</div>
+		</Box>
 	);
 };

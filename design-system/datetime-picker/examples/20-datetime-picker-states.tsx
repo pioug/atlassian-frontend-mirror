@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
+import { Box } from '@atlaskit/primitives';
 
 import { DateTimePicker } from '../src';
 
 export default () => {
 	return (
-		<div>
+		<Box>
 			<Label htmlFor="react-select-stock--input">Stock</Label>
 			<DateTimePicker
 				id="react-select-stock--input"
@@ -71,6 +72,6 @@ export default () => {
 				clearControlLabel="Clear custom date format with value"
 				timePickerProps={{ label: 'Time, Custom date format with value' }}
 			/>
-		</div>
+		</Box>
 	);
 };

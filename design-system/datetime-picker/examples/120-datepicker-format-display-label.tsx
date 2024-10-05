@@ -3,6 +3,7 @@ import React from 'react';
 import moment from 'moment';
 
 import { Label } from '@atlaskit/form';
+import { Box } from '@atlaskit/primitives';
 
 import { DatePicker } from '../src';
 
@@ -14,7 +15,7 @@ const formatDisplayLabel = (value: string, dateFormat: string) => {
 };
 
 export default () => (
-	<>
+	<Box>
 		<Label htmlFor="datepicker">Date picker</Label>
 		<DatePicker
 			id="datepicker"
@@ -23,5 +24,5 @@ export default () => (
 			placeholder="MMMM/DD"
 			formatDisplayLabel={formatDisplayLabel}
 		/>
-	</>
+	</Box>
 );

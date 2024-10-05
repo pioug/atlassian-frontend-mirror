@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
+import { Box } from '@atlaskit/primitives';
 
 import { DatePicker } from '../src';
 
@@ -12,7 +13,7 @@ function now(day: number) {
 
 export default () => {
 	return (
-		<div>
+		<Box>
 			<Label htmlFor="react-select-datepicker-1-input">Stock</Label>
 			<DatePicker
 				id="react-select-datepicker-1-input"
@@ -38,6 +39,6 @@ export default () => {
 				placeholder="e.g. 31/Dec/18"
 				onChange={console.log}
 			/>
-		</div>
+		</Box>
 	);
 };

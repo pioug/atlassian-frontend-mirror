@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { Field } from '@atlaskit/form';
+import { Box } from '@atlaskit/primitives';
 
 import { DatePicker, DateTimePicker, TimePicker } from '../src';
 
 export default () => {
 	return (
-		<div>
+		<Box>
 			<Field name="date" label="Date">
 				{({ fieldProps }) => <DatePicker {...fieldProps} />}
 			</Field>
@@ -25,6 +26,6 @@ export default () => {
 					/>
 				)}
 			</Field>
-		</div>
+		</Box>
 	);
 };

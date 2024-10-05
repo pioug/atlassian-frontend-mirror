@@ -3,6 +3,8 @@ import React from 'react';
 import { parseISO } from 'date-fns';
 
 import { Label } from '@atlaskit/form';
+import Heading from '@atlaskit/heading';
+import { Box } from '@atlaskit/primitives';
 
 import { DatePicker } from '../src';
 
@@ -27,8 +29,8 @@ export default () => {
 	const [endDate, setEndDate] = React.useState<string>(getRelativeDate(0));
 
 	return (
-		<div>
-			<h3> Export Data </h3>
+		<Box>
+			<Heading size="large"> Export Data </Heading>
 			<Label htmlFor="react-select-start-date--input">Start date (past 30 days)</Label>
 			<DatePicker
 				id="react-select-start-date--input"
@@ -49,6 +51,6 @@ export default () => {
 				disabledDateFilter={weekendFilter}
 				onChange={(date: string) => setEndDate(date)}
 			/>
-		</div>
+		</Box>
 	);
 };

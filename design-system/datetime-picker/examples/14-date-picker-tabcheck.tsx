@@ -3,9 +3,15 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 import Popup from '@atlaskit/popup';
-import { Box } from '@atlaskit/primitives';
+import { Box, xcss } from '@atlaskit/primitives';
+import Textfield from '@atlaskit/textfield';
 
 import { DatePicker } from '../src';
+
+const boxContainerStyle = xcss({
+	height: '500px',
+	width: '500px',
+});
 
 export default () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -13,10 +19,9 @@ export default () => {
 	const PopupContent = () => {
 		const [date, setDate] = useState('');
 		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			<div id="popup-content" style={{ width: '500px', height: '500px' }}>
+			<Box id="popup-content" xcss={boxContainerStyle}>
 				<Label htmlFor="text3">First popup field</Label>
-				<input id="text3" type="text" />
+				<Textfield id="text3" />
 				<Box>
 					<Label htmlFor="react-select-value1-input">Picker popup field</Label>
 					<DatePicker
@@ -31,16 +36,16 @@ export default () => {
 					/>
 				</Box>
 				<Label htmlFor="text4">Last popup field</Label>
-				<input id="text4" type="text" />
-			</div>
+				<Textfield id="text4" />
+			</Box>
 		);
 	};
 
 	return (
-		<div>
+		<Box>
 			<Label htmlFor="text1">First field</Label>
-			<input id="text1" type="text" />
-			<br />
+			<Textfield id="text1" />
+
 			<Label htmlFor="react-select-custom-input">Custom date format</Label>
 			<DatePicker
 				id="react-select-custom-input"
@@ -50,8 +55,7 @@ export default () => {
 				testId="datepicker-1"
 			/>
 			<Label htmlFor="text2">Third field</Label>
-			<input id="text2" type="text" />
-
+			<Textfield id="text2" />
 			<Popup
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
@@ -63,6 +67,6 @@ export default () => {
 				)}
 				placement="bottom-start"
 			/>
-		</div>
+		</Box>
 	);
 };

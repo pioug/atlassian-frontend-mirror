@@ -1,24 +1,35 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
+import Heading from '@atlaskit/heading';
+import { Box } from '@atlaskit/primitives';
 
 import { DatePicker, TimePicker } from '../src';
 
 export default () => (
-	<>
-		<h2>Date/ Time examples</h2>
+	<Box>
+		<Heading size="xlarge">Date / Time examples</Heading>
 
-		<h3>Time - Using explicit label</h3>
-		<Label htmlFor="arrival">Arrival time</Label>
-		<TimePicker id="arrival" />
-		<h3>Time - Using label prop only (no visible label)</h3>
-		<TimePicker label="Departure time" />
+		<Box paddingBlock="space.200">
+			<Heading size="large">Time - Using explicit label</Heading>
+			<Label htmlFor="arrival">Arrival time</Label>
+			<TimePicker id="arrival" />
+		</Box>
 
-		<h3>Date - Using explicit label</h3>
-		<Label htmlFor="birthday">Birthday</Label>
-		<DatePicker testId="test" id="birthday" />
+		<Box paddingBlock="space.200">
+			<Heading size="large">Time - Using label prop only (no visible label)</Heading>
+			<TimePicker label="Departure time" />
+		</Box>
 
-		<h3>Date - Using label prop only (no visible label)</h3>
-		<DatePicker label="End date" />
-	</>
+		<Box paddingBlock="space.200">
+			<Heading size="large">Date - Using explicit label</Heading>
+			<Label htmlFor="birthday">Birthday</Label>
+			<DatePicker testId="test" id="birthday" />
+		</Box>
+
+		<Box paddingBlock="space.200">
+			<Heading size="large">Date - Using label prop only (no visible label)</Heading>
+			<DatePicker label="End date" />
+		</Box>
+	</Box>
 );

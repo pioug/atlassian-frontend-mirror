@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import moment from 'moment';
 
 import { Label } from '@atlaskit/form';
+import { Box } from '@atlaskit/primitives';
 
 import { DateTimePicker } from '../src';
 
@@ -16,7 +17,7 @@ export default () => {
 	};
 
 	return (
-		<div>
+		<Box>
 			<Label htmlFor="react-select-datetime--input">Current time is: {value}</Label>
 			<DateTimePicker
 				id="react-select-datetime--input"
@@ -27,6 +28,6 @@ export default () => {
 				clearControlLabel="Clear current time"
 				datePickerProps={{ label: `Date, Current time is: ${value}` }}
 			/>
-		</div>
+		</Box>
 	);
 };

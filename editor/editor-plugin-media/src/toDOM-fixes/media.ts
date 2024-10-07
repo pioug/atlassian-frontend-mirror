@@ -1,11 +1,10 @@
 import { media } from '@atlaskit/adf-schema';
+import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { getMediaAttrs } from './toDOMAttrs';
-
-const skeletonStyling = `background: ${token('color.background.neutral')}; outline: none;`;
 
 /**
  * Duplicate consts from `media-card`.
@@ -32,10 +31,22 @@ export const mediaSpecWithFixedToDOM = () => {
 		...media,
 		toDOM: (node: PMNode): DOMOutputSpec => {
 			const attrs = getMediaAttrs('media', node);
-			const styles = skeletonStyling;
 
 			if (node.attrs.type === 'external') {
-				return ['img', { ...attrs, src: node.attrs.url, styles }];
+				return [
+					'img',
+					{
+						...attrs,
+						src: node.attrs.url,
+						style: convertToInlineCss({
+							backgroundColor: `${token('color.background.neutral')}`,
+							outline: 'none',
+
+							width: `var(--ak-editor-media-card-width, 100%)`,
+							height: `var(--ak-editor-media-card-height, 100%)`,
+						}),
+					},
+				];
 			}
 
 			if (node.attrs.type === 'file') {
@@ -51,24 +62,34 @@ export const mediaSpecWithFixedToDOM = () => {
 						...attrs,
 						// Manually kept in sync with the style of media cards. The goal is to render a plain gray
 						// rectangle that provides an affordance for media.
-						style: `
-						display: inline-block;
-						background-image: url("${dataUrl}");
-						margin-left: 0;
-						margin-right: 4px;
-						border-radius: 3px;
-						outline: none;
 
-						flex-basis: ${defaultImageCardDimensions.width}px;
-						background-color: var(--media-card-background-color);
-						width: var(--media-card-width, ${node.attrs.width || width}px);
-						height: var(--media-card-height, ${node.attrs.height || height}px);
-						`,
+						style: convertToInlineCss({
+							display: 'var(--ak-editor-media-card-display, inline-block)',
+							backgroundImage: `url("${dataUrl}")`,
+							marginLeft: '0',
+							marginRight: 'var(--ak-editor-media-margin-right, 4px)',
+							borderRadius: '3px',
+							outline: 'none',
+							flexBasis: `${defaultImageCardDimensions.width}px`,
+							backgroundColor: 'var(--ak-editor-media-card-background-color)',
+							width: `var(--ak-editor-media-card-width, 100%)`,
+							height: `var(--ak-editor-media-card-height, 0)`,
+							paddingBottom: `var(--ak-editor-media-padding-bottom, 0)`,
+						}),
 					},
 				];
 			}
 
-			return ['div', { ...attrs, styles }];
+			return [
+				'div',
+				{
+					...attrs,
+					styles: convertToInlineCss({
+						backgroundColor: `var(--ak-editor-media-card-background-color, ${token('color.background.neutral')})`,
+						outline: 'none',
+					}),
+				},
+			];
 		},
 	};
 };

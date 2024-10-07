@@ -39,7 +39,7 @@
 		"@af/icon-build-process": "^2.1.0",
 		"@af/visual-regression": "*",
 		"@atlaskit/code": "^15.6.0",
-		"@atlaskit/ds-lib": "^2.7.0",
+		"@atlaskit/ds-lib": "^3.0.0",
 		"@atlaskit/logo": "^14.3.0",
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/ssr": "*",

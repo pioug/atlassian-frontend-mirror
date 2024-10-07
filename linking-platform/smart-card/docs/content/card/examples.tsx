@@ -1,11 +1,6 @@
-import { CardClient } from '@atlaskit/link-provider';
-import CardViewSection from '../../../examples/card-view/card-view-section';
-import { ResolvedClient } from '../../../examples/utils/custom-client';
-import customMd from '../../utils/custom-md';
 import React from 'react';
-
-const resolvedClient = new ResolvedClient();
-const url = 'https://project-url';
+import CustomExample from '../../utils/custom-example';
+import customMd from '../../utils/custom-md';
 
 export default customMd`
 
@@ -15,34 +10,60 @@ Card component has three default appearances.
 
 #### Inline
 
-*< brief description />*
+This style shows off the link right in the text, just like a regular hyperlink.
+It's clean and sleek, fitting in smoothly with the rest of the content.
+Check out [the inline card doc](./inline-card).
 
-${(<CardViewSection appearance="inline" client={resolvedClient} title="" url={url} />)}
-
-[Go to inline card docs](./inline-card)
+${(
+	<CustomExample
+		Component={require('../../../examples/content/inline-card').default}
+		source={require('!!raw-loader!../../../examples/content/inline-card')}
+	/>
+)}
 
 #### Block
 
-*< brief description />*
+This format presents the link as a card, giving a more detailed view of the linked material.
+It really stands out compared to the inline style and comes in handy when you need extra context or a preview of the content.
+Take a look at [the block card doc](./block-card).
 
-${(<CardViewSection appearance="block" client={resolvedClient} title="" url={url} />)}
-
-[Go to block card docs](./block-card)
+${(
+	<CustomExample
+		Component={require('../../../examples/content/block-card').default}
+		source={require('!!raw-loader!../../../examples/content/block-card')}
+	/>
+)}
 
 #### Embed
 
-*< brief description />*
+Embed: With this format, the linked content is directly shown on the page, similar to embedding a video or a document.
+It gives a full view of the linked content without users having to leave the current page.
+Dive into [the embed card doc](./embed-card).
 
-${(<CardViewSection appearance="embed" client={new CardClient('stg')} frameStyle="show" title="" url="https://youtu.be/hENQFInHMs0?si=9_IZk_uGOBsh4D0a" />)}
+${(
+	<CustomExample
+		Component={require('../../../examples/content/embed-card').default}
+		source={require('!!raw-loader!../../../examples/content/embed-card')}
+	/>
+)}
 
-[Go to embed card docs](./embed-card)
+### Composable card
 
-### Configurable card (FlexibleCard)
+Card component provides a composable system to enhance links, offering greater customization options compared to traditional Smart Links (Inline, Card, Embed).
+This enables product teams to tailor link appearance for different layouts, granting them improved control over link presentation and enhancing user experience through additional contextual information.
+For more information, refer to [flexible card doc](./flexible-card).
 
-*< brief description />*
+### Placeholder
 
-[Go to flexible card docs](./flexible-card)
+Smart card is a React component that is [lazy-loaded](https://react.dev/reference/react/lazy) by default. It displays the \`url\` as a placeholder until the component is fully loaded.
+When \`placeholder\` is provided, it will replace the URL with the placeholder text.
 
-### *< common props />*
+${(
+	<CustomExample
+		Component={require('../../../examples/content/card-placeholder').default}
+		source={require('!!raw-loader!../../../examples/content/card-placeholder-code')}
+	/>
+)}
 
+For non lazy-loaded smart card, please see [CardSSR](./card-ssr).
 `;

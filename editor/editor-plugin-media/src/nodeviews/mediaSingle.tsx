@@ -624,6 +624,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		if (fg('platform.editor.media.extended-resize-experience')) {
 			domRef.classList.add('media-extended-resize-experience');
 		}
+
 		return domRef;
 	}
 

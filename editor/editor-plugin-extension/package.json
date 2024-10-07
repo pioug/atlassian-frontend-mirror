@@ -75,7 +75,6 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-test-helpers": "^19.0.0",
 		"react-select": "^5.4.0",
 		"typescript": "~5.4.2"
 	},

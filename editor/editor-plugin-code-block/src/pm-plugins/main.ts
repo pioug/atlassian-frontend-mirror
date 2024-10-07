@@ -23,7 +23,11 @@ import type { CodeBlockPlugin } from '../index';
 import { codeBlockNodeView } from '../nodeviews/code-block';
 import { pluginKey } from '../plugin-key';
 import { codeBlockClassNames } from '../ui/class-names';
-import { findCodeBlock, getAllCodeBlockNodesInDoc } from '../utils';
+import {
+	findCodeBlock,
+	getAllChangedCodeBlocksInTransaction,
+	getAllCodeBlockNodesInDoc,
+} from '../utils';
 
 import { ACTIONS } from './actions';
 import {
@@ -146,17 +150,21 @@ export const createPlugin = ({
 					let updatedDecorationSet = pluginState.decorations.map(tr.mapping, tr.doc);
 
 					if (fg('editor_support_code_block_wrapping')) {
-						const codeBlockNodes = getAllCodeBlockNodesInDoc(newState);
+						const codeBlockNodes = fg('editor_code_wrapping_perf_improvement_ed-25141')
+							? getAllChangedCodeBlocksInTransaction(tr, newState)
+							: getAllCodeBlockNodesInDoc(newState);
 
-						if (fg('editor_code_block_wrapping_language_change_bug')) {
-							updateCodeBlockWrappedStateNodeKeys(codeBlockNodes, _oldState);
+						if (codeBlockNodes) {
+							if (fg('editor_code_block_wrapping_language_change_bug')) {
+								updateCodeBlockWrappedStateNodeKeys(codeBlockNodes, _oldState);
+							}
+
+							updatedDecorationSet = updateCodeBlockDecorations(
+								tr,
+								codeBlockNodes,
+								updatedDecorationSet,
+							);
 						}
-
-						updatedDecorationSet = updateCodeBlockDecorations(
-							tr,
-							codeBlockNodes,
-							updatedDecorationSet,
-						);
 					}
 
 					const newPluginState: CodeBlockState = {

@@ -1,4 +1,3 @@
-import { CardClient } from '@atlaskit/link-provider';
 import React from 'react';
 import type CardView from '../utils/card-view';
 import {
@@ -18,17 +17,9 @@ import {
 } from '../utils/custom-client';
 import CardViewSection from './card-view-section';
 
-const CardViewExample = ({
-	url,
-	...props
-}: Omit<React.ComponentProps<typeof CardView>, 'client'>) => (
+const CardViewExample = (props: Omit<React.ComponentProps<typeof CardView>, 'client'>) => (
 	<React.Fragment>
-		<CardViewSection
-			{...props}
-			client={url ? new CardClient('stg') : new ResolvedClient()}
-			title="[Resolved]"
-			url={url}
-		/>
+		<CardViewSection {...props} client={new ResolvedClient()} title="[Resolved]" />
 		<CardViewSection {...props} client={new ForbiddenClient()} title="[Forbidden] Default" />
 		<CardViewSection
 			{...props}

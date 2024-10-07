@@ -2,14 +2,22 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import EditorFeedbackIcon from '@atlaskit/icon/glyph/editor/feedback';
+import FeedbackIcon from '@atlaskit/icon/core/feedback';
+import LegacyEditorFeedbackIcon from '@atlaskit/icon/glyph/editor/feedback';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 
 import Panel from '../src';
 
 const Header = (
 	<h1>
-		Component based header <EditorFeedbackIcon size="large" label="feedback" />
+		Component based header{' '}
+		<FeedbackIcon
+			LEGACY_size="large"
+			label="feedback"
+			color="currentColor"
+			LEGACY_fallbackIcon={LegacyEditorFeedbackIcon}
+			spacing="spacious"
+		/>
 	</h1>
 );
 

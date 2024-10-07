@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.4.3
+
+### Patch Changes
+
+- [#149087](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149087)
+  [`8b2dcb618ccf8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2dcb618ccf8) -
+  ED-25141: Code block wrapping performance improvement. Only update the line number decorators on a
+  given code block when a line has been added or removed. Previously was updating line number
+  decorators on every update for all code blocks.
+
 ## 3.4.2
 
 ### Patch Changes

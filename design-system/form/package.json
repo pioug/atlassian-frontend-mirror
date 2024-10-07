@@ -47,7 +47,7 @@
 		"@atlaskit/banner": "^12.5.0",
 		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/checkbox": "^14.0.0",
-		"@atlaskit/ds-lib": "^2.7.0",
+		"@atlaskit/ds-lib": "^3.0.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/range": "^7.4.0",

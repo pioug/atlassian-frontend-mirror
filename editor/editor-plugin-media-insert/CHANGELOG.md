@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 3.1.6
+
+### Patch Changes
+
+- [#149200](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149200)
+  [`328b1e4aa5a37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/328b1e4aa5a37) -
+  [ux] [ED-24732] Warnings and errors in the media popup are read out to screen readers
+
 ## 3.1.5
 
 ### Patch Changes

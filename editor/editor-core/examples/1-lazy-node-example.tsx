@@ -185,7 +185,15 @@ const EditorWithhRealNodeView = memo(
 );
 
 const LazyNodeViewComparison = memo(
-	({ name, appearance }: { name: string; appearance: EditorAppearance }) => {
+	({
+		name,
+		appearance,
+		direction,
+	}: {
+		name: string;
+		appearance: EditorAppearance;
+		direction: 'row' | 'column';
+	}) => {
 		const [liveAdf, setLiveADF] = useState(getDefaultAdf());
 
 		const [mockedReady, setMockedReady] = useState(false);
@@ -214,7 +222,7 @@ const LazyNodeViewComparison = memo(
 
 		return (
 			<div data-testid={testid}>
-				<Flex>
+				<Flex direction={direction ?? 'row'}>
 					<Stack grow="fill">
 						<Heading size="medium">Main Editor</Heading>
 						<EditorWithhRealNodeView
@@ -239,5 +247,7 @@ const LazyNodeViewComparison = memo(
 );
 
 export default function MediaSingleLazyNodeViewComparisonAlignment() {
-	return <LazyNodeViewComparison name="LazyNode: Example" appearance="full-page" />;
+	return (
+		<LazyNodeViewComparison name="LazyNode: Example" appearance="full-page" direction="column" />
+	);
 }

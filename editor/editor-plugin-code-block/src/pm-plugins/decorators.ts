@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
+
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
 import { type EditorState, type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
@@ -18,7 +19,9 @@ export const DECORATION_WRAPPED_BLOCK_NODE_TYPE = 'decorationNodeType';
 export const generateInitialDecorations = (state: EditorState) => {
 	const codeBlockNodes = getAllCodeBlockNodesInDoc(state);
 
-	return codeBlockNodes.flatMap((node) => createLineNumbersDecorations(node));
+	return codeBlockNodes.flatMap((node) =>
+		createDecorationSetFromLineAttributes(generateLineAttributesFromNode(node)),
+	);
 };
 
 /**
@@ -30,8 +33,7 @@ export const updateCodeBlockDecorations = (
 	decorationSet: DecorationSet,
 ): DecorationSet => {
 	let updatedDecorationSet = decorationSet;
-
-	// All the line numbers decorators are refreshed on doc change.
+	// Update line number decorators for changed code block nodes if new line added or line removed.
 	updatedDecorationSet = updateDecorationSetWithLineNumberDecorators(
 		tr,
 		codeBlockNodes,
@@ -45,7 +47,8 @@ export const updateCodeBlockDecorations = (
 };
 
 /**
- * Update the decorations set with the line number decorators.
+ * Update the decorations set with the line number decorators. This will only happen for the code blocks passed to this function
+ * when there has been a new line added or removed. The line decorations will not update the code block node otherwise.
  */
 export const updateDecorationSetWithLineNumberDecorators = (
 	tr: ReadonlyTransaction,
@@ -53,22 +56,46 @@ export const updateDecorationSetWithLineNumberDecorators = (
 	decorationSet: DecorationSet,
 ): DecorationSet => {
 	let updatedDecorationSet = decorationSet;
-	// remove all the line number children from the decorations set. 'undefined, undefined' is used to find() the whole doc.
-	const children = updatedDecorationSet.find(
-		undefined,
-		undefined,
-		(spec) => spec.type === DECORATION_WIDGET_TYPE,
-	);
-	updatedDecorationSet = updatedDecorationSet.remove(children);
 
-	// regenerate all the line number for the documents code blocks
+	if (!fg('editor_code_wrapping_perf_improvement_ed-25141')) {
+		const children = updatedDecorationSet.find(
+			undefined,
+			undefined,
+			(spec) => spec.type === DECORATION_WIDGET_TYPE,
+		);
+		updatedDecorationSet = updatedDecorationSet.remove(children);
+	}
+
 	const lineNumberDecorators: Decoration[] = [];
 
 	codeBlockNodes.forEach((node) => {
-		lineNumberDecorators.push(...createLineNumbersDecorations(node));
+		if (fg('editor_code_wrapping_perf_improvement_ed-25141')) {
+			const existingWidgetsOnNode = updatedDecorationSet.find(
+				node.pos,
+				node.pos + node.node.nodeSize,
+				(spec) => spec.type === DECORATION_WIDGET_TYPE,
+			);
+
+			const newLineAttributes = generateLineAttributesFromNode(node);
+
+			// There will be no widgets on initialisation. If the number of existing widgets does not equal the amount of lines, regenerate the widgets.
+			// There may be a case where the number of existing widgets and the number of lines are the same, that's why we track totalLineCount. This allows
+			// us to know how many lines there were when the widget was created. It avoids a break in line numbers, e.g. "1, 2, 3, 5, 6". Happens on line removal.
+			if (
+				existingWidgetsOnNode.length === 0 ||
+				existingWidgetsOnNode.length !== newLineAttributes.length ||
+				existingWidgetsOnNode[0].spec.totalLineCount !== newLineAttributes.length
+			) {
+				updatedDecorationSet = updatedDecorationSet.remove(existingWidgetsOnNode);
+				lineNumberDecorators.push(...createDecorationSetFromLineAttributes(newLineAttributes));
+			}
+		} else {
+			lineNumberDecorators.push(
+				...createDecorationSetFromLineAttributes(generateLineAttributesFromNode(node)),
+			);
+		}
 	});
 
-	// add the newly generated line numbers to the decorations set
 	return updatedDecorationSet.add(tr.doc, [...lineNumberDecorators]);
 };
 
@@ -122,17 +149,18 @@ export const createDecorationSetFromLineAttributes = (
 		};
 
 		// side -1 is used so the line numbers are the first thing to the left of the lines of code.
+		// totalLineCount is used to know whether or not to update the line numbers when a new line is added or removed.
 		return Decoration.widget(lineStart, createLineNumberWidget, {
 			type: DECORATION_WIDGET_TYPE,
 			side: -1,
+			totalLineCount: fg('editor_code_wrapping_perf_improvement_ed-25141')
+				? lineAttributes.length
+				: undefined,
 		});
 	});
 
 	return widgetDecorations;
 };
-
-export const createLineNumbersDecorations = (node: NodeWithPos) =>
-	createDecorationSetFromLineAttributes(generateLineAttributesFromNode(node));
 
 /**
  * There are edge cases like when a user drags and drops a code block node where the decorator breaks and no longer reflects

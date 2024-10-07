@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 93.1.2
+
+### Patch Changes
+
+- [#149178](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149178)
+  [`f3c027c1f8373`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3c027c1f8373) -
+  [ED-24859] Improve LazyNodeView toDOM implementation to avoid LayoutShifts
+
+## 93.1.1
+
+### Patch Changes
+
+- [`c96a0a38b5aa3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c96a0a38b5aa3) -
+  Updated typing for floating toolbar tooltipContent prop to allow manual updating of tooltip
+  position, better parity with atlaskit component.
+
 ## 93.1.0
 
 ### Minor Changes

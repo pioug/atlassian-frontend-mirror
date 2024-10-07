@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "198.4.0",
+	"version": "198.4.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -79,7 +79,6 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@af/editor-examples-helpers": "0.3.17",
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.8.0",
@@ -89,7 +88,6 @@
 		"@atlaskit/editor-plugin-card": "^3.4.0",
 		"@atlaskit/editor-plugin-list": "^3.8.0",
 		"@atlaskit/editor-plugin-paste": "^1.12.0",
-		"@atlaskit/editor-test-helpers": "*",
 		"@atlaskit/link-provider": "^1.16.0",
 		"@atlaskit/logo": "^14.3.0",
 		"@atlaskit/media-core": "^34.3.0",

@@ -86,6 +86,9 @@
 			"path": "../../design-system/inline-message/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
 			"path": "../link-client-extension/tsconfig.app.json"
 		},
 		{

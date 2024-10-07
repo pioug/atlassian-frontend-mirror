@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tokens",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Design tokens are the single source of truth to name and store design decisions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
 		"codegen-tokens": "run-ts ./scripts/style-dictionary/build.tsx && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/heading && yarn codegen"
 	},
 	"dependencies": {
-		"@atlaskit/ds-lib": "^2.7.0",
+		"@atlaskit/ds-lib": "^3.0.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@babel/traverse": "^7.23.2",

@@ -49,7 +49,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/ds-lib": "^2.7.0",
+		"@atlaskit/ds-lib": "^3.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/jest": "^11.8.0",

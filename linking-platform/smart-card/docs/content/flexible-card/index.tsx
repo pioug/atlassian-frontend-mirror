@@ -35,7 +35,7 @@ Here's the bare minimum to get Flexible Smart Links running!
 and HTTP client that powers Smart Links. It is recommended to have single
 Provider per page for the best performance.
 
-* **[Client](./client)** is a HTTP client which interacts with the
+* **Client** is a HTTP client which interacts with the
 Object Resolver Service, or a service of your own. Use \`stg\`/\`staging\` for staging
 and \`prod\`/\`production\` for production environment.
 
@@ -43,7 +43,7 @@ and \`prod\`/\`production\` for production environment.
 It offers a default inline, block and embed appearances, and now flexible ui.
 (Card's block appearance is not to be confused with Flexible Smart Links blocks.)
 
-* **[TitleBlock](./title-block)** is a compulsory block and the trigger of the Flexible Smart
+* **TitleBlock** is a compulsory block and the trigger of the Flexible Smart
 Links UI rendering.
 
 Really, it's a simple matter of putting TitleBlock component inside the Smart Links Card component. 😎
@@ -84,7 +84,7 @@ A few useful tools to help visualise your linking vision.
 
 ### Here are some ideas to get you started!
 
-UI props ([FlexibleUiOptions](./ui-options)) can be combined to provide a wide range of bespoke-looking integrations.
+UI props (FlexibleUiOptions) can be combined to provide a wide range of bespoke-looking integrations.
 For example, we can hide the background, elevation and padding,
 creating the “list” appearance common in Atlassian sidebars.
 
@@ -95,7 +95,7 @@ ${(
 	/>
 )}
 
-Use [TitleBlock](./title-block) together with [PreviewBlock](./preview-block), [MetadataBlock](./metadata-block), [SnippetBlock](./snippet-block), and [FooterBlock](./footer-block)
+Use TitleBlock together with PreviewBlock, MetadataBlock, SnippetBlock, and FooterBlock
 can create a comprehensive content for the link resource.
 
 ${(
@@ -106,7 +106,7 @@ ${(
 )}
 
 There is no limit on how many blocks you can put inside Flexible Smart Links.
-Repeat the [MetadataBlock](./metadata-block) to enrich the linking experience.
+Repeat the MetadataBlock to enrich the linking experience.
 
 ${(
 	<CustomExample

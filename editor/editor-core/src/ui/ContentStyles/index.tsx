@@ -259,8 +259,17 @@ const contentStyles = (props: ContentStylesProps) => css`
 		);
 	}
 
+	.ProseMirror {
+		--ak-editor-max-container-width: calc(100cqw - var(--ak-editor--large-gutter-padding));
+	}
+
+	/* We can't allow nodes that are inside other nodes to bleed from the parent container */
+	.ProseMirror > div[data-prosemirror-node-block] [data-prosemirror-node-block] {
+		--ak-editor-max-container-width: 100%;
+	}
+
 	/* container editor-area is defined in platform/packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts */
-	@container editor-area (min-width: ${akEditorBreakpointForSmallDevice}) {
+	@container editor-area (width >= ${akEditorBreakpointForSmallDevice}) {
 		.ProseMirror {
 			--ak-editor--breakout-wide-layout-width: ${akEditorCalculatedWideLayoutWidth}px;
 		}

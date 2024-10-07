@@ -73,9 +73,9 @@ export const mediaGroupSpecWithFixedToDOM = () => {
 						margin: 3px 5px;
 						display: flex;
 						gap: 8px;
-						--media-card-background-color: #EBECF0;
-						--media-card-width: ${defaultImageCardDimensions.width}px;
-						--media-card-height: ${defaultImageCardDimensions.height}px;
+						--ak-editor-media-card-background-color: #EBECF0;
+						--ak-editor-media-card-width: ${defaultImageCardDimensions.width}px;
+						--ak-editor-media-card-height: ${defaultImageCardDimensions.height}px;
 					`,
 					'data-node-type': 'mediaGroup',
 				},

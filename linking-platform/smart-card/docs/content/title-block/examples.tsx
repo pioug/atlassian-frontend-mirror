@@ -18,7 +18,7 @@ ${(
 ### Metadata
 
 Use \`metadata\` to display metadata elements after link title, to the right of the block.
-See [ElementItem](./element-item) for available elements.
+See ElementItem for available elements.
 
 ${(
 	<CustomExample
@@ -30,7 +30,7 @@ ${(
 ### Subtitle metadata
 
 Use \`subtitle\` to display metadata elements below the link title.
-See [ElementItem](./element-item) for available elements.
+See ElementItem for available elements.
 
 ${(
 	<CustomExample
@@ -43,7 +43,7 @@ ${(
 ### Actions
 
 Use \`actions\` to display action buttons on the right of the block.
-See [ActionItem](./action-item) for actions configurations.
+See ActionItem for actions configurations.
 
 ${(
 	<CustomExample
@@ -79,7 +79,7 @@ Use \`size\` to override the size from block's parent (\`<Card />\`) ui options.
 By default, a block inherits the size from its parent and applies the size to
 the elements and actions inside.
 Overriding the size on block level will set the new default size for its children.
-See [ElementItem](./element-item) and [ActionItem](./action-item) for element sizing and action sizing respectively,
+See ElementItem and ActionItem for element sizing and action sizing respectively,
 and how to override block sizing.
 
 #### Small

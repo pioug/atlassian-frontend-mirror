@@ -9,6 +9,7 @@ import { jsx } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
@@ -73,6 +74,11 @@ function createNodeView<ExtraComponentProps>({
 		`${nodeViewParams.node.type.name}View-content-wrap`,
 		`${inlineNodeViewClassname}`,
 	);
+
+	if (fg('platform_editor_breakout_use_css')) {
+		domRef.dataset.prosemirrorNodeName = nodeViewParams.node.type.name;
+		domRef.dataset.prosemirrorNodeInline = 'true';
+	}
 
 	// This util is shared for tracking rendering, and the ErrorBoundary that
 	// is setup to wrap the Component when rendering

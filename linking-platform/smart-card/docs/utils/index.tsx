@@ -12,17 +12,39 @@ export const TabName = {
 	Reference: 'Reference',
 };
 
-export const toAbsolutePath = (path?: string) => {
-	if (path?.startsWith('./')) {
+const sanitizeUrl = (path: string = '') => {
+	try {
+		const url = new URL(path);
+		return url.toString();
+	} catch {
+		return 'about:blank';
+	}
+};
+
+export const isRelativePath = (path: string = '') => path?.startsWith('./');
+
+export const toAbsolutePath = (path: string = ''): string => {
+	if (isRelativePath(path)) {
 		const current = window.location.href;
 		const parent = current.slice(0, current.lastIndexOf('/'));
 
 		if (current.indexOf('/docs') === -1) {
-			return `${current}/docs/${path.replace('./', '')}`;
+			return sanitizeUrl(`${current}/docs/${path.replace('./', '')}`);
 		}
-		return path.replace(path[0], parent);
+		return sanitizeUrl(path.replace(path[0], parent));
 	}
-	return path;
+	return sanitizeUrl(path);
+};
+
+export const toExamplePath = (path: string = '') => {
+	const current = window.location.href;
+	const parent = current.slice(0, current.lastIndexOf('/docs'));
+	const absolutePath = parent.replace('packages', 'examples').replace('/docs', path);
+	return sanitizeUrl(absolutePath);
+};
+
+export const navigateToUrl = (url: string) => {
+	window.location.href = url;
 };
 
 export const overrideActionsProps = (props: Object) => (

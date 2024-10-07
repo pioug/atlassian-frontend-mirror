@@ -1,7 +1,7 @@
 import React, { Fragment, PureComponent, type ReactNode } from 'react';
 
 import Button from '@atlaskit/button';
-import MenuIcon from '@atlaskit/icon/glyph/menu';
+import MenuIcon from '@atlaskit/icon/core/migration/menu';
 
 import * as styles from '../styled';
 
@@ -81,7 +81,14 @@ class MobileHeader extends PureComponent<MobileHeaderProps, MobileHeaderState> {
 		const menu = customMenu || (
 			<Button
 				appearance="subtle"
-				iconBefore={<MenuIcon label={menuIconLabel} size="large" />}
+				iconBefore={
+					<MenuIcon
+						label={menuIconLabel}
+						LEGACY_size="large"
+						color="currentColor"
+						spacing="spacious"
+					/>
+				}
 				onClick={this.props.onNavigationOpen}
 			/>
 		);

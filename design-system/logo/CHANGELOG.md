@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 14.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.2
 
 ### Patch Changes

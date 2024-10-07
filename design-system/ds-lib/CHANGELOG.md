@@ -1,5 +1,14 @@
 # @atlaskit/ds-lib
 
+## 3.0.0
+
+### Major Changes
+
+- [#149152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149152)
+  [`92cf54d8ca959`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92cf54d8ca959) -
+  This major bump exists only to make the previous version's react-uid export rename easier to
+  consume. There are no changes in this release. See v2.7.0 for previous changes.
+
 ## 2.7.0
 
 ### Minor Changes

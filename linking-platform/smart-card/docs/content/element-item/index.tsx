@@ -10,7 +10,7 @@ export default customMd`
 
 ## ElementItem
 
-Some Flexible Smart Links blocks such as [TitleBock](./title-block) and [MetadataBlock](./metadata-block) offer areas to host
+Some Flexible Smart Links blocks such as TitleBock and MetadataBlock offer areas to host
 optional metadata elements.
 These elements represent link metadata and are subjected to data availability.
 If the element is defined in the block props

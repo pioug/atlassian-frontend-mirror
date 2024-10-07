@@ -89,6 +89,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/analytics-listeners": "^8.11.0",
 		"@atlaskit/css-reset": "^6.11.0",
+		"@atlaskit/link": "^1.2.1",
 		"@atlaskit/link-test-helpers": "^7.5.0",
 		"@atlaskit/media-test-helpers": "^34.4.0",
 		"@atlaskit/ssr": "*",

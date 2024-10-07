@@ -7,7 +7,8 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { md } from '@atlaskit/docs';
 import { token } from '@atlaskit/tokens';
-import { toAbsolutePath } from './index';
+import { isRelativePath, toAbsolutePath } from './index';
+import Link from '@atlaskit/link';
 
 const styles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -26,8 +27,13 @@ const customMd = md.customize({
 	renderers: {
 		link: (props: { href?: string; title?: string; children?: object }) => {
 			const { href, title, children } = props;
+			const target = isRelativePath(href) ? '_self' : '_blank';
 			const url = toAbsolutePath(href);
-			return React.createElement('a', { href: url, title }, children);
+			return (
+				<Link href={url} target={target} title={title}>
+					{children}
+				</Link>
+			);
 		},
 	},
 });

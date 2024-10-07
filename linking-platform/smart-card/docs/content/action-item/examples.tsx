@@ -18,8 +18,8 @@ ${(
 
 As it happens, an action has two defaults.
 
-* On [TitleBlock](./title-block), an action has white background that turns grey on hover.
-* On [FooterBlock](./footer-block), an action has gray background that turns darker shade on hover.
+* On TitleBlock, an action has white background that turns grey on hover.
+* On FooterBlock, an action has gray background that turns darker shade on hover.
 
 On both block, a default action shows icon on the left, follows by action text.
 

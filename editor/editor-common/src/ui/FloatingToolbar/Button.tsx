@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 
 import type { ButtonAppearance } from '../../types';
 
@@ -28,7 +28,7 @@ export interface Props {
 	target?: string;
 	children?: React.ReactNode;
 	className?: string;
-	tooltipContent?: React.ReactNode;
+	tooltipContent?: TooltipProps['content'];
 	tooltipStyle?: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
 	testId?: string;
 	hideTooltipOnClick?: boolean;

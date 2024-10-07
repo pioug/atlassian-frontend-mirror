@@ -16,7 +16,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
+import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
 import EditorFilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
@@ -317,18 +317,13 @@ export function MediaFromURL({
 												onChange(value);
 											}}
 										/>
-										{error && (
-											<ErrorMessage>
-												<Box
-													as="span"
-													{...(meta.touched || meta.dirty
-														? { 'aria-relevant': 'all', 'aria-atomic': 'false' }
-														: {})}
-												>
-													{error}
-												</Box>
-											</ErrorMessage>
-										)}
+										<MessageWrapper>
+											{error && (
+												<ErrorMessage>
+													<Box as="span">{error}</Box>
+												</ErrorMessage>
+											)}
+										</MessageWrapper>
 									</Box>
 									{!previewState.previewInfo && !previewState.error && !previewState.warning && (
 										<Flex xcss={PreviewBoxStyles} alignItems="center" justifyContent="center">
@@ -355,12 +350,14 @@ export function MediaFromURL({
 								<MediaCard attrs={previewState.previewInfo} mediaProvider={mediaProvider} />
 							</Inline>
 						)}
-						{previewState.error && (
-							<SectionMessage appearance="error">{strings.errorMessage}</SectionMessage>
-						)}
-						{previewState.warning && (
-							<SectionMessage appearance="warning">{strings.warning}</SectionMessage>
-						)}
+						<MessageWrapper>
+							{previewState.error && (
+								<SectionMessage appearance="error">{strings.errorMessage}</SectionMessage>
+							)}
+							{previewState.warning && (
+								<SectionMessage appearance="warning">{strings.warning}</SectionMessage>
+							)}
+						</MessageWrapper>
 						<FormFooter>
 							<ButtonGroup>
 								<Button appearance="subtle" onClick={onCancel}>

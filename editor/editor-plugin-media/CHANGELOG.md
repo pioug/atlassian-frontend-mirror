@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.34.8
+
+### Patch Changes
+
+- [#149178](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149178)
+  [`f3c027c1f8373`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3c027c1f8373) -
+  [ED-24859] Improve LazyNodeView toDOM implementation to avoid LayoutShifts
+
 ## 1.34.7
 
 ### Patch Changes

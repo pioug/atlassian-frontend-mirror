@@ -6,6 +6,7 @@ import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji/types';
+import type { TooltipProps } from '@atlaskit/tooltip';
 
 import type { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
 import type { ProviderFactory } from '../provider-factory';
@@ -135,7 +136,7 @@ export type FloatingToolbarButton<T extends {}> = {
 	href?: string;
 	target?: string;
 	className?: string;
-	tooltipContent?: React.ReactNode;
+	tooltipContent?: TooltipProps['content'];
 	testId?: string;
 	hideTooltipOnClick?: boolean;
 	confirmDialog?: ConfirmDialogOptions | (() => ConfirmDialogOptions);

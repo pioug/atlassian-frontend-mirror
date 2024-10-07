@@ -1,5 +1,13 @@
 # @atlaskit/mobile-header
 
+## 6.2.0
+
+### Minor Changes
+
+- [#149200](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149200)
+  [`89785dceb2ecb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89785dceb2ecb) -
+  Enable new icons behind a feature flag.
+
 ## 6.1.15
 
 ### Patch Changes

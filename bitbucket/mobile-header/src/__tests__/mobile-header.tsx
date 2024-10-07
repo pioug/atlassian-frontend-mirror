@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 
 import AkButton from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
-import MenuIcon from '@atlaskit/icon/glyph/menu';
+import MenuIcon from '@atlaskit/icon/core/migration/menu';
 
 import MobileHeader from '../components/MobileHeader';
 import * as styles from '../styled';

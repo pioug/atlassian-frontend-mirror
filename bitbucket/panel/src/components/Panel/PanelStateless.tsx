@@ -4,8 +4,9 @@ import AnimateHeight from 'react-animate-height';
 import { defineMessages, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
+import { Box } from '@atlaskit/primitives';
 
 import * as styles from './styledPanel';
 
@@ -51,9 +52,21 @@ const PanelStateless: FC<PanelState> = ({ children, header, isExpanded = false, 
 						spacing="none"
 						iconBefore={
 							isExpanded ? (
-								<ChevronDownIcon label={i18nCollapseText} />
+								<Box as="span" paddingInlineStart="space.050">
+									<ChevronDownIcon
+										color="currentColor"
+										label={i18nCollapseText}
+										LEGACY_margin="0 0 0 -4px"
+									/>
+								</Box>
 							) : (
-								<ChevronRightIcon label={i18nExpandText} />
+								<Box as="span" paddingInlineStart="space.050">
+									<ChevronRightIcon
+										color="currentColor"
+										label={i18nExpandText}
+										LEGACY_margin="0 0 0 -4px"
+									/>
+								</Box>
 							)
 						}
 					/>

@@ -18,7 +18,7 @@ ${(
 ### Actions
 
 Use an \`actions\` to display action buttons on the right of the block.
-See [ActionItem](./action-item) for actions configurations.
+See ActionItem for actions configurations.
 
 ${(
 	<CustomExample

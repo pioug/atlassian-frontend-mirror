@@ -5,8 +5,9 @@ import styled from '@emotion/styled';
 
 import Banner from '@atlaskit/banner';
 import { IconButton } from '@atlaskit/button/new';
-import RoomMenuIcon from '@atlaskit/icon/glyph/room-menu';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import MenuIcon from '@atlaskit/icon/core/menu';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import LegacyRoomMenuIcon from '@atlaskit/icon/glyph/room-menu';
 import Navigation from '@atlaskit/navigation';
 
 import MobileHeader from '../src';
@@ -46,7 +47,16 @@ export default class BannerMobileHeaderDemo extends Component<{}, State> {
 	render() {
 		return (
 			<div>
-				<Banner icon={<WarningIcon label="Warning icon" secondaryColor="inherit" />}>
+				<Banner
+					icon={
+						<WarningIcon
+							color="currentColor"
+							spacing="spacious"
+							label="Warning icon"
+							LEGACY_secondaryColor="inherit"
+						/>
+					}
+				>
 					This is a warning banner
 				</Banner>
 				<MobileHeader
@@ -54,7 +64,17 @@ export default class BannerMobileHeaderDemo extends Component<{}, State> {
 					menuIconLabel="Menu"
 					navigation={(isOpen) => isOpen && <Navigation onResize={() => {}} />}
 					secondaryContent={
-						<IconButton icon={RoomMenuIcon} onClick={this.sidebarOpened} label="Show sidebar" />
+						<IconButton
+							icon={() => (
+								<MenuIcon
+									LEGACY_fallbackIcon={LegacyRoomMenuIcon}
+									label={''}
+									color="currentColor"
+								/>
+							)}
+							onClick={this.sidebarOpened}
+							label="Show sidebar"
+						/>
 					}
 					sidebar={(isOpen) => isOpen && <FakeSideBar>Sidebar goes here...</FakeSideBar>}
 					pageHeading="Page heading"

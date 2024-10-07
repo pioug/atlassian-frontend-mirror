@@ -10,7 +10,7 @@ export default customMd`
 
 ## ActionItem
 
-Certain blocks such as [TitleBlock](./title-block) and [FooterBlock](./footer-block) can render link actions.
+Certain blocks such as TitleBlock and FooterBlock can render link actions.
 Each action item accepts an onClick event and provides preset icon and label.
 With exception of a custom action which either Icon or label must be provided.
 

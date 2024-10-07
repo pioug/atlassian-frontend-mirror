@@ -74,7 +74,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/checkbox": "^14.0.0",
-		"@atlaskit/ds-lib": "^2.7.0",
+		"@atlaskit/ds-lib": "^3.0.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/ssr": "*",

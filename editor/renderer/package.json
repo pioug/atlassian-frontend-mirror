@@ -72,7 +72,6 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/css-reset": "^6.11.0",
-		"@atlaskit/editor-test-helpers": "^19.0.0",
 		"@atlaskit/link-provider": "^1.16.0",
 		"@atlaskit/link-test-helpers": "^7.5.0",
 		"@atlaskit/linking-common": "^5.11.0",

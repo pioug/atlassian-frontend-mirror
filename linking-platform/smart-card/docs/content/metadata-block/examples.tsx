@@ -22,7 +22,7 @@ metadata elements are specified, it will not be displayed.
 ### Primary metadata
 
 Use \`primary\` to display metadata elements on the left of the block.
-See [ElementItem](./element-item) for available elements.
+See ElementItem for available elements.
 
 ${(
 	<CustomExample
@@ -34,7 +34,7 @@ ${(
 ### Secondary metadata
 
 Use \`secondary\` to display metadata elements on the left of the block.
-See [ElementItem](./element-item) for available elements.
+See ElementItem for available elements.
 
 ${(
 	<CustomExample

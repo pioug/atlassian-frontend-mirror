@@ -55,7 +55,7 @@
 		"@af/integration-testing": "*",
 		"@atlaskit/datetime-picker": "^15.1.0",
 		"@atlaskit/docs": "*",
-		"@atlaskit/ds-lib": "^2.7.0",
+		"@atlaskit/ds-lib": "^3.0.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/select": "^17.19.0",
 		"@atlaskit/ssr": "*",

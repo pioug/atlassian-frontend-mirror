@@ -8,6 +8,7 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnalyticsDispatch, AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
@@ -108,6 +109,13 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		// nodeView if DOM structure has nested plain "div"s, it doesn't see the
 		// difference between them and it kills the nodeView
 		this.domRef.classList.add(`${this.node.type.name}View-content-wrap`);
+
+		if (this.domRef && fg('platform_editor_breakout_use_css')) {
+			this.domRef.dataset.prosemirrorNodeName = this.node.type.name;
+			if (this.node.type.isBlock) {
+				this.domRef.dataset.prosemirrorNodeBlock = 'true';
+			}
+		}
 
 		const { samplingRate, slowThreshold, trackingEnabled } = getPerformanceOptions(this.view);
 

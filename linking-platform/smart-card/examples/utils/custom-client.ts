@@ -1,12 +1,22 @@
 import { CardClient } from '@atlaskit/link-provider';
 import { Client } from '@atlaskit/smart-card';
 import { type JsonLd } from 'json-ld-types';
-import { AtlasProject } from '../../examples-helpers/_jsonLDExamples';
+import {
+	AtlasProject,
+	YouTubeVideo,
+	YouTubeVideoUrl,
+} from '../../examples-helpers/_jsonLDExamples';
 import { iconGoogleDrive } from '../images';
 import { mocks, overrideEmbedContent } from './common';
 
+export const ResolvedClientUrl = AtlasProject.data.url;
+export const ResolvedClientEmbedUrl = YouTubeVideoUrl;
 export class ResolvedClient extends Client {
 	fetchData(url: string) {
+		if (url === YouTubeVideoUrl) {
+			return Promise.resolve(YouTubeVideo);
+		}
+
 		const response = { ...AtlasProject };
 		response.data.preview.href = overrideEmbedContent;
 		return Promise.resolve(response as JsonLd.Response);

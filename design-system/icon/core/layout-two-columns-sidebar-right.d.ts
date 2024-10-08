@@ -1,14 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b2fa7ebed11f30a94c58f00ba11d7af7>>
+ * @codegen <<SignedSource::71d92aa8488f21443ec26ce3520ab85e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import React from 'react';
-import Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type React from 'react';
+import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
+import type Icon from '@atlaskit/icon/UNSAFE_base-new';
 
 declare const LayoutTwoColumnsSidebarRightIcon: {
-  (props: Omit<React.ComponentProps<typeof Icon>, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
+  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
   displayName: string;
 };
 export default LayoutTwoColumnsSidebarRightIcon;

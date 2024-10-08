@@ -1,14 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::79d5ed04628f5c4a86f00b24bb76a2ab>>
+ * @codegen <<SignedSource::6365e46e412cafb9002db9f9ca4cfd71>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import React from 'react';
-import Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type React from 'react';
+import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
+import type Icon from '@atlaskit/icon/UNSAFE_base-new';
 
 declare const CloseIcon: {
-  (props: Omit<React.ComponentProps<typeof Icon>, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
+  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
   displayName: string;
 };
 export default CloseIcon;

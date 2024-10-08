@@ -40,6 +40,7 @@ export const FixedLayerMenu = ({
 }: MenuProps<OptionType>) => (
 	<FixedLayer
 		inputValue={selectProps.inputValue}
+		//@ts-ignore react-select unsupported props
 		containerRef={selectProps.fixedLayerRef}
 		content={
 			<components.Menu
@@ -75,6 +76,7 @@ export const FixedLayerMenu = ({
 				{children}
 			</components.Menu>
 		}
+		//@ts-ignore react-select unsupported props
 		testId={selectProps.testId}
 	/>
 );

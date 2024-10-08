@@ -73,6 +73,7 @@ const FormDateTimePickerExample = () => {
 											{...rest}
 											datePickerProps={{
 												selectProps: {
+													// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
 													validationState,
 												},
 
@@ -80,7 +81,7 @@ const FormDateTimePickerExample = () => {
 											}}
 											timePickerProps={{
 												selectProps: {
-													// @ts-ignore - Type '"error" | "none"' is not assignable to type 'ValidationState | undefined'.
+													// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
 													validationState,
 													'aria-labelledby': `${id}-label`,
 												},

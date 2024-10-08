@@ -56,7 +56,7 @@ describe('Option', () => {
 	const renderOption = (props: any) =>
 		mount(
 			<IntlProvider locale="en">
-				<Option {...props} getStyles={noop} cx={noop} />
+				<Option {...props} getStyles={noop} cx={noop} getClassNames={noop} />
 			</IntlProvider>,
 		);
 

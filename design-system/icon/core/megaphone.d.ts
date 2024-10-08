@@ -1,14 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f934cd89739e4c79da008942e48a5e61>>
+ * @codegen <<SignedSource::54db91b3d21dd3dac6e1117adc987301>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import React from 'react';
-import Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type React from 'react';
+import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
+import type Icon from '@atlaskit/icon/UNSAFE_base-new';
 
 declare const MegaphoneIcon: {
-  (props: Omit<React.ComponentProps<typeof Icon>, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
+  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
   displayName: string;
 };
 export default MegaphoneIcon;

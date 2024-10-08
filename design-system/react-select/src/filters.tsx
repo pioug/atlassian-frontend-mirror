@@ -1,7 +1,6 @@
 import memoizeOne from 'memoize-one';
 
 import { stripDiacritics } from './diacritics';
-import { type Option } from './types';
 
 export interface FilterOptionOption<Option> {
 	readonly label: string;
@@ -20,10 +19,11 @@ interface Config<Option> {
 const memoizedStripDiacriticsForInput = memoizeOne(stripDiacritics);
 
 const trimString = (str: string) => str.replace(/^\s+|\s+$/g, '');
-const defaultStringify = (option: FilterOptionOption<Option>) => `${option.label} ${option.value}`;
+const defaultStringify = <Option,>(option: FilterOptionOption<Option>) =>
+	`${option.label} ${option.value}`;
 
 export const createFilter =
-	(config?: Config<Option>) =>
+	<Option,>(config?: Config<Option>) =>
 	(option: FilterOptionOption<Option>, rawInput: string): boolean => {
 		// eslint-disable-next-line no-underscore-dangle
 		if ((option.data as { __isNew__?: unknown }).__isNew__) {

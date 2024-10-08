@@ -51,7 +51,7 @@
 		"@atlaskit/adf-utils": "^19.8.0",
 		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/editor-common": "^93.1.0",
-		"@atlaskit/icon": "^22.20.0",
+		"@atlaskit/icon": "^22.22.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",

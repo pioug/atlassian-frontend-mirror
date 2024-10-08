@@ -1,8 +1,10 @@
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
 import PageIcon from '@atlaskit/icon/core/migration/page';
 import { Box, xcss } from '@atlaskit/primitives';
 import React from 'react';
+import { IconCard, IconEmbed, IconInline, IconUrl } from '../../examples/images';
 import { navigateToUrl, toAbsolutePath } from './index';
 
 const styles = xcss({ textAlign: 'right' });
@@ -25,17 +27,37 @@ const DocQuickLinks = () => (
 				</DropdownItem>
 			</DropdownItemGroup>
 			<DropdownItemGroup hasSeparator>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./card'))}>Card</DropdownItem>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./inline-card'))}>
+				<DropdownItem
+					description="Start here for Smart Link"
+					onClick={() => navigateToUrl(toAbsolutePath('./card'))}
+				>
+					Card
+				</DropdownItem>
+				<DropdownItem
+					elemBefore={<IconInline label="" />}
+					description="Inline appearance"
+					onClick={() => navigateToUrl(toAbsolutePath('./inline-card'))}
+				>
 					Inline
 				</DropdownItem>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./block-card'))}>
+				<DropdownItem
+					elemBefore={<IconCard label="" />}
+					description="Block appearance (card)"
+					onClick={() => navigateToUrl(toAbsolutePath('./block-card'))}
+				>
 					Block
 				</DropdownItem>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./embed-card'))}>
+				<DropdownItem
+					elemBefore={<IconEmbed label="" />}
+					description="Embed appearance (iframe)"
+					onClick={() => navigateToUrl(toAbsolutePath('./embed-card'))}
+				>
 					Embed
 				</DropdownItem>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./flexible-card'))}>
+				<DropdownItem
+					description="Composable Smart Link"
+					onClick={() => navigateToUrl(toAbsolutePath('./flexible-card'))}
+				>
 					Flexible
 				</DropdownItem>
 				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./card-actions'))}>
@@ -57,7 +79,10 @@ const DocQuickLinks = () => (
 				</DropdownItem>
 			</DropdownItemGroup>
 			<DropdownItemGroup hasSeparator>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./link-url'))}>
+				<DropdownItem
+					elemBefore={<IconUrl label="" />}
+					onClick={() => navigateToUrl(toAbsolutePath('./link-url'))}
+				>
 					LinkUrl
 				</DropdownItem>
 			</DropdownItemGroup>
@@ -74,6 +99,16 @@ const DocQuickLinks = () => (
 				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./analytics'))}>
 					Analytics
 				</DropdownItem>{' '}
+			</DropdownItemGroup>
+			<DropdownItemGroup hasSeparator>
+				<DropdownItem
+					description="Questions and feedback"
+					elemBefore={<FeedbackIcon color="currentColor" spacing="spacious" label="" />}
+					href="https://atlassian.enterprise.slack.com/archives/CFKGAQZRV"
+					target="_blank"
+				>
+					#help-linking-platform
+				</DropdownItem>
 			</DropdownItemGroup>
 		</DropdownMenu>
 	</Box>

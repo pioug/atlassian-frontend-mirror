@@ -1,14 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f2313136ff16afb930d5711d887771d3>>
+ * @codegen <<SignedSource::617d1d208308e21aec0f4244678b3140>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import React from 'react';
-import Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type React from 'react';
+import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
+import type Icon from '@atlaskit/icon/UNSAFE_base-new';
 
 declare const RadioCheckedIcon: {
-  (props: Omit<React.ComponentProps<typeof Icon>, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
+  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
   displayName: string;
 };
 export default RadioCheckedIcon;

@@ -39,7 +39,7 @@
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.8.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
-		"@atlaskit/icon": "^22.20.0",
+		"@atlaskit/icon": "^22.22.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

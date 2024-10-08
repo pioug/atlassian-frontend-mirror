@@ -2,11 +2,20 @@ import React, { memo } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { IconFacadeProps, NewIconProps } from '../types';
+import type { IconFacadeProps, NewCoreIconProps, NewUtilityIconProps } from '../types';
 
 import LegacyIcon from './icon';
 
-const sizesEligibleForNewIcons: IconFacadeProps['size'][] = ['small', 'medium'];
+const sizeSpacingMap = {
+	utility: {
+		small: 'compact',
+		medium: 'spacious',
+	},
+	core: {
+		small: 'none',
+		medium: 'spacious',
+	},
+} as const;
 
 /**
  * `IconFacade` is a component that conditionally renders either a new or legacy icon based on a feature flag.
@@ -22,25 +31,40 @@ export const IconFacade = memo(function IconFacade({
 }: IconFacadeProps) {
 	const NewIcon = props.newIcon;
 
-	// By default, the icon size will be medium and spacing will be none for small icons
+	// By default, the icon size will be medium for core icons and small for utility icons
 	const size: IconFacadeProps['size'] = props.size ?? 'medium';
-	const spacing: NewIconProps['spacing'] = size === 'small' ? 'none' : 'spacious';
 
 	const useNewIcon =
 		!props.isFacadeDisabled &&
 		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-		fg('platform-visual-refresh-icons-legacy-facade') &&
-		sizesEligibleForNewIcons.includes(size);
+		fg('platform-visual-refresh-icons-legacy-facade');
 
-	if (useNewIcon && NewIcon) {
-		return (
-			<NewIcon
-				{...props}
-				spacing={spacing}
-				color={(props.primaryColor as any) || 'currentColor'}
-				type={props.iconType}
-			/>
-		);
+	if (useNewIcon && NewIcon && (size === 'small' || size === 'medium')) {
+		if (props.iconType === 'utility') {
+			const Icon = NewIcon as React.ComponentType<NewUtilityIconProps>;
+			return (
+				<Icon
+					{...props}
+					spacing={
+						fg('platform-visual-refresh-icons-facade-button-fix')
+							? sizeSpacingMap['utility'][size]
+							: 'none'
+					}
+					color={(props.primaryColor as any) || 'currentColor'}
+					type={props.iconType}
+				/>
+			);
+		} else {
+			const Icon = NewIcon as React.ComponentType<NewCoreIconProps>;
+			return (
+				<Icon
+					{...props}
+					spacing={sizeSpacingMap['core'][size]}
+					color={(props.primaryColor as any) || 'currentColor'}
+					type={props.iconType}
+				/>
+			);
+		}
 	}
 
 	return <LegacyIcon dangerouslySetGlyph={dangerouslySetGlyph} {...props} />;

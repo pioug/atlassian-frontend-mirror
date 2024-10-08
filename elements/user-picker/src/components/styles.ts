@@ -13,6 +13,7 @@ export const getStyles = memoizeOne(
 		isMulti?: boolean,
 		isCompact?: boolean,
 		overrideStyles?: StylesConfig,
+		isInvalid?: boolean,
 	): StylesConfig => {
 		let styles = {
 			menu: (css: any, state: any) => ({
@@ -30,11 +31,13 @@ export const getStyles = memoizeOne(
 				return {
 					...css,
 					width,
-					borderColor: state.isFocused
-						? token('color.border.focused', css.borderColor)
-						: state.selectProps.subtle || state.selectProps.noBorder
-							? 'transparent'
-							: token('color.border.input', N90),
+					borderColor: isInvalid
+						? token('color.border.danger', R400)
+						: state.isFocused
+							? token('color.border.focused', css.borderColor)
+							: state.selectProps.subtle || state.selectProps.noBorder
+								? 'transparent'
+								: token('color.border.input', N90),
 					backgroundColor: state.isFocused
 						? token('color.background.input', css['backgroundColor'])
 						: state.selectProps.subtle
@@ -45,13 +48,15 @@ export const getStyles = memoizeOne(
 					'&:hover .fabric-user-picker__clear-indicator': { opacity: 1 },
 					':hover': {
 						...css[':hover'],
-						borderColor: state.isFocused
-							? css[':hover']
-								? token('color.border.focused', css[':hover'].borderColor)
-								: token('color.border.focused', B100)
-							: state.selectProps.subtle
-								? 'transparent'
-								: token('color.border.input', N90),
+						borderColor: isInvalid
+							? token('color.border.danger', R400)
+							: state.isFocused
+								? css[':hover']
+									? token('color.border.focused', css[':hover'].borderColor)
+									: token('color.border.focused', B100)
+								: state.selectProps.subtle
+									? 'transparent'
+									: token('color.border.input', N90),
 						backgroundColor:
 							state.selectProps.subtle && state.selectProps.hoveringClearIndicator
 								? token('color.background.danger', R50)

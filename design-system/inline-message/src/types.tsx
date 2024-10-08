@@ -1,10 +1,10 @@
 import { type ComponentType } from 'react';
 
-import type { GlyphProps } from '@atlaskit/icon';
+import type { UNSAFE_NewCoreIconProps } from '@atlaskit/icon';
 
 export interface Icon {
 	defaultLabel: string;
-	icon: ComponentType<GlyphProps>;
+	icon: ComponentType<UNSAFE_NewCoreIconProps>;
 }
 
 export type IconAppearanceMap = Record<IconAppearance, Icon>;

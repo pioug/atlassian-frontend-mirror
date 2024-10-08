@@ -1,14 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7c97c218e194c5bb45fd59ecec473096>>
+ * @codegen <<SignedSource::57a17957941e230f1bebf7d3df7ce7f2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import React from 'react';
-import Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type React from 'react';
+import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
+import type Icon from '@atlaskit/icon/UNSAFE_base-new';
 
 declare const AutomationIcon: {
-  (props: Omit<React.ComponentProps<typeof Icon>, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
+  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
   displayName: string;
 };
 export default AutomationIcon;

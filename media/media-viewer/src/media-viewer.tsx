@@ -1,15 +1,11 @@
-import React from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import { type SyntheticEvent } from 'react';
-import { type MediaClient, type Identifier } from '@atlaskit/media-client';
-import { type MediaFeatureFlags, withMediaAnalyticsContext } from '@atlaskit/media-common';
+import { type Identifier } from '@atlaskit/media-client';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { Shortcut } from '@atlaskit/media-ui';
-import {
-	withAnalyticsEvents,
-	type WithAnalyticsEventsProps,
-	type UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
-import { packageName, packageVersion, component, componentName, fireAnalytics } from './analytics';
+import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { fireAnalytics } from './analytics';
 import { createModalEvent } from './analytics/events/screen/modal';
 import { createClosedEvent } from './analytics/events/ui/closed';
 import { List } from './list';
@@ -25,118 +21,91 @@ export type Props = {
 	onClose?: () => void;
 	selectedItem?: Identifier;
 	featureFlags?: MediaFeatureFlags;
-	mediaClient: MediaClient;
 	items: Identifier[];
 	extensions?: MediaViewerExtensions;
 	contextId?: string;
 	innerRef?: React.Ref<HTMLDivElement>;
-} & WithAnalyticsEventsProps;
+};
 
-export interface State {
-	isSidebarVisible: boolean;
-	selectedIdentifier?: Identifier;
-}
+const MediaViewerComponent = ({
+	featureFlags,
+	items,
+	extensions,
+	contextId,
+	innerRef,
+	onClose,
+	selectedItem,
+	intl,
+}: Props & WrappedComponentProps) => {
+	const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+	const [selectedIdentifier, setSelectedIdentifier] = useState<Identifier>();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const createAnalyticsEventRef = useRef(createAnalyticsEvent);
+	createAnalyticsEventRef.current = createAnalyticsEvent;
 
-export class MediaViewerComponent extends React.Component<Props & WrappedComponentProps, State> {
-	state: State = {
-		isSidebarVisible: false,
-	};
-
-	UNSAFE_componentWillMount() {
-		fireAnalytics(createModalEvent(), this.props.createAnalyticsEvent);
+	useLayoutEffect(() => {
+		fireAnalytics(createModalEvent(), createAnalyticsEventRef.current);
 		start('MediaViewer.SessionDuration');
-	}
+	}, []);
 
-	onShortcutClosed = () => {
-		const { onClose, createAnalyticsEvent } = this.props;
-		fireAnalytics(createClosedEvent('escKey'), createAnalyticsEvent);
-		if (onClose) {
-			onClose();
-		}
-	};
+	const defaultSelectedItem: Identifier | undefined = selectedItem || items[0];
 
-	onContentClose = (_e?: SyntheticEvent, analyticsEvent?: UIAnalyticsEvent) => {
-		const { onClose, createAnalyticsEvent } = this.props;
-		if (
-			analyticsEvent &&
-			analyticsEvent.payload &&
-			analyticsEvent.payload.actionSubject === 'button'
-		) {
-			fireAnalytics(createClosedEvent('button'), createAnalyticsEvent);
-		}
-		if (onClose) {
-			onClose();
-		}
-	};
+	const renderSidebar = () => {
+		const sidebarSelectedIdentifier = selectedIdentifier || defaultSelectedItem;
 
-	private toggleSidebar = () => {
-		this.setState({
-			isSidebarVisible: !this.state.isSidebarVisible,
-		});
-	};
-
-	private get defaultSelectedItem(): Identifier | undefined {
-		const { items, selectedItem } = this.props;
-
-		const firstItem = items[0];
-
-		return selectedItem || firstItem;
-	}
-
-	renderSidebar = () => {
-		const { extensions } = this.props;
-		const { isSidebarVisible, selectedIdentifier } = this.state;
-		const sidebardSelectedIdentifier = selectedIdentifier || this.defaultSelectedItem;
-
-		if (sidebardSelectedIdentifier && isSidebarVisible && extensions && extensions.sidebar) {
+		if (sidebarSelectedIdentifier && isSidebarVisible && extensions && extensions.sidebar) {
 			return (
 				<SidebarWrapper data-testid="media-viewer-sidebar-content">
-					{extensions.sidebar.renderer(sidebardSelectedIdentifier, {
-						close: this.toggleSidebar,
+					{extensions.sidebar.renderer(sidebarSelectedIdentifier, {
+						close: () => setIsSidebarVisible(!isSidebarVisible),
 					})}
 				</SidebarWrapper>
 			);
 		}
 	};
 
-	render() {
-		const { mediaClient, onClose, items, extensions, contextId, featureFlags, innerRef } =
-			this.props;
-		const { isSidebarVisible } = this.state;
-		const content = (
-			<div ref={innerRef}>
-				<Blanket
-					data-testid="media-viewer-popup"
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={mediaViewerPopupClass}
+	const content = (
+		<div ref={innerRef}>
+			<Blanket
+				data-testid="media-viewer-popup"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={mediaViewerPopupClass}
+			>
+				<Shortcut
+					code={'Escape'}
+					handler={() => {
+						fireAnalytics(createClosedEvent('escKey'), createAnalyticsEventRef.current);
+						onClose && onClose();
+					}}
+				/>
+				<Content
+					isSidebarVisible={isSidebarVisible}
+					onClose={(_e?: SyntheticEvent, analyticsEvent?: UIAnalyticsEvent) => {
+						if (analyticsEvent?.payload?.actionSubject === 'button') {
+							fireAnalytics(createClosedEvent('button'), createAnalyticsEventRef.current);
+						}
+						onClose && onClose();
+					}}
 				>
-					<Shortcut code={'Escape'} handler={this.onShortcutClosed} eventType={'keyup'} />
-					<Content isSidebarVisible={isSidebarVisible} onClose={this.onContentClose}>
-						<List
-							defaultSelectedItem={this.defaultSelectedItem || items[0]}
-							items={items}
-							mediaClient={mediaClient}
-							onClose={onClose}
-							extensions={extensions}
-							onNavigationChange={this.onNavigationChange}
-							onSidebarButtonClick={this.toggleSidebar}
-							isSidebarVisible={isSidebarVisible}
-							contextId={contextId}
-							featureFlags={featureFlags}
-						/>
-					</Content>
-					{this.renderSidebar()}
-				</Blanket>
-			</div>
-		);
+					<List
+						defaultSelectedItem={defaultSelectedItem || items[0]}
+						items={items}
+						onClose={onClose}
+						extensions={extensions}
+						onNavigationChange={setSelectedIdentifier}
+						onSidebarButtonClick={() => setIsSidebarVisible(!isSidebarVisible)}
+						isSidebarVisible={isSidebarVisible}
+						contextId={contextId}
+						featureFlags={featureFlags}
+					/>
+				</Content>
+				{renderSidebar()}
+			</Blanket>
+		</div>
+	);
 
-		return this.props.intl ? content : <IntlProvider locale="en">{content}</IntlProvider>;
-	}
-
-	private onNavigationChange = (selectedIdentifier: Identifier) => {
-		this.setState({ selectedIdentifier });
-	};
-}
+	return intl ? content : <IntlProvider locale="en">{content}</IntlProvider>;
+};
 
 const MediaViewerWithRef = React.forwardRef<HTMLDivElement, Props & WrappedComponentProps>(
 	(props, ref) => {
@@ -148,16 +117,11 @@ const MediaViewerWithScrollLock = (props: Props & WrappedComponentProps) => {
 	return (
 		<FocusLock autoFocus>
 			<ScrollLock />
-
 			<MediaViewerWithRef {...props} />
 		</FocusLock>
 	);
 };
 
-// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
-export const MediaViewer: React.ComponentType<Props> = withMediaAnalyticsContext({
-	packageName,
-	packageVersion,
-	component,
-	componentName,
-})(withAnalyticsEvents()(injectIntl(MediaViewerWithScrollLock, { enforceContext: false })));
+export const MediaViewer: React.ComponentType<Props> = injectIntl(MediaViewerWithScrollLock, {
+	enforceContext: false,
+});

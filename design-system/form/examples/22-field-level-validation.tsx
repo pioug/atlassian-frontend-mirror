@@ -215,8 +215,9 @@ export default function FieldLevelValidationExample() {
 											{...rest}
 											options={colors}
 											isClearable
-											aria-invalid={selectHasError}
-											aria-describedby={selectHasError && `${id}-error`}
+											// @ts-ignore
+											isInvalid={selectHasError}
+											descriptionId={selectHasError ? `${id}-error` : undefined}
 											onBlur={handleSelectBlurEvent}
 										/>
 										<MessageWrapper>

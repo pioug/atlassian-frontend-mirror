@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 1.6.2
+
+### Patch Changes
+
+- [`047764e9916a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/047764e9916a3) -
+  Fix for custom agents showing more than 3 conversation starters
+
 ## 1.6.1
 
 ### Patch Changes

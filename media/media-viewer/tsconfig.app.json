@@ -73,9 +73,6 @@
 			"path": "../media-ui/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{

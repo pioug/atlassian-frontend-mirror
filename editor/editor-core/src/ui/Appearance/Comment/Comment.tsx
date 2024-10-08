@@ -252,6 +252,11 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 													css({
 														// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 														maxHeight: `${maxHeight}px`,
+														// When maxHeight is set, content area should have overflow-y explicitly set as auto
+														// As we have overflow-x: clip for the content area, and when maxHeight prop is set, overflow-y will be computed as visible by default.
+														// This will cause the content area to have content overflowing the container
+														// so need to set overflow-y as auto to make sure the content area is scrollable
+														overflowY: 'auto',
 													})
 												: null
 										}

@@ -41,7 +41,9 @@ const CustomMenuList = ({ children, ...props }: MenuListComponentProps<SelectOpt
 		errors,
 		showMore,
 		handleShowMore,
-	}: CustomMenuListProps = props.selectProps.menuListProps;
+	}: CustomMenuListProps =
+		// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
+		props.selectProps.menuListProps;
 
 	const shouldDisplayShowMore = showMore && !isLoadingMore;
 	const isLoadingMoreData = !shouldDisplayShowMore && isLoadingMore;

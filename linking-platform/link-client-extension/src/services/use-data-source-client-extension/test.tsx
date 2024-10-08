@@ -86,7 +86,7 @@ describe('useDatasourceClientExtension', () => {
 
 		const atomicExecuteActionRequestParams: AtomicActionExecuteRequest = {
 			integrationKey: 'jira',
-			actionKey: 'atlassian:issue:update:summary',
+			actionKey: 'atlassian:work-item:update:summary',
 			parameters: {
 				inputs: {
 					summary: 'some new value - vive la france',

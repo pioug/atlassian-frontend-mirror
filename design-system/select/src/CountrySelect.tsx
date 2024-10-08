@@ -56,17 +56,6 @@ const formatOptionLabel = (opt: Country, { context }: FormatOptionLabelMeta<Coun
 	context === 'value' ? controlLabel(opt) : optionLabel(opt);
 
 // put it all together
-// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
-// Remove links that the component does not have (such as usage). If there are no links remove them all.
-/**
- * __Country select__
- *
- * A country select {description}.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
 const CountrySelect = (props: SelectProps<Country>) => {
 	const { ariaLiveMessages, options } = props;
 	const countryOptions = options || groupedCountries;
@@ -92,4 +81,5 @@ const CountrySelect = (props: SelectProps<Country>) => {
 	);
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default CountrySelect;

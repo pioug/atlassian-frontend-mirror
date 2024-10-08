@@ -1,6 +1,4 @@
-import { type Option, type Options } from '../../src';
-
-export const cities: Options<Option> = [
+export const cities = [
 	{ label: 'Adelaide', value: 'adelaide' },
 	{ label: 'Brisbane', value: 'brisbane' },
 	{ label: 'Canberra', value: 'canberra' },
@@ -11,7 +9,7 @@ export const cities: Options<Option> = [
 	{ label: 'Sydney', value: 'sydney' },
 ];
 
-export const longFormValues: Options<Option> = [
+export const longFormValues = [
 	{ label: 'foo@foo@foo@foo@test@test.com', value: 'silly' },
 	{
 		label: 'foo@foo@test@test@test@test@test@foo@test@foo.com',

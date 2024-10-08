@@ -1,14 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::77e58e149663b987b5142eba97b19dae>>
+ * @codegen <<SignedSource::cf1bc106624b8f210625d4143cad7f35>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
 import React from 'react';
+import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
 import Icon from '@atlaskit/icon/UNSAFE_base-new';
 
 declare const CalendarPlusIconMigration: {
-  (props: Omit<React.ComponentProps<typeof Icon>, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
+  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
   displayName: string;
 };
 export default CalendarPlusIconMigration;

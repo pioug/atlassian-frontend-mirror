@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, type ReactNode } from 'react';
 import { token } from '@atlaskit/tokens';
 import UserPicker from '../src';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
@@ -80,7 +80,7 @@ const Example = () => {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={getListStyle(snapshot.isDraggingOver)}
 						>
-							{items.map((item: { id: string; content: Object }, index: number) => (
+							{items.map((item: { id: string; content: ReactNode }, index: number) => (
 								<Draggable key={item.id} draggableId={item.id} index={index}>
 									{(provided, snapshot) => (
 										<div

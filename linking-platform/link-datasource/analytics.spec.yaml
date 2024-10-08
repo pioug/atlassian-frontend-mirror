@@ -266,6 +266,10 @@ events:
           type: number
           required: false
           description: HTTP status of an associated response
+        reason:
+          type: ['response', 'network', 'internal', 'unknown']
+          required: false
+          description: The reason why the operation failed
   - provider authSuccess:
       type: operational
       description: Fired when an auth provider connection is successful.
@@ -560,7 +564,7 @@ events:
             *AnalyticsContextAttributes,
             *EntityType,
             *IntegrationKey,
-            *FieldKey
+            *FieldKey,
           ]
   - inlineEdit cancelled (datasource):
       type: ui
@@ -569,12 +573,12 @@ events:
       attributes:
         <<:
           [
-              *ComponentMetaDataContext,
-              *AnalyticsContext,
-              *AnalyticsContextAttributes,
-              *EntityType,
-              *IntegrationKey,
-              *FieldKey
+            *ComponentMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *EntityType,
+            *IntegrationKey,
+            *FieldKey,
           ]
   - error shown (inlineEdit):
       type: ui

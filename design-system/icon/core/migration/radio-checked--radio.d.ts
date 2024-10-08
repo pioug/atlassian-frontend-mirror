@@ -1,14 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::db9c1213cca190d900162e305b107850>>
+ * @codegen <<SignedSource::7a79d76d90421a7fabb36bcb13b8ba7c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
 import React from 'react';
+import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
 import Icon from '@atlaskit/icon/UNSAFE_base-new';
 
 declare const RadioCheckedIconMigration: {
-  (props: Omit<React.ComponentProps<typeof Icon>, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
+  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
   displayName: string;
 };
 export default RadioCheckedIconMigration;

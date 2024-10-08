@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Label } from '@atlaskit/form';
+
 import Select from '../../src';
 
 export default function SelectAppearanceDefault() {

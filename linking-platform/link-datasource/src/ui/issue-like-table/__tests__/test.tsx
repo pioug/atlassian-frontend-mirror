@@ -1935,7 +1935,7 @@ describe('IssueLikeDataTableView', () => {
 					actionsByIntegration: {
 						jira: {
 							someKey: {
-								actionKey: 'atlassian:issue:update:someKey',
+								actionKey: 'atlassian:work-item:update:someKey',
 								type: 'string',
 							},
 						},
@@ -1980,7 +1980,7 @@ describe('IssueLikeDataTableView', () => {
 					actionsByIntegration: {
 						jira: {
 							someKey: {
-								actionKey: 'atlassian:issue:update:someKey',
+								actionKey: 'atlassian:work-item:update:someKey',
 								type: 'string',
 							},
 						},

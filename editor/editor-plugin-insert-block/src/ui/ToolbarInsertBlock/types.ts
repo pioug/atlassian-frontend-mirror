@@ -19,6 +19,7 @@ import type { BlockMenuItem } from './create-items';
 
 export interface Props {
 	buttons: number;
+	showElementBrowser: boolean;
 	isReducedSpacing: boolean;
 	isDisabled?: boolean;
 	isTypeAheadAllowed?: boolean;

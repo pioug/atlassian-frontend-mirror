@@ -32,6 +32,7 @@ describe('SingleValue', () => {
 				isRtl={false}
 				innerProps={noop as Props['innerProps']}
 				getStyles={noop as Props['getStyles']}
+				getClassNames={noop as Props['getClassNames']}
 				setValue={noop}
 				isDisabled={false}
 				clearValue={noop}

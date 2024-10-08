@@ -1,5 +1,30 @@
 # @atlaskit/user-picker
 
+## 10.25.0
+
+### Minor Changes
+
+- [#148732](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148732)
+  [`9391607579cb6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9391607579cb6) -
+  UserPicker component updated to accept isInvalid prop, and display invalid state styles when the
+  prop is set to true
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.24.2
+
+### Patch Changes
+
+- [#143559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143559)
+  [`56dfbfe361f96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56dfbfe361f96) -
+  Upgrade react-select from 5.4 to 5.8 and replace it with internal atlaskit/react-select
+- [#143559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143559)
+  [`56dfbfe361f96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56dfbfe361f96) -
+  Upgrade react-select from 5.4 to 5.8 and replace it with internal atlaskit/react-select
+- Updated dependencies
+
 ## 10.24.1
 
 ### Patch Changes

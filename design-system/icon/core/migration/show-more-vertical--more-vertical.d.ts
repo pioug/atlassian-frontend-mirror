@@ -1,14 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f6a80201bf339dc541ca5e6d25c2bea8>>
+ * @codegen <<SignedSource::01ba163745cbf6ed3d060baa1a807c4f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
 import React from 'react';
+import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
 import Icon from '@atlaskit/icon/UNSAFE_base-new';
 
 declare const ShowMoreVerticalIconMigration: {
-  (props: Omit<React.ComponentProps<typeof Icon>, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
+  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
   displayName: string;
 };
 export default ShowMoreVerticalIconMigration;

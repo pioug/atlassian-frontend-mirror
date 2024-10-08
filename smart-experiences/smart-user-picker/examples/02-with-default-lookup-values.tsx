@@ -41,6 +41,7 @@ const Example = () => {
 	return ready ? (
 		<div>
 			<Select
+				//@ts-ignore react-select unsupported props
 				width="medium"
 				onChange={(selectedValue) => {
 					if (selectedValue) {

@@ -1,14 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4787e4923b94450a4db88fd5a6ba62ca>>
+ * @codegen <<SignedSource::b1ee449ae3e42aadfc61e18f42d5b9c6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
 import React from 'react';
+import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
 import Icon from '@atlaskit/icon/UNSAFE_base-new';
 
 declare const BasketballIconMigration: {
-  (props: Omit<React.ComponentProps<typeof Icon>, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
+  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
   displayName: string;
 };
 export default BasketballIconMigration;

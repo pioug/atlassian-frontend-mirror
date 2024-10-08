@@ -456,10 +456,9 @@ describe('Testing: Basic Filters', () => {
 					);
 
 					fireEvent.click(editedOrCreatedByTriggerButton);
-
-					expect(container.getByText('Peter Grasevski')).toBeInTheDocument();
-					expect(container.getByText('Job Bob')).toBeInTheDocument();
-					expect(container.getByText('Mike Scott')).toBeInTheDocument();
+					expect(container.getByRole('option', { name: 'Peter Grasevski' })).toBeInTheDocument();
+					expect(container.getByRole('option', { name: 'Job Bob' })).toBeInTheDocument();
+					expect(container.getByRole('option', { name: 'Mike Scott' })).toBeInTheDocument();
 				});
 			});
 		},

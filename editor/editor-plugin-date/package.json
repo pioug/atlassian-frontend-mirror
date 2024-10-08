@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "2.3.14",
+	"version": "2.3.16",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -45,7 +45,7 @@
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/locale": "^2.8.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/textfield": "6.5.2",
+		"@atlaskit/textfield": "6.5.3",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",

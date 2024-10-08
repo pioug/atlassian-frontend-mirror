@@ -8,8 +8,8 @@ import { createContext, type ReactNode, useContext, useEffect, useRef, useState 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/utility/migration/error';
+import SuccessIcon from '@atlaskit/icon/utility/migration/success--editor-success';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -45,7 +45,7 @@ type MessageProps = Pick<InternalMessageProps, 'children' | 'testId'>;
 const messageStyles = css({
 	display: 'flex',
 	justifyContent: 'baseline',
-	gap: token('space.050', '4px'),
+	gap: token('space.075', '6px'),
 	font: token('font.body.UNSAFE_small'),
 	marginBlockStart: token('space.050', '4px'),
 });
@@ -64,6 +64,8 @@ const messageAppearanceStyles: Record<MessageAppearance, SerializedStyles> = {
 
 const iconWrapperStyles = css({
 	display: 'flex',
+	height: '16px',
+	alignItems: 'center',
 });
 
 const IconWrapper = ({ children }: { children: ReactNode }) => {
@@ -71,8 +73,17 @@ const IconWrapper = ({ children }: { children: ReactNode }) => {
 };
 
 const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
-	error: <ErrorIcon size="small" label="error" />,
-	valid: <SuccessIcon size="small" label="success" />,
+	error: (
+		<ErrorIcon LEGACY_margin="0 -2px 0 0" color="currentColor" LEGACY_size="small" label="error" />
+	),
+	valid: (
+		<SuccessIcon
+			LEGACY_margin="0 -2px 0 0"
+			color="currentColor"
+			LEGACY_size="small"
+			label="success"
+		/>
+	),
 };
 
 const Message = ({ children, appearance = 'default', fieldId, testId }: InternalMessageProps) => {

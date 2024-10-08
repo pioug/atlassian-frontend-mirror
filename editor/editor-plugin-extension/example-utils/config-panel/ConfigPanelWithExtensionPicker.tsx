@@ -17,6 +17,7 @@ import type {
 	Parameters,
 } from '@atlaskit/editor-common/extensions';
 import { getExtensionKeyAndNodeKey } from '@atlaskit/editor-common/extensions';
+import Heading from '@atlaskit/heading';
 import { Box, xcss } from '@atlaskit/primitives';
 import TextArea from '@atlaskit/textarea';
 import * as colors from '@atlaskit/theme/colors';
@@ -97,7 +98,7 @@ function ExtensionConfigPanel({
 		<div css={exampleWrapperStyles}>
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
 			<div css={column(400)} key="config-panel">
-				<h3>Config panel:</h3>
+				<Heading size="medium">Config panel:</Heading>
 				<ConfigPanelWithProviders
 					extensionType={extension.type}
 					extensionKey={extension.key}
@@ -109,11 +110,11 @@ function ExtensionConfigPanel({
 			</div>
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
 			<div css={column(500)} key="parameters">
-				<h3>Initial Parameters:</h3>
+				<Heading size="medium">Initial Parameters:</Heading>
 				<div css={codeWrapperStyles}>
 					{parameters && <TextArea onChange={onChangeParametersJson} value={parametersJson} />}
 				</div>
-				<h3>State:</h3>
+				<Heading size="medium">State:</Heading>
 				<div css={codeWrapperStyles}>
 					{parameters && (
 						<CodeBlock
@@ -126,7 +127,7 @@ function ExtensionConfigPanel({
 			</div>
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
 			<div css={column(500)} key="fields-definition">
-				<h3>Fields definition:</h3>
+				<Heading size="medium">Fields definition:</Heading>
 				<div css={codeWrapperStyles}>
 					<CodeBlock
 						language="json"

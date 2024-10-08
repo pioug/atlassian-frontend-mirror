@@ -7,17 +7,19 @@ import { Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import AddIcon from '../core/add';
 import { IconTile } from '../src';
-import { type IconProps } from '../src/types';
+import { type NewCoreIconProps } from '../src/types';
 
 const styles = xcss({ padding: 'space.200' });
 const IconSizeExample = () => {
 	const [NewFeatureIconObject, setNewFeatureIconObject] = useState<
-		FunctionComponent<IconProps> | undefined
+		FunctionComponent<NewCoreIconProps> | undefined
 	>(undefined);
 
 	useEffect(() => {
 		import(`@atlaskit/icon-object/glyph/new-feature/24.js`).then((module) => {
-			setNewFeatureIconObject(() => module.default as unknown as FunctionComponent<IconProps>);
+			setNewFeatureIconObject(
+				() => module.default as unknown as FunctionComponent<NewCoreIconProps>,
+			);
 		});
 	});
 

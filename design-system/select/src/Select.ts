@@ -1,9 +1,11 @@
-import ReactSelect from 'react-select';
+/* eslint-disable @repo/internal/react/require-jsdoc */
 import {
-	withAnalyticsEvents,
-	withAnalyticsContext,
 	createAndFireEvent,
+	withAnalyticsContext,
+	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+import ReactSelect from '@atlaskit/react-select';
+
 import createSelect from './createSelect';
 
 const packageName = process.env._PACKAGE_NAME_ as string;

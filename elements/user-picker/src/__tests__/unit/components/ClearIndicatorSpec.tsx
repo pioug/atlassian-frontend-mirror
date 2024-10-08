@@ -32,7 +32,7 @@ jest.mock('react', () => {
 
 describe('ClearIndicator', () => {
 	const renderClearIndicator = (props: any) =>
-		mount(<ClearIndicator {...props} getStyles={noop} cx={noop} />);
+		mount(<ClearIndicator {...props} getStyles={noop} cx={noop} getClassNames={noop} />);
 
 	it('should clear value onMouseDown', () => {
 		const clearValue = jest.fn();

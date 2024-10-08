@@ -3,7 +3,7 @@ import React, { forwardRef, type Ref } from 'react';
 import { render, screen } from '@testing-library/react';
 
 import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
-import CheckIcon from '@atlaskit/icon/glyph/check';
+import TaskIcon from '@atlaskit/icon/core/task';
 
 import { DropdownItem } from '../../index';
 
@@ -77,7 +77,7 @@ describe('DropdownMenu Item', () => {
 			it('should have icon before the text', () => {
 				render(
 					<DropdownItem
-						elemBefore={<CheckIcon label={uniqueText} testId={testId} />}
+						elemBefore={<TaskIcon color="currentColor" label={uniqueText} testId={testId} />}
 						testId={testId}
 					>
 						Menu
@@ -92,7 +92,10 @@ describe('DropdownMenu Item', () => {
 
 			it('should have icon after the text', () => {
 				render(
-					<DropdownItem elemAfter={<CheckIcon label={uniqueText} />} testId={testId}>
+					<DropdownItem
+						elemAfter={<TaskIcon color="currentColor" label={uniqueText} />}
+						testId={testId}
+					>
 						Menu
 					</DropdownItem>,
 				);
@@ -107,8 +110,8 @@ describe('DropdownMenu Item', () => {
 				const afterText = `${uniqueText}After`;
 				render(
 					<DropdownItem
-						elemBefore={<CheckIcon label={beforeText} />}
-						elemAfter={<CheckIcon label={afterText} />}
+						elemBefore={<TaskIcon color="currentColor" label={beforeText} />}
+						elemAfter={<TaskIcon color="currentColor" label={afterText} />}
 						testId={testId}
 					>
 						Menu

@@ -27,7 +27,7 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"baseUrl": "",
+		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__react-select/dev"
 	},

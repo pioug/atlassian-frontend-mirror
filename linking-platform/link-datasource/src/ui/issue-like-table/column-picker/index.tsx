@@ -132,6 +132,7 @@ export const ColumnPicker = ({
 			filterOption={createFilter({ ignoreAccents: false })}
 			options={allOptions}
 			value={selectedOptions}
+			// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
 			onOpen={handleOpen}
 			closeMenuOnSelect={false}
 			hideSelectedOptions={false}
@@ -141,7 +142,7 @@ export const ColumnPicker = ({
 			isOptionDisabled={handleIsOptionDisabled}
 			placeholder={intl.formatMessage(columnPickerMessages.search)}
 			onKeyDown={stopEscapePropagationWhenOpen}
-			aria-label="Search for fields"
+			label="Search for fields"
 			onChange={handleChange}
 			isLoading={allOptions.length === 0}
 			target={({ isOpen, ...triggerProps }) => (

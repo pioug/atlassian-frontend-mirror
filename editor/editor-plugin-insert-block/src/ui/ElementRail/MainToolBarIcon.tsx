@@ -82,7 +82,6 @@ export const RightRailIcon = ({ onClick, isDisabled, api }: Props) => {
 	const { formatMessage } = useIntl();
 	const { insertBlockState } = useSharedPluginState(api, ['insertBlock']);
 
-	// @ts-expect-error
 	const isOpen = insertBlockState?.menuBrowserOpen;
 
 	return (

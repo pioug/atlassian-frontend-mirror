@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.14.18
+
+### Patch Changes
+
+- [#149558](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149558)
+  [`5e8619ac0f6e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e8619ac0f6e4) -
+  [ux] [ED-25085] Migrate typography \
+
+  editor-plugin-media:
+
+  - replace caption placeholder span with button
+  - replace x between width and height pixel entry with symbol × \
+
+  tmp-editor-statsig:
+
+  - Add experiment `platform_editor_typography_migration_ugc`
+
+- Updated dependencies
+
+## 1.14.17
+
+### Patch Changes
+
+- [#143559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143559)
+  [`56dfbfe361f96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56dfbfe361f96) -
+  Upgrade react-select from 5.4 to 5.8 and replace it with internal atlaskit/react-select
+- [#143559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143559)
+  [`56dfbfe361f96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56dfbfe361f96) -
+  Upgrade react-select from 5.4 to 5.8 and replace it with internal atlaskit/react-select
+- Updated dependencies
+
 ## 1.14.16
 
 ### Patch Changes

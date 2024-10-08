@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import { QuizWidget } from '../src';
 import { type QuizElement } from '../src/components/QuizWidget/types';
@@ -27,31 +27,25 @@ const correctAnswers = {
 	4: 'Hi',
 };
 
-interface State {
-	score: number | null;
-	correctAnswers: QuizElement | null;
-}
+const Basic: React.FC = () => {
+	const [score, setScore] = useState<number | null>(null);
+	const [correctAnswersState, setCorrectAnswersState] = useState<QuizElement | null>(null);
 
-export default class Basic extends Component<{}, State> {
-	state: State = {
-		score: null,
-		correctAnswers: null,
+	const onSubmitButtonClick = (chosenAnswers: string[]) => {
+		setScore(3);
+		setCorrectAnswersState(correctAnswers);
 	};
 
-	onSubmitButtonClick = (chosenAnswers: string[]) => {
-		this.setState({ score: 3, correctAnswers });
-	};
+	return (
+		<QuizWrapper>
+			<QuizWidget
+				quizContent={quizContent}
+				score={score}
+				correctAnswers={correctAnswersState}
+				onSubmitButtonClick={onSubmitButtonClick}
+			/>
+		</QuizWrapper>
+	);
+};
 
-	render() {
-		return (
-			<QuizWrapper>
-				<QuizWidget
-					quizContent={quizContent}
-					score={this.state.score}
-					correctAnswers={this.state.correctAnswers}
-					onSubmitButtonClick={this.onSubmitButtonClick}
-				/>
-			</QuizWrapper>
-		);
-	}
-}
+export default Basic;

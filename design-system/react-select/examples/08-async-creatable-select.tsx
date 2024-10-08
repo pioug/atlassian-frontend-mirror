@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Checkbox } from '@atlaskit/checkbox';
 import { Label } from '@atlaskit/form';
 
-import { type Option, type Options } from '../src';
+import { type Options } from '../src';
 import AsyncCreatable from '../src/async-creatable';
 
 import { cities } from './common/data';
@@ -11,6 +11,11 @@ import { cities } from './common/data';
 interface State {
 	allowCreateWhileLoading: boolean;
 	options: any;
+}
+
+interface Option {
+	readonly label: string;
+	readonly value: string;
 }
 
 const createOption = (inputValue: string) => ({

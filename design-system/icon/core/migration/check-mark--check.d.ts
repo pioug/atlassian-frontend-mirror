@@ -1,14 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2828f14b1cc913c53e1b24d430b4c827>>
+ * @codegen <<SignedSource::57841eb0ab7043d10a04bd02f753a8de>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
 import React from 'react';
+import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
 import Icon from '@atlaskit/icon/UNSAFE_base-new';
 
 declare const CheckMarkIconMigration: {
-  (props: Omit<React.ComponentProps<typeof Icon>, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
+  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
   displayName: string;
 };
 export default CheckMarkIconMigration;

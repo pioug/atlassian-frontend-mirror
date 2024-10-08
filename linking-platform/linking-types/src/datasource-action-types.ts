@@ -28,7 +28,7 @@ export interface PermissionInterface extends PermissionTypes {
 export interface AtomicActionInterface {
 	integrationKey: string; // eg: jira
 	// to be sent to actions-service to execute an action
-	actionKey: string; // eg: atlassian:issue:update:summary
+	actionKey: string; // eg: atlassian:work-item:update:summary
 	// to identify actionable column in FE
 	fieldKey: string; // eg: summary
 	// types the field value can take
@@ -62,7 +62,7 @@ type ActionsTarget = XOR<{ ari: string }, { url: string }, { id: string }>;
 
 export interface AtomicActionExecuteRequest {
 	integrationKey: string; // eg: jira
-	actionKey: string; // eg: atlassian:issue:update:summary
+	actionKey: string; // eg: atlassian:work-item:update:summary
 	parameters: {
 		inputs: {
 			[key: string]: string | number;

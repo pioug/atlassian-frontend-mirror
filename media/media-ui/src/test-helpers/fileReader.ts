@@ -1,8 +1,4 @@
-// import { getJest } from '@atlaskit/media-common/test-helpers';
-
 declare var global: any;
-
-// const jest = getJest();
 
 class MockFileReader {
 	loadEvent = () => {};

@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-card
 
+## 4.0.0
+
+### Major Changes
+
+- [#149599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149599)
+  [`9c110fa4b038c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c110fa4b038c) -
+  The hyperlink floating toolbar no longer includes a settings button by default, now requires card
+  plugin to be provided to include the settings button in the hyperlink floating toolbar (via ff
+  cleanup platform.editor.card.inject-settings-button).
+
+  Upgrade requires only checking compatible versions of `@atlaskit/editor-plugin-card` and
+  `@atlaskit/editor-plugin-hyperlink` as both packages are affected by feature flag change.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.5
 
 ### Patch Changes

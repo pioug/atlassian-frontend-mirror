@@ -1,5 +1,14 @@
 # @atlaskit/inline-message
 
+## 12.3.5
+
+### Patch Changes
+
+- [#149694](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149694)
+  [`770bc26d556f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/770bc26d556f7) -
+  Migrate to new icons behind a feature flag
+- Updated dependencies
+
 ## 12.3.4
 
 ### Patch Changes

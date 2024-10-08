@@ -69,15 +69,6 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
 	},
-	// Added 2024-08-23
-	'platform-editor-ai-condensed-floating-toobar': {
-		productKeys: {
-			confluence: 'platform_editor_ai_condensed_floating_toobar',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'dropdown', 'editor_ai_button']),
-		defaultValue: 'control' as 'control' | 'dropdown' | 'editor_ai_button',
-	},
 	// Added 2024-08-27
 	'dnd-input-performance-optimisation': {
 		productKeys: {
@@ -207,7 +198,7 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
 	},
-	// Added 2024-09-26
+
 	platform_editor_table_use_shared_state_hook: {
 		productKeys: {
 			confluence: 'platform_editor_table_use_shared_state_hook',
@@ -240,6 +231,25 @@ export const editorExperimentsConfig = {
 	comment_on_bodied_extensions: {
 		productKeys: {
 			confluence: 'platform_editor_comment_on_bodied_extensions',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2024-10-01
+	platform_editor_ai_floating_toolbar_v2: {
+		productKeys: {
+			confluence: 'platform_editor_ai_floating_toolbar_v2',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2024-10-04
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_typography_migration_ugc/setup
+	typography_migration_ugc: {
+		productKeys: {
+			confluence: 'platform_editor_typography_migration_ugc',
 		},
 		param: 'isEnabled',
 		typeGuard: isBoolean,

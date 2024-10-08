@@ -1,16 +1,16 @@
 import React from 'react';
+
 import OldButton from '@atlaskit/button';
 import Button, { IconButton } from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
+import { Inline, Stack, xcss } from '@atlaskit/primitives';
 
+import AddIcon from '../core/add';
+import AddIconMigration from '../core/migration/add';
 import AddIconOld from '../glyph/add';
 import HipchatChevronDownIconOld from '../glyph/hipchat/chevron-down';
-import AddIcon from '../core/add';
 import ChevronDownIcon from '../utility/chevron-down';
-import AddIconMigration from '../core/migration/add';
 import ChevronDownIconMigration from '../utility/migration/chevron-down--hipchat-chevron-down';
-
-import { Inline, Stack, xcss } from '@atlaskit/primitives';
-import Heading from '@atlaskit/heading';
 
 const styles = xcss({ padding: 'space.200' });
 const IconSizeExample = () => {

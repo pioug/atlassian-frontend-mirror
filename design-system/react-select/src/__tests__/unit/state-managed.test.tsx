@@ -444,7 +444,7 @@ cases<KeyboardInteractionOpts>(
 test('`required` prop > should validate', async () => {
 	const { container } = render(
 		<form id="formTest">
-			<Select {...BASIC_PROPS} menuIsOpen isRequired />
+			<Select {...BASIC_PROPS} menuIsOpen required />
 		</form>,
 	);
 

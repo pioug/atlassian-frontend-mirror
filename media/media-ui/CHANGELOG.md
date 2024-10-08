@@ -1,5 +1,20 @@
 # @atlaskit/media-ui
 
+## 25.15.4
+
+### Patch Changes
+
+- [#149473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149473)
+  [`4c74b6716ded9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c74b6716ded9) -
+  Remove global jest override to fix runtime type error in jest tests
+- Updated dependencies
+
+## 25.15.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.15.2
 
 ### Patch Changes

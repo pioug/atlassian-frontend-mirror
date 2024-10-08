@@ -1,5 +1,13 @@
 # @atlaskit/comment
 
+## 11.1.0
+
+### Minor Changes
+
+- [#149314](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149314)
+  [`a40e9adcd1646`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a40e9adcd1646) -
+  Enable new icons behind a feature flag.
+
 ## 11.0.2
 
 ### Patch Changes

@@ -157,9 +157,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		this.metadataService = new MetadataService(this.emitCallback, this.channel.sendMetadata);
 		this.namespaceService = new NamespaceService();
 
-		if (config.isPresenceOnly_do_not_use) {
-			// this check is specifically for the experiment teammate presence
-			// This presence feature is only for the view pages which do not need the document service or api
+		if (config.isPresenceOnly) {
+			// this check is specifically for the presence only
+			// This presence feature is only for the confluence view page & jira presence which do not need the document service or api
 			this.documentService = new NullDocumentService();
 			this.api = new NullApi();
 		} else {
@@ -342,8 +342,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		return this;
 	}
 
-	// Only used for the experiment teammate presence (ATLAS-53155) - opts out of the document service and api service
-	setupPresenceOnly_do_not_use(clientId: string) {
+	// Only used for the presence - opts out of the document service and api service
+	setupForPresenceOnly(clientId: string) {
 		this.clientId = clientId;
 		this.checkForCookies();
 		try {

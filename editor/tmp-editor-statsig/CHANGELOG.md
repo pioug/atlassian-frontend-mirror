@@ -1,5 +1,30 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.3.0
+
+### Minor Changes
+
+- [#149558](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149558)
+  [`5e8619ac0f6e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e8619ac0f6e4) -
+  [ux] [ED-25085] Migrate typography \
+
+  editor-plugin-media:
+
+  - replace caption placeholder span with button
+  - replace x between width and height pixel entry with symbol × \
+
+  tmp-editor-statsig:
+
+  - Add experiment `platform_editor_typography_migration_ugc`
+
+## 2.2.1
+
+### Patch Changes
+
+- [#149419](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149419)
+  [`9c2e5e1e4cdc9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c2e5e1e4cdc9) -
+  [ux] Update Floating toolbar to new UX designs
+
 ## 2.2.0
 
 ### Minor Changes

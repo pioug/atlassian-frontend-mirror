@@ -1,17 +1,14 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { type ReactNode, type ReactChild } from 'react';
 import {
-	type MediaClient,
 	type FileState,
-	type MediaType,
 	type ProcessingFileState,
 	type Identifier,
 	isExternalImageIdentifier,
 	isErrorFileState,
 	type ErrorFileState,
-	type MediaSubscription,
+	type FileIdentifier,
 } from '@atlaskit/media-client';
-import deepEqual from 'deep-equal';
 import {
 	hideControlsClassName,
 	messages,
@@ -34,6 +31,7 @@ import {
 } from './styleWrappers';
 import { ToolbarDownloadButton, DisabledToolbarDownloadButton } from './download';
 import { type MediaViewerExtensions } from './components/types';
+import { MediaFileStateError, useFileState, useMediaClient } from '@atlaskit/media-client-react';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { getFormat } from './viewers/codeViewer/util';
@@ -41,7 +39,6 @@ import { MediaViewerError } from './errors';
 
 export type Props = {
 	readonly identifier: Identifier;
-	readonly mediaClient: MediaClient;
 	readonly onClose?: () => void;
 	readonly extensions?: MediaViewerExtensions;
 	readonly onSidebarButtonClick?: () => void;
@@ -51,166 +48,68 @@ export type Props = {
 	readonly isArchiveSideBarVisible?: boolean;
 };
 
-export type State = {
-	item: Outcome<FileState, MediaViewerError>;
-};
+export const Header = ({
+	isArchiveSideBarVisible = false,
+	extensions,
+	isSidebarVisible,
+	onSidebarButtonClick,
+	identifier,
+	onSetArchiveSideBarVisible,
+}: Props & WrappedComponentProps) => {
+	// States
+	const [item, setItem] = useState<Outcome<FileState, MediaViewerError>>(Outcome.pending());
 
-const initialState: State = {
-	item: Outcome.pending(),
-};
+	// Refs and Hooks
+	const mediaClient = useMediaClient();
+	const { id, collectionName, occurrenceKey } = identifier as FileIdentifier;
+	const { fileState } = useFileState(id, {
+		collectionName,
+		occurrenceKey,
+	});
 
-export class Header extends React.Component<Props & WrappedComponentProps, State> {
-	state: State = initialState;
+	const onSetArchiveSideBarVisibleRef = useRef(onSetArchiveSideBarVisible);
+	onSetArchiveSideBarVisibleRef.current = onSetArchiveSideBarVisible;
 
-	private subscription?: MediaSubscription;
+	// previous values
+	useEffect(() => {
+		if (isExternalImageIdentifier(identifier)) {
+			const { name = identifier.dataURI } = identifier;
 
-	UNSAFE_componentWillUpdate(nextProps: Props) {
-		if (this.needsReset(this.props, nextProps)) {
-			this.release();
-			this.init(nextProps);
+			// Simulate a processing file state to render right metadata
+			const fileState: ProcessingFileState = {
+				status: 'processing',
+				id: name,
+				mediaType: 'image',
+				mimeType: 'image/',
+				name,
+				representations: {},
+				size: 0,
+			};
+			setItem(Outcome.successful(fileState));
+			return;
 		}
-	}
 
-	componentDidMount() {
-		this.init(this.props);
-	}
+		if (!fileState) {
+			return;
+		}
 
-	componentWillUnmount() {
-		this.release();
-	}
-
-	private init(props: Props) {
-		this.setState(initialState, () => {
-			const { mediaClient, identifier, onSetArchiveSideBarVisible } = props;
-
-			if (isExternalImageIdentifier(identifier)) {
-				const { name = identifier.dataURI } = identifier;
-				// Simulate a processing file state to render right metadata
-				const fileState: ProcessingFileState = {
-					status: 'processing',
-					id: name,
-					mediaType: 'image',
-					mimeType: 'image/',
-					name,
-					representations: {},
-					size: 0,
-				};
-
-				this.setState({
-					item: Outcome.successful(fileState),
-				});
-				return;
-			}
-			const { id } = identifier;
-
-			this.subscription = mediaClient.file
-				.getFileState(id, {
-					collectionName: identifier.collectionName,
-				})
-				.subscribe({
-					next: (file) => {
-						onSetArchiveSideBarVisible?.(!isErrorFileState(file) && file.mediaType === 'archive');
-						this.setState({
-							item: Outcome.successful(file),
-						});
-					},
-					error: (error: Error) => {
-						this.setState({
-							item: Outcome.failed(new MediaViewerError('header-fetch-metadata', error)),
-						});
-					},
-				});
-		});
-	}
-
-	private renderDownload = () => {
-		const { item } = this.state;
-		const { identifier, mediaClient } = this.props;
-		return item.match({
-			pending: () => DisabledToolbarDownloadButton,
-			failed: () => DisabledToolbarDownloadButton,
-			successful: (item) => (
-				<ToolbarDownloadButton state={item} identifier={identifier} mediaClient={mediaClient} />
-			),
-		});
-	};
-
-	private renderSidebarButton = () => {
-		const { extensions, isSidebarVisible, onSidebarButtonClick } = this.props;
-		if (extensions && extensions.sidebar) {
-			return (
-				<MediaButton
-					isSelected={isSidebarVisible}
-					testId="media-viewer-sidebar-button"
-					onClick={onSidebarButtonClick}
-					iconBefore={extensions.sidebar.icon as ReactChild}
-				/>
+		if (fileState.status !== 'error') {
+			onSetArchiveSideBarVisibleRef.current?.(
+				!isErrorFileState(fileState) && fileState.mediaType === 'archive',
 			);
-		}
-	};
-
-	render() {
-		const { isArchiveSideBarVisible = false } = this.props;
-		return (
-			<HeaderWrapper
-				isArchiveSideBarVisible={isArchiveSideBarVisible}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={hideControlsClassName}
-			>
-				<LeftHeader>{this.renderMetadata()}</LeftHeader>
-				<RightHeader>
-					{this.renderSidebarButton()}
-					{this.renderDownload()}
-				</RightHeader>
-			</HeaderWrapper>
-		);
-	}
-
-	private renderMetadata() {
-		const { item } = this.state;
-		return item.match({
-			successful: (item) => this.renderMetadataLayout(item),
-			pending: () => null,
-			failed: () => null,
-		});
-	}
-
-	private renderMetadataLayout(item: FileState) {
-		if (!isErrorFileState(item)) {
-			return (
-				<MetadataWrapper>
-					<MetadataIconWrapper>
-						{this.getMediaIcon(item.mediaType, item.mimeType, item.name)}
-					</MetadataIconWrapper>
-					<MedatadataTextWrapper>
-						<MetadataFileName data-testid="media-viewer-file-name">
-							{item.name || <FormattedMessage {...messages.unknown} />}
-						</MetadataFileName>
-						<MetadataSubText data-testid="media-viewer-file-metadata-text">
-							<FormattedMessageWrapper>{this.renderFileTypeText(item)}</FormattedMessageWrapper>
-							{this.renderSize(item)}
-						</MetadataSubText>
-					</MedatadataTextWrapper>
-				</MetadataWrapper>
+			setItem(Outcome.successful(fileState));
+		} else {
+			const error = new MediaFileStateError(
+				fileState.id,
+				fileState.reason,
+				fileState.message,
+				fileState.details,
 			);
-		} else {
-			return null;
+			setItem(Outcome.failed(new MediaViewerError('header-fetch-metadata', error)));
 		}
-	}
+	}, [fileState, identifier]);
 
-	private renderSize = (item: Exclude<FileState, ErrorFileState>) => {
-		if (item.size) {
-			return this.renderSeparator() + toHumanReadableMediaSize(item.size);
-		} else {
-			return '';
-		}
-	};
-
-	private renderSeparator = () => {
-		return ' · ';
-	};
-
-	private renderFileTypeText = (item: Exclude<FileState, ErrorFileState>): ReactNode => {
+	const renderFileTypeText = (item: Exclude<FileState, ErrorFileState>): ReactNode => {
 		// render appropriate header if its a code/email item and the feature flag is enabled
 		if (isCodeViewerItem(item.name, item.mimeType)) {
 			// gather language and extension
@@ -245,26 +144,59 @@ export class Header extends React.Component<Props & WrappedComponentProps, State
 		return <FormattedMessage {...(message || messages.unknown)} />;
 	};
 
-	private getMediaIcon = (mediaType?: MediaType, mimeType?: string, fileName?: string) => {
-		return (
-			<MimeTypeIcon
-				testId={'media-viewer-file-type-icon'}
-				mediaType={mediaType}
-				mimeType={mimeType}
-				name={fileName}
-			/>
-		);
-	};
+	return (
+		<HeaderWrapper
+			isArchiveSideBarVisible={isArchiveSideBarVisible}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={hideControlsClassName}
+		>
+			<LeftHeader>
+				{item.match({
+					successful: (item) =>
+						!isErrorFileState(item) && (
+							<MetadataWrapper>
+								<MetadataIconWrapper>
+									<MimeTypeIcon
+										testId={'media-viewer-file-type-icon'}
+										mediaType={item.mediaType}
+										mimeType={item.mimeType}
+										name={item.name}
+									/>
+								</MetadataIconWrapper>
+								<MedatadataTextWrapper>
+									<MetadataFileName data-testid="media-viewer-file-name">
+										{item.name || <FormattedMessage {...messages.unknown} />}
+									</MetadataFileName>
+									<MetadataSubText data-testid="media-viewer-file-metadata-text">
+										<FormattedMessageWrapper>{renderFileTypeText(item)}</FormattedMessageWrapper>
+										{item.size ? ' · ' + toHumanReadableMediaSize(item.size) : ''}
+									</MetadataSubText>
+								</MedatadataTextWrapper>
+							</MetadataWrapper>
+						),
+					pending: () => null,
+					failed: () => null,
+				})}
+			</LeftHeader>
+			<RightHeader>
+				{extensions?.sidebar && (
+					<MediaButton
+						isSelected={isSidebarVisible}
+						testId="media-viewer-sidebar-button"
+						onClick={onSidebarButtonClick}
+						iconBefore={extensions.sidebar.icon as ReactChild}
+					/>
+				)}
+				{item.match({
+					pending: () => DisabledToolbarDownloadButton,
+					failed: () => DisabledToolbarDownloadButton,
+					successful: (item) => (
+						<ToolbarDownloadButton state={item} identifier={identifier} mediaClient={mediaClient} />
+					),
+				})}
+			</RightHeader>
+		</HeaderWrapper>
+	);
+};
 
-	private needsReset(propsA: Props, propsB: Props) {
-		return !deepEqual(propsA.identifier, propsB.identifier);
-	}
-
-	private release() {
-		if (this.subscription) {
-			this.subscription.unsubscribe();
-		}
-	}
-}
-
-export default injectIntl(Header) as React.ComponentType<Props>;
+export default injectIntl(Header) as React.FC<Props>;

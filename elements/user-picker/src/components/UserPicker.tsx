@@ -98,6 +98,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 								isMulti,
 								this.props.appearance === 'compact',
 								this.props.styles,
+								this.props.isInvalid,
 							)}
 							components={getComponents(isMulti, anchor)}
 							pickerProps={pickerProps}

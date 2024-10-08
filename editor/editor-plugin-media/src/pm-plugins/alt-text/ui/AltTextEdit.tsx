@@ -220,6 +220,7 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 						{errorsList}
 					</section>
 				)}
+				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 				<p css={supportTextStyles} id="support-text">
 					{formatMessage(messages.supportText)}
 				</p>

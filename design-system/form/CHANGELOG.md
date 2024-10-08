@@ -1,5 +1,22 @@
 # @atlaskit/form
 
+## 10.5.6
+
+### Patch Changes
+
+- [#149694](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149694)
+  [`770bc26d556f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/770bc26d556f7) -
+  Migrate to new icons behind a feature flag
+- Updated dependencies
+
+## 10.5.5
+
+### Patch Changes
+
+- [#143559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143559)
+  [`56dfbfe361f96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56dfbfe361f96) -
+  Upgrade react-select from 5.4 to 5.8 and replace it with internal atlaskit/react-select
+
 ## 10.5.4
 
 ### Patch Changes

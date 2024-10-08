@@ -44,11 +44,8 @@ export const getConversationStarters = ({
 		const shouldCombine = !isAgentDefault;
 
 		if (shouldCombine) {
-			// Return default suggestions + user defined suggestions with a max of 3 suggestions
-			return [
-				...customAgentConversationStarters.slice(0, 3 - userDefinedConversationStarters.length),
-				...userDefinedConversationStarters,
-			];
+			// Return user defined suggestions + static fallback suggestions with a max of 3 suggestions (user defined taking precendence over fallback)
+			return [...userDefinedConversationStarters, ...customAgentConversationStarters].slice(0, 3);
 		}
 
 		return defaultAgentConversationStarters;

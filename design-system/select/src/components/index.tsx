@@ -4,12 +4,12 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { components } from 'react-select';
 
 import LegacySelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import CrossIcon from '@atlaskit/icon/utility/cross';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, xcss } from '@atlaskit/primitives';
+import { components } from '@atlaskit/react-select';
 
 import { type MultiValueRemoveProps } from '../types';
 

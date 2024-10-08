@@ -30,7 +30,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/smart-common": "^0.4.0",
 		"@atlaskit/ufo": "^0.3.0",
-		"@atlaskit/user-picker": "^10.24.0",
+		"@atlaskit/user-picker": "^10.25.0",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21",
 		"memoize-one": "^6.0.0",

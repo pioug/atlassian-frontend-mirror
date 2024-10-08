@@ -39,7 +39,7 @@ export const toAbsolutePath = (path: string = ''): string => {
 export const toExamplePath = (path: string = '') => {
 	const current = window.location.href;
 	const parent = current.slice(0, current.lastIndexOf('/docs'));
-	const absolutePath = parent.replace('packages', 'examples').replace('/docs', path);
+	const absolutePath = parent.replace('packages', 'examples') + `/${path}`;
 	return sanitizeUrl(absolutePath);
 };
 

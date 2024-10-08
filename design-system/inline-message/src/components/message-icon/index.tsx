@@ -63,7 +63,13 @@ const SelectedIcon: FC<MessageIconProps> = ({ appearance, isOpen, label }) => {
 			style={{ '--icon-color': iconColor(appearance) } as CSSProperties}
 			css={[iconWrapperStyles, isOpen && iconColorStyles]}
 		>
-			<Icon testId="inline-message-icon" label={label || defaultLabel} size="medium" />
+			<Icon
+				testId="inline-message-icon"
+				label={label || defaultLabel}
+				color="currentColor"
+				LEGACY_size="medium"
+				spacing="spacious"
+			/>
 		</span>
 	);
 };

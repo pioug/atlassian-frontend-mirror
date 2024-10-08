@@ -14,8 +14,8 @@ import {
 	type GroupBase,
 	mergeStyles,
 	type OptionsOrGroups,
-} from 'react-select';
-import type BaseSelect from 'react-select/base';
+} from '@atlaskit/react-select';
+import type BaseSelect from '@atlaskit/react-select/base';
 
 import {
 	ClearIndicator,

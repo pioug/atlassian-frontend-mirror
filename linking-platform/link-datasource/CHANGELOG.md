@@ -1,5 +1,26 @@
 # @atlaskit/link-datasource
 
+## 3.4.2
+
+### Patch Changes
+
+- [#149525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149525)
+  [`659d336bf2253`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/659d336bf2253) -
+  Adds new attribute `reason` to analytics event `operational.datasource.operationFailed`
+- Updated dependencies
+
+## 3.4.1
+
+### Patch Changes
+
+- [#143559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143559)
+  [`56dfbfe361f96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56dfbfe361f96) -
+  Upgrade react-select from 5.4 to 5.8 and replace it with internal atlaskit/react-select
+- [#143559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143559)
+  [`56dfbfe361f96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56dfbfe361f96) -
+  Upgrade react-select from 5.4 to 5.8 and replace it with internal atlaskit/react-select
+- Updated dependencies
+
 ## 3.4.0
 
 ### Minor Changes

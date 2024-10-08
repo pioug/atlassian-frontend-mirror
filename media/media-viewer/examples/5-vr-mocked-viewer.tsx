@@ -4,6 +4,7 @@ import Button from '@atlaskit/button/standard-button';
 import ArrowRightIcon from '@atlaskit/icon/core/migration/arrow-right';
 import DetailViewIcon from '@atlaskit/icon/glyph/detail-view';
 import { MediaClient, type Identifier } from '@atlaskit/media-client';
+import { MediaClientContext } from '@atlaskit/media-client-react';
 import {
 	MediaMock,
 	defaultCollectionName,
@@ -103,44 +104,46 @@ export default class Example extends React.Component<{}, State> {
 		const { isMediaViewerActive } = this.state;
 
 		return (
-			<MainWrapper>
-				{isMediaViewerActive && files.length && (
-					<MediaViewerBase
-						items={files
-							.map(
-								({ id }): Identifier => ({
-									id,
-									collectionName: defaultCollectionName,
-									mediaItemType: 'file',
-								}),
-							)
-							.concat([
-								{
-									mediaItemType: 'external-image',
-									dataURI:
-										/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
-										'https://wac-cdn.atlassian.com/dam/jcr:616e6748-ad8c-48d9-ae93-e49019ed5259/Atlassian-horizontal-blue-rgb.svg',
+			<MediaClientContext.Provider value={mediaClient}>
+				<MainWrapper>
+					{isMediaViewerActive && files.length && (
+						<MediaViewerBase
+							items={files
+								.map(
+									({ id }): Identifier => ({
+										id,
+										collectionName: defaultCollectionName,
+										mediaItemType: 'file',
+									}),
+								)
+								.concat([
+									{
+										mediaItemType: 'external-image',
+										dataURI:
+											/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
+											'https://wac-cdn.atlassian.com/dam/jcr:616e6748-ad8c-48d9-ae93-e49019ed5259/Atlassian-horizontal-blue-rgb.svg',
+									},
+								])}
+							selectedItem={{
+								id: files[1].id,
+								collectionName: defaultCollectionName,
+								mediaItemType: 'file',
+							}}
+							collectionName={defaultCollectionName}
+							mediaClient={mediaClient}
+							onClose={this.deactivate}
+							extensions={{
+								sidebar: {
+									renderer: this.sidebarRenderer,
+									// TODO: https://product-fabric.atlassian.net/browse/DSP-20899
+									// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+									icon: <DetailViewIcon label="sidebar" />,
 								},
-							])}
-						selectedItem={{
-							id: files[1].id,
-							collectionName: defaultCollectionName,
-							mediaItemType: 'file',
-						}}
-						collectionName={defaultCollectionName}
-						mediaClient={mediaClient}
-						onClose={this.deactivate}
-						extensions={{
-							sidebar: {
-								renderer: this.sidebarRenderer,
-								// TODO: https://product-fabric.atlassian.net/browse/DSP-20899
-								// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-								icon: <DetailViewIcon label="sidebar" />,
-							},
-						}}
-					/>
-				)}
-			</MainWrapper>
+							}}
+						/>
+					)}
+				</MainWrapper>
+			</MediaClientContext.Provider>
 		);
 	}
 }

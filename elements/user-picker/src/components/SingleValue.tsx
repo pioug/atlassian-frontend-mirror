@@ -35,6 +35,7 @@ export type Props = SingleValueProps<Option>;
 export const SingleValue = (props: Props) => {
 	const {
 		data: { label, data },
+		//@ts-ignore react-select unsupported props
 		selectProps: { appearance, isFocused },
 	} = props;
 

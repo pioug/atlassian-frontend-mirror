@@ -112,6 +112,7 @@ export default function useStateManager<
 	const menuIsOpen = propsMenuIsOpen !== undefined ? propsMenuIsOpen : stateMenuIsOpen;
 	const value = propsValue !== undefined ? propsValue : stateValue;
 
+	//@ts-ignore react-select unsupported props
 	return {
 		...restSelectProps,
 		inputValue,

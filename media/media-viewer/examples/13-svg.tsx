@@ -13,7 +13,6 @@ import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { svgFileIds } from '@atlaskit/media-client/test-helpers';
 import { MediaClientProvider } from '@atlaskit/media-client-react';
 import { ToggleBox, useSelectOptions, delayApiResponses } from '../example-helpers/svg';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
@@ -112,11 +111,7 @@ export default function () {
 			/>
 			<br />
 			{useMockedAPI ? (
-				!getBooleanFF('platform.media-experience.media-viewer-v2_hgsii') ? (
-					<p>SVG integration with Media Viewer v1 is not compatible with the Mocked Media API</p>
-				) : (
-					<MockedProvider key={`${reloadKey}`} />
-				)
+				<MockedProvider key={`${reloadKey}`} />
 			) : (
 				<BackendProvider key={`${reloadKey}`} />
 			)}

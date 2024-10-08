@@ -102,7 +102,7 @@ export default class SpotlightDialogWidthExample extends Component<{}, State> {
 						+/- buttons passed to the <Code>actionsBeforeElement</Code> property.
 					</p>
 					<p>
-						<button type="button" onClick={this.start}>
+						<button type="button" data-testid="spotlight-dialog-trigger" onClick={this.start}>
 							Show
 						</button>
 					</p>

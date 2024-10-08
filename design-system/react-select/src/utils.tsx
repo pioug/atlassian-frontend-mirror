@@ -6,7 +6,6 @@ import type {
 	InputActionMeta,
 	MultiValue,
 	OnChangeValue,
-	Option,
 	Options,
 	PropsValue,
 	SingleValue,
@@ -65,7 +64,7 @@ export function classNames(
 // Clean Value
 // ==============================
 
-export const cleanValue = (value: PropsValue<Option>): Options<Option> => {
+export const cleanValue = <Option,>(value: PropsValue<Option>): Options<Option> => {
 	if (isArray(value)) {
 		return value.filter(Boolean);
 	}

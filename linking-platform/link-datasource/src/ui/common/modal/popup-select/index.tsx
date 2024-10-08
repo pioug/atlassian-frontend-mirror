@@ -186,6 +186,7 @@ export const FilterPopupSelect = ({
 			hideSelectedOptions={false}
 			isLoading={showLoading}
 			placeholder={formatMessage(asyncPopupSelectMessages.selectPlaceholder)}
+			// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
 			menuListProps={menuListProps}
 			components={{
 				Option: CheckboxOption,

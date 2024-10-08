@@ -16,4 +16,5 @@ const RadioSelect = React.memo(({ components, ...props }: SelectProps<OptionType
 	return <Select {...props} isMulti={false} components={mergedComponents} />;
 });
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default RadioSelect;

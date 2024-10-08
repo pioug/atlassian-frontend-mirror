@@ -4,6 +4,7 @@ import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { NetworkError } from '@atlaskit/linking-common';
 import { captureException } from '@atlaskit/linking-common/sentry';
 
 import { EVENT_CHANNEL } from '../../analytics';
@@ -70,6 +71,7 @@ describe('useErrorLogger', () => {
 						errorLocation: 'onNextPage',
 						status: 500,
 						traceId: 'mock-trace-id',
+						reason: 'response',
 					},
 				},
 			},
@@ -96,6 +98,7 @@ describe('useErrorLogger', () => {
 							errorLocation: 'onNextPage',
 							status: null,
 							traceId: null,
+							reason: 'internal',
 						},
 					},
 				},
@@ -123,6 +126,7 @@ describe('useErrorLogger', () => {
 							errorLocation: 'onNextPage',
 							status: null,
 							traceId: null,
+							reason: 'internal',
 						},
 					},
 				},
@@ -131,6 +135,58 @@ describe('useErrorLogger', () => {
 			expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
 				integrationKey: 'test',
 			});
+		});
+
+		it('should capture NetworkError exception ', () => {
+			const { result } = setup({ integrationKey: 'test' });
+
+			const mockError = new NetworkError('mockNetworkError');
+
+			result.current.captureError('onNextPage', mockError);
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'operationFailed',
+						actionSubject: 'datasource',
+						eventType: 'operational',
+						attributes: {
+							errorLocation: 'onNextPage',
+							status: null,
+							traceId: null,
+							reason: 'network',
+						},
+					},
+				},
+				EVENT_CHANNEL,
+			);
+			expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
+				integrationKey: 'test',
+			});
+		});
+
+		it('should capture unknown reason exceptions', () => {
+			const { result } = setup({ integrationKey: 'test' });
+
+			result.current.captureError('onNextPage', {});
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'operationFailed',
+						actionSubject: 'datasource',
+						eventType: 'operational',
+						attributes: {
+							errorLocation: 'onNextPage',
+							status: null,
+							traceId: null,
+							reason: 'unknown',
+						},
+					},
+				},
+				EVENT_CHANNEL,
+			);
+			expect(captureException).not.toHaveBeenCalled();
 		});
 	});
 });

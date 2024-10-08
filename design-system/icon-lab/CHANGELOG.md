@@ -1,5 +1,14 @@
 # @atlaskit/icon-lab
 
+## 1.0.1
+
+### Patch Changes
+
+- [#149469](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149469)
+  [`c75edf6df890b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c75edf6df890b) -
+  Re-generated icons to explicitly set either `NewCoreIconProps` or `NewUtilityIconProps`.
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

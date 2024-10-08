@@ -7,20 +7,21 @@ import React from 'react';
 import { jsx } from '@compiled/react';
 
 import { cssMap, type StrictXCSSProp } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
 
 const buttonStyles = cssMap({
 	container: {
-		color: 'var(--ds-text-inverse)',
-		backgroundColor: 'var(--ds-background-brand-bold)',
-		borderRadius: 'var(--ds-border-radius-100)',
+		color: token('color.text.inverse'),
+		backgroundColor: token('color.background.brand.bold'),
+		borderRadius: token('border.radius.100'),
 		border: 'none',
-		paddingBlock: 'var(--ds-space-150)',
-		paddingInline: 'var(--ds-space-100)',
+		paddingBlock: token('space.150'),
+		paddingInline: token('space.100'),
 		'&:hover': {
-			backgroundColor: 'var(--ds-background-brand-bold-hovered)',
+			backgroundColor: token('color.background.brand.bold.hovered'),
 		},
 		'&:active': {
-			backgroundColor: 'var(--ds-background-brand-bold-pressed)',
+			backgroundColor: token('color.background.brand.bold.pressed'),
 		},
 	},
 });

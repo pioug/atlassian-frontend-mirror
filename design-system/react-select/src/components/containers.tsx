@@ -108,13 +108,16 @@ export const ValueContainer = <Option, IsMulti extends boolean, Group extends Gr
 ) => {
 	const { children, innerProps, isMulti, hasValue } = props;
 
+	const styles = getStyleProps(props, 'valueContainer', {
+		'value-container': true,
+		'value-container--is-multi': isMulti,
+		'value-container--has-value': hasValue,
+	});
 	return (
 		<div
-			{...getStyleProps(props, 'valueContainer', {
-				'value-container': true,
-				'value-container--is-multi': isMulti,
-				'value-container--has-value': hasValue,
-			})}
+			css={styles.css}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={styles.className || 'value-container'}
 			{...innerProps}
 		>
 			{children}

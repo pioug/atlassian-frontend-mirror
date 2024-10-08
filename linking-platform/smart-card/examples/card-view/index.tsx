@@ -17,9 +17,12 @@ import {
 } from '../utils/custom-client';
 import CardViewSection from './card-view-section';
 
-const CardViewExample = (props: Omit<React.ComponentProps<typeof CardView>, 'client'>) => (
+const CardViewExample = ({
+	url,
+	...props
+}: Omit<React.ComponentProps<typeof CardView>, 'client'>) => (
 	<React.Fragment>
-		<CardViewSection {...props} client={new ResolvedClient()} title="[Resolved]" />
+		<CardViewSection {...props} client={new ResolvedClient()} title="[Resolved]" url={url} />
 		<CardViewSection {...props} client={new ForbiddenClient()} title="[Forbidden] Default" />
 		<CardViewSection
 			{...props}

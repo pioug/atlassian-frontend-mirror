@@ -5,6 +5,7 @@ import { injectIntl } from 'react-intl-next';
 
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import { ErrorMessage, HelperMessage } from '@atlaskit/form';
+import { Text } from '@atlaskit/primitives';
 
 import { FieldTypeError, ValidationError } from './types';
 
@@ -31,9 +32,17 @@ function makeMarkup(fragment: Node, key?: string) {
 		case 'I':
 			return <i key={key}>{children}</i>;
 		case 'STRONG':
-			return <strong key={key}>{children}</strong>;
+			return (
+				<Text as="strong" color="color.text.subtlest" size="UNSAFE_small" key={key}>
+					{children}
+				</Text>
+			);
 		case 'EM':
-			return <em key={key}>{children}</em>;
+			return (
+				<Text as="em" color="color.text.subtlest" size="UNSAFE_small" key={key}>
+					{children}
+				</Text>
+			);
 		case 'CODE':
 			return <code key={key}>{children}</code>;
 	}

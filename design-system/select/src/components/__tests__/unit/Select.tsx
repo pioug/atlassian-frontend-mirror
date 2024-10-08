@@ -109,13 +109,12 @@ describe('Select', () => {
 					aria-label="Options"
 				/>,
 			);
-
 			const element = screen.getByRole('combobox').getAttribute('aria-describedby');
-			expect(element).toBe(`descriptive-id`);
+			expect(element).toBe('descriptive-id');
 		});
 
 		//default value is yes there, yes placeholder, yes passed aria == yes aria describedby --> passed aria
-		it('should show passed id as aria-describedby', () => {
+		it('should show passed id as aria-describedby with placeholder', () => {
 			render(
 				<AtlaskitSelect
 					options={OPTIONS}
@@ -127,7 +126,7 @@ describe('Select', () => {
 			);
 
 			const element = screen.getByRole('combobox').getAttribute('aria-describedby');
-			expect(element).toBe(`descriptive-id`);
+			expect(element).toBe('descriptive-id');
 		});
 
 		//default value is not there, yes placeholder, yes passed aria == yes aria describedby --> passed aria, placeholder
@@ -145,7 +144,7 @@ describe('Select', () => {
 			expect(placeholder).toBeInTheDocument();
 			const placeholderId = placeholder?.id;
 			const element = screen.getByRole('combobox').getAttribute('aria-describedby');
-			expect(element).toBe(`${placeholderId} descriptive-id`);
+			expect(element).toBe(`descriptive-id ${placeholderId}`);
 		});
 
 		//default value is not there, yes placeholder, no passed aria == yes aria describedby --> placeholder
@@ -175,7 +174,7 @@ describe('Select', () => {
 		expect(placeholder).toBeInTheDocument();
 		const placeholderId = placeholder?.id;
 		const element = screen.getByRole('combobox').getAttribute('aria-describedby');
-		expect(element).toBe(`${placeholderId} descriptionId`);
+		expect(element).toBe(`descriptionId ${placeholderId}`);
 	});
 
 	describe('multi value select', () => {
@@ -405,12 +404,7 @@ describe('Select', () => {
 	it.skip('should call filterOption when input of select is changed', async () => {
 		const filterOptionSpy = jest.fn();
 		render(
-			<AtlaskitSelect
-				options={OPTIONS}
-				filterOption={filterOptionSpy}
-				autofocus
-				aria-label="Options"
-			/>,
+			<AtlaskitSelect options={OPTIONS} filterOption={filterOptionSpy} aria-label="Options" />,
 		);
 
 		await user.keyboard('5');
@@ -533,9 +527,8 @@ describe('Select input', () => {
 			/>,
 		);
 
-		expect(screen.getByRole('combobox')).toHaveAttribute(
-			'aria-describedby',
-			expect.stringContaining(`placeholder ${newLabel}`),
-		);
+		const input = screen.getByRole('combobox');
+		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining(`${newLabel}`));
+		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining('placeholder'));
 	});
 });

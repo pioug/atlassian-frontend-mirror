@@ -4,21 +4,24 @@
  */
 import { css, cssMap, jsx } from '@compiled/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { Button } from './components/button-loose';
 
 const basicStyles = css({
-	color: 'green',
 	display: 'inline-block',
+	color: 'green',
 });
 
 const overridesStyles = cssMap({
 	discovery: {
-		backgroundColor: 'var(--ds-background-discovery-bold)',
+		backgroundColor: token('color.background.discovery.bold'),
+		color: token('color.text.inverse'),
 		'&:hover': {
-			backgroundColor: 'var(--ds-background-discovery-bold-hovered)',
+			backgroundColor: token('color.background.discovery.bold.hovered'),
 		},
 		'&:active': {
-			backgroundColor: 'var(--ds-background-discovery-bold-pressed)',
+			backgroundColor: token('color.background.discovery.bold.pressed'),
 		},
 	},
 });

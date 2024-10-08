@@ -198,6 +198,7 @@ const SmartUserPickerCustomizableExample = () => {
 		<div>
 			<label htmlFor="product">Product</label>
 			<Select
+				//@ts-ignore react-select unsupported props
 				width="medium"
 				onChange={(selectedValue) => {
 					if (selectedValue) {
@@ -229,6 +230,7 @@ const SmartUserPickerCustomizableExample = () => {
 					})
 				}
 				value={{ label: state.locale, value: state.locale }}
+				//@ts-ignore react-select unsupported props
 				width={150}
 			/>
 			<h5>Smart Picker props</h5>

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.3.0
+
+### Minor Changes
+
+- [`e961ab7307a56`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e961ab7307a56) -
+  Refactored toggle insert block logic
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.12
+
+### Patch Changes
+
+- [#149469](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149469)
+  [`c75edf6df890b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c75edf6df890b) -
+  Updated icon types usage since there are now `NewCoreIconProps` and `NewUtilityIconProps`.
+- Updated dependencies
+
 ## 2.2.11
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlassian/smart-user-picker
 
+## 6.10.3
+
+### Patch Changes
+
+- [#143559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143559)
+  [`56dfbfe361f96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56dfbfe361f96) -
+  Upgrade react-select from 5.4 to 5.8 and replace it with internal atlaskit/react-select
+
 ## 6.10.2
 
 ### Patch Changes

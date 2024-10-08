@@ -13,6 +13,7 @@ import { COLOR_PICKER } from '../constants';
 
 export const MenuList = (props: MenuListComponentProps<Color>) => {
 	const {
+		//@ts-ignore react-select unsupported props
 		selectProps: { cols },
 		innerRef,
 		children,
@@ -26,6 +27,7 @@ export const MenuList = (props: MenuListComponentProps<Color>) => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				maxWidth: cols ? getWidth(cols) : undefined,
 			}}
+			//@ts-ignore react-select unsupported props
 			ref={innerRef!}
 		>
 			{children}
@@ -36,6 +38,7 @@ export const MenuList = (props: MenuListComponentProps<Color>) => {
 export const Option = (props: OptionProps<Color>) => {
 	const {
 		data: { value, label },
+		//@ts-ignore react-select unsupported props
 		selectProps: { checkMarkColor, onOptionKeyDown, isTabbing },
 		isFocused,
 		isSelected,

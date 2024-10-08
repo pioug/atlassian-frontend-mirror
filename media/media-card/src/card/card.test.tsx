@@ -75,8 +75,7 @@ const setGlobalSSRData = (id: string, data: any) => {
 	window[GLOBAL_MEDIA_NAMESPACE] = { [GLOBAL_MEDIA_CARD_SSR]: { [id]: data } };
 };
 
-// Skipped due to HOT-111922
-describe.skip('Card ', () => {
+describe('Card ', () => {
 	let currentObserver: any;
 	const intersectionObserver = new MockIntersectionObserver();
 
@@ -92,7 +91,7 @@ describe.skip('Card ', () => {
 	// TODO: Remove this workaround that avoids a race condition between two functions that set card status
 	// Tracked by + explained in more detail in https://product-fabric.atlassian.net/browse/CXP-3751
 	const simulateImageLoadDelay = async () => {
-		await sleep(1);
+		await sleep(100);
 	};
 
 	beforeEach(() => {
@@ -133,9 +132,8 @@ describe.skip('Card ', () => {
 					<CardLoader mediaClientConfig={dummyMediaClientConfig} identifier={identifier} />
 				</MockedMediaClientProvider>,
 			);
-
-			// ensure that an img is never rendered
-			await expect(screen.findByTestId(imgTestId)).rejects.toThrow();
+			// should always render image
+			expect(await screen.findByTestId(imgTestId)).toBeInTheDocument();
 
 			// should not render title box details
 			expect(screen.queryByText(fileItem.details.name)).not.toBeInTheDocument();
@@ -153,15 +151,18 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader mediaClientConfig={dummyMediaClientConfig} identifier={identifier} />
 				</MockedMediaClientProvider>,
 			);
 
 			// wait for ViewportDetector to be mounted before turning the card visible
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="loading"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'loading',
+				),
 			);
 			makeVisible();
 
@@ -175,7 +176,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -186,13 +187,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 		});
 
@@ -256,7 +261,7 @@ describe.skip('Card ', () => {
 			const user = userEvent.setup();
 			const onClick = jest.fn();
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -268,13 +273,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const card = screen.getByTestId(cardTestId);
@@ -288,7 +297,8 @@ describe.skip('Card ', () => {
 
 			const user = userEvent.setup();
 			const onMouseEnter = jest.fn();
-			const { container } = render(
+
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -300,13 +310,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const card = screen.getByTestId(cardTestId);
@@ -322,7 +336,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -333,13 +347,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect((img as HTMLImageElement).alt).toBe('name.pdf');
@@ -349,7 +367,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -361,13 +379,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect((img as HTMLImageElement).alt).toBe('');
@@ -377,7 +399,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -389,13 +411,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect((img as HTMLImageElement).alt).toBe('alt text');
@@ -405,7 +431,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -419,13 +445,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect((img as HTMLImageElement).src).toContain(
@@ -439,7 +469,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -450,13 +480,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const style = window.getComputedStyle(img);
@@ -469,7 +503,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -481,13 +515,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const style = window.getComputedStyle(img);
@@ -499,7 +537,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -511,13 +549,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const style = window.getComputedStyle(img);
@@ -529,7 +571,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -541,13 +583,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const style = window.getComputedStyle(img);
@@ -727,7 +773,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -738,13 +784,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 			const style = window.getComputedStyle(img);
 			expect(style.transform).not.toContain('rotate');
@@ -778,7 +828,7 @@ describe.skip('Card ', () => {
 
 				const dimensions = { width: 100, height: 100 };
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -791,11 +841,15 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="uploading"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'uploading',
+					),
 				);
 
 				const style = window.getComputedStyle(img);
@@ -810,7 +864,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -821,17 +875,23 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			// should not be selected
-			expect(container.querySelector('[data-test-selected="true"]')).toBeNull();
+			expect(await screen.findByTestId('media-file-card-view')).not.toHaveAttribute(
+				'data-test-selected',
+			);
 		});
 
 		it('should render as selected', async () => {
@@ -850,13 +910,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			// should be selected
@@ -869,7 +933,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -880,13 +944,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect(screen.queryByLabelText('tick')).not.toBeInTheDocument();
@@ -896,7 +964,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -908,13 +976,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect(screen.getByLabelText('tick')).toBeInTheDocument();
@@ -927,7 +999,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithoutRemotePreview();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -938,12 +1010,15 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
-				// should not render a preview img
-				expect(screen.queryByTestId(imgTestId)).not.toBeInTheDocument();
+				// should render an image
+				expect(screen.queryByTestId(imgTestId)).toBeInTheDocument();
 
 				// should render title box correctly
 				expect(screen.queryByTestId(titleBoxTestId)).toBeInTheDocument();
@@ -971,7 +1046,7 @@ describe.skip('Card ', () => {
 					throw new Error('remote-preview-fetch');
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -982,8 +1057,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should not render a preview img
@@ -1014,7 +1092,7 @@ describe.skip('Card ', () => {
 
 				mediaApi.getImage = async () => new Blob(); // empty blob will cause an error
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1025,10 +1103,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should be attempting to load the preview
-				await waitFor(() =>
-					expect(
-						container.querySelector('[data-test-status="loading-preview"]'),
-					).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'loading-preview',
+					),
 				);
 
 				// simulate that the file was unsuccessfully loaded in the browser
@@ -1036,8 +1115,11 @@ describe.skip('Card ', () => {
 				fireEvent.error(img);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should render title box correctly
@@ -1067,7 +1149,7 @@ describe.skip('Card ', () => {
 					throw createRateLimitedError();
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1078,8 +1160,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should render title box correctly
@@ -1109,7 +1194,7 @@ describe.skip('Card ', () => {
 					throw createPollingMaxAttemptsError();
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1120,8 +1205,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should render title box correctly
@@ -1147,7 +1235,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { mediaApi } = createMockedMediaApi(); // Intentionally skipping fileItem
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1158,8 +1246,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should render title box correctly
@@ -1186,7 +1277,7 @@ describe.skip('Card ', () => {
 				const { mediaApi } = createMockedMediaApi(fileItem);
 				const identifier = { ...baseIdentifier, id: 'INVALID ID' };
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1197,8 +1288,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should render title box correctly
@@ -1224,7 +1318,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.failedPdf();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1235,10 +1329,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(
-						container.querySelector('[data-test-status="failed-processing"]'),
-					).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'failed-processing',
+					),
 				);
 
 				// should provide a download action
@@ -1292,7 +1387,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.processingPdf();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1303,8 +1398,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should be processing
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="processing"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'processing',
+					),
 				);
 
 				// should render title box correctly
@@ -1344,12 +1442,15 @@ describe.skip('Card ', () => {
 				);
 
 				// card should be uploading
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="uploading"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'uploading',
+					),
 				);
 
-				// should not render a preview img
-				expect(screen.queryByTestId(imgTestId)).not.toBeInTheDocument();
+				// should render an image
+				expect(screen.queryByTestId(imgTestId)).toBeInTheDocument();
 
 				// should render title box correctly
 				expect(screen.queryByTestId(titleBoxTestId)).toBeInTheDocument();
@@ -1390,15 +1491,15 @@ describe.skip('Card ', () => {
 				);
 
 				// card should be uploading
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="uploading"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'uploading',
+					),
 				);
 
-				// use fake timer to pause the card in its uploading state
-				jest.useFakeTimers();
-
-				// should not render a preview img
-				expect(screen.queryByTestId(imgTestId)).not.toBeInTheDocument();
+				// should render an image
+				expect(screen.queryByTestId(imgTestId)).toBeInTheDocument();
 
 				// should render title box correctly
 				expect(screen.queryByTestId(titleBoxTestId)).toBeInTheDocument();
@@ -1418,16 +1519,9 @@ describe.skip('Card ', () => {
 				expect(screen.queryByRole('progressbar')).toBeInTheDocument();
 				expect(container.querySelector('[aria-valuenow="50"]')).toBeInTheDocument();
 				expect(container.querySelector('[data-test-progress="0.5"]')).toBeInTheDocument();
-
-				// set timers back to normal
-				jest.runOnlyPendingTimers();
-				jest.useRealTimers();
 			});
 
 			it('when successfully being processed after uploading without a local preview', async () => {
-				// using Jest's useFakeTimers to accelerate the polling function
-				jest.useFakeTimers();
-
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { MockedMediaClientProvider, uploadItem, processItem } =
 					createMockedMediaClientProvider({
@@ -1447,22 +1541,28 @@ describe.skip('Card ', () => {
 				);
 
 				// card should be attempting in uploading status
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="uploading"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'uploading',
+					),
 				);
 
 				uploadItem(fileItem, 1);
 				processItem(fileItem, 1);
 
-				jest.runAllTimers();
-
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId, undefined);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy(), { timeout: 1500 });
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
-				// card should be fully processeds
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				// card should be fully processed
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
 				// should render title box correctly
@@ -1482,10 +1582,6 @@ describe.skip('Card ', () => {
 				// should not render a progress bar correctly
 				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
 				expect(container.querySelector('[data-test-progress="1"]')).toBeInTheDocument();
-
-				// set timers back to normal
-				jest.runOnlyPendingTimers();
-				jest.useRealTimers();
 			});
 
 			it('when uploading with a local preview', async () => {
@@ -1530,9 +1626,6 @@ describe.skip('Card ', () => {
 			});
 
 			it('when successfully being processed after uploading with a local preview', async () => {
-				// using Jest's Fake Timer to accelerate the polling function
-				jest.useFakeTimers();
-
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 				const { MockedMediaClientProvider, uploadItem, processItem } =
 					createMockedMediaClientProvider({
@@ -1551,22 +1644,28 @@ describe.skip('Card ', () => {
 					</MockedMediaClientProvider>,
 				);
 
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="uploading"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'uploading',
+					),
 				);
 
 				uploadItem(fileItem, 1);
 				processItem(fileItem, 1);
 
-				jest.runAllTimers();
-
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
 				// should render a preview img
@@ -1589,10 +1688,6 @@ describe.skip('Card ', () => {
 				// should not render a progress bar correctly
 				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
 				expect(container.querySelector('[data-test-progress="1"]')).toBeInTheDocument();
-
-				// set timers back to normal
-				jest.runOnlyPendingTimers();
-				jest.useRealTimers();
 			});
 
 			it('when the card is never loaded', async () => {
@@ -1606,8 +1701,8 @@ describe.skip('Card ', () => {
 					</MockedMediaClientProvider>,
 				);
 
-				// should never render an image
-				await expect(screen.findByTestId(imgTestId)).rejects.toThrow();
+				// should always render image
+				expect(await screen.findByTestId(imgTestId)).toBeInTheDocument();
 
 				// should not render title box contents
 				expect(screen.queryByText(fileItem.details.name)).not.toBeInTheDocument();
@@ -1634,7 +1729,7 @@ describe.skip('Card ', () => {
 
 				uploadItem(fileItem, 0.5);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1644,14 +1739,20 @@ describe.skip('Card ', () => {
 					</MockedMediaClientProvider>,
 				);
 
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="uploading"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'uploading',
+					),
 				);
 
 				uploadItem(fileItem, 'error');
 
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should render title box correctly
@@ -1687,11 +1788,16 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
 				// Main endpoints will fail from now
@@ -1733,7 +1839,7 @@ describe.skip('Card ', () => {
 					[identifier.id]: 1717372607454,
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<DateOverrideContext.Provider value={overridenDates}>
 							<CardLoader
@@ -1746,8 +1852,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
 				// should render the updated date
@@ -1760,7 +1869,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithoutRemotePreview();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1772,12 +1881,15 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
-				// should not render a preview img
-				expect(screen.queryByTestId(imgTestId)).not.toBeInTheDocument();
+				// should render an image
+				expect(screen.queryByTestId(imgTestId)).toBeInTheDocument();
 
 				// should not render title box
 				expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
@@ -1806,7 +1918,7 @@ describe.skip('Card ', () => {
 					throw new Error('remote-preview-fetch');
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1818,11 +1930,14 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
-				// should not render a preview img
+				// should not render an image
 				expect(screen.queryByTestId(imgTestId)).not.toBeInTheDocument();
 
 				// should not render title box
@@ -1849,7 +1964,7 @@ describe.skip('Card ', () => {
 				const { mediaApi } = createMockedMediaApi(fileItem);
 				mediaApi.getImage = async () => new Blob();
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1861,10 +1976,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should be attempting to load the preview
-				await waitFor(() =>
-					expect(
-						container.querySelector('[data-test-status="loading-preview"]'),
-					).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'loading-preview',
+					),
 				);
 
 				// simulate that the file was unsuccessfully loaded in the browser
@@ -1872,8 +1988,11 @@ describe.skip('Card ', () => {
 				fireEvent.error(img);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should not render title box
@@ -1903,7 +2022,7 @@ describe.skip('Card ', () => {
 					throw createRateLimitedError();
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1915,8 +2034,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should not render title box
@@ -1946,7 +2068,7 @@ describe.skip('Card ', () => {
 					throw createPollingMaxAttemptsError();
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1958,8 +2080,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should not render title box
@@ -1985,7 +2110,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { mediaApi } = createMockedMediaApi(); // Intentionally skipping fileItem
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -1997,8 +2122,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should not render title box
@@ -2025,7 +2153,7 @@ describe.skip('Card ', () => {
 				const { mediaApi } = createMockedMediaApi(fileItem);
 				const identifier = { ...baseIdentifier, id: 'INVALID ID' };
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -2037,8 +2165,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should not render title box
@@ -2064,7 +2195,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.failedPdf();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -2076,10 +2207,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(
-						container.querySelector('[data-test-status="failed-processing"]'),
-					).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'failed-processing',
+					),
 				);
 
 				// should not provide a download action
@@ -2138,7 +2270,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.processingPdf();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -2150,8 +2282,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should be processing
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="processing"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'processing',
+					),
 				);
 
 				// should not render title box
@@ -2192,15 +2327,15 @@ describe.skip('Card ', () => {
 				);
 
 				// card should be uploading
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="uploading"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'uploading',
+					),
 				);
 
-				// use fake timer to pause when the card is uploading
-				jest.useFakeTimers();
-
-				// should not render a preview img
-				expect(screen.queryByTestId(imgTestId)).not.toBeInTheDocument();
+				// should render an image
+				expect(screen.queryByTestId(imgTestId)).toBeInTheDocument();
 
 				// should not render title box
 				expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
@@ -2220,10 +2355,6 @@ describe.skip('Card ', () => {
 				expect(screen.queryByRole('progressbar')).toBeInTheDocument();
 				expect(container.querySelector('[aria-valuenow="0"]')).toBeInTheDocument();
 				expect(container.querySelector('[data-test-progress="0"]')).toBeInTheDocument();
-
-				// set timers back to normal
-				jest.runOnlyPendingTimers();
-				jest.useRealTimers();
 			});
 
 			it('when uploading with a progress of 0.5', async () => {
@@ -2246,15 +2377,15 @@ describe.skip('Card ', () => {
 				);
 
 				// card should be uploading
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="uploading"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'uploading',
+					),
 				);
 
-				// use fake timer to pause the card in its uploading state
-				jest.useFakeTimers();
-
-				// should not render a preview img
-				expect(screen.queryByTestId(imgTestId)).not.toBeInTheDocument();
+				// should render an image
+				expect(screen.queryByTestId(imgTestId)).toBeInTheDocument();
 
 				// should not render title box
 				expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
@@ -2274,10 +2405,6 @@ describe.skip('Card ', () => {
 				expect(screen.queryByRole('progressbar')).toBeInTheDocument();
 				expect(container.querySelector('[aria-valuenow="50"]')).toBeInTheDocument();
 				expect(container.querySelector('[data-test-progress="0.5"]')).toBeInTheDocument();
-
-				// set timers back to normal
-				jest.runOnlyPendingTimers();
-				jest.useRealTimers();
 			});
 
 			it('when successfully being processed after uploading without a local preview', async () => {
@@ -2301,8 +2428,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should be attempting in uploading status
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="uploading"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'uploading',
+					),
 				);
 
 				uploadItem(fileItem, 1);
@@ -2310,12 +2440,16 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
 				// should not render title box
@@ -2380,9 +2514,6 @@ describe.skip('Card ', () => {
 			});
 
 			it('when successfully being processed after uploading with a local preview', async () => {
-				// using Jest's useFakeTimers to accelerate the polling function
-				jest.useFakeTimers();
-
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 				const { MockedMediaClientProvider, uploadItem, processItem } =
 					createMockedMediaClientProvider({
@@ -2402,17 +2533,20 @@ describe.skip('Card ', () => {
 					</MockedMediaClientProvider>,
 				);
 
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="uploading"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'uploading',
+					),
 				);
 
 				uploadItem(fileItem, 1);
 				processItem(fileItem, 1);
 
-				jest.runAllTimers();
-
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
@@ -2442,10 +2576,6 @@ describe.skip('Card ', () => {
 				// should not render a progress bar correctly
 				expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
 				expect(container.querySelector('[data-test-progress="1"]')).toBeInTheDocument();
-
-				// set timers back to normal
-				jest.runOnlyPendingTimers();
-				jest.useRealTimers();
 			});
 
 			it('when the card is never loaded', async () => {
@@ -2463,8 +2593,8 @@ describe.skip('Card ', () => {
 					</MockedMediaClientProvider>,
 				);
 
-				// should never render an image
-				await expect(screen.findByTestId(imgTestId)).rejects.toThrow();
+				// should always render image
+				expect(await screen.findByTestId(imgTestId)).toBeInTheDocument();
 
 				// should not render a title box
 				expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
@@ -2492,7 +2622,7 @@ describe.skip('Card ', () => {
 
 				uploadItem(fileItem, 0.5);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -2503,14 +2633,20 @@ describe.skip('Card ', () => {
 					</MockedMediaClientProvider>,
 				);
 
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="uploading"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'uploading',
+					),
 				);
 
 				uploadItem(fileItem, 'error');
 
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				// should not render title box
@@ -2536,7 +2672,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -2549,12 +2685,16 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+
 				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
 				//act(() => {
@@ -2570,11 +2710,10 @@ describe.skip('Card ', () => {
 				// });
 
 				// card should ignore the error
-				await expect(
-					waitFor(() =>
-						expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
-					),
-				).rejects.toThrow();
+				expect(await screen.findByTestId('media-file-card-view')).not.toHaveAttribute(
+					'data-test-status',
+					'error',
+				);
 
 				// should not render title box
 				expect(screen.queryByTestId(titleBoxTestId)).toBeInTheDocument();
@@ -2614,13 +2753,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const playBtn = screen.getByLabelText('play');
@@ -2639,7 +2782,7 @@ describe.skip('Card ', () => {
 				throw new Error();
 			};
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -2652,12 +2795,15 @@ describe.skip('Card ', () => {
 			);
 
 			// card should completely process the error
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'error',
+				),
 			);
 
 			expect(screen.queryByLabelText('play')).not.toBeInTheDocument();
-			expect(container.querySelector('video')).not.toBeInTheDocument();
+			expect(screen.queryByRole('video')).not.toBeInTheDocument();
 		});
 	});
 
@@ -2669,7 +2815,7 @@ describe.skip('Card ', () => {
 			const [fileItem2, identifier2] = generateSampleFileItem.workingJpegWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi([fileItem1, fileItem2]);
 
-			const { container, rerender } = render(
+			const { rerender } = render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -2680,13 +2826,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect((img as HTMLImageElement).src).toContain('create-object-url-1');
@@ -2707,12 +2857,16 @@ describe.skip('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const newImg = await screen.findByTestId(imgTestId);
-			await simulateImageLoadDelay();
+			await waitFor(() => expect(newImg.getAttribute('src')).toBeTruthy());
+
 			fireEvent.load(newImg);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect((newImg as HTMLImageElement).src).toContain('create-object-url-2');
@@ -2730,7 +2884,7 @@ describe.skip('Card ', () => {
 				dataURI: 'ext-uri',
 				name: 'ext',
 			} as const;
-			const { container, rerender } = render(
+			const { rerender } = render(
 				// Strictly speaking, the Mocked Provider is not required for this test, but we added to make sure it doesn't add noise
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
@@ -2742,13 +2896,17 @@ describe.skip('Card ', () => {
 			);
 
 			// simulate that the file has been fully loaded by the browser
-			const img = await screen.findByTestId(imgTestId);
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect(screen.getByText(extIdentifier.name)).toBeInTheDocument();
@@ -2772,12 +2930,16 @@ describe.skip('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const newImg = await screen.findByTestId(imgTestId);
-			await simulateImageLoadDelay();
+			await waitFor(() => expect(newImg.getAttribute('src')).toBeTruthy());
+
 			fireEvent.load(newImg);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect(screen.getByText(newExtIdentifier.name)).toBeInTheDocument();
@@ -2791,7 +2953,7 @@ describe.skip('Card ', () => {
 
 		const user = userEvent.setup();
 
-		const { container } = render(
+		render(
 			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 				<CardLoader
 					mediaClientConfig={dummyMediaClientConfig}
@@ -2802,8 +2964,11 @@ describe.skip('Card ', () => {
 		);
 
 		// card should completely process the error
-		await waitFor(() =>
-			expect(container.querySelector('[data-test-status="failed-processing"]')).toBeInTheDocument(),
+		await waitFor(async () =>
+			expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+				'data-test-status',
+				'failed-processing',
+			),
 		);
 
 		const btn = screen.getByLabelText('Download');
@@ -2823,7 +2988,7 @@ describe.skip('Card ', () => {
 
 			const user = userEvent.setup();
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -2835,18 +3000,26 @@ describe.skip('Card ', () => {
 			);
 
 			// card should be attempting to load the preview
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="loading-preview"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'loading-preview',
+				),
 			);
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const card = screen.getByTestId(cardTestId);
@@ -2859,7 +3032,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -2871,12 +3044,17 @@ describe.skip('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const card = screen.getByTestId(cardTestId);
@@ -2896,7 +3074,7 @@ describe.skip('Card ', () => {
 
 			const user = userEvent.setup();
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -2909,12 +3087,17 @@ describe.skip('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const card = screen.getByTestId(cardTestId);
@@ -2932,7 +3115,7 @@ describe.skip('Card ', () => {
 
 			const user = userEvent.setup();
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -2945,12 +3128,17 @@ describe.skip('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const openButton = screen.getByText('Open name.pdf');
@@ -2975,7 +3163,7 @@ describe.skip('Card ', () => {
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
 			const user = userEvent.setup();
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -2989,12 +3177,17 @@ describe.skip('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const card = screen.getByTestId(cardTestId);
@@ -3010,7 +3203,8 @@ describe.skip('Card ', () => {
 			dataURI: 'ext-uri',
 			name: 'ext',
 		} as const;
-		const { container } = render(
+
+		render(
 			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 				<CardLoader
 					mediaClientConfig={dummyMediaClientConfig}
@@ -3022,12 +3216,17 @@ describe.skip('Card ', () => {
 
 		// simulate that the file has been fully loaded by the browser
 		const img = await screen.findByTestId(imgTestId);
+		await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+
 		await simulateImageLoadDelay();
 		fireEvent.load(img);
 
 		// card should completely process the file
-		await waitFor(() =>
-			expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+		await waitFor(async () =>
+			expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+				'data-test-status',
+				'complete',
+			),
 		);
 
 		expect(screen.getByText(extIdentifier.name)).toBeInTheDocument();
@@ -3039,7 +3238,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -3051,12 +3250,17 @@ describe.skip('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
@@ -3072,7 +3276,7 @@ describe.skip('Card ', () => {
 				generateSampleFileItem.workingImgWithRemotePreviewInRecentsCollection();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -3084,12 +3288,17 @@ describe.skip('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
@@ -3107,7 +3316,7 @@ describe.skip('Card ', () => {
 				dataURI: 'ext-uri',
 				name: 'ext',
 			} as const;
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -3119,12 +3328,17 @@ describe.skip('Card ', () => {
 
 			// simulate that the file has been fully loaded by the browser
 			const img = await screen.findByTestId(imgTestId);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+
 			await simulateImageLoadDelay();
 			fireEvent.load(img);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
@@ -3144,7 +3358,7 @@ describe.skip('Card ', () => {
 			throw new Error('remote-preview-fetch');
 		};
 
-		const { container } = render(
+		render(
 			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 				<IntlProvider
 					locale="en"
@@ -3162,8 +3376,11 @@ describe.skip('Card ', () => {
 		);
 
 		// card should completely process the error
-		await waitFor(() =>
-			expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+		await waitFor(async () =>
+			expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+				'data-test-status',
+				'error',
+			),
 		);
 
 		expect(screen.getByText('an internationalised message')).toBeInTheDocument();
@@ -3177,7 +3394,7 @@ describe.skip('Card ', () => {
 
 				const user = userEvent.setup();
 				const onClick = jest.fn();
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3190,12 +3407,14 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
 				);
 
 				const card = screen.getByTestId(cardTestId);
@@ -3209,7 +3428,7 @@ describe.skip('Card ', () => {
 
 				const user = userEvent.setup();
 				const onClick = jest.fn();
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3223,12 +3442,16 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
 				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+					expect(screen.getByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
 				const card = screen.getByTestId(cardTestId);
@@ -3239,9 +3462,6 @@ describe.skip('Card ', () => {
 
 		describe('should attach the correct file status flags when completing the UFO experience', () => {
 			it('should attach an uploading file status flag with value as true', async () => {
-				// using Jest's useFakeTimers to accelerate the polling function
-				jest.useFakeTimers();
-
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { uploadItem, processItem, MockedMediaClientProvider } =
 					createMockedMediaClientProvider({
@@ -3250,7 +3470,7 @@ describe.skip('Card ', () => {
 
 				uploadItem(fileItem, 0);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3260,25 +3480,30 @@ describe.skip('Card ', () => {
 					</MockedMediaClientProvider>,
 				);
 
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="uploading"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'uploading',
+					),
 				);
 
 				uploadItem(fileItem, 1);
 				processItem(fileItem, 1);
 
-				jest.runAllTimers();
-
 				// simulate that the file has been fully loaded by the browser
-
 				const img = await screen.findByTestId(imgTestId, undefined);
+				await waitFor(async () => expect(img.getAttribute('src')).toBeTruthy());
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
-				expect(completeUfoExperience).toBeCalledTimes(4);
+
 				expect(completeUfoExperience).toHaveBeenLastCalledWith(
 					expect.any(String),
 					expect.any(String),
@@ -3287,16 +3512,9 @@ describe.skip('Card ', () => {
 					expect.any(Object),
 					undefined,
 				);
-
-				// set timers back to normal
-				jest.runOnlyPendingTimers();
-				jest.useRealTimers();
 			});
 
 			it('should attach a processing file status flag with value as true', async () => {
-				// using Jest's useFakeTimers to accelerate the polling function
-				jest.useFakeTimers();
-
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { processItem, MockedMediaClientProvider } = createMockedMediaClientProvider({
 					initialItems: fileItem,
@@ -3304,7 +3522,7 @@ describe.skip('Card ', () => {
 
 				processItem(fileItem, 0);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3314,24 +3532,34 @@ describe.skip('Card ', () => {
 					</MockedMediaClientProvider>,
 				);
 
+				await waitFor(() => expect(() => screen.getByTestId('media-card-loading')).toThrow());
+
 				// card should be attempting to loading the file state
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="processing"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'processing',
+					),
 				);
 
 				processItem(fileItem, 1);
 
-				jest.runAllTimers();
-
 				// simulate that the file has been fully loaded by the browser
-
 				const img = await screen.findByTestId(imgTestId, undefined);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy(), { timeout: 5_000 });
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(
+					async () =>
+						expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+							'data-test-status',
+							'complete',
+						),
+					{ timeout: 5_000 },
 				);
+
 				expect(completeUfoExperience).toBeCalledTimes(3);
 				expect(completeUfoExperience).toHaveBeenLastCalledWith(
 					expect.any(String),
@@ -3341,17 +3569,13 @@ describe.skip('Card ', () => {
 					expect.any(Object),
 					undefined,
 				);
-
-				// set timers back to normal
-				jest.runOnlyPendingTimers();
-				jest.useRealTimers();
 			});
 
 			it('should attach uploading and processing file status flags with values as false', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3363,12 +3587,17 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+
 				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 				expect(completeUfoExperience).toBeCalledTimes(2);
 				expect(completeUfoExperience).toHaveBeenLastCalledWith(
@@ -3388,7 +3617,7 @@ describe.skip('Card ', () => {
 					dataURI: 'ext-uri',
 					name: 'ext',
 				} as const;
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3400,12 +3629,17 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(async () => expect(img.getAttribute('src')).toBeTruthy());
+
 				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 				expect(completeUfoExperience).toBeCalledTimes(1);
 				expect(completeUfoExperience).toHaveBeenLastCalledWith(
@@ -3428,7 +3662,7 @@ describe.skip('Card ', () => {
 					throw createRateLimitedError();
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3439,8 +3673,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				await waitFor(() => {
@@ -3481,7 +3718,7 @@ describe.skip('Card ', () => {
 					throw createPollingMaxAttemptsError(2);
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3492,8 +3729,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				await waitFor(() => {
@@ -3532,7 +3772,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3544,12 +3784,17 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(async () => expect(img.getAttribute('src')).toBeTruthy());
+
 				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
 				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(3, {
@@ -3577,7 +3822,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingVideo();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3589,12 +3834,16 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
 				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(3, {
@@ -3621,9 +3870,6 @@ describe.skip('Card ', () => {
 
 		describe('should fire an operational event', () => {
 			it('when the card status changes (file identifier)', async () => {
-				// using Jest's useFakeTimers to accelerate the polling function
-				jest.useFakeTimers();
-
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { MockedMediaClientProvider, processItem } = createMockedMediaClientProvider({
 					initialItems: fileItem,
@@ -3631,7 +3877,7 @@ describe.skip('Card ', () => {
 
 				processItem(fileItem, 0);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3641,21 +3887,29 @@ describe.skip('Card ', () => {
 					</MockedMediaClientProvider>,
 				);
 
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="processing"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'processing',
+					),
 				);
 
 				processItem(fileItem, 1);
 
-				jest.runAllTimers();
-
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId, undefined);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy(), { timeout: 5_000 });
+				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(
+					async () =>
+						expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+							'data-test-status',
+							'complete',
+						),
+					{ timeout: 5_000 },
 				);
 
 				await waitFor(() => {
@@ -3711,10 +3965,6 @@ describe.skip('Card ', () => {
 
 				expect(event.fire).toHaveBeenCalledTimes(3); // 2 operational events, 1 screen event
 				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
-
-				// set timers back to normal
-				jest.runOnlyPendingTimers();
-				jest.useRealTimers();
 			});
 
 			it('when the card status changes (external image identifier)', async () => {
@@ -3724,7 +3974,7 @@ describe.skip('Card ', () => {
 					dataURI: 'ext-uri',
 					name: 'ext',
 				} as const;
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3736,12 +3986,16 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
 				await waitFor(() => {
@@ -3801,7 +4055,7 @@ describe.skip('Card ', () => {
 					throw createRateLimitedError();
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3812,8 +4066,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				await waitFor(() => {
@@ -3883,7 +4140,7 @@ describe.skip('Card ', () => {
 					throw createPollingMaxAttemptsError(2);
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3894,8 +4151,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				await waitFor(() => {
@@ -3961,7 +4221,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.failedPdf();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -3972,10 +4232,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(
-						container.querySelector('[data-test-status="failed-processing"]'),
-					).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'failed-processing',
+					),
 				);
 
 				await waitFor(() => {
@@ -4042,7 +4303,7 @@ describe.skip('Card ', () => {
 					throw createServerUnauthorizedError();
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -4053,8 +4314,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				await waitFor(() => {
@@ -4130,7 +4394,7 @@ describe.skip('Card ', () => {
 					throw createServerUnauthorizedError();
 				};
 
-				const { container } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -4141,8 +4405,11 @@ describe.skip('Card ', () => {
 				);
 
 				// card should completely process the error
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
 				);
 
 				await waitFor(() => {
@@ -4222,7 +4489,7 @@ describe.skip('Card ', () => {
 			const { id, collectionName } = identifier;
 			setGlobalSSRData(`${id}-${collectionName}`, expectedPreview);
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -4234,8 +4501,11 @@ describe.skip('Card ', () => {
 			);
 
 			// wait for ViewportDetector to be mounted before turning the card visible
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="loading"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'loading',
+				),
 			);
 			makeVisible();
 
@@ -4298,7 +4568,7 @@ describe.skip('Card ', () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				const { container, unmount } = render(
+				const { unmount } = render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -4310,12 +4580,16 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
 				unmount();
@@ -4351,7 +4625,7 @@ describe.skip('Card ', () => {
 					name: 'ext',
 				} as const;
 
-				const { container, unmount } = render(
+				const { unmount } = render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -4363,12 +4637,16 @@ describe.skip('Card ', () => {
 
 				// simulate that the file has been fully loaded by the browser
 				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
 				await simulateImageLoadDelay();
 				fireEvent.load(img);
 
 				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
 				);
 
 				unmount();
@@ -4396,11 +4674,11 @@ describe.skip('Card ', () => {
 	});
 
 	describe('SVG', () => {
-		it('should render SVG natively when the overlay is disbled', async () => {
+		it('should render SVG natively when the overlay is disabled', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.svg();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { findAllByTestId, container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -4411,16 +4689,19 @@ describe.skip('Card ', () => {
 				</MockedMediaClientProvider>,
 			);
 
-			const elem = await findAllByTestId('media-card-svg');
+			const elem = await screen.findAllByTestId('media-card-svg');
 			expect(elem[0]).toBeDefined();
 			const imgElement = elem[0];
 			expect(imgElement.nodeName.toLowerCase()).toBe('img');
-			await simulateImageLoadDelay();
+
 			fireEvent.load(imgElement);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			const fileAttributes = {
@@ -4461,7 +4742,7 @@ describe.skip('Card ', () => {
 				throw createServerUnauthorizedError();
 			};
 
-			const { findAllByTestId, container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -4472,16 +4753,19 @@ describe.skip('Card ', () => {
 				</MockedMediaClientProvider>,
 			);
 
-			const elem = await findAllByTestId('media-card-svg');
+			const elem = await screen.findAllByTestId('media-card-svg');
 			expect(elem[0]).toBeDefined();
 			const imgElement = elem[0];
 			expect(imgElement.nodeName.toLowerCase()).toBe('img');
-			await simulateImageLoadDelay();
+
 			fireEvent.load(imgElement);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			// Analytics are broken for this case!
@@ -4520,7 +4804,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.svgFailedProcessing();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { findAllByTestId, container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -4531,16 +4815,19 @@ describe.skip('Card ', () => {
 				</MockedMediaClientProvider>,
 			);
 
-			const elem = await findAllByTestId('media-card-svg');
+			const elem = await screen.findAllByTestId('media-card-svg');
 			expect(elem[0]).toBeDefined();
 			const imgElement = elem[0];
 			expect(imgElement.nodeName.toLowerCase()).toBe('img');
-			await simulateImageLoadDelay();
+
 			fireEvent.load(imgElement);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			// Analytics are broken for this case!
@@ -4580,7 +4867,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.svgWithoutPreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { findAllByTestId, container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -4591,16 +4878,19 @@ describe.skip('Card ', () => {
 				</MockedMediaClientProvider>,
 			);
 
-			const elem = await findAllByTestId('media-card-svg');
+			const elem = await screen.findAllByTestId('media-card-svg');
 			expect(elem[0]).toBeDefined();
 			const imgElement = elem[0];
 			expect(imgElement.nodeName.toLowerCase()).toBe('img');
-			await simulateImageLoadDelay();
+
 			fireEvent.load(imgElement);
 
 			// card should completely process the file
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
 			);
 
 			// Analytics are broken for this case!
@@ -4644,7 +4934,7 @@ describe.skip('Card ', () => {
 				throw createServerUnauthorizedError();
 			};
 
-			const { container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -4655,8 +4945,11 @@ describe.skip('Card ', () => {
 				</MockedMediaClientProvider>,
 			);
 
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'error',
+				),
 			);
 
 			const fileAttributes = {
@@ -4704,7 +4997,7 @@ describe.skip('Card ', () => {
 			const [fileItem, identifier] = generateSampleFileItem.svg();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
-			const { findAllByTestId, container } = render(
+			render(
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<CardLoader
 						mediaClientConfig={dummyMediaClientConfig}
@@ -4715,14 +5008,17 @@ describe.skip('Card ', () => {
 				</MockedMediaClientProvider>,
 			);
 
-			const elem = await findAllByTestId('media-card-svg');
+			const elem = await screen.findAllByTestId('media-card-svg');
 			expect(elem[0]).toBeDefined();
 			const imgElement = elem[0];
 			expect(imgElement.nodeName.toLowerCase()).toBe('img');
 			fireEvent.error(imgElement);
 
-			await waitFor(() =>
-				expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'error',
+				),
 			);
 
 			const fileAttributes = {
@@ -4775,7 +5071,7 @@ describe.skip('Card ', () => {
 					);
 				});
 
-				const { findAllByTestId } = render(
+				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 						<CardLoader
 							mediaClientConfig={dummyMediaClientConfig}
@@ -4786,7 +5082,7 @@ describe.skip('Card ', () => {
 					</MockedMediaClientProvider>,
 				);
 
-				const elem = await findAllByTestId('media-card-svg');
+				const elem = await screen.findAllByTestId('media-card-svg');
 				return elem[0];
 			}
 

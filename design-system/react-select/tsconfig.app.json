@@ -27,7 +27,7 @@
 		"**/codemods/**/*.tsx"
 	],
 	"compilerOptions": {
-		"baseUrl": "",
+		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__react-select/app"
 	},

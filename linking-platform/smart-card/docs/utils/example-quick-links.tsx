@@ -15,25 +15,25 @@ const DocQuickLinks = () => (
 			spacing="compact"
 			trigger={({ triggerRef, ...triggerProps }) => (
 				<Button ref={triggerRef} {...triggerProps} iconBefore={VidFullScreenOnIcon}>
-					Examples
+					Tools
 				</Button>
 			)}
 		>
 			<DropdownItemGroup hasSeparator>
 				<DropdownItem
-					description="Test the resolver, load Smart Links via URL, modify the link response."
+					description="Test the resolver, load Smart Link via URL, modify the link response"
 					onClick={() => navigateToUrl(toExamplePath('json-ld-editor'))}
 				>
 					JSON-LD Editor
 				</DropdownItem>
 				<DropdownItem
-					description="Try Hover Preview with various configurations."
+					description="Build hover card with different configurations"
 					onClick={() => navigateToUrl(toExamplePath('hover-card'))}
 				>
 					Hover Preview Builder
 				</DropdownItem>
 				<DropdownItem
-					description="Build a composable Smart Links."
+					description="Build a composable Smart Link"
 					onClick={() => navigateToUrl(toExamplePath('flexible-smart-links-builder'))}
 				>
 					Flexible Smart Links Builder

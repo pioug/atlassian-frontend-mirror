@@ -1,3 +1,4 @@
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
 	type AriaOnFocusProps,
 	type ClearIndicatorProps,
@@ -26,12 +27,10 @@ import {
 	type OnChangeValue as RSValueType,
 	type SelectInstance,
 	type SingleValueProps,
-} from 'react-select';
-import { type AsyncProps } from 'react-select/async';
-import type BaseSelect from 'react-select/base';
-import { type CreatableProps } from 'react-select/creatable';
-
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+} from '@atlaskit/react-select';
+import { type AsyncProps } from '@atlaskit/react-select/async';
+import type BaseSelect from '@atlaskit/react-select/base';
+import { type CreatableProps } from '@atlaskit/react-select/creatable';
 
 export type ValidationState = 'default' | 'error' | 'success';
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
@@ -87,19 +86,30 @@ interface CustomSelectProps extends WithAnalyticsEventsProps {
 	 * @deprecated Use isInvalid instead. The state of validation if used in a form.
 	 */
 	validationState?: ValidationState;
+	descriptionId?: string;
+	onClickPreventDefault?: boolean;
 }
 
 export interface SelectProps<Option, IsMulti extends boolean = false>
 	extends ReactSelectProps<Option, IsMulti>,
-		CustomSelectProps {}
+		CustomSelectProps {
+	// temp fix to support unofficial props. https://product-fabric.atlassian.net/browse/DSP-21074
+	[key: string]: any;
+}
 
 export interface AsyncSelectProps<Option, IsMulti extends boolean = false>
 	extends AsyncProps<Option, IsMulti, GroupType<Option>>,
-		CustomSelectProps {}
+		CustomSelectProps {
+	// temp fix to support unofficial props. https://product-fabric.atlassian.net/browse/DSP-21074
+	[key: string]: any;
+}
 
 export interface CreatableSelectProps<Option, IsMulti extends boolean = false>
 	extends CreatableProps<Option, IsMulti, GroupType<Option>>,
-		CustomSelectProps {}
+		CustomSelectProps {
+	// temp fix to support unofficial props. https://product-fabric.atlassian.net/browse/DSP-21074
+	[key: string]: any;
+}
 
 export type ActionMeta<Option = OptionType> = RSActionMeta<Option>;
 
@@ -164,10 +174,3 @@ export type {
 	MultiValueRemoveProps,
 	AriaOnFocusProps,
 };
-
-declare module 'react-select/base' {
-	// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
-	export interface Props<Option, IsMulti extends boolean, Group extends GroupType<Option>> {
-		[key: string]: any;
-	}
-}

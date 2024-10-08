@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/comment",
-	"version": "11.0.2",
+	"version": "11.1.0",
 	"description": "A comment displays discussions and user feedback.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,8 +25,9 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.2.0",
-		"@atlaskit/icon": "^22.20.0",
+		"@atlaskit/icon": "^22.22.0",
 		"@atlaskit/lozenge": "^11.11.0",
+		"@atlaskit/platform-feature-flags": "0.3.0",
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^2.0.0",
@@ -95,5 +96,13 @@
 	"exports": {
 		"./types": "./src/types.tsx",
 		".": "./src/index.tsx"
+	},
+	"platform-feature-flags": {
+		"platform-visual-refresh-icons-legacy-facade": {
+			"type": "boolean"
+		},
+		"platform.design-system-team.enable-new-icons": {
+			"type": "boolean"
+		}
 	}
 }

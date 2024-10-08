@@ -35,6 +35,7 @@ export function AsyncSelect<T = OptionType>({
 	validators,
 	validationHelpText,
 	testId = TEST_ID,
+	//@ts-ignore react-select unsupported props
 	defaultOption: propsDefaultValue,
 	loadOptions: loadOptionsFn,
 	...restProps

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-date
 
+## 2.3.16
+
+### Patch Changes
+
+- [#148528](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148528)
+  [`dd1ab6e1f1bd2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd1ab6e1f1bd2) -
+  Remove usage of findDomNode
+
+## 2.3.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.14
 
 ### Patch Changes

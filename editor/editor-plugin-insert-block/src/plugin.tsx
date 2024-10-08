@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
@@ -17,6 +17,7 @@ import type {
 	EditorAppearance,
 	ExtractInjectionAPI,
 	NextEditorPlugin,
+	PMPlugin,
 	ToolbarUIComponentFactory,
 	ToolbarUiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
@@ -30,13 +31,14 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import SwitchIcon from './assets/switch';
 import { elementBrowserPmKey, elementBrowserPmPlugin } from './pm-plugins/elementBrowser';
+import { toggleInsertBlockPmKey, toggleInsertBlockPmPlugin } from './pm-plugins/toggleInsertBlock';
 import type { InsertBlockPluginDependencies } from './types';
 import { InsertMenuRail } from './ui/ElementRail';
 import { templateOptions } from './ui/templateOptions';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import { transformationOptions } from './ui/transformOptions';
 
-const toolbarSizeToButtons = (toolbarSize: ToolbarSize, appearance?: EditorAppearance) => {
+export const toolbarSizeToButtons = (toolbarSize: ToolbarSize, appearance?: EditorAppearance) => {
 	// Different button numbers for full-page to better match full page toolbar breakpoints
 	if (appearance === 'full-page' && fg('platform_editor_toolbar_responsive_fixes')) {
 		switch (toolbarSize) {
@@ -95,6 +97,11 @@ export interface InsertBlockOptions {
 	appearance?: EditorAppearance;
 }
 
+export interface InsertBlockPluginState {
+	showElementBrowser: boolean;
+	menuBrowserOpen?: boolean;
+}
+
 /**
  * Wrapper over insertBlockTypeWithAnalytics to autobind toolbar input method
  * @param name Block name
@@ -126,22 +133,13 @@ export type InsertBlockPlugin = NextEditorPlugin<
 		actions: {
 			toggleAdditionalMenu: () => void;
 		};
+		sharedState: InsertBlockPluginState | undefined;
 	}
 >;
 
 export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api }) => {
-	const toggleDropdownMenuOptionsRef: Record<'current', null | (() => void)> = {
-		current: null,
-	};
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
 
-	const registerToggleDropdownMenuOptions = (cb: () => void) => {
-		toggleDropdownMenuOptionsRef.current = cb;
-
-		return () => {
-			toggleDropdownMenuOptionsRef.current = null;
-		};
-	};
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		editorView,
 		editorActions,
@@ -172,7 +170,6 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 					isLastItem={isLastItem}
 					providers={providers}
 					options={options}
-					registerToggleDropdownMenuOptions={registerToggleDropdownMenuOptions}
 					appearance={options.appearance}
 				/>
 			);
@@ -196,65 +193,67 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 
 		actions: {
 			toggleAdditionalMenu: () => {
-				const toggle = toggleDropdownMenuOptionsRef.current;
-
-				if (!toggle) {
-					return;
-				}
-
-				toggle();
+				api?.core?.actions.execute(({ tr }) => {
+					return tr.setMeta(toggleInsertBlockPmKey, true);
+				});
 			},
 		},
 
-		/**
-		 * For insert menu in right rail experiment - I don't want to expose state as it might not ship
-		 * - Clean up ticket ED-24801
-		 */
-		// @ts-expect-error
 		getSharedState: (editorState) => {
-			if (
-				!editorState ||
-				// @ts-ignore
-				!['full-page', 'full-width'].includes(options.appearance ?? '') ||
-				!editorExperiment('insert-menu-in-right-rail', true)
-			) {
+			if (!editorState || !['full-page', 'full-width'].includes(options.appearance ?? '')) {
 				return;
 			}
 
-			const pluginState = elementBrowserPmKey.getState(editorState);
+			const toggleInsertBlockPluginState = toggleInsertBlockPmKey.getState(editorState);
+			const elementBrowserPluginState = elementBrowserPmKey.getState(editorState);
 
 			return {
-				menuBrowserOpen: pluginState?.menuBrowserOpen,
+				showElementBrowser: toggleInsertBlockPluginState?.showElementBrowser || false,
+				/**
+				 * For insert menu in right rail experiment
+				 * - Clean up ticket ED-24801
+				 * Experiment: `insert-menu-in-right-rail`
+				 */
+				menuBrowserOpen: editorExperiment('insert-menu-in-right-rail', true)
+					? elementBrowserPluginState?.menuBrowserOpen
+					: false,
 			};
 		},
 
 		pmPlugins: () => {
-			if (
-				// @ts-ignore
-				!['full-page', 'full-width'].includes(options.appearance ?? '') ||
-				!editorExperiment('insert-menu-in-right-rail', true)
-			) {
+			if (!['full-page', 'full-width'].includes(options.appearance ?? '')) {
 				[];
 			}
 
-			return [
-				{
-					name: 'elementBrowserPmPlugin',
-					plugin: () => elementBrowserPmPlugin(),
-				},
-				{
-					name: 'elementBrowserEditorViewRef',
-					plugin: () => {
-						return new SafePlugin({
-							view: (editorView) => {
-								// Workaround - need reference to editorView for contextPanel component
-								editorViewRef.current = editorView;
-								return {};
-							},
-						});
+			const plugins: PMPlugin[] = [];
+
+			if (editorExperiment('insert-menu-in-right-rail', true)) {
+				plugins.push(
+					{
+						name: 'elementBrowserPmPlugin',
+						plugin: () => elementBrowserPmPlugin(),
 					},
-				},
-			];
+					{
+						name: 'elementBrowserEditorViewRef',
+						plugin: () => {
+							return new SafePlugin({
+								view: (editorView) => {
+									// Workaround - need reference to editorView for contextPanel component
+									editorViewRef.current = editorView;
+									return {};
+								},
+							});
+						},
+					},
+				);
+			}
+
+			plugins.push({
+				name: 'toggleInsertBlockPmPlugin',
+				plugin: () => toggleInsertBlockPmPlugin(),
+			});
+
+			return plugins;
 		},
 
 		pluginsOptions: {
@@ -336,14 +335,6 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			},
 		},
 
-		usePluginHook: () => {
-			useLayoutEffect(() => {
-				return () => {
-					toggleDropdownMenuOptionsRef.current = null;
-				};
-			}, []);
-		},
-
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
 
@@ -374,7 +365,6 @@ interface ToolbarInsertBlockWithInjectionApiProps
 	providers: Providers;
 	pluginInjectionApi: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined;
 	options: InsertBlockOptions;
-	registerToggleDropdownMenuOptions: (cb: () => void) => () => void;
 	appearance: EditorAppearance | undefined;
 }
 
@@ -392,7 +382,6 @@ function ToolbarInsertBlockWithInjectionApi({
 	providers,
 	pluginInjectionApi,
 	options,
-	registerToggleDropdownMenuOptions,
 	appearance,
 }: ToolbarInsertBlockWithInjectionApiProps) {
 	const buttons = toolbarSizeToButtons(toolbarSize, appearance);
@@ -406,6 +395,7 @@ function ToolbarInsertBlockWithInjectionApi({
 		mediaState,
 		typeAheadState,
 		placeholderTextState,
+		insertBlockState,
 	} = useSharedPluginState(pluginInjectionApi, [
 		'hyperlink',
 		'date',
@@ -416,6 +406,7 @@ function ToolbarInsertBlockWithInjectionApi({
 		'media',
 		'typeAhead',
 		'placeholderText',
+		'insertBlock',
 	]);
 
 	const getEmojiProvider = () => {
@@ -442,6 +433,7 @@ function ToolbarInsertBlockWithInjectionApi({
 
 	return (
 		<ToolbarInsertBlock
+			showElementBrowser={insertBlockState?.showElementBrowser || false}
 			pluginInjectionApi={pluginInjectionApi}
 			buttons={buttons}
 			isReducedSpacing={isToolbarReducedSpacing}
@@ -491,7 +483,6 @@ function ToolbarInsertBlockWithInjectionApi({
 			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 			showElementBrowserLink={options.showElementBrowserLink}
 			showSeparator={!isLastItem && toolbarSize <= ToolbarSize.S}
-			registerToggleDropdownMenuOptions={registerToggleDropdownMenuOptions}
 			editorAppearance={options.appearance}
 		/>
 	);

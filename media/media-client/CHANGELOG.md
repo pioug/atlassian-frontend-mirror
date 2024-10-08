@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 28.0.2
+
+### Patch Changes
+
+- [#149473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149473)
+  [`4c74b6716ded9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c74b6716ded9) -
+  Remove global jest override to fix runtime type error in jest tests
+
 ## 28.0.1
 
 ### Patch Changes

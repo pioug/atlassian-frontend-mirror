@@ -1,6 +1,5 @@
-import type { GroupBase } from 'react-select';
-
 import type { FieldDefinition, Option, Parameters } from '@atlaskit/editor-common/extensions';
+import type { GroupBase } from '@atlaskit/react-select';
 import { isOptionsGrouped } from '@atlaskit/select';
 
 import { ALLOWED_LOGGED_MACRO_PARAMS, ALLOWED_PARAM_TYPES } from './constants';

@@ -5,11 +5,11 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { components } from 'react-select';
 
 import DownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import CrossIcon from '@atlaskit/icon/utility/migration/cross-circle--select-clear';
 import { Inline, Pressable, xcss } from '@atlaskit/primitives';
+import { components } from '@atlaskit/react-select';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 

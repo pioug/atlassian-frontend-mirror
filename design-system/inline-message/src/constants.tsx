@@ -1,7 +1,7 @@
-import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
-import InfoIcon from '@atlaskit/icon/glyph/info';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import InformationIcon from '@atlaskit/icon/core/migration/information--info';
+import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 
 import type { IconAppearanceMap } from './types';
 
@@ -11,11 +11,11 @@ export const typesMapping: IconAppearanceMap = {
 		defaultLabel: 'connectivity inline message',
 	},
 	confirmation: {
-		icon: CheckCircleIcon,
+		icon: SuccessIcon,
 		defaultLabel: 'confirmation inline message',
 	},
 	info: {
-		icon: InfoIcon,
+		icon: InformationIcon,
 		defaultLabel: 'info inline message',
 	},
 	warning: {

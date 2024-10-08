@@ -1,5 +1,14 @@
 # @atlaskit/task-decision
 
+## 17.11.3
+
+### Patch Changes
+
+- [#133786](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133786)
+  [`474749b6a9ff3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/474749b6a9ff3) -
+  Fix bug where task icon rendered incorrectly behind a feature flag
+- Updated dependencies
+
 ## 17.11.2
 
 ### Patch Changes

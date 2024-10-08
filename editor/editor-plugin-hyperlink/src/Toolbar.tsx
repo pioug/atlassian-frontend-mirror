@@ -1,13 +1,10 @@
 import React from 'react';
 
-import type { IntlShape } from 'react-intl-next';
-
 import type { LinkAttributes } from '@atlaskit/adf-schema';
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT_ID,
-	buildOpenedSettingsPayload,
 	buildVisitedLinkPayload,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
@@ -18,7 +15,7 @@ import type {
 } from '@atlaskit/editor-common/analytics';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { getLinkPreferencesURLFromENV, HyperlinkAddToolbar } from '@atlaskit/editor-common/link';
+import { HyperlinkAddToolbar } from '@atlaskit/editor-common/link';
 import type {
 	EditInsertedState,
 	HyperlinkAddToolbarProps,
@@ -47,10 +44,8 @@ import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	editInsertedLink,
@@ -87,13 +82,6 @@ const visitHyperlink =
 	(editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
 	(state, dispatch) => {
 		dispatchAnalytics(dispatch, state, buildVisitedLinkPayload, editorAnalyticsApi);
-		return true;
-	};
-
-const openLinkSettings =
-	(editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
-	(state, dispatch) => {
-		dispatchAnalytics(dispatch, state, buildOpenedSettingsPayload, editorAnalyticsApi);
 		return true;
 	};
 
@@ -153,22 +141,6 @@ export function HyperlinkAddToolbarWithState({
 		/>
 	);
 }
-
-const getSettingsButtonGroup = (
-	intl: IntlShape,
-	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-): FloatingToolbarItem<Command>[] => [
-	{ type: 'separator' },
-	{
-		id: 'editor.link.settings',
-		type: 'button',
-		icon: CogIcon,
-		title: intl.formatMessage(linkToolbarCommonMessages.settingsLink),
-		onClick: openLinkSettings(editorAnalyticsApi),
-		href: getLinkPreferencesURLFromENV(),
-		target: '_blank',
-	},
-];
 
 export const getToolbarConfig =
 	(
@@ -288,10 +260,6 @@ export const getToolbarConfig =
 							],
 						},
 						...(cardActions?.getEndingToolbarItems(intl, link) ?? []),
-
-						...(fg('platform.editor.card.inject-settings-button')
-							? []
-							: getSettingsButtonGroup(intl, editorAnalyticsApi)),
 					];
 
 					return {

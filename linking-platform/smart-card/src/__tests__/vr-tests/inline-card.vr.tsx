@@ -48,9 +48,6 @@ snapshot(InlineCardDefaultTruncate, {
 			jiraIssueId: 'TODO-1',
 		},
 	],
-	featureFlags: {
-		'linking-platform-increase-inline-card-icon-size': [true, false],
-	},
 });
 
 snapshot(InlineCardTextWrap, {
@@ -72,9 +69,6 @@ snapshot(InlineCardError, {
 });
 snapshot(InlineCardErrorTruncate, {
 	description: 'inline card error view with truncation',
-	featureFlags: {
-		'linking-platform-increase-inline-card-icon-size': [true, false],
-	},
 });
 snapshot(InlineCardForbidden, {
 	description: 'inline card forbidden view',
@@ -87,9 +81,6 @@ snapshot(InlineCardForbidden, {
 
 snapshot(InlineCardForbiddenTruncate, {
 	description: 'inline card forbidden view with truncation',
-	featureFlags: {
-		'linking-platform-increase-inline-card-icon-size': [true, false],
-	},
 });
 
 snapshot(InlineCardForbiddenRequestAccess, {
@@ -101,9 +92,6 @@ snapshot(InlineCardForbiddenSiteRequestAccess, {
 
 snapshot(InlineCardForbiddenSiteRequestAccessTruncate, {
 	description: 'inline card forbidden view with request access to site and truncation',
-	featureFlags: {
-		'linking-platform-increase-inline-card-icon-size': [true, false],
-	},
 });
 
 snapshot(InlineCardForbiddenDirectAccess, {
@@ -126,9 +114,6 @@ snapshot(InlineCardNotFound, {
 
 snapshot(InlineCardNotFoundTruncate, {
 	description: `inline card can't find link view with truncation`,
-	featureFlags: {
-		'linking-platform-increase-inline-card-icon-size': [true, false],
-	},
 });
 
 snapshot(InlineCardUnauthorised, {
@@ -147,9 +132,6 @@ snapshot(InlineCardUnauthorised, {
 
 snapshot(InlineCardUnauthorisedTruncate, {
 	description: `inline card unauthorised view with truncation`,
-	featureFlags: {
-		'linking-platform-increase-inline-card-icon-size': [true, false],
-	},
 });
 
 snapshot(InlineCardUnauthorised, {

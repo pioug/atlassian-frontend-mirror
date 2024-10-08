@@ -1,24 +1,19 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Loadable from 'react-loadable';
 import {
-	type MediaClient,
 	type FileState,
-	type ProcessedFileState,
-	type UploadingFileState,
-	type ProcessingFileState,
 	type Identifier,
 	isExternalImageIdentifier,
 	isFileIdentifier,
 	type ExternalImageIdentifier,
-	type MediaSubscription,
-	type ProcessingFailedState,
+	type NonErrorFileState,
 } from '@atlaskit/media-client';
 import { FormattedMessage } from 'react-intl-next';
 import { messages, type WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
+import { useFileState, useMediaClient, MediaFileStateError } from '@atlaskit/media-client-react';
 import { Outcome } from './domain';
 import { Spinner } from './loading';
-import deepEqual from 'deep-equal';
 import ErrorMessage from './errorMessage';
 import { MediaViewerError } from './errors';
 import { ErrorViewDownloadButton } from './download';
@@ -43,32 +38,41 @@ import {
 	succeedMediaFileUfoExperience,
 } from './analytics/ufoExperiences';
 import { type FileStateFlags } from './components/types';
-import { MediaClientProvider } from '@atlaskit/media-client-react';
-import { type SvgViewerProps } from './viewers/svg';
+import type { SvgViewerProps } from './viewers/svg';
 
 const ImageViewer = Loadable({
 	loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
-		import('./viewers/image').then((mod) => mod.ImageViewer),
+		import(/* webpackChunkName: "@atlaskit-internal_imageViewer" */ './viewers/image').then(
+			(mod) => mod.ImageViewer,
+		),
 	loading: () => <Spinner />,
 });
 const VideoViewer = Loadable({
 	loader: (): Promise<React.ComponentType<VideoViewerProps>> =>
-		import('./viewers/video').then((mod) => mod.VideoViewer),
+		import(/* webpackChunkName: "@atlaskit-internal_videoViewer" */ './viewers/video').then(
+			(mod) => mod.VideoViewer,
+		),
 	loading: () => <Spinner />,
 });
 const AudioViewer = Loadable({
 	loader: (): Promise<React.ComponentType<AudioViewerProps>> =>
-		import('./viewers/audio').then((mod) => mod.AudioViewer),
+		import(/* webpackChunkName: "@atlaskit-internal_audioViewer" */ './viewers/audio').then(
+			(mod) => mod.AudioViewer,
+		),
 	loading: () => <Spinner />,
 });
 const DocViewer = Loadable({
 	loader: (): Promise<React.ComponentType<DocViewerProps>> =>
-		import('./viewers/doc').then((mod) => mod.DocViewer),
+		import(/* webpackChunkName: "@atlaskit-internal_docViewer" */ './viewers/doc').then(
+			(mod) => mod.DocViewer,
+		),
 	loading: () => <Spinner />,
 });
 const CodeViewer = Loadable({
 	loader: (): Promise<React.ComponentType<CodeViewerProps>> =>
-		import('./viewers/codeViewer').then((mod) => mod.CodeViewer),
+		import(/* webpackChunkName: "@atlaskit-internal_codeViewer" */ './viewers/codeViewer').then(
+			(mod) => mod.CodeViewer,
+		),
 	loading: () => <Spinner />,
 });
 
@@ -83,7 +87,6 @@ const SvgViewer = Loadable({
 
 export type Props = Readonly<{
 	identifier: Identifier;
-	mediaClient: MediaClient;
 	onClose?: () => void;
 	previewCount: number;
 	contextId?: string;
@@ -94,158 +97,176 @@ export type Props = Readonly<{
 
 export type FileItem = FileState | 'external-image';
 
+export type State = Outcome<FileItem, MediaViewerError>;
+
+// Consts
 export const isExternalImageItem = (fileItem: FileItem): fileItem is 'external-image' =>
 	fileItem === 'external-image';
 
 export const isFileStateItem = (fileItem: FileItem): fileItem is FileState =>
 	!isExternalImageItem(fileItem);
 
-export type State = {
-	item: Outcome<FileItem, MediaViewerError>;
-};
-
-const initialState: State = {
-	item: Outcome.pending(),
-};
-
 export const MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER = 10 * 1024 * 1024;
 
-export class ItemViewerBase extends React.Component<Props, State> {
-	state: State = initialState;
-
-	private subscription?: MediaSubscription;
-	private fileStateFlags: FileStateFlags = {
+export const ItemViewerBase = ({
+	identifier,
+	showControls,
+	onClose,
+	previewCount,
+	contextId,
+	createAnalyticsEvent,
+}: Props): React.ReactElement | null => {
+	// States and Refs
+	const [item, setItem] = useState<State>(Outcome.pending());
+	const traceContext = useRef<MediaTraceContext>({
+		traceId: getRandomHex(8),
+	});
+	const fileStateFlagsRef = useRef<FileStateFlags>({
 		wasStatusUploading: false,
 		wasStatusProcessing: false,
-	};
+	});
 
-	mounted = false;
+	const createAnalyticsEventRef = useRef(createAnalyticsEvent);
+	createAnalyticsEventRef.current = createAnalyticsEvent;
 
-	private traceContext: MediaTraceContext = { traceId: getRandomHex(8) };
+	// Hooks
+	const mediaClient = useMediaClient();
+	const { fileState } = useFileState(isExternalImageIdentifier(identifier) ? '' : identifier.id, {
+		collectionName: isExternalImageIdentifier(identifier) ? '' : identifier.collectionName,
+		skipRemote: isExternalImageIdentifier(identifier),
+	});
 
-	safeSetState = (newState: State) => {
-		if (this.mounted) {
-			this.setState(newState);
+	const renderDownloadButton = useCallback(
+		(fileState: FileState, error: MediaViewerError) => {
+			const collectionName = isFileIdentifier(identifier) ? identifier.collectionName : undefined;
+			return (
+				<ErrorViewDownloadButton
+					fileState={fileState}
+					mediaClient={mediaClient}
+					error={error}
+					collectionName={collectionName}
+				/>
+			);
+		},
+		[mediaClient, identifier],
+	);
+
+	// Did mount
+
+	useEffect(() => {
+		if (isExternalImageIdentifier(identifier)) {
+			return;
 		}
-	};
 
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		if (this.needsReset(this.props, nextProps)) {
-			this.release();
-			this.safeSetState(initialState);
+		fireAnalytics(
+			createCommencedEvent(identifier?.id, traceContext.current),
+			createAnalyticsEventRef.current,
+		);
+		startMediaFileUfoExperience();
+	}, [identifier]);
+
+	useEffect(() => {
+		if (isExternalImageIdentifier(identifier)) {
+			// external images do not need to talk to our backend,
+			// so therefore no need for media-client subscriptions.
+			// just set a successful outcome of type "external-image".
+			setItem(Outcome.successful('external-image'));
+			return;
 		}
-	}
 
-	componentDidUpdate(oldProps: Props) {
-		if (this.needsReset(oldProps, this.props)) {
-			this.init(this.props);
+		// File Subscription
+		if (fileState) {
+			const { status } = fileState;
+
+			if (fileState.status !== 'error') {
+				// updateFileStateFlag
+
+				if (status === 'processing') {
+					fileStateFlagsRef.current.wasStatusProcessing = true;
+				} else if (status === 'uploading') {
+					fileStateFlagsRef.current.wasStatusUploading = true;
+				}
+
+				setItem(Outcome.successful(fileState));
+			} else {
+				const e = new MediaFileStateError(
+					fileState.id,
+					fileState.reason,
+					fileState.message,
+					fileState.details,
+				);
+				setItem(Outcome.failed(new MediaViewerError('itemviewer-fetch-metadata', e)));
+			}
 		}
-	}
+	}, [fileState, identifier]);
 
-	componentWillUnmount() {
-		this.mounted = false;
-		this.release();
-	}
-
-	componentDidMount() {
-		this.mounted = true;
-		this.init(this.props);
-	}
-
-	private onSuccess = () => {
-		const { item } = this.state;
+	const onSuccess = useCallback(() => {
 		item.whenSuccessful((fileItem) => {
 			if (isFileStateItem(fileItem)) {
 				const fileAttributes = getFileAttributes(fileItem);
 				fireAnalytics(
-					createLoadSucceededEvent(fileAttributes, this.traceContext),
-					this.props.createAnalyticsEvent,
+					createLoadSucceededEvent(fileAttributes, traceContext.current),
+					createAnalyticsEventRef.current,
 				);
 				succeedMediaFileUfoExperience({
 					fileAttributes,
-					fileStateFlags: this.fileStateFlags,
+					fileStateFlags: fileStateFlagsRef.current,
 				});
 			}
 		});
-	};
+	}, [item]);
 
-	private onLoadFail = (mediaViewerError: MediaViewerError, data?: FileItem) => {
-		const { item } = this.state;
-		this.safeSetState({
-			item: Outcome.failed(mediaViewerError, data || item.data),
-		});
-	};
+	const onLoadFail = useCallback(
+		(mediaViewerError: MediaViewerError) => {
+			setItem(Outcome.failed(mediaViewerError, fileState));
+		},
+		[fileState],
+	);
 
-	private onExternalImgSuccess = () => {
-		fireAnalytics(
-			createLoadSucceededEvent({
-				fileId: 'external-image',
-			}),
-			this.props.createAnalyticsEvent,
-		);
-		succeedMediaFileUfoExperience({
-			fileAttributes: {
-				fileId: 'external-image',
-			},
-			fileStateFlags: this.fileStateFlags,
-		});
-	};
-
-	private onExternalImgError = () => {
-		this.safeSetState({
-			item: Outcome.failed(new MediaViewerError('imageviewer-external-onerror')),
-		});
-	};
-
-	private renderItem(
-		fileState:
-			| ProcessedFileState
-			| UploadingFileState
-			| ProcessingFileState
-			| ProcessingFailedState,
-	) {
-		const { mediaClient, identifier, showControls, onClose, previewCount, contextId } = this.props;
+	const renderItem = (fileItem: NonErrorFileState) => {
 		const collectionName = isFileIdentifier(identifier) ? identifier.collectionName : undefined;
 		const viewerProps = {
 			mediaClient,
-			item: fileState,
+			item: fileItem,
 			collectionName,
 			onClose,
 			previewCount,
 		};
 
-		if (isCodeViewerItem(fileState.name, fileState.mimeType)) {
+		// TODO: fix all of the item errors
+
+		if (isCodeViewerItem(fileItem.name, fileItem.mimeType)) {
 			//Render error message if code file has size over 10MB.
 			//Required by https://product-fabric.atlassian.net/browse/MEX-1788
-			if (fileState.size > MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER) {
-				return this.renderError(new MediaViewerError('codeviewer-file-size-exceeds'), fileState);
+			if (fileItem.size > MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER) {
+				return renderError(new MediaViewerError('codeviewer-file-size-exceeds'), fileItem);
 			}
 
-			return <CodeViewer onSuccess={this.onSuccess} onError={this.onLoadFail} {...viewerProps} />;
+			return <CodeViewer onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />;
 		}
 
-		if (isFileIdentifier(identifier) && fileState.mimeType === `image/svg+xml`) {
+		if (isFileIdentifier(identifier) && fileItem.mimeType === 'image/svg+xml') {
 			return (
-				<MediaClientProvider clientConfig={mediaClient.config}>
-					<SvgViewer
-						identifier={identifier}
-						onLoad={this.onSuccess}
-						onError={this.onLoadFail}
-						onClose={onClose}
-						traceContext={this.traceContext}
-					/>
-				</MediaClientProvider>
+				<SvgViewer
+					identifier={identifier}
+					onLoad={onSuccess}
+					onError={onLoadFail}
+					onClose={onClose}
+					traceContext={traceContext.current}
+				/>
 			);
 		}
 
-		switch (fileState.mediaType) {
+		const { mediaType } = fileItem;
+
+		switch (mediaType) {
 			case 'image':
 				return (
 					<ImageViewer
-						onLoad={this.onSuccess}
-						onError={this.onLoadFail}
+						onLoad={onSuccess}
+						onError={onLoadFail}
 						contextId={contextId}
-						traceContext={this.traceContext}
+						traceContext={traceContext.current}
 						{...viewerProps}
 					/>
 				);
@@ -253,8 +274,8 @@ export class ItemViewerBase extends React.Component<Props, State> {
 				return (
 					<AudioViewer
 						showControls={showControls}
-						onCanPlay={this.onSuccess}
-						onError={this.onLoadFail}
+						onCanPlay={onSuccess}
+						onError={onLoadFail}
 						{...viewerProps}
 					/>
 				);
@@ -262,184 +283,113 @@ export class ItemViewerBase extends React.Component<Props, State> {
 				return (
 					<VideoViewer
 						showControls={showControls}
-						onCanPlay={this.onSuccess}
-						onError={this.onLoadFail}
+						onCanPlay={onSuccess}
+						onError={onLoadFail}
 						{...viewerProps}
 					/>
 				);
 			case 'doc':
-				return (
-					<DocViewer
-						onSuccess={this.onSuccess}
-						onError={(err) => {
-							this.onLoadFail(err, fileState);
-						}}
-						{...viewerProps}
-					/>
-				);
+				return <DocViewer onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />;
 			case 'archive':
+				return <ArchiveViewerLoader onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />;
+		}
+		return renderError(new MediaViewerError('unsupported'), fileItem);
+	};
+
+	const renderError = useCallback(
+		(error: MediaViewerError, fileItem?: FileItem) => {
+			if (fileItem) {
+				let fileState: FileState;
+				if (fileItem === 'external-image') {
+					// external image error outcome
+					fileState = { id: 'external-image', status: 'error' };
+				} else {
+					// FileState error outcome
+					fileState = fileItem;
+				}
 				return (
-					<ArchiveViewerLoader
-						onSuccess={this.onSuccess}
-						onError={this.onLoadFail}
-						{...viewerProps}
+					<ErrorMessage
+						fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
+						error={error}
+						fileState={fileState}
+						fileStateFlags={fileStateFlagsRef.current}
+						traceContext={traceContext.current}
+					>
+						<p>
+							<FormattedMessage {...messages.try_downloading_file} />
+						</p>
+						{renderDownloadButton(fileState, error)}
+					</ErrorMessage>
+				);
+			} else {
+				return (
+					<ErrorMessage
+						fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
+						error={error}
+						fileStateFlags={fileStateFlagsRef.current}
 					/>
 				);
-		}
-
-		return this.renderError(new MediaViewerError('unsupported'), fileState);
-	}
-
-	private renderError(error: MediaViewerError, fileItem?: FileItem) {
-		const { identifier } = this.props;
-		if (fileItem) {
-			let fileState: FileState;
-			if (fileItem === 'external-image') {
-				// external image error outcome
-				fileState = { id: 'external-image', status: 'error' };
-			} else {
-				// FileState error outcome
-				fileState = fileItem;
 			}
-			return (
-				<ErrorMessage
-					fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
-					error={error}
-					fileState={fileState}
-					fileStateFlags={this.fileStateFlags}
-					traceContext={this.traceContext}
-				>
-					<p>
-						<FormattedMessage {...messages.try_downloading_file} />
-					</p>
-					{this.renderDownloadButton(fileState, error)}
-				</ErrorMessage>
-			);
-		} else {
-			return (
-				<ErrorMessage
-					fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
-					error={error}
-					fileStateFlags={this.fileStateFlags}
-				/>
-			);
-		}
-	}
+		},
+		[identifier, renderDownloadButton, traceContext],
+	);
 
-	render() {
-		const { item } = this.state;
-		const { identifier } = this.props;
-
-		return item.match({
-			successful: (fileItem) => {
-				if (fileItem === 'external-image') {
-					// render an external image
-					const { dataURI } = identifier as ExternalImageIdentifier;
-					return (
-						<InteractiveImg
-							src={dataURI}
-							onLoad={this.onExternalImgSuccess}
-							onError={this.onExternalImgError}
-						/>
-					);
-				} else {
-					// render a FileState fetched through media-client
-					switch (fileItem.status) {
-						case 'processed':
-						case 'uploading':
-						case 'processing':
-							return this.renderItem(fileItem);
-						case 'failed-processing':
-							if (fileItem.mediaType === 'doc' && fileItem.mimeType === 'application/pdf') {
-								return this.renderItem(fileItem);
-							}
-							return this.renderError(
-								new MediaViewerError('itemviewer-file-failed-processing-status'),
-								fileItem,
+	return item.match({
+		successful: (fileItem) => {
+			if (fileItem === 'external-image') {
+				// render an external image
+				const { dataURI } = identifier as ExternalImageIdentifier;
+				return (
+					<InteractiveImg
+						src={dataURI}
+						onLoad={() => {
+							fireAnalytics(
+								createLoadSucceededEvent({
+									fileId: 'external-image',
+								}),
+								createAnalyticsEventRef.current,
 							);
-						case 'error':
-							return this.renderError(
-								new MediaViewerError('itemviewer-file-error-status'),
-								fileItem,
-							);
-					}
+							succeedMediaFileUfoExperience({
+								fileAttributes: {
+									fileId: 'external-image',
+								},
+								fileStateFlags: fileStateFlagsRef.current,
+							});
+						}}
+						onError={() => {
+							setItem(Outcome.failed(new MediaViewerError('imageviewer-external-onerror')));
+						}}
+					/>
+				);
+			} else {
+				// render a FileState fetched through media-client
+				switch (fileItem.status) {
+					case 'processed':
+					case 'uploading':
+					case 'processing':
+						return renderItem(fileItem);
+					case 'failed-processing':
+						if (fileItem.mediaType === 'doc' && fileItem.mimeType === 'application/pdf') {
+							return renderItem(fileItem);
+						}
+						return renderError(
+							new MediaViewerError('itemviewer-file-failed-processing-status'),
+							fileItem,
+						);
+					case 'error':
+						return renderError(new MediaViewerError('itemviewer-file-error-status'), fileItem);
 				}
-			},
-			pending: () => <Spinner />,
-			failed: (error, data) => this.renderError(error, data),
-		});
-	}
+			}
+		},
+		pending: () => <Spinner />,
+		failed: (error) => renderError(error, item.data),
+	});
+};
 
-	private renderDownloadButton(fileState: FileState, error: MediaViewerError) {
-		const { mediaClient, identifier } = this.props;
-		const collectionName = isFileIdentifier(identifier) ? identifier.collectionName : undefined;
-		return (
-			<ErrorViewDownloadButton
-				fileState={fileState}
-				mediaClient={mediaClient}
-				error={error}
-				collectionName={collectionName}
-			/>
-		);
-	}
+const ViewerWithKey = (props: Props) => {
+	const { identifier } = props;
+	const key = isFileIdentifier(identifier) ? identifier.id : identifier.dataURI;
+	return <ItemViewerBase {...props} key={key} />;
+};
 
-	updateFileStateFlag(fileState?: FileState) {
-		if (!fileState) {
-			return;
-		}
-		const { status } = fileState;
-		if (status === 'processing') {
-			this.fileStateFlags.wasStatusProcessing = true;
-		} else if (status === 'uploading') {
-			this.fileStateFlags.wasStatusUploading = true;
-		}
-	}
-
-	private init(props: Props) {
-		const { mediaClient, identifier, createAnalyticsEvent } = props;
-
-		if (isExternalImageIdentifier(identifier)) {
-			// external images do not need to talk to our backend,
-			// so therefore no need for media-client subscriptions.
-			// just set a successful outcome of type "external-image".
-			this.safeSetState({
-				item: Outcome.successful('external-image'),
-			});
-			return;
-		}
-
-		const { id } = identifier;
-
-		fireAnalytics(createCommencedEvent(id, this.traceContext), createAnalyticsEvent);
-		startMediaFileUfoExperience();
-		this.subscription = mediaClient.file
-			.getFileState(id, {
-				collectionName: identifier.collectionName,
-			})
-			.subscribe({
-				next: (file) => {
-					this.updateFileStateFlag(file);
-					this.safeSetState({
-						item: Outcome.successful(file),
-					});
-				},
-				error: (error: Error) => {
-					this.safeSetState({
-						item: Outcome.failed(new MediaViewerError('itemviewer-fetch-metadata', error)),
-					});
-				},
-			});
-	}
-
-	private needsReset(propsA: Props, propsB: Props) {
-		return !deepEqual(propsA.identifier, propsB.identifier);
-	}
-
-	private release() {
-		if (this.subscription) {
-			this.subscription.unsubscribe();
-		}
-	}
-}
-
-export const ItemViewer = withAnalyticsEvents()(ItemViewerBase);
+export const ItemViewer = withAnalyticsEvents()(ViewerWithKey);

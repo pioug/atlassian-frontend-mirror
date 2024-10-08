@@ -23,7 +23,7 @@ type FieldKey = string;
  *	{
  *		jira: {
  *			summary: {
- *				actionKey: 'atlassian:issue:update:summary',
+ *				actionKey: 'atlassian:work-item:update:summary',
  *				type: 'string',
  *				description: 'Update issue summary',
  *			}

@@ -42,6 +42,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 
 	componentDidUpdate() {
 		const { previousValueSize, valueSize } = this.state;
+		//@ts-ignore react-select unsupported props
 		const { isFocused } = this.props.selectProps;
 		if (valueSize > previousValueSize && isFocused) {
 			if (this.timeoutId) {
@@ -92,6 +93,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 
 	private renderChildren = () => {
 		const {
+			//@ts-ignore react-select unsupported props
 			selectProps: { addMoreMessage, isDisabled },
 		} = this.props;
 		// Do not render "Add more..." message if picker is disabled
@@ -116,6 +118,7 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 		return this.addPlaceholder(addMoreMessage);
 	};
 
+	//@ts-ignore react-select unsupported props
 	onValueContainerClick = this.props.selectProps.onValueContainerClick;
 
 	render() {

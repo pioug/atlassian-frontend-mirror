@@ -10,6 +10,9 @@ import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-id
 import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { MentionDescription, MentionProvider } from '@atlaskit/mention';
 
+export const MENTION_PROVIDER_REJECTED = 'REJECTED';
+export const MENTION_PROVIDER_UNDEFINED = 'UNDEFINED';
+
 export interface TeamInfoAttrAnalytics {
 	teamId: string;
 	includesYou: boolean;

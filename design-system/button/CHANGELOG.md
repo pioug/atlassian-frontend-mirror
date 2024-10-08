@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 20.2.5
+
+### Patch Changes
+
+- [#149469](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149469)
+  [`c75edf6df890b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c75edf6df890b) -
+  Updated icon types usage since there are now `NewCoreIconProps` and `NewUtilityIconProps`.
+- Updated dependencies
+
 ## 20.2.4
 
 ### Patch Changes

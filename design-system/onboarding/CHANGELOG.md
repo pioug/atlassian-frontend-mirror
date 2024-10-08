@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 11.15.5
+
+### Patch Changes
+
+- [#143559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/143559)
+  [`a25693d44cd74`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a25693d44cd74) -
+  Updated dependencies
+
 ## 11.15.4
 
 ### Patch Changes

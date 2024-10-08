@@ -300,7 +300,7 @@ export const mockDatasourceDataResponseWithSchema: DatasourceDataResponse = {
 export const mockActionsDiscoveryResponse: ActionsDiscoveryResponse = {
 	actions: [
 		{
-			actionKey: 'atlassian:issue:update:summary',
+			actionKey: 'atlassian:work-item:update:summary',
 			description: 'Updates issue summary',
 			fieldKey: 'summary',
 			integrationKey: 'jira',

@@ -1,8 +1,7 @@
-/// <reference types="user-agent-data-types" />
-
 function testPlatform(re: RegExp) {
 	return typeof window !== 'undefined' && window.navigator != null
-		? re.test(window.navigator['userAgentData']?.platform || window.navigator.platform)
+		? //@ts-expect-error ignore userAgentData type issue
+			re.test(window.navigator['userAgentData']?.platform || window.navigator.platform)
 		: false;
 }
 

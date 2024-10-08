@@ -25,6 +25,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 	private renderAvatar = () => {
 		const {
 			hasValue,
+			//@ts-ignore react-select unsupported props
 			selectProps: { appearance, isFocused, inputValue, value, placeholderAvatar },
 		} = this.props;
 
@@ -44,6 +45,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 		return null;
 	};
 
+	//@ts-ignore react-select unsupported props
 	onValueContainerClick = this.props.selectProps.onValueContainerClick;
 
 	Wrapper = ({ children }: { children: React.ReactElement }) => {

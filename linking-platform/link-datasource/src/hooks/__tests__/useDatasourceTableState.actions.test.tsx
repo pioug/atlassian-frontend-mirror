@@ -193,6 +193,7 @@ describe('useDatasourceTableState', () => {
 									errorLocation: 'actionDiscovery',
 									status: null,
 									traceId: null,
+									reason: 'internal',
 								},
 							},
 						},

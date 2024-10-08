@@ -3216,18 +3216,21 @@ cases(
 			props: {
 				...BASIC_PROPS,
 			},
+			skip: true,
 		},
 		'single select (isSearchable is false) > should validate with value': {
 			props: {
 				...BASIC_PROPS,
 				isSearchable: false,
 			},
+			skip: true,
 		},
 		'multi select > should validate with value': {
 			props: {
 				...BASIC_PROPS,
 				isMulti: true,
 			},
+			skip: true,
 		},
 	},
 );

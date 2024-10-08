@@ -1,5 +1,28 @@
 # @atlaskit/icon
 
+## 22.22.0
+
+### Minor Changes
+
+- [#149700](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149700)
+  [`86fe5879e0d2d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/86fe5879e0d2d) -
+  Default `color` prop for icons in experimental `core` and `utility` entrypoints has changed from
+  `color.icon` to `currentColor`.
+
+## 22.21.0
+
+### Minor Changes
+
+- [#149469](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149469)
+  [`c75edf6df890b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c75edf6df890b) -
+  Adds `spacing` option for utility icons.
+
+### Patch Changes
+
+- [#149525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149525)
+  [`f2680ef0aa0dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2680ef0aa0dc) -
+  Removed deprecate tag from spacing prop on icon
+
 ## 22.20.2
 
 ### Patch Changes

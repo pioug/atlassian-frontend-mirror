@@ -140,6 +140,7 @@ exports[`Glyph should match snapshot 1`] = `
   aria-label="test-label"
   class="emotion-1"
   role="img"
+  style="color: currentColor;"
 >
   <svg
     class="emotion-0"

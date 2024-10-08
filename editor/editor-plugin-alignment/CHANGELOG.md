@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.12.12
+
+### Patch Changes
+
+- [#149469](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149469)
+  [`c75edf6df890b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c75edf6df890b) -
+  Updated icon types usage since there are now `NewCoreIconProps` and `NewUtilityIconProps`.
+- Updated dependencies
+
 ## 1.12.11
 
 ### Patch Changes

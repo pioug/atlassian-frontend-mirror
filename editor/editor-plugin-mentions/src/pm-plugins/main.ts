@@ -17,7 +17,12 @@ import { buildSliPayload, SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/men
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { MentionNodeView } from '../nodeviews/mention';
-import type { MentionPluginOptions, MentionPluginState } from '../types';
+import {
+	MENTION_PROVIDER_REJECTED,
+	MENTION_PROVIDER_UNDEFINED,
+	type MentionPluginOptions,
+	type MentionPluginState,
+} from '../types';
 
 import { mentionPluginKey } from './key';
 import { canMentionBeCreatedInRange } from './utils';
@@ -131,6 +136,15 @@ export function createMentionPlugin(
 				switch (name) {
 					case 'mentionProvider':
 						if (!providerPromise) {
+							fireEvent({
+								action: ACTION.ERRORED,
+								actionSubject: ACTION_SUBJECT.MENTION,
+								actionSubjectId: ACTION_SUBJECT_ID.MENTION_PROVIDER,
+								eventType: EVENT_TYPE.OPERATIONAL,
+								attributes: {
+									reason: MENTION_PROVIDER_UNDEFINED,
+								},
+							});
 							return setProvider(undefined)(editorView.state, editorView.dispatch);
 						}
 
@@ -158,6 +172,9 @@ export function createMentionPlugin(
 									actionSubject: ACTION_SUBJECT.MENTION,
 									actionSubjectId: ACTION_SUBJECT_ID.MENTION_PROVIDER,
 									eventType: EVENT_TYPE.OPERATIONAL,
+									attributes: {
+										reason: MENTION_PROVIDER_REJECTED,
+									},
 								});
 								return setProvider(undefined)(editorView.state, editorView.dispatch);
 							});

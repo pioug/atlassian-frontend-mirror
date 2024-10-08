@@ -15,6 +15,7 @@ import type { Icon } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import { N200 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -80,12 +81,12 @@ const itemTextStyles = css({
 	},
 });
 
-const descriptionStyles = css({
-	marginBottom: token('space.300', '24px'),
+const descriptionStyles = xcss({
+	marginBottom: 'space.300',
 });
 
-const helpLinkStyles = css({
-	paddingTop: token('space.150', '12px'),
+const helpLinkStyles = xcss({
+	paddingTop: 'space.150',
 });
 
 const closeButtonWrapperStyles = css({
@@ -164,23 +165,27 @@ const Header = ({
 				</div>
 			</div>
 			{(description || documentationUrl) && (
-				<p css={descriptionStyles} data-testid="config-panel-header-description">
-					{description && <Fragment>{description.replace(/([^.])$/, '$1.')} </Fragment>}
-					{documentationUrl &&
-						(enableHelpCTA ? (
-							<p css={helpLinkStyles}>
+				<Box xcss={descriptionStyles}>
+					<Text as="p" testId="config-panel-header-description">
+						{description && <Fragment>{description.replace(/([^.])$/, '$1.')} </Fragment>}
+						{documentationUrl &&
+							(enableHelpCTA ? (
+								<Box xcss={helpLinkStyles}>
+									<Text as="p">
+										<HelpLink
+											documentationUrl={documentationUrl}
+											label={intl.formatMessage(messages.help)}
+										/>
+									</Text>
+								</Box>
+							) : (
 								<HelpLink
 									documentationUrl={documentationUrl}
-									label={intl.formatMessage(messages.help)}
+									label={intl.formatMessage(messages.documentation)}
 								/>
-							</p>
-						) : (
-							<HelpLink
-								documentationUrl={documentationUrl}
-								label={intl.formatMessage(messages.documentation)}
-							/>
-						))}
-				</p>
+							))}
+					</Text>
+				</Box>
 			)}
 		</Fragment>
 	);

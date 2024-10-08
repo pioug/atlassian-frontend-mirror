@@ -16,13 +16,13 @@ import type { NewIconProps } from '../types';
  * We are hiding this props from consumers as it's reserved
  * for use by Icon Tile.
  */
-export interface InternalIconPropsNew extends NewIconProps {
+export type InternalIconPropsNew = NewIconProps & {
 	/**
 	 * @internal NOT FOR PUBLIC USE.
 	 * Sets whether the icon should inherit size from a parent. Used by Icon Tile.
 	 */
 	shouldScale?: boolean;
-}
+};
 
 const commonSVGStyles = css({
 	overflow: 'hidden',
@@ -71,29 +71,54 @@ const baseHcmStyles = css({
 	},
 });
 
+const scaleSize = css({
+	width: 'inherit',
+	height: 'inherit',
+});
+
 const sizeMap = {
-	scale: css({
-		width: 'inherit',
-		height: 'inherit',
-	}),
-	utility: css({
-		width: token('space.150'),
-		height: token('space.150'),
-	}),
-	none: css({
-		width: token('space.200'),
-		height: token('space.200'),
-	}),
-	spacious: css({
-		width: token('space.300'),
-		height: token('space.300'),
-	}),
-};
+	core: {
+		none: css({
+			width: token('space.200'),
+			height: token('space.200'),
+		}),
+		spacious: css({
+			width: token('space.300'),
+			height: token('space.300'),
+		}),
+	},
+	utility: {
+		none: css({
+			width: token('space.150'),
+			height: token('space.150'),
+		}),
+		compact: css({
+			width: token('space.200'),
+			height: token('space.200'),
+		}),
+		spacious: css({
+			width: token('space.300'),
+			height: token('space.300'),
+		}),
+	},
+} as const;
 
 const baseSizeMap = {
-	global: 16,
+	core: 16,
 	utility: 12,
 };
+
+const paddingMap = {
+	core: {
+		none: 0,
+		spacious: 4,
+	},
+	utility: {
+		none: 0,
+		compact: 2,
+		spacious: 6,
+	},
+} as const;
 
 /**
  * __Icon__
@@ -105,8 +130,7 @@ const baseSizeMap = {
  */
 export const Icon = memo(function Icon(props: NewIconProps) {
 	const {
-		color: providedColor,
-		spacing: providedSpacing = 'none',
+		color = 'currentColor',
 		testId,
 		label,
 		LEGACY_primaryColor,
@@ -114,22 +138,12 @@ export const Icon = memo(function Icon(props: NewIconProps) {
 		LEGACY_size,
 		LEGACY_fallbackIcon: FallbackIcon,
 		// Used to set icon dimensions/behaviour in codegen
-		type = 'global',
 		// Used to set icon glyphs in codegen
 		dangerouslySetGlyph,
 		// Used with iconTile to scale icon up and down
 		shouldScale,
 		LEGACY_margin,
 	} = props as InternalIconPropsNew;
-
-	let fallbackColor: NewIconProps['color'] = token('color.icon');
-	if (
-		fg('platform-design-system-new-icon-default-color') ||
-		fg('platform-design-system-new-icon-default-color-2')
-	) {
-		fallbackColor = 'currentColor';
-	}
-	const color = providedColor ?? fallbackColor;
 
 	const dangerouslySetInnerHTML = dangerouslySetGlyph
 		? {
@@ -153,12 +167,15 @@ export const Icon = memo(function Icon(props: NewIconProps) {
 		);
 	}
 
-	// Utility icons don't have 'spacing' as a type, but in case it's provided, we default to 'none'
-	const spacing = type === 'utility' ? 'none' : providedSpacing;
+	const baseSize = baseSizeMap[props.type ?? 'core'];
 
-	const baseSize = baseSizeMap[type];
-	const size = type === 'utility' ? 'utility' : shouldScale ? 'scale' : spacing;
-	const viewBoxPadding = spacing === 'spacious' ? 4 : 0;
+	let viewBoxPadding: number;
+	if (props.type === 'utility') {
+		viewBoxPadding = paddingMap[props.type][props.spacing ?? 'none'];
+	} else {
+		viewBoxPadding = paddingMap['core'][props.spacing ?? 'none'];
+	}
+
 	const viewBoxSize = baseSize + 2 * viewBoxPadding;
 
 	// Workaround for the transparency in our disabled icon token.
@@ -189,7 +206,7 @@ export const Icon = memo(function Icon(props: NewIconProps) {
 				iconStyles,
 				baseHcmStyles,
 				shouldScale && scaleStyles,
-				type === 'utility' && utilityIconStyles,
+				props.type === 'utility' && utilityIconStyles,
 			]}
 		>
 			<svg
@@ -198,7 +215,15 @@ export const Icon = memo(function Icon(props: NewIconProps) {
 				// we want for Icon Tile
 				viewBox={`${0 - viewBoxPadding} ${0 - viewBoxPadding} ${viewBoxSize} ${viewBoxSize}`}
 				role="presentation"
-				css={[commonSVGStyles, svgStyles, sizeMap[size]]}
+				css={[
+					commonSVGStyles,
+					svgStyles,
+					shouldScale
+						? scaleSize
+						: props.type === 'utility'
+							? sizeMap[props.type][props.spacing ?? 'none']
+							: sizeMap['core'][props.spacing ?? 'none'],
+				]}
 				dangerouslySetInnerHTML={dangerouslySetInnerHTML}
 			/>
 		</span>

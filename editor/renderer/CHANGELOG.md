@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 111.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 111.1.5
+
+### Patch Changes
+
+- [#149031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149031)
+  [`e6c17327bfead`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e6c17327bfead) -
+  Adds presentation role to hr tag for accessibility compliance
+
 ## 111.1.4
 
 ### Patch Changes

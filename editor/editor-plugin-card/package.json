@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "3.4.5",
+	"version": "4.0.0",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -49,7 +49,7 @@
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.0.0",
 		"@atlaskit/frontend-utilities": "^2.7.0",
-		"@atlaskit/icon": "^22.20.0",
+		"@atlaskit/icon": "^22.22.0",
 		"@atlaskit/link-analytics": "^8.5.0",
 		"@atlaskit/link-client-extension": "^2.4.0",
 		"@atlaskit/link-datasource": "^3.4.0",
@@ -60,7 +60,7 @@
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/smart-card": "^29.0.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.2.0",
+		"@atlaskit/tmp-editor-statsig": "^2.3.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -121,9 +121,6 @@
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource-word_wrap": {
-			"type": "boolean"
-		},
-		"platform.editor.card.inject-settings-button": {
 			"type": "boolean"
 		},
 		"linking-platform-contenteditable-false-live-view": {

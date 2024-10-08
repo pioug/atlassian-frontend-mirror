@@ -36,6 +36,7 @@ const getLabelStyle = () =>
 export class PopupControl extends React.PureComponent<ControlProps<any>> {
 	render() {
 		const {
+			//@ts-ignore react-select unsupported props
 			selectProps: { popupTitle },
 		} = this.props;
 

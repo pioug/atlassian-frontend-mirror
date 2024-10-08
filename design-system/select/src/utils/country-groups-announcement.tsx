@@ -1,4 +1,4 @@
-import { type AriaOnFocusProps, type OptionsOrGroups } from 'react-select';
+import { type AriaOnFocusProps, type OptionsOrGroups } from '@atlaskit/react-select';
 
 import { type GroupType } from '../types';
 

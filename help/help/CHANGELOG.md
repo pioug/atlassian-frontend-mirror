@@ -1,5 +1,19 @@
 # @atlaskit/help
 
+## 7.7.4
+
+### Patch Changes
+
+- [#149132](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149132)
+  [`ccbe88bebeb80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ccbe88bebeb80) -
+  Updating what new button label key for intl
+
+## 7.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.7.2
 
 ### Patch Changes

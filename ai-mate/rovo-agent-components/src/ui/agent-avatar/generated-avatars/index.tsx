@@ -198,7 +198,7 @@ const outOfTheBoxAgentAvatar: {
 		),
 		color: yellowColor,
 	},
-	jira_issue_gardener_agent: {
+	issue_organizer_agent: {
 		getRender: (size: SizeType) => (
 			<BacklogBuddyAvatar
 				size={AVATAR_SIZES[size]}

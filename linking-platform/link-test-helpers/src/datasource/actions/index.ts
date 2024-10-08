@@ -16,7 +16,7 @@ export const mockActionsDiscovery = (overrides?: Partial<ActionsServiceDiscovery
 			actions: [
 				{
 					integrationKey: 'jira',
-					actionKey: 'atlassian:issue:update:summary',
+					actionKey: 'atlassian:work-item:update:summary',
 					fieldKey: 'summary',
 					type: 'string',
 				},

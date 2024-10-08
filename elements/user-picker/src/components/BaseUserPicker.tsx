@@ -525,6 +525,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 			placeholder,
 			isClearable,
 			isDisabled,
+			isInvalid,
 			clearValueLabel,
 			menuMinWidth,
 			menuPortalTarget,
@@ -602,6 +603,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 				}
 				footer={footer}
 				isDisabled={isDisabled}
+				isInvalid={isInvalid}
 				isFocused={menuIsOpen}
 				backspaceRemovesValue={isMulti}
 				filterOption={null} // disable local filtering

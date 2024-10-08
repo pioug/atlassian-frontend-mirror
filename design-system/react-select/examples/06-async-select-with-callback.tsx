@@ -2,10 +2,15 @@ import React from 'react';
 
 import { Label } from '@atlaskit/form';
 
-import { type Option, type Options } from '../src';
+import { type Options } from '../src';
 import AsyncSelect from '../src/async';
 
 import { cities } from './common/data';
+
+interface Option {
+	readonly label: string;
+	readonly value: string;
+}
 
 // you control how the options are filtered
 const filter = (inputValue: string) =>

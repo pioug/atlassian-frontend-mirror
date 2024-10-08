@@ -30,3 +30,4 @@ export { AtlasGoal, AtlasProject } from './provider.atlas';
 export { JiraIssue, JiraIssueAssigned, JiraTasks, JiraProject } from './provider.jira';
 export { SlackMessage, SlackChannel } from './provider.slack';
 export { YouTubeVideo, YouTubeVideoUrl } from './provider.youtube';
+export { GoogleDoc, GoogleDocUrl } from './provider.gdrive';

@@ -84,6 +84,9 @@
 			"path": "../radio/tsconfig.app.json"
 		},
 		{
+			"path": "../react-select/tsconfig.app.json"
+		},
+		{
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{

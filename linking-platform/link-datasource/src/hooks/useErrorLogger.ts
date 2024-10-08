@@ -1,18 +1,45 @@
 import { useCallback } from 'react';
 
+import { NetworkError } from '@atlaskit/linking-common';
 import { captureException } from '@atlaskit/linking-common/sentry';
 import { getTraceId } from '@atlaskit/linking-common/utils';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { type DatasourceOperationFailedAttributesType } from '../analytics/generated/analytics.types';
 
-const getNetworkFields = (error: unknown) => {
-	return error instanceof Response
-		? {
+const getNetworkFields = (
+	error: unknown,
+): {
+	traceId: string | null;
+	status: number | null;
+	reason: DatasourceOperationFailedAttributesType['reason'];
+} => {
+	switch (true) {
+		case error instanceof Response:
+			return {
 				traceId: getTraceId(error),
 				status: error.status,
-			}
-		: { traceId: null, status: null };
+				reason: 'response',
+			};
+		case error instanceof NetworkError:
+			return {
+				traceId: null,
+				status: null,
+				reason: 'network',
+			};
+		case error instanceof Error:
+			return {
+				traceId: null,
+				status: null,
+				reason: 'internal',
+			};
+		default:
+			return {
+				traceId: null,
+				status: null,
+				reason: 'unknown',
+			};
+	}
 };
 
 type Tail<T extends any[]> = T extends [infer A, ...infer R] ? R : never;
@@ -52,12 +79,13 @@ const useErrorLogger = (loggerProps: UseErrorLoggerProps) => {
 	 */
 	const captureError = useCallback(
 		(errorLocation: DatasourceOperationFailedAttributesType['errorLocation'], error: unknown) => {
-			const { traceId, status } = getNetworkFields(error);
+			const { traceId, status, reason } = getNetworkFields(error);
 
 			fireEvent('operational.datasource.operationFailed', {
 				errorLocation,
 				traceId,
 				status,
+				reason,
 			});
 			logToSentry(error, 'link-datasource', { ...loggerProps });
 		},

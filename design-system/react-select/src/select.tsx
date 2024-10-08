@@ -477,6 +477,8 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	required?: boolean;
+	// temp fix to support unofficial props.
+	[key: string]: any;
 }
 
 export const defaultProps = {
@@ -1871,7 +1873,7 @@ export default class Select<
 
 		const id = inputId || this.getElementId('input');
 
-		const description = this.props['aria-describedby'] || descriptionId || null;
+		const description = this.props['aria-describedby'] || descriptionId;
 
 		// aria attributes makes the JSX "noisy", separated for clarity
 		const ariaAttributes = {
@@ -2223,6 +2225,7 @@ export default class Select<
 						innerProps={{
 							onMouseDown: this.onMenuMouseDown,
 							onMouseMove: this.onMenuMouseMove,
+							id: this.props.components.Menu ? this.getElementId('listbox') : undefined,
 						}}
 						isLoading={isLoading}
 						placement={placement}
@@ -2276,12 +2279,10 @@ export default class Select<
 		);
 	}
 	renderFormField() {
-		const { delimiter, isDisabled, isMulti, isRequired, required, name } = this.props;
+		const { delimiter, isDisabled, isMulti, required, name } = this.props;
 		const { selectValue } = this.state;
 
-		const req = required || isRequired || null;
-
-		if (req && !this.hasValue() && !isDisabled) {
+		if (required && !this.hasValue() && !isDisabled) {
 			return <RequiredInput name={name} onFocus={this.onValueInputFocus} />;
 		}
 

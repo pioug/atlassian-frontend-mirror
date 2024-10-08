@@ -6,7 +6,6 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import ReactDOM from 'react-dom';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -189,7 +188,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 	};
 
 	private handleRef = (ref?: HTMLElement | null) => {
-		const elm = ref && (ReactDOM.findDOMNode(ref) as HTMLElement);
+		const elm = ref;
 		if (elm) {
 			elm.focus();
 		}

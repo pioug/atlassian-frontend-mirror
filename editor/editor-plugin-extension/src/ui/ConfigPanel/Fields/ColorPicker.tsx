@@ -16,6 +16,7 @@ import {
 } from '@atlaskit/editor-common/ui-color';
 import { ColorPickerButton } from '@atlaskit/editor-common/ui-menu';
 import { Field } from '@atlaskit/form';
+import { Text } from '@atlaskit/primitives';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
@@ -23,7 +24,6 @@ import FieldMessages from '../FieldMessages';
 import type { OnFieldChange } from '../types';
 import { validate } from '../utils';
 
-import { requiredIndicator } from './common/RequiredIndicator';
 /*
     NOTE: color used here are not yet in atlaskit code
     this is part of extended color pack from ADG, which is yet to be release
@@ -280,10 +280,9 @@ const ColorPickerField = ({
 						<label css={colorPickerLabelStyles}>
 							{label}
 							{isRequired && (
-								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								<span css={requiredIndicator} aria-hidden="true">
+								<Text color="color.text.danger" aria-hidden="true">
 									*
-								</span>
+								</Text>
 							)}
 						</label>
 						<ColorPicker

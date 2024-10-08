@@ -31,6 +31,9 @@
             "path": "../../primitives/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../react-select/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../spinner/afm-cc/tsconfig.json"
         },
         {

@@ -8,11 +8,6 @@ export interface GroupBase<Option> {
 	readonly label?: string;
 }
 
-export interface Option {
-	label: string;
-	value: string;
-}
-
 export type OptionsOrGroups<Option, Group extends GroupBase<Option>> = readonly (Option | Group)[];
 
 export type Options<Option> = readonly Option[];

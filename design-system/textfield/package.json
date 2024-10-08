@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/textfield",
-	"version": "6.5.2",
+	"version": "6.5.3",
 	"description": "A text field is an input that allows a user to write or edit text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

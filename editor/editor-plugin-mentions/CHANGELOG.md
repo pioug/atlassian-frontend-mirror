@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-mentions
 
+## 2.7.1
+
+### Patch Changes
+
+- [#149581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149581)
+  [`e98d687b864ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e98d687b864ab) -
+  [ED-23460] Track when mention providers are undefined
+- Updated dependencies
+
 ## 2.7.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.8.3
+
+### Patch Changes
+
+- [#149525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149525)
+  [`cf44ad9250b31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf44ad9250b31) -
+  fix expand icon issue
+- Updated dependencies
+
 ## 2.8.2
 
 ### Patch Changes

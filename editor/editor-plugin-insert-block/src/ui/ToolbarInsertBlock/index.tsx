@@ -96,22 +96,14 @@ export const tableButtonWrapper = ({
 		}
 	`;
 
-type InternalActions = {
-	registerToggleDropdownMenuOptions?: (cb: () => void) => () => void;
-};
-
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class ToolbarInsertBlock extends React.PureComponent<
-	Props & WrappedComponentProps & InternalActions,
-	State
-> {
+export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedComponentProps, State> {
 	private dropdownButtonRef?: HTMLElement;
 	private emojiButtonRef?: HTMLElement;
 	private mediaButtonRef?: HTMLElement;
 	private plusButtonRef?: HTMLElement;
 	private tableButtonRef = React.createRef<HTMLElement>();
 	private tableSelectorButtonRef = React.createRef<HTMLElement>();
-	private unregisterToggleDropdownMenuOptions: null | (() => void) = null;
 
 	state: State = {
 		isPlusMenuOpen: false,
@@ -181,6 +173,11 @@ export class ToolbarInsertBlock extends React.PureComponent<
 
 		if (this.state.isTableSelectorOpen) {
 			this.setState({ isTableSelectorOpenedByKeyboard: false });
+		}
+
+		if (this.props.showElementBrowser !== prevProps.showElementBrowser) {
+			this.handleClick();
+			this.setState({ ...this.state, isPlusMenuOpen: this.props.showElementBrowser });
 		}
 	}
 
@@ -388,16 +385,6 @@ export class ToolbarInsertBlock extends React.PureComponent<
 		if (e.target && !isDetachedElement(e.target as HTMLElement)) {
 			this.toggleTableSelector(INPUT_METHOD.TOOLBAR);
 		}
-	};
-
-	componentDidMount = () => {
-		this.unregisterToggleDropdownMenuOptions = this.props.registerToggleDropdownMenuOptions
-			? this.props.registerToggleDropdownMenuOptions(this.handleClick)
-			: null;
-	};
-
-	componentWillUnmount = () => {
-		this.unregisterToggleDropdownMenuOptions?.();
 	};
 
 	render() {

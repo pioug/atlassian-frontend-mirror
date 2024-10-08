@@ -1,13 +1,14 @@
+/* eslint-disable @repo/internal/fs/filename-pattern-match */
 import { expect, test } from '@af/integration-testing';
 
 const selectDefault = '.react-select__value-container';
 const selectMenu = '.react-select__menu';
 const selectMenuItem1 = '.react-select__option:nth-child(1)';
 
-const selectMultiAdelaide = '[tabIndex="-1"]:nth-child(1)';
-const selectMultiBrisbane = '[tabIndex="-1"]:nth-child(2)';
+const selectMultiAdelaide = '[role="option"]:nth-child(1)';
+const selectMultiBrisbane = '[role="option"]:nth-child(2)';
 
-const selectRadioAdelaide = '[tabindex="-1"]:nth-child(1)';
+const selectRadioAdelaide = '[role="option"]:nth-child(1)';
 
 const selectCheckbox = '.select__control';
 const selectCheckboxMenu = '.select__menu';
@@ -51,6 +52,9 @@ test(`Async-select should display a menu once clicked and not throwing errors`, 
 	page,
 }) => {
 	await page.visitExample('design-system', 'select', 'async-select-with-callback');
+	// Async example waits 1000ms before setting options.
+	// eslint-disable-next-line playwright/no-wait-for-timeout
+	await page.waitForTimeout(1000);
 	await page.locator(selectDefault).first().click();
 	await expect(page.locator(selectMenu)).toBeVisible();
 	await page.locator(selectRadioAdelaide).first().click();

@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 22.14.7
+
+### Patch Changes
+
+- [#149425](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149425)
+  [`35d615fbf3bfa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35d615fbf3bfa) -
+  change reactions popup from fixed to absolute strategy
+- Updated dependencies
+
 ## 22.14.6
 
 ### Patch Changes

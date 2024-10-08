@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 9.42.4
+
+### Patch Changes
+
+- [#147741](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147741)
+  [`29cf124342cb8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/29cf124342cb8) -
+  Rename the provider initial presence feature func be more general
+
 ## 9.42.3
 
 ### Patch Changes

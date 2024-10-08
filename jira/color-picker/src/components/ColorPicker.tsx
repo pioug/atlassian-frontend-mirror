@@ -151,6 +151,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 				// never show search input
 				searchThreshold={Number.MAX_VALUE}
 				// palette props
+				//@ts-ignore react-select unsupported props
 				cols={cols}
 				checkMarkColor={checkMarkColor}
 				onKeyDown={this.onKeyDown}

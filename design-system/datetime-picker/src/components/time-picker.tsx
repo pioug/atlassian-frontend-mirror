@@ -281,7 +281,7 @@ const TimePicker = forwardRef(
 		};
 
 		const renderIconContainer = Boolean(!hideIcon && value);
-
+		// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
 		const mergedStyles = mergeStyles<OptionType, boolean, GroupType<OptionType>>(selectStyles, {
 			control: (base) => ({
 				...base,
@@ -337,7 +337,7 @@ const TimePicker = forwardRef(
 					value={initialValue}
 					spacing={spacing}
 					// We need this to get things to work, even though it's not supported.
-					// @ts-ignore
+					// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
 					fixedLayerRef={containerRef}
 					isInvalid={isInvalid}
 					testId={testId}

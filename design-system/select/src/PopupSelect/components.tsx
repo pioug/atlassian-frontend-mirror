@@ -6,9 +6,9 @@ import { type CSSProperties, type FC, forwardRef, type ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { components } from 'react-select';
 
 import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
+import { components } from '@atlaskit/react-select';
 import { N40A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';

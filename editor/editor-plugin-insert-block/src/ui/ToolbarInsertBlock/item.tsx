@@ -17,6 +17,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import { type UNSAFE_NewCoreIconProps } from '@atlaskit/icon';
 import FieldTextIcon from '@atlaskit/icon-lab/core/field-text';
 import LozengeIcon from '@atlaskit/icon-lab/core/lozenge';
 import AngleBracketsIcon from '@atlaskit/icon/core/migration/angle-brackets--editor-code';
@@ -36,7 +37,6 @@ import TaskIcon from '@atlaskit/icon/core/task';
 import CheckboxCheckedIconLegacy from '@atlaskit/icon/glyph/editor/task';
 import PlaceholderTextIcon from '@atlaskit/icon/glyph/media-services/text';
 import StatusIconLegacy from '@atlaskit/icon/glyph/status';
-import type Icon from '@atlaskit/icon/UNSAFE_base-new';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import ExpandNodeIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-circle';
 
@@ -50,9 +50,12 @@ interface ItemInit {
 	shortcut?: string;
 	Icon: React.ComponentType<
 		Omit<
-			React.ComponentProps<typeof Icon>,
-			'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'
-		> & { label: string }
+			UNSAFE_NewCoreIconProps,
+			'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon' | 'spacing'
+		> & {
+			label: string;
+			spacing: 'spacious';
+		}
 	>;
 	'aria-label'?: React.AriaAttributes['aria-label'];
 	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];

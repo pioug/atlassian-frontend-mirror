@@ -7,6 +7,7 @@ import { expandedState } from '@atlaskit/editor-common/expand';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
 import { expandMessages } from '@atlaskit/editor-common/ui';
 import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import { token } from '@atlaskit/tokens';
 
 import { ExpandButton } from '../ui/ExpandButton';
 
@@ -45,7 +46,7 @@ export const toDOM = (
 			tabindex: '-1',
 		},
 		// prettier-ignore
-		['div', { 'class': expandClassNames.icon }],
+		['div', { 'class': expandClassNames.icon, style: `display: flex; width: ${token('space.300', '24px')}; height: ${token('space.300', '24px')}` }],
 		[
 			'div',
 			{

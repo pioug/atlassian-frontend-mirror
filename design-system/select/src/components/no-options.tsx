@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { components } from 'react-select';
-
 import { Text } from '@atlaskit/primitives';
+import { components } from '@atlaskit/react-select';
 
 import { type NoticeProps, type OptionType } from '../types';
 

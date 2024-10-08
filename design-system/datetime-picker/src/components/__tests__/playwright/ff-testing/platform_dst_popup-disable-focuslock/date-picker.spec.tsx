@@ -49,8 +49,8 @@ test('When choosing another day in a Datetime picker focused, the date should be
 	const previousDate = await page.locator(value).first().textContent();
 	await page.locator(datePicker).first().click();
 	await page.keyboard.press('Tab');
-	await page.keyboard.press('ArrowLeft');
-	await page.keyboard.press('ArrowLeft');
+	await page.keyboard.press('ArrowDown');
+	await page.keyboard.press('ArrowDown');
 	await page.keyboard.press('Enter');
 
 	await expect(page.locator(value)).not.toHaveText(previousDate!);

@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 198.4.2
+
+### Patch Changes
+
+- [#149525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149525)
+  [`7cd7b318326c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7cd7b318326c2) -
+  ED-19773: Fixed a overflow issue in comment editor
+- [#149599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149599)
+  [`9c110fa4b038c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c110fa4b038c) -
+  Updates css that targets floating toolbar buttons that are links so that there is not additional
+  undesired padding in the button.
+- Updated dependencies
+
 ## 198.4.1
 
 ### Patch Changes

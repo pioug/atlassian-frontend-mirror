@@ -7,9 +7,11 @@ import { type FC, type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
+import LegacyLockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
+import LockFilledIcon from '@atlaskit/icon/utility/lock-locked';
 import Lozenge from '@atlaskit/lozenge';
-import { Inline, Text } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 interface HeaderProps {
@@ -30,6 +32,11 @@ type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 const headingStyles = css({
 	font: token('font.body'),
 	letterSpacing: 0,
+});
+
+const iconWrapperStyles = xcss({
+	display: 'flex',
+	paddingInline: 'space.025',
 });
 
 /**
@@ -65,7 +72,15 @@ const Header: FC<HeaderProps> = ({
 					<Text color="color.text.subtlest">
 						<Inline alignBlock="center" space="space.050" as="span">
 							&bull;
-							<LockFilledIcon label="" size="small" />
+							{fg('platform-visual-refresh-icons-legacy-facade') ||
+							fg('platform.design-system-team.enable-new-icons') ? (
+								<Box as="span" xcss={iconWrapperStyles}>
+									<LockFilledIcon color="currentColor" label="" />
+								</Box>
+							) : (
+								// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+								<LegacyLockFilledIcon size="small" label="" />
+							)}
 							{restrictedTo}
 						</Inline>
 					</Text>

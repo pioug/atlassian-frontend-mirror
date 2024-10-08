@@ -36,3 +36,22 @@ test('Spotlight tour should not break if a target is not rendered', async ({ pag
 	await page.locator(tellMeMoreBtn).first().click();
 	await expect(page.locator(spotlight3)).toBeVisible();
 });
+
+[true, false].forEach((ffValue) => {
+	test(`Focus should not go beyond spotlight dialog, FG ${ffValue}`, async ({ page }) => {
+		await page.visitExample(
+			'design-system',
+			'onboarding',
+			'spotlight-dialog-width',
+			ffValue
+				? {
+						featureFlag: 'platform_dst_onboarding-bump-react-focus-lock',
+					}
+				: {},
+		);
+		const spotlightDialogTrigger = page.getByTestId('spotlight-dialog-trigger');
+		await spotlightDialogTrigger.click();
+		await spotlightDialogTrigger.focus();
+		await expect(spotlightDialogTrigger).not.toBeFocused();
+	});
+});

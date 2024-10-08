@@ -1,5 +1,18 @@
 # @atlaskit/media-viewer
 
+## 49.0.0
+
+### Major Changes
+
+- [#149704](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149704)
+  [`58dcd069492e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/58dcd069492e5) -
+  remove mediaviewer v2 feature flag making the default experience the refactored one which may
+  result in tests failing where consumers test the internals of media components
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 48.10.1
 
 ### Patch Changes

@@ -165,7 +165,7 @@ export interface EmbedProps {
 	inheritDimensions?: boolean;
 	/**
 	 * Informs Smart Link of the device it is rendered in. Available values are `web` and `mobile`.
-	 * It is used together with link response `data.preview['atlassian:supportedPlatforms']`.
+	 * It is used together with link response `data.preview["atlassian:supportedPlatforms"]`.
 	 * To make embed content available on all supported urls, use `web`.
 	 */
 	platform?: CardPlatform;

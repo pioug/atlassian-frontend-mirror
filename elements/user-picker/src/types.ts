@@ -121,6 +121,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	value?: Value;
 	/** Disable all interactions with the picker, putting it in a read-only state. */
 	isDisabled?: boolean;
+	/** Display the  picker with a style to show the value is invalid */
+	isInvalid?: boolean;
 	/** Display a remove button on the single picker. True by default. */
 	isClearable?: boolean;
 	/** Optional tooltip to display on hover over the clear indicator. */

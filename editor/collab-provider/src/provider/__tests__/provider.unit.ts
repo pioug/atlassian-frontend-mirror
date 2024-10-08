@@ -237,10 +237,10 @@ describe.skip('Provider', () => {
 		});
 	});
 
-	describe('setupPresenceOnly_do_not_use', () => {
+	describe('setupForPresenceOnly', () => {
 		const testProviderPresenceConfig = {
 			...testProviderConfig,
-			isPresenceOnly_do_not_use: true,
+			isPresenceOnly: true,
 		};
 		it('should throw an error when cookies are not enabled', () => {
 			const sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
@@ -250,7 +250,7 @@ describe.skip('Provider', () => {
 			});
 			const provider = createSocketIOCollabProvider(testProviderPresenceConfig);
 			expect(() => {
-				provider.setupPresenceOnly_do_not_use(clientId);
+				provider.setupForPresenceOnly(clientId);
 			}).toThrowErrorMatchingInlineSnapshot(
 				`"Cookies are not enabled. Please enable cookies to use collaborative editing."`,
 			);
@@ -268,10 +268,10 @@ describe.skip('Provider', () => {
 		it('should call initializeChannel once', () => {
 			const provider = createSocketIOCollabProvider(testProviderPresenceConfig);
 			const initializeChannelSpy = jest.spyOn(provider as any, 'initializeChannel');
-			provider.setupPresenceOnly_do_not_use(clientId);
+			provider.setupForPresenceOnly(clientId);
 			// make sure initializeChannel is called
 			expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
-			provider.setupPresenceOnly_do_not_use(clientId);
+			provider.setupForPresenceOnly(clientId);
 			// make sure initializeChannel is not called again
 			expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
 		});
@@ -1401,19 +1401,19 @@ describe.skip('Provider', () => {
 		});
 	});
 
-	it('should use NullDocumentService and NullApi when isPresenceOnly_do_not_use is true', () => {
+	it('should use NullDocumentService and NullApi when isPresenceOnly is true', () => {
 		const config = {
 			...testProviderConfig,
-			isPresenceOnly_do_not_use: true,
+			isPresenceOnly: true,
 		};
 		const provider = createSocketIOCollabProvider(config);
 		expect(provider['documentService']).toBeInstanceOf(NullDocumentService);
 		expect(provider['api']).toBeInstanceOf(NullApi);
 	});
-	it('should use DocumentService and Api when isPresenceOnly_do_not_use is false', () => {
+	it('should use DocumentService and Api when isPresenceOnly is false', () => {
 		const config = {
 			...testProviderConfig,
-			isPresenceOnly_do_not_use: false,
+			isPresenceOnly: false,
 		};
 		const provider = createSocketIOCollabProvider(config);
 		expect(provider['documentService']).toBeInstanceOf(DocumentService);

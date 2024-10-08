@@ -198,6 +198,17 @@ describe(`Editor`, () => {
 				fireEvent.click(cancelButton);
 				expect(cancelled).toHaveBeenCalled();
 			});
+
+			// When maxHeight is set, content area should have overflow-y as auto
+			// So when content exceeds maxHeight, content area should show vertical scroll
+			it('content area should have overflow-y as auto when maxHeight is set', () => {
+				const { container } = render(<Editor appearance="comment" maxHeight={500} />);
+
+				const editorElement = container.getElementsByClassName('ak-editor-content-area');
+
+				expect(editorElement.length).toBe(1);
+				expect(editorElement[0]).toHaveStyleRule('overflow-y', 'auto');
+			});
 		});
 
 		it('should fire onEditorReady when ready', () => {

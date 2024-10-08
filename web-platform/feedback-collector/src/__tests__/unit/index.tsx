@@ -832,8 +832,7 @@ We have some formatting here
 
 					const combobox = getByRole('combobox');
 					fireEvent.keyDown(combobox, { key: 'ArrowDown', code: 40 });
-					const options = document.querySelectorAll('#react-select-12-listbox > div > div');
-
+					const options = screen.getAllByRole('option');
 					expect(options).toHaveLength(customFeedbackOptions.length);
 				},
 				() => {
@@ -848,7 +847,7 @@ We have some formatting here
 
 					const combobox = getByRole('combobox');
 					fireEvent.keyDown(combobox, { key: 'ArrowDown', code: 40 });
-					const options = document.querySelectorAll('#react-select-12-listbox > div > div');
+					const options = screen.getAllByRole('option');
 					expect(options).not.toHaveLength(customFeedbackOptions.length);
 				},
 			);

@@ -17,6 +17,7 @@ import type {
 	Parameters,
 } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
+import Heading from '@atlaskit/heading';
 import AddCircleIcon from '@atlaskit/icon/glyph/add-circle';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
@@ -276,13 +277,11 @@ class FieldsetField extends React.Component<Props, State> {
 		const { label, options } = field;
 		const { selectedFields, currentParameters, visibleFields } = this.state;
 		const children = this.renderActions();
-
 		return (
 			<Fragment>
 				{error && <FieldsetError message={error} />}
 				<div>
-					{options.showTitle && <h5>{label}</h5>}
-
+					{options?.showTitle && <Heading size="xsmall">{label}</Heading>}
 					<FormComponent
 						fields={selectedFields}
 						parentName={name}

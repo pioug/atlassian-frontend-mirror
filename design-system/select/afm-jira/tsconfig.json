@@ -30,6 +30,9 @@
       "path": "../../primitives/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../react-select/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../spinner/afm-jira/tsconfig.json"
     },
     {

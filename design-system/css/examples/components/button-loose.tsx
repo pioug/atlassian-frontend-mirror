@@ -6,20 +6,22 @@ import React from 'react';
 
 import { cssMap, jsx, type XCSSProp } from '@compiled/react';
 
+import { token } from '@atlaskit/tokens';
+
 const buttonStyles = cssMap({
 	container: {
-		color: 'var(--ds-text-inverse)',
-		backgroundColor: 'var(--ds-background-brand-bold)',
+		color: token('color.text.inverse'),
+		backgroundColor: token('color.background.brand.bold'),
 		borderRadius: '3px',
 		border: 0,
 		fontWeight: '500',
 		paddingBlock: '4px',
 		paddingInline: '8px',
 		'&:hover': {
-			backgroundColor: 'var(--ds-background-brand-bold-hovered)',
+			backgroundColor: token('color.background.brand.bold.hovered'),
 		},
 		'&:active': {
-			backgroundColor: 'var(--ds-background-brand-bold-pressed)',
+			backgroundColor: token('color.background.brand.bold.pressed'),
 		},
 	},
 });

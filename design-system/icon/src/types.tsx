@@ -9,6 +9,9 @@ import type {
 
 export type Size = 'small' | 'medium' | 'large' | 'xlarge';
 
+export type IconSpacing = 'none' | 'spacious';
+export type UtilityIconSpacing = 'none' | 'spacious' | 'compact';
+
 export interface CustomGlyphProps extends ReactSVGProps<SVGSVGElement> {
 	/**
 	 * provided to a custom glyph
@@ -48,6 +51,7 @@ export interface GlyphColorProps {
 export interface NewGlyphColorProps {
 	/**
 	 * Color for the icon. Supports any icon or text design token, or 'currentColor' to inherit the current text color.
+	 * Defaults to `currentColor`, inheriting the current text color.
 	 */
 	color?:
 		| IconColor
@@ -66,13 +70,23 @@ export interface GlyphSizeProps {
 	size?: Size;
 }
 
-export interface NewGlyphSpacingProps {
+export interface NewCoreGlyphSpacingProps {
 	/**
-	 * Icons have only one available size, but can be displayed with additional spacing.
+	 * Core Icons have only one available size, but can be displayed with additional spacing.
 	 * "none" is default, and allows the icon to be placed in buttons and allows the parent component to manage spacing.
 	 * "spacious" provides accessible spacing between the icon and other elements.
 	 */
-	spacing?: 'none' | 'spacious';
+	spacing?: IconSpacing;
+}
+
+export interface NewUtilityGlyphSpacingProps {
+	/**
+	 * Utility Icons have only one available size, but can be displayed with additional spacing.
+	 * "none" is default, and allows the icon to be placed in buttons and allows the parent component to manage spacing.
+	 * "compact" provides accessible compact spacing between the icon and other elements.
+	 * "spacious" provides accessible spacing between the icon and other elements.
+	 */
+	spacing?: UtilityIconSpacing;
 }
 
 export interface OtherGlyphProps {
@@ -108,7 +122,14 @@ interface IconInternalGlyphProps {
 
 export interface GlyphProps extends OtherGlyphProps, GlyphSizeProps, GlyphColorProps {}
 
-export interface NewGlyphProps extends OtherGlyphProps, NewGlyphSpacingProps, NewGlyphColorProps {}
+export interface NewCoreGlyphProps
+	extends OtherGlyphProps,
+		NewCoreGlyphSpacingProps,
+		NewGlyphColorProps {}
+export interface NewUtilityGlyphProps
+	extends OtherGlyphProps,
+		NewUtilityGlyphSpacingProps,
+		NewGlyphColorProps {}
 
 export interface IconProps extends GlyphProps, IconInternalGlyphProps {
 	/**
@@ -118,7 +139,7 @@ export interface IconProps extends GlyphProps, IconInternalGlyphProps {
 	glyph?: ComponentType<CustomGlyphProps>;
 }
 
-export interface NewIconProps extends NewGlyphProps, IconInternalGlyphProps {
+export interface BaseNewIconProps {
 	/**
 	 * Legacy icon component to render when the icon refresh feature flag is turned off.
 	 * The legacy icon defaults to "medium" size, with `primaryColor` set to the value of the `color` prop.
@@ -138,14 +159,26 @@ export interface NewIconProps extends NewGlyphProps, IconInternalGlyphProps {
 	 */
 	LEGACY_size?: Size;
 	/**
-	 * Icon type. Used in icon build process.
-	 */
-	type?: 'utility' | 'global';
-	/**
 	 * Sets a margin on the fallback legacy icon.
 	 */
 	LEGACY_margin?: string;
 }
+
+export interface NewCoreIconProps
+	extends BaseNewIconProps,
+		NewCoreGlyphProps,
+		IconInternalGlyphProps {
+	type?: 'core';
+}
+
+export interface NewUtilityIconProps
+	extends BaseNewIconProps,
+		NewUtilityGlyphProps,
+		IconInternalGlyphProps {
+	type: 'utility';
+}
+
+export type NewIconProps = NewUtilityIconProps | NewCoreIconProps;
 
 export type IconTileAppearance =
 	| 'gray'
@@ -175,7 +208,7 @@ export interface IconTileProps {
 	/**
 	 * The icon to display
 	 */
-	icon: ComponentType<NewIconProps>;
+	icon: ComponentType<NewUtilityIconProps> | ComponentType<NewCoreIconProps>;
 	/**
 	 * The label for the icon
 	 */
@@ -275,6 +308,6 @@ export type IconMigrationSizeGuidance =
 export type IconMigrationMap = Record<string, IconMigrationResult>;
 
 export type IconFacadeProps = IconProps & {
-	newIcon?: React.ComponentType<NewIconProps>;
+	newIcon?: React.ComponentType<NewUtilityIconProps> | React.ComponentType<NewCoreIconProps>;
 	iconType?: NewIconProps['type'];
 };

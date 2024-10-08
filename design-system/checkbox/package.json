@@ -40,7 +40,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/css": "^0.5.0",
 		"@atlaskit/ds-lib": "^3.0.0",
-		"@atlaskit/icon": "^22.20.0",
+		"@atlaskit/icon": "^22.22.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",

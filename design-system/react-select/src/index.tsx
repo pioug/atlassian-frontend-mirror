@@ -3,7 +3,6 @@ import type { GroupBase } from './types';
 import useStateManager from './use-state-manager';
 
 export { default } from './state-manager';
-export { default as NonceProvider } from './nonce-provider';
 export { mergeStyles } from './styles';
 export { defaultTheme } from './theme';
 export { createFilter } from './filters';
@@ -45,7 +44,6 @@ export type { ClassNamesConfig, StylesConfig } from './styles';
 export {
 	type GroupBase,
 	type OptionsOrGroups,
-	type Option,
 	type Options,
 	type SingleValue,
 	type MultiValue,

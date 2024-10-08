@@ -1,14 +1,14 @@
 import React from 'react';
 
-import AppIconOld from '../glyph/addon';
+import Heading from '@atlaskit/heading';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+
+import AppIcon from '../core/app';
 import AppIconMigration from '../core/migration/app--addon';
+import AppIconOld from '../glyph/addon';
 import HipchatChevronDownOld from '../glyph/hipchat/chevron-down';
 import ChevronDownIcon from '../utility/chevron-down';
 import ChevronDownIconMigration from '../utility/migration/chevron-down--hipchat-chevron-down';
-import AppIcon from '../core/app';
-
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
-import Heading from '@atlaskit/heading';
 
 const iconContainerStyles = xcss({
 	border: '1px dashed',
@@ -30,6 +30,12 @@ const IconSizeExample = () => {
 			<Inline space="space.100">
 				<IconContainer>
 					<ChevronDownIcon label="" />
+				</IconContainer>
+				<IconContainer>
+					<ChevronDownIcon label="" spacing="compact" />
+				</IconContainer>
+				<IconContainer>
+					<ChevronDownIcon label="" spacing="spacious" />
 				</IconContainer>
 				<IconContainer>
 					<AppIcon label="" spacing="none" />

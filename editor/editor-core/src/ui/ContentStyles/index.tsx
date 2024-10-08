@@ -419,11 +419,9 @@ const contentStyles = (props: ContentStylesProps) => css`
      is bigger than the others
   */
 	.hyperlink-open-link {
+		min-width: 24px;
 		svg {
 			max-width: 18px;
-		}
-		&[href] {
-			padding: 0 4px;
 		}
 	}
 `;

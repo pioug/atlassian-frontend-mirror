@@ -57,7 +57,7 @@ import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
 import type { ForwardRef, getPosHandler, getPosHandlerNode, MediaOptions } from '../types';
-import CaptionPlaceholder from '../ui/CaptionPlaceholder';
+import { CaptionPlaceholder, CaptionPlaceholderButton } from '../ui/CaptionPlaceholder';
 import { CommentBadge, CommentBadgeNextWrapper } from '../ui/CommentBadge';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
@@ -95,7 +95,9 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 	};
 
 	mediaSingleWrapperRef = React.createRef<HTMLDivElement>();
-	captionPlaceHolderRef = React.createRef<HTMLSpanElement>();
+	// platform_editor_typography_migration_ugc clean up
+	// remove HTMLSpanElement type
+	captionPlaceHolderRef = React.createRef<HTMLSpanElement | HTMLButtonElement>();
 
 	createOrUpdateMediaNodeUpdater = (props: MediaSingleNodeProps) => {
 		const node = this.props.node.firstChild;
@@ -492,9 +494,17 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 					/>
 				)}
 				<div ref={this.props.forwardRef} />
-				{shouldShowPlaceholder && (
-					<CaptionPlaceholder ref={this.captionPlaceHolderRef} onClick={this.clickPlaceholder} />
-				)}
+				{shouldShowPlaceholder &&
+					(editorExperiment('typography_migration_ugc', true) ? (
+						<CaptionPlaceholderButton
+							// platform_editor_typography_migration_ugc clean up
+							// remove typecasting
+							ref={this.captionPlaceHolderRef as React.RefObject<HTMLButtonElement>}
+							onClick={this.clickPlaceholder}
+						/>
+					) : (
+						<CaptionPlaceholder ref={this.captionPlaceHolderRef} onClick={this.clickPlaceholder} />
+					))}
 			</figure>
 		);
 

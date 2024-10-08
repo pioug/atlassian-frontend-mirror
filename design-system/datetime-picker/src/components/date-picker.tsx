@@ -396,7 +396,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			calendarWeekStartDay: weekStartDay,
 			shouldSetFocusOnCurrentDay: this.state.shouldSetFocusOnCurrentDay,
 		};
-
+		//@ts-ignore react-select unsupported props
 		const mergedStyles = mergeStyles<OptionType, boolean, GroupType<OptionType>>(selectStyles, {
 			control: (base: any) => ({
 				...base,
@@ -465,6 +465,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					spacing={spacing}
 					testId={testId}
 					// These aren't part of `Select`'s API, but we're using them here.
+					//@ts-ignore react-select unsupported props
 					calendarContainerRef={calendarProps.calendarContainerRef}
 					calendarDisabled={calendarProps.calendarDisabled}
 					calendarDisabledDateFilter={calendarProps.calendarDisabledDateFilter}

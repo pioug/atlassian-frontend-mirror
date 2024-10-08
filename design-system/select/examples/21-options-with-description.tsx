@@ -1,9 +1,9 @@
 import React from 'react';
-import { type AriaOnFocus } from 'react-select';
 
 import { Label } from '@atlaskit/form';
+import { type AriaOnFocus } from '@atlaskit/react-select';
 
-import Select, { type OptionType, type FormatOptionLabelMeta } from '../src';
+import Select, { type FormatOptionLabelMeta, type OptionType } from '../src';
 
 type CustomOption = {
 	label: string;

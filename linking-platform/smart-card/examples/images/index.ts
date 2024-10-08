@@ -21,3 +21,9 @@ export const iconGoogleDrive =
 	"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' width='96px' height='96px'%3E%3Cpath fill='%23FFC107' d='M17 6L31 6 45 30 31 30z'/%3E%3Cpath fill='%231976D2' d='M9.875 42L16.938 30 45 30 38 42z'/%3E%3Cpath fill='%234CAF50' d='M3 30.125L9.875 42 24 18 17 6z'/%3E%3C/svg%3E";
 export const iconTrello =
 	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAxZJREFUWEftl89LlEEYx59n3MDIJQWXlBQSCupQ4KFzM/+DQYcOGxgYGBgYeCjXFz1sICjkoUOHDh0k/B/e997BQwcjBZd2w41dWEGhwm2emPeH+87Mu7qvLdihubzMu89+5zPfeZ6ZeRHOueE5jw//LsDNReLdcufzS/TaaVkOXF8kjkAFoACAADSbztonAgcY83YMGBvAOVoAwEI0UFefCN7OfEbE3bAAxuZ/UfzlWWccDWL+XzImSgsXjpdEA7j24gcHBBcBj60nIOhqn0iUli62AzjgUjI3ovfpiDzsISdum5RM5UdB/a5mqBpjUrNWxSDiPQpzScWoeGRSlJayyQAjcwccAVw/MvQOCZyvxeyCmcWjcwcqjocEXrmY1QBUfJIeEYhKsS1Ag5PpAJOiUhywyujq830XEbnPieRVXvUnAJyup+XAyGyDS8MBpoiXEwBmGy6FDiCA9215wAboQE8DGJqtcZDoBqsVrgGTorqcsxwYelZ3AZH7cQRedWXQAuhETweYqSlLj5MwTBxRXbUBrszUVFy0W3rfV3M2QAd6GsDgzB5HwwFiUtRXhy0Hck+rmgO110MWQCd6OsD0nppRy4FgJUR9zQYYnN7TqqC+NmwDdKBnAJS5/I1BGYZNShL7b0YtBwaeVFyMyjDYMBzGwGs2ATIZAPVkjHEgKpykpwH0T5XVQaQlIQEkA0yVwxxId1qYegbALic/B1oNlQNvxywHLj8uBUuQspl6OsDkLpeGAxJAHCYAZCd3XfSrIJ0Dpp4G0De5zSHKgUhXkjh8d8NyoO/RTisJY9vGqTyGng6Q3/YdiL9EwESAS/kvfg6kPa5NPQ2gN7/F0XQgOO68ltHB8exvQmlmHgqQJPHz/a3k07D34RYnw4G0MzwtHgDbA2QefOLoX0ii1FIXEzXj7vUlkWiu3052QAGAXwVBi184utU/Wr+jLbt1J+y5v6klV7oiO7koAcGRH8a1y40FABObnIHkBKhdubrggEeADmyMayVtA8R3tomPHJoAkAH46+fG3cSPk5MBUm6zZwn/D/AHsEXaMLAxypQAAAAASUVORK5CYII=';
+
+// Card appearance from editor-common/src/card/ui/assets/index.tsx
+export { IconInline } from './inline';
+export { IconEmbed } from './embed';
+export { IconCard } from './card';
+export { IconUrl } from './url';

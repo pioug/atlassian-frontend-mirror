@@ -183,7 +183,7 @@ export const messages = defineMessages({
 		description: `text for the "What's New" button`,
 	},
 	help_whats_new_button_label_without_product_name: {
-		id: 'help.whats_new.button_label',
+		id: 'help.whats_new.button_label_without_product_name',
 		defaultMessage: 'Find out what’s changed',
 		description: `text for the "What's New" button`,
 	},

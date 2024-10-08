@@ -1,9 +1,8 @@
 import React, { Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Select, { type ValueType } from '@atlaskit/select';
-
 import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
+import Select, { type ValueType } from '@atlaskit/select';
 
 interface Option {
 	label: string;
@@ -69,8 +68,8 @@ export default function OnBlurValidationExample() {
 											{...rest}
 											options={colors}
 											isClearable
-											aria-invalid={selectHasError}
-											aria-describedby={selectHasError && `${id}-error`}
+											isInvalid={selectHasError}
+											descriptionId={selectHasError ? `${id}-error` : undefined}
 											onBlur={handleSelectBlurEvent}
 										/>
 										{selectHasError && (

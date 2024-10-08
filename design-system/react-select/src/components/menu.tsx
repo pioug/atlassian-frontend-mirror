@@ -536,6 +536,8 @@ export const LoadingMessage = <Option, IsMulti extends boolean, Group extends Gr
 				'menu-notice--loading': true,
 			})}
 			{...innerProps}
+			// eslint-disable-next-line jsx-a11y/role-has-required-aria-props
+			role="option"
 		>
 			{children}
 		</div>

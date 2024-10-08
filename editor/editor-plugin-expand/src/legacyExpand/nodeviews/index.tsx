@@ -23,6 +23,7 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import type { ExpandPlugin } from '../../types';
 import {
@@ -70,7 +71,7 @@ const toDOM = (
 			tabindex: '-1',
 		},
 		// prettier-ignore
-		['div', { 'class': expandClassNames.icon }],
+		['div', { 'class': expandClassNames.icon, style: `display: flex; width: ${token('space.300', '24px')}; height: ${token('space.300', '24px')}` }],
 		[
 			'div',
 			{

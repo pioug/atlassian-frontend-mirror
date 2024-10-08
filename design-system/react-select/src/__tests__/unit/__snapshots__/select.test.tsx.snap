@@ -180,7 +180,7 @@ exports[`snapshot - defaults 1`] = `
       class=" emotion-9"
     >
       <div
-        class=" emotion-4"
+        class="value-container emotion-4"
       >
         <div
           class=" emotion-2"

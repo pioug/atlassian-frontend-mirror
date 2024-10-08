@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
-import { type NewIconProps } from '../../src/types';
-
-import { IconTile } from '../../src';
-import AddIcon from '../../core/add';
 
 import { Inline } from '@atlaskit/primitives';
+
+import AddIcon from '../../core/add';
+import { IconTile } from '../../src';
+import { type NewCoreIconProps } from '../../src/types';
 
 const IconSizeExample = () => {
 	const sizes = ['24', '32', '40', '48'] as const;
@@ -39,7 +39,7 @@ const IconSizeExample = () => {
 							{shapes.map((shape) => (
 								<IconTile
 									key={shape}
-									icon={(props: NewIconProps) => <AddIcon {...props} />}
+									icon={(props: NewCoreIconProps) => <AddIcon {...props} />}
 									label=""
 									appearance={appearance}
 									shape={shape}

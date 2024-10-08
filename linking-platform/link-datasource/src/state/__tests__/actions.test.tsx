@@ -47,7 +47,7 @@ const actionsStore = defaultRegistry.getStore(ActionsStore);
 const mockActionsStoreState: Partial<ActionsStoreState> = {
 	actionsByIntegration: {
 		jira: {
-			summary: { actionKey: 'atlassian:issue:update:summary', type: 'string' },
+			summary: { actionKey: 'atlassian:work-item:update:summary', type: 'string' },
 		},
 	},
 	permissions: {
@@ -162,6 +162,7 @@ describe('useExecuteAtomicAction', () => {
 				errorLocation: 'actionExecution',
 				status: null,
 				traceId: null,
+				reason: 'internal',
 			});
 
 			// Should have logged to sentry

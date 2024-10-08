@@ -1,2 +1,2 @@
 export { default, Icon } from '../components/icon-new';
-export type { NewIconProps } from '../types';
+export type { NewIconProps, NewCoreIconProps, NewUtilityIconProps } from '../types';

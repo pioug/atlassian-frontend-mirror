@@ -14,16 +14,16 @@ import FocusLockOld from 'react-focus-lock';
 import FocusLockNext from 'react-focus-lock-next';
 import NodeResolver from 'react-node-resolver';
 import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'react-popper';
+import { uid } from 'react-uid';
+import { shallowEqualObjects } from 'shallow-equal';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type GroupBase,
 	mergeStyles,
 	type OptionsOrGroups,
 	type components as RSComponents,
-} from 'react-select';
-import { uid } from 'react-uid';
-import { shallowEqualObjects } from 'shallow-equal';
-
-import { fg } from '@atlaskit/platform-feature-flags';
+} from '@atlaskit/react-select';
 import { N80 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -422,13 +422,13 @@ export default class PopupSelect<
 	 * @param options.controlOverride  - Force the popup to close when it's open state is being controlled
 	 */
 	close = (options?: { controlOverride?: boolean }) => {
+		//@ts-ignore react-select unsupported props
 		const { onClose, onMenuClose } = this.props;
 
 		if (!options?.controlOverride && this.isOpenControlled) {
 			// Prevent popup closing if it's open state is already being controlled
 			return;
 		}
-
 		if (onClose) {
 			onClose();
 		}

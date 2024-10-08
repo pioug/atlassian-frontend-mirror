@@ -101,7 +101,7 @@ const Option = <Option, IsMulti extends boolean, Group extends GroupBase<Option>
 			})}
 			//@ts-ignore
 			ref={innerRef}
-			// aria-disabled={isDisabled}
+			aria-disabled={isDisabled}
 			{...innerProps}
 		>
 			{children}

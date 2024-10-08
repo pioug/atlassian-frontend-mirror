@@ -427,7 +427,8 @@ const generateToolbarItems =
 					],
 				},
 				{ type: 'separator' },
-				...getSettingsButtonGroup(intl, editorAnalyticsApi, cardOptions.userPreferencesLink),
+				getSettingsButton(intl, editorAnalyticsApi, cardOptions.userPreferencesLink),
+				{ type: 'separator' },
 				{
 					id: 'editor.link.delete',
 					focusEditoronEnter: true,
@@ -556,7 +557,7 @@ const getUnlinkButtonGroup = (
 		: [];
 };
 
-export const getHyperlinkToolbarSettingsButton = (
+export const getSettingsButton = (
 	intl: IntlShape,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 	userPreferencesLink?: string,
@@ -566,38 +567,10 @@ export const getHyperlinkToolbarSettingsButton = (
 		type: 'button',
 		icon: CogIcon,
 		title: intl.formatMessage(linkToolbarMessages.settingsLink),
-		onClick: fg('platform.editor.card.inject-settings-button')
-			? openLinkSettings(editorAnalyticsApi, userPreferencesLink)
-			: openLinkSettings(editorAnalyticsApi, undefined),
-		href: fg('platform.editor.card.inject-settings-button')
-			? userPreferencesLink || getLinkPreferencesURLFromENV()
-			: getLinkPreferencesURLFromENV(),
+		onClick: openLinkSettings(editorAnalyticsApi, userPreferencesLink),
+		href: userPreferencesLink || getLinkPreferencesURLFromENV(),
 		target: '_blank',
 	};
-};
-
-export const getSettingsButton = (
-	intl: IntlShape,
-	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-	userPreferencesLink: string | undefined,
-): FloatingToolbarItem<Command> => {
-	return {
-		id: 'editor.link.settings',
-		type: 'button',
-		icon: CogIcon,
-		title: intl.formatMessage(linkToolbarMessages.settingsLink),
-		onClick: fg('platform.editor.card.inject-settings-button')
-			? openLinkSettings(editorAnalyticsApi, userPreferencesLink)
-			: openLinkSettings(editorAnalyticsApi, undefined),
-	};
-};
-
-export const getSettingsButtonGroup = (
-	intl: IntlShape,
-	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-	userPreferencesLink: string | undefined,
-): FloatingToolbarItem<Command>[] => {
-	return [getSettingsButton(intl, editorAnalyticsApi, userPreferencesLink), { type: 'separator' }];
 };
 
 const getDatasourceButtonGroup = (
@@ -734,7 +707,8 @@ const getDatasourceButtonGroup = (
 			],
 		},
 		{ type: 'separator' },
-		...getSettingsButtonGroup(intl, editorAnalyticsApi, cardOptions?.userPreferencesLink),
+		getSettingsButton(intl, editorAnalyticsApi, cardOptions?.userPreferencesLink),
+		{ type: 'separator' },
 		{
 			id: 'editor.link.delete',
 			focusEditoronEnter: true,
@@ -857,21 +831,16 @@ export const getStartingToolbarItems = (
 export const getEndingToolbarItems =
 	(options: CardPluginOptions, api?: ExtractInjectionAPI<typeof cardPlugin> | undefined) =>
 	(intl: IntlShape, link: string): FloatingToolbarItem<Command>[] => {
-		if (fg('platform.editor.card.inject-settings-button')) {
-			/**
-			 * Require either provider to be supplied (controls link preferences)
-			 * Or explicit user preferences config in order to enable button
-			 */
-			if (options.provider || options.userPreferencesLink) {
-				return [
-					{ type: 'separator' },
-					getHyperlinkToolbarSettingsButton(
-						intl,
-						api?.analytics?.actions,
-						options.userPreferencesLink,
-					),
-				];
-			}
+		/**
+		 * Require either provider to be supplied (controls link preferences)
+		 * Or explicit user preferences config in order to enable button
+		 */
+		if (options.provider || options.userPreferencesLink) {
+			return [
+				{ type: 'separator' },
+				getSettingsButton(intl, api?.analytics?.actions, options.userPreferencesLink),
+			];
 		}
+
 		return [];
 	};

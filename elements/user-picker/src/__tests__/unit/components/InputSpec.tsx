@@ -16,6 +16,7 @@ describe('ClearIndicator', () => {
 		selectProps: SelectProps<OptionType, boolean>;
 		innerRef: (ref: React.Ref<HTMLInputElement>) => void;
 		cx: () => void;
+		getClassNames: () => void;
 		getStyles: () => void;
 		'aria-describedby'?: AriaAttributesType;
 		'aria-labelledby'?: AriaAttributesType;
@@ -25,9 +26,11 @@ describe('ClearIndicator', () => {
 	beforeEach(() => {
 		mockedProps = {
 			innerRef(ref: React.Ref<HTMLInputElement>): void {},
+			//@ts-ignore react-select unsupported props
 			selectProps: { disableInput: false },
 			cx: noop,
 			getStyles: noop,
+			getClassNames: noop,
 		};
 	});
 
@@ -40,6 +43,7 @@ describe('ClearIndicator', () => {
 	});
 
 	it('should fire event.preventDefault() if isDisabled', () => {
+		//@ts-ignore react-select unsupported props
 		mockedProps.selectProps.disableInput = true;
 
 		const spiedPreventDefault = jest.fn();

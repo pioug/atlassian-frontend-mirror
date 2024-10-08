@@ -20,6 +20,7 @@ export const pixelSizingWrapper = css`
 		margin-top: 0 !important;
 	}
 `;
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const pixelEntryForm = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -37,11 +38,7 @@ export const pixelSizingInput = css({
 		textAlign: 'center',
 	},
 });
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const pixelSizingLabel = css({
-	gridArea: 'label',
-	lineHeight: token('space.300', '24px'),
-});
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const pixelSizingWidthInput = css({
 	gridArea: 'widthinput',

@@ -13,7 +13,6 @@ import {
 	type OnChangeValue,
 	type Options,
 	type OptionsOrGroups,
-	type Option as OptionType,
 } from './types';
 import { cleanValue, valueTernary } from './utils';
 
@@ -68,7 +67,7 @@ type BaseCreatableProps<
 	Group extends GroupBase<Option>,
 > = PublicBaseSelectProps<Option, IsMulti, Group> & CreatableAdditionalProps<Option, Group>;
 
-const compareOption = (inputValue = '', option: OptionType, accessors: Accessors<OptionType>) => {
+const compareOption = <Option,>(inputValue = '', option: Option, accessors: Accessors<Option>) => {
 	const candidate = String(inputValue).toLowerCase();
 	const optionValue = String(accessors.getOptionValue(option)).toLowerCase();
 	const optionLabel = String(accessors.getOptionLabel(option)).toLowerCase();
@@ -77,11 +76,11 @@ const compareOption = (inputValue = '', option: OptionType, accessors: Accessors
 
 const builtins = {
 	formatCreateLabel: (inputValue: string) => `Create "${inputValue}"`,
-	isValidNewOption: <Option extends OptionType, Group extends GroupBase<Option>>(
+	isValidNewOption: <Option, Group extends GroupBase<Option>>(
 		inputValue: string,
 		selectValue: Options<Option>,
 		selectOptions: OptionsOrGroups<Option, Group>,
-		accessors: Accessors<OptionType>,
+		accessors: Accessors<Option>,
 	) =>
 		!(
 			!inputValue ||

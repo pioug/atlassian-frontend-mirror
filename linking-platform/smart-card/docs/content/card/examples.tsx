@@ -36,7 +36,7 @@ ${(
 
 #### Embed
 
-Embed: With this format, the linked content is directly shown on the page, similar to embedding a video or a document.
+With this format, the linked content is directly shown on the page, similar to embedding a video or a document.
 It gives a full view of the linked content without users having to leave the current page.
 Dive into [the embed card doc](./embed-card).
 

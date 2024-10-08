@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-media
 
+## 1.34.9
+
+### Patch Changes
+
+- [#149558](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149558)
+  [`5e8619ac0f6e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e8619ac0f6e4) -
+  [ux] [ED-25085] Migrate typography \
+
+  editor-plugin-media:
+
+  - replace caption placeholder span with button
+  - replace x between width and height pixel entry with symbol × \
+
+  tmp-editor-statsig:
+
+  - Add experiment `platform_editor_typography_migration_ugc`
+
+- Updated dependencies
+
 ## 1.34.8
 
 ### Patch Changes

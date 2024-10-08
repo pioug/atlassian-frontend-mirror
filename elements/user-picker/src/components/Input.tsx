@@ -15,6 +15,7 @@ export class Input extends React.Component<Props & AriaAttributes> {
 		if (e.key === 'Enter') {
 			e.preventDefault();
 		}
+		//@ts-ignore react-select unsupported props
 		if (this.props.selectProps?.disableInput) {
 			e.preventDefault();
 		}

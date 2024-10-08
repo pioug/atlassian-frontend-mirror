@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { messages } from '@atlaskit/editor-common/extensions';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import { G300, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -40,8 +41,8 @@ const saveIndicatorContentStyles = css({
 	borderRadius: '16px',
 });
 
-const saveIndicatorTextStyles = css({
-	paddingLeft: token('space.075', '6px'),
+const saveIndicatorTextStyles = xcss({
+	paddingLeft: 'space.075',
 });
 
 export const SaveIndicator = ({ children, duration, visible = true }: SaveIndicatorProps) => {
@@ -76,9 +77,11 @@ export const SaveIndicator = ({ children, duration, visible = true }: SaveIndica
 							primaryColor={token('color.icon.success', G300)}
 							size="small"
 						/>
-						<span css={saveIndicatorTextStyles}>
-							<FormattedMessage {...messages.saveIndicator} />
-						</span>
+						<Box xcss={saveIndicatorTextStyles}>
+							<Text>
+								<FormattedMessage {...messages.saveIndicator} />
+							</Text>
+						</Box>
 					</div>
 				</div>
 			)}

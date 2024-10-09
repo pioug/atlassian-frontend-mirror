@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.4.4
+
+### Patch Changes
+
+- [#149910](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149910)
+  [`bfb321d2bd9fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfb321d2bd9fd) -
+  ED-25141 - state.doc.nodesBetween was being called and could go beyond the range of the document
+  and therefore throw an error. Occured when entering an inline code snippet with the back quote
+  shortcut. See HOT-112305 for more details.
+
 ## 3.4.3
 
 ### Patch Changes

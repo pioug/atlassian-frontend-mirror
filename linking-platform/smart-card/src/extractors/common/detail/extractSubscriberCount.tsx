@@ -1,6 +1,6 @@
 import React from 'react';
 import { N600 } from '@atlaskit/theme/colors';
-import PeopleIcon from '@atlaskit/icon/glyph/people';
+import PeopleIcon from '@atlaskit/icon/core/migration/people-group--people';
 import { token } from '@atlaskit/tokens';
 
 import { type JsonLd } from 'json-ld-types';
@@ -17,11 +17,10 @@ export const extractSubscriberCount = (jsonLd: LinkSubscriberType): LinkDetail |
 		return {
 			text: subscriberCount.toString(),
 			icon: (
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19499
 				<PeopleIcon
-					size="small"
+					LEGACY_size="small"
 					label="subscribers"
-					primaryColor={token('color.icon.subtle', N600)}
+					color={token('color.icon.subtle', N600)}
 				/>
 			),
 		};

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { token } from '@atlaskit/tokens';
+import { Box } from '@atlaskit/primitives';
 
 import { InlineEditableTextfield } from '../../src';
 
@@ -16,14 +16,7 @@ const InlineEditableTextfieldDefault = () => {
 	};
 
 	return (
-		<div
-			style={{
-				padding: `${token('space.100', '8px')} ${token(
-					'space.100',
-					'8px',
-				)} ${token('space.600', '48px')}`,
-			}}
-		>
+		<Box paddingInline="space.100" paddingBlockStart="space.100" paddingBlockEnd="space.600">
 			<InlineEditableTextfield
 				defaultValue={editValue}
 				label="Description"
@@ -32,7 +25,7 @@ const InlineEditableTextfieldDefault = () => {
 				placeholder={placeholderLabel}
 				validate={validate}
 			/>
-		</div>
+		</Box>
 	);
 };
 export default InlineEditableTextfieldDefault;

@@ -1,74 +1,83 @@
-import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+	DOMOutputSpec,
+	Mark as PMMark,
+	Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
 
-import { wrapNodeSpecProxy, wrapToDOMProxy } from './create-schema';
+import { addMetadataAttributes, wrapNodeSpecProxy, wrapToDOMProxy } from './create-schema'; // Replace with the correct file path
 
-describe('wrapToDOMProxy', () => {
-	it('should return a proxy that modifies the toDOM function', () => {
-		const mockToDOM = jest.fn((node: PMNode): DOMOutputSpec => ['div', { class: 'test' }]);
-		const proxyToDOM = wrapToDOMProxy(mockToDOM);
-
-		const node = {
-			type: { name: 'paragraph', isBlock: true },
+describe('addMetadataAttributes', () => {
+	it('should add metadata to a DOMOutputSpec array', () => {
+		const mockNode = {
+			type: { name: 'paragraph' },
+			marks: [],
 		} as unknown as PMNode;
+		const domSpec: DOMOutputSpec = ['div', 0];
+		const result = addMetadataAttributes({ nodeOrMark: mockNode, domSpec });
 
-		const result = proxyToDOM(node);
-
-		expect(mockToDOM).toHaveBeenCalledWith(node);
-		expect(result).toEqual([
-			'div',
-			{
-				class: 'test',
-				'data-prosemirror-node-name': 'paragraph',
-				'data-prosemirror-node-block': true,
-			},
-		]);
+		expect(result).toEqual(expect.any(Array));
+		// Already cheking above
+		// @ts-expect-error
+		expect(result[1]).toEqual({
+			'data-prosemirror-content-type': 'node',
+			'data-prosemirror-node-name': 'paragraph',
+		});
 	});
 
-	it('should handle non-array results from toDOM', () => {
-		const mockToDOM = jest.fn((node) => 'string-result');
-		const proxyToDOM = wrapToDOMProxy(mockToDOM);
-
-		const node = {
-			type: { name: 'inline', isBlock: false },
+	it('should not modify non-array DOMOutputSpec', () => {
+		const mockNode = {
+			type: { name: 'paragraph' },
+			marks: [],
 		} as unknown as PMNode;
+		const domSpec = { dom: document.createElement('div') };
+		const result = addMetadataAttributes({ nodeOrMark: mockNode, domSpec });
+		expect(result).toBe(domSpec);
+	});
+});
 
-		const result = proxyToDOM(node);
+describe('wrapToDOMProxy', () => {
+	it('should wrap a toDOM function and add metadata', () => {
+		const toDOM: (node: PMNode | PMMark) => DOMOutputSpec = jest.fn((node) => ['span', 0]);
 
-		expect(result).toBe('string-result');
+		const wrappedToDOM = wrapToDOMProxy(toDOM);
+
+		const mockNode = {
+			type: { name: 'text' },
+			marks: [],
+		} as unknown as PMNode;
+		const result = wrappedToDOM(mockNode);
+
+		expect(toDOM).toHaveBeenCalledWith(mockNode);
+
+		expect(result).toEqual(expect.any(Array));
+		// Already cheking above
+		// @ts-expect-error
+		expect(result[1]).toEqual({
+			'data-prosemirror-content-type': 'node',
+			'data-prosemirror-node-name': 'text',
+		});
 	});
 });
 
 describe('wrapNodeSpecProxy', () => {
-	it('should wrap the toDOM method in a NodeSpec', () => {
-		const mockToDOM = jest.fn((node) => ['span', {}]);
-		const nodeSpec = { toDOM: mockToDOM } as unknown as NodeSpec;
-		const proxyNodeSpec = wrapNodeSpecProxy(nodeSpec);
+	it('should wrap a NodeSpec with a proxied toDOM function', () => {
+		const spec: Record<'toDOM', (node: PMNode | PMMark) => DOMOutputSpec> = {
+			toDOM: jest.fn((node) => ['p', 0]),
+		};
 
-		const node = {
-			type: { name: 'inline', isBlock: false },
+		const wrappedSpec = wrapNodeSpecProxy(spec);
+		const mockNode = {
+			type: { name: 'paragraph' },
+			marks: [],
 		} as unknown as PMNode;
+		const result = wrappedSpec.toDOM(mockNode);
 
-		const result = proxyNodeSpec.toDOM!(node);
-
-		expect(result).toEqual(['span', { 'data-prosemirror-node-name': 'inline' }]);
-	});
-
-	it('should not modify other properties', () => {
-		const nodeSpec = {
-			toDOM: jest.fn(),
-			anotherProperty: 'test-value',
-		};
-		const proxyNodeSpec = wrapNodeSpecProxy(nodeSpec);
-
-		expect(proxyNodeSpec.anotherProperty).toBe('test-value');
-	});
-
-	it('should return the original result if toDOM is not a function', () => {
-		const nodeSpec = {
-			anotherProperty: 'test-value',
-		};
-		const proxyNodeSpec = wrapNodeSpecProxy(nodeSpec);
-
-		expect(proxyNodeSpec.anotherProperty).toBe('test-value');
+		expect(spec.toDOM).toHaveBeenCalledWith(mockNode);
+		// Already cheking above
+		// @ts-expect-error
+		expect(result[1]).toEqual({
+			'data-prosemirror-content-type': 'node',
+			'data-prosemirror-node-name': 'paragraph',
+		});
 	});
 });

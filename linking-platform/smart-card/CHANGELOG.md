@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 29.1.0
+
+### Minor Changes
+
+- [#149644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149644)
+  [`5a157fb05e298`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a157fb05e298) -
+  [ux] Enable new icons behind a feature flag.
+- [#148475](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148475)
+  [`09e912b75c96d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09e912b75c96d) -
+  [ux] Enable new icons behind a feature flag.
+- [#148475](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148475)
+  [`8a89b1fabdecc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a89b1fabdecc) -
+  [ux] Enable new icons behind a feature flag.
+
 ## 29.0.3
 
 ### Patch Changes

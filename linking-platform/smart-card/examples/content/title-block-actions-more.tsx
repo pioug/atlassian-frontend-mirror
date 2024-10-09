@@ -1,7 +1,7 @@
+import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
 import React from 'react';
 import { ActionName, TitleBlock } from '../../src';
 import ExampleContainer from './example-container';
-import LikeIcon from '@atlaskit/icon/glyph/like';
 
 export default () => (
 	<ExampleContainer>
@@ -9,8 +9,7 @@ export default () => (
 			actions={[
 				{
 					name: ActionName.CustomAction,
-					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
-					icon: <LikeIcon label="Like" />,
+					icon: <LikeIcon color="currentColor" spacing="spacious" label="Like" />,
 					content: 'Like',
 					onClick: () => console.log('Like clicked!'),
 				},

@@ -75,11 +75,24 @@ export function getPasteSource(event: ClipboardEvent): PasteSource {
 	return 'uncategorized';
 }
 
-// @see https://product-fabric.atlassian.net/browse/ED-3159
-// @see https://github.com/markdown-it/markdown-it/issues/38
+/**
+ * Wrap link with angle brackets if they are not already contained in markdown url syntax (e.g. [text](url))
+ *
+ * This mitigate some issues in the markdown-it parser (or linkify where it would not parse the link correctly if it contains some characters.
+ * @see https://product-fabric.atlassian.net/browse/ED-3159
+ * @see https://github.com/markdown-it/markdown-it/issues/38
+ *
+ * This function was introduced in
+ * https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/commits/64d0f30bbe7014#platform%2Fpackages%2Ffabric%2Feditor-core%2Fsrc%2Fplugins%2Fpaste%2Futil.ts
+ *
+ * If a right angle bracket or double quote is present in the url, the url will only be escaped up to the character before the right angle bracket (this is the same behaviour as in Google Docs).
+ *
+ * Tests in platform/packages/editor/editor-plugin-paste-tests/src/__tests__/playwright/paste.spec.ts
+ * check behaviour of double quotes in url strings
+ */
 export function escapeLinks(text: string) {
-	return text.replace(/(\[([^\]]+)\]\()?((https?|ftp|jamfselfservice):\/\/[^\s"'>]+)/g, (str) => {
-		return str.match(/^(https?|ftp|jamfselfservice):\/\/[^\s"'>]+$/) ? `<${str}>` : str;
+	return text.replace(/(\[([^\]]+)\]\()?((https?|ftp|jamfselfservice):\/\/[^\s>"]+)/g, (str) => {
+		return str.match(/^(https?|ftp|jamfselfservice):\/\/[^\s>"]+$/) ? `<${str}>` : str;
 	});
 }
 

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -14,36 +14,16 @@ import { token } from '@atlaskit/tokens';
 import InlineEdit from '../src';
 
 const readViewContainerStyles = xcss({
-	display: 'flex',
-	maxWidth: '100%',
+	font: 'font.heading.large',
+	paddingBlock: 'space.100',
+	paddingInline: 'space.075',
 	wordBreak: 'break-word',
 });
 
-const ReadViewContainer: FC<{ children: string }> = ({ children }) => (
-	<Box
-		paddingBlockStart="space.150"
-		paddingBlockEnd="space.150"
-		padding="space.100"
-		xcss={readViewContainerStyles}
-		testId="read-view"
-	>
-		{children}
-	</Box>
-);
-
-const wrapperStyles = xcss({
-	font: token('font.heading.large'),
-});
-
 const textFieldStyles = css({
-	fontSize: 'inherit',
-	fontWeight: 'inherit',
-	lineHeight: 'inherit',
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > [data-ds--text-field--input]': {
-		fontSize: 'inherit',
-		fontWeight: 'inherit',
-		lineHeight: 'inherit',
+		font: token('font.heading.large'),
 	},
 });
 
@@ -52,14 +32,18 @@ const InlineEditExample = () => {
 	const [editValue, setEditValue] = useState('Field value');
 
 	return (
-		<Box padding="space.100" xcss={wrapperStyles}>
+		<Box paddingInlineStart="space.100" paddingInlineEnd="space.600">
 			<InlineEdit
 				defaultValue={editValue}
 				label="Larger text inline edit"
 				editButtonLabel={editValue || initialValue}
 				onConfirm={(value) => setEditValue(value)}
 				editView={(fieldProps) => <Textfield {...fieldProps} autoFocus css={textFieldStyles} />}
-				readView={() => <ReadViewContainer>{editValue || initialValue}</ReadViewContainer>}
+				readView={() => (
+					<Box xcss={readViewContainerStyles} testId="read-view">
+						{editValue || initialValue}
+					</Box>
+				)}
 			/>
 		</Box>
 	);

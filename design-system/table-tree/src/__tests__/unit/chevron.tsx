@@ -7,10 +7,11 @@ import Chevron from '../../components/internal/chevron';
 describe('Chevron', () => {
 	const controlledId = 'controlled_element_id';
 
-	it('should have aria-controls', () => {
+	it('should have aria-controls when expanded', () => {
 		render(
 			<div>
-				<Chevron ariaControls={controlledId} rowId="1" />,<div id={controlledId}>Element</div>
+				<Chevron isExpanded={true} ariaControls={controlledId} rowId="1" />,
+				<div id={controlledId}>Element</div>
 			</div>,
 		);
 

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.13.0
+
+### Minor Changes
+
+- [#149901](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149901)
+  [`0a87dbe9678bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a87dbe9678bf) -
+  [ux] EDM-10373 Fix link pasting with quotes
+
 ## 1.12.10
 
 ### Patch Changes

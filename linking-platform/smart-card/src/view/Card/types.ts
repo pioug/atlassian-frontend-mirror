@@ -47,8 +47,17 @@ interface ActionProps {
 }
 
 interface HoverPreviewProps extends ActionProps {
+	/**
+	 * Flag to display hover preview on hover.
+	 */
 	showHoverPreview?: boolean;
+	/**
+	 * Configuration for hover card.
+	 */
 	hoverPreviewOptions?: HoverPreviewOptions;
+	/**
+	 * Flag to display unresolved views on hover preview.
+	 */
 	showAuthTooltip?: boolean;
 }
 
@@ -111,13 +120,20 @@ export interface BaseCardProps {
 }
 
 export interface InlineProps extends HoverPreviewProps {
+	/**
+	 * By default, inline resolving states show a frame with a spinner on the left.
+	 * An alternative is to remove the frame and place the spinner on the right by setting this value to `on-right-without-skeleton`.
+	 * This property is specific to inline links in the editor.
+	 */
 	inlinePreloaderStyle?: InlinePreloaderStyle;
-	/** A flag that determines whether a card is in a hover state in edit mode. Currently used for inline links only */
+	/**
+	 * A flag that determines whether a card is in a hover state. Currently used for inline links in editor only.
+	 */
 	isHovered?: boolean;
 	/**
 	 * When set to true, the text fragment will be removed from the title.
 	 * This will have no impact on the url and text highlighting will still persist in the url,
-	 * however the the text fragment will be stripped from the title of the smart card.
+	 * however the text fragment will be stripped from the title of the smart card.
 	 * For example, when set to true: "my name | :~:text=highlight this" will be displayed as "my name"
 	 */
 	removeTextHighlightingFromTitle?: boolean;
@@ -125,7 +141,9 @@ export interface InlineProps extends HoverPreviewProps {
 	 * When defined, this placeholder will be displayed while the smart card is resolving. This is only useful for inline cards.
 	 */
 	resolvingPlaceholder?: string;
-	/** When set to true, inline cards will be truncated to one line. */
+	/**
+	 * When set to true, inline cards will be truncated to one line
+	 */
 	truncateInline?: boolean;
 }
 

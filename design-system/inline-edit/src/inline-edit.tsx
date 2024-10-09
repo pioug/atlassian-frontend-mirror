@@ -8,7 +8,6 @@ import React, { useCallback, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import __noop from '@atlaskit/ds-lib/noop';
 import Field from '@atlaskit/form/Field';
 import Form from '@atlaskit/form/Form';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -50,8 +49,8 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 		editView,
 		analyticsContext,
 		onConfirm: providedOnConfirm,
-		onCancel: providedOnCancel = __noop,
-		onEdit: providedOnEdit = __noop,
+		onCancel: providedOnCancel,
+		onEdit: providedOnEdit,
 		testId,
 	} = props;
 
@@ -67,14 +66,14 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 		if (isControlled) {
 			setEditingState(false);
 		}
-		providedOnCancel();
+		providedOnCancel?.();
 	}, [isControlled, providedOnCancel]);
 
 	const onEditRequested = useCallback(() => {
 		if (isControlled) {
 			setEditingState(true);
 		}
-		providedOnEdit();
+		providedOnEdit?.();
 		if (shouldBeEditing && editViewRef.current) {
 			editViewRef.current.focus();
 		}

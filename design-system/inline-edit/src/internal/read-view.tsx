@@ -11,8 +11,6 @@ import { Pressable, xcss } from '@atlaskit/primitives';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { borderRadius } from './constants';
-
 const readViewContainerStyles = css({
 	lineHeight: 1,
 });
@@ -46,8 +44,7 @@ const readViewWrapperStyles = css({
 	width: 'auto',
 	maxWidth: '100%',
 	border: '2px solid transparent',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: borderRadius,
+	borderRadius: token('border.radius', '3px'),
 	transition: 'background 0.2s',
 	'&:hover': {
 		background: token('color.background.neutral.subtle.hovered', N30),
@@ -91,7 +88,9 @@ const ReadView = ({
 
 	const onReadViewClick = (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
 		const element = event.target as HTMLElement;
-		/** If a link is clicked in the read view, default action should be taken */
+		/**
+		 * If a link is clicked in the read view, default action should be taken
+		 */
 		if (element.tagName.toLowerCase() !== 'a' && !mouseHasMovedAfterMouseDown(event)) {
 			event.preventDefault();
 			onEditRequested();

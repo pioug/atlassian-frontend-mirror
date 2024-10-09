@@ -27,4 +27,5 @@ const InlineEditExample = () => {
 		</Box>
 	);
 };
+
 export default InlineEditExample;

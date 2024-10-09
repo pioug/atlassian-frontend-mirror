@@ -14,8 +14,6 @@ import CancelIcon from '@atlaskit/icon/glyph/cross';
 import { B400, N0, N20A, N30A, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { fontSize } from './constants';
-
 const buttonsContainerStyles = css({
 	display: 'flex',
 	position: 'absolute',
@@ -32,8 +30,7 @@ const buttonWrapperBaseStyles = css({
 	backgroundColor: token('elevation.surface.overlay', N0),
 	borderRadius: token('border.radius', '3px'),
 	boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	fontSize: fontSize,
+	font: token('font.body'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:last-child': {
 		marginInlineStart: token('space.050', '4px'),

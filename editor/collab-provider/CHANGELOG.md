@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 9.42.5
+
+### Patch Changes
+
+- [#149960](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149960)
+  [`46d3d1b5db7c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46d3d1b5db7c6) -
+  Provide more details for collab provider readme
+
 ## 9.42.4
 
 ### Patch Changes

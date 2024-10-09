@@ -11,20 +11,50 @@ import {
 import { iconGoogleDrive } from '../images';
 import { mocks, overrideEmbedContent } from './common';
 
+const resolve = (
+	url: string,
+	response: JsonLd.Response<JsonLd.Data.BaseData>,
+	overrideData?: Partial<JsonLd.Data.BaseData>,
+): Promise<JsonLd.Response<JsonLd.Data.BaseData>> =>
+	Promise.resolve({
+		...response,
+		data: { ...response.data, ...overrideData, url },
+	} as JsonLd.Response<JsonLd.Data.BaseData>);
+
 export const ResolvedClientUrl = AtlasProject.data.url;
 export const ResolvedClientEmbedUrl = YouTubeVideoUrl;
 export const ResolvedClientEmbedInteractiveUrl = GoogleDocUrl;
+export const ResolvedClientWithLongTitleUrl = `${AtlasProject.data.url}/long-title`;
+export const ResolvedClientWithTextHighlightInTitleUrl = `${AtlasProject.data.url}/text-highlight-title`;
 export class ResolvedClient extends Client {
 	fetchData(url: string) {
 		switch (url) {
-			case GoogleDocUrl:
-				return Promise.resolve(GoogleDoc);
-			case YouTubeVideoUrl:
-				return Promise.resolve(YouTubeVideo);
+			case ResolvedClientEmbedUrl:
+				return resolve(url, YouTubeVideo);
+			case ResolvedClientEmbedInteractiveUrl:
+				return resolve(url, GoogleDoc);
+			case ResolvedClientWithLongTitleUrl:
+				return resolve(url, AtlasProject as JsonLd.Response<JsonLd.Data.BaseData>, {
+					name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id lectus lorem. Phasellus luctus vulputate diam vitae sagittis. Fusce laoreet pulvinar dapibus.',
+				});
+			case ResolvedClientWithTextHighlightInTitleUrl:
+				return resolve(url, AtlasProject as JsonLd.Response<JsonLd.Data.BaseData>, {
+					name: `${AtlasProject.data.name} | :~:text=highlight this`,
+				});
 		}
+
 		const response = { ...AtlasProject };
 		response.data.preview.href = overrideEmbedContent;
 		return Promise.resolve(response as JsonLd.Response);
+	}
+}
+
+export const ResolvingClientUrl = 'https://resolving-link';
+export class ResolvingClient extends CardClient {
+	fetchData(url: string): Promise<JsonLd.Response> {
+		return new Promise(() => {
+			// resolve() never get called to keep status as resolving forever
+		});
 	}
 }
 

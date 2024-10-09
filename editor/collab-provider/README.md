@@ -17,7 +17,14 @@ This guide outlines two primary use cases for integrating with the collab-provid
         - `NullDocumentService` from `null-document-service.ts`
         - `NullApi` from `null-api.ts`
 
-For a detailed comparison of these integration approaches, refer to the source code in `../platform/packages/editor/collab-provider/src/provider/index.ts`.
+For a detailed comparison of these integration approaches, refer to the source code in `../platform/packages/editor/collab-provider/src/provider/index.ts`
+```
+// Full integration
+- setup({getState, onSyncUpError}: {getState: () => EditorState; onSyncUpError?: SyncUpErrorFunction;})
+
+// Partial Integration, initialize the provider with passing config isPresenceOnly as true
+- setupForPresenceOnly(clientId: string)
+```
 
 # Support
 If you have further questions or require assistance, please reach out to the [#team-cc-editor-services](https://atlassian.enterprise.slack.com/archives/C02GEULKMLN) on Slack.

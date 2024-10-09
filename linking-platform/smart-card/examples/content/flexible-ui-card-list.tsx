@@ -1,11 +1,6 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { Grid } from '@atlaskit/primitives';
 import { type JsonLd } from 'json-ld-types';
-import { token } from '@atlaskit/tokens';
+import React from 'react';
 import {
 	Card,
 	Client,
@@ -16,20 +11,6 @@ import {
 	TitleBlock,
 } from '../../src';
 import { response1, response2, response3 } from './example-responses';
-
-const styles = css({
-	listStyle: 'none',
-	paddingLeft: 0,
-	display: 'flex',
-	alignItems: 'stretch',
-	justifyContent: 'center',
-	gap: token('space.100', '8px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'> li': {
-		margin: 0,
-		width: '190px',
-	},
-});
 
 const examples = {
 	'https://examples/01': response2,
@@ -45,26 +26,25 @@ class CustomClient extends Client {
 
 export default () => (
 	<Provider client={new CustomClient('stg')}>
-		<ul css={styles}>
+		<Grid columnGap="space.100" templateColumns="1fr 1fr 1fr">
 			{Object.keys(examples).map((url: string, idx: number) => (
-				<li key={idx}>
-					<Card
-						appearance="block"
-						url={url}
-						ui={{
-							clickableContainer: true,
-							size: SmartLinkSize.Small,
-						}}
-					>
-						<TitleBlock maxLines={1} />
-						<MetadataBlock
-							primary={[{ name: ElementName.AuthorGroup }]}
-							secondary={[{ name: ElementName.ReactCount }, { name: ElementName.CommentCount }]}
-						/>
-						<MetadataBlock primary={[{ name: ElementName.CreatedOn }]} />
-					</Card>
-				</li>
+				<Card
+					appearance="block"
+					key={idx}
+					url={url}
+					ui={{
+						clickableContainer: true,
+						size: SmartLinkSize.Small,
+					}}
+				>
+					<TitleBlock maxLines={1} />
+					<MetadataBlock
+						primary={[{ name: ElementName.AuthorGroup }]}
+						secondary={[{ name: ElementName.ReactCount }, { name: ElementName.CommentCount }]}
+					/>
+					<MetadataBlock primary={[{ name: ElementName.CreatedOn }]} />
+				</Card>
 			))}
-		</ul>
+		</Grid>
 	</Provider>
 );

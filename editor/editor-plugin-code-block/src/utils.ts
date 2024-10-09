@@ -32,7 +32,6 @@ export function getAllCodeBlockNodesInDoc(state: EditorState): NodeWithPos[] {
 
 export function getAllChangedCodeBlocksInTransaction(
 	tr: ReadonlyTransaction,
-	state: EditorState,
 ): NodeWithPos[] | null {
 	const changedCodeBlocks: NodeWithPos[] = [];
 	const nodePositions = new Set();
@@ -40,7 +39,7 @@ export function getAllChangedCodeBlocksInTransaction(
 		const mapResult = step.getMap();
 
 		mapResult.forEach((oldStart, oldEnd, newStart, newEnd) => {
-			state.doc.nodesBetween(newStart, newEnd, (node, pos) => {
+			tr.doc.nodesBetween(newStart, Math.min(newEnd, tr.doc.content.size), (node, pos) => {
 				if (node.type.name === 'codeBlock') {
 					if (!nodePositions.has(pos)) {
 						nodePositions.add(pos);

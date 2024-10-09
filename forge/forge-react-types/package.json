@@ -34,7 +34,7 @@
 		"@atlaskit/checkbox": "^14.0.0",
 		"@atlaskit/code": "^15.6.0",
 		"@atlaskit/datetime-picker": "^15.1.0",
-		"@atlaskit/dynamic-table": "^15.1.0",
+		"@atlaskit/dynamic-table": "^15.2.0",
 		"@atlaskit/empty-state": "^7.11.0",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/heading": "^2.4.0",

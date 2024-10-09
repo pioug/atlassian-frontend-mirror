@@ -1,5 +1,14 @@
 # @atlaskit/inline-edit
 
+## 13.7.5
+
+### Patch Changes
+
+- [`ccf8247b000e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ccf8247b000e5) -
+  Changes to spacing and typography internal styles for improved compatiblity with
+  `@atlaskit/primitives`. Examples in documentation have updated to reflect recommended approach to
+  compose primitives.
+
 ## 13.7.4
 
 ### Patch Changes

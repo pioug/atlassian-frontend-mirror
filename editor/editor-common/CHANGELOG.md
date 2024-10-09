@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 93.1.4
+
+### Patch Changes
+
+- [#149749](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149749)
+  [`0b3df6a89bf6c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0b3df6a89bf6c) -
+  [ux] ED-24886 Set marginTop of first heading with right or centre align to default marginTop
+
 ## 93.1.3
 
 ### Patch Changes

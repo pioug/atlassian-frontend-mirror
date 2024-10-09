@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 1.6.3
+
+### Patch Changes
+
+- [#149796](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149796)
+  [`e1f44421b5b78`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e1f44421b5b78) -
+  Fix Issue Organizer avatar
+
 ## 1.6.2
 
 ### Patch Changes

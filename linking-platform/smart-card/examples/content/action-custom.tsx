@@ -4,7 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import PremiumIcon from '@atlaskit/icon/core/migration/premium';
 import { token } from '@atlaskit/tokens';
 import { ActionName, FooterBlock } from '../../src';
@@ -23,8 +23,7 @@ export default () => (
 			actions={[
 				{
 					name: ActionName.CustomAction,
-					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
-					icon: <DownloadIcon label="download" />,
+					icon: <DownloadIcon color="currentColor" spacing="spacious" label="download" />,
 					content: 'Download',
 					onClick: () => {},
 				},

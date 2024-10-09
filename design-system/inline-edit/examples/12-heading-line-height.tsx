@@ -15,11 +15,11 @@ import { token } from '@atlaskit/tokens';
 import InlineEdit from '../src';
 
 const messageStyles = xcss({
-	borderRadius: '3px',
+	borderRadius: 'border.radius',
 });
 
 const ReadViewContainer: FC<{ children: ReactNode }> = ({ children }) => (
-	<Box paddingBlock="space.0" testId="read-view">
+	<Box paddingBlock="space.100" paddingInline="space.075" testId="read-view">
 		{children}
 	</Box>
 );
@@ -40,18 +40,15 @@ const Message: FC<{ children: string }> = ({ children }) => (
 );
 
 const HeadingOne: FC<{ children: string }> = ({ children }) => (
-	<Box paddingBlock="space.100" paddingInline="space.0">
-		<Heading size="large" as="h1">
-			{children}
-		</Heading>
-	</Box>
+	<Heading size="large" as="h1">
+		{children}
+	</Heading>
 );
 
 const textFieldStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > [data-ds--text-field--input]': {
-		margin: `${token('space.negative.150', '-12px')}  ${token('space.negative.050', '-4px')}`,
-		fontSize: token('font.heading.xlarge', '24px'),
+		font: token('font.heading.large'),
 	},
 });
 
@@ -71,16 +68,14 @@ const InlineEditExample = () => {
 				label="Inline edit"
 				editButtonLabel={editValue || initialValue}
 				editView={({ errorMessage, ...fieldProps }) => (
-					<Box paddingBlockStart="space.100" paddingBlockEnd="space.100">
-						<Textfield
-							{...fieldProps}
-							// eslint-disable-next-line jsx-a11y/no-autofocus
-							autoFocus
-							// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-							css={textFieldStyles}
-							aria-describedby="description-message"
-						/>
-					</Box>
+					<Textfield
+						{...fieldProps}
+						// eslint-disable-next-line jsx-a11y/no-autofocus
+						autoFocus
+						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+						css={textFieldStyles}
+						aria-describedby="description-message"
+					/>
 				)}
 				readView={() => (
 					<ReadViewContainer>

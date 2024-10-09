@@ -1,4 +1,4 @@
-import React, { type FC, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
@@ -6,22 +6,11 @@ import Textfield from '@atlaskit/textfield';
 import InlineEdit from '../src';
 
 const readViewContainerStyles = xcss({
-	display: 'flex',
-	maxWidth: '100%',
+	font: 'font.body',
+	paddingBlock: 'space.100',
+	paddingInline: 'space.075',
 	wordBreak: 'break-word',
 });
-
-const ReadViewContainer: FC<{ children: string }> = ({ children }) => (
-	<Box
-		paddingBlockStart="space.150"
-		paddingBlockEnd="space.150"
-		padding="space.100"
-		xcss={readViewContainerStyles}
-		testId="read-view"
-	>
-		{children}
-	</Box>
-);
 
 const InlineEditExample = () => {
 	const initialValue = 'Basic Field value';
@@ -35,7 +24,11 @@ const InlineEditExample = () => {
 				label="Inline edit"
 				editButtonLabel={editValue || initialValue}
 				editView={({ errorMessage, ...fieldProps }) => <Textfield {...fieldProps} autoFocus />}
-				readView={() => <ReadViewContainer>{editValue || initialValue}</ReadViewContainer>}
+				readView={() => (
+					<Box xcss={readViewContainerStyles} testId="read-view">
+						{editValue || initialValue}
+					</Box>
+				)}
 				onConfirm={(value) => setEditValue(value)}
 			/>
 		</Box>

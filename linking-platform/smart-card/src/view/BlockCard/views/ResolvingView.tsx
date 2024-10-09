@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import DocumentFilledIcon from '@atlaskit/icon/glyph/document-filled';
+import DocumentFilledIcon from '@atlaskit/icon/core/migration/file--editor-file';
 import { N50, N90 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -50,11 +50,11 @@ export const ResolvingView = ({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		className={blockCardResolvingViewClassName}
 	>
-		{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19718 */}
 		<DocumentFilledIcon
-			size="small"
-			primaryColor={token('color.icon.subtle', N50)}
+			LEGACY_size="medium"
+			color={token('color.icon.subtle', N50)}
 			label="document-icon"
+			LEGACY_margin="0 -4.3px 0 -4px"
 		/>
 		<span css={messageStyles}>
 			<FormattedMessage {...messages.loading} />

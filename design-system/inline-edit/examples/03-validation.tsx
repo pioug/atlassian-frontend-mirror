@@ -1,4 +1,4 @@
-import React, { type FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { ErrorMessage } from '@atlaskit/form';
@@ -7,29 +7,12 @@ import TextField from '@atlaskit/textfield';
 
 import InlineEdit from '../src';
 
-// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
-interface Props {
-	isCompact?: boolean;
-	children: string;
-}
-
 const readViewContainerStyles = xcss({
-	display: 'flex',
-	maxWidth: '100%',
+	font: 'font.body',
+	paddingBlock: 'space.100',
+	paddingInline: 'space.075',
 	wordBreak: 'break-word',
 });
-
-const ReadViewContainer: FC<Props> = ({ children, isCompact }) => (
-	<Box
-		paddingBlockStart="space.150"
-		paddingBlockEnd="space.150"
-		padding={isCompact ? 'space.050' : 'space.100'}
-		xcss={readViewContainerStyles}
-		testId="read-view"
-	>
-		{children}
-	</Box>
-);
 
 const editContainerStyles = xcss({
 	width: '50%',
@@ -91,7 +74,11 @@ const InlineEditExample = () => {
 						)}
 					</>
 				)}
-				readView={() => <ReadViewContainer>{editValue || initialValue}</ReadViewContainer>}
+				readView={() => (
+					<Box xcss={readViewContainerStyles} testId="read-view">
+						{editValue || initialValue}
+					</Box>
+				)}
 				onConfirm={(value) => setEditValue(value)}
 				validate={validate}
 			/>

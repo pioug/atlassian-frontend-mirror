@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
-import PeopleGroupIcon from '@atlaskit/icon/glyph/people-group';
+import PeopleGroupIcon from '@atlaskit/icon/core/migration/people-group';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -60,8 +60,7 @@ const AvatarOptionLabel = ({ data, testId }: { data: AvatarLabelOption; testId?:
 		<Flex alignItems="center" testId={testId || 'basic-filter-popup-select-option--avatar'}>
 			{data.isGroup ? (
 				<Flex alignItems="center" justifyContent="center" xcss={groupWrapperStyles}>
-					{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19580 */}
-					<PeopleGroupIcon size="small" label="" />
+					<PeopleGroupIcon color="currentColor" LEGACY_size="small" label="" />
 				</Flex>
 			) : (
 				<Avatar appearance={data.isSquare ? 'square' : 'circle'} src={data.avatar} size="xsmall" />

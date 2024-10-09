@@ -1,4 +1,4 @@
-import React, { type FC, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Box, xcss } from '@atlaskit/primitives';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
@@ -8,31 +8,14 @@ import Group from '@atlaskit/tag-group';
 import InlineEdit from '../src';
 
 const readViewContainerStyles = xcss({
-	display: 'flex',
-	maxWidth: '100%',
-	wordBreak: 'break-word',
+	font: 'font.body',
+	paddingBlock: 'space.100',
+	paddingInline: 'space.075',
 });
 
-const ReadViewContainer: FC<{ children: string }> = ({ children }) => (
-	<Box
-		paddingBlockStart="space.150"
-		paddingBlockEnd="space.150"
-		padding="space.100"
-		xcss={readViewContainerStyles}
-		testId="read-view"
-	>
-		{children}
-	</Box>
-);
-
-const EditViewContainerStyles = xcss({
-	// zIndex: 300,
+const editViewContainerStyles = xcss({
 	position: 'relative',
 });
-
-const EditViewContainer: FC<{ children: React.ReactNode }> = ({ children }) => (
-	<Box xcss={EditViewContainerStyles}>{children}</Box>
-);
 
 const selectOptions = [
 	{ label: 'Apple', value: 'Apple' },
@@ -64,13 +47,15 @@ const InlineEditExample = () => {
 				label={inlineEditLabel}
 				editButtonLabel={editValue.length > 0 ? inlineEditLabel : selectLabel}
 				editView={(fieldProps) => (
-					<EditViewContainer>
+					<Box xcss={editViewContainerStyles}>
 						<Select {...fieldProps} options={selectOptions} isMulti autoFocus openMenuOnFocus />
-					</EditViewContainer>
+					</Box>
 				)}
 				readView={() =>
 					editValue && editValue.length === 0 ? (
-						<ReadViewContainer>{selectLabel}</ReadViewContainer>
+						<Box xcss={readViewContainerStyles} testId="read-view">
+							{selectLabel}
+						</Box>
 					) : (
 						<Box padding="space.050">
 							<Group label="Selected fruits">

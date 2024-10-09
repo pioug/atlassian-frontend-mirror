@@ -1,19 +1,7 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { useState } from 'react';
 
 import { Box, xcss } from '@atlaskit/primitives';
 import TextArea from '@atlaskit/textarea';
-import {
-	fontSize as getFontSize,
-	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-	gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
 
 import InlineEdit from '../../src';
 
@@ -24,17 +12,10 @@ const containerStyles = xcss({
 	width: '70%',
 });
 
-const fontSize = getFontSize();
-const gridSize = getGridSize();
-const minRows = 2;
-const textAreaLineHeightFactor = 2.5;
-
 const readViewContainerStyles = xcss({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	minHeight: `${gridSize * textAreaLineHeightFactor * minRows}px`,
+	font: 'font.body',
+	minHeight: '4em',
 	padding: 'space.075',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-latest-xcss-syntax-typography -- Ignored via go/DSP-18766
-	lineHeight: `${(gridSize * textAreaLineHeightFactor) / fontSize}`,
 	wordBreak: 'break-word',
 });
 

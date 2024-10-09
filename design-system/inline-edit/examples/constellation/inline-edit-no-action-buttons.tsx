@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { token } from '@atlaskit/tokens';
+import { Box } from '@atlaskit/primitives';
 
 import { InlineEditableTextfield } from '../../src';
 
@@ -9,14 +9,7 @@ const InlineEditNoActionsExample = () => {
 	const [editValue, setEditValue] = useState('94538');
 
 	return (
-		<div
-			style={{
-				padding: `${token('space.100', '8px')} ${token(
-					'space.100',
-					'8px',
-				)} ${token('space.600', '48px')}`,
-			}}
-		>
+		<Box paddingInline="space.100" paddingBlockStart="space.100" paddingBlockEnd="space.600">
 			<InlineEditableTextfield
 				testId="editable-text-field"
 				defaultValue={editValue}
@@ -26,7 +19,7 @@ const InlineEditNoActionsExample = () => {
 				placeholder={placeholderLabel}
 				hideActionButtons
 			/>
-		</div>
+		</Box>
 	);
 };
 export default InlineEditNoActionsExample;

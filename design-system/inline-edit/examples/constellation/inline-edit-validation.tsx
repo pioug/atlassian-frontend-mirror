@@ -1,22 +1,10 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useEffect, useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { Box, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
-import {
-	fontSize as getFontSize,
-	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-	gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../../src';
@@ -33,19 +21,12 @@ const errorIconContainerStyles = xcss({
 	lineHeight: '100%',
 });
 
-const fontSize = getFontSize();
-const gridSize = getGridSize();
-
 const readViewContainerStyles = xcss({
 	display: 'flex',
+	font: 'font.body',
 	maxWidth: '100%',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	minHeight: `${(gridSize * 2.5) / fontSize}em`,
 	paddingBlock: 'space.100',
 	paddingInline: 'space.075',
-	fontSize: `${fontSize}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	lineHeight: `${(gridSize * 2.5) / fontSize}`,
 	wordBreak: `break-word`,
 });
 

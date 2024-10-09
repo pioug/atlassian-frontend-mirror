@@ -47,7 +47,7 @@ const Chevron = ({
 				onClick={onExpandToggle}
 				spacing="compact"
 				icon={isExpanded ? ChevronDownIcon : ChevronRightIcon}
-				aria-controls={ariaControls}
+				aria-controls={isExpanded ? ariaControls : undefined}
 				label={isExpanded ? getLabel(collapseLabel) : getLabel(expandLabel)}
 			/>
 		</ChevronContainer>

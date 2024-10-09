@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import staticData from '../../../examples/data-cleancode-toc.json';
 import TableTree, { Cell, Header, Headers, Row, Rows } from '../../index';
@@ -440,6 +441,34 @@ describe('expanding and collapsing', () => {
 		render(jsxTableTree);
 
 		expect(screen.getByText(/Expand row item1/)).toBeInTheDocument();
+	});
+
+	it('should have proper aria attributes on the row when collapsed and expanded', async () => {
+		const user = userEvent.setup();
+
+		render(
+			<TableTree>
+				<Rows
+					// Only include child that has nested children
+					items={[nestedData[1]]}
+					render={({ title, page, id, numbering, children }: any) => (
+						<Row itemId={id} items={children} hasChildren={children?.length}>
+							<Cell>{title}</Cell>
+							<Cell>{numbering}</Cell>
+							<Cell>{page}</Cell>
+						</Row>
+					)}
+				/>
+			</TableTree>,
+		);
+
+		const row = screen.getAllByRole('row')[0];
+		const expandButton = screen.getByRole('button');
+		expect(row).toHaveAttribute('aria-expanded', 'false');
+		expect(expandButton).not.toHaveAttribute('aria-controls');
+		await user.click(expandButton);
+		expect(row).toHaveAttribute('aria-expanded', 'true');
+		expect(expandButton).toHaveAttribute('aria-controls');
 	});
 });
 

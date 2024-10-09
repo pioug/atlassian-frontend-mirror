@@ -211,11 +211,7 @@ function Row<Item extends { id: string }>({
 					extendedLabel={extendedLabel}
 					isExpanded={isProvidedExpanded !== undefined ? isProvidedExpanded : isExpandedState}
 					onExpandToggle={onExpandToggle}
-					ariaControls={
-						(isProvidedExpanded !== undefined ? isProvidedExpanded : isExpandedState) && !!itemId
-							? toItemId(itemId)
-							: undefined
-					}
+					ariaControls={!!itemId ? toItemId(itemId) : undefined}
 					rowId={!!itemId ? itemId : ''}
 				/>,
 			].concat(cellContent);

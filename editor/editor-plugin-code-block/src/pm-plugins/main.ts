@@ -151,7 +151,7 @@ export const createPlugin = ({
 
 					if (fg('editor_support_code_block_wrapping')) {
 						const codeBlockNodes = fg('editor_code_wrapping_perf_improvement_ed-25141')
-							? getAllChangedCodeBlocksInTransaction(tr, newState)
+							? getAllChangedCodeBlocksInTransaction(tr)
 							: getAllCodeBlockNodesInDoc(newState);
 
 						if (codeBlockNodes) {

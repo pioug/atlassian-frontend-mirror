@@ -11,11 +11,6 @@ import { Box, xcss } from '@atlaskit/primitives';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Tag from '@atlaskit/tag';
 import Group from '@atlaskit/tag-group';
-import {
-	fontSize as getFontSize,
-	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-	gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
 
 import InlineEdit from '../../src';
 
@@ -25,20 +20,10 @@ const containerStyles = xcss({
 	paddingBlockEnd: 'space.600',
 });
 
-const fontSize = getFontSize();
-const gridSize = getGridSize();
-
 const readViewContainerStyles = xcss({
-	display: 'flex',
-	maxWidth: '100%',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: `${(gridSize * 2.5) / fontSize}em`,
+	font: 'font.body',
 	paddingBlock: 'space.100',
 	paddingInline: 'space.075',
-	// eslint-disable-next-line @atlaskit/design-system/use-latest-xcss-syntax-typography
-	fontSize: `${fontSize}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-latest-xcss-syntax-typography -- Ignored via go/DSP-18766
-	lineHeight: `${(gridSize * 2.5) / fontSize}`,
 });
 
 const editViewContainerStyles = xcss({

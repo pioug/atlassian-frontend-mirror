@@ -16,8 +16,8 @@ export interface WithAnalyticsEventsProps {
 
 const withAnalyticsEvents =
 	(createEventMap: CreateEventMap = {}) =>
-	<Props extends WithAnalyticsEventsProps, Component>(
-		WrappedComponent: React.ComponentType<Props> & Component,
+	<Props, Component>(
+		WrappedComponent: React.ComponentType<WithAnalyticsEventsProps & Props> & Component,
 	) => {
 		type WrappedProps = JSX.LibraryManagedAttributes<
 			Component,

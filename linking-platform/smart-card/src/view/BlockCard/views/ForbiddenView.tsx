@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { type MouseEvent } from 'react';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import LockIcon from '@atlaskit/icon/glyph/lock-filled';
+import LockIcon from '@atlaskit/icon/utility/migration/lock-locked--lock-filled';
 
 import { Frame } from '../components/Frame';
 import { Provider } from '../components/Provider';
@@ -25,6 +25,11 @@ import { Link } from '../components/Link';
 import { UnresolvedText } from '../components/UnresolvedText';
 import { type RequestAccessContextProps } from '../../types';
 import type { CardActionOptions } from '../../Card/types';
+import { Flex, xcss } from '@atlaskit/primitives';
+
+const iconWrapperStyles = xcss({
+	marginRight: 'space.050',
+});
 
 export interface PermissionDeniedProps {
 	/* Actions which can be taken on the URL */
@@ -103,13 +108,15 @@ export const ForbiddenView = ({
 					<Byline>
 						<UnresolvedText
 							icon={
-								// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497
-								<LockIcon
-									label="forbidden-lock-icon"
-									size="small"
-									primaryColor={token('color.icon.danger', R300)}
-									testId={`${testId}-lock-icon`}
-								/>
+								<Flex alignItems="center" xcss={iconWrapperStyles}>
+									<LockIcon
+										label="forbidden-lock-icon"
+										LEGACY_size="small"
+										color={token('color.icon.danger', R300)}
+										testId={`${testId}-lock-icon`}
+										LEGACY_margin={`0 ${token('space.negative.050')} 0 0`}
+									/>
+								</Flex>
 							}
 							text={
 								<FormattedMessage

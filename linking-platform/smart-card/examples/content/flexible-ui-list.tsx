@@ -1,11 +1,6 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { Stack } from '@atlaskit/primitives';
 import { type JsonLd } from 'json-ld-types';
-import { token } from '@atlaskit/tokens';
+import React from 'react';
 import {
 	ActionName,
 	Card,
@@ -18,16 +13,6 @@ import {
 	TitleBlock,
 } from '../../src';
 import { response2, response3, response4 } from './example-responses';
-
-const styles = css({
-	listStyle: 'none',
-	marginTop: token('space.0', '0px'),
-	paddingLeft: token('space.0', '0px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'> li': {
-		padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
-	},
-});
 
 const examples = {
 	'https://examples/01': response3,
@@ -43,45 +28,44 @@ class CustomClient extends Client {
 
 export default () => (
 	<Provider client={new CustomClient('stg')}>
-		<ul css={styles}>
+		<Stack space="space.100">
 			{Object.keys(examples).map((url: string, idx: number) => (
-				<li key={idx}>
-					<Card
-						appearance="inline"
-						ui={{
-							clickableContainer: true,
-							hideBackground: true,
-							hideElevation: true,
-							hidePadding: true,
-							size: SmartLinkSize.Large,
+				<Card
+					appearance="inline"
+					key={idx}
+					ui={{
+						clickableContainer: true,
+						hideBackground: true,
+						hideElevation: true,
+						hidePadding: true,
+						size: SmartLinkSize.Large,
 
-							theme: SmartLinkTheme.Black,
-						}}
-						url={url}
-					>
-						<TitleBlock
-							metadata={[
-								{ name: ElementName.State },
-								{ name: ElementName.CommentCount },
-								{ name: ElementName.AuthorGroup },
-							]}
-							actions={[
-								{
-									name: ActionName.EditAction,
-									onClick: () => console.log('Edit clicked!'),
-								},
-								{
-									name: ActionName.DeleteAction,
-									onClick: () => console.log('Delete clicked!'),
-								},
-							]}
-							showActionOnHover={true}
-							position={SmartLinkPosition.Center}
-							maxLines={1}
-						/>
-					</Card>
-				</li>
+						theme: SmartLinkTheme.Black,
+					}}
+					url={url}
+				>
+					<TitleBlock
+						metadata={[
+							{ name: ElementName.State },
+							{ name: ElementName.CommentCount },
+							{ name: ElementName.AuthorGroup },
+						]}
+						actions={[
+							{
+								name: ActionName.EditAction,
+								onClick: () => console.log('Edit clicked!'),
+							},
+							{
+								name: ActionName.DeleteAction,
+								onClick: () => console.log('Delete clicked!'),
+							},
+						]}
+						showActionOnHover={true}
+						position={SmartLinkPosition.Center}
+						maxLines={1}
+					/>
+				</Card>
 			))}
-		</ul>
+		</Stack>
 	</Provider>
 );

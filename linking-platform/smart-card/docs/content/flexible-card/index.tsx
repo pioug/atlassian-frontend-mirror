@@ -2,60 +2,34 @@ import { code } from '@atlaskit/docs';
 import React from 'react';
 import CustomExample from '../../utils/custom-example';
 import customMd from '../../utils/custom-md';
+import prerequisites from '../prerequisites';
 
 export default customMd`
-
-## Flexible Smart Links
 
 Flexible Smart Links, also known as FlexibleCard, Flexible UI, and Flex UI, is a composable system made up of data elements inside UI blocks,
 built by Linking Platform to aid Atlassian product teams in creating their own contextually appropriate Smart Link views,
 without being dependent on Linking Platform.
 This system does not affect inline, block or embed views of links.
 
-### Prerequisites
+&nbsp;
 
-The following packages are  \`@atlaskit/smart-card\`'s peer dependencies
-and required for Smart Links to function properly.
-Please check our [package.json](https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/linking-platform/smart-card/package.json) for versioning.
-
-* \`react\`
-* \`react-dom\`
-* \`react-intl-next\`
-* \`@atlaskit/link-provider\`
+${prerequisites}
 
 ### Installation
 
 ${code`yarn add @atlaskit/smart-card`}
 
-### Quick start
+### Usage
 
-Here's the bare minimum to get Flexible Smart Links running!
-
-* **Provider** or **SmartCardProvider** contains react context
-and HTTP client that powers Smart Links. It is recommended to have single
-Provider per page for the best performance.
-
-* **Client** is a HTTP client which interacts with the
-Object Resolver Service, or a service of your own. Use \`stg\`/\`staging\` for staging
-and \`prod\`/\`production\` for production environment.
-
-* **Card** or often known as **SmartCard** is the top level component of Smart Links.
-It offers a default inline, block and embed appearances, and now flexible ui.
-(Card's block appearance is not to be confused with Flexible Smart Links blocks.)
-
-* **TitleBlock** is a compulsory block and the trigger of the Flexible Smart
-Links UI rendering.
-
-Really, it's a simple matter of putting TitleBlock component inside the Smart Links Card component. 😎
+The following code example will render the Flexible Smart Link with basic configuration.
 
 ${code`
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { Card, TitleBlock } from '@atlaskit/smart-card';
 
-// To use staging environment, you must be logged in at
-// https://pug.jira-dev.com
+// To use staging environment, you must be logged in at https://pug.jira-dev.com
 <SmartCardProvider client={new CardClient('stg')}>
-  <Card appearance="inline" url="https://www.atlassian.com/">
+  <Card appearance="block" url="https://www.atlassian.com/">
     <TitleBlock />
   </Card>
 </SmartCardProvider>

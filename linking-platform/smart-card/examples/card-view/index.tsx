@@ -12,6 +12,7 @@ import {
 	NotFoundClient,
 	NotFoundWithSiteAccessExistsClient,
 	ResolvedClient,
+	ResolvingClient,
 	UnAuthClient,
 	UnAuthClientWithNoAuthFlow,
 } from '../utils/custom-client';
@@ -22,6 +23,7 @@ const CardViewExample = ({
 	...props
 }: Omit<React.ComponentProps<typeof CardView>, 'client'>) => (
 	<React.Fragment>
+		<CardViewSection {...props} client={new ResolvingClient()} title="[Resolving]" />
 		<CardViewSection {...props} client={new ResolvedClient()} title="[Resolved]" url={url} />
 		<CardViewSection {...props} client={new ForbiddenClient()} title="[Forbidden] Default" />
 		<CardViewSection

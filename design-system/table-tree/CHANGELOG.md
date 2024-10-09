@@ -1,5 +1,13 @@
 # @atlaskit/table-tree
 
+## 10.0.4
+
+### Patch Changes
+
+- [#148468](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/148468)
+  [`cc44534049fd3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc44534049fd3) -
+  Ensure `aria-controls` is only present on chevron when related element is present in the DOM.
+
 ## 10.0.3
 
 ### Patch Changes

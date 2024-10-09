@@ -1,20 +1,13 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import ExampleContainer from './example-container';
+import { Inline } from '@atlaskit/primitives';
+import React from 'react';
 import { DeleteAction, EditAction } from '../../src/view/FlexibleCard/components/actions';
+import ExampleContainer from './example-container';
 
-const styles = css({
-	display: 'flex',
-});
 export default () => (
 	<ExampleContainer>
-		<div css={styles}>
+		<Inline space="space.100">
 			<EditAction onClick={() => {}} />
 			<DeleteAction onClick={() => {}} />
-		</div>
+		</Inline>
 	</ExampleContainer>
 );

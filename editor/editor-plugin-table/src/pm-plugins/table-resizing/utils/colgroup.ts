@@ -4,6 +4,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 
+import { COLUMN_MIN_WIDTH } from './consts';
 import { getScalingPercentForTableWithoutWidth, getTableScalingPercent } from './misc';
 
 type Col = Array<string | { [name: string]: string }>;
@@ -151,4 +152,12 @@ function renderColgroupFromNode(
 export const getColgroupChildrenLength = (table: PmNode): number => {
 	const map = TableMap.get(table);
 	return map.width;
+};
+
+export const getResizerMinWidth = (node: PmNode) => {
+	const currentColumnCount = getColgroupChildrenLength(node);
+	const minColumnWidth = Math.min(3, currentColumnCount) * COLUMN_MIN_WIDTH;
+	// add an extra pixel as the scale table logic will scale columns to be tableContainerWidth - 1
+	// the table can't scale past its min-width, so instead restrict table container min width to avoid that situation
+	return minColumnWidth + 1;
 };

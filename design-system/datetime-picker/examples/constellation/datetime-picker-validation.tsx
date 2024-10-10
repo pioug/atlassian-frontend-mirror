@@ -25,7 +25,15 @@ const DateTimePickerFormExample = () => (
 				>
 					{({ fieldProps, error, meta: { valid } }) => (
 						<>
-							<DateTimePicker {...fieldProps} clearControlLabel="Clear scheduled run time" />
+							<DateTimePicker
+								{...fieldProps}
+								clearControlLabel="Clear scheduled run time"
+								datePickerProps={{
+									shouldShowCalendarButton: true,
+									label: 'Date of scheduled run time',
+								}}
+								timePickerProps={{ label: 'Time of scheduled run time' }}
+							/>
 							{valid && <ValidMessage>You have entered a valid datetime</ValidMessage>}
 							{error === 'REQUIRED' && <ErrorMessage>This field is required</ErrorMessage>}
 							{error === 'EXPIRED' && (

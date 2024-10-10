@@ -74,6 +74,7 @@ export interface RendererProps {
 	unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
 	nodeComponents?: NodeComponentsProps;
 	isInsideOfInlineExtension?: boolean;
+	isTopLevelRenderer?: boolean;
 	/**
 	 * When enabled a trailing telepointer will be added to the rendered document
 	 * following content updates.

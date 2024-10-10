@@ -22,7 +22,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { DIRECTION } from '../consts';
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin, MoveNodeMethod } from '../types';
-import { selectNode } from '../utils';
+import { getNestedNodePosition, selectNode } from '../utils';
 import {
 	canMoveNodeToIndex,
 	isInsideTable,
@@ -73,12 +73,8 @@ const getCurrentNodePos = (state: EditorState, isParentNodeOfTypeLayout?: boolea
 		// 2. caret cursor is inside the node
 		// 3. the start of the selection is inside the node
 		currentNodePos = selection.$from.before(1);
-
-		if (fg('platform_editor_element_dnd_nested_a11y')) {
-			currentNodePos =
-				selection.$from.depth > (isParentNodeOfTypeLayout ? 2 : 1)
-					? selection.$from.before(selection.$from.depth)
-					: selection.$from.before(1);
+		if (selection.$from.depth > 0 && fg('platform_editor_element_dnd_nested_a11y')) {
+			currentNodePos = getNestedNodePosition(state);
 		}
 	}
 	return currentNodePos;

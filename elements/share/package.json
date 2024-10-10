@@ -50,7 +50,7 @@
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/smart-user-picker": "^6.10.0",
 		"@atlaskit/spinner": "^16.3.0",
-		"@atlaskit/tabs": "^16.4.0",
+		"@atlaskit/tabs": "^16.5.0",
 		"@atlaskit/textarea": "^5.6.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^2.0.0",

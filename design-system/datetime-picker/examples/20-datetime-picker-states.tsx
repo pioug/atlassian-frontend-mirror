@@ -13,7 +13,11 @@ export default () => {
 				id="react-select-stock--input"
 				onChange={console.log}
 				clearControlLabel="Clear stock"
-				datePickerProps={{ label: 'Date, Stock' }}
+				datePickerProps={{
+					label: 'Date, Stock',
+					shouldShowCalendarButton: true,
+					openCalendarLabel: 'open calendar',
+				}}
 				timePickerProps={{ label: 'Time, Stock' }}
 			/>
 
@@ -23,7 +27,11 @@ export default () => {
 				onChange={console.log}
 				defaultValue="2020-10-10"
 				clearControlLabel="Clear stock with value"
-				datePickerProps={{ label: 'Date, Stock with value' }}
+				datePickerProps={{
+					label: 'Date, Stock with value',
+					shouldShowCalendarButton: true,
+					openCalendarLabel: 'open calendar',
+				}}
 				timePickerProps={{ label: 'Time, Stock with value' }}
 			/>
 
@@ -32,7 +40,11 @@ export default () => {
 				id="react-select-disabled--input"
 				isDisabled
 				onChange={console.log}
-				datePickerProps={{ label: 'Date, Disabled input' }}
+				datePickerProps={{
+					label: 'Date, Disabled input',
+					shouldShowCalendarButton: true,
+					openCalendarLabel: 'open calendar',
+				}}
 				timePickerProps={{ label: 'Time, Disabled input' }}
 			/>
 
@@ -42,7 +54,11 @@ export default () => {
 				isDisabled
 				onChange={console.log}
 				defaultValue="2020-10-10"
-				datePickerProps={{ label: 'Date, Disabled input with value' }}
+				datePickerProps={{
+					label: 'Date, Disabled input with value',
+					shouldShowCalendarButton: true,
+					openCalendarLabel: 'open calendar',
+				}}
 				timePickerProps={{ label: 'Time, Disabled input with value' }}
 			/>
 
@@ -54,6 +70,8 @@ export default () => {
 					dateFormat: 'DD/MMM/YY',
 					placeholder: 'e.g. 31/Dec/18',
 					label: 'Date, Custom date format',
+					shouldShowCalendarButton: true,
+					openCalendarLabel: 'open calendar',
 				}}
 				clearControlLabel="Clear custom date format"
 				timePickerProps={{ label: 'Time, Custom date format' }}
@@ -67,6 +85,8 @@ export default () => {
 					dateFormat: 'DD/MMM/YY',
 					placeholder: 'e.g. 31/Dec/18',
 					label: 'Date, Custom date format with value',
+					shouldShowCalendarButton: true,
+					openCalendarLabel: 'open calendar',
 				}}
 				defaultValue="2020-10-10"
 				clearControlLabel="Clear custom date format with value"

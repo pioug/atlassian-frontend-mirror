@@ -2,16 +2,17 @@
 import React from 'react';
 import { Component } from 'react';
 import { type Identifier } from '@atlaskit/media-client';
-import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/chevron-left-circle';
-import ArrowRightCircleIcon from '@atlaskit/icon/glyph/chevron-right-circle';
+import ArrowLeftCircleIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-circle';
+import ArrowRightCircleIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-circle';
 import { hideControlsClassName } from '@atlaskit/media-ui';
-import Button from '@atlaskit/button/standard-button';
 import { Shortcut } from '@atlaskit/media-ui';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { ArrowsWrapper, RightWrapper, LeftWrapper, Arrow } from './styleWrappers';
 import { getSelectedIndex } from './utils';
 import { createNavigatedEvent } from './analytics/events/ui/navigated';
 import { fireAnalytics } from './analytics';
+import { Pressable, xcss } from '@atlaskit/primitives';
+import { type UNSAFE_NewIconProps } from '@atlaskit/icon';
 
 export type NavigationDirection = 'prev' | 'next';
 
@@ -27,6 +28,64 @@ export const nextNavButtonId = 'media-viewer-navigation-next';
 export const prevNavButtonId = 'media-viewer-navigation-prev';
 
 export type NavigationSource = 'keyboard' | 'mouse';
+
+const wrapperStyles = xcss({
+	width: '40px',
+	height: '40px',
+	borderRadius: '100%',
+	padding: 'space.0',
+	// @ts-ignore
+	backgroundColor: '#9FADBC',
+	// @ts-ignore
+	color: '#161A1D',
+	boxSizing: 'border-box',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+
+	':hover': {
+		// @ts-ignore
+		backgroundColor: '#B6C2CF',
+	},
+});
+
+const iconRightStyles = xcss({
+	marginRight: 'space.100',
+});
+
+const iconLeftStyles = xcss({
+	marginLeft: 'space.100',
+});
+
+type IconProps = {
+	label: string;
+	clickHandler: (source: NavigationSource) => () => void;
+	testId: string;
+};
+
+const withIconWrapper = (Component: React.ComponentType<UNSAFE_NewIconProps>) => {
+	return ({ label, clickHandler, testId }: IconProps) => (
+		<Pressable
+			xcss={[wrapperStyles, label === 'Next' ? iconRightStyles : iconLeftStyles]}
+			onClick={clickHandler('mouse')}
+			testId={testId}
+		>
+			<Component
+				label={label}
+				LEGACY_size="xlarge"
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				LEGACY_primaryColor="#9FADBC"
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				LEGACY_secondaryColor="#161A1D"
+				color="currentColor"
+			/>
+		</Pressable>
+	);
+};
+
+const NextIcon = withIconWrapper(ArrowRightCircleIcon);
+const PreviousIcon = withIconWrapper(ArrowLeftCircleIcon);
+
 export class NavigationBase extends Component<NavigationProps, {}> {
 	private navigate(direction: NavigationDirection, source: NavigationSource) {
 		return () => {
@@ -67,22 +126,7 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						<Arrow className={hideControlsClassName}>
 							<Shortcut code={'ArrowLeft'} handler={prev('keyboard')} eventType={'keyup'} />
-							<Button
-								testId={prevNavButtonId}
-								onClick={prev('mouse')}
-								iconBefore={
-									// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
-									// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-									<ArrowLeftCircleIcon
-										// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-										primaryColor="#9FADBC"
-										// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-										secondaryColor="#161A1D"
-										size="xlarge"
-										label="Previous"
-									/>
-								}
-							/>
+							<PreviousIcon label="Previous" clickHandler={prev} testId={prevNavButtonId} />
 						</Arrow>
 					) : null}
 				</LeftWrapper>
@@ -92,22 +136,7 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						<Arrow className={hideControlsClassName}>
 							<Shortcut code={'ArrowRight'} handler={next('keyboard')} eventType={'keyup'} />
-							<Button
-								testId={nextNavButtonId}
-								onClick={next('mouse')}
-								iconBefore={
-									// TODO: https://product-fabric.atlassian.net/browse/DSP-20917
-									// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-									<ArrowRightCircleIcon
-										// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-										primaryColor="#9FADBC"
-										// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-										secondaryColor="#161A1D"
-										size="xlarge"
-										label="Next"
-									/>
-								}
-							/>
+							<NextIcon label="Next" clickHandler={next} testId={nextNavButtonId} />
 						</Arrow>
 					) : null}
 				</RightWrapper>

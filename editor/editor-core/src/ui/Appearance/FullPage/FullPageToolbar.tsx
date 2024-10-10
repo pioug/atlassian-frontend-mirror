@@ -25,7 +25,6 @@ import type { CollabEditPlugin } from '@atlaskit/editor-plugins/collab-edit';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 import type { FindReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorActions } from '../../../index';
 import type {
@@ -155,12 +154,6 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 	};
 
 	const handleEscape = (event: KeyboardEvent) => {
-		if (!fg('editor-fix-esc-main-toolbar-navigation')) {
-			if (!props.popupsMountPoint) {
-				return;
-			}
-		}
-
 		if (!props.editorView?.hasFocus()) {
 			props.editorView?.focus();
 		}

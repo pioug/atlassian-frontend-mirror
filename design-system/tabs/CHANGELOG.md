@@ -1,5 +1,13 @@
 # @atlaskit/tabs
 
+## 16.5.0
+
+### Minor Changes
+
+- [#149420](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149420)
+  [`e775dd3c93d14`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e775dd3c93d14) -
+  Added ref forwarding to Tab component
+
 ## 16.4.2
 
 ### Patch Changes

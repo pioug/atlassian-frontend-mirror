@@ -146,6 +146,8 @@ export type FloatingToolbarButton<T extends {}> = {
 	tabIndex?: number | null | undefined;
 	focusEditoronEnter?: boolean; // To focus the editor when button is pressed default value - false
 	supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
+	/** If true, the component will have pulse onboarding effect around it. */
+	pulse?: boolean;
 };
 
 export type FloatingToolbarInput<T extends {}> = {
@@ -255,6 +257,8 @@ export type FloatingToolbarDropdown<T extends {}> = {
 	alignDropdownWithToolbar?: boolean;
 	onToggle?: (state: EditorState, dispatch: CommandDispatch | undefined) => boolean;
 	footer?: React.ReactNode;
+	/** If true, the component will have pulse onboarding effect around it. */
+	pulse?: boolean;
 };
 
 type FloatingToolbarExtensionsPlaceholder = {

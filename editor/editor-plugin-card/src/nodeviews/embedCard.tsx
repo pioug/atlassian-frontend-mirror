@@ -163,6 +163,11 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 	private scrollContainer?: HTMLElement;
 	private embedIframeRef = React.createRef<HTMLIFrameElement>();
 
+	constructor(props: SmartCardProps) {
+		super(props);
+		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
+	}
+
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	context: any;
 
@@ -173,12 +178,6 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 	state: EmbedCardState = {
 		hasPreview: true,
 	};
-
-	UNSAFE_componentWillMount() {
-		const { view } = this.props;
-		const scrollContainer = findOverflowScrollParent(view.dom as HTMLElement);
-		this.scrollContainer = scrollContainer || undefined;
-	}
 
 	private getPosSafely = () => {
 		const { getPos } = this.props;

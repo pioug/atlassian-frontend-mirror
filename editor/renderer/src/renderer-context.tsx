@@ -3,6 +3,8 @@ import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export type RendererContextProps = {
 	featureFlags?: FeatureFlags;
+	// Keep this uninitialized it will be set to true in the top level renderer
+	isTopLevelRenderer?: boolean;
 };
 
 const RendererContext = React.createContext({});

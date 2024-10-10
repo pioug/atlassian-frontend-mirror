@@ -1,7 +1,7 @@
 export { engagementPlatformPlugin } from './engagementPlatformPlugin';
 export type {
 	EngagementPlatformPlugin,
-	EngagementPlatformPluginOptions,
+	EngagementPlatformPluginConfig,
 	EpComponents,
 	EpHooks,
 	CoordinationClient,

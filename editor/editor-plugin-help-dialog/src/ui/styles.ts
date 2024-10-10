@@ -96,42 +96,6 @@ export const dialogHeader = {
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const codeSm = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	backgroundColor: token('color.background.neutral', colors.N20),
-	borderRadius: token('border.radius', '3px'),
-	width: token('space.300', '24px'),
-	display: 'inline-block',
-	height: token('space.300', '24px'),
-	lineHeight: '24px',
-	textAlign: 'center',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const codeMd = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	backgroundColor: token('color.background.neutral', colors.N20),
-	borderRadius: token('border.radius', '3px'),
-	display: 'inline-block',
-	height: token('space.300', '24px'),
-	lineHeight: '24px',
-	width: '50px',
-	textAlign: 'center',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const codeLg = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	backgroundColor: token('color.background.neutral', colors.N20),
-	borderRadius: token('border.radius', '3px'),
-	display: 'inline-block',
-	height: token('space.300', '24px'),
-	lineHeight: token('space.300', '24px'),
-	padding: `0 ${token('space.150', '12px')}`,
-	textAlign: 'center',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const shortcutsArray = css({
 	display: 'flex',
 	flexDirection: 'column',

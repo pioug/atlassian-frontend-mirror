@@ -42,7 +42,9 @@ import {
 	getSelectionRect,
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
-import EditorBackgroundColorIcon from '@atlaskit/icon/glyph/editor/background-color';
+import EditorBackgroundColorIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-background-color';
+import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
+import { Box, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../commands';
@@ -69,12 +71,7 @@ import { getDragMenuConfig } from '../../utils/drag-menu';
 import { colorPalletteColumns } from '../consts';
 
 import { DropdownMenu } from './DropdownMenu';
-import {
-	cellColourPreviewStyles,
-	dragMenuBackgroundColorStyles,
-	elementBeforeIconStyles,
-	toggleStyles,
-} from './styles';
+import { cellColourPreviewStyles, dragMenuBackgroundColorStyles, toggleStyles } from './styles';
 
 type DragMenuProps = {
 	direction?: TableDirection;
@@ -192,6 +189,11 @@ const getGroupedDragMenuConfig = (tableSortColumnReorder: boolean) => {
 	return groupedDragMenuConfig;
 };
 
+const elementBeforeIconStyles = xcss({
+	marginRight: 'space.negative.075',
+	display: 'flex',
+});
+
 const convertToDropdownItems = (
 	dragMenuConfig: DragMenuConfig[],
 	formatMessage: IntlShape['formatMessage'],
@@ -237,12 +239,14 @@ const convertToDropdownItems = (
 			value: { name: item.id },
 			isDisabled: item.disabled,
 			elemBefore: item.icon ? (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				<span css={elementBeforeIconStyles}>
+				<Box xcss={elementBeforeIconStyles}>
 					<item.icon
+						color="currentColor"
+						spacing="spacious"
 						label={formatMessage(MapDragMenuOptionIdToMessage[item.id].message, options)}
+						LEGACY_fallbackIcon={item.iconFallback ? item.iconFallback : undefined}
 					/>
-				</span>
+				</Box>
 			) : undefined,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: item.keymap ? <div css={shortcutStyle}>{item.keymap}</div> : undefined,
@@ -368,13 +372,14 @@ const DragMenu = React.memo(
 				content: formatMessage(messages.backgroundColor),
 				value: { name: 'background' },
 				elemBefore: (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					<span css={elementBeforeIconStyles}>
-						<EditorBackgroundColorIcon
+					<Box xcss={elementBeforeIconStyles}>
+						<PaintBucketIcon
+							color="currentColor"
+							spacing="spacious"
 							label={formatMessage(messages.backgroundColor)}
-							size="medium"
+							LEGACY_fallbackIcon={EditorBackgroundColorIcon}
 						/>
-					</span>
+					</Box>
 				),
 				elemAfter: (
 					<div

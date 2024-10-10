@@ -20,7 +20,7 @@
 		"runReact18": false
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^93.1.0",
+		"@atlaskit/editor-common": "^93.2.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.0.0",
 		"@atlaskit/editor-tables": "^2.8.0",

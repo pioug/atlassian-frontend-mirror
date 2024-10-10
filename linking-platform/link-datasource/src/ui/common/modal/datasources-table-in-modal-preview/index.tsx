@@ -1,7 +1,5 @@
 import React, { useCallback } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { DatasourceAction } from '../../../../analytics/types';
 import { useUserInteractions } from '../../../../contexts/user-interactions';
 import { IssueLikeDataTableView } from '../../../issue-like-table';
@@ -59,9 +57,7 @@ const Table = (props: DatasourcesTableProps) => {
 			columnCustomSizes={columnCustomSizes}
 			onColumnResize={onColumnResize}
 			wrappedColumnKeys={wrappedColumnKeys}
-			onWrappedColumnChange={
-				fg('platform.linking-platform.datasource-word_wrap') ? onWrappedColumnChange : undefined
-			}
+			onWrappedColumnChange={onWrappedColumnChange}
 		/>
 	);
 };

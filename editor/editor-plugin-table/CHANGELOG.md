@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-table
 
+## 7.28.10
+
+### Patch Changes
+
+- [#150710](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150710)
+  [`199790376ed8a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/199790376ed8a) -
+  [ux] ED-25094: Migrate icons for table drag menu and cell menu
+
+## 7.28.9
+
+### Patch Changes
+
+- [#150125](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150125)
+  [`c9d8f549c024a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c9d8f549c024a) -
+  [ux] ED-24539 Fix live view toggle and column sorting in live view pages
+
+## 7.28.8
+
+### Patch Changes
+
+- [#150410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150410)
+  [`aabd4874bd3a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aabd4874bd3a0) -
+  set correct min-width value in table lazy load view
+
 ## 7.28.7
 
 ### Patch Changes

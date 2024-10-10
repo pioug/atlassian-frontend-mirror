@@ -445,8 +445,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 			providerFactory: props.providerFactory,
 			portalProviderAPI: props.portalProviderAPI,
 			dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-			performanceTracking: props.editorProps.performanceTracking,
-			transactionTracker: this.transactionTracker,
 			featureFlags: createFeatureFlagsFromProps(props.editorProps),
 			getIntl: () => this.props.intl,
 		});
@@ -559,8 +557,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 			providerFactory: options.props.providerFactory,
 			portalProviderAPI: this.props.portalProviderAPI,
 			dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-			performanceTracking: this.props.editorProps.performanceTracking,
-			transactionTracker: this.transactionTracker,
 			featureFlags: this.featureFlags,
 			getIntl: () => this.props.intl,
 		});

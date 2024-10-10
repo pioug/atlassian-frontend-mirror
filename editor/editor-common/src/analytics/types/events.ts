@@ -16,6 +16,7 @@ import type { DatasourceClickedPayload } from './datasource-clicked-events';
 import type { DateEventPayload } from './date-events';
 import type { ElementBrowserEventPayload } from './element-browser-events';
 import type { ElementEventPayload } from './element-events';
+import type { EngagementPlatformEventPayload } from './engagement-platform-events';
 import type {
 	ACTION,
 	ACTION_SUBJECT,
@@ -105,7 +106,8 @@ export type AnalyticsEventPayload<T = void> =
 	| ContextMenuEventPayload
 	| VisitedLinkAEP
 	| ViewEventPayload
-	| MediaUploadEventPayload;
+	| MediaUploadEventPayload
+	| EngagementPlatformEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

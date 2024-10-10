@@ -45,6 +45,11 @@ Date time picker is commonly used in [forms](/patterns/forms).
   instead of selection, especially keyboard users.
 - If some dates are `disabled`, provide accurate validation and error messaging for keyboard users,
   for example: `Please enter a future date and time`
+- Use the `shouldShowCalendarButton` prop from `datePickerProps`. It provides a button for users to
+  show the calendar picker popup. This should also be used with both the `openCalendarLabel` and one
+  of the following props from the `datePickerProps`: `label`, `inputLabel`, or `inputLabelId`. This
+  ensures the calendar button gets a proper accessible name. This will become the standard in the
+  future.
 
 ## Content guidelines
 

@@ -138,6 +138,9 @@
 			"path": "../editor-plugin-emoji/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-engagement-platform/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-expand/tsconfig.app.json"
 		},
 		{

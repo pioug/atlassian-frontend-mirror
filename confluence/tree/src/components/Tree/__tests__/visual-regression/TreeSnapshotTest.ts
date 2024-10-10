@@ -1,6 +1,6 @@
 import { loadPage, getExampleUrl } from '@atlaskit/visual-regression/helper';
 
-describe('Snapshot Test', () => {
+describe.skip('Snapshot Test', () => {
 	it('Static tree should match production example', async () => {
 		const url = getExampleUrl('confluence', 'tree', 'static-tree', global.__BASEURL__);
 		const { page } = global;

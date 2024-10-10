@@ -43,7 +43,7 @@ import {
 import { resolveAuth, resolveInitialAuth } from './resolveAuth';
 import { ChunkHashAlgorithm } from '@atlaskit/media-core';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { isFedRamp } from '../../utils/isFedRamp';
+import { isCommercial } from '../../utils/isCommercial';
 
 const MEDIA_API_REGION = 'media-api-region';
 const MEDIA_API_ENVIRONMENT = 'media-api-environment';
@@ -64,6 +64,16 @@ const extendImageParams = (
 const jsonHeaders = {
 	Accept: 'application/json',
 	'Content-Type': 'application/json',
+};
+
+const cdnFeatureFlag = (endpoint: string) => {
+	let result = endpoint;
+	if (fg('platform.media-cdn-delivery')) {
+		if (isCommercial()) {
+			result += '/cdn';
+		}
+	}
+	return result;
 };
 
 export class MediaStore implements MediaApi {
@@ -264,7 +274,7 @@ export class MediaStore implements MediaApi {
 			auth,
 		};
 
-		const imageEndpoint = !isFedRamp() && fg('platform.media-cdn-delivery') ? 'image/cdn' : 'image';
+		const imageEndpoint = cdnFeatureFlag('image');
 
 		return mapToMediaCdnUrl(
 			createUrl(`${auth.baseUrl}/file/${id}/${imageEndpoint}`, options),
@@ -279,8 +289,7 @@ export class MediaStore implements MediaApi {
 	): Promise<Blob> {
 		const headers: RequestHeaders = {};
 
-		const binaryEndpoint =
-			!isFedRamp() && fg('platform.media-cdn-delivery') ? 'binary/cdn' : 'binary';
+		const binaryEndpoint = cdnFeatureFlag('binary');
 
 		const metadata: RequestMetadata = {
 			method: 'GET',
@@ -318,8 +327,7 @@ export class MediaStore implements MediaApi {
 			auth,
 		};
 
-		const binaryEndpoint =
-			!isFedRamp() && fg('platform.media-cdn-delivery') ? 'binary/cdn' : 'binary';
+		const binaryEndpoint = cdnFeatureFlag('binary');
 
 		return mapToMediaCdnUrl(
 			createUrl(`${auth.baseUrl}/file/${id}/${binaryEndpoint}`, options),
@@ -364,7 +372,7 @@ export class MediaStore implements MediaApi {
 			headers.accept = 'image/webp,image/*,*/*;q=0.8';
 		}
 
-		const imageEndpoint = !isFedRamp() && fg('platform.media-cdn-delivery') ? 'image/cdn' : 'image';
+		const imageEndpoint = cdnFeatureFlag('image');
 
 		const metadata: RequestMetadata = {
 			method: 'GET',

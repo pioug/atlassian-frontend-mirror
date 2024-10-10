@@ -28,10 +28,16 @@
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/heading/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/tokens/afm-cc/tsconfig.json"

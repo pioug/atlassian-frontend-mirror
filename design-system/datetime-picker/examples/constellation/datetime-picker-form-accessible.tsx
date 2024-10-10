@@ -13,7 +13,7 @@ const DateTimePickerFormAccessibleExample = () => (
 					{({ fieldProps }) => (
 						<DateTimePicker
 							{...fieldProps}
-							datePickerProps={{ label: 'Select date' }}
+							datePickerProps={{ label: 'Select date', shouldShowCalendarButton: true }}
 							timePickerProps={{ label: 'Select time' }}
 							clearControlLabel="Clear scheduled run time"
 						/>

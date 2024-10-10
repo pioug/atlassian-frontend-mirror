@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { forwardRef } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
@@ -20,7 +22,7 @@ import { type TabAttributesType, type TabProps } from '../types';
  * - [Code](https://atlassian.design/components/tabs/code)
  * - [Usage](https://atlassian.design/components/tabs/usage)
  */
-export default function Tab({ children, testId }: TabProps) {
+const Tab = forwardRef<HTMLDivElement, TabProps>(function Tab({ children, testId }: TabProps, ref) {
 	const {
 		onClick,
 		id,
@@ -47,6 +49,7 @@ export default function Tab({ children, testId }: TabProps) {
 				onKeyDown={onKeyDown}
 				role={role}
 				tabIndex={tabIndex}
+				ref={ref}
 			>
 				<Text weight="medium" color="inherit" maxLines={1}>
 					{children}
@@ -54,4 +57,6 @@ export default function Tab({ children, testId }: TabProps) {
 			</div>
 		</FocusRing>
 	);
-}
+});
+
+export default Tab;

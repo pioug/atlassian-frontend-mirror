@@ -10,7 +10,8 @@ export default {
   'fabric.media.accounts': 'Hesaplar',
   'fabric.media.actions': 'Eylemler',
   'fabric.media.add_account': 'Hesap ekle',
-  'fabric.media.alt_text': 'Seçilen görseli görme bozukluğu olan birine nasıl tarif edersiniz?',
+  'fabric.media.alt_text_helper_message': 'Seçilen görseli görme bozukluğu olan birine nasıl tarif edersiniz?',
+  'fabric.media.alt_text_label': 'Alternatif metin',
   'fabric.media.annotate': 'Not ekle',
   'fabric.media.annotate.confirmation.close.anyway': 'Yine de kapat',
   'fabric.media.annotate.confirmation.content':

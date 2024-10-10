@@ -66,7 +66,9 @@ export default () => {
 			</Box>
 			<Box paddingBlock="space.150">
 				<Heading size="large">Date picker</Heading>
-				<Label htmlFor="react-select-datepicker-1--input">Select date (default)</Label>
+				<Label id="default" htmlFor="react-select-datepicker-1--input">
+					Select date (default)
+				</Label>
 				<DatePicker
 					id="react-select-datepicker-1--input"
 					onChange={onChange}
@@ -74,6 +76,9 @@ export default () => {
 					testId={'date-picker'}
 					weekStartDay={weekStartDay}
 					defaultValue="2021-01-01"
+					shouldShowCalendarButton
+					inputLabelId="default"
+					openCalendarLabel="open calendar"
 				/>
 			</Box>
 			<Box paddingBlock="space.150">
@@ -99,6 +104,8 @@ export default () => {
 					datePickerProps={{
 						weekStartDay,
 						label: 'Date, Date / time picker (default)',
+						shouldShowCalendarButton: true,
+						openCalendarLabel: 'open calendar',
 					}}
 					timePickerProps={{
 						label: 'Time, Date / time picker (default)',

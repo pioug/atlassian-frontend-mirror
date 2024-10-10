@@ -31,7 +31,9 @@ export default () => {
 	return (
 		<Box>
 			<Heading size="large"> Export Data </Heading>
-			<Label htmlFor="react-select-start-date--input">Start date (past 30 days)</Label>
+			<Label id="start" htmlFor="react-select-start-date--input">
+				Start date (past 30 days)
+			</Label>
 			<DatePicker
 				id="react-select-start-date--input"
 				onChange={(date: string) => setStartDate(date)}
@@ -40,9 +42,14 @@ export default () => {
 				maxDate={endDate || latestDateString}
 				disabledDateFilter={weekendFilter}
 				testId={'datepicker-1'}
+				shouldShowCalendarButton
+				inputLabelId="start"
+				openCalendarLabel="open calendar"
 			/>
 
-			<Label htmlFor="react-select-end-date--input">End date</Label>
+			<Label id="end" htmlFor="react-select-end-date--input">
+				End date
+			</Label>
 			<DatePicker
 				id="react-select-end-date--input"
 				value={endDate}
@@ -50,6 +57,9 @@ export default () => {
 				maxDate={latestDateString}
 				disabledDateFilter={weekendFilter}
 				onChange={(date: string) => setEndDate(date)}
+				shouldShowCalendarButton
+				inputLabelId="end"
+				openCalendarLabel="open calendar"
 			/>
 		</Box>
 	);

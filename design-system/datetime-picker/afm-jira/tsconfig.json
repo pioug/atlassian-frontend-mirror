@@ -39,6 +39,9 @@
       "path": "../../popper/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../primitives/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../select/afm-jira/tsconfig.json"
     },
     {

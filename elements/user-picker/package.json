@@ -60,7 +60,7 @@
 		"@atlaskit/lozenge": "^11.11.0",
 		"@atlaskit/popper": "^6.3.0",
 		"@atlaskit/primitives": "^12.2.0",
-		"@atlaskit/select": "^18.0.0",
+		"@atlaskit/select": "^18.1.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/teams-avatar": "^1.1.0",
 		"@atlaskit/theme": "^13.0.0",

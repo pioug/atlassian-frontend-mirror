@@ -1,6 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N20, N30A, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -17,6 +18,10 @@ export const tableFloatingCellButtonStyles = () =>
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			height: `${contextualMenuTriggerSize + 2}px`,
 			flexDirection: 'column',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			...(fg('platform-visual-refresh-icons') && {
+				width: token('space.250', '20px'),
+			}),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&& button': {

@@ -41,30 +41,32 @@ const useResponse = () => {
 
 	const handleResolvedLinkError = useCallback(
 		(url: string, error: APIError, response?: JsonLd.Response, isMetadataRequest?: boolean) => {
-			const { details } =
-				getState()[url] ||
-				({
-					status: SmartLinkStatus.Pending,
-					details: undefined,
-				} as CardState);
+			const newState: CardState = {
+				status: SmartLinkStatus.Pending,
+				details: undefined,
+			};
+			const { details } = getState()[url] || newState;
+
 			const hasData = !!(details && details.data);
+
 			// If metadata request then set metadata status, return and do not alter link status
 			if (isMetadataRequest) {
 				setMetadataStatus(url, 'errored');
 				return;
 			}
 			if (error.kind === 'fatal') {
-				// If there's no previous data in the store for this URL, then bail
-				// out and let the editor handle fallbacks (returns to a blue link).
-				if (!hasData && status !== 'resolved') {
-					dispatch(cardAction(ACTION_ERROR, { url }, details, error));
-					throw error;
-				}
 				// If we already have resolved data for this URL in the store, then
 				// simply fallback to the previous data.
 				if (hasData) {
 					dispatch(cardAction(ACTION_RESOLVED, { url }, details));
+
+					// If there's no previous data in the store for this URL, then bail
+					// out and let the editor handle fallbacks (returns to a blue link).
+				} else {
+					dispatch(cardAction(ACTION_ERROR, { url }, details, error));
+					throw error;
 				}
+
 				// Handle AuthErrors (user did not have access to resource) -
 				// Missing AAID in ASAP claims, or missing UserContext, or 403 from downstream
 			} else if (error.kind === 'auth') {
@@ -113,7 +115,7 @@ const useResponse = () => {
 	const handleResolvedLinkResponse = useCallback(
 		(
 			resourceUrl: string,
-			response: JsonLd.Response,
+			response: JsonLd.Response | undefined,
 			isReloading = false,
 			isMetadataRequest?: boolean,
 		) => {
@@ -133,7 +135,7 @@ const useResponse = () => {
 			}
 
 			// Handle any other errors
-			if (nextStatus === 'fatal') {
+			if (!response || nextStatus === 'fatal') {
 				handleResolvedLinkError(
 					resourceUrl,
 					new APIError('fatal', hostname, ERROR_MESSAGE_FATAL),

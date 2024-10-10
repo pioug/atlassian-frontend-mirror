@@ -181,6 +181,7 @@ const ToolbarItems = React.memo(
 							ariaHasPopup={item.ariaHasPopup}
 							tabIndex={item.tabIndex}
 							isRadioButton={item.isRadioButton}
+							pulse={item.pulse}
 						>
 							{item.showTitle && item.title}
 						</Button>
@@ -229,6 +230,7 @@ const ToolbarItems = React.memo(
 							alignDropdownWithToolbar={items.length === 1}
 							onToggle={item.onToggle}
 							footer={item.footer}
+							pulse={item.pulse}
 						/>
 					);
 

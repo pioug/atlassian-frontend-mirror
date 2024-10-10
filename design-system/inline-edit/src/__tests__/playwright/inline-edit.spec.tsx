@@ -1,3 +1,5 @@
+// This is not using RTL
+/* eslint-disable testing-library/prefer-screen-queries */
 import { expect, test } from '@af/integration-testing';
 
 /* Css selectors used for the inline edit tests */
@@ -112,14 +114,17 @@ test.describe('Inline Edit with Datepicker', () => {
 		await edit.focus();
 		await page.keyboard.press('Enter');
 
+		// Open calendar
+		await page.keyboard.press('Tab');
+		// Tab to date
 		await page.keyboard.press('Tab');
 		await page.keyboard.press('Tab');
 		await page.keyboard.press('Tab');
-		await page.keyboard.press('Tab');
+		// Select different date
 		await page.keyboard.press('ArrowLeft');
 		await page.keyboard.press('ArrowLeft');
 		await page.keyboard.press('Enter');
-
+		// Tab to time picker
 		await page.keyboard.press('Tab');
 
 		// Is not the same for Safari

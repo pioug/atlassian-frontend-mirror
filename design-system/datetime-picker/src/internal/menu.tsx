@@ -70,6 +70,7 @@ export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => {
 							onChange={selectProps.onCalendarChange}
 							onSelect={selectProps.onCalendarSelect}
 							previousMonthLabel={selectProps.previousMonthLabel}
+							ref={selectProps.calendarRef}
 							selected={[selectProps.calendarValue]}
 							shouldSetFocusOnCurrentDay={selectProps.shouldSetFocusOnCurrentDay}
 							locale={selectProps.calendarLocale}

@@ -436,7 +436,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				{
 					name: 'tableViewModeSort',
 					plugin: () => {
-						return api?.editorViewMode ? createViewModeSortPlugin(api.editorViewMode) : undefined;
+						return api?.editorViewMode ? createViewModeSortPlugin(api) : undefined;
 					},
 				},
 				{

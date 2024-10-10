@@ -7,8 +7,40 @@ import { jsx } from '@emotion/react';
 
 import { browser } from '@atlaskit/editor-common/browser';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
+import { Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
-import { codeLg, codeMd, codeSm, componentFromKeymapWrapperStyles } from './styles';
+import { componentFromKeymapWrapperStyles } from './styles';
+
+const codeLg = xcss({
+	borderRadius: 'border.radius',
+	display: 'inline-block',
+	height: token('space.300'),
+	lineHeight: token('space.300'),
+	textAlign: 'center',
+	paddingInline: 'space.150',
+	backgroundColor: 'color.background.neutral',
+});
+
+const codeMd = xcss({
+	backgroundColor: 'color.background.neutral',
+	borderRadius: 'border.radius',
+	display: 'inline-block',
+	height: token('space.300'),
+	lineHeight: token('space.300'),
+	width: '50px',
+	textAlign: 'center',
+});
+
+const codeSm = xcss({
+	backgroundColor: 'color.background.neutral',
+	borderRadius: 'border.radius',
+	width: token('space.300'),
+	display: 'inline-block',
+	height: token('space.300'),
+	lineHeight: token('space.300'),
+	textAlign: 'center',
+});
 
 const getKeyParts = (keymap: Keymap) => {
 	let shortcut: string = keymap[browser.mac ? 'mac' : 'windows'];
@@ -27,41 +59,48 @@ export const getComponentFromKeymap = (keymap: Keymap) => {
 		<span css={componentFromKeymapWrapperStyles}>
 			{keyParts.map((part, index) => {
 				if (part === '+') {
-					return <span key={`${keyParts}-${index}`}>{' + '}</span>;
+					return (
+						<Box as="span" key={`${keyParts}-${index}`}>
+							{' + '}
+						</Box>
+					);
 				} else if (part === 'Cmd') {
 					return (
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						<span css={codeSm} key={`${keyParts}-${index}`}>
+						<Box as="span" xcss={codeSm} key={`${keyParts}-${index}`}>
 							⌘
-						</span>
+						</Box>
 					);
 				} else if (['ctrl', 'alt', 'opt', 'shift'].indexOf(part.toLowerCase()) >= 0) {
 					return (
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						<span css={codeMd} key={`${keyParts}-${index}`}>
+						<Box as="span" xcss={codeMd} key={`${keyParts}-${index}`}>
 							{part}
-						</span>
+						</Box>
 					);
 				} else if (['f9', 'f10'].indexOf(part.toLowerCase()) >= 0) {
 					return (
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						<span css={codeLg} key={`${keyParts}-${index}`}>
+						<Box as="span" xcss={codeLg} key={`${keyParts}-${index}`}>
 							{part}
-						</span>
+						</Box>
 					);
 				} else if (part.toLowerCase() === 'enter') {
 					return (
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						<span className="enter-keymap" css={codeSm} key={`${keyParts}-${index}`}>
+						<Box
+							as="span"
+							data-editor-help-dialog-enter-keymap="true"
+							xcss={codeSm}
+							key={`${keyParts}-${index}`}
+						>
 							{'⏎'}
-						</span>
+						</Box>
 					);
 				}
 				return (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					<span css={codeSm} key={`${keyParts}-${index}`}>
+					<Box as="span" xcss={codeSm} key={`${keyParts}-${index}`}>
 						{part.toUpperCase()}
-					</span>
+					</Box>
 				);
 			})}
 		</span>

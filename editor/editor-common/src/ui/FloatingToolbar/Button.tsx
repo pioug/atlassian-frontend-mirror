@@ -4,6 +4,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 
 import type { ButtonAppearance } from '../../types';
+import { Pulse } from '../Pulse/Pulse';
 
 import { getButtonStyles, iconOnlySpacing } from './styles';
 
@@ -35,6 +36,8 @@ export interface Props {
 	tabIndex?: number | null | undefined;
 	areaControls?: string;
 	isRadioButton?: boolean;
+	/** If true, the component will have pulse onboarding effect around it. */
+	pulse?: boolean;
 }
 
 export default ({
@@ -64,6 +67,7 @@ export default ({
 	areaControls,
 	ariaLabel,
 	isRadioButton,
+	pulse,
 }: Props) => {
 	// Check if there's only an icon and add additional styles
 	const iconOnly = (icon || iconAfter) && !children;
@@ -88,54 +92,56 @@ export default ({
 			position="top"
 		>
 			<div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-				{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
-				<Button
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={className}
-					theme={(adgTheme, themeProps) => {
-						const { buttonStyles, ...rest } = adgTheme(themeProps);
-						return {
-							buttonStyles: {
-								...buttonStyles,
-								...customSpacing,
-								...(appearance === 'danger' &&
-									getButtonStyles({
-										appearance,
-										state: themeProps.state,
-										mode: themeProps.mode,
-									})),
-							},
-							...rest,
-						};
-					}}
-					aria-label={ariaLabel || title}
-					aria-pressed={ariaPressed}
-					aria-checked={ariaChecked}
-					role={isRadioButton ? 'radio' : undefined}
-					aria-expanded={ariaHasPopup ? selected : undefined}
-					aria-controls={ariaHasPopup ? areaControls : undefined}
-					spacing={'compact'}
-					href={href}
-					target={target}
-					appearance={appearance}
-					aria-haspopup={ariaHasPopup}
-					iconBefore={icon || undefined}
-					iconAfter={iconAfter}
-					onClick={onClick}
-					onKeyDown={onKeyDown}
-					isSelected={selected}
-					isDisabled={disabled}
-					testId={testId}
-					onFocus={onFocus}
-					onBlur={onBlur}
-					// @ts-ignore
-					// tabIndex set as 0 by default in the design system  ButtonBase component
-					// this is not expected for all buttons, we have to use tabIndex={null} for some cases
-					// should be fixed here https://a11y-internal.atlassian.net/browse/DST-287
-					tabIndex={tabIndex}
-				>
-					{children}
-				</Button>
+				<Pulse pulse={pulse}>
+					{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
+					<Button
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={className}
+						theme={(adgTheme, themeProps) => {
+							const { buttonStyles, ...rest } = adgTheme(themeProps);
+							return {
+								buttonStyles: {
+									...buttonStyles,
+									...customSpacing,
+									...(appearance === 'danger' &&
+										getButtonStyles({
+											appearance,
+											state: themeProps.state,
+											mode: themeProps.mode,
+										})),
+								},
+								...rest,
+							};
+						}}
+						aria-label={ariaLabel || title}
+						aria-pressed={ariaPressed}
+						aria-checked={ariaChecked}
+						role={isRadioButton ? 'radio' : undefined}
+						aria-expanded={ariaHasPopup ? selected : undefined}
+						aria-controls={ariaHasPopup ? areaControls : undefined}
+						spacing={'compact'}
+						href={href}
+						target={target}
+						appearance={appearance}
+						aria-haspopup={ariaHasPopup}
+						iconBefore={icon || undefined}
+						iconAfter={iconAfter}
+						onClick={onClick}
+						onKeyDown={onKeyDown}
+						isSelected={selected}
+						isDisabled={disabled}
+						testId={testId}
+						onFocus={onFocus}
+						onBlur={onBlur}
+						// @ts-ignore
+						// tabIndex set as 0 by default in the design system  ButtonBase component
+						// this is not expected for all buttons, we have to use tabIndex={null} for some cases
+						// should be fixed here https://a11y-internal.atlassian.net/browse/DST-287
+						tabIndex={tabIndex}
+					>
+						{children}
+					</Button>
+				</Pulse>
 			</div>
 		</Tooltip>
 	);

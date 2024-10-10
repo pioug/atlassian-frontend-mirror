@@ -159,6 +159,38 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 */
 	onFocus?: React.FocusEventHandler<HTMLInputElement>;
 	/**
+	 * The name of the input, used when `shouldShowCalendarButton` is true. See `shouldShowCalendarButton` description for more details.
+	 *
+	 * @default 'Date picker'
+	 */
+	inputLabel?: string;
+	/**
+	 * The ID of the label for the input, used when `shouldShowCalendarButton` is
+	 * true. See `shouldShowCalendarButton` description for more details.
+	 */
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	inputLabelId?: string;
+	/**
+	 * The label associated with the button to open the calendar, rendered via the
+	 * `shouldShowCalendarButton` prop. If a `label` prop is provided, this
+	 * calendar button label will be prefixed by the value of `label`. If no
+	 * `label` prop is provided, this prefix should be manually added. For
+	 * example,
+	 *
+	 * ```tsx
+	 * <label id="label" htmlFor="datepicker">Desired Appointment Date</label>
+	 * <DatePicker
+	 * 	id="datepicker"
+	 * 	shouldShowCalendarButton
+	 * 	inputLabel="Desired Appointment Date"
+	 * 	openCalendarLabel="open calendar"
+	 * />
+	 * ```
+	 *
+	 * @default 'open calendar'
+	 */
+	openCalendarLabel?: string;
+	/**
 	 * A function for parsing input characters and transforming them into a Date object.
 	 * By default parses the date string based off the locale.
 	 */
@@ -171,6 +203,17 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 * The aria-label attribute associated with the previous-month arrow.
 	 */
 	previousMonthLabel?: string;
+	/**
+	 * Provides a functional calendar button that opens the calendar picker that
+	 * lives on the right side of the date picker.
+	 *
+	 * The accessible name for this button is caculated using either the `label`,
+	 * `inputLabel`, or `inputLabelId` props, along with the `openCalendarLabel`
+	 * prop.
+	 *
+	 * @default false
+	 */
+	shouldShowCalendarButton?: boolean;
 	/**
 	 * The spacing for the select control.
 	 *

@@ -10,7 +10,8 @@ export default {
   'fabric.media.accounts': 'บัญชี',
   'fabric.media.actions': 'การดำเนินการ',
   'fabric.media.add_account': 'เพิ่มบัญชี',
-  'fabric.media.alt_text': 'คุณจะอธิบายรูปภาพที่เลือกให้กับคนที่มองเห็นไม่ชัดว่าอย่างไร',
+  'fabric.media.alt_text_helper_message': 'คุณจะอธิบายรูปภาพที่เลือกให้กับคนที่มองเห็นไม่ชัดว่าอย่างไร',
+  'fabric.media.alt_text_label': 'ข้อความอธิบายรูปภาพ',
   'fabric.media.annotate': 'บันทึกหมายเหตุ',
   'fabric.media.annotate.confirmation.close.anyway': 'ปิดเลย',
   'fabric.media.annotate.confirmation.content':

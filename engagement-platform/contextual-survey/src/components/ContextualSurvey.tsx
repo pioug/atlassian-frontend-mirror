@@ -104,6 +104,11 @@ export default ({
 		onDismissRef.current = onDismiss;
 	}, [onDismiss]);
 
+	// reset isDismissedRef.current on mount to be compatible with double render in react18 strict mode
+	useEffect(() => {
+		isDismissedRef.current = false;
+	}, []);
+
 	const tryClearTimeout = useCallback(() => {
 		const id: Optional<number> = autoDisappearTimeoutRef.current;
 

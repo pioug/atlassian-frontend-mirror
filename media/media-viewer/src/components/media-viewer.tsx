@@ -93,6 +93,9 @@ export const MediaViewerBase = ({
 // Can't export in a single line. Typescript struggles to recognize the component signature in the error boundary test file ./media-viewer-error-boundary.test.tsx
 // export const MediaViewerWithMediaClient = withMediaClient(MediaViewerBase)
 export const MediaViewerWithMediaClient = (props: MediaViewerWithMediaClientConfigProps) => {
-	const ViewerComponent = withMediaClient(MediaViewerBase);
+	const ViewerComponent = React.useMemo(() => {
+		return withMediaClient(MediaViewerBase);
+	}, []);
+
 	return <ViewerComponent {...props} />;
 };

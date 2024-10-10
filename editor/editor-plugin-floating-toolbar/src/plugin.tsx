@@ -291,7 +291,7 @@ export function ContentComponent({
 	// TODO: MODES-3950 Update this view mode specific logic once we refactor view mode.
 	//       We should inverse the responsibility here: A blacklist for toolbar items in view mode, rather than this white list.
 	//       Also consider moving this logic to the more specific toolbar plugins (media and selection).
-	const iterableItems = Array.isArray(items) ? items : [];
+	const iterableItems = Array.isArray(items) ? items : items?.(node);
 	if (isInViewMode) {
 		// Typescript note: Not all toolbar item types have the `supportsViewMode` prop.
 		const toolbarItemViewModeProp: keyof FloatingToolbarButton<Command> = 'supportsViewMode';

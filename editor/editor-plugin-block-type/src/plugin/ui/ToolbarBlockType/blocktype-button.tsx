@@ -15,10 +15,23 @@ import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import TextIcon from '@atlaskit/icon/core/text';
 import { default as TextStyleIconLegacy } from '@atlaskit/icon/glyph/editor/text-style';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import { Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { NORMAL_TEXT } from '../../block-types';
 
-import { buttonContentReducedSpacingStyle, buttonContentStyle, wrapperSmallStyle } from './styled';
+import { wrapperSmallStyle } from './styled';
+
+const buttonContentStyle = xcss({
+	minWidth: `calc(80px + 2*${token('space.075')})`,
+	overflow: 'hidden',
+	padding: 'space.075',
+});
+
+const buttonContentReducedSpacingStyle = xcss({
+	padding: 'space.100',
+	minWidth: `calc(80px + 2*${token('space.100')})`,
+});
 
 export interface BlockTypeButtonProps {
 	isSmall?: boolean;
@@ -82,16 +95,11 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 			}
 		>
 			{!props.isSmall && (
-				<span
-					css={[
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						buttonContentStyle,
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						props.isReducedSpacing && buttonContentReducedSpacingStyle,
-					]}
+				<Box
+					xcss={[buttonContentStyle, props.isReducedSpacing && buttonContentReducedSpacingStyle]}
 				>
 					<FormattedMessage {...(props.title || NORMAL_TEXT.title)} />
-				</span>
+				</Box>
 			)}
 		</ToolbarButton>
 	);

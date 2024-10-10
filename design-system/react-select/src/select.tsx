@@ -1415,7 +1415,11 @@ export default class Select<
 	) => {
 		// Event captured by dropdown indicator
 		if (event.defaultPrevented) {
-			return;
+			// react-dnd will fire preventDefault in mouseDown, which make select is not clickable.
+			// temp workaround to check if select is within dnd, we don't do the early return.
+			if (!this.controlRef?.closest('[data-rbd-draggable-context-id]')) {
+				return;
+			}
 		}
 		const { openMenuOnClick } = this.props;
 		if (!this.state.isFocused) {

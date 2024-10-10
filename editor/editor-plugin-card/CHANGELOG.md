@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-card
 
+## 4.2.0
+
+### Minor Changes
+
+- [#150201](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150201)
+  [`850f81903fc73`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/850f81903fc73) -
+  Remove usage of UNSAFE lifecycles from card
+
+### Patch Changes
+
+- [#147618](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147618)
+  [`e187b02ef8540`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e187b02ef8540) -
+  Clean up feature flag platform.linking-platform.datasource-word_wrap. This enables the
+  line-wrapping toggle in datasource tables for all customers.
+- Updated dependencies
+
+## 4.1.0
+
+### Minor Changes
+
+- [#150349](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150349)
+  [`3930014486c26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3930014486c26) -
+  Clean up FF that disables inline smart-card overlay in view mode
+
 ## 4.0.0
 
 ### Major Changes

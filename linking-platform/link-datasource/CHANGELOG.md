@@ -1,5 +1,15 @@
 # @atlaskit/link-datasource
 
+## 3.5.1
+
+### Patch Changes
+
+- [#147618](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/147618)
+  [`e187b02ef8540`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e187b02ef8540) -
+  Clean up feature flag platform.linking-platform.datasource-word_wrap. This enables the
+  line-wrapping toggle in datasource tables for all customers.
+- Updated dependencies
+
 ## 3.5.0
 
 ### Minor Changes

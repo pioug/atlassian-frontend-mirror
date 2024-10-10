@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/css",
-	"version": "0.5.1",
+	"version": "0.5.2",
 	"description": "Style components backed by Atlassian Design System design tokens powered by Compiled CSS-in-JS.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -47,9 +47,13 @@
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
+		"@atlaskit/ds-lib": "^3.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
+		"@emotion/react": "^11.7.1",
 		"@testing-library/react": "^12.1.5",
+		"@types/jscodeshift": "^0.11.0",
+		"jscodeshift": "^0.13.0",
 		"react-dom": "^16.8.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

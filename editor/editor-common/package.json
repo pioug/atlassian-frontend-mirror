@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "93.1.4",
+	"version": "93.2.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -218,19 +218,20 @@
 		"@atlaskit/media-file-preview": "^0.9.0",
 		"@atlaskit/media-picker": "^66.7.0",
 		"@atlaskit/media-ui": "^25.15.0",
-		"@atlaskit/media-viewer": "49.0.0",
+		"@atlaskit/media-viewer": "49.0.1",
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/menu": "^2.12.0",
+		"@atlaskit/onboarding": "^11.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/profilecard": "^20.4.0",
 		"@atlaskit/section-message": "^6.6.0",
-		"@atlaskit/smart-card": "^29.1.0",
+		"@atlaskit/smart-card": "^29.2.0",
 		"@atlaskit/smart-user-picker": "^6.10.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/textfield": "^6.5.0",
-		"@atlaskit/tmp-editor-statsig": "*",
+		"@atlaskit/tmp-editor-statsig": "^2.2.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@atlaskit/tooltip": "^18.8.0",
 		"@atlaskit/ufo": "^0.3.0",
@@ -330,16 +331,10 @@
 		"annotations_align_editor_and_renderer_styles": {
 			"type": "boolean"
 		},
-		"platform-editor-a11y-image-border-options-dropdown": {
-			"type": "boolean"
-		},
 		"platform_editor_a11y_table_context_menu": {
 			"type": "boolean"
 		},
 		"editor_inline_comments_paste_insert_nodes": {
-			"type": "boolean"
-		},
-		"editor-fix-esc-main-toolbar-navigation": {
 			"type": "boolean"
 		},
 		"editor_support_code_block_wrapping": {
@@ -348,10 +343,19 @@
 		"editor_code_block_wrapping_language_change_bug": {
 			"type": "boolean"
 		},
+		"platform_editor_react18_mention_with_provider": {
+			"type": "boolean"
+		},
+		"platform_editor_react18_phase2": {
+			"type": "boolean"
+		},
 		"cc_page_experiences_live_search_wysiwyg": {
 			"type": "boolean"
 		},
 		"use-effect-in-use-previous-props": {
+			"type": "boolean"
+		},
+		"platform_editor_react18_extension_component": {
 			"type": "boolean"
 		},
 		"platform-datasources-enable-two-way-sync": {

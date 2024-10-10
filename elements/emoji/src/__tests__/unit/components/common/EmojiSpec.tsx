@@ -62,28 +62,28 @@ describe('<Emoji />', () => {
 		it('should use image by default', async () => {
 			const result = await renderWithIntl(<Emoji emoji={imageEmoji} />);
 			mockAllIsIntersecting(true);
-			const image = result.getByAltText(imageEmoji.shortName);
+			const image = result.getByAltText(imageEmoji.name);
 			expect(image).toHaveAttribute('src', 'https://path-to-image.png');
 		});
 
 		it('should have emoji class', async () => {
 			const result = await renderWithIntl(<Emoji emoji={imageEmoji} />);
 			mockAllIsIntersecting(true);
-			const image = result.getByAltText(imageEmoji.shortName);
+			const image = result.getByAltText(imageEmoji.name);
 			expect(image).toHaveClass('emoji');
 		});
 
 		it('should have "data-emoji-short-name" attribute', async () => {
 			const result = await renderWithIntl(<Emoji emoji={imageEmoji} />);
 			mockAllIsIntersecting(true);
-			const image = result.getByAltText(imageEmoji.shortName);
+			const image = result.getByAltText(imageEmoji.name);
 			expect(image).toHaveAttribute('data-emoji-short-name', ':grimacing:');
 		});
 
 		it('should use altRepresentation image if fitToHeight is larger than representation height', async () => {
 			const result = await renderWithIntl(<Emoji emoji={imageEmoji} fitToHeight={26} />);
 			mockAllIsIntersecting(true);
-			const image = result.getByAltText(imageEmoji.shortName);
+			const image = result.getByAltText(imageEmoji.name);
 			expect(image).toHaveAttribute('src', 'https://alt-path-to-image.png');
 		});
 
@@ -119,13 +119,13 @@ describe('<Emoji />', () => {
 
 		it('should automatically set width to auto if autoWidth is true', async () => {
 			const result = await renderWithIntl(<Emoji emoji={imageEmoji} fitToHeight={25} autoWidth />);
-			const image = result.getByAltText(imageEmoji.shortName);
+			const image = result.getByAltText(imageEmoji.name);
 			expect(image).toHaveAttribute('width', 'auto');
 		});
 
 		it('should disable lazy load if disableLazyLoad is true', async () => {
 			const result = await renderWithIntl(<Emoji emoji={imageEmoji} disableLazyLoad />);
-			const image = result.getByAltText(imageEmoji.shortName);
+			const image = result.getByAltText(imageEmoji.name);
 			expect(image).toHaveAttribute('loading', 'eager');
 		});
 
@@ -134,7 +134,7 @@ describe('<Emoji />', () => {
 			const result = await renderWithIntl(
 				<Emoji emoji={imageEmoji} disableLazyLoad onLoadSuccess={onLoadSuccess} />,
 			);
-			const image = result.getByAltText(imageEmoji.shortName);
+			const image = result.getByAltText(imageEmoji.name);
 			if (image) {
 				fireEvent.load(image);
 			}
@@ -167,7 +167,7 @@ describe('<Emoji />', () => {
 
 		it('should not have any accessibility violations for image emoji', async () => {
 			const result = await renderWithIntl(<Emoji emoji={imageEmoji} />);
-			const component = result.getByAltText(imageEmoji.shortName);
+			const component = result.getByAltText(imageEmoji.name);
 			const results = await axe(component);
 
 			expect(results).toHaveNoViolations();

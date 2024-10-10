@@ -37,6 +37,12 @@
 		},
 		{
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
 		}
 	]
 }

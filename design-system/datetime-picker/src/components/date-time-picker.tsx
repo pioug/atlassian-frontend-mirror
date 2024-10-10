@@ -334,6 +334,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 						placeholder={datePickerProps.placeholder}
 						previousMonthLabel={datePickerProps.previousMonthLabel}
 						selectProps={mergedDatePickerSelectProps}
+						shouldShowCalendarButton={datePickerProps.shouldShowCalendarButton}
 						spacing={datePickerProps.spacing || spacing}
 						testId={(testId && `${testId}--datepicker`) || datePickerProps.testId}
 						value={dateValue}

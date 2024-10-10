@@ -2,11 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Component, type CSSProperties } from 'react';
+import { Component, createRef, type CSSProperties } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { isValid, parseISO } from 'date-fns';
+// This is a deprecated component but we will be able to use the actual hook
+// version very soon from converting this to functional. And also React 18 is on
+// the horizon
+import { UID } from 'react-uid';
 
 import {
 	createAndFireEvent,
@@ -15,6 +19,7 @@ import {
 } from '@atlaskit/analytics-next';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
+import { Pressable, xcss } from '@atlaskit/primitives';
 import Select, {
 	type ActionMeta,
 	type DropdownIndicatorProps,
@@ -23,7 +28,9 @@ import Select, {
 	mergeStyles,
 	type OptionType,
 } from '@atlaskit/select';
+import { N500, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { EmptyComponent } from '../internal';
 import {
@@ -44,6 +51,7 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 type DatePickerProps = typeof datePickerDefaultProps & DatePickerBaseProps;
 
 interface State {
+	isKeyDown: boolean;
 	isOpen: boolean;
 	/**
 	 * When being cleared from the icon the DatePicker is blurred.
@@ -58,6 +66,7 @@ interface State {
 	l10n: LocalizationProvider;
 	locale: string;
 	shouldSetFocusOnCurrentDay: boolean;
+	wasOpenedFromCalendarButton: boolean;
 }
 
 const datePickerDefaultProps = {
@@ -77,14 +86,54 @@ const datePickerDefaultProps = {
 	// Make the component a controlled component
 };
 
+const pickerContainerStyles = css({
+	position: 'relative',
+});
+
+const iconContainerStyles = css({
+	display: 'flex',
+	height: '100%',
+	position: 'absolute',
+	alignItems: 'center',
+	flexBasis: 'inherit',
+	color: token('color.text.subtlest', N70),
+	insetBlockStart: 0,
+	insetInlineEnd: 0,
+	transition: `color 150ms`,
+	'&:hover': {
+		color: token('color.text.subtle', N500),
+	},
+});
+
+const iconSpacingWithClearButtonStyles = css({
+	marginInlineEnd: token('space.400', '2rem'),
+});
+
+const iconSpacingWithoutClearButtonStyles = css({
+	marginInlineEnd: token('space.025', '0.125rem'),
+});
+
+const calendarButtonStyles = xcss({
+	borderRadius: 'border.radius',
+	':hover': {
+		backgroundColor: 'color.background.neutral.subtle.hovered',
+	},
+	':active': {
+		backgroundColor: 'color.background.neutral.subtle.pressed',
+	},
+});
+
 class DatePickerComponent extends Component<DatePickerProps, State> {
 	static defaultProps = datePickerDefaultProps;
 	containerRef: HTMLElement | null = null;
+	calendarRef: React.RefObject<HTMLDivElement | null> = createRef();
+	calendarButtonRef: React.RefObject<HTMLButtonElement> = createRef();
 
 	constructor(props: any) {
 		super(props);
 
 		this.state = {
+			isKeyDown: false,
 			isOpen: this.props.defaultIsOpen,
 			isFocused: false,
 			clearingFromIcon: false,
@@ -94,6 +143,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			l10n: createLocalizationProvider(this.props.locale),
 			locale: this.props.locale,
 			shouldSetFocusOnCurrentDay: false,
+			wasOpenedFromCalendarButton: false,
 		};
 	}
 
@@ -123,24 +173,30 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			isOpen: false,
 			calendarValue: iso,
 			value: iso,
+			wasOpenedFromCalendarButton: false,
 		});
 
 		this.props.onChange(iso);
 
-		// Not ideal, and the alternative is to place a ref on the inner input of the Select
-		// but that would require a lot of extra work on the Select component just for this
-		// focus functionality. While that would be the 'right react' way to do it, it doesnt
-		// post any other benefits; performance wise, we are only searching within the
-		// container, making it quick.
-		const innerCombobox: HTMLInputElement | undefined | null =
-			this.containerRef?.querySelector('[role="combobox"]');
-		innerCombobox?.focus();
+		// Yes, this is not ideal. The alternative is to be able to place a ref
+		// on the inner input of Select itself, which would require a lot of
+		// extra stuff in the Select component for only this one thing. While
+		// this would be more "React-y", it doesn't seem to pose any other
+		// benefits. Performance-wise, we are only searching within the
+		// container, so it's quick.
+		if (this.state.wasOpenedFromCalendarButton) {
+			this.calendarButtonRef.current?.focus();
+		} else {
+			const innerCombobox: HTMLInputElement | undefined | null =
+				this.containerRef?.querySelector('[role="combobox"]');
+			innerCombobox?.focus();
+		}
 		this.setState({ isOpen: false });
 	};
 
 	onInputClick = () => {
 		if (!this.props.isDisabled && !this.getIsOpen()) {
-			this.setState({ isOpen: true });
+			this.setState({ isOpen: true, wasOpenedFromCalendarButton: false });
 		}
 	};
 
@@ -148,7 +204,11 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		const newlyFocusedElement = event.relatedTarget as HTMLElement;
 
 		if (!this.containerRef?.contains(newlyFocusedElement)) {
-			this.setState({ isOpen: false, shouldSetFocusOnCurrentDay: false });
+			this.setState({
+				isOpen: false,
+				shouldSetFocusOnCurrentDay: false,
+				wasOpenedFromCalendarButton: false,
+			});
 			this.props.onBlur(event);
 		}
 	};
@@ -166,7 +226,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		} else if (!this.containerRef?.contains(newlyFocusedElement)) {
 			// Don't close menu if focus is staying within the date picker's
 			// container. Makes keyboard accessibility of calendar possible
-			this.setState({ isOpen: false, isFocused: false });
+			this.setState({ isOpen: false, isFocused: false, wasOpenedFromCalendarButton: false });
 		}
 	};
 
@@ -179,9 +239,11 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			this.setState({ clearingFromIcon: false });
 		} else {
 			this.setState({
-				isOpen: true,
+				// Don't open when focused into via keyboard if the calendar button is present
+				isOpen: !this.props.shouldShowCalendarButton,
 				calendarValue: value,
 				isFocused: true,
+				wasOpenedFromCalendarButton: false,
 			});
 		}
 
@@ -205,7 +267,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			}
 		}
 
-		this.setState({ isOpen: true });
+		this.setState({ isOpen: true, wasOpenedFromCalendarButton: false });
 	};
 
 	onInputKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
@@ -216,7 +278,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 
 		// If the input is focused and the calendar is not visible, handle space and enter clicks
 		if (!this.state.isOpen && (keyPressed === 'enter' || keyPressed === ' ')) {
-			this.setState({ isOpen: true });
+			this.setState({ isOpen: true, wasOpenedFromCalendarButton: false });
 		}
 
 		switch (keyPressed) {
@@ -227,10 +289,18 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 				// this would be more "React-y", it doesn't seem to pose any other
 				// benefits. Performance-wise, we are only searching within the
 				// container, so it's quick.
-				const innerCombobox: HTMLInputElement | undefined | null =
-					this.containerRef?.querySelector('[role="combobox"]');
-				innerCombobox?.focus();
-				this.setState({ isOpen: false, shouldSetFocusOnCurrentDay: false });
+				if (this.state.wasOpenedFromCalendarButton) {
+					this.calendarButtonRef.current?.focus();
+				} else {
+					const innerCombobox: HTMLInputElement | undefined | null =
+						this.containerRef?.querySelector('[role="combobox"]');
+					innerCombobox?.focus();
+				}
+				this.setState({
+					isOpen: false,
+					shouldSetFocusOnCurrentDay: false,
+					wasOpenedFromCalendarButton: false,
+				});
 				break;
 			case 'backspace':
 			case 'delete': {
@@ -264,6 +334,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 						isOpen: false,
 						value: safeCalendarValue,
 						calendarValue: safeCalendarValue,
+						wasOpenedFromCalendarButton: false,
 					});
 					if (valueChanged) {
 						this.props.onChange(safeCalendarValue);
@@ -281,6 +352,34 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			default:
 				break;
 		}
+	};
+
+	onCalendarButtonKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+		// We want to stop this from triggering other keydown events, particularly
+		// for space and enter presses. Otherwise, it opens and then closes
+		// immediately.
+		if (e.type === 'keydown') {
+			e.stopPropagation();
+		}
+
+		this.setState({ isKeyDown: true, wasOpenedFromCalendarButton: true });
+	};
+
+	// This event handler is triggered from both keydown and click. It's weird.
+	onCalendarButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		this.setState({ isOpen: !this.state.isOpen, wasOpenedFromCalendarButton: true }, () => {
+			// We don't want the focus to move if this is a click event
+			if (!this.state.isKeyDown) {
+				return;
+			}
+
+			this.setState({ isKeyDown: false });
+
+			// Focus on the first button within the calendar
+			this.calendarRef?.current?.querySelector('button')?.focus();
+		});
+
+		e.stopPropagation();
 	};
 
 	onClear = () => {
@@ -331,13 +430,15 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			appearance = 'default',
 			'aria-describedby': ariaDescribedBy,
 			autoFocus = false,
+			hideIcon = false,
+			openCalendarLabel = 'Open calendar',
 			disabled,
 			disabledDateFilter,
-			hideIcon = false,
-			// TODO: Resolve this typing to be more intuitive
 			icon = CalendarIcon as unknown as React.ComponentType<DropdownIndicatorProps<OptionType>>,
 			id = '',
 			innerProps = {},
+			inputLabel = 'Date picker',
+			inputLabelId,
 			isDisabled = false,
 			isInvalid = false,
 			label = '',
@@ -348,6 +449,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			nextMonthLabel,
 			previousMonthLabel,
 			selectProps = {},
+			shouldShowCalendarButton,
 			spacing = 'default',
 			testId,
 			weekStartDay,
@@ -368,7 +470,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		const SingleValue = makeSingleValue({ lang: this.props.locale });
 
 		const selectComponents = {
-			DropdownIndicator: dropDownIcon,
+			DropdownIndicator: shouldShowCalendarButton ? EmptyComponent : dropDownIcon,
 			Menu,
 			SingleValue,
 			...(!showClearIndicator && { ClearIndicator: EmptyComponent }),
@@ -388,6 +490,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			calendarDisabledDateFilter: disabledDateFilter,
 			calendarMaxDate: maxDate,
 			calendarMinDate: minDate,
+			calendarRef: this.calendarRef,
 			calendarValue: value && getShortISOString(parseISO(value)),
 			calendarView: calendarValue,
 			onCalendarChange: this.onCalendarChange,
@@ -396,7 +499,8 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			calendarWeekStartDay: weekStartDay,
 			shouldSetFocusOnCurrentDay: this.state.shouldSetFocusOnCurrentDay,
 		};
-		//@ts-ignore react-select unsupported props
+
+		// @ts-ignore -- Argument of type 'StylesConfig<OptionType, false, GroupBase<OptionType>>' is not assignable to parameter of type 'StylesConfig<OptionType, boolean, GroupBase<OptionType>>'.
 		const mergedStyles = mergeStyles<OptionType, boolean, GroupType<OptionType>>(selectStyles, {
 			control: (base: any) => ({
 				...base,
@@ -420,11 +524,16 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 				}
 			: null;
 
+		// `label` takes precedence of the `inputLabel`
+		const fullopenCalendarLabel =
+			label || inputLabel ? `${label || inputLabel} , ${openCalendarLabel}` : openCalendarLabel;
+
 		return (
 			// These event handlers must be on this element because the events come
 			// from different child elements.
 			<div
 				{...innerProps}
+				css={pickerContainerStyles}
 				role="presentation"
 				onBlur={this.onContainerBlur}
 				onFocus={this.onContainerFocus}
@@ -441,6 +550,12 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					aria-label={label || undefined}
 					autoFocus={autoFocus}
 					closeMenuOnSelect
+					// FOr some reason, this and the below `styles` type error _only_ show
+					// up when you alter some of the properties in the `selectComponents`
+					// object. These errors are still present, and I suspect have always
+					// been present, without changing the unrelated code. Ignoring as the
+					// component still works as expected despite this error. And also
+					// because the select refresh team may solve it later.
 					components={selectComponents}
 					enableAnimation={false}
 					inputId={id}
@@ -465,13 +580,14 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					spacing={spacing}
 					testId={testId}
 					// These aren't part of `Select`'s API, but we're using them here.
-					//@ts-ignore react-select unsupported props
+					// @ts-ignore --  Property 'calendarContainerRef' does not exist on type 'IntrinsicAttributes & LibraryManagedAttributes<(<Option extends unknown = OptionType, IsMulti extends boolean = false>(props: AtlaskitSelectProps<Option, IsMulti> & { ...; }) => Element), AtlaskitSelectProps<...> & { ...; }>'.
 					calendarContainerRef={calendarProps.calendarContainerRef}
 					calendarDisabled={calendarProps.calendarDisabled}
 					calendarDisabledDateFilter={calendarProps.calendarDisabledDateFilter}
 					calendarLocale={calendarProps.calendarLocale}
 					calendarMaxDate={calendarProps.calendarMaxDate}
 					calendarMinDate={calendarProps.calendarMinDate}
+					calendarRef={calendarProps.calendarRef}
 					calendarValue={calendarProps.calendarValue}
 					calendarView={calendarProps.calendarView}
 					calendarWeekStartDay={calendarProps.calendarWeekStartDay}
@@ -481,6 +597,39 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					previousMonthLabel={previousMonthLabel}
 					shouldSetFocusOnCurrentDay={calendarProps.shouldSetFocusOnCurrentDay}
 				/>
+				{shouldShowCalendarButton && !isDisabled ? (
+					<UID name={(id) => `open-calendar-label--${id}`}>
+						{(openCalendarLabelId) => (
+							<div
+								css={[
+									iconContainerStyles,
+									value && !hideIcon
+										? iconSpacingWithClearButtonStyles
+										: iconSpacingWithoutClearButtonStyles,
+								]}
+							>
+								{inputLabelId && (
+									<VisuallyHidden id={openCalendarLabelId}>, {openCalendarLabel}</VisuallyHidden>
+								)}
+								<Pressable
+									{...(inputLabelId
+										? { 'aria-labelledby': `${inputLabelId} ${openCalendarLabelId}` }
+										: { 'aria-label': fullopenCalendarLabel })}
+									onClick={this.onCalendarButtonClick}
+									onKeyDown={this.onCalendarButtonKeyDown}
+									ref={this.calendarButtonRef}
+									testId={testId && `${testId}--open-calendar-button`}
+									type="button"
+									backgroundColor="color.background.neutral.subtle"
+									padding="space.050"
+									xcss={calendarButtonStyles}
+								>
+									<CalendarIcon label="" />
+								</Pressable>
+							</div>
+						)}
+					</UID>
+				) : null}
 			</div>
 		);
 	}

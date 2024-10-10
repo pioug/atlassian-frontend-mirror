@@ -12,6 +12,7 @@ import {
 import { addPath, getXProductHeaderValue } from './utils';
 import { readStream } from './readStream';
 import { getBaseUrl, type EnvironmentsKeys } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export class AISummaryService implements AISummaryServiceInt {
 	public state: AISummaryState = {
@@ -58,7 +59,9 @@ export class AISummaryService implements AISummaryServiceInt {
 
 	private fetchStream = async <T>() => {
 		const payload: PostAgentPayload = {
-			recipient_agent_named_id: 'summary_agent',
+			recipient_agent_named_id: fg('platform-smart-card-use-ai-smartlink-summary-agent')
+				? 'smartlink_summary_agent'
+				: 'summary_agent',
 			agent_input_context: {
 				content_url: this.url,
 				content_ari: this.ari,

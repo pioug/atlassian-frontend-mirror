@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.15.9
+
+### Patch Changes
+
+- [#150384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150384)
+  [`6d48c5b6ce65e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d48c5b6ce65e) -
+  [ED-25083] Typograpghy migration
+
 ## 3.15.8
 
 ### Patch Changes

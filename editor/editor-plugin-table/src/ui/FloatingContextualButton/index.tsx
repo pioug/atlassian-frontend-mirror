@@ -20,7 +20,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import ExpandIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { toggleContextualMenu } from '../../commands';
@@ -110,7 +110,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 					fg('platform_editor_a11y_table_context_menu') ? focusToContextMenuTrigger : undefined
 				}
 				onClick={handleClick}
-				iconBefore={<ExpandIcon label="" isFacadeDisabled={true} />}
+				iconBefore={<ExpandIcon label="" color="currentColor" isFacadeDisabled={true} />}
 				aria-label={labelCellOptions}
 				aria-expanded={
 					fg('platform_editor_a11y_table_context_menu') ? isContextualMenuOpen : undefined

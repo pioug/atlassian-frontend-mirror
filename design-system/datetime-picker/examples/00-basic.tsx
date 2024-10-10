@@ -81,10 +81,20 @@ export default () => {
 		<Box>
 			<Box paddingBlock="space.150">
 				<Heading size="large">Date picker</Heading>
-				<Label htmlFor="react-select-datepicker-1-input">Select date (default)</Label>
-				<DatePicker id="react-select-datepicker-1-input" onChange={onChange} />
+				<Label id="default" htmlFor="react-select-datepicker-1-input">
+					Select date (default)
+				</Label>
+				<DatePicker
+					id="react-select-datepicker-1-input"
+					onChange={onChange}
+					shouldShowCalendarButton
+					inputLabelId="default"
+					openCalendarLabel="open calendar"
+				/>
 
-				<Label htmlFor="react-select-datepicker-2--input">Select date (controlled value)</Label>
+				<Label id="controlled" htmlFor="react-select-datepicker-2--input">
+					Select date (controlled value)
+				</Label>
 				<Controlled initialValue="2018-01-02">
 					{({ value, onValueChange, onBlur }) => (
 						<DatePicker
@@ -92,17 +102,23 @@ export default () => {
 							value={value}
 							onChange={onValueChange}
 							onBlur={onBlur}
+							shouldShowCalendarButton
+							inputLabelId="controlled"
+							openCalendarLabel="open calendar"
 						/>
 					)}
 				</Controlled>
 
-				<Label htmlFor="react-select-datepicker-3--input">
+				<Label id="disabled-dates" htmlFor="react-select-datepicker-3--input">
 					Select date (uncontrolled, defaultValue)
 				</Label>
 				<DatePicker
 					id="react-select-datepicker-3--input"
 					defaultValue="2018-01-02"
 					onChange={onChange}
+					shouldShowCalendarButton
+					inputLabelId="disabled-dates"
+					openCalendarLabel="open calendar"
 				/>
 			</Box>
 			<Box paddingBlock="space.150">
@@ -164,7 +180,11 @@ export default () => {
 					clearControlLabel="Clear date / time picker (default)"
 					onChange={onChange}
 					testId={'dateTimePicker'}
-					datePickerProps={{ label: 'Date, Date / time picker (default)' }}
+					datePickerProps={{
+						label: 'Date, Date / time picker (default)',
+						shouldShowCalendarButton: true,
+						openCalendarLabel: 'open calendar',
+					}}
 					timePickerProps={{ label: 'Time, Date / time picker (default)' }}
 					id="react-select-datetimepicker-1--input"
 				/>
@@ -179,7 +199,11 @@ export default () => {
 							value={value}
 							onChange={onValueChange}
 							id="react-select-datetimepicker-2--input"
-							datePickerProps={{ label: 'Date, Date / time picker (controlled (UTC-08:00))' }}
+							datePickerProps={{
+								label: 'Date, Date / time picker (controlled (UTC-08:00))',
+								shouldShowCalendarButton: true,
+								openCalendarLabel: 'open calendar',
+							}}
 							timePickerProps={{ label: 'Time, Date / time picker (controlled (UTC-08:00))' }}
 						/>
 					)}
@@ -193,7 +217,11 @@ export default () => {
 					id="react-select-datetimepicker-3--input"
 					defaultValue="2018-01-02T14:30+10:00"
 					onChange={onChange}
-					datePickerProps={{ label: 'Date, Date / time picker (uncontrolled (UTC+10:00))' }}
+					datePickerProps={{
+						label: 'Date, Date / time picker (uncontrolled (UTC+10:00))',
+						shouldShowCalendarButton: true,
+						openCalendarLabel: 'open calendar',
+					}}
 					timePickerProps={{ label: 'Time, Date / time picker (uncontrolled (UTC+10:00))' }}
 				/>
 
@@ -209,7 +237,11 @@ export default () => {
 						timeIsEditable: true,
 						label: 'Time, Date / time picker (editable times (UTC+10:00))',
 					}}
-					datePickerProps={{ label: 'Date, Date / time picker (editable times (UTC+10:00))' }}
+					datePickerProps={{
+						label: 'Date, Date / time picker (editable times (UTC+10:00))',
+						shouldShowCalendarButton: true,
+						openCalendarLabel: 'open calendar',
+					}}
 				/>
 				<Label htmlFor="react-select-datetimepicker-input">
 					Date / time picker (editable times with value (UTC+10:00))
@@ -220,6 +252,8 @@ export default () => {
 					id="react-select-datetimepicker-input"
 					datePickerProps={{
 						label: 'Date, Date / time picker (editable times with value (UTC+10:00))',
+						shouldShowCalendarButton: true,
+						openCalendarLabel: 'open calendar',
 					}}
 					timePickerProps={{
 						label: 'Time, Date / time picker (editable times with value (UTC+10:00))',

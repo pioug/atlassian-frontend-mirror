@@ -483,6 +483,16 @@ export type RequestToEditAEP = UIAEP<
 	undefined
 >;
 
+type CopyLinkToAnchorButtonAEP = ButtonAEP<
+	ACTION_SUBJECT_ID.COPY_LINK_TO_ANCHOR,
+	{
+		inputMethod: INPUT_METHOD;
+		extensionKey?: string;
+		extensionType?: string;
+		isLivePage?: boolean;
+	}
+>;
+
 export type GeneralEventPayload<T = void> =
 	| AnnotateButtonAEP
 	| AnnotationAEP
@@ -529,4 +539,5 @@ export type GeneralEventPayload<T = void> =
 	| HeadingAnchorLinkButtonAEP
 	| CollabStepsTrackerPayloadAEP
 	| CodeBlockWordWrapToggleAEP
-	| RequestToEditAEP;
+	| RequestToEditAEP
+	| CopyLinkToAnchorButtonAEP;

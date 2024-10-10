@@ -21,7 +21,6 @@ import {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
 import { DatasourceAction, DatasourceDisplay } from '../../../analytics/types';
@@ -481,9 +480,7 @@ export const PlainJiraIssuesConfigModalOld = (props: JiraConfigModalProps) => {
 					columnCustomSizes={columnCustomSizes}
 					onColumnResize={onColumnResize}
 					wrappedColumnKeys={wrappedColumnKeys}
-					onWrappedColumnChange={
-						fg('platform.linking-platform.datasource-word_wrap') ? onWrappedColumnChange : undefined
-					}
+					onWrappedColumnChange={onWrappedColumnChange}
 				/>
 			</ContentContainer>
 		),

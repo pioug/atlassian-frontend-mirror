@@ -1,5 +1,13 @@
 # @atlaskit/editor-extension-dropbox
 
+## 0.4.33
+
+### Patch Changes
+
+- [#150384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150384)
+  [`6d48c5b6ce65e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d48c5b6ce65e) -
+  [ED-25083] Typograpghy migration
+
 ## 0.4.32
 
 ### Patch Changes

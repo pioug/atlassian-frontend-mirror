@@ -30,10 +30,9 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 		contextAdapter: PropTypes.object,
 	};
 
-	UNSAFE_componentWillMount() {
-		const { view } = this.props;
-		const scrollContainer = findOverflowScrollParent(view.dom as HTMLElement);
-		this.scrollContainer = scrollContainer || undefined;
+	constructor(props: SmartCardProps) {
+		super(props);
+		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
 	}
 
 	onResolve = (data: { url?: string; title?: string }) => {

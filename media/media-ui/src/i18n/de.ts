@@ -10,7 +10,9 @@ export default {
   'fabric.media.accounts': 'Konten',
   'fabric.media.actions': 'Aktionen',
   'fabric.media.add_account': 'Account hinzufügen',
-  'fabric.media.alt_text': 'Wie würden Sie das ausgewählte Bild einer Person mit Sehschwäche beschreiben?',
+  'fabric.media.alt_text_helper_message':
+    'Wie würden Sie das ausgewählte Bild einer Person mit Sehschwäche beschreiben?',
+  'fabric.media.alt_text_label': 'Alternativtext',
   'fabric.media.annotate': 'Kommentieren',
   'fabric.media.annotate.confirmation.close.anyway': 'Trotzdem schließen',
   'fabric.media.annotate.confirmation.content':

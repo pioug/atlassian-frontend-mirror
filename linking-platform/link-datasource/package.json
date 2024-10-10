@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.5.0",
+	"version": "3.5.1",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,7 +41,7 @@
 		"@atlaskit/avatar-group": "^9.11.0",
 		"@atlaskit/badge": "^16.4.0",
 		"@atlaskit/button": "^20.2.0",
-		"@atlaskit/datetime-picker": "^15.1.0",
+		"@atlaskit/datetime-picker": "^15.2.0",
 		"@atlaskit/dropdown-menu": "^12.19.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/empty-state": "^7.11.0",
@@ -71,8 +71,8 @@
 		"@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^1.2.0",
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
 		"@atlaskit/primitives": "^12.2.0",
-		"@atlaskit/select": "^18.0.0",
-		"@atlaskit/smart-card": "^29.1.0",
+		"@atlaskit/select": "^18.1.0",
+		"@atlaskit/smart-card": "^29.2.0",
 		"@atlaskit/smart-user-picker": "6.10.3",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/tag": "^12.6.0",
@@ -177,9 +177,6 @@
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource.show-clol-basic-filters": {
-			"type": "boolean"
-		},
-		"platform.linking-platform.datasource-word_wrap": {
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource.limit-total-results_8wqcd": {

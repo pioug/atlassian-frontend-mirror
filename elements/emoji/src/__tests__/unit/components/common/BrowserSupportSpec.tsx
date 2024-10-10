@@ -13,7 +13,7 @@ describe('<Emoji />', () => {
 
 	it('should render image when IntersectionObserver is not supported', async () => {
 		const result = await renderWithIntl(<Emoji emoji={imageEmoji} />);
-		const image = result.getByAltText(imageEmoji.shortName);
+		const image = result.getByAltText(imageEmoji.name);
 		expect(browserSupport.supportsIntersectionObserver).toBeFalsy();
 		expect(image).toHaveAttribute('src', 'https://path-to-image.png');
 	});

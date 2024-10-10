@@ -36,19 +36,19 @@ export default class TaskItemWithProviders extends Component<Props, State> {
 	// updates when no longer suitable.
 	private mounted = false;
 
-	UNSAFE_componentWillMount() {
+	componentDidMount() {
 		this.mounted = true;
 		this.updateContextIdentifierProvider(this.props);
 	}
 
-	componentWillUnmount() {
-		this.mounted = false;
+	componentDidUpdate(prevProps: Props) {
+		if (this.props.contextIdentifierProvider !== prevProps.contextIdentifierProvider) {
+			this.updateContextIdentifierProvider(this.props);
+		}
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		if (nextProps.contextIdentifierProvider !== this.props.contextIdentifierProvider) {
-			this.updateContextIdentifierProvider(nextProps);
-		}
+	componentWillUnmount() {
+		this.mounted = false;
 	}
 
 	private async updateContextIdentifierProvider(props: Props) {

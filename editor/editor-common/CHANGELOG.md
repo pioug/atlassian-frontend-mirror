@@ -1,5 +1,52 @@
 # @atlaskit/editor-common
 
+## 93.2.0
+
+### Minor Changes
+
+- [#150260](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150260)
+  [`b6d9de1b0e543`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6d9de1b0e543) -
+  Added an editor analytics event for clicking the copy anchor link floating toolbar item
+
+### Patch Changes
+
+- [#150241](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150241)
+  [`11814f141483a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/11814f141483a) -
+  ED-24117: remediates extension component for react 18
+- Updated dependencies
+
+## 93.1.6
+
+### Patch Changes
+
+- [#150384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150384)
+  [`d3dad252dbe46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3dad252dbe46) -
+  [EDF-1177](https://product-fabric.atlassian.net/browse/EDF-1177) - add pulse effect support into
+  editor floating toolbar
+- [#150125](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150125)
+  [`79a44707fe935`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/79a44707fe935) -
+  [ED-24001] This change is cleaning up the feature gate for the image border options dropdown a11y
+  fix.
+- [#150606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150606)
+  [`7680d21f5d481`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7680d21f5d481) -
+  [ED-24257] This change cleans up the feature gate for the main toolbar navigation escape fix.
+- [#150606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150606)
+  [`d4d1f4dc8f6dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4d1f4dc8f6dc) -
+  ED-24117: upgrades mention with provider to fc for react 18 migration
+- [#150384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150384)
+  [`704af5d7d4a1a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/704af5d7d4a1a) -
+  [EDF-1668](https://product-fabric.atlassian.net/browse/EDF-1668) - add external message API
+  support into editor-plugin-engagement-platform
+- Updated dependencies
+
+## 93.1.5
+
+### Patch Changes
+
+- [#150189](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150189)
+  [`7537d7c549a7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7537d7c549a7b) -
+  [No Issue] Improve prosemirror data attributes for nodes/marks toDOM and NodeViews
+
 ## 93.1.4
 
 ### Patch Changes

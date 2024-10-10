@@ -50,9 +50,18 @@ export default () => {
 					onBlur={handleOnBlur}
 					onChange={handleDatePickerChange}
 				/>
-
-				<Label htmlFor={dateId}>Date</Label>
-				<DatePicker value={datePickerValue} isDisabled onChange={console.log} id={dateId} />
+				<Label id="date" htmlFor={dateId}>
+					Date
+				</Label>
+				<DatePicker
+					value={datePickerValue}
+					isDisabled
+					onChange={console.log}
+					id={dateId}
+					shouldShowCalendarButton
+					inputLabelId="date"
+					openCalendarLabel="open calendar"
+				/>
 			</Box>
 			<Box paddingBlock="space.150">
 				<Heading size="large">Time picker</Heading>
@@ -84,7 +93,11 @@ export default () => {
 					isDisabled
 					onChange={console.log}
 					id={datetimeId}
-					datePickerProps={{ label: 'Date, Date / time' }}
+					datePickerProps={{
+						label: 'Date, Date / time',
+						shouldShowCalendarButton: true,
+						openCalendarLabel: 'open calendar',
+					}}
 					timePickerProps={{ label: 'Time, Date / time' }}
 				/>
 			</Box>

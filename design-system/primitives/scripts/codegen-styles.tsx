@@ -30,6 +30,11 @@ const templateFiles = readdirSync(join(__dirname, 'codegen-file-templates'), {
 	.map((item) => join(__dirname, 'codegen-file-templates', item.name));
 
 const targetPath = join(__dirname, '../', 'src', 'xcss', 'style-maps.partial.tsx');
+const xcssCodemodPath = join(
+	process.cwd(),
+	'../../../',
+	'packages/design-system/css/codemods/primitives-emotion-to-compiled/style-maps.partial.tsx',
+);
 
 const sourceFns = [
 	// width, height, minWidth, maxWidth, minHeight, maxHeight
@@ -40,6 +45,16 @@ const sourceFns = [
 			{
 				id: 'dimensions',
 				absoluteFilePath: targetPath,
+				dependencies: templateFiles.filter((v) => v.includes('dimensions')),
+			},
+		),
+	() =>
+		createPartialSignedArtifact(
+			(options) => options.map(createStylesFromFileTemplate).join('\n'),
+			'yarn workspace @atlaskit/primitives codegen-styles',
+			{
+				id: 'dimensions',
+				absoluteFilePath: xcssCodemodPath,
 				dependencies: templateFiles.filter((v) => v.includes('dimensions')),
 			},
 		),
@@ -54,6 +69,16 @@ const sourceFns = [
 				dependencies: [spacingTokensDependencyPath],
 			},
 		),
+	() =>
+		createPartialSignedArtifact(
+			createSpacingStylesFromTemplate,
+			'yarn workspace @atlaskit/primitives codegen-styles',
+			{
+				id: 'spacing',
+				absoluteFilePath: xcssCodemodPath,
+				dependencies: [spacingTokensDependencyPath],
+			},
+		),
 	// text color, background-color, border-color
 	() =>
 		createPartialSignedArtifact(
@@ -62,6 +87,16 @@ const sourceFns = [
 			{
 				id: 'colors',
 				absoluteFilePath: targetPath,
+				dependencies: [colorTokensDependencyPath],
+			},
+		),
+	() =>
+		createPartialSignedArtifact(
+			(options) => options.map(createColorStylesFromTemplate).join('\n'),
+			'yarn workspace @atlaskit/primitives codegen-styles',
+			{
+				id: 'colors',
+				absoluteFilePath: xcssCodemodPath,
 				dependencies: [colorTokensDependencyPath],
 			},
 		),
@@ -87,6 +122,16 @@ const sourceFns = [
 				dependencies: [colorTokensDependencyPath],
 			},
 		),
+	() =>
+		createPartialSignedArtifact(
+			(options) => options.map(createElevationStylesFromTemplate).join('\n'),
+			'yarn workspace @atlaskit/primitives codegen-styles',
+			{
+				id: 'elevation',
+				absoluteFilePath: xcssCodemodPath,
+				dependencies: [colorTokensDependencyPath],
+			},
+		),
 	// border-width, border-radius
 	() =>
 		createPartialSignedArtifact(
@@ -95,6 +140,16 @@ const sourceFns = [
 			{
 				id: 'border',
 				absoluteFilePath: targetPath,
+				dependencies: [shapeTokensDependencyPath],
+			},
+		),
+	() =>
+		createPartialSignedArtifact(
+			(options) => options.map(createBorderStylesFromTemplate).join('\n'),
+			'yarn workspace @atlaskit/primitives codegen-styles',
+			{
+				id: 'border',
+				absoluteFilePath: xcssCodemodPath,
 				dependencies: [shapeTokensDependencyPath],
 			},
 		),
@@ -109,6 +164,16 @@ const sourceFns = [
 				dependencies: templateFiles,
 			},
 		),
+	() =>
+		createPartialSignedArtifact(
+			(options) => options.map(createStylesFromFileTemplate).join('\n'),
+			'yarn workspace @atlaskit/primitives codegen-styles',
+			{
+				id: 'misc',
+				absoluteFilePath: xcssCodemodPath,
+				dependencies: templateFiles,
+			},
+		),
 	// font*, lineheight
 	() =>
 		createPartialSignedArtifact(
@@ -117,6 +182,16 @@ const sourceFns = [
 			{
 				id: 'typography',
 				absoluteFilePath: targetPath,
+				dependencies: templateFiles,
+			},
+		),
+	() =>
+		createPartialSignedArtifact(
+			createTypographyStylesFromTemplate,
+			'yarn workspace @atlaskit/primitives codegen-styles',
+			{
+				id: 'typography',
+				absoluteFilePath: xcssCodemodPath,
 				dependencies: templateFiles,
 			},
 		),
@@ -131,10 +206,21 @@ const sourceFns = [
 				dependencies: templateFiles,
 			},
 		),
+	() =>
+		createPartialSignedArtifact(
+			createTextStylesFromTemplate,
+			'yarn workspace @atlaskit/primitives codegen-styles',
+			{
+				id: 'text',
+				absoluteFilePath: xcssCodemodPath,
+				dependencies: templateFiles,
+			},
+		),
 ];
 
 sourceFns.forEach((sourceFn) => {
 	writeFileSync(targetPath, sourceFn());
+	writeFileSync(xcssCodemodPath, sourceFn());
 });
 
 console.log(`${targetPath} written!`);

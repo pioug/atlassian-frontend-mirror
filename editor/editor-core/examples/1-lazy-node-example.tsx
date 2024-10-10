@@ -13,10 +13,12 @@ import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { extensionPlugin } from '@atlaskit/editor-plugin-extension';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media';
+import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -53,6 +55,11 @@ const createExamplePreset = () => {
 				featureFlags: { mediaInline: true },
 				provider: storyMediaProviderFactory(),
 			},
+		])
+		.add(contentInsertionPlugin)
+		.add([
+			tablesPlugin,
+			{ tableResizingEnabled: true, tableOptions: { allowColumnResizing: true, advanced: true } },
 		]);
 };
 

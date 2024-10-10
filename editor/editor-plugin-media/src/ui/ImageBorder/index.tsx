@@ -27,7 +27,6 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -95,41 +94,37 @@ const ImageBorder = ({
 	};
 
 	const handleTriggerByKeyboard = (event: React.KeyboardEvent, callback: () => void) => {
-		if (fg('platform-editor-a11y-image-border-options-dropdown')) {
-			if (event.key === 'Enter' || event.key === ' ') {
-				event.preventDefault();
-				callback();
-				setIsOpenedByKeyboard(true);
-			}
+		if (event.key === 'Enter' || event.key === ' ') {
+			event.preventDefault();
+			callback();
+			setIsOpenedByKeyboard(true);
 		}
 	};
 
 	useEffect(() => {
-		if (fg('platform-editor-a11y-image-border-options-dropdown')) {
-			const focusFirstOption = (submenuRef: React.RefObject<HTMLDivElement>, isOpen: boolean) => {
-				if (!isOpenByKeyboard) {
+		const focusFirstOption = (submenuRef: React.RefObject<HTMLDivElement>, isOpen: boolean) => {
+			if (!isOpenByKeyboard) {
+				return;
+			}
+			if (isOpen && submenuRef.current) {
+				const firstOption = submenuRef.current.querySelector('button');
+
+				if (!firstOption) {
 					return;
 				}
-				if (isOpen && submenuRef.current) {
-					const firstOption = submenuRef.current.querySelector('button');
 
-					if (!firstOption) {
-						return;
-					}
+				firstOption.focus();
 
-					firstOption.focus();
+				const keyboardEvent = new KeyboardEvent('keydown', {
+					key: 'ArrowDown',
+					bubbles: true,
+				});
 
-					const keyboardEvent = new KeyboardEvent('keydown', {
-						key: 'ArrowDown',
-						bubbles: true,
-					});
-
-					firstOption.dispatchEvent(keyboardEvent);
-				}
-			};
-			focusFirstOption(colorSubmenuRef, isColorSubmenuOpen);
-			focusFirstOption(sizeSubmenuRef, isSizeSubmenuOpen);
-		}
+				firstOption.dispatchEvent(keyboardEvent);
+			}
+		};
+		focusFirstOption(colorSubmenuRef, isColorSubmenuOpen);
+		focusFirstOption(sizeSubmenuRef, isSizeSubmenuOpen);
 	}, [isColorSubmenuOpen, isSizeSubmenuOpen, isOpenByKeyboard]);
 
 	const borderSizeOptions: { name: string; value: number }[] = [
@@ -147,176 +142,56 @@ const ImageBorder = ({
 		},
 	];
 
-	const items: MenuItem[] = fg('platform-editor-a11y-image-border-options-dropdown')
-		? [
-				{
-					content: (
-						<div>
-							<button
-								ref={dropDownColorOptionButton}
-								type="button"
-								aria-label="Image border options Color dropdown button"
-								data-testid="image-border-dropdown-button-color"
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								css={[dropdownOptionButton]}
-								aria-expanded={isColorSubmenuOpen}
-								onKeyDown={(e) =>
-									handleTriggerByKeyboard(e, () => setIsColorSubmenuOpen(!isColorSubmenuOpen))
-								}
-							>
-								<Text>{formatMessage(messages.borderColor)}</Text>
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-								<div css={contextualMenuColorIcon(color && hexToEditorBorderPaletteColor(color))} />
-							</button>
-							<div
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-								className={DropdownMenuSharedCssClassName.SUBMENU}
-								ref={colorSubmenuRef}
-							>
-								{isColorSubmenuOpen && (
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-									<div css={contextualSubMenu(0)} ref={handleSubMenuRef}>
-										<ArrowKeyNavigationProvider
-											type={ArrowKeyNavigationType.MENU}
-											handleClose={(e) => {
-												e.preventDefault();
-												e.stopPropagation();
-												handleColorSubmenuEsc();
-											}}
-											disableCloseOnArrowClick={true}
-										>
-											<ColorPalette
-												onClick={(color: string) => {
-													setBorder({ color });
-													setIsOpen(!isOpen);
-												}}
-												onKeyDown={(color, _, event) => {
-													if (event.key === 'Enter' || event.key === ' ') {
-														setBorder({ color });
-														setIsOpen(!isOpen);
-														setIsColorSubmenuOpen(false);
-														setIsSizeSubmenuOpen(false);
-														openDropdownButtonRef.current?.focus();
-													}
-												}}
-												selectedColor={color ?? null}
-												paletteOptions={{
-													palette: borderColorPalette,
-													paletteColorTooltipMessages: borderPaletteTooltipMessages,
-													hexToPaletteColor: hexToEditorBorderPaletteColor,
-												}}
-											/>
-										</ArrowKeyNavigationProvider>
-									</div>
-								)}
-							</div>
-						</div>
-					),
-					'data-testid': 'dropdown-item__Color',
-					key: 'dropdown-menu-image-border-color-button',
-					value: { name: 'color' },
-					'aria-label': '',
-					wrapperTabIndex: null,
-				},
-				{
-					content: (
-						<div>
-							<button
-								type="button"
-								aria-label="Image border options Size dropdown button"
-								data-testid="image-border-dropdown-button-size"
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								css={[dropdownOptionButton]}
-								aria-expanded={isSizeSubmenuOpen}
-								ref={dropDownSizeOptionButton}
-								onKeyDown={(e) =>
-									handleTriggerByKeyboard(e, () => setIsSizeSubmenuOpen(!isSizeSubmenuOpen))
-								}
-							>
-								<Text>{formatMessage(messages.borderSize)}</Text>
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-								<div css={contextualMenuArrow} />
-							</button>
-
-							<div
-								//eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-								className={DropdownMenuSharedCssClassName.SUBMENU}
-								ref={sizeSubmenuRef}
-							>
-								{isSizeSubmenuOpen && (
-									<ArrowKeyNavigationProvider
-										type={ArrowKeyNavigationType.MENU}
-										handleClose={(e) => {
-											e.preventDefault();
-											handleSizeSubmenuEsc();
-										}}
-										disableCloseOnArrowClick={true}
-									>
-										{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-										<div css={contextualSubMenu(1)} ref={handleSubMenuRef}>
-											{borderSizeOptions.map(({ name, value }, idx) => (
-												<Tooltip key={idx} content={name}>
-													{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-													<span css={buttonWrapperStyle}>
-														<button
-															type="button"
-															/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
-															css={buttonStyle(value === size)}
-															aria-label={name}
-															role="radio"
-															aria-checked={value === size}
-															onClick={() => {
-																setBorder({ size: value });
-																setIsOpen(false);
-															}}
-															onKeyDown={(event) => {
-																if (event.key === 'Enter' || event.key === ' ') {
-																	setBorder({ size: value });
-																	setIsOpen(false);
-																	setIsColorSubmenuOpen(false);
-																	setIsSizeSubmenuOpen(false);
-																	openDropdownButtonRef.current?.focus();
-																}
-															}}
-															onMouseDown={(e) => {
-																e.preventDefault();
-															}}
-														>
-															{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-															<div css={line(value, value === size)} role="presentation" />
-														</button>
-													</span>
-												</Tooltip>
-											))}
-										</div>
-									</ArrowKeyNavigationProvider>
-								)}
-							</div>
-						</div>
-					),
-					'data-testid': 'dropdown-item__Size',
-					key: 'dropdown-menu-image-border-size-button',
-					value: { name: 'size' },
-					'aria-label': '',
-					wrapperTabIndex: null,
-				},
-			]
-		: [
-				{
-					content: formatMessage(messages.borderColor),
-					value: { name: 'color' },
-					elemAfter: (
+	const items: MenuItem[] = [
+		{
+			content: (
+				<div>
+					<button
+						ref={dropDownColorOptionButton}
+						type="button"
+						aria-label="Image border options Color dropdown button"
+						data-testid="image-border-dropdown-button-color"
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+						css={[dropdownOptionButton]}
+						aria-expanded={isColorSubmenuOpen}
+						onKeyDown={(e) =>
+							handleTriggerByKeyboard(e, () => setIsColorSubmenuOpen(!isColorSubmenuOpen))
+						}
+					>
+						<Text>{formatMessage(messages.borderColor)}</Text>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<div css={contextualMenuColorIcon(color && hexToEditorBorderPaletteColor(color))} />
+					</button>
+					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						<div className={DropdownMenuSharedCssClassName.SUBMENU}>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-							<div css={contextualMenuColorIcon(color && hexToEditorBorderPaletteColor(color))} />
-							{isColorSubmenuOpen && (
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								<div css={contextualSubMenu(0)} ref={handleSubMenuRef}>
+						className={DropdownMenuSharedCssClassName.SUBMENU}
+						ref={colorSubmenuRef}
+					>
+						{isColorSubmenuOpen && (
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+							<div css={contextualSubMenu(0)} ref={handleSubMenuRef}>
+								<ArrowKeyNavigationProvider
+									type={ArrowKeyNavigationType.MENU}
+									handleClose={(e) => {
+										e.preventDefault();
+										e.stopPropagation();
+										handleColorSubmenuEsc();
+									}}
+									disableCloseOnArrowClick={true}
+								>
 									<ColorPalette
 										onClick={(color: string) => {
 											setBorder({ color });
 											setIsOpen(!isOpen);
+										}}
+										onKeyDown={(color, _, event) => {
+											if (event.key === 'Enter' || event.key === ' ') {
+												setBorder({ color });
+												setIsOpen(!isOpen);
+												setIsColorSubmenuOpen(false);
+												setIsSizeSubmenuOpen(false);
+												openDropdownButtonRef.current?.focus();
+											}
 										}}
 										selectedColor={color ?? null}
 										paletteOptions={{
@@ -325,21 +200,53 @@ const ImageBorder = ({
 											hexToPaletteColor: hexToEditorBorderPaletteColor,
 										}}
 									/>
-								</div>
-							)}
-						</div>
-					),
-				},
-				{
-					content: formatMessage(messages.borderSize),
-					value: { name: 'size' },
-					elemAfter: (
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						<div className={DropdownMenuSharedCssClassName.SUBMENU}>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-							<div css={contextualMenuArrow} />
-							{isSizeSubmenuOpen && (
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+								</ArrowKeyNavigationProvider>
+							</div>
+						)}
+					</div>
+				</div>
+			),
+			'data-testid': 'dropdown-item__Color',
+			key: 'dropdown-menu-image-border-color-button',
+			value: { name: 'color' },
+			'aria-label': '',
+			wrapperTabIndex: null,
+		},
+		{
+			content: (
+				<div>
+					<button
+						type="button"
+						aria-label="Image border options Size dropdown button"
+						data-testid="image-border-dropdown-button-size"
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+						css={[dropdownOptionButton]}
+						aria-expanded={isSizeSubmenuOpen}
+						ref={dropDownSizeOptionButton}
+						onKeyDown={(e) =>
+							handleTriggerByKeyboard(e, () => setIsSizeSubmenuOpen(!isSizeSubmenuOpen))
+						}
+					>
+						<Text>{formatMessage(messages.borderSize)}</Text>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<div css={contextualMenuArrow} />
+					</button>
+
+					<div
+						//eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={DropdownMenuSharedCssClassName.SUBMENU}
+						ref={sizeSubmenuRef}
+					>
+						{isSizeSubmenuOpen && (
+							<ArrowKeyNavigationProvider
+								type={ArrowKeyNavigationType.MENU}
+								handleClose={(e) => {
+									e.preventDefault();
+									handleSizeSubmenuEsc();
+								}}
+								disableCloseOnArrowClick={true}
+							>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<div css={contextualSubMenu(1)} ref={handleSubMenuRef}>
 									{borderSizeOptions.map(({ name, value }, idx) => (
 										<Tooltip key={idx} content={name}>
@@ -347,7 +254,7 @@ const ImageBorder = ({
 											<span css={buttonWrapperStyle}>
 												<button
 													type="button"
-													// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+													/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
 													css={buttonStyle(value === size)}
 													aria-label={name}
 													role="radio"
@@ -355,6 +262,15 @@ const ImageBorder = ({
 													onClick={() => {
 														setBorder({ size: value });
 														setIsOpen(false);
+													}}
+													onKeyDown={(event) => {
+														if (event.key === 'Enter' || event.key === ' ') {
+															setBorder({ size: value });
+															setIsOpen(false);
+															setIsColorSubmenuOpen(false);
+															setIsSizeSubmenuOpen(false);
+															openDropdownButtonRef.current?.focus();
+														}
 													}}
 													onMouseDown={(e) => {
 														e.preventDefault();
@@ -367,11 +283,19 @@ const ImageBorder = ({
 										</Tooltip>
 									))}
 								</div>
-							)}
-						</div>
-					),
-				},
-			];
+							</ArrowKeyNavigationProvider>
+						)}
+					</div>
+				</div>
+			),
+			'data-testid': 'dropdown-item__Size',
+			key: 'dropdown-menu-image-border-size-button',
+			value: { name: 'size' },
+			'aria-label': '',
+			wrapperTabIndex: null,
+		},
+	];
+
 	/**
 	 * We want to change direction of our dropdowns a bit early,
 	 * not exactly when it hits the boundary.
@@ -409,24 +333,16 @@ const ImageBorder = ({
 						className="image-border-toolbar-dropdown"
 						ref={openDropdownButtonRef}
 						selected={enabled || isOpen}
-						aria-expanded={
-							fg('platform-editor-a11y-image-border-options-dropdown') ? isOpen : undefined
-						}
+						aria-expanded={isOpen}
 						aria-label={formatMessage(messages.borderOptions)}
 						title={formatMessage(messages.borderOptions)}
 						spacing="compact"
 						iconBefore={<ExpandIcon label="" />}
 						onClick={() => {
 							setIsOpen(!isOpen);
-							if (fg('platform-editor-a11y-image-border-options-dropdown')) {
-								setIsOpenedByKeyboard(false);
-							}
+							setIsOpenedByKeyboard(false);
 						}}
-						onKeyDown={
-							fg('platform-editor-a11y-image-border-options-dropdown')
-								? (e) => handleTriggerByKeyboard(e, () => setIsOpen(!isOpen))
-								: undefined
-						}
+						onKeyDown={(e) => handleTriggerByKeyboard(e, () => setIsOpen(!isOpen))}
 					/>
 				</div>
 			</div>
@@ -442,12 +358,8 @@ const ImageBorder = ({
 						setIsColorSubmenuOpen(false);
 						setIsSizeSubmenuOpen(false);
 					}}
-					css={
-						fg('platform-editor-a11y-image-border-options-dropdown')
-							? /* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
-								dropdownWrapper
-							: undefined
-					}
+					/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
+					css={dropdownWrapper}
 				>
 					<DropdownMenu
 						//This needs be removed when the a11y is completely handled
@@ -455,44 +367,26 @@ const ImageBorder = ({
 						//Same with packages/editor/editor-plugin-table/src/plugins/table/ui/FloatingContextualMenu/ContextualMenu.tsx
 						arrowKeyNavigationProviderOptions={{
 							type: ArrowKeyNavigationType.MENU,
-							disableArrowKeyNavigation: fg('platform-editor-a11y-image-border-options-dropdown')
-								? isAnySubMenuOpen
-									? true
-									: false
-								: true,
+							disableArrowKeyNavigation: isAnySubMenuOpen,
 						}}
-						allowEnterDefaultBehavior={
-							fg('platform-editor-a11y-image-border-options-dropdown')
-								? isAnySubMenuOpen
-									? true
-									: false
-								: undefined
-						}
+						allowEnterDefaultBehavior={isAnySubMenuOpen}
 						handleEscapeKeydown={
-							fg('platform-editor-a11y-image-border-options-dropdown')
-								? isAnySubMenuOpen
-									? () => {
-											return;
-										}
-									: () => {
-											openDropdownButtonRef.current?.focus();
-										}
-								: undefined
+							isAnySubMenuOpen
+								? () => {
+										return;
+									}
+								: () => {
+										openDropdownButtonRef.current?.focus();
+									}
 						}
 						items={[{ items }]}
 						isOpen={isOpen}
-						shouldFocusFirstItem={
-							fg('platform-editor-a11y-image-border-options-dropdown')
-								? () => isOpenByKeyboard
-								: undefined
-						}
+						shouldFocusFirstItem={() => isOpenByKeyboard}
 						onOpenChange={() => {
 							setIsOpen(false);
 							setIsColorSubmenuOpen(false);
 							setIsSizeSubmenuOpen(false);
-							if (fg('platform-editor-a11y-image-border-options-dropdown')) {
-								setIsOpenedByKeyboard(false);
-							}
+							setIsOpenedByKeyboard(false);
 						}}
 						onItemActivated={({ item }) => {
 							if (item.value.name === 'color') {
@@ -505,15 +399,11 @@ const ImageBorder = ({
 						onMouseEnter={({ item }) => {
 							if (item.value.name === 'color') {
 								setIsColorSubmenuOpen(true);
-								if (fg('platform-editor-a11y-image-border-options-dropdown')) {
-									setIsOpenedByKeyboard(false);
-								}
+								setIsOpenedByKeyboard(false);
 							}
 							if (item.value.name === 'size') {
 								setIsSizeSubmenuOpen(true);
-								if (fg('platform-editor-a11y-image-border-options-dropdown')) {
-									setIsOpenedByKeyboard(false);
-								}
+								setIsOpenedByKeyboard(false);
 							}
 						}}
 						onMouseLeave={({ item }) => {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "29.1.0",
+	"version": "29.2.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -54,7 +54,7 @@
 		"@atlaskit/popup": "^1.28.0",
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/section-message": "^6.6.0",
-		"@atlaskit/select": "^18.0.0",
+		"@atlaskit/select": "^18.1.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/textarea": "^5.6.0",
 		"@atlaskit/textfield": "^6.5.0",
@@ -165,6 +165,9 @@
 			"type": "boolean"
 		},
 		"send-smart-link-rendered-ufo-event-half-time": {
+			"type": "boolean"
+		},
+		"platform-smart-card-use-ai-smartlink-summary-agent": {
 			"type": "boolean"
 		}
 	}

@@ -225,8 +225,7 @@ export function InlineCardNodeView(
 					getPos,
 					allowEmbeds,
 					allowBlockCards,
-					fg('linking_platform_disable_live_view_inline_overlay') &&
-						editorViewModeState?.mode === 'view',
+					editorViewModeState?.mode === 'view',
 				))}
 		/>
 	);

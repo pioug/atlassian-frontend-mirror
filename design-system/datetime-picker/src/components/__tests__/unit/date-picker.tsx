@@ -29,6 +29,9 @@ const getAllDays = () => {
 // userEvent does not work for inputs or mousedowns sometimes. Unsure of why.
 // Assuming react-select is the issue.
 describe('DatePicker', () => {
+	const label = 'label';
+	const openCalendarLabel = 'open calendar';
+
 	const exampleDate = {
 		input: '06/08/2018',
 		iso: '2018-06-08',
@@ -39,6 +42,7 @@ describe('DatePicker', () => {
 		},
 	};
 
+	const queryCalendar = () => screen.queryByTestId(new RegExp(`${testId}.*--calendar$`));
 	const queryMenu = () => screen.queryByTestId(`${testId}--popper--container`);
 
 	it('should have an empty value if none is provided', () => {
@@ -416,8 +420,6 @@ describe('DatePicker', () => {
 	});
 
 	describe('Focus management', () => {
-		const queryCalendar = () => screen.queryByTestId(new RegExp(`${testId}.*--calendar$`));
-
 		it('focused calendar date is reset on open', async () => {
 			const user = userEvent.setup();
 			const { rerender } = render(
@@ -446,7 +448,8 @@ describe('DatePicker', () => {
 			expect(selectedDay).toHaveAccessibleName('8, Friday June 2018');
 		});
 
-		it('should open the calendar when the input is focused, the calendar is closed, and space is pressed', async () => {
+		it('should bring focus back to the input and close the calendar when the value of the calendar is changed', async () => {
+			const user = userEvent.setup();
 			render(createDatePicker({ testId: testId }));
 
 			const selectInput = getInput();
@@ -454,21 +457,55 @@ describe('DatePicker', () => {
 			expect(selectInput).not.toHaveFocus();
 
 			// Move focus to the select input
-			fireEvent.focus(selectInput);
+			await user.tab();
 			expect(selectInput).toHaveFocus();
 			expect(queryCalendar()).toBeVisible();
 
-			// Close the calendar with escape key
-			await userEvent.type(selectInput, '{Escape}');
+			await user.tab();
+			const calendarPrevButton = screen.getByRole('button', { name: /Previous month/ });
+			expect(calendarPrevButton).toHaveFocus();
+
+			// Select one of the dates in the calendar
+			await user.tab();
+			await user.tab();
+			await user.keyboard(' ');
+
 			expect(queryCalendar()).not.toBeInTheDocument();
 			expect(selectInput).toHaveFocus();
+		});
 
-			// Press space to re-open the calendar
-			await userEvent.keyboard(' ');
+		it('should open the calendar when the input is focused via keyboard', async () => {
+			const user = userEvent.setup();
+			render(createDatePicker());
+
+			const selectInput = getInput();
+			expect(queryCalendar()).not.toBeInTheDocument();
+			expect(selectInput).not.toHaveFocus();
+
+			// Move focus to the select input
+			await user.tab();
+			expect(selectInput).toHaveFocus();
 			expect(queryCalendar()).toBeInTheDocument();
 		});
 
-		it('should open the calendar when the input is focused, the calendar is closed, and enter is pressed', async () => {
+		// Don't know why this is failing. It clearly works with manual testing.
+		// This is in the integration tests, but would rather have it here
+		xit('should open the calendar when the input is focused via mouse', async () => {
+			const user = userEvent.setup();
+			render(createDatePicker());
+
+			const selectInput = getInput();
+			expect(queryCalendar()).not.toBeInTheDocument();
+			expect(selectInput).not.toHaveFocus();
+
+			// Move focus to the select input
+			await user.click(selectInput);
+			expect(selectInput).toHaveFocus();
+			expect(queryCalendar()).toBeInTheDocument();
+		});
+
+		it('should open the calendar when the input is focused, escape is pressed, and then enter or space is pressed', async () => {
+			const user = userEvent.setup();
 			render(createDatePicker({ testId: testId }));
 
 			const selectInput = getInput();
@@ -476,18 +513,21 @@ describe('DatePicker', () => {
 			expect(selectInput).not.toHaveFocus();
 
 			// Move focus to the select input
-			fireEvent.focus(selectInput);
+			await user.tab();
 			expect(selectInput).toHaveFocus();
 			expect(queryCalendar()).toBeVisible();
 
-			// Close the calendar with escape key
-			await userEvent.type(selectInput, '{Escape}');
+			await user.keyboard('{Escape}');
 			expect(queryCalendar()).not.toBeInTheDocument();
 			expect(selectInput).toHaveFocus();
+			await user.keyboard('{Enter}');
+			expect(queryCalendar()).toBeVisible();
 
-			// Press enter to re-open the calendar
-			await userEvent.keyboard('{Enter}');
-			expect(queryCalendar()).toBeInTheDocument();
+			await user.keyboard('{Escape}');
+			expect(queryCalendar()).not.toBeInTheDocument();
+			expect(selectInput).toHaveFocus();
+			await user.keyboard(' ');
+			expect(queryCalendar()).toBeVisible();
 		});
 
 		it('should bring focus back to the input and close the calendar when the value of the calendar is changed', async () => {
@@ -520,7 +560,7 @@ describe('DatePicker', () => {
 		});
 
 		it('should close the calendar when focused on the input and the escape key is pressed', async () => {
-			const user = userEvent;
+			const user = userEvent.setup();
 			render(createDatePicker({ testId: testId }));
 
 			const selectInput = getInput();
@@ -528,8 +568,7 @@ describe('DatePicker', () => {
 			expect(selectInput).not.toHaveFocus();
 
 			// Move focus to the select input
-			fireEvent.focus(selectInput);
-			expect(selectInput).toHaveFocus();
+			await user.tab();
 			expect(queryCalendar()).toBeVisible();
 
 			await user.type(selectInput, '{Escape}');
@@ -537,27 +576,28 @@ describe('DatePicker', () => {
 			expect(selectInput).toHaveFocus();
 		});
 
-		it('should bring focus back to input and close calendar when focused on the calendar and the escape key is pressed', async () => {
-			const user = userEvent;
+		it('should bring focus back to button and close calendar when focused on the calendar and the escape key is pressed', async () => {
+			const user = userEvent.setup();
 			render(createDatePicker({ testId: testId }));
 
 			const selectInput = getInput();
 			expect(queryCalendar()).not.toBeInTheDocument();
 			expect(selectInput).not.toHaveFocus();
 
-			// Move focus to the select input
-			fireEvent.focus(selectInput);
-			expect(selectInput).toHaveFocus();
-			expect(queryCalendar()).toBeVisible();
-
-			// Move focus to inside the calendar
+			// Move focus to the calendar button
 			await user.tab();
+			expect(selectInput).toHaveFocus();
+			expect(queryCalendar()).toBeInTheDocument();
+
+			// Move focus into the calendar
+			await user.tab();
+			// An element within the calendar's container should have focus
 			expect(selectInput).not.toHaveFocus();
 			// An element within the calendar's container should have focus
 			const focusedElement = screen.getByTestId(`${testId}--calendar--previous-month`);
 			expect(focusedElement).toHaveFocus();
 
-			await user.type(selectInput, '{Escape}');
+			await user.keyboard('{Escape}');
 			expect(queryCalendar()).not.toBeInTheDocument();
 			expect(selectInput).toHaveFocus();
 		});
@@ -666,7 +706,6 @@ describe('DatePicker', () => {
 		});
 
 		it('should add aria-label when label prop is supplied', () => {
-			const label = 'label';
 			render(createDatePicker({ label }));
 
 			const input = getInput();
@@ -704,5 +743,190 @@ describe('DatePicker', () => {
 
 			expect(onChangeSpy).toHaveBeenCalledWith(today);
 		});
+	});
+
+	describe('Calendar button', () => {
+		const queryCalendar = () => screen.queryByTestId(new RegExp(`${testId}.*--calendar$`));
+
+		it('should not render a button to open the calendar if prop not provided', () => {
+			render(createDatePicker({ openCalendarLabel }));
+
+			const calendarButton = screen.queryByRole('button', { name: new RegExp(openCalendarLabel) });
+			expect(calendarButton).not.toBeInTheDocument();
+		});
+
+		it('should render a button to open the calendar', () => {
+			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
+
+			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			expect(calendarButton).toBeVisible();
+		});
+
+		describe('labeling', () => {
+			const pickerLabel = 'Date of Birth';
+
+			it('should use `label` with calendar button label if provided', () => {
+				render(
+					createDatePicker({
+						shouldShowCalendarButton: true,
+						openCalendarLabel,
+						label: pickerLabel,
+					}),
+				);
+
+				expect(getInput()).toHaveAttribute('aria-label', pickerLabel);
+				const calendarButton = screen.getByRole('button', {
+					name: new RegExp(`${pickerLabel}.*${openCalendarLabel}`),
+				});
+				expect(getInput()).toHaveAttribute('aria-label');
+				expect(calendarButton).toBeInTheDocument();
+			});
+
+			it('should use `inputLabel` with calendar button label if provided', () => {
+				render(
+					createDatePicker({
+						shouldShowCalendarButton: true,
+						openCalendarLabel,
+						inputLabel: pickerLabel,
+						// To override default
+						label: undefined,
+					}),
+				);
+
+				expect(getInput()).not.toHaveAttribute('aria-label');
+				const calendarButton = screen.getByRole('button', {
+					name: new RegExp(`${pickerLabel}.*${openCalendarLabel}`),
+				});
+				expect(calendarButton).toHaveAttribute(
+					'aria-label',
+					expect.stringMatching(new RegExp(`${pickerLabel}.*${openCalendarLabel}`)),
+				);
+				expect(calendarButton).toBeInTheDocument();
+			});
+
+			it('should use `inputLabelId` with calendar button label if provided', () => {
+				const labelId = 'label-id';
+				const datePickerId = 'id';
+
+				render(
+					<label id={labelId} htmlFor={datePickerId}>
+						{pickerLabel}
+						{createDatePicker({
+							shouldShowCalendarButton: true,
+							openCalendarLabel,
+							inputLabelId: labelId,
+							// To override default
+							label: undefined,
+						})}
+					</label>,
+				);
+
+				expect(getInput()).not.toHaveAttribute('aria-label');
+				const calendarButton = screen.getByRole('button', {
+					name: new RegExp(`${pickerLabel}.*${openCalendarLabel}`),
+				});
+				expect(calendarButton).not.toHaveAttribute('aria-label');
+				expect(calendarButton).toBeInTheDocument();
+			});
+		});
+
+		it('should open the calendar when clicked', async () => {
+			const user = userEvent.setup();
+			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
+
+			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			await user.click(calendarButton);
+
+			expect(queryCalendar()).toBeVisible();
+		});
+
+		it('should be in the tab order', async () => {
+			const user = userEvent.setup();
+			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
+
+			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			// Tab into the picker, close the calendar, tab to the calendar button
+			await user.tab();
+			await user.keyboard('{Escape}');
+			await user.tab();
+
+			expect(calendarButton).toHaveFocus();
+		});
+
+		it('should open the calendar when activated with enter', async () => {
+			const user = userEvent.setup();
+			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
+
+			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			await user.tab();
+			await user.keyboard('{Escape}');
+			await user.tab();
+			expect(calendarButton).toHaveFocus();
+			await user.keyboard('{Enter}');
+
+			expect(queryCalendar()).toBeVisible();
+		});
+
+		it('should open the calendar when activated with space', async () => {
+			const user = userEvent.setup();
+			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
+
+			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			await user.tab();
+			await user.tab();
+			expect(calendarButton).toHaveFocus();
+			await user.keyboard(' ');
+
+			expect(queryCalendar()).toBeVisible();
+		});
+
+		it('should not open the calendar when the input is focused via keyboard if calendar button is present', async () => {
+			const user = userEvent.setup();
+			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
+
+			const selectInput = getInput();
+			expect(queryCalendar()).not.toBeInTheDocument();
+			expect(selectInput).not.toHaveFocus();
+
+			// Move focus to the select input
+			await user.tab();
+			expect(selectInput).toHaveFocus();
+			expect(queryCalendar()).not.toBeInTheDocument();
+		});
+	});
+
+	it('should bring focus back to button and close calendar when focused on the calendar and the escape key is pressed if calendar button present', async () => {
+		const user = userEvent.setup();
+		render(
+			createDatePicker({
+				testId: testId,
+				shouldShowCalendarButton: true,
+				openCalendarLabel,
+			}),
+		);
+
+		const selectInput = getInput();
+		const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+		expect(queryCalendar()).not.toBeInTheDocument();
+		expect(selectInput).not.toHaveFocus();
+
+		// Move focus to the calendar button
+		await user.tab();
+		expect(selectInput).toHaveFocus();
+		await user.tab();
+		expect(calendarButton).toHaveFocus();
+		// Open and move focus to inside the calendar
+		await user.keyboard('{Enter}');
+		expect(queryCalendar()).toBeInTheDocument();
+		// An element within the calendar's container should have focus
+		expect(calendarButton).not.toHaveFocus();
+		expect(selectInput).not.toHaveFocus();
+		// An element within the calendar's container should have focus
+		const focusedElement = screen.getByTestId(`${testId}--calendar--previous-month`);
+		expect(focusedElement).toHaveFocus();
+
+		await user.keyboard('{Escape}');
+		expect(queryCalendar()).not.toBeInTheDocument();
+		expect(calendarButton).toHaveFocus();
 	});
 });

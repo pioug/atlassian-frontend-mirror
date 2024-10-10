@@ -121,6 +121,9 @@
             "path": "../../editor-plugin-emoji/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-engagement-platform/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-expand/afm-cc/tsconfig.json"
         },
         {

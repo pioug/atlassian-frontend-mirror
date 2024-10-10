@@ -26,6 +26,12 @@ import { type Auth } from '@atlaskit/media-core';
 import * as requestModule from '../../utils/request';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+Object.defineProperty(window, 'location', {
+	value: {
+		hostname: '',
+	},
+});
+
 const requestModuleMock = jest.spyOn(requestModule, 'request');
 
 export const ZipkinHeaderKeys = {
@@ -71,6 +77,10 @@ describe('MediaStore', () => {
 		beforeEach(() => {
 			jest.clearAllMocks();
 			mediaStore = new MediaStore({ authProvider });
+
+			// @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
+			delete global.MICROS_PERIMETER;
+			window.location.hostname = 'hello.atlassian.net';
 		});
 
 		describe('fetch media region & environment', () => {
@@ -817,33 +827,56 @@ describe('MediaStore', () => {
 		});
 
 		describe('getFileImageURL', () => {
-			describe('should return the file image preview url based on the file id', () => {
+			describe('should return the file image preview url based on the file id only in commercial environment', () => {
 				// createFileImageURL is a private function that is called within this function, its output has been altered based on the feature flag 'platform.media-cdn-delivery'
+				const collection = 'some-collection';
+
+				const nonCdnURL = `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
+
+				const cdnURL = `${baseUrl}/file/1234/image/cdn?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
+
 				ffTest(
 					'platform.media-cdn-delivery',
 					async () => {
-						const collection = 'some-collection';
-						const url = await mediaStore.getFileImageURL('1234', {
+						// Test against fedramp micros perimeter, should return non-cdn url
+						global.MICROS_PERIMETER = 'fedramp-moderate';
+						let url = await mediaStore.getFileImageURL('1234', {
 							collection,
 						});
 						expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
 							collectionName: collection,
 						});
-						expect(url).toEqual(
-							`${baseUrl}/file/1234/image/cdn?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
-						);
+						expect(url).toEqual(nonCdnURL);
+
+						// Test against fedramp hostname, should return non-cdn url
+						window.location.hostname = 'atlassian-us-gov-mod.com';
+						url = await mediaStore.getFileImageURL('1234', {
+							collection,
+						});
+						expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
+							collectionName: collection,
+						});
+						expect(url).toEqual(nonCdnURL);
+
+						// Test against commercial micros perimeter and hostname, should return cdn url
+						global.MICROS_PERIMETER = 'commercial';
+						window.location.hostname = 'hello.atlassian.net';
+						url = await mediaStore.getFileImageURL('1234', {
+							collection,
+						});
+						expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
+							collectionName: collection,
+						});
+						expect(url).toEqual(cdnURL);
 					},
 					async () => {
-						const collection = 'some-collection';
 						const url = await mediaStore.getFileImageURL('1234', {
 							collection,
 						});
 						expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
 							collectionName: collection,
 						});
-						expect(url).toEqual(
-							`${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
-						);
+						expect(url).toEqual(nonCdnURL);
 					},
 				);
 			});
@@ -876,7 +909,9 @@ describe('MediaStore', () => {
 		});
 
 		describe('getImage', () => {
-			describe('should return file image preview', () => {
+			describe('should return file image preview only in commercial environment', () => {
+				const nonCdnURL = `${baseUrl}/file/123/image?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`;
+				const cdnURL = `${baseUrl}/file/123/image/cdn?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`;
 				ffTest(
 					'platform.media-cdn-delivery',
 					async () => {
@@ -885,19 +920,46 @@ describe('MediaStore', () => {
 							statusText: 'Created',
 						});
 
-						const image = await mediaStore.getImage('123');
+						// Test against fedramp micros perimeter, should return non-cdn url
+						global.MICROS_PERIMETER = 'fedramp-moderate';
+						let image = await mediaStore.getImage('123');
 
 						expect(image).toBeInstanceOf(Blob);
-						expect(fetchMock).toHaveBeenCalledWith(
-							`${baseUrl}/file/123/image/cdn?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`,
-							{
-								method: 'GET',
-								headers: {
-									'X-Client-Id': clientId,
-									Authorization: `Bearer ${token}`,
-								},
+						expect(fetchMock).toHaveBeenCalledWith(nonCdnURL, {
+							method: 'GET',
+							headers: {
+								'X-Client-Id': clientId,
+								Authorization: `Bearer ${token}`,
 							},
-						);
+						});
+
+						// Test against fedramp hostname, should return non-cdn url
+						window.location.hostname = 'atlassian-us-gov-mod.com';
+						image = await mediaStore.getImage('123');
+
+						expect(image).toBeInstanceOf(Blob);
+						expect(fetchMock).toHaveBeenCalledWith(nonCdnURL, {
+							method: 'GET',
+							headers: {
+								'X-Client-Id': clientId,
+								Authorization: `Bearer ${token}`,
+							},
+						});
+
+						// Test against commercial micros perimeter and hostname, should return cdn url
+						global.MICROS_PERIMETER = 'commercial';
+						window.location.hostname = 'hello.atlassian.net';
+
+						image = await mediaStore.getImage('123');
+
+						expect(image).toBeInstanceOf(Blob);
+						expect(fetchMock).toHaveBeenCalledWith(cdnURL, {
+							method: 'GET',
+							headers: {
+								'X-Client-Id': clientId,
+								Authorization: `Bearer ${token}`,
+							},
+						});
 					},
 					async () => {
 						fetchMock.once(JSON.stringify({ data }), {
@@ -908,16 +970,13 @@ describe('MediaStore', () => {
 						const image = await mediaStore.getImage('123');
 
 						expect(image).toBeInstanceOf(Blob);
-						expect(fetchMock).toHaveBeenCalledWith(
-							`${baseUrl}/file/123/image?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`,
-							{
-								method: 'GET',
-								headers: {
-									'X-Client-Id': clientId,
-									Authorization: `Bearer ${token}`,
-								},
+						expect(fetchMock).toHaveBeenCalledWith(nonCdnURL, {
+							method: 'GET',
+							headers: {
+								'X-Client-Id': clientId,
+								Authorization: `Bearer ${token}`,
 							},
-						);
+						});
 					},
 				);
 			});
@@ -1343,29 +1402,64 @@ describe('MediaStore', () => {
 		});
 
 		describe('getFileBinary', () => {
-			describe('should return file binary', () => {
+			describe('should return file binary only in commercial environment', () => {
+				const baseObject = {
+					auth: {
+						baseUrl: 'http://some-host',
+						clientId: 'some-client-id',
+						token: 'some-token',
+					},
+					body: undefined,
+					clientOptions: undefined,
+					headers: {},
+					method: 'GET',
+					params: { 'max-age': '2592000', collection: 'some-collection-name' },
+					traceContext: undefined,
+				};
+
+				const nonCdnObject = {
+					...baseObject,
+					endpoint: '/file/{fileId}/binary',
+				};
+
+				const cdnObject = {
+					...baseObject,
+					endpoint: '/file/{fileId}/binary/cdn',
+				};
+
 				ffTest(
 					'platform.media-cdn-delivery',
 					async () => {
-						const response = await mediaStore.getFileBinary('1234', 'some-collection-name');
-						// When the feature flag is enabled, the URL should contain the /binary/cdn path
+						// Test against fedramp micros perimeter, should return non-cdn url
+						let response = await mediaStore.getFileBinary('1234', 'some-collection-name');
+						// Test against fedramp hostname, should return non-cdn url
+						global.MICROS_PERIMETER = 'fedramp-moderate';
+						response = await mediaStore.getFileBinary('1234', 'some-collection-name');
+						expect(requestModuleMock).toBeCalledWith(
+							`${baseUrl}/file/1234/binary`,
+							expect.objectContaining(nonCdnObject),
+							undefined,
+						);
 
+						expect(response).toEqual(expect.any(Blob));
+						// Test against commercial micros perimeter and hostname, should return cdn url
+						window.location.hostname = 'atlassian-us-gov-mod.com';
+						response = await mediaStore.getFileBinary('1234', 'some-collection-name');
+						expect(requestModuleMock).toBeCalledWith(
+							`${baseUrl}/file/1234/binary`,
+							expect.objectContaining(nonCdnObject),
+							undefined,
+						);
+
+						expect(response).toEqual(expect.any(Blob));
+
+						// When the feature flag is enabled, the URL should contain the /binary/cdn path
+						global.MICROS_PERIMETER = 'commercial';
+						window.location.hostname = 'hello.atlassian.net';
+						response = await mediaStore.getFileBinary('1234', 'some-collection-name');
 						expect(requestModuleMock).toBeCalledWith(
 							`${baseUrl}/file/1234/binary/cdn`,
-							expect.objectContaining({
-								auth: {
-									baseUrl: 'http://some-host',
-									clientId: 'some-client-id',
-									token: 'some-token',
-								},
-								body: undefined,
-								clientOptions: undefined,
-								endpoint: '/file/{fileId}/binary/cdn',
-								headers: {},
-								method: 'GET',
-								params: { 'max-age': '2592000', collection: 'some-collection-name' },
-								traceContext: undefined,
-							}),
+							expect.objectContaining(cdnObject),
 							undefined,
 						);
 
@@ -1377,20 +1471,7 @@ describe('MediaStore', () => {
 
 						expect(requestModuleMock).toBeCalledWith(
 							`${baseUrl}/file/1234/binary`,
-							expect.objectContaining({
-								auth: {
-									baseUrl: 'http://some-host',
-									clientId: 'some-client-id',
-									token: 'some-token',
-								},
-								body: undefined,
-								clientOptions: undefined,
-								endpoint: '/file/{fileId}/binary',
-								headers: {},
-								method: 'GET',
-								params: { 'max-age': '2592000', collection: 'some-collection-name' },
-								traceContext: undefined,
-							}),
+							expect.objectContaining(nonCdnObject),
 							undefined,
 						);
 
@@ -1401,22 +1482,35 @@ describe('MediaStore', () => {
 		});
 
 		describe('getFileBinaryURL', () => {
-			describe('should return file url', () => {
+			describe('should return file url only in commercial environment', () => {
+				const nonCdnURL = `${baseUrl}/file/1234/binary?client=some-client-id&collection=some-collection-name&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+
+				const cdnURL = `${baseUrl}/file/1234/binary/cdn?client=some-client-id&collection=some-collection-name&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
 				ffTest(
 					'platform.media-cdn-delivery',
 					async () => {
-						const url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
 						// When the feature flag is enabled, the URL should contain the new path
-						expect(url).toEqual(
-							`${baseUrl}/file/1234/binary/cdn?client=some-client-id&collection=some-collection-name&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`,
-						);
+
+						// Test against fedramp micros perimeter, should return non-cdn url
+						global.MICROS_PERIMETER = 'fedramp-moderate';
+						let url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
+						expect(url).toEqual(nonCdnURL);
+
+						// Test against fedramp hostname, should return non-cdn url
+						window.location.hostname = 'atlassian-us-gov-mod.com';
+						url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
+						expect(url).toEqual(nonCdnURL);
+
+						// Test against commercial micros perimeter and hostname, should return cdn url
+						global.MICROS_PERIMETER = 'commercial';
+						window.location.hostname = 'hello.atlassian.net';
+						url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
+						expect(url).toEqual(cdnURL);
 					},
 					async () => {
 						const url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
 						// When the feature flag is disabled, the URL should contain the old path
-						expect(url).toEqual(
-							`${baseUrl}/file/1234/binary?client=some-client-id&collection=some-collection-name&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`,
-						);
+						expect(url).toEqual(nonCdnURL);
 					},
 				);
 			});
@@ -1458,11 +1552,49 @@ describe('MediaStore', () => {
 			});
 
 			describe('handling CDN url', () => {
-				describe("should use artifact's cdnUrl over the regular artifact's url", () => {
+				describe("should use artifact's cdnUrl over the regular artifact's url only in commercial environment", () => {
+					const nonCdnURL =
+						'http://some-host/sd-video?client=some-client-id&collection=some-collection&max-age=2592000&token=some-token';
+
+					const cdnURL =
+						'http://some-host/sd-video/cdn?client=some-client-id&collection=some-collection&max-age=2592000&token=some-token';
+
 					ffTest(
 						'platform.media-cdn-delivery',
 						async () => {
-							const url = await mediaStore.getArtifactURL(
+							// Test against fedramp micros perimeter, should return non-cdn url
+							global.MICROS_PERIMETER = 'fedramp-moderate';
+							let url = await mediaStore.getArtifactURL(
+								{
+									'video_640.mp4': {
+										processingStatus: 'succeeded',
+										url: '/sd-video',
+									},
+								},
+								'video_640.mp4',
+								'some-collection',
+							);
+							expect(url).toEqual(nonCdnURL);
+
+							// Test against fedramp hostname, should return non-cdn url
+							window.location.hostname = 'atlassian-us-gov-mod.com';
+							url = await mediaStore.getArtifactURL(
+								{
+									'video_640.mp4': {
+										processingStatus: 'succeeded',
+										url: '/sd-video',
+									},
+								},
+								'video_640.mp4',
+								'some-collection',
+							);
+							expect(url).toEqual(nonCdnURL);
+
+							// Test against commercial micros perimeter and hostname, should return cdn url
+							global.MICROS_PERIMETER = 'commercial';
+							window.location.hostname = 'hello.atlassian.net';
+
+							url = await mediaStore.getArtifactURL(
 								{
 									'video_640.mp4': {
 										processingStatus: 'succeeded',
@@ -1473,9 +1605,7 @@ describe('MediaStore', () => {
 								'some-collection',
 							);
 
-							expect(url).toEqual(
-								'http://some-host/sd-video/cdn?client=some-client-id&collection=some-collection&max-age=2592000&token=some-token',
-							);
+							expect(url).toEqual(cdnURL);
 						},
 						async () => {
 							const url = await mediaStore.getArtifactURL(
@@ -1491,9 +1621,7 @@ describe('MediaStore', () => {
 								'some-collection',
 							);
 
-							expect(url).toEqual(
-								'http://some-host/sd-video?client=some-client-id&collection=some-collection&max-age=2592000&token=some-token',
-							);
+							expect(url).toEqual(nonCdnURL);
 						},
 					);
 				});
@@ -1634,19 +1762,41 @@ describe('MediaStore', () => {
 			});
 
 			describe('getFileImageURLSync', () => {
-				describe('should return the file image preview url based on the file id', () => {
+				describe('should return the file image preview url based on the file id only in commercial environment', () => {
 					// createFileImageURL is a private function that is called within this function, its output has been altered based on the feature flag 'platform.media-cdn-delivery'
+					const collection = 'some-collection';
+
+					const cdnURL = `${baseUrl}/file/1234/image/cdn?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
+
+					const nonCdnURL = `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
+
 					ffTest(
 						'platform.media-cdn-delivery',
 						async () => {
-							const collection = 'some-collection';
-							const url = mediaStoreSync.getFileImageURLSync('1234', {
+							// Test against fedramp micros perimeter, should return non-cdn url
+							global.MICROS_PERIMETER = 'fedramp-moderate';
+							let url = mediaStoreSync.getFileImageURLSync('1234', {
 								collection,
 							});
 							expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
-							expect(url).toEqual(
-								`${baseUrl}/file/1234/image/cdn?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
-							);
+							expect(url).toEqual(nonCdnURL);
+
+							// Test against fedramp hostname, should return non-cdn url
+							window.location.hostname = 'atlassian-us-gov-mod.com';
+							url = mediaStoreSync.getFileImageURLSync('1234', {
+								collection,
+							});
+							expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+							expect(url).toEqual(nonCdnURL);
+
+							// Test against commercial micros perimeter and hostname, should return cdn url
+							global.MICROS_PERIMETER = 'commercial';
+							window.location.hostname = 'hello.atlassian.net';
+							url = mediaStoreSync.getFileImageURLSync('1234', {
+								collection,
+							});
+							expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+							expect(url).toEqual(cdnURL);
 						},
 						async () => {
 							const collection = 'some-collection';
@@ -1654,9 +1804,7 @@ describe('MediaStore', () => {
 								collection,
 							});
 							expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
-							expect(url).toEqual(
-								`${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
-							);
+							expect(url).toEqual(nonCdnURL);
 						},
 					);
 				});

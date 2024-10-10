@@ -14,9 +14,10 @@ import ModalDialog, {
 
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import Button from '@atlaskit/button';
-import { token } from '@atlaskit/tokens';
+import Heading from '@atlaskit/heading';
 
 import { DROPBOX_IFRAME_NAME } from './constants';
+import { xcss, Box } from '@atlaskit/primitives';
 
 const ModalBody = React.forwardRef<HTMLDivElement, React.AllHTMLAttributes<HTMLDivElement>>(
 	(props, ref) => {
@@ -45,7 +46,7 @@ const bottomShadow = css({
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const spacingDivStyle = { width: '28px' };
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-const headingStyle = { marginTop: `${token('space.100', '8px')}` };
+const headingStyle = xcss({ marginTop: 'space.100' });
 
 const Header = () => {
 	const { onClose, titleId } = useModal();
@@ -53,9 +54,11 @@ const Header = () => {
 		<div css={bottomShadow}>
 			{/* This div is offsetting the button to the right */}
 			<div css={spacingDivStyle} />
-			<h5 id={titleId} css={headingStyle}>
-				Dropbox
-			</h5>
+			<Box xcss={headingStyle}>
+				<Heading id={titleId} size="xsmall">
+					Dropbox
+				</Heading>
+			</Box>
 			<div>
 				<Button
 					appearance="subtle"

@@ -1,5 +1,5 @@
 import { fg } from '@atlaskit/platform-feature-flags';
-import { isFedRamp } from './isFedRamp';
+import { isCommercial } from './isCommercial';
 
 export const MEDIA_CDN_MAP: { [key: string]: string } = {
 	'api.media.atlassian.com': 'media-cdn.atlassian.com',
@@ -13,7 +13,7 @@ const MEDIA_TOKEN_LENGTH_LIMIT = 7000;
 
 export function mapToMediaCdnUrl(url: string, token: string) {
 	const tokenLength = token?.length ?? 0;
-	if (isFedRamp() || tokenLength > MEDIA_TOKEN_LENGTH_LIMIT) {
+	if (!isCommercial() || tokenLength > MEDIA_TOKEN_LENGTH_LIMIT) {
 		return url;
 	}
 	// eslint-disable-next-line @atlaskit/platform/no-preconditioning

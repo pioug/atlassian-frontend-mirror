@@ -15,8 +15,17 @@ const disabledDates = [
 
 const DatePickerDisabledExample = () => (
 	<>
-		<Label htmlFor="datepicker-disabled">Disabled Dates</Label>
-		<DatePicker defaultValue="2020-12-15" disabled={disabledDates} id="datepicker-disabled" />
+		<Label id="disabled" htmlFor="datepicker-disabled">
+			Disabled Dates
+		</Label>
+		<DatePicker
+			defaultValue="2020-12-15"
+			disabled={disabledDates}
+			id="datepicker-disabled"
+			shouldShowCalendarButton
+			inputLabelId="disabled"
+			openCalendarLabel="open calendar"
+		/>
 	</>
 );
 

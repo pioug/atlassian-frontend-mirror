@@ -1,5 +1,13 @@
 # @atlaskit/contextual-survey
 
+## 2.4.1
+
+### Patch Changes
+
+- [#149900](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149900)
+  [`1b67ed4471db0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b67ed4471db0) -
+  bumped to react18
+
 ## 2.4.0
 
 ### Minor Changes

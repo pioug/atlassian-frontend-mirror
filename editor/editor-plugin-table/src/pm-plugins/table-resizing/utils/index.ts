@@ -3,6 +3,7 @@ export {
 	insertColgroupFromNode,
 	hasTableBeenResized,
 	getColgroupChildrenLength,
+	getResizerMinWidth,
 } from './colgroup';
 export { contentWidth } from './content-width';
 export { getCellsRefsInColumn, calculateColumnWidth } from './column-state';

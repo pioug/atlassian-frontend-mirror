@@ -10,8 +10,9 @@ export default {
   'fabric.media.accounts': '⁣⁢Accounts⁮⁫⁪⁡⁡⁯⁠⁭⁡⁫‍⁮‌‌‍⁮⁮⁣⁤',
   'fabric.media.actions': '⁣⁢Actions⁡⁬⁪⁮⁪⁬‍⁡⁮⁡⁮⁮⁬⁪⁪⁬⁪‍⁭⁪⁬⁮⁣⁤',
   'fabric.media.add_account': '⁣⁢Add account‍⁮‌‌⁡‌⁯؜‌⁮⁭⁡⁡‌⁫⁯‌⁯⁭⁮⁫⁮⁡⁠⁭⁫⁣⁤',
-  'fabric.media.alt_text':
-    '⁣⁢How would you describe the selected image to someone with low vision?⁡⁬⁬⁫⁬⁯⁮‍⁡⁠‌⁯⁮⁠⁬⁯‌‌⁭⁬⁪⁣⁤',
+  'fabric.media.alt_text_helper_message':
+    '⁣⁢How would you describe the selected image to someone with low vision?‌⁡⁮⁭⁭⁡؜‌‍⁪⁮⁪⁬⁡⁯⁠؜⁭⁪⁪‍⁪‍⁬⁣⁤',
+  'fabric.media.alt_text_label': '⁣⁢Alt text⁫⁮⁮؜⁬⁯⁪‍⁠⁪⁭⁬‌؜⁯⁠⁭‌⁪⁪⁫⁮‌⁣⁤',
   'fabric.media.annotate': '⁣⁢Annotate‍⁬⁪⁯⁭⁡‌⁪⁯⁡⁡⁡⁮⁮⁭؜⁡⁪‌‌⁪⁣⁤',
   'fabric.media.annotate.confirmation.close.anyway': '⁣⁢Close anyway‍‍⁫⁫⁪⁭⁭⁠⁭⁠⁫⁮⁭⁭⁭‌⁠⁬⁯⁫⁮⁯؜⁬⁬⁭⁣⁤',
   'fabric.media.annotate.confirmation.content':

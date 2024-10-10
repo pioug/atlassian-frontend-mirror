@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/contextual-survey",
-	"version": "2.4.0",
+	"version": "2.4.1",
 	"description": "A React component used to ask the user for feedback",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,6 +33,7 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
+		"runReact18": true,
 		"team": "Personalization",
 		"website": {
 			"name": "Contextual Survey"
@@ -54,7 +55,7 @@
 		"react-transition-group": "^4.4.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"@testing-library/react": "^12.1.5",

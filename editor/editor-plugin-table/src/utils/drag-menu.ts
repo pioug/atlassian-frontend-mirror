@@ -20,12 +20,25 @@ import type {
 	CommandDispatch,
 	DropdownOptionT,
 	GetEditorContainerWidth,
-	IconProps,
 } from '@atlaskit/editor-common/types';
 import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
+import SortAscendingIcon from '@atlaskit/icon/core/sort-ascending';
+import SortDescendingIcon from '@atlaskit/icon/core/sort-descending';
+import TableCellClearIcon from '@atlaskit/icon/core/table-cell-clear';
+import TableColumnAddLeftIcon from '@atlaskit/icon/core/table-column-add-left';
+import TableColumnAddRightIcon from '@atlaskit/icon/core/table-column-add-right';
+import TableColumnDeleteIcon from '@atlaskit/icon/core/table-column-delete';
+import TableColumnMoveLeftIcon from '@atlaskit/icon/core/table-column-move-left';
+import TableColumnMoveRightIcon from '@atlaskit/icon/core/table-column-move-right';
+import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
+import TableRowAddAboveIcon from '@atlaskit/icon/core/table-row-add-above';
+import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
+import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
+import TableRowMoveDownIcon from '@atlaskit/icon/core/table-row-move-down';
+import TableRowMoveUpIcon from '@atlaskit/icon/core/table-row-move-up';
 import ArrowDownIcon from '@atlaskit/icon/glyph/arrow-down';
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
 import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';
@@ -35,6 +48,7 @@ import EditorLayoutThreeEqualIcon from '@atlaskit/icon/glyph/editor/layout-three
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import HipchatChevronDoubleDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-double-down';
 import HipchatChevronDoubleUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-double-up';
+import type { UNSAFE_NewIconProps } from '@atlaskit/icon/types';
 
 import {
 	deleteColumnsWithAnalytics,
@@ -128,7 +142,8 @@ export type DragMenuOptionIdType =
 
 export interface DragMenuConfig extends Omit<DropdownOptionT<Command>, 'icon'> {
 	id: DragMenuOptionIdType;
-	icon?: React.ComponentType<React.PropsWithChildren<IconProps>>;
+	icon?: React.ComponentType<React.PropsWithChildren<UNSAFE_NewIconProps>>;
+	iconFallback?: React.ComponentType<React.PropsWithChildren<UNSAFE_NewIconProps>>;
 	keymap?: string;
 }
 
@@ -165,13 +180,15 @@ export const getDragMenuConfig = (
 					{
 						label: 'above',
 						offset: 0,
-						icon: AddRowAboveIcon,
+						icon: TableRowAddAboveIcon,
+						iconFallback: AddRowAboveIcon,
 						keymap: addRowBefore,
 					},
 					{
 						label: 'below',
 						offset: 1,
-						icon: AddRowBelowIcon,
+						icon: TableRowAddBelowIcon,
+						iconFallback: AddRowBelowIcon,
 						keymap: addRowAfter,
 					},
 				]
@@ -179,13 +196,15 @@ export const getDragMenuConfig = (
 					{
 						label: 'left',
 						offset: 0,
-						icon: AddColLeftIcon,
+						icon: TableColumnAddLeftIcon,
+						iconFallback: AddColLeftIcon,
 						keymap: addColumnBefore,
 					},
 					{
 						label: 'right',
 						offset: 1,
-						icon: AddColRightIcon,
+						icon: TableColumnAddRightIcon,
+						iconFallback: AddColRightIcon,
 						keymap: addColumnAfter,
 					},
 				];
@@ -194,7 +213,8 @@ export const getDragMenuConfig = (
 			? [
 					{
 						label: 'up',
-						icon: ArrowUpIcon,
+						icon: TableRowMoveUpIcon,
+						iconFallback: ArrowUpIcon,
 						keymap: moveRowUp,
 						canMove: canMove('table-row', -1, tableMap?.height ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedRowIndexes,
@@ -202,7 +222,8 @@ export const getDragMenuConfig = (
 					},
 					{
 						label: 'down',
-						icon: ArrowDownIcon,
+						icon: TableRowMoveDownIcon,
+						iconFallback: ArrowDownIcon,
 						keymap: moveRowDown,
 						canMove: canMove('table-row', 1, tableMap?.height ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedRowIndexes,
@@ -212,7 +233,8 @@ export const getDragMenuConfig = (
 			: [
 					{
 						label: 'left',
-						icon: ArrowLeftIcon,
+						icon: TableColumnMoveLeftIcon,
+						iconFallback: ArrowLeftIcon,
 						keymap: moveColumnLeft,
 						canMove: canMove('table-column', -1, tableMap?.width ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedColumnIndexes,
@@ -220,36 +242,38 @@ export const getDragMenuConfig = (
 					},
 					{
 						label: 'right',
-						icon: ArrowRightIcon,
+						icon: TableColumnMoveRightIcon,
+						iconFallback: ArrowRightIcon,
 						keymap: moveColumnRight,
 						canMove: canMove('table-column', 1, tableMap?.width ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedColumnIndexes,
 						getTargetIndex: (selectionRect: Rect) => selectionRect.right,
 					},
 				];
-
 	const sortOptions =
 		direction === 'column'
 			? [
 					{
 						label: 'increasing',
 						order: SortOrder.ASC,
-						icon: HipchatChevronDoubleUpIcon,
+						icon: SortAscendingIcon,
+						iconFallback: HipchatChevronDoubleUpIcon,
 					},
 					{
 						label: 'decreasing',
 						order: SortOrder.DESC,
-						icon: HipchatChevronDoubleDownIcon,
+						icon: SortDescendingIcon,
+						iconFallback: HipchatChevronDoubleDownIcon,
 					},
 				]
 			: [];
-
 	const sortConfigs = [
-		...sortOptions.map(({ label, order, icon }) => ({
+		...sortOptions.map(({ label, order, icon, iconFallback }) => ({
 			id: `sort_column_${order}`,
 			title: `Sort ${label}`,
 			disabled: hasMergedCellsInTable,
-			icon,
+			icon: icon,
+			iconFallback: iconFallback,
 			onClick: (state: EditorState, dispatch?: CommandDispatch) => {
 				sortColumnWithAnalytics(editorAnalyticsAPI)(
 					INPUT_METHOD.TABLE_CONTEXT_MENU,
@@ -260,12 +284,12 @@ export const getDragMenuConfig = (
 			},
 		})),
 	];
-
 	const restConfigs = [
-		...addOptions.map(({ label, offset, icon, keymap }) => ({
+		...addOptions.map(({ label, offset, icon, iconFallback, keymap }) => ({
 			id: `add_${direction}_${label}`,
 			title: `Add ${direction} ${label}`,
-			icon,
+			icon: icon,
+			iconFallback: iconFallback,
 			onClick: (state: EditorState, dispatch?: CommandDispatch) => {
 				if (direction === 'row') {
 					insertRowWithAnalytics(editorAnalyticsAPI, tableDuplicateCellColouring)(
@@ -318,7 +342,8 @@ export const getDragMenuConfig = (
 						}
 						return false;
 					},
-					icon: EditorLayoutThreeEqualIcon,
+					icon: TableColumnsDistributeIcon,
+					iconFallback: EditorLayoutThreeEqualIcon,
 				}
 			: undefined,
 		{
@@ -331,7 +356,8 @@ export const getDragMenuConfig = (
 				)(state, dispatch);
 				return true;
 			},
-			icon: CrossCircleIcon,
+			icon: TableCellClearIcon,
+			iconFallback: CrossCircleIcon,
 			keymap: tooltip(backspace),
 		},
 		{
@@ -360,30 +386,34 @@ export const getDragMenuConfig = (
 				}
 				return true;
 			},
-			icon: RemoveIcon,
+			icon: direction === 'row' ? TableRowDeleteIcon : TableColumnDeleteIcon,
+			iconFallback: RemoveIcon,
 			keymap: direction === 'row' ? tooltip(deleteRow) : tooltip(deleteColumn),
 		},
-		...moveOptions.map(({ label, canMove, icon, keymap, getOriginIndexes, getTargetIndex }) => ({
-			id: `move_${direction}_${label}`,
-			title: `Move ${direction} ${label}`,
-			disabled: !canMove,
-			icon,
-			onClick: (state: EditorState, dispatch?: CommandDispatch) => {
-				if (canMove) {
-					requestAnimationFrame(() => {
-						moveSourceWithAnalytics(editorAnalyticsAPI, ariaNotifyPlugin, getIntl)(
-							INPUT_METHOD.TABLE_CONTEXT_MENU,
-							`table-${direction}`,
-							getOriginIndexes(selectionRect!),
-							getTargetIndex(selectionRect!),
-						)(editorView.state, editorView.dispatch);
-					});
-					return true;
-				}
-				return false;
-			},
-			keymap: keymap && tooltip(keymap),
-		})),
+		...moveOptions.map(
+			({ label, canMove, icon, iconFallback, keymap, getOriginIndexes, getTargetIndex }) => ({
+				id: `move_${direction}_${label}`,
+				title: `Move ${direction} ${label}`,
+				disabled: !canMove,
+				icon: icon,
+				iconFallback: iconFallback,
+				onClick: (state: EditorState, dispatch?: CommandDispatch) => {
+					if (canMove) {
+						requestAnimationFrame(() => {
+							moveSourceWithAnalytics(editorAnalyticsAPI, ariaNotifyPlugin, getIntl)(
+								INPUT_METHOD.TABLE_CONTEXT_MENU,
+								`table-${direction}`,
+								getOriginIndexes(selectionRect!),
+								getTargetIndex(selectionRect!),
+							)(editorView.state, editorView.dispatch);
+						});
+						return true;
+					}
+					return false;
+				},
+				keymap: keymap && tooltip(keymap),
+			}),
+		),
 	];
 
 	let allConfigs = [...restConfigs];

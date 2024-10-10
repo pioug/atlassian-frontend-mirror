@@ -69,9 +69,6 @@ snapshotInformational(WithModal, {
 		await page.getByTestId('mode-toggle-basic').click();
 	},
 	description: 'basic mode with basic filters',
-	featureFlags: {
-		'platform.linking-platform.datasource-word_wrap': true,
-	},
 });
 
 snapshotInformational(WithIssueModalWithParameters, {

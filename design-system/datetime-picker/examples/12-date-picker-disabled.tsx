@@ -27,7 +27,9 @@ const disabledDates = [now(10), now(11), now(12)];
 export default () => {
 	return (
 		<Box>
-			<Label htmlFor="datepicker">Date picker</Label>
+			<Label id="date" htmlFor="datepicker">
+				Date picker
+			</Label>
 			<DatePicker
 				id="datepicker"
 				minDate={now(8)}
@@ -35,6 +37,9 @@ export default () => {
 				disabled={disabledDates}
 				disabledDateFilter={weekendFilter}
 				onChange={console.log}
+				shouldShowCalendarButton
+				inputLabelId="date"
+				openCalendarLabel="open calendar"
 			/>
 		</Box>
 	);

@@ -1,5 +1,14 @@
 # @atlaskit/react-select
 
+## 1.0.4
+
+### Patch Changes
+
+- [#150410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150410)
+  [`010ae8c2986e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/010ae8c2986e6) -
+  If select is within react-beatiful-dnd, don't prevent onMouseDown event to fix select is not
+  clickable in dnd
+
 ## 1.0.3
 
 ### Patch Changes

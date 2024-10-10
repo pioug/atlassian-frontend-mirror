@@ -376,7 +376,7 @@ describe('DateTimePicker', () => {
 
 		render(createDateTimePicker({ value: dateTimeValue, onChange: onChange }));
 
-		const clearButton = screen.getByRole('button');
+		const clearButton = screen.getByRole('button', { name: /clear/ });
 		await user.click(clearButton);
 
 		expect(onChange).toHaveBeenCalledWith('');
@@ -388,7 +388,7 @@ describe('DateTimePicker', () => {
 
 		render(createDateTimePicker({ value: dateTimeValue }));
 
-		const button = screen.getByRole('button');
+		const button = screen.getByRole('button', { name: /clear/ });
 
 		expect(button).toHaveProperty('tagName', 'BUTTON');
 		expect(button).toHaveAttribute('tabindex', '-1');

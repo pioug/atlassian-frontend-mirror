@@ -1,12 +1,12 @@
 import { type MediaFileArtifacts } from '@atlaskit/media-state';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { isFedRamp } from '../utils/isFedRamp';
+import { isCommercial } from '../utils/isCommercial';
 
 export const getArtifactUrl = (
 	artifacts: MediaFileArtifacts,
 	prop: keyof MediaFileArtifacts,
 ): string | undefined => {
-	if (!isFedRamp() && fg('platform.media-cdn-delivery')) {
+	if (isCommercial() && fg('platform.media-cdn-delivery')) {
 		return `${artifacts[prop]?.url}/cdn`;
 	}
 	return artifacts[prop]?.url;

@@ -7,7 +7,7 @@ import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import { type MouseEvent, useMemo } from 'react';
 import { R300 } from '@atlaskit/theme/colors';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/utility/migration/warning';
 
 import { Frame } from '../components/Frame';
 import { Byline } from '../../common/Byline';
@@ -22,8 +22,13 @@ import { UnresolvedText } from '../components/UnresolvedText';
 import { type ActionProps } from '../components/Action';
 import { RetryAction } from '../actions/RetryAction';
 import { token } from '@atlaskit/tokens';
+import { Flex, xcss } from '@atlaskit/primitives';
 
 const textDescriptionProps = { ...messages.could_not_load_link };
+
+const iconWrapperStyles = xcss({
+	marginInline: 'space.025',
+});
 
 export interface ErroredViewProps {
 	/* URL to the link */
@@ -77,13 +82,15 @@ export const ErroredView = ({
 					<Byline>
 						<UnresolvedText
 							icon={
-								// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19513
-								<WarningIcon
-									label="errored-warning-icon"
-									size="small"
-									primaryColor={token('color.icon.warning', R300)}
-									testId={`${testId}-warning-icon`}
-								/>
+								<Flex alignItems="center" xcss={iconWrapperStyles}>
+									<WarningIcon
+										label="errored-warning-icon"
+										LEGACY_size="small"
+										color={token('color.icon.warning', R300)}
+										testId={`${testId}-warning-icon`}
+										LEGACY_margin={`0 ${token('space.negative.025')} 0 ${token('space.negative.025')}`}
+									/>
+								</Flex>
 							}
 							text={<FormattedMessage {...textDescriptionProps} />}
 						/>

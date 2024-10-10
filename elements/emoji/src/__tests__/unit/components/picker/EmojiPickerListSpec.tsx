@@ -129,10 +129,10 @@ describe('<EmojiPickerList />', () => {
 			expect(images).toBeDefined();
 			expect(images.length).toEqual(outOfOrderEmojis.length);
 
-			expect(images[0]).toHaveAttribute('alt', atlassianEmojis[1].shortName);
+			expect(images[0]).toHaveAttribute('alt', atlassianEmojis[1].name);
 			expect(images[0]).toHaveAttribute('data-emoji-id', atlassianEmojis[1].id);
 
-			expect(images[1]).toHaveAttribute('alt', atlassianEmojis[0].shortName);
+			expect(images[1]).toHaveAttribute('alt', atlassianEmojis[0].name);
 			expect(images[1]).toHaveAttribute('data-emoji-id', atlassianEmojis[0].id);
 		});
 
@@ -156,10 +156,10 @@ describe('<EmojiPickerList />', () => {
 			expect(images).toBeDefined();
 			expect(images.length).toEqual(frequentCategoryEmojis.length);
 
-			expect(images[0]).toHaveAttribute('alt', atlassianEmojis[0].shortName);
+			expect(images[0]).toHaveAttribute('alt', atlassianEmojis[0].name);
 			expect(images[0]).toHaveAttribute('data-emoji-id', atlassianEmojis[0].id);
 
-			expect(images[1]).toHaveAttribute('alt', atlassianEmojis[1].shortName);
+			expect(images[1]).toHaveAttribute('alt', atlassianEmojis[1].name);
 			expect(images[1]).toHaveAttribute('data-emoji-id', atlassianEmojis[1].id);
 		});
 	});
@@ -187,13 +187,13 @@ describe('<EmojiPickerList />', () => {
 			expect(images).toBeDefined();
 			expect(images.length).toEqual(customEmojis.length + 1);
 
-			expect(images[0]).toHaveAttribute('alt', siteEmojiFoo.shortName);
+			expect(images[0]).toHaveAttribute('alt', siteEmojiFoo.name);
 			expect(images[0]).toHaveAttribute('data-emoji-id', siteEmojiFoo.id);
 
-			expect(images[1]).toHaveAttribute('alt', siteEmojiFoo.shortName);
+			expect(images[1]).toHaveAttribute('alt', siteEmojiFoo.name);
 			expect(images[1]).toHaveAttribute('data-emoji-id', siteEmojiFoo.id);
 
-			expect(images[2]).toHaveAttribute('alt', siteEmojiWtf.shortName);
+			expect(images[2]).toHaveAttribute('alt', siteEmojiWtf.name);
 			expect(images[2]).toHaveAttribute('data-emoji-id', siteEmojiWtf.id);
 		});
 
@@ -215,10 +215,10 @@ describe('<EmojiPickerList />', () => {
 			expect(images).toBeDefined();
 			expect(images.length).toEqual(customEmojis.length);
 
-			expect(images[0]).toHaveAttribute('alt', siteEmojiFoo.shortName);
+			expect(images[0]).toHaveAttribute('alt', siteEmojiFoo.name);
 			expect(images[0]).toHaveAttribute('data-emoji-id', siteEmojiFoo.id);
 
-			expect(images[1]).toHaveAttribute('alt', siteEmojiWtf.shortName);
+			expect(images[1]).toHaveAttribute('alt', siteEmojiWtf.name);
 			expect(images[1]).toHaveAttribute('data-emoji-id', siteEmojiWtf.id);
 		});
 
@@ -239,10 +239,10 @@ describe('<EmojiPickerList />', () => {
 			expect(images).toBeDefined();
 			expect(images.length).toEqual(customEmojis.length);
 
-			expect(images[0]).toHaveAttribute('alt', siteEmojiFoo.shortName);
+			expect(images[0]).toHaveAttribute('alt', siteEmojiFoo.name);
 			expect(images[0]).toHaveAttribute('data-emoji-id', siteEmojiFoo.id);
 
-			expect(images[1]).toHaveAttribute('alt', siteEmojiWtf.shortName);
+			expect(images[1]).toHaveAttribute('alt', siteEmojiWtf.name);
 			expect(images[1]).toHaveAttribute('data-emoji-id', siteEmojiWtf.id);
 		});
 
@@ -442,7 +442,7 @@ describe('<EmojiPickerList />', () => {
 			expect(images.length).toEqual(customEmojis.length + 1);
 
 			// expected first to be :foo: under "Your uploads"
-			expect(images[0]).toHaveAttribute('alt', siteEmojiFoo.shortName);
+			expect(images[0]).toHaveAttribute('alt', siteEmojiFoo.name);
 			expect(images[0]).toHaveAttribute('data-emoji-id', siteEmojiFoo.id);
 
 			const deleteButton = await screen.findByTestId(RENDER_EMOJI_DELETE_BUTTON_TESTID);
@@ -466,7 +466,7 @@ describe('<EmojiPickerList />', () => {
 			expect(images.length).toEqual(customEmojis.length);
 
 			// expected first to be :foo: under "All uploads"
-			expect(images[0]).toHaveAttribute('alt', siteEmojiFoo.shortName);
+			expect(images[0]).toHaveAttribute('alt', siteEmojiFoo.name);
 			expect(images[0]).toHaveAttribute('data-emoji-id', siteEmojiFoo.id);
 
 			const deleteButton = screen.queryByTestId(RENDER_EMOJI_DELETE_BUTTON_TESTID);

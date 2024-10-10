@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 18.1.0
+
+### Minor Changes
+
+- [#150241](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150241)
+  [`73de70dc13e2e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73de70dc13e2e) -
+  Updated group heading styles introduced in v17.19.0 are now default and no longer behind a feature
+  flag.
+
 ## 18.0.0
 
 ### Major Changes

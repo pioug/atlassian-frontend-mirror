@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 1.8.12
+
+### Patch Changes
+
+- [#150384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150384)
+  [`6d48c5b6ce65e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d48c5b6ce65e) -
+  [ED-25083] Typograpghy migration
+
 ## 1.8.11
 
 ### Patch Changes

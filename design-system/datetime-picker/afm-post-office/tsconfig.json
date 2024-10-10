@@ -39,6 +39,9 @@
       "path": "../../popper/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../primitives/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../select/afm-post-office/tsconfig.json"
     },
     {

@@ -11,7 +11,6 @@ import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next/src/types';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ELEMENT_BROWSER_ID } from '../../element-browser';
 import { fullPageMessages as messages } from '../../messages';
@@ -177,12 +176,10 @@ export const ToolbarArrowKeyNavigationProvider = ({
 				return;
 			}
 
-			if (fg('editor-fix-esc-main-toolbar-navigation')) {
-				const elementBrowser = wrapperRef?.current?.querySelector(`#${ELEMENT_BROWSER_ID}`);
-				if (elementBrowser) {
-					// if element browser is open, then arrow keys will be handled by MenuArrowKeyNavigationProvider
-					return;
-				}
+			const elementBrowser = wrapperRef?.current?.querySelector(`#${ELEMENT_BROWSER_ID}`);
+			if (elementBrowser) {
+				// if element browser is open, then arrow keys will be handled by MenuArrowKeyNavigationProvider
+				return;
 			}
 
 			const filteredFocusableElements = getFilteredFocusableElements(wrapperRef?.current);

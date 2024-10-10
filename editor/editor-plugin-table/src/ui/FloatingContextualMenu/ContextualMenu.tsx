@@ -42,10 +42,19 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
 import { splitCell } from '@atlaskit/editor-tables/utils';
-import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
-import EditorBackgroundColorIcon from '@atlaskit/icon/glyph/editor/background-color';
-import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
+import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
+import RemoveIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
+import EditorBackgroundColorIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-background-color';
+import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
+import TableCellClearIcon from '@atlaskit/icon/core/table-cell-clear';
+import TableCellMergeIcon from '@atlaskit/icon/core/table-cell-merge';
+import TableCellSplitIcon from '@atlaskit/icon/core/table-cell-split';
+import TableColumnAddRightIcon from '@atlaskit/icon/core/table-column-add-right';
+import TableColumnDeleteIcon from '@atlaskit/icon/core/table-column-delete';
+import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
+import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import {
 	clearHoverSelection,
@@ -85,7 +94,7 @@ import {
 } from '../consts';
 import { AddColRightIcon, AddRowBelowIcon, MergeCellsIcon, SplitCellIcon } from '../icons';
 
-import { cellColourPreviewStyles, elementBeforeIconStyles } from './styles';
+import { cellColourPreviewStyles } from './styles';
 
 interface Props {
 	editorView: EditorView;
@@ -111,6 +120,12 @@ interface State {
 	isOpenAllowed: boolean;
 }
 const arrowsList = new Set(['ArrowRight', 'ArrowLeft']);
+
+const elementBeforeIconStyles = xcss({
+	marginRight: 'space.negative.075',
+	display: 'flex',
+});
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class ContextualMenu extends Component<Props & WrappedComponentProps, State> {
 	state: State = {
 		isSubmenuOpen: false,
@@ -248,13 +263,14 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					: formatMessage(messages.cellBackground),
 				value: { name: 'background' },
 				elemBefore: isDragAndDropEnabled ? (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					<span css={elementBeforeIconStyles}>
-						<EditorBackgroundColorIcon
+					<Box xcss={elementBeforeIconStyles}>
+						<PaintBucketIcon
+							color="currentColor"
+							spacing="spacious"
 							label={formatMessage(messages.backgroundColor)}
-							size="medium"
+							LEGACY_fallbackIcon={EditorBackgroundColorIcon}
 						/>
-					</span>
+					</Box>
 				) : undefined,
 				elemAfter: (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -345,10 +361,14 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					value: { name: 'merge' },
 					isDisabled: !canMergeCells(state.tr),
 					elemBefore: isDragAndDropEnabled ? (
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						<span css={elementBeforeIconStyles}>
-							<MergeCellsIcon />
-						</span>
+						<Box xcss={elementBeforeIconStyles}>
+							<TableCellMergeIcon
+								color="currentColor"
+								spacing="spacious"
+								label={formatMessage(messages.mergeCells)}
+								LEGACY_fallbackIcon={MergeCellsIcon}
+							/>
+						</Box>
 					) : undefined,
 				},
 				{
@@ -356,10 +376,14 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					value: { name: 'split' },
 					isDisabled: !splitCell(state),
 					elemBefore: isDragAndDropEnabled ? (
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						<span css={elementBeforeIconStyles}>
-							<SplitCellIcon />
-						</span>
+						<Box xcss={elementBeforeIconStyles}>
+							<TableCellSplitIcon
+								color="currentColor"
+								spacing="spacious"
+								label={formatMessage(messages.splitCell)}
+								LEGACY_fallbackIcon={SplitCellIcon}
+							/>
+						</Box>
 					) : undefined,
 				},
 			] as MenuItem[];
@@ -384,9 +408,14 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			elemAfter: <div css={shortcutStyle}>{tooltip(addColumnAfter)}</div>,
 			elemBefore: isDragAndDropEnabled ? (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				<span css={elementBeforeIconStyles}>
-					<AddColRightIcon />
-				</span>
+				<Box xcss={elementBeforeIconStyles}>
+					<TableColumnAddRightIcon
+						color="currentColor"
+						spacing="spacious"
+						label={formatMessage(messages.addColumnRight)}
+						LEGACY_fallbackIcon={AddColRightIcon}
+					/>
+				</Box>
 			) : undefined,
 			'aria-label': fg('platform_editor_announce_cell_options_hotkeys')
 				? tooltip(addColumnAfter, String(content))
@@ -408,10 +437,14 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(addRowAfter)}</div>,
 			elemBefore: isDragAndDropEnabled ? (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				<span css={elementBeforeIconStyles}>
-					<AddRowBelowIcon />
-				</span>
+				<Box xcss={elementBeforeIconStyles}>
+					<TableRowAddBelowIcon
+						color="currentColor"
+						spacing="spacious"
+						label={formatMessage(messages.addRowBelow)}
+						LEGACY_fallbackIcon={AddRowBelowIcon}
+					/>
+				</Box>
 			) : undefined,
 			'aria-label': fg('platform_editor_announce_cell_options_hotkeys')
 				? tooltip(addRowAfter, String(content))
@@ -440,14 +473,16 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(backspace)}</div>,
 			elemBefore: isDragAndDropEnabled ? (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				<span css={elementBeforeIconStyles}>
-					<CrossCircleIcon
+				<Box xcss={elementBeforeIconStyles}>
+					<TableCellClearIcon
+						color="currentColor"
+						spacing="spacious"
 						label={formatMessage(messages.clearCells, {
 							0: Math.max(noOfColumns, noOfRows),
 						})}
+						LEGACY_fallbackIcon={CrossCircleIcon}
 					/>
-				</span>
+				</Box>
 			) : undefined,
 			'aria-label': fg('platform_editor_announce_cell_options_hotkeys')
 				? tooltip(backspace, String(content))
@@ -472,14 +507,16 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			}),
 			value: { name: 'delete_column' },
 			elemBefore: isDragAndDropEnabled ? (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				<span css={elementBeforeIconStyles}>
-					<RemoveIcon
+				<Box xcss={elementBeforeIconStyles}>
+					<TableColumnDeleteIcon
+						color="currentColor"
+						spacing="spacious"
 						label={formatMessage(messages.removeColumns, {
 							0: noOfColumns,
 						})}
+						LEGACY_fallbackIcon={RemoveIcon}
 					/>
-				</span>
+				</Box>
 			) : undefined,
 		} as MenuItem;
 	};
@@ -501,14 +538,16 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			}),
 			value: { name: 'delete_row' },
 			elemBefore: isDragAndDropEnabled ? (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				<span css={elementBeforeIconStyles}>
-					<RemoveIcon
+				<Box xcss={elementBeforeIconStyles}>
+					<TableRowDeleteIcon
+						color="currentColor"
+						spacing="spacious"
 						label={formatMessage(messages.removeRows, {
 							0: noOfRows,
 						})}
+						LEGACY_fallbackIcon={RemoveIcon}
 					/>
-				</span>
+				</Box>
 			) : undefined,
 		} as MenuItem;
 	};

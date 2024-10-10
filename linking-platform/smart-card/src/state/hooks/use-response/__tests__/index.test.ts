@@ -5,11 +5,9 @@ import { mocks } from '../../../../utils/mocks';
 import useResponse from '../index';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { type JsonLd } from 'json-ld-types';
+import { renderHook } from '@testing-library/react-hooks';
 
-// FIXME: Jest upgrade
-// Invalid hook call. Hooks can only be called inside of the body of a function component
-describe.skip('useResponse', () => {
+describe('useResponse', () => {
 	let url: string;
 	let mockContext: CardContext;
 
@@ -20,7 +18,7 @@ describe.skip('useResponse', () => {
 	});
 
 	const mockState = (state: CardState) => {
-		(mockContext.store.getState as jest.Mock).mockImplementationOnce(() => ({
+		asMockFunction(mockContext.store.getState).mockImplementationOnce(() => ({
 			[url]: state,
 		}));
 	};
@@ -31,10 +29,10 @@ describe.skip('useResponse', () => {
 
 	describe('handleResolvedLinkResponse', () => {
 		it('should dispatch resolved response on link success', () => {
-			const { handleResolvedLinkResponse } = useResponse();
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).result.current;
 			handleResolvedLinkResponse(url, mocks.success, false, false);
 
-			expect(mockContext.store.dispatch).toBeCalledTimes(2);
+			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
 			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
 				expect.objectContaining({
 					type: 'metadata',
@@ -57,10 +55,10 @@ describe.skip('useResponse', () => {
 		});
 
 		it('should dispatch reloading response on link success when isReloading is true', () => {
-			const { handleResolvedLinkResponse } = useResponse();
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).result.current;
 			handleResolvedLinkResponse(url, mocks.success, true, false);
 
-			expect(mockContext.store.dispatch).toBeCalledTimes(2);
+			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
 			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
 				expect.objectContaining({
 					type: 'metadata',
@@ -88,10 +86,10 @@ describe.skip('useResponse', () => {
 					authFlow: 'disabled',
 				},
 			};
-			const { handleResolvedLinkResponse } = useResponse();
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).result.current;
 			handleResolvedLinkResponse(url, mocks.forbidden, false, false);
 
-			expect(mockContext.store.dispatch).toBeCalledTimes(1);
+			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
 			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
 				expect.objectContaining({
 					type: 'fallback',
@@ -110,10 +108,10 @@ describe.skip('useResponse', () => {
 					authFlow: 'disabled',
 				},
 			};
-			const { handleResolvedLinkResponse } = useResponse();
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).result.current;
 			handleResolvedLinkResponse(url, mocks.unauthorized, false, false);
 
-			expect(mockContext.store.dispatch).toBeCalledTimes(1);
+			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
 			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
 				expect.objectContaining({
 					type: 'fallback',
@@ -124,30 +122,33 @@ describe.skip('useResponse', () => {
 			);
 		});
 
+		const expectToThrowAndDispatchError = (cb: () => void) => {
+			expect(cb).toThrow();
+
+			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
+			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+				expect.objectContaining({
+					type: 'errored',
+					url: 'https://some/url',
+					payload: undefined,
+					error: new APIError('fatal', 'some', 'Fatal error resolving URL'),
+				}),
+			);
+		};
+
 		it('should throw fatal error and dispatch error for an undefined response', () => {
-			const response = undefined as any as JsonLd.Response;
-			const { handleResolvedLinkResponse } = useResponse();
-			try {
-				handleResolvedLinkResponse(url, response, false, false);
-				fail('Did not throw fatal error');
-			} catch (error) {
-				expect(mockContext.store.dispatch).toBeCalledTimes(1);
-				expect(mockContext.store.dispatch).toHaveBeenCalledWith(
-					expect.objectContaining({
-						type: 'errored',
-						url: 'https://some/url',
-						payload: undefined,
-						error: new APIError('fatal', 'some', 'Fatal error resolving URL'),
-					}),
-				);
-			}
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).result.current;
+
+			expectToThrowAndDispatchError(() => {
+				handleResolvedLinkResponse(url, undefined, false, false);
+			});
 		});
 
 		it('should dispatch metadata error if isMetadataRequest is true and is an error', () => {
-			const { handleResolvedLinkResponse } = useResponse();
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).result.current;
 			handleResolvedLinkResponse(url, mocks.notFound, false, true);
 
-			expect(mockContext.store.dispatch).toBeCalledTimes(1);
+			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
 			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
 				expect.objectContaining({
 					type: 'metadata',
@@ -163,10 +164,10 @@ describe.skip('useResponse', () => {
 	describe('handleResolvedLinkError', () => {
 		it('should return error metadata status if isMetadataRequest is true', () => {
 			const apiError = new APIError('error', 'hostname', 'errormessage');
-			const { handleResolvedLinkError } = useResponse();
+			const { handleResolvedLinkError } = renderHook(() => useResponse()).result.current;
 			handleResolvedLinkError(url, apiError, undefined, true);
 
-			expect(mockContext.store.dispatch).toBeCalledTimes(1);
+			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
 			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
 				expect.objectContaining({
 					type: 'metadata',
@@ -199,11 +200,11 @@ describe.skip('useResponse', () => {
 				},
 			};
 			mockState(state);
-			const { handleResolvedLinkError } = useResponse();
+			const { handleResolvedLinkError } = renderHook(() => useResponse()).result.current;
 			const apiError = new APIError('fatal', 'hostname', 'this is an error message');
 			handleResolvedLinkError(url, apiError, undefined, false);
 
-			expect(mockContext.store.dispatch).toBeCalledTimes(1);
+			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
 			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
 				expect.objectContaining({
 					type: 'resolved',

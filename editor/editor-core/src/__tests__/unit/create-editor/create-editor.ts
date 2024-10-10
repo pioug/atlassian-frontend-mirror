@@ -93,7 +93,6 @@ describe(name, () => {
 						errorReporter: {} as any,
 						portalProviderAPI: { render() {}, remove() {} } as any,
 						dispatchAnalyticsEvent: () => {},
-						performanceTracking: {},
 						featureFlags: {},
 						getIntl: () => ({}) as any,
 					}).length,

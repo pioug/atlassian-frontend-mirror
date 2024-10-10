@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 111.1.7
+
+### Patch Changes
+
+- [#150087](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150087)
+  [`1ef4ceed97d4d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1ef4ceed97d4d) -
+  Fix CSS based renderer width fix not working in nested renderer
+
 ## 111.1.6
 
 ### Patch Changes

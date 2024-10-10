@@ -1020,149 +1020,104 @@ describe('JiraIssuesConfigModal', () => {
 			});
 
 			describe('when user provides list of isWrapped column attributes', () => {
-				ffTest.on(
-					'platform.linking-platform.datasource-word_wrap',
-					'platform.linking-platform.datasource-word_wrap is enabled',
-					() => {
-						it('should use isWrapped column attribute in resulting ADF', async () => {
-							const { assertInsertResult } = await setup({
-								visibleColumnKeys: ['myColumn', 'otherColumn'],
-								wrappedColumnKeys: ['myColumn'],
-							});
+				it('should use isWrapped column attribute in resulting ADF', async () => {
+					const { assertInsertResult } = await setup({
+						visibleColumnKeys: ['myColumn', 'otherColumn'],
+						wrappedColumnKeys: ['myColumn'],
+					});
 
-							assertInsertResult(
-								{
-									properties: {
-										columns: [{ key: 'myColumn', isWrapped: true }, { key: 'otherColumn' }],
-									},
-									jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
-								},
-								{
-									attributes: {
-										displayedColumnCount: 2,
-									},
-								},
-							);
-						});
-						it('should render IssueLikeDataTableView with isWrapped column attribute', async () => {
-							await setup({
-								visibleColumnKeys: ['myColumn'],
-								wrappedColumnKeys: ['myColumn'],
-							});
+					assertInsertResult(
+						{
+							properties: {
+								columns: [{ key: 'myColumn', isWrapped: true }, { key: 'otherColumn' }],
+							},
+							jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+						},
+						{
+							attributes: {
+								displayedColumnCount: 2,
+							},
+						},
+					);
+				});
+				it('should render IssueLikeDataTableView with isWrapped column attribute', async () => {
+					await setup({
+						visibleColumnKeys: ['myColumn'],
+						wrappedColumnKeys: ['myColumn'],
+					});
 
-							expect(IssueLikeDataTableView).toHaveBeenCalledWith(
-								expect.objectContaining({
-									wrappedColumnKeys: ['myColumn'],
-								} as Partial<IssueLikeDataTableViewProps>),
-								expect.anything(),
-							);
-						});
-					},
-				);
+					expect(IssueLikeDataTableView).toHaveBeenCalledWith(
+						expect.objectContaining({
+							wrappedColumnKeys: ['myColumn'],
+						} as Partial<IssueLikeDataTableViewProps>),
+						expect.anything(),
+					);
+				});
 			});
 
 			describe('when user provides callback for when wrapped changed', () => {
-				ffTest.on(
-					'platform.linking-platform.datasource-word_wrap',
-					'platform.linking-platform.datasource-word_wrap is enabled',
-					() => {
-						it('should use updated isWrapped column attributes in resulting ADF', async () => {
-							const { getLatestIssueLikeTableProps, assertInsertResult } = await setup({
-								visibleColumnKeys: ['myColumn'],
-								wrappedColumnKeys: ['myColumn'],
-							});
+				it('should use updated isWrapped column attributes in resulting ADF', async () => {
+					const { getLatestIssueLikeTableProps, assertInsertResult } = await setup({
+						visibleColumnKeys: ['myColumn'],
+						wrappedColumnKeys: ['myColumn'],
+					});
 
-							const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
+					const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
 
-							invariant(onWrappedColumnChange);
+					invariant(onWrappedColumnChange);
 
-							act(() => {
-								onWrappedColumnChange('myColumn', true);
-							});
+					act(() => {
+						onWrappedColumnChange('myColumn', true);
+					});
 
-							assertInsertResult(
-								{
-									properties: { columns: [{ key: 'myColumn', isWrapped: true }] },
-									jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
-								},
-								{},
-							);
-						});
-						it('should add new isWrapped column attributes going to table component', async () => {
-							const { getLatestIssueLikeTableProps } = await setup({
-								visibleColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
-								wrappedColumnKeys: ['myColumn', 'otherColumn'],
-							});
+					assertInsertResult(
+						{
+							properties: { columns: [{ key: 'myColumn', isWrapped: true }] },
+							jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+						},
+						{},
+					);
+				});
+				it('should add new isWrapped column attributes going to table component', async () => {
+					const { getLatestIssueLikeTableProps } = await setup({
+						visibleColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
+						wrappedColumnKeys: ['myColumn', 'otherColumn'],
+					});
 
-							const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
+					const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
 
-							invariant(onWrappedColumnChange);
+					invariant(onWrappedColumnChange);
 
-							act(() => {
-								onWrappedColumnChange('thirdColumn', true);
-							});
-							expect(IssueLikeDataTableView).toHaveBeenLastCalledWith(
-								expect.objectContaining({
-									wrappedColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
-								} as Partial<IssueLikeDataTableViewProps>),
-								expect.anything(),
-							);
-						});
-						it('should remove existing isWrapped column attributes going to table component', async () => {
-							const { getLatestIssueLikeTableProps } = await setup({
-								visibleColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
-								wrappedColumnKeys: ['myColumn', 'otherColumn'],
-							});
+					act(() => {
+						onWrappedColumnChange('thirdColumn', true);
+					});
+					expect(IssueLikeDataTableView).toHaveBeenLastCalledWith(
+						expect.objectContaining({
+							wrappedColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
+						} as Partial<IssueLikeDataTableViewProps>),
+						expect.anything(),
+					);
+				});
+				it('should remove existing isWrapped column attributes going to table component', async () => {
+					const { getLatestIssueLikeTableProps } = await setup({
+						visibleColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
+						wrappedColumnKeys: ['myColumn', 'otherColumn'],
+					});
 
-							const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
+					const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
 
-							invariant(onWrappedColumnChange);
+					invariant(onWrappedColumnChange);
 
-							act(() => {
-								onWrappedColumnChange('otherColumn', false);
-							});
-							expect(IssueLikeDataTableView).toHaveBeenLastCalledWith(
-								expect.objectContaining({
-									wrappedColumnKeys: ['myColumn'],
-								} as Partial<IssueLikeDataTableViewProps>),
-								expect.anything(),
-							);
-						});
-					},
-				);
-				ffTest.off(
-					'platform.linking-platform.datasource-word_wrap',
-					'platform.linking-platform.datasource-word_wrap is disabled',
-					() => {
-						it('should use updated isWrapped column attributes in resulting ADF', async () => {
-							const { getLatestIssueLikeTableProps } = await setup({
-								visibleColumnKeys: ['myColumn'],
-								wrappedColumnKeys: ['myColumn'],
-							});
-
-							const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
-							expect(onWrappedColumnChange).toBeUndefined();
-						});
-						it('should add new isWrapped column attributes going to table component', async () => {
-							const { getLatestIssueLikeTableProps } = await setup({
-								visibleColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
-								wrappedColumnKeys: ['myColumn', 'otherColumn'],
-							});
-
-							const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
-							expect(onWrappedColumnChange).toBeUndefined();
-						});
-						it('should remove existing isWrapped column attributes going to table component', async () => {
-							const { getLatestIssueLikeTableProps } = await setup({
-								visibleColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
-								wrappedColumnKeys: ['myColumn', 'otherColumn'],
-							});
-
-							const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
-							expect(onWrappedColumnChange).toBeUndefined();
-						});
-					},
-				);
+					act(() => {
+						onWrappedColumnChange('otherColumn', false);
+					});
+					expect(IssueLikeDataTableView).toHaveBeenLastCalledWith(
+						expect.objectContaining({
+							wrappedColumnKeys: ['myColumn'],
+						} as Partial<IssueLikeDataTableViewProps>),
+						expect.anything(),
+					);
+				});
 			});
 
 			describe('when user changes visible columns from within IssueLikeTable', () => {

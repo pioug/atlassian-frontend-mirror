@@ -10,8 +10,20 @@ export default () => {
 	return (
 		<Box>
 			<Heading size="large">DatePicker</Heading>
-			<Label htmlFor="react-select-is-open--input">Always open</Label>
+			<Label id="open" htmlFor="react-select-is-open--input">
+				Always open
+			</Label>
 			<DatePicker id="react-select-is-open--input" isOpen />
+			<Label id="open-calendar" htmlFor="react-select-is-open-calendar--input">
+				Always open with calendar button
+			</Label>
+			<DatePicker
+				id="react-select-is-open-calendar--input"
+				isOpen
+				shouldShowCalendarButton
+				inputLabelId="open-calendar"
+				openCalendarLabel="open calendar"
+			/>
 		</Box>
 	);
 };

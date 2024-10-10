@@ -130,9 +130,6 @@
 	"platform-feature-flags": {
 		"platform_index_emoji_just_in_time": {
 			"type": "boolean"
-		},
-		"platform_change_emoji_alt_value": {
-			"type": "boolean"
 		}
 	},
 	"scripts": {

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { StrictMode, useState } from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { type FormValues } from '../../../types';
 import ContextualSurvey, { AUTO_DISAPPEAR_DURATION } from '../../ContextualSurvey';
@@ -18,32 +18,27 @@ function App({ hasUserAnswered, onSubmit, onDismiss }: Props) {
 	const [showSurvey, setShowSurvey] = useState(true);
 
 	return (
-		<SurveyMarshal shouldShow={showSurvey}>
-			{() => (
-				<ContextualSurvey
-					question="Question"
-					statement="Statement"
-					textPlaceholder="Placeholder"
-					onDismiss={() => {
-						onDismiss();
-						setShowSurvey(false);
-					}}
-					getUserHasAnsweredMailingList={() => {
-						return Promise.resolve(hasUserAnswered);
-					}}
-					onMailingListAnswer={() => Promise.resolve()}
-					onSubmit={onSubmit}
-				/>
-			)}
-		</SurveyMarshal>
+		<StrictMode>
+			<SurveyMarshal shouldShow={showSurvey}>
+				{() => (
+					<ContextualSurvey
+						question="Question"
+						statement="Statement"
+						textPlaceholder="Placeholder"
+						onDismiss={() => {
+							onDismiss();
+							setShowSurvey(false);
+						}}
+						getUserHasAnsweredMailingList={() => {
+							return Promise.resolve(hasUserAnswered);
+						}}
+						onMailingListAnswer={() => Promise.resolve()}
+						onSubmit={onSubmit}
+					/>
+				)}
+			</SurveyMarshal>
+		</StrictMode>
 	);
-}
-
-async function asyncAct() {
-	const error = jest.spyOn(console, 'error').mockImplementation(() => {});
-	await Promise.resolve();
-	act(() => {});
-	error.mockRestore();
 }
 
 it('should allow a standard signup flow', async () => {
@@ -53,6 +48,9 @@ it('should allow a standard signup flow', async () => {
 	const onDismiss = jest.fn();
 	const { container, getByLabelText, getByText, queryByPlaceholderText, getByPlaceholderText } =
 		render(<App hasUserAnswered={false} onSubmit={onSubmit} onDismiss={onDismiss} />);
+
+	// clearing all mocks that may have results from a double render
+	jest.clearAllMocks();
 
 	// displaying form initially
 	expect(getByText('Question')).toBeTruthy();
@@ -87,15 +85,10 @@ it('should allow a standard signup flow', async () => {
 		writtenFeedback: feedback,
 	});
 
-	// Waiting for some promises to resolve.
-	// this does not play nicely with 'act'
-
-	// Waiting for onSubmit promise to resolve
-	await asyncAct();
-	// Waiting for getUserHasAnsweredMailingList promise to resolve
-	await asyncAct();
-
-	expect(getByText('Are you interested in participating in our research?')).toBeTruthy();
+	// waiting for getUserHasAnsweredMailingList & onSubmit promises to resolve
+	expect(
+		await screen.findByText('Are you interested in participating in our research?'),
+	).toBeInTheDocument();
 
 	const signUp: HTMLElement | null = getByText('Yes, sign me up').closest('button');
 	if (!signUp) {
@@ -103,10 +96,8 @@ it('should allow a standard signup flow', async () => {
 	}
 	fireEvent.click(signUp);
 
-	// letting the mail signup promise resolve
-	await asyncAct();
-
-	expect(getByText('Thanks for signing up')).toBeTruthy();
+	// waiting for mail signup promise resolve
+	expect(await screen.findByText('Thanks for signing up')).toBeInTheDocument();
 
 	expect(onDismiss).not.toHaveBeenCalled();
 

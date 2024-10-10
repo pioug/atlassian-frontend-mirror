@@ -24,7 +24,12 @@ const DatePickerValidationExample = () => (
 				>
 					{({ fieldProps, error, meta: { valid } }) => (
 						<>
-							<DatePicker {...fieldProps} />
+							<DatePicker
+								{...fieldProps}
+								shouldShowCalendarButton
+								inputLabel="Start day"
+								openCalendarLabel="open calendar"
+							/>
 							{valid && <ValidMessage>You have entered a valid date</ValidMessage>}
 							{error === 'REQUIRED' && <ErrorMessage>This field is required</ErrorMessage>}
 						</>

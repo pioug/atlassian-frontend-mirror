@@ -228,11 +228,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isTableScalingEnabled,
 		} = this.props;
 
-		const { mode } =
-			this.props.pluginInjectionApi?.editorViewMode?.sharedState.currentState() || {};
-		if (mode === 'view') {
-			this?.table?.addEventListener('mouseenter', this.handleMouseEnter);
-		}
+		this?.table?.addEventListener('mouseenter', this.handleMouseEnter);
 
 		this?.table?.addEventListener('mouseout', this.handleMouseOut);
 

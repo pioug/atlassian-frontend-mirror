@@ -1,25 +1,33 @@
+import { startMessage } from './actions/startMessage';
+import { stopMessage } from './actions/stopMessage';
 import type { EngagementPlatformPlugin } from './engagementPlatformPluginType';
-import { createPlugin, engagementPlatformPluginKey } from './pm-plugins/main';
+import { engagementPlatformPmPlugin } from './pmPlugins/engagementPlatformPmPlugin/engagementPlatformPmPlugin';
+import { engagementPlatformPmPluginKey } from './pmPlugins/engagementPlatformPmPlugin/engagementPlatformPmPluginKey';
 
-export const engagementPlatformPlugin: EngagementPlatformPlugin = ({ config }) => {
+export const engagementPlatformPlugin: EngagementPlatformPlugin = ({ config, api }) => {
 	return {
 		name: 'engagementPlatform',
+
+		actions: {
+			startMessage: startMessage(api, config.coordinationClient),
+			stopMessage: stopMessage(api, config.coordinationClient),
+		},
 
 		pmPlugins() {
 			return [
 				{
-					name: 'engagementPlatform',
-					plugin: () => createPlugin(config),
+					name: 'engagementPlatformPmPlugin',
+					plugin: () => engagementPlatformPmPlugin(config),
 				},
 			];
 		},
 
 		getSharedState(editorState) {
-			if (!config || !editorState) {
+			if (!editorState) {
 				return undefined;
 			}
 
-			return engagementPlatformPluginKey.getState(editorState);
+			return engagementPlatformPmPluginKey.getState(editorState);
 		},
 	};
 };

@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 12.2.5
+
+### Patch Changes
+
+- [#150360](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150360)
+  [`284490a8c1813`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/284490a8c1813) -
+  Update codegen script to output into primitives-emotion-to-compiled codemod.
+
 ## 12.2.4
 
 ### Patch Changes

@@ -6,8 +6,15 @@ import { DatePicker } from '../../src';
 
 const DatePickerDefaultExample = () => (
 	<>
-		<Label htmlFor="default-date-picker-example">Choose date</Label>
-		<DatePicker id="default-date-picker-example" />
+		<Label id="date" htmlFor="default-date-picker-example">
+			Choose date
+		</Label>
+		<DatePicker
+			id="default-date-picker-example"
+			shouldShowCalendarButton
+			inputLabelId="date"
+			openCalendarLabel="open calendar"
+		/>
 	</>
 );
 

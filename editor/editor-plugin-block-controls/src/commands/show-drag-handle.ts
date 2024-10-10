@@ -4,6 +4,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin } from '../types';
+import { getNestedNodePosition } from '../utils';
 
 export const showDragHandleAtSelection =
 	(api?: ExtractInjectionAPI<BlockControlsPlugin>, shouldFocusParentNode?: boolean): Command =>
@@ -20,16 +21,25 @@ export const showDragHandleAtSelection =
 			const parentPos = isInTable(state)
 				? $from.before(1)
 				: shouldFocusParentNode
-					? $from.start($from.depth - 1)
-					: $from.start();
+					? $from.before(1)
+					: getNestedNodePosition(state) + 1;
 
 			const parentElement = view?.domAtPos(parentPos, 0)?.node as HTMLElement | undefined;
 			if (parentElement) {
-				const anchorName = parentElement.getAttribute('data-drag-handler-anchor-name')!;
-				const nodeType = parentElement.getAttribute('data-drag-handler-node-type')!;
+				let anchorName = parentElement.getAttribute('data-drag-handler-anchor-name')!;
+				let nodeType = parentElement.getAttribute('data-drag-handler-node-type')!;
+
+				if (!anchorName || !nodeType) {
+					// for nodes like panel and mediaSingle, the drag handle decoration is not applied to the dom node at the node position but to the parent node
+					const closestParentElement = parentElement.closest('[data-drag-handler-anchor-name]');
+					if (closestParentElement) {
+						anchorName = closestParentElement.getAttribute('data-drag-handler-anchor-name')!;
+						nodeType = closestParentElement.getAttribute('data-drag-handler-node-type')!;
+					}
+				}
 				if (api && anchorName && nodeType) {
 					api.core.actions.execute(
-						api.blockControls.commands.showDragHandleAt($from.before(), anchorName, nodeType, {
+						api.blockControls.commands.showDragHandleAt(parentPos - 1, anchorName, nodeType, {
 							isFocused: true,
 						}),
 					);

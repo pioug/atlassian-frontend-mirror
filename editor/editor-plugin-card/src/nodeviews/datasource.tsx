@@ -218,11 +218,7 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 								url={attrs?.url}
 								onColumnResize={this.handleColumnResize}
 								columnCustomSizes={columnCustomSizes}
-								onWrappedColumnChange={
-									fg('platform.linking-platform.datasource-word_wrap')
-										? this.handleWrappedColumnChange
-										: undefined
-								}
+								onWrappedColumnChange={this.handleWrappedColumnChange}
 								wrappedColumnKeys={wrappedColumnKeys}
 							/>
 						</cardContext.Provider>

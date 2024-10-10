@@ -46,22 +46,6 @@ export const keyboardShortcutSelect = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const buttonContentStyle = css({
-	display: 'flex',
-	minWidth: '80px',
-	alignItems: 'center',
-	overflow: 'hidden',
-	justifyContent: 'center',
-	flexDirection: 'column',
-	padding: token('space.075', '6px'),
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const buttonContentReducedSpacingStyle = css({
-	padding: token('space.100', '8px'),
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const wrapperSmallStyle = css({
 	marginLeft: token('space.050', '4px'),
 	minWidth: '40px',

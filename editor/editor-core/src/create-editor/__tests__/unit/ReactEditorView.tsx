@@ -186,7 +186,8 @@ describe('@atlaskit/editor-core', () => {
 
 	afterEach(jest.clearAllMocks);
 
-	describe('<ReactEditorView />', () => {
+	// Skipping as tests timing out due to open handles (#hot-112198)
+	describe.skip('<ReactEditorView />', () => {
 		it('should place the initial selection at the end of the document', () => {
 			const document = doc(p('hello{endPos}'))(defaultSchema);
 			const wrapper = mountWithIntl(

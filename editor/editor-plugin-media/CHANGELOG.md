@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 1.34.10
+
+### Patch Changes
+
+- [#150125](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150125)
+  [`79a44707fe935`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/79a44707fe935) -
+  [ED-24001] This change is cleaning up the feature gate for the image border options dropdown a11y
+  fix.
+
 ## 1.34.9
 
 ### Patch Changes

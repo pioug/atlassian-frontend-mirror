@@ -281,7 +281,8 @@ const TimePicker = forwardRef(
 		};
 
 		const renderIconContainer = Boolean(!hideIcon && value);
-		// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
+
+		// @ts-ignore -- Argument of type 'StylesConfig<OptionType, false, GroupBase<OptionType>>' is not assignable to parameter of type 'StylesConfig<OptionType, boolean, GroupBase<OptionType>>'.
 		const mergedStyles = mergeStyles<OptionType, boolean, GroupType<OptionType>>(selectStyles, {
 			control: (base) => ({
 				...base,

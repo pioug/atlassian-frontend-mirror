@@ -1,5 +1,13 @@
 # @atlaskit/css
 
+## 0.5.2
+
+### Patch Changes
+
+- [#150360](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150360)
+  [`284490a8c1813`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/284490a8c1813) -
+  Add codemod to migrate @atlaskit/primitives from using Emotion APIs towards Compiled.
+
 ## 0.5.1
 
 ### Patch Changes

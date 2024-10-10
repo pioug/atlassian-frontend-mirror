@@ -9,7 +9,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getAlignmentStyle } from './nodeviews/table-container-styles';
-import { generateColgroup } from './pm-plugins/table-resizing/utils/colgroup';
+import { generateColgroup, getResizerMinWidth } from './pm-plugins/table-resizing/utils/colgroup';
 import { TABLE_MAX_WIDTH } from './pm-plugins/table-resizing/utils/consts';
 
 type Config = {
@@ -33,6 +33,8 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): typeof table => {
 			const alignmentStyle = Object.entries(getAlignmentStyle(node.attrs.layout))
 				.map(([k, v]) => `${kebabCase(k)}: ${kebabCase(v)}`)
 				.join(';');
+
+			const tableMinWidth = getResizerMinWidth(node);
 
 			const attrs = {
 				'data-number-column': node.attrs.isNumberColumnEnabled,
@@ -145,7 +147,7 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): typeof table => {
 										boxSizing: 'border-box',
 										'--ak-editor-table-gutter-padding': `${gutterPadding}px`,
 										'--ak-editor-table-max-width': `${TABLE_MAX_WIDTH}px`,
-										'--ak-editor-table-min-width': `145px`,
+										'--ak-editor-table-min-width': `${tableMinWidth}px`,
 										minWidth: 'var(--ak-editor-table-min-width)',
 										maxWidth: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), var(--ak-editor-table-max-width))`,
 										width: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${node.attrs.width})`,
@@ -155,7 +157,7 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): typeof table => {
 										userSelect: 'auto',
 										boxSizing: 'border-box',
 										height: 'auto',
-										minWidth: '145px',
+										minWidth: `${tableMinWidth}px`,
 										maxWidth: `${editorWidthFromGetter}px`,
 										width: `${editorWidthFromGetter}px;`,
 									}),

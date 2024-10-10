@@ -11,7 +11,6 @@ import { FormattedMessage } from 'react-intl-next';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '../../analytics';
@@ -270,11 +269,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 	);
 
 	return (
-		<div
-			css={wrapper}
-			data-testid="element-browser"
-			id={fg('editor-fix-esc-main-toolbar-navigation') ? ELEMENT_BROWSER_ID : undefined}
-		>
+		<div css={wrapper} data-testid="element-browser" id={ELEMENT_BROWSER_ID}>
 			<ContainerWidthMonitor />
 			{containerWidth < DEVICE_BREAKPOINT_NUMBERS.medium ? (
 				<MobileBrowser

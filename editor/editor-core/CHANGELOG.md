@@ -1,5 +1,44 @@
 # @atlaskit/editor-core
 
+## 198.4.7
+
+### Patch Changes
+
+- [#150241](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150241)
+  [`11814f141483a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/11814f141483a) -
+  ED-24117: remediates extension component for react 18
+- [#150201](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150201)
+  [`b105a16989e99`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b105a16989e99) -
+  Cleanup unused instrumentation in core editor
+- Updated dependencies
+
+## 198.4.6
+
+### Patch Changes
+
+- [#150606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150606)
+  [`7680d21f5d481`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7680d21f5d481) -
+  [ED-24257] This change cleans up the feature gate for the main toolbar navigation escape fix.
+- [#150606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150606)
+  [`d4d1f4dc8f6dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4d1f4dc8f6dc) -
+  ED-24117: upgrades mention with provider to fc for react 18 migration
+
+## 198.4.5
+
+### Patch Changes
+
+- [#150410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150410)
+  [`aabd4874bd3a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aabd4874bd3a0) -
+  set correct min-width value in table lazy load view
+
+## 198.4.4
+
+### Patch Changes
+
+- [#150189](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150189)
+  [`7537d7c549a7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7537d7c549a7b) -
+  [No Issue] Improve prosemirror data attributes for nodes/marks toDOM and NodeViews
+
 ## 198.4.3
 
 ### Patch Changes

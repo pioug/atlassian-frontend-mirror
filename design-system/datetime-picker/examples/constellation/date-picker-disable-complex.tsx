@@ -13,11 +13,16 @@ const weekendFilter = (date: string) => {
 
 const DatePickerDisableComplexExample = () => (
 	<>
-		<Label htmlFor="datepicker-disable-complex">Disabled Dates (Complex)</Label>
+		<Label id="disabled" htmlFor="datepicker-disable-complex">
+			Disabled Dates (Complex)
+		</Label>
 		<DatePicker
 			defaultValue="2020-12-15"
 			disabledDateFilter={weekendFilter}
 			id="datepicker-disable-complex"
+			shouldShowCalendarButton
+			inputLabelId="disabled"
+			openCalendarLabel="open calendar"
 		/>
 	</>
 );

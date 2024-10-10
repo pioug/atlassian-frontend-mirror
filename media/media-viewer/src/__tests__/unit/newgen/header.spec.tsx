@@ -23,7 +23,7 @@ const externalIdentifier: Identifier = {
 };
 
 describe('<Header />', () => {
-	it('set isArchiveSideBarVisible state to true if media type is archive', async () => {
+	it('onSetArchiveSideBarVisible to be called with true if media type is archive', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingArchive();
 		const { mediaApi } = createMockedMediaApi(fileItem);
 		const onSetArchiveSideBarVisible = jest.fn();
@@ -39,10 +39,10 @@ describe('<Header />', () => {
 			</IntlProvider>,
 		);
 		await waitFor(() => {
-			expect(onSetArchiveSideBarVisible).toHaveBeenCalled();
+			expect(onSetArchiveSideBarVisible).toHaveBeenCalledWith(true);
 		});
 	});
-	it('onSetArchiveSideBarVisible not been called if media type is not archive', async () => {
+	it('onSetArchiveSideBarVisible to be called with false if media type is not archive', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 		const { mediaApi } = createMockedMediaApi(fileItem);
 		const onSetArchiveSideBarVisible = jest.fn();
@@ -58,11 +58,11 @@ describe('<Header />', () => {
 			</IntlProvider>,
 		);
 		await waitFor(() => {
-			expect(onSetArchiveSideBarVisible).not.toHaveBeenCalled();
+			expect(onSetArchiveSideBarVisible).toHaveBeenCalledWith(false);
 		});
 	});
 
-	it('shows an download button while loading', async () => {
+	it('shows the download button while loading', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 		const { mediaApi } = createMockedMediaApi(fileItem);
 		const onSetArchiveSideBarVisible = jest.fn();

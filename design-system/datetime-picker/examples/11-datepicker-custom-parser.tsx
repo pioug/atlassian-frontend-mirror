@@ -14,7 +14,7 @@ const parseInputValue = (date: string, dateFormat: string) => {
 export default () => {
 	return (
 		<Box>
-			<Label htmlFor="react-select-custom-parser--input">
+			<Label id="custom" htmlFor="react-select-custom-parser--input">
 				Custom date format and parseInputValue prop
 			</Label>
 			<DatePicker
@@ -23,6 +23,9 @@ export default () => {
 				parseInputValue={parseInputValue}
 				placeholder="e.g. 31/Dec/18"
 				onChange={console.log}
+				shouldShowCalendarButton
+				inputLabelId="custom"
+				openCalendarLabel="open calendar"
 			/>
 		</Box>
 	);

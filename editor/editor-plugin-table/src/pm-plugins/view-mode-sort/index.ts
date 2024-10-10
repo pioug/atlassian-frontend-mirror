@@ -10,13 +10,13 @@ import ReactDOM from 'react-dom';
 import { RawIntlProvider } from 'react-intl-next';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { SortingIcon } from '@atlaskit/editor-common/table';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 import type tablePlugin from '../../plugin';
+import { SortingIconWrapper } from '../../ui/icons/SortingIconWrapper';
 import { getPluginState } from '../plugin-factory';
 
 import {
@@ -28,9 +28,7 @@ import { tableViewModeSortPluginKey as key } from './plugin-key';
 import type { ViewModeSortPluginState } from './types';
 import { getTableElements, toggleSort } from './utils';
 
-export const createPlugin = (
-	editorViewModeAPI: ExtractInjectionAPI<typeof tablePlugin>['editorViewMode'],
-) => {
+export const createPlugin = (api: ExtractInjectionAPI<typeof tablePlugin>) => {
 	return new SafePlugin({
 		state: {
 			init: () => ({
@@ -41,7 +39,7 @@ export const createPlugin = (
 			apply(tr, pluginState: ViewModeSortPluginState, oldState) {
 				// TODO - move this mode check to plugin creation if possible. Right now it's here because the initial state
 				// does not appear correct when the plugin is created.
-				const { mode } = editorViewModeAPI?.sharedState.currentState() || {};
+				const { mode } = api.editorViewMode?.sharedState.currentState() || {};
 				if (mode !== 'view') {
 					return pluginState;
 				}
@@ -86,7 +84,6 @@ export const createPlugin = (
 						const map = TableMap.get(tableNode);
 						const hasMergedCells = new Set(map.map).size !== map.map.length;
 						map.mapByRow[0].forEach((cell, index) => {
-							// return pluginState;
 							decs.push(
 								Decoration.widget(cell + pos + 2, () => {
 									const element = document.createElement('div');
@@ -109,11 +106,12 @@ export const createPlugin = (
 										createElement(
 											RawIntlProvider,
 											{ value: getIntl() },
-											createElement(SortingIcon, {
+											createElement(SortingIconWrapper, {
 												isSortingAllowed: !hasMergedCells,
 												sortOrdered,
 												onClick: () => {},
 												onKeyDown: () => {},
+												api,
 											}),
 										),
 										element,
@@ -146,7 +144,7 @@ export const createPlugin = (
 		key,
 		appendTransaction: (trs, oldState, newState) => {
 			// return newState.tr;
-			const { mode } = editorViewModeAPI?.sharedState.currentState() || {};
+			const { mode } = api?.editorViewMode?.sharedState.currentState() || {};
 			if (mode !== 'view') {
 				return newState.tr;
 			}

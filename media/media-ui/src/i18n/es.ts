@@ -10,7 +10,9 @@ export default {
   'fabric.media.accounts': 'Cuentas',
   'fabric.media.actions': 'Acciones',
   'fabric.media.add_account': 'Añadir cuenta',
-  'fabric.media.alt_text': '¿Cómo describirías la imagen seleccionada a una persona con problemas de visión?',
+  'fabric.media.alt_text_helper_message':
+    '¿Cómo describirías la imagen seleccionada a una persona con problemas de visión?',
+  'fabric.media.alt_text_label': 'Texto alternativo',
   'fabric.media.annotate': 'Anotar',
   'fabric.media.annotate.confirmation.close.anyway': 'Cerrar de todos modos',
   'fabric.media.annotate.confirmation.content':

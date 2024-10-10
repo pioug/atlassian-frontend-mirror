@@ -10,7 +10,9 @@ export default {
   'fabric.media.accounts': 'Accounts',
   'fabric.media.actions': 'Acties',
   'fabric.media.add_account': 'Account toevoegen',
-  'fabric.media.alt_text': 'Hoe zou je de geselecteerde afbeelding beschrijven aan een slechtziend persoon?',
+  'fabric.media.alt_text_helper_message':
+    'Hoe zou je de geselecteerde afbeelding beschrijven aan een slechtziend persoon?',
+  'fabric.media.alt_text_label': 'Alt-tekst',
   'fabric.media.annotate': 'Aantekeningen maken',
   'fabric.media.annotate.confirmation.close.anyway': 'Toch sluiten',
   'fabric.media.annotate.confirmation.content':

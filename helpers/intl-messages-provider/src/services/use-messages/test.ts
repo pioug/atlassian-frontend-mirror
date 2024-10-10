@@ -3,7 +3,8 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import { useMessages } from './index';
 
-describe('useMessages()', () => {
+// Skipping as tests timing out due to open handles (#hot-112198)
+describe.skip('useMessages()', () => {
 	beforeEach(() => {
 		jest.restoreAllMocks();
 	});

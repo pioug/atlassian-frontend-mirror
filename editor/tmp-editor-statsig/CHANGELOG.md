@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.3.1
+
+### Patch Changes
+
+- [#150384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150384)
+  [`d3dad252dbe46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3dad252dbe46) -
+  [EDF-1177](https://product-fabric.atlassian.net/browse/EDF-1177) - add pulse effect support into
+  editor floating toolbar
+
 ## 2.3.0
 
 ### Minor Changes

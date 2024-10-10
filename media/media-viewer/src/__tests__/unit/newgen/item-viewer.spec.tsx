@@ -191,7 +191,6 @@ describe('<ItemViewer />', () => {
 
 			const archiveItem = await screen.findByTestId('archive-layout');
 			expect(archiveItem).toBeDefined();
-			screen.logTestingPlaygroundURL(archiveItem);
 		});
 
 		it('should load code viewer for code', async () => {

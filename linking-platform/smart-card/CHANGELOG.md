@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 29.2.0
+
+### Minor Changes
+
+- [#150309](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150309)
+  [`e59aea25f64b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e59aea25f64b1) -
+  EDM-10845 Use new AI smartlink summary service
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.1.1
+
+### Patch Changes
+
+- [#150558](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150558)
+  [`da0a817f6174e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/da0a817f6174e) -
+  Removing unused code logic
+
 ## 29.1.0
 
 ### Minor Changes

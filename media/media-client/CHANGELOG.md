@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 28.0.3
+
+### Patch Changes
+
+- [#150155](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150155)
+  [`d06247128ff41`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d06247128ff41) -
+  Reverse the check of FedRAMP env to check against Commercial instead in media-client
+
 ## 28.0.2
 
 ### Patch Changes

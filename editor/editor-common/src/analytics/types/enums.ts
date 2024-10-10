@@ -261,6 +261,7 @@ export enum ACTION_SUBJECT {
 	ELEMENT = 'element',
 	CONTEXT_MENU = 'contextMenu',
 	INLINE_DIALOG = 'inlineDialog',
+	ENGAGEMENT_PLATFORM = 'engagementPlatform',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -282,6 +283,7 @@ export enum ACTION_SUBJECT_ID {
 	CODE_BLOCK = 'codeBlock',
 	CODEBLOCK_COPY = 'codeBlockCopy',
 	CODEBLOCK_WRAP = 'codeBlockWrap',
+	COPY_LINK_TO_ANCHOR = 'copyLinkToAnchor',
 	CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU = 'createInlineCommentFromHighlightActionsMenu',
 	DATE = 'date',
 	DATE_DAY = 'day',

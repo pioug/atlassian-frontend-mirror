@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.10.0
+
+### Minor Changes
+
+- [#150410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150410)
+  [`c2b1db731f035`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c2b1db731f035) -
+  Remove UNSAFE\_ lifecycle methods from tasks & decisions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.9.3
 
 ### Patch Changes

@@ -202,16 +202,9 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 						shouldFitContainer={true}
 						isTriggerNotTabbable={true}
 						handleClickOutside={this.handleClose}
-						handleEscapeKeydown={
-							fg('platform-editor-a11y-image-border-options-dropdown')
-								? handleEscapeKeydown || this.handleCloseAndFocus
-								: this.handleCloseAndFocus
-						}
+						handleEscapeKeydown={handleEscapeKeydown || this.handleCloseAndFocus}
 						handleEnterKeydown={(e: KeyboardEvent) => {
-							if (
-								fg('platform_editor_a11y_table_context_menu') ||
-								fg('platform-editor-a11y-image-border-options-dropdown')
-							) {
+							if (fg('platform_editor_a11y_table_context_menu')) {
 								if (!allowEnterDefaultBehavior) {
 									e.preventDefault();
 								}
@@ -344,29 +337,13 @@ export function DropdownMenuItem({
 		);
 	};
 
-	let ariaLabel;
-
-	if (fg('platform-editor-a11y-image-border-options-dropdown')) {
-		ariaLabel = item['aria-label'] === '' ? undefined : item['aria-label'] || String(item.content);
-	} else {
-		ariaLabel = item['aria-label'] || String(item.content);
-	}
-
-	let testId;
-	if (fg('platform-editor-a11y-image-border-options-dropdown')) {
-		testId = item['data-testid'] || `dropdown-item__${item.content}`;
-	} else {
-		testId = `dropdown-item__${String(item.content)}`;
-	}
+	const ariaLabel =
+		item['aria-label'] === '' ? undefined : item['aria-label'] || String(item.content);
+	const testId = item['data-testid'] || `dropdown-item__${item.content}`;
 
 	// From time to time we don't want to have any tabIndex on item wrapper
 	// especially when we pass any interactive element as a item.content
-	let tabIndex;
-	if (fg('platform-editor-a11y-image-border-options-dropdown')) {
-		tabIndex = item.wrapperTabIndex === null ? undefined : item.wrapperTabIndex || -1;
-	} else {
-		tabIndex = -1;
-	}
+	const tabIndex = item.wrapperTabIndex === null ? undefined : item.wrapperTabIndex || -1;
 
 	const dropListItem = (
 		<div

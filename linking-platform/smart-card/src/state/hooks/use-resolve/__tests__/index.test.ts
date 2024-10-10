@@ -3,34 +3,27 @@ import { APIError, type CardState } from '@atlaskit/linking-common';
 import { type CardContext } from '@atlaskit/smart-card';
 import { mocks } from '../../../../utils/mocks';
 import useResolve from '../index';
+import { renderHook } from '@testing-library/react-hooks';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 import { type JsonLd } from 'json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 
-// FIXME: Jest upgrade
-// Invalid hook call
-describe.skip('useResolve', () => {
+describe('useResolve', () => {
 	let url: string;
 	let id: string;
 	let mockContext: CardContext;
 
-	const mockFetchData = (response: Promise<JsonLd.Response | undefined>) => {
-		let deferrable: Promise<JsonLd.Response | undefined> = Promise.resolve(undefined);
-
-		const fn = async () => {
-			deferrable = Promise.resolve(response);
-			return response;
-		};
-
-		(mockContext.connections.client.fetchData as jest.Mock).mockImplementationOnce(fn);
+	const mockFetchData = (responsePromise: Promise<JsonLd.Response>) => {
+		asMockFunction(mockContext.connections.client.fetchData).mockReturnValue(responsePromise);
 
 		return {
-			promise: deferrable,
+			promise: responsePromise,
 			flush: () => new Promise((resolve) => process.nextTick(resolve)),
 		};
 	};
+
 	const mockState = (state: CardState) => {
-		(mockContext.store.getState as jest.Mock).mockImplementationOnce(() => ({
+		asMockFunction(mockContext.store.getState).mockImplementationOnce(() => ({
 			[url]: state,
 		}));
 	};
@@ -53,7 +46,7 @@ describe.skip('useResolve', () => {
 			details: undefined,
 		});
 
-		const resolve = useResolve();
+		const resolve = renderHook(() => useResolve()).result.current;
 		await resolve(url, false, false, id);
 
 		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
@@ -86,7 +79,7 @@ describe.skip('useResolve', () => {
 			details: mocks.success,
 		});
 
-		const resolve = useResolve();
+		const resolve = renderHook(() => useResolve()).result.current;
 		await resolve(url, true, false, id);
 
 		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true);
@@ -116,7 +109,7 @@ describe.skip('useResolve', () => {
 			details: mocks.success,
 		});
 
-		const resolve = useResolve();
+		const resolve = renderHook(() => useResolve()).result.current;
 		await resolve(url, false, true, id);
 
 		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
@@ -142,9 +135,7 @@ describe.skip('useResolve', () => {
 		);
 	});
 
-	// FIXME: Jest upgrade
-	// throws error. mock issue
-	it.skip('throws (allowing editor to handle) if resolving fails and there is no previous data', async () => {
+	it('throws (allowing editor to handle) if resolving fails and there is no previous data', async () => {
 		const mockError = new APIError('fatal', 'https://my.url', '0xBAADF00D');
 		mockFetchData(Promise.reject(mockError));
 		mockState({
@@ -152,7 +143,7 @@ describe.skip('useResolve', () => {
 			details: undefined,
 		});
 
-		const resolve = useResolve();
+		const resolve = renderHook(() => useResolve()).result.current;
 		const promise = resolve(url, false, false, id);
 		await expect(promise).rejects.toThrow(Error);
 		await expect(promise).rejects.toHaveProperty('kind', 'fatal');
@@ -169,9 +160,7 @@ describe.skip('useResolve', () => {
 		});
 	});
 
-	// FIXME: Jest upgrade
-	// throws error. mock issue
-	it.skip('resolves to authentication error data if resolving failed for auth reasons', async () => {
+	it('resolves to authentication error data if resolving failed for auth reasons', async () => {
 		const mockError = new APIError('auth', 'https://my.url', 'YOU SHALL NOT PASS');
 		mockFetchData(Promise.reject(mockError));
 		mockState({
@@ -179,7 +168,7 @@ describe.skip('useResolve', () => {
 			details: undefined,
 		});
 
-		const resolve = useResolve();
+		const resolve = renderHook(() => useResolve()).result.current;
 		const promise = resolve(url, false, false, id);
 		await expect(promise).resolves.toBeUndefined();
 
@@ -220,7 +209,7 @@ describe.skip('useResolve', () => {
 			details: undefined,
 		});
 
-		const resolve = useResolve();
+		const resolve = renderHook(() => useResolve()).result.current;
 		const promise = resolve(url, false, false, id);
 		await expect(promise).resolves.toBeUndefined();
 
@@ -247,7 +236,7 @@ describe.skip('useResolve', () => {
 			details: undefined,
 		});
 
-		const resolve = useResolve();
+		const resolve = renderHook(() => useResolve()).result.current;
 		const promise = resolve(url, false, false, id);
 		await expect(promise).resolves.toBeUndefined();
 
@@ -261,13 +250,13 @@ describe.skip('useResolve', () => {
 	});
 
 	it('resolves to error if data response is undefined', async () => {
-		mockFetchData(Promise.resolve(undefined));
+		mockFetchData(Promise.resolve(undefined as any));
 		mockState({
 			status: 'pending',
 			details: undefined,
 		});
 
-		const resolve = useResolve();
+		const resolve = renderHook(() => useResolve()).result.current;
 		const promise = resolve(url, false, false, id);
 
 		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);

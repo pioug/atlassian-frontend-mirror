@@ -10,7 +10,8 @@ export default {
   'fabric.media.accounts': 'Kontoer',
   'fabric.media.actions': 'Tiltak',
   'fabric.media.add_account': 'Legg til en konto',
-  'fabric.media.alt_text': 'Hvordan vil du beskrive det valgte bildet til noen med nedsatt syn?',
+  'fabric.media.alt_text_helper_message': 'Hvordan vil du beskrive det valgte bildet til noen med nedsatt syn?',
+  'fabric.media.alt_text_label': 'Alternativ tekst',
   'fabric.media.annotate': 'Kommenter',
   'fabric.media.annotate.confirmation.close.anyway': 'Lukk likevel',
   'fabric.media.annotate.confirmation.content':

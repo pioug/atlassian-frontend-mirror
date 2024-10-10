@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 49.0.1
+
+### Patch Changes
+
+- [#150125](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150125)
+  [`8217cf9a2faac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8217cf9a2faac) -
+  fix withMediaClient usage in Media Viewer and unit tests
+
 ## 49.0.0
 
 ### Major Changes

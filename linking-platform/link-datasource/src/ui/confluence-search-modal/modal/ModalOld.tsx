@@ -13,7 +13,6 @@ import Button from '@atlaskit/button/standard-button';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { type InlineCardAdf } from '@atlaskit/linking-common/types';
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -233,9 +232,7 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 					columnCustomSizes={columnCustomSizes}
 					onColumnResize={onColumnResize}
 					wrappedColumnKeys={wrappedColumnKeys}
-					onWrappedColumnChange={
-						fg('platform.linking-platform.datasource-word_wrap') ? onWrappedColumnChange : undefined
-					}
+					onWrappedColumnChange={onWrappedColumnChange}
 				/>
 			</ContentContainer>
 		),

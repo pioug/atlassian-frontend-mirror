@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { MenuArrowKeyNavigationProviderProps } from '../types';
 
 const hasEnabledItems = (list: HTMLElement[]) =>
@@ -135,11 +133,7 @@ export const MenuArrowKeyNavigationProvider = ({
 					) {
 						return;
 					}
-					if (fg('platform-editor-a11y-image-border-options-dropdown')) {
-						if (!disableCloseOnArrowClick) {
-							handleClose!(event);
-						}
-					} else {
+					if (!disableCloseOnArrowClick) {
 						handleClose!(event);
 					}
 					if (
@@ -157,11 +151,7 @@ export const MenuArrowKeyNavigationProvider = ({
 					) {
 						return;
 					}
-					if (fg('platform-editor-a11y-image-border-options-dropdown')) {
-						if (!disableCloseOnArrowClick) {
-							handleClose!(event);
-						}
-					} else {
+					if (!disableCloseOnArrowClick) {
 						handleClose!(event);
 					}
 					if (

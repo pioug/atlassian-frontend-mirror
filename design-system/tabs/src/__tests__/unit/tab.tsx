@@ -163,6 +163,29 @@ describe('@atlaskit/tabs', () => {
 		expect(screen.getByTestId('label-1')).toBeInTheDocument();
 	});
 
+	it('should forward ref', () => {
+		const ref = React.createRef<HTMLDivElement>();
+		render(
+			<TabContext.Provider
+				value={{
+					onClick: noop,
+					id: '1',
+					'aria-controls': '0-1-tab',
+					'aria-posinset': 2,
+					'aria-selected': true,
+					'aria-setsize': 4,
+					onKeyDown: noop,
+					role: 'tab',
+					tabIndex: 0,
+				}}
+			>
+				<Tab ref={ref}>Label 1</Tab>
+			</TabContext.Provider>,
+		);
+
+		expect(ref.current).not.toBeNull();
+	});
+
 	describe('Custom tab using useTab', () => {
 		it('can be used to create a custom tab', () => {
 			const onClick = jest.fn();

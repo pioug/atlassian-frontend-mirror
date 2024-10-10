@@ -2,11 +2,10 @@ import { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/error-reporter';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorConfig, EditorPlugin, PluginsOptions, PMPluginCreateConfig } from '../types';
-import { InstrumentedPlugin } from '../utils/performance/instrumented-plugin';
 
+import { SafeApplyPlugin } from './safe-apply-plugin';
 import { sortByOrder } from './sort-by-order';
 
 export function sortByRank(a: { rank: number }, b: { rank: number }): number {
@@ -105,45 +104,13 @@ export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
 	);
 }
 
-const TRACKING_DEFAULT = { enabled: false };
-
 export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
-	const {
-		editorConfig,
-		performanceTracking = {},
-		transactionTracker,
-		dispatchAnalyticsEvent,
-	} = config;
-	const { uiTracking = TRACKING_DEFAULT, transactionTracking = TRACKING_DEFAULT } =
-		performanceTracking;
+	const { editorConfig, dispatchAnalyticsEvent } = config;
 
-	// TO-DO need to question editor team about this condition true here
-	const useInstrumentedPlugin = uiTracking.enabled || transactionTracking.enabled || true;
-
-	if (
-		process.env.NODE_ENV === 'development' &&
-		transactionTracking.enabled &&
-		!transactionTracker
-	) {
-		// eslint-disable-next-line no-console
-		console.warn(
-			'createPMPlugins(): tracking is turned on but transactionTracker not defined! Transaction tracking has been disabled',
-		);
-	}
-
-	const instrumentPlugin =
-		!fg('platform_editor_disable_instrumented_plugin') && useInstrumentedPlugin
-			? (plugin: SafePlugin): SafePlugin =>
-					InstrumentedPlugin.fromPlugin(
-						plugin,
-						{
-							uiTracking,
-							transactionTracking,
-							dispatchAnalyticsEvent,
-						},
-						transactionTracker,
-					)
-			: (plugin: SafePlugin): SafePlugin => plugin;
+	const instrumentPlugin = (plugin: SafePlugin): SafePlugin =>
+		SafeApplyPlugin.fromPlugin(plugin, {
+			dispatchAnalyticsEvent,
+		});
 
 	return editorConfig.pmPlugins
 		.sort(sortByOrder('plugins'))

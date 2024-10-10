@@ -13,7 +13,6 @@ import React, {
 } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
 import {
@@ -369,7 +368,7 @@ export const ImageEmoji = (props: Props) => {
 			loading={disableLazyLoad ? 'eager' : 'lazy'}
 			src={src}
 			key={src}
-			alt={fg('platform_change_emoji_alt_value') ? emoji.name || emoji.shortName : emoji.shortName}
+			alt={emoji.name || emoji.shortName}
 			data-emoji-short-name={emoji.shortName}
 			data-emoji-id={emoji.id}
 			data-emoji-text={emoji.fallback || emoji.shortName}

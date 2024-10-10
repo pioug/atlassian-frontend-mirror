@@ -57,21 +57,18 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 		offsetLeft: this.calcOffsetLeft(),
 	};
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps: Props) {
 		const offsetLeft = this.calcOffsetLeft();
 		if (offsetLeft !== this.state.offsetLeft && offsetLeft >= 0) {
 			this.setState({ offsetLeft });
+		}
+		if (this.props.layout !== prevProps.layout) {
+			this.checkLayout(prevProps.layout, this.props.layout);
 		}
 	}
 
 	get wrappedLayout() {
 		return wrappedLayouts.indexOf(this.props.layout) > -1;
-	}
-
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		if (this.props.layout !== nextProps.layout) {
-			this.checkLayout(this.props.layout, nextProps.layout);
-		}
 	}
 
 	/**

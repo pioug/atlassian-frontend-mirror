@@ -56,7 +56,7 @@ import { AnnotationsPositionContext, AnnotationsWrapper } from '../annotations';
 import { getActiveHeadingId, isNestedHeaderLinksEnabled } from '../../react/utils/links';
 import { findInTree } from '../../utils';
 import { isInteractiveElement } from './click-to-edit';
-import { RendererContextProvider } from '../../renderer-context';
+import { useRendererContext, RendererContextProvider } from '../../renderer-context';
 import memoizeOne from 'memoize-one';
 import { ErrorBoundary } from './ErrorBoundary';
 import { EditorMediaClientProvider } from '../../react/utils/EditorMediaClientProvider';
@@ -219,7 +219,10 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 				annotationProvider.inlineComment.allowDraftMode,
 		);
 
-		const { featureFlags } = this.featureFlags(props.featureFlags);
+		const { featureFlags } = this.createRendererContext(
+			props.featureFlags,
+			props.isTopLevelRenderer,
+		);
 
 		return {
 			startPos: props.startPos,
@@ -263,12 +266,19 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 		};
 	}
 
-	private featureFlags = memoizeOne((featureFlags: RendererProps['featureFlags']) => {
-		const normalizedFeatureFlags = normalizeFeatureFlags(featureFlags);
-		return {
-			featureFlags: normalizedFeatureFlags,
-		};
-	});
+	private createRendererContext = memoizeOne(
+		(
+			featureFlags: RendererProps['featureFlags'],
+			isTopLevelRenderer: RendererProps['isTopLevelRenderer'],
+		) => {
+			const normalizedFeatureFlags = normalizeFeatureFlags(featureFlags);
+			return {
+				featureFlags: normalizedFeatureFlags,
+				// The context is uninitialized at the top level. In nested levels it's all false
+				isTopLevelRenderer: isTopLevelRenderer === undefined,
+			};
+		},
+	);
 
 	private fireAnalyticsEvent: FireAnalyticsCallback = (event) => {
 		const { createAnalyticsEvent } = this.props;
@@ -362,8 +372,10 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 			media,
 		} = this.props;
 
-		const featureFlags = this.featureFlags(this.props.featureFlags);
-
+		const rendererContext = this.createRendererContext(
+			this.props.featureFlags,
+			this.props.isTopLevelRenderer,
+		);
 		const allowNestedHeaderLinks = isNestedHeaderLinksEnabled(allowHeadingAnchorLinks);
 		/**
 		 * Handle clicks inside renderer. If the click isn't on media, in the media picker, or on a
@@ -439,7 +451,7 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 			}
 
 			const rendererOutput = (
-				<RendererContextProvider value={featureFlags}>
+				<RendererContextProvider value={rendererContext}>
 					<ActiveHeaderIdProvider value={getActiveHeadingId(allowHeadingAnchorLinks)}>
 						<AnalyticsContext.Provider
 							value={{
@@ -459,7 +471,7 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 										allowCustomPanels={allowCustomPanels}
 										allowPlaceholderText={allowPlaceholderText}
 										useBlockRenderForCodeBlock={
-											featureFlags.featureFlags.useBlockRenderForCodeBlock ?? true
+											rendererContext.featureFlags.useBlockRenderForCodeBlock ?? true
 										}
 										addTelepointer={this.props.addTelepointer}
 										innerRef={this.editorRef}
@@ -467,6 +479,7 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 										onMouseDown={this.onMouseDownEditView}
 										ssr={media?.ssr}
 										isInsideOfInlineExtension={this.props.isInsideOfInlineExtension}
+										isTopLevelRenderer={rendererContext.isTopLevelRenderer}
 									>
 										{enableSsrInlineScripts ? <BreakoutSSRInlineScript /> : null}
 										<RendererActionsInternalUpdater
@@ -506,9 +519,12 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 					allowPlaceholderText={allowPlaceholderText}
 					allowColumnSorting={allowColumnSorting}
 					allowNestedHeaderLinks={allowNestedHeaderLinks}
-					useBlockRenderForCodeBlock={featureFlags.featureFlags.useBlockRenderForCodeBlock ?? true}
+					useBlockRenderForCodeBlock={
+						rendererContext.featureFlags.useBlockRenderForCodeBlock ?? true
+					}
 					addTelepointer={this.props.addTelepointer}
 					onClick={handleWrapperOnClick}
+					isTopLevelRenderer={rendererContext.isTopLevelRenderer}
 				>
 					<UnsupportedBlock />
 				</RendererWrapper>
@@ -533,9 +549,16 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 
 export function Renderer(props: RendererProps) {
 	const { startPos } = React.useContext(AnnotationsPositionContext);
+	const { isTopLevelRenderer } = useRendererContext();
 
-	// eslint-disable-next-line react/jsx-pascal-case
-	return <__RendererClassComponent {...props} startPos={startPos} />;
+	return (
+		// eslint-disable-next-line react/jsx-pascal-case
+		<__RendererClassComponent
+			{...props}
+			startPos={startPos}
+			isTopLevelRenderer={isTopLevelRenderer}
+		/>
+	);
 }
 
 // Usage notes:
@@ -588,6 +611,7 @@ type RendererWrapperProps = {
 	ssr?: MediaSSR;
 	isInsideOfInlineExtension?: boolean;
 	allowTableResizing?: boolean;
+	isTopLevelRenderer?: boolean;
 } & { children?: React.ReactNode };
 
 const RendererWrapper = React.memo((props: RendererWrapperProps) => {
@@ -604,6 +628,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 		ssr,
 		isInsideOfInlineExtension,
 		allowTableResizing,
+		isTopLevelRenderer,
 	} = props;
 
 	const createTelepointer = () => {
@@ -709,6 +734,9 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 	// Otherwise when appearance is unspecified the renderer size is decided by the content.
 	// In this case we can't set the container-type = inline-size as it will collapse width to 0.
 	return (appearance === 'full-page' || appearance === 'full-width' || appearance === 'comment') &&
+		// In case of having excerpt-include on page there are multiple renderers nested.
+		// Make sure only the root renderer is set to be query container.
+		isTopLevelRenderer &&
 		fg('platform-fix-table-ssr-resizing') ? (
 		<div css={setAsQueryContainerStyles}>{renderer}</div>
 	) : (

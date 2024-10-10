@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 15.2.0
+
+### Minor Changes
+
+- [`6f45e454d44fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6f45e454d44fe) -
+  [ux] Adds a dedicated button to open the calendar.
+
 ## 15.1.4
 
 ### Patch Changes

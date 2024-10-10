@@ -108,6 +108,9 @@
       "path": "../../../design-system/menu/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../design-system/onboarding/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
     },
     {

@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.13.10
+
+### Patch Changes
+
+- [#150384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150384)
+  [`d3dad252dbe46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3dad252dbe46) -
+  [EDF-1177](https://product-fabric.atlassian.net/browse/EDF-1177) - add pulse effect support into
+  editor floating toolbar
+
+## 1.13.9
+
+### Patch Changes
+
+- [#150050](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150050)
+  [`b846e550df2ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b846e550df2ac) -
+  update logic for supportsViewMode in floating toolbar plugin to handle all toolbar item types
+
 ## 1.13.8
 
 ### Patch Changes

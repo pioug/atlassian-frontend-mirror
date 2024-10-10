@@ -19,9 +19,17 @@ const dateTimepickerBoxStyles = xcss({
 export default () => {
 	return (
 		<Box>
-			<Label htmlFor="react-select-date--input">Date picker</Label>
+			<Label id="date" htmlFor="react-select-date--input">
+				Date picker
+			</Label>
 			<Box xcss={pickerBoxStyles}>
-				<DatePicker id="react-select-date--input" onChange={console.log} />
+				<DatePicker
+					id="react-select-date--input"
+					onChange={console.log}
+					shouldShowCalendarButton
+					inputLabelId="date"
+					openCalendarLabel="open calendar"
+				/>
 			</Box>
 			<Label htmlFor="react-select-time--input">Time picker</Label>
 			<Box xcss={pickerBoxStyles}>
@@ -33,7 +41,11 @@ export default () => {
 					id="react-select-date-time--input"
 					onChange={console.log}
 					clearControlLabel="Clear datetime picker"
-					datePickerProps={{ label: 'Date, Date / time picker' }}
+					datePickerProps={{
+						label: 'Date, Date / time picker',
+						shouldShowCalendarButton: true,
+						openCalendarLabel: 'open calendar',
+					}}
 					timePickerProps={{ label: 'Time, Date / time picker' }}
 				/>
 			</Box>

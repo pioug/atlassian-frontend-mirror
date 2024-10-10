@@ -35,7 +35,6 @@ import {
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -47,7 +46,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin, HandleOptions } from '../types';
-import { selectNode } from '../utils';
+import { getNestedNodePosition, selectNode } from '../utils';
 import { getLeftPosition, getTopPosition } from '../utils/drag-handle-positions';
 
 import {
@@ -463,7 +462,7 @@ const DragHandleInternal = ({
 	) {
 		isParentNodeOfTypeLayout =
 			nodeType === 'layoutSection' ||
-			!!findParentNodeOfType([view.state.schema.nodes.layoutSection])(view.state.selection);
+			view.state.doc.resolve(getNestedNodePosition(view.state)).node().type.name === 'layoutColumn';
 
 		if (isParentNodeOfTypeLayout) {
 			helpDescriptors = [

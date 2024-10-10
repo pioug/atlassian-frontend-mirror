@@ -39,9 +39,6 @@
 			"path": "../button/tsconfig.app.json"
 		},
 		{
-			"path": "../ds-lib/tsconfig.app.json"
-		},
-		{
 			"path": "../form/tsconfig.app.json"
 		},
 		{

@@ -9,6 +9,7 @@ import { readStream } from '../readStream';
 import { streamAnswer, streamErrorAnswer } from './__mocks__/streamAnswers';
 import type { ProductType } from '@atlaskit/linking-common';
 import { type getXProductHeaderValue } from '../utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const fetchMock = fetch as jest.MockedFunction<typeof fetch>;
 
@@ -48,100 +49,93 @@ describe('AI Summary Service', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 	});
+	ffTest.on(
+		'platform-smart-card-use-ai-smartlink-summary-agent',
+		'with new ai smartlink summary agent enabled',
+		() => {
+			it('Fetch the AI response with default config', () => {
+				// initiate with only one required config - url
+				const aiSummaryService = new AISummaryService({ url });
+				(aiSummaryService as any).fetchStream();
 
-	it('Fetch the AI response with default config', () => {
-		// initiate with only one required config - url
-		const aiSummaryService = new AISummaryService({ url });
-		(aiSummaryService as any).fetchStream();
-
-		expect(fetchMock).toHaveBeenCalledTimes(1);
-		expect(fetchMock).toHaveBeenCalledWith(
-			(aiSummaryService as any).config.requestUrl,
-			expect.objectContaining({
-				method: 'POST',
-				headers: aiSummaryServiceDefaultHeadersConfig,
-				body: JSON.stringify({
-					recipient_agent_named_id: 'summary_agent',
-					agent_input_context: {
-						content_url: url,
-						content_ari: undefined,
-						prompt_id: 'smart_links',
-						summary_output_mimetype: 'text/markdown',
-					},
-				}),
-			}),
-		);
-	});
-
-	it('Fetch the AI Summary content with custom config', () => {
-		const aiSummaryService = new AISummaryService(customConfig);
-		(aiSummaryService as any).fetchStream();
-		expect(fetchMock).toHaveBeenCalledTimes(1);
-		expect(fetchMock).toHaveBeenCalledWith(
-			customConfig.baseUrl + 'assist/chat/v1/invoke_agent/stream',
-			expect.objectContaining({
-				method: 'POST',
-				credentials: 'include',
-				headers: {
-					...aiSummaryServiceDefaultHeadersConfig,
-					'x-product': customConfig.product?.toLowerCase(),
-				},
-				body: JSON.stringify({
-					recipient_agent_named_id: 'summary_agent',
-					agent_input_context: {
-						content_url: url,
-						content_ari: customConfig.ari,
-						prompt_id: 'smart_links',
-						summary_output_mimetype: 'text/markdown',
-					},
-				}),
-			}),
-		);
-	});
-
-	it('Fetch the AI Summary content with staging env key', () => {
-		const aiSummaryService = new AISummaryService({ url, envKey: 'stg' });
-		(aiSummaryService as any).fetchStream();
-
-		expect(fetchMock).toHaveBeenCalledTimes(1);
-		expect(fetchMock).toHaveBeenCalledWith(
-			'https://pug.jira-dev.com/gateway/api/assist/chat/v1/invoke_agent/stream',
-			expect.objectContaining({
-				credentials: 'include',
-			}),
-		);
-	});
-
-	describe('Fetch the AI Summary content with different product types', () => {
-		it('Should use confluence as the default product if not provided', () => {
-			//initiate with only one required config - url
-			const aiSummaryService = new AISummaryService({
-				url,
-				product: undefined,
+				expect(fetchMock).toHaveBeenCalledTimes(1);
+				expect(fetchMock).toHaveBeenCalledWith(
+					(aiSummaryService as any).config.requestUrl,
+					expect.objectContaining({
+						method: 'POST',
+						headers: aiSummaryServiceDefaultHeadersConfig,
+						body: JSON.stringify({
+							recipient_agent_named_id: 'smartlink_summary_agent',
+							agent_input_context: {
+								content_url: url,
+								content_ari: undefined,
+								prompt_id: 'smart_links',
+								summary_output_mimetype: 'text/markdown',
+							},
+						}),
+					}),
+				);
 			});
-			(aiSummaryService as any).fetchStream();
-
-			expect(fetchMock).toHaveBeenCalledTimes(1);
-			expect(fetchMock).toHaveBeenCalledWith(
-				(aiSummaryService as any).config.requestUrl,
-				expect.objectContaining({
-					method: 'POST',
-					headers: expect.objectContaining({
-						'Content-Type': 'application/json;charset=UTF-8',
-						'x-experience-id': 'smart-link',
-						'x-product': 'confluence',
+			it('Fetch the AI Summary content with custom config', () => {
+				const aiSummaryService = new AISummaryService(customConfig);
+				(aiSummaryService as any).fetchStream();
+				expect(fetchMock).toHaveBeenCalledTimes(1);
+				expect(fetchMock).toHaveBeenCalledWith(
+					customConfig.baseUrl + 'assist/chat/v1/invoke_agent/stream',
+					expect.objectContaining({
+						method: 'POST',
+						credentials: 'include',
+						headers: {
+							...aiSummaryServiceDefaultHeadersConfig,
+							'x-product': customConfig.product?.toLowerCase(),
+						},
+						body: JSON.stringify({
+							recipient_agent_named_id: 'smartlink_summary_agent',
+							agent_input_context: {
+								content_url: url,
+								content_ari: customConfig.ari,
+								prompt_id: 'smart_links',
+								summary_output_mimetype: 'text/markdown',
+							},
+						}),
 					}),
-				}),
-			);
-		});
+				);
+			});
+		},
+	);
+	ffTest.off(
+		'platform-smart-card-use-ai-smartlink-summary-agent',
+		'with new ai smartlink summary agent disabled',
+		() => {
+			it('Fetch the AI Summary content with custom config', () => {
+				const aiSummaryService = new AISummaryService(customConfig);
+				(aiSummaryService as any).fetchStream();
+				expect(fetchMock).toHaveBeenCalledTimes(1);
+				expect(fetchMock).toHaveBeenCalledWith(
+					customConfig.baseUrl + 'assist/chat/v1/invoke_agent/stream',
+					expect.objectContaining({
+						method: 'POST',
+						credentials: 'include',
+						headers: {
+							...aiSummaryServiceDefaultHeadersConfig,
+							'x-product': customConfig.product?.toLowerCase(),
+						},
+						body: JSON.stringify({
+							recipient_agent_named_id: 'summary_agent',
+							agent_input_context: {
+								content_url: url,
+								content_ari: customConfig.ari,
+								prompt_id: 'smart_links',
+								summary_output_mimetype: 'text/markdown',
+							},
+						}),
+					}),
+				);
+			});
 
-		test.each(['CONFLUENCE', 'ATLAS', 'BITBUCKET', 'TRELLO', 'ELEVATE'] satisfies ProductType[])(
-			'Should maintain the same x-product header for %s',
-			(productType) => {
-				const aiSummaryService = new AISummaryService({
-					url,
-					product: productType,
-				});
+			it('Fetch the AI response with default config', () => {
+				// initiate with only one required config - url
+				const aiSummaryService = new AISummaryService({ url });
 				(aiSummaryService as any).fetchStream();
 
 				expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -149,183 +143,263 @@ describe('AI Summary Service', () => {
 					(aiSummaryService as any).config.requestUrl,
 					expect.objectContaining({
 						method: 'POST',
-						headers: expect.objectContaining({
-							'Content-Type': 'application/json;charset=UTF-8',
-							'x-experience-id': 'smart-link',
-							'x-product': productType.toLowerCase(),
+						headers: aiSummaryServiceDefaultHeadersConfig,
+						body: JSON.stringify({
+							recipient_agent_named_id: 'summary_agent',
+							agent_input_context: {
+								content_url: url,
+								content_ari: undefined,
+								prompt_id: 'smart_links',
+								summary_output_mimetype: 'text/markdown',
+							},
 						}),
 					}),
 				);
-			},
-		);
+			});
+		},
+	);
 
-		// The difference cases based on `AiMateJiraXProduct`
-		test.each([
-			['JSM', 'JSM'],
-			['JSW', 'JIRA-SOFTWARE'],
-			['JWM', 'JIRA-CORE'],
-			['JPD', 'JPD'],
-		] satisfies Array<[ProductType, ReturnType<typeof getXProductHeaderValue>]>)(
-			"ProductType '%s' should be converted to '%s' for AI Mate x-product header",
-			(originalProductType, convertedProduct) => {
-				const aiSummaryService = new AISummaryService({
-					url,
-					product: originalProductType as ProductType,
-				});
+	ffTest.both(
+		'platform-smart-card-use-ai-smartlink-summary-agent',
+		'testing summary agent and AI smartlink summary agent',
+		() => {
+			it('Fetch the AI Summary content with staging env key', () => {
+				const aiSummaryService = new AISummaryService({ url, envKey: 'stg' });
 				(aiSummaryService as any).fetchStream();
 
 				expect(fetchMock).toHaveBeenCalledTimes(1);
 				expect(fetchMock).toHaveBeenCalledWith(
-					(aiSummaryService as any).config.requestUrl,
+					'https://pug.jira-dev.com/gateway/api/assist/chat/v1/invoke_agent/stream',
 					expect.objectContaining({
-						method: 'POST',
-						headers: expect.objectContaining({
-							'Content-Type': 'application/json;charset=UTF-8',
-							'x-experience-id': 'smart-link',
-							'x-product': convertedProduct.toLowerCase(),
-						}),
+						credentials: 'include',
 					}),
 				);
-			},
-		);
-	});
+			});
 
-	it('should update state with the correct message content based on the FINAL_RESPONSE', async () => {
-		(readStream as jest.Mock).mockImplementation(streamAnswerGenerator);
-		const aiSummaryService = new AISummaryService({ url });
-		await aiSummaryService.summariseUrl();
+			describe('Fetch the AI Summary content with different product types', () => {
+				it('Should use confluence as the default product if not provided', () => {
+					//initiate with only one required config - url
+					const aiSummaryService = new AISummaryService({
+						url,
+						product: undefined,
+					});
+					(aiSummaryService as any).fetchStream();
 
-		expect(aiSummaryService.state.status).toEqual('done');
-		const finalResponseContent = (
-			streamAnswer.find((msg) => msg.type === 'FINAL_RESPONSE') as StreamResponse
-		).message.message.content;
-		expect(aiSummaryService.state.content).toEqual(finalResponseContent);
-	});
+					expect(fetchMock).toHaveBeenCalledTimes(1);
+					expect(fetchMock).toHaveBeenCalledWith(
+						(aiSummaryService as any).config.requestUrl,
+						expect.objectContaining({
+							method: 'POST',
+							headers: expect.objectContaining({
+								'Content-Type': 'application/json;charset=UTF-8',
+								'x-experience-id': 'smart-link',
+								'x-product': 'confluence',
+							}),
+						}),
+					);
+				});
 
-	it('should update state with the correct error type', async () => {
-		(readStream as jest.Mock).mockImplementation(streamErrorAnswerGenerator);
-		const errorResponseMessageTemplate = (
-			streamErrorAnswer.find((msg) => msg.type === 'ERROR') as StreamError
-		).message.message_template;
+				test.each([
+					'CONFLUENCE',
+					'ATLAS',
+					'BITBUCKET',
+					'TRELLO',
+					'ELEVATE',
+				] satisfies ProductType[])(
+					'Should maintain the same x-product header for %s',
+					(productType) => {
+						const aiSummaryService = new AISummaryService({
+							url,
+							product: productType,
+						});
+						(aiSummaryService as any).fetchStream();
 
-		const aiSummaryService = new AISummaryService({ url });
-		await aiSummaryService.summariseUrl();
+						expect(fetchMock).toHaveBeenCalledTimes(1);
+						expect(fetchMock).toHaveBeenCalledWith(
+							(aiSummaryService as any).config.requestUrl,
+							expect.objectContaining({
+								method: 'POST',
+								headers: expect.objectContaining({
+									'Content-Type': 'application/json;charset=UTF-8',
+									'x-experience-id': 'smart-link',
+									'x-product': productType.toLowerCase(),
+								}),
+							}),
+						);
+					},
+				);
 
-		expect(aiSummaryService.state.status).toEqual('error');
-		expect(aiSummaryService.state.error).toEqual(errorResponseMessageTemplate);
-	});
+				// The difference cases based on `AiMateJiraXProduct`
+				test.each([
+					['JSM', 'JSM'],
+					['JSW', 'JIRA-SOFTWARE'],
+					['JWM', 'JIRA-CORE'],
+					['JPD', 'JPD'],
+				] satisfies Array<[ProductType, ReturnType<typeof getXProductHeaderValue>]>)(
+					"ProductType '%s' should be converted to '%s' for AI Mate x-product header",
+					(originalProductType, convertedProduct) => {
+						const aiSummaryService = new AISummaryService({
+							url,
+							product: originalProductType as ProductType,
+						});
+						(aiSummaryService as any).fetchStream();
 
-	it('should update subscribers after every stream chunk', async () => {
-		(readStream as jest.Mock).mockImplementation(streamAnswerGenerator);
-		const subscriber = jest.fn();
+						expect(fetchMock).toHaveBeenCalledTimes(1);
+						expect(fetchMock).toHaveBeenCalledWith(
+							(aiSummaryService as any).config.requestUrl,
+							expect.objectContaining({
+								method: 'POST',
+								headers: expect.objectContaining({
+									'Content-Type': 'application/json;charset=UTF-8',
+									'x-experience-id': 'smart-link',
+									'x-product': convertedProduct.toLowerCase(),
+								}),
+							}),
+						);
+					},
+				);
+			});
 
-		const aiSummaryService = new AISummaryService({ url });
-		aiSummaryService.subscribe(subscriber);
-		await aiSummaryService.summariseUrl();
+			it('should update state with the correct message content based on the FINAL_RESPONSE', async () => {
+				(readStream as jest.Mock).mockImplementation(streamAnswerGenerator);
+				const aiSummaryService = new AISummaryService({ url });
+				await aiSummaryService.summariseUrl();
 
-		//answer parts + final response - trace message + final update = streamAnswer.length
-		expect(subscriber).toHaveBeenCalledTimes(streamAnswer.length);
-	});
+				expect(aiSummaryService.state.status).toEqual('done');
+				const finalResponseContent = (
+					streamAnswer.find((msg) => msg.type === 'FINAL_RESPONSE') as StreamResponse
+				).message.message.content;
+				expect(aiSummaryService.state.content).toEqual(finalResponseContent);
+			});
 
-	it('should not return error and should update state even if no intermediate ANSWER_PART stream parts are received', async () => {
-		const streamAnswerWithoutAnswerPart = streamAnswer.filter((msg) => msg.type !== 'ANSWER_PART');
-		(readStream as jest.Mock).mockImplementation(function* () {
-			yield* streamAnswerWithoutAnswerPart;
-		});
+			it('should update state with the correct error type', async () => {
+				(readStream as jest.Mock).mockImplementation(streamErrorAnswerGenerator);
+				const errorResponseMessageTemplate = (
+					streamErrorAnswer.find((msg) => msg.type === 'ERROR') as StreamError
+				).message.message_template;
 
-		const aiSummaryService = new AISummaryService({ url });
-		await aiSummaryService.summariseUrl();
+				const aiSummaryService = new AISummaryService({ url });
+				await aiSummaryService.summariseUrl();
 
-		expect(aiSummaryService.state.status).toEqual('done');
-		const finalResponseContent = (
-			streamAnswer.find((msg) => msg.type === 'FINAL_RESPONSE') as StreamResponse
-		).message.message.content;
-		expect(aiSummaryService.state).toEqual({
-			content: finalResponseContent,
-			status: 'done',
-		});
-	});
+				expect(aiSummaryService.state.status).toEqual('error');
+				expect(aiSummaryService.state.error).toEqual(errorResponseMessageTemplate);
+			});
 
-	it('should append in-progress content in multiple ANSWER_PART stream parts', async () => {
-		(readStream as jest.Mock).mockImplementation(streamAnswerGenerator);
+			it('should update subscribers after every stream chunk', async () => {
+				(readStream as jest.Mock).mockImplementation(streamAnswerGenerator);
+				const subscriber = jest.fn();
 
-		const aiSummaryService = new AISummaryService({ url });
-		const subscriber = jest.fn();
-		aiSummaryService.subscribe(subscriber);
+				const aiSummaryService = new AISummaryService({ url });
+				aiSummaryService.subscribe(subscriber);
+				await aiSummaryService.summariseUrl();
 
-		await aiSummaryService.summariseUrl();
+				//answer parts + final response - trace message + final update = streamAnswer.length
+				expect(subscriber).toHaveBeenCalledTimes(streamAnswer.length);
+			});
 
-		const streamAnswerParts = streamAnswer.filter(
-			(msg) => msg.type === 'ANSWER_PART',
-		) as StreamAnswerPart[];
+			it('should not return error and should update state even if no intermediate ANSWER_PART stream parts are received', async () => {
+				const streamAnswerWithoutAnswerPart = streamAnswer.filter(
+					(msg) => msg.type !== 'ANSWER_PART',
+				);
+				(readStream as jest.Mock).mockImplementation(function* () {
+					yield* streamAnswerWithoutAnswerPart;
+				});
 
-		// After initial TRACE and first ANSWER_PART
-		expect(subscriber).toHaveBeenCalledWith({
-			status: 'loading',
-			content: streamAnswerParts[0].message.content,
-		});
+				const aiSummaryService = new AISummaryService({ url });
+				await aiSummaryService.summariseUrl();
 
-		// After second ANSWER_PART
-		expect(subscriber).toHaveBeenCalledWith({
-			status: 'loading',
-			content: streamAnswerParts[0].message.content + streamAnswerParts[1].message.content,
-		});
-	});
+				expect(aiSummaryService.state.status).toEqual('done');
+				const finalResponseContent = (
+					streamAnswer.find((msg) => msg.type === 'FINAL_RESPONSE') as StreamResponse
+				).message.message.content;
+				expect(aiSummaryService.state).toEqual({
+					content: finalResponseContent,
+					status: 'done',
+				});
+			});
 
-	it('Multiple subscribers to the AI Summary state update', () => {
-		const aiSummaryService = new AISummaryService({ url });
-		const subscriber_1 = jest.fn();
-		const subscriber_2 = jest.fn();
+			it('should append in-progress content in multiple ANSWER_PART stream parts', async () => {
+				(readStream as jest.Mock).mockImplementation(streamAnswerGenerator);
 
-		aiSummaryService.subscribe(subscriber_1);
-		expect((aiSummaryService as any).subscribedStateSetters.size).toEqual(1);
-		aiSummaryService.subscribe(subscriber_2);
-		expect((aiSummaryService as any).subscribedStateSetters.size).toEqual(2);
+				const aiSummaryService = new AISummaryService({ url });
+				const subscriber = jest.fn();
+				aiSummaryService.subscribe(subscriber);
 
-		//start summarising and change the aiSummaryService internal state to 'loading'
-		aiSummaryService.summariseUrl();
-		expect(aiSummaryService.state.status).toEqual('loading');
+				await aiSummaryService.summariseUrl();
 
-		//should send an update to subscribers
-		expect(subscriber_1).toHaveBeenCalledWith({
-			status: 'loading',
-			content: '',
-		});
-		expect(subscriber_2).toHaveBeenCalledWith({
-			status: 'loading',
-			content: '',
-		});
-	});
+				const streamAnswerParts = streamAnswer.filter(
+					(msg) => msg.type === 'ANSWER_PART',
+				) as StreamAnswerPart[];
 
-	it('Unsubscribe from the AI Summary state update', () => {
-		const aiSummaryService = new AISummaryService({ url });
+				// After initial TRACE and first ANSWER_PART
+				expect(subscriber).toHaveBeenCalledWith({
+					status: 'loading',
+					content: streamAnswerParts[0].message.content,
+				});
 
-		const subscriber = jest.fn();
-		const unsubscribe = aiSummaryService.subscribe(subscriber);
+				// After second ANSWER_PART
+				expect(subscriber).toHaveBeenCalledWith({
+					status: 'loading',
+					content: streamAnswerParts[0].message.content + streamAnswerParts[1].message.content,
+				});
+			});
 
-		expect((aiSummaryService as any).subscribedStateSetters.size).toEqual(1);
-		unsubscribe();
-		expect((aiSummaryService as any).subscribedStateSetters.size).toEqual(0);
+			it('Multiple subscribers to the AI Summary state update', () => {
+				const aiSummaryService = new AISummaryService({ url });
+				const subscriber_1 = jest.fn();
+				const subscriber_2 = jest.fn();
 
-		//start summarising and change the aiSummaryService internal state to 'loading'
-		aiSummaryService.summariseUrl();
-		expect(subscriber).not.toHaveBeenCalled();
-	});
+				aiSummaryService.subscribe(subscriber_1);
+				expect((aiSummaryService as any).subscribedStateSetters.size).toEqual(1);
+				aiSummaryService.subscribe(subscriber_2);
+				expect((aiSummaryService as any).subscribedStateSetters.size).toEqual(2);
 
-	it('should return state when summariseUrl is completed', async () => {
-		(readStream as jest.Mock).mockImplementation(streamAnswerGenerator);
+				//start summarising and change the aiSummaryService internal state to 'loading'
+				aiSummaryService.summariseUrl();
+				expect(aiSummaryService.state.status).toEqual('loading');
 
-		const aiSummaryService = new AISummaryService({ url });
-		const state = await aiSummaryService.summariseUrl();
-		expect(state).toBe(aiSummaryService.state);
-	});
+				//should send an update to subscribers
+				expect(subscriber_1).toHaveBeenCalledWith({
+					status: 'loading',
+					content: '',
+				});
+				expect(subscriber_2).toHaveBeenCalledWith({
+					status: 'loading',
+					content: '',
+				});
+			});
 
-	it('should return error state when summariseUrl is complete', async () => {
-		(readStream as jest.Mock).mockImplementation(streamErrorAnswerGenerator);
+			it('Unsubscribe from the AI Summary state update', () => {
+				const aiSummaryService = new AISummaryService({ url });
 
-		const aiSummaryService = new AISummaryService({ url });
-		const state = await aiSummaryService.summariseUrl();
+				const subscriber = jest.fn();
+				const unsubscribe = aiSummaryService.subscribe(subscriber);
 
-		expect(state).toBe(aiSummaryService.state);
-	});
+				expect((aiSummaryService as any).subscribedStateSetters.size).toEqual(1);
+				unsubscribe();
+				expect((aiSummaryService as any).subscribedStateSetters.size).toEqual(0);
+
+				//start summarising and change the aiSummaryService internal state to 'loading'
+				aiSummaryService.summariseUrl();
+				expect(subscriber).not.toHaveBeenCalled();
+			});
+
+			it('should return state when summariseUrl is completed', async () => {
+				(readStream as jest.Mock).mockImplementation(streamAnswerGenerator);
+
+				const aiSummaryService = new AISummaryService({ url });
+				const state = await aiSummaryService.summariseUrl();
+				expect(state).toBe(aiSummaryService.state);
+			});
+
+			it('should return error state when summariseUrl is complete', async () => {
+				(readStream as jest.Mock).mockImplementation(streamErrorAnswerGenerator);
+
+				const aiSummaryService = new AISummaryService({ url });
+				const state = await aiSummaryService.summariseUrl();
+
+				expect(state).toBe(aiSummaryService.state);
+			});
+		},
+	);
 });

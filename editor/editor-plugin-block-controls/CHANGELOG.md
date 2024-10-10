@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.2.1
+
+### Patch Changes
+
+- [#150591](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150591)
+  [`13337452246bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/13337452246bc) -
+  support a11y to move various node types with shortcut
+
 ## 2.2.0
 
 ### Minor Changes

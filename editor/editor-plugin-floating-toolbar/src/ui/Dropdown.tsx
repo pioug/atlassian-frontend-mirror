@@ -71,6 +71,8 @@ export interface Props {
 	alignDropdownWithToolbar?: boolean;
 	onToggle?: (state: EditorState, dispatch: CommandDispatch | undefined) => boolean;
 	footer?: React.ReactNode;
+	/** If true, the component will have pulse onboarding effect around it. */
+	pulse?: boolean;
 }
 
 export interface State {
@@ -102,6 +104,7 @@ export default class Dropdown extends Component<Props, State> {
 			dropdownListId,
 			alignDropdownWithToolbar,
 			footer,
+			pulse,
 		} = this.props;
 
 		let trigger;
@@ -117,6 +120,7 @@ export default class Dropdown extends Component<Props, State> {
 					selected={isOpen}
 					disabled={disabled}
 					tooltipContent={tooltip}
+					pulse={pulse}
 				/>
 			);
 		} else {
@@ -136,6 +140,7 @@ export default class Dropdown extends Component<Props, State> {
 					tooltipContent={tooltip}
 					ariaHasPopup
 					areaControls={dropdownListId}
+					pulse={pulse}
 				>
 					{title}
 				</Button>

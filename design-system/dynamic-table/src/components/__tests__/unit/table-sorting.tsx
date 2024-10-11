@@ -106,7 +106,7 @@ describe('Sorting', () => {
 		render(<DynamicTable caption={caption} head={head} rows={rows} isRankable />);
 
 		const header = screen.getByRole('columnheader');
-		const sortButton = screen.getByRole('button');
+		const sortButton = screen.getByRole('button', { name: 'Number' });
 		expect(header).not.toHaveAttribute('aria-sort');
 		sortButton.focus();
 

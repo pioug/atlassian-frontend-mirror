@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 93.2.4
+
+### Patch Changes
+
+- [#149764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149764)
+  [`f6226757e21b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f6226757e21b9) -
+  Change move left/right shortcut for nested nodes
+
+## 93.2.3
+
+### Patch Changes
+
+- [#150908](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150908)
+  [`7aad3c3a375ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7aad3c3a375ff) -
+  Undoing addition of stopEvent function to extensionNodeView and related tests
+- Updated dependencies
+
+## 93.2.2
+
+### Patch Changes
+
+- [#151050](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151050)
+  [`50e38f61af619`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/50e38f61af619) -
+  cleaned up ff for extended inline-extensions
+
+## 93.2.1
+
+### Patch Changes
+
+- [#150725](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150725)
+  [`46e9eccf1d0bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46e9eccf1d0bc) -
+  ED-24117: refactors image loader for react 18
+- Updated dependencies
+
 ## 93.2.0
 
 ### Minor Changes

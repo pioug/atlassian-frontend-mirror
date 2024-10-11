@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 198.5.0
+
+### Minor Changes
+
+- [#151121](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151121)
+  [`2909af0f0c958`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2909af0f0c958) -
+  This changeset exists because a PR touches these packages in a way that doesn't require a release
+
 ## 198.4.7
 
 ### Patch Changes

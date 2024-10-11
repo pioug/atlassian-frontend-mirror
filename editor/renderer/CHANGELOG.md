@@ -1,5 +1,31 @@
 # @atlaskit/renderer
 
+## 111.1.10
+
+### Patch Changes
+
+- [#151121](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151121)
+  [`7327a31a5aaec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7327a31a5aaec) -
+  [ux] [ED-25172] Update resolvePos to handle when endContainer is a non-text node.
+- Updated dependencies
+
+## 111.1.9
+
+### Patch Changes
+
+- [#151050](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151050)
+  [`50e38f61af619`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/50e38f61af619) -
+  cleaned up ff for extended inline-extensions
+
+## 111.1.8
+
+### Patch Changes
+
+- [#150725](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150725)
+  [`46e9eccf1d0bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46e9eccf1d0bc) -
+  ED-24117: refactors image loader for react 18
+- Updated dependencies
+
 ## 111.1.7
 
 ### Patch Changes

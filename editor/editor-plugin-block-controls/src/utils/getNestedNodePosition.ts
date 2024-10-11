@@ -15,6 +15,7 @@ export const getNestedNodePosition = (state: EditorState) => {
 			state.schema.nodes.orderedList,
 			state.schema.nodes.blockquote,
 			state.schema.nodes.taskList,
+			state.schema.nodes.decisionList,
 		])(state.selection);
 
 		if (parentNodeOfSpecificTypes) {
@@ -22,7 +23,7 @@ export const getNestedNodePosition = (state: EditorState) => {
 
 			nestedNodePos = ['bulletList', 'orderedList'].includes(parentNodeType)
 				? $pos.before($pos.depth - 1)
-				: ['blockquote', 'taskList'].includes(parentNodeType)
+				: ['blockquote', 'taskList', 'decisionList'].includes(parentNodeType)
 					? $pos.before()
 					: nestedNodePos;
 		}

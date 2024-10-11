@@ -63,6 +63,7 @@ const DropdownParent = styled.div({
 	'& button': {
 		textAlign: 'left' /* By default button center in the middle without props to control it */,
 		height: 'auto' /* By default button is not happy with tall (up to lines in our case) content */,
+		paddingBlock: token('space.0'),
 		paddingLeft: token(
 			'space.0',
 			'0px',

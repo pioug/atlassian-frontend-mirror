@@ -1,4 +1,3 @@
-import { CardAction } from '../../../view/Card/types';
 import { combineActionOptions } from '../combine-action-options';
 
 describe('combineActionOptions', () => {
@@ -10,14 +9,6 @@ describe('combineActionOptions', () => {
 		});
 
 		expect(combined).toEqual({ ...actionOptions });
-	});
-
-	it('hides preview action when hidePreviewButton is true', () => {
-		const combined = combineActionOptions({
-			hidePreviewButton: true,
-		});
-
-		expect(combined).toEqual({ hide: false, exclude: [CardAction.PreviewAction] });
 	});
 
 	it('shows all actions if no parameters are provided', () => {

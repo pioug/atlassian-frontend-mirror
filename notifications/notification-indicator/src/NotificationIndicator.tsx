@@ -155,6 +155,7 @@ class NotificationIndicator extends Component<Props, State> {
 		};
 		const updatingResult =
 			(this.props.onCountUpdating && this.props.onCountUpdating(updatingEvent)) || {};
+
 		if (updatingResult.skip) {
 			return;
 		}
@@ -196,7 +197,7 @@ class NotificationIndicator extends Component<Props, State> {
 
 		return count ? (
 			<div data-test-selector="NotificationIndicator">
-				<Badge max={max} appearance={appearance}>
+				<Badge testId="notification-indicator-badge" max={max} appearance={appearance}>
 					{count}
 				</Badge>
 			</div>

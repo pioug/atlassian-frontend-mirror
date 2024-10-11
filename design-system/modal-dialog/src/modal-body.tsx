@@ -9,9 +9,11 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { TouchScrollable } from 'react-scrolllock';
 
+import { token } from '@atlaskit/tokens';
+
 import { useModal } from './hooks';
 import ScrollContainer from './internal/components/scroll-container';
-import { keylineHeight, padding } from './internal/constants';
+import { keylineHeight } from './internal/constants';
 import useScroll from './internal/hooks/use-scroll';
 
 const bodyStyles = css({
@@ -22,11 +24,12 @@ const bodyStyles = css({
 /**
  * Adding the padding here avoids cropping the keyline on its sides.
  * The combined vertical spacing is maintained by subtracting the
- * keyline height from header and footer.
+ * keyline height from header and footer using negative margins.
  */
 const bodyScrollStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	padding: `${keylineHeight}px ${padding}px`,
+	paddingBlock: keylineHeight,
+	paddingInline: token('space.300'),
 });
 
 /**
@@ -34,8 +37,7 @@ const bodyScrollStyles = css({
  * not account for them in this case.
  */
 const viewportScrollStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	padding: `0px ${padding}px`,
+	paddingInline: token('space.300'),
 });
 
 export interface ModalBodyProps {

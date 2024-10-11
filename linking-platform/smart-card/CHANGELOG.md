@@ -1,5 +1,32 @@
 # @atlaskit/smart-card
 
+## 30.0.0
+
+### Major Changes
+
+- [#151143](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151143)
+  [`b6e7b30e12eb7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6e7b30e12eb7) -
+  Remove onAuthorise, hidePreviewButton, and hideHoverCardPreviewButton from smart-card export
+- [#151143](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151143)
+  [`b6e7b30e12eb7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6e7b30e12eb7) -
+  Remove ActionName.ViewAction from public API
+
+## 29.4.0
+
+### Minor Changes
+
+- [#151001](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151001)
+  [`a08a91f358eaf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a08a91f358eaf) -
+  Enable new icons behind a feature flag.
+
+## 29.3.0
+
+### Minor Changes
+
+- [#150690](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150690)
+  [`dc28b053e40da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc28b053e40da) -
+  [ux] Enable new icons behind a feature flag.
+
 ## 29.2.0
 
 ### Minor Changes

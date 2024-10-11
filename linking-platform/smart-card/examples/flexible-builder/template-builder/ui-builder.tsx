@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { SmartLinkSize, SmartLinkTheme } from '../../../src';
 import { type FlexibleUiOptions } from '../../../src/view/FlexibleCard/types';
 import { type FlexibleTemplate } from '../types';
@@ -14,10 +14,6 @@ const UiBuilder = ({
 	template?: FlexibleTemplate;
 }) => {
 	const { ui = {} } = template;
-	const showHoverPreview = useMemo(
-		() => template.cardProps?.showHoverPreview,
-		[template.cardProps?.showHoverPreview],
-	);
 	return (
 		<Fieldset legend="Flexible Smart Links: UI Options">
 			<EnumOption
@@ -65,15 +61,6 @@ const UiBuilder = ({
 				onChange={onChange}
 				propName="clickableContainer"
 				template={ui}
-			/>
-			<CheckboxOption
-				exclude={!showHoverPreview}
-				label="Hide hover preview's full screen action"
-				name="ui.hideHoverCardPreviewButton"
-				onChange={onChange}
-				propName="hideHoverCardPreviewButton"
-				template={ui}
-				tooltipMessage="Required showHoverPreview"
 			/>
 		</Fieldset>
 	);

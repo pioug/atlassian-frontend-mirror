@@ -4,7 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React, { Fragment } from 'react';
+import React from 'react';
 import memoizeOne from 'memoize-one';
 
 import type { RendererContext } from '../react/types';
@@ -19,7 +19,6 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 interface Props {
@@ -176,13 +175,10 @@ export default function ExtensionRenderer(props: Props) {
 }
 
 const InlineNodeRendererWrapper = ({ children }: React.PropsWithChildren<unknown>) => {
-	if (fg('platform.editor.inline_extension.extended_lcqdn')) {
-		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			<div className="inline-extension-renderer" css={inlineExtensionStyle}>
-				{children}
-			</div>
-		);
-	}
-	return <Fragment>{children}</Fragment>;
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		<div className="inline-extension-renderer" css={inlineExtensionStyle}>
+			{children}
+		</div>
+	);
 };

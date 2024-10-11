@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.3.1
+
+### Patch Changes
+
+- [#149764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149764)
+  [`f6226757e21b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f6226757e21b9) -
+  Change move left/right shortcut for nested nodes
+
+## 2.3.0
+
+### Minor Changes
+
+- [#151121](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151121)
+  [`2909af0f0c958`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2909af0f0c958) -
+  ED-24591 implement drop target v2
+
+## 2.2.2
+
+### Patch Changes
+
+- [#151024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151024)
+  [`73afcf51ef0da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73afcf51ef0da) -
+  ED-20516 Set selection at end of node after drop instead of selecting entire moved node
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

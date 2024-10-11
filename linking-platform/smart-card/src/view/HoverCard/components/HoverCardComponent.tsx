@@ -14,7 +14,6 @@ import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
 import { type HoverCardComponentProps, type HoverCardContentProps } from '../types';
 import { ActionName, CardDisplay } from '../../../constants';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
-import { combineActionOptions } from '../../../utils/actions/combine-action-options';
 import { useSmartCardActions } from '../../../state/actions';
 import { useSmartLinkAnalytics } from '../../../state/analytics';
 const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
@@ -30,8 +29,7 @@ export const HoverCardComponent = ({
 	analyticsHandler,
 	canOpen = true,
 	closeOnChildClick = false,
-	hidePreviewButton = false,
-	actionOptions: actionOptionsProp,
+	actionOptions,
 	allowEventPropagation = false,
 	zIndex = HOVER_CARD_Z_INDEX,
 	noFadeDelay = false,
@@ -51,11 +49,6 @@ export const HoverCardComponent = ({
 
 	const analytics = useSmartLinkAnalytics(url, id);
 	const { loadMetadata } = useSmartCardActions(id, url, analytics);
-
-	const actionOptions = combineActionOptions({
-		actionOptions: actionOptionsProp,
-		hidePreviewButton,
-	});
 
 	const setMousePosition = useCallback(
 		(event: any) => {

@@ -23,6 +23,7 @@ import { DIRECTION } from '../consts';
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin, MoveNodeMethod } from '../types';
 import { getNestedNodePosition, selectNode } from '../utils';
+import { setCursorPositionAtMovedNode } from '../utils/getSelection';
 import {
 	canMoveNodeToIndex,
 	isInsideTable,
@@ -124,12 +125,9 @@ export const moveNodeViaShortcut = (
 						? $pos.node($pos.depth)
 						: $pos.nodeBefore;
 
-				moveToPos =
-					$pos.depth > 1 && nodeIndex === 0 && fg('platform_editor_element_dnd_nested_a11y')
-						? $pos.before($pos.depth) - 1
-						: nodeBefore
-							? currentNodePos - nodeBefore.nodeSize
-							: moveToPos;
+				if (nodeBefore) {
+					moveToPos = currentNodePos - nodeBefore.nodeSize;
+				}
 			} else {
 				const endOfDoc = $pos.end();
 				const nodeAfterPos = $pos.posAtIndex($pos.index() + 1);
@@ -224,7 +222,13 @@ export const moveNode =
 			mappedTo = tr.mapping.map(to);
 			tr.insert(mappedTo, nodeCopy); // insert the content at the new position
 		}
-		tr = selectNode(tr, mappedTo, node.type.name);
+
+		tr =
+			inputMethod === INPUT_METHOD.DRAG_AND_DROP &&
+			fg('platform_editor_element_dnd_nested_fix_patch_2')
+				? setCursorPositionAtMovedNode(tr, mappedTo)
+				: selectNode(tr, mappedTo, node.type.name);
+
 		tr.setMeta(key, { nodeMoved: true });
 		api?.core.actions.focus();
 		const $mappedTo = tr.doc.resolve(mappedTo);

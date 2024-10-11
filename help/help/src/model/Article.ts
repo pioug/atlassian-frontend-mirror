@@ -28,6 +28,7 @@ export interface ArticleItem {
 		helpfulCount?: number;
 	};
 	source?: string;
+	contentAri?: string;
 }
 
 export interface ArticleFeedback {

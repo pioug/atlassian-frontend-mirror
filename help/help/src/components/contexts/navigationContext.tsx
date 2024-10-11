@@ -51,13 +51,14 @@ const DEFAULT_ARTICLE_ID = { id: '', type: ARTICLE_TYPE.HELP_ARTICLE };
 
 export const [useNavigationContext, CtxProvider] = createCtx<NavigationContextInterface>();
 
-const getNewHistoryItem = (id: string, type: ARTICLE_TYPE) => {
+const getNewHistoryItem = (id: string, type: ARTICLE_TYPE, contentAri?: string) => {
 	let uid = Math.floor(Math.random() * Math.pow(10, 17));
 	const newHistoryItem: HistoryItem = {
 		uid,
 		id,
 		type,
 		state: REQUEST_STATE.load,
+		contentAri,
 	};
 
 	return newHistoryItem;
@@ -166,7 +167,10 @@ const navigationReducer = (
 		} else {
 			newState = {
 				articleId: newArticleId,
-				history: [...currentHistory, getNewHistoryItem(newArticleId.id, newArticleId.type)],
+				history: [
+					...currentHistory,
+					getNewHistoryItem(newArticleId.id, newArticleId.type, newArticleId.contentAri),
+				],
 				view: getViewForArticleId(newArticleId),
 			};
 		}
@@ -175,7 +179,10 @@ const navigationReducer = (
 
 		newState = {
 			articleId: currentArticleId,
-			history: [...currentHistory, getNewHistoryItem(newArticleId.id, newArticleId.type)],
+			history: [
+				...currentHistory,
+				getNewHistoryItem(newArticleId.id, newArticleId.type, newArticleId.contentAri),
+			],
 			view: getViewForArticleId(currentArticleId),
 		};
 	} else if (action.type === 'updateHistoryItem' && action.payload) {
@@ -260,7 +267,7 @@ export const NavigationContextProvider = ({
 		articleId: propsArticleId,
 		history:
 			!isEqual(propsArticleId, DEFAULT_ARTICLE_ID) && propsHistory.length === 0
-				? [getNewHistoryItem(propsArticleId.id, propsArticleId.type)]
+				? [getNewHistoryItem(propsArticleId.id, propsArticleId.type, propsArticleId.contentAri)]
 				: propsHistory,
 		view: VIEW.DEFAULT_CONTENT,
 	});
@@ -306,6 +313,7 @@ export const NavigationContextProvider = ({
 						article = await onGetHelpArticle({
 							id: historyItem.id,
 							type: historyItem.type,
+							contentAri: historyItem.contentAri,
 						});
 						break;
 
@@ -327,7 +335,6 @@ export const NavigationContextProvider = ({
 
 					default:
 						throw new Error('onGetHelpArticle prop not defined');
-						break;
 				}
 
 				return {

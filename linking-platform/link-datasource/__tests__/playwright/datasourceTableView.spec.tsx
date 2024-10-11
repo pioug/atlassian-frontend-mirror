@@ -99,4 +99,29 @@ test.describe('DatasourceTableView', () => {
 
 		await expect(page.getByRole('alert')).toBeVisible();
 	});
+
+	test('Load actions and permissions when scrolling new pages into view', async ({ page }) => {
+		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
+		await withFeatureFlags(page, [
+			'enable_datasource_react_sweet_state',
+			'platform-datasources-enable-two-way-sync',
+		]);
+
+		await page.getByText('FIRST! This level contains five Dragon coins').click();
+		await expect(page.getByTestId('inline-edit-text')).toBeVisible();
+		await page.getByTestId('inline-edit-text').fill('new value');
+		await page.getByTestId('inline-edit-text').blur();
+		// scroll to next page
+		await page.keyboard.press('Space');
+		await page.keyboard.press('Space');
+		// First item will DONUT-11720 this finds the second item loaded in the next page
+		await page.getByText('DONUT-11721').scrollIntoViewIfNeeded();
+
+		await page.getByText('FIRST! This level contains five Dragon coins').click();
+		await expect(page.getByTestId('inline-edit-text')).toBeVisible();
+		await page.getByTestId('inline-edit-text').fill('new value 2');
+		await page.getByTestId('inline-edit-text').blur();
+
+		await expect(page.getByTestId('inline-edit-text')).toBeHidden();
+	});
 });

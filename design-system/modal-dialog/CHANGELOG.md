@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 12.17.5
+
+### Patch Changes
+
+- [#146685](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/146685)
+  [`1cb9d5ae0361d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1cb9d5ae0361d) -
+  [ux] Reduce spacing between body header, body and footer content.
+
 ## 12.17.4
 
 ### Patch Changes

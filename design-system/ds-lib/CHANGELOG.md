@@ -1,5 +1,13 @@
 # @atlaskit/ds-lib
 
+## 3.1.0
+
+### Minor Changes
+
+- [#150983](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150983)
+  [`a06534942509c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a06534942509c) -
+  Export a react-uid helper for class components to access 'useId' via 'UseId' wrapping component
+
 ## 3.0.0
 
 ### Major Changes

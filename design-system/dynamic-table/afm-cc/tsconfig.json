@@ -31,6 +31,9 @@
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../pragmatic-drag-and-drop/react-beautiful-dnd-migration/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../spinner/afm-cc/tsconfig.json"
         },
         {

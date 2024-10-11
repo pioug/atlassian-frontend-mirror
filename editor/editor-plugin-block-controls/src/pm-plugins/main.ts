@@ -24,6 +24,7 @@ import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin, PluginState } from '../types';
+import { AnchorHeightsCache, isAnchorSupported } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 
 import {
@@ -121,6 +122,11 @@ export const createPlugin = (
 
 	if (fg('platform_editor_element_dnd_nested_fix_patch_2')) {
 		// TODO: Remove this once FG is used in code
+	}
+
+	let anchorHeightsCache: AnchorHeightsCache | undefined;
+	if (!isAnchorSupported() && fg('platform_editor_drag_and_drop_target_v2')) {
+		anchorHeightsCache = new AnchorHeightsCache();
 	}
 
 	return new SafePlugin({
@@ -387,6 +393,7 @@ export const createPlugin = (
 							api,
 							formatMessage,
 							isNestedEnabled ? meta?.activeNode ?? mappedActiveNodePos : meta?.activeNode,
+							anchorHeightsCache,
 						);
 						decorations = decorations.add(newState.doc, decs);
 					}
@@ -483,6 +490,7 @@ export const createPlugin = (
 					return false;
 				},
 				dragstart(view: EditorView) {
+					anchorHeightsCache?.setEditorView(view);
 					view.dispatch(view.state.tr.setMeta(key, { isPMDragging: true }));
 				},
 				dragend(view: EditorView) {

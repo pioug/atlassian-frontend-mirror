@@ -24,9 +24,10 @@ export interface Props {
 	selected: boolean;
 	emoji: EmojiDescription;
 	emojiProvider?: EmojiProvider;
+	forwardedRef?: React.Ref<HTMLDivElement>;
 }
 
-export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
+class EmojiTypeAheadItemInternal extends PureComponent<Props, {}> {
 	// internal, used for callbacks
 	onEmojiSelected: React.MouseEventHandler<HTMLDivElement> = (event) => {
 		const { emoji, onSelection } = this.props;
@@ -57,6 +58,7 @@ export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
 					onMouseDown={this.onEmojiSelected}
 					onMouseMove={this.onEmojiMenuItemMouseMove}
 					data-emoji-id={emoji.shortName}
+					ref={this.props.forwardedRef}
 				>
 					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={typeAheadItemRow}>{emoji && <EmojiPreviewComponent emoji={emoji} />}</div>
@@ -65,3 +67,9 @@ export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
 		);
 	}
 }
+
+const EmojiTypeAheadItem = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
+	return <EmojiTypeAheadItemInternal {...props} forwardedRef={ref} />;
+});
+
+export default EmojiTypeAheadItem;

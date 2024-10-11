@@ -2,7 +2,10 @@
 import type { Locator } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
-import { RendererWithAnnotations } from '../__helpers/rendererWithAnnotations';
+import {
+	RendererWithAnnotations,
+	RendererWithTableAndAnnotations,
+} from '../__helpers/rendererWithAnnotations';
 import { selectors } from '../__helpers/page-objects/_annotation';
 
 snapshotInformational(RendererWithAnnotations, {
@@ -14,6 +17,22 @@ snapshotInformational(RendererWithAnnotations, {
 		await commentButton?.click();
 		await page.waitForSelector(selectors.draftAnnotation);
 
+		// click away to remove browser selection from highlighted text
+		page.mouse.click(1, 1, {
+			//short delay in between mouse down and up
+			delay: 10,
+		});
+	},
+});
+
+snapshotInformational(RendererWithTableAndAnnotations, {
+	description: 'annotates entire selection on triple click',
+	prepare: async (page) => {
+		const textNode = page.getByText('Inside a table');
+		await textNode.click({ clickCount: 3 });
+		const commentButton = await page.waitForSelector(selectors.commentButton);
+		await commentButton?.click();
+		await page.waitForSelector(selectors.draftAnnotation);
 		// click away to remove browser selection from highlighted text
 		page.mouse.click(1, 1, {
 			//short delay in between mouse down and up

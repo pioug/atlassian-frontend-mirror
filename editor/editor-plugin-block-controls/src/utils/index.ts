@@ -1,2 +1,7 @@
-export { getSelection, selectNode } from './getSelection';
+export {
+	getInlineNodePos,
+	getSelection,
+	selectNode,
+	setCursorPositionAtMovedNode,
+} from './getSelection';
 export { getNestedNodePosition } from './getNestedNodePosition';

@@ -1,0 +1,149 @@
+{
+	"version": 1,
+	"type": "doc",
+	"content": [
+	  {
+		"type": "paragraph",
+		"content": []
+	  },
+	  {
+		"type": "table",
+		"attrs": {
+		  "isNumberColumnEnabled": false,
+		  "layout": "default",
+		  "localId": "b103b717-3d00-4b49-9a0f-1da1e64e22f4",
+		  "width": 760
+		},
+		"content": [
+		  {
+			"type": "tableRow",
+			"content": [
+			  {
+				"type": "tableHeader",
+				"attrs": {},
+				"content": [
+				  {
+					"type": "paragraph",
+					"content": [
+					  {
+						"type": "text",
+						"text": "Inside a table",
+						"marks": [
+						  {
+							"type": "strong"
+						  }
+						]
+					  }
+					]
+				  }
+				]
+			  },
+			  {
+				"type": "tableHeader",
+				"attrs": {},
+				"content": [
+					{
+						"type": "paragraph",
+						"content": [
+						  {
+							"type": "text",
+							"text": "text with annotation",
+							"marks": [
+							  {
+								"type": "annotation",
+								"attrs": {
+								  "id": "annotation-id-1"
+								}
+							  }
+							]
+						  }
+						]
+					  }
+				]
+			  },
+			  {
+				"type": "tableHeader",
+				"attrs": {},
+				"content": [
+				  {
+					"type": "paragraph",
+					"content": []
+				  }
+				]
+			  }
+			]
+		  },
+		  {
+			"type": "tableRow",
+			"content": [
+			  {
+				"type": "tableCell",
+				"attrs": {},
+				"content": [
+				  {
+					"type": "paragraph",
+					"content": []
+				  }
+				]
+			  },
+			  {
+				"type": "tableCell",
+				"attrs": {},
+				"content": [
+				  {
+					"type": "paragraph",
+					"content": []
+				  }
+				]
+			  },
+			  {
+				"type": "tableCell",
+				"attrs": {},
+				"content": [
+				  {
+					"type": "paragraph",
+					"content": []
+				  }
+				]
+			  }
+			]
+		  },
+		  {
+			"type": "tableRow",
+			"content": [
+			  {
+				"type": "tableCell",
+				"attrs": {},
+				"content": [
+				  {
+					"type": "paragraph",
+					"content": []
+				  }
+				]
+			  },
+			  {
+				"type": "tableCell",
+				"attrs": {},
+				"content": [
+				  {
+					"type": "paragraph",
+					"content": []
+				  }
+				]
+			  },
+			  {
+				"type": "tableCell",
+				"attrs": {},
+				"content": [
+				  {
+					"type": "paragraph",
+					"content": []
+				  }
+				]
+			  }
+			]
+		  }
+		]
+	  }
+	]
+  }

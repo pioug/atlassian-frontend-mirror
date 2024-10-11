@@ -123,6 +123,7 @@ const calendarButtonStyles = xcss({
 	},
 });
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class DatePickerComponent extends Component<DatePickerProps, State> {
 	static defaultProps = datePickerDefaultProps;
 	containerRef: HTMLElement | null = null;
@@ -441,6 +442,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			inputLabelId,
 			isDisabled = false,
 			isInvalid = false,
+			isRequired = false,
 			label = '',
 			locale,
 			maxDate,
@@ -561,6 +563,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					inputId={id}
 					inputValue={actualSelectInputValue}
 					isDisabled={isDisabled}
+					isRequired={isRequired}
 					menuIsOpen={menuIsOpen}
 					onBlur={this.onSelectBlur}
 					onChange={this.onSelectChange}
@@ -624,7 +627,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 									padding="space.050"
 									xcss={calendarButtonStyles}
 								>
-									<CalendarIcon label="" />
+									<CalendarIcon label="" primaryColor={token('color.icon')} />
 								</Pressable>
 							</div>
 						)}

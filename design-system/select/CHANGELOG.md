@@ -1,5 +1,15 @@
 # @atlaskit/select
 
+## 18.1.1
+
+### Patch Changes
+
+- [#150983](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150983)
+  [`a06534942509c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a06534942509c) -
+  Remove `react-uid` and use an ID generator that is compatible with React16 and React 18; Strict
+  React 18 behind a flag.
+- Updated dependencies
+
 ## 18.1.0
 
 ### Minor Changes

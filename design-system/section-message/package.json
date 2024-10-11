@@ -59,7 +59,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/ds-lib": "^3.0.0",
+		"@atlaskit/ds-lib": "^3.1.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",

@@ -36,6 +36,9 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
+			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
 			"path": "../icon/tsconfig.app.json"
 		},
 		{

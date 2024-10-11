@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/notification-indicator",
-	"version": "9.3.0",
+	"version": "9.4.0",
 	"description": "A wrapped React component used to display whether user has any new notifications.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -24,7 +24,8 @@
 		"team": "Work Platform: Incoming Work",
 		"website": {
 			"name": "Notification Indicator"
-		}
+		},
+		"runReact18": true
 	},
 	"af:exports": {
 		".": "./src/index.ts"
@@ -46,12 +47,11 @@
 		}
 	},
 	"peerDependencies": {
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"devDependencies": {
-		"enzyme": "^3.10.0",
-		"sinon": "^2.2.0",
+		"@testing-library/react": "^12.1.5",
 		"typescript": "~5.4.2"
 	}
 }

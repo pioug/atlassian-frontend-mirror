@@ -4,6 +4,7 @@ import EventEmitter from 'events';
 import type { AnnotationId } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import * as annotationAdf from '../__fixtures__/annotation-adf.json';
+import * as docWithTable from '../__fixtures__/doc-with-table-adf.json';
 
 import type {
 	AnnotationUpdateEventPayloads,
@@ -72,6 +73,21 @@ export function RendererWithAnnotations() {
 		<Renderer
 			adfStage={'stage0'}
 			document={annotationAdf}
+			appearance={'full-page'}
+			allowAnnotations={true}
+			annotationProvider={{
+				inlineComment: annotationInlineCommentProvider,
+			}}
+			schema={getSchemaBasedOnStage('stage0')}
+		/>
+	);
+}
+
+export function RendererWithTableAndAnnotations() {
+	return (
+		<Renderer
+			adfStage={'stage0'}
+			document={docWithTable}
 			appearance={'full-page'}
 			allowAnnotations={true}
 			annotationProvider={{

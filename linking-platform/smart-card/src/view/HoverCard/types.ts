@@ -25,12 +25,6 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	children: ReactElement;
 
 	/**
-	 * Function to be called when user is authorized to view a link.
-	 * @deprecated See EDM-7411
-	 */
-	onAuthorize?: () => void;
-
-	/**
 	 * Determines if the hover card is allowed to open. If changed from true to false while the
 	 * hover card is open, the hover card will be closed.
 	 */
@@ -41,13 +35,6 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	 * clicked.
 	 */
 	closeOnChildClick?: boolean;
-
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14817 Internal documentation for deprecation (no external access)}
-	 *
-	 * Prefer 'actionOptions' prop. Determines if the hover card should display the "Open preview" button.
-	 */
-	hidePreviewButton?: boolean;
 
 	/**
 	 * Configure visibility of server and client actions

@@ -29,7 +29,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/ds-lib": "^3.0.0",
+		"@atlaskit/ds-lib": "^3.1.0",
 		"@atlaskit/icon": "^22.22.0",
 		"@atlaskit/menu": "^2.12.0",
 		"@atlaskit/motion": "^1.9.0",

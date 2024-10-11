@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ds-lib",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "Reusable utilities and hooks specific to design system.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

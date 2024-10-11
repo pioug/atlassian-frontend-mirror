@@ -138,6 +138,12 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 * Set if the picker is open.
 	 */
 	isOpen?: boolean;
+
+	/**
+	 * Sets the aria-required passed down to the combobox in the select component.
+	 */
+	isRequired?: boolean;
+
 	/**
 	 * The name of the field.
 	 */
@@ -320,6 +326,10 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 */
 	isOpen?: boolean;
 	/**
+	 * Sets the aria-required passed down to the combobox in the select component.
+	 */
+	isRequired?: boolean;
+	/**
 	 * Accessible name for the Time Picker Select, rendered as `aria-label`. This will override any other method of providing a label.
 	 */
 	label?: string;
@@ -435,6 +445,10 @@ export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
 	 * Set if the field is disabled.
 	 */
 	isDisabled?: boolean;
+	/**
+	 * Sets the aria-required passed down to the combobox in the select component.
+	 */
+	isRequired?: boolean;
 	/**
 	 * The name of the field.
 	 */

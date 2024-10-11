@@ -121,14 +121,6 @@ export type FlexibleUiOptions = {
 	hideElevation?: boolean;
 
 	/**
-	 * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-14817 Internal documentation for deprecation (no external access)}
-	 *
-	 * Prefer 'actionOptions' prop. Determines whether to hide hover preview's full screen view.
-	 * Only applies if showHoverPreview from FlexibleCardProps is true
-	 */
-	hideHoverCardPreviewButton?: boolean;
-
-	/**
 	 * Determines whether to hide css padding styling.
 	 */
 	hidePadding?: boolean;

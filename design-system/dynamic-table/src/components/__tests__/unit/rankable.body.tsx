@@ -1,60 +1,14 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
+
+import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
+import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 import { RankableBody } from '../../rankable/body';
 
 import { head, rowsWithKeys } from './_data';
-
-const testId = 'dynamic--table--test--id';
-
-jest.mock('react-beautiful-dnd', () => {
-	const actual = jest.requireActual('react-beautiful-dnd');
-	return {
-		__esModule: true,
-		...actual,
-		DragDropContext: jest.fn().mockImplementation((props) => {
-			const triggerDragEnd: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-				// @ts-ignore - Hack to pass custom data from test.
-				props.onDragEnd(event.target.dragData);
-			};
-
-			return (
-				<>
-					<table>{props.children}</table>
-					<button type="button" onClick={triggerDragEnd}>
-						Trigger Drag End
-					</button>
-				</>
-			);
-		}),
-		Droppable: jest.fn().mockImplementation((props) => {
-			const innerRef = { current: {} };
-			const droppableProps = {};
-			return props.children({ innerRef, droppableProps });
-		}),
-		Draggable: jest.fn().mockImplementation((props) => {
-			const innerRef = jest.fn();
-			const droppableProps = {};
-
-			const dragHandleProps = {};
-			const draggableProps = {};
-
-			const provided = {
-				innerRef,
-				droppableProps,
-				dragHandleProps,
-				draggableProps,
-			};
-
-			const snapshot = {
-				isDragging: true,
-			};
-
-			return props.children(provided, snapshot);
-		}),
-	};
-});
 
 const createProps = () => ({
 	head,
@@ -67,88 +21,154 @@ const createProps = () => ({
 	refHeight: -1,
 	pageRows: rowsWithKeys,
 	isRankingDisabled: false,
-	testId,
+	testId: 'dynamictable',
 });
 
-const createDragEndProps = (sourceKey: string, sourceIndex: number, destinationIndex?: number) => {
-	return {
-		draggableId: sourceKey,
-		source: {
-			index: sourceIndex,
-		},
-		destination:
-			destinationIndex !== undefined
-				? {
-						index: destinationIndex,
-					}
-				: undefined,
-	};
-};
-
-test('onDragEnd - onRankEnd is called with proper empty destination if drag was cancelled', () => {
-	const props = createProps();
-	const sourceKey = 'source-key-draggable';
-	const sourceIndex = 1;
-
-	render(<RankableBody {...props} />);
-	const dragBtn = screen.getByRole('button', { name: 'Trigger Drag End' });
-
-	fireEvent.click(dragBtn, {
-		target: { dragData: createDragEndProps(sourceKey, sourceIndex) },
+describe('RankableBody', () => {
+	beforeEach(() => {
+		HTMLElement.prototype.scrollIntoView = jest.fn();
 	});
 
-	const { onRankEnd } = props;
-	expect(onRankEnd).toHaveBeenCalledTimes(1);
-	expect(onRankEnd).toHaveBeenLastCalledWith({ sourceKey, sourceIndex });
-});
+	test('onDragEnd - onRankEnd is called with proper empty destination if drag was cancelled', () => {
+		const props = createProps();
+		const sourceIndex = 1;
 
-const testOnRankEnd = (
-	sourceIndex: number,
-	destinationIndex: number,
-	afterKey?: string,
-	beforeKey?: string,
-) => {
-	const props = createProps();
-	const sourceKey = 'source-key-draggable';
+		const onRankStart = jest.fn();
+		const onRankEnd = jest.fn();
+		render(<RankableBody {...props} onRankStart={onRankStart} onRankEnd={onRankEnd} />);
 
-	render(<RankableBody {...props} />);
+		const row = screen.getByTestId(
+			'dynamictable--1--rankable--table--row--rankable--table--body--row',
+		);
 
-	const dragBtn = screen.getByRole('button', { name: 'Trigger Drag End' });
+		fireEvent.keyDown(row, { key: ' ' });
+		fireEvent.keyDown(row, { key: 'Escape' });
 
-	fireEvent.click(dragBtn, {
-		target: {
-			dragData: createDragEndProps(sourceKey, sourceIndex, destinationIndex),
-		},
+		expect(onRankStart).toHaveBeenCalledTimes(1);
+		expect(onRankEnd).toHaveBeenCalledTimes(1);
+		expect(onRankEnd).toHaveBeenCalledWith({
+			destination: undefined,
+			sourceIndex,
+			sourceKey: sourceIndex.toString(),
+		});
 	});
 
-	const { onRankEnd } = props;
-	expect(onRankEnd).toHaveBeenCalledTimes(1);
-	expect(onRankEnd).toHaveBeenLastCalledWith({
-		sourceKey,
+	function setElementFromPoint(el: Element | null): CleanupFn {
+		const originalElementFromPoint = document.elementFromPoint;
+		const originalElementsFromPoint = document.elementsFromPoint;
+
+		document.elementFromPoint = () => el;
+		document.elementsFromPoint = () => (el ? [el] : []);
+
+		return () => {
+			document.elementFromPoint = originalElementFromPoint;
+			document.elementsFromPoint = originalElementsFromPoint;
+		};
+	}
+
+	const extractClosestEdge = jest.spyOn(closestEdge, 'extractClosestEdge');
+
+	function dragAndDrop({
+		handle,
+		target,
+	}: {
+		handle: HTMLElement;
+		target: { getElement: () => HTMLElement; edge: Edge };
+	}) {
+		const cleanup = setElementFromPoint(handle);
+		fireEvent.dragStart(handle);
+
+		act(() => {
+			// @ts-expect-error
+			requestAnimationFrame.step();
+		});
+		cleanup();
+
+		extractClosestEdge.mockReturnValue(target.edge);
+		fireEvent.dragEnter(target.getElement());
+		fireEvent.drop(handle);
+	}
+
+	const testOnRankEnd = ({
 		sourceIndex,
-		destination: {
-			index: destinationIndex,
-			afterKey,
-			beforeKey,
-		},
+		destinationIndex,
+		afterKey,
+		beforeKey,
+	}: {
+		sourceIndex: number;
+		destinationIndex: number;
+		afterKey?: string;
+		beforeKey?: string;
+	}) => {
+		const props = createProps();
+
+		render(<RankableBody {...props} />);
+
+		const handle = screen.getByTestId(
+			`dynamictable--${sourceIndex}--rankable--table--row--rankable--table--body--row`,
+		);
+
+		const target = screen.getByTestId(
+			`dynamictable--${destinationIndex}--rankable--table--row--rankable--table--body--row`,
+		);
+
+		dragAndDrop({
+			handle,
+			target: {
+				getElement: () => target,
+				edge: sourceIndex > destinationIndex ? 'top' : 'bottom',
+			},
+		});
+
+		// fireEvent.click(row);
+
+		const { onRankEnd } = props;
+		expect(onRankEnd).toHaveBeenCalledTimes(1);
+		expect(onRankEnd).toHaveBeenLastCalledWith({
+			sourceKey: sourceIndex.toString(),
+			sourceIndex,
+			destination: {
+				index: destinationIndex,
+				afterKey,
+				beforeKey,
+			},
+		});
+	};
+
+	test('onDragEnd - onRankEnd is called with proper destination if was dropped on first position', () => {
+		testOnRankEnd({
+			sourceIndex: 2,
+			destinationIndex: 0,
+			afterKey: undefined,
+			beforeKey: rowsWithKeys[0].key,
+		});
 	});
-};
 
-const getKey = (index: number) => rowsWithKeys[index].key;
+	test('onDragEnd - onRankEnd is called with proper destination if was dropped in the middle of list (move to the greater index)', () => {
+		testOnRankEnd({
+			sourceIndex: 0,
+			destinationIndex: 2,
+			afterKey: rowsWithKeys[2].key,
+			beforeKey: rowsWithKeys[3].key,
+		});
+	});
 
-test('onDragEnd - onRankEnd is called with proper destination if was dropped on first position', () => {
-	testOnRankEnd(2, 0, undefined, getKey(0));
-});
+	test('onDragEnd - onRankEnd is called with proper destination if was dropped in the middle of list before an item', () => {
+		testOnRankEnd({
+			sourceIndex: 3,
+			destinationIndex: 1,
+			afterKey: rowsWithKeys[0].key,
+			beforeKey: rowsWithKeys[1].key,
+		});
+	});
 
-test('onDragEnd - onRankEnd is called with proper destination if was dropped in the middle of list (move to the greater index)', () => {
-	testOnRankEnd(0, 2, getKey(2), getKey(3));
-});
-
-test('onDragEnd - onRankEnd is called with proper destination if was dropped in the middle of list before an item', () => {
-	testOnRankEnd(3, 1, getKey(0), getKey(1));
-});
-
-test('onDragEnd - onRankEnd is called with proper destination if was dropped on the last position', () => {
-	const lastIndex = rowsWithKeys.length - 1;
-	testOnRankEnd(1, lastIndex, getKey(lastIndex), undefined);
+	test('onDragEnd - onRankEnd is called with proper destination if was dropped on the last position', () => {
+		const lastIndex = rowsWithKeys.length - 1;
+		testOnRankEnd({
+			sourceIndex: 1,
+			destinationIndex: lastIndex,
+			afterKey: rowsWithKeys[lastIndex].key,
+			beforeKey: undefined,
+		});
+	});
 });

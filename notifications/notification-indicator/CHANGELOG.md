@@ -1,5 +1,13 @@
 # @atlaskit/notification-indicator
 
+## 9.4.0
+
+### Minor Changes
+
+- [#150749](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150749)
+  [`9921483ef0acd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9921483ef0acd) -
+  Add support for React 18.
+
 ## 9.3.0
 
 ### Minor Changes

@@ -169,7 +169,23 @@ export function resolvePos(node: Node | null, offset: number, findEnd = false) {
 		}
 	}
 
+	/**
+	 * If anchor node is an element (e.g. after a triple click) the anchorOffset
+	 * is the number of child nodes preceding the anchor.
+	 * https://developer.mozilla.org/en-US/docs/Web/API/Selection/anchorOffset
+	 *
+	 * For end pos we calculate the number of characters by stepping through
+	 * each of the node's children.
+	 */
 	if (node instanceof HTMLElement && isPositionPointer(node)) {
+		if (findEnd) {
+			let count = getStartPos(node);
+			const children = node.childNodes;
+			for (let i = 0; i < offset; i++) {
+				count += children[i]?.textContent?.length || 1;
+			}
+			return count;
+		}
 		return getStartPos(node) + offset;
 	}
 

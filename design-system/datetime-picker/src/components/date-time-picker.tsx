@@ -259,6 +259,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 			innerProps = {},
 			isDisabled = false,
 			isInvalid = false,
+			isRequired = false,
 			locale = 'en-US',
 			name = '',
 			spacing = 'default' as NonNullable<DateTimePickerBaseProps['spacing']>,
@@ -320,6 +321,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 						innerProps={datePickerProps.innerProps}
 						isDisabled={datePickerProps.isDisabled || isDisabled}
 						isInvalid={datePickerProps.isInvalid || isInvalid}
+						isRequired={datePickerProps.isRequired || isRequired}
 						isOpen={datePickerProps.isOpen}
 						label={datePickerLabel}
 						locale={datePickerProps.locale || locale}
@@ -355,6 +357,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 						isDisabled={timePickerProps.isDisabled || isDisabled}
 						isInvalid={timePickerProps.isInvalid || isInvalid}
 						isOpen={timePickerProps.isOpen}
+						isRequired={timePickerProps.isRequired || isRequired}
 						label={timePickerLabel}
 						locale={timePickerProps.locale || locale}
 						name={timePickerProps.name}

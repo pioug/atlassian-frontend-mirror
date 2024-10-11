@@ -6,9 +6,10 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { findDOMNode } from 'react-dom';
 import { type MouseEventHandler, PureComponent, type ReactNode, type UIEvent } from 'react';
 import * as styles from './styles';
+import { findDOMNode } from 'react-dom';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface OnScroll {
 	(element: Element, event: UIEvent<any>): void;
@@ -28,11 +29,12 @@ export default class Scrollable extends PureComponent<Props, {}> {
 	// API
 	reveal = (child: HTMLElement, forceToTop?: boolean): void => {
 		if (child && this.scrollableDiv) {
-			const childNode = findDOMNode(child) as Element;
 			// Not using Element.scrollIntoView as it scrolls even to top/bottom of view even if
 			// already visible
 			const scrollableRect = this.scrollableDiv.getBoundingClientRect();
-			const elementRect = childNode.getBoundingClientRect();
+			const elementRect = fg('platform_editor_react18_phase2')
+				? child.getBoundingClientRect()
+				: (findDOMNode(child) as Element).getBoundingClientRect();
 			if (forceToTop || elementRect.top < scrollableRect.top) {
 				this.scrollableDiv.scrollTop += elementRect.top - scrollableRect.top;
 			} else if (elementRect.bottom > scrollableRect.bottom) {

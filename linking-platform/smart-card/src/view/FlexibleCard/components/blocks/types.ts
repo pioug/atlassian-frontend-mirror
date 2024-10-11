@@ -203,12 +203,6 @@ export type NamedDataActionItem = BaseDataActionItem & {
 		| ActionName.PreviewAction
 		| ActionName.DownloadAction
 		| ActionName.AutomationAction
-		/**
-		 * To be removed once ActionName.ViewAction is retired
-		 * Currently left in to maintain backwards compatibility with public API
-		 * https://product-fabric.atlassian.net/browse/EDM-9665
-		 */
-		| ActionName.ViewAction
 		| ActionName.CopyLinkAction;
 };
 

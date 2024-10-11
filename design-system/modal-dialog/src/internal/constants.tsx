@@ -34,7 +34,6 @@ const gridSize = getGridSize();
 export const borderRadius = getBorderRadius();
 
 export const verticalOffset = gridSize * 2;
-export const padding = gridSize * 3;
 
 export const keylineHeight = 2;
 export const keylineColor = token('color.border', N30);

@@ -14,7 +14,7 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
-import { act, render, waitFor } from '@testing-library/react';
+import { act, render, waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { fakeFactory } from '../../../utils/mocks';
 import { type CardClient } from '@atlaskit/link-provider';
@@ -95,10 +95,8 @@ describe('HoverCard', () => {
 		});
 
 		it('should still render the full screen view action on inline link hover when disabled via flexui prop', async () => {
-			const { findByTestId } = await setup({
-				extraCardProps: { ui: { hideHoverCardPreviewButton: true } },
-			});
-			const previewButton = await findByTestId('smart-action-preview-action');
+			await setup();
+			const previewButton = await screen.findByTestId('smart-action-preview-action');
 			expect(previewButton.textContent).toBe('Open preview');
 		});
 
@@ -122,11 +120,10 @@ describe('HoverCard', () => {
 						extraCardProps: { showHoverPreview: cardFF },
 					});
 					if (outcome === 'should') {
-						const { findByTestId } = renderedComponent;
-						expect(await findByTestId('hover-card')).toBeDefined();
+						renderedComponent;
+						expect(await screen.findByTestId('hover-card')).toBeDefined();
 					} else {
-						const { queryByTestId } = renderedComponent;
-						expect(queryByTestId('hover-card')).toBeNull();
+						expect(screen.queryByTestId('hover-card')).toBeNull();
 					}
 				},
 			);
@@ -135,17 +132,17 @@ describe('HoverCard', () => {
 		describe('event propagation', () => {
 			it('does not propagate event to parent when clicking inside hover card content', async () => {
 				const mockOnClick = jest.fn();
-				const { findByTestId, event } = await setupEventPropagationTest({
+				const { event } = await setupEventPropagationTest({
 					mockOnClick,
 				});
 
-				const content = await findByTestId('smart-links-container');
+				const content = await screen.findByTestId('smart-links-container');
 				await event.click(content);
 
-				const link = await findByTestId('smart-element-link');
+				const link = await screen.findByTestId('smart-element-link');
 				await event.click(link);
 
-				const previewButton = await findByTestId('smart-action-preview-action');
+				const previewButton = await screen.findByTestId('smart-action-preview-action');
 				await event.click(previewButton);
 
 				expect(mockOnClick).not.toHaveBeenCalled();
@@ -189,7 +186,7 @@ describe('HoverCard', () => {
 				);
 
 				expect(mockFetch).toHaveBeenCalledTimes(0);
-				const element = await findByTestId('inline-card-resolved-view');
+				const element = await screen.findByTestId('inline-card-resolved-view');
 				expect(element.textContent).toBe('I am a fan of cheese');
 
 				jest.useFakeTimers({ legacyFakeTimers: true });
@@ -214,16 +211,16 @@ describe('HoverCard', () => {
 			};
 
 			it('should render hover card view correctly', async () => {
-				const { findAllByTestId, findByTestId, queryByTestId, resolveFetch } = await setupWithSSR();
+				const { resolveFetch } = await setupWithSSR();
 
-				await findByTestId('hover-card-loading-view');
+				await screen.findByTestId('hover-card-loading-view');
 				resolveFetch(mockConfluenceResponse);
 
-				await findAllByTestId('smart-block-metadata-resolved-view');
-				const titleBlock = await findByTestId('smart-block-title-resolved-view');
-				const snippetBlock = await findByTestId('smart-block-snippet-resolved-view');
-				const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
-				expect(queryByTestId('hover-card-loading-view')).toBeNull();
+				await screen.findAllByTestId('smart-block-metadata-resolved-view');
+				const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+				const snippetBlock = await screen.findByTestId('smart-block-snippet-resolved-view');
+				const footerBlock = await screen.findByTestId('smart-ai-footer-block-resolved-view');
+				expect(screen.queryByTestId('hover-card-loading-view')).toBeNull();
 
 				// trim because the icons are causing new lines in the textContent
 				expect(titleBlock.textContent?.trim()).toBe('I love cheese');
@@ -232,15 +229,15 @@ describe('HoverCard', () => {
 			});
 
 			it('should fall back to default path if fetch fails', async () => {
-				const { rejectFetch, queryByTestId, findByTestId } = await setupWithSSR();
+				const { rejectFetch } = await setupWithSSR();
 
-				await findByTestId('hover-card-loading-view');
+				await screen.findByTestId('hover-card-loading-view');
 				rejectFetch('error');
 
-				const titleBlock = await findByTestId('smart-block-title-resolved-view');
-				const snippetBlock = await findByTestId('smart-block-snippet-resolved-view');
-				const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
-				expect(queryByTestId('hover-card-loading-view')).toBeNull();
+				const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+				const snippetBlock = await screen.findByTestId('smart-block-snippet-resolved-view');
+				const footerBlock = await screen.findByTestId('smart-ai-footer-block-resolved-view');
+				expect(screen.queryByTestId('hover-card-loading-view')).toBeNull();
 
 				// trim because the icons are causing new lines in the textContent
 				expect(titleBlock.textContent?.trim()).toBe('I am a fan of cheese');

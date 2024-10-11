@@ -1,7 +1,7 @@
 import React from 'react';
 import { type JsonLd } from 'json-ld-types';
 
-import ProjectIcon from '@atlaskit/icon/glyph/people-group';
+import PeopleGroupIcon from '@atlaskit/icon/core/migration/people-group';
 import CommitIcon from '@atlaskit/icon-object/glyph/commit/16';
 import PullRequestIcon from '@atlaskit/icon-object/glyph/pull-request/16';
 import BranchIcon from '@atlaskit/icon-object/glyph/branch/16';
@@ -63,8 +63,14 @@ function typeToIcon(
 			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
 			return <CommitIcon label={opts.title || 'commit'} testId="commit-icon" />;
 		case 'atlassian:Project':
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19498
-			return <ProjectIcon label={opts.title || 'project'} size="small" testId="project-icon" />;
+			return (
+				<PeopleGroupIcon
+					label={opts.title || 'project'}
+					LEGACY_size="small"
+					testId="project-icon"
+					color="currentColor"
+				/>
+			);
 		case 'atlassian:SourceCodePullRequest':
 			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
 			return <PullRequestIcon label={opts.title || 'pullRequest'} testId="pull-request-icon" />;

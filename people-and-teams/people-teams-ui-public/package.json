@@ -1,0 +1,98 @@
+{
+	"name": "@atlaskit/people-teams-ui-public",
+	"version": "1.0.0",
+	"description": "UI components for public packages",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "People and Teams Collective",
+		"website": {
+			"name": "PeopleTeamsUiPublic",
+			"category": "Components"
+		}
+	},
+	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <5.4": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": [
+		"*.compiled.css"
+	],
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts"
+	},
+	"exports": {
+		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/icon": "^22.18.0",
+		"@atlaskit/primitives": "^12.1.0",
+		"@atlaskit/tokens": "^2.0.2",
+		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.17.3"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"code-structure": [
+				"tangerine-next"
+			],
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"compiled"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	}
+}

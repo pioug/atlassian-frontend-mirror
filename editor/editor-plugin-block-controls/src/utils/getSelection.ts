@@ -1,5 +1,33 @@
+import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { NodeSelection, TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
+
+export const getInlineNodePos = (
+	tr: Transaction,
+	start: number,
+	nodeSize: number,
+): { inlineNodePos: number; inlineNodeEndPos: number } => {
+	const $startPos = tr.doc.resolve(start);
+	// To trigger the annotation floating toolbar for non-selectable node, we need to select inline nodes
+	// Find the first inline node in the node
+	let inlineNodePos: number = start;
+	let foundInlineNode = false;
+	let inlineNodeEndPos = 0;
+
+	tr.doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n, pos) => {
+		if (n.isInline) {
+			inlineNodeEndPos = pos + n.nodeSize;
+		}
+
+		if (n.isInline && !foundInlineNode) {
+			inlineNodePos = pos;
+			foundInlineNode = true;
+		}
+
+		return true;
+	});
+	return { inlineNodePos, inlineNodeEndPos };
+};
 
 export const getSelection = (tr: Transaction, start: number) => {
 	const node = tr.doc.nodeAt(start);
@@ -21,25 +49,7 @@ export const getSelection = (tr: Transaction, start: number) => {
 	) {
 		return new NodeSelection($startPos);
 	} else {
-		// To trigger the annotation floating toolbar for non-selectable node, we need to select inline nodes
-		// Find the first inline node in the node
-		let inlineNodePos: number = start;
-		let foundInlineNode = false;
-		let inlineNodeEndPos = 0;
-
-		tr.doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n, pos) => {
-			if (n.isInline) {
-				inlineNodeEndPos = pos + n.nodeSize;
-			}
-
-			if (n.isInline && !foundInlineNode) {
-				inlineNodePos = pos;
-				foundInlineNode = true;
-			}
-
-			return true;
-		});
-
+		const { inlineNodePos, inlineNodeEndPos } = getInlineNodePos(tr, start, nodeSize);
 		return new TextSelection(tr.doc.resolve(inlineNodeEndPos), tr.doc.resolve(inlineNodePos));
 	}
 };
@@ -51,5 +61,22 @@ export const selectNode = (tr: Transaction, start: number, nodeType: string): Tr
 	} else {
 		tr.setSelection(getSelection(tr, start));
 	}
+	return tr;
+};
+
+export const setCursorPositionAtMovedNode = (tr: Transaction, start: number): Transaction => {
+	const node = tr.doc.nodeAt(start);
+	const isNodeSelection = node && NodeSelection.isSelectable(node);
+	const nodeSize = node ? node.nodeSize : 1;
+	let selection: GapCursorSelection | TextSelection;
+	// decisionList node is not selectable, but we want to select the whole node not just text
+	if (isNodeSelection || node?.type.name === 'decisionList') {
+		selection = new GapCursorSelection(tr.doc.resolve(start + node.nodeSize), Side.RIGHT);
+	} else {
+		const { inlineNodeEndPos } = getInlineNodePos(tr, start, nodeSize);
+		selection = new TextSelection(tr.doc.resolve(inlineNodeEndPos));
+	}
+
+	tr.setSelection(selection);
 	return tr;
 };

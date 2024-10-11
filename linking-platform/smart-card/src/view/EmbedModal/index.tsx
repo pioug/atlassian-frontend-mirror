@@ -73,7 +73,7 @@ const EmbedModal = ({
 
 	const handleOnViewActionClick = useCallback(() => {
 		invoke({
-			actionType: ActionName.ViewAction,
+			actionType: 'ViewAction',
 			actionFn: async () => openUrl(url),
 			display: CardDisplay.EmbedPreview,
 			extensionKey,

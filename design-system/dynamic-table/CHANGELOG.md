@@ -1,5 +1,19 @@
 # @atlaskit/dynamic-table
 
+## 16.0.0
+
+### Major Changes
+
+- [#150464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150464)
+  [`b813bd74ede6d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b813bd74ede6d) -
+  Migrates usage of react-beautiful-dnd to pragmatic-dnd using the interop-layer from PDND. There
+  are no breaking changes however there may be minor behavioural and visual chagnes as a result
+  since the experiences are fundamentally different.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.2.0
 
 ### Minor Changes

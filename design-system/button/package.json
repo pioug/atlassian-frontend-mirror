@@ -92,7 +92,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/ds-lib": "^3.0.0",
+		"@atlaskit/ds-lib": "^3.1.0",
 		"@atlaskit/focus-ring": "^1.6.0",
 		"@atlaskit/icon": "^22.22.0",
 		"@atlaskit/interaction-context": "^2.1.0",

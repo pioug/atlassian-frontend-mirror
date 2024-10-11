@@ -517,12 +517,12 @@ describe('Popup Select', () => {
 			// opens popup
 			await user.click(trigger);
 
-			const controledId = trigger.getAttribute('aria-controls');
-			expect(controledId).toBeDefined();
+			const controlledId = trigger.getAttribute('aria-controls');
+			expect(controlledId).toBeDefined();
 
 			const body = container.parentElement as HTMLBodyElement;
 
-			const popupWrapper = body.querySelector(`#${controledId}`);
+			const popupWrapper = body.querySelector(`#${controlledId}`);
 			expect(popupWrapper).toBeDefined();
 		});
 	});

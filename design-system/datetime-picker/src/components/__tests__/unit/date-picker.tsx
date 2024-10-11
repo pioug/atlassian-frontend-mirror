@@ -45,6 +45,11 @@ describe('DatePicker', () => {
 	const queryCalendar = () => screen.queryByTestId(new RegExp(`${testId}.*--calendar$`));
 	const queryMenu = () => screen.queryByTestId(`${testId}--popper--container`);
 
+	it('should be required when prop is passed', () => {
+		render(createDatePicker({ isRequired: true }));
+		expect(getInput()).toBeRequired();
+	});
+
 	it('should have an empty value if none is provided', () => {
 		render(createDatePicker());
 

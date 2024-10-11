@@ -417,9 +417,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					/>
 				</Box>
 			) : undefined,
-			'aria-label': fg('platform_editor_announce_cell_options_hotkeys')
-				? tooltip(addColumnAfter, String(content))
-				: undefined,
+			'aria-label': tooltip(addColumnAfter, String(content)),
 		} as MenuItem;
 	};
 
@@ -446,9 +444,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					/>
 				</Box>
 			) : undefined,
-			'aria-label': fg('platform_editor_announce_cell_options_hotkeys')
-				? tooltip(addRowAfter, String(content))
-				: undefined,
+			'aria-label': tooltip(addRowAfter, String(content)),
 		} as MenuItem;
 	};
 
@@ -484,9 +480,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					/>
 				</Box>
 			) : undefined,
-			'aria-label': fg('platform_editor_announce_cell_options_hotkeys')
-				? tooltip(backspace, String(content))
-				: undefined,
+			'aria-label': tooltip(backspace, String(content)),
 		} as MenuItem;
 	};
 

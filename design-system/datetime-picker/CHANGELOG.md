@@ -1,5 +1,19 @@
 # @atlaskit/datetime-picker
 
+## 15.3.0
+
+### Minor Changes
+
+- [#132971](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132971)
+  [`eca12e4531487`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eca12e4531487) -
+  add isRequired prop
+
+### Patch Changes
+
+- [#150734](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150734)
+  [`8a55d1695e74a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a55d1695e74a) -
+  Use proper icon color for calendar button.
+
 ## 15.2.0
 
 ### Minor Changes

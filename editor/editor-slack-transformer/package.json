@@ -38,7 +38,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/activity": "^1.0.1",
-		"@atlaskit/editor-core": "^198.4.0",
+		"@atlaskit/editor-core": "^198.5.0",
 		"@atlaskit/editor-test-helpers": "^19.0.0",
 		"@atlaskit/emoji": "^67.8.0",
 		"@atlaskit/mention": "^23.3.0",

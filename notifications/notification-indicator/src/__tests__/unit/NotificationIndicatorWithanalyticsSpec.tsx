@@ -1,6 +1,5 @@
 import React from 'react';
-import { mount, type ReactWrapper } from 'enzyme';
-import * as sinon from 'sinon';
+import { act, render, waitFor } from '@testing-library/react';
 
 import {
 	NotificationLogClient,
@@ -28,8 +27,6 @@ class MockNotificationLogClient extends NotificationLogClient {
 }
 
 describe('NotificationIndicator', () => {
-	const simulatedClock = sinon.useFakeTimers();
-
 	let notificationLogClient: MockNotificationLogClient;
 	let mockCreateAnalyticsEvent: any;
 	let mockClientPromise: Promise<NotificationLogProvider>;
@@ -42,14 +39,16 @@ describe('NotificationIndicator', () => {
 	}
 
 	async function renderNotificationIndicator(props: Object = {}) {
-		const wrapper = mount(
-			<NotificationIndicator
-				notificationLogProvider={mockClientPromise}
-				refreshOnHidden={true}
-				createAnalyticsEvent={mockCreateAnalyticsEvent}
-				{...props}
-			/>,
-		);
+		act(() => {
+			render(
+				<NotificationIndicator
+					notificationLogProvider={mockClientPromise}
+					refreshOnHidden={true}
+					createAnalyticsEvent={mockCreateAnalyticsEvent}
+					{...props}
+				/>,
+			);
+		});
 
 		try {
 			await mockClientPromise;
@@ -58,39 +57,30 @@ describe('NotificationIndicator', () => {
 		try {
 			await notificationLogResponse;
 		} catch (e) {}
-
-		return wrapper;
-	}
-
-	async function asyncUpdateComponentTick(wrapper: ReactWrapper) {
-		return new Promise<void>((tickFinished) => {
-			process.nextTick(() => {
-				wrapper.update();
-				tickFinished();
-			});
-		});
 	}
 
 	beforeEach(() => {
+		jest.useFakeTimers();
 		notificationLogClient = new MockNotificationLogClient(Promise.resolve({ count: 0 }));
 		mockCreateAnalyticsEvent = jest.fn((analytics) => {
 			return {
 				fire: () => null,
 			};
 		});
-		simulatedClock.reset();
+	});
+
+	afterEach(() => {
+		jest.useRealTimers();
 	});
 
 	it('Should trigger analytics events when activating on mount', async () => {
 		setMockResponseCount(7);
-		const wrapper = await renderNotificationIndicator({
+		await renderNotificationIndicator({
 			max: 10,
 			appearance: 'primary',
 		});
 
-		await asyncUpdateComponentTick(wrapper);
-
-		expect(mockCreateAnalyticsEvent.mock.calls.length).toBe(2);
+		await waitFor(() => expect(mockCreateAnalyticsEvent).toHaveBeenCalledTimes(2));
 		expect(mockCreateAnalyticsEvent.mock.calls[0][0]).toEqual({
 			actionSubject: 'notificationIndicator',
 			action: 'activated',
@@ -112,19 +102,17 @@ describe('NotificationIndicator', () => {
 
 	it('Should trigger analytics events when activating on timer', async () => {
 		setMockResponseCount(0);
-		const wrapper = await renderNotificationIndicator({
+		await renderNotificationIndicator({
 			max: 10,
 			appearance: 'primary',
 			refreshRate: 20,
 		});
-		await asyncUpdateComponentTick(wrapper);
-		expect(mockCreateAnalyticsEvent.mock.calls.length).toBe(0);
+		await waitFor(() => expect(mockCreateAnalyticsEvent).toHaveBeenCalledTimes(0));
 
 		setMockResponseCount(10);
-		simulatedClock.tick(20);
-		await asyncUpdateComponentTick(wrapper);
+		await act(async () => await jest.advanceTimersByTime(20));
 
-		expect(mockCreateAnalyticsEvent.mock.calls.length).toBe(2);
+		expect(mockCreateAnalyticsEvent).toHaveBeenCalledTimes(2);
 		expect(mockCreateAnalyticsEvent.mock.calls[0][0]).toEqual({
 			actionSubject: 'notificationIndicator',
 			action: 'activated',
@@ -146,15 +134,14 @@ describe('NotificationIndicator', () => {
 
 	it('Should not trigger an activated event more than once', async () => {
 		setMockResponseCount(7);
-		const wrapper = await renderNotificationIndicator({
+		await renderNotificationIndicator({
 			max: 10,
 			appearance: 'primary',
 			refreshRate: 20,
 		});
-		await asyncUpdateComponentTick(wrapper);
 
 		// Mount events
-		expect(mockCreateAnalyticsEvent.mock.calls.length).toBe(2);
+		await waitFor(() => expect(mockCreateAnalyticsEvent).toHaveBeenCalledTimes(2));
 		expect(mockCreateAnalyticsEvent.mock.calls[0][0]).toEqual({
 			actionSubject: 'notificationIndicator',
 			action: 'activated',
@@ -174,11 +161,10 @@ describe('NotificationIndicator', () => {
 		});
 
 		setMockResponseCount(10);
-		simulatedClock.tick(20);
-		await asyncUpdateComponentTick(wrapper);
+		await act(async () => await jest.advanceTimersByTime(20));
 
 		// On refresh we only expect the updated event because the indicator was already 'activated'
-		expect(mockCreateAnalyticsEvent.mock.calls.length).toBe(3);
+		expect(mockCreateAnalyticsEvent).toHaveBeenCalledTimes(3);
 		expect(mockCreateAnalyticsEvent.mock.calls[2][0]).toEqual({
 			actionSubject: 'notificationIndicator',
 			action: 'updated',

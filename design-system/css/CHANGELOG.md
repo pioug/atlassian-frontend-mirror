@@ -1,5 +1,13 @@
 # @atlaskit/css
 
+## 0.5.3
+
+### Patch Changes
+
+- [#151036](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151036)
+  [`5fa98b5962048`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5fa98b5962048) -
+  Add version prefix to codemod
+
 ## 0.5.2
 
 ### Patch Changes

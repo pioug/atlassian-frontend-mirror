@@ -14,9 +14,9 @@ import FocusLockOld from 'react-focus-lock';
 import FocusLockNext from 'react-focus-lock-next';
 import NodeResolver from 'react-node-resolver';
 import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'react-popper';
-import { uid } from 'react-uid';
 import { shallowEqualObjects } from 'shallow-equal';
 
+import { IdProvider } from '@atlaskit/ds-lib/use-id';
 import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type GroupBase,
@@ -203,7 +203,6 @@ export default class PopupSelect<
 	Modifiers = ModifierList,
 > extends PureComponent<PopupSelectProps<Option, IsMulti, Modifiers>, State> {
 	menuRef: HTMLElement | null = null;
-
 	selectRef: AtlaskitSelectRefType | null = null;
 	targetRef: HTMLElement | null = null;
 	unbindWindowClick: UnbindFn | null = null;
@@ -232,8 +231,6 @@ export default class PopupSelect<
 		mergedComponents: defaultComponents,
 		mergedPopperProps: defaultPopperProps as PopperPropsNoChildren<defaultModifiers | string>,
 	};
-
-	popperWrapperId = `${uid({ options: this.props.options })}-popup-select`;
 
 	static defaultProps = {
 		closeMenuOnSelect: true,
@@ -528,7 +525,7 @@ export default class PopupSelect<
 	// Renderers
 	// ==============================
 
-	renderSelect = () => {
+	renderSelect = (id: string) => {
 		const {
 			footer,
 			label,
@@ -648,7 +645,7 @@ export default class PopupSelect<
 							data-placement={placement}
 							minWidth={minMenuWidth}
 							maxWidth={maxMenuWidth}
-							id={this.popperWrapperId}
+							id={id}
 							testId={testId}
 							ref={
 								!fg('platform_design_system_team_select_node_resolver')
@@ -703,20 +700,26 @@ export default class PopupSelect<
 
 		return (
 			<Manager>
-				<Reference>
-					{({ ref }) =>
-						target &&
-						target({
-							isOpen,
-							onKeyDown: this.handleTargetKeyDown,
-							ref: this.resolveTargetRef(ref),
-							'aria-haspopup': 'true',
-							'aria-expanded': isOpen,
-							'aria-controls': isOpen ? this.popperWrapperId : undefined,
-						})
-					}
-				</Reference>
-				{this.renderSelect()}
+				<IdProvider postfix="-popup-select">
+					{({ id }) => (
+						<>
+							<Reference>
+								{({ ref }) =>
+									target &&
+									target({
+										isOpen,
+										onKeyDown: this.handleTargetKeyDown,
+										ref: this.resolveTargetRef(ref),
+										'aria-haspopup': 'true',
+										'aria-expanded': isOpen,
+										'aria-controls': isOpen ? id : undefined,
+									})
+								}
+							</Reference>
+							{this.renderSelect(id)}
+						</>
+					)}
+				</IdProvider>
 			</Manager>
 		);
 	}

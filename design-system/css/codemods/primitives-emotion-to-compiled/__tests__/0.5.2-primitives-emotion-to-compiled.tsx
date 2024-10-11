@@ -1,5 +1,5 @@
 jest.autoMockOff();
-import transformer from '../next-primitives-emotion-to-compiled';
+import transformer from '../0.5.2-primitives-emotion-to-compiled';
 
 import { check } from './_framework';
 

@@ -54,7 +54,7 @@ export interface State {
 }
 
 interface ItemReferences {
-	[index: string]: EmojiItem | HTMLElement;
+	[index: string]: HTMLElement;
 }
 
 export default class EmojiTypeAheadList extends PureComponent<Props, State> {
@@ -129,7 +129,7 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 	private revealItem(key: string) {
 		const item = this.items[key];
 		if (item && this.scrollable) {
-			this.scrollable.reveal(item as HTMLElement);
+			this.scrollable.reveal(item);
 		}
 	}
 

@@ -10,7 +10,6 @@ import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { useSharedPluginState } from '../../../hooks';
 import { createWidthContext, WidthContext } from '../../../ui';
@@ -58,9 +57,6 @@ const InlineExtension = (props: Props) => {
 		? widthState.width - akEditorGutterPaddingDynamic() * 2
 		: 0;
 
-	const extendedInlineExtension =
-		getBooleanFF('platform.editor.inline_extension.extended_lcqdn') || false;
-
 	const handleMouseEvent = (didHover: boolean) => {
 		if (setIsNodeHovered) {
 			setIsNodeHovered(didHover);
@@ -82,7 +78,7 @@ const InlineExtension = (props: Props) => {
 			<div
 				data-testid="inline-extension-wrapper"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={[wrapperStyle, extendedInlineExtension && inlineWrapperStyles]}
+				css={[wrapperStyle, inlineWrapperStyles]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={classNames}
 				onMouseEnter={() => handleMouseEvent(true)}
@@ -102,14 +98,11 @@ const InlineExtension = (props: Props) => {
 			</div>
 		</Fragment>
 	);
-	if (extendedInlineExtension) {
-		return (
-			<WidthContext.Provider value={createWidthContext(rendererContainerWidth)}>
-				{inlineExtensionInternal}
-			</WidthContext.Provider>
-		);
-	}
-	return inlineExtensionInternal;
+	return (
+		<WidthContext.Provider value={createWidthContext(rendererContainerWidth)}>
+			{inlineExtensionInternal}
+		</WidthContext.Provider>
+	);
 };
 
 export default InlineExtension;

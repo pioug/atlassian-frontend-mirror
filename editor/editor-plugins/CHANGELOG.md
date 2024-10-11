@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugins
 
+## 5.5.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.5.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.5.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.5.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.5.28
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.5.27
 
 ### Patch Changes

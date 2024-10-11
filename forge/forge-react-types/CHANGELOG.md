@@ -1,5 +1,11 @@
 # @atlaskit/forge-react-types
 
+## 0.27.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.27.20
 
 ### Patch Changes

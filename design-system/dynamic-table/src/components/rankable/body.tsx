@@ -2,7 +2,12 @@ import React from 'react';
 
 // Allowing existing usage of non Pragmatic drag and drop solution
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
-import { DragDropContext, type DragStart, Droppable, type DropResult } from 'react-beautiful-dnd';
+import {
+	DragDropContext,
+	type DragStart,
+	Droppable,
+	type DropResult,
+} from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
 
 import withSortedPageRows, { type WithSortedPageRowsProps } from '../../hoc/with-sorted-page-rows';
 import {
@@ -132,7 +137,7 @@ export class RankableBody extends React.Component<RankableBodyProps, {}> {
 											? highlightedRowIndex === rowIndex
 											: highlightedRowIndex.indexOf(rowIndex) > -1)
 									}
-									testId={testId && `${testId}--rankable--table--row`}
+									testId={testId && `${testId}--${row.key}--rankable--table--row`}
 								/>
 							))}
 							{provided.placeholder}

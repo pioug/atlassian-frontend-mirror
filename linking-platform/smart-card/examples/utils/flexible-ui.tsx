@@ -145,11 +145,8 @@ export const metadataElements = Object.values(ElementName).filter(
 		ElementDisplaySchema[name].includes('inline'),
 );
 
-export const actionNames: Exclude<ActionName, ActionName.CustomAction>[] =
-	/**
-	 * Remove the filter for ActionName.ViewAction once it is retired
-	 * https://product-fabric.atlassian.net/browse/EDM-9665
-	 */
-	Object.values(ActionName).filter(
-		(name) => name !== ActionName.CustomAction && name !== ActionName.ViewAction,
-	) as unknown as Exclude<ActionName, ActionName.CustomAction | ActionName.ViewAction>[];
+export const actionNames: Exclude<ActionName, ActionName.CustomAction>[] = Object.values(
+	ActionName,
+).filter((name): name is Exclude<ActionName, ActionName.CustomAction> => {
+	return name !== ActionName.CustomAction;
+});

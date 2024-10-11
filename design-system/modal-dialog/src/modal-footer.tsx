@@ -11,18 +11,19 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
-import { keylineHeight, padding } from './internal/constants';
+import { keylineHeight } from './internal/constants';
 
 const footerStyles = css({
 	display: 'flex',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	padding: padding,
 	position: 'relative',
 	alignItems: 'center',
 	justifyContent: 'flex-end',
 	gap: token('space.100', '8px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	paddingBlockStart: `${padding - keylineHeight}px`,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	marginBlockStart: -keylineHeight,
+	paddingBlockEnd: token('space.300'),
+	paddingBlockStart: token('space.200'),
+	paddingInline: token('space.300'),
 });
 
 export interface ModalFooterProps {

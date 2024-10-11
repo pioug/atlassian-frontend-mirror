@@ -1,5 +1,16 @@
 # @atlaskit/emoji
 
+## 67.8.4
+
+### Patch Changes
+
+- [#151009](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151009)
+  [`5b6829417c2e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b6829417c2e1) -
+  Ignore emoji img element in TTVC
+- [#150635](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150635)
+  [`a9a115fa11aa0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a9a115fa11aa0) -
+  remove findDOMNode in emoji typeahead
+
 ## 67.8.3
 
 ### Patch Changes

@@ -12,7 +12,6 @@ import ModalDialog from '../../modal-wrapper';
 describe('<ModalTitle />', () => {
 	it('modal dialog should use aria-labelledby to reference the title text', () => {
 		const title = 'Title - This is a dialog';
-		const titleId = 'modal-dialog-title-1';
 
 		render(
 			<ModalDialog testId="test" onClose={noop}>
@@ -22,23 +21,25 @@ describe('<ModalTitle />', () => {
 			</ModalDialog>,
 		);
 
+		const content = screen.getByTestId('test--title-text');
+		expect(content).toHaveAttribute('id');
+		const titleId = content.getAttribute('id') as string;
+
 		const element = screen.getByTestId('test');
 		expect(element).toHaveAttribute('aria-labelledby', titleId);
-
-		const content = screen.getByTestId('test--title-text');
-		expect(content).toHaveAttribute('id', titleId);
 	});
 
 	it('modal dialog should use aria-labelledby to reference the text in a custom header component', () => {
 		const title = 'Title - This is a dialog';
-		const titleId = 'modal-dialog-title-2';
+		let titleId;
 
 		const CustomHeader = () => {
-			const { titleId } = useModal();
+			const { titleId: id } = useModal();
+			titleId = id;
 
 			return (
 				<div>
-					<h4 id={titleId}>{title}</h4>
+					<h4 id={id}>{title}</h4>
 					<button onClick={noop} type="button">
 						Close
 					</button>

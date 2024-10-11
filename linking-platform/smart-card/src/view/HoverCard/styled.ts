@@ -13,7 +13,6 @@ export const flexibleUiOptions: FlexibleUiOptions = {
 	hideBackground: true,
 	hideElevation: true,
 	size: SmartLinkSize.Medium,
-	hideHoverCardPreviewButton: false,
 	zIndex: HOVER_CARD_Z_INDEX + 1,
 };
 

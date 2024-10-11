@@ -56,6 +56,7 @@ export const SearchResults = () => {
 				openArticle({
 					id: articleData.id,
 					type: ARTICLE_TYPE.HELP_ARTICLE,
+					contentAri: articleData.contentAri,
 				});
 			} else {
 				window.open(articleData.href, '_blank');

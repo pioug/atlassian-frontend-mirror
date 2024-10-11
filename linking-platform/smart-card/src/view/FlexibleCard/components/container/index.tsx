@@ -221,7 +221,6 @@ const Container = ({
 	clickableContainer = false,
 	hideBackground = false,
 	hideElevation = false,
-	hideHoverCardPreviewButton = false,
 	hidePadding = false,
 	onClick,
 	retry,
@@ -265,7 +264,6 @@ const Container = ({
 	if (context?.url && (canShowHoverPreview || canShowAuthTooltip)) {
 		return (
 			<HoverCardControl
-				hideHoverCardPreviewButton={hideHoverCardPreviewButton}
 				isHoverPreview={canShowHoverPreview}
 				isAuthTooltip={canShowAuthTooltip}
 				actionOptions={actionOptions}

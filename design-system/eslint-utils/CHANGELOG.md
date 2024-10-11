@@ -1,5 +1,13 @@
 # @atlaskit/eslint-utils
 
+## 1.7.1
+
+### Patch Changes
+
+- [#150749](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150749)
+  [`5cc7799e532da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5cc7799e532da) -
+  Added @types/eslint-scope as dev dependency
+
 ## 1.7.0
 
 ### Minor Changes

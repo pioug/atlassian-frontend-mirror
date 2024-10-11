@@ -40,7 +40,7 @@
 		"@af/icon-build-process": "^2.1.0",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/ds-lib": "^3.0.0",
+		"@atlaskit/ds-lib": "^3.1.0",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^12.1.5",
 		"fs-extra": "^4.0.2",

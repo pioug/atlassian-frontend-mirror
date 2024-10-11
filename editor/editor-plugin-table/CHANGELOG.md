@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 7.28.11
+
+### Patch Changes
+
+- [#151050](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151050)
+  [`1081477a1c33d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1081477a1c33d) -
+  [ED-24446] This change cleans up the feature gate for the table cell options hotkeys announcement
+  fix.
+
 ## 7.28.10
 
 ### Patch Changes

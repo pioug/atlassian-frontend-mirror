@@ -45,6 +45,9 @@
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../pragmatic-drag-and-drop/react-beautiful-dnd-migration/tsconfig.app.json"
+		},
+		{
 			"path": "../spinner/tsconfig.app.json"
 		},
 		{

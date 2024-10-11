@@ -1,0 +1,37 @@
+{
+    "extends": "../../../../tsconfig.entry-points.confluence.json",
+    "compilerOptions": {
+        "target": "es5",
+        "composite": true,
+        "outDir": "../dist",
+        "rootDir": "../",
+        "baseUrl": "../"
+    },
+    "include": [
+        "../src/**/*.ts",
+        "../src/**/*.tsx"
+    ],
+    "exclude": [
+        "../src/**/__tests__/*",
+        "../src/**/*.test.*",
+        "../src/**/test.*",
+        "../src/**/examples.*"
+    ],
+    "references": [
+        {
+            "path": "../../core/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../hitbox/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../live-region/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../react-beautiful-dnd-autoscroll/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
+        }
+    ]
+}

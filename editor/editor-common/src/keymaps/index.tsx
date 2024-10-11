@@ -142,11 +142,11 @@ export const dragToMoveDown = makeKeyMapWithCommon(
 );
 export const dragToMoveLeft = makeKeyMapWithCommon(
 	'Move node to the left column in the document',
-	'Mod-Ctrl-Shift-ArrowLeft',
+	'Ctrl-Shift-Alt-ArrowLeft',
 );
 export const dragToMoveRight = makeKeyMapWithCommon(
 	'Move node to the right column in the document',
-	'Mod-Ctrl-Shift-ArrowRight',
+	'Ctrl-Shift-Alt-ArrowRight',
 );
 
 export const showElementDragHandle = makeKeyMapWithCommon(

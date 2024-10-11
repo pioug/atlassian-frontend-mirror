@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/atlassian-notifications",
-	"version": "0.4.5",
+	"version": "0.5.0",
 	"description": "Notifications for Atlassian products",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,18 +23,19 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Work Platform: Incoming Work"
+		"team": "Work Platform: Incoming Work",
+		"runReact18": true
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"devDependencies": {
-		"enzyme": "^3.10.0",
+		"@testing-library/react": "^12.1.5",
 		"react-dom": "^16.8.0",
 		"typescript": "~5.4.2"
 	},

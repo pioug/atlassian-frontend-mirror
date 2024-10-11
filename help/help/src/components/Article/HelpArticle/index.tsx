@@ -80,6 +80,7 @@ export const HelpArticle: React.FC<Props> = ({ article, isLoading }) => {
 			openArticle({
 				id: articleData.id,
 				type: ARTICLE_TYPE.HELP_ARTICLE,
+				contentAri: articleData.contentAri,
 			});
 		},
 		[openArticle, onRelatedArticlesListItemClick],

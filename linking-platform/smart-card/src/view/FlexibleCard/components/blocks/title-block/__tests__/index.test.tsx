@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
@@ -56,40 +56,40 @@ describe('TitleBlock', () => {
 	});
 
 	it('renders block', async () => {
-		const { findByTestId } = renderTitleBlock();
+		renderTitleBlock();
 
-		const block = await findByTestId(testId);
+		const block = await screen.findByTestId(testId);
 
 		expect(block).toBeDefined();
 		expect(block.getAttribute('data-smart-block')).toBeTruthy();
 	});
 
 	it('renders its default elements', async () => {
-		const { findByTestId } = renderTitleBlock();
+		renderTitleBlock();
 
-		const title = await findByTestId(titleTestId);
-		const icon = await findByTestId(iconTestId);
+		const title = await screen.findByTestId(titleTestId);
+		const icon = await screen.findByTestId(iconTestId);
 
 		expect(title).toBeDefined();
 		expect(icon).toBeDefined();
 	});
 
 	it('renders metadata', async () => {
-		const { findByTestId } = renderTitleBlock({
+		renderTitleBlock({
 			metadata: [{ name: ElementName.CommentCount, testId: 'metadata-element' }],
 		});
 
-		const element = await findByTestId('metadata-element');
+		const element = await screen.findByTestId('metadata-element');
 
 		expect(element).toBeDefined();
 	});
 
 	it('renders subtitle', async () => {
-		const { findByTestId } = renderTitleBlock({
+		renderTitleBlock({
 			subtitle: [{ name: ElementName.CommentCount, testId: 'subtitle-element' }],
 		});
 
-		const element = await findByTestId('subtitle-element');
+		const element = await screen.findByTestId('subtitle-element');
 
 		expect(element).toBeDefined();
 	});
@@ -102,29 +102,18 @@ describe('TitleBlock', () => {
 			ActionName.CustomAction,
 		];
 
-		for (const [status, allowedActionNames] of [
-			[
-				SmartLinkStatus.Resolved,
-				/**
-				 * Remove filter once ActionName.ViewAction is retired
-				 * https://product-fabric.atlassian.net/browse/EDM-9665
-				 */
-				Object.values(ActionName).filter((x) => x !== ActionName.ViewAction),
-			],
+		describe.each<[SmartLinkStatus, ActionName[]]>([
+			[SmartLinkStatus.Resolved, Object.values(ActionName)],
 			[SmartLinkStatus.Resolving, nonResolvedAllowedActions],
 			[SmartLinkStatus.Forbidden, nonResolvedAllowedActions],
 			[SmartLinkStatus.Errored, nonResolvedAllowedActions],
 			[SmartLinkStatus.NotFound, nonResolvedAllowedActions],
 			[SmartLinkStatus.Unauthorized, nonResolvedAllowedActions],
 			[SmartLinkStatus.Fallback, nonResolvedAllowedActions],
-			/**
-			 * Change Exclude<...>[] to ActionName[] once ActionName.ViewAction is retired
-			 * This is a typescript workaround
-			 * https://product-fabric.atlassian.net/browse/EDM-9665
-			 */
-		] as [SmartLinkStatus, Exclude<ActionName, ActionName.ViewAction>[]][]) {
-			for (const allowedActionName of allowedActionNames) {
-				it(`should render ${allowedActionName} action in ${status} view `, async () => {
+		])('Case: %s', (status, allowedActionNames) => {
+			it.each<ActionName>(allowedActionNames)(
+				`should render %s action in ${status} view`,
+				async (allowedActionName) => {
 					const testId = 'smart-element-test';
 
 					const action =
@@ -138,23 +127,23 @@ describe('TitleBlock', () => {
 									onClick: () => {},
 								};
 
-					const { findByTestId } = renderTitleBlock({
+					renderTitleBlock({
 						status,
 						actions: [action],
 					});
 
-					const element = await findByTestId(`smart-element-test-1`);
+					const element = await screen.findByTestId(`smart-element-test-1`);
 					expect(element).toBeDefined();
-				});
-			}
-		}
+				},
+			);
+		});
 
 		// Uncomment and implement when new actions (like Download and preview) are added
 		// it('should not render ___ action in non resolved view ___', () => {});
 
 		it('should render only one action when on hover only activated', async () => {
 			const testId = 'smart-element-test';
-			const { findByTestId, queryByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				actions: [
 					makeDeleteActionItem({ testId: `${testId}-1` }),
 					makeCustomActionItem({ testId: `${testId}-2` }),
@@ -162,16 +151,16 @@ describe('TitleBlock', () => {
 				showActionOnHover: true,
 			});
 
-			const moreButton = await findByTestId('action-group-more-button');
+			const moreButton = await screen.findByTestId('action-group-more-button');
 			expect(moreButton).toBeDefined();
 
-			expect(queryByTestId(`smart-element-test-1`)).toBeNull();
-			expect(queryByTestId(`smart-element-test-2`)).toBeNull();
+			expect(screen.queryByTestId(`smart-element-test-1`)).toBeNull();
+			expect(screen.queryByTestId(`smart-element-test-2`)).toBeNull();
 
 			await user.click(moreButton);
 
 			for (let i = 0; i < 2; i++) {
-				const element = await findByTestId(`smart-element-test-${i + 1}`);
+				const element = await screen.findByTestId(`smart-element-test-${i + 1}`);
 				expect(element).toBeDefined();
 			}
 		});
@@ -191,13 +180,13 @@ describe('TitleBlock', () => {
 			});
 
 			it('calls onActionMenuOpenChange when action dropdown menu is present', async () => {
-				const { findByTestId } = renderTitleBlock({
+				renderTitleBlock({
 					actions: [getAction(), getAction(), getAction()],
 					onActionMenuOpenChange,
 				});
 
 				// Open the action dropdown menu
-				const moreButton = await findByTestId('action-group-more-button');
+				const moreButton = await screen.findByTestId('action-group-more-button');
 				await user.click(moreButton);
 				expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: true });
 
@@ -207,64 +196,64 @@ describe('TitleBlock', () => {
 			});
 
 			it('calls onActionMenuOpenChange when action button is clicked', async () => {
-				const { findByTestId } = renderTitleBlock({
+				renderTitleBlock({
 					actions: [getAction({ testId: actionTestId }), getAction(), getAction()],
 					onActionMenuOpenChange,
 				});
 
 				// Open the action dropdown menu
-				const moreButton = await findByTestId('action-group-more-button');
+				const moreButton = await screen.findByTestId('action-group-more-button');
 				await user.click(moreButton);
 				expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: true });
 
 				// Click on the action button outside action dropdown menu
-				const action = await findByTestId(actionTestId);
+				const action = await screen.findByTestId(actionTestId);
 				await user.click(action);
 				expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: false });
 			});
 
 			it('calls onActionMenuOpenChange when action dropdown menu item is clicked', async () => {
-				const { findByTestId } = renderTitleBlock({
+				renderTitleBlock({
 					actions: [getAction(), getAction(), getAction({ testId: actionTestId })],
 					onActionMenuOpenChange,
 				});
 
 				// Open the action dropdown menu
-				const moreButton = await findByTestId('action-group-more-button');
+				const moreButton = await screen.findByTestId('action-group-more-button');
 				await user.click(moreButton);
 				expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: true });
 
 				// Click on the action dropdown menu item
-				const action = await findByTestId(actionTestId);
+				const action = await screen.findByTestId(actionTestId);
 				await user.click(action);
 				expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: false });
 			});
 
 			it('calls onActionMenuOpenChange when dropdown menu is closed', async () => {
-				const { findByTestId } = renderTitleBlock({
+				renderTitleBlock({
 					actions: [getAction(), getAction(), getAction()],
 					onActionMenuOpenChange,
 				});
 
 				// Open the action dropdown menu
-				const moreButton = await findByTestId('action-group-more-button');
+				const moreButton = await screen.findByTestId('action-group-more-button');
 				await user.click(moreButton);
 				expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: true });
 
 				// Click on the action button outside action dropdown menu
-				const title = await findByTestId(titleTestId);
+				const title = await screen.findByTestId(titleTestId);
 				await user.click(title);
 				expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: false });
 			});
 
 			it('does not call onActionMenuOpenChange when there is no dropdown menu', async () => {
 				const onActionMenuOpenChange = jest.fn();
-				const { findByTestId } = renderTitleBlock({
+				renderTitleBlock({
 					actions: [getAction({ testId: actionTestId })],
 					onActionMenuOpenChange,
 				});
 
-				const action = await findByTestId(actionTestId);
+				const action = await screen.findByTestId(actionTestId);
 				await user.click(action);
 				expect(onActionMenuOpenChange).not.toHaveBeenCalled();
 			});
@@ -273,28 +262,28 @@ describe('TitleBlock', () => {
 
 	describe('anchor link', () => {
 		it('should render', async () => {
-			const { findByTestId } = renderTitleBlock();
+			renderTitleBlock();
 
-			const element = await findByTestId('smart-element-link');
+			const element = await screen.findByTestId('smart-element-link');
 
 			expect(element).toBeDefined();
 			expect(element).toHaveAttribute('target', '_blank');
 		});
 
 		it('should have default target attribute', async () => {
-			const { findByTestId } = renderTitleBlock();
+			renderTitleBlock();
 
-			const element = await findByTestId('smart-element-link');
+			const element = await screen.findByTestId('smart-element-link');
 
 			expect(element).toHaveAttribute('target', '_blank');
 		});
 
 		it('should have custom target attribute', async () => {
-			const { findByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				anchorTarget: '_top',
 			});
 
-			const element = await findByTestId('smart-element-link');
+			const element = await screen.findByTestId('smart-element-link');
 
 			expect(element).toHaveAttribute('target', '_top');
 		});
@@ -312,14 +301,14 @@ describe('TitleBlock', () => {
 		])(
 			'renders title element with parent props including text override in %s view ',
 			async (status: SmartLinkStatus) => {
-				const { findByTestId } = renderTitleBlock({
+				renderTitleBlock({
 					status,
 					theme: SmartLinkTheme.Black,
 					maxLines: 2,
 					text: 'Spaghetti',
 				});
 
-				const element = await findByTestId(titleTestId);
+				const element = await screen.findByTestId(titleTestId);
 				expect(element.textContent).toEqual('Spaghetti');
 
 				expect(element).toHaveStyleDeclaration('color', expect.stringContaining('#44546F'));
@@ -328,7 +317,7 @@ describe('TitleBlock', () => {
 	});
 
 	describe('status', () => {
-		it.each([
+		it.each<[SmartLinkStatus, string]>([
 			[SmartLinkStatus.Resolved, 'smart-block-title-resolved-view'],
 			[SmartLinkStatus.Resolving, 'smart-block-title-resolving-view'],
 			[SmartLinkStatus.Forbidden, 'smart-block-title-errored-view'],
@@ -337,32 +326,32 @@ describe('TitleBlock', () => {
 			[SmartLinkStatus.Unauthorized, 'smart-block-title-errored-view'],
 			[SmartLinkStatus.Fallback, 'smart-block-title-errored-view'],
 		])('renders %s view', async (status: SmartLinkStatus, expectedTestId) => {
-			const { findByTestId } = renderTitleBlock({ status });
+			renderTitleBlock({ status });
 
-			const element = await findByTestId(expectedTestId);
+			const element = await screen.findByTestId(expectedTestId);
 
 			expect(element).toBeDefined();
 		});
 
 		it('renders formatted message', async () => {
-			const { findByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				status: SmartLinkStatus.NotFound,
 				retry: { descriptor: messages.cannot_find_link },
 			});
 
-			const message = await findByTestId('smart-block-title-errored-view-message');
+			const message = await screen.findByTestId('smart-block-title-errored-view-message');
 
 			expect(message.textContent).toEqual("Can't find link");
 		});
 
 		it("doesn't renders formatted message", async () => {
-			const { queryByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				status: SmartLinkStatus.NotFound,
 				retry: { descriptor: messages.cannot_find_link },
 				hideRetry: true,
 			});
 
-			const message = queryByTestId('smart-block-title-errored-view-message');
+			const message = screen.queryByTestId('smart-block-title-errored-view-message');
 
 			expect(message).toBeNull();
 		});
@@ -370,24 +359,24 @@ describe('TitleBlock', () => {
 
 	describe('Icon', () => {
 		it('should show Link Icon when hideIcon is false in resolved state', async () => {
-			const { findByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				hideIcon: false,
 			});
 
-			const element = await findByTestId('smart-element-icon');
+			const element = await screen.findByTestId('smart-element-icon');
 
 			expect(element).toBeDefined();
 		});
 
 		it('should show override icon as provided to Link Icon when hideIcon is false in resolved state', async () => {
-			const { findByTestId, queryByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				icon: <TestIcon label="test" />,
 				hideIcon: false,
 			});
 
-			const element = await findByTestId('smart-element-icon');
-			const regularIcon = queryByTestId(regularIconTestId);
-			const overrideIcon = await findByTestId(overrideIconTestId);
+			const element = await screen.findByTestId('smart-element-icon');
+			const regularIcon = screen.queryByTestId(regularIconTestId);
+			const overrideIcon = await screen.findByTestId(overrideIconTestId);
 
 			expect(element).toBeDefined();
 			expect(regularIcon).not.toBeInTheDocument();
@@ -395,83 +384,83 @@ describe('TitleBlock', () => {
 		});
 
 		it('should show Link Icon when hideIcon is not set in resolved state', async () => {
-			const { findByTestId } = renderTitleBlock();
+			renderTitleBlock();
 
-			const element = await findByTestId('smart-element-icon');
+			const element = await screen.findByTestId('smart-element-icon');
 
 			expect(element).toBeDefined();
 		});
 
 		it('should not show Link Icon when hideIcon is true in resolved state', async () => {
-			const { queryByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				hideIcon: true,
 			});
 
-			const element = queryByTestId('smart-element-icon');
+			const element = screen.queryByTestId('smart-element-icon');
 
 			expect(element).toBeNull();
 		});
 
 		it('should show Link Icon when hideIcon is false in loading state', async () => {
-			const { queryByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				hideIcon: false,
 				status: SmartLinkStatus.Resolving,
 			});
 
-			const element = queryByTestId(`${iconTestId}-icon-loading`);
+			const element = screen.queryByTestId(`${iconTestId}-icon-loading`);
 
 			expect(element).toBeDefined();
 		});
 
 		it('should show Link Icon when hideIcon is not set in loading state', async () => {
-			const { queryByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				status: SmartLinkStatus.Resolving,
 			});
 
-			const element = queryByTestId(`${iconTestId}-icon-loading`);
+			const element = screen.queryByTestId(`${iconTestId}-icon-loading`);
 
 			expect(element).toBeDefined();
 		});
 
 		it('should not show Link Icon when hideIcon is true in loading state', async () => {
-			const { queryByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				hideIcon: true,
 				status: SmartLinkStatus.Resolving,
 			});
 
-			const element = queryByTestId(`${iconTestId}-icon-loading`);
+			const element = screen.queryByTestId(`${iconTestId}-icon-loading`);
 
 			expect(element).toBeNull();
 		});
 
 		it('should show Link Icon when hideIcon is false in error state', async () => {
-			const { queryByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				hideIcon: false,
 				status: SmartLinkStatus.Errored,
 			});
 
-			const element = queryByTestId('smart-element-icon');
+			const element = screen.queryByTestId('smart-element-icon');
 
 			expect(element).toBeDefined();
 		});
 
 		it('should show Link Icon when hideIcon is not set in error state', async () => {
-			const { queryByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				status: SmartLinkStatus.Errored,
 			});
 
-			const element = queryByTestId('smart-element-icon');
+			const element = screen.queryByTestId('smart-element-icon');
 
 			expect(element).toBeDefined();
 		});
 
 		it('should not show Link Icon when hideIcon is true in error state', async () => {
-			const { queryByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				hideIcon: true,
 				status: SmartLinkStatus.Errored,
 			});
 
-			const element = queryByTestId('smart-element-icon');
+			const element = screen.queryByTestId('smart-element-icon');
 
 			expect(element).toBeNull();
 		});
@@ -487,45 +476,45 @@ describe('TitleBlock', () => {
 		});
 
 		it('shows tooltip on hover by default', async () => {
-			const { findByTestId } = renderTitleBlock();
+			renderTitleBlock();
 
-			const element = await findByTestId(titleTestId);
+			const element = await screen.findByTestId(titleTestId);
 			fireEvent.mouseOver(element);
 			jest.runAllTimers();
-			const tooltip = await findByTestId(`${titleTestId}-tooltip`);
+			const tooltip = await screen.findByTestId(`${titleTestId}-tooltip`);
 
 			expect(tooltip).toBeInTheDocument();
 			expect(tooltip.textContent).toBe(context.title);
 		});
 
 		it('shows tooltip on hover when hideTitleTooltip is false', async () => {
-			const { findByTestId } = renderTitleBlock({ hideTitleTooltip: false });
+			renderTitleBlock({ hideTitleTooltip: false });
 
-			const element = await findByTestId(titleTestId);
+			const element = await screen.findByTestId(titleTestId);
 			fireEvent.mouseOver(element);
 			jest.runAllTimers();
-			const tooltip = await findByTestId(`${titleTestId}-tooltip`);
+			const tooltip = await screen.findByTestId(`${titleTestId}-tooltip`);
 
 			expect(tooltip).toBeInTheDocument();
 			expect(tooltip.textContent).toBe(context.title);
 		});
 
 		it('does not show tooltip on hover when hideTitleTooltip is true', async () => {
-			const { findByTestId, queryByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				hideTitleTooltip: true,
 			});
 
-			const element = await findByTestId(titleTestId);
+			const element = await screen.findByTestId(titleTestId);
 			fireEvent.mouseOver(element);
 			jest.runAllTimers();
-			const tooltip = queryByTestId(`${titleTestId}-tooltip`);
+			const tooltip = screen.queryByTestId(`${titleTestId}-tooltip`);
 
 			expect(tooltip).not.toBeInTheDocument();
 		});
 	});
 
 	describe('with css override', () => {
-		it.each([
+		it.each<[SmartLinkStatus, string]>([
 			[SmartLinkStatus.Errored, 'errored-view'],
 			[SmartLinkStatus.Fallback, 'errored-view'],
 			[SmartLinkStatus.Forbidden, 'errored-view'],
@@ -540,13 +529,13 @@ describe('TitleBlock', () => {
 				const overrideCss = css({
 					backgroundColor: 'blue',
 				});
-				const { findByTestId } = renderTitleBlock({
+				renderTitleBlock({
 					overrideCss,
 					status,
 					testId: 'css',
 				});
 
-				const block = await findByTestId(`css-${viewTestId}`);
+				const block = await screen.findByTestId(`css-${viewTestId}`);
 
 				expect(block).toHaveStyleDeclaration('background-color', 'blue');
 			},
@@ -554,19 +543,19 @@ describe('TitleBlock', () => {
 	});
 
 	describe('with loading skeleton', () => {
-		it.each([
+		it.each<[SmartLinkSize, string]>([
 			[SmartLinkSize.XLarge, '2rem'],
 			[SmartLinkSize.Large, '1.5rem'],
 			[SmartLinkSize.Medium, '1rem'],
 			[SmartLinkSize.Small, '.75rem'],
 		])('renders by size %s', async (size: SmartLinkSize, dimension: string) => {
-			const { findByTestId } = renderTitleBlock({
+			renderTitleBlock({
 				size,
 				status: SmartLinkStatus.Resolving,
 			});
 
-			const icon = await findByTestId('smart-block-title-icon');
-			const loadingSkeleton = await findByTestId('smart-block-title-icon-loading');
+			const icon = await screen.findByTestId('smart-block-title-icon');
+			const loadingSkeleton = await screen.findByTestId('smart-block-title-icon-loading');
 
 			expect(icon).toHaveStyleDeclaration('width', dimension);
 			expect(icon).toHaveStyleDeclaration('height', dimension);

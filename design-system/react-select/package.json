@@ -34,7 +34,7 @@
 		"./async-creatable": "./src/async-creatable.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/ds-lib": "^3.0.0",
+		"@atlaskit/ds-lib": "^3.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"@floating-ui/dom": "^1.0.1",

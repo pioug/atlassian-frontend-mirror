@@ -7,18 +7,21 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { useModal } from './hooks';
-import { keylineHeight, padding } from './internal/constants';
+import { keylineHeight } from './internal/constants';
 
 const headerStyles = css({
 	display: 'flex',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	padding: padding,
 	position: 'relative',
 	alignItems: 'center',
 	justifyContent: 'space-between',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	paddingBlockEnd: `${padding - keylineHeight}px`,
+	marginBlockEnd: -keylineHeight,
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.300'),
+	paddingInline: token('space.300'),
 });
 
 export interface ModalHeaderProps {

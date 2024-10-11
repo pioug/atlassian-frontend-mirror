@@ -75,6 +75,12 @@
 			"path": "../link/tsconfig.app.json"
 		},
 		{
+			"path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/hitbox/tsconfig.app.json"
+		},
+		{
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{

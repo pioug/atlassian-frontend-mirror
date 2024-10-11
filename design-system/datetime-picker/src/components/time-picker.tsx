@@ -75,6 +75,7 @@ const TimePicker = forwardRef(
 			innerProps = {},
 			isDisabled = false,
 			isInvalid = false,
+			isRequired = false,
 			isOpen: providedIsOpen,
 			label = '',
 			locale = 'en-US',
@@ -323,6 +324,7 @@ const TimePicker = forwardRef(
 					inputId={id}
 					isClearable
 					isDisabled={isDisabled}
+					isRequired={isRequired}
 					menuIsOpen={isOpen && !isDisabled}
 					menuPlacement="auto"
 					openMenuOnFocus

@@ -58,6 +58,7 @@ import {
 	DeletableEmojiTooltipContent,
 	DeletableEmojiTooltipContentForScreenReader,
 } from './DeletableEmojiTooltipContent';
+import { isSSR } from '../../util/is-ssr';
 
 export interface Props
 	extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'onMouseMove' | 'onFocus'> {
@@ -309,11 +310,11 @@ export const ImageEmoji = (props: Props) => {
 	if (fitToHeight && width && height) {
 		// Presize image, to prevent reflow due to size changes after loading
 		sizing = {
-			width: autoWidth ? 'auto' : (fitToHeight / height) * width,
+			// Size of <img> needs to be deterministic when rendered on server-side. Auto will cause width to be 0 before image is loaded.
+			width: autoWidth && !isSSR() ? 'auto' : (fitToHeight / height) * width,
 			height: fitToHeight,
 		};
 	}
-
 	const onError = (event: SyntheticEvent<HTMLImageElement>) => {
 		handleImageError(props, event);
 	};

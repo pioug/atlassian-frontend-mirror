@@ -19,6 +19,7 @@ import {
 	gridMediumMaxWidth,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -62,6 +63,8 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 			/* Inner cursor located 26px from left */
 			[data-layout-column] {
 				flex: 1;
+				${fg('platform_editor_drag_and_drop_target_v2') ? 'position: relative;' : ''}
+
 				min-width: 0;
 				border: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
 					${token('color.border')};

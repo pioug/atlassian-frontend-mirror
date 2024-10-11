@@ -21,11 +21,13 @@ export interface HistoryItem {
 	state: REQUEST_STATE;
 	type: ARTICLE_TYPE;
 	article?: Article | WhatsNewArticle;
+	contentAri?: string;
 }
 
 export interface articleId {
 	id: string;
 	type: ARTICLE_TYPE;
+	contentAri?: string;
 }
 
 export interface Help {

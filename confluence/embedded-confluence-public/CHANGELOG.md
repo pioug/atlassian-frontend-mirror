@@ -1,5 +1,13 @@
 # @atlaskit/embedded-confluence
 
+## 2.20.0
+
+### Minor Changes
+
+- [#132971](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132971)
+  [`aa0998edc7140`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa0998edc7140) -
+  [ux] Add ability to disable footer for JSW integration
+
 ## 2.19.0
 
 ### Minor Changes

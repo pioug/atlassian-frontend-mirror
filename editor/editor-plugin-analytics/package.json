@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-analytics",
-	"version": "1.8.10",
+	"version": "1.8.11",
 	"description": "Analytics plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

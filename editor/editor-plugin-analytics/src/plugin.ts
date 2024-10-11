@@ -2,7 +2,6 @@ import { useLayoutEffect } from 'react';
 
 import type { AnalyticsWithChannel } from '@atlaskit/adf-schema/steps';
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
-import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -26,6 +25,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { CreateAttachPayloadIntoTransaction } from './analytics-api/attach-payload-into-transaction';
 import { createAttachPayloadIntoTransaction } from './analytics-api/attach-payload-into-transaction';
+import { editorAnalyticsChannel } from './consts';
 import { analyticsPluginKey } from './plugin-key';
 import { generateUndoRedoInputSoucePayload } from './undo-redo-input-source';
 
@@ -109,7 +109,15 @@ export type AnalyticsPlugin = NextEditorPlugin<
 	{
 		pluginConfiguration: AnalyticsPluginOptions;
 		sharedState: {
+			/**
+			 * **Warning:** Do not use this directly. Use the `analyticsPlugin.actions`
+			 * instead, as it will properly queue all events.
+			 */
 			createAnalyticsEvent: CreateUIAnalyticsEvent | null;
+			/**
+			 * **Warning:** Do not use this directly. Use the `analyticsPlugin.actions`
+			 * instead, as it will properly queue all events.
+			 */
 			attachAnalyticsEvent: CreateAttachPayloadIntoTransaction | null;
 			performanceTracking: PerformanceTracking | undefined;
 		};
@@ -124,6 +132,8 @@ export type AnalyticsPlugin = NextEditorPlugin<
  */
 const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
+	const analyticsEventPropQueue: Set<{ payload: AnalyticsEventPayload; channel?: string }> =
+		new Set();
 
 	return {
 		name: 'analytics',
@@ -147,11 +157,12 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 
 		actions: {
 			attachAnalyticsEvent:
-				(payload: AnalyticsEventPayload, channel: string = FabricChannel.editor) =>
+				(payload: AnalyticsEventPayload, channel: string = editorAnalyticsChannel) =>
 				(tr: Transaction) => {
 					const { createAnalyticsEvent, attachAnalyticsEvent } =
 						api?.analytics?.sharedState.currentState() ?? {};
 					if (!tr || !createAnalyticsEvent || !attachAnalyticsEvent) {
+						analyticsEventPropQueue.add({ payload, channel: channel });
 						return false;
 					}
 
@@ -166,8 +177,10 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 			fireAnalyticsEvent: (payload: AnalyticsEventPayload) => {
 				const { createAnalyticsEvent } = api?.analytics?.sharedState.currentState() ?? {};
 				if (!createAnalyticsEvent) {
+					analyticsEventPropQueue.add({ payload });
 					return;
 				}
+
 				fireAnalyticsEvent(createAnalyticsEvent)({ payload });
 			},
 		},
@@ -180,7 +193,16 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 					state: { tr },
 				} = editorView;
 				tr.setMeta(analyticsPluginKey, { createAnalyticsEvent });
+
 				dispatch(tr);
+
+				// Attach all analytics events to the transaction
+				analyticsEventPropQueue.forEach(({ payload, channel }) => {
+					createAnalyticsEvent(payload)?.fire(channel ?? editorAnalyticsChannel);
+				});
+
+				// Clear the queue
+				analyticsEventPropQueue.clear();
 			}, [createAnalyticsEvent, editorView]);
 		},
 

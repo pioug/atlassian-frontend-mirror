@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-analytics
 
+## 1.8.11
+
+### Patch Changes
+
+- [#149100](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149100)
+  [`1ea6c6083e836`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1ea6c6083e836) -
+  [ED-23460] Queue events fired via `editor-plugin-analytics` actions, add warning to `sharedState`
+  functions to use `actions` instead.
+
 ## 1.8.10
 
 ### Patch Changes

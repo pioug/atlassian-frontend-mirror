@@ -111,6 +111,13 @@ describe('TimePicker', () => {
 		);
 	});
 
+	it('should be required when prop is passed', () => {
+		render(createTimePicker({ isRequired: true }));
+
+		const getInput = () => screen.getByRole('combobox');
+		expect(getInput()).toBeRequired();
+	});
+
 	it('should have an empty value if none is provided', () => {
 		render(createTimePicker());
 

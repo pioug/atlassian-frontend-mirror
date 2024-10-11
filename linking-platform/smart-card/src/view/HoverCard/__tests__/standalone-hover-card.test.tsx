@@ -18,8 +18,8 @@ import { fakeFactory } from '../../../utils/mocks';
 import userEvent from '@testing-library/user-event';
 import React, { useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { Provider } from '@atlaskit/smart-card';
-import { act, render } from '@testing-library/react';
+import { CardAction, Provider } from '@atlaskit/smart-card';
+import { act, render, screen } from '@testing-library/react';
 import { HoverCard } from '../index';
 import * as useSmartCardActions from '../../../state/actions';
 
@@ -104,11 +104,11 @@ describe('standalone hover card', () => {
 	});
 
 	it('should render a correct view of a hover card over a div', async () => {
-		const { findAllByTestId, findByTestId } = await standaloneSetUp();
-		const titleBlock = await findByTestId('smart-block-title-resolved-view');
-		await findAllByTestId('smart-block-metadata-resolved-view');
-		const snippetBlock = await findByTestId('smart-block-snippet-resolved-view');
-		const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
+		await standaloneSetUp();
+		const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+		await screen.findAllByTestId('smart-block-metadata-resolved-view');
+		const snippetBlock = await screen.findByTestId('smart-block-snippet-resolved-view');
+		const footerBlock = await screen.findByTestId('smart-ai-footer-block-resolved-view');
 		// trim because the icons are causing new lines in the textContent
 		expect(titleBlock.textContent?.trim()).toBe('I love cheese');
 		expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
@@ -164,20 +164,20 @@ describe('standalone hover card', () => {
 			);
 		};
 
-		const { findByTestId } = render(<SetUp />);
+		render(<SetUp />);
 
 		// should render the first component on the first render.
-		const firstComponent = await findByTestId('first');
+		const firstComponent = await screen.findByTestId('first');
 		expect(firstComponent).toBeDefined();
 
-		const componentWithHoverCard = await findByTestId('hover-card-trigger-wrapper');
+		const componentWithHoverCard = await screen.findByTestId('hover-card-trigger-wrapper');
 		expect(componentWithHoverCard).toBeDefined();
 
 		// this should trigger the HoverCard mount for the first component
 		// along with unmount of the first component and the mount of the second component
 		await event.hover(componentWithHoverCard);
 
-		const secondComponent = await findByTestId('second');
+		const secondComponent = await screen.findByTestId('second');
 		expect(secondComponent).toBeDefined();
 
 		// making sure that error "Can't perform a React state update on an unmounted component" is not shown in the console
@@ -210,17 +210,17 @@ describe('standalone hover card', () => {
 
 		it('does not propagate event to parent when clicking inside hover card content', async () => {
 			const mockOnClick = jest.fn();
-			const { findByTestId, event } = await renderComponent({
+			const { event } = await renderComponent({
 				mockOnClick,
 			});
 
-			const content = await findByTestId('smart-links-container');
+			const content = await screen.findByTestId('smart-links-container');
 			await event.click(content);
 
-			const link = await findByTestId('smart-element-link');
+			const link = await screen.findByTestId('smart-element-link');
 			await event.click(link);
 
-			const previewButton = await findByTestId('smart-action-preview-action');
+			const previewButton = await screen.findByTestId('smart-action-preview-action');
 			await event.click(previewButton);
 
 			expect(mockOnClick).not.toHaveBeenCalled();
@@ -256,7 +256,7 @@ describe('standalone hover card', () => {
 		});
 
 		it('should not call loadMetadata if mouseLeave is fired before the delay runs out', async () => {
-			const { findByTestId, event } = await standaloneSetUp({
+			const { event } = await standaloneSetUp({
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
 
@@ -267,7 +267,7 @@ describe('standalone hover card', () => {
 			expect(loadMetadataSpy).not.toHaveBeenCalled();
 
 			// Delay completed
-			const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+			const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
 			await event.unhover(triggerArea);
 
 			act(() => {
@@ -277,7 +277,7 @@ describe('standalone hover card', () => {
 		});
 
 		it('should call loadMetadata if mouseLeave is fired before the delay runs out but then the mouse enters again and waits for 100ms', async () => {
-			const { findByTestId, event } = await standaloneSetUp({
+			const { event } = await standaloneSetUp({
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
 
@@ -287,7 +287,7 @@ describe('standalone hover card', () => {
 			});
 			expect(loadMetadataSpy).not.toHaveBeenCalled();
 
-			const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+			const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
 			await event.unhover(triggerArea);
 
 			// Making sure the loadMetadata was not called
@@ -307,11 +307,11 @@ describe('standalone hover card', () => {
 		});
 
 		it('should call loadMetadata after a delay if link state is pending', async () => {
-			const { findByTestId, event } = await standaloneSetUp({
+			const { event } = await standaloneSetUp({
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
 
-			const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+			const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
 			expect(triggerArea).toBeDefined();
 
 			await event.hover(triggerArea);
@@ -332,11 +332,11 @@ describe('standalone hover card', () => {
 		});
 
 		it('should call loadMetadata only once if multiple mouseOver events are sent and if link state is pending', async () => {
-			const { findByTestId, event } = await standaloneSetUp({
+			const { event } = await standaloneSetUp({
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
 
-			const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+			const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
 			expect(triggerArea).toBeDefined();
 
 			// Firing the first mouseOver event
@@ -369,17 +369,17 @@ describe('standalone hover card', () => {
 				async (outcome, closeOnChildClick) => {
 					const testId = 'hover-test-div';
 
-					const { findByTestId, queryByTestId, event } = await standaloneSetUp(undefined, {
+					const { event } = await standaloneSetUp(undefined, {
 						closeOnChildClick,
 					});
 
-					expect(await findByTestId('hover-card')).toBeDefined();
-					await event.click(await findByTestId(testId));
+					expect(await screen.findByTestId('hover-card')).toBeDefined();
+					await event.click(await screen.findByTestId(testId));
 
 					if (outcome === 'should') {
-						expect(queryByTestId('hover-card')).toBeNull();
+						expect(screen.queryByTestId('hover-card')).toBeNull();
 					} else {
-						expect(await findByTestId('hover-card')).toBeDefined();
+						expect(await screen.findByTestId('hover-card')).toBeDefined();
 					}
 				},
 			);
@@ -387,42 +387,42 @@ describe('standalone hover card', () => {
 
 		describe('noFadeDelay', () => {
 			it('noFadeDelay should cancel fade in/out timeouts when is true', async () => {
-				const { queryByTestId, findByTestId, event } = await standaloneSetUp(undefined, {
+				const { event } = await standaloneSetUp(undefined, {
 					noFadeDelay: true,
 				});
 
 				act(() => {
 					jest.advanceTimersByTime(0); // No Fade In Delay
 				});
-				expect(await findByTestId('hover-card')).toBeInTheDocument();
+				expect(await screen.findByTestId('hover-card')).toBeInTheDocument();
 
-				const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+				const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
 				expect(triggerArea).toBeDefined();
 
 				await act(async () => {
 					await event.unhover(triggerArea);
 					jest.advanceTimersByTime(0); // No Fade Out Delay
 				});
-				expect(queryByTestId('hover-card')).not.toBeInTheDocument();
+				expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
 			});
 
 			it('noFadeDelay should not cancel fade in/out timeouts when is false', async () => {
-				const { queryByTestId, findByTestId, event } = await standaloneSetUp(undefined, {
+				const { event } = await standaloneSetUp(undefined, {
 					noFadeDelay: false,
 				});
 
 				act(() => {
 					jest.advanceTimersByTime(499);
 				});
-				expect(queryByTestId('hover-card')).toBeNull();
+				expect(screen.queryByTestId('hover-card')).toBeNull();
 
 				act(() => {
 					jest.advanceTimersByTime(1); // Fade In Delay completed
 				});
 
-				expect(queryByTestId('hover-card')).not.toBeNull();
+				expect(screen.queryByTestId('hover-card')).not.toBeNull();
 
-				const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+				const triggerArea = await screen.findByTestId('hover-card-trigger-wrapper');
 				expect(triggerArea).toBeDefined();
 
 				await event.unhover(triggerArea);
@@ -430,12 +430,12 @@ describe('standalone hover card', () => {
 				act(() => {
 					jest.advanceTimersByTime(299); // Fade Out Delay not completed yet
 				});
-				expect(queryByTestId('hover-card')).not.toBeNull();
+				expect(screen.queryByTestId('hover-card')).not.toBeNull();
 
 				act(() => {
 					jest.advanceTimersByTime(1); // Fade Out Delay completed
 				});
-				expect(queryByTestId('hover-card')).toBeNull();
+				expect(screen.queryByTestId('hover-card')).toBeNull();
 			});
 		});
 
@@ -447,68 +447,71 @@ describe('standalone hover card', () => {
 				['should', true],
 				['should not', false],
 			])('%s show hover card when canOpen is %s', async (outcome, canOpen) => {
-				const { findByTestId, queryByTestId } = await setup({
+				await setup({
 					testId,
 					component: <TestCanOpenComponent canOpen={canOpen} testId={testId} />,
 				});
 				if (outcome === 'should') {
-					const hoverContent = await findByTestId(contentTestId);
+					const hoverContent = await screen.findByTestId(contentTestId);
 					expect(hoverContent).toBeInTheDocument();
 				} else {
-					const hoverContent = queryByTestId(contentTestId);
+					const hoverContent = screen.queryByTestId(contentTestId);
 					expect(hoverContent).not.toBeInTheDocument();
 				}
 			});
 
 			it('show and hide hover card when at canOpen change value', async () => {
-				const { findByTestId, queryByTestId, event } = await setup({
+				const { event } = await setup({
 					testId,
 					component: <TestCanOpenComponent testId={testId} />,
 				});
 				// Element has not set canOpen value (default)
-				expect(await findByTestId(contentTestId)).toBeInTheDocument();
+				expect(await screen.findByTestId(contentTestId)).toBeInTheDocument();
 				// Element sets to can open
-				const canOpenElement = await findByTestId(`${testId}-can-open`);
+				const canOpenElement = await screen.findByTestId(`${testId}-can-open`);
 				await event.hover(canOpenElement);
-				expect(await findByTestId(contentTestId)).toBeInTheDocument();
+				expect(await screen.findByTestId(contentTestId)).toBeInTheDocument();
 				// Element sets to cannot open
-				const cannotOpenElement = await findByTestId(`${testId}-cannot-open`);
+				const cannotOpenElement = await screen.findByTestId(`${testId}-cannot-open`);
 				await act(async () => {
 					await event.hover(cannotOpenElement);
 				});
-				expect(queryByTestId(contentTestId)).not.toBeInTheDocument();
+				expect(screen.queryByTestId(contentTestId)).not.toBeInTheDocument();
 				// Go back to element sets to can open again
-				const canOpenElementAgain = await findByTestId(`${testId}-can-open`);
+				const canOpenElementAgain = await screen.findByTestId(`${testId}-can-open`);
 				await event.hover(canOpenElementAgain);
-				expect(await findByTestId(contentTestId)).toBeInTheDocument();
+				expect(await screen.findByTestId(contentTestId)).toBeInTheDocument();
 			});
 		});
 
 		describe('z-index', () => {
 			it('renders with defaults z-index', async () => {
-				const { findByTestId } = await standaloneSetUp();
-				const hoverCard = await findByTestId('hover-card');
+				await standaloneSetUp();
+				const hoverCard = await screen.findByTestId('hover-card');
 				const portal = hoverCard.closest('.atlaskit-portal');
 				expect(portal).toHaveStyle('z-index: 510');
 			});
 			it('renders with provided z-index', async () => {
-				const { findByTestId } = await standaloneSetUp(undefined, {
+				await standaloneSetUp(undefined, {
 					zIndex: 10,
 				});
-				const hoverCard = await findByTestId('hover-card');
+				const hoverCard = await screen.findByTestId('hover-card');
 				const portal = hoverCard.closest('.atlaskit-portal');
 				expect(portal).toHaveStyle('z-index: 10');
 			});
 		});
 
-		describe('hidePreviewButton', () => {
-			it('should not show the full screen view action if disabled via prop', async () => {
-				const { findByTestId, queryByTestId } = await standaloneSetUp(undefined, {
-					hidePreviewButton: true,
+		describe('hide preview via actionOptions prop', () => {
+			it('should not show the full screen view action if excluded via actionOptions prop', async () => {
+				await standaloneSetUp(undefined, {
+					actionOptions: {
+						hide: false,
+						exclude: [CardAction.PreviewAction],
+					},
 				});
-				const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
+				const footerBlock = await screen.findByTestId('smart-ai-footer-block-resolved-view');
 				expect(footerBlock).toBeTruthy();
-				const fullscreenButton = queryByTestId('preview-content-button-wrapper');
+				const fullscreenButton = screen.queryByTestId('preview-content-button-wrapper');
 				expect(fullscreenButton).toBeFalsy();
 			});
 		});

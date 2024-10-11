@@ -1,0 +1,1 @@
+export { VerifiedTeamIcon } from './main';

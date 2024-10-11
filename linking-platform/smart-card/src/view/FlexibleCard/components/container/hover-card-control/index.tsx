@@ -8,7 +8,6 @@ const FLEXIBLE_HOVER_CARD_CAN_OPEN_DELAY = 100;
 
 const HoverCardControl = ({
 	children,
-	hideHoverCardPreviewButton,
 	isHoverPreview,
 	isAuthTooltip,
 	actionOptions,
@@ -73,7 +72,6 @@ const HoverCardControl = ({
 			allowEventPropagation={true}
 			canOpen={canOpen}
 			closeOnChildClick={true}
-			hidePreviewButton={hideHoverCardPreviewButton}
 			actionOptions={actionOptions}
 			url={url}
 			hoverPreviewOptions={hoverPreviewOptions}

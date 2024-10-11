@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "93.2.0",
+	"version": "93.2.4",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -218,7 +218,7 @@
 		"@atlaskit/media-file-preview": "^0.9.0",
 		"@atlaskit/media-picker": "^66.7.0",
 		"@atlaskit/media-ui": "^25.15.0",
-		"@atlaskit/media-viewer": "49.0.1",
+		"@atlaskit/media-viewer": "49.1.0",
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/menu": "^2.12.0",
 		"@atlaskit/onboarding": "^11.2.0",
@@ -226,7 +226,7 @@
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/profilecard": "^20.4.0",
 		"@atlaskit/section-message": "^6.6.0",
-		"@atlaskit/smart-card": "^29.2.0",
+		"@atlaskit/smart-card": "^30.0.0",
 		"@atlaskit/smart-user-picker": "^6.10.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
@@ -319,9 +319,6 @@
 		"platform.linking-platform.datasource-assets_objects": {
 			"type": "boolean"
 		},
-		"platform.editor.inline_extension.extended_lcqdn": {
-			"type": "boolean"
-		},
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean"
 		},
@@ -347,9 +344,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_react18_phase2": {
-			"type": "boolean"
-		},
-		"cc_page_experiences_live_search_wysiwyg": {
 			"type": "boolean"
 		},
 		"use-effect-in-use-previous-props": {

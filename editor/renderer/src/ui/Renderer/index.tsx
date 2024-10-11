@@ -258,8 +258,7 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 			nodeComponents: props.nodeComponents,
 			// does not currently support SSR, should not be enabled in environments where Renderer is SSR-ed
 			allowWindowedCodeBlock: featureFlags?.allowWindowedCodeBlock,
-			isInsideOfInlineExtension:
-				fg('platform.editor.inline_extension.extended_lcqdn') && props.isInsideOfInlineExtension,
+			isInsideOfInlineExtension: props.isInsideOfInlineExtension,
 			textHighlighter: props.UNSTABLE_textHighlighter,
 			allowTableAlignment: props.UNSTABLE_allowTableAlignment,
 			allowTableResizing: props.UNSTABLE_allowTableResizing,
@@ -695,9 +694,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={`ak-renderer-wrapper is-${appearance}`}
 			data-appearance={appearance}
-			shouldCheckExistingValue={
-				fg('platform.editor.inline_extension.extended_lcqdn') && isInsideOfInlineExtension
-			}
+			shouldCheckExistingValue={isInsideOfInlineExtension}
 		>
 			<BaseTheme
 				baseFontSize={

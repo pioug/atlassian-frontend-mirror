@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -9,8 +9,7 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"inPublicMirror": false,
-		"releaseModel": "continuous"
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -42,8 +41,8 @@
 		"use-isomorphic-layout-effect": "^1.1.2"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",

@@ -1,5 +1,13 @@
 # @atlaskit/linking-common
 
+## 5.12.0
+
+### Minor Changes
+
+- [#150868](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150868)
+  [`5eddd352605ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5eddd352605ec) -
+  Adds support for a Loom tab in the link picker in the editor if the site has provisioned Loom
+
 ## 5.11.2
 
 ### Patch Changes

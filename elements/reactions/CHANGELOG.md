@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 22.14.8
+
+### Patch Changes
+
+- [#151016](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151016)
+  [`0068e5e95e9ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0068e5e95e9ee) -
+  Revert PR 149802 due to hot-112390
+
 ## 22.14.7
 
 ### Patch Changes

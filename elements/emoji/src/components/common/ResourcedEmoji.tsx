@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react';
-import {
-	ResourcedEmojiComponent,
-	type Props as ResourcedEmojiProps,
-} from './ResourcedEmojiComponent';
+import Loadable from 'react-loadable';
+import type { Props as ResourcedEmojiProps } from './ResourcedEmojiComponent';
 import { UfoErrorBoundary } from './UfoErrorBoundary';
 import { sampledUfoRenderedEmoji, ufoExperiences } from '../../util/analytics';
 import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../../util/constants';
 
 export interface Props extends ResourcedEmojiProps {}
+
+const ResourcedEmojiComponent = Loadable({
+	loader: (): Promise<React.ComponentType<React.PropsWithChildren<Props>>> =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_resourcedEmojiComponent" */ './ResourcedEmojiComponent'
+		).then((component) => component.ResourcedEmojiComponent),
+	loading: () => null,
+});
 
 const ResourcedEmoji = (props: React.PropsWithChildren<Props>) => {
 	const { emojiId, optimisticImageURL } = props;

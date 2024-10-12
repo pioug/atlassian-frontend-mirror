@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.0.5
+
+### Patch Changes
+
+- [#150547](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150547)
+  [`e26194391b9dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e26194391b9dd) -
+  Add react18 support
+
 ## 1.0.4
 
 ### Patch Changes

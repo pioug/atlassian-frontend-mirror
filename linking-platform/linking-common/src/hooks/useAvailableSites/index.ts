@@ -27,6 +27,7 @@ const defaultProducts = [
 	AvailableSitesProductType.OPSGENIE,
 	AvailableSitesProductType.STATUS_PAGE,
 	AvailableSitesProductType.ATLAS,
+	AvailableSitesProductType.LOOM,
 ];
 
 export const useAvailableSites = ({

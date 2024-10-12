@@ -57,7 +57,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 		}
 
 		return (
-			<div css={toolbarComponentsWrapper}>
+			<div css={toolbarComponentsWrapper} data-vc="toolbar-inner">
 				{items.map((component, key) => {
 					const element = component({
 						editorView,

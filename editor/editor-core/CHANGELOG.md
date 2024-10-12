@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 198.5.1
+
+### Patch Changes
+
+- [#150784](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150784)
+  [`8a6d80b99e9a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a6d80b99e9a6) -
+  Add data-vc to display human readable identifier for TTVC offender list
+
 ## 198.5.0
 
 ### Minor Changes

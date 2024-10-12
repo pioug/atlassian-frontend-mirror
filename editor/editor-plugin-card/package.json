@@ -53,7 +53,7 @@
 		"@atlaskit/link-analytics": "^8.5.0",
 		"@atlaskit/link-client-extension": "^2.4.0",
 		"@atlaskit/link-datasource": "^3.5.0",
-		"@atlaskit/linking-common": "^5.11.0",
+		"@atlaskit/linking-common": "^5.12.0",
 		"@atlaskit/linking-types": "^9.0.0",
 		"@atlaskit/menu": "2.12.7",
 		"@atlaskit/platform-feature-flags": "^0.3.0",

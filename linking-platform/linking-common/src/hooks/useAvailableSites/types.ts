@@ -43,4 +43,5 @@ export enum AvailableSitesProductType {
 	OPSGENIE = 'opsgenie',
 	STATUS_PAGE = 'statuspage',
 	ATLAS = 'townsquare',
+	LOOM = 'loom',
 }

@@ -98,6 +98,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 	zIndex = layers.modal(),
 	label,
 	interactionName,
+	strategy,
 }: DropdownMenuProps<T>) => {
 	const [isLocalOpen, setLocalIsOpen] = useControlledState(isOpen, () => defaultOpen);
 	const triggerRef = useRef<HTMLElement | null>(null);
@@ -235,7 +236,17 @@ const DropdownMenu = <T extends HTMLElement = any>({
 	 * By only including either shouldFitContainer or shouldRenderToParent, we can ensure that the Popup component
 	 * types are satisfied.
 	 */
-	const conditionalProps = shouldFitContainer ? { shouldFitContainer } : { shouldRenderToParent };
+	const conditionalProps = shouldFitContainer
+		? {
+				shouldFitContainer,
+				// When shouldFitContainer is true, `fixed` positions are not allowed
+				strategy: strategy !== 'fixed' ? strategy : undefined,
+			}
+		: {
+				shouldRenderToParent,
+				strategy,
+			};
+
 	return (
 		<SelectionStore>
 			<DropdownMenuProvider value={{ returnFocusRef: triggerRef }}>

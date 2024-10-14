@@ -70,12 +70,14 @@ export type EngagementPlatformPluginConfig = {
 };
 
 export type EpComponents = {
-	EngagementProvider: ComponentType<PropsWithChildren<{}>>;
 	EngagementSpotlight: ComponentType<{ engagementId: string }>;
 	EngagementInlineDialog: ComponentType<PropsWithChildren<{ engagementId: string }>>;
-	Coordination: ComponentType<
-		PropsWithChildren<{ client: CoordinationClient; messageId: string; fallback: ReactNode }>
-	>;
+	Coordination: ComponentType<{
+		client: CoordinationClient;
+		messageId: string;
+		fallback: ReactNode;
+		children: JSX.Element;
+	}>;
 };
 
 export type EpHooks = {

@@ -29,15 +29,31 @@ export const getInlineNodePos = (
 	return { inlineNodePos, inlineNodeEndPos };
 };
 
+const isNodeWithMedia = (tr: Transaction, start: number, nodeSize: number) => {
+	const $startPos = tr.doc.resolve(start);
+	let hasMedia = false;
+	tr.doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n) => {
+		if (n.type.name === 'media') {
+			hasMedia = true;
+		}
+	});
+	return hasMedia;
+};
+
 export const getSelection = (tr: Transaction, start: number) => {
 	const node = tr.doc.nodeAt(start);
 	const isNodeSelection = node && NodeSelection.isSelectable(node);
 	const nodeSize = node ? node.nodeSize : 1;
 	const $startPos = tr.doc.resolve(start);
 	const nodeName = node?.type.name;
+	const isBlockQuoteWithMedia = nodeName === 'blockquote' && isNodeWithMedia(tr, start, nodeSize);
 
 	// decisionList node is not selectable, but we want to select the whole node not just text
-	if (isNodeSelection || nodeName === 'decisionList') {
+	if (
+		(isNodeSelection && nodeName !== 'blockquote') ||
+		isBlockQuoteWithMedia ||
+		nodeName === 'decisionList'
+	) {
 		return new NodeSelection($startPos);
 	} else if (nodeName === 'mediaGroup' && node?.childCount === 1) {
 		const $mediaStartPos = tr.doc.resolve(start + 1);

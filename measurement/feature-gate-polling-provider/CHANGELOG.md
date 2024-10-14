@@ -1,5 +1,17 @@
 # @atlaskit/feature-gate-polling-provider
 
+## 1.0.0
+
+### Major Changes
+
+- [#151557](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151557)
+  [`0935b95608ca3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0935b95608ca3) -
+  First major version of the provider to be used with feature gate js client
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.0.2
 
 ### Patch Changes

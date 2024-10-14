@@ -1,5 +1,14 @@
 # @atlaskit/link-provider
 
+## 1.16.1
+
+### Patch Changes
+
+- [#151132](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151132)
+  [`3da1333fcf30d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3da1333fcf30d) -
+  Adds the 'origin-timezone' header to all cached requests by removing feature flag
+  platform.linking-platform.datasource.add-timezone-header
+
 ## 1.16.0
 
 ### Minor Changes

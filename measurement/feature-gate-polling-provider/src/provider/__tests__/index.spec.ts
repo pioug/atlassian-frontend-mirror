@@ -1,27 +1,32 @@
-import Fetcher, {
-	type ClientOptions,
+import Fetcher, { type FrontendExperimentsResponse } from '@atlaskit/feature-gate-fetcher';
+import {
+	type BaseClientOptions,
 	type CustomAttributes,
 	FeatureGateEnvironment,
-	type FrontendExperimentsResponse,
 	type FrontendExperimentsResult,
 	type Identifiers,
-} from '@atlaskit/feature-gate-fetcher';
+} from '@atlaskit/feature-gate-js-client';
 
 import Broadcast from '../../Broadcast';
 import FeatureGatesDB from '../../database/FeatureGatesDB';
-import { type ExperiemntValuesEntry } from '../../database/types';
+import { type ExperimentValuesEntry } from '../../database/types';
 import PollingProvider, {
 	EXPERIMENT_VALUES_STALE_TIMEOUT_MS,
 	type ProviderOptions,
 } from '../index';
 import Refresh from '../Refresh';
 import { type FeatureGateState } from '../types';
-import { getFrontendExperimentsResult } from '../utils';
+import { createHash, getFrontendExperimentsResult } from '../utils';
 
 jest.mock('@atlaskit/feature-gate-fetcher', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-fetcher'),
 	fetchExperimentValues: jest.fn(),
-	fetchClientSdk: jest.fn(),
+	fetchClientSdkKey: jest.fn(),
+}));
+
+jest.mock('../utils', () => ({
+	...jest.requireActual('../utils'),
+	createHash: jest.fn(),
 }));
 
 jest.mock('../../Broadcast');
@@ -34,7 +39,7 @@ const mockExperimentValues = {
 	value: '12345',
 };
 
-const mockClientOptions: ClientOptions = {
+const mockClientOptions: BaseClientOptions = {
 	environment: FeatureGateEnvironment.Development,
 	targetApp: 'targetApp_web',
 };
@@ -50,7 +55,7 @@ const mockCustomAttributes: CustomAttributes = {
 const providerOptions: ProviderOptions = {
 	apiKey: '123',
 	initialFetchTimeout: 15,
-	pollingInterval: 30,
+	pollingInterval: 30000,
 	useGatewayURL: true,
 };
 const mockClientVersion = 'mockVersion';
@@ -73,7 +78,7 @@ const expectedExperimentValuesResult: FrontendExperimentsResult = {
 	clientSdkKey: undefined,
 };
 
-const getMockEVEntry = (timestamp: number): ExperiemntValuesEntry => ({
+const getMockEVEntry = (timestamp: number): ExperimentValuesEntry => ({
 	profileHash: 'profileHash',
 	rulesetProfile: {
 		identifiers: mockIdentifiers,
@@ -93,6 +98,7 @@ describe('PollingProvider', () => {
 	let mockedFeatureGateDB = jest.mocked(FeatureGatesDB);
 	let mockedBroadcast = jest.mocked(Broadcast);
 	let mockedRefresh = jest.mocked(Refresh);
+	const mockCreateHash = jest.mocked(createHash);
 	const mockApplyUpdate = jest.fn();
 	let provider: PollingProvider;
 	const RealDate = Date.now;
@@ -102,11 +108,14 @@ describe('PollingProvider', () => {
 		console.warn = jest.fn();
 		global.Date.now = jest.fn(() => mockCurrentDate);
 		mockedFetcher.fetchExperimentValues.mockResolvedValue(mockExperimentValuesResponse);
-		mockedFetcher.fetchClientSdk.mockResolvedValue({ clientSdkKey: mockClientSdkKey });
+		mockedFetcher.fetchClientSdkKey.mockResolvedValue({ clientSdkKey: mockClientSdkKey });
 		provider = new PollingProvider(providerOptions);
 		provider.setApplyUpdateCallback(mockApplyUpdate);
 		provider.setClientVersion(mockClientVersion);
 		mockedFeatureGateDB = jest.mocked(FeatureGatesDB);
+		mockCreateHash.mockResolvedValue(
+			'8e3c96eb13880fc945411b9300db02903a32b62d9af731c8c6b37207f2201289',
+		);
 	});
 
 	afterEach(() => {
@@ -114,7 +123,6 @@ describe('PollingProvider', () => {
 		jest.resetAllMocks();
 		jest.clearAllMocks();
 	});
-
 	describe('getExperimentValues', function () {
 		test('get values from fetch when db does not have entry', async () => {
 			mockedFeatureGateDB.mock.instances[0].getExperimentValues = jest.fn().mockResolvedValue(null);
@@ -146,7 +154,7 @@ describe('PollingProvider', () => {
 				expectedProfileHash,
 			);
 
-			const expectedFGState: ExperiemntValuesEntry = {
+			const expectedFGState: ExperimentValuesEntry = {
 				profileHash: expectedProfileHash,
 				rulesetProfile: expectedRulesetProfile,
 				experimentValuesResponse: mockExperimentValuesResponse,
@@ -216,7 +224,7 @@ describe('PollingProvider', () => {
 			expect(provider['lastUpdatedTimestamp']).toBe(0);
 		});
 
-		test('get values from fetch when db has fresh entry', async () => {
+		test('does not get values from fetch when db has fresh entry', async () => {
 			const dbEntryTimestamp = mockCurrentDate - 10;
 			const mockDBEntry = getMockEVEntry(dbEntryTimestamp);
 
@@ -263,7 +271,7 @@ describe('PollingProvider', () => {
 			expect(provider['lastUpdatedTimestamp']).toBe(dbEntryTimestamp);
 		});
 
-		test('Does not update when apply update has not been set', async () => {
+		test('does not update when apply update has not been set', async () => {
 			provider['applyUpdate'] = undefined;
 
 			await expect(
@@ -301,7 +309,7 @@ describe('PollingProvider', () => {
 				expectedProfileHash,
 			);
 
-			const expectedFGState: ExperiemntValuesEntry = {
+			const expectedFGState: ExperimentValuesEntry = {
 				profileHash: expectedProfileHash,
 				rulesetProfile: expectedRulesetProfile,
 				experimentValuesResponse: mockExperimentValuesResponse,
@@ -405,7 +413,7 @@ describe('PollingProvider', () => {
 				expectedProfileHash,
 			);
 
-			const expectedFGState: ExperiemntValuesEntry = {
+			const expectedFGState: ExperimentValuesEntry = {
 				profileHash: expectedProfileHash,
 				rulesetProfile: expectedRulesetProfile,
 				experimentValuesResponse: mockExperimentValuesResponse,
@@ -439,7 +447,7 @@ describe('PollingProvider', () => {
 
 			await new Promise(process.nextTick);
 
-			await expect(mockedFetcher.fetchClientSdk).toHaveBeenCalledWith(mockClientVersion, {
+			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
 				fetchTimeoutMs: 15,
@@ -465,12 +473,14 @@ describe('PollingProvider', () => {
 		test('error thrown when db does not have entry and fetch rejects', async () => {
 			mockedFeatureGateDB.mock.instances[0].getClientSdkKey = jest.fn().mockResolvedValue(null);
 
-			mockedFetcher.fetchClientSdk.mockRejectedValue(new Error('failed to fetch client sdk key'));
+			mockedFetcher.fetchClientSdkKey.mockRejectedValue(
+				new Error('failed to fetch client sdk key'),
+			);
 
 			await expect(provider.getClientSdkKey(mockClientOptions)).rejects.toThrow(
 				'failed to fetch client sdk key',
 			);
-			await expect(mockedFetcher.fetchClientSdk).toHaveBeenCalledWith(mockClientVersion, {
+			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
 				fetchTimeoutMs: 15,
@@ -502,7 +512,7 @@ describe('PollingProvider', () => {
 
 			await new Promise(process.nextTick);
 
-			await expect(mockedFetcher.fetchClientSdk).toHaveBeenCalledTimes(0);
+			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledTimes(0);
 			await expect(mockedFeatureGateDB.mock.instances[0].getClientSdkKey).toHaveBeenCalledWith({
 				targetApp: mockClientOptions.targetApp,
 				environment: mockClientOptions.environment,
@@ -526,7 +536,7 @@ describe('PollingProvider', () => {
 
 			await new Promise(process.nextTick);
 
-			await expect(mockedFetcher.fetchClientSdk).toHaveBeenCalledWith(mockClientVersion, {
+			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
 				fetchTimeoutMs: 15,
@@ -546,14 +556,14 @@ describe('PollingProvider', () => {
 	});
 
 	describe('getProfileHashAndProfile', () => {
-		test('get ', () => {
-			expect(
+		test('get ', async () => {
+			await expect(
 				provider['getProfileHashAndProfile'](
 					mockClientOptions,
 					mockIdentifiers,
 					mockCustomAttributes,
 				),
-			).toStrictEqual({
+			).resolves.toStrictEqual({
 				profileHash: expectedProfileHash,
 				rulesetProfile: expectedRulesetProfile,
 			});

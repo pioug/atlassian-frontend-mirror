@@ -1,18 +1,8 @@
 import React from 'react';
-import CardViewExample from '../../../examples/card-view';
-import { ResolvedClientEmbedUrl } from '../../../examples/utils/custom-client';
 import CustomExample from '../../utils/custom-example';
 import customMd from '../../utils/custom-md';
-import state_description from '../state-description';
 
 export default customMd`
-
-Smart Links embed enables users to seamlessly integrate and engage with content from different sources directly within Atlassian products.
-This functionality boosts productivity by minimising the necessity to switch between tools, offering a smooth pathway to access and engage with linked content.
-
-However, not every link can display an embed appearance.
-To surface the embed appearance, the resolved link response must contain \`data.preview\`.
-The frontend implementation must specify support \`platform\` that matches with \`data.preview["atlassian:supportedPlatforms"]\` from the link response.
 
 ### Frame
 
@@ -69,9 +59,4 @@ ${(
 	/>
 )}
 
-### States
-
-${state_description}
-
-${(<CardViewExample appearance="embed" frameStyle="show" url={ResolvedClientEmbedUrl} />)}
 `;

@@ -10,7 +10,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import CopyIcon from '@atlaskit/icon/glyph/copy';
+import CopyIcon from '@atlaskit/icon/core/migration/copy';
 
 import {
 	createToolbarCopyCommandForMark,

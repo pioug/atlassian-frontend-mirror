@@ -10,6 +10,9 @@ import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { COLOR_PICKER } from '../constants';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { useIntl } from 'react-intl-next';
+import messages from '../messages';
 
 export const MenuList = (props: MenuListComponentProps<Color>) => {
 	const {
@@ -19,10 +22,15 @@ export const MenuList = (props: MenuListComponentProps<Color>) => {
 		children,
 	} = props;
 
+	const { formatMessage } = useIntl();
+
 	return (
 		<div
 			css={colorPaletteContainerStyles}
-			role="group"
+			role={fg('platform_color_picker-fix-a11y-violations') ? 'listbox' : 'group'}
+			{...(fg('platform_color_picker-fix-a11y-violations')
+				? { 'aria-label': formatMessage(messages.menuListAriaLabel) }
+				: {})}
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				maxWidth: cols ? getWidth(cols) : undefined,
@@ -46,7 +54,11 @@ export const Option = (props: OptionProps<Color>) => {
 	} = props;
 
 	return (
-		<div css={colorCardWrapperStyles} {...innerProps}>
+		<div
+			css={colorCardWrapperStyles}
+			{...innerProps}
+			{...(fg('platform_color_picker-fix-a11y-violations') ? { 'aria-label': label } : {})}
+		>
 			<ColorCard
 				type={COLOR_PICKER}
 				label={label}

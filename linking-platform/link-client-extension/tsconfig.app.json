@@ -40,9 +40,6 @@
 		},
 		{
 			"path": "../linking-types/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
 		}
 	]
 }

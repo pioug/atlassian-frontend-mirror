@@ -6,16 +6,17 @@ import Fetcher, {
 	ResponseError,
 } from '@atlaskit/feature-gate-fetcher';
 
-import { type ExperiemntValuesEntry, type RulesetProfile } from '../database/types';
+import { type ExperimentValuesEntry, type RulesetProfile } from '../database/types';
 
 import { type PollingConfig, type ProviderOptions } from './types';
+import { getValidatedPollingInterval } from './utils';
 
 export const SCHEDULER_OPTIONS_DEFAULT: PollingConfig = {
-	minWaitInterval: 300000, // 300 second = 5 mins
-	maxWaitInterval: 1200000, // 1200 second = 20 mins
+	minWaitInterval: 300_000, // 300 second = 5 mins
+	maxWaitInterval: 1200_000, // 1200 second = 20 mins
 	backOffFactor: 2,
 	backOffJitter: 0.1, // Jitter is upto 10% of wait time
-	interval: 300000, // 300 second = 5 mins
+	interval: 300_000, // 300 second = 5 mins
 	tabHiddenPollingFactor: 12, // for hidden tabs, use hiddenTabFactor * interval for polling = 1 hour (default)
 	maxInstantRetryTimes: 0,
 };
@@ -40,18 +41,21 @@ export default class Refresh {
 
 	private rulesetProfile: RulesetProfile | undefined;
 
-	private onExperimentValuesUpdate: (response: ExperiemntValuesEntry) => void;
+	private onExperimentValuesUpdate: (response: ExperimentValuesEntry) => void;
 
 	private clientVersion: string | undefined;
 
 	private lastUpdateTimestamp: number = 0;
 
 	private providerOptions: ProviderOptions;
+
+	private hasIntervalBeenValidated: boolean = false;
+
 	unbind: UnbindFn | undefined;
 
 	constructor(
 		providerOptions: ProviderOptions,
-		onExperimentValuesUpdate: (response: ExperiemntValuesEntry) => void,
+		onExperimentValuesUpdate: (response: ExperimentValuesEntry) => void,
 	) {
 		this.onExperimentValuesUpdate = onExperimentValuesUpdate;
 		this.pollingConfig = {
@@ -59,10 +63,7 @@ export default class Refresh {
 			interval: providerOptions.pollingInterval ?? SCHEDULER_OPTIONS_DEFAULT.interval,
 			maxInstantRetryTimes: 0, // Force this to 0 so this never reschedules instantly with cache
 		};
-		this.noCachePollingConfig = {
-			...NO_CACHE_RETRY_OPTIONS_DEFAULT,
-			interval: providerOptions.pollingInterval ?? NO_CACHE_RETRY_OPTIONS_DEFAULT.interval,
-		};
+		this.noCachePollingConfig = NO_CACHE_RETRY_OPTIONS_DEFAULT;
 		this.providerOptions = providerOptions;
 		this.visibilityChangeHandler = this.visibilityChangeHandler.bind(this);
 	}
@@ -156,6 +157,15 @@ export default class Refresh {
 
 		const { environment, targetApp, perimeter } = this.rulesetProfile;
 		const { apiKey, useGatewayURL } = this.providerOptions;
+
+		// validate the polling interval is not too short based on the environment
+		this.pollingConfig.interval = getValidatedPollingInterval(
+			this.pollingConfig.interval,
+			environment,
+			!this.hasIntervalBeenValidated,
+		);
+		// set this to true after first validation to prevent multiple info logs
+		this.hasIntervalBeenValidated = true;
 
 		const fetcherOptions: FetcherOptions = {
 			environment,

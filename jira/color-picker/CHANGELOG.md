@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 3.4.2
+
+### Patch Changes
+
+- [#150969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150969)
+  [`a15fc4e53f226`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a15fc4e53f226) -
+  Fixed a11y violations in ColorPicker and ColorPaletteMenu
+
 ## 3.4.1
 
 ### Patch Changes

@@ -1,80 +1,8 @@
 import React from 'react';
-import CardViewExample from '../../../examples/card-view';
-import customMd from '../../utils/custom-md';
-import state_description from '../state-description';
 import CustomExample from '../../utils/custom-example';
+import customMd from '../../utils/custom-md';
 
 export default customMd`
-
-Smart Link with inline appearance shows off the link right in the text, just like a regular hyperlink.
-It's clean and sleek, fitting in smoothly with the rest of the content.
-
-${(
-	<CustomExample
-		Component={require('../../../examples/content/inline-card').default}
-		source={require('!!raw-loader!../../../examples/content/inline-card')}
-	/>
-)}
-
-### Remove text highlight from title
-
-Remove [text fragment](https://developer.mozilla.org/en-US/docs/Web/URI/Fragment/Text_fragments) from Smart Link title by setting \`removeTextHighlightingFromTitle\` to \`true\`.
-This adjustment will not affect the URL.
-
-${(
-	<CustomExample
-		Component={require('../../../examples/content/inline-card-remove-text-highlight').default}
-		source={require('!!raw-loader!../../../examples/content/inline-card-remove-text-highlight')}
-	/>
-)}
-
-### Truncate
-
-When \`truncateInline\` is set to \`true\`, inline cards will be truncated to one line.
-
-${(
-	<CustomExample
-		Component={require('../../../examples/content/inline-card-truncate').default}
-		source={require('!!raw-loader!../../../examples/content/inline-card-truncate')}
-	/>
-)}
-
-### Resolving placeholder
-
-Set \`resolvingPlaceholder\` to replace the link title text while the Smart Link is resolving.
-
-${(
-	<CustomExample
-		Component={require('../../../examples/content/inline-card-resolving-placeholder').default}
-		source={require('!!raw-loader!../../../examples/content/inline-card-resolving-placeholder')}
-	/>
-)}
-
-### Resolving style
-
-By default, inline resolving states display a frame with a spinner inside to the left.
-An alternative appearance is to have no frame and the spinner on the right.
-This can be achieved by setting the inlinePreloaderStyle to on-right-without-skeleton.
-This property is currently dedicated to inline links in the editor.
-
-${(
-	<CustomExample
-		Component={require('../../../examples/content/inline-card-preloader-style').default}
-		source={require('!!raw-loader!../../../examples/content/inline-card-preloader-style')}
-	/>
-)}
-
-### Show hover state
-
-Set \`isHovered\` to indicate whether a card is in a hover state.
-This flag is currently used exclusively for inline links in the editor.
-
-${(
-	<CustomExample
-		Component={require('../../../examples/content/inline-card-is-hovered').default}
-		source={require('!!raw-loader!../../../examples/content/inline-card-is-hovered')}
-	/>
-)}
 
 ### Show hover preview
 
@@ -138,12 +66,64 @@ ${(
 )}
 
 
+### Resolving placeholder
 
+Set \`resolvingPlaceholder\` to replace the link title text while the Smart Link is resolving.
 
+${(
+	<CustomExample
+		Component={require('../../../examples/content/inline-card-resolving-placeholder').default}
+		source={require('!!raw-loader!../../../examples/content/inline-card-resolving-placeholder')}
+	/>
+)}
 
-### States
+### Resolving style
 
-${state_description}
+By default, inline resolving states display a frame with a spinner inside to the left.
+An alternative appearance is to have no frame and the spinner on the right.
+This can be achieved by setting the inlinePreloaderStyle to on-right-without-skeleton.
+This property is currently dedicated to inline links in the editor.
 
-${(<CardViewExample appearance="inline" frameStyle="show" />)}
+${(
+	<CustomExample
+		Component={require('../../../examples/content/inline-card-preloader-style').default}
+		source={require('!!raw-loader!../../../examples/content/inline-card-preloader-style')}
+	/>
+)}
+
+### Show hover state
+
+Set \`isHovered\` to indicate whether a card is in a hover state.
+This flag is currently used exclusively for inline links in the editor.
+
+${(
+	<CustomExample
+		Component={require('../../../examples/content/inline-card-is-hovered').default}
+		source={require('!!raw-loader!../../../examples/content/inline-card-is-hovered')}
+	/>
+)}
+
+### Remove text highlight from title
+
+Remove [text fragment](https://developer.mozilla.org/en-US/docs/Web/URI/Fragment/Text_fragments) from Smart Link title by setting \`removeTextHighlightingFromTitle\` to \`true\`.
+This adjustment will not affect the URL.
+
+${(
+	<CustomExample
+		Component={require('../../../examples/content/inline-card-remove-text-highlight').default}
+		source={require('!!raw-loader!../../../examples/content/inline-card-remove-text-highlight')}
+	/>
+)}
+
+### Truncate
+
+When \`truncateInline\` is set to \`true\`, inline cards will be truncated to one line.
+
+${(
+	<CustomExample
+		Component={require('../../../examples/content/inline-card-truncate').default}
+		source={require('!!raw-loader!../../../examples/content/inline-card-truncate')}
+	/>
+)}
+
 `;

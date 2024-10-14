@@ -23,7 +23,7 @@ export default () => (
 			actions={[
 				{
 					name: ActionName.CustomAction,
-					icon: <DownloadIcon color="currentColor" spacing="spacious" label="download" />,
+					icon: <DownloadIcon color="currentColor" label="download" />,
 					content: 'Download',
 					onClick: () => {},
 				},

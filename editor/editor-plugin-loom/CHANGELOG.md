@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-loom
 
+## 3.1.3
+
+### Patch Changes
+
+- [#151581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151581)
+  [`84249bf0ae1c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84249bf0ae1c4) -
+  Update Loom icon to generic video icon
+
 ## 3.1.2
 
 ### Patch Changes

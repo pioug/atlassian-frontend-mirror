@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { UpdateLayerCount } from './update-layer-count-context';
+import { OpenLayerObserverContext } from './open-layer-observer-context';
 
 /**
  * Hook that increments/decrements the open layer count when the component mounts/unmounts or becomes visible/hidden.
@@ -17,8 +17,8 @@ import { UpdateLayerCount } from './update-layer-count-context';
  * useNotifyLayerObserver({ isOpen });
  * ```
  */
-export const useNotifyOpenLayerObserver = ({ isOpen = true }: { isOpen?: boolean } = {}) => {
-	const context = useContext(UpdateLayerCount);
+export function useNotifyOpenLayerObserver({ isOpen = true }: { isOpen?: boolean } = {}): void {
+	const context = useContext(OpenLayerObserverContext);
 
 	useEffect(() => {
 		if (!fg('platform_design_system_team_layering_observer')) {
@@ -39,4 +39,4 @@ export const useNotifyOpenLayerObserver = ({ isOpen = true }: { isOpen?: boolean
 			context.decrement();
 		};
 	}, [context, isOpen]);
-};
+}

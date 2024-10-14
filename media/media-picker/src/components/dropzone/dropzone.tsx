@@ -1,14 +1,7 @@
 import React from 'react';
 
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
-import {
-	ANALYTICS_MEDIA_CHANNEL,
-	getMediaFeatureFlag,
-	withMediaAnalyticsContext,
-} from '@atlaskit/media-common';
-import { isWebkitSupported } from '@atlaskit/media-ui/browser';
-import { getFilesFromItems, getFilesFromFileSystemEntries } from 'flat-files';
-
+import { ANALYTICS_MEDIA_CHANNEL, withMediaAnalyticsContext } from '@atlaskit/media-common';
 import { LocalUploadComponentReact, type LocalUploadComponentBaseProps } from '../localUploadReact';
 
 import { getPackageAttributes } from '../../util/analytics';
@@ -140,77 +133,14 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
 
 		dragEvent.preventDefault();
 		dragEvent.stopPropagation();
-
-		const { featureFlags } = this.props;
 		// refreshes uploadParams as only set once in parent constructor
 		this.setUploadParams(this.props.config.uploadParams);
-		/*
-		 * Only enable support for folders if (1) the browser is supported (2) feature flag is enabled
-		 * The file flattening library used to add support for Folders uses a function called webkitEntry.
-		 * Some browser types are not supported https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitEntries
-		 */
-		if (isWebkitSupported() && getMediaFeatureFlag('folderUploads', featureFlags)) {
-			this.fireAnalyticsForFolders(dragEvent.dataTransfer.items);
-			const flattenedDirectoryFiles = await this.getFilesFromDragEvent(
-				dragEvent.dataTransfer.items,
-			);
+		this.onDrop(dragEvent);
 
-			this.onDropFolders(flattenedDirectoryFiles.length);
-			this.uploadService.addFiles(flattenedDirectoryFiles);
-		} else {
-			this.onDrop(dragEvent);
+		const files = Array.from(dragEvent.dataTransfer.files);
 
-			const files = Array.from(dragEvent.dataTransfer.files);
-
-			this.uploadService.addFiles(files);
-		}
+		this.uploadService.addFiles(files);
 	};
-
-	/*
-	 * Checks how many folders are uploaded in a single drag and drop. Then, fires an analytic event in accordance to this.
-	 */
-	private fireAnalyticsForFolders = (items: DataTransferItemList): void => {
-		//convert DataTransferItemList into an array of DataTransferItem(s)
-		const toArray = Array.from(items);
-
-		//function to check if a file entry is a folder
-		const hasFolder = (item: DataTransferItem) => item.webkitGetAsEntry()?.isDirectory;
-
-		//how many folders are in a single drag and drop event
-		var folderCount = toArray.filter((item) => hasFolder(item)).length;
-
-		// fires analytic events if number of folders is more than 0
-		if (folderCount > 0) {
-			this.fireAnalyticsEvent('folderDroppedInto', folderCount);
-		}
-	};
-
-	/*
-	 * Files dropped contains a directory. Thus, flatten the directory to return an array of Files.
-	 */
-	private getFilesFromDragEvent = async (
-		dragEventItemList: DataTransferItemList,
-	): Promise<File[]> => {
-		const items: DataTransferItemList = dragEventItemList;
-
-		//If items consist of directory or directories, flatten it to grab the files only. Else, just get the files
-		const fileSystemEntries = await getFilesFromItems(items);
-
-		//files are of filetype 'fileSystemEntry'. We convert the files to be of the 'File' type format.
-		const files = await getFilesFromFileSystemEntries(fileSystemEntries);
-
-		// Return all the files we will upload
-		return this.filterFilesAgainstBlacklist(files);
-	};
-
-	private filterFilesAgainstBlacklist = (files: File[]) => {
-		// We don't want these files in our final File list
-		const blacklist = ['.DS_Store', 'thumbs.db', 'desktop.ini'];
-
-		// Filter Files using our defined blacklist
-		return files.filter((file: File) => !blacklist.includes(file.name));
-	};
-
 	// Cross-browser way of getting dragged items length, we prioritize "items" if present
 	// https://www.w3.org/TR/html51/editing.html#the-datatransfer-interface
 	// This method is used on 'dragover' and we have no way to retrieve FileSystemFileEntry,
@@ -224,13 +154,6 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
 		// This is required for IE11
 		return dataTransfer.files.length;
 	}
-
-	// Similar to the onDrop event, but for folders.
-	private onDropFolders = (fileCount: number) => {
-		if (fileCount > 0) {
-			this.sendAnalyticsAndEmitDragLeave(fileCount);
-		}
-	};
 
 	private onDrop = (e: DragEvent): void => {
 		if (e.dataTransfer && dragContainsFiles(e)) {

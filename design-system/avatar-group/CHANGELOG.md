@@ -1,5 +1,14 @@
 # @atlaskit/avatar-group
 
+## 10.0.0
+
+### Major Changes
+
+- [`8aee79daf4012`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8aee79daf4012) -
+  Removed `xsmall` size option for AvatarGroup since it is too small to display elements like the
+  more indicator in an accessible way. Use the `small` size instead. The standalone Avatar component
+  will continue to support the `xsmall` size.
+
 ## 9.11.5
 
 ### Patch Changes

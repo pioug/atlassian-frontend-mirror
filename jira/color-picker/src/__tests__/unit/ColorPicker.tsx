@@ -5,6 +5,7 @@ import Trigger from '../../components/Trigger';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
+import { toBeAccessible } from '@atlassian/a11y-jest-testing';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 jest.mock('@atlaskit/platform-feature-flags');
@@ -70,6 +71,16 @@ describe('ColorPicker', () => {
 			mockGetBooleanFG.mockReturnValue(true);
 		});
 
+		test('should capture and report a11y violations', async () => {
+			expect.extend({ toBeAccessible });
+			const { container, getByLabelText } = renderUI();
+
+			const colorButton = getByLabelText('Blue selected, Color picker');
+			colorButton.click();
+
+			await expect(container).toBeAccessible();
+		});
+
 		test('should render ColorPicker', () => {
 			const { getByLabelText } = renderUI();
 			const colorButton = getByLabelText('Blue selected, Color picker');
@@ -88,7 +99,7 @@ describe('ColorPicker', () => {
 			expect(colorButton).toHaveAttribute('aria-expanded', 'true');
 
 			// popup to have color options
-			expect(getAllByRole('menuitemradio')).toHaveLength(2);
+			expect(getAllByRole('option')).toHaveLength(2);
 		});
 
 		test('should not submit form when click on trigger', async () => {

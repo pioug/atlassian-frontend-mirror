@@ -4,7 +4,8 @@ import { di } from 'react-magnetic-di';
 import { FormattedMessage } from 'react-intl-next';
 import { Box, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-import AIIcon from '../../../../../common/ai-icon';
+import AIIcon from '@atlaskit/icon/core/atlassian-intelligence';
+import LegacyAIIcon from '../../../../../common/ai-icon';
 import { InfoIcon } from '../icons/info';
 import { messages } from '../../../../../../messages';
 import useAISummaryAction from '../../../../../../state/hooks/use-ai-summary-action';
@@ -34,7 +35,12 @@ export const AIFooterMetadata = ({ testId, url }: AISummaryActionData & { testId
 				)}
 			</Tooltip>
 
-			<AIIcon label="AI" size="small" primaryColor={token('color.icon.subtle')} />
+			<AIIcon
+				label="AI"
+				LEGACY_size="small"
+				LEGACY_fallbackIcon={LegacyAIIcon}
+				color={token('color.icon.subtle')}
+			/>
 		</Inline>
 	);
 };

@@ -50,7 +50,7 @@
 		"@atlaskit/intl-messages-provider": "^1.0.2",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/portal": "^4.9.0",
-		"@atlaskit/theme": "^13.0.0",
+		"@atlaskit/theme": "^13.1.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

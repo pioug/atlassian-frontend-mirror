@@ -6,6 +6,10 @@ import { extendedPalette } from '../mock-data';
 import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 import { IntlProvider } from 'react-intl-next';
+import { DiProvider, injectable } from 'react-magnetic-di';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+const platformFgInjectable = injectable(fg, () => true);
 
 class ColorPaletteMenuExample extends React.Component<{}, { color: string }> {
 	state = {
@@ -27,6 +31,10 @@ class ColorPaletteMenuExample extends React.Component<{}, { color: string }> {
 	}
 }
 
-const Story = () => <ColorPaletteMenuExample />;
+const Story = () => (
+	<DiProvider use={[platformFgInjectable]}>
+		<ColorPaletteMenuExample />
+	</DiProvider>
+);
 
 export default Story;

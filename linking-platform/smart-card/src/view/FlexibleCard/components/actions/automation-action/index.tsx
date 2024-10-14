@@ -1,6 +1,8 @@
 import React, { lazy, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
+import AutomationIcon from '@atlaskit/icon/core/automation';
+
 import AutomationManualTriggersGlyph from './manaul-triggers-icon';
 import Action from '../action';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
@@ -86,7 +88,14 @@ const AutomationAction = (props: LinkActionProps) => {
 		<>
 			<Action
 				content={automationActionTitle}
-				icon={<AutomationManualTriggersGlyph label={automationActionIconLabel} />}
+				icon={
+					<AutomationIcon
+						spacing="spacious"
+						LEGACY_fallbackIcon={AutomationManualTriggersGlyph}
+						color="currentColor"
+						label={automationActionIconLabel}
+					/>
+				}
 				testId="smart-action-automation-action"
 				tooltipMessage={automationActionTooltip}
 				{...props}

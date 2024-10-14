@@ -1,5 +1,34 @@
 # @atlaskit/editor-common
 
+## 93.4.0
+
+### Minor Changes
+
+- [#151707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151707)
+  [`b6edd84148f5e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6edd84148f5e) -
+  [ux] Migrated the layout toolbar to use the new ADS icons
+
+## 93.3.0
+
+### Minor Changes
+
+- [#151190](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151190)
+  [`a3723b1cdede2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3723b1cdede2) -
+  [ux] [ED-25037] this change bumps @atlaskit/adf-schema from 40.9.0 to 40.9.4 which makes the
+  blockquote selectable, adds missing marks to the PM node spec and fixes a bug that converted
+  pasted external images to media groups.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 93.2.5
+
+### Patch Changes
+
+- [`3bfc9e68e4668`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3bfc9e68e4668) -
+  add a helper to switch component based on feature flag value
+
 ## 93.2.4
 
 ### Patch Changes

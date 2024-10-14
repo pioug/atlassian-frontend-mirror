@@ -13,14 +13,14 @@ import Avatar, {
 	type AvatarClickEventHandler,
 	type AvatarPropTypes,
 	BORDER_WIDTH,
-	type SizeType,
 } from '@atlaskit/avatar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { B300, B400, B50, N0, N20, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const buttonSizes: Record<SizeType, React.CSSProperties['font']> = {
-	xsmall: token('font.body.small'),
+import { type AvatarGroupSize } from './types';
+
+const buttonSizes: Record<AvatarGroupSize, React.CSSProperties['font']> = {
 	small: token('font.body.small'),
 	medium: token('font.body.small'),
 	large: token('font.body.UNSAFE_small'),
@@ -77,6 +77,7 @@ export interface MoreIndicatorProps extends AvatarPropTypes {
 	buttonProps: Partial<React.HTMLAttributes<HTMLElement>>;
 	onClick: AvatarClickEventHandler;
 	isActive: boolean;
+	size: AvatarGroupSize;
 }
 
 const MAX_DISPLAY_COUNT = 99;
@@ -88,7 +89,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 			borderColor = fg('platform-component-visual-refresh')
 				? token('elevation.surface')
 				: token('color.border.inverse', N0),
-			size = 'medium' as SizeType,
+			size = 'medium' as AvatarGroupSize,
 			count = 0,
 			testId,
 			onClick,

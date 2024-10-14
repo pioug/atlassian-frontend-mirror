@@ -37,6 +37,9 @@
 		},
 		{
 			"path": "../feature-gate-fetcher/tsconfig.app.json"
+		},
+		{
+			"path": "../feature-gate-js-client/tsconfig.app.json"
 		}
 	]
 }

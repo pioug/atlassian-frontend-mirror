@@ -27,13 +27,13 @@ import {
 	MEDIA_SINGLE_GUTTER_SIZE,
 	MediaBadges,
 } from '@atlaskit/editor-common/media-single';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
 	ContextIdentifierProvider,
 	ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { MediaSingle } from '@atlaskit/editor-common/ui';
 import {
@@ -65,6 +65,7 @@ import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
 
 import { hasPrivateAttrsChanged } from './helpers';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
+import { MediaSingleNodeNext } from './mediaSingleNext';
 import { MediaSingleNodeSelector } from './styles';
 import type { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 
@@ -79,6 +80,9 @@ interface MediaSingleNodeState {
 	isCopying: boolean;
 }
 
+/*
+ * @deprecated Please use the MediaSingleNodeNext
+ */
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class MediaSingleNode extends Component<MediaSingleNodeProps, MediaSingleNodeState> {
 	static defaultProps: Partial<MediaSingleNodeProps> = {
@@ -589,6 +593,32 @@ const MediaSingleNodeWrapper = ({
 		() => (mediaState?.mediaProvider ? Promise.resolve(mediaState?.mediaProvider) : undefined),
 		[mediaState?.mediaProvider],
 	);
+
+	if (fg('platform_editor_react18_phase2__media_single')) {
+		return (
+			<MediaSingleNodeNext
+				width={widthState?.width || 0}
+				lineLength={widthState?.lineLength || 0}
+				node={node}
+				getPos={getPos}
+				mediaProvider={mediaProvider}
+				contextIdentifierProvider={contextIdentifierProvider}
+				mediaOptions={mediaOptions}
+				view={view}
+				fullWidthMode={fullWidthMode}
+				selected={selected}
+				eventDispatcher={eventDispatcher}
+				mediaPluginState={mediaState ?? undefined}
+				annotationPluginState={annotationState ?? undefined}
+				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+				forwardRef={forwardRef}
+				pluginInjectionApi={pluginInjectionApi}
+				editorDisabled={editorDisabledState?.editorDisabled}
+				editorViewMode={editorViewModeState?.mode === 'view'}
+				editorAppearance={editorAppearance}
+			/>
+		);
+	}
 
 	return (
 		<MediaSingleNode

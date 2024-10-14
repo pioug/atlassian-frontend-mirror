@@ -1,24 +1,24 @@
-import { createHash } from 'crypto';
-
 import Fetcher, {
-	type ClientOptions,
-	type CustomAttributes,
 	EXPERIMENT_VALUES_API_VERSION,
 	type FetcherOptions,
 	type FrontendClientSdkKeyResponse,
 	type FrontendExperimentsResponse,
+} from '@atlaskit/feature-gate-fetcher';
+import {
+	type BaseClientOptions,
+	type CustomAttributes,
 	type FrontendExperimentsResult,
 	type Identifiers,
 	type Provider,
-} from '@atlaskit/feature-gate-fetcher';
+} from '@atlaskit/feature-gate-js-client';
 
 import Broadcast from '../Broadcast';
 import FeatureGatesDB from '../database/FeatureGatesDB';
-import { type ExperiemntValuesEntry, type RulesetProfile } from '../database/types';
+import { type ExperimentValuesEntry, type RulesetProfile } from '../database/types';
 
 import Refresh from './Refresh';
 import { type FeatureGateState, type ProviderOptions } from './types';
-import { getFrontendExperimentsResult } from './utils';
+import { createHash, getFrontendExperimentsResult } from './utils';
 
 export type { ProviderOptions } from './types';
 
@@ -68,7 +68,7 @@ export default class PollingProvider implements Provider {
 	}
 
 	async getExperimentValues(
-		clientOptions: ClientOptions,
+		clientOptions: BaseClientOptions,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<FrontendExperimentsResult> {
@@ -76,7 +76,7 @@ export default class PollingProvider implements Provider {
 			throw new Error('Client version has not been set');
 		}
 
-		const { profileHash, rulesetProfile } = this.getProfileHashAndProfile(
+		const { profileHash, rulesetProfile } = await this.getProfileHashAndProfile(
 			clientOptions,
 			identifiers,
 			customAttributes,
@@ -88,12 +88,12 @@ export default class PollingProvider implements Provider {
 		// Attempt to get from the DB
 		const dbValues = await this.featureGatesDB?.getExperimentValues(profileHash);
 
-		const dbEntryTimestamp =
+		const lastKnownUpdatedTimestamp =
 			!dbValues || Date.now() - dbValues.timestamp >= EXPERIMENT_VALUES_STALE_TIMEOUT_MS
 				? 0
 				: dbValues.timestamp;
 
-		this.refresh.updateProfile(profileHash, rulesetProfile, dbEntryTimestamp);
+		this.refresh.updateProfile(profileHash, rulesetProfile, lastKnownUpdatedTimestamp);
 		this.broadcast.updateUserContext(profileHash);
 
 		if (dbValues) {
@@ -102,26 +102,33 @@ export default class PollingProvider implements Provider {
 			return getFrontendExperimentsResult(dbValues.experimentValuesResponse);
 		}
 
+		let newLastUpdatedTimestamp = lastKnownUpdatedTimestamp;
+
 		const experimentResult = await this.fetchExperimentValues(
 			this.clientVersion,
 			clientOptions,
 			identifiers,
 			customAttributes,
-		).finally(() => {
-			this.refresh.start();
-		});
+		)
+			.then((result) => {
+				newLastUpdatedTimestamp = Date.now();
+				return result;
+			})
+			.finally(() => {
+				this.refresh.start();
+			});
 
 		this.featureGateUpdateHttpHandler({
 			profileHash,
 			rulesetProfile,
 			experimentValuesResponse: experimentResult,
-			timestamp: Date.now(),
+			timestamp: newLastUpdatedTimestamp,
 		});
 
 		return getFrontendExperimentsResult(experimentResult);
 	}
 
-	async getClientSdkKey(clientOptions: ClientOptions): Promise<string> {
+	async getClientSdkKey(clientOptions: BaseClientOptions): Promise<string> {
 		if (!this.clientVersion) {
 			throw new Error('Client version has not been set');
 		}
@@ -148,7 +155,7 @@ export default class PollingProvider implements Provider {
 			return clientKeyFromDB.clientSdkKey;
 		}
 
-		const { clientSdkKey }: FrontendClientSdkKeyResponse = await Fetcher.fetchClientSdk(
+		const { clientSdkKey }: FrontendClientSdkKeyResponse = await Fetcher.fetchClientSdkKey(
 			this.clientVersion,
 			fetcherOptions,
 		);
@@ -168,28 +175,27 @@ export default class PollingProvider implements Provider {
 		return this.providerOptions.apiKey;
 	}
 
-	private getProfileHashAndProfile(
-		clientOptions: ClientOptions,
+	private async getProfileHashAndProfile(
+		clientOptions: BaseClientOptions,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
-	): { profileHash: string; rulesetProfile: RulesetProfile } {
+	): Promise<{ profileHash: string; rulesetProfile: RulesetProfile }> {
 		const rulesetProfile: RulesetProfile = this.getRulesetProfile(
 			clientOptions,
 			identifiers,
 			customAttributes,
 		);
 
+		const hashedProfile = await createHash(JSON.stringify(rulesetProfile));
+
 		return {
-			profileHash:
-				EXPERIMENT_VALUES_API_VERSION +
-				'.' +
-				createHash('sha256').update(JSON.stringify(rulesetProfile)).digest('hex'),
+			profileHash: EXPERIMENT_VALUES_API_VERSION + '.' + hashedProfile,
 			rulesetProfile,
 		};
 	}
 
 	private getRulesetProfile(
-		clientOptions: ClientOptions,
+		clientOptions: BaseClientOptions,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): RulesetProfile {
@@ -204,7 +210,7 @@ export default class PollingProvider implements Provider {
 
 	private async fetchExperimentValues(
 		clientVersion: string,
-		clientOptions: ClientOptions,
+		clientOptions: BaseClientOptions,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<FrontendExperimentsResponse> {
@@ -228,7 +234,7 @@ export default class PollingProvider implements Provider {
 		);
 	}
 
-	private featureGateUpdateHttpHandler(experimentValuesEntry: ExperiemntValuesEntry): void {
+	private featureGateUpdateHttpHandler(experimentValuesEntry: ExperimentValuesEntry): void {
 		this.processFeatureGateUpdate(experimentValuesEntry);
 
 		this.featureGatesDB?.setExperimentValues(experimentValuesEntry);

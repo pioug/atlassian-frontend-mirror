@@ -5,7 +5,7 @@ import customMd from '../../utils/custom-md';
 export default customMd`
 
 These are the different variants of \`ActionItem\`.
-To create a custom action, see [CustomAction](#custom-action).
+To create a custom action, see \`CustomAction\`.
 
 ${(
 	<CustomExample
@@ -82,7 +82,6 @@ ${(
 	/>
 )}
 
-<a name="custom-action"></a>
 ### Custom action
 
 Create a unique action for your application with CustomAction by defining its icon and content.

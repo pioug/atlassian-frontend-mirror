@@ -156,10 +156,13 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 		[isFocusLockEnabled, selectedColorIndex, setFocusedIndex, options],
 	);
 
+	const isInsideMenuRole = fg('platform_color_picker-fix-a11y-violations') ? 'menu' : 'group';
+	const role = isInsideMenu ? isInsideMenuRole : 'radiogroup';
+
 	return (
 		<div
 			aria-label={fullLabel}
-			role={isInsideMenu ? 'group' : 'radiogroup'}
+			role={role}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={[colorPaletteMenuStyles, mode === Mode.Standard && colorPaletteMenuStandardStyles]}
 			style={{

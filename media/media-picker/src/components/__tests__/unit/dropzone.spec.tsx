@@ -4,8 +4,8 @@ import { Dropzone, DropzoneBase } from '../../dropzone/dropzone';
 import { mount, type ReactWrapper } from 'enzyme';
 import { type DropzoneDragEnterEventPayload } from '../../types';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
-import { ANALYTICS_MEDIA_CHANNEL, type MediaFeatureFlags } from '@atlaskit/media-common';
 import { fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
 import { isWebkitSupported } from '@atlaskit/media-ui/browser';
 
@@ -17,23 +17,6 @@ async function asyncUpdateComponentTick(wrapper: ReactWrapper) {
 		});
 	});
 }
-
-type DataTransferItem = {
-	kind: string;
-	file: File[];
-	webkitGetAsEntry: () => {};
-};
-
-jest.mock('flat-files', () => ({
-	__esModule: true,
-	getFilesFromItems: jest.fn().mockImplementation((fileArr: DataTransferItem[]) => {
-		const files = fileArr[1].file;
-		return files;
-	}),
-	getFilesFromFileSystemEntries: jest.fn().mockImplementation((files: File[]) => {
-		return files;
-	}),
-}));
 
 jest.mock('@atlaskit/media-ui/browser', () => ({
 	__esModule: true,
@@ -95,21 +78,15 @@ describe('Dropzone', () => {
 		{
 			config: { container, uploadParams: {} },
 			expectedContainer: container,
-			defaultFeatureFlags: {
-				folderUploads: false,
-			},
 		},
 		{
 			config: { uploadParams: {} },
 			expectedContainer: document.body,
-			defaultFeatureFlags: {
-				folderUploads: false,
-			},
 		},
 	].forEach((data) => {
 		describe(`Dropzone with config: ${JSON.stringify(data.config)}`, () => {
 			let component: ReactWrapper;
-			const { config, expectedContainer, defaultFeatureFlags } = data;
+			const { config, expectedContainer } = data;
 			beforeEach(() => {
 				asMockFunction(isWebkitSupported).mockReset();
 			});
@@ -215,64 +192,6 @@ describe('Dropzone', () => {
 				expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
 				expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
 			});
-
-			it('should ensure non-supported browser fallback works (in the context of folder uploads)', async () => {
-				const featureFlags = { folderUploads: true };
-				component = mount(
-					<DropzoneBase mediaClient={mediaClient} config={config} featureFlags={featureFlags} />,
-				);
-
-				const componentInstance = component.instance() as any;
-				componentInstance.uploadService.addFiles = jest.fn();
-				componentInstance.onDrop = jest.fn();
-
-				expectedContainer.dispatchEvent(createDropEvent());
-
-				//non-supported browser or feature flag off option calls onDrop function
-				expect(componentInstance.onDrop).toHaveBeenCalledTimes(1);
-				expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
-				expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
-			});
-
-			it('should filter files uploaded against a blocked list (when folder uploading is enabled)', async () => {
-				asMockFunction(isWebkitSupported).mockImplementationOnce(() => {
-					return true;
-				});
-				const featureFlags = { folderUploads: true };
-				component = mount(
-					<DropzoneBase mediaClient={mediaClient} config={config} featureFlags={featureFlags} />,
-				);
-
-				const unfilteredFiles: File[] = [new File([], '.DS_Store'), new File([], '')];
-				const componentInstance = component.instance() as any;
-				componentInstance.uploadService.addFiles = jest.fn();
-
-				expectedContainer.dispatchEvent(createDropEvent(unfilteredFiles));
-
-				await asyncUpdateComponentTick(component);
-
-				expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
-				expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
-			});
-
-			it('should ensure fallback works if the feature flag for folders is not enabled', async () => {
-				const featureFlags = { folderUploads: false };
-				component = mount(
-					<DropzoneBase mediaClient={mediaClient} config={config} featureFlags={featureFlags} />,
-				);
-
-				const componentInstance = component.instance() as any;
-				componentInstance.uploadService.addFiles = jest.fn();
-				componentInstance.onDrop = jest.fn();
-
-				expectedContainer.dispatchEvent(createDropEvent());
-
-				//non-supported browser or feature flag off option calls onDrop function
-				expect(componentInstance.onDrop).toHaveBeenCalledTimes(1);
-				expect(componentInstance.uploadService.addFiles).toHaveBeenCalledTimes(1);
-				expect(componentInstance.uploadService.addFiles).toBeCalledWith(files);
-			});
-
 			it('should provide a function to onCancelFn callback property and call uploadService.cancel', () => {
 				const onCancelFnMock = jest.fn();
 				component = mount(
@@ -312,70 +231,49 @@ describe('Dropzone', () => {
 			});
 
 			describe('Analytics', () => {
-				const expectedContext = (featureFlags: MediaFeatureFlags) => [
-					{
+				const context = [
+					expect.objectContaining({
 						packageName: expect.any(String),
 						packageVersion: expect.any(String),
 						componentName: 'dropzone',
 						component: 'dropzone',
-						[MEDIA_CONTEXT]: {
-							featureFlags: expect.objectContaining(featureFlags),
-						},
-					},
+					}),
 				];
-				it('should fire a draggedInto event when a file is dragged over dropzone', async () => {
-					const expectedPayload = (featureFlags: MediaFeatureFlags) => ({
-						eventType: 'ui',
-						action: 'draggedInto',
-						actionSubject: 'dropzone',
-						attributes: {
-							fileCount: 1,
-						},
-					});
+
+				it('should fire a draggedInto event when a file is dragged over dropzone', () => {
 					const handleAnalyticsEvent = jest.fn();
 
 					component = mount(
 						<AnalyticsListener channel="media" onEvent={handleAnalyticsEvent}>
-							<Dropzone
-								mediaClient={mediaClient}
-								config={config}
-								featureFlags={defaultFeatureFlags}
-							/>
-							,
+							<Dropzone mediaClient={mediaClient} config={config} />,
 						</AnalyticsListener>,
 					);
 
 					expectedContainer.dispatchEvent(createDragOverEvent());
 
-					expect(handleAnalyticsEvent).toHaveBeenCalledTimes(1);
-					expect(handleAnalyticsEvent).toHaveBeenCalledWith(
+					expect(handleAnalyticsEvent).toHaveBeenNthCalledWith(
+						1,
 						expect.objectContaining({
-							context: expectedContext(defaultFeatureFlags),
-							payload: expectedPayload(defaultFeatureFlags),
+							context,
+							payload: {
+								eventType: 'ui',
+								action: 'draggedInto',
+								actionSubject: 'dropzone',
+								attributes: {
+									fileCount: 1,
+								},
+							},
 						}),
 						ANALYTICS_MEDIA_CHANNEL,
 					);
 				});
 
 				it('should fire a draggedOut event when mouse leaves dropzone', async () => {
-					const expectedPayload = (featureFlags: MediaFeatureFlags) => ({
-						eventType: 'ui',
-						action: 'draggedOut',
-						actionSubject: 'dropzone',
-						attributes: {
-							fileCount: 1,
-						},
-					});
 					const handleAnalyticsEvent = jest.fn();
 
 					component = mount(
 						<AnalyticsListener channel="media" onEvent={handleAnalyticsEvent}>
-							<Dropzone
-								mediaClient={mediaClient}
-								config={config}
-								featureFlags={defaultFeatureFlags}
-							/>
-							,
+							<Dropzone mediaClient={mediaClient} config={config} />,
 						</AnalyticsListener>,
 					);
 
@@ -389,32 +287,26 @@ describe('Dropzone', () => {
 					expect(handleAnalyticsEvent).toHaveBeenNthCalledWith(
 						2,
 						expect.objectContaining({
-							context: expectedContext(defaultFeatureFlags),
-							payload: expectedPayload(defaultFeatureFlags),
+							context,
+							payload: {
+								eventType: 'ui',
+								action: 'draggedOut',
+								actionSubject: 'dropzone',
+								attributes: {
+									fileCount: 1,
+								},
+							},
 						}),
 						ANALYTICS_MEDIA_CHANNEL,
 					);
 				});
 
 				it('should fire a droppedInto event when a file is dropped in dropzone', async () => {
-					const expectedPayload = (featureFlags: MediaFeatureFlags) => ({
-						eventType: 'ui',
-						action: 'droppedInto',
-						actionSubject: 'dropzone',
-						attributes: {
-							fileCount: 1,
-						},
-					});
 					const handleAnalyticsEvent = jest.fn();
 
 					component = mount(
 						<AnalyticsListener channel="media" onEvent={handleAnalyticsEvent}>
-							<Dropzone
-								mediaClient={mediaClient}
-								config={config}
-								featureFlags={defaultFeatureFlags}
-							/>
-							,
+							<Dropzone mediaClient={mediaClient} config={config} />,
 						</AnalyticsListener>,
 					);
 
@@ -426,26 +318,21 @@ describe('Dropzone', () => {
 					expect(handleAnalyticsEvent).toHaveBeenNthCalledWith(
 						2,
 						expect.objectContaining({
-							context: expectedContext(defaultFeatureFlags),
-							payload: expectedPayload(defaultFeatureFlags),
+							context,
+							payload: {
+								eventType: 'ui',
+								action: 'droppedInto',
+								actionSubject: 'dropzone',
+								attributes: {
+									fileCount: 1,
+								},
+							},
 						}),
 						ANALYTICS_MEDIA_CHANNEL,
 					);
 				});
 
-				it('should fire a folderDroppedInto event when a folder is uploaded into the dropzone', async () => {
-					asMockFunction(isWebkitSupported).mockImplementationOnce(() => {
-						return true;
-					});
-
-					const expectedPayload = {
-						eventType: 'ui',
-						action: 'folderDroppedInto',
-						actionSubject: 'dropzone',
-						attributes: {
-							fileCount: 1,
-						},
-					};
+				it('should fire an event with expected feature flags', async () => {
 					const handleAnalyticsEvent = jest.fn();
 
 					component = mount(
@@ -453,25 +340,41 @@ describe('Dropzone', () => {
 							<Dropzone
 								mediaClient={mediaClient}
 								config={config}
-								featureFlags={{
-									folderUploads: true,
-								}}
+								featureFlags={{ commentsOnMedia: true }}
 							/>
 							,
 						</AnalyticsListener>,
 					);
 
+					expectedContainer.dispatchEvent(createDragOverEvent());
 					expectedContainer.dispatchEvent(createDragOverOrDropEvent('drop'));
 					await asyncUpdateComponentTick(component);
 
+					const contextWithFeatureFlags = [
+						expect.objectContaining({
+							packageName: expect.any(String),
+							packageVersion: expect.any(String),
+							componentName: 'dropzone',
+							component: 'dropzone',
+							[MEDIA_CONTEXT]: {
+								featureFlags: expect.objectContaining({ commentsOnMedia: true }),
+							},
+						}),
+					];
+
 					expect(handleAnalyticsEvent).toHaveBeenCalledTimes(2);
 					expect(handleAnalyticsEvent).toHaveBeenNthCalledWith(
-						1,
+						2,
 						expect.objectContaining({
-							context: expectedContext({
-								folderUploads: true,
+							context: contextWithFeatureFlags,
+							payload: expect.objectContaining({
+								eventType: 'ui',
+								action: 'droppedInto',
+								actionSubject: 'dropzone',
+								attributes: {
+									fileCount: 1,
+								},
 							}),
-							payload: expectedPayload,
 						}),
 						ANALYTICS_MEDIA_CHANNEL,
 					);

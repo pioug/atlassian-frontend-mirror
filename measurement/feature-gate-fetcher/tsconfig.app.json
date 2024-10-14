@@ -31,6 +31,10 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__feature-gate-fetcher/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../feature-gate-js-client/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

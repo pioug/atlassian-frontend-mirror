@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import CopyIcon from '@atlaskit/icon/glyph/copy';
+import CopyIcon from '@atlaskit/icon/core/migration/copy';
 import { FormattedMessage } from 'react-intl-next';
 import Action from '../action';
 import { messages } from '../../../../../messages';
@@ -31,8 +31,7 @@ export function CopySummaryAction({
 	return (
 		<Action
 			content={<FormattedMessage {...messages.copy_summary_action} />}
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
-			icon={<CopyIcon label="Copy Summary" />}
+			icon={<CopyIcon color="currentColor" spacing="spacious" label="Copy Summary" />}
 			onClick={handleCopySummaryClick}
 			testId={`${testId}-copy-summary-action`}
 			tooltipMessage={<FormattedMessage {...tooltipMessage} />}

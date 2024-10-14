@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.13.11
+
+### Patch Changes
+
+- [#151707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151707)
+  [`b6edd84148f5e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6edd84148f5e) -
+  [ux] ED-25089: Migrated layout toolbar icons
+- Updated dependencies
+
 ## 1.13.10
 
 ### Patch Changes

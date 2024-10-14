@@ -9,7 +9,7 @@ export default () => (
 			actions={[
 				{
 					name: ActionName.CustomAction,
-					icon: <LikeIcon color="currentColor" spacing="spacious" label="Like" />,
+					icon: <LikeIcon color="currentColor" label="Like" />,
 					content: 'Like',
 					onClick: () => console.log('Like clicked!'),
 				},

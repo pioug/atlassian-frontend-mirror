@@ -1,5 +1,19 @@
 # @atlaskit/layering
 
+## 0.6.0
+
+### Minor Changes
+
+- [#151707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151707)
+  [`a2a509ab13335`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2a509ab13335) -
+  The `useOpenLayerCount` hook has been removed.
+
+  It has been replaced by a new `useOpenLayerObserver` hook, which returns an object with the
+  functions:
+
+  - `getCount`: returns the curent count of open layers under the observer
+  - `onChange`: allows you to subscribe to changes in the layer count.
+
 ## 0.5.1
 
 ### Patch Changes

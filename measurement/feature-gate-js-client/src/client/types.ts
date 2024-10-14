@@ -42,14 +42,14 @@ export interface AnalyticsWebClient {
 }
 
 /**
- * Base client options.
+ * Base client options. Does not include any options specific to providers
  * @interface BaseClientOptions
  * @property {FeatureGateEnvironment} environment - The environment for the client.
  * @property {string} targetApp - The target app for the client.
  * @property {AnalyticsWebClient} analyticsWebClient - The analytics web client.
  * @property {PerimeterType} perimeter - The perimeter for the client.
  */
-interface BaseClientOptions
+export interface BaseClientOptions
 	extends Omit<
 		FeatureGateOptions,
 		'environment' | 'initializeValues' | 'sdkKey' | 'updateUserCompletionCallback'
@@ -77,6 +77,10 @@ export interface ClientOptions extends BaseClientOptions {
 
 export interface FromValuesClientOptions extends BaseClientOptions {
 	sdkKey?: string;
+}
+
+export interface FrontendExperimentsResult extends InitializeValues {
+	clientSdkKey?: string;
 }
 
 /**
@@ -121,3 +125,21 @@ export type InitializeValues = {
 	experimentValues: Record<string, unknown>;
 	customAttributesFromFetch: CustomAttributes | undefined;
 };
+
+export interface FrontendExperimentsResult extends InitializeValues {
+	clientSdkKey?: string;
+}
+
+export interface Provider {
+	setClientVersion: (clientVersion: string) => void;
+	setApplyUpdateCallback?: (
+		applyUpdate: (experimentsResult: FrontendExperimentsResult) => void,
+	) => void;
+	getExperimentValues: (
+		clientOptions: BaseClientOptions,
+		identifiers: Identifiers,
+		customAttributes?: CustomAttributes,
+	) => Promise<FrontendExperimentsResult>;
+	getClientSdkKey: (clientOptions: BaseClientOptions) => Promise<string>;
+	getApiKey?: () => string;
+}

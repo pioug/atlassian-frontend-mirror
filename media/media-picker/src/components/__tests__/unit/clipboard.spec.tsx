@@ -18,7 +18,7 @@ describe('Clipboard', () => {
 	let eventsMapWithContainer: Record<string, Function>;
 
 	const someFeatureFlags: MediaFeatureFlags = {
-		folderUploads: true,
+		commentsOnMedia: true,
 	};
 
 	const legacyConfig: ClipboardConfig = {

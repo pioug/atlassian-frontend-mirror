@@ -1,5 +1,19 @@
 # @atlaskit/profilecard
 
+## 20.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.4.1
+
+### Patch Changes
+
+- [#151190](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151190)
+  [`fce215da94f02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fce215da94f02) -
+  Rename agg user query
+
 ## 20.4.0
 
 ### Minor Changes

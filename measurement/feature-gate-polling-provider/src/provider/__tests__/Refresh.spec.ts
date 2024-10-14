@@ -1,10 +1,12 @@
 import Fetcher, {
-	type CustomAttributes,
-	FeatureGateEnvironment,
 	type FrontendExperimentsResponse,
-	type Identifiers,
 	ResponseError,
 } from '@atlaskit/feature-gate-fetcher/src';
+import {
+	type CustomAttributes,
+	FeatureGateEnvironment,
+	type Identifiers,
+} from '@atlaskit/feature-gate-js-client';
 
 import Refresh, { NO_CACHE_RETRY_OPTIONS_DEFAULT, SCHEDULER_OPTIONS_DEFAULT } from '../Refresh';
 import { type ProviderOptions } from '../types';
@@ -73,6 +75,8 @@ describe('Refresh', () => {
 
 	beforeEach(() => {
 		jest.useFakeTimers({ legacyFakeTimers: true });
+		// eslint-disable-next-line no-console
+		console.info = jest.fn();
 		mockOnFeatureGateUpdate = jest.fn();
 		refresh = new Refresh({ apiKey: 'mock-api-key' }, mockOnFeatureGateUpdate);
 		refresh.setClientVersion('mock-client-version');
@@ -349,6 +353,20 @@ describe('Refresh', () => {
 
 			(refresh as any).fetchAndReschedule();
 			expect(scheduleSpy).toHaveBeenCalled();
+		});
+
+		test('validation log should be called once', () => {
+			(refresh as any).lastUpdateTimestamp = 1;
+			refresh['pollingConfig'].interval = 500;
+
+			(refresh as any).fetchAndReschedule();
+
+			// eslint-disable-next-line no-console
+			expect(console.info).toHaveBeenCalledTimes(1);
+			// eslint-disable-next-line no-console
+			expect(console.info).toHaveBeenCalledWith(
+				'options.pollingInterval needs to be greater than 1000, interval has been set to minimum',
+			);
 		});
 
 		test('calls fetcher to fetchFeatureFlags', () => {

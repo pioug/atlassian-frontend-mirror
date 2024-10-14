@@ -7,7 +7,7 @@ import { navigateToUrl, toExamplePath } from './index';
 
 const styles = xcss({ textAlign: 'right' });
 
-const DocQuickLinks = () => (
+const ExampleQuickLinks = () => (
 	<Box paddingBlock="space.100" xcss={styles}>
 		<DropdownMenu<HTMLButtonElement>
 			shouldFlip
@@ -43,4 +43,4 @@ const DocQuickLinks = () => (
 	</Box>
 );
 
-export default DocQuickLinks;
+export default ExampleQuickLinks;

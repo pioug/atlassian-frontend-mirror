@@ -162,11 +162,7 @@ export type ClipboardPastePayload = UIEventPayload<
 	'clipboard'
 >;
 
-export type DropzoneEventAction =
-	| 'draggedOut'
-	| 'draggedInto'
-	| 'droppedInto'
-	| 'folderDroppedInto';
+export type DropzoneEventAction = 'draggedOut' | 'draggedInto' | 'droppedInto';
 
 export type DropzoneEventPayload = UIEventPayload<
 	UIAttributes & { fileCount: number },

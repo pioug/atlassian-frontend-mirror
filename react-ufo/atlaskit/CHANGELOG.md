@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 1.0.1
+
+### Patch Changes
+
+- [#151377](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151377)
+  [`3c4d80ac5a938`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c4d80ac5a938) -
+  use @atlaskit/react-ufo custom spans within @atlassian/react-ufo create payload
+
 ## 1.0.0
 
 ### Major Changes

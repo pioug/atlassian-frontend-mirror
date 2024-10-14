@@ -3,7 +3,7 @@ import { type CopyLinkActionProps } from './types';
 import Action from '../action';
 import { messages } from '../../../../../messages';
 import { FormattedMessage } from 'react-intl-next';
-import LinkIcon from '@atlaskit/icon/glyph/link';
+import LinkIcon from '@atlaskit/icon/core/migration/link';
 import {
 	useFlexibleUiAnalyticsContext,
 	useFlexibleUiContext,
@@ -42,8 +42,9 @@ const CopyLinkAction = ({ onClick: onClickCallback, ...props }: CopyLinkActionPr
 	return data ? (
 		<Action
 			content={<FormattedMessage {...messages.copy_url_to_clipboard} />}
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
-			icon={<LinkIcon label="copy url" size="medium" />}
+			icon={
+				<LinkIcon color="currentColor" label="copy url" LEGACY_size="medium" spacing="spacious" />
+			}
 			onClick={onClick}
 			testId="smart-action-copy-link-action"
 			tooltipMessage={<FormattedMessage {...tooltipMessage} />}

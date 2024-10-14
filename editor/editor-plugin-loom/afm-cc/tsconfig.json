@@ -40,10 +40,13 @@
             "path": "../../editor-plugin-width/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../../design-system/logo/afm-cc/tsconfig.json"
+            "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
         }
     ]
 }

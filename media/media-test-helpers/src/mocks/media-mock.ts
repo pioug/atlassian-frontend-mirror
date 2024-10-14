@@ -10,11 +10,7 @@ import { RemoteUploadActivityServer, type WebSocketServer } from './websockets';
 import { mapDataUriToBlob } from '../utils';
 import { dataURItoFile } from '@atlaskit/media-ui/util';
 import { smallImage } from '../dataURIs/smallImageURI';
-import {
-	createDropEventWithFiles,
-	createFileSystemDirectoryEntry,
-	createFileSystemFileEntry,
-} from './fileAndDirectoriesUtils';
+import { createDropEventWithFiles, createFileSystemFileEntry } from './fileAndDirectoriesUtils';
 
 const blob = dataURItoFile(smallImage);
 const imageFile = new File([blob], 'image.png', { type: 'image/png' });
@@ -119,8 +115,6 @@ export interface MediaMockControlsBackdoor {
 	resetMediaMock: (config?: MediaMockConfig) => void;
 	shouldWaitUpload?: boolean;
 	uploadImageFromDrag: () => void;
-	uploadFolderFromDrag: () => void;
-	uploadFolderContainingFolderFromDrag: () => void;
 }
 
 const mediaMockControlsBackdoor: MediaMockControlsBackdoor = {
@@ -129,61 +123,6 @@ const mediaMockControlsBackdoor: MediaMockControlsBackdoor = {
 	resetMediaMock: (config = {}) => {
 		mediaMock.disable();
 		mediaMock.enable(config);
-	},
-
-	/**
-	 * Used to simulate the dragging of a folder (which contains a singular image) into the editor
-	 * Library used for folder uploads: https://github.com/zzarcon/flat-files
-	 */
-	uploadFolderFromDrag: () => {
-		const fileSystemFileEntry = createFileSystemFileEntry(
-			fileName,
-			`folder_one/folder_two/${fileName}`,
-			imageFile,
-		);
-
-		// Represents a folder that contains a file
-		const directoryEntryContainingFile = createFileSystemDirectoryEntry(
-			fileName,
-			`folder_one/folder_two/`,
-			[fileSystemFileEntry],
-		);
-
-		const event = createDropEventWithFiles(directoryEntryContainingFile, [imageFile]);
-		document.body.dispatchEvent(event);
-		document.body.querySelector('.fabric-editor-popup-scroll-parent')!.dispatchEvent(event);
-	},
-
-	/**
-	 * Used to simulate the dragging of a folder, which contains a folder (which contains multiple images)
-	 **/
-	uploadFolderContainingFolderFromDrag: () => {
-		const fileSystemFileEntry = createFileSystemFileEntry(
-			fileName,
-			`folder_one/folder_two/${fileName}`,
-			imageFile,
-		);
-
-		const directoryEntryContainingFiles = createFileSystemDirectoryEntry(
-			fileName,
-			`folder_one/folder_two/`,
-			[fileSystemFileEntry, fileSystemFileEntry, fileSystemFileEntry, fileSystemFileEntry],
-		);
-
-		// Represents a folder that contains a folder
-		const directoryEntry = createFileSystemDirectoryEntry(fileName, `folder_one/`, [
-			directoryEntryContainingFiles,
-		]);
-
-		const event = createDropEventWithFiles(directoryEntry, [
-			imageFile,
-			imageFile,
-			imageFile,
-			imageFile,
-		]);
-
-		document.body.dispatchEvent(event);
-		document.body.querySelector('.fabric-editor-popup-scroll-parent')!.dispatchEvent(event);
 	},
 
 	/**

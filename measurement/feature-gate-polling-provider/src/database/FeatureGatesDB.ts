@@ -9,7 +9,7 @@ import {
 import {
 	type ClientSdkKeyEntry,
 	type ClientSdkKeyEntryWithoutKey,
-	type ExperiemntValuesEntry as ExperimentValuesEntry,
+	type ExperimentValuesEntry,
 	type RequestEvent,
 } from './types';
 import { commitTransaction, getClientSdkKeyDBKey, requestToPromise } from './utils';
@@ -107,7 +107,7 @@ export default class FeatureGatesDB {
 
 	async setExperimentValues(entry: ExperimentValuesEntry): Promise<void> {
 		this.setItem<ExperimentValuesEntry>(
-			StoreName.CLIENT_SDK_KEY_STORE_NAME,
+			StoreName.EXPERIMENT_VALUES_STORE_NAME,
 			entry.profileHash,
 			entry,
 		);
@@ -154,7 +154,7 @@ export default class FeatureGatesDB {
 			StoreName.CLIENT_SDK_KEY_STORE_NAME,
 			CLIENT_SDK_KEY_TIMESTAMP_INDEX,
 			CLIENT_SDK_KEY_EXPIRY_PERIOD,
-			(entry) => entry.targetApp,
+			(entry) => entry.dbKey,
 		);
 	}
 
@@ -193,9 +193,9 @@ export default class FeatureGatesDB {
 			const event = (await requestToPromise(request)) as RequestEvent<T>;
 			await commitTransaction(transaction);
 			return event.target.result;
-		} catch {
+		} catch (error) {
 			// eslint-disable-next-line no-console
-			console.warn(`Error when trying to get item in store ${storeName} for key ${key}`);
+			console.warn(`Error when trying to get item in store ${storeName} for key ${key}`, error);
 		}
 		return null;
 	}
@@ -206,12 +206,12 @@ export default class FeatureGatesDB {
 				storeName,
 				'readwrite',
 			);
-			const request = objectStore.put(value, key);
+			const request = objectStore.put(value);
 			await requestToPromise(request);
 			await commitTransaction(transaction);
-		} catch {
+		} catch (error) {
 			// eslint-disable-next-line no-console
-			console.warn(`Error when trying to set item in store ${storeName} with key ${key}`);
+			console.warn(`Error when trying to set item in store ${storeName} with key ${key}`, error);
 		}
 	}
 
@@ -229,9 +229,7 @@ export default class FeatureGatesDB {
 			objectStore.getAll();
 			const timeIndex = objectStore.index(timestampIndexKey);
 
-			const upperBoundOpenKeyRange = IDBKeyRange.upperBound(
-				Date.now() - EXPERIMENT_VALUES_EXPIRY_PERIOD,
-			);
+			const upperBoundOpenKeyRange = IDBKeyRange.upperBound(Date.now() - expiryPeriod);
 			const request = timeIndex.getAll(upperBoundOpenKeyRange);
 			const event = (await requestToPromise(request)) as RequestEvent<T[]>;
 

@@ -1,6 +1,7 @@
 import Icon, { type CustomGlyphProps, type IconProps } from '@atlaskit/icon';
 import { token } from '@atlaskit/tokens';
 import React from 'react';
+import ProjectIcon from '@atlaskit/icon/core/project';
 
 const ProjectsGlyph = (props: CustomGlyphProps) => (
 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -13,4 +14,13 @@ const ProjectsGlyph = (props: CustomGlyphProps) => (
 	</svg>
 );
 
-export const ProjectsIcon = (props: IconProps) => <Icon glyph={ProjectsGlyph} {...props} />;
+const LegacyProjectsIcon = (props: IconProps) => <Icon glyph={ProjectsGlyph} {...props} />;
+
+export const ProjectsIcon = (props: IconProps) => (
+	<ProjectIcon
+		color={token('color.icon', '#44546F')}
+		LEGACY_fallbackIcon={LegacyProjectsIcon}
+		spacing="spacious"
+		{...props}
+	/>
+);

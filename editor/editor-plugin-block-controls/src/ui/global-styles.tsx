@@ -109,6 +109,7 @@ const indentatedParagraphWithTrailingBreakAsOnlyChild =
 const paragraphWithPlaceholder = '+ p > .placeholder-decoration';
 const dragHandleContainer = '.ProseMirror-widget[data-blocks-drag-handle-container="true"]';
 const dragHandleSelector = 'button[data-testid="block-ctrl-drag-handle"]';
+const dropTargetContainer = '.ProseMirror-widget[data-blocks-drop-target-container="true"]';
 
 const withInlineNodeStyleSelectors = [
 	`.ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${paragraphWithTrailingBreakAsOnlyChild})`,
@@ -132,6 +133,16 @@ const withInlineNodeStyleWithChromeFixSelectors = [
 	`${dragHandleContainer}:has(${indentatedParagraphWithTrailingBreakAsOnlyChild}) ${dragHandleSelector}`,
 	`${dragHandleContainer}:has(${paragraphWithPlaceholder}) ${dragHandleSelector}`,
 ].join(', ');
+
+const withFormatInLayoutStyleFixSelectors = [
+	`${dragHandleContainer}:first-child + .fabric-editor-indentation-mark > p:first-child`,
+	`${dragHandleContainer}:first-child + .fabric-editor-alignment > p:first-child`,
+	`${dragHandleContainer}:first-child + ${dropTargetContainer} + .fabric-editor-indentation-mark > p:first-child`,
+	`${dragHandleContainer}:first-child + ${dropTargetContainer} + .fabric-editor-alignment > p:first-child`,
+	`${dropTargetContainer}:first-child + .fabric-editor-alignment > p:first-child`,
+	`${dropTargetContainer}:first-child + .fabric-editor-indentation-mark > p:first-child`,
+].join(', ');
+
 /**
  * Please do not change change transform to display:none, or visibility:hidden
  * Otherwise it might break composition input for Chrome
@@ -143,7 +154,6 @@ const withInlineNodeStyleWithChromeFix = css({
 		transform: 'scale(0)',
 	},
 });
-
 const globalStyles = editorExperiment('nested-dnd', true)
 	? css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -188,6 +198,13 @@ const withMediaSingleStyleFix = css({
 		},
 });
 
+const withFormatInLayoutStyleFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`${withFormatInLayoutStyleFixSelectors}`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		marginTop: '0 !important',
+	},
+});
 const getTextNodeStyle = () => {
 	return fg('platform_editor_element_controls_chrome_input_fix')
 		? withInlineNodeStyleWithChromeFix
@@ -208,6 +225,9 @@ export const GlobalStylesWrapper = () => {
 					: undefined,
 				fg('platform_editor_element_dnd_nested_fix_patch_1')
 					? withDividerInPanelStyleFix
+					: undefined,
+				fg('platform_editor_element_dnd_nested_fix_patch_2')
+					? withFormatInLayoutStyleFix
 					: undefined,
 			]}
 		/>

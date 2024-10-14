@@ -11,6 +11,7 @@ import { type IntlShape } from 'react-intl-next';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { layers } from '@atlaskit/theme/constants';
@@ -20,7 +21,12 @@ import { token } from '@atlaskit/tokens';
 import type { BlockControlsPlugin } from '../types';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 
-import { getNestedNodeLeftPaddingMargin, nodeMargins, spaceLookupMap } from './consts';
+import {
+	dropTargetMarginMap,
+	getNestedNodeLeftPaddingMargin,
+	nodeMargins,
+	spaceLookupMap,
+} from './consts';
 
 const DEFAULT_DROP_INDICATOR_WIDTH = 760;
 const EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH = '--editor-block-controls-drop-indicator-width';
@@ -68,6 +74,32 @@ const getNodeMargins = (node?: PMNode) => {
 	}
 
 	return nodeMargins[nodeTypeName] || nodeMargins['default'];
+};
+
+const getNestedDropTargetMarginTop = (
+	prevNode?: PMNode,
+	nextNode?: PMNode,
+	isNestedDropTarget?: boolean,
+) => {
+	if (!prevNode || !nextNode) {
+		return css({ marginTop: token('space.negative.100', '-8px') });
+	}
+	const top = getNodeMargins(nextNode).top;
+	const bottom = getNodeMargins(prevNode).bottom;
+
+	if (
+		['rule', 'media', 'mediaSingle'].includes(prevNode.type.name) &&
+		isNestedDropTarget &&
+		top > 0 &&
+		bottom > 0
+	) {
+		const collapsedMarginOffset = top === bottom ? top : Math.abs(top - bottom);
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		const marginTop =
+			dropTargetMarginMap[-collapsedMarginOffset - 8] || `-${collapsedMarginOffset + 8}px`;
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		return css({ marginTop });
+	}
 };
 
 const getDropTargetOffsetStyle = (prevNode?: PMNode, nextNode?: PMNode) => {
@@ -120,6 +152,8 @@ export const DropTarget = ({
 			return;
 		}
 
+		// This should be moved to platform/packages/editor/editor-plugin-block-controls/src/utils/validation.ts
+		// Since we are moved to drop-target-v2
 		// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
 		if (editorExperiment('nest-media-and-codeblock-in-quote', false)) {
 			const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
@@ -186,6 +220,13 @@ export const DropTarget = ({
 		return getDropTargetOffsetStyle(prevNode, nextNode);
 	}, [prevNode, nextNode, parentNode]);
 
+	const dropTargetMarginTopStyles = useMemo(() => {
+		if (parentNode === prevNode) {
+			return null;
+		}
+		return getNestedDropTargetMarginTop(prevNode, nextNode, isNestedDropTarget);
+	}, [prevNode, nextNode, parentNode, isNestedDropTarget]);
+
 	const dynamicStyle = {
 		width: isNestedDropTarget ? 'unset' : '100%',
 		[EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH]: isNestedDropTarget
@@ -202,8 +243,14 @@ export const DropTarget = ({
 	return (
 		// Note: Firefox has trouble with using a button element as the handle for drag and drop
 		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			css={[styleDropTarget, dropTargetOffsetStyle, isNestedDropTarget && nestedDropIndicatorStyle]}
+			css={[
+				styleDropTarget,
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				dropTargetOffsetStyle,
+				isNestedDropTarget && nestedDropIndicatorStyle,
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				fg('platform_editor_element_dnd_nested_fix_patch_2') && dropTargetMarginTopStyles,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={dynamicStyle}
 			ref={ref}

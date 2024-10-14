@@ -1,9 +1,6 @@
 // Media feature flags - type and defaults defined here in one source of truth
 export interface MediaFeatureFlags {
 	mediaInline?: boolean;
-	// We can't yet switch this feature on
-	// https://product-fabric.atlassian.net/browse/MEX-104
-	folderUploads?: boolean;
 	commentsOnMedia?: boolean;
 }
 

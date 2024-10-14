@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 16.1.0
+
+### Minor Changes
+
+- [#151641](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151641)
+  [`d212954f3fb10`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d212954f3fb10) -
+  Updated header styles introduced in v15.1.0 are now default and no longer behind a feature flag.
+
 ## 16.0.0
 
 ### Major Changes

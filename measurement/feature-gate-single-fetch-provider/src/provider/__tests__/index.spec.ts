@@ -1,16 +1,17 @@
-import Fetcher, {
-	type ClientOptions,
+import Fetcher from '@atlaskit/feature-gate-fetcher';
+import {
+	type BaseClientOptions,
 	type CustomAttributes,
 	FeatureGateEnvironment,
 	type Identifiers,
-} from '@atlaskit/feature-gate-fetcher';
+} from '@atlaskit/feature-gate-js-client';
 
 import SingleFetchProvider, { type ProviderOptions } from '../index';
 
 jest.mock('@atlaskit/feature-gate-fetcher', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-fetcher'),
 	fetchExperimentValues: jest.fn(),
-	fetchClientSdk: jest.fn(),
+	fetchClientSdkKey: jest.fn(),
 }));
 
 const mockClientSdkKey = 'mock-client-sdk-key';
@@ -19,7 +20,7 @@ const mockExperimentValues = {
 	value: '12345',
 };
 
-const mockClientOptions: ClientOptions = {
+const mockClientOptions: BaseClientOptions = {
 	environment: FeatureGateEnvironment.Development,
 	targetApp: 'targetApp_web',
 };
@@ -49,7 +50,7 @@ describe('SingeFetchProvider', () => {
 			customAttributes: mockCustomAttributesFromFetch,
 			clientSdkKey: mockClientSdkKey,
 		});
-		mockedFetcher.fetchClientSdk.mockResolvedValue({ clientSdkKey: mockClientSdkKey });
+		mockedFetcher.fetchClientSdkKey.mockResolvedValue({ clientSdkKey: mockClientSdkKey });
 		provider = new SingleFetchProvider(providerOptions);
 		provider.setClientVersion(mockClientVersion);
 	});
@@ -108,7 +109,7 @@ describe('SingeFetchProvider', () => {
 	describe('getClientSdkKey', function () {
 		test('successfully', async () => {
 			await expect(provider.getClientSdkKey(mockClientOptions)).resolves.toBe(mockClientSdkKey);
-			await expect(mockedFetcher.fetchClientSdk).toHaveBeenCalledWith(mockClientVersion, {
+			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
 				fetchTimeoutMs: 12,
@@ -118,12 +119,14 @@ describe('SingeFetchProvider', () => {
 		});
 
 		test('error thrown when fetch rejects', async () => {
-			mockedFetcher.fetchClientSdk.mockRejectedValue(new Error('failed to fetch client sdk key'));
+			mockedFetcher.fetchClientSdkKey.mockRejectedValue(
+				new Error('failed to fetch client sdk key'),
+			);
 
 			await expect(provider.getClientSdkKey(mockClientOptions)).rejects.toThrow(
 				'failed to fetch client sdk key',
 			);
-			await expect(mockedFetcher.fetchClientSdk).toHaveBeenCalledWith(mockClientVersion, {
+			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
 				fetchTimeoutMs: 12,

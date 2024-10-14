@@ -42,7 +42,7 @@ const messageTextStyle = xcss({
 	textIndent: 'space.075',
 });
 
-const isSafari = navigator.userAgent.indexOf('Safari');
+const isSafari = typeof window !== 'undefined' && window.navigator.userAgent.indexOf('Safari');
 
 type InputProps = {
 	text: string;

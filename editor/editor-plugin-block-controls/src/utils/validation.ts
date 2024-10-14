@@ -2,6 +2,7 @@ import memoizeOne from 'memoize-one';
 
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const isInsideTable = (nodeType: NodeType): Boolean => {
 	const { tableCell, tableHeader } = nodeType.schema.nodes;
@@ -72,6 +73,32 @@ export const memoizedTransformExpandToNestedExpand = memoizeOne((node: PMNode) =
 
 export function canMoveNodeToIndex(destParent: PMNode, indexIntoParent: number, srcNode: PMNode) {
 	let srcNodeType = srcNode.type;
+
+	const parentNodeType = destParent?.type.name;
+	const activeNodeType = srcNode?.type.name;
+
+	// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
+	if (editorExperiment('nest-media-and-codeblock-in-quote', false)) {
+		if (
+			parentNodeType === 'blockquote' &&
+			(activeNodeType === 'mediaGroup' ||
+				activeNodeType === 'mediaSingle' ||
+				activeNodeType === 'codeBlock')
+		) {
+			return false;
+		}
+	}
+
+	// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
+	if (editorExperiment('nested-expand-in-expand', false)) {
+		if (
+			parentNodeType === 'expand' &&
+			(activeNodeType === 'expand' || activeNodeType === 'nestedExpand')
+		) {
+			return false;
+		}
+	}
+
 	if (isInsideTable(destParent.type) && isExpand(srcNodeType)) {
 		if (memoizedTransformExpandToNestedExpand(srcNode)) {
 			srcNodeType = srcNodeType.schema.nodes.nestedExpand;

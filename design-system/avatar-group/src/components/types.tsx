@@ -1,7 +1,7 @@
 import type { ElementType, ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
 
 import type { AnalyticsEvent } from '@atlaskit/analytics-next';
-import { type default as Avatar, type AvatarPropTypes } from '@atlaskit/avatar';
+import { type default as Avatar, type AvatarPropTypes, type SizeType } from '@atlaskit/avatar';
 import { type MenuGroupProps } from '@atlaskit/menu';
 import { type ContentProps } from '@atlaskit/popup';
 
@@ -46,3 +46,5 @@ export type Action = 'next' | 'prev' | 'first' | 'last';
 export interface PopupAvatarGroupProps extends MenuGroupProps {
 	setInitialFocusRef?: ContentProps['setInitialFocusRef'];
 }
+
+export type AvatarGroupSize = Exclude<SizeType, 'xsmall'>;

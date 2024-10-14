@@ -41,7 +41,7 @@ describe('@atlaskit/reactions/components/selector', () => {
 		expect(emojiWrappers.length).toEqual(DefaultReactions.length);
 
 		DefaultReactions.forEach(({ id, shortName }) => {
-			const elem = screen.getByLabelText(shortName, { exact: false });
+			const elem = screen.getByLabelText(shortName, { selector: 'button', exact: false });
 			expect(elem).toBeInTheDocument();
 		});
 	});

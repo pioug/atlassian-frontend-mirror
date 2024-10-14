@@ -1,5 +1,17 @@
 # @atlaskit/media-test-helpers
 
+## 34.5.0
+
+### Minor Changes
+
+- [#151581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151581)
+  [`f1c0ae301860f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f1c0ae301860f) -
+  Remove test helpers related to flat-files
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.4.6
 
 ### Patch Changes

@@ -4,7 +4,8 @@ import { type EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/a
 import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { QuickInsertHandlerFn } from '@atlaskit/editor-common/types';
-import { LoomIcon } from '@atlaskit/logo';
+import VideoIcon from '@atlaskit/icon/core/video';
+import { token } from '@atlaskit/tokens';
 
 import { recordVideo, recordVideoFailed } from '../commands';
 import { loomPluginKey } from '../pm-plugin';
@@ -18,7 +19,7 @@ export const getQuickInsertItem =
 			description: formatMessage(toolbarInsertBlockMessages.recordVideoDescription),
 			keywords: ['loom', 'record', 'video'],
 			priority: 800,
-			icon: () => <LoomIcon appearance="brand" />,
+			icon: () => <VideoIcon label="" color={token('color.text')} spacing="spacious" />,
 			action(insert, editorState) {
 				const tr = insert(undefined);
 

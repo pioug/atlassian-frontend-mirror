@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import Action from '../action';
-import AiIcon from '../../../../common/ai-icon';
+import AiIcon from '@atlaskit/icon/core/atlassian-intelligence';
+import LegacyAiIcon from '../../../../common/ai-icon';
 import { messages } from '../../../../../messages';
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import type {
@@ -53,7 +54,14 @@ export function AISummariseAction({
 	return (
 		<Action
 			content={<FormattedMessage {...messages.ai_summary_action} />}
-			icon={<AiIcon label="Summarise with AI" />}
+			icon={
+				<AiIcon
+					spacing="spacious"
+					color="currentColor"
+					label="Summarise with AI"
+					LEGACY_fallbackIcon={LegacyAiIcon}
+				/>
+			}
 			onClick={handleActionClick}
 			testId={`${testId}-summarise-action`}
 			isLoading={status === 'loading'}

@@ -8,7 +8,7 @@ import { type ElementType, type MouseEventHandler, useCallback, useEffect, useSt
 import { jsx } from '@emotion/react';
 import { bind, type UnbindFn } from 'bind-event-listener';
 
-import Avatar, { type SizeType } from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar';
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import noop from '@atlaskit/ds-lib/noop';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
@@ -25,6 +25,7 @@ import MoreIndicator from './more-indicator';
 import Stack from './stack';
 import {
 	type AvatarGroupOverrides,
+	type AvatarGroupSize,
 	type AvatarProps,
 	type DeepRequired,
 	type onAvatarClickHandler,
@@ -60,8 +61,10 @@ export interface AvatarGroupProps {
 	/**
 	 * Defines the size of the avatar.
 	 * Defaults to "medium".
+	 *
+	 * Note: The "xsmall" size that exists on Avatar is not supported here because elements such as the more indicator cannot be displayed in an accessible manner at that size.
 	 */
-	size?: SizeType;
+	size?: AvatarGroupSize;
 
 	/**
 	 * Typically the background color that the avatar is presented on.

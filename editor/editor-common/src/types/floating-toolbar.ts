@@ -129,6 +129,7 @@ export type FloatingToolbarButton<T extends {}> = {
 	onBlur?: T;
 	onMount?: () => void;
 	icon?: Icon;
+	iconFallback?: Icon;
 	selected?: boolean;
 	disabled?: boolean;
 	hidden?: boolean;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-client-extension",
-	"version": "2.4.0",
+	"version": "2.4.1",
 	"description": "Extension methods for linking platform client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -92,11 +92,6 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"platform.linking-platform.datasource.add-timezone-header": {
-			"type": "boolean"
 		}
 	}
 }

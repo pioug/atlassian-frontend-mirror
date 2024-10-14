@@ -1,12 +1,11 @@
 import { createContext } from 'react';
 
+import { type OpenLayerObserverInternalAPI } from './types';
+
 /**
- * Context for setting the number of layers currently open under the observer.
+ * Context for the open layer observer.
  *
  * We are setting the default value to `null` so we can check if there are nested context providers,
  * so we know to update the layer count in the parent context as well.
  */
-export const UpdateLayerCount = createContext<{
-	increment: () => void;
-	decrement: () => void;
-} | null>(null);
+export const OpenLayerObserverContext = createContext<OpenLayerObserverInternalAPI | null>(null);

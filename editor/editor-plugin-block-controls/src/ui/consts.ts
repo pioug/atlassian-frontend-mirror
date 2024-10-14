@@ -55,7 +55,7 @@ export const topPositionAdjustment = (nodeType: string) => {
 	}
 };
 
-const dropTargetMarginMap: { [key: number]: string } = {
+export const dropTargetMarginMap: { [key: number]: string } = {
 	[-24]: token('space.negative.300', '-24px'),
 	[-20]: token('space.negative.250', '-20px'),
 	[-16]: token('space.negative.200', '-16px'),
@@ -109,6 +109,7 @@ export const nodeMargins: { [key: string]: { top: number; bottom: number } } = {
 	panel: { top: 8, bottom: 0 },
 	rule: { top: 24, bottom: 24 },
 	mediaSingle: { top: 24, bottom: 24 },
+	media: { top: 24, bottom: 24 },
 	bodiedExtension: { top: 0, bottom: 0 },
 	extension: { top: 12, bottom: 12 },
 	heading1: { top: 40, bottom: 0 },

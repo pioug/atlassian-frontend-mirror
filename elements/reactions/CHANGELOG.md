@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 22.14.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.14.8
 
 ### Patch Changes

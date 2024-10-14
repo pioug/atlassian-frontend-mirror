@@ -1,6 +1,6 @@
 import React, { type FC, useState } from 'react';
 
-import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
+import { AVATAR_SIZES } from '@atlaskit/avatar';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
@@ -9,7 +9,7 @@ import ArrowUp from '@atlaskit/icon/glyph/arrow-up';
 import Toggle from '@atlaskit/toggle';
 
 import { Code, Note } from '../examples-util/helpers';
-import AvatarGroup from '../src';
+import AvatarGroup, { type AvatarGroupProps } from '../src';
 
 type State = {
 	avatarCount: number;
@@ -26,7 +26,7 @@ const AvatarGroupExample: FC = () => {
 		avatarCountMax: 11,
 		gridWidth: 220,
 		mode: 'stack',
-		sizeIndex: 3,
+		sizeIndex: 2,
 		isTooltipsDisabled: false,
 	});
 
@@ -52,7 +52,9 @@ const AvatarGroupExample: FC = () => {
 	};
 
 	const { avatarCount, avatarCountMax, gridWidth, mode, sizeIndex } = state;
-	const sizes = Object.keys(AVATAR_SIZES) as SizeType[];
+	const sizes = Object.keys(AVATAR_SIZES).filter(
+		(size) => size !== 'xsmall',
+	) as AvatarGroupProps['size'][];
 	const avatarSize = sizes[sizeIndex];
 	const stackSourceURLs = [];
 	// eslint-disable-next-line no-plusplus

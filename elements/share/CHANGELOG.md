@@ -1,5 +1,12 @@
 # @atlaskit/share
 
+## 4.20.2
+
+### Patch Changes
+
+- [`f0bcc790b1eea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f0bcc790b1eea) -
+  safe reference of global navigator object
+
 ## 4.20.1
 
 ### Patch Changes

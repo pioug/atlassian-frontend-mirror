@@ -15,6 +15,13 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import DeleteIcon from '@atlaskit/icon/core/delete';
+import LayoutOneColumnIcon from '@atlaskit/icon/core/layout-one-column';
+import LayoutThreeColumnsIcon from '@atlaskit/icon/core/layout-three-columns';
+import LayoutThreeColumnsSidebarsIcon from '@atlaskit/icon/core/layout-three-columns-sidebars';
+import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
+import LayoutTwoColumnsSidebarLeftIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-left';
+import LayoutTwoColumnsSidebarRightIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-right';
 import EditorLayoutSingleIcon from '@atlaskit/icon/glyph/editor/layout-single';
 import LayoutThreeEqualIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
 import LayoutThreeWithSidebarsIcon from '@atlaskit/icon/glyph/editor/layout-three-with-sidebars';
@@ -33,6 +40,7 @@ type PresetLayoutButtonItem = {
 	type: PresetLayout;
 	title: MessageDescriptor;
 	icon: Icon;
+	iconFallback?: Icon;
 };
 
 const LAYOUT_TYPES: PresetLayoutButtonItem[] = [
@@ -40,13 +48,15 @@ const LAYOUT_TYPES: PresetLayoutButtonItem[] = [
 		id: 'editor.layout.twoEquals',
 		type: 'two_equal',
 		title: toolbarMessages.twoColumns,
-		icon: LayoutTwoEqualIcon,
+		icon: LayoutTwoColumnsIcon,
+		iconFallback: LayoutTwoEqualIcon,
 	},
 	{
 		id: 'editor.layout.threeEquals',
 		type: 'three_equal',
 		title: toolbarMessages.threeColumns,
-		icon: LayoutThreeEqualIcon,
+		icon: LayoutThreeColumnsIcon,
+		iconFallback: LayoutThreeEqualIcon,
 	},
 ];
 
@@ -55,7 +65,8 @@ const LAYOUT_TYPES_WITH_SINGLE_COL: PresetLayoutButtonItem[] = [
 		id: 'editor.layout.singeLayout',
 		type: 'single',
 		title: toolbarMessages.singleColumn,
-		icon: EditorLayoutSingleIcon,
+		icon: LayoutOneColumnIcon,
+		iconFallback: EditorLayoutSingleIcon,
 	},
 	...LAYOUT_TYPES,
 ];
@@ -65,19 +76,22 @@ const SIDEBAR_LAYOUT_TYPES: PresetLayoutButtonItem[] = [
 		id: 'editor.layout.twoRightSidebar',
 		type: 'two_right_sidebar',
 		title: toolbarMessages.rightSidebar,
-		icon: LayoutTwoRightSidebarIcon,
+		icon: LayoutTwoColumnsSidebarRightIcon,
+		iconFallback: LayoutTwoRightSidebarIcon,
 	},
 	{
 		id: 'editor.layout.twoLeftSidebar',
 		type: 'two_left_sidebar',
 		title: toolbarMessages.leftSidebar,
-		icon: LayoutTwoLeftSidebarIcon,
+		icon: LayoutTwoColumnsSidebarLeftIcon,
+		iconFallback: LayoutTwoLeftSidebarIcon,
 	},
 	{
 		id: 'editor.layout.threeWithSidebars',
 		type: 'three_with_sidebars',
 		title: toolbarMessages.threeColumnsWithSidebars,
-		icon: LayoutThreeWithSidebarsIcon,
+		icon: LayoutThreeColumnsSidebarsIcon,
+		iconFallback: LayoutThreeWithSidebarsIcon,
 	},
 ];
 
@@ -90,6 +104,7 @@ const buildLayoutButton = (
 	id: item.id,
 	type: 'button',
 	icon: item.icon,
+	iconFallback: item.iconFallback,
 	testId: item.title.id ? `${item.title.id}` : undefined,
 	title: intl.formatMessage(item.title),
 	onClick: setPresetLayout(editorAnalyticsAPI)(item.type),
@@ -125,7 +140,8 @@ export const buildToolbar = (
 			type: 'button',
 			appearance: 'danger',
 			focusEditoronEnter: true,
-			icon: RemoveIcon,
+			icon: DeleteIcon,
+			iconFallback: RemoveIcon,
 			testId: commonMessages.remove.id,
 			title: intl.formatMessage(commonMessages.remove),
 			onClick: deleteActiveLayoutNode(editorAnalyticsAPI),

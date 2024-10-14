@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-batch-attribute-updates",
-	"version": "1.0.8",
+	"version": "1.1.0",
 	"description": "Provider a runtime tool to merge an array of SetAttrsStep and/or AttrsSteps into an unique BatchAttrsStep",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,8 +40,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.9.0",
-		"@atlaskit/editor-common": "^93.2.0",
+		"@atlaskit/adf-schema": "^40.9.4",
+		"@atlaskit/editor-common": "^93.4.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@babel/runtime": "^7.0.0"
 	},

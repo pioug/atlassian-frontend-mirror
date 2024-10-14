@@ -1,11 +1,11 @@
+import { type FrontendExperimentsResponse } from '@atlaskit/feature-gate-fetcher';
 import {
-	type ClientOptions,
+	type BaseClientOptions,
 	type CustomAttributes,
-	type FrontendExperimentsResponse,
 	type Identifiers,
-} from '@atlaskit/feature-gate-fetcher';
+} from '@atlaskit/feature-gate-js-client';
 
-export type RulesetProfile = Pick<ClientOptions, 'environment' | 'targetApp' | 'perimeter'> & {
+export type RulesetProfile = Pick<BaseClientOptions, 'environment' | 'targetApp' | 'perimeter'> & {
 	identifiers: Identifiers;
 	customAttributes?: CustomAttributes;
 };
@@ -16,13 +16,16 @@ export type ObjectWithTimestamp = {
 	timestamp: number;
 };
 
-export type ExperiemntValuesEntry = {
+export type ExperimentValuesEntry = {
 	profileHash: string;
 	rulesetProfile: RulesetProfile;
 	experimentValuesResponse: FrontendExperimentsResponse;
 } & ObjectWithTimestamp;
 
-export type ClientSdkKeyEntry = Pick<ClientOptions, 'environment' | 'targetApp' | 'perimeter'> & {
+export type ClientSdkKeyEntry = Pick<
+	BaseClientOptions,
+	'environment' | 'targetApp' | 'perimeter'
+> & {
 	clientSdkKey: string;
 	dbKey: string;
 } & ObjectWithTimestamp;

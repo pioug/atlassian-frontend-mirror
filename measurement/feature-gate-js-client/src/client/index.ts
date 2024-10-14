@@ -7,8 +7,11 @@ import Statsig, {
 	type StatsigUser,
 } from 'statsig-js-lite';
 
+import Subscriptions from '../subscriptions';
+
 import Fetcher, { type FetcherOptions } from './fetcher';
 import {
+	type BaseClientOptions,
 	type CheckGateOptions,
 	type ClientOptions,
 	type CustomAttributes,
@@ -21,6 +24,7 @@ import {
 	type Identifiers,
 	type InitializeValues,
 	PerimeterType,
+	type Provider,
 	type UpdateUserCompletionCallback,
 } from './types';
 import { CLIENT_VERSION } from './version';
@@ -30,16 +34,21 @@ export { DynamicConfig, EvaluationReason } from 'statsig-js-lite';
 
 export type {
 	AnalyticsWebClient,
+	BaseClientOptions,
 	ClientOptions,
 	CustomAttributes,
 	FromValuesClientOptions,
+	FrontendExperimentsResult,
 	GetExperimentOptions,
 	GetExperimentValueOptions,
 	Identifiers,
 	InitializeValues,
 	UpdateUserCompletionCallback,
+	Provider,
 } from './types';
 export { FeatureGateEnvironment, PerimeterType } from './types';
+
+export { CLIENT_VERSION } from './version';
 
 declare global {
 	interface Window {
@@ -62,7 +71,7 @@ const DEFAULT_EVENT_LOGGING_API = 'https://xp.atlassian.com/v1/';
  * ```
  */
 class FeatureGates {
-	private static initOptions: ClientOptions | FromValuesClientOptions;
+	private static initOptions: BaseClientOptions | ClientOptions | FromValuesClientOptions;
 	private static initPromise: Promise<void> | null = null;
 	private static initCompleted: boolean = false;
 	private static currentIdentifiers: Identifiers;
@@ -72,6 +81,9 @@ class FeatureGates {
 	private static hasGetLayerErrorOccurred = false;
 	private static hasGetLayerValueErrorOccurred = false;
 	private static hasCheckGateErrorOccurred = false;
+
+	private static provider: Provider;
+	private static subscriptions: Subscriptions = new Subscriptions();
 
 	/**
 	 * @description
@@ -118,6 +130,72 @@ class FeatureGates {
 					'initialize',
 					FeatureGates.initCompleted,
 					clientOptions.apiKey,
+				);
+			});
+		return FeatureGates.initPromise;
+	}
+
+	/**
+	 * @description
+	 * This method initializes the client using the provider given to call to fetch the bootstrap values.
+	 * If the client is initialized with an `analyticsWebClient`, it will send an operational event
+	 * to GASv3 with the following attributes:
+	 * - targetApp: the target app of the client
+	 * - clientVersion: the version of the client
+	 * - success: whether the initialization was successful
+	 * - startTime: the time when the initialization started
+	 * - totalTime: the total time it took to initialize the client
+	 * - apiKey: the api key used to initialize the client
+	 * @param clientOptions {ClientOptions}
+	 * @param provider {Provider}
+	 * @param identifiers {Identifiers}
+	 * @param customAttributes {CustomAttributes}
+	 * @returns {Promise<void>}
+	 */
+	static async initializeWithProvider(
+		clientOptions: BaseClientOptions,
+		provider: Provider,
+		identifiers: Identifiers,
+		customAttributes?: CustomAttributes,
+	): Promise<void> {
+		if (FeatureGates.initPromise) {
+			if (!FeatureGates.shallowEquals(clientOptions, FeatureGates.initOptions)) {
+				// eslint-disable-next-line no-console
+				console.warn(
+					'Feature Gates client already initialized with different options. New options were not applied.',
+				);
+			}
+			return FeatureGates.initPromise;
+		}
+		const startTime = performance.now();
+		FeatureGates.initOptions = clientOptions;
+		FeatureGates.subscriptions = new Subscriptions();
+		FeatureGates.provider = provider;
+		FeatureGates.provider.setClientVersion(CLIENT_VERSION);
+		if (FeatureGates.provider.setApplyUpdateCallback) {
+			FeatureGates.provider.setApplyUpdateCallback((experimentsResult) => {
+				Statsig.setInitializeValues(experimentsResult.experimentValues);
+				FeatureGates.subscriptions.anyUpdated();
+			});
+		}
+
+		FeatureGates.initPromise = FeatureGates.initWithProvider(
+			clientOptions,
+			identifiers,
+			customAttributes,
+		)
+			.then(() => {
+				FeatureGates.initCompleted = true;
+			})
+			.finally(() => {
+				const endTime = performance.now();
+				const totalTime = endTime - startTime;
+				FeatureGates.fireClientEvent(
+					startTime,
+					totalTime,
+					'initialize',
+					FeatureGates.initCompleted,
+					provider.getApiKey ? provider.getApiKey() : undefined,
 				);
 			});
 		return FeatureGates.initPromise;
@@ -215,6 +293,33 @@ class FeatureGates {
 			);
 		await FeatureGates.updateUserUsingInitializeValuesProducer(
 			initializeValuesProducer,
+			identifiers,
+			customAttributes,
+		);
+	}
+
+	/**
+	 * This method updates the user using the provider given on initialisation to get the new set of values
+	 * @param identifiers {Identifiers}
+	 * @param customAttributes {CustomAttributes}
+	 */
+	static async updateUserWithProvider(
+		identifiers: Identifiers,
+		customAttributes?: CustomAttributes,
+	): Promise<void> {
+		if (!FeatureGates.provider) {
+			throw new Error(
+				'Cannot update user using provider as the client was not initialised with a provider',
+			);
+		}
+
+		await FeatureGates.updateUserUsingInitializeValuesProducer(
+			() =>
+				FeatureGates.provider.getExperimentValues(
+					FeatureGates.initOptions,
+					identifiers,
+					customAttributes,
+				),
 			identifiers,
 			customAttributes,
 		);
@@ -507,7 +612,7 @@ class FeatureGates {
 	 * Returns whether the given identifiers and customAttributes align with the current
 	 * set that is being used by the client.
 	 *
-	 * If this method returns false, then the {@link FeatureGates.updateUser} or {@link FeatureGates.updateUserWithValues}
+	 * If this method returns false, then the {@link FeatureGates.updateUser}, {@link FeatureGates.updateUserWithValues} or {@link FeatureGates.updateUserWithProvider}
 	 * methods can be used to re-align these values.
 	 *
 	 * @param identifiers
@@ -519,6 +624,91 @@ class FeatureGates {
 			FeatureGates.shallowEquals(FeatureGates.currentIdentifiers, identifiers) &&
 			FeatureGates.shallowEquals(FeatureGates.currentAttributes, customAttributes)
 		);
+	}
+
+	/**
+	 * Subscribe to updates where the given callback will be called with the current checkGate value
+	 * @param gateName
+	 * @param callback
+	 * @param options
+	 * @returns off function to unsubscribe from updates
+	 */
+	static onGateUpdated(
+		gateName: string,
+		callback: (value: boolean) => void,
+		options: CheckGateOptions = {},
+	): () => void {
+		const wrapCallback = (value: boolean): void => {
+			const { fireGateExposure = true } = options;
+			if (fireGateExposure) {
+				FeatureGates.manuallyLogGateExposure(gateName);
+			}
+			try {
+				callback(value);
+			} catch (error) {
+				// eslint-disable-next-line no-console
+				console.warn(`Error calling callback for gate ${gateName} with value ${value}`, error);
+			}
+		};
+
+		return FeatureGates.subscriptions.onGateUpdated(
+			gateName,
+			wrapCallback,
+			FeatureGates.checkGate,
+			options,
+		);
+	}
+
+	/**
+	 * Subscribe to updates where the given callback will be called with the current experiment value
+	 * @param experimentName
+	 * @param parameterName
+	 * @param defaultValue
+	 * @param callback
+	 * @param options
+	 * @returns off function to unsubscribe from updates
+	 */
+	static onExperimentValueUpdated<T>(
+		experimentName: string,
+		parameterName: string,
+		defaultValue: T,
+		callback: (value: T) => void,
+		options: GetExperimentValueOptions<T> = {},
+	): () => void {
+		const wrapCallback = (value: T): void => {
+			const { fireExperimentExposure = true } = options;
+			if (fireExperimentExposure) {
+				FeatureGates.manuallyLogExperimentExposure(experimentName);
+			}
+			try {
+				callback(value);
+			} catch (error) {
+				// eslint-disable-next-line no-console
+				console.warn(
+					`Error calling callback for experiment ${experimentName} with value ${value}`,
+					error,
+				);
+			}
+		};
+
+		return FeatureGates.subscriptions.onExperimentValueUpdated(
+			experimentName,
+			parameterName,
+			defaultValue,
+			wrapCallback,
+			FeatureGates.getExperimentValue,
+			options,
+		);
+	}
+
+	/**
+	 * Subscribe so on any update the callback will be called.
+	 * NOTE: The callback will be called whenever the values are updated even if the values have not changed.
+	 * @param callback
+	 * @returns off function to unsubscribe from updates
+	 */
+	static onAnyUpdated(callback: () => void): () => void {
+		return FeatureGates.subscriptions?.onAnyUpdated(callback);
 	}
 
 	/**
@@ -564,6 +754,62 @@ class FeatureGates {
 
 			experimentValues = experimentValuesResult.experimentValues;
 			customAttributesFromResult = experimentValuesResult.customAttributes;
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				// eslint-disable-next-line no-console
+				console.error(
+					`Error occurred when trying to fetch the Feature Gates client values, error: ${error?.message}`,
+				);
+			}
+			// eslint-disable-next-line no-console
+			console.warn(`Initialising Statsig client without values`);
+			await FeatureGates.initFromValues(fromValuesClientOptions, identifiers, customAttributes);
+			throw error;
+		}
+
+		await this.initFromValues(
+			fromValuesClientOptions,
+			identifiers,
+			customAttributesFromResult,
+			experimentValues,
+		);
+	}
+
+	private static async initWithProvider(
+		baseClientOptions: BaseClientOptions,
+		identifiers: Identifiers,
+		customAttributes: CustomAttributes | undefined,
+	) {
+		const fromValuesClientOptions: FromValuesClientOptions = {
+			...baseClientOptions,
+			disableCurrentPageLogging: true,
+		};
+
+		let experimentValues: Record<string, unknown> | undefined;
+		let customAttributesFromResult: CustomAttributes | undefined;
+
+		try {
+			// If client sdk key fetch fails, an error would be thrown and handled instead of waiting for the experiment
+			// values request to be settled, and it will fall back to use default values.
+			const clientSdkKeyPromise = FeatureGates.provider
+				.getClientSdkKey(baseClientOptions)
+				.then((value) => (fromValuesClientOptions.sdkKey = value));
+
+			const experimentValuesPromise = FeatureGates.provider.getExperimentValues(
+				baseClientOptions,
+				identifiers,
+				customAttributes,
+			);
+
+			// Only wait for the experiment values request to finish and try to initialise the client with experiment
+			// values if both requests are successful. Else an error would be thrown and handled by the catch
+			const [, experimentValuesResult] = await Promise.all([
+				clientSdkKeyPromise,
+				experimentValuesPromise,
+			]);
+
+			experimentValues = experimentValuesResult.experimentValues;
+			customAttributesFromResult = experimentValuesResult.customAttributesFromFetch;
 		} catch (error: unknown) {
 			if (error instanceof Error) {
 				// eslint-disable-next-line no-console
@@ -945,7 +1191,7 @@ class FeatureGates {
 let boundFGJS = FeatureGates;
 
 // This makes it possible to get a reference to the FeatureGates client at runtime.
-// This is important for overriding values in Cyprus tests, as there needs to be a
+// This is important for overriding values in Cypress tests, as there needs to be a
 // way to get the exact instance for a window in order to mock some of its methods.
 if (typeof window !== 'undefined') {
 	if (window.__FEATUREGATES_JS__ === undefined) {

@@ -13,7 +13,6 @@ import {
 } from '../types/responses';
 import { APIError, type ErrorType, NetworkError } from '@atlaskit/linking-common';
 import { flushPromises } from '@atlaskit/media-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 // Mock response quick-references:
 const errorResponse = {
@@ -84,8 +83,8 @@ describe('Smart Card: Client', () => {
 		const client = new SmartCardClient('stg');
 		const resourceUrl = 'https://i.love.cheese';
 		const response = await client.fetchData(resourceUrl);
-		expect(mockRequest).toBeCalled();
-		expect(mockRequest).toBeCalledWith(
+		expect(mockRequest).toHaveBeenCalled();
+		expect(mockRequest).toHaveBeenCalledWith(
 			'post',
 			expect.stringMatching(/.*?pug\.jira-dev.*?\/resolve\/batch/),
 			[
@@ -93,7 +92,9 @@ describe('Smart Card: Client', () => {
 					resourceUrl,
 				},
 			],
-			{},
+			{
+				'origin-timezone': 'UTC',
+			},
 		);
 		expect(response).toBe(mocks.success);
 	});
@@ -103,8 +104,8 @@ describe('Smart Card: Client', () => {
 		const client = new SmartCardClient('stg', 'https://trellis.coffee/gateway/api');
 		const resourceUrl = 'https://i.love.cheese';
 		const response = await client.fetchData(resourceUrl);
-		expect(mockRequest).toBeCalled();
-		expect(mockRequest).toBeCalledWith(
+		expect(mockRequest).toHaveBeenCalled();
+		expect(mockRequest).toHaveBeenCalledWith(
 			'post',
 			'https://trellis.coffee/gateway/api/object-resolver/resolve/batch',
 			[
@@ -112,7 +113,9 @@ describe('Smart Card: Client', () => {
 					resourceUrl,
 				},
 			],
-			{},
+			{
+				'origin-timezone': 'UTC',
+			},
 		);
 		expect(response).toBe(mocks.success);
 	});
@@ -123,8 +126,8 @@ describe('Smart Card: Client', () => {
 		client.setProduct('CONFLUENCE');
 		const resourceUrl = 'https://i.love.cheese';
 		const response = await client.fetchData(resourceUrl);
-		expect(mockRequest).toBeCalled();
-		expect(mockRequest).toBeCalledWith(
+		expect(mockRequest).toHaveBeenCalled();
+		expect(mockRequest).toHaveBeenCalledWith(
 			'post',
 			'https://trellis.coffee/gateway/api/object-resolver/resolve/batch',
 			[
@@ -132,7 +135,7 @@ describe('Smart Card: Client', () => {
 					resourceUrl,
 				},
 			],
-			{ 'X-Product': 'CONFLUENCE' },
+			{ 'X-Product': 'CONFLUENCE', 'origin-timezone': 'UTC' },
 		);
 		expect(response).toBe(mocks.success);
 	});
@@ -154,8 +157,8 @@ describe('Smart Card: Client', () => {
 			client.fetchData(`${hostname}/success`),
 			client.fetchData(`${hostname}/notFound`),
 		]);
-		expect(mockRequest).toBeCalled();
-		expect(mockRequest).toBeCalledWith(
+		expect(mockRequest).toHaveBeenCalled();
+		expect(mockRequest).toHaveBeenCalledWith(
 			'post',
 			expectedDefaultResolveBatchUrl,
 			[
@@ -167,7 +170,9 @@ describe('Smart Card: Client', () => {
 					resourceUrl: `${hostname}/notFound`,
 				},
 			],
-			{},
+			{
+				'origin-timezone': 'UTC',
+			},
 		);
 
 		// NOTE: we still expect all three responses to be the same
@@ -188,8 +193,8 @@ describe('Smart Card: Client', () => {
 			client.fetchData(`${hostname}/2`),
 			client.fetchData(`${hostname}/3`),
 		]);
-		expect(mockRequest).toBeCalled();
-		expect(mockRequest).toBeCalledWith(
+		expect(mockRequest).toHaveBeenCalled();
+		expect(mockRequest).toHaveBeenCalledWith(
 			'post',
 			expectedDefaultResolveBatchUrl,
 			[
@@ -203,7 +208,9 @@ describe('Smart Card: Client', () => {
 					resourceUrl: `${hostname}/3`,
 				},
 			],
-			{},
+			{
+				'origin-timezone': 'UTC',
+			},
 		);
 		expect(responseFirst).toBe(mocks.success);
 		expect(responseSecond).toBe(mocks.unauthorized);
@@ -323,7 +330,7 @@ describe('Smart Card: Client', () => {
 		await expect(client.fetchData(resourceUrl)).rejects.toEqual(
 			new APIError('fatal', 'i.love.cheese', 'Response undefined', 'UnexpectedError'),
 		);
-		expect(mockRequest).toBeCalled();
+		expect(mockRequest).toHaveBeenCalled();
 	});
 
 	it('should return fallback error when error is a network error', async () => {
@@ -354,8 +361,8 @@ describe('Smart Card: Client', () => {
 			key: '',
 			context: '',
 		});
-		expect(mockRequest).toBeCalled();
-		expect(mockRequest).toBeCalledWith('post', '/gateway/api/object-resolver/invoke', {
+		expect(mockRequest).toHaveBeenCalled();
+		expect(mockRequest).toHaveBeenCalledWith('post', '/gateway/api/object-resolver/invoke', {
 			action: {
 				type: '',
 				payload: {
@@ -367,83 +374,54 @@ describe('Smart Card: Client', () => {
 		});
 	});
 
-	ffTest.on(
-		'platform.linking-platform.datasource.add-timezone-header',
-		'timezone header in the request',
-		() => {
-			it('should set the timezone header correctly in the request call', async () => {
-				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
-				const client = new SmartCardClient('stg');
-				const resourceUrl = 'https://i.love.cheese';
-				const response = await client.fetchData(resourceUrl);
-				expect(mockRequest).toBeCalled();
-				expect(mockRequest).toBeCalledWith(
-					'post',
-					expect.stringMatching(/.*?pug\.jira-dev.*?\/resolve\/batch/),
-					[
-						{
-							resourceUrl,
-						},
-					],
-					{ 'origin-timezone': 'UTC' },
-				);
-				expect(response).toBe(mocks.success);
-			});
+	describe('request headers', () => {
+		it('should set the timezone header correctly in the request call', async () => {
+			mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+			const client = new SmartCardClient('stg');
+			const resourceUrl = 'https://i.love.cheese';
+			const response = await client.fetchData(resourceUrl);
+			expect(mockRequest).toHaveBeenCalled();
+			expect(mockRequest).toHaveBeenCalledWith(
+				'post',
+				expect.stringMatching(/.*?pug\.jira-dev.*?\/resolve\/batch/),
+				[
+					{
+						resourceUrl,
+					},
+				],
+				{ 'origin-timezone': 'UTC' },
+			);
+			expect(response).toBe(mocks.success);
+		});
 
-			it('should set the timezone header correctly in the request call when timezone is not UTC', async () => {
-				const originalDateResolvedOptions = new Intl.DateTimeFormat().resolvedOptions();
-				const mockedTimeZone = jest
-					.spyOn(Intl.DateTimeFormat.prototype, 'resolvedOptions')
-					.mockReturnValue({
-						...originalDateResolvedOptions,
-						timeZone: 'Australia/Sydney',
-					});
+		it('should set the timezone header correctly in the request call when timezone is not UTC', async () => {
+			const originalDateResolvedOptions = new Intl.DateTimeFormat().resolvedOptions();
+			const mockedTimeZone = jest
+				.spyOn(Intl.DateTimeFormat.prototype, 'resolvedOptions')
+				.mockReturnValue({
+					...originalDateResolvedOptions,
+					timeZone: 'Australia/Sydney',
+				});
 
-				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
-				const client = new SmartCardClient('stg');
-				const resourceUrl = 'https://i.love.cheese';
-				const response = await client.fetchData(resourceUrl);
-				expect(mockRequest).toBeCalled();
-				expect(mockRequest).toBeCalledWith(
-					'post',
-					expect.stringMatching(/.*?pug\.jira-dev.*?\/resolve\/batch/),
-					[
-						{
-							resourceUrl,
-						},
-					],
-					{ 'origin-timezone': 'Australia/Sydney' },
-				);
-				expect(response).toBe(mocks.success);
-				mockedTimeZone.mockRestore();
-			});
-		},
-	);
-
-	ffTest.off(
-		'platform.linking-platform.datasource.add-timezone-header',
-		'no timezone header in the request',
-		() => {
-			it('should not set the header', async () => {
-				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
-				const client = new SmartCardClient('stg');
-				const resourceUrl = 'https://i.love.cheese';
-				const response = await client.fetchData(resourceUrl);
-				expect(mockRequest).toBeCalled();
-				expect(mockRequest).toBeCalledWith(
-					'post',
-					expect.stringMatching(/.*?pug\.jira-dev.*?\/resolve\/batch/),
-					[
-						{
-							resourceUrl,
-						},
-					],
-					{},
-				);
-				expect(response).toBe(mocks.success);
-			});
-		},
-	);
+			mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+			const client = new SmartCardClient('stg');
+			const resourceUrl = 'https://i.love.cheese';
+			const response = await client.fetchData(resourceUrl);
+			expect(mockRequest).toHaveBeenCalled();
+			expect(mockRequest).toHaveBeenCalledWith(
+				'post',
+				expect.stringMatching(/.*?pug\.jira-dev.*?\/resolve\/batch/),
+				[
+					{
+						resourceUrl,
+					},
+				],
+				{ 'origin-timezone': 'Australia/Sydney' },
+			);
+			expect(response).toBe(mocks.success);
+			mockedTimeZone.mockRestore();
+		});
+	});
 
 	describe('search()', () => {
 		it('makes request with given parameters', async () => {
@@ -453,15 +431,19 @@ describe('Smart Card: Client', () => {
 				key: 'google-search-provider',
 				action: { query: 'search terms', context: { id: 'some-id' } },
 			});
-			expect(mockRequest).toBeCalled();
+			expect(mockRequest).toHaveBeenCalled();
 
-			expect(mockRequest).toBeCalledWith('post', '/gateway/api/object-resolver/invoke/search', {
-				key: 'google-search-provider',
-				search: {
-					query: 'search terms',
-					context: { id: 'some-id' },
+			expect(mockRequest).toHaveBeenCalledWith(
+				'post',
+				'/gateway/api/object-resolver/invoke/search',
+				{
+					key: 'google-search-provider',
+					search: {
+						query: 'search terms',
+						context: { id: 'some-id' },
+					},
 				},
-			});
+			);
 		});
 
 		it('returns json-ld when no error occurs', async () => {
@@ -472,15 +454,19 @@ describe('Smart Card: Client', () => {
 				key: 'google-search-provider',
 				action: { query: 'search terms', context: { id: 'some-id' } },
 			});
-			expect(mockRequest).toBeCalled();
+			expect(mockRequest).toHaveBeenCalled();
 
-			expect(mockRequest).toBeCalledWith('post', '/gateway/api/object-resolver/invoke/search', {
-				key: 'google-search-provider',
-				search: {
-					query: 'search terms',
-					context: { id: 'some-id' },
+			expect(mockRequest).toHaveBeenCalledWith(
+				'post',
+				'/gateway/api/object-resolver/invoke/search',
+				{
+					key: 'google-search-provider',
+					search: {
+						query: 'search terms',
+						context: { id: 'some-id' },
+					},
 				},
-			});
+			);
 			expect(response.data).not.toBeNull();
 			expect(response.meta).not.toBeNull();
 		});
@@ -853,7 +839,9 @@ describe('Smart Card: Client', () => {
 				'post',
 				expectedDefaultResolveBatchUrl,
 				[{ resourceUrl: `${hostname}/1` }, { resourceUrl: `${hostname}/2` }],
-				{},
+				{
+					'origin-timezone': 'UTC',
+				},
 			];
 
 			expect(mockRequest).toHaveBeenNthCalledWith(1, ...expectedFirstRequestParams);
@@ -862,7 +850,9 @@ describe('Smart Card: Client', () => {
 				'post',
 				expectedDefaultResolveBatchUrl,
 				[{ resourceUrl: `${hostname}/2` }],
-				{},
+				{
+					'origin-timezone': 'UTC',
+				},
 			];
 
 			expect(mockRequest).toHaveBeenNthCalledWith(2, ...expectedConsequentRequestParams);
@@ -889,7 +879,9 @@ describe('Smart Card: Client', () => {
 				'post',
 				expectedDefaultResolveBatchUrl,
 				[{ resourceUrl: `${hostname}/1` }],
-				{},
+				{
+					'origin-timezone': 'UTC',
+				},
 			];
 
 			for (let i = 1; i <= 4; i++) {
@@ -910,7 +902,9 @@ describe('Smart Card: Client', () => {
 				'post',
 				expectedDefaultResolveBatchUrl,
 				[{ resourceUrl: `${hostname}/unauthorized` }],
-				{},
+				{
+					'origin-timezone': 'UTC',
+				},
 			];
 			for (let i = 1; i <= 3; i++) {
 				expect(mockRequest).toHaveBeenNthCalledWith(i, ...expectedRequestParams);
@@ -937,7 +931,9 @@ describe('Smart Card: Client', () => {
 				'post',
 				expectedDefaultResolveBatchUrl,
 				[{ resourceUrl: `${hostname}/1` }],
-				{},
+				{
+					'origin-timezone': 'UTC',
+				},
 			];
 			for (let i = 1; i <= 3; i++) {
 				expect(mockRequest).toHaveBeenNthCalledWith(i, ...expectedRequestParams);
@@ -958,8 +954,8 @@ describe('Smart Card: Client', () => {
 				`ari:cloud:confluence:abcd:blogpost:5678`,
 				`ari:cloud:confluence:abcd:comment:9012`,
 			]);
-			expect(mockRequest).toBeCalledTimes(1);
-			expect(mockRequest).toBeCalledWith(
+			expect(mockRequest).toHaveBeenCalledTimes(1);
+			expect(mockRequest).toHaveBeenCalledWith(
 				'post',
 				expectedDefaultResolveAriBatchUrl,
 				[
@@ -973,7 +969,9 @@ describe('Smart Card: Client', () => {
 						ari: `ari:cloud:confluence:abcd:comment:9012`,
 					},
 				],
-				{},
+				{
+					'origin-timezone': 'UTC',
+				},
 			);
 
 			expect(responses).toEqual([successfulResponse, successfulResponse, successfulResponse]);
@@ -991,8 +989,8 @@ describe('Smart Card: Client', () => {
 				`ari:cloud:confluence:abcd:blogpost:5678`,
 				`ari:cloud:confluence:abcd:comment:9012`,
 			]);
-			expect(mockRequest).toBeCalledTimes(1);
-			expect(mockRequest).toBeCalledWith(
+			expect(mockRequest).toHaveBeenCalledTimes(1);
+			expect(mockRequest).toHaveBeenCalledWith(
 				'post',
 				expectedDefaultResolveAriBatchUrl,
 				[
@@ -1006,7 +1004,9 @@ describe('Smart Card: Client', () => {
 						ari: `ari:cloud:confluence:abcd:comment:9012`,
 					},
 				],
-				{},
+				{
+					'origin-timezone': 'UTC',
+				},
 			);
 
 			expect(responses).toEqual([notFoundResponse, unauthorizedResponse, errorResponse]);
@@ -1020,8 +1020,8 @@ describe('Smart Card: Client', () => {
 				`ari:cloud:confluence:abcd:page:1234`,
 				`ari:cloud:confluence:abcd:comment:9012`,
 			]);
-			expect(mockRequest).toBeCalledTimes(1);
-			expect(mockRequest).toBeCalledWith(
+			expect(mockRequest).toHaveBeenCalledTimes(1);
+			expect(mockRequest).toHaveBeenCalledWith(
 				'post',
 				expectedDefaultResolveAriBatchUrl,
 				[
@@ -1032,7 +1032,9 @@ describe('Smart Card: Client', () => {
 						ari: `ari:cloud:confluence:abcd:comment:9012`,
 					},
 				],
-				{},
+				{
+					'origin-timezone': 'UTC',
+				},
 			);
 
 			// NOTE: we still expect all three responses to be the same
@@ -1056,8 +1058,8 @@ describe('Smart Card: Client', () => {
 				`ari:cloud:confluence:abcd:page:1234`,
 				`ari:cloud:confluence:abcd:comment:9012`,
 			]);
-			expect(mockRequest).toBeCalledTimes(1);
-			expect(mockRequest).toBeCalledWith(
+			expect(mockRequest).toHaveBeenCalledTimes(1);
+			expect(mockRequest).toHaveBeenCalledWith(
 				'post',
 				expectedDefaultResolveAriBatchUrl,
 				[
@@ -1068,7 +1070,9 @@ describe('Smart Card: Client', () => {
 						ari: `ari:cloud:confluence:abcd:comment:9012`,
 					},
 				],
-				{},
+				{
+					'origin-timezone': 'UTC',
+				},
 			);
 
 			// any endpoint failure will still map errors into a batch response
@@ -1111,8 +1115,8 @@ describe('Smart Card Client with url caching', () => {
 			expect(apiError.type).toEqual('ResolveUnsupportedError');
 		}
 
-		expect(mockRequest).toBeCalledTimes(1);
-		expect(mockRequest).toBeCalledWith(
+		expect(mockRequest).toHaveBeenCalledTimes(1);
+		expect(mockRequest).toHaveBeenCalledWith(
 			'post',
 			expectedDefaultResolveBatchUrl,
 			[
@@ -1135,7 +1139,9 @@ describe('Smart Card Client with url caching', () => {
 					resourceUrl: `${hostname}/notSupported`,
 				},
 			],
-			{},
+			{
+				'origin-timezone': 'UTC',
+			},
 		);
 		expect(firstSuccessResponse).toBe(mocks.success);
 		expect(secondSuccessResponse).toBe(mocks.success);
@@ -1171,9 +1177,9 @@ describe('Smart Card Client with url caching', () => {
 			expect(apiError.type).toEqual('ResolveUnsupportedError');
 		}
 
-		expect(mockRequest).toBeCalledTimes(2);
+		expect(mockRequest).toHaveBeenCalledTimes(2);
 
-		expect(mockRequest).toBeCalledWith(
+		expect(mockRequest).toHaveBeenCalledWith(
 			'post',
 			expectedDefaultResolveBatchUrl,
 			[
@@ -1201,7 +1207,9 @@ describe('Smart Card Client with url caching', () => {
 					resourceUrl: `${hostname}/notSupported`,
 				},
 			],
-			{},
+			{
+				'origin-timezone': 'UTC',
+			},
 		);
 
 		expect(firstSuccessSecondResponse).toBe(mocks.success);
@@ -1222,7 +1230,7 @@ describe('Smart Card Client with url caching', () => {
 		expect(firstSuccessResponse).toBe(mocks.success);
 		expect(firstSuccessSecondResponse).toBe(mocks.success);
 
-		expect(mockRequest).toBeCalledTimes(2);
+		expect(mockRequest).toHaveBeenCalledTimes(2);
 		expect(mockRequest.mock.calls[0]).toEqual([
 			'post',
 			expectedDefaultResolveBatchUrl,
@@ -1231,7 +1239,7 @@ describe('Smart Card Client with url caching', () => {
 					resourceUrl: `${hostname}/first/success`,
 				},
 			],
-			{},
+			{ 'origin-timezone': 'UTC' },
 		]);
 		expect(mockRequest.mock.calls[1]).toEqual([
 			'post',
@@ -1241,7 +1249,9 @@ describe('Smart Card Client with url caching', () => {
 					resourceUrl: `${hostname}/first/success`,
 				},
 			],
-			{},
+			{
+				'origin-timezone': 'UTC',
+			},
 		]);
 	});
 
@@ -1255,14 +1265,14 @@ describe('Smart Card Client with url caching', () => {
 			.map((_, i) => client.fetchData(`${hostname}/${i}/success`));
 		await Promise.all(requestPromises);
 		// Two batches of 50
-		expect(mockRequest).toBeCalledTimes(2);
+		expect(mockRequest).toHaveBeenCalledTimes(2);
 
 		// Requests 100..109. Should remove first 10 cached requests out.
 		const requestPromises2 = Array(10)
 			.fill(null)
 			.map((_, i) => client.fetchData(`${hostname}/${i + 100}/success`));
 		await Promise.all(requestPromises2);
-		expect(mockRequest).toBeCalledTimes(3);
+		expect(mockRequest).toHaveBeenCalledTimes(3);
 
 		// Requests 0..09
 		const requestPromises3 = Array(10)
@@ -1270,7 +1280,7 @@ describe('Smart Card Client with url caching', () => {
 			.map((_, i) => client.fetchData(`${hostname}/${i}/success`));
 		await Promise.all(requestPromises3);
 		// If cache was unlimited these results would be taken from cache and next assertion would fail.
-		expect(mockRequest).toBeCalledTimes(4);
+		expect(mockRequest).toHaveBeenCalledTimes(4);
 	});
 
 	it('should not initiate second call for the same url if already in progress', async () => {
@@ -1303,8 +1313,8 @@ describe('Smart Card Client with url caching', () => {
 
 		const secondSuccessResponse = await secondSuccessResponsePromise;
 
-		expect(mockRequest).toBeCalledTimes(1);
-		expect(mockRequest).toBeCalledWith(
+		expect(mockRequest).toHaveBeenCalledTimes(1);
+		expect(mockRequest).toHaveBeenCalledWith(
 			'post',
 			expectedDefaultResolveBatchUrl,
 			[
@@ -1312,7 +1322,9 @@ describe('Smart Card Client with url caching', () => {
 					resourceUrl: `${hostname}/first/success`,
 				},
 			],
-			{},
+			{
+				'origin-timezone': 'UTC',
+			},
 		);
 		expect(firstSuccessResponse).toBe(mocks.success);
 		expect(secondSuccessResponse).toBe(mocks.success);
@@ -1336,8 +1348,8 @@ describe('Smart Card Client with url caching', () => {
 
 		const successResponsePromise = await client.fetchData(`${hostname}/first/success`);
 
-		expect(mockRequest).toBeCalledTimes(2);
-		expect(mockRequest).toBeCalledWith(
+		expect(mockRequest).toHaveBeenCalledTimes(2);
+		expect(mockRequest).toHaveBeenCalledWith(
 			'post',
 			expectedDefaultResolveBatchUrl,
 			[
@@ -1345,7 +1357,9 @@ describe('Smart Card Client with url caching', () => {
 					resourceUrl: `${hostname}/first/success`,
 				},
 			],
-			{},
+			{
+				'origin-timezone': 'UTC',
+			},
 		);
 		expect(successResponsePromise).toBe(mocks.success);
 	});
@@ -1380,8 +1394,8 @@ describe('Smart Card Client with url caching', () => {
 
 		const secondSuccessResponse = await secondSuccessResponsePromise;
 
-		expect(mockRequest).toBeCalledTimes(1);
-		expect(mockRequest).toBeCalledWith(
+		expect(mockRequest).toHaveBeenCalledTimes(1);
+		expect(mockRequest).toHaveBeenCalledWith(
 			'post',
 			expectedDefaultResolveBatchUrl,
 			[
@@ -1389,7 +1403,9 @@ describe('Smart Card Client with url caching', () => {
 					resourceUrl: `${hostname}/first/success`,
 				},
 			],
-			{},
+			{
+				'origin-timezone': 'UTC',
+			},
 		);
 		expect(firstSuccessResponse).toBe(mocks.success);
 		expect(secondSuccessResponse).toBe(mocks.success);

@@ -76,7 +76,7 @@ The `themeState` object includes the following properties:
   UNSAFE_themeOptions?: CustomThemeSchema // { brandColor: HexColor }
 }`}
 	defaultValue={
-		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
+		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: undefined }'
 	}
 />
 
@@ -106,7 +106,7 @@ const App = () => {
 		light: 'light',
 		dark: 'dark',
 		colorMode: 'auto',
-		typography: 'typography',
+		typography: 'typography-modernized',
 	});
 
 	return <div style={{ backgroundColor: token('elevation.surface') }}>...</div>;
@@ -181,7 +181,7 @@ const App = () => {
 			light: 'light',
 			dark: 'dark',
 			colorMode: 'auto',
-			typography: 'typography',
+			typography: 'typography-modernized',
 		},
 		themeLoader,
 	);
@@ -480,7 +480,7 @@ missing from the returned array, and will only be visible to the user on app hyd
   UNSAFE_themeOptions?: { brandColor: HexColor }
 }`}
 	defaultValue={
-		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
+		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: undefined }'
 	}
 />
 
@@ -517,7 +517,7 @@ used when configuring SSR.
   UNSAFE_themeOptions?: { brandColor: HexColor }
 }`}
 	defaultValue={
-		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
+		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: undefined }'
 	}
 />
 
@@ -549,7 +549,7 @@ inside the `<head>` of the document element.
   typography?: ThemeIds,
 }`}
 	defaultValue={
-		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
+		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: undefined }'
 	}
 />
 
@@ -665,7 +665,7 @@ theme styles can be generated at runtime using `UNSAFE_loadCustomThemeStyles` (s
   UNSAFE_themeOptions?: CustomThemeSchema // { brandColor: HexColor }
 }`}
 	defaultValue={
-		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
+		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: undefined }'
 	}
 />
 
@@ -707,7 +707,7 @@ It can be accessed from the entrypoint `@atlaskit/tokens/custom-themes`/
   UNSAFE_themeOptions?: CustomThemeSchema // { brandColor: HexColor }
 }`}
 	defaultValue={
-		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
+		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: undefined }'
 	}
 />
 

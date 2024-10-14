@@ -1,5 +1,14 @@
 # @atlaskit/theme
 
+## 13.1.0
+
+### Minor Changes
+
+- [#151666](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151666)
+  [`e5681b43dca9e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5681b43dca9e) -
+  [ux] This changes the new theme colors,ie, button colour changes introduced as per visual refresh
+  changes
+
 ## 13.0.2
 
 ### Patch Changes

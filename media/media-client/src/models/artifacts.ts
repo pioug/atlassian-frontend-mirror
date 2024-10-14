@@ -6,7 +6,8 @@ export const getArtifactUrl = (
 	artifacts: MediaFileArtifacts,
 	prop: keyof MediaFileArtifacts,
 ): string | undefined => {
-	if (isCommercial() && fg('platform.media-cdn-delivery')) {
+	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+	if (isCommercial() && fg('platform.media-cdn-delivery') && artifacts[prop]?.url) {
 		return `${artifacts[prop]?.url}/cdn`;
 	}
 	return artifacts[prop]?.url;

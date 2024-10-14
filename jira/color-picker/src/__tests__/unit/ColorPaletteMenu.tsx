@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ColorPaletteMenuWithoutAnalytics as ColorPaletteMenu } from '../..';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { toBeAccessible } from '@atlassian/a11y-jest-testing';
 
 jest.mock('@atlaskit/platform-feature-flags');
 const mockGetBooleanFG = fg as jest.MockedFunction<typeof fg>;
@@ -72,10 +73,17 @@ describe('ColorPaletteMenu', () => {
 			mockGetBooleanFG.mockReturnValue(true);
 		});
 
+		test('should capture and report a11y violations', async () => {
+			expect.extend({ toBeAccessible });
+			const { container } = renderUI();
+
+			await expect(container).toBeAccessible();
+		});
+
 		test('should render ColorPaletteMenu with ColorCard', async () => {
 			const { getByRole, getAllByRole } = renderUI();
 
-			const colorPaletteMenu = getByRole('group');
+			const colorPaletteMenu = getByRole('menu');
 			expect(colorPaletteMenu).toBeInTheDocument();
 			expect(colorPaletteMenu).toHaveAttribute('aria-label', 'Color picker, Blue selected');
 
@@ -88,7 +96,7 @@ describe('ColorPaletteMenu', () => {
 		test('should call onChange prop onClick and onKeydown', async () => {
 			const { getByRole, getAllByRole } = renderUI();
 
-			const colorPaletteMenu = getByRole('group');
+			const colorPaletteMenu = getByRole('menu');
 			expect(colorPaletteMenu).toBeInTheDocument();
 
 			// render - blue selected

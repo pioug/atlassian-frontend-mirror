@@ -130,6 +130,12 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 		[autoFocus, isColorPaletteMenu, initialFocusRef],
 	);
 
+	const isInsideMenuRole = isInsideMenu ? 'menuitemradio' : 'radio';
+	const role = isColorPaletteMenu ? isInsideMenuRole : 'presentation';
+
+	const ariaChecked = isColorPaletteMenu ? selected : undefined;
+	const ariaLabel = isColorPaletteMenu ? label : undefined;
+
 	return (
 		<Tooltip content={label}>
 			{(tooltipProps) => {
@@ -142,10 +148,10 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 								? mergeRefs([ref, tooltipProps.ref, initialFocusRef])
 								: mergeRefs([ref, tooltipProps.ref])
 						}
-						role={isInsideMenu ? 'menuitemradio' : 'radio'}
+						role={fg('platform_color_picker-fix-a11y-violations') ? role : isInsideMenuRole}
 						tabIndex={selected ? 0 : -1}
-						aria-checked={selected}
-						aria-label={label}
+						aria-checked={fg('platform_color_picker-fix-a11y-violations') ? ariaChecked : selected}
+						aria-label={fg('platform_color_picker-fix-a11y-violations') ? ariaLabel : label}
 						css={[
 							sharedColorContainerStyles,
 							(isColorPaletteMenu || isTabbing === undefined || isTabbing) &&

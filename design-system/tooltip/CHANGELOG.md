@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 18.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.8.2
 
 ### Patch Changes

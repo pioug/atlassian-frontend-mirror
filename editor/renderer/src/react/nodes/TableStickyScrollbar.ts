@@ -147,18 +147,18 @@ export class TableStickyScrollbar {
 	private hide() {
 		if (
 			this.stickyScrollbarContainerElement &&
-			this.stickyScrollbarContainerElement.style.display !== 'none'
+			this.stickyScrollbarContainerElement.style.visibility !== 'hidden'
 		) {
-			this.stickyScrollbarContainerElement.style.display = 'none';
+			this.stickyScrollbarContainerElement.style.visibility = 'hidden';
 		}
 	}
 
 	private show() {
 		if (
 			this.stickyScrollbarContainerElement &&
-			this.stickyScrollbarContainerElement.style.display !== 'block'
+			this.stickyScrollbarContainerElement.style.visibility !== 'visible'
 		) {
-			this.stickyScrollbarContainerElement.style.display = 'block';
+			this.stickyScrollbarContainerElement.style.visibility = 'visible';
 		}
 	}
 

@@ -1,5 +1,64 @@
 # @atlaskit/dropdown-menu
 
+## 12.20.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.20.0
+
+### Minor Changes
+
+- [#151581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151581)
+  [`ce972f75db165`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce972f75db165) - ##
+  New Feature: Configurable Popper Strategy
+
+  **Feature Overview:** The `@atlaskit/dropdown-menu` component now includes a new `strategy` prop,
+  providing developers with the ability to customize the positioning strategy of dropdowns. This
+  enhancement offers more control over how dropdown menus are rendered and positioned, accommodating
+  various layout needs.
+
+  **Usage:** The `strategy` prop can be set to either `'absolute'` or `'fixed'`, with the default
+  being `'fixed'`.
+
+  - **`'fixed'`:** Positions the dropdown relative to the browser's viewport. This ensures that the
+    dropdown remains in the same position regardless of page scrolling, making it ideal for
+    dropdowns that need to maintain a consistent position on the screen.
+
+  - **`'absolute'`:** Positions the dropdown relative to its closest positioned ancestor, which
+    allows the dropdown to move with the content as the page is scrolled or resized. This is useful
+    in scenarios where the dropdown should remain contextually attached to an element within a
+    scrollable area.
+
+  **Example Usage:**
+
+  ```jsx
+  import DropdownMenu from '@atlaskit/dropdown-menu';
+
+  const MyDropdown = () => (
+  	<DropdownMenu
+  		trigger="Options"
+  		strategy="absolute" // Options are 'absolute' or 'fixed'
+  	>
+  		<DropdownMenu.Item>First option</DropdownMenu.Item>
+  		<DropdownMenu.Item>Second option</DropdownMenu.Item>
+  	</DropdownMenu>
+  );
+  ```
+
+  **Important Considerations:**
+
+  - When using the `shouldFitContainer` prop, the `strategy` cannot be set to `'fixed'`. In such
+    cases, the dropdown defaults to the `'absolute'` strategy to ensure proper rendering within the
+    container.
+  - The `strategy` prop provides additional flexibility, especially in complex layouts where precise
+    control over dropdown positioning is required. It allows the dropdown to adapt based on the
+    surrounding context or constraints, enhancing the component's versatility.
+  - This feature addresses the need for more adaptable positioning strategies, allowing for better
+    integration into varied UI designs and improving user experience by maintaining dropdown
+    visibility and accessibility.
+
 ## 12.19.0
 
 ### Minor Changes

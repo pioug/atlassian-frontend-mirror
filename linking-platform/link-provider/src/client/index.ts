@@ -24,7 +24,6 @@ import {
 } from './types/responses';
 import { type InvokeRequest } from './types/requests';
 import { LRUMap } from 'lru_map';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const MAX_BATCH_SIZE = 50;
 const MIN_TIME_BETWEEN_BATCHES = 250;
@@ -74,9 +73,7 @@ export default class CardClient implements CardClientInterface {
 			 * This header exist to enable the backend to process relative time, eg: "today", with respect to the user timezone.
 			 * eg: used in "confluence-object-provider" to resolve confluence SLLV links that may involve relative time calculation.
 			 */
-			...(fg('platform.linking-platform.datasource.add-timezone-header')
-				? { 'origin-timezone': Intl?.DateTimeFormat().resolvedOptions().timeZone }
-				: {}),
+			'origin-timezone': Intl?.DateTimeFormat().resolvedOptions().timeZone,
 
 			// send product source as header X-Product if defined
 			...(this.product ? { 'X-Product': this.product } : {}),

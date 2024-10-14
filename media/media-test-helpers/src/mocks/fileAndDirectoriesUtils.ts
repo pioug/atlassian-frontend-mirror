@@ -18,16 +18,6 @@ interface FileSystemFileEntry extends FileSystemEntry {
 	file: (resolve: (file: File) => void) => void;
 }
 
-// Based on https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryEntry
-interface FileSystemDirectoryEntry extends FileSystemEntry {
-	createReader: () => FileSystemDirectoryReader;
-}
-
-// Represents https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryReader
-interface FileSystemDirectoryReader {
-	readEntries: (successCallback: (fileSystemEntries: FileSystemEntry[]) => void) => void;
-}
-
 const createDataTransferItem = (webkitGetAsEntryResult: FileSystemEntry): DataTransferItem =>
 	// Using DataTransferItem constructor is illegal
 	({
@@ -85,23 +75,6 @@ export const createFileSystemFileEntry = (
 	name,
 	fullPath,
 	file: (resolve: (file: File) => void) => resolve(imageFile),
-});
-
-export const createFileSystemDirectoryEntry = (
-	name: string,
-	fullPath: string,
-	fileEntries: FileSystemEntry[],
-): FileSystemDirectoryEntry => ({
-	isDirectory: true,
-	isFile: false,
-	name,
-	fullPath,
-	createReader: () => {
-		const reader: FileSystemDirectoryReader = {
-			readEntries: (resolver) => resolver(fileEntries),
-		};
-		return reader;
-	},
 });
 
 export const createDropEventWithFiles = (fileSystemEntry: FileSystemEntry, files: File[]) => {

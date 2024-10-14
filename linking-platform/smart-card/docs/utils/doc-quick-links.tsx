@@ -2,6 +2,7 @@ import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
 import PageIcon from '@atlaskit/icon/core/migration/page';
+import TeamsIcon from '@atlaskit/icon/core/migration/teams';
 import { Box, xcss } from '@atlaskit/primitives';
 import React from 'react';
 import { IconCard, IconEmbed, IconInline, IconUrl } from '../../examples/images';
@@ -108,6 +109,14 @@ const DocQuickLinks = () => (
 					target="_blank"
 				>
 					#help-linking-platform
+				</DropdownItem>
+				<DropdownItem
+					description="Contributing to Smart Links"
+					elemBefore={<TeamsIcon color="currentColor" spacing="spacious" label="" />}
+					href="https://hello.atlassian.net/wiki/spaces/TWPLP/pages/3609380368"
+					target="_blank"
+				>
+					Contribution
 				</DropdownItem>
 			</DropdownItemGroup>
 		</DropdownMenu>

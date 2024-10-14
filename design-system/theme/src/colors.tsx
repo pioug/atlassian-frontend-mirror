@@ -35,6 +35,8 @@ export const B200 = '#2684FF';
 export const B300 = '#0065FF';
 export const B400 = '#0052CC';
 export const B500 = '#0747A6';
+export const B600 = '#669DF1';
+export const B700 = '#8FB8F6';
 
 // Purples
 export const P50 = '#EAE6FF';
@@ -137,3 +139,10 @@ export const DN40A = 'rgba(13, 20, 36, 0.89)';
 export const DN30A = 'rgba(13, 20, 36, 0.92)';
 export const DN20A = 'rgba(13, 20, 36, 0.95)';
 export const DN10A = 'rgba(13, 20, 36, 0.97)';
+
+// Text color
+export const T30 = '#292A2E';
+
+// Lime
+export const L50 = '#94C748';
+export const L75 = '#B3DF72';

@@ -8,6 +8,7 @@ import { Prop, Props } from '@atlaskit/docs';
 
 export const TabName = {
 	Examples: 'Examples',
+	FAQ: 'FAQ',
 	Overview: 'Overview',
 	Reference: 'Reference',
 };

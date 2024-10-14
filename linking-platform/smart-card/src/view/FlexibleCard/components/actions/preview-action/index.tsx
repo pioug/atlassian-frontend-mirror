@@ -1,4 +1,4 @@
-import MediaServicesActualSizeIcon from '@atlaskit/icon/glyph/media-services/actual-size';
+import MediaServicesActualSizeIcon from '@atlaskit/icon/core/migration/grow-diagonal--media-services-actual-size';
 import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { ActionName } from '../../../../../constants';
@@ -48,8 +48,9 @@ const PreviewAction = ({ onClick: onClickCallback, ...props }: PreviewActionProp
 	return data ? (
 		<Action
 			content={<FormattedMessage {...messages.preview_improved} />}
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20003
-			icon={<MediaServicesActualSizeIcon label="Open preview" />}
+			icon={
+				<MediaServicesActualSizeIcon color="currentColor" spacing="spacious" label="Open preview" />
+			}
 			onClick={onClick}
 			testId="smart-action-preview-action"
 			tooltipMessage={<FormattedMessage {...tooltipMessage} />}

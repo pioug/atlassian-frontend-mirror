@@ -265,4 +265,14 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2024-10-03
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/editor_ai_-_proactive_ai_improve_writing/setup
+	'editor_ai_-_proactive_ai_improve_writing': {
+		productKeys: {
+			confluence: 'editor_ai_-_proactive_ai_improve_writing',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'test']),
+		defaultValue: 'control' as 'control' | 'test',
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

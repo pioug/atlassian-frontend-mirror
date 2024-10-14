@@ -15,7 +15,6 @@ import type {
 	DatasourceDetailsRequest,
 	DatasourceDetailsResponse,
 } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useResolverUrl } from '../use-resolver-url';
 
@@ -66,15 +65,13 @@ export const useDatasourceClientExtension = () => {
 			return responsePromise;
 		}
 
-		const headers = fg('platform.linking-platform.datasource.add-timezone-header')
-			? {
-					/**
-					 * This header exist to enable the backend to process relative time, eg: "today", with respect to user timezone.
-					 * eg: used in "confluence-object-provider" to process confluence SLLV requests to filter data for relative time.
-					 */
-					'origin-timezone': Intl?.DateTimeFormat().resolvedOptions().timeZone,
-				}
-			: undefined;
+		const headers = {
+			/**
+			 * This header exists to enable the backend to process relative time, eg: "today", with respect to user timezone.
+			 * eg: used in "confluence-object-provider" to process confluence SLLV requests to filter data for relative time.
+			 */
+			'origin-timezone': Intl?.DateTimeFormat().resolvedOptions().timeZone,
+		};
 
 		try {
 			responsePromise = request<R>('post', url, data, headers, [200, 201, 202, 203, 204]);

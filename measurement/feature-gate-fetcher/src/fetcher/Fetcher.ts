@@ -1,10 +1,11 @@
-import { ResponseError } from './errors';
 import {
 	type CustomAttributes,
 	FeatureGateEnvironment,
 	type Identifiers,
 	PerimeterType,
-} from './temp-types';
+} from '@atlaskit/feature-gate-js-client';
+
+import { ResponseError } from './errors';
 import {
 	type FetcherOptions,
 	type FrontendClientSdkKeyResponse,
@@ -34,7 +35,7 @@ export const EXPERIMENT_VALUES_API_VERSION = 'v2';
 type Method = 'GET' | 'POST';
 
 export default class Fetcher {
-	static async fetchClientSdk(
+	static async fetchClientSdkKey(
 		clientVersion: string,
 		fetcherOptions: FetcherOptions,
 	): Promise<FrontendClientSdkKeyResponse> {

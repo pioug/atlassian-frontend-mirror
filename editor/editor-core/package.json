@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "198.5.1",
+	"version": "198.6.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -38,13 +38,13 @@
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.4.0",
-		"@atlaskit/adf-schema": "^40.9.0",
+		"@atlaskit/adf-schema": "^40.9.4",
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.2.0",
-		"@atlaskit/editor-common": "^93.2.0",
-		"@atlaskit/editor-json-transformer": "^8.18.0",
+		"@atlaskit/editor-common": "^93.4.0",
+		"@atlaskit/editor-json-transformer": "^8.19.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.4.5",
 		"@atlaskit/editor-plugins": "^5.5.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
@@ -81,21 +81,21 @@
 	"devDependencies": {
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/adf-utils": "^19.8.0",
+		"@atlaskit/adf-utils": "^19.9.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
-		"@atlaskit/collab-provider": "9.42.5",
-		"@atlaskit/editor-plugin-annotation": "1.19.11",
-		"@atlaskit/editor-plugin-card": "^4.2.0",
-		"@atlaskit/editor-plugin-list": "^3.8.0",
-		"@atlaskit/editor-plugin-paste": "^1.13.0",
+		"@atlaskit/collab-provider": "9.43.0",
+		"@atlaskit/editor-plugin-annotation": "1.20.0",
+		"@atlaskit/editor-plugin-card": "^4.3.0",
+		"@atlaskit/editor-plugin-list": "^3.9.0",
+		"@atlaskit/editor-plugin-paste": "^1.14.0",
 		"@atlaskit/link-provider": "^1.16.0",
 		"@atlaskit/logo": "^14.3.0",
 		"@atlaskit/media-core": "^34.3.0",
 		"@atlaskit/media-integration-test-helpers": "^3.1.0",
-		"@atlaskit/media-test-helpers": "^34.4.0",
+		"@atlaskit/media-test-helpers": "^34.5.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/primitives": "^12.2.0",
-		"@atlaskit/renderer": "^111.1.0",
+		"@atlaskit/renderer": "^111.2.0",
 		"@atlaskit/smart-card": "^30.0.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.4.0",
@@ -103,7 +103,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.145",
+		"@atlassian/search-provider": "2.4.146",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -279,6 +279,14 @@
 			"referenceOnly": true
 		},
 		"platform_editor_drag_and_drop_target_v2": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_react18_phase2": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_element_dnd_nested_fix_patch_2": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

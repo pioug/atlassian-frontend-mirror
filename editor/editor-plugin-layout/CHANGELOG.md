@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.9.1
+
+### Patch Changes
+
+- [#151707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151707)
+  [`b6edd84148f5e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6edd84148f5e) -
+  [ux] ED-25089: Migrated layout toolbar icons
+- Updated dependencies
+
+## 1.9.0
+
+### Minor Changes
+
+- [#151190](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151190)
+  [`a3723b1cdede2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3723b1cdede2) -
+  [ux] [ED-25037] this change bumps @atlaskit/adf-schema from 40.9.0 to 40.9.4 which makes the
+  blockquote selectable, adds missing marks to the PM node spec and fixes a bug that converted
+  pasted external images to media groups.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.4
 
 ### Patch Changes

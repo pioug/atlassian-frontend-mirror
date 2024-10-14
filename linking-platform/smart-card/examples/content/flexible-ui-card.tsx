@@ -16,6 +16,9 @@ import {
 	TitleBlock,
 } from '../../src';
 import { response1 } from './example-responses';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+
+setBooleanFeatureFlagResolver((flag) => flag === 'platform-visual-refresh-icons');
 
 class CustomClient extends Client {
 	fetchData(url: string) {
@@ -45,7 +48,7 @@ export default () => (
 				actions={[
 					{
 						name: ActionName.CustomAction,
-						icon: <LikeIcon color="currentColor" spacing="spacious" label="Like" />,
+						icon: <LikeIcon color="currentColor" label="Like" />,
 						content: 'Like',
 						onClick: () => console.log('Like clicked!'),
 					},

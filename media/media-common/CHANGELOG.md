@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 11.6.0
+
+### Minor Changes
+
+- [#151581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151581)
+  [`f1c0ae301860f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f1c0ae301860f) -
+  Cleanup media-picker folderUploads feature flag
+
 ## 11.5.0
 
 ### Minor Changes

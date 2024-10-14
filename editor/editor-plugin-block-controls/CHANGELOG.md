@@ -1,5 +1,48 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.5.0
+
+### Minor Changes
+
+- [#151707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151707)
+  [`e20a1b9e9ead0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e20a1b9e9ead0) -
+  ED-25277 1 Port "nest-media-and-codeblock-in-quote" changes in drop target v2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.1
+
+### Patch Changes
+
+- [`9bbad837abcb7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9bbad837abcb7) -
+  [ux] ED-25119 Fix content shifting on drag if divider or media nested in panel
+- [#151581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151581)
+  [`5a182ebfe8da5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a182ebfe8da5) -
+  [ux] Fix jittering issue in layout node when there is alignment or indentation applied
+
+## 2.4.0
+
+### Minor Changes
+
+- [#151190](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151190)
+  [`a3723b1cdede2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3723b1cdede2) -
+  [ux] [ED-25037] this change bumps @atlaskit/adf-schema from 40.9.0 to 40.9.4 which makes the
+  blockquote selectable, adds missing marks to the PM node spec and fixes a bug that converted
+  pasted external images to media groups.
+
+### Patch Changes
+
+- [#151190](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151190)
+  [`a3723b1cdede2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3723b1cdede2) -
+  [ux] [ED-25037] This change selects the blockquote node when the blockquote contains media, but
+  otherwise it will select all the inline content inside the blockquote (previous functionality)
+  when using the drag handle to select.
+- [`28f31fcff6ff2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28f31fcff6ff2) -
+  Fix classList check
+- Updated dependencies
+
 ## 2.3.1
 
 ### Patch Changes

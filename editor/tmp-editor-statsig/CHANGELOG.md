@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.3.2
+
+### Patch Changes
+
+- [#151153](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151153)
+  [`b08ca9cb58898`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b08ca9cb58898) -
+  Added a new proactive ai prosemirror plugin to the editor ai plugin. This plugin will be used for
+  generating recommendations using AI and providing them to the user for inserting
+
 ## 2.3.1
 
 ### Patch Changes

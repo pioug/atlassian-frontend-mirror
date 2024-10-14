@@ -10,7 +10,7 @@ import {
 	useFlexibleUiContext,
 } from '../../../../../state/flexible-ui-context';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
 
 const DownloadAction = ({ onClick: onClickCallback, ...props }: DownloadActionProps) => {
 	const context = useFlexibleUiContext();
@@ -43,8 +43,7 @@ const DownloadAction = ({ onClick: onClickCallback, ...props }: DownloadActionPr
 	return data ? (
 		<Action
 			content={<FormattedMessage {...label} />}
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
-			icon={<DownloadIcon label="Download" />}
+			icon={<DownloadIcon spacing="spacious" color="currentColor" label="Download" />}
 			onClick={onClick}
 			testId="smart-action-download-action"
 			tooltipMessage={<FormattedMessage {...tooltipMessage} />}

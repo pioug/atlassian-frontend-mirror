@@ -14,13 +14,13 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { getConfluenceMacrosExtensionProvider } from '@atlaskit/editor-test-helpers/example-helpers';
 import {
 	ExampleCreateInlineCommentComponent,
 	ExampleViewInlineCommentComponent,
+	getConfluenceMacrosExtensionProvider,
 	getXProductExtensionProvider,
+	MockActivityResource,
 } from '@atlaskit/editor-test-helpers/example-helpers';
-import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { APIError } from '@atlaskit/linking-common';
@@ -197,7 +197,6 @@ const editorProps: EditorProps = {
 		allowAltTextOnImages: true,
 		allowCaptions: true,
 		featureFlags: {
-			folderUploads: false,
 			mediaInline: true,
 		},
 	},

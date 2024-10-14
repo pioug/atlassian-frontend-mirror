@@ -33,7 +33,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/icon": "^22.22.0",
-		"@atlaskit/theme": "^13.0.0",
+		"@atlaskit/theme": "^13.1.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@atlaskit/tooltip": "^18.8.0",
 		"@babel/runtime": "^7.0.0",

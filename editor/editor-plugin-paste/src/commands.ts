@@ -4,6 +4,7 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { PastePluginActionTypes as ActionTypes } from './actions';
 import { createCommand } from './pm-plugins/plugin-factory';
@@ -41,6 +42,10 @@ export const stopTrackingPastedMacroPositions = (pastedMacroPositionKeys: string
 // matchers for text lists
 const bullets = /^\s*[\*\-\u2022](\s+|\s+$)/;
 const numbers = /^\s*\d[\.\)](\s+|$)/;
+
+const isListItem = (node: Node | null, schema: Schema): boolean => {
+	return Boolean(node && node.type === schema.nodes.listItem);
+};
 
 const getListType = (node: Node, schema: Schema): [NodeType, number] | null => {
 	if (!node || !node.text) {
@@ -129,7 +134,12 @@ export const extractListFromParagraph = (
 
 			listMatch = getListType(line[1], schema);
 		}
-		if (!listMatch) {
+		if (
+			!listMatch ||
+			// CONFCLOUD-79708: If we are inside a list - let's not try to upgrade list as it resolves
+			// to invalid content
+			(isListItem(parent, schema) && fg('platform_editor_escape_formatting_for_nested_list'))
+		) {
 			// if there is not list match return as is
 			paragraphParts.push(line);
 			continue;

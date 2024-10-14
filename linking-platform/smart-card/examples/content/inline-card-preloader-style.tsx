@@ -14,7 +14,7 @@ export default () => (
 					appearance="inline"
 					inlinePreloaderStyle="on-left-with-skeleton"
 					url={ResolvingClientUrl}
-				/>{' '}
+				/>
 			</Inline>
 			<Inline alignBlock="center" space="space.100">
 				<Text>On right without skeleton:</Text>

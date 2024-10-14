@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "3.15.9",
+	"version": "3.16.0",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,9 +39,9 @@
 		"./styles": "./src/styles.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.9.0",
-		"@atlaskit/editor-common": "^93.2.0",
-		"@atlaskit/editor-plugin-analytics": "^1.8.0",
+		"@atlaskit/adf-schema": "^40.9.4",
+		"@atlaskit/editor-common": "^93.4.0",
+		"@atlaskit/editor-plugin-analytics": "^1.9.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.0.0",
@@ -50,7 +50,7 @@
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
-		"@atlaskit/theme": "^13.0.0",
+		"@atlaskit/theme": "^13.1.0",
 		"@atlaskit/tmp-editor-statsig": "*",
 		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
@@ -64,7 +64,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/editor-plugin-quick-insert": "^1.4.0",
-		"@atlaskit/editor-plugin-type-ahead": "^1.8.0",
+		"@atlaskit/editor-plugin-type-ahead": "^1.9.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",

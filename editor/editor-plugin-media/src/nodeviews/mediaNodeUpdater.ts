@@ -511,3 +511,12 @@ const hasPrivateAttrsChanged = (
 		currentAttrs.__contextId !== newAttrs.__contextId
 	);
 };
+
+export const createMediaNodeUpdater = (props: MediaNodeUpdaterProps) => {
+	const updaterProps = {
+		...props,
+		isMediaSingle: true,
+	};
+
+	return new MediaNodeUpdater(updaterProps);
+};

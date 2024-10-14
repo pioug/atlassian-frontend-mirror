@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "7.28.11",
+	"version": "7.29.0",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,15 +27,15 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.9.0",
+		"@atlaskit/adf-schema": "^40.9.4",
 		"@atlaskit/button": "^20.2.0",
-		"@atlaskit/custom-steps": "^0.7.0",
-		"@atlaskit/editor-common": "^93.2.0",
+		"@atlaskit/custom-steps": "^0.8.0",
+		"@atlaskit/editor-common": "^93.4.0",
 		"@atlaskit/editor-palette": "1.6.1",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
-		"@atlaskit/editor-plugin-analytics": "^1.8.0",
-		"@atlaskit/editor-plugin-batch-attribute-updates": "1.0.8",
-		"@atlaskit/editor-plugin-content-insertion": "^1.8.0",
+		"@atlaskit/editor-plugin-analytics": "^1.9.0",
+		"@atlaskit/editor-plugin-batch-attribute-updates": "1.1.0",
+		"@atlaskit/editor-plugin-content-insertion": "^1.9.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-plugin-guideline": "^1.2.0",
 		"@atlaskit/editor-plugin-selection": "^1.4.0",
@@ -50,7 +50,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.4.0",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
 		"@atlaskit/primitives": "^12.2.0",
-		"@atlaskit/theme": "^13.0.0",
+		"@atlaskit/theme": "^13.1.0",
 		"@atlaskit/tmp-editor-statsig": "^2.3.0",
 		"@atlaskit/toggle": "^13.4.0",
 		"@atlaskit/tokens": "^2.0.0",

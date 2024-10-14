@@ -1,5 +1,14 @@
 # @atlaskit/media-client
 
+## 28.0.4
+
+### Patch Changes
+
+- [#151581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151581)
+  [`906487ee4e09a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/906487ee4e09a) -
+  fix media viewer for video when no 1280 artifact available
+- Updated dependencies
+
 ## 28.0.3
 
 ### Patch Changes

@@ -1,8 +1,9 @@
 import fetchMock from 'jest-fetch-mock';
 
+import { FeatureGateEnvironment } from '@atlaskit/feature-gate-js-client';
+
 import { ResponseError } from '../errors';
 import Fetcher from '../index';
-import { FeatureGateEnvironment } from '../temp-types';
 import {
 	type FetcherOptions,
 	type FrontendClientSdkKeyResponse,
@@ -57,7 +58,7 @@ describe('Fetcher', () => {
 			fetchMock.mockResponseOnce(JSON.stringify(defaultClientSdkKeyResponseBody), {
 				status: 200,
 			});
-			const response: FrontendClientSdkKeyResponse = await Fetcher.fetchClientSdk(
+			const response: FrontendClientSdkKeyResponse = await Fetcher.fetchClientSdkKey(
 				CLIENT_VERSION,
 				defaultFetcherOptions,
 			);
@@ -66,7 +67,7 @@ describe('Fetcher', () => {
 
 		test('returns empty response on 204', async () => {
 			fetchMock.mockResponseOnce('', { status: 204 });
-			const promise = Fetcher.fetchClientSdk(CLIENT_VERSION, defaultFetcherOptions);
+			const promise = Fetcher.fetchClientSdkKey(CLIENT_VERSION, defaultFetcherOptions);
 			await expect(promise).rejects.toBeInstanceOf(ResponseError);
 			await expect(promise).rejects.toMatchObject({
 				message: 'Unexpected 204 response',
@@ -80,7 +81,7 @@ describe('Fetcher', () => {
 				status: 500,
 			});
 
-			const promise = Fetcher.fetchClientSdk(CLIENT_VERSION, defaultFetcherOptions);
+			const promise = Fetcher.fetchClientSdkKey(CLIENT_VERSION, defaultFetcherOptions);
 			await expect(promise).rejects.toEqual(
 				new ResponseError('Non 2xx response status received', 500, 'something went wrong'),
 			);
@@ -93,7 +94,7 @@ describe('Fetcher', () => {
 				status: 200,
 			});
 
-			const promise = Fetcher.fetchClientSdk(CLIENT_VERSION, defaultFetcherOptions);
+			const promise = Fetcher.fetchClientSdkKey(CLIENT_VERSION, defaultFetcherOptions);
 			await expect(promise).rejects.toBeInstanceOf(SyntaxError);
 			await expect(promise).rejects.toThrow(
 				`Unexpected token 'i', \"invalid object\" is not valid JSON`,
@@ -102,7 +103,7 @@ describe('Fetcher', () => {
 
 		test('handles empty 200 response', async () => {
 			fetchMock.mockResponseOnce('', { status: 200 });
-			const promise = Fetcher.fetchClientSdk(CLIENT_VERSION, defaultFetcherOptions);
+			const promise = Fetcher.fetchClientSdkKey(CLIENT_VERSION, defaultFetcherOptions);
 			await expect(promise).rejects.toBeInstanceOf(SyntaxError);
 			await expect(promise).rejects.toMatchObject({
 				message: 'Unexpected end of JSON input',
@@ -116,7 +117,7 @@ describe('Fetcher', () => {
 				environment: FeatureGateEnvironment.Production,
 				targetApp: TARGET_APP,
 			};
-			await Fetcher.fetchClientSdk(CLIENT_VERSION, fetcherOptions);
+			await Fetcher.fetchClientSdkKey(CLIENT_VERSION, fetcherOptions);
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_PRD_URL);
 		});
@@ -128,7 +129,7 @@ describe('Fetcher', () => {
 				environment: FeatureGateEnvironment.Staging,
 				targetApp: TARGET_APP,
 			};
-			await Fetcher.fetchClientSdk(CLIENT_VERSION, fetcherOptions);
+			await Fetcher.fetchClientSdkKey(CLIENT_VERSION, fetcherOptions);
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_STG_URL);
 		});
@@ -140,7 +141,7 @@ describe('Fetcher', () => {
 				environment: FeatureGateEnvironment.Development,
 				targetApp: TARGET_APP,
 			};
-			await Fetcher.fetchClientSdk(CLIENT_VERSION, fetcherOptions);
+			await Fetcher.fetchClientSdkKey(CLIENT_VERSION, fetcherOptions);
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_DEV_URL);
 		});
@@ -153,7 +154,7 @@ describe('Fetcher', () => {
 				useGatewayURL: true,
 				targetApp: TARGET_APP,
 			};
-			await Fetcher.fetchClientSdk(CLIENT_VERSION, fetcherOptions);
+			await Fetcher.fetchClientSdkKey(CLIENT_VERSION, fetcherOptions);
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_GATEWAY_URL);
 		});

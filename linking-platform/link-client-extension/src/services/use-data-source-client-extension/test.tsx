@@ -15,7 +15,6 @@ import type {
 	DatasourceDetailsRequest,
 	DatasourceDetailsResponse,
 } from '@atlaskit/linking-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	mockActionsDiscoveryResponse,
@@ -175,6 +174,7 @@ describe('useDatasourceClientExtension', () => {
 						Accept: 'application/json',
 						'Cache-Control': 'no-cache',
 						'Content-Type': 'application/json',
+						'origin-timezone': 'UTC',
 					},
 					method: 'post',
 				},
@@ -355,100 +355,64 @@ describe('useDatasourceClientExtension', () => {
 			});
 		});
 
-		ffTest.on(
-			'platform.linking-platform.datasource.add-timezone-header',
-			'timezone header in the request',
-			() => {
-				it('should set the timezone header correctly in the request call', async () => {
-					const { getDatasourceDetails, datasourceDetailsParams } = setup();
+		describe('timezone header in the request', () => {
+			it('should set the timezone header correctly in the request call', async () => {
+				const { getDatasourceDetails, datasourceDetailsParams } = setup();
 
-					mockFetch.mockResolvedValueOnce({
-						json: async () => undefined,
-						ok: true,
-						text: async () => undefined,
-					});
-
-					await getDatasourceDetails(datasourceId, datasourceDetailsParams);
-
-					expect(mockFetch).toHaveBeenCalledWith(
-						expect.stringContaining(`/datasource/${datasourceId}/fetch/details`),
-						{
-							body: JSON.stringify(datasourceDetailsParams),
-							credentials: 'include',
-							headers: {
-								Accept: 'application/json',
-								'Cache-Control': 'no-cache',
-								'Content-Type': 'application/json',
-								'origin-timezone': 'UTC',
-							},
-							method: 'post',
-						},
-					);
+				mockFetch.mockResolvedValueOnce({
+					json: async () => undefined,
+					ok: true,
+					text: async () => undefined,
 				});
 
-				it('should set the timezone header correctly in the request call when timezone is not UTC', async () => {
-					const { getDatasourceDetails, datasourceDetailsParams } = setup();
-					const mockedTimeZone = mockTimeZone();
+				await getDatasourceDetails(datasourceId, datasourceDetailsParams);
 
-					mockFetch.mockResolvedValueOnce({
-						json: async () => undefined,
-						ok: true,
-						text: async () => undefined,
-					});
-
-					await getDatasourceDetails(datasourceId, datasourceDetailsParams);
-
-					expect(mockFetch).toHaveBeenCalledWith(
-						expect.stringContaining(`/datasource/${datasourceId}/fetch/details`),
-						{
-							body: JSON.stringify(datasourceDetailsParams),
-							credentials: 'include',
-							headers: {
-								Accept: 'application/json',
-								'Cache-Control': 'no-cache',
-								'Content-Type': 'application/json',
-								'origin-timezone': 'Australia/Sydney',
-							},
-							method: 'post',
+				expect(mockFetch).toHaveBeenCalledWith(
+					expect.stringContaining(`/datasource/${datasourceId}/fetch/details`),
+					{
+						body: JSON.stringify(datasourceDetailsParams),
+						credentials: 'include',
+						headers: {
+							Accept: 'application/json',
+							'Cache-Control': 'no-cache',
+							'Content-Type': 'application/json',
+							'origin-timezone': 'UTC',
 						},
-					);
+						method: 'post',
+					},
+				);
+			});
 
-					mockedTimeZone.mockRestore();
+			it('should set the timezone header correctly in the request call when timezone is not UTC', async () => {
+				const { getDatasourceDetails, datasourceDetailsParams } = setup();
+				const mockedTimeZone = mockTimeZone();
+
+				mockFetch.mockResolvedValueOnce({
+					json: async () => undefined,
+					ok: true,
+					text: async () => undefined,
 				});
-			},
-		);
 
-		ffTest.off(
-			'platform.linking-platform.datasource.add-timezone-header',
-			'timezone header should not be included in the request',
-			() => {
-				it('should not set the timezone header when FF is OFF', async () => {
-					const { getDatasourceDetails, datasourceDetailsParams } = setup();
+				await getDatasourceDetails(datasourceId, datasourceDetailsParams);
 
-					mockFetch.mockResolvedValueOnce({
-						json: async () => undefined,
-						ok: true,
-						text: async () => undefined,
-					});
-
-					await getDatasourceDetails(datasourceId, datasourceDetailsParams);
-
-					expect(mockFetch).toHaveBeenCalledWith(
-						expect.stringContaining(`/datasource/${datasourceId}/fetch/details`),
-						{
-							body: JSON.stringify(datasourceDetailsParams),
-							credentials: 'include',
-							headers: {
-								Accept: 'application/json',
-								'Cache-Control': 'no-cache',
-								'Content-Type': 'application/json',
-							},
-							method: 'post',
+				expect(mockFetch).toHaveBeenCalledWith(
+					expect.stringContaining(`/datasource/${datasourceId}/fetch/details`),
+					{
+						body: JSON.stringify(datasourceDetailsParams),
+						credentials: 'include',
+						headers: {
+							Accept: 'application/json',
+							'Cache-Control': 'no-cache',
+							'Content-Type': 'application/json',
+							'origin-timezone': 'Australia/Sydney',
 						},
-					);
-				});
-			},
-		);
+						method: 'post',
+					},
+				);
+
+				mockedTimeZone.mockRestore();
+			});
+		});
 	});
 
 	describe('#getDatasourceData', () => {
@@ -472,6 +436,7 @@ describe('useDatasourceClientExtension', () => {
 						Accept: 'application/json',
 						'Cache-Control': 'no-cache',
 						'Content-Type': 'application/json',
+						'origin-timezone': 'UTC',
 					},
 					method: 'post',
 				},
@@ -647,67 +612,63 @@ describe('useDatasourceClientExtension', () => {
 			});
 		});
 
-		ffTest.on(
-			'platform.linking-platform.datasource.add-timezone-header',
-			'timezone header in the request',
-			() => {
-				it('should set the timezone header correctly in the request call', async () => {
-					const { getDatasourceData, datasourceDataParams } = setup();
+		describe('timezone header in the request', () => {
+			it('should set the timezone header correctly in the request call', async () => {
+				const { getDatasourceData, datasourceDataParams } = setup();
 
-					mockFetch.mockResolvedValueOnce({
-						json: async () => undefined,
-						ok: true,
-						text: async () => undefined,
-					});
-
-					await getDatasourceData(datasourceId, datasourceDataParams);
-
-					expect(mockFetch).toHaveBeenCalledWith(
-						expect.stringContaining(`/datasource/${datasourceId}/fetch/data`),
-						{
-							body: JSON.stringify(datasourceDataParams),
-							credentials: 'include',
-							headers: {
-								Accept: 'application/json',
-								'Cache-Control': 'no-cache',
-								'Content-Type': 'application/json',
-								'origin-timezone': 'UTC',
-							},
-							method: 'post',
-						},
-					);
+				mockFetch.mockResolvedValueOnce({
+					json: async () => undefined,
+					ok: true,
+					text: async () => undefined,
 				});
 
-				it('should set the timezone header correctly in the request call when timezone is not UTC', async () => {
-					const { getDatasourceDetails, datasourceDetailsParams } = setup();
-					const mockedTimeZone = mockTimeZone();
+				await getDatasourceData(datasourceId, datasourceDataParams);
 
-					mockFetch.mockResolvedValueOnce({
-						json: async () => undefined,
-						ok: true,
-						text: async () => undefined,
-					});
-
-					await getDatasourceDetails(datasourceId, datasourceDetailsParams);
-
-					expect(mockFetch).toHaveBeenCalledWith(
-						expect.stringContaining(`/datasource/${datasourceId}/fetch/details`),
-						{
-							body: JSON.stringify(datasourceDetailsParams),
-							credentials: 'include',
-							headers: {
-								Accept: 'application/json',
-								'Cache-Control': 'no-cache',
-								'Content-Type': 'application/json',
-								'origin-timezone': 'Australia/Sydney',
-							},
-							method: 'post',
+				expect(mockFetch).toHaveBeenCalledWith(
+					expect.stringContaining(`/datasource/${datasourceId}/fetch/data`),
+					{
+						body: JSON.stringify(datasourceDataParams),
+						credentials: 'include',
+						headers: {
+							Accept: 'application/json',
+							'Cache-Control': 'no-cache',
+							'Content-Type': 'application/json',
+							'origin-timezone': 'UTC',
 						},
-					);
-					mockedTimeZone.mockRestore();
+						method: 'post',
+					},
+				);
+			});
+
+			it('should set the timezone header correctly in the request call when timezone is not UTC', async () => {
+				const { getDatasourceData, datasourceDataParams } = setup();
+				const mockedTimeZone = mockTimeZone();
+
+				mockFetch.mockResolvedValueOnce({
+					json: async () => undefined,
+					ok: true,
+					text: async () => undefined,
 				});
-			},
-		);
+
+				await getDatasourceData(datasourceId, datasourceDataParams);
+
+				expect(mockFetch).toHaveBeenCalledWith(
+					expect.stringContaining(`/datasource/${datasourceId}/fetch/data`),
+					{
+						body: JSON.stringify(datasourceDataParams),
+						credentials: 'include',
+						headers: {
+							Accept: 'application/json',
+							'Cache-Control': 'no-cache',
+							'Content-Type': 'application/json',
+							'origin-timezone': 'Australia/Sydney',
+						},
+						method: 'post',
+					},
+				);
+				mockedTimeZone.mockRestore();
+			});
+		});
 	});
 
 	describe.each([
@@ -746,6 +707,7 @@ describe('useDatasourceClientExtension', () => {
 							Accept: 'application/json',
 							'Cache-Control': 'no-cache',
 							'Content-Type': 'application/json',
+							'origin-timezone': 'UTC',
 						},
 						method: 'post',
 					});

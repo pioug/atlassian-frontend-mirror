@@ -1,5 +1,14 @@
 # @atlaskit/media-picker
 
+## 66.7.3
+
+### Patch Changes
+
+- [#151581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151581)
+  [`f1c0ae301860f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f1c0ae301860f) -
+  Cleanup media-picker folderUploads feature flag
+- Updated dependencies
+
 ## 66.7.2
 
 ### Patch Changes

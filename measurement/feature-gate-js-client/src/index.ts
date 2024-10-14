@@ -1,13 +1,16 @@
 export type {
 	AnalyticsWebClient,
+	BaseClientOptions,
 	ClientOptions,
 	CustomAttributes,
+	FrontendExperimentsResult,
 	FromValuesClientOptions,
 	GetExperimentOptions,
 	GetExperimentValueOptions,
 	Identifiers,
 	InitializeValues,
 	UpdateUserCompletionCallback,
+	Provider,
 
 	// Statsig
 	EvaluationDetails,
@@ -18,6 +21,7 @@ export {
 	default,
 	FeatureGateEnvironment,
 	PerimeterType,
+	CLIENT_VERSION,
 
 	// Statsig
 	DynamicConfig,

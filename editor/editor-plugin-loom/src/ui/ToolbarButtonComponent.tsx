@@ -13,8 +13,9 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import { LoomIcon } from '@atlaskit/logo';
+import VideoIcon from '@atlaskit/icon/core/video';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import type { LoomPlugin } from '../plugin';
 import { type ButtonComponentProps } from '../types';
@@ -73,7 +74,7 @@ const LoomToolbarButtonInternal = React.forwardRef<HTMLElement, Props & WrappedC
 				buttonId={TOOLBAR_BUTTON.RECORD_VIDEO}
 				disabled={disabled}
 				title={label}
-				iconBefore={<LoomIcon label={label} size="small" />}
+				iconBefore={<VideoIcon label={label} color={token('color.text')} spacing="spacious" />}
 				selected={selected}
 				onBlur={onBlur}
 				onFocus={onFocus}

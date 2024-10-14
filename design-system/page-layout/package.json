@@ -43,7 +43,7 @@
 		"@atlaskit/link": "^1.2.0",
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/primitives": "^12.2.0",
-		"@atlaskit/theme": "^13.0.0",
+		"@atlaskit/theme": "^13.1.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

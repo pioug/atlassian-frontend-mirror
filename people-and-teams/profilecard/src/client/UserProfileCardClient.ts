@@ -84,8 +84,7 @@ export const buildUserQuery = (cloudId: string, userId: string) => ({
 });
 
 export const buildAggUserQuery = (userId: string) => ({
-	//The query name needs to be app_user_characteristics in order to return appType field
-	query: `query app_user_characteristics($userId: ID!) {
+	query: `query user($userId: ID!) {
 		user(accountId: $userId) {
 			id
 			name

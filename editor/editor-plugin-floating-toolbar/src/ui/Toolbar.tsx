@@ -164,7 +164,22 @@ const ToolbarItems = React.memo(
 							key={idx}
 							title={item.title}
 							href={item.href}
-							icon={item.icon ? <ButtonIcon label={item.title} /> : undefined}
+							icon={
+								item.icon ? (
+									item.iconFallback ? (
+										<ButtonIcon
+											color={token('color.icon')}
+											spacing="spacious"
+											label={item.title}
+											LEGACY_fallbackIcon={item.iconFallback}
+											LEGACY_primaryColor="currentColor"
+											Legacy_secondaryColor={token('elevation.surface')}
+										/>
+									) : (
+										<ButtonIcon label={item.title} />
+									)
+								) : undefined
+							}
 							appearance={item.appearance}
 							target={item.target}
 							onClick={onClickHandler}

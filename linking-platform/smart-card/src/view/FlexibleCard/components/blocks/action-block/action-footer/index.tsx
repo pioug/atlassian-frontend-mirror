@@ -1,4 +1,4 @@
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import React from 'react';
@@ -24,6 +24,10 @@ const errorStyles = xcss({
 	backgroundColor: 'color.background.danger',
 });
 
+const errorContentStyles = xcss({
+	paddingInlineStart: 'space.025',
+});
+
 const titleStyles = xcss({
 	color: 'color.text.subtle',
 	fontSize: '12px',
@@ -36,12 +40,13 @@ const getIcon = (appearance?: ActionMessageAppearance) => {
 	switch (appearance) {
 		case 'error':
 			return (
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
 				<ErrorIcon
-					primaryColor={token('color.icon.danger', '#C9372C')}
+					color={token('color.icon.danger', '#C9372C')}
+					spacing="compact"
 					label="Error"
-					size="small"
+					LEGACY_size="small"
 					testId="action-error-icon"
+					LEGACY_margin={`0 ${token('space.negative.025')}`}
 				/>
 			);
 		default:
@@ -60,7 +65,7 @@ export const ActionFooter = ({ message, testId }: ActionFooterProps) => {
 			xcss={[containerStyles, message.appearance === 'error' && errorStyles]}
 		>
 			<MotionWrapper isFadeIn={true} show={true} showTransition={true}>
-				<Inline alignBlock="start" grow="fill" space="space.050">
+				<Inline alignBlock="start" grow="fill" space="space.075" xcss={errorContentStyles}>
 					{message.icon || getIcon(message.appearance)}
 					<Box xcss={titleStyles}>{message.title}</Box>
 				</Inline>

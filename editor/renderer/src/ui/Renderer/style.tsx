@@ -479,7 +479,8 @@ const stickyScrollbarStyles = `
 
 	> .${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER} {
 	  width: 100%;
-	  display: none;
+	  display: block;
+	  visibility: hidden;
 	  overflow-x: auto;
 	  position: sticky;
 	  bottom: ${token('space.0', '0px')};

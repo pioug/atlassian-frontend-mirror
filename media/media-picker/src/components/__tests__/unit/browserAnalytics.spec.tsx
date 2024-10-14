@@ -22,7 +22,7 @@ describe('Browser analytics instrumentation', () => {
 		uploadParams: {},
 	};
 	const someFeatureFlags: MediaFeatureFlags = {
-		folderUploads: true,
+		commentsOnMedia: true,
 	};
 	const uploadId = 'upload id';
 	let oldDateNow: () => number;

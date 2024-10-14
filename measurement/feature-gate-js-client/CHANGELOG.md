@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.20.0
+
+### Minor Changes
+
+- [#151557](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151557)
+  [`0935b95608ca3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0935b95608ca3) -
+  Add support for providers to initialize and update users
+
 ## 4.19.0
 
 ### Minor Changes

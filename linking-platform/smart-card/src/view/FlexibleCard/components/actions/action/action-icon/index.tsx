@@ -4,6 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { SmartLinkSize } from '../../../../../../constants';
 import { getIconSizeStyles } from '../../../utils';
 import { type ActionIconProps } from './types';
@@ -39,13 +40,22 @@ const stackItemIconStyles = css(stackItemIconSizeStyles, {
 	},
 });
 
+const newStackItemIconStyles = css({
+	display: 'inline-block',
+	lineHeight: 0,
+});
+
 const ActionIcon = ({ size, testId, icon, isDisabled, asStackItemIcon }: ActionIconProps) => (
 	<span
 		css={[
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			getIconStyles(isDisabled),
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			asStackItemIcon ? stackItemIconStyles : getIconSizeStyles(getIconWidth(size)),
+			!fg('platform-visual-refresh-icons')
+				? asStackItemIcon
+					? stackItemIconStyles
+					: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						getIconSizeStyles(getIconWidth(size))
+				: newStackItemIconStyles,
 		]}
 		data-testid={`${testId}-icon`}
 	>

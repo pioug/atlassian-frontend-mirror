@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.14.1
+
+### Patch Changes
+
+- [#149098](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149098)
+  [`77093dd953b01`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77093dd953b01) -
+  [ux] Fix bug where bullet list content that contains numbered items could not be pasted.
+- Updated dependencies
+
+## 1.14.0
+
+### Minor Changes
+
+- [#151190](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151190)
+  [`a3723b1cdede2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3723b1cdede2) -
+  [ux] [ED-25037] this change bumps @atlaskit/adf-schema from 40.9.0 to 40.9.4 which makes the
+  blockquote selectable, adds missing marks to the PM node spec and fixes a bug that converted
+  pasted external images to media groups.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.13.0
 
 ### Minor Changes

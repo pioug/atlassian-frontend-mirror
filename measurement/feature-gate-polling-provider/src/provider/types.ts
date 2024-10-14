@@ -1,6 +1,6 @@
 import { type FetcherOptions } from '@atlaskit/feature-gate-fetcher';
 
-import { type ExperiemntValuesEntry } from '../database/types';
+import { type ExperimentValuesEntry } from '../database/types';
 
 export type PollingConfig = {
 	interval: number;
@@ -18,6 +18,6 @@ export type ProviderOptions = Pick<FetcherOptions, 'apiKey' | 'useGatewayURL'> &
 };
 
 export type FeatureGateState = Pick<
-	ExperiemntValuesEntry,
+	ExperimentValuesEntry,
 	'experimentValuesResponse' | 'profileHash' | 'timestamp'
 >;

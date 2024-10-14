@@ -6,6 +6,10 @@ import { simplePalette } from '../mock-data';
 import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 import { IntlProvider } from 'react-intl-next';
+import { DiProvider, injectable } from 'react-magnetic-di';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+const platformFgInjectable = injectable(fg, () => true);
 
 class ColorPickerExample extends React.Component<{}, { color: string }> {
 	state = {
@@ -27,6 +31,10 @@ class ColorPickerExample extends React.Component<{}, { color: string }> {
 	}
 }
 
-const Story = () => <ColorPickerExample />;
+const Story = () => (
+	<DiProvider use={[platformFgInjectable]}>
+		<ColorPickerExample />
+	</DiProvider>
+);
 
 export default Story;

@@ -2,7 +2,7 @@
   "extends": "../../../../tsconfig.entry-points.post-office.json",
   "compilerOptions": {
     "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__ufo-interaction-ignore/app",
+    "outDir": "../../../../../tsDist/@atlaskit__react-ufo/app",
     "composite": true,
     "rootDir": "../"
   },
@@ -16,9 +16,5 @@
     "../src/**/test.*",
     "../src/**/examples.*"
   ],
-  "references": [
-    {
-      "path": "../../../observability/interaction-context/afm-post-office/tsconfig.json"
-    }
-  ]
+  "references": []
 }

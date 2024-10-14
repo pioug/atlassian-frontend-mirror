@@ -1,13 +1,15 @@
 import Fetcher, {
-	type ClientOptions,
-	type CustomAttributes,
 	type FetcherOptions,
 	type FrontendClientSdkKeyResponse,
 	type FrontendExperimentsResponse,
+} from '@atlaskit/feature-gate-fetcher';
+import {
+	type BaseClientOptions,
+	type CustomAttributes,
 	type FrontendExperimentsResult,
 	type Identifiers,
 	type Provider,
-} from '@atlaskit/feature-gate-fetcher';
+} from '@atlaskit/feature-gate-js-client';
 
 import { type ProviderOptions } from './types';
 
@@ -26,7 +28,7 @@ export default class SingleFetchProvider implements Provider {
 	}
 
 	async getExperimentValues(
-		clientOptions: ClientOptions,
+		clientOptions: BaseClientOptions,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<FrontendExperimentsResult> {
@@ -51,7 +53,7 @@ export default class SingleFetchProvider implements Provider {
 		}));
 	}
 
-	async getClientSdkKey(clientOptions: ClientOptions): Promise<string> {
+	async getClientSdkKey(clientOptions: BaseClientOptions): Promise<string> {
 		if (!this.clientVersion) {
 			throw new Error('Client version has not been set');
 		}
@@ -61,7 +63,7 @@ export default class SingleFetchProvider implements Provider {
 			...this.providerOptions,
 		};
 
-		const result: FrontendClientSdkKeyResponse = await Fetcher.fetchClientSdk(
+		const result: FrontendClientSdkKeyResponse = await Fetcher.fetchClientSdkKey(
 			this.clientVersion,
 			fetcherOptions,
 		);

@@ -174,14 +174,17 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 
 					return true;
 				},
-			fireAnalyticsEvent: (payload: AnalyticsEventPayload) => {
+			fireAnalyticsEvent: (
+				payload: AnalyticsEventPayload,
+				channel: string = editorAnalyticsChannel,
+			) => {
 				const { createAnalyticsEvent } = api?.analytics?.sharedState.currentState() ?? {};
 				if (!createAnalyticsEvent) {
 					analyticsEventPropQueue.add({ payload });
 					return;
 				}
 
-				fireAnalyticsEvent(createAnalyticsEvent)({ payload });
+				fireAnalyticsEvent(createAnalyticsEvent)({ payload, channel });
 			},
 		},
 

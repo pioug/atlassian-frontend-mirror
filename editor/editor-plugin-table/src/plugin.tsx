@@ -115,6 +115,7 @@ type MediaPlugin = NextEditorPlugin<
 		dependencies: any;
 		sharedState: any;
 		actions: any;
+		commands: any;
 	}
 >;
 

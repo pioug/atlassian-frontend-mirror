@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 93.4.2
+
+### Patch Changes
+
+- [#151956](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151956)
+  [`10d31e630989b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10d31e630989b) -
+  Update internal Layer component to avoid UNSAFE lifecycle method
+- [#152099](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152099)
+  [`76e822ba23b83`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76e822ba23b83) -
+  [ED-23460] Allow develops to specify the channel when firing events
+- [#152019](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152019)
+  [`5f7f23dd0c612`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f7f23dd0c612) -
+  [ux] ED-25082: Added editor custom font tokens and use them for normal texts and paragraph texts"
+- Updated dependencies
+
+## 93.4.1
+
+### Patch Changes
+
+- [#151694](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151694)
+  [`69ec2bfcedd81`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/69ec2bfcedd81) -
+  Remediate usage of UNSAFE lifecycle method for Popup
+
 ## 93.4.0
 
 ### Minor Changes

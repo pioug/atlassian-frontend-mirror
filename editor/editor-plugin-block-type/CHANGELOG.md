@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.16.1
+
+### Patch Changes
+
+- [#152019](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152019)
+  [`5f7f23dd0c612`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f7f23dd0c612) -
+  [ux] ED-25082: Added editor custom font tokens and use them for normal texts and paragraph texts"
+- Updated dependencies
+
 ## 3.16.0
 
 ### Minor Changes

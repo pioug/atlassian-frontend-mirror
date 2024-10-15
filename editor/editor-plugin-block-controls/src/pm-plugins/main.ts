@@ -11,11 +11,11 @@ import {
 import { browser } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isTextInput } from '@atlaskit/editor-common/utils';
+import { isEmptyDocument, isTextInput } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type Step } from '@atlaskit/editor-prosemirror/transform';
-import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
@@ -26,11 +26,15 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { BlockControlsPlugin, PluginState } from '../types';
 import { AnchorHeightsCache, isAnchorSupported } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
+import { getTrMetadata } from '../utils/transactions';
 
 import {
 	dragHandleDecoration,
 	dropTargetDecorations,
 	emptyParagraphNodeDecorations,
+	findDropTargetDecs,
+	findHandleDec,
+	findNodeDecs,
 	nodeDecorations,
 } from './decorations';
 import { handleMouseOver } from './handle-mouse-over';
@@ -113,12 +117,504 @@ const initialState: PluginState = {
 	isPMDragging: false,
 };
 
+export interface FlagType {
+	isNestedEnabled: boolean;
+	isOptimisedApply: boolean;
+	isTitleEnterImprovementEnabled: boolean;
+}
+
+export const newApply = (
+	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
+	formatMessage: IntlShape['formatMessage'],
+	tr: ReadonlyTransaction,
+	currentState: PluginState,
+	newState: EditorState,
+	flags: FlagType,
+	anchorHeightsCache?: AnchorHeightsCache,
+) => {
+	const { isTitleEnterImprovementEnabled } = flags;
+
+	let {
+		activeNode,
+		decorations,
+		editorHeight,
+		editorWidthLeft,
+		editorWidthRight,
+		isDragging,
+		isMenuOpen, // NOT USED
+		isPMDragging, // NOT USED
+		isResizerResizing,
+	} = currentState;
+
+	let isActiveNodeDeleted = false;
+
+	// Remap existing decorations and activeNode when steps exist
+	if (tr.docChanged) {
+		decorations = decorations.map(tr.mapping, tr.doc);
+
+		if (activeNode) {
+			const mappedPos = tr.mapping.mapResult(activeNode.pos);
+			isActiveNodeDeleted = mappedPos.deleted;
+			activeNode = {
+				pos: mappedPos.pos,
+				anchorName: activeNode.anchorName,
+				nodeType: activeNode.nodeType,
+			};
+		}
+	}
+
+	const meta = tr.getMeta(key);
+	const resizerMeta = tr.getMeta('is-resizer-resizing');
+	isResizerResizing = resizerMeta ?? isResizerResizing;
+
+	const { from, to, numReplaceSteps, isAllText } = getTrMetadata(tr);
+	const maybeNodeCountChanged = !isAllText && numReplaceSteps > 0;
+	const latestActiveNode = meta?.activeNode ?? activeNode;
+
+	// Re-create node decorations
+	const isDecSetEmpty = decorations === DecorationSet.empty;
+	const isNodeDecsMissing = isDecSetEmpty || maybeNodeCountChanged;
+	const shouldRedrawNodeDecs = !isResizerResizing && isNodeDecsMissing;
+
+	let isActiveNodeModified = false;
+
+	if (api && shouldRedrawNodeDecs) {
+		const oldNodeDecs = findNodeDecs(decorations, from, to);
+		decorations = decorations.remove(oldNodeDecs);
+		const newNodeDecs = nodeDecorations(
+			newState,
+			isDecSetEmpty ? undefined : from,
+			isDecSetEmpty ? undefined : to,
+		);
+		decorations = decorations.add(newState.doc, newNodeDecs);
+
+		if (latestActiveNode && !isActiveNodeDeleted) {
+			// Find the newly minted node decs that touch the active node
+			const findNewNodeDecs = findNodeDecs(decorations, latestActiveNode.pos - 1, to);
+
+			// Find the specific dec that the active node corresponds to
+			const nodeDecsAtActivePos = findNewNodeDecs.filter(
+				(dec: Decoration) => dec?.from === latestActiveNode.pos,
+			);
+
+			// If multiple decorations at the active node pos, we want the last one
+			const nodeDecAtActivePos = nodeDecsAtActivePos.pop();
+
+			// Update the active node anchor-name and type for accurate positioning
+			if (nodeDecAtActivePos) {
+				isActiveNodeModified = true;
+				latestActiveNode.anchorName = nodeDecAtActivePos.spec.anchorName;
+				latestActiveNode.nodeType = nodeDecAtActivePos.spec.nodeType;
+			}
+		}
+	}
+
+	// Check if editor dimensions have changed
+	const editorSizeChanged =
+		(meta?.editorHeight !== undefined && meta?.editorHeight !== editorHeight) ||
+		(meta?.editorWidthLeft !== undefined && meta?.editorWidthLeft !== editorWidthLeft) ||
+		(meta?.editorWidthRight !== undefined && meta?.editorWidthRight !== editorWidthRight);
+
+	// Check if there's a new active node, and it differs from the last
+	const activeNodeChanged =
+		meta?.activeNode &&
+		((meta?.activeNode.pos !== activeNode?.pos &&
+			meta?.activeNode.anchorName !== activeNode?.anchorName) ||
+			meta?.activeNode.handleOptions?.isFocused);
+
+	// Some browsers don't support anchor positioning, meaning we need to replace the handle when nodes change
+	const handleNeedsRedraw = shouldRedrawNodeDecs && !isAnchorSupported();
+
+	// Create/recreate handle dec when the active node is missing/changes, or the editor viewport has changed (non-anchor pos workaround)
+	const shouldRecreateHandle =
+		latestActiveNode &&
+		(activeNodeChanged || isActiveNodeModified || editorSizeChanged || handleNeedsRedraw);
+
+	// Remove handle dec when explicitly hidden, a node is resizing, activeNode pos was deleted, or DnD moved a node
+	const shouldRemoveHandle =
+		latestActiveNode &&
+		((meta?.hideDragHandle && isTitleEnterImprovementEnabled) ||
+			isResizerResizing ||
+			isActiveNodeDeleted ||
+			meta?.nodeMoved);
+
+	if (shouldRemoveHandle) {
+		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
+		decorations = decorations.remove(oldHandle);
+	} else if (api && shouldRecreateHandle) {
+		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
+		decorations = decorations.remove(oldHandle);
+		const handleDec = dragHandleDecoration(
+			api,
+			formatMessage,
+			latestActiveNode?.pos,
+			latestActiveNode?.anchorName,
+			latestActiveNode?.nodeType,
+			latestActiveNode?.handleOptions,
+		);
+		decorations = decorations.add(newState.doc, [handleDec]);
+	}
+
+	// Drop targets may be missing when the node count is being changed during a drag
+	const isDropTargetsMissing =
+		(meta?.isDragging ?? isDragging) && maybeNodeCountChanged && !meta?.nodeMoved;
+
+	// Remove drop target decorations when dragging stops or they need to be redrawn
+	if (meta?.isDragging === false || isDropTargetsMissing) {
+		const dropTargetDecs = findDropTargetDecs(decorations);
+		decorations = decorations.remove(dropTargetDecs);
+	}
+
+	// Add drop targets when dragging starts or some are missing
+	if (api) {
+		if (meta?.isDragging || isDropTargetsMissing || isBlocksDragTargetDebug()) {
+			const decs = dropTargetDecorations(
+				newState,
+				api,
+				formatMessage,
+				latestActiveNode,
+				anchorHeightsCache,
+			);
+			decorations = decorations.add(newState.doc, decs);
+		}
+	}
+
+	const isEmptyDoc = isEmptyDocument(newState.doc);
+	if (isEmptyDoc) {
+		const hasNodeDecoration = !!findNodeDecs(decorations).length;
+		if (!hasNodeDecoration) {
+			decorations = decorations.add(newState.doc, [emptyParagraphNodeDecorations()]);
+		}
+	}
+
+	const newActiveNode =
+		isEmptyDoc ||
+		(!meta?.activeNode &&
+			findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0)
+			? null
+			: latestActiveNode;
+
+	return {
+		decorations,
+		activeNode: newActiveNode,
+		isDragging: meta?.isDragging ?? isDragging,
+		isMenuOpen: meta?.toggleMenu ? !isMenuOpen : isMenuOpen,
+		editorHeight: meta?.editorHeight ?? editorHeight,
+		editorWidthLeft: meta?.editorWidthLeft ?? editorWidthLeft,
+		editorWidthRight: meta?.editorWidthRight ?? editorWidthRight,
+		isResizerResizing: isResizerResizing,
+		isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
+		isPMDragging: meta?.isPMDragging ?? isPMDragging,
+	};
+};
+
+export const oldApply = (
+	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
+	formatMessage: IntlShape['formatMessage'],
+	tr: ReadonlyTransaction,
+	currentState: PluginState,
+	oldState: EditorState,
+	newState: EditorState,
+	flags: FlagType,
+	anchorHeightsCache?: AnchorHeightsCache,
+) => {
+	const { isNestedEnabled, isTitleEnterImprovementEnabled } = flags;
+
+	let {
+		activeNode,
+		decorations,
+		isMenuOpen,
+		editorHeight,
+		editorWidthLeft,
+		editorWidthRight,
+		isResizerResizing,
+		isDragging,
+		isPMDragging,
+	} = currentState;
+
+	// Remap existing decorations when steps exist
+	if (tr.docChanged) {
+		decorations = decorations.map(tr.mapping, tr.doc);
+	}
+
+	const meta = tr.getMeta(key);
+	const isPerformanceFix =
+		isNestedEnabled ||
+		editorExperiment('dnd-input-performance-optimisation', true, {
+			exposure: true,
+		});
+	let activeNodeWithNewNodeType = null;
+
+	// If tables or media are being resized, we want to hide the drag handle
+	const resizerMeta = tr.getMeta('is-resizer-resizing');
+	isResizerResizing = resizerMeta ?? isResizerResizing;
+
+	const canIgnoreTr = () => !tr.steps.every((e: Step) => e instanceof AnalyticsStep);
+
+	const maybeNodeCountChanged = isNestedEnabled
+		? !isTextInput(tr) && tr.docChanged && canIgnoreTr()
+		: oldState.doc.childCount !== newState.doc.childCount;
+
+	const shouldRemoveHandle = !tr.getMeta('isRemote');
+
+	// During resize, remove the drag handle widget so its dom positioning doesn't need to be maintained
+	// Also remove the handle when the node is moved or the node count changes. This helps prevent incorrect positioning
+	// Don't remove the handle if remote changes are changing the node count, its prosemirror position can be mapped instead
+	if (
+		(meta?.hideDragHandle && isTitleEnterImprovementEnabled) ||
+		isResizerResizing ||
+		(maybeNodeCountChanged && shouldRemoveHandle) ||
+		meta?.nodeMoved
+	) {
+		const oldHandle = decorations.find(undefined, undefined, (spec) => spec.type === 'drag-handle');
+		decorations = decorations.remove(oldHandle);
+	}
+
+	const decsLength = isNestedEnabled
+		? decorations.find(undefined, undefined, (spec) => spec.type === 'node-decoration').length
+		: decorations.find().filter(({ spec }) => spec.type !== 'drag-handle').length;
+
+	let isDecsMissing = false;
+	let isDropTargetsMissing = false;
+
+	if (isNestedEnabled) {
+		isDecsMissing = !(isDragging || meta?.isDragging) && maybeNodeCountChanged;
+		isDropTargetsMissing =
+			(meta?.isDragging ?? isDragging) && maybeNodeCountChanged && !meta?.nodeMoved;
+	} else {
+		isDecsMissing = !(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
+		const dropTargetLen = decorations.find(
+			undefined,
+			undefined,
+			(spec) => spec.type === 'drop-target-decoration',
+		).length;
+
+		isDropTargetsMissing =
+			isDragging && meta?.isDragging !== false && dropTargetLen !== newState.doc.childCount + 1;
+	}
+
+	// This is not targeted enough - it's trying to catch events like expand being set to breakout
+	const maybeWidthUpdated =
+		tr.docChanged && oldState.doc.nodeSize === newState.doc.nodeSize && !maybeNodeCountChanged;
+
+	// This addresses scenarios such as undoing table resizing,
+	// where a keyboard shortcut triggers a width change, and
+	// the node's actual width is then updated in a separate renderering cycle.
+	// The tr.meta.activeNode is triggered by the showDragHandleAt function during the mouse entry event
+	// (when the table node rerenders)
+	// The activeNode is from the previous rendering cycle, and verify if they share the same anchor.
+	const maybeTableWidthUpdated =
+		meta?.activeNode &&
+		meta?.activeNode?.nodeType === 'table' &&
+		meta.activeNode.anchorName === activeNode?.anchorName;
+
+	const redrawDecorations =
+		decorations === DecorationSet.empty ||
+		(meta?.editorHeight !== undefined && meta?.editorHeight !== editorHeight) ||
+		(meta?.editorWidthLeft !== undefined && meta?.editorWidthLeft !== editorWidthLeft) ||
+		(meta?.editorWidthRight !== undefined && meta?.editorWidthRight !== editorWidthRight) ||
+		maybeWidthUpdated ||
+		maybeNodeCountChanged ||
+		maybeTableWidthUpdated ||
+		resizerMeta === false ||
+		isDecsMissing ||
+		(!!meta?.nodeMoved && tr.docChanged);
+
+	// Draw node and mouseWrapper decorations at top level node if decorations is empty, editor height changes or node is moved
+	if (redrawDecorations && !isResizerResizing && api) {
+		const oldNodeDecs = decorations.find(
+			undefined,
+			undefined,
+			(spec) => spec.type !== 'drop-target-decoration',
+		);
+		decorations = decorations.remove(oldNodeDecs);
+		const newNodeDecs = nodeDecorations(newState);
+		decorations = decorations.add(newState.doc, [...newNodeDecs]);
+
+		if (activeNode && !meta?.nodeMoved && !isDecsMissing) {
+			let mappedPosisiton = tr.mapping.map(activeNode.pos);
+			const prevMappedPos = oldState.tr.mapping.map(activeNode.pos);
+
+			// When a node type changed to be nested inside another node, the position of the active node is off by 1
+			// This is a workaround to fix the position of the active node when it is nested
+			if (tr.docChanged && !maybeNodeCountChanged && mappedPosisiton === prevMappedPos + 1) {
+				mappedPosisiton = prevMappedPos;
+			}
+			const newActiveNode = tr.doc.nodeAt(mappedPosisiton);
+
+			let draghandleDec;
+			if (isPerformanceFix) {
+				if (newActiveNode && newActiveNode?.type.name !== activeNode.nodeType) {
+					const oldHandle = decorations.find(
+						undefined,
+						undefined,
+						(spec) => spec.type === 'drag-handle',
+					);
+					decorations = decorations.remove(oldHandle);
+				}
+				const decAtPos = newNodeDecs.find((dec) => dec.from === mappedPosisiton);
+				draghandleDec = dragHandleDecoration(
+					api,
+					formatMessage,
+					meta?.activeNode?.pos ?? mappedPosisiton,
+					meta?.activeNode?.anchorName ?? decAtPos?.spec?.anchorName ?? activeNode?.anchorName,
+					meta?.activeNode?.nodeType ?? decAtPos?.spec?.nodeType ?? activeNode?.nodeType,
+					meta?.activeNode?.handleOptions,
+				);
+			} else {
+				let nodeType = activeNode.nodeType;
+				let anchorName = activeNode.anchorName;
+
+				if (newActiveNode && newActiveNode?.type.name !== activeNode.nodeType) {
+					nodeType = newActiveNode.type.name;
+					anchorName = activeNode.anchorName.replace(activeNode.nodeType, nodeType);
+
+					activeNodeWithNewNodeType = { pos: prevMappedPos, nodeType, anchorName };
+				}
+				draghandleDec = dragHandleDecoration(
+					api,
+					formatMessage,
+					activeNode.pos,
+					anchorName,
+					nodeType,
+				);
+			}
+			decorations = decorations.add(newState.doc, [draghandleDec]);
+		}
+	}
+
+	// Remove previous drag handle widget and draw new drag handle widget when activeNode changes
+	if (
+		api &&
+		meta?.activeNode &&
+		((meta?.activeNode.pos !== activeNode?.pos &&
+			meta?.activeNode.anchorName !== activeNode?.anchorName) ||
+			meta?.activeNode.handleOptions?.isFocused)
+	) {
+		const oldHandle = decorations.find(undefined, undefined, (spec) => spec.type === 'drag-handle');
+		decorations = decorations.remove(oldHandle);
+		const decs = dragHandleDecoration(
+			api,
+			formatMessage,
+			meta.activeNode.pos,
+			meta.activeNode.anchorName,
+			meta.activeNode.nodeType,
+			meta.activeNode.handleOptions,
+		);
+		decorations = decorations.add(newState.doc, [decs]);
+	}
+
+	// Remove previous drag handle widget and draw new drag handle widget when node type changes
+	if (
+		!isPerformanceFix &&
+		activeNodeWithNewNodeType &&
+		activeNodeWithNewNodeType?.nodeType !== activeNode?.nodeType &&
+		api
+	) {
+		const oldHandle = decorations.find(undefined, undefined, (spec) => spec.type === 'drag-handle');
+		decorations = decorations.remove(oldHandle);
+		const decs = dragHandleDecoration(
+			api,
+			formatMessage,
+			activeNodeWithNewNodeType.pos,
+			activeNodeWithNewNodeType.anchorName,
+			activeNodeWithNewNodeType.nodeType,
+		);
+		decorations = decorations.add(newState.doc, [decs]);
+	}
+
+	if (meta?.isDragging === false || isDropTargetsMissing) {
+		// Remove drop target decoration when dragging stops
+		const dropTargetDecs = decorations.find(
+			undefined,
+			undefined,
+			(spec) => spec.type === 'drop-target-decoration',
+		);
+		decorations = decorations.remove(dropTargetDecs);
+	}
+
+	// Map active node position when the document changes
+	const mappedActiveNodePos =
+		tr.docChanged && activeNode
+			? (!isPerformanceFix && activeNodeWithNewNodeType) || {
+					pos: tr.mapping.map(activeNode.pos),
+					anchorName: activeNode.anchorName,
+					nodeType: activeNode.nodeType,
+				}
+			: activeNode;
+
+	const shouldCreateDropTargets = meta?.isDragging || isDropTargetsMissing;
+	if (api) {
+		// Add drop targets when node is being dragged
+		// if the transaction is only for analytics and user is dragging, continue to draw drop targets
+		if (shouldCreateDropTargets || isBlocksDragTargetDebug()) {
+			const decs = dropTargetDecorations(
+				newState,
+				api,
+				formatMessage,
+				isNestedEnabled ? meta?.activeNode ?? mappedActiveNodePos : meta?.activeNode,
+				anchorHeightsCache,
+			);
+			decorations = decorations.add(newState.doc, decs);
+		}
+	}
+
+	const isEmptyDoc = isNestedEnabled
+		? newState.doc.childCount === 1 &&
+			newState.doc.nodeSize <= 4 &&
+			(newState.doc.firstChild === null || newState.doc.firstChild.nodeSize <= 2)
+		: newState.doc.childCount === 1 && newState.doc.nodeSize <= 4;
+
+	if (isEmptyDoc) {
+		const hasNodeDecoration = !!decorations.find(
+			undefined,
+			undefined,
+			(spec) => spec.type === 'node-decoration',
+		).length;
+
+		if (!hasNodeDecoration) {
+			decorations = decorations.add(newState.doc, [emptyParagraphNodeDecorations()]);
+		}
+	}
+
+	const newActiveNode =
+		isEmptyDoc ||
+		(!meta?.activeNode &&
+			decorations.find(undefined, undefined, (spec) => spec.type === 'drag-handle').length === 0)
+			? null
+			: meta?.activeNode ?? mappedActiveNodePos;
+
+	return {
+		decorations,
+		activeNode: newActiveNode,
+		isDragging: meta?.isDragging ?? isDragging,
+		isMenuOpen: meta?.toggleMenu ? !isMenuOpen : isMenuOpen,
+		editorHeight: meta?.editorHeight ?? currentState.editorHeight,
+		editorWidthLeft: meta?.editorWidthLeft ?? currentState.editorWidthLeft,
+		editorWidthRight: meta?.editorWidthRight ?? currentState.editorWidthRight,
+		isResizerResizing: isResizerResizing,
+		isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
+		isPMDragging: meta?.isPMDragging ?? isPMDragging,
+	};
+};
+
 export const createPlugin = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 	getIntl: () => IntlShape,
 ) => {
 	const { formatMessage } = getIntl();
 	const isNestedEnabled = editorExperiment('nested-dnd', true, { exposure: true });
+	const isOptimisedApply =
+		isNestedEnabled &&
+		editorExperiment('optimised-apply-dnd', true, {
+			exposure: true,
+		});
+	const isTitleEnterImprovementEnabled = fg('confluence_frontend_page_title_enter_improvements');
+	const flags: FlagType = {
+		isNestedEnabled,
+		isOptimisedApply,
+		isTitleEnterImprovementEnabled,
+	};
 
 	if (fg('platform_editor_element_dnd_nested_fix_patch_2')) {
 		// TODO: Remove this once FG is used in code
@@ -141,302 +637,27 @@ export const createPlugin = (
 				oldState: EditorState,
 				newState: EditorState,
 			) {
-				let {
-					activeNode,
-					decorations,
-					isMenuOpen,
-					editorHeight,
-					editorWidthLeft,
-					editorWidthRight,
-					isResizerResizing,
-					isDragging,
-					isPMDragging,
-				} = currentState;
-
-				// Remap existing decorations when steps exist
-				if (tr.docChanged) {
-					decorations = decorations.map(tr.mapping, tr.doc);
-				}
-
-				const meta = tr.getMeta(key);
-				const isPerformanceFix =
-					isNestedEnabled ||
-					editorExperiment('dnd-input-performance-optimisation', true, {
-						exposure: true,
-					});
-				let activeNodeWithNewNodeType = null;
-
-				// If tables or media are being resized, we want to hide the drag handle
-				const resizerMeta = tr.getMeta('is-resizer-resizing');
-				isResizerResizing = resizerMeta ?? isResizerResizing;
-
-				const canIgnoreTr = () => !tr.steps.every((e: Step) => e instanceof AnalyticsStep);
-
-				const maybeNodeCountChanged = isNestedEnabled
-					? !isTextInput(tr) && tr.docChanged && canIgnoreTr()
-					: oldState.doc.childCount !== newState.doc.childCount;
-
-				const shouldRemoveHandle = !tr.getMeta('isRemote');
-
-				// During resize, remove the drag handle widget so its dom positioning doesn't need to be maintained
-				// Also remove the handle when the node is moved or the node count changes. This helps prevent incorrect positioning
-				// Don't remove the handle if remote changes are changing the node count, its prosemirror position can be mapped instead
-				if (
-					(meta?.hideDragHandle && fg('confluence_frontend_page_title_enter_improvements')) ||
-					isResizerResizing ||
-					(maybeNodeCountChanged && shouldRemoveHandle) ||
-					meta?.nodeMoved
-				) {
-					const oldHandle = decorations.find(
-						undefined,
-						undefined,
-						(spec) => spec.id === 'drag-handle',
-					);
-					decorations = decorations.remove(oldHandle);
-				}
-
-				const decsLength = isNestedEnabled
-					? decorations.find(undefined, undefined, (spec) => spec.type === 'node-decoration').length
-					: decorations.find().filter(({ spec }) => spec.id !== 'drag-handle').length;
-
-				let isDecsMissing = false;
-				let isDropTargetsMissing = false;
-
-				if (isNestedEnabled) {
-					isDecsMissing = !(isDragging || meta?.isDragging) && maybeNodeCountChanged;
-					isDropTargetsMissing =
-						(meta?.isDragging ?? isDragging) && maybeNodeCountChanged && !meta?.nodeMoved;
-				} else {
-					isDecsMissing =
-						!(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
-					const dropTargetLen = decorations.find(
-						undefined,
-						undefined,
-						(spec) => spec.type === 'drop-target-decoration',
-					).length;
-
-					isDropTargetsMissing =
-						isDragging &&
-						meta?.isDragging !== false &&
-						dropTargetLen !== newState.doc.childCount + 1;
-				}
-
-				// This is not targeted enough - it's trying to catch events like expand being set to breakout
-				const maybeWidthUpdated =
-					tr.docChanged &&
-					oldState.doc.nodeSize === newState.doc.nodeSize &&
-					!maybeNodeCountChanged;
-
-				// This addresses scenarios such as undoing table resizing,
-				// where a keyboard shortcut triggers a width change, and
-				// the node's actual width is then updated in a separate renderering cycle.
-				// The tr.meta.activeNode is triggered by the showDragHandleAt function during the mouse entry event
-				// (when the table node rerenders)
-				// The activeNode is from the previous rendering cycle, and verify if they share the same anchor.
-				const maybeTableWidthUpdated =
-					meta?.activeNode &&
-					meta?.activeNode?.nodeType === 'table' &&
-					meta.activeNode.anchorName === activeNode?.anchorName;
-
-				const redrawDecorations =
-					decorations === DecorationSet.empty ||
-					(meta?.editorHeight !== undefined && meta?.editorHeight !== editorHeight) ||
-					(meta?.editorWidthLeft !== undefined && meta?.editorWidthLeft !== editorWidthLeft) ||
-					(meta?.editorWidthRight !== undefined && meta?.editorWidthRight !== editorWidthRight) ||
-					maybeWidthUpdated ||
-					maybeNodeCountChanged ||
-					maybeTableWidthUpdated ||
-					resizerMeta === false ||
-					isDecsMissing ||
-					(!!meta?.nodeMoved && tr.docChanged);
-
-				// Draw node and mouseWrapper decorations at top level node if decorations is empty, editor height changes or node is moved
-				if (redrawDecorations && !isResizerResizing && api) {
-					const oldNodeDecs = decorations.find(
-						undefined,
-						undefined,
-						(spec) => spec.type !== 'drop-target-decoration',
-					);
-					decorations = decorations.remove(oldNodeDecs);
-					const newNodeDecs = nodeDecorations(newState);
-					decorations = decorations.add(newState.doc, [...newNodeDecs]);
-
-					if (activeNode && !meta?.nodeMoved && !isDecsMissing) {
-						let mappedPosisiton = tr.mapping.map(activeNode.pos);
-						const prevMappedPos = oldState.tr.mapping.map(activeNode.pos);
-
-						// When a node type changed to be nested inside another node, the position of the active node is off by 1
-						// This is a workaround to fix the position of the active node when it is nested
-						if (tr.docChanged && !maybeNodeCountChanged && mappedPosisiton === prevMappedPos + 1) {
-							mappedPosisiton = prevMappedPos;
-						}
-						const newActiveNode = tr.doc.nodeAt(mappedPosisiton);
-
-						let draghandleDec;
-						if (isPerformanceFix) {
-							if (newActiveNode && newActiveNode?.type.name !== activeNode.nodeType) {
-								const oldHandle = decorations.find(
-									undefined,
-									undefined,
-									(spec) => spec.id === 'drag-handle',
-								);
-								decorations = decorations.remove(oldHandle);
-							}
-							const decAtPos = newNodeDecs.find((dec) => dec.from === mappedPosisiton);
-							draghandleDec = dragHandleDecoration(
-								api,
-								getIntl,
-								meta?.activeNode?.pos ?? mappedPosisiton,
-								meta?.activeNode?.anchorName ??
-									decAtPos?.spec?.anchorName ??
-									activeNode?.anchorName,
-								meta?.activeNode?.nodeType ?? decAtPos?.spec?.nodeType ?? activeNode?.nodeType,
-								meta?.activeNode?.handleOptions,
-							);
-						} else {
-							let nodeType = activeNode.nodeType;
-							let anchorName = activeNode.anchorName;
-
-							if (newActiveNode && newActiveNode?.type.name !== activeNode.nodeType) {
-								nodeType = newActiveNode.type.name;
-								anchorName = activeNode.anchorName.replace(activeNode.nodeType, nodeType);
-
-								activeNodeWithNewNodeType = { pos: prevMappedPos, nodeType, anchorName };
-							}
-							draghandleDec = dragHandleDecoration(
-								api,
-								getIntl,
-								activeNode.pos,
-								anchorName,
-								nodeType,
-							);
-						}
-						decorations = decorations.add(newState.doc, [draghandleDec]);
-					}
-				}
-
-				// Remove previous drag handle widget and draw new drag handle widget when activeNode changes
-				if (
-					api &&
-					meta?.activeNode &&
-					((meta?.activeNode.pos !== activeNode?.pos &&
-						meta?.activeNode.anchorName !== activeNode?.anchorName) ||
-						meta?.activeNode.handleOptions?.isFocused)
-				) {
-					const oldHandle = decorations.find(
-						undefined,
-						undefined,
-						(spec) => spec.id === 'drag-handle',
-					);
-					decorations = decorations.remove(oldHandle);
-					const decs = dragHandleDecoration(
+				if (isOptimisedApply) {
+					return newApply(
 						api,
-						getIntl,
-						meta.activeNode.pos,
-						meta.activeNode.anchorName,
-						meta.activeNode.nodeType,
-						meta.activeNode.handleOptions,
+						formatMessage,
+						tr,
+						currentState,
+						newState,
+						flags,
+						anchorHeightsCache,
 					);
-					decorations = decorations.add(newState.doc, [decs]);
 				}
-
-				// Remove previous drag handle widget and draw new drag handle widget when node type changes
-				if (
-					!isPerformanceFix &&
-					activeNodeWithNewNodeType &&
-					activeNodeWithNewNodeType?.nodeType !== activeNode?.nodeType &&
-					api
-				) {
-					const oldHandle = decorations.find(
-						undefined,
-						undefined,
-						(spec) => spec.id === 'drag-handle',
-					);
-					decorations = decorations.remove(oldHandle);
-					const decs = dragHandleDecoration(
-						api,
-						getIntl,
-						activeNodeWithNewNodeType.pos,
-						activeNodeWithNewNodeType.anchorName,
-						activeNodeWithNewNodeType.nodeType,
-					);
-					decorations = decorations.add(newState.doc, [decs]);
-				}
-
-				if (meta?.isDragging === false || isDropTargetsMissing) {
-					// Remove drop target decoration when dragging stops
-					const dropTargetDecs = decorations.find(
-						undefined,
-						undefined,
-						(spec) => spec.type === 'drop-target-decoration',
-					);
-					decorations = decorations.remove(dropTargetDecs);
-				}
-
-				// Map active node position when the document changes
-				const mappedActiveNodePos =
-					tr.docChanged && activeNode
-						? (!isPerformanceFix && activeNodeWithNewNodeType) || {
-								pos: tr.mapping.map(activeNode.pos),
-								anchorName: activeNode.anchorName,
-								nodeType: activeNode.nodeType,
-							}
-						: activeNode;
-
-				const shouldCreateDropTargets = meta?.isDragging || isDropTargetsMissing;
-				if (api) {
-					// Add drop targets when node is being dragged
-					// if the transaction is only for analytics and user is dragging, continue to draw drop targets
-					if (shouldCreateDropTargets || isBlocksDragTargetDebug()) {
-						const decs = dropTargetDecorations(
-							newState,
-							api,
-							formatMessage,
-							isNestedEnabled ? meta?.activeNode ?? mappedActiveNodePos : meta?.activeNode,
-							anchorHeightsCache,
-						);
-						decorations = decorations.add(newState.doc, decs);
-					}
-				}
-
-				const isEmptyDoc = isNestedEnabled
-					? newState.doc.childCount === 1 &&
-						newState.doc.nodeSize <= 4 &&
-						(newState.doc.firstChild === null || newState.doc.firstChild.nodeSize <= 2)
-					: newState.doc.childCount === 1 && newState.doc.nodeSize <= 4;
-
-				if (isEmptyDoc) {
-					const hasNodeDecoration = !!decorations.find(
-						undefined,
-						undefined,
-						(spec) => spec.type === 'node-decoration',
-					).length;
-
-					if (!hasNodeDecoration) {
-						decorations = decorations.add(newState.doc, [emptyParagraphNodeDecorations()]);
-					}
-				}
-
-				const newActiveNode =
-					isEmptyDoc ||
-					(!meta?.activeNode &&
-						decorations.find(undefined, undefined, (spec) => spec.id === 'drag-handle').length ===
-							0)
-						? null
-						: meta?.activeNode ?? mappedActiveNodePos;
-
-				return {
-					decorations,
-					activeNode: newActiveNode,
-					isDragging: meta?.isDragging ?? isDragging,
-					isMenuOpen: meta?.toggleMenu ? !isMenuOpen : isMenuOpen,
-					editorHeight: meta?.editorHeight ?? currentState.editorHeight,
-					editorWidthLeft: meta?.editorWidthLeft ?? currentState.editorWidthLeft,
-					editorWidthRight: meta?.editorWidthRight ?? currentState.editorWidthRight,
-					isResizerResizing: isResizerResizing,
-					isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
-					isPMDragging: meta?.isPMDragging ?? isPMDragging,
-				};
+				return oldApply(
+					api,
+					formatMessage,
+					tr,
+					currentState,
+					oldState,
+					newState,
+					flags,
+					anchorHeightsCache,
+				);
 			},
 		},
 
@@ -537,18 +758,12 @@ export const createPlugin = (
 				'.fabric-editor-popup-scroll-parent',
 			);
 
-			// Use ResizeObserver to observe width changes
+			// Use ResizeObserver to observe resizer (scroll-parent typically grows when resizing) and editor width changes
 			const resizeObserverWidth = new ResizeObserver(
 				rafSchedule((entries) => {
-					const editorContentArea = entries[0].target;
-					const editorWidthRight = editorContentArea!.getBoundingClientRect().right;
-					const editorWidthLeft = editorContentArea!.getBoundingClientRect().left;
-
-					// Update the plugin state when the height changes
 					const pluginState = key.getState(editorView.state);
 					if (!pluginState?.isDragging) {
 						const isResizerResizing = !!dom.querySelector('.is-resizing');
-
 						const transaction = editorView.state.tr;
 
 						if (pluginState?.isResizerResizing !== isResizerResizing) {
@@ -556,16 +771,17 @@ export const createPlugin = (
 						}
 
 						if (!isResizerResizing) {
-							if (fg('platform_editor_elements_drag_and_drop_ed_23394')) {
-								transaction.setMeta(key, { editorWidthLeft, editorWidthRight });
-							}
+							const editorContentArea = entries[0].target;
+							const editorWidthRight = editorContentArea!.getBoundingClientRect().right;
+							const editorWidthLeft = editorContentArea!.getBoundingClientRect().left;
+							transaction.setMeta(key, { editorWidthLeft, editorWidthRight });
 						}
 						editorView.dispatch(transaction);
 					}
 				}),
 			);
 
-			if (editorContentArea && fg('platform_editor_elements_drag_and_drop_ed_23394')) {
+			if (editorContentArea) {
 				resizeObserverWidth.observe(editorContentArea);
 			}
 
@@ -574,7 +790,7 @@ export const createPlugin = (
 
 			return {
 				destroy() {
-					if (editorContentArea && fg('platform_editor_elements_drag_and_drop_ed_23394')) {
+					if (editorContentArea) {
 						resizeObserverWidth.unobserve(editorContentArea);
 					}
 					pragmaticCleanup();

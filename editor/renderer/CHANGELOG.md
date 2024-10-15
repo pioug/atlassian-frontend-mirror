@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 111.2.2
+
+### Patch Changes
+
+- [#149238](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149238)
+  [`3dc5893b05a80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3dc5893b05a80) -
+  Add nodes count to renderer stats
+- [#152019](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152019)
+  [`5f7f23dd0c612`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f7f23dd0c612) -
+  [ux] ED-25082: Added editor custom font tokens and use them for normal texts and paragraph texts"
+- Updated dependencies
+
 ## 111.2.1
 
 ### Patch Changes

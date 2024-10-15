@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.10.0
+
+### Minor Changes
+
+- [#151601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151601)
+  [`d619298dc0279`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d619298dc0279) -
+  Adds `use-entrypoints-in-examples` rule which prevents the use of relative imports from `src` in
+  examples. Instead they should use public entrypoints to ensure they reflect public API.
+
 ## 0.9.0
 
 ### Minor Changes

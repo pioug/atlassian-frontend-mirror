@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::cc06e5fdad867aee8b6196015559844f>>
+ * @codegen <<SignedSource::a24657e4c74c30792752bd9e2b59135c>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -364,7 +364,13 @@ export type TextColor =
 	| 'var(--ds-text-subtle)'
 	| 'var(--ds-link)'
 	| 'var(--ds-link-visited)';
-export type Opacity = 'var(--ds-opacity-disabled)' | 'var(--ds-opacity-loading)';
+export type Opacity =
+	| 'var(--ds-opacity-disabled)'
+	| 'var(--ds-opacity-loading)'
+	| 0
+	| 1
+	| '0'
+	| '1';
 
 export interface CSSPropertiesHovered {
 	backgroundColor: BackgroundColorHovered;

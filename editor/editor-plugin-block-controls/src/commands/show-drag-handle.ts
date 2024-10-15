@@ -1,6 +1,7 @@
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isInTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin } from '../types';
@@ -12,7 +13,11 @@ export const showDragHandleAtSelection =
 		const { $from } = state.selection;
 		let shouldFocusParentNode;
 
-		if ($from.depth > 1 && fg('platform_editor_element_dnd_nested_a11y')) {
+		if (
+			$from.depth > 1 &&
+			editorExperiment('nested-dnd', true) &&
+			fg('platform_editor_element_dnd_nested_a11y')
+		) {
 			const { activeNode } = key.getState(state) || {};
 
 			// if the node is already focused, pressing the keymap second times should focus the parent node

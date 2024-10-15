@@ -11,6 +11,7 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { moveNodeViaShortcut } from '../commands/move-node';
 import { showDragHandleAtSelection } from '../commands/show-drag-handle';
@@ -44,18 +45,18 @@ function keymapList(
 			keymapList,
 		);
 
-		fg('platform_editor_element_dnd_nested_a11y') &&
+		if (editorExperiment('nested-dnd', true) && fg('platform_editor_element_dnd_nested_a11y')) {
 			bindKeymapWithCommand(
 				dragToMoveLeft.common!,
 				moveNodeViaShortcut(api, DIRECTION.LEFT, formatMessage),
 				keymapList,
 			);
-		fg('platform_editor_element_dnd_nested_a11y') &&
 			bindKeymapWithCommand(
 				dragToMoveRight.common!,
 				moveNodeViaShortcut(api, DIRECTION.RIGHT, formatMessage),
 				keymapList,
 			);
+		}
 	}
 	return keymapList;
 }

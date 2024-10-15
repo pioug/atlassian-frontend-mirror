@@ -87,6 +87,10 @@ export const DateRangePicker = ({
 
 	const handleClickFilterOption = useCallback(
 		(option: DateRangeType) => {
+			if (option === currentOption) {
+				setIsPickerOpen(false);
+				return;
+			}
 			setCurrentOption(option);
 
 			onSelectionChange({
@@ -97,7 +101,7 @@ export const DateRangePicker = ({
 				setIsPickerOpen(false);
 			}
 		},
-		[onSelectionChange],
+		[onSelectionChange, currentOption],
 	);
 
 	const handlePickerToggle = () => {

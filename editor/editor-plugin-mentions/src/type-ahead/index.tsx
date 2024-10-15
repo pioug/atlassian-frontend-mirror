@@ -163,7 +163,7 @@ const buildAndSendElementsTypeAheadAnalytics =
 		}
 
 		const payload = buildTypeAheadRenderedPayload(duration, userOrTeamIds, query, teams);
-		fireEvent(payload);
+		fireEvent(payload, 'fabric-elements');
 	};
 
 /**
@@ -463,6 +463,7 @@ export const createTypeAheadConfig = ({
 						sessionId,
 						query || '',
 					),
+					'fabric-elements',
 				);
 			}
 

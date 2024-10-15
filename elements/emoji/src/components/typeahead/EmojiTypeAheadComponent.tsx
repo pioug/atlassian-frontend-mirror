@@ -12,6 +12,7 @@ import type { EmojiProvider, OnEmojiProviderChange } from '../../api/EmojiResour
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import {
 	SearchSort,
+	SearchSourceTypes,
 	type EmojiDescription,
 	type EmojiSearchResult,
 	type OnEmojiEvent,
@@ -265,7 +266,7 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 				const onSelect = createRecordSelectionDefault(
 					this.props.emojiProvider,
 					this.props.onSelection,
-					(analytic) => this.fireAnalyticsEvent(analytic('typeahead')),
+					(analytic) => this.fireAnalyticsEvent(analytic(SearchSourceTypes.TYPEAHEAD)),
 				);
 				this.fireSelectionEvent(result.emojis[matchIndex], true);
 				onSelect(toEmojiId(result.emojis[matchIndex]), result.emojis[matchIndex]);
@@ -320,7 +321,7 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 					onSelection(emojiId, emoji, event);
 				}
 			},
-			(analytic) => this.fireAnalyticsEvent(analytic('typeahead')),
+			(analytic) => this.fireAnalyticsEvent(analytic(SearchSourceTypes.TYPEAHEAD)),
 		);
 
 		const { visible, emojis, loading } = this.state;

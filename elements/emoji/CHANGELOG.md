@@ -1,5 +1,21 @@
 # @atlaskit/emoji
 
+## 67.8.7
+
+### Patch Changes
+
+- [`b0c0a2b36fb8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b0c0a2b36fb8e) -
+  Add a feature gate that can bypass the sampling rate of rendered emoji performance metrics for
+  selected tenants, allowing better measurements for those tenants
+
+## 67.8.6
+
+### Patch Changes
+
+- [#151665](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151665)
+  [`959c5fa5fc8b4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/959c5fa5fc8b4) -
+  Add emoji attributes to recordEmojiSelection events
+
 ## 67.8.5
 
 ### Patch Changes

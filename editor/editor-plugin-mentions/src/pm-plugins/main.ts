@@ -1,4 +1,3 @@
-import type { GasPayload } from '@atlaskit/analytics-gas-types';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -13,11 +12,17 @@ import type { EditorState, SafeStateField } from '@atlaskit/editor-prosemirror/s
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { MentionProvider } from '@atlaskit/mention/resource';
-import { buildSliPayload, SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/mention/resource';
+import { SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/mention/resource';
+import {
+	ComponentNames,
+	type Actions as MentionActions,
+	type SliNames,
+} from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { MentionNodeView } from '../nodeviews/mention';
 import {
+	type FireElementsChannelEvent,
 	MENTION_PROVIDER_REJECTED,
 	MENTION_PROVIDER_UNDEFINED,
 	type MentionPluginOptions,
@@ -30,6 +35,9 @@ import { canMentionBeCreatedInRange } from './utils';
 const ACTIONS = {
 	SET_PROVIDER: 'SET_PROVIDER',
 };
+
+const PACKAGE_NAME = process.env._PACKAGE_NAME_ as string;
+const PACKAGE_VERSION = process.env._PACKAGE_VERSION_ as string;
 
 const setProvider =
 	(provider: MentionProvider | undefined): Command =>
@@ -47,7 +55,7 @@ const setProvider =
 
 export function createMentionPlugin(
 	pmPluginFactoryParams: PMPluginFactoryParams,
-	fireEvent: (payload: GasPayload) => void,
+	fireEvent: FireElementsChannelEvent,
 	options?: MentionPluginOptions,
 ) {
 	let mentionProvider: MentionProvider;
@@ -61,7 +69,20 @@ export function createMentionPlugin(
 		},
 	): void => {
 		if (event === SLI_EVENT_TYPE || event === SMART_EVENT_TYPE) {
-			fireEvent(buildSliPayload(actionSubject, action, attributes));
+			fireEvent(
+				{
+					action: action as MentionActions,
+					actionSubject: actionSubject as ComponentNames | SliNames,
+					eventType: EVENT_TYPE.OPERATIONAL,
+					attributes: {
+						packageName: PACKAGE_NAME,
+						packageVersion: PACKAGE_VERSION,
+						componentName: ComponentNames.MENTION,
+						...attributes,
+					},
+				},
+				'fabricElements',
+			);
 		}
 	};
 

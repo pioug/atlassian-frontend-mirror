@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.22.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.22.0
 
 ### Minor Changes

@@ -16,9 +16,10 @@ interface FilePreviewProps {
 	intl: IntlShape;
 }
 
+// This function will eventially be removed when platform_editor_media_previewer_bugfix is cleaned up
 export const FilePreviewItem = ({ mediaPluginState, intl }: FilePreviewProps) => {
 	const [isMediaViewerVisible, setMediaViewerVisible] = useState(false);
-	const openMediaViewer = () => {
+	const showMediaViewer = () => {
 		setMediaViewerVisible(true);
 	};
 	const onMediaViewerClose = () => {
@@ -33,7 +34,7 @@ export const FilePreviewItem = ({ mediaPluginState, intl }: FilePreviewProps) =>
 			<ToolbarButton
 				testId="file-preview-toolbar-button"
 				key="editor.media.card.preview"
-				onClick={openMediaViewer}
+				onClick={showMediaViewer}
 				icon={<FilePreviewIcon label="file preview" />}
 				tooltipContent={tooltipContent}
 			/>

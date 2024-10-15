@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/legacy-custom-icons",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "A centralised place to store legacy custom icons.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,11 +33,19 @@
 	"atlaskit:src": "src/index.tsx",
 	"af:exports": {
 		".": "./src/index.tsx",
-		"./goal-icon": "./src/ui/goal-icon/index.tsx"
+		"./goal-icon": "./src/ui/goal-icon/index.tsx",
+		"./roadmaps-service-icon": "./src/ui/roadmaps-service-icon/index.tsx",
+		"./component-icon": "./src/ui/component-icon/index.tsx",
+		"./curly-brackets-icon": "./src/ui/curly-brackets-icon/index.tsx",
+		"./globe-icon": "./src/ui/globe-icon/index.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./goal-icon": "./src/ui/goal-icon/index.tsx"
+		"./goal-icon": "./src/ui/goal-icon/index.tsx",
+		"./roadmaps-service-icon": "./src/ui/roadmaps-service-icon/index.tsx",
+		"./component-icon": "./src/ui/component-icon/index.tsx",
+		"./curly-brackets-icon": "./src/ui/curly-brackets-icon/index.tsx",
+		"./globe-icon": "./src/ui/globe-icon/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^22.22.0",

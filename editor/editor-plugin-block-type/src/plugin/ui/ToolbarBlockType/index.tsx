@@ -20,6 +20,7 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import { ThemeMutationObserver } from '@atlaskit/tokens';
 
 import type { TextBlockTypes } from '../../block-types';
 import type { BlockTypePlugin } from '../../index';
@@ -50,6 +51,13 @@ export interface Props {
 export interface State {
 	active: boolean;
 	isOpenedByKeyboard: boolean;
+	typographyTheme:
+		| 'typography'
+		| 'typography-adg3'
+		| 'typography-modernized'
+		| 'typography-refreshed'
+		| undefined;
+	observer: ThemeMutationObserver | null;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -57,7 +65,29 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 	state = {
 		active: false,
 		isOpenedByKeyboard: false,
+		typographyTheme: undefined,
+		observer: null as ThemeMutationObserver | null,
 	};
+
+	componentDidMount() {
+		const observer = new ThemeMutationObserver(({ typography }) => {
+			if (typography !== this.state.typographyTheme) {
+				this.setState({
+					typographyTheme: typography,
+				});
+			}
+		});
+
+		this.setState({
+			observer,
+		});
+
+		observer.observe();
+	}
+
+	componentWillUnmount() {
+		this.state.observer?.disconnect();
+	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private onOpenChange = (attrs: any) => {
@@ -200,7 +230,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			return {
 				content: (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					<div css={blockTypeMenuItemStyle(tagName, isActive)}>
+					<div css={blockTypeMenuItemStyle(tagName, isActive, this.state.typographyTheme)}>
 						<Tag>{formatMessage(blockType.title)}</Tag>
 					</div>
 				),

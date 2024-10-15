@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	ResourcedEmojiComponent,
 	type Props as ResourcedEmojiProps,
@@ -17,8 +18,9 @@ const ResourcedEmoji = (props: React.PropsWithChildren<Props>) => {
 			return;
 		}
 
+		var shouldAlwaysSample: boolean = fg('platform_always_sample_rendered_emoji');
 		sampledUfoRenderedEmoji(emojiId).start({
-			samplingRate: SAMPLING_RATE_EMOJI_RENDERED_EXP,
+			samplingRate: shouldAlwaysSample ? 1 : SAMPLING_RATE_EMOJI_RENDERED_EXP,
 		});
 		ufoExperiences['emoji-rendered'].getInstance(emojiId.id || emojiId.shortName).addMetadata({
 			source: 'ResourcedEmoji',

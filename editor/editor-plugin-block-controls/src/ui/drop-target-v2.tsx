@@ -19,7 +19,7 @@ import { type AnchorHeightsCache, isAnchorSupported } from '../utils/anchor-util
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 
 import { getNestedNodeLeftPaddingMargin } from './consts';
-import { type DropTargetProps } from './drop-target';
+import { type DropTargetProps, type DropTargetStyle } from './drop-target';
 
 const DEFAULT_DROP_INDICATOR_WIDTH = 760;
 const EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH = '--editor-block-controls-drop-indicator-width';
@@ -79,15 +79,29 @@ const enableDropZone = [
 	'blockCard',
 ];
 
+const fullHeightStyle = css({
+	top: '4px',
+	bottom: '4px',
+	height: 'unset',
+	zIndex: 10,
+});
+
+// This z index is used in container like layout
+const fullHeightStyleAdjustZIndexStyle = css({
+	zIndex: 0,
+});
+
 const HoverZone = ({
 	onDragEnter,
 	onDragLeave,
 	onDrop,
 	node,
+	parent,
 	editorWidth,
 	anchorHeightsCache,
 	position,
 	isNestedDropTarget,
+	dropTargetStyle,
 }: {
 	onDragEnter: () => void;
 	onDragLeave: () => void;
@@ -95,8 +109,10 @@ const HoverZone = ({
 	anchorHeightsCache?: AnchorHeightsCache;
 	position: 'upper' | 'lower';
 	node?: PMNode;
+	parent?: PMNode;
 	editorWidth?: number;
 	isNestedDropTarget?: boolean;
+	dropTargetStyle?: DropTargetStyle;
 }) => {
 	const ref = useRef<HTMLDivElement | null>(null);
 
@@ -138,13 +154,29 @@ const HoverZone = ({
 		});
 	}, [anchorHeightsCache, editorWidth, node, position]);
 
+	const isFullHeight = useMemo(() => {
+		return dropTargetStyle === 'fullHeight';
+	}, [dropTargetStyle]);
+
+	const isFullHeightInLayout = useMemo(() => {
+		return isFullHeight && parent?.type.name === 'layoutColumn';
+	}, [isFullHeight, parent?.type.name]);
+
 	return (
 		<div
 			ref={ref}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={`drop-target-hover-zone-${position}`}
+			data-testid={`drop-target-zone-${position}`}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			css={[dropZoneStyles, isNestedDropTarget && nestedDropZoneStyle, hoverZoneUpperStyle]}
+			css={[
+				dropZoneStyles,
+				isNestedDropTarget && nestedDropZoneStyle,
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				hoverZoneUpperStyle,
+				isFullHeight && fullHeightStyle,
+				isFullHeightInLayout && fullHeightStyleAdjustZIndexStyle,
+			]}
 		/>
 	);
 };
@@ -157,6 +189,7 @@ export const DropTargetV2 = ({
 	parentNode,
 	formatMessage,
 	anchorHeightsCache,
+	dropTargetStyle,
 }: DropTargetProps & { anchorHeightsCache?: AnchorHeightsCache }) => {
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 
@@ -179,6 +212,8 @@ export const DropTargetV2 = ({
 		}
 	};
 
+	const isFullHeight = dropTargetStyle === 'fullHeight';
+
 	const dynamicStyle = {
 		width: isNestedDropTarget ? 'unset' : '100%',
 		[EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH]: isNestedDropTarget
@@ -194,16 +229,18 @@ export const DropTargetV2 = ({
 
 	return (
 		<Fragment>
-			<HoverZone
-				onDragEnter={() => setIsDraggedOver(true)}
-				onDragLeave={() => setIsDraggedOver(false)}
-				onDrop={onDrop}
-				node={prevNode}
-				editorWidth={widthState?.lineLength}
-				anchorHeightsCache={anchorHeightsCache}
-				position="upper"
-				isNestedDropTarget={isNestedDropTarget}
-			/>
+			{!isFullHeight && (
+				<HoverZone
+					onDragEnter={() => setIsDraggedOver(true)}
+					onDragLeave={() => setIsDraggedOver(false)}
+					onDrop={onDrop}
+					node={prevNode}
+					editorWidth={widthState?.lineLength}
+					anchorHeightsCache={anchorHeightsCache}
+					position="upper"
+					isNestedDropTarget={isNestedDropTarget}
+				/>
+			)}
 			<div
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				css={[styleDropTarget, isNestedDropTarget && nestedDropIndicatorStyle]}
@@ -225,10 +262,12 @@ export const DropTargetV2 = ({
 				onDragLeave={() => setIsDraggedOver(false)}
 				onDrop={onDrop}
 				node={nextNode}
+				parent={parentNode}
 				editorWidth={widthState?.lineLength}
 				anchorHeightsCache={anchorHeightsCache}
 				position="lower"
 				isNestedDropTarget={isNestedDropTarget}
+				dropTargetStyle={dropTargetStyle}
 			/>
 		</Fragment>
 	);

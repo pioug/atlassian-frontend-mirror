@@ -2,14 +2,14 @@ import { createElement } from 'react';
 
 import { bind, type UnbindFn } from 'bind-event-listener';
 import ReactDOM from 'react-dom';
-import { type IntlShape, RawIntlProvider } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 import uuid from 'uuid';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -45,6 +45,10 @@ const PARENT_WITH_END_DROP_TARGET = [
 	'bodiedExtension',
 ];
 const DISABLE_CHILD_DROP_TARGET = ['orderedList', 'bulletList'];
+
+export const TYPE_DROP_TARGET_DEC = 'drop-target-decoration';
+export const TYPE_HANDLE_DEC = 'drag-handle';
+export const TYPE_NODE_DEC = 'node-decoration';
 
 const getNestedDepth = () => (editorExperiment('nested-dnd', true) ? 100 : 0);
 
@@ -96,6 +100,50 @@ const shouldDescend = (node: PMNode) => {
 	return true;
 };
 
+/**
+ * Find drop target decorations in the pos range between from and to
+ * @param decorations
+ * @param from
+ * @param to
+ * @returns
+ */
+export const findDropTargetDecs = (decorations: DecorationSet, from?: number, to?: number) => {
+	return decorations.find(from, to, (spec) => spec.type === TYPE_DROP_TARGET_DEC);
+};
+
+export const findHandleDec = (decorations: DecorationSet, from?: number, to?: number) => {
+	return decorations.find(from, to, (spec) => spec.type === TYPE_HANDLE_DEC);
+};
+
+/**
+ * Find node decorations in the pos range between from and to (non-inclusive)
+ * @param decorations
+ * @param from
+ * @param to
+ * @returns
+ */
+export const findNodeDecs = (decorations: DecorationSet, from?: number, to?: number) => {
+	let newfrom = from;
+	let newTo = to;
+
+	// make it non-inclusive
+	if (newfrom !== undefined) {
+		newfrom++;
+	}
+
+	// make it non-inclusive
+	if (newTo !== undefined) {
+		newTo--;
+	}
+
+	// return empty array if range reversed
+	if (newfrom !== undefined && newTo !== undefined && newfrom > newTo) {
+		return new Array<Decoration>();
+	}
+
+	return decorations.find(newfrom, newTo, (spec) => spec.type === TYPE_NODE_DEC);
+};
+
 export const createDropTargetDecoration = (
 	pos: number,
 	props: Omit<DropTargetProps, 'getPos'>,
@@ -126,7 +174,7 @@ export const createDropTargetDecoration = (
 			return element;
 		},
 		{
-			type: 'drop-target-decoration',
+			type: TYPE_DROP_TARGET_DEC,
 			side,
 		},
 	);
@@ -138,9 +186,15 @@ export const dropTargetDecorations = (
 	formatMessage: IntlShape['formatMessage'],
 	activeNode?: ActiveNode,
 	anchorHeightsCache?: AnchorHeightsCache,
+	from?: number,
+	to?: number,
 ) => {
-	const decs: Decoration[] = [];
 	unmountDecorations('data-blocks-drop-target-container');
+
+	const decs: Decoration[] = [];
+	const POS_END_OF_DOC = newState.doc.nodeSize - 2;
+	const docFrom = from === undefined || from < 0 ? 0 : from;
+	const docTo = to === undefined || to > POS_END_OF_DOC ? POS_END_OF_DOC : to;
 	let prevNode: PMNode | undefined;
 	const activeNodePos = activeNode?.pos;
 	const activePMNode =
@@ -164,7 +218,7 @@ export const dropTargetDecorations = (
 		prevNodeStack.push(node);
 	};
 
-	newState.doc.descendants((node, pos, parent, index) => {
+	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, index) => {
 		let depth = 0;
 		// drop target deco at the end position
 		let endPos;
@@ -213,6 +267,20 @@ export const dropTargetDecorations = (
 		const previousNode = fg('platform_editor_drag_and_drop_target_v2')
 			? popNodeStack(depth)
 			: prevNode; // created scoped variable
+
+		// only table and layout need to render full height drop target
+		const isInSupportedContainer =
+			fg('platform_editor_drag_and_drop_target_v2') &&
+			['tableCell', 'tableHeader', 'layoutColumn'].includes(parent?.type.name || '');
+
+		// container with only an empty paragrah
+		const shouldShowFullHeight =
+			isInSupportedContainer &&
+			parent?.lastChild === node &&
+			parent?.childCount === 1 &&
+			isEmptyParagraph(node) &&
+			fg('platform_editor_drag_and_drop_target_v2');
+
 		decs.push(
 			createDropTargetDecoration(
 				pos,
@@ -222,6 +290,7 @@ export const dropTargetDecorations = (
 					nextNode: node,
 					parentNode: parent || undefined,
 					formatMessage,
+					dropTargetStyle: shouldShowFullHeight ? 'fullHeight' : 'default',
 				},
 				-1,
 				anchorHeightsCache,
@@ -237,6 +306,7 @@ export const dropTargetDecorations = (
 						prevNode: fg('platform_editor_drag_and_drop_target_v2') ? node : undefined,
 						parentNode: parent || undefined,
 						formatMessage,
+						dropTargetStyle: isInSupportedContainer ? 'fullHeight' : 'default',
 					},
 					-1,
 					anchorHeightsCache,
@@ -252,19 +322,21 @@ export const dropTargetDecorations = (
 		return depth < getNestedDepth() && shouldDescend(node);
 	});
 
-	decs.push(
-		createDropTargetDecoration(
-			newState.doc.nodeSize - 2,
-			{
-				api,
-				formatMessage,
-				prevNode: newState.doc.lastChild || undefined,
-				parentNode: newState.doc,
-			},
-			undefined,
-			anchorHeightsCache,
-		),
-	);
+	if (docTo === POS_END_OF_DOC) {
+		decs.push(
+			createDropTargetDecoration(
+				POS_END_OF_DOC,
+				{
+					api,
+					formatMessage,
+					prevNode: newState.doc.lastChild || undefined,
+					parentNode: newState.doc,
+				},
+				undefined,
+				anchorHeightsCache,
+			),
+		);
+	}
 
 	return decs;
 };
@@ -280,7 +352,7 @@ export const emptyParagraphNodeDecorations = () => {
 			['data-drag-handler-anchor-name']: anchorName,
 		},
 		{
-			type: 'node-decoration',
+			type: TYPE_NODE_DEC,
 		},
 	);
 };
@@ -307,20 +379,17 @@ const shouldIgnoreNode = (node: PMNode) => {
 	return IGNORE_NODES.includes(node.type.name);
 };
 
-export const nodeDecorations = (newState: EditorState) => {
+export const nodeDecorations = (newState: EditorState, from?: number, to?: number) => {
 	const decs: Decoration[] = [];
-	newState.doc.descendants((node, pos, _parent, index) => {
+	const docFrom = from === undefined || from < 0 ? 0 : from;
+	const docTo = to === undefined || to > newState.doc.nodeSize - 2 ? newState.doc.nodeSize - 2 : to;
+
+	newState.doc.nodesBetween(docFrom, docTo, (node, pos, _parent, index) => {
 		let depth = 0;
 		let anchorName;
 		const shouldDescend = !IGNORE_NODE_DESCENDANTS.includes(node.type.name);
-
-		if (
-			editorExperiment('dnd-input-performance-optimisation', true, { exposure: true }) ||
-			editorExperiment('nested-dnd', true)
-		) {
-			const handleId = ObjHash.getForNode(node);
-			anchorName = `--node-anchor-${node.type.name}-${handleId}`;
-		}
+		const handleId = ObjHash.getForNode(node);
+		anchorName = `--node-anchor-${node.type.name}-${handleId}`;
 
 		if (editorExperiment('nested-dnd', true)) {
 			// Doesn't descend into a node
@@ -349,7 +418,7 @@ export const nodeDecorations = (newState: EditorState) => {
 					['data-drag-handler-anchor-depth']: `${depth}`,
 				},
 				{
-					type: 'node-decoration',
+					type: TYPE_NODE_DEC,
 					anchorName,
 					nodeType: node.type.name,
 				},
@@ -363,12 +432,14 @@ export const nodeDecorations = (newState: EditorState) => {
 
 export const dragHandleDecoration = (
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
-	getIntl: () => IntlShape,
+	formatMessage: IntlShape['formatMessage'],
 	pos: number,
 	anchorName: string,
 	nodeType: string,
 	handleOptions?: HandleOptions,
 ) => {
+	unmountDecorations('data-blocks-drag-handle-container');
+
 	let unbind: UnbindFn;
 	return Decoration.widget(
 		pos,
@@ -385,7 +456,7 @@ export const dragHandleDecoration = (
 				isTopLevelNode = $pos?.parent.type.name === 'doc';
 				/*
 				 * We disable mouseover event to fix flickering issue on hover
-				 * However, the tooltip for nested drag handle is not long working.
+				 * However, the tooltip for nested drag handle is no long working.
 				 */
 				if (!isTopLevelNode) {
 					// This will also hide the tooltip.
@@ -398,33 +469,29 @@ export const dragHandleDecoration = (
 				}
 			}
 
-			unmountDecorations('data-blocks-drag-handle-container');
-
 			// There are times when global clear: "both" styles are applied to this decoration causing jumpiness
 			// due to margins applied to other nodes eg. Headings
 			element.style.clear = 'unset';
 
 			ReactDOM.render(
-				createElement(
-					RawIntlProvider,
-					{ value: getIntl() },
-					createElement(DragHandle, {
-						view,
-						api,
-						getPos,
-						anchorName,
-						nodeType,
-						handleOptions,
-						isTopLevelNode,
-					}),
-				),
+				createElement(DragHandle, {
+					view,
+					api,
+					formatMessage,
+					getPos,
+					anchorName,
+					nodeType,
+					handleOptions,
+					isTopLevelNode,
+				}),
 				element,
 			);
 			return element;
 		},
 		{
 			side: -1,
-			id: 'drag-handle',
+			type: TYPE_HANDLE_DEC,
+			testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
 			destroy: () => {
 				if (editorExperiment('nested-dnd', true)) {
 					unbind && unbind();

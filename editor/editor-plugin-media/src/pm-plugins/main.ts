@@ -65,6 +65,7 @@ import { insertMediaGroupNode, insertMediaInlineNode } from '../utils/media-file
 import { getMediaNodeInsertionType } from '../utils/media-inline';
 import { insertMediaSingleNode } from '../utils/media-single';
 
+import { ACTIONS } from './actions';
 import { MediaTaskManager } from './mediaTaskManager';
 import { stateKey } from './plugin-key';
 import type { MediaNodeWithPosHandler, MediaPluginState } from './types';
@@ -891,6 +892,19 @@ export const createPlugin = (
 							typeof allowsUploads === 'undefined' ? pluginState.allowsUploads : allowsUploads,
 					});
 					nextPluginState = nextPluginState.clone();
+				}
+
+				// ACTIONS
+				switch (meta?.type) {
+					case ACTIONS.SHOW_MEDIA_VIEWER:
+						pluginState.mediaViewerSelectedMedia = meta.mediaViewerSelectedMedia;
+						pluginState.isMediaViewerVisible = true;
+						nextPluginState = nextPluginState.clone();
+						break;
+					case ACTIONS.HIDE_MEDIA_VIEWER:
+						pluginState.mediaViewerSelectedMedia = undefined;
+						nextPluginState = nextPluginState.clone();
+						break;
 				}
 
 				// NOTE: We're not calling passing new state to the Editor, because we depend on the view.state reference

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.13.12
+
+### Patch Changes
+
+- [#151620](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151620)
+  [`d8b4e8466f2a8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8b4e8466f2a8) -
+  Refactor Input in floating toolbar to functional component to remove UNSAFE lifecycle method
+
 ## 1.13.11
 
 ### Patch Changes

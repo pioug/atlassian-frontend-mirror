@@ -23,6 +23,7 @@ import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
+import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { messages } from '@atlaskit/media-ui';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -50,7 +51,7 @@ import { shouldShowImageBorder } from './imageBorder';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
 import { downloadMedia } from './utils';
 
-import { generateFilePreviewItem } from './index';
+import { generateFilePreviewItem, handleShowMediaViewer } from './index';
 
 export const generateMediaInlineFloatingToolbar = (
 	state: EditorState,
@@ -287,10 +288,23 @@ const getMediaInlineImageToolbar = (
 
 	//Image Preview
 	if (options.allowImagePreview) {
-		inlineImageItems.push(generateFilePreviewItem(mediaPluginState, intl), {
-			type: 'separator',
-			supportsViewMode: true,
-		});
+		inlineImageItems.push(
+			fg('platform_editor_media_previewer_bugfix')
+				? {
+						id: 'editor.media.viewer',
+						type: 'button',
+						icon: FilePreviewIcon,
+						title: intl.formatMessage(messages.preview),
+						onClick: () => {
+							return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
+						},
+					}
+				: generateFilePreviewItem(mediaPluginState, intl),
+			{
+				type: 'separator',
+				supportsViewMode: true,
+			},
+		);
 	}
 
 	if (options.isViewOnly) {

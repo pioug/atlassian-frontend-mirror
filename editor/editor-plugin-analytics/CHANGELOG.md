@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-analytics
 
+## 1.10.0
+
+### Minor Changes
+
+- [#152099](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152099)
+  [`76e822ba23b83`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76e822ba23b83) -
+  [ED-23460] Allow develops to specify the channel when firing events
+
 ## 1.9.0
 
 ### Minor Changes

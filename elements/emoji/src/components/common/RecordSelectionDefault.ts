@@ -2,8 +2,8 @@ import type React from 'react';
 
 import {
 	type EmojiInsertionAnalytic,
-	recordFailed,
-	recordSucceeded,
+	recordFailedEmoji,
+	recordSucceededEmoji,
 	ufoExperiences,
 } from '../../util/analytics';
 import type { EmojiId, OnEmojiEvent, OptionalEmojiDescription } from '../../types';
@@ -30,11 +30,11 @@ export const createRecordSelectionDefault = <T>(
 				provider
 					.recordSelection(emoji)
 					.then(() => {
-						fireAnalytics && fireAnalytics(recordSucceeded);
+						fireAnalytics && fireAnalytics(recordSucceededEmoji(emoji));
 						ufoExperiences['emoji-selection-recorded'].success();
 					})
 					.catch((error) => {
-						fireAnalytics && fireAnalytics(recordFailed);
+						fireAnalytics && fireAnalytics(recordFailedEmoji(emoji));
 						ufoExperiences['emoji-selection-recorded'].failure({
 							metadata: {
 								error: extractErrorInfo(error),

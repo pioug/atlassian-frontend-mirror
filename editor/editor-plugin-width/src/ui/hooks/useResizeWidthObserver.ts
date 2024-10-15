@@ -5,6 +5,8 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { pluginKey } from '../../pm-plugins/plugin-key';
 
+import { useRefreshWidthOnTransition } from './useRefreshOnTransition';
+
 const setEditorWidth = (props: Partial<WidthPluginState>) => (editorView: EditorView) => {
 	const {
 		dispatch,
@@ -23,6 +25,8 @@ export const useResizeWidthObserver = ({
 	editorView: EditorView;
 	containerElement: HTMLElement | null;
 }) => {
+	useRefreshWidthOnTransition(containerElement);
+
 	useEffect(() => {
 		const newState: Partial<WidthPluginState> = {
 			lineLength: editorView.dom.clientWidth,

@@ -33,6 +33,9 @@ import {
 	UserAccessLevel,
 	type UserRole,
 	UserType,
+	ComponentNames,
+	Actions,
+	SliNames,
 } from './types';
 import { ELEMENTS_CHANNEL } from './_constants';
 import ContextMentionResource from './api/ContextMentionResource';
@@ -56,6 +59,9 @@ export {
 	ResourcedMention,
 	UserAccessLevel,
 	UserType,
+	ComponentNames,
+	SliNames,
+	Actions,
 	// Functions
 	isSpecialMention,
 	isResolvingMentionProvider,

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 7.29.1
+
+### Patch Changes
+
+- [#151938](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151938)
+  [`91b5768ef0c7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91b5768ef0c7c) -
+  [ux] ED-25203 refactor image previewer outside of floating toolbar
+- Updated dependencies
+
 ## 7.29.0
 
 ### Minor Changes

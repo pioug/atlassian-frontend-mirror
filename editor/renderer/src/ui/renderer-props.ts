@@ -75,6 +75,7 @@ export interface RendererProps {
 	nodeComponents?: NodeComponentsProps;
 	isInsideOfInlineExtension?: boolean;
 	isTopLevelRenderer?: boolean;
+	includeNodesCountInStats?: boolean;
 	/**
 	 * When enabled a trailing telepointer will be added to the rendered document
 	 * following content updates.

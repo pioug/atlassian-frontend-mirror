@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 30.1.0
+
+### Minor Changes
+
+- [#150792](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/150792)
+  [`adafd883e4167`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/adafd883e4167) -
+  [ux] Icon size override fix for new icons behind feature
+  flag(https://product-fabric.atlassian.net/browse/DSP-19716)
+
 ## 30.0.1
 
 ### Patch Changes

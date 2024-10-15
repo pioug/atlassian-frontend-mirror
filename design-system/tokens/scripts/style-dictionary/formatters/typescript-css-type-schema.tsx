@@ -127,7 +127,7 @@ export type SpaceMargin = Space | 'auto' | '0 auto' | '0' | 0;
 export type Shadow = ${mapToCssVar(shadow)};
 export type TextColorPressed = ${mapToCssVar(textColorPressed)};
 export type TextColor = 'transparent' | TextColorPressed | ${mapToCssVar(textColor)}
-export type Opacity = ${mapToCssVar(opacity)};
+export type Opacity = ${mapToCssVar(opacity)} | 0 | 1 | '0' | '1';
 
 export interface CSSPropertiesHovered {
   backgroundColor: BackgroundColorHovered;

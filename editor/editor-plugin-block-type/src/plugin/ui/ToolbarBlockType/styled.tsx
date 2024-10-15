@@ -10,7 +10,15 @@ import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export const blockTypeMenuItemStyle = (tagName: string, selected?: boolean) => {
+export const blockTypeMenuItemStyle = (
+	tagName: string,
+	selected?: boolean,
+	typographyTheme?:
+		| 'typography'
+		| 'typography-adg3'
+		| 'typography-modernized'
+		| 'typography-refreshed',
+) => {
 	// TEMP FIX: See https://product-fabric.atlassian.net/browse/ED-13878
 	const selectedStyle = selected
 		? `${tagName} { color: ${token('color.text', 'white')} !important; }`
@@ -19,7 +27,7 @@ export const blockTypeMenuItemStyle = (tagName: string, selected?: boolean) => {
 	return () =>
 		css(
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			headingsSharedStyles(),
+			headingsSharedStyles(typographyTheme),
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'>': {

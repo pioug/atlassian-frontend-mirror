@@ -30,6 +30,7 @@ import { lazyMediaInlineView } from './nodeviews/lazy-media-inline';
 import { lazyMediaSingleView } from './nodeviews/lazy-media-single';
 import { createPlugin as createMediaAltTextPlugin } from './pm-plugins/alt-text';
 import keymapMediaAltTextPlugin from './pm-plugins/alt-text/keymap';
+import { hideMediaViewer, showMediaViewer } from './pm-plugins/commands';
 import keymapPlugin from './pm-plugins/keymap';
 import keymapMediaSinglePlugin from './pm-plugins/keymap-media';
 import linkingPlugin from './pm-plugins/linking';
@@ -41,6 +42,7 @@ import { mediaInlineSpecWithFixedToDOM } from './toDOM-fixes/mediaInline';
 import { mediaSingleSpecWithFixedToDOM } from './toDOM-fixes/mediaSingle';
 import { floatingToolbar } from './toolbar';
 import { MediaPickerComponents } from './ui/MediaPicker';
+import { RenderMediaViewer } from './ui/MediaViewer/PortalWrapper';
 import ToolbarMedia from './ui/ToolbarMedia';
 import { insertMediaAsMediaSingle } from './utils/media-single';
 
@@ -49,6 +51,11 @@ type MediaPickerFunctionalComponentProps = {
 	appearance: EditorAppearance;
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 };
+
+type MediaViewerFunctionalComponentProps = {
+	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+};
+
 const MediaPickerFunctionalComponent = ({
 	api,
 	editorDomElement,
@@ -66,6 +73,32 @@ const MediaPickerFunctionalComponent = ({
 			mediaState={mediaState}
 			appearance={appearance}
 			api={api}
+		/>
+	);
+};
+
+const MediaViewerFunctionalComponent = ({ api }: MediaViewerFunctionalComponentProps) => {
+	const { mediaState } = useSharedPluginState(api, ['media']);
+
+	// Viewer does not have required attributes to render the media viewer
+	if (
+		!mediaState?.isMediaViewerVisible ||
+		!mediaState?.mediaViewerSelectedMedia ||
+		!mediaState?.mediaClientConfig
+	) {
+		return null;
+	}
+
+	const handleOnClose = () => {
+		// Run Command to hide the media viewer
+		api?.core.actions.execute(api?.media.commands.hideMediaViewer);
+	};
+
+	return (
+		<RenderMediaViewer
+			mediaClientConfig={mediaState?.mediaClientConfig}
+			onClose={handleOnClose}
+			selectedNodeAttrs={mediaState.mediaViewerSelectedMedia}
 		/>
 	);
 };
@@ -110,6 +143,10 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 					) ?? false
 				);
 			},
+		},
+		commands: {
+			showMediaViewer,
+			hideMediaViewer,
 		},
 
 		nodes() {
@@ -296,11 +333,16 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 
 		contentComponent({ editorView, appearance }) {
 			return (
-				<MediaPickerFunctionalComponent
-					editorDomElement={editorView.dom}
-					appearance={appearance}
-					api={api}
-				/>
+				<>
+					{fg('platform_editor_media_previewer_bugfix') && (
+						<MediaViewerFunctionalComponent api={api} />
+					)}
+					<MediaPickerFunctionalComponent
+						editorDomElement={editorView.dom}
+						appearance={appearance}
+						api={api}
+					/>
+				</>
 			);
 		},
 

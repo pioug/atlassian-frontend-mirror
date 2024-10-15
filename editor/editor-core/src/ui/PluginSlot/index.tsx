@@ -6,12 +6,14 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import isEqual from 'lodash/isEqual';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../../actions';
 import type { EventDispatcher } from '../../event-dispatcher';
@@ -43,7 +45,7 @@ export interface Props {
 	wrapperElement: HTMLElement | null;
 }
 
-export default class PluginSlot extends React.Component<Props> {
+class PluginSlotLegacy extends React.Component<Props> {
 	static displayName = 'PluginSlot';
 
 	transitionEvent = whichTransitionEvent<'transitionend'>();
@@ -169,4 +171,127 @@ export default class PluginSlot extends React.Component<Props> {
 			</ErrorBoundary>
 		);
 	}
+}
+
+const PluginSlot = ({
+	items,
+	editorView,
+	editorActions,
+	eventDispatcher,
+	providerFactory,
+	appearance,
+	popupsMountPoint,
+	popupsBoundariesElement,
+	popupsScrollableElement,
+	containerElement,
+	disabled,
+	dispatchAnalyticsEvent,
+	wrapperElement,
+	pluginHooks,
+}: Props) => {
+	if ((!items && !pluginHooks) || !editorView) {
+		return null;
+	}
+
+	return (
+		<ErrorBoundary component={ACTION_SUBJECT.PLUGIN_SLOT} fallbackComponent={null}>
+			<MountPluginHooks
+				editorView={editorView}
+				pluginHooks={pluginHooks}
+				containerElement={containerElement}
+			/>
+			<div css={pluginsComponentsWrapper}>
+				{/**
+				 * Why don't we do this as:
+				 * ```tsx
+				 * items?.map((Component, key) =>
+				 *   <Component key={key} editorView={editorView} {...otherProps}
+				 * )
+				 * ```
+				 *
+				 * After a performance profile it seems that this is much more performant.
+				 */}
+				{items?.map((component, key) => {
+					const props = { key };
+					const element = component({
+						editorView: editorView as EditorView,
+						editorActions: editorActions as EditorActions,
+						eventDispatcher: eventDispatcher as EventDispatcher,
+						providerFactory,
+						dispatchAnalyticsEvent,
+						appearance: appearance!,
+						popupsMountPoint,
+						popupsBoundariesElement,
+						popupsScrollableElement,
+						containerElement,
+						disabled,
+						wrapperElement,
+					});
+					return element && React.cloneElement(element, props);
+				})}
+			</div>
+		</ErrorBoundary>
+	);
+};
+
+const PluginSlotNew = React.memo(PluginSlot, isEqual);
+
+PluginSlotNew.displayName = 'PluginSlot';
+
+export default function PluginSlotDefault({
+	items,
+	editorView,
+	editorActions,
+	eventDispatcher,
+	providerFactory,
+	appearance,
+	popupsMountPoint,
+	popupsBoundariesElement,
+	popupsScrollableElement,
+	containerElement,
+	disabled,
+	dispatchAnalyticsEvent,
+	wrapperElement,
+	pluginHooks,
+	contentArea,
+}: Props) {
+	if (fg('platform_editor_react_18_plugin_slot')) {
+		return (
+			<PluginSlotNew
+				items={items}
+				editorView={editorView}
+				editorActions={editorActions}
+				eventDispatcher={eventDispatcher}
+				providerFactory={providerFactory}
+				appearance={appearance}
+				popupsMountPoint={popupsMountPoint}
+				popupsBoundariesElement={popupsBoundariesElement}
+				popupsScrollableElement={popupsScrollableElement}
+				containerElement={containerElement}
+				disabled={disabled}
+				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+				wrapperElement={wrapperElement}
+				pluginHooks={pluginHooks}
+			/>
+		);
+	}
+	return (
+		<PluginSlotLegacy
+			contentArea={contentArea}
+			items={items}
+			editorView={editorView}
+			editorActions={editorActions}
+			eventDispatcher={eventDispatcher}
+			providerFactory={providerFactory}
+			appearance={appearance}
+			popupsMountPoint={popupsMountPoint}
+			popupsBoundariesElement={popupsBoundariesElement}
+			popupsScrollableElement={popupsScrollableElement}
+			containerElement={containerElement}
+			disabled={disabled}
+			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+			wrapperElement={wrapperElement}
+			pluginHooks={pluginHooks}
+		/>
+	);
 }

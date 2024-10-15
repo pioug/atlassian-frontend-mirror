@@ -175,13 +175,13 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 				emojiPluginState.emojiProvider
 					.recordSelection(item.emoji)
 					.then(
-						recordSelectionSucceededSli({
+						recordSelectionSucceededSli(item.emoji, {
 							createAnalyticsEvent:
 								api?.analytics?.sharedState.currentState()?.createAnalyticsEvent ?? undefined,
 						}),
 					)
 					.catch(
-						recordSelectionFailedSli({
+						recordSelectionFailedSli(item.emoji, {
 							createAnalyticsEvent:
 								api?.analytics?.sharedState.currentState()?.createAnalyticsEvent ?? undefined,
 						}),

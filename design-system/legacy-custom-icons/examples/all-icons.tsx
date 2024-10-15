@@ -31,7 +31,7 @@ const LegacyIconAllExample = () => {
 				<Grid
 					testId="legacy-icon-explorer"
 					gap="space.200"
-					templateColumns="repeat(auto-fill, minmax(120px, 1fr))"
+					templateColumns="repeat(auto-fill, minmax(160px, 1fr))"
 				>
 					{Object.keys(componentList).map((name) => {
 						// @ts-ignore

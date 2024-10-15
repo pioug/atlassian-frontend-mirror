@@ -23,15 +23,20 @@ import EmojiPicker, {
 } from '../../../../components/picker/EmojiPicker';
 import EmojiPickerVirtualList from '../../../../components/picker/EmojiPickerList';
 import { emojiPickerHeightOffset } from '../../../../components/picker/utils';
-import type { EmojiDescription, EmojiProvider, OptionalEmojiDescription } from '../../../../types';
+import {
+	SearchSourceTypes,
+	type EmojiDescription,
+	type EmojiProvider,
+	type OptionalEmojiDescription,
+} from '../../../../types';
 import {
 	categoryClickedEvent,
 	closedPickerEvent,
 	openedPickerEvent,
 	pickerClickedEvent,
 	pickerSearchedEvent,
-	recordFailed,
-	recordSucceeded,
+	recordFailedEmoji,
+	recordSucceededEmoji,
 	toneSelectedEvent,
 	toneSelectorClosedEvent,
 	toneSelectorOpenedEvent,
@@ -487,7 +492,7 @@ describe('<EmojiPicker />', () => {
 
 			expect(onEvent).toHaveBeenLastCalledWith(
 				expect.objectContaining({
-					payload: recordSucceeded('picker'),
+					payload: recordSucceededEmoji(selection)(SearchSourceTypes.PICKER),
 				}),
 				'fabric-elements',
 			);
@@ -531,7 +536,7 @@ describe('<EmojiPicker />', () => {
 			expect(selection!.id).toEqual(helper.allEmojis[clickOffset].id);
 			expect(onEvent).toHaveBeenLastCalledWith(
 				expect.objectContaining({
-					payload: recordFailed('picker'),
+					payload: recordFailedEmoji(selection)(SearchSourceTypes.PICKER),
 				}),
 				'fabric-elements',
 			);

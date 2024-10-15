@@ -19,6 +19,7 @@ export type EditorAnalyticsAPI = {
 	 * fireAnalyticsEvent is used to fire an analytics payloads directly
 	 *
 	 * @param {AnalyticsEventPayload} payload - analytics payload
+	 * @param {string} [channel="editor"] - optional channel identifier
 	 */
-	fireAnalyticsEvent: (payload: AnalyticsEventPayload) => void | undefined;
+	fireAnalyticsEvent: (payload: AnalyticsEventPayload, channel?: string) => void | undefined;
 };

@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 78.6.0
+
+### Minor Changes
+
+- [#152007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152007)
+  [`02bbd6c761bcc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/02bbd6c761bcc) -
+  [ux] Tickbox size fix for new icons (https://product-fabric.atlassian.net/browse/DSP-20944)
+
 ## 78.5.5
 
 ### Patch Changes

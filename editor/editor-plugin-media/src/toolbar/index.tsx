@@ -52,6 +52,7 @@ import {
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
+import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
 import { messages } from '@atlaskit/media-ui';
@@ -94,6 +95,7 @@ import {
 	getPixelWidthOfElement,
 	getSelectedLayoutIcon,
 	getSelectedMediaSingle,
+	getSelectedNearestMediaContainerNodeAttrs,
 	removeMediaGroupNode,
 } from './utils';
 
@@ -141,11 +143,27 @@ export const generateFilePreviewItem = (
 	};
 };
 
+export const handleShowMediaViewer = ({
+	api,
+	mediaPluginState,
+}: {
+	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	mediaPluginState: MediaPluginState;
+}) => {
+	const selectedNodeAttrs = getSelectedNearestMediaContainerNodeAttrs(mediaPluginState);
+	if (!selectedNodeAttrs) {
+		return false;
+	}
+
+	api?.core.actions.execute(api?.media.commands.showMediaViewer(selectedNodeAttrs));
+};
+
 const generateMediaCardFloatingToolbar = (
 	state: EditorState,
 	intl: IntlShape,
 	mediaPluginState: MediaPluginState,
 	hoverDecoration: HoverDecorationHandler | undefined,
+	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	forceFocusSelector: ForceFocusSelector | undefined,
 	isViewOnly: boolean | undefined,
@@ -181,7 +199,17 @@ const generateMediaCardFloatingToolbar = (
 			className: 'thumbnail-appearance', // a11y. uses to force focus on item
 		},
 		{ type: 'separator' },
-		generateFilePreviewItem(mediaPluginState, intl),
+		fg('platform_editor_media_previewer_bugfix')
+			? {
+					id: 'editor.media.viewer',
+					type: 'button',
+					icon: FilePreviewIcon,
+					title: intl.formatMessage(messages.preview),
+					onClick: () => {
+						return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
+					},
+				}
+			: generateFilePreviewItem(mediaPluginState, intl),
 		{ type: 'separator' },
 		{
 			id: 'editor.media.card.download',
@@ -567,10 +595,28 @@ const generateMediaSingleFloatingToolbar = (
 			const selectedMediaSingleNode = getSelectedMediaSingle(state);
 			const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
 			if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
-				toolbarButtons.push(generateFilePreviewItem(pluginState, intl), {
-					type: 'separator',
-					supportsViewMode: true,
-				});
+				toolbarButtons.push(
+					fg('platform_editor_media_previewer_bugfix')
+						? {
+								id: 'editor.media.viewer',
+								type: 'button',
+								icon: FilePreviewIcon,
+								title: intl.formatMessage(messages.preview),
+								onClick: () => {
+									return (
+										handleShowMediaViewer({
+											api: pluginInjectionApi,
+											mediaPluginState: pluginState,
+										}) ?? false
+									);
+								},
+							}
+						: generateFilePreviewItem(pluginState, intl),
+					{
+						type: 'separator',
+						supportsViewMode: true,
+					},
+				);
 			}
 		}
 	}
@@ -720,6 +766,7 @@ export const floatingToolbar = (
 			intl,
 			mediaPluginState,
 			hoverDecoration,
+			pluginInjectionApi,
 			pluginInjectionApi?.analytics?.actions,
 			pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector,
 			isViewOnly,

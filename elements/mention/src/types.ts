@@ -187,6 +187,27 @@ export enum UserType {
 	SYSTEM,
 }
 
+export enum SliNames {
+	SEARCH = 'searchUser',
+	SEARCH_TEAM = 'searchTeam',
+	INITIAL_STATE = 'initialState',
+	SELECT = 'select',
+	SELECT_TEAM = 'selectTeam',
+}
+
+export enum ComponentNames {
+	TYPEAHEAD = 'mentionTypeahead',
+	MENTION = 'mention',
+}
+
+export enum Actions {
+	VIEWED = 'viewed',
+	CLICKED = 'clicked',
+	CLOSED = 'closed',
+	SUCCEEDED = 'succeeded',
+	FAILED = 'failed',
+}
+
 export enum MentionNameStatus {
 	UNKNOWN,
 	SERVICE_ERROR,

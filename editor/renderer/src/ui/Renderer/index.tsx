@@ -7,7 +7,6 @@ import React, { Fragment, useContext, useLayoutEffect, useRef, PureComponent } f
 import { css, jsx } from '@emotion/react';
 import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import { reduce } from '@atlaskit/adf-utils/traverse';
 import { ProviderFactory, ProviderFactoryProvider } from '@atlaskit/editor-common/provider-factory';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import {
@@ -61,6 +60,7 @@ import memoizeOne from 'memoize-one';
 import { ErrorBoundary } from './ErrorBoundary';
 import { EditorMediaClientProvider } from '../../react/utils/EditorMediaClientProvider';
 import { nodeToReact } from '../../react/nodes';
+import { countNodes } from './count-nodes';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -166,14 +166,7 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 							distortedDuration:
 								this.renderedMeasurementDistortedDurationMonitor!.distortedDuration,
 							ttfb: getResponseEndTime(),
-							nodes: reduce<Record<string, number>>(
-								this.props.document,
-								(acc, node) => {
-									acc[node.type] = (acc[node.type] || 0) + 1;
-									return acc;
-								},
-								{},
-							),
+							nodes: countNodes(this.props.document),
 							severity,
 						},
 						eventType: EVENT_TYPE.OPERATIONAL,
@@ -443,6 +436,7 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 				this.fireAnalyticsEvent,
 				this.props.unsupportedContentLevelsTracking,
 				this.props.appearance,
+				this.props.includeNodesCountInStats,
 			);
 
 			if (onComplete) {

@@ -3,13 +3,12 @@ import React from 'react';
 import uuid from 'uuid';
 
 import { mention } from '@atlaskit/adf-schema';
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconMention } from '@atlaskit/editor-common/quick-insert';
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { ELEMENTS_CHANNEL } from '@atlaskit/mention/resource';
 
 import { mentionPluginKey } from './pm-plugins/key';
 import { createMentionPlugin } from './pm-plugins/main';
@@ -19,11 +18,13 @@ import { SecondaryToolbarComponent } from './ui/SecondaryToolbarComponent';
 
 const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 	let sessionId = uuid();
-	const fireEvent: FireElementsChannelEvent = <T extends AnalyticsEventPayload>(
-		payload: T,
+	const fireEvent: FireElementsChannelEvent = (
+		payload: AnalyticsEventPayload,
+		channel?: string,
 	): void => {
-		const { createAnalyticsEvent } = api?.analytics?.sharedState.currentState() ?? {};
-		if (!createAnalyticsEvent) {
+		const fireAnalyticsEvent = api?.analytics?.actions?.fireAnalyticsEvent;
+
+		if (!fireAnalyticsEvent) {
 			return;
 		}
 
@@ -31,8 +32,9 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 			payload.attributes.sessionId = sessionId;
 		}
 
-		createAnalyticsEvent(payload).fire(ELEMENTS_CHANNEL);
+		fireAnalyticsEvent(payload, channel);
 	};
+
 	const typeAhead = createTypeAheadConfig({
 		sanitizePrivateContent: options?.sanitizePrivateContent,
 		mentionInsertDisplayName: options?.insertDisplayName,

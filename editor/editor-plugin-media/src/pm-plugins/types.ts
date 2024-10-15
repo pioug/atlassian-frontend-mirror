@@ -1,4 +1,4 @@
-import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import { type InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
@@ -95,6 +95,9 @@ export interface MediaPluginState {
 
 	subscribeToUploadInProgressState(fn: (isUploading: boolean) => void): void;
 	unsubscribeFromUploadInProgressState(fn: (isUploading: boolean) => void): void;
+	// Media Viewer State
+	isMediaViewerVisible?: boolean;
+	mediaViewerSelectedMedia?: MediaADFAttrs;
 }
 
 export type EventInput = 'keyboard' | 'mouse' | 'floatingToolBar';

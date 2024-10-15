@@ -15,7 +15,7 @@ import type { KeyboardEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
-import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import {
 	ACTION,
@@ -99,24 +99,25 @@ const selectedStyles = css({
 	color: token('color.icon.selected', '#0C66E4'),
 });
 
-const DragHandleInternal = ({
+export const DragHandle = ({
 	view,
 	api,
+	formatMessage,
 	getPos,
 	anchorName,
 	nodeType,
-	intl: { formatMessage },
 	handleOptions,
 	isTopLevelNode = true,
 }: {
 	view: EditorView;
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
+	formatMessage: IntlShape['formatMessage'];
 	getPos: () => number | undefined;
 	anchorName: string;
 	nodeType: string;
 	handleOptions?: HandleOptions;
 	isTopLevelNode?: Boolean;
-} & WrappedComponentProps) => {
+}) => {
 	const start = getPos();
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -458,6 +459,7 @@ const DragHandleInternal = ({
 	if (
 		!isTopLevelNode &&
 		handleOptions?.isFocused &&
+		editorExperiment('nested-dnd', true) &&
 		fg('platform_editor_element_dnd_nested_a11y')
 	) {
 		isParentNodeOfTypeLayout =
@@ -519,5 +521,3 @@ const DragHandleInternal = ({
 		renderButton()
 	);
 };
-
-export const DragHandle = injectIntl(DragHandleInternal);

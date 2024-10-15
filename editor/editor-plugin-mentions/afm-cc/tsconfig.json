@@ -19,9 +19,6 @@
     ],
     "references": [
         {
-            "path": "../../../analytics/analytics-gas-types/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {

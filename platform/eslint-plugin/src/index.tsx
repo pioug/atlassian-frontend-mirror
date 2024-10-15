@@ -21,6 +21,7 @@ import noPreconditioning from './rules/no-preconditioning';
 import inlineUsage from './rules/inline-usage';
 import preferFG from './rules/prefer-fg';
 import noAlias from './rules/no-alias';
+import useEntrypointsInExamples from './rules/use-entrypoints-in-examples';
 import useRecommendedUtils from './rules/use-recommended-utils';
 
 export const rules = {
@@ -45,6 +46,7 @@ export const rules = {
 	'inline-usage': inlineUsage,
 	'prefer-fg': preferFG,
 	'no-alias': noAlias,
+	'use-entrypoints-in-examples': useEntrypointsInExamples,
 	'use-recommended-utils': useRecommendedUtils,
 };
 

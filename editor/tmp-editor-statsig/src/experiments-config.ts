@@ -255,6 +255,16 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'leading', 'trailing']),
 		defaultValue: 'control' as 'control' | 'leading' | 'trailing',
 	},
+	// Added 2024-10-03
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/editor_ai_-_proactive_ai_improve_writing/setup
+	'editor_ai_-_proactive_ai_improve_writing': {
+		productKeys: {
+			confluence: 'editor_ai_-_proactive_ai_improve_writing',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'test']),
+		defaultValue: 'control' as 'control' | 'test',
+	},
 	// Added 2024-10-04
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_typography_migration_ugc/setup
 	typography_migration_ugc: {
@@ -265,14 +275,14 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-10-03
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/editor_ai_-_proactive_ai_improve_writing/setup
-	'editor_ai_-_proactive_ai_improve_writing': {
+	// Added 2024-10-06
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_element_dnd_apply_optimisation
+	'optimised-apply-dnd': {
 		productKeys: {
-			confluence: 'editor_ai_-_proactive_ai_improve_writing',
+			confluence: 'platform_editor_element_dnd_apply_optimisation',
 		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
 	},
 } satisfies Record<string, EditorExperimentConfigValue>;

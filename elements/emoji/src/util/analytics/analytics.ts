@@ -3,7 +3,11 @@ import {
 	type AnalyticsEventPayload,
 	type CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import type { EmojiDescription } from '../../types';
+import {
+	type EmojiDescription,
+	type OptionalEmojiDescription,
+	SearchSourceTypes,
+} from '../../types';
 
 export const createAndFireEventInElementsChannel = createAndFireEvent('fabric-elements');
 
@@ -25,15 +29,37 @@ const createEvent = (
 	},
 });
 
-export type EmojiInsertionAnalytic = (source: 'picker' | 'typeahead') => AnalyticsEventPayload;
+export type EmojiInsertionAnalytic = (
+	source: SearchSourceTypes.PICKER | SearchSourceTypes.TYPEAHEAD,
+) => AnalyticsEventPayload;
 
-export const recordSucceeded: EmojiInsertionAnalytic = (source) => {
+export const recordSucceededEmoji =
+	(emoji: OptionalEmojiDescription) => (source: SearchSourceTypes) => {
+		return createEvent('operational', 'succeeded', 'recordEmojiSelection', undefined, {
+			source,
+			emojiId: emoji?.id,
+			emojiType: emoji?.type,
+			emojiCategory: emoji?.category,
+		});
+	};
+
+export const recordSucceeded: EmojiInsertionAnalytic = (source: SearchSourceTypes) => {
 	return createEvent('operational', 'succeeded', 'recordEmojiSelection', undefined, {
 		source,
 	});
 };
 
-export const recordFailed: EmojiInsertionAnalytic = (source) => {
+export const recordFailedEmoji =
+	(emoji: OptionalEmojiDescription) => (source: SearchSourceTypes) => {
+		return createEvent('operational', 'failed', 'recordEmojiSelection', undefined, {
+			source,
+			emojiId: emoji?.id,
+			emojiType: emoji?.type,
+			emojiCategory: emoji?.category,
+		});
+	};
+
+export const recordFailed: EmojiInsertionAnalytic = (source: SearchSourceTypes) => {
 	return createEvent('operational', 'failed', 'recordEmojiSelection', undefined, {
 		source,
 	});
@@ -210,17 +236,23 @@ export const typeaheadRenderedEvent = (
 
 // it's used in editor typeahead to fire success record analytics
 export const recordSelectionSucceededSli =
-	(options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) => () => {
+	(emoji: OptionalEmojiDescription, options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) =>
+	() => {
 		if (options && options.createAnalyticsEvent) {
-			createAndFireEvent('editor')(recordSucceeded('typeahead'))(options.createAnalyticsEvent);
+			createAndFireEvent('editor')(recordSucceededEmoji(emoji)(SearchSourceTypes.TYPEAHEAD))(
+				options.createAnalyticsEvent,
+			);
 		}
 	};
 
 // it's used in editor typeahead to fire failure record analytics
 export const recordSelectionFailedSli =
-	(options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) => (err: Error) => {
+	(emoji: OptionalEmojiDescription, options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) =>
+	(err: Error) => {
 		if (options && options.createAnalyticsEvent) {
-			createAndFireEvent('editor')(recordFailed('typeahead'))(options.createAnalyticsEvent);
+			createAndFireEvent('editor')(recordFailedEmoji(emoji)(SearchSourceTypes.TYPEAHEAD))(
+				options.createAnalyticsEvent,
+			);
 		}
 		return Promise.reject(err);
 	};

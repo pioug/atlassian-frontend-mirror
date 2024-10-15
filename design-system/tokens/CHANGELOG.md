@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 2.0.3
+
+### Patch Changes
+
+- [#151850](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151850)
+  [`1b8cbd71ce0c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b8cbd71ce0c4) -
+  Add 0 and 1 to @atlaskit/css opacity type.
+
 ## 2.0.2
 
 ### Patch Changes

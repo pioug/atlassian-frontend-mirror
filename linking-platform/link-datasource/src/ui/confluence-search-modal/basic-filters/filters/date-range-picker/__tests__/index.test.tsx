@@ -175,6 +175,29 @@ describe('DateRangePicker', () => {
 				});
 			},
 		);
+
+		it('should not call onSelectionChange when the same option is selected and should close the picker', async () => {
+			const { onSelectionChange } = setup();
+			const triggerButton = await screen.findByTestId('confluence-search-modal--date-range-button');
+			await userEvent.click(triggerButton);
+
+			expect(await screen.findByTestId(popupContainerTestId)).toBeInTheDocument();
+
+			// first click of Today option which closes the picker
+			const option = await screen.findByText('Today');
+			await userEvent.click(option);
+
+			await waitFor(() => {
+				expect(screen.queryByTestId(popupContainerTestId)).not.toBeInTheDocument();
+			});
+
+			// open the picker again and select same Today option
+			await userEvent.click(triggerButton);
+			const todayOption = await screen.findByText('Today');
+			await userEvent.click(todayOption);
+
+			expect(onSelectionChange).toHaveBeenCalledTimes(1);
+		});
 	});
 
 	describe('Custom lastModified Date Picker', () => {

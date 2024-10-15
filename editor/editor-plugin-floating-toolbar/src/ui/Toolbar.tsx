@@ -28,6 +28,7 @@ import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { clearHoverSelection } from '@atlaskit/editor-plugin-table/commands';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { checkShouldForceFocusAndApply, forceFocusSelector } from '../pm-plugins/force-focus';
@@ -37,7 +38,7 @@ import type { FloatingToolbarPlugin } from '../types';
 import Dropdown from './Dropdown';
 import { EmojiPickerButton } from './EmojiPickerButton';
 import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
-import Input from './Input';
+import { InputNew, InputOld } from './Input';
 import { ScrollButtons } from './ScrollButtons';
 import type { SelectOption } from './Select';
 import Select from './Select';
@@ -203,8 +204,22 @@ const ToolbarItems = React.memo(
 					);
 
 				case 'input':
+					if (fg('platform_editor_react18_phase2')) {
+						return (
+							<InputNew
+								key={idx}
+								mountPoint={popupsMountPoint}
+								boundariesElement={popupsBoundariesElement}
+								defaultValue={item.defaultValue}
+								placeholder={item.placeholder}
+								onSubmit={(value) => dispatchCommand(item.onSubmit(value))}
+								onBlur={(value) => dispatchCommand(item.onBlur(value))}
+							/>
+						);
+					}
+
 					return (
-						<Input
+						<InputOld
 							key={idx}
 							mountPoint={popupsMountPoint}
 							boundariesElement={popupsBoundariesElement}

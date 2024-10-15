@@ -74,7 +74,11 @@ const getCurrentNodePos = (state: EditorState, isParentNodeOfTypeLayout?: boolea
 		// 2. caret cursor is inside the node
 		// 3. the start of the selection is inside the node
 		currentNodePos = selection.$from.before(1);
-		if (selection.$from.depth > 0 && fg('platform_editor_element_dnd_nested_a11y')) {
+		if (
+			selection.$from.depth > 0 &&
+			editorExperiment('nested-dnd', true) &&
+			fg('platform_editor_element_dnd_nested_a11y')
+		) {
 			currentNodePos = getNestedNodePosition(state);
 		}
 	}
@@ -88,7 +92,10 @@ export const moveNodeViaShortcut = (
 ): Command => {
 	return (state) => {
 		let isParentNodeOfTypeLayout;
-		if (fg('platform_editor_element_dnd_nested_a11y')) {
+		const shouldEnableNestedDndA11y =
+			editorExperiment('nested-dnd', true) && fg('platform_editor_element_dnd_nested_a11y');
+
+		if (shouldEnableNestedDndA11y) {
 			isParentNodeOfTypeLayout = !!findParentNodeOfType([state.schema.nodes.layoutSection])(
 				state.selection,
 			);
@@ -102,7 +109,7 @@ export const moveNodeViaShortcut = (
 
 			const nodeIndex = $pos.index();
 
-			if (direction === DIRECTION.LEFT && fg('platform_editor_element_dnd_nested_a11y')) {
+			if (direction === DIRECTION.LEFT && shouldEnableNestedDndA11y) {
 				if ($pos.depth < 2 || !isParentNodeOfTypeLayout) {
 					return false;
 				}
@@ -113,7 +120,7 @@ export const moveNodeViaShortcut = (
 				const previousNode = grandParent ? grandParent.maybeChild(index - 1) : null;
 
 				moveToPos = $pos.start() - (previousNode?.nodeSize || 1);
-			} else if (direction === DIRECTION.RIGHT && fg('platform_editor_element_dnd_nested_a11y')) {
+			} else if (direction === DIRECTION.RIGHT && shouldEnableNestedDndA11y) {
 				if ($pos.depth < 2 || !isParentNodeOfTypeLayout) {
 					return false;
 				}
@@ -121,7 +128,7 @@ export const moveNodeViaShortcut = (
 				moveToPos = $pos.after($pos.depth) + 1;
 			} else if (direction === DIRECTION.UP) {
 				const nodeBefore =
-					$pos.depth > 1 && nodeIndex === 0 && fg('platform_editor_element_dnd_nested_a11y')
+					$pos.depth > 1 && nodeIndex === 0 && shouldEnableNestedDndA11y
 						? $pos.node($pos.depth)
 						: $pos.nodeBefore;
 
@@ -142,7 +149,7 @@ export const moveNodeViaShortcut = (
 			const nodeType = state.doc.nodeAt(currentNodePos)?.type.name;
 
 			// only move the node if the destination is at the same depth, not support moving a nested node to a parent node
-			const shouldMoveNode = fg('platform_editor_element_dnd_nested_a11y')
+			const shouldMoveNode = shouldEnableNestedDndA11y
 				? moveToPos > -1 && $pos.depth === state.doc.resolve(moveToPos).depth
 				: moveToPos > -1;
 

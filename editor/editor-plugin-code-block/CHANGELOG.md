@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.5.1
+
+### Patch Changes
+
+- [#151850](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151850)
+  [`730e4417d9ad8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/730e4417d9ad8) -
+  [ux] ED-25091: migrated code snippet to use new ADS icons
+- Updated dependencies
+
 ## 3.5.0
 
 ### Minor Changes

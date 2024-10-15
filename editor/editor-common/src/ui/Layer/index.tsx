@@ -3,6 +3,8 @@ import React, { Component, type ReactNode } from 'react';
 import Popper, { type Boundary, type Data } from 'popper.js'; // eslint-disable-line import/extensions
 import rafSchedule from 'raf-schd';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { positionPropToPopperPosition } from './internal/helpers';
 
 export type Props = {
@@ -75,12 +77,17 @@ export default class Layer extends Component<Props, State> {
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		this.applyPopper(nextProps);
+		if (!fg('platform_editor_react18_phase2')) {
+			this.applyPopper(nextProps);
+		}
 	}
 
 	componentDidUpdate(prevProps: Props, prevState: State) {
 		const { onPositioned } = this.props;
 		const { hasExtractedStyles } = this.state;
+		if (this.props !== prevProps && fg('platform_editor_react18_phase2')) {
+			this.applyPopper(this.props);
+		}
 
 		// This flag is set the first time the position is calculated from Popper and applied to the content
 		if (!prevState.hasExtractedStyles && hasExtractedStyles && onPositioned) {

@@ -42,6 +42,7 @@ import type {
 import type { ListEventPayload } from './list-events';
 import type { LoomEventPayload } from './loom-events';
 import type { MediaEventPayload } from './media-events';
+import { type MentionEventPayload } from './mention-events';
 import type { MoveContentEventPayload } from './move-content-events';
 import type { NodeEventPayload } from './node-events';
 import type { PasteEventPayload } from './paste-events';
@@ -107,6 +108,7 @@ export type AnalyticsEventPayload<T = void> =
 	| VisitedLinkAEP
 	| ViewEventPayload
 	| MediaUploadEventPayload
+	| MentionEventPayload
 	| EngagementPlatformEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<

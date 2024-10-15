@@ -18,6 +18,8 @@ import {
 	type ResourceProvider,
 	type ResultCallback,
 	type UserRole,
+	SliNames,
+	Actions,
 } from '../types';
 import debug from '../util/logger';
 
@@ -36,7 +38,7 @@ export type {
 } from '../types'; // Re-exporting types to prevent breaking change
 // Re-exporting types to prevent breaking change
 
-import { SLI_EVENT_TYPE, Actions, SliNames } from '../util/analytics';
+import { SLI_EVENT_TYPE } from '../util/analytics';
 import debounce from 'lodash/debounce';
 
 export interface TeamMentionResourceConfig extends MentionResourceConfig {

@@ -1,5 +1,9 @@
-import type { EventType, GasPayload } from '@atlaskit/analytics-gas-types';
-import { OPERATIONAL_EVENT_TYPE, UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	type AnalyticsEventPayload,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { UserRole } from '@atlaskit/mention';
@@ -10,25 +14,6 @@ import type { TeamInfoAttrAnalytics } from './types';
 import { isTeamType } from './utils';
 
 const componentName = 'mention';
-
-export const buildAnalyticsPayload = (
-	actionSubject: string,
-	action: string,
-	eventType: EventType,
-	sessionId: string,
-	otherAttributes = {},
-	tags: Array<string> = [],
-): GasPayload => ({
-	action,
-	actionSubject,
-	eventType,
-	attributes: {
-		componentName,
-		sessionId,
-		...otherAttributes,
-	},
-	tags,
-});
 
 type QueryAttributes = Partial<{
 	queryLength: number;
@@ -56,15 +41,22 @@ export const buildTypeAheadCancelPayload = (
 	downKeyCount: number,
 	sessionId: string,
 	query?: string,
-): GasPayload => {
+): AnalyticsEventPayload => {
 	const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
-	return buildAnalyticsPayload('mentionTypeahead', 'cancelled', UI_EVENT_TYPE, sessionId, {
-		duration,
-		downKeyCount,
-		upKeyCount,
-		queryLength,
-		spaceInQuery,
-	});
+	return {
+		action: ACTION.CANCELLED,
+		actionSubject: ACTION_SUBJECT.MENTION_TYPEAHEAD,
+		eventType: EVENT_TYPE.UI,
+		attributes: {
+			componentName,
+			duration,
+			queryLength,
+			spaceInQuery,
+			upKeyCount,
+			downKeyCount,
+			sessionId,
+		},
+	};
 };
 
 const getPosition = (
@@ -84,16 +76,23 @@ export const buildTypeAheadInviteItemViewedPayload = (
 	sessionId: string,
 	contextIdentifierProvider?: ContextIdentifierProvider,
 	userRole?: UserRole,
-): GasPayload => {
+): AnalyticsEventPayload => {
 	const { containerId, objectId, childObjectId } = (contextIdentifierProvider ||
 		{}) as ContextIdentifierProvider;
 
-	return buildAnalyticsPayload('inviteItem', 'rendered', UI_EVENT_TYPE, sessionId, {
-		containerId,
-		objectId,
-		childObjectId,
-		userRole,
-	});
+	return {
+		action: ACTION.RENDERED,
+		actionSubject: ACTION_SUBJECT.INVITE_ITEM,
+		eventType: EVENT_TYPE.UI,
+		attributes: {
+			componentName,
+			containerId,
+			objectId,
+			childObjectId,
+			userRole,
+			sessionId,
+		},
+	};
 };
 
 export const buildTypeAheadInviteItemClickedPayload = (
@@ -105,17 +104,17 @@ export const buildTypeAheadInviteItemClickedPayload = (
 	query?: string,
 	contextIdentifierProvider?: ContextIdentifierProvider,
 	userRole?: UserRole,
-): GasPayload => {
+): AnalyticsEventPayload => {
 	const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
 	const { containerId, objectId, childObjectId } = (contextIdentifierProvider ||
 		{}) as ContextIdentifierProvider;
 
-	return buildAnalyticsPayload(
-		'inviteItem',
-		isClicked(insertType) ? 'clicked' : 'pressed',
-		UI_EVENT_TYPE,
-		sessionId,
-		{
+	return {
+		action: isClicked(insertType) ? ACTION.CLICKED : ACTION.PRESSED,
+		actionSubject: ACTION_SUBJECT.INVITE_ITEM,
+		eventType: EVENT_TYPE.UI,
+		attributes: {
+			componentName,
 			duration,
 			queryLength,
 			spaceInQuery,
@@ -125,8 +124,10 @@ export const buildTypeAheadInviteItemClickedPayload = (
 			objectId,
 			childObjectId,
 			userRole,
+			sessionId,
+			keyboardKey: isClicked(insertType) ? undefined : insertType,
 		},
-	);
+	};
 };
 
 export const buildTypeAheadInsertedPayload = (
@@ -142,14 +143,24 @@ export const buildTypeAheadInsertedPayload = (
 	contextIdentifierProvider?: ContextIdentifierProvider,
 	taskListId?: string,
 	taskItemId?: string,
-): GasPayload => {
+): AnalyticsEventPayload => {
 	const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
-	let analyticsPayload = buildAnalyticsPayload(
-		'mentionTypeahead',
-		isClicked(insertType) ? 'clicked' : 'pressed',
-		UI_EVENT_TYPE,
-		sessionId,
-		{
+	let containerId;
+	let objectId;
+	let childObjectId;
+
+	if (contextIdentifierProvider) {
+		containerId = contextIdentifierProvider.containerId || undefined;
+		objectId = contextIdentifierProvider.objectId || undefined;
+		childObjectId = contextIdentifierProvider.childObjectId || undefined;
+	}
+
+	return {
+		action: isClicked(insertType) ? ACTION.CLICKED : ACTION.PRESSED,
+		actionSubject: ACTION_SUBJECT.MENTION_TYPEAHEAD,
+		eventType: EVENT_TYPE.UI,
+		attributes: {
+			sessionId,
 			duration,
 			position: getPosition(mentionList, mention),
 			keyboardKey: isClicked(insertType) ? undefined : insertType,
@@ -169,16 +180,11 @@ export const buildTypeAheadInsertedPayload = (
 			taskListId,
 			taskItemId,
 			localId: mentionLocalId,
+			containerId,
+			objectId,
+			childObjectId,
 		},
-	);
-
-	if (contextIdentifierProvider) {
-		analyticsPayload.containerId = contextIdentifierProvider.containerId || undefined;
-		analyticsPayload.objectId = contextIdentifierProvider.objectId || undefined;
-		analyticsPayload.childObjectId = contextIdentifierProvider.childObjectId || undefined;
-	}
-
-	return analyticsPayload;
+	};
 };
 
 export const buildTypeAheadRenderedPayload = (
@@ -186,14 +192,16 @@ export const buildTypeAheadRenderedPayload = (
 	userIds: Array<string> | null,
 	query: string,
 	teams: TeamInfoAttrAnalytics[] | null,
-): GasPayload => {
+): AnalyticsEventPayload => {
 	const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
-	const actionSubject = userIds ? 'mentionTypeahead' : 'teamMentionTypeahead';
+	const actionSubject = userIds
+		? ACTION_SUBJECT.MENTION_TYPEAHEAD
+		: ACTION_SUBJECT.TEAM_MENTION_TYPEAHEAD;
 
 	return {
-		action: 'rendered',
+		action: ACTION.RENDERED,
 		actionSubject,
-		eventType: OPERATIONAL_EVENT_TYPE,
+		eventType: EVENT_TYPE.OPERATIONAL,
 		attributes: {
 			componentName,
 			duration,

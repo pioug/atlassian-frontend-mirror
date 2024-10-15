@@ -11,33 +11,13 @@ import {
 } from '@atlaskit/analytics-gas-types';
 import { ELEMENTS_CHANNEL } from '../_constants';
 
-import { isSpecialMentionText } from '../types';
+import { ComponentNames, isSpecialMentionText } from '../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export const SLI_EVENT_TYPE = 'sli';
 export const SMART_EVENT_TYPE = 'smart';
-export enum SliNames {
-	SEARCH = 'searchUser',
-	SEARCH_TEAM = 'searchTeam',
-	INITIAL_STATE = 'initialState',
-	SELECT = 'select',
-	SELECT_TEAM = 'selectTeam',
-}
-
-export enum ComponentNames {
-	TYPEAHEAD = 'mentionTypeahead',
-	MENTION = 'mention',
-}
-
-export enum Actions {
-	VIEWED = 'viewed',
-	CLICKED = 'clicked',
-	CLOSED = 'closed',
-	SUCCEEDED = 'succeeded',
-	FAILED = 'failed',
-}
 
 export const fireAnalyticsMentionTypeaheadEvent =
 	(props: WithAnalyticsEventsProps) =>

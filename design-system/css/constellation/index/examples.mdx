@@ -1,0 +1,196 @@
+---
+order: 0
+---
+
+import SectionMessage from '@atlaskit/section-message';
+
+<SectionMessage title="Migration from Emotion to Compiled" appearance="discovery">
+	<p>
+		The Atlassian Design System is under the process of migrating from Emotion to Compiled for our
+		CSS-in-JS. Further details to come.
+	</p>
+</SectionMessage>
+
+`@atlaskit/css` is the replacement for `@atlaskit/primitives.xcss`, refer to
+[Migration](/components/css/migration) for details migrating.
+
+This is a bounded styling library to be used both with native styles (`<div>`) and the Atlassian
+Design System, such as our [primitive components](/components/primitives).
+
+This is built ontop of [Compiled CSS-in-JS](https://compiledcssinjs.com/) which is a much more
+performant, static styling solution with the same syntax and a few breaking changes—the primary ones
+being dynamic styles as well as deep imports or exports for reuse of styles may not work.
+
+This will require major configuration, noted below.
+
+## Usage
+
+**Notes:**
+
+- The same styles can be used in both Components' `xcss` prop as well as in a native elements' `css`
+  prop.
+- You must have a JSX pragma in scope in order to use this, depending on your setup this may be
+  automatic, require `React` imported, or require `jsx` imported.
+- The `cx` function is required when combining styles inside of an `xcss` prop. With native
+  elements, you can simply do `css={[style, style]}`
+
+```tsx
+/**
+ * @jsx jsx
+ */
+import { cssMap, cx, jsx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	root: {
+		padding: token('space.100'),
+		color: token('color.text'),
+		backgroundColor: token('elevation.surface'),
+	},
+	compact: { padding: token('space.50') },
+	transparent: { backgroundColor: 'transparent' },
+});
+
+export default ({ spacing = 'default' }: { spacing: 'compact' | 'default' }) => {
+	return (
+		<Box
+			xcss={cx(
+				styles.root,
+				spacing === 'compact' && styles.compact,
+				noBackground && styles.transparent,
+			)}
+		>
+			<p css={[styles.compact, styles.transparent]}>Hello world!</p>
+		</Box>
+	);
+};
+```
+
+## Configuration required
+
+<SectionMessage title="More details coming soon!" appearance="warning">
+	<p>This section is under development, more details will come soon.</p>
+</SectionMessage>
+
+In order to use any Atlassian Design System packages that distribute Compiled CSS-in-JS, you will
+need to configure your project via Babel, Webpack, and/or Parcel in order to run the latest version
+of these babel plugins:
+
+- `@atlaskit/tokens/babel-plugin`
+- `@compiled/babel-plugin` configured with `sortShorthand: true` (which is also configurable through
+  `@compiled/webpack-loader` and `@compiled/parcel-transformer`)
+- **SUGGESTED:** You should turn on
+  [@atlaskit/eslint-plugin-ui-styling-standard](/components/eslint-plugin-ui-styling-standard) to
+  guide you.
+
+Refer to https://compiledcssinjs.com/docs/installation
+
+### Setup your Babel plugins
+
+Plugin order matters, your `@atlaskit/tokens/babel-plugin` must come before your
+`@compiled/babel-plugin`, otherwise you may experience errors.
+
+```sh
+yarn install @atlaskit/tokens
+yarn install --dev @compiled/babel-plugin
+yarn install --dev @compiled/babel-plugin-strip-runtime # optional, for extracting styles
+```
+
+```js
+// babel.config.js
+module.exports = {
+	plugins: [
+		// This will handle all `token()` calls, eg. if used in a non-Compiled CSS-in-JS library:
+		'@atlaskit/tokens/babel-plugin',
+		// ↓↓ Compiled should run last ↓↓
+		['@compiled/babel-plugin', { transformerBabelPlugins: ['@atlaskit/tokens/babel-plugin'] }],
+		// OPTIONAL: If you are distributing packages with Compiled styles, you should also include the following.
+		// Your `dest` may vary depending on how you distribute, eg. if you have mutliple `cjs` and `esm` distributions
+		// those will each need a separate `dest` through Babel's environment-specific configuration.
+		[
+			'@compiled/babel-plugin-strip-runtime',
+			{ extractStylesToDirectory: { source: 'src', dest: 'dist' } },
+		],
+	],
+};
+```
+
+For full documentation, refer to https://compiledcssinjs.com/docs/installation#babel
+
+### Setup your Webpack loader
+
+This configuration may vary, this is the default production-like configuration expected where the
+primary suggestion is to use extracted styles for performance and consistency reasons. Development
+configuration may vary.
+
+```sh
+yarn install @atlaskit/tokens
+yarn install --dev @compiled/webpack-loader mini-css-extract-plugin
+```
+
+```js
+const { CompiledExtractPlugin } = require('@compiled/webpack-loader');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+module.exports = {
+	module: {
+		rules: [
+			{
+				test: /\.(js|ts|tsx)$/,
+				use: [
+					{ loader: 'babel-loader' },
+					{
+						// ↓↓ Compiled should run last ↓↓
+						loader: '@compiled/webpack-loader',
+						options: {
+							transformerBabelPlugins: ['@atlaskit/tokens/babel-plugin'],
+							extract: true,
+							inlineCss: true,
+						},
+					},
+				],
+			},
+			{
+				test: /\.compiled-css\.css$/i,
+				use: [MiniCssExtractPlugin.loader, 'css-loader'],
+			},
+			{
+				test: /(?<!compiled-css)(?<!\.compiled)\.css$/,
+				use: ['style-loader', 'css-loader'],
+			},
+		],
+	},
+	plugins: [new MiniCssExtractPlugin(), new CompiledExtractPlugin({ sortShorthand: true })],
+};
+```
+
+For full documentation, refer to https://compiledcssinjs.com/docs/installation#webpack
+
+### Setup with Parcel:
+
+```sh
+yarn install @atlaskit/tokens
+yarn install --dev @compiled/parcel-config
+```
+
+Setup your `.compiledcssrc`:
+
+```json
+{
+	"transformerBabelPlugins": [["@atlaskit/tokens/babel-plugin"]],
+	"extract": true,
+	"inlineCss": true,
+	"sortShorthand": true
+}
+```
+
+Setup your `.parcelrc`:
+
+```json
+{
+	"extends": ["@parcel/config-default", "@compiled/parcel-config"]
+}
+```
+
+For full documentation, refer to https://compiledcssinjs.com/docs/installation#(recommended)-parcel

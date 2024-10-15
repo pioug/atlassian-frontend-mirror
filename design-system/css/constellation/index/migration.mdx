@@ -1,0 +1,63 @@
+---
+order: 1
+---
+
+## Migration to `@atlaskit/css`
+
+`@atlaskit/css` is the replacement for `@atlaskit/primitives/xcss` which will only work with the
+Compiled variants of packages, eg. `@atlaskit/primitives/compiled` (note that not all packages will
+be migrated to Compiled by the end of 2024).
+
+Typically, this migration means moving from the `const styles = xcss({ padding: 'space.100' })` API
+to a `const styles = cssMap({ root: { padding: token('space.100') } })` API, and we have a codemod
+to assist with a majority of this migration for you. Some things are not available in the Compiled
+API such as dynamic styles or imports, please use the
+[UI Styling Standard ESLint Plugin](/components/eslint-plugin-ui-styling-standard/) to guide you.
+
+Refer to [Configuration required](/components/css/examples#configuration-required) for details on
+how to configure your project to use `@atlaskit/css`
+
+## Codemod
+
+We have a codemod to assist in migrations from `xcss()` to `@atlaskit/css`
+
+```sh
+npx @atlaskit/codemod-cli --parser tsx --extensions ts,tsx,js ./path/to/folder
+```
+
+The CLI will show a list of components and versions. Select
+`@atlaskit/css: 0.5.2-primitives-emotion-to-compiled` and your code will be migrated to the
+`@atlaskit/css` API instead.
+
+The codemod should migrate something like this:
+
+```diff
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+-import { Box, xcss } from '@atlaskit/primitives';
++import { cssMap, jsx } from '@atlaskit/css';
++import { Box } from '@atlaskit/primitives/compiled';
++import { token } from '@atlaskit/tokens';
+
+-const styles = xcss({
+-  color: 'color.text',
+-  zIndex: 'layer',
+-  backgroundColor: 'elevation.surface.hovered',
++const styles = cssMap({
++  root: {
++    color: token('color.text'),
++    zIndex: 400,
++    backgroundColor: token('elevation.surface.hovered'),
++  },
+});
+
+-export const MyComponent = () => <Box xcss={styles} />;
++export const MyComponent = () => <Box xcss={styles.root} />;
+```
+
+Please note there may be very minute differences in this migration if you do not have theming
+enabled as `@atlaskit/primitives` and the Compiled variant of `@atlaskit/primitives/compiled` have
+different fallback colors. They are unchanged with theming applied, this will only happen if you're
+in an unthemed environment (which is not suggested).

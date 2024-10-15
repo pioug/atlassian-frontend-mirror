@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -23,7 +23,7 @@ export interface State {
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export default class TextField extends Component<Props, State> {
+export class InputOld extends Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
@@ -73,3 +73,35 @@ export default class TextField extends Component<Props, State> {
 		);
 	}
 }
+
+export const InputNew = (props: Props) => {
+	const { defaultValue, onBlur, onSubmit, placeholder } = props;
+	const [text, setText] = useState(defaultValue || '');
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setText(e.target.value);
+	};
+
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		onSubmit && onSubmit(text);
+	};
+
+	const handleBlur = (e: React.FocusEvent<{}>) => {
+		e.preventDefault();
+		onBlur && onBlur(text);
+	};
+
+	return (
+		<form onSubmit={handleSubmit}>
+			<input
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				css={panelTextInput}
+				value={text}
+				onChange={handleChange}
+				placeholder={placeholder}
+				onBlur={handleBlur}
+			/>
+		</form>
+	);
+};

@@ -6,7 +6,7 @@ import prerequisites from '../prerequisites';
 
 export default customMd`
 
-[Smart Links](#a) enhance URLs into interactive previews, offering a contextualized experience within Atlassian products.
+Smart Links enhance URLs into interactive previews, offering a contextualized experience within Atlassian products.
 They come in inline, block (card), and embed formats, respecting content permissions and compliance settings.
 
 ${(<CardExample />)}
@@ -36,5 +36,9 @@ import { Card } from '@atlaskit/smart-card';
 ### Integrating with the Fabric Renderer/Editor
 
 Please see [Card in Editor](./card-in-editor).
+
+### Support for server-side rendering (SSR)
+
+Please see [CardSSR](./card-ssr).
 
 `;

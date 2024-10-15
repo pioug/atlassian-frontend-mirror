@@ -12,7 +12,11 @@
 		"runReact18": true,
 		"website": {
 			"name": "CSS",
-			"category": "Components"
+			"category": "Libraries",
+			"ignorePropTypes": true,
+			"status": {
+				"type": "alpha"
+			}
 		}
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -94,5 +98,5 @@
 			]
 		}
 	},
-	"homepage": "https://atlaskit.atlassian.com/packages/design-system/styling"
+	"homepage": "https://atlassian.design/components/css"
 }

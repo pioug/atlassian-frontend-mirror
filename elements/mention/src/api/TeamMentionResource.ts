@@ -1,4 +1,4 @@
-import { SLI_EVENT_TYPE, SliNames, Actions } from './../util/analytics';
+import { SLI_EVENT_TYPE } from './../util/analytics';
 import { type KeyValues, utils as serviceUtils } from '@atlaskit/util-service-support';
 
 import {
@@ -7,6 +7,8 @@ import {
 	UserType,
 	UserAccessLevel,
 	type MentionDescription,
+	SliNames,
+	Actions,
 } from '../types';
 import MentionResource, {
 	type MentionContextIdentifier,

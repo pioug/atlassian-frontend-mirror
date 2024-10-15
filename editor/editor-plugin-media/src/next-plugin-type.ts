@@ -1,5 +1,10 @@
+import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	EditorCommand,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
@@ -50,6 +55,10 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			 * @returns {boolean} if setting the provider was successful or not
 			 */
 			setProvider: (provider: Promise<MediaProvider>) => boolean;
+		};
+		commands: {
+			showMediaViewer: (media: MediaADFAttrs) => EditorCommand;
+			hideMediaViewer: EditorCommand;
 		};
 	}
 >;

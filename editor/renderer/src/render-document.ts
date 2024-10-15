@@ -14,6 +14,7 @@ import { type AnalyticsEventPayload, PLATFORM } from './analytics/events';
 import { trackUnsupportedContentLevels } from './analytics/unsupported-content';
 import { type RendererAppearance } from './ui/Renderer/types';
 import { transformMediaLinkMarks } from '@atlaskit/adf-utils/transforms';
+import { countNodes } from './ui/Renderer/count-nodes';
 
 export interface RenderOutput<T> {
 	result: T;
@@ -25,6 +26,7 @@ export interface RenderOutputStat {
 	buildTreeTime?: number;
 	sanitizeTime: number;
 	serializeTime?: number;
+	nodesCount?: Record<string, number>;
 }
 
 export interface ResultWithTime<T> {
@@ -179,6 +181,7 @@ export const renderDocument = <T>(
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking,
 	appearance?: RendererAppearance,
+	includeNodesCountInStats?: boolean,
 ): RenderOutput<T | null> => {
 	const stat: RenderOutputStat = { sanitizeTime: 0 };
 
@@ -218,6 +221,10 @@ export const renderDocument = <T>(
 				dispatchAnalyticsEvent,
 			);
 		}
+	}
+
+	if (includeNodesCountInStats) {
+		stat.nodesCount = countNodes(doc);
 	}
 
 	return { result, stat, pmDoc: node };

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-width
 
+## 1.3.9
+
+### Patch Changes
+
+- [#149735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149735)
+  [`bca64a14f9448`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bca64a14f9448) -
+  Fix bug where width plugin state doesn't update on appearance change
+
 ## 1.3.8
 
 ### Patch Changes

@@ -382,7 +382,7 @@ const EmojiPickerComponent = ({
 	const recordUsageOnSelection = useMemo(
 		() =>
 			createRecordSelectionDefault(emojiProvider, onSelectWrapper, (analytic) =>
-				fireAnalytics(analytic('picker')),
+				fireAnalytics(analytic(SearchSourceTypes.PICKER)),
 			),
 		[emojiProvider, fireAnalytics, onSelectWrapper],
 	);

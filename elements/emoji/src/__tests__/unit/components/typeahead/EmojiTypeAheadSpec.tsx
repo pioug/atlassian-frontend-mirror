@@ -21,10 +21,14 @@ import { type RenderResult, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import EmojiTypeAhead, { type Props } from '../../../../components/typeahead/EmojiTypeAhead';
 import type { OnLifecycle } from '../../../../components/typeahead/EmojiTypeAheadComponent';
-import type { OnEmojiEvent, OptionalEmojiDescription } from '../../../../types';
 import {
-	recordFailed,
-	recordSucceeded,
+	SearchSourceTypes,
+	type OnEmojiEvent,
+	type OptionalEmojiDescription,
+} from '../../../../types';
+import {
+	recordFailedEmoji,
+	recordSucceededEmoji,
 	typeaheadCancelledEvent,
 	typeaheadRenderedEvent,
 	typeaheadSelectedEvent,
@@ -201,7 +205,9 @@ describe('EmojiTypeAhead', () => {
 
 		await waitFor(() => expect(selectionRecorded).toBe(true));
 		expect(fireEventSpy).toHaveBeenLastCalledWith(
-			expect.objectContaining(withSessionId(recordSucceeded('typeahead'))),
+			expect.objectContaining(
+				withSessionId(recordSucceededEmoji(choseEmoji)(SearchSourceTypes.TYPEAHEAD)),
+			),
 		);
 
 		expect(ufoEmojiRecordedStartSpy).toBeCalled();
@@ -210,14 +216,18 @@ describe('EmojiTypeAhead', () => {
 	});
 
 	it('should fire insertion failed event if provider recordSelection fails', async () => {
+		let choseEmoji: OptionalEmojiDescription;
 		const fireEventSpy: (payload: AnalyticsEventPayload) => void = jest.fn();
 
 		const emojiProvider = getEmojiResourcePromise();
 		let failureOccurred = false;
 
 		const { container } = await setupTypeAhead({
-			createAnalyticsEvent: getCreateAnalyticsSpy(fireEventSpy),
 			emojiProvider,
+			onSelection: (_emojiId, emoji) => {
+				choseEmoji = emoji;
+			},
+			createAnalyticsEvent: getCreateAnalyticsSpy(fireEventSpy),
 		});
 		await findEmojiItems(container);
 
@@ -234,7 +244,9 @@ describe('EmojiTypeAhead', () => {
 		await waitFor(() => expect(failureOccurred).toBe(true));
 		await waitForExpect(() => {
 			expect(fireEventSpy).toHaveBeenLastCalledWith(
-				expect.objectContaining(withSessionId(recordFailed('typeahead'))),
+				expect.objectContaining(
+					withSessionId(recordFailedEmoji(choseEmoji)(SearchSourceTypes.TYPEAHEAD)),
+				),
 			);
 
 			expect(ufoEmojiRecordedStartSpy).toBeCalled();
@@ -405,7 +417,7 @@ describe('EmojiTypeAhead', () => {
 		await findEmojiItems(container);
 
 		const item = await getEmojiTypeAheadItemById(container, standardBoomEmoji.shortName);
-		userEvent.hover(item);
+		await userEvent.hover(item);
 
 		await isEmojiTypeAheadItemSelected(container, standardBoomEmoji.shortName);
 	});

@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 198.6.3
+
+### Patch Changes
+
+- [#151938](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151938)
+  [`91b5768ef0c7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91b5768ef0c7c) -
+  [ux] ED-25203 refactor image previewer outside of floating toolbar
+- [#152019](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152019)
+  [`5f7f23dd0c612`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f7f23dd0c612) -
+  [ux] ED-25082: Added editor custom font tokens and use them for normal texts and paragraph texts"
+- Updated dependencies
+
+## 198.6.2
+
+### Patch Changes
+
+- [#149735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/149735)
+  [`bca64a14f9448`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bca64a14f9448) -
+  Migrate internal PluginSlot component to functional component for React 18
+
 ## 198.6.1
 
 ### Patch Changes

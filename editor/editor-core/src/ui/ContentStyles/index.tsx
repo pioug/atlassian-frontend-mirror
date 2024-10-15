@@ -97,6 +97,11 @@ type ContentStylesProps = {
 	colorMode?: 'light' | 'dark';
 	featureFlags?: FeatureFlags;
 	viewMode?: 'view' | 'edit';
+	typographyTheme?:
+		| 'typography'
+		| 'typography-adg3'
+		| 'typography-modernized'
+		| 'typography-refreshed';
 };
 
 const ruleStyles = () => css`
@@ -279,7 +284,7 @@ const contentStyles = (props: ContentStylesProps) => css`
 		outline: none;
 		font-size: ${editorFontSize({ theme: props.theme })}px;
 		${whitespaceSharedStyles};
-		${paragraphSharedStyles};
+		${paragraphSharedStyles(props.typographyTheme)};
 		${listsSharedStyles};
 		${indentationSharedStyles};
 		${shadowSharedStyle};
@@ -326,7 +331,7 @@ const contentStyles = (props: ContentStylesProps) => css`
 	${placeholderStyles}
   ${codeBlockStyles()}
 
-  ${blocktypeStyles()}
+  ${blocktypeStyles(props.typographyTheme)}
   ${codeMarkSharedStyles()}
   ${textColorStyles}
   ${backgroundColorStyles()}
@@ -432,7 +437,7 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 	return React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 		const { className, children, featureFlags } = props;
 		const theme = useTheme();
-		const { colorMode } = useThemeObserver();
+		const { colorMode, typography } = useThemeObserver();
 		const editorAPI = usePresetContext<[OptionalPlugin<EditorViewModePlugin>]>();
 		const { editorViewModeState } = useSharedPluginState(editorAPI, ['editorViewMode']);
 		const memoizedStyle = useMemo(
@@ -444,8 +449,9 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 					viewMode: fg('platform_editor_remove_use_preset_context')
 						? props.viewMode
 						: editorViewModeState?.mode,
+					typographyTheme: typography,
 				}),
-			[theme, colorMode, featureFlags, editorViewModeState?.mode, props.viewMode],
+			[theme, colorMode, featureFlags, editorViewModeState?.mode, props.viewMode, typography],
 		);
 
 		return (

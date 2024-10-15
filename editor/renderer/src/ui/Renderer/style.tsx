@@ -506,7 +506,7 @@ const stickyScrollbarStyles = `
   `;
 
 export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: any) => {
-	const { colorMode } = getGlobalTheme();
+	const { colorMode, typography } = getGlobalTheme();
 	// This is required to be compatible with styled-components prop structure.
 	const themeProps = { theme };
 	const { useBlockRenderForCodeBlock, appearance } = wrapperProps;
@@ -584,9 +584,9 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 		${telepointerStyles(colorMode)}
 		${whitespaceSharedStyles};
 		${blockquoteSharedStyles};
-		${headingsSharedStyles()};
+		${headingsSharedStyles(typography)};
 		${ruleSharedStyles()};
-		${paragraphSharedStyles};
+		${paragraphSharedStyles(typography)};
 		${listsSharedStyles};
 		${indentationSharedStyles};
 		${blockMarksSharedStyles};

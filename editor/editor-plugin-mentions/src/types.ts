@@ -1,4 +1,4 @@
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { type ProfilecardProvider } from '@atlaskit/editor-common/src/provider-factory/profile-card-provider';
 import type {
 	NextEditorPlugin,
@@ -46,7 +46,7 @@ export type MentionPluginState = {
 	canInsertMention?: boolean;
 };
 
-export type FireElementsChannelEvent = <T extends AnalyticsEventPayload>(payload: T) => void;
+export type FireElementsChannelEvent = (payload: AnalyticsEventPayload, channel?: string) => void;
 
 export type MentionSharedState = MentionPluginState & {
 	typeAheadHandler: TypeAheadHandler;

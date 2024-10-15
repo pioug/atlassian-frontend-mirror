@@ -10,7 +10,9 @@ import type {
 	SelectOption,
 } from '@atlaskit/editor-common/types';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import CopyIcon from '@atlaskit/icon/glyph/copy';
+import DeleteIcon from '@atlaskit/icon/core/delete';
+import CopyIcon from '@atlaskit/icon/core/migration/copy';
+import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -120,7 +122,8 @@ export const getToolbarConfig =
 			id: 'editor.codeBlock.delete',
 			type: 'button',
 			appearance: 'danger',
-			icon: RemoveIcon,
+			icon: DeleteIcon,
+			iconFallback: RemoveIcon,
 			onMouseEnter: hoverDecoration?.(nodeType, true),
 			onMouseLeave: hoverDecoration?.(nodeType, false),
 			onFocus: hoverDecoration?.(nodeType, true),
@@ -134,7 +137,8 @@ export const getToolbarConfig =
 			id: 'editor.codeBlock.wrap',
 			type: 'button',
 			supportsViewMode: true,
-			icon: WrapIcon,
+			icon: TextWrapIcon,
+			iconFallback: WrapIcon,
 			onClick: toggleWordWrapStateForCodeBlockNode(editorAnalyticsAPI),
 			title: isWrapped
 				? formatMessage(codeBlockButtonMessages.unwrapCode)

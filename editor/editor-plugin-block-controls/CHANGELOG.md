@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.6.0
+
+### Minor Changes
+
+- [#152056](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152056)
+  [`624da05a0cdab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/624da05a0cdab) -
+  ED-25015 increase drop target to take up empty container
+- [#152099](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152099)
+  [`e7d3d5459e447`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e7d3d5459e447) -
+  Update apply to be more performant
+
+### Patch Changes
+
+- [#151127](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151127)
+  [`be27d2b45f725`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be27d2b45f725) -
+  Add `nested-dnd` experiment check on a11y support for nested node
+- [#151127](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151127)
+  [`7e9a2af475546`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7e9a2af475546) -
+  ED-25228 Use same selector for setting marginTop for nested-dnd on/off
+- Updated dependencies
+
 ## 2.5.0
 
 ### Minor Changes

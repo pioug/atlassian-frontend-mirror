@@ -20,7 +20,7 @@ import React from 'react';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
-import { render, waitFor, fireEvent, cleanup } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 mockSimpleIntersectionObserver();
@@ -40,7 +40,6 @@ describe('smart-card: forbidden analytics', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
-		cleanup();
 	});
 
 	describe('forbidden', () => {
@@ -58,7 +57,7 @@ describe('smart-card: forbidden analytics', () => {
 				});
 				const mockUrl = 'https://some.url';
 				const analyticsSpy = jest.fn();
-				const { getByTestId } = render(
+				render(
 					<AnalyticsListener onEvent={analyticsSpy} channel={analyticsEvents.ANALYTICS_CHANNEL}>
 						<IntlProvider locale="en">
 							<Provider client={mockClient}>
@@ -67,7 +66,7 @@ describe('smart-card: forbidden analytics', () => {
 						</IntlProvider>
 					</AnalyticsListener>,
 				);
-				const forbiddenLink = await waitFor(() => getByTestId('forbiddenCard1-forbidden-view'));
+				const forbiddenLink = await screen.findByTestId('forbiddenCard1-forbidden-view');
 				expect(forbiddenLink).toBeInTheDocument();
 				expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
 					payload: {
@@ -84,16 +83,14 @@ describe('smart-card: forbidden analytics', () => {
 
 		it('should fire analytics events when attempting to connect with an alternate account succeeds', async () => {
 			const mockUrl = 'https://this.is.the.fourth.url';
-			const { getByTestId, container } = render(
+			const { container } = render(
 				<IntlProvider locale="en">
 					<Provider client={mockClient}>
 						<Card testId="forbiddenCard1" appearance="inline" url={mockUrl} />
 					</Provider>
 				</IntlProvider>,
 			);
-			const forbiddenLink = await waitFor(() => getByTestId('forbiddenCard1-forbidden-view'), {
-				timeout: 10000,
-			});
+			const forbiddenLink = await screen.findByTestId('forbiddenCard1-forbidden-view');
 			const forbiddenLinkButton = container.querySelector('[type="button"]');
 			expect(forbiddenLink).toBeTruthy();
 			expect(forbiddenLinkButton).toBeTruthy();
@@ -104,9 +101,7 @@ describe('smart-card: forbidden analytics', () => {
 			fireEvent.click(forbiddenLinkButton!);
 
 			mockFetch.mockImplementationOnce(async () => mocks.success);
-			const resolvedView = await waitFor(() => getByTestId('forbiddenCard1-resolved-view'), {
-				timeout: 10000,
-			});
+			const resolvedView = await screen.findByTestId('forbiddenCard1-resolved-view');
 			expect(resolvedView).toBeTruthy();
 			expect(analyticsEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
 			expect(analyticsEvents.uiAuthAlternateAccountEvent).toHaveBeenCalledTimes(1);
@@ -117,16 +112,14 @@ describe('smart-card: forbidden analytics', () => {
 
 		it('should fire analytics events when attempting to connect with an alternate account fails', async () => {
 			const mockUrl = 'https://this.is.the.fifth.url';
-			const { getByTestId, container } = render(
+			const { container } = render(
 				<IntlProvider locale="en">
 					<Provider client={mockClient}>
 						<Card testId="forbiddenCard2" appearance="inline" url={mockUrl} />
 					</Provider>
 				</IntlProvider>,
 			);
-			const forbiddenLink = await waitFor(() => getByTestId('forbiddenCard2-forbidden-view'), {
-				timeout: 10000,
-			});
+			const forbiddenLink = await screen.findByTestId('forbiddenCard2-forbidden-view');
 			const forbiddenLinkButton = container.querySelector('[type="button"]');
 			expect(forbiddenLink).toBeTruthy();
 			expect(forbiddenLinkButton).toBeTruthy();
@@ -137,9 +130,7 @@ describe('smart-card: forbidden analytics', () => {
 			fireEvent.click(forbiddenLinkButton!);
 
 			mockFetch.mockImplementationOnce(async () => mocks.success);
-			const unresolvedView = await waitFor(() => getByTestId('forbiddenCard2-resolved-view'), {
-				timeout: 10000,
-			});
+			const unresolvedView = await screen.findByTestId('forbiddenCard2-resolved-view');
 			expect(unresolvedView).toBeTruthy();
 			expect(analyticsEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
 			expect(analyticsEvents.uiAuthAlternateAccountEvent).toHaveBeenCalledTimes(1);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { getResolvedProps, mockUrl } from '../../../__mocks__/get-resolved-props';
 import { type ResolvedViewProps } from '../../../../view/BlockCard/views/ResolvedView';
@@ -20,11 +20,10 @@ describe('BlockCard Views - Unauthorised', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
-		cleanup();
 	});
 
 	it('renders view', () => {
-		const { getByTestId } = renderWithIntl(
+		renderWithIntl(
 			<BlockCardUnauthorisedView
 				{...props}
 				context={{ text: 'cool theatre stuff' }}
@@ -32,16 +31,16 @@ describe('BlockCard Views - Unauthorised', () => {
 				actions={[]}
 			/>,
 		);
-		const nameFrame = getByTestId('unauthorised-view-link');
+		const nameFrame = screen.getByTestId('unauthorised-view-link');
 		expect(nameFrame.textContent).toBe(mockUrl);
-		const byline = getByTestId('unauthorised-view-byline');
+		const byline = screen.getByTestId('unauthorised-view-byline');
 		expect(byline.textContent).toBe(
 			`To show a preview of this link, connect your cool theatre stuff account.`,
 		);
 	});
 
 	it('renders view with actions', () => {
-		const { getByText } = renderWithIntl(
+		renderWithIntl(
 			<BlockCardUnauthorisedView
 				{...props}
 				context={{ text: 'not allowed to view' }}
@@ -55,11 +54,11 @@ describe('BlockCard Views - Unauthorised', () => {
 				]}
 			/>,
 		);
-		expect(getByText('One of a kind')).toBeInTheDocument();
+		expect(screen.getByText('One of a kind')).toBeInTheDocument();
 	});
 
 	it('renders view with actions - reacts to click on action', async () => {
-		const { getByTestId } = renderWithIntl(
+		renderWithIntl(
 			<BlockCardUnauthorisedView
 				{...props}
 				context={{ text: 'not allowed to view' }}
@@ -74,18 +73,18 @@ describe('BlockCard Views - Unauthorised', () => {
 			/>,
 		);
 		// Check button is there
-		const button = getByTestId('button-test-button');
+		const button = screen.getByTestId('button-test-button');
 		expect(button).toBeInTheDocument();
 		expect(button.textContent).toBe('One of a kind');
 
 		// Click button, expecting it to succeed.
 		fireEvent.click(button);
-		const checkIcon = await waitFor(() => getByTestId('check-icon'));
+		const checkIcon = await screen.findByTestId('check-icon');
 		expect(checkIcon).toBeInTheDocument();
 	});
 
 	it('does not render actions when actions are hidden', async () => {
-		const { queryByTestId } = renderWithIntl(
+		renderWithIntl(
 			<BlockCardUnauthorisedView
 				{...props}
 				context={{ text: 'not allowed to view' }}
@@ -102,11 +101,11 @@ describe('BlockCard Views - Unauthorised', () => {
 		);
 
 		// Check button is not there
-		expect(queryByTestId('button-test-button')).toBeNull();
+		expect(screen.queryByTestId('button-test-button')).toBeNull();
 	});
 
 	it('does render actions when action options are not hidden', async () => {
-		const { getByTestId } = renderWithIntl(
+		renderWithIntl(
 			<BlockCardUnauthorisedView
 				{...props}
 				context={{ text: 'not allowed to view' }}
@@ -123,16 +122,16 @@ describe('BlockCard Views - Unauthorised', () => {
 		);
 
 		// Check button is there
-		const button = getByTestId('button-test-button');
+		const button = screen.getByTestId('button-test-button');
 		expect(button).toBeInTheDocument();
 		expect(button.textContent).toBe('One of a kind');
 	});
 
 	it('clicking on link should have no side-effects', () => {
-		const { getByTestId } = renderWithIntl(
+		renderWithIntl(
 			<BlockCardUnauthorisedView {...props} testId="unauthorised-view" actions={[]} />,
 		);
-		const view = getByTestId('unauthorised-view');
+		const view = screen.getByTestId('unauthorised-view');
 		const link = view.querySelector('a');
 
 		expect(link).toBeTruthy();

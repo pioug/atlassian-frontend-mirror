@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
@@ -23,13 +23,13 @@ describe('MetadataBlock', () => {
 
 	it('renders MetadataBlock', async () => {
 		const testId = 'test-smart-block-metadata';
-		const { findByTestId } = renderMetadataBlock({
+		renderMetadataBlock({
 			primary: [{ name: ElementName.ProgrammingLanguage }],
 			secondary: [{ name: ElementName.State }],
 			testId,
 		});
 
-		const block = await findByTestId(`${testId}-resolved-view`);
+		const block = await screen.findByTestId(`${testId}-resolved-view`);
 
 		expect(block).toBeDefined();
 	});
@@ -40,32 +40,32 @@ describe('MetadataBlock', () => {
 	});
 
 	it('renders primary metadata', async () => {
-		const { findByTestId } = renderMetadataBlock({
+		renderMetadataBlock({
 			primary: [{ name: ElementName.ProgrammingLanguage }],
 		});
 
-		const element = await findByTestId('smart-element-badge');
+		const element = await screen.findByTestId('smart-element-badge');
 
 		expect(element).toBeDefined();
 	});
 
 	it('renders secondary metadata', async () => {
-		const { findByTestId } = renderMetadataBlock({
+		renderMetadataBlock({
 			secondary: [{ name: ElementName.State }],
 		});
 
-		const element = await findByTestId('smart-element-lozenge');
+		const element = await screen.findByTestId('smart-element-lozenge');
 
 		expect(element).toBeDefined();
 	});
 
 	describe('with specific status', () => {
 		it('renders MetadataBlock when status is resolved', async () => {
-			const { findByTestId } = renderMetadataBlock({
+			renderMetadataBlock({
 				primary: [{ name: ElementName.ProgrammingLanguage }],
 			});
 
-			const block = await findByTestId('smart-block-metadata-resolved-view');
+			const block = await screen.findByTestId('smart-block-metadata-resolved-view');
 
 			expect(block).toBeDefined();
 		});
@@ -95,12 +95,12 @@ describe('MetadataBlock', () => {
 		])(
 			'renders element group with line-height when size is %s',
 			async (size: SmartLinkSize, expected: string) => {
-				const { findByTestId } = renderMetadataBlock({
+				renderMetadataBlock({
 					primary: [{ name: ElementName.ProgrammingLanguage }],
 					size,
 				});
 
-				const block = await findByTestId('smart-element-group');
+				const block = await screen.findByTestId('smart-element-group');
 
 				expect(block).toHaveStyleDeclaration('line-height', expected);
 			},
@@ -112,13 +112,13 @@ describe('MetadataBlock', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		const { findByTestId } = renderMetadataBlock({
+		renderMetadataBlock({
 			primary: [{ name: ElementName.ProgrammingLanguage }],
 			overrideCss,
 			testId,
 		});
 
-		const block = await findByTestId(`${testId}-resolved-view`);
+		const block = await screen.findByTestId(`${testId}-resolved-view`);
 
 		expect(block).toHaveStyleDeclaration('background-color', 'blue');
 	});

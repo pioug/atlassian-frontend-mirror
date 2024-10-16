@@ -1,5 +1,14 @@
 # @atlaskit/editor-jira-transformer
 
+## 8.11.1
+
+### Patch Changes
+
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+- Updated dependencies
+
 ## 8.11.0
 
 ### Minor Changes

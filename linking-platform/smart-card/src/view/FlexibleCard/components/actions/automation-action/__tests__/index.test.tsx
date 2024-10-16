@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -34,29 +34,29 @@ describe('AutomationAction', () => {
 	};
 
 	it('renders stack item action', async () => {
-		const { findByTestId } = setup();
-		const element = await findByTestId(testId);
+		setup();
+		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
 		expect(element.textContent).toBe('View automation rules...');
 	});
 
 	describe('with tooltip', () => {
 		it('renders stack item tooltip', async () => {
-			const { findByRole, findByTestId } = setup();
+			setup();
 
-			const element = await findByTestId(testId);
-			userEvent.hover(element);
+			const element = await screen.findByTestId(testId);
+			await userEvent.hover(element);
 
-			const tooltip = await findByRole('tooltip');
+			const tooltip = await screen.findByRole('tooltip');
 			expect(tooltip.textContent).toBe('Select an automation rule to run');
 		});
 		it('renders updated tooltip after onClick', async () => {
-			const { findByTestId } = setup();
+			setup();
 
-			const element = await findByTestId(testId);
-			userEvent.click(element);
+			const element = await screen.findByTestId(testId);
+			await userEvent.click(element);
 
-			const modal = await findByTestId('smart-card-automation-action-modal');
+			const modal = await screen.findByTestId('smart-card-automation-action-modal');
 			expect(modal).toBeInTheDocument();
 		});
 	});

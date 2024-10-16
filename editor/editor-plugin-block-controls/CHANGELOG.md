@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.6.2
+
+### Patch Changes
+
+- [#152656](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152656)
+  [`07cd0baf1bb6f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07cd0baf1bb6f) -
+  Fix corner case where getTrMetadata does not give full pos range
+
+## 2.6.1
+
+### Patch Changes
+
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+- Updated dependencies
+
 ## 2.6.0
 
 ### Minor Changes

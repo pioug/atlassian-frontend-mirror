@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
+import { act, render, screen, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import ProfileClient from '../../client/ProfileCardClient';
-import { ErrorMessage } from '../../components/Error';
 import { ProfileCardResourcedInternal as ProfileCardResourced } from '../../components/User/ProfileCardResourced';
 import { profileCardRendered } from '../../util/analytics';
 
@@ -37,9 +37,16 @@ const defaultProps: React.ComponentProps<typeof ProfileCardResourced> = {
 };
 
 const waitForPromises = () => new Promise((resolve) => setTimeout(resolve));
-const renderShallow = (props = {}) =>
-	shallow(<ProfileCardResourced {...defaultProps} {...props} />);
-const renderMount = (props = {}) => mount(<ProfileCardResourced {...defaultProps} {...props} />);
+
+const renderComponent = (
+	partialProps: Partial<React.ComponentProps<typeof ProfileCardResourced>> = {},
+) => {
+	return render(
+		<IntlProvider locale="en" defaultLocale="en-US">
+			<ProfileCardResourced {...defaultProps} {...partialProps} />
+		</IntlProvider>,
+	);
+};
 
 beforeEach(() => {
 	jest.spyOn(client, 'getProfile').mockResolvedValue({});
@@ -47,8 +54,9 @@ beforeEach(() => {
 });
 
 describe('Fetching data', () => {
-	it('should start to fetch data when mounting', () => {
-		renderShallow();
+	it('should start to fetch data when mounting', async () => {
+		renderComponent();
+
 		expect(defaultProps.resourceClient.getProfile).toHaveBeenCalledWith(
 			defaultProps.cloudId,
 			defaultProps.userId,
@@ -58,17 +66,11 @@ describe('Fetching data', () => {
 	});
 
 	it('should start to fetch data when userId prop changes', async () => {
-		const wrapper = renderShallow();
-		wrapper.setState({
-			isLoading: true,
-		});
-		wrapper.setProps({
-			userId: 'new-test-user-id',
+		renderComponent({ userId: 'new-test-user-id' });
+		await act(async () => {
+			await waitForPromises();
 		});
 
-		await waitForPromises();
-
-		expect(wrapper.state('isLoading')).toEqual(false);
 		expect(defaultProps.resourceClient.getProfile).toHaveBeenCalledWith(
 			defaultProps.cloudId,
 			'new-test-user-id',
@@ -82,27 +84,11 @@ describe('Fetching data', () => {
 			url: clientUrl,
 		});
 		jest.spyOn(newClient, 'getProfile').mockResolvedValue({});
-
-		const wrapper = renderShallow();
-
-		await waitForPromises();
-
-		expect(wrapper.state('isLoading')).toEqual(false);
-		expect(defaultProps.resourceClient.getProfile).toHaveBeenCalledWith(
-			defaultProps.cloudId,
-			'test-user-id',
-			expect.any(Function),
-		);
-		expect(defaultProps.resourceClient.getReportingLines).toHaveBeenCalledWith('test-user-id');
-
-		// update a new resourceClient prop
-		wrapper.setProps({
-			resourceClient: newClient,
+		renderComponent({ resourceClient: newClient });
+		await act(async () => {
+			await waitForPromises();
 		});
 
-		await waitForPromises();
-
-		// expect(wrapper.state('isLoading')).toEqual(false);
 		expect(newClient.getProfile).toHaveBeenCalledWith(
 			defaultProps.cloudId,
 			'test-user-id',
@@ -114,13 +100,16 @@ describe('Fetching data', () => {
 
 describe('ProfileCardResourced', () => {
 	describe('when having error', () => {
-		it('should render the ErrorMessage component', () => {
-			const wrapper = renderShallow();
-			wrapper.setState({
-				isLoading: false,
-				hasError: true,
+		it('should render the ErrorMessage component', async () => {
+			jest.spyOn(client, 'getProfile').mockRejectedValueOnce({
+				message: 'test-error',
+				reason: 'default',
 			});
-			expect(wrapper.find(ErrorMessage).exists()).toBe(true);
+			renderComponent();
+
+			await waitFor(() => {
+				expect(screen.getByTestId('profile-card-resourced-error-state')).toBeInTheDocument();
+			});
 		});
 
 		it('should trigger analytics', async () => {
@@ -131,18 +120,16 @@ describe('ProfileCardResourced', () => {
 				}),
 			);
 			mockAnalytics.mockClear();
-			const wrapper = renderMount();
-			expect(mockAnalytics).not.toHaveBeenCalledWith(expectedErrorEvent);
 
-			wrapper.setState({
-				isLoading: false,
-				hasError: true,
+			jest.spyOn(client, 'getProfile').mockRejectedValueOnce({
+				message: 'test-error',
+				reason: 'default',
 			});
-			wrapper.update();
+			renderComponent();
 
-			await waitForPromises();
-
-			expect(mockAnalytics).toHaveBeenCalledWith(expectedErrorEvent);
+			await waitFor(() => {
+				expect(mockAnalytics).toHaveBeenCalledWith(expectedErrorEvent);
+			});
 		});
 	});
 });

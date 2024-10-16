@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, fireEvent } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import { BlockCardErroredView } from '../../../../view/BlockCard';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 
@@ -15,27 +15,24 @@ describe('Block card views - Errored', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
-		cleanup();
 	});
 
 	it('renders view without try again if no retry handler present', () => {
-		const { getByTestId } = renderWithIntl(<BlockCardErroredView testId="errored-view" />);
-		const frame = getByTestId('errored-view');
+		renderWithIntl(<BlockCardErroredView testId="errored-view" />);
+		const frame = screen.getByTestId('errored-view');
 		expect(frame.textContent).toBe("We couldn't load this link for an unknown reason.");
-		const icon = getByTestId('errored-view-warning-icon');
+		const icon = screen.getByTestId('errored-view-warning-icon');
 		expect(icon.getAttribute('aria-label')).toBe('errored-warning-icon');
 	});
 
 	it('renders view - clicking on retry enacts callback', () => {
 		const onRetryMock = jest.fn();
-		const { getByTestId } = renderWithIntl(
-			<BlockCardErroredView testId="errored-view" onRetry={onRetryMock} />,
-		);
-		const frame = getByTestId('errored-view');
+		renderWithIntl(<BlockCardErroredView testId="errored-view" onRetry={onRetryMock} />);
+		const frame = screen.getByTestId('errored-view');
 		expect(frame.textContent).toBe("We couldn't load this link for an unknown reason.Try again");
 
 		// Check the button is there
-		const button = getByTestId('button-try-again');
+		const button = screen.getByTestId('button-try-again');
 		expect(button.textContent).toBe('Try again');
 
 		// Click it, check mock is called
@@ -45,10 +42,8 @@ describe('Block card views - Errored', () => {
 	});
 
 	it('clicking on link should have no side-effects', () => {
-		const { getByTestId } = renderWithIntl(
-			<BlockCardErroredView testId="errored-view" onClick={mockOnClick} />,
-		);
-		const view = getByTestId('errored-view');
+		renderWithIntl(<BlockCardErroredView testId="errored-view" onClick={mockOnClick} />);
+		const view = screen.getByTestId('errored-view');
 		const link = view.querySelector('a');
 
 		expect(link).toBeTruthy();

@@ -23,6 +23,7 @@ import {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
 import { token } from '@atlaskit/tokens';
 
 import { Divider } from './Divider';
@@ -42,7 +43,12 @@ const CompositeIcon = ({ icon }: { icon: React.ReactChild }) => (
 	<div css={iconGroup}>
 		{icon}
 		<span css={dropdownExpandContainer}>
-			<ExpandIcon label="Expand dropdown menu" />
+			<ChevronDownIcon
+				color="currentColor"
+				spacing="spacious"
+				label="Expand dropdown menu"
+				LEGACY_fallbackIcon={ExpandIcon}
+			/>
 		</span>
 	</div>
 );
@@ -129,7 +135,12 @@ export default class Dropdown extends Component<Props, State> {
 					testId={buttonTestId}
 					iconAfter={
 						<span css={dropdownExpandContainer}>
-							<ExpandIcon label="Expand dropdown menu" />
+							<ChevronDownIcon
+								color="currentColor"
+								spacing="spacious"
+								label="Expand dropdown menu"
+								LEGACY_fallbackIcon={ExpandIcon}
+							/>
 						</span>
 					}
 					icon={iconBefore}

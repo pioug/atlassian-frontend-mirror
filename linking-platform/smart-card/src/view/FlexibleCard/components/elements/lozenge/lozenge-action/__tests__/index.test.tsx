@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { act, fireEvent, render, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, fireEvent, render, waitForElementToBeRemoved, screen } from '@testing-library/react';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import LozengeAction from '../index';
 import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
@@ -119,9 +119,9 @@ describe('LozengeAction', () => {
 	});
 
 	it('renders element', async () => {
-		const { findByTestId } = renderComponent();
+		renderComponent();
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 
 		expect(element).toBeTruthy();
 		expect(element.textContent?.trim()).toBe(text);
@@ -134,9 +134,9 @@ describe('LozengeAction', () => {
 			</span>
 		);
 
-		const { findByTestId } = renderComponent({ text: node });
+		renderComponent({ text: node });
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 
 		expect(element).toBeTruthy();
 		expect(element.textContent?.trim()).toBe(text);
@@ -144,9 +144,9 @@ describe('LozengeAction', () => {
 
 	it('does not call reload action on render', async () => {
 		const mockResolve = jest.fn();
-		const { findByTestId } = renderComponent({ action: getAction() }, jest.fn(), mockResolve);
+		renderComponent({ action: getAction() }, jest.fn(), mockResolve);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 
 		expect(element).toBeTruthy();
 
@@ -155,22 +155,22 @@ describe('LozengeAction', () => {
 	});
 
 	it('renders loading indicator on click', async () => {
-		const { findByTestId, getByTestId } = renderComponent({
+		renderComponent({
 			action: getAction(),
 		});
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		fireEvent.click(element);
 
-		const loadingIndicator = getByTestId(/loading-indicator$/);
+		const loadingIndicator = screen.getByTestId(/loading-indicator$/);
 		expect(loadingIndicator).toBeInTheDocument();
 	});
 
 	it('invokes read action', async () => {
 		const mockInvoke = jest.fn();
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
@@ -181,17 +181,17 @@ describe('LozengeAction', () => {
 	it('renders action items', async () => {
 		const mockInvoke = jest.fn().mockResolvedValue([{ text: 'Done' }, { text: 'Moved' }]);
 
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
-		const item1 = await findByTestId(`${testId}-item-0`);
+		const item1 = await screen.findByTestId(`${testId}-item-0`);
 		expect(item1).toBeTruthy();
 		expect(item1.textContent).toBe('Done');
 
-		const item2 = await findByTestId(`${testId}-item-1`);
+		const item2 = await screen.findByTestId(`${testId}-item-1`);
 		expect(item2).toBeTruthy();
 		expect(item2.textContent).toBe('Moved');
 	});
@@ -199,17 +199,17 @@ describe('LozengeAction', () => {
 	it('does not render active item', async () => {
 		const mockInvoke = jest.fn().mockResolvedValue([{ text: 'Done' }, { text }]);
 
-		const { findByTestId, queryByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
-		const item1 = await findByTestId(`${testId}-item-0`);
+		const item1 = await screen.findByTestId(`${testId}-item-0`);
 		expect(item1).toBeTruthy();
 		expect(item1.textContent).toBe('Done');
 
-		const item2 = queryByTestId(`${testId}-item-1`);
+		const item2 = screen.queryByTestId(`${testId}-item-1`);
 		expect(item2).not.toBeInTheDocument();
 	});
 
@@ -221,17 +221,17 @@ describe('LozengeAction', () => {
 				{text} <img src="random-image" />
 			</span>
 		);
-		const { findByTestId } = renderComponent({ action: getAction(), text: node }, mockInvoke);
+		renderComponent({ action: getAction(), text: node }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
-		const item1 = await findByTestId(`${testId}-item-0`);
+		const item1 = await screen.findByTestId(`${testId}-item-0`);
 		expect(item1).toBeTruthy();
 		expect(item1.textContent).toBe('Done');
 
-		const item2 = await findByTestId(`${testId}-item-1`);
+		const item2 = await screen.findByTestId(`${testId}-item-1`);
 		expect(item2).toBeTruthy();
 		expect(item2.textContent).toBe(text);
 	});
@@ -239,15 +239,15 @@ describe('LozengeAction', () => {
 	it('invokes load action only once', async () => {
 		const mockInvoke = jest.fn().mockResolvedValue([{ text: 'Done' }]);
 
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 
 		// First open (load)
 		act(() => {
 			fireEvent.click(element);
 		});
-		await findByTestId(`${testId}-item-0`);
+		await screen.findByTestId(`${testId}-item-0`);
 		act(() => {
 			fireEvent.click(element);
 		});
@@ -255,7 +255,7 @@ describe('LozengeAction', () => {
 		act(() => {
 			fireEvent.click(element);
 		});
-		await findByTestId(`${testId}-item-0`);
+		await screen.findByTestId(`${testId}-item-0`);
 
 		expect(mockInvoke).toHaveBeenCalledTimes(1);
 	});
@@ -263,15 +263,15 @@ describe('LozengeAction', () => {
 	it('renders error view when there is no action items', async () => {
 		const mockInvoke = jest.fn().mockResolvedValue([]);
 
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
 
 		// making sure error message is correct
-		const error = await findByTestId(`${testId}-error-message`);
+		const error = await screen.findByTestId(`${testId}-error-message`);
 		expect(error).toBeTruthy();
 		expect(error.textContent).toBe(LozengeActionErrorMessages.noData.descriptor.defaultMessage);
 	});
@@ -281,15 +281,15 @@ describe('LozengeAction', () => {
 			throw new Error();
 		});
 
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
 
 		// making sure error message is correct
-		const error = await findByTestId(`${testId}-error-message`);
+		const error = await screen.findByTestId(`${testId}-error-message`);
 		expect(error).toBeTruthy();
 		expect(error.textContent).toBe(LozengeActionErrorMessages.unknown.descriptor.defaultMessage);
 	});
@@ -299,11 +299,11 @@ describe('LozengeAction', () => {
 			throw new Error();
 		});
 
-		const { findByTestId } = render(
+		render(
 			<LozengeAction action={getAction()} appearance={appearance} testId={testId} text={text} />,
 		);
 
-		const element = await findByTestId(`${testId}-fallback`);
+		const element = await screen.findByTestId(`${testId}-fallback`);
 		expect(element).toBeTruthy();
 		expect(element.textContent?.trim()).toBe(text);
 	});
@@ -315,13 +315,13 @@ describe('LozengeAction', () => {
 				throw new Error();
 			})
 			.mockResolvedValueOnce([{ text: 'Done' }]);
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
-		await findByTestId(`${testId}-error`);
+		await screen.findByTestId(`${testId}-error`);
 
 		// Close dropdown
 		act(() => {
@@ -331,7 +331,7 @@ describe('LozengeAction', () => {
 		act(() => {
 			fireEvent.click(element);
 		});
-		const item = await findByTestId(`${testId}-item-0`);
+		const item = await screen.findByTestId(`${testId}-item-0`);
 
 		expect(mockInvoke).toHaveBeenCalledTimes(2);
 		expect(item).toBeTruthy();
@@ -345,13 +345,13 @@ describe('LozengeAction', () => {
 				{ id: '2', text: 'Moved' },
 			])
 			.mockResolvedValueOnce(undefined);
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
-		const item = await findByTestId(`${testId}-item-0`);
+		const item = await screen.findByTestId(`${testId}-item-0`);
 		act(() => {
 			fireEvent.click(item);
 		});
@@ -370,14 +370,14 @@ describe('LozengeAction', () => {
 			.fn()
 			.mockResolvedValueOnce([{ id: '1', text: 'Done' }])
 			.mockResolvedValueOnce(undefined);
-		const { findByTestId, getByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		fireEvent.click(element);
-		const item = await findByTestId(`${testId}-item-0`);
+		const item = await screen.findByTestId(`${testId}-item-0`);
 		fireEvent.click(item);
 
-		const loadingIndicator = getByTestId(/loading-indicator$/);
+		const loadingIndicator = screen.getByTestId(/loading-indicator$/);
 		expect(loadingIndicator).toBeInTheDocument();
 	});
 
@@ -386,19 +386,19 @@ describe('LozengeAction', () => {
 			.fn()
 			.mockResolvedValueOnce([{ id: '1', text: 'Done' }])
 			.mockResolvedValueOnce(undefined);
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
 		const itemTestId = `${testId}-item-0`;
-		let element = await findByTestId(triggerTestId);
+		let element = await screen.findByTestId(triggerTestId);
 
 		act(() => {
 			fireEvent.click(element);
 		});
-		const item = await findByTestId(itemTestId);
+		const item = await screen.findByTestId(itemTestId);
 		await act(async () => {
 			fireEvent.click(item);
 		});
-		element = await findByTestId(triggerTestId);
+		element = await screen.findByTestId(triggerTestId);
 
 		expect(item).not.toBeInTheDocument();
 		expect(element.textContent).toEqual(item.textContent);
@@ -412,15 +412,15 @@ describe('LozengeAction', () => {
 
 		const mockResolve = jest.fn();
 
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke, mockResolve);
+		renderComponent({ action: getAction() }, mockInvoke, mockResolve);
 
 		const itemTestId = `${testId}-item-0`;
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
 
-		const item = await findByTestId(itemTestId);
+		const item = await screen.findByTestId(itemTestId);
 		act(() => {
 			fireEvent.click(item);
 		});
@@ -443,19 +443,19 @@ describe('LozengeAction', () => {
 				throw new Error();
 			});
 
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
-		const item = await findByTestId(`${testId}-item-0`);
+		const item = await screen.findByTestId(`${testId}-item-0`);
 		act(() => {
 			fireEvent.click(item);
 		});
 
 		// making sure error message is correct
-		const error = await findByTestId(`${testId}-error-message`);
+		const error = await screen.findByTestId(`${testId}-error-message`);
 		expect(error).toBeTruthy();
 		expect(error.textContent).toBe(
 			LozengeActionErrorMessages.updateFailed.descriptor.defaultMessage,
@@ -470,19 +470,19 @@ describe('LozengeAction', () => {
 				throw new InvokeError('Field Labels must be provided', 400);
 			});
 
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
-		const item = await findByTestId(`${testId}-item-0`);
+		const item = await screen.findByTestId(`${testId}-item-0`);
 		act(() => {
 			fireEvent.click(item);
 		});
 
 		// making sure error message is correct
-		const error = await findByTestId(`${testId}-error-message`);
+		const error = await screen.findByTestId(`${testId}-error-message`);
 		expect(error).toBeTruthy();
 		expect(error.textContent).toBe('Field Labels must be provided');
 	});
@@ -496,7 +496,7 @@ describe('LozengeAction', () => {
 					throw new Error();
 				});
 
-			const { findByTestId } = renderComponent(
+			renderComponent(
 				{
 					action: getAction({
 						url,
@@ -507,17 +507,17 @@ describe('LozengeAction', () => {
 				mockInvoke,
 			);
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
-			const item = await findByTestId(`${testId}-item-0`);
+			const item = await screen.findByTestId(`${testId}-item-0`);
 			act(() => {
 				fireEvent.click(item);
 			});
 
 			// making sure error link is present
-			const link = await findByTestId(`${testId}-open-embed`);
+			const link = await screen.findByTestId(`${testId}-open-embed`);
 			expect(link).toBeDefined();
 			expect(link.textContent).toBe('Open issue in Jira');
 		});
@@ -530,19 +530,19 @@ describe('LozengeAction', () => {
 					throw new Error();
 				});
 
-			const { queryByTestId, findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+			renderComponent({ action: getAction() }, mockInvoke);
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
-			const item = await findByTestId(`${testId}-item-0`);
+			const item = await screen.findByTestId(`${testId}-item-0`);
 			act(() => {
 				fireEvent.click(item);
 			});
 
 			// making sure error link is not present
-			const link = await queryByTestId(`${testId}-open-embed`);
+			const link = screen.queryByTestId(`${testId}-open-embed`);
 			expect(link).toBeNull();
 		});
 
@@ -554,7 +554,7 @@ describe('LozengeAction', () => {
 					throw new Error();
 				});
 
-			const { findByTestId } = renderComponent(
+			renderComponent(
 				{
 					action: getAction({
 						url,
@@ -565,23 +565,23 @@ describe('LozengeAction', () => {
 				mockInvoke,
 			);
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
-			const item = await findByTestId(`${testId}-item-0`);
+			const item = await screen.findByTestId(`${testId}-item-0`);
 			act(() => {
 				fireEvent.click(item);
 			});
 
 			// making sure error link is present
-			const link = await findByTestId(`${testId}-open-embed`);
+			const link = await screen.findByTestId(`${testId}-open-embed`);
 			expect(link).toBeDefined();
 
 			// making sure the preview opens on click
 			link.click();
 
-			const previewModal = await findByTestId('smart-embed-preview-modal');
+			const previewModal = await screen.findByTestId('smart-embed-preview-modal');
 			expect(previewModal).toBeDefined();
 		});
 
@@ -595,7 +595,7 @@ describe('LozengeAction', () => {
 
 			const mockReload = jest.fn();
 
-			const { findByTestId, queryByTestId } = renderComponent(
+			renderComponent(
 				{
 					action: getAction({
 						url,
@@ -607,31 +607,31 @@ describe('LozengeAction', () => {
 				mockReload,
 			);
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
-			const item = await findByTestId(`${testId}-item-0`);
+			const item = await screen.findByTestId(`${testId}-item-0`);
 			act(() => {
 				fireEvent.click(item);
 			});
 
 			// making sure error link is present
-			const link = await findByTestId(`${testId}-open-embed`);
+			const link = await screen.findByTestId(`${testId}-open-embed`);
 			expect(link).toBeDefined();
 
 			// making sure the preview opens on click
 			link.click();
 
-			const previewModal = await findByTestId('smart-embed-preview-modal');
+			const previewModal = await screen.findByTestId('smart-embed-preview-modal');
 			expect(previewModal).toBeDefined();
 
 			// making sure the preview modal closes on close button click
-			const closeButton = await findByTestId('smart-embed-preview-modal-close-button');
+			const closeButton = await screen.findByTestId('smart-embed-preview-modal-close-button');
 			expect(closeButton).toBeDefined();
 			closeButton.click();
 
-			await waitForElementToBeRemoved(() => queryByTestId('smart-embed-preview-modal'));
+			await waitForElementToBeRemoved(() => screen.queryByTestId('smart-embed-preview-modal'));
 			expect(mockReload).toHaveBeenCalledWith(url, true);
 		});
 	});
@@ -646,19 +646,19 @@ describe('LozengeAction', () => {
 
 		const mockResolve = jest.fn();
 
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke, mockResolve);
+		renderComponent({ action: getAction() }, mockInvoke, mockResolve);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
 
-		const item = await findByTestId(`${testId}-item-0`);
+		const item = await screen.findByTestId(`${testId}-item-0`);
 		act(() => {
 			fireEvent.click(item);
 		});
 
-		const error = await findByTestId(`${testId}-error`);
+		const error = await screen.findByTestId(`${testId}-error`);
 		expect(error).toBeTruthy();
 
 		await flushPromises();
@@ -673,17 +673,17 @@ describe('LozengeAction', () => {
 				throw new Error();
 			});
 
-		const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+		renderComponent({ action: getAction() }, mockInvoke);
 
-		const element = await findByTestId(triggerTestId);
+		const element = await screen.findByTestId(triggerTestId);
 		act(() => {
 			fireEvent.click(element);
 		});
-		const item = await findByTestId(`${testId}-item-0`);
+		const item = await screen.findByTestId(`${testId}-item-0`);
 		act(() => {
 			fireEvent.click(item);
 		});
-		await findByTestId(`${testId}-error`);
+		await screen.findByTestId(`${testId}-error`);
 		// Close dropdown
 		act(() => {
 			fireEvent.click(element);
@@ -693,14 +693,14 @@ describe('LozengeAction', () => {
 			fireEvent.click(element);
 		});
 
-		expect(await findByTestId(`${testId}-item-0`)).toBeInTheDocument();
+		expect(await screen.findByTestId(`${testId}-item-0`)).toBeInTheDocument();
 	});
 
 	describe('analytics', () => {
 		it('fires button clicked event with smartLinkStatusLozenge subject id when element is clicked', async () => {
-			const { findByTestId } = renderComponent({ action: getAction() });
+			renderComponent({ action: getAction() });
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
@@ -712,13 +712,13 @@ describe('LozengeAction', () => {
 				{ id: '1', text: 'Done' },
 				{ id: '2', text: 'Moved' },
 			]);
-			const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+			renderComponent({ action: getAction() }, mockInvoke);
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
-			const item = await findByTestId(`${testId}-item-0`);
+			const item = await screen.findByTestId(`${testId}-item-0`);
 			act(() => {
 				fireEvent.click(item);
 			});
@@ -733,7 +733,7 @@ describe('LozengeAction', () => {
 					throw new Error();
 				});
 
-			const { findByTestId } = renderComponent(
+			renderComponent(
 				{
 					action: getAction({
 						url,
@@ -744,17 +744,17 @@ describe('LozengeAction', () => {
 				mockInvoke,
 			);
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
-			const item = await findByTestId(`${testId}-item-0`);
+			const item = await screen.findByTestId(`${testId}-item-0`);
 			act(() => {
 				fireEvent.click(item);
 			});
 
 			// making sure error link is present
-			const link = await findByTestId(`${testId}-open-embed`);
+			const link = await screen.findByTestId(`${testId}-open-embed`);
 			expect(link).toBeDefined();
 
 			// making sure the preview opens on click
@@ -764,9 +764,9 @@ describe('LozengeAction', () => {
 		});
 
 		it('fires smartLinkQuickAction started event when action is initiated', async () => {
-			const { findByTestId } = renderComponent({ action: getAction() });
+			renderComponent({ action: getAction() });
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
@@ -786,13 +786,13 @@ describe('LozengeAction', () => {
 				])
 				.mockResolvedValueOnce(undefined);
 
-			const { findByTestId } = renderComponent({ action: getAction() }, mockInvoke);
+			renderComponent({ action: getAction() }, mockInvoke);
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
-			const item = await findByTestId(`${testId}-item-0`);
+			const item = await screen.findByTestId(`${testId}-item-0`);
 			act(() => {
 				fireEvent.click(item);
 			});
@@ -809,9 +809,9 @@ describe('LozengeAction', () => {
 				throw new Error();
 			});
 
-			const { findByTestId } = renderComponent({ action: getAction({ url, id }) }, mockInvoke);
+			renderComponent({ action: getAction({ url, id }) }, mockInvoke);
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
@@ -829,9 +829,9 @@ describe('LozengeAction', () => {
 				.fn()
 				.mockResolvedValueOnce([{ id: '1', text: 'In Progress', appearance: 'inprogress' }]);
 
-			const { findByTestId } = renderComponent({ action: getAction({ url, id }) }, mockInvoke);
+			renderComponent({ action: getAction({ url, id }) }, mockInvoke);
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
@@ -854,13 +854,13 @@ describe('LozengeAction', () => {
 					throw new Error();
 				});
 
-			const { findByTestId } = renderComponent({ action: getAction({ url, id }) }, mockInvoke);
+			renderComponent({ action: getAction({ url, id }) }, mockInvoke);
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
-			const item = await findByTestId(`${testId}-item-0`);
+			const item = await screen.findByTestId(`${testId}-item-0`);
 			act(() => {
 				fireEvent.click(item);
 			});
@@ -881,13 +881,13 @@ describe('LozengeAction', () => {
 					throw new InvokeError('Field labels is required', 400);
 				});
 
-			const { findByTestId } = renderComponent({ action: getAction({ url, id }) }, mockInvoke);
+			renderComponent({ action: getAction({ url, id }) }, mockInvoke);
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 			act(() => {
 				fireEvent.click(element);
 			});
-			const item = await findByTestId(`${testId}-item-0`);
+			const item = await screen.findByTestId(`${testId}-item-0`);
 			act(() => {
 				fireEvent.click(item);
 			});

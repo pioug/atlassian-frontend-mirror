@@ -12,7 +12,8 @@ import type {
 	FloatingToolbarButton,
 } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import CommentIcon from '@atlaskit/icon/glyph/comment';
+import CommentIcon from '@atlaskit/icon/core/comment';
+import LegacyCommentIcon from '@atlaskit/icon/glyph/comment';
 
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
 
@@ -58,7 +59,8 @@ export const commentButton = (
 	return {
 		type: 'button',
 		testId: 'add-comment-media-button',
-		icon: hasActiveComments ? CommentWithDotIcon : CommentIcon,
+		icon: CommentIcon,
+		iconFallback: hasActiveComments ? CommentWithDotIcon : LegacyCommentIcon,
 		title,
 		onClick: onClickHandler,
 		tooltipContent: <ToolTipContent description={title} />,

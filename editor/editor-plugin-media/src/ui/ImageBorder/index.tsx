@@ -9,9 +9,10 @@ import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 
 import type { BorderMarkAttributes } from '@atlaskit/adf-schema';
-import { BorderIcon } from '@atlaskit/editor-common/icons';
+import { BorderIcon as LegacyBorderIcon } from '@atlaskit/editor-common/icons';
 import { imageBorderMessages as messages } from '@atlaskit/editor-common/media';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { type Icon } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import {
 	borderColorPalette,
@@ -26,8 +27,15 @@ import {
 	ToolbarButton,
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
+import BorderIcon from '@atlaskit/icon/core/border';
+import BorderWeightMediumIcon from '@atlaskit/icon/core/border-weight-medium';
+import BorderWeightThickIcon from '@atlaskit/icon/core/border-weight-thick';
+import BorderWeightThinIcon from '@atlaskit/icon/core/border-weight-thin';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
@@ -127,20 +135,28 @@ const ImageBorder = ({
 		focusFirstOption(sizeSubmenuRef, isSizeSubmenuOpen);
 	}, [isColorSubmenuOpen, isSizeSubmenuOpen, isOpenByKeyboard]);
 
-	const borderSizeOptions: { name: string; value: number }[] = [
+	const borderSizeOptions: { name: string; value: number; icon: Icon }[] = [
 		{
 			name: formatMessage(messages.borderSizeSubtle),
 			value: 1,
+			icon: BorderWeightThinIcon,
 		},
 		{
 			name: formatMessage(messages.borderSizeMedium),
 			value: 2,
+			icon: BorderWeightMediumIcon,
 		},
 		{
 			name: formatMessage(messages.borderSizeBold),
 			value: 3,
+			icon: BorderWeightThickIcon,
 		},
 	];
+
+	const borderColorSelectStyles = () =>
+		!fg('platform-visual-refresh-icons')
+			? contextualMenuColorIcon(color && hexToEditorBorderPaletteColor(color))
+			: contextualMenuArrow;
 
 	const items: MenuItem[] = [
 		{
@@ -160,7 +176,7 @@ const ImageBorder = ({
 					>
 						<Text>{formatMessage(messages.borderColor)}</Text>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<div css={contextualMenuColorIcon(color && hexToEditorBorderPaletteColor(color))} />
+						<div css={borderColorSelectStyles} />
 					</button>
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -248,40 +264,53 @@ const ImageBorder = ({
 							>
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<div css={contextualSubMenu(1)} ref={handleSubMenuRef}>
-									{borderSizeOptions.map(({ name, value }, idx) => (
-										<Tooltip key={idx} content={name}>
-											{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-											<span css={buttonWrapperStyle}>
-												<button
-													type="button"
-													/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
-													css={buttonStyle(value === size)}
-													aria-label={name}
-													role="radio"
-													aria-checked={value === size}
-													onClick={() => {
-														setBorder({ size: value });
-														setIsOpen(false);
-													}}
-													onKeyDown={(event) => {
-														if (event.key === 'Enter' || event.key === ' ') {
+									{borderSizeOptions.map(({ name, value, icon }, idx) => {
+										const ButtonIcon = icon as React.ComponentClass<any>;
+										return (
+											<Tooltip key={idx} content={name}>
+												{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+												<span css={buttonWrapperStyle}>
+													<button
+														type="button"
+														/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
+														css={buttonStyle(value === size)}
+														aria-label={name}
+														role="radio"
+														aria-checked={value === size}
+														onClick={() => {
 															setBorder({ size: value });
 															setIsOpen(false);
-															setIsColorSubmenuOpen(false);
-															setIsSizeSubmenuOpen(false);
-															openDropdownButtonRef.current?.focus();
-														}
-													}}
-													onMouseDown={(e) => {
-														e.preventDefault();
-													}}
-												>
-													{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-													<div css={line(value, value === size)} role="presentation" />
-												</button>
-											</span>
-										</Tooltip>
-									))}
+														}}
+														onKeyDown={(event) => {
+															if (event.key === 'Enter' || event.key === ' ') {
+																setBorder({ size: value });
+																setIsOpen(false);
+																setIsColorSubmenuOpen(false);
+																setIsSizeSubmenuOpen(false);
+																openDropdownButtonRef.current?.focus();
+															}
+														}}
+														onMouseDown={(e) => {
+															e.preventDefault();
+														}}
+													>
+														{!fg('platform-visual-refresh-icons') ? (
+															//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+															<div css={line(value, value === size)} role="presentation" />
+														) : (
+															<ButtonIcon
+																color={
+																	value === size ? token('color.icon.inverse') : 'currentColor'
+																}
+																spacing="spacious"
+																label={name}
+															/>
+														)}
+													</button>
+												</span>
+											</Tooltip>
+										);
+									})}
 								</div>
 							</ArrowKeyNavigationProvider>
 						)}
@@ -324,7 +353,14 @@ const ImageBorder = ({
 					aria-label={
 						enabled ? formatMessage(messages.removeBorder) : formatMessage(messages.addBorder)
 					}
-					iconBefore={<BorderIcon label="" />}
+					iconBefore={
+						<BorderIcon
+							color="currentColor"
+							label=""
+							spacing="spacious"
+							LEGACY_fallbackIcon={LegacyBorderIcon}
+						/>
+					}
 					title={enabled ? formatMessage(messages.removeBorder) : formatMessage(messages.addBorder)}
 				/>
 				<div ref={popupTarget}>
@@ -337,7 +373,14 @@ const ImageBorder = ({
 						aria-label={formatMessage(messages.borderOptions)}
 						title={formatMessage(messages.borderOptions)}
 						spacing="compact"
-						iconBefore={<ExpandIcon label="" />}
+						iconBefore={
+							<ChevronDownIcon
+								color="currentColor"
+								spacing="spacious"
+								label=""
+								LEGACY_fallbackIcon={ExpandIcon}
+							/>
+						}
 						onClick={() => {
 							setIsOpen(!isOpen);
 							setIsOpenedByKeyboard(false);

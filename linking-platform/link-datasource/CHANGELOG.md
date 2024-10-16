@@ -1,5 +1,27 @@
 # @atlaskit/link-datasource
 
+## 3.6.5
+
+### Patch Changes
+
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+
+## 3.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.3
+
+### Patch Changes
+
+- [#152012](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152012)
+  [`987acdd1b8cf4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/987acdd1b8cf4) -
+  Prevents double calls when clicking same filter option for CLOL modal.
+
 ## 3.6.2
 
 ### Patch Changes

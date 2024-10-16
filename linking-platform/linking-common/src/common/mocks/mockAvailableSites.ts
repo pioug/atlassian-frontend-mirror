@@ -15,10 +15,6 @@ export const mockAvailableSites = (responseData?: any) => {
 	});
 };
 
-export const resetMockAvailableSites = () => {
-	fetchMock.reset(fetchAvailableSiteEndpoint);
-};
-
 /**
  * Mock availableSites for a specific gatewayBaseUrl. Only matches requests with the gatewayBaseUrl in the url.
  * @param gatewayBaseUrl Base url without trailing slash
@@ -39,8 +35,4 @@ export const mockAvailableSitesWithError = () => {
 		delay: 10,
 		overwriteRoutes: true,
 	});
-};
-
-export const mockRestore = () => {
-	fetchMock.restore();
 };

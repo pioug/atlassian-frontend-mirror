@@ -16,7 +16,8 @@ import {
 	FloatingToolbarButton as ToolbarButton,
 } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import LinkIcon from '@atlaskit/icon/glyph/editor/link';
+import LinkExternalIcon from '@atlaskit/icon/core/link-external';
+import LinkIcon from '@atlaskit/icon/core/migration/link';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 
 import type { MediaLinkingState } from '../pm-plugins/linking';
@@ -104,7 +105,14 @@ export const LinkToolbarAppearance = ({
 					disabled={!isValidUrl}
 					onClick={onOpenLink}
 					title={linkTitle}
-					icon={<OpenIcon label={linkTitle}></OpenIcon>}
+					icon={
+						<LinkExternalIcon
+							color="currentColor"
+							spacing="spacious"
+							label={linkTitle}
+							LEGACY_fallbackIcon={OpenIcon}
+						></LinkExternalIcon>
+					}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="hyperlink-open-link"
 				/>
@@ -120,7 +128,7 @@ export const LinkToolbarAppearance = ({
 					onClick={onAddLink}
 					title={title}
 					tooltipContent={<ToolTipContent description={title} keymap={addLink} />}
-					icon={<LinkIcon label={title} />}
+					icon={<LinkIcon color="currentColor" label={title} />}
 				/>
 				<Separator />
 			</Fragment>

@@ -63,6 +63,7 @@ import { PlayPauseBlanket } from './playPauseBlanket';
 import Tooltip from '@atlaskit/tooltip';
 import { SkipTenBackwardIcon, SkipTenForwardIcon } from './icons';
 import { getControlsWrapperClassName } from './getControlsWrapperClassName';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -146,7 +147,7 @@ export class CustomMediaPlayerBase extends Component<
 	private wasPlayedOnce: boolean = false;
 	private lastCurrentTime = 0;
 	private readonly timeSaver = new TimeSaver(this.props.lastWatchTimeConfig);
-	private clickToTogglePlayTimoutId: ReturnType<typeof setTimeout> | undefined;
+	private clickToTogglePlayTimeoutId: ReturnType<typeof setTimeout> | undefined;
 
 	state: CustomMediaPlayerState = {
 		isFullScreenEnabled: false,
@@ -669,8 +670,8 @@ export class CustomMediaPlayerBase extends Component<
 	};
 
 	private resetPendingPlayPauseToggleTimer = () => {
-		if (this.clickToTogglePlayTimoutId !== undefined) {
-			clearTimeout(this.clickToTogglePlayTimoutId);
+		if (this.clickToTogglePlayTimeoutId !== undefined) {
+			clearTimeout(this.clickToTogglePlayTimeoutId);
 		}
 	};
 
@@ -682,7 +683,7 @@ export class CustomMediaPlayerBase extends Component<
 
 	private togglePlayByBlanketClick = (action: () => void) => {
 		this.resetPendingPlayPauseToggleTimer();
-		this.clickToTogglePlayTimoutId = setTimeout(() => {
+		this.clickToTogglePlayTimeoutId = setTimeout(() => {
 			action();
 			this.createAndFireUIEvent('playPauseBlanketClick');
 		}, 200);
@@ -787,7 +788,9 @@ export class CustomMediaPlayerBase extends Component<
 										</LeftControls>
 										<RightControls>
 											{(isMediumPlayer || isLargePlayer) && this.renderCurrentTime(videoState)}
-											{isLargePlayer && this.renderHDButton()}
+											{isLargePlayer &&
+												!fg('platform_media_disable_video_640p_artifact_usage') &&
+												this.renderHDButton()}
 											{isLargePlayer && this.renderSpeedControls()}
 											{this.renderFullScreenButton()}
 											{isLargePlayer && this.renderDownloadButton()}

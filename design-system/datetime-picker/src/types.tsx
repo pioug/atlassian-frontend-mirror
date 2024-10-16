@@ -140,7 +140,7 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	isOpen?: boolean;
 
 	/**
-	 * Sets the aria-required passed down to the combobox in the select component.
+	 * Set the field as required.
 	 */
 	isRequired?: boolean;
 
@@ -326,7 +326,7 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 */
 	isOpen?: boolean;
 	/**
-	 * Sets the aria-required passed down to the combobox in the select component.
+	 * Set the field as required.
 	 */
 	isRequired?: boolean;
 	/**
@@ -446,7 +446,7 @@ export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
 	 */
 	isDisabled?: boolean;
 	/**
-	 * Sets the aria-required passed down to the combobox in the select component.
+	 * Set the field as required.
 	 */
 	isRequired?: boolean;
 	/**

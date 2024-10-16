@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.8.0
+
+### Minor Changes
+
+- [#152220](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152220)
+  [`e98602764f64b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e98602764f64b) -
+  [ux] Removed title highlight and changed styling for mark element
+
 ## 7.7.4
 
 ### Patch Changes

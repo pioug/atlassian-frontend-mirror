@@ -55,7 +55,7 @@ const FormDateTimePickerExample = () => {
 							{({ fieldProps: { id, ...rest }, error }) => (
 								<Fragment>
 									<DatePicker {...rest} id={id} />
-									{error && <ErrorMessage>{error}</ErrorMessage>}
+									{error && <ErrorMessage>Please select a date of birth.</ErrorMessage>}
 								</Fragment>
 							)}
 						</Field>
@@ -76,18 +76,22 @@ const FormDateTimePickerExample = () => {
 													// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
 													validationState,
 												},
-
+												label: 'Date, Preferred appointment date & time',
 												id: id,
 											}}
 											timePickerProps={{
 												selectProps: {
 													// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
 													validationState,
-													'aria-labelledby': `${id}-label`,
 												},
+												label: 'Time, Preferred appointment date & time',
 											}}
 										/>
-										{error && <ErrorMessage>{error}</ErrorMessage>}
+										{error && (
+											<ErrorMessage>
+												{`Please select preferred appointment date & time.`}
+											</ErrorMessage>
+										)}
 									</Fragment>
 								);
 							}}

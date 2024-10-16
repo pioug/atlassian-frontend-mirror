@@ -8,6 +8,7 @@ import {
 } from '../utils';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { IconType, SmartLinkSize } from '../../../../constants';
+import { screen } from '@testing-library/react';
 
 describe('getPrimitivesInlineSpaceBySize', () => {
 	it.each([
@@ -119,9 +120,9 @@ describe('openEmbedModalWithFlexibleUiIcon', () => {
 			return <div>Open</div>;
 		};
 
-		const { findByTestId } = renderWithIntl(<Wrapper />);
-		const modal = await findByTestId('smart-embed-preview-modal');
-		const icon = await findByTestId('smart-element-icon');
+		renderWithIntl(<Wrapper />);
+		const modal = await screen.findByTestId('smart-embed-preview-modal');
+		const icon = await screen.findByTestId('smart-element-icon');
 
 		expect(modal).toBeInTheDocument();
 		expect(icon).toBeInTheDocument();

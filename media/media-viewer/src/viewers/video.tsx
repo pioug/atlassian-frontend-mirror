@@ -12,6 +12,7 @@ import { Video, CustomVideoPlayerWrapper } from '../styleWrappers';
 import { isIE } from '../utils/isIE';
 import { type BaseState, BaseViewer } from './base-viewer';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export type Props = Readonly<
 	{
@@ -36,7 +37,9 @@ const localStorageKeyName = 'mv_video_player_quality';
 export class VideoViewer extends BaseViewer<string, Props, State> {
 	protected get initialState() {
 		const { item } = this.props;
-		const preferredQuality = localStorage.getItem(localStorageKeyName);
+		const preferredQuality = fg('platform_media_disable_video_640p_artifact_usage')
+			? 'hd'
+			: localStorage.getItem(localStorageKeyName);
 
 		return {
 			content: Outcome.pending<string, MediaViewerError>(),

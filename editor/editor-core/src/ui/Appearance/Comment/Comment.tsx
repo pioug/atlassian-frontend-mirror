@@ -21,7 +21,6 @@ import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import messages from '../../../messages';
@@ -265,11 +264,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 											'less-margin': width < akEditorMobileBreakoutPoint,
 										})}
 										featureFlags={featureFlags}
-										viewMode={
-											fg('platform_editor_remove_use_preset_context')
-												? editorViewModeState?.mode
-												: undefined
-										}
+										viewMode={editorViewModeState?.mode}
 									>
 										{customContentComponents && 'before' in customContentComponents
 											? customContentComponents.before

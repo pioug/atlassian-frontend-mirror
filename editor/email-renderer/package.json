@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/email-renderer",
-	"version": "8.14.0",
+	"version": "8.14.1",
 	"description": "Email renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -62,7 +62,7 @@
 		"build:images": "ts-node --files --project ./tsconfig.ts-node.json ./src/static/generator/generate.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.9.4",
+		"@atlaskit/adf-schema": "^42.0.2",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/theme": "^13.1.0",
 		"@babel/runtime": "^7.0.0",

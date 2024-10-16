@@ -25,17 +25,71 @@ This will require major configuration, noted below.
 
 ## Usage
 
-**Notes:**
+For the most part, `@atlaskit/css` should behave like `@compiled/react` or other CSS-in-JS
+libraries' `css()` syntaxes, however we promote `cssMap` as a way to create maps of styles as that's
+the common use-case at Atlassian.
 
-- The same styles can be used in both Components' `xcss` prop as well as in a native elements' `css`
-  prop.
-- You must have a JSX pragma in scope in order to use this, depending on your setup this may be
-  automatic, require `React` imported, or require `jsx` imported.
-- The `cx` function is required when combining styles inside of an `xcss` prop. With native
-  elements, you can simply do `css={[style, style]}`
+Please note that `@atlaskit/css` is a strictly bounded variant to help promote and align the usage
+of Design System tokens and properties, so you you cannot use arbitrary values such as
+`color: 'rgba(123, 45, 67)', padding: 8`, and typically we only allow our
+[tokenized values](/components/tokens/all-tokens), but a few other property restrictions or
+limitations exist, such as `zIndex` only having a few allowed literal numeric values.
+
+### cssMap
+
+`cssMap` is the default function we suggest to use, it can be reused across native elements through
+`props.css` and React components through `props.xcss` and is flexible to style maps that are known
+ahead-of-time.
+
+These can be reused across multiple components, even across native and non-native.
+
+```tsx
+import { cssMap } from '@atlaskit/css';
+const styles = cssMap({
+	root: { display: 'inline-block' },
+	primary: {
+		backgroundColor: token('color.background.brand.bold'),
+		color: token('color.text.inverse'),
+	},
+	discovery: {
+		backgroundColor: token('color.background.discovery.bold'),
+		color: token('color.text.inverse'),
+	},
+	success: {
+		backgroundColor: token('color.background.success.bold'),
+		color: token('color.text.inverse'),
+	},
+	disabled: { opacity: 0.7, cursor: 'not-allowed' },
+});
+export default ({
+	appearance = 'primary',
+	isDisabled,
+}: {
+	appearance?: 'primary' | 'discovery' | 'success';
+	isDisabled?: boolean;
+}) => <div css={(styles.root, styles[appearance], isDisabled && styles.disabled)} />;
+```
+
+### cx
+
+The `cx` function is required when combining styles inside of an `xcss` prop, but can be used
+anywhere. This is only required because `xcss={[styles.root, styles.bordered]}` results in incorrect
+typing while with a function it is preserved.
+
+```tsx
+<div css={[styles.root, styles.bordered]} />
+<div css={cx(styles.root, styles.bordered)} />
+<Box xcss={cx(styles.root, styles.bordered)} />
+```
+
+### Typical example
+
+You must have a JSX pragma in scope in order to use this, depending on your setup this may be
+automatic, require `React` imported, or require `jsx` imported.
 
 ```tsx
 /**
+ * @jsxRuntime classic
  * @jsx jsx
  */
 import { cssMap, cx, jsx } from '@atlaskit/css';
@@ -52,7 +106,13 @@ const styles = cssMap({
 	transparent: { backgroundColor: 'transparent' },
 });
 
-export default ({ spacing = 'default' }: { spacing: 'compact' | 'default' }) => {
+export default ({
+	spacing = 'default',
+	noBackground,
+}: {
+	spacing: 'compact' | 'default';
+	noBackground?: boolean;
+}) => {
 	return (
 		<Box
 			xcss={cx(
@@ -67,35 +127,139 @@ export default ({ spacing = 'default' }: { spacing: 'compact' | 'default' }) => 
 };
 ```
 
+### Building a reusable component with pass-through styles
+
+With the introduction of `@atlaskit/css` (and the underlying `createStrictAPI` from Compiled), we're
+now able to define a strictly bounded API for our components. This may be an API pattern that you
+want to copy as well.
+
+For example, if you want to create your own component that allows you to extend and pass-through
+styles, you can do so:
+
+```tsx
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, cx, jsx, type StrictXCSSProp } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	button: { padding: token('space.100'), borderRadius: token('border.radius.100') },
+	dense: { padding: token('space.050'), borderRadius: token('border.radius.050') },
+});
+
+export function Card({
+	children,
+	xcss,
+	dense,
+}: {
+	children: React.ReactNode;
+	dense?: boolean;
+	/** Only `padding`, `borderRadius`, `backgroundColor`, and `color` properties and `hover` and `focus` pseudos are allowed */
+	xcss?: StrictXCSSProp<
+		'padding' | 'borderRadius' | 'backgroundColor' | 'color',
+		'&:hover' | '&:focus'
+	>;
+}) {
+	return (
+		<div css={cx(styles.button, isDense && styles.dense)} className={xcss}>
+			{children}
+		</div>
+	);
+}
+```
+
+I'm then allowed to build a component that uses this `Card` component and overrides these properties
+as I see fit:
+
+```tsx
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, cx, jsx, type StrictXCSSProp } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
+import { Card } from './Card';
+
+const styles = cssMap({
+	root: { padding: token('space.200'), borderRadius: token('border.radius.200') },
+	inverse: {
+		backgroundColor: token('color.background.discovery'),
+		color: token('color.text.inverse'),
+	},
+});
+
+export const LargeCard = ({
+	children,
+	isInverse,
+}: {
+	children: React.ReactNode;
+	isInverse?: boolean;
+}) => {
+	return <Card xcss={cx(styles.root, isInverse && styles.inverse)}>{children}</Card>;
+};
+```
+
+However, if you're extending a component that uses `props.xcss` under the hood, for example a
+Primitive, the first `Card` component would look a bit different, brief example:
+
+```tsx
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, cx, jsx, type StrictXCSSProp } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	button: { padding: token('space.100'), borderRadius: token('border.radius.100') },
+});
+
+export function Card({
+	children,
+	xcss,
+}: {
+	children: React.ReactNode;
+	xcss?: StrictXCSSProp<'padding' | 'borderRadius'>;
+}) {
+	return <Box xcss={cx(styles.button, xcss)}>{children}</Box>;
+}
+```
+
 ## Configuration required
 
 <SectionMessage title="More details coming soon!" appearance="warning">
 	<p>This section is under development, more details will come soon.</p>
 </SectionMessage>
 
-In order to use any Atlassian Design System packages that distribute Compiled CSS-in-JS, you will
-need to configure your project via Babel, Webpack, and/or Parcel in order to run the latest version
-of these babel plugins:
+In order to use any Atlassian Design System packages that distribute Compiled CSS-in-JS, you
+**must** configure your project via Babel as well your bundler with Webpack and/or Parcel and using
+the latest version of these plugins:
 
 - `@atlaskit/tokens/babel-plugin`
-- `@compiled/babel-plugin` configured with `sortShorthand: true` (which is also configurable through
-  `@compiled/webpack-loader` and `@compiled/parcel-transformer`)
+- `@compiled/babel-plugin` configured with `sortShorthand: true` (or configured through
+  `@compiled/webpack-loader` or `@compiled/parcel-config` or similar)
 - **SUGGESTED:** You should turn on
   [@atlaskit/eslint-plugin-ui-styling-standard](/components/eslint-plugin-ui-styling-standard) to
-  guide you.
+  guide you
 
 Refer to https://compiledcssinjs.com/docs/installation
 
 ### Setup your Babel plugins
 
-Plugin order matters, your `@atlaskit/tokens/babel-plugin` must come before your
-`@compiled/babel-plugin`, otherwise you may experience errors.
+Most products will use Babel across the dev lifecycle, so this is typically a baseline
+configuration.
 
 ```sh
 yarn install @atlaskit/tokens
 yarn install --dev @compiled/babel-plugin
 yarn install --dev @compiled/babel-plugin-strip-runtime # optional, for extracting styles
 ```
+
+Plugin order matters, your `@atlaskit/tokens/babel-plugin` must come before your
+`@compiled/babel-plugin`, otherwise you may experience errors.
 
 ```js
 // babel.config.js
@@ -118,7 +282,7 @@ module.exports = {
 
 For full documentation, refer to https://compiledcssinjs.com/docs/installation#babel
 
-### Setup your Webpack loader
+### Bundling with Webpack
 
 This configuration may vary, this is the default production-like configuration expected where the
 primary suggestion is to use extracted styles for performance and consistency reasons. Development
@@ -167,7 +331,7 @@ module.exports = {
 
 For full documentation, refer to https://compiledcssinjs.com/docs/installation#webpack
 
-### Setup with Parcel:
+### Bundling with Parcel
 
 ```sh
 yarn install @atlaskit/tokens

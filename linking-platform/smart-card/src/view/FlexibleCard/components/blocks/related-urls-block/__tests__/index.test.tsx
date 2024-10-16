@@ -5,7 +5,7 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import RelatedUrlsBlock from '../';
 import {
@@ -83,8 +83,8 @@ describe('RelatedUrlsBlock', () => {
 	};
 
 	it('renders related urls list section with title', async () => {
-		const { findByTestId, mockAnalyticsClient } = renderRelatedUrlsBlock();
-		const relatedUrlsBlock = await findByTestId(`${resolvedViewTestId}-list`);
+		const { mockAnalyticsClient } = renderRelatedUrlsBlock();
+		const relatedUrlsBlock = await screen.findByTestId(`${resolvedViewTestId}-list`);
 		expect(relatedUrlsBlock.textContent).toBe('Last mentioned in');
 		expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
 			expect.objectContaining({
@@ -99,10 +99,10 @@ describe('RelatedUrlsBlock', () => {
 	});
 
 	it('renders related urls section and expands when title clicked', async () => {
-		const { findByTestId, findAllByTestId, mockAnalyticsClient } = renderRelatedUrlsBlock();
-		const expandTitle = await findByTestId(`${resolvedViewTestId}-list-expand-title`);
+		const { mockAnalyticsClient } = renderRelatedUrlsBlock();
+		const expandTitle = await screen.findByTestId(`${resolvedViewTestId}-list-expand-title`);
 		fireEvent.click(expandTitle);
-		const urlItems = await findAllByTestId(`${resolvedViewTestId}-list-item`);
+		const urlItems = await screen.findAllByTestId(`${resolvedViewTestId}-list-item`);
 		expect(urlItems.length).toBe(3);
 
 		expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
@@ -119,13 +119,13 @@ describe('RelatedUrlsBlock', () => {
 	});
 
 	it('renders related url items correctly', async () => {
-		const { findByTestId, findAllByTestId, mockAnalyticsClient } = renderRelatedUrlsBlock();
-		const expandTitle = await findByTestId(`${resolvedViewTestId}-list-expand-title`);
+		const { mockAnalyticsClient } = renderRelatedUrlsBlock();
+		const expandTitle = await screen.findByTestId(`${resolvedViewTestId}-list-expand-title`);
 		fireEvent.click(expandTitle);
 
-		const icons = await findAllByTestId(`${resolvedViewTestId}-list-item-icon`);
+		const icons = await screen.findAllByTestId(`${resolvedViewTestId}-list-item-icon`);
 		expect(icons.length).toBe(3);
-		const links = await findAllByTestId(`${resolvedViewTestId}-list-item-link`);
+		const links = await screen.findAllByTestId(`${resolvedViewTestId}-list-item-link`);
 		expect(links.length).toBe(3);
 		links.forEach((link) => {
 			expect(link).toHaveAttribute('href');
@@ -177,11 +177,11 @@ describe('RelatedUrlsBlock', () => {
 				resolvedResults: resolvedResults as RelatedUrlsResponse['resolvedResults'],
 			}),
 		);
-		const { findByTestId, findAllByTestId } = renderRelatedUrlsBlock();
-		const expandTitle = await findByTestId(`${resolvedViewTestId}-list-expand-title`);
+		renderRelatedUrlsBlock();
+		const expandTitle = await screen.findByTestId(`${resolvedViewTestId}-list-expand-title`);
 		fireEvent.click(expandTitle);
 
-		const links = await findAllByTestId(`${resolvedViewTestId}-list-item-link`);
+		const links = await screen.findAllByTestId(`${resolvedViewTestId}-list-item-link`);
 		links.forEach((link, idx) => {
 			expect(link.getAttribute('href')).toEqual(resolvedResults[idx].data.url);
 			expect(link.textContent).toEqual(resolvedResults[idx].data.name);
@@ -194,8 +194,8 @@ describe('RelatedUrlsBlock', () => {
 				resolvedResults: [],
 			}),
 		);
-		const { findByTestId } = renderRelatedUrlsBlock();
-		const resolvedView = await findByTestId(resolvedViewTestId);
+		renderRelatedUrlsBlock();
+		const resolvedView = await screen.findByTestId(resolvedViewTestId);
 		expect(resolvedView.textContent).toBe('This link is not mentioned anywhere else.');
 	});
 });

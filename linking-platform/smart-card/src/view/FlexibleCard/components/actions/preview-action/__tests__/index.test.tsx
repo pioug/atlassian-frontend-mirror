@@ -1,5 +1,5 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import '@atlaskit/link-test-helpers/jest';
@@ -31,8 +31,8 @@ describe('PreviewAction', () => {
 	};
 
 	it('renders action', async () => {
-		const { findByTestId } = setup();
-		const element = await findByTestId(testId);
+		setup();
+		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
 		expect(element.textContent).toBe('Open preview');
 	});
@@ -41,12 +41,12 @@ describe('PreviewAction', () => {
 		const user = userEvent.setup();
 		const onClick = jest.fn();
 
-		const { findByTestId } = setup({ onClick });
-		const element = await findByTestId(testId);
+		setup({ onClick });
+		const element = await screen.findByTestId(testId);
 
 		user.click(element);
 
-		const modal = await findByTestId(modalTestId);
+		const modal = await screen.findByTestId(modalTestId);
 		expect(modal).toBeInTheDocument();
 		expect(onClick).toHaveBeenCalledTimes(1);
 	});
@@ -54,23 +54,23 @@ describe('PreviewAction', () => {
 	describe('with tooltip', () => {
 		it('renders tooltip', async () => {
 			const user = userEvent.setup();
-			const { findByRole, findByTestId } = setup();
+			setup();
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			await user.hover(element);
 
-			const tooltip = await findByRole('tooltip');
+			const tooltip = await screen.findByRole('tooltip');
 			expect(tooltip.textContent).toBe('Open preview');
 		});
 
 		it('renders stack item tooltip', async () => {
 			const user = userEvent.setup();
-			const { findByRole, findByTestId } = setup({ as: 'stack-item' });
+			setup({ as: 'stack-item' });
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			await user.hover(element);
 
-			const tooltip = await findByRole('tooltip');
+			const tooltip = await screen.findByRole('tooltip');
 			expect(tooltip.textContent).toBe('Open a full screen preview of this link');
 		});
 	});

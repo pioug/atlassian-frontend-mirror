@@ -1,6 +1,6 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { FormattedMessage, IntlProvider } from 'react-intl-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
@@ -45,46 +45,46 @@ describe('UnfollowAction', () => {
 
 	describe('existing unfollow action button', () => {
 		it('renders unfollow action button', async () => {
-			const { findByTestId } = setup();
-			const element = await findByTestId(testId);
+			setup();
+			const element = await screen.findByTestId(testId);
 			expect(element).toBeInTheDocument();
 			expect(element.textContent).toBe('Unfollow');
 		});
 
 		it('renders tooltip', async () => {
 			const user = userEvent.setup();
-			const { findByRole, findByTestId } = setup();
+			setup();
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			await user.hover(element);
 
-			const tooltip = await findByRole('tooltip');
+			const tooltip = await screen.findByRole('tooltip');
 			expect(tooltip.textContent).toBe('Unfollow');
 		});
 	});
 
 	describe('new stack item unfollow project', () => {
 		it('renders unfollow stack item action', async () => {
-			const { findByTestId } = setup({ as: 'stack-item' });
-			const element = await findByTestId(testId);
+			setup({ as: 'stack-item' });
+			const element = await screen.findByTestId(testId);
 			expect(element).toBeInTheDocument();
 			expect(element.textContent).toBe('Unfollow project');
 		});
 
 		it('renders stack item tooltip', async () => {
 			const user = userEvent.setup();
-			const { findByRole, findByTestId } = setup({ as: 'stack-item' });
+			setup({ as: 'stack-item' });
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			await user.hover(element);
 
-			const tooltip = await findByRole('tooltip');
+			const tooltip = await screen.findByRole('tooltip');
 			expect(tooltip.textContent).toBe('Unfollow to stop receiving project notifications');
 		});
 
 		it('renders project icon', async () => {
-			const { findByTestId } = setup({ as: 'stack-item' });
-			const element = await findByTestId('smart-action-follow-action-projects-icon');
+			setup({ as: 'stack-item' });
+			const element = await screen.findByTestId('smart-action-follow-action-projects-icon');
 			expect(element).toBeInTheDocument();
 		});
 	});
@@ -94,12 +94,12 @@ describe('UnfollowAction', () => {
 
 		const mockOnClick = jest.fn();
 
-		const { getByTestId } = setup({
+		setup({
 			as: 'stack-item',
 			onClick: mockOnClick,
 		});
 
-		const element = getByTestId(testId);
+		const element = screen.getByTestId(testId);
 		await userEvent.click(element);
 
 		expect(mockOnClick).toHaveBeenCalledTimes(1);
@@ -113,13 +113,13 @@ describe('UnfollowAction', () => {
 			throw new Error('Error');
 		});
 
-		const { findByTestId } = setup({
+		setup({
 			as: 'stack-item',
 			onError: mockErrorCallback,
 			onClick: mockOnClick,
 		});
 
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 		await userEvent.click(element);
 
 		expect(mockErrorCallback).toHaveBeenCalledWith({

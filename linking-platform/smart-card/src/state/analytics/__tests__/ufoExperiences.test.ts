@@ -114,9 +114,9 @@ describe('ufoExperience', () => {
 				option2: 'Option 2 value',
 			});
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('a-test-id');
-			expect(mockAddMetadata).toBeCalledWith({
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('a-test-id');
+			expect(mockAddMetadata).toHaveBeenCalledWith({
 				option1: 'Option 1 value',
 				option2: 'Option 2 value',
 			});
@@ -129,8 +129,8 @@ describe('ufoExperience', () => {
 
 			startUfoExperience('smart-link-authenticated', 'b-test-id');
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('b-test-id');
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('b-test-id');
 			expect(mockStart).toHaveBeenCalledTimes(1);
 			expect(mockAddMetadata).not.toHaveBeenCalled();
 		});
@@ -145,10 +145,10 @@ describe('ufoExperience', () => {
 				option2: 'Option 2 value',
 			});
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('a-test-id');
-			expect(mockSuccess).toBeCalledTimes(1);
-			expect(mockSuccess).toBeCalledWith({
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('a-test-id');
+			expect(mockSuccess).toHaveBeenCalledTimes(1);
+			expect(mockSuccess).toHaveBeenCalledWith({
 				metadata: {
 					option1: 'Option 1 value',
 					option2: 'Option 2 value',
@@ -160,10 +160,10 @@ describe('ufoExperience', () => {
 			setExpectedExperienceIdCallback('smart-link-authenticated');
 
 			succeedUfoExperience('smart-link-authenticated', 'b-test-id', {});
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('b-test-id');
-			expect(mockSuccess).toBeCalledTimes(1);
-			expect(mockSuccess).toBeCalledWith({
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('b-test-id');
+			expect(mockSuccess).toHaveBeenCalledTimes(1);
+			expect(mockSuccess).toHaveBeenCalledWith({
 				metadata: {},
 			});
 		});
@@ -178,10 +178,10 @@ describe('ufoExperience', () => {
 				option2: 'Option 2 value',
 			});
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('a-test-id');
-			expect(mockFailure).toBeCalledTimes(1);
-			expect(mockFailure).toBeCalledWith({
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('a-test-id');
+			expect(mockFailure).toHaveBeenCalledTimes(1);
+			expect(mockFailure).toHaveBeenCalledWith({
 				metadata: {
 					option1: 'Option 1 value',
 					option2: 'Option 2 value',
@@ -194,10 +194,10 @@ describe('ufoExperience', () => {
 
 			failUfoExperience('smart-link-authenticated', 'b-test-id', {});
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('b-test-id');
-			expect(mockFailure).toBeCalledTimes(1);
-			expect(mockFailure).toBeCalledWith({
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('b-test-id');
+			expect(mockFailure).toHaveBeenCalledTimes(1);
+			expect(mockFailure).toHaveBeenCalledWith({
 				metadata: {},
 			});
 		});
@@ -212,10 +212,10 @@ describe('ufoExperience', () => {
 				option2: 'Option 2 value',
 			});
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('a-test-id');
-			expect(mockAddMetadata).toBeCalledTimes(1);
-			expect(mockAddMetadata).toBeCalledWith({
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('a-test-id');
+			expect(mockAddMetadata).toHaveBeenCalledTimes(1);
+			expect(mockAddMetadata).toHaveBeenCalledWith({
 				option1: 'Option 1 value',
 				option2: 'Option 2 value',
 			});

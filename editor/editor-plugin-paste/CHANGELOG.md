@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.14.2
+
+### Patch Changes
+
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+- Updated dependencies
+
 ## 1.14.1
 
 ### Patch Changes

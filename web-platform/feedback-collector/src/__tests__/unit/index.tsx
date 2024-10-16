@@ -2,8 +2,6 @@ import React from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import FeedbackCollector from '../../components/FeedbackCollector';
 import FeedbackFlag from '../../components/FeedbackFlag';
 import FeedbackForm, { type OptionType } from '../../components/FeedbackForm';
@@ -807,7 +805,7 @@ We have some formatting here
 		});
 	});
 	describe('Feedback Select Type', () => {
-		describe('Custom Feedback Select Options with FF true/false', () => {
+		it('should render custom Feedback Select Options', () => {
 			const customFeedbackOptions: OptionType[] = [
 				{
 					label: 'Leave a comment',
@@ -818,39 +816,19 @@ We have some formatting here
 					value: 'suggestion',
 				},
 			];
-			ffTest(
-				'platform.custom-select-feedback-options_c61l9',
-				() => {
-					const { getByRole } = render(
-						<FeedbackForm
-							locale={'en'}
-							onClose={() => {}}
-							onSubmit={async () => {}}
-							customFeedbackOptions={customFeedbackOptions}
-						/>,
-					);
-
-					const combobox = getByRole('combobox');
-					fireEvent.keyDown(combobox, { key: 'ArrowDown', code: 40 });
-					const options = screen.getAllByRole('option');
-					expect(options).toHaveLength(customFeedbackOptions.length);
-				},
-				() => {
-					const { getByRole } = render(
-						<FeedbackForm
-							locale={'en'}
-							onClose={() => {}}
-							onSubmit={async () => {}}
-							customFeedbackOptions={customFeedbackOptions}
-						/>,
-					);
-
-					const combobox = getByRole('combobox');
-					fireEvent.keyDown(combobox, { key: 'ArrowDown', code: 40 });
-					const options = screen.getAllByRole('option');
-					expect(options).not.toHaveLength(customFeedbackOptions.length);
-				},
+			const { getByRole } = render(
+				<FeedbackForm
+					locale={'en'}
+					onClose={() => {}}
+					onSubmit={async () => {}}
+					customFeedbackOptions={customFeedbackOptions}
+				/>,
 			);
+
+			const combobox = getByRole('combobox');
+			fireEvent.keyDown(combobox, { key: 'ArrowDown', code: 40 });
+			const options = screen.getAllByRole('option');
+			expect(options).toHaveLength(customFeedbackOptions.length);
 		});
 	});
 });

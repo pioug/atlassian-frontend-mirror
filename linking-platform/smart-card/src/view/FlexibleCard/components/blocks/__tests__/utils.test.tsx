@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import {
 	ElementName,
@@ -101,21 +101,21 @@ describe('renderElementItems', () => {
 			);
 
 			it.each(expectToRendered)('renders element %s', async (name: ElementName) => {
-				const { getByTestId } = renderTestBlock(display, name, testId);
-				const element = await waitFor(() => getByTestId(getElementTestId(name, testId)));
+				renderTestBlock(display, name, testId);
+				const element = await screen.findByTestId(getElementTestId(name, testId));
 				expect(element).toBeDefined();
 			});
 
 			it.each(expectedNotToRendered)('does not render element %s ', (name: ElementName) => {
-				const { queryByTestId } = renderTestBlock(display, name, testId);
-				const element = queryByTestId(getElementTestId(name, testId));
+				renderTestBlock(display, name, testId);
+				const element = screen.queryByTestId(getElementTestId(name, testId));
 				expect(element).toBeNull();
 			});
 		},
 	);
 
 	it('does not render null element', async () => {
-		const { queryByTestId } = render(
+		render(
 			<FlexibleUiContext.Provider value={{ title: 'Link title' }}>
 				<MetadataBlock
 					primary={[{ name: ElementName.CommentCount, testId: 'comment-count' }]}
@@ -123,7 +123,7 @@ describe('renderElementItems', () => {
 				/>
 			</FlexibleUiContext.Provider>,
 		);
-		expect(queryByTestId('comment-count')).toBeNull();
+		expect(screen.queryByTestId('comment-count')).toBeNull();
 	});
 
 	it('does not render non-flexible-ui element', async () => {

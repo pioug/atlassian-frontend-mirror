@@ -50,6 +50,11 @@ describe('DatePicker', () => {
 		expect(getInput()).toBeRequired();
 	});
 
+	it('should not be required when prop is not passed', () => {
+		render(createDatePicker({ isRequired: false }));
+		expect(getInput()).not.toBeRequired();
+	});
+
 	it('should have an empty value if none is provided', () => {
 		render(createDatePicker());
 

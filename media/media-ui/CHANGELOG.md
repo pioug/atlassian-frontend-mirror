@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 25.16.0
+
+### Minor Changes
+
+- [#152525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152525)
+  [`137373a63e749`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/137373a63e749) -
+  Implement `platform_media_disable_video_640p_artifact_usage` feature flag
+
 ## 25.15.4
 
 ### Patch Changes

@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import Range from '@atlaskit/range';
 

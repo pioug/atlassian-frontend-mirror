@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { type RenderResult, waitFor, fireEvent } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { waitFor, fireEvent, act, screen } from '@testing-library/react';
 import { injectable } from 'react-magnetic-di';
 
 import { mockTransformedRules } from './common/mocks';
@@ -44,10 +43,10 @@ describe('ManualRulesContainer', () => {
 			customDeps ?? [],
 		);
 
-	const clickInvokeButton = async (wrapper: RenderResult) => {
+	const clickInvokeButton = async () => {
 		await act(async () => {
 			fireEvent(
-				wrapper.getByTitle('invokeButton'),
+				screen.getByTitle('invokeButton'),
 				new MouseEvent('click', {
 					bubbles: true,
 					cancelable: true,
@@ -57,42 +56,42 @@ describe('ManualRulesContainer', () => {
 	};
 
 	test('should render the children provided', () => {
-		const wrapper = renderWithDi(
+		renderWithDi(
 			<ManualRulesContainer {...{ env, site, query }}>{() => <ChildComp />}</ManualRulesContainer>,
 			[],
 		);
-		expect(wrapper.getAllByTitle('childComp')).toHaveLength(1);
+		expect(screen.getAllByTitle('childComp')).toHaveLength(1);
 	});
 	test('should appropriately pass the initialised value to children', () => {
 		const mockHook = mockUseManualRules(true, null, []);
 
-		const wrapper = renderWithDi(
+		renderWithDi(
 			<ManualRulesContainer {...{ env, site, query }}>
 				{({ initialised }) => (initialised ? <ChildComp /> : <InvokeButton />)}
 			</ManualRulesContainer>,
 			[injectable(useManualRules, mockHook)],
 		);
 
-		expect(wrapper.getAllByTitle('childComp')).toHaveLength(1);
+		expect(screen.getAllByTitle('childComp')).toHaveLength(1);
 	});
 	test('should appropriately pass the errors value to children', () => {
 		const mockHook = mockUseManualRules(true, 'someError', []);
 
-		const wrapper = renderWithDi(
+		renderWithDi(
 			<ManualRulesContainer {...{ env, site, query }}>
 				{({ error }) => error && <ChildComp>{error}</ChildComp>}
 			</ManualRulesContainer>,
 			[injectable(useManualRules, mockHook)],
 		);
 
-		const childComp = wrapper.getAllByTitle('childComp');
+		const childComp = screen.getAllByTitle('childComp');
 		expect(childComp).toHaveLength(1);
 		expect(childComp[0]).toHaveTextContent('someError');
 	});
 	test('Should trigger started callback when the rule begins execution with a valid rule', async () => {
 		const mockHook = mockUseManualRules(true, null, mockTransformedRules);
 		const handlerMock = jest.fn();
-		const wrapper = renderWithInvokeButton(
+		renderWithInvokeButton(
 			0,
 			['TEST-1'],
 			{
@@ -101,13 +100,13 @@ describe('ManualRulesContainer', () => {
 			[injectable(useManualRules, mockHook)],
 		);
 
-		clickInvokeButton(wrapper);
+		await clickInvokeButton();
 		expect(handlerMock).toHaveBeenCalled();
 	});
 	test('Should trigger failure callback on rule does not exist error', async () => {
 		const mockHook = mockUseManualRules(true, null, []);
 		const handlerMock = jest.fn();
-		const wrapper = renderWithInvokeButton(
+		renderWithInvokeButton(
 			0,
 			['TEST-1'],
 			{
@@ -115,7 +114,7 @@ describe('ManualRulesContainer', () => {
 			},
 			[injectable(useManualRules, mockHook)],
 		);
-		clickInvokeButton(wrapper);
+		await clickInvokeButton();
 		expect(handlerMock).toHaveBeenCalled();
 	});
 	test('Should trigger failure callback if the api reports a failure', async () => {
@@ -128,7 +127,7 @@ describe('ManualRulesContainer', () => {
 		const handlerMock = jest.fn();
 
 		const mockInvokeManuallyTriggeredRule = jest.fn().mockReturnValue(failureResponse);
-		const wrapper = renderWithInvokeButton(
+		renderWithInvokeButton(
 			0,
 			['TEST-1'],
 			{
@@ -139,9 +138,9 @@ describe('ManualRulesContainer', () => {
 				injectable(invokeManuallyTriggeredRule, mockInvokeManuallyTriggeredRule),
 			],
 		);
-		clickInvokeButton(wrapper);
+		await clickInvokeButton();
 
-		await expect(mockInvokeManuallyTriggeredRule).toHaveBeenCalledTimes(1);
+		expect(mockInvokeManuallyTriggeredRule).toHaveBeenCalledTimes(1);
 
 		expect(handlerMock).toHaveBeenCalled();
 	});
@@ -156,7 +155,7 @@ describe('ManualRulesContainer', () => {
 		const handlerMock = jest.fn();
 
 		const mockInvokeManuallyTriggeredRule = jest.fn().mockImplementation(() => successfulResponse);
-		const wrapper = renderWithInvokeButton(
+		renderWithInvokeButton(
 			0,
 			['TEST-1', 'TEST-2'],
 			{
@@ -168,8 +167,8 @@ describe('ManualRulesContainer', () => {
 			],
 		);
 
-		clickInvokeButton(wrapper);
-		await expect(mockInvokeManuallyTriggeredRule).toHaveBeenCalledTimes(1);
+		await clickInvokeButton();
+		expect(mockInvokeManuallyTriggeredRule).toHaveBeenCalledTimes(1);
 
 		// expect callback with success and failure appropriately handled.
 		expect(handlerMock).toHaveBeenCalledWith(0, ['TEST-1'], ['TEST-2']);
@@ -185,7 +184,7 @@ describe('ManualRulesContainer', () => {
 		const handlerMock = jest.fn();
 
 		const mockInvokeManuallyTriggeredRule = jest.fn().mockImplementation(() => successfulResponse);
-		const wrapper = renderWithInvokeButton(
+		renderWithInvokeButton(
 			0,
 			['TEST-1', 'TEST-2'],
 			{
@@ -197,8 +196,8 @@ describe('ManualRulesContainer', () => {
 			],
 		);
 
-		clickInvokeButton(wrapper);
-		await expect(mockInvokeManuallyTriggeredRule).toHaveBeenCalledTimes(1);
+		await clickInvokeButton();
+		expect(mockInvokeManuallyTriggeredRule).toHaveBeenCalledTimes(1);
 
 		// expect callback with success and failure appropriately handled.
 		expect(handlerMock).toHaveBeenCalledWith(0, ['TEST-1', 'TEST-2']);
@@ -213,7 +212,7 @@ describe('ManualRulesContainer', () => {
 		const handlerMock = jest.fn();
 
 		const mockInvokeManuallyTriggeredRule = jest.fn().mockImplementation(() => successfulResponse);
-		const wrapper = renderWithInvokeButton(
+		renderWithInvokeButton(
 			0,
 			['TEST-1'],
 			{
@@ -225,8 +224,8 @@ describe('ManualRulesContainer', () => {
 			],
 		);
 
-		clickInvokeButton(wrapper);
-		await expect(mockInvokeManuallyTriggeredRule).toHaveBeenCalledTimes(1);
+		await clickInvokeButton();
+		expect(mockInvokeManuallyTriggeredRule).toHaveBeenCalledTimes(1);
 
 		// expect callback with success and failure appropriately handled.
 		expect(handlerMock).toHaveBeenCalledWith(0, ['TEST-1']);
@@ -241,7 +240,7 @@ describe('ManualRulesContainer', () => {
 		const handlerMock = jest.fn();
 
 		const mockInvokeManuallyTriggeredRule = jest.fn().mockImplementation(() => successfulResponse);
-		const wrapper = renderWithInvokeButton(
+		renderWithInvokeButton(
 			0,
 			['TEST-1'],
 			{
@@ -253,8 +252,8 @@ describe('ManualRulesContainer', () => {
 			],
 		);
 
-		clickInvokeButton(wrapper);
-		await expect(mockInvokeManuallyTriggeredRule).toHaveBeenCalledTimes(1);
+		await clickInvokeButton();
+		expect(mockInvokeManuallyTriggeredRule).toHaveBeenCalledTimes(1);
 
 		// expect callback with success and failure appropriately handled.
 		expect(handlerMock).toHaveBeenCalledWith(0, ['TEST-1']);
@@ -262,16 +261,14 @@ describe('ManualRulesContainer', () => {
 	test('Should display dialog if a rule has inputs', async () => {
 		const mockHook = mockUseManualRules(true, null, mockTransformedRules);
 
-		const wrapper = renderWithInvokeButton(1, ['TEST-1'], undefined, [
-			injectable(useManualRules, mockHook),
-		]);
+		renderWithInvokeButton(1, ['TEST-1'], undefined, [injectable(useManualRules, mockHook)]);
 
-		await clickInvokeButton(wrapper);
+		await clickInvokeButton();
 		await waitFor(() => {
-			expect(wrapper.getByRole('dialog')).toBeVisible();
+			expect(screen.getByRole('dialog')).toBeVisible();
 		});
 
-		expect(wrapper.getByRole('dialog')).toBeInTheDocument();
+		expect(screen.getByRole('dialog')).toBeInTheDocument();
 	});
 	test('Should execute rule if continue is clicked', async () => {
 		const mockHook = mockUseManualRules(true, null, mockTransformedRules);
@@ -281,19 +278,19 @@ describe('ManualRulesContainer', () => {
 
 		const mockInvokeManuallyTriggeredRule = jest.fn().mockImplementation(() => successfulResponse);
 
-		const wrapper = renderWithInvokeButton(1, ['TEST-1'], undefined, [
+		renderWithInvokeButton(1, ['TEST-1'], undefined, [
 			injectable(useManualRules, mockHook),
 			injectable(invokeManuallyTriggeredRule, mockInvokeManuallyTriggeredRule),
 		]);
 
-		await clickInvokeButton(wrapper);
+		await clickInvokeButton();
 		await waitFor(() => {
-			expect(wrapper.queryByText('Continue')).toBeVisible();
+			expect(screen.queryByText('Continue')).toBeVisible();
 		});
 
 		await act(async () => {
 			fireEvent(
-				wrapper.getByText('Continue'),
+				screen.getByText('Continue'),
 				new MouseEvent('click', {
 					bubbles: true,
 					cancelable: true,

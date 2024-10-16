@@ -1,5 +1,5 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import '@atlaskit/link-test-helpers/jest';
 import { IntlProvider } from 'react-intl-next';
@@ -34,20 +34,20 @@ describe('FollowAction', () => {
 
 	describe('existing follow action button', () => {
 		it('renders follow action button', async () => {
-			const { findByTestId } = setup();
-			const element = await findByTestId(testId);
+			setup();
+			const element = await screen.findByTestId(testId);
 			expect(element).toBeInTheDocument();
 			expect(element.textContent).toBe('Follow');
 		});
 
 		it('renders tooltip', async () => {
 			const user = userEvent.setup();
-			const { findByRole, findByTestId } = setup();
+			setup();
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			await user.hover(element);
 
-			const tooltip = await findByRole('tooltip');
+			const tooltip = await screen.findByRole('tooltip');
 			expect(tooltip.textContent).toBe('Follow');
 		});
 	});

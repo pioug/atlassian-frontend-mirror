@@ -8,6 +8,7 @@ import { createGenericComponent, renderWithDi } from '../../common/test-utils';
 import { type UserInputNumberPrompt, UserInputType } from '../../common/types';
 
 import NumberInputPrompt, { Errors, numberValidate } from './main';
+import { screen } from '@testing-library/react';
 
 describe('Text field input prompt', () => {
 	test('should render correct props', () => {
@@ -19,20 +20,15 @@ describe('Text field input prompt', () => {
 			variableName: 'testUserInput',
 		};
 
-		const numberInputPrompt = renderWithDi(
-			<NumberInputPrompt userInputPrompt={userInputPrompts} />,
-		);
+		renderWithDi(<NumberInputPrompt userInputPrompt={userInputPrompts} />);
 
-		expect(numberInputPrompt.getByRole('textbox')).toHaveAttribute(
-			'name',
-			userInputPrompts.variableName,
-		);
-		expect(numberInputPrompt.getByText(userInputPrompts.displayName)).toBeInTheDocument();
-		expect(numberInputPrompt.getByText(userInputPrompts.displayName)).toHaveAttribute(
+		expect(screen.getByRole('textbox')).toHaveAttribute('name', userInputPrompts.variableName);
+		expect(screen.getByText(userInputPrompts.displayName)).toBeInTheDocument();
+		expect(screen.getByText(userInputPrompts.displayName)).toHaveAttribute(
 			'id',
 			'testUserInput-uid1-label',
 		);
-		expect(numberInputPrompt.getByTitle('required')).toBeInTheDocument();
+		expect(screen.getByTitle('required')).toBeInTheDocument();
 	});
 
 	test('should render error message with empty values when field is required', () => {
@@ -45,12 +41,11 @@ describe('Text field input prompt', () => {
 		};
 
 		const mockField = createGenericComponent('Field', true, { error: 'EMPTY' });
-		const errorNumberInputPrompt = renderWithDi(
-			<NumberInputPrompt userInputPrompt={userInputPrompts} />,
-			[injectable(Field, mockField)],
-		);
+		renderWithDi(<NumberInputPrompt userInputPrompt={userInputPrompts} />, [
+			injectable(Field, mockField),
+		]);
 
-		expect(errorNumberInputPrompt.getByLabelText('error')).toBeInTheDocument();
+		expect(screen.getByLabelText('error')).toBeInTheDocument();
 	});
 
 	type numberTestType = {

@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import * as Actions from '../../../../view/BlockCard/components/Action';
 import { ActionList } from '../../../../view/BlockCard/components/ActionList';
@@ -42,26 +42,26 @@ describe('ActionList', () => {
 	test('should render first two actions to show in buttons', () => {
 		render(<ActionList items={actionsList} />);
 
-		expect(actionSpy).toBeCalledTimes(2);
+		expect(actionSpy).toHaveBeenCalledTimes(2);
 	});
 
 	test('should open dropdown with hidden actions on clicking of trigger', () => {
-		const { getByTestId } = render(<ActionList items={actionsList} />);
-		const popupTrigger = getByTestId('dropdown-trigger');
+		render(<ActionList items={actionsList} />);
+		const popupTrigger = screen.getByTestId('dropdown-trigger');
 
 		act(() => {
 			fireEvent.click(popupTrigger);
 		});
-		const popupMenu = getByTestId('dropdown-menu');
+		const popupMenu = screen.getByTestId('dropdown-menu');
 
 		expect(popupMenu).toBeDefined();
 	});
 
 	test('should have no dropdown when only 2 actions present', () => {
 		const newActions = actionsList.slice(0, 2);
-		const { queryByTestId } = render(<ActionList items={newActions} />);
+		render(<ActionList items={newActions} />);
 
-		const popupTrigger = queryByTestId('dropdown-trigger');
+		const popupTrigger = screen.queryByTestId('dropdown-trigger');
 
 		expect(popupTrigger).not.toBeInTheDocument();
 	});

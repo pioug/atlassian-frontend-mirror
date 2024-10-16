@@ -3,7 +3,7 @@ import React from 'react';
 import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { SmartLinkStatus } from '../../../../../../constants';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
@@ -149,11 +149,11 @@ describe('AISummaryBlock', () => {
 				summariseUrl: jest.fn(),
 			});
 
-			const { queryByTestId } = renderAISummaryBlock({
+			renderAISummaryBlock({
 				testId: testIdBase,
 			});
 
-			const indicatorA = queryByTestId(`${testIdBase}-error-indicator-error`);
+			const indicatorA = screen.queryByTestId(`${testIdBase}-error-indicator-error`);
 
 			expect(indicatorA).not.toBeInTheDocument();
 		});
@@ -165,11 +165,11 @@ describe('AISummaryBlock', () => {
 			});
 
 			const aiSummaryTestId = `${testIdBase}-ai-summary`;
-			const { queryByTestId, rerenderTestComponent } = renderAISummaryBlock({
+			const { rerenderTestComponent } = renderAISummaryBlock({
 				testId: testIdBase,
 			});
 
-			const AISummary = queryByTestId(aiSummaryTestId);
+			const AISummary = screen.queryByTestId(aiSummaryTestId);
 			expect(AISummary).not.toBeInTheDocument();
 
 			jest.mocked(useAISummary).mockReturnValue({
@@ -178,7 +178,7 @@ describe('AISummaryBlock', () => {
 			});
 
 			rerenderTestComponent();
-			const AISummaryWithContent = queryByTestId(aiSummaryTestId);
+			const AISummaryWithContent = screen.queryByTestId(aiSummaryTestId);
 			expect(AISummaryWithContent).toBeInTheDocument();
 		});
 	});
@@ -190,9 +190,9 @@ describe('AISummaryBlock', () => {
 				summariseUrl: jest.fn(),
 			});
 
-			const { queryByTestId } = renderAISummaryBlock();
+			renderAISummaryBlock();
 
-			const provider = queryByTestId(`${testIdBase}-provider`);
+			const provider = screen.queryByTestId(`${testIdBase}-provider`);
 			expect(provider).not.toBeInTheDocument();
 		});
 	});
@@ -203,9 +203,9 @@ describe('AISummaryBlock', () => {
 			summariseUrl: jest.fn(),
 		});
 
-		const { queryByTestId } = renderAISummaryBlock();
+		renderAISummaryBlock();
 
-		const block = queryByTestId('smart-ai-summary-block-resolved-view');
+		const block = screen.queryByTestId('smart-ai-summary-block-resolved-view');
 		expect(block).not.toBeInTheDocument();
 	});
 
@@ -215,9 +215,9 @@ describe('AISummaryBlock', () => {
 			summariseUrl: jest.fn(),
 		});
 
-		const { queryByTestId } = renderAISummaryBlock();
+		renderAISummaryBlock();
 
-		const block = queryByTestId('smart-ai-summary-block-resolved-view');
+		const block = screen.queryByTestId('smart-ai-summary-block-resolved-view');
 		expect(block).not.toBeInTheDocument();
 	});
 
@@ -227,9 +227,9 @@ describe('AISummaryBlock', () => {
 			summariseUrl: jest.fn(),
 		});
 
-		const { findByTestId } = renderAISummaryBlock();
+		renderAISummaryBlock();
 
-		const block = await findByTestId('smart-ai-summary-block-resolved-view');
+		const block = await screen.findByTestId('smart-ai-summary-block-resolved-view');
 		expect(block).toBeInTheDocument();
 	});
 
@@ -239,9 +239,9 @@ describe('AISummaryBlock', () => {
 			summariseUrl: jest.fn(),
 		});
 
-		const { findByTestId } = renderAISummaryBlock();
+		renderAISummaryBlock();
 
-		const block = await findByTestId('smart-ai-summary-block-resolved-view');
+		const block = await screen.findByTestId('smart-ai-summary-block-resolved-view');
 		expect(block).toBeInTheDocument();
 	});
 
@@ -251,9 +251,9 @@ describe('AISummaryBlock', () => {
 			summariseUrl: jest.fn(),
 		});
 
-		const { queryByTestId } = renderAISummaryBlock();
+		renderAISummaryBlock();
 
-		const block = queryByTestId('smart-ai-summary-block-resolved-view');
+		const block = screen.queryByTestId('smart-ai-summary-block-resolved-view');
 		expect(block).not.toBeInTheDocument();
 	});
 
@@ -267,9 +267,9 @@ describe('AISummaryBlock', () => {
 				summariseUrl: jest.fn(),
 			});
 
-			const { findByTestId } = renderAISummaryBlock({ placeholder });
+			renderAISummaryBlock({ placeholder });
 
-			const block = await findByTestId(placeholderTestId);
+			const block = await screen.findByTestId(placeholderTestId);
 			expect(block).toBeInTheDocument();
 		});
 
@@ -279,9 +279,9 @@ describe('AISummaryBlock', () => {
 				summariseUrl: jest.fn(),
 			});
 
-			const { findByTestId } = renderAISummaryBlock({ placeholder });
+			renderAISummaryBlock({ placeholder });
 
-			const block = await findByTestId(placeholderTestId);
+			const block = await screen.findByTestId(placeholderTestId);
 			expect(block).toBeInTheDocument();
 		});
 
@@ -291,9 +291,9 @@ describe('AISummaryBlock', () => {
 				summariseUrl: jest.fn(),
 			});
 
-			const { queryByTestId } = renderAISummaryBlock({ placeholder });
+			renderAISummaryBlock({ placeholder });
 
-			const block = queryByTestId(placeholderTestId);
+			const block = screen.queryByTestId(placeholderTestId);
 			expect(block).not.toBeInTheDocument();
 		});
 
@@ -303,9 +303,9 @@ describe('AISummaryBlock', () => {
 				summariseUrl: jest.fn(),
 			});
 
-			const { queryByTestId } = renderAISummaryBlock({ placeholder });
+			renderAISummaryBlock({ placeholder });
 
-			const block = queryByTestId(placeholderTestId);
+			const block = screen.queryByTestId(placeholderTestId);
 			expect(block).not.toBeInTheDocument();
 		});
 
@@ -315,9 +315,9 @@ describe('AISummaryBlock', () => {
 				summariseUrl: jest.fn(),
 			});
 
-			const { findByTestId } = renderAISummaryBlock({ placeholder });
+			renderAISummaryBlock({ placeholder });
 
-			const block = await findByTestId(placeholderTestId);
+			const block = await screen.findByTestId(placeholderTestId);
 			expect(block).toBeInTheDocument();
 		});
 	});

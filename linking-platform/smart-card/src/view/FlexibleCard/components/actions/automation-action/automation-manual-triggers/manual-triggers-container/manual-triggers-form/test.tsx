@@ -6,7 +6,7 @@ import { mockTransformedRules } from '../common/mocks';
 import { renderWithDi } from '../common/test-utils';
 
 import UserInputForm, { type UserInputProps } from './main';
-import { fireEvent } from '@testing-library/dom';
+import { fireEvent, screen } from '@testing-library/react';
 
 describe('UserInputForm', () => {
 	test('should render the modal', () => {
@@ -19,7 +19,7 @@ describe('UserInputForm', () => {
 			invokeRule: async (_ruleId, _objects, _userInputs) => {},
 		};
 
-		const inputForm = renderWithDi(
+		renderWithDi(
 			<UserInputForm
 				clearSelectedRule={userInputProps.clearSelectedRule}
 				selectedRule={userInputProps.selectedRule}
@@ -27,11 +27,11 @@ describe('UserInputForm', () => {
 			/>,
 		);
 
-		expect(inputForm.getByRole('textbox', { name: 'Text user input' })).toBeInTheDocument();
-		expect(inputForm.getByRole('textbox', { name: 'Number user input' })).toBeInTheDocument();
-		expect(inputForm.getByRole('textbox', { name: 'Paragraph user input' })).toBeInTheDocument();
-		expect(inputForm.getByRole('checkbox', { name: 'Boolean user input' })).toBeInTheDocument();
-		expect(inputForm.getByRole('combobox', { name: 'Dropdown user input' })).toBeInTheDocument();
+		expect(screen.getByRole('textbox', { name: 'Text user input' })).toBeInTheDocument();
+		expect(screen.getByRole('textbox', { name: 'Number user input' })).toBeInTheDocument();
+		expect(screen.getByRole('textbox', { name: 'Paragraph user input' })).toBeInTheDocument();
+		expect(screen.getByRole('checkbox', { name: 'Boolean user input' })).toBeInTheDocument();
+		expect(screen.getByRole('combobox', { name: 'Dropdown user input' })).toBeInTheDocument();
 	});
 
 	test('should submit inputs', () => {
@@ -45,7 +45,7 @@ describe('UserInputForm', () => {
 			invokeRule: mockInvokeRule,
 		};
 
-		const inputForm = renderWithDi(
+		renderWithDi(
 			<UserInputForm
 				clearSelectedRule={userInputProps.clearSelectedRule}
 				selectedRule={userInputProps.selectedRule}
@@ -55,7 +55,7 @@ describe('UserInputForm', () => {
 
 		act(() => {
 			fireEvent(
-				inputForm.getByText('Continue'),
+				screen.getByText('Continue'),
 				new MouseEvent('click', {
 					bubbles: true,
 					cancelable: true,
@@ -75,7 +75,7 @@ describe('UserInputForm', () => {
 			invokeRule: jest.fn(),
 		};
 
-		const inputForm = renderWithDi(
+		renderWithDi(
 			<UserInputForm
 				clearSelectedRule={userInputProps.clearSelectedRule}
 				selectedRule={userInputProps.selectedRule}
@@ -85,7 +85,7 @@ describe('UserInputForm', () => {
 
 		act(() => {
 			fireEvent(
-				inputForm.getByText('Continue'),
+				screen.getByText('Continue'),
 				new MouseEvent('click', {
 					bubbles: true,
 					cancelable: true,
@@ -93,6 +93,6 @@ describe('UserInputForm', () => {
 			);
 		});
 
-		expect(inputForm.getByRole('button', { name: 'Continue' })).toHaveProperty('disabled');
+		expect(screen.getByRole('button', { name: 'Continue' })).toHaveProperty('disabled');
 	});
 });

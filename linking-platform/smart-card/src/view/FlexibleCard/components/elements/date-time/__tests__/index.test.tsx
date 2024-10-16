@@ -2,7 +2,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import DateTime from '../index';
 
@@ -22,24 +22,24 @@ describe('Element: Text', () => {
 	describe('with relative mode', () => {
 		it('should render created at element', async () => {
 			const oneDayBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 1);
-			const { findByTestId } = render(
+			render(
 				<IntlProvider locale="en">
 					<DateTime date={oneDayBack} type="created" />
 				</IntlProvider>,
 			);
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			expect(element).toBeTruthy();
 			expect(element.textContent).toBe('Created yesterday');
 		});
 
 		it('should render modified at element', async () => {
 			const sixDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 6);
-			const { findByTestId } = render(
+			render(
 				<IntlProvider locale="en">
 					<DateTime date={sixDaysBack} type="modified" />
 				</IntlProvider>,
 			);
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			expect(element).toBeTruthy();
 			expect(element.textContent).toBe('Updated last week');
 		});
@@ -48,24 +48,24 @@ describe('Element: Text', () => {
 	describe('with absolute mode', () => {
 		it('should render created at element', async () => {
 			const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
-			const { findByTestId } = render(
+			render(
 				<IntlProvider locale="en">
 					<DateTime date={new Date(eightDaysBack)} type="created" />
 				</IntlProvider>,
 			);
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			expect(element).toBeTruthy();
 			expect(element.textContent).toBe('Created on Jan 17, 2022');
 		});
 
 		it('should render another modified at element', async () => {
 			const twentyDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 20);
-			const { findByTestId } = render(
+			render(
 				<IntlProvider locale="en">
 					<DateTime date={new Date(twentyDaysBack)} type="modified" />
 				</IntlProvider>,
 			);
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			expect(element).toBeTruthy();
 			expect(element.textContent).toBe('Updated on Jan 5, 2022');
 		});
@@ -75,7 +75,7 @@ describe('Element: Text', () => {
 		const overrideCss = css({
 			fontWeight: 'bold',
 		});
-		const { findByTestId } = render(
+		render(
 			<IntlProvider locale="en">
 				<DateTime
 					date={new Date('2020-02-04T12:40:12.353+0800')}
@@ -85,31 +85,31 @@ describe('Element: Text', () => {
 			</IntlProvider>,
 		);
 
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 
 		expect(element).toHaveStyleDeclaration('font-weight', 'bold');
 	});
 
 	it('should render overridden text for created on element', async () => {
 		const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
-		const { findByTestId } = render(
+		render(
 			<IntlProvider locale="en">
 				<DateTime date={new Date(eightDaysBack)} type="created" text="First commit on" />
 			</IntlProvider>,
 		);
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 		expect(element).toBeTruthy();
 		expect(element.textContent).toBe('First commit on Jan 17, 2022');
 	});
 
 	it('should render overridden text for modified on element', async () => {
 		const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
-		const { findByTestId } = render(
+		render(
 			<IntlProvider locale="en">
 				<DateTime date={new Date(eightDaysBack)} type="modified" text="Last commit on" />
 			</IntlProvider>,
 		);
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 		expect(element).toBeTruthy();
 		expect(element.textContent).toBe('Last commit on Jan 17, 2022');
 	});

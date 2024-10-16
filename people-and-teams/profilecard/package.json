@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "20.4.2",
+	"version": "20.4.3",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,6 +22,7 @@
 	},
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
+		"runReact18": true,
 		"team": "People and Teams Collective",
 		"website": {
 			"name": "Profilecard"
@@ -92,7 +93,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0",
+		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
 		"react-dom": "^16.8.0"
 	},
 	"devDependencies": {

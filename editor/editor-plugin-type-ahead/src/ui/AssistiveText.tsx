@@ -3,11 +3,13 @@
  * @jsx jsx
  */
 
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 type Cancelable = ReturnType<typeof debounce>;
 
@@ -39,7 +41,7 @@ const assitiveTextStyles = css({
 	width: '1px',
 });
 
-class AssistveTextComponent extends React.Component<AssistiveTextProps, AssistiveTextState> {
+class AssistveTextOld extends React.Component<AssistiveTextProps, AssistiveTextState> {
 	static defaultProps: AssistiveTextProps = {
 		statusDebounceMillis: 1400,
 		debounce: true,
@@ -84,10 +86,22 @@ class AssistveTextComponent extends React.Component<AssistiveTextProps, Assistiv
 
 		return (
 			<div css={assitiveTextStyles}>
-				<div id={id + '__status--A'} role="status" aria-atomic="true" aria-live="polite">
+				<div
+					data-testId={id + '__status--A'}
+					id={id + '__status--A'}
+					role="status"
+					aria-atomic="true"
+					aria-live="polite"
+				>
 					{`${!silenced && debounced && bump ? assistiveText : ''}`}
 				</div>
-				<div id={id + '__status--B'} role="status" aria-atomic="true" aria-live="polite">
+				<div
+					data-testId={id + '__status--B'}
+					id={id + '__status--B'}
+					role="status"
+					aria-atomic="true"
+					aria-live="polite"
+				>
 					{`${!silenced && debounced && !bump ? assistiveText : ''}`}
 				</div>
 			</div>
@@ -95,4 +109,72 @@ class AssistveTextComponent extends React.Component<AssistiveTextProps, Assistiv
 	}
 }
 
-export const AssistiveText = AssistveTextComponent;
+export const AssistiveTextNew = ({
+	assistiveText = '',
+	isInFocus = false,
+	id = '',
+	statusDebounceMillis = 1400,
+}: AssistiveTextProps) => {
+	const [bump, setBump] = useState(false);
+	const [debounced, setDebounced] = useState(false);
+	const [silenced, setSilenced] = useState(false);
+
+	const debounceStatusUpdate = useMemo(
+		() =>
+			debounce(() => {
+				const shouldSilence = !isInFocus;
+				setBump((prevBump) => !prevBump);
+				setDebounced(true);
+				setSilenced(shouldSilence);
+			}),
+		[isInFocus],
+	);
+
+	useEffect(() => {
+		if (!debounced) {
+			debounceStatusUpdate();
+			return () => {
+				debounceStatusUpdate.cancel();
+			};
+		}
+	}, [assistiveText, isInFocus, debounced, debounceStatusUpdate]);
+
+	useEffect(() => {
+		if (debounced) {
+			setBump((prevBump) => !prevBump);
+			setDebounced(true);
+			setSilenced(!isInFocus);
+		}
+	}, [assistiveText, isInFocus, debounced]);
+
+	return (
+		<div css={assitiveTextStyles}>
+			<div
+				data-testid={id + '__status--A'}
+				id={id + '__status--A'}
+				role="status"
+				aria-atomic="true"
+				aria-live="polite"
+			>
+				{!silenced && debounced && bump ? assistiveText : ''}
+			</div>
+			<div
+				data-testid={id + '__status--B'}
+				id={id + '__status--B'}
+				role="status"
+				aria-atomic="true"
+				aria-live="polite"
+			>
+				{!silenced && debounced && !bump ? assistiveText : ''}
+			</div>
+		</div>
+	);
+};
+
+export const AssistiveText = (props: AssistiveTextProps) => {
+	if (fg('platform_editor_react18_phase2')) {
+		return <AssistiveTextNew {...props} />;
+	} else {
+		return <AssistveTextOld {...props} />;
+	}
+};

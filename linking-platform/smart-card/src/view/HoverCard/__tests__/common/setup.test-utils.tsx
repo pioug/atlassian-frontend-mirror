@@ -1,7 +1,7 @@
 import { mockConfluenceResponse } from '../__mocks__/mocks';
 import { fakeFactory } from '../../../../utils/mocks';
 import { setGlobalTheme } from '@atlaskit/tokens';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import * as analytics from '../../../../utils/analytics/analytics';
 import { IntlProvider } from 'react-intl-next';
@@ -17,7 +17,7 @@ export type SetUpParams = {
 	testId?: string;
 	component?: ReactElement;
 	extraCardProps?: Partial<CardProps>;
-	mockFetch?: () => {};
+	mockFetch?: () => unknown;
 	userEventOptions?: {
 		delay?: number | null;
 		advanceTimers?: typeof jest.advanceTimersByTime;
@@ -63,7 +63,7 @@ export const setup = async ({
 		</AnalyticsListener>,
 	);
 
-	const element = await findByTestId(testId);
+	const element = await screen.findByTestId(testId);
 	const event = userEvent.setup(userEventOptions);
 	const dateSpy = jest.spyOn(Date, 'now').mockImplementation(() => now);
 
@@ -107,9 +107,8 @@ export const setupEventPropagationTest = async ({
 			</Provider>
 		</div>,
 	);
-	const { findByTestId } = renderResult;
 
-	const element = await findByTestId(testId);
+	const element = await screen.findByTestId(testId);
 	await event.hover(element);
 
 	return { ...renderResult, element, event };

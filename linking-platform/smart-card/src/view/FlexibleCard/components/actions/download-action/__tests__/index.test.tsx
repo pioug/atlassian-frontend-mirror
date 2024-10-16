@@ -1,5 +1,5 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import '@atlaskit/link-test-helpers/jest';
@@ -30,15 +30,15 @@ describe('DownloadAction', () => {
 	};
 
 	it('renders action', async () => {
-		const { findByTestId } = setup();
-		const element = await findByTestId(testId);
+		setup();
+		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
 		expect(element.textContent).toBe('Download');
 	});
 
 	it('renders stack item action', async () => {
-		const { findByTestId } = setup({ as: 'stack-item' });
-		const element = await findByTestId(testId);
+		setup({ as: 'stack-item' });
+		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
 		expect(element.textContent).toBe('Download file');
 	});
@@ -46,23 +46,23 @@ describe('DownloadAction', () => {
 	describe('with tooltip', () => {
 		it('renders tooltip', async () => {
 			const user = userEvent.setup();
-			const { findByRole, findByTestId } = setup();
+			setup();
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			await user.hover(element);
 
-			const tooltip = await findByRole('tooltip');
+			const tooltip = await screen.findByRole('tooltip');
 			expect(tooltip.textContent).toBe('Download');
 		});
 
 		it('renders stack item tooltip', async () => {
 			const user = userEvent.setup();
-			const { findByRole, findByTestId } = setup({ as: 'stack-item' });
+			setup({ as: 'stack-item' });
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			await user.hover(element);
 
-			const tooltip = await findByRole('tooltip');
+			const tooltip = await screen.findByRole('tooltip');
 			expect(tooltip.textContent).toBe('Download this file into your local storage');
 		});
 	});

@@ -6,7 +6,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import Button, { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
+import Button, { Theme as ButtonTheme } from '@atlaskit/button';
 
 import { modalButtonTheme, spotlightButtonTheme } from '../src';
 

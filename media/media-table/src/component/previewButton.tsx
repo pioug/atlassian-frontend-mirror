@@ -2,7 +2,7 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import EditorFilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import { messages } from '@atlaskit/media-ui';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -36,13 +36,6 @@ const MediaPreviewButton = (props: Props & WrappedComponentProps) => {
 
 				onClick(event);
 			}}
-			theme={(current, themeProps) => ({
-				buttonStyles: {
-					...current(themeProps).buttonStyles,
-					minWidth: 'max-content',
-				},
-				spinnerStyles: current(themeProps).spinnerStyles,
-			})}
 		/>
 	);
 };

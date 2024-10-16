@@ -23,6 +23,7 @@ import type {
 	FloatingToolbarItem,
 	GetEditorContainerWidth,
 	GetEditorFeatureFlags,
+	Icon,
 } from '@atlaskit/editor-common/types';
 import { cellBackgroundColorPalette, DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import {
@@ -45,11 +46,17 @@ import {
 	isSelectionType,
 	splitCell,
 } from '@atlaskit/editor-tables/utils';
+import ContentAlignCenterIcon from '@atlaskit/icon/core/content-align-center';
+import ContentAlignLeftIcon from '@atlaskit/icon/core/content-align-left';
+import CustomizeIcon from '@atlaskit/icon/core/customize';
+import DeleteIcon from '@atlaskit/icon/core/delete';
+import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-center';
 import EditorAlignImageLeft from '@atlaskit/icon/glyph/editor/align-image-left';
 import DistributeColumnIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import TableOptionsIcon from '@atlaskit/icon/glyph/preferences';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	clearHoverSelection,
@@ -165,7 +172,10 @@ export const getToolbarMenuConfig = (
 			id: 'editor.table.tableOptions',
 			type: 'dropdown',
 			testId: 'table_options',
-			icon: TableOptionsIcon,
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+			icon: fg('platform-visual-refresh-icons') ? undefined : TableOptionsIcon,
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+			iconBefore: fg('platform-visual-refresh-icons') ? CustomizeIcon : undefined,
 			title: formatMessage(messages.tableOptions),
 			hidden: options.every((option) => option.hidden),
 			options,
@@ -636,7 +646,8 @@ export const getToolbarConfig =
 						id: 'editor.table.delete',
 						type: 'button',
 						appearance: 'danger',
-						icon: RemoveIcon,
+						icon: DeleteIcon,
+						iconFallback: RemoveIcon,
 						onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
 						disabled: !!resizeState && !!resizeState.dragging,
 						onMouseEnter: hoverTable(true),
@@ -768,7 +779,8 @@ const getColumnSettingItems = (
 			id: 'editor.table.distributeColumns',
 			type: 'button',
 			title: formatMessage(messages.distributeColumns),
-			icon: DistributeColumnIcon,
+			icon: TableColumnsDistributeIcon,
+			iconFallback: DistributeColumnIcon,
 			onClick: (state, dispatch, view) =>
 				getDistributeConfig(
 					getEditorContainerWidth,
@@ -873,7 +885,7 @@ const highlightColumnsHandler = (state: EditorState, dispatch?: CommandDispatch)
 type AlignmentIcon = {
 	id?: string;
 	value: AlignmentOptions;
-	icon: React.ComponentClass<any>;
+	icon: Icon;
 };
 
 const getAlignmentOptionsConfig = (
@@ -897,12 +909,26 @@ const getAlignmentOptionsConfig = (
 		{
 			id: 'editor.table.alignLeft',
 			value: 'align-start',
-			icon: EditorAlignImageLeft,
+			icon: () => (
+				<ContentAlignLeftIcon
+					color="currentColor"
+					spacing="spacious"
+					label="table-align-start-icon"
+					LEGACY_fallbackIcon={EditorAlignImageLeft}
+				/>
+			),
 		},
 		{
 			id: 'editor.table.alignCenter',
 			value: 'center',
-			icon: EditorAlignImageCenter,
+			icon: () => (
+				<ContentAlignCenterIcon
+					color="currentColor"
+					spacing="spacious"
+					label="table-align-center-icon"
+					LEGACY_fallbackIcon={EditorAlignImageCenter}
+				/>
+			),
 		},
 	];
 

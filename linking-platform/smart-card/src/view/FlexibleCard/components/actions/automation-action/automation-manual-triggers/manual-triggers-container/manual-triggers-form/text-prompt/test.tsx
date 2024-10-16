@@ -8,6 +8,7 @@ import { createGenericComponent, renderWithDi } from '../../common/test-utils';
 import { type UserInputTextPrompt, UserInputType } from '../../common/types';
 
 import TextInputPrompt from './main';
+import { screen } from '@testing-library/react';
 
 const userInputPrompts: UserInputTextPrompt = {
 	defaultValue: '',
@@ -19,27 +20,23 @@ const userInputPrompts: UserInputTextPrompt = {
 
 describe('Text field input prompt', () => {
 	test('should render correct props', () => {
-		const textInputPrompt = renderWithDi(<TextInputPrompt userInputPrompt={userInputPrompts} />);
+		renderWithDi(<TextInputPrompt userInputPrompt={userInputPrompts} />);
 
-		expect(textInputPrompt.getByRole('textbox')).toHaveAttribute(
-			'name',
-			userInputPrompts.variableName,
-		);
-		expect(textInputPrompt.getByText(userInputPrompts.displayName)).toBeInTheDocument();
-		expect(textInputPrompt.getByText(userInputPrompts.displayName)).toHaveAttribute(
+		expect(screen.getByRole('textbox')).toHaveAttribute('name', userInputPrompts.variableName);
+		expect(screen.getByText(userInputPrompts.displayName)).toBeInTheDocument();
+		expect(screen.getByText(userInputPrompts.displayName)).toHaveAttribute(
 			'id',
 			'testUserInput-uid1-label',
 		);
-		expect(textInputPrompt.getByTitle('required')).toBeInTheDocument();
+		expect(screen.getByTitle('required')).toBeInTheDocument();
 	});
 
 	test('should render error message with empty values when field is required', () => {
 		const mockField = createGenericComponent('Field', true, { error: 'EMPTY' });
-		const errorTextInputPrompt = renderWithDi(
-			<TextInputPrompt userInputPrompt={userInputPrompts} />,
-			[injectable(Field, mockField)],
-		);
+		renderWithDi(<TextInputPrompt userInputPrompt={userInputPrompts} />, [
+			injectable(Field, mockField),
+		]);
 
-		expect(errorTextInputPrompt.getByLabelText('error')).toBeInTheDocument();
+		expect(screen.getByLabelText('error')).toBeInTheDocument();
 	});
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import '@testing-library/jest-dom';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -12,10 +12,10 @@ describe('Element: Avatar Group', () => {
 	const authorsWithNoImages = [{ name: 'Bob' }, { name: 'Charlie' }, { name: 'Spaghetti' }];
 
 	it('renders element', async () => {
-		const { getByTestId } = renderWithIntl(<AvatarGroup items={authorsWithNoImages} />);
+		renderWithIntl(<AvatarGroup items={authorsWithNoImages} />);
 
-		const element = await getByTestId(testId);
-		const avatarGroup = await getByTestId(`${testId}--avatar-group`);
+		const element = screen.getByTestId(testId);
+		const avatarGroup = screen.getByTestId(`${testId}--avatar-group`);
 
 		expect(element).toBeTruthy();
 		expect(element.getAttribute('data-smart-element-avatar-group')).toBeTruthy();
@@ -26,11 +26,9 @@ describe('Element: Avatar Group', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		const { getByTestId } = renderWithIntl(
-			<AvatarGroup items={authorsWithNoImages} overrideCss={overrideCss} />,
-		);
+		renderWithIntl(<AvatarGroup items={authorsWithNoImages} overrideCss={overrideCss} />);
 
-		const element = await getByTestId(testId);
+		const element = screen.getByTestId(testId);
 		expect(element).toHaveStyleDeclaration('background-color', 'blue');
 	});
 
@@ -46,7 +44,7 @@ describe('Element: Avatar Group', () => {
 	])(
 		'correct prefix for a name in %s element tooltip if there is only one person',
 		async (elementName: ElementName, showNamePrefix: boolean, prefix: string | undefined) => {
-			const { getByTestId } = renderWithIntl(
+			renderWithIntl(
 				<AvatarGroup
 					name={elementName}
 					items={[{ name: 'Bob' }]}
@@ -54,11 +52,11 @@ describe('Element: Avatar Group', () => {
 				/>,
 			);
 
-			const firstAvatarInGroup = await getByTestId(`${testId}--avatar-0`);
+			const firstAvatarInGroup = screen.getByTestId(`${testId}--avatar-0`);
 
 			fireEvent.mouseEnter(firstAvatarInGroup);
 
-			const nameTooltip = await waitFor(() => getByTestId(`${testId}--tooltip-0`));
+			const nameTooltip = await screen.findByTestId(`${testId}--tooltip-0`);
 
 			let name = `Bob`;
 			if (showNamePrefix && prefix) {
@@ -70,25 +68,25 @@ describe('Element: Avatar Group', () => {
 	);
 
 	it('no prefix for a name in element tooltip by default if there is only one person', async () => {
-		const { getByTestId } = renderWithIntl(<AvatarGroup items={[{ name: 'Bob' }]} />);
+		renderWithIntl(<AvatarGroup items={[{ name: 'Bob' }]} />);
 
-		const firstAvatarInGroup = await getByTestId(`${testId}--avatar-0`);
+		const firstAvatarInGroup = screen.getByTestId(`${testId}--avatar-0`);
 
 		fireEvent.mouseEnter(firstAvatarInGroup);
 
-		const nameTooltip = await waitFor(() => getByTestId(`${testId}--tooltip-0`));
+		const nameTooltip = await screen.findByTestId(`${testId}--tooltip-0`);
 
 		expect(nameTooltip).toHaveTextContent('Bob');
 	});
 
 	it('no prefix for a name in element tooltip by default if there is more than one person', async () => {
-		const { getByTestId } = renderWithIntl(<AvatarGroup items={[{ name: 'Bob' }]} />);
+		renderWithIntl(<AvatarGroup items={[{ name: 'Bob' }]} />);
 
-		const firstAvatarInGroup = await getByTestId(`${testId}--avatar-0`);
+		const firstAvatarInGroup = screen.getByTestId(`${testId}--avatar-0`);
 
 		fireEvent.mouseEnter(firstAvatarInGroup);
 
-		const nameTooltip = await waitFor(() => getByTestId(`${testId}--tooltip-0`));
+		const nameTooltip = await screen.findByTestId(`${testId}--tooltip-0`);
 
 		expect(nameTooltip).toHaveTextContent('Bob');
 	});
@@ -96,48 +94,46 @@ describe('Element: Avatar Group', () => {
 	it.each(authorsWithNoImages.map((author, index) => ({ name: author.name, index })))(
 		'no prefix for a name in element tooltip if there are more than one person',
 		async (author: { name: string; index: number }) => {
-			const { getByTestId } = renderWithIntl(
+			renderWithIntl(
 				<AvatarGroup
 					name={ElementName.AssignedToGroup}
 					items={authorsWithNoImages}
 					showNamePrefix={true}
 				/>,
 			);
-			const avatarInGroup = await getByTestId(`${testId}--avatar-${author.index}`);
+			const avatarInGroup = screen.getByTestId(`${testId}--avatar-${author.index}`);
 			fireEvent.mouseEnter(avatarInGroup);
-			const nameTooltip = await waitFor(() => getByTestId(`${testId}--tooltip-${author.index}`));
+			const nameTooltip = await screen.findByTestId(`${testId}--tooltip-${author.index}`);
 			expect(nameTooltip).toHaveTextContent(authorsWithNoImages[author.index].name);
 		},
 	);
 
 	it('show Unassigned fallback by default if there are no assigned persons in Assigned Group', async () => {
-		const { getByTestId } = renderWithIntl(
-			<AvatarGroup items={[]} name={ElementName.AssignedToGroup} />,
-		);
+		renderWithIntl(<AvatarGroup items={[]} name={ElementName.AssignedToGroup} />);
 
-		const firstAvatarInGroup = await getByTestId(`${testId}--avatar-0`);
+		const firstAvatarInGroup = screen.getByTestId(`${testId}--avatar-0`);
 		expect(firstAvatarInGroup).toBeTruthy();
 
 		fireEvent.mouseEnter(firstAvatarInGroup);
 
-		const nameTooltip = await waitFor(() => getByTestId(`${testId}--tooltip-0`));
+		const nameTooltip = await screen.findByTestId(`${testId}--tooltip-0`);
 
 		expect(nameTooltip).toHaveTextContent('Unassigned');
 	});
 
 	it('hide Unassigned Fallback if there are no assigned persons in Assigned Group when showFallbackAvatar is false', async () => {
-		const { queryByTestId } = await renderWithIntl(
+		renderWithIntl(
 			<AvatarGroup items={[]} name={ElementName.AssignedToGroup} showFallbackAvatar={false} />,
 		);
-		const AvatarGroupComponent = await queryByTestId(`${testId}--avatar-group`);
+		const AvatarGroupComponent = screen.queryByTestId(`${testId}--avatar-group`);
 		expect(AvatarGroupComponent).not.toBeInTheDocument();
 	});
 
 	it.each([ElementName.OwnedByGroup, ElementName.AuthorGroup, ElementName.CollaboratorGroup])(
 		'no Unassigned Fallback for %s element',
 		async (elementName: ElementName) => {
-			const { queryByTestId } = await renderWithIntl(<AvatarGroup items={[]} name={elementName} />);
-			const AvatarGroupComponent = await queryByTestId(`${testId}--avatar-group`);
+			renderWithIntl(<AvatarGroup items={[]} name={elementName} />);
+			const AvatarGroupComponent = screen.queryByTestId(`${testId}--avatar-group`);
 			expect(AvatarGroupComponent).not.toBeInTheDocument();
 		},
 	);

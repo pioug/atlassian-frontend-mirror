@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.9.1
+
+### Patch Changes
+
+- [#152399](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152399)
+  [`fbd7217f0cb51`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fbd7217f0cb51) -
+  [ux] ED-25092: Migrated table toolbar icons
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+- Updated dependencies
+
 ## 2.9.0
 
 ### Minor Changes

@@ -142,7 +142,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 	const focusRef = useRef<HTMLElement>();
 
 	const selectOptions =
-		customFeedbackOptions.length > 0 && fg('platform.custom-select-feedback-options_c61l9')
+		customFeedbackOptions.length > 0
 			? customFeedbackOptions
 			: getSelectOptions(feedbackGroupLabels);
 

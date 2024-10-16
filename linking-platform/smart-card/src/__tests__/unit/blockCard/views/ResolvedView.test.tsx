@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { BlockCardResolvedView } from '../../../../view/BlockCard';
 import { getResolvedProps } from '../../../__mocks__/get-resolved-props';
@@ -20,14 +20,11 @@ describe('Block card views - Resolved', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
-		cleanup();
 	});
 
 	it('renders view', () => {
-		const { getByTestId } = renderWithIntl(
-			<BlockCardResolvedView testId="resolved-view" {...props} />,
-		);
-		const frame = getByTestId('resolved-view');
+		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...props} />);
+		const frame = screen.getByTestId('resolved-view');
 		expect(frame.textContent).toBe('https://github.com/atlassian/changesetsHouse of Holbein');
 	});
 
@@ -36,10 +33,8 @@ describe('Block card views - Resolved', () => {
 			...props,
 			details: [{ text: 'fill my goblet up to the brim' }],
 		};
-		const { getByTestId } = renderWithIntl(
-			<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
-		);
-		const frame = getByTestId('resolved-view-meta');
+		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
+		const frame = screen.getByTestId('resolved-view-meta');
 		expect(frame.textContent).toBe('fill my goblet up to the brim');
 	});
 
@@ -48,10 +43,8 @@ describe('Block card views - Resolved', () => {
 			...props,
 			byline: 'V real react node',
 		};
-		const { getByTestId } = renderWithIntl(
-			<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
-		);
-		const frame = getByTestId('resolved-view-by');
+		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
+		const frame = screen.getByTestId('resolved-view-by');
 		expect(frame.textContent).toBe('V real react node');
 	});
 
@@ -60,10 +53,8 @@ describe('Block card views - Resolved', () => {
 			...props,
 			byline: 'Tall, large, Henry the eighth',
 		};
-		const { getByTestId } = renderWithIntl(
-			<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
-		);
-		const frame = getByTestId('resolved-view-by');
+		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
+		const frame = screen.getByTestId('resolved-view-by');
 		expect(frame.textContent).toBe('Tall, large, Henry the eighth');
 	});
 
@@ -73,10 +64,8 @@ describe('Block card views - Resolved', () => {
 			byline: 'V real react node',
 			description: 'Tall, large, Henry the eighth',
 		};
-		const { getByTestId } = renderWithIntl(
-			<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
-		);
-		const frame = getByTestId('resolved-view-by');
+		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
+		const frame = screen.getByTestId('resolved-view-by');
 		expect(frame.textContent).toBe('V real react node');
 	});
 
@@ -86,10 +75,8 @@ describe('Block card views - Resolved', () => {
 			byline: 'V real react node',
 			details: [{ text: 'fill my goblet up to the brim' }],
 		};
-		const { getByTestId } = renderWithIntl(
-			<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
-		);
-		const frame = getByTestId('resolved-view-meta');
+		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
+		const frame = screen.getByTestId('resolved-view-meta');
 		expect(frame.textContent).toBe('fill my goblet up to the brim');
 	});
 
@@ -98,10 +85,8 @@ describe('Block card views - Resolved', () => {
 			...props,
 			thumbnail: 'Our riffs were on fire',
 		};
-		const { getByTestId } = renderWithIntl(
-			<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
-		);
-		const thumb = getByTestId('resolved-view-thumb');
+		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
+		const thumb = screen.getByTestId('resolved-view-thumb');
 		expect(thumb).toHaveStyleDeclaration('background-image', `url(Our riffs were on fire)`);
 	});
 
@@ -120,10 +105,8 @@ describe('Block card views - Resolved', () => {
 			...props,
 			users: users,
 		};
-		const { getByTestId } = renderWithIntl(
-			<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
-		);
-		const avatarGroup = getByTestId('resolved-view-collaborator-list--avatar-group');
+		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
+		const avatarGroup = screen.getByTestId('resolved-view-collaborator-list--avatar-group');
 		expect(avatarGroup.childElementCount).toBe(2);
 	});
 
@@ -132,17 +115,13 @@ describe('Block card views - Resolved', () => {
 			...props,
 			users: [],
 		};
-		const { queryByTestId } = renderWithIntl(
-			<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
-		);
-		expect(queryByTestId('resolved-view-avatars--avatar-group')).toBeNull();
+		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
+		expect(screen.queryByTestId('resolved-view-avatars--avatar-group')).toBeNull();
 	});
 
 	it('clicking on link should have no side-effects', () => {
-		const { getByTestId } = renderWithIntl(
-			<BlockCardResolvedView testId="resolved-view" {...props} />,
-		);
-		const view = getByTestId('resolved-view');
+		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...props} />);
+		const view = screen.getByTestId('resolved-view');
 		const link = view.querySelector('a');
 
 		expect(link).toBeTruthy();
@@ -159,10 +138,8 @@ describe('Block card views - Resolved', () => {
 			},
 			titlePrefix: emoji,
 		};
-		const { getByTestId } = renderWithIntl(
-			<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
-		);
-		const emojiTest = getByTestId('emoji');
+		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
+		const emojiTest = screen.getByTestId('emoji');
 		expect(emojiTest.textContent).toBe('😍');
 	});
 
@@ -175,10 +152,8 @@ describe('Block card views - Resolved', () => {
 			},
 			titlePrefix: emoji,
 		};
-		const { getByTestId } = renderWithIntl(
-			<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />,
-		);
-		const emojiTest = getByTestId('emoji');
+		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
+		const emojiTest = screen.getByTestId('emoji');
 		expect(emojiTest.textContent).toBe('😍');
 	});
 });

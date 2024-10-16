@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 198.6.5
+
+### Patch Changes
+
+- [#152480](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152480)
+  [`831fe131ac081`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/831fe131ac081) -
+  Remove FF platform_editor_td_provider_from_plugin_config
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+- [#152434](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152434)
+  [`446eacc8ed3b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/446eacc8ed3b5) -
+  Cleanup FF platform_editor_remove_use_preset_context
+- Updated dependencies
+
+## 198.6.4
+
+### Patch Changes
+
+- [#151676](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151676)
+  [`ed6d01983b0da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed6d01983b0da) -
+  ED-25183: Remediate WithEditorActions, WithPluginState & LegacyEditorContext context type
+
 ## 198.6.3
 
 ### Patch Changes

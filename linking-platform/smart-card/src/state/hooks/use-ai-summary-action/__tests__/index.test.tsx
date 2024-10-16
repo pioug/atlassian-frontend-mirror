@@ -143,10 +143,10 @@ describe('useAISummaryAction', () => {
 				},
 				ANALYTICS_CHANNEL,
 			);
-			expect(ufoStartSpy).toBeCalledTimes(1);
-			expect(ufoStartSpy).toBeCalledWith('smart-link-ai-summary', experienceId);
-			expect(ufoSucceedSpy).toBeCalledTimes(1);
-			expect(ufoSucceedSpy).toBeCalledWith('smart-link-ai-summary', experienceId);
+			expect(ufoStartSpy).toHaveBeenCalledTimes(1);
+			expect(ufoStartSpy).toHaveBeenCalledWith('smart-link-ai-summary', experienceId);
+			expect(ufoSucceedSpy).toHaveBeenCalledTimes(1);
+			expect(ufoSucceedSpy).toHaveBeenCalledWith('smart-link-ai-summary', experienceId);
 		});
 
 		it.each([

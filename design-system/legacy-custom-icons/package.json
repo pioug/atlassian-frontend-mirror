@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/legacy-custom-icons",
-	"version": "0.1.0",
+	"version": "0.4.0",
 	"description": "A centralised place to store legacy custom icons.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,7 +37,23 @@
 		"./roadmaps-service-icon": "./src/ui/roadmaps-service-icon/index.tsx",
 		"./component-icon": "./src/ui/component-icon/index.tsx",
 		"./curly-brackets-icon": "./src/ui/curly-brackets-icon/index.tsx",
-		"./globe-icon": "./src/ui/globe-icon/index.tsx"
+		"./globe-icon": "./src/ui/globe-icon/index.tsx",
+		"./manual-trigger-icon": "./src/ui/manual-trigger-icon/index.tsx",
+		"./automation-icon": "./src/ui/automation-icon/index.tsx",
+		"./field-value-changed-icon": "./src/ui/field-value-changed-icon/index.tsx",
+		"./security-icon": "./src/ui/security-icon/index.tsx",
+		"./transition-icon": "./src/ui/transition-icon/index.tsx",
+		"./ansible-icon": "./src/ui/ansible-icon/index.tsx",
+		"./aws-icon": "./src/ui/aws-icon/index.tsx",
+		"./relic-icon": "./src/ui/relic-icon/index.tsx",
+		"./slack-icon": "./src/ui/slack-icon/index.tsx",
+		"./ms-teams-icon": "./src/ui/ms-teams-icon/index.tsx",
+		"./people-icon": "./src/ui/people-icon/index.tsx",
+		"./person-icon": "./src/ui/person-icon/index.tsx",
+		"./sign-out-icon": "./src/ui/sign-out-icon/index.tsx",
+		"./theme-icon": "./src/ui/theme-icon/index.tsx",
+		"./curly-brackets-tall-icon": "./src/ui/curly-brackets-tall-icon/index.tsx",
+		"./automation-new-icon": "./src/ui/automation-new-icon/index.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
@@ -45,10 +61,27 @@
 		"./roadmaps-service-icon": "./src/ui/roadmaps-service-icon/index.tsx",
 		"./component-icon": "./src/ui/component-icon/index.tsx",
 		"./curly-brackets-icon": "./src/ui/curly-brackets-icon/index.tsx",
-		"./globe-icon": "./src/ui/globe-icon/index.tsx"
+		"./globe-icon": "./src/ui/globe-icon/index.tsx",
+		"./manual-trigger-icon": "./src/ui/manual-trigger-icon/index.tsx",
+		"./automation-icon": "./src/ui/automation-icon/index.tsx",
+		"./field-value-changed-icon": "./src/ui/field-value-changed-icon/index.tsx",
+		"./security-icon": "./src/ui/security-icon/index.tsx",
+		"./transition-icon": "./src/ui/transition-icon/index.tsx",
+		"./ansible-icon": "./src/ui/ansible-icon/index.tsx",
+		"./aws-icon": "./src/ui/aws-icon/index.tsx",
+		"./relic-icon": "./src/ui/relic-icon/index.tsx",
+		"./slack-icon": "./src/ui/slack-icon/index.tsx",
+		"./ms-teams-icon": "./src/ui/ms-teams-icon/index.tsx",
+		"./people-icon": "./src/ui/people-icon/index.tsx",
+		"./person-icon": "./src/ui/person-icon/index.tsx",
+		"./sign-out-icon": "./src/ui/sign-out-icon/index.tsx",
+		"./theme-icon": "./src/ui/theme-icon/index.tsx",
+		"./curly-brackets-tall-icon": "./src/ui/curly-brackets-tall-icon/index.tsx",
+		"./automation-new-icon": "./src/ui/automation-new-icon/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^22.22.0",
+		"@atlaskit/tokens": "^2.0.3",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

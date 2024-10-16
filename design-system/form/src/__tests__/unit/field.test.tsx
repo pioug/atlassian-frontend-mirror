@@ -3,7 +3,7 @@ import React, { type ReactNode } from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import Select, { type ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';

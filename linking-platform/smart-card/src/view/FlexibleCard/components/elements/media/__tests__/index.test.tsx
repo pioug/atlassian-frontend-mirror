@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Media from '../index';
 import { MediaType } from '../../../../../../constants';
@@ -23,10 +23,10 @@ describe('Element: Media', () => {
 	const testId = 'smart-element-media';
 
 	it('renders element', async () => {
-		const { findByTestId } = render(<Media type={MediaType.Image} url="src-loaded" />);
+		render(<Media type={MediaType.Image} url="src-loaded" />);
 
-		const element = await findByTestId(testId);
-		const image = await findByTestId(`${testId}-image`);
+		const element = await screen.findByTestId(testId);
+		const image = await screen.findByTestId(`${testId}-image`);
 
 		expect(element).toBeTruthy();
 		expect(element.getAttribute('data-smart-element-media')).toBeTruthy();
@@ -52,23 +52,19 @@ describe('Element: Media', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		const { findByTestId } = render(
-			<Media overrideCss={overrideCss} type={MediaType.Image} url="src-loaded" />,
-		);
+		render(<Media overrideCss={overrideCss} type={MediaType.Image} url="src-loaded" />);
 
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 
 		expect(element).toHaveStyleDeclaration('background-color', 'blue');
 	});
 
 	describe('Image', () => {
 		it('renders nothing on error', async () => {
-			const { findByTestId, queryByTestId } = render(
-				<Media type={MediaType.Image} url="src-error" />,
-			);
-			await findByTestId(testId);
+			render(<Media type={MediaType.Image} url="src-error" />);
+			await screen.findByTestId(testId);
 
-			expect(queryByTestId(`${testId}-image`)).toBeNull();
+			expect(screen.queryByTestId(`${testId}-image`)).toBeNull();
 		});
 	});
 });

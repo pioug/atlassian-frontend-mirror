@@ -22,6 +22,7 @@ import type {
 import {
 	calculateToolbarPositionAboveSelection,
 	calculateToolbarPositionTrackHead,
+	getRangeInlineNodeNames,
 } from '@atlaskit/editor-common/utils';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -30,7 +31,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { setInlineCommentDraftState } from './commands';
 import { AnnotationSelectionType, AnnotationTestIds } from './types';
-import { isSelectionValid } from './utils';
+import { getPluginState, isSelectionValid, resolveDraftBookmark } from './utils';
 
 export const buildToolbar =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
@@ -71,6 +72,16 @@ export const buildToolbar =
 				),
 			title: createCommentMessage,
 			onMount: () => {
+				// Check if the selection includes an non-text inline node
+				const inlineCommentPluginState = getPluginState(state);
+				const inlineNodeNames =
+					getRangeInlineNodeNames({
+						doc: state.doc,
+						pos: resolveDraftBookmark(state, inlineCommentPluginState?.bookmark),
+					}) ?? [];
+				const isNonTextInlineNodeInludedInComment =
+					inlineNodeNames.filter((nodeName) => nodeName !== 'text').length > 0;
+
 				if (editorAnalyticsAPI) {
 					editorAnalyticsAPI.fireAnalyticsEvent({
 						action: ACTION.VIEWED,
@@ -78,6 +89,12 @@ export const buildToolbar =
 						actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
 						eventType: EVENT_TYPE.UI,
 						attributes: {
+							/**
+							 * This attribute is used as the trigger to display an engagement platform promotion message
+							 * when isNonTextInlineNodeInludedInComment is true, and isDisabled is false,
+							 * A spotlight/flag will be shown to the user to encourage them to comment on inline nodes.
+							 */
+							isNonTextInlineNodeInludedInComment,
 							isDisabled: selectionValid === AnnotationSelectionType.DISABLED,
 							inputMethod: INPUT_METHOD.FLOATING_TB,
 							mode: MODE.EDITOR,

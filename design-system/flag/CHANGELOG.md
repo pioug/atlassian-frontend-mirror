@@ -1,5 +1,13 @@
 # @atlaskit/flag
 
+## 15.8.5
+
+### Patch Changes
+
+- [#152429](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152429)
+  [`5d414827c3394`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d414827c3394) -
+  Removes usages of deprecated CustomThemeButton in favor of the new Button
+
 ## 15.8.4
 
 ### Patch Changes

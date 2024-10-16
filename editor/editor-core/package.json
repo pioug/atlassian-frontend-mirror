@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "198.6.3",
+	"version": "198.6.5",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -38,13 +38,13 @@
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.4.0",
-		"@atlaskit/adf-schema": "^40.9.4",
+		"@atlaskit/adf-schema": "^42.0.2",
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.2.0",
-		"@atlaskit/editor-common": "^93.4.0",
-		"@atlaskit/editor-json-transformer": "^8.19.0",
+		"@atlaskit/editor-common": "^93.5.0",
+		"@atlaskit/editor-json-transformer": "^8.20.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.4.5",
 		"@atlaskit/editor-plugins": "^5.5.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
@@ -83,8 +83,8 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.9.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
-		"@atlaskit/collab-provider": "9.43.0",
-		"@atlaskit/editor-plugin-annotation": "1.20.0",
+		"@atlaskit/collab-provider": "9.43.1",
+		"@atlaskit/editor-plugin-annotation": "1.21.0",
 		"@atlaskit/editor-plugin-card": "^4.3.0",
 		"@atlaskit/editor-plugin-list": "^3.9.0",
 		"@atlaskit/editor-plugin-paste": "^1.14.0",
@@ -211,6 +211,10 @@
 		"platform_editor_disable_instrumented_plugin": {
 			"type": "boolean"
 		},
+		"linking_platform_smart_links_in_live_pages": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_drag_and_drop_expand_style_fix": {
 			"type": "boolean"
 		},
@@ -267,15 +271,16 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_react18_phase2": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_react18_extension_component": {
 			"type": "boolean"
 		},
 		"platform_editor_context_panel_support_multiple": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_td_provider_from_plugin_config": {
-			"type": "boolean"
 		},
 		"platform_editor_heading_margin_fix": {
 			"type": "boolean",
@@ -286,10 +291,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_drag_and_drop_target_v2": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_react18_phase2": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

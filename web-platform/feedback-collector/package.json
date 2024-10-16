@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "13.13.2",
+	"version": "13.13.3",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -94,9 +94,6 @@
 	},
 	"platform-feature-flags": {
 		"platform.proforma-form-builder-feedback_hupaz": {
-			"type": "boolean"
-		},
-		"platform.custom-select-feedback-options_c61l9": {
 			"type": "boolean"
 		},
 		"underlined_iph_links": {

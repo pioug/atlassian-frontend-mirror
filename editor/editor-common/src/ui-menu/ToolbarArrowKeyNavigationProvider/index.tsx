@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-/* eslint-disable no-console */
 import type { ReactNode } from 'react';
 import React, { useCallback, useLayoutEffect, useRef } from 'react';
 
@@ -13,7 +12,8 @@ import type { IntlShape } from 'react-intl-next/src/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { ELEMENT_BROWSER_ID } from '../../element-browser';
-import { fullPageMessages as messages } from '../../messages';
+import { fullPageMessages } from '../../messages';
+import { mediaInsertMessages } from '../../messages/media-insert';
 import type { EditorAppearance } from '../../types';
 import type { UseStickyToolbarType } from '../../ui';
 import { EDIT_AREA_ID } from '../../ui';
@@ -187,6 +187,16 @@ export const ToolbarArrowKeyNavigationProvider = ({
 				return;
 			}
 
+			// If the target element is the media picker then navigation is handled by the media picker
+			if (
+				targetElement instanceof HTMLElement &&
+				targetElement.closest(
+					`[aria-label="${intl.formatMessage(mediaInsertMessages.mediaPickerPopupAriaLabel)}"]`,
+				)
+			) {
+				return;
+			}
+
 			if (targetElement instanceof HTMLElement && !wrapperRef.current?.contains(targetElement)) {
 				selectedItemIndex.current = -1;
 			} else {
@@ -263,6 +273,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
 		isShortcutToFocusToolbar,
 		editorAppearance,
 		useStickyToolbar,
+		intl,
 	]);
 
 	return (
@@ -272,7 +283,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
 			className="custom-key-handler-wrapper"
 			ref={wrapperRef}
 			role="toolbar"
-			aria-label={intl.formatMessage(messages.toolbarLabel)}
+			aria-label={intl.formatMessage(fullPageMessages.toolbarLabel)}
 			aria-controls={EDIT_AREA_ID}
 		>
 			<KeyDownHandlerContext.Provider value={submenuKeydownHandleContext}>

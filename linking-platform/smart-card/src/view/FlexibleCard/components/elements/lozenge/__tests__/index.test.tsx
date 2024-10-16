@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
@@ -15,17 +15,17 @@ describe('Element: Lozenge', () => {
 	const appearance = 'inprogress';
 
 	it('renders element', async () => {
-		const { findByTestId } = render(<Lozenge text={text} appearance={appearance} />);
+		render(<Lozenge text={text} appearance={appearance} />);
 
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 
 		expect(element).toBeTruthy();
 		expect(element.textContent).toBe(text);
 	});
 
 	it('does not render when no text in element', async () => {
-		const { queryByTestId } = render(<Lozenge text={''} appearance={appearance} />);
-		expect(queryByTestId(testId)).toBeNull();
+		render(<Lozenge text={''} appearance={appearance} />);
+		expect(screen.queryByTestId(testId)).toBeNull();
 	});
 
 	describe('renders element with different appearances', () => {
@@ -39,9 +39,9 @@ describe('Element: Lozenge', () => {
 		];
 		for (const appearance of appearances) {
 			it(`renders with ${appearance} appearance`, async () => {
-				const { findByTestId } = render(<Lozenge text={text} appearance={appearance} />);
+				render(<Lozenge text={text} appearance={appearance} />);
 
-				const element = await findByTestId(testId);
+				const element = await screen.findByTestId(testId);
 
 				expect(element).toBeTruthy();
 				expect(element.textContent).toBe(text);
@@ -50,8 +50,8 @@ describe('Element: Lozenge', () => {
 	});
 
 	it('renders with default appearance when given an unexpected appearance', async () => {
-		const { findByTestId } = render(<Lozenge text={text} appearance={'spaghetti' as any} />);
-		const element = await findByTestId(testId);
+		render(<Lozenge text={text} appearance={'spaghetti' as any} />);
+		const element = await screen.findByTestId(testId);
 		expect(element).toBeTruthy();
 		expect(element.textContent).toBe(text);
 	});
@@ -60,11 +60,9 @@ describe('Element: Lozenge', () => {
 		const overrideCss = css({
 			fontStyle: 'italic',
 		});
-		const { findByTestId } = render(
-			<Lozenge appearance={appearance} overrideCss={overrideCss} text={text} />,
-		);
+		render(<Lozenge appearance={appearance} overrideCss={overrideCss} text={text} />);
 
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 
 		expect(element).toHaveStyleDeclaration('font-style', 'italic');
 	});
@@ -102,11 +100,9 @@ describe('Element: Lozenge', () => {
 			jest.spyOn(useInvoke, 'default').mockReturnValue(jest.fn());
 			jest.spyOn(useResolve, 'default').mockReturnValue(jest.fn());
 
-			const { findByTestId } = render(
-				<Lozenge action={action} appearance={appearance} testId={testId} text={text} />,
-			);
+			render(<Lozenge action={action} appearance={appearance} testId={testId} text={text} />);
 
-			const element = await findByTestId(triggerTestId);
+			const element = await screen.findByTestId(triggerTestId);
 
 			expect(element).toBeTruthy();
 		});

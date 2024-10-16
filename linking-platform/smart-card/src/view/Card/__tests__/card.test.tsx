@@ -2,7 +2,7 @@ import './card.test.mock';
 
 import * as analytics from '../../../utils/analytics';
 import React from 'react';
-import { render, waitFor, cleanup } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import { CardClient } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { Card } from '../../Card';
@@ -29,13 +29,12 @@ describe('smart-card: card', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 		consoleErrorFn.mockRestore();
-		cleanup();
 	});
 
 	describe('unhandled errors', () => {
 		it('are not thrown and onError method is called', async () => {
 			const mockErrorHandler = jest.fn();
-			const { findByText } = render(
+			render(
 				<Provider client={mockClient}>
 					<div>
 						Hello I am parent of card
@@ -50,10 +49,10 @@ describe('smart-card: card', () => {
 					</div>
 				</Provider>,
 			);
-			await waitFor(() => expect(mockErrorHandler).toBeCalledTimes(1));
-			const parent = await findByText('Hello I am parent of card');
+			await waitFor(() => expect(mockErrorHandler).toHaveBeenCalledTimes(1));
+			const parent = await screen.findByText('Hello I am parent of card');
 			expect(parent).toBeTruthy();
-			expect(mockErrorHandler).toBeCalledWith({
+			expect(mockErrorHandler).toHaveBeenCalledWith({
 				status: 'errored',
 				url: mockUrl,
 				err: expect.objectContaining({
@@ -64,7 +63,7 @@ describe('smart-card: card', () => {
 		});
 
 		it('fallback component is rendered', async () => {
-			const { findByText } = render(
+			render(
 				<Provider client={mockClient}>
 					<Card
 						appearance="block"
@@ -76,7 +75,7 @@ describe('smart-card: card', () => {
 					/>
 				</Provider>,
 			);
-			const fallback = await findByText('Hello I am fallback component');
+			const fallback = await screen.findByText('Hello I am fallback component');
 			expect(fallback).toBeTruthy();
 		});
 
@@ -98,7 +97,7 @@ describe('smart-card: card', () => {
 			}
 			const client = new MockClient();
 			const onError = jest.fn();
-			const { findByText } = render(
+			render(
 				<ErrorBoundary onError={onError} fallback={<span>yo wadup !</span>}>
 					<Provider client={client}>
 						<Card
@@ -126,7 +125,7 @@ describe('smart-card: card', () => {
 					}),
 				),
 			);
-			const fallback = await findByText('yo wadup !');
+			const fallback = await screen.findByText('yo wadup !');
 			expect(fallback).toBeInTheDocument();
 		});
 	});

@@ -1,5 +1,5 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { render, waitForElementToBeRemoved } from '@testing-library/react';
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import '@atlaskit/link-test-helpers/jest';
@@ -30,8 +30,8 @@ describe('CopyLinkAction', () => {
 	};
 
 	it('renders stack item action', async () => {
-		const { findByTestId } = setup();
-		const element = await findByTestId(testId);
+		setup();
+		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
 		expect(element.textContent).toBe('Copy link');
 	});
@@ -39,40 +39,40 @@ describe('CopyLinkAction', () => {
 	describe('with tooltip', () => {
 		it('renders stack item tooltip', async () => {
 			const user = userEvent.setup();
-			const { findByRole, findByTestId } = setup();
+			setup();
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			await user.hover(element);
 
-			const tooltip = await findByRole('tooltip');
+			const tooltip = await screen.findByRole('tooltip');
 			expect(tooltip.textContent).toBe('Copy link');
 		});
 
 		it('renders updated tooltip after onClick', async () => {
 			const user = userEvent.setup();
-			const { findByRole, findByTestId } = setup();
+			setup();
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			await user.click(element);
 
-			const tooltip = await findByRole('tooltip');
+			const tooltip = await screen.findByRole('tooltip');
 			expect(tooltip.textContent).toBe('Copied!');
 		});
 
 		it('resets tooltip message after tooltip hides', async () => {
 			const user = userEvent.setup();
-			const { findAllByText, queryAllByText, findByTestId } = setup();
+			setup();
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 
 			await user.click(element);
-			await findAllByText('Copied!');
+			await screen.findAllByText('Copied!');
 
 			await user.unhover(element);
-			await waitForElementToBeRemoved(() => queryAllByText(`Copied!`));
+			await waitForElementToBeRemoved(() => screen.queryAllByText(`Copied!`));
 
 			await userEvent.hover(element);
-			const tooltip = await findAllByText('Copy link');
+			const tooltip = await screen.findAllByText('Copy link');
 			expect(tooltip).toBeTruthy();
 		});
 	});

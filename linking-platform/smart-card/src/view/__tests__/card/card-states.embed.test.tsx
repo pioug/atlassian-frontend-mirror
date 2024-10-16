@@ -2,7 +2,7 @@ import './card-states.card.test.mock';
 
 import React from 'react';
 import { type JsonLd } from 'json-ld-types';
-import { render, cleanup, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { type CardClient, type CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { Card } from '../../Card';
@@ -27,7 +27,6 @@ describe('smart-card: card states, embed', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
-		cleanup();
 	});
 
 	describe('render method: withUrl', () => {
@@ -37,7 +36,7 @@ describe('smart-card: card states, embed', () => {
 				 * Note EDM-10399 React18 Migration: This test is a bit odd as it asserts a loading state (an intermediate state),
 				 * then asserts that the loading state is removed and a mocked function was called.
 				 */
-				const { getByTestId, queryByTestId } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="embed" url={mockUrl} />
@@ -46,11 +45,11 @@ describe('smart-card: card states, embed', () => {
 				);
 
 				await waitFor(async () => {
-					expect(getByTestId('embed-card-resolving-view')).toBeInTheDocument();
+					expect(screen.getByTestId('embed-card-resolving-view')).toBeInTheDocument();
 				});
 
 				await waitFor(() => {
-					expect(queryByTestId('embed-card-resolving-view')).not.toBeInTheDocument();
+					expect(screen.queryByTestId('embed-card-resolving-view')).not.toBeInTheDocument();
 				});
 
 				expect(mockFetch).toHaveBeenCalledTimes(1);
@@ -59,14 +58,14 @@ describe('smart-card: card states, embed', () => {
 
 		describe('> state: resolved', () => {
 			it('embed: should render with metadata when resolved', async () => {
-				const { findByTestId } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="embed" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedViewName = await findByTestId('embed-card-resolved-view-frame');
+				const resolvedViewName = await screen.findByTestId('embed-card-resolved-view-frame');
 				expect(resolvedViewName).toBeInTheDocument();
 				expect(resolvedViewName.getAttribute('src')).toEqual('https://www.ilovecheese.com');
 				expect(mockFetch).toHaveBeenCalledTimes(1);
@@ -89,15 +88,17 @@ describe('smart-card: card states, embed', () => {
 				} as JsonLd.Response;
 
 				mockFetch.mockImplementationOnce(async () => successWithoutPreview);
-				const { findByText } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="embed" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedViewName = await findByText('I love cheese');
-				const resolvedViewDescription = await findByText('Here is your serving of cheese: 🧀');
+				const resolvedViewName = await screen.findByText('I love cheese');
+				const resolvedViewDescription = await screen.findByText(
+					'Here is your serving of cheese: 🧀',
+				);
 				expect(resolvedViewName).toBeInTheDocument();
 				expect(resolvedViewDescription).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
@@ -117,15 +118,15 @@ describe('smart-card: card states, embed', () => {
 				} as JsonLd.Response;
 
 				mockFetch.mockImplementationOnce(async () => successWithPreviewOnWeb);
-				const { findByText, findByTestId } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="embed" url={mockUrl} platform="mobile" />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedViewName = await findByText('I love cheese');
-				const resolvedViewDescription = await findByTestId('inline-card-resolved-view');
+				const resolvedViewName = await screen.findByText('I love cheese');
+				const resolvedViewDescription = await screen.findByTestId('inline-card-resolved-view');
 				expect(resolvedViewName).toBeInTheDocument();
 				expect(resolvedViewDescription).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
@@ -133,14 +134,14 @@ describe('smart-card: card states, embed', () => {
 
 			it('should re-render when URL changes', async () => {
 				let resolvedView = null;
-				const { findByText, rerender } = render(
+				const { rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="embed" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await findByText('I love cheese');
+				resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 
@@ -151,20 +152,20 @@ describe('smart-card: card states, embed', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await findByText('I love cheese');
+				resolvedView = await screen.findByText('I love cheese');
 				expect(mockFetch).toHaveBeenCalledTimes(2);
 			});
 
 			it('should not re-render when appearance changes', async () => {
 				let resolvedView = null;
-				const { findByText, rerender } = render(
+				const { rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="embed" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await findByText('I love cheese');
+				resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 
@@ -175,20 +176,20 @@ describe('smart-card: card states, embed', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await findByText('I love cheese');
+				resolvedView = await screen.findByText('I love cheese');
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 
 			it('should pass iframe forward reference down to embed iframe', async () => {
 				const iframeRef = React.createRef<HTMLIFrameElement>();
-				const { findByTestId } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="embed" url={mockUrl} embedIframeRef={iframeRef} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const iframeEl = await findByTestId('embed-card-resolved-view-frame');
+				const iframeEl = await screen.findByTestId('embed-card-resolved-view-frame');
 				expect(iframeEl).toBe(iframeRef.current);
 			});
 		});
@@ -197,14 +198,14 @@ describe('smart-card: card states, embed', () => {
 			describe('with auth services available', () => {
 				it('embed: renders the forbidden view if no access, with auth prompt', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.forbidden);
-					const { findByText, container } = render(
+					const { container } = render(
 						<Provider client={mockClient}>
 							<Card appearance="embed" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
 					await new Promise((resolve) => setTimeout(resolve, 1000));
 
-					const forbiddenLink = await findByText(/Restricted content/);
+					const forbiddenLink = await screen.findByText(/Restricted content/);
 					expect(forbiddenLink).toBeInTheDocument();
 					const forbiddenLinkButton = container.querySelector('button');
 					expect(forbiddenLinkButton).toBeInTheDocument();
@@ -221,12 +222,12 @@ describe('smart-card: card states, embed', () => {
 				it('embed: renders the forbidden view if no access, no auth prompt', async () => {
 					mocks.forbidden.meta.auth = [];
 					mockFetch.mockImplementationOnce(async () => mocks.forbidden);
-					const { findByText } = render(
+					render(
 						<Provider client={mockClient}>
 							<Card appearance="embed" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const forbiddenLink = await findByText(/Restricted content/);
+					const forbiddenLink = await screen.findByText(/Restricted content/);
 					expect(forbiddenLink).toBeInTheDocument();
 					expect(mockFetch).toHaveBeenCalledTimes(1);
 					expect(mockOnError).toHaveBeenCalledWith({
@@ -337,12 +338,12 @@ describe('smart-card: card states, embed', () => {
 					],
 				])('%s', (name: string, context: ContextProp, expected: ContentProps) => {
 					async () => {
-						const { container, findByText } = await setup(mockResponse(context));
+						const { container } = await setup(mockResponse(context));
 
-						expect(await findByText(expected.title)).toBeVisible();
+						expect(await screen.findByText(expected.title)).toBeVisible();
 						expect(container).toHaveTextContent(expected.description);
 						if (expected.button) {
-							expect(await findByText(expected.button)).toBeVisible();
+							expect(await screen.findByText(expected.button)).toBeVisible();
 						}
 					};
 				});
@@ -354,7 +355,7 @@ describe('smart-card: card states, embed', () => {
 		describe('with auth services available', () => {
 			it('embed: renders with connect flow', async () => {
 				mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-				const { findByTestId, getByTestId } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card
 							testId="block-unauthorized-connect"
@@ -365,9 +366,11 @@ describe('smart-card: card states, embed', () => {
 					</Provider>,
 				);
 
-				const unauthorizedLink = await findByTestId('block-unauthorized-connect-unresolved-title');
+				const unauthorizedLink = await screen.findByTestId(
+					'block-unauthorized-connect-unresolved-title',
+				);
 				expect(unauthorizedLink).toBeInTheDocument();
-				const unauthorizedLinkButton = getByTestId('connect-account');
+				const unauthorizedLinkButton = screen.getByTestId('connect-account');
 				expect(unauthorizedLinkButton).toBeInTheDocument();
 				expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
 				expect(mockFetch).toHaveBeenCalledTimes(1);
@@ -381,12 +384,12 @@ describe('smart-card: card states, embed', () => {
 		describe('with auth services not available', () => {
 			it('embed: renders without connect flow', async () => {
 				mockFetch.mockImplementationOnce(async () => mocks.unauthorizedWithNoAuth);
-				const { findByTestId } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card appearance="embed" url={mockUrl} onError={mockOnError} />
 					</Provider>,
 				);
-				const unauthorizedLink = await findByTestId(
+				const unauthorizedLink = await screen.findByTestId(
 					'embed-card-unauthorized-view-unresolved-title',
 				);
 				expect(unauthorizedLink).toBeInTheDocument();
@@ -401,12 +404,12 @@ describe('smart-card: card states, embed', () => {
 		describe('with authFlow explicitly disabled', () => {
 			it('embed: renders in error state', async () => {
 				mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-				const { findByText } = render(
+				render(
 					<Provider client={mockClient} authFlow="disabled">
 						<Card appearance="embed" url={mockUrl} onError={mockOnError} />
 					</Provider>,
 				);
-				const errorView = await findByText(/We couldn't load this link/);
+				const errorView = await screen.findByText(/We couldn't load this link/);
 				expect(errorView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
@@ -510,12 +513,12 @@ describe('smart-card: card states, embed', () => {
 				],
 			])('%s', (name: string, response: JsonLd.Response, expected: ContentProps) => {
 				async () => {
-					const { container, findByText } = await setup(response);
+					const { container } = await setup(response);
 
-					expect(await findByText(expected.title)).toBeVisible();
+					expect(await screen.findByText(expected.title)).toBeVisible();
 					expect(container).toHaveTextContent(expected.description);
 					if (expected.button) {
-						expect(await findByText(expected.button)).toBeVisible();
+						expect(await screen.findByText(expected.button)).toBeVisible();
 					}
 				};
 			});
@@ -524,12 +527,12 @@ describe('smart-card: card states, embed', () => {
 		describe('> state: error', () => {
 			it('embed: renders error card when link not found', async () => {
 				mockFetch.mockImplementationOnce(() => Promise.reject(new Error('Something went wrong')));
-				const { findByTestId } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card appearance="embed" url={mockUrl} onError={mockOnError} />
 					</Provider>,
 				);
-				const errorView = await findByTestId('embed-card-errored-view');
+				const errorView = await screen.findByTestId('embed-card-errored-view');
 				expect(errorView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
@@ -543,12 +546,12 @@ describe('smart-card: card states, embed', () => {
 					...mocks.notFound,
 					data: { ...mocks.notFound.data, generator: mockGenerator },
 				}));
-				const { findByText } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card appearance="embed" url={mockUrl} onError={mockOnError} />
 					</Provider>,
 				);
-				const errorView = await findByText(/We can't show you this Jira page/);
+				const errorView = await screen.findByText(/We can't show you this Jira page/);
 				expect(errorView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
@@ -563,13 +566,13 @@ describe('smart-card: card states, embed', () => {
 				const storeOptions = {
 					initialState: { [mockUrl]: {} },
 				} as CardProviderStoreOpts;
-				const { findByTestId } = render(
+				render(
 					<Provider client={mockClient} storeOptions={storeOptions}>
 						<Card appearance="embed" url={mockUrl} />
 					</Provider>,
 				);
 
-				const link = await findByTestId('embed-card-resolved-view');
+				const link = await screen.findByTestId('embed-card-resolved-view');
 				expect(link).toBeInTheDocument();
 			});
 		});
@@ -578,15 +581,17 @@ describe('smart-card: card states, embed', () => {
 	describe('render method: withData', () => {
 		describe('> state: resolved', () => {
 			it('embed: renders successfully with data', async () => {
-				const { findByText } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="embed" url={mockUrl} data={mocks.success.data} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedViewName = await findByText('I love cheese');
-				const resolvedViewDescription = await findByText('Here is your serving of cheese: 🧀');
+				const resolvedViewName = await screen.findByText('I love cheese');
+				const resolvedViewDescription = await screen.findByText(
+					'Here is your serving of cheese: 🧀',
+				);
 				expect(resolvedViewName).toBeInTheDocument();
 				expect(resolvedViewDescription).toBeInTheDocument();
 			});

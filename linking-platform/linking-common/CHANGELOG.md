@@ -1,5 +1,14 @@
 # @atlaskit/linking-common
 
+## 6.0.0
+
+### Major Changes
+
+- [#151979](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151979)
+  [`e35a44ff003e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e35a44ff003e1) -
+  Remove mock utilities from /mocks and /hooks entrypoints that directly depend on fetch-mock,
+  changes fetch-mock to a devDependency.
+
 ## 5.12.0
 
 ### Minor Changes

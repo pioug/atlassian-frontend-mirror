@@ -65,8 +65,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import type { Dispatch } from '../event-dispatcher';
-import { EditorAPIContext } from '../presets/context';
-import type { SetEditorAPI } from '../presets/context';
 import type { EditorAppearance, EditorConfig, EditorPlugin, EditorProps } from '../types';
 import type { EditorNextProps } from '../types/editor-props';
 import type { FeatureFlags } from '../types/feature-flags';
@@ -109,7 +107,8 @@ export interface EditorViewProps {
 	disabled?: boolean;
 	experienceStore?: ExperienceStore;
 	editorAPI: PublicPluginAPI<any> | undefined;
-	setEditorApi?: SetEditorAPI;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	setEditorAPI?: (editorApi: PublicPluginAPI<any>) => void;
 	render?: (props: {
 		editor: JSX.Element;
 		view?: EditorView;
@@ -262,7 +261,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 		});
 
 		const api = this.pluginInjectionAPI.api();
-		props.setEditorApi?.(api);
+		props.setEditorAPI?.(api);
 
 		this.eventDispatcher = new EventDispatcher();
 
@@ -983,40 +982,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 		const renderTrackingEnabled = renderTracking?.enabled;
 		const useShallow = renderTracking?.useShallow;
 
-		if (fg('platform_editor_remove_use_preset_context')) {
-			return (
-				<ReactEditorViewContext.Provider
-					value={{
-						editorRef: this.editorRef,
-						editorView: this.view,
-						popupsMountPoint: this.props.editorProps.popupsMountPoint,
-					}}
-				>
-					{renderTrackingEnabled && (
-						<RenderTracking
-							componentProps={this.props}
-							action={ACTION.RE_RENDERED}
-							actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
-							handleAnalyticsEvent={this.handleAnalyticsEvent}
-							useShallow={useShallow}
-						/>
-					)}
-					{this.props.render
-						? this.props.render?.({
-								editor: this.editor,
-								view: this.view,
-								config: this.config,
-								eventDispatcher: this.eventDispatcher,
-								transformer: this.contentTransformer,
-								dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-								editorRef: this.editorRef,
-								editorAPI: this.props.editorAPI,
-							}) ?? this.editor
-						: this.editor}
-				</ReactEditorViewContext.Provider>
-			);
-		}
-
 		return (
 			<ReactEditorViewContext.Provider
 				value={{
@@ -1034,24 +999,18 @@ export class ReactEditorView<T = {}> extends React.Component<
 						useShallow={useShallow}
 					/>
 				)}
-				{this.props.render ? (
-					<EditorAPIContext.Consumer>
-						{({ editorApi }) =>
-							this.props.render?.({
-								editor: this.editor,
-								view: this.view,
-								config: this.config,
-								eventDispatcher: this.eventDispatcher,
-								transformer: this.contentTransformer,
-								dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-								editorRef: this.editorRef,
-								editorAPI: editorApi,
-							}) ?? this.editor
-						}
-					</EditorAPIContext.Consumer>
-				) : (
-					this.editor
-				)}
+				{this.props.render
+					? this.props.render?.({
+							editor: this.editor,
+							view: this.view,
+							config: this.config,
+							eventDispatcher: this.eventDispatcher,
+							transformer: this.contentTransformer,
+							dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
+							editorRef: this.editorRef,
+							editorAPI: this.props.editorAPI,
+						}) ?? this.editor
+					: this.editor}
 			</ReactEditorViewContext.Provider>
 		);
 	}

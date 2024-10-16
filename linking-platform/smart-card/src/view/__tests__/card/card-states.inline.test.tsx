@@ -2,7 +2,7 @@ import './card-states.card.test.mock';
 
 import React from 'react';
 import { useEffect, useState, type ReactNode } from 'react';
-import { render, cleanup, waitFor as waitForElement, act } from '@testing-library/react';
+import { render, screen, waitFor as waitForElement, act } from '@testing-library/react';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { type CardClient, type CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
@@ -28,7 +28,6 @@ describe('smart-card: card states, inline', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
-		cleanup();
 	});
 
 	describe('render method: withUrl', () => {
@@ -38,7 +37,7 @@ describe('smart-card: card states, inline', () => {
 				 * Note EDM-10399 React18 Migration: This test is a bit odd as it asserts a loading state (an intermediate state),
 				 * then asserts that the loading state is removed and a mocked function was called.
 				 */
-				const { getByTestId, queryByTestId } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="inline" url={mockUrl} />
@@ -47,11 +46,11 @@ describe('smart-card: card states, inline', () => {
 				);
 
 				await waitForElement(async () => {
-					expect(getByTestId('inline-card-resolving-view')).toBeInTheDocument();
+					expect(screen.getByTestId('inline-card-resolving-view')).toBeInTheDocument();
 				});
 
 				await waitForElement(() => {
-					expect(queryByTestId('inline-card-resolving-view')).not.toBeInTheDocument();
+					expect(screen.queryByTestId('inline-card-resolving-view')).not.toBeInTheDocument();
 				});
 
 				expect(mockFetch).toHaveBeenCalledTimes(1);
@@ -70,7 +69,7 @@ describe('smart-card: card states, inline', () => {
 					return <span>{component}</span>;
 				};
 
-				const { getByText, findByText, findAllByText } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="inline" url={mockUrl} />
@@ -78,14 +77,14 @@ describe('smart-card: card states, inline', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				expect(getByText(mockUrl)).toBeInTheDocument();
+				expect(screen.getByText(mockUrl)).toBeInTheDocument();
 				// Then URL resolves, triggering update:
-				expect(await findByText('I love cheese')).toBeInTheDocument();
+				expect(await screen.findByText('I love cheese')).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 
 				await waitFor(500);
 
-				expect(await findAllByText('I love cheese')).toHaveLength(2);
+				expect(await screen.findAllByText('I love cheese')).toHaveLength(2);
 				// Should not call out to ORS again for the same URL.
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
@@ -95,7 +94,7 @@ describe('smart-card: card states, inline', () => {
 			it('should render title with value of url prop if no resolvingPlaceholder prop is provided', async () => {
 				const urlWithLongTitleDueToTextFragment =
 					'https://some.url#:~:text=This%20is%20a%20long%20title%20due%20to%20text%20fragment';
-				const { findByText } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<InlineCardResolvingView url={urlWithLongTitleDueToTextFragment} />
@@ -103,14 +102,14 @@ describe('smart-card: card states, inline', () => {
 					</IntlProvider>,
 				);
 
-				const resolvingViewTitle = await findByText(urlWithLongTitleDueToTextFragment);
+				const resolvingViewTitle = await screen.findByText(urlWithLongTitleDueToTextFragment);
 				expect(resolvingViewTitle).toBeInTheDocument();
 			});
 
 			it('should render title with value of resolvingPlaceholder prop if prop is provided', async () => {
 				const urlWithLongTitleDueToTextFragment =
 					'https://some.url#:~:text=This%20is%20a%20long%20title%20due%20to%20text%20fragment';
-				const { findByText } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<InlineCardResolvingView
@@ -121,21 +120,21 @@ describe('smart-card: card states, inline', () => {
 					</IntlProvider>,
 				);
 
-				const resolvingViewTitle = await findByText(mockUrl);
+				const resolvingViewTitle = await screen.findByText(mockUrl);
 				expect(resolvingViewTitle).toBeInTheDocument();
 			});
 		});
 
 		describe('> state: resolved', () => {
 			it('inline: should render with metadata when resolved', async () => {
-				const { findByText } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="inline" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedView = await findByText('I love cheese');
+				const resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 
@@ -149,14 +148,14 @@ describe('smart-card: card states, inline', () => {
 			});
 
 			it('should re-render when URL changes', async () => {
-				const { findByText, rerender } = render(
+				const { rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="inline" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedView = await findByText('I love cheese');
+				const resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 
@@ -167,19 +166,19 @@ describe('smart-card: card states, inline', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				await findByText('I love cheese');
+				await screen.findByText('I love cheese');
 				expect(mockFetch).toHaveBeenCalledTimes(2);
 			});
 
 			it('should re-render when store is destroyed', async () => {
-				const { findByText, rerender } = render(
+				const { rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="inline" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedView = await findByText('I love cheese');
+				const resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 
@@ -190,19 +189,19 @@ describe('smart-card: card states, inline', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				await findByText('I love cheese');
+				await screen.findByText('I love cheese');
 				expect(mockFetch).toHaveBeenCalledTimes(2);
 			});
 
 			it('should not re-render when appearance changes', async () => {
-				const { findByText, rerender } = render(
+				const { rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="inline" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedView = await findByText('I love cheese');
+				const resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 
@@ -213,20 +212,20 @@ describe('smart-card: card states, inline', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				await findByText('I love cheese');
+				await screen.findByText('I love cheese');
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 
 			it('should call onResolve if provided', async () => {
 				const mockOnResolve = jest.fn();
-				const { findByTestId } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="inline" url={mockUrl} onResolve={mockOnResolve} />
 						</Provider>
 					</IntlProvider>,
 				);
-				await findByTestId('inline-card-resolved-view');
+				await screen.findByTestId('inline-card-resolved-view');
 
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnResolve).toHaveBeenCalledTimes(1);
@@ -237,12 +236,12 @@ describe('smart-card: card states, inline', () => {
 			describe('with auth services available', () => {
 				it('inline: renders the forbidden view if no access, with auth prompt', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.forbidden);
-					const { findByText, container } = render(
+					const { container } = render(
 						<Provider client={mockClient}>
 							<Card appearance="inline" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const forbiddenLink = await findByText(/Restricted content/);
+					const forbiddenLink = await screen.findByText(/Restricted content/);
 					const forbiddenLinkButton = container.querySelector('[type="button"]');
 					expect(forbiddenLink).toBeInTheDocument();
 					expect(forbiddenLinkButton).toBeInTheDocument();
@@ -260,13 +259,13 @@ describe('smart-card: card states, inline', () => {
 				it('inline: renders the forbidden view if no access, no auth prompt', async () => {
 					mocks.forbidden.meta.auth = [];
 					mockFetch.mockImplementationOnce(async () => mocks.forbidden);
-					const { findByText, container } = render(
+					const { container } = render(
 						<Provider client={mockClient}>
 							<Card appearance="inline" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
 					const forbiddenLinkTruncated = mockUrl.slice(0, 5);
-					const forbiddenLink = await findByText(new RegExp(`${forbiddenLinkTruncated}.*?`));
+					const forbiddenLink = await screen.findByText(new RegExp(`${forbiddenLinkTruncated}.*?`));
 					const forbiddenLinkButton = container.querySelector('button');
 					expect(forbiddenLink).toBeTruthy();
 					expect(forbiddenLinkButton).toBeFalsy();
@@ -287,12 +286,12 @@ describe('smart-card: card states, inline', () => {
 			describe('with auth services available', () => {
 				it('inline: renders with connect flow', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					const { findByTestId, container } = render(
+					const { container } = render(
 						<Provider client={mockClient}>
 							<Card appearance="inline" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const unauthorizedLink = await findByTestId('button-connect-account');
+					const unauthorizedLink = await screen.findByTestId('button-connect-account');
 					const unauthorizedLinkButton = container.querySelector('[type="button"]');
 					expect(unauthorizedLink).toBeTruthy();
 					expect(unauthorizedLinkButton).toBeInTheDocument();
@@ -309,12 +308,12 @@ describe('smart-card: card states, inline', () => {
 				it('inline: renders without connect flow', async () => {
 					mocks.unauthorized.meta.auth = [];
 					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					const { findByText, container } = render(
+					const { container } = render(
 						<Provider client={mockClient}>
 							<Card appearance="inline" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const unauthorizedLink = await findByText(mockUrl);
+					const unauthorizedLink = await screen.findByText(mockUrl);
 					const unauthorizedLinkButton = container.querySelector('button');
 					expect(unauthorizedLink).toBeTruthy();
 					expect(unauthorizedLinkButton).not.toBeInTheDocument();
@@ -333,12 +332,12 @@ describe('smart-card: card states, inline', () => {
 			describe('with authFlow explicitly disabled', () => {
 				it('inline: renders as blue link', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					const { findByText } = render(
+					render(
 						<Provider client={mockClient} authFlow="disabled">
 							<Card appearance="inline" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const dumbLink = await findByText(mockUrl);
+					const dumbLink = await screen.findByText(mockUrl);
 					expect(dumbLink).toBeTruthy();
 					expect(mockFetch).toHaveBeenCalledTimes(1);
 					await waitForElement(async () => {
@@ -358,12 +357,12 @@ describe('smart-card: card states, inline', () => {
 				mockFetch.mockImplementationOnce(
 					() => new Promise((_resolve, reject) => reject(new Error('Something went wrong'))),
 				);
-				const { findByText } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card appearance="inline" url={mockUrl} onError={mockOnError} />
 					</Provider>,
 				);
-				const dumbLink = await findByText(mockUrl);
+				const dumbLink = await screen.findByText(mockUrl);
 				expect(dumbLink).toBeTruthy();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				await waitForElement(async () => {
@@ -378,12 +377,12 @@ describe('smart-card: card states, inline', () => {
 
 			it('inline: renders error card when link not found', async () => {
 				mockFetch.mockImplementationOnce(async () => mocks.notFound);
-				const { findByText } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card appearance="inline" url={mockUrl} onError={mockOnError} />
 					</Provider>,
 				);
-				const errorView = await findByText(/Can't find link/);
+				const errorView = await screen.findByText(/Can't find link/);
 				expect(errorView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
@@ -398,13 +397,13 @@ describe('smart-card: card states, inline', () => {
 				const storeOptions = {
 					initialState: { [mockUrl]: {} },
 				} as CardProviderStoreOpts;
-				const { findByTestId } = render(
+				render(
 					<Provider client={mockClient} storeOptions={storeOptions}>
 						<Card appearance="inline" url={mockUrl} />
 					</Provider>,
 				);
 
-				const link = await findByTestId('inline-card-resolved-view');
+				const link = await screen.findByTestId('inline-card-resolved-view');
 				expect(link).toBeInTheDocument();
 			});
 		});
@@ -413,14 +412,14 @@ describe('smart-card: card states, inline', () => {
 	describe('render method: withData', () => {
 		describe('> state: resolved', () => {
 			it('inline: renders successfully with data', async () => {
-				const { findByText } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="inline" url={mockUrl} data={mocks.success.data} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedView = await findByText('I love cheese');
+				const resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeInTheDocument();
 			});
 		});

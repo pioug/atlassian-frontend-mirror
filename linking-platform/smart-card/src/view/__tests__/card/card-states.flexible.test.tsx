@@ -8,7 +8,7 @@ import {
 	SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
 import React, { useState } from 'react';
-import { render, cleanup, waitFor, fireEvent } from '@testing-library/react';
+import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { Card, type CardAppearance } from '../../Card';
 import * as analytics from '../../../utils/analytics';
@@ -37,7 +37,6 @@ describe('smart-card: card states, flexible', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
-		cleanup();
 	});
 
 	describe('with render method: withUrl', () => {
@@ -47,7 +46,7 @@ describe('smart-card: card states, flexible', () => {
 					new APIError('fatal', 'localhost', 'something wrong', 'ResolveUnsupportedError'),
 				);
 
-				const { findByTestId } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card appearance="inline" url={mockUrl} onError={mockOnError}>
 							<TitleBlock />
@@ -55,11 +54,11 @@ describe('smart-card: card states, flexible', () => {
 					</Provider>,
 				);
 
-				const erroredView = await findByTestId('smart-block-title-errored-view');
+				const erroredView = await screen.findByTestId('smart-block-title-errored-view');
 				expect(erroredView).toBeTruthy();
 				await flushPromises();
 
-				const erroredViewAgain = await findByTestId('smart-block-title-errored-view');
+				const erroredViewAgain = await screen.findByTestId('smart-block-title-errored-view');
 				expect(erroredViewAgain).toBeTruthy();
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
@@ -71,19 +70,23 @@ describe('smart-card: card states, flexible', () => {
 		describe('> state: resolved', () => {
 			it('should open window when flexible ui link with resolved URL is clicked', async () => {
 				const mockUrl = 'https://this.is.the.seventh.url';
-				const { getByTestId, findByTestId } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card testId="resolvedCard2" appearance="inline" url={mockUrl}>
 							<TitleBlock />
 						</Card>
 					</Provider>,
 				);
-				const resolvedView = await findByTestId('smart-block-title-resolved-view', undefined, {
-					timeout: 5000,
-				});
+				const resolvedView = await screen.findByTestId(
+					'smart-block-title-resolved-view',
+					undefined,
+					{
+						timeout: 5000,
+					},
+				);
 				expect(resolvedView).toBeTruthy();
 
-				const resolvedCard = getByTestId('smart-element-link');
+				const resolvedCard = screen.getByTestId('smart-element-link');
 				expect(resolvedCard).toBeTruthy();
 				fireEvent.click(resolvedCard);
 
@@ -92,27 +95,27 @@ describe('smart-card: card states, flexible', () => {
 			});
 
 			it('should render with metadata when resolved', async () => {
-				const { findByText } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card appearance="inline" url={mockUrl}>
 							<TitleBlock />
 						</Card>
 					</Provider>,
 				);
-				const resolvedViewName = await findByText('I love cheese');
+				const resolvedViewName = await screen.findByText('I love cheese');
 				expect(resolvedViewName).toBeTruthy();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 
 			it('should re-render when URL changes', async () => {
-				const { getByText, rerender } = render(
+				const { rerender } = render(
 					<Provider client={mockClient}>
 						<Card appearance="block" url={mockUrl}>
 							<TitleBlock />
 						</Card>
 					</Provider>,
 				);
-				const resolvedView = await waitFor(() => getByText('I love cheese'));
+				const resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeTruthy();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 
@@ -123,19 +126,19 @@ describe('smart-card: card states, flexible', () => {
 						</Card>
 					</Provider>,
 				);
-				await waitFor(() => getByText('I love cheese'));
+				await screen.findByText('I love cheese');
 				expect(mockFetch).toHaveBeenCalledTimes(2);
 			});
 
 			it('should not re-render when appearance changes', async () => {
-				const { getByText, rerender } = render(
+				const { rerender } = render(
 					<Provider client={mockClient}>
 						<Card appearance="inline" url={mockUrl}>
 							<TitleBlock />
 						</Card>
 					</Provider>,
 				);
-				const resolvedView = await waitFor(() => getByText('I love cheese'));
+				const resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeTruthy();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 
@@ -146,23 +149,21 @@ describe('smart-card: card states, flexible', () => {
 						</Card>
 					</Provider>,
 				);
-				await waitFor(() => getByText('I love cheese'));
+				await screen.findByText('I love cheese');
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 
 			it('should call onResolve prop after flexible card is resolved', async () => {
 				const mockFn = jest.fn();
 				const mockUrl = 'https://this.is.the.seventh.url';
-				const { getByTestId } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card appearance="inline" url={mockUrl} onResolve={mockFn}>
 							<TitleBlock />
 						</Card>
 					</Provider>,
 				);
-				const resolvedView = await waitFor(() => getByTestId('smart-block-title-resolved-view'), {
-					timeout: 5000,
-				});
+				const resolvedView = await screen.findByTestId('smart-block-title-resolved-view');
 				expect(resolvedView).toBeTruthy();
 
 				expect(mockFn).toHaveBeenCalledTimes(1);
@@ -174,7 +175,7 @@ describe('smart-card: card states, flexible', () => {
 				const storeOptions = {
 					initialState: { [mockUrl]: {} },
 				} as CardProviderStoreOpts;
-				const { findByTestId } = render(
+				render(
 					<Provider client={mockClient} storeOptions={storeOptions}>
 						<Card appearance="block" url={mockUrl}>
 							<TitleBlock />
@@ -182,7 +183,7 @@ describe('smart-card: card states, flexible', () => {
 					</Provider>,
 				);
 
-				const link = await findByTestId('smart-block-title-resolved-view');
+				const link = await screen.findByTestId('smart-block-title-resolved-view');
 				expect(link).toBeTruthy();
 			});
 		});
@@ -191,16 +192,16 @@ describe('smart-card: card states, flexible', () => {
 	describe('render method: withData', () => {
 		describe('> state: resolved', () => {
 			it('flexible: renders successfully with data', async () => {
-				const { getByText } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card appearance="block" url={mockUrl} data={mocks.success.data}>
 							<TitleBlock />
 						</Card>
 					</Provider>,
 				);
-				const resolvedViewName = await waitFor(() => getByText('I love cheese'));
-				const resolvedViewDescription = await waitFor(() =>
-					getByText('Here is your serving of cheese: 🧀'),
+				const resolvedViewName = await screen.findByText('I love cheese');
+				const resolvedViewDescription = await screen.findByText(
+					'Here is your serving of cheese: 🧀',
 				);
 				expect(resolvedViewName).toBeTruthy();
 				expect(resolvedViewDescription).toBeTruthy();
@@ -216,7 +217,7 @@ describe('smart-card: card states, flexible', () => {
 				jest.clearAllMocks();
 			});
 			it('renders Flexible UI', async () => {
-				const { getByTestId } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card appearance={appearance} url={mockUrl}>
 							<TitleBlock />
@@ -224,7 +225,7 @@ describe('smart-card: card states, flexible', () => {
 					</Provider>,
 				);
 
-				const block = await waitFor(() => getByTestId(testId));
+				const block = await screen.findByTestId(testId);
 				expect(block).toBeTruthy();
 				await waitFor(async () => {
 					// EDM-10399 Some React operations must be completed before this check can be made
@@ -239,14 +240,14 @@ describe('smart-card: card states, flexible', () => {
 			});
 
 			it('does not render Flexible UI when card has no children', async () => {
-				const { queryByTestId, getByText } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card appearance={appearance} url={mockUrl} />
 					</Provider>,
 				);
-				const resolvedView = await waitFor(() => getByText('I love cheese'));
+				const resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeInTheDocument();
-				expect(queryByTestId(testId)).toBeNull();
+				expect(screen.queryByTestId(testId)).toBeNull();
 				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
 				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
 					expect.objectContaining({
@@ -257,16 +258,16 @@ describe('smart-card: card states, flexible', () => {
 			});
 
 			it('does not render Flexible UI when card has no valid children', async () => {
-				const { queryByTestId, getByText } = render(
+				render(
 					<Provider client={mockClient}>
 						<Card appearance={appearance} url={mockUrl}>
 							<div>Test</div>
 						</Card>
 					</Provider>,
 				);
-				const resolvedView = await waitFor(() => getByText('I love cheese'));
+				const resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeInTheDocument();
-				expect(queryByTestId(testId)).toBeNull();
+				expect(screen.queryByTestId(testId)).toBeNull();
 				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
 				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
 					expect.objectContaining({
@@ -310,17 +311,17 @@ describe('smart-card: card states, flexible', () => {
 				},
 			});
 
-			const { findByTestId, queryByTestId } = render(
+			render(
 				<Provider client={mockClient} authFlow="disabled">
 					<Card appearance="inline" url={mockUrl} onError={mockOnError}>
 						<TitleBlock testId="auth-flow-disabled" />
 					</Card>
 				</Provider>,
 			);
-			const view = await findByTestId('auth-flow-disabled-errored-view');
-			const icon = await findByTestId('smart-element-icon-icon--wrapper');
-			const link = await findByTestId('smart-element-link');
-			const message = queryByTestId('auth-flow-disabled-errored-view-message');
+			const view = await screen.findByTestId('auth-flow-disabled-errored-view');
+			const icon = await screen.findByTestId('smart-element-icon-icon--wrapper');
+			const link = await screen.findByTestId('smart-element-link');
+			const message = screen.queryByTestId('auth-flow-disabled-errored-view-message');
 
 			expect(view).toBeTruthy();
 			expect(icon.getAttribute('aria-label')).toBe('Confluence');
@@ -367,26 +368,19 @@ describe('smart-card: card states, flexible', () => {
 				);
 			};
 
-			const { getByTestId, getAllByTestId, getByText, getAllByText, queryByText } = render(
-				<Component />,
-				{ wrapper },
-			);
+			render(<Component />, { wrapper });
 
-			await waitFor(() => getAllByTestId('smart-block-title-resolved-view'), {
-				timeout: 5000,
-			});
+			await screen.findAllByTestId('smart-block-title-resolved-view');
 
-			const secondUrlBeforeUpdate = await waitFor(() => getByText('https://some.url2'));
+			const secondUrlBeforeUpdate = await screen.findByText('https://some.url2');
 			expect(secondUrlBeforeUpdate).toBeTruthy();
 
-			const button = await waitFor(() => getByTestId('change-url-button'), {
-				timeout: 5000,
-			});
+			const button = await screen.findByTestId('change-url-button');
 
 			fireEvent.click(button);
 
-			expect(queryByText('https://some.url2')).toBeNull();
-			const secondUrlAfterUpdate = await waitFor(() => getAllByText('https://some.url'));
+			expect(screen.queryByText('https://some.url2')).toBeNull();
+			const secondUrlAfterUpdate = await screen.findAllByText('https://some.url');
 			expect(secondUrlAfterUpdate.length).toEqual(2);
 		});
 	});

@@ -96,8 +96,8 @@ describe('openUrl', () => {
 
 	it('opens url in a new tab', async () => {
 		await openUrl(url);
-		expect(openSpy).toBeCalledTimes(1);
-		expect(openSpy).toBeCalledWith(url, '_blank', 'noopener=yes');
+		expect(openSpy).toHaveBeenCalledTimes(1);
+		expect(openSpy).toHaveBeenCalledWith(url, '_blank', 'noopener=yes');
 	});
 
 	it('does not open url', async () => {

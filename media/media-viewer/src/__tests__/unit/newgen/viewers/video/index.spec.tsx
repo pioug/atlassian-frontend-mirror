@@ -17,6 +17,7 @@ import {
 	expectToEqual,
 	asMockFunction,
 } from '@atlaskit/media-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { VideoViewer, type Props } from '../../../../../viewers/video';
 
 const token = 'some-token';
@@ -171,6 +172,26 @@ describe('Video viewer', () => {
 		expect(screen.queryByTestId('custom-media-player-hd-button')).toBeNull();
 	});
 
+	describe('should not show hd button if hd is not available when disable_video_640p_artifact feature flag is on', () => {
+		ffTest(
+			'platform_media_disable_video_640p_artifact_usage',
+			async () => {
+				setup();
+				await waitFor(() =>
+					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+				);
+				expect(screen.queryByTestId('custom-media-player-hd-button')).toBeNull();
+			},
+			async () => {
+				setup();
+				await waitFor(() =>
+					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+				);
+				expect(screen.getByTestId('custom-media-player-hd-button')).toBeInTheDocument();
+			},
+		);
+	});
+
 	it('should save video quality when changes', async () => {
 		setup();
 		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
@@ -189,6 +210,36 @@ describe('Video viewer', () => {
 
 		expect(screen.getByLabelText('hd').getAttribute('style')).toBe(
 			'--icon-primary-color: #c7d1db; --icon-secondary-color: #313D52;',
+		);
+	});
+
+	describe('should use hd video artifact when available even if previous quality was sd when disable_video_640p_artifact feature flag is on', () => {
+		ffTest(
+			'platform_media_disable_video_640p_artifact_usage',
+			async () => {
+				localStorage.setItem('mv_video_player_quality', 'sd');
+				const { mediaClient } = setup({ item: videoItem });
+				await waitFor(() =>
+					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+				);
+
+				expectToEqual(
+					asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][1],
+					'video_1280.mp4',
+				);
+			},
+			async () => {
+				localStorage.setItem('mv_video_player_quality', 'sd');
+				const { mediaClient } = setup({ item: videoItem });
+				await waitFor(() =>
+					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+				);
+
+				expectToEqual(
+					asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][1],
+					'video_640.mp4',
+				);
+			},
 		);
 	});
 

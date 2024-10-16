@@ -16,7 +16,7 @@ describe('RetryAction', () => {
 
 		const handlerExecutor = action.promise;
 		await expect(handlerExecutor()).resolves.toBe('action invoked');
-		expect(handler).toBeCalledTimes(1);
-		expect(handler).toBeCalledWith();
+		expect(handler).toHaveBeenCalledTimes(1);
+		expect(handler).toHaveBeenCalledWith();
 	});
 });

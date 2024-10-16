@@ -652,7 +652,7 @@ describe(`Editor`, () => {
 		it('should be populated with activityProvider', () => {
 			const { setProviderSpy, activityProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				7,
+				6,
 				'activityProvider',
 				Promise.resolve(activityProvider),
 			);
@@ -661,7 +661,7 @@ describe(`Editor`, () => {
 		it('should be populated with emojiProvider', () => {
 			const { setProviderSpy, emojiProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				1,
+				13,
 				'emojiProvider',
 				Promise.resolve(emojiProvider),
 			);
@@ -676,21 +676,10 @@ describe(`Editor`, () => {
 			);
 		});
 
-		// TODO - When cleaning up FG platform_editor_td_provider_from_plugin_config this test no longer applies and will fail other after it
-		// Tests in packages/editor/editor-plugin-tasks-and-decisions-tests/src/__tests__/unit/plugin.tsx cover this, so can remove this test
-		it('should be populated with taskDecisionProvider', () => {
-			const { setProviderSpy, taskDecisionProvider } = setup();
-			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				3,
-				'taskDecisionProvider',
-				Promise.resolve(taskDecisionProvider),
-			);
-		});
-
 		it('should be populated with contextIdentifierProvider', () => {
 			const { setProviderSpy, contextIdentifierProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				4,
+				3,
 				'contextIdentifierProvider',
 				Promise.resolve(contextIdentifierProvider),
 			);
@@ -699,7 +688,7 @@ describe(`Editor`, () => {
 		it('should be populated with collabEditProvider', () => {
 			const { setProviderSpy, collabEditProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				6,
+				5,
 				'collabEditProvider',
 				Promise.resolve(collabEditProvider),
 			);
@@ -708,7 +697,7 @@ describe(`Editor`, () => {
 		it('should be populated with collabEditProvider via collabEdit object', () => {
 			const { setProviderSpy, collabEditDotProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				6,
+				5,
 				'collabEditProvider',
 				Promise.resolve(collabEditDotProvider),
 			);
@@ -717,7 +706,7 @@ describe(`Editor`, () => {
 		it('should be populated with presenceProvider', () => {
 			const { setProviderSpy, presenceProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				9,
+				8,
 				'presenceProvider',
 				Promise.resolve(presenceProvider),
 			);
@@ -726,7 +715,7 @@ describe(`Editor`, () => {
 		it('should be populated with macroProvider', () => {
 			const { setProviderSpy, macroProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				10,
+				9,
 				'macroProvider',
 				Promise.resolve(macroProvider),
 			);
@@ -735,17 +724,16 @@ describe(`Editor`, () => {
 		it('should be populated with legacyImageUploadProvider', () => {
 			const { setProviderSpy, legacyImageUploadProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				5,
+				4,
 				'imageUploadProvider',
 				Promise.resolve(legacyImageUploadProvider),
 			);
 		});
 
-		// Skipped due to HOT-111922
-		it.skip('should be populated with autoformattingProvider', () => {
+		it('should be populated with autoformattingProvider', () => {
 			const { setProviderSpy, autoformattingProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				12,
+				10,
 				'autoformattingProvider',
 				Promise.resolve(autoformattingProvider),
 			);
@@ -803,23 +791,21 @@ describe(`Editor`, () => {
 			);
 		});
 
-		// Skipped due to HOT-111922
-		it.skip('should be populated with quickInsertProvider', () => {
+		it('should be populated with quickInsertProvider', () => {
 			const { setProviderSpy, quickInsertProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				14,
+				12,
 				'quickInsertProvider',
 				Promise.resolve(quickInsertProvider),
 			);
 		});
 
-		// Skipped due to HOT-111922
-		it.skip('should be populated with extensionProvider', () => {
+		it('should be populated with extensionProvider', () => {
 			const { setProviderSpy } = setup();
 			// extensionProvider is going to be a generated in packages/editor/editor-common/src/extensions/combine-extension-providers.ts
 			// and there is nothing to compare it with
 
-			expect(setProviderSpy).toHaveBeenNthCalledWith(13, 'extensionProvider', expect.any(Object));
+			expect(setProviderSpy).toHaveBeenNthCalledWith(11, 'extensionProvider', expect.any(Object));
 		});
 
 		describe('destroy the provider factory', () => {

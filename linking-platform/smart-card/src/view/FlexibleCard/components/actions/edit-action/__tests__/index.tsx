@@ -1,5 +1,5 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import '@atlaskit/link-test-helpers/jest';
 import { IntlProvider } from 'react-intl-next';
@@ -29,8 +29,8 @@ describe('EditAction', () => {
 	};
 
 	it('renders action', async () => {
-		const { findByTestId } = setup({ onClick: () => '' });
-		const element = await findByTestId(testId);
+		setup({ onClick: () => '' });
+		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
 		expect(element.textContent).toBe('Edit');
 	});

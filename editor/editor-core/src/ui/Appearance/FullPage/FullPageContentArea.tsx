@@ -117,7 +117,7 @@ const Content = React.forwardRef<
 				className="fabric-editor-popup-scroll-parent"
 				featureFlags={props.featureFlags}
 				ref={scrollContainerRef}
-				viewMode={fg('platform_editor_remove_use_preset_context') ? props?.viewMode : undefined}
+				viewMode={props?.viewMode}
 			>
 				<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 					<div

@@ -320,7 +320,7 @@ describe('smart-card: unauthorized analytics', () => {
 			);
 			expect(unauthorizedLink).toBeTruthy();
 			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-			expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
+			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
 				display: 'inline',
 				status: 'unauthorized',
 				definitionId: 'd1',
@@ -360,14 +360,22 @@ describe('smart-card: unauthorized analytics', () => {
 			expect(analytics.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
 			expect(analytics.trackAppAccountConnected).toHaveBeenCalledTimes(1);
 			expect(analytics.connectSucceededEvent).toHaveBeenCalledTimes(1);
-			expect(mockStartUfoExperience).toBeCalledWith('smart-link-authenticated', 'some-uuid-1', {
-				extensionKey: 'object-provider',
-				status: 'success',
-			});
+			expect(mockStartUfoExperience).toHaveBeenCalledWith(
+				'smart-link-authenticated',
+				'some-uuid-1',
+				{
+					extensionKey: 'object-provider',
+					status: 'success',
+				},
+			);
 
-			expect(mockSucceedUfoExperience).toBeCalledWith('smart-link-authenticated', 'some-uuid-1', {
-				display: 'inline',
-			});
+			expect(mockSucceedUfoExperience).toHaveBeenCalledWith(
+				'smart-link-authenticated',
+				'some-uuid-1',
+				{
+					display: 'inline',
+				},
+			);
 			expect(mockStartUfoExperience).toHaveBeenCalledBefore(mockSucceedUfoExperience as jest.Mock);
 		});
 
@@ -421,14 +429,22 @@ describe('smart-card: unauthorized analytics', () => {
 					id: expect.any(String),
 				});
 
-				expect(mockStartUfoExperience).toBeCalledWith('smart-link-authenticated', 'some-uuid-1', {
-					extensionKey: 'object-provider',
-					status: errorType,
-				});
+				expect(mockStartUfoExperience).toHaveBeenCalledWith(
+					'smart-link-authenticated',
+					'some-uuid-1',
+					{
+						extensionKey: 'object-provider',
+						status: errorType,
+					},
+				);
 
-				expect(mockSucceedUfoExperience).toBeCalledWith('smart-link-authenticated', 'some-uuid-1', {
-					display: 'inline',
-				});
+				expect(mockSucceedUfoExperience).toHaveBeenCalledWith(
+					'smart-link-authenticated',
+					'some-uuid-1',
+					{
+						display: 'inline',
+					},
+				);
 			},
 		);
 
@@ -475,14 +491,22 @@ describe('smart-card: unauthorized analytics', () => {
 				id: expect.any(String),
 			});
 
-			expect(mockStartUfoExperience).toBeCalledWith('smart-link-authenticated', 'some-uuid-1', {
-				extensionKey: 'object-provider',
-				status: 'auth_window_closed',
-			});
+			expect(mockStartUfoExperience).toHaveBeenCalledWith(
+				'smart-link-authenticated',
+				'some-uuid-1',
+				{
+					extensionKey: 'object-provider',
+					status: 'auth_window_closed',
+				},
+			);
 
-			expect(mockSucceedUfoExperience).toBeCalledWith('smart-link-authenticated', 'some-uuid-1', {
-				display: 'inline',
-			});
+			expect(mockSucceedUfoExperience).toHaveBeenCalledWith(
+				'smart-link-authenticated',
+				'some-uuid-1',
+				{
+					display: 'inline',
+				},
+			);
 		});
 	});
 });

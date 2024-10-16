@@ -26,7 +26,7 @@ describe('full page editor', () => {
 			doc,
 			editorProps: { allowExtension: true },
 		});
-	let fullPage: ReactWrapper<any, unknown, EditorContext> | undefined;
+	let fullPage: ReactWrapper<any, unknown, typeof EditorContext> | undefined;
 
 	afterAll(() => {
 		if (fullPage) {

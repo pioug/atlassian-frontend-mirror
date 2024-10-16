@@ -2,7 +2,7 @@ import { type JsonLd } from 'json-ld-types';
 import React from 'react';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
-import { render, waitFor, cleanup } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import { mocks } from '../../../utils/mocks';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
@@ -35,7 +35,6 @@ describe('smart-card: error analytics', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 		consoleErrorFn.mockRestore();
-		cleanup();
 	});
 
 	it('should fallback on ResolveBadRequestError', async () => {
@@ -51,14 +50,12 @@ describe('smart-card: error analytics', () => {
 		}
 		const client = new MockClient();
 
-		const { getByTestId } = render(
+		render(
 			<Provider client={client}>
 				<Card testId="erroredLink" appearance="inline" url={mockUrl} />
 			</Provider>,
 		);
-		const erroredLink = await waitFor(() => getByTestId('erroredLink-fallback-view'), {
-			timeout: 10000,
-		});
+		const erroredLink = await screen.findByTestId('erroredLink-fallback-view');
 
 		expect(erroredLink).toBeTruthy();
 		expect(analytics.unresolvedEvent).toHaveBeenCalledWith({
@@ -81,14 +78,12 @@ describe('smart-card: error analytics', () => {
 			}
 		}
 		const client = new MockClient();
-		const { getByTestId } = render(
+		render(
 			<Provider client={client}>
 				<Card testId="erroredLink" appearance="inline" url={mockUrl} />
 			</Provider>,
 		);
-		const erroredLink = await waitFor(() => getByTestId('erroredLink-unauthorized-view'), {
-			timeout: 10000,
-		});
+		const erroredLink = await screen.findByTestId('erroredLink-unauthorized-view');
 
 		expect(erroredLink).toBeTruthy();
 		expect(analytics.unresolvedEvent).toHaveBeenCalledWith({
@@ -143,14 +138,12 @@ describe('smart-card: error analytics', () => {
 			}
 		}
 		const client = new MockClient();
-		const { getByTestId } = render(
+		render(
 			<Provider client={client}>
 				<Card testId="erroredLink" appearance="inline" url={mockUrl} />
 			</Provider>,
 		);
-		const erroredLink = await waitFor(() => getByTestId('erroredLink-errored-view'), {
-			timeout: 10000,
-		});
+		const erroredLink = await screen.findByTestId('erroredLink-errored-view');
 
 		expect(erroredLink).toBeTruthy();
 		expect(analytics.unresolvedEvent).toHaveBeenCalledWith({
@@ -173,14 +166,12 @@ describe('smart-card: error analytics', () => {
 			}
 		}
 		const client = new MockClient();
-		const { getByTestId } = render(
+		render(
 			<Provider client={client}>
 				<Card testId="erroredLink" appearance="inline" url={mockUrl} />
 			</Provider>,
 		);
-		const erroredLink = await waitFor(() => getByTestId('erroredLink-errored-view'), {
-			timeout: 10000,
-		});
+		const erroredLink = await screen.findByTestId('erroredLink-errored-view');
 
 		expect(erroredLink).toBeTruthy();
 		expect(analytics.unresolvedEvent).toHaveBeenCalledWith({
@@ -203,14 +194,12 @@ describe('smart-card: error analytics', () => {
 			}
 		}
 		const client = new MockClient();
-		const { getByTestId } = render(
+		render(
 			<Provider client={client}>
 				<Card testId="erroredLink" appearance="inline" url={mockUrl} />
 			</Provider>,
 		);
-		const erroredLink = await waitFor(() => getByTestId('erroredLink-errored-view'), {
-			timeout: 10000,
-		});
+		const erroredLink = await screen.findByTestId('erroredLink-errored-view');
 
 		expect(erroredLink).toBeTruthy();
 		expect(analytics.unresolvedEvent).toHaveBeenCalledWith({
@@ -265,7 +254,7 @@ describe('smart-card: error analytics', () => {
 		}
 		const client = new MockClient();
 		const onError = jest.fn();
-		const { getByTestId, getByRole } = render(
+		render(
 			<Provider
 				client={client}
 				storeOptions={{
@@ -280,21 +269,19 @@ describe('smart-card: error analytics', () => {
 				<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
 			</Provider>,
 		);
-		const resolvedView = await waitFor(() => getByTestId('erroredLink-resolved-view'), {
-			timeout: 10000,
-		});
+		const resolvedView = await screen.findByTestId('erroredLink-resolved-view');
 
-		const resolvedCard = getByRole('button');
+		const resolvedCard = screen.getByRole('button');
 		expect(resolvedView).toBeTruthy();
 		expect(resolvedCard).toBeTruthy();
 		expect(onError).not.toHaveBeenCalled();
-		expect(analytics.resolvedEvent).toBeCalledWith({
+		expect(analytics.resolvedEvent).toHaveBeenCalledWith({
 			id: expect.any(String),
 			definitionId: 'd1',
 			extensionKey: 'object-provider',
 		});
 		expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
-		expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
+		expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
 			display: 'inline',
 			status: 'resolved',
 			definitionId: 'd1',

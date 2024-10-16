@@ -89,7 +89,7 @@ describe('utils', () => {
 		});
 		it('should return immediate parent of nested folder', () => {
 			const folderName = 'another_folder/zip_folder/folder_1/';
-			expect(getFolderParent(folderName)).toEqual('zip_folder/');
+			expect(getFolderParent(folderName)).toEqual('another_folder/zip_folder/');
 		});
 		it('last character is not a slash, should still return parent folder', () => {
 			const folderName = 'zip_folder/folder_1';
@@ -97,7 +97,7 @@ describe('utils', () => {
 		});
 		it('last character is not a slash, should still return immediate parent folder', () => {
 			const folderName = 'another_folder/zip_folder/folder_1/';
-			expect(getFolderParent(folderName)).toEqual('zip_folder/');
+			expect(getFolderParent(folderName)).toEqual('another_folder/zip_folder/');
 		});
 		it('last character is not a slash, shoild return empty string is folder is parent', () => {
 			const folderName = 'zip_folder';

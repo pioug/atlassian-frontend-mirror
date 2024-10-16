@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.10.0
+
+### Minor Changes
+
+- [#152480](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152480)
+  [`a3b60fc1e1aef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3b60fc1e1aef) -
+  Refactored typeahead assistiveText component to functional component and added tests.
+
+### Patch Changes
+
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+- Updated dependencies
+
 ## 1.9.0
 
 ### Minor Changes

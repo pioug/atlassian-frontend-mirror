@@ -8,6 +8,7 @@ import { createGenericComponent, renderWithDi } from '../../common/test-utils';
 import { type UserInputParagraphPrompt, UserInputType } from '../../common/types';
 
 import ParagraphInputPrompt from './main';
+import { screen } from '@testing-library/react';
 
 const userInputPrompts: UserInputParagraphPrompt = {
 	defaultValue: '',
@@ -19,30 +20,24 @@ const userInputPrompts: UserInputParagraphPrompt = {
 
 describe('Paragraph field input prompt', () => {
 	test('should render correct props', () => {
-		const paragraphInputPrompt = renderWithDi(
-			<ParagraphInputPrompt userInputPrompt={userInputPrompts} />,
-		);
+		renderWithDi(<ParagraphInputPrompt userInputPrompt={userInputPrompts} />);
 
-		expect(paragraphInputPrompt.getByRole('textbox')).toHaveAttribute(
-			'name',
-			userInputPrompts.variableName,
-		);
-		expect(paragraphInputPrompt.getByText(userInputPrompts.displayName)).toBeInTheDocument();
-		expect(paragraphInputPrompt.getByText(userInputPrompts.displayName)).toHaveAttribute(
+		expect(screen.getByRole('textbox')).toHaveAttribute('name', userInputPrompts.variableName);
+		expect(screen.getByText(userInputPrompts.displayName)).toBeInTheDocument();
+		expect(screen.getByText(userInputPrompts.displayName)).toHaveAttribute(
 			'id',
 			'testUserInput-uid1-label',
 		);
-		expect(paragraphInputPrompt.getByTitle('required')).toBeInTheDocument();
+		expect(screen.getByTitle('required')).toBeInTheDocument();
 	});
 
 	test('should render error message with empty values when field is required', () => {
 		const mockField = createGenericComponent('Field', true, { error: 'EMPTY' });
 
-		const errorParagraphInputPrompt = renderWithDi(
-			<ParagraphInputPrompt userInputPrompt={userInputPrompts} />,
-			[injectable(Field, mockField)],
-		);
+		renderWithDi(<ParagraphInputPrompt userInputPrompt={userInputPrompts} />, [
+			injectable(Field, mockField),
+		]);
 
-		expect(errorParagraphInputPrompt.getByLabelText('error')).toBeInTheDocument();
+		expect(screen.getByLabelText('error')).toBeInTheDocument();
 	});
 });

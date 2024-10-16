@@ -59,9 +59,7 @@ const setup = (cardState: CardState, url: string, props?: Partial<EmbedCardProps
 		</AnalyticsListener>,
 	);
 
-	const iframeEl = renderResult.queryByTestId(
-		'embed-card-resolved-view-frame',
-	) as HTMLIFrameElement;
+	const iframeEl = screen.queryByTestId('embed-card-resolved-view-frame') as HTMLIFrameElement;
 	if (iframeEl) {
 		Object.defineProperty(iframeEl, 'clientWidth', { value: 400 });
 	}

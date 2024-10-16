@@ -11,7 +11,7 @@ import context from '../../../__fixtures__/flexible-ui-data-context';
 
 jest.mock('@atlaskit/link-provider', () => {
 	return {
-		...jest.requireActual<Object>('@atlaskit/link-provider'),
+		...jest.requireActual('@atlaskit/link-provider'),
 		useFeatureFlag: jest.fn(),
 	};
 });
@@ -41,7 +41,7 @@ describe('FlexibleCard', () => {
 			},
 		};
 
-		const { getByTestId } = render(
+		render(
 			<SmartCardProvider>
 				<FlexibleCard cardState={cardState} url={url}>
 					<TitleBlock />
@@ -49,8 +49,8 @@ describe('FlexibleCard', () => {
 			</SmartCardProvider>,
 		);
 
-		const container = await getByTestId('smart-links-container');
-		const titleBlock = await getByTestId('smart-block-title-resolved-view');
+		const container = screen.getByTestId('smart-links-container');
+		const titleBlock = screen.getByTestId('smart-block-title-resolved-view');
 
 		expect(container).toBeTruthy();
 		expect(titleBlock).toBeTruthy();

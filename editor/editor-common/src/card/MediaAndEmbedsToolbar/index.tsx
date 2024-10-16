@@ -1,3 +1,5 @@
+import React from 'react';
+
 import type { IntlShape } from 'react-intl-next';
 
 import type {
@@ -9,6 +11,11 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-shared-styles';
+import ContentAlignCenterIcon from '@atlaskit/icon/core/content-align-center';
+import ContentAlignLeftIcon from '@atlaskit/icon/core/content-align-left';
+import ContentAlignRightIcon from '@atlaskit/icon/core/content-align-right';
+import ContentWrapLeftIcon from '@atlaskit/icon/core/content-wrap-left';
+import ContentWrapRightIcon from '@atlaskit/icon/core/content-wrap-right';
 import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-center';
 import EditorAlignImageLeft from '@atlaskit/icon/glyph/editor/align-image-left';
 import EditorAlignImageRight from '@atlaskit/icon/glyph/editor/align-image-right';
@@ -16,7 +23,7 @@ import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
 import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import WrapLeftIcon from '@atlaskit/icon/glyph/editor/media-wrap-left';
 import WrapRightIcon from '@atlaskit/icon/glyph/editor/media-wrap-right';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorAnalyticsAPI } from '../../analytics';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../analytics';
@@ -27,6 +34,7 @@ import type {
 	EditorContainerWidth,
 	FloatingToolbarItem,
 	FloatingToolbarSeparator,
+	Icon,
 	NextEditorPlugin,
 	PluginDependenciesAPI,
 } from '../../types';
@@ -41,7 +49,7 @@ type WidthPluginDependencyApi = PluginDependenciesAPI<WidthPluginType> | undefin
 export type LayoutIcon = {
 	id?: string;
 	value: string;
-	icon: React.ComponentClass<any>;
+	icon: Icon;
 };
 
 export type IconMap = Array<LayoutIcon | { value: 'separator' }>;
@@ -50,23 +58,66 @@ export const alignmentIcons: LayoutIcon[] = [
 	{
 		id: 'editor.media.alignLeft',
 		value: 'align-start',
-		icon: EditorAlignImageLeft,
+		icon: () => (
+			<ContentAlignLeftIcon
+				color="currentColor"
+				spacing="spacious"
+				label="media-toolbar-align-left-icon"
+				LEGACY_fallbackIcon={EditorAlignImageLeft}
+			/>
+		),
 	},
 	{
 		id: 'editor.media.alignCenter',
 		value: 'center',
-		icon: EditorAlignImageCenter,
+		icon: () => (
+			<ContentAlignCenterIcon
+				color="currentColor"
+				spacing="spacious"
+				label="media-toolbar-align-center-icon"
+				LEGACY_fallbackIcon={EditorAlignImageCenter}
+			/>
+		),
 	},
 	{
 		id: 'editor.media.alignRight',
 		value: 'align-end',
-		icon: EditorAlignImageRight,
+		icon: () => (
+			<ContentAlignRightIcon
+				color="currentColor"
+				spacing="spacious"
+				label="media-toolbar-align-right-icon"
+				LEGACY_fallbackIcon={EditorAlignImageRight}
+			/>
+		),
 	},
 ];
 
 export const wrappingIcons: LayoutIcon[] = [
-	{ id: 'editor.media.wrapLeft', value: 'wrap-left', icon: WrapLeftIcon },
-	{ id: 'editor.media.wrapRight', value: 'wrap-right', icon: WrapRightIcon },
+	{
+		id: 'editor.media.wrapLeft',
+		value: 'wrap-left',
+		icon: () => (
+			<ContentWrapLeftIcon
+				color="currentColor"
+				spacing="spacious"
+				label="media-toolbar-wrap-left-icon"
+				LEGACY_fallbackIcon={WrapLeftIcon}
+			/>
+		),
+	},
+	{
+		id: 'editor.media.wrapRight',
+		value: 'wrap-right',
+		icon: () => (
+			<ContentWrapRightIcon
+				color="currentColor"
+				spacing="spacious"
+				label="media-toolbar-wrap-right-icon"
+				LEGACY_fallbackIcon={WrapRightIcon}
+			/>
+		),
+	},
 ];
 
 const breakoutIcons: LayoutIcon[] = [
@@ -115,7 +166,7 @@ const makeAlign = (
 
 		const nodeWidth = getNodeWidth(node, state.schema);
 
-		const newAttrs = getBooleanFF('platform.editor.media.extended-resize-experience')
+		const newAttrs = fg('platform.editor.media.extended-resize-experience')
 			? // with extended experience, change alignment does not change media single width
 				{ ...node.attrs, layout }
 			: alignAttributes(
@@ -173,8 +224,8 @@ const makeAlign = (
 
 const getToolbarLayout = (layout: MediaSingleLayout) => {
 	if (
-		getBooleanFF('platform.editor.media.extended-resize-experience') &&
-		nonWrappedLayouts.includes(layout)
+		nonWrappedLayouts.includes(layout) &&
+		fg('platform.editor.media.extended-resize-experience')
 	) {
 		return 'center';
 	}

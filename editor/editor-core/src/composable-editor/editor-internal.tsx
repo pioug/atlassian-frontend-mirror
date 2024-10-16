@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, memo, useCallback, useState } from 'react';
+import { Fragment, memo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -23,7 +23,6 @@ import { type CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-aut
 import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
@@ -32,7 +31,6 @@ import type { EditorViewProps } from '../create-editor/ReactEditorView';
 import ReactEditorView from '../create-editor/ReactEditorView';
 import type { EventDispatcher } from '../event-dispatcher';
 import { ContextAdapter } from '../nodeviews/context-adapter';
-import { usePresetContext, useSetPresetContext } from '../presets/context';
 import { type EditorAppearanceComponentProps } from '../types';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
@@ -209,41 +207,15 @@ type ReactEditorViewPlugins = [
 type ReactEditorViewContextWrapperProps = Omit<EditorViewProps, 'editorAPI'>;
 
 function ReactEditorViewContextWrapper(props: ReactEditorViewContextWrapperProps) {
-	// deprecated, unable to be FF due to hook usage
-	const setInternalEditorAPI = useSetPresetContext();
-	const presetContextEditorAPI = usePresetContext<ReactEditorViewPlugins>();
-
-	// new way of storing the editorApi when FF platform_editor_remove_use_preset_context is enabled
-	const [editorAPI, setEditorAPI] = useState<PublicPluginAPI<ReactEditorViewPlugins> | undefined>(
-		undefined,
-	);
-
-	/**
-	 * We use the context to retrieve the editorAPI
-	 * externally for consumers via `usePreset`.
-	 *
-	 * However we also may need to retrieve this value internally via context
-	 * so we should also set the value for the `EditorContext` that is used in
-	 * `EditorInternal`.
-	 */
-	const setPresetContextEditorAPI = useCallback(
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		(api: PublicPluginAPI<any>) => {
-			if (fg('platform_editor_remove_use_preset_context')) {
-				setEditorAPI(api as PublicPluginAPI<ReactEditorViewPlugins>);
-			} else {
-				setInternalEditorAPI?.(api);
-			}
-		},
-		[setInternalEditorAPI, setEditorAPI],
-	);
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const [editorAPI, setEditorAPI] = useState<PublicPluginAPI<any> | undefined>(undefined);
 
 	// TODO: Remove these when we deprecate these props from editor-props - smartLinks is unfortunately still used in some places, we can sidestep this problem if we move everyone across to ComposableEditor and deprecate Editor
 	const UNSAFE_cards = (props.editorProps as EditorProps).UNSAFE_cards;
 	const smartLinks = (props.editorProps as EditorProps).smartLinks;
 
 	useProviders({
-		editorApi: fg('platform_editor_remove_use_preset_context') ? editorAPI : presetContextEditorAPI,
+		editorApi: editorAPI as PublicPluginAPI<ReactEditorViewPlugins>,
 		contextIdentifierProvider: props.editorProps.contextIdentifierProvider,
 		mediaProvider: (props.editorProps as EditorProps).media?.provider,
 		cardProvider:
@@ -255,7 +227,5 @@ function ReactEditorViewContextWrapper(props: ReactEditorViewContextWrapperProps
 		taskDecisionProvider: props.editorProps.taskDecisionProvider,
 	});
 
-	return (
-		<ReactEditorView {...props} editorAPI={editorAPI} setEditorApi={setPresetContextEditorAPI} />
-	);
+	return <ReactEditorView {...props} editorAPI={editorAPI} setEditorAPI={setEditorAPI} />;
 }

@@ -1,5 +1,14 @@
 # @atlaskit/code
 
+## 15.6.3
+
+### Patch Changes
+
+- [#152305](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152305)
+  [`0f13c972be628`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0f13c972be628) -
+  [ux] Fix background color override using CSS variable for inlinde code behind a feature flag. If
+  successful, these changes will be made available in a later release.
+
 ## 15.6.2
 
 ### Patch Changes

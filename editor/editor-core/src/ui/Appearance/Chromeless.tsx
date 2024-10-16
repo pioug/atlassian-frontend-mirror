@@ -15,7 +15,6 @@ import type {
 	MaxContentSizePluginState,
 } from '@atlaskit/editor-plugins/max-content-size';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearance, EditorAppearanceComponentProps } from '../../types';
@@ -110,11 +109,7 @@ export default class Editor extends React.Component<AppearanceProps> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className="ak-editor-content-area"
 						featureFlags={featureFlags}
-						viewMode={
-							fg('platform_editor_remove_use_preset_context')
-								? editorViewModeState?.mode
-								: undefined
-						}
+						viewMode={editorViewModeState?.mode}
 					>
 						{customContentComponents && 'before' in customContentComponents
 							? customContentComponents.before

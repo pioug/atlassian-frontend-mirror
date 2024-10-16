@@ -32,7 +32,7 @@ describe('DownloadAction', () => {
 
 		const handlerExecutor = action.promise;
 		await expect(handlerExecutor()).resolves.toBe(undefined);
-		expect(mockDownloadUrl).toBeCalledTimes(1);
-		expect(mockDownloadUrl).toBeCalledWith(mockUrl);
+		expect(mockDownloadUrl).toHaveBeenCalledTimes(1);
+		expect(mockDownloadUrl).toHaveBeenCalledWith(mockUrl);
 	});
 });

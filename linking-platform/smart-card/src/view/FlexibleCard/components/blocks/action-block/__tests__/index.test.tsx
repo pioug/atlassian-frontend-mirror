@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
@@ -25,41 +25,49 @@ describe('ActionBlock', () => {
 		);
 
 	it('renders ActionBlock', async () => {
-		const { findByTestId } = setup();
-		const block = await findByTestId('smart-block-action');
+		setup();
+		const block = await screen.findByTestId('smart-block-action');
 		expect(block).toBeInTheDocument();
 	});
 
 	it('renders list of actions', async () => {
-		const { findByTestId } = setup();
+		setup();
 
-		const downloadAction = await findByTestId('smart-action-download-action');
+		const downloadAction = await screen.findByTestId('smart-action-download-action');
 		expect(downloadAction).toBeInTheDocument();
 
-		const followAction = await findByTestId('smart-action-follow-action');
+		const followAction = await screen.findByTestId('smart-action-follow-action');
 		expect(followAction).toBeInTheDocument();
 
-		const previewAction = await findByTestId('smart-action-preview-action');
+		const previewAction = await screen.findByTestId('smart-action-preview-action');
 		expect(previewAction).toBeInTheDocument();
 
-		const aiSummaryAction = await findByTestId('smart-action-ai-summary-action-summarise-action');
+		const aiSummaryAction = await screen.findByTestId(
+			'smart-action-ai-summary-action-summarise-action',
+		);
 		expect(aiSummaryAction).toBeInTheDocument();
 
-		const viewRelatedLinksAction = await findByTestId('smart-action-view-related-links-action');
+		const viewRelatedLinksAction = await screen.findByTestId(
+			'smart-action-view-related-links-action',
+		);
 		expect(viewRelatedLinksAction).toBeInTheDocument();
 	});
 
 	it('sorts list of actions', async () => {
-		const { findAllByRole, findByTestId } = setup();
+		setup();
 
-		const buttons = await findAllByRole('button');
-		const copyLinkAction = await findByTestId('smart-action-copy-link-action');
-		const downloadAction = await findByTestId('smart-action-download-action');
-		const followAction = await findByTestId('smart-action-follow-action');
-		const previewAction = await findByTestId('smart-action-preview-action');
-		const aiSummaryAction = await findByTestId('smart-action-ai-summary-action-summarise-action');
-		const automationAction = await findByTestId('smart-action-automation-action');
-		const viewRelatedLinksAction = await findByTestId('smart-action-view-related-links-action');
+		const buttons = await screen.findAllByRole('button');
+		const copyLinkAction = await screen.findByTestId('smart-action-copy-link-action');
+		const downloadAction = await screen.findByTestId('smart-action-download-action');
+		const followAction = await screen.findByTestId('smart-action-follow-action');
+		const previewAction = await screen.findByTestId('smart-action-preview-action');
+		const aiSummaryAction = await screen.findByTestId(
+			'smart-action-ai-summary-action-summarise-action',
+		);
+		const automationAction = await screen.findByTestId('smart-action-automation-action');
+		const viewRelatedLinksAction = await screen.findByTestId(
+			'smart-action-view-related-links-action',
+		);
 
 		expect(buttons.length).toBe(7);
 		expect(buttons[0]).toBe(previewAction);

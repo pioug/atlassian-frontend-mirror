@@ -15,8 +15,8 @@ describe('actions', () => {
 			const openSpy = jest.spyOn(window, 'open');
 			await action.promise();
 
-			expect(openSpy).toBeCalledTimes(1);
-			expect(openSpy).toBeCalledWith('some-url', '_blank', 'noopener=yes');
+			expect(openSpy).toHaveBeenCalledTimes(1);
+			expect(openSpy).toHaveBeenCalledWith('some-url', '_blank', 'noopener=yes');
 		});
 	});
 
@@ -27,8 +27,8 @@ describe('actions', () => {
 			});
 
 			await action.promise();
-			expect(downloadUrl).toBeCalledTimes(1);
-			expect(downloadUrl).toBeCalledWith('some-url');
+			expect(downloadUrl).toHaveBeenCalledTimes(1);
+			expect(downloadUrl).toHaveBeenCalledWith('some-url');
 		});
 	});
 });

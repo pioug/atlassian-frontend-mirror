@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 
@@ -61,9 +61,9 @@ describe('ServerAction', () => {
 	});
 
 	it('renders server action', async () => {
-		const { findByTestId } = renderComponent();
+		renderComponent();
 
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 
 		expect(element).toBeInTheDocument();
 	});
@@ -75,9 +75,9 @@ describe('ServerAction', () => {
 			providerKey: action.providerKey,
 		};
 		const mockInvoke = jest.fn();
-		const { findByTestId } = renderComponent({ action }, mockInvoke);
+		renderComponent({ action }, mockInvoke);
 
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 		act(() => {
 			fireEvent.click(element);
 		});
@@ -91,9 +91,9 @@ describe('ServerAction', () => {
 		const mockInvoke = jest.fn().mockImplementationOnce(() => Promise.resolve());
 		const mockResolve = jest.fn();
 
-		const { findByTestId } = renderComponent({ action }, mockInvoke, mockResolve);
+		renderComponent({ action }, mockInvoke, mockResolve);
 
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 		act(() => {
 			fireEvent.click(element);
 		});
@@ -110,9 +110,9 @@ describe('ServerAction', () => {
 
 		const mockResolve = jest.fn();
 
-		const { findByTestId } = renderComponent({ action }, mockInvoke, mockResolve);
+		renderComponent({ action }, mockInvoke, mockResolve);
 
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 		act(() => {
 			fireEvent.click(element);
 		});
@@ -131,9 +131,9 @@ describe('ServerAction', () => {
 			const trackSuccessSpy = jest.spyOn(mockAnalytics.track, 'smartLinkQuickActionSuccess');
 
 			const action = getAction();
-			const { findByTestId } = renderComponent({ action });
+			renderComponent({ action });
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			act(() => {
 				fireEvent.click(element);
 			});
@@ -151,9 +151,9 @@ describe('ServerAction', () => {
 
 			const action = getAction();
 			const mockInvoke = jest.fn().mockImplementationOnce(() => Promise.reject());
-			const { findByTestId } = renderComponent({ action }, mockInvoke);
+			renderComponent({ action }, mockInvoke);
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			act(() => {
 				fireEvent.click(element);
 			});

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-card
 
+## 4.3.2
+
+### Patch Changes
+
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+- [#152197](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152197)
+  [`dddd3eca66a62`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dddd3eca66a62) -
+  Optimise the re-renders for floating toolbar in live edit mode.
+- Updated dependencies
+
+## 4.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.0
 
 ### Minor Changes

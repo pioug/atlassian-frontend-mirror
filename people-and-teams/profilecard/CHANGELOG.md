@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 20.4.3
+
+### Patch Changes
+
+- [#151320](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151320)
+  [`0a42e535cdc1a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a42e535cdc1a) -
+  PTC-10169 Update profilecard to react18
+
 ## 20.4.2
 
 ### Patch Changes

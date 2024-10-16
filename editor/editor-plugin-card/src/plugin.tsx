@@ -17,6 +17,7 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import {
 	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
@@ -54,6 +55,7 @@ export type CardPlugin = NextEditorPlugin<
 			GridPlugin,
 			FloatingToolbarPlugin,
 			OptionalPlugin<EditorDisabledPlugin>,
+			OptionalPlugin<SelectionPlugin>,
 		];
 		sharedState: CardPluginState | null;
 		actions: CardPluginActions;

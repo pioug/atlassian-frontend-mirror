@@ -1,5 +1,13 @@
 # @atlaskit/media-table
 
+## 15.2.4
+
+### Patch Changes
+
+- [#152324](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152324)
+  [`dbbedfddad4dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dbbedfddad4dc) -
+  Removes deprecated CustomThemeButton
+
 ## 15.2.3
 
 ### Patch Changes

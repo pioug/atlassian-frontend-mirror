@@ -1,5 +1,13 @@
 # @atlaskit/comment
 
+## 11.1.1
+
+### Patch Changes
+
+- [#152617](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152617)
+  [`a0a6a008a0dba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a0a6a008a0dba) -
+  Internal feature flag changes to support icon migration
+
 ## 11.1.0
 
 ### Minor Changes

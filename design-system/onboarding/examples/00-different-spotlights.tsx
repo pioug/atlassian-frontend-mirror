@@ -6,7 +6,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/new';
 import UndoIcon from '@atlaskit/icon/glyph/editor/undo';
 import { Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -68,7 +68,7 @@ export default () => {
 			<SpotlightCard
 				heading="Switch it up"
 				headingAfterElement={
-					<Button iconBefore={<UndoIcon label="" />} appearance="subtle">
+					<Button iconBefore={UndoIcon} appearance="subtle">
 						Replay
 					</Button>
 				}

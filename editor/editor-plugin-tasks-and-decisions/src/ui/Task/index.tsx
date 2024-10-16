@@ -9,8 +9,7 @@ import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
-import type { ContentRef, TaskDecisionProvider } from '@atlaskit/task-decision';
+import type { ContentRef } from '@atlaskit/task-decision';
 
 import { type TaskAndDecisionsSharedState, type TasksAndDecisionsPlugin } from '../../types';
 
@@ -66,20 +65,16 @@ export class TaskItem extends PureComponent<TaskItemProps, {}> {
 		} = this.props;
 		const { contextIdentifierProvider } = providers;
 		const placeholder = formatMessage(tasksAndDecisionsMessages.taskPlaceholder);
-		const getTaskDecisionProvider = (): Promise<TaskDecisionProvider> | undefined => {
-			if (fg('platform_editor_td_provider_from_plugin_config')) {
-				return this.props.taskDecisionState?.taskDecisionProvider
-					? Promise.resolve(this.props.taskDecisionState.taskDecisionProvider)
-					: undefined;
-			}
-			return providers.taskDecisionProvider;
-		};
 
 		return (
 			<TaskItemWithProviders
 				{...otherProps}
 				placeholder={placeholder}
-				taskDecisionProvider={getTaskDecisionProvider()}
+				taskDecisionProvider={
+					this.props.taskDecisionState?.taskDecisionProvider
+						? Promise.resolve(this.props.taskDecisionState.taskDecisionProvider)
+						: undefined
+				}
 				contextIdentifierProvider={contextIdentifierProvider}
 			/>
 		);
@@ -87,9 +82,6 @@ export class TaskItem extends PureComponent<TaskItemProps, {}> {
 
 	render() {
 		const providers: (keyof Providers)[] = ['contextIdentifierProvider'];
-		if (!fg('platform_editor_td_provider_from_plugin_config')) {
-			providers.push('taskDecisionProvider');
-		}
 
 		return (
 			<WithProviders

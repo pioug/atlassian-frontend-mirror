@@ -97,10 +97,8 @@ export const useProviders = ({
 	}, [autoformattingProvider, editorApi]);
 
 	useEffect(() => {
-		if (fg('platform_editor_td_provider_from_plugin_config')) {
-			if (taskDecisionProvider) {
-				editorApi?.taskDecision?.actions.setProvider(taskDecisionProvider);
-			}
+		if (taskDecisionProvider) {
+			editorApi?.taskDecision?.actions.setProvider(taskDecisionProvider);
 		}
 	}, [taskDecisionProvider, editorApi]);
 };

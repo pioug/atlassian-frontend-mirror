@@ -18,12 +18,17 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import EditIcon from '@atlaskit/icon/glyph/editor/edit';
+import ContentWidthNarrowIcon from '@atlaskit/icon/core/content-width-narrow';
+import ContentWidthWideIcon from '@atlaskit/icon/core/content-width-wide';
+import DeleteIcon from '@atlaskit/icon/core/delete';
+import EditIcon from '@atlaskit/icon/core/edit';
+import ExpandHorizontalIcon from '@atlaskit/icon/core/expand-horizontal';
+import LegacyEditIcon from '@atlaskit/icon/glyph/editor/edit';
 import CenterIcon from '@atlaskit/icon/glyph/editor/media-center';
 import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
 import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { editExtension } from './actions';
 import { removeDescendantNodes, removeExtension, updateExtensionLayout } from './commands';
@@ -45,7 +50,7 @@ const isLayoutSupported = (state: EditorState, selectedExtNode: { pos: number; n
 		return false;
 	}
 	const isMultiBodiedExtension =
-		getBooleanFF('platform.editor.multi-bodied-extension_0rygg') &&
+		fg('platform.editor.multi-bodied-extension_0rygg') &&
 		selectedExtNode.node.type === multiBodiedExtension;
 	const isNonEmbeddedBodiedExtension =
 		selectedExtNode.node.type === bodiedExtension &&
@@ -79,7 +84,8 @@ const breakoutOptions = (
 		return [
 			{
 				type: 'button',
-				icon: CenterIcon,
+				icon: ContentWidthNarrowIcon,
+				iconFallback: CenterIcon,
 				onClick: updateExtensionLayout('default', editorAnalyticsAPI),
 				selected: layout === 'default',
 				title: formatMessage(commonMessages.layoutFixedWidth),
@@ -87,7 +93,8 @@ const breakoutOptions = (
 			},
 			{
 				type: 'button',
-				icon: WideIcon,
+				icon: ContentWidthWideIcon,
+				iconFallback: WideIcon,
 				onClick: updateExtensionLayout('wide', editorAnalyticsAPI),
 				selected: layout === 'wide',
 				title: formatMessage(commonMessages.layoutWide),
@@ -95,7 +102,8 @@ const breakoutOptions = (
 			},
 			{
 				type: 'button',
-				icon: FullWidthIcon,
+				icon: ExpandHorizontalIcon,
+				iconFallback: FullWidthIcon,
 				onClick: updateExtensionLayout('full-width', editorAnalyticsAPI),
 				selected: layout === 'full-width',
 				title: formatMessage(commonMessages.layoutFullWidth),
@@ -121,6 +129,7 @@ const editButton = (
 			id: 'editor.extension.edit',
 			type: 'button',
 			icon: EditIcon,
+			iconFallback: LegacyEditIcon,
 			testId: 'extension-toolbar-edit-button',
 			// Taking the latest `updateExtension` from plugin state to avoid race condition @see ED-8501
 			onClick: (state, dispatch, view) => {
@@ -267,7 +276,8 @@ export const getToolbarConfig =
 					{
 						id: 'editor.extension.delete',
 						type: 'button',
-						icon: RemoveIcon,
+						icon: DeleteIcon,
+						iconFallback: RemoveIcon,
 						appearance: 'danger',
 						onClick: removeExtension(editorAnalyticsAPI),
 						onMouseEnter: hoverDecoration?.(nodeType, true),

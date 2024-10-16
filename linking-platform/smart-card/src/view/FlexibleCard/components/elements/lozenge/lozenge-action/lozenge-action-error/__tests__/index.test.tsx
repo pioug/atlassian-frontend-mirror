@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render, waitForElementToBeRemoved } from '@testing-library/react';
+import { render, waitForElementToBeRemoved, screen } from '@testing-library/react';
 import LozengeActionError from '../index';
 import * as useResolve from '../../../../../../../../state/hooks/use-resolve';
 import { LozengeActionErrorMessages, type LozengeActionErrorProps } from '../types';
@@ -54,102 +54,102 @@ describe('LozengeActionError', () => {
 	});
 
 	it('renders component correctly when provided a text errorMessage & a preview action is available', async () => {
-		const { findByTestId } = renderComponent({
+		renderComponent({
 			errorMessage: TEXT_ERROR_MESSAGE,
 			previewData,
 			url,
 		});
 
 		// make sure icon is loaded
-		const icon = await findByTestId(`${testId}-icon`);
+		const icon = await screen.findByTestId(`${testId}-icon`);
 		expect(icon).toBeDefined();
 
 		// make sure error text is correct
-		const errorMessage = await findByTestId(`${testId}-error-message`);
+		const errorMessage = await screen.findByTestId(`${testId}-error-message`);
 		expect(errorMessage).toBeDefined();
 		expect(errorMessage.textContent).toEqual(TEXT_ERROR_MESSAGE);
 		expect(errorMessage).toHaveStyleDeclaration('-webkit-line-clamp', '8');
 
 		// make sure an error link is present
-		const link = await findByTestId(`${testId}-open-embed`);
+		const link = await screen.findByTestId(`${testId}-open-embed`);
 		expect(link).toBeDefined();
 		expect(link.textContent).toBe('Open issue in Jira');
 	});
 
 	it('does not render preview modal link if a preview action is not available', async () => {
-		const { findByTestId, queryByTestId } = renderComponent({
+		renderComponent({
 			errorMessage: TEXT_ERROR_MESSAGE,
 		});
 
 		// make sure icon is loaded
-		const icon = await findByTestId(`${testId}-icon`);
+		const icon = await screen.findByTestId(`${testId}-icon`);
 		expect(icon).toBeDefined();
 
 		// make sure error text is correct
-		const errorMessage = await findByTestId(`${testId}-error-message`);
+		const errorMessage = await screen.findByTestId(`${testId}-error-message`);
 		expect(errorMessage).toBeDefined();
 		expect(errorMessage.textContent).toEqual(TEXT_ERROR_MESSAGE);
 		expect(errorMessage).toHaveStyleDeclaration('-webkit-line-clamp', '8');
 
 		// make sure an error link is not present
-		const link = await queryByTestId(`${testId}-open-embed`);
+		const link = screen.queryByTestId(`${testId}-open-embed`);
 		expect(link).toBeNull();
 	});
 
 	it('renders component correctly when provided a MessageProps errorMessage', async () => {
-		const { findByTestId } = renderComponent({
+		renderComponent({
 			errorMessage: MESSAGE_PROP_ERROR_MESSAGE,
 		});
 
 		// make sure icon is loaded
-		const icon = await findByTestId(`${testId}-icon`);
+		const icon = await screen.findByTestId(`${testId}-icon`);
 		expect(icon).toBeDefined();
 
 		// make sure error text is correct
-		const errorMessage = await findByTestId(`${testId}-error-message`);
+		const errorMessage = await screen.findByTestId(`${testId}-error-message`);
 		expect(errorMessage).toBeDefined();
 		expect(errorMessage.textContent).toEqual(MESSAGE_PROP_ERROR_MESSAGE.descriptor.defaultMessage);
 		expect(errorMessage).toHaveStyleDeclaration('-webkit-line-clamp', '8');
 	});
 
 	it('renders with a specific maxLineNumber', async () => {
-		const { findByTestId } = renderComponent({
+		renderComponent({
 			errorMessage: TEXT_ERROR_MESSAGE,
 			maxLineNumber: MAX_LINE_NUMBER,
 		});
 
 		// make sure icon is loaded
-		const icon = await findByTestId(`${testId}-icon`);
+		const icon = await screen.findByTestId(`${testId}-icon`);
 		expect(icon).toBeDefined();
 
 		// make sure error text is correct
-		const errorMessage = await findByTestId(`${testId}-error-message`);
+		const errorMessage = await screen.findByTestId(`${testId}-error-message`);
 		expect(errorMessage).toBeDefined();
 		expect(errorMessage.textContent).toEqual(TEXT_ERROR_MESSAGE);
 		expect(errorMessage).toHaveStyleDeclaration('-webkit-line-clamp', MAX_LINE_NUMBER.toString());
 	});
 
 	it('opens an preview modal on error link click', async () => {
-		const { findByTestId } = renderComponent({
+		renderComponent({
 			errorMessage: TEXT_ERROR_MESSAGE,
 			previewData,
 			url,
 		});
 
 		// make sure an error link is present
-		const link = await findByTestId(`${testId}-open-embed`);
+		const link = await screen.findByTestId(`${testId}-open-embed`);
 		expect(link).toBeDefined();
 		expect(link.textContent).toBe('Open issue in Jira');
 
 		link.click();
 
-		const previewModal = await findByTestId('smart-embed-preview-modal');
+		const previewModal = await screen.findByTestId('smart-embed-preview-modal');
 		expect(previewModal).toBeDefined();
 	});
 
 	it('reloads the link on preview modal close', async () => {
 		const mockReload = jest.fn();
-		const { findByTestId, queryByTestId } = renderComponent(
+		renderComponent(
 			{
 				errorMessage: TEXT_ERROR_MESSAGE,
 				previewData,
@@ -159,43 +159,43 @@ describe('LozengeActionError', () => {
 		);
 
 		// make sure an error link is present
-		const link = await findByTestId(`${testId}-open-embed`);
+		const link = await screen.findByTestId(`${testId}-open-embed`);
 		expect(link).toBeDefined();
 		expect(link.textContent).toBe('Open issue in Jira');
 
 		link.click();
 
 		// make sure the preview modal is present
-		const previewModal = await findByTestId('smart-embed-preview-modal');
+		const previewModal = await screen.findByTestId('smart-embed-preview-modal');
 		expect(previewModal).toBeDefined();
 
-		const closeButton = await findByTestId('smart-embed-preview-modal-close-button');
+		const closeButton = await screen.findByTestId('smart-embed-preview-modal-close-button');
 		expect(closeButton).toBeDefined();
 		closeButton.click();
 
-		await waitForElementToBeRemoved(() => queryByTestId('smart-embed-preview-modal'));
+		await waitForElementToBeRemoved(() => screen.queryByTestId('smart-embed-preview-modal'));
 		expect(mockReload).toHaveBeenCalledWith(url, true);
 	});
 
 	it('fires button clicked event with smartLinkStatusOpenPreview subject id when an embed preview is open', async () => {
-		const { findByTestId } = renderComponent({
+		renderComponent({
 			errorMessage: TEXT_ERROR_MESSAGE,
 			previewData,
 			url,
 		});
 
 		// make sure an error link is present
-		const link = await findByTestId(`${testId}-open-embed`);
+		const link = await screen.findByTestId(`${testId}-open-embed`);
 		expect(link).toBeDefined();
 		expect(link.textContent).toBe('Open issue in Jira');
 
 		link.click();
 
 		// make sure the preview modal is present
-		const previewModal = await findByTestId('smart-embed-preview-modal');
+		const previewModal = await screen.findByTestId('smart-embed-preview-modal');
 		expect(previewModal).toBeDefined();
 
-		const closeButton = await findByTestId('smart-embed-preview-modal-close-button');
+		const closeButton = await screen.findByTestId('smart-embed-preview-modal-close-button');
 		expect(closeButton).toBeDefined();
 		closeButton.click();
 

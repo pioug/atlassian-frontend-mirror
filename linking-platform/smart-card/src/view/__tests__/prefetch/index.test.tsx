@@ -12,7 +12,7 @@ jest.mock('uuid', () => {
 });
 
 import React from 'react';
-import { cleanup, render, waitFor } from '@testing-library/react';
+import { screen, render, waitFor } from '@testing-library/react';
 import { type CardClient } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
@@ -61,23 +61,21 @@ describe('smart-card: prefetching of content', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 		mockUuid.mockReset();
-		cleanup();
 	});
 
 	afterAll(() => {
 		jest.clearAllMocks();
-		cleanup();
 	});
 
 	it('does not prefetch URLs if they are already visible, rendering as Smart Link', async () => {
 		jest.useFakeTimers();
 		mockGetEntries.mockImplementation(() => [{ isIntersecting: true }]);
-		const { findByTestId } = render(
+		render(
 			<Provider client={mockClient}>
 				<Card appearance="inline" url={mockUrl} />
 			</Provider>,
 		);
-		const resolvedView = await findByTestId('inline-card-resolved-view');
+		const resolvedView = await screen.findByTestId('inline-card-resolved-view');
 		// In this test, only the fetch path should have been called
 		// since prefetching is not meant to be triggered when a URL
 		// is already in the viewport.
@@ -105,12 +103,12 @@ describe('smart-card: prefetching of content', () => {
 
 	it('does prefetch URLs if they are not visible, rendering as lazy rendering placeholder', async () => {
 		mockGetEntries.mockImplementation(() => [{ isIntersecting: false }]);
-		const { findByTestId } = render(
+		render(
 			<Provider client={mockClient}>
 				<Card appearance="inline" url={mockUrl} />
 			</Provider>,
 		);
-		const lazyPlaceholderView = await findByTestId('lazy-render-placeholder');
+		const lazyPlaceholderView = await screen.findByTestId('lazy-render-placeholder');
 		// In this test, the prefetch path is privileged, since the URL is not
 		// in the viewport. The result in the DOM should be a placeholder for the link.
 		// - Assertions that we rendered the correct Smart Link ⬇️.
@@ -130,12 +128,12 @@ describe('smart-card: prefetching of content', () => {
 
 	it('loads a lazy rendering placeholder with the title text override if it is provided', async () => {
 		mockGetEntries.mockImplementation(() => [{ isIntersecting: false }]);
-		const { findByTestId } = render(
+		render(
 			<Provider client={mockClient}>
 				<Card appearance="inline" url={mockUrl} placeholder="spaghetti" />
 			</Provider>,
 		);
-		const lazyPlaceholderView = await findByTestId('lazy-render-placeholder');
+		const lazyPlaceholderView = await screen.findByTestId('lazy-render-placeholder');
 		// In this test, the prefetch path is privileged, since the URL is not
 		// in the viewport. The result in the DOM should be a placeholder for the link.
 		// - Assertions that we rendered the correct Smart Link ⬇️.
@@ -154,12 +152,12 @@ describe('smart-card: prefetching of content', () => {
 
 	it('converts a lazy render placeholder into a Smart Link when it enters the viewPort', async () => {
 		mockGetEntries.mockImplementation(() => [{ isIntersecting: false }]);
-		const { findByTestId } = render(
+		render(
 			<Provider client={mockClient}>
 				<Card appearance="inline" url={mockUrl} />
 			</Provider>,
 		);
-		const lazyPlaceholderView = await findByTestId('lazy-render-placeholder');
+		const lazyPlaceholderView = await screen.findByTestId('lazy-render-placeholder');
 		// In this test, the prefetch path is privileged, since the URL is not
 		// in the viewport. The result in the DOM should be a placeholder for the link.
 		// - Assertions that we rendered the correct Smart Link ⬇️.
@@ -172,7 +170,7 @@ describe('smart-card: prefetching of content', () => {
 
 		mockGetEntries.mockImplementation(() => [{ isIntersecting: false }, { isIntersecting: true }]);
 
-		const resolvedView = await findByTestId('inline-card-resolved-view');
+		const resolvedView = await screen.findByTestId('inline-card-resolved-view');
 
 		expect(resolvedView).toBeTruthy();
 		expect(resolvedView.textContent).toBe('I love cheese');

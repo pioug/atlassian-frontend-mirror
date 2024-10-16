@@ -2,7 +2,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { messages } from '../../../../../../messages';
 import { type FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
@@ -27,62 +27,62 @@ describe('Snippet', () => {
 		);
 
 	it('renders Snippet element', () => {
-		const { queryByTestId } = setup({ snippet: snippetContent });
-		const snippet = queryByTestId(testId);
+		setup({ snippet: snippetContent });
+		const snippet = screen.queryByTestId(testId);
 		expect(snippet?.textContent).toBe(snippetContent);
 		expect(snippet).toHaveStyleDeclaration('color', 'var(--ds-text, #172B4D)');
 	});
 
 	it('does not renders Snippet element without data context', () => {
-		const { queryByTestId } = setup();
-		expect(queryByTestId(testId)).not.toBeInTheDocument();
+		setup();
+		expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
 	});
 
 	describe('content and message', () => {
 		it('renders override content', () => {
-			const { queryByTestId } = setup(undefined, { content: overrideContent });
-			const snippet = queryByTestId(testId);
+			setup(undefined, { content: overrideContent });
+			const snippet = screen.queryByTestId(testId);
 			expect(snippet?.textContent).toBe(overrideContent);
 		});
 
 		it('renders intl message', () => {
-			const { queryByTestId } = setup(undefined, {
+			setup(undefined, {
 				message: { descriptor: messages.actions },
 			});
-			const snippet = queryByTestId(testId);
+			const snippet = screen.queryByTestId(testId);
 			expect(snippet?.textContent).toBe(messages.actions.defaultMessage);
 		});
 
 		it('renders intl message as priority', () => {
-			const { queryByTestId } = setup(
+			setup(
 				{ snippet: snippetContent },
 				{
 					content: overrideContent,
 					message: { descriptor: messages.actions },
 				},
 			);
-			const snippet = queryByTestId(testId);
+			const snippet = screen.queryByTestId(testId);
 
 			expect(snippet?.textContent).toBe(messages.actions.defaultMessage);
 		});
 
 		it('renders override content as second priority', () => {
-			const { queryByTestId } = setup({ snippet: snippetContent }, { content: overrideContent });
-			const snippet = queryByTestId(testId);
+			setup({ snippet: snippetContent }, { content: overrideContent });
+			const snippet = screen.queryByTestId(testId);
 			expect(snippet?.textContent).toBe(overrideContent);
 		});
 	});
 
 	describe('maxLines', () => {
 		it('renders Snippet element with default maxLines', () => {
-			const { queryByTestId } = setup({ snippet: snippetContent });
-			const snippet = queryByTestId(testId);
+			setup({ snippet: snippetContent });
+			const snippet = screen.queryByTestId(testId);
 			expect(snippet).toHaveStyleDeclaration('-webkit-line-clamp', '3');
 		});
 
 		it('renders Snippet element with provided maxLines', () => {
-			const { queryByTestId } = setup({ snippet: snippetContent }, { maxLines: 1 });
-			const snippet = queryByTestId(testId);
+			setup({ snippet: snippetContent }, { maxLines: 1 });
+			const snippet = screen.queryByTestId(testId);
 			expect(snippet).toHaveStyleDeclaration('-webkit-line-clamp', '1');
 		});
 	});
@@ -90,13 +90,13 @@ describe('Snippet', () => {
 	describe('overrideCss', () => {
 		const defaultColor = 'var(--ds-text, #172B4D)';
 		it('renders Snippet element with default styles', () => {
-			const { queryByTestId } = setup({ snippet: snippetContent });
-			const snippet = queryByTestId(testId);
+			setup({ snippet: snippetContent });
+			const snippet = screen.queryByTestId(testId);
 			expect(snippet).toHaveStyleDeclaration('color', defaultColor);
 		});
 
 		it('renders Snippet element with provided styles', () => {
-			const { queryByTestId } = setup(
+			setup(
 				{ snippet: snippetContent },
 				{
 					overrideCss: css({
@@ -104,13 +104,13 @@ describe('Snippet', () => {
 					}),
 				},
 			);
-			const snippet = queryByTestId(testId);
+			const snippet = screen.queryByTestId(testId);
 			expect(snippet).toHaveStyleDeclaration('color', defaultColor);
 			expect(snippet).toHaveStyleDeclaration('margin', 'var(--ds-space-1000, 80px)');
 		});
 
 		it('renders Snippet element with override styles', () => {
-			const { queryByTestId } = setup(
+			setup(
 				{ snippet: snippetContent },
 				{
 					overrideCss: css({
@@ -118,7 +118,7 @@ describe('Snippet', () => {
 					}),
 				},
 			);
-			const snippet = queryByTestId(testId);
+			const snippet = screen.queryByTestId(testId);
 			expect(snippet).toHaveStyleDeclaration('color', 'white');
 		});
 	});

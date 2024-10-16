@@ -1,5 +1,20 @@
 # @atlaskit/mention
 
+## 23.3.2
+
+### Patch Changes
+
+- [#152012](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152012)
+  [`30a69f02904da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30a69f02904da) -
+  [ED-23460] Make sure that error analytics in editor-plugin-mentions can fire by using actions from
+  editor-plugin-analytics
+
+  - **@atlaskit/editor-common**: Add types for `@atlaskit/editor-plugin-mentions` analytics
+  - **@atlaskit/editor-plugin-mentions**: Switch to using `@atlaskit/editor-plugin-analytics`
+    actions so that error events can be queued and fired consistently
+  - **@atlaskit/mention**: Move some enums to the types file and export them so they can be used to
+    type analytics events
+
 ## 23.3.1
 
 ### Patch Changes

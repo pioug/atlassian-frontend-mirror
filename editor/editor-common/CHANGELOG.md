@@ -1,5 +1,65 @@
 # @atlaskit/editor-common
 
+## 93.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 93.5.1
+
+### Patch Changes
+
+- [#152594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152594)
+  [`4f17733c95c94`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f17733c95c94) -
+  [ux] ED-25093: Migrated media toolbar to use the new icons
+- Updated dependencies
+
+## 93.5.0
+
+### Minor Changes
+
+- [#151611](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151611)
+  [`ee71cb75c933c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee71cb75c933c) -
+  ED-25294 add new attribute as engagement platform message trigger
+
+### Patch Changes
+
+- [#152399](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152399)
+  [`fbd7217f0cb51`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fbd7217f0cb51) -
+  [ux] ED-25092: Added iconFallback prop to FloatingToolbarDropdown
+- [#151611](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151611)
+  [`c866e61e26ae2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c866e61e26ae2) -
+  [ux] [ED-25306] When opening the media picker from the editor main toolbar do not use the
+  ToolbarArrowKeyNavigationProvider
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+- Updated dependencies
+
+## 93.4.4
+
+### Patch Changes
+
+- [#151676](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151676)
+  [`ed6d01983b0da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed6d01983b0da) -
+  ED-25183: Remediate WithEditorActions, WithPluginState & LegacyEditorContext context type
+
+## 93.4.3
+
+### Patch Changes
+
+- [#152012](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152012)
+  [`30a69f02904da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30a69f02904da) -
+  [ED-23460] Make sure that error analytics in editor-plugin-mentions can fire by using actions from
+  editor-plugin-analytics
+
+  - **@atlaskit/editor-common**: Add types for `@atlaskit/editor-plugin-mentions` analytics
+  - **@atlaskit/editor-plugin-mentions**: Switch to using `@atlaskit/editor-plugin-analytics`
+    actions so that error events can be queued and fired consistently
+  - **@atlaskit/mention**: Move some enums to the types file and export them so they can be used to
+    type analytics events
+
 ## 93.4.2
 
 ### Patch Changes

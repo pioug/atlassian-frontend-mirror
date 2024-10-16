@@ -86,15 +86,15 @@ describe('useInvokeClientAction', () => {
 
 		await setup(mockAnalytics, actionFn);
 
-		expect(ufoStartSpy).toBeCalledTimes(1);
-		expect(ufoStartSpy).toBeCalledWith('smart-link-action-invocation', 'ufo-experience-id', {
+		expect(ufoStartSpy).toHaveBeenCalledTimes(1);
+		expect(ufoStartSpy).toHaveBeenCalledWith('smart-link-action-invocation', 'ufo-experience-id', {
 			actionType,
 			display,
 			extensionKey: 'spaghetti-key',
 			invokeType: 'client',
 		});
-		expect(ufoSucceedSpy).toBeCalledTimes(1);
-		expect(ufoSucceedSpy).toBeCalledWith('smart-link-action-invocation', 'ufo-experience-id');
+		expect(ufoSucceedSpy).toHaveBeenCalledTimes(1);
+		expect(ufoSucceedSpy).toHaveBeenCalledWith('smart-link-action-invocation', 'ufo-experience-id');
 	});
 
 	it('sends ufo failed experience events', async () => {
@@ -105,15 +105,15 @@ describe('useInvokeClientAction', () => {
 
 		await setup(mockAnalytics, actionFn);
 
-		expect(ufoStartSpy).toBeCalledTimes(1);
-		expect(ufoStartSpy).toBeCalledWith('smart-link-action-invocation', 'ufo-experience-id', {
+		expect(ufoStartSpy).toHaveBeenCalledTimes(1);
+		expect(ufoStartSpy).toHaveBeenCalledWith('smart-link-action-invocation', 'ufo-experience-id', {
 			actionType,
 			display,
 			extensionKey: 'spaghetti-key',
 			invokeType: 'client',
 		});
-		expect(ufoFailSpy).toBeCalledTimes(1);
-		expect(ufoFailSpy).toBeCalledWith('smart-link-action-invocation', 'ufo-experience-id');
+		expect(ufoFailSpy).toHaveBeenCalledTimes(1);
+		expect(ufoFailSpy).toHaveBeenCalledWith('smart-link-action-invocation', 'ufo-experience-id');
 	});
 
 	it('mark measure resolved performance', async () => {

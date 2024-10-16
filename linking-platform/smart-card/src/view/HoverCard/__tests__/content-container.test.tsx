@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import ContentContainer from '../components/ContentContainer';
 import { hoverCardClassName } from '../components/HoverCardContent';
 import type { ContentContainerProps } from '../types';
@@ -44,9 +44,9 @@ describe('ContentContainer', () => {
 		);
 
 	it('returns hover card content container', async () => {
-		const { findByTestId } = setup();
+		setup();
 
-		const contentContainer = await findByTestId(testId);
+		const contentContainer = await screen.findByTestId(testId);
 
 		expect(contentContainer).toBeInTheDocument();
 		expect(contentContainer.textContent).toBe(content);
@@ -55,8 +55,8 @@ describe('ContentContainer', () => {
 
 	describe('when AI summary is enabled', () => {
 		it('wraps container in AI prism', async () => {
-			const { findByTestId } = setup({ isAIEnabled: true });
-			const prism = await findByTestId(`${testId}-prism`);
+			setup({ isAIEnabled: true });
+			const prism = await screen.findByTestId(`${testId}-prism`);
 			const svg = prism.querySelector('svg');
 
 			expect(prism).toBeInTheDocument();
@@ -69,11 +69,11 @@ describe('ContentContainer', () => {
 				summariseUrl: jest.fn(),
 			});
 
-			const { findByTestId } = setup({
+			setup({
 				isAIEnabled: true,
 			});
 
-			const prism = await findByTestId(`${testId}-prism`);
+			const prism = await screen.findByTestId(`${testId}-prism`);
 			const svg = prism.querySelector('svg');
 			expect(svg).toHaveStyleDeclaration('opacity', '1');
 		});

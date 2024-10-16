@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-highlight",
-	"version": "1.18.0",
+	"version": "1.18.1",
 	"description": "Highlight plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,8 +39,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.9.4",
-		"@atlaskit/editor-common": "^93.4.0",
+		"@atlaskit/adf-schema": "^42.0.2",
+		"@atlaskit/editor-common": "^93.5.0",
 		"@atlaskit/editor-palette": "1.6.1",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",

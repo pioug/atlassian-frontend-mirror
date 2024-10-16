@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.5.0
+
+### Minor Changes
+
+- [#152407](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152407)
+  [`d0365c4e1ce72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0365c4e1ce72) -
+  [ux] EDF-1630: Implement 1p prompt placeholder variations experiment behind
+  platform_editor_ai_1p_placeholder_hints and prompt input statistic tracking behind
+  platform_editor_ai_prompt_input_statistics
+- [#152434](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152434)
+  [`ab77fcc060a4b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab77fcc060a4b) -
+  [EDF-1583](https://product-fabric.atlassian.net/browse/EDF-1583) - cleanup
+  platform_editor_ai_command_palate_improvement Statsig experiment
+
 ## 2.4.0
 
 ### Minor Changes

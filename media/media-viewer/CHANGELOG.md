@@ -1,5 +1,25 @@
 # @atlaskit/media-viewer
 
+## 49.2.0
+
+### Minor Changes
+
+- [#152525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152525)
+  [`137373a63e749`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/137373a63e749) -
+  Implement `platform_media_disable_video_640p_artifact_usage` feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 49.1.1
+
+### Patch Changes
+
+- [#152434](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152434)
+  [`9ee6e64e25508`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ee6e64e25508) -
+  [ux] fix media viewer navigation for archieve file
+
 ## 49.1.0
 
 ### Minor Changes

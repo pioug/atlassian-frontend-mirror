@@ -169,7 +169,7 @@ const ToolbarItems = React.memo(
 								item.icon ? (
 									item.iconFallback ? (
 										<ButtonIcon
-											color={token('color.icon')}
+											color={item.disabled ? token('color.icon.disabled') : token('color.icon')}
 											spacing="spacious"
 											label={item.title}
 											LEGACY_fallbackIcon={item.iconFallback}

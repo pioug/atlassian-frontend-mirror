@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider, type MessageFormatElement } from 'react-intl-next';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
@@ -23,9 +23,9 @@ jest.mock('react-render-image', () => ({ src, loading, loaded, errored }: any) =
 
 describe('Element: Badge', () => {
 	it('renders element', async () => {
-		const { findByTestId } = render(<Badge icon={IconType.Comment} label="99" />);
+		render(<Badge icon={IconType.Comment} label="99" />);
 
-		const element = await findByTestId('smart-element-badge');
+		const element = await screen.findByTestId('smart-element-badge');
 
 		expect(element).toBeTruthy();
 		expect(element.getAttribute('data-smart-element-badge')).toBeTruthy();
@@ -33,35 +33,35 @@ describe('Element: Badge', () => {
 	});
 
 	it('renders image as badge icon', async () => {
-		const { findByTestId } = render(<Badge label="desc" url="src-loaded" />);
+		render(<Badge label="desc" url="src-loaded" />);
 
-		const element = await findByTestId('smart-element-badge-image');
+		const element = await screen.findByTestId('smart-element-badge-image');
 
 		expect(element).toBeTruthy();
 	});
 
 	it('does not render image as badge icon if hideBadgeIcon is true', async () => {
-		const { queryByTestId } = render(<Badge label="desc" url="src-loaded" hideIcon={true} />);
+		render(<Badge label="desc" url="src-loaded" hideIcon={true} />);
 
-		const element = queryByTestId('smart-element-badge-image');
+		const element = screen.queryByTestId('smart-element-badge-image');
 
 		expect(element).toBeNull();
 	});
 
 	describe('size', () => {
 		it('renders icon at  0.75rem', async () => {
-			const { findByTestId } = render(<Badge icon={IconType.Comment} label="99" />);
+			render(<Badge icon={IconType.Comment} label="99" />);
 
-			const icon = await findByTestId('smart-element-badge-icon');
+			const icon = await screen.findByTestId('smart-element-badge-icon');
 
 			expect(icon).toHaveStyle(`height: 1rem`);
 			expect(icon).toHaveStyle(`width: 1rem`);
 		});
 
 		it('renders text at .75rem', async () => {
-			const { findByTestId } = render(<Badge icon={IconType.Comment} label="99" />);
+			render(<Badge icon={IconType.Comment} label="99" />);
 
-			const text = await findByTestId('smart-element-badge-label');
+			const text = await screen.findByTestId('smart-element-badge-label');
 
 			expect(text).toHaveStyleDeclaration('font-size', '0.75rem');
 		});
@@ -83,13 +83,13 @@ describe('Element: Badge', () => {
 		])(
 			'renders formatted message for priority badge',
 			async (icon: IconType, content: string | MessageFormatElement[] | undefined) => {
-				const { findByTestId } = render(
+				render(
 					<IntlProvider locale="en">
 						<Badge icon={icon} />
 					</IntlProvider>,
 				);
 
-				const element = await findByTestId('smart-element-badge');
+				const element = await screen.findByTestId('smart-element-badge');
 
 				expect(element.textContent).toBe(content);
 			},
@@ -112,11 +112,9 @@ describe('Element: Badge', () => {
 		const overrideCss = css({
 			backgroundColor: 'blue',
 		});
-		const { findByTestId } = render(
-			<Badge icon={IconType.Comment} label="99" overrideCss={overrideCss} />,
-		);
+		render(<Badge icon={IconType.Comment} label="99" overrideCss={overrideCss} />);
 
-		const element = await findByTestId('smart-element-badge');
+		const element = await screen.findByTestId('smart-element-badge');
 
 		expect(element).toHaveStyleDeclaration('background-color', 'blue');
 	});

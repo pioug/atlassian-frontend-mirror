@@ -48,7 +48,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			expect(resolvedViewName).toBeTruthy();
 			expect(resolvedViewDescription).toBeTruthy();
 			expect(mockFetch).toBeCalled();
-			expect(mockFetch).toBeCalledTimes(1);
+			expect(mockFetch).toHaveBeenCalledTimes(1);
 
 			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
 			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
@@ -73,7 +73,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			expect(resolvedCard).toBeTruthy();
 			expect(resolvedView).toBeTruthy();
 			expect(mockFetch).toBeCalled();
-			expect(mockFetch).toBeCalledTimes(1);
+			expect(mockFetch).toHaveBeenCalledTimes(1);
 
 			rerender(
 				<IntlProvider locale="en">
@@ -84,7 +84,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			);
 
 			expect(mockFetch).toBeCalled();
-			expect(mockFetch).toBeCalledTimes(2);
+			expect(mockFetch).toHaveBeenCalledTimes(2);
 		});
 
 		it('should not re-render when appearance changes', async () => {
@@ -102,7 +102,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			expect(resolvedCard).toBeTruthy();
 			expect(resolvedView).toBeTruthy();
 			expect(mockFetch).toBeCalled();
-			expect(mockFetch).toBeCalledTimes(1);
+			expect(mockFetch).toHaveBeenCalledTimes(1);
 
 			rerender(
 				<IntlProvider locale="en">
@@ -112,7 +112,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				</IntlProvider>,
 			);
 			expect(mockFetch).toBeCalled();
-			expect(mockFetch).toBeCalledTimes(1);
+			expect(mockFetch).toHaveBeenCalledTimes(1);
 		});
 	});
 
@@ -154,7 +154,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(forbiddenLinkButton).toBeTruthy();
 				expect(forbiddenLinkButton!.textContent).toContain('Try another account');
 				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
 					status: 'forbidden',
@@ -190,7 +190,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(joinButton!.textContent).toBe('Join now');
 
 				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
 					status: 'forbidden',
@@ -226,7 +226,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(joinButton!.textContent).toBe('Request access');
 
 				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
 					status: 'forbidden',
@@ -257,7 +257,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(forbiddenLinkButton!.textContent).toContain('Try another account');
 
 				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
 					status: 'forbidden',
@@ -286,7 +286,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(forbiddenLinkButton!.textContent).toContain('Try another account');
 
 				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
 					status: 'forbidden',
@@ -317,7 +317,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(forbiddenLinkButton!.textContent).toContain('Try another account');
 
 				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
 					status: 'forbidden',
@@ -341,7 +341,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(forbiddenLink).toBeTruthy();
 				expect(forbiddenLinkButton).toBeFalsy();
 				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
 					status: 'forbidden',
@@ -365,7 +365,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			expect(unauthorizedLink).toBeTruthy();
 
 			expect(mockFetch).toBeCalled();
-			expect(mockFetch).toBeCalledTimes(1);
+			expect(mockFetch).toHaveBeenCalledTimes(1);
 			expect(mockOnError).toHaveBeenCalledWith({
 				url: mockUrl,
 				status: 'unauthorized',
@@ -418,7 +418,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			expect(unauthorizedLink).toBeTruthy();
 
 			expect(mockFetch).toBeCalled();
-			expect(mockFetch).toBeCalledTimes(1);
+			expect(mockFetch).toHaveBeenCalledTimes(1);
 			expect(mockOnError).toHaveBeenCalledWith({
 				url: mockUrl,
 				status: 'unauthorized',
@@ -476,7 +476,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			expect(unauthorizedLink).toBeTruthy();
 			expect(unauthorizedLinkButton).toBeFalsy();
 			expect(mockFetch).toBeCalled();
-			expect(mockFetch).toBeCalledTimes(1);
+			expect(mockFetch).toHaveBeenCalledTimes(1);
 			expect(mockOnError).toHaveBeenCalledWith({
 				url: mockUrl,
 				status: 'unauthorized',
@@ -498,7 +498,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			expect(frame).toBeTruthy();
 			expect(link).toBeTruthy();
 			expect(mockFetch).toBeCalled();
-			expect(mockFetch).toBeCalledTimes(1);
+			expect(mockFetch).toHaveBeenCalledTimes(1);
 			expect(mockOnError).toHaveBeenCalledWith({
 				url: mockUrl,
 				status: 'errored',
@@ -524,7 +524,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			const link = await screen.findByText("We can't show you this Jira page");
 			expect(link).toBeTruthy();
 			expect(mockFetch).toBeCalled();
-			expect(mockFetch).toBeCalledTimes(1);
+			expect(mockFetch).toHaveBeenCalledTimes(1);
 			expect(mockOnError).toHaveBeenCalledWith({
 				url: mockUrl,
 				status: 'not_found',

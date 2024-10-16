@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 1.36.2
+
+### Patch Changes
+
+- [#152594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152594)
+  [`4f17733c95c94`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f17733c95c94) -
+  [ux] ED-25093: Migrated media toolbar to use the new icons
+
+## 1.36.1
+
+### Patch Changes
+
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+- Updated dependencies
+
 ## 1.36.0
 
 ### Minor Changes

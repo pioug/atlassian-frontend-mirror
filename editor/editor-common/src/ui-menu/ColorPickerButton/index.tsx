@@ -11,7 +11,9 @@ import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import Button from '@atlaskit/button/standard-button';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import LegacyExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
+import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -40,8 +42,11 @@ const colorPickerButtonWrapper = css({
 	position: 'relative',
 });
 
-const colorPickerExpandContainer = css({
-	margin: `0px ${token('space.negative.050', '-4px')}`,
+const colorPickerExpandContainer = xcss({
+	marginTop: 'space.0',
+	marginBottom: 'space.0',
+	marginLeft: 'space.negative.050',
+	marginRight: 'space.negative.050',
 });
 
 // Control the size of color picker buttons and preview
@@ -268,9 +273,14 @@ const ColorPickerButton = (props: Props) => {
 					// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
 					css={buttonStyle}
 					iconAfter={
-						<span css={colorPickerExpandContainer}>
-							<ExpandIcon label="" />
-						</span>
+						<Box xcss={colorPickerExpandContainer}>
+							<ChevronDownIcon
+								color="currentColor"
+								spacing="spacious"
+								LEGACY_fallbackIcon={LegacyExpandIcon}
+								label="color-picker-chevron-down"
+							/>
+						</Box>
 					}
 					data-selected-color={props.currentColor}
 				/>

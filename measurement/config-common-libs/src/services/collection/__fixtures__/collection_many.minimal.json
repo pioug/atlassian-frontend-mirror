@@ -1,0 +1,7 @@
+[
+	["aBooleanOn"],
+	["aString", "john_wick"],
+	["anInteger", 30, "aLong", 3000000000, "aDouble", 42.42],
+	["aStringList", ["baba", "yaga"]],
+	["aNumberList", [1729, 1985]]
+]

@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 3.2.2
+
+### Patch Changes
+
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+- Updated dependencies
+
+## 3.2.1
+
+### Patch Changes
+
+- [#151906](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151906)
+  [`3ecb33ebf130a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ecb33ebf130a) -
+  [ux] ED-25304 Fix Warning message is overflow on Confluence when opening the popup from toolbar
+
 ## 3.2.0
 
 ### Minor Changes

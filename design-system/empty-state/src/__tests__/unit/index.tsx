@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/new';
 
 import EmptyState from '../../empty-state';
 import type { RenderImageProps } from '../../types';

@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import AtlaskitBadge from '../index';
 
@@ -9,9 +9,9 @@ describe('Element: AtlaskitBadge', () => {
 	const testId = 'smart-element-atlaskit-badge';
 
 	it('renders element', async () => {
-		const { findByTestId } = render(<AtlaskitBadge value={5} />);
+		render(<AtlaskitBadge value={5} />);
 
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 
 		expect(element).toBeTruthy();
 		expect(element.getAttribute('data-smart-element-atlaskit-badge')).toBeTruthy();
@@ -22,8 +22,8 @@ describe('Element: AtlaskitBadge', () => {
 		const overrideCss = css({
 			color: 'black',
 		});
-		const { findByTestId } = render(<AtlaskitBadge value={5} overrideCss={overrideCss} />);
-		const element = await findByTestId(testId);
+		render(<AtlaskitBadge value={5} overrideCss={overrideCss} />);
+		const element = await screen.findByTestId(testId);
 		expect(element).toHaveStyleDeclaration('color', 'black');
 	});
 });

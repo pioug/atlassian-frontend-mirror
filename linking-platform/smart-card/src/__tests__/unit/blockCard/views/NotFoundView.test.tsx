@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { BlockCardNotFoundView } from '../../../../view/BlockCard';
 import { getResolvedProps } from '../../../__mocks__/get-resolved-props';
@@ -20,26 +20,21 @@ describe('Block card views - Not Found', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
-		cleanup();
 	});
 
 	it('renders view', () => {
-		const { getByTestId } = renderWithIntl(
-			<BlockCardNotFoundView {...props} testId="not-found-view" />,
-		);
-		const frame = getByTestId('not-found-view');
+		renderWithIntl(<BlockCardNotFoundView {...props} testId="not-found-view" />);
+		const frame = screen.getByTestId('not-found-view');
 		expect(frame.textContent).toMatch(
 			/https:\/\/github.com\/changesets\/changesetsThe page doesn't exist or it may have changed after this link was added./,
 		);
-		const icon = getByTestId('not-found-view-warning-icon');
+		const icon = screen.getByTestId('not-found-view-warning-icon');
 		expect(icon.getAttribute('aria-label')).toBe('not-found-warning-icon');
 	});
 
 	it('clicking on link should have no side-effects', () => {
-		const { getByTestId } = renderWithIntl(
-			<BlockCardNotFoundView {...props} testId="not-found-view" />,
-		);
-		const view = getByTestId('not-found-view');
+		renderWithIntl(<BlockCardNotFoundView {...props} testId="not-found-view" />);
+		const view = screen.getByTestId('not-found-view');
 		const link = view.querySelector('a');
 
 		expect(link).toBeTruthy();

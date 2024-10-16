@@ -152,3 +152,9 @@ export const ArticlesListItemLastModified = styled.div({
 	color: token('color.text.subtlest', colors.N400A),
 	padding: `${token('space.050', '4px')} 0`,
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-styled -- Ignored via go/DSP-18766
+export const ArticlesListItemDescriptionHighlight = styled.mark({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	color: token('color.background.accent.yellow.subtlest', colors.Y100),
+});

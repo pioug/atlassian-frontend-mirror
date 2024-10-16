@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
@@ -50,53 +50,53 @@ describe('ActionGroup', () => {
 		});
 
 		it('should not render ellipse button', async () => {
-			const { queryByTestId } = setup(1);
-			expect(queryByTestId('action-group-more-button')).toBeNull();
+			setup(1);
+			expect(screen.queryByTestId('action-group-more-button')).toBeNull();
 		});
 	});
 
 	describe.each([3, 2, 1])('with up to %d buttons visible', (visibleButtonsNum) => {
 		describe(`when there is ${visibleButtonsNum} actions`, () => {
 			it(`should render ${visibleButtonsNum} actions as a buttons`, async () => {
-				const { getByTestId } = setup(visibleButtonsNum, visibleButtonsNum);
+				setup(visibleButtonsNum, visibleButtonsNum);
 				for (let i = 0; i < visibleButtonsNum; i++) {
-					const element = await waitFor(() => getByTestId(`smart-element-test-${i + 1}`));
+					const element = await screen.findByTestId(`smart-element-test-${i + 1}`);
 					expect(element).toBeDefined();
 				}
 			});
 
 			it('should not render ellipse button', async () => {
-				const { queryByTestId } = setup(visibleButtonsNum, visibleButtonsNum);
-				expect(queryByTestId('action-group-more-button')).toBeNull();
+				setup(visibleButtonsNum, visibleButtonsNum);
+				expect(screen.queryByTestId('action-group-more-button')).toBeNull();
 			});
 		});
 
 		describe(`when there is more then ${visibleButtonsNum} actions`, () => {
 			it(`should render ${visibleButtonsNum - 1} first action item(s) as a button(s)`, async () => {
-				const { getByTestId, queryByTestId } = setup(visibleButtonsNum + 1, visibleButtonsNum);
+				setup(visibleButtonsNum + 1, visibleButtonsNum);
 				// First minus one buttons are stand alone buttons
 				for (let i = 0; i < visibleButtonsNum - 1; i++) {
-					const element = await waitFor(() => getByTestId(`smart-element-test-${i + 1}`));
+					const element = await screen.findByTestId(`smart-element-test-${i + 1}`);
 					expect(element).toBeDefined();
 				}
 				// Rest are not stand alone buttons
 				for (let i = visibleButtonsNum - 1; i < visibleButtonsNum + 1; i++) {
-					expect(queryByTestId(`smart-element-test-${i + 1}`)).toBeNull();
+					expect(screen.queryByTestId(`smart-element-test-${i + 1}`)).toBeNull();
 				}
 			});
 
 			it(`should render ellipse button for all but ${
 				visibleButtonsNum - 1
 			} first actions`, async () => {
-				const { getByTestId } = setup(visibleButtonsNum + 1, visibleButtonsNum);
-				const element = await waitFor(() => getByTestId('action-group-more-button'));
+				setup(visibleButtonsNum + 1, visibleButtonsNum);
+				const element = await screen.findByTestId('action-group-more-button');
 				expect(element).toBeDefined();
 			});
 
 			it('should render rest of the actions when "more actions" button is clicked', async () => {
-				const { getByTestId } = setup(visibleButtonsNum + 1, visibleButtonsNum);
-				const moreButton = await waitFor(() => getByTestId('action-group-more-button'));
-				userEvent.click(moreButton);
+				setup(visibleButtonsNum + 1, visibleButtonsNum);
+				const moreButton = await screen.findByTestId('action-group-more-button');
+				await userEvent.click(moreButton);
 
 				/**
 				 * for visibleButtonsNum = 3 and total 4 buttons,
@@ -109,8 +109,8 @@ describe('ActionGroup', () => {
 				 * dropdown shows actions #1, #2 (indices 0, 1)
 				 */
 				for (let i = 0; i < 2; i++) {
-					const secondActionElement = await waitFor(() =>
-						getByTestId(`smart-element-test-${i + visibleButtonsNum}`),
+					const secondActionElement = await screen.findByTestId(
+						`smart-element-test-${i + visibleButtonsNum}`,
 					);
 					expect(secondActionElement).toBeDefined();
 					expect(secondActionElement?.textContent).toMatch('Delete');
@@ -118,10 +118,10 @@ describe('ActionGroup', () => {
 			});
 
 			it('renders tooltip when "more actions" button is hovered', async () => {
-				const { findByTestId } = setup(visibleButtonsNum + 1, visibleButtonsNum);
-				const moreButton = await findByTestId('action-group-more-button');
+				setup(visibleButtonsNum + 1, visibleButtonsNum);
+				const moreButton = await screen.findByTestId('action-group-more-button');
 				fireEvent.mouseOver(moreButton);
-				const tooltip = await findByTestId('action-group-more-button-tooltip');
+				const tooltip = await screen.findByTestId('action-group-more-button-tooltip');
 
 				expect(tooltip).toBeTruthy();
 				expect(tooltip.textContent).toBe(messages.more_actions.defaultMessage);
@@ -163,18 +163,17 @@ describe('ActionGroup', () => {
 			);
 
 			if (asDropDownItems) {
-				const { findByTestId, findByRole } = renderResult;
-				const moreButton = await findByTestId('action-group-more-button');
-				userEvent.click(moreButton);
-				await findByRole('menu');
+				const moreButton = await screen.findByTestId('action-group-more-button');
+				await userEvent.click(moreButton);
+				await screen.findByRole('menu');
 			}
 
 			return renderResult;
 		};
 
 		it('should be able to render DropdownItem element', async () => {
-			const { getAllByRole } = await setup(ActionName.DeleteAction, false, false, true);
-			const elements = getAllByRole('menuitem');
+			await setup(ActionName.DeleteAction, false, false, true);
+			const elements = screen.getAllByRole('menuitem');
 			expect(elements).toHaveLength(1);
 		});
 
@@ -186,53 +185,48 @@ describe('ActionGroup', () => {
 					['as button', false],
 				])('%s', (_: string, asDropdownItem: boolean) => {
 					it('should render both content and icon', async () => {
-						const { getByTestId } = await setup(actionName, false, false, asDropdownItem);
+						await setup(actionName, false, false, asDropdownItem);
 
-						const element = await waitFor(() => getByTestId(testId));
+						const element = await screen.findByTestId(testId);
 						expect(element).toBeDefined();
 
-						const icon = await waitFor(() => getByTestId(iconTestId));
+						const icon = await screen.findByTestId(iconTestId);
 						expect(icon).toBeDefined();
 
 						expect(element.textContent).toEqual(expectedContent);
 					});
 
 					it('should render only content', async () => {
-						const { getByTestId, queryByTestId } = await setup(
-							actionName,
-							false,
-							true,
-							asDropdownItem,
-						);
+						await setup(actionName, false, true, asDropdownItem);
 
-						const element = await waitFor(() => getByTestId(testId));
+						const element = await screen.findByTestId(testId);
 						expect(element).toBeDefined();
 
-						expect(queryByTestId(iconTestId)).toBeNull();
+						expect(screen.queryByTestId(iconTestId)).toBeNull();
 
 						expect(element.textContent).toEqual(expectedContent);
 					});
 
 					if (asDropdownItem) {
 						it('should render content even if hideContent is true', async () => {
-							const { getByTestId } = await setup(actionName, true, false, asDropdownItem);
+							await setup(actionName, true, false, asDropdownItem);
 
-							const element = await waitFor(() => getByTestId(testId));
+							const element = await screen.findByTestId(testId);
 							expect(element).toBeDefined();
 
-							const icon = await waitFor(() => getByTestId(iconTestId));
+							const icon = await screen.findByTestId(iconTestId);
 							expect(icon).toBeDefined();
 
 							expect(element.textContent).toEqual(expectedContent);
 						});
 					} else {
 						it('should render only icon', async () => {
-							const { getByTestId } = await setup(actionName, true, false, asDropdownItem);
+							await setup(actionName, true, false, asDropdownItem);
 
-							const element = await waitFor(() => getByTestId(testId));
+							const element = await screen.findByTestId(testId);
 							expect(element).toBeDefined();
 
-							const icon = await waitFor(() => getByTestId(iconTestId));
+							const icon = await screen.findByTestId(iconTestId);
 							expect(icon).toBeDefined();
 
 							expect(element.textContent).toEqual('');
@@ -245,7 +239,7 @@ describe('ActionGroup', () => {
 		it('calls onClick when action is clicked', async () => {
 			const user = userEvent.setup();
 			const onClick = jest.fn();
-			const { findByTestId } = render(
+			render(
 				<IntlProvider locale="en">
 					<FlexibleUiContext.Provider value={context}>
 						<ActionGroup items={[{ name: ActionName.DeleteAction, onClick, testId }]} />
@@ -253,7 +247,7 @@ describe('ActionGroup', () => {
 				</IntlProvider>,
 			);
 
-			const action = await findByTestId(testId);
+			const action = await screen.findByTestId(testId);
 			await user.click(action);
 
 			expect(onClick).toHaveBeenCalled();

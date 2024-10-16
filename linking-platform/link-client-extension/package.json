@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-client-extension",
-	"version": "2.4.1",
+	"version": "2.4.2",
 	"description": "Extension methods for linking platform client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,8 +36,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/linking-common": "^5.12.0",
-		"@atlaskit/linking-types": "^9.0.0",
+		"@atlaskit/linking-common": "^6.0.0",
+		"@atlaskit/linking-types": "^9.1.0",
 		"@atlaskit/platform-feature-flags": "0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"json-ld-types": "^4.1.0",

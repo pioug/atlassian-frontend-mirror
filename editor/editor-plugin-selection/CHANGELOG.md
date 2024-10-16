@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-selection
 
+## 1.5.0
+
+### Minor Changes
+
+- [#152197](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152197)
+  [`dddd3eca66a62`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dddd3eca66a62) -
+  Expose SelectionPluginOptions type.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.10
 
 ### Patch Changes

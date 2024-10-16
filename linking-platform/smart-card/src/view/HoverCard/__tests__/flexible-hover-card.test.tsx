@@ -28,7 +28,7 @@ import {
 } from './common/setup.test-utils';
 import { runCommonHoverCardTests, unauthorizedViewTests } from './common/common.test-utils';
 import { analyticsTests } from './common/analytics.test-utils';
-import { act, fireEvent } from '@testing-library/react';
+import { act, fireEvent, screen } from '@testing-library/react';
 import React from 'react';
 
 describe('hover card over flexible smart links', () => {
@@ -50,7 +50,7 @@ describe('hover card over flexible smart links', () => {
 	);
 
 	const hoverAndVerify = async (
-		{ element: trigger, findByTestId, queryByTestId, event }: Awaited<ReturnType<typeof setup>>,
+		{ element: trigger, event }: Awaited<ReturnType<typeof setup>>,
 		hoverCardTestId: string,
 		testId: string,
 		expectToBeInTheDocument: boolean,
@@ -60,36 +60,36 @@ describe('hover card over flexible smart links', () => {
 			jest.runAllTimers();
 		});
 
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
 
 		await event.hover(element);
 
 		if (expectToBeInTheDocument) {
-			expect(await findByTestId(hoverCardTestId)).toBeInTheDocument();
+			expect(await screen.findByTestId(hoverCardTestId)).toBeInTheDocument();
 		} else {
-			expect(queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
+			expect(screen.queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
 		}
 	};
 
 	const clickMoreActionAndVerifyNotToBeInDocument = async (
-		{ element: trigger, findByTestId, queryByTestId, event }: Awaited<ReturnType<typeof setup>>,
+		{ element: trigger, event }: Awaited<ReturnType<typeof setup>>,
 		hoverCardTestId: string,
 		testId: string,
 	) => {
 		await event.hover(trigger);
 		await event.unhover(trigger);
 
-		const moreButton = await findByTestId('action-group-more-button');
+		const moreButton = await screen.findByTestId('action-group-more-button');
 		await event.click(moreButton);
 
-		const element = await findByTestId(testId);
+		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
 
 		await event.hover(element);
 		await event.hover(element);
 
-		expect(queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
+		expect(screen.queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
 	};
 
 	const setupComponent = (setupProps?: SetUpParams) =>
@@ -171,16 +171,16 @@ describe('hover card over flexible smart links', () => {
 			await hoverAndVerify(renderResult, hoverCardTestId, 'smart-element-link', true);
 			await hoverAndVerify(renderResult, hoverCardTestId, 'smart-action-edit-action', false);
 
-			const { findByTestId, queryByTestId } = renderResult;
-			const link = await findByTestId('smart-element-link');
+			renderResult;
+			const link = await screen.findByTestId('smart-element-link');
 			fireEvent.mouseMove(link);
-			const wrapper = await findByTestId('smart-links-container-hover-card-wrapper');
+			const wrapper = await screen.findByTestId('smart-links-container-hover-card-wrapper');
 			await event.unhover(wrapper);
 
 			// move time forward to when canOpen is change but hideCard isn't triggered yet
 			jest.advanceTimersByTime(101);
 
-			expect(queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
+			expect(screen.queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
 		});
 	});
 
@@ -202,14 +202,14 @@ describe('hover card over flexible smart links', () => {
 
 		it('does not propagate event to parent when clicking inside hover card content on a flexui link', async () => {
 			const mockOnClick = jest.fn();
-			const { findAllByTestId, findByTestId, event } = await renderComponent({
+			const { event } = await renderComponent({
 				mockOnClick,
 			});
 
-			const metadataBlock = await findAllByTestId('smart-block-metadata-resolved-view');
+			const metadataBlock = await screen.findAllByTestId('smart-block-metadata-resolved-view');
 			await event.click(metadataBlock[0]);
 
-			const previewButton = await findByTestId('smart-action-preview-action');
+			const previewButton = await screen.findByTestId('smart-action-preview-action');
 			await event.click(previewButton);
 
 			expect(mockOnClick).not.toHaveBeenCalled();

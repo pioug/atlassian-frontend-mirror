@@ -35,12 +35,12 @@ describe('LinkUrl', () => {
 		checkSafety: boolean,
 		shouldShowModalDialog: boolean,
 	) => {
-		const { getByTestId } = render(
+		render(
 			<LinkUrl href={linkUrl} checkSafety={checkSafety}>
 				{linkText}
 			</LinkUrl>,
 		);
-		const linkUrlView = getByTestId(LinkUrlTestId);
+		const linkUrlView = screen.getByTestId(LinkUrlTestId);
 		const event = createEvent.click(linkUrlView);
 		fireEvent(linkUrlView, event);
 		const isLinkUnsafe = !!screen.queryByText('Check this link');
@@ -141,55 +141,55 @@ describe('LinkUrl', () => {
 	describe('when user open safety warning dialog', () => {
 		const setup = () => {
 			const onEvent = jest.fn();
-			const { getByRole, getByTestId, queryByTestId } = render(
+			render(
 				<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
 					<LinkUrl href={'https://some.url'} checkSafety={true}>
 						https://otherUrl.url
 					</LinkUrl>
 				</AnalyticsListener>,
 			);
-			const linkUrlView = getByRole('link');
+			const linkUrlView = screen.getByRole('link');
 			fireEvent.click(linkUrlView);
-			return { getByRole, getByTestId, queryByTestId, onEvent };
+			return { onEvent };
 		};
 
 		it('should warning message with correct text', () => {
-			const { getByTestId } = setup();
-			const body = getByTestId('link-with-safety-warning--body');
+			setup();
+			const body = screen.getByTestId('link-with-safety-warning--body');
 			expect(body.textContent).toBe(
 				'The link https://otherUrl.url is taking you to a different site, https://some.url',
 			);
 		});
 
 		it('should proceed to original url in new tab when continue is pressed', () => {
-			const { getByRole } = setup();
+			setup();
 
-			const continueButton = getByRole('button', { name: 'Continue' });
+			const continueButton = screen.getByRole('button', { name: 'Continue' });
 			fireEvent.click(continueButton);
 
 			expect(window.open).toHaveBeenCalledWith('https://some.url', '_blank', 'noopener noreferrer');
 		});
 
 		it('should close modal dialog when pressed continue', async () => {
-			const { getByRole, queryByTestId } = setup();
+			setup();
 
-			const continueButton = getByRole('button', { name: 'Continue' });
+			const continueButton = screen.getByRole('button', { name: 'Continue' });
 			act(() => {
 				fireEvent.click(continueButton);
 			});
 
 			await waitFor(() => {
-				expect(queryByTestId('link-with-safety-warning')).not.toBeInTheDocument();
+				expect(screen.queryByTestId('link-with-safety-warning')).not.toBeInTheDocument();
 			});
 		});
 
 		it('should fire analytics event when continue button is clicked', () => {
-			const { getByRole, onEvent } = setup();
+			const { onEvent } = setup();
 
-			const continueButton = getByRole('button', { name: 'Continue' });
+			const continueButton = screen.getByRole('button', { name: 'Continue' });
 			fireEvent.click(continueButton);
 
-			expect(onEvent).toBeCalledWith(
+			expect(onEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					hasFired: true,
 					payload: expect.objectContaining({
@@ -215,7 +215,7 @@ describe('LinkUrl', () => {
 	it('should fire analytics event when link safety warning message is shown', () => {
 		const onEvent = jest.fn();
 
-		const { getByTestId } = render(
+		render(
 			<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
 				<LinkUrl href="https://some.url" checkSafety={true}>
 					https://another.url
@@ -223,10 +223,10 @@ describe('LinkUrl', () => {
 			</AnalyticsListener>,
 		);
 
-		const LinkUrlView = getByTestId(LinkUrlTestId);
+		const LinkUrlView = screen.getByTestId(LinkUrlTestId);
 		fireEvent.click(LinkUrlView);
 
-		expect(onEvent).toBeCalledWith(
+		expect(onEvent).toHaveBeenCalledWith(
 			expect.objectContaining({
 				hasFired: true,
 				payload: expect.objectContaining({
@@ -260,7 +260,7 @@ describe('LinkUrl', () => {
 				</AnalyticsListener>,
 			);
 
-			const component = getByRole('link');
+			const component = screen.getByRole('link');
 
 			return {
 				user,
@@ -322,12 +322,12 @@ describe('LinkUrl', () => {
 		it('should call `onClick` and fire `link clicked` event when link text cannot be normalized', async () => {
 			const onClick = jest.fn();
 
-			const { getByRole, user, onEvent } = setup(
+			const { user, onEvent } = setup(
 				{ onClick, checkSafety: true, href: 'https://some.url' },
 				'some random text',
 			);
 
-			const component = getByRole('link');
+			const component = screen.getByRole('link');
 			await user.click(component);
 
 			expect(onClick).toHaveBeenCalled();
@@ -396,12 +396,9 @@ describe('LinkUrl', () => {
 		it('should call `onClick` and fire `link clicked` event when link is an anchor', async () => {
 			const onClick = jest.fn();
 			const user = userEvent.setup();
-			const { getByRole, onEvent } = setup(
-				{ href: '#anchor', onClick },
-				'https://some.url/#anchor',
-			);
+			const { onEvent } = setup({ href: '#anchor', onClick }, 'https://some.url/#anchor');
 
-			const component = getByRole('link');
+			const component = screen.getByRole('link');
 			await user.click(component);
 
 			expect(onClick).toHaveBeenCalled();
@@ -563,9 +560,9 @@ describe('LinkUrl', () => {
 			const onClick = jest.fn();
 			const user = userEvent.setup();
 
-			const { getByRole } = setup({ href, onClick }, href);
+			setup({ href, onClick }, href);
 
-			const component = getByRole('link');
+			const component = screen.getByRole('link');
 
 			await expect(user.click(component)).resolves.not.toThrow();
 			expect(onClick).toHaveBeenCalled();

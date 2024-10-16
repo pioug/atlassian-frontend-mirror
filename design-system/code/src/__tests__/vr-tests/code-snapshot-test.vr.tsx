@@ -6,6 +6,7 @@ import CodeBlockBasicWithTabs from '../../../examples/11-code-block-basic-with-t
 import CodeBlockHighlightingLongLines from '../../../examples/14-code-block-highlighting-long-lines';
 import CodeBlockEmpty from '../../../examples/21-code-block-empty';
 import CodeBidiCharacters from '../../../examples/22-code-bidi-characters';
+import CodeOverrideBackground from '../../../examples/23-code-override-background';
 import Applescript from '../../../examples/applescript';
 import CascadingStyleSheets from '../../../examples/cascading-style-sheets';
 import Clojure from '../../../examples/clojure';
@@ -70,3 +71,8 @@ snapshot(CodeBlockEmpty);
 snapshot(CodeBidiCharacters);
 snapshot(CodeBlockHighlightingLongLines);
 snapshot(VrPythonTestIdAndWrapping);
+snapshot(CodeOverrideBackground, {
+	featureFlags: {
+		platform_design_system_team_code_new_typography: [false, true],
+	},
+});

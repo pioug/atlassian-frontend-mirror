@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { type EmbedCardResolvedViewProps, EmbedCardResolvedView } from '../views/ResolvedView';
 import UnresolvedView from '../views/unresolved-view';
 import { BlockCardResolvingView } from '../../BlockCard';
@@ -43,17 +43,14 @@ describe('EmbedCard Views', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
-		cleanup();
 	});
 
 	describe('view: resolved', () => {
 		it('renders view', () => {
 			const props = getResolvedProps();
-			const { getByTestId } = render(
-				<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
-			);
-			const outerFrame = getByTestId('embed-card-resolved-view');
-			const innerFrame = getByTestId('embed-card-resolved-view-frame');
+			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />);
+			const outerFrame = screen.getByTestId('embed-card-resolved-view');
+			const innerFrame = screen.getByTestId('embed-card-resolved-view-frame');
 			expect(outerFrame.textContent).toBe('Smart Link Assets');
 			expect(innerFrame).toBeTruthy();
 			expect(innerFrame.getAttribute('src')).toBe(props.preview?.src);
@@ -63,15 +60,15 @@ describe('EmbedCard Views', () => {
 			const props = getResolvedProps({
 				context: { icon: <MockIconElement /> },
 			});
-			const { getByTestId } = render(<EmbedCardResolvedView {...props} />);
+			render(<EmbedCardResolvedView {...props} />);
 
-			expect(getByTestId('mock-icon-element')).toBeDefined();
+			expect(screen.getByTestId('mock-icon-element')).toBeDefined();
 		});
 
 		it('renders correct icon when icon prop is a url string', async () => {
 			const props = getResolvedProps();
-			const { getByTestId } = render(<EmbedCardResolvedView {...props} />);
-			const embedCardResolved = getByTestId('embed-card-resolved-view');
+			render(<EmbedCardResolvedView {...props} />);
+			const embedCardResolved = screen.getByTestId('embed-card-resolved-view');
 
 			expect(embedCardResolved.querySelector('.smart-link-icon')?.getAttribute('src')).toBe(
 				props.context!.icon,
@@ -82,27 +79,23 @@ describe('EmbedCard Views', () => {
 			const props = getResolvedProps({
 				context: { icon: 'src-error' },
 			});
-			const { getByTestId } = render(<EmbedCardResolvedView {...props} />);
+			render(<EmbedCardResolvedView {...props} />);
 
-			expect(getByTestId('embed-card-fallback-icon')).toBeDefined();
+			expect(screen.getByTestId('embed-card-fallback-icon')).toBeDefined();
 		});
 
 		it('should default to context text if title is missing', () => {
 			const props = getResolvedProps({ title: undefined });
-			const { getByTestId } = render(
-				<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
-			);
-			const outerFrame = getByTestId('embed-card-resolved-view');
+			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />);
+			const outerFrame = screen.getByTestId('embed-card-resolved-view');
 
 			expect(outerFrame.textContent).toBe('Dropbox');
 		});
 
 		it('clicking on link should have no side-effects', () => {
 			const props = getResolvedProps({ title: undefined });
-			const { getByTestId } = render(
-				<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
-			);
-			const view = getByTestId('embed-card-resolved-view');
+			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />);
+			const view = screen.getByTestId('embed-card-resolved-view');
 			const link = view.querySelector('a');
 
 			expect(link).toBeTruthy();
@@ -116,7 +109,7 @@ describe('EmbedCard Views', () => {
 			const { container } = render(
 				<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} ref={ref} />,
 			);
-			const iframeEl = await container.querySelector('iframe');
+			const iframeEl = container.querySelector('iframe');
 			expect(iframeEl).toBe(ref.current);
 		});
 
@@ -153,16 +146,14 @@ describe('EmbedCard Views', () => {
 
 		it('does allow scrolling of content through wrapper', () => {
 			const props = getResolvedProps({ isTrusted: true });
-			const { getByTestId } = render(
-				<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
-			);
-			const view = getByTestId('embed-content-wrapper');
+			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />);
+			const view = screen.getByTestId('embed-content-wrapper');
 			expect(window.getComputedStyle(view).getPropertyValue('overflow')).toEqual('');
 		});
 
 		it(`doesn't remove overflow attribute for Unresolved embeds`, () => {
 			const props = getResolvedProps({ isTrusted: true });
-			const { getByTestId } = render(
+			render(
 				<UnresolvedView
 					testId="embed-card-unresolved-view"
 					{...props}
@@ -172,7 +163,7 @@ describe('EmbedCard Views', () => {
 					image={null}
 				/>,
 			);
-			const view = getByTestId('embed-content-wrapper');
+			const view = screen.getByTestId('embed-content-wrapper');
 			expect(window.getComputedStyle(view).getPropertyValue('overflow')).toEqual('auto');
 		});
 	});
@@ -180,31 +171,27 @@ describe('EmbedCard Views', () => {
 	// Same as BlockCard
 	describe('view: resolving', () => {
 		it('renders view', () => {
-			const { getByTestId } = renderWithIntl(
-				<BlockCardResolvingView testId="embed-card-resolving-view" />,
-			);
-			const frame = getByTestId('embed-card-resolving-view');
+			renderWithIntl(<BlockCardResolvingView testId="embed-card-resolving-view" />);
+			const frame = screen.getByTestId('embed-card-resolving-view');
 			expect(frame.textContent).toBe('Loading...');
 		});
 	});
 
 	describe('view: errored', () => {
 		it('renders view', () => {
-			const { getByTestId } = renderWithIntl(<EmbedCardErroredView testId="errored-view" />);
-			const frame = getByTestId('errored-view');
+			renderWithIntl(<EmbedCardErroredView testId="errored-view" />);
+			const frame = screen.getByTestId('errored-view');
 			expect(frame.textContent).toBe("We couldn't load this link for an unknown reason.Try again");
 		});
 
 		it('renders view - clicking on retry enacts callback', () => {
 			const onRetryMock = jest.fn();
-			const { getByTestId } = renderWithIntl(
-				<EmbedCardErroredView testId="errored-view" onRetry={onRetryMock} />,
-			);
-			const frame = getByTestId('errored-view');
+			renderWithIntl(<EmbedCardErroredView testId="errored-view" onRetry={onRetryMock} />);
+			const frame = screen.getByTestId('errored-view');
 			expect(frame.textContent).toBe("We couldn't load this link for an unknown reason.Try again");
 
 			// Check the button is there
-			const button = getByTestId('err-view-retry');
+			const button = screen.getByTestId('err-view-retry');
 			expect(button.textContent).toBe('Try again');
 
 			// Click it, check mock is called

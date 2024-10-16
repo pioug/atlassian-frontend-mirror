@@ -23,6 +23,7 @@ import {
 	ArticlesListItemSource,
 	ArticlesListItemLastModified,
 	ArticlesListItemTitleSection,
+	ArticlesListItemDescriptionHighlight,
 } from './styled';
 
 const ANALYTICS_CONTEXT_DATA = {
@@ -47,7 +48,13 @@ const highlightText = (text?: string) => {
 
 	html.forEach((node, i) => {
 		if (node.nodeName === 'SPAN') {
-			sections.push(<mark key={i}>{node.textContent}</mark>);
+			sections.push(
+				<b>
+					<ArticlesListItemDescriptionHighlight key={i}>
+						{node.textContent}
+					</ArticlesListItemDescriptionHighlight>
+				</b>,
+			);
 		} else {
 			sections.push(node.textContent);
 		}
@@ -98,7 +105,7 @@ export const ArticlesListItem: React.FC<Props & Partial<ArticleItem> & WrappedCo
 		>
 			<ArticlesListItemContainer>
 				<ArticlesListItemTitleSection>
-					<ArticlesListItemTitleText>{highlightText(title)}</ArticlesListItemTitleText>
+					<ArticlesListItemTitleText>{title}</ArticlesListItemTitleText>
 					{isLastPublishedVisible && (
 						<ArticlesListItemLastModified>
 							Last modified: {lastPublished}

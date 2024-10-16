@@ -51,7 +51,11 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
+import DeleteIcon from '@atlaskit/icon/core/delete';
+import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
+import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
+import MaximizeIcon from '@atlaskit/icon/core/maximize';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
@@ -203,7 +207,8 @@ const generateMediaCardFloatingToolbar = (
 			? {
 					id: 'editor.media.viewer',
 					type: 'button',
-					icon: FilePreviewIcon,
+					icon: MaximizeIcon,
+					iconFallback: FilePreviewIcon,
 					title: intl.formatMessage(messages.preview),
 					onClick: () => {
 						return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
@@ -239,7 +244,8 @@ const generateMediaCardFloatingToolbar = (
 			type: 'button',
 			appearance: 'danger',
 			focusEditoronEnter: true,
-			icon: RemoveIcon,
+			icon: DeleteIcon,
+			iconFallback: RemoveIcon,
 			onMouseEnter: hoverDecoration?.(mediaGroup, true),
 			onMouseLeave: hoverDecoration?.(mediaGroup, false),
 			onFocus: hoverDecoration?.(mediaGroup, true),
@@ -387,7 +393,15 @@ const generateMediaSingleFloatingToolbar = (
 						type: 'button',
 						id: 'editor.media.image.view.switcher.inline',
 						title: inlineSwitcherTitle,
-						icon: () => <IconInline size="medium" label={inlineSwitcherTitle} />,
+						icon: () => (
+							<ImageInlineIcon
+								color="currentColor"
+								spacing="spacious"
+								label={inlineSwitcherTitle}
+								LEGACY_size="medium"
+								LEGACY_fallbackIcon={IconInline}
+							/>
+						),
 						onClick: changeMediaSingleToMediaInline(pluginInjectionApi?.analytics?.actions),
 						testId: 'image-inline-appearance',
 					},
@@ -395,7 +409,15 @@ const generateMediaSingleFloatingToolbar = (
 						type: 'button',
 						id: 'editor.media.image.view.switcher.floating',
 						title: floatingSwitcherTitle,
-						icon: () => <IconEmbed size="medium" label={floatingSwitcherTitle} />,
+						icon: () => (
+							<ImageFullscreenIcon
+								color="currentColor"
+								spacing="spacious"
+								label={floatingSwitcherTitle}
+								LEGACY_size="medium"
+								LEGACY_fallbackIcon={IconEmbed}
+							/>
+						),
 						onClick: () => {
 							return true;
 						},
@@ -600,7 +622,8 @@ const generateMediaSingleFloatingToolbar = (
 						? {
 								id: 'editor.media.viewer',
 								type: 'button',
-								icon: FilePreviewIcon,
+								icon: MaximizeIcon,
+								iconFallback: FilePreviewIcon,
 								title: intl.formatMessage(messages.preview),
 								onClick: () => {
 									return (

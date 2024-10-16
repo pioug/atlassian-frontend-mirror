@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 9.1.0
+
+### Minor Changes
+
+- [#151651](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151651)
+  [`b193218d483f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b193218d483f9) -
+  Add new optional key `entities` to `AtomicActionExecuteResponse` interface
+
 ## 9.0.0
 
 ### Major Changes

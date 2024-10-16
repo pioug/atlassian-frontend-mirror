@@ -2,7 +2,6 @@ import React, { type SyntheticEvent, useState } from 'react';
 
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { mockAvailableSites } from '@atlaskit/linking-common/mocks';
 import { token } from '@atlaskit/tokens';
 import {
 	type LinkPickerPluginsConfiguration,
@@ -11,6 +10,7 @@ import {
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';
+import { mockAvailableSites } from '../example-helpers/mock-available-sites';
 import { MOCK_DATA_V3 as mockRecentData } from '../example-helpers/mock-recents-data';
 import { LinkPicker, type LinkPickerProps } from '../src';
 

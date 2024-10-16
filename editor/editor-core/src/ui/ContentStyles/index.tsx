@@ -15,7 +15,6 @@ import { css, jsx, type Theme, useTheme } from '@emotion/react';
 import { browser } from '@atlaskit/editor-common/browser';
 import { telepointerStyle } from '@atlaskit/editor-common/collab';
 import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
@@ -46,9 +45,7 @@ import {
 	unsupportedStyles,
 	whitespaceSharedStyles,
 } from '@atlaskit/editor-common/styles';
-import { type OptionalPlugin } from '@atlaskit/editor-common/types';
 import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
@@ -72,7 +69,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
-import { usePresetContext } from '../../presets/context';
 import type { FeatureFlags } from '../../types/feature-flags';
 
 import { aiPanelStyles } from './ai-panels';
@@ -438,20 +434,16 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 		const { className, children, featureFlags } = props;
 		const theme = useTheme();
 		const { colorMode, typography } = useThemeObserver();
-		const editorAPI = usePresetContext<[OptionalPlugin<EditorViewModePlugin>]>();
-		const { editorViewModeState } = useSharedPluginState(editorAPI, ['editorViewMode']);
 		const memoizedStyle = useMemo(
 			() =>
 				contentStyles({
 					theme,
 					colorMode,
 					featureFlags,
-					viewMode: fg('platform_editor_remove_use_preset_context')
-						? props.viewMode
-						: editorViewModeState?.mode,
+					viewMode: props.viewMode,
 					typographyTheme: typography,
 				}),
-			[theme, colorMode, featureFlags, editorViewModeState?.mode, props.viewMode, typography],
+			[theme, colorMode, featureFlags, props.viewMode, typography],
 		);
 
 		return (

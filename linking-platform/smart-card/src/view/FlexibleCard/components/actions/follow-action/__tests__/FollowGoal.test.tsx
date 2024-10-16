@@ -1,6 +1,6 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { FormattedMessage, IntlProvider } from 'react-intl-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
@@ -45,26 +45,26 @@ describe('Follow Goal Action', () => {
 
 	describe('new stack item follow goal', () => {
 		it('renders follow stack item action', async () => {
-			const { findByTestId } = setup({ as: 'stack-item' });
-			const element = await findByTestId(testId);
+			setup({ as: 'stack-item' });
+			const element = await screen.findByTestId(testId);
 			expect(element).toBeInTheDocument();
 			expect(element.textContent).toBe('Follow goal');
 		});
 
 		it('renders stack item tooltip', async () => {
 			const user = userEvent.setup();
-			const { findByRole, findByTestId } = setup({ as: 'stack-item' });
+			setup({ as: 'stack-item' });
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			await user.hover(element);
 
-			const tooltip = await findByRole('tooltip');
+			const tooltip = await screen.findByRole('tooltip');
 			expect(tooltip.textContent).toBe('Follow this goal to get notifications on updates');
 		});
 
 		it('renders project icon', async () => {
-			const { findByTestId } = setup({ as: 'stack-item' });
-			const element = await findByTestId('smart-action-follow-action-goal-icon');
+			setup({ as: 'stack-item' });
+			const element = await screen.findByTestId('smart-action-follow-action-goal-icon');
 			expect(element).toBeInTheDocument();
 		});
 
@@ -73,12 +73,12 @@ describe('Follow Goal Action', () => {
 
 			const mockOnClick = jest.fn();
 
-			const { getByTestId } = setup({
+			setup({
 				as: 'stack-item',
 				onClick: mockOnClick,
 			});
 
-			const element = getByTestId(testId);
+			const element = screen.getByTestId(testId);
 			await userEvent.click(element);
 
 			expect(mockOnClick).toHaveBeenCalledTimes(1);
@@ -92,13 +92,13 @@ describe('Follow Goal Action', () => {
 				throw new Error('Error');
 			});
 
-			const { findByTestId } = setup({
+			setup({
 				as: 'stack-item',
 				onError: mockErrorCallback,
 				onClick: mockOnClick,
 			});
 
-			const element = await findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 			await userEvent.click(element);
 
 			expect(mockErrorCallback).toHaveBeenCalledWith({

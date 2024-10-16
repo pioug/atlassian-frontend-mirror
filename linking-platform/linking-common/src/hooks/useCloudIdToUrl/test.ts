@@ -1,16 +1,15 @@
+import fetchMock from 'fetch-mock/cjs/client';
 import { renderHook } from '@testing-library/react-hooks';
 
 import {
 	mockAvailableSites,
 	mockAvailableSitesForGatewayUrl,
-	// mockAvailableSitesWithError,
-	mockRestore,
 } from '../../common/mocks/mockAvailableSites';
 import { useCloudIdToUrl } from '.';
 
 describe('useCloudIdToUrl', () => {
 	beforeEach(() => {
-		mockRestore();
+		fetchMock.restore();
 	});
 
 	it('should return loading status and the result', async () => {

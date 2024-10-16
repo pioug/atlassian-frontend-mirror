@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.21.0
+
+### Minor Changes
+
+- [#151611](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151611)
+  [`ee71cb75c933c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee71cb75c933c) -
+  ED-25294 add new attribute as engagement platform message trigger
+
+### Patch Changes
+
+- [#152308](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152308)
+  [`f331ed1265bfc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f331ed1265bfc) -
+  ED-24671 Clean up platform_editor_element_drag_and_drop_ed_24638 feature gate
+- [#151611](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151611)
+  [`ee71cb75c933c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee71cb75c933c) -
+  ED-25294-add-more-attributes-analytics-event
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+- Updated dependencies
+
 ## 1.20.0
 
 ### Minor Changes

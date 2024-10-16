@@ -1,7 +1,7 @@
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('../../../utils', () => ({
-	...jest.requireActual<Object>('../../../utils'),
+	...jest.requireActual('../../../utils'),
 	downloadUrl: jest.fn(),
 	isSpecialEvent: jest.fn(() => false),
 }));
@@ -14,7 +14,7 @@ import React from 'react';
 import { Card, type CardAppearance } from '../../Card';
 import { CardAction, Provider, TitleBlock } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
-import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import * as analytics from '../../../utils/analytics';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import * as jestExtendedMatchers from 'jest-extended';
@@ -59,7 +59,6 @@ describe('smart-card: success analytics', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 		mockUuid.mockReset();
-		cleanup();
 	});
 
 	describe('resolved', () => {
@@ -74,14 +73,14 @@ describe('smart-card: success analytics', () => {
 
 			it('should fire the dwelled analytics event when the user dwells on the iframe', async () => {
 				const mockUrl = 'https://this.is.the.sixth.url';
-				const { findByTestId } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="embed" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedView = await findByTestId('embed-card-resolved-view');
+				const resolvedView = await screen.findByTestId('embed-card-resolved-view');
 				expect(resolvedView).toBeTruthy();
 				expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
 				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
@@ -93,7 +92,7 @@ describe('smart-card: success analytics', () => {
 					canBeDatasource: false,
 				});
 
-				const resolvedViewFrame = await findByTestId('embed-card-resolved-view-frame');
+				const resolvedViewFrame = await screen.findByTestId('embed-card-resolved-view-frame');
 				fireEvent.load(resolvedViewFrame);
 				fireEvent.mouseEnter(resolvedViewFrame);
 				expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledTimes(0);
@@ -121,15 +120,15 @@ describe('smart-card: success analytics', () => {
 
 		it('should fire the resolved analytics event when the url was resolved', async () => {
 			const mockUrl = 'https://this.is.the.sixth.url';
-			const { findByTestId, getByRole } = render(
+			render(
 				<IntlProvider locale="en">
 					<Provider client={mockClient}>
 						<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
 					</Provider>
 				</IntlProvider>,
 			);
-			const resolvedView = await findByTestId('resolvedCard1-resolved-view');
-			const resolvedCard = getByRole('button');
+			const resolvedView = await screen.findByTestId('resolvedCard1-resolved-view');
+			const resolvedCard = screen.getByRole('button');
 			expect(resolvedView).toBeTruthy();
 			expect(resolvedCard).toBeTruthy();
 			expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
@@ -154,15 +153,15 @@ describe('smart-card: success analytics', () => {
 			it('should not fire UFO render experience analytics event when coin flip ends with tail', async () => {
 				asMock(shouldSample).mockReturnValue(false);
 				const mockUrl = 'https://this.is.the.sixth.url';
-				const { findByTestId, getByRole } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedView = await findByTestId('resolvedCard1-resolved-view');
-				const resolvedCard = getByRole('button');
+				const resolvedView = await screen.findByTestId('resolvedCard1-resolved-view');
+				const resolvedCard = screen.getByRole('button');
 				expect(resolvedView).toBeTruthy();
 				expect(resolvedCard).toBeTruthy();
 
@@ -177,15 +176,15 @@ describe('smart-card: success analytics', () => {
 			it('should fire UFO render experience analytics event when coin flip ends with tail', async () => {
 				asMock(shouldSample).mockReturnValue(false);
 				const mockUrl = 'https://this.is.the.sixth.url';
-				const { findByTestId, getByRole } = render(
+				render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedView = await findByTestId('resolvedCard1-resolved-view');
-				const resolvedCard = getByRole('button');
+				const resolvedView = await screen.findByTestId('resolvedCard1-resolved-view');
+				const resolvedCard = screen.getByRole('button');
 				expect(resolvedView).toBeTruthy();
 				expect(resolvedCard).toBeTruthy();
 
@@ -195,7 +194,7 @@ describe('smart-card: success analytics', () => {
 
 		it('should not send repeated render success events when nonessential props are changed', async () => {
 			const mockUrl = 'https://this.is.the.sixth.url';
-			const { rerender, findByTestId } = render(
+			const { rerender } = render(
 				<Provider client={mockClient}>
 					<Card
 						testId="resolvedCard1"
@@ -209,7 +208,7 @@ describe('smart-card: success analytics', () => {
 				</Provider>,
 			);
 
-			await findByTestId('resolvedCard1-resolved-view');
+			await screen.findByTestId('resolvedCard1-resolved-view');
 
 			rerender(
 				<Provider client={mockClient}>
@@ -222,12 +221,12 @@ describe('smart-card: success analytics', () => {
 
 		it('should add the cached tag to UFO render experience when the same link url is rendered again', async () => {
 			const mockUrl = 'https://this.is.the.seventh.url';
-			const { rerender, findByTestId } = render(
+			const { rerender } = render(
 				<Provider client={mockClient}>
 					<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
 				</Provider>,
 			);
-			await findByTestId('resolvedCard1-resolved-view');
+			await screen.findByTestId('resolvedCard1-resolved-view');
 
 			expect(mockAddMetadataToExperience).not.toHaveBeenCalled();
 
@@ -238,8 +237,8 @@ describe('smart-card: success analytics', () => {
 				</Provider>,
 			);
 
-			await findByTestId('resolvedCard1-resolved-view');
-			await findByTestId('resolvedCard2-resolved-view');
+			await screen.findByTestId('resolvedCard1-resolved-view');
+			await screen.findByTestId('resolvedCard2-resolved-view');
 
 			expect(mockStartUfoExperience.mock.calls).toIncludeAllMembers([
 				['smart-link-rendered', 'some-uuid-1'],
@@ -276,7 +275,7 @@ describe('smart-card: success analytics', () => {
 
 		it('should fire clicked analytics event when flexible ui link with resolved URL is clicked', async () => {
 			const mockUrl = 'https://this.is.the.seventh.url';
-			const { findByTestId, getByTestId } = render(
+			render(
 				<IntlProvider locale="en">
 					<Provider client={mockClient}>
 						<Card testId="resolvedCard2" appearance="inline" url={mockUrl}>
@@ -285,10 +284,10 @@ describe('smart-card: success analytics', () => {
 					</Provider>
 				</IntlProvider>,
 			);
-			const resolvedView = await findByTestId('smart-block-title-resolved-view');
+			const resolvedView = await screen.findByTestId('smart-block-title-resolved-view');
 			expect(resolvedView).toBeTruthy();
 
-			const resolvedCard = getByTestId('smart-element-link');
+			const resolvedCard = screen.getByTestId('smart-element-link');
 			expect(resolvedCard).toBeTruthy();
 			expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
 
@@ -331,17 +330,17 @@ describe('smart-card: success analytics', () => {
 
 		it('should fire clicked analytics event when a resolved URL is clicked on a inline link', async () => {
 			const mockUrl = 'https://this.is.the.seventh.url';
-			const { findByTestId, getByRole } = render(
+			render(
 				<IntlProvider locale="en">
 					<Provider client={mockClient}>
 						<Card testId="resolvedCard2" appearance="inline" url={mockUrl} />
 					</Provider>
 				</IntlProvider>,
 			);
-			const resolvedView = await findByTestId('resolvedCard2-resolved-view');
+			const resolvedView = await screen.findByTestId('resolvedCard2-resolved-view');
 			expect(resolvedView).toBeTruthy();
 
-			const resolvedCard = getByRole('button');
+			const resolvedCard = screen.getByRole('button');
 			expect(resolvedCard).toBeTruthy();
 			expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
 
@@ -391,7 +390,7 @@ describe('smart-card: success analytics', () => {
 				</Provider>,
 			);
 
-			await waitFor(() => expect(analytics.uiRenderFailedEvent).toBeCalledTimes(1), {
+			await waitFor(() => expect(analytics.uiRenderFailedEvent).toHaveBeenCalledTimes(1), {
 				timeout: 5000,
 			});
 			expect(onError).toHaveBeenCalledTimes(1);
@@ -431,7 +430,7 @@ describe('smart-card: success analytics', () => {
 				</Provider>,
 			);
 
-			await waitFor(() => expect(analytics.uiRenderFailedEvent).toBeCalledTimes(1), {
+			await waitFor(() => expect(analytics.uiRenderFailedEvent).toHaveBeenCalledTimes(1), {
 				timeout: 5000,
 			});
 
@@ -453,14 +452,14 @@ describe('smart-card: success analytics', () => {
 				'should fire the renderSuccess analytics event with canBeDatasource = true when the url was resolved and display is %s',
 				async (appearance, testId) => {
 					const mockUrl = 'https://this.is.the.sixth.url';
-					const { findByTestId } = render(
+					render(
 						<IntlProvider locale="en">
 							<Provider client={mockClient}>
 								<Card testId="resolvedCard1" appearance={appearance} url={mockUrl} />
 							</Provider>
 						</IntlProvider>,
 					);
-					const resolvedView = await findByTestId(testId);
+					const resolvedView = await screen.findByTestId(testId);
 					expect(resolvedView).toBeTruthy();
 					await waitFor(() => {
 						// EDM-10399 Some React operations must be completed before this check can be made

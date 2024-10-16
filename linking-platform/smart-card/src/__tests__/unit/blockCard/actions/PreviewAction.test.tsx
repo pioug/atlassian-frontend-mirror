@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { waitFor, cleanup } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 let mockModalRender = jest.fn();
 jest.mock('../../../../view/EmbedModal', () => ({
@@ -19,7 +19,6 @@ describe('PreviewAction', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
-		cleanup();
 	});
 
 	it('sets up a renderer function which runs on execution of promise handler', async () => {
@@ -35,8 +34,8 @@ describe('PreviewAction', () => {
 
 		const handlerExecutor = action.promise;
 		await handlerExecutor();
-		expect(mockModalRender).toBeCalledTimes(1);
-		expect(mockModalRender).toBeCalledWith(
+		expect(mockModalRender).toHaveBeenCalledTimes(1);
+		expect(mockModalRender).toHaveBeenCalledWith(
 			{
 				iframeName: 'twp-editor-preview-iframe',
 				onClose: expect.any(Function),
@@ -63,8 +62,8 @@ describe('PreviewAction', () => {
 			return <div>My Preview</div>;
 		};
 
-		const { getByTestId } = renderWithIntl(<PreviewWrapper />);
-		const modal = await waitFor(() => getByTestId('preview-modal'));
+		renderWithIntl(<PreviewWrapper />);
+		const modal = await screen.findByTestId('preview-modal');
 		expect(modal).toBeTruthy();
 		expect(modal.textContent).toBe('My modal mock');
 		expect(modal.id).toBe(mockPopupMountPointId);

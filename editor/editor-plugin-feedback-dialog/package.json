@@ -33,7 +33,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^93.4.0",
+		"@atlaskit/editor-common": "^93.5.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@babel/runtime": "^7.0.0"
 	},
@@ -44,7 +44,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/editor-plugin-quick-insert": "^1.4.0",
-		"@atlaskit/editor-plugin-type-ahead": "^1.9.0",
+		"@atlaskit/editor-plugin-type-ahead": "^1.10.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",

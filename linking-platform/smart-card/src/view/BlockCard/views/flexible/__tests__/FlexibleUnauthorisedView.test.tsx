@@ -111,44 +111,44 @@ describe('FlexibleUnauthorisedView', () => {
 	});
 
 	it('renders unauthorised view without provider name', async () => {
-		const { findByTestId } = renderComponent({
+		renderComponent({
 			cardState: {
 				status: 'unauthorized',
 				details: mocks.unauthorized,
 			},
 		});
 
-		const title = await findByTestId(titleTestId);
+		const title = await screen.findByTestId(titleTestId);
 		expect(title.textContent).toBe(url);
 
-		const description = await findByTestId(descriptionTestId);
+		const description = await screen.findByTestId(descriptionTestId);
 		expect(description.textContent).toBe(
 			'Connect your account to collaborate on work across Atlassian products. Learn more about Smart Links.',
 		);
 
-		const button = await findByTestId(buttonTestId);
+		const button = await screen.findByTestId(buttonTestId);
 		expect(button.textContent).toBe('Connect');
 	});
 
 	it('renders unauthorised view with no auth flow', async () => {
-		const { findByTestId, queryByTestId } = renderComponent({
+		renderComponent({
 			onAuthorize: undefined,
 		});
 
-		const title = await findByTestId(titleTestId);
+		const title = await screen.findByTestId(titleTestId);
 		expect(title.textContent).toBe(url);
 
-		const description = await findByTestId(descriptionTestId);
+		const description = await screen.findByTestId(descriptionTestId);
 		expect(description.textContent).toBe(
 			"You're trying to preview a link to a private 3P page. We recommend you review the URL or contact the page owner.",
 		);
 
-		const button = queryByTestId(buttonTestId);
+		const button = screen.queryByTestId(buttonTestId);
 		expect(button).not.toBeInTheDocument();
 	});
 
 	it('renders unauthorised view with no auth flow without provider name', async () => {
-		const { findByTestId, queryByTestId } = renderComponent({
+		renderComponent({
 			cardState: {
 				status: 'unauthorized',
 				details: mocks.unauthorized,
@@ -156,15 +156,15 @@ describe('FlexibleUnauthorisedView', () => {
 			onAuthorize: undefined,
 		});
 
-		const title = await findByTestId(titleTestId);
+		const title = await screen.findByTestId(titleTestId);
 		expect(title.textContent).toBe(url);
 
-		const description = await findByTestId(descriptionTestId);
+		const description = await screen.findByTestId(descriptionTestId);
 		expect(description.textContent).toBe(
 			"You're trying to preview a link to a private page. We recommend you review the URL or contact the page owner.",
 		);
 
-		const button = queryByTestId(buttonTestId);
+		const button = screen.queryByTestId(buttonTestId);
 		expect(button).not.toBeInTheDocument();
 	});
 });

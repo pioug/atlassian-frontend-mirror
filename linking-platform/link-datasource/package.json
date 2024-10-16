@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.6.2",
+	"version": "3.6.5",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,7 @@
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.9.4",
+		"@atlaskit/adf-schema": "^42.0.2",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/atlassian-context": "^0.0.2",
 		"@atlaskit/avatar": "^21.15.0",
@@ -58,8 +58,8 @@
 		"@atlaskit/jql-editor-autocomplete-rest": "^2.1.0",
 		"@atlaskit/layering": "^0.6.0",
 		"@atlaskit/link-client-extension": "^2.4.0",
-		"@atlaskit/linking-common": "^5.12.0",
-		"@atlaskit/linking-types": "^9.0.0",
+		"@atlaskit/linking-common": "^6.0.0",
+		"@atlaskit/linking-types": "^9.1.0",
 		"@atlaskit/logo": "^14.3.0",
 		"@atlaskit/lozenge": "^11.11.0",
 		"@atlaskit/modal-dialog": "^12.17.0",

@@ -2,7 +2,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import FooterBlock from '../index';
@@ -43,9 +43,9 @@ describe('AIFooterBlock', () => {
 			summariseUrl: jest.fn(),
 		});
 
-		const { getByTestId } = renderAIFooterBlock();
+		renderAIFooterBlock();
 
-		const resolvedView = getByTestId(`${testIdBase}-resolved-view`);
+		const resolvedView = screen.getByTestId(`${testIdBase}-resolved-view`);
 
 		expect(resolvedView).toBeInTheDocument();
 	});
@@ -58,21 +58,21 @@ describe('AIFooterBlock', () => {
 		[SmartLinkStatus.Unauthorized],
 		[SmartLinkStatus.Fallback],
 	])('should render null when status is %s', (status: SmartLinkStatus) => {
-		const { queryByTestId } = renderAIFooterBlock({ status });
+		renderAIFooterBlock({ status });
 
-		const resolvedView = queryByTestId(`${testIdBase}-resolved-view`);
+		const resolvedView = screen.queryByTestId(`${testIdBase}-resolved-view`);
 
 		expect(resolvedView).toBeNull();
 	});
 
 	it('should render provider', async () => {
-		const { findByTestId } = renderAIFooterBlock();
+		renderAIFooterBlock();
 
-		const provider = await findByTestId(`${testIdBase}-provider`);
+		const provider = await screen.findByTestId(`${testIdBase}-provider`);
 
 		expect(provider).toBeDefined();
 
-		const providerLabel = await findByTestId(`${testIdBase}-provider-label`);
+		const providerLabel = await screen.findByTestId(`${testIdBase}-provider-label`);
 
 		expect(providerLabel.textContent).toBe('Confluence');
 	});
@@ -82,12 +82,12 @@ describe('AIFooterBlock', () => {
 			backgroundColor: 'blue',
 		});
 
-		const { findByTestId } = renderAIFooterBlock({
+		renderAIFooterBlock({
 			overrideCss,
 			testId: testIdBase,
 		});
 
-		const block = await findByTestId(`${testIdBase}-resolved-view`);
+		const block = await screen.findByTestId(`${testIdBase}-resolved-view`);
 
 		expect(block).toHaveStyleDeclaration('background-color', 'blue');
 	});
@@ -99,9 +99,9 @@ describe('AIFooterBlock', () => {
 				summariseUrl: jest.fn(),
 			});
 
-			const { findByTestId } = renderAIFooterBlock();
+			renderAIFooterBlock();
 
-			const aiMetadata = await findByTestId(`${testIdBase}-ai-metadata`);
+			const aiMetadata = await screen.findByTestId(`${testIdBase}-ai-metadata`);
 
 			expect(aiMetadata).toBeDefined();
 		});
@@ -114,9 +114,9 @@ describe('AIFooterBlock', () => {
 					summariseUrl: jest.fn(),
 				});
 
-				const { queryByTestId } = renderAIFooterBlock();
+				renderAIFooterBlock();
 
-				const aiMetadata = queryByTestId(`${testIdBase}-ai-metadata`);
+				const aiMetadata = screen.queryByTestId(`${testIdBase}-ai-metadata`);
 
 				expect(aiMetadata).toBeNull();
 			},
@@ -128,9 +128,9 @@ describe('AIFooterBlock', () => {
 				actions: { ...context.actions, AISummaryAction: undefined },
 			};
 
-			const { queryByTestId } = renderAIFooterBlock({}, contextWithNoAiSummaryAction);
+			renderAIFooterBlock({}, contextWithNoAiSummaryAction);
 
-			const aiMetadata = queryByTestId(`${testIdBase}-ai-metadata`);
+			const aiMetadata = screen.queryByTestId(`${testIdBase}-ai-metadata`);
 
 			expect(aiMetadata).toBeNull();
 		});

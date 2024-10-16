@@ -14,7 +14,6 @@ import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { DOMOutputSpec, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -165,12 +164,10 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		api?.contextIdentifier?.sharedState.currentState()?.contextIdentifierProvider;
 	let previousTaskAndDecisionProvider: TaskDecisionProvider | undefined;
 
-	if (fg('platform_editor_td_provider_from_plugin_config')) {
-		if (taskDecisionProvider) {
-			taskDecisionProvider.then((provider) => {
-				api?.core.actions.execute(({ tr }) => setProvider(provider)(tr));
-			});
-		}
+	if (taskDecisionProvider) {
+		taskDecisionProvider.then((provider) => {
+			api?.core.actions.execute(({ tr }) => setProvider(provider)(tr));
+		});
 	}
 
 	return {

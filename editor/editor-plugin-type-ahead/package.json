@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-type-ahead",
-	"version": "1.9.0",
+	"version": "1.10.0",
 	"description": "Type-ahead plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,12 +34,13 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.9.4",
-		"@atlaskit/editor-common": "^93.4.0",
+		"@atlaskit/adf-schema": "^42.0.2",
+		"@atlaskit/editor-common": "^93.5.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.0.0",
 		"@atlaskit/menu": "^2.12.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
 		"@atlaskit/theme": "^13.1.0",
 		"@atlaskit/tokens": "^2.0.0",
@@ -83,6 +84,11 @@
 			"styling": [
 				"emotion"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_react18_phase2": {
+			"type": "boolean"
 		}
 	}
 }

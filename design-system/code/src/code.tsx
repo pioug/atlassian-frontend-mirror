@@ -12,6 +12,7 @@ import { token } from '@atlaskit/tokens';
 
 import CodeBidiWarning from './bidi-warning';
 import codeBidiWarningDecorator from './bidi-warning/bidi-warning-decorator';
+import { VAR_CODE_BG_COLOR } from './internal/theme/constants';
 import { getCodeStyles } from './internal/theme/styles';
 import type { CodeProps } from './types';
 
@@ -31,7 +32,8 @@ const Code = memo(
 			? css({
 					display: 'inline',
 					padding: '2px 0.5ch',
-					backgroundColor: token('color.background.neutral'),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+					backgroundColor: `var(${VAR_CODE_BG_COLOR}, ${token('color.background.neutral')})`,
 					borderRadius: token('border.radius', '3px'),
 					borderStyle: 'none',
 					boxDecorationBreak: 'clone',

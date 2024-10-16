@@ -8,6 +8,7 @@ import { createGenericComponent, renderWithDi } from '../../common/test-utils';
 import { type UserInputSelectPrompt, UserInputType } from '../../common/types';
 
 import SelectInputPrompt from './main';
+import { screen } from '@testing-library/react';
 
 const userInputPrompts: UserInputSelectPrompt = {
 	defaultValue: ['Atlassian', 'Apple', 'Google'],
@@ -23,8 +24,8 @@ describe('Text field input prompt', () => {
 			<SelectInputPrompt userInputPrompt={userInputPrompts} />,
 		);
 
-		expect(selectInputPrompt.getByText(userInputPrompts.displayName)).toBeInTheDocument();
-		expect(selectInputPrompt.getByText(userInputPrompts.displayName)).toHaveAttribute(
+		expect(screen.getByText(userInputPrompts.displayName)).toBeInTheDocument();
+		expect(screen.getByText(userInputPrompts.displayName)).toHaveAttribute(
 			'id',
 			'testUserInput-uid1-label',
 		);
@@ -35,11 +36,10 @@ describe('Text field input prompt', () => {
 
 	test('should render error message with empty values when field is required', () => {
 		const mockField = createGenericComponent('Field', true, { error: 'EMPTY' });
-		const errorSelectInputPrompt = renderWithDi(
-			<SelectInputPrompt userInputPrompt={userInputPrompts} />,
-			[injectable(Field, mockField)],
-		);
+		renderWithDi(<SelectInputPrompt userInputPrompt={userInputPrompts} />, [
+			injectable(Field, mockField),
+		]);
 
-		expect(errorSelectInputPrompt.getByLabelText('error')).toBeInTheDocument();
+		expect(screen.getByLabelText('error')).toBeInTheDocument();
 	});
 });

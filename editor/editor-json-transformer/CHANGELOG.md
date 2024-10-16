@@ -1,5 +1,22 @@
 # @atlaskit/editor-json-transformer
 
+## 8.20.0
+
+### Minor Changes
+
+- [#152594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152594)
+  [`91885511b74c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91885511b74c6) -
+  The JSON Transformer now supports being initialised with a schema rather. This is backwards
+  compatible and the parse method still supports overriding this based on the set stage
+
+## 8.19.1
+
+### Patch Changes
+
+- [#152510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152510)
+  [`dcf9edde7ac7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf9edde7ac7b) -
+  bump adf-schema to 42.0.1
+
 ## 8.19.0
 
 ### Minor Changes

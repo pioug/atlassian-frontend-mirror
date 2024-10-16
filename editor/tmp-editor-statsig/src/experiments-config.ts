@@ -59,16 +59,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Add 2024-08-27
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_command_palate_improvement/
-	platform_editor_ai_command_palate_improvement: {
-		productKeys: {
-			confluence: 'platform_editor_ai_command_palate_improvement',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
-	},
 	// Added 2024-08-27
 	'dnd-input-performance-optimisation': {
 		productKeys: {
@@ -284,5 +274,15 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
+	},
+	// Added 2024-10-16
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_1p_placeholder_hints/setup
+	platform_editor_ai_1p_placeholder_hints: {
+		productKeys: {
+			confluence: 'platform_editor_ai_1p_placeholder_hints',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'example-placeholders', 'tip-placeholders']),
+		defaultValue: 'control' as 'control' | 'example-placeholders' | 'tip-placeholders',
 	},
 } satisfies Record<string, EditorExperimentConfigValue>;

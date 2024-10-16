@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "2.13.5",
+	"version": "2.13.6",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -47,7 +47,7 @@
 		"@atlaskit/icon-file-type": "^6.5.0",
 		"@atlaskit/intl-messages-provider": "^1.0.2",
 		"@atlaskit/layering": "^0.6.0",
-		"@atlaskit/linking-common": "^5.12.0",
+		"@atlaskit/linking-common": "^6.0.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/select": "^18.1.0",

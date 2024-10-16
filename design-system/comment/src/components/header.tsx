@@ -73,7 +73,7 @@ const Header: FC<HeaderProps> = ({
 						<Inline alignBlock="center" space="space.050" as="span">
 							&bull;
 							{fg('platform-visual-refresh-icons-legacy-facade') ||
-							fg('platform.design-system-team.enable-new-icons') ? (
+							fg('platform-visual-refresh-icons') ? (
 								<Box as="span" xcss={iconWrapperStyles}>
 									<LockFilledIcon color="currentColor" label="" />
 								</Box>

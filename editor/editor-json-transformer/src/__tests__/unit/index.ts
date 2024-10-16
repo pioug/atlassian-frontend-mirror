@@ -2010,8 +2010,6 @@ describe('JSONTransformer:', () => {
 				};
 
 				expect(transformer.parse(adf)).toEqualDocument(doc(p('hello')));
-				expect(getSchemaBasedOnStageSpy).toBeCalledTimes(1);
-				expect(getSchemaBasedOnStageSpy).toBeCalledWith('final');
 			});
 		});
 	});

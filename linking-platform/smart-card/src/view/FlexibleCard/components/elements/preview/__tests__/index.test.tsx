@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
@@ -9,10 +9,10 @@ describe('Element: Preview', () => {
 	const testId = 'smart-element-media';
 
 	it('renders media element with overrideUrl', async () => {
-		const { findByTestId } = render(<Preview overrideUrl="src-loaded" />);
+		render(<Preview overrideUrl="src-loaded" />);
 
-		const element = await findByTestId(testId);
-		const image = await findByTestId(`${testId}-image-image`);
+		const element = await screen.findByTestId(testId);
+		const image = await screen.findByTestId(`${testId}-image-image`);
 
 		expect(element).toBeTruthy();
 		expect(element.getAttribute('data-smart-element-media')).toBeTruthy();
@@ -21,14 +21,14 @@ describe('Element: Preview', () => {
 	});
 
 	it('renders media element with context', async () => {
-		const { findByTestId } = render(
+		render(
 			<FlexibleUiContext.Provider value={context}>
 				<Preview />
 			</FlexibleUiContext.Provider>,
 		);
 
-		const element = await findByTestId(testId);
-		const image = await findByTestId(`${testId}-image-image`);
+		const element = await screen.findByTestId(testId);
+		const image = await screen.findByTestId(`${testId}-image-image`);
 
 		expect(element).toBeTruthy();
 		expect(element.getAttribute('data-smart-element-media')).toBeTruthy();

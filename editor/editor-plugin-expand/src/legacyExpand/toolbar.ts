@@ -1,5 +1,6 @@
 import commonMessages from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI, FloatingToolbarHandler } from '@atlaskit/editor-common/types';
+import DeleteIcon from '@atlaskit/icon/core/delete';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 
 import type { ExpandPlugin } from '../types';
@@ -40,7 +41,8 @@ export const getToolbarConfig =
 						type: 'button',
 						appearance: 'danger',
 						focusEditoronEnter: true,
-						icon: RemoveIcon,
+						icon: DeleteIcon,
+						iconFallback: RemoveIcon,
 						onClick: deleteExpand(editorAnalyticsAPI),
 						onMouseEnter: hoverDecoration?.([nestedExpand, expand], true),
 						onMouseLeave: hoverDecoration?.([nestedExpand, expand], false),

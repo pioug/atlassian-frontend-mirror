@@ -600,7 +600,7 @@ describe('@atlaskit/editor-core', () => {
 					<ReactEditorView
 						{...requiredProps()}
 						{...analyticsProps()}
-						setEditorApi={(api) => (editorAPI = api as PublicPluginAPI<[AnalyticsPlugin]>)}
+						setEditorAPI={(api) => (editorAPI = api as PublicPluginAPI<[AnalyticsPlugin]>)}
 						editorProps={editorProps}
 						preset={createUniversalPreset({ props: editorProps })}
 						render={({ editor, view, config: { pluginHooks } }) => {

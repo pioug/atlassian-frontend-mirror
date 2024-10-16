@@ -1,6 +1,4 @@
-import React, { Fragment, type FunctionComponent } from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React, { Fragment, type FunctionComponent, useEffect, useState } from 'react';
 
 import Heading from '@atlaskit/heading';
 import { Inline, Stack, xcss } from '@atlaskit/primitives';
@@ -16,7 +14,8 @@ const IconSizeExample = () => {
 	>(undefined);
 
 	useEffect(() => {
-		import(`@atlaskit/icon-object/glyph/new-feature/24.js`).then((module) => {
+		// eslint-disable-next-line import/extensions, import/dynamic-import-chunkname
+		import('@atlaskit/icon-object/glyph/new-feature/24.js').then((module) => {
 			setNewFeatureIconObject(
 				() => module.default as unknown as FunctionComponent<NewCoreIconProps>,
 			);

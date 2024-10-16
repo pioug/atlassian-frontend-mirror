@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 13.13.3
+
+### Patch Changes
+
+- [#152189](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152189)
+  [`331137e350753`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/331137e350753) -
+  Cleaning up platform.custom-select-feedback-options_c61l9 FF
+
 ## 13.13.2
 
 ### Patch Changes

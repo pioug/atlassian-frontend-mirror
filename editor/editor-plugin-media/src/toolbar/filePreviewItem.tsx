@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import type { IntlShape } from 'react-intl-next';
 
 import { FloatingToolbarButton as ToolbarButton } from '@atlaskit/editor-common/ui';
+import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import { messages } from '@atlaskit/media-ui';
 
@@ -35,7 +36,14 @@ export const FilePreviewItem = ({ mediaPluginState, intl }: FilePreviewProps) =>
 				testId="file-preview-toolbar-button"
 				key="editor.media.card.preview"
 				onClick={showMediaViewer}
-				icon={<FilePreviewIcon label="file preview" />}
+				icon={
+					<MaximizeIcon
+						color="currentColor"
+						spacing="spacious"
+						label="file preview"
+						LEGACY_fallbackIcon={FilePreviewIcon}
+					/>
+				}
 				tooltipContent={tooltipContent}
 			/>
 			{shouldRenderMediaViewer && (

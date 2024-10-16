@@ -31,7 +31,7 @@ export const isStepDelete = (s: ReplaceStep): boolean => {
 /**
  * Get metadata from the transaction.
  * @param tr
- * @returns Min 'from', max 'to' (from + slice size). If no steps, returns pos range of entire doc.
+ * @returns Min 'from', max 'to' (from + slice size, or mapped 'to', whichever is larger). If no steps, returns pos range of entire doc.
  * Number of ReplaceStep and ReplaceAroundStep steps 'numReplaceSteps'.
  * 'isAllText' if all steps are represent adding inline text or a backspace/delete or no-op
  */
@@ -40,7 +40,6 @@ export const getTrMetadata = (tr: Transaction | ReadonlyTransaction): Transactio
 	let to: number | undefined;
 	let numReplaceSteps = 0;
 	let isAllText = true;
-
 	tr.steps.forEach((s: Step) => {
 		if (s instanceof ReplaceStep || s instanceof ReplaceAroundStep) {
 			if (
@@ -49,7 +48,9 @@ export const getTrMetadata = (tr: Transaction | ReadonlyTransaction): Transactio
 			) {
 				isAllText = false;
 			}
-			const $to = s.from + s.slice.size;
+			const mappedTo = tr.mapping.map(s.to);
+			let $to = s.from + s.slice.size;
+			$to = $to > mappedTo ? $to : mappedTo;
 			from = from === undefined || from > s.from ? s.from : from;
 			to = to === undefined || to < $to ? $to : to;
 			numReplaceSteps++;
@@ -61,6 +62,5 @@ export const getTrMetadata = (tr: Transaction | ReadonlyTransaction): Transactio
 	if (to === undefined || to > tr.doc.nodeSize - 2) {
 		to = tr.doc.nodeSize - 2;
 	}
-
 	return { from, to, numReplaceSteps, isAllText };
 };

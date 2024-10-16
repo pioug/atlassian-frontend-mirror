@@ -69,17 +69,17 @@ describe('usePrefetch', () => {
 		expect(mockPrefetchStore[mockUrl]).toBe(true);
 
 		expect(mockConnections.client.prefetchData).toBeCalled();
-		expect(mockConnections.client.prefetchData).toBeCalledTimes(1);
-		expect(mockConnections.client.prefetchData).toBeCalledWith(mockUrl);
+		expect(mockConnections.client.prefetchData).toHaveBeenCalledTimes(1);
+		expect(mockConnections.client.prefetchData).toHaveBeenCalledWith(mockUrl);
 
 		expect(mockStore.dispatch).toBeCalled();
-		expect(mockStore.dispatch).toBeCalledTimes(2);
-		expect(mockStore.dispatch).toBeCalledWith({
+		expect(mockStore.dispatch).toHaveBeenCalledTimes(2);
+		expect(mockStore.dispatch).toHaveBeenCalledWith({
 			url: mockUrl,
 			type: 'resolved',
 			payload: mocks.success,
 		});
-		expect(mockStore.dispatch).toBeCalledWith({
+		expect(mockStore.dispatch).toHaveBeenCalledWith({
 			url: mockUrl,
 			type: 'metadata',
 			metadataStatus: 'resolved',
@@ -95,17 +95,17 @@ describe('usePrefetch', () => {
 		expect(mockPrefetchStore[mockUrl]).toBe(true);
 
 		expect(mockConnections.client.prefetchData).toBeCalled();
-		expect(mockConnections.client.prefetchData).toBeCalledTimes(1);
-		expect(mockConnections.client.prefetchData).toBeCalledWith(mockUrl);
+		expect(mockConnections.client.prefetchData).toHaveBeenCalledTimes(1);
+		expect(mockConnections.client.prefetchData).toHaveBeenCalledWith(mockUrl);
 
 		expect(mockStore.dispatch).toBeCalled();
-		expect(mockStore.dispatch).toBeCalledTimes(2);
-		expect(mockStore.dispatch).toBeCalledWith({
+		expect(mockStore.dispatch).toHaveBeenCalledTimes(2);
+		expect(mockStore.dispatch).toHaveBeenCalledWith({
 			url: mockUrl,
 			type: 'resolved',
 			payload: mocks.success,
 		});
-		expect(mockStore.dispatch).toBeCalledWith({
+		expect(mockStore.dispatch).toHaveBeenCalledWith({
 			url: mockUrl,
 			type: 'metadata',
 			metadataStatus: 'resolved',
@@ -140,8 +140,8 @@ describe('usePrefetch', () => {
 		await prefetcher();
 
 		expect(mockConnections.client.prefetchData).toBeCalled();
-		expect(mockConnections.client.prefetchData).toBeCalledTimes(1);
-		expect(mockConnections.client.prefetchData).toBeCalledWith(mockUrl);
+		expect(mockConnections.client.prefetchData).toHaveBeenCalledTimes(1);
+		expect(mockConnections.client.prefetchData).toHaveBeenCalledWith(mockUrl);
 	});
 
 	it('does not throw errors when CardContext props are undefined', async () => {

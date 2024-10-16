@@ -76,10 +76,11 @@ export enum ActionOperationStatus {
 	FAILURE = 'FAILURE',
 }
 
-export interface AtomicActionExecuteResponse {
+export interface AtomicActionExecuteResponse<T = unknown> {
 	operationStatus: ActionOperationStatus;
 	errors: ActionsServiceError[];
-	// entities
+	// eg: new entities created by the action execution or the results of a search action
+	entities?: T[];
 }
 
 // Errors

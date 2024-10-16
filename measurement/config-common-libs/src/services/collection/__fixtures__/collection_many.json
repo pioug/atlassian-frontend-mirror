@@ -1,0 +1,26 @@
+{
+	"aBooleanOn": {
+		"value": true
+	},
+	"aBooleanOff": {
+		"value": false
+	},
+	"aString": {
+		"value": "john_wick"
+	},
+	"anInteger": {
+		"value": 30
+	},
+	"aLong": {
+		"value": 3000000000
+	},
+	"aDouble": {
+		"value": 42.42
+	},
+	"aStringList": {
+		"value": ["baba", "yaga"]
+	},
+	"aNumberList": {
+		"value": [1729, 1985]
+	}
+}

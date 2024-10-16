@@ -15,10 +15,10 @@ import { token } from '@atlaskit/tokens';
 
 import {
 	DEFAULT_APPEARANCE,
-	VAR_COLOR,
 	VAR_BG_COLOR,
-	VAR_BG_COLOR_HOVER,
 	VAR_BG_COLOR_ACTIVE,
+	VAR_BG_COLOR_HOVER,
+	VAR_COLOR,
 } from './constants';
 import { actionBackgroundColor, actionTextColor } from './theme';
 import type { ActionsType, AppearanceTypes } from './types';

@@ -22,6 +22,7 @@ import { fakeIntl, mountWithIntlContext } from '../../../test-helpers';
 import Spinner from '@atlaskit/spinner';
 import { WidthObserver } from '@atlaskit/width-detector';
 import Tooltip from '@atlaskit/tooltip';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import MediaPlayer from 'react-video-renderer';
 import React from 'react';
 import { keyCodes, Shortcut } from '../../..';
@@ -398,6 +399,24 @@ describe('<CustomMediaPlayer />', () => {
 				hdButton.simulate('click');
 				expect(onHDToggleClick).toHaveBeenCalledTimes(1);
 			});
+
+			ffTest(
+				'platform_media_disable_video_640p_artifact_usage',
+				() => {
+					const { hdButton } = setup({
+						isHDAvailable: true,
+					});
+					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+					expect(hdButton.find(VidHdCircleIcon)).not.toBeDefined;
+				},
+				() => {
+					const { hdButton } = setup({
+						isHDAvailable: true,
+					});
+					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+					expect(hdButton.find(VidHdCircleIcon)).toBeDefined;
+				},
+			);
 		});
 
 		describe('when hd is not available', () => {

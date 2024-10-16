@@ -27,7 +27,7 @@ describe('ViewAction', () => {
 
 		const handlerExecutor = action.promise;
 		await expect(handlerExecutor()).resolves.toBe(undefined);
-		expect(mockViewUrl).toBeCalledTimes(0);
+		expect(mockViewUrl).toHaveBeenCalledTimes(0);
 	});
 
 	it('attempts to navigate to provided url', async () => {
@@ -44,7 +44,7 @@ describe('ViewAction', () => {
 
 		const handlerExecutor = action.promise;
 		await expect(handlerExecutor()).resolves.toBe(undefined);
-		expect(mockViewUrl).toBeCalledTimes(1);
-		expect(mockViewUrl).toBeCalledWith(mockUrl, '_blank', 'noopener=yes');
+		expect(mockViewUrl).toHaveBeenCalledTimes(1);
+		expect(mockViewUrl).toHaveBeenCalledWith(mockUrl, '_blank', 'noopener=yes');
 	});
 });

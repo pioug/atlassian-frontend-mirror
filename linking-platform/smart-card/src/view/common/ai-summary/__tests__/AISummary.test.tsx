@@ -1,7 +1,7 @@
 import React from 'react';
 import AISummary from '..';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 const markdownBulletList = `
 - Item 1
@@ -12,16 +12,16 @@ const markdownBulletList = `
 
 describe('AI Summary', () => {
 	it('should not render when content is empty ', () => {
-		const { queryByTestId } = render(<AISummary content={''} />);
+		render(<AISummary content={''} />);
 
-		const aiSummary = queryByTestId('ai-summary');
+		const aiSummary = screen.queryByTestId('ai-summary');
 		expect(aiSummary).toBeNull();
 	});
 
 	it('renders markdown bullet list correctly', () => {
-		const { getByTestId } = render(<AISummary content={markdownBulletList} />);
+		render(<AISummary content={markdownBulletList} />);
 
-		const aiSummary = getByTestId('ai-summary');
+		const aiSummary = screen.getByTestId('ai-summary');
 		expect(aiSummary).toBeVisible();
 
 		expect(aiSummary.innerHTML.split('\n').join('')).toMatch(
@@ -30,16 +30,16 @@ describe('AI Summary', () => {
 	});
 
 	it('does not render icon by default', async () => {
-		const { queryByTestId } = render(<AISummary content="test-content" />);
+		render(<AISummary content="test-content" />);
 
-		const icon = await queryByTestId('ai-tooltip');
+		const icon = screen.queryByTestId('ai-tooltip');
 		expect(icon).not.toBeInTheDocument();
 	});
 
 	it('does not render summary icon when showIcon is false', async () => {
-		const { queryByTestId } = render(<AISummary content="test-content" />);
+		render(<AISummary content="test-content" />);
 
-		const icon = await queryByTestId('ai-tooltip');
+		const icon = screen.queryByTestId('ai-tooltip');
 		expect(icon).not.toBeInTheDocument();
 	});
 });

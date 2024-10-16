@@ -13,8 +13,8 @@ import {
 	toJSONTableCell,
 	toJSONTableHeader,
 } from '@atlaskit/adf-schema';
-import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import type { Mark as PMMark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { markOverrideRuleFor } from './markOverrideRules';
 import { sanitizeNode } from './sanitize/sanitize-node';
@@ -54,6 +54,7 @@ const isUnsupportedNode = (node: PMNode) =>
 const isDataConsumer = isType('dataConsumer');
 const isFragmentMark = isType('fragment');
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const filterNull = (subject: any) => {
 	let output = { ...subject };
 	for (const key in output) {
@@ -198,6 +199,12 @@ const getUnwrappedNodeAttributes = (node: PMNode, mark: PMMark, obj: JSONNode): 
 };
 
 export class JSONTransformer implements Transformer<JSONDocNode> {
+	private schema: Schema;
+
+	constructor(schema: Schema = defaultSchema) {
+		this.schema = schema;
+	}
+
 	encode(node: PMNode): JSONDocNode {
 		const content: JSONNode[] = [];
 
@@ -212,8 +219,7 @@ export class JSONTransformer implements Transformer<JSONDocNode> {
 		return createDocFromContent(content);
 	}
 
-	private internalParse(content: JSONDocNode, stage: SchemaStage = SchemaStage.FINAL): PMNode {
-		const schema = getSchemaBasedOnStage(stage);
+	private internalParse(content: JSONDocNode, schema: Schema): PMNode {
 		const doc = schema.nodeFromJSON(content);
 		doc.check();
 		return doc;
@@ -224,11 +230,13 @@ export class JSONTransformer implements Transformer<JSONDocNode> {
 			throw new Error('Expected content format to be ADF');
 		}
 
+		const schema = !!stage ? getSchemaBasedOnStage(stage) : this.schema;
+
 		if (!content.content || content.content.length === 0) {
-			return this.internalParse(emptyDoc, stage);
+			return this.internalParse(emptyDoc, schema);
 		}
 
-		return this.internalParse(content, stage);
+		return this.internalParse(content, schema);
 	}
 
 	/**

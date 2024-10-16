@@ -8,6 +8,7 @@ import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react
 import { type getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { findOverflowScrollParent, UnsupportedInline } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
@@ -165,11 +166,13 @@ export function InlineCardNodeView(
 
 	const [isOverlayHovered, setIsOverlayHovered] = useState(false);
 
-	const { editorViewModeState, floatingToolbarState } = useSharedPluginState(pluginInjectionApi, [
-		'floatingToolbar',
+	const { editorViewModeState, selectionState } = useSharedPluginState(pluginInjectionApi, [
+		'selection',
 		'editorViewMode',
 	]);
-	const floatingToolbarNode = floatingToolbarState?.configWithNodeInfo?.node;
+
+	const floatingToolbarNode =
+		selectionState?.selection instanceof NodeSelection && selectionState?.selection.node;
 
 	if (__livePage && fg('linking_platform_smart_links_in_live_pages')) {
 		const showHoverPreview = floatingToolbarNode !== node;

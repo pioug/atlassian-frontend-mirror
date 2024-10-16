@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/comment",
-	"version": "11.1.0",
+	"version": "11.1.1",
 	"description": "A comment displays discussions and user feedback.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -101,7 +101,7 @@
 		"platform-visual-refresh-icons-legacy-facade": {
 			"type": "boolean"
 		},
-		"platform.design-system-team.enable-new-icons": {
+		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		}
 	}

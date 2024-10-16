@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ElementGroup from '../index';
 import {
@@ -15,9 +15,9 @@ describe('ElementGroup', () => {
 	const testId = 'smart-element-group';
 
 	it('renders element group', async () => {
-		const { getByTestId } = render(<ElementGroup>I am an element group.</ElementGroup>);
+		render(<ElementGroup>I am an element group.</ElementGroup>);
 
-		const elementGroup = await waitFor(() => getByTestId(testId));
+		const elementGroup = await screen.findByTestId(testId);
 
 		expect(elementGroup).toBeTruthy();
 		expect(elementGroup.getAttribute('data-smart-element-group')).toBeTruthy();
@@ -28,11 +28,9 @@ describe('ElementGroup', () => {
 		const customStyles = css({
 			lineHeight: '20rem',
 		});
-		const { getByTestId } = render(
-			<ElementGroup overrideCss={customStyles}>I am an element group.</ElementGroup>,
-		);
+		render(<ElementGroup overrideCss={customStyles}>I am an element group.</ElementGroup>);
 
-		const elementGroup = await waitFor(() => getByTestId(testId));
+		const elementGroup = await screen.findByTestId(testId);
 
 		expect(elementGroup).toHaveStyleDeclaration('line-height', '20rem');
 		expect(elementGroup).toHaveStyleDeclaration('justify-content', 'flex-start');
@@ -48,11 +46,9 @@ describe('ElementGroup', () => {
 		])(
 			'renders element group in %s size',
 			async (size: SmartLinkSize | undefined, expected: string) => {
-				const { getByTestId } = render(
-					<ElementGroup size={size}>I am an element group.</ElementGroup>,
-				);
+				render(<ElementGroup size={size}>I am an element group.</ElementGroup>);
 
-				const elementGroup = await waitFor(() => getByTestId(testId));
+				const elementGroup = await screen.findByTestId(testId);
 
 				expect(elementGroup).toHaveStyleDeclaration('gap', expected);
 			},
@@ -67,11 +63,9 @@ describe('ElementGroup', () => {
 		])(
 			'renders children in %s',
 			async (direction: SmartLinkDirection | undefined, expected: string) => {
-				const { getByTestId } = render(
-					<ElementGroup direction={direction}>I am an element group.</ElementGroup>,
-				);
+				render(<ElementGroup direction={direction}>I am an element group.</ElementGroup>);
 
-				const elementGroup = await waitFor(() => getByTestId(testId));
+				const elementGroup = await screen.findByTestId(testId);
 
 				expect(elementGroup).toHaveStyleDeclaration('flex-direction', expected);
 			},
@@ -90,11 +84,9 @@ describe('ElementGroup', () => {
 				expectedJustifyContent: string,
 				expectedTextAlign: string,
 			) => {
-				const { getByTestId } = render(
-					<ElementGroup align={align}>I am an element group.</ElementGroup>,
-				);
+				render(<ElementGroup align={align}>I am an element group.</ElementGroup>);
 
-				const elementGroup = await waitFor(() => getByTestId(testId));
+				const elementGroup = await screen.findByTestId(testId);
 
 				expect(elementGroup).toHaveStyleDeclaration('justify-content', expectedJustifyContent);
 				expect(elementGroup).toHaveStyleDeclaration('text-align', expectedTextAlign);
@@ -104,11 +96,9 @@ describe('ElementGroup', () => {
 
 	describe('width', () => {
 		it('sets flex for flexible width', async () => {
-			const { getByTestId } = render(
-				<ElementGroup width={SmartLinkWidth.Flexible}>I am an element group.</ElementGroup>,
-			);
+			render(<ElementGroup width={SmartLinkWidth.Flexible}>I am an element group.</ElementGroup>);
 
-			const elementGroup = await waitFor(() => getByTestId(testId));
+			const elementGroup = await screen.findByTestId(testId);
 
 			expect(elementGroup).toHaveStyleDeclaration('flex', '1 3');
 		});

@@ -9,7 +9,6 @@ import { Children, forwardRef, Fragment, type Ref } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N30A } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
@@ -86,9 +85,6 @@ const unscrollableStyles = css({
 	flexShrink: 0,
 });
 
-const thickSeparatorStyles = css({
-	borderBlockStart: `2px solid var(${VAR_SEPARATOR_COLOR}, ${token('color.border', N30A)})`,
-});
 const thinSeparatorStyles = css({
 	borderBlockStart: `1px solid var(${VAR_SEPARATOR_COLOR}, ${token('color.border', N30A)})`,
 });
@@ -194,9 +190,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
 					isScrollable ? scrollableStyles : unscrollableStyles,
 					hasSeparator
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							fg('platform.design-system-team.section-1px-seperator-borders')
-							? thinSeparatorStyles
-							: thickSeparatorStyles
+							thinSeparatorStyles
 						: noSeparatorStyles,
 				]}
 				aria-label={title}

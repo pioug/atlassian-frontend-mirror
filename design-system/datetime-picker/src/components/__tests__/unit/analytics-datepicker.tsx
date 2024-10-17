@@ -4,7 +4,7 @@ import {
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 
-import '../../date-picker';
+import '../../date-picker-class';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

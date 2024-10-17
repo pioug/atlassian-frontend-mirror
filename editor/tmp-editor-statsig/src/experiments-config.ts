@@ -285,4 +285,14 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'example-placeholders', 'tip-placeholders']),
 		defaultValue: 'control' as 'control' | 'example-placeholders' | 'tip-placeholders',
 	},
+	// Added 2024-10-14
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_advanced_layouts/setup
+	advanced_layouts: {
+		productKeys: {
+			confluence: 'platform_editor_advanced_layouts',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

@@ -1,6 +1,5 @@
-jest.autoMockOff();
-
 import transformer from '../upgrade-pragmatic-drag-and-drop-to-stable';
+
 import { check } from './_framework';
 
 describe('move from @atlaskit/pragmatic-drag-and-drop-react-indicator to @atlaskit/pragmatic-drag-and-drop-react-drop-indicator', () => {

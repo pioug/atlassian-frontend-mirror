@@ -14,7 +14,6 @@ import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import { type TasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { type EmojiProvider } from '@atlaskit/emoji';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 interface UseProvidersProps {
@@ -89,10 +88,8 @@ export const useProviders = ({
 	}, [emojiProvider, editorApi]);
 
 	useEffect(() => {
-		if (fg('platform_editor_af_provider_from_plugin_config')) {
-			if (autoformattingProvider) {
-				editorApi?.customAutoformat?.actions.setProvider(autoformattingProvider);
-			}
+		if (autoformattingProvider) {
+			editorApi?.customAutoformat?.actions.setProvider(autoformattingProvider);
 		}
 	}, [autoformattingProvider, editorApi]);
 

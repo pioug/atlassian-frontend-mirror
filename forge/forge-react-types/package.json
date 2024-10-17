@@ -33,7 +33,7 @@
 		"@atlaskit/calendar": "^15.0.0",
 		"@atlaskit/checkbox": "^14.0.0",
 		"@atlaskit/code": "^15.6.0",
-		"@atlaskit/datetime-picker": "^15.3.0",
+		"@atlaskit/datetime-picker": "^15.4.0",
 		"@atlaskit/dynamic-table": "^16.1.0",
 		"@atlaskit/empty-state": "^7.11.0",
 		"@atlaskit/form": "^10.5.0",

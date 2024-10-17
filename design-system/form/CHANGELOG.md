@@ -1,5 +1,14 @@
 # @atlaskit/form
 
+## 10.5.8
+
+### Patch Changes
+
+- [#153024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153024)
+  [`f2ca7201459b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2ca7201459b1) -
+  Change `react-uid` to use ID generator that is compatible with React16 and React 18; Strict React
+  18 behind a flag.
+
 ## 10.5.7
 
 ### Patch Changes

@@ -16,6 +16,7 @@ import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-re
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji';
 import { EmojiPicker } from '@atlaskit/emoji';
+import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type FloatingToolbarPlugin } from '../types';
@@ -150,7 +151,13 @@ export const EmojiPickerButton = (props: {
 					ref={buttonRef}
 					isSelected={props.isSelected}
 					aria-label={title}
-					iconBefore={<EditorEmojiAddIcon />}
+					iconBefore={
+						<EmojiAddIcon
+							color="currentColor"
+							LEGACY_fallbackIcon={EditorEmojiAddIcon}
+							label="emoji-picker-button"
+						/>
+					}
 				/>
 			</Tooltip>
 			{renderPopup()}

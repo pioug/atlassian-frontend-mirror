@@ -216,7 +216,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		if (isLoading || (type !== 'external' && !viewMediaClientConfig)) {
 			return (
 				<MediaCardWrapper dimensions={originalDimensions}>
-					<CardLoading />
+					<CardLoading interactionName="editor-media-card-loading" />
 				</MediaCardWrapper>
 			);
 		}

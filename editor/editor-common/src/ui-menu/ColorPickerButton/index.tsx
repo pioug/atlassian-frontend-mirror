@@ -271,6 +271,7 @@ const ColorPickerButton = (props: Props) => {
 						}
 					}}
 					// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
+					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 					css={buttonStyle}
 					iconAfter={
 						<Box xcss={colorPickerExpandContainer}>

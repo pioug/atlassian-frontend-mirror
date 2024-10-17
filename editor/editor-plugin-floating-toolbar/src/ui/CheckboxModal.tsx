@@ -7,6 +7,7 @@ import { Checkbox } from '@atlaskit/checkbox';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+import { Text } from '@atlaskit/primitives';
 
 type ListComponentProps = {
 	nodes: ConfirmDialogChildrenListItemProps[];
@@ -61,16 +62,16 @@ export const CheckboxModal = (props: ConfirmationDialogProps & WrappedComponentP
 			</ModalHeader>
 
 			<ModalBody>
-				<p>{options?.message}</p>
+				<Text as="p">{options?.message}</Text>
 				{!!childrenInfo?.length && <ListComponent nodes={childrenInfo} />}
-				<p>
+				<Text as="p">
 					<Checkbox
 						isChecked={isChecked}
 						onChange={() => setCheckbox(!isChecked)}
 						label={checkboxlabel}
 						testId={testId ? `${testId}-checkbox` : undefined}
 					/>
-				</p>
+				</Text>
 			</ModalBody>
 			<ModalFooter>
 				<Button

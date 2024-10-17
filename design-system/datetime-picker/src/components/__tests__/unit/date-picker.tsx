@@ -7,7 +7,7 @@ import cases from 'jest-in-case';
 
 import { convertTokens } from '../../../internal/parse-tokens';
 import { type DatePickerBaseProps } from '../../../types';
-import { DatePickerWithoutAnalytics as DatePicker } from '../../date-picker';
+import { DatePickerWithoutAnalytics as DatePicker } from '../../date-picker-class';
 
 const testId = 'dateTest';
 const testIdContainer = `${testId}--container`;

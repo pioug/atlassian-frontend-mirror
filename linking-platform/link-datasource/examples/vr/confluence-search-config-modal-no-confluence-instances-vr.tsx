@@ -3,7 +3,10 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import {
+	mockBasicFilterAGGFetchRequests,
+	mockDatasourceFetchRequests,
+} from '@atlaskit/link-test-helpers/datasource';
 
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
 import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../../src/ui/confluence-search-modal';
@@ -15,6 +18,7 @@ mockDatasourceFetchRequests({
 	availableSitesOverride: [],
 	shouldMockORSBatch: true,
 });
+mockBasicFilterAGGFetchRequests();
 
 export default () => (
 	<IntlProvider locale="en">

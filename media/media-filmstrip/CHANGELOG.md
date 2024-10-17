@@ -1,5 +1,15 @@
 # @atlaskit/media-filmstrip
 
+## 47.4.2
+
+### Patch Changes
+
+- [#152851](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152851)
+  [`caba4b5434f99`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/caba4b5434f99) -
+  Injects a custom interaction name to CardLoading component. This will individualise the experience
+  in Performance Portal
+- Updated dependencies
+
 ## 47.4.1
 
 ### Patch Changes

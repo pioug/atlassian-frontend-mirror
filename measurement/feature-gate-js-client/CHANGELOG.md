@@ -1,5 +1,14 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.20.1
+
+### Patch Changes
+
+- [#153087](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153087)
+  [`476c1b4e48adb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/476c1b4e48adb) -
+  Bugfixes - subscriptions method support when update user without using a provider, and fix to
+  update user with provider when update fails
+
 ## 4.20.0
 
 ### Minor Changes

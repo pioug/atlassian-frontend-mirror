@@ -5,6 +5,7 @@ export interface StaticCardProps {
 	dimensions?: CardDimensions;
 	testId?: string;
 	featureFlags?: MediaFeatureFlags;
+	interactionName?: string;
 }
 
 export interface WrapperProps {

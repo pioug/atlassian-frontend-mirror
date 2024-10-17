@@ -11,6 +11,9 @@ import { type ExperimentValuesEntry, type RulesetProfile } from '../database/typ
 import { type PollingConfig, type ProviderOptions } from './types';
 import { getValidatedPollingInterval } from './utils';
 
+// 5 min
+export const EXPERIMENT_VALUES_STALE_TIMEOUT_MS = 1000 * 60 * 5;
+
 export const SCHEDULER_OPTIONS_DEFAULT: PollingConfig = {
 	minWaitInterval: 300_000, // 300 second = 5 mins
 	maxWaitInterval: 1200_000, // 1200 second = 20 mins
@@ -91,7 +94,7 @@ export default class Refresh {
 	): void {
 		this.profileHash = profileHash;
 		this.rulesetProfile = rulesetProfile;
-		this.lastUpdateTimestamp = lastUpdateTimestamp;
+		this.lastUpdateTimestamp = this.adjustBasedOnStaleness(lastUpdateTimestamp);
 		this.failureCount = 0;
 	}
 
@@ -100,7 +103,11 @@ export default class Refresh {
 		this.clientVersion = clientVersion;
 	}
 	setTimestamp(lastUpdateTimestamp: number): void {
-		this.lastUpdateTimestamp = lastUpdateTimestamp;
+		this.lastUpdateTimestamp = this.adjustBasedOnStaleness(lastUpdateTimestamp);
+	}
+
+	private adjustBasedOnStaleness(timestamp: number): number {
+		return Date.now() - timestamp >= EXPERIMENT_VALUES_STALE_TIMEOUT_MS ? 0 : timestamp;
 	}
 
 	private visibilityChangeHandler(): void {

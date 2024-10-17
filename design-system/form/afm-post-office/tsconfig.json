@@ -18,6 +18,9 @@
   ],
   "references": [
     {
+      "path": "../../ds-lib/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../heading/afm-post-office/tsconfig.json"
     },
     {

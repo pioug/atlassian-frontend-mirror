@@ -61,7 +61,7 @@
 		"@atlaskit/atlassian-notifications": "^0.5.0",
 		"@atlaskit/drawer": "^9.0.0",
 		"@atlaskit/logo": "^14.3.0",
-		"@atlaskit/menu": "^2.12.0",
+		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/notification-indicator": "^9.4.0",
 		"@atlaskit/notification-log-client": "^6.1.0",
 		"@atlaskit/popup": "^1.28.0",
@@ -78,6 +78,11 @@
 		"raf-stub": "^2.0.1",
 		"storybook-addon-performance": "^0.16.0",
 		"typescript": "~5.4.2"
+	},
+	"platform-feature-flags": {
+		"platform_dst_popup-disable-focuslock": {
+			"type": "boolean"
+		}
 	},
 	"keywords": [
 		"atlaskit",

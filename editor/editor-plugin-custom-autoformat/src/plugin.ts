@@ -8,7 +8,6 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { buildHandler, completeReplacements } from './doc';
 import type { InputRule } from './input-rules';
@@ -101,12 +100,8 @@ export const createPMPlugin = (
 				});
 			};
 
-			if (fg('platform_editor_af_provider_from_plugin_config')) {
-				if (options?.autoformattingProvider) {
-					handleProvider('autoformattingProvider', options.autoformattingProvider);
-				}
-			} else {
-				providerFactory.subscribe('autoformattingProvider', handleProvider);
+			if (options?.autoformattingProvider) {
+				handleProvider('autoformattingProvider', options.autoformattingProvider);
 			}
 
 			return {
@@ -119,11 +114,6 @@ export const createPMPlugin = (
 					// make replacements in document for finished autoformats
 					if (currentState.matches) {
 						completeReplacements(view, currentState);
-					}
-				},
-				destroy() {
-					if (!fg('platform_editor_af_provider_from_plugin_config')) {
-						providerFactory.unsubscribe('autoformattingProvider', handleProvider);
 					}
 				},
 			};
@@ -140,12 +130,10 @@ export const setProvider = (provider?: AutoformattingProvider) => (tr: Transacti
 export const customAutoformatPlugin: CustomAutoformatPlugin = ({ api, config: options }) => {
 	let previousProvider: AutoformattingProvider | undefined;
 
-	if (fg('platform_editor_af_provider_from_plugin_config')) {
-		if (options?.autoformattingProvider) {
-			options.autoformattingProvider.then((provider) => {
-				api?.core.actions.execute(({ tr }) => setProvider(provider)(tr));
-			});
-		}
+	if (options?.autoformattingProvider) {
+		options.autoformattingProvider.then((provider) => {
+			api?.core.actions.execute(({ tr }) => setProvider(provider)(tr));
+		});
 	}
 
 	return {

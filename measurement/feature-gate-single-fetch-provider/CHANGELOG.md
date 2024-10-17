@@ -1,5 +1,15 @@
 # @atlaskit/feature-gate-single-fetch-provider
 
+## 1.0.1
+
+### Patch Changes
+
+- [#153087](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153087)
+  [`476c1b4e48adb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/476c1b4e48adb) -
+  Update providers implement new provider interface, this bump is needed for bugfixes to
+  @atlaskit/feature-gate-js-client version 4.20.\*
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useDebouncedCallback } from 'use-debounce';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex, xcss } from '@atlaskit/primitives';
 
 import { BasicSearchInput } from '../../common/modal/basic-search-input';
@@ -106,20 +105,13 @@ const ConfluenceSearchContainer = ({
 		}
 	}, [cloudId, resetHydrationHook]);
 
-	const showBasicFilters = useMemo(() => {
-		if (fg('platform.linking-platform.datasource.show-clol-basic-filters')) {
-			return true;
-		}
-		return false;
-	}, []);
-
 	useEffect(() => {
 		const hasAccountIds = initialContributorAccountIds?.length > 0;
 
-		if (hasAccountIds && status === 'empty' && showBasicFilters) {
+		if (hasAccountIds && status === 'empty') {
 			hydrateUsersFromAccountIds(initialContributorAccountIds);
 		}
-	}, [hydrateUsersFromAccountIds, initialContributorAccountIds, showBasicFilters, status]);
+	}, [hydrateUsersFromAccountIds, initialContributorAccountIds, status]);
 
 	useEffect(() => {
 		if (status === 'resolved') {
@@ -139,16 +131,14 @@ const ConfluenceSearchContainer = ({
 				onSearch={onSearch}
 				searchTerm={searchBarSearchString}
 				placeholder={searchMessages.searchLabel}
-				fullWidth={!showBasicFilters}
+				fullWidth={false}
 			/>
-			{showBasicFilters && (
-				<BasicFilters
-					cloudId={cloudId}
-					selections={filterSelections}
-					onChange={handleBasicFilterSelectionChange}
-					isHydrating={status === 'loading'}
-				/>
-			)}
+			<BasicFilters
+				cloudId={cloudId}
+				selections={filterSelections}
+				onChange={handleBasicFilterSelectionChange}
+				isHydrating={status === 'loading'}
+			/>
 		</Flex>
 	);
 };

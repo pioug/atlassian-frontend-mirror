@@ -1,5 +1,10 @@
 import { type IntlShape } from 'react-intl-next';
 
+import MinusIcon from '@atlaskit/icon/core/minus';
+import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
+import SmartLinkEmbedIcon from '@atlaskit/icon/core/smart-link-embed';
+import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
+
 import { cardMessages as messages } from '../messages';
 import type { Command } from '../types';
 
@@ -13,19 +18,23 @@ import { IconUrl } from './ui/assets/url';
 const appearancePropsMap = {
 	url: {
 		title: messages.urlTitle,
-		icon: IconUrl,
+		icon: MinusIcon,
+		iconFallback: IconUrl,
 	},
 	inline: {
 		title: messages.inlineTitle,
-		icon: IconInline,
+		icon: SmartLinkInlineIcon,
+		iconFallback: IconInline,
 	},
 	block: {
 		title: messages.blockTitle,
-		icon: IconCard,
+		icon: SmartLinkCardIcon,
+		iconFallback: IconCard,
 	},
 	embed: {
 		title: messages.embedTitle,
-		icon: IconEmbed,
+		icon: SmartLinkEmbedIcon,
+		iconFallback: IconEmbed,
 	},
 };
 
@@ -34,11 +43,12 @@ export const getButtonGroupOption = (
 	dispatchCommand: (command: Command) => void,
 	{ disabled, onClick, selected, appearance, testId, tooltip }: OptionConfig,
 ): ButtonOptionProps => {
-	const { title, icon } = appearancePropsMap[appearance ?? 'url'];
+	const { title, icon, iconFallback } = appearancePropsMap[appearance ?? 'url'];
 
 	return {
 		title: intl.formatMessage(title),
 		icon,
+		iconFallback,
 		onClick: () => dispatchCommand(onClick),
 		disabled: Boolean(disabled),
 		tooltipContent: tooltip || null,

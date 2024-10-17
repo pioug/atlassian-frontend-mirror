@@ -416,15 +416,19 @@ const contentStyles = (props: ContentStylesProps) => css`
 		padding: 0;
 	}
 
-	/* Link icon in the Atlaskit package
-     is bigger than the others
+	/* Legacy Link icon in the Atlaskit package
+     is bigger than the others, new ADS icon does not have this issue
   */
-	.hyperlink-open-link {
-		min-width: 24px;
-		svg {
-			max-width: 18px;
-		}
-	}
+	${!fg('platform-visual-refresh-icons')
+		? css`
+				.hyperlink-open-link {
+					min-width: 24px;
+					svg {
+						max-width: 18px;
+					}
+				}
+			`
+		: null}
 `;
 
 type Props = ContentStylesProps & React.HTMLProps<HTMLDivElement>;

@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 12.20.2
+
+### Patch Changes
+
+- [#152984](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152984)
+  [`9520c882dcf30`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9520c882dcf30) -
+  Fix async dropdown item ordering
+
 ## 12.20.1
 
 ### Patch Changes

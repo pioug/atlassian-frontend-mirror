@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 4.20.3
+
+### Patch Changes
+
+- [#152459](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152459)
+  [`73c8fc275247e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73c8fc275247e) -
+  Move feature flag to statsig
+
 ## 4.20.2
 
 ### Patch Changes

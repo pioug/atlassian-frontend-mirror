@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/avatar-group": "^10.0.0",
-		"@atlaskit/editor-common": "^93.5.0",
+		"@atlaskit/editor-common": "^93.6.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-collab-edit": "^1.22.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",

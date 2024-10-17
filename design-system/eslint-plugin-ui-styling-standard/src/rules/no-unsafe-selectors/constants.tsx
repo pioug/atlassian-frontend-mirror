@@ -71,6 +71,7 @@ const cssPseudos = [
 	'&::spelling-error',
 	'&::target-text',
 	'&::view-transition',
+	'&::-webkit-details-marker',
 ] as const;
 
 export const allowedPseudos = new Set(

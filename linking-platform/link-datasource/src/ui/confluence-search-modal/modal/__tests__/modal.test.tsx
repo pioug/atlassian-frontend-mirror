@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { act, fireEvent, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
@@ -36,7 +37,24 @@ import { ConfluenceSearchConfigModal } from '../index';
 jest.mock('../../basic-filters/hooks/useCurrentUserInfo');
 jest.mock('../../basic-filters/hooks/useRecommendation');
 jest.mock('../../basic-filters/hooks/useBasicFilterHydration');
-jest.useFakeTimers({ legacyFakeTimers: true });
+
+const mockUserRecommendationHook = {
+	filterOptions: [
+		{
+			optionType: 'avatarLabel',
+			label: 'Job Bob',
+			value: '5ffe1efc34847e0069446bf8',
+		},
+		{
+			optionType: 'avatarLabel',
+			label: 'Mike Scott',
+			value: '62df272c3aaeedcae755c533',
+		},
+	],
+	status: 'resolved',
+	fetchFilterOptions: jest.fn(),
+	reset: jest.fn(),
+};
 
 describe('ConfluenceSearchConfigModal', () => {
 	ffTest.both(
@@ -78,37 +96,41 @@ describe('ConfluenceSearchConfigModal', () => {
 				asMock(useBasicFilterHydration).mockReturnValue({
 					reset: () => {},
 				});
+				asMock(useRecommendation).mockReturnValue(mockUserRecommendationHook);
+				asMock(useCurrentUserInfo).mockReturnValue({
+					user: {
+						accountId: '123',
+					},
+				});
 			});
 
 			describe('when no Confluence instances are returned', () => {
 				it('should not show insert button, or search bar. It should show the "no instances" content', async () => {
 					asMock(getAvailableSites).mockReturnValue([]);
 					asMock(useDatasourceTableState).mockReturnValue(getDefaultHookState());
-					const { queryByTestId, getByTestId } = await setup({
+					await setup({
 						mockSiteDataOverride: [],
 						dontWaitForSitesToLoad: true,
 					});
 
-					await waitFor(() => {
-						getByTestId(testIds.noContent);
-					});
+					await screen.findByTestId(testIds.noContent);
 
-					const insertButton = queryByTestId(testIds.insertButton);
-					const searchBar = queryByTestId(testIds.basicSearchInput);
+					const insertButton = screen.queryByTestId(testIds.insertButton);
+					const searchBar = screen.queryByTestId(testIds.basicSearchInput);
 					expect(insertButton).not.toBeInTheDocument();
 					expect(searchBar).not.toBeInTheDocument();
 				});
 			});
 
 			it('should call onCancel when cancel button is clicked', async () => {
-				const { findByRole, onCancel } = await setup();
-				(await findByRole('button', { name: 'Cancel' })).click();
+				const { onCancel } = await setup();
+				(await screen.findByRole('button', { name: 'Cancel' })).click();
 				expect(onCancel).toHaveBeenCalledTimes(1);
 			});
 
 			it('should call onInsert when "Insert results" button is clicked', async () => {
-				const { findByRole, onInsert } = await setup();
-				(await findByRole('button', { name: 'Insert results' })).click();
+				const { onInsert } = await setup();
+				(await screen.findByRole('button', { name: 'Insert results' })).click();
 				expect(onInsert).toHaveBeenCalledTimes(1);
 			});
 
@@ -186,7 +208,7 @@ describe('ConfluenceSearchConfigModal', () => {
 			});
 
 			it('should update title with new site name when cloudId updates', async () => {
-				const { getConfigModalTitleText, rerender, findByTestId } = await setup();
+				const { getConfigModalTitleText, rerender } = await setup();
 				const modalTitle = await getConfigModalTitleText();
 				expect(modalTitle).toEqual('Insert Confluence list from hello');
 
@@ -204,71 +226,73 @@ describe('ConfluenceSearchConfigModal', () => {
 					</IntlProvider>,
 				);
 
-				await findByTestId(`confluence-search-datasource-modal--site-selector--trigger`);
+				await screen.findByTestId(`confluence-search-datasource-modal--site-selector--trigger`);
 
 				const modalTitle2 = await getConfigModalTitleText();
 				expect(modalTitle2).toEqual('Insert Confluence list from test1');
 			});
 
-			describe('when cloudId', () => {
-				describe('is not present', () => {
-					it('should produce ADF with cloudId for the site which user is browsing from', async () => {
-						const { getConfigModalTitleText, searchWithNewBasic, assertInsertResult } = await setup(
-							{
-								parameters: undefined,
-							},
-						);
-						await getConfigModalTitleText();
+			describe('when cloudId is not present', () => {
+				beforeAll(() => {
+					jest.useFakeTimers({ legacyFakeTimers: true });
+				});
 
-						// We need to do generate a search, since insert button won't active without it.
-						searchWithNewBasic('some keywords');
+				afterAll(() => {
+					jest.useRealTimers();
+				});
 
-						assertInsertResult(
-							{
-								parameters: {
-									cloudId: '67899',
-									searchString: 'some keywords',
-								},
-								url: 'https://hello.atlassian.net/wiki/search?text=some+keywords',
-							},
-							{
-								attributes: {
-									actions: ['query updated'],
-									searchCount: 1,
-									searchMethod: 'datasource_search_query',
-								},
-							},
-						);
+				it('should produce ADF with cloudId for the site which user is browsing from', async () => {
+					const { getConfigModalTitleText, searchWithNewBasic, assertInsertResult } = await setup({
+						parameters: undefined,
 					});
+					await getConfigModalTitleText();
 
-					it('should default to first cloudId if no URL match is found', async () => {
-						const { getConfigModalTitleText, searchWithNewBasic, assertInsertResult } = await setup(
-							{
-								parameters: undefined,
-								mockSiteDataOverride: mockSiteData.slice(0, 2),
-							},
-						);
-						await getConfigModalTitleText();
+					// We need to do generate a search, since insert button won't active without it.
+					searchWithNewBasic('some keywords');
 
-						searchWithNewBasic('some keywords');
+					assertInsertResult(
+						{
+							parameters: {
+								cloudId: '67899',
+								searchString: 'some keywords',
+							},
+							url: 'https://hello.atlassian.net/wiki/search?text=some+keywords',
+						},
+						{
+							attributes: {
+								actions: ['query updated'],
+								searchCount: 1,
+								searchMethod: 'datasource_search_query',
+							},
+						},
+					);
+				});
 
-						assertInsertResult(
-							{
-								parameters: {
-									cloudId: '67899',
-									searchString: 'some keywords',
-								},
-								url: 'https://hello.atlassian.net/wiki/search?text=some+keywords',
-							},
-							{
-								attributes: {
-									actions: ['query updated'],
-									searchCount: 1,
-									searchMethod: 'datasource_search_query',
-								},
-							},
-						);
+				it('should default to first cloudId if no URL match is found', async () => {
+					const { getConfigModalTitleText, searchWithNewBasic, assertInsertResult } = await setup({
+						parameters: undefined,
+						mockSiteDataOverride: mockSiteData.slice(0, 2),
 					});
+					await getConfigModalTitleText();
+
+					searchWithNewBasic('some keywords');
+
+					assertInsertResult(
+						{
+							parameters: {
+								cloudId: '67899',
+								searchString: 'some keywords',
+							},
+							url: 'https://hello.atlassian.net/wiki/search?text=some+keywords',
+						},
+						{
+							attributes: {
+								actions: ['query updated'],
+								searchCount: 1,
+								searchMethod: 'datasource_search_query',
+							},
+						},
+					);
 				});
 			});
 
@@ -297,276 +321,254 @@ describe('ConfluenceSearchConfigModal', () => {
 				});
 
 				describe('CLOL basic filters', () => {
-					ffTest.off(
-						'platform.linking-platform.datasource.show-clol-basic-filters',
-						'platform.linking-platform.datasource.show-clol-basic-filters is Disabled',
-						() => {
-							it('should not show the basic filters', async () => {
-								const { queryByTestId } = await setup();
-								expect(queryByTestId('clol-basic-filter-container')).not.toBeInTheDocument();
-							});
-						},
-					);
+					it('should call insert with correct basic filter selection attributes when `last updated` selection is made', async () => {
+						const { assertInsertResult } = await setup({
+							parameters: {
+								cloudId: '67899',
+								searchString: 'some-query',
+							},
+						});
 
-					ffTest.on(
-						'platform.linking-platform.datasource.show-clol-basic-filters',
-						'platform.linking-platform.datasource.show-clol-basic-filters is Enabled',
-						() => {
-							beforeEach(() => {
-								const mockUserRecommendationHook = {
-									filterOptions: [
-										{
-											optionType: 'avatarLabel',
-											label: 'Job Bob',
-											value: '5ffe1efc34847e0069446bf8',
-										},
-										{
-											optionType: 'avatarLabel',
-											label: 'Mike Scott',
-											value: '62df272c3aaeedcae755c533',
-										},
-									],
-									status: 'resolved',
-									fetchFilterOptions: jest.fn(),
-								};
-								asMock(useRecommendation).mockReturnValue(mockUserRecommendationHook);
-								asMock(useCurrentUserInfo).mockReturnValue({
-									user: {
-										accountId: '123',
-									},
-								});
+						// Select option from last Updated list
+						await userEvent.click(
+							await screen.findByTestId(`confluence-search-modal--date-range-button`),
+						);
+						await userEvent.click(await screen.findByText(`Today`));
+
+						assertInsertResult(
+							{
+								parameters: {
+									cloudId: '67899',
+									searchString: 'some-query',
+									lastModified: 'today',
+									// for custom would have lastModifiedTo & lastModifiedFrom
+								},
+								url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=today',
+							},
+							{
+								attributes: {
+									actions: ['query updated'],
+									searchCount: 1,
+									searchMethod: 'datasource_search_query',
+								},
+							},
+						);
+					});
+
+					it('should call insert with correct basic filter selection attributes when `last updated` selection is made with custom selected and no to or from dates', async () => {
+						const { assertInsertResult } = await setup({
+							parameters: {
+								cloudId: '67899',
+								searchString: 'some-query',
+							},
+						});
+
+						await userEvent.click(
+							await screen.findByTestId(`confluence-search-modal--date-range-button`),
+						);
+						await userEvent.click(await screen.findByText(`Custom`));
+
+						assertInsertResult(
+							{
+								parameters: {
+									cloudId: '67899',
+									searchString: 'some-query',
+									lastModified: 'custom',
+								},
+								url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=custom',
+							},
+							{
+								attributes: {
+									actions: ['query updated'],
+									searchCount: 1,
+									searchMethod: 'datasource_search_query',
+								},
+							},
+						);
+					});
+
+					it('should call insert with correct basic filter selection attributes when `last updated` selection is made with custom selected and only from date', async () => {
+						const { assertInsertResult } = await setup({
+							// setting up the parameters with custom selected and only from date pre-selected to not have to mock the flaky date picker component
+							parameters: {
+								cloudId: '67899',
+								searchString: 'some-query',
+								lastModified: 'custom',
+								lastModifiedFrom: '2024-02-02',
+							},
+						});
+
+						await userEvent.click(
+							await screen.findByTestId(`confluence-search-modal--date-range-button`),
+						);
+						await userEvent.click(await screen.findByText(`Update`));
+
+						assertInsertResult(
+							{
+								parameters: {
+									cloudId: '67899',
+									searchString: 'some-query',
+									lastModified: 'custom',
+									lastModifiedFrom: '2024-02-02',
+								},
+								url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=custom&from=2024-02-02',
+							},
+							{
+								attributes: {
+									// technically search wasn't actioned as it was pre-filled therefore this has not updated
+									actions: [],
+									searchCount: 0,
+									searchMethod: 'datasource_search_query',
+								},
+							},
+						);
+					});
+
+					it('should call insert with correct basic filter selection attributes when `last updated` selection is made with custom selected and only to date', async () => {
+						const { assertInsertResult } = await setup({
+							// setting up the parameters with custom selected and only from date pre-selected to not have to mock the flaky date picker component
+							parameters: {
+								cloudId: '67899',
+								searchString: 'some-query',
+								lastModified: 'custom',
+								lastModifiedTo: '2024-02-03',
+							},
+						});
+
+						await userEvent.click(
+							await screen.findByTestId(`confluence-search-modal--date-range-button`),
+						);
+						await userEvent.click(await screen.findByText(`Update`));
+
+						assertInsertResult(
+							{
+								parameters: {
+									cloudId: '67899',
+									searchString: 'some-query',
+									lastModified: 'custom',
+									lastModifiedTo: '2024-02-03',
+								},
+								url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=custom&to=2024-02-03',
+							},
+							{
+								attributes: {
+									// technically search wasn't actioned as it was pre-filled therefore this has not updated
+									actions: [],
+									searchCount: 0,
+									searchMethod: 'datasource_search_query',
+								},
+							},
+						);
+					});
+
+					it('should call insert with correct basic filter selection attributes when `last updated` selection is made with custom selected and both from and to date', async () => {
+						const { assertInsertResult } = await setup({
+							// setting up the parameters with custom selected and only from date pre-selected to not have to mock the flaky date picker component
+							parameters: {
+								cloudId: '67899',
+								searchString: 'some-query',
+								lastModified: 'custom',
+								lastModifiedFrom: '2024-02-02',
+								lastModifiedTo: '2024-02-03',
+							},
+						});
+
+						await userEvent.click(
+							await screen.findByTestId(`confluence-search-modal--date-range-button`),
+						);
+						await userEvent.click(await screen.findByText(`Update`));
+
+						assertInsertResult(
+							{
+								parameters: {
+									cloudId: '67899',
+									searchString: 'some-query',
+									lastModified: 'custom',
+									lastModifiedFrom: '2024-02-02',
+									lastModifiedTo: '2024-02-03',
+								},
+								url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=custom&from=2024-02-02&to=2024-02-03',
+							},
+							{
+								attributes: {
+									// technically search wasn't actioned as it was pre-filled therefore this has not updated
+									actions: [],
+									searchCount: 0,
+									searchMethod: 'datasource_search_query',
+								},
+							},
+						);
+					});
+
+					describe('on insert', () => {
+						beforeAll(() => {
+							jest.useFakeTimers({ legacyFakeTimers: true });
+						});
+
+						afterAll(() => {
+							jest.useRealTimers();
+						});
+
+						it('should call insert with correct parameters when `Edited or created by` selection is made', async () => {
+							const { assertInsertResult, findByTestId, findByText } = await setup({
+								parameters: {
+									cloudId: '67899',
+									searchString: 'some-query',
+								},
 							});
 
-							it('should call insert with correct basic filter selection attributes when `last updated` selection is made', async () => {
-								const { assertInsertResult, findByText, getByTestId } = await setup({
+							// Select option from edited/created by filter list
+							fireEvent.click(await findByTestId(`clol-basic-filter-editedOrCreatedBy-trigger`));
+							fireEvent.click(await findByText(`Mike Scott`));
+
+							act(() => {
+								jest.advanceTimersByTime(500);
+							});
+
+							assertInsertResult(
+								{
 									parameters: {
 										cloudId: '67899',
 										searchString: 'some-query',
+										contributorAccountIds: ['62df272c3aaeedcae755c533'],
 									},
-								});
-
-								// Select option from last Updated list
-								fireEvent.click(getByTestId(`confluence-search-modal--date-range-button`));
-								fireEvent.click(await findByText(`Today`));
-
-								assertInsertResult(
-									{
-										parameters: {
-											cloudId: '67899',
-											searchString: 'some-query',
-											lastModified: 'today',
-											// for custom would have lastModifiedTo & lastModifiedFrom
-										},
-										url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=today',
+									url: 'https://hello.atlassian.net/wiki/search?text=some-query&contributors=62df272c3aaeedcae755c533',
+								},
+								{
+									attributes: {
+										actions: ['query updated'],
+										searchCount: 1,
+										searchMethod: 'datasource_search_query',
 									},
-									{
-										attributes: {
-											actions: ['query updated'],
-											searchCount: 1,
-											searchMethod: 'datasource_search_query',
-										},
-									},
-								);
-							});
+								},
+							);
+						});
+					});
 
-							it('should call insert with correct basic filter selection attributes when `last updated` selection is made with custom selected and no to or from dates', async () => {
-								const { assertInsertResult, findByText, getByTestId } = await setup({
-									parameters: {
-										cloudId: '67899',
-										searchString: 'some-query',
-									},
-								});
+					it('should pass the initialFilterSelection prop to ConfluenceSearchContainer for hydration when modal parameters have contributorAccountIds', async () => {
+						asMock(useBasicFilterHydration).mockReturnValue({
+							status: 'resolved',
+							hydrateUsersFromAccountIds: () => {},
+							users: mockTransformedUserHydrationResponse,
+							reset: () => {},
+						});
 
-								fireEvent.click(getByTestId(`confluence-search-modal--date-range-button`));
-								fireEvent.click(await findByText(`Custom`));
+						await setup({
+							parameters: {
+								cloudId: '67899',
+								searchString: 'some-query',
+								contributorAccountIds: ['23432'],
+							},
+						});
 
-								assertInsertResult(
-									{
-										parameters: {
-											cloudId: '67899',
-											searchString: 'some-query',
-											lastModified: 'custom',
-										},
-										url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=custom',
-									},
-									{
-										attributes: {
-											actions: ['query updated'],
-											searchCount: 1,
-											searchMethod: 'datasource_search_query',
-										},
-									},
-								);
-							});
+						const editedOrCreatedByTriggerButton = await screen.findByTestId(
+							'clol-basic-filter-editedOrCreatedBy-trigger--button',
+						);
 
-							it('should call insert with correct basic filter selection attributes when `last updated` selection is made with custom selected and only from date', async () => {
-								const { assertInsertResult, findByText, getByTestId } = await setup({
-									// setting up the parameters with custom selected and only from date pre-selected to not have to mock the flaky date picker component
-									parameters: {
-										cloudId: '67899',
-										searchString: 'some-query',
-										lastModified: 'custom',
-										lastModifiedFrom: '2024-02-02',
-									},
-								});
-
-								fireEvent.click(getByTestId(`confluence-search-modal--date-range-button`));
-								fireEvent.click(await findByText(`Update`));
-
-								assertInsertResult(
-									{
-										parameters: {
-											cloudId: '67899',
-											searchString: 'some-query',
-											lastModified: 'custom',
-											lastModifiedFrom: '2024-02-02',
-										},
-										url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=custom&from=2024-02-02',
-									},
-									{
-										attributes: {
-											// technically search wasn't actioned as it was pre-filled therefore this has not updated
-											actions: [],
-											searchCount: 0,
-											searchMethod: 'datasource_search_query',
-										},
-									},
-								);
-							});
-
-							it('should call insert with correct basic filter selection attributes when `last updated` selection is made with custom selected and only to date', async () => {
-								const { assertInsertResult, findByText, getByTestId } = await setup({
-									// setting up the parameters with custom selected and only from date pre-selected to not have to mock the flaky date picker component
-									parameters: {
-										cloudId: '67899',
-										searchString: 'some-query',
-										lastModified: 'custom',
-										lastModifiedTo: '2024-02-03',
-									},
-								});
-
-								fireEvent.click(getByTestId(`confluence-search-modal--date-range-button`));
-								fireEvent.click(await findByText(`Update`));
-
-								assertInsertResult(
-									{
-										parameters: {
-											cloudId: '67899',
-											searchString: 'some-query',
-											lastModified: 'custom',
-											lastModifiedTo: '2024-02-03',
-										},
-										url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=custom&to=2024-02-03',
-									},
-									{
-										attributes: {
-											// technically search wasn't actioned as it was pre-filled therefore this has not updated
-											actions: [],
-											searchCount: 0,
-											searchMethod: 'datasource_search_query',
-										},
-									},
-								);
-							});
-
-							it('should call insert with correct basic filter selection attributes when `last updated` selection is made with custom selected and both from and to date', async () => {
-								const { assertInsertResult, findByText, getByTestId } = await setup({
-									// setting up the parameters with custom selected and only from date pre-selected to not have to mock the flaky date picker component
-									parameters: {
-										cloudId: '67899',
-										searchString: 'some-query',
-										lastModified: 'custom',
-										lastModifiedFrom: '2024-02-02',
-										lastModifiedTo: '2024-02-03',
-									},
-								});
-
-								fireEvent.click(getByTestId(`confluence-search-modal--date-range-button`));
-								fireEvent.click(await findByText(`Update`));
-
-								assertInsertResult(
-									{
-										parameters: {
-											cloudId: '67899',
-											searchString: 'some-query',
-											lastModified: 'custom',
-											lastModifiedFrom: '2024-02-02',
-											lastModifiedTo: '2024-02-03',
-										},
-										url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=custom&from=2024-02-02&to=2024-02-03',
-									},
-									{
-										attributes: {
-											// technically search wasn't actioned as it was pre-filled therefore this has not updated
-											actions: [],
-											searchCount: 0,
-											searchMethod: 'datasource_search_query',
-										},
-									},
-								);
-							});
-
-							it('should call insert with correct parameters when `Edited or created by` selection is made', async () => {
-								const { assertInsertResult, findByText, findByTestId } = await setup({
-									parameters: {
-										cloudId: '67899',
-										searchString: 'some-query',
-									},
-								});
-
-								// Select option from edited/created by filter list
-								fireEvent.click(await findByTestId(`clol-basic-filter-editedOrCreatedBy-trigger`));
-								fireEvent.click(await findByText(`Mike Scott`));
-
-								act(() => {
-									jest.advanceTimersByTime(500);
-								});
-
-								assertInsertResult(
-									{
-										parameters: {
-											cloudId: '67899',
-											searchString: 'some-query',
-											contributorAccountIds: ['62df272c3aaeedcae755c533'],
-										},
-										url: 'https://hello.atlassian.net/wiki/search?text=some-query&contributors=62df272c3aaeedcae755c533',
-									},
-									{
-										attributes: {
-											actions: ['query updated'],
-											searchCount: 1,
-											searchMethod: 'datasource_search_query',
-										},
-									},
-								);
-							});
-
-							it('should pass the initialFilterSelection prop to ConfluenceSearchContainer for hydration when modal parameters have contributorAccountIds', async () => {
-								asMock(useBasicFilterHydration).mockReturnValue({
-									status: 'resolved',
-									hydrateUsersFromAccountIds: () => {},
-									users: mockTransformedUserHydrationResponse,
-									reset: () => {},
-								});
-
-								const { getByTestId } = await setup({
-									parameters: {
-										cloudId: '67899',
-										searchString: 'some-query',
-										contributorAccountIds: ['23432'],
-									},
-								});
-
-								const editedOrCreatedByTriggerButton = getByTestId(
-									'clol-basic-filter-editedOrCreatedBy-trigger--button',
-								);
-
-								expect(editedOrCreatedByTriggerButton).toHaveTextContent(
-									'Edited or created by: Peter Grasevski+3',
-								);
-							});
-						},
-					);
+						expect(editedOrCreatedByTriggerButton).toHaveTextContent(
+							'Edited or created by: Peter Grasevski+3',
+						);
+					});
 				});
 
 				it('should reset hooks state', async () => {
@@ -614,34 +616,34 @@ describe('ConfluenceSearchConfigModal', () => {
 				});
 
 				it('should show a placeholder smart link in inline view with no search string', async () => {
-					const { findByTestId } = await setup({
+					await setup({
 						viewMode: 'inline',
 					});
 
-					const card = await findByTestId(`lazy-render-placeholder`);
+					const card = await screen.findByTestId(`lazy-render-placeholder`);
 					expect(card).toHaveAttribute('href', 'https://hello.atlassian.net/wiki/search?text=');
 				});
 
 				it('should show a smart link in inline view with search string', async () => {
-					const { findByTestId, searchWithNewBasic } = await setup({
+					const { searchWithNewBasic } = await setup({
 						viewMode: 'inline',
 					});
 
 					searchWithNewBasic('test');
 
-					const card = await findByTestId(`lazy-render-placeholder`);
+					const card = await screen.findByTestId(`lazy-render-placeholder`);
 					expect(card).toHaveAttribute('href', 'https://hello.atlassian.net/wiki/search?text=test');
 				});
 
 				it('should not show footer issue count in count view', async () => {
-					const { searchWithNewBasic, queryByTestId } = await setup({
+					const { searchWithNewBasic } = await setup({
 						viewMode: 'inline',
 					});
 
 					searchWithNewBasic('some query');
 
 					expect(
-						queryByTestId('confluence-search-datasource-modal-total-results-count'),
+						screen.queryByTestId('confluence-search-datasource-modal-total-results-count'),
 					).toBeNull();
 				});
 			});
@@ -684,33 +686,33 @@ describe('ConfluenceSearchConfigModal', () => {
 
 			describe('when there is no parameters yet', () => {
 				it('should render basic search input', async () => {
-					const { getByTestId } = await setup({
+					await setup({
 						hookState: getEmptyHookState(),
 						parameters: undefined,
 					});
 
-					expect(getByTestId(testIds.basicSearchInput)).toBeInTheDocument();
-					expect(getByTestId(testIds.basicSearchInput).getAttribute('placeholder')).toEqual(
-						'Enter keywords to find pages, attachments, and more',
-					);
+					expect(await screen.findByTestId(testIds.basicSearchInput)).toBeInTheDocument();
+					expect(
+						(await screen.findByTestId(testIds.basicSearchInput)).getAttribute('placeholder'),
+					).toEqual('Enter keywords to find pages, attachments, and more');
 				});
 
 				it('should not display results count', async () => {
-					const { queryByTestId } = await setup({
+					await setup({
 						hookState: getEmptyHookState(),
 						parameters: undefined,
 					});
 
-					expect(queryByTestId(testIds.totalResultsCount)).toBeNull();
+					expect(screen.queryByTestId(testIds.totalResultsCount)).toBeNull();
 				});
 
 				it('should disable insert button', async () => {
-					const { getByTestId } = await setup({
+					await setup({
 						visibleColumnKeys: undefined,
 						parameters: { cloudId: '' },
 						hookState: getEmptyHookState(),
 					});
-					const button = getByTestId(testIds.insertButton);
+					const button = await screen.findByTestId(testIds.insertButton);
 					expect(button).toBeDisabled();
 				});
 
@@ -728,13 +730,13 @@ describe('ConfluenceSearchConfigModal', () => {
 
 			describe('when status is `loading` and parameters provided', () => {
 				it('should disable insert button', async () => {
-					const { getByTestId } = await setup({
+					await setup({
 						visibleColumnKeys: undefined,
 						parameters: { cloudId: 'abc123', searchString: 'cool' },
 						hookState: getLoadingHookState(),
 					});
 
-					const button = getByTestId(testIds.insertButton);
+					const button = await screen.findByTestId(testIds.insertButton);
 					expect(button).toBeDisabled();
 				});
 			});
@@ -755,14 +757,14 @@ describe('ConfluenceSearchConfigModal', () => {
 				});
 
 				it('should display EmptyState', async () => {
-					const { queryByTestId } = await setup({
+					await setup({
 						hookState: getEmptyHookState(),
 						parameters: {
 							cloudId: '67899',
 							searchString: 'some-jql',
 						},
 					});
-					expect(queryByTestId(testIds.emptyState)).toBeTruthy();
+					expect(await screen.findByTestId(testIds.emptyState)).toBeTruthy();
 				});
 			});
 
@@ -770,13 +772,13 @@ describe('ConfluenceSearchConfigModal', () => {
 				it('should not render a smart-link when the response object does not have a "key" prop', async () => {
 					const hookState = getSingleResponseItemHookState();
 					hookState.responseItems = [{}];
-					const { queryByTestId } = await setup({
+					await setup({
 						hookState,
 					});
 
 					expect(IssueLikeDataTableView).toHaveBeenCalled();
 
-					const card = queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-views`);
+					const card = screen.queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-views`);
 					expect(card).not.toBeInTheDocument();
 				});
 
@@ -789,35 +791,35 @@ describe('ConfluenceSearchConfigModal', () => {
 							},
 						},
 					];
-					const { queryByTestId } = await setup({
+					await setup({
 						hookState,
 					});
 
 					expect(IssueLikeDataTableView).toHaveBeenCalled();
 
-					const card = queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-views`);
+					const card = screen.queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-views`);
 					expect(card).not.toBeInTheDocument();
 				});
 
 				it('should not render a smart-link when the response object has more than one object', async () => {
 					const hookState = getDefaultHookState();
-					const { queryByTestId } = await setup({
+					await setup({
 						hookState,
 					});
 
 					expect(IssueLikeDataTableView).toHaveBeenCalled();
 
-					const card = queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-views`);
+					const card = screen.queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-views`);
 					expect(card).not.toBeInTheDocument();
 				});
 
 				it('should have enabled Insert button', async () => {
 					const hookState = getSingleResponseItemHookState();
-					const { getByTestId } = await setup({
+					await setup({
 						hookState,
 					});
 
-					const button = getByTestId(testIds.insertButton);
+					const button = await screen.findByTestId(testIds.insertButton);
 					expect(button).not.toBeDisabled();
 				});
 			});
@@ -869,21 +871,22 @@ describe('ConfluenceSearchConfigModal', () => {
 
 				it('should display a count of all search results found', async () => {
 					const hookState = getDefaultHookState();
-					const { getByTestId } = await setup({
+					await setup({
 						hookState,
 					});
 					expect(
-						getByTestId('confluence-search-datasource-modal-total-results-count').textContent,
+						(await screen.findByTestId('confluence-search-datasource-modal-total-results-count'))
+							.textContent,
 					).toEqual('3 results');
 				});
 
 				it('should display a link to the confluence search link', async () => {
 					const hookState = getDefaultHookState();
-					const { getByTestId } = await setup({
+					await setup({
 						hookState,
 					});
 
-					const searchResultsCountLink = getByTestId('item-count-url');
+					const searchResultsCountLink = await screen.findByTestId('item-count-url');
 					expect(searchResultsCountLink).toHaveAttribute('target', '_blank');
 					expect(searchResultsCountLink).toHaveAttribute(
 						'href',
@@ -892,14 +895,14 @@ describe('ConfluenceSearchConfigModal', () => {
 				});
 
 				it('should have enabled Insert button', async () => {
-					const { getByTestId } = await setup();
-					const button = getByTestId(testIds.insertButton);
+					await setup();
+					const button = await screen.findByTestId(testIds.insertButton);
 					expect(button).not.toBeDisabled();
 				});
 
 				it('should call onInsert with datasource ADF upon Insert button press', async () => {
-					const { onInsert, getByRole } = await setup();
-					const button = getByRole('button', { name: 'Insert results' });
+					const { onInsert } = await setup();
+					const button = await screen.findByRole('button', { name: 'Insert results' });
 					button.click();
 					expect(onInsert).toHaveBeenCalledWith(
 						{
@@ -928,12 +931,12 @@ describe('ConfluenceSearchConfigModal', () => {
 				});
 
 				it('should call onInsert with datasource ADF with overridable parameters upon Insert button press', async () => {
-					const { onInsert, getByRole } = await setup({
+					const { onInsert } = await setup({
 						overrideParameters: {
 							entityTypes: ['parameter1', 'parameter2'],
 						},
 					});
-					const button = getByRole('button', { name: 'Insert results' });
+					const button = await screen.findByRole('button', { name: 'Insert results' });
 					button.click();
 					expect(onInsert).toHaveBeenCalledWith(
 						{
@@ -963,9 +966,9 @@ describe('ConfluenceSearchConfigModal', () => {
 				});
 
 				it('should call onInsert with inlineCard ADF upon Insert button press in inline view mode', async () => {
-					const { onInsert, findByRole } = await setup({ viewMode: 'inline' });
+					const { onInsert } = await setup({ viewMode: 'inline' });
 
-					const insertIssuesButton = await findByRole('button', {
+					const insertIssuesButton = await screen.findByRole('button', {
 						name: 'Insert results',
 					});
 					insertIssuesButton.click();
@@ -1352,134 +1355,142 @@ describe('ConfluenceSearchConfigModal', () => {
 
 			describe('when no issues are returned', () => {
 				it('should show no results screen in table view mode', async () => {
-					const { getByTestId, getByText } = await setup({
+					await setup({
 						hookState: { ...getDefaultHookState(), responseItems: [] },
 					});
 
-					expect(getByText('No results found')).toBeInTheDocument();
-					expect(getByTestId(testIds.insertButton)).not.toBeDisabled();
+					expect(await screen.findByText('No results found')).toBeInTheDocument();
+					expect(await screen.findByTestId(testIds.insertButton)).not.toBeDisabled();
 				});
 
 				it('should not show no results screen in inline view mode', async () => {
-					const { getByRole, queryByText, onInsert } = await setup({
+					const { onInsert } = await setup({
 						hookState: { ...getDefaultHookState(), responseItems: [] },
 						viewMode: 'inline',
 					});
 
-					expect(queryByText('No results found')).not.toBeInTheDocument();
-					expect(getByRole('button', { name: 'Insert results' })).not.toBeDisabled();
-					fireEvent.click(getByRole('button', { name: 'Insert results' }));
+					expect(screen.queryByText('No results found')).not.toBeInTheDocument();
+					expect(await screen.findByRole('button', { name: 'Insert results' })).not.toBeDisabled();
+					await userEvent.click(await screen.findByRole('button', { name: 'Insert results' }));
 					expect(onInsert).toHaveBeenCalledTimes(1);
 				});
 			});
 
 			describe('when an error occurs on data request', () => {
 				it('should show network error message', async () => {
-					const { getByTestId, getByText } = await setup({
+					await setup({
 						hookState: { ...getErrorHookState() },
 					});
 
-					expect(getByText('Unable to load results')).toBeInTheDocument();
-					expect(getByTestId(testIds.insertButton)).toBeDisabled();
+					expect(await screen.findByText('Unable to load results')).toBeInTheDocument();
+					expect(await screen.findByTestId(testIds.insertButton)).toBeDisabled();
 				});
 
 				it('should not show network error message in inline view mode', async () => {
-					const { queryByText } = await setup({
+					await setup({
 						hookState: { ...getErrorHookState() },
 						viewMode: 'inline',
 					});
 
-					expect(queryByText('Unable to load results')).not.toBeInTheDocument();
+					expect(screen.queryByText('Unable to load results')).not.toBeInTheDocument();
 				});
 
 				it('should show no results message on a 403 aka forbidden status', async () => {
-					const { getByTestId } = await setup({
+					await setup({
 						hookState: { ...getErrorHookState(), status: 'forbidden' },
 					});
 
 					// results view
-					expect(getByTestId(testIds.noResults)).toBeInTheDocument();
+					expect(await screen.findByTestId(testIds.noResults)).toBeInTheDocument();
 					// button is still clickable since users are able to insert on no results found
-					expect(getByTestId(testIds.insertButton)).not.toBeDisabled();
+					expect(await screen.findByTestId(testIds.insertButton)).not.toBeDisabled();
 				});
 
 				it('should show unauthorized error message', async () => {
-					const { getByTestId, getByText } = await setup({
+					await setup({
 						hookState: { ...getErrorHookState(), status: 'unauthorized' },
 					});
 
 					// results view
-					expect(getByText("You don't have access to the following site:")).toBeInTheDocument();
-					expect(getByTestId(testIds.insertButton)).toBeDisabled();
+					expect(
+						await screen.findByText("You don't have access to the following site:"),
+					).toBeInTheDocument();
+					expect(await screen.findByTestId(testIds.insertButton)).toBeDisabled();
 				});
 
 				describe('during editing (unauthorized)', () => {
 					it('should not select a site if cloudId is not in availableSites', async () => {
-						const { getByText, getSiteSelectorText } = await setup({
+						const { getSiteSelectorText } = await setup({
 							hookState: { ...getErrorHookState(), status: 'unauthorized' },
 							mockSiteDataOverride: mockSiteData.slice(3),
 							url: 'https://hello.atlassian.net',
 						});
 
 						expect(getSiteSelectorText()).toEqual('Choose site');
-						expect(getByText("You don't have access to the following site:")).toBeInTheDocument();
-						expect(getByText('https://hello.atlassian.net')).toBeInTheDocument();
+						expect(
+							await screen.findByText("You don't have access to the following site:"),
+						).toBeInTheDocument();
+						expect(await screen.findByText('https://hello.atlassian.net')).toBeInTheDocument();
 					});
 
 					it('should not select a site if cloudId is not in availableSites and should not show a site in message if URL is not provided', async () => {
-						const { getByText, getSiteSelectorText } = await setup({
+						const { getSiteSelectorText } = await setup({
 							hookState: { ...getErrorHookState(), status: 'unauthorized' },
 							mockSiteDataOverride: mockSiteData.slice(3),
 						});
 
 						expect(getSiteSelectorText()).toEqual('Choose site');
-						expect(getByText("You don't have access to this content")).toBeInTheDocument();
+						expect(
+							await screen.findByText("You don't have access to this content"),
+						).toBeInTheDocument();
 					});
 
 					it('should not show a site name if cloudId is not in availableSites and an invalid URL is provided', async () => {
-						const { getByText, getSiteSelectorText } = await setup({
+						const { getSiteSelectorText } = await setup({
 							hookState: { ...getErrorHookState(), status: 'unauthorized' },
 							mockSiteDataOverride: mockSiteData.slice(3),
 							url: '',
 						});
 
 						expect(getSiteSelectorText()).toEqual('Choose site');
-						expect(getByText("You don't have access to this content")).toBeInTheDocument();
+						expect(
+							await screen.findByText("You don't have access to this content"),
+						).toBeInTheDocument();
 					});
 				});
 			});
 
 			it('should show DisplayViewDropdown when disableDisplayDropdown is false', async () => {
-				const { getByTestId } = await setup({
+				await setup({
 					disableDisplayDropdown: false,
 					hookState: { ...getErrorHookState(), status: 'unauthorized' },
 					mockSiteDataOverride: mockSiteData.slice(3),
 					url: '',
 				});
 
-				expect(getByTestId(testIds.displayViewDropdown)).toBeInTheDocument();
+				expect(await screen.findByTestId(testIds.displayViewDropdown)).toBeInTheDocument();
 			});
 
 			it('should show DisplayViewDropdown when disableDisplayDropdown is undefined', async () => {
-				const { getByTestId } = await setup({
+				await setup({
 					disableDisplayDropdown: undefined,
 					hookState: { ...getErrorHookState(), status: 'unauthorized' },
 					mockSiteDataOverride: mockSiteData.slice(3),
 					url: '',
 				});
 
-				expect(getByTestId(testIds.displayViewDropdown)).toBeInTheDocument();
+				expect(await screen.findByTestId(testIds.displayViewDropdown)).toBeInTheDocument();
 			});
 
 			it('should not show DisplayViewDropdown when disableDisplayDropdown is true', async () => {
-				const { queryByTestId } = await setup({
+				await setup({
 					disableDisplayDropdown: true,
 					hookState: { ...getErrorHookState(), status: 'unauthorized' },
 					mockSiteDataOverride: mockSiteData.slice(3),
 					url: '',
 				});
 
-				expect(queryByTestId(testIds.displayViewDropdown)).toBeNull();
+				expect(screen.queryByTestId(testIds.displayViewDropdown)).toBeNull();
 			});
 
 			it('should pass parameters to the useDatasourceTableState hook as normal, when `overrideParameters` are not provided', async () => {

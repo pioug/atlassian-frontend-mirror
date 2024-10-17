@@ -37,6 +37,8 @@ const querySpanStyles = css({
 		padding: 0,
 		margin: 0,
 		// ED-17022 Fixes firefox caret position
+		// Do not migrate font when em is used as unit
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: '1em',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: blockNodesVerticalMargin,

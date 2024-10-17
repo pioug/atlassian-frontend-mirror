@@ -1,5 +1,15 @@
 # @atlaskit/select
 
+## 18.1.2
+
+### Patch Changes
+
+- [#153221](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153221)
+  [`e362b41d4b35f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e362b41d4b35f) -
+  This version removes `tab-event-should-close-popupSelect` feature flag. Tab and Shift+Tab now
+  dismisses the list of opened popup select options and allows users to navigate to next or previous
+  elements accordingly.
+
 ## 18.1.1
 
 ### Patch Changes

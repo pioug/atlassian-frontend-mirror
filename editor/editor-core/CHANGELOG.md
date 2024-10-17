@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 198.6.7
+
+### Patch Changes
+
+- [#153147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153147)
+  [`b5698cb5073d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b5698cb5073d6) -
+  NOISSUE: Remove legacy context unit test
+- [`656886f933139`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/656886f933139) -
+  Cleanup FF platform_editor_af_provider_from_plugin_config
+- Updated dependencies
+
+## 198.6.6
+
+### Patch Changes
+
+- [#152823](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152823)
+  [`0ec705650807f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ec705650807f) -
+  [ux] ED-25090: ED-25090: Migrated link toolbar and panel toolbar to use the new icons
+- Updated dependencies
+
 ## 198.6.5
 
 ### Patch Changes

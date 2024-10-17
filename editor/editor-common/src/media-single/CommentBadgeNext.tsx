@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import CommentIcon from '@atlaskit/icon/glyph/comment';
+import CommentIcon from '@atlaskit/icon/core/comment';
+import LegacyCommentIcon from '@atlaskit/icon/glyph/comment';
 import { Pressable, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -61,7 +62,13 @@ export const CommentBadgeNext = ({
 				onMouseLeave={onMouseLeave}
 				backgroundColor={colourToken}
 			>
-				<CommentIcon label={title} size={badgeSize} />
+				<CommentIcon
+					label={title}
+					spacing="spacious"
+					color="currentColor"
+					LEGACY_size={badgeSize}
+					LEGACY_fallbackIcon={LegacyCommentIcon}
+				/>
 			</Pressable>
 		</Tooltip>
 	);

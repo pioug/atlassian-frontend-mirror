@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.21.1
+
+### Patch Changes
+
+- [#152823](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152823)
+  [`0ec705650807f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ec705650807f) -
+  [ux] Migrated comment icon from annotation package
+
 ## 1.21.0
 
 ### Minor Changes

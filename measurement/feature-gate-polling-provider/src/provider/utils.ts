@@ -63,3 +63,8 @@ export const createHash = async (input: string): Promise<string> => {
 	const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
 	return hashHex;
 };
+
+export const cloneObject = <T>(obj: T): T => {
+	const str = JSON.stringify(obj);
+	return JSON.parse(str);
+};

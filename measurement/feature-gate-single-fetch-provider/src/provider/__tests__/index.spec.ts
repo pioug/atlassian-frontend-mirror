@@ -62,9 +62,9 @@ describe('SingeFetchProvider', () => {
 
 	describe('getExperimentValues', function () {
 		test('successfully', async () => {
-			await expect(
-				provider.getExperimentValues(mockClientOptions, mockIdentifiers, mockCustomAttributes),
-			).resolves.toStrictEqual({
+			provider.setProfile(mockClientOptions, mockIdentifiers, mockCustomAttributes);
+
+			await expect(provider.getExperimentValues()).resolves.toStrictEqual({
 				experimentValues: mockExperimentValues,
 				customAttributesFromFetch: mockCustomAttributesFromFetch,
 				clientSdkKey: mockClientSdkKey,
@@ -84,13 +84,15 @@ describe('SingeFetchProvider', () => {
 		});
 
 		test('error thrown when fetch rejects', async () => {
+			provider.setProfile(mockClientOptions, mockIdentifiers, mockCustomAttributes);
+
 			mockedFetcher.fetchExperimentValues.mockRejectedValue(
 				new Error('failed to fetch experiment values'),
 			);
 
-			await expect(
-				provider.getExperimentValues(mockClientOptions, mockIdentifiers, mockCustomAttributes),
-			).rejects.toThrow('failed to fetch experiment values');
+			await expect(provider.getExperimentValues()).rejects.toThrow(
+				'failed to fetch experiment values',
+			);
 			await expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledWith(
 				mockClientVersion,
 				{
@@ -104,11 +106,26 @@ describe('SingeFetchProvider', () => {
 				mockCustomAttributes,
 			);
 		});
+
+		test('error thrown when clientVersion is not set', async () => {
+			provider['clientVersion'] = undefined;
+			provider.setProfile(mockClientOptions, mockIdentifiers, mockCustomAttributes);
+
+			await expect(provider.getExperimentValues()).rejects.toThrow(
+				'Client version has not been set',
+			);
+		});
+
+		test('error thrown when profile is not set', async () => {
+			await expect(provider.getExperimentValues()).rejects.toThrow('Profile has not been set');
+		});
 	});
 
 	describe('getClientSdkKey', function () {
 		test('successfully', async () => {
-			await expect(provider.getClientSdkKey(mockClientOptions)).resolves.toBe(mockClientSdkKey);
+			provider.setProfile(mockClientOptions, mockIdentifiers, mockCustomAttributes);
+
+			await expect(provider.getClientSdkKey()).resolves.toBe(mockClientSdkKey);
 			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
@@ -119,13 +136,13 @@ describe('SingeFetchProvider', () => {
 		});
 
 		test('error thrown when fetch rejects', async () => {
+			provider.setProfile(mockClientOptions, mockIdentifiers, mockCustomAttributes);
+
 			mockedFetcher.fetchClientSdkKey.mockRejectedValue(
 				new Error('failed to fetch client sdk key'),
 			);
 
-			await expect(provider.getClientSdkKey(mockClientOptions)).rejects.toThrow(
-				'failed to fetch client sdk key',
-			);
+			await expect(provider.getClientSdkKey()).rejects.toThrow('failed to fetch client sdk key');
 			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
@@ -133,6 +150,17 @@ describe('SingeFetchProvider', () => {
 				targetApp: 'targetApp_web',
 				useGatewayURL: true,
 			});
+		});
+
+		test('error thrown when clientVersion is not set', async () => {
+			provider['clientVersion'] = undefined;
+			provider.setProfile(mockClientOptions, mockIdentifiers, mockCustomAttributes);
+
+			await expect(provider.getClientSdkKey()).rejects.toThrow('Client version has not been set');
+		});
+
+		test('error thrown when profile is not set', async () => {
+			await expect(provider.getClientSdkKey()).rejects.toThrow('Profile has not been set');
 		});
 	});
 

@@ -7,7 +7,7 @@ const MediaCardContext = React.createContext({});
 
 const CardLoadingWithContext: React.FC<{}> = () => {
 	const props = useContext(MediaCardContext);
-	return <CardLoading {...props} />;
+	return <CardLoading {...props} interactionName="media-card-async-loading" />;
 };
 
 const MediaCardWithMediaClientProvider = Loadable({

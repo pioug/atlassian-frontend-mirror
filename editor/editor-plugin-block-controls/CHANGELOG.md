@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.6.3
+
+### Patch Changes
+
+- [#153087](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153087)
+  [`a29ea6551ed67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a29ea6551ed67) -
+  ED-24902: Change display from inline to block to fix focus issues with drag handle
+- [#152414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152414)
+  [`893c9f74cb700`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/893c9f74cb700) -
+  Use getPos instead of pos when rendering drag handle
+- Updated dependencies
+
 ## 2.6.2
 
 ### Patch Changes

@@ -46,7 +46,12 @@ export default function SelectField({
 			{({ fieldProps, error }) => (
 				<Fragment>
 					<Select
-						{...fieldProps}
+						{...{
+							...fieldProps,
+							// Pass `id` as `inputId` so that the input gets the correct id, and make sure there are no duplicate ids
+							inputId: fieldProps.id,
+							id: undefined,
+						}}
 						onChange={(value) => {
 							fieldProps.onChange(value);
 							onFieldChange(name, true);

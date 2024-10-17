@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 15.4.0
+
+### Minor Changes
+
+- [`aa20e64143c46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa20e64143c46) -
+  DatePicker rewrited to be a functional component
+
 ## 15.3.1
 
 ### Patch Changes

@@ -54,7 +54,13 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
 			const key = generateIdentifierKey(item.identifier);
 
 			if (!mediaClientConfig) {
-				return <CardLoading key={key} dimensions={defaultImageCardDimensions} />;
+				return (
+					<CardLoading
+						key={key}
+						dimensions={defaultImageCardDimensions}
+						interactionName="media-filmstrip-card-loading"
+					/>
+				);
 			}
 
 			const mediaViewerItems = shouldOpenMediaViewer

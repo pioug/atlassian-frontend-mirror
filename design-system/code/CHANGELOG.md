@@ -1,5 +1,13 @@
 # @atlaskit/code
 
+## 15.6.4
+
+### Patch Changes
+
+- [#153064](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153064)
+  [`fba89f308ab2b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fba89f308ab2b) -
+  [ux] Removed feature flag resulting typography style changes but no visual changes.
+
 ## 15.6.3
 
 ### Patch Changes

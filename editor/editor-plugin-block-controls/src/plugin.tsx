@@ -43,14 +43,6 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				tr.setMeta(key, { activeNode: { pos, anchorName, nodeType, handleOptions } });
 				return tr;
 			},
-		hideDragHandle:
-			() =>
-			({ tr }: { tr: Transaction }) => {
-				if (fg('confluence_frontend_page_title_enter_improvements')) {
-					tr.setMeta(key, { hideDragHandle: true });
-				}
-				return tr;
-			},
 		setNodeDragged:
 			(getPos: () => number | undefined, anchorName: string, nodeType: string) =>
 			({ tr }: { tr: Transaction }) => {

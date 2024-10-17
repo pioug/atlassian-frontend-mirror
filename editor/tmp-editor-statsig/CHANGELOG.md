@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.6.0
+
+### Minor Changes
+
+- [#153024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153024)
+  [`0200c770ddcb2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0200c770ddcb2) -
+  [ux] Add multiple column layout via quick insert
+
 ## 2.5.0
 
 ### Minor Changes

@@ -6,10 +6,14 @@ import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClient';
+import { useCurrentUserInfo } from '../../basic-filters/hooks/useCurrentUserInfo';
 import { ConfluenceSearchConfigModal } from '../index';
+
+jest.mock('../../basic-filters/hooks/useCurrentUserInfo');
 
 const DATASOURCE_ID = 'confluence-datasource-id';
 
@@ -146,6 +150,11 @@ describe('ConfluenceSearchConfigModal', () => {
 	beforeEach(() => {
 		fetchMock.reset();
 		mockAvailableSites();
+		asMock(useCurrentUserInfo).mockReturnValue({
+			user: {
+				accountId: '123',
+			},
+		});
 	});
 
 	ffTest.both('platform-datasources-use-refactored-config-modal', '', () => {

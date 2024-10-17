@@ -47,12 +47,13 @@ const getPrevFocusableElement = (refs: FocusableElement[], currentFocusedIdx: nu
 };
 
 export default function handleFocus(
-	refs: Array<FocusableElement>,
+	refs: { current: Array<FocusableElement> },
 	isLayerDisabled: () => boolean,
 	onClose: (e: KeyboardEvent) => void,
 ) {
 	return (e: KeyboardEvent) => {
-		const currentFocusedIdx = refs.findIndex((el: HTMLButtonElement | HTMLAnchorElement) =>
+		const currentRefs = refs.current ?? refs;
+		const currentFocusedIdx = currentRefs.findIndex((el: HTMLButtonElement | HTMLAnchorElement) =>
 			document.activeElement?.isSameNode(el),
 		);
 
@@ -85,11 +86,11 @@ export default function handleFocus(
 			case 'next':
 				// Always cancelling the event to prevent scrolling
 				e.preventDefault();
-				if (currentFocusedIdx < refs.length - 1) {
-					const nextFocusableElement = getNextFocusableElement(refs, currentFocusedIdx);
+				if (currentFocusedIdx < currentRefs.length - 1) {
+					const nextFocusableElement = getNextFocusableElement(currentRefs, currentFocusedIdx);
 					nextFocusableElement?.focus();
 				} else {
-					const firstFocusableElement = getNextFocusableElement(refs, -1);
+					const firstFocusableElement = getNextFocusableElement(currentRefs, -1);
 					firstFocusableElement?.focus();
 				}
 				break;
@@ -98,11 +99,11 @@ export default function handleFocus(
 				// Always cancelling the event to prevent scrolling
 				e.preventDefault();
 				if (currentFocusedIdx > 0) {
-					const prevFocusableElement = getPrevFocusableElement(refs, currentFocusedIdx);
+					const prevFocusableElement = getPrevFocusableElement(currentRefs, currentFocusedIdx);
 
 					prevFocusableElement?.focus();
 				} else {
-					const lastFocusableElement = getPrevFocusableElement(refs, refs.length);
+					const lastFocusableElement = getPrevFocusableElement(currentRefs, currentRefs.length);
 					lastFocusableElement?.focus();
 				}
 				break;
@@ -110,14 +111,14 @@ export default function handleFocus(
 			case 'first':
 				e.preventDefault();
 				// Search for first non-disabled element if first element is disabled
-				const nextFocusableElement = getNextFocusableElement(refs, -1);
+				const nextFocusableElement = getNextFocusableElement(currentRefs, -1);
 				nextFocusableElement?.focus();
 				break;
 
 			case 'last':
 				e.preventDefault();
 				// Search for last non-disabled element if last element is disabled
-				const prevFocusableElement = getPrevFocusableElement(refs, refs.length);
+				const prevFocusableElement = getPrevFocusableElement(currentRefs, currentRefs.length);
 				prevFocusableElement?.focus();
 				break;
 

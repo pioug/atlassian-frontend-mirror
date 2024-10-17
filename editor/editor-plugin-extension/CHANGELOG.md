@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.15.2
+
+### Patch Changes
+
+- [#153024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153024)
+  [`f2ca7201459b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2ca7201459b1) -
+  Fix issue where the label for id did not target the input
+- [#153024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153024)
+  [`f2ca7201459b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2ca7201459b1) -
+  Fix tests where id targeting need to be updated
+- Updated dependencies
+
 ## 1.15.1
 
 ### Patch Changes

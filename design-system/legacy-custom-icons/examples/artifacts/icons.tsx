@@ -1,19 +1,25 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5376a18697e2730d12dca43e5e642564>>
+ * @codegen <<SignedSource::ee7d8966b0a148d14905e02033c2f41f>>
  * @codegenCommand yarn generate-artifacts
  */
 import AnsibleIcon from '../../src/ui/ansible-icon';
 import AutomationIcon from '../../src/ui/automation-icon';
 import AutomationNewIcon from '../../src/ui/automation-new-icon';
 import AwsIcon from '../../src/ui/aws-icon';
+import BugIcon from '../../src/ui/bug-icon';
 import ComponentIcon from '../../src/ui/component-icon';
 import CurlyBracketsIcon from '../../src/ui/curly-brackets-icon';
 import CurlyBracketsTallIcon from '../../src/ui/curly-brackets-tall-icon';
+import DeleteIcon from '../../src/ui/delete-icon';
+import DeltaIcon from '../../src/ui/delta-icon';
 import FieldValueChangedIcon from '../../src/ui/field-value-changed-icon';
+import FlaskIcon from '../../src/ui/flask-icon';
 import GlobeIcon from '../../src/ui/globe-icon';
 import GoalIcon from '../../src/ui/goal-icon';
 import ManualTriggerIcon from '../../src/ui/manual-trigger-icon';
+import MegaphoneIcon from '../../src/ui/megaphone-icon';
+import MegaphoneStarIcon from '../../src/ui/megaphone-star-icon';
 import MsTeamsIcon from '../../src/ui/ms-teams-icon';
 import PeopleIcon from '../../src/ui/people-icon';
 import PersonIcon from '../../src/ui/person-icon';
@@ -30,13 +36,19 @@ export default {
 	AutomationIcon,
 	AutomationNewIcon,
 	AwsIcon,
+	BugIcon,
 	ComponentIcon,
 	CurlyBracketsIcon,
 	CurlyBracketsTallIcon,
+	DeleteIcon,
+	DeltaIcon,
 	FieldValueChangedIcon,
+	FlaskIcon,
 	GlobeIcon,
 	GoalIcon,
 	ManualTriggerIcon,
+	MegaphoneIcon,
+	MegaphoneStarIcon,
 	MsTeamsIcon,
 	PeopleIcon,
 	PersonIcon,

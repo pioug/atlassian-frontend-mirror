@@ -52,7 +52,10 @@ export default class ProviderFactory {
 		this.notifyUpdated(name);
 	}
 
-	subscribe<T extends string>(name: T, handler: ProviderHandler<typeof name>): void {
+	subscribe<T extends string>(
+		name: T,
+		handler: ProviderHandler<typeof name>,
+	): ProviderType<T> | undefined {
 		const handlers = this.subscribers.get(name) || [];
 		handlers.push(handler);
 
@@ -63,6 +66,8 @@ export default class ProviderFactory {
 		if (provider) {
 			handler(name as T, provider as ProviderType<T>);
 		}
+
+		return provider as ProviderType<T>;
 	}
 
 	unsubscribe<T extends string>(name: T, handler: ProviderHandler<typeof name>): void {

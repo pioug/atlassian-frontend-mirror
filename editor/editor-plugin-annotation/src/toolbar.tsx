@@ -26,7 +26,8 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import CommentIcon from '@atlaskit/icon/glyph/comment';
+import CommentIcon from '@atlaskit/icon/core/comment';
+import LegacyCommentIcon from '@atlaskit/icon/glyph/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { setInlineCommentDraftState } from './commands';
@@ -64,6 +65,7 @@ export const buildToolbar =
 			disabled: selectionValid === AnnotationSelectionType.DISABLED,
 			testId: AnnotationTestIds.floatingToolbarCreateButton,
 			icon: CommentIcon,
+			iconFallback: LegacyCommentIcon,
 			tooltipContent:
 				selectionValid === AnnotationSelectionType.DISABLED ? (
 					commentDisabledMessage

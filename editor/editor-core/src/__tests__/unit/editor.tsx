@@ -649,28 +649,10 @@ describe(`Editor`, () => {
 			};
 		};
 
-		it('should be populated with activityProvider', () => {
-			const { setProviderSpy, activityProvider } = setup();
-			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				6,
-				'activityProvider',
-				Promise.resolve(activityProvider),
-			);
-		});
-
-		it('should be populated with emojiProvider', () => {
-			const { setProviderSpy, emojiProvider } = setup();
-			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				13,
-				'emojiProvider',
-				Promise.resolve(emojiProvider),
-			);
-		});
-
 		it('should be populated with mentionProvider', () => {
 			const { setProviderSpy, mentionProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				2,
+				1,
 				'mentionProvider',
 				Promise.resolve(mentionProvider),
 			);
@@ -679,16 +661,25 @@ describe(`Editor`, () => {
 		it('should be populated with contextIdentifierProvider', () => {
 			const { setProviderSpy, contextIdentifierProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				3,
+				2,
 				'contextIdentifierProvider',
 				Promise.resolve(contextIdentifierProvider),
+			);
+		});
+
+		it('should be populated with legacyImageUploadProvider', () => {
+			const { setProviderSpy, legacyImageUploadProvider } = setup();
+			expect(setProviderSpy).toHaveBeenNthCalledWith(
+				3,
+				'imageUploadProvider',
+				Promise.resolve(legacyImageUploadProvider),
 			);
 		});
 
 		it('should be populated with collabEditProvider', () => {
 			const { setProviderSpy, collabEditProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				5,
+				4,
 				'collabEditProvider',
 				Promise.resolve(collabEditProvider),
 			);
@@ -697,16 +688,25 @@ describe(`Editor`, () => {
 		it('should be populated with collabEditProvider via collabEdit object', () => {
 			const { setProviderSpy, collabEditDotProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				5,
+				4,
 				'collabEditProvider',
 				Promise.resolve(collabEditDotProvider),
+			);
+		});
+
+		it('should be populated with activityProvider', () => {
+			const { setProviderSpy, activityProvider } = setup();
+			expect(setProviderSpy).toHaveBeenNthCalledWith(
+				5,
+				'activityProvider',
+				Promise.resolve(activityProvider),
 			);
 		});
 
 		it('should be populated with presenceProvider', () => {
 			const { setProviderSpy, presenceProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				8,
+				7,
 				'presenceProvider',
 				Promise.resolve(presenceProvider),
 			);
@@ -715,88 +715,9 @@ describe(`Editor`, () => {
 		it('should be populated with macroProvider', () => {
 			const { setProviderSpy, macroProvider } = setup();
 			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				9,
+				8,
 				'macroProvider',
 				Promise.resolve(macroProvider),
-			);
-		});
-
-		it('should be populated with legacyImageUploadProvider', () => {
-			const { setProviderSpy, legacyImageUploadProvider } = setup();
-			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				4,
-				'imageUploadProvider',
-				Promise.resolve(legacyImageUploadProvider),
-			);
-		});
-
-		it('should be populated with autoformattingProvider', () => {
-			const { setProviderSpy, autoformattingProvider } = setup();
-			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				10,
-				'autoformattingProvider',
-				Promise.resolve(autoformattingProvider),
-			);
-		});
-
-		// Skipped due to HOT-111922
-		it.skip('should be populated with cardProvider from `linking.smartLinks` (prefer over `smartLinks`)', () => {
-			const linkingCardProvider = {} as any;
-			const smartLinksCardProvider = {} as any;
-			const linkingCardOptions: CardOptions = {
-				provider: Promise.resolve(linkingCardProvider),
-			};
-			const smartLinksCardOptions: CardOptions = {
-				provider: Promise.resolve(smartLinksCardProvider),
-			};
-
-			const setProviderSpy = jest.spyOn(ProviderFactory.prototype, 'setProvider');
-
-			render(
-				<Editor linking={{ smartLinks: linkingCardOptions }} smartLinks={smartLinksCardOptions} />,
-			);
-
-			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				11,
-				'cardProvider',
-				Promise.resolve(linkingCardProvider),
-			);
-		});
-
-		// Skipped due to HOT-111922
-		it.skip('should be populated with cardProvider', () => {
-			const { setProviderSpy, cardProvider } = setup();
-			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				11,
-				'cardProvider',
-				Promise.resolve(cardProvider),
-			);
-		});
-
-		// Skipped due to HOT-111922
-		it.skip('should be populated with cardProvider on deprecated UNSAFE_cards', () => {
-			const cardProvider = {} as any;
-			const cardOptions: CardOptions = {
-				provider: Promise.resolve(cardProvider),
-			};
-
-			const setProviderSpy = jest.spyOn(ProviderFactory.prototype, 'setProvider');
-
-			render(<Editor UNSAFE_cards={cardOptions} />);
-
-			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				11,
-				'cardProvider',
-				Promise.resolve(cardProvider),
-			);
-		});
-
-		it('should be populated with quickInsertProvider', () => {
-			const { setProviderSpy, quickInsertProvider } = setup();
-			expect(setProviderSpy).toHaveBeenNthCalledWith(
-				12,
-				'quickInsertProvider',
-				Promise.resolve(quickInsertProvider),
 			);
 		});
 
@@ -805,7 +726,16 @@ describe(`Editor`, () => {
 			// extensionProvider is going to be a generated in packages/editor/editor-common/src/extensions/combine-extension-providers.ts
 			// and there is nothing to compare it with
 
-			expect(setProviderSpy).toHaveBeenNthCalledWith(11, 'extensionProvider', expect.any(Object));
+			expect(setProviderSpy).toHaveBeenNthCalledWith(9, 'extensionProvider', expect.any(Object));
+		});
+
+		it('should be populated with quickInsertProvider', () => {
+			const { setProviderSpy, quickInsertProvider } = setup();
+			expect(setProviderSpy).toHaveBeenNthCalledWith(
+				10,
+				'quickInsertProvider',
+				Promise.resolve(quickInsertProvider),
+			);
 		});
 
 		describe('destroy the provider factory', () => {

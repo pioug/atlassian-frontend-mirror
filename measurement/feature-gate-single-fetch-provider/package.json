@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feature-gate-single-fetch-provider",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Provider which does a single fetch get values from feature-flag-service. To be used with the @atlaskit/feature-gate-js-client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,8 +34,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/feature-gate-fetcher": "0.0.3",
-		"@atlaskit/feature-gate-js-client": "4.20.0",
+		"@atlaskit/feature-gate-fetcher": "0.0.4",
+		"@atlaskit/feature-gate-js-client": "4.20.1",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {

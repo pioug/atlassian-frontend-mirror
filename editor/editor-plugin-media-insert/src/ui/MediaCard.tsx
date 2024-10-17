@@ -39,7 +39,9 @@ export const MediaCard = ({ attrs, mediaProvider }: Props) => {
 	);
 
 	if (!mediaProvider) {
-		return <CardLoading dimensions={dimensions} />;
+		return (
+			<CardLoading dimensions={dimensions} interactionName="editor-media-insert-card-loading" />
+		);
 	}
 
 	return (

@@ -120,7 +120,6 @@ const initialState: PluginState = {
 export interface FlagType {
 	isNestedEnabled: boolean;
 	isOptimisedApply: boolean;
-	isTitleEnterImprovementEnabled: boolean;
 }
 
 export const newApply = (
@@ -132,8 +131,6 @@ export const newApply = (
 	flags: FlagType,
 	anchorHeightsCache?: AnchorHeightsCache,
 ) => {
-	const { isTitleEnterImprovementEnabled } = flags;
-
 	let {
 		activeNode,
 		decorations,
@@ -232,11 +229,7 @@ export const newApply = (
 
 	// Remove handle dec when explicitly hidden, a node is resizing, activeNode pos was deleted, or DnD moved a node
 	const shouldRemoveHandle =
-		latestActiveNode &&
-		((meta?.hideDragHandle && isTitleEnterImprovementEnabled) ||
-			isResizerResizing ||
-			isActiveNodeDeleted ||
-			meta?.nodeMoved);
+		latestActiveNode && (isResizerResizing || isActiveNodeDeleted || meta?.nodeMoved);
 
 	if (shouldRemoveHandle) {
 		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
@@ -318,7 +311,7 @@ export const oldApply = (
 	flags: FlagType,
 	anchorHeightsCache?: AnchorHeightsCache,
 ) => {
-	const { isNestedEnabled, isTitleEnterImprovementEnabled } = flags;
+	const { isNestedEnabled } = flags;
 
 	let {
 		activeNode,
@@ -360,12 +353,7 @@ export const oldApply = (
 	// During resize, remove the drag handle widget so its dom positioning doesn't need to be maintained
 	// Also remove the handle when the node is moved or the node count changes. This helps prevent incorrect positioning
 	// Don't remove the handle if remote changes are changing the node count, its prosemirror position can be mapped instead
-	if (
-		(meta?.hideDragHandle && isTitleEnterImprovementEnabled) ||
-		isResizerResizing ||
-		(maybeNodeCountChanged && shouldRemoveHandle) ||
-		meta?.nodeMoved
-	) {
+	if (isResizerResizing || (maybeNodeCountChanged && shouldRemoveHandle) || meta?.nodeMoved) {
 		const oldHandle = decorations.find(undefined, undefined, (spec) => spec.type === 'drag-handle');
 		decorations = decorations.remove(oldHandle);
 	}
@@ -609,11 +597,9 @@ export const createPlugin = (
 		editorExperiment('optimised-apply-dnd', true, {
 			exposure: true,
 		});
-	const isTitleEnterImprovementEnabled = fg('confluence_frontend_page_title_enter_improvements');
 	const flags: FlagType = {
 		isNestedEnabled,
 		isOptimisedApply,
-		isTitleEnterImprovementEnabled,
 	};
 
 	if (fg('platform_editor_element_dnd_nested_fix_patch_2')) {

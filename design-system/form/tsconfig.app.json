@@ -33,6 +33,9 @@
 	},
 	"references": [
 		{
+			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
 			"path": "../heading/tsconfig.app.json"
 		},
 		{

@@ -1,5 +1,13 @@
 # @atlaskit/inline-dialog
 
+## 15.1.0
+
+### Minor Changes
+
+- [#152984](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152984)
+  [`f331091d24ea4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f331091d24ea4) -
+  Bug fix for portal logic update behind ff platform_design_system_team_portal_logic_r18_fix
+
 ## 15.0.5
 
 ### Patch Changes

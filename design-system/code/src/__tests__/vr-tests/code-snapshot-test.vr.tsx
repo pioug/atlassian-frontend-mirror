@@ -21,9 +21,6 @@ import VisualBasic from '../../../examples/visual-basic';
 import VrPythonTestIdAndWrapping from '../../../examples/vr-python-test-id-and-wrapping';
 
 snapshot(InlineCodeBasic, {
-	featureFlags: {
-		platform_design_system_team_code_new_typography: [false, true],
-	},
 	variants: [
 		{
 			name: 'Default',
@@ -38,9 +35,6 @@ snapshot(InlineCodeBasic, {
 	],
 });
 snapshot(CodeBlockBasic, {
-	featureFlags: {
-		platform_design_system_team_code_new_typography: [false, true],
-	},
 	variants: [
 		{
 			name: 'Default',
@@ -71,8 +65,4 @@ snapshot(CodeBlockEmpty);
 snapshot(CodeBidiCharacters);
 snapshot(CodeBlockHighlightingLongLines);
 snapshot(VrPythonTestIdAndWrapping);
-snapshot(CodeOverrideBackground, {
-	featureFlags: {
-		platform_design_system_team_code_new_typography: [false, true],
-	},
-});
+snapshot(CodeOverrideBackground);

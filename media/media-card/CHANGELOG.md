@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 78.7.0
+
+### Minor Changes
+
+- [#152851](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152851)
+  [`caba4b5434f99`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/caba4b5434f99) -
+  CardLoading component accepts interactionName for the underlying spinner. This is to idenfity the
+  experience in Performance Portal.
+
 ## 78.6.0
 
 ### Minor Changes

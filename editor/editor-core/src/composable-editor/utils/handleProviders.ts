@@ -4,7 +4,6 @@ import type {
 	Providers,
 	QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  *
@@ -18,22 +17,18 @@ import { fg } from '@atlaskit/platform-feature-flags';
 export default function handleProviders(
 	providerFactory: ProviderFactory,
 	{
-		emojiProvider,
 		mentionProvider,
-		taskDecisionProvider,
 		contextIdentifierProvider,
 		collabEditProvider,
 		activityProvider,
 		presenceProvider,
 		macroProvider,
 		imageUploadProvider,
-		autoformattingProvider,
 		searchProvider,
 	}: Providers,
 	extensionProvider?: ExtensionProvider,
 	quickInsertProvider?: Promise<QuickInsertProvider>,
 ): void {
-	providerFactory.setProvider('emojiProvider', emojiProvider);
 	providerFactory.setProvider('mentionProvider', mentionProvider);
 	providerFactory.setProvider('contextIdentifierProvider', contextIdentifierProvider);
 	providerFactory.setProvider('imageUploadProvider', imageUploadProvider);
@@ -42,10 +37,6 @@ export default function handleProviders(
 	providerFactory.setProvider('searchProvider', searchProvider);
 	providerFactory.setProvider('presenceProvider', presenceProvider);
 	providerFactory.setProvider('macroProvider', macroProvider);
-
-	if (!fg('platform_editor_af_provider_from_plugin_config')) {
-		providerFactory.setProvider('autoformattingProvider', autoformattingProvider);
-	}
 
 	if (extensionProvider) {
 		providerFactory.setProvider('extensionProvider', Promise.resolve(extensionProvider));

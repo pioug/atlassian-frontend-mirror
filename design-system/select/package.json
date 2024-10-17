@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "18.1.1",
+	"version": "18.1.2",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -113,9 +113,6 @@
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons-legacy-facade": {
-			"type": "boolean"
-		},
-		"tab-event-should-close-popupSelect": {
 			"type": "boolean"
 		},
 		"platform_dst_select-bump-react-focus-lock": {

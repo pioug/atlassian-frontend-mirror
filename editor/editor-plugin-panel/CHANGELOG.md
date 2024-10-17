@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-panel
 
+## 2.6.2
+
+### Patch Changes
+
+- [#152823](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152823)
+  [`0ec705650807f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ec705650807f) -
+  [ux] ED-25090: ED-25090: Migrated link toolbar and panel toolbar to use the new icons
+
 ## 2.6.1
 
 ### Patch Changes

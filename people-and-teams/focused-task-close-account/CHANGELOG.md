@@ -1,5 +1,17 @@
 # @atlaskit/focused-task-close-account
 
+## 2.3.0
+
+### Minor Changes
+
+- [#153098](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153098)
+  [`1e9b8abfd8903`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1e9b8abfd8903) -
+  Adding support for en-ZZ locale
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.6
 
 ### Patch Changes

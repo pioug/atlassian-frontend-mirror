@@ -22,7 +22,11 @@ import type {
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
+import DeleteIcon from '@atlaskit/icon/core/delete';
+import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
+import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { messages } from '@atlaskit/media-ui';
@@ -85,7 +89,8 @@ export const generateMediaInlineFloatingToolbar = (
 		{
 			id: 'editor.media.view.switcher.inline',
 			type: 'button',
-			icon: IconInline,
+			icon: ImageInlineIcon,
+			iconFallback: IconInline,
 			selected: true,
 			disabled: false,
 			focusEditoronEnter: true,
@@ -97,7 +102,8 @@ export const generateMediaInlineFloatingToolbar = (
 		{
 			id: 'editor.media.view.switcher.thumbnail',
 			type: 'button',
-			icon: IconCard,
+			icon: SmartLinkCardIcon,
+			iconFallback: IconCard,
 			selected: false,
 			disabled: false,
 			focusEditoronEnter: true,
@@ -151,7 +157,8 @@ export const generateMediaInlineFloatingToolbar = (
 			type: 'button',
 			appearance: 'danger',
 			focusEditoronEnter: true,
-			icon: RemoveIcon,
+			icon: DeleteIcon,
+			iconFallback: RemoveIcon,
 			onMouseEnter: hoverDecoration?.(mediaInline, true),
 			onMouseLeave: hoverDecoration?.(mediaInline, false),
 			onFocus: hoverDecoration?.(mediaInline, true),
@@ -218,7 +225,15 @@ const getMediaInlineImageToolbar = (
 			id: 'editor.media.convert.mediainline',
 			type: 'button',
 			title: mediaInlineImageTitle,
-			icon: () => <IconInline size="medium" label={mediaInlineImageTitle} />,
+			icon: () => (
+				<ImageInlineIcon
+					color="currentColor"
+					spacing="spacious"
+					label={mediaInlineImageTitle}
+					LEGACY_size="medium"
+					LEGACY_fallbackIcon={IconInline}
+				/>
+			),
 			onClick: () => {
 				return true;
 			},
@@ -228,7 +243,15 @@ const getMediaInlineImageToolbar = (
 			id: 'editor.media.convert.mediasingle',
 			type: 'button',
 			title: mediaSingleTitle,
-			icon: () => <IconEmbed size="medium" label={mediaSingleTitle} />,
+			icon: () => (
+				<ImageFullscreenIcon
+					color="currentColor"
+					spacing="spacious"
+					label={mediaSingleTitle}
+					LEGACY_size="medium"
+					LEGACY_fallbackIcon={IconEmbed}
+				/>
+			),
 			onClick: changeMediaInlineToMediaSingle(
 				editorAnalyticsAPI,
 				widthPluginState,
@@ -348,7 +371,8 @@ const getMediaInlineImageToolbar = (
 		type: 'button',
 		appearance: 'danger',
 		focusEditoronEnter: true,
-		icon: RemoveIcon,
+		icon: DeleteIcon,
+		iconFallback: RemoveIcon,
 		onMouseEnter: hoverDecoration?.(mediaInline, true),
 		onMouseLeave: hoverDecoration?.(mediaInline, false),
 		onFocus: hoverDecoration?.(mediaInline, true),

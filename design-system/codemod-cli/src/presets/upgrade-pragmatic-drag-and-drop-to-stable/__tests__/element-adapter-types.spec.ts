@@ -1,8 +1,6 @@
-jest.autoMockOff();
+import transformer from '../upgrade-pragmatic-drag-and-drop-to-stable';
 
 import { check } from './_framework';
-
-import transformer from '../upgrade-pragmatic-drag-and-drop-to-stable';
 
 describe('ElementMonitorCanMonitorArgs => ElementMonitorGetFeedbackArgs', () => {
 	check({

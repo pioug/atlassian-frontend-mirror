@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import type { CSSObject } from '@emotion/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -202,9 +201,7 @@ const syntaxKeywordColors = (theme: CodeBlockTheme): CSSObject => ({
 export const getBaseCodeStyles = (theme: CodeTheme) => ({
 	fontSize: CODE_FONT_SIZE,
 	fontFamily: theme.fontFamily,
-	fontWeight: fg('platform_design_system_team_code_new_typography')
-		? token('font.weight.regular')
-		: 'normal',
+	fontWeight: token('font.weight.regular'),
 	backgroundColor: `var(${VAR_CODE_BG_COLOR},${theme.backgroundColor})`,
 	color: theme.textColor,
 	borderStyle: 'none',

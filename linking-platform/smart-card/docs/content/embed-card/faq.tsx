@@ -1,4 +1,5 @@
 import customMd from '../../utils/custom-md';
+import embedInEditorFaq from '../embed-in-editor-faq';
 
 export default customMd`
 
@@ -12,4 +13,8 @@ The list of 1P Smart Links with embed content that support theming can be found 
 
 The embed URL for Confluence embed is pointing to [lp-cc-embed](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/services/lp-cc-embed) service which hosts component from \`@atlassian/embedded-confluence\`.
 See the configurations [here](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/services/lp-cc-embed/src/app.tsx).
+
+&nbsp;
+
+${embedInEditorFaq}
 `;

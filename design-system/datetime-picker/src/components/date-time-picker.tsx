@@ -14,6 +14,7 @@ import {
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';
 import { N500, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -23,9 +24,11 @@ import { DateTimePickerContainer } from '../internal/date-time-picker-container'
 import { convertTokens } from '../internal/parse-tokens';
 import { type DateTimePickerBaseProps } from '../types';
 
-import DatePicker from './date-picker';
+import DatePickerOld from './date-picker-class';
+import DatePickerNew from './date-picker-fc';
 import TimePicker from './time-picker';
 
+const DatePicker = fg('dst-date-picker-use-functional-component') ? DatePickerNew : DatePickerOld;
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 

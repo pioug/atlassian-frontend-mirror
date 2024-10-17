@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 9.2.0
+
+### Minor Changes
+
+- [#153020](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153020)
+  [`4c31c568a0c4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c31c568a0c4e) -
+  Add an optional `id` property for Datasource `Icon` type.
+
 ## 9.1.0
 
 ### Minor Changes

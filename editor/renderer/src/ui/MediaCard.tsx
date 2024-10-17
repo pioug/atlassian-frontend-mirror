@@ -176,7 +176,9 @@ export class MediaCardView extends Component<
 	private renderLoadingCard = () => {
 		const { cardDimensions } = this.props;
 
-		return <CardLoading dimensions={cardDimensions} />;
+		return (
+			<CardLoading dimensions={cardDimensions} interactionName="renderer-media-card-loading" />
+		);
 	};
 
 	private renderExternal(shouldOpenMediaViewer: boolean) {

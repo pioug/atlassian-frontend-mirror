@@ -29,13 +29,20 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji/types';
+import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
+import DeleteIcon from '@atlaskit/icon/core/delete';
+import DiscoveryIcon from '@atlaskit/icon/core/discovery';
+import EmojiRemoveIcon from '@atlaskit/icon/core/emoji-remove';
+import InformationIcon from '@atlaskit/icon/core/information';
+import SuccessIcon from '@atlaskit/icon/core/success';
+import WarningIcon from '@atlaskit/icon/core/warning';
 import ErrorIcon from '@atlaskit/icon/glyph/editor/error';
 import InfoIcon from '@atlaskit/icon/glyph/editor/info';
-import NoteIcon from '@atlaskit/icon/glyph/editor/note';
+import LegacyNoteIcon from '@atlaskit/icon/glyph/editor/note';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import RemoveEmojiIcon from '@atlaskit/icon/glyph/editor/remove-emoji';
-import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
-import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
+import LegacySuccessIcon from '@atlaskit/icon/glyph/editor/success';
+import LegacyWarningIcon from '@atlaskit/icon/glyph/editor/warning';
 
 import { changePanelType, removePanel } from './actions';
 import type { EmojiInfo, PanelPluginOptions } from './types';
@@ -75,7 +82,8 @@ export const getToolbarItems = (
 		{
 			id: 'editor.panel.info',
 			type: 'button',
-			icon: InfoIcon,
+			icon: InformationIcon,
+			iconFallback: InfoIcon,
 			onClick: changePanelType(editorAnalyticsAPI)(PanelType.INFO),
 			selected: activePanelType === PanelType.INFO,
 			title: formatMessage(messages.info),
@@ -84,7 +92,8 @@ export const getToolbarItems = (
 		{
 			id: 'editor.panel.note',
 			type: 'button',
-			icon: NoteIcon,
+			icon: DiscoveryIcon,
+			iconFallback: LegacyNoteIcon,
 			onClick: changePanelType(editorAnalyticsAPI)(PanelType.NOTE),
 			selected: activePanelType === PanelType.NOTE,
 			title: formatMessage(messages.note),
@@ -94,6 +103,7 @@ export const getToolbarItems = (
 			id: 'editor.panel.success',
 			type: 'button',
 			icon: SuccessIcon,
+			iconFallback: LegacySuccessIcon,
 			onClick: changePanelType(editorAnalyticsAPI)(PanelType.SUCCESS),
 			selected: activePanelType === PanelType.SUCCESS,
 			title: formatMessage(messages.success),
@@ -103,6 +113,7 @@ export const getToolbarItems = (
 			id: 'editor.panel.warning',
 			type: 'button',
 			icon: WarningIcon,
+			iconFallback: LegacyWarningIcon,
 			onClick: changePanelType(editorAnalyticsAPI)(PanelType.WARNING),
 			selected: activePanelType === PanelType.WARNING,
 			title: formatMessage(messages.warning),
@@ -111,7 +122,8 @@ export const getToolbarItems = (
 		{
 			id: 'editor.panel.error',
 			type: 'button',
-			icon: ErrorIcon,
+			icon: CrossCircleIcon,
+			iconFallback: ErrorIcon,
 			onClick: changePanelType(editorAnalyticsAPI)(PanelType.ERROR),
 			selected: activePanelType === PanelType.ERROR,
 			title: formatMessage(messages.error),
@@ -276,7 +288,8 @@ export const getToolbarItems = (
 			const removeEmojiButton: FloatingToolbarButton<Command> = {
 				id: 'editor.panel.removeEmoji',
 				type: 'button',
-				icon: RemoveEmojiIcon,
+				icon: EmojiRemoveIcon,
+				iconFallback: RemoveEmojiIcon,
 				onClick: removeEmoji(),
 				title: formatMessage(commonMessages.removeEmoji),
 				disabled: activePanelIcon ? false : true,
@@ -313,7 +326,8 @@ export const getToolbarItems = (
 			type: 'button',
 			appearance: 'danger',
 			focusEditoronEnter: true,
-			icon: RemoveIcon,
+			icon: DeleteIcon,
+			iconFallback: RemoveIcon,
 			onClick: removePanel(editorAnalyticsAPI),
 			onMouseEnter: hoverDecoration?.(panelNodeType, true),
 			onMouseLeave: hoverDecoration?.(panelNodeType, false),

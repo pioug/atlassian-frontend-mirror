@@ -18,23 +18,27 @@ import { type ExperimentValuesEntry, type RulesetProfile } from '../database/typ
 
 import Refresh from './Refresh';
 import { type FeatureGateState, type ProviderOptions } from './types';
-import { createHash, getFrontendExperimentsResult } from './utils';
+import { cloneObject, createHash, getFrontendExperimentsResult } from './utils';
 
 export type { ProviderOptions } from './types';
 
 export const DATABASE_PURGE_TIMEOUT = 10000;
-// 5 min
-export const EXPERIMENT_VALUES_STALE_TIMEOUT_MS = 1000 * 60 * 5;
 
 export default class PollingProvider implements Provider {
 	private readonly providerOptions: ProviderOptions;
+
+	// Profile hash of the current user and context.
+	// This will be undefined if client has not been initialised or when a user is being updated
 	private currentProfileHash: string | undefined;
+	private currentRulesetProfile: RulesetProfile | undefined;
+
+	private lastUpdatedTimestamp: number = 0;
+
 	private featureGatesDB: FeatureGatesDB | undefined;
 	private clientVersion: string | undefined;
 	private refresh: Refresh;
 	private broadcast: Broadcast;
 	private applyUpdate: ((experimentsResult: FrontendExperimentsResult) => void) | undefined;
-	private lastUpdatedTimestamp: number = 0;
 
 	constructor(providerOptions: ProviderOptions) {
 		this.providerOptions = providerOptions;
@@ -67,73 +71,99 @@ export default class PollingProvider implements Provider {
 		this.refresh.setClientVersion(clientVersion);
 	}
 
-	async getExperimentValues(
+	async setProfile(
 		clientOptions: BaseClientOptions,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
-	): Promise<FrontendExperimentsResult> {
-		if (!this.clientVersion) {
-			throw new Error('Client version has not been set');
-		}
-
+	): Promise<void> {
 		const { profileHash, rulesetProfile } = await this.getProfileHashAndProfile(
 			clientOptions,
 			identifiers,
 			customAttributes,
 		);
 
+		if (this.currentProfileHash !== profileHash) {
+			this.lastUpdatedTimestamp = 0;
+		}
+
 		this.currentProfileHash = profileHash;
-		this.refresh.stop();
+		this.currentRulesetProfile = rulesetProfile;
+		this.broadcast.updateUserContext(profileHash);
+		this.refresh.updateProfile(
+			profileHash,
+			rulesetProfile,
+			// We expect setProfile to be set 1. before calls to get* methods and 2. used to revert the user if updateUser* fails
+			// For 1, we will set the timestamp to the current time as the get methods will cause a request if it is needed
+			// For 2, it is an error case and with this code it would reset the next polling interval, delaying the next poll for new values
+			Date.now(),
+		);
+		this.refresh.start();
+	}
+
+	async getExperimentValues(): Promise<FrontendExperimentsResult> {
+		if (!this.clientVersion) {
+			throw new Error('Client version has not been set');
+		}
+
+		if (!this.currentRulesetProfile || !this.currentProfileHash) {
+			throw new Error('Profile has not been set');
+		}
+
+		const profileHash = cloneObject(this.currentProfileHash);
+		const rulesetProfile = cloneObject(this.currentRulesetProfile);
 
 		// Attempt to get from the DB
 		const dbValues = await this.featureGatesDB?.getExperimentValues(profileHash);
 
-		const lastKnownUpdatedTimestamp =
-			!dbValues || Date.now() - dbValues.timestamp >= EXPERIMENT_VALUES_STALE_TIMEOUT_MS
-				? 0
-				: dbValues.timestamp;
+		const lastKnownUpdatedTimestamp = dbValues?.timestamp ?? 0;
 
-		this.refresh.updateProfile(profileHash, rulesetProfile, lastKnownUpdatedTimestamp);
-		this.broadcast.updateUserContext(profileHash);
+		this.lastUpdatedTimestamp = lastKnownUpdatedTimestamp;
 
 		if (dbValues) {
+			this.refresh.setTimestamp(lastKnownUpdatedTimestamp);
 			this.refresh.start();
-			this.lastUpdatedTimestamp = dbValues.timestamp;
 			return getFrontendExperimentsResult(dbValues.experimentValuesResponse);
 		}
 
 		let newLastUpdatedTimestamp = lastKnownUpdatedTimestamp;
 
-		const experimentResult = await this.fetchExperimentValues(
-			this.clientVersion,
-			clientOptions,
-			identifiers,
-			customAttributes,
-		)
+		const experimentResult = await this.fetchExperimentValues(this.clientVersion, rulesetProfile)
 			.then((result) => {
 				newLastUpdatedTimestamp = Date.now();
 				return result;
 			})
 			.finally(() => {
-				this.refresh.start();
+				if (profileHash === this.currentProfileHash) {
+					this.lastUpdatedTimestamp = newLastUpdatedTimestamp;
+					this.refresh.setTimestamp(newLastUpdatedTimestamp);
+					this.refresh.start();
+				}
 			});
 
-		this.featureGateUpdateHttpHandler({
+		const featureGateState = {
 			profileHash,
 			rulesetProfile,
 			experimentValuesResponse: experimentResult,
 			timestamp: newLastUpdatedTimestamp,
-		});
+		};
+
+		// Should not process this update as getExperimentValues will only be called on initialize and update user,
+		// and in those cases processing is handled elsewhere
+		this.featureGateUpdateHttpHandler(featureGateState, false);
 
 		return getFrontendExperimentsResult(experimentResult);
 	}
 
-	async getClientSdkKey(clientOptions: BaseClientOptions): Promise<string> {
+	async getClientSdkKey(): Promise<string> {
 		if (!this.clientVersion) {
 			throw new Error('Client version has not been set');
 		}
 
-		const { environment, targetApp, perimeter } = clientOptions;
+		if (!this.currentRulesetProfile) {
+			throw new Error('Profile has not been set');
+		}
+
+		const { environment, targetApp, perimeter } = this.currentRulesetProfile;
 		const { apiKey, initialFetchTimeout, useGatewayURL } = this.providerOptions;
 
 		const fetcherOptions: FetcherOptions = {
@@ -210,11 +240,9 @@ export default class PollingProvider implements Provider {
 
 	private async fetchExperimentValues(
 		clientVersion: string,
-		clientOptions: BaseClientOptions,
-		identifiers: Identifiers,
-		customAttributes?: CustomAttributes,
+		rulesetProfile: RulesetProfile,
 	): Promise<FrontendExperimentsResponse> {
-		const { environment, targetApp, perimeter } = clientOptions;
+		const { identifiers, customAttributes, environment, targetApp, perimeter } = rulesetProfile;
 		const { apiKey, initialFetchTimeout, useGatewayURL } = this.providerOptions;
 
 		const fetcherOptions: FetcherOptions = {
@@ -234,17 +262,24 @@ export default class PollingProvider implements Provider {
 		);
 	}
 
-	private featureGateUpdateHttpHandler(experimentValuesEntry: ExperimentValuesEntry): void {
-		this.processFeatureGateUpdate(experimentValuesEntry);
+	private featureGateUpdateHttpHandler(
+		experimentValuesEntry: ExperimentValuesEntry,
+		shouldProcessUpdate: boolean = true,
+	): void {
+		if (shouldProcessUpdate) {
+			this.processFeatureGateUpdate(experimentValuesEntry);
+		}
 
 		this.featureGatesDB?.setExperimentValues(experimentValuesEntry);
 
-		// broadcast the flag state to other tabs
-		this.broadcast.sendFeatureGateState(experimentValuesEntry);
+		// broadcast the flag state to other tabs if the profile matches that of the current broadcast channel
+		if (experimentValuesEntry.profileHash === this.currentProfileHash) {
+			this.broadcast.sendFeatureGateState(experimentValuesEntry);
+		}
 	}
 
 	private featureGateUpdateBroadcastHandler(featureGateState: FeatureGateState): void {
-		// return if broadcasted ff state is stale
+		// return if broadcasted feature gate state is stale
 		if (featureGateState.timestamp < this.lastUpdatedTimestamp) {
 			return;
 		}
@@ -255,6 +290,7 @@ export default class PollingProvider implements Provider {
 	private processFeatureGateUpdate(featureGateState: FeatureGateState): void {
 		if (this.currentProfileHash === featureGateState.profileHash) {
 			this.lastUpdatedTimestamp = featureGateState.timestamp;
+			this.refresh.setTimestamp(featureGateState.timestamp);
 
 			if (!this.applyUpdate) {
 				// eslint-disable-next-line no-console
@@ -262,8 +298,6 @@ export default class PollingProvider implements Provider {
 			} else {
 				this.applyUpdate(getFrontendExperimentsResult(featureGateState.experimentValuesResponse));
 			}
-
-			this.refresh.setTimestamp(this.lastUpdatedTimestamp);
 		}
 	}
 }

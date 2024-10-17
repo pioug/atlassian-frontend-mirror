@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.6.5",
+	"version": "3.6.6",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,7 +41,7 @@
 		"@atlaskit/avatar-group": "^10.0.0",
 		"@atlaskit/badge": "^16.4.0",
 		"@atlaskit/button": "^20.2.0",
-		"@atlaskit/datetime-picker": "^15.3.0",
+		"@atlaskit/datetime-picker": "^15.4.0",
 		"@atlaskit/dropdown-menu": "^12.20.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/empty-state": "^7.11.0",
@@ -59,7 +59,7 @@
 		"@atlaskit/layering": "^0.6.0",
 		"@atlaskit/link-client-extension": "^2.4.0",
 		"@atlaskit/linking-common": "^6.0.0",
-		"@atlaskit/linking-types": "^9.1.0",
+		"@atlaskit/linking-types": "^9.2.0",
 		"@atlaskit/logo": "^14.3.0",
 		"@atlaskit/lozenge": "^11.11.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
@@ -170,9 +170,6 @@
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource-assets_update_refresh_button_dt3qk": {
-			"type": "boolean"
-		},
-		"platform.linking-platform.datasource.show-clol-basic-filters": {
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource.limit-total-results_8wqcd": {

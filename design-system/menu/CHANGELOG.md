@@ -1,5 +1,14 @@
 # @atlaskit/menu
 
+## 2.13.0
+
+### Minor Changes
+
+- [#151342](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151342)
+  [`2518d31182356`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2518d31182356) -
+  Removed feature flag platform.design-system-team.section-1px-seperator-borders, changing the
+  border for menu sections from 2px to 1px.
+
 ## 2.12.7
 
 ### Patch Changes

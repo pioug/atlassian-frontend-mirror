@@ -45,6 +45,10 @@ import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
+import DeleteIcon from '@atlaskit/icon/core/delete';
+import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
+import LinkExternalIcon from '@atlaskit/icon/core/link-external';
+import SettingsIcon from '@atlaskit/icon/core/settings';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
@@ -407,7 +411,8 @@ const generateToolbarItems =
 				{
 					id: 'editor.link.openLink',
 					type: 'button',
-					icon: OpenIcon,
+					icon: LinkExternalIcon,
+					iconFallback: OpenIcon,
 					metadata: metadata,
 					className: 'hyperlink-open-link',
 					title: intl.formatMessage(linkMessages.openLink),
@@ -434,7 +439,8 @@ const generateToolbarItems =
 					focusEditoronEnter: true,
 					type: 'button',
 					appearance: 'danger',
-					icon: RemoveIcon,
+					icon: DeleteIcon,
+					iconFallback: RemoveIcon,
 					onMouseEnter: hoverDecoration?.(node.type, true),
 					onMouseLeave: hoverDecoration?.(node.type, false),
 					onFocus: hoverDecoration?.(node.type, true),
@@ -549,7 +555,8 @@ const getUnlinkButtonGroup = (
 					focusEditoronEnter: true,
 					type: 'button',
 					title: intl.formatMessage(linkToolbarMessages.unlink),
-					icon: UnlinkIcon,
+					icon: LinkBrokenIcon,
+					iconFallback: UnlinkIcon,
 					onClick: withToolbarMetadata(unlinkCard(node, state, editorAnalyticsApi)),
 				},
 				{ type: 'separator' },
@@ -565,7 +572,8 @@ export const getSettingsButton = (
 	return {
 		id: 'editor.link.settings',
 		type: 'button',
-		icon: CogIcon,
+		icon: SettingsIcon,
+		iconFallback: CogIcon,
 		title: intl.formatMessage(linkToolbarMessages.settingsLink),
 		onClick: openLinkSettings(editorAnalyticsApi, userPreferencesLink),
 		href: userPreferencesLink || getLinkPreferencesURLFromENV(),
@@ -684,7 +692,8 @@ const getDatasourceButtonGroup = (
 			{
 				id: 'editor.link.openLink',
 				type: 'button',
-				icon: OpenIcon,
+				icon: LinkExternalIcon,
+				iconFallback: OpenIcon,
 				metadata: metadata,
 				className: 'hyperlink-open-link',
 				title: intl.formatMessage(linkMessages.openLink),

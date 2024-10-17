@@ -658,9 +658,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 						isMenuItemSelected,
 						dialogPlacement,
 					})}
-					shouldRenderToParent={
-						fg('platform.enable-appropriate-reading-order-in-share-dialog_fu49') ? true : false
-					}
+					shouldRenderToParent={fg('enable-appropriate-reading-order-in-share-dialog')}
 				/>
 
 				{/* The select menu portal */}

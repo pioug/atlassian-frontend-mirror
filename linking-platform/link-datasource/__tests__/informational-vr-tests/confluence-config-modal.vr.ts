@@ -14,9 +14,6 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 		await openLastUpdatedFilter(page);
 	},
 	description: 'Last Updated filter open state',
-	featureFlags: {
-		'platform.linking-platform.datasource.show-clol-basic-filters': true,
-	},
 	drawsOutsideBounds: true,
 });
 
@@ -30,7 +27,6 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 	},
 	description: 'Last Updated filter open state with custom date pickers',
 	featureFlags: {
-		'platform.linking-platform.datasource.show-clol-basic-filters': true,
 		'platform-datasources-use-refactored-config-modal': [true, false],
 	},
 	drawsOutsideBounds: true,
@@ -43,7 +39,6 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 	},
 	description: 'Edited/Created by CLOL filter in open state',
 	featureFlags: {
-		'platform.linking-platform.datasource.show-clol-basic-filters': true,
 		'platform-datasources-use-refactored-config-modal': [true, false],
 	},
 	drawsOutsideBounds: true,

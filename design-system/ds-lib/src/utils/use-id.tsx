@@ -39,7 +39,7 @@ export function useId(): string {
 	return `uid${react16UseId()}`;
 }
 
-interface IdProviderProps {
+export interface IdProviderProps {
 	/**
 	 * Children to render.
 	 * Maybe a function that receives the unique id as an argument.
@@ -66,9 +66,7 @@ interface IdProviderProps {
  * functional components should use the useId hook directly.
  *
  * @component
- * @param {IdProviderProps['children']} props.children - The child elements to be wrapped.
- *                                                         Can be a function that receives the generated id.
- * @param {IdProviderProps['ref']} [props.ref] - A ref callback to get the instance of the generated id.
+ * @param {IdProviderProps} props
  *
  * @example
  * Child as function

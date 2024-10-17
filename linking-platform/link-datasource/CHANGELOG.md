@@ -1,5 +1,15 @@
 # @atlaskit/link-datasource
 
+## 3.6.6
+
+### Patch Changes
+
+- [#153020](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153020)
+  [`31f7a6900475e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31f7a6900475e) -
+  [ux] Removes feature flag platform.linking-platform.datasource.show-clol-basic-filters and makes
+  basic filters for confluence smart link list view a permanent feature
+- Updated dependencies
+
 ## 3.6.5
 
 ### Patch Changes

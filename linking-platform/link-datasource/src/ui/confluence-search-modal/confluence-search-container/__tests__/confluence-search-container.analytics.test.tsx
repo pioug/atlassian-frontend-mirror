@@ -5,10 +5,13 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
+import { useCurrentUserInfo } from '../../basic-filters/hooks/useCurrentUserInfo';
 import ConfluenceSearchContainer from '../index';
-import '@atlaskit/link-test-helpers/jest';
+
+jest.mock('../../basic-filters/hooks/useCurrentUserInfo');
 
 type MockConfluenceSearchContainerProps = Partial<
 	React.ComponentProps<typeof ConfluenceSearchContainer>
@@ -62,6 +65,11 @@ const testIds = {
 describe('Analytics: ConfluenceSearchContainer', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
+		asMock(useCurrentUserInfo).mockReturnValue({
+			user: {
+				accountId: '123',
+			},
+		});
 	});
 
 	describe('ui.form.submitted.basicSearch', () => {

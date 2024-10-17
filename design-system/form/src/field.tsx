@@ -16,9 +16,9 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { type FieldState } from 'final-form';
-import { uid } from 'react-uid';
 import invariant from 'tiny-invariant';
 
+import { useId } from '@atlaskit/ds-lib/use-id';
 import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field-id-context';
@@ -203,7 +203,7 @@ export default function Field<
 			 * effectively made it an optional prop to external consumers of Field. However the
 			 * prop types defined defaultValue as required, so inside the component it was not
 			 * valid for defaultValue to be undefined. We need to suppress the error
-			 * after changing defaultValue to explictly be an optional prop.
+			 * after changing defaultValue to explicitly be an optional prop.
 			 * If default value has changed we are using new default value.
 			 * Otherwise we need to check if we already have value for this field
 			 * (because we are using changing key prop to re-run field level validation, and that
@@ -380,11 +380,10 @@ export default function Field<
 		return unregister;
 	}, [latestPropsRef, latestStateRef, registerField, props.name, isDefaultValueChanged]);
 
-	const fieldId = useMemo(
-		// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
-		() => (props.id ? props.id : `${props.name}-${uid({ id: props.name })}`),
-		[props.id, props.name],
-	);
+	const uid = useId();
+	const fieldId = useMemo(() => {
+		return props.id ? props.id : `${props.name}-${uid}`;
+	}, [props.id, props.name, uid]);
 
 	const getDescribedBy = () => {
 		let value = '';

@@ -4,6 +4,7 @@ import {
 	de,
 	en,
 	en_GB,
+	en_ZZ,
 	es,
 	et,
 	fi,
@@ -32,6 +33,7 @@ type LanguageCode =
 	| 'nl'
 	| 'en'
 	| 'en_GB'
+	| 'en_ZZ'
 	| 'et'
 	| 'fi'
 	| 'fr'
@@ -62,6 +64,7 @@ const localesMessagesMap: LocaleMessagesMap = {
 	de,
 	en,
 	en_GB,
+	en_ZZ,
 	es,
 	et,
 	fi,

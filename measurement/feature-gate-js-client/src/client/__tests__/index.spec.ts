@@ -27,6 +27,7 @@ jest.mock('statsig-js-lite', () => {
 			setOverrides: jest.fn(),
 			shutdown: jest.fn(),
 			updateUserWithValues: jest.fn().mockReturnValue(true),
+			setInitializeValues: jest.fn(),
 		},
 		__esModule: true,
 	};
@@ -128,6 +129,7 @@ describe('FeatureGate client', () => {
 		mockProvider = {
 			setApplyUpdateCallback: jest.fn(),
 			setClientVersion: jest.fn(),
+			setProfile: jest.fn(),
 			getExperimentValues: jest.fn().mockResolvedValue({
 				clientSdkKey: mockClientSdkKey,
 				experimentValues: mockExperimentValues,
@@ -813,12 +815,9 @@ describe('FeatureGate client', () => {
 				}),
 			);
 
+			expect(mockProvider.setProfile).toHaveBeenCalled();
 			expect(mockProvider.getClientSdkKey).toHaveBeenCalled();
-			expect(mockProvider.getExperimentValues).toHaveBeenCalledWith(
-				baseClientOptions,
-				identifiers,
-				undefined,
-			);
+			expect(mockProvider.getExperimentValues).toHaveBeenCalled();
 		});
 
 		test('initialize accepts multiple identifiers', async () => {
@@ -859,12 +858,9 @@ describe('FeatureGate client', () => {
 				}),
 			);
 
+			expect(mockProvider.setProfile).toHaveBeenCalled();
 			expect(mockProvider.getClientSdkKey).toHaveBeenCalled();
-			expect(mockProvider.getExperimentValues).toHaveBeenCalledWith(
-				baseClientOptions,
-				identifiers,
-				undefined,
-			);
+			expect(mockProvider.getExperimentValues).toHaveBeenCalled();
 		});
 
 		test('initialize accepts custom attributes', async () => {
@@ -918,12 +914,9 @@ describe('FeatureGate client', () => {
 				}),
 			);
 
+			expect(mockProvider.setProfile).toHaveBeenCalled();
 			expect(mockProvider.getClientSdkKey).toHaveBeenCalled();
-			expect(mockProvider.getExperimentValues).toHaveBeenCalledWith(
-				baseClientOptions,
-				identifiers,
-				customAttributes,
-			);
+			expect(mockProvider.getExperimentValues).toHaveBeenCalled();
 		});
 
 		test('initialize passes through additional client options', async () => {
@@ -966,12 +959,9 @@ describe('FeatureGate client', () => {
 				}),
 			);
 
+			expect(mockProvider.setProfile).toHaveBeenCalled();
 			expect(mockProvider.getClientSdkKey).toHaveBeenCalled();
-			expect(mockProvider.getExperimentValues).toHaveBeenCalledWith(
-				baseClientOptions,
-				identifiers,
-				undefined,
-			);
+			expect(mockProvider.getExperimentValues).toHaveBeenCalled();
 		});
 
 		test('initialize with no values but correct sdk key if error occurs while getting experiment values', async () => {
@@ -1165,7 +1155,7 @@ describe('FeatureGate client', () => {
 			await expect(clientPromise).resolves.toBe(client);
 			expect(sendOperationalEventSpy).toHaveBeenCalledTimes(1);
 			expect(sendOperationalEventSpy).toHaveBeenCalledWith({
-				action: 'initialize',
+				action: 'initializeWithProvider',
 				actionSubject: EVENT_ACTION_SUBJECT,
 				attributes: {
 					apiKey: mockApiKey,
@@ -2088,6 +2078,8 @@ describe('FeatureGate client', () => {
 			).rejects.toThrow();
 			expect(mockProvider.getExperimentValues).not.toHaveBeenCalled();
 			expect(StatsigMocked.updateUserWithValues).not.toBeCalled();
+
+			expect(mockProvider.setProfile).toHaveBeenCalledTimes(0);
 		});
 
 		test('should change the initialize result from a rejected promise to a resolved once if the updateUser puts the client back into a valid state', async () => {
@@ -2096,6 +2088,8 @@ describe('FeatureGate client', () => {
 
 			StatsigMocked.updateUserWithValues.mockReturnValue(true);
 			await FeatureGatesClass.updateUserWithProvider({ atlassianAccountId: 'abc-456' }, undefined);
+
+			expect(mockProvider.setProfile).toHaveBeenCalledTimes(1);
 
 			await expect(initialize()).resolves.not.toThrow();
 		});
@@ -2108,6 +2102,7 @@ describe('FeatureGate client', () => {
 				FeatureGatesClass.updateUserWithProvider({ atlassianAccountId: 'abc-456' }, undefined),
 			).rejects.toThrowError();
 
+			expect(mockProvider.setProfile).toHaveBeenCalledTimes(2);
 			await expect(initialize()).resolves.not.toThrow();
 		});
 
@@ -2119,6 +2114,8 @@ describe('FeatureGate client', () => {
 			await expect(
 				FeatureGatesClass.updateUserWithProvider({ atlassianAccountId: 'abc-456' }, undefined),
 			).rejects.toThrowError();
+
+			expect(mockProvider.setProfile).toHaveBeenCalledTimes(2);
 			await expect(initialize()).rejects.toMatch('Initialization error');
 		});
 
@@ -2128,6 +2125,7 @@ describe('FeatureGate client', () => {
 			StatsigMocked.updateUserWithValues.mockReturnValue(true);
 			await FeatureGatesClass.updateUserWithProvider({ atlassianAccountId: 'abc-456' }, undefined);
 
+			expect(mockProvider.setProfile).toHaveBeenCalled();
 			expect(mockProvider.getExperimentValues).toHaveBeenCalled();
 
 			expect(StatsigMocked.updateUserWithValues).toHaveBeenCalledWith(
@@ -2140,6 +2138,8 @@ describe('FeatureGate client', () => {
 				},
 				mockExperimentValues,
 			);
+
+			expect(mockProvider.setProfile).toHaveBeenCalledTimes(1);
 		});
 
 		test('should not change the user if the call to the experimentValues endpoint fails', async () => {
@@ -2159,6 +2159,8 @@ describe('FeatureGate client', () => {
 				false,
 				expect.stringContaining('Failed to fetch experimentValues'),
 			);
+
+			expect(mockProvider.setProfile).toHaveBeenCalledTimes(2);
 			await expect(initialize()).resolves.not.toThrow();
 		});
 
@@ -2170,6 +2172,8 @@ describe('FeatureGate client', () => {
 
 			expect(mockProvider.getExperimentValues).not.toHaveBeenCalled();
 			expect(StatsigMocked.updateUserWithValues).not.toBeCalled();
+
+			expect(mockProvider.setProfile).toHaveBeenCalledTimes(1);
 		});
 
 		test("should return immediately if hasn't been initialised with provider", async () => {
@@ -2194,6 +2198,8 @@ describe('FeatureGate client', () => {
 
 			expect(mockProvider.getExperimentValues).not.toHaveBeenCalled();
 			expect(StatsigMocked.updateUserWithValues).not.toBeCalled();
+
+			expect(mockProvider.setProfile).toHaveBeenCalledTimes(0);
 		});
 	});
 
@@ -2345,6 +2351,66 @@ describe('FeatureGate client', () => {
 				configs: {},
 				layers: {},
 			});
+		});
+	});
+
+	describe('applyUpdateCallback', () => {
+		const experimentValues = {
+			feature: 'value',
+		};
+
+		beforeEach(() => {
+			console.warn = jest.fn();
+		});
+
+		test.each`
+			variation                  | initCompleted | initWithDefaults
+			${'both true'}             | ${true}       | ${true}
+			${'initCompleted true'}    | ${true}       | ${false}
+			${'initWithDefaults true'} | ${false}      | ${true}
+		`('should apply update when - $variation', ({ initCompleted, initWithDefaults }) => {
+			FeatureGatesClass['initCompleted'] = initCompleted;
+			FeatureGatesClass['initWithDefaults'] = initWithDefaults;
+
+			FeatureGatesClass['applyUpdateCallback']({
+				experimentValues,
+				customAttributesFromFetch: {},
+			});
+			expect(StatsigMocked.setInitializeValues).toHaveBeenCalledWith(experimentValues);
+
+			expect(console.warn).toHaveBeenCalledTimes(0);
+		});
+
+		test('do not apply update if init was not completed and not with defaults', () => {
+			FeatureGatesClass['initCompleted'] = false;
+			FeatureGatesClass['initWithDefaults'] = false;
+
+			FeatureGatesClass['applyUpdateCallback']({
+				experimentValues,
+				customAttributesFromFetch: {},
+			});
+			expect(StatsigMocked.setInitializeValues).toHaveBeenCalledTimes(0);
+
+			expect(console.warn).toHaveBeenCalledTimes(0);
+		});
+
+		test('console warn when apply update fails', () => {
+			FeatureGatesClass['initCompleted'] = true;
+			FeatureGatesClass['initWithDefaults'] = false;
+
+			const error = new Error('Error when setting values');
+
+			StatsigMocked.setInitializeValues.mockImplementation(() => {
+				throw error;
+			});
+
+			FeatureGatesClass['applyUpdateCallback']({
+				experimentValues,
+				customAttributesFromFetch: {},
+			});
+			expect(StatsigMocked.setInitializeValues).toHaveBeenCalledTimes(1);
+
+			expect(console.warn).toHaveBeenCalledWith('Error when attempting to apply update', error);
 		});
 	});
 });

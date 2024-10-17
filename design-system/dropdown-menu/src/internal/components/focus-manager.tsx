@@ -1,11 +1,11 @@
 import React, {
 	createContext,
 	type FC,
-	type MutableRefObject,
 	type ReactNode,
 	useCallback,
 	useEffect,
 	useRef,
+	useState,
 } from 'react';
 
 import { bind } from 'bind-event-listener';
@@ -40,23 +40,56 @@ const FocusManager: FC<{
 	onClose: (e: KeyboardEvent) => void;
 }> = ({ children, onClose }) => {
 	const menuItemRefs = useRef<FocusableElement[]>([]);
-	const registerRefCalls = useRef<number>(0);
+	// Used to force a re-render only
+	const [refresh, setRefresh] = useState(0);
+	const registerMode = useRef<'ordered' | 'unordered' | 'regenerate'>('ordered');
+	registerMode.current = 'ordered';
 
 	const registerRef = useCallback(
-		(ref: FocusableElement) => upsertRefAtFirstPosition(ref, menuItemRefs, registerRefCalls),
-		[],
+		(ref: FocusableElement): void => {
+			if (!ref || menuItemRefs.current.includes(ref)) {
+				return;
+			}
+
+			switch (registerMode.current) {
+				case 'ordered':
+					menuItemRefs.current.push(ref);
+					break;
+				case 'unordered':
+					// Reset and force a rerender
+					registerMode.current = 'regenerate';
+					menuItemRefs.current = [];
+					setRefresh(refresh + 1);
+					break;
+				case 'regenerate':
+					// Ignore registrations until the next render cycle
+					break;
+				default:
+					throw new Error(`Unexpected case of ${registerMode.current}`);
+			}
+		},
+		// Updating register ref on force reload will cause `useRegisterItemWithFocusManager` to re-register
+		[refresh],
 	);
 
 	const { isLayerDisabled } = UNSAFE_useLayering();
+
+	// Intentionally rebinding on each render
 	useEffect(() => {
-		// Intentionally reset count on each render
-		registerRefCalls.current = 0;
-		// Intentionally rebinding on each render
-		return bind(window, {
-			type: 'keydown',
-			listener: handleFocus(menuItemRefs.current, isLayerDisabled, onClose),
-		});
+		if (registerMode.current === 'ordered') {
+			// Use effect is called after rendering is complete and useEffects of the children a called first
+			registerMode.current = 'unordered';
+		}
 	});
+
+	useEffect(
+		() =>
+			bind(window, {
+				type: 'keydown',
+				listener: handleFocus(menuItemRefs, isLayerDisabled, onClose),
+			}),
+		[isLayerDisabled, onClose],
+	);
 
 	const contextValue = {
 		menuItemRefs: menuItemRefs.current,
@@ -67,44 +100,5 @@ const FocusManager: FC<{
 		<FocusManagerContext.Provider value={contextValue}>{children}</FocusManagerContext.Provider>
 	);
 };
-
-/**
- * Insert the ref at the call position in the array.
- * If the ref is already in the array, move it to the call position.
- * If the call position is after the current position, ignore the call.
- *
- * @param ref
- * @param menuItemRefs
- * @param registerRefCalls
- */
-function upsertRefAtFirstPosition(
-	ref: FocusableElement,
-	menuItemRefs: MutableRefObject<FocusableElement[]>,
-	registerRefCalls: MutableRefObject<number>,
-) {
-	const positionOnCall = registerRefCalls.current++;
-
-	// Add the ref to the correct position
-	if (!menuItemRefs.current.includes(ref)) {
-		menuItemRefs.current.splice(positionOnCall, 0, ref);
-		return;
-	}
-
-	const positionCurrent = menuItemRefs.current.indexOf(ref);
-	if (positionOnCall === positionCurrent) {
-		// No change needed
-		return;
-	}
-
-	if (positionOnCall > positionCurrent) {
-		// Ignore and so keep the count the same
-		registerRefCalls.current--;
-		return;
-	}
-
-	// Update the position of the ref in the array
-	menuItemRefs.current.splice(positionCurrent, 1);
-	menuItemRefs.current.splice(positionOnCall, 0, ref);
-}
 
 export default FocusManager;

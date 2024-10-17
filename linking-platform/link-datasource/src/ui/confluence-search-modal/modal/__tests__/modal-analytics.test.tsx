@@ -8,6 +8,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { DatasourceSearchMethod } from '../../../../analytics/types';
 import { type DatasourceTableState } from '../../../../hooks/useDatasourceTableState';
+import { useCurrentUserInfo } from '../../basic-filters/hooks/useCurrentUserInfo';
 
 import {
 	getDefaultHookState,
@@ -19,10 +20,17 @@ import {
 	useDatasourceTableState,
 } from './_utils';
 
+jest.mock('../../basic-filters/hooks/useCurrentUserInfo');
+
 ffTest.both('platform-datasources-use-refactored-config-modal', 'After refactoring', () => {
 	describe('Analytics: ConfluenceSearchConfigModal', () => {
 		beforeEach(() => {
 			jest.clearAllMocks();
+			asMock(useCurrentUserInfo).mockReturnValue({
+				user: {
+					accountId: '123',
+				},
+			});
 		});
 
 		it('should fire "screen.datasourceModalDialog.viewed" when the confluence modal is rendered', async () => {

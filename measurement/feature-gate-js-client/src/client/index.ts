@@ -17,6 +17,7 @@ import {
 	type CustomAttributes,
 	FeatureGateEnvironment,
 	type FromValuesClientOptions,
+	type FrontendExperimentsResult,
 	type GetExperimentOptions,
 	type GetExperimentValueOptions,
 	type GetLayerOptions,
@@ -74,6 +75,7 @@ class FeatureGates {
 	private static initOptions: BaseClientOptions | ClientOptions | FromValuesClientOptions;
 	private static initPromise: Promise<void> | null = null;
 	private static initCompleted: boolean = false;
+	private static initWithDefaults: boolean = false;
 	private static currentIdentifiers: Identifiers;
 	private static currentAttributes?: CustomAttributes;
 	private static hasGetExperimentErrorOccurred = false;
@@ -83,7 +85,7 @@ class FeatureGates {
 	private static hasCheckGateErrorOccurred = false;
 
 	private static provider: Provider;
-	private static subscriptions: Subscriptions = new Subscriptions();
+	private static readonly subscriptions: Subscriptions = new Subscriptions();
 
 	/**
 	 * @description
@@ -120,6 +122,7 @@ class FeatureGates {
 		FeatureGates.initPromise = FeatureGates.init(clientOptions, identifiers, customAttributes)
 			.then(() => {
 				FeatureGates.initCompleted = true;
+				FeatureGates.initWithDefaults = true;
 			})
 			.finally(() => {
 				const endTime = performance.now();
@@ -169,14 +172,10 @@ class FeatureGates {
 		}
 		const startTime = performance.now();
 		FeatureGates.initOptions = clientOptions;
-		FeatureGates.subscriptions = new Subscriptions();
 		FeatureGates.provider = provider;
 		FeatureGates.provider.setClientVersion(CLIENT_VERSION);
 		if (FeatureGates.provider.setApplyUpdateCallback) {
-			FeatureGates.provider.setApplyUpdateCallback((experimentsResult) => {
-				Statsig.setInitializeValues(experimentsResult.experimentValues);
-				FeatureGates.subscriptions.anyUpdated();
-			});
+			FeatureGates.provider.setApplyUpdateCallback(this.applyUpdateCallback);
 		}
 
 		FeatureGates.initPromise = FeatureGates.initWithProvider(
@@ -186,6 +185,7 @@ class FeatureGates {
 		)
 			.then(() => {
 				FeatureGates.initCompleted = true;
+				FeatureGates.initWithDefaults = true;
 			})
 			.finally(() => {
 				const endTime = performance.now();
@@ -193,12 +193,24 @@ class FeatureGates {
 				FeatureGates.fireClientEvent(
 					startTime,
 					totalTime,
-					'initialize',
+					'initializeWithProvider',
 					FeatureGates.initCompleted,
 					provider.getApiKey ? provider.getApiKey() : undefined,
 				);
 			});
 		return FeatureGates.initPromise;
+	}
+
+	private static applyUpdateCallback(experimentsResult: FrontendExperimentsResult): void {
+		try {
+			if (FeatureGates.initCompleted || FeatureGates.initWithDefaults) {
+				Statsig.setInitializeValues(experimentsResult.experimentValues);
+				FeatureGates.subscriptions.anyUpdated();
+			}
+		} catch (error) {
+			// eslint-disable-next-line no-console
+			console.warn('Error when attempting to apply update', error);
+		}
 	}
 
 	private static fireClientEvent(
@@ -259,6 +271,7 @@ class FeatureGates {
 		)
 			.then(() => {
 				FeatureGates.initCompleted = true;
+				FeatureGates.initWithDefaults = true;
 			})
 			.finally(() => {
 				const endTime = performance.now();
@@ -313,13 +326,10 @@ class FeatureGates {
 			);
 		}
 
+		await FeatureGates.provider.setProfile(FeatureGates.initOptions, identifiers, customAttributes);
+
 		await FeatureGates.updateUserUsingInitializeValuesProducer(
-			() =>
-				FeatureGates.provider.getExperimentValues(
-					FeatureGates.initOptions,
-					identifiers,
-					customAttributes,
-				),
+			() => FeatureGates.provider.getExperimentValues(),
 			identifiers,
 			customAttributes,
 		);
@@ -789,17 +799,15 @@ class FeatureGates {
 		let customAttributesFromResult: CustomAttributes | undefined;
 
 		try {
+			await FeatureGates.provider.setProfile(baseClientOptions, identifiers, customAttributes);
+
 			// If client sdk key fetch fails, an error would be thrown and handled instead of waiting for the experiment
 			// values request to be settled, and it will fall back to use default values.
 			const clientSdkKeyPromise = FeatureGates.provider
-				.getClientSdkKey(baseClientOptions)
+				.getClientSdkKey()
 				.then((value) => (fromValuesClientOptions.sdkKey = value));
 
-			const experimentValuesPromise = FeatureGates.provider.getExperimentValues(
-				baseClientOptions,
-				identifiers,
-				customAttributes,
-			);
+			const experimentValuesPromise = FeatureGates.provider.getExperimentValues();
 
 			// Only wait for the experiment values request to finish and try to initialise the client with experiment
 			// values if both requests are successful. Else an error would be thrown and handled by the catch
@@ -881,6 +889,7 @@ class FeatureGates {
 				...statsigOptions,
 				initializeValues: {},
 			});
+			FeatureGates.initWithDefaults = true;
 			throw error;
 		}
 	}
@@ -952,9 +961,18 @@ class FeatureGates {
 
 		// We replace the init promise here since we are essentially re-initializing the client at this point.
 		// Any subsequent calls to await FeatureGates.initialize() or FeatureGates.updateUser() will now also await this user update.
-		FeatureGates.initPromise = updateUserPromise.catch(() => {
+		FeatureGates.initPromise = updateUserPromise.catch(async () => {
 			// If the update failed then it changed nothing, so revert back to the original promise.
 			FeatureGates.initPromise = originalInitPromise;
+
+			// Set the user profile again to revert back to the current user
+			if (FeatureGates.provider) {
+				await FeatureGates.provider.setProfile(
+					FeatureGates.initOptions,
+					FeatureGates.currentIdentifiers,
+					FeatureGates.currentAttributes,
+				);
+			}
 		});
 
 		return updateUserPromise;
@@ -989,6 +1007,7 @@ class FeatureGates {
 		if (success) {
 			FeatureGates.currentIdentifiers = identifiers;
 			FeatureGates.currentAttributes = customAttributes;
+			FeatureGates.subscriptions.anyUpdated();
 		} else {
 			throw new Error('Failed to update user. An unexpected error occured.');
 		}

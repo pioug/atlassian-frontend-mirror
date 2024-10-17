@@ -7,7 +7,7 @@ import SpinnerIcon from '@atlaskit/spinner';
 
 export class CardLoading extends Component<StaticCardProps, {}> {
 	render() {
-		const { dimensions: dimensionsProp, testId } = this.props;
+		const { dimensions: dimensionsProp, testId, interactionName } = this.props;
 		const dimensions = getDimensionsWithDefault(dimensionsProp);
 
 		return (
@@ -16,7 +16,7 @@ export class CardLoading extends Component<StaticCardProps, {}> {
 				data-test-loading
 				dimensions={dimensions}
 			>
-				<SpinnerIcon interactionName="media-card-loading" />
+				<SpinnerIcon interactionName={interactionName || 'media-card-loading'} />
 			</Wrapper>
 		);
 	}

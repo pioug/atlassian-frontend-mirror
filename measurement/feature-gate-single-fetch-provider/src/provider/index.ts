@@ -18,6 +18,9 @@ export type { ProviderOptions } from './types';
 export default class SingleFetchProvider implements Provider {
 	private readonly providerOptions: ProviderOptions;
 	private clientVersion: string | undefined;
+	private clientOptions: BaseClientOptions | undefined;
+	private identifiers: Identifiers | undefined;
+	private customAttributes: CustomAttributes | undefined;
 
 	constructor(providerOptions: ProviderOptions) {
 		this.providerOptions = providerOptions;
@@ -27,25 +30,35 @@ export default class SingleFetchProvider implements Provider {
 		this.clientVersion = clientVersion;
 	}
 
-	async getExperimentValues(
+	async setProfile(
 		clientOptions: BaseClientOptions,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
-	): Promise<FrontendExperimentsResult> {
+	): Promise<void> {
+		this.clientOptions = clientOptions;
+		this.identifiers = identifiers;
+		this.customAttributes = customAttributes;
+	}
+
+	async getExperimentValues(): Promise<FrontendExperimentsResult> {
 		if (!this.clientVersion) {
 			throw new Error('Client version has not been set');
 		}
 
+		if (!this.clientOptions || !this.identifiers) {
+			throw new Error('Profile has not been set');
+		}
+
 		const fetcherOptions: FetcherOptions = {
-			...clientOptions,
+			...this.clientOptions,
 			...this.providerOptions,
 		};
 
 		return await Fetcher.fetchExperimentValues(
 			this.clientVersion,
 			fetcherOptions,
-			identifiers,
-			customAttributes,
+			this.identifiers,
+			this.customAttributes,
 		).then((result: FrontendExperimentsResponse) => ({
 			experimentValues: result.experimentValues,
 			customAttributesFromFetch: result.customAttributes,
@@ -53,13 +66,17 @@ export default class SingleFetchProvider implements Provider {
 		}));
 	}
 
-	async getClientSdkKey(clientOptions: BaseClientOptions): Promise<string> {
+	async getClientSdkKey(): Promise<string> {
 		if (!this.clientVersion) {
 			throw new Error('Client version has not been set');
 		}
 
+		if (!this.clientOptions) {
+			throw new Error('Profile has not been set');
+		}
+
 		const fetcherOptions: FetcherOptions = {
-			...clientOptions,
+			...this.clientOptions,
 			...this.providerOptions,
 		};
 

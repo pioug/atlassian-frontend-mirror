@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 93.6.0
+
+### Minor Changes
+
+- [#153024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153024)
+  [`0200c770ddcb2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0200c770ddcb2) -
+  [ux] Add multiple column layout via quick insert
+
+### Patch Changes
+
+- [#153020](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153020)
+  [`74bfda385156e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/74bfda385156e) -
+  ED-24117: remediates legacy react apis in with-providers
+- Updated dependencies
+
+## 93.5.3
+
+### Patch Changes
+
+- [#152823](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152823)
+  [`0ec705650807f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ec705650807f) -
+  [ux] ED-25090: ED-25090: Migrated link toolbar and panel toolbar to use the new icons
+- Updated dependencies
+
 ## 93.5.2
 
 ### Patch Changes

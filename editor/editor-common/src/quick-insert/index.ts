@@ -27,6 +27,11 @@ export {
 	IconDatasourceAssetsObjects,
 	IconDatasourceConfluenceSearch,
 	IconLoom,
+	IconOneColumnLayout,
+	IconTwoColumnLayout,
+	IconThreeColumnLayout,
+	IconFourColumnLayout,
+	IconFiveColumnLayout,
 } from './assets';
 export { memoProcessQuickInsertItems, find } from './utils';
 export { messages } from './messages';

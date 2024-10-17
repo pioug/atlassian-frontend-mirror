@@ -11,9 +11,7 @@ test.describe('ConfluenceSearchModal', () => {
 		packageIdSelection: string = 'link-datasource',
 		exampleIdSelection: string = 'with-confluence-search-modal',
 	) {
-		await page.visitExample(groupIdSelection, packageIdSelection, exampleIdSelection, {
-			featureFlag: 'platform.linking-platform.datasource.show-clol-basic-filters',
-		});
+		await page.visitExample(groupIdSelection, packageIdSelection, exampleIdSelection);
 	}
 
 	async function openDropDown(page: Page) {

@@ -167,6 +167,53 @@ export const IconStatus = Loadable({
 	loading: () => null,
 });
 
+export const IconOneColumnLayout = Loadable({
+	loader: () =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-icon-one-column-layout" */ './one-column-layout'
+		).then((module) => module.default) as Promise<
+			React.ComponentType<React.PropsWithChildren<IconProps>>
+		>,
+	loading: () => null,
+});
+
+export const IconTwoColumnLayout = Loadable({
+	loader: () =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-icon-two-column-layout" */ './two-column-layout'
+		).then((module) => module.default) as Promise<
+			React.ComponentType<React.PropsWithChildren<IconProps>>
+		>,
+	loading: () => null,
+});
+export const IconThreeColumnLayout = Loadable({
+	loader: () =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-icon-three-column-layout" */ './three-column-layout'
+		).then((module) => module.default) as Promise<
+			React.ComponentType<React.PropsWithChildren<IconProps>>
+		>,
+	loading: () => null,
+});
+export const IconFourColumnLayout = Loadable({
+	loader: () =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-icon-four-column-layout" */ './four-column-layout'
+		).then((module) => module.default) as Promise<
+			React.ComponentType<React.PropsWithChildren<IconProps>>
+		>,
+	loading: () => null,
+});
+export const IconFiveColumnLayout = Loadable({
+	loader: () =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-icon-five-column-layout" */ './five-column-layout'
+		).then((module) => module.default) as Promise<
+			React.ComponentType<React.PropsWithChildren<IconProps>>
+		>,
+	loading: () => null,
+});
+
 type HeadingProps = IconProps & {
 	level: HeadingLevels;
 };

@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.19.1
+
+### Patch Changes
+
+- [#152862](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152862)
+  [`8febdd40a9680`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8febdd40a9680) -
+  Added &::-webkit-details-marker CSS psuedo into the allowed set of psuedos in
+  @atlaskit/ui-styling-standard/no-unsafe-selectors rule
+
 ## 0.19.0
 
 ### Minor Changes

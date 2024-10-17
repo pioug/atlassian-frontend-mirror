@@ -1,7 +1,8 @@
+/* eslint-disable @atlaskit/design-system/no-custom-icons */
 import React from 'react';
 
 import Icon from '@atlaskit/icon';
-import type { CustomGlyphProps, GlyphProps } from '@atlaskit/icon/types';
+import type { CustomGlyphProps, UNSAFE_NewIconProps } from '@atlaskit/icon/types';
 
 const IconInlineGlyph = (props: CustomGlyphProps) => {
 	return (
@@ -23,6 +24,6 @@ const IconInlineGlyph = (props: CustomGlyphProps) => {
 	);
 };
 
-export const IconInline = (props: GlyphProps) => {
+export const IconInline = (props: Omit<UNSAFE_NewIconProps, 'dangerouslySetGlyph' | 'type'>) => {
 	return <Icon glyph={IconInlineGlyph} {...props} />;
 };

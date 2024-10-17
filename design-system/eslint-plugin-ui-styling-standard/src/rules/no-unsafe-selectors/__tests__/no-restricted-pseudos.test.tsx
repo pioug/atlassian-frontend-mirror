@@ -23,6 +23,16 @@ tester.run('no-restricted-pseudos', rule, {
         });
       `,
 		},
+		{
+			name: '&::-webkit-details-marker',
+			code: `
+		import { css } from '@compiled/react';
+
+		css({
+		  '&::-webkit-details-marker': {}
+		});
+	  `,
+		},
 	],
 	invalid: [
 		{

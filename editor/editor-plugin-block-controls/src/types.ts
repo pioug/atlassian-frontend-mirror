@@ -83,7 +83,6 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				nodeType: string,
 				handleOptions?: HandleOptions,
 			) => EditorCommand;
-			hideDragHandle: () => EditorCommand;
 			setNodeDragged: (
 				getPos: () => number | undefined,
 				anchorName: string,

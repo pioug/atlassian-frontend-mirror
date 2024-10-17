@@ -43,7 +43,12 @@ export type QuickInsertItemId =
 	| 'expand'
 	| 'placeholderText'
 	| 'datasource'
-	| 'loom';
+	| 'loom'
+	| 'onecolumnlayout'
+	| 'twocolumnslayout'
+	| 'threecolumnslayout'
+	| 'fourcolumnslayout'
+	| 'fivecolumnslayout';
 
 export type QuickInsertItem = TypeAheadItem & {
 	/** other names used to find the item */

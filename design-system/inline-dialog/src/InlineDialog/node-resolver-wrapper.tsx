@@ -4,7 +4,7 @@ import NodeResolver from 'react-node-resolver';
 
 interface NodeResolverWrapperProps {
 	hasNodeResolver: boolean;
-	innerRef: React.RefCallback<HTMLElement>;
+	innerRef: React.RefCallback<Element>;
 	children: ReactElement;
 }
 
@@ -27,7 +27,15 @@ const NodeResolverWrapper: FC<NodeResolverWrapperProps> = ({
 		return <NodeResolver innerRef={innerRef}>{children}</NodeResolver>;
 	}
 
-	return <div ref={(node: HTMLDivElement) => innerRef(node)}>{children}</div>;
+	return (
+		<div
+			ref={(node: HTMLDivElement) => {
+				innerRef(node?.firstElementChild);
+			}}
+		>
+			{children}
+		</div>
+	);
 };
 
 export default NodeResolverWrapper;

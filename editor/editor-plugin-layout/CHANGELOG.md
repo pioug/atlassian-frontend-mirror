@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.9.3
+
+### Patch Changes
+
+- [#153024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153024)
+  [`0200c770ddcb2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0200c770ddcb2) -
+  [ux] Add multiple column layout via quick insert
+- Updated dependencies
+
 ## 1.9.2
 
 ### Patch Changes

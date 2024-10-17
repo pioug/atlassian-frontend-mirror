@@ -327,13 +327,6 @@ describe('Refresh', () => {
 		expect((refresh as any).lastUpdateTimestamp).toEqual(timestamp);
 	});
 
-	test('setTimestamp sets the timestamp', () => {
-		const timestamp = Date.now();
-		expect((refresh as any).lastUpdateTimestamp).not.toEqual(timestamp);
-		refresh.setTimestamp(timestamp);
-		expect((refresh as any).lastUpdateTimestamp).toEqual(timestamp);
-	});
-
 	test('setClientVersion sets the client version', () => {
 		const clientVersion = 'client-version-1';
 		expect((refresh as any).clientVersion).not.toEqual(clientVersion);
@@ -652,6 +645,54 @@ describe('Refresh', () => {
 			document.dispatchEvent(new Event('visibilitychange'));
 			// on tab back to active, do another fetchAndReschedule
 			expect(fetchAndRescheduleSpy).toHaveBeenCalledTimes(2);
+		});
+	});
+
+	describe('setTimestamp', () => {
+		test('should keep timestamp at 0', () => {
+			refresh.setTimestamp(Date.now());
+			expect(refresh['lastUpdateTimestamp']).not.toBe(0);
+			refresh.setTimestamp(0);
+			expect(refresh['lastUpdateTimestamp']).toBe(0);
+		});
+
+		test('should update stale timestamp to be 0', () => {
+			refresh.setTimestamp(Date.now());
+			expect(refresh['lastUpdateTimestamp']).not.toBe(0);
+			expect(refresh['lastUpdateTimestamp']).not.toBe(100);
+			refresh.setTimestamp(100);
+			expect(refresh['lastUpdateTimestamp']).toBe(0);
+		});
+
+		test('should keep fresh timestamp', () => {
+			const newTimestamp = Date.now();
+			expect(refresh['lastUpdateTimestamp']).not.toBe(newTimestamp);
+			refresh.setTimestamp(newTimestamp);
+			expect(refresh['lastUpdateTimestamp']).toBe(newTimestamp);
+		});
+	});
+
+	describe('updateProfile', () => {
+		test('should keep timestamp at 0', () => {
+			refresh.setTimestamp(Date.now());
+			expect(refresh['lastUpdateTimestamp']).not.toBe(0);
+			refresh.updateProfile(mockProfileHash, mockRulesetProfile, 0);
+			expect(refresh['lastUpdateTimestamp']).toBe(0);
+		});
+
+		test('should update stale timestamp to be 0', () => {
+			refresh.setTimestamp(Date.now());
+			expect(refresh['lastUpdateTimestamp']).not.toBe(0);
+			expect(refresh['lastUpdateTimestamp']).not.toBe(100);
+			refresh.updateProfile(mockProfileHash, mockRulesetProfile, 100);
+			expect(refresh['lastUpdateTimestamp']).toBe(0);
+		});
+
+		test('should keep fresh timestamp', () => {
+			const newTimestamp = Date.now();
+			expect(refresh['lastUpdateTimestamp']).not.toBe(newTimestamp);
+			refresh.updateProfile(mockProfileHash, mockRulesetProfile, newTimestamp);
+			expect(refresh['lastUpdateTimestamp']).toBe(newTimestamp);
 		});
 	});
 });

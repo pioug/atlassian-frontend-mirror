@@ -315,11 +315,9 @@ export default class PopupSelect<
 
 	handleKeyDown = (event: KeyboardEvent) => {
 		//We shouldn't close PopupSelect on tab event if there are custom interactive element.
-		if (fg('tab-event-should-close-popupSelect')) {
-			const tabEvent = (event.key === 'Tab' && event.shiftKey) || event.key === 'Tab';
-			if (this.props.shouldCloseMenuOnTab && tabEvent) {
-				this.close();
-			}
+		const tabEvent = (event.key === 'Tab' && event.shiftKey) || event.key === 'Tab';
+		if (this.props.shouldCloseMenuOnTab && tabEvent) {
+			this.close();
 		}
 
 		switch (event.key) {

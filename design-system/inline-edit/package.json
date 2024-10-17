@@ -37,7 +37,7 @@
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/icon": "^22.22.0",
-		"@atlaskit/inline-dialog": "^15.0.0",
+		"@atlaskit/inline-dialog": "^15.1.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/textfield": "^6.5.0",
@@ -53,7 +53,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
-		"@atlaskit/datetime-picker": "^15.3.0",
+		"@atlaskit/datetime-picker": "^15.4.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^3.1.0",
 		"@atlaskit/section-message": "^6.6.0",

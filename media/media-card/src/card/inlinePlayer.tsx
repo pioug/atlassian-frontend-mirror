@@ -195,7 +195,7 @@ export const InlinePlayerBase = ({
 			)}
 		</InlinePlayerWrapper>
 	) : (
-		<CardLoading testId={testId} dimensions={dimensions} />
+		<CardLoading testId={testId} dimensions={dimensions} interactionName="inline-player-loading" />
 	);
 };
 

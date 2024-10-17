@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 20.5.0
+
+### Minor Changes
+
+- [#153098](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153098)
+  [`1e9b8abfd8903`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1e9b8abfd8903) -
+  Adding support for en-ZZ locale
+
 ## 20.4.3
 
 ### Patch Changes

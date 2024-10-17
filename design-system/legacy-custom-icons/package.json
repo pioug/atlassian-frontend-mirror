@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/legacy-custom-icons",
-	"version": "0.4.0",
+	"version": "0.5.0",
 	"description": "A centralised place to store legacy custom icons.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -53,7 +53,13 @@
 		"./sign-out-icon": "./src/ui/sign-out-icon/index.tsx",
 		"./theme-icon": "./src/ui/theme-icon/index.tsx",
 		"./curly-brackets-tall-icon": "./src/ui/curly-brackets-tall-icon/index.tsx",
-		"./automation-new-icon": "./src/ui/automation-new-icon/index.tsx"
+		"./automation-new-icon": "./src/ui/automation-new-icon/index.tsx",
+		"./megaphone-icon": "./src/ui/megaphone-icon/index.tsx",
+		"./megaphone-star-icon": "./src/ui/megaphone-star-icon/index.tsx",
+		"./bug-icon": "./src/ui/bug-icon/index.tsx",
+		"./delete-icon": "./src/ui/delete-icon/index.tsx",
+		"./flask-icon": "./src/ui/flask-icon/index.tsx",
+		"./delta-icon": "./src/ui/delta-icon/index.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
@@ -77,7 +83,13 @@
 		"./sign-out-icon": "./src/ui/sign-out-icon/index.tsx",
 		"./theme-icon": "./src/ui/theme-icon/index.tsx",
 		"./curly-brackets-tall-icon": "./src/ui/curly-brackets-tall-icon/index.tsx",
-		"./automation-new-icon": "./src/ui/automation-new-icon/index.tsx"
+		"./automation-new-icon": "./src/ui/automation-new-icon/index.tsx",
+		"./megaphone-icon": "./src/ui/megaphone-icon/index.tsx",
+		"./megaphone-star-icon": "./src/ui/megaphone-star-icon/index.tsx",
+		"./bug-icon": "./src/ui/bug-icon/index.tsx",
+		"./delete-icon": "./src/ui/delete-icon/index.tsx",
+		"./flask-icon": "./src/ui/flask-icon/index.tsx",
+		"./delta-icon": "./src/ui/delta-icon/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^22.22.0",

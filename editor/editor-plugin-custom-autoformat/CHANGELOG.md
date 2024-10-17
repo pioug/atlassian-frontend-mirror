@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-custom-autoformat
 
+## 1.4.3
+
+### Patch Changes
+
+- [`656886f933139`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/656886f933139) -
+  Cleanup FF platform_editor_af_provider_from_plugin_config
+- Updated dependencies
+
 ## 1.4.2
 
 ### Patch Changes

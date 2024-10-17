@@ -15,6 +15,7 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
+import { EVEN_DISTRIBUTED_COL_WIDTHS } from './consts';
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { LayoutState } from './pm-plugins/types';
 import type { Change, PresetLayout } from './types';
@@ -76,6 +77,20 @@ export const getSelectedLayout = (
 		return getPresetLayout(maybeLayoutSection) || current;
 	}
 	return current;
+};
+
+export const createMultiColumnLayoutSection = (state: EditorState, numberOfColumns = 2) => {
+	const { layoutSection, layoutColumn } = state.schema.nodes;
+
+	// create layout based on column number, each column has equal width and trucated to 2 decimal places
+	const columns = Fragment.fromArray(
+		Array.from(
+			{ length: numberOfColumns },
+			() =>
+				layoutColumn.createAndFill({ width: EVEN_DISTRIBUTED_COL_WIDTHS[numberOfColumns] }) as Node,
+		),
+	);
+	return layoutSection.createAndFill(undefined, columns) as Node;
 };
 
 export const createDefaultLayoutSection = (state: EditorState) => {

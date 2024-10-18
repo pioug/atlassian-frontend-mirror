@@ -65,7 +65,7 @@
 		"@atlaskit/analytics-listeners": "^8.11.0",
 		"@atlaskit/elements-test-helpers": "^0.7.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/util-data-test": "^17.9.0",
+		"@atlaskit/util-data-test": "^17.11.0",
 		"@emotion/jest": "^11.8.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",

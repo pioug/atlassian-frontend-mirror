@@ -10,11 +10,6 @@ import Async from '../../async';
 
 import { type Option, OPTIONS } from './constants.mock';
 
-test('defaults - snapshot', () => {
-	const { container } = render(<Async />);
-	expect(container).toMatchSnapshot();
-});
-
 /**
  * loadOptions with promise is not resolved and it renders loading options
  * confirmed by logging in component that loadOptions is resolved and options are available

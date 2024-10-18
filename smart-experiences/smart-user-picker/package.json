@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-user-picker",
-	"version": "6.10.3",
+	"version": "6.11.0",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/ufo": "^0.3.0",
-		"@atlaskit/user-picker": "^10.25.0",
+		"@atlaskit/user-picker": "^10.26.0",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21",
 		"memoize-one": "^6.0.0",
@@ -58,7 +58,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/select": "^18.1.0",
-		"@atlaskit/util-data-test": "^17.9.0",
+		"@atlaskit/util-data-test": "^17.11.0",
 		"enzyme": "^3.10.0",
 		"fetch-mock": "^8.0.0",
 		"graphql-tag": "^2.10.1",

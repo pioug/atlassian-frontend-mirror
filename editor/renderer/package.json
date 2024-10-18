@@ -80,7 +80,7 @@
 		"@atlaskit/media-test-helpers": "^34.5.0",
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/navigation-next": "^9.0.0",
-		"@atlaskit/util-data-test": "^17.9.0",
+		"@atlaskit/util-data-test": "^17.11.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^12.1.5",

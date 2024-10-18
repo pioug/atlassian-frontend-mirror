@@ -197,6 +197,7 @@ export default function ProfilecardTriggerNext({
 			profileData: ProfileCardClientData,
 			reportingLinesData: TeamCentralReportingLinesData,
 			shouldShowGiveKudos: boolean,
+			teamCentralBaseUrl?: string,
 		) => {
 			if (!isMounted.current) {
 				return;
@@ -206,6 +207,7 @@ export default function ProfilecardTriggerNext({
 			setHasError(false);
 			setData(profileData);
 			setReportingLinesData(reportingLinesData);
+			setTeamCentralBaseUrl(teamCentralBaseUrl);
 			setShouldShowGiveKudos(shouldShowGiveKudos);
 		},
 		[setHasError, setIsLoading, setData, setReportingLinesData, setShouldShowGiveKudos],
@@ -230,7 +232,6 @@ export default function ProfilecardTriggerNext({
 			return;
 		}
 
-		setTeamCentralBaseUrl(resourceClient.getTeamCentralBaseUrl());
 		setIsLoading(true);
 		setHasError(false);
 		setError(null);
@@ -241,6 +242,7 @@ export default function ProfilecardTriggerNext({
 				resourceClient.getProfile(cloudId || '', userId, fireAnalytics),
 				resourceClient.getReportingLines(userId),
 				resourceClient.shouldShowGiveKudos(),
+				resourceClient.getTeamCentralBaseUrl(),
 			]);
 
 			const responses = await requests;

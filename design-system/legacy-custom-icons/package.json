@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/legacy-custom-icons",
-	"version": "0.5.0",
+	"version": "0.6.0",
 	"description": "A centralised place to store legacy custom icons.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -59,7 +59,10 @@
 		"./bug-icon": "./src/ui/bug-icon/index.tsx",
 		"./delete-icon": "./src/ui/delete-icon/index.tsx",
 		"./flask-icon": "./src/ui/flask-icon/index.tsx",
-		"./delta-icon": "./src/ui/delta-icon/index.tsx"
+		"./delta-icon": "./src/ui/delta-icon/index.tsx",
+		"./bar-chart-icon": "./src/ui/bar-chart-icon/index.tsx",
+		"./pie-chart-icon": "./src/ui/pie-chart-icon/index.tsx",
+		"./atlassian-intelligence-dark-icon": "./src/ui/atlassian-intelligence-dark-icon/index.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
@@ -89,7 +92,10 @@
 		"./bug-icon": "./src/ui/bug-icon/index.tsx",
 		"./delete-icon": "./src/ui/delete-icon/index.tsx",
 		"./flask-icon": "./src/ui/flask-icon/index.tsx",
-		"./delta-icon": "./src/ui/delta-icon/index.tsx"
+		"./delta-icon": "./src/ui/delta-icon/index.tsx",
+		"./bar-chart-icon": "./src/ui/bar-chart-icon/index.tsx",
+		"./pie-chart-icon": "./src/ui/pie-chart-icon/index.tsx",
+		"./atlassian-intelligence-dark-icon": "./src/ui/atlassian-intelligence-dark-icon/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^22.22.0",

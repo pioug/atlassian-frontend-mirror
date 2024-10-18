@@ -44,7 +44,7 @@
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/theme": "^13.1.0",
 		"@atlaskit/tokens": "^2.0.0",
-		"@atlaskit/util-data-test": "^17.9.0",
+		"@atlaskit/util-data-test": "^17.11.0",
 		"@emotion/react": "^11.7.1",
 		"typescript": "~5.4.2"
 	},

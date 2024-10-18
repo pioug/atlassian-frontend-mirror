@@ -1,5 +1,29 @@
 # @atlaskit/util-data-test
 
+## 17.11.0
+
+### Minor Changes
+
+- [#153669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153669)
+  [`5f8a2c39f1282`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f8a2c39f1282) -
+  Fix links to go to home.a.c or team.a.c depending on the workspace type for profile card
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.10.0
+
+### Minor Changes
+
+- [#153007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153007)
+  [`1c28c3db19101`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c28c3db19101) -
+  Show verified icon for teams in user picker
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.9.73
 
 ### Patch Changes

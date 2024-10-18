@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 15.4.1
+
+### Patch Changes
+
+- [#152922](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152922)
+  [`db290b80cd2f5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db290b80cd2f5) -
+  Fix bug in new calendar button escape handling to close.
+
 ## 15.4.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2c61c8c9aa86b4fb1d11e0bcba9d83a1>>
+ * @codegen <<SignedSource::0202804751f35ecefb9f7fe1541d2a9f>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -27,6 +27,7 @@ import noLegacyIcons from './no-legacy-icons';
 import noMargin from './no-margin';
 import noNestedStyles from './no-nested-styles';
 import noPhysicalProperties from './no-physical-properties';
+import noSeparatorWithListElements from './no-separator-with-list-elements';
 import noStyledTaggedTemplateExpression from './no-styled-tagged-template-expression';
 import noUnsafeDesignTokenUsage from './no-unsafe-design-token-usage';
 import noUnsafeStyleOverrides from './no-unsafe-style-overrides';
@@ -73,6 +74,7 @@ export default {
 	'no-margin': noMargin,
 	'no-nested-styles': noNestedStyles,
 	'no-physical-properties': noPhysicalProperties,
+	'no-separator-with-list-elements': noSeparatorWithListElements,
 	'no-styled-tagged-template-expression': noStyledTaggedTemplateExpression,
 	'no-unsafe-design-token-usage': noUnsafeDesignTokenUsage,
 	'no-unsafe-style-overrides': noUnsafeStyleOverrides,

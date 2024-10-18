@@ -14,6 +14,7 @@ const Example = () => {
 			{({
 				ari,
 				branchDeploy,
+				envKey,
 				initialJson,
 				isEmbedSupported,
 				json,
@@ -32,6 +33,7 @@ const Example = () => {
 						<CardExample
 							ari={ari}
 							branchDeploy={branchDeploy}
+							envKey={envKey}
 							isEmbedSupported={isEmbedSupported}
 							json={json}
 							onError={onUrlError}

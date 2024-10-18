@@ -43,11 +43,21 @@ type FlexibleUiExampleProps = {
 	background?: boolean;
 } & typeof Example;
 
-const CustomExample = ({ background, sourceVisible, ...props }: FlexibleUiExampleProps) => (
-	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-	<div css={getStyles(sourceVisible, background)}>
-		<Example packageName="@atlaskit/smart-card" sourceVisible={sourceVisible} {...props} />
-	</div>
-);
+const CustomExample = ({ background, sourceVisible, source, ...props }: FlexibleUiExampleProps) => {
+	// Fix hover card entrypoint
+	const replaceCode = source.replace('../src/hoverCard', '../src/hover-card');
+
+	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+		<div css={getStyles(sourceVisible, background)}>
+			<Example
+				packageName="@atlaskit/smart-card"
+				source={replaceCode}
+				sourceVisible={sourceVisible}
+				{...props}
+			/>
+		</div>
+	);
+};
 
 export default CustomExample;

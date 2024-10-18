@@ -15,6 +15,7 @@ export interface FetchOptions {
 	 * User context to evaluate against
 	 */
 	context: {
+		namespace: string;
 		identifiers: { [id in IdentifierEnum]?: string | undefined };
 		metadata: Record<string, string | number | boolean>;
 	};

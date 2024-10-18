@@ -1,12 +1,14 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ee7d8966b0a148d14905e02033c2f41f>>
+ * @codegen <<SignedSource::aed549b0955c6cc665d9cd4a10538c17>>
  * @codegenCommand yarn generate-artifacts
  */
 import AnsibleIcon from '../../src/ui/ansible-icon';
+import AtlassianIntelligenceDarkIcon from '../../src/ui/atlassian-intelligence-dark-icon';
 import AutomationIcon from '../../src/ui/automation-icon';
 import AutomationNewIcon from '../../src/ui/automation-new-icon';
 import AwsIcon from '../../src/ui/aws-icon';
+import BarChartIcon from '../../src/ui/bar-chart-icon';
 import BugIcon from '../../src/ui/bug-icon';
 import ComponentIcon from '../../src/ui/component-icon';
 import CurlyBracketsIcon from '../../src/ui/curly-brackets-icon';
@@ -23,6 +25,7 @@ import MegaphoneStarIcon from '../../src/ui/megaphone-star-icon';
 import MsTeamsIcon from '../../src/ui/ms-teams-icon';
 import PeopleIcon from '../../src/ui/people-icon';
 import PersonIcon from '../../src/ui/person-icon';
+import PieChartIcon from '../../src/ui/pie-chart-icon';
 import RelicIcon from '../../src/ui/relic-icon';
 import RoadmapsServiceIcon from '../../src/ui/roadmaps-service-icon';
 import SecurityIcon from '../../src/ui/security-icon';
@@ -33,9 +36,11 @@ import TransitionIcon from '../../src/ui/transition-icon';
 
 export default {
 	AnsibleIcon,
+	AtlassianIntelligenceDarkIcon,
 	AutomationIcon,
 	AutomationNewIcon,
 	AwsIcon,
+	BarChartIcon,
 	BugIcon,
 	ComponentIcon,
 	CurlyBracketsIcon,
@@ -52,6 +57,7 @@ export default {
 	MsTeamsIcon,
 	PeopleIcon,
 	PersonIcon,
+	PieChartIcon,
 	RelicIcon,
 	RoadmapsServiceIcon,
 	SecurityIcon,

@@ -121,3 +121,11 @@ export const nodeMargins: { [key: string]: { top: number; bottom: number } } = {
 	layoutSection: { top: 8, bottom: 0 },
 	default: { top: 0, bottom: 0 },
 };
+
+export const DEFAULT_COLUMN_DISTRIBUTIONS: { [key: number]: number } = {
+	1: 100,
+	2: 50,
+	3: 33.33,
+	4: 25,
+	5: 20,
+};

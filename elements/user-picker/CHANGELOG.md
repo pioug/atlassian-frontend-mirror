@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 10.26.0
+
+### Minor Changes
+
+- [#153007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153007)
+  [`1c28c3db19101`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c28c3db19101) -
+  Show verified icon for teams in user picker
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.25.0
 
 ### Minor Changes

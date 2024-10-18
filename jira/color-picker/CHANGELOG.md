@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 3.4.3
+
+### Patch Changes
+
+- [#153070](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153070)
+  [`f04b3abac1315`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f04b3abac1315) -
+  Removed FG to expose color palette event
+
 ## 3.4.2
 
 ### Patch Changes

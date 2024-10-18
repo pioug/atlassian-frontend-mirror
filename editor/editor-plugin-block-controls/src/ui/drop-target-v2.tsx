@@ -15,11 +15,13 @@ import { layers } from '@atlaskit/theme/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getNodeAnchor } from '../pm-plugins/decorations';
-import { type AnchorHeightsCache, isAnchorSupported } from '../utils/anchor-utils';
+import { type AnchorRectCache, isAnchorSupported } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
+import { shouldAllowInlineDropTarget } from '../utils/inline-drop-target';
 
 import { getNestedNodeLeftPaddingMargin } from './consts';
 import { type DropTargetProps, type DropTargetStyle } from './drop-target';
+import { InlineDropTarget } from './inline-drop-target';
 
 const DEFAULT_DROP_INDICATOR_WIDTH = 760;
 const EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH = '--editor-block-controls-drop-indicator-width';
@@ -98,7 +100,7 @@ const HoverZone = ({
 	node,
 	parent,
 	editorWidth,
-	anchorHeightsCache,
+	anchorRectCache,
 	position,
 	isNestedDropTarget,
 	dropTargetStyle,
@@ -106,7 +108,7 @@ const HoverZone = ({
 	onDragEnter: () => void;
 	onDragLeave: () => void;
 	onDrop: () => void;
-	anchorHeightsCache?: AnchorHeightsCache;
+	anchorRectCache?: AnchorRectCache;
 	position: 'upper' | 'lower';
 	node?: PMNode;
 	parent?: PMNode;
@@ -136,7 +138,7 @@ const HoverZone = ({
 			anchorName && enableDropZone.includes(node?.type.name || '')
 				? isAnchorSupported()
 					? `calc(anchor-size(${anchorName} height)/2 + ${heightStyleOffset})`
-					: `calc(${(anchorHeightsCache?.getHeight(anchorName) || 0) / 2}px + ${heightStyleOffset})`
+					: `calc(${(anchorRectCache?.getHeight(anchorName) || 0) / 2}px + ${heightStyleOffset})`
 				: '4px';
 
 		const transform =
@@ -152,7 +154,7 @@ const HoverZone = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 			maxWidth: `${editorWidth || 0}px`,
 		});
-	}, [anchorHeightsCache, editorWidth, node, position]);
+	}, [anchorRectCache, editorWidth, node, position]);
 
 	const isFullHeight = useMemo(() => {
 		return dropTargetStyle === 'fullHeight';
@@ -181,16 +183,17 @@ const HoverZone = ({
 	);
 };
 
-export const DropTargetV2 = ({
-	api,
-	getPos,
-	prevNode,
-	nextNode,
-	parentNode,
-	formatMessage,
-	anchorHeightsCache,
-	dropTargetStyle,
-}: DropTargetProps & { anchorHeightsCache?: AnchorHeightsCache }) => {
+export const DropTargetV2 = (props: DropTargetProps & { anchorRectCache?: AnchorRectCache }) => {
+	const {
+		api,
+		getPos,
+		prevNode,
+		nextNode,
+		parentNode,
+		formatMessage,
+		anchorRectCache,
+		dropTargetStyle,
+	} = props;
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 
 	const { widthState } = useSharedPluginState(api, ['width']);
@@ -236,7 +239,7 @@ export const DropTargetV2 = ({
 					onDrop={onDrop}
 					node={prevNode}
 					editorWidth={widthState?.lineLength}
-					anchorHeightsCache={anchorHeightsCache}
+					anchorRectCache={anchorRectCache}
 					position="upper"
 					isNestedDropTarget={isNestedDropTarget}
 				/>
@@ -264,11 +267,17 @@ export const DropTargetV2 = ({
 				node={nextNode}
 				parent={parentNode}
 				editorWidth={widthState?.lineLength}
-				anchorHeightsCache={anchorHeightsCache}
+				anchorRectCache={anchorRectCache}
 				position="lower"
 				isNestedDropTarget={isNestedDropTarget}
 				dropTargetStyle={dropTargetStyle}
 			/>
+			{shouldAllowInlineDropTarget(isNestedDropTarget, nextNode) && (
+				<Fragment>
+					<InlineDropTarget {...props} position="left" />
+					<InlineDropTarget {...props} position="right" />
+				</Fragment>
+			)}
 		</Fragment>
 	);
 };

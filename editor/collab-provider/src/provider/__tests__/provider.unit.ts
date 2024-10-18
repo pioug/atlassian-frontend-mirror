@@ -1,15 +1,9 @@
 jest.useFakeTimers({ legacyFakeTimers: true });
 
-jest.mock('@atlaskit/prosemirror-collab', () => {
-	return {
-		sendableSteps: function (state: any) {
-			return state.collab;
-		},
-		getCollabState: (state: any) => {
-			return state.collab;
-		},
-	};
-});
+jest.mock('@atlaskit/prosemirror-collab', () => ({
+	sendableSteps: (state: any) => state.collab,
+	getCollabState: (state: any) => state.collab,
+}));
 
 jest.mock('../../channel', () => {
 	const events = new Map<string, (...args: any) => {}>();
@@ -47,7 +41,6 @@ jest.mock('../../document/catchupv2', () => {
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
@@ -77,10 +70,67 @@ const testProviderConfig = {
 	url: `http://provider-url:66661`,
 	documentAri: 'ari:cloud:confluence:ABC:page/testpage',
 };
+
+const testProviderConfigWithDraft = {
+	initialDraft: {
+		document: 'test-document' as any,
+		version: 1,
+		metadata: { title: 'random-title' },
+	},
+	...testProviderConfig,
+	isBufferingEnabled: true,
+};
+
+const testProviderPresenceConfig = {
+	...testProviderConfig,
+	isPresenceOnly: true,
+};
+
 const clientId = 'some-random-prosemirror-client-Id';
 
-// Skipped due to HOT-111922 Fails in CI with RangeError: Maximum call stack size exceeded
-describe.skip('Provider', () => {
+const editorState: any = {
+	plugins: [
+		{
+			key: 'collab$',
+			spec: {
+				config: {
+					clientID: clientId,
+				},
+			},
+		},
+	],
+	collab: {
+		steps: [],
+		origins: [],
+		version: 0,
+	},
+	doc: Node.fromJSON(defaultSchema, {
+		type: 'doc',
+		content: [
+			{
+				type: 'paragraph',
+				content: [
+					{ type: 'text', text: 'Hello, World!' },
+					{
+						// Add a node that looks different in ADF
+						type: 'text',
+						marks: [
+							{
+								type: 'typeAheadQuery',
+								attrs: {
+									trigger: '/',
+								},
+							},
+						],
+						text: '/',
+					},
+				],
+			},
+		],
+	}),
+};
+
+describe('Provider', () => {
 	let channel: any;
 
 	beforeEach(() => {
@@ -90,50 +140,8 @@ describe.skip('Provider', () => {
 
 	afterEach(jest.clearAllMocks);
 
-	const editorState: any = {
-		plugins: [
-			{
-				key: 'collab$',
-				spec: {
-					config: {
-						clientID: clientId,
-					},
-				},
-			},
-		],
-		collab: {
-			steps: [],
-			origins: [],
-			version: 0,
-		},
-		doc: Node.fromJSON(defaultSchema, {
-			type: 'doc',
-			content: [
-				{
-					type: 'paragraph',
-					content: [
-						{ type: 'text', text: 'Hello, World!' },
-						{
-							// Add a node that looks different in ADF
-							type: 'text',
-							marks: [
-								{
-									type: 'typeAheadQuery',
-									attrs: {
-										trigger: '/',
-									},
-								},
-							],
-							text: '/',
-						},
-					],
-				},
-			],
-		}),
-	};
-
 	describe('setup', () => {
-		it('should throw an error when cookies are not enabled', () => {
+		it('Should throw an error when cookies are not enabled', () => {
 			const sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
 			Object.defineProperty(global.navigator, 'cookieEnabled', {
 				value: false,
@@ -156,93 +164,83 @@ describe.skip('Provider', () => {
 			});
 		});
 
-		describe('when initializing provider with initial draft and buffering enabled', () => {
-			const testProviderConfigWithDraft = {
-				initialDraft: {
-					document: 'test-document' as any,
+		it('Should initialize provider and calls catchupv2 on connect', async () => {
+			expect.assertions(4);
+			const sid = 'expected-sid-123';
+			const provider = createSocketIOCollabProvider({
+				...testProviderConfigWithDraft,
+			});
+			const sendStepsFromCurrentStateSpy = jest.spyOn(
+				// @ts-ignore
+				provider.documentService as any,
+				'sendStepsFromCurrentState',
+			);
+			provider.on('init', (data) => {
+				expect(data).toEqual({
+					doc: 'test-document',
 					version: 1,
 					metadata: { title: 'random-title' },
-				},
-				...testProviderConfig,
-				isBufferingEnabled: true,
-			};
-
-			it('catchupv2 : should successfully initialize provider and call catchupv2 when channel connects', async () => {
-				expect.assertions(4);
-				const sid = 'expected-sid-123';
-				const provider = createSocketIOCollabProvider({
-					...testProviderConfigWithDraft,
-				});
-				const sendStepsFromCurrentStateSpy = jest.spyOn(
-					// @ts-ignore
-					provider.documentService as any,
-					'sendStepsFromCurrentState',
-				);
-				provider.on('init', (data) => {
-					expect(data).toEqual({
-						doc: 'test-document',
-						version: 1,
-						metadata: { title: 'random-title' },
-					});
-				});
-				provider.setup({ getState: () => editorState });
-				channel.emit('connected', { sid, initialized: true });
-				expect((provider as any).isProviderInitialized).toEqual(true);
-				expect((provider as any).isBuffered).toEqual(true);
-				expect(sendStepsFromCurrentStateSpy).toHaveBeenCalledTimes(1);
-			});
-
-			it('should start document setup and channel connection when editor state is defined', (done) => {
-				expect.assertions(3);
-				const provider = createSocketIOCollabProvider(testProviderConfigWithDraft);
-				const mockEditorState = jest.fn(() => editorState);
-				const documentSetupSpy = jest.spyOn(
-					// @ts-ignore
-					provider.documentService as any,
-					'setup',
-				);
-				const initializeChannelSpy = jest.spyOn(provider as any, 'initializeChannel');
-				provider.setup({ getState: mockEditorState });
-				expect(documentSetupSpy).toHaveBeenCalledTimes(1);
-				expect(documentSetupSpy).toHaveBeenCalledWith({
-					getState: mockEditorState,
-					clientId: 'some-random-prosemirror-client-Id',
-					onSyncUpError: undefined,
-				});
-				expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
-				done();
-			});
-
-			it('should fire an analytics event for provider initialization and unconfirmed step count when buffering is successful', async () => {
-				expect.assertions(3);
-				const sid = 'expected-sid-123';
-				const provider = createSocketIOCollabProvider(testProviderConfigWithDraft);
-				const sendActionEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendActionEvent');
-				provider.on('init', (data) => {
-					expect(data).toEqual({
-						doc: 'test-document',
-						version: 1,
-						metadata: { title: 'random-title' },
-					});
-				});
-				provider.setup({ getState: () => editorState });
-				expect(sendActionEventSpy).toHaveBeenCalledWith('providerInitialized', 'INFO', {
-					isBuffered: true,
-				});
-				channel.emit('connected', { sid, initialized: true });
-				expect(sendActionEventSpy).toHaveBeenCalledWith('hasUnconfirmedSteps', 'INFO', {
-					numUnconfirmedSteps: 0,
 				});
 			});
+			provider.setup({ getState: () => editorState });
+			channel.emit('connected', { sid, initialized: true });
+			expect((provider as any).isProviderInitialized).toEqual(true);
+			expect((provider as any).isBuffered).toEqual(true);
+			expect(sendStepsFromCurrentStateSpy).toHaveBeenCalledTimes(1);
+		});
+
+		it('Should start document setup and channel connection', (done) => {
+			expect.assertions(3);
+			const provider = createSocketIOCollabProvider(testProviderConfigWithDraft);
+			const mockEditorState = jest.fn(() => editorState);
+			const documentSetupSpy = jest.spyOn(
+				// @ts-ignore
+				provider.documentService as any,
+				'setup',
+			);
+			const initializeChannelSpy = jest.spyOn(provider as any, 'initializeChannel');
+			provider.setup({ getState: mockEditorState });
+			expect(documentSetupSpy).toHaveBeenCalledTimes(1);
+			expect(documentSetupSpy).toHaveBeenCalledWith({
+				getState: mockEditorState,
+				clientId: 'some-random-prosemirror-client-Id',
+				onSyncUpError: undefined,
+			});
+			expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
+			done();
+		});
+
+		it('Should fire analytics events on initialization and buffering', async () => {
+			expect.assertions(3);
+			const sid = 'expected-sid-123';
+			const provider = createSocketIOCollabProvider(testProviderConfigWithDraft);
+			const sendActionEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendActionEvent');
+			provider.on('init', (data) => {
+				expect(data).toEqual({
+					doc: 'test-document',
+					version: 1,
+					metadata: { title: 'random-title' },
+				});
+			});
+			provider.setup({ getState: () => editorState });
+			expect(sendActionEventSpy).toHaveBeenCalledWith('providerInitialized', 'INFO', {
+				isBuffered: true,
+			});
+			channel.emit('connected', { sid, initialized: true });
+			expect(sendActionEventSpy).toHaveBeenCalledWith('hasUnconfirmedSteps', 'INFO', {
+				numUnconfirmedSteps: 0,
+			});
+		});
+
+		it('Should use DocumentService and Api when isPresenceOnly is false', () => {
+			const provider = createSocketIOCollabProvider(testProviderConfigWithDraft);
+			expect(provider['documentService']).toBeInstanceOf(DocumentService);
+			expect(provider['api']).toBeInstanceOf(Api);
 		});
 	});
 
 	describe('setupForPresenceOnly', () => {
-		const testProviderPresenceConfig = {
-			...testProviderConfig,
-			isPresenceOnly: true,
-		};
-		it('should throw an error when cookies are not enabled', () => {
+		it('Should throw an error when cookies are not enabled', () => {
 			const sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
 			Object.defineProperty(global.navigator, 'cookieEnabled', {
 				value: false,
@@ -265,7 +263,7 @@ describe.skip('Provider', () => {
 			});
 		});
 
-		it('should call initializeChannel once', () => {
+		it('Should call initializeChannel once', () => {
 			const provider = createSocketIOCollabProvider(testProviderPresenceConfig);
 			const initializeChannelSpy = jest.spyOn(provider as any, 'initializeChannel');
 			provider.setupForPresenceOnly(clientId);
@@ -275,10 +273,16 @@ describe.skip('Provider', () => {
 			// make sure initializeChannel is not called again
 			expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
 		});
+
+		it('Should use NullDocumentService and NullApi when isPresenceOnly is true', () => {
+			const provider = createSocketIOCollabProvider(testProviderPresenceConfig);
+			expect(provider['documentService']).toBeInstanceOf(NullDocumentService);
+			expect(provider['api']).toBeInstanceOf(NullApi);
+		});
 	});
 
 	describe('initialisation', () => {
-		it('should call initializeChannel once', () => {
+		it('Should call initializeChannel once', () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			const initializeChannelSpy = jest.spyOn(provider as any, 'initializeChannel');
 			provider.initialize(() => editorState);
@@ -289,7 +293,7 @@ describe.skip('Provider', () => {
 			expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
 		});
 
-		it('It should start the participant inactive remover when the channel is connected', () => {
+		it('Should start the participant inactive remover when the channel is connected', () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			// @ts-ignore - Spy on private member for test
 			const participantsService = provider.participantsService;
@@ -300,56 +304,54 @@ describe.skip('Provider', () => {
 			expect(participantsService.startInactiveRemover).toBeCalledWith('sid-123');
 		});
 
-		describe('should emit an event on the provider emitter', () => {
-			it("'connecting' when the connection is being established to the provider", (done) => {
-				const provider = createSocketIOCollabProvider(testProviderConfig);
-				provider.on('connecting', ({ initial }) => {
-					expect(initial).toBe(true);
-					done();
-				});
-				provider.initialize(() => editorState);
+		it("Should emit 'connecting' when the connection is being established", (done) => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			provider.on('connecting', ({ initial }) => {
+				expect(initial).toBe(true);
+				done();
 			});
+			provider.initialize(() => editorState);
+		});
 
-			it("'connected' when the connection is successfully established", async () => {
-				const provider = createSocketIOCollabProvider(testProviderConfig);
-				provider.on('connected', ({ sid, initial }) => {
-					expect(sid).toBe('sid-123');
-					expect(initial).toBe(true);
-				});
-				provider.initialize(() => editorState);
-				channel.emit('connected', { sid: 'sid-123' });
+		it("Should emit 'connected' when the connection is successfully established", async () => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			provider.on('connected', ({ sid, initial }) => {
+				expect(sid).toBe('sid-123');
+				expect(initial).toBe(true);
 			});
+			provider.initialize(() => editorState);
+			channel.emit('connected', { sid: 'sid-123' });
+		});
 
-			it("'init' with the initialisation data from the collab service", async () => {
-				let expectedSid: any;
-				const sid = 'expected-sid-123';
-				const userId = 'user-123';
-				const provider = createSocketIOCollabProvider(testProviderConfig);
-				provider.on('connected', ({ sid }) => {
-					expectedSid = sid;
+		it("Should emit 'init' with the initialisation data from the collab service", async () => {
+			let expectedSid: any;
+			const sid = 'expected-sid-123';
+			const userId = 'user-123';
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			provider.on('connected', ({ sid }) => {
+				expectedSid = sid;
+			});
+			provider.on('init', ({ doc, version, metadata }: any) => {
+				expect(expectedSid).toBe(sid);
+				expect(doc).toBe('bla');
+				expect(version).toBe(1);
+				expect(metadata).toEqual({
+					title: 'some-random-title',
 				});
-				provider.on('init', ({ doc, version, metadata }: any) => {
-					expect(expectedSid).toBe(sid);
-					expect(doc).toBe('bla');
-					expect(version).toBe(1);
-					expect(metadata).toEqual({
-						title: 'some-random-title',
-					});
-				});
-				provider.initialize(() => editorState);
-				channel.emit('connected', { sid });
-				channel.emit('init', {
-					doc: 'bla',
-					version: 1,
-					userId,
-					metadata: {
-						title: 'some-random-title',
-					},
-				});
+			});
+			provider.initialize(() => editorState);
+			channel.emit('connected', { sid });
+			channel.emit('init', {
+				doc: 'bla',
+				version: 1,
+				userId,
+				metadata: {
+					title: 'some-random-title',
+				},
 			});
 		});
 
-		it("'init' with the initial draft data from the provider config", async () => {
+		it("Should emit 'init' with the initial draft data from the provider config", async () => {
 			const testProviderConfigWithDraft = {
 				initialDraft: {
 					document: 'test-document' as any,
@@ -372,65 +374,123 @@ describe.skip('Provider', () => {
 		});
 	});
 
-	it('should not emit empty joined or left presence', async () => {
-		const provider = createSocketIOCollabProvider(testProviderConfig);
-		let counter = 0;
-		provider.on('presence', ({ joined, left }) => {
-			counter++;
-			expect(joined?.length).toBe(1);
-			expect(left).toBe(undefined);
-		});
-		provider.initialize(() => editorState);
-		channel.emit('participant:updated', {
-			sessionId: 'random-sessionId',
-			timestamp: Date.now(),
-			userId: 'blabla-userId',
-			clientId: 'blabla-clientId',
-		});
-		channel.emit('participant:updated', {
-			sessionId: 'random-sessionId',
-			timestamp: Date.now(),
-			userId: 'blabla-userId',
-			clientId: 'blabla-clientId',
+	describe('presence', () => {
+		it('Should not emit empty joined or left presence', async () => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			let counter = 0;
+
+			// Create a promise that will resolve when the handler is done
+			const presenceHandled = new Promise<void>((resolve) => {
+				provider.on('presence', ({ joined, left }) => {
+					counter++;
+					expect(joined?.length).toBe(1);
+					expect(left).toBe(undefined); // Ensure no one left
+					resolve(); // Resolve the promise when handler is complete
+				});
+			});
+
+			provider.initialize(() => editorState);
+			channel.emit('participant:updated', {
+				sessionId: 'random-sessionId',
+				timestamp: Date.now(),
+				userId: 'blabla-userId',
+				clientId: 'blabla-clientId',
+			});
+			channel.emit('participant:updated', {
+				sessionId: 'random-sessionId',
+				timestamp: Date.now(),
+				userId: 'blabla-userId',
+				clientId: 'blabla-clientId',
+			});
+
+			await presenceHandled; // Wait for the presence event to be handled
+			expect(counter).toBe(1);
 		});
 
-		await new Promise(process.nextTick);
+		it('Should fire analytics events and updates participants on presence changes', async () => {
+			const fakeAnalyticsWebClient = {
+				sendOperationalEvent: jest.fn(),
+				sendScreenEvent: jest.fn(),
+				sendTrackEvent: jest.fn(),
+				sendUIEvent: jest.fn(),
+			};
 
-		expect(counter).toBe(1);
-	});
+			const provider = createSocketIOCollabProvider({
+				...testProviderConfig,
+				analyticsClient: fakeAnalyticsWebClient,
+			});
+			provider.initialize(() => editorState);
 
-	it('emit disconnected to consumer', () => {
-		const provider = createSocketIOCollabProvider(testProviderConfig);
-		const mockFn = jest.fn();
-		provider.on('disconnected', ({ reason, sid }) => {
-			mockFn(reason, sid);
+			const sendActionEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendActionEvent');
+
+			// Create a promise that will resolve when the handler is done
+			const presenceHandled = new Promise<void>((resolve) => {
+				provider.on('presence', ({ joined, left }) => {
+					expect(joined?.length).toBe(1);
+					expect(left).toBe(undefined); // Ensure no one left
+					resolve(); // Resolve the promise when handler is complete
+				});
+			});
+
+			channel.emit('participant:updated', {
+				sessionId: 'sessionId-1',
+				timestamp: Date.now(),
+				userId: 'userId-1',
+				clientId: 'clientId-1',
+			});
+
+			channel.emit('participant:updated', {
+				sessionId: 'sessionId-2',
+				timestamp: Date.now(),
+				userId: 'userId-2',
+				clientId: 'clientId-2',
+			});
+
+			// Allow the event loop to process any asynchronous updates
+			await presenceHandled;
+
+			expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'updateParticipants', 'SUCCESS', {
+				participants: 1,
+			});
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'updateParticipants', 'SUCCESS', {
+				participants: 2,
+			});
 		});
-		provider.initialize(() => editorState);
-		channel.emit('connected', { sid: 'sid-1' });
-		channel.emit('disconnect', { reason: 'transport close' });
-		channel.emit('connected', { sid: 'sid-2' });
-		channel.emit('disconnect', { reason: 'transport error' });
-		channel.emit('connected', { sid: 'sid-3' });
-		channel.emit('disconnect', { reason: 'ping timeout' });
-		channel.emit('connected', { sid: 'sid-4' });
-		channel.emit('disconnect', { reason: 'io client disconnect' });
-		channel.emit('connected', { sid: 'sid-5' });
-		channel.emit('disconnect', { reason: 'io server disconnect' });
-		channel.emit('connected', { sid: 'sid-6' });
-		channel.emit('disconnect', { reason: 'blah?' });
-		expect(mockFn.mock.calls.length).toBe(6);
-		expect(mockFn.mock.calls).toEqual([
-			['SOCKET_CLOSED', 'sid-1'],
-			['SOCKET_ERROR', 'sid-2'],
-			['SOCKET_TIMEOUT', 'sid-3'],
-			['CLIENT_DISCONNECT', 'sid-4'],
-			['SERVER_DISCONNECT', 'sid-5'],
-			['UNKNOWN_DISCONNECT', 'sid-6'],
-		]);
+
+		it("Should emit 'disconnected' to consumer", () => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			const mockFn = jest.fn();
+			provider.on('disconnected', ({ reason, sid }) => {
+				mockFn(reason, sid);
+			});
+			provider.initialize(() => editorState);
+			channel.emit('connected', { sid: 'sid-1' });
+			channel.emit('disconnect', { reason: 'transport close' });
+			channel.emit('connected', { sid: 'sid-2' });
+			channel.emit('disconnect', { reason: 'transport error' });
+			channel.emit('connected', { sid: 'sid-3' });
+			channel.emit('disconnect', { reason: 'ping timeout' });
+			channel.emit('connected', { sid: 'sid-4' });
+			channel.emit('disconnect', { reason: 'io client disconnect' });
+			channel.emit('connected', { sid: 'sid-5' });
+			channel.emit('disconnect', { reason: 'io server disconnect' });
+			channel.emit('connected', { sid: 'sid-6' });
+			channel.emit('disconnect', { reason: 'blah?' });
+			expect(mockFn.mock.calls.length).toBe(6);
+			expect(mockFn.mock.calls).toEqual([
+				['SOCKET_CLOSED', 'sid-1'],
+				['SOCKET_ERROR', 'sid-2'],
+				['SOCKET_TIMEOUT', 'sid-3'],
+				['CLIENT_DISCONNECT', 'sid-4'],
+				['SERVER_DISCONNECT', 'sid-5'],
+				['UNKNOWN_DISCONNECT', 'sid-6'],
+			]);
+		});
 	});
 
 	describe('Emit metadata cases', () => {
-		it('should emit metadata when title is changed', async () => {
+		it('Should emit metadata when title is changed', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('metadata:changed', (metadata) => {
 				expect(metadata).toEqual({
@@ -443,7 +503,7 @@ describe.skip('Provider', () => {
 			});
 		});
 
-		it('should emit metadata when title has changed to empty string', async () => {
+		it('Should emit metadata when title has changed to empty string', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('metadata:changed', (metadata) => {
 				expect(metadata).toEqual({
@@ -456,7 +516,7 @@ describe.skip('Provider', () => {
 			});
 		});
 
-		it('should emit metadata with editorWidth', async () => {
+		it('Should emit metadata with editorWidth', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('metadata:changed', (metadata) => {
 				expect(metadata).toEqual({
@@ -471,7 +531,7 @@ describe.skip('Provider', () => {
 			});
 		});
 
-		it('should emit metadata when editor width is changed to empty string', async () => {
+		it('Should emit metadata when editor width is changed to empty string', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('metadata:changed', (metadata) => {
 				expect(metadata).toEqual({
@@ -484,7 +544,7 @@ describe.skip('Provider', () => {
 			});
 		});
 
-		it('should emit metadata during init', async () => {
+		it('Should emit metadata during init', async () => {
 			const userId = 'user-123';
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('init', ({ metadata }: any) => {
@@ -512,69 +572,9 @@ describe.skip('Provider', () => {
 		});
 	});
 
-	describe('Handle fire analytic requests', () => {
-		let provider: Provider;
-		let fakeAnalyticsWebClient: AnalyticsWebClient;
-
-		beforeEach(() => {
-			fakeAnalyticsWebClient = {
-				sendOperationalEvent: jest.fn(),
-				sendScreenEvent: jest.fn(),
-				sendTrackEvent: jest.fn(),
-				sendUIEvent: jest.fn(),
-			};
-			const testProviderConfigWithAnalytics = {
-				url: `http://provider-url:66661`,
-				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-				analyticsClient: fakeAnalyticsWebClient,
-			};
-			provider = createSocketIOCollabProvider(testProviderConfigWithAnalytics);
-			provider.initialize(() => editorState);
-		});
-
-		describe('fire participants events', () => {
-			it('should update the participants', async () => {
-				const sendActionEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendActionEvent');
-				const provider = createSocketIOCollabProvider(testProviderConfig);
-				provider.on('presence', ({ joined, left }) => {
-					expect(joined?.length).toBe(1);
-					expect(left).toBe(undefined);
-				});
-				provider.initialize(() => editorState);
-
-				channel.emit('participant:updated', {
-					sessionId: 'sessionId-1',
-					timestamp: Date.now(),
-					userId: 'userId-1',
-					clientId: 'clientId-1',
-				});
-
-				channel.emit('participant:updated', {
-					sessionId: 'sessionId-2',
-					timestamp: Date.now(),
-					userId: 'userId-2',
-					clientId: 'clientId-2',
-				});
-
-				await new Promise(process.nextTick);
-				expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
-				expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'updateParticipants', 'SUCCESS', {
-					participants: 1,
-				});
-				expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'updateParticipants', 'SUCCESS', {
-					participants: 2,
-				});
-			});
-		});
-	});
-
 	describe('Emit errors to consumers', () => {
-		it('should emit failed_to_save dynamo errors to consumer', (done) => {
-			const testProviderConfigWithAnalytics = {
-				url: `http://provider-url:66661`,
-				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-			};
-			const provider = createSocketIOCollabProvider(testProviderConfigWithAnalytics);
+		it('Should emit failed_to_save dynamo errors to consumer', (done) => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('error', (error) => {
 				expect(error).toEqual({
 					code: 'FAIL_TO_SAVE',
@@ -596,12 +596,8 @@ describe.skip('Provider', () => {
 			channel.emit('error', failedOnDynamo);
 		});
 
-		it('should emit no permission errors to consumer', (done) => {
-			const testProviderConfigWithAnalytics = {
-				url: `http://provider-url:66661`,
-				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-			};
-			const provider = createSocketIOCollabProvider(testProviderConfigWithAnalytics);
+		it('Should emit no permission errors to consumer', (done) => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('error', (error) => {
 				expect(error).toEqual({
 					code: 'NO_PERMISSION_ERROR',
@@ -627,15 +623,8 @@ describe.skip('Provider', () => {
 			channel.emit('error', noPermissionError);
 		});
 
-		it('catchupv2 : should emit catchupv2 failed errors to consumer', (done) => {
-			const testProviderConfigWithAnalytics = {
-				url: `http://provider-url:66661`,
-				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-			};
-			const provider = createSocketIOCollabProvider({
-				...testProviderConfigWithAnalytics,
-				featureFlags: {},
-			});
+		it('Should emit catchupv2 failed errors to consumer', (done) => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
 
 			provider.on('error', (error) => {
 				expect(error).toEqual({
@@ -658,12 +647,8 @@ describe.skip('Provider', () => {
 			channel.emit('error', catchupError);
 		});
 
-		it('should emit 404 errors to consumer', (done) => {
-			const testProviderConfigWithAnalytics = {
-				url: `http://provider-url:66661`,
-				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-			};
-			const provider = createSocketIOCollabProvider(testProviderConfigWithAnalytics);
+		it('Should emit 404 errors to consumer', (done) => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('error', (error) => {
 				expect(error).toEqual({
 					code: 'DOCUMENT_NOT_FOUND',
@@ -700,11 +685,8 @@ describe.skip('Provider', () => {
 			sendActionEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendActionEvent');
 		});
 
-		it('catchupv2 : should be triggered when reconnecting after being disconnected for more than 3s', async () => {
-			const provider = createSocketIOCollabProvider({
-				...testProviderConfig,
-			});
-
+		it('Should be triggered when reconnecting after being disconnected for more than 3s', async () => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
 			const throttledCatchupv2Spy = jest.spyOn(
 				// @ts-ignore
 				provider.documentService as any,
@@ -726,19 +708,9 @@ describe.skip('Provider', () => {
 			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.RECONNECTED);
 		});
 
-		it('catchupv2 : should be triggered when initial draft is present and is reconnecting after being disconnected for more than 3s', async () => {
+		it('Should be triggered when initial draft is present and is reconnecting after being disconnected for more than 3s', async () => {
 			// ensure that if initial draft exists, any reconnections do not attempt to re-update document/metadata with initial draft
-			const testProviderConfigWithDraft = {
-				initialDraft: {
-					document: 'test-document' as any,
-					version: 1,
-					metadata: { title: 'random-title' },
-				},
-				...testProviderConfig,
-			};
-			const provider = createSocketIOCollabProvider({
-				...testProviderConfigWithDraft,
-			});
+			const provider = createSocketIOCollabProvider(testProviderConfigWithDraft);
 			const throttledCatchupv2Spy = jest.spyOn(
 				// @ts-ignore
 				provider.documentService as any,
@@ -771,10 +743,8 @@ describe.skip('Provider', () => {
 			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.RECONNECTED);
 		});
 
-		it('catchupv2 : should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
-			const provider = createSocketIOCollabProvider({
-				...testProviderConfig,
-			});
+		it('Should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
 			const throttledCatchupv2Spy = jest.spyOn(
 				// @ts-ignore
 				provider.documentService as any,
@@ -801,17 +771,24 @@ describe.skip('Provider', () => {
 			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.STEPS_ADDED);
 		});
 
-		it('catchupv2 : should be triggered after 15 rejected steps and reset the rejected steps counter', async () => {
-			const provider = createSocketIOCollabProvider({
-				...testProviderConfig,
-			});
+		it('Should be triggered after 15 rejected steps and reset the rejected steps counter', async () => {
+			const provider = createSocketIOCollabProvider(testProviderConfig);
 			const throttledCatchupv2Spy = jest.spyOn(
 				// @ts-ignore
 				provider.documentService as any,
 				'throttledCatchupv2',
 			);
 
-			provider.initialize(() => editorState);
+			const initializationComplete = new Promise<void>((resolve) => {
+				provider.initialize(() => {
+					resolve(); // Resolve the promise when initialization is complete
+					return editorState; // Return the editorState as required
+				});
+			});
+
+			await initializationComplete;
+
+			// Emit errors for the first batch
 			for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
 				channel.emit('error', stepRejectedError);
 			}
@@ -830,8 +807,10 @@ describe.skip('Provider', () => {
 				reason: CatchupEventReason.STEPS_REJECTED,
 			});
 
-			await new Promise(process.nextTick);
+			// Use a resolved promise to wait for all asynchronous tasks to complete
+			await Promise.resolve();
 
+			// Emit errors for the second batch
 			for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
 				channel.emit('error', stepRejectedError);
 			}
@@ -850,15 +829,12 @@ describe.skip('Provider', () => {
 			});
 		});
 
-		it('catchupv2 : should reset the rejected step counter when catchup throws an error', async () => {
+		it('Should reset the rejected step counter when catchup throws an error', async () => {
 			const catchupv2Mock = (catchupv2 as jest.Mock).mockImplementation(() => {
 				throw new Error('catchupv2 error');
 			});
 
-			const provider = createSocketIOCollabProvider({
-				...testProviderConfig,
-			});
-
+			const provider = createSocketIOCollabProvider(testProviderConfig);
 			const throttledCatchupv2Spy = jest.spyOn(
 				// @ts-ignore
 				provider.documentService as any,
@@ -884,37 +860,17 @@ describe.skip('Provider', () => {
 		});
 	});
 
-	it('Does not throw errors when attempting to commit steps', () => {
-		expect(() => {
-			commitStepQueue({
-				// @ts-ignore
-				channel: {
-					broadcast: jest.fn().mockImplementation(() => {
-						throw new Error('Test');
-					}),
-				},
-				steps: [],
-				emit: jest.fn(),
-			});
-		}).not.toThrow();
-	});
+	describe('Presence failure', () => {
+		it('Should send error when consumer sends a telepointer message', () => {
+			const fakeError = new Error('Kaboooooom!');
+			const sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
+			const provider = createSocketIOCollabProvider(testProviderConfig);
 
-	describe('gracefully fails when Presence features throw', () => {
-		let sendErrorEventSpy: jest.SpyInstance;
-		let provider: Provider;
-		const fakeError = new Error('Kaboooooom!');
-
-		beforeEach(() => {
-			sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
-			provider = createSocketIOCollabProvider(testProviderConfig);
-			jest.spyOn(global.Math, 'random').mockRestore();
-		});
-
-		it('when the consumer sends a telepointer message', () => {
-			jest.spyOn(global.Math, 'random').mockReturnValue(0.00006); // mock to trigger the sampling event
+			jest.spyOn(global.Math, 'random').mockReturnValue(0.00006);
 			jest.spyOn(Telepointer, 'telepointerCallback').mockImplementationOnce(() => {
 				throw fakeError;
 			});
+
 			provider.sendMessage({
 				type: 'telepointer',
 				selection: { type: 'textSelection', anchor: 693, head: 693 },
@@ -926,6 +882,8 @@ describe.skip('Provider', () => {
 				fakeError,
 				'Error while sending message - telepointer',
 			);
+
+			jest.spyOn(global.Math, 'random').mockRestore();
 		});
 	});
 
@@ -933,6 +891,7 @@ describe.skip('Provider', () => {
 		let sendActionEventSpy: jest.SpyInstance;
 		let sendErrorEventSpy: jest.SpyInstance;
 		let provider: Provider;
+		let sendStepsFromCurrentStateSpy: jest.SpyInstance;
 
 		beforeEach(() => {
 			// Jest spies
@@ -943,426 +902,390 @@ describe.skip('Provider', () => {
 			provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.initialize(() => editorState);
 			provider.setTitle("What's in a good title?");
+
+			sendStepsFromCurrentStateSpy = jest
+				// @ts-ignore
+				.spyOn(provider.documentService as any, 'sendStepsFromCurrentState')
+				.mockImplementation(() => {});
+
+			jest.spyOn(Utilities, 'sleep').mockResolvedValue(() => undefined);
 		});
 
-		describe('get current state with converted ADF document (getCurrentState)', () => {
-			it('should resolve to the current editor state for a valid ADF document', async () => {
-				const currentState = await provider.getCurrentState();
+		it('getCurrentState with converted ADF doc: Should resolve to the current editor state for a valid ADF document', async () => {
+			const currentState = await provider.getCurrentState();
+			expect(currentState).toEqual({
+				content: {
+					content: [
+						{
+							content: [
+								{
+									text: 'Hello, World!',
+									type: 'text',
+								},
+								{
+									marks: [],
+									text: '/',
+									type: 'text',
+								},
+							],
+							type: 'paragraph',
+						},
+					],
+					type: 'doc',
+					version: 1,
+				},
+				stepVersion: 0,
+				title: "What's in a good title?",
+			});
+			expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+			expect(sendActionEventSpy).toHaveBeenCalledWith(
+				'getCurrentState',
+				'SUCCESS',
+				{ latency: undefined }, // Performance API undefined when running jest tests
+			);
+			expect(sendErrorEventSpy).not.toHaveBeenCalled();
+		});
 
-				expect(currentState).toEqual({
-					content: {
-						content: [
-							{
-								content: [
-									{
-										text: 'Hello, World!',
-										type: 'text',
-									},
-									{
-										marks: [],
-										text: '/',
-										type: 'text',
-									},
-								],
-								type: 'paragraph',
-							},
-						],
-						type: 'doc',
-						version: 1,
-					},
-					stepVersion: 0,
-					title: "What's in a good title?",
-				});
-				expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
-				expect(sendActionEventSpy).toHaveBeenCalledWith(
-					'getCurrentState',
-					'SUCCESS',
-					{ latency: undefined }, // Performance API undefined when running jest tests
+		it('getCurrentState with converted ADF doc: Should reject if document conversion to ADF fails', async () => {
+			expect.assertions(5);
+			provider.initialize(() => ({
+				...editorState,
+				doc: 'something invalid',
+			}));
+			try {
+				await provider.getCurrentState();
+			} catch (error) {
+				const adfConverterError = new TypeError(
+					"Cannot read properties of undefined (reading 'forEach')",
 				);
-				expect(sendErrorEventSpy).not.toHaveBeenCalled();
-			});
-
-			it('should reject if document conversion to ADF fails', async () => {
-				expect.assertions(5);
-				provider.initialize(() => ({
-					...editorState,
-					doc: 'something invalid',
-				}));
-
-				try {
-					await provider.getCurrentState();
-				} catch (error) {
-					const adfConverterError = new TypeError(
-						"Cannot read properties of undefined (reading 'forEach')",
-					);
-
-					expect(error).toEqual(adfConverterError);
-					expect(sendErrorEventSpy).toHaveBeenCalledTimes(2);
-					expect(sendErrorEventSpy).toHaveBeenCalledWith(
-						adfConverterError,
-						'Error while returning ADF version of current draft document',
-					);
-					expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
-					expect(sendActionEventSpy).toHaveBeenCalledWith(
-						'getCurrentState',
-						'FAILURE',
-						{ latency: undefined }, // Performance API undefined when running jest tests
-					);
-				}
-			});
-
-			it('should log error event when missing collab state and use version 0 instead', async () => {
-				expect.assertions(3);
-				jest.spyOn(ProseMirrorCollab, 'getCollabState').mockImplementationOnce(() => {
-					return undefined;
-				});
-
-				const currentState = await provider.getCurrentState();
-				expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+				expect(error).toEqual(adfConverterError);
+				expect(sendErrorEventSpy).toHaveBeenCalledTimes(2);
 				expect(sendErrorEventSpy).toHaveBeenCalledWith(
-					new Error('No collab state when calling ProseMirror function'),
-					'collab-provider: getCurrentState called without collab state',
+					adfConverterError,
+					'Error while returning ADF version of current draft document',
 				);
-				expect(currentState.stepVersion).toEqual(0);
-			});
-
-			it('should return the title if set', async () => {
-				channel.emit('metadata:changed', {
-					title: "What's in a better title?",
-				});
-				const currentState = await provider.getCurrentState();
-				expect(currentState.title).toEqual("What's in a better title?");
 				expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
 				expect(sendActionEventSpy).toHaveBeenCalledWith(
 					'getCurrentState',
-					'SUCCESS',
+					'FAILURE',
 					{ latency: undefined }, // Performance API undefined when running jest tests
 				);
-				expect(sendErrorEventSpy).not.toHaveBeenCalled();
-			});
+			}
 		});
 
-		describe('get final acknowledged state with converted ADF document (getFinalAcknowledgedState)', () => {
-			it('should resolve to the final editor state', async () => {
-				const finalAcknowledgedState = await provider.getFinalAcknowledgedState();
+		it('getCurrentState with converted ADF doc: Should log error event when missing collab state and use version 0 instead', async () => {
+			expect.assertions(3);
+			jest.spyOn(ProseMirrorCollab, 'getCollabState').mockImplementationOnce(() => {
+				return undefined;
+			});
+			const currentState = await provider.getCurrentState();
+			expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+			expect(sendErrorEventSpy).toHaveBeenCalledWith(
+				new Error('No collab state when calling ProseMirror function'),
+				'collab-provider: getCurrentState called without collab state',
+			);
+			expect(currentState.stepVersion).toEqual(0);
+		});
 
-				expect(finalAcknowledgedState).toEqual({
-					title: "What's in a good title?",
-					stepVersion: 0,
-					content: {
-						content: [
-							{
-								content: [
-									{
-										type: 'text',
-										text: 'Hello, World!',
-									},
-									{
-										type: 'text',
-										text: '/',
-										marks: [],
-									},
-								],
-								type: 'paragraph',
-							},
-						],
-						type: 'doc',
-						version: 1,
+		it('getCurrentState with converted ADF doc: Should return the title if set', async () => {
+			channel.emit('metadata:changed', {
+				title: "What's in a better title?",
+			});
+			const currentState = await provider.getCurrentState();
+			expect(currentState.title).toEqual("What's in a better title?");
+			expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+			expect(sendActionEventSpy).toHaveBeenCalledWith(
+				'getCurrentState',
+				'SUCCESS',
+				{ latency: undefined }, // Performance API undefined when running jest tests
+			);
+			expect(sendErrorEventSpy).not.toHaveBeenCalled();
+		});
+
+		it('getFinalAcknowledgedState with converted ADF document: Should resolve to the final editor state', async () => {
+			const finalAcknowledgedState = await provider.getFinalAcknowledgedState();
+			expect(finalAcknowledgedState).toEqual({
+				title: "What's in a good title?",
+				stepVersion: 0,
+				content: {
+					content: [
+						{
+							content: [
+								{
+									type: 'text',
+									text: 'Hello, World!',
+								},
+								{
+									type: 'text',
+									text: '/',
+									marks: [],
+								},
+							],
+							type: 'paragraph',
+						},
+					],
+					type: 'doc',
+					version: 1,
+				},
+			});
+			expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+				1,
+				'getCurrentState',
+				'SUCCESS',
+				{ latency: undefined }, // Performance API undefined when running jest tests
+			);
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+				2,
+				'publishPage',
+				'SUCCESS',
+				{ latency: undefined }, // Performance API undefined when running jest tests
+			);
+			expect(sendErrorEventSpy).not.toHaveBeenCalled();
+		});
+
+		it('getFinalAcknowledgedState with converted ADF document: Should include latest updated metadata', async () => {
+			const verifyMetadataTitle = async (title: string) => {
+				const ackState = await provider.getFinalAcknowledgedState();
+				expect(ackState).toEqual(
+					expect.objectContaining({
+						title,
+					}),
+				);
+			};
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			provider.initialize(() => editorState);
+			channel.emit('init', {
+				doc: 'document-content',
+				version: 1,
+				metadata: {
+					title: 'original-title',
+				},
+			});
+			await nextTick();
+			await verifyMetadataTitle('original-title');
+			channel.emit('metadata:changed', {
+				title: 'new-title',
+			});
+			await nextTick();
+			await verifyMetadataTitle('new-title');
+		});
+
+		it('getFinalAcknowledgedState with converted ADF document: Should not log UGC when logging an error', async () => {
+			expect.assertions(10);
+			const invalidDocument = {
+				type: 'doc',
+				content: [
+					{
+						type: 'some-invalid-type',
+						textContent: 'Super secret UGC',
 					},
-				});
-				expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
+				],
+			};
+			provider.initialize(() => ({
+				...editorState,
+				doc: invalidDocument,
+			}));
+			try {
+				await provider.getFinalAcknowledgedState();
+			} catch (error) {
+				expect(error).toEqual(
+					new TypeError("Cannot read properties of undefined (reading 'forEach')"),
+				);
+				expect(sendActionEventSpy).toHaveBeenCalledTimes(3);
 				expect(sendActionEventSpy).toHaveBeenNthCalledWith(
 					1,
 					'getCurrentState',
-					'SUCCESS',
+					'FAILURE',
 					{ latency: undefined }, // Performance API undefined when running jest tests
 				);
 				expect(sendActionEventSpy).toHaveBeenNthCalledWith(
 					2,
-					'publishPage',
-					'SUCCESS',
+					'getCurrentState',
+					'FAILURE',
 					{ latency: undefined }, // Performance API undefined when running jest tests
 				);
-				expect(sendErrorEventSpy).not.toHaveBeenCalled();
+				expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+					3,
+					'publishPage',
+					'FAILURE',
+					{ latency: undefined }, // Performance API undefined when running jest tests
+				);
+				expect(sendErrorEventSpy).toHaveBeenCalledTimes(4);
+				expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+					1,
+					new TypeError("Cannot read properties of undefined (reading 'forEach')"),
+					'Error while returning ADF version of current draft document',
+				);
+				expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+					2,
+					new TypeError("Cannot read properties of undefined (reading 'forEach')"),
+					'Error while returning ADF version of current draft document',
+				);
+				expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+					3,
+					new TypeError("Cannot read properties of undefined (reading 'forEach')"),
+					'Error while returning ADF version of the final draft document',
+				);
+				expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+					4,
+					new TypeError("Cannot read properties of undefined (reading 'forEach')"),
+					'Error while returning ADF version of the final draft document',
+				);
+			}
+		});
+
+		it('Can sync up: Should return if it can sync up', async () => {
+			const mockedSteps = [{ type: 'fakeStep' }];
+			jest
+				// @ts-ignore
+				.spyOn(provider.documentService as any, 'getUnconfirmedSteps')
+				.mockImplementationOnce(() => mockedSteps)
+				.mockImplementationOnce(() => []);
+			jest
+				.spyOn(
+					// @ts-ignore
+					provider.documentService as any,
+					'getUnconfirmedStepsOrigins',
+				)
+				.mockImplementationOnce(() => [1])
+				.mockImplementationOnce(() => undefined);
+			provider.initialize(() => editorState);
+
+			const finalAck = await provider.getFinalAcknowledgedState();
+
+			expect(sendActionEventSpy).toHaveBeenCalledTimes(3);
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'commitUnconfirmedSteps', 'SUCCESS', {
+				numUnconfirmedSteps: 1,
+				latency: undefined, // Performance API undefined when running jest tests
 			});
-
-			it('final acknowledge state should include latest updated metadata', async () => {
-				const verifyMetadataTitle = async (title: string) => {
-					const ackState = await provider.getFinalAcknowledgedState();
-					expect(ackState).toEqual(
-						expect.objectContaining({
-							title,
-						}),
-					);
-				};
-
-				const provider = createSocketIOCollabProvider(testProviderConfig);
-				provider.initialize(() => editorState);
-
-				channel.emit('init', {
-					doc: 'document-content',
-					version: 1,
-					metadata: {
-						title: 'original-title',
-					},
-				});
-				await nextTick();
-				await verifyMetadataTitle('original-title');
-
-				channel.emit('metadata:changed', {
-					title: 'new-title',
-				});
-				await nextTick();
-				await verifyMetadataTitle('new-title');
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'getCurrentState', 'SUCCESS', {
+				latency: undefined, // Performance API undefined when running jest tests
 			});
-
-			it('should not log UGC when logging an error', async () => {
-				expect.assertions(10);
-				const invalidDocument = {
-					type: 'doc',
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(3, 'publishPage', 'SUCCESS', {
+				latency: undefined, // Performance API undefined when running jest tests
+			});
+			expect(finalAck).toEqual({
+				stepVersion: 0,
+				title: "What's in a good title?",
+				content: {
 					content: [
 						{
-							type: 'some-invalid-type',
-							textContent: 'Super secret UGC',
+							content: [
+								{
+									type: 'text',
+									text: 'Hello, World!',
+								},
+								{
+									type: 'text',
+									text: '/',
+									marks: [],
+								},
+							],
+							type: 'paragraph',
 						},
 					],
-				};
-				provider.initialize(() => ({
-					...editorState,
-					doc: invalidDocument,
-				}));
-
-				try {
-					await provider.getFinalAcknowledgedState();
-				} catch (error) {
-					expect(error).toEqual(
-						new TypeError("Cannot read properties of undefined (reading 'forEach')"),
-					);
-
-					expect(sendActionEventSpy).toHaveBeenCalledTimes(3);
-					expect(sendActionEventSpy).toHaveBeenNthCalledWith(
-						1,
-						'getCurrentState',
-						'FAILURE',
-						{ latency: undefined }, // Performance API undefined when running jest tests
-					);
-					expect(sendActionEventSpy).toHaveBeenNthCalledWith(
-						2,
-						'getCurrentState',
-						'FAILURE',
-						{ latency: undefined }, // Performance API undefined when running jest tests
-					);
-					expect(sendActionEventSpy).toHaveBeenNthCalledWith(
-						3,
-						'publishPage',
-						'FAILURE',
-						{ latency: undefined }, // Performance API undefined when running jest tests
-					);
-					expect(sendErrorEventSpy).toHaveBeenCalledTimes(4);
-					expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
-						1,
-						new TypeError("Cannot read properties of undefined (reading 'forEach')"),
-						'Error while returning ADF version of current draft document',
-					);
-					expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
-						2,
-						new TypeError("Cannot read properties of undefined (reading 'forEach')"),
-						'Error while returning ADF version of current draft document',
-					);
-					expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
-						3,
-						new TypeError("Cannot read properties of undefined (reading 'forEach')"),
-						'Error while returning ADF version of the final draft document',
-					);
-					expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
-						4,
-						new TypeError("Cannot read properties of undefined (reading 'forEach')"),
-						'Error while returning ADF version of the final draft document',
-					);
-				}
+					type: 'doc',
+					version: 1,
+				},
 			});
+		});
 
-			describe('when syncing up with server', () => {
-				let sendSpy: jest.SpyInstance;
-				const newState = {
+		it('Cannot sync up: Should call reconcile ', async () => {
+			provider.initialize(() => ({
+				...editorState,
+				collab: {
+					steps: [1],
+					origins: [1],
+				},
+			}));
+
+			jest
+				// @ts-ignore
+				.spyOn(provider.documentService as any, 'fetchReconcile')
+				.mockImplementationOnce(() => {
+					return {
+						document: JSON.stringify(editorState.doc),
+						version: 2,
+					};
+				});
+			await provider.getFinalAcknowledgedState();
+			expect(sendActionEventSpy).toHaveBeenCalledTimes(3);
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'commitUnconfirmedSteps', 'FAILURE', {
+				numUnconfirmedSteps: 1,
+				latency: undefined, // Performance API undefined when running jest tests
+			});
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'getCurrentState', 'SUCCESS', {
+				latency: undefined, // Performance API undefined when running jest tests
+			});
+			expect(sendActionEventSpy).toHaveBeenNthCalledWith(3, 'publishPage', 'SUCCESS', {
+				latency: undefined, // Performance API undefined when running jest tests
+			});
+			expect(sendStepsFromCurrentStateSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
+		});
+
+		it('Cannot sync up: Should call onSyncUpError if reconcile fails', async () => {
+			const onSyncUpErrorMock = jest.fn();
+			jest
+				// @ts-ignore
+				.spyOn(provider.documentService as any, 'fetchReconcile')
+				.mockImplementationOnce(() => {
+					throw new Error();
+				});
+			provider.setup({
+				getState: () => ({
 					...editorState,
 					collab: {
 						steps: [1],
 						origins: [1],
 					},
-				};
-
-				beforeEach(() => {
-					sendSpy = jest
-						// @ts-ignore
-						.spyOn(provider.documentService as any, 'sendStepsFromCurrentState')
-						.mockImplementation(() => {});
-
-					jest.spyOn(Utilities, 'sleep').mockResolvedValue(() => undefined);
-				});
-
-				it('should return if it can sync up', async () => {
-					const mockedSteps = [{ type: 'fakeStep' }];
-					jest
-						// @ts-ignore
-						.spyOn(provider.documentService as any, 'getUnconfirmedSteps')
-						.mockImplementationOnce(() => mockedSteps)
-						.mockImplementationOnce(() => []);
-					jest
-						.spyOn(
-							// @ts-ignore
-							provider.documentService as any,
-							'getUnconfirmedStepsOrigins',
-						)
-						.mockImplementationOnce(() => [1])
-						.mockImplementationOnce(() => undefined);
-					provider.initialize(() => editorState);
-
-					const finalAck = await provider.getFinalAcknowledgedState();
-
-					expect(sendActionEventSpy).toHaveBeenCalledTimes(3);
-					expect(sendActionEventSpy).toHaveBeenNthCalledWith(
-						1,
-						'commitUnconfirmedSteps',
-						'SUCCESS',
-						{
-							numUnconfirmedSteps: 1,
-							latency: undefined, // Performance API undefined when running jest tests
-						},
-					);
-					expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'getCurrentState', 'SUCCESS', {
-						latency: undefined, // Performance API undefined when running jest tests
-					});
-					expect(sendActionEventSpy).toHaveBeenNthCalledWith(3, 'publishPage', 'SUCCESS', {
-						latency: undefined, // Performance API undefined when running jest tests
-					});
-					expect(finalAck).toEqual({
-						stepVersion: 0,
-						title: "What's in a good title?",
-						content: {
-							content: [
-								{
-									content: [
-										{
-											type: 'text',
-											text: 'Hello, World!',
-										},
-										{
-											type: 'text',
-											text: '/',
-											marks: [],
-										},
-									],
-									type: 'paragraph',
-								},
-							],
-							type: 'doc',
-							version: 1,
-						},
-					});
-				});
-
-				describe("if can't sync up", () => {
-					it('should call reconcile ', async () => {
-						provider.initialize(() => newState);
-						jest
-							// @ts-ignore
-							.spyOn(provider.documentService as any, 'fetchReconcile')
-							.mockImplementationOnce(() => {
-								return {
-									document: JSON.stringify(editorState.doc),
-									version: 2,
-								};
-							});
-
-						await provider.getFinalAcknowledgedState();
-						expect(sendActionEventSpy).toHaveBeenCalledTimes(3);
-						expect(sendActionEventSpy).toHaveBeenNthCalledWith(
-							1,
-							'commitUnconfirmedSteps',
-							'FAILURE',
-							{
-								numUnconfirmedSteps: 1,
-								latency: undefined, // Performance API undefined when running jest tests
-							},
-						);
-						expect(sendActionEventSpy).toHaveBeenNthCalledWith(2, 'getCurrentState', 'SUCCESS', {
-							latency: undefined, // Performance API undefined when running jest tests
-						});
-						expect(sendActionEventSpy).toHaveBeenNthCalledWith(3, 'publishPage', 'SUCCESS', {
-							latency: undefined, // Performance API undefined when running jest tests
-						});
-						expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
-					});
-
-					it('should call onSyncUpError if reconcile fails', async () => {
-						const onSyncUpErrorMock = jest.fn();
-						jest
-							// @ts-ignore
-							.spyOn(provider.documentService as any, 'fetchReconcile')
-							.mockImplementationOnce(() => {
-								throw new Error();
-							});
-
-						provider.setup({
-							getState: () => newState,
-							onSyncUpError: onSyncUpErrorMock,
-						});
-
-						await expect(provider.getFinalAcknowledgedState()).rejects.toThrow(); // Trigger error from function
-
-						expect(onSyncUpErrorMock).toHaveBeenCalledTimes(1);
-						expect(onSyncUpErrorMock).toHaveBeenCalledWith({
-							clientId: 'some-random-prosemirror-client-Id',
-							lengthOfUnconfirmedSteps: 1,
-							maxRetries: 60,
-							tries: 61,
-							version: 0,
-						});
-					});
-				});
+				}),
+				onSyncUpError: onSyncUpErrorMock,
+			});
+			await expect(provider.getFinalAcknowledgedState()).rejects.toThrow(); // Trigger error from function
+			expect(onSyncUpErrorMock).toHaveBeenCalledTimes(1);
+			expect(onSyncUpErrorMock).toHaveBeenCalledWith({
+				clientId: 'some-random-prosemirror-client-Id',
+				lengthOfUnconfirmedSteps: 1,
+				maxRetries: 60,
+				tries: 61,
+				version: 0,
 			});
 		});
 
-		describe('Get the unconfirmed steps', () => {
-			it('returns current unconfirmed steps', () => {
-				provider.initialize(() => editorState);
-				let documentServiceGetUnconfirmedStepsSpy = jest.spyOn(
-					(provider as any).documentService,
-					'getUnconfirmedSteps',
-				);
-				expect(provider.getUnconfirmedSteps()).toEqual([]);
-				expect(documentServiceGetUnconfirmedStepsSpy).toBeCalledTimes(1);
-			});
+		it('getUnconfirmedSteps: Should return current unconfirmed steps', () => {
+			provider.initialize(() => editorState);
+			let documentServiceGetUnconfirmedStepsSpy = jest.spyOn(
+				(provider as any).documentService,
+				'getUnconfirmedSteps',
+			);
+			expect(provider.getUnconfirmedSteps()).toEqual([]);
+			expect(documentServiceGetUnconfirmedStepsSpy).toBeCalledTimes(1);
 		});
 
-		describe('Get current ProseMirror version', () => {
-			it('returns current ProseMirror version', () => {
-				provider.initialize(() => ({
-					...editorState,
-					collab: {
-						steps: [],
-						origins: [],
-						version: 8,
-					},
-				}));
-				let getCurrentPmVersionSpy = jest.spyOn(
-					(provider as any).documentService,
-					'getCurrentPmVersion',
-				);
-				expect(provider.getCurrentPmVersion()).toEqual(8);
-				expect(getCurrentPmVersionSpy).toHaveBeenCalledTimes(1);
-			});
+		it('getCurrentPmVersion: Should return current ProseMirror version', () => {
+			provider.initialize(() => ({
+				...editorState,
+				collab: {
+					steps: [],
+					origins: [],
+					version: 8,
+				},
+			}));
+			let getCurrentPmVersionSpy = jest.spyOn(
+				(provider as any).documentService,
+				'getCurrentPmVersion',
+			);
+			expect(provider.getCurrentPmVersion()).toEqual(8);
+			expect(getCurrentPmVersionSpy).toHaveBeenCalledTimes(1);
 		});
 
-		describe('metadata', () => {
-			it('Can set and get latest metadata', () => {
-				const setMetadataSpy = jest.spyOn((provider as any).metadataService, 'setMetadata');
-				const sampleMetadata = { title: 'hello', editorWidth: '300' };
-				provider.setMetadata(sampleMetadata);
-				expect(provider.getMetadata()).toEqual(sampleMetadata);
-				expect(setMetadataSpy).toBeCalledWith(sampleMetadata);
-			});
+		it('setMetadata: Should set and get latest metadata', () => {
+			const setMetadataSpy = jest.spyOn((provider as any).metadataService, 'setMetadata');
+			const sampleMetadata = { title: 'hello', editorWidth: '300' };
+			provider.setMetadata(sampleMetadata);
+			expect(provider.getMetadata()).toEqual(sampleMetadata);
+			expect(setMetadataSpy).toBeCalledWith(sampleMetadata);
 		});
 	});
 
@@ -1401,22 +1324,20 @@ describe.skip('Provider', () => {
 		});
 	});
 
-	it('should use NullDocumentService and NullApi when isPresenceOnly is true', () => {
-		const config = {
-			...testProviderConfig,
-			isPresenceOnly: true,
-		};
-		const provider = createSocketIOCollabProvider(config);
-		expect(provider['documentService']).toBeInstanceOf(NullDocumentService);
-		expect(provider['api']).toBeInstanceOf(NullApi);
-	});
-	it('should use DocumentService and Api when isPresenceOnly is false', () => {
-		const config = {
-			...testProviderConfig,
-			isPresenceOnly: false,
-		};
-		const provider = createSocketIOCollabProvider(config);
-		expect(provider['documentService']).toBeInstanceOf(DocumentService);
-		expect(provider['api']).toBeInstanceOf(Api);
+	describe('commitStepQueue', () => {
+		it('Should not throw errors when attempting to commit steps', () => {
+			expect(() => {
+				commitStepQueue({
+					// @ts-ignore
+					channel: {
+						broadcast: jest.fn().mockImplementation(() => {
+							throw new Error('Test');
+						}),
+					},
+					steps: [],
+					emit: jest.fn(),
+				});
+			}).not.toThrow();
+		});
 	});
 });

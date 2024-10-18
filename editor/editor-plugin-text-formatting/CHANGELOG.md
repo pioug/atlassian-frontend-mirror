@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 1.15.2
+
+### Patch Changes
+
+- [#153539](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153539)
+  [`451e5c3fb608e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/451e5c3fb608e) -
+  [ux] Fix text formatting more button on primary toolbar in small screen when
+  `platform-visual-refresh-icons` is on
+
 ## 1.15.1
 
 ### Patch Changes

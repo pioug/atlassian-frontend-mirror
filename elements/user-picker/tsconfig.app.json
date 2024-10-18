@@ -49,6 +49,12 @@
 			"path": "../../design-system/lozenge/tsconfig.app.json"
 		},
 		{
+			"path": "../../people-and-teams/people-teams-ui-public/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/popper/tsconfig.app.json"
 		},
 		{

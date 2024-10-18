@@ -53,7 +53,7 @@ export default function Example() {
 			</Box>
 			<Box>
 				<Code>Inline</Code> rendering as <Code>ul</Code>:
-				<Inline as="ul" xcss={listStyles} separator="·" space="space.100">
+				<Inline as="ul" xcss={listStyles} space="space.100">
 					<InlineListItem>Jira</InlineListItem>
 					<InlineListItem>Confluence</InlineListItem>
 					<InlineListItem>BitBucket</InlineListItem>
@@ -62,7 +62,7 @@ export default function Example() {
 			</Box>
 			<Box>
 				<Code>Inline</Code> rendering as <Code>ol</Code>:
-				<Inline as="ol" xcss={listStyles} separator="·" space="space.100">
+				<Inline as="ol" xcss={listStyles} space="space.100">
 					<InlineListItem>Jira</InlineListItem>
 					<InlineListItem>Confluence</InlineListItem>
 					<InlineListItem>BitBucket</InlineListItem>

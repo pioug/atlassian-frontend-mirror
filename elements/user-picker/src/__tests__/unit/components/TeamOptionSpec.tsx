@@ -1,6 +1,7 @@
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import React, { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOption';
@@ -8,10 +9,15 @@ import { HighlightText } from '../../../components/HighlightText';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
 import { TeamOption, type TeamOptionProps } from '../../../components/TeamOption/main';
 import { type Team } from '../../../types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('../../../components/AvatarItemOption', () => ({
 	...(jest.requireActual('../../../components/AvatarItemOption') as any),
 	textWrapper: jest.fn(),
+}));
+
+jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
+	VerifiedTeamIcon: () => <div>VerifiedTeamIcon</div>,
 }));
 
 describe('Team Option', () => {
@@ -216,5 +222,24 @@ describe('Team Option', () => {
 		const secondaryText = avatarOptionProps.props().secondaryText as ReactElement;
 
 		expect(secondaryText.props.children).toEqual(customByline);
+	});
+
+	ffTest.off('verified-team-in-user-picker', 'with verified team in user picker flag off', () => {
+		it('should not render the verified team icon if the team is verified', () => {
+			render(<TeamOption team={buildTeam({ verified: true })} isSelected={false} />);
+			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+		});
+	});
+
+	ffTest.on('verified-team-in-user-picker', 'with verified team in user picker flag on', () => {
+		it('should render the verified team icon if the team is verified', () => {
+			render(<TeamOption team={buildTeam({ verified: true })} isSelected={false} />);
+			expect(screen.getByText('VerifiedTeamIcon')).toBeInTheDocument();
+		});
+
+		it('should not render the verified team icon if the team is not verified', () => {
+			render(<TeamOption team={buildTeam({ verified: false })} isSelected={false} />);
+			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
+		});
 	});
 });

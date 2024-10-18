@@ -8,11 +8,6 @@ import AsyncCreatable from '../../async-creatable';
 
 import { type Option, OPTIONS } from './constants.mock';
 
-test('defaults - snapshot', () => {
-	const { container } = render(<AsyncCreatable />);
-	expect(container).toMatchSnapshot();
-});
-
 test('creates an inner Select', () => {
 	const { container } = render(
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

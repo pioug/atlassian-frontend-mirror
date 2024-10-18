@@ -8,7 +8,7 @@ export default function Example() {
 	return (
 		<Stack space="space.100">
 			<Heading level="h400">Common folders</Heading>
-			<Inline space="space.100" separator="•">
+			<Inline space="space.100" separator="|">
 				{['bin', 'etc', 'home', 'tmp', 'usr'].map((folder) => (
 					<Code key="folder">{folder}</Code>
 				))}

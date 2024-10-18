@@ -24,7 +24,7 @@ import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin, PluginState } from '../types';
-import { AnchorHeightsCache, isAnchorSupported } from '../utils/anchor-utils';
+import { AnchorRectCache, isAnchorSupported } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 import { getTrMetadata } from '../utils/transactions';
 
@@ -129,7 +129,7 @@ export const newApply = (
 	currentState: PluginState,
 	newState: EditorState,
 	flags: FlagType,
-	anchorHeightsCache?: AnchorHeightsCache,
+	anchorRectCache?: AnchorRectCache,
 ) => {
 	let {
 		activeNode,
@@ -266,7 +266,7 @@ export const newApply = (
 				api,
 				formatMessage,
 				latestActiveNode,
-				anchorHeightsCache,
+				anchorRectCache,
 			);
 			decorations = decorations.add(newState.doc, decs);
 		}
@@ -309,7 +309,7 @@ export const oldApply = (
 	oldState: EditorState,
 	newState: EditorState,
 	flags: FlagType,
-	anchorHeightsCache?: AnchorHeightsCache,
+	anchorRectCache?: AnchorRectCache,
 ) => {
 	const { isNestedEnabled } = flags;
 
@@ -541,7 +541,7 @@ export const oldApply = (
 				api,
 				formatMessage,
 				isNestedEnabled ? meta?.activeNode ?? mappedActiveNodePos : meta?.activeNode,
-				anchorHeightsCache,
+				anchorRectCache,
 			);
 			decorations = decorations.add(newState.doc, decs);
 		}
@@ -606,9 +606,10 @@ export const createPlugin = (
 		// TODO: Remove this once FG is used in code
 	}
 
-	let anchorHeightsCache: AnchorHeightsCache | undefined;
+	let anchorRectCache: AnchorRectCache | undefined;
+
 	if (!isAnchorSupported() && fg('platform_editor_drag_and_drop_target_v2')) {
-		anchorHeightsCache = new AnchorHeightsCache();
+		anchorRectCache = new AnchorRectCache();
 	}
 
 	return new SafePlugin({
@@ -624,15 +625,7 @@ export const createPlugin = (
 				newState: EditorState,
 			) {
 				if (isOptimisedApply) {
-					return newApply(
-						api,
-						formatMessage,
-						tr,
-						currentState,
-						newState,
-						flags,
-						anchorHeightsCache,
-					);
+					return newApply(api, formatMessage, tr, currentState, newState, flags, anchorRectCache);
 				}
 				return oldApply(
 					api,
@@ -642,7 +635,7 @@ export const createPlugin = (
 					oldState,
 					newState,
 					flags,
-					anchorHeightsCache,
+					anchorRectCache,
 				);
 			},
 		},
@@ -697,7 +690,7 @@ export const createPlugin = (
 					return false;
 				},
 				dragstart(view: EditorView) {
-					anchorHeightsCache?.setEditorView(view);
+					anchorRectCache?.setEditorView(view);
 					view.dispatch(view.state.tr.setMeta(key, { isPMDragging: true }));
 				},
 				dragend(view: EditorView) {

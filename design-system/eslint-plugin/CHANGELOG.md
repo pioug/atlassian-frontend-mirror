@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.22.1
+
+### Patch Changes
+
+- [#153007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153007)
+  [`89e8b9b297149`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89e8b9b297149) -
+  Update `ensure-design-token-usage` rule to avoid false positive with Icon Tile component
+
 ## 10.22.0
 
 ### Minor Changes

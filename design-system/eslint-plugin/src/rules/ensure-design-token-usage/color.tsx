@@ -203,7 +203,7 @@ export const lintJSXLiteralForColor = (
 		return;
 	}
 
-	if (['alt', 'src', 'label', 'key'].includes(node.parent.name.name)) {
+	if (['alt', 'src', 'label', 'key', 'appearance'].includes(node.parent.name.name)) {
 		return;
 	}
 

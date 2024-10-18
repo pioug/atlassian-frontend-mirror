@@ -8,8 +8,11 @@ import { css, jsx } from '@emotion/react';
 import { type Option } from '../types';
 import { components, type SingleValueProps } from '@atlaskit/select';
 import { SizeableAvatar } from './SizeableAvatar';
-import { getAvatarUrl } from './utils';
+import { getAvatarUrl, isTeam } from './utils';
 import { token } from '@atlaskit/tokens';
+import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Inline } from '@atlaskit/primitives';
 
 const avatarItemComponent = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
@@ -32,6 +35,18 @@ const avatarItemComponent = css({
 
 export type Props = SingleValueProps<Option>;
 
+const ElementAfter = (props: Props) => {
+	const {
+		data: { data },
+	} = props;
+
+	if (isTeam(data) && data.verified) {
+		return <VerifiedTeamIcon size="small" />;
+	}
+
+	return null;
+};
+
 export const SingleValue = (props: Props) => {
 	const {
 		data: { label, data },
@@ -43,8 +58,23 @@ export const SingleValue = (props: Props) => {
 		<components.SingleValue {...props}>
 			<AvatarItem
 				backgroundColor="transparent"
-				avatar={<SizeableAvatar src={getAvatarUrl(data)} appearance={appearance} />}
-				primaryText={label}
+				avatar={
+					<SizeableAvatar
+						src={getAvatarUrl(data)}
+						appearance={appearance}
+						type={isTeam(data) && fg('verified-team-in-user-picker') ? 'team' : 'person'}
+					/>
+				}
+				primaryText={
+					fg('verified-team-in-user-picker') ? (
+						<Inline alignBlock="center">
+							{label}
+							<ElementAfter {...props} />
+						</Inline>
+					) : (
+						label
+					)
+				}
 			>
 				{({ ref, ...props }) => <div css={avatarItemComponent} {...props} />}
 			</AvatarItem>

@@ -46,6 +46,10 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	 * This is passed to the portal component.
 	 */
 	zIndex?: number;
+
+	/**
+	 * Additional configurations for hover card.
+	 */
 	hoverPreviewOptions?: HoverPreviewOptions;
 }
 

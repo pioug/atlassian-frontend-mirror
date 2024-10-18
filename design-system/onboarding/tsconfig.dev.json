@@ -57,6 +57,9 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../dropdown-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
@@ -64,6 +67,9 @@
 		},
 		{
 			"path": "../link/tsconfig.app.json"
+		},
+		{
+			"path": "../menu/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

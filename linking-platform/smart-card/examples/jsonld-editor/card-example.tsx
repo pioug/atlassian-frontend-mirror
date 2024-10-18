@@ -4,6 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { IntlProvider } from 'react-intl-next';
 import { Card } from '../../src';
 import { HoverCard } from '../../src/hoverCard';
+import HoverCardBox from '../utils/hover-card-box';
 import withJsonldEditorProvider from './jsonld-editor-provider';
 
 const CardExample = ({
@@ -47,11 +48,7 @@ const CardExample = ({
 			{url && (
 				<IntlProvider locale="en">
 					<HoverCard url={url}>
-						<Box backgroundColor="color.background.accent.blue.subtlest" padding="space.050">
-							<Text as="p" align="center" size="small">
-								Hover over me!
-							</Text>
-						</Box>
+						<HoverCardBox />
 					</HoverCard>
 				</IntlProvider>
 			)}

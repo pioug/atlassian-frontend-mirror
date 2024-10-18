@@ -41,10 +41,12 @@ ${(
 
 #### Hover preview: Show unresolved states
 
-Some Smart Links provide the capability to show restricted or unauthorized states. Users have the option to request access, authenticate, or link their account through these views.
+Some Smart Links provide the capability to show restricted or unauthorized states.
+Users have the option to request access, authenticate, or link their account through these views.
+By default,
 By setting showAuthTooltip to true, unresolved states can be displayed on the hover card.
 
-For a completed example of hover preview unresolved states, please see the [hover card](./hover-card).
+For a completed example of hover preview unresolved states, please see States on inline card overview.
 
 ${(
 	<CustomExample

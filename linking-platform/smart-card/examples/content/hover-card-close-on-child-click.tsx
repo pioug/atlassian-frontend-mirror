@@ -1,33 +1,16 @@
-import { Box, xcss } from '@atlaskit/primitives';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import React from 'react';
-
-import { Client, Provider } from '../../src';
+import { IntlProvider } from 'react-intl-next';
 import { HoverCard } from '../../src/hoverCard';
-import ExampleContainer from './example-container';
-
-const boxStyles = xcss({
-	backgroundColor: 'color.background.discovery',
-	borderColor: 'color.border.discovery',
-	borderStyle: 'solid',
-	borderRadius: '3px',
-	borderWidth: 'border.width',
-	padding: 'space.100',
-	'::before': {
-		content: '"✨"',
-		paddingInlineEnd: 'space.050',
-	},
-	'::after': {
-		content: '"✨"',
-		paddingInlineStart: 'space.050',
-	},
-});
+import { ResolvedClient, ResolvedClientEmbedUrl } from '../utils/custom-client';
+import HoverOverMe from '../utils/hover-card-box';
 
 export default () => (
-	<ExampleContainer>
-		<Provider client={new Client('staging')}>
-			<HoverCard url="https://www.atlassian.com/" closeOnChildClick={true}>
-				<Box xcss={boxStyles}>Hover over me</Box>
+	<IntlProvider locale="en">
+		<SmartCardProvider client={new ResolvedClient('staging')}>
+			<HoverCard url={ResolvedClientEmbedUrl} closeOnChildClick={true}>
+				<HoverOverMe />
 			</HoverCard>
-		</Provider>
-	</ExampleContainer>
+		</SmartCardProvider>
+	</IntlProvider>
 );

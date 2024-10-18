@@ -8,7 +8,7 @@ export default md`
 	Either initialise directly from the feature-flag-service:
 
 	~~~typescript
-	import { ConfigClient } from '@atlassian/js-config-client-beta';
+	import { ConfigClient } from '@atlaskit/web-config-client';
 
 	const config = await ConfigClient.fetch({
 		// Base URL of the feature-flag-service
@@ -41,9 +41,9 @@ export default md`
 
 	~~~typescript
 	const result = config.getNumber('rate-limit');
-	if(result.error) {
-		// TODO: handle error }
-	else {
+	if (result.error) {
+		// TODO: handle error
+	} else {
 		console.log(result.value); // 42
 	}
 	~~~

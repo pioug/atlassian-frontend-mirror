@@ -1,5 +1,5 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
-import { isFedRamp } from '@atlaskit/atlassian-context';
+import { getATLContextUrl, isFedRamp } from '@atlaskit/atlassian-context';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -67,12 +67,24 @@ class ProfileCardClient implements ProfileClient {
 		);
 	}
 
-	getTeamCentralBaseUrl() {
-		return this.tcClient?.options.teamCentralBaseUrl;
+	async getTeamCentralBaseUrl() {
+		if (!fg('enable_ptc_sharded_townsquare_calls')) {
+			return Promise.resolve(this.tcClient?.options.teamCentralBaseUrl);
+		}
+
+		if (this.tcClient === undefined) {
+			return Promise.resolve(undefined);
+		}
+
+		const isGlobalExperienceWorkspace = await this.tcClient.getIsGlobalExperienceWorkspace();
+
+		return Promise.resolve(
+			isGlobalExperienceWorkspace ? getATLContextUrl('home') : getATLContextUrl('team'),
+		);
 	}
 
-	shouldShowGiveKudos(): Promise<boolean> {
-		if (!this.tcClient || !this.getTeamCentralBaseUrl()) {
+	async shouldShowGiveKudos(): Promise<boolean> {
+		if (!this.tcClient || !(await this.getTeamCentralBaseUrl())) {
 			return Promise.resolve(false);
 		}
 		return this.tcClient.checkWorkspaceExists();

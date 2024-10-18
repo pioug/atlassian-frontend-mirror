@@ -10,28 +10,42 @@ export const isAnchorSupported = memoizeOne(() => {
 	return false;
 });
 
-export class AnchorHeightsCache {
-	private anchorHeightsMap: { [key: string]: number } = {};
+type RectInfo = {
+	height: number;
+	top: number;
+	left: number;
+	right: number;
+	width: number;
+};
+
+export class AnchorRectCache {
+	private anchorRectMap: { [key: string]: RectInfo } = {};
 	private isAnchorSupported = isAnchorSupported();
 	private isDirty = true;
 	private view: EditorView | null = null;
 
 	public clear() {
 		this.isDirty = true;
-		this.anchorHeightsMap = {};
+		this.anchorRectMap = {};
 	}
 
-	private getHeights() {
+	private getRects() {
 		if (this.isDirty) {
-			const anchorElements =
+			const anchorElements: NodeListOf<HTMLElement> | never[] =
 				this.view?.dom.querySelectorAll('[data-drag-handler-anchor-name]') || [];
-			this.anchorHeightsMap = Array.from(anchorElements).reduce((prev, curr) => {
+			this.anchorRectMap = Array.from(anchorElements).reduce((prev, curr) => {
 				const anchorName = curr.getAttribute('data-drag-handler-anchor-name');
 
 				if (anchorName) {
 					return {
 						...prev,
-						[anchorName]: curr.clientHeight,
+						[anchorName]: {
+							height: curr.clientHeight,
+							top: curr.offsetTop,
+							left: curr.offsetLeft,
+							right: curr.offsetLeft + curr.clientWidth,
+							width: curr.clientWidth,
+						},
 					};
 				}
 
@@ -41,7 +55,7 @@ export class AnchorHeightsCache {
 			this.isDirty = false;
 		}
 
-		return this.anchorHeightsMap;
+		return this.anchorRectMap;
 	}
 
 	public setEditorView(view: EditorView) {
@@ -55,7 +69,52 @@ export class AnchorHeightsCache {
 			return null;
 		}
 
-		const heights = this.getHeights();
-		return heights[anchorName];
+		const rects = this.getRects();
+		return rects[anchorName]?.height;
+	}
+
+	public getWidth(anchorName: string) {
+		if (this.isAnchorSupported) {
+			return null;
+		}
+
+		const rects = this.getRects();
+		return rects[anchorName]?.width;
+	}
+
+	public getLeft(anchorName: string) {
+		if (this.isAnchorSupported) {
+			return null;
+		}
+
+		const rects = this.getRects();
+		return rects[anchorName]?.left;
+	}
+
+	public getTop(anchorName: string) {
+		if (this.isAnchorSupported) {
+			return null;
+		}
+
+		const rects = this.getRects();
+		return rects[anchorName]?.top;
+	}
+
+	public getRight(anchorName: string) {
+		if (this.isAnchorSupported) {
+			return null;
+		}
+
+		const rects = this.getRects();
+		return rects[anchorName]?.right;
+	}
+
+	public getRect(anchorName: string) {
+		if (this.isAnchorSupported) {
+			return null;
+		}
+
+		const rects = this.getRects();
+		return rects[anchorName];
 	}
 }

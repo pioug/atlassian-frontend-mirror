@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/color-picker",
-	"version": "3.4.2",
+	"version": "3.4.3",
 	"description": "Jira Color Picker Component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -80,9 +80,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_color_palette-expose-event": {
-			"type": "boolean"
-		},
 		"platform-design-system-dsp-20821-color-pickr-focus": {
 			"type": "boolean"
 		},

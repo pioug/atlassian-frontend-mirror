@@ -63,6 +63,11 @@ const colorTests: Tests = {
 		},
 		{
 			code: `
+				<IconTile appearance="red" />
+			`,
+		},
+		{
+			code: `
           const containerShadowStyles = css({
             boxShadow: token( 'elevation.shadow.raised', \`0 4px 8px -2px \${N50A}, 0 0 1px \${N60A}\`),
           });

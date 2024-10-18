@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.7.0
+
+### Minor Changes
+
+- [#151244](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/151244)
+  [`10ba5860e515c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10ba5860e515c) -
+  ED-25281 Implement DnD API for Advanced Layout
+
+### Patch Changes
+
+- [#153270](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153270)
+  [`311428de27cbc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/311428de27cbc) -
+  [ux] [ED-25068] Implement inline drop zone and drop target (edge case excluded) behind FG
+
 ## 2.6.3
 
 ### Patch Changes

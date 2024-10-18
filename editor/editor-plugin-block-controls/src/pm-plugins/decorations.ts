@@ -22,7 +22,7 @@ import {
 	EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_GAP,
 	EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET,
 } from '../ui/drop-target-v2';
-import { type AnchorHeightsCache } from '../utils/anchor-utils';
+import { type AnchorRectCache } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 import { canMoveNodeToIndex } from '../utils/validation';
 
@@ -148,7 +148,7 @@ export const createDropTargetDecoration = (
 	pos: number,
 	props: Omit<DropTargetProps, 'getPos'>,
 	side?: number,
-	anchorHeightsCache?: AnchorHeightsCache,
+	anchorRectCache?: AnchorRectCache,
 ) => {
 	return Decoration.widget(
 		pos,
@@ -164,7 +164,7 @@ export const createDropTargetDecoration = (
 
 			if (fg('platform_editor_drag_and_drop_target_v2')) {
 				ReactDOM.render(
-					createElement(DropTargetV2, { ...props, getPos, anchorHeightsCache }),
+					createElement(DropTargetV2, { ...props, getPos, anchorRectCache }),
 					element,
 				);
 			} else {
@@ -185,7 +185,7 @@ export const dropTargetDecorations = (
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
 	formatMessage: IntlShape['formatMessage'],
 	activeNode?: ActiveNode,
-	anchorHeightsCache?: AnchorHeightsCache,
+	anchorRectCache?: AnchorRectCache,
 	from?: number,
 	to?: number,
 ) => {
@@ -200,7 +200,7 @@ export const dropTargetDecorations = (
 	const activePMNode =
 		typeof activeNodePos === 'number' && newState.doc.resolve(activeNodePos).nodeAfter;
 
-	anchorHeightsCache?.clear();
+	anchorRectCache?.clear();
 
 	const prevNodeStack: PMNode[] = [];
 
@@ -293,7 +293,7 @@ export const dropTargetDecorations = (
 					dropTargetStyle: shouldShowFullHeight ? 'fullHeight' : 'default',
 				},
 				-1,
-				anchorHeightsCache,
+				anchorRectCache,
 			),
 		);
 
@@ -309,7 +309,7 @@ export const dropTargetDecorations = (
 						dropTargetStyle: isInSupportedContainer ? 'fullHeight' : 'default',
 					},
 					-1,
-					anchorHeightsCache,
+					anchorRectCache,
 				),
 			);
 		}
@@ -333,7 +333,7 @@ export const dropTargetDecorations = (
 					parentNode: newState.doc,
 				},
 				undefined,
-				anchorHeightsCache,
+				anchorRectCache,
 			),
 		);
 	}

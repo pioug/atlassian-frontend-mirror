@@ -4,3 +4,5 @@ export enum DIRECTION {
 	LEFT = 'left',
 	RIGHT = 'right',
 }
+
+export const MAX_LAYOUT_COLUMN_SUPPORTED = 3;

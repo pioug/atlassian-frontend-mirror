@@ -12,18 +12,13 @@ describe('ColorPaletteMenu', () => {
 	const mockFnOld = jest.fn();
 	const mockFn = jest.fn();
 
-	const renderUI = (withEventCallback = true) => {
+	const renderUI = () => {
 		const palette = [
 			{ value: 'blue', label: 'Blue' },
 			{ value: 'red', label: 'Red' },
 		];
 		return render(
-			<ColorPaletteMenu
-				palette={palette}
-				selectedColor="blue"
-				cols={3}
-				{...(withEventCallback ? { onChange: mockFn } : { onChangeOld: mockFnOld })}
-			/>,
+			<ColorPaletteMenu palette={palette} selectedColor="blue" cols={3} onChange={mockFn} />,
 		);
 	};
 
@@ -32,7 +27,7 @@ describe('ColorPaletteMenu', () => {
 	});
 
 	test('should render ColorPaletteMenu with ColorCard', async () => {
-		const { getByRole, getAllByRole } = renderUI(false);
+		const { getByRole, getAllByRole } = renderUI();
 
 		const colorPaletteMenu = getByRole('group');
 		expect(colorPaletteMenu).toBeInTheDocument();
@@ -45,7 +40,7 @@ describe('ColorPaletteMenu', () => {
 	});
 
 	test('should call onChange prop onClick and onKeydown', async () => {
-		const { getByRole, getAllByRole } = renderUI(false);
+		const { getByRole, getAllByRole } = renderUI();
 
 		const colorPaletteMenu = getByRole('group');
 		expect(colorPaletteMenu).toBeInTheDocument();

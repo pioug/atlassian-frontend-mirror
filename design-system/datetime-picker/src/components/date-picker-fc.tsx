@@ -389,12 +389,11 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 		// We want to stop this from triggering other keydown events, particularly
 		// for space and enter presses. Otherwise, it opens and then closes
 		// immediately.
-		if (e.type === 'keydown') {
+		if (e.type === 'keydown' && (e.key === ' ' || e.key === 'Enter')) {
 			e.stopPropagation();
+			setIsKeyDown(true);
+			setWasOpenedFromCalendarButton(true);
 		}
-
-		setIsKeyDown(true);
-		setWasOpenedFromCalendarButton(true);
 	};
 
 	// This event handler is triggered from both keydown and click. It's weird.

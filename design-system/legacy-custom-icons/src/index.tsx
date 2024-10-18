@@ -1,12 +1,14 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e4db24ed0bce6902ee7e1c4ea1e5cc6c>>
+ * @codegen <<SignedSource::ded3c4d2fe93c0ef3891938b01c25e53>>
  * @codegenCommand yarn generate-artifacts
  */
 export { default as AnsibleIcon } from './ui/ansible-icon';
+export { default as AtlassianIntelligenceDarkIcon } from './ui/atlassian-intelligence-dark-icon';
 export { default as AutomationIcon } from './ui/automation-icon';
 export { default as AutomationNewIcon } from './ui/automation-new-icon';
 export { default as AwsIcon } from './ui/aws-icon';
+export { default as BarChartIcon } from './ui/bar-chart-icon';
 export { default as BugIcon } from './ui/bug-icon';
 export { default as ComponentIcon } from './ui/component-icon';
 export { default as CurlyBracketsIcon } from './ui/curly-brackets-icon';
@@ -23,6 +25,7 @@ export { default as MegaphoneStarIcon } from './ui/megaphone-star-icon';
 export { default as MsTeamsIcon } from './ui/ms-teams-icon';
 export { default as PeopleIcon } from './ui/people-icon';
 export { default as PersonIcon } from './ui/person-icon';
+export { default as PieChartIcon } from './ui/pie-chart-icon';
 export { default as RelicIcon } from './ui/relic-icon';
 export { default as RoadmapsServiceIcon } from './ui/roadmaps-service-icon';
 export { default as SecurityIcon } from './ui/security-icon';

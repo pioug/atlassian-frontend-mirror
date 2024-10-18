@@ -318,6 +318,7 @@ export interface Team extends OptionData {
 	highlight?: TeamHighlight;
 	type: 'team';
 	byline?: string;
+	verified?: boolean;
 }
 
 export const GroupType = 'group';

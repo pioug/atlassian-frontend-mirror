@@ -1,9 +1,11 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { type JsonLd } from 'json-ld-types';
-import { getBranchDeploy, getDefaultResponse, getDefaultUrl } from './utils';
 import { extractPreview, extractUrlFromLinkJsonLd } from '@atlaskit/link-extractors';
-const stringify = (obj: object) => JSON.stringify(obj, null, 2);
+import type { EnvironmentsKeys } from '@atlaskit/linking-common';
+import { type JsonLd } from 'json-ld-types';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import uuid from 'uuid';
+import { getBranchDeploy, getDefaultResponse, getDefaultUrl } from './utils';
+
+const stringify = (obj: object) => JSON.stringify(obj, null, 2);
 
 const initialJson = getDefaultResponse();
 const initialText = stringify(initialJson);
@@ -14,6 +16,7 @@ const temporaryUrl = 'https://json-ld-editor-temporary-url';
 type JsonldEditorOpts = {
 	ari?: string;
 	branchDeploy?: string;
+	envKey?: EnvironmentsKeys;
 	initialJson: JsonLd.Response;
 	isEmbedSupported: boolean;
 	json?: JsonLd.Response;
@@ -34,6 +37,7 @@ const JsonldEditor = ({ children }: { children: (opts: JsonldEditorOpts) => Reac
 	const [url, setUrl] = useState<string>(initialUrl);
 	const [ari, setAri] = useState<string>();
 	const [branchDeploy, setBranchDeploy] = useState<string>(initialBranchDeploy);
+	const [envKey, setEnvKey] = useState<EnvironmentsKeys>('staging');
 	const [urlError, setUrlError] = useState<string | undefined>();
 	const [isEmbedSupported, setIsEmbedSupported] = useState<boolean>(false);
 
@@ -127,18 +131,24 @@ const JsonldEditor = ({ children }: { children: (opts: JsonldEditorOpts) => Reac
 	 * Load actual URL and ARI.
 	 * Triggered by LoadLinkForm.
 	 */
-	const onSubmitUrl = useCallback((newUrl: string, newAri?: string, newBranchDeploy?: string) => {
-		// Set new url, ari and branch deploy to provider.
-		setAri(newAri);
-		setUrl(newUrl);
-		if (newBranchDeploy !== undefined) {
-			setBranchDeploy(newBranchDeploy);
-		}
-		setUrlError(undefined);
+	const onSubmitUrl = useCallback(
+		(newUrl: string, newAri?: string, newBranchDeploy?: string, newEnvKey?: EnvironmentsKeys) => {
+			// Set new url, ari and branch deploy to provider.
+			setAri(newAri);
+			setUrl(newUrl);
+			if (newBranchDeploy !== undefined) {
+				setBranchDeploy(newBranchDeploy);
+			}
+			if (newEnvKey) {
+				setEnvKey(newEnvKey);
+			}
+			setUrlError(undefined);
 
-		// Clear json so client would fetch actual url.
-		setJson(undefined);
-	}, []);
+			// Clear json so client would fetch actual url.
+			setJson(undefined);
+		},
+		[],
+	);
 
 	/**
 	 * URL is resolved successfully, including unauth and forbidden status.
@@ -186,6 +196,7 @@ const JsonldEditor = ({ children }: { children: (opts: JsonldEditorOpts) => Reac
 		() => ({
 			ari,
 			branchDeploy,
+			envKey,
 			initialJson,
 			isEmbedSupported,
 			json,
@@ -203,6 +214,7 @@ const JsonldEditor = ({ children }: { children: (opts: JsonldEditorOpts) => Reac
 		[
 			ari,
 			branchDeploy,
+			envKey,
 			isEmbedSupported,
 			json,
 			jsonError,

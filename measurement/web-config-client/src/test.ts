@@ -11,6 +11,7 @@ describe(ConfigClient.name, () => {
 		});
 		const promise = ConfigClient.fetch({
 			context: {
+				namespace: 'mock_app_web',
 				identifiers: {
 					atlassianAccountId: 'asdf',
 				},
@@ -24,7 +25,7 @@ describe(ConfigClient.name, () => {
 		await expect(promise).resolves.toEqual(ConfigCollection.fromValues('{}'));
 		expect(mockFetch).toHaveBeenCalledWith('mock-ffs-base-url/api/v2/configurations', {
 			method: 'POST',
-			body: '{"identifiers":{"atlassianAccountId":"asdf"},"metadata":{}}',
+			body: '{"namespace":"mock_app_web","identifiers":{"atlassianAccountId":"asdf"},"metadata":{}}',
 			headers: {
 				'content-type': 'application/json',
 				'x-api-key': 'mock-ffs-api-key',

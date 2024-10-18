@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugins
 
+## 5.5.47
+
+### Patch Changes
+
+- [#153270](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153270)
+  [`311428de27cbc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/311428de27cbc) -
+  [ux] [ED-25068] Implement inline drop zone and drop target (edge case excluded) behind FG
+- Updated dependencies
+
 ## 5.5.46
 
 ### Patch Changes

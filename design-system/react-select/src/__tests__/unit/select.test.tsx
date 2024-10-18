@@ -54,20 +54,6 @@ const BASIC_PROPS: BasicProps = {
 	value: null,
 };
 
-test('snapshot - defaults', () => {
-	const { container } = render(
-		<Select
-			onChange={noop}
-			onInputChange={noop}
-			onMenuOpen={noop}
-			onMenuClose={noop}
-			inputValue=""
-			value={null}
-		/>,
-	);
-	expect(container).toMatchSnapshot();
-});
-
 test('instanceId prop > to have instanceId as id prefix for the select components', () => {
 	let { container } = render(<Select {...BASIC_PROPS} menuIsOpen instanceId={'custom-id'} />);
 	expect(container.querySelector('input')!.id).toContain('custom-id');

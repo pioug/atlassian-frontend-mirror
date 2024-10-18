@@ -44,6 +44,7 @@ interface ServerTeam extends ServerItem {
 	memberCount?: number;
 	members?: TeamMember[];
 	includesYou?: boolean;
+	verified?: boolean;
 }
 
 interface ServerGroup extends ServerItem {
@@ -117,6 +118,7 @@ const transformUser = (
 			includesYou: team.includesYou,
 			avatarUrl: team.largeAvatarImageUrl || team.smallAvatarImageUrl,
 			tooltip: team.displayName,
+			verified: team.verified,
 		};
 	}
 

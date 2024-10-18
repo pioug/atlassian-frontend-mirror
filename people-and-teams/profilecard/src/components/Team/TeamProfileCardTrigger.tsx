@@ -236,6 +236,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 				const requests = Promise.all([
 					this.props.resourceClient.getTeamProfile(teamId, orgId, fireEvent),
 					this.props.resourceClient.shouldShowGiveKudos(),
+					this.props.resourceClient.getTeamCentralBaseUrl(),
 				]);
 
 				requests
@@ -260,7 +261,11 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		});
 	};
 
-	handleClientSuccess(team: Team, shouldShowGiveKudos: boolean) {
+	handleClientSuccess(
+		team: Team,
+		shouldShowGiveKudos: boolean,
+		teamCentralBaseUrl: string | undefined,
+	) {
 		if (!this._isMounted) {
 			return;
 		}
@@ -270,7 +275,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 			hasError: false,
 			data: team,
 			shouldShowGiveKudos,
-			teamCentralBaseUrl: this.props.resourceClient.getTeamCentralBaseUrl(),
+			teamCentralBaseUrl,
 		});
 	}
 

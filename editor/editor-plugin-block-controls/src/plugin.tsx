@@ -7,6 +7,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { moveNode } from './commands/move-node';
+import { moveToLayout } from './commands/move-to-layout';
 import { createEmptyBlockExperimentPlugin } from './pm-plugins/empty-block-experiment';
 import { createPlugin, key } from './pm-plugins/main';
 import type { BlockControlsPlugin, HandleOptions } from './types';
@@ -37,6 +38,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 
 	commands: {
 		moveNode: moveNode(api),
+		moveToLayout: moveToLayout(api),
 		showDragHandleAt:
 			(pos: number, anchorName: string, nodeType: string, handleOptions?: HandleOptions) =>
 			({ tr }: { tr: Transaction }) => {

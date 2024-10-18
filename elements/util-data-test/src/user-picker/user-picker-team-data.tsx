@@ -22,4 +22,13 @@ export const userPickerTeamData: Team[] = [
 		byline: 'Select team members',
 		lozenge: <ChevronRight />,
 	},
+	{
+		id: 'team-verified',
+		name: 'Verified Team',
+		type: 'team',
+		verified: true,
+		fixed: false,
+		description:
+			'This team has a custom icon and byline which is not reliant on memberCount and includesYou props',
+	},
 ];

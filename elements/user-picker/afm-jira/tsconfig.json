@@ -33,6 +33,12 @@
       "path": "../../../design-system/lozenge/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../people-and-teams/people-teams-ui-public/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/popper/afm-jira/tsconfig.json"
     },
     {

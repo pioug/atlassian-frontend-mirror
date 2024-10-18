@@ -1,8 +1,33 @@
 import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { AddOptionAvatar } from '../../../components/AddOptionAvatar';
 import { MultiValue, scrollToValue } from '../../../components/MultiValue';
-import { type Email, EmailType, type User } from '../../../types';
+import { type Email, EmailType, type User, type Team } from '../../../types';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+jest.mock('@atlaskit/icon/core/migration/email', () => {
+	return ({ label }: any) => <div aria-label={label}>EmailIcon</div>;
+});
+
+jest.mock('@atlaskit/select', () => ({
+	...jest.requireActual('@atlaskit/select'),
+	components: {
+		...jest.requireActual('@atlaskit/select').components,
+		MultiValue: ({ children }: any) => <div>{children}</div>,
+	},
+}));
+
+jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
+	VerifiedTeamIcon: () => <div>VerifiedTeamIcon</div>,
+}));
+
+/**
+ * ffTest.on is causing some issues, given the mock is only temporary I'm just manually mocking the fg function
+ */
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags'),
+	fg: jest.fn(),
+}));
 
 const mockHtmlElement = (rect: Partial<DOMRect>): HTMLDivElement =>
 	({
@@ -24,6 +49,16 @@ describe('MultiValue', () => {
 
 	const shallowMultiValue = ({ components, ...props }: any = { components: {} }) =>
 		shallow(
+			<MultiValue
+				data={data}
+				removeProps={{ onClick }}
+				selectProps={{ isDisabled: false }}
+				{...props}
+			/>,
+		);
+
+	const renderMultiValue = ({ components, ...props }: any = { components: {} }) =>
+		render(
 			<MultiValue
 				data={data}
 				removeProps={{ onClick }}
@@ -115,8 +150,8 @@ describe('MultiValue', () => {
 			name: 'test@test.com',
 		};
 
-		it('should render AddOptionAvatar for email data', () => {
-			const component = shallowMultiValue({
+		it('should render AddOptionAvatar for email data', async () => {
+			renderMultiValue({
 				data: { data: email, label: email.name },
 				innerProps: {},
 				selectProps: {
@@ -124,15 +159,44 @@ describe('MultiValue', () => {
 				},
 			});
 
-			expect(component.props().children[0]).toMatchObject(
-				<AddOptionAvatar label="invite" isLozenge />,
-			);
+			expect(await screen.findByText('EmailIcon')).toBeInTheDocument();
+			expect(await screen.findByLabelText('invite')).toBeInTheDocument();
+		});
+	});
 
-			expect(component.props().data.data).toMatchObject({
-				id: 'test@test.com',
-				name: 'test@test.com',
-				type: 'email',
+	describe('Team', () => {
+		const team: Team = {
+			name: 'team name',
+			type: 'team',
+			id: 'team-id',
+		};
+
+		(fg as jest.Mock).mockReturnValue(true);
+
+		const renderTeamValue = (team: Team) =>
+			renderMultiValue({
+				data: {
+					label: team.name,
+					value: team.id,
+					data: team,
+				},
 			});
+
+		it('should render verified team icon if team is verified', async () => {
+			renderTeamValue({
+				...team,
+				verified: true,
+			});
+
+			expect(await screen.findByText('VerifiedTeamIcon')).toBeInTheDocument();
+		});
+
+		it('should not render verified team icon if team is not verified', () => {
+			renderTeamValue({
+				...team,
+				verified: false,
+			});
+			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
 		});
 	});
 });

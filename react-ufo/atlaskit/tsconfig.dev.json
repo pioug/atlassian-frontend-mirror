@@ -29,7 +29,7 @@
 	"compilerOptions": {
 		"baseUrl": "",
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__ufo-interaction-metrics/dev"
+		"outDir": "../../../tsDist/@atlaskit__react-ufo/dev"
 	},
 	"references": [
 		{

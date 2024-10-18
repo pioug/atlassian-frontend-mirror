@@ -161,6 +161,7 @@ export interface ProfileCardResourcedState {
 	reportingLinesData?: TeamCentralReportingLinesData;
 	isKudosEnabled?: boolean;
 	kudosDrawerOpen: boolean;
+	teamCentralBaseUrl?: string;
 }
 
 export interface ProfileCardTriggerProps {
@@ -510,7 +511,7 @@ export interface ProfileClient {
 	) => Promise<Team>;
 	getReportingLines: (userId: string) => Promise<TeamCentralReportingLinesData>;
 	shouldShowGiveKudos: () => Promise<boolean>;
-	getTeamCentralBaseUrl: () => string | undefined;
+	getTeamCentralBaseUrl: () => Promise<string | undefined>;
 	getRovoAgentProfile: (
 		id: AgentIdType,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,

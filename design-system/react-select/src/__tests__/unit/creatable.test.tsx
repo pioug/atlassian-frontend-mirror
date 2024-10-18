@@ -31,11 +31,6 @@ const BASIC_PROPS: BasicProps = {
 	options: OPTIONS,
 };
 
-test('defaults - snapshot', () => {
-	const { container } = render(<Creatable />);
-	expect(container).toMatchSnapshot();
-});
-
 interface OptionProps extends Partial<BasicProps> {
 	readonly isMulti?: boolean;
 }

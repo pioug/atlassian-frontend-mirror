@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-text-formatting",
-	"version": "1.15.1",
+	"version": "1.15.2",
 	"description": "Text-formatting plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,6 +44,7 @@
 		"@atlaskit/icon": "^22.22.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
+		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"react-intl-next": "npm:react-intl@^5.18.1"
@@ -93,6 +94,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_toolbar_responsive_fixes": {
+			"type": "boolean"
+		},
+		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		}
 	}

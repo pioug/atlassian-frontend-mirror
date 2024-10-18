@@ -38,6 +38,7 @@ class ProfileCardResourced extends React.PureComponent<
 		reportingLinesData: undefined,
 		isKudosEnabled: false,
 		kudosDrawerOpen: false,
+		teamCentralBaseUrl: undefined,
 	};
 
 	fireAnalytics = (payload: AnalyticsEventPayload) => {
@@ -97,6 +98,7 @@ class ProfileCardResourced extends React.PureComponent<
 					this.props.resourceClient.getProfile(cloudId, userId, this.fireAnalytics),
 					this.props.resourceClient.getReportingLines(userId),
 					this.props.resourceClient.shouldShowGiveKudos(),
+					this.props.resourceClient.getTeamCentralBaseUrl(),
 				]);
 
 				requests
@@ -113,6 +115,7 @@ class ProfileCardResourced extends React.PureComponent<
 		profileData: ProfileCardClientData,
 		reportingLinesData: TeamCentralReportingLinesData,
 		shouldShowGiveKudos: boolean,
+		teamCentralBaseUrl?: string,
 	) {
 		if (!this._isMounted) {
 			return;
@@ -124,6 +127,7 @@ class ProfileCardResourced extends React.PureComponent<
 			data: profileData,
 			reportingLinesData,
 			isKudosEnabled: shouldShowGiveKudos,
+			teamCentralBaseUrl,
 		});
 	}
 
@@ -150,7 +154,15 @@ class ProfileCardResourced extends React.PureComponent<
 	};
 
 	render(): React.ReactNode {
-		const { isLoading, hasError, error, data, reportingLinesData, isKudosEnabled } = this.state;
+		const {
+			isLoading,
+			hasError,
+			error,
+			data,
+			reportingLinesData,
+			isKudosEnabled,
+			teamCentralBaseUrl,
+		} = this.state;
 		const { onReportingLinesClick, cloudId, userId, addFlag } = this.props;
 
 		const isFetchingOrNotStartToFetchYet = isLoading === true || isLoading === undefined;
@@ -184,7 +196,7 @@ class ProfileCardResourced extends React.PureComponent<
 			addFlag,
 			...data,
 			isKudosEnabled,
-			teamCentralBaseUrl: this.props.resourceClient.getTeamCentralBaseUrl(),
+			teamCentralBaseUrl,
 			openKudosDrawer: this.openKudosDrawer,
 		};
 

@@ -51,11 +51,8 @@ export type Props = {
 	cols: number;
 	/** color of checkmark on selected color */
 	checkMarkColor?: string;
-	/** onChange handler deprecated */
-	onChangeOld?: (value: string, analyticsEvent?: UIAnalyticsEvent) => void;
-	// Set to required on FG cleanup platform_color_palette-expose-event
 	/** onChange handler */
-	onChange?: (
+	onChange: (
 		event: MouseEvent | KeyboardEvent,
 		value: string,
 		analyticsEvent?: UIAnalyticsEvent,
@@ -74,7 +71,6 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 	isInsideMenu = true,
 	createAnalyticsEvent,
 	onChange,
-	onChangeOld,
 	palette,
 	selectedColor,
 	checkMarkColor,
@@ -110,13 +106,8 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 
 	const colorCardRefs = useMemo<(ColorCardRef | null)[]>(() => [], []);
 
-	const handleChangeOld = (value: string) => {
-		onChangeOld?.(value, changeAnalyticsCaller());
-	};
-
 	const handleChange = (event: MouseEvent | KeyboardEvent, value: string) => {
-		// Set to required on FG cleanup platform_color_palette-expose-event
-		onChange?.(event, value, changeAnalyticsCaller());
+		onChange(event, value, changeAnalyticsCaller());
 	};
 
 	useEffect(() => {
@@ -186,9 +177,7 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 							checkMarkColor={checkMarkColor}
 							isOption
 							selected={value === selectedValue.value}
-							{...(fg('platform_color_palette-expose-event')
-								? { onClick: handleChange }
-								: { onClickOld: handleChangeOld })}
+							onClick={handleChange}
 							ref={(ref) => {
 								colorCardRefs[index] = ref;
 							}}

@@ -20,6 +20,6 @@ ${(
 
 ${state_description}
 
-${(<CardViewExample appearance="inline" frameStyle="show" />)}
+${(<CardViewExample appearance="inline" showAuthTooltip={true} showHoverPreview={true} />)}
 
 `;

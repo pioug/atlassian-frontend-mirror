@@ -36,19 +36,10 @@
 			"path": "tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+			"path": "../config-common-libs/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
 		}
 	]
 }

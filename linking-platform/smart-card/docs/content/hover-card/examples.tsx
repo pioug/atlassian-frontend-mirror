@@ -6,33 +6,56 @@ export default customMd`
 
 ### Default
 The default hover card will appear when hovering on children and disappear upon exiting the card boundary.
-The \`url\` prop must be included with a hover card in order to be rendered. The hover card must also be wrapped by a card provider. 
-A hover card will only display content if the card state is \`pending\`, \`unauthorized\` or \`resolved\`. 
+The \`url\` prop must be included with a hover card in order to be rendered.
+The hover card must also be wrapped by a card provider and react intl.
 
-In the below example, we are given some info about a YouTube video, an 'Open link in new tab' shortcut, and a 'Full screen view' action. The 'Full screen view'
-action will always open the page content as a modal.
 
 ${(
 	<CustomExample
-		Component={require('../../../examples/content/hover-card-atlassian-basic').default}
-		source={require('!!raw-loader!../../../examples/content/hover-card-atlassian-basic')}
-		background={true}
+		Component={require('../../../examples/content/hover-card').default}
+		source={require('!!raw-loader!../../../examples/content/hover-card')}
 	/>
 )}
 
+### Actions
+
+By default, the hover preview displays all the available Smart Links actions.
+\`actionOptions\` can be utilized to configure the Smart Link behaviour.
+
+* To conceal all actions, set the \`hide\` value to \`true\`.
+* To hide all actions except for a specific action, set \`hide\` to \`false\` and specify the actions to be excluded using \`exclude\`.
+
+For further details on each action, please see the [card actions](./card-actions).
+
+${(
+	<CustomExample
+		Component={require('../../../examples/content/hover-card-actions').default}
+		source={require('!!raw-loader!../../../examples/content/hover-card-actions')}
+	/>
+)}
+
+### Fade in delay
+
+Delay (in milliseconds) between hovering over the trigger element and the hover card opening.
+Defaults to 500ms.
+
+${(
+	<CustomExample
+		Component={require('../../../examples/content/hover-card-delay').default}
+		source={require('!!raw-loader!../../../examples/content/hover-card-delay')}
+	/>
+)}
+
+
 ### Can open
-Use the \`canOpen\` prop to block the hover card from opening when hovering on its children. If set to false while the hover card is open, 
-the hoverCard will be closed and blocked from opening again. 
 
-This prop will default to \`true\`.
-
-Use the checkbox below to see \`canOpen\` working.
+Use the \`canOpen\` prop to block the hover card from opening when hovering on its children. If set to false while the hover card is open,
+the hoverCard will be closed and blocked from opening again. This prop will default to \`true\`.
 
 ${(
 	<CustomExample
 		Component={require('../../../examples/content/hover-card-can-open').default}
 		source={require('!!raw-loader!../../../examples/content/hover-card-can-open')}
-		background={true}
 	/>
 )}
 
@@ -46,7 +69,6 @@ ${(
 	<CustomExample
 		Component={require('../../../examples/content/hover-card-close-on-child-click').default}
 		source={require('!!raw-loader!../../../examples/content/hover-card-close-on-child-click')}
-		background={true}
 	/>
 )}
 `;

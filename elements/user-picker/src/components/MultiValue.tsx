@@ -4,18 +4,20 @@
  */
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { components, type OptionType } from '@atlaskit/select';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { SizeableAvatar } from './SizeableAvatar';
 import { messages } from './i18n';
-import { getAvatarUrl, isEmail, isGroup } from './utils';
+import { getAvatarUrl, isEmail, isGroup, isTeam } from './utils';
 import { type Option, type UserPickerProps } from '../types';
 import PeopleIcon from '@atlaskit/icon/core/migration/people-group--people';
 import { type MultiValueProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
+import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const scrollToValue = (valueContainer: HTMLDivElement, control: HTMLElement) => {
 	const { top, height } = valueContainer.getBoundingClientRect();
@@ -122,7 +124,23 @@ export class MultiValue extends React.Component<Props> {
 			);
 		}
 
-		return <SizeableAvatar appearance="multi" src={getAvatarUrl(data)} />;
+		return (
+			<SizeableAvatar
+				appearance="multi"
+				src={getAvatarUrl(data)}
+				type={isTeam(data) && fg('verified-team-in-user-picker') ? 'team' : 'person'}
+			/>
+		);
+	};
+
+	getElemAfter = () => {
+		const {
+			data: { data },
+		} = this.props;
+		if (isTeam(data) && data.verified && fg('verified-team-in-user-picker')) {
+			return <VerifiedTeamIcon size="small" />;
+		}
+		return null;
 	};
 
 	render() {
@@ -134,7 +152,10 @@ export class MultiValue extends React.Component<Props> {
 				innerProps={{ ref: this.containerRef }}
 				cropWithEllipsis={false}
 			>
-				{this.getElemBefore()} <div css={nameWrapper}>{children}</div>
+				<Inline alignBlock="center">
+					{this.getElemBefore()} <div css={nameWrapper}>{children}</div>
+					{this.getElemAfter()}
+				</Inline>
 			</components.MultiValue>
 		);
 	}

@@ -31,13 +31,6 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__config-common-libs/app"
 	},
-	"references": [
-		{
-			"path": "../../design-system/primitives/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/tokens/tsconfig.app.json"
-		}
-	],
+	"references": [],
 	"files": []
 }

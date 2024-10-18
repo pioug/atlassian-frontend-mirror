@@ -50,6 +50,7 @@ export type TeamCentralCardClientOptions = CacheConfig & {
 };
 
 let isTCReadyPromiseMap: Map<string, Promise<boolean>> = new Map();
+const globalExperiencePromiseCache: Map<string, Promise<boolean>> = new Map();
 
 class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData> {
 	options: TeamCentralCardClientOptions;
@@ -64,11 +65,16 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	bypassOnFailure: boolean;
 	isTCReadyPromise: Promise<boolean>;
 
+	private isGlobalExperienceWorkspacePromise: Promise<boolean>;
+
 	constructor(options: TeamCentralCardClientOptions) {
 		super(options);
 		this.options = options;
 		this.bypassOnFailure = false;
 		this.isTCReadyPromise = this.createTcReadyPromise(options);
+		this.isGlobalExperienceWorkspacePromise = this.preloadIsGlobalExperienceWorkspace(
+			options.cloudId,
+		);
 	}
 
 	createTcReadyPromise(config: TeamCentralCardClientOptions): Promise<boolean> {
@@ -178,19 +184,71 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		);
 	}
 
+	getIsGlobalExperienceWorkspace() {
+		return this.isGlobalExperienceWorkspacePromise;
+	}
+
+	private preloadIsGlobalExperienceWorkspace(cloudId?: string) {
+		if (!fg('enable_ptc_sharded_townsquare_calls')) {
+			return Promise.resolve(false);
+		}
+
+		if (cloudId === undefined) {
+			return Promise.resolve(false);
+		}
+
+		const maybeIsGlobalExperienceWorkspaceForCloudIdPromise =
+			globalExperiencePromiseCache.get(cloudId);
+
+		if (maybeIsGlobalExperienceWorkspaceForCloudIdPromise !== undefined) {
+			return maybeIsGlobalExperienceWorkspaceForCloudIdPromise;
+		}
+
+		const isGlobalExperienceWorkspaceForCloudIdPromise =
+			this.isGlobalExperienceWorkspaceForCloudId(cloudId);
+
+		globalExperiencePromiseCache.set(cloudId, isGlobalExperienceWorkspaceForCloudIdPromise);
+
+		return isGlobalExperienceWorkspaceForCloudIdPromise;
+	}
+
 	private hasTCWorkspace(config: TeamCentralCardClientOptions) {
 		if (config.cloudId) {
-			const maybeShardedPath = fg('enable_ptc_sharded_townsquare_calls')
-				? `/townsquare/s/${config.cloudId}`
-				: '/watermelon';
+			const maybeShardedApiPath = this.getMaybeShardedApiPath(config.cloudId);
 			return fetch(
-				`/gateway/api${maybeShardedPath}/organization/containsAnyWorkspace?cloudId=${config.cloudId}`,
+				`${maybeShardedApiPath}/organization/containsAnyWorkspace?cloudId=${config.cloudId}`,
 			).then((res) => {
 				return !res || (res && res.ok);
 			});
 		} else {
 			return Promise.resolve(false);
 		}
+	}
+
+	private async isGlobalExperienceWorkspaceForCloudId(cloudId: string): Promise<boolean> {
+		const maybeShardedApiPath = this.getMaybeShardedApiPath(cloudId);
+		try {
+			const response = await fetch(
+				`${maybeShardedApiPath}/workspace/existsWithWorkspaceType?cloudId=${cloudId}`,
+				{
+					credentials: 'include',
+				},
+			);
+			if (response.ok) {
+				const workspaceType = await response.text();
+				return Promise.resolve(workspaceType === 'GLOBAL_EXPERIENCE');
+			}
+			return Promise.resolve(false);
+		} catch (err) {
+			return Promise.resolve(false);
+		}
+	}
+
+	private getMaybeShardedApiPath(cloudId: string) {
+		const maybeShardedPath = fg('enable_ptc_sharded_townsquare_calls')
+			? `/townsquare/s/${cloudId}`
+			: '/watermelon';
+		return `/gateway/api${maybeShardedPath}`;
 	}
 
 	private filterReportingLinesUser(users: ReportingLinesUser[] = []): ReportingLinesUser[] {

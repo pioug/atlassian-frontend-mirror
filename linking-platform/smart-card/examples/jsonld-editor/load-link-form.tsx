@@ -1,9 +1,12 @@
 import Button from '@atlaskit/button/new';
 import Form, { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common';
 import { Anchor, Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import Tooltip from '@atlaskit/tooltip';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
+
+const PROD_URLS = ['https://hello.atlassian.net', 'https://product-fabric.atlassian.net'];
 
 const tooltipAnchorStyles = xcss({
 	color: 'color.text.inverse',
@@ -42,12 +45,17 @@ const LoadLinkForm = ({
 	branchDeploy,
 }: {
 	error?: string;
-	onSubmit: (url: string, ari?: string, branchDeploy?: string) => void;
+	onSubmit: (url: string, ari?: string, branchDeploy?: string, envKey?: EnvironmentsKeys) => void;
 	branchDeploy?: string;
 }) => {
+	const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
+
 	const handleSubmit = useCallback(
 		(formState: { url: string; ari: string; branchDeploy: string }) => {
-			onSubmit(formState.url, formState.ari, formState.branchDeploy);
+			const envKey = PROD_URLS.some((prodUrl) => formState.url.startsWith(prodUrl))
+				? 'production'
+				: 'staging';
+			onSubmit(formState.url, formState.ari, formState.branchDeploy, envKey);
 		},
 		[onSubmit],
 	);
@@ -156,36 +164,45 @@ const LoadLinkForm = ({
 								</React.Fragment>
 							)}
 						</Field>
-						<Field label={ariLabel} name="ari" validate={validateAri} defaultValue="">
-							{({ fieldProps, error }: any) => (
-								<React.Fragment>
-									<Textfield {...fieldProps} />
-									{error === 'INCORRECT_ARI_FORMAT' && (
-										<ErrorMessage>Please enter a valid ARI.</ErrorMessage>
+						{showAdvancedOptions && (
+							<React.Fragment>
+								<Field label={ariLabel} name="ari" validate={validateAri} defaultValue="">
+									{({ fieldProps, error }: any) => (
+										<React.Fragment>
+											<Textfield {...fieldProps} />
+											{error === 'INCORRECT_ARI_FORMAT' && (
+												<ErrorMessage>Please enter a valid ARI.</ErrorMessage>
+											)}
+										</React.Fragment>
 									)}
-								</React.Fragment>
-							)}
-						</Field>
-						<Field
-							label="Branch deploy"
-							name="branchDeploy"
-							validate={validateBranchDeploy}
-							defaultValue={branchDeploy}
-						>
-							{({ fieldProps, error }: any) => (
-								<React.Fragment>
-									<Textfield {...fieldProps} />
-									{error === 'INCORRECT_BRANCH_DEPLOY_FORMAT' && (
-										<ErrorMessage>Please enter a valid Branch Deploy</ErrorMessage>
+								</Field>
+								<Field
+									label="Branch deploy"
+									name="branchDeploy"
+									validate={validateBranchDeploy}
+									defaultValue={branchDeploy}
+								>
+									{({ fieldProps, error }: any) => (
+										<React.Fragment>
+											<Textfield {...fieldProps} />
+											{error === 'INCORRECT_BRANCH_DEPLOY_FORMAT' && (
+												<ErrorMessage>Please enter a valid Branch Deploy</ErrorMessage>
+											)}
+										</React.Fragment>
 									)}
-								</React.Fragment>
-							)}
-						</Field>
+								</Field>
+							</React.Fragment>
+						)}
 						<HelperMessage>{helpMessageUrl}</HelperMessage>
 						<Box paddingBlockStart="space.100">
-							<Button type="submit" appearance="primary">
-								Load URL
-							</Button>
+							<Inline space="space.100">
+								<Button type="submit" appearance="primary">
+									Load URL
+								</Button>
+								<Button onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}>
+									Advanced
+								</Button>
+							</Inline>
 						</Box>
 					</Stack>
 				</form>

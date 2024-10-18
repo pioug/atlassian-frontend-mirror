@@ -71,6 +71,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 		];
 		sharedState: BlockControlsSharedState;
 		commands: {
+			moveToLayout: (start: number, to: number, position: 'left' | 'right') => EditorCommand;
 			moveNode: (
 				start: number,
 				to: number,

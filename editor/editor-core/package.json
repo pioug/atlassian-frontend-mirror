@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "198.6.7",
+	"version": "198.6.8",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -99,7 +99,7 @@
 		"@atlaskit/smart-card": "^30.1.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.4.0",
-		"@atlaskit/util-data-test": "^17.9.0",
+		"@atlaskit/util-data-test": "^17.11.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
@@ -298,6 +298,9 @@
 		"platform-visual-refresh-icons": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_advanced_layouts_pre_release_1": {
+			"type": "boolean"
 		}
 	},
 	"stricter": {

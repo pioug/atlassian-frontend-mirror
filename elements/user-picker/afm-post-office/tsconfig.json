@@ -33,6 +33,12 @@
       "path": "../../../design-system/lozenge/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../../people-and-teams/people-teams-ui-public/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/popper/afm-post-office/tsconfig.json"
     },
     {

@@ -108,7 +108,7 @@ export function simpleMockProfilecardClient(): ProfileClient {
 			});
 		},
 
-		getTeamCentralBaseUrl: () => 'teamCentralUrl',
+		getTeamCentralBaseUrl: () => Promise.resolve('teamCentralUrl'),
 
 		shouldShowGiveKudos: () => Promise.resolve(true),
 

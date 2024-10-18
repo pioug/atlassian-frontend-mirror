@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 198.6.8
+
+### Patch Changes
+
+- [#153270](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153270)
+  [`311428de27cbc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/311428de27cbc) -
+  [ux] [ED-25068] Implement inline drop zone and drop target (edge case excluded) behind FG
+
 ## 198.6.7
 
 ### Patch Changes

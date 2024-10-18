@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.9.0
+
+### Minor Changes
+
+- [#152883](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152883)
+  [`a7acb2e02ba15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a7acb2e02ba15) -
+  [ux] Background color for mark highlight changed, title is formatted in a better way
+
 ## 7.8.0
 
 ### Minor Changes

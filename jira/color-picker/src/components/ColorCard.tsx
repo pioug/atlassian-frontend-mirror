@@ -29,7 +29,6 @@ export interface Props {
 	type: ColorCardType;
 	value: string;
 	label: string;
-	onClickOld?: (value: string) => void;
 	onClick?: (event: React.MouseEvent | React.KeyboardEvent, value: string) => void;
 	onKeyDown?: KeyboardEventHandler<HTMLElement>;
 	checkMarkColor?: string;
@@ -56,7 +55,6 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 		checkMarkColor = N0,
 		isTabbing,
 		onClick,
-		onClickOld,
 		onKeyDown,
 	} = props;
 
@@ -70,27 +68,19 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 
 	const handleClick = useCallback(
 		(event: React.MouseEvent<HTMLDivElement>) => {
-			if (fg('platform_color_palette-expose-event')) {
-				if (onClick) {
-					event.preventDefault();
-					onClick(event, value);
-				}
-			} else {
-				if (onClickOld) {
-					event.preventDefault();
-					onClickOld(value);
-				}
+			if (onClick) {
+				event.preventDefault();
+				onClick(event, value);
 			}
 		},
-		[onClick, onClickOld, value],
+		[onClick, value],
 	);
 
 	const handleKeyDown = useCallback(
 		(event: React.KeyboardEvent<HTMLDivElement>) => {
 			if (
 				(isColorPaletteMenu || isTabbing === undefined || isTabbing) &&
-				((onClickOld && !fg('platform_color_palette-expose-event')) ||
-					(onClick && fg('platform_color_palette-expose-event'))) &&
+				onClick &&
 				(event.key === KEY_ENTER || event.key === KEY_SPACE)
 			) {
 				event.preventDefault();
@@ -99,8 +89,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 					event.stopPropagation();
 				}
 
-				// Remove optional call on FG cleanup platform_color_palette-expose-event
-				fg('platform_color_palette-expose-event') ? onClick?.(event, value) : onClickOld?.(value);
+				onClick(event, value);
 			}
 
 			if (isColorPaletteMenu) {
@@ -110,7 +99,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 				event.stopPropagation();
 			}
 		},
-		[isColorPaletteMenu, isTabbing, value, onClick, onClickOld, onKeyDown],
+		[isColorPaletteMenu, isTabbing, value, onClick, onKeyDown],
 	);
 
 	useImperativeHandle(

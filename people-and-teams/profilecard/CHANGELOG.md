@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 20.6.0
+
+### Minor Changes
+
+- [#153669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153669)
+  [`5f8a2c39f1282`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f8a2c39f1282) -
+  Fix links to go to home.a.c or team.a.c depending on the workspace type for profile card
+
 ## 20.5.0
 
 ### Minor Changes

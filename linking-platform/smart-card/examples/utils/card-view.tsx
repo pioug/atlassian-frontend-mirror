@@ -8,20 +8,21 @@ import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
 import { Card, type CardProps } from '@atlaskit/smart-card';
 import React, { Fragment } from 'react';
 
-export type CardViewProps = {
-	appearance: CardProps['appearance'];
-	client: ProviderProps['client'];
-	frameStyle?: CardProps['frameStyle'];
-	isSelected?: CardProps['isSelected'];
-	url?: CardProps['url'];
-	useLegacyBlockCard?: boolean;
-	/**
-	 * If this isn't specified, the card will only inherit the width of the parent and the height will be determined by the content.
-	 * Enabling this is required to test card content overflow issues.
-	 */
-	inheritDimensions?: boolean;
-	truncateInline?: boolean;
-};
+export type CardViewProps = CardProps & Pick<ProviderProps, 'client'>;
+// 	{
+// 	appearance: CardProps['appearance'];
+// 	client: ProviderProps['client'];
+// 	frameStyle?: CardProps['frameStyle'];
+// 	isSelected?: CardProps['isSelected'];
+// 	url?: CardProps['url'];
+// 	useLegacyBlockCard?: boolean;
+// 	/**
+// 	 * If this isn't specified, the card will only inherit the width of the parent and the height will be determined by the content.
+// 	 * Enabling this is required to test card content overflow issues.
+// 	 */
+// 	inheritDimensions?: boolean;
+// 	truncateInline?: boolean;
+// };
 
 const embedCardWrapperStyles = css({
 	width: '100%',

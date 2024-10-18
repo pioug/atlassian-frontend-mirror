@@ -156,5 +156,5 @@ export const ArticlesListItemLastModified = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-styled -- Ignored via go/DSP-18766
 export const ArticlesListItemDescriptionHighlight = styled.mark({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	color: token('color.background.accent.yellow.subtlest', colors.Y100),
+	backgroundColor: token('color.background.accent.yellow.subtlest', colors.Y100),
 });

@@ -50,11 +50,6 @@ const BASIC_PROPS: BasicProps = {
 	options: OPTIONS,
 };
 
-test('defaults > snapshot', () => {
-	const { container } = render(<Select />);
-	expect(container).toMatchSnapshot();
-});
-
 test('passes down the className prop', () => {
 	const { container } = render(<Select {...BASIC_PROPS} />);
 	expect(container.querySelector('.react-select')).toBeTruthy();

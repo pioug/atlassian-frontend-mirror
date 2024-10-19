@@ -43,6 +43,7 @@
 		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/ds-lib": "^3.1.0",
 		"@atlaskit/heading": "^2.4.0",
+		"@atlaskit/layering": "^0.6.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -98,6 +99,14 @@
 		},
 		"platform_dst_onboarding-bump-react-focus-lock": {
 			"type": "boolean"
+		},
+		"design-system-closed-all-when-click-outside": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"sibling-dropdown-close-issue": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"techstack": {

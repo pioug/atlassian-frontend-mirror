@@ -21,6 +21,7 @@ import { token } from '@atlaskit/tokens';
 
 import { formatDateTimeZoneIntoIso } from '../internal';
 import { DateTimePickerContainer } from '../internal/date-time-picker-container';
+import { componentWithCondition } from '../internal/ff-component';
 import { convertTokens } from '../internal/parse-tokens';
 import { type DateTimePickerBaseProps } from '../types';
 
@@ -28,7 +29,12 @@ import DatePickerOld from './date-picker-class';
 import DatePickerNew from './date-picker-fc';
 import TimePicker from './time-picker';
 
-const DatePicker = fg('dst-date-picker-use-functional-component') ? DatePickerNew : DatePickerOld;
+const DatePicker = componentWithCondition(
+	() => fg('dst-date-picker-use-functional-component'),
+	DatePickerNew,
+	DatePickerOld,
+);
+
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 

@@ -32,7 +32,7 @@ export const BackButtonContainer = styled.div({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const HeaderTitle = styled.h2({
+export const HeaderTitle = styled.h1({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text.subtle', colors.N500),
 	textAlign: 'center',

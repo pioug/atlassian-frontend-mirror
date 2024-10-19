@@ -33,9 +33,4 @@ describe('Checkbox Accessibility jest-axe', () => {
 		const { container } = render(<Checkbox {...props} isInvalid />);
 		await axe(container);
 	});
-
-	it('Sized Checkbox should not fail an aXe audit', async () => {
-		const { container } = render(<Checkbox {...props} size="large" />);
-		await axe(container);
-	});
 });

@@ -27,6 +27,9 @@
       "path": "../../heading/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../layering/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../modal-dialog/afm-post-office/tsconfig.json"
     },
     {

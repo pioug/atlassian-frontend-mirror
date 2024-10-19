@@ -9,8 +9,6 @@ import { jsx } from '@emotion/react';
 
 import PrimitiveSVGIcon from '@atlaskit/icon/svg';
 
-import type { Size } from '../types';
-
 function getIcon(isIndeterminate: boolean, isChecked: boolean) {
 	if (isIndeterminate) {
 		return <rect fill="inherit" x="8" y="11" width="8" height="2" rx="1" />;
@@ -38,16 +36,14 @@ function getIcon(isIndeterminate: boolean, isChecked: boolean) {
  * @internal
  */
 const CheckboxIcon = memo<{
-	size: Size;
 	isIndeterminate: boolean;
 	isChecked: boolean;
-}>(({ size, isIndeterminate, isChecked }) => {
+}>(({ isIndeterminate, isChecked }) => {
 	const icon = useMemo(() => getIcon(isIndeterminate, isChecked), [isIndeterminate, isChecked]);
 
 	return (
 		<PrimitiveSVGIcon
 			label=""
-			size={size}
 			primaryColor="var(--checkbox-background-color)"
 			secondaryColor="var(--checkbox-tick-color)"
 		>

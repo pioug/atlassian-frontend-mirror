@@ -215,7 +215,7 @@ const PDFRendererBase = ({
 		if (onSuccessRef.current) {
 			onSuccessRef.current();
 		}
-	}, [createAnalyticsEvent, docOutcome]);
+	}, [createAnalyticsEvent, docOutcome.status]);
 
 	const savePdfElement = (el: HTMLDivElement) => {
 		pdfWrapperRef.current = el;

@@ -9,6 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button, { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
 import Heading from '@atlaskit/heading';
+import { UNSAFE_useLayering } from '@atlaskit/layering';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -156,6 +157,7 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
 			headingId,
 		} = props;
 		const { Header = DefaultHeader, Footer = DefaultFooter } = components;
+		const { currentLevel } = UNSAFE_useLayering();
 
 		return (
 			<ButtonTheme.Provider value={spotlightButtonTheme}>
@@ -165,6 +167,9 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
 					style={{ width }}
 					ref={ref || innerRef}
 					testId={testId}
+					data-ds--level={currentLevel}
+					// temporarily use this data attribute to prevent clicking outside won't close spotlight correctly issue
+					data-ds--close--type="single"
 				>
 					{typeof image === 'string' ? <img css={imageStyles} src={image} alt="" /> : image}
 					<div css={bodyStyles}>

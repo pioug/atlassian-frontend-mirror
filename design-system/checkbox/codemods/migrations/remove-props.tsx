@@ -23,3 +23,5 @@ export const removeTheme = createRemoveFuncFor(
   were using theme to customise the size of the checkbox there is now a \`size\` prop.
   The appearance of Checkbox will have likely changed.`,
 );
+
+export const removeSize = createRemoveFuncFor('@atlaskit/checkbox', 'Checkbox', 'size');

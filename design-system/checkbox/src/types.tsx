@@ -3,8 +3,6 @@ import type React from 'react';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type StrictXCSSProp } from '@atlaskit/css';
 
-export type Size = 'medium' | 'large';
-
 /**
  *
  *
@@ -61,13 +59,6 @@ export type OwnProps = {
 	 * The value to be used in the checkbox input. This is the value that will be returned on form submission.
 	 */
 	value?: number | string;
-	/**
-	 * The size of the checkbox.
-	 *
-	 * @deprecated This will later be removed and all checkboxes will be size
-	 * `medium`.
-	 */
-	size?: Size;
 	/**
 	 * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
 	 * we have generated testid based on the one you pass to the Checkbox component:

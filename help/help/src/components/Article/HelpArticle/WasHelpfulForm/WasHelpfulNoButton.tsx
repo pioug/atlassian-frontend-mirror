@@ -42,7 +42,13 @@ export const ArticleWasHelpfulNoButton: React.FC<Props & WrappedComponentProps> 
 	};
 
 	return (
-		<Button onClick={handleButtonClick} isSelected={isSelected} aria-pressed={isSelected}>
+		<Button
+			onClick={handleButtonClick}
+			isSelected={isSelected}
+			aria-checked={isSelected}
+			role="radio"
+			tabIndex={0}
+		>
 			{formatMessage(messages.help_article_rating_option_no)}
 		</Button>
 	);

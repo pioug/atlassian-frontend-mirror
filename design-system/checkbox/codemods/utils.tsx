@@ -33,6 +33,18 @@ export function getNamedSpecifier(
 	return specifiers.nodes()[0]!.local!.name;
 }
 
+function getDefaultSpecifier(j: core.JSCodeshift, source: ReturnType<typeof j>, specifier: string) {
+	const specifiers = source
+		.find(j.ImportDeclaration)
+		.filter((path: ASTPath<ImportDeclaration>) => path.node.source.value === specifier)
+		.find(j.ImportDefaultSpecifier);
+
+	if (!specifiers.length) {
+		return null;
+	}
+	return specifiers.nodes()[0]!.local!.name;
+}
+
 export function getJSXAttributesByName(
 	j: core.JSCodeshift,
 	element: ASTPath<any>,
@@ -244,7 +256,9 @@ export const createRenameFuncFor =
 export const createRemoveFuncFor =
 	(component: string, importName: string, prop: string, comment?: string) =>
 	(j: core.JSCodeshift, source: Collection<Node>) => {
-		const specifier = getNamedSpecifier(j, source, component, importName);
+		const specifier =
+			getNamedSpecifier(j, source, component, importName) ||
+			getDefaultSpecifier(j, source, component);
 
 		if (!specifier) {
 			return;

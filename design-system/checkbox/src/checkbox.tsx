@@ -180,7 +180,6 @@ const Checkbox = memo(
 			isInvalid = false,
 			defaultChecked = false,
 			isIndeterminate = false,
-			size = 'medium',
 			onChange: onChangeProps,
 			analyticsContext,
 			label,
@@ -255,7 +254,7 @@ const Checkbox = memo(
 					data-testid={testId && `${testId}--hidden-checkbox`}
 					data-invalid={isInvalid ? 'true' : undefined}
 				/>
-				<CheckboxIcon size={size} isIndeterminate={isIndeterminate} isChecked={isChecked} />
+				<CheckboxIcon isIndeterminate={isIndeterminate} isChecked={isChecked} />
 				{label && (
 					<LabelText>
 						{label}

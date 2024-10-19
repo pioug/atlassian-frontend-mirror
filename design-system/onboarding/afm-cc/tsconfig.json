@@ -28,6 +28,9 @@
             "path": "../../heading/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../layering/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../modal-dialog/afm-cc/tsconfig.json"
         },
         {

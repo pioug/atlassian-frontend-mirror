@@ -1,5 +1,13 @@
 # @atlaskit/layering
 
+## 0.7.0
+
+### Minor Changes
+
+- [#154110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154110)
+  [`4daa6146379d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4daa6146379d2) -
+  The layer observer is no longer behind a feature flag.
+
 ## 0.6.0
 
 ### Minor Changes

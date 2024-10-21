@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 198.6.11
+
+### Patch Changes
+
+- [#154162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154162)
+  [`5982815965267`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5982815965267) -
+  Updated performanceTracking and inputSampling props to hardcoded values as we're removing this
+  feature flag
+
+## 198.6.10
+
+### Patch Changes
+
+- [#154110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154110)
+  [`3545ee83ab026`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3545ee83ab026) -
+  removed cleaned up FF from package.jsons
+
+## 198.6.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 198.6.8
 
 ### Patch Changes

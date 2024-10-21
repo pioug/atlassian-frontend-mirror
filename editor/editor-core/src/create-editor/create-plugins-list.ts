@@ -38,7 +38,6 @@ export function getDefaultPresetOptionsFromEditorProps(
 ): DefaultPresetPluginOptions & Omit<EditorPluginFeatureProps, 'placeholder'> {
 	const appearance = props.appearance;
 
-	const inputTracking = props.performanceTracking?.inputTracking;
 	const cardOptions = props.linking?.smartLinks || props.smartLinks || props.UNSAFE_cards;
 
 	return {
@@ -55,8 +54,6 @@ export function getDefaultPresetOptionsFromEditorProps(
 		base: {
 			allowInlineCursorTarget: true,
 			allowScrollGutter: getScrollGutterOptions(props),
-			inputTracking,
-			browserFreezeTracking: props.performanceTracking?.bFreezeTracking,
 			ufo: createFeatureFlagsFromProps(props).ufo,
 		},
 		blockType: {

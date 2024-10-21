@@ -36,6 +36,7 @@ export { DynamicConfig, EvaluationReason } from 'statsig-js-lite';
 export type {
 	AnalyticsWebClient,
 	BaseClientOptions,
+	CheckGateOptions,
 	ClientOptions,
 	CustomAttributes,
 	FromValuesClientOptions,

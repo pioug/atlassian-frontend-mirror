@@ -28,6 +28,23 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
 	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
 	closestElement: jest.fn(),
 }));
+jest.mock('@atlaskit/editor-plugin-base/src/utils/inputTrackingConfig', () => ({
+	inputTracking: {
+		enabled: true,
+		samplingRate: 1,
+		countNodes: true,
+		trackSeverity: true,
+		trackRenderingTime: false,
+		trackSingleKeypress: false,
+		severityDegradedThreshold: 300,
+		severityNormalThreshold: 100,
+	},
+}));
+jest.mock('@atlaskit/editor-core/src/utils/performance/components/RenderTracking.tsx', () => ({
+	...jest.requireActual<Object>(
+		'@atlaskit/editor-core/src/utils/performance/components/RenderTracking.tsx',
+	),
+}));
 
 const Editor = (props: any) => (
 	<div onClick={props.handleClick}>
@@ -78,7 +95,7 @@ describe('Editor click area handler', () => {
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 		jest.restoreAllMocks();
 	});
 

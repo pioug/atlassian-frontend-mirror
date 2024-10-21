@@ -3,12 +3,12 @@ import memoizeOne from 'memoize-one';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { CollabEditProvider, SyncUpErrorFunction } from '@atlaskit/editor-common/collab';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { pluginKey } from '../pm-plugins/main/plugin-key';
-import type { PrivateCollabEditOptions } from '../types';
+import type { CollabEditPlugin, PrivateCollabEditOptions } from '../types';
 
 import type { Cleanup } from './handlers';
 import { subscribe } from './handlers';
@@ -25,9 +25,10 @@ const initCollab = (collabEditProvider: CollabEditProvider, view: EditorView) =>
 const initNewCollab = (
 	collabEditProvider: CollabEditProvider,
 	view: EditorView,
+	editorApi?: ExtractInjectionAPI<CollabEditPlugin> | undefined,
 	onSyncUpError?: SyncUpErrorFunction,
 ) => {
-	collabEditProvider.setup({ getState: () => view.state, onSyncUpError });
+	collabEditProvider.setup({ getState: () => view.state, editorApi, onSyncUpError });
 };
 
 const initCollabMemo = memoizeOne(initCollab);
@@ -38,10 +39,18 @@ type Props = {
 	providerFactory: ProviderFactory;
 	featureFlags: FeatureFlags;
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined;
+	pluginInjectionApi?: ExtractInjectionAPI<CollabEditPlugin> | undefined;
 };
 
 export const initialize =
-	({ options, providerFactory, view, featureFlags, editorAnalyticsApi }: Props) =>
+	({
+		options,
+		providerFactory,
+		view,
+		featureFlags,
+		editorAnalyticsApi,
+		pluginInjectionApi,
+	}: Props) =>
 	(provider: CollabEditProvider) => {
 		let cleanup: Cleanup | undefined;
 		const pluginState = pluginKey.getState(view.state);
@@ -56,7 +65,7 @@ export const initialize =
 		if (options.useNativePlugin) {
 			// ED-13912 For NCS we don't want to use memoizeOne because it causes
 			// infinite text while changing page-width
-			initNewCollab(provider, view, options.onSyncUpError);
+			initNewCollab(provider, view, pluginInjectionApi, options.onSyncUpError);
 		} else {
 			/**
 			 * We only want to initialise once, if we reload/reconfigure this plugin

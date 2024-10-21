@@ -1,5 +1,19 @@
 # @atlaskit/teams-avatar
 
+## 1.1.4
+
+### Patch Changes
+
+- [#154149](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154149)
+  [`cc82c0612ae26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc82c0612ae26) -
+  React 18 compatibility
+
+## 1.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.2
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.23.0
+
+### Minor Changes
+
+- [#153668](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153668)
+  [`a6c96d74835d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6c96d74835d5) -
+  Added a flat config preset equivalents for included eslint configs
+- [#153712](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153712)
+  [`566eb89dd2b9f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/566eb89dd2b9f) -
+  Introducing new rule to warn the combination of separator and `as="li|ol|dl"`
+
 ## 10.22.1
 
 ### Patch Changes

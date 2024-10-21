@@ -1,12 +1,21 @@
 import fs from 'fs/promises';
 import { extname, join, relative } from 'path';
 
+// @ts-expect-error - this isn't declared in the types
+import { Legacy } from '@eslint/eslintrc';
+import type { Linter } from 'eslint';
 import camelCase from 'lodash/camelCase';
 import outdent from 'outdent';
 
 import format from '@af/formatting/sync';
 import type { LintRule } from '@atlaskit/eslint-utils/create-rule';
 import { createSignedArtifact } from '@atlassian/codegen';
+
+const { naming }: { naming: ESLintRCNaming } = Legacy;
+
+const packagePluginName = '@atlaskit/eslint-plugin-design-system';
+const pluginName = naming.getShorthandName(packagePluginName, 'eslint-plugin');
+const codegenCommand = `yarn workspace ${packagePluginName} codegen`;
 
 interface FoundRule {
 	module: LintRule;
@@ -23,6 +32,7 @@ interface FoundRule {
 interface GeneratedConfig {
 	name: string;
 	path: string;
+	flatPath: string;
 }
 
 /**
@@ -55,41 +65,50 @@ async function ruleDocsPath(name: string) {
  * Generates the preset config, eg. `src/presets/all.codegen.tsx` and `src/presets/recommended.codegen.tsx`
  */
 async function generatePresetConfig(name: 'all' | 'recommended', rules: FoundRule[]) {
-	const code = outdent`
+	const ruleConfig = rules.reduce<Linter.RulesRecord>((rulesRecord, rule) => {
+		if (rule.module.meta?.docs?.removeFromPresets !== true) {
+			const { severity, recommended, pluginConfig } = rule.module.meta?.docs ?? {};
+
+			// `recommended` is a snowflake at this stage ... it can be a string at runtime
+			// because of legacy `import { createRule } from 'utils/create-rule'` so we take
+			// into account this possibility (as a fallback) until everything is moved over
+			// to the new syntax
+			const calculatedSeverity =
+				severity ?? (typeof recommended === 'string' ? String(recommended) : 'error');
+
+			const ruleName = `${pluginName}/${rule.ruleName}`;
+
+			rulesRecord[ruleName] =
+				typeof pluginConfig === 'object' && pluginConfig
+					? [calculatedSeverity, pluginConfig]
+					: calculatedSeverity;
+		}
+
+		return rulesRecord;
+	}, {});
+
+	const legacyCode = outdent`
     export default {
-      plugins: ['@atlaskit/design-system'],
-      rules: {
-        ${rules
-					.filter((rule) => rule.module.meta?.docs?.removeFromPresets !== true)
-					.map((rule) => {
-						const { severity, recommended, pluginConfig } = rule.module.meta?.docs || {};
-
-						// `recommended` is a snowflake at this stage ... it can be a string at runtime
-						// because of legacy `import { createRule } from 'utils/create-rule'` so we take
-						// into account this possibility (as a fallback) until everything is moved over
-						// to the new syntax
-						const calculatedSeverity =
-							severity ?? (typeof recommended === 'string' ? String(recommended) : 'error');
-
-						const ruleName = `@atlaskit/design-system/${rule.ruleName}`;
-
-						if (typeof pluginConfig === 'object' && pluginConfig) {
-							return `'${ruleName}': ['${calculatedSeverity}', ${JSON.stringify(pluginConfig)}]`;
-						}
-
-						return `'${ruleName}': '${calculatedSeverity}'`;
-					})
-					.join(',')}
-      },
-    }
+      plugins: [ '${pluginName}' ],
+      rules: ${JSON.stringify(ruleConfig, null, 2)}
+    } as const;
   `;
 
-	const filepath = join(presetsDir, `${name}.codegen.tsx`);
-	await writeFile(filepath, code);
+	const flatCode = outdent`
+	export default {
+		// NOTE: The reference to this plugin is inserted dynamically while creating the plugin in \`index.codegen.tsx\`
+		plugins: {},
+		rules: ${JSON.stringify(ruleConfig, null, 2)}
+	} as const;
+	`;
+
+	await writeFile(join(presetsDir, `${name}.codegen.tsx`), format(legacyCode, 'typescript'));
+	await writeFile(join(presetsDir, `${name}-flat.codegen.tsx`), format(flatCode, 'typescript'));
 
 	generatedConfigs.push({
 		name: camelCase(name),
 		path: './' + relative(srcDir, join(presetsDir, `${name}.codegen`)),
+		flatPath: './' + relative(srcDir, join(presetsDir, `${name}-flat.codegen`)),
 	});
 }
 
@@ -101,10 +120,7 @@ async function writeFile(filepath: string, code: string) {
 		filepath,
 		extname(filepath).includes('.md')
 			? format(code, 'markdown')
-			: createSignedArtifact(
-					format(code, 'typescript'),
-					'yarn workspace @atlaskit/eslint-plugin-design-system codegen',
-				),
+			: createSignedArtifact(format(code, 'typescript'), codegenCommand),
 	);
 }
 
@@ -117,13 +133,13 @@ async function generateRuleIndex(rules: FoundRule[]) {
 			.map((rule) => `import ${camelCase(rule.moduleName)} from './${rule.moduleName}'`)
 			.join('\n')}
 
-    export default {
+    export const rules = {
     ${rules.map((rule) => `'${rule.ruleName}': ${camelCase(rule.moduleName)}`).join(',')}
     }
   `;
 
 	const filepath = join(rulesDir, 'index.codegen.tsx');
-	await writeFile(filepath, code);
+	await writeFile(filepath, format(code, 'typescript'));
 }
 
 /**
@@ -131,13 +147,49 @@ async function generateRuleIndex(rules: FoundRule[]) {
  */
 async function generatePluginIndex() {
 	const code = outdent`
-    ${generatedConfigs.map((config) => `import ${config.name} from '${config.path}'`).join('\n')}
+	${generatedConfigs
+		.flatMap((config) => [
+			`import ${config.name}Flat from '${config.flatPath}';`,
+			`import ${config.name} from '${config.path}';`,
+		])
+		.join('\n')}
+    	import { rules } from './rules/index.codegen';
 
-    export { default as rules } from './rules/index.codegen'
+		// this uses require because not all node versions this package supports use the same import assertions/attributes
+		const pkgJson = require('../package.json');
 
-    export const configs = {
-      ${generatedConfigs.map((config) => `${config.name}`).join(',')}
-    }
+		export const { version, name }: { name: string; version: string; } = pkgJson;
+
+		export const plugin = {
+			meta: {
+				name,
+				version,
+			},
+			rules,
+			// flat configs need to be done like this so they can get a reference to the plugin.
+			// see here: https://eslint.org/docs/latest/extend/plugins#configs-in-plugins
+			// they cannot use \`Object.assign\` because it will not work with the getter
+			configs: {
+				${generatedConfigs
+					.flatMap(
+						(config) => `${config.name}, '${config.name}/flat': {
+							...${config.name}Flat,
+							plugins: {
+								...${config.name}Flat.plugins,
+								get '${pluginName}'() {
+									return plugin;
+								}
+							}
+						}`,
+					)
+					.join(',')}
+			},
+		} as const;
+
+		export { rules } from './rules/index.codegen';
+		export const configs = plugin.configs;
+
+		export default plugin;
   `;
 
 	const filepath = join(srcDir, 'index.codegen.tsx');
@@ -223,7 +275,7 @@ async function generateRuleTable(filepath: string, linkTo: 'docs' | 'repo', rule
 		found[0],
 		outdent`
       <!-- START_RULE_TABLE_CODEGEN -->
-      <!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->
+      <!-- @codegenCommand ${codegenCommand} -->
       ${code}
       <!-- END_RULE_TABLE_CODEGEN -->
     `,
@@ -297,3 +349,25 @@ async function generate() {
 }
 
 generate();
+
+/**
+ * These are taken from here:
+ * https://github.com/eslint/eslintrc/blob/fc9837d3c4eb6c8c97bd5594fb72ea95b6e32ab8/lib/shared/naming.js
+ */
+interface ESLintRCNaming {
+	/**
+	 * Brings package name to correct format based on prefix
+	 * @param name The name of the package.
+	 * @param prefix Can be either "eslint-plugin", "eslint-config" or "eslint-formatter"
+	 * @returns Normalized name of the package
+	 */
+	normalizePackageName(name: string, prefix: string): string;
+
+	/**
+	 * Removes the prefix from a fullname.
+	 * @param fullname The term which may have the prefix.
+	 * @param prefix The prefix to remove.
+	 * @returns The term without prefix.
+	 */
+	getShorthandName(fullname: string, prefix: string): string;
+}

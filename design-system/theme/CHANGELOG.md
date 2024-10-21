@@ -1,5 +1,33 @@
 # @atlaskit/theme
 
+## 14.0.0
+
+### Major Changes
+
+- [#153471](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153471)
+  [`ed0f31dd83e14`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed0f31dd83e14) -
+  Removes deprecated elevation utilities in favor of tokens.
+
+  The following elevation utilities have been removed, please use the tokens instead:
+
+  ```diff
+  -import { elevation } from '@atlaskit/theme';
+  -import elevation from '@atlaskit/theme/elevation';
+  +import { N50A, N40A, N60A } from '@atlaskit/theme/colors';
+  +import { token } from '@atlaskit/tokens';
+
+  -elevation.e100();
+  +box-shadow: ${token( 'elevation.shadow.raised', `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`, )};
+  -elevation.e200();
+  +box-shadow: ${token( 'elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`, )};
+  -elevation.e300();
+  +box-shadow: ${token( 'elevation.shadow.overlay', `0 8px 16px -4px ${N50A}, 0 0 1px ${N60A}`, )};
+  -elevation.e400();
+  +box-shadow: ${token( 'elevation.shadow.overlay', `0 12px 24px -6px ${N50A}, 0 0 1px ${N60A}`, )};
+  -elevation.e500();
+  +box-shadow: ${token( 'elevation.shadow.overlay', `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`, )};
+  ```
+
 ## 13.1.0
 
 ### Minor Changes

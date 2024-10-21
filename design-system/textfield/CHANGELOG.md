@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 6.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.5.3
 
 ### Patch Changes

@@ -286,9 +286,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 */
 	setup({
 		getState,
+		editorApi,
 		onSyncUpError,
 	}: {
 		getState: () => EditorState;
+		editorApi?: any;
 		onSyncUpError?: SyncUpErrorFunction;
 	}): this {
 		this.checkForCookies();

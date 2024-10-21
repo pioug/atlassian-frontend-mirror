@@ -158,9 +158,9 @@ interface EditorBaseProps {
 	onCancel?: (editorView: EditorView) => void;
 
 	/**
+	 * @deprecated do not use, value is hardcoded. Can be mocked for tests. Config exists here: platform/packages/editor/editor-plugin-base/src/utils/inputTrackingConfig.ts
 	 * @description The nth keystroke after which an input time taken event is sent, 0 to disable it
 	 * @default 100
-	 * @deprecated Use performanceTracking.inputSampling instead https://product-fabric.atlassian.net/browse/ED-10260
 	 */
 	inputSamplingLimit?: number;
 
@@ -232,6 +232,7 @@ export interface EditorSharedPropsWithPlugins {
 	onSave?: (editorView: EditorView) => void;
 
 	/**
+	 * @deprecated do not use, value is hardcoded. Can be mocked for tests. Config exists here: platform/packages/editor/editor-plugin-base/src/utils/inputTrackingConfig.ts
 	 * @description Control performance metric measurements and tracking
 	 */
 	performanceTracking?: PerformanceTracking;

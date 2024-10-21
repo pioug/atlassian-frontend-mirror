@@ -1,6 +1,6 @@
 jest.autoMockOff();
 
-import transformer from '../next-size-removal';
+import transformer from '../15.0.0-size-removal';
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 

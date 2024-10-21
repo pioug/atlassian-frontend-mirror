@@ -2,11 +2,13 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/anal
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { type PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import type { Mark } from '@atlaskit/editor-prosemirror/model';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { collab } from '@atlaskit/prosemirror-collab';
+import { collab, getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 
 import { addSynchronyErrorAnalytics } from './analytics';
 import { sendTransaction } from './events/send-transaction';
@@ -77,6 +79,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
 	let providerResolver: (value: CollabEditProvider) => void = () => {};
+	const editorViewRef: Record<'current', EditorView | null> = { current: null };
 	const collabEditProviderPromise: Promise<CollabEditProvider> = new Promise(
 		(_providerResolver) => {
 			providerResolver = _providerResolver;
@@ -129,6 +132,27 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 			addInlineCommentNodeMark: createAddInlineCommentNodeMark(collabEditProviderPromise),
 			isRemoteReplaceDocumentTransaction: (tr: Transaction) =>
 				tr.getMeta('isRemote') && tr.getMeta('replaceDocument'),
+			getCurrentCollabState: () => {
+				const adfDocument = new JSONTransformer().encode(editorViewRef.current!.state!.doc);
+				return {
+					content: adfDocument,
+					version: getCollabState(editorViewRef.current!.state)?.version || 0,
+					sendableSteps: sendableSteps(editorViewRef.current!.state),
+				};
+			},
+			validatePMJSONDocument: (doc: any) => {
+				const content: Array<PMNode> = (doc.content || []).map((child: any) =>
+					editorViewRef.current!.state!.schema.nodeFromJSON(child),
+				);
+				return content.every((node) => {
+					try {
+						node.check(); // this will throw an error if the node is invalid
+					} catch (error) {
+						return false;
+					}
+					return true;
+				});
+			},
 		},
 
 		pmPlugins() {

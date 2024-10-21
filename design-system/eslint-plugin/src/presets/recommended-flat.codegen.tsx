@@ -1,20 +1,16 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::47f018ad98455be31dc522bcf5360adf>>
+ * @codegen <<SignedSource::9c6dda34a88386c4fa5b931ab4baf929>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 export default {
-	plugins: ['@atlaskit/design-system'],
+	// NOTE: The reference to this plugin is inserted dynamically while creating the plugin in `index.codegen.tsx`
+	plugins: {},
 	rules: {
 		'@atlaskit/design-system/consistent-css-prop-usage': 'error',
 		'@atlaskit/design-system/ensure-design-token-usage': 'error',
-		'@atlaskit/design-system/ensure-design-token-usage/preview': 'warn',
-		'@atlaskit/design-system/ensure-icon-color': 'error',
 		'@atlaskit/design-system/icon-label': 'warn',
 		'@atlaskit/design-system/no-banned-imports': 'error',
-		'@atlaskit/design-system/no-css-tagged-template-expression': 'error',
-		'@atlaskit/design-system/no-custom-icons': 'warn',
-		'@atlaskit/design-system/no-dark-theme-vr-tests': 'error',
 		'@atlaskit/design-system/no-deprecated-apis': 'error',
 		'@atlaskit/design-system/no-deprecated-design-token-usage': 'warn',
 		'@atlaskit/design-system/no-deprecated-imports': 'error',
@@ -27,31 +23,20 @@ export default {
 				allowedFunctionCalls: [['@atlaskit/tokens', 'token']],
 			},
 		],
-		'@atlaskit/design-system/no-keyframes-tagged-template-expression': 'error',
-		'@atlaskit/design-system/no-legacy-icons': 'warn',
-		'@atlaskit/design-system/no-margin': 'warn',
 		'@atlaskit/design-system/no-nested-styles': 'error',
-		'@atlaskit/design-system/no-physical-properties': 'error',
 		'@atlaskit/design-system/no-separator-with-list-elements': 'warn',
-		'@atlaskit/design-system/no-styled-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-unsafe-design-token-usage': 'error',
 		'@atlaskit/design-system/no-unsafe-style-overrides': 'warn',
 		'@atlaskit/design-system/no-unsupported-drag-and-drop-libraries': 'error',
-		'@atlaskit/design-system/prefer-primitives': 'warn',
 		'@atlaskit/design-system/use-button-group-label': 'warn',
 		'@atlaskit/design-system/use-drawer-label': 'warn',
-		'@atlaskit/design-system/use-heading': 'warn',
 		'@atlaskit/design-system/use-heading-level-in-spotlight-card': 'warn',
 		'@atlaskit/design-system/use-href-in-link-item': 'warn',
 		'@atlaskit/design-system/use-latest-xcss-syntax': 'error',
 		'@atlaskit/design-system/use-latest-xcss-syntax-typography': 'warn',
 		'@atlaskit/design-system/use-menu-section-title': 'warn',
 		'@atlaskit/design-system/use-popup-label': 'warn',
-		'@atlaskit/design-system/use-primitives': 'warn',
-		'@atlaskit/design-system/use-primitives-text': 'warn',
 		'@atlaskit/design-system/use-tag-group-label': 'warn',
-		'@atlaskit/design-system/use-tokens-space': 'error',
-		'@atlaskit/design-system/use-tokens-typography': 'warn',
 		'@atlaskit/design-system/use-visually-hidden': 'error',
 	},
 } as const;

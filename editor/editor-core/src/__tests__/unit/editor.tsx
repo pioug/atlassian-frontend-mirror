@@ -324,7 +324,6 @@ describe(`Editor`, () => {
 		});
 		const mockAnalyticsClient = (
 			analyticsAppearance: EDITOR_APPEARANCE_CONTEXT,
-			done: jest.DoneCallback,
 		): AnalyticsWebClient => {
 			const analyticsEventHandler = (event: GasPurePayload | GasPureScreenEventPayload) => {
 				expect(event.attributes).toMatchObject({
@@ -333,7 +332,6 @@ describe(`Editor`, () => {
 					packageVersion,
 					componentName: 'editorCore',
 				});
-				done();
 			};
 
 			return analyticsClient(analyticsEventHandler);
@@ -357,13 +355,11 @@ describe(`Editor`, () => {
 			},
 		];
 		appearances.forEach((appearance) => {
-			it(`adds appearance analytics context to all editor events for ${appearance.appearance} editor`, (done) => {
+			it(`adds appearance analytics context to all editor events for ${appearance.appearance} editor`, () => {
 				// editor fires an editor started event that should trigger the listener from
 				// just mount the component
 				render(
-					<FabricAnalyticsListeners
-						client={mockAnalyticsClient(appearance.analyticsAppearance, done)}
-					>
+					<FabricAnalyticsListeners client={mockAnalyticsClient(appearance.analyticsAppearance)}>
 						<Editor appearance={appearance.appearance} allowAnalyticsGASV3 />
 					</FabricAnalyticsListeners>,
 				);
@@ -383,7 +379,7 @@ describe(`Editor`, () => {
 
 			rerender(
 				<FabricAnalyticsListeners
-					client={mockAnalyticsClient(EDITOR_APPEARANCE_CONTEXT.FULL_WIDTH, done)}
+					client={mockAnalyticsClient(EDITOR_APPEARANCE_CONTEXT.FULL_WIDTH)}
 				>
 					<Editor appearance="full-width" allowAnalyticsGASV3 />
 				</FabricAnalyticsListeners>,
@@ -414,39 +410,6 @@ describe(`Editor`, () => {
 							allowAnalyticsGASV3={true}
 							// If no onEditorReady callback is given, the analytics event is not sent.
 							onEditorReady={() => {}}
-							performanceTracking={{
-								onEditorReadyCallbackTracking: { enabled: true },
-							}}
-						/>
-					</FabricAnalyticsListeners>,
-				);
-			});
-			it('should not dispatch an onEditorReadyCallback event if disabled', (done) => {
-				const mockAnalyticsClient = (): AnalyticsWebClient => {
-					const analyticsEventHandler = (event: GasPurePayload | GasPureScreenEventPayload) => {
-						expect(event).not.toEqual(
-							expect.objectContaining({
-								action: 'onEditorReadyCallback',
-								actionSubject: 'editor',
-								attributes: expect.objectContaining({
-									// Check the duration (in this case supplied by the mock) is sent correctly
-									duration: mockStopMeasureDuration,
-								}),
-							}),
-						);
-						done();
-					};
-					return analyticsClient(analyticsEventHandler);
-				};
-				render(
-					<FabricAnalyticsListeners client={mockAnalyticsClient()}>
-						<Editor
-							allowAnalyticsGASV3={true}
-							// If no onEditorReady callback is given, the analytics event is not sent.
-							onEditorReady={() => {}}
-							performanceTracking={{
-								onEditorReadyCallbackTracking: { enabled: false },
-							}}
 						/>
 					</FabricAnalyticsListeners>,
 				);

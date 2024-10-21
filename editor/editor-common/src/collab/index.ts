@@ -454,7 +454,11 @@ export type SyncUpErrorFunction = (attributes: NewCollabSyncUpErrorAttributes) =
 export interface CollabEditProvider<Events extends CollabEvents = CollabEvents> {
 	initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: deprecate this
 
-	setup(props: { getState?: () => EditorState; onSyncUpError?: SyncUpErrorFunction }): this;
+	setup(props: {
+		getState?: () => EditorState;
+		editorApi?: any;
+		onSyncUpError?: SyncUpErrorFunction;
+	}): this;
 
 	send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
 

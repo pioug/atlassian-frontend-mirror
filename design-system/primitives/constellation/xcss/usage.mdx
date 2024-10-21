@@ -141,21 +141,21 @@ const someStyles = xcss({
 	// This is okay, since media queries can contain pseudos
 	[media.above.md]: {
 		':hover': {
-			backgroundColor: 'color.background.primary.hovered',
+			backgroundColor: 'color.background.neutral.hovered',
 		},
 	},
 
 	// This is not okay, we don't allow pseudos to contain media queries
 	':hover': {
 		[media.above.md]: {
-			backgroundColor: 'color.background.primary.hovered',
+			backgroundColor: 'color.background.neutral.hovered',
 		},
 	},
 
 	// This is not okay, since media queries can't contain media queries
 	[media.above.md]: {
 		[media.above.xs]: {
-			backgroundColor: 'color.background.primary.hovered',
+			backgroundColor: 'color.background.neutral.hovered',
 		},
 	},
 });

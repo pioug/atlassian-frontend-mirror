@@ -44,6 +44,19 @@ jest.mock('@atlaskit/editor-common/performance/measure-render', () => ({
 	}),
 }));
 
+jest.mock('@atlaskit/editor-plugin-base/src/utils/inputTrackingConfig', () => ({
+	inputTracking: {
+		enabled: true,
+		samplingRate: 1,
+		countNodes: true,
+		trackSeverity: true,
+		trackRenderingTime: false,
+		trackSingleKeypress: false,
+		severityDegradedThreshold: 3000,
+		severityNormalThreshold: 2000,
+	},
+}));
+
 const mockStore = {
 	get: jest.fn(),
 	getAll: jest.fn(),
@@ -277,21 +290,6 @@ describe('@atlaskit/editor-core', () => {
 			wrapper.unmount();
 		});
 
-		it('should NOT trigger editor started analytics event if startedTracking is disabled in performanceTracking flag', () => {
-			const wrapper = mountWithIntl(
-				<ReactEditorView
-					{...requiredProps()}
-					{...analyticsProps()}
-					editorProps={{
-						performanceTracking: { startedTracking: { enabled: false } },
-					}}
-				/>,
-			);
-
-			expect(mockFire).toHaveBeenCalledTimes(0);
-			wrapper.unmount();
-		});
-
 		it('triggers ACTION.UFO_SESSION_COMPLETE analytics with predefined interval when ufo enabled', () => {
 			jest.useFakeTimers();
 			const wrapper = mountWithIntl(
@@ -483,7 +481,7 @@ describe('@atlaskit/editor-core', () => {
 				const performanceNowFixedTime = 100;
 				let wrapper: ReactWrapper;
 
-				const setupEditor = (performanceTracking?: EditorProps['performanceTracking']) => {
+				const setupEditor = () => {
 					let validTr;
 					wrapper = mountWithIntl(
 						<ReactEditorView
@@ -492,7 +490,6 @@ describe('@atlaskit/editor-core', () => {
 							editorProps={{
 								allowDate: true,
 								...analyticsProps(),
-								performanceTracking,
 								onChange: () => {}, // For testing onChange analytics
 							}}
 						/>,
@@ -536,9 +533,7 @@ describe('@atlaskit/editor-core', () => {
 				});
 
 				it(`doesn't send onChange analytics event when TransactionTracking not enabled`, () => {
-					const { dispatchValidTransactionNthTimes } = setupEditor({
-						onChangeCallbackTracking: { enabled: true },
-					});
+					const { dispatchValidTransactionNthTimes } = setupEditor();
 					dispatchValidTransactionNthTimes(1);
 					const onChangeEvents = (mockFire as jest.Mock).mock.calls.filter(
 						(mockCall) => mockCall[0].payload.action === 'onChangeCalled',
@@ -547,10 +542,7 @@ describe('@atlaskit/editor-core', () => {
 				});
 
 				it('sends onChange analytics event when enabled and TransactionTracking enabled', () => {
-					const { dispatchValidTransactionNthTimes } = setupEditor({
-						transactionTracking: { enabled: true, samplingRate: 1 },
-						onChangeCallbackTracking: { enabled: true },
-					});
+					const { dispatchValidTransactionNthTimes } = setupEditor();
 					dispatchValidTransactionNthTimes(1);
 					const onChangeEvents = (mockFire as jest.Mock).mock.calls.filter(
 						(mockCall) => mockCall[0].payload.action === 'onChangeCalled',
@@ -662,9 +654,7 @@ describe('@atlaskit/editor-core', () => {
 			});
 
 			it('does not send V3 analytics event if transaction tracking is explicitly disabled on performanceTracking flag', () => {
-				setupEditor({
-					performanceTracking: { transactionTracking: { enabled: false } },
-				});
+				setupEditor();
 				const analyticsEventPayload: AnalyticsEventPayload = {
 					action: ACTION.CLICKED,
 					actionSubject: ACTION_SUBJECT.BUTTON,
@@ -1016,9 +1006,6 @@ describe('@atlaskit/editor-core', () => {
 									{...requiredProps()}
 									editorProps={{
 										featureFlags: { ufo: true },
-										performanceTracking: {
-											transactionTracking: { enabled: true, samplingRate: 1 },
-										},
 										onChange: () => {},
 										allowDate: true,
 									}}
@@ -1058,9 +1045,6 @@ describe('@atlaskit/editor-core', () => {
 						it('fails interaction experience if an invalid transaction is applied', async () => {
 							const editorProps = {
 								featureFlags: { ufo: true },
-								performanceTracking: {
-									transactionTracking: { enabled: true, samplingRate: 1 },
-								},
 								onChange: () => {},
 								allowDate: true,
 							};
@@ -1092,14 +1076,7 @@ describe('@atlaskit/editor-core', () => {
 				describe('when feature flag not enabled', () => {
 					it("doesn't start new interaction experience", async () => {
 						const wrapper = mountWithIntl(
-							<ReactEditorView
-								{...requiredProps()}
-								editorProps={{
-									performanceTracking: {
-										transactionTracking: { enabled: true, samplingRate: 1 },
-									},
-								}}
-							/>,
+							<ReactEditorView {...requiredProps()} editorProps={{}} />,
 						);
 						await flushPromises();
 
@@ -1381,15 +1358,8 @@ describe('@atlaskit/editor-core', () => {
 			(measureRender as any).mockImplementationOnce((name: any, callback: any) => {
 				callback && callback({ duration: threshold, startTime: 1 });
 			});
-			const editorProps = {
-				performanceTracking: {
-					proseMirrorRenderedTracking: {
-						trackSeverity: true,
-						severityNormalThreshold: PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
-						severityDegradedThreshold: PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
-					},
-				},
-			};
+
+			const editorProps = {};
 
 			const wrapper = mountWithIntl(
 				<ReactEditorView

@@ -128,66 +128,6 @@ const editorProps: EditorProps = {
 		'valid-transactions-tracking': '{"samplingRate":300}',
 		'sticky-scrollbar': false,
 	},
-	performanceTracking: {
-		pasteTracking: {
-			enabled: true,
-		},
-		bFreezeTracking: {
-			trackInteractionType: true,
-			trackSeverity: true,
-		},
-		contentRetrievalTracking: {
-			successSamplingRate: 5,
-			failureSamplingRate: 1,
-			reportErrorStack: false,
-			enabled: true,
-		},
-		onEditorReadyCallbackTracking: {
-			enabled: true,
-		},
-		inputTracking: {
-			trackSeverity: true,
-			severityDegradedThreshold: 273,
-			samplingRate: 100,
-			countNodes: true,
-			severityNormalThreshold: 143,
-			enabled: true,
-		},
-		renderTracking: {
-			editor: {
-				useShallow: false,
-				enabled: true,
-			},
-			reactEditorView: {
-				useShallow: true,
-				enabled: true,
-			},
-		},
-		uiTracking: {
-			samplingRate: 100,
-			enabled: true,
-		},
-		ttiTracking: {
-			trackSeverity: true,
-			ttiIdleThreshold: 0,
-			ttiSeverityNormalThreshold: 8000,
-			ttiSeverityDegradedThreshold: 10000,
-			ttiFromInvocationSeverityDegradedThreshold: 7813,
-			ttiFromInvocationSeverityNormalThreshold: 4804,
-			enabled: true,
-		},
-		transactionTracking: {
-			usePerformanceMarks: true,
-			samplingRate: 100,
-			enabled: true,
-		},
-		onChangeCallbackTracking: {
-			enabled: true,
-		},
-		catchAllTracking: {
-			enabled: false,
-		},
-	},
 	sanitizePrivateContent: true,
 	media: {
 		allowMediaSingle: true,

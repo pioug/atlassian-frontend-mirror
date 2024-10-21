@@ -81,13 +81,6 @@ const enableDropZone = [
 	'blockCard',
 ];
 
-const fullHeightStyle = css({
-	top: '4px',
-	bottom: '4px',
-	height: 'unset',
-	zIndex: 10,
-});
-
 // This z index is used in container like layout
 const fullHeightStyleAdjustZIndexStyle = css({
 	zIndex: 0,
@@ -129,6 +122,8 @@ const HoverZone = ({
 		}
 	}, [onDragEnter, onDragLeave, onDrop]);
 
+	const isRemainingheight = dropTargetStyle === 'remainingHeight';
+
 	const hoverZoneUpperStyle = useMemo(() => {
 		const anchorName = node ? getNodeAnchor(node) : '';
 		const heightStyleOffset = `var(--editor-block-controls-drop-indicator-gap, 0)/2`;
@@ -156,13 +151,54 @@ const HoverZone = ({
 		});
 	}, [anchorRectCache, editorWidth, node, position]);
 
-	const isFullHeight = useMemo(() => {
-		return dropTargetStyle === 'fullHeight';
-	}, [dropTargetStyle]);
+	/**
+	 * 1. Above the last empty line
+	 * 2. Below the last element
+	 *
+	 * Both cases will take the remaining height of the the container
+	 */
+	const heightStyle = useMemo(() => {
+		// only apply upper drop zone
+		if (isRemainingheight && position === 'upper') {
+			// previous node
+			const anchorName = node ? getNodeAnchor(node) : '';
 
-	const isFullHeightInLayout = useMemo(() => {
-		return isFullHeight && parent?.type.name === 'layoutColumn';
-	}, [isFullHeight, parent?.type.name]);
+			let top = 'unset';
+			if (anchorName) {
+				const enabledDropZone = enableDropZone.includes(node?.type.name || '');
+				if (isAnchorSupported()) {
+					top = enabledDropZone
+						? `calc(anchor(${anchorName} 50%))`
+						: `calc(anchor(${anchorName} bottom) - 4px)`;
+				} else if (anchorRectCache) {
+					const preNodeTopPos = anchorRectCache.getTop(anchorName) || 0;
+					const prevNodeHeight = anchorRectCache.getHeight(anchorName) || 0;
+
+					top = enabledDropZone
+						? `calc(${preNodeTopPos}px + ${prevNodeHeight / 2}px)`
+						: `calc(${preNodeTopPos}px + ${prevNodeHeight}px - 4px)`;
+				} else {
+					// Should not happen
+					return null;
+				}
+			} else {
+				// first empty paragraph
+				top = '4px';
+			}
+
+			return css({
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				top: top,
+				bottom: '4px',
+				height: 'unset',
+				zIndex: 10,
+				transform: 'none',
+			});
+		}
+		return null;
+	}, [anchorRectCache, isRemainingheight, node, position]);
+
+	const isFullHeightInLayout = isRemainingheight && parent?.type.name === 'layoutColumn';
 
 	return (
 		<div
@@ -176,7 +212,8 @@ const HoverZone = ({
 				isNestedDropTarget && nestedDropZoneStyle,
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				hoverZoneUpperStyle,
-				isFullHeight && fullHeightStyle,
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				heightStyle,
 				isFullHeightInLayout && fullHeightStyleAdjustZIndexStyle,
 			]}
 		/>
@@ -192,7 +229,7 @@ export const DropTargetV2 = (props: DropTargetProps & { anchorRectCache?: Anchor
 		parentNode,
 		formatMessage,
 		anchorRectCache,
-		dropTargetStyle,
+		dropTargetStyle = 'default',
 	} = props;
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 
@@ -215,8 +252,6 @@ export const DropTargetV2 = (props: DropTargetProps & { anchorRectCache?: Anchor
 		}
 	};
 
-	const isFullHeight = dropTargetStyle === 'fullHeight';
-
 	const dynamicStyle = {
 		width: isNestedDropTarget ? 'unset' : '100%',
 		[EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH]: isNestedDropTarget
@@ -232,18 +267,17 @@ export const DropTargetV2 = (props: DropTargetProps & { anchorRectCache?: Anchor
 
 	return (
 		<Fragment>
-			{!isFullHeight && (
-				<HoverZone
-					onDragEnter={() => setIsDraggedOver(true)}
-					onDragLeave={() => setIsDraggedOver(false)}
-					onDrop={onDrop}
-					node={prevNode}
-					editorWidth={widthState?.lineLength}
-					anchorRectCache={anchorRectCache}
-					position="upper"
-					isNestedDropTarget={isNestedDropTarget}
-				/>
-			)}
+			<HoverZone
+				onDragEnter={() => setIsDraggedOver(true)}
+				onDragLeave={() => setIsDraggedOver(false)}
+				onDrop={onDrop}
+				node={prevNode}
+				editorWidth={widthState?.lineLength}
+				anchorRectCache={anchorRectCache}
+				position="upper"
+				isNestedDropTarget={isNestedDropTarget}
+				dropTargetStyle={dropTargetStyle}
+			/>
 			<div
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				css={[styleDropTarget, isNestedDropTarget && nestedDropIndicatorStyle]}
@@ -260,18 +294,20 @@ export const DropTargetV2 = (props: DropTargetProps & { anchorRectCache?: Anchor
 					)
 				}
 			</div>
-			<HoverZone
-				onDragEnter={() => setIsDraggedOver(true)}
-				onDragLeave={() => setIsDraggedOver(false)}
-				onDrop={onDrop}
-				node={nextNode}
-				parent={parentNode}
-				editorWidth={widthState?.lineLength}
-				anchorRectCache={anchorRectCache}
-				position="lower"
-				isNestedDropTarget={isNestedDropTarget}
-				dropTargetStyle={dropTargetStyle}
-			/>
+			{dropTargetStyle !== 'remainingHeight' && (
+				<HoverZone
+					onDragEnter={() => setIsDraggedOver(true)}
+					onDragLeave={() => setIsDraggedOver(false)}
+					onDrop={onDrop}
+					node={nextNode}
+					parent={parentNode}
+					editorWidth={widthState?.lineLength}
+					anchorRectCache={anchorRectCache}
+					position="lower"
+					isNestedDropTarget={isNestedDropTarget}
+				/>
+			)}
+
 			{shouldAllowInlineDropTarget(isNestedDropTarget, nextNode) && (
 				<Fragment>
 					<InlineDropTarget {...props} position="left" />

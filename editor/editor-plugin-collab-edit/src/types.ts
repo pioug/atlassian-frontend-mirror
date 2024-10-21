@@ -6,6 +6,7 @@ import type {
 	SyncUpErrorFunction,
 } from '@atlaskit/editor-common/collab';
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -57,6 +58,13 @@ export type TrackSpammingStepsMetadata = {
 	recentTransactionsTimestemps: Map<string, { timestamp: number; steps: Step[] }>;
 };
 
+export type CollabSendableSteps = {
+	version: number;
+	steps: readonly Step[];
+	clientID: number | string;
+	origins: readonly Transaction[];
+};
+
 export type CollabEditPluginSharedState = {
 	initialised: CollabInitializedMetadata & LastOrganicChangeMetadata;
 	activeParticipants: ReadOnlyParticipants | undefined;
@@ -78,6 +86,12 @@ export type CollabEditPlugin = NextEditorPlugin<
 			addInlineCommentMark: (props: { from: number; to: number; mark: Mark }) => boolean;
 			addInlineCommentNodeMark: (props: { pos: number; mark: Mark }) => boolean;
 			isRemoteReplaceDocumentTransaction: (tr: Transaction) => boolean;
+			getCurrentCollabState: () => {
+				version: number | undefined;
+				sendableSteps: CollabSendableSteps | undefined | null;
+				content: JSONNode | undefined;
+			};
+			validatePMJSONDocument: (doc: any) => boolean;
 		};
 	}
 >;

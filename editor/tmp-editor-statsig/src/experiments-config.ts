@@ -295,4 +295,14 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2024-10-21
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_live_pages_ai_definitions/setup
+	platform_editor_live_pages_ai_definitions: {
+		productKeys: {
+			confluence: 'platform_editor_live_pages_ai_definitions',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'test']),
+		defaultValue: 'control' as 'control' | 'test',
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

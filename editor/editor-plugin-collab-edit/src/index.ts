@@ -6,4 +6,5 @@ export type {
 	ReadOnlyParticipants,
 	PrivateCollabEditOptions,
 	CollabInviteToEditProps,
+	CollabSendableSteps,
 } from './types';

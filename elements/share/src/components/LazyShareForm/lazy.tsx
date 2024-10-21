@@ -2,11 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type FunctionComponent } from 'react';
+import React, { type FunctionComponent, lazy, Suspense } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import Spinner from '@atlaskit/spinner';
 
@@ -22,13 +21,12 @@ const spinnerWrapperStyles = css({
 	alignContent: 'center',
 });
 
-const LazyShareFormLazy = lazyForPaint<FunctionComponent<LazyShareFormProps>>(
+const LazyShareFormLazy = lazy<FunctionComponent<LazyShareFormProps>>(
 	() =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_share-form" */
 			'./LazyShareForm'
 		),
-	{ ssr: false },
 );
 
 type LoadingDialog = Pick<
@@ -63,7 +61,7 @@ const LoadingDialog: React.FC<LoadingDialog> = ({
 };
 
 export default (props: LazyShareFormProps) => (
-	<LazySuspense
+	<Suspense
 		fallback={
 			<LoadingDialog
 				shareFormTitle={props.shareFormTitle}
@@ -75,5 +73,5 @@ export default (props: LazyShareFormProps) => (
 		}
 	>
 		<LazyShareFormLazy {...props} />
-	</LazySuspense>
+	</Suspense>
 );

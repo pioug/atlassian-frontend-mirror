@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 111.2.6
+
+### Patch Changes
+
+- [#154110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154110)
+  [`3545ee83ab026`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3545ee83ab026) -
+  removed cleaned up FF from package.jsons
+
+## 111.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.2.4
 
 ### Patch Changes

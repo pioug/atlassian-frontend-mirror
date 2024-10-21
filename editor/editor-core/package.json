@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "198.6.8",
+	"version": "198.6.11",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
 		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/editor-common": "^93.6.0",
 		"@atlaskit/editor-json-transformer": "^8.20.0",
-		"@atlaskit/editor-plugin-quick-insert": "1.4.5",
+		"@atlaskit/editor-plugin-quick-insert": "1.4.6",
 		"@atlaskit/editor-plugins": "^5.5.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.0.0",
@@ -83,7 +83,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.9.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
-		"@atlaskit/collab-provider": "9.43.1",
+		"@atlaskit/collab-provider": "9.43.2",
 		"@atlaskit/editor-plugin-annotation": "1.21.1",
 		"@atlaskit/editor-plugin-card": "^4.3.0",
 		"@atlaskit/editor-plugin-list": "^3.9.0",
@@ -161,10 +161,6 @@
 			"referenceOnly": "true"
 		},
 		"platform.editor.multi-bodied-extension_0rygg": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
-		"platform.editor.inline_extension.extended_lcqdn": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},

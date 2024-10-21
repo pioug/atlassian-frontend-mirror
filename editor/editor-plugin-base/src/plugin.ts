@@ -23,11 +23,18 @@ import { createLazyNodeViewDecorationPlugin } from './pm-plugins/lazy-node-view-
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import type { ScrollGutterPluginOptions } from './pm-plugins/scroll-gutter';
 import scrollGutter, { getKeyboardHeight } from './pm-plugins/scroll-gutter';
+import { inputTracking } from './utils/inputTrackingConfig';
 
 export interface BasePluginOptions {
 	allowScrollGutter?: ScrollGutterPluginOptions;
 	allowInlineCursorTarget?: boolean;
+	/**
+	 * @deprecated do not use
+	 */
 	inputTracking?: InputTracking;
+	/**
+	 * @deprecated do not use
+	 */
 	browserFreezeTracking?: BrowserFreezetracking;
 	ufo?: boolean;
 }
@@ -105,14 +112,12 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 				{
 					name: 'frozenEditor',
 					plugin: ({ dispatchAnalyticsEvent }) => {
-						return options?.inputTracking?.enabled || options?.ufo
-							? frozenEditor(api?.contextIdentifier)(
-									dispatchAnalyticsEvent,
-									options.inputTracking,
-									options.browserFreezeTracking,
-									options.ufo,
-								)
-							: undefined;
+						return frozenEditor(api?.contextIdentifier)(
+							dispatchAnalyticsEvent,
+							inputTracking,
+							undefined,
+							undefined,
+						);
 					},
 				},
 				{ name: 'history', plugin: () => history() as SafePlugin },

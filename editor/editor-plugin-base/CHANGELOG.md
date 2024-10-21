@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-base
 
+## 1.12.2
+
+### Patch Changes
+
+- [#154162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154162)
+  [`5982815965267`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5982815965267) -
+  Updated performanceTracking and inputSampling props to hardcoded values as we're removing this
+  feature flag
+
 ## 1.12.1
 
 ### Patch Changes

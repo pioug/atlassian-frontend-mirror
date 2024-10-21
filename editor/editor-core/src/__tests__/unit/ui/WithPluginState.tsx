@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { waitFor } from '@testing-library/react';
 import { mount } from 'enzyme';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -218,100 +217,29 @@ describe(name, () => {
 			wrapper.unmount();
 			editorView.destroy();
 		});
-
-		it('should not call performance.mark when disabled', () => {
-			const plugin = createPlugin({}, pluginKey);
-			const key = (pluginKey as any).key;
-			const mark = performance.mark as jest.Mock;
-
-			const { editorView } = createEditor({
-				doc: doc(p()),
-				editorPlugins: [plugin],
-				editorProps: {
-					allowAnalyticsGASV3: true,
-
-					performanceTracking: {
-						uiTracking: {
-							enabled: false,
-							samplingRate: 1,
-							slowThreshold: 0,
-						},
-					},
-				},
-			});
-
-			const renderMock = jest.fn().mockReturnValue(null);
-
-			const wrapper = mount(
-				<WithPluginState
-					editorView={editorView}
-					eventDispatcher={eventDispatcher}
-					plugins={{ pluginState: pluginKey }}
-					render={renderMock}
-				/>,
-			);
-			dispatch(pluginKey, { cheese: '🧀' });
-
-			return setTimeoutPromise(() => {}, 0).then(() => {
-				expect(mark.mock.calls.map((item) => item[0])).not.toEqual(
-					expect.arrayContaining([
-						`🦉${key}::WithPluginState::start`,
-						`🦉${key}::WithPluginState::end`,
-					]),
-				);
-
-				wrapper.unmount();
-				editorView.destroy();
-			});
+	});
+	it('should support getting EditorView and EventDispatcher from the context', () => {
+		const pluginState = {};
+		const plugin = createPlugin(pluginState, pluginKey);
+		const editorActions = new EditorActions();
+		const { editorView } = createEditor({
+			doc: doc(p()),
+			editorPlugins: [plugin],
 		});
-
-		it('should call performance.mark twice with appropriate arguments', async () => {
-			const plugin = createPlugin({}, pluginKey);
-			const key = (pluginKey as any).key;
-			const mark = performance.mark as jest.Mock;
-
-			const { editorView } = createEditor({
-				doc: doc(p()),
-				editorPlugins: [plugin],
-				editorProps: {
-					allowAnalyticsGASV3: true,
-
-					performanceTracking: {
-						uiTracking: {
-							enabled: true,
-							samplingRate: 1,
-							slowThreshold: 0,
-						},
-					},
-				},
-			});
-
-			const renderMock = jest.fn().mockReturnValue(null);
-
-			const wrapper = mount(
+		editorActions._privateRegisterEditor(editorView, eventDispatcher);
+		const wrapper = mount(
+			<EditorContext editorActions={editorActions}>
 				<WithPluginState
-					editorView={editorView}
-					eventDispatcher={eventDispatcher}
-					plugins={{ pluginState: pluginKey }}
-					render={renderMock}
-				/>,
-			);
-			dispatch(pluginKey, { cheese: '🧀' });
-
-			await new Promise(process.nextTick);
-
-			await waitFor(() =>
-				expect(mark.mock.calls.map((item) => item[0])).toEqual(
-					expect.arrayContaining([
-						`🦉${key}::WithPluginState::start`,
-						`🦉${key}::WithPluginState::end`,
-					]),
-				),
-			);
-
-			wrapper.unmount();
-			editorView.destroy();
-		});
+					plugins={{ currentPluginState: pluginKey }}
+					render={({ currentPluginState }) => {
+						expect(currentPluginState).toEqual(pluginState);
+						return null;
+					}}
+				/>
+			</EditorContext>,
+		);
+		wrapper.unmount();
+		editorView.destroy();
 	});
 
 	ffTest.off('platform_editor_react18_phase2', 'react 18', () => {
@@ -337,30 +265,30 @@ describe(name, () => {
 			editorView.destroy();
 			expect(wpsInstance.listeners).toEqual([]);
 		});
-	});
 
-	ffTest.on('platform_editor_react18_phase2', 'react 18', () => {
-		it('should clean all listeners after unmount', () => {
-			const pluginState = {};
-			const plugin = createPlugin(pluginState, pluginKey);
-			const plugin2 = createPlugin(pluginState, pluginKey2);
-			const { editorView } = createEditor({
-				doc: doc(p()),
-				editorPlugins: [plugin, plugin2],
+		ffTest.on('platform_editor_react18_phase2', 'react 18', () => {
+			it('should clean all listeners after unmount', () => {
+				const pluginState = {};
+				const plugin = createPlugin(pluginState, pluginKey);
+				const plugin2 = createPlugin(pluginState, pluginKey2);
+				const { editorView } = createEditor({
+					doc: doc(p()),
+					editorPlugins: [plugin, plugin2],
+				});
+				const wrapper = mount(
+					<WithPluginState
+						editorView={editorView}
+						eventDispatcher={eventDispatcher}
+						plugins={{ pluginState: pluginKey, plugin2State: pluginKey2 }}
+						render={() => null}
+					/>,
+				);
+				const wpsInstance = (wrapper.find(WithPluginStateInner) as any).first().instance();
+
+				wrapper.unmount();
+				editorView.destroy();
+				expect(wpsInstance.listeners).toEqual([]);
 			});
-			const wrapper = mount(
-				<WithPluginState
-					editorView={editorView}
-					eventDispatcher={eventDispatcher}
-					plugins={{ pluginState: pluginKey, plugin2State: pluginKey2 }}
-					render={() => null}
-				/>,
-			);
-			const wpsInstance = (wrapper.find(WithPluginStateInner) as any).first().instance();
-
-			wrapper.unmount();
-			editorView.destroy();
-			expect(wpsInstance.listeners).toEqual([]);
 		});
 	});
 });

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-guideline
 
+## 1.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.12
 
 ### Patch Changes

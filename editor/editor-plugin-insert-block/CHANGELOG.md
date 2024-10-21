@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.3.5
+
+### Patch Changes
+
+- [#153789](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153789)
+  [`5062618c0206b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5062618c0206b) -
+  fix issue where insert menu would show with right rail when clicking blank page more elements
+  button
+
+## 2.3.4
+
+### Patch Changes
+
+- [#154004](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154004)
+  [`0d7fa2dd04c16`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d7fa2dd04c16) -
+  remove button variation from right rail experiment
+
+## 2.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.1
 
 ### Patch Changes

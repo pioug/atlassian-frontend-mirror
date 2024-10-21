@@ -1,5 +1,11 @@
 # @atlaskit/portal
 
+## 4.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.9.2
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/help
 
+## 7.9.1
+
+### Patch Changes
+
+- [#153822](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153822)
+  [`17654e637fc7f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17654e637fc7f) -
+  [ux] added radio role for yes and no buttons on was helful form in IPH
+- Updated dependencies
+
 ## 7.9.0
 
 ### Minor Changes

@@ -1,5 +1,20 @@
 # @atlaskit/onboarding
 
+## 11.15.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.15.7
+
+### Patch Changes
+
+- [#153563](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153563)
+  [`f737df437eb7a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f737df437eb7a) -
+  Support close type in popup to not close all layers
+- Updated dependencies
+
 ## 11.15.6
 
 ### Patch Changes

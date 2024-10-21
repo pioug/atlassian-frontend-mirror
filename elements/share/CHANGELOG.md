@@ -1,5 +1,19 @@
 # @atlaskit/share
 
+## 4.20.5
+
+### Patch Changes
+
+- [#154149](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154149)
+  [`cc82c0612ae26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc82c0612ae26) -
+  React 18 compatibility
+
+## 4.20.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.20.3
 
 ### Patch Changes

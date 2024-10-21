@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -37,6 +38,9 @@ export interface BlockInsertMenuProps {
 }
 
 export const BlockInsertMenu = (props: BlockInsertMenuProps) => {
+	const { insertBlockState } = useSharedPluginState(props.pluginInjectionApi, ['insertBlock']);
+	const isActive = insertBlockState?.menuBrowserOpen || false;
+
 	if (props.items.length === 0) {
 		return null;
 	}
@@ -80,6 +84,7 @@ export const BlockInsertMenu = (props: BlockInsertMenuProps) => {
 			showElementBrowserLink={props.showElementBrowserLink}
 			pluginInjectionApi={props.pluginInjectionApi}
 			isFullPageAppearance={props.isFullPageAppearance}
+			isActive={isActive}
 		/>
 	);
 };

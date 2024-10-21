@@ -1,5 +1,20 @@
 # @atlaskit/datetime-picker
 
+## 15.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.4.2
+
+### Patch Changes
+
+- [#153409](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153409)
+  [`af63929f9d51a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af63929f9d51a) -
+  Fix date-picker conditional component export
+- Updated dependencies
+
 ## 15.4.1
 
 ### Patch Changes

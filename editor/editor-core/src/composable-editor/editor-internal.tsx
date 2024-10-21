@@ -91,16 +91,9 @@ export const EditorInternal = memo(
 		};
 
 		const featureFlags = createFeatureFlagsFromProps(props);
-		const renderTracking = props.performanceTracking?.renderTracking?.editor;
-		const renderTrackingEnabled = renderTracking?.enabled;
-		const useShallow = renderTracking?.useShallow;
+		const renderTrackingEnabled = true;
+		const useShallow = false;
 		const [portalProviderAPI, PortalRenderer] = usePortalProvider();
-
-		// ED-16320: Check for explicit disable so that by default
-		// it will still be enabled as it currently is. Then we can
-		// progressively opt out synthetic tenants.
-		const isErrorTrackingExplicitlyDisabled =
-			props.performanceTracking?.errorTracking?.enabled === false;
 
 		return (
 			<Fragment>
@@ -115,7 +108,7 @@ export const EditorInternal = memo(
 					/>
 				)}
 				<ErrorBoundary
-					errorTracking={!isErrorTrackingExplicitlyDisabled}
+					errorTracking={true}
 					createAnalyticsEvent={createAnalyticsEvent}
 					contextIdentifierProvider={props.contextIdentifierProvider}
 					featureFlags={featureFlags}

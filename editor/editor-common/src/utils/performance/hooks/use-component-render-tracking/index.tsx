@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { uuid } from '@atlaskit/adf-schema';
+import uuidv4 from 'uuid/v4';
 
 import {
 	getPropsDifference,
@@ -38,7 +38,7 @@ export function useComponentRenderTracking<Props = undefined>({
 }: UseComponentRenderTrackingArgs<Props>) {
 	const propsRef = useRef<Props>();
 	const renderCountRef = useRef<number>(zeroBasedCount ? 0 : 1);
-	const { current: componentId } = useRef<string>(uuid.generate());
+	const { current: componentId } = useRef<string>(uuidv4());
 
 	useEffect(() => {
 		const lastProps = propsRef.current;

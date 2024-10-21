@@ -1,7 +1,5 @@
 import { useContext, useEffect } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { OpenLayerObserverContext } from './open-layer-observer-context';
 
 /**
@@ -21,10 +19,6 @@ export function useNotifyOpenLayerObserver({ isOpen = true }: { isOpen?: boolean
 	const context = useContext(OpenLayerObserverContext);
 
 	useEffect(() => {
-		if (!fg('platform_design_system_team_layering_observer')) {
-			return;
-		}
-
 		if (context === null) {
 			return;
 		}

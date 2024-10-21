@@ -105,23 +105,14 @@ function createEditorExampleForTests() {
 			return;
 		}
 
-		if (props.performanceTracking) {
-			ReactDOM.render(
-				<Profiler id="EditorMainComponent" onRender={onRender}>
-					<AnalyticsListener onEvent={onAnalyticsEvent} channel={FabricChannel.editor}>
-						<RawEditor {...props} />
-					</AnalyticsListener>
-				</Profiler>,
-				target,
-			);
-		} else {
-			ReactDOM.render(
-				<Profiler id="EditorMainComponent" onRender={onRender}>
+		ReactDOM.render(
+			<Profiler id="EditorMainComponent" onRender={onRender}>
+				<AnalyticsListener onEvent={onAnalyticsEvent} channel={FabricChannel.editor}>
 					<RawEditor {...props} />
-				</Profiler>,
-				target,
-			);
-		}
+				</AnalyticsListener>
+			</Profiler>,
+			target,
+		);
 	};
 
 	const unmountEditor = () => {

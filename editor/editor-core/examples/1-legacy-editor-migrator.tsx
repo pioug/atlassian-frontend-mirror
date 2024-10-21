@@ -49,14 +49,12 @@ const allComposableEditorProps: Complete<EditorNextProps> = {
 	onDestroy: undefined,
 	onChange: undefined,
 	onCancel: undefined,
-	inputSamplingLimit: undefined,
 	extensionProviders: undefined,
 	UNSAFE_useAnalyticsContext: undefined,
 	useStickyToolbar: undefined,
 	featureFlags: undefined,
 	__livePage: undefined,
 	onSave: undefined,
-	performanceTracking: undefined,
 	sanitizePrivateContent: undefined,
 	collabEdit: undefined,
 	primaryToolbarComponents: undefined,
@@ -75,6 +73,8 @@ const allComposableEditorProps: Complete<EditorNextProps> = {
 	autoformattingProvider: undefined,
 	linking: undefined,
 	media: undefined,
+	inputSamplingLimit: undefined,
+	performanceTracking: undefined,
 };
 
 const pluginNameExceptions = {

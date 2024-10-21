@@ -1,5 +1,20 @@
 # @atlaskit/popup
 
+## 1.28.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.28.4
+
+### Patch Changes
+
+- [#153563](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153563)
+  [`f737df437eb7a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f737df437eb7a) -
+  Support close type in popup to not close all layers
+- Updated dependencies
+
 ## 1.28.3
 
 ### Patch Changes

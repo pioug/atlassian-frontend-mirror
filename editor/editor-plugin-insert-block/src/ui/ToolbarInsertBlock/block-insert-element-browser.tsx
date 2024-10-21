@@ -32,6 +32,7 @@ export interface BlockInsertElementBrowserProps {
 	togglePlusMenuVisibility: SimpleEventHandler<MouseEvent | KeyboardEvent>;
 	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
 	isFullPageAppearance?: boolean;
+	isActive: boolean;
 }
 
 export const BlockInsertElementBrowser = (props: BlockInsertElementBrowserProps) => {
@@ -64,7 +65,7 @@ export const BlockInsertElementBrowser = (props: BlockInsertElementBrowserProps)
 				aria-expanded={props.open}
 				aria-haspopup
 				handleRef={props.onRef}
-				selected={props.open}
+				selected={props.open || props.isActive}
 				disabled={props.disabled}
 				onClick={props.onClick}
 				onKeyDown={props.onKeyDown}

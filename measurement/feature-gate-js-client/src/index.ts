@@ -1,6 +1,7 @@
 export type {
 	AnalyticsWebClient,
 	BaseClientOptions,
+	CheckGateOptions,
 	ClientOptions,
 	CustomAttributes,
 	FrontendExperimentsResult,

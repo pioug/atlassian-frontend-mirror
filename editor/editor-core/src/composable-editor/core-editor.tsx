@@ -72,8 +72,7 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 			eventDispatcher: EventDispatcher;
 			transformer?: Transformer<string>;
 		}) => {
-			const { contextIdentifierProvider, onEditorReady, performanceTracking, featureFlags } =
-				propsRef.current;
+			const { contextIdentifierProvider, onEditorReady, featureFlags } = propsRef.current;
 
 			editorActions._privateRegisterEditor(
 				instance.view,
@@ -88,25 +87,22 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 			}
 
 			if (onEditorReady) {
-				const measureEditorReady =
-					performanceTracking?.onEditorReadyCallbackTracking?.enabled || featureFlags?.ufo;
-				measureEditorReady && startMeasure(measurements.ON_EDITOR_READY_CALLBACK);
+				startMeasure(measurements.ON_EDITOR_READY_CALLBACK);
 
 				onEditorReady(editorActions);
 
-				measureEditorReady &&
-					stopMeasure(
-						measurements.ON_EDITOR_READY_CALLBACK,
-						sendDurationAnalytics(
-							ACTION.ON_EDITOR_READY_CALLBACK,
-							{
-								contextIdentifierProvider,
-								featureFlags,
-							},
-							getExperienceStore,
-							createAnalyticsEvent,
-						),
-					);
+				stopMeasure(
+					measurements.ON_EDITOR_READY_CALLBACK,
+					sendDurationAnalytics(
+						ACTION.ON_EDITOR_READY_CALLBACK,
+						{
+							contextIdentifierProvider,
+							featureFlags,
+						},
+						getExperienceStore,
+						createAnalyticsEvent,
+					),
+				);
 			}
 		},
 		[editorActions, createAnalyticsEvent, getFeatureFlagsFromRef, propsRef, getExperienceStore],

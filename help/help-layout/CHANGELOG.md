@@ -1,5 +1,14 @@
 # @atlaskit/help-layout
 
+## 4.3.8
+
+### Patch Changes
+
+- [#153797](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153797)
+  [`413eaa2995ab6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/413eaa2995ab6) -
+  [ux] Increased header title to h1 for better accessibility
+- Updated dependencies
+
 ## 4.3.7
 
 ### Patch Changes

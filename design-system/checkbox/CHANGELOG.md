@@ -1,5 +1,18 @@
 # @atlaskit/checkbox
 
+## 15.0.0
+
+### Major Changes
+
+- [#153563](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153563)
+  [`c30346996e058`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c30346996e058) -
+  Removes `size` prop from checkbox, using the default "medium" size for all checkboxes. There is a
+  codemod included that removes this prop for you.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.20.2
+
+### Patch Changes
+
+- [#154235](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154235)
+  [`40d7270897472`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40d7270897472) -
+  Export CheckGateOptions type
+
 ## 4.20.1
 
 ### Patch Changes

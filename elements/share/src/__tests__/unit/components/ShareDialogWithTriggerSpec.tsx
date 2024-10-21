@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mount, type ReactWrapper, shallow, type ShallowWrapper } from 'enzyme';
 import {
 	FormattedMessage,
@@ -141,6 +143,33 @@ describe('ShareDialogWithTrigger', () => {
 		);
 	}
 
+	function renderComponent(overrides: Partial<PropsOf<ShareDialogWithTriggerInternal>> = {}) {
+		const props: PropsOf<ShareDialogWithTriggerInternal> = {
+			cloudId: 'test-cloud-id',
+			shareAri: 'test-share-ari',
+			copyLink: 'copyLink',
+			loadUserOptions: mockLoadOptions,
+			onTriggerButtonClick: mockOnTriggerButtonClick,
+			onDialogOpen: mockOnDialogOpen,
+			onDialogClose: mockOnDialogClose,
+			onShareSubmit: mockOnShareSubmit,
+			shareContentType: 'page',
+			shareContentId: 'test-content-id',
+			shareContentSubType: undefined,
+			showFlags: mockShowFlags,
+			createAnalyticsEvent: mockCreateAnalyticsEvent,
+			product: 'confluence',
+			...overrides,
+			...mockIntlProps,
+		};
+
+		return render(
+			<IntlProvider messages={{}} locale="en">
+				<ShareDialogWithTriggerInternal {...props} />
+			</IntlProvider>,
+		);
+	}
+
 	beforeEach(() => {
 		// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
 		//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
@@ -188,6 +217,10 @@ describe('ShareDialogWithTrigger', () => {
 	});
 
 	describe('isDialogOpen state', () => {
+		beforeEach(() => {
+			jest.clearAllMocks();
+		});
+
 		it('should be false by default', () => {
 			const wrapper = getMountWrapper();
 			const shareDialogWithTriggerInternal = wrapper.find(ShareDialogWithTriggerInternal);
@@ -196,23 +229,17 @@ describe('ShareDialogWithTrigger', () => {
 			).toBe(false);
 		});
 
-		it('should be passed into isOpen prop Popup and isSelected props in ShareButton', () => {
-			const wrapper = getMountWrapper();
-			const shareDialogWithTriggerInternal = wrapper.find(ShareDialogWithTriggerInternal);
-			let { isDialogOpen }: Partial<ShareDialogWithTriggerStates> =
-				shareDialogWithTriggerInternal.state();
-			expect(isDialogOpen).toEqual(false);
-			expect(shareDialogWithTriggerInternal.find(Popup).prop('isOpen')).toEqual(isDialogOpen);
-			expect(shareDialogWithTriggerInternal.find(ShareButton).prop('isSelected')).toEqual(
-				isDialogOpen,
-			);
-
-			(shareDialogWithTriggerInternal as any).setState({
-				isDialogOpen: !isDialogOpen,
+		it('opens the dialog on click', async () => {
+			renderComponent({
+				renderCustomTriggerButton: (props) => (
+					<button {...props} data-testId="test-custom-button" />
+				),
 			});
 
-			expect(wrapper.find(Popup).first().prop('isOpen')).toEqual(!isDialogOpen);
-			expect(wrapper.find(ShareButton).prop('isSelected')).toEqual(!isDialogOpen);
+			await userEvent.click(screen.getByTestId('test-custom-button'));
+
+			const popup = screen.getByRole('dialog');
+			expect(popup).toBeInTheDocument();
 		});
 
 		it('should be toggled if clicked on ShareButton', () => {

@@ -1,10 +1,11 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::47f018ad98455be31dc522bcf5360adf>>
+ * @codegen <<SignedSource::56a9d309ec6f548dce4a4f6e99059a15>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 export default {
-	plugins: ['@atlaskit/design-system'],
+	// NOTE: The reference to this plugin is inserted dynamically while creating the plugin in `index.codegen.tsx`
+	plugins: {},
 	rules: {
 		'@atlaskit/design-system/consistent-css-prop-usage': 'error',
 		'@atlaskit/design-system/ensure-design-token-usage': 'error',

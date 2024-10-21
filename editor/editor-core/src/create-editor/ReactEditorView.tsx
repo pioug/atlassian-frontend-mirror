@@ -81,7 +81,6 @@ import {
 	EVENT_NAME_STATE_APPLY,
 	EVENT_NAME_UPDATE_STATE,
 	EVENT_NAME_VIEW_STATE_UPDATED,
-	TransactionTracker,
 } from '../utils/performance/track-transactions';
 import { validateNodes, validNode } from '../utils/validateNodes';
 
@@ -194,7 +193,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 	errorReporter: ErrorReporter;
 	dispatch: Dispatch;
 	proseMirrorRenderedSeverity?: SEVERITY;
-	transactionTracker: TransactionTracker;
 	experienceStore?: ExperienceStore;
 
 	editorRef = React.createRef<HTMLDivElement>();
@@ -228,12 +226,11 @@ export class ReactEditorView<T = {}> extends React.Component<
 		});
 	};
 
+	//TODO: clean up
 	get transactionTracking() {
-		return (
-			this.props.editorProps.performanceTracking?.transactionTracking ?? {
-				enabled: false,
-			}
-		);
+		return {
+			enabled: false,
+		};
 	}
 
 	private getPluginNames() {
@@ -243,13 +240,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 
 	private countNodes() {
 		return countNodes(this.editorState);
-	}
-
-	private isTransactionTrackingExplicitlyDisabled() {
-		// ED-16320: Check for explicit disable so that by default
-		// it will still be enabled as it currently is. Then we can
-		// progressively opt out synthetic tenants.
-		return this.props.editorProps?.performanceTracking?.transactionTracking?.enabled === false;
 	}
 
 	constructor(props: EditorViewProps & WrappedComponentProps & T) {
@@ -268,14 +258,11 @@ export class ReactEditorView<T = {}> extends React.Component<
 		this.dispatch = createDispatch(this.eventDispatcher);
 		this.errorReporter = createErrorReporter(props.editorProps.errorReporterHandler);
 
-		this.transactionTracker = new TransactionTracker();
 		this.pluginPerformanceObserver = new PluginPerformanceObserver((report) =>
 			this.onPluginObservation(report),
 		)
 			.withPlugins(() => this.getPluginNames())
-			.withNodeCounts(() => this.countNodes())
-			.withOptions(() => this.transactionTracking)
-			.withTransactionTracker(() => this.transactionTracker);
+			.withNodeCounts(() => this.countNodes());
 
 		this.featureFlags = createFeatureFlagsFromProps(this.props.editorProps);
 		const featureFlagsEnabled = this.featureFlags
@@ -295,23 +282,15 @@ export class ReactEditorView<T = {}> extends React.Component<
 			selectionAtStart: isFullPage(props.editorProps.appearance),
 		});
 
-		// ED-16320: Check for explicit disable so that by default
-		// it will still be enabled as it currently is. Then we can
-		// progressively opt out synthetic tenants.
-		const isEditorStartedExplicitlyDisabled =
-			props.editorProps?.performanceTracking?.startedTracking?.enabled === false;
-
-		if (!isEditorStartedExplicitlyDisabled) {
-			this.dispatchAnalyticsEvent({
-				action: ACTION.STARTED,
-				actionSubject: ACTION_SUBJECT.EDITOR,
-				attributes: {
-					platform: PLATFORMS.WEB,
-					featureFlags: featureFlagsEnabled,
-				},
-				eventType: EVENT_TYPE.UI,
-			});
-		}
+		this.dispatchAnalyticsEvent({
+			action: ACTION.STARTED,
+			actionSubject: ACTION_SUBJECT.EDITOR,
+			attributes: {
+				platform: PLATFORMS.WEB,
+				featureFlags: featureFlagsEnabled,
+			},
+			eventType: EVENT_TYPE.UI,
+		});
 	}
 
 	getEditorState = () => this.view?.state;
@@ -348,10 +327,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 					},
 				});
 			}
-		}
-
-		if (!this.transactionTracking.enabled) {
-			this.pluginPerformanceObserver.disconnect();
 		}
 
 		if (
@@ -470,10 +445,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 		// we do so here so that we can intercept and abort asynchronous
 		// ProseMirror transactions when a dismount is imminent.
 		this.canDispatchTransactions = true;
-
-		if (this.transactionTracking.enabled) {
-			this.pluginPerformanceObserver.observe();
-		}
 	}
 
 	/**
@@ -627,17 +598,13 @@ export class ReactEditorView<T = {}> extends React.Component<
 		oldEditorState: EditorState;
 		newEditorState: EditorState;
 	}) => {
-		const { enabled: trackinEnabled } = this.transactionTracking;
-
 		this.config.onEditorViewStateUpdatedCallbacks.forEach((entry) => {
-			trackinEnabled && startMeasure(`🦉 ${entry.pluginName}::onEditorViewStateUpdated`);
 			entry.callback({
 				originalTransaction,
 				transactions,
 				oldEditorState,
 				newEditorState,
 			});
-			trackinEnabled && stopMeasure(`🦉 ${entry.pluginName}::onEditorViewStateUpdated`);
 		});
 	};
 
@@ -646,15 +613,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 			return;
 		}
 
-		this.transactionTracker.bumpDispatchCounter(this.transactionTracking);
-		const { startMeasure, stopMeasure } = this.transactionTracker.getMeasureHelpers(
-			this.transactionTracking,
-		);
 		startMeasure(EVENT_NAME_DISPATCH_TRANSACTION);
-
-		if (this.transactionTracker.shouldTrackTransaction(this.transactionTracking)) {
-			this.experienceStore?.start(EditorExperience.interaction);
-		}
 
 		const nodes: PMNode[] = findChangedNodesFromTransaction(unsafeTransaction);
 		const changedNodesValid = validateNodes(nodes);
@@ -726,11 +685,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 						startTime + duration,
 					);
 
-					if (
-						this.props.editorProps.performanceTracking?.onChangeCallbackTracking?.enabled !== true
-					) {
-						return;
-					}
 					this.dispatchAnalyticsEvent({
 						action: ACTION.ON_CHANGE_CALLBACK,
 						actionSubject: ACTION_SUBJECT.EDITOR,
@@ -757,21 +711,14 @@ export class ReactEditorView<T = {}> extends React.Component<
 				.filter((node) => !validNode(node))
 				.map<SimplifiedNode | string>((node) => getDocStructure(node, { compact: true }));
 
-			if (!this.isTransactionTrackingExplicitlyDisabled()) {
-				this.dispatchAnalyticsEvent({
-					action: ACTION.DISPATCHED_INVALID_TRANSACTION,
-					actionSubject: ACTION_SUBJECT.EDITOR,
-					eventType: EVENT_TYPE.OPERATIONAL,
-					attributes: {
-						analyticsEventPayloads: getAnalyticsEventsFromTransaction(transaction),
-						invalidNodes,
-					},
-				});
-			}
-
-			this.experienceStore?.fail(EditorExperience.interaction, {
-				reason: 'invalid transaction',
-				invalidNodes: invalidNodes.toString(),
+			this.dispatchAnalyticsEvent({
+				action: ACTION.DISPATCHED_INVALID_TRANSACTION,
+				actionSubject: ACTION_SUBJECT.EDITOR,
+				eventType: EVENT_TYPE.OPERATIONAL,
+				attributes: {
+					analyticsEventPayloads: getAnalyticsEventsFromTransaction(transaction),
+					invalidNodes,
+				},
 			});
 		}
 	};
@@ -797,21 +744,11 @@ export class ReactEditorView<T = {}> extends React.Component<
 		measureRender(
 			measurements.PROSEMIRROR_RENDERED,
 			({ duration, startTime, distortedDuration }) => {
-				const proseMirrorRenderedTracking =
-					this.props.editorProps?.performanceTracking?.proseMirrorRenderedTracking;
-
-				const forceSeverityTracking = typeof proseMirrorRenderedTracking === 'undefined';
-
-				this.proseMirrorRenderedSeverity =
-					!!forceSeverityTracking || proseMirrorRenderedTracking?.trackSeverity
-						? getAnalyticsEventSeverity(
-								duration,
-								proseMirrorRenderedTracking?.severityNormalThreshold ??
-									PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
-								proseMirrorRenderedTracking?.severityDegradedThreshold ??
-									PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
-							)
-						: undefined;
+				this.proseMirrorRenderedSeverity = getAnalyticsEventSeverity(
+					duration,
+					PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+					PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+				);
 
 				if (this.view) {
 					const nodes = getNodesCount(this.view.state.doc);
@@ -977,10 +914,8 @@ export class ReactEditorView<T = {}> extends React.Component<
 	);
 
 	render() {
-		const renderTracking =
-			this.props.editorProps.performanceTracking?.renderTracking?.reactEditorView;
-		const renderTrackingEnabled = renderTracking?.enabled;
-		const useShallow = renderTracking?.useShallow;
+		const renderTrackingEnabled = true;
+		const useShallow = true;
 
 		return (
 			<ReactEditorViewContext.Provider

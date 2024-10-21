@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.8.0
+
+### Minor Changes
+
+- [`ed73a2928e080`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed73a2928e080) -
+  ED-25375 fix drop target v2 end position drop area
+
+## 2.7.1
+
+### Patch Changes
+
+- [#153381](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153381)
+  [`47cf4f0676e5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/47cf4f0676e5a) -
+  ED-25040 setup feature flags and hooked up pre release-1
+- Updated dependencies
+
 ## 2.7.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/theme",
-	"version": "13.1.0",
+	"version": "14.0.0",
 	"description": "Theme contains solutions for global theming, colors, typography and other useful mixins.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -91,7 +91,6 @@
 		"./colors": "./src/colors.tsx",
 		"./components": "./src/components.tsx",
 		"./constants": "./src/constants.tsx",
-		"./elevation": "./src/elevation.tsx",
 		"./types": "./src/types.tsx",
 		"./typography": "./src/typography.tsx"
 	},
@@ -101,7 +100,6 @@
 		"./colors": "./src/colors.tsx",
 		"./components": "./src/components.tsx",
 		"./constants": "./src/constants.tsx",
-		"./elevation": "./src/elevation.tsx",
 		"./types": "./src/types.tsx",
 		"./typography": "./src/typography.tsx",
 		".": "./src/index.tsx"

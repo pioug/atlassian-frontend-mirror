@@ -42,7 +42,7 @@ export function createFeatureFlagsFromProps(props: Omit<EditorNextProps, 'preset
 	return {
 		...normalizedFeatureFlags,
 
-		catchAllTracking: props.performanceTracking?.catchAllTracking?.enabled,
+		catchAllTracking: false,
 
 		showAvatarGroupAsPlugin: Boolean(
 			typeof props.featureFlags?.showAvatarGroupAsPlugin === 'boolean'

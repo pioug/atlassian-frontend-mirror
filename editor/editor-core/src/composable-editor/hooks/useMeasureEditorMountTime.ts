@@ -38,8 +38,7 @@ export default function useMeasureEditorMountTime(
 		);
 		return () => {
 			clearMeasure(measurements.EDITOR_MOUNTED);
-			props?.performanceTracking?.onEditorReadyCallbackTracking?.enabled &&
-				clearMeasure(measurements.ON_EDITOR_READY_CALLBACK);
+			clearMeasure(measurements.ON_EDITOR_READY_CALLBACK);
 
 			if (props.featureFlags?.ufo) {
 				getExperienceStore()?.abortAll({

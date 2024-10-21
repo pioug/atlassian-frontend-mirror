@@ -121,7 +121,7 @@ const getDropTargetOffsetStyle = (prevNode?: PMNode, nextNode?: PMNode) => {
 	return marginLookupMap[offset];
 };
 
-export type DropTargetStyle = 'default' | 'fullHeight';
+export type DropTargetStyle = 'default' | 'remainingHeight';
 
 export type DropTargetProps = {
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;

@@ -80,8 +80,6 @@ export default (
 	) => {
 		let interactionType: BROWSER_FREEZE_INTERACTION_TYPE;
 		let inputLatencyTracker: InputLatencyTracker | null = null;
-		let inputLatencySingleKeyTracker: InputLatencyTracker | null = null;
-		let inputLatencyRenderedTracker: InputLatencyTracker | null = null;
 
 		if (browserFreezeTracking?.trackInteractionType) {
 			interactionType = setInteractionType(BROWSER_FREEZE_INTERACTION_TYPE.LOADING);
@@ -92,15 +90,10 @@ export default (
 				? inputTracking.samplingRate
 				: DEFAULT_KEYSTROKE_SAMPLING_LIMIT;
 
-		const slowThreshold =
-			inputTracking && typeof inputTracking.slowThreshold === 'number'
-				? inputTracking.slowThreshold
-				: DEFAULT_SLOW_THRESHOLD;
-
-		const freezeThreshold =
-			inputTracking && typeof inputTracking.freezeThreshold === 'number'
-				? inputTracking.freezeThreshold
-				: DEFAULT_FREEZE_THRESHOLD;
+		//TODO: get right values here based on appearance
+		const slowThreshold = DEFAULT_SLOW_THRESHOLD;
+		//TODO: get right values here based on appearance
+		const freezeThreshold = DEFAULT_FREEZE_THRESHOLD;
 
 		const allowCountNodes = inputTracking && inputTracking.countNodes;
 		let prevNodeCountState: EditorState | null = null;
@@ -156,13 +149,7 @@ export default (
 			};
 
 		const createDispatchAverage =
-			(
-				action:
-					| ACTION.INPUT_PERF_SAMPLING_AVG
-					| ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS_AVG
-					| ACTION.INPUT_PERF_SAMPLING_RENDERED_AVG,
-				view: EditorView,
-			) =>
+			(action: ACTION.INPUT_PERF_SAMPLING_AVG, view: EditorView) =>
 			(
 				{ mean, median, sampleSize }: { mean: number; median: number; sampleSize: number },
 				severity: SEVERITY,
@@ -207,21 +194,6 @@ export default (
 								requestAnimationFrame(end);
 							}
 
-							if (inputLatencySingleKeyTracker) {
-								const end = inputLatencySingleKeyTracker.start();
-
-								// This is executed before next handleTextInput when multiple keypress events are in one animation frame
-								// so it tracks individual keypress processing time
-								Promise.resolve().then(end);
-							}
-
-							if (inputLatencyRenderedTracker) {
-								const end = inputLatencyRenderedTracker.start();
-
-								// This is called at the next event loop so it counts browser rendering time.
-								setTimeout(end);
-							}
-
 							return false;
 						},
 						handleDOMEvents: browserFreezeTracking?.trackInteractionType
@@ -243,84 +215,57 @@ export default (
 					return {};
 				}
 
-				const experienceStore = ufo ? ExperienceStore.getInstance(view) : undefined;
+				const experienceStore = ExperienceStore.getInstance(view);
 
-				if (inputTracking?.enabled) {
-					inputLatencyTracker = new InputLatencyTracker({
-						samplingRate,
-						slowThreshold,
-						normalThreshold: severityThresholdNormal,
-						degradedThreshold: severityThresholdDegraded,
-						onSampleStart: () => {
-							experienceStore?.start(EditorExperience.typing);
-						},
-						onSampleEnd: (time, { isSlow, severity }) => {
-							const { state } = view;
-							const nodesCount = getNodeCount(state);
+				inputLatencyTracker = new InputLatencyTracker({
+					samplingRate,
+					slowThreshold,
+					normalThreshold: severityThresholdNormal,
+					degradedThreshold: severityThresholdDegraded,
+					onSampleStart: () => {
+						experienceStore?.start(EditorExperience.typing);
+					},
+					onSampleEnd: (time, { isSlow, severity }) => {
+						const { state } = view;
+						const nodesCount = getNodeCount(state);
 
-							if (isSlow) {
-								experienceStore?.addMetadata(EditorExperience.typing, {
-									slowInput: true,
-								});
-							}
+						if (isSlow) {
+							experienceStore?.addMetadata(EditorExperience.typing, {
+								slowInput: true,
+							});
+						}
 
-							experienceStore?.success(EditorExperience.typing, {
+						experienceStore?.success(EditorExperience.typing, {
+							nodeSize: state.doc.nodeSize,
+							...nodesCount,
+							objectId:
+								contextIdentifierPlugin?.sharedState.currentState()?.contextIdentifierProvider
+									?.objectId,
+							time,
+							severity: shouldTrackSeverity ? severity : undefined,
+						});
+					},
+					dispatchSample: createDispatchSample(ACTION.INPUT_PERF_SAMPLING, view),
+					dispatchAverage: createDispatchAverage(ACTION.INPUT_PERF_SAMPLING_AVG, view),
+					onSlowInput: (time) => {
+						const { state } = view;
+						const nodesCount = getNodeCount(state);
+
+						dispatchAnalyticsEvent({
+							action: ACTION.SLOW_INPUT,
+							actionSubject: ACTION_SUBJECT.EDITOR,
+							attributes: {
+								time,
 								nodeSize: state.doc.nodeSize,
 								...nodesCount,
 								objectId:
 									contextIdentifierPlugin?.sharedState.currentState()?.contextIdentifierProvider
 										?.objectId,
-								time,
-								severity: shouldTrackSeverity ? severity : undefined,
-							});
-						},
-						dispatchSample: createDispatchSample(ACTION.INPUT_PERF_SAMPLING, view),
-						dispatchAverage: createDispatchAverage(ACTION.INPUT_PERF_SAMPLING_AVG, view),
-						onSlowInput: (time) => {
-							const { state } = view;
-							const nodesCount = getNodeCount(state);
-
-							dispatchAnalyticsEvent({
-								action: ACTION.SLOW_INPUT,
-								actionSubject: ACTION_SUBJECT.EDITOR,
-								attributes: {
-									time,
-									nodeSize: state.doc.nodeSize,
-									...nodesCount,
-									objectId:
-										contextIdentifierPlugin?.sharedState.currentState()?.contextIdentifierProvider
-											?.objectId,
-								},
-								eventType: EVENT_TYPE.OPERATIONAL,
-							});
-						},
-					});
-				}
-
-				if (inputTracking?.trackSingleKeypress) {
-					inputLatencySingleKeyTracker = new InputLatencyTracker({
-						samplingRate,
-						slowThreshold,
-						normalThreshold: severityThresholdNormal,
-						degradedThreshold: severityThresholdDegraded,
-						dispatchSample: createDispatchSample(ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS, view),
-						dispatchAverage: createDispatchAverage(
-							ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS_AVG,
-							view,
-						),
-					});
-				}
-
-				if (inputTracking?.trackRenderingTime) {
-					inputLatencyRenderedTracker = new InputLatencyTracker({
-						samplingRate,
-						slowThreshold,
-						normalThreshold: severityThresholdNormal,
-						degradedThreshold: severityThresholdDegraded,
-						dispatchSample: createDispatchSample(ACTION.INPUT_PERF_SAMPLING_RENDERED, view),
-						dispatchAverage: createDispatchAverage(ACTION.INPUT_PERF_SAMPLING_RENDERED_AVG, view),
-					});
-				}
+							},
+							eventType: EVENT_TYPE.OPERATIONAL,
+						});
+					},
+				});
 
 				let observer: PerformanceObserver | undefined;
 				try {
@@ -335,14 +280,12 @@ export default (
 									duration,
 									getNodeCount,
 									browserFreezeTracking?.trackInteractionType ? interactionType : undefined,
-									browserFreezeTracking?.trackSeverity
-										? getAnalyticsEventSeverity(
-												duration,
-												browserFreezeTracking.severityNormalThreshold || NORMAL_SEVERITY_THRESHOLD,
-												browserFreezeTracking.severityDegradedThreshold ||
-													DEGRADED_SEVERITY_THRESHOLD,
-											)
-										: undefined,
+									getAnalyticsEventSeverity(
+										duration,
+										//TODO: get right values here
+										severityThresholdNormal,
+										severityThresholdDegraded,
+									),
 								);
 							}
 						}

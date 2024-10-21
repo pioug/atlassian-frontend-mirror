@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 93.6.2
+
+### Patch Changes
+
+- [#154162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154162)
+  [`5982815965267`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5982815965267) -
+  Updated performanceTracking and inputSampling props to hardcoded values as we're removing this
+  feature flag
+- [#153986](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153986)
+  [`ce61c835c3b6a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce61c835c3b6a) -
+  allow editorApi to be used to update state in collab plugin
+
+## 93.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 93.6.0
 
 ### Minor Changes

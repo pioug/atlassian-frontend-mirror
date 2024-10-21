@@ -23,8 +23,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { addSynchronyErrorAnalytics } from '../../analytics';
 import { initialize } from '../../events/initialize';
-import type { PrivateCollabEditOptions, ProviderCallback } from '../../types';
-import type { CollabEditPlugin } from '../../types';
+import type { CollabEditPlugin, PrivateCollabEditOptions, ProviderCallback } from '../../types';
 
 import { pluginKey } from './plugin-key';
 import { PluginState } from './plugin-state';
@@ -134,6 +133,7 @@ export const createPlugin = (
 					options,
 					providerFactory,
 					featureFlags,
+					pluginInjectionApi,
 					editorAnalyticsApi: pluginInjectionApi?.analytics?.actions,
 				}),
 				addErrorAnalytics,

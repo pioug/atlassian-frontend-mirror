@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 5.5.51
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.5.50
+
+### Patch Changes
+
+- [#153986](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153986)
+  [`ce61c835c3b6a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce61c835c3b6a) -
+  allow editorApi to be used to update state in collab plugin
+- Updated dependencies
+
+## 5.5.49
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.5.48
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.5.47
 
 ### Patch Changes

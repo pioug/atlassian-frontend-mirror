@@ -69,6 +69,17 @@ const getNodeMargins = (node?: PMNode) => {
 	return nodeMargins[nodeTypeName] || nodeMargins['default'];
 };
 
+const shouldCollapseMargin = (prevNode?: PMNode, nextNode?: PMNode) => {
+	if (
+		(prevNode?.type.name === 'mediaSingle' || nextNode?.type.name === 'mediaSingle') &&
+		prevNode?.type.name !== nextNode?.type.name
+	) {
+		return false;
+	}
+
+	return true;
+};
+
 const getGapAndOffset = (prevNode?: PMNode, nextNode?: PMNode, parentNode?: PMNode | null) => {
 	if (!prevNode && nextNode) {
 		// first node
@@ -80,7 +91,7 @@ const getGapAndOffset = (prevNode?: PMNode, nextNode?: PMNode, parentNode?: PMNo
 	const top = getNodeMargins(nextNode).top || 4;
 	const bottom = getNodeMargins(prevNode).bottom || 4;
 
-	const gap = Math.max(top, bottom);
+	const gap = shouldCollapseMargin(prevNode, nextNode) ? Math.max(top, bottom) : top + bottom;
 
 	let offset = top - gap / 2;
 
@@ -160,9 +171,8 @@ export const createDropTargetDecoration = (
 				const { gap, offset } = getGapAndOffset(props.prevNode, props.nextNode, props.parentNode);
 				element.style.setProperty(EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET, `${offset}px`);
 				element.style.setProperty(EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_GAP, `${gap}px`);
-			}
+				element.style.setProperty('display', 'block');
 
-			if (fg('platform_editor_drag_and_drop_target_v2')) {
 				ReactDOM.render(
 					createElement(DropTargetV2, { ...props, getPos, anchorRectCache }),
 					element,
@@ -273,13 +283,8 @@ export const dropTargetDecorations = (
 			fg('platform_editor_drag_and_drop_target_v2') &&
 			['tableCell', 'tableHeader', 'layoutColumn'].includes(parent?.type.name || '');
 
-		// container with only an empty paragrah
 		const shouldShowFullHeight =
-			isInSupportedContainer &&
-			parent?.lastChild === node &&
-			parent?.childCount === 1 &&
-			isEmptyParagraph(node) &&
-			fg('platform_editor_drag_and_drop_target_v2');
+			isInSupportedContainer && parent?.lastChild === node && isEmptyParagraph(node);
 
 		decs.push(
 			createDropTargetDecoration(
@@ -290,7 +295,7 @@ export const dropTargetDecorations = (
 					nextNode: node,
 					parentNode: parent || undefined,
 					formatMessage,
-					dropTargetStyle: shouldShowFullHeight ? 'fullHeight' : 'default',
+					dropTargetStyle: shouldShowFullHeight ? 'remainingHeight' : 'default',
 				},
 				-1,
 				anchorRectCache,
@@ -306,7 +311,7 @@ export const dropTargetDecorations = (
 						prevNode: fg('platform_editor_drag_and_drop_target_v2') ? node : undefined,
 						parentNode: parent || undefined,
 						formatMessage,
-						dropTargetStyle: isInSupportedContainer ? 'fullHeight' : 'default',
+						dropTargetStyle: 'remainingHeight',
 					},
 					-1,
 					anchorRectCache,

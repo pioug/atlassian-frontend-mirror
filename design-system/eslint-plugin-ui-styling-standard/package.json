@@ -55,7 +55,7 @@
 	"devDependencies": {
 		"@af/formatting": "*",
 		"@atlaskit/ds-lib": "^3.1.0",
-		"@atlaskit/eslint-plugin-design-system": "^10.22.0",
+		"@atlaskit/eslint-plugin-design-system": "^10.23.0",
 		"@atlassian/codegen": "*",
 		"@atlassian/ts-loader": "*",
 		"@compiled/eslint-plugin": "^0.13.6",

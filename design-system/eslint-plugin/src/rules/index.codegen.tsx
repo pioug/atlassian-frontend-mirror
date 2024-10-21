@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0202804751f35ecefb9f7fe1541d2a9f>>
+ * @codegen <<SignedSource::2ab06b34c4e08cd70b0f67f5915f12c9>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -49,7 +49,7 @@ import useTokensSpace from './use-tokens-space';
 import useTokensTypography from './use-tokens-typography';
 import useVisuallyHidden from './use-visually-hidden';
 
-export default {
+export const rules = {
 	'consistent-css-prop-usage': consistentCssPropUsage,
 	'ensure-design-token-usage': ensureDesignTokenUsage,
 	'ensure-design-token-usage/preview': ensureDesignTokenUsagePreview,

@@ -5,9 +5,10 @@ mockPopper();
 
 import React from 'react';
 
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mount, type ReactWrapper } from 'enzyme';
 
-import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
 import Popup from '@atlaskit/popup';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -143,22 +144,34 @@ describe('CopyLinkButton', () => {
 	});
 
 	describe('shouldShowCopiedMessage state', () => {
-		it('should render the copied to clip board message, and dismiss the message when click outside the Inline Dialog', () => {
-			const wrapper: ReactWrapper<Props, State, any> = mount<Props, State>(
-				<CopyLinkButton {...props} />,
+		it('should rtl render the copied to clip board message, and dismiss the message when click outside the Inline Dialog', async () => {
+			const spiedOnLinkCopy: jest.Mock = jest.fn();
+
+			render(<CopyLinkButton {...props} onLinkCopy={spiedOnLinkCopy} />);
+
+			// Click the button
+			const button = screen.getByRole('button');
+			expect(button).toBeInTheDocument();
+			await userEvent.click(button);
+
+			// Message should be displayed
+			const container = await screen.findByTestId('message-container');
+			expect(container).toBeVisible();
+			const msgs = await screen.findAllByText(messages.copiedToClipboardMessage.defaultMessage);
+			expect(msgs.length).toEqual(2);
+			expect(msgs[0]).toBeInTheDocument();
+			expect(msgs[1]).toBeInTheDocument();
+
+			// Wait until message should be dismissed
+			await waitFor(
+				() => {
+					expect(screen.queryByTestId('message-container')).not.toBeInTheDocument();
+				},
+				{ timeout: 10000 },
 			);
-			wrapper.find('button').simulate('click');
-			expect(wrapper.find(CheckCircleIcon)).toHaveLength(1);
-			expect(wrapper.find('div[data-testid="message-container"]')).toHaveLength(1);
-			expect(wrapper.instance().autoDismiss).not.toBeUndefined();
-
-			wrapper.instance().handleDismissCopiedMessage();
-			wrapper.update();
-
-			expect(wrapper.state().shouldShowCopiedMessage).toBeFalsy();
-			expect(wrapper.find(CheckCircleIcon)).toHaveLength(0);
-			expect(wrapper.find('div[data-testid="message-container"]')).toHaveLength(0);
-			expect(wrapper.instance().autoDismiss).toBeUndefined();
+			expect(spiedExecCommand).toHaveBeenCalledTimes(1);
+			expect(spiedOnLinkCopy).toHaveBeenCalledTimes(1);
+			expect(spiedOnLinkCopy.mock.calls[0][0]).toEqual(mockLink);
 		});
 	});
 
@@ -166,29 +179,6 @@ describe('CopyLinkButton', () => {
 		beforeEach(() => {
 			jest.useFakeTimers();
 			jest.clearAllTimers();
-		});
-
-		it('should copy the text from the HiddenInput and call onLinkCopy prop if given when the user clicks on the button', () => {
-			const spiedOnLinkCopy: jest.Mock = jest.fn();
-			const wrapper: ReactWrapper<Props, State, any> = mount<Props, State>(
-				<CopyLinkButton {...props} onLinkCopy={spiedOnLinkCopy} />,
-			);
-			const spiedInputSelect: jest.SpyInstance = jest.spyOn(
-				// @ts-ignore accessing private property just for testing purpose
-				wrapper.instance().inputRef.current,
-				'select',
-			);
-			wrapper.find('button').simulate('click');
-			expect(spiedInputSelect).toHaveBeenCalledTimes(1);
-			expect(spiedExecCommand).toHaveBeenCalledTimes(1);
-			expect(spiedOnLinkCopy).toHaveBeenCalledTimes(1);
-			expect(spiedOnLinkCopy.mock.calls[0][0]).toEqual(mockLink);
-			expect(wrapper.state().shouldShowCopiedMessage).toBeTruthy();
-			jest.runOnlyPendingTimers();
-			// The setTimout test was removed, as it's can't be reliable
-			// tested with new Popup component. The setTimoeout is then called by
-			// `react-test-renderer` with `_flushCallback` additional x times.
-			expect(wrapper.state().shouldShowCopiedMessage).toBeFalsy();
 		});
 
 		it('should have the correct aria attributes on the popup once the button is clicked', () => {

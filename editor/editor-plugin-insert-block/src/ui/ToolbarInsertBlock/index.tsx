@@ -32,7 +32,6 @@ import { token } from '@atlaskit/tokens';
 
 import { toggleInsertMenuRightRail } from '../../pm-plugins/commands';
 import type { OnInsert } from '../ElementBrowser/types';
-import { RightRailIcon } from '../ElementRail/MainToolBarIcon';
 
 import { BlockInsertMenu } from './block-insert-menu';
 import type { BlockMenuItem } from './create-items';
@@ -495,37 +494,29 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 				<span css={wrapperStyle}>
 					{this.renderPopup()}
 					{this.renderTableSelectorPopup()}
-					{isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true) ? (
-						<RightRailIcon
-							onClick={this.handleClick}
-							isDisabled={this.props.isDisabled ?? false}
-							api={this.props.pluginInjectionApi}
-						/>
-					) : (
-						<BlockInsertMenu
-							popupsMountPoint={this.props.popupsMountPoint}
-							popupsBoundariesElement={this.props.popupsBoundariesElement}
-							popupsScrollableElement={this.props.popupsScrollableElement}
-							disabled={this.props.isDisabled ?? false}
-							editorView={this.props.editorView}
-							spacing={this.props.isReducedSpacing ? 'none' : 'default'}
-							label={this.props.intl.formatMessage(messages.insertMenu)}
-							open={this.state.isPlusMenuOpen}
-							plusButtonRef={this.plusButtonRef}
-							items={this.state.dropdownItems}
-							onRef={this.handleDropDownButtonRef}
-							onPlusButtonRef={this.handlePlusButtonRef}
-							onClick={this.handleClick}
-							onKeyDown={this.handleOpenByKeyboard}
-							onItemActivated={this.insertInsertMenuItem}
-							onInsert={this.insertInsertMenuItem as OnInsert}
-							onOpenChange={this.onOpenChange}
-							togglePlusMenuVisibility={this.togglePlusMenuVisibility}
-							showElementBrowserLink={this.props.showElementBrowserLink || false}
-							pluginInjectionApi={this.props.pluginInjectionApi}
-							isFullPageAppearance={isFullPageAppearance}
-						/>
-					)}
+					<BlockInsertMenu
+						popupsMountPoint={this.props.popupsMountPoint}
+						popupsBoundariesElement={this.props.popupsBoundariesElement}
+						popupsScrollableElement={this.props.popupsScrollableElement}
+						disabled={this.props.isDisabled ?? false}
+						editorView={this.props.editorView}
+						spacing={this.props.isReducedSpacing ? 'none' : 'default'}
+						label={this.props.intl.formatMessage(messages.insertMenu)}
+						open={this.state.isPlusMenuOpen && editorExperiment('insert-menu-in-right-rail', false)}
+						plusButtonRef={this.plusButtonRef}
+						items={this.state.dropdownItems}
+						onRef={this.handleDropDownButtonRef}
+						onPlusButtonRef={this.handlePlusButtonRef}
+						onClick={this.handleClick}
+						onKeyDown={this.handleOpenByKeyboard}
+						onItemActivated={this.insertInsertMenuItem}
+						onInsert={this.insertInsertMenuItem as OnInsert}
+						onOpenChange={this.onOpenChange}
+						togglePlusMenuVisibility={this.togglePlusMenuVisibility}
+						showElementBrowserLink={this.props.showElementBrowserLink || false}
+						pluginInjectionApi={this.props.pluginInjectionApi}
+						isFullPageAppearance={isFullPageAppearance}
+					/>
 				</span>
 				{!this.props.pluginInjectionApi?.primaryToolbar && this.props.showSeparator && (
 					/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */

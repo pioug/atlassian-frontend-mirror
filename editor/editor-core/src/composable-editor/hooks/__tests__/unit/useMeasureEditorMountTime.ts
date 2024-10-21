@@ -93,21 +93,13 @@ describe('useMeasureEditorMountTime', () => {
 				useMeasureEditorMountTime({}, () => undefined, createAnalyticsEvent as any),
 			);
 			unmount();
-			expect(clearMeasureSpy).toHaveBeenCalledTimes(1);
+			expect(clearMeasureSpy).toHaveBeenCalledTimes(2);
 			expect(clearMeasureSpy).toHaveBeenCalledWith(measurements.EDITOR_MOUNTED);
 		});
 
 		it('should run ON_EDITOR_READY_CALLBACK on unmount if prop is active', () => {
 			const { unmount } = renderHook(() =>
-				useMeasureEditorMountTime(
-					{
-						performanceTracking: {
-							onEditorReadyCallbackTracking: { enabled: true },
-						},
-					},
-					() => undefined,
-					createAnalyticsEvent as any,
-				),
+				useMeasureEditorMountTime({}, () => undefined, createAnalyticsEvent as any),
 			);
 			unmount();
 			expect(clearMeasureSpy).toHaveBeenCalledTimes(2);

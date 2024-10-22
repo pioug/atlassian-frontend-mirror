@@ -25,11 +25,7 @@ export type {
 } from './events';
 export type { FormatEventPayload } from './format-events';
 export type { SubstituteEventPayload } from './substitute-events';
-export type {
-	UfoSessionCompletePayloadAEP,
-	ColorPickerAEP,
-	GeneralEventPayload,
-} from './general-events';
+export type { ColorPickerAEP, GeneralEventPayload } from './general-events';
 export { INDENT_DIRECTION, INDENT_TYPE } from './format-events';
 export { PUNC, SYMBOL } from './substitute-events';
 export {

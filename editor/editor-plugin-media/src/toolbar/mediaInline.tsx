@@ -50,7 +50,6 @@ import {
 	setBorderMark,
 	toggleBorderMark,
 } from './commands';
-import { FilePreviewItem } from './filePreviewItem';
 import { shouldShowImageBorder } from './imageBorder';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
 import { downloadMedia } from './utils';
@@ -115,19 +114,18 @@ export const generateMediaInlineFloatingToolbar = (
 		{
 			type: 'separator',
 		},
-		{
-			type: 'custom',
-			fallback: [],
-			render: () => {
-				return (
-					<FilePreviewItem
-						key="editor.media.card.preview"
-						mediaPluginState={mediaPluginState}
-						intl={intl}
-					/>
-				);
-			},
-		},
+		fg('platform_editor_media_previewer_bugfix')
+			? {
+					id: 'editor.media.viewer',
+					testId: 'file-preview-toolbar-button',
+					type: 'button',
+					icon: FilePreviewIcon,
+					title: intl.formatMessage(messages.preview),
+					onClick: () => {
+						return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
+					},
+				}
+			: generateFilePreviewItem(mediaPluginState, intl),
 		{ type: 'separator' },
 		{
 			id: 'editor.media.card.download',
@@ -315,12 +313,14 @@ const getMediaInlineImageToolbar = (
 			fg('platform_editor_media_previewer_bugfix')
 				? {
 						id: 'editor.media.viewer',
+						testId: 'file-preview-toolbar-button',
 						type: 'button',
 						icon: FilePreviewIcon,
 						title: intl.formatMessage(messages.preview),
 						onClick: () => {
 							return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
 						},
+						supportsViewMode: true,
 					}
 				: generateFilePreviewItem(mediaPluginState, intl),
 			{

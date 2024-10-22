@@ -384,6 +384,21 @@ const shouldIgnoreNode = (node: PMNode) => {
 	return IGNORE_NODES.includes(node.type.name);
 };
 
+export const shouldDescendIntoNode = (node: PMNode) => {
+	// Optimisation to avoid drawing node decorations for empty table cells
+	if (
+		['tableCell', 'tableHeader'].includes(node.type.name) &&
+		!editorExperiment('table-nested-dnd', true) &&
+		fg('platform_editor_element_dnd_nested_fix_patch_3')
+	) {
+		if (node.childCount === 1 && node.firstChild?.type.name === 'paragraph') {
+			return false;
+		}
+	}
+
+	return !IGNORE_NODE_DESCENDANTS.includes(node.type.name);
+};
+
 export const nodeDecorations = (newState: EditorState, from?: number, to?: number) => {
 	const decs: Decoration[] = [];
 	const docFrom = from === undefined || from < 0 ? 0 : from;
@@ -392,7 +407,7 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 	newState.doc.nodesBetween(docFrom, docTo, (node, pos, _parent, index) => {
 		let depth = 0;
 		let anchorName;
-		const shouldDescend = !IGNORE_NODE_DESCENDANTS.includes(node.type.name);
+		const shouldDescend = shouldDescendIntoNode(node);
 		const handleId = ObjHash.getForNode(node);
 		anchorName = `--node-anchor-${node.type.name}-${handleId}`;
 

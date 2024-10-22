@@ -31,7 +31,7 @@
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-common": "^93.6.0"
+		"@atlaskit/editor-common": "^94.0.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

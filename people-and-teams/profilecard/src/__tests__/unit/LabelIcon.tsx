@@ -1,37 +1,31 @@
 import React from 'react';
 
-import { mount, shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
 import IconRecent from '@atlaskit/icon/core/migration/clock--recent';
 import IconEmail from '@atlaskit/icon/core/migration/email';
 import IconLocation from '@atlaskit/icon/core/migration/location';
+import { toBeAccessible } from '@atlassian/a11y-jest-testing';
 
 import { IconLabel } from '../../components/Icon';
-import { DetailsLabelIcon, DetailsLabelText } from '../../styled/Card';
 
 describe('Profilecard', () => {
 	describe('IconLabel', () => {
 		it('should render no label when not children are present', () => {
-			const wrapper = shallow(<IconLabel />);
-			expect(wrapper.text()).toBe('');
+			render(<IconLabel />);
+			expect(screen.queryByText(/./)).not.toBeInTheDocument();
 		});
 
 		it('should render LabelIcon without icon when icon property is not set', () => {
-			const wrapper = mount(<IconLabel>Labeltext</IconLabel>);
-			expect(wrapper.length).toBeGreaterThan(0);
-			expect(wrapper.find(DetailsLabelText).text()).toBe('Labeltext');
-
-			const icon = wrapper.find(DetailsLabelIcon);
-			expect(icon.find('Memo(Icon)')).toHaveLength(0);
+			render(<IconLabel>Labeltext</IconLabel>);
+			expect(screen.getByText('Labeltext')).toBeVisible();
+			expect(screen.queryByRole('img')).not.toBeInTheDocument();
 		});
 
 		it('should render LabelIcon without icon when icon property is an unavailable icon', () => {
-			const wrapper = mount(<IconLabel icon="foobar">Labeltext</IconLabel>);
-			expect(wrapper.length).toBeGreaterThan(0);
-			expect(wrapper.find(DetailsLabelText).text()).toBe('Labeltext');
-
-			const icon = wrapper.find(DetailsLabelIcon);
-			expect(icon.find('Memo(Icon)')).toHaveLength(0);
+			render(<IconLabel icon="foobar">Labeltext</IconLabel>);
+			expect(screen.getByText('Labeltext')).toBeVisible();
+			expect(screen.queryByRole('img')).not.toBeInTheDocument();
 		});
 
 		describe('should render LabelIcon with valid icons', () => {
@@ -40,13 +34,21 @@ describe('Profilecard', () => {
 
 			validIcons.forEach((label, index) => {
 				it(`should render LabelIcon for ${label}`, () => {
-					const wrapper = mount(<IconLabel icon={label}>Labeltext</IconLabel>);
-					expect(wrapper.length).toBeGreaterThan(0);
-					expect(wrapper.find(DetailsLabelText).text()).toBe('Labeltext');
-					const icon = wrapper.find(icons[index]);
-					expect(icon).toHaveLength(1);
+					render(<IconLabel icon={label}>Labeltext</IconLabel>);
+					expect(screen.getByText('Labeltext')).toBeVisible();
+					expect(screen.getByRole('img')).toBeVisible();
+					expect(screen.getByRole('img')).toHaveAttribute('aria-label', icons[index].displayName);
 				});
 			});
+		});
+
+		it('should capture and report a11y violations', async () => {
+			expect.extend({ toBeAccessible });
+			const { container } = render(<IconLabel icon="location">Labeltext</IconLabel>);
+			// Known violation: The <dt> and <dd> elements in LabelIcon are not wrapped by a <dl> element within LabelIcon itself.
+			// However, there is a <dl> element in LabelIcon's parent component, so overall the structure is correct.
+			// This may cause an accessibility violation when testing the LabelIcon element in isolation.
+			await expect(container).toBeAccessible({ violationCount: 1 });
 		});
 	});
 });

@@ -126,7 +126,6 @@ export enum ACTION {
 	ON_CHANGE_CALLBACK = 'onChangeCalled',
 	NEW_COLLAB_SYNC_UP_ERROR_NO_STEPS = 'newCollabSyncUpErrorNoSteps',
 	REMOVE_ICON = 'removedIcon',
-	UFO_SESSION_COMPLETE = 'ufoSessionComplete',
 	INVALID_PROSEMIRROR_DOCUMENT = 'invalidProsemirrorDocument',
 	DOCUMENT_PROCESSING_ERROR = 'documentProcessingErrorV2',
 	RENDERER_TTI = 'tti',

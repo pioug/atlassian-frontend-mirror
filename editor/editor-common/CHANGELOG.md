@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 94.0.0
+
+### Major Changes
+
+- [#154731](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154731)
+  [`c07d9c6cecf8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c07d9c6cecf8e) -
+  EDF-1411 Removed UFO experience events from Editor.
+
+### Patch Changes
+
+- [#154186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154186)
+  [`5c316170d29dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c316170d29dd) -
+  Bump @atlaskit/adf-schema to 42.3.1
+- Updated dependencies
+
+## 93.6.3
+
+### Patch Changes
+
+- [#154580](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154580)
+  [`c3075ce84c94f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3075ce84c94f) -
+  Remediate LinkSearch for React 18
+- [#154580](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154580)
+  [`c3075ce84c94f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3075ce84c94f) -
+  Remediate link search component for react 18
+
 ## 93.6.2
 
 ### Patch Changes

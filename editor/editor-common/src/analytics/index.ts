@@ -119,7 +119,6 @@ export type {
 	ToolbarEventPayload,
 	TransactionEventPayload,
 	TypeAheadPayload,
-	UfoSessionCompletePayloadAEP,
 	UnlinkToolbarAEP,
 	ViewedCreateLinkInlineDialogAEP,
 	FireAnalyticsCallback,

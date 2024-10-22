@@ -73,7 +73,6 @@ export function createFeatureFlagsFromProps(props: Omit<EditorNextProps, 'preset
 				? !!props.featureFlags?.collabAvatarScroll
 				: false,
 		),
-		ufo: Boolean(typeof props.featureFlags?.ufo === 'boolean' ? !!props.featureFlags?.ufo : false),
 		twoLineEditorToolbar: Boolean(
 			typeof props.featureFlags?.twoLineEditorToolbar === 'boolean'
 				? !!props.featureFlags?.twoLineEditorToolbar

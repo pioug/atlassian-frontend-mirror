@@ -21,7 +21,6 @@ import type {
 	FireAnalyticsCallback,
 	PluginPerformanceReportData,
 	SimplifiedNode,
-	UfoSessionCompletePayloadAEP,
 } from '@atlaskit/editor-common/analytics';
 import { browser } from '@atlaskit/editor-common/browser';
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
@@ -47,11 +46,6 @@ import type {
 import type { PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
 import {
-	EditorExperience,
-	ExperienceStore,
-	RELIABILITY_INTERVAL,
-} from '@atlaskit/editor-common/ufo';
-import {
 	analyticsEventKey,
 	getAnalyticsEventSeverity,
 	type SEVERITY,
@@ -75,13 +69,7 @@ import { RenderTracking } from '../utils/performance/components/RenderTracking';
 import measurements from '../utils/performance/measure-enum';
 import { PluginPerformanceObserver } from '../utils/performance/plugin-performance-observer';
 import { freezeUnsafeTransactionProperties } from '../utils/performance/safer-transactions';
-import {
-	EVENT_NAME_DISPATCH_TRANSACTION,
-	EVENT_NAME_ON_CHANGE,
-	EVENT_NAME_STATE_APPLY,
-	EVENT_NAME_UPDATE_STATE,
-	EVENT_NAME_VIEW_STATE_UPDATED,
-} from '../utils/performance/track-transactions';
+import { EVENT_NAME_ON_CHANGE } from '../utils/performance/track-transactions';
 import { validateNodes, validNode } from '../utils/validateNodes';
 
 import {
@@ -104,7 +92,6 @@ export interface EditorViewProps {
 	providerFactory: ProviderFactory;
 	portalProviderAPI: PortalProviderAPI;
 	disabled?: boolean;
-	experienceStore?: ExperienceStore;
 	editorAPI: PublicPluginAPI<any> | undefined;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	setEditorAPI?: (editorApi: PublicPluginAPI<any>) => void;
@@ -193,7 +180,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 	errorReporter: ErrorReporter;
 	dispatch: Dispatch;
 	proseMirrorRenderedSeverity?: SEVERITY;
-	experienceStore?: ExperienceStore;
 
 	editorRef = React.createRef<HTMLDivElement>();
 
@@ -613,8 +599,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 			return;
 		}
 
-		startMeasure(EVENT_NAME_DISPATCH_TRANSACTION);
-
 		const nodes: PMNode[] = findChangedNodesFromTransaction(unsafeTransaction);
 		const changedNodesValid = validateNodes(nodes);
 		const transaction = new Proxy(
@@ -629,62 +613,29 @@ export class ReactEditorView<T = {}> extends React.Component<
 			const oldEditorState = this.view.state;
 
 			// go ahead and update the state now we know the transaction is good
-			startMeasure(EVENT_NAME_STATE_APPLY);
 			const { state: editorState, transactions } = this.view.state.applyTransaction(transaction);
-			stopMeasure(EVENT_NAME_STATE_APPLY, (duration, startTime) => {
-				this.experienceStore?.mark(
-					EditorExperience.interaction,
-					'stateApply',
-					startTime + duration,
-				);
-			});
-
 			if (editorState === oldEditorState) {
 				return;
 			}
 
-			startMeasure(EVENT_NAME_UPDATE_STATE);
 			this.view.updateState(editorState);
-			stopMeasure(EVENT_NAME_UPDATE_STATE, (duration, startTime) => {
-				this.experienceStore?.mark(
-					EditorExperience.interaction,
-					'viewUpdateState',
-					startTime + duration,
-				);
-			});
-
 			this.pluginInjectionAPI.onEditorViewUpdated({
 				newEditorState: editorState,
 				oldEditorState,
 			});
 
-			startMeasure(EVENT_NAME_VIEW_STATE_UPDATED);
 			this.onEditorViewStateUpdated({
 				originalTransaction: transaction,
 				transactions,
 				oldEditorState,
 				newEditorState: editorState,
 			});
-			stopMeasure(EVENT_NAME_VIEW_STATE_UPDATED, (duration, startTime) => {
-				this.experienceStore?.mark(
-					EditorExperience.interaction,
-					'onEditorViewStateUpdated',
-					startTime + duration,
-				);
-			});
-
 			if (this.props.editorProps.onChange && transaction.docChanged) {
 				const source = transaction.getMeta('isRemote') ? 'remote' : 'local';
 
 				startMeasure(EVENT_NAME_ON_CHANGE);
 				this.props.editorProps.onChange(this.view, { source });
 				stopMeasure(EVENT_NAME_ON_CHANGE, (duration: number, startTime: number) => {
-					this.experienceStore?.mark(
-						EditorExperience.interaction,
-						'onChange',
-						startTime + duration,
-					);
-
 					this.dispatchAnalyticsEvent({
 						action: ACTION.ON_CHANGE_CALLBACK,
 						actionSubject: ACTION_SUBJECT.EDITOR,
@@ -697,15 +648,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 				});
 			}
 			this.editorState = editorState;
-
-			stopMeasure(EVENT_NAME_DISPATCH_TRANSACTION, (duration, startTime) => {
-				this.experienceStore?.mark(
-					EditorExperience.interaction,
-					'dispatchTransaction',
-					startTime + duration,
-				);
-				this.experienceStore?.success(EditorExperience.interaction);
-			});
 		} else {
 			const invalidNodes = nodes
 				.filter((node) => !validNode(node))
@@ -772,19 +714,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 						},
 						eventType: EVENT_TYPE.OPERATIONAL,
 					});
-
-					if (!distortedDuration) {
-						this.experienceStore?.mark(
-							EditorExperience.loadEditor,
-							ACTION.PROSEMIRROR_RENDERED,
-							startTime + duration,
-						);
-					}
-
-					this.experienceStore?.addMetadata(EditorExperience.loadEditor, {
-						nodes,
-						ttfb,
-					});
 				}
 			},
 		);
@@ -815,31 +744,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 				view.props.editable(view.state)
 			) {
 				this.focusTimeoutId = handleEditorFocus(view);
-			}
-
-			if (this.featureFlags.ufo) {
-				this.experienceStore = ExperienceStore.getInstance(view);
-				this.experienceStore.start(EditorExperience.editSession);
-				this.experienceStore.addMetadata(EditorExperience.editSession, {
-					reliabilityInterval: RELIABILITY_INTERVAL,
-				});
-
-				this.reliabilityInterval = window.setInterval(() => {
-					this.experienceStore?.success(EditorExperience.editSession)?.finally(() => {
-						this.experienceStore?.start(EditorExperience.editSession);
-						this.experienceStore?.addMetadata(EditorExperience.editSession, {
-							reliabilityInterval: RELIABILITY_INTERVAL,
-						});
-					});
-
-					const reliabilityEvent: UfoSessionCompletePayloadAEP = {
-						action: ACTION.UFO_SESSION_COMPLETE,
-						actionSubject: ACTION_SUBJECT.EDITOR,
-						attributes: { interval: RELIABILITY_INTERVAL },
-						eventType: EVENT_TYPE.OPERATIONAL,
-					};
-					this.dispatchAnalyticsEvent(reliabilityEvent);
-				}, RELIABILITY_INTERVAL);
 			}
 
 			// Force React to re-render so consumers get a reference to the editor view

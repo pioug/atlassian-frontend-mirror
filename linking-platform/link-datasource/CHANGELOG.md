@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 3.6.10
+
+### Patch Changes
+
+- [#154186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154186)
+  [`5c316170d29dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c316170d29dd) -
+  Bump @atlaskit/adf-schema to 42.3.1
+- Updated dependencies
+
 ## 3.6.9
 
 ### Patch Changes

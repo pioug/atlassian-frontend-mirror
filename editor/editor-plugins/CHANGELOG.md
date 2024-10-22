@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugins
 
+## 5.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.6.0
+
+### Minor Changes
+
+- [#154581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154581)
+  [`27d560bd2b6b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/27d560bd2b6b6) -
+  [ux] ED-25201 Create integration tests for media double click and new editor-plugin-selection type
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.5.52
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.5.51
 
 ### Patch Changes

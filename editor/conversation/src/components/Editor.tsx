@@ -8,7 +8,6 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import type { EditorActions, EditorProps } from '@atlaskit/editor-core';
 import {
-	Editor as AkEditor,
 	EditorContext,
 	WithEditorActions,
 	CollapsedEditor,
@@ -16,6 +15,14 @@ import {
 	name as packageName,
 	version as packageVersion,
 } from '@atlaskit/editor-core';
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import {
+	useUniversalPreset,
+	type InitialPluginConfiguration,
+} from '@atlaskit/editor-core/preset-universal';
+import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { User } from '../model';
 
@@ -52,7 +59,7 @@ export interface Props {
 	user?: User;
 
 	// Editor
-	renderEditor?: (Editor: typeof AkEditor, props: EditorProps) => JSX.Element;
+	renderEditor?: (Editor: typeof ComposableEditor, props: EditorProps) => JSX.Element;
 	placeholder?: string;
 	disableScrollTo?: boolean;
 	allowFeedbackAndHelpButtons?: boolean;
@@ -233,6 +240,9 @@ export default class Editor extends React.Component<Props, State> {
 
 		const defaultProps: EditorProps = {
 			appearance: 'comment',
+			disabled: false,
+			extensionHandlers: {},
+			quickInsert: true,
 			shouldFocus: true,
 			onSave: () => this.onSave(actions),
 			onCancel: this.onCancel,
@@ -245,9 +255,6 @@ export default class Editor extends React.Component<Props, State> {
 						packageName: packageName,
 					}
 				: undefined,
-			primaryToolbarComponents: allowFeedbackAndHelpButtons
-				? [<ToolbarHelp key="help" />]
-				: undefined,
 			...providers,
 		};
 
@@ -258,7 +265,22 @@ export default class Editor extends React.Component<Props, State> {
 					isExpanded={this.state.isExpanded}
 					onFocus={this.onFocus}
 				>
-					{renderEditor ? renderEditor(AkEditor, defaultProps) : <AkEditor {...defaultProps} />}
+					{renderEditor ? (
+						renderEditor(
+							(props) => (
+								<ComposableEditorWrapper
+									allowFeedbackAndHelpButtons={allowFeedbackAndHelpButtons ?? false}
+									props={props}
+								/>
+							),
+							defaultProps,
+						)
+					) : (
+						<ComposableEditorWrapper
+							allowFeedbackAndHelpButtons={allowFeedbackAndHelpButtons ?? false}
+							props={defaultProps}
+						/>
+					)}
 				</CollapsedEditor>
 			</div>
 		);
@@ -292,3 +314,39 @@ export default class Editor extends React.Component<Props, State> {
 		);
 	}
 }
+
+interface WrapperProps {
+	props: EditorProps;
+	initialPluginConfiguration?: InitialPluginConfiguration;
+	allowFeedbackAndHelpButtons: boolean;
+}
+
+const ComposableEditorWrapper = ({
+	props,
+	initialPluginConfiguration,
+	allowFeedbackAndHelpButtons,
+}: WrapperProps) => {
+	const universalPreset = useUniversalPreset({ props, initialPluginConfiguration });
+	const { preset, editorApi } = usePreset(() => universalPreset, [universalPreset]);
+
+	return (
+		<ComposableEditor
+			preset={preset}
+			{...props}
+			primaryToolbarComponents={
+				allowFeedbackAndHelpButtons
+					? [
+							<ToolbarHelp
+								key="help"
+								editorApi={
+									allowFeedbackAndHelpButtons
+										? (editorApi as ExtractInjectionAPI<HelpDialogPlugin>)
+										: undefined
+								}
+							/>,
+						]
+					: undefined
+			}
+		/>
+	);
+};

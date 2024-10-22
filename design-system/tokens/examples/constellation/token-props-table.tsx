@@ -6,6 +6,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { Code } from '@atlaskit/code';
+import { Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
@@ -118,42 +120,35 @@ const TokenPropsTable = ({
 				</caption>
 				<tbody>
 					<tr>
-						<th scope="row">Description</th>
+						<th scope="row">
+							<Text size="UNSAFE_small" weight="bold" color="color.text.subtlest">
+								Description
+							</Text>
+						</th>
 						<td>{description}</td>
 					</tr>
 					{defaultValue !== undefined && (
 						<tr>
-							<th scope="row">Default</th>
+							<th scope="row">
+								<Text size="UNSAFE_small" weight="bold" color="color.text.subtlest">
+									Default
+								</Text>
+							</th>
 							<td>
-								<code
-									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-									css={{
-										color: `${token('color.text.subtle')}`,
-									}}
-								>
-									{defaultValue}
-								</code>
+								<Code>{defaultValue}</Code>
 							</td>
 						</tr>
 					)}
 					<tr>
-						<th>Type</th>
+						<th>
+							<Text size="UNSAFE_small" weight="bold" color="color.text.subtlest">
+								Type
+							</Text>
+						</th>
 						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<td css={{ display: 'flex', flexDirection: 'column' }}>
 							<span>
-								<code
-									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-									css={{
-										background: token('color.background.neutral'),
-										color: token('color.text.subtle'),
-										borderRadius: '3px',
-										display: 'inline-block',
-										padding: '0 0.2em',
-										whiteSpace: 'pre-wrap',
-									}}
-								>
-									{typing}
-								</code>
+								<Code>{typing}</Code>
 							</span>
 						</td>
 					</tr>

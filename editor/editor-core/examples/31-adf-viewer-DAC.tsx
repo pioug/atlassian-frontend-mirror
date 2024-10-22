@@ -15,6 +15,8 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
 import TextArea from '@atlaskit/textarea';
@@ -22,11 +24,13 @@ import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoj
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
-import type { EditorActions } from '../src';
-import { Editor } from '../src';
+import type { EditorActions, EditorProps } from '../src';
+import { ComposableEditor } from '../src/composable-editor';
+import { useUniversalPreset } from '../src/preset-universal';
 import EditorContext from '../src/ui/EditorContext';
 import ToolbarHelp from '../src/ui/ToolbarHelp';
 import WithEditorActions from '../src/ui/WithEditorActions';
+import { usePreset } from '../src/use-preset';
 
 interface AdfState {
 	isValidAdf: boolean;
@@ -64,7 +68,7 @@ export default class Example extends React.Component<{}, AdfState> {
 							render={(actions) => {
 								this.editorActions = actions;
 								return (
-									<Editor
+									<ComposableEditorWrapper
 										onChange={this.handleEditorChange}
 										appearance="full-page"
 										allowRule={true}
@@ -75,9 +79,7 @@ export default class Example extends React.Component<{}, AdfState> {
 										allowPanel={true}
 										allowHelpDialog={true}
 										placeholder="We support markdown! Try **bold**, `inline code`, or ``` for code blocks."
-										primaryToolbarComponents={[
-											<ToolbarHelp key={1} titlePosition="top" title="Help" />,
-										]}
+										primaryToolbarComponents={[<ToolbarHelp editorApi={undefined} />]}
 										media={{
 											provider: storyMediaProviderFactory(),
 											allowMediaSingle: true,
@@ -135,3 +137,25 @@ export default class Example extends React.Component<{}, AdfState> {
 		});
 	};
 }
+
+const ComposableEditorWrapper = (props: EditorProps) => {
+	const universalPreset = useUniversalPreset({ props });
+	const { preset, editorApi } = usePreset(() => universalPreset, [universalPreset]);
+
+	return (
+		<ComposableEditor
+			preset={preset}
+			{...props}
+			primaryToolbarComponents={
+				<ToolbarHelp
+					key={1}
+					titlePosition="top"
+					title="Help"
+					editorApi={
+						props.allowHelpDialog ? (editorApi as ExtractInjectionAPI<HelpDialogPlugin>) : undefined
+					}
+				/>
+			}
+		/>
+	);
+};

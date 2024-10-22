@@ -202,7 +202,7 @@ describe('useSmartLinkAnalytics', () => {
 						extensionKey: 'spaghetti-key',
 						destinationProduct: 'spaghetti-product',
 						destinationSubproduct: 'spaghetti-subproduct',
-						packageName: '@atlaskit/fabric',
+						packageName: '@product/platform',
 						packageVersion: '0.0.0',
 						status: 'resolved',
 						resourceType: 'spaghetti-resource',

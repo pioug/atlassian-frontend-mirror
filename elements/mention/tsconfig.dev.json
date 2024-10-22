@@ -44,7 +44,13 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../../editor/editor-common/tsconfig.app.json"
+		},
+		{
 			"path": "../../editor/editor-core/tsconfig.app.json"
+		},
+		{
+			"path": "../../editor/editor-plugins/tsconfig.app.json"
 		},
 		{
 			"path": "../../editor/editor-test-helpers/tsconfig.app.json"

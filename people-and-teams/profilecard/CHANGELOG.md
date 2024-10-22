@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 20.6.2
+
+### Patch Changes
+
+- [#154451](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154451)
+  [`1a6038f97ae73`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a6038f97ae73) -
+  A11Y-8044 Fix description list mark-up used inappropriately in profile card
+
 ## 20.6.1
 
 ### Patch Changes

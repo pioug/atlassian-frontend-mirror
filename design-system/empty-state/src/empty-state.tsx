@@ -2,18 +2,10 @@ import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Heading from '@atlaskit/heading';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
 
-import {
-	ActionsContainer,
-	Container,
-	Description,
-	Header,
-	Image as HeaderImage,
-	SpinnerContainer,
-} from './styled';
+import { ActionsContainer, Container, Image as HeaderImage, SpinnerContainer } from './styled';
 import type { EmptyStateProps } from './types';
 
 /**
@@ -92,23 +84,16 @@ const EmptyState = ({
 			) : (
 				renderImage && renderImage({ maxImageWidth, maxImageHeight, imageWidth, imageHeight })
 			)}
-			{fg('platform.design-system-team.empty-state-typography-updates_gndrj') ? (
-				<Box paddingBlockEnd="space.200">
-					<Heading size="medium" as={tag}>
-						{header}
-					</Heading>
+			<Box paddingBlockEnd="space.200">
+				<Heading size="medium" as={tag}>
+					{header}
+				</Heading>
+			</Box>
+			{description && (
+				<Box paddingBlockEnd="space.300">
+					<Text as="p">{description}</Text>
 				</Box>
-			) : (
-				<Header level={headingLevel}>{header}</Header>
 			)}
-			{description &&
-				(fg('platform.design-system-team.empty-state-typography-updates_gndrj') ? (
-					<Box paddingBlockEnd="space.300">
-						<Text as="p">{description}</Text>
-					</Box>
-				) : (
-					<Description>{description}</Description>
-				))}
 			{actionsContainer}
 			{tertiaryAction}
 		</Container>

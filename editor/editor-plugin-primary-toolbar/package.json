@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-primary-toolbar",
-	"version": "2.0.9",
+	"version": "2.0.10",
 	"description": "Primary toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,7 +39,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^93.6.0",
+		"@atlaskit/editor-common": "^94.0.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

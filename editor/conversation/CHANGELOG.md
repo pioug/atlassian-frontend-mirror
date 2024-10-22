@@ -1,5 +1,23 @@
 # @atlaskit/conversation
 
+## 16.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.3.0
+
+### Minor Changes
+
+- [#154461](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154461)
+  [`ed3b12d7f1092`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed3b12d7f1092) -
+  Remove WithHelpTrigger from Confluence and deprecate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.2.42
 
 ### Patch Changes

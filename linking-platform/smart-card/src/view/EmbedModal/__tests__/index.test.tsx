@@ -44,7 +44,7 @@ const EXPECTED_COMMON_ATTRIBUTES = {
 	destinationSubproduct: 'spaghetti-subproduct',
 	extensionKey: 'spaghetti-key',
 	location: 'test-location',
-	packageName: '@atlaskit/fabric',
+	packageName: '@product/platform',
 	packageVersion: '0.0.0',
 	resourceType: 'spaghetti-resource',
 	destinationObjectType: 'spaghetti-resource',

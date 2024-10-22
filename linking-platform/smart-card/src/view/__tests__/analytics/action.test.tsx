@@ -48,7 +48,7 @@ const EXPECTED_CHANNEL_CONTEXT = {
 // @see packages/linking-platform/smart-card/src/utils/analytics/analytics.ts
 const EXPECTED_PACKAGE_CONTEXT = {
 	componentName: 'smart-cards',
-	packageName: '@atlaskit/fabric',
+	packageName: '@product/platform',
 	packageVersion: '0.0.0',
 };
 

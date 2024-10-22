@@ -8,6 +8,8 @@ import { DevTools } from '@af/editor-examples-helpers/utils';
 import { getTranslations, LanguagePicker } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
 import { token } from '@atlaskit/tokens';
@@ -15,13 +17,15 @@ import { token } from '@atlaskit/tokens';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { name, version } from '../package.json';
 import type { EditorProps } from '../src';
-import { Editor } from '../src';
+import { ComposableEditor } from '../src/composable-editor';
 import enMessages from '../src/i18n/en';
 import languages from '../src/i18n/languages';
+import { useUniversalPreset } from '../src/preset-universal';
 import CollapsedEditor from '../src/ui/CollapsedEditor';
 import EditorContext from '../src/ui/EditorContext';
 import ToolbarHelp from '../src/ui/ToolbarHelp';
 import WithEditorActions from '../src/ui/WithEditorActions';
+import { usePreset } from '../src/use-preset';
 
 const SAVE_ACTION = () => console.log('Save');
 const CANCEL_ACTION = () => console.log('Cancel');
@@ -145,7 +149,7 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 										onFocus={this.onFocus}
 										onExpand={EXPAND_ACTION}
 									>
-										<Editor
+										<ComposableEditorWrapper
 											appearance="comment"
 											placeholder="What do you want to say?"
 											allowAnalyticsGASV3={true}
@@ -180,7 +184,7 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 											}}
 											primaryToolbarComponents={
 												<>
-													<ToolbarHelp key="toolbar-help" />
+													<ToolbarHelp key="toolbar-help" editorApi={undefined} />
 												</>
 											}
 											allowExtension={true}
@@ -223,5 +227,27 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 		document.body.appendChild(scriptElem);
 	};
 }
+
+const ComposableEditorWrapper = (props: EditorProps) => {
+	const universalPreset = useUniversalPreset({ props });
+	const { preset, editorApi } = usePreset(() => universalPreset, [universalPreset]);
+
+	return (
+		<ComposableEditor
+			preset={preset}
+			{...props}
+			primaryToolbarComponents={
+				<ToolbarHelp
+					titlePosition="top"
+					title="Help"
+					key="help"
+					editorApi={
+						props.allowHelpDialog ? (editorApi as ExtractInjectionAPI<HelpDialogPlugin>) : undefined
+					}
+				/>
+			}
+		/>
+	);
+};
 
 export default CommentEditorWithFeedback;

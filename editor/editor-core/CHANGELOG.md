@@ -1,5 +1,37 @@
 # @atlaskit/editor-core
 
+## 199.0.0
+
+### Major Changes
+
+- [#154731](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154731)
+  [`c07d9c6cecf8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c07d9c6cecf8e) -
+  EDF-1411 Removed UFO experience events from Editor.
+
+### Patch Changes
+
+- [#154186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154186)
+  [`5c316170d29dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c316170d29dd) -
+  Bump @atlaskit/adf-schema to 42.3.1
+- Updated dependencies
+
+## 198.7.1
+
+### Patch Changes
+
+- [#154581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154581)
+  [`27d560bd2b6b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/27d560bd2b6b6) -
+  [ux] ED-25201 Enable double click to open media viewer in editor
+- Updated dependencies
+
+## 198.7.0
+
+### Minor Changes
+
+- [#154461](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154461)
+  [`ed3b12d7f1092`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed3b12d7f1092) -
+  Remove WithHelpTrigger from Confluence and deprecate
+
 ## 198.6.11
 
 ### Patch Changes

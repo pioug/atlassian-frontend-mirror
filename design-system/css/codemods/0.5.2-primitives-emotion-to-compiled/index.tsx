@@ -50,13 +50,13 @@ const styleMaps = {
 export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) {
 	const base = j(fileInfo.source);
 
+	addJsxPragma(j, base);
+
 	// replace xcss with cssMap
 	const xcssSpecifier = getImportSpecifier(j, base, 'xcss');
 	if (!xcssSpecifier) {
 		return;
 	}
-
-	addJsxPragma(j, base);
 
 	replaceXcssWithCssMap(j, base, xcssSpecifier);
 
@@ -66,18 +66,23 @@ export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API,
 }
 
 function addJsxPragma(j: core.JSCodeshift, source: ReturnType<typeof j>) {
-	const jsxPragma = [j.commentBlock('*\n * @jsxRuntime classic\n * @jsx jsx\n ', true, false)];
+	const jsxPragma = '*\n * @jsxRuntime classic\n * @jsx jsx\n ';
+	// extract all comments, not just root node
+	const allComments = source.find(j.Comment).nodes();
 
-	const rootNode = source.get().node;
-	const existingComments = rootNode.comments || [];
-
-	const hasJsxPragma = existingComments.some(
-		(comment: core.Comment) =>
-			comment.value.includes('@jsxRuntime classic') && comment.value.includes('@jsx jsx'),
-	);
-
+	const hasJsxPragma = allComments.some((comment) => {
+		const value = comment.value;
+		return /@jsxRuntime\s+classic/.test(value) && /@jsx\s+jsx/.test(value);
+	});
 	if (!hasJsxPragma) {
-		rootNode.comments = [...existingComments, ...jsxPragma];
+		// create new comment block for the jsx pragma
+		const pragmaComment = j.commentBlock(jsxPragma, true, false);
+		// insert at the top of the file
+		const rootNode = source.get().node;
+		if (!rootNode.comments) {
+			rootNode.comments = [];
+		}
+		rootNode.comments.unshift(pragmaComment);
 	}
 }
 
@@ -132,7 +137,10 @@ function replaceXcssWithCssMap(
 				j.callExpression(j.identifier('cssMap'), [cssMapObject]),
 			),
 		]);
-		source.get().node.program.body.unshift(cssMapVariableDeclaration);
+
+		// insert the cssMap var after all imports
+		const lastImportIndex = source.find(j.ImportDeclaration).size();
+		source.get().node.program.body.splice(lastImportIndex, 0, cssMapVariableDeclaration);
 	}
 
 	// update the xcss prop references to use the new cssMap object
@@ -151,13 +159,13 @@ function replaceXcssWithCssMap(
 				if (expression.type === 'Identifier') {
 					// <Box xcss={buttonStyles} /> -> <Box xcss={styles.button} />
 					expression.name = `styles.${getCssMapKey(expression.name)}`;
-					// <Box xcss={[baseStyles, otherStyles]} /> -> <Box xcss={[styles.base, styles.otherStyles]} />
 				} else if (expression.type === 'ArrayExpression') {
+					// <Box xcss={[baseStyles, otherStyles]} /> -> <Box xcss={[styles.base, styles.otherStyles]} />
 					expression.elements.forEach((element) => {
 						if (element?.type === 'Identifier') {
 							element.name = `styles.${getCssMapKey(element.name)}`;
-							// <Box xcss={condition && styles} /> -> <Box xcss={condition && styles.root} />
 						} else if (
+							// <Box xcss={condition && styles} /> -> <Box xcss={condition && styles.root} />
 							element?.type === 'LogicalExpression' &&
 							element.right.type === 'Identifier'
 						) {
@@ -222,35 +230,55 @@ function updateImports(j: core.JSCodeshift, source: ReturnType<typeof j>) {
 				path.node.specifiers = path.node.specifiers.filter(
 					(specifier) => specifier.local?.name !== 'xcss',
 				);
+				if (path.node.specifiers.length === 0) {
+					// if no specifiers remain, remove the import
+					j(path).remove();
+				}
 			}
 		});
 
+	// check if cssMap and token imports exist, add if they don't
 	const existingImports = source.find(j.ImportDeclaration);
 
 	const hasCssMapImport = existingImports.some(
-		(path) => path.node.source.value === '@atlaskit/css',
+		(path) => path.node.source && path.node.source.value === '@atlaskit/css',
 	);
+	const hasTokenImport = existingImports.some(
+		(path) => path.node.source && path.node.source.value === '@atlaskit/tokens',
+	);
+
+	const newImports: ImportDeclaration[] = [];
+
 	if (!hasCssMapImport) {
+		// add cssMap import if it doesn't exist
 		const cssMapImport = j.importDeclaration(
 			[j.importSpecifier(j.identifier('cssMap'))],
 			j.literal('@atlaskit/css'),
 		);
-		source.get().node.program.body.unshift(cssMapImport);
+		newImports.push(cssMapImport);
 	}
 
-	const hasTokenImport = existingImports.some(
-		(path) => path.node.source.value === '@atlaskit/tokens',
-	);
 	if (!hasTokenImport) {
+		// add token import if it doesn't exist
 		const tokenImport = j.importDeclaration(
 			[j.importSpecifier(j.identifier('token'))],
 			j.literal('@atlaskit/tokens'),
 		);
-		source.get().node.program.body.unshift(tokenImport);
+		newImports.push(tokenImport);
 	}
 
-	// update existing @atlaskit/primitives imports to @atlaskit/primitives/compiled
-	// e.g. import { Box } from '@atlaskit/primitives' -> import { Box } from '@atlaskit/primitives/compiled'
+	// remove default import React from 'react' if not needed
+	source.find(j.ImportDeclaration, { source: { value: 'react' } }).forEach((path) => {
+		path.node.specifiers = path.node.specifiers?.filter(
+			(specifier) =>
+				!(specifier.type === 'ImportDefaultSpecifier' && specifier.local?.name === 'React'),
+		);
+		if (path.node.specifiers?.length === 0) {
+			j(path).remove();
+		}
+	});
+
+	// update @atlaskit/primitives imports to @atlaskit/primitives/compiled
 	source
 		.find(j.ImportDeclaration)
 		.filter((path: ASTPath<ImportDeclaration>) => path.node.source.value === '@atlaskit/primitives')
@@ -258,16 +286,18 @@ function updateImports(j: core.JSCodeshift, source: ReturnType<typeof j>) {
 			path.node.source.value = '@atlaskit/primitives/compiled';
 		});
 
-	const hasJsxImport = existingImports.some((path) => path.node.source.value === '@compiled/react');
-	if (!hasJsxImport) {
-		// check if there is `import { jsx } from '@emotion/react'`
-		// this should be replaced with `import { jsx } from '@compiled/react'`
-		const existingEmotionImport = source
-			.find(j.ImportDeclaration)
-			.filter((path: ASTPath<ImportDeclaration>) => path.node.source.value === '@emotion/react')
-			.find(j.ImportSpecifier)
-			.filter((path) => path.node.imported.name === 'jsx');
+	// replace jsx import from `@emotion/react` with `@compiled/react` if necessary
+	const existingEmotionImport = source
+		.find(j.ImportDeclaration)
+		.filter((path: ASTPath<ImportDeclaration>) => path.node.source.value === '@emotion/react')
+		.find(j.ImportSpecifier)
+		.filter((path) => path.node.imported.name === 'jsx');
 
+	if (
+		!existingImports.some(
+			(path) => path.node.source && path.node.source.value === '@compiled/react',
+		)
+	) {
 		const jsxImport = j.importDeclaration(
 			[j.importSpecifier(j.identifier('jsx'))],
 			j.literal('@compiled/react'),
@@ -277,32 +307,21 @@ function updateImports(j: core.JSCodeshift, source: ReturnType<typeof j>) {
 			// replace jsx import from `@emotion/react` with `@compiled/react`
 			existingEmotionImport.closest(j.ImportDeclaration).replaceWith(jsxImport);
 		} else {
-			// add the new import at the top of the file
-			source.get().node.program.body.unshift(jsxImport);
+			// add the new jsx import at the top of the import list
+			newImports.unshift(jsxImport);
 		}
 	}
 
-	// sort import declarations alphabetically
-	// probably not necessary as we can rely on prettier on save
-	const allImports = source.find(j.ImportDeclaration).nodes();
-	allImports.sort((a, b) => {
-		if (
-			typeof a.source.value === 'undefined' ||
-			typeof b.source.value === 'undefined' ||
-			a.source.value === null ||
-			b.source.value === null
-		) {
-			return 0;
-		}
+	// add new imports after any existing comments to ensure they're below the jsx pragma
+	const rootNode = source.get().node;
+	const firstNonCommentIndex = rootNode.program.body.findIndex(
+		(node: core.Node) =>
+			node.type !== 'ImportDeclaration' &&
+			node.type !== 'CommentBlock' &&
+			node.type !== 'CommentLine',
+	);
 
-		return a.source.value > b.source.value ? 1 : -1;
-	});
-	source.get().node.program.body = [
-		...allImports,
-		...source
-			.get()
-			.node.program.body.filter((node: core.Node) => node.type !== 'ImportDeclaration'),
-	];
+	rootNode.program.body.splice(firstNonCommentIndex, 0, ...newImports);
 }
 
 // look for xcss import

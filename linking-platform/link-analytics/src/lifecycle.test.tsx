@@ -30,7 +30,7 @@ jest.mock('./utils', () => {
 });
 
 const PACKAGE_METADATA = {
-	packageName: '@atlaskit/fabric',
+	packageName: '@product/platform',
 	packageVersion: '0.0.0',
 };
 

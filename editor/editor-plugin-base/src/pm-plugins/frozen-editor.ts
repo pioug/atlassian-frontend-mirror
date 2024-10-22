@@ -19,7 +19,6 @@ import type {
 	ExtractInjectionAPI,
 	InputTracking,
 } from '@atlaskit/editor-common/types';
-import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { getAnalyticsEventSeverity, type SEVERITY } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -76,7 +75,6 @@ export default (
 		dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 		inputTracking?: InputTracking,
 		browserFreezeTracking?: BrowserFreezetracking,
-		ufo?: boolean,
 	) => {
 		let interactionType: BROWSER_FREEZE_INTERACTION_TYPE;
 		let inputLatencyTracker: InputLatencyTracker | null = null;
@@ -215,36 +213,11 @@ export default (
 					return {};
 				}
 
-				const experienceStore = ExperienceStore.getInstance(view);
-
 				inputLatencyTracker = new InputLatencyTracker({
 					samplingRate,
 					slowThreshold,
 					normalThreshold: severityThresholdNormal,
 					degradedThreshold: severityThresholdDegraded,
-					onSampleStart: () => {
-						experienceStore?.start(EditorExperience.typing);
-					},
-					onSampleEnd: (time, { isSlow, severity }) => {
-						const { state } = view;
-						const nodesCount = getNodeCount(state);
-
-						if (isSlow) {
-							experienceStore?.addMetadata(EditorExperience.typing, {
-								slowInput: true,
-							});
-						}
-
-						experienceStore?.success(EditorExperience.typing, {
-							nodeSize: state.doc.nodeSize,
-							...nodesCount,
-							objectId:
-								contextIdentifierPlugin?.sharedState.currentState()?.contextIdentifierProvider
-									?.objectId,
-							time,
-							severity: shouldTrackSeverity ? severity : undefined,
-						});
-					},
 					dispatchSample: createDispatchSample(ACTION.INPUT_PERF_SAMPLING, view),
 					dispatchAverage: createDispatchAverage(ACTION.INPUT_PERF_SAMPLING_AVG, view),
 					onSlowInput: (time) => {

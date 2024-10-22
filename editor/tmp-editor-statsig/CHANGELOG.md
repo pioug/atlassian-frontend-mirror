@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.7.0
+
+### Minor Changes
+
+- [#154252](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154252)
+  [`00de4abde0cbf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00de4abde0cbf) -
+  EDF-1769 - [Prepare Experiment] Live Pages AI definitions
+
 ## 2.6.0
 
 ### Minor Changes

@@ -31,7 +31,7 @@ const stylesOld = cssMap({
 		// @ts-expect-error -- TODO: This is still pending migration to typography tokens
 		fontSize: '11px',
 		fontStyle: 'normal',
-		// @ts-expect-error -- TODO: This is still pending migration to typography tokens
+		// TODO: This is still pending migration to typography tokens
 		fontWeight: token('font.weight.bold'),
 		// @ts-expect-error -- TODO: This is still pending migration to typography tokens
 		lineHeight: '16px',
@@ -104,7 +104,7 @@ const stylesNew = cssMap({
 		// @ts-expect-error -- TODO: This is still pending migration to typography tokens
 		fontSize: '11px',
 		fontStyle: 'normal',
-		// @ts-expect-error -- TODO: This is still pending migration to typography tokens
+		// TODO: This is still pending migration to typography tokens
 		fontWeight: token('font.weight.bold'),
 		// @ts-expect-error -- TODO: This is still pending migration to typography tokens
 		lineHeight: '16px',

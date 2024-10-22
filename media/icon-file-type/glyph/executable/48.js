@@ -4,21 +4,17 @@ Object.defineProperty(exports, '__esModule', {
 	value: true,
 });
 exports.default = void 0;
-
 var _react = _interopRequireDefault(require('react'));
-
 var _base = require('@atlaskit/icon/base');
-
-function _interopRequireDefault(obj) {
-	return obj && obj.__esModule ? obj : { default: obj };
+function _interopRequireDefault(e) {
+	return e && e.__esModule ? e : { default: e };
 }
-
 const Executable48Icon = (props) =>
 	/*#__PURE__*/ _react.default.createElement(
-		_base.Icon,
+		_base.UNSAFE_IconFacade,
 		Object.assign(
 			{
-				dangerouslySetGlyph: `<svg width="48" height="64" viewBox="0 0 48 64" role="presentation"><g fill-rule="evenodd"><path fill="#FFF" stroke="#091E42" stroke-opacity=".08" d="M4 .5h28.007a3.5 3.5 0 012.52 1.072l11.994 12.45a3.5 3.5 0 01.979 2.429V60a3.5 3.5 0 01-3.5 3.5H4A3.5 3.5 0 01.5 60V4A3.5 3.5 0 014 .5z"/><path fill="#758195" d="M15.833 33.167l1.058-8.458a1 1 0 01.992-.876h12.234a1 1 0 01.992.876l1.058 8.458v6a1 1 0 01-1 1H16.833a1 1 0 01-1-1v-6zm3.334 2.333a1 1 0 00-1 1v.333a1 1 0 001 1h9.666a1 1 0 001-1V36.5a1 1 0 00-1-1h-9.666z"/></g></svg>`,
+				dangerouslySetGlyph: `<svg width="48" height="64" viewBox="0 0 48 64" role="presentation"><g fill-rule="evenodd"><path fill="#fff" stroke="#091e42" stroke-opacity=".08" d="M4 .5h28.007a3.5 3.5 0 0 1 2.52 1.072l11.994 12.45a3.5 3.5 0 0 1 .979 2.429V60a3.5 3.5 0 0 1-3.5 3.5H4A3.5 3.5 0 0 1 .5 60V4A3.5 3.5 0 0 1 4 .5Z"/><path fill="#758195" d="m15.833 33.167 1.058-8.458a1 1 0 0 1 .992-.876h12.234a1 1 0 0 1 .992.876l1.058 8.458v6a1 1 0 0 1-1 1H16.833a1 1 0 0 1-1-1zm3.334 2.333a1 1 0 0 0-1 1v.333a1 1 0 0 0 1 1h9.666a1 1 0 0 0 1-1V36.5a1 1 0 0 0-1-1z"/></g></svg>`,
 			},
 			props,
 			{
@@ -27,7 +23,5 @@ const Executable48Icon = (props) =>
 			},
 		),
 	);
-
 Executable48Icon.displayName = 'Executable48Icon';
-var _default = Executable48Icon;
-exports.default = _default;
+var _default = (exports.default = Executable48Icon);

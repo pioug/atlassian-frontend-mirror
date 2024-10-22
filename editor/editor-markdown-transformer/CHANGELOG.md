@@ -1,5 +1,13 @@
 # @atlaskit/editor-markdown-transformer
 
+## 5.13.2
+
+### Patch Changes
+
+- [#154186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154186)
+  [`5c316170d29dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c316170d29dd) -
+  Bump @atlaskit/adf-schema to 42.3.1
+
 ## 5.13.1
 
 ### Patch Changes

@@ -129,6 +129,7 @@ export const WhatsNewTypeIcon = styled.div<WhatsNewTypeIconProps>`
 	height: ${token('space.200', '16px')};
 	width: ${token('space.200', '16px')};
 	border-radius: 2px;
+	color: #ffff;
 	background-color: ${({ type }) => {
 		switch (type) {
 			case WHATS_NEW_ITEM_TYPES.IMPROVEMENT:

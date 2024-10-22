@@ -1,5 +1,17 @@
 # @atlaskit/page-layout
 
+## 3.11.0
+
+### Minor Changes
+
+- [#153062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153062)
+  [`b7d4624ddbaf4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b7d4624ddbaf4) -
+  adding data-ssr-placeholder attributes to page-layout component for VC exclusion
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.10.4
 
 ### Patch Changes

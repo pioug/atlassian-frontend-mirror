@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.5.3
+
+### Patch Changes
+
+- [#154664](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154664)
+  [`365f9b8ae8789`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/365f9b8ae8789) -
+  [ux] [ED-23241] Reverted
+  [previous bugfix](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/95492/overview)
+  for codeblock -> paragraph behaviour as it is handled by the Prosemirror schema now, using the
+  linebreakReplacement setting
+- [#154186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154186)
+  [`5c316170d29dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c316170d29dd) -
+  Bump @atlaskit/adf-schema to 42.3.1
+- Updated dependencies
+
 ## 3.5.2
 
 ### Patch Changes

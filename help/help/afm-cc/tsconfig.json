@@ -40,10 +40,19 @@
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/legacy-custom-icons/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../notifications/notification-indicator/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../notifications/notification-log-client/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/radio/afm-cc/tsconfig.json"

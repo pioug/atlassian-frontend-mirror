@@ -12,7 +12,7 @@ export default md`
 
 	const config = await ConfigClient.fetch({
 		// Base URL of the feature-flag-service
-		ffsBaseUrl: 'https://feature-flag-service.ap-southeast-2.dev.atl-paas.net',
+		ffsBaseUrl: 'https://api.dev.atlassian.com/flags',
 		// Your feature-flag-service API key, you can get it from:
 		// https://developer.atlassian.com/platform/frontend-feature-flags/resources/api-keys/
 		ffsApiKey: 'api-xxxx',
@@ -29,7 +29,7 @@ export default md`
 	});
 	~~~
 
-	Or, initialise from values:
+	Or, initialise from values, where the values could come from your own service:
 
 	~~~typescript
 	import { ConfigCollection } from '@atlassian/js-config-client-beta';
@@ -83,4 +83,10 @@ export default md`
 		);
 	}
 	~~~
+
+	    ## Feature Flag Service base urls
+
+	    - Production: https://api.atlassian.com/flags
+	    - Staging: https://api.stg.atlassian.com/flags
+	    - Development: https://api.dev.atlassian.com/flags
 `;

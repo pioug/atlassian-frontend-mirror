@@ -1,5 +1,17 @@
 # @atlaskit/icon-object
 
+## 6.6.0
+
+### Minor Changes
+
+- [#154636](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154636)
+  [`6bd3aebdb9761`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6bd3aebdb9761) -
+  Run build-glyphs in icon packages.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.5.0
 
 ### Minor Changes

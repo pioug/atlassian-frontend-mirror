@@ -1,7 +1,8 @@
 import AkAvatar from '@atlaskit/avatar';
 import AkComment, { CommentAction, CommentAuthor, CommentTime } from '@atlaskit/comment';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type { Editor as AkEditor, EditorProps } from '@atlaskit/editor-core';
+import type { EditorProps } from '@atlaskit/editor-core';
+import { type ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { ConnectedReactionsView } from '@atlaskit/reactions';
 import { ReactRenderer } from '@atlaskit/renderer';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
@@ -427,7 +428,7 @@ export default class Comment extends React.Component<Props, State> {
 		));
 	}
 
-	private renderEditorWithComment = (Editor: typeof AkEditor, editorProps: EditorProps) => {
+	private renderEditorWithComment = (Editor: typeof ComposableEditor, editorProps: EditorProps) => {
 		const { comment, renderEditor } = this.props;
 		// type overridden here because renderEditorWithComment is only called if props.renderEditor is truthy.
 		const renderEditorAlways = renderEditor as RenderEditorWithComments;

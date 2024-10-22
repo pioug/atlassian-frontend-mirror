@@ -37,8 +37,8 @@ export default class IconLabel extends React.PureComponent<Props> {
 
 		return (
 			<DetailsLabel>
-				<DetailsLabelIcon>{displayIcon}</DetailsLabelIcon>
-				<DetailsLabelText>{this.props.children}</DetailsLabelText>
+				<DetailsLabelIcon as="dt">{displayIcon}</DetailsLabelIcon>
+				<DetailsLabelText as="dd">{this.props.children}</DetailsLabelText>
 			</DetailsLabel>
 		);
 	}

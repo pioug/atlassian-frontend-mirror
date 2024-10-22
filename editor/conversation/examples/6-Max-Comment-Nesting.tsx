@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { type Editor as AkEditor, type EditorProps } from '@atlaskit/editor-core';
+import { type EditorProps } from '@atlaskit/editor-core';
+import { type ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { MOCK_USERS } from '../example-helpers/MockData';
 import {
 	getDataProviderFactory,
@@ -14,7 +16,7 @@ const provider = new ConversationResource({
 });
 
 const renderEditorWithAutoMention = (
-	Editor: typeof AkEditor,
+	Editor: typeof ComposableEditor,
 	props: EditorProps,
 	comment?: CommentType,
 ) => {
@@ -44,7 +46,15 @@ const renderEditorWithAutoMention = (
 			}
 		: undefined;
 
-	return <Editor {...props} defaultValue={adfMention} />;
+	return <ComposableEditorWrapper {...props} defaultValue={adfMention} Editor={Editor} />;
+};
+
+const ComposableEditorWrapper = ({
+	Editor,
+	...props
+}: EditorProps & { Editor: typeof ComposableEditor }) => {
+	const universalPreset = useUniversalPreset({ props });
+	return <Editor preset={universalPreset} {...props} />;
 };
 
 export default () => {

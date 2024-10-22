@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { Editor, type EditorProps, EditorContext, ToolbarHelp } from '@atlaskit/editor-core';
+import { type EditorProps, EditorContext, ToolbarHelp } from '@atlaskit/editor-core';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import { usePreset } from '@atlaskit/editor-core/use-preset';
 import {
 	type MentionResourceConfig,
 	AbstractMentionResource,
@@ -134,18 +139,39 @@ export class MentionEditor extends React.Component<Props, State> {
 	render() {
 		return (
 			<EditorContext>
-				<Editor
+				<ComposableEditorWrapper
 					appearance="comment"
 					shouldFocus={true}
 					disabled={false}
 					mentionProvider={Promise.resolve(this.mentionResourceProvider)} // Plug in your Mentions provider
 					allowPanel={true}
-					primaryToolbarComponents={[<ToolbarHelp titlePosition="top" title="Help" key="help" />]}
 				/>
 			</EditorContext>
 		);
 	}
 }
+
+const ComposableEditorWrapper = (props: EditorProps) => {
+	const universalPreset = useUniversalPreset({ props });
+	const { preset, editorApi } = usePreset(() => universalPreset, [universalPreset]);
+
+	return (
+		<ComposableEditor
+			preset={preset}
+			{...props}
+			primaryToolbarComponents={[
+				<ToolbarHelp
+					titlePosition="top"
+					title="Help"
+					key="help"
+					editorApi={
+						props.allowHelpDialog ? (editorApi as ExtractInjectionAPI<HelpDialogPlugin>) : undefined
+					}
+				/>,
+			]}
+		/>
+	);
+};
 
 export default function MentionEditorExample(props?: Props) {
 	return <MentionEditor {...props} />;

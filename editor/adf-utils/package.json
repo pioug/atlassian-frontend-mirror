@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-utils",
-	"version": "19.9.1",
+	"version": "19.9.2",
 	"description": "Set of utilities to traverse, modify and create ADF documents.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,7 +46,7 @@
 		"./validatorTypes": "./src/types/validatorTypes.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^42.0.2",
+		"@atlaskit/adf-schema": "^42.3.1",
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@babel/runtime": "^7.0.0"
 	},

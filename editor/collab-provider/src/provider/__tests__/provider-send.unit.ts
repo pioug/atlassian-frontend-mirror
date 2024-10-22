@@ -104,7 +104,7 @@ describe('#sendData', () => {
 				network: {
 					status: 'ONLINE',
 				},
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 				errorCode: undefined,
 				errorStack: expect.any(String),
@@ -193,7 +193,7 @@ describe('#sendData', () => {
 			action: 'addSteps',
 			actionSubject: 'collab',
 			attributes: {
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 				collabService: 'ncs',
 				network: {
@@ -242,7 +242,7 @@ describe('#sendData', () => {
 			action: 'addSteps',
 			actionSubject: 'collab',
 			attributes: {
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 				collabService: 'ncs',
 				subProduct: 'live',
@@ -261,7 +261,7 @@ describe('#sendData', () => {
 			action: 'error',
 			actionSubject: 'collab',
 			attributes: {
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 				collabService: 'ncs',
 				network: {
@@ -314,7 +314,7 @@ describe('#sendData', () => {
 			action: 'addSteps',
 			actionSubject: 'collab',
 			attributes: {
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 				collabService: 'ncs',
 				network: {
@@ -333,7 +333,7 @@ describe('#sendData', () => {
 			action: 'error',
 			actionSubject: 'collab',
 			attributes: {
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 				collabService: 'ncs',
 				network: {
@@ -439,7 +439,7 @@ describe('#sendData', () => {
 			action: 'error',
 			actionSubject: 'collab',
 			attributes: {
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 				collabService: 'ncs',
 				network: {
@@ -466,7 +466,7 @@ describe('#sendData', () => {
 			action: 'addSteps',
 			actionSubject: 'collab',
 			attributes: {
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 				collabService: 'ncs',
 				network: {
@@ -485,7 +485,7 @@ describe('#sendData', () => {
 			action: 'error',
 			actionSubject: 'collab',
 			attributes: {
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 				collabService: 'ncs',
 				network: {
@@ -534,7 +534,7 @@ describe('#sendData', () => {
 			action: 'error',
 			actionSubject: 'collab',
 			attributes: {
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 				collabService: 'ncs',
 				network: {

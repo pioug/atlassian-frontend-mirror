@@ -25,7 +25,6 @@
 	"dependencies": {
 		"@atlaskit/button": "^20.2.0",
 		"@atlaskit/heading": "^2.3.2",
-		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.2.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/theme": "^14.0.0",
@@ -67,11 +66,6 @@
 		}
 	},
 	"homepage": "https://atlassian.design/components/empty-state/",
-	"platform-feature-flags": {
-		"platform.design-system-team.empty-state-typography-updates_gndrj": {
-			"type": "boolean"
-		}
-	},
 	"typesVersions": {
 		">=4.5 <4.9": {
 			"*": [

@@ -1,17 +1,7 @@
-const mockStore = {
-	failAll: jest.fn(),
-};
 jest.mock('../../../utils/outdatedBrowsers', () => ({
 	...jest.requireActual('../../../utils/outdatedBrowsers'),
 	isOutdatedBrowser: (userAgent: string) => userAgent === 'Unsupported',
 }));
-jest.mock('@atlaskit/editor-common/ufo', () => ({
-	...jest.requireActual('@atlaskit/editor-common/ufo'),
-	ExperienceStore: {
-		getInstance: () => mockStore,
-	},
-}));
-
 import React, { useEffect } from 'react';
 
 import { render, waitFor } from '@testing-library/react';
@@ -194,54 +184,6 @@ describe('create-editor/error-boundary', () => {
 
 		// Error boundary has a async operation to get the productName
 		await waitFor(() => expect(createAnalyticsEvent).not.toHaveBeenCalled());
-	});
-
-	it('should fail all active UFO experiences when an error is caught and ufo is enabled', async () => {
-		const { editorView } = createEditor({
-			preset: new Preset<LightEditorPlugin>().add([featureFlagsPlugin, {}]),
-		});
-		render(
-			<EditorErrorBoundary
-				rethrow={false}
-				contextIdentifierProvider={contextIdentifierProvider}
-				editorView={editorView}
-				featureFlags={{ ufo: true }}
-			>
-				<ExplodingFoo />
-			</EditorErrorBoundary>,
-		);
-
-		await waitFor(() =>
-			expect(mockStore.failAll).toHaveBeenCalledWith({
-				error: 'Error: BOOOOOM!',
-				errorInfo: {
-					componentStack: expect.stringContaining(' ErrorBoundaryWithEditorView'),
-				},
-				browserInfo: expect.any(String),
-				errorId: expect.any(String),
-				errorStack: expect.stringContaining('Error: BOOOOOM!'),
-				browserExtensions: undefined,
-				docStructure: undefined,
-			}),
-		);
-	});
-
-	it('should not fail all active UFO experiences when an error is caught and ufo is not enabled', async () => {
-		const { editorView } = createEditor({
-			preset: new Preset<LightEditorPlugin>().add([featureFlagsPlugin, {}]),
-		});
-		render(
-			<EditorErrorBoundary
-				rethrow={false}
-				contextIdentifierProvider={contextIdentifierProvider}
-				editorView={editorView}
-				featureFlags={{}}
-			>
-				<Foo />
-			</EditorErrorBoundary>,
-		);
-
-		await waitFor(() => expect(mockStore.failAll).not.toHaveBeenCalled());
 	});
 
 	it('should recover rendering if the problem was intermittent', async () => {

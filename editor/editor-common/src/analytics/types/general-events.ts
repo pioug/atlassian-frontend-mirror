@@ -127,15 +127,6 @@ type EditorRenderedAEP<T> = OperationalAEP<
 	}
 >;
 
-export type UfoSessionCompletePayloadAEP = OperationalAEP<
-	ACTION.UFO_SESSION_COMPLETE,
-	ACTION_SUBJECT.EDITOR,
-	undefined,
-	{
-		interval: number;
-	}
->;
-
 type BrowserFreezePayload = OperationalAEPWithObjectId<
 	ACTION.BROWSER_FREEZE,
 	ACTION_SUBJECT.EDITOR,
@@ -527,7 +518,6 @@ export type GeneralEventPayload<T = void> =
 	| WithPluginStateCalledAEP
 	| CodeBlockLanguageSelectedAEP
 	| EditorContentRetrievalPerformedAEP
-	| UfoSessionCompletePayloadAEP
 	| MediaLinkTransformedAEP
 	| TextLinkCodeMarkTransformedAEP
 	| DedupeMarksTransformedAEP

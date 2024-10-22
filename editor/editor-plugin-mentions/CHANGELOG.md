@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-mentions
 
+## 2.10.0
+
+### Minor Changes
+
+- [#154569](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154569)
+  [`344239dfc7745`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/344239dfc7745) -
+  Use smart links for team mentions
+
+### Patch Changes
+
+- [#154186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154186)
+  [`5c316170d29dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c316170d29dd) -
+  Bump @atlaskit/adf-schema to 42.3.1
+- Updated dependencies
+
 ## 2.9.2
 
 ### Patch Changes

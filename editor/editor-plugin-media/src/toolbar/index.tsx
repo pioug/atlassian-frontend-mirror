@@ -158,7 +158,6 @@ export const handleShowMediaViewer = ({
 	if (!selectedNodeAttrs) {
 		return false;
 	}
-
 	api?.core.actions.execute(api?.media.commands.showMediaViewer(selectedNodeAttrs));
 };
 
@@ -206,6 +205,7 @@ const generateMediaCardFloatingToolbar = (
 		fg('platform_editor_media_previewer_bugfix')
 			? {
 					id: 'editor.media.viewer',
+					testId: 'file-preview-toolbar-button',
 					type: 'button',
 					icon: MaximizeIcon,
 					iconFallback: FilePreviewIcon,
@@ -213,6 +213,7 @@ const generateMediaCardFloatingToolbar = (
 					onClick: () => {
 						return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
 					},
+					supportsViewMode: true,
 				}
 			: generateFilePreviewItem(mediaPluginState, intl),
 		{ type: 'separator' },
@@ -621,6 +622,7 @@ const generateMediaSingleFloatingToolbar = (
 					fg('platform_editor_media_previewer_bugfix')
 						? {
 								id: 'editor.media.viewer',
+								testId: 'file-preview-toolbar-button',
 								type: 'button',
 								icon: MaximizeIcon,
 								iconFallback: FilePreviewIcon,
@@ -633,6 +635,7 @@ const generateMediaSingleFloatingToolbar = (
 										}) ?? false
 									);
 								},
+								supportsViewMode: true,
 							}
 						: generateFilePreviewItem(pluginState, intl),
 					{

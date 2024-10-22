@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 22.23.0
+
+### Minor Changes
+
+- [#154636](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154636)
+  [`6bd3aebdb9761`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6bd3aebdb9761) -
+  Run build-glyphs in icon packages.
+
 ## 22.22.0
 
 ### Minor Changes

@@ -6,10 +6,9 @@ import ReactDOM from 'react-dom';
 import type { IntlShape } from 'react-intl-next';
 import { RawIntlProvider } from 'react-intl-next';
 
-import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
+import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { InputMethodInsertMedia, InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { type InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
 import {
@@ -60,10 +59,14 @@ import type {
 } from '../types';
 import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
 import DropPlaceholder from '../ui/Media/DropPlaceholder';
-import { removeMediaNode, splitMediaGroup } from '../utils/media-common';
+import {
+	getMediaFromSupportedMediaNodesFromSelection,
+	removeMediaNode,
+	splitMediaGroup,
+} from '../utils/media-common';
 import { insertMediaGroupNode, insertMediaInlineNode } from '../utils/media-files';
 import { getMediaNodeInsertionType } from '../utils/media-inline';
-import { insertMediaSingleNode } from '../utils/media-single';
+import { insertMediaSingleNode, isVideo } from '../utils/media-single';
 
 import { ACTIONS } from './actions';
 import { MediaTaskManager } from './mediaTaskManager';
@@ -1062,7 +1065,33 @@ export const createPlugin = (
 
 				return false;
 			},
+			handleDoubleClickOn: (view) => {
+				if (
+					!fg('platform_editor_media_previewer_bugfix') ||
+					!fg('platform_editor_media_interaction_improvements') ||
+					pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode === 'view'
+				) {
+					return;
+				}
 
+				// Double Click support for Media Viewer Nodes
+				const maybeMediaNode = getMediaFromSupportedMediaNodesFromSelection(view.state);
+				if (maybeMediaNode) {
+					// If media type is video, do not open media viewer
+					if (isVideo(maybeMediaNode.attrs.__fileMimeType)) {
+						return false;
+					}
+					pluginInjectionApi?.core.actions.execute(
+						pluginInjectionApi?.media.commands.showMediaViewer(
+							maybeMediaNode.attrs as MediaADFAttrs,
+						),
+					);
+
+					return true;
+				}
+
+				return false;
+			},
 			handleDOMEvents: {
 				keydown: (view, event: KeyboardEvent) => {
 					const { selection } = view.state;

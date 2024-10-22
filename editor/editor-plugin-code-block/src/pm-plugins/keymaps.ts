@@ -9,6 +9,7 @@ import {
 	findParentNodeOfTypeClosestToPos,
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getCursor } from '../utils';
 
@@ -66,7 +67,7 @@ export function keymapPlugin(schema: Schema): SafePlugin | undefined {
 	return keymap({
 		Backspace: (state: EditorState, dispatch?: CommandDispatch) => {
 			const $cursor = getCursor(state.selection);
-			const { codeBlock, listItem, table, layoutColumn } = state.schema.nodes;
+			const { codeBlock, listItem, table, layoutColumn, paragraph } = state.schema.nodes;
 			if (!$cursor || $cursor.parent.type !== codeBlock || !dispatch) {
 				return false;
 			}
@@ -81,7 +82,15 @@ export function keymapPlugin(schema: Schema): SafePlugin | undefined {
 					return false;
 				}
 
-				replaceWithParagraph(node.node, node.pos, $cursor, state, dispatch);
+				if (fg('platform_editor_utilize_linebreakreplacement')) {
+					dispatch(
+						state.tr
+							.setNodeMarkup(node.pos, node.node.type, node.node.attrs, [])
+							.setBlockType($cursor.pos, $cursor.pos, paragraph),
+					);
+				} else {
+					replaceWithParagraph(node.node, node.pos, $cursor, state, dispatch);
+				}
 
 				return true;
 			}

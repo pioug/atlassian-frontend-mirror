@@ -3,6 +3,8 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import Form, { Field, FormFooter } from '@atlaskit/form';
@@ -11,13 +13,14 @@ import { token } from '@atlaskit/tokens';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
-import { Editor } from '../src';
-import type { EditorProps } from '../src';
-import type { EditorActions } from '../src';
+import type { EditorActions, EditorProps } from '../src';
+import { ComposableEditor } from '../src/composable-editor';
+import { useUniversalPreset } from '../src/preset-universal';
 import CollapsedEditor from '../src/ui/CollapsedEditor';
 import EditorContext from '../src/ui/EditorContext';
 import ToolbarHelp from '../src/ui/ToolbarHelp';
 import WithEditorActions from '../src/ui/WithEditorActions';
+import { usePreset } from '../src/use-preset';
 
 export type Props = {
 	editorProps?: EditorProps;
@@ -104,7 +107,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 								onFocus={this.onFocus}
 								placeholder="Add a comment..."
 							>
-								<Editor
+								<ComposableEditorWrapper
 									appearance="comment"
 									defaultValue={this.state.defaultValue}
 									shouldFocus={true}
@@ -125,9 +128,6 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 									allowPanel={true}
 									allowHelpDialog={true}
 									placeholder="We support markdown! Try **bold**, `inline code`, or ``` for code blocks."
-									primaryToolbarComponents={[
-										<ToolbarHelp titlePosition="top" title="Help" key="help" />,
-									]}
 									useStickyToolbar={true}
 									assistiveLabel={this.state.assistiveLabel}
 								/>
@@ -139,6 +139,28 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 		);
 	}
 }
+
+const ComposableEditorWrapper = (props: EditorProps) => {
+	const universalPreset = useUniversalPreset({ props });
+	const { preset, editorApi } = usePreset(() => universalPreset, [universalPreset]);
+
+	return (
+		<ComposableEditor
+			preset={preset}
+			{...props}
+			primaryToolbarComponents={
+				<ToolbarHelp
+					titlePosition="top"
+					title="Help"
+					key="help"
+					editorApi={
+						props.allowHelpDialog ? (editorApi as ExtractInjectionAPI<HelpDialogPlugin>) : undefined
+					}
+				/>
+			}
+		/>
+	);
+};
 
 export default function CommentExample(props?: Props) {
 	return <CommentEditorJiraBento {...props} />;

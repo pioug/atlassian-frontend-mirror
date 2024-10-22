@@ -57,25 +57,6 @@ jest.mock('@atlaskit/editor-plugin-base/src/utils/inputTrackingConfig', () => ({
 	},
 }));
 
-const mockStore = {
-	get: jest.fn(),
-	getAll: jest.fn(),
-	start: jest.fn(),
-	addMetadata: jest.fn(),
-	mark: jest.fn(),
-	success: jest.fn(),
-	fail: jest.fn(),
-	abort: jest.fn(),
-	failAll: jest.fn(),
-	abortAll: jest.fn(),
-};
-jest.mock('@atlaskit/editor-common/ufo', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/ufo'),
-	ExperienceStore: {
-		getInstance: () => mockStore,
-	},
-}));
-
 jest.mock('@atlaskit/editor-common/analytics', () => ({
 	...jest.requireActual<Object>('@atlaskit/editor-common/analytics'),
 	fireAnalyticsEvent: jest.fn(),
@@ -106,7 +87,6 @@ import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import * as ProcessRawValueModule from '@atlaskit/editor-common/process-raw-value';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import { EditorExperience, RELIABILITY_INTERVAL } from '@atlaskit/editor-common/ufo';
 import { measureRender, SEVERITY } from '@atlaskit/editor-common/utils';
 import { analyticsEventKey, toJSON } from '@atlaskit/editor-common/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
@@ -126,8 +106,6 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { media, mediaGroup, mention } from '@atlaskit/editor-test-helpers/doc-builder';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import patchEditorViewForJSDOM from '@atlaskit/editor-test-helpers/jsdom-fixtures';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -288,35 +266,6 @@ describe('@atlaskit/editor-core', () => {
 				}),
 			});
 			wrapper.unmount();
-		});
-
-		it('triggers ACTION.UFO_SESSION_COMPLETE analytics with predefined interval when ufo enabled', () => {
-			jest.useFakeTimers();
-			const wrapper = mountWithIntl(
-				<ReactEditorView
-					{...requiredProps()}
-					{...analyticsProps()}
-					editorProps={{ featureFlags: { ufo: true } }}
-				/>,
-			);
-
-			const payload = {
-				action: ACTION.UFO_SESSION_COMPLETE,
-				actionSubject: ACTION_SUBJECT.EDITOR,
-				attributes: { interval: RELIABILITY_INTERVAL },
-				eventType: EVENT_TYPE.OPERATIONAL,
-			};
-			expect(mockFire).not.toHaveBeenCalledWith({ payload });
-			jest.advanceTimersByTime(RELIABILITY_INTERVAL);
-			expect(mockFire).toHaveBeenCalledWith({ payload });
-
-			(mockFire as jest.Mock).mockClear();
-
-			jest.advanceTimersByTime(RELIABILITY_INTERVAL);
-			expect(mockFire).toHaveBeenCalledWith({ payload });
-
-			wrapper.unmount();
-			jest.useRealTimers();
 		});
 
 		it('should set and update aria-label of editor ProseMirror div with passed assistiveLabel prop. ', () => {
@@ -950,219 +899,6 @@ describe('@atlaskit/editor-core', () => {
 				dispatch(payload);
 				expect(eventDispatcher.emit).toHaveBeenCalledWith(analyticsEventKey, {
 					payload,
-				});
-			});
-		});
-
-		describe('ufo', () => {
-			afterEach(() => {
-				jest.clearAllMocks();
-			});
-
-			describe('load', () => {
-				describe('when feature flag enabled', () => {
-					beforeEach(async () => {
-						mountWithIntl(
-							<ReactEditorView
-								{...requiredProps()}
-								editorProps={{ featureFlags: { ufo: true } }}
-							/>,
-						);
-						await flushPromises();
-					});
-
-					it('adds prosemirror rendered mark to editor load experience', () => {
-						expect(mockStore.mark).toHaveBeenCalledWith(
-							EditorExperience.loadEditor,
-							'proseMirrorRendered',
-							mockStopMeasureDuration + mockStartTime,
-						);
-					});
-
-					it('adds metadata for ttfb and nodes to editor load experience', () => {
-						expect(mockStore.addMetadata).toHaveBeenCalledWith(EditorExperience.loadEditor, {
-							ttfb: mockResponseTime,
-							nodes: { paragraph: 1 },
-						});
-					});
-				});
-
-				describe('when feature flag not enabled', () => {
-					it("doesn't interact with experience at all", () => {
-						expect(mockStore.mark).not.toHaveBeenCalled();
-						expect(mockStore.addMetadata).not.toHaveBeenCalled();
-					});
-				});
-			});
-
-			describe('interaction', () => {
-				describe('when feature flag enabled', () => {
-					let editor: any;
-
-					describe('and valid transaction is applied', () => {
-						beforeEach(async () => {
-							const wrapper = mountWithIntl(
-								<ReactEditorView
-									{...requiredProps()}
-									editorProps={{
-										featureFlags: { ufo: true },
-										onChange: () => {},
-										allowDate: true,
-									}}
-								/>,
-							);
-							await flushPromises();
-
-							// trigger a transaction
-							editor = wrapper.instance() as ReactEditorView;
-							editor.view.dispatch(editor.view.state.tr.insertText('hello'));
-						});
-
-						it('starts new interaction experience', () => {
-							expect(mockStore.start).toHaveBeenCalledWith(EditorExperience.interaction);
-						});
-
-						it.each([
-							'stateApply',
-							'viewUpdateState',
-							'onEditorViewStateUpdated',
-							'onChange',
-							'dispatchTransaction',
-						])('adds %s mark to interaction experience', (mark) => {
-							expect(mockStore.mark).toHaveBeenCalledWith(
-								EditorExperience.interaction,
-								mark,
-								expect.any(Number),
-							);
-						});
-
-						it('succeeds interaction experience', () => {
-							expect(mockStore.success).toHaveBeenCalledWith(EditorExperience.interaction);
-						});
-					});
-
-					describe('and invalid transaction is applied', () => {
-						it('fails interaction experience if an invalid transaction is applied', async () => {
-							const editorProps = {
-								featureFlags: { ufo: true },
-								onChange: () => {},
-								allowDate: true,
-							};
-							const wrapper = mountWithIntl(
-								<ReactEditorView
-									{...requiredProps()}
-									preset={createUniversalPreset({ props: editorProps })}
-									editorProps={editorProps}
-								/>,
-							);
-							await flushPromises();
-
-							// invalid transaction with date node as child of code block
-							editor = wrapper.instance() as ReactEditorView;
-							const { date, codeBlock } = editor.view.state.schema.nodes;
-							editor.view.dispatch(
-								editor.view.state.tr.replaceSelectionWith(codeBlock.create({}, date.create())),
-							);
-
-							expect(mockStore.success).not.toHaveBeenCalled();
-							expect(mockStore.fail).toHaveBeenCalledWith(EditorExperience.interaction, {
-								reason: 'invalid transaction',
-								invalidNodes: 'codebl(date())',
-							});
-						});
-					});
-				});
-
-				describe('when feature flag not enabled', () => {
-					it("doesn't start new interaction experience", async () => {
-						const wrapper = mountWithIntl(
-							<ReactEditorView {...requiredProps()} editorProps={{}} />,
-						);
-						await flushPromises();
-
-						// trigger a transaction
-						const editor: any = wrapper.instance() as ReactEditorView;
-						editor.view.dispatch(editor.view.state.tr.insertText('hello'));
-
-						expect(mockStore.start).not.toHaveBeenCalledWith(EditorExperience.interaction);
-					});
-				});
-			});
-
-			describe('editSession', () => {
-				beforeEach(() => {
-					jest.clearAllTimers();
-				});
-				const mountEditor = async (ufoEnabled: boolean) => {
-					mountWithIntl(
-						<ReactEditorView
-							{...requiredProps()}
-							{...analyticsProps()}
-							editorProps={{ featureFlags: { ufo: ufoEnabled } }}
-						/>,
-					);
-					await flushPromises();
-				};
-				const mountEditorAndAdvanceTime = async (ufoEnabled: boolean, ms: number) => {
-					jest.useFakeTimers();
-					await mountEditor(ufoEnabled);
-					await flushPromises();
-					jest.advanceTimersByTime(ms);
-					jest.useRealTimers();
-				};
-
-				describe('when feature flag enabled', () => {
-					describe(`and editor has just mounted`, () => {
-						beforeEach(async () => {
-							await mountEditor(true);
-						});
-						it('starts new editSession experience', () => {
-							expect(mockStore.start).toHaveBeenCalledWith(EditorExperience.editSession);
-						});
-						it('adds metadata for editSession experience interval (ms)', () => {
-							expect(mockStore.addMetadata).toHaveBeenCalledWith(EditorExperience.editSession, {
-								reliabilityInterval: RELIABILITY_INTERVAL,
-							});
-						});
-					});
-
-					describe(`and ${RELIABILITY_INTERVAL}ms has passed`, () => {
-						beforeEach(async () => {
-							await mountEditorAndAdvanceTime(true, RELIABILITY_INTERVAL);
-						});
-						it('succeeds editSession experience', () => {
-							expect(mockStore.success).toHaveBeenCalledWith(EditorExperience.editSession);
-						});
-					});
-
-					describe(`and ${RELIABILITY_INTERVAL}ms has passed and previous editSession settles`, () => {
-						beforeEach(async () => {
-							const prevEditSession = async () => true;
-							mockStore.success.mockImplementation(prevEditSession);
-							await mountEditorAndAdvanceTime(true, RELIABILITY_INTERVAL);
-						});
-						it('starts new editSession experience', () => {
-							expect(mockStore.start.mock.calls).toEqual([
-								[EditorExperience.editSession],
-								[EditorExperience.editSession],
-							]);
-						});
-						it('adds metadata for editSession experience interval (ms)', () => {
-							expect(mockStore.addMetadata).toHaveBeenCalledTimes(3);
-							expect(mockStore.addMetadata).toHaveBeenLastCalledWith(EditorExperience.editSession, {
-								reliabilityInterval: RELIABILITY_INTERVAL,
-							});
-						});
-					});
-				});
-
-				describe('when feature flag not enabled', () => {
-					beforeEach(async () => {
-						await mountEditor(false);
-					});
-					it("doesn't start new editSession experience", () => {
-						expect(mockStore.start).not.toHaveBeenCalledWith(EditorExperience.editSession);
-					});
 				});
 			});
 		});

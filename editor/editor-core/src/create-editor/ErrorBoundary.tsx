@@ -14,10 +14,8 @@ import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { IntlErrorBoundary } from '@atlaskit/editor-common/intl-error-boundary';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { CustomData } from '@atlaskit/ufo/types';
 
 import type { FeatureFlags } from '../types/feature-flags';
 import { isOutdatedBrowser } from '../utils/outdatedBrowsers';
@@ -51,7 +49,6 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 > {
 	featureFlags: FeatureFlags;
 	browserExtensions?: UserBrowserExtensionResults = undefined;
-	experienceStore?: ExperienceStore;
 
 	static defaultProps = {
 		rethrow: true,
@@ -66,15 +63,11 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 		super(props);
 
 		this.featureFlags = props.featureFlags;
-
-		if (props.editorView) {
-			this.experienceStore = ExperienceStore.getInstance(props.editorView);
-		}
 	}
 
 	private sendErrorData = async (analyticsErrorPayload: AnalyticsErrorBoundaryAttributes) => {
 		const product = await this.getProductName();
-		const { error, errorInfo, errorStack } = analyticsErrorPayload;
+		const { error, errorInfo } = analyticsErrorPayload;
 		const sharedId = uuid();
 		const browserInfo = window?.navigator?.userAgent || 'unknown';
 
@@ -107,13 +100,6 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 			},
 		});
 
-		if (this.featureFlags.ufo && this.props.editorView) {
-			this.experienceStore?.failAll({
-				...this.getExperienceMetadata(attributes),
-				errorStack,
-			});
-		}
-
 		logException(error, {
 			location: 'editor-core/create-editor',
 			product,
@@ -134,17 +120,6 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 	private fireAnalyticsEvent = (event: ErrorEventPayload) => {
 		this.props.createAnalyticsEvent?.(event).fire(editorAnalyticsChannel);
 	};
-
-	private getExperienceMetadata = (attributes: ErrorEventAttributes): CustomData => ({
-		browserInfo: attributes.browserInfo,
-		error: attributes.error.toString(),
-		errorInfo: {
-			componentStack: attributes.errorInfo.componentStack || undefined,
-		},
-		errorId: attributes.errorId,
-		browserExtensions: attributes.browserExtensions?.toString(),
-		docStructure: attributes.docStructure as string,
-	});
 
 	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
 		// Only report and re-render once, to avoid over-reporting errors and infinite rerendering

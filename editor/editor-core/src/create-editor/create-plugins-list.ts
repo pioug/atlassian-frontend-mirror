@@ -54,7 +54,6 @@ export function getDefaultPresetOptionsFromEditorProps(
 		base: {
 			allowInlineCursorTarget: true,
 			allowScrollGutter: getScrollGutterOptions(props),
-			ufo: createFeatureFlagsFromProps(props).ufo,
 		},
 		blockType: {
 			lastNodeMustBeParagraph: appearance === 'comment' || appearance === 'chromeless',

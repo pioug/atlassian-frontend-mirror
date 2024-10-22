@@ -6,6 +6,8 @@ import { IntlProvider } from 'react-intl-next';
 import { DevTools } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
@@ -90,7 +92,10 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 		},
 		initialPluginConfiguration,
 	});
-	const { preset } = usePreset(() => universalPreset.add(highlightPlugin), [universalPreset]);
+	const { preset, editorApi } = usePreset(
+		() => universalPreset.add(highlightPlugin),
+		[universalPreset],
+	);
 
 	useEffect(() => {
 		delete window.jQuery;
@@ -184,7 +189,10 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 									}}
 									primaryToolbarComponents={
 										<>
-											<ToolbarHelp key="toolbar-help" />
+											<ToolbarHelp
+												key="toolbar-help"
+												editorApi={editorApi as ExtractInjectionAPI<HelpDialogPlugin>}
+											/>
 										</>
 									}
 									allowExtension={true}

@@ -30,6 +30,7 @@ import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { FilmstripItem } from '@atlaskit/media-filmstrip';
 import { Filmstrip } from '@atlaskit/media-filmstrip';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useMediaProvider } from '../hooks/useMediaProvider';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
@@ -43,6 +44,7 @@ import type {
 	getPosHandler as ProsemirrorGetPosHandler,
 } from '../types';
 
+import { MediaGroupNext } from './mediaGroupNext';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 
 type MediaGroupProps = {
@@ -112,6 +114,7 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
 		super(props);
 		this.mediaNodes = [];
 		this.mediaPluginState = mediaStateKey.getState(props.view.state);
+
 		this.setMediaItems(props);
 		this.state = {
 			viewMediaClientConfig: undefined,
@@ -395,6 +398,26 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
 
 						if (!mediaProvider) {
 							return null;
+						}
+
+						if (fg('platform_editor_react18_phase2__media_single')) {
+							return (
+								<MediaGroupNext
+									node={this.node}
+									getPos={getPos}
+									view={this.view}
+									forwardRef={forwardRef}
+									disabled={(editorDisabledPlugin || {}).editorDisabled}
+									allowLazyLoading={mediaOptions.allowLazyLoading}
+									mediaProvider={mediaProvider}
+									contextIdentifierProvider={contextIdentifierProvider}
+									isCopyPasteEnabled={mediaOptions.isCopyPasteEnabled}
+									anchorPos={this.view.state.selection.$anchor.pos}
+									headPos={this.view.state.selection.$head.pos}
+									mediaOptions={mediaOptions}
+									editorViewMode={editorViewModePlugin?.mode === 'view'}
+								/>
+							);
 						}
 
 						return (

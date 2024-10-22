@@ -31,11 +31,7 @@ describe('ReactEditorView/reconfigureState', () => {
 
 	describe('when the component is created', () => {
 		it('should send the feature flag', () => {
-			const editorProps = {
-				featureFlags: {
-					ufo: true,
-				},
-			};
+			const editorProps = {};
 
 			renderWithIntl(
 				<ReactEditorView
@@ -48,7 +44,7 @@ describe('ReactEditorView/reconfigureState', () => {
 
 			expect(featureFlagsCurrentStateSpy).toHaveBeenCalledTimes(1);
 			expect(featureFlagsCurrentStateSpy).toHaveBeenCalledWith({
-				config: expect.objectContaining({ ufo: true }),
+				config: expect.any(Object),
 				api: expect.objectContaining({}),
 			});
 		});

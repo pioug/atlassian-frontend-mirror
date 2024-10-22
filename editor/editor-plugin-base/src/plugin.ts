@@ -12,6 +12,7 @@ import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-id
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import { history } from '@atlaskit/editor-prosemirror/history';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { setKeyboardHeight } from './commands';
@@ -23,6 +24,7 @@ import { createLazyNodeViewDecorationPlugin } from './pm-plugins/lazy-node-view-
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import type { ScrollGutterPluginOptions } from './pm-plugins/scroll-gutter';
 import scrollGutter, { getKeyboardHeight } from './pm-plugins/scroll-gutter';
+import scrollGutterNext from './pm-plugins/scroll-gutter/next';
 import { inputTracking } from './utils/inputTrackingConfig';
 
 export interface BasePluginOptions {
@@ -36,7 +38,6 @@ export interface BasePluginOptions {
 	 * @deprecated do not use
 	 */
 	browserFreezeTracking?: BrowserFreezetracking;
-	ufo?: boolean;
 }
 
 export type BasePluginState = {
@@ -116,7 +117,6 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 							dispatchAnalyticsEvent,
 							inputTracking,
 							undefined,
-							undefined,
 						);
 					},
 				},
@@ -134,10 +134,17 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 			);
 
 			if (options && options.allowScrollGutter) {
-				plugins.push({
-					name: 'scrollGutterPlugin',
-					plugin: () => scrollGutter(options.allowScrollGutter),
-				});
+				if (fg('platform_editor_improved_scroll_gutter')) {
+					plugins.push({
+						name: 'scrollGutterPlugin',
+						plugin: () => scrollGutterNext(options.allowScrollGutter),
+					});
+				} else {
+					plugins.push({
+						name: 'scrollGutterPlugin',
+						plugin: () => scrollGutter(options.allowScrollGutter),
+					});
+				}
 			}
 
 			plugins.push({

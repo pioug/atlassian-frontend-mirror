@@ -49,7 +49,7 @@ type TestCaseOptions = {
 
 const PACKAGE_CONTEXT = {
 	componentName: 'smart-cards',
-	packageName: '@atlaskit/fabric',
+	packageName: '@product/platform',
 	packageVersion: '0.0.0',
 };
 

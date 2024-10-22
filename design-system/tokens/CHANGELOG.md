@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 2.0.4
+
+### Patch Changes
+
+- [#154745](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154745)
+  [`b11b1e6b1ee65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b11b1e6b1ee65) -
+  Add FontWeight and FontFamily tokens to the @atlaskit/css API.
+
 ## 2.0.3
 
 ### Patch Changes

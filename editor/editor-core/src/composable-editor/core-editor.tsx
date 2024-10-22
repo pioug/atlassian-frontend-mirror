@@ -15,7 +15,6 @@ import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { ACTION, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { Transformer } from '@atlaskit/editor-common/types';
-import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -47,9 +46,7 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 	const editorContext = useEditorContext();
 	const editorActionsPlaceholderInstance = useMemo(() => new EditorActions(), []);
 	const editorActions = editorContext.editorActions || editorActionsPlaceholderInstance;
-	const startTime = useRef(performance.now());
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const experienceStore = useRef<ExperienceStore | undefined>();
 
 	const handleAnalyticsEvent: FireAnalyticsCallback = useCallback(
 		(data) => {
@@ -57,10 +54,6 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 		},
 		[createAnalyticsEvent],
 	);
-
-	const getExperienceStore = useCallback(() => {
-		return experienceStore.current;
-	}, []);
 
 	const getFeatureFlagsFromRef = useCallback(() => {
 		return createFeatureFlagsFromProps(propsRef.current);
@@ -81,11 +74,6 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 				getFeatureFlagsFromRef,
 			);
 
-			if (featureFlags?.ufo) {
-				experienceStore.current = ExperienceStore.getInstance(instance.view);
-				experienceStore.current?.start(EditorExperience.loadEditor, startTime.current);
-			}
-
 			if (onEditorReady) {
 				startMeasure(measurements.ON_EDITOR_READY_CALLBACK);
 
@@ -99,13 +87,12 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 							contextIdentifierProvider,
 							featureFlags,
 						},
-						getExperienceStore,
 						createAnalyticsEvent,
 					),
 				);
 			}
 		},
-		[editorActions, createAnalyticsEvent, getFeatureFlagsFromRef, propsRef, getExperienceStore],
+		[editorActions, createAnalyticsEvent, getFeatureFlagsFromRef, propsRef],
 	);
 
 	const onEditorDestroyed = useCallback(
@@ -120,7 +107,7 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 		[editorActions, propsRef],
 	);
 
-	useMeasureEditorMountTime(props, getExperienceStore, createAnalyticsEvent);
+	useMeasureEditorMountTime(props, createAnalyticsEvent);
 
 	const providerFactory = useProviderFactory(props, editorActions, createAnalyticsEvent);
 

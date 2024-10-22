@@ -33,7 +33,7 @@ const targetPath = join(__dirname, '../', 'src', 'xcss', 'style-maps.partial.tsx
 const xcssCodemodPath = join(
 	process.cwd(),
 	'../../../',
-	'packages/design-system/css/codemods/primitives-emotion-to-compiled/style-maps.partial.tsx',
+	'packages/design-system/css/codemods/0.5.2-primitives-emotion-to-compiled/style-maps.partial.tsx',
 );
 
 const sourceFns = [

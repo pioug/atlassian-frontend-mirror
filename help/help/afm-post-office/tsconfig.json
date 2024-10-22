@@ -39,10 +39,19 @@
       "path": "../../../design-system/icon/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../../design-system/legacy-custom-icons/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../../notifications/notification-indicator/afm-post-office/tsconfig.json"
     },
     {
       "path": "../../../notifications/notification-log-client/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
     },
     {
       "path": "../../../design-system/radio/afm-post-office/tsconfig.json"

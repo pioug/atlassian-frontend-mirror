@@ -140,15 +140,6 @@ export type FeatureFlags = {
 	collabAvatarScroll?: boolean;
 
 	/**
-	 * @description
-	 * Enable UFO experiences
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-13059
-	 * @default false
-	 */
-	ufo?: boolean;
-
-	/**
 	 * Split editor toolbar to two lines when viewport is small
 	 * @see https://product-fabric.atlassian.net/browse/CERN-1124
 	 * @default false

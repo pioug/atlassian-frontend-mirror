@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/legacy-custom-icons",
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"description": "A centralised place to store legacy custom icons.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -62,7 +62,19 @@
 		"./delta-icon": "./src/ui/delta-icon/index.tsx",
 		"./bar-chart-icon": "./src/ui/bar-chart-icon/index.tsx",
 		"./pie-chart-icon": "./src/ui/pie-chart-icon/index.tsx",
-		"./atlassian-intelligence-dark-icon": "./src/ui/atlassian-intelligence-dark-icon/index.tsx"
+		"./atlassian-intelligence-dark-icon": "./src/ui/atlassian-intelligence-dark-icon/index.tsx",
+		"./lobby-bell-icon": "./src/ui/lobby-bell-icon/index.tsx",
+		"./book-icon": "./src/ui/book-icon/index.tsx",
+		"./task-icon": "./src/ui/task-icon/index.tsx",
+		"./calendar-icon": "./src/ui/calendar-icon/index.tsx",
+		"./tag-icon": "./src/ui/tag-icon/index.tsx",
+		"./data-number-icon": "./src/ui/data-number-icon/index.tsx",
+		"./align-left-icon": "./src/ui/align-left-icon/index.tsx",
+		"./person-avatar-icon": "./src/ui/person-avatar-icon/index.tsx",
+		"./text-icon": "./src/ui/text-icon/index.tsx",
+		"./clock-icon": "./src/ui/clock-icon/index.tsx",
+		"./azure-icon": "./src/ui/azure-icon/index.tsx",
+		"./atlassian-intelligence-logo-icon": "./src/ui/atlassian-intelligence-logo-icon/index.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
@@ -95,10 +107,22 @@
 		"./delta-icon": "./src/ui/delta-icon/index.tsx",
 		"./bar-chart-icon": "./src/ui/bar-chart-icon/index.tsx",
 		"./pie-chart-icon": "./src/ui/pie-chart-icon/index.tsx",
-		"./atlassian-intelligence-dark-icon": "./src/ui/atlassian-intelligence-dark-icon/index.tsx"
+		"./atlassian-intelligence-dark-icon": "./src/ui/atlassian-intelligence-dark-icon/index.tsx",
+		"./lobby-bell-icon": "./src/ui/lobby-bell-icon/index.tsx",
+		"./book-icon": "./src/ui/book-icon/index.tsx",
+		"./task-icon": "./src/ui/task-icon/index.tsx",
+		"./calendar-icon": "./src/ui/calendar-icon/index.tsx",
+		"./tag-icon": "./src/ui/tag-icon/index.tsx",
+		"./data-number-icon": "./src/ui/data-number-icon/index.tsx",
+		"./align-left-icon": "./src/ui/align-left-icon/index.tsx",
+		"./person-avatar-icon": "./src/ui/person-avatar-icon/index.tsx",
+		"./text-icon": "./src/ui/text-icon/index.tsx",
+		"./clock-icon": "./src/ui/clock-icon/index.tsx",
+		"./azure-icon": "./src/ui/azure-icon/index.tsx",
+		"./atlassian-intelligence-logo-icon": "./src/ui/atlassian-intelligence-logo-icon/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.22.0",
+		"@atlaskit/icon": "^22.23.0",
 		"@atlaskit/tokens": "^2.0.3",
 		"@babel/runtime": "^7.0.0"
 	},

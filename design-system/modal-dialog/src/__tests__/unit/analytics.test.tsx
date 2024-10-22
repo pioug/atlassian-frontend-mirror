@@ -23,7 +23,7 @@ describe('modal dialog analytics', () => {
 		expect(callback.mock.calls[0][0].context).toEqual([
 			{
 				componentName: 'modalDialog',
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 			},
 		]);
@@ -32,7 +32,7 @@ describe('modal dialog analytics', () => {
 			actionSubject: 'modalDialog',
 			attributes: {
 				componentName: 'modalDialog',
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 			},
 		});
@@ -54,7 +54,7 @@ describe('modal dialog analytics', () => {
 		expect(callback.mock.calls[0][1].context).toEqual([
 			{
 				componentName: 'modalDialog',
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 			},
 		]);
@@ -63,7 +63,7 @@ describe('modal dialog analytics', () => {
 			actionSubject: 'modalDialog',
 			attributes: {
 				componentName: 'modalDialog',
-				packageName: '@atlaskit/fabric',
+				packageName: '@product/platform',
 				packageVersion: '0.0.0',
 			},
 		});

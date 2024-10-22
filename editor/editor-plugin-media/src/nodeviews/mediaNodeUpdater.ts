@@ -515,7 +515,6 @@ const hasPrivateAttrsChanged = (
 export const createMediaNodeUpdater = (props: MediaNodeUpdaterProps) => {
 	const updaterProps = {
 		...props,
-		isMediaSingle: true,
 	};
 
 	return new MediaNodeUpdater(updaterProps);

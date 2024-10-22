@@ -777,6 +777,9 @@ describe(name, () => {
 					content: [
 						{
 							type: 'layoutSection',
+							attrs: {
+								columnRuleStyle: null,
+							},
 							content: [
 								{
 									type: 'unsupportedBlock',
@@ -875,6 +878,9 @@ describe(name, () => {
 					content: [
 						{
 							type: 'layoutSection',
+							attrs: {
+								columnRuleStyle: null,
+							},
 							content: [
 								{
 									type: 'layoutColumn',
@@ -937,28 +943,43 @@ describe(name, () => {
 									},
 								},
 								{
-									type: 'unsupportedBlock',
-									attrs: {
-										originalValue: {
-											type: 'layoutColumn',
+									type: 'layoutColumn',
+									content: [
+										{
+											attrs: {
+												localId: null,
+											},
+											type: 'paragraph',
 											content: [
 												{
-													attrs: {
-														localId: null,
-													},
-													type: 'paragraph',
-													content: [
-														{
-															type: 'text',
-															text: 'forth and false',
-														},
-													],
+													type: 'text',
+													text: 'forth',
 												},
 											],
-											attrs: {
-												width: 33.33,
-											},
 										},
+									],
+									attrs: {
+										width: 33.33,
+									},
+								},
+								{
+									type: 'layoutColumn',
+									content: [
+										{
+											attrs: {
+												localId: null,
+											},
+											type: 'paragraph',
+											content: [
+												{
+													type: 'text',
+													text: 'fifth',
+												},
+											],
+										},
+									],
+									attrs: {
+										width: 33.33,
 									},
 								},
 								{
@@ -975,7 +996,7 @@ describe(name, () => {
 													content: [
 														{
 															type: 'text',
-															text: 'fifth and false',
+															text: 'sixth and false',
 														},
 													],
 												},
@@ -1069,7 +1090,7 @@ describe(name, () => {
 											content: [
 												{
 													type: 'text',
-													text: 'forth and false',
+													text: 'forth',
 												},
 											],
 										},
@@ -1089,7 +1110,27 @@ describe(name, () => {
 											content: [
 												{
 													type: 'text',
-													text: 'fifth and false',
+													text: 'fifth',
+												},
+											],
+										},
+									],
+									attrs: {
+										width: 33.33,
+									},
+								},
+								{
+									type: 'layoutColumn',
+									content: [
+										{
+											attrs: {
+												localId: null,
+											},
+											type: 'paragraph',
+											content: [
+												{
+													type: 'text',
+													text: 'sixth and false',
 												},
 											],
 										},
@@ -1112,6 +1153,7 @@ describe(name, () => {
 					content: [
 						{
 							type: 'layoutSection',
+							attrs: { columnRuleStyle: null },
 							content: [
 								{
 									type: 'layoutColumn',
@@ -1824,6 +1866,7 @@ describe(name, () => {
 					content: [
 						{
 							type: 'layoutSection',
+							attrs: { columnRuleStyle: null },
 							content: [
 								{
 									type: 'layoutColumn',
@@ -1926,6 +1969,7 @@ describe(name, () => {
 						content: [
 							{
 								type: 'layoutSection',
+								attrs: { columnRuleStyle: null },
 								content: [
 									{
 										type: 'layoutColumn',
@@ -2027,6 +2071,7 @@ describe(name, () => {
 							content: [
 								{
 									type: 'layoutSection',
+									attrs: { columnRuleStyle: null },
 									content: [
 										{
 											type: 'layoutColumn',

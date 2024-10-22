@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 1.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.9.0
+
+### Minor Changes
+
+- [#154461](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154461)
+  [`ed3b12d7f1092`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed3b12d7f1092) -
+  Remove WithHelpTrigger from Confluence and deprecate
+
 ## 1.8.13
 
 ### Patch Changes

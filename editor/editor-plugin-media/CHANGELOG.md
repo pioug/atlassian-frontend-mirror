@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-media
 
+## 1.37.0
+
+### Minor Changes
+
+- [#154775](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154775)
+  [`1b353693c3119`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b353693c3119) -
+  [ED-25348] Refactor Media Group React Class component into Function Component
+
+### Patch Changes
+
+- [#154186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154186)
+  [`5c316170d29dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c316170d29dd) -
+  Bump @atlaskit/adf-schema to 42.3.1
+- Updated dependencies
+
+## 1.36.5
+
+### Patch Changes
+
+- [#154581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154581)
+  [`27d560bd2b6b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/27d560bd2b6b6) -
+  [ux] ED-25201 Enable double click to open media viewer in editor
+
 ## 1.36.4
 
 ### Patch Changes

@@ -147,9 +147,6 @@
       "path": "../../../design-system/tooltip/afm-post-office/tsconfig.json"
     },
     {
-      "path": "../../../data/ufo-external/afm-post-office/tsconfig.json"
-    },
-    {
       "path": "../../../design-system/width-detector/afm-post-office/tsconfig.json"
     },
     {

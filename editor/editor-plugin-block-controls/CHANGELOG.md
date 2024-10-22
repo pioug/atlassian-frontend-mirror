@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.9.0
+
+### Minor Changes
+
+- [#154648](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154648)
+  [`7224898e37116`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7224898e37116) -
+  Don't create node decs within tables if nested dnd not enabled
+- [#154380](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154380)
+  [`e045dd3ba95bd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e045dd3ba95bd) -
+  ED-25281 implement DnD API for appending to a layout
+
+### Patch Changes
+
+- [#154186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154186)
+  [`5c316170d29dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c316170d29dd) -
+  Bump @atlaskit/adf-schema to 42.3.1
+- Updated dependencies
+
 ## 2.8.0
 
 ### Minor Changes

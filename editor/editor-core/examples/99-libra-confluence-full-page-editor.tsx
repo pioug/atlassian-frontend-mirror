@@ -122,7 +122,6 @@ const editorProps: EditorProps = {
 		'synchrony.unique.user.max.participants': true,
 		'tti-tracking': '{"enabled":true}',
 		twoLineEditorToolbar: true,
-		ufo: true,
 		'use-pubsub-publish-events': false,
 		'user.internet.connection.indicator': true,
 		'valid-transactions-tracking': '{"samplingRate":300}',

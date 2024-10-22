@@ -37,7 +37,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/css-reset": "^6.11.0",
-		"@atlaskit/icon": "^22.22.0",
+		"@atlaskit/icon": "^22.23.0",
 		"@atlaskit/renderer": "^111.2.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",

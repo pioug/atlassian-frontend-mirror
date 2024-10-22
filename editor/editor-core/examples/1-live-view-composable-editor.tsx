@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EditorExampleControls } from '@af/editor-examples-helpers/utils';
+import { EditorExampleControls, getExamplesProviders } from '@af/editor-examples-helpers/utils';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
@@ -10,6 +10,7 @@ import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
+import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
@@ -29,6 +30,7 @@ function getDefaultValue() {
 function ComposableEditorPage() {
 	const [appearance, setAppearance] = React.useState<EditorAppearance>('full-page');
 	const [isViewMode, setIsViewMode] = React.useState(false);
+	const providers = getExamplesProviders({});
 
 	const universalPreset = useUniversalPreset({
 		props: {
@@ -76,8 +78,19 @@ function ComposableEditorPage() {
 			allowPanel: { allowCustomPanel: true, allowCustomPanelEdit: true },
 			allowFindReplace: true,
 			media: {
+				provider: providers.mediaProvider,
 				allowMediaSingle: true,
+				enableDownloadButton: true,
+				allowResizing: true,
+				allowLinking: true,
+				allowResizingInTables: true,
+				allowAltTextOnImages: true,
 				allowCaptions: true,
+				allowMediaInlineImages: true,
+				featureFlags: {
+					...exampleMediaFeatureFlags,
+					mediaInline: true,
+				},
 			},
 			elementBrowser: {
 				showModal: true,

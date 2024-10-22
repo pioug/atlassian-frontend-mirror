@@ -291,3 +291,18 @@ export const getMediaSingleOrInlineNodeFromSelection = (state: EditorState): PMN
 		(allowInlineImages && getMediaInlineNodeFromSelection(state));
 	return mediaNode || null;
 };
+
+export const getMediaFromSupportedMediaNodesFromSelection = (state: EditorState): PMNode | null => {
+	const { node } = state.selection as NodeSelection;
+
+	switch (node.type) {
+		case node.type.schema.nodes.media:
+		case node.type.schema.nodes.mediaInline:
+			return node;
+		case node.type.schema.nodes.mediaSingle:
+		case node.type.schema.nodes.mediaGroup:
+			return node.firstChild;
+		default:
+			return null;
+	}
+};

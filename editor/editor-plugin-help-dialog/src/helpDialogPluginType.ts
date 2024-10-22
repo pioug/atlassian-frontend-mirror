@@ -13,5 +13,9 @@ export type HelpDialogPlugin = NextEditorPlugin<
 		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<QuickInsertPlugin>];
 		pluginConfiguration: boolean;
 		sharedState: HelpDialogSharedState | null;
+		actions: {
+			openHelp(): void;
+			closeHelp(): void;
+		};
 	}
 >;

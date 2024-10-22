@@ -15,7 +15,7 @@ const collapseSidebarIfOpen = async (page: Page) => {
 	}
 };
 
-test('Hovering the sidebar opens the flyout', async ({ page }) => {
+test('Hovering the sidebar opens the flyout', async ({ page, skipAxeCheck }) => {
 	await page.visitExample('design-system', 'page-layout', 'locked-sidebar', {
 		featureFlag: 'platform_dst_popup-disable-focuslock',
 	});
@@ -27,9 +27,12 @@ test('Hovering the sidebar opens the flyout', async ({ page }) => {
 
 	await expect(page.locator(resizeControl)).toHaveAttribute('aria-expanded', 'false');
 	await expect(page.locator(sideNavigation)).toBeVisible();
+
+	// TODO: remove skipAxeCheck when https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/152741/overview is merged.
+	skipAxeCheck();
 });
 
-test('The flyout is not locked by default', async ({ page }) => {
+test('The flyout is not locked by default', async ({ page, skipAxeCheck }) => {
 	await page.visitExample('design-system', 'page-layout', 'locked-sidebar', {
 		featureFlag: 'platform_dst_popup-disable-focuslock',
 	});
@@ -47,9 +50,15 @@ test('The flyout is not locked by default', async ({ page }) => {
 
 	await expect(page.locator(resizeControl)).toHaveAttribute('aria-expanded', 'false');
 	await expect(page.locator(sideNavigation)).toBeHidden();
+
+	// TODO: remove skipAxeCheck when https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/152741/overview is merged.
+	skipAxeCheck();
 });
 
-test('The lock prevents the flyout state from automatically collapsing', async ({ page }) => {
+test('The lock prevents the flyout state from automatically collapsing', async ({
+	page,
+	skipAxeCheck,
+}) => {
 	await page.visitExample('design-system', 'page-layout', 'locked-sidebar', {
 		featureFlag: 'platform_dst_popup-disable-focuslock',
 	});
@@ -68,10 +77,14 @@ test('The lock prevents the flyout state from automatically collapsing', async (
 
 	await expect(page.locator(resizeControl)).toHaveAttribute('aria-expanded', 'false');
 	await expect(page.locator(sideNavigation)).toBeVisible();
+
+	// TODO: remove skipAxeCheck when https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/152741/overview is merged.
+	skipAxeCheck();
 });
 
 test('Releasing the lock while the cursor is outside of the sidebar will make the flyout collapse', async ({
 	page,
+	skipAxeCheck,
 }) => {
 	await page.visitExample('design-system', 'page-layout', 'locked-sidebar', {
 		featureFlag: 'platform_dst_popup-disable-focuslock',
@@ -84,10 +97,14 @@ test('Releasing the lock while the cursor is outside of the sidebar will make th
 	await page.locator(rightSidebar).first().click();
 	await expect(page.locator(resizeControl)).toHaveAttribute('aria-expanded', 'false');
 	await expect(page.locator(sideNavigation)).toBeHidden();
+
+	// TODO: remove skipAxeCheck when https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/152741/overview is merged.
+	skipAxeCheck();
 });
 
 test('Releasing the lock while the cursor is inside of the sidebar will make the flyout stay open', async ({
 	page,
+	skipAxeCheck,
 }) => {
 	await page.visitExample('design-system', 'page-layout', 'locked-sidebar', {
 		featureFlag: 'platform_dst_popup-disable-focuslock',
@@ -101,4 +118,7 @@ test('Releasing the lock while the cursor is inside of the sidebar will make the
 
 	await expect(page.locator(resizeControl)).toHaveAttribute('aria-expanded', 'false');
 	await expect(page.locator(sideNavigation)).toBeVisible();
+
+	// TODO: remove skipAxeCheck when https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/152741/overview is merged.
+	skipAxeCheck();
 });

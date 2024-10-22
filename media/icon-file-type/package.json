@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-file-type",
-	"version": "6.5.0",
+	"version": "6.6.0",
 	"description": "A file type icon is used to represent specific types of content used across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,7 +46,7 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.22.0",
+		"@atlaskit/icon": "^22.23.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

@@ -1,14 +1,15 @@
 import { type ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { type Comment as CommentType, type User } from '../model';
-import { type Editor as AkEditor, type EditorProps } from '@atlaskit/editor-core';
+import { type EditorProps } from '@atlaskit/editor-core';
 import { type CommentAction as AkCommentAction } from '@atlaskit/comment';
 import { type SuccessHandler } from '../internal/actions';
 import { type EventData } from '../internal/analytics';
+import { type ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 
 export type SendAnalyticsEvent = (eventData: EventData) => void;
 
 export type RenderEditorWithComments = (
-	Editor: typeof AkEditor,
+	Editor: typeof ComposableEditor,
 	props: EditorProps,
 	comment?: CommentType,
 ) => JSX.Element;

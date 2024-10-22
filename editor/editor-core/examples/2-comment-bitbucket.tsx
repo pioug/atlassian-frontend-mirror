@@ -6,15 +6,20 @@ import { IntlProvider } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { token } from '@atlaskit/tokens';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { name, version } from '../package.json';
-import { Editor } from '../src';
+import { type EditorProps } from '../src';
+import { ComposableEditor } from '../src/composable-editor';
+import { useUniversalPreset } from '../src/preset-universal';
 import CollapsedEditor from '../src/ui/CollapsedEditor';
 import EditorContext from '../src/ui/EditorContext';
 import ToolbarHelp from '../src/ui/ToolbarHelp';
 import WithEditorActions from '../src/ui/WithEditorActions';
+import { usePreset } from '../src/use-preset';
 
 const SAVE_ACTION = () => console.log('Save');
 const CANCEL_ACTION = () => console.log('Cancel');
@@ -103,7 +108,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
 										onFocus={this.onFocus}
 										onExpand={EXPAND_ACTION}
 									>
-										<Editor
+										<ComposableEditorWrapper
 											appearance="comment"
 											allowAnalyticsGASV3={true}
 											allowTables={{
@@ -130,7 +135,6 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
 												packageName: name,
 												labels: ['atlaskit-comment-bitbucket'],
 											}}
-											primaryToolbarComponents={[<ToolbarHelp key="toolbar-help" />]}
 										/>
 									</CollapsedEditor>
 								</div>
@@ -157,3 +161,23 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
 		document.body.appendChild(scriptElem);
 	};
 }
+
+const ComposableEditorWrapper = (props: EditorProps) => {
+	const universalPreset = useUniversalPreset({ props });
+	const { preset, editorApi } = usePreset(() => universalPreset, [universalPreset]);
+
+	return (
+		<ComposableEditor
+			preset={preset}
+			{...props}
+			primaryToolbarComponents={
+				<ToolbarHelp
+					key="toolbar-help"
+					editorApi={
+						props.allowHelpDialog ? (editorApi as ExtractInjectionAPI<HelpDialogPlugin>) : undefined
+					}
+				/>
+			}
+		/>
+	);
+};

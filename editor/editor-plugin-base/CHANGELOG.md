@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-base
 
+## 2.0.0
+
+### Major Changes
+
+- [#154731](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154731)
+  [`c07d9c6cecf8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c07d9c6cecf8e) -
+  EDF-1411 Removed UFO experience events from Editor.
+
+### Patch Changes
+
+- [#154843](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154843)
+  [`33209df89f059`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/33209df89f059) -
+  [ux] Improve how the scroll gutter at the bottom of the screen works to prevent flickering while
+  typing.
+- [#154186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154186)
+  [`5c316170d29dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c316170d29dd) -
+  Bump @atlaskit/adf-schema to 42.3.1
+- Updated dependencies
+
 ## 1.12.2
 
 ### Patch Changes

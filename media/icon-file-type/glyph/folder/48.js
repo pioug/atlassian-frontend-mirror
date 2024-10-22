@@ -4,21 +4,17 @@ Object.defineProperty(exports, '__esModule', {
 	value: true,
 });
 exports.default = void 0;
-
 var _react = _interopRequireDefault(require('react'));
-
 var _base = require('@atlaskit/icon/base');
-
-function _interopRequireDefault(obj) {
-	return obj && obj.__esModule ? obj : { default: obj };
+function _interopRequireDefault(e) {
+	return e && e.__esModule ? e : { default: e };
 }
-
 const Folder48Icon = (props) =>
 	/*#__PURE__*/ _react.default.createElement(
-		_base.Icon,
+		_base.UNSAFE_IconFacade,
 		Object.assign(
 			{
-				dangerouslySetGlyph: `<svg width="48" height="64" viewBox="0 0 48 64" role="presentation"><g fill="#B3D4FF" fill-rule="evenodd"><path d="M20 16h24a4 4 0 014 4v28a4 4 0 01-4 4H4a4 4 0 01-4-4V16a4 4 0 014-4h12a4 4 0 014 4z"/><path d="M0 20h48v28a4 4 0 01-4 4H4a4 4 0 01-4-4V20z" style="mix-blend-mode:multiply"/></g></svg>`,
+				dangerouslySetGlyph: `<svg width="48" height="64" viewBox="0 0 48 64" role="presentation"><g fill="#b3d4ff" fill-rule="evenodd"><path d="M20 16h24a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4"/><path d="M0 20h48v28a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4z" style="mix-blend-mode:multiply"/></g></svg>`,
 			},
 			props,
 			{
@@ -27,7 +23,5 @@ const Folder48Icon = (props) =>
 			},
 		),
 	);
-
 Folder48Icon.displayName = 'Folder48Icon';
-var _default = Folder48Icon;
-exports.default = _default;
+var _default = (exports.default = Folder48Icon);

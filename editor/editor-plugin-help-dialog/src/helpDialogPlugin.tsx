@@ -12,6 +12,7 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 
 import { type HelpDialogPlugin } from './helpDialogPluginType';
+import { closeHelpAction, openHelpAction } from './pm-plugins/actions';
 import { openHelpCommand } from './pm-plugins/commands';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
@@ -78,5 +79,14 @@ export const helpDialogPlugin: HelpDialogPlugin = ({
 			return null;
 		}
 		return pluginKey.getState(editorState) || null;
+	},
+
+	actions: {
+		openHelp: () => {
+			return api?.core.actions.execute(({ tr }) => openHelpAction(tr));
+		},
+		closeHelp: () => {
+			return api?.core.actions.execute(({ tr }) => closeHelpAction(tr));
+		},
 	},
 });

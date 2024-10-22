@@ -19,15 +19,11 @@ how to configure your project to use `@atlaskit/css`
 
 ## Codemod
 
-We have a codemod to assist in migrations from `xcss()` to `@atlaskit/css`
+We have a codemod to assist in migrations from `xcss()` to `@atlaskit/css`.
 
 ```sh
-npx @atlaskit/codemod-cli --parser tsx --extensions ts,tsx,js ./path/to/folder
+npx @atlaskit/codemod-cli --packages @atlaskit/css@0.5.2-primitives-emotion-to-compiled --parser tsx --extensions ts,tsx,js ./path/to/folder
 ```
-
-The CLI will show a list of components and versions. Select
-`@atlaskit/css: 0.5.2-primitives-emotion-to-compiled` and your code will be migrated to the
-`@atlaskit/css` API instead.
 
 The codemod should migrate something like this:
 

@@ -2,7 +2,6 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import * as measures from '@atlaskit/editor-common/performance-measures';
-import type { ExperienceStore } from '@atlaskit/editor-common/ufo';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 
@@ -38,7 +37,7 @@ describe('useMeasureEditorMountTime', () => {
 
 		it('only runs once after a rerender', () => {
 			const { rerender } = renderHook(() =>
-				useMeasureEditorMountTime({}, () => undefined, createAnalyticsEvent as any),
+				useMeasureEditorMountTime({}, createAnalyticsEvent as any),
 			);
 			rerender();
 			rerender();
@@ -57,7 +56,7 @@ describe('useMeasureEditorMountTime', () => {
 
 		it('only runs once after a rerender', () => {
 			const { rerender } = renderHook(() =>
-				useMeasureEditorMountTime({}, () => undefined, createAnalyticsEvent as any),
+				useMeasureEditorMountTime({}, createAnalyticsEvent as any),
 			);
 			rerender();
 			rerender();
@@ -80,7 +79,7 @@ describe('useMeasureEditorMountTime', () => {
 
 		it('should not run on rerender', () => {
 			const { rerender } = renderHook(() =>
-				useMeasureEditorMountTime({}, () => undefined, createAnalyticsEvent as any),
+				useMeasureEditorMountTime({}, createAnalyticsEvent as any),
 			);
 			rerender();
 			rerender();
@@ -90,7 +89,7 @@ describe('useMeasureEditorMountTime', () => {
 
 		it('should run once on unmount', async () => {
 			const { unmount } = renderHook(() =>
-				useMeasureEditorMountTime({}, () => undefined, createAnalyticsEvent as any),
+				useMeasureEditorMountTime({}, createAnalyticsEvent as any),
 			);
 			unmount();
 			expect(clearMeasureSpy).toHaveBeenCalledTimes(2);
@@ -99,33 +98,11 @@ describe('useMeasureEditorMountTime', () => {
 
 		it('should run ON_EDITOR_READY_CALLBACK on unmount if prop is active', () => {
 			const { unmount } = renderHook(() =>
-				useMeasureEditorMountTime({}, () => undefined, createAnalyticsEvent as any),
+				useMeasureEditorMountTime({}, createAnalyticsEvent as any),
 			);
 			unmount();
 			expect(clearMeasureSpy).toHaveBeenCalledTimes(2);
 			expect(clearMeasureSpy).toHaveBeenCalledWith(measurements.ON_EDITOR_READY_CALLBACK);
-		});
-
-		it('should run abortAll on experience store on unmount if prop is active', () => {
-			const experienceStore = {
-				abortAll: jest.fn(),
-			} as unknown as ExperienceStore;
-			const { unmount } = renderHook(() =>
-				useMeasureEditorMountTime(
-					{
-						featureFlags: {
-							ufo: true,
-						},
-					},
-					() => experienceStore,
-					createAnalyticsEvent as any,
-				),
-			);
-			unmount();
-			expect(experienceStore.abortAll).toHaveBeenCalledTimes(1);
-			expect(experienceStore.abortAll).toHaveBeenCalledWith({
-				reason: 'editor component unmounted',
-			});
 		});
 	});
 });

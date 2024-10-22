@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::a24657e4c74c30792752bd9e2b59135c>>
+ * @codegen <<SignedSource::63f1f789248a804ea2645fbeeab85e64>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -371,6 +371,19 @@ export type Opacity =
 	| 1
 	| '0'
 	| '1';
+export type FontWeight =
+	| 'var(--ds-font-weight-regular)'
+	| 'var(--ds-font-weight-medium)'
+	| 'var(--ds-font-weight-semibold)'
+	| 'var(--ds-font-weight-bold)';
+export type FontFamily =
+	| 'var(--ds-font-family-heading)'
+	| 'var(--ds-font-family-body)'
+	| 'var(--ds-font-family-code)'
+	| 'var(--ds-font-family-monospace)'
+	| 'var(--ds-font-family-sans)'
+	| 'var(--ds-font-family-brand-heading)'
+	| 'var(--ds-font-family-brand-body)';
 
 export interface CSSPropertiesHovered {
 	backgroundColor: BackgroundColorHovered;
@@ -441,10 +454,10 @@ export interface DesignTokenStyles {
 	containerType: never;
 	float: never;
 	font: FontShorthand;
-	fontFamily: never;
+	fontFamily: FontFamily;
 	fontSize: never;
 	fontSizeAdjust: never;
-	fontWeight: never;
+	fontWeight: FontWeight;
 	gap: Space;
 	height: SizeIntrinsic;
 	inlineSize: SizeIntrinsic;

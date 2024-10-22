@@ -10,7 +10,7 @@ describe('@atlaskit/editor-core/ui/ToolbarHelp', () => {
 	const mountWithEditorContext = (props = {}) => {
 		return mountWithIntl(
 			<EditorContext>
-				<ToolbarHelp {...props} />
+				<ToolbarHelp {...props} editorApi={undefined} />
 			</EditorContext>,
 		);
 	};

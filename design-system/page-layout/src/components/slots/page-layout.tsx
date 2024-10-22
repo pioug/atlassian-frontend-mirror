@@ -91,6 +91,8 @@ const PageLayout = ({
 					css={[gridStyles, gridStylesMobileStyles]}
 					tabIndex={-1}
 					data-vc="page-layout"
+					data-ssr-placeholder="page-layout"
+					data-ssr-placeholder-replace="page-layout"
 				>
 					<SidebarResizeController
 						onLeftSidebarCollapse={onLeftSidebarCollapse}

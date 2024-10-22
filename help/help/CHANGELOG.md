@@ -1,5 +1,17 @@
 # @atlaskit/help
 
+## 7.10.0
+
+### Minor Changes
+
+- [#154753](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154753)
+  [`81738a3eb81e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/81738a3eb81e1) -
+  [ux] Move custom icons to legacy icon package in preparation for upcoming iconography refresh.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.9.1
 
 ### Patch Changes

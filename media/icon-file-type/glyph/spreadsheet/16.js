@@ -4,21 +4,17 @@ Object.defineProperty(exports, '__esModule', {
 	value: true,
 });
 exports.default = void 0;
-
 var _react = _interopRequireDefault(require('react'));
-
 var _base = require('@atlaskit/icon/base');
-
-function _interopRequireDefault(obj) {
-	return obj && obj.__esModule ? obj : { default: obj };
+function _interopRequireDefault(e) {
+	return e && e.__esModule ? e : { default: e };
 }
-
 const Spreadsheet16Icon = (props) =>
 	/*#__PURE__*/ _react.default.createElement(
-		_base.Icon,
+		_base.UNSAFE_IconFacade,
 		Object.assign(
 			{
-				dangerouslySetGlyph: `<svg width="16" height="16" viewBox="0 0 16 16" role="presentation"><path fill="#36B37E" fill-rule="evenodd" d="M2 0h12a2 2 0 012 2v12a2 2 0 01-2 2H2a2 2 0 01-2-2V2a2 2 0 012-2zm2 3a1 1 0 100 2h1a1 1 0 100-2H4zm0 4a1 1 0 100 2h1a1 1 0 100-2H4zm0 4a1 1 0 000 2h1a1 1 0 000-2H4zm5-8a1 1 0 100 2h3a1 1 0 000-2H9zm0 4a1 1 0 100 2h3a1 1 0 000-2H9zm0 4a1 1 0 000 2h3a1 1 0 000-2H9z"/></svg>`,
+				dangerouslySetGlyph: `<svg width="16" height="16" viewBox="0 0 16 16" role="presentation"><path fill="#36b37e" fill-rule="evenodd" d="M2 0h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m2 3a1 1 0 1 0 0 2h1a1 1 0 1 0 0-2zm0 4a1 1 0 1 0 0 2h1a1 1 0 1 0 0-2zm0 4a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2zm5-8a1 1 0 1 0 0 2h3a1 1 0 0 0 0-2zm0 4a1 1 0 1 0 0 2h3a1 1 0 0 0 0-2zm0 4a1 1 0 0 0 0 2h3a1 1 0 0 0 0-2z"/></svg>`,
 			},
 			props,
 			{
@@ -26,7 +22,5 @@ const Spreadsheet16Icon = (props) =>
 			},
 		),
 	);
-
 Spreadsheet16Icon.displayName = 'Spreadsheet16Icon';
-var _default = Spreadsheet16Icon;
-exports.default = _default;
+var _default = (exports.default = Spreadsheet16Icon);

@@ -4,4 +4,5 @@ export type {
 	SelectionPlugin,
 	EditorSelectionAPI,
 	SetSelectionRelativeToNode,
+	SelectionPluginOptions,
 } from '@atlaskit/editor-plugin-selection';

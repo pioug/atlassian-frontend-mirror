@@ -34,6 +34,8 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 	const iconColorPressed: TransformedToken[] = [];
 	const opacity: TransformedToken[] = [];
 	const fontShorthand: TransformedToken[] = [];
+	const fontWeight: TransformedToken[] = [];
+	const fontFamily: TransformedToken[] = [];
 
 	for (let i = 0; i < tokens.length; i++) {
 		const token = tokens[i];
@@ -43,7 +45,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 			token.attributes?.state === 'experimental' ||
 			token.attributes?.state === 'deleted'
 		) {
-			// Skip palette / experiemental / deleted tokens.
+			// Skip palette / experimental / deleted tokens.
 			continue;
 		}
 
@@ -104,6 +106,14 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 			opacity.push(token);
 		}
 
+		if (token.path.includes('weight')) {
+			fontWeight.push(token);
+		}
+
+		if (token.path.includes('family')) {
+			fontFamily.push(token);
+		}
+
 		if (fontShorthandTokenMatcher.test(token.name)) {
 			fontShorthand.push(token);
 		}
@@ -128,6 +138,8 @@ export type Shadow = ${mapToCssVar(shadow)};
 export type TextColorPressed = ${mapToCssVar(textColorPressed)};
 export type TextColor = 'transparent' | TextColorPressed | ${mapToCssVar(textColor)}
 export type Opacity = ${mapToCssVar(opacity)} | 0 | 1 | '0' | '1';
+export type FontWeight = ${mapToCssVar(fontWeight)};
+export type FontFamily = ${mapToCssVar(fontFamily)};
 
 export interface CSSPropertiesHovered {
   backgroundColor: BackgroundColorHovered;
@@ -198,10 +210,10 @@ export interface DesignTokenStyles {
   containerType: never;
   float: never;
   font: FontShorthand;
-  fontFamily: never;
+  fontFamily: FontFamily;
   fontSize: never;
   fontSizeAdjust: never;
-  fontWeight: never;
+  fontWeight: FontWeight;
   gap: Space;
   height: SizeIntrinsic;
   inlineSize: SizeIntrinsic;

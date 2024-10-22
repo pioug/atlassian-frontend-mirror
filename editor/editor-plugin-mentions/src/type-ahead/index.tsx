@@ -182,7 +182,9 @@ const buildNodesForTeamMention = (
 	// build team link
 	const defaultTeamLink = `${window.location.origin}/people/team/${teamId}`;
 	const teamLink = context && context.teamLink ? context.teamLink : defaultTeamLink;
-	const teamLinkNode = schema.text(name!, [marks.link.create({ href: teamLink })]);
+	const teamLinkNode = fg('team-mention-inline-smartlink')
+		? schema.nodes.inlineCard.create({ url: teamLink })
+		: schema.text(name!, [marks.link.create({ href: teamLink })]);
 
 	const openBracketText = schema.text('(');
 	const closeBracketText = schema.text(')');

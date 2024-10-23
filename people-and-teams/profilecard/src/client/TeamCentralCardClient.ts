@@ -3,6 +3,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { type ReportingLinesUser, type TeamCentralReportingLinesData } from '../types';
 
 import CachingClient, { type CacheConfig } from './CachingClient';
+import { getOrgIdForCloudIdFromAGG } from './getOrgIdForCloudIdFromAGG';
 import { directoryGraphqlQuery } from './graphqlUtils';
 
 export const buildReportingLinesQuery = (aaid: string) => ({
@@ -38,6 +39,12 @@ export const buildReportingLinesQuery = (aaid: string) => ({
 
 export type TeamCentralCardClientOptions = CacheConfig & {
 	cloudId?: string;
+	gatewayGraphqlUrl: string;
+	/**
+	 * If provided, will avoid resolving the org ID internally from the cloud ID,
+	 * and use the provided org ID instead
+	 */
+	orgId?: string;
 	teamCentralDisabled?: boolean;
 	/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required */
 	/**
@@ -51,6 +58,7 @@ export type TeamCentralCardClientOptions = CacheConfig & {
 
 let isTCReadyPromiseMap: Map<string, Promise<boolean>> = new Map();
 const globalExperiencePromiseCache: Map<string, Promise<boolean>> = new Map();
+const orgIdPromiseCache: Map<string, Promise<string | null>> = new Map();
 
 class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData> {
 	options: TeamCentralCardClientOptions;
@@ -66,6 +74,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	isTCReadyPromise: Promise<boolean>;
 
 	private isGlobalExperienceWorkspacePromise: Promise<boolean>;
+	private orgIdPromise: Promise<string | null>;
 
 	constructor(options: TeamCentralCardClientOptions) {
 		super(options);
@@ -74,6 +83,11 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		this.isTCReadyPromise = this.createTcReadyPromise(options);
 		this.isGlobalExperienceWorkspacePromise = this.preloadIsGlobalExperienceWorkspace(
 			options.cloudId,
+		);
+		this.orgIdPromise = this.preloadOrgId(
+			options.gatewayGraphqlUrl,
+			options.cloudId,
+			options.orgId,
 		);
 	}
 
@@ -188,6 +202,10 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		return this.isGlobalExperienceWorkspacePromise;
 	}
 
+	getOrgId() {
+		return this.orgIdPromise;
+	}
+
 	private preloadIsGlobalExperienceWorkspace(cloudId?: string) {
 		if (!fg('enable_ptc_sharded_townsquare_calls')) {
 			return Promise.resolve(false);
@@ -242,6 +260,32 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		} catch (err) {
 			return Promise.resolve(false);
 		}
+	}
+
+	private preloadOrgId(gatewayGraphqlUrl: string, cloudId?: string, orgId?: string) {
+		if (!fg('enable_ptc_sharded_townsquare_calls')) {
+			return Promise.resolve(null);
+		}
+
+		if (cloudId === undefined) {
+			return Promise.resolve(null);
+		}
+
+		if (orgId !== undefined) {
+			return Promise.resolve(orgId);
+		}
+
+		const maybeOrgIdForCloudIdPromise = orgIdPromiseCache.get(cloudId);
+
+		if (maybeOrgIdForCloudIdPromise !== undefined) {
+			return maybeOrgIdForCloudIdPromise;
+		}
+
+		const orgIdForCloudIdPromise = getOrgIdForCloudIdFromAGG(gatewayGraphqlUrl, cloudId);
+
+		orgIdPromiseCache.set(cloudId, orgIdForCloudIdPromise);
+
+		return orgIdForCloudIdPromise;
 	}
 
 	private getMaybeShardedApiPath(cloudId: string) {

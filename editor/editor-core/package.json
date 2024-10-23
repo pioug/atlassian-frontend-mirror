@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "199.0.0",
+	"version": "199.2.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,10 +42,10 @@
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
-		"@atlaskit/button": "^20.2.0",
-		"@atlaskit/editor-common": "^94.0.0",
+		"@atlaskit/button": "^20.3.0",
+		"@atlaskit/editor-common": "^94.2.0",
 		"@atlaskit/editor-json-transformer": "^8.20.0",
-		"@atlaskit/editor-plugin-quick-insert": "1.4.7",
+		"@atlaskit/editor-plugin-quick-insert": "1.5.0",
 		"@atlaskit/editor-plugins": "^5.6.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.0.0",
@@ -145,10 +145,6 @@
 			"referenceOnly": "true"
 		},
 		"annotations_defensive_node_name_calculations": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
-		"platform.linking-platform.enable-datasource-edit-dropdown-toolbar": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},

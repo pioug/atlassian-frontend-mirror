@@ -18,6 +18,15 @@ const containerStyles = xcss({
 	margin: 'space.075',
 });
 
+// The above styles are used for both editor and renderer, and in renderer the
+// document body is the main scroll area. This means it overscrolls the primary
+// toolbar, where the z-index is "2". We have to hack in our own z-index less
+// than that to ensure our badge appears under the toolbar when scrolled.
+const hackedZIndexStyles = xcss({
+	// @ts-ignore
+	zIndex: '1',
+});
+
 const resizeOffsetStyles = xcss({
 	right: 'space.150',
 });
@@ -31,6 +40,7 @@ type ExternalImageBadgeProps = {
 	mediaHeight?: number;
 	mediaWidth?: number;
 	extendedResizeOffset?: boolean;
+	useMinimumZIndex?: boolean;
 	children: ReactNode | ((props: { badgeSize: 'medium' | 'small' }) => ReactNode);
 };
 
@@ -45,6 +55,7 @@ export const MediaBadges = ({
 	mediaWidth,
 	mediaHeight,
 	extendedResizeOffset,
+	useMinimumZIndex = false,
 }: ExternalImageBadgeProps) => {
 	const [badgeSize, setBadgeSize] = useState<'medium' | 'small'>(
 		getBadgeSize(mediaWidth, mediaHeight),
@@ -83,6 +94,7 @@ export const MediaBadges = ({
 			contentEditable={false}
 			xcss={[
 				containerStyles,
+				useMinimumZIndex && hackedZIndexStyles,
 				extendedResizeOffset && resizeOffsetStyles,
 				badgeSize === 'small' && smallBadgeStyles,
 			]}

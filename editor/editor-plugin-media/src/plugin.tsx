@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import {
 	ACTION,
@@ -19,6 +19,7 @@ import type {
 	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -44,6 +45,7 @@ import { floatingToolbar } from './toolbar';
 import { MediaPickerComponents } from './ui/MediaPicker';
 import { RenderMediaViewer } from './ui/MediaViewer/PortalWrapper';
 import ToolbarMedia from './ui/ToolbarMedia';
+import { createMediaIdentifierArray, extractMediaNodes } from './utils/media-common';
 import { insertMediaAsMediaSingle } from './utils/media-single';
 
 type MediaPickerFunctionalComponentProps = {
@@ -54,6 +56,7 @@ type MediaPickerFunctionalComponentProps = {
 
 type MediaViewerFunctionalComponentProps = {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	editorView: EditorView;
 };
 
 const MediaPickerFunctionalComponent = ({
@@ -77,8 +80,22 @@ const MediaPickerFunctionalComponent = ({
 	);
 };
 
-const MediaViewerFunctionalComponent = ({ api }: MediaViewerFunctionalComponentProps) => {
+const MediaViewerFunctionalComponent = ({
+	api,
+	editorView,
+}: MediaViewerFunctionalComponentProps) => {
 	const { mediaState } = useSharedPluginState(api, ['media']);
+
+	// Only traverse document once when media viewer is visible, media viewer items will not update
+	// when document changes are made while media viewer is open
+
+	const mediaItems = useMemo(() => {
+		if (mediaState?.isMediaViewerVisible && fg('platform_editor_media_interaction_improvements')) {
+			const mediaNodes = extractMediaNodes(editorView.state.doc);
+			return createMediaIdentifierArray(mediaNodes);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps -- only update mediaItems once when media viewer is visible
+	}, [mediaState?.isMediaViewerVisible]);
 
 	// Viewer does not have required attributes to render the media viewer
 	if (
@@ -99,6 +116,7 @@ const MediaViewerFunctionalComponent = ({ api }: MediaViewerFunctionalComponentP
 			mediaClientConfig={mediaState?.mediaClientConfig}
 			onClose={handleOnClose}
 			selectedNodeAttrs={mediaState.mediaViewerSelectedMedia}
+			items={fg('platform_editor_media_interaction_improvements') ? mediaItems : undefined}
 		/>
 	);
 };
@@ -335,7 +353,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 			return (
 				<>
 					{fg('platform_editor_media_previewer_bugfix') && (
-						<MediaViewerFunctionalComponent api={api} />
+						<MediaViewerFunctionalComponent api={api} editorView={editorView} />
 					)}
 					<MediaPickerFunctionalComponent
 						editorDomElement={editorView.dom}

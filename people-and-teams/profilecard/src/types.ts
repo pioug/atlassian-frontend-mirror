@@ -4,6 +4,7 @@ import { type IntlShape } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
+import { type TeamCentralScopes } from './client/ProfileCardClient';
 import type RovoAgentCardClient from './client/RovoAgentCardClient';
 import {
 	type default as TeamCentralCardClient,
@@ -511,7 +512,7 @@ export interface ProfileClient {
 	) => Promise<Team>;
 	getReportingLines: (userId: string) => Promise<TeamCentralReportingLinesData>;
 	shouldShowGiveKudos: () => Promise<boolean>;
-	getTeamCentralBaseUrl: () => Promise<string | undefined>;
+	getTeamCentralBaseUrl: (teamCentralScopes?: TeamCentralScopes) => Promise<string | undefined>;
 	getRovoAgentProfile: (
 		id: AgentIdType,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,
@@ -549,7 +550,8 @@ export type TeamProfileCardErrorType = {
 	reason: 'default' | 'NotFound' | 'TEAMS_FORBIDDEN';
 } | null;
 
-export interface ProfileClientOptions extends TeamCentralCardClientOptions {
+export interface ProfileClientOptions
+	extends Omit<TeamCentralCardClientOptions, 'gatewayGraphqlUrl'> {
 	/**
 	 * pf-directory url
 	 * When we clean up CloudUser migration FF, we should remove this prop

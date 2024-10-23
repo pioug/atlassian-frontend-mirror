@@ -162,6 +162,10 @@ export default function createUniversalPresetInternal({
 		return false;
 	};
 
+	// Extend table feature set for Jira - under support_table_in_comment_jira experiment
+	const extendedTableFeaturesForComment =
+		isComment && editorExperiment('support_table_in_comment_jira', true, { exposure: true });
+
 	const finalPreset = defaultPreset
 		.add(dataConsumerPlugin)
 		.add(accessibilityUtilsPlugin)
@@ -264,15 +268,17 @@ export default function createUniversalPresetInternal({
 					tableOptions:
 						!props.allowTables || typeof props.allowTables === 'boolean' ? {} : props.allowTables,
 					dragAndDropEnabled:
-						featureFlags?.tableDragAndDrop &&
-						(isFullPage ||
-							((isComment || isChromeless) &&
-								editorExperiment('support_table_in_comment', true, { exposure: true }))),
+						(featureFlags?.tableDragAndDrop &&
+							(isFullPage ||
+								((isComment || isChromeless) &&
+									editorExperiment('support_table_in_comment', true, { exposure: true })))) ||
+						extendedTableFeaturesForComment,
 					isTableScalingEnabled:
-						featureFlags?.tablePreserveWidth &&
-						(isFullPage ||
-							(isComment &&
-								editorExperiment('support_table_in_comment', true, { exposure: true }))),
+						(featureFlags?.tablePreserveWidth &&
+							(isFullPage ||
+								(isComment &&
+									editorExperiment('support_table_in_comment', true, { exposure: true })))) ||
+						extendedTableFeaturesForComment,
 					allowContextualMenu: true,
 					fullWidthEnabled: appearance === 'full-width',
 					wasFullWidthEnabled: prevAppearance && prevAppearance === 'full-width',
@@ -280,6 +286,8 @@ export default function createUniversalPresetInternal({
 					isNewColumnResizingEnabled: featureFlags?.tableNewColumnResizing && isFullPage,
 					isCommentEditor: isComment,
 					isChromelessEditor: isChromeless,
+					tableResizingEnabled: extendedTableFeaturesForComment,
+					isTableAlignmentEnabled: extendedTableFeaturesForComment,
 					...initialPluginConfiguration?.tablesPlugin,
 				},
 			],

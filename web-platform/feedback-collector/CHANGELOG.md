@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 13.14.0
+
+### Minor Changes
+
+- [#153430](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153430)
+  [`13a089a999dac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/13a089a999dac) -
+  [ux] can now close the modal with escape key, autofocus removed
+
 ## 13.13.4
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 4.3.7
+
+### Patch Changes
+
+- [#155058](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155058)
+  [`789a3e0517247`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/789a3e0517247) -
+  [ux] Removing platform.linking-platform.enable-datasource-edit-dropdown-toolbar feature flag
+- Updated dependencies
+
 ## 4.3.6
 
 ### Patch Changes

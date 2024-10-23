@@ -242,7 +242,10 @@ export default function ProfilecardTriggerNext({
 				resourceClient.getProfile(cloudId || '', userId, fireAnalytics),
 				resourceClient.getReportingLines(userId),
 				resourceClient.shouldShowGiveKudos(),
-				resourceClient.getTeamCentralBaseUrl(),
+				resourceClient.getTeamCentralBaseUrl({
+					withOrgContext: true,
+					withSiteContext: true,
+				}),
 			]);
 
 			const responses = await requests;
@@ -442,9 +445,10 @@ export default function ProfilecardTriggerNext({
 				}}
 				zIndex={layers.modal()}
 				shouldUseCaptureOnOutsideClick
+				// eslint-disable-next-line jsx-a11y/no-autofocus
 				autoFocus={autoFocus ?? trigger === 'click'}
 			/>
-			{shouldShowGiveKudos && (
+			{shouldShowGiveKudos && teamCentralBaseUrl && (
 				<Suspense fallback={null}>
 					<GiveKudosLauncherLazy
 						isOpen={kudosDrawerOpen}
@@ -453,7 +457,7 @@ export default function ProfilecardTriggerNext({
 							recipientId: userId!,
 						}}
 						analyticsSource="profile-card"
-						teamCentralBaseUrl={teamCentralBaseUrl!}
+						teamCentralBaseUrl={teamCentralBaseUrl}
 						cloudId={cloudId!}
 						addFlag={addFlag}
 						onClose={closeKudosDrawer}

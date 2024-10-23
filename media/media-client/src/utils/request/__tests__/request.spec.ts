@@ -346,6 +346,7 @@ describe('request', () => {
 			fetchMock.once('Access forbidden', {
 				status: 403,
 				statusText: 'Forbidden',
+				headers: { 'x-media-env': 'some-env', 'x-media-region': 'some-region' },
 			});
 
 			let error;
@@ -381,6 +382,7 @@ describe('request', () => {
 					{
 						status: 500,
 						statusText: 'Internal Server Error',
+						headers: { 'x-media-env': 'some-env', 'x-media-region': 'some-region' },
 					},
 				],
 				[
@@ -388,6 +390,7 @@ describe('request', () => {
 					{
 						status: 500,
 						statusText: 'Internal Server Error',
+						headers: { 'x-media-env': 'some-env', 'x-media-region': 'some-region' },
 					},
 				],
 				'Ok',
@@ -410,6 +413,7 @@ describe('request', () => {
 					{
 						status: 500,
 						statusText: 'Internal Server Error',
+						headers: { 'x-media-env': 'some-env', 'x-media-region': 'some-region' },
 					},
 				],
 				[
@@ -417,6 +421,7 @@ describe('request', () => {
 					{
 						status: 500,
 						statusText: 'Internal Server Error',
+						headers: { 'x-media-env': 'some-env', 'x-media-region': 'some-region' },
 					},
 				],
 				[
@@ -424,6 +429,7 @@ describe('request', () => {
 					{
 						status: 400,
 						statusText: 'Bad Request',
+						headers: { 'x-media-env': 'some-env', 'x-media-region': 'some-region' },
 					},
 				],
 			);
@@ -461,6 +467,7 @@ describe('request', () => {
 			fetchMock.mockResponse('Internal Server Error', {
 				status: 500,
 				statusText: 'Internal Server Error',
+				headers: { 'x-media-env': 'some-env', 'x-media-region': 'some-region' },
 			});
 
 			let error;
@@ -583,11 +590,10 @@ describe('request', () => {
 
 		it('should have unknown media region and environment in error metadata if response header returns nothing', async () => {
 			fetchMock.mockResponses([
-				'ServerBadRequest',
+				'NonMediaError',
 				{
 					status: 400,
-					statusText: 'ServerBadRequest',
-					headers: {},
+					statusText: 'nonMediaError',
 				},
 			]);
 
@@ -608,7 +614,7 @@ describe('request', () => {
 			}
 
 			expect(error.attributes).toMatchObject({
-				reason: 'serverBadRequest',
+				reason: 'nonMediaError',
 				method: 'GET',
 				endpoint: '/uri',
 				mediaRegion: 'unknown',

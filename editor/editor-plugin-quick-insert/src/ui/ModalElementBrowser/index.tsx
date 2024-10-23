@@ -21,10 +21,12 @@ const Modal = ({
 	quickInsertState,
 	editorView,
 	helpUrl,
+	onInsert,
 }: {
 	editorView: EditorView;
 	quickInsertState: QuickInsertSharedState | undefined;
 	helpUrl?: string;
+	onInsert?: (item: QuickInsertItem) => void;
 }) => {
 	const getItems = useCallback(
 		(query?: string, category?: string) =>
@@ -51,10 +53,11 @@ const Modal = ({
 	const insertableItem = React.useRef<QuickInsertItem | null>(null);
 	const onInsertItem = useCallback(
 		(item: QuickInsertItem) => {
+			onInsert?.(item);
 			closeElementBrowserModal()(editorView.state, editorView.dispatch);
 			insertableItem.current = item;
 		},
-		[editorView],
+		[editorView, onInsert],
 	);
 
 	const onClose = useCallback(() => {
@@ -98,6 +101,7 @@ export default ({ editorView, helpUrl, pluginInjectionAPI }: Props) => {
 			quickInsertState={quickInsertState ?? undefined}
 			editorView={editorView}
 			helpUrl={helpUrl}
+			onInsert={pluginInjectionAPI?.quickInsert?.actions?.onInsert}
 		/>
 	);
 };

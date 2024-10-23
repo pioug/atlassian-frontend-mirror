@@ -149,8 +149,6 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 	return (
 		<Modal
 			shouldCloseOnOverlayClick={false}
-			shouldCloseOnEscapePress={false}
-			autoFocus={focusRef}
 			onClose={onClose}
 			testId="feedbackCollectorModalDialog"
 			shouldReturnFocus={shouldReturnFocusRef}
@@ -211,7 +209,6 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 									{({ fieldProps: { id, ...restProps } }) => (
 										<Select<OptionType>
 											{...restProps}
-											required
 											onChange={(option) => {
 												if (!option || option instanceof Array) {
 													return;

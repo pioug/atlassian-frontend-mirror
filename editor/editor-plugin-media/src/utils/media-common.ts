@@ -10,14 +10,18 @@ import {
 import { createNewParagraphBelow, createParagraphNear } from '@atlaskit/editor-common/utils';
 import { deleteSelection, splitBlock } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { type Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findPositionOfNodeBefore } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isMediaBlobUrl } from '@atlaskit/media-client';
+import { type Identifier, isExternalImageIdentifier, isMediaBlobUrl } from '@atlaskit/media-client';
 
 import { getMediaPluginState } from '../pm-plugins/main';
+import { isExternalMedia } from '../toolbar/utils';
 import type { MediaState, getPosHandler as ProsemirrorGetPosHandler } from '../types';
+
+import { isVideo } from './media-single';
 
 const isTemporary = (id: string): boolean => {
 	return id.indexOf('temporary:') === 0;
@@ -305,4 +309,54 @@ export const getMediaFromSupportedMediaNodesFromSelection = (state: EditorState)
 		default:
 			return null;
 	}
+};
+export const getIdentifier = (attrs: MediaADFAttrs): Identifier => {
+	if (isExternalMedia(attrs)) {
+		return {
+			mediaItemType: 'external-image',
+			dataURI: attrs.url,
+		};
+	} else {
+		const { id, collection = '' } = attrs;
+		return {
+			id,
+			mediaItemType: 'file',
+			collectionName: collection,
+		};
+	}
+};
+
+export const extractMediaNodes = (doc: ProseMirrorNode) => {
+	const mediaNodes: ProseMirrorNode[] = [];
+	doc.descendants((node) => {
+		if (node.type.name === 'media' || node.type.name === 'mediaInline') {
+			mediaNodes.push(node);
+		}
+	});
+	return mediaNodes;
+};
+
+export const createMediaIdentifierArray = (mediaNodes: ProseMirrorNode[]) => {
+	const mediaIdentifierMap = new Map();
+
+	mediaNodes.forEach((item) => {
+		const attrs = item.attrs;
+
+		if (!attrs) {
+			return;
+		}
+
+		if (isVideo(attrs.__fileMimeType)) {
+			return;
+		}
+
+		const identifier = getIdentifier(attrs as MediaADFAttrs);
+
+		// Add only if not already processed
+		const idKey = isExternalImageIdentifier(identifier) ? identifier.dataURI : identifier.id;
+		if (!mediaIdentifierMap.has(idKey)) {
+			mediaIdentifierMap.set(idKey, identifier);
+		}
+	});
+	return [...mediaIdentifierMap.values()];
 };

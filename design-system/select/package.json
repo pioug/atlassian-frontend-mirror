@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "18.1.3",
+	"version": "18.2.0",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -73,7 +73,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/checkbox": "^15.0.0",
+		"@atlaskit/checkbox": "^15.1.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/ssr": "*",

@@ -37,7 +37,6 @@ import type {
 	LinkPickerOptions,
 	PluginDependenciesAPI,
 } from '@atlaskit/editor-common/types';
-import { SmallerEditIcon } from '@atlaskit/editor-common/ui';
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
@@ -53,15 +52,17 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
 
 import { changeSelectedCardToText } from './pm-plugins/doc';
 import { pluginKey } from './pm-plugins/main';
 import type { CardPluginOptions, CardPluginState } from './types';
 import { DatasourceAppearanceButton } from './ui/DatasourceAppearanceButton';
-import { editDatasource, EditDatasourceButton } from './ui/EditDatasourceButton';
-import { buildEditLinkToolbar, editLink, editLinkToolbarConfig } from './ui/EditLinkToolbar';
+import {
+	buildEditLinkToolbar,
+	editLinkToolbarConfig,
+	getEditLinkCallback,
+} from './ui/EditLinkToolbar';
 import { EditToolbarButton } from './ui/EditToolbarButton';
 import { HyperlinkToolbarAppearance } from './ui/HyperlinkToolbarAppearance';
 import { LinkToolbarAppearance } from './ui/LinkToolbarAppearance';
@@ -70,7 +71,6 @@ import {
 	appearanceForNodeType,
 	displayInfoForCard,
 	findCardInfo,
-	isDatasourceConfigEditable,
 	isDatasourceNode,
 	titleUrlPairFromNode,
 } from './utils';
@@ -337,7 +337,6 @@ const generateToolbarItems =
 		const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
 
 		const isDatasource = isDatasourceNode(node);
-		const datasourceId = node?.attrs?.datasource?.id;
 		const pluginState: CardPluginState | undefined = pluginKey.getState(state);
 
 		const shouldRenderDatasourceToolbar =
@@ -370,11 +369,7 @@ const generateToolbarItems =
 		} else {
 			const { inlineCard } = state.schema.nodes;
 
-			const isEditDropdownEnabled =
-				cardOptions.allowDatasource &&
-				fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar');
-
-			const editItems: Array<FloatingToolbarItem<Command>> = isEditDropdownEnabled
+			const editItems: Array<FloatingToolbarItem<Command>> = cardOptions.allowDatasource
 				? [
 						{
 							type: 'custom',
@@ -386,7 +381,7 @@ const generateToolbarItems =
 									intl={intl}
 									editorAnalyticsApi={editorAnalyticsApi}
 									editorView={editorView}
-									onLinkEditClick={editLink(editorAnalyticsApi, true)}
+									onLinkEditClick={getEditLinkCallback(editorAnalyticsApi, true)}
 									currentAppearance={currentAppearance}
 								/>
 							),
@@ -401,7 +396,7 @@ const generateToolbarItems =
 							title: intl.formatMessage(linkToolbarMessages.editLink),
 							showTitle: true,
 							testId: 'link-toolbar-edit-link-button',
-							onClick: editLink(editorAnalyticsApi, true),
+							onClick: getEditLinkCallback(editorAnalyticsApi, true),
 						},
 						{ type: 'separator' },
 					];
@@ -517,26 +512,6 @@ const generateToolbarItems =
 				);
 			}
 
-			const shouldShowDatasourceEditButton =
-				allowDatasource && !fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar');
-
-			if (shouldShowDatasourceEditButton) {
-				toolbarItems.unshift({
-					type: 'custom',
-					fallback: [],
-					render: (editorView) => (
-						<EditDatasourceButton
-							datasourceId={datasourceId}
-							intl={intl}
-							editorAnalyticsApi={editorAnalyticsApi}
-							url={url}
-							editorView={editorView}
-							currentAppearance={currentAppearance}
-						/>
-					),
-				});
-			}
-
 			return toolbarItems;
 		}
 	};
@@ -594,25 +569,6 @@ const getDatasourceButtonGroup = (
 ): FloatingToolbarItem<Command>[] => {
 	const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
 
-	if (
-		isDatasourceConfigEditable(datasourceId) &&
-		!fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar')
-	) {
-		toolbarItems.push(
-			{
-				id: 'editor.edit.datasource',
-				type: 'button',
-				icon: SmallerEditIcon,
-				metadata: metadata,
-				className: 'datasource-edit',
-				title: intl.formatMessage(linkToolbarMessages.editDatasource),
-				onClick: editDatasource(datasourceId, editorAnalyticsApi, 'datasource'),
-				testId: 'datasource-edit-button',
-			},
-			{ type: 'separator' },
-		);
-	}
-
 	const canShowAppearanceSwitch = () => {
 		// we do not show smart-link or the datasource icons when the node does not have a url to resolve
 		if (!metadata.url) {
@@ -667,25 +623,23 @@ const getDatasourceButtonGroup = (
 		);
 	}
 
-	if (fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar')) {
-		toolbarItems.push({
-			type: 'custom',
-			fallback: [],
-			render: (editorView) => (
-				<EditToolbarButton
-					datasourceId={datasourceId}
-					node={node}
-					key="edit-toolbar-item"
-					url={metadata.url}
-					intl={intl}
-					editorAnalyticsApi={editorAnalyticsApi}
-					editorView={editorView}
-					onLinkEditClick={editLink(editorAnalyticsApi, false)}
-					currentAppearance="datasource"
-				/>
-			),
-		});
-	}
+	toolbarItems.push({
+		type: 'custom',
+		fallback: [],
+		render: (editorView) => (
+			<EditToolbarButton
+				datasourceId={datasourceId}
+				node={node}
+				key="edit-toolbar-item"
+				url={metadata.url}
+				intl={intl}
+				editorAnalyticsApi={editorAnalyticsApi}
+				editorView={editorView}
+				onLinkEditClick={getEditLinkCallback(editorAnalyticsApi, false)}
+				currentAppearance="datasource"
+			/>
+		),
+	});
 
 	if (node?.attrs?.url) {
 		toolbarItems.push(
@@ -757,11 +711,7 @@ export const getStartingToolbarItems = (
 		onEditLink: Command,
 		metadata: { url: string; title: string },
 	): FloatingToolbarItem<Command>[] => {
-		const isEditDropdownEnabled =
-			options.allowDatasource &&
-			fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar');
-
-		const editLinkItem: FloatingToolbarItem<Command>[] = isEditDropdownEnabled
+		const editLinkItem: FloatingToolbarItem<Command>[] = options.allowDatasource
 			? [
 					{
 						type: 'custom',

@@ -98,7 +98,10 @@ class ProfileCardResourced extends React.PureComponent<
 					this.props.resourceClient.getProfile(cloudId, userId, this.fireAnalytics),
 					this.props.resourceClient.getReportingLines(userId),
 					this.props.resourceClient.shouldShowGiveKudos(),
-					this.props.resourceClient.getTeamCentralBaseUrl(),
+					this.props.resourceClient.getTeamCentralBaseUrl({
+						withOrgContext: true,
+						withSiteContext: true,
+					}),
 				]);
 
 				requests
@@ -203,7 +206,7 @@ class ProfileCardResourced extends React.PureComponent<
 		return (
 			<CardWrapper>
 				<>
-					{isKudosEnabled && (
+					{isKudosEnabled && newProps.teamCentralBaseUrl && (
 						<Suspense fallback={null}>
 							<GiveKudosLauncherLazy
 								isOpen={this.state.kudosDrawerOpen}
@@ -212,7 +215,7 @@ class ProfileCardResourced extends React.PureComponent<
 									recipientId: this.props.userId!,
 								}}
 								analyticsSource="profile-card"
-								teamCentralBaseUrl={newProps.teamCentralBaseUrl!}
+								teamCentralBaseUrl={newProps.teamCentralBaseUrl}
 								cloudId={this.props.cloudId!}
 								addFlag={this.props.addFlag}
 								onClose={this.closeKudosDrawer}

@@ -13,6 +13,7 @@ interface RenderMediaViewerProps {
 	mediaClientConfig: MediaClientConfig;
 	onClose: () => void;
 	selectedNodeAttrs: MediaADFAttrs;
+	items?: Identifier[];
 }
 
 const getIdentifier = (attrs: MediaADFAttrs): Identifier => {
@@ -35,6 +36,7 @@ export const RenderMediaViewer = ({
 	mediaClientConfig,
 	onClose,
 	selectedNodeAttrs,
+	items = [],
 }: RenderMediaViewerProps) => {
 	if (editorExperiment('add-media-from-url', true)) {
 		const identifier = getIdentifier(selectedNodeAttrs);
@@ -43,7 +45,7 @@ export const RenderMediaViewer = ({
 		return ReactDOM.createPortal(
 			<MediaViewer
 				collectionName={collectionName}
-				items={[]}
+				items={items}
 				mediaClientConfig={mediaClientConfig!}
 				selectedItem={identifier}
 				onClose={onClose}

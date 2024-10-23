@@ -431,6 +431,7 @@ class Media extends PureComponent<MediaProps, {}> {
 									mediaElement={mediaSingleElement}
 									mediaWidth={width}
 									mediaHeight={height}
+									useMinimumZIndex
 								>
 									{({ badgeSize }: { badgeSize: 'small' | 'medium' }) => (
 										<>

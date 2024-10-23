@@ -5,6 +5,7 @@ import {
 	type XCSSAllProperties,
 	type XCSSAllPseudos,
 } from '@compiled/react';
+export { jsx } from '@compiled/react';
 
 import { type DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
 

@@ -19,11 +19,20 @@ export type State = {
 	content: Outcome<string, MediaViewerError>;
 };
 
-export class DocViewer extends BaseViewer<string, Props> {
+export class DocViewer extends BaseViewer<string, Props, State> {
+	private isObjectUrl = false;
 	protected get initialState() {
 		return {
 			content: Outcome.pending<string, MediaViewerError>(),
 		};
+	}
+
+	protected needsReset(propsA: Props, propsB: Props): boolean {
+		if (this.state.content.status === 'SUCCESSFUL') {
+			return false;
+		}
+
+		return propsA.item.status !== propsB.item.status;
 	}
 
 	protected async init() {
@@ -31,16 +40,15 @@ export class DocViewer extends BaseViewer<string, Props> {
 
 		if (isPreviewableFileState(item) && item.mimeType.toLowerCase() === 'application/pdf') {
 			const src = await getObjectUrlFromFileState(item);
-			if (!src) {
+			if (src) {
+				this.isObjectUrl = true;
 				this.setState({
-					content: Outcome.pending(),
+					content: Outcome.successful(src),
 				});
 				return;
 			}
-			this.setState({
-				content: Outcome.successful(src),
-			});
-		} else if (item.status === 'processed') {
+		}
+		if (item.status === 'processed') {
 			try {
 				const src = await mediaClient.file.getArtifactURL(
 					item.artifacts,
@@ -90,12 +98,13 @@ export class DocViewer extends BaseViewer<string, Props> {
 	}
 
 	protected release() {
-		const { content } = this.state;
-		if (!content.data) {
+		if (!this.isObjectUrl) {
 			return;
 		}
-
-		URL.revokeObjectURL(content.data);
+		const { content } = this.state;
+		if (content.data) {
+			URL.revokeObjectURL(content.data);
+		}
 	}
 
 	protected renderSuccessful(content: string) {

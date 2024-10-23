@@ -154,6 +154,11 @@ describe('Profile card trigger', () => {
 
 		expect(await screen.findByText(mockGiveKudosLauncherLazyText)).toBeInTheDocument();
 
+		expect(mockGetTeamCentralBaseUrl).toHaveBeenCalledTimes(1);
+		expect(mockGetTeamCentralBaseUrl).toHaveBeenCalledWith({
+			withOrgContext: true,
+			withSiteContext: true,
+		});
 		expect(mockGiveKudosLauncherLazy).toHaveBeenCalledTimes(1);
 		expect(mockGiveKudosLauncherLazy.mock.calls[0][0].teamCentralBaseUrl).toBe(
 			mockTeamCentralBaseUrl,

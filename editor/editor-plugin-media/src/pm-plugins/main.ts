@@ -901,11 +901,12 @@ export const createPlugin = (
 				switch (meta?.type) {
 					case ACTIONS.SHOW_MEDIA_VIEWER:
 						pluginState.mediaViewerSelectedMedia = meta.mediaViewerSelectedMedia;
-						pluginState.isMediaViewerVisible = true;
+						pluginState.isMediaViewerVisible = meta.isMediaViewerVisible;
 						nextPluginState = nextPluginState.clone();
 						break;
 					case ACTIONS.HIDE_MEDIA_VIEWER:
 						pluginState.mediaViewerSelectedMedia = undefined;
+						pluginState.isMediaViewerVisible = meta.isMediaViewerVisible;
 						nextPluginState = nextPluginState.clone();
 						break;
 				}

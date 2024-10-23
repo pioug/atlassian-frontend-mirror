@@ -13,6 +13,7 @@ export type FullPageEditorProps = Pick<
 	| 'performanceTracking'
 	| 'contextIdentifierProvider'
 	| 'searchProvider'
+	| 'activityProvider'
 	| 'annotationProviders'
 	| 'collabEditProvider'
 	| 'collabEdit'

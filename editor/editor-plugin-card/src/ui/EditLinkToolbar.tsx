@@ -157,7 +157,7 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
 	}
 }
 
-export const editLink =
+export const getEditLinkCallback =
 	(editorAnalyticsApi: EditorAnalyticsAPI | undefined, scrollIntoView: boolean): Command =>
 	(state, dispatch) => {
 		let type = 'hyperlink';

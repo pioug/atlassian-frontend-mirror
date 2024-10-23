@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.0.6
+
+### Patch Changes
+
+- [#154659](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154659)
+  [`110ee6d55bdb1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/110ee6d55bdb1) -
+  Remove ts-ignore comments
+
 ## 1.0.5
 
 ### Patch Changes

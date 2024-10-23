@@ -35,7 +35,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/checkbox": "^15.0.0",
+		"@atlaskit/checkbox": "^15.1.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/tooltip": "^18.8.0",
 		"@atlaskit/visual-regression": "*",

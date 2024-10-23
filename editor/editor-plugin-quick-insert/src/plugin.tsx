@@ -51,6 +51,7 @@ export type QuickInsertPlugin = NextEditorPlugin<
 				source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
 			) => Command;
 			getSuggestions: (searchOptions: QuickInsertSearchOptions) => QuickInsertItem[];
+			onInsert: (item: QuickInsertItem) => void;
 		};
 		commands: {
 			openElementBrowserModal: EditorCommand;
@@ -60,6 +61,10 @@ export type QuickInsertPlugin = NextEditorPlugin<
 >;
 
 export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) => {
+	const onInsert = (item: QuickInsertItem) => {
+		options?.onInsert?.(item);
+	};
+
 	const typeAhead: TypeAheadHandler = {
 		id: TypeAheadAvailableNodes.QUICK_INSERT,
 		trigger: '/',
@@ -72,6 +77,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 					{
 						query,
 						disableDefaultItems: options?.disableDefaultItems,
+						prioritySortingFn: options?.prioritySortingFn,
 					},
 					quickInsertState?.lazyDefaultItems,
 					quickInsertState?.providedItems,
@@ -79,7 +85,14 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 			);
 		},
 		selectItem: (state, item, insert) => {
-			return (item as QuickInsertItem).action(insert, state);
+			const quickInsertItem = item as QuickInsertItem;
+			const result = quickInsertItem.action(insert, state);
+
+			if (result) {
+				onInsert(quickInsertItem);
+			}
+
+			return result;
 		},
 	};
 
@@ -152,8 +165,14 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 			getSuggestions: (searchOptions) => {
 				const { lazyDefaultItems, providedItems } =
 					api?.quickInsert?.sharedState.currentState() ?? {};
+
+				if (options?.prioritySortingFn) {
+					searchOptions = { ...searchOptions, prioritySortingFn: options.prioritySortingFn };
+				}
+
 				return getQuickInsertSuggestions(searchOptions, lazyDefaultItems, providedItems);
 			},
+			onInsert,
 		},
 
 		commands: {

@@ -1,28 +1,12 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
+import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { Box, xcss } from '@atlaskit/primitives';
 
-import { N300 } from '@atlaskit/theme/colors';
-import { headingSizes } from '@atlaskit/theme/typography';
-import { token } from '@atlaskit/tokens';
-
-const itemHeadingContentHeight = headingSizes.h100.lineHeight;
-const itemHeadingFontSize = headingSizes.h100.size;
-
-const headingStyles = css({
-	color: token('color.text.subtle', N300),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: itemHeadingFontSize,
-	fontWeight: token('font.weight.bold', '700'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
-	paddingBlock: token('space.0', '0px'),
-	paddingInline: token('space.200', '16px'),
-	textTransform: 'uppercase',
+const headingStyles = xcss({
+	color: 'color.text.subtle',
+	font: 'font.heading.xxsmall',
+	paddingBlock: 'space.0',
+	paddingInline: 'space.200',
 });
 
 /**
@@ -33,9 +17,9 @@ const headingStyles = css({
  * @internal
  */
 const GroupTitle = ({ id, title }: { id: string; title: string }) => (
-	<div data-ds--menu--heading-item role="menuitem" id={id} aria-hidden="true" css={headingStyles}>
+	<Box data-ds--menu--heading-item role="menuitem" id={id} aria-hidden="true" xcss={headingStyles}>
 		{title}
-	</div>
+	</Box>
 );
 
 export default GroupTitle;

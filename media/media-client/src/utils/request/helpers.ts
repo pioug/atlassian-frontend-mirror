@@ -251,10 +251,18 @@ export function createRequestErrorFromResponse(
 	response: Response,
 ): RequestError {
 	const { status: statusCode } = response;
-	const reason = createRequestErrorReason(statusCode);
+
+	// with media-cdn single host feature on ('platform.media-cdn-single-host'), media will make a call to Cloudfront before dt-api-filestore, where 'x-media-region' and 'x-media-env' are set. The absence of these headers indicates a Cloudfront error.
+	const { mediaRegion, mediaEnv } = extractMediaHeaders(response);
+	const reason =
+		mediaRegion === 'unknown' || mediaEnv === 'unknown'
+			? 'nonMediaError'
+			: createRequestErrorReason(statusCode);
+
 	return new RequestError(reason, {
 		...metadata,
-		...extractMediaHeaders(response),
+		mediaRegion,
+		mediaEnv,
 		statusCode,
 	});
 }

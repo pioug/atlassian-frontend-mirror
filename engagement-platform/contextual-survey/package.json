@@ -40,8 +40,8 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/button": "^20.2.0",
-		"@atlaskit/checkbox": "^15.0.0",
+		"@atlaskit/button": "^20.3.0",
+		"@atlaskit/checkbox": "^15.1.0",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/icon": "^22.23.0",

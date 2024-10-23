@@ -23,7 +23,7 @@ import { Flex } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { focusEditorView } from '../../utils';
-import { editDatasource } from '../EditDatasourceButton';
+import { editDatasource } from '../editDatasourceAction';
 
 import type { EditDatasourceToolbarButtonWithCommonProps, EditVariant } from './types';
 

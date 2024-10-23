@@ -326,7 +326,15 @@ describe('useFileState', () => {
 	});
 	describe('network errors', () => {
 		it('400', async () => {
-			server.use(rest.post(`${baseUrl}/items`, (_, res, ctx) => res(ctx.status(400))));
+			server.use(
+				rest.post(`${baseUrl}/items`, (_, res, ctx) =>
+					res(
+						ctx.status(400),
+						ctx.set('x-media-env', 'some-env'),
+						ctx.set('x-media-region', 'some-region'),
+					),
+				),
+			);
 			const mediaConfig = {
 				authProvider: () =>
 					Promise.resolve({
@@ -350,8 +358,8 @@ describe('useFileState', () => {
 						clientExhaustedRetries: undefined,
 						endpoint: '/items',
 						innerError: undefined,
-						mediaEnv: 'unknown',
-						mediaRegion: 'unknown',
+						mediaEnv: 'some-env',
+						mediaRegion: 'some-region',
 						method: 'POST',
 						reason: 'serverBadRequest',
 						statusCode: 400,
@@ -366,6 +374,85 @@ describe('useFileState', () => {
 		});
 
 		it('404', async () => {
+			server.use(
+				rest.post(`${baseUrl}/items`, (_, res, ctx) =>
+					res(
+						ctx.status(404),
+						ctx.set('x-media-env', 'some-env'),
+						ctx.set('x-media-region', 'some-region'),
+					),
+				),
+			);
+			const mediaConfig = {
+				authProvider: () =>
+					Promise.resolve({
+						clientId: 'clientId',
+						token: 'token',
+						baseUrl,
+					}),
+			};
+			const wrapper = ({ children }: any) => (
+				<MediaClientProvider clientConfig={mediaConfig}>{children}</MediaClientProvider>
+			);
+
+			const { result } = renderHook(() => useFileState(testFileId, { collectionName }), {
+				wrapper,
+			});
+
+			await waitFor(() =>
+				expect(result.current.fileState).toEqual({
+					details: {
+						attempts: undefined,
+						clientExhaustedRetries: undefined,
+						endpoint: '/items',
+						innerError: undefined,
+						mediaEnv: 'some-env',
+						mediaRegion: 'some-region',
+						method: 'POST',
+						reason: 'serverNotFound',
+						statusCode: 404,
+					},
+					id: testFileId,
+					message: 'serverNotFound',
+					occurrenceKey: undefined,
+					reason: 'serverNotFound',
+					status: 'error',
+				}),
+			);
+		});
+
+		it('500', async () => {
+			server.use(
+				rest.post(`${baseUrl}/items`, (_, res, ctx) =>
+					res(
+						ctx.status(500),
+						ctx.set('x-media-env', 'some-env'),
+						ctx.set('x-media-region', 'some-region'),
+					),
+				),
+			);
+			const mediaConfig = {
+				authProvider: () =>
+					Promise.resolve({
+						clientId: 'clientId',
+						token: 'token',
+						baseUrl,
+					}),
+			};
+			const wrapper = ({ children }: any) => (
+				<MediaClientProvider clientConfig={mediaConfig}>{children}</MediaClientProvider>
+			);
+
+			const { result } = renderHook(() => useFileState(testFileId, { collectionName }), {
+				wrapper,
+			});
+
+			// We don't expect any result in this situation.
+			// As for a 500 error, the system will keep trying until it hits the maximum attempts.
+			await waitFor(() => expect(result.current.fileState).toEqual(undefined));
+		});
+
+		it('non media errors when neither x-media-env nor x-media-region headers are present', async () => {
 			server.use(rest.post(`${baseUrl}/items`, (_, res, ctx) => res(ctx.status(404))));
 			const mediaConfig = {
 				authProvider: () =>
@@ -393,39 +480,16 @@ describe('useFileState', () => {
 						mediaEnv: 'unknown',
 						mediaRegion: 'unknown',
 						method: 'POST',
-						reason: 'serverNotFound',
+						reason: 'nonMediaError',
 						statusCode: 404,
 					},
 					id: testFileId,
-					message: 'serverNotFound',
+					message: 'nonMediaError',
 					occurrenceKey: undefined,
-					reason: 'serverNotFound',
+					reason: 'nonMediaError',
 					status: 'error',
 				}),
 			);
-		});
-
-		it('500', async () => {
-			server.use(rest.post(`${baseUrl}/items`, (_, res, ctx) => res(ctx.status(500))));
-			const mediaConfig = {
-				authProvider: () =>
-					Promise.resolve({
-						clientId: 'clientId',
-						token: 'token',
-						baseUrl,
-					}),
-			};
-			const wrapper = ({ children }: any) => (
-				<MediaClientProvider clientConfig={mediaConfig}>{children}</MediaClientProvider>
-			);
-
-			const { result } = renderHook(() => useFileState(testFileId, { collectionName }), {
-				wrapper,
-			});
-
-			// We don't expect any result in this situation.
-			// As for a 500 error, the system will keep trying until it hits the maximum attempts.
-			await waitFor(() => expect(result.current.fileState).toEqual(undefined));
 		});
 	});
 

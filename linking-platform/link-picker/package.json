@@ -50,7 +50,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/atlassian-context": "^0.0.2",
-		"@atlaskit/button": "^20.2.0",
+		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/frontend-utilities": "^2.7.0",
 		"@atlaskit/heading": "^2.4.0",
@@ -84,7 +84,7 @@
 		"@af/analytics-codegen": "^0.1.0",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/dropdown-menu": "^12.20.0",
+		"@atlaskit/dropdown-menu": "^12.21.0",
 		"@atlaskit/link-provider": "^1.16.0",
 		"@atlaskit/link-test-helpers": "^7.5.0",
 		"@atlaskit/visual-regression": "*",

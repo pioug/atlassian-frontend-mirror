@@ -1,3 +1,4 @@
+import type Fuse from 'fuse.js';
 import type { IntlShape } from 'react-intl-next';
 
 import type { QuickInsertItem, QuickInsertProvider } from '../provider-factory';
@@ -7,7 +8,9 @@ import type { EmptyStateHandler } from './empty-state-handler';
 export type QuickInsertOptions =
 	| boolean
 	| {
-			provider: Promise<QuickInsertProvider>;
+			provider?: Promise<QuickInsertProvider>;
+			prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction;
+			onInsert?: (item: QuickInsertItem) => void;
 	  };
 
 export type QuickInsertHandlerFn = ((intl: IntlShape) => Array<QuickInsertItem>) & {
@@ -25,6 +28,7 @@ export type QuickInsertSearchOptions = {
 	category?: string;
 	disableDefaultItems?: boolean;
 	featuredItems?: boolean;
+	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction;
 };
 
 export type QuickInsertPluginState = {
@@ -44,6 +48,8 @@ export interface QuickInsertPluginOptions {
 	enableElementBrowser?: boolean;
 	elementBrowserHelpUrl?: string;
 	emptyStateHandler?: EmptyStateHandler;
+	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction;
+	onInsert?: (item: QuickInsertItem) => void;
 }
 
 export type QuickInsertSharedState = {

@@ -24,9 +24,9 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { editDatasource } from '../../ui/EditDatasourceButton';
 import { focusEditorView, isDatasourceConfigEditable } from '../../utils';
 import { CardContextProvider } from '../CardContextProvider';
+import { editDatasource } from '../editDatasourceAction';
 import { useFetchDatasourceDataInfo } from '../useFetchDatasourceDataInfo';
 import { useFetchDatasourceInfo } from '../useFetchDatasourceInfo';
 

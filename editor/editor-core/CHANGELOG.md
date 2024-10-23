@@ -1,5 +1,37 @@
 # @atlaskit/editor-core
 
+## 199.2.0
+
+### Minor Changes
+
+- [#153949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153949)
+  [`f924bc9be1373`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f924bc9be1373) -
+  Add activityProvider prop for editor to use with media.
+
+### Patch Changes
+
+- [#155195](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155195)
+  [`73c97aeb48ea9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73c97aeb48ea9) -
+  Add platform_editor_support_table_in_comment_jira experiment to control table drag and drop and
+  table scaling features to support new table features in jira
+- [#155195](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155195)
+  [`086e77aecf6e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/086e77aecf6e5) -
+  [ux] ED-25202 Support Preview in media files
+- Updated dependencies
+
+## 199.1.0
+
+### Minor Changes
+
+- [#154398](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154398)
+  [`ca1591355d790`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca1591355d790) -
+  [ux] Allows for passing functions to the quickInsert plugin that allow for capturing element
+  insertion metrics and then using that data to change the element sort order
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 199.0.0
 
 ### Major Changes

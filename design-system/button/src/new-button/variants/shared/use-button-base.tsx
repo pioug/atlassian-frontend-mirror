@@ -77,6 +77,9 @@ const buttonStyles = xcss({
 	borderWidth: 'border.width.0',
 	flexShrink: 0,
 	height: `${32 / 14}em`,
+	font: 'font.body',
+	fontWeight: 'font.weight.medium',
+	paddingBlock: 'space.075',
 	paddingInlineEnd: 'space.150',
 	paddingInlineStart: 'space.150',
 	textAlign: 'center',
@@ -90,21 +93,6 @@ const buttonStyles = xcss({
 		pointerEvents: 'none',
 		position: 'absolute',
 	},
-});
-
-const hardCodedButtonStyles = xcss({
-	fontFamily: 'inherit',
-	fontSize: 'inherit',
-	fontStyle: 'normal',
-	fontWeight: 500,
-	lineHeight: `${32 / 14}em`,
-	paddingBlock: 'space.0',
-});
-
-const tokenizedButtonStyles = xcss({
-	font: 'font.body',
-	fontWeight: 'font.weight.medium',
-	paddingBlock: 'space.075',
 });
 
 const defaultInteractiveStyles = xcss({
@@ -434,17 +422,10 @@ const selectedDiscoveryStyles = xcss({
 const spacingCompactStyles = xcss({
 	columnGap: 'space.050',
 	height: `${24 / 14}em`,
+	paddingBlock: 'space.025',
 	paddingInlineEnd: 'space.150',
 	paddingInlineStart: 'space.150',
 	verticalAlign: 'middle',
-});
-
-const baseSpacingCompactStyles = xcss({
-	lineHeight: `${24 / 14}em`,
-});
-
-const tokenizedSpacingCompactStyles = xcss({
-	paddingBlock: 'space.025',
 });
 
 const circleStyles = xcss({ borderRadius: 'border.radius.circle' });
@@ -548,9 +529,6 @@ const useButtonBase = <TagName extends HTMLElement>({
 	return {
 		ref: mergeRefs([localRef, ref]),
 		xcss: [
-			fg('platform.design-system-team.button-tokenised-typography-styles')
-				? tokenizedButtonStyles
-				: hardCodedButtonStyles,
 			buttonStyles,
 			appearance === 'default' &&
 				(fg('platform-component-visual-refresh') ? defaultRefreshedStyles : defaultStyles),
@@ -588,10 +566,6 @@ const useButtonBase = <TagName extends HTMLElement>({
 			isDisabled && disabledStyles,
 			isCircle && !isSplitButton && circleStyles,
 			spacing === 'compact' && spacingCompactStyles,
-			spacing === 'compact' &&
-				(fg('platform.design-system-team.button-tokenised-typography-styles')
-					? tokenizedSpacingCompactStyles
-					: baseSpacingCompactStyles),
 			hasIconBefore && buttonIconBeforeStyles,
 			hasIconAfter && buttonIconAfterStyles,
 			isIconButton && iconButtonStyles,

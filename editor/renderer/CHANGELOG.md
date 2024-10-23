@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 111.2.8
+
+### Patch Changes
+
+- [#155195](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155195)
+  [`73c97aeb48ea9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73c97aeb48ea9) -
+  Add platform_editor_support_table_in_comment_jira experiment to control table drag and drop and
+  table scaling features to support new table features in jira
+- [#152897](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152897)
+  [`ecafb0e3e4fdf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ecafb0e3e4fdf) -
+  [ux] [ED-25418] Fix z-indexes for media badges in renderer
+- Updated dependencies
+
 ## 111.2.7
 
 ### Patch Changes

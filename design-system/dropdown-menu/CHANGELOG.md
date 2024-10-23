@@ -1,5 +1,17 @@
 # @atlaskit/dropdown-menu
 
+## 12.21.0
+
+### Minor Changes
+
+- [#155054](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155054)
+  [`5e7c49fc3d545`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e7c49fc3d545) -
+  Updated group title styles to use modernized typography.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.20.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::330ecd53e03bf78708580ddcfb206876>>
+ * @codegen <<SignedSource::11d1ce4c1740cea37e5de3ccba44a8f5>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 export default {
@@ -48,6 +48,10 @@ export default {
 		'@atlaskit/design-system/no-invalid-css-map': [
 			'error',
 			{ allowedFunctionCalls: [['@atlaskit/tokens', 'token']] },
+		],
+		'@compiled/jsx-pragma': [
+			'error',
+			{ runtime: 'classic', onlyRunIfImportingCompiled: true, importSources: ['@atlaskit/css'] },
 		],
 	},
 };

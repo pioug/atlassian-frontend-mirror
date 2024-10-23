@@ -38,7 +38,6 @@ const chatToAgentButtonWrapper = xcss({
 	display: 'flex',
 	justifyContent: 'center',
 	lineHeight: '20px',
-	padding: 'space.075',
 	fontWeight: '500',
 });
 

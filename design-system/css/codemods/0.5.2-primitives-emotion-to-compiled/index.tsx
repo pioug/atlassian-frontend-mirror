@@ -237,29 +237,54 @@ function updateImports(j: core.JSCodeshift, source: ReturnType<typeof j>) {
 			}
 		});
 
-	// check if cssMap and token imports exist, add if they don't
-	const existingImports = source.find(j.ImportDeclaration);
+	const importsNeeded = {
+		cssMap: false,
+		jsx: false,
+		token: false,
+	};
 
-	const hasCssMapImport = existingImports.some(
-		(path) => path.node.source && path.node.source.value === '@atlaskit/css',
-	);
-	const hasTokenImport = existingImports.some(
-		(path) => path.node.source && path.node.source.value === '@atlaskit/tokens',
-	);
+	// check existing imports
+	source.find(j.ImportDeclaration).forEach((path) => {
+		switch (path.node.source.value) {
+			case '@atlaskit/css':
+				if (path.node.specifiers) {
+					path.node.specifiers.forEach((specifier) => {
+						if (specifier.local?.name === 'cssMap') {
+							importsNeeded.cssMap = true;
+						}
+						if (specifier.local?.name === 'jsx') {
+							importsNeeded.jsx = true;
+						}
+					});
+				}
+				break;
+			case '@atlaskit/tokens':
+				importsNeeded.token = true;
+				break;
+			case '@emotion/react':
+				// remove the jsx import from @emotion/react
+				path.node.specifiers = path.node.specifiers?.filter(
+					(specifier) => j.ImportSpecifier.check(specifier) && specifier.imported.name !== 'jsx',
+				);
+				if (path.node.specifiers?.length === 0) {
+					j(path).remove();
+				}
+				break;
+		}
+	});
 
 	const newImports: ImportDeclaration[] = [];
 
-	if (!hasCssMapImport) {
-		// add cssMap import if it doesn't exist
+	if (!importsNeeded.cssMap || !importsNeeded.jsx) {
+		// add cssMap and jsx together if either is missing
 		const cssMapImport = j.importDeclaration(
-			[j.importSpecifier(j.identifier('cssMap'))],
+			[j.importSpecifier(j.identifier('cssMap')), j.importSpecifier(j.identifier('jsx'))],
 			j.literal('@atlaskit/css'),
 		);
 		newImports.push(cssMapImport);
 	}
 
-	if (!hasTokenImport) {
-		// add token import if it doesn't exist
+	if (!importsNeeded.token) {
 		const tokenImport = j.importDeclaration(
 			[j.importSpecifier(j.identifier('token'))],
 			j.literal('@atlaskit/tokens'),
@@ -285,32 +310,6 @@ function updateImports(j: core.JSCodeshift, source: ReturnType<typeof j>) {
 		.forEach((path) => {
 			path.node.source.value = '@atlaskit/primitives/compiled';
 		});
-
-	// replace jsx import from `@emotion/react` with `@compiled/react` if necessary
-	const existingEmotionImport = source
-		.find(j.ImportDeclaration)
-		.filter((path: ASTPath<ImportDeclaration>) => path.node.source.value === '@emotion/react')
-		.find(j.ImportSpecifier)
-		.filter((path) => path.node.imported.name === 'jsx');
-
-	if (
-		!existingImports.some(
-			(path) => path.node.source && path.node.source.value === '@compiled/react',
-		)
-	) {
-		const jsxImport = j.importDeclaration(
-			[j.importSpecifier(j.identifier('jsx'))],
-			j.literal('@compiled/react'),
-		);
-
-		if (existingEmotionImport.size() > 0) {
-			// replace jsx import from `@emotion/react` with `@compiled/react`
-			existingEmotionImport.closest(j.ImportDeclaration).replaceWith(jsxImport);
-		} else {
-			// add the new jsx import at the top of the import list
-			newImports.unshift(jsxImport);
-		}
-	}
 
 	// add new imports after any existing comments to ensure they're below the jsx pragma
 	const rootNode = source.get().node;

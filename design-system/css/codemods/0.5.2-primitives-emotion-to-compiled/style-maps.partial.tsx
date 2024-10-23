@@ -846,14 +846,15 @@ export type Fill = keyof typeof fillMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dbfb4c7de16d0ae4a53d66f9663aca91>>
+ * @codegen <<SignedSource::042cbfe8041c09e3817ae74154994f32>>
  * @codegenId misc
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["layer"]
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
- * @codegenDependency ../../../primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::6f10945ad9139d0119003738c65ae40a>>
+ * @codegenDependency ../../../primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
  */
 export const layerMap = {
+	'1': 1,
 	card: 100,
 	navigation: 200,
 	dialog: 300,
@@ -906,12 +907,12 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::97e5ae47f252660a5ef7569a3880c26c>>
+ * @codegen <<SignedSource::96d9a841cb440c2bd770d0af5c670f10>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "ui"]
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
- * @codegenDependency ../../../primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::6f10945ad9139d0119003738c65ae40a>>
+ * @codegenDependency ../../../primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
  */
 export const fontMap = {
 	'font.body': token(
@@ -1006,11 +1007,11 @@ export type FontFamily = keyof typeof fontFamilyMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7dc7abf82a13bc780c338b9602508ae6>>
+ * @codegen <<SignedSource::ae96213e36b930556f9ad18382088ff8>>
  * @codegenId text
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
- * @codegenDependency ../../../primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::6f10945ad9139d0119003738c65ae40a>>
+ * @codegenDependency ../../../primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
  */
 export const textSizeMap = {
 	medium: token(

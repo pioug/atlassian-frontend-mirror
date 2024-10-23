@@ -45,6 +45,7 @@ Check out the [migration guide](/components/eslint-plugin-ui-styling-standard/mi
 | <a href="/components/eslint-plugin-ui-styling-standard/no-js-xcss/usage">@compiled/no-js-xcss</a>                                                                         | Disallows using xcss prop inside JavaScript files.                                                                                                                                                                                                                                         | Yes         |         |             |
 | <a href="/components/eslint-plugin-ui-styling-standard/no-empty-styled-expression/usage">@atlaskit/design-system/no-empty-styled-expression</a>                           | Forbids any styled expression to be used when passing empty arguments to styled.div() (or other JSX elements).                                                                                                                                                                             | Yes         |         |             |
 | <a href="/components/eslint-plugin-ui-styling-standard/no-invalid-css-map/usage">@atlaskit/design-system/no-invalid-css-map</a>                                           | Checks the validity of a CSS map created through cssMap. This is intended to be used alongside TypeScript's type-checking.                                                                                                                                                                 | Yes         |         |             |
+| <a href="/components/eslint-plugin-ui-styling-standard/jsx-pragma/usage">@compiled/jsx-pragma</a>                                                                         | Ensures that the Compiled JSX pragma is set when using Compiled                                                                                                                                                                                                                            | Yes         |         |             |
 
 <!-- END_RULE_TABLE_CODEGEN -->
 
@@ -69,7 +70,7 @@ future advancements like generative AI.
 - To enable large performance improvements for customers and developers with a zero-runtime styling
   solution.
 - To reduce the amount of overall custom styling code written while supporting customization without
-  without the need for hacks and technical debt.
+  the need for hacks and technical debt.
 - We aim to see a reduction of the “average styles per component”, reducing the effort to build and
   maintain UIs.
 
@@ -89,7 +90,7 @@ Like other languages, styling code must be:
 - discoverable and readable without deep knowledge of the CSS spec
 
 As the W3C CSS spec and wider industry grows, having our styling code meet these principles will
-mean we can programatically evolve that a better future state.
+mean we can programmatically evolve that a better future state.
 
 ## Style constraints
 

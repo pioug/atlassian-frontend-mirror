@@ -47,6 +47,7 @@ export const memoProcessQuickInsertItems = (
 
 const options = {
 	threshold: 0.3,
+	includeScore: true,
 	keys: [
 		{ name: 'title', weight: 0.57 },
 		{ name: 'priority', weight: 0.3 },
@@ -64,8 +65,19 @@ const options = {
  * @param {QuickInsertItem[]} items - An array of QuickInsertItems to be searched.
  * @returns {QuickInsertItem[]} - Returns a sorted array of QuickInsertItems based on the priority. If the query string is empty, it will return the array sorted by priority. If a query string is provided, it will return an array of QuickInsertItems that match the query string, sorted by relevance to the query.
  */
-export function find(query: string, items: QuickInsertItem[]): QuickInsertItem[] {
-	const fuse = new Fuse(items, options);
+export function find(
+	query: string,
+	items: QuickInsertItem[],
+	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction,
+): QuickInsertItem[] {
+	const fuseOptions: Fuse.IFuseOptions<QuickInsertItem> = { ...options };
+
+	if (prioritySortingFn) {
+		fuseOptions.sortFn = prioritySortingFn(items);
+	}
+
+	const fuse = new Fuse(items, fuseOptions);
+
 	if (query === '') {
 		// Copy and sort list by priority
 		return items

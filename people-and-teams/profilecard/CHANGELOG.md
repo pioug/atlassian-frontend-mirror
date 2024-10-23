@@ -1,5 +1,20 @@
 # @atlaskit/profilecard
 
+## 20.7.0
+
+### Minor Changes
+
+- [#155340](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155340)
+  [`4d0a5f27783bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d0a5f27783bc) -
+  Add deep-linking for the creation of kudos, as well as for the project directory
+
+### Patch Changes
+
+- [#154021](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154021)
+  [`6867203830e28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6867203830e28) -
+  [ux] Fix Chat button padding in agent profile card
+- Updated dependencies
+
 ## 20.6.2
 
 ### Patch Changes

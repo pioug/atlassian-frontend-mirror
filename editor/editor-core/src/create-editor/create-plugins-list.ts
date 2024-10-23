@@ -78,6 +78,16 @@ export function getDefaultPresetOptionsFromEditorProps(
 			disableDefaultItems: false,
 			headless: false,
 			emptyStateHandler: props.elementBrowser && props.elementBrowser.emptyStateHandler,
+			prioritySortingFn:
+				(props.quickInsert &&
+					typeof props.quickInsert !== 'boolean' &&
+					props.quickInsert.prioritySortingFn) ||
+				undefined,
+			onInsert:
+				(props.quickInsert &&
+					typeof props.quickInsert !== 'boolean' &&
+					props.quickInsert.onInsert) ||
+				undefined,
 		},
 		selection: { useLongPressSelection: false },
 		hyperlinkOptions: {

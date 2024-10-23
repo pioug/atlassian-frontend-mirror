@@ -411,7 +411,7 @@ export interface MenuListProps<
 	/**
 	 * Inner ref to DOM ReactNode
 	 */
-	innerRef: LegacyRef<HTMLUListElement>;
+	innerRef: LegacyRef<HTMLDivElement>;
 	/**
 	 * The currently focused option
 	 */
@@ -447,13 +447,13 @@ export const MenuList = <Option, IsMulti extends boolean, Group extends GroupBas
 	props: MenuListProps<Option, IsMulti, Group>,
 ) => {
 	const { children, innerProps, innerRef, isMulti } = props;
+
 	return (
 		<div
 			{...getStyleProps(props, 'menuList', {
 				'menu-list': true,
 				'menu-list--is-multi': isMulti,
 			})}
-			//@ts-ignore
 			ref={innerRef}
 			{...innerProps}
 		>
@@ -508,7 +508,6 @@ export const NoOptionsMessage = <Option, IsMulti extends boolean, Group extends 
 	...restProps
 }: NoticeProps<Option, IsMulti, Group>) => {
 	return (
-		//@ts-ignore
 		<div
 			{...getStyleProps({ ...restProps, children, innerProps }, 'noOptionsMessage', {
 				'menu-notice': true,

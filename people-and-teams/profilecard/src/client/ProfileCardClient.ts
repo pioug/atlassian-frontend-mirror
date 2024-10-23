@@ -11,13 +11,15 @@ import {
 } from '../types';
 
 import RovoAgentCardClient from './RovoAgentCardClient';
-import TeamCentralCardClient from './TeamCentralCardClient';
+import TeamCentralCardClient, { type TeamCentralCardClientOptions } from './TeamCentralCardClient';
 import TeamProfileCardClient from './TeamProfileCardClient';
 import UserProfileCardClient from './UserProfileCardClient';
 
-const defaultConfig: Partial<ProfileClientOptions> = {
+const defaultConfig = {
 	gatewayGraphqlUrl: '/gateway/api/graphql',
 };
+
+export type TeamCentralScopes = { withOrgContext: true; withSiteContext: boolean };
 
 class ProfileCardClient implements ProfileClient {
 	userClient: UserProfileCardClient;
@@ -35,7 +37,7 @@ class ProfileCardClient implements ProfileClient {
 		this.userClient = clients?.userClient || new UserProfileCardClient(withDefaultConfig);
 		this.teamClient = clients?.teamClient || new TeamProfileCardClient(withDefaultConfig);
 		this.rovoAgentClient = clients?.rovoAgentClient || new RovoAgentCardClient(withDefaultConfig);
-		this.tcClient = maybeCreateTeamCentralClient(config, clients);
+		this.tcClient = maybeCreateTeamCentralClient(withDefaultConfig, clients);
 	}
 
 	flushCache() {
@@ -67,7 +69,7 @@ class ProfileCardClient implements ProfileClient {
 		);
 	}
 
-	async getTeamCentralBaseUrl() {
+	async getTeamCentralBaseUrl(teamCentralScopes?: TeamCentralScopes) {
 		if (!fg('enable_ptc_sharded_townsquare_calls')) {
 			return Promise.resolve(this.tcClient?.options.teamCentralBaseUrl);
 		}
@@ -78,9 +80,25 @@ class ProfileCardClient implements ProfileClient {
 
 		const isGlobalExperienceWorkspace = await this.tcClient.getIsGlobalExperienceWorkspace();
 
-		return Promise.resolve(
-			isGlobalExperienceWorkspace ? getATLContextUrl('home') : getATLContextUrl('team'),
-		);
+		if (!isGlobalExperienceWorkspace) {
+			return Promise.resolve(getATLContextUrl('team'));
+		}
+
+		let suffix = '';
+		if (teamCentralScopes !== undefined) {
+			const orgId = await this.tcClient.getOrgId();
+			if (orgId === null) {
+				return Promise.resolve(undefined);
+			}
+
+			suffix += `/o/${orgId}`;
+
+			if (teamCentralScopes.withSiteContext) {
+				suffix += `/s/${this.tcClient.options.cloudId}`;
+			}
+		}
+
+		return Promise.resolve(`${getATLContextUrl('home')}${suffix}`);
 	}
 
 	async shouldShowGiveKudos(): Promise<boolean> {
@@ -106,7 +124,10 @@ class ProfileCardClient implements ProfileClient {
 	}
 }
 
-function maybeCreateTeamCentralClient(config: ProfileClientOptions, clients?: ClientOverrides) {
+function maybeCreateTeamCentralClient(
+	config: TeamCentralCardClientOptions,
+	clients?: ClientOverrides,
+) {
 	if (isFedRamp()) {
 		return undefined;
 	}

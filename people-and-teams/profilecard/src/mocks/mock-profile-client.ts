@@ -69,6 +69,7 @@ export default function getMockProfileClient(BaseProfileClient: any, modifyRespo
 				teamCentralClient: new MockTeamCentralClient({
 					...options,
 					teamCentralUrl: 'defaultTeamCentralUrl',
+					gatewayGraphqlUrl: 'defaultGatewayGraphqlUrl',
 				}),
 				...clients,
 			});

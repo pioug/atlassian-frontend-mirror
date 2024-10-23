@@ -1,5 +1,14 @@
 # @atlaskit/media-viewer
 
+## 49.2.2
+
+### Patch Changes
+
+- [#154712](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154712)
+  [`9b74c0d52fcc1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b74c0d52fcc1) -
+  fix pdf viewer flicker issue
+- Updated dependencies
+
 ## 49.2.1
 
 ### Patch Changes

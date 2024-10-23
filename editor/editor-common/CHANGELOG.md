@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 94.2.0
+
+### Minor Changes
+
+- [#152897](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152897)
+  [`ecafb0e3e4fdf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ecafb0e3e4fdf) -
+  [ux] [ED-25418] Fix z-indexes for media badges in renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 94.1.0
+
+### Minor Changes
+
+- [#154398](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154398)
+  [`ca1591355d790`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca1591355d790) -
+  [ux] Allows for passing functions to the quickInsert plugin that allow for capturing element
+  insertion metrics and then using that data to change the element sort order
+
 ## 94.0.0
 
 ### Major Changes

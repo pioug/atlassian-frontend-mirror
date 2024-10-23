@@ -147,4 +147,22 @@ export const externalRules: ExternalRuleMeta[] = [
 			},
 		},
 	},
+	{
+		name: '@compiled/jsx-pragma',
+		displayName: 'jsx-pragma',
+		isExternal: true,
+		docs: {
+			description: 'Ensures that the Compiled JSX pragma is set when using Compiled',
+			url: getRuleUrl('jsx-pragma'),
+			externalUrl:
+				'https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/jsx-pragma',
+			recommended: true,
+			severity: 'error',
+			pluginConfig: {
+				runtime: 'classic',
+				onlyRunIfImportingCompiled: true,
+				importSources: ['@atlaskit/css'],
+			},
+		},
+	},
 ];

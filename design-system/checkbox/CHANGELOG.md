@@ -1,5 +1,17 @@
 # @atlaskit/checkbox
 
+## 15.1.0
+
+### Minor Changes
+
+- [#154669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154669)
+  [`20db78434becd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20db78434becd) -
+  Bump to the latest version of @compiled/\*
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.0
 
 ### Major Changes

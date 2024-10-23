@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.8.0
+
+### Minor Changes
+
+- [#155195](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155195)
+  [`73c97aeb48ea9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73c97aeb48ea9) -
+  Add platform_editor_support_table_in_comment_jira experiment to control table drag and drop and
+  table scaling features to support new table features in jira
+
 ## 2.7.0
 
 ### Minor Changes

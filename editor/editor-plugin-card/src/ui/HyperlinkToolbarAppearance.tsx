@@ -10,13 +10,11 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { FloatingToolbarSeparator as Separator } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 
 import { type CardPlugin } from '../plugin';
 
 import { DatasourceAppearanceButton } from './DatasourceAppearanceButton';
-import { EditDatasourceButton } from './EditDatasourceButton';
 import { LinkToolbarAppearance } from './LinkToolbarAppearance';
 
 export interface HyperlinkToolbarAppearanceProps {
@@ -81,15 +79,6 @@ export function HyperlinkToolbarAppearance(props: HyperlinkToolbarAppearanceProp
 	}
 	return (
 		<Flex>
-			{!fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar') && (
-				<EditDatasourceButton
-					url={url}
-					intl={intl}
-					editorView={editorView}
-					editorAnalyticsApi={editorAnalyticsApi}
-					currentAppearance="url"
-				/>
-			)}
 			<LinkToolbarAppearance
 				key="link-appearance"
 				url={url}

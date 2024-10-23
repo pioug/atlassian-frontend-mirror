@@ -1,5 +1,17 @@
 # @atlaskit/css
 
+## 0.6.0
+
+### Minor Changes
+
+- [#154669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154669)
+  [`20db78434becd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20db78434becd) -
+  Bump to the latest version of @compiled/\*
+- [#154669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154669)
+  [`20db78434becd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20db78434becd) -
+  Adds the `jsx` export to allow `@atlaskit/css` to be used for the JSX Pragma within the Compiled
+  ecosystem.
+
 ## 0.5.3
 
 ### Patch Changes

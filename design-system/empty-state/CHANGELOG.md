@@ -1,5 +1,14 @@
 # @atlaskit/empty-state
 
+## 7.12.0
+
+### Minor Changes
+
+- [#154929](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154929)
+  [`745cc262139e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/745cc262139e7) -
+  [ux] Removed feature flag `platform.design-system-team.empty-state-typography-updates_gndrj`
+  resultingin fully tokenised typography styles.
+
 ## 7.11.6
 
 ### Patch Changes

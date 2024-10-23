@@ -6,6 +6,7 @@ import ProfileCardClient from '../../client/ProfileCardClient';
 import TeamCentralCardClient from '../../client/TeamCentralCardClient';
 import { type ReportingLinesUser } from '../../types';
 
+const EXAMPLE_GATEWAY_GRAPHQL_URL = 'mock-gateway-graphql-url';
 const EXAMPLE_TEAM_CENTRAL_URL = 'https://team.atlassian.com';
 const EXAMPLE_TEAM_CENTRAL_REPORTING_LINES_URL =
 	EXAMPLE_TEAM_CENTRAL_URL + '/?operationName=ReportingLines';
@@ -52,6 +53,7 @@ function initClient() {
 	return new TeamCentralCardClient({
 		cacheSize: 10,
 		cacheMaxAge: 5000,
+		gatewayGraphqlUrl: EXAMPLE_GATEWAY_GRAPHQL_URL,
 		teamCentralUrl: EXAMPLE_TEAM_CENTRAL_URL,
 	});
 }
@@ -60,6 +62,7 @@ function initProfileCardClient(cloudId: string) {
 	const teamCentralClient = new TeamCentralCardClient({
 		cacheSize: 10,
 		cacheMaxAge: 5000,
+		gatewayGraphqlUrl: EXAMPLE_GATEWAY_GRAPHQL_URL,
 		teamCentralUrl: EXAMPLE_TEAM_CENTRAL_URL,
 		teamCentralBaseUrl: EXAMPLE_TEAM_CENTRAL_URL,
 		cloudId: cloudId,
@@ -74,6 +77,7 @@ function initProfileCardClientWithNoCloudId() {
 	const teamCentralClient = new TeamCentralCardClient({
 		cacheSize: 10,
 		cacheMaxAge: 5000,
+		gatewayGraphqlUrl: EXAMPLE_GATEWAY_GRAPHQL_URL,
 		teamCentralUrl: EXAMPLE_TEAM_CENTRAL_URL,
 		teamCentralBaseUrl: EXAMPLE_TEAM_CENTRAL_URL,
 	});

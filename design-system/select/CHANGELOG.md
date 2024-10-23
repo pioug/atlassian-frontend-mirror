@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 18.2.0
+
+### Minor Changes
+
+- [#155000](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155000)
+  [`46cb627917bf7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46cb627917bf7) -
+  Export props for `IndicatorsContainer` component.
+
 ## 18.1.3
 
 ### Patch Changes

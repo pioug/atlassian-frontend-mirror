@@ -10,22 +10,16 @@ import { jsx } from '@emotion/react';
 import Button from '@atlaskit/button/new';
 import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
 import MenuIcon from '@atlaskit/icon/glyph/menu';
-import { ButtonItem, MenuGroup } from '@atlaskit/menu';
-import { Box, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
+import { ButtonItem, Section } from '@atlaskit/menu';
+import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import Popup from '../src';
 
-const buttonWrapperStyles = xcss({
-	paddingBlockStart: 'space.075',
-	paddingBlockEnd: 'space.075',
+const nestedPopupStyles = xcss({
+	maxWidth: '800px',
+	minWidth: '320px',
 });
 
-const lastButtonWrapperStyles = xcss({
-	paddingBlockStart: 'space.075',
-	paddingBlockEnd: 'space.075',
-	borderBlockStart: `2px solid ${token('color.border')}`,
-});
 const spacerStyles = xcss({
 	display: 'flex',
 	margin: 'space.1000',
@@ -40,33 +34,35 @@ const NestedPopup: FC<NestedPopupProps> = ({ level }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<MenuGroup maxWidth={800} minWidth={320} onClick={(e) => e.stopPropagation()}>
-			<Box xcss={buttonWrapperStyles}>
-				<ButtonItem testId="create-project">Create project</ButtonItem>
-				<ButtonItem testId="view-projects">View all projects</ButtonItem>
-			</Box>
-			<Popup
-				isOpen={isOpen}
-				shouldRenderToParent
-				testId="nested-popup"
-				placement="right-start"
-				onClose={() => setIsOpen(false)}
-				content={() => <NestedPopup level={level + 1} />}
-				trigger={(triggerProps) => (
-					<Box xcss={lastButtonWrapperStyles}>
-						<ButtonItem
-							{...triggerProps}
-							testId="nested-popup-trigger"
-							isSelected={isOpen}
-							onClick={() => setIsOpen(true)}
-							iconAfter={<ArrowRight label="" />}
-						>
-							More actions (Level {level})
-						</ButtonItem>
-					</Box>
-				)}
-			/>
-		</MenuGroup>
+		<Box onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+			<Stack xcss={nestedPopupStyles}>
+				<Section>
+					<ButtonItem testId="create-project">Create project</ButtonItem>
+					<ButtonItem testId="view-projects">View all projects</ButtonItem>
+				</Section>
+				<Section hasSeparator>
+					<Popup
+						isOpen={isOpen}
+						shouldRenderToParent
+						testId="nested-popup"
+						placement="right-start"
+						onClose={() => setIsOpen(false)}
+						content={() => <NestedPopup level={level + 1} />}
+						trigger={(triggerProps) => (
+							<ButtonItem
+								{...triggerProps}
+								testId="nested-popup-trigger"
+								isSelected={isOpen}
+								onClick={() => setIsOpen(true)}
+								iconAfter={<ArrowRight label="" />}
+							>
+								More actions (Level {level})
+							</ButtonItem>
+						)}
+					/>
+				</Section>
+			</Stack>
+		</Box>
 	);
 };
 

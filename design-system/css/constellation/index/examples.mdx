@@ -17,7 +17,7 @@ import SectionMessage from '@atlaskit/section-message';
 This is a bounded styling library to be used both with native styles (`<div>`) and the Atlassian
 Design System, such as our [primitive components](/components/primitives).
 
-This is built ontop of [Compiled CSS-in-JS](https://compiledcssinjs.com/) which is a much more
+This is built on top of [Compiled CSS-in-JS](https://compiledcssinjs.com/) which is a much more
 performant, static styling solution with the same syntax and a few breaking changes—the primary ones
 being dynamic styles as well as deep imports or exports for reuse of styles may not work.
 
@@ -270,11 +270,14 @@ module.exports = {
 		// ↓↓ Compiled should run last ↓↓
 		['@compiled/babel-plugin', { transformerBabelPlugins: ['@atlaskit/tokens/babel-plugin'] }],
 		// OPTIONAL: If you are distributing packages with Compiled styles, you should also include the following.
-		// Your `dest` may vary depending on how you distribute, eg. if you have mutliple `cjs` and `esm` distributions
+		// Your `dest` may vary depending on how you distribute, eg. if you have multiple `cjs` and `esm` distributions
 		// those will each need a separate `dest` through Babel's environment-specific configuration.
 		[
 			'@compiled/babel-plugin-strip-runtime',
-			{ extractStylesToDirectory: { source: 'src', dest: 'dist' } },
+			{
+				sortShorthand: true,
+				extractStylesToDirectory: { source: 'src', dest: 'dist' }
+			},
 		],
 	],
 };
@@ -301,7 +304,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.(js|ts|tsx)$/,
+				test: /\.(js|jsx|ts|tsx)$/,
 				use: [
 					{ loader: 'babel-loader' },
 					{
@@ -316,7 +319,7 @@ module.exports = {
 				],
 			},
 			{
-				test: /\.compiled-css\.css$/i,
+				test: /compiled-css\.css$/i,
 				use: [MiniCssExtractPlugin.loader, 'css-loader'],
 			},
 			{
@@ -325,7 +328,10 @@ module.exports = {
 			},
 		],
 	},
-	plugins: [new MiniCssExtractPlugin(), new CompiledExtractPlugin({ sortShorthand: true })],
+	plugins: [
+		new MiniCssExtractPlugin(),
+		new CompiledExtractPlugin({ sortShorthand: true }),
+	],
 };
 ```
 

@@ -66,6 +66,12 @@ describe('ProfileCardResourced', () => {
 			expect(mockGiveKudosLauncherLazy).toHaveBeenCalledTimes(1);
 		});
 
+		expect(mockGetTeamCentralBaseUrl).toHaveBeenCalledTimes(1);
+		expect(mockGetTeamCentralBaseUrl).toHaveBeenCalledWith({
+			withOrgContext: true,
+			withSiteContext: true,
+		});
+
 		expect(mockGiveKudosLauncherLazy.mock.calls[0][0].teamCentralBaseUrl).toBe(
 			mockTeamCentralBaseUrl,
 		);

@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.20.0
+
+### Minor Changes
+
+- [#154669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154669)
+  [`20db78434becd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20db78434becd) -
+  Bump to the latest version of @compiled/\*
+- [#154669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154669)
+  [`20db78434becd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20db78434becd) -
+  Add and configure `@compiled/jsx-pragma` in the recommended preset for a better experience with
+  `@atlaskit/css` and the JSX pragma.
+
 ## 0.19.1
 
 ### Patch Changes

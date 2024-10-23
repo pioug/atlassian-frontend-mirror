@@ -1,4 +1,5 @@
 export const layerMap = {
+	'1': 1,
 	card: 100,
 	navigation: 200,
 	dialog: 300,

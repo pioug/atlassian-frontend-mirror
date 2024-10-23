@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 20.3.0
+
+### Minor Changes
+
+- [#155195](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155195)
+  [`8aebfeb14d89a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8aebfeb14d89a) -
+  [ux] Removed feature flag `platform.design-system-team.button-tokenised-typography-styles`
+  resulting in fully tokenised typography styles.
+
 ## 20.2.6
 
 ### Patch Changes

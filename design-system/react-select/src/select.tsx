@@ -826,8 +826,8 @@ export default class Select<
 	getFocusedOptionRef: RefCallback<HTMLDivElement> = (ref) => {
 		this.focusedOptionRef = ref;
 	};
-	menuListRef: HTMLUListElement | null = null;
-	getMenuListRef: RefCallback<HTMLUListElement> = (ref) => {
+	menuListRef: HTMLDivElement | null = null;
+	getMenuListRef: RefCallback<HTMLDivElement> = (ref) => {
 		this.menuListRef = ref;
 	};
 	inputRef: HTMLInputElement | null = null;
@@ -841,7 +841,6 @@ export default class Select<
 	constructor(props: SelectProps<Option, IsMulti, Group>) {
 		super(props);
 		this.state.instancePrefix = 'react-select-' + (this.props.instanceId || ++instanceId);
-		//@ts-ignore
 		this.state.selectValue = cleanValue(props.value);
 		// Set focusedOption if menuIsOpen is set on init (e.g. defaultMenuIsOpen)
 		if (props.menuIsOpen && this.state.selectValue.length) {
@@ -872,7 +871,6 @@ export default class Select<
 			instancePrefix,
 		} = state;
 		const { options, value, menuIsOpen, inputValue, isMulti } = props;
-		//@ts-ignore
 		const selectValue = cleanValue(value);
 		let newMenuOptionsState = {};
 		if (
@@ -1884,14 +1882,18 @@ export default class Select<
 			'aria-autocomplete': 'list' as const,
 			'aria-errormessage': this.props['aria-errormessage'],
 			'aria-expanded': menuIsOpen,
-			'aria-haspopup': 'listbox',
+			'aria-haspopup': 'listbox' as AriaAttributes['aria-haspopup'],
 			'aria-describedby': description,
 			'aria-invalid': this.props['aria-invalid'] || isInvalid,
 			'aria-label': this.props['aria-label'] || label,
 			'aria-labelledby': this.props['aria-labelledby'] || labelId,
 			'aria-required': required || isRequired,
 			role: 'combobox',
-			'aria-activedescendant': this.isAppleDevice ? undefined : this.state.focusedOptionId,
+			'aria-activedescendant': this.isAppleDevice
+				? undefined
+				: this.state.focusedOptionId
+					? this.state.focusedOptionId
+					: undefined,
 			...(menuIsOpen && {
 				'aria-controls': this.getElementId('listbox'),
 			}),
@@ -1914,7 +1916,6 @@ export default class Select<
 		if (!isSearchable) {
 			// use a dummy input to maintain focus/blur functionality
 			return (
-				//@ts-ignore
 				<DummyInput
 					id={id}
 					innerRef={this.getInputRef}

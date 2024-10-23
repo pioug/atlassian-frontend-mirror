@@ -106,7 +106,6 @@ export default function useCreatable<
 	allowCreateWhileLoading = false,
 	createOptionPosition = 'last',
 	formatCreateLabel = builtins.formatCreateLabel,
-	//@ts-ignore
 	isValidNewOption = builtins.isValidNewOption,
 	//@ts-ignore
 	getNewOptionData = builtins.getNewOptionData,
@@ -127,7 +126,6 @@ export default function useCreatable<
 
 	const newOption = useMemo(
 		() =>
-			//@ts-ignore
 			isValidNewOption(inputValue, cleanValue(value), propsOptions, {
 				getOptionValue,
 				getOptionLabel,
@@ -174,7 +172,6 @@ export default function useCreatable<
 						option: newOptionData,
 					};
 					propsOnChange(
-						//@ts-ignore
 						valueTernary(isMulti, [...cleanValue(value), newOptionData], newOptionData),
 						newActionMeta,
 					);

@@ -9,12 +9,6 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Fa
   appearance: none;
   border: none;
   cursor: pointer;
-  font-family: inherit;
-  font-size: inherit;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 2.2857142857142856em;
-  padding-block: var(--ds-space-0, 0px);
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -39,6 +33,9 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Fa
   -ms-flex-negative: 0;
   flex-shrink: 0;
   height: 2.2857142857142856em;
+  font: var(--ds-font-body, normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif);
+  font-weight: var(--ds-font-weight-medium, 500);
+  padding-block: var(--ds-space-075, 6px);
   -webkit-padding-end: var(--ds-space-150, 12px);
   padding-inline-end: var(--ds-space-150, 12px);
   -webkit-padding-start: var(--ds-space-150, 12px);
@@ -157,12 +154,6 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Na
   appearance: none;
   border: none;
   cursor: pointer;
-  font-family: inherit;
-  font-size: inherit;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 2.2857142857142856em;
-  padding-block: var(--ds-space-0, 0px);
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -187,6 +178,9 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Na
   -ms-flex-negative: 0;
   flex-shrink: 0;
   height: 2.2857142857142856em;
+  font: var(--ds-font-body, normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif);
+  font-weight: var(--ds-font-weight-medium, 500);
+  padding-block: var(--ds-space-075, 6px);
   -webkit-padding-end: var(--ds-space-150, 12px);
   padding-inline-end: var(--ds-space-150, 12px);
   -webkit-padding-start: var(--ds-space-150, 12px);
@@ -305,12 +299,6 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Po
   appearance: none;
   border: none;
   cursor: pointer;
-  font-family: inherit;
-  font-size: inherit;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 2.2857142857142856em;
-  padding-block: var(--ds-space-0, 0px);
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -335,6 +323,9 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Po
   -ms-flex-negative: 0;
   flex-shrink: 0;
   height: 2.2857142857142856em;
+  font: var(--ds-font-body, normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif);
+  font-weight: var(--ds-font-weight-medium, 500);
+  padding-block: var(--ds-space-075, 6px);
   -webkit-padding-end: var(--ds-space-150, 12px);
   padding-inline-end: var(--ds-space-150, 12px);
   -webkit-padding-start: var(--ds-space-150, 12px);
@@ -444,236 +435,6 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Po
 </div>
 `;
 
-exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all listeners 1`] = `
-<AVPAnalyticsListener
-  client={
-    {
-      "sendOperationalEvent": [MockFunction],
-      "sendScreenEvent": [MockFunction],
-      "sendTrackEvent": [MockFunction],
-      "sendUIEvent": [MockFunction],
-    }
-  }
-  logger={
-    Logger {
-      "logLevel": 4,
-    }
-  }
->
-  <AIMateAnalyticsListener
-    client={
-      {
-        "sendOperationalEvent": [MockFunction],
-        "sendScreenEvent": [MockFunction],
-        "sendTrackEvent": [MockFunction],
-        "sendUIEvent": [MockFunction],
-      }
-    }
-    logger={
-      Logger {
-        "logLevel": 4,
-      }
-    }
-  >
-    <PostOfficeAnalyticsListener
-      client={
-        {
-          "sendOperationalEvent": [MockFunction],
-          "sendScreenEvent": [MockFunction],
-          "sendTrackEvent": [MockFunction],
-          "sendUIEvent": [MockFunction],
-        }
-      }
-      logger={
-        Logger {
-          "logLevel": 4,
-        }
-      }
-    >
-      <LinkingPlatformAnalyticsListener
-        client={
-          {
-            "sendOperationalEvent": [MockFunction],
-            "sendScreenEvent": [MockFunction],
-            "sendTrackEvent": [MockFunction],
-            "sendUIEvent": [MockFunction],
-          }
-        }
-        logger={
-          Logger {
-            "logLevel": 4,
-          }
-        }
-      >
-        <CrossFlowAnalyticsListener
-          client={
-            {
-              "sendOperationalEvent": [MockFunction],
-              "sendScreenEvent": [MockFunction],
-              "sendTrackEvent": [MockFunction],
-              "sendUIEvent": [MockFunction],
-            }
-          }
-          logger={
-            Logger {
-              "logLevel": 4,
-            }
-          }
-        >
-          <AtlasAnalyticsListener
-            client={
-              {
-                "sendOperationalEvent": [MockFunction],
-                "sendScreenEvent": [MockFunction],
-                "sendTrackEvent": [MockFunction],
-                "sendUIEvent": [MockFunction],
-              }
-            }
-            logger={
-              Logger {
-                "logLevel": 4,
-              }
-            }
-          >
-            <RecentWorkAnalyticsListener
-              client={
-                {
-                  "sendOperationalEvent": [MockFunction],
-                  "sendScreenEvent": [MockFunction],
-                  "sendTrackEvent": [MockFunction],
-                  "sendUIEvent": [MockFunction],
-                }
-              }
-              logger={
-                Logger {
-                  "logLevel": 4,
-                }
-              }
-            >
-              <NotificationsAnalyticsListener
-                client={
-                  {
-                    "sendOperationalEvent": [MockFunction],
-                    "sendScreenEvent": [MockFunction],
-                    "sendTrackEvent": [MockFunction],
-                    "sendUIEvent": [MockFunction],
-                  }
-                }
-                logger={
-                  Logger {
-                    "logLevel": 4,
-                  }
-                }
-              >
-                <PeopleTeamsAnalyticsListener
-                  client={
-                    {
-                      "sendOperationalEvent": [MockFunction],
-                      "sendScreenEvent": [MockFunction],
-                      "sendTrackEvent": [MockFunction],
-                      "sendUIEvent": [MockFunction],
-                    }
-                  }
-                  logger={
-                    Logger {
-                      "logLevel": 4,
-                    }
-                  }
-                >
-                  <MediaAnalyticsListener
-                    client={
-                      {
-                        "sendOperationalEvent": [MockFunction],
-                        "sendScreenEvent": [MockFunction],
-                        "sendTrackEvent": [MockFunction],
-                        "sendUIEvent": [MockFunction],
-                      }
-                    }
-                    logger={
-                      Logger {
-                        "logLevel": 4,
-                      }
-                    }
-                  >
-                    <NavigationListener
-                      client={
-                        {
-                          "sendOperationalEvent": [MockFunction],
-                          "sendScreenEvent": [MockFunction],
-                          "sendTrackEvent": [MockFunction],
-                          "sendUIEvent": [MockFunction],
-                        }
-                      }
-                      logger={
-                        Logger {
-                          "logLevel": 4,
-                        }
-                      }
-                    >
-                      <AtlaskitListener
-                        client={
-                          {
-                            "sendOperationalEvent": [MockFunction],
-                            "sendScreenEvent": [MockFunction],
-                            "sendTrackEvent": [MockFunction],
-                            "sendUIEvent": [MockFunction],
-                          }
-                        }
-                        logger={
-                          Logger {
-                            "logLevel": 4,
-                          }
-                        }
-                      >
-                        <FabricEditorListener
-                          client={
-                            {
-                              "sendOperationalEvent": [MockFunction],
-                              "sendScreenEvent": [MockFunction],
-                              "sendTrackEvent": [MockFunction],
-                              "sendUIEvent": [MockFunction],
-                            }
-                          }
-                          logger={
-                            Logger {
-                              "logLevel": 4,
-                            }
-                          }
-                        >
-                          <FabricElementsListener
-                            client={
-                              {
-                                "sendOperationalEvent": [MockFunction],
-                                "sendScreenEvent": [MockFunction],
-                                "sendTrackEvent": [MockFunction],
-                                "sendUIEvent": [MockFunction],
-                              }
-                            }
-                            logger={
-                              Logger {
-                                "logLevel": 4,
-                              }
-                            }
-                          >
-                            <div>
-                              Child
-                            </div>
-                          </FabricElementsListener>
-                        </FabricEditorListener>
-                      </AtlaskitListener>
-                    </NavigationListener>
-                  </MediaAnalyticsListener>
-                </PeopleTeamsAnalyticsListener>
-              </NotificationsAnalyticsListener>
-            </RecentWorkAnalyticsListener>
-          </AtlasAnalyticsListener>
-        </CrossFlowAnalyticsListener>
-      </LinkingPlatformAnalyticsListener>
-    </PostOfficeAnalyticsListener>
-  </AIMateAnalyticsListener>
-</AVPAnalyticsListener>
-`;
-
 exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render an AtlaskitListener 1`] = `
 .emotion-1 {
   box-sizing: border-box;
@@ -683,12 +444,6 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render an A
   appearance: none;
   border: none;
   cursor: pointer;
-  font-family: inherit;
-  font-size: inherit;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 2.2857142857142856em;
-  padding-block: var(--ds-space-0, 0px);
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -713,6 +468,9 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render an A
   -ms-flex-negative: 0;
   flex-shrink: 0;
   height: 2.2857142857142856em;
+  font: var(--ds-font-body, normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif);
+  font-weight: var(--ds-font-weight-medium, 500);
+  padding-block: var(--ds-space-075, 6px);
   -webkit-padding-end: var(--ds-space-150, 12px);
   padding-inline-end: var(--ds-space-150, 12px);
   -webkit-padding-start: var(--ds-space-150, 12px);

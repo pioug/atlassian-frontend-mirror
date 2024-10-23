@@ -15,7 +15,8 @@ export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 	providedItems,
 ) => {
 	// @ts-ignore
-	const { query, category, disableDefaultItems, featuredItems, templateItems } = searchOptions;
+	const { query, category, disableDefaultItems, featuredItems, templateItems, prioritySortingFn } =
+		searchOptions;
 	const defaultItems = disableDefaultItems ? [] : lazyDefaultItems();
 
 	const items = providedItems
@@ -46,5 +47,6 @@ export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 		category === 'all' || !category
 			? items
 			: items.filter((item) => item.categories && item.categories.includes(category)),
+		prioritySortingFn,
 	);
 };

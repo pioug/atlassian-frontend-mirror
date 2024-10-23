@@ -251,7 +251,9 @@ export const Colgroup = (props: SharedTableProps) => {
 		isTableScalingEnabled:
 			!!(flags && 'tablePreserveWidth' in flags && flags.tablePreserveWidth) ||
 			(props.rendererAppearance === 'comment' &&
-				editorExperiment('support_table_in_comment', true, { exposure: true })),
+				editorExperiment('support_table_in_comment', true, { exposure: true })) ||
+			(props.rendererAppearance === 'comment' &&
+				editorExperiment('support_table_in_comment_jira', true, { exposure: true })),
 		isTableFixedColumnWidthsOptionEnabled:
 			!!(
 				flags &&

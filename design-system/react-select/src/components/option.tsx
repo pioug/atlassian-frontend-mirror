@@ -99,7 +99,6 @@ const Option = <Option, IsMulti extends boolean, Group extends GroupBase<Option>
 				'option--is-focused': isFocused,
 				'option--is-selected': isSelected,
 			})}
-			//@ts-ignore
 			ref={innerRef}
 			aria-disabled={isDisabled}
 			{...innerProps}

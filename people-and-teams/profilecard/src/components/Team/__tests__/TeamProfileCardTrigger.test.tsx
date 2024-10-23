@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos';
@@ -99,6 +99,12 @@ describe('Profile card trigger', () => {
 
 		await waitFor(() => {
 			expect(screen.queryByText(mockGiveKudosLauncherLazyText)).toBeInTheDocument();
+		});
+
+		expect(mockGetTeamCentralBaseUrl).toHaveBeenCalledTimes(1);
+		expect(mockGetTeamCentralBaseUrl).toHaveBeenCalledWith({
+			withOrgContext: true,
+			withSiteContext: true,
 		});
 
 		expect(mockGiveKudosLauncherLazy).toHaveBeenCalledTimes(1);

@@ -21,8 +21,7 @@ const MyComponent = () => <Box xcss={styles} />`,
  */
 import { Box } from "@atlaskit/primitives/compiled";
 
-import { jsx } from "@compiled/react";
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
 const styles = cssMap({
@@ -58,8 +57,7 @@ const MyComponent = () => <Box xcss={styles} />`,
  */
 import { Box } from "@atlaskit/primitives/compiled";
 
-import { jsx } from "@compiled/react";
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
 const styles = cssMap({
@@ -102,8 +100,7 @@ const MyComponent = () => <Box xcss={styles} />`,
  */
 import { Box } from "@atlaskit/primitives/compiled";
 
-import { jsx } from "@compiled/react";
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
 const styles = cssMap({
@@ -145,8 +142,7 @@ const MyComponent = () => <Box xcss={styles} />`,
  * @jsx jsx
  */
 import { Box } from "@atlaskit/primitives/compiled";
-import { jsx } from "@compiled/react";
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
 const styles = cssMap({
@@ -176,8 +172,7 @@ const MyComponent = () => <Box xcss={styles} />`,
  * @jsx jsx
  */
 import { Box, Inline, Stack, Flex, Bleed, Grid, Pressable, Anchor } from "@atlaskit/primitives/compiled";
-import { jsx } from "@compiled/react";
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
 const styles = cssMap({
@@ -207,8 +202,7 @@ const MyComponent = () => <Box xcss={styles} />`,
  */
 import { Box } from "@atlaskit/primitives/compiled";
 
-import { jsx } from "@compiled/react";
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
 const styles = cssMap({
@@ -241,8 +235,7 @@ export default ({ disabled }) => <Box xcss={[styles, disabled && disabledStyles]
  * @jsx jsx
  */
 import { Box } from "@atlaskit/primitives/compiled";
-import { jsx } from "@compiled/react";
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
 const styles = cssMap({
@@ -282,8 +275,7 @@ const MyComponent = () => <Stack xcss={containerStyles}><Inline xcss={innerStyle
  */
 import { Stack, Inline } from "@atlaskit/primitives/compiled";
 
-import { jsx } from "@compiled/react";
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
 const styles = cssMap({
@@ -321,8 +313,7 @@ const MyComponent = () => <Box xcss={styles} />`,
  */
 import { Box } from "@atlaskit/primitives/compiled";
 
-import { jsx } from "@compiled/react";
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
 const styles = cssMap({
@@ -361,8 +352,7 @@ const MyComponent = () => <Box xcss={styles} />`,
  */
 import { Box } from "@atlaskit/primitives/compiled";
 
-import { jsx } from "@compiled/react";
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
 const styles = cssMap({
@@ -446,8 +436,7 @@ import { type ReactNode } from 'react';
 
 import { Anchor } from "@atlaskit/primitives/compiled";
 
-import { jsx } from "@compiled/react";
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
 const styles = cssMap({
@@ -640,7 +629,7 @@ const ContentRenderer = ({ id, body, exportPropTypes }: ContentRendererProps) =>
 
 import { Fragment } from 'react';
 
-import { jsx } from "@compiled/react";
+import { css } from '@emotion/react';
 import { MDXProvider, type MDXProviderComponentsProp } from '@mdx-js/react';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 
@@ -654,7 +643,7 @@ import { ThemedImgMdx, type ThemedImgMdxProps } from '../../../components/themed
 import useSnippet, { type SnippetProps } from '../../../hooks/use-snippet';
 import { TSMorphProps } from '../components/props';
 
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 
 const styles = cssMap({
     blockquote: {
@@ -883,8 +872,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import ThemedImg from '../themed-img';
 
-import { jsx } from "@compiled/react";
-import { cssMap } from "@atlaskit/css";
+import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
 const styles = cssMap({

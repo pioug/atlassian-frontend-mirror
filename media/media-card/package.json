@@ -53,6 +53,7 @@
 		"@atlaskit/media-viewer": "^49.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.2.0",
+		"@atlaskit/react-ufo": "^1.0.1",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.0.0",
@@ -115,6 +116,9 @@
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons": {
+			"type": "boolean"
+		},
+		"platform_media_card_ufo_network_metrics": {
 			"type": "boolean"
 		}
 	},

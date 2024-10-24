@@ -1,5 +1,6 @@
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Fragment, type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { MAX_LAYOUT_COLUMN_SUPPORTED } from '../consts';
 import type { BlockControlsPlugin } from '../types';
@@ -85,16 +86,27 @@ export const moveToLayout =
 			const existingLayoutNode = $to.nodeAfter;
 
 			if (existingLayoutNode.childCount < MAX_LAYOUT_COLUMN_SUPPORTED) {
-				const toPos = position === 'left' ? to + 1 : to + existingLayoutNode.nodeSize - 1;
+				const newColumnWidth = DEFAULT_COLUMN_DISTRIBUTIONS[existingLayoutNode.childCount + 1];
 
+				if (newColumnWidth) {
+					existingLayoutNode.content.forEach((node, offset) => {
+						if (node.type === layoutColumn) {
+							tr = tr.setNodeAttribute(to + offset + 1, 'width', newColumnWidth);
+						}
+					});
+				}
+				const toPos = position === 'left' ? to + 1 : to + existingLayoutNode.nodeSize - 1;
 				tr = tr.insert(
 					toPos,
 					// resolve again the source node after node updated (remove breakout marks)
-					layoutColumn.create(null, tr.doc.resolve(from).nodeAfter),
+					layoutColumn.create({ width: newColumnWidth }, tr.doc.resolve(from).nodeAfter),
 				);
+				tr = tr.setSelection(new NodeSelection(tr.doc.resolve(toPos)));
 				const mappedFrom = tr.mapping.map(from);
 				const mappedFromEnd = mappedFrom + fromNode.nodeSize;
 				tr = tr.delete(mappedFrom, mappedFromEnd);
+				tr = tr.scrollIntoView();
+
 				return tr;
 			}
 			return tr;
@@ -114,6 +126,8 @@ export const moveToLayout =
 				const mappedTo = tr.mapping.map(to);
 				tr = tr.delete(mappedTo, mappedTo + toNode.nodeSize);
 				tr = tr.insert(mappedTo, newLayout); // insert the content at the new position
+				tr = tr.setSelection(new NodeSelection(tr.doc.resolve(mappedTo)));
+				tr = tr.scrollIntoView();
 			}
 
 			return tr;

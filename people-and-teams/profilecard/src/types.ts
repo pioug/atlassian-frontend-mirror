@@ -3,6 +3,7 @@ import type React from 'react';
 import { type IntlShape } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type ConversationStarter } from '@atlaskit/rovo-agent-components';
 
 import { type TeamCentralScopes } from './client/ProfileCardClient';
 import type RovoAgentCardClient from './client/RovoAgentCardClient';
@@ -340,7 +341,7 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
 
 export interface AgentActionsType {
 	onChatClick?: () => void;
-	onConversationStartersClick?: (starter: string) => void;
+	onConversationStartersClick?: (starter: ConversationStarter) => void;
 }
 export interface AgentProfileCardTriggerProps extends AgentActionsType {
 	agentId: string;

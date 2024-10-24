@@ -10,10 +10,11 @@ import type { SelectionMarkerPlugin } from '../selectionMarkerPluginType';
 import { selectionDecoration } from '../ui/selection-decoration';
 import { createWidgetDecoration } from '../ui/widget-decoration';
 
-interface PluginState {
+export interface PluginState {
 	decorations: DecorationSet;
 	shouldHideDecorations: boolean;
 	forceHide: boolean;
+	decorationType: DecorationType;
 }
 
 export const key = new PluginKey<PluginState>('selectionMarker');
@@ -42,7 +43,7 @@ function getDecorations(tr: ReadonlyTransaction, type: DecorationType): Decorati
 function getDecorationType(
 	tr: ReadonlyTransaction,
 	shouldHideDecorations: boolean,
-): DecorationType {
+): 'none' | 'blur' {
 	if (shouldHideDecorations || isEmptyDocument(tr.doc)) {
 		return 'none';
 	}
@@ -50,8 +51,39 @@ function getDecorationType(
 	return 'blur';
 }
 
+export const applyNextPluginState = (
+	tr: ReadonlyTransaction,
+	currentState: PluginState,
+	oldEditorState: EditorState,
+) => {
+	const meta = tr.getMeta(key);
+	if (!meta && !tr.selectionSet) {
+		return currentState;
+	}
+
+	const forceHide = meta?.forceHide ?? currentState.forceHide;
+	const shouldHideDecorations = meta?.shouldHideDecorations ?? currentState.shouldHideDecorations;
+	const type = getDecorationType(tr, shouldHideDecorations);
+
+	let nextDecorations = currentState.decorations;
+	const hasSelectionChangedToRange = oldEditorState.selection.empty && !tr.selection.empty;
+
+	if (hasSelectionChangedToRange || currentState.decorationType !== type) {
+		nextDecorations = getDecorations(tr, type);
+	} else {
+		nextDecorations = nextDecorations.map(tr.mapping, tr.doc, {});
+	}
+
+	return {
+		decorations: nextDecorations,
+		shouldHideDecorations,
+		forceHide,
+		decorationType: type,
+	};
+};
+
 export const createPlugin = (api: ExtractInjectionAPI<SelectionMarkerPlugin> | undefined) => {
-	return new SafePlugin({
+	return new SafePlugin<PluginState>({
 		key,
 		state: {
 			init() {
@@ -59,19 +91,10 @@ export const createPlugin = (api: ExtractInjectionAPI<SelectionMarkerPlugin> | u
 					decorations: DecorationSet.empty,
 					shouldHideDecorations: true,
 					forceHide: false,
+					decorationType: 'none',
 				};
 			},
-			apply(tr: ReadonlyTransaction, currentState: PluginState) {
-				const forceHide = tr.getMeta(key)?.forceHide ?? currentState.forceHide;
-				const shouldHideDecorations =
-					tr.getMeta(key)?.shouldHideDecorations ?? currentState.shouldHideDecorations;
-				const type = getDecorationType(tr, shouldHideDecorations);
-				return {
-					decorations: getDecorations(tr, type),
-					shouldHideDecorations,
-					forceHide,
-				};
-			},
+			apply: applyNextPluginState,
 		},
 		props: {
 			decorations: (state: EditorState) => {

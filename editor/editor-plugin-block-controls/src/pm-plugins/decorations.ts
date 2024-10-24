@@ -376,6 +376,7 @@ class ObjHash {
 }
 
 const shouldIgnoreNode = (node: PMNode) => {
+	// TODO use isWrappedMedia when clean up the featue flag
 	if ('mediaSingle' === node.type.name && fg('platform_editor_element_dnd_nested_fix_patch_1')) {
 		if (['wrap-right', 'wrap-left'].includes(node.attrs.layout)) {
 			return true;

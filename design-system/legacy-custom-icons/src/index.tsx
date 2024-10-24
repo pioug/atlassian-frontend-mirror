@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ed9eed0a167478a9d35c20b8ccddabfd>>
+ * @codegen <<SignedSource::34efd0e4e66daedec820c24680f36f37>>
  * @codegenCommand yarn generate-artifacts
  */
 export { default as AlignLeftIcon } from './ui/align-left-icon';
@@ -22,10 +22,14 @@ export { default as CurlyBracketsTallIcon } from './ui/curly-brackets-tall-icon'
 export { default as DataNumberIcon } from './ui/data-number-icon';
 export { default as DeleteIcon } from './ui/delete-icon';
 export { default as DeltaIcon } from './ui/delta-icon';
+export { default as DockIcon } from './ui/dock-icon';
 export { default as FieldValueChangedIcon } from './ui/field-value-changed-icon';
 export { default as FlaskIcon } from './ui/flask-icon';
+export { default as GlobalChartIcon } from './ui/global-chart-icon';
 export { default as GlobeIcon } from './ui/globe-icon';
 export { default as GoalIcon } from './ui/goal-icon';
+export { default as LargeErrorIcon } from './ui/large-error-icon';
+export { default as LineChartIcon } from './ui/line-chart-icon';
 export { default as LobbyBellIcon } from './ui/lobby-bell-icon';
 export { default as ManualTriggerIcon } from './ui/manual-trigger-icon';
 export { default as MegaphoneIcon } from './ui/megaphone-icon';

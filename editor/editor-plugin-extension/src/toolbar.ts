@@ -28,7 +28,6 @@ import CenterIcon from '@atlaskit/icon/glyph/editor/media-center';
 import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
 import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { editExtension } from './actions';
 import { removeDescendantNodes, removeExtension, updateExtensionLayout } from './commands';
@@ -49,9 +48,7 @@ const isLayoutSupported = (state: EditorState, selectedExtNode: { pos: number; n
 	if (!selectedExtNode) {
 		return false;
 	}
-	const isMultiBodiedExtension =
-		fg('platform.editor.multi-bodied-extension_0rygg') &&
-		selectedExtNode.node.type === multiBodiedExtension;
+	const isMultiBodiedExtension = selectedExtNode.node.type === multiBodiedExtension;
 	const isNonEmbeddedBodiedExtension =
 		selectedExtNode.node.type === bodiedExtension &&
 		!hasParentNodeOfType([multiBodiedExtension].filter(Boolean))(selection);

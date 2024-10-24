@@ -107,7 +107,7 @@ const buildLayoutButton = (
 	iconFallback: item.iconFallback,
 	testId: item.title.id ? `${item.title.id}` : undefined,
 	title: intl.formatMessage(item.title),
-	onClick: setPresetLayout(editorAnalyticsAPI)(item.type),
+	onClick: setPresetLayout(editorAnalyticsAPI)(item.type, intl.formatMessage),
 	selected: !!currentLayout && currentLayout === item.type,
 	tabIndex: null,
 });

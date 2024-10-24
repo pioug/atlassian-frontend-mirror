@@ -23,6 +23,7 @@ import {
 	MediaCardView,
 } from '../../../../ui/MediaCard';
 import type { MediaSSR } from '../../../../types/mediaOptions';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const doc = require('../../../../../examples/helper/media-layout.adf.json');
 
@@ -112,18 +113,18 @@ describe('Media', () => {
 		return card;
 	};
 
-	const mountExternalCard = (indentifier: ExternalImageIdentifier, extraProps?: Object) => {
+	const mountExternalCard = (identifier: ExternalImageIdentifier, extraProps?: Object) => {
 		const card = mount(
 			<MediaCardWithProvider
 				type="external"
-				url={indentifier.dataURI}
+				url={identifier.dataURI}
 				rendererContext={{
 					adDoc: {
 						content: [
 							{
 								attrs: {
 									height: 580,
-									url: indentifier.dataURI,
+									url: identifier.dataURI,
 									type: 'external',
 									width: 1021,
 								},
@@ -1199,5 +1200,38 @@ describe('Media', () => {
 				expect(screen.queryByLabelText('View comments')).toBeInTheDocument();
 			});
 		});
+	});
+
+	describe('annotation attributes', () => {
+		const dataAttributes = { 'data-node-type': 'media', 'data-renderer-start-pos': 4 };
+		ffTest(
+			'platform_editor_external_media_comment_bugfix',
+			async () => {
+				const externalIdentifier = createExternalIdentifier();
+				const mediaExternalCard = mountExternalCard(externalIdentifier, { dataAttributes });
+
+				await act(async () => {
+					await sleep(0);
+				});
+
+				mediaExternalCard.update();
+
+				expect(mediaExternalCard.childAt(0).html()).toContain('data-node-type="media"');
+				expect(mediaExternalCard.childAt(0).html()).toContain('data-renderer-start-pos="4"');
+			},
+			async () => {
+				const externalIdentifier = createExternalIdentifier();
+				const mediaExternalCard = mountExternalCard(externalIdentifier, { dataAttributes });
+
+				await act(async () => {
+					await sleep(0);
+				});
+
+				mediaExternalCard.update();
+
+				expect(mediaExternalCard.childAt(0).html()).not.toContain('data-node-type="media"');
+				expect(mediaExternalCard.childAt(0).html()).not.toContain('data-renderer-start-pos="4"');
+			},
+		);
 	});
 });

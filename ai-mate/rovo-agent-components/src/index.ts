@@ -4,6 +4,8 @@ export {
 	AgentConversationStarters,
 	ConversationStarters,
 	type AgentConversationStartersProps,
+	type ConversationStarter,
+	type StaticAgentConversationStarter,
 	type ConversationStartersProps,
 	getConversationStarters,
 } from './ui/agent-conversation-starters';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f54dcc6a001c3c5c264afa043122341e>>
+ * @codegen <<SignedSource::ebe09c904f54a25f61441b962b35792c>>
  * @codegenCommand yarn generate-artifacts
  */
 import AlignLeftIcon from '../../src/ui/align-left-icon';
@@ -22,10 +22,14 @@ import CurlyBracketsTallIcon from '../../src/ui/curly-brackets-tall-icon';
 import DataNumberIcon from '../../src/ui/data-number-icon';
 import DeleteIcon from '../../src/ui/delete-icon';
 import DeltaIcon from '../../src/ui/delta-icon';
+import DockIcon from '../../src/ui/dock-icon';
 import FieldValueChangedIcon from '../../src/ui/field-value-changed-icon';
 import FlaskIcon from '../../src/ui/flask-icon';
+import GlobalChartIcon from '../../src/ui/global-chart-icon';
 import GlobeIcon from '../../src/ui/globe-icon';
 import GoalIcon from '../../src/ui/goal-icon';
+import LargeErrorIcon from '../../src/ui/large-error-icon';
+import LineChartIcon from '../../src/ui/line-chart-icon';
 import LobbyBellIcon from '../../src/ui/lobby-bell-icon';
 import ManualTriggerIcon from '../../src/ui/manual-trigger-icon';
 import MegaphoneIcon from '../../src/ui/megaphone-icon';
@@ -66,10 +70,14 @@ export default {
 	DataNumberIcon,
 	DeleteIcon,
 	DeltaIcon,
+	DockIcon,
 	FieldValueChangedIcon,
 	FlaskIcon,
+	GlobalChartIcon,
 	GlobeIcon,
 	GoalIcon,
+	LargeErrorIcon,
+	LineChartIcon,
 	LobbyBellIcon,
 	ManualTriggerIcon,
 	MegaphoneIcon,

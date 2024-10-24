@@ -1,23 +1,23 @@
-import React from 'react';
-
-import ReactDOM from 'react-dom';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { Box, xcss } from '@atlaskit/primitives';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type SelectionType = 'anchor' | 'head';
 
-const selectionMarkerHighlightStyles = xcss({
+const selectionMarkerHighlightStyles = {
 	content: "''",
 	position: 'absolute',
 	backgroundImage:
 		"url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMyIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDMgMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMSAxSDBMMSAxLjg1NzE0VjE4LjE0MzNMMCAxOS4wMDA0SDNMMiAxOC4xNDMzVjEuODU3MTRMMyAxSDJIMVoiIGZpbGw9IiM1NzlERkYiLz4KPHJlY3QgeT0iMTkiIHdpZHRoPSIzIiBoZWlnaHQ9IjEiIGZpbGw9IiM1NzlERkYiLz4KPHJlY3Qgd2lkdGg9IjMiIGhlaWdodD0iMSIgZmlsbD0iIzU3OURGRiIvPgo8L3N2Zz4K')",
-	top: 'space.0',
+	top: token('space.0', '0px'),
 	bottom: token('space.negative.025', '-2px'),
 	backgroundRepeat: 'no-repeat',
 	backgroundPositionX: 'center',
@@ -25,38 +25,52 @@ const selectionMarkerHighlightStyles = xcss({
 	backgroundSize: 'contain',
 	aspectRatio: '3/20',
 	left: '0px',
-	marginLeft: 'space.negative.025',
+	marginLeft: token('space.negative.025'),
 	right: '0px',
-	marginRight: 'space.negative.025',
+	marginRight: token('space.negative.025'),
 	pointerEvents: 'none',
-});
+};
 
-const selectionMarkerCursorStyles = xcss({
+const selectionMarkerCursorStyles = {
 	content: "''",
 	position: 'absolute',
 	background: token('color.text', N500),
 	width: '1px',
 	display: 'inline-block',
-	top: 'space.0',
+	top: token('space.0', '0px'),
 	bottom: token('space.negative.025', '-2px'),
 	left: '1px',
-	marginLeft: 'space.negative.025',
+	marginLeft: token('space.negative.025'),
 	right: '0px',
-	marginRight: 'space.negative.025',
+	marginRight: token('space.negative.025'),
 	pointerEvents: 'none',
-});
+};
+
+/**
+ * Converts a camelCased CSS property name to a hyphenated CSS property name.
+ *
+ * @param property - CamelCased CSS property name.
+ * @returns Hyphenated CSS property name.
+ */
+function hyphenate(property: string): string {
+	return property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`).replace(/^ms/, '-ms');
+}
 
 type WidgetProps = { type: SelectionType; isHighlight: boolean };
 
 const Widget = ({ type, isHighlight }: WidgetProps) => {
-	return (
-		<Box
-			as="span"
-			xcss={isHighlight ? selectionMarkerHighlightStyles : selectionMarkerCursorStyles}
-			testId={`selection-marker-${type}-cursor`}
-			contentEditable={false}
-		/>
-	);
+	const span = document.createElement('span');
+
+	const styles = isHighlight ? selectionMarkerHighlightStyles : selectionMarkerCursorStyles;
+
+	for (let [rule, value] of Object.entries(styles)) {
+		span.style.setProperty(hyphenate(rule), value);
+	}
+
+	span.setAttribute('contentEditable', 'false');
+	span.dataset.testid = `selection-marker-${type}-cursor`;
+
+	return span;
 };
 
 const toDOM = (type: SelectionType, isHighlight: boolean) => {
@@ -64,7 +78,8 @@ const toDOM = (type: SelectionType, isHighlight: boolean) => {
 	element.contentEditable = 'false';
 
 	element.setAttribute('style', `position: relative;`);
-	ReactDOM.render(<Widget type={type} isHighlight={isHighlight} />, element);
+
+	element.appendChild(Widget({ type, isHighlight }));
 
 	return element;
 };

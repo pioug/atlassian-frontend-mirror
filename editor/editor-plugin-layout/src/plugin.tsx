@@ -34,6 +34,7 @@ import { pluginKey } from './pm-plugins/plugin-key';
 import type { LayoutState } from './pm-plugins/types';
 import { buildToolbar } from './toolbar';
 import type { LayoutPluginOptions } from './types';
+import { GlobalStylesWrapper } from './ui/global-styles';
 import { isPreRelease2 } from './utils/preRelease';
 
 export { pluginKey };
@@ -101,7 +102,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							priority: 1100,
 							icon: () => <IconTwoColumnLayout />,
 							action(insert, state) {
-								const tr = insert(createMultiColumnLayoutSection(state));
+								const tr = insert(createMultiColumnLayoutSection(state, 2, formatMessage));
 								return tr;
 							},
 						},
@@ -113,7 +114,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							priority: 1100,
 							icon: () => <IconThreeColumnLayout />,
 							action(insert, state) {
-								const tr = insert(createMultiColumnLayoutSection(state, 3));
+								const tr = insert(createMultiColumnLayoutSection(state, 3, formatMessage));
 								return tr;
 							},
 						},
@@ -125,7 +126,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							priority: 1100,
 							icon: () => <IconFourColumnLayout />,
 							action(insert, state) {
-								const tr = insert(createMultiColumnLayoutSection(state, 4));
+								const tr = insert(createMultiColumnLayoutSection(state, 4, formatMessage));
 								return tr;
 							},
 						},
@@ -137,7 +138,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							priority: 1100,
 							icon: () => <IconFiveColumnLayout />,
 							action(insert, state) {
-								const tr = insert(createMultiColumnLayoutSection(state, 5));
+								const tr = insert(createMultiColumnLayoutSection(state, 5, formatMessage));
 								return tr;
 							},
 						},
@@ -165,5 +166,8 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							},
 						},
 					],
+	},
+	contentComponent() {
+		return isPreRelease2() ? <GlobalStylesWrapper /> : null;
 	},
 });

@@ -43,33 +43,46 @@ describe('AgentConversationStarters', () => {
 
 	describe('Custom Agent', () => {
 		it('shows 0 default and 3 agent suggestions when 3 suggestions are provided', () => {
+			const type = 'user-defined';
 			render(
 				<IntlProvider locale="en">
 					<AgentConversationStarters
 						{...mockProps}
 						isAgentDefault={false}
-						userDefinedConversationStarters={['Starter 1', 'Starter 2', 'Starter 3']}
+						userDefinedConversationStarters={[
+							{ message: 'Starter 1', type },
+							{ message: 'Starter 2', type },
+							{ message: 'Starter 3', type },
+						]}
 					/>
 				</IntlProvider>,
 			);
 
 			expect(screen.queryAllByRole('button')).toHaveLength(3);
 
-			['Starter 1', 'Starter 2', 'Starter 3'].forEach((prompt) => {
+			[
+				{ message: 'Starter 1', type },
+				{ message: 'Starter 2', type },
+				{ message: 'Starter 3', type },
+			].forEach((prompt) => {
 				const button = screen.queryByRole('button', {
-					name: prompt,
+					name: prompt.message,
 				});
 				expect(button).toBeVisible();
 			});
 		});
 
 		it('shows 1 default and 2 agent suggestions when 2 suggestions are provided', () => {
+			const type = 'user-defined';
 			render(
 				<IntlProvider locale="en">
 					<AgentConversationStarters
 						{...mockProps}
 						isAgentDefault={false}
-						userDefinedConversationStarters={['Starter 1', 'Starter 2']}
+						userDefinedConversationStarters={[
+							{ message: 'Starter 1', type },
+							{ message: 'Starter 2', type },
+						]}
 					/>
 				</IntlProvider>,
 			);
@@ -90,7 +103,7 @@ describe('AgentConversationStarters', () => {
 					<AgentConversationStarters
 						{...mockProps}
 						isAgentDefault={false}
-						userDefinedConversationStarters={['Starter 1']}
+						userDefinedConversationStarters={[{ message: 'Starter 1', type: 'user-defined' }]}
 					/>
 				</IntlProvider>,
 			);
@@ -137,23 +150,24 @@ describe('getConversationStarters', () => {
 		const starters = getConversationStarters({
 			isAgentDefault: true,
 		});
+		const type = 'static';
 
 		expect(starters).toEqual({
 			userDefinedConversationStarters: [],
 			customAgentConversationStarters: [
-				messages.agentEmptyStateSuggestion1,
-				messages.agentEmptyStateSuggestion2,
-				messages.agentEmptyStateSuggestion3,
+				{ message: messages.agentEmptyStateSuggestion1, type },
+				{ message: messages.agentEmptyStateSuggestion2, type },
+				{ message: messages.agentEmptyStateSuggestion3, type },
 			],
 			defaultAgentConversationStarters: [
-				messages.emptyStateSuggestion1,
-				messages.emptyStateSuggestion2,
-				messages.emptyStateSuggestion3,
+				{ message: messages.emptyStateSuggestion1, type },
+				{ message: messages.emptyStateSuggestion2, type },
+				{ message: messages.emptyStateSuggestion3, type },
 			],
 			combinedConversationStarters: [
-				messages.emptyStateSuggestion1,
-				messages.emptyStateSuggestion2,
-				messages.emptyStateSuggestion3,
+				{ message: messages.emptyStateSuggestion1, type },
+				{ message: messages.emptyStateSuggestion2, type },
+				{ message: messages.emptyStateSuggestion3, type },
 			],
 		});
 	});
@@ -162,44 +176,59 @@ describe('getConversationStarters', () => {
 		const starters = getConversationStarters({
 			isAgentDefault: false,
 		});
+		const type = 'static';
 		expect(starters).toEqual({
 			userDefinedConversationStarters: [],
 			customAgentConversationStarters: [
-				messages.agentEmptyStateSuggestion1,
-				messages.agentEmptyStateSuggestion2,
-				messages.agentEmptyStateSuggestion3,
+				{ message: messages.agentEmptyStateSuggestion1, type },
+				{ message: messages.agentEmptyStateSuggestion2, type },
+				{ message: messages.agentEmptyStateSuggestion3, type },
 			],
 			defaultAgentConversationStarters: [
-				messages.emptyStateSuggestion1,
-				messages.emptyStateSuggestion2,
-				messages.emptyStateSuggestion3,
+				{ message: messages.emptyStateSuggestion1, type },
+				{ message: messages.emptyStateSuggestion2, type },
+				{ message: messages.emptyStateSuggestion3, type },
 			],
 			combinedConversationStarters: [
-				messages.agentEmptyStateSuggestion1,
-				messages.agentEmptyStateSuggestion2,
-				messages.agentEmptyStateSuggestion3,
+				{ message: messages.agentEmptyStateSuggestion1, type },
+				{ message: messages.agentEmptyStateSuggestion2, type },
+				{ message: messages.agentEmptyStateSuggestion3, type },
 			],
 		});
 	});
 
 	it('custom agent with user defined conversation starters', () => {
+		const userDefinedType = 'user-defined';
+		const staticType = 'static';
 		const starters = getConversationStarters({
 			isAgentDefault: false,
-			userDefinedConversationStarters: ['Starter 1', 'Starter 2', 'Starter 3'],
+			userDefinedConversationStarters: [
+				{ message: 'Starter 1', type: userDefinedType },
+				{ message: 'Starter 2', type: userDefinedType },
+				{ message: 'Starter 3', type: userDefinedType },
+			],
 		});
 		expect(starters).toEqual({
-			userDefinedConversationStarters: ['Starter 1', 'Starter 2', 'Starter 3'],
+			userDefinedConversationStarters: [
+				{ message: 'Starter 1', type: userDefinedType },
+				{ message: 'Starter 2', type: userDefinedType },
+				{ message: 'Starter 3', type: userDefinedType },
+			],
 			customAgentConversationStarters: [
-				messages.agentEmptyStateSuggestion1,
-				messages.agentEmptyStateSuggestion2,
-				messages.agentEmptyStateSuggestion3,
+				{ message: messages.agentEmptyStateSuggestion1, type: staticType },
+				{ message: messages.agentEmptyStateSuggestion2, type: staticType },
+				{ message: messages.agentEmptyStateSuggestion3, type: staticType },
 			],
 			defaultAgentConversationStarters: [
-				messages.emptyStateSuggestion1,
-				messages.emptyStateSuggestion2,
-				messages.emptyStateSuggestion3,
+				{ message: messages.emptyStateSuggestion1, type: staticType },
+				{ message: messages.emptyStateSuggestion2, type: staticType },
+				{ message: messages.emptyStateSuggestion3, type: staticType },
 			],
-			combinedConversationStarters: ['Starter 1', 'Starter 2', 'Starter 3'],
+			combinedConversationStarters: [
+				{ message: 'Starter 1', type: userDefinedType },
+				{ message: 'Starter 2', type: userDefinedType },
+				{ message: 'Starter 3', type: userDefinedType },
+			],
 		});
 	});
 });

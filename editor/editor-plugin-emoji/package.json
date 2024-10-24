@@ -35,7 +35,8 @@
 		"react-loadable": "^5.1.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
@@ -45,7 +46,6 @@
 		"@atlaskit/util-data-test": "^17.11.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
-		"react-dom": "^16.8.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

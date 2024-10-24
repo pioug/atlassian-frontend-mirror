@@ -7,7 +7,6 @@ import {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	createEditSelectedExtensionAction,
@@ -49,19 +48,16 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 					name: 'inlineExtension',
 					node: inlineExtension,
 				},
-			];
-
-			// Revert to returning all nodes without local variable, once FF is removed
-			if (fg('platform.editor.multi-bodied-extension_0rygg')) {
-				extensionNodes.push({
+				{
 					name: 'extensionFrame',
 					node: extensionFrame,
-				});
-				extensionNodes.push({
+				},
+				{
 					name: 'multiBodiedExtension',
 					node: multiBodiedExtension,
-				});
-			}
+				},
+			];
+
 			return extensionNodes;
 		},
 

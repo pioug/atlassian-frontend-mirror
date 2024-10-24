@@ -10,7 +10,7 @@
 	"atlassian": {
 		"team": "Editor: Lego",
 		"singleton": true,
-		"runReact18": false
+		"runReact18": true
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",

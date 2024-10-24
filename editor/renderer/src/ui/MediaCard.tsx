@@ -27,6 +27,7 @@ import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { RendererAppearance } from './Renderer/types';
 import type { RendererContext } from '../react/types';
 import type { MediaSSR } from '../types/mediaOptions';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export type MediaProvider = {
 	viewMediaClientConfig: MediaClientConfig;
@@ -193,6 +194,7 @@ export class MediaCardView extends Component<
 			featureFlags,
 			ssr,
 			mediaClient,
+			dataAttributes,
 		} = this.props;
 
 		if (imageStatus === 'loading' || !url) {
@@ -208,24 +210,47 @@ export class MediaCardView extends Component<
 		// we need this statement for the mandatory mediaClientConfig below
 		const mediaClientConfig = mediaClient?.mediaClientConfig;
 
-		return (
-			<Card
-				// TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
-				// context is not really used when the type is external and we want to render the component asap
-				mediaClientConfig={mediaClientConfig!}
-				alt={alt}
-				identifier={identifier}
-				dimensions={cardDimensions}
-				appearance={appearance}
-				resizeMode={resizeMode}
-				disableOverlay={disableOverlay}
-				shouldOpenMediaViewer={shouldOpenMediaViewer}
-				mediaViewerItems={Array.from(mediaIdentifierMap.values())}
-				featureFlags={featureFlags}
-				ssr={ssr?.mode}
-				shouldHideTooltip={false}
-			/>
-		);
+		if (fg('platform_editor_external_media_comment_bugfix')) {
+			return (
+				<div {...dataAttributes} data-node-type="media">
+					<Card
+						// TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
+						// context is not really used when the type is external and we want to render the component asap
+						mediaClientConfig={mediaClientConfig!}
+						alt={alt}
+						identifier={identifier}
+						dimensions={cardDimensions}
+						appearance={appearance}
+						resizeMode={resizeMode}
+						disableOverlay={disableOverlay}
+						shouldOpenMediaViewer={shouldOpenMediaViewer}
+						mediaViewerItems={Array.from(mediaIdentifierMap.values())}
+						featureFlags={featureFlags}
+						ssr={ssr?.mode}
+						shouldHideTooltip={false}
+					/>
+				</div>
+			);
+		} else {
+			return (
+				<Card
+					// TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
+					// context is not really used when the type is external and we want to render the component asap
+					mediaClientConfig={mediaClientConfig!}
+					alt={alt}
+					identifier={identifier}
+					dimensions={cardDimensions}
+					appearance={appearance}
+					resizeMode={resizeMode}
+					disableOverlay={disableOverlay}
+					shouldOpenMediaViewer={shouldOpenMediaViewer}
+					mediaViewerItems={Array.from(mediaIdentifierMap.values())}
+					featureFlags={featureFlags}
+					ssr={ssr?.mode}
+					shouldHideTooltip={false}
+				/>
+			);
+		}
 	}
 
 	/**

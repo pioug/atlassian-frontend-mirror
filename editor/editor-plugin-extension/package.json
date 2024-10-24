@@ -113,10 +113,5 @@
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
 		}
-	},
-	"platform-feature-flags": {
-		"platform.editor.multi-bodied-extension_0rygg": {
-			"type": "boolean"
-		}
 	}
 }

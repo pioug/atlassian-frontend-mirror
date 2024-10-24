@@ -5,7 +5,6 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export function insertSliceIntoEmptyNode({ tr, slice }: { tr: Transaction; slice: Slice }) {
 	tr.replaceSelection(slice);
@@ -86,7 +85,7 @@ export function insertSliceInsideOfPanelNodeSelected(panelNode: PMNode) {
 			/* Adapting above logic to handle MBE, as it currently assumes that slice can be safely inserted after the panel node, which is not the case for MBE
          If insertPosition is in MBE and current slice contains invalid content for MBE, we need to insert the slice after the MBE node
       */
-			if (schema && getBooleanFF('platform.editor.multi-bodied-extension_0rygg')) {
+			if (schema) {
 				const mbeParentOfPanel = findParentNodeOfType(schema.nodes.multiBodiedExtension)(selection);
 				if (
 					mbeParentOfPanel &&

@@ -10,6 +10,7 @@ import {
 	AgentProfileCreator,
 	AgentProfileInfo,
 	AgentStarCount,
+	type ConversationStarter,
 } from '@atlaskit/rovo-agent-components';
 
 import { type AgentProfileCardProps } from '../../types';
@@ -63,6 +64,14 @@ const AgentProfileCard = ({
 	const [isStarred, setIsStarred] = useState(false);
 	const [starCount, setStarCount] = useState<number | undefined>();
 	const { formatMessage } = useIntl();
+
+	const userDefinedConversationStarters: ConversationStarter[] | undefined =
+		agent?.user_defined_conversation_starters?.map((starter) => {
+			return {
+				message: starter,
+				type: 'user-defined',
+			};
+		});
 
 	useEffect(() => {
 		setIsStarred(!!agent?.favourite);
@@ -184,11 +193,11 @@ const AgentProfileCard = ({
 
 					<ConversationStarters
 						isAgentDefault={agent.is_default}
-						userDefinedConversationStarters={agent.user_defined_conversation_starters}
-						onConversationStarterClick={(conversationStarter: string) => {
+						userDefinedConversationStarters={userDefinedConversationStarters}
+						onConversationStarterClick={(conversationStarter: ConversationStarter) => {
 							onConversationStartersClick
 								? onConversationStartersClick(conversationStarter)
-								: onConversationStarter({ agentId: agent.id, prompt: conversationStarter });
+								: onConversationStarter({ agentId: agent.id, prompt: conversationStarter.message });
 						}}
 					/>
 				</Stack>

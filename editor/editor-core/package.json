@@ -156,10 +156,6 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform.editor.multi-bodied-extension_0rygg": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean",
 			"referenceOnly": "true"

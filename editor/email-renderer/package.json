@@ -55,7 +55,7 @@
 		"website": {
 			"name": "Email Renderer"
 		},
-		"runReact18": false
+		"runReact18": true
 	},
 	"scripts": {
 		"ak-postbuild": "ts-node --project ./tsconfig.ts-node.json ./build/ts-to-css.ts",

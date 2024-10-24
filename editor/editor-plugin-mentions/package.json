@@ -51,7 +51,7 @@
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
@@ -59,7 +59,6 @@
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
-		"react-dom": "^16.8.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

@@ -311,3 +311,12 @@ export type IconFacadeProps = IconProps & {
 	newIcon?: React.ComponentType<NewUtilityIconProps> | React.ComponentType<NewCoreIconProps>;
 	iconType?: NewIconProps['type'];
 };
+
+interface LEGACY_Data {
+	keywords: string[];
+	componentName: string;
+	package: string;
+	packageLoader: () => Promise<{ default: React.ComponentType<any> }>;
+}
+
+export type LEGACY_Metadata = Record<string, LEGACY_Data>;

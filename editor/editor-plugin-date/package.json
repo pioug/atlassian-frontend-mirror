@@ -51,7 +51,6 @@
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"date-fns": "^2.17.0",
-		"react-dom": "^16.8.0",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"react-loadable": "^5.1.0"
 	},
@@ -70,7 +69,8 @@
 		"@testing-library/react": "^12.1.5"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

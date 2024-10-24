@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 12.2.7
+
+### Patch Changes
+
+- [#155472](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155472)
+  [`3d80f6ab74b68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d80f6ab74b68) -
+  Add zIndex: 1 to XCSS layer API.
+
 ## 12.2.6
 
 ### Patch Changes

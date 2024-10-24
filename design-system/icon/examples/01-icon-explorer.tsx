@@ -8,14 +8,15 @@ import { type ComponentType, type SyntheticEvent, useCallback, useEffect, useSta
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import fileTypeIconMetadata from '@atlaskit/icon-file-type/metadata';
-import objectIconMetadata from '@atlaskit/icon-object/metadata';
+import { metaDataWithPackageLoader as fileTypeIconMetadata } from '@atlaskit/icon-file-type/metadata';
+import { metaDataWithPackageLoader as objectIconMetadata } from '@atlaskit/icon-object/metadata';
 import Link from '@atlaskit/link';
 import SectionMessage from '@atlaskit/section-message';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
-import metadata from '../src/metadata';
+import { metaDataWithPackageLoader as mainIconMetadata } from '../src/metadata';
+import { type LEGACY_Metadata } from '../src/types';
 import logoIcons from '../utils/logo-icons';
 
 import IconExplorerCell from './utils/icon-explorer-cell';
@@ -28,48 +29,26 @@ type IconsList = Record<string, IconData>;
 // They need to live at the root because of the dynamic imports so webpack resolves
 // them correctly
 
-const iconIconInfo = Promise.all(
-	Object.keys(metadata).map(async (name: string) => {
-		const icon = await import(
-			/* webpackChunkName: "@atlaskit-internal_icon" */
-			`../glyph/${name}.js`
-		);
-		return { name, icon: icon.default };
-	}),
-).then((newData) =>
-	newData
+const createIconMetadataLoader = async (metadata: LEGACY_Metadata) => {
+	const newData = await Promise.all(
+		Object.entries(metadata).map(async ([name, { packageLoader }]) => {
+			const icon = await packageLoader();
+			return { name, icon: icon.default };
+		}),
+	);
+	return newData
 		.map((icon) => ({
 			[icon.name]: {
 				...(metadata as { [key: string]: any })[icon.name],
 				component: icon.icon,
 			},
 		}))
-		.reduce((acc, b) => ({ ...acc, ...b })),
-);
-const objectIconInfo = Promise.all(
-	Object.keys(objectIconMetadata).map(async (name: string) => {
-		const icon = await import(`@atlaskit/icon-object/glyph/${name}.js`);
-		return { name, icon: icon.default };
-	}),
-).then((newData) =>
-	newData
-		.map((icon) => ({
-			[icon.name]: { ...objectIconMetadata[icon.name], component: icon.icon },
-		}))
-		.reduce((acc, b) => ({ ...acc, ...b })),
-);
-const fileTypeIconInfo = Promise.all(
-	Object.keys(fileTypeIconMetadata).map(async (name: string) => {
-		const icon = await import(`@atlaskit/icon-file-type/glyph/${name}.js`);
-		return { name, icon: icon.default };
-	}),
-).then((newData) =>
-	newData
-		.map((icon) => ({
-			[icon.name]: { ...fileTypeIconMetadata[icon.name], component: icon.icon },
-		}))
-		.reduce((acc, b) => ({ ...acc, ...b })),
-);
+		.reduce((acc, b) => ({ ...acc, ...b }));
+};
+
+const iconIconInfo = createIconMetadataLoader(mainIconMetadata);
+const objectIconInfo = createIconMetadataLoader(objectIconMetadata);
+const fileTypeIconInfo = createIconMetadataLoader(fileTypeIconMetadata);
 
 const getAllIcons = async (): Promise<IconsList> => {
 	const iconData = await iconIconInfo;
@@ -80,7 +59,7 @@ const getAllIcons = async (): Promise<IconsList> => {
 		first: {
 			componentName: 'divider-icons',
 			component: (() => 'exported from @atlaskit/icon') as unknown as ComponentType<any>,
-			keywords: getKeywords(metadata),
+			keywords: getKeywords(mainIconMetadata),
 			isDivider: true,
 		},
 		...iconData,

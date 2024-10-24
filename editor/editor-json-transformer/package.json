@@ -27,7 +27,7 @@
 		"website": {
 			"name": "Editor Json Transformer"
 		},
-		"runReact18": false
+		"runReact18": true
 	},
 	"af:exports": {
 		".": "./src/index.ts",

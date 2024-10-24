@@ -12,7 +12,7 @@
 		"website": {
 			"name": "Editor Palette"
 		},
-		"runReact18": false
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -37,12 +37,12 @@
 	},
 	"dependencies": {
 		"@atlaskit/tokens": "^2.0.0",
-		"@babel/runtime": "^7.0.0"
+		"@babel/runtime": "^7.0.0",
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0"
 	},
 	"devDependencies": {
 		"@testing-library/react": "^12.1.5",
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

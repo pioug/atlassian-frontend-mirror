@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 28.0.5
+
+### Patch Changes
+
+- [#155484](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155484)
+  [`958e4ecdf8ab7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/958e4ecdf8ab7) -
+  add nonMediaError reason to media-client
+
 ## 28.0.4
 
 ### Patch Changes

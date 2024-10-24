@@ -2,6 +2,7 @@ import React from 'react';
 
 import Icon from '@atlaskit/icon';
 import type { CustomGlyphProps, IconProps } from '@atlaskit/icon/types';
+import { token } from '@atlaskit/tokens';
 
 const AutomationNewIconGlyph = (props: CustomGlyphProps) => (
 	<svg
@@ -29,11 +30,11 @@ const AutomationNewIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __AutomationNewIcon__
  */
-const AutomationNewIcon = ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => (
+const AutomationNewIcon = ({ label, primaryColor, size, testId }: IconProps) => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}
-		secondaryColor={secondaryColor}
+		secondaryColor={token('utility.UNSAFE.transparent')}
 		size={size}
 		testId={testId}
 		glyph={AutomationNewIconGlyph}

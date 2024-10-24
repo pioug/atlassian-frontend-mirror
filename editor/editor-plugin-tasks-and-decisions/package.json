@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "2.11.7",
+	"version": "2.11.8",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -47,7 +47,7 @@
 		"@atlaskit/icon": "22.23.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popup": "1.29.0",
-		"@atlaskit/primitives": "12.2.6",
+		"@atlaskit/primitives": "12.2.7",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/tmp-editor-statsig": "^2.8.0",
@@ -57,6 +57,7 @@
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
@@ -66,7 +67,6 @@
 		"@atlaskit/util-data-test": "^17.11.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
-		"react-dom": "^16.8.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

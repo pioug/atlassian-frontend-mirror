@@ -2,7 +2,6 @@ import React from 'react';
 
 import { DevTools } from '@af/editor-examples-helpers/utils';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import TextArea from '@atlaskit/textarea';
 import { token } from '@atlaskit/tokens';
 
@@ -73,6 +72,10 @@ const nodeTypes: Record<string, NodeMapping> = {
 	bodiedExtension: {
 		name: 'bodiedExtension',
 		attrs: ['extensionKey', 'extensionType', 'parameters', 'text', 'layout'],
+	},
+	multiBodiedExtension: {
+		name: 'multiBodiedExtension',
+		attrs: ['extensionKey', 'extensionType', 'parameters', 'text', 'layout', 'localId'],
 	},
 
 	date: { name: 'date', attrs: ['timestamp'] },
@@ -159,13 +162,6 @@ const nodeTypes: Record<string, NodeMapping> = {
 	dataConsumer: { name: 'dataConsumer', attrs: ['sources'] },
 };
 nodeTypes.link = nodeTypes.a;
-
-if (getBooleanFF('platform.editor.multi-bodied-extension_0rygg')) {
-	nodeTypes.multiBodiedExtension = {
-		name: 'multiBodiedExtension',
-		attrs: ['extensionKey', 'extensionType', 'parameters', 'text', 'layout', 'localId'],
-	};
-}
 
 const buildMarks = (marks: Array<any>, leaf: string): string | undefined => {
 	const mark = marks.pop();

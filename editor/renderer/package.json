@@ -93,8 +93,6 @@
 		"jsdom": "^22.0.0",
 		"mockdate": "^3.0.5",
 		"puppeteer": "13.7.0",
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0",
 		"react-live-clock": "^5.0.0",
 		"react-magnetic-di": "^3.1.4",
 		"react-moment": "^1.1.2",
@@ -135,6 +133,9 @@
 			"type": "boolean"
 		},
 		"platform-datasources-enable-two-way-sync": {
+			"type": "boolean"
+		},
+		"platform_editor_external_media_comment_bugfix": {
 			"type": "boolean"
 		}
 	},

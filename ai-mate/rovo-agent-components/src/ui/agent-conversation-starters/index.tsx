@@ -10,34 +10,44 @@ import { BrowseAgentsPill, ChatPill } from '../../common/ui/chat-pill';
 
 import { messages } from './messages';
 
+export type ConversationStarter = { message: string; type: ConversationStarterType };
+
+type ConversationStarterType = 'static' | 'user-defined' | 'llm-generated';
+
 type GetConversationStartersParams = {
-	userDefinedConversationStarters?: string[] | null | undefined;
+	userDefinedConversationStarters?: ConversationStarter[] | null | undefined;
 	isAgentDefault: boolean;
 };
 
+export type StaticAgentConversationStarter = {
+	message: MessageDescriptor;
+	type: ConversationStarterType;
+};
+
 type ConversationStarters = {
-	userDefinedConversationStarters: string[];
-	customAgentConversationStarters: MessageDescriptor[];
-	defaultAgentConversationStarters: MessageDescriptor[];
-	combinedConversationStarters: Array<string | MessageDescriptor>;
+	userDefinedConversationStarters: ConversationStarter[];
+	customAgentConversationStarters: StaticAgentConversationStarter[];
+	defaultAgentConversationStarters: StaticAgentConversationStarter[];
+	combinedConversationStarters: Array<ConversationStarter | StaticAgentConversationStarter>;
 };
 
 export const getConversationStarters = ({
 	userDefinedConversationStarters: userDefinedConversationStartersParam,
 	isAgentDefault,
 }: GetConversationStartersParams): ConversationStarters => {
-	const customAgentConversationStarters = [
-		messages.agentEmptyStateSuggestion1,
-		messages.agentEmptyStateSuggestion2,
-		messages.agentEmptyStateSuggestion3,
+	const type = 'static';
+	const customAgentConversationStarters: StaticAgentConversationStarter[] = [
+		{ message: messages.agentEmptyStateSuggestion1, type },
+		{ message: messages.agentEmptyStateSuggestion2, type },
+		{ message: messages.agentEmptyStateSuggestion3, type },
 	];
 
 	const userDefinedConversationStarters = userDefinedConversationStartersParam ?? [];
 
-	const defaultAgentConversationStarters = [
-		messages.emptyStateSuggestion1,
-		messages.emptyStateSuggestion2,
-		messages.emptyStateSuggestion3,
+	const defaultAgentConversationStarters: StaticAgentConversationStarter[] = [
+		{ message: messages.emptyStateSuggestion1, type },
+		{ message: messages.emptyStateSuggestion2, type },
+		{ message: messages.emptyStateSuggestion3, type },
 	];
 
 	const getCombinedConversationStarters = () => {
@@ -78,7 +88,9 @@ export const AgentConversationStarters = ({
 	const starters = useMemo(
 		() =>
 			combinedConversationStarters.map((starter) =>
-				typeof starter === 'string' ? starter : formatMessage(starter),
+				typeof starter.message === 'string'
+					? { message: starter.message, type: starter.type }
+					: { message: formatMessage(starter.message), type: starter.type },
 			),
 		[combinedConversationStarters, formatMessage],
 	);
@@ -87,8 +99,8 @@ export const AgentConversationStarters = ({
 };
 
 export type ConversationStartersProps = {
-	starters: string[];
-	onConversationStarterClick: (conversationStarter: string) => void;
+	starters: ConversationStarter[];
+	onConversationStarterClick: (conversationStarter: ConversationStarter) => void;
 	showReloadButton?: boolean;
 	onReloadButtonClick?: () => void;
 	onBrowseAgentsClick?: () => void;
@@ -109,15 +121,15 @@ export const ConversationStarters = ({
 				const chatPill = (
 					<ChatPill
 						testId="conversation-starter"
-						key={starter}
+						key={starter.message}
 						onClick={() => onConversationStarterClick(starter)}
 					>
-						{starter}
+						{starter.message}
 					</ChatPill>
 				);
 
 				return isLastStarter && showReloadButton ? (
-					<Inline space="space.050" grow="fill" alignInline="end" key={starter}>
+					<Inline space="space.050" grow="fill" alignInline="end" key={starter.message}>
 						{chatPill}
 						<IconButton
 							icon={RetryIcon}

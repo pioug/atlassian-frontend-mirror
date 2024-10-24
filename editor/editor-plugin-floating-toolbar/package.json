@@ -10,7 +10,7 @@
 	"atlassian": {
 		"team": "Editor: Lego",
 		"singleton": true,
-		"runReact18": false
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -59,7 +59,8 @@
 		"react-loadable": "^5.1.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"devDependencies": {
 		"@atlaskit/visual-regression": "*",
@@ -67,7 +68,6 @@
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",
 		"enzyme": "^3.10.0",
-		"react-dom": "^16.8.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

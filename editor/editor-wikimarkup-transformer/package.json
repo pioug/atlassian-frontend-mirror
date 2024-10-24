@@ -27,7 +27,7 @@
 		"website": {
 			"name": "Editor Wikimarkup Transformer"
 		},
-		"runReact18": false
+		"runReact18": true
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^42.3.1",

@@ -28,7 +28,6 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clearEditingContext, updateState } from '../commands';
 import { lazyExtensionNodeView } from '../nodeviews/lazyExtension';
@@ -376,9 +375,6 @@ const createPlugin = (
 				),
 			},
 			createSelectionBetween: function (view, anchor, head) {
-				if (!fg('platform.editor.multi-bodied-extension_0rygg')) {
-					return null;
-				}
 				const { schema, doc } = view.state;
 				const { multiBodiedExtension } = schema.nodes;
 				const isAnchorInMBE = findParentNodeOfTypeClosestToPos(anchor, multiBodiedExtension);

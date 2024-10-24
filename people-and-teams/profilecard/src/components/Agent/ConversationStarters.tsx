@@ -4,6 +4,7 @@ import { Stack } from '@atlaskit/primitives';
 import {
 	AgentConversationStarters,
 	type AgentConversationStartersProps,
+	type ConversationStarter,
 } from '@atlaskit/rovo-agent-components';
 
 export const ConversationStarters = ({
@@ -11,7 +12,7 @@ export const ConversationStarters = ({
 	onConversationStarterClick,
 	userDefinedConversationStarters,
 }: AgentConversationStartersProps) => {
-	const handleConversationStarterClick = (conversationStarter: string) => {
+	const handleConversationStarterClick = (conversationStarter: ConversationStarter) => {
 		onConversationStarterClick(conversationStarter);
 	};
 	return (

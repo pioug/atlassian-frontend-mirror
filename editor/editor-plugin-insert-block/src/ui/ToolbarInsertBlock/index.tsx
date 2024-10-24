@@ -502,7 +502,11 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 						editorView={this.props.editorView}
 						spacing={this.props.isReducedSpacing ? 'none' : 'default'}
 						label={this.props.intl.formatMessage(messages.insertMenu)}
-						open={this.state.isPlusMenuOpen && editorExperiment('insert-menu-in-right-rail', false)}
+						open={
+							editorExperiment('insert-menu-in-right-rail', true)
+								? !isFullPageAppearance && this.state.isPlusMenuOpen
+								: this.state.isPlusMenuOpen
+						}
 						plusButtonRef={this.plusButtonRef}
 						items={this.state.dropdownItems}
 						onRef={this.handleDropDownButtonRef}
@@ -665,8 +669,8 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 	};
 
 	private insertLayoutColumns = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-		const { editorView, pluginInjectionApi } = this.props;
-		pluginInjectionApi?.layout?.actions.insertLayoutColumns(inputMethod)(
+		const { editorView, pluginInjectionApi, intl } = this.props;
+		pluginInjectionApi?.layout?.actions.insertLayoutColumns(inputMethod, intl.formatMessage)(
 			editorView.state,
 			editorView.dispatch,
 		);

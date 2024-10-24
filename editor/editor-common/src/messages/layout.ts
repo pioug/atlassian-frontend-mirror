@@ -36,4 +36,9 @@ export const toolbarMessages = defineMessages({
 		defaultMessage: 'Layout options',
 		description: "a floating toolbar radiogroup's aria label",
 	},
+	layoutPlaceholder: {
+		id: 'fabric.editor.layout.placeholder',
+		defaultMessage: 'Add content',
+		description: 'Add placeholder text for empty layout',
+	},
 });

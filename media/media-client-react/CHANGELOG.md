@@ -1,5 +1,13 @@
 # @atlaskit/media-client-react
 
+## 2.2.2
+
+### Patch Changes
+
+- [#155484](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155484)
+  [`958e4ecdf8ab7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/958e4ecdf8ab7) -
+  changes to test file due to addition of `nonMediaError` detection in media-client
+
 ## 2.2.1
 
 ### Patch Changes

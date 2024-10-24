@@ -74,7 +74,11 @@
 		"./text-icon": "./src/ui/text-icon/index.tsx",
 		"./clock-icon": "./src/ui/clock-icon/index.tsx",
 		"./azure-icon": "./src/ui/azure-icon/index.tsx",
-		"./atlassian-intelligence-logo-icon": "./src/ui/atlassian-intelligence-logo-icon/index.tsx"
+		"./atlassian-intelligence-logo-icon": "./src/ui/atlassian-intelligence-logo-icon/index.tsx",
+		"./dock-icon": "./src/ui/dock-icon/index.tsx",
+		"./large-error-icon": "./src/ui/large-error-icon/index.tsx",
+		"./line-chart-icon": "./src/ui/line-chart-icon/index.tsx",
+		"./global-chart-icon": "./src/ui/global-chart-icon/index.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
@@ -119,7 +123,11 @@
 		"./text-icon": "./src/ui/text-icon/index.tsx",
 		"./clock-icon": "./src/ui/clock-icon/index.tsx",
 		"./azure-icon": "./src/ui/azure-icon/index.tsx",
-		"./atlassian-intelligence-logo-icon": "./src/ui/atlassian-intelligence-logo-icon/index.tsx"
+		"./atlassian-intelligence-logo-icon": "./src/ui/atlassian-intelligence-logo-icon/index.tsx",
+		"./dock-icon": "./src/ui/dock-icon/index.tsx",
+		"./large-error-icon": "./src/ui/large-error-icon/index.tsx",
+		"./line-chart-icon": "./src/ui/line-chart-icon/index.tsx",
+		"./global-chart-icon": "./src/ui/global-chart-icon/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^22.23.0",

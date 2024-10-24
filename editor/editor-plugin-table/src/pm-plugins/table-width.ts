@@ -5,12 +5,6 @@
  */
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
-	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -21,7 +15,6 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { ALIGN_START } from '../utils/alignment';
 
@@ -79,27 +72,6 @@ const createPlugin = (
 			},
 		},
 		appendTransaction: (transactions, oldState, newState) => {
-			// do not fire select table analytics events when a table is being created or deleted
-			const selectedTableOldState = findTable(oldState.selection);
-			const selectedTableNewState = findTable(newState.selection);
-
-			/**
-			 * Select table event
-			 *   condition: 1
-			 * When users selection changes to table
-			 */
-			if (!selectedTableOldState && selectedTableNewState) {
-				dispatchAnalyticsEvent({
-					action: ACTION.SELECTED,
-					actionSubject: ACTION_SUBJECT.DOCUMENT,
-					actionSubjectId: ACTION_SUBJECT_ID.TABLE,
-					eventType: EVENT_TYPE.TRACK,
-					attributes: {
-						localId: selectedTableNewState.node.attrs.localId || '',
-					},
-				});
-			}
-
 			// When document first load in Confluence, initially it is an empty document
 			// and Collab service triggers a transaction to replace the empty document with the real document that should be rendered.
 			// what we need to do is to add width attr to all tables in the real document
@@ -141,23 +113,6 @@ const createPlugin = (
 
 			const { table } = newState.schema.nodes;
 			const tr = newState.tr;
-
-			/**
-			 * Select table event
-			 *   condition: 2
-			 * Users selection defaults to table, if first node
-			 */
-			if (selectedTableOldState) {
-				dispatchAnalyticsEvent({
-					action: ACTION.SELECTED,
-					actionSubject: ACTION_SUBJECT.DOCUMENT,
-					actionSubjectId: ACTION_SUBJECT_ID.TABLE,
-					eventType: EVENT_TYPE.TRACK,
-					attributes: {
-						localId: selectedTableOldState.node.attrs.localId || '',
-					},
-				});
-			}
 
 			if (isReplaceDocumentOperation && !isCommentEditor) {
 				newState.doc.forEach((node, offset) => {

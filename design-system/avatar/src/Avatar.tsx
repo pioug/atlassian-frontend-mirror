@@ -217,7 +217,7 @@ const getStyles = (
 			width: 100%;
 		}
 
-		:focus {
+		:focus-visible {
 			box-shadow: none;
 		}
 

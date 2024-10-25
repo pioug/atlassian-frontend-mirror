@@ -1,6 +1,8 @@
-import { Box, Stack, xcss } from '@atlaskit/primitives';
 import React from 'react';
+
 import { IntlProvider } from 'react-intl-next';
+
+import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 const boxStyles = xcss({ margin: '0 auto' });
 

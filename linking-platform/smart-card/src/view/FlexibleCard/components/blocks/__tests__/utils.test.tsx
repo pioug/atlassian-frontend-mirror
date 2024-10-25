@@ -1,7 +1,9 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
-import { render, screen } from '@testing-library/react';
 
+import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
+import context from '../../../../../__fixtures__/flexible-ui-data-context';
 import {
 	ElementName,
 	SmartLinkDirection,
@@ -9,16 +11,15 @@ import {
 	SmartLinkStatus,
 } from '../../../../../constants';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import context from '../../../../../__fixtures__/flexible-ui-data-context';
+import { type ElementItem } from '../../blocks/types';
+import Block from '../block';
+import { MetadataBlock } from '../index';
 import {
 	ElementDisplaySchema,
 	type ElementDisplaySchemaType,
 	getBaseStyles,
 	renderElementItems,
 } from '../utils';
-import { MetadataBlock } from '../index';
-import Block from '../block';
-import { type ElementItem } from '../../blocks/types';
 
 const TestRenderElementItemBlock = ({
 	display,

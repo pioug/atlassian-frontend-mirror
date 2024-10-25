@@ -1,5 +1,6 @@
-import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 import React from 'react';
+
+import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
 const InProgressMessage = () => (
 	<SectionMessage

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import CheckIcon from '@atlaskit/icon/core/migration/check-mark--check';
 import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 

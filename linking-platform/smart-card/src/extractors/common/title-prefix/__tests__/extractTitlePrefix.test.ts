@@ -1,9 +1,9 @@
-import { extractTitlePrefix } from '../extractTitlePrefix';
 import {
 	TEST_DATA_WITH_EMOJI,
-	TEST_EMOJI_SANITIZED,
 	TEST_DATA_WITH_NO_PREFIX,
+	TEST_EMOJI_SANITIZED,
 } from '../../__mocks__/jsonld';
+import { extractTitlePrefix } from '../extractTitlePrefix';
 
 describe('extractors.title-prefix.extractTitlePrefix', () => {
 	afterEach(() => jest.clearAllMocks());

@@ -1,17 +1,17 @@
-import { avatar3 } from '../../examples/images';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
+import { avatar3 } from '../../examples/images';
 import {
-	JIRA_TASK,
-	JIRA_SUB_TASK,
-	JIRA_STORY,
 	JIRA_BUG,
+	JIRA_CHANGE,
+	JIRA_CUSTOM_TASK_TYPE,
 	JIRA_EPIC,
 	JIRA_INCIDENT,
-	JIRA_SERVICE_REQUEST,
-	JIRA_CHANGE,
 	JIRA_PROBLEM,
-	JIRA_CUSTOM_TASK_TYPE,
+	JIRA_SERVICE_REQUEST,
+	JIRA_STORY,
+	JIRA_SUB_TASK,
+	JIRA_TASK,
 } from '../../src/extractors/constants';
 
 const icon =

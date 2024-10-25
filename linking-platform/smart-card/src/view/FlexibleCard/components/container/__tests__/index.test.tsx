@@ -1,14 +1,16 @@
-import React from 'react';
-import { IntlProvider } from 'react-intl-next';
-import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import React from 'react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Container from '../index';
-import { SmartLinkSize, SmartLinkStatus, SmartLinkTheme } from '../../../../../constants';
-import { TitleBlock } from '../../blocks';
+import { IntlProvider } from 'react-intl-next';
+
 import context from '../../../../../__fixtures__/flexible-ui-data-context';
-import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { SmartLinkSize, SmartLinkStatus, SmartLinkTheme } from '../../../../../constants';
 import { messages } from '../../../../../messages';
+import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { TitleBlock } from '../../blocks';
+import Container from '../index';
 
 describe('Container', () => {
 	const testId = 'smart-links-container';

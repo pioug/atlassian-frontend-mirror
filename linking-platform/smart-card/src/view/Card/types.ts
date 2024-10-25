@@ -1,12 +1,11 @@
 import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { type CardAppearance, type CardState } from '@atlaskit/linking-common';
-
 import { type CardPlatform } from '@atlaskit/link-extractors';
+import { type CardAppearance } from '@atlaskit/linking-common';
 
-import { type FlexibleUiOptions } from '../FlexibleCard/types';
-import { type ErrorCardType, type InlinePreloaderStyle, type OnErrorCallback } from '../types';
 import { type FrameStyle } from '../EmbedCard/types';
+import { type FlexibleUiOptions } from '../FlexibleCard/types';
 import { type HoverPreviewOptions } from '../HoverCard/types';
+import { type InlinePreloaderStyle, type OnErrorCallback } from '../types';
 
 export type { CardAppearance, CardPlatform };
 export type CardInnerAppearance = CardAppearance | 'embedPreview' | 'flexible' | 'hoverCardPreview';
@@ -90,9 +89,9 @@ export interface BaseCardProps {
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 	/**
 	 * A callback function currently invoked in two cases:
-	 * 1. When the {@link CardState.status} is one of {@link ErrorCardType}. "err" property in argument will be undefined in this case
+	 * 1. When the `CardState.status` is one of `ErrorCardType`. "err" property in argument will be undefined in this case
 	 *    This does not mean that smart card failed to render.
-	 * 2. When there is any unhandled error inside smart card while rendering, resulting in failure to render smart card succesfully.
+	 * 2. When there is any unhandled error inside smart card while rendering, resulting in failure to render smart card successfully.
 	 *    "err" property in argument will be provided in this case.
 	 *    Presence of an err property indicates that the client should either render their own fallback
 	 *    or provide a fallbackComponent prop which will be rendered instead smart card component.
@@ -203,13 +202,13 @@ export interface CardProps
 		WithAnalyticsEventsProps {
 	/**
 	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3226 Internal documentation for deprecation (no external access)}
-	 * Likely here for legacy reason where editor would store data in ADF instead of resolving it everytime
+	 * Likely here for legacy reason where editor would store data in ADF instead of resolving it every time
 	 * https://product-fabric.atlassian.net/browse/EDM-10930
 	 */
 	data?: any;
 	/**
 	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3226 Internal documentation for deprecation (no external access)}
-	 * Likely here for legacy reason where editor would store data in ADF instead of resolving it everytime
+	 * Likely here for legacy reason where editor would store data in ADF instead of resolving it every time
 	 * https://product-fabric.atlassian.net/browse/EDM-10930
 	 */
 	importer?: (target: any) => void;

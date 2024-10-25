@@ -1,10 +1,17 @@
-import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
-import type { CardState, ProductType } from '@atlaskit/linking-common';
-import { type RenderOptions, fireEvent, render, act } from '@testing-library/react';
-import { type JsonLd } from 'json-ld-types';
 import React from 'react';
+
+import { act, fireEvent, render, type RenderOptions } from '@testing-library/react';
+import { type JsonLd } from 'json-ld-types';
 import { IntlProvider } from 'react-intl-next';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import type { CardState, ProductType } from '@atlaskit/linking-common';
+
+
+
+
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
 import mockAtlasProjectWithAiSummary from '../../../../../../__fixtures__/atlas-project-with-ai-summary';
@@ -14,8 +21,8 @@ import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { AISummariesStore } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/store';
 import * as useInvoke from '../../../../../../state/hooks/use-invoke';
 import * as useResolve from '../../../../../../state/hooks/use-resolve';
+import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import { mocks } from '../../../../../../utils/mocks';
-
 import {
 	mockBaseResponseWithErrorPreview,
 	mockBaseResponseWithPreview,
@@ -25,8 +32,7 @@ import {
 	mockJiraResponseWithDatasources,
 } from '../../../../__tests__/__mocks__/mocks';
 import HoverCardResolvedView from '../index';
-import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => {
 	const original = jest.requireActual('../../../../../../state/hooks/use-ai-summary');

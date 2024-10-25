@@ -1,5 +1,7 @@
-import { Stack } from '@atlaskit/primitives';
 import React from 'react';
+
+import { Stack } from '@atlaskit/primitives';
+
 import CardViewExample from './card-view';
 import ExampleContainer from './utils/example-container';
 

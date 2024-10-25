@@ -1,7 +1,10 @@
 import { type ReactNode } from 'react';
+
 import { type CardType } from '@atlaskit/linking-common';
-import { type ActionProps } from './BlockCard/components/Action';
+
 import { type RequestAccessMessageKey } from '../messages';
+
+import { type ActionProps } from './BlockCard/components/Action';
 
 export interface WithShowControlMethodProp {
 	showControls?: () => void;

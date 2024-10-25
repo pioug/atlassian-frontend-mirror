@@ -7,7 +7,12 @@ import { TimePicker } from '../../src';
 const TimePickerFormattingExample = () => (
 	<>
 		<Label htmlFor="timepicker-custom-format">Custom Time Format</Label>
-		<TimePicker timeFormat="HH:mm" placeholder="13:30" id="timepicker-custom-format" />
+		<TimePicker
+			clearControlLabel="Clear custom time format"
+			timeFormat="HH:mm"
+			placeholder="13:30"
+			id="timepicker-custom-format"
+		/>
 	</>
 );
 

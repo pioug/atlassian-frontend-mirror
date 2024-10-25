@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { di } from 'react-magnetic-di';
 
-import { type CardProviderRenderers } from '@atlaskit/link-provider';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
+import { di } from 'react-magnetic-di';
+
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { type CardProviderRenderers } from '@atlaskit/link-provider';
 
 import useRelatedUrls, {
 	type RelatedUrlsResponse,
 } from '../../../../../state/hooks/use-related-urls';
 import { type BlockProps } from '../types';
+
+import { fireRelatedLinksLoadedEvent } from './analytics';
 import { RelatedUrlsBlockErroredView } from './errored';
 import { RelatedUrlsResolvedView } from './resolved';
 import { RelatedUrlsBlockResolvingView } from './resolving';
-import { fireRelatedLinksLoadedEvent } from './analytics';
 
 export type RelatedUrlBlockProps = {
 	url: string;

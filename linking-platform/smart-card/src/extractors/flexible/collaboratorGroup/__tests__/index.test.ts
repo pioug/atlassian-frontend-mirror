@@ -1,4 +1,3 @@
-import { extractPersonsUpdatedBy, type LinkTypeUpdatedBy } from '../index';
 import {
 	TEST_BASE_DATA,
 	TEST_LINK,
@@ -8,6 +7,7 @@ import {
 	TEST_PROJECT_WITHOUT_MEMBERS,
 	TEST_URL,
 } from '../../../common/__mocks__/jsonld';
+import { extractPersonsUpdatedBy, type LinkTypeUpdatedBy } from '../index';
 
 const BASE_DATA = TEST_BASE_DATA as LinkTypeUpdatedBy;
 

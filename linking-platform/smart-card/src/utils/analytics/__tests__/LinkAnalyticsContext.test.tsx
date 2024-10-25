@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 
-import { AnalyticsListener, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { render } from '@testing-library/react';
+
+import { AnalyticsListener, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import '@atlaskit/link-test-helpers/jest';
 
 import { LinkAnalyticsContext } from '../LinkAnalyticsContext';

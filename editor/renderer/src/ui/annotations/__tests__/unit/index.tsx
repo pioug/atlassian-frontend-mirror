@@ -69,7 +69,7 @@ describe('Annotation view component', () => {
 	it(`should pass delete annotation as props to the view component`, () => {
 		const wrapper = mount(
 			<ProvidersContext.Provider value={providers}>
-				<AnnotationView />
+				<AnnotationView isNestedRender={false}/>
 			</ProvidersContext.Provider>,
 		);
 
@@ -81,7 +81,7 @@ describe('Annotation view component', () => {
 		const wrapper = mount(
 			<RendererContext.Provider value={actionsFake}>
 				<ProvidersContext.Provider value={providers}>
-					<AnnotationView />
+					<AnnotationView isNestedRender={false}/>
 				</ProvidersContext.Provider>
 			</RendererContext.Provider>,
 		);

@@ -10,9 +10,9 @@ import { FormattedMessage } from 'react-intl-next';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
+import { messages } from '../../../../messages';
 import RelatedLinkItem from '../related-link-item';
 import { type RelatedLinksListProp } from '../types';
-import { messages } from '../../../../messages';
 
 const RelatedLinksList = ({ urls, title, testId }: RelatedLinksListProp) => {
 	return (

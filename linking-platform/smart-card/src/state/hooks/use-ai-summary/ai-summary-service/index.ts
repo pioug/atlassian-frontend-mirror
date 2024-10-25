@@ -1,18 +1,20 @@
 import uuid from 'uuid';
+
+import { type EnvironmentsKeys, getBaseUrl } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { readStream } from './readStream';
 import {
-	ChunkProcessingError,
 	type AISummaryServiceConfig,
-	type AISummaryServiceProps,
 	type AISummaryServiceInt,
+	type AISummaryServiceProps,
 	type AISummaryState,
-	type StreamMessage,
-	type StateSetter,
+	ChunkProcessingError,
 	type PostAgentPayload,
+	type StateSetter,
+	type StreamMessage,
 } from './types';
 import { addPath, getXProductHeaderValue } from './utils';
-import { readStream } from './readStream';
-import { getBaseUrl, type EnvironmentsKeys } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export class AISummaryService implements AISummaryServiceInt {
 	public state: AISummaryState = {

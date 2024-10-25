@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { render, screen, waitFor } from '@testing-library/react';
-import { ExpandedFrame } from '../../../components/ExpandedFrame';
-import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
 import userEvent from '@testing-library/user-event';
+
+import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
+import { ExpandedFrame } from '../../../components/ExpandedFrame';
 
 describe('ExpandedFrame', () => {
 	it('should not render an icon when isPlaceholder=true', async () => {

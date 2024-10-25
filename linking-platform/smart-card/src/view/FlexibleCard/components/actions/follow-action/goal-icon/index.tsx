@@ -1,9 +1,10 @@
-import Icon, { type CustomGlyphProps, type IconProps } from '@atlaskit/icon';
-import { token } from '@atlaskit/tokens';
 import React from 'react';
-import GoalGlyph from '@atlaskit/icon/core/goal';
 
-const LegacyGoalGlyph = (props: CustomGlyphProps) => (
+import Icon, { type CustomGlyphProps, type IconProps } from '@atlaskit/icon';
+import GoalGlyph from '@atlaskit/icon/core/goal';
+import { token } from '@atlaskit/tokens';
+
+const LegacyGoalGlyph = (_props: CustomGlyphProps) => (
 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
 		<path
 			fillRule="evenodd"

@@ -4,12 +4,14 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
+import { type CardAuthFlowOpts, type EnvironmentsKeys } from '@atlaskit/link-provider';
 import Select, { type OptionsType } from '@atlaskit/select';
-import { N50A, N40A, N200 } from '@atlaskit/theme/colors';
+import { N200, N40A, N50A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type CardAppearance } from '../../src';
-import { type CardAuthFlowOpts, type EnvironmentsKeys } from '@atlaskit/link-provider';
+
 import { type ExampleUIConfig } from './types';
 
 interface ViewTypeOption {

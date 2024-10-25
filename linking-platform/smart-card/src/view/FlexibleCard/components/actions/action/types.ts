@@ -1,10 +1,13 @@
-import type { Appearance } from '@atlaskit/button/types';
-import type { Space, XCSS } from '@atlaskit/primitives';
+import type { ReactChild, ReactNode } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import type { SerializedStyles } from '@emotion/react';
-import type { ReactChild, ReactNode } from 'react';
-import type { SmartLinkSize } from '../../../../../constants';
+
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { Appearance } from '@atlaskit/button/types';
+import type { Space, XCSS } from '@atlaskit/primitives';
+
+import type { SmartLinkSize } from '../../../../../constants';
 
 export type ActionMessageAppearance = 'error';
 

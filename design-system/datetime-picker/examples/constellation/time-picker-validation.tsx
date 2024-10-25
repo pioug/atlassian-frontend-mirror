@@ -23,7 +23,7 @@ const TimePickerValidationExample = () => (
 				>
 					{({ fieldProps, error, meta: { valid } }) => (
 						<>
-							<TimePicker {...fieldProps} />
+							<TimePicker clearControlLabel="Clear scheduled run time" {...fieldProps} />
 							{valid && <ValidMessage>You have entered a valid datetime</ValidMessage>}
 							{error === 'REQUIRED' && <ErrorMessage>This field is required</ErrorMessage>}
 						</>

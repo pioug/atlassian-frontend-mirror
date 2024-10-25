@@ -1,5 +1,6 @@
 import fetchMock from 'fetch-mock/cjs/client';
-import type { MockResponseObject, MockRequest } from 'fetch-mock/types';
+import type { MockRequest, MockResponseObject } from 'fetch-mock/types';
+
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
 const params =

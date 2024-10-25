@@ -15,7 +15,7 @@ export default function Example() {
 				<Stack space="space.050">
 					<Inline alignBlock="center" space="space.100">
 						<Story16Icon label="" />
-						<Heading level="h500">What we learned reviewing Atlas end to end</Heading>
+						<Heading size="small">What we learned reviewing Atlas end to end</Heading>
 					</Inline>
 					<Inline separator="•" space="space.100">
 						<Box>Created by Bradley Rogers</Box>

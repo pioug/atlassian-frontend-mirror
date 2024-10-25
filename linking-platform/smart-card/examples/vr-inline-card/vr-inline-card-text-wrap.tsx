@@ -4,6 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+
 import { InlineCardResolvedView as ResolvedView } from '../../src/view/InlineCard/ResolvedView';
 import { VRTestCase } from '../utils/common';
 

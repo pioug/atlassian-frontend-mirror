@@ -1,6 +1,8 @@
 import React from 'react';
-import AIFooterBlockResolvedView from './resolved';
+
 import { SmartLinkStatus } from '../../../../../constants';
+
+import AIFooterBlockResolvedView from './resolved';
 import type { AIFooterBlockProps } from './types';
 
 /**

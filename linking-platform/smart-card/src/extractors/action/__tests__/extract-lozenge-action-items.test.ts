@@ -1,5 +1,6 @@
-import extractLozengeActionItems from '../extract-lozenge-action-items';
 import type { GetStatusTransitionsInvokeResponse } from '@atlaskit/linking-types/smart-link-actions';
+
+import extractLozengeActionItems from '../extract-lozenge-action-items';
 
 describe('extractLozengeActionItems', () => {
 	it('extracts action response to lozenge action items', () => {

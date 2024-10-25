@@ -1,11 +1,14 @@
-import React from 'react';
-import { fireEvent, screen } from '@testing-library/react';
-import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import '@testing-library/jest-dom';
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import AvatarGroup from '..';
+import { fireEvent, screen } from '@testing-library/react';
+
+import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
 import { ElementName } from '../../../../../../constants';
+import AvatarGroup from '../index';
 
 describe('Element: Avatar Group', () => {
 	const testId = 'smart-element-avatar-group';

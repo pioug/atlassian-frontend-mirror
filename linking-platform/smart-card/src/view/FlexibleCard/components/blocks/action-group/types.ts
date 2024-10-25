@@ -1,6 +1,7 @@
-import { type SmartLinkSize, type SmartLinkDirection } from '../../../../../constants';
-import { type ActionItem } from '../types';
 import { type Appearance } from '@atlaskit/button';
+
+import { type SmartLinkDirection, type SmartLinkSize } from '../../../../../constants';
+import { type ActionItem } from '../types';
 
 export type ActionGroupProps = {
 	/**

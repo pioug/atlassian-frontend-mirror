@@ -1,9 +1,11 @@
 import { type JsonLd } from 'json-ld-types';
+
 import { extractLink } from '@atlaskit/link-extractors';
-import { getActionsFromJsonLd } from '../../common/actions/extractActions';
+
 import { type ViewActionData } from '../../../state/flexible-ui-context/types';
-import { CardAction, type CardActionOptions } from '../../../view/Card/types';
 import { canShowAction } from '../../../utils/actions/can-show-action';
+import { CardAction, type CardActionOptions } from '../../../view/Card/types';
+import { getActionsFromJsonLd } from '../../common/actions/extractActions';
 
 export const extractViewAction = (
 	data: JsonLd.Data.BaseData,

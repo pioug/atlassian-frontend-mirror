@@ -53,7 +53,7 @@ export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
 							rendererRef={rendererRef}
 						>
 							<LoadAnnotations adfDocument={adfDocument} isNestedRender={isNestedRender} />
-							<AnnotationView createAnalyticsEvent={createAnalyticsEvent} />
+							<AnnotationView isNestedRender={isNestedRender} createAnalyticsEvent={createAnalyticsEvent} />
 							{children}
 						</AnnotationsContextWrapper>
 					</AnnotationHoverContext>

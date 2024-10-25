@@ -1,13 +1,16 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import Lozenge from '../index';
-import { type LozengeProps } from '../types';
+import { render, screen } from '@testing-library/react';
+
 import { SmartLinkActionType } from '@atlaskit/linking-types';
+
 import * as useInvoke from '../../../../../../state/hooks/use-invoke';
 import * as useResolve from '../../../../../../state/hooks/use-resolve';
+import Lozenge from '../index';
+import { type LozengeProps } from '../types';
 
 describe('Element: Lozenge', () => {
 	const testId = 'smart-element-lozenge';

@@ -6,8 +6,8 @@ import type {
 	ManualRulesById,
 	RuleQuery,
 	UserInputs,
-} from './../common/types';
-import { getInvocationUrl, getSearchUrl, performPostRequest } from './../common/utils';
+} from '../common/types';
+import { getInvocationUrl, getSearchUrl, performPostRequest } from '../common/utils';
 
 /**
  * Manual trigger rules API fetch. Fetches a list of manually triggered rules according to the context provided

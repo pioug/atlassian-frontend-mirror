@@ -1,8 +1,8 @@
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { type MetadataBlockProps } from './types';
 import {
 	SmartLinkAlignment,
 	SmartLinkDirection,
@@ -10,10 +10,12 @@ import {
 	SmartLinkStatus,
 	SmartLinkWidth,
 } from '../../../../../constants';
-import { renderElementItems } from '../utils';
+import { getMaxLineHeight, getTruncateStyles } from '../../utils';
 import Block from '../block';
 import ElementGroup from '../element-group';
-import { getMaxLineHeight, getTruncateStyles } from '../../utils';
+import { renderElementItems } from '../utils';
+
+import { type MetadataBlockProps } from './types';
 
 const DEFAULT_MAX_LINES = 2;
 const MAXIMUM_MAX_LINES = 2;

@@ -17,7 +17,12 @@ export default () => {
 				.
 			</Text>
 			<Label htmlFor="react-select-time--input">TimePicker - timeFormat (h:mm a)</Label>
-			<TimePicker id="react-select-time--input" onChange={console.log} timeFormat="h:mm a" />
+			<TimePicker
+				clearControlLabel="Clear timePicker - timeFormat (h:mm a)"
+				id="react-select-time--input"
+				onChange={console.log}
+				timeFormat="h:mm a"
+			/>
 			<Label htmlFor="react-select-date--input">DatePicker - dateFormat (DD/MM/YYYY)</Label>
 			<DatePicker id="react-select-date--input" onChange={console.log} dateFormat="DD/MM/YYYY" />
 			<Label htmlFor="react-select-datetime--input">

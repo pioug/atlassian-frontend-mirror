@@ -43,7 +43,7 @@ export default function Example() {
 	return (
 		<Inline space="space.200">
 			<Stack grow="fill">
-				<Heading level="h600" id="box-padding">
+				<Heading size="medium" id="box-padding">
 					padding
 				</Heading>
 				<Box>{spacingValues[padding]}</Box>
@@ -67,7 +67,7 @@ export default function Example() {
 			</Stack>
 
 			<Stack grow="fill">
-				<Heading level="h600" id="box-padding-inline">
+				<Heading size="medium" id="box-padding-inline">
 					paddingInline
 				</Heading>
 				<Box>{spacingValues[paddingInline]}</Box>
@@ -79,7 +79,7 @@ export default function Example() {
 					aria-labelledby="box-padding-inline"
 				/>
 
-				<Heading level="h600" id="box-padding-block">
+				<Heading size="medium" id="box-padding-block">
 					paddingBlock
 				</Heading>
 				<Box>{spacingValues[paddingBlock]}</Box>
@@ -104,7 +104,7 @@ export default function Example() {
 			</Stack>
 
 			<Stack grow="fill">
-				<Heading level="h600" id="box-padding-inline-start">
+				<Heading size="medium" id="box-padding-inline-start">
 					paddingInlineStart
 				</Heading>
 				<Box>{spacingValues[paddingInlineStart]}</Box>
@@ -116,7 +116,7 @@ export default function Example() {
 					aria-labelledby="box-padding-inline-start"
 				/>
 
-				<Heading level="h600" id="box-padding-inline-end">
+				<Heading size="medium" id="box-padding-inline-end">
 					paddingInlineEnd
 				</Heading>
 				<Box>{spacingValues[paddingInlineEnd]}</Box>
@@ -128,7 +128,7 @@ export default function Example() {
 					aria-labelledby="box-padding-inline-end"
 				/>
 
-				<Heading level="h600" id="box-padding-block-start">
+				<Heading size="medium" id="box-padding-block-start">
 					paddingBlockStart
 				</Heading>
 				<Box>{spacingValues[paddingBlockStart]}</Box>
@@ -140,7 +140,7 @@ export default function Example() {
 					aria-labelledby="box-padding-block-start"
 				/>
 
-				<Heading level="h600" id="box-padding-block-end">
+				<Heading size="medium" id="box-padding-block-end">
 					paddingBlockEnd
 				</Heading>
 				<Box>{spacingValues[paddingBlockEnd]}</Box>

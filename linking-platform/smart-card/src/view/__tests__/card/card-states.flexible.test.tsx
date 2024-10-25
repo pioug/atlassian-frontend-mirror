@@ -1,21 +1,24 @@
 import './card-states.card.test.mock';
-
-import { APIError } from '@atlaskit/linking-common';
 import '@atlaskit/link-test-helpers/jest';
+
+import React, { useState } from 'react';
+
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { type JsonLd } from 'json-ld-types';
+
 import {
 	type CardClient,
 	type CardProviderStoreOpts,
 	SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
-import React, { useState } from 'react';
-import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { Card, type CardAppearance } from '../../Card';
+import { APIError } from '@atlaskit/linking-common';
+import { flushPromises } from '@atlaskit/media-test-helpers';
+
 import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mockByUrl, mocks } from '../../../utils/mocks';
+import { Card, type CardAppearance } from '../../Card';
 import { TitleBlock } from '../../FlexibleCard/components/blocks';
-import { flushPromises } from '@atlaskit/media-test-helpers';
-import { type JsonLd } from 'json-ld-types';
 
 mockSimpleIntersectionObserver();
 

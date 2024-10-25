@@ -16,5 +16,12 @@
     "../src/**/test.*",
     "../src/**/examples.*"
   ],
-  "references": []
+  "references": [
+    {
+      "path": "../../../observability/interaction-context/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    }
+  ]
 }

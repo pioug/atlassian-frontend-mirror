@@ -1,6 +1,8 @@
+import React, { lazy, type ReactNode, useState } from 'react';
+
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
-import React, { lazy, type ReactNode, useState } from 'react';
+
 import { SmartLinkModalProvider, useSmartLinkModal } from '../index';
 
 const Modal = lazy(() =>

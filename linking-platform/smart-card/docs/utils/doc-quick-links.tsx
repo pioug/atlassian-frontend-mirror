@@ -1,11 +1,14 @@
+import React from 'react';
+
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
 import PageIcon from '@atlaskit/icon/core/migration/page';
 import TeamsIcon from '@atlaskit/icon/core/migration/teams';
 import { Box, xcss } from '@atlaskit/primitives';
-import React from 'react';
+
 import { IconCard, IconEmbed, IconInline, IconUrl } from '../../examples/images';
+
 import { navigateToUrl, toAbsolutePath } from './index';
 
 const styles = xcss({ textAlign: 'right' });

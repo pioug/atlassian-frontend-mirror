@@ -29,7 +29,7 @@ export default function Example() {
 			}}
 		>
 			<Flex gap="space.300" direction="column" xcss={wrapperStyles}>
-				<Heading level="h600">You’re about to delete this page</Heading>
+				<Heading size="medium">You’re about to delete this page</Heading>
 				<Box xcss={bodyStyles}>
 					<p>Before you delete it permanently, there’s some things you should know:</p>
 					<ul>

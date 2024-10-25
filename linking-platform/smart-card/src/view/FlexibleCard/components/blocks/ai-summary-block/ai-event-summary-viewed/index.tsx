@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
+
 import type { AIEventSummaryViewedProps } from './types';
 
 const AIEventSummaryViewed = ({ fromCache = null }: AIEventSummaryViewedProps) => {

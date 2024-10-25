@@ -17,5 +17,12 @@
         "../src/**/test.*",
         "../src/**/examples.*"
     ],
-    "references": []
+    "references": [
+        {
+            "path": "../../../observability/interaction-context/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        }
+    ]
 }

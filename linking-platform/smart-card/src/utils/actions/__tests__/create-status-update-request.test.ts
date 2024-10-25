@@ -1,4 +1,5 @@
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
+
 import createStatusUpdateRequest from '../create-status-update-request';
 
 describe('createStatusUpdateRequest', () => {

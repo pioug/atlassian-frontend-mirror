@@ -1,9 +1,10 @@
 import React, { type ReactNode } from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
 
-import { type CustomActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { ActionName } from '../../../../constants';
 import { type MessageKey, messages, type RequestAccessMessageKey } from '../../../../messages';
+import { type CustomActionItem } from '../../../FlexibleCard/components/blocks/types';
 
 /**
  * Returns a CustomActionItem with a "Try Another Account" default message

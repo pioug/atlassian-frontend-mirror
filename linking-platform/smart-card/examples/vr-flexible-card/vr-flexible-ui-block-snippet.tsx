@@ -2,9 +2,9 @@ import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
-import { blockOverrideCss, getCardState } from '../utils/flexible-ui';
+import { SnippetBlock } from '../../src';
 import FlexibleCard from '../../src/view/FlexibleCard';
-import { SnippetBlock } from '../../src/index';
+import { blockOverrideCss, getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const cardState = getCardState({

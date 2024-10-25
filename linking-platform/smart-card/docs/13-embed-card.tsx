@@ -1,6 +1,6 @@
 import React from 'react';
-import overview from './content/embed-card';
 
+import overview from './content/embed-card';
 import examples from './content/embed-card/examples';
 import faq from './content/embed-card/faq';
 import reference from './content/embed-card/reference';

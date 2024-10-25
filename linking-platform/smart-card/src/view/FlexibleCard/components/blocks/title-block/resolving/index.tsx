@@ -6,11 +6,11 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { type TitleBlockViewProps } from '../types';
-import Block from '../../block';
 import { SmartLinkSize } from '../../../../../../constants';
 import LoadingSkeleton from '../../../common/loading-skeleton';
 import { getIconSizeStyles, getIconWidth } from '../../../utils';
+import Block from '../../block';
+import { type TitleBlockViewProps } from '../types';
 
 /**
  * This represents a TitleBlock for a Smart Link that is currently waiting

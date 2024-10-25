@@ -1,8 +1,10 @@
+import React from 'react';
+
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import VidFullScreenOnIcon from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
 import { Box, xcss } from '@atlaskit/primitives';
-import React from 'react';
+
 import { navigateToUrl, toExamplePath } from './index';
 
 const styles = xcss({ textAlign: 'right' });

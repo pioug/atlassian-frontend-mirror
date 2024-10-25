@@ -1,15 +1,19 @@
 import React, { useCallback } from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
-import Action from '../action';
+
 import AiIcon from '@atlaskit/icon/core/atlassian-intelligence';
-import LegacyAiIcon from '../../../../common/ai-icon';
-import { messages } from '../../../../../messages';
+
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
+import { messages } from '../../../../../messages';
+import type { AISummaryActionData } from '../../../../../state/flexible-ui-context/types';
 import type {
 	AISummaryState,
 	AISummaryStatus,
 } from '../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
-import type { AISummaryActionData } from '../../../../../state/flexible-ui-context/types';
+import LegacyAiIcon from '../../../../common/ai-icon';
+import Action from '../action';
+
 import type { AISummaryActionProps } from './types';
 import { getErrorMessage } from './utils';
 

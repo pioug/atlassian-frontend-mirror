@@ -1,7 +1,10 @@
 import React from 'react';
-import { Icon } from '../Icon';
-import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
 import { screen } from '@testing-library/react';
+
+import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
+import { Icon } from '../Icon';
 
 jest.mock('react-render-image');
 

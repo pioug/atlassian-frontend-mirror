@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 1.1.0
+
+### Minor Changes
+
+- [#155735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155735)
+  [`e5a96535fa143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5a96535fa143) -
+  addCustomSpans accepts optional custom LabelStak object
+
 ## 1.0.1
 
 ### Patch Changes

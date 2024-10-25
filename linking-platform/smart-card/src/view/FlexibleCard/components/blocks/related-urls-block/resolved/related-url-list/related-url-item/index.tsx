@@ -1,14 +1,15 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { Inline } from '@atlaskit/primitives';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { Inline } from '@atlaskit/primitives';
 
 import { SmartLinkSize } from '../../../../../../../../constants';
 import extractFlexibleUiContext from '../../../../../../../../extractors/flexible';
+import { fireLinkClickedEvent } from '../../../../../../../../utils/analytics/click';
 import Icon from '../../../../../elements/icon';
 import Link from '../../../../../elements/link';
+
 import { type ResolvedResultItemProps } from './types';
-import { fireLinkClickedEvent } from '../../../../../../../../utils/analytics/click';
 
 const RelatedUrlItem = ({ results, renderers, testId }: ResolvedResultItemProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();

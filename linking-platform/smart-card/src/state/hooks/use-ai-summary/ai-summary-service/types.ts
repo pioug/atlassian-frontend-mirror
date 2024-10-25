@@ -1,4 +1,4 @@
-import type { ProductType, EnvironmentsKeys } from '@atlaskit/linking-common';
+import type { EnvironmentsKeys, ProductType } from '@atlaskit/linking-common';
 
 export interface AISummaryServiceInt {
 	summariseUrl: () => Promise<AISummaryState>;

@@ -3,6 +3,7 @@ import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import SectionMessage from '@atlaskit/section-message';
 import InfoIcon from '@atlaskit/icon/core/migration/information--info';
+import { Text } from '@atlaskit/primitives';
 
 import { commonMessages, overviewMessages } from '../../messages';
 import StatefulInlineDialog from '../StatefulInlineDialog';
@@ -230,11 +231,11 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 										: overviewMessages.warningSectionBody)}
 								/>
 								{!isUserDeactivated && (
-									<p>
+									<Text as="p">
 										<Button appearance="link" spacing="none" onClick={deactivateUserHandler}>
 											<FormattedMessage {...commonMessages.deactivateAccount} />
 										</Button>
-									</p>
+									</Text>
 								)}
 							</SectionMessage>
 						</Styled.SectionMessageOuter>

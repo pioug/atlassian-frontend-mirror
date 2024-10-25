@@ -1,6 +1,8 @@
-import { useContext, createContext } from 'react';
-import type { FlexibleAnalyticsContextType, FlexibleUiDataContext } from './types';
+import { createContext, useContext } from 'react';
+
 import { type FlexibleUiOptions } from '../../view/FlexibleCard/types';
+
+import type { FlexibleAnalyticsContextType, FlexibleUiDataContext } from './types';
 
 /**
  * This provides the data that will be used by Smart Links Flexible UI to populate it's

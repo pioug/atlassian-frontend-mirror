@@ -1,5 +1,5 @@
-import { Box } from '@atlaskit/primitives';
 import React, { useCallback } from 'react';
+
 // Allowing existing usage of non Pragmatic drag and drop solution
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import {
@@ -9,9 +9,13 @@ import {
 	type DropResult,
 	type OnDragEndResponder,
 } from 'react-beautiful-dnd';
+
+import { Box } from '@atlaskit/primitives';
+
 import { type SmartLinkSize } from '../../../src';
 import { BlockName } from '../constants';
 import { type BlockTemplate } from '../types';
+
 import ActionBlockBuilder from './action-block-builder';
 import BlockBuilderContainer from './block-builder-container';
 import Fieldset from './fieldset';

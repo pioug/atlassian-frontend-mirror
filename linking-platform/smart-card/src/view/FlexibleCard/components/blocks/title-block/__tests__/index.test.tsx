@@ -1,12 +1,19 @@
-import React from 'react';
-import { IntlProvider } from 'react-intl-next';
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import React, { PureComponent } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import TitleBlock from '../index';
+import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl-next';
+
+import type { GlyphProps } from '@atlaskit/icon/types';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
+import {
+	makeCustomActionItem,
+	makeDeleteActionItem,
+} from '../../../../../../../examples/utils/flexible-ui';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
-import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import {
 	ActionName,
 	ElementName,
@@ -14,16 +21,11 @@ import {
 	SmartLinkStatus,
 	SmartLinkTheme,
 } from '../../../../../../constants';
-import { type TitleBlockProps } from '../types';
 import { messages } from '../../../../../../messages';
-import {
-	makeCustomActionItem,
-	makeDeleteActionItem,
-} from '../../../../../../../examples/utils/flexible-ui';
+import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import { type NamedActionItem } from '../../types';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { PureComponent } from 'react';
-import type { GlyphProps } from '@atlaskit/icon/types';
+import TitleBlock from '../index';
+import { type TitleBlockProps } from '../types';
 
 class TestIcon extends PureComponent<Omit<GlyphProps, 'primaryColor' | 'secondaryColor'>> {
 	render() {

@@ -1,4 +1,5 @@
 import { type JsonLd } from 'json-ld-types';
+
 import { type ServerErrorType } from '@atlaskit/linking-common';
 
 // Copied from packages/linking-platform/link-provider/src/client/api.ts

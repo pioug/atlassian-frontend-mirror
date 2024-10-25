@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { usePrefetch } from '../usePrefetch';
 import { mocks } from '../../../utils/mocks';
+import { usePrefetch } from '../usePrefetch';
 
 let mockUseSmartLinkContext = jest.fn();
 jest.mock('@atlaskit/link-provider', () => ({

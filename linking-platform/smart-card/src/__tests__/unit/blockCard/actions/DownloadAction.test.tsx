@@ -5,9 +5,10 @@ jest.mock('../../../../utils', () => ({
 	downloadUrl: async (...args: any) => mockDownloadUrl(...args),
 }));
 
-import { mockUrl } from '../../../__mocks__/get-resolved-props';
-import { DownloadAction } from '../../../../view/BlockCard/actions/DownloadAction';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
+import { DownloadAction } from '../../../../view/BlockCard/actions/DownloadAction';
+import { mockUrl } from '../../../__mocks__/get-resolved-props';
 
 describe('DownloadAction', () => {
 	beforeEach(() => {

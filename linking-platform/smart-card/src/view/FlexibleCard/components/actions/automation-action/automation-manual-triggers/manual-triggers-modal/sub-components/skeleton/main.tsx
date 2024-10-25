@@ -3,10 +3,7 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { keyframes, css } from '@emotion/react';
+import { css, jsx, keyframes } from '@emotion/react';
 
 import { N20, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

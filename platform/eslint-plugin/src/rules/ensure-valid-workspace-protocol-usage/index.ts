@@ -32,7 +32,7 @@ const rule: Rule.RuleModule = {
 		},
 		hasSuggestions: false,
 		messages: {
-			invalidWorkspaceProtocolUsage: `The workspace protocol can not be used in public packages.`,
+			invalidWorkspaceProtocolUsage: `The workspace protocol is not allowed in public packages. To resolve this error, either set the package to private or replace the workspace protocol with specific package versions (e.g. "^1.0.0").`,
 		},
 	},
 	create(context) {

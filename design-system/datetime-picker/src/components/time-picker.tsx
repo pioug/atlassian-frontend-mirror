@@ -67,6 +67,7 @@ const TimePicker = forwardRef(
 			'aria-describedby': ariaDescribedBy,
 			appearance = 'default' as Appearance,
 			autoFocus = false,
+			clearControlLabel = 'clear timepicker',
 			defaultIsOpen = false,
 			defaultValue = '',
 			formatDisplayLabel,
@@ -319,7 +320,10 @@ const TimePicker = forwardRef(
 					aria-describedby={ariaDescribedBy}
 					aria-label={label || undefined}
 					appearance={appearance}
+					// we need this disabled as we might need focus to move to the select
+					// eslint-disable-next-line jsx-a11y/no-autofocus
 					autoFocus={autoFocus}
+					clearControlLabel={clearControlLabel}
 					components={selectComponents}
 					inputId={id}
 					isClearable
@@ -340,7 +344,7 @@ const TimePicker = forwardRef(
 					value={initialValue}
 					spacing={spacing}
 					// We need this to get things to work, even though it's not supported.
-					// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
+					// @ts-ignore
 					fixedLayerRef={containerRef}
 					isInvalid={isInvalid}
 					testId={testId}

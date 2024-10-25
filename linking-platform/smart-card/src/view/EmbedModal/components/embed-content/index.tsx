@@ -2,12 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { di } from 'react-magnetic-di';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { di } from 'react-magnetic-di';
+
 import { getIframeSandboxAttribute } from '../../../../utils';
-import { type EmbedProps } from './types';
 import { IFrame } from '../../../EmbedCard/components/IFrame';
+
+import { type EmbedProps } from './types';
 
 const iframeCss = css({
 	width: '100%',

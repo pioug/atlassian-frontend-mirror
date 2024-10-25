@@ -1,5 +1,5 @@
-import { type ElementProps } from '../types';
 import { type IconType } from '../../../../../constants';
+import { type ElementProps } from '../types';
 
 export type BadgeProps = ElementProps & {
 	/**

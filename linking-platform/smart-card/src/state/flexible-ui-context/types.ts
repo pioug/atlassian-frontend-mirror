@@ -1,14 +1,15 @@
-import { type LinkLozenge } from '../../extractors/common/lozenge/types';
 import { type LinkPerson } from '@atlaskit/link-extractors';
+
 import {
 	type ActionName,
 	type IconType,
 	type InternalActionName,
 	type MediaType,
 } from '../../constants';
-import { type InvokeRequestWithCardDetails } from '../hooks/use-invoke/types';
+import { type LinkLozenge } from '../../extractors/common/lozenge/types';
 import type { CardInnerAppearance } from '../../view/Card/types';
 import type { AnalyticsFacade } from '../analytics';
+import { type InvokeRequestWithCardDetails } from '../hooks/use-invoke/types';
 
 /**
  * This provides the data that will be used by Smart Links Flexible UI to populate it's

@@ -1,5 +1,6 @@
-import { Box, xcss } from '@atlaskit/primitives';
 import React from 'react';
+
+import { Box, xcss } from '@atlaskit/primitives';
 
 const boxStyles = xcss({
 	backgroundColor: 'color.background.information',

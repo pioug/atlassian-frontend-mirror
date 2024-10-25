@@ -1,8 +1,6 @@
-import React from 'react';
-import { type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import { SpotlightPulse } from '@atlaskit/onboarding';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 interface Props {
 	/** If true, the component will have pulse onboarding effect around it. */
@@ -21,7 +19,7 @@ interface Props {
  * We want to keep `children` as it is if there is no `pulse`.
  */
 export function Pulse({ pulse, radius = 3, children }: Props) {
-	if (editorExperiment('platform_editor_ai_onboarding', 'test') && pulse) {
+	if (pulse) {
 		return (
 			// SpotlightPulse shows pulse effect if `pulse` is `undefined`.
 			// That's why we need to cast `pulse` to `false` if it's `undefined`.

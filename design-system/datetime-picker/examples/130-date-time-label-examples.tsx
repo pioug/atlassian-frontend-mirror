@@ -13,12 +13,12 @@ export default () => (
 		<Box paddingBlock="space.200">
 			<Heading size="large">Time - Using explicit label</Heading>
 			<Label htmlFor="arrival">Arrival time</Label>
-			<TimePicker id="arrival" />
+			<TimePicker clearControlLabel="Clear arrival time" id="arrival" />
 		</Box>
 
 		<Box paddingBlock="space.200">
 			<Heading size="large">Time - Using label prop only (no visible label)</Heading>
-			<TimePicker label="Departure time" />
+			<TimePicker clearControlLabel="Clear departure time" label="Departure time" />
 		</Box>
 
 		<Box paddingBlock="space.200">

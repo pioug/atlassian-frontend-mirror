@@ -2,11 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React, { Fragment } from 'react';
+
 import { css, jsx } from '@compiled/react';
 
 import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
 import { Card, type CardProps } from '@atlaskit/smart-card';
-import React, { Fragment } from 'react';
 
 export type CardViewProps = CardProps & Pick<ProviderProps, 'client'>;
 // 	{

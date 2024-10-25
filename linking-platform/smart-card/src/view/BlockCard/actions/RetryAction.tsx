@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
 
-import { type ActionProps } from '../components/Action';
 import { messages } from '../../../messages';
+import { type ActionProps } from '../components/Action';
 
 export const RetryAction = (handler: () => void): ActionProps => ({
 	id: 'try-again',

@@ -1,13 +1,15 @@
 import { type JsonLd } from 'json-ld-types';
+
 import { ElementName } from '../../../../../constants';
 import { type ElementItem } from '../../../../FlexibleCard/components/blocks/types';
 import { getSimulatedBetterMetadata } from '../utils';
+
 import {
-	mockJiraResponse,
 	mockBaseResponse,
+	mockBBFileResponse,
 	mockConfluenceResponse,
 	mockConfluenceResponseWithOwnedBy,
-	mockBBFileResponse,
+	mockJiraResponse,
 } from './__mocks__/blockCardMocks';
 
 describe('getSimulatedBetterMetadata', () => {

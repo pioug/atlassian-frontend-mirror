@@ -1,11 +1,14 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import { fontFamily } from '@atlaskit/theme/constants';
+
 import * as colors from '@atlaskit/theme/colors';
+import { N40 } from '@atlaskit/theme/colors';
+import { fontFamily } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
+
 import { gs as gridSize } from '../../common/utils';
 import { type FrameStyle } from '../types';
-import { N40 } from '@atlaskit/theme/colors';
+
 
 export const className = 'media-card-frame';
 

@@ -1,4 +1,25 @@
+import './success.test.mock';
+
+import React from 'react';
+
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import * as jestExtendedMatchers from 'jest-extended';
+import { IntlProvider } from 'react-intl-next';
+import uuid from 'uuid';
+
+import { type CardClient } from '@atlaskit/link-provider';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { asMock, type JestFunction } from '@atlaskit/media-test-helpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+import { CardAction, Provider, TitleBlock } from '../../../index';
+import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
+import { isSpecialEvent } from '../../../utils';
+import * as analytics from '../../../utils/analytics';
+import { fakeFactory, mocks } from '../../../utils/mocks';
+import { shouldSample } from '../../../utils/shouldSample';
+import { Card, type CardAppearance } from '../../Card';
+import * as cardWithUrlContent from '../../CardWithUrl/component';
 
 jest.mock('../../../utils', () => ({
 	...jest.requireActual('../../../utils'),
@@ -6,24 +27,6 @@ jest.mock('../../../utils', () => ({
 	isSpecialEvent: jest.fn(() => false),
 }));
 jest.mock('../../../utils/shouldSample');
-
-import './success.test.mock';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { type CardClient } from '@atlaskit/link-provider';
-import React from 'react';
-import { Card, type CardAppearance } from '../../Card';
-import { CardAction, Provider, TitleBlock } from '../../..';
-import { fakeFactory, mocks } from '../../../utils/mocks';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
-import * as analytics from '../../../utils/analytics';
-import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
-import * as jestExtendedMatchers from 'jest-extended';
-import { type JestFunction, asMock } from '@atlaskit/media-test-helpers';
-import uuid from 'uuid';
-import { IntlProvider } from 'react-intl-next';
-import { isSpecialEvent } from '../../../utils';
-import { shouldSample } from '../../../utils/shouldSample';
-import * as cardWithUrlContent from '../../CardWithUrl/component';
 
 mockSimpleIntersectionObserver();
 

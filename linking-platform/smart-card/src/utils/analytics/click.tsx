@@ -1,12 +1,14 @@
 import React from 'react';
-import { type AnalyticsEventPayload, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+
 import { type GasPayload } from '@atlaskit/analytics-gas-types';
+import { type AnalyticsEventPayload, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { browser } from '@atlaskit/linking-common/user-agent';
 
-import { type ClickOutcome, type ClickType, type UiLinkClickedEventProps } from './types';
-import { ANALYTICS_CHANNEL } from './analytics';
-import { type AnalyticsPayload } from '../types';
 import { useLinkClicked, useMouseDownEvent } from '../../state/analytics/useLinkClicked';
+import { type AnalyticsPayload } from '../types';
+
+import { ANALYTICS_CHANNEL } from './analytics';
+import { type ClickOutcome, type ClickType, type UiLinkClickedEventProps } from './types';
 
 export const buttonMap = new Map<number | undefined, 'none' | 'left' | 'middle' | 'right'>([
 	[undefined, 'none'],

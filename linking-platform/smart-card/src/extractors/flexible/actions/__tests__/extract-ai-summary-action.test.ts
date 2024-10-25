@@ -1,10 +1,10 @@
+import { type AISummaryConfig } from '../../../../state/hooks/use-ai-summary-config/types';
 import {
 	TEST_DOCUMENT_WITH_ARI,
 	TEST_RESOLVED_META_DATA,
 	TEST_RESOLVED_META_DATA_WITH_AI_SUMMARY,
 } from '../../../common/__mocks__/jsonld';
 import { extractAISummaryAction } from '../extract-ai-summary-action';
-import { type AISummaryConfig } from '../../../../state/hooks/use-ai-summary-config/types';
 
 const TEST_URL = 'https://my.url.com';
 

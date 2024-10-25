@@ -1,25 +1,28 @@
 import React, { useContext } from 'react';
+
 import { FormattedDate, type MessageDescriptor } from 'react-intl-next';
+
 import { ElementName, IconType, SmartLinkInternalTheme } from '../../../../constants';
-import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
-import Icon from './icon';
-import Link from './link';
-import Lozenge from './lozenge';
-import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
-import Badge from './badge';
-import AvatarGroup from './avatar-group';
-import Media from './media';
-import Text from './text';
 import { messages } from '../../../../messages';
-import DateTime from './date-time';
-import { type AvatarGroupProps, type AvatarItemProps } from './avatar-group/types';
-import { type BadgeProps } from './badge/types';
-import { type DateTimeProps } from './date-time/types';
-import { type LinkProps } from './link/types';
-import { type TextProps } from './text/types';
-import { type LozengeProps } from './lozenge/types';
+import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
+import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
+
 import AtlaskitBadge from './atlaskit-badge';
 import { type AtlaskitBadgeProps } from './atlaskit-badge/types';
+import AvatarGroup from './avatar-group';
+import { type AvatarGroupProps, type AvatarItemProps } from './avatar-group/types';
+import Badge from './badge';
+import { type BadgeProps } from './badge/types';
+import DateTime from './date-time';
+import { type DateTimeProps } from './date-time/types';
+import Icon from './icon';
+import Link from './link';
+import { type LinkProps } from './link/types';
+import Lozenge from './lozenge';
+import { type LozengeProps } from './lozenge/types';
+import Media from './media';
+import Text from './text';
+import { type TextProps } from './text/types';
 
 const elementMappings: {
 	[key in ElementName]?: { component: React.ComponentType<any> | undefined; props?: any };

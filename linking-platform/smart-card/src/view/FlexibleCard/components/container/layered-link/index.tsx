@@ -3,10 +3,11 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, css } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
+
+import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 
 import { type LayeredLinkProps } from './types';
-import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 
 const styles = css({
 	// Stretch the invisible link over the whole of the post.

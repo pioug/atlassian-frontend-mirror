@@ -1,4 +1,5 @@
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
 import { AuthorizeAction } from '../../../../view/BlockCard';
 
 describe('AuthorizeAction', () => {

@@ -4,13 +4,14 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
-import { HorizontalWrapper, LozengeActionExample } from '../utils/vr-test';
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
-import { getContext } from '../utils/flexible-ui';
 import { DueOn, State } from '../../src/view/FlexibleCard/components/elements';
 import { type LozengeAppearance } from '../../src/view/FlexibleCard/components/elements/lozenge/types';
+import { getContext } from '../utils/flexible-ui';
+import { HorizontalWrapper, LozengeActionExample } from '../utils/vr-test';
 import '../utils/fetch-mock-invoke';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

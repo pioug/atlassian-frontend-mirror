@@ -1,11 +1,13 @@
-import type { CardProviderStoreOpts } from '@atlaskit/link-provider';
-import { ssr } from '@atlaskit/ssr';
 import React from 'react';
 
 import ReactDOM from 'react-dom';
-import { Client, Provider, TitleBlock } from '../..';
+
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { ssr } from '@atlaskit/ssr';
+
 
 import { cardState, url } from '../../../examples/utils/smart-card-ssr-state';
+import { Client, Provider, TitleBlock } from '../../index';
 import { CardSSR } from '../../ssr';
 
 // @ts-ignore

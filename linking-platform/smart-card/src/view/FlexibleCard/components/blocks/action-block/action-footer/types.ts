@@ -1,4 +1,5 @@
 import type { Space } from '@atlaskit/primitives';
+
 import type { ActionMessage } from '../../../actions/action/types';
 
 export type ActionFooterProps = {

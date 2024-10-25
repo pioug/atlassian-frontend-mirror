@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 type LinkAnalyticsContextProps = {

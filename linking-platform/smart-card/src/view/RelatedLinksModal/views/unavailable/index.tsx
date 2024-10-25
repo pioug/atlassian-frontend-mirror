@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl-next';
+
 import { messages } from '../../../../messages';
 import { EmptyState } from '../../components/EmptyState';
+
 import { UnavailableSVG } from './unavailable-svg';
 
 const RelatedLinksUnavailableView = () => {

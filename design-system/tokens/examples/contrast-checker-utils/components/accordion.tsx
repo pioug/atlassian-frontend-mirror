@@ -97,7 +97,7 @@ export default function Accordion({
 							>
 								<ChevronRightLargeIcon label={isOpen ? 'Close' : 'Open'} />
 							</Flex>
-							<Heading level="h600">{description}</Heading>
+							<Heading size="medium">{description}</Heading>
 							{size !== undefined && (
 								<Lozenge appearance={size > 0 ? appearanceMapping[appearance] : 'default'}>
 									{size}

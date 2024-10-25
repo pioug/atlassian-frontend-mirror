@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { HoverCard } from '../../../../HoverCard';
 import { ElementName } from '../../../../../constants';
+import { HoverCard } from '../../../../HoverCard';
+
 import { type HoverCardDelayProps } from './types';
 
 const FLEXIBLE_HOVER_CARD_CAN_OPEN_DELAY = 100;

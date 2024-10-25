@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { PreviewBlock, SnippetBlock, TitleBlock } from '../../view/FlexibleCard/components/blocks';
+import Block from '../../view/FlexibleCard/components/blocks/block';
+import { Title } from '../../view/FlexibleCard/components/elements';
 import {
 	isFlexibleUiBlock,
 	isFlexibleUiCard,
@@ -7,9 +10,6 @@ import {
 	isFlexibleUiPreviewBlock,
 	isFlexibleUiTitleBlock,
 } from '../flexible';
-import { Title } from '../../view/FlexibleCard/components/elements';
-import Block from '../../view/FlexibleCard/components/blocks/block';
-import { PreviewBlock, SnippetBlock, TitleBlock } from '../../view/FlexibleCard/components/blocks';
 
 describe('isFlexibleUiCard', () => {
 	it('returns true if card has TitleBlock as children', () => {

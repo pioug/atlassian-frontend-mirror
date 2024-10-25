@@ -2,17 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { FormattedMessage } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { FormattedMessage } from 'react-intl-next';
 
 import { token } from '@atlaskit/tokens';
-import { LinkIcon } from '../../../elements';
-import { type TitleBlockViewProps } from '../types';
-import Block from '../../block';
+
 import { SmartLinkAlignment, SmartLinkDirection, SmartLinkSize } from '../../../../../../constants';
+import { LinkIcon } from '../../../elements';
 import { getLinkLineHeight, getLinkSizeStyles, getTruncateStyles } from '../../../utils';
+import Block from '../../block';
 import ElementGroup from '../../element-group';
+import { type TitleBlockViewProps } from '../types';
 
 const actionStyles: SerializedStyles = css({
 	cursor: 'pointer',

@@ -1,6 +1,8 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl-next';
+
 import { type EmbedModalProps } from './types';
 
 const IFRAME_NAME = 'twp-editor-preview-iframe';

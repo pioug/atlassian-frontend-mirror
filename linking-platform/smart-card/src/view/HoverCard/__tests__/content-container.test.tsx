@@ -1,11 +1,14 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
+import type { ProductType } from '@atlaskit/linking-common';
+import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+
+import { useAISummary } from '../../../state/hooks/use-ai-summary';
 import ContentContainer from '../components/ContentContainer';
 import { hoverCardClassName } from '../components/HoverCardContent';
 import type { ContentContainerProps } from '../types';
-import { useAISummary } from '../../../state/hooks/use-ai-summary';
-import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
-import type { ProductType } from '@atlaskit/linking-common';
 
 jest.mock('../../../state/hooks/use-ai-summary', () => ({
 	useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),

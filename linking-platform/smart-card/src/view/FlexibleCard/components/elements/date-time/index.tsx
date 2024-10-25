@@ -2,15 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useIntl, FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { selectUnit } from '@formatjs/intl-utils';
+import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
+
+import { token } from '@atlaskit/tokens';
+
+import { messages } from '../../../../../messages';
+import { getTruncateStyles } from '../../utils';
 
 import { type DateTimeProps, type DateTimeType } from './types';
-import { getTruncateStyles } from '../../utils';
-import { token } from '@atlaskit/tokens';
-import { selectUnit } from '@formatjs/intl-utils';
-import { messages } from '../../../../../messages';
 
 const styles = css(
 	{

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
+
 import { toAbsolutePath } from './index';
 
 const FlexibleUiMessage = () => {

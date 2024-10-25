@@ -1,13 +1,17 @@
+// eslint-disable-next-line import/order
 import * as testMocks from './index.test.mock';
-import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
-import { useSmartCardActions } from '..';
-import { mocks } from '../../../utils/mocks';
-import { APIError, type APIErrorKind } from '@atlaskit/linking-common';
-import { useSmartLinkContext, type CardContext } from '@atlaskit/link-provider';
+
 import { renderHook } from '@testing-library/react-hooks';
-import { type CardState } from '../../types';
 import { type JsonLd } from 'json-ld-types';
+
+import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
+import { APIError, type APIErrorKind } from '@atlaskit/linking-common';
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
+
 import { useSmartLinkAnalytics } from '../../../state';
+import { mocks } from '../../../utils/mocks';
+import { type CardState } from '../../types';
+import { useSmartCardActions } from '../index';
 
 describe('Smart Card: Actions', () => {
 	let url: string;

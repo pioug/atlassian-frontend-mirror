@@ -1,7 +1,9 @@
-import Tooltip from '@atlaskit/tooltip';
 import React from 'react';
-import type { ActionStackItemProps } from './types';
+
+import Tooltip from '@atlaskit/tooltip';
+
 import ActionButton from './action-button';
+import type { ActionStackItemProps } from './types';
 
 const ActionStackItem = ({
 	content,

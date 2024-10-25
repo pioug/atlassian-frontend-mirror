@@ -18,15 +18,15 @@ import {
 	extractLocation,
 	extractModifiedBy,
 	extractOwnedBy,
-	extractProgrammingLanguage,
-	extractSubTasksProgress,
-	extractReadTime,
-	extractSourceBranch,
-	extractSubscriberCount,
-	extractStoryPoints,
-	extractTargetBranch,
-	extractSentOn,
 	extractPersonAssignedToAsArray,
+	extractProgrammingLanguage,
+	extractReadTime,
+	extractSentOn,
+	extractSourceBranch,
+	extractStoryPoints,
+	extractSubscriberCount,
+	extractSubTasksProgress,
+	extractTargetBranch,
 } from '../utils';
 
 describe('extractAttachmentCount', () => {

@@ -1,9 +1,12 @@
-import * as analytics from '../../../../utils/analytics/analytics';
-import { mockBaseResponseWithDownload, mockBaseResponseWithPreview } from '../__mocks__/mocks';
+import { act, screen, within } from '@testing-library/react';
+
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';
+import * as analytics from '../../../../utils/analytics/analytics';
 import * as HoverCardComponent from '../../components/HoverCardComponent';
+import { mockBaseResponseWithDownload, mockBaseResponseWithPreview } from '../__mocks__/mocks';
+
 import { type setup as hoverCardSetup, type SetUpParams } from './setup.test-utils';
-import { act, within, screen } from '@testing-library/react';
+
 
 type AnalyticsTestConfig = {
 	/**

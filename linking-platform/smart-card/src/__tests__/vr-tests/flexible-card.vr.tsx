@@ -1,31 +1,26 @@
 import { snapshot } from '@af/visual-regression';
 
-import FlexibleUiOptions from '../../../examples/vr-flexible-card/vr-flexible-ui-options';
-import FlexibleUiComposition from '../../../examples/vr-flexible-card/vr-flexible-ui-composition';
-
-import FlexibleUiBlock from '../../../examples/vr-flexible-card/vr-flexible-ui-block';
-import FlexibleUiBlockActionList from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action';
-import FlexibleUiBlockTitle from '../../../examples/vr-flexible-card/vr-flexible-ui-block-title';
-import FlexibleUiBlockMetadata from '../../../examples/vr-flexible-card/vr-flexible-ui-block-metadata';
-import FlexibleUiBlockSnippet from '../../../examples/vr-flexible-card/vr-flexible-ui-block-snippet';
-import FlexibleUiBlockFooter from '../../../examples/vr-flexible-card/vr-flexible-ui-block-footer';
-import FlexibleUiBlockPreview from '../../../examples/vr-flexible-card/vr-flexible-ui-block-preview';
-import FlexibleUiBlockActionGroup from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action-group';
-import FlexibleUiBlockAction from '../../../examples/vr-flexible-card/vr-flexible-ui-action';
-
-import FlexibleUiElementLink from '../../../examples/vr-flexible-card/vr-flexible-ui-element-link';
-import FlexibleUiElementLozenge from '../../../examples/vr-flexible-card/vr-flexible-ui-element-lozenge';
-import FlexibleUiElementBadge from '../../../examples/vr-flexible-card/vr-flexible-ui-element-badge';
-import FlexibleUiElementAvatarGroup from '../../../examples/vr-flexible-card/vr-flexible-ui-element-avatar-group';
-import FlexibleUiElementMedia from '../../../examples/vr-flexible-card/vr-flexible-ui-element-media';
-
-import FlexibleUiHoverCard from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card';
-import FlexibleUiHoverCardNoPreviewButton from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card-no-preview-button';
-
 import FlexibleUiAccessibility from '../../../examples/vr-flexible-card/vr-flexible-ui-accessibility';
 import FlexibleUiAccessibilityForbidden from '../../../examples/vr-flexible-card/vr-flexible-ui-accessibility-forbidden';
-
+import FlexibleUiBlockAction from '../../../examples/vr-flexible-card/vr-flexible-ui-action';
+import FlexibleUiBlock from '../../../examples/vr-flexible-card/vr-flexible-ui-block';
+import FlexibleUiBlockActionList from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action';
+import FlexibleUiBlockActionGroup from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action-group';
 import FlexibleUiBlockCardErroredStates from '../../../examples/vr-flexible-card/vr-flexible-ui-block-card-errored-states';
+import FlexibleUiBlockFooter from '../../../examples/vr-flexible-card/vr-flexible-ui-block-footer';
+import FlexibleUiBlockMetadata from '../../../examples/vr-flexible-card/vr-flexible-ui-block-metadata';
+import FlexibleUiBlockPreview from '../../../examples/vr-flexible-card/vr-flexible-ui-block-preview';
+import FlexibleUiBlockSnippet from '../../../examples/vr-flexible-card/vr-flexible-ui-block-snippet';
+import FlexibleUiBlockTitle from '../../../examples/vr-flexible-card/vr-flexible-ui-block-title';
+import FlexibleUiComposition from '../../../examples/vr-flexible-card/vr-flexible-ui-composition';
+import FlexibleUiElementAvatarGroup from '../../../examples/vr-flexible-card/vr-flexible-ui-element-avatar-group';
+import FlexibleUiElementBadge from '../../../examples/vr-flexible-card/vr-flexible-ui-element-badge';
+import FlexibleUiElementLink from '../../../examples/vr-flexible-card/vr-flexible-ui-element-link';
+import FlexibleUiElementLozenge from '../../../examples/vr-flexible-card/vr-flexible-ui-element-lozenge';
+import FlexibleUiElementMedia from '../../../examples/vr-flexible-card/vr-flexible-ui-element-media';
+import FlexibleUiHoverCard from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card';
+import FlexibleUiHoverCardNoPreviewButton from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card-no-preview-button';
+import FlexibleUiOptions from '../../../examples/vr-flexible-card/vr-flexible-ui-options';
 
 // Variants
 snapshot(FlexibleUiOptions);

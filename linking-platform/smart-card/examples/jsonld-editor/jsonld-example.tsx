@@ -1,10 +1,11 @@
-import { useCallback } from 'react';
-import * as examples from '../../examples-helpers/_jsonLDExamples';
+import React, { useCallback } from 'react';
+
 import Button from '@atlaskit/button/new';
-import { getJsonLdResponse } from '../utils/flexible-ui';
-import { type ResolveResponse } from '../../src';
-import React from 'react';
 import { Flex } from '@atlaskit/primitives';
+
+import * as examples from '../../examples-helpers/_jsonLDExamples';
+import { type ResolveResponse } from '../../src';
+import { getJsonLdResponse } from '../utils/flexible-ui';
 
 const JsonldExample = ({
 	defaultValue,

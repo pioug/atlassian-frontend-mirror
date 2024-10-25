@@ -1,18 +1,20 @@
+import '@atlaskit/link-test-helpers/jest';
+
 import React from 'react';
 
-import '@atlaskit/link-test-helpers/jest';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+
+import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { SmartLinkStatus } from '../../../../../../constants';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
-import context from '../../../../../../__fixtures__/flexible-ui-data-context';
-import { type AISummaryBlockProps } from '../types';
-import { IntlProvider } from 'react-intl-next';
-import AISummaryBlock from '../index';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
-import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import AISummaryBlock from '../index';
+import { type AISummaryBlockProps } from '../types';
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
 	useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),

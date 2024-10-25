@@ -4,9 +4,11 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
 import { N300 } from '@atlaskit/theme/colors';
-import { gs } from '../../common/utils';
 import { token } from '@atlaskit/tokens';
+
+import { gs } from '../../common/utils';
 
 export interface ProviderProps {
 	name: string;

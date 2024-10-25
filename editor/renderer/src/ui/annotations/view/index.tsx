@@ -7,6 +7,7 @@ import { type AnnotationTypes } from '@atlaskit/adf-schema';
 
 type Props = {
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	isNestedRender: boolean;
 };
 
 type AnnotationInfo = {
@@ -25,6 +26,7 @@ const AnnotationView = (props: Props) => {
 	const viewComponentProps = useAnnotationClickEvent({
 		updateSubscriber,
 		createAnalyticsEvent: props.createAnalyticsEvent,
+		isNestedRender: props.isNestedRender,
 	});
 
 	const ViewComponent = inlineCommentProvider && inlineCommentProvider.viewComponent;

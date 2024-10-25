@@ -1,6 +1,7 @@
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import React from 'react';
 
 import { NotFoundWithSiteAccessExistsClient } from '../utils/custom-client';
 import VRCardView from '../utils/vr-card-view';

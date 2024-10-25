@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { type JsonLd } from 'json-ld-types';
+
 import { Client } from '@atlaskit/smart-card';
+
+import { ConfluenceBlogPost, ConfluencePage } from '../../examples-helpers/_jsonLDExamples';
 import VRCardView from '../utils/vr-card-view';
-import { ConfluencePage, ConfluenceBlogPost } from '../../examples-helpers/_jsonLDExamples';
 
 const examples = {
 	[ConfluenceBlogPost.data.url]: ConfluenceBlogPost,

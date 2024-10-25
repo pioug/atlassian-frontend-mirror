@@ -1,10 +1,12 @@
+import React, { useState } from 'react';
+
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives';
-
 import TextArea from '@atlaskit/textarea';
-import React, { useState } from 'react';
+
 import AISummary from '../src/view/common/ai-summary';
+
 import ExampleContainer from './utils/example-container';
 import InternalMessage from './utils/internal-message';
 

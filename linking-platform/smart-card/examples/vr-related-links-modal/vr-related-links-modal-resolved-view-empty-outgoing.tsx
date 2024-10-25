@@ -4,10 +4,10 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import VRTestWrapper from '../utils/vr-test-wrapper';
-import RelatedLinksResolvedView from '../../src/view/RelatedLinksModal/views/resolved';
-import { Provider } from '@atlaskit/smart-card';
+
 import type { CardState } from '@atlaskit/linking-common';
+import { Provider } from '@atlaskit/smart-card';
+
 import {
 	AtlasProject,
 	ConfluenceBlogPost,
@@ -16,6 +16,8 @@ import {
 	SlackMessage,
 } from '../../examples-helpers/_jsonLDExamples';
 import RelatedLinksBaseModal from '../../src/view/RelatedLinksModal/components/RelatedLinksBaseModal';
+import RelatedLinksResolvedView from '../../src/view/RelatedLinksModal/views/resolved';
+import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const initialState = Object.entries({
 	[ConfluenceBlogPost.data.url]: ConfluenceBlogPost,

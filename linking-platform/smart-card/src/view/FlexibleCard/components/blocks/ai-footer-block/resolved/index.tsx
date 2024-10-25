@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Block from '../../block';
-import { Provider } from '../../../elements';
 import { InternalActionName } from '../../../../../../constants';
-import { AIFooterMetadata } from './ai-footer-metadata';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-
+import { Provider } from '../../../elements';
+import Block from '../../block';
 import type { AIFooterBlockProps } from '../types';
+
+import { AIFooterMetadata } from './ai-footer-metadata';
 
 const AIFooterBlockResolvedView = (props: AIFooterBlockProps) => {
 	const context = useFlexibleUiContext();

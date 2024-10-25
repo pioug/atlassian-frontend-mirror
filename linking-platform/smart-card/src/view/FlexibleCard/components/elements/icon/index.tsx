@@ -4,15 +4,17 @@
  */
 import React, { useMemo } from 'react';
 
-import LinkIcon from '@atlaskit/icon/core/migration/link';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { type IconProps } from './types';
+import LinkIcon from '@atlaskit/icon/core/migration/link';
+
 import { type IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../constants';
 import AtlaskitIcon from '../../common/atlaskit-icon';
 import ImageIcon from '../../common/image-icon';
 import { getIconSizeStyles, getIconWidth, getTruncateStyles } from '../../utils';
+
+import { type IconProps } from './types';
 
 const getPositionStyles = (position: SmartLinkPosition): SerializedStyles => {
 	switch (position) {

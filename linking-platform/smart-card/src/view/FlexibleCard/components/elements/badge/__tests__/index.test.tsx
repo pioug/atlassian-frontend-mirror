@@ -1,12 +1,13 @@
 import React from 'react';
-import { IntlProvider, type MessageFormatElement } from 'react-intl-next';
-import { render, screen } from '@testing-library/react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
+import { render, screen } from '@testing-library/react';
+import { IntlProvider, type MessageFormatElement } from 'react-intl-next';
 
 import { IconType } from '../../../../../../constants';
-import Badge from '../index';
 import { messages } from '../../../../../../messages';
+import Badge from '../index';
 
 jest.mock('react-render-image', () => ({ src, loading, loaded, errored }: any) => {
 	switch (src) {

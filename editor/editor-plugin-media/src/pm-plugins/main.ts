@@ -840,11 +840,6 @@ export const createPlugin = (
 ) => {
 	const intl = getIntl();
 
-	const dropPlaceholder = createDropPlaceholder(
-		intl,
-		mediaOptions && mediaOptions.allowDropzoneDropLine,
-	);
-
 	return new SafePlugin({
 		state: {
 			init(_config, state) {
@@ -1012,7 +1007,23 @@ export const createPlugin = (
 				}
 
 				const dropPlaceholders: Decoration[] = [
-					Decoration.widget(pos, dropPlaceholder, { key: 'drop-placeholder' }),
+					Decoration.widget(
+						pos,
+						() => {
+							return createDropPlaceholder(
+								intl,
+								mediaOptions && mediaOptions.allowDropzoneDropLine,
+							);
+						},
+						{
+							key: 'drop-placeholder',
+							destroy: (elem) => {
+								if (elem instanceof HTMLElement) {
+									ReactDOM.unmountComponentAtNode(elem);
+								}
+							},
+						},
+					),
 					...mediaNodes,
 				];
 				return DecorationSet.create(state.doc, dropPlaceholders);

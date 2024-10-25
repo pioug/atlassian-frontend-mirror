@@ -1,27 +1,31 @@
-import Heading from '@atlaskit/heading';
 import '@atlaskit/link-test-helpers/jest';
+import React, { useState } from 'react';
+
+import { act, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl-next';
+
+import Heading from '@atlaskit/heading';
+import { CardAction, Provider } from '@atlaskit/smart-card';
+import {
+	type HoverCardProps,
+	HoverCard as StandaloneHoverCard,
+} from '@atlaskit/smart-card/hover-card';
+
+import * as useSmartCardActions from '../../../state/actions';
+import { fakeFactory } from '../../../utils/mocks';
+import { HoverCard } from '../index';
+import { type HoverCardInternalProps } from '../types';
+
+import { mockConfluenceResponse } from './__mocks__/mocks';
+import { analyticsTests } from './common/analytics.test-utils';
+import { forbiddenViewTests, mockUrl, runCommonHoverCardTests } from './common/common.test-utils';
 import {
 	setup,
 	setupEventPropagationTest,
 	type SetUpParams,
 	userEventOptionsWithAdvanceTimers,
 } from './common/setup.test-utils';
-import {
-	HoverCard as StandaloneHoverCard,
-	type HoverCardProps,
-} from '@atlaskit/smart-card/hover-card';
-import { type HoverCardInternalProps } from '../types';
-import { forbiddenViewTests, mockUrl, runCommonHoverCardTests } from './common/common.test-utils';
-import { analyticsTests } from './common/analytics.test-utils';
-import { mockConfluenceResponse } from './__mocks__/mocks';
-import { fakeFactory } from '../../../utils/mocks';
-import userEvent from '@testing-library/user-event';
-import React, { useState } from 'react';
-import { IntlProvider } from 'react-intl-next';
-import { CardAction, Provider } from '@atlaskit/smart-card';
-import { act, render, screen } from '@testing-library/react';
-import { HoverCard } from '../index';
-import * as useSmartCardActions from '../../../state/actions';
 
 const TestCanOpenComponent = ({
 	canOpen: canOpenOption,

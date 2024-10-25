@@ -1,4 +1,5 @@
 import { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
+
 import { type InvokeActions } from '../../../state/hooks/use-invoke/types';
 
 export type LinkLozengeColor = 'default' | 'success' | 'removed' | 'inprogress' | 'new' | 'moved';

@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { type SnippetBlockProps } from './types';
-import Block from '../block';
 import { SmartLinkStatus } from '../../../../../constants';
 import { Snippet } from '../../elements';
 import { getMaxLines } from '../../utils';
+import Block from '../block';
+
+import { type SnippetBlockProps } from './types';
 
 const DEFAULT_MAX_LINES = 3;
 const MAXIMUM_MAX_LINES = 6;

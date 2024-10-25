@@ -6,7 +6,7 @@ import { TimePicker } from '../../src';
 
 const TimePickerRequiredExample = () => (
 	<Field name="time" label="Start Time" isRequired>
-		{({ fieldProps: { ...rest } }) => <TimePicker {...rest} />}
+		{({ fieldProps: { ...rest } }) => <TimePicker clearControlLabel="Clear start time" {...rest} />}
 	</Field>
 );
 

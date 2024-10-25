@@ -1,10 +1,12 @@
-import { type EventHandler, type MouseEvent, type KeyboardEvent } from 'react';
+import { type EventHandler, type KeyboardEvent, type MouseEvent } from 'react';
+
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
-import { type CardState } from '../../state/types';
-import { type InlinePreloaderStyle, type OnErrorCallback } from '../types';
+
 import { type AnalyticsFacade } from '../../state/analytics';
+import { type CardState } from '../../state/types';
 import type { CardActionOptions } from '../Card/types';
 import { type HoverPreviewOptions } from '../HoverCard/types';
+import { type InlinePreloaderStyle, type OnErrorCallback } from '../types';
 
 export type InlineCardProps = {
 	id: string;

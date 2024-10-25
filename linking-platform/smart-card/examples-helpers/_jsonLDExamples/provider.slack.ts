@@ -1,4 +1,4 @@
-import { slackLogo, avatar2 } from '../../examples/images';
+import { avatar2, slackLogo } from '../../examples/images';
 
 const baseMetaData = {
 	visibility: 'restricted',

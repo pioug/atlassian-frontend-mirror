@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { Stack, xcss } from '@atlaskit/primitives';
-import { AnalyticsContext, useAnalyticsEvents } from '@atlaskit/analytics-next';
 
-import { type ResolvedResultsStackProps } from './types';
+import { AnalyticsContext, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { Stack, xcss } from '@atlaskit/primitives';
+
 import RelatedUrlItem from '../related-url-item';
-import { RelatedUrlItemAnalyticsContext, fireRelatedLinksViewedEvent } from './analytics';
+
+import { fireRelatedLinksViewedEvent, RelatedUrlItemAnalyticsContext } from './analytics';
+import { type ResolvedResultsStackProps } from './types';
 
 const ResolvedResultsStack = ({
 	resolvedResults,

@@ -1,5 +1,7 @@
-import { SmartCardProvider } from '@atlaskit/link-provider';
 import React from 'react';
+
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
 import FlexibleCard from '../../src/view/FlexibleCard';
 import { ActionBlock } from '../../src/view/FlexibleCard/components/blocks';
 import type { ActionBlockProps } from '../../src/view/FlexibleCard/components/blocks/action-block/types';

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 1.5.12
+
+### Patch Changes
+
+- [#155735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155735)
+  [`1beeeda29023a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1beeeda29023a) -
+  Upgrades editor packages to react 18
+- [#155853](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155853)
+  [`0fab892fc92df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fab892fc92df) -
+  [HOT-112603] Reduce React 18 memory leak on Selection Marker
+
+  - Replacing react components for native HTML elements for Decorations
+  - Reducing the amount of new decorations being created by using `DecorationSet.map`
+
 ## 1.5.11
 
 ### Patch Changes

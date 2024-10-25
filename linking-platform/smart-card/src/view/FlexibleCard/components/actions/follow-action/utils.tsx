@@ -1,5 +1,6 @@
-import { messages } from '../../../../../messages';
 import type { MessageDescriptor } from 'react-intl-next';
+
+import { messages } from '../../../../../messages';
 
 export const getFollowActionErrorMessage = (
 	isProject = false,

@@ -1,10 +1,12 @@
-import { code } from '@atlaskit/docs';
 import React from 'react';
+
+import { code } from '@atlaskit/docs';
+
 import LinkUrl from '../src/view/LinkUrl';
+
 import examples from './content/link-url/examples';
 import reference from './content/link-url/reference';
 import { TabName } from './utils';
-
 import ContentTabs from './utils/content-tabs';
 import customMd from './utils/custom-md';
 import DocQuickLinks from './utils/doc-quick-links';

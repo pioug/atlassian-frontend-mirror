@@ -1,8 +1,9 @@
 import React from 'react';
+
+import { selectUnit } from '@formatjs/intl-utils';
 import { type JsonLd } from 'json-ld-types';
 import { FormattedRelativeTime } from 'react-intl-next';
 
-import { selectUnit } from '@formatjs/intl-utils';
 
 import {
 	extractDateCreated,

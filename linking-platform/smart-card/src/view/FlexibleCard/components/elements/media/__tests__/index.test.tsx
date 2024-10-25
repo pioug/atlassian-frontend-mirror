@@ -1,10 +1,11 @@
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { render, screen } from '@testing-library/react';
 
-import Media from '../index';
 import { MediaType } from '../../../../../../constants';
+import Media from '../index';
 
 jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 	switch (src) {

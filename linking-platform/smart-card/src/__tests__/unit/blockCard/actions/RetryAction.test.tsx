@@ -1,5 +1,6 @@
-import { RetryAction } from '../../../../view/BlockCard/actions/RetryAction';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
+import { RetryAction } from '../../../../view/BlockCard/actions/RetryAction';
 
 describe('RetryAction', () => {
 	it('sets up a handler which triggers on promise execution', async () => {

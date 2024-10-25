@@ -1,4 +1,5 @@
 import fetchMock from 'fetch-mock/cjs/client';
+
 import { AsanaTask, AtlasProject, JiraIssue } from '../../examples-helpers/_jsonLDExamples';
 
 fetchMock.mock({

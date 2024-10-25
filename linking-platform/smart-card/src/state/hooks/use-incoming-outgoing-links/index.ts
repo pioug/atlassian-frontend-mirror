@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
 import { request } from '@atlaskit/linking-common';
+
 import { queryIncomingOutgoingLinks as queryIncomingOutgoingAris } from './query';
 
 type Node = {

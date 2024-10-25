@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { DropdownItem } from '@atlaskit/dropdown-menu';
+
 import { handleOnClick } from '../../../../../../utils';
+
 import { type ActionDropdownItemProps } from './types';
 
 const ActionDropdownItem = ({

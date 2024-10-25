@@ -1,15 +1,17 @@
 import React from 'react';
+
+import { type CardProviderStoreOpts } from '@atlaskit/link-provider';
+
 import {
-	Provider,
+	ActionName,
 	Client,
-	TitleBlock,
+	Provider,
 	SmartLinkDirection,
 	SmartLinkPosition,
-	ActionName,
+	TitleBlock,
 } from '../../src';
 import { CardSSR } from '../../src/ssr';
-import { url, cardState } from '../utils/smart-card-ssr-state';
-import { type CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { cardState, url } from '../utils/smart-card-ssr-state';
 
 const storeOptions: CardProviderStoreOpts = {
 	initialState: {

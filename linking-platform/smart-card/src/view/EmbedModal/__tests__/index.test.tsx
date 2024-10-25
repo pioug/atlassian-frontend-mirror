@@ -1,25 +1,28 @@
-import * as jestExtendedMatchers from 'jest-extended';
-import { flushPromises } from '@atlaskit/link-test-helpers';
 import React, { useEffect } from 'react';
-import { IntlProvider } from 'react-intl-next';
+
 import {
-	type RenderOptions,
 	render,
+	type RenderOptions,
+	screen,
 	waitFor,
 	waitForElementToBeRemoved,
-	screen,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import * as jestExtendedMatchers from 'jest-extended';
+import { IntlProvider } from 'react-intl-next';
 import uuid from 'uuid';
-import { messages } from '../../../messages';
-import { MAX_MODAL_SIZE } from '../constants';
-import { mocks } from '../../../utils/mocks';
-import { useSmartLinkAnalytics } from '../../../state/analytics/useSmartLinkAnalytics';
-import EmbedModal from '../index';
-import * as utils from '../../../utils';
-import * as ufo from '../../../state/analytics/ufoExperiences';
+
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { flushPromises } from '@atlaskit/link-test-helpers';
+
+import { messages } from '../../../messages';
+import * as ufo from '../../../state/analytics/ufoExperiences';
+import { useSmartLinkAnalytics } from '../../../state/analytics/useSmartLinkAnalytics';
+import * as utils from '../../../utils';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
+import { mocks } from '../../../utils/mocks';
+import { MAX_MODAL_SIZE } from '../constants';
+import EmbedModal from '../index';
 
 jest.mock('uuid', () => ({
 	...jest.requireActual('uuid'),

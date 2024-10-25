@@ -1,9 +1,10 @@
-import Icon, { type CustomGlyphProps, type IconProps } from '@atlaskit/icon';
-import { token } from '@atlaskit/tokens';
 import React from 'react';
-import ProjectIcon from '@atlaskit/icon/core/project';
 
-const ProjectsGlyph = (props: CustomGlyphProps) => (
+import Icon, { type CustomGlyphProps, type IconProps } from '@atlaskit/icon';
+import ProjectIcon from '@atlaskit/icon/core/project';
+import { token } from '@atlaskit/tokens';
+
+const ProjectsGlyph = (_props: CustomGlyphProps) => (
 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
 		<path
 			fillRule="evenodd"

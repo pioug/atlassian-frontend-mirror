@@ -1,6 +1,8 @@
-import React, { type MouseEvent, useCallback, forwardRef } from 'react';
-import { WrapperAnchor, WrapperSpan } from './styled';
+import React, { forwardRef, type MouseEvent, useCallback } from 'react';
+
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
+
+import { WrapperAnchor, WrapperSpan } from './styled';
 
 export interface FrameViewProps {
 	/** A flag that determines whether the card is selected in edit mode. */

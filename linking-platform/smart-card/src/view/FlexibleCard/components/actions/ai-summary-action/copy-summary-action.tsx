@@ -1,10 +1,14 @@
 import React, { useCallback, useState } from 'react';
-import CopyIcon from '@atlaskit/icon/core/migration/copy';
+
 import { FormattedMessage } from 'react-intl-next';
-import Action from '../action';
-import { messages } from '../../../../../messages';
+
+import CopyIcon from '@atlaskit/icon/core/migration/copy';
+
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
+import { messages } from '../../../../../messages';
 import type { AISummaryActionData } from '../../../../../state/flexible-ui-context/types';
+import Action from '../action';
+
 import type { AISummaryActionProps } from './types';
 
 export function CopySummaryAction({

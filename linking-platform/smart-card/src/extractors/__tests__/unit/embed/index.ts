@@ -1,7 +1,7 @@
 import { type JsonLd } from 'json-ld-types';
 
-import { extractEmbedProps } from '../../../embed';
 import { mocks } from '../../../../utils/mocks';
+import { extractEmbedProps } from '../../../embed';
 
 describe('extractEmbedProps', () => {
 	it('extracts embed props', () => {

@@ -1,11 +1,12 @@
 import { type JsonLd } from 'json-ld-types';
+
 import { type InvokeHandler } from '../../../model/invoke-handler';
 import { type InvokeClientOpts } from '../../../model/invoke-opts';
-import { type ActionProps } from '../../../view/BlockCard/components/Action';
-import { ViewAction } from '../../../view/BlockCard/actions/ViewAction';
-import { DownloadAction } from '../../../view/BlockCard/actions/DownloadAction';
-import { CardAction, type CardActionOptions } from '../../../view/Card/types';
 import { canShowAction } from '../../../utils/actions/can-show-action';
+import { DownloadAction } from '../../../view/BlockCard/actions/DownloadAction';
+import { ViewAction } from '../../../view/BlockCard/actions/ViewAction';
+import { type ActionProps } from '../../../view/BlockCard/components/Action';
+import { CardAction, type CardActionOptions } from '../../../view/Card/types';
 
 const isClientAction = (action: JsonLd.Primitives.Action) =>
 	['ViewAction', 'DownloadAction'].indexOf(action['@type']) > -1;

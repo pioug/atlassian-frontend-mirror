@@ -7,6 +7,7 @@ import Button from '@atlaskit/button';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import { useAutomationMenu } from '../../menu-context';
+
 import EmptyIcon from './empty-icon';
 
 const i18n = defineMessages({

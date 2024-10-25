@@ -10,6 +10,7 @@ export default () => {
 		<Box>
 			<Label htmlFor="timepicker-1--input">Stock</Label>
 			<TimePicker
+				clearControlLabel="Clear stock"
 				onChange={console.log}
 				testId="timepicker-1"
 				id="timepicker-1--input"
@@ -19,7 +20,12 @@ export default () => {
 			/>
 
 			<Label htmlFor="timepicker-2--input">Disabled input</Label>
-			<TimePicker id="timepicker-2--input" isDisabled onChange={console.log} />
+			<TimePicker
+				clearControlLabel="Clear disabled input"
+				id="timepicker-2--input"
+				isDisabled
+				onChange={console.log}
+			/>
 		</Box>
 	);
 };

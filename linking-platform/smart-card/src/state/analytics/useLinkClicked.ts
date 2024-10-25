@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { fireLinkClickedEvent } from '../../utils/analytics/click';

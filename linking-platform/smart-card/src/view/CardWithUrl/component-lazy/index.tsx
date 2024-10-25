@@ -1,8 +1,10 @@
 import React from 'react';
-import { type CardWithUrlContentProps } from '../types';
-import { LazyLazilyRenderCard } from './LazyLazilyRenderCard';
-import { LazyIntersectionObserverCard } from './LazyIntersectionObserverCard';
+
 import { isIntersectionObserverSupported } from '../../../utils';
+import { type CardWithUrlContentProps } from '../types';
+
+import { LazyIntersectionObserverCard } from './LazyIntersectionObserverCard';
+import { LazyLazilyRenderCard } from './LazyLazilyRenderCard';
 
 export default function LazyCardWithUrlContent(props: CardWithUrlContentProps) {
 	if (isIntersectionObserverSupported()) {

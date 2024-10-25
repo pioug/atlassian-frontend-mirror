@@ -1,4 +1,4 @@
-import { type DestinationSubproduct, type DestinationProduct } from '../../utils/analytics/types';
+import { type DestinationProduct, type DestinationSubproduct } from '../../utils/analytics/types';
 
 export interface CommonEventProps {
 	definitionId?: string;

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 
-import { extractSubscriberCount, type LinkSubscriberType } from '../extractSubscriberCount';
 import { TEST_BASE_DATA } from '../../__mocks__/jsonld';
+import { extractSubscriberCount, type LinkSubscriberType } from '../extractSubscriberCount';
 
 const BASE_DATA = TEST_BASE_DATA as LinkSubscriberType;
 

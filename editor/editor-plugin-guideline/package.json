@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-guideline",
-	"version": "1.2.14",
+	"version": "1.2.15",
 	"description": "guideline plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

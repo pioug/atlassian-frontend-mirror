@@ -3,22 +3,24 @@
  * @jsx jsx
  */
 import React, { useMemo } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { SmartLinkInternalTheme, SmartLinkSize, SmartLinkTheme } from '../../../../../constants';
-
-import { type LinkProps } from './types';
+import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import {
 	getLinkLineHeight,
 	getLinkSizeStyles,
 	getTruncateStyles,
 	hasWhiteSpace,
 } from '../../utils';
-import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
-import { token } from '@atlaskit/tokens';
+
+import { type LinkProps } from './types';
+
 
 const DEFAULT_MAX_LINES = 2;
 const MAXIMUM_MAX_LINES = 2;

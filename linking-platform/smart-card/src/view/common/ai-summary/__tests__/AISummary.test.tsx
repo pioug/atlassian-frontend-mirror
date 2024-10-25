@@ -1,7 +1,9 @@
 import React from 'react';
-import AISummary from '..';
 
 import { render, screen } from '@testing-library/react';
+
+import AISummary from '../index';
+
 
 const markdownBulletList = `
 - Item 1

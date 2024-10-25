@@ -3,16 +3,19 @@
  * @jsx jsx
  */
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import VRTestWrapper from '../utils/vr-test-wrapper';
-import { HorizontalWrapper } from '../utils/vr-test';
-import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
-import { IconType, SmartLinkSize } from '../../src/constants';
-import { exampleTokens, getContext } from '../utils/flexible-ui';
-import { LinkIcon } from '../../src/view/FlexibleCard/components/elements';
 import { smallImage } from '@atlaskit/media-test-helpers';
+
+import { IconType, SmartLinkSize } from '../../src/constants';
+import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
+import { LinkIcon } from '../../src/view/FlexibleCard/components/elements';
+import { exampleTokens, getContext } from '../utils/flexible-ui';
+import { HorizontalWrapper } from '../utils/vr-test';
+import VRTestWrapper from '../utils/vr-test-wrapper';
+
 
 const boxStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

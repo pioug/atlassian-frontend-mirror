@@ -3,8 +3,12 @@
  * @jsx jsx
  */
 import React, { useContext } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { di } from 'react-magnetic-di';
+
+import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -13,21 +17,20 @@ import {
 	type SmartLinkStatus,
 	SmartLinkTheme,
 } from '../../../../constants';
-import { type ChildrenOptions, type ContainerProps } from './types';
+import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
+import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
+import { isFlexUiPreviewPresent } from '../../../../state/flexible-ui-context/utils';
 import {
 	isFlexibleUiBlock,
 	isFlexibleUiPreviewBlock,
 	isFlexibleUiTitleBlock,
 } from '../../../../utils/flexible';
 import { type RetryOptions } from '../../types';
-import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
-import LayeredLink from './layered-link';
-import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import { type TitleBlockProps } from '../blocks/title-block/types';
+
 import HoverCardControl from './hover-card-control';
-import { isFlexUiPreviewPresent } from '../../../../state/flexible-ui-context/utils';
-import { N40 } from '@atlaskit/theme/colors';
-import { di } from 'react-magnetic-di';
+import LayeredLink from './layered-link';
+import { type ChildrenOptions, type ContainerProps } from './types';
 
 const elevationStyles: SerializedStyles = css({
 	border: `1px solid ${token('color.border', N40)}`,

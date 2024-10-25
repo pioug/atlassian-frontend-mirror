@@ -2,15 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useEffect, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { useState, useEffect } from 'react';
-import { HoverCardContainer, popupContainerStyles } from '../styled';
-import AIPrism from '../../common/ai-prism';
-import { hoverCardClassName } from './HoverCardContent';
-import type { ContentContainerProps } from '../types';
-import useAISummaryAction from '../../../state/hooks/use-ai-summary-action';
 import { di } from 'react-magnetic-di';
+
+import useAISummaryAction from '../../../state/hooks/use-ai-summary-action';
+import AIPrism from '../../common/ai-prism';
+import { HoverCardContainer, popupContainerStyles } from '../styled';
+import type { ContentContainerProps } from '../types';
+
+import { hoverCardClassName } from './HoverCardContent';
 
 const ConnectedAIPrismContainer = ({
 	children,

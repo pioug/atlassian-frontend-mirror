@@ -4,11 +4,12 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+
 import { smallImage } from '@atlaskit/media-test-helpers';
 
 import { BlockCardResolvedView } from '../../src/view/BlockCard';
-import { VRTestCase } from '../utils/common';
 import { type ActionProps } from '../../src/view/BlockCard/components/Action';
+import { VRTestCase } from '../utils/common';
 import VrExpandDropdownMenuWrapper from '../utils/vr-expand-dropdown-menu-wrapper';
 
 export default () => {

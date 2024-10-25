@@ -9,7 +9,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 export default () => {
 	return (
 		<>
-			<Heading level="h500">
+			<Heading size="small">
 				focus will go to trigger when dropdown is closed with Esc or Shift+Tab
 			</Heading>
 

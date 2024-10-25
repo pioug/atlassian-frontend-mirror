@@ -1,7 +1,7 @@
 import React from 'react';
 
-import VRCardView from '../utils/vr-card-view';
 import { ForbiddenWithSitePendingRequestClient } from '../utils/custom-client';
+import VRCardView from '../utils/vr-card-view';
 
 export default () => (
 	<VRCardView appearance="inline" client={new ForbiddenWithSitePendingRequestClient()} />

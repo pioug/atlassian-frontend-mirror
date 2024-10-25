@@ -1,13 +1,14 @@
 import React, { type ErrorInfo } from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
 
+import { messages } from '../../../messages';
 import { type AnalyticsFacade } from '../../../state/analytics';
-import { type ActionProps } from '../components/Action';
+import { type AnalyticsOrigin } from '../../../utils/types';
 import { type IconProps } from '../../common/Icon';
 import { type MetadataProps } from '../../common/Metadata';
-import { messages } from '../../../messages';
-import { type AnalyticsOrigin } from '../../../utils/types';
 import { openEmbedModal } from '../../EmbedModal/utils';
+import { type ActionProps } from '../components/Action';
 
 /*
 Most of these are optional as we are being fault-tolerant

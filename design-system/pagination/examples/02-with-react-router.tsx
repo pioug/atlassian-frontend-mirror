@@ -29,19 +29,19 @@ const PAGES = [
 
 const Dashboard = () => (
 	<Stack>
-		<Heading level="h800">Dashboard</Heading>
+		<Heading size="xlarge">Dashboard</Heading>
 		<PaginationWithSelectPage pageSelected={0} />
 	</Stack>
 );
 const About = () => (
 	<Stack>
-		<Heading level="h800">About page</Heading>
+		<Heading size="xlarge">About page</Heading>
 		<PaginationWithSelectPage pageSelected={1} />
 	</Stack>
 );
 const Contact = () => (
 	<Stack>
-		<Heading level="h800">Contact page</Heading>
+		<Heading size="xlarge">Contact page</Heading>
 		<PaginationWithSelectPage pageSelected={2} />
 	</Stack>
 );

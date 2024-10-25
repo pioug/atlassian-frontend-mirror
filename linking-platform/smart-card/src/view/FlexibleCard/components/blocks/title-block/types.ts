@@ -1,14 +1,14 @@
 import type React from 'react';
 
+import { type SmartLinkPosition, type SmartLinkTheme } from '../../../../../constants';
+import { type RetryOptions } from '../../../types';
+import { type AnchorTarget } from '../../types';
 import {
 	type ActionItem,
 	type BlockProps,
 	type ElementItem,
 	type OnActionMenuOpenChangeOptions,
 } from '../types';
-import { type SmartLinkPosition, type SmartLinkTheme } from '../../../../../constants';
-import { type RetryOptions } from '../../../types';
-import { type AnchorTarget } from '../../types';
 
 export type TitleBlockProps = {
 	/**

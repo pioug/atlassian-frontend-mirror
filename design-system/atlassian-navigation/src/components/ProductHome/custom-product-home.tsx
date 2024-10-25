@@ -7,7 +7,7 @@ import { Fragment, type MouseEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -178,6 +178,7 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
 						src={logoUrl}
 						alt={logoAlt}
 						data-testid={testId && `${testId}-logo`}
+						data-vc="custom-product-home-logo"
 					/>
 				)}
 				{iconUrl && (
@@ -187,6 +188,7 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
 						src={iconUrl}
 						alt={iconAlt}
 						data-testid={testId && `${testId}-icon`}
+						data-vc="custom-product-home-icon"
 					/>
 				)}
 			</Tag>
@@ -201,8 +203,7 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
 					css={[
 						siteTitleStyles,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						getBooleanFF('platform.design-system-team.navigation-v2-no-jank_5yhbd') &&
-							hideSiteTitleStyles,
+						fg('platform.design-system-team.navigation-v2-no-jank_5yhbd') && hideSiteTitleStyles,
 					]}
 					data-testid={testId && `${testId}-site-title`}
 				>

@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useSmartCardState as useSmartLinkState } from '../store';
-import { useSmartCardActions as useSmartLinkActions } from '../actions';
-import { useSmartLinkConfig } from '../config';
-import { useSmartLinkAnalytics } from '../analytics';
-import { useSmartLinkRenderers } from '../renderers';
+
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+
+import { useSmartCardActions as useSmartLinkActions } from '../actions';
+import { useSmartLinkAnalytics } from '../analytics';
+import { useSmartLinkConfig } from '../config';
+import { useSmartLinkRenderers } from '../renderers';
+import { useSmartCardState as useSmartLinkState } from '../store';
+
 
 export function useSmartLink(id: string, url: string) {
 	const state = useSmartLinkState(url);

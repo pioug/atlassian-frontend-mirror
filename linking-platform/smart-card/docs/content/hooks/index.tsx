@@ -1,7 +1,7 @@
 import { code } from '@atlaskit/docs';
 
-import customMd from '../../utils/custom-md';
 import actionOptions from '../../content/action-options';
+import customMd from '../../utils/custom-md';
 
 export default customMd`
 

@@ -14,9 +14,9 @@ import type {
 	SelectedRule,
 	UserInputs,
 } from './common/types';
+import UserInputForm from './manual-triggers-form/main';
 import { invokeManuallyTriggeredRule, searchManuallyTriggeredRules } from './services';
 
-import UserInputForm from './manual-triggers-form/main';
 
 /**
  * React hook that implements the fetch and invoke actions for manual triggers.

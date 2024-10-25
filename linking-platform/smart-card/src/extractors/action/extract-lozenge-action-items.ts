@@ -1,5 +1,6 @@
 import type { GetStatusTransitionsInvokeResponse } from '@atlaskit/linking-types/smart-link-actions';
 import type { ThemeAppearance } from '@atlaskit/lozenge';
+
 import { type LozengeItem } from '../../view/FlexibleCard/components/elements/lozenge/lozenge-action/types';
 
 const extractLozengeActionItems = (response: GetStatusTransitionsInvokeResponse): LozengeItem[] => {

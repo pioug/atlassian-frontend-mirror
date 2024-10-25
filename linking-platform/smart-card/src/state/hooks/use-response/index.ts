@@ -1,4 +1,9 @@
 import { useCallback, useMemo } from 'react';
+
+import { type JsonLd } from 'json-ld-types';
+import { unstable_batchedUpdates } from 'react-dom';
+
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
 	ACTION_ERROR,
 	ACTION_ERROR_FALLBACK,
@@ -11,7 +16,7 @@ import {
 	getStatus,
 	type MetadataStatus,
 } from '@atlaskit/linking-common';
-import { type JsonLd } from 'json-ld-types';
+
 import { SmartLinkStatus } from '../../../constants';
 import { getUnauthorizedJsonLd } from '../../../utils/jsonld';
 import {
@@ -19,8 +24,8 @@ import {
 	ERROR_MESSAGE_METADATA,
 	ERROR_MESSAGE_OAUTH,
 } from '../../actions/constants';
-import { unstable_batchedUpdates } from 'react-dom';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
+
+
 
 const useResponse = () => {
 	// Takes in the JSON-LD response and dispatch the resolved action for the card.

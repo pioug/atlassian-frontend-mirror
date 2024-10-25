@@ -1,14 +1,16 @@
 import React from 'react';
-import { type CardState } from '@atlaskit/linking-common';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import FlexibleForbiddenView from '../FlexibleForbiddenView';
-import { mockAnalytics, mocks } from '../../../../../utils/mocks';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import userEvent from '@testing-library/user-event';
 
 import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { type CardState } from '@atlaskit/linking-common';
+
 import { ANALYTICS_CHANNEL } from '../../../../../utils/analytics';
+import { mockAnalytics, mocks } from '../../../../../utils/mocks';
+import FlexibleForbiddenView from '../FlexibleForbiddenView';
 import '@atlaskit/link-test-helpers/jest';
 
 describe('FlexibleForbiddenView', () => {

@@ -1,5 +1,5 @@
-import extractDocumentTypeIcon from '../extract-document-type-icon';
 import { IconType } from '../../../../constants';
+import extractDocumentTypeIcon from '../extract-document-type-icon';
 
 describe('extractDocumentTypeIcon', () => {
 	describe.each([

@@ -1,14 +1,15 @@
 import { type JsonLd } from 'json-ld-types';
-import { type InvokeClientOpts } from '../../../model/invoke-opts';
-import { CardAction, type CardInnerAppearance, type CardPlatform } from '../../../view/Card/types';
 
-import { extractDownloadUrl } from '../detail';
 import { extractPreview, extractProvider } from '@atlaskit/link-extractors';
-import { type BlockCardResolvedViewProps, PreviewAction } from '../../../view/BlockCard';
-import { type ExtractBlockOpts } from '../../block/types';
+
 import { CardDisplay } from '../../../constants';
-import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
+import { type InvokeClientOpts } from '../../../model/invoke-opts';
 import { canShowAction } from '../../../utils/actions/can-show-action';
+import { type BlockCardResolvedViewProps, PreviewAction } from '../../../view/BlockCard';
+import { CardAction, type CardInnerAppearance, type CardPlatform } from '../../../view/Card/types';
+import { type ExtractBlockOpts } from '../../block/types';
+import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
+import { extractDownloadUrl } from '../detail';
 
 const getMetadataFromJsonLd = (jsonLd: JsonLd.Data.BaseData, platform?: CardPlatform) => {
 	const download = extractDownloadUrl(jsonLd as JsonLd.Data.Document);

@@ -1,8 +1,8 @@
 import { type JsonLd } from 'json-ld-types';
 
 import { IconType } from '../../../constants';
-import extractPriority from '../extract-priority';
 import { TEST_BASE_DATA } from '../../common/__mocks__/jsonld';
+import extractPriority from '../extract-priority';
 
 describe('extractPriority', () => {
 	it.each([

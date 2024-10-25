@@ -1,9 +1,11 @@
+import { type ErrorInfo } from 'react';
+
 import { type APIError, type CardType } from '@atlaskit/linking-common';
 import { type SmartLinkActionType } from '@atlaskit/linking-types';
-import { type PreviewDisplay, type PreviewInvokeMethod } from '../../view/HoverCard/types';
-import { type ErrorInfo } from 'react';
-import { type CardInnerAppearance } from '../../view/Card/types';
+
 import { type InvokeType } from '../../model/invoke-opts';
+import { type CardInnerAppearance } from '../../view/Card/types';
+import { type PreviewDisplay, type PreviewInvokeMethod } from '../../view/HoverCard/types';
 
 export type DestinationProduct = 'jira' | 'confluence' | 'bitbucket' | 'trello';
 export type DestinationSubproduct = 'core' | 'software' | 'servicedesk';

@@ -1,8 +1,14 @@
 import React from 'react';
 
 import '@testing-library/jest-dom';
-import { screen, within } from '@testing-library/dom';
-import { act, fireEvent, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import {
+	act,
+	fireEvent,
+	screen,
+	waitFor,
+	waitForElementToBeRemoved,
+	within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
@@ -308,7 +314,7 @@ describe('<LinkPicker />', () => {
 				'aria-describedby',
 				'search-recent-links-field-description',
 			);
-			expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute('aria-expanded', 'true');
+			expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute('aria-expanded', 'false');
 			expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute(
 				'aria-controls',
 				'link-picker-search-list',
@@ -319,6 +325,8 @@ describe('<LinkPicker />', () => {
 			);
 
 			await waitForElementToBeRemoved(screen.queryByTestId(testIds.searchResultLoadingIndicator));
+			expect(screen.getByTestId(testIds.searchResultList)).toBeInTheDocument();
+			expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute('aria-expanded', 'true');
 		});
 
 		describe('with submit in progress', () => {
@@ -1622,10 +1630,14 @@ describe('<LinkPicker />', () => {
 				});
 
 				await screen.findByTestId(testIds.linkPicker);
-				await waitForElementToBeRemoved(screen.queryByTestId(testIds.insertButton));
 
-				expect(screen.queryByTestId(testIds.insertButton)).not.toBeInTheDocument();
-				expect(screen.queryByTestId(testIds.cancelButton)).not.toBeInTheDocument();
+				await waitFor(() => {
+					expect(screen.queryByTestId(testIds.insertButton)).not.toBeInTheDocument();
+				});
+
+				await waitFor(() => {
+					expect(screen.queryByTestId(testIds.cancelButton)).not.toBeInTheDocument();
+				});
 			});
 
 			it('should disable buttons when plugin throws a search error', async () => {

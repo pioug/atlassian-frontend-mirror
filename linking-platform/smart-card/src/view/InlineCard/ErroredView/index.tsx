@@ -1,16 +1,19 @@
 import React from 'react';
+
+import { FormattedMessage } from 'react-intl-next';
+
+import Button from '@atlaskit/button';
+import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import ErrorIcon from '@atlaskit/icon/utility/migration/error';
-import Button from '@atlaskit/button';
-import { Frame } from '../Frame';
-import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { AKIconWrapper } from '../Icon';
+
 import { messages } from '../../../messages';
-import { FormattedMessage } from 'react-intl-next';
+import { HoverCard } from '../../HoverCard';
+import { Frame } from '../Frame';
+import { AKIconWrapper } from '../Icon';
+import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { IconStyledButton } from '../styled';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
-import { HoverCard } from '../../HoverCard';
 
 export interface InlineCardErroredViewProps {
 	/** The url to display */

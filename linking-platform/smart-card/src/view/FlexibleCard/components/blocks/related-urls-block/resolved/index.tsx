@@ -2,6 +2,7 @@ import React from 'react';
 
 import { messages } from '../../../../../../messages';
 import Block from '../../block';
+
 import RelatedUrlsList from './related-url-list';
 import { type RelatedUrlsProps } from './types';
 

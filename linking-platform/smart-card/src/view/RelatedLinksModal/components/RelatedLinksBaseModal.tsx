@@ -4,9 +4,9 @@
  */
 
 import { useCallback, useRef } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
@@ -17,11 +17,12 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-
-import { messages } from '../../../messages';
-import { type RelatedLinksBaseModalProps } from './types';
 import { Box, xcss } from '@atlaskit/primitives';
+
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
+import { messages } from '../../../messages';
+
+import { type RelatedLinksBaseModalProps } from './types';
 
 const fixedWidth = 'small'; // pre-defined 400px by Atlaskit
 

@@ -22,7 +22,7 @@ export default function Example() {
 				</Button>
 			</Box>
 			<Stack space="space.100">
-				<Heading level="h400">Inline alignment</Heading>
+				<Heading size="xsmall">Inline alignment</Heading>
 				<Stack space="space.100" grow="fill" alignInline={alignmentValues[alignmentIndex]}>
 					<ExampleBox />
 					<ExampleBox />

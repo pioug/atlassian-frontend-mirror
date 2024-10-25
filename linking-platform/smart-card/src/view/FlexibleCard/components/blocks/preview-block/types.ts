@@ -1,5 +1,5 @@
-import { type BlockProps } from '../types';
 import { type MediaPlacement } from '../../../../../constants';
+import { type BlockProps } from '../types';
 
 export type OnPreviewRenderOptions = {
 	placement?: MediaPlacement;

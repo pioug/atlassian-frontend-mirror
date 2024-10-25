@@ -1,20 +1,21 @@
 import { type JsonLd } from 'json-ld-types';
-import { type CardPlatform, type EmbedIframeUrlType } from '../../view/Card/types';
+
 import {
 	extractLink,
-	extractTitle,
+	extractPreview,
 	extractProvider,
 	extractProviderIcon,
-	type LinkProvider,
-	extractPreview,
-	type LinkPreview,
+	extractTitle,
 	extractUrlFromIconJsonLd,
+	type LinkPreview,
+	type LinkProvider,
 } from '@atlaskit/link-extractors';
 
-import { extractIsTrusted } from '../common/meta/extractIsTrusted';
-import { extractIsSupportTheming } from '../common/meta/extractIsSupportTheming';
+import { type CardPlatform, type EmbedIframeUrlType } from '../../view/Card/types';
 import { type EmbedCardResolvedViewProps } from '../../view/EmbedCard/views/ResolvedView';
 import { prioritiseIcon } from '../common/icon';
+import { extractIsSupportTheming } from '../common/meta/extractIsSupportTheming';
+import { extractIsTrusted } from '../common/meta/extractIsTrusted';
 
 const extractEmbedPreview = (
 	jsonLd: JsonLd.Data.BaseData,

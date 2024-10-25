@@ -1,7 +1,7 @@
 import type { JsonLd } from 'json-ld-types';
 
-import { type AutomationActionData } from '../../../state/flexible-ui-context/types';
 import { ActionName } from '../../../constants';
+import { type AutomationActionData } from '../../../state/flexible-ui-context/types';
 
 export const extractAutomationAction = (
 	response: JsonLd.Response,

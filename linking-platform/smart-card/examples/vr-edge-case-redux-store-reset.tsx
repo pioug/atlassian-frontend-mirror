@@ -2,16 +2,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useCallback, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-
-import { Card, Client, Provider } from '@atlaskit/smart-card';
-import { VRTestWrapper } from './utils/vr-test';
 import { type JsonLd } from 'json-ld-types';
-import { BitbucketFile1 } from '../examples-helpers/_jsonLDExamples';
-import { useCallback, useState } from 'react';
-import { type CardStore } from '@atlaskit/linking-common';
+
 import Button from '@atlaskit/button/new';
+import { type CardStore } from '@atlaskit/linking-common';
+import { Card, Client, Provider } from '@atlaskit/smart-card';
+
+import { BitbucketFile1 } from '../examples-helpers/_jsonLDExamples';
+
+import { VRTestWrapper } from './utils/vr-test';
 
 class CustomClient extends Client {
 	fetchData() {

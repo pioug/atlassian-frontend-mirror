@@ -1,14 +1,16 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
-import { render, screen } from '@testing-library/react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { SmartLinkStatus } from '../../../../../../constants';
+import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import { type FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import PreviewBlock from '../index';
 import { type PreviewBlockProps } from '../types';
-import { type FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 
 describe('PreviewBlock', () => {
 	const testId = 'test-smart-block-preview';

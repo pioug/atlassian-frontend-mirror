@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { type ElementItem, ElementName, MetadataBlock } from '../../src';
-import ExampleContainer from './example-container';
 import { IconType } from '../../src/constants';
+
+import ExampleContainer from './example-container';
 
 const priorities = [
 	IconType.PriorityBlocker,

@@ -1,15 +1,16 @@
 import React, { useEffect, useMemo } from 'react';
 
-import { type FlexibleCardProps } from './types';
 import { SmartLinkStatus } from '../../constants';
-import Container from './components/container';
 import {
 	FlexibleUiAnalyticsContext,
 	FlexibleUiContext,
 	FlexibleUiOptionContext,
 } from '../../state/flexible-ui-context';
-import { getContextByStatus, getRetryOptions } from './utils';
 import { useAISummaryConfig } from '../../state/hooks/use-ai-summary-config';
+
+import Container from './components/container';
+import { type FlexibleCardProps } from './types';
+import { getContextByStatus, getRetryOptions } from './utils';
 
 /**
  * This represents a Flexible Card: a link represented by a card with metadata.

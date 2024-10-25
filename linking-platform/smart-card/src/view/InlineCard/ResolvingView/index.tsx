@@ -1,10 +1,13 @@
 import React from 'react';
-import { Frame } from '../Frame';
+
 import Spinner from '@atlaskit/spinner';
-import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { SpinnerWrapper } from './styled';
-import { IconTitleWrapper, RightIconPositionWrapper } from '../IconAndTitleLayout/styled';
+
 import { type InlinePreloaderStyle } from '../../types';
+import { Frame } from '../Frame';
+import { IconAndTitleLayout } from '../IconAndTitleLayout';
+import { IconTitleWrapper, RightIconPositionWrapper } from '../IconAndTitleLayout/styled';
+
+import { SpinnerWrapper } from './styled';
 
 export interface InlineCardResolvingViewProps {
 	/** The url to display */

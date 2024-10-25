@@ -7,11 +7,11 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import VRTestWrapper from '../utils/vr-test-wrapper';
 import {
 	ExpandedFrame,
 	type ExpandedFrameProps,
 } from '../../src/view/EmbedCard/components/ExpandedFrame';
+import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const wrapperStyles = css({
 	padding: token('space.250', '20px'),

@@ -3,13 +3,17 @@
  * @jsx jsx
  */
 import React, { useCallback } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
 import { LoadingButton } from '@atlaskit/button';
 import Tooltip from '@atlaskit/tooltip';
+
 import { SmartLinkSize } from '../../../../../../constants';
-import { type ActionButtonProps } from './types';
 import { sizeToButtonSpacing } from '../../../utils';
+
+import { type ActionButtonProps } from './types';
 
 const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) => {
 	switch (size) {

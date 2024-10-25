@@ -1,11 +1,13 @@
-import { xcss } from '@atlaskit/primitives';
-import { Box, Inline, Pressable } from '@atlaskit/primitives';
-import Spinner from '@atlaskit/spinner';
 import React, { useCallback } from 'react';
+
+import { Box, Inline, Pressable, xcss } from '@atlaskit/primitives';
+import Spinner from '@atlaskit/spinner';
+import type { TriggerProps } from '@atlaskit/tooltip';
+
 import { getPrimitivesInlineSpaceBySize } from '../../../utils';
 import ActionIcon from '../action-icon';
+
 import type { ActionStackItemProps } from './types';
-import type { TriggerProps } from '@atlaskit/tooltip';
 
 const buttonStyles = xcss({
 	all: 'unset',

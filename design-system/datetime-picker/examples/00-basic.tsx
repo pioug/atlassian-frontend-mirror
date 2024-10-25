@@ -125,6 +125,7 @@ export default () => {
 				<Heading size="large">Time picker</Heading>
 				<Label htmlFor="react-select-timepicker-input">Select time (default)</Label>
 				<TimePicker
+					clearControlLabel="Clear select time (default)"
 					id="react-select-timepicker-input"
 					testId="timepicker-1"
 					onChange={onChange}
@@ -137,6 +138,7 @@ export default () => {
 				<Controlled initialValue="14:30">
 					{({ value, onValueChange, isOpen, onBlur }) => (
 						<TimePicker
+							clearControlLabel="Clear select time (value, isOpen)"
 							id="react-select-timepicker-2--input"
 							selectProps={{
 								classNamePrefix: 'timepicker-select',
@@ -153,6 +155,7 @@ export default () => {
 					Select time (uncontrolled, defaultValue)
 				</Label>
 				<TimePicker
+					clearControlLabel="Clear select time (uncontrolled, defaultValue)"
 					selectProps={{
 						classNamePrefix: 'timepicker-select',
 					}}
@@ -163,6 +166,7 @@ export default () => {
 
 				<Label htmlFor="react-select-timepicker-4--input">Select time (editable)</Label>
 				<TimePicker
+					clearControlLabel="Clear select time (editable)"
 					selectProps={{
 						classNamePrefix: 'timepicker-select',
 					}}

@@ -1,11 +1,14 @@
 import React, { useMemo } from 'react';
-import { messages } from '../../../../messages';
-import { token } from '@atlaskit/tokens';
-import { R300 } from '@atlaskit/theme/colors';
+
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import { RetryAction } from '../../actions/flexible/RetryAction';
+import { R300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
+import { messages } from '../../../../messages';
 import { type ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import Text from '../../../FlexibleCard/components/elements/text';
+import { RetryAction } from '../../actions/flexible/RetryAction';
+
 import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';

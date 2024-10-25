@@ -1,5 +1,7 @@
-import { Box } from '@atlaskit/primitives';
 import React from 'react';
+
+import { Box } from '@atlaskit/primitives';
+
 import CardViewExample from '../../../examples/card-view';
 import ExampleBlockCard from '../../../examples/content/block-card';
 import customMd from '../../utils/custom-md';

@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
+
 import { useSmartCardState as useSmartLinkState } from '../../state/store';
+
 import { LinkAnalyticsContext } from './LinkAnalyticsContext';
 
 type SmartLinkAnalyticsContextProps = {

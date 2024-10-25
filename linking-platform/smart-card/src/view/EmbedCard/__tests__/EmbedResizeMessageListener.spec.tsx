@@ -2,8 +2,8 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { EmbedResizeMessageListener } from '../EmbedResizeMessageListener';
 import { embedHeaderHeight } from '../components/styled';
+import { EmbedResizeMessageListener } from '../EmbedResizeMessageListener';
 
 describe('EmbedResizeMessageListener', () => {
 	const getIframeElement = (windowId: number) => {

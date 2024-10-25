@@ -1,16 +1,22 @@
 import React, { useCallback } from 'react';
-import { downloadUrl as download } from '../../../../../utils';
+
 import { FormattedMessage } from 'react-intl-next';
+
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
+
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
-import Action from '../action';
-import type { DownloadActionProps } from './types';
 import {
 	useFlexibleUiAnalyticsContext,
 	useFlexibleUiContext,
 } from '../../../../../state/flexible-ui-context';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import { downloadUrl as download } from '../../../../../utils';
+import Action from '../action';
+
+import type { DownloadActionProps } from './types';
+
+
 
 const DownloadAction = ({ onClick: onClickCallback, ...props }: DownloadActionProps) => {
 	const context = useFlexibleUiContext();

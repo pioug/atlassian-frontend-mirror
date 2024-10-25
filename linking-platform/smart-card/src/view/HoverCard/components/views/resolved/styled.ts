@@ -1,5 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
+
 import { separatorCss } from '../../../styled';
 
 const elementGap = '0.5rem';

@@ -1,7 +1,8 @@
-import { extractRequestAccessContextImproved } from '../extractAccessContext';
 import { type JsonLd } from 'json-ld-types';
-import { TEST_META_DATA, TEST_VISIT_URL } from '../../__mocks__/jsonld';
+
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
+import { TEST_META_DATA, TEST_VISIT_URL } from '../../__mocks__/jsonld';
+import { extractRequestAccessContextImproved } from '../extractAccessContext';
 import '@atlaskit/link-test-helpers/jest';
 
 describe('extractors.access.context', () => {

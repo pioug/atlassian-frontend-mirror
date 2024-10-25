@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { InternalActionName } from '../../../../../constants';
-import { AISummaryActionComponent } from './ai-summary-action-component';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 
+import { AISummaryActionComponent } from './ai-summary-action-component';
 import type { AISummaryActionProps } from './types';
 
 const AISummaryAction = (props: AISummaryActionProps) => {

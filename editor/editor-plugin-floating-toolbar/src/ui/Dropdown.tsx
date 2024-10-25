@@ -76,6 +76,8 @@ export interface Props {
 	// A prop to align the dropdown with the floating toolbar instead of the toolbar item
 	alignDropdownWithToolbar?: boolean;
 	onToggle?: (state: EditorState, dispatch: CommandDispatch | undefined) => boolean;
+	onMount?: () => void;
+	onClick?: () => void;
 	footer?: React.ReactNode;
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
@@ -110,6 +112,7 @@ export default class Dropdown extends Component<Props, State> {
 			dropdownListId,
 			alignDropdownWithToolbar,
 			footer,
+			onMount,
 			pulse,
 		} = this.props;
 
@@ -126,6 +129,7 @@ export default class Dropdown extends Component<Props, State> {
 					selected={isOpen}
 					disabled={disabled}
 					tooltipContent={tooltip}
+					onMount={onMount}
 					pulse={pulse}
 				/>
 			);
@@ -151,6 +155,7 @@ export default class Dropdown extends Component<Props, State> {
 					tooltipContent={tooltip}
 					ariaHasPopup
 					areaControls={dropdownListId}
+					onMount={onMount}
 					pulse={pulse}
 				>
 					{title}
@@ -222,6 +227,11 @@ export default class Dropdown extends Component<Props, State> {
 	};
 
 	private toggleOpen = () => {
+		const onClick = this.props.onClick;
+		if (onClick) {
+			onClick();
+		}
+
 		this.setState({ isOpen: !this.state.isOpen, isOpenedByKeyboard: false });
 		const onToggle = this.props.onToggle;
 		if (!onToggle) {

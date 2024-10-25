@@ -23,7 +23,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/avatar": "^21.15.0",
+		"@atlaskit/avatar": "^21.16.0",
 		"@atlaskit/ds-lib": "^3.1.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",

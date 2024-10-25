@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.1
+
+### Patch Changes
+
+- [#155333](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155333)
+  [`8b2c7d6c20aa1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2c7d6c20aa1) -
+  change logic to ensure plus menu can open in comment when insert-right-rail experiment is enabled
+- [#155735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155735)
+  [`1beeeda29023a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1beeeda29023a) -
+  Upgrades editor packages to react 18
+- [#155345](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155345)
+  [`9f00717c4915b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f00717c4915b) -
+  [ux] Add layout placeholder behind feature gate
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

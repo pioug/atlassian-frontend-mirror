@@ -1,13 +1,16 @@
+import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl-next';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
+import * as analytics from '../../../../../../utils/analytics';
 import { getMockForbiddenDirectAccessResponse } from '../../../../__tests__/__mocks__/mocks';
 import HoverCardForbiddenView from '../index';
-import '@atlaskit/link-test-helpers/jest';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import * as analytics from '../../../../../../utils/analytics';
-import userEvent from '@testing-library/user-event';
-import { SmartCardProvider } from '@atlaskit/link-provider';
 
 const mockResponse = getMockForbiddenDirectAccessResponse();
 const forbiddenViewTestId = 'hover-card-forbidden-view-resolved-view';

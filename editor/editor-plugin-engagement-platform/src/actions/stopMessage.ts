@@ -1,7 +1,7 @@
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 
 import type { CoordinationClient } from '../engagementPlatformPluginType';
-import { setMessageState } from '../pmPlugins/engagementPlatformPmPlugin/commands/setMessageState';
+import { engagementPlatformPmPluginCommand } from '../pmPlugins/engagementPlatformPmPlugin/engagementPlatformPmPluginCommand';
 
 import type { EngagementPlatformPluginApi } from './types';
 
@@ -9,38 +9,75 @@ export function stopMessage(
 	api: EngagementPlatformPluginApi | undefined,
 	coordinationClient: CoordinationClient,
 ) {
-	return async (messageId: string): Promise<boolean> => {
+	return (messageId: string): Promise<boolean> => {
 		if (!api) {
-			return false;
+			return Promise.resolve(false);
 		}
 
+		// If the message is already stopped, return `true`
 		const messageStates = api.engagementPlatform.sharedState.currentState()?.messageStates ?? {};
-
 		const isActive = messageStates[messageId];
-		if (!isActive) {
-			return true;
+		if (isActive === false) {
+			return Promise.resolve(true);
 		}
 
-		try {
-			const isStopped = await coordinationClient.stop(messageId);
+		// If there is already a stop message promise, return it to prevent multiple stop requests
+		const stopMessagePromises =
+			api.engagementPlatform.sharedState.currentState()?.stopMessagePromises ?? {};
+		const stopMessagePromise = stopMessagePromises[messageId];
+		if (stopMessagePromise) {
+			return stopMessagePromise;
+		}
 
-			if (isStopped) {
-				api.core.actions.execute(setMessageState(messageId, false));
-			}
+		const newStopMessagePromise = coordinationClient
+			.stop(messageId)
+			.then((isStopped) => {
+				// Update the message state in the shared state
+				if (isStopped) {
+					api.core.actions.execute(
+						engagementPlatformPmPluginCommand({
+							type: 'setMessageState',
+							messageId,
+							state: false,
+						}),
+					);
+				}
 
-			return isStopped;
-		} catch (error) {
-			api.analytics?.actions.fireAnalyticsEvent({
-				action: ACTION.ERRORED,
-				actionSubject: ACTION_SUBJECT.ENGAGEMENT_PLATFORM,
-				eventType: EVENT_TYPE.OPERATIONAL,
-				attributes: {
-					error: error instanceof Error ? error.message : `${error}`,
-					errorStack: error instanceof Error ? error.stack : undefined,
-				},
+				return isStopped;
+			})
+			.catch((error) => {
+				api?.analytics?.actions.fireAnalyticsEvent({
+					action: ACTION.ERRORED,
+					actionSubject: ACTION_SUBJECT.ENGAGEMENT_PLATFORM,
+					eventType: EVENT_TYPE.OPERATIONAL,
+					attributes: {
+						error: error instanceof Error ? error.message : `${error}`,
+						errorStack: error instanceof Error ? error.stack : undefined,
+					},
+				});
+
+				return false;
+			})
+			.finally(() => {
+				// Remove the promise from the state after it has been resolved
+				api.core.actions.execute(
+					engagementPlatformPmPluginCommand({
+						type: 'setStopMessagePromise',
+						messageId,
+						promise: undefined,
+					}),
+				);
 			});
 
-			return false;
-		}
+		// Store the promise in the shared state to prevent multiple stop requests for the same message
+		api.core.actions.execute(
+			engagementPlatformPmPluginCommand({
+				type: 'setStopMessagePromise',
+				messageId,
+				promise: newStopMessagePromise,
+			}),
+		);
+
+		return newStopMessagePromise;
 	};
 }

@@ -2,17 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { lazy, useCallback } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { type ViewRelatedLinksActionProps } from './types';
-import Action from '../action';
 import { FormattedMessage } from 'react-intl-next';
+
+import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import RelatedLinksActionIcon from './related-links-action-icon';
-import { lazy, useCallback } from 'react';
 import { useSmartLinkModal } from '../../../../../state/modal';
-import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
+import Action from '../action';
+
+import RelatedLinksActionIcon from './related-links-action-icon';
+import { type ViewRelatedLinksActionProps } from './types';
 
 const RelatedLinksModal = lazy(
 	() =>

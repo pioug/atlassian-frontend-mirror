@@ -1,7 +1,9 @@
 import React from 'react';
+
+import { SmartLinkStatus } from '../../../../../constants';
+
 import FooterBlockResolvedView from './resolved';
 import { type FooterBlockProps } from './types';
-import { SmartLinkStatus } from '../../../../../constants';
 
 /**
  * Represents a FooterBlock, designed to contain elements and actions that should appear

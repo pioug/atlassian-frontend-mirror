@@ -1,6 +1,8 @@
+import React, { useCallback } from 'react';
+
 import { Field } from '@atlaskit/form';
 import Select from '@atlaskit/select/Select';
-import React, { useCallback } from 'react';
+
 import { BlockName } from '../../constants';
 
 const blockOptions = Object.values(BlockName).map((value) => ({

@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect } from 'react';
-import { CardClient, SmartCardContext, useSmartLinkContext } from '@atlaskit/link-provider';
-import { ACTION_RESOLVED, cardAction } from '@atlaskit/linking-common';
+
 import { fireEvent, render, screen } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 
-import { useSmartCardState } from '..';
+import { CardClient, SmartCardContext, useSmartLinkContext } from '@atlaskit/link-provider';
+import { ACTION_RESOLVED, cardAction } from '@atlaskit/linking-common';
+
+import { type ProviderProps, SmartCardProvider } from '../../../state';
 import { type CardState, type CardStore } from '../../types';
-import { SmartCardProvider, type ProviderProps } from '../../../state';
+import { useSmartCardState } from '../index';
 
 function generateWrapper(providerProps?: Partial<ProviderProps>) {
 	return ({ children }: { children?: React.ReactNode }) => (

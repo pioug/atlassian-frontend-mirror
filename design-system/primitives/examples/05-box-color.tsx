@@ -53,7 +53,7 @@ export default () => {
 	return (
 		<Stack space="space.400" alignInline="start">
 			<Stack space="space.200" testId="box-with-backgroundColor">
-				<Heading level="h600">backgroundColor</Heading>
+				<Heading size="medium">backgroundColor</Heading>
 				<Inline space="space.200" alignBlock="center" shouldWrap={true}>
 					{backgroundColors.map((color) => (
 						<Box key={color} backgroundColor={color} padding="space.400">
@@ -64,7 +64,7 @@ export default () => {
 			</Stack>
 
 			<Stack space="space.200" testId="box-with-color">
-				<Heading level="h600">color</Heading>
+				<Heading size="medium">color</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{foregroundColors.map((color) => (
 						<Box

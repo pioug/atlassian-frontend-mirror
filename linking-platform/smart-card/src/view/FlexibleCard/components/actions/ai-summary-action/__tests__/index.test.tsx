@@ -1,21 +1,22 @@
 import React from 'react';
-import userEvent from '@testing-library/user-event';
+
 import { render, waitForElementToBeRemoved } from '@testing-library/react';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import '@atlaskit/link-test-helpers/jest';
 
-import AISummaryAction from '../index';
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
-import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
-
-import type { AISummaryActionProps } from '../types';
 import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
+import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import type { AISummaryState } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
+import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
+import AISummaryAction from '../index';
+import type { AISummaryActionProps } from '../types';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
 	...jest.requireActual('../../../../../../state/flexible-ui-context'),
@@ -40,7 +41,7 @@ describe('AISummaryAction', () => {
 
 		jest.mocked(useFlexibleUiContext).mockImplementation(() => overrideContext || mockContext);
 
-		jest.mocked(useAISummary).mockImplementation((props) => ({
+		jest.mocked(useAISummary).mockImplementation((_props) => ({
 			state: overrideAiSummaryState || mockAISummaryState,
 			summariseUrl: mockSummariseUrl.mockResolvedValue(
 				overrideAiSummaryState || mockAISummaryState,

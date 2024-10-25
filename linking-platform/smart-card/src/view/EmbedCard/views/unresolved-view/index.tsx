@@ -2,11 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import LinkGlyph from '@atlaskit/icon/core/migration/link';
-import { token } from '@atlaskit/tokens';
+import React, { useMemo } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React, { useMemo } from 'react';
+
+import LinkGlyph from '@atlaskit/icon/core/migration/link';
+import { token } from '@atlaskit/tokens';
+
 import { gs } from '../../../common/utils';
 import { ExpandedFrame } from '../../components/ExpandedFrame';
 import { ImageIcon } from '../../components/ImageIcon';

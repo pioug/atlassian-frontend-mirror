@@ -1,7 +1,8 @@
+import React, { type PropsWithChildren, useCallback, useState } from 'react';
+
 import { IconButton } from '@atlaskit/button/new';
 import { Box, Grid, Pressable, xcss } from '@atlaskit/primitives';
-import type { PropsWithChildren } from 'react';
-import React, { useCallback, useState } from 'react';
+
 import ChevronIcon from './chevron-icon';
 
 const buttonStyles = xcss({

@@ -1,15 +1,19 @@
-import { AISummaryService } from '../';
-import {
-	type StreamAnswerPart,
-	type StreamResponse,
-	type StreamError,
-	type AISummaryServiceProps,
-} from '../types';
-import { readStream } from '../readStream';
-import { streamAnswer, streamErrorAnswer } from './__mocks__/streamAnswers';
 import type { ProductType } from '@atlaskit/linking-common';
-import { type getXProductHeaderValue } from '../utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+import { AISummaryService } from '../index';
+import { readStream } from '../readStream';
+import {
+	type AISummaryServiceProps,
+	type StreamAnswerPart,
+	type StreamError,
+	type StreamResponse,
+} from '../types';
+import { type getXProductHeaderValue } from '../utils';
+
+import { streamAnswer, streamErrorAnswer } from './__mocks__/streamAnswers';
+
+
 
 const fetchMock = fetch as jest.MockedFunction<typeof fetch>;
 

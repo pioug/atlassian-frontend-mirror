@@ -5,11 +5,11 @@ import { renderHook } from '@testing-library/react-hooks';
 import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
-import { useSmartLinkAnalytics } from '../useSmartLinkAnalytics';
-import { mocks } from '../../../utils/mocks';
-import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { CardDisplay } from '../../../constants';
+import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { TrackQuickActionType } from '../../../utils/analytics/analytics';
+import { mocks } from '../../../utils/mocks';
+import { useSmartLinkAnalytics } from '../useSmartLinkAnalytics';
 
 jest.mock('@atlaskit/link-provider', () => ({
 	useSmartLinkContext: () => ({

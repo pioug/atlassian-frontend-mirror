@@ -1,22 +1,28 @@
 import React, { useMemo } from 'react';
+
 import { type JsonLd } from 'json-ld-types';
-import { toMessage } from '../../../../utils/intl-utils';
-import { token } from '@atlaskit/tokens';
-import { R300 } from '@atlaskit/theme/colors';
-import { messages } from '../../../../messages';
+import { useIntl } from 'react-intl-next';
+
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import LockIcon from '@atlaskit/icon/glyph/lock';
-import { type ActionItem } from '../../../FlexibleCard/components/blocks/types';
-import { ForbiddenAction } from '../../actions/flexible/ForbiddenAction';
-import Text from '../../../FlexibleCard/components/elements/text';
-import { type FlexibleBlockCardProps } from './types';
-import { getForbiddenJsonLd } from '../../../../utils/jsonld';
 import { extractProvider } from '@atlaskit/link-extractors';
+import { R300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
+import { extractRequestAccessContextImproved } from '../../../../extractors/common/context/extractAccessContext';
+import extractHostname from '../../../../extractors/common/hostname/extractHostname';
+import { messages } from '../../../../messages';
+import { toMessage } from '../../../../utils/intl-utils';
+import { getForbiddenJsonLd } from '../../../../utils/jsonld';
+import { type ActionItem } from '../../../FlexibleCard/components/blocks/types';
+import Text from '../../../FlexibleCard/components/elements/text';
+import { ForbiddenAction } from '../../actions/flexible/ForbiddenAction';
+
+import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
-import { extractRequestAccessContextImproved } from '../../../../extractors/common/context/extractAccessContext';
-import { useIntl } from 'react-intl-next';
-import extractHostname from '../../../../extractors/common/hostname/extractHostname';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+
+
 
 /**
  * This view represent a Block Card with the 'Forbidden' status.

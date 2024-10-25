@@ -1,5 +1,7 @@
-import type { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
-import { type StatusUpdateActionPayload } from '@atlaskit/linking-types/smart-link-actions';
+import {
+	type InvokeRequest,
+	type StatusUpdateActionPayload,
+} from '@atlaskit/linking-types/smart-link-actions';
 
 const createStatusUpdateRequest = (
 	request: InvokeRequest,

@@ -3,14 +3,18 @@
  * @jsx jsx
  */
 import { type PropsWithChildren } from 'react';
-import { DiProvider, injectable } from 'react-magnetic-di';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
-import { global } from './vr-test';
+import { DiProvider, injectable } from 'react-magnetic-di';
+
+
 import { IFrame } from '../../src/view/EmbedCard/components/IFrame';
 import HoverCardControl from '../../src/view/FlexibleCard/components/container/hover-card-control';
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
+
+import { global } from './vr-test';
 
 const styles = css({
 	// We are keeping this padding as a hardcoded variable as it is not a standard token size and needs

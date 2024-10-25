@@ -1,8 +1,9 @@
-import { extractIcon } from '../extractIcon';
-import { TEST_BASE_DATA, TEST_URL, TEST_OBJECT } from '../../__mocks__/jsonld';
 import { render, screen } from '@testing-library/react';
-import { withIntl } from '../../__mocks__/withIntl';
 import { type JsonLd } from 'json-ld-types';
+
+import { TEST_BASE_DATA, TEST_OBJECT, TEST_URL } from '../../__mocks__/jsonld';
+import { withIntl } from '../../__mocks__/withIntl';
+import { extractIcon } from '../extractIcon';
 
 describe('extractors.icon', () => {
 	it('still returns url icon when priority flag is `provider` as this flag does not override standard logic', async () => {

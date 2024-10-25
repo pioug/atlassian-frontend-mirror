@@ -1,7 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { type ComponentType, useMemo } from 'react';
+
 import { ErrorBoundary } from 'react-error-boundary';
+
 import Lozenge from '@atlaskit/lozenge';
-import type { ComponentType } from 'react';
+
 import type { LozengeActionProps } from '../types';
 
 const withErrorBoundary =

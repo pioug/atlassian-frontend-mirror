@@ -4,10 +4,13 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import PremiumIcon from '@atlaskit/icon/core/migration/premium';
 import { token } from '@atlaskit/tokens';
+
 import { ActionName, FooterBlock } from '../../src';
+
 import ExampleContainer from './example-container';
 
 const styles = css({

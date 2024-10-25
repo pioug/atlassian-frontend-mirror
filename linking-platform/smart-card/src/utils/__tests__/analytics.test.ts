@@ -1,11 +1,12 @@
 import { APIError } from '@atlaskit/linking-common';
+
 import {
-	fireSmartLinkEvent,
 	ANALYTICS_CHANNEL,
-	resolvedEvent,
-	unresolvedEvent,
+	fireSmartLinkEvent,
 	instrumentEvent,
+	resolvedEvent,
 	uiActionClickedEvent,
+	unresolvedEvent,
 } from '../analytics';
 import { type AnalyticsPayload } from '../types';
 

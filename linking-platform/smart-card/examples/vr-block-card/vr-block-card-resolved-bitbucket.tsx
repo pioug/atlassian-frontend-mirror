@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { type JsonLd } from 'json-ld-types';
+
 import { Client } from '@atlaskit/smart-card';
-import VRCardView from '../utils/vr-card-view';
+
 import {
 	BitbucketBranch,
 	BitbucketCommit,
@@ -10,6 +12,7 @@ import {
 	BitbucketPullRequest1,
 	BitbucketRepository1,
 } from '../../examples-helpers/_jsonLDExamples';
+import VRCardView from '../utils/vr-card-view';
 
 const examples = {
 	[BitbucketBranch.data.url]: BitbucketBranch,

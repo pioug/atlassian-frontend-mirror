@@ -1,6 +1,9 @@
-import { Stack } from '@atlaskit/primitives';
-import { type JsonLd } from 'json-ld-types';
 import React from 'react';
+
+import { type JsonLd } from 'json-ld-types';
+
+import { Stack } from '@atlaskit/primitives';
+
 import {
 	ActionName,
 	Card,
@@ -12,6 +15,7 @@ import {
 	SmartLinkTheme,
 	TitleBlock,
 } from '../../src';
+
 import { response2, response3, response4 } from './example-responses';
 
 const examples = {

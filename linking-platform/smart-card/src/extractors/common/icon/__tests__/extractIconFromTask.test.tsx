@@ -1,20 +1,21 @@
-import { withIntl } from '../../__mocks__/withIntl';
-import { extractIconFromTask } from '../extractIconFromTask';
 import { render, screen } from '@testing-library/react';
+
 import {
-	JIRA_GENERATOR_ID,
-	JIRA_TASK,
-	JIRA_SUB_TASK,
-	JIRA_STORY,
 	JIRA_BUG,
-	JIRA_EPIC,
-	JIRA_INCIDENT,
-	JIRA_SERVICE_REQUEST,
 	JIRA_CHANGE,
-	JIRA_PROBLEM,
 	JIRA_CUSTOM_TASK_TYPE,
+	JIRA_EPIC,
+	JIRA_GENERATOR_ID,
+	JIRA_INCIDENT,
+	JIRA_PROBLEM,
+	JIRA_SERVICE_REQUEST,
+	JIRA_STORY,
+	JIRA_SUB_TASK,
+	JIRA_TASK,
 } from '../../../constants';
 import { TEST_URL } from '../../__mocks__/jsonld';
+import { withIntl } from '../../__mocks__/withIntl';
+import { extractIconFromTask } from '../extractIconFromTask';
 
 describe('extractors.icon.task', () => {
 	it('returns default icon if no opts given', async () => {

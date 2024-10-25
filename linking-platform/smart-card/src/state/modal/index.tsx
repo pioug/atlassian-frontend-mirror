@@ -7,8 +7,11 @@ import React, {
 	useMemo,
 	useState,
 } from 'react';
+
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary';
+
 import { StopPropagation } from '../../view/common/stop-propagation';
+
 import { type SmartLinkModalAPI, type SmartLinkModalProviderProps } from './types';
 
 const FALLBACK_API = { open: () => {}, close: () => {} };

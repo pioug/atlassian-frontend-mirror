@@ -10,6 +10,6 @@ export const Modal = ({ onClose }: { onClose: () => void }) => {
 	);
 };
 
-export const ErrorModal = (props: { onClose: () => void }) => {
+export const ErrorModal = (_props: { onClose: () => void }) => {
 	throw new Error('Error on render.');
 };

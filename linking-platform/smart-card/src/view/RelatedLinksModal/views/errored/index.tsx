@@ -1,9 +1,11 @@
 import React from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl-next';
+
 import { messages } from '../../../../messages';
-import { ErrorSVG } from './error-svg';
 import { EmptyState } from '../../components/EmptyState';
+
+import { ErrorSVG } from './error-svg';
 
 const RelatedLinksErroredView = () => {
 	const intl = useIntl();

@@ -1,10 +1,13 @@
-import Button from '@atlaskit/button';
 import React, { useCallback, useMemo } from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
+
+import Button from '@atlaskit/button';
 
 import { messages } from '../../../../messages';
 import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
 import UnresolvedView from '../unresolved-view';
+
 import { type UnauthorizedViewProps } from './types';
 import { UnauthorizedSVG } from './unauthorized-svg';
 

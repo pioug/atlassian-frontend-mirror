@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+
 import { type BlockProps } from '../types';
 
 export type AISummaryBlockProps = {

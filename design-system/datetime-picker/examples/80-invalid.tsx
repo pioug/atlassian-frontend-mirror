@@ -9,7 +9,12 @@ export default () => {
 	return (
 		<Box>
 			<Label htmlFor="react-select-time--input">TimePicker - isInvalid</Label>
-			<TimePicker id="react-select-time--input" onChange={console.log} isInvalid />
+			<TimePicker
+				clearControlLabel="Clear timePicker - isInvalid"
+				id="react-select-time--input"
+				onChange={console.log}
+				isInvalid
+			/>
 
 			<Label htmlFor="react-select-date--input">DatePicker - isInvalid</Label>
 			<DatePicker id="react-select-date--input" onChange={console.log} isInvalid />

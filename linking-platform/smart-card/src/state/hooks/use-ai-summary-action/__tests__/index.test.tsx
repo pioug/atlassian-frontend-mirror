@@ -1,19 +1,23 @@
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { renderHook } from '@testing-library/react-hooks';
 import '@atlaskit/link-test-helpers/jest';
-import fetchMock from 'jest-fetch-mock';
+
 import React from 'react';
+
+import { renderHook } from '@testing-library/react-hooks';
+import fetchMock from 'jest-fetch-mock';
 import TestRenderer from 'react-test-renderer';
 import uuid from 'uuid';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
 import { mocks } from '../../../../utils/mocks';
 import * as ufo from '../../../analytics/ufoExperiences';
 import { aiSummaryMocks } from '../../__tests__/__mocks__/ai-summary-mocks';
 import { readStream } from '../../use-ai-summary/ai-summary-service/readStream';
 import { AISummariesStore } from '../../use-ai-summary/ai-summary-service/store';
-import useAISummaryAction from '../index';
 import { ChunkProcessingError } from '../../use-ai-summary/ai-summary-service/types';
+import useAISummaryAction from '../index';
 
 jest.mock('uuid', () => ({
 	...jest.requireActual('uuid'),

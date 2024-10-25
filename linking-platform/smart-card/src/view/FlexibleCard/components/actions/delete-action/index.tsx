@@ -1,9 +1,13 @@
 import React from 'react';
-import { type DeleteActionProps } from './types';
-import Action from '../action';
-import { messages } from '../../../../../messages';
+
 import { FormattedMessage } from 'react-intl-next';
+
 import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+
+import { messages } from '../../../../../messages';
+import Action from '../action';
+
+import { type DeleteActionProps } from './types';
 
 const DeleteAction = (props: DeleteActionProps) => (
 	<Action

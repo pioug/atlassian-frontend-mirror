@@ -1,5 +1,7 @@
-import { code, md } from '@atlaskit/docs';
 import React from 'react';
+
+import { code, md } from '@atlaskit/docs';
+
 import DocQuickLinks from './utils/doc-quick-links';
 
 export default md`

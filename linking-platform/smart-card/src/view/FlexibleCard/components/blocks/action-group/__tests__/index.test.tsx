@@ -1,16 +1,20 @@
-import React from 'react';
-import { fireEvent, render, waitFor, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
 import '@testing-library/jest-dom';
+
+import React from 'react';
+
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl-next';
+
 import PremiumIcon from '@atlaskit/icon/core/migration/premium';
 import { token } from '@atlaskit/tokens';
-import ActionGroup from '..';
+
+import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { ActionName } from '../../../../../../constants';
-import { type ActionItem, type CustomActionItem } from '../../types';
 import { messages } from '../../../../../../messages';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-import context from '../../../../../../__fixtures__/flexible-ui-data-context';
+import { type ActionItem, type CustomActionItem } from '../../types';
+import ActionGroup from '../index';
 
 describe('ActionGroup', () => {
 	const testId = 'smart-element-test';

@@ -5,11 +5,12 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
-import { exampleTokens, getContext } from '../utils/flexible-ui';
-import { MediaType } from '../../src/constants';
-import { Preview } from '../../src/view/FlexibleCard/components/elements';
 import { smallImage, wideImage } from '@atlaskit/media-test-helpers';
+
+import { MediaType } from '../../src/constants';
+import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
+import { Preview } from '../../src/view/FlexibleCard/components/elements';
+import { exampleTokens, getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const context = getContext({

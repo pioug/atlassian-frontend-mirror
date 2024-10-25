@@ -1,8 +1,10 @@
 import React from 'react';
-import { type BlockBuilderProps } from '../types';
+
 import { SmartLinkSize } from '../../../src';
-import EnumOption from './inputs/enum-option';
+import { type BlockBuilderProps } from '../types';
+
 import ActionOption from './inputs/action-option';
+import EnumOption from './inputs/enum-option';
 
 const FooterBlockBuilder = ({
 	onChange,

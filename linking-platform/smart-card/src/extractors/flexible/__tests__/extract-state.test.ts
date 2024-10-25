@@ -1,7 +1,9 @@
 import type { JsonLd } from 'json-ld-types';
+
+import { SmartLinkActionType } from '@atlaskit/linking-types';
+
 import jiraTask from '../../../__fixtures__/jira-task';
 import extractState from '../extract-state';
-import { SmartLinkActionType } from '@atlaskit/linking-types';
 
 describe('extractState', () => {
 	const response = (serverAction = {}, preview = {}): JsonLd.Response =>

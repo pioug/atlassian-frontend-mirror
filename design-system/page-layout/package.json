@@ -39,7 +39,7 @@
 	"homepage": "https://atlassian.design/components/page-layout/",
 	"dependencies": {
 		"@atlaskit/ds-lib": "^3.1.0",
-		"@atlaskit/icon": "^22.23.0",
+		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/link": "^1.2.0",
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/primitives": "^12.2.0",

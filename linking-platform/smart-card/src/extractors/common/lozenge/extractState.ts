@@ -1,6 +1,8 @@
-import { token } from '@atlaskit/tokens';
 import { type JsonLd } from 'json-ld-types';
-import { type LinkLozenge, type AccentShortName, type LinkState } from './types';
+
+import { token } from '@atlaskit/tokens';
+
+import { type AccentShortName, type LinkLozenge, type LinkState } from './types';
 import { OMIT_STATES, VALID_STATES } from './utils';
 
 // Maps accent color short names to their corresponding background and text colors

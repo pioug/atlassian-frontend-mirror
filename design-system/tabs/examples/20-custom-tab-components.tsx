@@ -14,9 +14,17 @@ import { Panel } from './shared';
 /**
  * This custom component wraps a tooltip around the tab item
  */
-const TooltipTab = ({ label, tooltip }: { label: string; tooltip: string }) => (
+const TooltipTab = ({
+	label,
+	tooltip,
+	testId,
+}: {
+	label: string;
+	tooltip: string;
+	testId: string;
+}) => (
 	<Tooltip content={tooltip}>
-		<Tab>{label}</Tab>
+		<Tab testId={testId}>{label}</Tab>
 	</Tooltip>
 );
 
@@ -48,10 +56,10 @@ const CustomTabComponent = () => (
 		<h3>Tabs with tooltips</h3>
 		<Tabs onChange={(index) => console.log('Selected Tab', index + 1)} id="tooltip-tabs">
 			<TabList>
-				<TooltipTab label="Tab 1" tooltip="Tooltip for tab 1" />
-				<TooltipTab label="Tab 2" tooltip="Tooltip for tab 2" />
-				<TooltipTab label="Tab 3" tooltip="Tooltip for tab 3" />
-				<TooltipTab label="Tab 4" tooltip="Tooltip for tab 4" />
+				<TooltipTab testId="tooltip-tab1" label="Tab 1" tooltip="Tooltip for tab 1" />
+				<TooltipTab testId="tooltip-tab2" label="Tab 2" tooltip="Tooltip for tab 2" />
+				<TooltipTab testId="tooltip-tab3" label="Tab 3" tooltip="Tooltip for tab 3" />
+				<TooltipTab testId="tooltip-tab4" label="Tab 4" tooltip="Tooltip for tab 4" />
 			</TabList>
 			<TabPanel>
 				<Panel>This is the content area of the first tab.</Panel>

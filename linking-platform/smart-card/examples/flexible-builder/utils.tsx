@@ -1,6 +1,8 @@
+import React from 'react';
+
 import PremiumIcon from '@atlaskit/icon/core/migration/premium';
 import { token } from '@atlaskit/tokens';
-import React from 'react';
+
 import {
 	ComponentStorageValue,
 	DefaultTemplate,

@@ -1,22 +1,24 @@
-import { extractLozenge } from '../common/lozenge';
 import type { JsonLd } from 'json-ld-types';
-import type { LinkLozenge } from '../common/lozenge/types';
-import { type LinkLozengeInvokeActions } from '../common/lozenge/types';
+
+import { extractLink } from '@atlaskit/link-extractors';
 import {
 	type InvokeRequest,
 	type InvokeRequestAction,
 	type SmartLinkActionType,
 } from '@atlaskit/linking-types';
+
+import { getExtensionKey } from '../../state/helpers';
 import {
 	type CardDetails,
 	type InvokeRequestWithCardDetails,
 } from '../../state/hooks/use-invoke/types';
-import { getExtensionKey } from '../../state/helpers';
-import extractServerAction from './extract-server-action';
-import { extractLink } from '@atlaskit/link-extractors';
-import { extractPreviewAction } from './actions/extract-preview-action';
-import { CardAction, type CardActionOptions } from '../../view/Card/types';
 import { canShowAction } from '../../utils/actions/can-show-action';
+import { CardAction, type CardActionOptions } from '../../view/Card/types';
+import { extractLozenge } from '../common/lozenge';
+import { type LinkLozenge , type LinkLozengeInvokeActions} from '../common/lozenge/types';
+
+import { extractPreviewAction } from './actions/extract-preview-action';
+import extractServerAction from './extract-server-action';
 
 const toInvokeRequest = (
 	extensionKey: string,

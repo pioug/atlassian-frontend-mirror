@@ -1,13 +1,14 @@
-import { createElement } from './utils';
-import { type BadgeProps } from './badge/types';
 import { ElementName } from '../../../../constants';
+
+import { type AtlaskitBadgeProps } from './atlaskit-badge/types';
+import { type AvatarGroupProps } from './avatar-group/types';
+import { type BadgeProps } from './badge/types';
+import { type DateTimeProps } from './date-time/types';
 import { type IconProps } from './icon/types';
 import { type LinkProps } from './link/types';
 import { type LozengeProps } from './lozenge/types';
-import { type AvatarGroupProps } from './avatar-group/types';
 import { type TextProps } from './text/types';
-import { type DateTimeProps } from './date-time/types';
-import { type AtlaskitBadgeProps } from './atlaskit-badge/types';
+import { createElement } from './utils';
 
 // Attention: Keep the export name and element name the same.
 // This will help reducing the code for mapping elements inside

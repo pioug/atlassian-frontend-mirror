@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { SmartLinkSize, SmartLinkTheme } from '../../../src';
 import { type FlexibleUiOptions } from '../../../src/view/FlexibleCard/types';
 import { type FlexibleTemplate } from '../types';
+
 import Fieldset from './fieldset';
 import CheckboxOption from './inputs/checkbox-option';
 import EnumOption from './inputs/enum-option';

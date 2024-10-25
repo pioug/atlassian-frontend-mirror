@@ -1,8 +1,10 @@
 import { useCallback } from 'react';
-import { addMetadataToExperience } from '../../analytics';
-import type { CardState } from '@atlaskit/linking-common';
-import { SmartLinkStatus } from '../../../constants';
+
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import type { CardState } from '@atlaskit/linking-common';
+
+import { SmartLinkStatus } from '../../../constants';
+import { addMetadataToExperience } from '../../analytics';
 import useResponse from '../use-response';
 
 const useResolve = () => {

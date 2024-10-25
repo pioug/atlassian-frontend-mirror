@@ -1,14 +1,17 @@
 import './card-states.card.test.mock';
 
+import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { type CardClient, type CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { IntlProvider } from 'react-intl-next';
+
+import { type CardClient, type CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+
+import { Provider } from '../../../index';
 import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
-import { Provider } from '../../..';
 import { Card } from '../../Card';
-import React from 'react';
 
 mockSimpleIntersectionObserver();
 

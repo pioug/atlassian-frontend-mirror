@@ -44,7 +44,7 @@ export default function Example() {
 			<Box xcss={extraInfoStyles}>
 				<Box xcss={inlineStyles}>
 					<AtlassianIcon appearance="brand" size="small" label="" />
-					<Heading level="h300">DSP-9786</Heading>
+					<Heading size="xxsmall">DSP-9786</Heading>
 				</Box>
 				<Inline space="space.100" alignBlock="center">
 					<BitbucketPullrequestsIcon size="small" label="" />

@@ -1,15 +1,18 @@
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl-next';
+
+import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { ActionName, SmartLinkStatus } from '../../../../../../constants';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-import context from '../../../../../../__fixtures__/flexible-ui-data-context';
-import { render, screen } from '@testing-library/react';
-import { type FooterBlockProps } from '../types';
-import { IntlProvider } from 'react-intl-next';
-import FooterBlock from '../index';
 import { type ActionItem } from '../../types';
-import userEvent from '@testing-library/user-event';
+import FooterBlock from '../index';
+import { type FooterBlockProps } from '../types';
+
 
 describe('FooterBlock', () => {
 	const testIdBase = 'some-test-id';

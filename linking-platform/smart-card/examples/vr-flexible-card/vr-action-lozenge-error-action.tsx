@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { SmartCardProvider } from '@atlaskit/link-provider';
+
 import LozengeActionError from '../../src/view/FlexibleCard/components/elements/lozenge/lozenge-action/lozenge-action-error';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

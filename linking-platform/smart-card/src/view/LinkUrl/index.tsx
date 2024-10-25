@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 
 import { withLinkClickedEvent } from '../../utils/analytics/click';
 import { LinkAnalyticsContext } from '../../utils/analytics/LinkAnalyticsContext';
-import { useLinkWarningModal } from './LinkWarningModal/hooks/use-link-warning-modal';
+
 import LinkWarningModal from './LinkWarningModal';
+import { useLinkWarningModal } from './LinkWarningModal/hooks/use-link-warning-modal';
 import { type LinkUrlProps, type PackageDataType } from './types';
 
 const PACKAGE_DATA: PackageDataType = {

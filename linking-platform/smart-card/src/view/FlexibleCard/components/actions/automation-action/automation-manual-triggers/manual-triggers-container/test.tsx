@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { waitFor, fireEvent, act, screen } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { injectable } from 'react-magnetic-di';
 
 import { mockTransformedRules } from './common/mocks';

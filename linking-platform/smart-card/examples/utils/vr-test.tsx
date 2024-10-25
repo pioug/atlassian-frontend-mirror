@@ -3,16 +3,18 @@
  * @jsx jsx
  */
 import React, { type PropsWithChildren } from 'react';
-import { IntlProvider } from 'react-intl-next';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
+import { IntlProvider } from 'react-intl-next';
 
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 import Page from '@atlaskit/page';
 import SectionMessage from '@atlaskit/section-message';
-import { SmartLinkActionType } from '@atlaskit/linking-types';
 import { token } from '@atlaskit/tokens';
-import { exampleTokens } from './flexible-ui';
+
 import { overrideEmbedContent } from './common';
+import { exampleTokens } from './flexible-ui';
 
 const horizontalWrapperStyles = css({
 	display: 'flex',

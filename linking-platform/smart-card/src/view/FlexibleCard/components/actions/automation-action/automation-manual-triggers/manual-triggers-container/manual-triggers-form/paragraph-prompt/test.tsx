@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { screen } from '@testing-library/react';
 import { injectable } from 'react-magnetic-di';
 
 import { Field } from '@atlaskit/form';
@@ -8,7 +9,6 @@ import { createGenericComponent, renderWithDi } from '../../common/test-utils';
 import { type UserInputParagraphPrompt, UserInputType } from '../../common/types';
 
 import ParagraphInputPrompt from './main';
-import { screen } from '@testing-library/react';
 
 const userInputPrompts: UserInputParagraphPrompt = {
 	defaultValue: '',

@@ -16,12 +16,12 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import type { ButtonItemProps } from '@atlaskit/menu';
 import { ButtonItem } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B400 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-
 export const menuItemDimensions = {
 	width: 175,
 	height: 32,
@@ -220,6 +220,7 @@ const DropdownMenuItem = (props: {
 
 	const itemContent = (
 		<DropdownButtonItem
+			isSelected={fg('platform_editor_advanced_layouts_pre_release_2') ? itemSelected : undefined}
 			iconBefore={iconBefore}
 			iconAfter={item.elemAfter}
 			onClick={handleItemClick}

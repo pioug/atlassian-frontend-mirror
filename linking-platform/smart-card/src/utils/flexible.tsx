@@ -1,7 +1,7 @@
 import React from 'react';
 
 import * as Blocks from '../view/FlexibleCard/components/blocks';
-import { PreviewBlock, TitleBlock, FooterBlock } from '../view/FlexibleCard/components/blocks';
+import { FooterBlock, PreviewBlock, TitleBlock } from '../view/FlexibleCard/components/blocks';
 import * as Elements from '../view/FlexibleCard/components/elements';
 
 export const isFlexibleUiCard = (children?: React.ReactNode): boolean => {

@@ -6,13 +6,13 @@
 import { css, jsx } from '@emotion/react';
 
 import TrashIcon from '@atlaskit/icon/core/migration/delete--trash';
+import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../src';
+import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { DeleteAction } from '../../src/view/FlexibleCard/components/actions';
 import { exampleTokens, getContext } from '../utils/flexible-ui';
-import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
 	display: 'flex',

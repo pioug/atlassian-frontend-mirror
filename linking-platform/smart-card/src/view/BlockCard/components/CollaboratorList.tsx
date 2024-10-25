@@ -5,8 +5,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import AvatarGroup from '@atlaskit/avatar-group';
 import { type AvatarClickEventHandler } from '@atlaskit/avatar';
+import AvatarGroup from '@atlaskit/avatar-group';
+
 import { mq } from '../../common/utils';
 
 export interface Collaborator {

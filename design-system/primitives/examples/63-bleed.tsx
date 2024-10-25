@@ -27,7 +27,7 @@ export default function Basic() {
 		<HeadingContextProvider>
 			<Stack space="space.200">
 				<Stack space="space.100">
-					<Heading level="h500">Block</Heading>
+					<Heading size="small">Block</Heading>
 					<Box padding="space.200" backgroundColor="color.background.neutral">
 						<Block />
 						<Bleed block="space.100">
@@ -38,7 +38,7 @@ export default function Basic() {
 					</Box>
 				</Stack>
 				<Stack space="space.100">
-					<Heading level="h500">Inline</Heading>
+					<Heading size="small">Inline</Heading>
 					<Box padding="space.200" backgroundColor="color.background.neutral">
 						<Inline>
 							<Block />
@@ -51,7 +51,7 @@ export default function Basic() {
 					</Box>
 				</Stack>
 				<Stack space="space.100">
-					<Heading level="h500">All</Heading>
+					<Heading size="small">All</Heading>
 					<Box padding="space.200" backgroundColor="color.background.neutral">
 						<Block />
 						<Bleed all="space.100">

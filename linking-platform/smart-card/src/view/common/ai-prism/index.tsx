@@ -4,13 +4,15 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
 import { useThemeObserver } from '@atlaskit/tokens';
 
-import { AI_BORDER_PALETTE } from './constants';
-import AIGlowingBorder from './ai-glowing-border';
-
-import type { AIPrismProps } from './types';
 import { popupContainerStyles } from '../../HoverCard/styled';
+
+import AIGlowingBorder from './ai-glowing-border';
+import { AI_BORDER_PALETTE } from './constants';
+import type { AIPrismProps } from './types';
+
 
 const contentStyles = css({
 	transition: 'box-shadow 0.5s ease',

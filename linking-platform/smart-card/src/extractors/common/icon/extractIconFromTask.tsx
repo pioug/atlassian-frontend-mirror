@@ -1,31 +1,33 @@
 import React from 'react';
 
-import { type IconOpts } from './extractIcon';
-
-import TaskIcon from '@atlaskit/icon-object/glyph/task/16';
-import JiraTaskIcon from '@atlaskit/icon-object/glyph/task/16';
-import JiraSubTaskIcon from '@atlaskit/icon-object/glyph/subtask/16';
-import JiraStoryIcon from '@atlaskit/icon-object/glyph/story/16';
 import JiraBugIcon from '@atlaskit/icon-object/glyph/bug/16';
+import JiraChangeIcon from '@atlaskit/icon-object/glyph/changes/16';
 import JiraEpicIcon from '@atlaskit/icon-object/glyph/epic/16';
 import JiraIncidentIcon from '@atlaskit/icon-object/glyph/incident/16';
 import JiraServiceRequestIcon from '@atlaskit/icon-object/glyph/issue/16';
-import JiraChangeIcon from '@atlaskit/icon-object/glyph/changes/16';
 import JiraProblemIcon from '@atlaskit/icon-object/glyph/problem/16';
+import JiraStoryIcon from '@atlaskit/icon-object/glyph/story/16';
+import JiraSubTaskIcon from '@atlaskit/icon-object/glyph/subtask/16';
+import JiraTaskIcon from '@atlaskit/icon-object/glyph/task/16';
 
 import {
-	JIRA_GENERATOR_ID,
-	JIRA_TASK,
-	JIRA_SUB_TASK,
-	JIRA_STORY,
 	JIRA_BUG,
-	JIRA_EPIC,
-	JIRA_INCIDENT,
-	JIRA_SERVICE_REQUEST,
 	JIRA_CHANGE,
-	JIRA_PROBLEM,
 	JIRA_CUSTOM_TASK_TYPE,
+	JIRA_EPIC,
+	JIRA_GENERATOR_ID,
+	JIRA_INCIDENT,
+	JIRA_PROBLEM,
+	JIRA_SERVICE_REQUEST,
+	JIRA_STORY,
+	JIRA_SUB_TASK,
+	JIRA_TASK,
 } from '../../constants';
+
+import { type IconOpts } from './extractIcon';
+
+// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
+const TaskIcon = JiraTaskIcon;
 
 /**
  * Chooses an icon for a task based on the provided options.

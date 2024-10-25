@@ -1,5 +1,16 @@
 # @atlaskit/icon
 
+## 22.24.0
+
+### Minor Changes
+
+- [#155379](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155379)
+  [`d703fb68d3059`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d703fb68d3059) -
+  Run build-glyphs in icon packages.
+- [#155379](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155379)
+  [`d703fb68d3059`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d703fb68d3059) -
+  Add static imports for icon metadata.
+
 ## 22.23.0
 
 ### Minor Changes

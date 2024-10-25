@@ -1,7 +1,7 @@
 import { type JsonLd } from 'json-ld-types';
 
+import { TEST_BASE_DATA, TEST_NAME, TEST_OBJECT } from '../../__mocks__/jsonld';
 import { extractTaskStatus } from '../extractTaskStatus';
-import { TEST_BASE_DATA, TEST_OBJECT, TEST_NAME } from '../../__mocks__/jsonld';
 
 const BASE_DATA = TEST_BASE_DATA as JsonLd.Data.Task;
 

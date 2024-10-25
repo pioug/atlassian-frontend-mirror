@@ -1,14 +1,17 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
-import { type CardState } from '@atlaskit/linking-common';
+
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { type CardState } from '@atlaskit/linking-common';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import FlexibleUnauthorisedView from '../FlexibleUnauthorisedView';
+
 import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,
 	CONTENT_URL_SECURITY_AND_PERMISSIONS,
 } from '../../../../../constants';
 import { mockAnalytics, mocks } from '../../../../../utils/mocks';
+import FlexibleUnauthorisedView from '../FlexibleUnauthorisedView';
 
 describe('FlexibleUnauthorisedView', () => {
 	const url = 'https://some.url';

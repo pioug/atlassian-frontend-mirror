@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
+
 import { Field } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
+
 import { type ChangeParams, handleOnChange } from '../../utils';
 
 type Props<T extends object> = {

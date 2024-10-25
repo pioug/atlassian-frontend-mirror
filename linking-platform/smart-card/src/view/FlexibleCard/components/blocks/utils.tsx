@@ -1,14 +1,16 @@
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { type ActionItem, type ElementItem } from './types';
 import { ActionName, ElementName, SmartLinkDirection, SmartLinkSize } from '../../../../constants';
-import * as Elements from '../elements';
+import type { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import { isFlexibleUiElement } from '../../../../utils/flexible';
+import * as Elements from '../elements';
+
 import ActionGroup from './action-group';
 import ElementGroup from './element-group';
-import type { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
+import { type ActionItem, type ElementItem } from './types';
 
 // Determine whether the element can be display as inline/block.
 export type ElementDisplaySchemaType = 'inline' | 'block';

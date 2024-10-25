@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { Text } from '@atlaskit/primitives';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
@@ -207,9 +208,9 @@ function LazyShareForm(props: LazyShareFormProps) {
 							userPickerOptions={userPickerOptions}
 						/>
 					) : (
-						<p>
+						<Text as='p'>
 							<FormattedMessage {...messages.formNoPermissions} />
-						</p>
+						</Text>
 					)}
 				</>
 			)}

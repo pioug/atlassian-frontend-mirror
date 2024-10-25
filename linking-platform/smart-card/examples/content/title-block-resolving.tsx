@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { TitleBlock } from '../../src';
-import ExampleContainer from './example-container';
 import { SmartLinkStatus } from '../../src/constants';
+
+import ExampleContainer from './example-container';
 
 export default () => (
 	<ExampleContainer>

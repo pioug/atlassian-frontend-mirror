@@ -1,6 +1,9 @@
-import MediaServicesActualSizeIcon from '@atlaskit/icon/core/migration/grow-diagonal--media-services-actual-size';
 import React, { useCallback } from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
+
+import MediaServicesActualSizeIcon from '@atlaskit/icon/core/migration/grow-diagonal--media-services-actual-size';
+
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import {
@@ -10,6 +13,7 @@ import {
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import { openEmbedModalWithFlexibleUiIcon } from '../../utils';
 import Action from '../action';
+
 import type { PreviewActionProps } from './types';
 
 const PreviewAction = ({ onClick: onClickCallback, ...props }: PreviewActionProps) => {

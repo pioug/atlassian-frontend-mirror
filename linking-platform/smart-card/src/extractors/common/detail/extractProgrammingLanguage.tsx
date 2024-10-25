@@ -1,10 +1,12 @@
 import React from 'react';
-import { N600 } from '@atlaskit/theme/colors';
-import CodeIcon from '@atlaskit/icon/core/migration/angle-brackets--code';
 
 import { type JsonLd } from 'json-ld-types';
-import { type LinkDetail } from './types';
+
+import CodeIcon from '@atlaskit/icon/core/migration/angle-brackets--code';
+import { N600 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+
+import { type LinkDetail } from './types';
 
 export type LinkProgrammingLanguageType =
 	| JsonLd.Data.SourceCodeDocument

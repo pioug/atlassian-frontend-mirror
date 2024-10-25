@@ -1,15 +1,16 @@
 import React from 'react';
-import Loadable from 'react-loadable';
 
-import { R400 } from '@atlaskit/theme/colors';
-import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import Loadable from 'react-loadable';
 
 import DocumentIcon from '@atlaskit/icon-file-type/glyph/document/16';
 import BlogIcon from '@atlaskit/icon-object/glyph/blog/16';
+import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import { R400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { IconType } from '../../../../../constants';
+
 import { type AtlaskitIconProps } from './types';
-import { token } from '@atlaskit/tokens';
 
 // prettier-ignore
 const importIconMapper: {

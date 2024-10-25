@@ -16,6 +16,16 @@ export const toolbarMessages = defineMessages({
 		defaultMessage: 'Three columns layout',
 		description: 'Layout with three columns of equal width',
 	},
+	fourColumns: {
+		id: 'fabric.editor.fourColumns',
+		defaultMessage: 'Four columns layout',
+		description: 'Layout with four columns of equal width',
+	},
+	fiveColumns: {
+		id: 'fabric.editor.fiveColumns',
+		defaultMessage: 'Five columns layout',
+		description: 'Layout with five columns of equal width',
+	},
 	rightSidebar: {
 		id: 'fabric.editor.rightSidebar',
 		defaultMessage: 'Right sidebar layout',
@@ -40,5 +50,10 @@ export const toolbarMessages = defineMessages({
 		id: 'fabric.editor.layout.placeholder',
 		defaultMessage: 'Add content',
 		description: 'Add placeholder text for empty layout',
+	},
+	columnOption: {
+		id: 'fabric.editor.layout.columnOption',
+		defaultMessage: '{count, plural, one {-column} other {{count}-columns}}',
+		description: 'column option text for layout',
 	},
 });

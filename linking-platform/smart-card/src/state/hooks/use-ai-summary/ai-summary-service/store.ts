@@ -1,4 +1,5 @@
 import { LRUMap } from 'lru_map';
+
 import type { AISummaryServiceInt } from './types';
 
 const AI_SUMMARY_CACHE_SIZE = 100;

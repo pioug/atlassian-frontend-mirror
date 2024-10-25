@@ -1,15 +1,20 @@
 import React, { useCallback, useRef, useState } from 'react';
+
 import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import { useThemeObserver } from '@atlaskit/tokens';
+
+import { ActionName, CardDisplay } from '../../constants';
+import useInvokeClientAction from '../../state/hooks/use-invoke-client-action';
+import { downloadUrl, getPreviewUrlWithTheme, openUrl } from '../../utils';
+
+import withAnalytics from './components/analytics';
+import EmbedContent from './components/embed-content';
+import withErrorBoundary from './components/error-boundary';
 import LinkInfo from './components/link-info';
 import { MAX_MODAL_SIZE, MIN_MODAL_SIZE } from './constants';
-import EmbedContent from './components/embed-content';
 import { type EmbedModalProps, EmbedModalSize } from './types';
-import withErrorBoundary from './components/error-boundary';
-import withAnalytics from './components/analytics';
-import { useThemeObserver } from '@atlaskit/tokens';
-import useInvokeClientAction from '../../state/hooks/use-invoke-client-action';
-import { ActionName, CardDisplay } from '../../constants';
-import { downloadUrl, getPreviewUrlWithTheme, openUrl } from '../../utils';
+
+
 
 const toSize = (width: string) =>
 	width === MAX_MODAL_SIZE ? EmbedModalSize.Large : EmbedModalSize.Small;

@@ -1,8 +1,10 @@
 import React from 'react';
+
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
-import { render, waitForElementToBeRemoved, screen } from '@testing-library/react';
-import LozengeActionError from '../index';
+
 import * as useResolve from '../../../../../../../../state/hooks/use-resolve';
+import LozengeActionError from '../index';
 import { LozengeActionErrorMessages, type LozengeActionErrorProps } from '../types';
 
 const mockSmartLinkLozengeOpenPreviewClickedEvent = jest.fn();

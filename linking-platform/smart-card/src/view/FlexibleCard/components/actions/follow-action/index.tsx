@@ -1,11 +1,14 @@
 import React from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
+
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import ServerAction from '../action/server-action';
-import { type FollowActionProps } from './types';
 import { importIcon } from '../../utils';
+import ServerAction from '../action/server-action';
+
+import { type FollowActionProps } from './types';
 import { getFollowActionErrorMessage } from './utils';
 
 const importIconMapper: {

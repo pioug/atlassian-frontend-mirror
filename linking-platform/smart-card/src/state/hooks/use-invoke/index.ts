@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import { useSmartLinkClientExtension } from '@atlaskit/link-client-extension';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import type { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';

@@ -2,18 +2,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import React from 'react';
 import LinkGlyph from '@atlaskit/icon/core/migration/link';
+import { useThemeObserver } from '@atlaskit/tokens';
 
+import { getPreviewUrlWithTheme } from '../../../utils';
 import { ExpandedFrame } from '../components/ExpandedFrame';
+import { Frame } from '../components/Frame';
 import { ImageIcon } from '../components/ImageIcon';
 import { type ContextViewModel, type FrameStyle } from '../types';
-import { Frame } from '../components/Frame';
-import { useThemeObserver } from '@atlaskit/tokens';
-import { getPreviewUrlWithTheme } from '../../../utils';
 
 export interface EmbedCardResolvedViewProps {
 	/** The title of the link */

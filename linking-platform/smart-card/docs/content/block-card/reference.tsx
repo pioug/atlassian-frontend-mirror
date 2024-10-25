@@ -1,5 +1,6 @@
-import { md, Props } from '@atlaskit/docs';
 import React from 'react';
+
+import { md, Props } from '@atlaskit/docs';
 
 export default md`
 

@@ -1,4 +1,5 @@
 import type { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
+
 import { type PreviewActionData } from '../../flexible-ui-context/types';
 
 /**

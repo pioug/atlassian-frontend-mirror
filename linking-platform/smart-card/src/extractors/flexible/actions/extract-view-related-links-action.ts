@@ -1,7 +1,8 @@
 import { type JsonLd } from 'json-ld-types';
 
-import { type ViewRelatedLinksActionData } from '../../../state/flexible-ui-context/types';
 import { extractAri } from '@atlaskit/link-extractors';
+
+import { type ViewRelatedLinksActionData } from '../../../state/flexible-ui-context/types';
 
 export const extractViewRelatedLinksAction = (
 	response: JsonLd.Response,

@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
 
+import { screen } from '@testing-library/react';
+
+import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
+import { IconType, SmartLinkSize } from '../../../../constants';
 import {
 	getPrimitivesInlineSpaceBySize,
 	getPrimitivesPaddingSpaceBySize,
 	hasWhiteSpace,
 	openEmbedModalWithFlexibleUiIcon,
 } from '../utils';
-import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { IconType, SmartLinkSize } from '../../../../constants';
-import { screen } from '@testing-library/react';
+
 
 describe('getPrimitivesInlineSpaceBySize', () => {
 	it.each([

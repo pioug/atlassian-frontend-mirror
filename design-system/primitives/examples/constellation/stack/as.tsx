@@ -7,7 +7,7 @@ export default function Example() {
 	return (
 		<Inline spread="space-between">
 			<Stack space="space.150">
-				<Heading level="h500">Stack as 'div'</Heading>
+				<Heading size="small">Stack as 'div'</Heading>
 				<Stack space="space.200">
 					<Box>First child</Box>
 					<Box>Second child</Box>
@@ -16,7 +16,7 @@ export default function Example() {
 				</Stack>
 			</Stack>
 			<Stack space="space.150">
-				<Heading level="h500">Stack as 'span'</Heading>
+				<Heading size="small">Stack as 'span'</Heading>
 				<Stack as="span" space="space.200">
 					<Box>First child</Box>
 					<Box>Second child</Box>
@@ -25,7 +25,7 @@ export default function Example() {
 				</Stack>
 			</Stack>
 			<Box>
-				<Heading level="h500">Stack as 'ul'</Heading>
+				<Heading size="small">Stack as 'ul'</Heading>
 				<Stack as="ul" space="space.200">
 					<li>Unordered List Item</li>
 					<li>Unordered List Item</li>
@@ -34,7 +34,7 @@ export default function Example() {
 				</Stack>
 			</Box>
 			<Box>
-				<Heading level="h500">Stack as 'ol'</Heading>
+				<Heading size="small">Stack as 'ol'</Heading>
 				<Stack as="ol" space="space.200">
 					<li>Ordered List Item</li>
 					<li>Ordered List Item</li>
@@ -43,7 +43,7 @@ export default function Example() {
 				</Stack>
 			</Box>
 			<Box>
-				<Heading level="h500">Stack as 'dl'</Heading>
+				<Heading size="small">Stack as 'dl'</Heading>
 				<Stack as="dl" space="space.200">
 					<Box as="dt">Jira</Box>
 					<Box as="dd">Flexible project management</Box>

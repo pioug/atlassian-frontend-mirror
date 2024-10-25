@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { ACTION_UPDATE_METADATA_STATUS, cardAction } from '@atlaskit/linking-common';
 

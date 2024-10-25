@@ -2,12 +2,13 @@ import React, { type ComponentProps } from 'react';
 
 import '@atlaskit/link-test-helpers/jest';
 
-import { render, screen, fireEvent, createEvent, act, waitFor } from '@testing-library/react';
+import { act, createEvent, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import LinkUrl from '../../LinkUrl';
-import userEvent from '@testing-library/user-event';
 
 describe('LinkUrl', () => {
 	let LinkUrlTestId: string = 'link-with-safety';

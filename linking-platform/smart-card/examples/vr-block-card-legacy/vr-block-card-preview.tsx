@@ -4,6 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+
 import { smallImage } from '@atlaskit/media-test-helpers';
 
 import { BlockCardResolvedView } from '../../src/view/BlockCard';

@@ -4,20 +4,15 @@
  */
 import React from 'react';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
-
-import { blockOverrideCss, getCardState } from '../utils/flexible-ui';
-import FlexibleCard from '../../src/view/FlexibleCard';
-import {
-	MediaPlacement,
-	PreviewBlock,
-	SmartLinkSize,
-	TitleBlock,
-	SnippetBlock,
-} from '../../src/index';
-import preview from '../images/rectangle.svg';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
+import { MediaPlacement, PreviewBlock, SmartLinkSize, SnippetBlock, TitleBlock } from '../../src';
+import FlexibleCard from '../../src/view/FlexibleCard';
+import preview from '../images/rectangle.svg';
+import { blockOverrideCss, getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const styles = css({

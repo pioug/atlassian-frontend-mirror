@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.15.5
+
+### Patch Changes
+
+- [#155693](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155693)
+  [`172485595104b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/172485595104b) -
+  [ED-24685] Removing feature flag that gated multi bodied extensions being available in the editor
+- Updated dependencies
+
 ## 1.15.4
 
 ### Patch Changes

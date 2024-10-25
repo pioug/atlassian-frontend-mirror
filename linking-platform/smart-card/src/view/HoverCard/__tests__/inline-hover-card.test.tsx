@@ -14,21 +14,25 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
-import { act, render, waitFor, screen } from '@testing-library/react';
+
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { fakeFactory } from '../../../utils/mocks';
+
 import { type CardClient } from '@atlaskit/link-provider';
-import { Provider } from '../../..';
+
+import { Provider } from '../../../index';
 import * as useSmartCardActions from '../../../state/actions';
+import { fakeFactory } from '../../../utils/mocks';
 import { Card } from '../../Card';
+
 import { mockConfluenceResponse, mockSSRResponse } from './__mocks__/mocks';
+import { analyticsTests } from './common/analytics.test-utils';
 import {
 	forbiddenViewTests,
 	mockUrl,
 	runCommonHoverCardTests,
 	unauthorizedViewTests,
 } from './common/common.test-utils';
-import { analyticsTests } from './common/analytics.test-utils';
 import {
 	mockIntersectionObserver,
 	setup,
@@ -162,8 +166,8 @@ describe('HoverCard', () => {
 
 		describe('SSR links', () => {
 			const setupWithSSR = async () => {
-				let resolveFetch = (value: unknown) => {};
-				let rejectFetch = (reason: any) => {};
+				let resolveFetch = (_value: unknown) => {};
+				let rejectFetch = (_reason: any) => {};
 				const mockPromise = new Promise((resolve, reject) => {
 					resolveFetch = resolve;
 					rejectFetch = reject;

@@ -1,18 +1,22 @@
 import React, { type MouseEvent } from 'react';
+
+import Tooltip from '@atlaskit/tooltip';
+
+import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
+import { handleClickCommon } from '../../BlockCard/utils/handlers';
+import { type FrameStyle } from '../types';
+
 import {
 	className,
-	LinkWrapper,
-	Wrapper,
+	Content,
 	Header,
 	IconWrapper,
+	LinkWrapper,
 	TextWrapper,
 	TooltipWrapper,
-	Content,
+	Wrapper,
 } from './styled';
-import { handleClickCommon } from '../../BlockCard/utils/handlers';
-import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
-import { type FrameStyle } from '../types';
-import Tooltip from '@atlaskit/tooltip';
+
 
 export interface ExpandedFrameProps {
 	isPlaceholder?: boolean;

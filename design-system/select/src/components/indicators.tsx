@@ -32,25 +32,28 @@ const dropdownWrapperStyles = xcss({
 	padding: 'space.075',
 });
 
-export const ClearIndicator = <Option extends unknown, IsMulti extends boolean = false>(
-	props: ClearIndicatorProps<Option, IsMulti>,
-) => (
-	<components.ClearIndicator
-		{...{
-			...props,
-			innerProps: { ...props.innerProps, 'aria-hidden': 'false' },
-		}}
-	>
-		<Pressable xcss={iconContainerStyles} tabIndex={-1}>
-			<CrossIcon
-				label="clear"
-				color="currentColor"
-				LEGACY_size="small"
-				LEGACY_margin={token('space.negative.025', '-0.125rem')}
-			/>
-		</Pressable>
-	</components.ClearIndicator>
-);
+export const ClearIndicator = <Option extends unknown, IsMulti extends boolean = false>({
+	clearControlLabel = 'clear',
+	...props
+}: ClearIndicatorProps<Option, IsMulti>) => {
+	return (
+		<components.ClearIndicator
+			{...{
+				...props,
+				innerProps: { ...props.innerProps, 'aria-hidden': 'false' },
+			}}
+		>
+			<Pressable xcss={iconContainerStyles} tabIndex={-1} aria-label={clearControlLabel}>
+				<CrossIcon
+					label=""
+					color="currentColor"
+					LEGACY_size="small"
+					LEGACY_margin={token('space.negative.025', '-0.125rem')}
+				/>
+			</Pressable>
+		</components.ClearIndicator>
+	);
+};
 
 export const DropdownIndicator = <Option extends unknown, IsMulti extends boolean = false>(
 	props: DropdownIndicatorProps<Option, IsMulti>,

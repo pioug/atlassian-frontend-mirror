@@ -1,9 +1,11 @@
-import React, { useCallback, useState, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type SerializedStyles } from '@emotion/react';
+
 import extractPreview from '../../../extractors/flexible/extract-preview';
 import { PreviewBlock } from '../../FlexibleCard/components/blocks';
-import { getTransitionStyles, getPreviewBlockStyles } from '../styled';
+import { getPreviewBlockStyles, getTransitionStyles } from '../styled';
 import { type ImagePreviewProps } from '../types';
 
 const ImagePreview = ({ data, fallbackElementHeight }: ImagePreviewProps) => {

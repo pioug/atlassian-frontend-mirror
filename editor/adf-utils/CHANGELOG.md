@@ -1,5 +1,16 @@
 # @atlaskit/adf-utils
 
+## 19.10.0
+
+### Minor Changes
+
+- [#155650](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155650)
+  [`b838f14ee7a04`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b838f14ee7a04) -
+  ED-25392 Removing validator specs that have been ignored from adf-schema - the following node
+  specs have been removed from the `adf-schema` validator spec so are no longer consumed by
+  `adf-utils`: `blockquote_without_nested_codeblock_or_media`, `expand_without_nested_expand`,
+  `tableCellContent`
+
 ## 19.9.2
 
 ### Patch Changes

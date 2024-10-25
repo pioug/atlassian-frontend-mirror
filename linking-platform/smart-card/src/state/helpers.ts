@@ -1,11 +1,13 @@
 import { type JsonLd } from 'json-ld-types';
-import { type CardType, type CardStore } from '@atlaskit/linking-common';
-import { extractVisitUrl } from '../extractors/common/primitives/extractVisitUrl';
-import { type DestinationProduct, type DestinationSubproduct } from '../utils/analytics/types';
+
 import {
 	type DatasourceResolveResponse,
 	type JsonLdDatasourceResponse,
 } from '@atlaskit/link-client-extension';
+import { type CardStore, type CardType } from '@atlaskit/linking-common';
+
+import { extractVisitUrl } from '../extractors/common/primitives/extractVisitUrl';
+import { type DestinationProduct, type DestinationSubproduct } from '../utils/analytics/types';
 
 export const getByDefinitionId = (definitionId: string | undefined, store: CardStore) => {
 	const urls = Object.keys(store);

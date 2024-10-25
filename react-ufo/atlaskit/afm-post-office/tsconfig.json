@@ -16,5 +16,12 @@
     "../src/**/test.*",
     "../src/**/examples.*"
   ],
-  "references": []
+  "references": [
+    {
+      "path": "../../../observability/interaction-context/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+    }
+  ]
 }

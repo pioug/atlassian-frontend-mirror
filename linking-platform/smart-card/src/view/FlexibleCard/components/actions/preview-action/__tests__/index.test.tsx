@@ -1,9 +1,13 @@
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import '@atlaskit/link-test-helpers/jest';
+
+import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
-import '@atlaskit/link-test-helpers/jest';
 import { IntlProvider } from 'react-intl-next';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import PreviewAction from '../index';

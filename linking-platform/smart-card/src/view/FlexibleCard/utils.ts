@@ -1,16 +1,19 @@
 import { type JsonLd } from 'json-ld-types';
-import { type ExtractFlexibleUiDataContextParams, type RetryOptions } from './types';
+
+import { extractProvider } from '@atlaskit/link-extractors';
+
 import { SmartLinkStatus } from '../../constants';
-import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context';
+import extractFlexibleUiContext from '../../extractors/flexible';
+import extractPreview from '../../extractors/flexible/extract-preview';
+import { extractErrorIcon } from '../../extractors/flexible/icon';
+import extractProviderIcon from '../../extractors/flexible/icon/extract-provider-icon';
 import { type MessageKey, messages } from '../../messages';
 import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
-import extractFlexibleUiContext from '../../extractors/flexible';
-import { extractErrorIcon } from '../../extractors/flexible/icon';
 import { handleOnClick } from '../../utils';
-import { extractProvider } from '@atlaskit/link-extractors';
-import extractProviderIcon from '../../extractors/flexible/icon/extract-provider-icon';
-import extractPreview from '../../extractors/flexible/extract-preview';
+import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
+
+import { type ExtractFlexibleUiDataContextParams, type RetryOptions } from './types';
 
 export const getContextByStatus = (
 	params: ExtractFlexibleUiDataContextParams,

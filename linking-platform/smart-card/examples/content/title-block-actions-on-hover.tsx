@@ -1,7 +1,10 @@
 import React from 'react';
-import { ActionName, TitleBlock } from '../../src';
-import ExampleContainer from './example-container';
+
 import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
+
+import { ActionName, TitleBlock } from '../../src';
+
+import ExampleContainer from './example-container';
 
 export default () => (
 	<ExampleContainer>

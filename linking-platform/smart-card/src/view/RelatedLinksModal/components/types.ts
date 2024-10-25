@@ -1,5 +1,6 @@
-import { type MessageDescriptor } from 'react-intl-next';
 import type React from 'react';
+
+import { type MessageDescriptor } from 'react-intl-next';
 
 export type RelatedLinkItemProp = {
 	/**

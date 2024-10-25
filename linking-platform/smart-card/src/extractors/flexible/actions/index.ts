@@ -1,15 +1,18 @@
 import type { JsonLd } from 'json-ld-types';
+
 import { fg } from '@atlaskit/platform-feature-flags';
+
 import { ActionName, InternalActionName } from '../../../constants';
 import type { FlexibleUiActions } from '../../../state/flexible-ui-context/types';
 import type { AISummaryConfig } from '../../../state/hooks/use-ai-summary-config/types';
 import type { CardActionOptions } from '../../../view/Card/types';
-import { extractDownloadAction } from './extract-download-action';
-import { extractPreviewAction } from './extract-preview-action';
+
 import { extractAISummaryAction } from './extract-ai-summary-action';
-import extractFollowAction from './extract-follow-action';
-import { extractCopyLinkAction } from './extract-copy-link-action';
 import { extractAutomationAction } from './extract-automation-action';
+import { extractCopyLinkAction } from './extract-copy-link-action';
+import { extractDownloadAction } from './extract-download-action';
+import extractFollowAction from './extract-follow-action';
+import { extractPreviewAction } from './extract-preview-action';
 import { extractViewRelatedLinksAction } from './extract-view-related-links-action';
 
 const extractActions = (

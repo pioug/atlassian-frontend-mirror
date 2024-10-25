@@ -1,6 +1,7 @@
+import React from 'react';
+
 import Icon, { type IconProps } from '@atlaskit/icon';
 import type { CustomGlyphProps } from '@atlaskit/icon/types';
-import React from 'react';
 
 const UnfollowGlyph = (props: CustomGlyphProps) => (
 	<svg

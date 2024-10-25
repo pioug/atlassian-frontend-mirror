@@ -1,5 +1,5 @@
-import extractJiraTaskIcon from '../extract-jira-task-icon';
 import { IconType } from '../../../../constants';
+import extractJiraTaskIcon from '../extract-jira-task-icon';
 
 describe('extractJiraTaskIcon', () => {
 	describe.each([

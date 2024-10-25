@@ -5,7 +5,6 @@ import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
 
 import type { EditorConfig, EditorPlugin, PluginsOptions, PMPluginCreateConfig } from '../types';
 
-import { SafeApplyPlugin } from './safe-apply-plugin';
 import { sortByOrder } from './sort-by-order';
 
 export function sortByRank(a: { rank: number }, b: { rank: number }): number {
@@ -105,12 +104,7 @@ export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
 }
 
 export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
-	const { editorConfig, dispatchAnalyticsEvent } = config;
-
-	const instrumentPlugin = (plugin: SafePlugin): SafePlugin =>
-		SafeApplyPlugin.fromPlugin(plugin, {
-			dispatchAnalyticsEvent,
-		});
+	const { editorConfig } = config;
 
 	return editorConfig.pmPlugins
 		.sort(sortByOrder('plugins'))
@@ -127,8 +121,7 @@ export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
 				getIntl: config.getIntl,
 			}),
 		)
-		.filter((plugin): plugin is SafePlugin => typeof plugin !== 'undefined')
-		.map(instrumentPlugin);
+		.filter((plugin): plugin is SafePlugin => typeof plugin !== 'undefined');
 }
 
 export function createErrorReporter(errorReporterHandler?: ErrorReportingHandler) {

@@ -1,5 +1,14 @@
 # @atlaskit/editor-json-transformer
 
+## 8.20.2
+
+### Patch Changes
+
+- [#155735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155735)
+  [`1beeeda29023a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1beeeda29023a) -
+  Upgrades editor packages to react 18
+- Updated dependencies
+
 ## 8.20.1
 
 ### Patch Changes

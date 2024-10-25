@@ -5,7 +5,7 @@ jest.mock('../../../components/utils', () => ({
 
 import React from 'react';
 
-import { render as renderRTL } from '@testing-library/react';
+import { render as renderRTL, screen } from '@testing-library/react';
 import { mount, shallow } from 'enzyme';
 import { FormattedMessage, IntlProvider, type MessageDescriptor } from 'react-intl-next';
 
@@ -115,6 +115,14 @@ describe('UserPickerField', () => {
 		return render(userPickerFieldProps, ...args).userPicker;
 	};
 
+	const renderUserPickerRTL = (userPickerFieldProps: Props) => {
+		return renderRTL(
+			<IntlProvider locale="en">
+				<UserPickerField {...userPickerFieldProps} />
+			</IntlProvider>,
+		);
+	};
+
 	afterEach(() => {
 		(getMenuPortalTargetCurrentHTML as jest.Mock).mockClear();
 	});
@@ -222,18 +230,24 @@ describe('UserPickerField', () => {
 				[
 					messages.userPickerLabelEmailDisabledJira,
 					messages.userPickerPlaceholderEmailDisabledJira,
+					messages.infoMessageDefaultJira,
 				],
 			],
 			// The same placeholder is used in Confluence for "email disabled" or not, as the placeholder does not call out email due to copy length
 			[
 				...NO_EMAIL_CONFLUENCE,
-				[messages.userPickerLabelEmailDisabledConfluence, messages.userPickerPlaceholderConfluence],
+				[
+					messages.userPickerLabelEmailDisabledConfluence,
+					messages.userPickerPlaceholderConfluence,
+					messages.infoMessageDefaultConfluence,
+				],
 			],
 			[
 				...NO_BROWSE_JIRA,
 				[
 					messages.userPickerLabelBrowseUsersDisabled,
 					messages.userPickerPlaceholderBrowseUsersDisabled,
+					messages.infoMessageDefaultJira,
 				],
 			],
 			[
@@ -241,78 +255,51 @@ describe('UserPickerField', () => {
 				[
 					messages.userPickerLabelBrowseUsersDisabled,
 					messages.userPickerPlaceholderBrowseUsersDisabled,
+					messages.infoMessageDefaultConfluence,
 				],
 			],
-			[...REGULAR_JIRA, [messages.userPickerLabelJira, messages.userPickerPlaceholderJira]],
+			[
+				...REGULAR_JIRA,
+				[
+					messages.userPickerLabelJira,
+					messages.userPickerPlaceholderJira,
+					messages.infoMessageDefaultJira,
+				],
+			],
 			[
 				...REGULAR_CONFLUENCE,
-				[messages.userPickerLabelConfluence, messages.userPickerPlaceholderConfluence],
+				[
+					messages.userPickerLabelConfluence,
+					messages.userPickerPlaceholderConfluence,
+					messages.infoMessageDefaultConfluence,
+				],
 			],
 		];
 
 		it.each<ScenarioAndOutcome<MessageDescriptor[]>>(labelScenarios)(
 			'should show correct label and placeholder when %s',
-			(_case: string, props, expectedMessages: MessageDescriptor[]) => {
-				const [label, placeholder] = expectedMessages;
-				const fieldProps = {
-					onChange: jest.fn(),
-					value: [],
-				};
+			async (_case: string, props, expectedMessages: MessageDescriptor[]) => {
+				const [label, placeholder, info] = expectedMessages;
 				const loadOptions = jest.fn();
-				const { component, userPicker: field } = render(
-					{
-						loadOptions,
-						isLoading: true,
-						product: props.product,
-						config: { disableSharingToEmails: props.disableSharingToEmails },
-						isBrowseUsersDisabled: props.isBrowseUsersDisabled,
-					},
-					{ fieldProps, meta: { valid: true } },
-				);
+				renderUserPickerRTL({
+					loadOptions,
+					isLoading: true,
+					product: props.product,
+					config: { disableSharingToEmails: props.disableSharingToEmails },
+					isBrowseUsersDisabled: props.isBrowseUsersDisabled,
+				});
 
 				// Find info message
-				const formattedMessage = field.find(FormattedMessage);
-				expect(formattedMessage).toHaveLength(1);
-
-				const expectedInfoMessages = {
-					jira: messages.infoMessageDefaultJira,
-					confluence: messages.infoMessageDefaultConfluence,
-				};
-
-				const infoMessageDefaultJira = formattedMessage.first();
-				expect(infoMessageDefaultJira).toHaveLength(1);
-				expect(infoMessageDefaultJira.props()).toMatchObject(expectedInfoMessages[props.product]);
+				expect(await screen.findByText(info.defaultMessage as string)).toBeInTheDocument();
 
 				// Check no error messages
-				expect(field.find(ErrorMessage).exists()).toBeFalsy();
+				expect(screen.queryByText("You can't do that")).not.toBeInTheDocument();
 
 				// Check for field label
-				const labelMessage = component.find(Field).prop('label');
-				expect(labelMessage).toEqual(
-					<span id="share-user-picker-field-label">
-						<FormattedMessage {...label} />
-					</span>,
-				);
+				expect(await screen.findByText(label.defaultMessage as string)).toBeInTheDocument();
 
-				// Check for appropriate props
-				const expectProps = {
-					fieldId: 'share',
-					addMoreMessage: 'Enter more',
-					onChange: fieldProps.onChange,
-					value: fieldProps.value,
-					// Verify expected placeholder
-					placeholder: (
-						<span>
-							<FormattedMessage {...placeholder} />
-						</span>
-					),
-					loadOptions: expect.any(Function),
-					isLoading: true,
-				};
-
-				const userPicker = field.find(UserPicker);
-				expect(userPicker).toHaveLength(1);
-				expect(userPicker.props()).toMatchObject(expectProps);
+				// Verify expected placeholder
+				expect(await screen.findByText(placeholder.defaultMessage as string)).toBeInTheDocument();
 			},
 		);
 	});
@@ -418,39 +405,22 @@ describe('UserPickerField', () => {
 
 		it.each<ProductName>(['confluence', 'jira'])(
 			'should show error messages when %s',
-			(product: ProductName) => {
-				const fieldProps = {
-					onChange: jest.fn(),
-					value: [{}],
-				};
+			async (product: ProductName) => {
 				const loadOptions = jest.fn();
-				const errorMessage = renderUserPicker(
-					{
-						loadOptions,
-						product,
-						shareError: {
-							message: "You can't do that",
-							errorCode: 'some-error-code',
-							helpUrl: 'https://example.com',
-							retryable: false,
-						},
+				renderUserPickerRTL({
+					loadOptions,
+					product,
+					shareError: {
+						message: "You can't do that",
+						errorCode: 'some-error-code',
+						helpUrl: 'https://example.com',
+						retryable: false,
 					},
-					{
-						fieldProps,
-						meta: { valid: true },
-						error: undefined,
-					},
-				).find(ErrorMessage);
-
-				const message = errorMessage.children();
-				expect(message).toHaveLength(3);
-				expect(message.at(0).text()).toBe("You can't do that");
-				expect(message.at(1).text()).toBe('\u00a0');
-
-				const link = message.at(2).find('a');
-				expect(link.props()).toMatchObject({
-					href: 'https://example.com',
 				});
+
+				expect(await screen.findByText("You can't do that")).toBeInTheDocument();
+
+				expect(screen.getByRole('link')).toHaveAttribute('href', 'https://example.com');
 			},
 		);
 	});

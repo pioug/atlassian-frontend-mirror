@@ -1,6 +1,7 @@
 import React from 'react';
-import { token } from '@atlaskit/tokens';
+
 import { N40 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 /**
  * This HOC serves as a temporary workaround for controlling the style of a parent component.

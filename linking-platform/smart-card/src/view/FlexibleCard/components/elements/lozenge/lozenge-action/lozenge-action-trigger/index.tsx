@@ -2,13 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useCallback, useMemo, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { useCallback, useMemo, useState } from 'react';
-import Lozenge from '@atlaskit/lozenge';
+
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import { triggerButtonStyles, triggerLozengeStyles } from '../styled';
+import Lozenge from '@atlaskit/lozenge';
 import { Box, xcss } from '@atlaskit/primitives';
+
+import { triggerButtonStyles, triggerLozengeStyles } from '../styled';
 
 import { type LozengeActionTriggerProps } from './type';
 

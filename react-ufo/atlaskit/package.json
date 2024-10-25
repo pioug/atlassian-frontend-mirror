@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,22 +27,109 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
-		"./common": "./src/common/types.ts",
+		"./additional-payload": "./src/additional-payload/index.ts",
+		"./bundle-eval-timing": "./src/bundle-eval-timing/index.ts",
+		"./coinflip": "./src/coinflip/index.ts",
+		"./common": "./src/common/index.ts",
+		"./config": "./src/config/index.ts",
+		"./create-payload": "./src/create-payload/index.ts",
+		"./create-post-interaction-log-payload": "./src/create-post-interaction-log-payload/index.ts",
+		"./custom-data": "./src/custom-data/index.ts",
+		"./custom-mark": "./src/custom-mark/index.ts",
+		"./custom-spans": "./src/custom-spans/index.ts",
+		"./custom-timings": "./src/custom-timings/index.ts",
+		"./experience-trace-id-context": "./src/experience-trace-id-context/index.ts",
+		"./feature-flags-accessed": "./src/feature-flags-accessed/index.ts",
+		"./generate-id": "./src/generate-id/index.ts",
+		"./global-error-handler": "./src/global-error-handler/index.ts",
+		"./hidden-timing": "./src/hidden-timing/index.ts",
+		"./initial-page-load-extra-timing": "./src/initial-page-load-extra-timing/index.ts",
+		"./interaction-context": "./src/interaction-context/index.ts",
+		"./interaction-id-context": "./src/interaction-id-context/index.ts",
 		"./interaction-metrics": "./src/interaction-metrics/index.ts",
+		"./interaction-metrics-init": "./src/interaction-metrics-init/index.ts",
+		"./label": "./src/label/index.ts",
+		"./load-hold": "./src/load-hold/index.ts",
+		"./placeholder": "./src/placeholder/index.ts",
+		"./resource-timing": "./src/resource-timing/index.ts",
+		"./round-number": "./src/round-number/index.ts",
+		"./route-name": "./src/route-name/index.ts",
+		"./route-name-context": "./src/route-name-context/index.ts",
+		"./segment": "./src/segment/index.ts",
+		"./set-interaction-error": "./src/set-interaction-error/index.ts",
+		"./short-id": "./src/short-id/index.ts",
+		"./ssr": "./src/ssr/index.ts",
+		"./ssr-scripts": "./src/vc/vc-observer/observers/ssr-placeholders/ssr-scripts/index.ts",
+		"./trace-interaction": "./src/trace-interaction/index.ts",
+		"./trace-pageload": "./src/trace-pageload/index.ts",
+		"./trace-press": "./src/trace-press/index.ts",
+		"./trace-redirect": "./src/trace-redirect/index.ts",
+		"./trace-transition": "./src/trace-transition/index.ts",
+		"./typing-performance-tracing": "./src/typing-performance-tracing/index.ts",
+		"./use-press-tracing": "./src/use-press-tracing/index.ts",
+		"./vc": "./src/vc/index.ts",
+		"./vc/media": "./src/vc/vc-observer/media-wrapper/index.tsx",
 		".": "./src/index.ts"
 	},
 	"exports": {
-		"./common": "./src/common/types.ts",
+		"./additional-payload": "./src/additional-payload/index.ts",
+		"./bundle-eval-timing": "./src/bundle-eval-timing/index.ts",
+		"./coinflip": "./src/coinflip/index.ts",
+		"./common": "./src/common/index.ts",
+		"./config": "./src/config/index.ts",
+		"./create-payload": "./src/create-payload/index.ts",
+		"./create-post-interaction-log-payload": "./src/create-post-interaction-log-payload/index.ts",
+		"./custom-data": "./src/custom-data/index.ts",
+		"./custom-mark": "./src/custom-mark/index.ts",
+		"./custom-spans": "./src/custom-spans/index.ts",
+		"./custom-timings": "./src/custom-timings/index.ts",
+		"./experience-trace-id-context": "./src/experience-trace-id-context/index.ts",
+		"./feature-flags-accessed": "./src/feature-flags-accessed/index.ts",
+		"./generate-id": "./src/generate-id/index.ts",
+		"./global-error-handler": "./src/global-error-handler/index.ts",
+		"./hidden-timing": "./src/hidden-timing/index.ts",
+		"./initial-page-load-extra-timing": "./src/initial-page-load-extra-timing/index.ts",
+		"./interaction-context": "./src/interaction-context/index.ts",
+		"./interaction-id-context": "./src/interaction-id-context/index.ts",
 		"./interaction-metrics": "./src/interaction-metrics/index.ts",
+		"./interaction-metrics-init": "./src/interaction-metrics-init/index.ts",
+		"./label": "./src/label/index.ts",
+		"./load-hold": "./src/load-hold/index.ts",
+		"./placeholder": "./src/placeholder/index.ts",
+		"./resource-timing": "./src/resource-timing/index.ts",
+		"./round-number": "./src/round-number/index.ts",
+		"./route-name": "./src/route-name/index.ts",
+		"./route-name-context": "./src/route-name-context/index.ts",
+		"./segment": "./src/segment/index.ts",
+		"./set-interaction-error": "./src/set-interaction-error/index.ts",
+		"./short-id": "./src/short-id/index.ts",
+		"./ssr": "./src/ssr/index.ts",
+		"./ssr-scripts": "./src/vc/vc-observer/observers/ssr-placeholders/ssr-scripts/index.ts",
+		"./trace-interaction": "./src/trace-interaction/index.ts",
+		"./trace-pageload": "./src/trace-pageload/index.ts",
+		"./trace-press": "./src/trace-press/index.ts",
+		"./trace-redirect": "./src/trace-redirect/index.ts",
+		"./trace-transition": "./src/trace-transition/index.ts",
+		"./typing-performance-tracing": "./src/typing-performance-tracing/index.ts",
+		"./use-press-tracing": "./src/use-press-tracing/index.ts",
+		"./vc": "./src/vc/index.ts",
+		"./vc/media": "./src/vc/vc-observer/media-wrapper/index.tsx",
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.0.0"
+		"@atlaskit/interaction-context": "^2.1.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
+		"@babel/runtime": "^7.0.0",
+		"bind-event-listener": "^3.0.0",
+		"bowser-ultralight": "^1.0.6",
+		"scheduler": "0.19.1",
+		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
+		"@atlassian/a11y-jest-testing": "*",
 		"@testing-library/react": "^12.1.5"
 	},
 	"techstack": {
@@ -78,6 +165,11 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"no_ssr_placeholder_check_when_not_intersecting": {
+			"type": "boolean"
 		}
 	}
 }

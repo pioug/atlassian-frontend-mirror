@@ -2,15 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { useState } from 'react';
 
 import { token } from '@atlaskit/tokens';
 
-import { Provider, Client, type ResolveResponse } from '../../src';
-import { mockConfluenceResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
+import { Client, Provider, type ResolveResponse } from '../../src';
 import { HoverCard } from '../../src/hoverCard';
+import { mockConfluenceResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 class CustomClient extends Client {

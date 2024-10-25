@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Frame, type FrameViewProps } from '../InlineCard/Frame';
 
 export interface CardLinkViewProps extends FrameViewProps {

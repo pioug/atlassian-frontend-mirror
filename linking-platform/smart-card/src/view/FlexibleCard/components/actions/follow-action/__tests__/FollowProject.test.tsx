@@ -1,12 +1,13 @@
 import React from 'react';
-import userEvent from '@testing-library/user-event';
+
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { FormattedMessage, IntlProvider } from 'react-intl-next';
+
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
-import FollowAction from '../index';
 import { messages } from '../../../../../../messages';
-
+import FollowAction from '../index';
 import type { FollowActionProps } from '../types';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({

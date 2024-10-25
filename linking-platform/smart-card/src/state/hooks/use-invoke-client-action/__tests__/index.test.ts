@@ -1,11 +1,11 @@
 import { renderHook } from '@testing-library/react-hooks';
 import uuid from 'uuid';
 
-import useInvokeClientAction from '../index';
-import * as measure from '../../../../utils/performance';
 import { mockAnalytics } from '../../../../utils/mocks';
+import * as measure from '../../../../utils/performance';
 import type { AnalyticsFacade } from '../../../analytics';
 import * as ufo from '../../../analytics/ufoExperiences';
+import useInvokeClientAction from '../index';
 
 jest.mock('uuid', () => ({
 	...jest.requireActual('uuid'),

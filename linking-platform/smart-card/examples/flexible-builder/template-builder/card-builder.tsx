@@ -1,6 +1,9 @@
-import { type CardProps } from '@atlaskit/smart-card';
 import React, { useMemo } from 'react';
+
+import { type CardProps } from '@atlaskit/smart-card';
+
 import { type TemplateDisplay } from '../types';
+
 import Fieldset from './fieldset';
 import CheckboxOption from './inputs/checkbox-option';
 import SelectOption from './inputs/select-option';

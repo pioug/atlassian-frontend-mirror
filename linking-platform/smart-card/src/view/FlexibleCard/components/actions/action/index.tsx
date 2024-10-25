@@ -4,12 +4,14 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+
 import { SmartLinkSize } from '../../../../../constants';
-import ActionStackItem from './action-stack-item';
-import { type ActionProps } from './types';
+
 import ActionButton from './action-button';
 import ActionDropdownItem from './action-dropdown-item';
 import ActionIcon from './action-icon';
+import ActionStackItem from './action-stack-item';
+import { type ActionProps } from './types';
 
 /**
  * A base action that can be triggered with an on click.

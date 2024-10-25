@@ -1,8 +1,10 @@
 import React from 'react';
-import AISummaryBlockResolvedView from './resolved';
-import { type AISummaryBlockProps } from './types';
+
 import { InternalActionName, SmartLinkStatus } from '../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+
+import AISummaryBlockResolvedView from './resolved';
+import { type AISummaryBlockProps } from './types';
 
 /**
  * Represents an AISummaryBlock, designed to summarising link resource

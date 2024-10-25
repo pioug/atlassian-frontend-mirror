@@ -1,19 +1,22 @@
 import React from 'react';
+
+import { act, fireEvent, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
-import { act, fireEvent, render, waitForElementToBeRemoved, screen } from '@testing-library/react';
+
 import { flushPromises } from '@atlaskit/link-test-helpers';
-import LozengeAction from '../index';
-import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
-import * as useResolve from '../../../../../../../state/hooks/use-resolve';
-import { SmartLinkActionType, InvokeError } from '@atlaskit/linking-types/smart-link-actions';
-import { type LozengeActionProps } from '../types';
+import { InvokeError, SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
+
 import extractLozengeActionItems from '../../../../../../../extractors/action/extract-lozenge-action-items';
-import { LozengeActionErrorMessages } from '../lozenge-action-error/types';
+import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
 import { type CardDetails } from '../../../../../../../state/hooks/use-invoke/types';
+import * as useResolve from '../../../../../../../state/hooks/use-resolve';
 import {
 	TrackQuickActionFailureReason,
 	TrackQuickActionType,
 } from '../../../../../../../utils/analytics/analytics';
+import LozengeAction from '../index';
+import { LozengeActionErrorMessages } from '../lozenge-action-error/types';
+import { type LozengeActionProps } from '../types';
 
 const mockSmartLinkLozengeActionClickedEvent = jest.fn();
 const mockSmartLinkLozengeActionListItemClickedEvent = jest.fn();

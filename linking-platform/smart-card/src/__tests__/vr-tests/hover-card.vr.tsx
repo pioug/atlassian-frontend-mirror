@@ -1,11 +1,11 @@
 import { snapshot } from '@af/visual-regression';
 
-import HoverCard from '../../../examples/vr-hover-card/vr-hover-cards';
 import HoverCardActions from '../../../examples/vr-hover-card/vr-hover-card-actions';
-import HoverCardUnauthorised from '../../../examples/vr-hover-card/vr-unauthorised-hover-cards';
-import HoverCardSSRLoading from '../../../examples/vr-hover-card/vr-hover-cards-ssr-loading';
-import HoverCardSSRError from '../../../examples/vr-hover-card/vr-hover-cards-ssr-error';
 import HoverCardPositioning from '../../../examples/vr-hover-card/vr-hover-card-can-open-positioning';
+import HoverCard from '../../../examples/vr-hover-card/vr-hover-cards';
+import HoverCardSSRError from '../../../examples/vr-hover-card/vr-hover-cards-ssr-error';
+import HoverCardSSRLoading from '../../../examples/vr-hover-card/vr-hover-cards-ssr-loading';
+import HoverCardUnauthorised from '../../../examples/vr-hover-card/vr-unauthorised-hover-cards';
 
 snapshot(HoverCard, {
 	drawsOutsideBounds: true,

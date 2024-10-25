@@ -1,5 +1,5 @@
-import { type ElementProps } from '../types';
 import { type MediaType } from '../../../../../constants';
+import { type ElementProps } from '../types';
 
 export type MediaProps = ElementProps & {
 	/**

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import LinkUrl from '../../src/view/LinkUrl';
 
 export default () => (

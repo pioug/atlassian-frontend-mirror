@@ -1,6 +1,8 @@
-import { type EventHandler, type MouseEvent, type KeyboardEvent } from 'react';
-import type { CardAppearance, OnResolveCallback, CardActionOptions } from '../Card/types';
+import { type EventHandler, type KeyboardEvent, type MouseEvent } from 'react';
+
 import { type JsonLd } from 'json-ld-types';
+
+import type { CardActionOptions, CardAppearance, OnResolveCallback } from '../Card/types';
 import { type InlinePreloaderStyle } from '../types';
 
 export interface CardWithDataContentProps {

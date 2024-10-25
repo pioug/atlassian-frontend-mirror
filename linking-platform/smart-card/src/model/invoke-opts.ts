@@ -1,4 +1,5 @@
 import { type InvokePayload, type ServerActionOpts } from '@atlaskit/linking-common';
+
 import { type CardInnerAppearance } from '../view/Card/types';
 
 export type InvokeType = 'server' | 'client';

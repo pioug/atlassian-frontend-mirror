@@ -30,7 +30,7 @@ export default () => {
 		<Box padding="space.250">
 			<Stack space="space.250">
 				<Stack space="space.150">
-					<Heading level="h600">Visual variants. Secondary action is DropdownMenu trigger</Heading>
+					<Heading size="medium">Visual variants. Secondary action is DropdownMenu trigger</Heading>
 					<Inline space="space.250">
 						<SplitButton spacing="compact">
 							<Button>Primary action</Button>
@@ -145,7 +145,7 @@ export default () => {
 					</Inline>
 				</Stack>
 				<Stack space="space.150">
-					<Heading level="h600">Visual variants. Secondary action is ModalDialog trigger</Heading>
+					<Heading size="medium">Visual variants. Secondary action is ModalDialog trigger</Heading>
 					<Inline space="space.250">
 						<SplitButton spacing="compact">
 							<Button>Primary action</Button>
@@ -204,15 +204,15 @@ export default () => {
 					</Inline>
 				</Stack>
 				<Stack space="space.150">
-					<Heading level="h600">Confluence editor top bar</Heading>
+					<Heading size="medium">Confluence editor top bar</Heading>
 					<ConfluenceEditorTopBarExample />
 				</Stack>
 				<Stack space="space.150">
-					<Heading level="h600">Jira issue view actions</Heading>
+					<Heading size="medium">Jira issue view actions</Heading>
 					<JiraIssueViewActionsExample />
 				</Stack>
 				<Stack space="space.150">
-					<Heading level="h600">With wrappers example</Heading>
+					<Heading size="medium">With wrappers example</Heading>
 
 					<WithWrappersExample />
 				</Stack>

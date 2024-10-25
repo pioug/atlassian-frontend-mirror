@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "199.2.0",
+	"version": "199.2.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,13 +45,13 @@
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/editor-common": "^94.2.0",
 		"@atlaskit/editor-json-transformer": "^8.20.0",
-		"@atlaskit/editor-plugin-quick-insert": "1.5.0",
+		"@atlaskit/editor-plugin-quick-insert": "1.5.1",
 		"@atlaskit/editor-plugins": "^5.6.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.0.0",
 		"@atlaskit/emoji": "^67.8.0",
-		"@atlaskit/icon": "^22.23.0",
-		"@atlaskit/media-card": "^78.7.0",
+		"@atlaskit/icon": "^22.24.0",
+		"@atlaskit/media-card": "^78.8.0",
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
@@ -81,10 +81,10 @@
 	"devDependencies": {
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/adf-utils": "^19.9.0",
+		"@atlaskit/adf-utils": "^19.10.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
 		"@atlaskit/collab-provider": "9.43.3",
-		"@atlaskit/editor-plugin-annotation": "1.21.2",
+		"@atlaskit/editor-plugin-annotation": "1.21.3",
 		"@atlaskit/editor-plugin-card": "^4.3.0",
 		"@atlaskit/editor-plugin-list": "^3.9.0",
 		"@atlaskit/editor-plugin-paste": "^1.14.0",
@@ -103,7 +103,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.152",
+		"@atlassian/search-provider": "2.4.154",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -293,6 +293,10 @@
 		},
 		"platform_editor_advanced_layouts_pre_release_1": {
 			"type": "boolean"
+		},
+		"platform_editor_advanced_layouts_pre_release_2": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"platform_editor_utilize_linebreakreplacement": {
 			"type": "boolean",

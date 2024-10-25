@@ -4,11 +4,10 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import VRTestWrapper from '../utils/vr-test-wrapper';
 
-import { Provider, Client, type ResolveResponse } from '../../src';
-import { Card } from '../../src';
+import { Card, Client, Provider, type ResolveResponse } from '../../src';
 import { mockConfluenceResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
+import VRTestWrapper from '../utils/vr-test-wrapper';
 
 class CustomClient extends Client {
 	fetchData(url: string) {

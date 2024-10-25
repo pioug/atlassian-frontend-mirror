@@ -1,20 +1,25 @@
 import React from 'react';
+
 import { type JsonLd } from 'json-ld-types';
-import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
-import { type EmbedCardProps } from './types';
-import { extractEmbedProps } from '../../extractors/embed';
-import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
-import { extractInlineProps } from '../../extractors/inline';
+
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+
 import { extractBlockProps } from '../../extractors/block';
+import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
+import { extractEmbedProps } from '../../extractors/embed';
+import { extractInlineProps } from '../../extractors/inline';
 import { getExtensionKey, hasAuthScopeOverrides } from '../../state/helpers';
+import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { BlockCardResolvedView, BlockCardResolvingView } from '../BlockCard';
 import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
-import { EmbedCardResolvedView } from './views/ResolvedView';
+
+import { type EmbedCardProps } from './types';
 import { EmbedCardErroredView } from './views/ErroredView';
 import ForbiddenView from './views/forbidden-view';
 import NotFoundView from './views/not-found-view';
+import { EmbedCardResolvedView } from './views/ResolvedView';
 import UnauthorizedView from './views/unauthorized-view';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+
 
 export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 	(

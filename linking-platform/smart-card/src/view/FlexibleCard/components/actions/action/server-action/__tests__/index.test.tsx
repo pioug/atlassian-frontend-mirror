@@ -1,6 +1,8 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+
 import { act, fireEvent, render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 

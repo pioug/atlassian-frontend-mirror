@@ -19,7 +19,7 @@ const cardStyles = xcss({
 const MyCard = () => (
 	<Box xcss={cardStyles}>
 		<Stack space="space.100">
-			<Heading level="h600">A Card</Heading>
+			<Heading size="medium">A Card</Heading>
 			<Box xcss={textStyles}>With a description.</Box>
 		</Stack>
 	</Box>

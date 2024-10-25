@@ -307,7 +307,7 @@ const Results = ({
 	return (
 		<Stack space="space.200">
 			<Inline spread="space-between">
-				<Heading level="h800">Results:</Heading>
+				<Heading size="xlarge">Results:</Heading>
 				<Button
 					onClick={() => {
 						const fullCustomResults =

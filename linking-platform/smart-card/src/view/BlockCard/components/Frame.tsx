@@ -2,12 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React from 'react';
-import { N20A, N30A, B200, N40A, N50A } from '@atlaskit/theme/colors';
+
+import { B200, N20A, N30A, N40A, N50A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { gs, br, mq } from '../../common/utils';
+
+import { br, gs, mq } from '../../common/utils';
 
 export interface FrameProps {
 	children?: React.ReactNode;

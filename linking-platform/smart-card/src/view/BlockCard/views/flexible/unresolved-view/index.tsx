@@ -1,16 +1,23 @@
-import { CustomBlock, PreviewBlock, TitleBlock } from '../../../../FlexibleCard/components/blocks';
 import React from 'react';
-import FlexibleCard from '../../../../FlexibleCard';
-import { InternalFooterBlock } from '../../../../FlexibleCard/components/blocks';
-import {
-	FlexibleCardUiOptions,
-	PreviewBlockOptions,
-	titleBlockOptions,
-	FooterBlockOptions,
-} from '../utils';
-import { type UnresolvedViewProps } from './types';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
+
+import FlexibleCard from '../../../../FlexibleCard';
+import {
+	CustomBlock,
+	InternalFooterBlock,
+	PreviewBlock,
+	TitleBlock,
+} from '../../../../FlexibleCard/components/blocks';
+import {
+	FlexibleCardUiOptions,
+	FooterBlockOptions,
+	PreviewBlockOptions,
+	titleBlockOptions,
+} from '../utils';
+
+import { type UnresolvedViewProps } from './types';
 
 const customBlockStyles = css({
 	alignItems: 'flex-start',

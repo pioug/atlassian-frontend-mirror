@@ -3,17 +3,20 @@
  * @jsx jsx
  */
 import React from 'react';
-import { type MessageDescriptor } from 'react-intl-next';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { type MessageDescriptor } from 'react-intl-next';
 
-import { type BadgeProps } from './types';
 import { token } from '@atlaskit/tokens';
-import { getFormattedMessage, getIconSizeStyles } from '../../utils';
+
 import { IconType } from '../../../../../constants';
 import { messages } from '../../../../../messages';
-import ImageIcon from '../../common/image-icon';
 import AtlaskitIcon from '../../common/atlaskit-icon';
+import ImageIcon from '../../common/image-icon';
+import { getFormattedMessage, getIconSizeStyles } from '../../utils';
+
+import { type BadgeProps } from './types';
 
 const badgeStyles = css({
 	alignItems: 'center',

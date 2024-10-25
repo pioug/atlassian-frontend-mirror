@@ -1,5 +1,7 @@
-import { code } from '@atlaskit/docs';
 import React from 'react';
+
+import { code } from '@atlaskit/docs';
+
 import HoverCardExample from '../../../examples/content/hover-card';
 import customMd from '../../utils/custom-md';
 import prerequisites from '../prerequisites';

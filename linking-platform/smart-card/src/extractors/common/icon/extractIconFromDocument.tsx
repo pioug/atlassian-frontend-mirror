@@ -1,13 +1,14 @@
 import React from 'react';
 
-import BlogIcon from '@atlaskit/icon-object/glyph/blog/16';
+import DocumentIcon from '@atlaskit/icon-file-type/glyph/document/16';
 import FileIcon from '@atlaskit/icon-file-type/glyph/generic/16';
 import PresentationIcon from '@atlaskit/icon-file-type/glyph/presentation/16';
 import SpreadsheetIcon from '@atlaskit/icon-file-type/glyph/spreadsheet/16';
-import DocumentIcon from '@atlaskit/icon-file-type/glyph/document/16';
+import BlogIcon from '@atlaskit/icon-object/glyph/blog/16';
 import DocumentFilledIcon from '@atlaskit/icon/core/migration/page--document-filled';
 
 import { getIconForFileType } from '../../../utils';
+
 import { type IconOpts } from './extractIcon';
 import { prioritiseIcon } from './prioritiseIcon';
 

@@ -1,17 +1,23 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl-next';
+
 import { type JsonLd } from 'json-ld-types';
-import FlexibleCard from '../../../../FlexibleCard';
-import { messages } from '../../../../../messages';
-import { CustomBlock, PreviewBlock } from '../../../../FlexibleCard/components/blocks';
-import { type HoverCardForbiddenProps } from './types';
+import { FormattedMessage } from 'react-intl-next';
+
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
 import { extractProvider } from '@atlaskit/link-extractors';
-import { connectButtonStyles, mainTextStyles, titleBlockStyles } from './styled';
-import { getPreviewBlockStyles } from '../../../styled';
+
 import { extractRequestAccessContextImproved } from '../../../../../extractors/common/context/extractAccessContext';
 import extractHostname from '../../../../../extractors/common/hostname/extractHostname';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { messages } from '../../../../../messages';
+import FlexibleCard from '../../../../FlexibleCard';
+import { CustomBlock, PreviewBlock } from '../../../../FlexibleCard/components/blocks';
+import { getPreviewBlockStyles } from '../../../styled';
+
+import { connectButtonStyles, mainTextStyles, titleBlockStyles } from './styled';
+import { type HoverCardForbiddenProps } from './types';
+
+
 
 const HoverCardForbiddenView = ({
 	flexibleCardProps,

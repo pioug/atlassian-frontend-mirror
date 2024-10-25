@@ -2,24 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 
 import { useCallback } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
+
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
-import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
-import ExpandIcon from '@atlaskit/icon/utility/chevron-down';
-import CollapseIcon from '@atlaskit/icon/utility/chevron-up';
 import ExpandIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import CollapseIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-up';
-import { N50A, N40A } from '@atlaskit/theme/colors';
+import ExpandIcon from '@atlaskit/icon/utility/chevron-down';
+import CollapseIcon from '@atlaskit/icon/utility/chevron-up';
+import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
+import { N40A, N50A } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { type ExampleUrl, type ExampleUIConfig, type ExampleRolloutStatus } from './types';
 import { ProviderCardExampleList } from './ProviderCardExampleList';
+import { type ExampleRolloutStatus, type ExampleUIConfig, type ExampleUrl } from './types';
 
 const getWrapperStyles = ({ disabled }: { disabled: boolean }) => {
 	const base = css({

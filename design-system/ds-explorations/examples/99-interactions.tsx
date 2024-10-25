@@ -47,13 +47,13 @@ export default () => {
 	return (
 		<Box padding="space.100" testId="all">
 			<Stack space="space.200">
-				<Heading level="h400">Current ADS Buttons</Heading>
+				<Heading size="xsmall">Current ADS Buttons</Heading>
 				<Inline space="space.200">
 					<Button appearance="primary">brand.bold</Button>
 					<Button appearance="default">neutral</Button>
 					<Button appearance="warning">warning.bold</Button>
 				</Inline>
-				<Heading level="h400">
+				<Heading size="xsmall">
 					Buttons with <Code>InteractionSurface</Code>
 				</Heading>
 				<Inline space="space.200" testId="buttons">
@@ -79,7 +79,7 @@ export default () => {
 						</Pressable>
 					))}
 				</Inline>
-				<Heading level="h400">
+				<Heading size="xsmall">
 					Icon Buttons with <Code>InteractionSurface</Code>
 				</Heading>
 				<Inline space="space.200" testId="icon-buttons">
@@ -122,7 +122,7 @@ export default () => {
 						</InteractionSurface>
 					</Pressable>
 				</Inline>
-				<Heading level="h400">
+				<Heading size="xsmall">
 					Progress Indicator with <Code>InteractionSurface</Code>
 				</Heading>
 				<Inline space="space.200" testId="progress-indicators">
@@ -147,7 +147,7 @@ export default () => {
 						</Pressable>
 					))}
 				</Inline>
-				<Heading level="h400">Textfield / input spikes</Heading>
+				<Heading size="xsmall">Textfield / input spikes</Heading>
 				<Stack space="space.200">
 					<label htmlFor="textfield">Textfield</label>
 					<Textfield id="textfield" />

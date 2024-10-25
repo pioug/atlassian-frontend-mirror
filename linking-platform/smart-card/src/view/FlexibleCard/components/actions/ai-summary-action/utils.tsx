@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
+
 import { getAISummaryErrorMessage } from '../../../../../utils/ai-summary';
 import AIEventErrorViewed from '../../common/ai-summary/ai-event-error-viewed';
 import AILearnMoreAnchor from '../../common/ai-summary/ai-learn-more-anchor';

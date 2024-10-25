@@ -166,26 +166,6 @@ export const toolbarInsertBlockMessages = defineMessages({
 		defaultMessage: 'Layouts',
 		description: 'Create a multi column section or layout',
 	},
-	twoColumns: {
-		id: 'fabric.editor.twoColumns',
-		defaultMessage: '2 columns layout',
-		description: 'Create a section or layout with two columns',
-	},
-	threeColumns: {
-		id: 'fabric.editor.threeColumns',
-		defaultMessage: '3 columns layout',
-		description: 'Create a section or layout with three columns',
-	},
-	fourColumns: {
-		id: 'fabric.editor.fourColumns',
-		defaultMessage: '4 columns layout',
-		description: 'Create a section or layout with four columns',
-	},
-	fiveColumns: {
-		id: 'fabric.editor.fiveColumns',
-		defaultMessage: '5 columns layout',
-		description: 'Create a section or layout with five columns',
-	},
 	columnsDescription: {
 		id: 'fabric.editor.columns.description',
 		defaultMessage: 'Structure your page using sections',

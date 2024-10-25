@@ -1,9 +1,9 @@
-import { type JsonLd } from 'json-ld-types';
 import { render, screen } from '@testing-library/react';
+import { type JsonLd } from 'json-ld-types';
 
-import { extractByline } from '../extractByline';
 import { TEST_BASE_DATA, TEST_PERSON } from '../../__mocks__/jsonld';
 import { withIntl } from '../../__mocks__/withIntl';
+import { extractByline } from '../extractByline';
 
 describe('extractors.byline', () => {
 	it('returns undefined if neither created or updated present', () => {

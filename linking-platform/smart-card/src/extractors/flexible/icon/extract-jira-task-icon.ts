@@ -1,5 +1,6 @@
-import { type IconDescriptor } from './types';
 import { IconType } from '../../../constants';
+
+import { type IconDescriptor } from './types';
 
 const extractJiraTaskIcon = (taskType?: string, label = 'Task'): IconDescriptor | undefined => {
 	switch (taskType) {

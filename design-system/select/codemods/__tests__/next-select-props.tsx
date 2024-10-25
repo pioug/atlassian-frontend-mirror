@@ -1,6 +1,6 @@
 jest.autoMockOff();
 
-import * as transformer from '../next-select-props';
+import * as transformer from '../18.3.0-select-props';
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 

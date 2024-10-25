@@ -10,6 +10,7 @@ import { G50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useAutomationMenu } from '../../menu-context';
+
 import { ManualTriggerGlyph } from './manual-trigger-icon';
 
 const i18n = defineMessages({

@@ -1,15 +1,17 @@
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { token } from '@atlaskit/tokens';
 
-import { type GetCardStateProps, getCardState } from './../utils/flexible-ui';
-import VRTestWrapper from './../utils/vr-test-wrapper';
+import JiraPreviewImage from '../../examples/images/forbidden-jira.svg';
 import { type AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
 import { BlockCard } from '../../src/view/BlockCard';
-import JiraPreviewImage from '../../examples/images/forbidden-jira.svg';
-import { token } from '@atlaskit/tokens';
+import { getCardState, type GetCardStateProps } from '../utils/flexible-ui';
+import VRTestWrapper from '../utils/vr-test-wrapper';
+
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div({

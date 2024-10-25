@@ -1,12 +1,17 @@
+import React, { useMemo } from 'react';
+
+import { type JsonLd } from 'json-ld-types';
+import { useIntl } from 'react-intl-next';
+
 import LockIcon from '@atlaskit/icon/glyph/lock';
 import { extractProvider } from '@atlaskit/link-extractors';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { type JsonLd } from 'json-ld-types';
-import React, { useMemo } from 'react';
-import { useIntl } from 'react-intl-next';
+
+
 import { messages } from '../../../../messages';
 import Text from '../../../FlexibleCard/components/elements/text';
+
 import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';

@@ -1,4 +1,5 @@
 import React, { type ErrorInfo, useCallback } from 'react';
+
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { type EmbedModalProps } from '../../types';

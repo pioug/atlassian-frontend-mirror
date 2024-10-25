@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
+
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
 import { BlockCardResolvingView } from '../../../../view/BlockCard';
 
 describe('Block card views - Resolving', () => {

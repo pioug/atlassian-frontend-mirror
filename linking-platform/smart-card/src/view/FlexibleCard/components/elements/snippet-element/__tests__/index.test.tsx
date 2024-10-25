@@ -1,13 +1,17 @@
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { IntlProvider } from 'react-intl-next';
 import { render, screen } from '@testing-library/react';
-import { messages } from '../../../../../../messages';
-import { type FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
-import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-import Snippet from '../index';
+import { IntlProvider } from 'react-intl-next';
+
 import { token } from '@atlaskit/tokens';
+
+import { messages } from '../../../../../../messages';
+import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import { type FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
+import Snippet from '../index';
+
 
 describe('Snippet', () => {
 	const snippetContent = 'Smart link snippet';

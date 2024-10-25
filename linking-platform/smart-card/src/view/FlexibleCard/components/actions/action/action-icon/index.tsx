@@ -4,11 +4,14 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
+
 import { SmartLinkSize } from '../../../../../../constants';
 import { getIconSizeStyles } from '../../../utils';
+
 import { type ActionIconProps } from './types';
-import { token } from '@atlaskit/tokens';
 
 const getIconWidth = (size?: SmartLinkSize): string => {
 	switch (size) {

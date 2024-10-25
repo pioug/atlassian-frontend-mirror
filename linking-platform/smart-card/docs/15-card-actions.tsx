@@ -1,14 +1,15 @@
 import React from 'react';
+
 import aiSummary from './content/card-actions/ai-summary';
+import automation from './content/card-actions/automation';
 import copy from './content/card-actions/copy';
 import download from './content/card-actions/download';
 import follow from './content/card-actions/follow';
 import preview from './content/card-actions/preview';
-import automation from './content/card-actions/automation';
 import recentLinks from './content/card-actions/recent-links';
 import status from './content/card-actions/status';
-import customMd from './utils/custom-md';
 import ContentTable from './utils/content-table';
+import customMd from './utils/custom-md';
 import QuickLinks from './utils/quick-links';
 
 export default customMd`

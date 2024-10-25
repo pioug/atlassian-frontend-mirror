@@ -1,6 +1,8 @@
-import { useState, type MouseEvent } from 'react';
-import { normalizeUrl } from '@atlaskit/linking-common/url';
+import { type MouseEvent, useState } from 'react';
+
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { normalizeUrl } from '@atlaskit/linking-common/url';
+
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
 
 const toUrl = (url: string, base?: string): URL | undefined => {

@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 
 import { di } from 'react-magnetic-di';
 
+import type { AISummaryActionData } from '../../../../../state/flexible-ui-context/types';
 import useAISummaryAction from '../../../../../state/hooks/use-ai-summary-action';
 
-import type { AISummaryActionData } from '../../../../../state/flexible-ui-context/types';
-import type { AISummaryActionProps } from './types';
-import { CopySummaryAction } from './copy-summary-action';
 import { AISummariseAction } from './ai-summarise-action';
+import { CopySummaryAction } from './copy-summary-action';
+import type { AISummaryActionProps } from './types';
 
 export const AISummaryActionComponent = (props: AISummaryActionProps & AISummaryActionData) => {
 	di(useAISummaryAction);

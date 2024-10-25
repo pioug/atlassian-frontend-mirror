@@ -3,13 +3,14 @@
  * @jsx jsx
  */
 import { useCallback, useEffect, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { type PreviewBlockProps } from '../types';
 import { MediaPlacement } from '../../../../../../constants';
-import Block from '../../block';
 import { Preview } from '../../../elements';
+import Block from '../../block';
+import { type PreviewBlockProps } from '../types';
 
 /**
  * Due to its placement on the left/right and ignoreContainerPadding prop

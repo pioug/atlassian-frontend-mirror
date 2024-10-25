@@ -34,7 +34,7 @@ const RadiusCard = ({
 	return (
 		<HeadingContextProvider>
 			<Box xcss={cardStyles} style={{ borderRadius: radiusMap[heading] }}>
-				<Heading level="h400">{heading}</Heading>
+				<Heading size="xsmall">{heading}</Heading>
 				{children}
 			</Box>
 		</HeadingContextProvider>

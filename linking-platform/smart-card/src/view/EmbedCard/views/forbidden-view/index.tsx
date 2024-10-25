@@ -1,12 +1,15 @@
-import Button from '@atlaskit/button';
 import React, { useMemo } from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
+
+import Button from '@atlaskit/button';
 
 import { messages } from '../../../../messages';
 import { toMessage } from '../../../../utils/intl-utils';
 import UnresolvedView from '../unresolved-view';
-import { type ForbiddenViewProps } from './types';
+
 import { ForbiddenSVG } from './forbidden-svg';
+import { type ForbiddenViewProps } from './types';
 
 const ForbiddenView = ({
 	context,

@@ -1,15 +1,18 @@
 import React from 'react';
-import Tooltip from '@atlaskit/tooltip';
-import { di } from 'react-magnetic-di';
+
 import { FormattedMessage } from 'react-intl-next';
+import { di } from 'react-magnetic-di';
+
+import AIIcon from '@atlaskit/icon/core/atlassian-intelligence';
 import { Box, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-import AIIcon from '@atlaskit/icon/core/atlassian-intelligence';
+import Tooltip from '@atlaskit/tooltip';
+
+import { messages } from '../../../../../../messages';
+import type { AISummaryActionData } from '../../../../../../state/flexible-ui-context/types';
+import useAISummaryAction from '../../../../../../state/hooks/use-ai-summary-action';
 import LegacyAIIcon from '../../../../../common/ai-icon';
 import { InfoIcon } from '../icons/info';
-import { messages } from '../../../../../../messages';
-import useAISummaryAction from '../../../../../../state/hooks/use-ai-summary-action';
-import type { AISummaryActionData } from '../../../../../../state/flexible-ui-context/types';
 
 export const AIFooterMetadata = ({ testId, url }: AISummaryActionData & { testId?: string }) => {
 	di(useAISummaryAction);

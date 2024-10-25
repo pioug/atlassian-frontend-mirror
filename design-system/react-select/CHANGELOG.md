@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.1.0
+
+### Minor Changes
+
+- [#156026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156026)
+  [`709b9c76673df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/709b9c76673df) -
+  add clearControlLabel prop to pass aria-label to clear icon button
+
 ## 1.0.6
 
 ### Patch Changes

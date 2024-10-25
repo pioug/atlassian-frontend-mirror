@@ -1,15 +1,18 @@
 import './card.test.mock';
 
-import * as analytics from '../../../utils/analytics';
 import React from 'react';
-import { render, waitFor, screen } from '@testing-library/react';
-import { CardClient } from '@atlaskit/link-provider';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { Card } from '../../Card';
-import { APIError, Provider } from '../../..';
-import { fakeFactory, mocks } from '../../../utils/mocks';
+
+import { render, screen, waitFor } from '@testing-library/react';
 import { type JsonLd } from 'json-ld-types';
 import { ErrorBoundary } from 'react-error-boundary';
+
+import { CardClient } from '@atlaskit/link-provider';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+
+import { APIError, Provider } from '../../../index';
+import * as analytics from '../../../utils/analytics';
+import { fakeFactory, mocks } from '../../../utils/mocks';
+import { Card } from '../../Card';
 
 mockSimpleIntersectionObserver();
 

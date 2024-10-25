@@ -1,15 +1,19 @@
-import { type JsonLd } from 'json-ld-types';
 import React from 'react';
-import { Card } from '../../Card';
-import { Provider } from '../../..';
-import { render, waitFor, screen } from '@testing-library/react';
-import { mocks } from '../../../utils/mocks';
+
+import { render, screen, waitFor } from '@testing-library/react';
+import { type JsonLd } from 'json-ld-types';
+
+
+import { CardClient } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
-import { CardClient } from '@atlaskit/link-provider';
-import * as analytics from '../../../utils/analytics';
-import * as lazyComponent from '../../CardWithUrl/component-lazy/index';
+
+import { Provider } from '../../../index';
 import { ChunkLoadError } from '../../../utils/__tests__/index.test';
+import * as analytics from '../../../utils/analytics';
+import { mocks } from '../../../utils/mocks';
+import { Card } from '../../Card';
+import * as lazyComponent from '../../CardWithUrl/component-lazy';
 
 mockSimpleIntersectionObserver();
 
@@ -298,7 +302,7 @@ describe('smart-card: error analytics', () => {
 
 		const onError = jest.fn();
 		class MockClient extends CardClient {
-			async fetchData(url: string): Promise<JsonLd.Response> {
+			async fetchData(_url: string): Promise<JsonLd.Response> {
 				return mocks.success;
 			}
 		}

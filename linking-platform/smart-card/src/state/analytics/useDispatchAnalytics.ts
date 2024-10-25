@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
-import { type AnalyticsHandler, type AnalyticsPayload } from '../../';
+import { type AnalyticsHandler, type AnalyticsPayload } from '../../index';
 import { ANALYTICS_CHANNEL } from '../../utils/analytics';
 
 /**

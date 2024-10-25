@@ -1,10 +1,12 @@
 import React from 'react';
+
 import 'brace';
 import 'brace/mode/json';
 import 'brace/theme/tomorrow';
 import 'brace/theme/twilight';
 import 'brace/ext/language_tools';
 import AceEditor from 'react-ace';
+
 import InlineMessage from '@atlaskit/inline-message';
 import { useThemeObserver } from '@atlaskit/tokens';
 

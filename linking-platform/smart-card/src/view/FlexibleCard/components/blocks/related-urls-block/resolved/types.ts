@@ -1,4 +1,5 @@
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
+
 import { type RelatedUrlsResponse } from '../../../../../../state/hooks/use-related-urls';
 import { type BlockProps } from '../../types';
 

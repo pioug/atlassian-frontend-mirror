@@ -2,17 +2,21 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { type ErrorInfo, useCallback } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { type ErrorInfo, useCallback } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { di } from 'react-magnetic-di';
+
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+
+import { CardDisplay } from '../../constants';
 import { useSmartLinkAnalytics } from '../../state/analytics';
 import { SmartLinkModalProvider } from '../../state/modal';
+
 import { HoverCardComponent } from './components/HoverCardComponent';
 import { type HoverCardInternalProps, type HoverCardProps } from './types';
-import { CardDisplay } from '../../constants';
-import { di } from 'react-magnetic-di';
 
 const HoverCardWithErrorBoundary = (props: HoverCardProps & HoverCardInternalProps) => {
 	di(HoverCardComponent);

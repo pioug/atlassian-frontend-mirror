@@ -1,5 +1,11 @@
 import { type JsonLd } from 'json-ld-types';
 
+import { extractTitle } from '@atlaskit/link-extractors';
+
+import { IconType } from '../../../constants';
+import { prioritiseIcon } from '../../common/icon';
+import { extractorPriorityMap as priorityMap } from '../../common/icon/priority';
+import { extractTaskType } from '../../common/lozenge';
 import { JIRA_GENERATOR_ID } from '../../constants';
 
 import extractDocumentTypeIcon from './extract-document-type-icon';
@@ -8,11 +14,7 @@ import extractJiraTaskIcon from './extract-jira-task-icon';
 import extractProviderIcon from './extract-provider-icon';
 import extractUrlIcon from './extract-url-icon';
 import { type IconDescriptor } from './types';
-import { extractTaskType } from '../../common/lozenge';
-import { extractTitle } from '@atlaskit/link-extractors';
-import { extractorPriorityMap as priorityMap } from '../../common/icon/priority';
-import { IconType } from '../../../constants';
-import { prioritiseIcon } from '../../common/icon';
+
 
 const extractTask = (data: JsonLd.Data.Task, label?: string) => {
 	const { id, icon: url } = extractTaskType(data as JsonLd.Data.Task) || {};

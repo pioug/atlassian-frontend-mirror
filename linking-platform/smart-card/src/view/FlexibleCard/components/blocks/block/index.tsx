@@ -7,8 +7,8 @@ import { useEffect } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { type BlockProps } from '../types';
 import { ElementName, SmartLinkDirection, SmartLinkSize } from '../../../../../constants';
+import { type BlockProps } from '../types';
 import { getBaseStyles, getGapSize, highlightRemoveStyles, renderChildren } from '../utils';
 
 const getBlockStyles = (

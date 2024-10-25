@@ -1,14 +1,16 @@
 import React from 'react';
 
 import '@testing-library/jest-dom';
-import { DeleteAction, EditAction } from '../index';
-import { SmartLinkSize } from '../../../../../constants';
-import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
-import { token } from '@atlaskit/tokens';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
+
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+import { token } from '@atlaskit/tokens';
+
+import { SmartLinkSize } from '../../../../../constants';
 import { type ActionProps } from '../action/types';
+import { DeleteAction, EditAction } from '../index';
 
 interface Options {
 	name: string;

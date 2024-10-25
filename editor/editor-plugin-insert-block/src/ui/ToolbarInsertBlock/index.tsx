@@ -97,10 +97,10 @@ export const tableButtonWrapper = ({
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedComponentProps, State> {
-	private dropdownButtonRef?: HTMLElement;
-	private emojiButtonRef?: HTMLElement;
-	private mediaButtonRef?: HTMLElement;
-	private plusButtonRef?: HTMLElement;
+	private dropdownButtonRef?: WeakRef<HTMLElement>;
+	private emojiButtonRef?: WeakRef<HTMLElement>;
+	private mediaButtonRef?: WeakRef<HTMLElement>;
+	private plusButtonRef?: WeakRef<HTMLElement>;
 	private tableButtonRef = React.createRef<HTMLElement>();
 	private tableSelectorButtonRef = React.createRef<HTMLElement>();
 
@@ -166,7 +166,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 				bubbles: true,
 				key: 'ArrowDown',
 			});
-			this.dropdownButtonRef?.dispatchEvent(downArrowEvent);
+			this.dropdownButtonRef?.deref()?.dispatchEvent(downArrowEvent);
 			this.setState({ ...this.state, isOpenedByKeyboard: false });
 		}
 
@@ -215,7 +215,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		const { isPlusMenuOpen } = this.state;
 		this.onOpenChange({ isPlusMenuOpen: !isPlusMenuOpen });
 		if (event?.key === 'Escape') {
-			(this.plusButtonRef || this.dropdownButtonRef)?.focus();
+			(this.plusButtonRef || this.dropdownButtonRef)?.deref()?.focus();
 		}
 	};
 
@@ -243,7 +243,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 
 	private handleEmojiPressEscape = () => {
 		this.toggleEmojiPicker(INPUT_METHOD.KEYBOARD);
-		this.emojiButtonRef?.focus();
+		this.emojiButtonRef?.deref()?.focus();
 	};
 
 	private handleEmojiClickOutside = (e: MouseEvent) => {
@@ -273,7 +273,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 
 		return (
 			<Popup
-				target={ref}
+				target={ref.deref()}
 				fitHeight={350}
 				fitWidth={350}
 				offset={[0, 3]}
@@ -303,23 +303,23 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 
 			switch (buttonName) {
 				case 'emoji':
-					this.emojiButtonRef = ref;
+					this.emojiButtonRef = new WeakRef(ref);
 					break;
 				case 'media':
-					this.mediaButtonRef = ref;
+					this.mediaButtonRef = new WeakRef(ref);
 					break;
 			}
 		};
 
 	private handlePlusButtonRef = (ref: ToolbarButtonRef): void => {
 		if (ref) {
-			this.plusButtonRef = ref;
+			this.plusButtonRef = new WeakRef(ref);
 		}
 	};
 
 	private handleDropDownButtonRef = (ref: ToolbarButtonRef) => {
 		if (ref) {
-			this.dropdownButtonRef = ref;
+			this.dropdownButtonRef = new WeakRef(ref);
 		}
 	};
 
@@ -507,7 +507,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 								? !isFullPageAppearance && this.state.isPlusMenuOpen
 								: this.state.isPlusMenuOpen
 						}
-						plusButtonRef={this.plusButtonRef}
+						plusButtonRef={this.plusButtonRef?.deref()}
 						items={this.state.dropdownItems}
 						onRef={this.handleDropDownButtonRef}
 						onPlusButtonRef={this.handlePlusButtonRef}
@@ -689,10 +689,11 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 	private openMediaPicker = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
 		const { onShowMediaPicker, dispatchAnalyticsEvent } = this.props;
 		if (onShowMediaPicker) {
-			const args = this.mediaButtonRef
+			const ref = this.mediaButtonRef?.deref();
+			const args = ref
 				? {
-						ref: this.mediaButtonRef,
-						mountPoint: this.props.popupsMountPoint ?? this.mediaButtonRef,
+						ref,
+						mountPoint: this.props.popupsMountPoint ?? ref,
 					}
 				: undefined;
 			onShowMediaPicker(args);

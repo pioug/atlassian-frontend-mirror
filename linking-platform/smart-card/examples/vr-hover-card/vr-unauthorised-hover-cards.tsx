@@ -1,9 +1,8 @@
-import VRTestWrapper from '../utils/vr-test-wrapper';
 import React from 'react';
 
-import { Provider, Client, type ResolveResponse } from '../../src';
-import { Card } from '../../src';
+import { Card, Client, Provider, type ResolveResponse } from '../../src';
 import { mockUnauthorisedResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
+import VRTestWrapper from '../utils/vr-test-wrapper';
 
 class CustomClient extends Client {
 	fetchData(url: string) {

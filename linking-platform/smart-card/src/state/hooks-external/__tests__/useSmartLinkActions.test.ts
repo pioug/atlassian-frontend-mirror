@@ -8,11 +8,11 @@ jest.mock('@atlaskit/link-provider', () => {
 import { renderHook } from '@testing-library/react-hooks';
 import { type JsonLd } from 'json-ld-types';
 
+import { extractBlockProps } from '../../../extractors/block';
 import { mocks } from '../../../utils/mocks';
 import { useSmartCardState } from '../../store';
-import { useSmartLinkActions } from '../useSmartLinkActions';
 import { type CardState } from '../../types';
-import { extractBlockProps } from '../../../extractors/block';
+import { useSmartLinkActions } from '../useSmartLinkActions';
 
 jest.mock('../../actions', () => ({
 	useSmartCardActions: jest.fn(),

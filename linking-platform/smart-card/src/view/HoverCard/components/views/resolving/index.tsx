@@ -4,18 +4,21 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+
+import { CustomBlock } from '../../../../FlexibleCard/components/blocks';
+import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
 import LoadingSkeleton from '../../../../FlexibleCard/components/common/loading-skeleton';
-import { type HoverCardLoadingViewProps } from './types';
+import Icon from '../../../../FlexibleCard/components/elements/icon';
 import { CARD_WIDTH_REM } from '../../../styled';
+
 import {
 	getTitleStyles,
 	loadingViewContainer,
 	skeletonContainer,
 	titleBlockStyles,
 } from './styled';
-import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
-import { CustomBlock } from '../../../../FlexibleCard/components/blocks';
-import Icon from '../../../../FlexibleCard/components/elements/icon';
+import { type HoverCardLoadingViewProps } from './types';
+
 
 const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps) => {
 	const testId = 'hover-card-loading-view';

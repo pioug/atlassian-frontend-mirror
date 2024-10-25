@@ -39,7 +39,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/dynamic-table": "^16.1.0",
-		"@atlaskit/icon": "^22.23.0",
+		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/media-client": "^28.0.0",
 		"@atlaskit/media-client-react": "^2.2.0",
 		"@atlaskit/media-ui": "^25.16.0",
@@ -58,7 +58,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@atlaskit/icon-file-type": "^6.6.0",
+		"@atlaskit/icon-file-type": "^6.7.0",
 		"@atlaskit/media-core": "^34.3.0",
 		"@atlaskit/media-test-helpers": "^34.5.0",
 		"@atlaskit/range": "^7.4.0",

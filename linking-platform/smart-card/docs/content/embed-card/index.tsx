@@ -1,5 +1,7 @@
-import { Box } from '@atlaskit/primitives';
 import React from 'react';
+
+import { Box } from '@atlaskit/primitives';
+
 import CardViewExample from '../../../examples/card-view';
 import EmbedCardExample from '../../../examples/content/embed-card';
 import { ResolvedClientEmbedUrl } from '../../../examples/utils/custom-client';

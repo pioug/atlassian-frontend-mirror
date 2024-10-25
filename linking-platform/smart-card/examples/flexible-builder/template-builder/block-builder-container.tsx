@@ -1,11 +1,14 @@
+import React, { type PropsWithChildren, useCallback, useState } from 'react';
+
 import { IconButton } from '@atlaskit/button/new';
 import Button from '@atlaskit/button/standard-button';
 import DragHandlerIcon from '@atlaskit/icon/core/migration/drag-handle--drag-handler';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Grid, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-import React, { type PropsWithChildren, useCallback, useState } from 'react';
+
 import { type BlockName } from '../constants';
+
 import ChevronIcon from './chevron-icon';
 
 const containerStyles = xcss({

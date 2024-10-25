@@ -2,19 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { IntlProvider } from 'react-intl-next';
-import { type JsonLd } from 'json-ld-types';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { type JsonLd } from 'json-ld-types';
+import { IntlProvider } from 'react-intl-next';
+
+import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { token } from '@atlaskit/tokens';
 
-import {
-	FooterBlock,
-	MetadataBlock,
-	SnippetBlock,
-	TitleBlock,
-} from '../../src/view/FlexibleCard/components/blocks';
-import { exampleTokens } from '../utils/flexible-ui';
 import {
 	ActionName,
 	Card,
@@ -26,10 +21,16 @@ import {
 	SmartLinkPosition,
 	SmartLinkSize,
 	SmartLinkTheme,
-} from '../../src/index';
-import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+} from '../../src';
+import {
+	FooterBlock,
+	MetadataBlock,
+	SnippetBlock,
+	TitleBlock,
+} from '../../src/view/FlexibleCard/components/blocks';
 import { type CustomActionItem } from '../../src/view/FlexibleCard/components/blocks/types';
 import { response1, response2, response3, response4 } from '../content/example-responses';
+import { exampleTokens } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const listStyles = css({

@@ -115,7 +115,7 @@ const ImportPopup = ({ onImport }: { onImport: (theme: ThemeExportFormat) => voi
 			content={() => (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<Stack space="space.100" xcss={xcss({ padding: 'space.200', maxWidth: '400px' })}>
-					<Heading level="h600">Import a custom theme</Heading>
+					<Heading size="medium">Import a custom theme</Heading>
 					<p>
 						Paste in a JSON string of a custom theme to import it. This will overwrite your current
 						custom theme.
@@ -242,7 +242,7 @@ export default function ContrastChecker() {
 			<GridItem>
 				<Box paddingBlockStart="space.500">
 					<Inline spread="space-between" shouldWrap={true} space="space.100">
-						<Heading level="h900">Contrast Checker</Heading>
+						<Heading size="xxlarge">Contrast Checker</Heading>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<Box xcss={xcss({ flexBasis: 300, flexShrink: '1' })}>
 							<Stack space="space.100">
@@ -255,7 +255,7 @@ export default function ContrastChecker() {
 			<GridItem span={{ sm: 12, md: 6 }}>
 				<Stack space="space.200">
 					<Inline spread="space-between">
-						<Heading level="h800">Theme editor</Heading>
+						<Heading size="xlarge">Theme editor</Heading>
 						<Box>
 							<CustomThemeActions
 								customTheme={customTheme}
@@ -271,7 +271,7 @@ export default function ContrastChecker() {
 							/>
 						</Box>
 					</Inline>
-					<Heading level="h700">Base tokens:</Heading>
+					<Heading size="large">Base tokens:</Heading>
 					<Accordion description="Edit base tokens">
 						<BaseTokenEditor
 							baseTokens={customBaseTokens}
@@ -280,7 +280,7 @@ export default function ContrastChecker() {
 							}
 						/>
 					</Accordion>
-					<Heading level="h700">
+					<Heading size="large">
 						{baseThemeType.charAt(0).toUpperCase() + baseThemeType.slice(1)} theme:
 					</Heading>
 					{customTheme && customTheme.length === 0 && (

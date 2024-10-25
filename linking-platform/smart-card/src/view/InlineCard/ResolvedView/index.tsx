@@ -1,12 +1,14 @@
 import React from 'react';
-import { Frame } from '../Frame';
+
 import Lozenge from '@atlaskit/lozenge';
+
+import { type LozengeProps } from '../../../types';
+import type { CardActionOptions } from '../../Card/types';
+import { HoverCard } from '../../HoverCard';
+import { type HoverPreviewOptions } from '../../HoverCard/types';
+import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { LozengeWrapper } from '../IconAndTitleLayout/styled';
-import { type LozengeProps } from '../../../types';
-import { HoverCard } from '../../HoverCard/index';
-import type { CardActionOptions } from '../../Card/types';
-import { type HoverPreviewOptions } from '../../HoverCard/types';
 export interface InlineCardResolvedViewProps {
 	/** A unique ID for a Smart Link. */
 	id?: string;

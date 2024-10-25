@@ -260,6 +260,8 @@ const ToolbarItems = React.memo(
 							alignDropdownWithToolbar={items.length === 1}
 							onToggle={item.onToggle}
 							footer={item.footer}
+							onMount={item.onMount}
+							onClick={item.onClick}
 							pulse={item.pulse}
 						/>
 					);

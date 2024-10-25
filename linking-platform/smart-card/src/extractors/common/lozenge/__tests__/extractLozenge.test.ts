@@ -1,11 +1,12 @@
-import { extractLozenge } from '../extractLozenge';
+import { type JsonLd } from 'json-ld-types';
+
 import {
 	TEST_BASE_DATA,
-	TEST_OBJECT,
 	TEST_NAME,
+	TEST_OBJECT,
 	TEST_UNDEFINED_LINK,
 } from '../../__mocks__/jsonld';
-import { type JsonLd } from 'json-ld-types';
+import { extractLozenge } from '../extractLozenge';
 
 describe('extractors.lozenge.lozenge', () => {
 	it('returns undefined if type unsupported for lozenge', () => {

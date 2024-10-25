@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { useSmartLinkReload } from '../useSmartLinkReload';
 import { useSmartCardActions } from '../../actions';
+import { useSmartLinkReload } from '../useSmartLinkReload';
 
 jest.mock('../../actions', () => ({
 	useSmartCardActions: jest.fn(),

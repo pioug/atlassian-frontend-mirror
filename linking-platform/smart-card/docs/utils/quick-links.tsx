@@ -1,5 +1,7 @@
-import { Box, Inline, xcss } from '@atlaskit/primitives';
 import React from 'react';
+
+import { Box, Inline, xcss } from '@atlaskit/primitives';
+
 import DocQuickLinks from './doc-quick-links';
 import ExampleQuickLinks from './example-quick-links';
 

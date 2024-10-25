@@ -1,26 +1,28 @@
 import React from 'react';
+
 import { type JsonLd } from 'json-ld-types';
 
-import PeopleGroupIcon from '@atlaskit/icon/core/migration/people-group';
-import CommitIcon from '@atlaskit/icon-object/glyph/commit/16';
-import PullRequestIcon from '@atlaskit/icon-object/glyph/pull-request/16';
 import BranchIcon from '@atlaskit/icon-object/glyph/branch/16';
 import RepoIcon from '@atlaskit/icon-object/glyph/code/16';
+import CommitIcon from '@atlaskit/icon-object/glyph/commit/16';
+import PullRequestIcon from '@atlaskit/icon-object/glyph/pull-request/16';
 import TaskIcon from '@atlaskit/icon-object/glyph/task/16';
-
-import { getIconForFileType } from '../../../utils';
-import { extractorPriorityMap } from './priority';
+import PeopleGroupIcon from '@atlaskit/icon/core/migration/people-group';
 import {
 	extractProvider,
-	type LinkProvider,
-	extractUrlFromIconJsonLd,
 	extractTitle,
+	extractUrlFromIconJsonLd,
+	type LinkProvider,
 } from '@atlaskit/link-extractors';
+
+import { getIconForFileType } from '../../../utils';
+import { extractTaskType, type LinkTaskType } from '../lozenge/extractTaskType';
+
 import { extractFileFormat } from './extractFileFormat';
 import { extractIconFromDocument } from './extractIconFromDocument';
 import { extractIconFromTask } from './extractIconFromTask';
-import { extractTaskType, type LinkTaskType } from '../lozenge/extractTaskType';
 import { prioritiseIcon } from './prioritiseIcon';
+import { extractorPriorityMap } from './priority';
 
 export type IconPriority = 'type' | 'provider';
 export interface IconOpts {

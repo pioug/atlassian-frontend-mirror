@@ -34,7 +34,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/avatar": "^21.15.0",
+		"@atlaskit/avatar": "^21.16.0",
 		"@atlaskit/comment": "^11.1.0",
 		"@atlaskit/editor-common": "^94.2.0",
 		"@atlaskit/editor-core": "^199.2.0",

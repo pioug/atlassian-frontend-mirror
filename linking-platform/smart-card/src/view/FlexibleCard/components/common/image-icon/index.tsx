@@ -7,8 +7,9 @@
 import { jsx } from '@emotion/react';
 import ImageLoader from 'react-render-image';
 
-import { type ImageIconProps } from './types';
 import LoadingSkeleton from '../loading-skeleton';
+
+import { type ImageIconProps } from './types';
 
 const ImageIcon = ({ defaultIcon, testId, url, onError, onLoad }: ImageIconProps) => (
 	<ImageLoader

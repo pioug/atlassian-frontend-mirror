@@ -1,6 +1,7 @@
+import { type ActiveThemeState } from '@atlaskit/tokens/src/theme-config';
+
 import { getPreviewUrlWithTheme, importWithRetry, openUrl } from '../index';
 import * as utils from '../index';
-import { type ActiveThemeState } from '@atlaskit/tokens/src/theme-config';
 
 export class ChunkLoadError extends Error {
 	name = 'ChunkLoadError';

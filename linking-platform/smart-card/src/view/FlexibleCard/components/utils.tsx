@@ -1,17 +1,20 @@
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, type IntlShape, type MessageDescriptor } from 'react-intl-next';
+import Loadable from 'react-loadable';
+
 import { type Spacing } from '@atlaskit/button';
 import type { Space } from '@atlaskit/primitives';
+
 import { SmartLinkSize } from '../../../constants';
-import { type MessageProps } from './types';
-import Icon from './elements/icon';
-import { openEmbedModal } from '../../EmbedModal/utils';
 import { type PreviewActionData } from '../../../state/flexible-ui-context/types';
-import { type IntlShape, type MessageDescriptor } from 'react-intl-next';
 import { type EmbedModalProps } from '../../EmbedModal/types';
-import Loadable from 'react-loadable';
+import { openEmbedModal } from '../../EmbedModal/utils';
+
+import Icon from './elements/icon';
+import { type MessageProps } from './types';
 
 export const sizeToButtonSpacing: Record<SmartLinkSize, Spacing> = {
 	[SmartLinkSize.Small]: 'none',

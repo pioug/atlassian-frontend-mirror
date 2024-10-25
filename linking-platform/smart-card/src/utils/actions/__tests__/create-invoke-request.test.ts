@@ -1,4 +1,5 @@
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
+
 import createInvokeRequest from '../create-invoke-request';
 
 describe('createInvokeRequest', () => {

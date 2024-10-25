@@ -2,27 +2,29 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { type MouseEvent, useMemo } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { type MouseEvent, useMemo } from 'react';
-import { R300 } from '@atlaskit/theme/colors';
-import WarningIcon from '@atlaskit/icon/utility/migration/warning';
 
-import { Frame } from '../components/Frame';
+import WarningIcon from '@atlaskit/icon/utility/migration/warning';
+import { Flex, xcss } from '@atlaskit/primitives';
+import { R300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
+import { messages } from '../../../messages';
 import { Byline } from '../../common/Byline';
+import { RetryAction } from '../actions/RetryAction';
+import { type ActionProps } from '../components/Action';
 import { ActionList } from '../components/ActionList';
 import { Content } from '../components/Content';
-import { messages } from '../../../messages';
 import { ContentFooter } from '../components/ContentFooter';
 import { ContentHeader } from '../components/ContentHeader';
-import { handleClickCommon } from '../utils/handlers';
+import { Frame } from '../components/Frame';
 import { Link } from '../components/Link';
 import { UnresolvedText } from '../components/UnresolvedText';
-import { type ActionProps } from '../components/Action';
-import { RetryAction } from '../actions/RetryAction';
-import { token } from '@atlaskit/tokens';
-import { Flex, xcss } from '@atlaskit/primitives';
+import { handleClickCommon } from '../utils/handlers';
 
 const textDescriptionProps = { ...messages.could_not_load_link };
 

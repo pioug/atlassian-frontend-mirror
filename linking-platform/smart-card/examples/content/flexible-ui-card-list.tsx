@@ -1,6 +1,9 @@
-import { Grid } from '@atlaskit/primitives';
-import { type JsonLd } from 'json-ld-types';
 import React from 'react';
+
+import { type JsonLd } from 'json-ld-types';
+
+import { Grid } from '@atlaskit/primitives';
+
 import {
 	Card,
 	Client,
@@ -10,6 +13,7 @@ import {
 	SmartLinkSize,
 	TitleBlock,
 } from '../../src';
+
 import { response1, response2, response3 } from './example-responses';
 
 const examples = {

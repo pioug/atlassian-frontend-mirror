@@ -14,10 +14,12 @@ export const engagementPlatformPmPlugin = (pluginConfig: EngagementPlatformPlugi
 			init: () => {
 				return {
 					messageStates: {},
+					startMessagePromises: {},
+					stopMessagePromises: {},
 					epComponents: pluginConfig.epComponents,
 					epHooks: pluginConfig.epHooks,
 					coordinationClient: pluginConfig.coordinationClient,
-				};
+				} satisfies EngagementPlatformPmPluginState;
 			},
 			apply: (tr: ReadonlyTransaction, pluginState: EngagementPlatformPmPluginState) => {
 				const meta: EngagementPlatformPmPluginTrMeta | undefined = tr.getMeta(
@@ -27,22 +29,62 @@ export const engagementPlatformPmPlugin = (pluginConfig: EngagementPlatformPlugi
 					return pluginState;
 				}
 
-				const newState = {
-					...pluginState,
-					messageStates: {
-						...pluginState.messageStates,
-						...meta.newMessageStates,
-					},
-				};
-
-				// Remove false message states to save memory
-				Object.entries(newState.messageStates).forEach(([key, value]) => {
-					if (!value) {
-						delete newState.messageStates[key];
+				let state = { ...pluginState };
+				for (const command of meta.commands) {
+					switch (command.type) {
+						case 'setMessageState':
+							state = {
+								...state,
+								messageStates: {
+									...state.messageStates,
+									[command.messageId]: command.state,
+								},
+							};
+							break;
+						case 'setStartMessagePromise':
+							if (command.promise !== undefined) {
+								state = {
+									...state,
+									startMessagePromises: {
+										...state.startMessagePromises,
+										[command.messageId]: command.promise,
+									},
+								};
+								break;
+							} else {
+								// If the promise is undefined, remove it from the state
+								const { [command.messageId]: _, ...startMessagePromises } =
+									state.startMessagePromises;
+								state = {
+									...state,
+									startMessagePromises,
+								};
+							}
+							break;
+						case 'setStopMessagePromise':
+							if (command.promise !== undefined) {
+								state = {
+									...state,
+									stopMessagePromises: {
+										...state.stopMessagePromises,
+										[command.messageId]: command.promise,
+									},
+								};
+								break;
+							} else {
+								// If the promise is undefined, remove it from the state
+								const { [command.messageId]: _, ...stopMessagePromises } =
+									state.stopMessagePromises;
+								state = {
+									...state,
+									stopMessagePromises,
+								};
+							}
+							break;
 					}
-				});
+				}
 
-				return newState;
+				return state;
 			},
 		},
 	});

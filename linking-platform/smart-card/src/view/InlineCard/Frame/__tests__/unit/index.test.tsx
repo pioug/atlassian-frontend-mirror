@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
 
-import { Frame } from '../..';
+import { fireEvent, render, screen } from '@testing-library/react';
+
+import { Frame } from '../../index';
 
 describe('Frame', () => {
 	it('should not render interactive props when the frame is not clickable', async () => {

@@ -1,10 +1,12 @@
 import React from 'react';
-import { render, waitFor, screen } from '@testing-library/react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import { render, screen, waitFor } from '@testing-library/react';
+
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { SmartLinkStatus } from '../../../../../../constants';
+import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import SnippetBlock from '../index';
 
 describe('SnippetBlock', () => {

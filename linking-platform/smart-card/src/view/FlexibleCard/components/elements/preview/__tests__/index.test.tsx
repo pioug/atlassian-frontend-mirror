@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen } from '@testing-library/react';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';

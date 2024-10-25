@@ -1,5 +1,20 @@
 # @atlaskit/avatar
 
+## 21.16.0
+
+### Minor Changes
+
+- [#155193](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155193)
+  [`823ac616e85a9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/823ac616e85a9) -
+  adding data-ssr-placeholder-ignored attribute for VC calculation
+
+### Patch Changes
+
+- [#154751](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154751)
+  [`002c8762275d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/002c8762275d8) -
+  Fix focus styles overriding custom border styles when focus is not visible.
+- Updated dependencies
+
 ## 21.15.5
 
 ### Patch Changes

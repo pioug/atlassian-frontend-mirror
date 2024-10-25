@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { type CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { Card } from '../../src';
 import type { CardAppearance } from '@atlaskit/linking-common';
+
+import { Card } from '../../src';
+
 import { ErroredClient, ForbiddenClient, NotFoundClient, UnAuthClient } from './custom-client';
 
 export const renderCard = (client: CardClient, appearance: CardAppearance) => (

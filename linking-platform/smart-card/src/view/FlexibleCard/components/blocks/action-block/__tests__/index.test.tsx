@@ -1,11 +1,14 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+
+import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { SmartLinkStatus } from '../../../../../../constants';
 import ActionBlock from '../index';
 import type { ActionBlockProps } from '../types';
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
 	...jest.requireActual('../../../../../../state/flexible-ui-context'),

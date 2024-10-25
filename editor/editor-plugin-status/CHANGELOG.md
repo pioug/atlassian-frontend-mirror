@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-status
 
+## 2.5.4
+
+### Patch Changes
+
+- [#155735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155735)
+  [`1beeeda29023a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1beeeda29023a) -
+  Upgrades editor packages to react 18
+
 ## 2.5.3
 
 ### Patch Changes

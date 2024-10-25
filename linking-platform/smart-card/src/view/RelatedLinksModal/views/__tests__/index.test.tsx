@@ -1,19 +1,22 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+
 import { render, screen, waitFor } from '@testing-library/react';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { type CardStore } from '@atlaskit/linking-common';
-import '@atlaskit/link-test-helpers/jest';
-import RelatedLinksBaseModal from '../../components/RelatedLinksBaseModal';
-import RelatedLinksResolvedView from '../resolved';
-import RelatedLinksUnavailableView from '../unavailable';
-import RelatedLinksResolvingView from '../resolving';
-import RelatedLinksErroredView from '../errored';
-import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
 import userEvent from '@testing-library/user-event';
-import { mockSuccessResponse } from '../../__tests__/__mocks__/mocks';
+import { IntlProvider } from 'react-intl-next';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { type CardStore } from '@atlaskit/linking-common';
+
+import '@atlaskit/link-test-helpers/jest';
+import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
+import { mockSuccessResponse } from '../../__tests__/__mocks__/mocks';
+import RelatedLinksBaseModal from '../../components/RelatedLinksBaseModal';
+import RelatedLinksErroredView from '../errored';
+import RelatedLinksResolvedView from '../resolved';
+import RelatedLinksResolvingView from '../resolving';
+import RelatedLinksUnavailableView from '../unavailable';
 
 mockSimpleIntersectionObserver();
 

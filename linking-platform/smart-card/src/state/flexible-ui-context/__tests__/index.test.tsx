@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
+
+import { SmartLinkSize } from '../../../constants';
 import {
 	FlexibleUiContext,
 	FlexibleUiOptionContext,
 	useFlexibleUiContext,
 	useFlexibleUiOptionContext,
 } from '../index';
-import { SmartLinkSize } from '../../../constants';
 
 describe('useFlexibleUiContext', () => {
 	it('provides correct context to consumer', () => {

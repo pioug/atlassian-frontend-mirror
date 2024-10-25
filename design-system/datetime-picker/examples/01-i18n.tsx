@@ -85,6 +85,7 @@ export default () => {
 				<Heading size="large">Time picker</Heading>
 				<Label htmlFor="react-select-timepicker-1--input">Select time (default)</Label>
 				<TimePicker
+					clearControlLabel="Clear select time (default)"
 					id="react-select-timepicker-1--input"
 					onChange={onChange}
 					locale={locale}

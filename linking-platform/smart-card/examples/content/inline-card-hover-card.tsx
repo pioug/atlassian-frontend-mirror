@@ -1,12 +1,15 @@
-import { SmartCardProvider } from '@atlaskit/link-provider';
 import React from 'react';
+
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { Stack, Text } from '@atlaskit/primitives';
+
 import {
 	ResolvedClient,
 	ResolvedClientEmbedUrl,
 	ResolvedClientUrl,
 } from '../../examples/utils/custom-client';
 import { Card } from '../../src';
-import { Stack, Text } from '@atlaskit/primitives';
+
 
 export default () => (
 	<SmartCardProvider client={new ResolvedClient('stg')}>

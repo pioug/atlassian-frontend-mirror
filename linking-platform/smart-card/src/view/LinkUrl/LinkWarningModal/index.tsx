@@ -2,6 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
+import {
+	FormattedMessage,
+	injectIntl,
+	IntlProvider,
+	type WrappedComponentProps,
+} from 'react-intl-next';
+
 import Button from '@atlaskit/button/standard-button';
 import Modal, {
 	ModalBody,
@@ -10,16 +19,11 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import {
-	FormattedMessage,
-	IntlProvider,
-	injectIntl,
-	type WrappedComponentProps,
-} from 'react-intl-next';
-import { breakWordsCss } from './styled';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+
 import { messages } from '../../../messages';
+
+import { breakWordsCss } from './styled';
+
 interface LinkWarningModalProps {
 	isOpen: boolean;
 	onClose: () => void;

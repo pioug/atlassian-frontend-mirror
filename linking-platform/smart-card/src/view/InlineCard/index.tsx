@@ -1,20 +1,26 @@
 import React, { useEffect } from 'react';
-import { type InlineCardProps } from './types';
-import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
-import { extractInlineProps } from '../../extractors/inline';
+
 import { type JsonLd } from 'json-ld-types';
+
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { extractProvider } from '@atlaskit/link-extractors';
+import { useFeatureFlag } from '@atlaskit/link-provider';
+
+import { SmartLinkStatus } from '../../constants';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
+import { extractInlineProps } from '../../extractors/inline';
+import { getExtensionKey } from '../../state/helpers';
+import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { CardLinkView } from '../LinkView';
+
 import { InlineCardErroredView } from './ErroredView';
 import { InlineCardForbiddenView } from './ForbiddenView';
 import { InlineCardResolvedView } from './ResolvedView';
 import { InlineCardResolvingView } from './ResolvingView';
+import { type InlineCardProps } from './types';
 import { InlineCardUnauthorizedView } from './UnauthorisedView';
-import { extractProvider } from '@atlaskit/link-extractors';
-import { useFeatureFlag } from '@atlaskit/link-provider';
-import { getExtensionKey } from '../../state/helpers';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { SmartLinkStatus } from '../../constants';
+
+
 
 export {
 	InlineCardResolvedView,

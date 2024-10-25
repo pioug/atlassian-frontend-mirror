@@ -60,16 +60,16 @@ function createGutter(gutterSize: number) {
 
 	let initialized = false;
 	let mounted = false;
-	let currentParent: HTMLElement | null = null;
+	let currentParent: WeakRef<HTMLElement> | null = null;
 
 	let observer: IntersectionObserver | undefined;
 
 	let isVisible = false;
 	return {
-		addGutter(parent: HTMLElement) {
+		addGutter(parent: WeakRef<HTMLElement> | null) {
 			if (parent) {
 				currentParent = parent;
-				parent.appendChild(gutter);
+				parent.deref()?.appendChild(gutter);
 				mounted = true;
 				if (observer) {
 					observer.observe(gutter);
@@ -77,9 +77,10 @@ function createGutter(gutterSize: number) {
 			}
 		},
 		removeGutter() {
-			if (currentParent && mounted) {
+			const parentRef = currentParent?.deref();
+			if (parentRef && mounted) {
 				mounted = false;
-				currentParent.removeChild(gutter);
+				parentRef.removeChild(gutter);
 				if (observer) {
 					observer.unobserve(gutter);
 				}
@@ -244,7 +245,7 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
 			const addAndObserveGutter = () => {
 				if (!gutter.isMounted()) {
 					gutter.observe(scrollElement!);
-					gutter.addGutter(editorParentElement!);
+					gutter.addGutter(editorParentElement ? new WeakRef(editorParentElement) : null);
 				}
 			};
 

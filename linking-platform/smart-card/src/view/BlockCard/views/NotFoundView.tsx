@@ -2,26 +2,27 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React, { type MouseEvent } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { type MouseEvent } from 'react';
-import { R300 } from '@atlaskit/theme/colors';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
 
-import { Frame } from '../components/Frame';
-import { Provider } from '../components/Provider';
-import { Byline } from '../../common/Byline';
-import { Content } from '../components/Content';
+import WarningIcon from '@atlaskit/icon/glyph/warning';
+import { R300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
 import { messages } from '../../../messages';
-import { ContentFooter } from '../components/ContentFooter';
+import { Byline } from '../../common/Byline';
 import { type IconProps } from '../../common/Icon';
+import { Content } from '../components/Content';
+import { ContentFooter } from '../components/ContentFooter';
 import { ContentHeader } from '../components/ContentHeader';
+import { Frame } from '../components/Frame';
 import { Link } from '../components/Link';
+import { Provider } from '../components/Provider';
 import { UnresolvedText } from '../components/UnresolvedText';
 import { handleClickCommon } from '../utils/handlers';
-import { token } from '@atlaskit/tokens';
 
 const textDescriptionProps = { ...messages.not_found_description };
 

@@ -1,7 +1,8 @@
-import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
+
 import { N40 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 // in editor prosemirror adds padding-left so we need to overwrite it
 // renderer overwrites the margin-right so we need to add it here

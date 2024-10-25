@@ -1,4 +1,5 @@
 import { type PropsWithChildren } from 'react';
+
 import { type AIGlowingBorderProps } from './ai-glowing-border/types';
 
 export type AIPrismProps = PropsWithChildren<

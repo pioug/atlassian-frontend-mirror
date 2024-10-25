@@ -1,18 +1,20 @@
 import React, { useCallback, useState } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/utility/migration/chevron-up';
 import { Inline, Pressable, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
 
 import { messages } from '../../../../../../../messages';
 import { getFormattedMessageAsString } from '../../../../../components/utils';
 import Text from '../../../../elements/text';
-import { type ResolvedResultProps } from './types';
+
 import ResolvedResultsStack from './resolved-result-stack';
+import { type ResolvedResultProps } from './types';
 
 const RelatedUrlList = ({
 	resolvedResults,

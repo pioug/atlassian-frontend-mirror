@@ -1,7 +1,9 @@
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import React from 'react';
+
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+
 import { JiraIssue } from '../../examples-helpers/_jsonLDExamples';
-import { Card } from '../../src/index';
+import { Card } from '../../src';
 import { getJsonLdResponse } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

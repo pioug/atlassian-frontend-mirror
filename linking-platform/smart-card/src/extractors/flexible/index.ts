@@ -1,49 +1,53 @@
 import { type JsonLd } from 'json-ld-types';
-import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
-import { extractSummary } from '../common/primitives';
-import extractActions from './actions';
-import { extractLinkIcon } from './icon';
+
 import {
+	extractAri,
+	extractDateCreated,
+	extractDateUpdated,
+	extractLink,
+	extractPersonCreatedBy,
+	extractPersonOwnedBy,
+	extractTitle,
+	type LinkTypeCreated,
+} from '@atlaskit/link-extractors';
+
+import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
+import { type ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/types';
+import { extractSummary } from '../common/primitives';
+
+import extractActions from './actions';
+import { extractViewAction } from './actions/extract-view-action';
+import { extractPersonsUpdatedBy } from './collaboratorGroup';
+import extractPreview from './extract-preview';
+import extractPriority from './extract-priority';
+import extractState from './extract-state';
+import { extractLinkIcon } from './icon';
+import extractProviderIcon from './icon/extract-provider-icon';
+import { extractLatestCommit, type LinkTypeLatestCommit } from './latest-commit';
+import {
+	extractAssignedTo,
 	extractAttachmentCount,
 	extractChecklistProgress,
 	extractCommentCount,
 	extractCreatedBy,
-	extractModifiedBy,
-	extractProgrammingLanguage,
-	extractSubscriberCount,
-	extractViewCount,
-	extractReactCount,
-	extractVoteCount,
-	extractSourceBranch,
-	extractTargetBranch,
 	extractDueOn,
 	extractLocation,
+	extractModifiedBy,
 	extractOwnedBy,
-	extractAssignedTo,
-	extractSubTasksProgress,
-	extractStoryPoints,
+	extractPersonAssignedToAsArray,
+	extractProgrammingLanguage,
+	extractReactCount,
 	extractReadTime,
 	extractSentOn,
-	extractPersonAssignedToAsArray,
+	extractSourceBranch,
+	extractStoryPoints,
+	extractSubscriberCount,
+	extractSubTasksProgress,
+	extractTargetBranch,
+	extractViewCount,
+	extractVoteCount,
 } from './utils';
-import { extractPersonsUpdatedBy } from './collaboratorGroup';
-import {
-	extractPersonCreatedBy,
-	extractTitle,
-	extractDateUpdated,
-	extractDateCreated,
-	type LinkTypeCreated,
-	extractLink,
-	extractPersonOwnedBy,
-	extractAri,
-} from '@atlaskit/link-extractors';
-import extractPriority from './extract-priority';
-import extractProviderIcon from './icon/extract-provider-icon';
-import extractPreview from './extract-preview';
-import extractState from './extract-state';
-import { extractLatestCommit, type LinkTypeLatestCommit } from './latest-commit';
-import { extractViewAction } from './actions/extract-view-action';
-import { type ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/types';
+
 
 const extractFlexibleUiContext = ({
 	id,

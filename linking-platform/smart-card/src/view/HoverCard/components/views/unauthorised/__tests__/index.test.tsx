@@ -1,18 +1,21 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+
 import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { useSmartLinkAnalytics } from '../../../../../../state/';
+
+import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,
 	CONTENT_URL_SECURITY_AND_PERMISSIONS,
 } from '../../../../../../constants';
-import HoverCardUnauthorisedView from '../index';
-import { type HoverCardUnauthorisedProps } from '../types';
-import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
+import { useSmartLinkAnalytics } from '../../../../../../state';
 import { mockGetContext } from '../../../../../../state/actions/__tests__/index.test.mock';
 import { mocks } from '../../../../../../utils/mocks';
 import { mockUnauthorisedResponse } from '../../../../__tests__/__mocks__/mocks';
+import HoverCardUnauthorisedView from '../index';
+import { type HoverCardUnauthorisedProps } from '../types';
 
 mockSimpleIntersectionObserver();
 

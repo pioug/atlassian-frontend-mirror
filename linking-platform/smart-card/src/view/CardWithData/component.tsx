@@ -1,10 +1,12 @@
 import React from 'react';
-import { type CardWithDataContentProps as Props } from './types';
-import { getEmptyJsonLd } from '../../utils/jsonld';
-import { extractInlineProps } from '../../extractors/inline';
+
 import { extractBlockProps } from '../../extractors/block';
-import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
+import { extractInlineProps } from '../../extractors/inline';
+import { getEmptyJsonLd } from '../../utils/jsonld';
 import { BlockCardResolvedView } from '../BlockCard';
+import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
+
+import { type CardWithDataContentProps as Props } from './types';
 
 export class CardWithDataContent extends React.Component<Props> {
 	render() {

@@ -6,8 +6,8 @@
 import { css, jsx } from '@emotion/react';
 
 import { Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
-import { type RelatedLinkItemProp } from '../types';
 import {
 	Card,
 	type ElementItem,
@@ -18,7 +18,8 @@ import {
 	TitleBlock,
 } from '../../../../index';
 import { type FlexibleUiOptions } from '../../../FlexibleCard/types';
-import { token } from '@atlaskit/tokens';
+import { type RelatedLinkItemProp } from '../types';
+
 
 const hoverStyles = xcss({
 	':hover': {

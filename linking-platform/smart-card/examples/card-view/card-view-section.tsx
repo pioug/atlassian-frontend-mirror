@@ -1,5 +1,7 @@
-import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
 import React from 'react';
+
+import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
+
 import { Card, type CardProps } from '../../src';
 
 const CardViewSection = ({

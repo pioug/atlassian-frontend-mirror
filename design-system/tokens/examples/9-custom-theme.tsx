@@ -313,7 +313,7 @@ export default () => {
 					</Inline>
 				)}
 				<Stack space="space.100">
-					<Heading level="h700">Modified tokens</Heading>
+					<Heading size="large">Modified tokens</Heading>
 
 					{Object.entries(lightTokens).map(([tokenName, value]) => {
 						return (
@@ -341,7 +341,7 @@ export default () => {
 				{contrastCheckResults.length ? (
 					<Stack space="space.100">
 						<Inline space="space.100" alignBlock="center">
-							<Heading level="h700">Contrast check results</Heading>
+							<Heading size="large">Contrast check results</Heading>
 							<Lozenge appearance="moved">{contrastCheckResults.length}</Lozenge>
 						</Inline>
 						<Accordion
@@ -368,7 +368,7 @@ export default () => {
 					</Stack>
 				) : null}
 				<Stack space="space.200">
-					<Heading level="h700">Component examples</Heading>
+					<Heading size="large">Component examples</Heading>
 					<Inline space="space.100">
 						<Stack space="space.100">
 							{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

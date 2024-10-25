@@ -4,7 +4,9 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
 import { token } from '@atlaskit/tokens';
+
 import {
 	Card,
 	type ElementItem,
@@ -15,6 +17,7 @@ import {
 	SnippetBlock,
 	TitleBlock,
 } from '../../src';
+
 import { actionNames, metadataElements } from './flexible-ui';
 
 /**
@@ -115,7 +118,7 @@ const FlexibleDataView = ({ url }: { url?: string }) => (
 			<PreviewBlock />
 			<SnippetBlock />
 			<FooterBlock
-				actions={actionNames.map((name, idx) => ({
+				actions={actionNames.map((name, _idx) => ({
 					name,
 					onClick: () => {},
 				}))}

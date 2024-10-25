@@ -1,5 +1,5 @@
-import type { AnalyticsFacade } from '../../analytics';
 import type { CardInnerAppearance } from '../../../view/Card/types';
+import type { AnalyticsFacade } from '../../analytics';
 
 export type UseInvokeClientActionProps = {
 	/**

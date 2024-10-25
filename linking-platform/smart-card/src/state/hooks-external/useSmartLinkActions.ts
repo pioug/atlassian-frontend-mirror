@@ -1,14 +1,15 @@
-import { type JsonLd } from 'json-ld-types';
 import { useMemo } from 'react';
+
+import { type JsonLd } from 'json-ld-types';
 import uuid from 'uuid';
+
+import { extractBlockProps as extractCardProps } from '../../extractors/block';
 import type { AnalyticsOrigin } from '../../utils/types';
 import type { CardActionOptions, CardInnerAppearance } from '../../view/Card/types';
-import { extractBlockProps as extractCardProps } from '../../extractors/block';
-
 import { useSmartCardActions as useLinkActions } from '../actions';
 import { useSmartLinkAnalytics as useLinkAnalytics } from '../analytics';
-import { useSmartCardState as useLinkState } from '../store';
 import { getExtensionKey } from '../helpers';
+import { useSmartCardState as useLinkState } from '../store';
 
 export interface LinkAction {
 	/**

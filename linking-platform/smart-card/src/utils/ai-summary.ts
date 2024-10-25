@@ -1,5 +1,6 @@
 import type { JsonLd } from 'json-ld-types';
 import type { MessageDescriptor } from 'react-intl-next';
+
 import { CONTENT_URL_ACCEPTABLE_USE_POLICY, CONTENT_URL_AI_TROUBLESHOOTING } from '../constants';
 import { messages } from '../messages';
 

@@ -1,10 +1,12 @@
+import React, { useCallback, useMemo, useState } from 'react';
+
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { Label } from '@atlaskit/form';
 import { Grid } from '@atlaskit/primitives';
 import Select from '@atlaskit/select/Select';
 import Textfield from '@atlaskit/textfield';
-import React, { useCallback, useMemo, useState } from 'react';
+
 import { ActionName } from '../../../../src';
 import { type BlockTemplate } from '../../types';
 import { type ChangeParams, getCustomActionIcon, handleOnChange } from '../../utils';

@@ -1,6 +1,7 @@
 import { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
-import { type ElementProps } from '../types';
+
 import type { LinkLozengeInvokeActions } from '../../../../../extractors/common/lozenge/types';
+import { type ElementProps } from '../types';
 
 export type LozengeAppearance = 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
 

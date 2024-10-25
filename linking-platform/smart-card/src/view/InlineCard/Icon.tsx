@@ -1,9 +1,10 @@
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
 import { SpanSkeleton } from '@atlaskit/linking-common';
 import { token } from '@atlaskit/tokens';
-import React from 'react';
 
 // TODO: Figure out a more scalable/responsive solution
 // for vertical alignment.

@@ -23,6 +23,7 @@ export default () => {
 
 			<Label htmlFor="react-select-time--input">TimePicker defaultValue defaultIsOpen</Label>
 			<TimePicker
+				clearControlLabel="Clear timePicker defaultValue defaultIsOpen"
 				id="react-select-time--input"
 				defaultValue="10:00am"
 				defaultIsOpen

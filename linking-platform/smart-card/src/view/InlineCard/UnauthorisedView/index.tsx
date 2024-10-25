@@ -1,18 +1,22 @@
+import React from 'react';
+
+import { FormattedMessage } from 'react-intl-next';
+
 import Button from '@atlaskit/button';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import withFrameStyleControl from '../utils/withFrameStyleControl';
 
-import React from 'react';
-import { FormattedMessage } from 'react-intl-next';
+
+
 import { messages } from '../../../messages';
+import { type AnalyticsFacade } from '../../../state/analytics';
+import { HoverCard } from '../../HoverCard';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { IconStyledButton } from '../styled';
-import { HoverCard } from '../../HoverCard';
-import { type AnalyticsFacade } from '../../../state/analytics';
+import withFrameStyleControl from '../utils/withFrameStyleControl';
 
 export interface InlineCardUnauthorizedViewProps {
 	/** The url to display */

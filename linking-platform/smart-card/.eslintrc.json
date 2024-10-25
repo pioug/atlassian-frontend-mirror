@@ -1,0 +1,28 @@
+{
+	"rules": {
+		"@typescript-eslint/no-unused-vars": [
+			"error",
+			{ "argsIgnorePattern": "^_", "ignoreRestSiblings": true }
+		]
+	},
+	"overrides": [
+		{
+			"files": ["docs/**/*"],
+			"rules": {
+				"@typescript-eslint/no-unused-vars": [
+					"error",
+					{ "argsIgnorePattern": "^_|props", "ignoreRestSiblings": true }
+				]
+			}
+		},
+		{
+			"files": ["examples/**/*"],
+			"rules": {
+				"@typescript-eslint/no-unused-vars": [
+					"error",
+					{ "argsIgnorePattern": "^_|url", "ignoreRestSiblings": true }
+				]
+			}
+		}
+	]
+}

@@ -362,6 +362,25 @@ describe('TimePicker', () => {
 		expect(screen.getByTestId(`${testId}--popper--container`)).toBeInTheDocument();
 	});
 
+	it('should render the custom clear label', () => {
+		const timePickerLabel = 'test time';
+		const clearControlLabel = `Clear ${timePickerLabel}`;
+		const onChangeSpy = jest.fn();
+
+		render(
+			createTimePicker({
+				value: '15:32',
+				onChange: onChangeSpy,
+				defaultIsOpen: true,
+				selectProps: { testId: testId },
+				label: timePickerLabel,
+				clearControlLabel,
+			}),
+		);
+
+		expect(screen.getByRole('button', { name: clearControlLabel })).toBeInTheDocument();
+	});
+
 	it('should never apply an ID to the hidden input', () => {
 		const id = 'test';
 		const allImplementations = [createTimePicker(), createTimePicker({ id: id })];

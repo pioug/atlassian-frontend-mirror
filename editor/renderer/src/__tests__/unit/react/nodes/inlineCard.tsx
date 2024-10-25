@@ -68,11 +68,6 @@ describe('Renderer - React/Nodes/InlineCard', () => {
 		expect(node.find(InlineCard).prop('url')).toEqual(url);
 	});
 
-	it('should render with data if prop exists', () => {
-		node = mount(<InlineCard data={data} />);
-		expect(node.find(InlineCard).prop('data')).toEqual(data);
-	});
-
 	it('should render with onClick if eventHandlers has correct event key', () => {
 		const mockedOnClick = jest.fn();
 		const mockedEvent = { target: {} };

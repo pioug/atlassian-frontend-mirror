@@ -1,6 +1,6 @@
-import { type MessageProps } from '../../../../types';
 import { messages } from '../../../../../../../messages';
 import { type PreviewActionData } from '../../../../../../../state/flexible-ui-context/types';
+import { type MessageProps } from '../../../../types';
 
 export type LozengeActionErrorProps = {
 	/**

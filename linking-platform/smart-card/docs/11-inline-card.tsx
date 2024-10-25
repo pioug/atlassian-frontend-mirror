@@ -1,6 +1,6 @@
 import React from 'react';
-import overview from './content/inline-card';
 
+import overview from './content/inline-card';
 import examples from './content/inline-card/examples';
 import reference from './content/inline-card/reference';
 import { TabName } from './utils';

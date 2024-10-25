@@ -2,24 +2,28 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React, { useMemo } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { useModal } from '@atlaskit/modal-dialog';
-import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
-import DownloadIconLegacy from '@atlaskit/icon/glyph/download';
+
 import DownloadIcon from '@atlaskit/icon/core/download';
-import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
-import VidFullScreenOnIcon from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
 import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+import VidFullScreenOnIcon from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
+import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import DownloadIconLegacy from '@atlaskit/icon/glyph/download';
 import VidFullScreenOffIcon from '@atlaskit/icon/glyph/vid-full-screen-off';
-import { Icon } from '../../../common/Icon';
+import { useModal } from '@atlaskit/modal-dialog';
+
 import { messages } from '../../../../messages';
+import { Icon } from '../../../common/Icon';
 import { MAX_MODAL_SIZE } from '../../constants';
-import { type LinkInfoProps } from './types';
+
 import LinkInfoButton from './link-info-button';
 import { actionCss, containerStyles, iconCss, titleCss } from './styled';
+import { type LinkInfoProps } from './types';
 
 const LinkInfo = ({
 	icon,

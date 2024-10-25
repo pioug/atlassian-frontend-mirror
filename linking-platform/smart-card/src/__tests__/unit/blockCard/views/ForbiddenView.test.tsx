@@ -1,6 +1,9 @@
 import React from 'react';
-import { screen, fireEvent } from '@testing-library/react';
+
+import { fireEvent, screen } from '@testing-library/react';
+
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
 import { BlockCardForbiddenView } from '../../../../view/BlockCard';
 import { type ResolvedViewProps } from '../../../../view/BlockCard/views/ResolvedView';
 import { getResolvedProps } from '../../../__mocks__/get-resolved-props';

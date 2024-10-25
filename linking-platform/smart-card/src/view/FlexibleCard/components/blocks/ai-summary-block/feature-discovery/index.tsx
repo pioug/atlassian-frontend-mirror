@@ -2,9 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useEffect, useMemo, useRef } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { useEffect, useMemo, useRef } from 'react';
+
 import { StorageClient } from '@atlaskit/frontend-utilities/storage-client';
 
 import { getPulseStyles } from './styled';

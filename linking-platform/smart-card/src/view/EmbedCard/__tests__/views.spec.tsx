@@ -1,11 +1,15 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { type EmbedCardResolvedViewProps, EmbedCardResolvedView } from '../views/ResolvedView';
-import UnresolvedView from '../views/unresolved-view';
-import { BlockCardResolvingView } from '../../BlockCard';
+
+import { fireEvent, render, screen } from '@testing-library/react';
+
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { EmbedCardErroredView } from '../../../view/EmbedCard/views/ErroredView';
+
 import { mocks } from '../../../utils/mocks';
+import { EmbedCardErroredView } from '../../../view/EmbedCard/views/ErroredView';
+import { BlockCardResolvingView } from '../../BlockCard';
+import { EmbedCardResolvedView, type EmbedCardResolvedViewProps } from '../views/ResolvedView';
+import UnresolvedView from '../views/unresolved-view';
+
 
 jest.mock('@atlaskit/link-provider', () => ({
 	useSmartLinkContext: () => ({

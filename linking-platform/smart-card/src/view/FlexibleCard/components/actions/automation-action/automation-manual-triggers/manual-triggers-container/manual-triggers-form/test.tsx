@@ -1,12 +1,12 @@
 import React from 'react';
 
+import { fireEvent, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 
 import { mockTransformedRules } from '../common/mocks';
 import { renderWithDi } from '../common/test-utils';
 
 import UserInputForm, { type UserInputProps } from './main';
-import { fireEvent, screen } from '@testing-library/react';
 
 describe('UserInputForm', () => {
 	test('should render the modal', () => {

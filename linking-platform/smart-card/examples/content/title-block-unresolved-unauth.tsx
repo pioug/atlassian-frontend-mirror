@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { type JsonLd } from 'json-ld-types';
+
 import { Card, Client, Provider, TitleBlock } from '../../src';
+
 import { url } from './example-responses';
 
 class CustomClient extends Client {

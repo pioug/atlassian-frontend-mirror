@@ -1,4 +1,5 @@
 import { type PropsWithChildren } from 'react';
+
 import { type SmartLinkStatus } from '../../../../constants';
 import { type FlexibleCardProps, type FlexibleUiOptions, type RetryOptions } from '../../types';
 

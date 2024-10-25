@@ -1,19 +1,20 @@
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { IntlProvider } from 'react-intl-next';
 import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
-import FooterBlock from '../index';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
-import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { SmartLinkStatus } from '../../../../../../constants';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-
-import type { AIFooterBlockProps } from '../types';
 import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
+import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { type AISummaryStatus } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
+import FooterBlock from '../index';
+import type { AIFooterBlockProps } from '../types';
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
 	useAISummary: jest.fn(),

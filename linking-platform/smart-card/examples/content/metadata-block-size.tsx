@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { type ElementItem, ElementName, MetadataBlock, SmartLinkSize } from '../../src';
+
 import ExampleContainer from './example-container';
 
 const metadata: ElementItem[] = [

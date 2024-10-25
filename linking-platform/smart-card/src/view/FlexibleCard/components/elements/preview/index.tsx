@@ -3,12 +3,15 @@
  * @jsx jsx
  */
 import { useContext } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
+
 import { MediaType } from '../../../../../constants';
-import Media from '../media';
+import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { type Media as MediaData } from '../../../../../state/flexible-ui-context/types';
+import Media from '../media';
+
 import { type PreviewProps } from './types';
 
 const Preview = (props: PreviewProps) => {

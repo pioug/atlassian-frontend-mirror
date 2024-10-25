@@ -1,5 +1,7 @@
-import { Box, Grid, Stack } from '@atlaskit/primitives';
 import React, { useCallback, useState } from 'react';
+
+import { Box, Grid, Stack } from '@atlaskit/primitives';
+
 import EditLink from './flexible-builder/edit-link';
 import TemplateBuilder from './flexible-builder/template-builder';
 import TemplateRenderer from './flexible-builder/template-renderer';

@@ -1,12 +1,15 @@
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { type AnalyticsFacade } from '../../state/analytics';
-import { type CardState } from '@atlaskit/linking-common';
-import { type AnalyticsHandler } from '../../utils/types';
-import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { type MouseEventHandler, type ReactElement } from 'react';
+
 import { type JsonLd } from 'json-ld-types';
-import type { CardActionOptions } from '../Card/types';
+
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { type CardProviderRenderers } from '@atlaskit/link-provider';
+import { type CardState } from '@atlaskit/linking-common';
+
 import type { ActionName } from '../../constants';
+import { type AnalyticsFacade } from '../../state/analytics';
+import { type AnalyticsHandler } from '../../utils/types';
+import type { CardActionOptions } from '../Card/types';
 
 export interface HoverCardProps extends WithAnalyticsEventsProps {
 	/**

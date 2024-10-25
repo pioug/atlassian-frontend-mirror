@@ -1,4 +1,5 @@
 import { InvokeError } from '@atlaskit/linking-types';
+
 import { TrackQuickActionFailureReason } from '../../../../utils/analytics/analytics';
 import { getInvokeFailureReason, isInvokeCustomError } from '../utils';
 

@@ -35,7 +35,7 @@ export const Fade = ({ hasEntered, children, onExited }: FadeProps) => {
 			onExited={onExited}
 			unmountOnExit
 			appear
-			{...(fg('platform-design-system-dsp-20687-transition-group') && { nodeRef })}
+			{...(fg('platform_design_system_team_transition_group_r18') && { nodeRef })}
 		>
 			{(status: string) => {
 				const base = {

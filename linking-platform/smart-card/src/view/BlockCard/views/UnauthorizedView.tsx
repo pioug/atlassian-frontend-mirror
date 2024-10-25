@@ -2,24 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { type MouseEvent } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { type MouseEvent } from 'react';
 
-import { Frame } from '../components/Frame';
-import { Provider } from '../components/Provider';
+import { messages } from '../../../messages';
+import type { CardActionOptions } from '../../Card/types';
 import { Byline } from '../../common/Byline';
+import { type IconProps } from '../../common/Icon';
+import { type ActionProps } from '../components/Action';
 import { ActionList } from '../components/ActionList';
 import { Content } from '../components/Content';
-import { type ActionProps } from '../components/Action';
-import { messages } from '../../../messages';
-import { ContentHeader } from '../components/ContentHeader';
 import { ContentFooter } from '../components/ContentFooter';
-import { type IconProps } from '../../common/Icon';
-import { handleClickCommon } from '../utils/handlers';
+import { ContentHeader } from '../components/ContentHeader';
+import { Frame } from '../components/Frame';
 import { Link } from '../components/Link';
-import type { CardActionOptions } from '../../Card/types';
+import { Provider } from '../components/Provider';
+import { handleClickCommon } from '../utils/handlers';
 
 const textBylineProps = { ...messages.connect_link_account_card_description };
 

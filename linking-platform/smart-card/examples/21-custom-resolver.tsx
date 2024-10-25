@@ -1,9 +1,12 @@
-import { Stack } from '@atlaskit/primitives';
 import React from 'react';
+
+import { Stack } from '@atlaskit/primitives';
+
 import { AsanaTask } from '../examples-helpers/_jsonLDExamples';
 import '../examples-helpers';
 import urlsJSON from '../examples-helpers/example-urls.json';
 import { Card, Client, Provider } from '../src';
+
 import ExampleContainer from './utils/example-container';
 
 class CustomClient extends Client {

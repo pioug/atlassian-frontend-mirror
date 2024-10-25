@@ -1,8 +1,8 @@
 import { type JsonLd } from 'json-ld-types';
 
-import extractProviderIcon from '../extract-provider-icon';
-import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../../constants';
 import { IconType } from '../../../../constants';
+import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../../constants';
+import extractProviderIcon from '../extract-provider-icon';
 
 describe('extractProviderIcon', () => {
 	const getData = ({

@@ -1,9 +1,12 @@
 import React from 'react';
-import { N600 } from '@atlaskit/theme/colors';
-import AttachmentIcon from '@atlaskit/icon/core/migration/attachment';
-import { token } from '@atlaskit/tokens';
 
 import { type JsonLd } from 'json-ld-types';
+
+import AttachmentIcon from '@atlaskit/icon/core/migration/attachment';
+import { N600 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
+
 import { type LinkDetail } from './types';
 
 export type LinkAttachmentType =

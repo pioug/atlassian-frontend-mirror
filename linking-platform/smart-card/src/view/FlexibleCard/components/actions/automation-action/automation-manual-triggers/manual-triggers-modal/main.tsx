@@ -4,12 +4,12 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Modal, { ModalBody, ModalFooter } from '@atlaskit/modal-dialog';
 
 import type { ManualRule } from '../manual-triggers-container/common/types';
-import { AutomationMenuContextContainer } from './menu-context';
 
-import { AutomationModalHeader } from './sub-components/header';
+import { AutomationMenuContextContainer } from './menu-context';
 import { AutomationModalBody } from './sub-components/body';
 import { AutomationModalExecutionState } from './sub-components/execution-state-message';
 import { AutomationModalFooter } from './sub-components/footer';
+import { AutomationModalHeader } from './sub-components/header';
 
 export type AutomationModalProps = {
 	baseAutomationUrl: string;

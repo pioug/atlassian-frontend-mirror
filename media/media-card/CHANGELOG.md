@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 78.8.0
+
+### Minor Changes
+
+- [#155735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155735)
+  [`e5a96535fa143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5a96535fa143) -
+  Media Card sends custom network metrics using React UFO
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 78.7.1
 
 ### Patch Changes

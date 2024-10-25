@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+
 import SelectOption from './select-option';
 
 type Props<T> = {

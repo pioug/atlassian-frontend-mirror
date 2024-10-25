@@ -1,5 +1,5 @@
-import { type ElementProps } from '../types';
 import { type IconType, type SmartLinkPosition } from '../../../../../constants';
+import { type ElementProps } from '../types';
 
 export type IconProps = ElementProps & {
 	/**

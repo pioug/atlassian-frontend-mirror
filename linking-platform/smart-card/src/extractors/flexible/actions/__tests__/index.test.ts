@@ -1,18 +1,18 @@
-import { extractDownloadAction } from '../extract-download-action';
-import { extractViewAction } from '../extract-view-action';
-import { extractPreviewAction } from '../extract-preview-action';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
-	TEST_DOCUMENT_WITH_DOWNLOAD_ACTION,
-	TEST_DOCUMENT_WITH_VIEW_ACTION,
-	TEST_DOCUMENT_WITH_PREVIEW,
 	TEST_DOCUMENT,
-	TEST_RESOLVED_META_DATA,
 	TEST_DOCUMENT_WITH_ARI,
+	TEST_DOCUMENT_WITH_DOWNLOAD_ACTION,
+	TEST_DOCUMENT_WITH_PREVIEW,
+	TEST_DOCUMENT_WITH_VIEW_ACTION,
+	TEST_RESOLVED_META_DATA,
 } from '../../../common/__mocks__/jsonld';
+import { extractDownloadAction } from '../extract-download-action';
+import { extractPreviewAction } from '../extract-preview-action';
+import { extractViewAction } from '../extract-view-action';
 import { extractViewRelatedLinksAction } from '../extract-view-related-links-action';
-import extractActions from '..';
+import extractActions from '../index';
 
 describe('extractors.downloadAction', () => {
 	it('returns an extracted URL for download action', () => {

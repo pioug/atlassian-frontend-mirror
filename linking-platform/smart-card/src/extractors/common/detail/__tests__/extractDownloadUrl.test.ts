@@ -1,5 +1,5 @@
-import { extractDownloadUrl } from '../extractDownloadUrl';
 import { TEST_DOCUMENT, TEST_URL } from '../../__mocks__/jsonld';
+import { extractDownloadUrl } from '../extractDownloadUrl';
 
 describe('atlassian.detail.downloadUrl', () => {
 	it('returns undefined when no comment count present', () => {

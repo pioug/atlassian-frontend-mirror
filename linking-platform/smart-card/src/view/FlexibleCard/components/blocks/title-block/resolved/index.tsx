@@ -1,18 +1,21 @@
-import { token } from '@atlaskit/tokens';
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { LinkIcon } from '../../../elements';
-import { type TitleBlockViewProps } from '../types';
-import Block from '../../block';
-import ElementGroup from '../../element-group';
+
+import { token } from '@atlaskit/tokens';
+
 import {
 	SmartLinkAlignment,
 	SmartLinkDirection,
 	SmartLinkPosition,
 	SmartLinkWidth,
 } from '../../../../../../constants';
+import { LinkIcon } from '../../../elements';
+import Block from '../../block';
+import ElementGroup from '../../element-group';
 import { renderElementItems } from '../../utils';
+import { type TitleBlockViewProps } from '../types';
 
 /**
  * This renders a fully resolved TitleBlock.

@@ -6,14 +6,16 @@ jest.mock('@atlaskit/ufo', () => {
 	};
 });
 
-import { ConcurrentExperience, ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo';
-import { type JestFunction } from '@atlaskit/media-test-helpers';
 import * as jestExtendedMatchers from 'jest-extended';
+
+import { type JestFunction } from '@atlaskit/media-test-helpers';
+import { ConcurrentExperience, ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo';
+
 import type {
+	addMetadataToExperience as AddMetadataToExperienceType,
+	failUfoExperience as FailUfoExperienceType,
 	startUfoExperience as StartUfoExperienceType,
 	succeedUfoExperience as SucceedUfoExperienceType,
-	failUfoExperience as FailUfoExperienceType,
-	addMetadataToExperience as AddMetadataToExperienceType,
 } from '../ufoExperiences';
 
 expect.extend(jestExtendedMatchers);

@@ -1,4 +1,5 @@
 import { type MouseEvent } from 'react';
+
 import { handleClickCommon } from '../../../view/BlockCard/utils/handlers';
 
 describe('handleClickCommon', () => {

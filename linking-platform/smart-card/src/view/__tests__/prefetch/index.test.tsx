@@ -12,19 +12,22 @@ jest.mock('uuid', () => {
 });
 
 import React from 'react';
-import { screen, render, waitFor } from '@testing-library/react';
+
+import { render, screen, waitFor } from '@testing-library/react';
+import * as jestExtendedMatchers from 'jest-extended';
+import uuid from 'uuid';
+
 import { type CardClient } from '@atlaskit/link-provider';
-import { Card } from '../../Card';
-import { Provider } from '../../..';
-import { fakeFactory, mocks } from '../../../utils/mocks';
 import {
 	MockIntersectionObserverFactory,
 	type MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
-import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
-import * as jestExtendedMatchers from 'jest-extended';
-import uuid from 'uuid';
 import { type JestFunction } from '@atlaskit/media-test-helpers';
+
+import { Provider } from '../../../index';
+import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
+import { fakeFactory, mocks } from '../../../utils/mocks';
+import { Card } from '../../Card';
 // ShouldSample needs to be loaded for beforeEach inside to be picked up before test runs
 import '../../../utils/shouldSample';
 

@@ -4,17 +4,16 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { FormattedMessage } from 'react-intl-next';
 
 import DocumentFilledIcon from '@atlaskit/icon/core/migration/file--editor-file';
 import { N50, N90 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { Frame } from '../components/Frame';
-import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../messages';
-
 import { gs } from '../../common/utils';
+import { Frame } from '../components/Frame';
 
 export interface ResolvingProps {
 	isSelected?: boolean;

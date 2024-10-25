@@ -1,21 +1,27 @@
 jest.mock('../../../utils/shouldSample');
 import './unauthorized.test.mock';
 
+import React from 'react';
+
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import * as jestExtendedMatchers from 'jest-extended';
+import { IntlProvider } from 'react-intl-next';
+import uuid from 'uuid';
+
+import { type CardClient } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { asMockFunction, type JestFunction } from '@atlaskit/media-test-helpers';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
-import * as analytics from '../../../utils/analytics';
-import { type CardClient } from '@atlaskit/link-provider';
-import React from 'react';
-import { Card, type CardAppearance } from '../../Card';
-import { Provider } from '../../..';
-import { fakeFactory, mocks } from '../../../utils/mocks';
-import { render, waitFor, screen, fireEvent } from '@testing-library/react';
+
+import { Provider } from '../../../index';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
-import * as jestExtendedMatchers from 'jest-extended';
-import uuid from 'uuid';
-import { IntlProvider } from 'react-intl-next';
-import userEvent from '@testing-library/user-event';
+import * as analytics from '../../../utils/analytics';
+import { fakeFactory, mocks } from '../../../utils/mocks';
+import { Card, type CardAppearance } from '../../Card';
+
+
+
 // ShouldSample needs to be loaded for beforeEach inside to be picked up before test runs
 import '../../../utils/shouldSample';
 

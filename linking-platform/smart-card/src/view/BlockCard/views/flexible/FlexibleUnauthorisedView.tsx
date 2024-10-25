@@ -2,19 +2,23 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useCallback, useMemo } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
-import { useCallback, useMemo } from 'react';
+import { type JsonLd } from 'json-ld-types';
 import { FormattedMessage } from 'react-intl-next';
+
+import { extractProvider } from '@atlaskit/link-extractors';
+import { token } from '@atlaskit/tokens';
+
+import { messages } from '../../../../messages';
 import { getExtensionKey, hasAuthScopeOverrides } from '../../../../state/helpers';
+import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
 import { type ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { AuthorizeAction } from '../../actions/flexible/AuthorizeAction';
+
 import { type FlexibleBlockCardProps } from './types';
-import { extractProvider } from '@atlaskit/link-extractors';
-import { type JsonLd } from 'json-ld-types';
-import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
-import { messages } from '../../../../messages';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 

@@ -86,18 +86,32 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 
 		const cardInner = (
 			<>
-				<SmartCard
-					key={url}
-					url={url}
-					data={data}
-					container={this.scrollContainer}
-					appearance="block"
-					onClick={onClick}
-					onResolve={this.onResolve}
-					onError={this.onError}
-					platform={'web'}
-					actionOptions={actionOptions}
-				/>
+				{fg('linking-platform-migrate-deprecated-data-prop') ? (
+					<SmartCard
+						key={url}
+						url={url ?? data.url}
+						container={this.scrollContainer}
+						appearance="block"
+						onClick={onClick}
+						onResolve={this.onResolve}
+						onError={this.onError}
+						platform={'web'}
+						actionOptions={actionOptions}
+					/>
+				) : (
+					<SmartCard
+						key={url}
+						url={url}
+						data={data}
+						container={this.scrollContainer}
+						appearance="block"
+						onClick={onClick}
+						onResolve={this.onResolve}
+						onError={this.onError}
+						platform={'web'}
+						actionOptions={actionOptions}
+					/>
+				)}
 				{this.gapCursorSpan()}
 			</>
 		);

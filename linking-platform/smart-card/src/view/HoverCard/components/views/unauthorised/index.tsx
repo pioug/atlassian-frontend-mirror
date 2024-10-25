@@ -1,22 +1,26 @@
 import React, { useCallback, useMemo } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+
 import { type JsonLd } from 'json-ld-types';
+import { FormattedMessage } from 'react-intl-next';
+
+import { extractProvider } from '@atlaskit/link-extractors';
+
+import { ActionName, CardDisplay } from '../../../../../constants';
+import { messages } from '../../../../../messages';
+import { useSmartCardActions } from '../../../../../state/actions';
+import { hasAuthScopeOverrides } from '../../../../../state/helpers';
+import UnauthorisedViewContent from '../../../../common/UnauthorisedViewContent';
 import FlexibleCard from '../../../../FlexibleCard';
+import { CustomBlock } from '../../../../FlexibleCard/components/blocks';
+import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
 import {
 	type ActionItem,
 	type CustomActionItem,
 } from '../../../../FlexibleCard/components/blocks/types';
-import { messages } from '../../../../../messages';
-import { CustomBlock } from '../../../../FlexibleCard/components/blocks';
-import { type HoverCardUnauthorisedProps } from './types';
-import { extractProvider } from '@atlaskit/link-extractors';
-import { connectButtonStyles, mainTextStyles, titleBlockStyles } from './styled';
-import UnauthorisedViewContent from '../../../../common/UnauthorisedViewContent';
-import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
 import { LinkIcon } from '../../../../FlexibleCard/components/elements';
-import { ActionName, CardDisplay } from '../../../../../constants';
-import { useSmartCardActions } from '../../../../../state/actions';
-import { hasAuthScopeOverrides } from '../../../../../state/helpers';
+
+import { connectButtonStyles, mainTextStyles, titleBlockStyles } from './styled';
+import { type HoverCardUnauthorisedProps } from './types';
 
 const HoverCardUnauthorisedView = ({
 	analytics,

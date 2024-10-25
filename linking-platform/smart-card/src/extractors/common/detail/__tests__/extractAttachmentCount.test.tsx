@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 
-import { extractAttachmentCount, type LinkAttachmentType } from '../extractAttachmentCount';
 import { TEST_BASE_DATA } from '../../__mocks__/jsonld';
+import { extractAttachmentCount, type LinkAttachmentType } from '../extractAttachmentCount';
 
 const BASE_DATA = TEST_BASE_DATA as LinkAttachmentType;
 

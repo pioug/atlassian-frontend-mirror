@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { Card } from '../../src';
-import ErrorIcon from '@atlaskit/icon/core/migration/error';
+
 import Banner from '@atlaskit/banner';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
+import { Card } from '../../src';
 
 const FallbackComponent = () => {
 	return (

@@ -1,13 +1,18 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+
 import { render, screen } from '@testing-library/react';
-import { type CardState } from '@atlaskit/linking-common';
-import FlexibleCard from '../index';
-import { TitleBlock } from '../components/blocks';
-import { SmartLinkStatus } from '../../../constants';
+import { IntlProvider } from 'react-intl-next';
+
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { FlexibleUiContext } from '../../../state/flexible-ui-context';
+import { type CardState } from '@atlaskit/linking-common';
+
 import context from '../../../__fixtures__/flexible-ui-data-context';
+import { SmartLinkStatus } from '../../../constants';
+import { FlexibleUiContext } from '../../../state/flexible-ui-context';
+import { TitleBlock } from '../components/blocks';
+import FlexibleCard from '../index';
+
+
 
 jest.mock('@atlaskit/link-provider', () => {
 	return {

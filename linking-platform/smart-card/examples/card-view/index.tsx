@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type CardView from '../utils/card-view';
 import {
 	ErroredClient,
@@ -16,6 +17,7 @@ import {
 	UnAuthClient,
 	UnAuthClientWithNoAuthFlow,
 } from '../utils/custom-client';
+
 import CardViewSection from './card-view-section';
 
 const CardViewExample = ({

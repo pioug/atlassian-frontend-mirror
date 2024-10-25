@@ -1,5 +1,5 @@
+import { TEST_UNDEFINED_LINK, TEST_VISIT_URL } from '../../__mocks__/jsonld';
 import { extractVisitUrl } from '../extractVisitUrl';
-import { TEST_VISIT_URL, TEST_UNDEFINED_LINK } from '../../__mocks__/jsonld';
 
 describe('extractors.primitives.visitUrl', () => {
 	afterEach(() => jest.clearAllMocks());

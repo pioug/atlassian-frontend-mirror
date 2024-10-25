@@ -1,17 +1,19 @@
 import React, { lazy, useCallback } from 'react';
+
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import AutomationIcon from '@atlaskit/icon/core/automation';
 
-import AutomationManualTriggersGlyph from './manaul-triggers-icon';
-import Action from '../action';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import { useSmartLinkModal } from '../../../../../state/modal';
-import { type AutomationActionData } from '../../../../../state/flexible-ui-context/types';
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { type AutomationActionData } from '../../../../../state/flexible-ui-context/types';
+import { useSmartLinkModal } from '../../../../../state/modal';
+import Action from '../action';
 import { type LinkActionProps } from '../types';
+
+import AutomationManualTriggersGlyph from './manaul-triggers-icon';
 import { getModalContent } from './utils';
 
 const AutomationModal = lazy(

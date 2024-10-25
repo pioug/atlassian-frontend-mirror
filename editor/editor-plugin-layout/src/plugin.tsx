@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { layoutColumn, layoutSection } from '@atlaskit/adf-schema';
+import { layoutSectionWithSingleColumn } from '@atlaskit/adf-schema/schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -8,7 +9,10 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import {
+	layoutMessages,
+	toolbarInsertBlockMessages as messages,
+} from '@atlaskit/editor-common/messages';
 import {
 	IconFiveColumnLayout,
 	IconFourColumnLayout,
@@ -55,7 +59,10 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 
 	nodes() {
 		return [
-			{ name: 'layoutSection', node: layoutSection },
+			{
+				name: 'layoutSection',
+				node: isPreRelease2() ? layoutSectionWithSingleColumn : layoutSection,
+			},
 			{ name: 'layoutColumn', node: layoutColumn },
 		];
 	},
@@ -96,7 +103,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 				? [
 						{
 							id: 'twocolumnslayout',
-							title: formatMessage(messages.twoColumns),
+							title: formatMessage(layoutMessages.twoColumns),
 							description: formatMessage(messages.columnsDescription),
 							keywords: ['layout', 'column', 'section', 'two column'],
 							priority: 1100,
@@ -108,7 +115,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 						},
 						{
 							id: 'threecolumnslayout',
-							title: formatMessage(messages.threeColumns),
+							title: formatMessage(layoutMessages.threeColumns),
 							description: formatMessage(messages.columnsDescription),
 							keywords: ['layout', 'column', 'section', 'three column'],
 							priority: 1100,
@@ -120,7 +127,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 						},
 						{
 							id: 'fourcolumnslayout',
-							title: formatMessage(messages.fourColumns),
+							title: formatMessage(layoutMessages.fourColumns),
 							description: formatMessage(messages.columnsDescription),
 							keywords: ['layout', 'column', 'section', 'four column'],
 							priority: 1100,
@@ -132,7 +139,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 						},
 						{
 							id: 'fivecolumnslayout',
-							title: formatMessage(messages.fiveColumns),
+							title: formatMessage(layoutMessages.fiveColumns),
 							description: formatMessage(messages.columnsDescription),
 							keywords: ['layout', 'column', 'section', 'five column'],
 							priority: 1100,

@@ -58,7 +58,7 @@ const JSMGrid = () => {
 					<Grid maxWidth="wide">
 						<GridItem start={{ md: 3 }} span={{ md: 8 }}>
 							<Stack space="space.200" alignInline="center">
-								<Heading level="h700" color="inverse">
+								<Heading size="large" color="color.text.inverse">
 									Welcome to the Internal Help Center
 								</Heading>
 								<Textfield
@@ -99,7 +99,7 @@ const JSMGrid = () => {
 					<Grid maxWidth="wide">
 						<GridItem>
 							<Inline spread="space-between" space="space.0">
-								<Heading level="h800" as="h2">
+								<Heading size="xlarge" as="h2">
 									Featured service desks
 								</Heading>
 							</Inline>
@@ -135,7 +135,7 @@ const JSMGrid = () => {
 					<Grid maxWidth="wide">
 						<GridItem>
 							<Inline spread="space-between" space="space.0">
-								<Heading level="h800" as="h2">
+								<Heading size="xlarge" as="h2">
 									Recently used forms
 								</Heading>
 							</Inline>

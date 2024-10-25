@@ -1,13 +1,18 @@
 import React from 'react';
-import { type CardState } from '@atlaskit/linking-common';
-import { SmartCardProvider } from '@atlaskit/link-provider';
 
-import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import FlexibleResolvedView from '../FlexibleResolvedView';
-import { mockAnalytics } from '../../../../../utils/mocks';
-import { mockConfluenceResponse } from './__mocks__/blockCardMocks';
-import MockAtlasProject from '../../../../../__fixtures__/atlas-project';
 import { screen } from '@testing-library/react';
+
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { type CardState } from '@atlaskit/linking-common';
+import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
+import MockAtlasProject from '../../../../../__fixtures__/atlas-project';
+import { mockAnalytics } from '../../../../../utils/mocks';
+import FlexibleResolvedView from '../FlexibleResolvedView';
+
+import { mockConfluenceResponse } from './__mocks__/blockCardMocks';
+
+
 
 describe('FlexibleResolvedView', () => {
 	const url = 'https://some.url';

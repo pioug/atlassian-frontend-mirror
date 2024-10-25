@@ -1,12 +1,13 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
-import { render, screen } from '@testing-library/react';
 
-import { createElement } from '../utils';
-import { ElementName, type IconType, SmartLinkTheme } from '../../../../../constants';
-import { type FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
-import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
 import context from '../../../../../__fixtures__/flexible-ui-data-context';
+import { ElementName, type IconType, SmartLinkTheme } from '../../../../../constants';
+import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { type FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
+import { createElement } from '../utils';
 
 const renderComponent = (
 	Component: React.ComponentType<any>,

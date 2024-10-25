@@ -1,9 +1,12 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
+
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
 import { BlockCardResolvedView } from '../../../../view/BlockCard';
-import { getResolvedProps } from '../../../__mocks__/get-resolved-props';
 import { type ResolvedViewProps } from '../../../../view/BlockCard/views/ResolvedView';
+import { getResolvedProps } from '../../../__mocks__/get-resolved-props';
 
 let mockOnClick: React.MouseEventHandler = jest.fn();
 

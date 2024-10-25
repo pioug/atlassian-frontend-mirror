@@ -1,22 +1,22 @@
-import * as jestExtendedMatchers from 'jest-extended';
+import '@atlaskit/link-test-helpers/jest';
+
 import React from 'react';
-import { type JsonLd } from 'json-ld-types';
+
 import { fireEvent, render, waitFor } from '@testing-library/react';
+import * as jestExtendedMatchers from 'jest-extended';
+import { type JsonLd } from 'json-ld-types';
 import uuid from 'uuid';
 
-import '@atlaskit/link-test-helpers/jest';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import type { ProviderProps } from '@atlaskit/link-provider';
-
-import { type CardClient } from '@atlaskit/link-provider';
+import { type CardClient, type ProviderProps } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 
 import { ActionName, Card, Provider, TitleBlock } from '../../../index';
-import { fakeFactory } from '../../../utils/mocks';
+import * as ufo from '../../../state/analytics/ufoExperiences';
 import * as utils from '../../../utils';
 import * as analytics from '../../../utils/analytics/analytics';
+import { fakeFactory } from '../../../utils/mocks';
 import * as modalUtils from '../../EmbedModal/utils';
-import * as ufo from '../../../state/analytics/ufoExperiences';
 
 mockSimpleIntersectionObserver();
 jest.mock('react-lazily-render', () => (data: any) => data.content);

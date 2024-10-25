@@ -3,7 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Lozenge from '@atlaskit/lozenge';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 
 import relativeDate from '../../internal/relative-date';
 import messages from '../../messages';
@@ -69,9 +69,9 @@ const disabledAccountDesc = (
 	const secondSentence = <FormattedMessage {...messages[msgKey]} />;
 
 	return (
-		<p data-testid="profilecard-disabled-account">
+		<Text as='p' testId="profilecard-disabled-account">
 			<FormattedMessage {...messages.generalDescMsgForDisabledUser} /> {secondSentence}
-		</p>
+		</Text>
 	);
 };
 

@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import { AISummariesStore } from './ai-summary-service/store';
+import { useEffect, useState } from 'react';
+
 import { AISummaryService } from './ai-summary-service';
+import { AISummariesStore } from './ai-summary-service/store';
 import type { AISummaryServiceProps, AISummaryState } from './ai-summary-service/types';
 
 /**

@@ -1,11 +1,15 @@
+// eslint-disable-next-line import/order
 import * as testMocks from '../../use-resolve/__tests__/index.test.mock';
+
+import { renderHook } from '@testing-library/react-hooks';
+
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { APIError, type CardState } from '@atlaskit/linking-common';
+import { asMockFunction } from '@atlaskit/media-test-helpers';
 import { type CardContext } from '@atlaskit/smart-card';
+
 import { mocks } from '../../../../utils/mocks';
 import useResponse from '../index';
-import { asMockFunction } from '@atlaskit/media-test-helpers';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { renderHook } from '@testing-library/react-hooks';
 
 describe('useResponse', () => {
 	let url: string;

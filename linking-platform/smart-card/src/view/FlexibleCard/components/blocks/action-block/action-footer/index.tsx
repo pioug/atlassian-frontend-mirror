@@ -1,9 +1,12 @@
+import React from 'react';
+
 import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-import React from 'react';
+
 import { type ActionMessageAppearance } from '../../../actions/action/types';
 import MotionWrapper from '../../../common/motion-wrapper';
+
 import { type ActionFooterProps } from './types';
 
 const containerStyles = xcss({

@@ -2,31 +2,33 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { token } from '@atlaskit/tokens';
 import { useCallback, useMemo, useState } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { FormattedMessage } from 'react-intl-next';
+import { di } from 'react-magnetic-di';
 
 import { type Appearance } from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Tooltip from '@atlaskit/tooltip';
-import { type ActionGroupProps } from './types';
+import Button from '@atlaskit/button/standard-button';
 import DropdownMenu from '@atlaskit/dropdown-menu';
+import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import { SmartLinkSize } from '../../../../../constants';
-import Button from '@atlaskit/button/standard-button';
-import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
-import { sizeToButtonSpacing } from '../../utils';
 import { messages } from '../../../../../messages';
 import {
 	useFlexibleUiContext,
 	useFlexibleUiOptionContext,
 } from '../../../../../state/flexible-ui-context';
-import ActionGroupItem from './action-group-item';
-import { filterActionItems } from '../utils';
-import { di } from 'react-magnetic-di';
+import { sizeToButtonSpacing } from '../../utils';
 import type { ActionItem } from '../types';
+import { filterActionItems } from '../utils';
+
+import ActionGroupItem from './action-group-item';
+import { type ActionGroupProps } from './types';
 
 const styles = css({
 	display: 'inline-flex',

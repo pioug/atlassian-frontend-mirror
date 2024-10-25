@@ -3,22 +3,23 @@
  * @jsx jsx
  */
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
-import { TitleBlock } from '../../src/view/FlexibleCard/components/blocks';
+import { type ActionItem, type CardType } from '../../src';
 import { ElementName, SmartLinkPosition, SmartLinkSize, SmartLinkTheme } from '../../src/constants';
+import FlexibleCard from '../../src/view/FlexibleCard';
+import { TitleBlock } from '../../src/view/FlexibleCard/components/blocks';
+import { type TitleBlockProps } from '../../src/view/FlexibleCard/components/blocks/title-block/types';
 import {
 	getCardState,
 	makeCustomActionItem,
 	makeDeleteActionItem,
 	makeEditActionItem,
 } from '../utils/flexible-ui';
-import FlexibleCard from '../../src/view/FlexibleCard';
-import { type ActionItem, type CardType } from '../../src';
-import { type TitleBlockProps } from '../../src/view/FlexibleCard/components/blocks/title-block/types';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const gridStyles = css({

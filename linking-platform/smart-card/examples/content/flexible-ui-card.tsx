@@ -1,6 +1,10 @@
 import React from 'react';
+
 import { type JsonLd } from 'json-ld-types';
+
 import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+
 import {
 	ActionName,
 	Card,
@@ -15,8 +19,8 @@ import {
 	SnippetBlock,
 	TitleBlock,
 } from '../../src';
+
 import { response1 } from './example-responses';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
 setBooleanFeatureFlagResolver((flag) => flag === 'platform-visual-refresh-icons');
 

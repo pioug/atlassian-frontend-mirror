@@ -1,40 +1,43 @@
 import { type JsonLd } from 'json-ld-types';
-import { type CardProviderRenderers } from '@atlaskit/link-provider';
-import { extractTitleTextColor, extractSummary } from '../common/primitives';
-import { extractLozenge } from '../common/lozenge';
-import { extractIcon } from '../common/icon';
+
 import {
-	extractCommentCount,
-	type LinkCommentType,
-	extractProgrammingLanguage,
-	type LinkProgrammingLanguageType,
-	extractSubscriberCount,
-	type LinkSubscriberType,
-	extractAttachmentCount,
-	type LinkAttachmentType,
-} from '../common/detail';
-import { type LinkDetail } from '../common/detail/types';
-import {
+	extractImage,
 	extractLink,
-	extractTitle,
-	extractProvider,
-	type LinkPerson,
 	extractMembers,
 	extractPersonAssignedTo,
 	extractPersonCreatedBy,
 	extractPersonUpdatedBy,
+	extractProvider,
+	extractTitle,
+	type LinkPerson,
 	type LinkTypeUpdatedBy,
-	extractImage,
 } from '@atlaskit/link-extractors';
-import { extractByline } from '../common/byline/extractByline';
-import { extractTitlePrefix } from '../common/title-prefix/extractTitlePrefix';
-import { extractClientActions } from '../common/actions/extractActions';
-import { type ExtractBlockOpts } from './types';
-import { extractPreviewAction } from '../common/actions/extractPreviewAction';
-import { extractIsTrusted } from '../common/meta/extractIsTrusted';
-import { type CardPlatform } from '../../view/Card';
+import { type CardProviderRenderers } from '@atlaskit/link-provider';
+
 import { type BlockCardResolvedViewProps } from '../../view/BlockCard';
 import { type ActionProps } from '../../view/BlockCard/components/Action';
+import { type CardPlatform } from '../../view/Card';
+import { extractClientActions } from '../common/actions/extractActions';
+import { extractPreviewAction } from '../common/actions/extractPreviewAction';
+import { extractByline } from '../common/byline/extractByline';
+import {
+	extractAttachmentCount,
+	extractCommentCount,
+	extractProgrammingLanguage,
+	extractSubscriberCount,
+	type LinkAttachmentType,
+	type LinkCommentType,
+	type LinkProgrammingLanguageType,
+	type LinkSubscriberType,
+} from '../common/detail';
+import { type LinkDetail } from '../common/detail/types';
+import { extractIcon } from '../common/icon';
+import { extractLozenge } from '../common/lozenge';
+import { extractIsTrusted } from '../common/meta/extractIsTrusted';
+import { extractSummary, extractTitleTextColor } from '../common/primitives';
+import { extractTitlePrefix } from '../common/title-prefix/extractTitlePrefix';
+
+import { type ExtractBlockOpts } from './types';
 
 const extractBlockIcon = (jsonLd: JsonLd.Data.BaseData): BlockCardResolvedViewProps['icon'] => {
 	const icon = extractIcon(jsonLd);

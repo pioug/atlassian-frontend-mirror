@@ -2,30 +2,32 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { type MouseEvent } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { type MouseEvent } from 'react';
+
+import LockIcon from '@atlaskit/icon/utility/migration/lock-locked--lock-filled';
+import { Flex, xcss } from '@atlaskit/primitives';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import LockIcon from '@atlaskit/icon/utility/migration/lock-locked--lock-filled';
 
-import { Frame } from '../components/Frame';
-import { Provider } from '../components/Provider';
+import { messages } from '../../../messages';
+import type { CardActionOptions } from '../../Card/types';
 import { Byline } from '../../common/Byline';
+import { type IconProps } from '../../common/Icon';
+import { type RequestAccessContextProps } from '../../types';
+import { type ActionProps } from '../components/Action';
 import { ActionList } from '../components/ActionList';
 import { Content } from '../components/Content';
-import { type ActionProps } from '../components/Action';
-import { messages } from '../../../messages';
 import { ContentFooter } from '../components/ContentFooter';
-import { type IconProps } from '../../common/Icon';
 import { ContentHeader } from '../components/ContentHeader';
-import { handleClickCommon } from '../utils/handlers';
+import { Frame } from '../components/Frame';
 import { Link } from '../components/Link';
+import { Provider } from '../components/Provider';
 import { UnresolvedText } from '../components/UnresolvedText';
-import { type RequestAccessContextProps } from '../../types';
-import type { CardActionOptions } from '../../Card/types';
-import { Flex, xcss } from '@atlaskit/primitives';
+import { handleClickCommon } from '../utils/handlers';
 
 const iconWrapperStyles = xcss({
 	marginRight: 'space.050',

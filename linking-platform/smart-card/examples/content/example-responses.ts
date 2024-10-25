@@ -1,10 +1,12 @@
 import { type JsonLd } from 'json-ld-types';
+
 import { SmartLinkActionType } from '@atlaskit/linking-types';
+
+import { iconBitbucket } from '../images';
 import avatar1 from '../images/avatar-1.svg';
 import avatar2 from '../images/avatar-2.svg';
 import avatar3 from '../images/avatar-3.svg';
 import preview from '../images/rectangle.svg';
-import { iconBitbucket } from '../images';
 
 export const url = 'https://product-fabric.atlassian.net/wiki/spaces/EM';
 

@@ -3,6 +3,8 @@ import React from 'react';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
+import Link from '@atlaskit/link';
+import { Text } from '@atlaskit/primitives';
 import SmartUserPicker, {
 	type EmailValidationResponse,
 	isValidEmail,
@@ -340,9 +342,9 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 		return (
 			<Field<Value>
 				label={
-					<span id={USER_PICKER_FIELD_LABEL}>
+					<Text id={USER_PICKER_FIELD_LABEL}>
 						<FormattedMessage {...getLabelMessage(product, allowEmail, isBrowseUsersDisabled)} />
-					</span>
+					</Text>
 				}
 				name="users"
 				validate={validate}
@@ -368,11 +370,11 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 								required={true}
 								addMoreMessage={addMoreMessage}
 								placeholder={
-									<span id={USER_PICKER_FIELD_PLACEHOLDER}>
+									<Text id={USER_PICKER_FIELD_PLACEHOLDER}>
 										<FormattedMessage
 											{...getPlaceHolderMessage(product, allowEmail, isBrowseUsersDisabled)}
 										/>
-									</span>
+									</Text>
 								}
 								menuPortalTarget={menuPortalTarget}
 								inputId={fieldProps.id}
@@ -391,9 +393,9 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 									{shareError.message}
 									&nbsp;
 									{shareError.helpUrl && (
-										<a target="_blank" href={shareError.helpUrl} rel="help">
+										<Link target="_blank" href={shareError.helpUrl} rel="help">
 											Learn why
-										</a>
+										</Link>
 									)}
 								</ErrorMessage>
 							)}

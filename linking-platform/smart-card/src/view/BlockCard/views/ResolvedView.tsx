@@ -2,32 +2,35 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, css } from '@emotion/react';
-import { type AvatarClickEventHandler } from '@atlaskit/avatar';
-import Lozenge from '@atlaskit/lozenge';
 import { type MouseEvent } from 'react';
 
-import { Frame } from '../components/Frame';
-import { Thumbnail } from '../components/Thumbnail';
-import { Provider } from '../components/Provider';
-import { Name } from '../components/Name';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
+
+import { type AvatarClickEventHandler } from '@atlaskit/avatar';
+import Lozenge from '@atlaskit/lozenge';
+
+import { type LozengeProps } from '../../../types';
 import { Byline } from '../../common/Byline';
-import { ActionList } from '../components/ActionList';
-import { CollaboratorList, type Collaborator } from '../components/CollaboratorList';
-import { Emoji } from '../components/Emoji';
 import { Icon, type IconProps } from '../../common/Icon';
-import { Content } from '../components/Content';
-import { type ActionProps } from '../components/Action';
 import { type MetadataProps } from '../../common/Metadata';
 import { MetadataList } from '../../common/MetadataList';
-import { LozengeBlockWrapper } from './styled';
-import { ContentHeader } from '../components/ContentHeader';
-import { ContentFooter } from '../components/ContentFooter';
-import { type ContextViewModel } from '../../types';
 import { gs } from '../../common/utils';
+import { type ContextViewModel } from '../../types';
+import { type ActionProps } from '../components/Action';
+import { ActionList } from '../components/ActionList';
+import { type Collaborator, CollaboratorList } from '../components/CollaboratorList';
+import { Content } from '../components/Content';
+import { ContentFooter } from '../components/ContentFooter';
+import { ContentHeader } from '../components/ContentHeader';
+import { Emoji } from '../components/Emoji';
+import { Frame } from '../components/Frame';
+import { Name } from '../components/Name';
+import { Provider } from '../components/Provider';
+import { Thumbnail } from '../components/Thumbnail';
 import { handleClickCommon } from '../utils/handlers';
-import { type LozengeProps } from '../../../types';
+
+import { LozengeBlockWrapper } from './styled';
 
 const styles = css({
 	display: 'flex',

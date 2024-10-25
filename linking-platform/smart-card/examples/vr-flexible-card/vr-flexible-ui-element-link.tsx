@@ -3,13 +3,14 @@
  * @jsx jsx
  */
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { SmartLinkSize, SmartLinkTheme } from '../../src/constants';
-import { exampleTokens, getContext } from '../utils/flexible-ui';
+import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { Title } from '../../src/view/FlexibleCard/components/elements';
+import { exampleTokens, getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const overrideCss = css({

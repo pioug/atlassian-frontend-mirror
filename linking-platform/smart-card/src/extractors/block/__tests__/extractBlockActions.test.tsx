@@ -1,16 +1,17 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { extractBlockActions } from '../index';
-import {
-	TEST_DOCUMENT_WITH_ACTIONS,
-	TEST_DOCUMENT_WITH_PREVIEW,
-	TEST_DOCUMENT,
-	TEST_DOCUMENT_WITH_MULTIPLE_ACTIONS,
-} from '../../common/__mocks__/jsonld';
 import { mockAnalytics } from '../../../utils/mocks';
 import { CardAction } from '../../../view/Card/types';
+import {
+	TEST_DOCUMENT,
+	TEST_DOCUMENT_WITH_ACTIONS,
+	TEST_DOCUMENT_WITH_MULTIPLE_ACTIONS,
+	TEST_DOCUMENT_WITH_PREVIEW,
+} from '../../common/__mocks__/jsonld';
+import { extractBlockActions } from '../index';
 
 describe('extractors.block.extractBlockActions', () => {
 	let handleInvoke: jest.Mock;

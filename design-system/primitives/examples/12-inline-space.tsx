@@ -35,7 +35,7 @@ export default () => (
 	<Box testId="inline-example" padding="space.100">
 		<Inline space="space.1000">
 			<Stack space="space.100" testId="inline-space">
-				<Heading level="h700">space</Heading>
+				<Heading size="large">space</Heading>
 				{spaceItems.map((space) => (
 					<Inline>
 						<span css={spaceValueStyles}>{space}</span>
@@ -56,7 +56,7 @@ export default () => (
 			</Stack>
 
 			<Stack space="space.100" testId="inline-rowSpace">
-				<Heading level="h700">rowSpace</Heading>
+				<Heading size="large">rowSpace</Heading>
 				{spaceItems.map((space) => (
 					<Box xcss={containerStyles}>
 						<Inline>

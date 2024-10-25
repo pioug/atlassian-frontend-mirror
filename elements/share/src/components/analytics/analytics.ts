@@ -2,6 +2,7 @@ import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import {
 	isEmail,
 	isExternalUser,
+	isGroup,
 	isTeam,
 	isUser,
 	type OptionData,
@@ -147,6 +148,7 @@ export const formShareSubmitted = ({
 }) => {
 	const users = extractIdsByType(data, isUser);
 	const externalUsers = extractIdsByType(data, isExternalUser);
+	const groups = extractIdsByType(data, isGroup);
 	const teams = extractIdsByType(data, isTeam);
 	const teamUserCounts = extractMemberCountsFromTeams(data, isTeam);
 	const emails = extractIdsByType(data, isEmail);
@@ -159,10 +161,12 @@ export const formShareSubmitted = ({
 		emailCount: emails.length,
 		teamCount: teams.length,
 		userCount: users.length,
+		groupCount: groups.length,
 		externalUserCount: externalUsers.length,
 		users,
 		teams,
 		teamUserCounts,
+		groups,
 		messageLength:
 			data.comment && data.comment.format === 'plain_text' ? data.comment.value.length : 0,
 		isMessageEnabled: true,

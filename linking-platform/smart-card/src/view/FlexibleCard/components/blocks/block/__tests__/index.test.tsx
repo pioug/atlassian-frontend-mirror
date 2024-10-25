@@ -1,14 +1,16 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Block from '../index';
+import React from 'react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
+import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { ActionName, SmartLinkDirection, SmartLinkSize } from '../../../../../../constants';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import { Title } from '../../../elements';
-import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import ActionGroup from '../../action-group';
 import ElementGroup from '../../element-group';
-import { IntlProvider } from 'react-intl-next';
+import Block from '../index';
 
 describe('Block', () => {
 	const testId = 'smart-block';

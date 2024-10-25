@@ -2,12 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { IntlProvider } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+import { IntlProvider } from 'react-intl-next';
+
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { token } from '@atlaskit/tokens';
 
+import { AsanaTask } from '../../examples-helpers/_jsonLDExamples';
 import {
 	type ActionItem,
 	ActionName,
@@ -18,7 +20,6 @@ import {
 	TitleBlock,
 } from '../../src';
 import { getJsonLdResponse } from '../utils/flexible-ui';
-import { AsanaTask } from '../../examples-helpers/_jsonLDExamples';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 class CustomClient extends Client {

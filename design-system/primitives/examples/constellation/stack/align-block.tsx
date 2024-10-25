@@ -14,7 +14,7 @@ export default function Example() {
 		<Box testId="stack-example" padding="space.100">
 			<Inline space="space.200" spread="space-between">
 				<Stack alignInline="center" space="space.200">
-					<Heading level="h400">Start alignment</Heading>
+					<Heading size="xsmall">Start alignment</Heading>
 					<Box
 						xcss={containerStyles}
 						style={{
@@ -30,7 +30,7 @@ export default function Example() {
 					</Box>
 				</Stack>
 				<Stack alignInline="center">
-					<Heading level="h400">Center alignment</Heading>
+					<Heading size="xsmall">Center alignment</Heading>
 					<Box
 						xcss={containerStyles}
 						style={{
@@ -46,7 +46,7 @@ export default function Example() {
 					</Box>
 				</Stack>
 				<Stack alignInline="center">
-					<Heading level="h400">End alignment</Heading>
+					<Heading size="xsmall">End alignment</Heading>
 					<Box
 						xcss={containerStyles}
 						style={{

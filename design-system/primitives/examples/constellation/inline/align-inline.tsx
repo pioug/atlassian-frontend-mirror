@@ -16,7 +16,7 @@ export default function Example() {
 	}, [nextIndex]);
 	return (
 		<Stack space="space.300">
-			<Heading level="h500">Inline alignment</Heading>
+			<Heading size="small">Inline alignment</Heading>
 			<Box>
 				<Button appearance="primary" onClick={changeAlignment}>
 					Change alignment to "{alignmentValues[nextIndex]}"

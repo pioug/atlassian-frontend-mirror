@@ -1,8 +1,9 @@
 import React from 'react';
 
-import VRCardView from '../utils/vr-card-view';
-import { ForbiddenWithSiteRequestAccessClient } from '../utils/custom-client';
 import { Box, xcss } from '@atlaskit/primitives';
+
+import { ForbiddenWithSiteRequestAccessClient } from '../utils/custom-client';
+import VRCardView from '../utils/vr-card-view';
 
 const wrapperStyles = xcss({
 	width: '200px',

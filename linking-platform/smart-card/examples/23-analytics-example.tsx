@@ -1,8 +1,11 @@
+import React from 'react';
+
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { Box, Inline } from '@atlaskit/primitives';
-import React from 'react';
+
 import { Card, Client, Provider, type ResolveResponse } from '../src';
 import { mocks } from '../src/utils/mocks';
+
 import ExampleContainer from './utils/example-container';
 
 class CustomClient extends Client {

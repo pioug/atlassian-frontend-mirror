@@ -6,12 +6,12 @@ import ConfluenceBlog from '../../../__fixtures__/confluence-blog';
 import ConfluencePage from '../../../__fixtures__/confluence-page';
 import ConfluenceSpace from '../../../__fixtures__/confluence-space';
 import ConfluenceTemplate from '../../../__fixtures__/confluence-template';
+import DropboxFile from '../../../__fixtures__/dropbox-file';
 import Figma from '../../../__fixtures__/figma';
 import JiraRoadMap from '../../../__fixtures__/jira-roadmap';
 import JiraTask from '../../../__fixtures__/jira-task';
 import JiraTimeline from '../../../__fixtures__/jira-timeline';
 import YouTubeVideo from '../../../__fixtures__/youtube-video';
-import DropboxFile from '../../../__fixtures__/dropbox-file';
 import extractFlexibleUiContext from '../index';
 
 describe('extractFlexibleUiContext', () => {

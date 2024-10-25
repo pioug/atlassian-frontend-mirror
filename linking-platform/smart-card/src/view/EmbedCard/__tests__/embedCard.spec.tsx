@@ -1,24 +1,27 @@
 import React from 'react';
+
 import { fireEvent, screen, within } from '@testing-library/react';
+import { type JsonLd } from 'json-ld-types';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { type CardState } from '@atlaskit/linking-common';
 import {
 	expectFunctionToHaveBeenCalledWith,
 	type JestFunction,
 } from '@atlaskit/media-test-helpers';
-import { type CardState } from '@atlaskit/linking-common';
-import { EmbedCard } from '../index';
-import { type EmbedCardProps } from '../types';
-import { mockAnalytics } from '../../../utils/mocks';
-import { type JsonLd } from 'json-ld-types';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { setGlobalTheme } from '@atlaskit/tokens';
+
 import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,
 	CONTENT_URL_SECURITY_AND_PERMISSIONS,
 } from '../../../constants';
-
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
-import { setGlobalTheme } from '@atlaskit/tokens';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { mockAnalytics } from '../../../utils/mocks';
+import { EmbedCard } from '../index';
+import { type EmbedCardProps } from '../types';
+
 import '@atlaskit/link-test-helpers/jest';
 
 const baseData: JsonLd.Response['data'] = {

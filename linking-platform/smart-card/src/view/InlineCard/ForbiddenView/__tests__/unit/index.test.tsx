@@ -1,10 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { InlineCardForbiddenView } from '../..';
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
-import { Provider } from '../../../../../';
+import { Provider } from '../../../../../index';
+import { InlineCardForbiddenView } from '../../index';
 
 jest.mock('react-render-image');
 

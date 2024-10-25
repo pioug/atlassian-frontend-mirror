@@ -126,7 +126,7 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						onEntered={this.onEntered}
 						timeout={transitionDelay + transitionSpeed}
 						classNames="fade"
-						{...(fg('platform-design-system-dsp-20687-transition-group') && {
+						{...(fg('platform_design_system_team_transition_group_r18') && {
 							nodeRef: this.nodeRefMarker,
 						})}
 					>
@@ -138,7 +138,7 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						onEntered={this.onEntered}
 						timeout={transitionDelay + transitionSpeed}
 						classNames="fade"
-						{...(fg('platform-design-system-dsp-20687-transition-group') && {
+						{...(fg('platform_design_system_team_transition_group_r18') && {
 							nodeRef: this.nodeRefBar,
 						})}
 					>
@@ -153,7 +153,7 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						onEntered={this.onEntered}
 						timeout={transitionDelay + transitionSpeed}
 						classNames="fade"
-						{...(fg('platform-design-system-dsp-20687-transition-group') && {
+						{...(fg('platform_design_system_team_transition_group_r18') && {
 							nodeRef: this.nodeRefTitle,
 						})}
 					>

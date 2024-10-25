@@ -1,7 +1,8 @@
 import { type JsonLd } from 'json-ld-types';
-import { extractPreviewAction } from '../extractPreviewAction';
+
 import { mockAnalytics, mocks } from '../../../../utils/mocks';
 import { CardAction } from '../../../../view/Card/types';
+import { extractPreviewAction } from '../extractPreviewAction';
 
 describe('extractPreviewAction', () => {
 	it('returns preview action', () => {

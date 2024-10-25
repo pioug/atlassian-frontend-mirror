@@ -6,6 +6,7 @@
 import { css, jsx } from '@emotion/react';
 
 import ImageIcon from '../../common/image-icon';
+
 import { type MediaProps } from './types';
 
 /**

@@ -2,20 +2,23 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import Popup from '@atlaskit/popup';
+import React, { useCallback, useEffect, useRef } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { useCallback, useRef, useEffect } from 'react';
-import { useSmartLinkRenderers } from '../../../state/renderers';
-import { useSmartCardState as useLinkState } from '../../../state/store';
-import HoverCardContent from '../components/HoverCardContent';
-import CustomPopupContainer from '../components/CustomPopupContainer';
-import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
-import { type HoverCardComponentProps, type HoverCardContentProps } from '../types';
+
+import Popup from '@atlaskit/popup';
+
 import { ActionName, CardDisplay } from '../../../constants';
-import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 import { useSmartCardActions } from '../../../state/actions';
 import { useSmartLinkAnalytics } from '../../../state/analytics';
+import { useSmartLinkRenderers } from '../../../state/renderers';
+import { useSmartCardState as useLinkState } from '../../../state/store';
+import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
+import CustomPopupContainer from '../components/CustomPopupContainer';
+import HoverCardContent from '../components/HoverCardContent';
+import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
+import { type HoverCardComponentProps, type HoverCardContentProps } from '../types';
 const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
 
 const FADE_IN_DELAY = 500;
@@ -26,7 +29,6 @@ export const HoverCardComponent = ({
 	children,
 	url,
 	id = '',
-	analyticsHandler,
 	canOpen = true,
 	closeOnChildClick = false,
 	actionOptions,

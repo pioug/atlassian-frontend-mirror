@@ -1,11 +1,13 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import React, { PureComponent } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import Icon from '../index';
-import { IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../../constants';
-import { PureComponent } from 'react';
+import { render, screen } from '@testing-library/react';
+
 import type { GlyphProps } from '@atlaskit/icon/types';
+
+import { IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../../constants';
+import Icon from '../index';
 
 class TestIcon extends PureComponent<Omit<GlyphProps, 'primaryColor' | 'secondaryColor'>> {
 	render() {

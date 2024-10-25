@@ -1,6 +1,9 @@
 import { useMemo } from 'react';
+
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { getUrl } from '@atlaskit/linking-common';
-import { type AnalyticsName, type AnalyticsPayload } from '../../utils/types';
+import { type SmartLinkActionType } from '@atlaskit/linking-types';
+
 import {
 	chunkloadFailedEvent,
 	connectFailedEvent,
@@ -23,20 +26,21 @@ import {
 	uiLearnMoreLinkClickedEvent,
 	uiRenderFailedEvent,
 	uiRenderSuccessEvent,
-	uiSmartLinkStatusLozengeButtonClicked,
 	uiSmartLinkStatusListItemButtonClicked,
+	uiSmartLinkStatusLozengeButtonClicked,
 	uiSmartLinkStatusOpenPreviewButtonClicked,
 } from '../../utils/analytics';
-
-import { failUfoExperience, startUfoExperience, succeedUfoExperience } from './ufoExperiences';
 import {
-	getDefinitionId,
-	getExtensionKey,
-	getProduct,
-	getResourceType,
-	getStatusDetails,
-	getSubproduct,
-} from '../helpers';
+	trackHoverCardResolutionStarted,
+	type TrackQuickActionFailureReason,
+	type TrackQuickActionType,
+	trackSmartLinkQuickActionFailed,
+	trackSmartLinkQuickActionStarted,
+	trackSmartLinkQuickActionSuccess,
+	uiIframeDwelledEvent,
+	uiIframeFocusedEvent,
+	uiServerActionClicked,
+} from '../../utils/analytics/analytics';
 import {
 	type CommonEventProps,
 	type ConnectFailedEventProps,
@@ -60,20 +64,19 @@ import {
 	type UiRenderSuccessEventProps,
 	type UiServerActionClickedEventProps,
 } from '../../utils/analytics/types';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { type AnalyticsName, type AnalyticsPayload } from '../../utils/types';
 import {
-	trackHoverCardResolutionStarted,
-	type TrackQuickActionFailureReason,
-	type TrackQuickActionType,
-	trackSmartLinkQuickActionFailed,
-	trackSmartLinkQuickActionStarted,
-	trackSmartLinkQuickActionSuccess,
-	uiIframeDwelledEvent,
-	uiIframeFocusedEvent,
-	uiServerActionClicked,
-} from '../../utils/analytics/analytics';
+	getDefinitionId,
+	getExtensionKey,
+	getProduct,
+	getResourceType,
+	getStatusDetails,
+	getSubproduct,
+} from '../helpers';
+
+import { failUfoExperience, startUfoExperience, succeedUfoExperience } from './ufoExperiences';
 import { useDispatchAnalytics } from './useDispatchAnalytics';
-import { type SmartLinkActionType } from '@atlaskit/linking-types';
+
 
 const applyCommonAttributes = (event: AnalyticsPayload, commonAttributes: CommonEventProps) => {
 	if (event && event.attributes) {

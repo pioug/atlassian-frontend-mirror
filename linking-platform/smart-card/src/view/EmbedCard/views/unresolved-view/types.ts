@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+
 import type { CardProps } from '../../../Card/types';
 
 /** Props derived from <Card /> for base embed functionalities */

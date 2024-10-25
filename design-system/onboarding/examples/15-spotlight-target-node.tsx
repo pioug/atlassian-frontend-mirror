@@ -70,7 +70,7 @@ export default class SpotlightNodeExample extends Component<Object, State> {
 					timeout={duration}
 					onExit={this.hideSpotlight}
 					onEntered={() => window.setTimeout(this.showSpotlight, duration)}
-					{...(fg('platform-design-system-dsp-20687-transition-group') && {
+					{...(fg('platform_design_system_team_transition_group_r18') && {
 						nodeRef: this.nodeRef,
 					})}
 				>

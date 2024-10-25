@@ -1,6 +1,8 @@
 import { type JsonLd } from 'json-ld-types';
-import { IconType } from '../../constants';
+
 import { extractUrlFromIconJsonLd } from '@atlaskit/link-extractors';
+
+import { IconType } from '../../constants';
 import { type Icon } from '../../state/flexible-ui-context/types';
 
 const priorityMapper: Record<string, IconType> = {

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Card, Client, Provider, TitleBlock } from '../../src';
+
 import { url } from './example-responses';
 
 class CustomClient extends Client {

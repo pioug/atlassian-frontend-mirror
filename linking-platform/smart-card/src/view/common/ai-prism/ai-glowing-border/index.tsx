@@ -4,11 +4,13 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
 import { token } from '@atlaskit/tokens';
+
+import { INNER_BORDER_RADIUS } from '../constants';
 
 import AnimatedSvgContainer from './animated-svg-container';
 import type { AIGlowingBorderProps } from './types';
-import { INNER_BORDER_RADIUS } from '../constants';
 
 const borderContainerStyles = css({
 	display: 'flex',

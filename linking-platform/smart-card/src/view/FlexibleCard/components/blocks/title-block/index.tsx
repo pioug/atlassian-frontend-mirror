@@ -1,15 +1,17 @@
 import React, { useCallback, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { type TitleBlockProps } from './types';
-import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { SmartLinkStatus } from '../../../../../constants';
-import TitleBlockResolvedView from './resolved';
-import TitleBlockErroredView from './errored';
-import TitleBlockResolvingView from './resolving';
-import ActionGroup from '../action-group';
+import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { Title } from '../../elements';
+import ActionGroup from '../action-group';
+
+import TitleBlockErroredView from './errored';
+import TitleBlockResolvedView from './resolved';
+import TitleBlockResolvingView from './resolving';
+import { type TitleBlockProps } from './types';
 
 const getActionStyles = (showOnHover?: boolean, isOpen?: boolean): SerializedStyles | undefined => {
 	if (showOnHover && !isOpen) {

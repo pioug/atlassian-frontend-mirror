@@ -12,10 +12,10 @@ const containerStyles = xcss({
 
 const headerStyles = xcss({
 	position: 'absolute',
-	top: 'space.0',
-	right: 'space.0',
-	left: 'space.0',
-	borderBottom: '1px solid',
+	insetBlockStart: 'space.0',
+	insetInlineEnd: 'space.0',
+	insetInlineStart: 'space.0',
+	borderBlockEnd: '1px solid',
 	borderColor: 'color.border',
 	boxShadow: 'elevation.shadow.overflow',
 });
@@ -28,7 +28,7 @@ export default () => {
 				padding="space.200"
 				xcss={headerStyles}
 			>
-				<Heading level="h500">Header overlay</Heading>
+				<Heading size="small">Header overlay</Heading>
 			</Box>
 			<p>Some text that is partially covered by the header.</p>
 		</Box>

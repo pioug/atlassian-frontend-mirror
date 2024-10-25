@@ -1,6 +1,6 @@
+import { MediaType } from '../../../constants';
 import { TEST_BASE_DATA, TEST_URL } from '../../common/__mocks__/jsonld';
 import extractPreview from '../extract-preview';
-import { MediaType } from '../../../constants';
 
 describe('extractPreview', () => {
 	it('returns preview type and url', () => {

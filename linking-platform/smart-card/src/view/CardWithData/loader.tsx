@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { type CardProps } from '../Card/types';
+
 import { type CardWithDataContent as CardWithDataContentType } from './component';
 
 export class CardWithDataRenderer extends React.PureComponent<CardProps> {

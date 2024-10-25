@@ -7,6 +7,7 @@ import { css, jsx, keyframes } from '@emotion/react';
 
 import SVG from '@atlaskit/icon/svg';
 import { type SVGProps } from '@atlaskit/icon/types';
+
 import { aiThemeTokens } from '../ai-prism/constants';
 
 /**

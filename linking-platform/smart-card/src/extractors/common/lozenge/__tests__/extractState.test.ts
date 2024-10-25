@@ -1,13 +1,13 @@
 import { type JsonLd } from 'json-ld-types';
 
-import { extractState } from '../extractState';
 import {
 	TEST_BASE_DATA,
+	TEST_CURRENT_DOCUMENT,
 	TEST_LINK,
 	TEST_NAME,
 	TEST_OBJECT,
-	TEST_CURRENT_DOCUMENT,
 } from '../../__mocks__/jsonld';
+import { extractState } from '../extractState';
 
 const BASE_DATA = TEST_BASE_DATA as JsonLd.Data.SourceCodePullRequest;
 const BASE_DOC_DATA = TEST_CURRENT_DOCUMENT as JsonLd.Data.Document;

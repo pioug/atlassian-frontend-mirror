@@ -1,10 +1,14 @@
 import React from 'react';
-import { Provider } from '../../src';
-import VRTestWrapper from '../utils/vr-test-wrapper';
-import { getMockForbiddenDirectAccessResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
-import { type CardProviderStoreOpts } from '@atlaskit/link-provider';
-import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
+
 import { type JsonLd } from 'json-ld-types';
+
+import { type CardProviderStoreOpts } from '@atlaskit/link-provider';
+
+import { Provider } from '../../src';
+import { getMockForbiddenDirectAccessResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
+import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
+import VRTestWrapper from '../utils/vr-test-wrapper';
+
 
 const mockUrl = 'https://www.mockurl.com';
 

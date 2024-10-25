@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.10.0
+
+### Minor Changes
+
+- [#154751](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154751)
+  [`8a15d128d0772`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a15d128d0772) -
+  ED-25049 handle edge cases for vertical drop targets
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.9.0
 
 ### Minor Changes

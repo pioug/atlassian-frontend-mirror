@@ -1,5 +1,7 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
+
+import { act, fireEvent, render, screen } from '@testing-library/react';
+
 import * as Actions from '../../../../view/BlockCard/components/Action';
 import { ActionList } from '../../../../view/BlockCard/components/ActionList';
 
@@ -13,28 +15,28 @@ describe('ActionList', () => {
 			id: 'action 1',
 			text: 'action 1',
 			promise: () => {
-				return new Promise((resolve) => {});
+				return new Promise(() => {});
 			},
 		},
 		{
 			id: 'action 2',
 			text: 'action 2',
 			promise: () => {
-				return new Promise((resolve) => {});
+				return new Promise(() => {});
 			},
 		},
 		{
 			id: 'action 3',
 			text: 'action 3',
 			promise: () => {
-				return new Promise((resolve) => {});
+				return new Promise(() => {});
 			},
 		},
 		{
 			id: 'action 4',
 			text: 'action 4',
 			promise: () => {
-				return new Promise((resolve) => {});
+				return new Promise(() => {});
 			},
 		},
 	];

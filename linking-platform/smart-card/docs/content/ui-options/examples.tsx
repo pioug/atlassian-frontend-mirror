@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { md } from '@atlaskit/docs';
+
 import CustomExample from '../../utils/custom-example';
 
 export default md`

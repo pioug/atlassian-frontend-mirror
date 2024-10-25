@@ -1,9 +1,11 @@
-import { code } from '@atlaskit/docs';
 import React from 'react';
+
+import { code } from '@atlaskit/docs';
 
 import { TabName } from '../../utils';
 import ContentTabs from '../../utils/content-tabs';
 import customMd from '../../utils/custom-md';
+
 import examples from './examples';
 import reference from './reference';
 

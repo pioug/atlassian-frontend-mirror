@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
+
 import { type Appearance } from '@atlaskit/button/types';
 
-import { type ActionProps } from '../components/Action';
 import { messages } from '../../../messages';
+import { type ActionProps } from '../components/Action';
 
 export const AuthorizeAction = (handler: () => void): ActionProps => ({
 	id: 'connect-account',

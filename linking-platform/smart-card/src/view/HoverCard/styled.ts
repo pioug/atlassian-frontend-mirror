@@ -1,10 +1,13 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { loadingPlaceholderClassName } from '../../index';
-import { SmartLinkSize } from '../../constants';
-import { type FlexibleUiOptions } from '../FlexibleCard/types';
+
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
+
+import { SmartLinkSize } from '../../constants';
+import { loadingPlaceholderClassName } from '../../index';
+import { type FlexibleUiOptions } from '../FlexibleCard/types';
+
 
 // Temporary fix for Confluence inline comment on editor mod has z-index of 500, Jira issue view has z-index of 510
 export const HOVER_CARD_Z_INDEX = layers.modal();

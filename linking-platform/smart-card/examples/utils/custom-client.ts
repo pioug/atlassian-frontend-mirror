@@ -1,6 +1,8 @@
+import { type JsonLd } from 'json-ld-types';
+
 import { CardClient } from '@atlaskit/link-provider';
 import { Client } from '@atlaskit/smart-card';
-import { type JsonLd } from 'json-ld-types';
+
 import {
 	AtlasProject,
 	GoogleDoc,
@@ -9,6 +11,7 @@ import {
 	YouTubeVideoUrl,
 } from '../../examples-helpers/_jsonLDExamples';
 import { iconGoogleDrive } from '../images';
+
 import { mocks, overrideEmbedContent } from './common';
 
 const resolve = (

@@ -11,7 +11,7 @@ export default () => {
 
 	return (
 		<>
-			<Heading level="h500">returnFocusRef ref is set to checkbox two, focus will go there</Heading>
+			<Heading size="small">returnFocusRef ref is set to checkbox two, focus will go there</Heading>
 
 			<Box padding="space.100">
 				<Inline space="space.300">

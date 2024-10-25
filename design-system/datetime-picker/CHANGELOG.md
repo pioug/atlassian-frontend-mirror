@@ -1,5 +1,17 @@
 # @atlaskit/datetime-picker
 
+## 15.5.0
+
+### Minor Changes
+
+- [#156026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156026)
+  [`709b9c76673df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/709b9c76673df) -
+  Add clearControlLabel to timepicker component.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.4.3
 
 ### Patch Changes

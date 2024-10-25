@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { md, Props } from '@atlaskit/docs';
+
 import { overrideActionsProps } from '../../utils';
 
 export default md`

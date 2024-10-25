@@ -17,26 +17,6 @@ import {
 	BlockCardNotFoundSiteAccessExistsLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-not-found-site-access-exists';
 import {
-	BlockCardUnauthorisedView,
-	BlockCardUnauthorisedViewLegacy,
-} from '../../../examples/vr-block-card/vr-block-card-unauthorised';
-import {
-	BlockCardUnauthorisedViewWithNoAuth,
-	BlockCardUnauthorisedViewWithNoAuthLegacy,
-} from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth';
-import {
-	BlockCardJira,
-	BlockCardJiraLegacy,
-} from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
-import {
-	BlockCardConfluence,
-	BlockCardConfluenceLegacy,
-} from '../../../examples/vr-block-card/vr-block-card-resolved-confluence';
-import {
-	BlockCardTrello,
-	BlockCardTrelloLegacy,
-} from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview';
-import {
 	BlockCardAtlas,
 	BlockCardAtlasLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-resolved-atlas';
@@ -44,6 +24,26 @@ import {
 	BlockCardBitbucket,
 	BlockCardBitbucketLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-resolved-bitbucket';
+import {
+	BlockCardConfluence,
+	BlockCardConfluenceLegacy,
+} from '../../../examples/vr-block-card/vr-block-card-resolved-confluence';
+import {
+	BlockCardJira,
+	BlockCardJiraLegacy,
+} from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
+import {
+	BlockCardTrello,
+	BlockCardTrelloLegacy,
+} from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview';
+import {
+	BlockCardUnauthorisedView,
+	BlockCardUnauthorisedViewLegacy,
+} from '../../../examples/vr-block-card/vr-block-card-unauthorised';
+import {
+	BlockCardUnauthorisedViewWithNoAuth,
+	BlockCardUnauthorisedViewWithNoAuthLegacy,
+} from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth';
 import {
 	BlockCardForbiddenViews,
 	BlockCardForbiddenViewsLegacy,

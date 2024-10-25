@@ -74,7 +74,13 @@ export default () => {
 				/>
 
 				<Label htmlFor={timeId}>Time</Label>
-				<TimePicker value={timePickerValue} isDisabled onChange={console.log} id={timeId} />
+				<TimePicker
+					clearControlLabel="Clear time"
+					value={timePickerValue}
+					isDisabled
+					onChange={console.log}
+					id={timeId}
+				/>
 			</Box>
 			<Box paddingBlock="space.150">
 				<Heading size="large">Datetime picker</Heading>

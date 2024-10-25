@@ -1,11 +1,11 @@
-import React, { Component, type ReactElement, type ComponentProps, Fragment } from 'react';
+import React, { Component, type ComponentProps, Fragment, type ReactElement } from 'react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, type RenderOptions, type RenderResult } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 import { DiProvider } from 'react-magnetic-di';
 
 import type { Ari, Environment, InvocationResponse, InvocationResult, UserInputs } from './types';
-import { IntlProvider } from 'react-intl-next';
 
 /**
  * Creates a stubbed invocation API call for triggering rules. Will return

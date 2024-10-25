@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+
 import { unstable_batchedUpdates } from 'react-dom';
 
 import { extractLink } from '@atlaskit/link-extractors';
@@ -8,15 +9,17 @@ import {
 	useSmartLinkContext,
 } from '@atlaskit/link-provider';
 
-import RelatedLinksBaseModal from './components/RelatedLinksBaseModal';
-import RelatedLinksResolvedView from './views/resolved';
-import RelatedLinksResolvingView from './views/resolving';
-import RelatedLinksErroredView from './views/errored';
-import RelatedLinksUnavailableView from './views/unavailable';
+import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import useIncomingOutgoingAri from '../../state/hooks/use-incoming-outgoing-links';
 import useResponse from '../../state/hooks/use-response';
+
+import RelatedLinksBaseModal from './components/RelatedLinksBaseModal';
 import { type RelatedLinksModalProps } from './types';
-import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
+import RelatedLinksErroredView from './views/errored';
+import RelatedLinksResolvedView from './views/resolved';
+import RelatedLinksResolvingView from './views/resolving';
+import RelatedLinksUnavailableView from './views/unavailable';
+
 
 const isGrantedResponse = (
 	response: SuccessResponse | ErrorResponse,

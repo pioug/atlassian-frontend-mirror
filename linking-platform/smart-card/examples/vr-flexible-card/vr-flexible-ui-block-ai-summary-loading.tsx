@@ -2,17 +2,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { AISummaryState } from '../../src/state/hooks/use-ai-summary/ai-summary-service/types';
-import { getJsonLdResponse } from '../utils/flexible-ui';
-import { JiraIssue } from '../../examples-helpers/_jsonLDExamples';
-import { TitleBlock, SnippetBlock, Card, Provider } from '../../src/index';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { CardClient } from '@atlaskit/link-provider';
-import VRTestWrapper from '../utils/vr-test-wrapper';
 import { DiProvider, injectable } from 'react-magnetic-di';
+
+import { CardClient } from '@atlaskit/link-provider';
+
+import { JiraIssue } from '../../examples-helpers/_jsonLDExamples';
+import { Card, Provider, SnippetBlock, TitleBlock } from '../../src';
 import useAISummaryAction from '../../src/state/hooks/use-ai-summary-action';
+import type { AISummaryState } from '../../src/state/hooks/use-ai-summary/ai-summary-service/types';
 import AIPrism from '../../src/view/common/ai-prism';
+import { getJsonLdResponse } from '../utils/flexible-ui';
+import VRTestWrapper from '../utils/vr-test-wrapper';
 
 class MaximumResolvedCustomClient extends CardClient {
 	fetchData(url: string) {

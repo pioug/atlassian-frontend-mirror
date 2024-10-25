@@ -1,5 +1,7 @@
-import { code } from '@atlaskit/docs';
 import React from 'react';
+
+import { code } from '@atlaskit/docs';
+
 import CustomExample from '../../utils/custom-example';
 import customMd from '../../utils/custom-md';
 import prerequisites from '../prerequisites';

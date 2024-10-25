@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+
 import { SmartLinkEvents } from '../../utils/analytics/analytics';
 
 export function useSmartLinkEvents() {

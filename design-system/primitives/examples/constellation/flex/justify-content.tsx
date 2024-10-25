@@ -23,7 +23,7 @@ export default function Example() {
 				</Button>
 			</Box>
 			<Stack space="space.100">
-				<Heading level="h400">
+				<Heading size="xsmall">
 					Justify content <Code>{alignmentValues[alignmentIndex]}</Code>
 				</Heading>
 				<Flex gap="space.100" justifyContent={alignmentValues[alignmentIndex]}>

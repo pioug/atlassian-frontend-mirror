@@ -21,7 +21,7 @@ export default function Example() {
 		<Inline alignBlock="center" spread="space-between">
 			<Inline space="space.100" alignBlock="center">
 				<StoryIcon label="Issue type: Story" />
-				<Heading level="h700">Create a backlog</Heading>
+				<Heading size="large">Create a backlog</Heading>
 			</Inline>
 			<Inline alignBlock="center" space="space.050">
 				<IconButton icon={StarFilledIcon} appearance="subtle" label="Add as favourite" />

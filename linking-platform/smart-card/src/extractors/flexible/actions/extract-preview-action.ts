@@ -1,17 +1,18 @@
 import { type JsonLd } from 'json-ld-types';
 
-import { type PreviewActionData } from '../../../state/flexible-ui-context/types';
-import { extractDownloadUrl } from '../../common/detail';
 import {
-	extractPreview as extractPreviewData,
 	extractLink,
+	extractPreview as extractPreviewData,
 	extractProvider,
 	extractTitle,
 } from '@atlaskit/link-extractors';
-import { extractLinkIcon } from '../icon';
-import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
-import { CardAction, type CardActionOptions } from '../../../view/Card/types';
+
+import { type PreviewActionData } from '../../../state/flexible-ui-context/types';
 import { canShowAction } from '../../../utils/actions/can-show-action';
+import { CardAction, type CardActionOptions } from '../../../view/Card/types';
+import { extractDownloadUrl } from '../../common/detail';
+import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
+import { extractLinkIcon } from '../icon';
 
 export const extractPreviewAction = (
 	response: JsonLd.Response,

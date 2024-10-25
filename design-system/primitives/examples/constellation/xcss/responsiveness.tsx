@@ -36,7 +36,7 @@ const cardStyles = xcss({
 const ResponsiveCard = () => (
 	<Box xcss={cardStyles} tabIndex={0}>
 		<Stack space="space.100">
-			<Heading level="h600">A Responsive Card</Heading>
+			<Heading size="medium">A Responsive Card</Heading>
 			<Box xcss={textStyles}>Change your screen width to see me change color.</Box>
 		</Stack>
 	</Box>

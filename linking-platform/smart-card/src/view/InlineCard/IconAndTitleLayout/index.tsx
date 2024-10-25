@@ -1,17 +1,21 @@
 import React from 'react';
+
 import ImageLoader from 'react-render-image';
+
+import LinkIcon from '@atlaskit/icon/core/migration/link';
+
 import { Icon, Shimmer } from '../Icon';
+import { LinkAppearance, NoLinkAppearance } from '../styled';
+
 import {
+	EmojiWrapper,
 	IconEmptyWrapper,
 	IconPositionWrapper,
 	IconTitleWrapper,
 	IconWrapper,
 	TitleWrapper,
-	EmojiWrapper,
 	TitleWrapperClassName,
 } from './styled';
-import LinkIcon from '@atlaskit/icon/core/migration/link';
-import { LinkAppearance, NoLinkAppearance } from '../styled';
 
 export interface IconAndTitleLayoutProps {
 	emoji?: React.ReactNode;

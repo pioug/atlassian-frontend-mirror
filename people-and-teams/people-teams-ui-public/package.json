@@ -38,7 +38,7 @@
 		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.23.0",
+		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/tokens": "^2.0.2",
 		"@babel/runtime": "^7.0.0",

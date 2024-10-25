@@ -1,8 +1,10 @@
 import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 
-import { type AnalyticsPayload } from '../types';
 import { type CardInnerAppearance } from '../../view/Card/types';
 import { getMeasure } from '../performance';
+import { type AnalyticsPayload } from '../types';
+
 import {
 	type CommonEventProps,
 	type ConnectFailedEventProps,
@@ -27,7 +29,7 @@ import {
 	type UiServerActionClickedEventProps,
 	type UnresolvedEventProps,
 } from './types';
-import { SmartLinkActionType } from '@atlaskit/linking-types';
+
 export const ANALYTICS_CHANNEL = 'media';
 
 export const context = {

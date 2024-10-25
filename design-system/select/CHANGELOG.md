@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 18.3.0
+
+### Minor Changes
+
+- [#156026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156026)
+  [`709b9c76673df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/709b9c76673df) -
+  Add clearControlLabel to select component.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.2.0
 
 ### Minor Changes

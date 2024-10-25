@@ -1,5 +1,5 @@
-import { getBufferReader } from '../utils';
 import { readStream } from '../readStream';
+import { getBufferReader } from '../utils';
 
 jest.mock('../utils', () => ({
 	getBufferReader: jest.fn(),

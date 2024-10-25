@@ -2,13 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import { useEffect, useRef } from 'react';
 
-import type { AnimatedSvgContainerProps } from './types';
-import { OUTER_BORDER_RADIUS } from '../constants';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
+
 import { token } from '@atlaskit/tokens';
+
+import { OUTER_BORDER_RADIUS } from '../constants';
+
+import type { AnimatedSvgContainerProps } from './types';
 
 let namespaceUUID = 0;
 

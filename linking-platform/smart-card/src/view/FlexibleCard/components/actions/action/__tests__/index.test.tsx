@@ -1,13 +1,16 @@
+import '@testing-library/jest-dom';
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Action from '../index';
 import userEvent from '@testing-library/user-event';
-import { SmartLinkSize } from '../../../../../../constants';
+
 import TestIcon from '@atlaskit/icon/core/migration/dashboard--activity';
 import { token } from '@atlaskit/tokens';
+
+import { SmartLinkSize } from '../../../../../../constants';
+import Action from '../index';
 import type { ActionProps } from '../types';
 
 describe('Action', () => {

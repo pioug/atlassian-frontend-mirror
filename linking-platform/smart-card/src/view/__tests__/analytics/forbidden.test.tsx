@@ -1,3 +1,20 @@
+import '@atlaskit/link-test-helpers/jest';
+import React from 'react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { type CardClient } from '@atlaskit/link-provider';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
+import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
+
+import { Provider } from '../../../index';
+import * as analyticsEvents from '../../../utils/analytics';
+import { fakeFactory, mocks } from '../../../utils/mocks';
+import { Card } from '../../Card';
+
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock('react-transition-group/Transition', () => (data: any) => data.children);
 jest.mock('../../../utils/analytics/analytics');
@@ -8,20 +25,6 @@ jest.mock('@atlaskit/outbound-auth-flow-client', () => {
 		AuthError,
 	};
 });
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import '@atlaskit/link-test-helpers/jest';
-
-import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
-import * as analyticsEvents from '../../../utils/analytics';
-import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { type CardClient } from '@atlaskit/link-provider';
-import React from 'react';
-import { Card } from '../../Card';
-import { Provider } from '../../..';
-import { fakeFactory, mocks } from '../../../utils/mocks';
-import { render, fireEvent, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
 
 mockSimpleIntersectionObserver();
 

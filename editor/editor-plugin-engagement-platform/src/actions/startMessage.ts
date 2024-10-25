@@ -1,7 +1,7 @@
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 
 import type { CoordinationClient } from '../engagementPlatformPluginType';
-import { setMessageState } from '../pmPlugins/engagementPlatformPmPlugin/commands/setMessageState';
+import { engagementPlatformPmPluginCommand } from '../pmPlugins/engagementPlatformPmPlugin/engagementPlatformPmPluginCommand';
 
 import type { EngagementPlatformPluginApi } from './types';
 
@@ -9,38 +9,73 @@ export function startMessage(
 	api: EngagementPlatformPluginApi | undefined,
 	coordinationClient: CoordinationClient,
 ) {
-	return async (messageId: string, variationId?: string): Promise<boolean> => {
+	return (messageId: string, variationId?: string): Promise<boolean> => {
 		if (!api) {
-			return false;
+			return Promise.resolve(false);
 		}
 
+		// If the message is already started (even with `false` state), return the state
 		const messageStates = api.engagementPlatform.sharedState.currentState()?.messageStates ?? {};
-
-		const isActive = messageStates[messageId];
-		if (isActive) {
-			return true;
+		const messageState = messageStates[messageId];
+		if (messageState !== undefined) {
+			return Promise.resolve(messageState);
 		}
 
-		try {
-			const isStarted = await coordinationClient.start(messageId, variationId);
+		// If there is already a start message promise, return it to prevent multiple start requests
+		const startMessagePromises =
+			api.engagementPlatform.sharedState.currentState()?.startMessagePromises ?? {};
+		const startMessagePromise = startMessagePromises[messageId];
+		if (startMessagePromise) {
+			return startMessagePromise;
+		}
 
-			if (isStarted) {
-				api.core.actions.execute(setMessageState(messageId, true));
-			}
+		const newStartedMessagePromise = coordinationClient
+			.start(messageId, variationId)
+			.then((isStarted) => {
+				// Update the message state in the shared state
+				api.core.actions.execute(
+					engagementPlatformPmPluginCommand({
+						type: 'setMessageState',
+						messageId,
+						state: isStarted,
+					}),
+				);
 
-			return isStarted;
-		} catch (error) {
-			api.analytics?.actions.fireAnalyticsEvent({
-				action: ACTION.ERRORED,
-				actionSubject: ACTION_SUBJECT.ENGAGEMENT_PLATFORM,
-				eventType: EVENT_TYPE.OPERATIONAL,
-				attributes: {
-					error: error instanceof Error ? error.message : `${error}`,
-					errorStack: error instanceof Error ? error.stack : undefined,
-				},
+				return isStarted;
+			})
+			.catch((error) => {
+				api?.analytics?.actions.fireAnalyticsEvent({
+					action: ACTION.ERRORED,
+					actionSubject: ACTION_SUBJECT.ENGAGEMENT_PLATFORM,
+					eventType: EVENT_TYPE.OPERATIONAL,
+					attributes: {
+						error: error instanceof Error ? error.message : `${error}`,
+						errorStack: error instanceof Error ? error.stack : undefined,
+					},
+				});
+
+				return false;
+			})
+			.finally(() => {
+				// Remove the promise from the state after it has been resolved
+				api.core.actions.execute(
+					engagementPlatformPmPluginCommand({
+						type: 'setStartMessagePromise',
+						messageId,
+						promise: undefined,
+					}),
+				);
 			});
 
-			return false;
-		}
+		// Store the promise in the shared state to prevent multiple start requests for the same message
+		api.core.actions.execute(
+			engagementPlatformPmPluginCommand({
+				type: 'setStartMessagePromise',
+				messageId,
+				promise: newStartedMessagePromise,
+			}),
+		);
+
+		return newStartedMessagePromise;
 	};
 }

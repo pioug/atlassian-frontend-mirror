@@ -2,19 +2,19 @@ import React from 'react';
 
 import '@atlaskit/link-test-helpers/jest';
 
-import { IntlProvider } from 'react-intl-next';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl-next';
 
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { type CardClient } from '@atlaskit/link-provider';
-import * as userAgent from '@atlaskit/linking-common/user-agent';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { type CardClient } from '@atlaskit/link-provider';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import * as userAgent from '@atlaskit/linking-common/user-agent';
 
-import { Provider, TitleBlock } from '../../..';
-import { Card, type CardProps } from '../../Card';
+import { Provider, TitleBlock } from '../../../index';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
+import { Card, type CardProps } from '../../Card';
 
 mockSimpleIntersectionObserver();
 

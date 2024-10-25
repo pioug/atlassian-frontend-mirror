@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
+
+import { ActionName, ElementName, SmartLinkPosition } from '../../../../constants';
 import FlexibleCard from '../../../FlexibleCard';
 import {
 	FooterBlock,
@@ -7,18 +9,19 @@ import {
 	SnippetBlock,
 	TitleBlock,
 } from '../../../FlexibleCard/components/blocks';
+import type { ActionItem } from '../../../FlexibleCard/components/blocks/types';
+
 import { metadataBlockCss } from './styled';
-import { ActionName, ElementName, SmartLinkPosition } from '../../../../constants';
 import { type FlexibleBlockCardProps } from './types';
 import {
-	getSimulatedBetterMetadata,
-	titleBlockOptions,
-	PreviewBlockOptions,
 	FlexibleCardUiOptions,
 	FooterBlockOptions,
+	getSimulatedBetterMetadata,
+	PreviewBlockOptions,
+	titleBlockOptions,
 } from './utils';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
-import type { ActionItem } from '../../../FlexibleCard/components/blocks/types';
+
 
 /**
  * This view represents a Block card that has an 'Resolved' status.

@@ -131,6 +131,10 @@ export interface ClearIndicatorProps<
 	 */
 	children?: ReactNode;
 	/**
+	 * Sets the `aria-label` for the clear icon button
+	 */
+	clearControlLabel?: string;
+	/**
 	 * Props that will be passed on to the children.
 	 */
 	innerProps: JSX.IntrinsicElements['div'];

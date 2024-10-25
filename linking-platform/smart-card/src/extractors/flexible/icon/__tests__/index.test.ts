@@ -1,7 +1,7 @@
 import { type JsonLd } from 'json-ld-types';
 
-import { extractErrorIcon } from '../index';
 import { IconType, SmartLinkStatus } from '../../../../constants';
+import { extractErrorIcon } from '../index';
 
 describe('extractErrorIcon', () => {
 	it('returns provider icon', () => {

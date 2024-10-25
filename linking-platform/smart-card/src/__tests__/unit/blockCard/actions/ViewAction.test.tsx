@@ -1,8 +1,9 @@
 let mockViewUrl = jest.fn();
 
-import { mockUrl } from '../../../__mocks__/get-resolved-props';
-import { ViewAction } from '../../../../view/BlockCard/actions/ViewAction';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
+import { ViewAction } from '../../../../view/BlockCard/actions/ViewAction';
+import { mockUrl } from '../../../__mocks__/get-resolved-props';
 
 describe('ViewAction', () => {
 	beforeEach(() => {

@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 111.2.9
+
+### Patch Changes
+
+- [#155853](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155853)
+  [`1986c9bd0cc15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1986c9bd0cc15) -
+  [ux] ED-25409 Support comments on media for external images in renderer
+- [#155735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155735)
+  [`1beeeda29023a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1beeeda29023a) -
+  Upgrades editor packages to react 18
+- Updated dependencies
+
 ## 111.2.8
 
 ### Patch Changes

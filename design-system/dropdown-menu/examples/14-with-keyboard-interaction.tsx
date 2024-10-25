@@ -18,7 +18,7 @@ export default () => {
 
 	return (
 		<Stack space="space.250">
-			<Heading level="h700">
+			<Heading size="large">
 				Click dropdown button and try to open the modal using your keyboard.
 			</Heading>
 

@@ -1,15 +1,19 @@
 import React, { useCallback, useState } from 'react';
-import { type CopyLinkActionProps } from './types';
-import Action from '../action';
-import { messages } from '../../../../../messages';
+
 import { FormattedMessage } from 'react-intl-next';
+
 import LinkIcon from '@atlaskit/icon/core/migration/link';
+
+import { ActionName } from '../../../../../constants';
+import { messages } from '../../../../../messages';
 import {
 	useFlexibleUiAnalyticsContext,
 	useFlexibleUiContext,
 } from '../../../../../state/flexible-ui-context';
-import { ActionName } from '../../../../../constants';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
+import Action from '../action';
+
+import { type CopyLinkActionProps } from './types';
 
 const CopyLinkAction = ({ onClick: onClickCallback, ...props }: CopyLinkActionProps) => {
 	const context = useFlexibleUiContext();

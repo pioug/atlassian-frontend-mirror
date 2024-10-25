@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { type ActionItem, ActionName, FooterBlock, SmartLinkSize } from '../../src';
+
 import ExampleContainer from './example-container';
 
 const actions = [

@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
 
 import { messages } from '../../../../messages';
 import { toMessage } from '../../../../utils/intl-utils';
 import UnresolvedView from '../unresolved-view';
-import type { NotFoundViewProps } from './types';
+
 import { NotFoundSVG } from './not-found-svg';
+import type { NotFoundViewProps } from './types';
 
 const NotFoundView = ({
 	context,

@@ -45,7 +45,7 @@ type EditorSharedConfigPrivateAccess = {
 
 export type PluginsConfig = { [name: string]: PluginKey };
 
-// That context was exctract from the old WithPluginState from editor-core
+// That context was extract from the old WithPluginState from editor-core
 // It was using some private types from
 // - EditorAction: packages/editor/editor-core/src/actions/index.ts
 // - EditorSharedConfig: packages/editor/editor-core/src/labs/next/internal/context/shared-config.tsx

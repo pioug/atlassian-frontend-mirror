@@ -1,15 +1,16 @@
 import React, { useRef } from 'react';
 
-import { SmartLinkDirection } from '../../../../../../constants';
-import Block from '../../block';
-import MotionWrapper from '../../../common/motion-wrapper';
-import type { AISummaryBlockProps } from '../types';
-import useAISummaryAction from '../../../../../../state/hooks/use-ai-summary-action';
-import AISummary from '../../../../../common/ai-summary';
-import AIEventSummaryViewed from '../ai-event-summary-viewed';
-import { di } from 'react-magnetic-di';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
+import { di } from 'react-magnetic-di';
+
+import { SmartLinkDirection } from '../../../../../../constants';
+import useAISummaryAction from '../../../../../../state/hooks/use-ai-summary-action';
+import AISummary from '../../../../../common/ai-summary';
+import MotionWrapper from '../../../common/motion-wrapper';
+import Block from '../../block';
+import AIEventSummaryViewed from '../ai-event-summary-viewed';
+import type { AISummaryBlockProps } from '../types';
 
 type AISummaryBlockResolvedViewProps = AISummaryBlockProps & {
 	/**

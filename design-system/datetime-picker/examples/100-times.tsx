@@ -12,6 +12,7 @@ export default () => {
 		<Box>
 			<Label htmlFor="react-select-timepicker-input">TimePicker - times</Label>
 			<TimePicker
+				clearControlLabel="Clear timePicker - times"
 				id="react-select-timepicker-input"
 				times={times}
 				selectProps={{ classNamePrefix: 'timepicker-select' }}
@@ -19,6 +20,7 @@ export default () => {
 			/>
 			<Label htmlFor="react-select-datetimepicker--input">DateTimePicker - times</Label>
 			<DateTimePicker
+				clearControlLabel="Clear DateTimePicker - times"
 				id="react-select-datetimepicker--input"
 				timePickerProps={{ label: 'Time, DateTimePicker - times', times }}
 				datePickerProps={{ label: 'Date, DateTimePicker - times' }}

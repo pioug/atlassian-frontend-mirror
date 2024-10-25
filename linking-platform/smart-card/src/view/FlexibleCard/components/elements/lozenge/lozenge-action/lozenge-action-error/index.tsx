@@ -2,22 +2,24 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { Fragment, useCallback, useMemo } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { Fragment, useMemo, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-
-import type { LozengeActionErrorProps } from './types';
-import { token } from '@atlaskit/tokens';
-import { R50, R500 } from '@atlaskit/theme/colors';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
-import { dropdownItemGroupStyles, contentStyles, linkStyles, textStyles } from './styled';
-import { getFormattedMessage, openEmbedModalWithFlexibleUiIcon } from '../../../../utils';
+import { R50, R500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
 import { messages } from '../../../../../../../messages';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../../state/flexible-ui-context';
 import useResolve from '../../../../../../../state/hooks/use-resolve';
+import { getFormattedMessage, openEmbedModalWithFlexibleUiIcon } from '../../../../utils';
+
+import { contentStyles, dropdownItemGroupStyles, linkStyles, textStyles } from './styled';
+import type { LozengeActionErrorProps } from './types';
 
 const MAX_LINE_NUMBER = 8;
 

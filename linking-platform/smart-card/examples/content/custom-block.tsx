@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { CustomBlock } from '@atlaskit/smart-card';
 
 export default () => {

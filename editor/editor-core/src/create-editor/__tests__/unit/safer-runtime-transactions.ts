@@ -169,33 +169,4 @@ describe('safer-runtime-transactions', () => {
 			}),
 		);
 	});
-	/**
-	 * We need to also hook into apply and not just our ReactEditorView
-	 * connection to dispatch; as appendTransaction will call each
-	 * plugin directly with a new transaction
-	 */
-	it('should stop mutating applyInner transactions from appendedTransactions', () => {
-		const { editorView } = createMockEditor();
-
-		expect(() => {
-			const aTr = editorView.state.tr;
-			aTr.setMeta('shouldAppendTransaction', true);
-			editorView.dispatch(aTr);
-		}).toThrowError(UNSAFE_PROPERTY_SET_ERROR);
-		expect(mockAnalyticsDispatch).toBeCalledWith(
-			expect.objectContaining({
-				action: ACTION.TRANSACTION_MUTATED_AFTER_DISPATCH,
-				actionSubject: ACTION_SUBJECT.EDITOR,
-				eventType: EVENT_TYPE.OPERATIONAL,
-				attributes: {
-					pluginKey: expect.any(String),
-				},
-			}),
-		);
-		expect(mockAnalyticsDispatch).not.toBeCalledWith(
-			expect.objectContaining({
-				nonPrivacySafeAttributes: expect.any(Object),
-			}),
-		);
-	});
 });

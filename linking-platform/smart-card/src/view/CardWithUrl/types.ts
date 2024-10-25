@@ -1,16 +1,17 @@
-import { type EventHandler, type MouseEvent, type KeyboardEvent } from 'react';
+import { type EventHandler, type KeyboardEvent, type MouseEvent } from 'react';
+
+import { type AnalyticsFacade } from '../../state/analytics';
 import type {
+	CardActionOptions,
 	CardAppearance,
 	CardPlatform,
 	EmbedIframeUrlType,
 	OnResolveCallback,
-	CardActionOptions,
 } from '../Card/types';
-import { type FlexibleUiOptions } from '../FlexibleCard/types';
-import { type InlinePreloaderStyle, type OnErrorCallback } from '../types';
-import { type AnalyticsFacade } from '../../state/analytics';
 import { type FrameStyle } from '../EmbedCard/types';
+import { type FlexibleUiOptions } from '../FlexibleCard/types';
 import { type HoverPreviewOptions } from '../HoverCard/types';
+import { type InlinePreloaderStyle, type OnErrorCallback } from '../types';
 
 export type CardWithUrlContentProps = {
 	id: string;

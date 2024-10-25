@@ -2,18 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { token } from '@atlaskit/tokens';
 import { useMemo } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { type IntlShape, useIntl } from 'react-intl-next';
 
 import AtlaskitAvatarGroup from '@atlaskit/avatar-group';
-import { SmartLinkSize } from '../../../../../constants';
-import { type AvatarGroupProps } from './types';
+import { token } from '@atlaskit/tokens';
+
+import { ElementName, SmartLinkSize } from '../../../../../constants';
 import { messages } from '../../../../../messages';
-import { useIntl, type IntlShape } from 'react-intl-next';
-import { ElementName } from '../../../../../constants';
 import { getFormattedMessageAsString } from '../../utils';
+
+import { type AvatarGroupProps } from './types';
 
 const MAX_COUNT = 4;
 

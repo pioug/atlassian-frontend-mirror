@@ -1,8 +1,12 @@
+import React, { useMemo } from 'react';
+
+import { withErrorBoundary } from 'react-error-boundary';
+
 import { CodeBlock } from '@atlaskit/code';
 import { Box, xcss } from '@atlaskit/primitives';
-import React, { useMemo } from 'react';
-import { withErrorBoundary } from 'react-error-boundary';
+
 import { toComponentProps, toObjectString } from '../utils/common';
+
 import { type BlockTemplate, type FlexibleTemplate } from './types';
 
 const codeStyles = xcss({

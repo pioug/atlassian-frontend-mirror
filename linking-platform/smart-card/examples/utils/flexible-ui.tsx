@@ -1,20 +1,23 @@
 import React from 'react';
-import { type JsonLd } from 'json-ld-types';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
+import { type JsonLd } from 'json-ld-types';
+
 import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
+import { type DatasourceResolveResponse } from '@atlaskit/link-client-extension';
+import { type CardState, type CardType } from '@atlaskit/linking-common';
 import { token } from '@atlaskit/tokens';
-import { type CardType, type CardState } from '@atlaskit/linking-common';
+
+import { ActionName, ElementName } from '../../src';
 import extractFlexibleUiContext from '../../src/extractors/flexible';
 import { type FlexibleUiDataContext } from '../../src/state/flexible-ui-context/types';
-import { ActionName, ElementName } from '../../src';
-import { ElementDisplaySchema } from '../../src/view/FlexibleCard/components/blocks/utils';
 import {
 	type CustomActionItem,
 	type NamedActionItem,
 	type NamedDataActionItem,
 } from '../../src/view/FlexibleCard/components/blocks/types';
-import { type DatasourceResolveResponse } from '@atlaskit/link-client-extension';
+import { ElementDisplaySchema } from '../../src/view/FlexibleCard/components/blocks/utils';
 
 export const getJsonLdResponse = (url: string, meta = {}, data = {}) =>
 	({

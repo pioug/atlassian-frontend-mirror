@@ -1,19 +1,21 @@
+import '@atlaskit/link-test-helpers/jest';
+
 import React from 'react';
+
+import { render, waitForElementToBeRemoved } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { render, waitForElementToBeRemoved } from '@testing-library/react';
-import '@atlaskit/link-test-helpers/jest';
-import userEvent from '@testing-library/user-event';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import mockContextDefault from '../../../../../../__fixtures__/flexible-ui-data-context';
-import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
-import { type ViewRelatedLinksActionProps } from '../types';
-import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-import ViewRelatedLinksAction from '..';
+import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import { SmartLinkModalProvider } from '../../../../../../state/modal';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
+import ViewRelatedLinksAction from '../index';
+import { type ViewRelatedLinksActionProps } from '../types';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
 	...jest.requireActual('../../../../../../state/flexible-ui-context'),

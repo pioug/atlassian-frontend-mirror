@@ -1,10 +1,12 @@
 import { type JsonLd } from 'json-ld-types';
-import { type LinkLozenge } from './types';
+
+import { extractType } from '@atlaskit/link-extractors';
+
 import { extractState } from './extractState';
 import { extractTag } from './extractTag';
 import { extractTaskStatus } from './extractTaskStatus';
-import { extractType } from '@atlaskit/link-extractors';
 import { extractTaskType } from './extractTaskType';
+import { type LinkLozenge } from './types';
 
 const DOC_TYPES = [
 	'schema:BlogPosting',

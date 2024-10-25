@@ -29,11 +29,11 @@ export default function AnalyticsExample() {
 					previousLabel="Previous"
 				/>
 				<Stack space="space.150">
-					<Heading level="h700">Analytics event context received</Heading>
+					<Heading size="large">Analytics event context received</Heading>
 					<Code>{JSON.stringify(analyticEventContext, null, 2)}</Code>
 				</Stack>
 				<Stack space="space.150">
-					<Heading level="h700">Analytics event payload received</Heading>
+					<Heading size="large">Analytics event payload received</Heading>
 					<Code>{JSON.stringify(analyticEventPayload, null, 2)}</Code>
 				</Stack>
 			</Stack>

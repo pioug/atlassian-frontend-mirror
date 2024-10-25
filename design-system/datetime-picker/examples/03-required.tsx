@@ -13,7 +13,7 @@ export default () => {
 			</Field>
 
 			<Field name="time" label="Time" isRequired>
-				{({ fieldProps: { ...rest } }) => <TimePicker {...rest} />}
+				{({ fieldProps: { ...rest } }) => <TimePicker clearControlLabel="Clear time" {...rest} />}
 			</Field>
 
 			<Field name="datetime" label="Datetime" isRequired>

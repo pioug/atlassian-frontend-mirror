@@ -5,11 +5,14 @@
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+
+import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { Stack } from '@atlaskit/primitives';
+
 import { messages } from '../../../../messages';
 import RelatedLinksList from '../../components/related-links-list';
+
 import { type RelatedLinksProps } from './types';
-import { Stack } from '@atlaskit/primitives';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 const RelatedLinksResolvedView = ({
 	incomingLinks = [],

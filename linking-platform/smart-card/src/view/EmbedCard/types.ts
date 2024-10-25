@@ -1,16 +1,17 @@
-import { type CardState } from '../../state/types';
+import { type ReactNode } from 'react';
+
+import { type RequestAccessMessageKey } from '../../messages';
 import { type InvokeHandler } from '../../model/invoke-handler';
+import { type AnalyticsFacade } from '../../state/analytics';
+import { type CardState } from '../../state/types';
+import { type ActionProps } from '../BlockCard/components/Action';
 import type {
+	CardActionOptions,
 	CardPlatform,
 	EmbedIframeUrlType,
 	OnResolveCallback,
-	CardActionOptions,
 } from '../Card/types';
-import { type ReactNode } from 'react';
-import { type ActionProps } from '../BlockCard/components/Action';
-import { type RequestAccessMessageKey } from '../../messages';
 import { type OnErrorCallback } from '../types';
-import { type AnalyticsFacade } from '../../state/analytics';
 
 export type EmbedCardProps = {
 	url: string;

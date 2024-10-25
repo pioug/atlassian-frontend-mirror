@@ -2,34 +2,36 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { CustomTriggerProps } from '@atlaskit/dropdown-menu';
-import DropdownMenu from '@atlaskit/dropdown-menu';
+
+import DropdownMenu, { type CustomTriggerProps } from '@atlaskit/dropdown-menu';
 import type { ThemeAppearance } from '@atlaskit/lozenge';
 
-import LozengeActionTrigger from './lozenge-action-trigger';
-import LozengeActionError from './lozenge-action-error';
-import withErrorBoundary from './error-boundary';
-import useInvoke from '../../../../../../state/hooks/use-invoke';
 import extractLozengeActionItems from '../../../../../../extractors/action/extract-lozenge-action-items';
-import type { LozengeActionProps, LozengeItem } from './types';
-import createStatusUpdateRequest from '../../../../../../utils/actions/create-status-update-request';
-import useResolve from '../../../../../../state/hooks/use-resolve';
-import { type MessageProps } from '../../../types';
-import { LozengeActionErrorMessages } from './lozenge-action-error/types';
-import { isInvokeCustomError } from '../../../../../../state/hooks/use-invoke/utils';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
-import type { LozengeActionTriggerProps } from './lozenge-action-trigger/type';
+import useInvoke from '../../../../../../state/hooks/use-invoke';
+import { isInvokeCustomError } from '../../../../../../state/hooks/use-invoke/utils';
+import useResolve from '../../../../../../state/hooks/use-resolve';
+import createStatusUpdateRequest from '../../../../../../utils/actions/create-status-update-request';
 import { TrackQuickActionType } from '../../../../../../utils/analytics/analytics';
+import { type MessageProps } from '../../../types';
+
+import withErrorBoundary from './error-boundary';
 import {
 	permissionLoadErrorAnalyticsPayload,
 	unknownLoadErrorAnalyticsPayload,
 	unknownUpdateErrorAnalyticsPayload,
 	validationUpdateErrorAnalyticsPayload,
 } from './lozenge-action-analytics';
+import LozengeActionError from './lozenge-action-error';
+import { LozengeActionErrorMessages } from './lozenge-action-error/types';
 import LozengeActionItemsGroup from './lozenge-action-items-group';
+import LozengeActionTrigger from './lozenge-action-trigger';
+import type { LozengeActionTriggerProps } from './lozenge-action-trigger/type';
+import type { LozengeActionProps, LozengeItem } from './types';
 
 const validateItems = (items: LozengeItem[] = [], text?: string): LozengeItem[] => {
 	return items.filter((item) => item.text !== text);

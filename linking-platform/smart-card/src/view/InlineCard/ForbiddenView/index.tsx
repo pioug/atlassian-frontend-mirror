@@ -1,19 +1,22 @@
 import React from 'react';
-import { R400, N500 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
-import LockIcon from '@atlaskit/icon/glyph/lock-filled';
-import Button from '@atlaskit/button';
-import { Frame } from '../Frame';
-import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { AKIconWrapper } from '../Icon';
-import { messages } from '../../../messages';
+
 import { FormattedMessage } from 'react-intl-next';
-import { IconStyledButton } from '../styled';
-import { type RequestAccessContextProps } from '../../types';
+
+import Button from '@atlaskit/button';
+import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 import Lozenge from '@atlaskit/lozenge';
-import { LozengeWrapper } from '../IconAndTitleLayout/styled';
-import withFrameStyleControl from '../utils/withFrameStyleControl';
+import { N500, R400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
+import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
+import { type RequestAccessContextProps } from '../../types';
+import { Frame } from '../Frame';
+import { AKIconWrapper } from '../Icon';
+import { IconAndTitleLayout } from '../IconAndTitleLayout';
+import { LozengeWrapper } from '../IconAndTitleLayout/styled';
+import { IconStyledButton } from '../styled';
+import withFrameStyleControl from '../utils/withFrameStyleControl';
 
 export interface InlineCardForbiddenViewProps {
 	/** The url to display */

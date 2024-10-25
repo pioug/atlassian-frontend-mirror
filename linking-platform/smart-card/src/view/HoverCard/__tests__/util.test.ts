@@ -1,14 +1,16 @@
 import { type JsonLd } from 'json-ld-types';
+
 import { ElementName } from '../../../constants';
 import { getMetadata } from '../utils';
+
 import {
-	mockJiraResponse,
+	mockBaseResponseAtlasProject,
+	mockBaseResponseWithPreview,
+	mockBBFile,
+	mockBBPullRequest,
 	mockConfluenceResponse,
 	mockConfluenceResponseWithOwnedBy,
-	mockBaseResponseWithPreview,
-	mockBaseResponseAtlasProject,
-	mockBBPullRequest,
-	mockBBFile,
+	mockJiraResponse,
 } from './__mocks__/mocks';
 
 describe('getMetadata', () => {

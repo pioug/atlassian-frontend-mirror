@@ -1,14 +1,21 @@
-import React from 'react';
-import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
-
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import type { CardClient } from '@atlaskit/link-provider';
-import { asMockFunction } from '@atlaskit/media-test-helpers';
-import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import '@atlaskit/link-test-helpers/jest';
 
+import React from 'react';
+
+import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { type CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { asMockFunction } from '@atlaskit/media-test-helpers';
+import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
+import useIncomingOutgoingAri from '../../../state/hooks/use-incoming-outgoing-links';
+import useResponse from '../../../state/hooks/use-response';
+import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
+import { fakeFactory } from '../../../utils/mocks';
 import RelatedLinksModal from '../index';
+
 import {
 	mockErrorResponse,
 	mockForbiddenResponse,
@@ -16,11 +23,6 @@ import {
 	mockSuccessResponse,
 	mockUnAuthResponse,
 } from './__mocks__/mocks';
-import useResponse from '../../../state/hooks/use-response';
-import useIncomingOutgoingAri from '../../../state/hooks/use-incoming-outgoing-links';
-import { fakeFactory } from '../../../utils/mocks';
-import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
-import userEvent from '@testing-library/user-event';
 
 jest.mock('../../../state/hooks/use-incoming-outgoing-links');
 jest.mock('../../../state/hooks/use-response');

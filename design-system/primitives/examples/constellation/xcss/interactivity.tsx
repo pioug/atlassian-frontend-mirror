@@ -27,7 +27,7 @@ const cardStyles = xcss({
 const InteractiveCard = () => (
 	<Box xcss={cardStyles} tabIndex={0}>
 		<Stack space="space.100">
-			<Heading level="h600">A Card</Heading>
+			<Heading size="medium">A Card</Heading>
 			<Box xcss={textStyles}>With a description.</Box>
 		</Stack>
 	</Box>

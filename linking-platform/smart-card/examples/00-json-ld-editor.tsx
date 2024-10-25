@@ -1,11 +1,14 @@
+import React from 'react';
+
 import { Box, Grid, xcss } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
-import React from 'react';
+
 import CardExample from './jsonld-editor/card-example';
 import JsonldEditor from './jsonld-editor/jsonld-editor';
 import JsonldEditorInput from './jsonld-editor/jsonld-editor-input';
 import JsonldExample from './jsonld-editor/jsonld-example';
 import LoadLinkForm from './jsonld-editor/load-link-form';
+import JsonLdGenerator from './jsonld-generator';
 
 const tabPanelStyles = xcss({ width: '100%' });
 const Example = () => {
@@ -45,6 +48,7 @@ const Example = () => {
 								<TabList>
 									<Tab>Load URL</Tab>
 									<Tab>Load JSON-LD Examples</Tab>
+									<Tab>Generate JSON-LD</Tab>
 								</TabList>
 								<TabPanel>
 									<Box xcss={tabPanelStyles}>
@@ -58,6 +62,11 @@ const Example = () => {
 								<TabPanel>
 									<Box paddingBlock="space.100" xcss={tabPanelStyles}>
 										<JsonldExample defaultValue={initialJson} onSelect={onJsonChange} />
+									</Box>
+								</TabPanel>
+								<TabPanel>
+									<Box xcss={tabPanelStyles}>
+										<JsonLdGenerator onSubmit={onJsonChange} />
 									</Box>
 								</TabPanel>
 							</Tabs>

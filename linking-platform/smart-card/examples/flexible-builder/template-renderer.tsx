@@ -1,16 +1,19 @@
+import React, { useCallback, useMemo, useState } from 'react';
+
+import { ErrorBoundary } from 'react-error-boundary';
+
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
-
 import { Box, xcss } from '@atlaskit/primitives';
 import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
-import React, { useCallback, useMemo, useState } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+
 import { Card } from '../../src';
 import * as Blocks from '../../src/view/FlexibleCard/components/blocks';
 import withJsonldEditorProvider from '../jsonld-editor/jsonld-editor-provider';
 import FlexibleDataView from '../utils/flexible-data-view';
+
 import { type BlockTemplate, type FlexibleTemplate } from './types';
 
 const backColor = token('color.background.neutral.subtle');

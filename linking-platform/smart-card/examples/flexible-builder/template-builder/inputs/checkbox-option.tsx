@@ -1,8 +1,11 @@
+import React, { useCallback } from 'react';
+
 import { Checkbox } from '@atlaskit/checkbox';
 import { CheckboxField } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives';
-import React, { useCallback } from 'react';
+
 import { type ChangeParams, handleOnChange } from '../../utils';
+
 import Label from './label';
 
 type Props<T extends object> = {

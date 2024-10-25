@@ -1,6 +1,8 @@
+import React from 'react';
+
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { Inline, Stack, Text } from '@atlaskit/primitives';
-import React from 'react';
+
 import {
 	ResolvedClient,
 	ResolvedClientWithTextHighlightInTitleUrl,

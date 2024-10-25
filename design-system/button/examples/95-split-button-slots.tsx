@@ -10,7 +10,7 @@ import { SplitButtonWithSlots } from '../src/new-button/containers/split-button'
 export default () => (
 	<Box padding="space.250">
 		<Stack space="space.200">
-			<Heading level="h600">Visual variants</Heading>
+			<Heading size="medium">Visual variants</Heading>
 			<Stack space="space.150">
 				<Inline space="space.250">
 					<SplitButtonWithSlots

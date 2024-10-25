@@ -1,14 +1,16 @@
-import React from 'react';
-import { mockAnalytics } from '../../src/utils/mocks';
-import { overrideEmbedContent } from '../utils/common';
-import VRTestWrapper from '../utils/vr-test-wrapper';
-import EmbedModal from '../../src/view/EmbedModal';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766
 import '../utils/embed-modal-override.css';
-import Icon from '../../src/view/FlexibleCard/components/elements/icon';
-import { IconType, SmartLinkSize } from '../../src/constants';
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
+
+import { IconType, SmartLinkSize } from '../../src/constants';
+import { mockAnalytics } from '../../src/utils/mocks';
+import EmbedModal from '../../src/view/EmbedModal';
+import Icon from '../../src/view/FlexibleCard/components/elements/icon';
+import { overrideEmbedContent } from '../utils/common';
+import VRTestWrapper from '../utils/vr-test-wrapper';
 
 export default () => (
 	<VRTestWrapper

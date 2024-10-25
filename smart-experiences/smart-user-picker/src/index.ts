@@ -8,6 +8,7 @@ export {
 	isUser,
 	isExternalUser,
 	isValidEmail,
+	isGroup,
 	// Constants
 	EmailType,
 	GroupType,

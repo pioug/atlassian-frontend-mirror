@@ -38,7 +38,7 @@ export default () => {
 	return (
 		<Stack space="space.400" alignInline="start">
 			<Stack space="space.200" testId="box-with-borderWidth">
-				<Heading level="h600">borderWidth</Heading>
+				<Heading size="medium">borderWidth</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{borderWidths.map((borderWidth) => (
 						<Box
@@ -61,7 +61,7 @@ export default () => {
 			</Stack>
 
 			<Stack space="space.200" testId="box-with-borderStyle">
-				<Heading level="h600">borderStyle</Heading>
+				<Heading size="medium">borderStyle</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{borderStyles.map((borderStyle) => (
 						<Box
@@ -83,7 +83,7 @@ export default () => {
 			</Stack>
 
 			<Stack space="space.200" testId="box-with-borderColor">
-				<Heading level="h600">borderColor</Heading>
+				<Heading size="medium">borderColor</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{borderColors.map((borderColor) => (
 						<Box
@@ -103,7 +103,7 @@ export default () => {
 			</Stack>
 
 			<Stack space="space.200" testId="box-with-borderColor">
-				<Heading level="h600">borderRadius</Heading>
+				<Heading size="medium">borderRadius</Heading>
 				<Inline space="space.800" alignBlock="center">
 					{borderRadii.map((borderRadius) => (
 						<Box

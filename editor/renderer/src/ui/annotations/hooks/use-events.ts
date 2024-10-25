@@ -24,6 +24,7 @@ type ListenEventProps = {
 	id: AnnotationId;
 	updateSubscriber: AnnotationUpdateEmitter | null;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	isNestedRender?: boolean;
 };
 
 type UseAnnotationUpdateSatteByEventProps = {
@@ -122,17 +123,17 @@ type AnnotationsWithClickTarget = Pick<
 > | null;
 
 export const useAnnotationClickEvent = (
-	props: Pick<ListenEventProps, 'updateSubscriber' | 'createAnalyticsEvent'>,
+	props: Pick<ListenEventProps, 'updateSubscriber' | 'createAnalyticsEvent' | 'isNestedRender'>,
 ): AnnotationsWithClickTarget => {
 	const [annotationClickEvent, setAnnotationClickEvent] =
 		useState<AnnotationsWithClickTarget>(null);
-	const { updateSubscriber, createAnalyticsEvent } = props;
+	const { updateSubscriber, createAnalyticsEvent, isNestedRender } = props;
 	const isInlineCommentsKbAccessible = FeatureGates.checkGate(
 		'inline_comments_keyboard_accessible_renderer',
 	);
 
 	useLayoutEffect(() => {
-		if (!updateSubscriber) {
+		if (!updateSubscriber || isNestedRender) {
 			return;
 		}
 
@@ -186,7 +187,7 @@ export const useAnnotationClickEvent = (
 			updateSubscriber.off(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, clickCb);
 			updateSubscriber.off(AnnotationUpdateEvent.DESELECT_ANNOTATIONS, deselectCb);
 		};
-	}, [updateSubscriber, createAnalyticsEvent, isInlineCommentsKbAccessible]);
+	}, [updateSubscriber, createAnalyticsEvent, isInlineCommentsKbAccessible, isNestedRender]);
 
 	return annotationClickEvent;
 };

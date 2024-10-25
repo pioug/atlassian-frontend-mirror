@@ -1,14 +1,16 @@
+import '@atlaskit/link-test-helpers/jest';
+
 import React from 'react';
+
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { url, cardState } from '@atlaskit/media-test-helpers/smart-card-state';
-import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { cardState, url } from '@atlaskit/media-test-helpers/smart-card-state';
 
+import { Client, Provider } from '../../index';
 import { CardSSR, type CardSSRProps } from '../../ssr';
-import { Provider, Client } from '../..';
-import { CardWithUrlContent } from '../../view/CardWithUrl/component';
 import { ANALYTICS_CHANNEL, context } from '../../utils/analytics';
+import { CardWithUrlContent } from '../../view/CardWithUrl/component';
 
 jest.mock('../../view/CardWithUrl/component', () => {
 	const originalModule = jest.requireActual('../../view/CardWithUrl/component');

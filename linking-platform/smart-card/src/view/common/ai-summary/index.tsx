@@ -2,9 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import Markdown from 'markdown-to-jsx';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { type SerializedStyles, css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
+import Markdown from 'markdown-to-jsx';
+
 import UList from './ulist';
 
 const AISummaryCSSStyles = css({

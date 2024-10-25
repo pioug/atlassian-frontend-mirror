@@ -1,11 +1,15 @@
+import { type ReactNode } from 'react';
+
 import type { IntlShape, MessageDescriptor } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import commonMessages, {
+	layoutMessages,
 	layoutMessages as toolbarMessages,
 } from '@atlaskit/editor-common/messages';
 import type {
 	Command,
+	DropdownOptions,
 	ExtractInjectionAPI,
 	FloatingToolbarButton,
 	FloatingToolbarConfig,
@@ -32,6 +36,7 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 
 import { deleteActiveLayoutNode, getPresetLayout, setPresetLayout } from './actions';
 import type { PresetLayout } from './types';
+import { isPreRelease2 } from './utils/preRelease';
 
 import type { LayoutPlugin } from './index';
 
@@ -114,6 +119,7 @@ const buildLayoutButton = (
 
 export const layoutToolbarTitle = 'Layout floating controls';
 
+const iconPlaceholder = LayoutTwoColumnsIcon as unknown as ReactNode; // TODO: Replace with proper icon ED-25466
 export const buildToolbar = (
 	state: EditorState,
 	intl: IntlShape,
@@ -128,6 +134,7 @@ export const buildToolbar = (
 	const node = state.doc.nodeAt(pos);
 	if (node) {
 		const currentLayout = getPresetLayout(node);
+		const numberOfColumns = node.content.childCount || 2;
 
 		const separator: FloatingToolbarSeparator = {
 			type: 'separator',
@@ -152,14 +159,61 @@ export const buildToolbar = (
 			tabIndex: null,
 		};
 
-		const layoutTypes = allowSingleColumnLayout ? LAYOUT_TYPES_WITH_SINGLE_COL : LAYOUT_TYPES;
+		const layoutTypes = isPreRelease2()
+			? []
+			: allowSingleColumnLayout
+				? LAYOUT_TYPES_WITH_SINGLE_COL
+				: LAYOUT_TYPES;
 
+		const columnOptions: DropdownOptions<Command> = [
+			{
+				title: intl.formatMessage(layoutMessages.columnOption, { count: 2 }), //'2-columns',
+				icon: iconPlaceholder,
+				onClick: setPresetLayout(editorAnalyticsAPI)('two_equal', intl.formatMessage),
+				selected: numberOfColumns === 2,
+			},
+			{
+				title: intl.formatMessage(layoutMessages.columnOption, { count: 3 }), //'3-columns'
+				icon: iconPlaceholder,
+				onClick: setPresetLayout(editorAnalyticsAPI)('three_equal', intl.formatMessage),
+				selected: numberOfColumns === 3,
+			},
+			{
+				title: intl.formatMessage(layoutMessages.columnOption, { count: 4 }), //'4-columns'
+				icon: iconPlaceholder,
+				onClick: () => {
+					// TODO: Implement layout update in ED-25053
+					return true;
+				},
+				selected: numberOfColumns === 4,
+			},
+			{
+				title: intl.formatMessage(layoutMessages.columnOption, { count: 5 }), //'5-columns'
+				icon: iconPlaceholder,
+				onClick: () => {
+					// TODO: Implement layout update in ED-25053
+					return true;
+				},
+				selected: numberOfColumns === 5,
+			},
+		];
 		return {
 			title: layoutToolbarTitle,
 			getDomRef: (view) => findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
 			nodeType,
 			groupLabel: intl.formatMessage(toolbarMessages.floatingToolbarRadioGroupAriaLabel),
 			items: [
+				...((isPreRelease2()
+					? [
+							{
+								type: 'dropdown',
+								title: intl.formatMessage(layoutMessages.columnOption, { count: numberOfColumns }), //`${numberOfColumns}-columns`,
+								options: columnOptions,
+								showSelected: true,
+								testId: 'column-options-button',
+							},
+						]
+					: []) as FloatingToolbarItem<Command>[]),
 				...layoutTypes.map((i) => buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI)),
 				...(addSidebarLayouts
 					? SIDEBAR_LAYOUT_TYPES.map((i) =>

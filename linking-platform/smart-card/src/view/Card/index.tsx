@@ -1,11 +1,15 @@
 import React from 'react';
+
+import { injectIntl, IntlProvider, type WrappedComponentProps } from 'react-intl-next';
+
 import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
-import { type CardAppearance, type CardPlatform, type CardProps } from './types';
-import { CardWithDataRenderer } from '../CardWithData/loader';
-import { CardWithURLRenderer } from '../CardWithUrl/loader';
+
 import { isCardWithData } from '../../utils';
 import { context } from '../../utils/analytics';
-import { injectIntl, type WrappedComponentProps, IntlProvider } from 'react-intl-next';
+import { CardWithDataRenderer } from '../CardWithData/loader';
+import { CardWithURLRenderer } from '../CardWithUrl/loader';
+
+import { type CardAppearance, type CardPlatform, type CardProps } from './types';
 
 class PlainCard extends React.PureComponent<CardProps & WrappedComponentProps> {
 	render() {

@@ -291,6 +291,10 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 */
 	autoFocus?: boolean;
 	/**
+	 * Set the aria-label for the clear button
+	 */
+	clearControlLabel?: string;
+	/**
 	 * The default for `isOpen`.
 	 *
 	 * @deprecated

@@ -1,21 +1,23 @@
-import { useMemo, useCallback } from 'react';
-import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
+import { useCallback, useMemo } from 'react';
+
 import { type JsonLd } from 'json-ld-types';
+
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
+	ACTION_RESOLVING,
 	ACTION_UPDATE_METADATA_STATUS,
 	cardAction,
 	type MetadataStatus,
-	ACTION_RESOLVING,
 } from '@atlaskit/linking-common';
-import { getDefinitionId, getByDefinitionId, getServices, getExtensionKey } from '../helpers';
+import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
 
-import { type InvokeServerOpts, type InvokeClientOpts } from '../../model/invoke-opts';
-import { type AnalyticsFacade } from '../analytics';
-import { type CardInnerAppearance } from '../../view/Card/types';
 import { SmartLinkStatus } from '../../constants';
-import useResolve from '../hooks/use-resolve';
+import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
+import { type CardInnerAppearance } from '../../view/Card/types';
+import { type AnalyticsFacade } from '../analytics';
+import { getByDefinitionId, getDefinitionId, getExtensionKey, getServices } from '../helpers';
 import useInvokeClientAction from '../hooks/use-invoke-client-action';
+import useResolve from '../hooks/use-resolve';
 
 export const useSmartCardActions = (id: string, url: string, analytics: AnalyticsFacade) => {
 	const resolveUrl = useResolve();

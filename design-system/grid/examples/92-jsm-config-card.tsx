@@ -29,7 +29,7 @@ const JSMConfigCard: FC<{
 }) => {
 	return (
 		<Stack space="space.150">
-			<Heading as="h2" level="h600">
+			<Heading as="h2" size="medium">
 				{title}
 			</Heading>
 			{children}

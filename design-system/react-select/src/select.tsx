@@ -155,6 +155,10 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	 */
 	classNames: ClassNamesConfig<Option, IsMulti, Group>;
 	/**
+	 * Set the `aria-label` for the clear icon button.
+	 */
+	clearControlLabel?: string;
+	/**
 	 * Close the select menu when the user selects an option
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
@@ -2027,7 +2031,7 @@ export default class Select<
 	renderClearIndicator() {
 		const { ClearIndicator } = this.getComponents();
 		const { commonProps } = this;
-		const { isDisabled, isLoading } = this.props;
+		const { clearControlLabel, isDisabled, isLoading } = this.props;
 		const { isFocused } = this.state;
 
 		if (!this.isClearable() || !ClearIndicator || isDisabled || !this.hasValue() || isLoading) {
@@ -2040,7 +2044,14 @@ export default class Select<
 			'aria-hidden': 'true',
 		};
 
-		return <ClearIndicator {...commonProps} innerProps={innerProps} isFocused={isFocused} />;
+		return (
+			<ClearIndicator
+				clearControlLabel={clearControlLabel}
+				{...commonProps}
+				innerProps={innerProps}
+				isFocused={isFocused}
+			/>
+		);
 	}
 	renderLoadingIndicator() {
 		const { LoadingIndicator } = this.getComponents();

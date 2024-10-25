@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 20.8.0
+
+### Minor Changes
+
+- [#154365](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154365)
+  [`6daa73332cbc2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6daa73332cbc2) -
+  Added type to conversation starters
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.7.0
 
 ### Minor Changes

@@ -1,7 +1,8 @@
-import { extractIconFromDocument } from '../extractIconFromDocument';
 import { render, screen } from '@testing-library/react';
-import { withIntl } from '../../__mocks__/withIntl';
+
 import { TEST_URL } from '../../__mocks__/jsonld';
+import { withIntl } from '../../__mocks__/withIntl';
+import { extractIconFromDocument } from '../extractIconFromDocument';
 
 describe('extractors.icon.document', () => {
 	it('returns blog icon for BlogPosting', async () => {

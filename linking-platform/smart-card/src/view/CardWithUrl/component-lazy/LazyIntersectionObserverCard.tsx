@@ -1,12 +1,16 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { type CardWithUrlContentProps } from '../types';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { usePrefetch } from '../../../state';
-import { CardWithUrlContent } from '../component';
-import { LoadingCardLink } from './LoadingCardLink';
 import { startUfoExperience } from '../../../state/analytics/ufoExperiences';
 import { shouldSample } from '../../../utils/shouldSample';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { CardWithUrlContent } from '../component';
+import { type CardWithUrlContentProps } from '../types';
+
+import { LoadingCardLink } from './LoadingCardLink';
+
+
 
 // This property enables the intersection observer to be run once the
 // HTML element being observed is within `X` px of the target container it is

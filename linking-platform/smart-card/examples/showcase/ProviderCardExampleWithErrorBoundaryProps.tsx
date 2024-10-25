@@ -1,6 +1,9 @@
 import React, { type ErrorInfo } from 'react';
+
 import { token } from '@atlaskit/tokens';
+
 import { Card } from '../../src';
+
 import { type ExampleUIConfig } from './types';
 
 interface ProviderCardExampleWithErrorBoundaryProps {

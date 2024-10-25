@@ -2,11 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useCallback, useMemo, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { di } from 'react-magnetic-di';
+
 import { xcss } from '@atlaskit/primitives';
-import { useCallback, useMemo, useState } from 'react';
-import { SmartLinkSize, type FlexibleUiActionName } from '../../../../../constants';
+
+import { type FlexibleUiActionName, SmartLinkSize } from '../../../../../constants';
 import {
 	useFlexibleUiContext,
 	useFlexibleUiOptionContext,
@@ -14,9 +18,9 @@ import {
 import * as Actions from '../../actions';
 import type { ActionMessage } from '../../actions/action/types';
 import { getPrimitivesPaddingSpaceBySize } from '../../utils';
+
 import { ActionFooter } from './action-footer';
 import type { ActionBlockProps } from './types';
-import { di } from 'react-magnetic-di';
 
 const ignoreContainerPaddingStyles = css({
 	display: 'flex',

@@ -12,6 +12,10 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
 });
 
 import '@atlaskit/link-test-helpers/jest';
+import React from 'react';
+
+import { act, fireEvent, screen } from '@testing-library/react';
+
 import {
 	ActionName,
 	Card,
@@ -19,6 +23,9 @@ import {
 	ElementName,
 	TitleBlock,
 } from '@atlaskit/smart-card';
+
+import { analyticsTests } from './common/analytics.test-utils';
+import { runCommonHoverCardTests, unauthorizedViewTests } from './common/common.test-utils';
 import {
 	mockIntersectionObserver,
 	setup,
@@ -26,10 +33,6 @@ import {
 	type SetUpParams,
 	userEventOptionsWithAdvanceTimers,
 } from './common/setup.test-utils';
-import { runCommonHoverCardTests, unauthorizedViewTests } from './common/common.test-utils';
-import { analyticsTests } from './common/analytics.test-utils';
-import { act, fireEvent, screen } from '@testing-library/react';
-import React from 'react';
 
 describe('hover card over flexible smart links', () => {
 	const hoverCardTestId = 'hover-card';

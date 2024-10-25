@@ -1,8 +1,8 @@
 import { type JsonLd } from 'json-ld-types';
 
 import { IconType, SmartLinkStatus } from '../../../constants';
-import { getContextByStatus, getRetryOptions } from '../utils';
 import { messages } from '../../../messages';
+import { getContextByStatus, getRetryOptions } from '../utils';
 
 describe('getContextByStatus', () => {
 	const url = 'some-url';

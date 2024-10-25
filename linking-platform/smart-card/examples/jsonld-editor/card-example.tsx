@@ -1,10 +1,14 @@
-import { Box, Stack, Text } from '@atlaskit/primitives';
 import React, { useCallback, useMemo } from 'react';
+
 import { ErrorBoundary } from 'react-error-boundary';
 import { IntlProvider } from 'react-intl-next';
+
+import { Box, Stack, Text } from '@atlaskit/primitives';
+
 import { Card } from '../../src';
 import { HoverCard } from '../../src/hoverCard';
 import HoverCardBox from '../utils/hover-card-box';
+
 import withJsonldEditorProvider from './jsonld-editor-provider';
 
 const CardExample = ({

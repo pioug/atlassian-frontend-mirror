@@ -1,14 +1,15 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
-import { render, screen } from '@testing-library/react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
+import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
-import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { ElementName, SmartLinkSize, SmartLinkStatus } from '../../../../../../constants';
-import { type MetadataBlockProps } from '../types';
+import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import MetadataBlock from '../index';
+import { type MetadataBlockProps } from '../types';
 
 describe('MetadataBlock', () => {
 	const renderMetadataBlock = (props?: MetadataBlockProps) => {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Spinner from '@atlaskit/spinner';
 
 export const exampleSpinner = (

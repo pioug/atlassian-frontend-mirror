@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 
-import { VRTestWrapper } from '../utils/vr-test';
-import { renderCard } from '../utils/vr-block-flexible-views';
+import { type AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
 import FlexibleResolvedView from '../../src/view/BlockCard/views/flexible/FlexibleResolvedView';
-import { CardClient } from '@atlaskit/link-provider';
 import { minimumResponse, unicornResponse } from '../content/example-responses';
 import { getJsonLdResponse } from '../utils/flexible-ui';
-import { type AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
+import { renderCard } from '../utils/vr-block-flexible-views';
+import { VRTestWrapper } from '../utils/vr-test';
 
 class MinimumResolvedCustomClient extends CardClient {
 	fetchData(url: string) {

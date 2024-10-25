@@ -1,9 +1,12 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import { InlineCardResolvedView } from '../../index';
-import { type LozengeProps } from '../../../../../types';
+
 import { token } from '@atlaskit/tokens';
-import { Provider } from '../../../../../';
+
+import { Provider } from '../../../../../index';
+import { type LozengeProps } from '../../../../../types';
+import { InlineCardResolvedView } from '../../index';
 
 jest.mock('react-render-image');
 

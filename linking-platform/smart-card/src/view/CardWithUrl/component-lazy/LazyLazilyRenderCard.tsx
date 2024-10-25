@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+
 import LazilyRender from 'react-lazily-render';
 
-import { type CardWithUrlContentProps } from '../types';
-import { CardWithUrlContent } from '../component';
-import { LoadingCardLink } from './LoadingCardLink';
 import { startUfoExperience } from '../../../state/analytics/ufoExperiences';
+import { CardWithUrlContent } from '../component';
+import { type CardWithUrlContentProps } from '../types';
+
+import { LoadingCardLink } from './LoadingCardLink';
+
 
 export function LazyLazilyRenderCard(props: CardWithUrlContentProps) {
 	const { appearance, container, id } = props;

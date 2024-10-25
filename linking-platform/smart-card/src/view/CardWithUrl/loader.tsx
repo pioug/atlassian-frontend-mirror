@@ -1,15 +1,19 @@
-import React, { type ErrorInfo, lazy, useEffect, useState, Suspense, useCallback } from 'react';
+import React, { type ErrorInfo, lazy, Suspense, useCallback, useEffect, useState } from 'react';
+
+import { ErrorBoundary } from 'react-error-boundary';
+import { di } from 'react-magnetic-di';
 import uuid from 'uuid';
 
-import { type CardProps } from '../Card/types';
-import { clearMarks, clearMeasures } from '../../utils/performance';
-import { ErrorBoundary } from 'react-error-boundary';
 import { useSmartLinkAnalytics } from '../../state/analytics';
-import { LoadingCardLink } from './component-lazy/LoadingCardLink';
-import { type CardWithUrlContentProps } from './types';
 import { importWithRetry } from '../../utils';
 import { isFlexibleUiCard } from '../../utils/flexible';
-import { di } from 'react-magnetic-di';
+import { clearMarks, clearMeasures } from '../../utils/performance';
+import { type CardProps } from '../Card/types';
+
+import { LoadingCardLink } from './component-lazy/LoadingCardLink';
+import { type CardWithUrlContentProps } from './types';
+
+
 
 export const LazyCardWithUrlContent = lazy(() =>
 	importWithRetry(

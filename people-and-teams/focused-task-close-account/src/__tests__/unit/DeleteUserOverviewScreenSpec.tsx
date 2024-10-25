@@ -1,9 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { render as renderRTL, screen } from '@testing-library/react';
 import { DeleteUserOverviewScreen } from '../../components/DeleteUserOverviewScreen';
 import { catherineHirons } from '../../mocks/users';
 import accessibleSites from '../../mocks/accessibleSites';
 import { type DeleteUserOverviewScreenProps } from '../../components/DeleteUserOverviewScreen/types';
+import { IntlProvider } from 'react-intl-next';
 
 const defaultProps: Partial<DeleteUserOverviewScreenProps> = {
 	accessibleSites,
@@ -13,13 +15,18 @@ const defaultProps: Partial<DeleteUserOverviewScreenProps> = {
 };
 
 const render = (props = {}) => shallow(<DeleteUserOverviewScreen {...defaultProps} {...props} />);
+const renderWithRTL = (props = {}) =>
+	renderRTL(
+		<IntlProvider locale="en">
+			<DeleteUserOverviewScreen {...defaultProps} {...props} />
+		</IntlProvider>,
+	);
 
-test('DeleteUserOverviewScreen', () => {
-	expect(
-		render({
-			deactivateUserHandler: () => {},
-		}),
-	).toMatchSnapshot();
+test('DeleteUserOverviewScreen', async () => {
+	renderWithRTL();
+	expect(await screen.findByText('Delete account')).toBeInTheDocument();
+	expect(await screen.findByText('Catherine Hirons')).toBeInTheDocument();
+	expect(await screen.findByText('When you delete the account:')).toBeInTheDocument();
 });
 
 describe('selectAdminOrSelfCopy', () => {

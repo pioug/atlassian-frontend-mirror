@@ -401,6 +401,7 @@ describe('Annotations: Hooks/useEvents', () => {
 				const annotations = useAnnotationClickEvent({
 					updateSubscriber: updateSubscriberFake,
 					createAnalyticsEvent: createAnalyticsEventFake,
+					isNestedRender: false,
 				});
 
 				fakeFunction(annotations);
@@ -424,6 +425,26 @@ describe('Annotations: Hooks/useEvents', () => {
 				expect.any(Function),
 			);
 		});
+
+		it('should listen for ON_ANNOTATION_CLICK for nested render but do not bind multiple(duplicate) callback', () => {
+
+			expect(updateSubscriberFake.on).toHaveBeenCalledTimes(0);
+
+			CustomComp = () => {
+				const annotations = useAnnotationClickEvent({
+					updateSubscriber: updateSubscriberFake,
+					createAnalyticsEvent: createAnalyticsEventFake,
+					isNestedRender: true,
+				});
+
+				fakeFunction(annotations);
+				return null;
+			};
+
+			expect(updateSubscriberFake.on).toHaveBeenCalledTimes(0);
+
+		});
+
 
 		it('should listen for DESELECT_ANNOTATIONS', () => {
 			expect(updateSubscriberFake.on).toHaveBeenCalledTimes(0);

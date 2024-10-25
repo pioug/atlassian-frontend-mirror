@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import { screen } from '@testing-library/react';
 
 let mockModalRender = jest.fn();
@@ -7,10 +8,11 @@ jest.mock('../../../../view/EmbedModal', () => ({
 	default: (...args: any) => mockModalRender(...args),
 }));
 
+import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
+import { mockAnalytics } from '../../../../utils/mocks';
 import PreviewAction from '../../../../view/BlockCard/actions/PreviewAction';
 import { openEmbedModal } from '../../../../view/EmbedModal/utils';
-import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { mockAnalytics } from '../../../../utils/mocks';
 
 describe('PreviewAction', () => {
 	beforeEach(() => {

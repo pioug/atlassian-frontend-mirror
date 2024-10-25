@@ -1,5 +1,7 @@
-import { SmartCardProvider } from '@atlaskit/link-provider';
 import React from 'react';
+
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
 import { ResolvedClient, ResolvedClientEmbedUrl } from '../../examples/utils/custom-client';
 import { Card } from '../../src';
 

@@ -1,22 +1,24 @@
 import './card-states.card.test.mock';
+import '@atlaskit/link-test-helpers/jest';
 
-import { SmartLinkActionType } from '@atlaskit/linking-types';
-import { type JsonLd } from 'json-ld-types';
-
-import * as analytics from '../../../utils/analytics';
 import React from 'react';
-import { render, waitFor, screen } from '@testing-library/react';
+
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { type JsonLd } from 'json-ld-types';
+import { IntlProvider } from 'react-intl-next';
+
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { type CardClient, type CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import '@atlaskit/link-test-helpers/jest';
-import { Card } from '../../Card';
-import { Provider } from '../../..';
+import { SmartLinkActionType } from '@atlaskit/linking-types';
+
+import { Provider } from '../../../index';
+import * as analytics from '../../../utils/analytics';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
-import { IntlProvider } from 'react-intl-next';
+import { Card } from '../../Card';
 import type { CardActionOptions } from '../../Card/types';
-import userEvent from '@testing-library/user-event';
 
 const mockUrl = 'https://some.url';
 

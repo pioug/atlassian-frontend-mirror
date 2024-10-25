@@ -7,10 +7,10 @@ import { TimePicker } from '../../src';
 const TimePickerLocaleExample = () => (
 	<>
 		<Label htmlFor="timepicker-locale-en">English locale</Label>
-		<TimePicker locale="en-US" id="timepicker-locale-en" />
+		<TimePicker clearControlLabel="Clear English locale" locale="en-US" id="timepicker-locale-en" />
 		<br />
 		<Label htmlFor="timepicker-locale-ko">Korean locale</Label>
-		<TimePicker locale="ko-KR" id="timepicker-locale-ko" />
+		<TimePicker clearControlLabel="Clear Korean locale" locale="ko-KR" id="timepicker-locale-ko" />
 	</>
 );
 

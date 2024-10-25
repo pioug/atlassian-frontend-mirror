@@ -2,32 +2,34 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { type BlockCardProps } from './types';
-import { type JsonLd } from 'json-ld-types';
-import { getExtensionKey } from '../../state/helpers';
-import { extractBlockProps } from '../../extractors/block';
-import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
-import { type ExtractBlockOpts } from '../../extractors/block/types';
-import { extractRequestAccessContextImproved } from '../../extractors/common/context';
-import { CardLinkView } from '../LinkView';
-import { AuthorizeAction } from './actions/AuthorizeAction';
-import { ForbiddenAction } from './actions/ForbiddenAction';
-
-import { ResolvedView as BlockCardResolvedView } from './views/ResolvedView';
-import { NotFoundView as BlockCardNotFoundView } from './views/NotFoundView';
-import { ResolvingView as BlockCardResolvingView } from './views/ResolvingView';
-import { UnauthorizedView as BlockCardUnauthorisedView } from './views/UnauthorizedView';
-import { ForbiddenView as BlockCardForbiddenView } from './views/ForbiddenView';
-import { ErroredView as BlockCardErroredView } from './views/ErroredView';
-import FlexibleResolvedView from './views/flexible/FlexibleResolvedView';
-import FlexibleUnauthorisedView from './views/flexible/FlexibleUnauthorisedView';
-import FlexibleNotFoundView from './views/flexible/FlexibleNotFoundView';
-import FlexibleForbiddenView from './views/flexible/FlexibleForbiddenView';
-import FlexibleErroredView from './views/flexible/FlexibleErroredView';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+import { type JsonLd } from 'json-ld-types';
+
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+
+import { extractBlockProps } from '../../extractors/block';
+import { type ExtractBlockOpts } from '../../extractors/block/types';
+import { extractRequestAccessContextImproved } from '../../extractors/common/context';
+import { getExtensionKey } from '../../state/helpers';
+import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
+import { CardLinkView } from '../LinkView';
+
+import { AuthorizeAction } from './actions/AuthorizeAction';
+import { ForbiddenAction } from './actions/ForbiddenAction';
+import { type BlockCardProps } from './types';
 import { handleClickCommon } from './utils/handlers';
+import { ErroredView as BlockCardErroredView } from './views/ErroredView';
+import FlexibleErroredView from './views/flexible/FlexibleErroredView';
+import FlexibleForbiddenView from './views/flexible/FlexibleForbiddenView';
+import FlexibleNotFoundView from './views/flexible/FlexibleNotFoundView';
+import FlexibleResolvedView from './views/flexible/FlexibleResolvedView';
+import FlexibleUnauthorisedView from './views/flexible/FlexibleUnauthorisedView';
+import { ForbiddenView as BlockCardForbiddenView } from './views/ForbiddenView';
+import { NotFoundView as BlockCardNotFoundView } from './views/NotFoundView';
+import { ResolvedView as BlockCardResolvedView } from './views/ResolvedView';
+import { ResolvingView as BlockCardResolvingView } from './views/ResolvingView';
+import { UnauthorizedView as BlockCardUnauthorisedView } from './views/UnauthorizedView';
 
 export { default as PreviewAction } from './actions/PreviewAction';
 export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';

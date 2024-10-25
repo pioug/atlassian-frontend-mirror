@@ -33,7 +33,11 @@ export default () => {
 			</Box>
 			<Label htmlFor="react-select-time--input">Time picker</Label>
 			<Box xcss={pickerBoxStyles}>
-				<TimePicker id="react-select-time--input" onChange={console.log} />
+				<TimePicker
+					clearControlLabel="Clear time picker"
+					id="react-select-time--input"
+					onChange={console.log}
+				/>
 			</Box>
 			<Label htmlFor="react-select-date-time--input">Date / time picker</Label>
 			<Box xcss={dateTimepickerBoxStyles}>

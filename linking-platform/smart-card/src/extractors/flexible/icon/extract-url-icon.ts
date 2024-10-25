@@ -1,7 +1,8 @@
 import { type JsonLd } from 'json-ld-types';
 
-import { type IconDescriptor } from './types';
 import { extractUrlFromIconJsonLd } from '@atlaskit/link-extractors';
+
+import { type IconDescriptor } from './types';
 
 /**
  * Extracts the URL icon from the given icon or link object.

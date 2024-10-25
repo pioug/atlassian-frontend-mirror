@@ -1,8 +1,9 @@
 import { type AnalyticsEventPayload, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { type TrackRelatedLinksLoadedEventProps } from './types';
-import { type AnalyticsPayload } from '../../../../../utils/types';
 import { ANALYTICS_CHANNEL } from '../../../../../utils/analytics';
+import { type AnalyticsPayload } from '../../../../../utils/types';
+
+import { type TrackRelatedLinksLoadedEventProps } from './types';
 
 const createTrackRelatedLinksLoadedEventPayload = ({
 	relatedLinksCount,

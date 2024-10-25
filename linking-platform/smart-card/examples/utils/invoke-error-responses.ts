@@ -1,5 +1,6 @@
-import { SmartLinkActionType } from '@atlaskit/linking-types';
 import type { MockResponseObject } from 'fetch-mock/types';
+
+import { SmartLinkActionType } from '@atlaskit/linking-types';
 
 export const mockLoadFailedResponse = 400;
 

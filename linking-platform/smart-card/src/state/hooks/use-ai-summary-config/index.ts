@@ -1,5 +1,7 @@
-import { type EnvironmentsKeys, useSmartLinkContext } from '@atlaskit/link-provider';
 import { useMemo } from 'react';
+
+import { type EnvironmentsKeys, useSmartLinkContext } from '@atlaskit/link-provider';
+
 import { type AISummaryConfig } from './types';
 
 export const useAISummaryConfig = (): AISummaryConfig => {

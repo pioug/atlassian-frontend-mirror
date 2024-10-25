@@ -1,5 +1,6 @@
 import { getMeasure } from '../performance';
 import { type AnalyticsPayload } from '../types';
+
 import { resolvedEvent, unresolvedEvent } from './analytics';
 import { type InstrumentEventProps } from './types';
 

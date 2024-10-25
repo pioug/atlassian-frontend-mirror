@@ -1,5 +1,6 @@
-import { mocks } from '../../../../utils/mocks';
 import { type ErrorResponse, type SuccessResponse } from '@atlaskit/link-provider';
+
+import { mocks } from '../../../../utils/mocks';
 
 export const mockSuccessResponse: SuccessResponse = {
 	status: 200,

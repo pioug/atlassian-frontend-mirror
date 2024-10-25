@@ -1,6 +1,8 @@
 import type { JsonLd } from 'json-ld-types';
-import { ElementName } from '../../constants';
+
 import { extractType } from '@atlaskit/link-extractors';
+
+import { ElementName } from '../../constants';
 import { extractOwnedBy } from '../../extractors/flexible/utils';
 import type { ElementItem } from '../FlexibleCard/components/blocks/types';
 

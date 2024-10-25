@@ -1,9 +1,10 @@
 import React from 'react';
+
 import Loadable from 'react-loadable';
 
+import { type ActiveThemeState, themeObjectToString } from '@atlaskit/tokens';
+
 import type { CardProps } from '../view/Card';
-import { type ActiveThemeState } from '@atlaskit/tokens';
-import { themeObjectToString } from '@atlaskit/tokens';
 
 export const isCardWithData = (props: CardProps) => !!props.data;
 

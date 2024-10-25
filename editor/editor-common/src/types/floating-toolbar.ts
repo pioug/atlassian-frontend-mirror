@@ -260,6 +260,8 @@ export type FloatingToolbarDropdown<T extends {}> = {
 	footer?: React.ReactNode;
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
+	onMount?: () => void;
+	onClick?: () => void;
 };
 
 type FloatingToolbarExtensionsPlaceholder = {

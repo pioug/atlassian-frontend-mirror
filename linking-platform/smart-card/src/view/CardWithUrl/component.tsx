@@ -1,33 +1,34 @@
-import React, { useEffect, useCallback, useMemo } from 'react';
-import { type MouseEvent } from 'react';
+import React, { type MouseEvent, useCallback, useEffect, useMemo } from 'react';
+
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
-import { type CardWithUrlContentProps } from './types';
+import { CardDisplay } from '../../constants';
+import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
+import { useSmartLink } from '../../state';
+import {
+	getCanBeDatasource,
+	getClickUrl,
+	getDefinitionId,
+	getExtensionKey,
+	getProduct,
+	getResourceType,
+	getServices,
+	getSubproduct,
+	isFinalState,
+} from '../../state/helpers';
 import { SmartLinkModalProvider } from '../../state/modal';
 import { isSpecialEvent } from '../../utils';
-import * as measure from '../../utils/performance';
-import {
-	getDefinitionId,
-	getServices,
-	isFinalState,
-	getClickUrl,
-	getResourceType,
-	getExtensionKey,
-	getSubproduct,
-	getProduct,
-	getCanBeDatasource,
-} from '../../state/helpers';
-import { useSmartLink } from '../../state';
-import { BlockCard } from '../BlockCard';
-import { InlineCard } from '../InlineCard';
-import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
-import { EmbedCard } from '../EmbedCard';
-import { isFlexibleUiCard } from '../../utils/flexible';
-import FlexibleCard from '../FlexibleCard';
-import { CardDisplay } from '../../constants';
-import { fireLinkClickedEvent } from '../../utils/analytics/click';
 import { combineActionOptions } from '../../utils/actions/combine-action-options';
+import { fireLinkClickedEvent } from '../../utils/analytics/click';
 import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
+import { isFlexibleUiCard } from '../../utils/flexible';
+import * as measure from '../../utils/performance';
+import { BlockCard } from '../BlockCard';
+import { EmbedCard } from '../EmbedCard';
+import FlexibleCard from '../FlexibleCard';
+import { InlineCard } from '../InlineCard';
+
+import { type CardWithUrlContentProps } from './types';
 
 function Component({
 	id,

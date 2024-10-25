@@ -1,5 +1,6 @@
-import { ForbiddenAction } from '../../../../view/BlockCard';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+
+import { ForbiddenAction } from '../../../../view/BlockCard';
 
 describe('ForbiddenAction', () => {
 	it('sets up a handler which triggers on promise execution', async () => {

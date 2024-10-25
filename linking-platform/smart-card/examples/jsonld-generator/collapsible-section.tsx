@@ -1,0 +1,39 @@
+import React, { useState } from 'react';
+
+import Button from '@atlaskit/button/new';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
+import { Box, xcss } from '@atlaskit/primitives';
+
+const containerStyles = xcss({
+	borderColor: 'color.border',
+	borderStyle: 'solid',
+	borderRadius: '3px',
+	borderWidth: 'border.width',
+	marginTop: 'space.150',
+});
+
+const contentStyles = xcss({
+	padding: 'space.200',
+	paddingBlockStart: 'space.0',
+});
+
+const CollapsibleSection = (props: { title: string; children: any }) => {
+	const [isSectionOpen, setIsSectionOpen] = useState(false);
+	return (
+		<Box xcss={containerStyles}>
+			<Button
+				iconBefore={isSectionOpen ? ChevronDownIcon : ChevronRightIcon}
+				onClick={() => setIsSectionOpen(!isSectionOpen)}
+				shouldFitContainer
+			>
+				{props.title}
+			</Button>
+			<Box xcss={contentStyles} style={{ display: isSectionOpen ? 'block' : 'none' }}>
+				{props.children}
+			</Box>
+		</Box>
+	);
+};
+
+export default CollapsibleSection;

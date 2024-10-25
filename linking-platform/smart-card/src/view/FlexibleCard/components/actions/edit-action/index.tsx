@@ -1,9 +1,13 @@
 import React from 'react';
-import { type EditActionProps } from './types';
-import Action from '../action';
-import { messages } from '../../../../../messages';
+
 import { FormattedMessage } from 'react-intl-next';
+
 import EditIcon from '@atlaskit/icon/core/migration/edit';
+
+import { messages } from '../../../../../messages';
+import Action from '../action';
+
+import { type EditActionProps } from './types';
 
 const EditAction = (props: EditActionProps) => (
 	<Action

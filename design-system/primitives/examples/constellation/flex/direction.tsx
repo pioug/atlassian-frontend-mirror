@@ -22,7 +22,7 @@ export default function Example() {
 				</Button>
 			</Box>
 			<Stack space="space.100">
-				<Heading level="h400">
+				<Heading size="xsmall">
 					Flex direction <Code>{direction}</Code>
 				</Heading>
 				<Flex gap="space.100" direction={direction}>

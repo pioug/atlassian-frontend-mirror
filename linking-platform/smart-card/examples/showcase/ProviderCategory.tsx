@@ -1,16 +1,16 @@
-import React, { useState, useCallback } from 'react';
-import ExpandIcon from '@atlaskit/icon/utility/chevron-down';
-import CollapseIcon from '@atlaskit/icon/utility/chevron-up';
+import React, { useCallback, useState } from 'react';
+
+import Button from '@atlaskit/button/standard-button';
+import CopyIcon from '@atlaskit/icon/core/migration/copy';
 import ExpandIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import CollapseIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-up';
-import CopyIcon from '@atlaskit/icon/core/migration/copy';
-
+import ExpandIcon from '@atlaskit/icon/utility/chevron-down';
+import CollapseIcon from '@atlaskit/icon/utility/chevron-up';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import Button from '@atlaskit/button/standard-button';
 
 import { ProviderCard } from './ProviderCard';
-import { type ExampleUrl, type ExampleUIConfig } from './types';
+import { type ExampleUIConfig, type ExampleUrl } from './types';
 
 interface ProviderCategoryProps {
 	category: string;

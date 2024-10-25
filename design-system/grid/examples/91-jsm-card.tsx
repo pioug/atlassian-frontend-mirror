@@ -35,7 +35,7 @@ const JSMCard: FC<{
 			<Inline space="space.200">
 				<Box backgroundColor={iconColor} xcss={boxStyles} />
 				<Stack space="space.100">
-					<Heading as="h3" level="h600">
+					<Heading as="h3" size="medium">
 						{title}
 					</Heading>
 					<span>{children}</span>

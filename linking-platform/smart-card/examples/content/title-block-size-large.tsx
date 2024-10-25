@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { ElementName, SmartLinkSize, TitleBlock } from '../../src';
+
 import ExampleContainer from './example-container';
 
 export default () => (

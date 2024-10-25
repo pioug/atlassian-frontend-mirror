@@ -1,13 +1,14 @@
-import { type JsonLd } from 'json-ld-types';
 import React from 'react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
+import { type JsonLd } from 'json-ld-types';
 import { IntlProvider } from 'react-intl-next';
 import { DiProvider, injectable } from 'react-magnetic-di';
+
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
-import { fireEvent, render, screen } from '@testing-library/react';
 
-import RelatedUrlsBlock from '../';
 import {
 	AsanaTask,
 	AtlasProject,
@@ -16,6 +17,7 @@ import {
 import useRelatedUrls, {
 	type RelatedUrlsResponse,
 } from '../../../../../../state/hooks/use-related-urls';
+import RelatedUrlsBlock from '../index';
 
 const mockGetRelatedUrlsResponseDefault: RelatedUrlsResponse = {
 	resolvedResults: [AsanaTask, AtlasProject, JiraIssue] as JsonLd.Response[],

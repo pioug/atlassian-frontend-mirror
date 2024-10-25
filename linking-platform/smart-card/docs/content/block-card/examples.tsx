@@ -1,7 +1,8 @@
 import React from 'react';
+
+import actionOptions from '../../content/action-options';
 import CustomExample from '../../utils/custom-example';
 import customMd from '../../utils/custom-md';
-import actionOptions from '../../content/action-options';
 
 export default customMd`
 

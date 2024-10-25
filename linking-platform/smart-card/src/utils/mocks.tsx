@@ -1,5 +1,7 @@
-import { CardClient, type BatchResponse } from '@atlaskit/link-provider';
 import { type JsonLd } from 'json-ld-types';
+
+import { type BatchResponse, CardClient } from '@atlaskit/link-provider';
+
 import { type AnalyticsFacade } from '../state/analytics';
 
 export const mockContext = {

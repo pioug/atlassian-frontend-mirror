@@ -1,5 +1,7 @@
-import { type JsonLd } from 'json-ld-types';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+
+import { type JsonLd } from 'json-ld-types';
+
 import {
 	CardDisplay,
 	SmartLinkPosition,
@@ -18,6 +20,7 @@ import {
 } from '../../../../FlexibleCard/components/blocks';
 import { getMetadata } from '../../../utils';
 import ImagePreview from '../../ImagePreview';
+
 import { hiddenSnippetStyles, metadataBlockCss } from './styled';
 import { type HoverCardResolvedProps } from './types';
 

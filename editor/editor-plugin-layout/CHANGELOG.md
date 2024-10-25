@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.9.5
+
+### Patch Changes
+
+- [#155345](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155345)
+  [`9f00717c4915b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f00717c4915b) -
+  [ux] Add layout placeholder behind feature gate
+- Updated dependencies
+
 ## 1.9.4
 
 ### Patch Changes

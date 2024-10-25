@@ -1,17 +1,18 @@
 import type { JsonLd } from 'json-ld-types';
+
 import {
 	ElementName,
 	MediaPlacement,
 	SmartLinkPosition,
 	SmartLinkSize,
 } from '../../../../../constants';
-import type { FlexibleUiOptions } from '../../../../FlexibleCard/types';
+import { extractOwnedBy } from '../../../../../extractors/flexible/utils';
+import { getExtensionKey } from '../../../../../state/helpers';
 import type { FooterBlockProps } from '../../../../FlexibleCard/components/blocks/footer-block/types';
 import type { PreviewBlockProps } from '../../../../FlexibleCard/components/blocks/preview-block/types';
 import type { TitleBlockProps } from '../../../../FlexibleCard/components/blocks/title-block/types';
 import type { ElementItem } from '../../../../FlexibleCard/components/blocks/types';
-import { extractOwnedBy } from '../../../../../extractors/flexible/utils';
-import { getExtensionKey } from '../../../../../state/helpers';
+import type { FlexibleUiOptions } from '../../../../FlexibleCard/types';
 import { footerBlockCss, titleBlockCss } from '../styled';
 
 const baseTopMetadata: ElementItem[] = [

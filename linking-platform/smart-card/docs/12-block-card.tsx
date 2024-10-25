@@ -1,6 +1,6 @@
 import React from 'react';
-import overview from './content/block-card';
 
+import overview from './content/block-card';
 import examples from './content/block-card/examples';
 import reference from './content/block-card/reference';
 import { TabName } from './utils';

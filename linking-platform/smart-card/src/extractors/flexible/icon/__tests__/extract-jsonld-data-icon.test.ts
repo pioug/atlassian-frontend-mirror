@@ -1,8 +1,9 @@
 import { type JsonLd } from 'json-ld-types';
-import extractJsonldDataIcon from '../extract-jsonld-data-icon';
+
 import { IconType } from '../../../../constants';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../../constants';
 import extractDocumentTypeIcon from '../extract-document-type-icon';
+import extractJsonldDataIcon from '../extract-jsonld-data-icon';
 
 const itIf = (condition: boolean) => (condition ? it : it.skip);
 const isDocument = (type: string) => type === 'Document';

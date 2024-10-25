@@ -1,8 +1,11 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { useSmartLinkClientExtension } from '@atlaskit/link-client-extension';
-import type { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
-import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import * as jestExtendedMatchers from 'jest-extended';
+
+import { useSmartLinkClientExtension } from '@atlaskit/link-client-extension';
+import {
+	type InvokeRequest,
+	SmartLinkActionType,
+} from '@atlaskit/linking-types/smart-link-actions';
 
 import useInvoke from '../index';
 

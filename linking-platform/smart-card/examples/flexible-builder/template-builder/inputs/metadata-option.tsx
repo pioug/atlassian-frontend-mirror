@@ -1,7 +1,9 @@
+import React, { useCallback, useMemo } from 'react';
+
 import { Field } from '@atlaskit/form';
 import { type OptionsType, type ValueType as Value } from '@atlaskit/select';
 import Select from '@atlaskit/select/Select';
-import React, { useCallback, useMemo } from 'react';
+
 import { type ElementItem, type ElementName } from '../../../../src';
 import { metadataElements } from '../../../utils/flexible-ui';
 import { type BlockTemplate } from '../../types';

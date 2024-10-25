@@ -1,7 +1,10 @@
 import { useCallback } from 'react';
+
 import uuid from 'uuid';
+
 import * as measure from '../../../utils/performance';
 import { failUfoExperience, startUfoExperience, succeedUfoExperience } from '../../analytics';
+
 import type { InvokeClientActionProps, UseInvokeClientActionProps } from './types';
 
 const ACTION_EXPERIENCE_NAME = 'smart-link-action-invocation';

@@ -1,8 +1,11 @@
+import React, { useCallback, useMemo } from 'react';
+
 import { Field } from '@atlaskit/form';
 import { type ValueType as Value } from '@atlaskit/select';
 import Select from '@atlaskit/select/Select';
-import React, { useCallback, useMemo } from 'react';
+
 import { type ChangeParams, handleOnChange } from '../../utils';
+
 import Label from './label';
 
 type Props<T> = {

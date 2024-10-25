@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugins
 
+## 5.6.5
+
+### Patch Changes
+
+- [#155735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155735)
+  [`1beeeda29023a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1beeeda29023a) -
+  Upgrades editor packages to react 18
+- [#155693](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155693)
+  [`172485595104b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/172485595104b) -
+  [ED-24685] Removing feature flag that gated multi bodied extensions being available in the editor
+- Updated dependencies
+
 ## 5.6.4
 
 ### Patch Changes

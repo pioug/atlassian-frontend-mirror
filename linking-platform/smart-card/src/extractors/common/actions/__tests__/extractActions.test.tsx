@@ -1,14 +1,15 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { extractClientActions } from '../extractActions';
+import { CardAction } from '../../../../view/Card/types';
 import {
 	TEST_DOCUMENT_WITH_ACTIONS,
 	TEST_DOCUMENT_WITH_MULTIPLE_ACTIONS,
 	TEST_VIEW_ACTION,
 } from '../../__mocks__/jsonld';
-import { CardAction } from '../../../../view/Card/types';
+import { extractClientActions } from '../extractActions';
 
 describe('extractBlockActionPropsFromJSONLD()', () => {
 	const handler = jest.fn();

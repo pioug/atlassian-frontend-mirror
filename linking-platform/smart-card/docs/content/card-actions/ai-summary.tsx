@@ -1,5 +1,7 @@
-import { code } from '@atlaskit/docs';
 import React from 'react';
+
+import { code } from '@atlaskit/docs';
+
 import StagingCardExample from '../../../examples/content/staging-card-example';
 import customMd from '../../utils/custom-md';
 

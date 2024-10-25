@@ -6,14 +6,7 @@ export const blockExtensionWithParagraphAboveNodeAdf: DocNode = {
 	content: [
 		{
 			type: 'paragraph',
-			content: [
-				{
-					type: 'inlineCard',
-					attrs: {
-						url: 'https://inlineCardTestUrl',
-					},
-				},
-			],
+			content: [],
 		},
 		{
 			type: 'extension',

@@ -1,15 +1,17 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+
 import '@atlaskit/link-test-helpers/jest';
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
-import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
-import AutomationAction from '../index';
-import type { LinkActionProps } from '../../types';
 import { SmartLinkModalProvider } from '../../../../../../state/modal';
+import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
+import type { LinkActionProps } from '../../types';
+import AutomationAction from '../index';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
 	...jest.requireActual('../../../../../../state/flexible-ui-context'),

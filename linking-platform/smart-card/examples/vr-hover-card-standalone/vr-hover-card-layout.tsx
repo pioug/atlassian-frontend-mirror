@@ -1,7 +1,8 @@
 import React from 'react';
-import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
-import { Provider, type ResolveResponse, Client } from '../../src';
+
+import { Client, Provider, type ResolveResponse } from '../../src';
 import { mockConfluenceResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
+import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 class CustomClient extends Client {

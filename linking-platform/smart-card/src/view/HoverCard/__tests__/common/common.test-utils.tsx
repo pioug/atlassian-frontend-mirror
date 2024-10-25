@@ -1,16 +1,18 @@
-import * as analytics from '../../../../utils/analytics/analytics';
-import { act, fireEvent, within, screen } from '@testing-library/react';
+import { act, fireEvent, screen, within } from '@testing-library/react';
+
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../../extractors/constants';
+import * as analytics from '../../../../utils/analytics/analytics';
+import { mocks } from '../../../../utils/mocks';
+import { CardAction, type CardActionOptions } from '../../../../view/Card/types';
 import {
 	mockBaseResponseWithErrorPreview,
 	mockConfluenceResponse,
 	mockJiraResponse,
 	mockUnauthorisedResponse,
 } from '../__mocks__/mocks';
-import { mocks } from '../../../../utils/mocks';
-import { type setup as hoverCardSetup, type SetUpParams } from './setup.test-utils';
+
 import { additionalPayloadAttributes, getEventPayload } from './analytics.test-utils';
-import { CardAction, type CardActionOptions } from '../../../../view/Card/types';
+import { type setup as hoverCardSetup, type SetUpParams } from './setup.test-utils';
 
 const userEventOptionsWithAdvanceTimers = {
 	advanceTimers: jest.advanceTimersByTime,

@@ -2,31 +2,34 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { type CardState } from '../../../state/types';
 import { type JsonLd } from 'json-ld-types';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
 import { useSmartLinkAnalytics } from '../../../state/analytics';
 import { getExtensionKey, getServices } from '../../../state/helpers';
+import { useSmartCardState } from '../../../state/store';
+import { type CardState } from '../../../state/types';
 import { isSpecialEvent } from '../../../utils';
+import { getIsAISummaryEnabled } from '../../../utils/ai-summary';
+import { fireLinkClickedEvent } from '../../../utils/analytics/click';
 import { type TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
 import { type FlexibleCardProps } from '../../FlexibleCard/types';
 import { flexibleUiOptions, titleBlockCss } from '../styled';
 import { type HoverCardContentProps } from '../types';
 import { getMetadata } from '../utils';
+
+import ContentContainer from './ContentContainer';
+import HoverCardForbiddenView from './views/forbidden';
+import HoverCardResolvedView from './views/resolved';
 import HoverCardLoadingView from './views/resolving';
 import HoverCardUnauthorisedView from './views/unauthorised';
-import HoverCardResolvedView from './views/resolved';
-import { fireLinkClickedEvent } from '../../../utils/analytics/click';
-import { useSmartCardState } from '../../../state/store';
-
-import HoverCardForbiddenView from './views/forbidden';
-import ContentContainer from './ContentContainer';
-import { getIsAISummaryEnabled } from '../../../utils/ai-summary';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
 

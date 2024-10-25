@@ -3,14 +3,18 @@
  * @jsx jsx
  */
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import PremiumIcon from '@atlaskit/icon/core/migration/premium';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
-import { FooterBlock } from '../../src/view/FlexibleCard/components/blocks';
+import { type ActionItem } from '../../src';
 import { SmartLinkSize } from '../../src/constants';
+import FlexibleCard from '../../src/view/FlexibleCard';
+import { FooterBlock } from '../../src/view/FlexibleCard/components/blocks';
 import {
 	blockOverrideCss,
 	getCardState,
@@ -19,9 +23,6 @@ import {
 	makeDownloadActionItem,
 	makeEditActionItem,
 } from '../utils/flexible-ui';
-import FlexibleCard from '../../src/view/FlexibleCard';
-import { type ActionItem } from '../../src';
-import PremiumIcon from '@atlaskit/icon/core/migration/premium';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const renderFooter = (size?: SmartLinkSize, actions?: ActionItem[]) => {

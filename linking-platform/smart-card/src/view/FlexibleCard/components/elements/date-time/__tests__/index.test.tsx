@@ -1,8 +1,9 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import DateTime from '../index';
 

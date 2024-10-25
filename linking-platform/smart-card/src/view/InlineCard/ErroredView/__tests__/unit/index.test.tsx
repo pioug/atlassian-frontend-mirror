@@ -1,10 +1,13 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { InlineCardErroredView } from '../..';
+
+import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import { Provider } from '../../../../..';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
+import { Provider } from '../../../../../index';
+import { InlineCardErroredView } from '../../index';
 
 jest.mock('@atlaskit/platform-feature-flags');
 

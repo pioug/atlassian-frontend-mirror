@@ -1,10 +1,12 @@
+import React from 'react';
+
 import Button from '@atlaskit/button/standard-button';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { Inline, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-import React from 'react';
+
 import { type TemplateDisplay } from '../types';
 
 const containerStyles = xcss({

@@ -1,6 +1,9 @@
-import { SmartCardProvider } from '@atlaskit/link-provider';
 import React from 'react';
+
 import { IntlProvider } from 'react-intl-next';
+
+import { SmartCardProvider } from '@atlaskit/link-provider';
+
 import { ResolvedClient, ResolvedClientEmbedUrl } from '../../examples/utils/custom-client';
 import { HoverCard } from '../../src/hoverCard';
 import HoverOverMe from '../utils/hover-card-box';

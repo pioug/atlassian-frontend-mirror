@@ -1,7 +1,8 @@
 import React from 'react';
-import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
-import { Provider, type ResolveResponse, Client } from '../../src';
+
 import { JiraProject } from '../../examples-helpers/_jsonLDExamples';
+import { Client, Provider, type ResolveResponse } from '../../src';
+import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 class CustomClient extends Client {

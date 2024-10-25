@@ -5,7 +5,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { type ElementGroupProps } from './types';
 import {
 	SmartLinkAlignment,
 	SmartLinkDirection,
@@ -13,8 +12,10 @@ import {
 	SmartLinkSize,
 	SmartLinkWidth,
 } from '../../../../../constants';
-import { getBaseStyles, getGapSize, renderChildren } from '../utils';
 import { getMaxLineHeight, getTruncateStyles } from '../../utils';
+import { getBaseStyles, getGapSize, renderChildren } from '../utils';
+
+import { type ElementGroupProps } from './types';
 
 const getAlignmentStyles = (align?: SmartLinkAlignment) => {
 	switch (align) {

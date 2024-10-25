@@ -3,8 +3,8 @@ jest.mock('../../utils', () => ({
 	downloadUrl: jest.fn(),
 }));
 import { downloadUrl } from '../../utils';
-import { ViewAction } from '../../view/BlockCard/actions/ViewAction';
 import { DownloadAction } from '../../view/BlockCard/actions/DownloadAction';
+import { ViewAction } from '../../view/BlockCard/actions/ViewAction';
 
 describe('actions', () => {
 	describe('ViewAction', () => {

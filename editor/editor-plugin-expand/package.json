@@ -45,7 +45,7 @@
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.0.0",
 		"@atlaskit/editor-tables": "^2.8.0",
-		"@atlaskit/icon": "^22.23.0",
+		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/tmp-editor-statsig": "^2.8.0",
 		"@atlaskit/tokens": "^2.0.0",

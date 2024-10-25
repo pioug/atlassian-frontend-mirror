@@ -1,15 +1,27 @@
-import { mockConfluenceResponse } from '../__mocks__/mocks';
-import { fakeFactory } from '../../../../utils/mocks';
-import { setGlobalTheme } from '@atlaskit/tokens';
-import { render, screen } from '@testing-library/react';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import * as analytics from '../../../../utils/analytics/analytics';
-import { IntlProvider } from 'react-intl-next';
-import { Card, type CardProps, Provider, type ProviderProps } from '@atlaskit/smart-card';
-import userEvent from '@testing-library/user-event';
 import React, { type ReactElement } from 'react';
-import { mockUrl } from './common.test-utils';
+
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl-next';
+
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
+import { Card, type CardProps, Provider, type ProviderProps } from '@atlaskit/smart-card';
+import { setGlobalTheme } from '@atlaskit/tokens';
+
+import * as analytics from '../../../../utils/analytics/analytics';
+import { fakeFactory } from '../../../../utils/mocks';
+import { mockConfluenceResponse } from '../__mocks__/mocks';
+
+
+
+
+
+
+
+
+import { mockUrl } from './common.test-utils';
+
 
 export type SetUpParams = {
 	mock?: any;

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.9.6
+
+### Patch Changes
+
+- [#155293](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155293)
+  [`28161e3c04419`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28161e3c04419) -
+  [ux] Implement toolbar options on layout for setting number of columns
+- [#156078](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156078)
+  [`2b70196727715`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b70196727715) -
+  [ux] Update text for inserting multi column layout
+- [#156137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156137)
+  [`485e094b29aa9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/485e094b29aa9) -
+  Use stage0 layout node spec behind adv layout experiment
+- Updated dependencies
+
 ## 1.9.5
 
 ### Patch Changes

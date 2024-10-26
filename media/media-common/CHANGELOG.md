@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 11.7.0
+
+### Minor Changes
+
+- [#156370](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156370)
+  [`28298169be085`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28298169be085) -
+  remove mediaInline FF
+
 ## 11.6.0
 
 ### Minor Changes

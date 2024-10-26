@@ -1,5 +1,16 @@
 # @atlaskit/share
 
+## 4.20.6
+
+### Patch Changes
+
+- [#156181](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156181)
+  [`48acf4f55ef4a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48acf4f55ef4a) -
+  Export isGroup & use it in share analytics
+- [#154357](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154357)
+  [`f85ffbbc5c2d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f85ffbbc5c2d7) -
+  Use typography components
+
 ## 4.20.5
 
 ### Patch Changes

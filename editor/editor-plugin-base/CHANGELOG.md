@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-base
 
+## 2.0.2
+
+### Patch Changes
+
+- [#156556](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156556)
+  [`fa4db989cfa70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa4db989cfa70) -
+  [HOT-112603] Reduce memory leak footage by using WeakRef to store HTML element
+
 ## 2.0.1
 
 ### Patch Changes

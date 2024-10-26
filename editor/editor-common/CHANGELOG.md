@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 94.3.0
+
+### Minor Changes
+
+- [#154829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154829)
+  [`0646280e9ab18`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0646280e9ab18) -
+  [EDF-1176](https://product-fabric.atlassian.net/browse/EDF-1176) - add pulse EP effect to AI
+  button in Editor floating toolbar
+
+### Patch Changes
+
+- [#155293](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155293)
+  [`28161e3c04419`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28161e3c04419) -
+  [ux] Implement toolbar options on layout for setting number of columns
+- [#156078](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156078)
+  [`2b70196727715`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b70196727715) -
+  [ux] Update text for inserting multi column layout
+- Updated dependencies
+
 ## 94.2.1
 
 ### Patch Changes

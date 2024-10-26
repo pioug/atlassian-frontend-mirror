@@ -1,5 +1,13 @@
 # @atlassian/smart-user-picker
 
+## 6.11.1
+
+### Patch Changes
+
+- [#156181](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156181)
+  [`48acf4f55ef4a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48acf4f55ef4a) -
+  Export isGroup & use it in share analytics
+
 ## 6.11.0
 
 ### Minor Changes

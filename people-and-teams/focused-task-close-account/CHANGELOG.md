@@ -1,5 +1,13 @@
 # @atlaskit/focused-task-close-account
 
+## 2.3.2
+
+### Patch Changes
+
+- [#154357](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154357)
+  [`f85ffbbc5c2d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f85ffbbc5c2d7) -
+  Use typography components
+
 ## 2.3.1
 
 ### Patch Changes

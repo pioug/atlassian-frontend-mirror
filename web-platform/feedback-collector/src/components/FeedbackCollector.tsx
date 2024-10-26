@@ -402,9 +402,7 @@ export default class FeedbackCollector extends Component<Props> {
 		}
 
 		const atlassianID = await this.getAtlassianID();
-		if (fg('jsw_feedback_account_id')) {
-			this.addAccountIdToContext(atlassianID);
-		}
+		this.addAccountIdToContext(atlassianID);
 
 		return {
 			fields: [

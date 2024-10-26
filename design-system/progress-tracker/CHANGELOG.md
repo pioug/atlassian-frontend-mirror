@@ -1,5 +1,14 @@
 # @atlaskit/progress-tracker
 
+## 8.10.0
+
+### Minor Changes
+
+- [#154699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154699)
+  [`fddbc0849871c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fddbc0849871c) -
+  DSP-21285 replacing platform-design-system-dsp-20687-transition-group with
+  platform_design_system_team_transition_group_r18
+
 ## 8.9.4
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/profilecard
 
+## 20.8.1
+
+### Patch Changes
+
+- [#154357](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154357)
+  [`f85ffbbc5c2d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f85ffbbc5c2d7) -
+  Use typography components
+- Updated dependencies
+
 ## 20.8.0
 
 ### Minor Changes

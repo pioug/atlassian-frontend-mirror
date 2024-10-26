@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 1.8.0
+
+### Minor Changes
+
+- [#155717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155717)
+  [`8bb782c91fb02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8bb782c91fb02) -
+  Upgrade to react 18
+
 ## 1.7.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-shared-styles
 
+## 3.1.0
+
+### Minor Changes
+
+- [#155573](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155573)
+  [`92ca0dc09c6ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92ca0dc09c6ac) -
+  Create new participantColors constant to be used in future updates to avatar badges and
+  telepointers
+
 ## 3.0.1
 
 ### Patch Changes

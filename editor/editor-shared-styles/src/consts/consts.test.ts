@@ -1,6 +1,12 @@
-import { relativeFontSizeToBase16 } from './consts';
+import { participantColors, relativeFontSizeToBase16 } from './consts';
 
 describe('consts', () => {
+	describe('participantColors', () => {
+		it('should be an array of 18 colors', () => {
+			expect(participantColors).toHaveLength(18);
+		});
+	});
+
 	describe('relativeFontSizeToBase16', () => {
 		it('relativeFontSizeToBase16 should return 1rem with a base font size of 16px', () => {
 			expect(relativeFontSizeToBase16(16)).toBe('1rem');

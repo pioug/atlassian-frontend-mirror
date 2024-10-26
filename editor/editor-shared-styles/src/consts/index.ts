@@ -1,4 +1,4 @@
-export type { EditorTheme } from './types';
+export type { EditorTheme, ParticipantColor } from './types';
 export {
 	akEditorBlockquoteBorderColor,
 	akEditorBreakoutPadding,
@@ -57,6 +57,7 @@ export {
 	akLayoutGutterOffset,
 	akRichMediaResizeZIndex,
 	avatarColors,
+	participantColors,
 	blockNodesVerticalMargin,
 	breakoutWideScaleRatio,
 	editorFontSize,

@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 30.1.4
+
+### Patch Changes
+
+- [#156396](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156396)
+  [`8b816b3252f01`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b816b3252f01) -
+  Import sorting for view directory
+- [#156024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156024)
+  [`ad336371f8f82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad336371f8f82) -
+  Add new eslint rule to prevent unused vars
+- [#155386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155386)
+  [`c32e746deaa13`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c32e746deaa13) -
+  Import order sorting for extractors
+- [#155647](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155647)
+  [`d7a01645cdf96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d7a01645cdf96) -
+  Import sorting for state and utils directory
+
 ## 30.1.3
 
 ### Patch Changes

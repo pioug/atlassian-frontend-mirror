@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.13.20
+
+### Patch Changes
+
+- [#155293](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155293)
+  [`28161e3c04419`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28161e3c04419) -
+  [ux] Implement toolbar options on layout for setting number of columns
+- Updated dependencies
+
 ## 1.13.19
 
 ### Patch Changes

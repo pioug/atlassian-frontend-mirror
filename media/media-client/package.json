@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/chunkinator": "^6.1.0",
-		"@atlaskit/media-common": "^11.6.0",
+		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/platform-feature-flags": "0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"dataloader": "^2.1.0",

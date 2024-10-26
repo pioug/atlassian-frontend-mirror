@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 199.2.2
+
+### Patch Changes
+
+- [#156301](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156301)
+  [`da531da92568b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/da531da92568b) -
+  Migrating tests to use url prop from @atlaskit/smart-card instead of deprecated data prop
+- [#155764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155764)
+  [`fbc8505d98e18`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fbc8505d98e18) -
+  Remove safe transaction code as it is duplicated and already protected for dispatched
+  transactions.
+- [#156137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156137)
+  [`485e094b29aa9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/485e094b29aa9) -
+  Use stage0 layout node spec behind adv layout experiment
+- Updated dependencies
+
 ## 199.2.1
 
 ### Patch Changes

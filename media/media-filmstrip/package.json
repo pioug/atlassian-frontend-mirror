@@ -41,7 +41,7 @@
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/media-card": "^78.8.0",
 		"@atlaskit/media-client": "^28.0.0",
-		"@atlaskit/media-common": "^11.6.0",
+		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",

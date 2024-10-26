@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.10.1
+
+### Patch Changes
+
+- [#156370](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156370)
+  [`b8def46d59747`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b8def46d59747) -
+  Improved error message in ensure-valid-workspace-protocol-usage rule to provide information about
+  how to resolve the error.
+
 ## 0.10.0
 
 ### Minor Changes

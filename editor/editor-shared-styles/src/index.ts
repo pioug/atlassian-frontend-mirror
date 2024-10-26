@@ -55,6 +55,7 @@ export {
 	akLayoutGutterOffset,
 	akRichMediaResizeZIndex,
 	avatarColors,
+	participantColors,
 	blockNodesVerticalMargin,
 	breakoutWideScaleRatio,
 	editorFontSize,
@@ -76,7 +77,7 @@ export {
 	akEditorTableCellBlanketSelected,
 	akEditorTableCellBlanketDeleted,
 } from './consts';
-export type { EditorTheme } from './consts';
+export type { EditorTheme, ParticipantColor } from './consts';
 
 export {
 	SelectionStyle,
@@ -85,3 +86,5 @@ export {
 } from './selection';
 
 export { overflowShadow } from './overflow-shadow';
+
+export { getParticipantColor } from './utils';

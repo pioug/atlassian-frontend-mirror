@@ -1,5 +1,15 @@
 # @atlaskit/link-picker
 
+## 1.47.3
+
+### Patch Changes
+
+- [#156396](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156396)
+  [`0d51b154611bd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d51b154611bd) -
+  Fix a11y issue with aria-controls by setting aria-expanded true only when results are shown on
+  input role=combobox
+- Updated dependencies
+
 ## 1.47.2
 
 ### Patch Changes

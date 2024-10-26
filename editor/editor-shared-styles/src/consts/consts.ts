@@ -2,7 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { token } from '@atlaskit/tokens';
 
-import type { EditorTheme } from './types';
+import type { EditorTheme, ParticipantColor } from './types';
 
 export const akEditorFullPageDefaultFontSize = 16;
 export const akEditorCodeFontFamily = token('font.family.code');
@@ -191,4 +191,80 @@ export const avatarColors = [
 	token('color.icon.accent.yellow'),
 	token('color.background.accent.yellow.bolder.hovered'),
 	token('color.background.accent.yellow.bolder.pressed'),
+];
+
+// MDS-569: Will update references to avatarColors to use participantColors instead, we will then deprecate avatarColors
+export const participantColors: Array<ParticipantColor> = [
+	{
+		textColor: token('color.text.inverse'),
+		backgroundColor: token('color.background.accent.red.bolder'),
+	},
+	{
+		textColor: token('color.text.inverse'),
+		backgroundColor: token('color.background.accent.blue.bolder'),
+	},
+	{
+		textColor: token('color.text.inverse'),
+		backgroundColor: token('color.background.accent.green.bolder'),
+	},
+	{
+		textColor: token('color.text.inverse'),
+		backgroundColor: token('color.background.accent.yellow.bolder'),
+	},
+	{
+		textColor: token('color.text.inverse'),
+		backgroundColor: token('color.background.accent.purple.bolder'),
+	},
+	{
+		textColor: token('color.text.inverse'),
+		backgroundColor: token('color.background.accent.magenta.bolder'),
+	},
+	{
+		textColor: token('color.text.inverse'),
+		backgroundColor: token('color.background.accent.teal.bolder'),
+	},
+	{
+		textColor: token('color.text.inverse'),
+		backgroundColor: token('color.background.accent.orange.bolder'),
+	},
+	{
+		textColor: token('color.text.inverse'),
+		backgroundColor: token('color.background.accent.lime.bolder'),
+	},
+	{
+		textColor: token('color.text.inverse'),
+		backgroundColor: token('color.background.accent.gray.bolder'),
+	},
+	{
+		textColor: token('color.text.accent.gray.bolder'),
+		backgroundColor: token('color.background.accent.blue.subtle'),
+	},
+	{
+		textColor: token('color.text.accent.gray.bolder'),
+		backgroundColor: token('color.background.accent.red.subtle'),
+	},
+	{
+		textColor: token('color.text.accent.gray.bolder'),
+		backgroundColor: token('color.background.accent.orange.subtle'),
+	},
+	{
+		textColor: token('color.text.accent.gray.bolder'),
+		backgroundColor: token('color.background.accent.yellow.subtle'),
+	},
+	{
+		textColor: token('color.text.accent.gray.bolder'),
+		backgroundColor: token('color.background.accent.green.subtle'),
+	},
+	{
+		textColor: token('color.text.accent.gray.bolder'),
+		backgroundColor: token('color.background.accent.teal.subtle'),
+	},
+	{
+		textColor: token('color.text.accent.gray.bolder'),
+		backgroundColor: token('color.background.accent.purple.subtle'),
+	},
+	{
+		textColor: token('color.text.accent.gray.bolder'),
+		backgroundColor: token('color.background.accent.magenta.subtle'),
+	},
 ];

@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.9.0
+
+### Minor Changes
+
+- [#154829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154829)
+  [`0646280e9ab18`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0646280e9ab18) -
+  [EDF-1176](https://product-fabric.atlassian.net/browse/EDF-1176) - add pulse EP effect to AI
+  button in Editor floating toolbar
+
 ## 2.8.0
 
 ### Minor Changes

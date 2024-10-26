@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 4.3.8
+
+### Patch Changes
+
+- [#156301](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156301)
+  [`da531da92568b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/da531da92568b) -
+  Migrating tests to use url prop from @atlaskit/smart-card instead of deprecated data prop
+- Updated dependencies
+
 ## 4.3.7
 
 ### Patch Changes

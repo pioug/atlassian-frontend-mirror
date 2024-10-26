@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 13.14.1
+
+### Patch Changes
+
+- [#156593](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156593)
+  [`99eefc50549ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/99eefc50549ec) -
+  ff cleanup for accound id adding on feedback tickets
+
 ## 13.14.0
 
 ### Minor Changes

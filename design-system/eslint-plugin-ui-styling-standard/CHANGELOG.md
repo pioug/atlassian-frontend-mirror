@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.20.1
+
+### Patch Changes
+
+- [#154199](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154199)
+  [`d13bf04a19535`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d13bf04a19535) -
+  Bump @compiled/\* and enable sorting of styles (where applicable)
+
 ## 0.20.0
 
 ### Minor Changes

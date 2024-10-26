@@ -36,12 +36,12 @@
 		"./styles": "./src/styles.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^94.2.0",
+		"@atlaskit/editor-common": "^94.3.0",
 		"@atlaskit/editor-markdown-transformer": "^5.13.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-paste": "^1.14.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
-		"@atlaskit/editor-shared-styles": "^3.0.0",
+		"@atlaskit/editor-shared-styles": "^3.1.0",
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@babel/runtime": "^7.0.0",

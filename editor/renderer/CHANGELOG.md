@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 111.3.0
+
+### Minor Changes
+
+- [#156093](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156093)
+  [`a5156f7d85a6d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a5156f7d85a6d) -
+  Changes related to the nested renderer causing multiple callback binding to the annotation click
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 111.2.9
 
 ### Patch Changes

@@ -1,5 +1,29 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.0.0
+
+### Major Changes
+
+- [#156392](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156392)
+  [`c4b79c6ef2fe1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c4b79c6ef2fe1) -
+  previous update should've been a major version, this update is a patch however for fixing late
+  mutation logic
+
+### Minor Changes
+
+- [#156171](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156171)
+  [`cac81bd740336`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cac81bd740336) -
+  Re-exporting atlaskit/react-ufo within atlassian/react-ufo
+
+### Patch Changes
+
+- [#156442](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156442)
+  [`e74a468fad66a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e74a468fad66a) -
+  add switch for compact payload
+- [#156476](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156476)
+  [`c06bb2cd9e5d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c06bb2cd9e5d1) -
+  make time window for late mutations and rerenders to be configurable
+
 ## 1.1.0
 
 ### Minor Changes

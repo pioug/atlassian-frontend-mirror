@@ -24,7 +24,7 @@ const getEmailAvatarWrapperStyle = (isLozenge?: boolean) => {
 };
 
 export type AddOptionAvatarProps = {
-	label: string;
+	label?: string;
 	isLozenge?: boolean;
 };
 
@@ -36,7 +36,8 @@ export const AddOptionAvatar: React.FunctionComponent<AddOptionAvatarProps> = ({
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={getEmailAvatarWrapperStyle(isLozenge)}>
 			<EmailIcon
-				label={label}
+				testId="add-option-avatar-email-icon"
+				label={label || ""}
 				LEGACY_size={isLozenge ? 'small' : 'medium'}
 				LEGACY_margin="0 0 0 -2px"
 				color={token('color.text.subtle', N500)}

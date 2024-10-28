@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.6.11",
+	"version": "3.6.12",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -54,7 +54,7 @@
 		"@atlaskit/inline-edit": "^13.7.0",
 		"@atlaskit/intl-messages-provider": "^1.0.0",
 		"@atlaskit/jql-ast": "^3.3.0",
-		"@atlaskit/jql-editor": "^4.8.0",
+		"@atlaskit/jql-editor": "^4.9.0",
 		"@atlaskit/jql-editor-autocomplete-rest": "^2.1.0",
 		"@atlaskit/layering": "^0.7.0",
 		"@atlaskit/link-client-extension": "^2.4.0",

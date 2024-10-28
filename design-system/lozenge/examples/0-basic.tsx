@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives';
-
-import Lozenge, { type ThemeAppearance } from '../src';
 
 const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
 	{ label: 'Default', value: 'default' },

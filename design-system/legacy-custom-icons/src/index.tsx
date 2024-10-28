@@ -1,11 +1,13 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d1e3a1c6cb5e63dd7381b1d30835faf6>>
+ * @codegen <<SignedSource::8a9df125f0d5efaa91b1f0c49cc146c7>>
  * @codegenCommand yarn generate-artifacts
  */
 export { default as AlignLeftIcon } from './ui/align-left-icon';
 export { default as AnsibleIcon } from './ui/ansible-icon';
+export { default as ApplicationIcon } from './ui/application-icon';
 export { default as ArrowDownCircleIcon } from './ui/arrow-down-circle-icon';
+export { default as AtlasIcon } from './ui/atlas-icon';
 export { default as AtlassianIntelligenceDarkIcon } from './ui/atlassian-intelligence-dark-icon';
 export { default as AtlassianIntelligenceLogoIcon } from './ui/atlassian-intelligence-logo-icon';
 export { default as AutomationIcon } from './ui/automation-icon';
@@ -19,12 +21,15 @@ export { default as BarChartIcon } from './ui/bar-chart-icon';
 export { default as BookIcon } from './ui/book-icon';
 export { default as BugIcon } from './ui/bug-icon';
 export { default as CalendarIcon } from './ui/calendar-icon';
+export { default as CapabilityIcon } from './ui/capability-icon';
 export { default as ClockIcon } from './ui/clock-icon';
+export { default as CloudResourceIcon } from './ui/cloud-resource-icon';
 export { default as ComponentIcon } from './ui/component-icon';
 export { default as ConfluencePageIcon } from './ui/confluence-page-icon';
 export { default as CurlyBracketsIcon } from './ui/curly-brackets-icon';
 export { default as CurlyBracketsTallIcon } from './ui/curly-brackets-tall-icon';
 export { default as DataNumberIcon } from './ui/data-number-icon';
+export { default as DataPipelineIcon } from './ui/data-pipeline-icon';
 export { default as DeleteIcon } from './ui/delete-icon';
 export { default as DeltaIcon } from './ui/delta-icon';
 export { default as DockIcon } from './ui/dock-icon';
@@ -38,11 +43,13 @@ export { default as GoogleDriveIcon } from './ui/google-drive-icon';
 export { default as LargeErrorIcon } from './ui/large-error-icon';
 export { default as LineChartIcon } from './ui/line-chart-icon';
 export { default as LobbyBellIcon } from './ui/lobby-bell-icon';
+export { default as MachineLearningModelIcon } from './ui/machine-learning-model-icon';
 export { default as ManualTriggerIcon } from './ui/manual-trigger-icon';
 export { default as MegaphoneIcon } from './ui/megaphone-icon';
 export { default as MegaphoneStarIcon } from './ui/megaphone-star-icon';
 export { default as MicrosoftSharepointIcon } from './ui/microsoft-sharepoint-icon';
 export { default as MsTeamsIcon } from './ui/ms-teams-icon';
+export { default as PeopleGroupIcon } from './ui/people-group-icon';
 export { default as PeopleIcon } from './ui/people-icon';
 export { default as PersonAvatarIcon } from './ui/person-avatar-icon';
 export { default as PersonIcon } from './ui/person-icon';
@@ -56,6 +63,9 @@ export { default as SlackIconAiMate } from './ui/slack-icon-ai-mate';
 export { default as StopTypingIcon } from './ui/stop-typing-icon';
 export { default as TagIcon } from './ui/tag-icon';
 export { default as TaskIcon } from './ui/task-icon';
+export { default as TemplateIcon } from './ui/template-icon';
 export { default as TextIcon } from './ui/text-icon';
 export { default as ThemeIcon } from './ui/theme-icon';
 export { default as TransitionIcon } from './ui/transition-icon';
+export { default as UiElementIcon } from './ui/ui-element-icon';
+export { default as VerifiedIcon } from './ui/verified-icon';

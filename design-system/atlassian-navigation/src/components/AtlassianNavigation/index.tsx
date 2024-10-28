@@ -6,14 +6,12 @@
 import { css, jsx } from '@emotion/react';
 
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { HORIZONTAL_GLOBAL_NAV_HEIGHT } from '../../common/constants';
 import { defaultTheme, ThemeProvider } from '../../theme';
 import { PrimaryItemsContainer } from '../PrimaryItemsContainer';
-import { PrimaryItemsContainer as PrimaryItemsContainerV2 } from '../PrimaryItemsContainerV2';
 
 import { type AtlassianNavigationProps } from './types';
 
@@ -103,25 +101,14 @@ export const AtlassianNavigation = (props: AtlassianNavigationProps) => {
 					<nav css={leftStyles} aria-label={label}>
 						{AppSwitcher && <AppSwitcher />}
 						{ProductHome && <ProductHome />}
-						{fg('platform.design-system-team.navigation-v2-no-jank_5yhbd') ? (
-							<PrimaryItemsContainerV2
-								testId={testId}
-								moreLabel={moreLabel}
-								items={primaryItems}
-								create={create}
-								// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-								theme={theme}
-							/>
-						) : (
-							<PrimaryItemsContainer
-								testId={testId}
-								moreLabel={moreLabel}
-								items={primaryItems}
-								create={create}
-								// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-								theme={theme}
-							/>
-						)}
+						<PrimaryItemsContainer
+							testId={testId}
+							moreLabel={moreLabel}
+							items={primaryItems}
+							create={create}
+							// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+							theme={theme}
+						/>
 					</nav>
 
 					<div css={rightStyles} data-testid={testId && `${testId}-secondary-actions`}>

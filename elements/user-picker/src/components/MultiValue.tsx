@@ -3,14 +3,12 @@
  * @jsx jsx
  */
 import React from 'react';
-import { FormattedMessage } from 'react-intl-next';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { components, type OptionType } from '@atlaskit/select';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { SizeableAvatar } from './SizeableAvatar';
-import { messages } from './i18n';
 import { getAvatarUrl, isEmail, isGroup, isTeam } from './utils';
 import { type Option, type UserPickerProps } from '../types';
 import PeopleIcon from '@atlaskit/icon/core/migration/people-group--people';
@@ -99,16 +97,10 @@ export class MultiValue extends React.Component<Props> {
 	getElemBefore = () => {
 		const {
 			data: { data },
-			selectProps,
 		} = this.props;
 		if (isEmail(data)) {
-			return selectProps.emailLabel ? (
-				<AddOptionAvatar isLozenge label={selectProps.emailLabel} />
-			) : (
-				<FormattedMessage {...messages.addEmail}>
-					{(label) => <AddOptionAvatar isLozenge label={label as unknown as string} />}
-				</FormattedMessage>
-			);
+			// This element is a decorative icon and does not require a label
+			return <AddOptionAvatar isLozenge />;
 		}
 
 		if (isGroup(data)) {
@@ -117,7 +109,7 @@ export class MultiValue extends React.Component<Props> {
 					<PeopleIcon
 						LEGACY_margin="-2px 0 0 0"
 						color="currentColor"
-						label="group-icon"
+						label="" // This element is a decorative icon and does not require a label
 						LEGACY_size="small"
 					/>
 				</Box>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "94.3.0",
+	"version": "94.5.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -202,7 +202,7 @@
 		"@atlaskit/custom-steps": "^0.8.0",
 		"@atlaskit/dropdown-menu": "^12.21.0",
 		"@atlaskit/editor-json-transformer": "^8.20.0",
-		"@atlaskit/editor-palette": "1.6.2",
+		"@atlaskit/editor-palette": "1.6.3",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.1.0",
 		"@atlaskit/editor-tables": "^2.8.0",
@@ -211,14 +211,14 @@
 		"@atlaskit/icon-object": "^6.7.0",
 		"@atlaskit/link-datasource": "^3.6.0",
 		"@atlaskit/link-picker": "^1.47.0",
-		"@atlaskit/media-card": "^78.8.0",
+		"@atlaskit/media-card": "^78.9.0",
 		"@atlaskit/media-client": "^28.0.0",
 		"@atlaskit/media-client-react": "^2.2.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-file-preview": "^0.9.0",
 		"@atlaskit/media-picker": "^66.7.0",
-		"@atlaskit/media-ui": "^25.16.0",
-		"@atlaskit/media-viewer": "49.2.2",
+		"@atlaskit/media-ui": "^26.0.0",
+		"@atlaskit/media-viewer": "49.2.3",
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/onboarding": "^11.16.0",
@@ -231,7 +231,7 @@
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/textfield": "^6.5.0",
-		"@atlaskit/tmp-editor-statsig": "^2.9.0",
+		"@atlaskit/tmp-editor-statsig": "^2.10.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@atlaskit/tooltip": "^18.8.0",
 		"@atlaskit/width-detector": "^4.3.0",
@@ -357,7 +357,16 @@
 		"platform_editor_allow_annotation_triple_click": {
 			"type": "boolean"
 		},
+		"platform_editor_typography_ugc": {
+			"type": "boolean"
+		},
 		"platform_editor_heading_margin_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_replace_finddomnode_in_common": {
+			"type": "boolean"
+		},
+		"platform_editor_element_dnd_nested_fix_patch_3": {
 			"type": "boolean"
 		}
 	}

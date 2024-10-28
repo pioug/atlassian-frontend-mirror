@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-media
 
+## 1.38.0
+
+### Minor Changes
+
+- [#156303](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156303)
+  [`dd9e4eaa8e65b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd9e4eaa8e65b) -
+  [ux] ED-25493 Support caption onboarding, comment notification visual refresh and live view double
+  click support
+
+### Patch Changes
+
+- [#157011](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157011)
+  [`dcdfd1e83ce5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcdfd1e83ce5a) -
+  change ugc typography experiment to a gate
+- Updated dependencies
+
+## 1.37.4
+
+### Patch Changes
+
+- [#156360](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156360)
+  [`7125e8ac235ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7125e8ac235ea) -
+  [ED-25348] Refactor Media ResizeNext React Class component into Function Component
+- Updated dependencies
+
 ## 1.37.3
 
 ### Patch Changes

@@ -10,6 +10,8 @@ export enum LAYOUT_TYPE {
 	LEFT_SIDEBAR = 'twoColumnsLeftSidebar',
 	RIGHT_SIDEBAR = 'twoColumnsRightSidebar',
 	THREE_WITH_SIDEBARS = 'threeColumnsWithSidebars ',
+	FOUR_COLS_EQUAL = 'fourColumnsEqual',
+	FIVE_COLS_EQUAL = 'fiveColumnsEqual',
 }
 
 export enum SMART_LINK_TYPE {
@@ -72,8 +74,8 @@ type ChangedLayoutAEP = TrackAEP<
 	ACTION_SUBJECT.LAYOUT,
 	undefined,
 	{
-		previousLayout: LAYOUT_TYPE;
-		newLayout: LAYOUT_TYPE;
+		previousLayout?: LAYOUT_TYPE;
+		newLayout?: LAYOUT_TYPE;
 	},
 	undefined
 >;
@@ -82,7 +84,7 @@ type DeletedLayoutAEP = TrackAEP<
 	ACTION.DELETED,
 	ACTION_SUBJECT.LAYOUT,
 	undefined,
-	{ layout: LAYOUT_TYPE },
+	{ layout?: LAYOUT_TYPE },
 	undefined
 >;
 

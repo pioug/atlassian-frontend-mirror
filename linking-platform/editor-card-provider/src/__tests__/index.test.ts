@@ -2,6 +2,7 @@ import { type ProductType, type Datasource, type EnvironmentsKeys } from '@atlas
 import { EditorCardProvider } from '..';
 import { type LinkAppearance, type ProviderPattern, type UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
 type PatternsProviderResponse = {
 	providers: Provider[];
@@ -151,6 +152,7 @@ describe('providers > editor', () => {
 		jest.resetModules();
 		mockFetch = jest.fn();
 		(global as any).fetch = mockFetch;
+		setBooleanFeatureFlagResolver((flag) => flag === 'smart_links_for_plans');
 	});
 
 	afterEach(() => {
@@ -536,6 +538,17 @@ describe('providers > editor', () => {
 		[
 			'Jira board embed (company managed) with query params',
 			'https://maguilar-stg.jira-dev.com/jira/software/c/projects/ACMP/boards/2?assignee=712020%3A415eb090-5446-408d-b958-82871ce65b6b',
+		],
+		['Jira plan timeline embed', 'https://hello.atlassian.net/jira/plans/24/scenarios/24/timeline'],
+		['Jira plan summary embed', 'https://hello.atlassian.net/jira/plans/24/scenarios/24/summary'],
+		['Jira plan calendar embed', 'https://hello.atlassian.net/jira/plans/24/scenarios/24/calendar'],
+		[
+			'Jira plan program board embed',
+			'https://hello.atlassian.net/jira/plans/24/scenarios/24/program/1',
+		],
+		[
+			'Jira plan dependencies report embed',
+			'https://hello.atlassian.net/jira/plans/24/scenarios/24/dependencies',
 		],
 	])(
 		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',

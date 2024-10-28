@@ -33,6 +33,27 @@ export const TWO_COL_LAYOUTS: PresetLayout[] = [
 export const THREE_COL_LAYOUTS: PresetLayout[] = ['three_equal', 'three_with_sidebars'];
 
 const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
+	if (isPreRelease2()) {
+		switch (presetLayout) {
+			case 'single':
+				return [100];
+			case 'two_equal':
+				return [50, 50];
+			case 'three_equal':
+				return [33.33, 33.33, 33.33];
+			case 'two_left_sidebar':
+				return [33.33, 66.66];
+			case 'two_right_sidebar':
+				return [66.66, 33.33];
+			case 'three_with_sidebars':
+				return [25, 50, 25];
+			case 'four_equal':
+				return [25, 25, 25, 25];
+			case 'five_equal':
+				return [20, 20, 20, 20, 20];
+		}
+	}
+
 	switch (presetLayout) {
 		case 'single':
 			return [100];
@@ -47,6 +68,8 @@ const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
 		case 'three_with_sidebars':
 			return [25, 50, 25];
 	}
+
+	return [];
 };
 
 /**
@@ -55,6 +78,28 @@ const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
  */
 export const getPresetLayout = (section: Node): PresetLayout | undefined => {
 	const widths = mapChildren(section, (column) => column.attrs.width).join(',');
+
+	if (isPreRelease2()) {
+		switch (widths) {
+			case '100':
+				return 'single';
+			case '33.33,33.33,33.33':
+				return 'three_equal';
+			case '25,50,25':
+				return 'three_with_sidebars';
+			case '50,50':
+				return 'two_equal';
+			case '33.33,66.66':
+				return 'two_left_sidebar';
+			case '66.66,33.33':
+				return 'two_right_sidebar';
+			case '25,25,25,25':
+				return 'four_equal';
+			case '20,20,20,20,20':
+				return 'five_equal';
+		}
+		return;
+	}
 
 	switch (widths) {
 		case '100':
@@ -465,7 +510,28 @@ export const deleteActiveLayoutNode =
 		return false;
 	};
 
-const formatLayoutName = (layout: PresetLayout): LAYOUT_TYPE => {
+const formatLayoutName = (layout: PresetLayout): LAYOUT_TYPE | undefined => {
+	if (isPreRelease2()) {
+		switch (layout) {
+			case 'single':
+				return LAYOUT_TYPE.SINGLE_COL;
+			case 'two_equal':
+				return LAYOUT_TYPE.TWO_COLS_EQUAL;
+			case 'three_equal':
+				return LAYOUT_TYPE.THREE_COLS_EQUAL;
+			case 'two_left_sidebar':
+				return LAYOUT_TYPE.LEFT_SIDEBAR;
+			case 'two_right_sidebar':
+				return LAYOUT_TYPE.RIGHT_SIDEBAR;
+			case 'three_with_sidebars':
+				return LAYOUT_TYPE.THREE_WITH_SIDEBARS;
+			case 'four_equal':
+				return LAYOUT_TYPE.FOUR_COLS_EQUAL;
+			case 'five_equal':
+				return LAYOUT_TYPE.FIVE_COLS_EQUAL;
+		}
+	}
+
 	switch (layout) {
 		case 'single':
 			return LAYOUT_TYPE.SINGLE_COL;

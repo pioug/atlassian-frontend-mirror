@@ -7,7 +7,6 @@
 import { css } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import editorUGCToken from '../../ugc-tokens/get-editor-ugc-token';
@@ -55,7 +54,7 @@ export const headingsSharedStyles = (
 		| 'typography-modernized'
 		| 'typography-refreshed',
 ) => {
-	const isADSTokenMigrationEnabled = editorExperiment('typography_migration_ugc', true);
+	const isADSTokenMigrationEnabled = fg('platform_editor_typography_ugc');
 	if (isADSTokenMigrationEnabled) {
 		return css({
 			'& h1': {
@@ -83,6 +82,7 @@ export const headingsSharedStyles = (
 
 			'& h5': {
 				font: editorUGCToken('editor.font.heading.h5', typographyTheme),
+				marginTop: '1.667em',
 				textTransform: 'none',
 			},
 

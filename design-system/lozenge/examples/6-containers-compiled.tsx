@@ -1,8 +1,8 @@
 import React from 'react';
 
+import Lozenge from '@atlaskit/lozenge/compiled';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 
-import Lozenge from '../src/compiled';
 
 const wrapperStyles = xcss({
 	backgroundColor: 'color.background.accent.red.subtlest',

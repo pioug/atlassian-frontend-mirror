@@ -18,10 +18,11 @@ import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
 import { messages } from '../../../../components/i18n';
 import { CategoryDescriptionMap } from '../../../../components/picker/categories';
 import { sortCategories } from '../../../../components/picker/CategorySelector';
+import * as utils from '../../../../components/picker/utils';
 import EmojiPicker, {
 	type Props as EmojiPickerProps,
 } from '../../../../components/picker/EmojiPicker';
-import EmojiPickerVirtualList from '../../../../components/picker/EmojiPickerList';
+import { EmojiPickerVirtualListInternalOld as EmojiPickerVirtualList } from '../../../../components/picker/EmojiPickerList';
 import { emojiPickerHeightOffset } from '../../../../components/picker/utils';
 import {
 	SearchSourceTypes,
@@ -123,9 +124,16 @@ describe('<EmojiPicker />', () => {
 
 		// scrolling of the virtual list doesn't work out of the box for the tests
 		// mocking `scrollToRow` for all tests
+		// Cleanup `platform_editor_react18_elements_emoji`: remove this next jest.spyOn
+		// since it's for the class component (which has been refactored into FC)
 		jest
 			.spyOn(EmojiPickerVirtualList.prototype, 'scrollToRow')
 			.mockImplementation((index?: number) => helperTestingLibrary.scrollToIndex(index || 0));
+		jest
+			.spyOn(utils, 'scrollToRow')
+			.mockImplementation((listRef?: any, index?: number) =>
+				helperTestingLibrary.scrollToIndex(index || 0),
+			);
 	});
 
 	afterEach(jest.clearAllMocks);
@@ -216,10 +224,12 @@ describe('<EmojiPicker />', () => {
 				'aria-label',
 				messages['peopleCategory'].defaultMessage,
 			);
-			expect(categorySelectorButtons[0]).toHaveStyleRule(
-				'color',
-				token('color.text.selected', '#0052CC'),
-			);
+			await waitFor(() => {
+				expect(categorySelectorButtons[0]).toHaveStyleRule(
+					'color',
+					token('color.text.selected', '#0052CC'),
+				);
+			});
 		});
 
 		it('should tone selector in preview by default', async () => {
@@ -305,7 +315,9 @@ describe('<EmojiPicker />', () => {
 
 	describe('category', () => {
 		it('selecting category should show that category', async () => {
-			await helper.setupPicker(undefined, undefined, onEvent);
+			await act(async () => {
+				helper.setupPicker(undefined, undefined, onEvent);
+			});
 
 			await waitFor(() => {
 				expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
@@ -396,11 +408,15 @@ describe('<EmojiPicker />', () => {
 			const categorySelectorButtons = await screen.findAllByRole('tab');
 
 			expect(categorySelectorButtons).toHaveLength(defaultCategories.length + 1);
-			expect(helper.categoryVisible(frequentCategory)).toBe(true);
-			expect(categorySelectorButtons[0]).toHaveStyleRule(
-				'color',
-				token('color.text.selected', '#0052CC'),
-			);
+			await waitFor(() => {
+				expect(helper.categoryVisible(frequentCategory)).toBe(true);
+			});
+			await waitFor(() => {
+				expect(categorySelectorButtons[0]).toHaveStyleRule(
+					'color',
+					token('color.text.selected', '#0052CC'),
+				);
+			});
 		});
 
 		it('should show frequent emoji first', async () => {

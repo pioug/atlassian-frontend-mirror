@@ -1,12 +1,29 @@
-import React, { forwardRef, type ReactElement, useCallback, useMemo, useState } from 'react';
+import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 
 import deburr from 'lodash/deburr';
 import noop from 'lodash/noop';
 
-import Icon from '@atlaskit/icon';
+import { type IconProps, type UNSAFE_NewCoreIconProps } from '@atlaskit/icon';
+import AlignLeftIcon from '@atlaskit/icon/core/align-left';
+import CalendarIcon from '@atlaskit/icon/core/calendar';
+import ClockIcon from '@atlaskit/icon/core/clock';
+import DataNumberIcon from '@atlaskit/icon/core/data-number';
 import InfoIcon from '@atlaskit/icon/core/migration/information--editor-panel';
+import PersonAvatarIcon from '@atlaskit/icon/core/person-avatar';
+import TagIcon from '@atlaskit/icon/core/tag';
+import CheckboxIcon from '@atlaskit/icon/core/task';
+import TextIcon from '@atlaskit/icon/core/text';
 import { normaliseJqlString } from '@atlaskit/jql-ast';
 import { type Position } from '@atlaskit/jql-autocomplete';
+import LegacyAlignLeftIcon from '@atlaskit/legacy-custom-icons/align-left-icon';
+import LegacyArrowDownIcon from '@atlaskit/legacy-custom-icons/arrow-down-circle-icon';
+import LegacyCalendarIcon from '@atlaskit/legacy-custom-icons/calendar-icon';
+import LegacyClockIcon from '@atlaskit/legacy-custom-icons/clock-icon';
+import LegacyDataNumberIcon from '@atlaskit/legacy-custom-icons/data-number-icon';
+import LegacyPersonAvatarIcon from '@atlaskit/legacy-custom-icons/person-avatar-icon';
+import LegacyTagIcon from '@atlaskit/legacy-custom-icons/tag-icon';
+import LegacyCheckboxIcon from '@atlaskit/legacy-custom-icons/task-icon';
+import LegacyTextIcon from '@atlaskit/legacy-custom-icons/text-icon';
 import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -14,17 +31,6 @@ import Tooltip from '@atlaskit/tooltip';
 import { useIntl } from '../../../../state';
 import { type SelectableAutocompleteOption } from '../types';
 
-import {
-	checkboxGlyph,
-	dateGlyph,
-	dropdownGlyph,
-	labelGlyph,
-	numberGlyph,
-	paragraphGlyph,
-	peopleGlyph,
-	shortTextGlyph,
-	timeStampGlyph,
-} from './glyphs';
 import { messages } from './messages';
 import {
 	DeprecatedOptionContainer,
@@ -43,8 +49,19 @@ type Props = {
 	onMouseMove: () => void;
 };
 
-const ResizedIcon = ({ glyph }: { glyph: () => ReactElement }) => (
-	<Icon glyph={glyph} size="small" label="" testId="jql-editor-field-type-icon" />
+type ResizedIconProps = {
+	Icon: React.FC<UNSAFE_NewCoreIconProps>;
+	LegacyIcon: ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => JSX.Element;
+};
+
+const ResizedIcon = ({ Icon, LegacyIcon }: ResizedIconProps) => (
+	<Icon
+		LEGACY_fallbackIcon={LegacyIcon}
+		LEGACY_size="small"
+		label=""
+		testId="jql-editor-field-type-icon"
+		color="currentColor"
+	/>
 );
 
 /**
@@ -54,23 +71,24 @@ const ResizedIcon = ({ glyph }: { glyph: () => ReactElement }) => (
 const getFieldTypeIcon = (type: string) => {
 	switch (type) {
 		case 'Checkboxes':
-			return <ResizedIcon glyph={checkboxGlyph} />;
+			return <ResizedIcon Icon={CheckboxIcon} LegacyIcon={LegacyCheckboxIcon} />;
 		case 'Date':
-			return <ResizedIcon glyph={dateGlyph} />;
+			return <ResizedIcon Icon={CalendarIcon} LegacyIcon={LegacyCalendarIcon} />;
 		case 'Dropdown':
-			return <ResizedIcon glyph={dropdownGlyph} />;
+			// TODO: https://product-fabric.atlassian.net/browse/DSP-21308
+			return <LegacyArrowDownIcon label="" size="small" testId="jql-editor-field-type-icon" />;
 		case 'Labels':
-			return <ResizedIcon glyph={labelGlyph} />;
+			return <ResizedIcon Icon={TagIcon} LegacyIcon={LegacyTagIcon} />;
 		case 'Number':
-			return <ResizedIcon glyph={numberGlyph} />;
+			return <ResizedIcon Icon={DataNumberIcon} LegacyIcon={LegacyDataNumberIcon} />;
 		case 'Paragraph':
-			return <ResizedIcon glyph={paragraphGlyph} />;
+			return <ResizedIcon Icon={AlignLeftIcon} LegacyIcon={LegacyAlignLeftIcon} />;
 		case 'People':
-			return <ResizedIcon glyph={peopleGlyph} />;
+			return <ResizedIcon Icon={PersonAvatarIcon} LegacyIcon={LegacyPersonAvatarIcon} />;
 		case 'Short text':
-			return <ResizedIcon glyph={shortTextGlyph} />;
+			return <ResizedIcon Icon={TextIcon} LegacyIcon={LegacyTextIcon} />;
 		case 'Time stamp':
-			return <ResizedIcon glyph={timeStampGlyph} />;
+			return <ResizedIcon Icon={ClockIcon} LegacyIcon={LegacyClockIcon} />;
 		default:
 			return null;
 	}

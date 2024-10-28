@@ -33,6 +33,7 @@ import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
 import EmojiList from './EmojiTypeAheadList';
 import { emojiTypeAhead } from './styles';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 export interface OnLifecycle {
 	(): void;
 }
@@ -168,14 +169,32 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		const prevEmojiProvider = this.props.emojiProvider;
-		const nextEmojiProvider = nextProps.emojiProvider;
-		if (prevEmojiProvider !== nextEmojiProvider) {
-			prevEmojiProvider.unsubscribe(this.onProviderChange);
-			nextEmojiProvider.subscribe(this.onProviderChange);
-			this.onSearch(nextProps.query);
-		} else if (this.props.query !== nextProps.query) {
-			this.onSearch(nextProps.query);
+		if (!fg('platform_editor_react18_elements_emoji')) {
+			const prevEmojiProvider = this.props.emojiProvider;
+			const nextEmojiProvider = nextProps.emojiProvider;
+			if (prevEmojiProvider !== nextEmojiProvider) {
+				prevEmojiProvider.unsubscribe(this.onProviderChange);
+				nextEmojiProvider.subscribe(this.onProviderChange);
+				this.onSearch(nextProps.query);
+			} else if (this.props.query !== nextProps.query) {
+				this.onSearch(nextProps.query);
+			}
+		}
+	}
+
+	componentDidUpdate(prevProps: Props) {
+		if (fg('platform_editor_react18_elements_emoji')) {
+			if (prevProps !== this.props) {
+				const prevEmojiProvider = prevProps.emojiProvider;
+				const nextEmojiProvider = this.props.emojiProvider;
+				if (prevEmojiProvider !== nextEmojiProvider) {
+					prevEmojiProvider.unsubscribe(this.onProviderChange);
+					nextEmojiProvider.subscribe(this.onProviderChange);
+					this.onSearch(this.props.query);
+				} else if (prevProps.query !== this.props.query) {
+					this.onSearch(this.props.query);
+				}
+			}
 		}
 	}
 

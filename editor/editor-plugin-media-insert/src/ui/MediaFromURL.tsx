@@ -43,7 +43,6 @@ const PreviewImageStyles = xcss({
 
 const FormStyles = xcss({
 	flexGrow: 1,
-	whiteSpace: 'normal',
 });
 
 type PreviewState = {

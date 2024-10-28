@@ -43,7 +43,7 @@ export type VCIgnoreReason = 'image' | 'ssr-hydration' | '';
 
 export type ComponentsLogEntry = {
 	targetName: string;
-	__debug__element: Element | null;
+	__debug__element: WeakRef<Element> | null;
 	intersectionRect: DOMRectReadOnly;
 	ignoreReason?: VCIgnoreReason;
 };

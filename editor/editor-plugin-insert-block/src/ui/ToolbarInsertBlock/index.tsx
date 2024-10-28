@@ -21,7 +21,10 @@ import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { MenuItem, ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import { withReactEditorViewOuterListeners as withOuterListeners } from '@atlaskit/editor-common/ui-react';
+import {
+	OutsideClickTargetRefContext,
+	withReactEditorViewOuterListeners as withOuterListeners,
+} from '@atlaskit/editor-common/ui-react';
 import type { DropdownItem } from '@atlaskit/editor-plugin-block-type';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
@@ -45,7 +48,6 @@ import type { Props, State } from './types';
  */
 const isDetachedElement = (el: HTMLElement) => !document.body.contains(el);
 
-const EmojiPickerWithListeners = withOuterListeners(AkEmojiPicker);
 const TABLE_SELECTOR_STRING = 'table selector';
 
 // TODO: Jenga team will create a component for a split button using this css
@@ -57,6 +59,13 @@ const getHoverStyles = (selector: string) =>
       background: ${token('color.background.neutral.hovered', colors.N30A)};
     }
   }`;
+
+type AkEmojiPickerProps = Parameters<typeof AkEmojiPicker>[0];
+const EmojiPicker = (props: AkEmojiPickerProps) => {
+	const setOutsideClickTargetRef = React.useContext(OutsideClickTargetRefContext);
+	return <AkEmojiPicker onPickerRef={setOutsideClickTargetRef} {...props} />;
+};
+const EmojiPickerWithListeners = withOuterListeners(EmojiPicker);
 
 export const tableButtonWrapper = ({
 	isTableSelectorOpen,

@@ -8,6 +8,7 @@ import React, {
 	useContext,
 	useEffect,
 	useMemo,
+	useRef,
 } from 'react';
 
 import {
@@ -302,9 +303,17 @@ export default function UFOSegment({ name: segmentName, children }: Props) {
 		};
 	}, [parentContext, labelStack, interactionId]);
 
+	const hasMounted = useRef(false);
+
 	const onRender: ProfilerOnRenderCallback = useCallback(
 		(_id, phase, actualDuration, baseDuration, startTime, commitTime) => {
-			interactionContext.onRender(phase, actualDuration, baseDuration, startTime, commitTime);
+			// Manually keep track of mount-phase, and ensure that every segment is always mounted at least once
+			if (getConfig()?.manuallyTrackReactProfilerMounts && !hasMounted.current) {
+				interactionContext.onRender('mount', actualDuration, baseDuration, startTime, commitTime);
+				hasMounted.current = true;
+			} else {
+				interactionContext.onRender(phase, actualDuration, baseDuration, startTime, commitTime);
+			}
 		},
 		[interactionContext],
 	);

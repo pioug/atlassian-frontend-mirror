@@ -1,5 +1,15 @@
 # @atlaskit/link-datasource
 
+## 3.6.12
+
+### Patch Changes
+
+- [#157006](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157006)
+  [`ef574c4c20e88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ef574c4c20e88) -
+  Migrated @atlaskit/heading to new API. There are some minor visual differences for smaller
+  headings (h100-h300). See https://atlassian.design/components/heading/migration-to-size-prop for
+  full info.
+
 ## 3.6.11
 
 ### Patch Changes

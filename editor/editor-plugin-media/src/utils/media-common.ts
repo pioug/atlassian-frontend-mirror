@@ -310,6 +310,36 @@ export const getMediaFromSupportedMediaNodesFromSelection = (state: EditorState)
 			return null;
 	}
 };
+
+export const isNodeDoubleClickSupportedInLivePagesViewMode = (
+	isViewMode: boolean,
+	node?: PMNode | null,
+): boolean => {
+	if (!node) {
+		return false;
+	}
+	// Double Click is not supported for video nodes on both views
+	if (isVideo(node.attrs.__fileMimeType)) {
+		return false;
+	}
+
+	// Double click is supported for all editor media nodes
+	if (!isViewMode) {
+		return true;
+	}
+
+	// Double Click is not supported for mediaGroup and mediaInline nodes that are file
+	if (
+		node.type === node.type.schema.nodes.mediaGroup ||
+		(node.type === node.type.schema.nodes.mediaInline && node.attrs.type === 'file')
+	) {
+		return false;
+	}
+
+	// Double Click supported for all other media nodes
+	return true;
+};
+
 export const getIdentifier = (attrs: MediaADFAttrs): Identifier => {
 	if (isExternalMedia(attrs)) {
 		return {

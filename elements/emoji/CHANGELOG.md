@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 67.8.9
+
+### Patch Changes
+
+- [#154815](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154815)
+  [`64d0333dd6b4b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64d0333dd6b4b) -
+  ED-24131 Refactors internal EmojiPickerList to a functional component and remediates usages of
+  UNSAFE lifecycle methods in elements/emoji
+
 ## 67.8.8
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.11.0
+
+### Minor Changes
+
+- [#157006](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157006)
+  [`cfd78f9ae1e67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cfd78f9ae1e67) -
+  Renamed `ensure-valid-workspace-protocol-usage` to `ensure-valid-yarn-protocol-usage` and updated
+  the rule to error if the root custom yarn protocol is used in any platform package.
+
 ## 0.10.1
 
 ### Patch Changes

@@ -76,6 +76,7 @@ export {
 	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 	akEditorTableCellBlanketSelected,
 	akEditorTableCellBlanketDeleted,
+	akEditorWrappedNodeZIndex,
 } from './consts';
 export type { EditorTheme, ParticipantColor } from './consts';
 

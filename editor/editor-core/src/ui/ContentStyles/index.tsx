@@ -94,10 +94,10 @@ type ContentStylesProps = {
 	featureFlags?: FeatureFlags;
 	viewMode?: 'view' | 'edit';
 	typographyTheme?:
-		| 'typography'
-		| 'typography-adg3'
-		| 'typography-modernized'
-		| 'typography-refreshed';
+	| 'typography'
+	| 'typography-adg3'
+	| 'typography-modernized'
+	| 'typography-refreshed';
 };
 
 const ruleStyles = () => css`
@@ -333,7 +333,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${backgroundColorStyles()}
   ${listsStyles}
   ${ruleStyles()}
-  ${mediaStyles}
+  ${mediaStyles()}
   ${layoutStyles(props.viewMode)}
   ${telepointerStyle}
   ${gapCursorStyles};
@@ -355,7 +355,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${smartCardStyles()}
   ${smartCardSharedStyles}
   ${dateStyles}
-  ${embedCardStyles}
+  ${embedCardStyles()}
   ${unsupportedStyles}
   ${resizerStyles}
   ${aiPanelStyles(props.colorMode)}

@@ -14,7 +14,7 @@ import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element
 import { layers } from '@atlaskit/theme/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { getNodeAnchor } from '../pm-plugins/decorations';
+import { getNodeAnchor } from '../pm-plugins/decorations-common';
 import { type AnchorRectCache, isAnchorSupported } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 import { shouldAllowInlineDropTarget } from '../utils/inline-drop-target';

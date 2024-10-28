@@ -78,6 +78,7 @@ export const akEditorToolbarKeylineHeight = 2;
 export const akEditorContextPanelWidth = 320;
 export const akEditorTableCellBlanketSelected = 'rgba(179, 212, 255, 0.3)';
 export const akEditorTableCellBlanketDeleted = 'rgba(255, 235, 230, 0.3)';
+export const akEditorWrappedNodeZIndex = akEditorUnitZIndex * 2; //prevent paragraph nodes from rendering above wrapped nodes
 
 // @see typography spreadsheet: https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128
 export const blockNodesVerticalMargin = '0.75rem';

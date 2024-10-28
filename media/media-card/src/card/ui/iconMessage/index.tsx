@@ -7,10 +7,9 @@ import { type InternalIconMessageProps, type CreatingPreviewProps } from './type
 export const IconMessage: React.FC<InternalIconMessageProps> = ({
 	messageDescriptor,
 	animated = false,
-	reducedFont = false,
 }) => {
 	return (
-		<IconMessageWrapper animated={animated} reducedFont={reducedFont}>
+		<IconMessageWrapper animated={animated}>
 			<span>
 				<FormattedMessage {...messageDescriptor} />
 			</span>
@@ -32,8 +31,4 @@ export const FailedToLoad: React.FC = (props) => (
 
 export const FailedToUpload: React.FC = (props) => (
 	<IconMessage {...props} messageDescriptor={messages.failed_to_upload} />
-);
-
-export const PreviewCurrentlyUnavailable: React.FC = (props) => (
-	<IconMessage {...props} messageDescriptor={messages.preview_currently_unavailable} reducedFont />
 );

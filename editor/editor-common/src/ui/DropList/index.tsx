@@ -22,8 +22,11 @@ const packageVersion = process.env._PACKAGE_VERSION_;
 const halfFocusRing = 1;
 const dropOffset = '0, 8';
 
-interface Props extends WithAnalyticsEventsProps {
+export interface Props extends WithAnalyticsEventsProps {
 	isOpen?: boolean;
+	appearance?: string;
+	shouldFlip?: boolean;
+	isTriggerNotTabbable?: boolean;
 	trigger?: React.ReactNode;
 	position: string;
 	onOpenChange?: (event: OpenChangedEvent) => void;
@@ -32,6 +35,7 @@ interface Props extends WithAnalyticsEventsProps {
 	shouldFitContainer: boolean;
 	children?: ReactNode;
 	id?: string;
+	onDroplistRef?: (ref: HTMLDivElement | null) => unknown;
 }
 
 export type OpenChangedEvent = {
@@ -145,6 +149,10 @@ class DropList extends Component<Props> {
 		}
 	};
 
+	private handleDroplistRef = (ref: HTMLDivElement | null) => {
+		this.props.onDroplistRef?.(ref);
+	};
+
 	handleTriggerRef = (ref: HTMLDivElement) => {
 		this.triggerRef = ref;
 	};
@@ -166,7 +174,7 @@ class DropList extends Component<Props> {
 		) : null;
 
 		return (
-			<div css={this.wrapperStyles}>
+			<div css={this.wrapperStyles} ref={this.handleDroplistRef}>
 				<Layer
 					content={layerContent}
 					offset={dropOffset}

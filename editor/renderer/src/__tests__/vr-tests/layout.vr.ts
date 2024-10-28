@@ -12,6 +12,8 @@ import {
 	LayoutWithMediaRenderer,
 	LayoutWithTextAndCodeblockRenderer,
 	Layout3ColWithDifferentTextRenderer,
+	Layout4ColRenderer,
+	Layout5ColRenderer,
 } from './layout.fixture';
 import { snapshot } from '@af/visual-regression';
 
@@ -28,3 +30,6 @@ snapshot(LayoutWithDifferentTextRenderer);
 snapshot(LayoutWithMediaRenderer);
 snapshot(LayoutWithTextAndCodeblockRenderer);
 snapshot(Layout3ColWithDifferentTextRenderer);
+
+snapshot(Layout4ColRenderer);
+snapshot(Layout5ColRenderer);

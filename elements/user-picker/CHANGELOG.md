@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 10.26.3
+
+### Patch Changes
+
+- [#156360](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156360)
+  [`eef99f4bf497c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eef99f4bf497c) -
+  A11Y-7739 Add aria-hidden true to decorative images
+
 ## 10.26.2
 
 ### Patch Changes

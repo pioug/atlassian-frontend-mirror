@@ -56,6 +56,7 @@ export type {
 	TextfieldProps,
 	ToggleProps,
 	TooltipProps,
+	TimePickerProps,
 	ValidMessageProps,
 	PopupProps,
 	InlineEditProps,

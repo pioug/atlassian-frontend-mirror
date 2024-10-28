@@ -5,10 +5,6 @@ import { MultiValue, scrollToValue } from '../../../components/MultiValue';
 import { type Email, EmailType, type User, type Team } from '../../../types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-jest.mock('@atlaskit/icon/core/migration/email', () => {
-	return ({ label }: any) => <div aria-label={label}>EmailIcon</div>;
-});
-
 jest.mock('@atlaskit/select', () => ({
 	...jest.requireActual('@atlaskit/select'),
 	components: {
@@ -159,8 +155,10 @@ describe('MultiValue', () => {
 				},
 			});
 
-			expect(await screen.findByText('EmailIcon')).toBeInTheDocument();
-			expect(await screen.findByLabelText('invite')).toBeInTheDocument();
+			const emailIcon = await screen.getByTestId('add-option-avatar-email-icon');
+
+			expect(emailIcon).toBeInTheDocument();
+			expect(emailIcon).toHaveAttribute('aria-hidden', 'true');
 		});
 	});
 

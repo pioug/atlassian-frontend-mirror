@@ -49,7 +49,11 @@ import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
 import type { CategoryId } from './categories';
 import CategorySelector from './CategorySelector';
 import EmojiPickerFooter from './EmojiPickerFooter';
-import EmojiPickerList from './EmojiPickerList';
+import {
+	EmojiPickerVirtualListInternalOld as EmojiPickerListOld,
+	EmojiPickerVirtualListInternalNew as EmojiPickerListNew,
+	type PickerListRef,
+} from './EmojiPickerList';
 import type { AnalyticsEventPayload, CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
 	createAndFireEventInElementsChannel,
@@ -72,6 +76,8 @@ import { emojiPicker } from './styles';
 import { useEmoji } from '../../hooks/useEmoji';
 import { useIsMounted } from '../../hooks/useIsMounted';
 import { messages } from '../i18n';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const FREQUENTLY_USED_MAX = 16;
 
@@ -122,7 +128,13 @@ const EmojiPickerComponent = ({
 	const [emojiToDelete, setEmojiToDelete] = useState<EmojiDescription | undefined>();
 	const [toneEmoji, setToneEmoji] = useState<OptionalEmojiDescriptionWithVariations | undefined>();
 
-	const emojiPickerList = useMemo(() => createRef<EmojiPickerList>(), []);
+	const emojiPickerList = useMemo(
+		() =>
+			fg('platform_editor_react18_elements_emoji')
+				? createRef<PickerListRef>()
+				: createRef<EmojiPickerListOld>(),
+		[],
+	);
 	const openTime = useRef(0);
 	const isMounting = useRef(true);
 	const previousEmojiProvider = useRef(emojiProvider);
@@ -605,35 +617,67 @@ const EmojiPickerComponent = ({
 				disableCategories={disableCategories}
 				onCategorySelected={onCategorySelected}
 			/>
-			<EmojiPickerList
-				emojis={filteredEmojis}
-				currentUser={currentUser}
-				onEmojiSelected={recordUsageOnSelection}
-				onEmojiActive={onEmojiActive}
-				onEmojiDelete={onTriggerDelete}
-				onCategoryActivated={onCategoryActivated}
-				onSearch={onSearch}
-				query={query}
-				selectedTone={selectedTone}
-				loading={loading}
-				ref={emojiPickerList}
-				initialUploadName={query}
-				onToneSelected={onToneSelected}
-				onToneSelectorCancelled={onToneSelectorCancelled}
-				toneEmoji={toneEmoji}
-				uploading={uploading}
-				emojiToDelete={emojiToDelete}
-				uploadErrorMessage={formattedErrorMessage}
-				uploadEnabled={isUploadSupported && !uploading}
-				onUploadEmoji={onUploadEmoji}
-				onUploadCancelled={onUploadCancelled}
-				onDeleteEmoji={onDeleteEmoji}
-				onCloseDelete={onCloseDelete}
-				onFileChooserClicked={onFileChooserClicked}
-				onOpenUpload={onOpenUpload}
-				size={size}
-				activeCategoryId={activeCategory}
-			/>
+			{fg('platform_editor_react18_elements_emoji') ? (
+				<EmojiPickerListNew
+					emojis={filteredEmojis}
+					currentUser={currentUser}
+					onEmojiSelected={recordUsageOnSelection}
+					onEmojiActive={onEmojiActive}
+					onEmojiDelete={onTriggerDelete}
+					onCategoryActivated={onCategoryActivated}
+					onSearch={onSearch}
+					query={query}
+					selectedTone={selectedTone}
+					loading={loading}
+					ref={emojiPickerList}
+					initialUploadName={query}
+					onToneSelected={onToneSelected}
+					onToneSelectorCancelled={onToneSelectorCancelled}
+					toneEmoji={toneEmoji}
+					uploading={uploading}
+					emojiToDelete={emojiToDelete}
+					uploadErrorMessage={formattedErrorMessage}
+					uploadEnabled={isUploadSupported && !uploading}
+					onUploadEmoji={onUploadEmoji}
+					onUploadCancelled={onUploadCancelled}
+					onDeleteEmoji={onDeleteEmoji}
+					onCloseDelete={onCloseDelete}
+					onFileChooserClicked={onFileChooserClicked}
+					onOpenUpload={onOpenUpload}
+					size={size}
+					activeCategoryId={activeCategory}
+				/>
+			) : (
+				<EmojiPickerListOld
+					emojis={filteredEmojis}
+					currentUser={currentUser}
+					onEmojiSelected={recordUsageOnSelection}
+					onEmojiActive={onEmojiActive}
+					onEmojiDelete={onTriggerDelete}
+					onCategoryActivated={onCategoryActivated}
+					onSearch={onSearch}
+					query={query}
+					selectedTone={selectedTone}
+					loading={loading}
+					ref={emojiPickerList as React.RefObject<EmojiPickerListOld>}
+					initialUploadName={query}
+					onToneSelected={onToneSelected}
+					onToneSelectorCancelled={onToneSelectorCancelled}
+					toneEmoji={toneEmoji}
+					uploading={uploading}
+					emojiToDelete={emojiToDelete}
+					uploadErrorMessage={formattedErrorMessage}
+					uploadEnabled={isUploadSupported && !uploading}
+					onUploadEmoji={onUploadEmoji}
+					onUploadCancelled={onUploadCancelled}
+					onDeleteEmoji={onDeleteEmoji}
+					onCloseDelete={onCloseDelete}
+					onFileChooserClicked={onFileChooserClicked}
+					onOpenUpload={onOpenUpload}
+					size={size}
+					activeCategoryId={activeCategory}
+				/>
+			)}
 			{showPreview && <EmojiPickerFooter selectedEmoji={selectedEmoji} />}
 		</div>
 	);

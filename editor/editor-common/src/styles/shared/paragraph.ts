@@ -6,7 +6,7 @@
 import { css } from '@emotion/react';
 
 import { akEditorLineHeight, blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import editorUGCToken from '../../ugc-tokens/get-editor-ugc-token';
 
@@ -18,7 +18,7 @@ export const paragraphSharedStyles = (
 		| 'typography-modernized'
 		| 'typography-refreshed',
 ) => {
-	return editorExperiment('typography_migration_ugc', true)
+	return fg('platform_editor_typography_ugc')
 		? css({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'& p': {

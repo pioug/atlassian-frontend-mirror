@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+import React, { useCallback, useContext } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -12,7 +12,10 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
-import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
+import {
+	OutsideClickTargetRefContext,
+	withReactEditorViewOuterListeners,
+} from '@atlaskit/editor-common/ui-react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji';
 import { EmojiPicker } from '@atlaskit/emoji';
@@ -29,7 +32,33 @@ const emojiPickerButtonWrapper = css({
 	position: 'relative',
 });
 
-const EmojiPickerWithListener = withReactEditorViewOuterListeners(EmojiPicker);
+type EmojiPickerWithProviderProps = {
+	pluginInjectionApi?: ExtractInjectionAPI<FloatingToolbarPlugin>;
+	updateEmoji: (emoji: EmojiId) => void;
+};
+
+const EmojiPickerWithProvider = (props: EmojiPickerWithProviderProps) => {
+	const { emojiState } = useSharedPluginState(props.pluginInjectionApi, ['emoji']);
+	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
+
+	const emojiProvider = emojiState?.emojiProvider
+		? Promise.resolve(emojiState?.emojiProvider)
+		: undefined;
+
+	if (!emojiProvider) {
+		return null;
+	}
+
+	return (
+		<EmojiPicker
+			emojiProvider={emojiProvider}
+			onSelection={props.updateEmoji}
+			onPickerRef={setOutsideClickTargetRef}
+		/>
+	);
+};
+
+const EmojiPickerWithListener = withReactEditorViewOuterListeners(EmojiPickerWithProvider);
 
 export const EmojiPickerButton = (props: {
 	className?: string;
@@ -53,9 +82,9 @@ export const EmojiPickerButton = (props: {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isPopupOpen]);
 
-	const togglePopup = () => {
+	const togglePopup = useCallback(() => {
 		setIsPopupOpen(!isPopupOpen);
-	};
+	}, [setIsPopupOpen, isPopupOpen]);
 
 	const updateEmoji = (emoji: EmojiId) => {
 		setIsPopupOpen(false);
@@ -65,43 +94,25 @@ export const EmojiPickerButton = (props: {
 		});
 	};
 
-	const isDetachedElement = (el: HTMLElement) => !document.body.contains(el);
+	const isDetachedElement = useCallback((el: HTMLElement) => !document.body.contains(el), []);
 
-	const handleEmojiClickOutside = (e: MouseEvent) => {
-		// Ignore click events for detached elements.
-		// Workaround for CETI-240 - where two onClicks fire - one when the upload button is
-		// still in the document, and one once it's detached. Does not always occur, and
-		// may be a side effect of a react render optimisation
-		if (e && e.target && !isDetachedElement(e.target as HTMLElement)) {
-			togglePopup();
-		}
-	};
+	const handleEmojiClickOutside = useCallback(
+		(e: MouseEvent) => {
+			// Ignore click events for detached elements.
+			// Workaround for CETI-240 - where two onClicks fire - one when the upload button is
+			// still in the document, and one once it's detached. Does not always occur, and
+			// may be a side effect of a react render optimisation
+			if (e && e.target && !isDetachedElement(e.target as HTMLElement)) {
+				togglePopup();
+			}
+		},
+		[isDetachedElement, togglePopup],
+	);
 
-	const handleEmojiPressEscape = () => {
+	const handleEmojiPressEscape = useCallback(() => {
 		setIsPopupOpen(false);
 		buttonRef.current?.focus();
-	};
-
-	const EmojiPickerWithProvider = () => {
-		const { emojiState } = useSharedPluginState(props.pluginInjectionApi, ['emoji']);
-		const emojiProvider = emojiState?.emojiProvider
-			? Promise.resolve(emojiState?.emojiProvider)
-			: undefined;
-
-		if (!emojiProvider) {
-			return null;
-		}
-
-		return (
-			<EmojiPickerWithListener
-				emojiProvider={emojiProvider}
-				onSelection={updateEmoji}
-				onPickerRef={() => {}}
-				handleClickOutside={handleEmojiClickOutside}
-				handleEscapeKeydown={handleEmojiPressEscape}
-			/>
-		);
-	};
+	}, [setIsPopupOpen, buttonRef]);
 
 	const renderPopup = () => {
 		if (!buttonRef.current || !isPopupOpen) {
@@ -121,7 +132,12 @@ export const EmojiPickerButton = (props: {
 				zIndex={props.setDisableParentScroll ? 600 : undefined}
 				focusTrap
 			>
-				<EmojiPickerWithProvider />
+				<EmojiPickerWithListener
+					handleEscapeKeydown={handleEmojiPressEscape}
+					handleClickOutside={handleEmojiClickOutside}
+					pluginInjectionApi={props.pluginInjectionApi}
+					updateEmoji={updateEmoji}
+				/>
 			</Popup>
 		);
 	};

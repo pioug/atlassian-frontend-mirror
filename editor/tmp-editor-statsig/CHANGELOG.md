@@ -1,5 +1,16 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.10.0
+
+### Minor Changes
+
+- [#157006](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157006)
+  [`666884d7c9e24`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/666884d7c9e24) -
+  ED-25494 experiment on comment on inline node spotlight
+- [#157011](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157011)
+  [`dcdfd1e83ce5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcdfd1e83ce5a) -
+  change ugc typography experiment to a gate
+
 ## 2.9.0
 
 ### Minor Changes

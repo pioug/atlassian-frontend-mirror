@@ -7,7 +7,6 @@ import { Fragment, type MouseEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
@@ -126,18 +125,6 @@ const siteTitleStyles = css({
 	paddingInlineEnd: token('space.200', '16px'),
 });
 
-// When cleaning up feature flag, these styles can be moved into the above block
-const featureFlaggedSiteTitleStyles = css({
-	// Under the FF, we've made the site title handle it's spacing, with the
-	// PrimaryItemsContainer not needing to worry about its paddingInlineStart.
-	// This makes it cleaner for the title styles to appear and disappear with mq's
-	marginInlineEnd: token('space.100', '8px'),
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
-		display: 'none',
-	},
-});
-
 /**
  * __Product home__
  *
@@ -219,12 +206,7 @@ const ProductHome = ({
 							borderRight: theme.mode.productHome.borderRight,
 						} as React.CSSProperties
 					}
-					css={[
-						siteTitleStyles,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						getBooleanFF('platform.design-system-team.navigation-v2-no-jank_5yhbd') &&
-							featureFlaggedSiteTitleStyles,
-					]}
+					css={siteTitleStyles}
 					data-testid={testId && `${testId}-site-title`}
 				>
 					{siteTitle}

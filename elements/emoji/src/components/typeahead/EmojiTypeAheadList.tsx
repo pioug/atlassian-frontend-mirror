@@ -21,6 +21,8 @@ import {
 	typeAheadListContainer,
 } from './styles';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 function wrapIndex(emojis: EmojiDescription[], index: number): number {
 	const len = emojis.length;
 	let newIndex = index;
@@ -76,31 +78,53 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		// adjust selection
-		const { emojis } = nextProps;
-		const { selectedKey } = this.state;
-		if (!selectedKey) {
-			// go with default of selecting first item
-			return;
-		}
-		for (let i = 0; i < emojis.length; i++) {
-			if (selectedKey === emojis[i].id) {
-				this.setState({
-					selectedIndex: i,
-				});
+		if (!fg('platform_editor_react18_elements_emoji')) {
+			// adjust selection
+			const { emojis } = nextProps;
+			const { selectedKey } = this.state;
+			if (!selectedKey) {
+				// go with default of selecting first item
 				return;
 			}
+			for (let i = 0; i < emojis.length; i++) {
+				if (selectedKey === emojis[i].id) {
+					this.setState({
+						selectedIndex: i,
+					});
+					return;
+				}
+			}
+			// existing selection not in results, pick first
+			this.selectIndexNewEmoji(0, emojis);
 		}
-		// existing selection not in results, pick first
-		this.selectIndexNewEmoji(0, emojis);
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps: Props) {
 		const { emojis } = this.props;
-		const { selectedIndex } = this.state;
+		const { selectedIndex, selectedKey } = this.state;
 		if (emojis && emojis[selectedIndex]) {
 			const selectedEmoji = emojis[selectedIndex];
 			this.revealItem(selectedEmoji.id || selectedEmoji.shortName);
+		}
+
+		if (fg('platform_editor_react18_elements_emoji')) {
+			if (prevProps !== this.props) {
+				// adjust selection
+				if (!selectedKey) {
+					// go with default of selecting first item
+					return;
+				}
+				for (let i = 0; i < emojis.length; i++) {
+					if (selectedKey === emojis[i].id) {
+						this.setState({
+							selectedIndex: i,
+						});
+						return;
+					}
+				}
+				// existing selection not in results, pick first
+				this.selectIndexNewEmoji(0, emojis);
+			}
 		}
 	}
 

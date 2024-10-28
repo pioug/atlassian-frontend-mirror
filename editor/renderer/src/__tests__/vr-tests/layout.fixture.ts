@@ -11,6 +11,8 @@ import * as LayoutWithBlockNodes from '../__fixtures__/layout-with-block-nodes.a
 import * as LayoutWithDifferentText from '../__fixtures__/layout-with-different-text.adf.json';
 import * as LayoutWithMedia from '../__fixtures__/layout-with-media.adf.json';
 import * as LayoutWithTextAndCodeblock from '../__fixtures__/layout-with-text-and-codeblock.adf.json';
+import * as layout4Col from '../__fixtures__/layout-4-columns.adf.json';
+import * as layout5Col from '../__fixtures__/layout-5-columns.adf.json';
 
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 
@@ -79,5 +81,15 @@ export const LayoutRightSidebarRenderer = generateRendererComponent({
 
 export const Layout3ColWithSidebarsRenderer = generateRendererComponent({
 	document: layout3ColWithSidebars,
+	appearance: 'full-width',
+});
+
+export const Layout4ColRenderer = generateRendererComponent({
+	document: layout4Col,
+	appearance: 'full-width',
+});
+
+export const Layout5ColRenderer = generateRendererComponent({
+	document: layout5Col,
 	appearance: 'full-width',
 });

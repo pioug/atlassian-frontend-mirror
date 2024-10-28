@@ -4,9 +4,10 @@ import React from 'react';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import { messages } from '../../../../components/i18n';
 import { RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID } from '../../../../components/picker/EmojiPickerCategoryHeading';
+import * as utils from '../../../../components/picker/utils';
 import {
-	default as EmojiPickerList,
-	default as EmojiPickerVirtualList,
+	EmojiPickerVirtualListInternalOld as EmojiPickerList,
+	EmojiPickerVirtualListInternalOld as EmojiPickerVirtualList,
 	type Props as EmojiPickerListProps,
 } from '../../../../components/picker/EmojiPickerList';
 import { VirtualList } from '../../../../components/picker/VirtualList';
@@ -40,9 +41,16 @@ expect.extend(matchers);
 describe('<EmojiPickerList />', () => {
 	mockReactDomWarningGlobal();
 	beforeEach(() => {
+		// Cleanup `platform_editor_react18_elements_emoji`: remove this next jest.spyOn
+		// since it's for the class component (which has been refactored into FC)
 		jest
 			.spyOn(EmojiPickerVirtualList.prototype, 'scrollToRow')
 			.mockImplementation((index?: number) => helperTestingLibrary.scrollToIndex(index || 0));
+		jest
+			.spyOn(utils, 'scrollToRow')
+			.mockImplementation((listRef?: any, index?: number) =>
+				helperTestingLibrary.scrollToIndex(index || 0),
+			);
 	});
 
 	const emojis = [imageEmoji];

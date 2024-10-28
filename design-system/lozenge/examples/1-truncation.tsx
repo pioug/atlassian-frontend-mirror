@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Lozenge from '@atlaskit/lozenge';
 import { Stack, Text } from '@atlaskit/primitives';
-
-import Lozenge from '../src';
 
 export default () => (
 	<Stack space="space.100">

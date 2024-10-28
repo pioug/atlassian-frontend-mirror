@@ -245,16 +245,6 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
 	},
-	// Added 2024-10-04
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_typography_migration_ugc/setup
-	typography_migration_ugc: {
-		productKeys: {
-			confluence: 'platform_editor_typography_migration_ugc',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-10-06
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_element_dnd_apply_optimisation
 	'optimised-apply-dnd': {
@@ -299,6 +289,16 @@ export const editorExperimentsConfig = {
 	support_table_in_comment_jira: {
 		productKeys: {
 			jira: 'platform_editor_support_table_in_comment_jira',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2024-10-25
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_comment_on_inline_node_spotlight/setup
+	comment_on_inline_node_spotlight: {
+		productKeys: {
+			confluence: 'platform_editor_comment_on_inline_node_spotlight',
 		},
 		param: 'isEnabled',
 		typeGuard: isBoolean,

@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 200.0.0
+
+### Major Changes
+
+- [#156360](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156360)
+  [`482dbb03dbf68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/482dbb03dbf68) -
+  Change mediaStyles and embedCardStyles to function call to support fg usage
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 199.2.2
 
 ### Patch Changes

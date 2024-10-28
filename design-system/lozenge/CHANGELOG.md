@@ -1,5 +1,14 @@
 # @atlaskit/lozenge
 
+## 11.12.1
+
+### Patch Changes
+
+- [#157006](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157006)
+  [`8108b044c362b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8108b044c362b) -
+  Changes the way our JSX pragma is applied and removes Compiled as a direct dependency (it is still
+  an indirect dependncy via @atlaskit/css)
+
 ## 11.12.0
 
 ### Minor Changes

@@ -105,7 +105,7 @@ export { panelTextInput } from './PanelTextInput/styles';
 export { default as PanelTextInput } from './PanelTextInput';
 export { default as Announcer } from './Announcer/announcer';
 export { EDIT_AREA_ID } from './Toolbar';
-export { default as DropList } from './DropList';
+export { default as DropList, type Props as DropListProps } from './DropList';
 export type { UseStickyToolbarType } from './Toolbar';
 export type { OpenChangedEvent } from './DropList';
 

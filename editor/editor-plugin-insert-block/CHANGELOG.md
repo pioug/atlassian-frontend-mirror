@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.3
+
+### Patch Changes
+
+- [#155668](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155668)
+  [`f948f63ced742`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f948f63ced742) -
+  We are testing replacing findDOMNode with an explicit ref behind a feature flag. If this fix is
+  successful it will be available in a later release.
+- Updated dependencies
+
 ## 2.4.2
 
 ### Patch Changes

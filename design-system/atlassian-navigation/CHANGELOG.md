@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 4.7.5
+
+### Patch Changes
+
+- [`6ed7ccbb0bf44`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ed7ccbb0bf44) -
+  Remove experiment behind `platform.design-system-team.navigation-v2-no-jank_5yhbd` feature flag,
+  keeping the old behaviour in place.
+
 ## 4.7.4
 
 ### Patch Changes

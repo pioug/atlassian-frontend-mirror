@@ -4,9 +4,7 @@
  */
 import { type CSSProperties, memo, type ReactNode, useMemo } from 'react';
 
-import { jsx } from '@compiled/react';
-
-import { cssMap } from '@atlaskit/css';
+import { cssMap, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type BackgroundColor,

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 3.2.5
+
+### Patch Changes
+
+- [#157006](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157006)
+  [`6d448d5eee86b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d448d5eee86b) -
+  [ux] [ED-25440] Fix text alignment styles for media popup when rendered from the toolbar
+- Updated dependencies
+
 ## 3.2.4
 
 ### Patch Changes

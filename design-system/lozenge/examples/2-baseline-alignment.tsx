@@ -1,9 +1,8 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
+import Lozenge from '@atlaskit/lozenge';
 import { Box, Stack, Text } from '@atlaskit/primitives';
-
-import Lozenge from '../src';
 
 export default () => (
 	<Stack space="space.200" testId="test-container">

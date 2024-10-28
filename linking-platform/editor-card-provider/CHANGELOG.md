@@ -1,5 +1,19 @@
 # @atlaskit/editor-card-provider
 
+## 3.10.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.10.6
+
+### Patch Changes
+
+- [#156951](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156951)
+  [`0f38b2895a03e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0f38b2895a03e) -
+  Added default embed smart link type for plans URLs
+
 ## 3.10.5
 
 ### Patch Changes

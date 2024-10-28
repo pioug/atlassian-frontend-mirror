@@ -306,9 +306,20 @@ function updateImports(j: core.JSCodeshift, source: ReturnType<typeof j>) {
 	// update @atlaskit/primitives imports to @atlaskit/primitives/compiled
 	source
 		.find(j.ImportDeclaration)
-		.filter((path: ASTPath<ImportDeclaration>) => path.node.source.value === '@atlaskit/primitives')
+		.filter(
+			(path: ASTPath<ImportDeclaration>) =>
+				typeof path.node.source.value === 'string' &&
+				path.node.source.value.startsWith('@atlaskit/primitives'),
+		)
 		.forEach((path) => {
-			path.node.source.value = '@atlaskit/primitives/compiled';
+			const originalSource = path.node.source.value;
+			const newSource =
+				typeof originalSource === 'string'
+					? originalSource.replace('@atlaskit/primitives', '@atlaskit/primitives/compiled')
+					: originalSource;
+			if (newSource !== undefined) {
+				path.node.source = j.literal(newSource);
+			}
 		});
 
 	// add new imports after any existing comments to ensure they're below the jsx pragma

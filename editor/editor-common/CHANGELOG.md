@@ -1,5 +1,54 @@
 # @atlaskit/editor-common
 
+## 94.5.0
+
+### Minor Changes
+
+- [#156303](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156303)
+  [`dd9e4eaa8e65b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd9e4eaa8e65b) -
+  [ux] ED-25493 Support caption onboarding, comment notification visual refresh and live view double
+  click support
+- [#155668](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155668)
+  [`f948f63ced742`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f948f63ced742) -
+  We are testing replacing findDOMNode with an explicit ref behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
+### Patch Changes
+
+- [#156904](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156904)
+  [`be03c594d7304`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be03c594d7304) -
+  add missing margin top back to h5
+- [#157011](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157011)
+  [`4ff0cc01def2d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ff0cc01def2d) -
+  ED-25301: prevent excessive emoji re-renders
+- [#157011](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157011)
+  [`dcdfd1e83ce5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcdfd1e83ce5a) -
+  change ugc typography experiment to a gate
+- Updated dependencies
+
+## 94.4.0
+
+### Minor Changes
+
+- [#156360](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156360)
+  [`482dbb03dbf68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/482dbb03dbf68) -
+  [ux] Update mediaSingle and embedCard to set wrap layout z-index under FG
+
+### Patch Changes
+
+- [#156974](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156974)
+  [`e23605a60e753`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e23605a60e753) -
+  Add four and five column support for layout sections
+- Updated dependencies
+
+## 94.3.1
+
+### Patch Changes
+
+- [#155488](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155488)
+  [`75a3286a32347`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75a3286a32347) -
+  update tokens
+
 ## 94.3.0
 
 ### Minor Changes

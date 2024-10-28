@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.11.0
+
+### Minor Changes
+
+- [#156360](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156360)
+  [`482dbb03dbf68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/482dbb03dbf68) -
+  [ux] Ignore embedCard nodes that have wrapped layout when creating node decs
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.10.1
+
+### Patch Changes
+
+- [`19a9f330504b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19a9f330504b9) -
+  ED-25120 refactor decorations file
+
 ## 2.10.0
 
 ### Minor Changes

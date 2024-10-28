@@ -1,5 +1,11 @@
 # @atlaskit/media-table
 
+## 15.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.2.5
 
 ### Patch Changes

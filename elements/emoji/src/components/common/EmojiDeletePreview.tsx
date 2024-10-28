@@ -23,6 +23,8 @@ import {
 } from './styles';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 export interface OnDeleteEmoji {
 	(emoji: EmojiDescription): Promise<boolean>;
 }
@@ -52,8 +54,18 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 	}
 
 	UNSAFE_componentWillUpdate(nextProps: Props) {
-		if (nextProps.emoji.id !== this.props.emoji.id) {
-			this.setState({ error: false });
+		if (!fg('platform_editor_react18_elements_emoji')) {
+			if (nextProps.emoji.id !== this.props.emoji.id) {
+				this.setState({ error: false });
+			}
+		}
+	}
+
+	componentDidUpdate(prevProps: Props) {
+		if (fg('platform_editor_react18_elements_emoji')) {
+			if (prevProps.emoji.id !== this.props.emoji.id) {
+				this.setState({ error: false });
+			}
 		}
 	}
 

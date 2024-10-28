@@ -2,7 +2,7 @@ import type { RichMediaLayout } from '@atlaskit/adf-schema';
 
 import type { GuidelineTypes, WidthTypes } from '../../guideline/types';
 
-import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
+import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
 import type { EventInput } from './type-ahead';
 import type { ChangeTypeAEP, TrackAEP, UIAEP } from './utils';
 
@@ -107,6 +107,14 @@ type ChangeMediaAEP = ChangeTypeAEP<
 	undefined
 >;
 
+export type MediaViewerEventAction = UIAEP<
+	ACTION.OPENED,
+	ACTION_SUBJECT.MEDIA_VIEWER,
+	ACTION_SUBJECT_ID.MEDIA,
+	{ nodeType: string; inputMethod: INPUT_METHOD.DOUBLE_CLICK },
+	undefined
+>;
+
 export type MediaAltTextActionType =
 	| ACTION.ADDED
 	| ACTION.CLOSED
@@ -122,4 +130,5 @@ export type MediaEventPayload =
 	| MediaInputResizeTrackAction
 	| MediaBorderTrackAction
 	| CaptionTrackAction
-	| ChangeMediaAEP;
+	| ChangeMediaAEP
+	| MediaViewerEventAction;

@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { captionMessages as messages } from '@atlaskit/editor-common/media';
 import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable, Text, xcss } from '@atlaskit/primitives';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -28,10 +29,13 @@ const placeholderButton = xcss({
 	marginTop: 'space.100',
 });
 
-// platform_editor_typography_migration_ugc clean up
+// platform_editor_typography_ugc clean up
 // Remove this component
 export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, { onClick: () => void }>(
 	({ onClick }, ref) => {
+		const message = fg('platform_editor_media_interaction_improvements')
+			? { ...messages.placeholderWithDoubleClickPrompt }
+			: { ...messages.placeholder };
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 			<span
@@ -41,7 +45,7 @@ export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, { onClick: (
 				data-id={CAPTION_PLACEHOLDER_ID}
 				data-testid="caption-placeholder"
 			>
-				<FormattedMessage {...messages.placeholder} />
+				<FormattedMessage {...message} />
 			</span>
 		);
 	},
@@ -57,6 +61,10 @@ export const CaptionPlaceholderButton = React.forwardRef<
 		e.preventDefault();
 	}, []);
 
+	const message = fg('platform_editor_media_interaction_improvements')
+		? { ...messages.placeholderWithDoubleClickPrompt }
+		: { ...messages.placeholder };
+
 	return (
 		<Pressable
 			ref={ref}
@@ -69,7 +77,7 @@ export const CaptionPlaceholderButton = React.forwardRef<
 			xcss={placeholderButton}
 		>
 			<Text color="color.text.subtlest" size="large">
-				<FormattedMessage {...messages.placeholder} />
+				<FormattedMessage {...message} />
 			</Text>
 		</Pressable>
 	);

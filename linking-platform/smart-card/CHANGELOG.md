@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 30.1.5
+
+### Patch Changes
+
+- [#156360](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156360)
+  [`4432a076582e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4432a076582e7) -
+  Enable import sorting
+
 ## 30.1.4
 
 ### Patch Changes

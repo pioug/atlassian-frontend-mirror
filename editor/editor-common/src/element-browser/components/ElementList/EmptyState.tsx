@@ -7,7 +7,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { LinkButton } from '@atlaskit/button/new';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import NotFoundIllustration from './NotFoundIllustration';
@@ -28,13 +28,13 @@ export default function EmptyState({ onExternalLinkClick }: Props): JSX.Element 
 				/>
 			</div>
 			<div css={emptyStateSubHeading}>
-				<p>
+				<Text>
 					<FormattedMessage
 						id="fabric.editor.elementbrowser.search.empty-state.sub-heading"
 						defaultMessage="Try searching with a different term or discover new apps for Atlassian products."
 						description="Empty state sub-heading"
 					/>
-				</p>
+				</Text>
 				<Box xcss={externalLinkWrapper}>
 					<LinkButton
 						appearance="primary"

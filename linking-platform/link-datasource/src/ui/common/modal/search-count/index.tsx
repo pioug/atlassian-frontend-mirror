@@ -36,7 +36,7 @@ const ItemCountWrapper = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={{ color: token('color.text.accent.gray', N800), textDecoration: !url ? 'none' : '' }}
 		>
-			<Heading level="h200">{children}</Heading>
+			<Heading size="xxsmall">{children}</Heading>
 		</LinkUrl>
 	</Flex>
 );

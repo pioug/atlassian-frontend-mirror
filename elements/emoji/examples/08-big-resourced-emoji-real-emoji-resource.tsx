@@ -33,18 +33,20 @@ class ResourcedFilteredEmojiList extends PureComponent<FilteredProps, FilteredSt
 		};
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: FilteredProps) {
-		if (this.props.emojiProvider !== nextProps.emojiProvider) {
-			if (this.props.emojiProvider) {
-				this.props.emojiProvider.then((provider) => {
-					provider.unsubscribe(this.onProviderChange);
-				});
-			}
-			if (nextProps.emojiProvider) {
-				nextProps.emojiProvider.then((provider: EmojiProvider) => {
-					provider.subscribe(this.onProviderChange);
-					provider.filter('');
-				});
+	componentDidUpdate(prevProps: FilteredProps) {
+		if (this.props !== prevProps) {
+			if (this.props.emojiProvider !== prevProps.emojiProvider) {
+				if (prevProps.emojiProvider) {
+					prevProps.emojiProvider.then((provider) => {
+						provider.unsubscribe(this.onProviderChange);
+					});
+				}
+				if (this.props.emojiProvider) {
+					this.props.emojiProvider.then((provider: EmojiProvider) => {
+						provider.subscribe(this.onProviderChange);
+						provider.filter('');
+					});
+				}
 			}
 		}
 	}

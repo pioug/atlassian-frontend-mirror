@@ -655,9 +655,9 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 			)}
 			<div ref={forwardRef} />
 			{shouldShowPlaceholder &&
-				(editorExperiment('typography_migration_ugc', true) ? (
+				(fg('platform_editor_typography_ugc') ? (
 					<CaptionPlaceholderButton
-						// platform_editor_typography_migration_ugc clean up
+						// platform_editor_typography_ugc clean up
 						// remove typecasting
 						ref={captionPlaceHolderRef as React.RefObject<HTMLButtonElement>}
 						onClick={clickPlaceholder}

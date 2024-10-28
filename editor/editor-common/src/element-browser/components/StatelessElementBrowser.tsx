@@ -16,6 +16,7 @@ import { token } from '@atlaskit/tokens';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '../../analytics';
 import type { QuickInsertItem } from '../../provider-factory';
 import type { EmptyStateHandler } from '../../types';
+import editorUGCToken from '../../ugc-tokens/get-editor-ugc-token';
 import {
 	DEVICE_BREAKPOINT_NUMBERS,
 	ELEMENT_BROWSER_ID,
@@ -106,8 +107,9 @@ const sidebarHeading = css({
 	flex: `0 0 ${SIDEBAR_HEADING_WRAPPER_HEIGHT}`,
 	display: 'inline-flex',
 	alignItems: 'center',
-	paddingLeft: token('space.150', '12px'),
-	fontWeight: 700,
+	paddingLeft: token('space.150'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	font: editorUGCToken('editor.font.heading.h1', 'typography-modernized'), // use editor h1 modernized here as the style matches
 });
 
 const mobileMainContent = css({
@@ -350,6 +352,7 @@ function MobileBrowser({
 		setFocusedCategoryIndex: (index: number) => void;
 	}) {
 	return (
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			css={mobileElementBrowserContainer}
 			onKeyDown={onKeyDown}
@@ -445,15 +448,15 @@ function DesktopBrowser({
 		<div css={elementBrowserContainer} data-testid="desktop__element-browser">
 			{showCategories && (
 				<div css={showCategories ? sideBarShowCategories : sideBar}>
-					<h2 css={sidebarHeading} data-testid="sidebar-heading" id="sidebar-heading">
+					{/*not using Box here as data-testid not supported*/}
+					<div css={sidebarHeading} data-testid="sidebar-heading" id="sidebar-heading">
 						<FormattedMessage
 							id="fabric.editor.elementbrowser.sidebar.heading"
 							defaultMessage="Browse"
 							description="Sidebar heading"
 						/>
-					</h2>
-
-					{/*eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */}
+					</div>
+					{/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role */}
 					<nav role="tablist" aria-labelledby="sidebar-heading" css={categoryListWrapper}>
 						<CategoryList
 							categories={categories}
@@ -468,6 +471,7 @@ function DesktopBrowser({
 					</nav>
 				</div>
 			)}
+			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 			<div css={mainContent} onKeyDown={onKeyDown} data-testid="main-content">
 				{showSearch && (
 					// eslint-disable-next-line

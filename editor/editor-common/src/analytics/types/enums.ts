@@ -38,6 +38,7 @@ export enum ACTION {
 	DISMISSED = 'dismissed',
 	DISPATCHED_INVALID_TRANSACTION = 'dispatchedInvalidTransaction',
 	DISPATCHED_VALID_TRANSACTION = 'dispatchedValidTransaction',
+	DOUBLE_CLICKED = 'doubleClicked',
 	DRAGGED = 'dragged',
 	EDITED = 'edited',
 	EDITOR_CRASHED = 'unhandledErrorCaught',
@@ -188,6 +189,7 @@ export enum INPUT_METHOD {
 	TABLE_CONTEXT_MENU = 'tableContextMenu',
 	MOUSE = 'mouse',
 	BROWSER = 'browser',
+	DOUBLE_CLICK = 'doubleClick',
 }
 
 export enum INSERT_MEDIA_VIA {
@@ -265,6 +267,7 @@ export enum ACTION_SUBJECT {
 	CONTEXT_MENU = 'contextMenu',
 	INLINE_DIALOG = 'inlineDialog',
 	ENGAGEMENT_PLATFORM = 'engagementPlatform',
+	MEDIA_VIEWER = 'mediaViewer',
 }
 
 export enum ACTION_SUBJECT_ID {

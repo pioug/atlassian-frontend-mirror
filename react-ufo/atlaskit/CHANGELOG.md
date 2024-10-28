@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.0.2
+
+### Patch Changes
+
+- [#157063](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157063)
+  [`e710d292f8921`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e710d292f8921) -
+  manually track mount phase in UFO segments
+
+## 2.0.1
+
+### Patch Changes
+
+- [#156904](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156904)
+  [`285da5f8a4b0b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/285da5f8a4b0b) -
+  use weakref for VC observer debug elements
+
 ## 2.0.0
 
 ### Major Changes

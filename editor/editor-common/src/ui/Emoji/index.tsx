@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import type { EmojiProvider, EmojiResourceConfig } from '@atlaskit/emoji/resource';
@@ -28,6 +28,9 @@ const EmojiNodeFunctional = (props: EmojiProps) => {
 		emojiProvider,
 	} = props;
 
+	const emojiId = useMemo(() => ({ shortName, id, fallback }), [shortName, id, fallback]);
+	const emojiProviderResolver = useMemo(() => Promise.resolve(emojiProvider), [emojiProvider]);
+
 	if (allowTextFallback && !emojiProvider) {
 		return (
 			<span
@@ -46,8 +49,8 @@ const EmojiNodeFunctional = (props: EmojiProps) => {
 
 	return (
 		<ResourcedEmoji
-			emojiId={{ id, fallback, shortName }}
-			emojiProvider={Promise.resolve(emojiProvider)}
+			emojiId={emojiId}
+			emojiProvider={emojiProviderResolver as Promise<EmojiProvider>}
 			showTooltip={showTooltip}
 			fitToHeight={fitToHeight}
 			optimistic
@@ -65,4 +68,4 @@ const EmojiNode = (props: EmojiProps) => {
 	return <EmojiNodeFunctional {...props} />;
 };
 
-export default EmojiNode;
+export default React.memo(EmojiNode);

@@ -1,9 +1,7 @@
 import { createElement } from 'react';
 
-import { bind, type UnbindFn } from 'bind-event-listener';
 import ReactDOM from 'react-dom';
 import { type IntlShape } from 'react-intl-next';
-import uuid from 'uuid';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
@@ -13,9 +11,8 @@ import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { ActiveNode, BlockControlsPlugin, HandleOptions } from '../types';
+import type { ActiveNode, BlockControlsPlugin } from '../types';
 import { nodeMargins } from '../ui/consts';
-import { DragHandle } from '../ui/drag-handle';
 import { DropTarget, type DropTargetProps } from '../ui/drop-target';
 import {
 	DropTargetV2,
@@ -26,6 +23,8 @@ import { type AnchorRectCache } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 import { canMoveNodeToIndex } from '../utils/validation';
 
+import { getNestedDepth, TYPE_DROP_TARGET_DEC, unmountDecorations } from './decorations-common';
+
 const IGNORE_NODES = [
 	'tableCell',
 	'tableHeader',
@@ -34,7 +33,7 @@ const IGNORE_NODES = [
 	'listItem',
 	'caption',
 ];
-const IGNORE_NODE_DESCENDANTS = ['listItem', 'taskList', 'decisionList', 'mediaSingle'];
+
 const PARENT_WITH_END_DROP_TARGET = [
 	'tableCell',
 	'tableHeader',
@@ -46,15 +45,11 @@ const PARENT_WITH_END_DROP_TARGET = [
 ];
 const DISABLE_CHILD_DROP_TARGET = ['orderedList', 'bulletList'];
 
-export const TYPE_DROP_TARGET_DEC = 'drop-target-decoration';
-export const TYPE_HANDLE_DEC = 'drag-handle';
-export const TYPE_NODE_DEC = 'node-decoration';
-
-const getNestedDepth = () => (editorExperiment('nested-dnd', true) ? 100 : 0);
-
-export const getNodeAnchor = (node: PMNode) => {
-	const handleId = ObjHash.getForNode(node);
-	return `--node-anchor-${node.type.name}-${handleId}`;
+const shouldDescend = (node: PMNode) => {
+	if (fg('platform_editor_drag_and_drop_target_v2')) {
+		return !['mediaSingle', 'paragraph', 'heading'].includes(node.type.name);
+	}
+	return true;
 };
 
 const getNodeMargins = (node?: PMNode) => {
@@ -104,13 +99,6 @@ const getGapAndOffset = (prevNode?: PMNode, nextNode?: PMNode, parentNode?: PMNo
 	return { gap, offset };
 };
 
-const shouldDescend = (node: PMNode) => {
-	if (fg('platform_editor_drag_and_drop_target_v2')) {
-		return !['mediaSingle', 'paragraph', 'heading'].includes(node.type.name);
-	}
-	return true;
-};
-
 /**
  * Find drop target decorations in the pos range between from and to
  * @param decorations
@@ -120,39 +108,6 @@ const shouldDescend = (node: PMNode) => {
  */
 export const findDropTargetDecs = (decorations: DecorationSet, from?: number, to?: number) => {
 	return decorations.find(from, to, (spec) => spec.type === TYPE_DROP_TARGET_DEC);
-};
-
-export const findHandleDec = (decorations: DecorationSet, from?: number, to?: number) => {
-	return decorations.find(from, to, (spec) => spec.type === TYPE_HANDLE_DEC);
-};
-
-/**
- * Find node decorations in the pos range between from and to (non-inclusive)
- * @param decorations
- * @param from
- * @param to
- * @returns
- */
-export const findNodeDecs = (decorations: DecorationSet, from?: number, to?: number) => {
-	let newfrom = from;
-	let newTo = to;
-
-	// make it non-inclusive
-	if (newfrom !== undefined) {
-		newfrom++;
-	}
-
-	// make it non-inclusive
-	if (newTo !== undefined) {
-		newTo--;
-	}
-
-	// return empty array if range reversed
-	if (newfrom !== undefined && newTo !== undefined && newfrom > newTo) {
-		return new Array<Decoration>();
-	}
-
-	return decorations.find(newfrom, newTo, (spec) => spec.type === TYPE_NODE_DEC);
 };
 
 export const createDropTargetDecoration = (
@@ -344,195 +299,4 @@ export const dropTargetDecorations = (
 	}
 
 	return decs;
-};
-
-export const emptyParagraphNodeDecorations = () => {
-	const anchorName = `--node-anchor-paragraph-0`;
-	const style = `anchor-name: ${anchorName}; margin-top: 0px;`;
-	return Decoration.node(
-		0,
-		2,
-		{
-			style,
-			['data-drag-handler-anchor-name']: anchorName,
-		},
-		{
-			type: TYPE_NODE_DEC,
-		},
-	);
-};
-
-class ObjHash {
-	static caching = new WeakMap();
-
-	static getForNode(node: PMNode) {
-		if (this.caching.has(node)) {
-			return this.caching.get(node);
-		}
-		const uniqueId = uuid();
-		this.caching.set(node, uniqueId);
-		return uniqueId;
-	}
-}
-
-const shouldIgnoreNode = (node: PMNode) => {
-	// TODO use isWrappedMedia when clean up the featue flag
-	if ('mediaSingle' === node.type.name && fg('platform_editor_element_dnd_nested_fix_patch_1')) {
-		if (['wrap-right', 'wrap-left'].includes(node.attrs.layout)) {
-			return true;
-		}
-	}
-	return IGNORE_NODES.includes(node.type.name);
-};
-
-export const shouldDescendIntoNode = (node: PMNode) => {
-	// Optimisation to avoid drawing node decorations for empty table cells
-	if (
-		['tableCell', 'tableHeader'].includes(node.type.name) &&
-		!editorExperiment('table-nested-dnd', true) &&
-		fg('platform_editor_element_dnd_nested_fix_patch_3')
-	) {
-		if (node.childCount === 1 && node.firstChild?.type.name === 'paragraph') {
-			return false;
-		}
-	}
-
-	return !IGNORE_NODE_DESCENDANTS.includes(node.type.name);
-};
-
-export const nodeDecorations = (newState: EditorState, from?: number, to?: number) => {
-	const decs: Decoration[] = [];
-	const docFrom = from === undefined || from < 0 ? 0 : from;
-	const docTo = to === undefined || to > newState.doc.nodeSize - 2 ? newState.doc.nodeSize - 2 : to;
-
-	newState.doc.nodesBetween(docFrom, docTo, (node, pos, _parent, index) => {
-		let depth = 0;
-		let anchorName;
-		const shouldDescend = shouldDescendIntoNode(node);
-		const handleId = ObjHash.getForNode(node);
-		anchorName = `--node-anchor-${node.type.name}-${handleId}`;
-
-		if (editorExperiment('nested-dnd', true)) {
-			// Doesn't descend into a node
-			if (node.isInline) {
-				return false;
-			}
-
-			if (shouldIgnoreNode(node)) {
-				return shouldDescend; //skip over, don't consider it a valid depth
-			}
-
-			depth = newState.doc.resolve(pos).depth;
-			anchorName = anchorName ?? `--node-anchor-${node.type.name}-${pos}`;
-		} else {
-			anchorName = anchorName ?? `--node-anchor-${node.type.name}-${index}`;
-		}
-
-		decs.push(
-			Decoration.node(
-				pos,
-				pos + node.nodeSize,
-				{
-					style: `anchor-name: ${anchorName}; ${pos === 0 ? 'margin-top: 0px;' : ''}; position: relative; z-index: 1;`,
-					['data-drag-handler-anchor-name']: anchorName,
-					['data-drag-handler-node-type']: node.type.name,
-					['data-drag-handler-anchor-depth']: `${depth}`,
-				},
-				{
-					type: TYPE_NODE_DEC,
-					anchorName,
-					nodeType: node.type.name,
-				},
-			),
-		);
-
-		return shouldDescend && depth < getNestedDepth();
-	});
-	return decs;
-};
-
-export const dragHandleDecoration = (
-	api: ExtractInjectionAPI<BlockControlsPlugin>,
-	formatMessage: IntlShape['formatMessage'],
-	pos: number,
-	anchorName: string,
-	nodeType: string,
-	handleOptions?: HandleOptions,
-) => {
-	unmountDecorations('data-blocks-drag-handle-container');
-
-	let unbind: UnbindFn;
-	return Decoration.widget(
-		pos,
-		(view, getPos) => {
-			const element = document.createElement('span');
-			// Need to set it to inline to avoid text being split when merging two paragraphs
-			// platform_editor_element_dnd_nested_fix_patch_2 -> inline decoration causes focus issues when refocusing Editor into first line
-			element.style.display = fg('platform_editor_element_dnd_nested_fix_patch_2')
-				? 'block'
-				: 'inline';
-			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
-			element.setAttribute('data-blocks-drag-handle-container', 'true');
-			let isTopLevelNode = true;
-
-			if (editorExperiment('nested-dnd', true)) {
-				const newPos = fg('platform_editor_element_dnd_nested_fix_patch_3') ? getPos() : pos;
-				if (typeof newPos === 'number') {
-					const $pos = view.state.doc.resolve(newPos);
-					isTopLevelNode = $pos?.parent.type.name === 'doc';
-				}
-				/*
-				 * We disable mouseover event to fix flickering issue on hover
-				 * However, the tooltip for nested drag handle is no long working.
-				 */
-				if (newPos === undefined || !isTopLevelNode) {
-					// This will also hide the tooltip.
-					unbind = bind(element, {
-						type: 'mouseover',
-						listener: (e) => {
-							e.stopPropagation();
-						},
-					});
-				}
-			}
-
-			// There are times when global clear: "both" styles are applied to this decoration causing jumpiness
-			// due to margins applied to other nodes eg. Headings
-			element.style.clear = 'unset';
-
-			ReactDOM.render(
-				createElement(DragHandle, {
-					view,
-					api,
-					formatMessage,
-					getPos,
-					anchorName,
-					nodeType,
-					handleOptions,
-					isTopLevelNode,
-				}),
-				element,
-			);
-			return element;
-		},
-		{
-			side: -1,
-			type: TYPE_HANDLE_DEC,
-			testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
-			destroy: () => {
-				if (editorExperiment('nested-dnd', true)) {
-					unbind && unbind();
-				}
-			},
-		},
-	);
-};
-
-const unmountDecorations = (selector: string) => {
-	// Removing decorations manually instead of using native destroy function in prosemirror API
-	// as it was more responsive and causes less re-rendering
-	const decorationsToRemove = document.querySelectorAll(`[${selector}="true"]`);
-	decorationsToRemove.forEach((el) => {
-		ReactDOM.unmountComponentAtNode(el);
-	});
 };

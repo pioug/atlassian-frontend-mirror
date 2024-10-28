@@ -66,6 +66,7 @@ export type {
 	CaptionTrackAction,
 	MediaResizeTrackAction,
 	MediaInputResizeTrackAction,
+	MediaViewerEventAction,
 } from './media-events';
 export type { MoveContentEventPayload } from './move-content-events';
 export type { DispatchAnalyticsEvent } from './dispatch-analytics-event';

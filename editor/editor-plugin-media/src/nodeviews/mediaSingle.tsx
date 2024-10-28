@@ -99,7 +99,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 	};
 
 	mediaSingleWrapperRef = React.createRef<HTMLDivElement>();
-	// platform_editor_typography_migration_ugc clean up
+	// platform_editor_typography_ugc clean up
 	// remove HTMLSpanElement type
 	captionPlaceHolderRef = React.createRef<HTMLSpanElement | HTMLButtonElement>();
 
@@ -499,9 +499,9 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 				)}
 				<div ref={this.props.forwardRef} />
 				{shouldShowPlaceholder &&
-					(editorExperiment('typography_migration_ugc', true) ? (
+					(fg('platform_editor_typography_ugc') ? (
 						<CaptionPlaceholderButton
-							// platform_editor_typography_migration_ugc clean up
+							// platform_editor_typography_ugc clean up
 							// remove typecasting
 							ref={this.captionPlaceHolderRef as React.RefObject<HTMLButtonElement>}
 							onClick={this.clickPlaceholder}

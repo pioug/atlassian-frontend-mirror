@@ -21,6 +21,7 @@ import { CardClient } from '@atlaskit/link-provider';
 import { type JsonLd } from 'json-ld-types';
 import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import * as api from './api';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const BATCH_WAIT_TIME = 50;
 
@@ -84,6 +85,12 @@ const isJiraBacklog = (url: string) => {
 
 const isJiraBoard = (url: string) => {
 	return url.match(/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/\d\??.*/);
+};
+
+const isJiraPlan = (url: string) => {
+	return url.match(
+		/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)\/scenarios\/(?<resourceContext>\d+)\/(timeline|summary|calendar|program\/\d+|dependencies)\/?/,
+	);
 };
 
 export class EditorCardProvider implements CardProvider {
@@ -222,6 +229,12 @@ export class EditorCardProvider implements CardProvider {
 	 * @returns 'embed' for the card appearance to embed by default
 	 */
 	protected getHardCodedAppearance(url: string): CardAppearance | undefined {
+		// Replace directly with isJiraPlan(url) on cleanup
+		let isJiraPlanEvaluated;
+		if (fg('smart_links_for_plans')) {
+			isJiraPlanEvaluated = isJiraPlan(url);
+		}
+
 		if (
 			isJiraRoadmapOrTimeline(url) ||
 			isPolarisView(url) ||
@@ -235,7 +248,8 @@ export class EditorCardProvider implements CardProvider {
 			isLoomUrl(url) ||
 			isJiraDashboard(url) ||
 			isJiraBacklog(url) ||
-			isJiraBoard(url)
+			isJiraBoard(url) ||
+			isJiraPlanEvaluated
 		) {
 			return 'embed';
 		}

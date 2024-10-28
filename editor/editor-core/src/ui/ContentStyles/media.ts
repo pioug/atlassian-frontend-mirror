@@ -2,7 +2,11 @@
 import { css } from '@emotion/react';
 
 import { mediaInlineImageStyles } from '@atlaskit/editor-common/media-inline';
-import { mediaSingleSharedStyle, richMediaClassName } from '@atlaskit/editor-common/styles';
+import {
+	mediaSingleSharedStyle,
+	mediaSingleSharedStyleNew,
+	richMediaClassName,
+} from '@atlaskit/editor-common/styles';
 import {
 	akEditorDeleteBackground,
 	akEditorDeleteBorder,
@@ -18,12 +22,15 @@ import {
 	inlinePlayerClassName,
 	newFileExperienceClassName,
 } from '@atlaskit/media-card';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const mediaStyles = css`
+export const mediaStyles = () => css`
 	.ProseMirror {
-		${mediaSingleSharedStyle} & [layout='full-width'] .${richMediaClassName},
+		${fg('platform_editor_element_dnd_nested_fix_patch_3')
+			? mediaSingleSharedStyleNew
+			: mediaSingleSharedStyle} & [layout='full-width'] .${richMediaClassName},
     & [layout='wide'] .${richMediaClassName} {
 			margin-left: 50%;
 			transform: translateX(-50%);

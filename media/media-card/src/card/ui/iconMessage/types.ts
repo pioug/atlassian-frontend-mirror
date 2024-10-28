@@ -4,7 +4,6 @@ import { type MessageDescriptor } from 'react-intl-next';
 export type InternalIconMessageProps = {
 	messageDescriptor: MessageDescriptor;
 	animated?: boolean;
-	reducedFont?: boolean;
 };
 
 export type CreatingPreviewProps = {

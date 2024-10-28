@@ -1,9 +1,8 @@
 import React from 'react';
 
+import Lozenge from '@atlaskit/lozenge/compiled';
 import { Stack, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import Lozenge from '../src/compiled';
 
 export default function Example() {
 	return (

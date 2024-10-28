@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "30.1.4",
+	"version": "30.1.5",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -130,6 +130,14 @@
 			"design-tokens": [
 				"color",
 				"spacing"
+			]
+		},
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
 			]
 		}
 	},

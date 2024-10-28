@@ -13,7 +13,9 @@ export type PresetLayout =
 	| 'three_equal'
 	| 'two_right_sidebar'
 	| 'two_left_sidebar'
-	| 'three_with_sidebars';
+	| 'three_with_sidebars'
+	| 'four_equal'
+	| 'five_equal';
 
 export interface Change {
 	from: number;

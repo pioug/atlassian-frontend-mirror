@@ -1,20 +1,29 @@
 /* eslint-disable @atlaskit/design-system/prefer-primitives */
 import React, { useState } from 'react';
 
-import { DropList, Popup } from '@atlaskit/editor-common/ui';
+import { DropList, type DropListProps, Popup } from '@atlaskit/editor-common/ui';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import {
 	ArrowKeyNavigationProvider,
 	ArrowKeyNavigationType,
 	DropdownMenuItem,
 } from '@atlaskit/editor-common/ui-menu';
-import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
+import {
+	OutsideClickTargetRefContext,
+	withReactEditorViewOuterListeners,
+} from '@atlaskit/editor-common/ui-react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { MenuGroup, Section } from '@atlaskit/menu';
 
 import { dragMenuDropdownWidth } from '../consts';
 
-const DropListWithOutsideListeners = withReactEditorViewOuterListeners(DropList);
+const DropListWithOutsideClickTargetRef = (props: DropListProps) => {
+	const setOutsideClickTargetRef = React.useContext(OutsideClickTargetRefContext);
+	return <DropList onDroplistRef={setOutsideClickTargetRef} {...props} />;
+};
+const DropListWithOutsideListeners = withReactEditorViewOuterListeners(
+	DropListWithOutsideClickTargetRef,
+);
 
 type DropdownMenuProps = {
 	items: Array<{

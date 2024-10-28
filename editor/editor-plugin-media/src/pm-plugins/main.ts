@@ -9,6 +9,12 @@ import { RawIntlProvider } from 'react-intl-next';
 import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { InputMethodInsertMedia, InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
 import {
@@ -61,12 +67,13 @@ import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
 import DropPlaceholder from '../ui/Media/DropPlaceholder';
 import {
 	getMediaFromSupportedMediaNodesFromSelection,
+	isNodeDoubleClickSupportedInLivePagesViewMode,
 	removeMediaNode,
 	splitMediaGroup,
 } from '../utils/media-common';
 import { insertMediaGroupNode, insertMediaInlineNode } from '../utils/media-files';
 import { getMediaNodeInsertionType } from '../utils/media-inline';
-import { insertMediaSingleNode, isVideo } from '../utils/media-single';
+import { insertMediaSingleNode } from '../utils/media-single';
 
 import { ACTIONS } from './actions';
 import { MediaTaskManager } from './mediaTaskManager';
@@ -1080,24 +1087,39 @@ export const createPlugin = (
 			handleDoubleClickOn: (view) => {
 				if (
 					!fg('platform_editor_media_previewer_bugfix') ||
-					!fg('platform_editor_media_interaction_improvements') ||
-					pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode === 'view'
+					!fg('platform_editor_media_interaction_improvements')
 				) {
 					return;
 				}
+
+				const isLivePagesViewMode =
+					pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 
 				// Double Click support for Media Viewer Nodes
 				const maybeMediaNode = getMediaFromSupportedMediaNodesFromSelection(view.state);
 				if (maybeMediaNode) {
 					// If media type is video, do not open media viewer
-					if (isVideo(maybeMediaNode.attrs.__fileMimeType)) {
+					if (!isNodeDoubleClickSupportedInLivePagesViewMode(isLivePagesViewMode, maybeMediaNode)) {
 						return false;
 					}
+					// Show media viewer
 					pluginInjectionApi?.core.actions.execute(
 						pluginInjectionApi?.media.commands.showMediaViewer(
 							maybeMediaNode.attrs as MediaADFAttrs,
 						),
 					);
+
+					// Call analytics event
+					pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent({
+						action: ACTION.OPENED,
+						actionSubject: ACTION_SUBJECT.MEDIA_VIEWER,
+						actionSubjectId: ACTION_SUBJECT_ID.MEDIA,
+						eventType: EVENT_TYPE.UI,
+						attributes: {
+							nodeType: maybeMediaNode.type.name,
+							inputMethod: INPUT_METHOD.DOUBLE_CLICK,
+						},
+					});
 
 					return true;
 				}

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { RefObject } from 'react';
+import type { MutableRefObject } from 'react';
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -11,9 +11,13 @@ import { css, jsx } from '@emotion/react';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { Popup } from '@atlaskit/editor-common/ui';
-import { withReactEditorViewOuterListeners as withOuterListeners } from '@atlaskit/editor-common/ui-react';
+import {
+	OutsideClickTargetRefContext,
+	withReactEditorViewOuterListeners as withOuterListeners,
+} from '@atlaskit/editor-common/ui-react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { ColorType as Color } from '@atlaskit/status/picker';
 import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
 import { N0 } from '@atlaskit/theme/colors';
@@ -86,7 +90,7 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
 	private startTime!: number;
 	private inputMethod?: InputMethod;
 	private createStatusAnalyticsAndFireFunc: Function;
-	private popupBodyWrapper: RefObject<HTMLDivElement>;
+	private popupBodyWrapper: MutableRefObject<HTMLDivElement | null>;
 	private focusTimeout: ReturnType<typeof requestAnimationFrame> | undefined;
 	constructor(props: Props) {
 		super(props);
@@ -229,6 +233,40 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
 			return this.handleArrow(event, closingMethods[event.key as keyof typeof closingMethods]);
 		}
 	};
+	private setRef(setOutsideClickTargetRef: (el: HTMLElement | null) => void) {
+		return (ref: HTMLDivElement) => {
+			setOutsideClickTargetRef(ref);
+			this.popupBodyWrapper.current = ref;
+		};
+	}
+
+	private renderWithSetOutsideClickTargetRef(
+		setOutsideClickTargetRef: (el: HTMLElement | null) => void,
+	) {
+		const { isNew, focusStatusInput } = this.props;
+		const { color, text } = this.state;
+		return (
+			// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+			<div
+				css={pickerContainerStyles}
+				tabIndex={-1}
+				ref={this.setRef(setOutsideClickTargetRef)}
+				onClick={this.handlePopupClick}
+				onKeyDown={this.onKeyDown}
+			>
+				<AkStatusPicker
+					// eslint-disable-next-line jsx-a11y/no-autofocus
+					autoFocus={isNew || focusStatusInput}
+					selectedColor={color}
+					text={text}
+					onColorClick={this.onColorClick}
+					onColorHover={this.onColorHover}
+					onTextChanged={this.onTextChanged}
+					onEnter={this.onEnter}
+				/>
+			</div>
+		);
+	}
 
 	render() {
 		const {
@@ -260,23 +298,30 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
 					scrollableElement={scrollableElement}
 					closeOnTab={false}
 				>
-					<div
-						css={pickerContainerStyles}
-						tabIndex={-1}
-						ref={this.popupBodyWrapper}
-						onClick={this.handlePopupClick}
-						onKeyDown={this.onKeyDown}
-					>
-						<AkStatusPicker
-							autoFocus={isNew || focusStatusInput}
-							selectedColor={color}
-							text={text}
-							onColorClick={this.onColorClick}
-							onColorHover={this.onColorHover}
-							onTextChanged={this.onTextChanged}
-							onEnter={this.onEnter}
-						/>
-					</div>
+					{fg('platform_editor_replace_finddomnode_in_common') ? (
+						<OutsideClickTargetRefContext.Consumer>
+							{this.renderWithSetOutsideClickTargetRef.bind(this)}
+						</OutsideClickTargetRefContext.Consumer>
+					) : (
+						// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+						<div
+							css={pickerContainerStyles}
+							tabIndex={-1}
+							onClick={this.handlePopupClick}
+							onKeyDown={this.onKeyDown}
+						>
+							<AkStatusPicker
+								// eslint-disable-next-line jsx-a11y/no-autofocus
+								autoFocus={isNew || focusStatusInput}
+								selectedColor={color}
+								text={text}
+								onColorClick={this.onColorClick}
+								onColorHover={this.onColorHover}
+								onTextChanged={this.onTextChanged}
+								onEnter={this.onEnter}
+							/>
+						</div>
+					)}
 				</PopupWithListeners>
 			)
 		);

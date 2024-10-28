@@ -1,9 +1,8 @@
 import React from 'react';
 
+import Lozenge from '@atlaskit/lozenge';
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import Lozenge from '../src';
 
 const fixedWidthStyles = xcss({
 	width: '400px',

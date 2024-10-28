@@ -41,10 +41,9 @@ import {
 	PreviewUnavailable,
 	CreatingPreview,
 	FailedToUpload,
-	PreviewCurrentlyUnavailable,
 	FailedToLoad,
 } from './ui/iconMessage';
-import { isUploadError, isRateLimitedError, isPollingError, type MediaCardError } from '../errors';
+import { isUploadError, type MediaCardError } from '../errors';
 import { Wrapper, ImageContainer } from './ui/wrapper';
 import { fileCardImageViewSelector } from './classnames';
 import { useBreakpoint } from './useBreakpoint';
@@ -230,10 +229,7 @@ export const CardViewBase = ({
 
 				let iconMessage;
 				let customTitleMessage;
-				const { secondaryError } = error || {};
-				if (isRateLimitedError(secondaryError) || isPollingError(secondaryError)) {
-					iconMessage = <PreviewCurrentlyUnavailable />;
-				} else if (isUploadError(error)) {
+				if (isUploadError(error)) {
 					iconMessage = <FailedToUpload />;
 					customTitleMessage = messages.failed_to_upload;
 				} else if (!metadata) {

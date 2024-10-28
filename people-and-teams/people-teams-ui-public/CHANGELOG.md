@@ -1,5 +1,21 @@
 # @atlaskit/people-teams-ui-public
 
+## 1.4.0
+
+### Minor Changes
+
+- [#155986](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155986)
+  [`9cbf88cefdd82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9cbf88cefdd82) -
+  [ux] Custom icon migration (https://product-fabric.atlassian.net/browse/DSP-21130)
+
+## 1.3.0
+
+### Minor Changes
+
+- [#156402](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156402)
+  [`ef3a5cb9eb24f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ef3a5cb9eb24f) -
+  [ux] Visual indicator for external teams in team setting dialog
+
 ## 1.2.0
 
 ### Minor Changes

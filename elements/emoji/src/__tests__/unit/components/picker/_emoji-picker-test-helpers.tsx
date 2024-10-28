@@ -13,7 +13,7 @@ import type { CategoryGroupKey } from '../../../../components/picker/categories'
 import EmojiPicker, { type Props } from '../../../../components/picker/EmojiPicker';
 import EmojiPickerCategoryHeading from '../../../../components/picker/EmojiPickerCategoryHeading';
 import EmojiPickerEmojiRow from '../../../../components/picker/EmojiPickerEmojiRow';
-import EmojiPickerList from '../../../../components/picker/EmojiPickerList';
+import { EmojiPickerVirtualListInternalOld as EmojiPickerList } from '../../../../components/picker/EmojiPickerList';
 import { EmojiPickerListSearch } from '../../../../components/picker/EmojiPickerListSearch';
 import type { EmojiDescription } from '../../../../types';
 import { getEmojiResourcePromise, newEmojiRepository } from '../../_test-data';

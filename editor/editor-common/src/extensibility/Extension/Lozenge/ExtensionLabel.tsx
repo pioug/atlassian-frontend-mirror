@@ -75,7 +75,7 @@ const buttonLabelStyles = css({
 	'&.remove-nested-left-margin': {
 		marginLeft: 0,
 	},
-	fontSize: '16px',
+	fontSize: token('space.200', '16px'),
 	fontWeight: token('font.weight.regular', '400'),
 });
 
@@ -85,6 +85,9 @@ const spacerStyles = css({
 });
 
 const textStyles = css({
+	// cannot use font.body or editor custom font.body here as line-height need to be 1 (from sharedLabelStyles)
+	// cannot use space token as there is not token for 14px
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: '14px',
 	fontWeight: token('font.weight.regular', '400'),
 	padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
@@ -168,6 +171,7 @@ export const ExtensionLabel = ({
 	});
 
 	return (
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			css={containerStyles}
@@ -175,6 +179,7 @@ export const ExtensionLabel = ({
 			className={containerClassNames}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={customContainerStyles}
+			// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
 			onMouseOver={() => {
 				setIsNodeHovered?.(true);
 			}}

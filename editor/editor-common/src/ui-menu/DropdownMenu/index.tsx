@@ -18,8 +18,8 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { DropdownMenuSharedCssClassName } from '../../styles';
 import { KeyDownHandlerContext } from '../../ui-menu/ToolbarArrowKeyNavigationProvider';
-import { withReactEditorViewOuterListeners } from '../../ui-react';
-import DropList from '../../ui/DropList';
+import { OutsideClickTargetRefContext, withReactEditorViewOuterListeners } from '../../ui-react';
+import DropList, { type Props as DropListProps } from '../../ui/DropList';
 import Popup from '../../ui/Popup';
 import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
 import { ArrowKeyNavigationType } from '../ArrowKeyNavigationProvider/types';
@@ -88,7 +88,13 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 	}
 };
 
-const DropListWithOutsideListeners: any = withReactEditorViewOuterListeners(DropList);
+const DropListWithOutsideClickTargetRef = (props: DropListProps) => {
+	const setOutsideClickTargetRef = React.useContext(OutsideClickTargetRefContext);
+	return <DropList onDroplistRef={setOutsideClickTargetRef} {...props} />;
+};
+const DropListWithOutsideListeners = withReactEditorViewOuterListeners(
+	DropListWithOutsideClickTargetRef,
+);
 
 /**
  * Wrapper around @atlaskit/droplist which uses Popup and Portal to render
@@ -124,7 +130,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 		}
 	};
 
-	private handleClose = (event?: PointerEvent | KeyboardEvent) => {
+	private handleClose = (event?: MouseEvent | PointerEvent | KeyboardEvent) => {
 		const { onOpenChange } = this.props;
 		if (onOpenChange) {
 			if (fg('platform_editor_a11y_table_context_menu')) {
@@ -346,6 +352,7 @@ export function DropdownMenuItem({
 	const tabIndex = item.wrapperTabIndex === null ? undefined : item.wrapperTabIndex || -1;
 
 	const dropListItem = (
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			css={() => buttonStyles(item.isActive, submenuActive)}
 			tabIndex={tabIndex}

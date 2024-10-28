@@ -526,7 +526,7 @@ describe('CardView', () => {
 			expect(screen.queryAllByText('Preview Unavailable').length).toBe(2);
 		});
 
-		it(`should render PreviewCurrentlyUnavailable when there is PollingMaxAttemptsError`, () => {
+		it(`should render Preview Unavailable when there is PollingMaxAttemptsError`, () => {
 			const error = new MediaCardError('error-file-state', createPollingMaxAttemptsError());
 			const metadata: FileDetails = {
 				id: 'some-id',
@@ -534,13 +534,13 @@ describe('CardView', () => {
 				mediaType: 'image',
 			};
 
-			const { queryByText } = renderCardViewBase({
+			renderCardViewBase({
 				status: 'error',
 				metadata: metadata,
 				error,
 			});
 
-			expect(queryByText('Preview currently unavailable')).toBeInTheDocument();
+			expect(screen.getByText('Preview Unavailable')).toBeInTheDocument();
 		});
 
 		it(`should render ImageRenderer when preview is defined`, () => {

@@ -87,6 +87,7 @@ export type Config = {
 	readonly enableSegmentHighlighting?: boolean;
 	readonly shouldCalculateLighthouseMetricsFromTTAI?: boolean;
 	readonly timeWindowForLateMutationsInMilliseconds?: number;
+	readonly manuallyTrackReactProfilerMounts?: boolean;
 	/**
 	 * @deprecated setting this will do nothing now
 	 */

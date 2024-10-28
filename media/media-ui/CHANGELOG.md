@@ -1,5 +1,16 @@
 # @atlaskit/media-ui
 
+## 26.0.0
+
+### Major Changes
+
+- [#156360](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156360)
+  [`411b348673f6b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/411b348673f6b) -
+  [ux] Replace "Preview currently unavailable" messaging for media card rate limit errors with
+  standard "Preview unavailable" messaging. `@atlaskit/media-ui` requires a major version bump as
+  the "Preview currently unavailable" messaging has been removed, this messaging is only used by the
+  `@atlaskit/media-card` component however.
+
 ## 25.16.1
 
 ### Patch Changes

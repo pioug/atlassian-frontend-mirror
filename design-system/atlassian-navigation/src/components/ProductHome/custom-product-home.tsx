@@ -7,7 +7,6 @@ import { Fragment, type MouseEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -108,13 +107,6 @@ const siteTitleStyles = css({
 	paddingInlineEnd: token('space.200', '16px'),
 });
 
-const hideSiteTitleStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
-		display: 'none',
-	},
-});
-
 /**
  * __Custom product home__
  *
@@ -200,11 +192,7 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
 							borderRight: theme.mode.productHome.borderRight,
 						} as React.CSSProperties
 					}
-					css={[
-						siteTitleStyles,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						fg('platform.design-system-team.navigation-v2-no-jank_5yhbd') && hideSiteTitleStyles,
-					]}
+					css={siteTitleStyles}
 					data-testid={testId && `${testId}-site-title`}
 				>
 					{siteTitle}

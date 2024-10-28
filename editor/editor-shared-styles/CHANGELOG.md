@@ -1,5 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 3.1.1
+
+### Patch Changes
+
+- [#156360](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156360)
+  [`482dbb03dbf68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/482dbb03dbf68) -
+  Add akEditorWrappedNodeZIndex constant
+
 ## 3.1.0
 
 ### Minor Changes

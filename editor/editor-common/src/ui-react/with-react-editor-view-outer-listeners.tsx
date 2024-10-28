@@ -1,14 +1,21 @@
-import React, { PureComponent, useEffect, useState } from 'react';
+import React, { PureComponent, useCallback, useEffect, useRef, useState } from 'react';
 
 import ReactDOM from 'react-dom';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import ReactEditorViewContext from './ReactEditorViewContext';
 
 type SimpleEventHandler<T> = (event: T) => void;
 
-// This needs exporting to be used alongisde `withReactEditorViewOuterListeners`
+// Use this context to pass in the reference of the element that should be considered as the outside click target
+// The outside click target is the element that should be clicked outside of to trigger the `handleClickOutside` event
+export const OutsideClickTargetRefContext = React.createContext<(el: HTMLElement | null) => void>(
+	() => {},
+);
+
+// This needs exporting to be used alongside `withReactEditorViewOuterListeners`
 export interface WithOutsideClickProps {
 	handleClickOutside?: SimpleEventHandler<MouseEvent>;
 	handleEscapeKeydown?: SimpleEventHandler<KeyboardEvent>;
@@ -24,6 +31,7 @@ class WithOutsideClick extends PureComponent<
 		editorRef?: React.RefObject<HTMLDivElement>;
 		popupsMountPoint?: HTMLElement;
 		children?: React.ReactNode;
+		outsideClickTargetRef: React.MutableRefObject<HTMLElement | null>;
 	},
 	{}
 > {
@@ -55,17 +63,19 @@ class WithOutsideClick extends PureComponent<
 	}
 
 	handleClick = (evt: MouseEvent) => {
-		if (!this.props.isActiveComponent) {
+		if (!this.props.isActiveComponent || !this.props.handleClickOutside) {
 			return;
 		}
-		const domNode = ReactDOM.findDOMNode(this); // eslint-disable-line react/no-find-dom-node
+
+		const domNode = fg('platform_editor_replace_finddomnode_in_common')
+			? this.props.outsideClickTargetRef.current
+			: ReactDOM.findDOMNode(this);
+
 		if (!domNode || (evt.target instanceof Node && !domNode.contains(evt.target))) {
-			if (this.props.handleClickOutside) {
-				this.props.handleClickOutside(evt);
-				// When the menus are closed by clicking outside the focus is set on editor.
-				if (!this.props.editorView?.hasFocus()) {
-					this.props.editorView?.focus();
-				}
+			this.props.handleClickOutside(evt);
+			// When the menus are closed by clicking outside the focus is set on editor.
+			if (!this.props.editorView?.hasFocus()) {
+				this.props.editorView?.focus();
 			}
 		}
 	};
@@ -114,6 +124,13 @@ export default function withReactEditorViewOuterListeners<P extends {}>(
 	}) => {
 		const isActiveProp = hasIsOpen(props) ? props.isOpen : true;
 		const [isActiveComponent, setActiveComponent] = useState(false);
+		const outsideClickTargetRef = useRef<HTMLElement | null>(null);
+		const setOutsideClickTargetRef = useCallback(
+			(el: HTMLElement | null) => {
+				outsideClickTargetRef.current = el;
+			},
+			[outsideClickTargetRef],
+		);
 
 		useEffect(() => {
 			requestAnimationFrame(() => {
@@ -124,19 +141,22 @@ export default function withReactEditorViewOuterListeners<P extends {}>(
 		return (
 			<ReactEditorViewContext.Consumer>
 				{({ editorView, popupsMountPoint, editorRef }) => (
-					<WithOutsideClick
-						editorView={editorView}
-						editorRef={editorRef}
-						targetRef={props.targetRef}
-						popupsMountPoint={popupsMountPoint}
-						isActiveComponent={isActiveComponent}
-						handleClickOutside={handleClickOutside}
-						handleEnterKeydown={handleEnterKeydown}
-						handleEscapeKeydown={handleEscapeKeydown}
-						closeOnTab={closeOnTab}
-					>
-						<Component {...(props as P)} />
-					</WithOutsideClick>
+					<OutsideClickTargetRefContext.Provider value={setOutsideClickTargetRef}>
+						<WithOutsideClick
+							editorView={editorView}
+							editorRef={editorRef}
+							targetRef={props.targetRef}
+							outsideClickTargetRef={outsideClickTargetRef}
+							popupsMountPoint={popupsMountPoint}
+							isActiveComponent={isActiveComponent}
+							handleClickOutside={handleClickOutside}
+							handleEnterKeydown={handleEnterKeydown}
+							handleEscapeKeydown={handleEscapeKeydown}
+							closeOnTab={closeOnTab}
+						>
+							<Component {...(props as P)} />
+						</WithOutsideClick>
+					</OutsideClickTargetRefContext.Provider>
 				)}
 			</ReactEditorViewContext.Consumer>
 		);

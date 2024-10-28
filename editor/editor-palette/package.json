@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-palette",
-	"version": "1.6.2",
+	"version": "1.6.3",
 	"description": "The editor palette",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,14 +37,16 @@
 	},
 	"dependencies": {
 		"@atlaskit/tokens": "^2.0.0",
-		"@babel/runtime": "^7.0.0",
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0"
+		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {
 		"@testing-library/react": "^12.1.5",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

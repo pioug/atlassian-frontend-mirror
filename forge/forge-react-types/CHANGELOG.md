@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.27.24
+
+### Patch Changes
+
+- [#156934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156934)
+  [`1833a87214a2e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1833a87214a2e) -
+  Update UI Kit TimePicker component props
+
 ## 0.27.23
 
 ### Patch Changes

@@ -11,7 +11,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP } from './consts';
 import { emptyBlockExperimentGlobalStyles } from './empty-block-experiment/global-styles';
 
-const extendedHoverZone = css({
+const extendedHoverZone = () => css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.block-ctrl-drag-preview [data-drag-handler-anchor-name]::after': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
@@ -29,7 +29,8 @@ const extendedHoverZone = css({
 			height: '100%',
 			background: 'transparent',
 			cursor: 'default',
-			zIndex: -1,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			zIndex: fg('platform_editor_element_dnd_nested_fix_patch_3') ? 1 : -1,
 		},
 	},
 	// TODO - ED-23995 this style override needs to be moved to the Rule styles after FF cleanup - packages/editor/editor-common/src/styles/shared/rule.ts
@@ -43,7 +44,7 @@ const extendedHoverZone = css({
 	},
 });
 
-const extendedHoverZoneNested = css({
+const extendedHoverZoneNested = () => css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.block-ctrl-drag-preview [data-drag-handler-anchor-name]::after': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
@@ -73,22 +74,23 @@ const extendedHoverZoneNested = css({
 			width: '100%',
 			height: '100%',
 			cursor: 'default',
-			zIndex: -1,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			zIndex: fg('platform_editor_element_dnd_nested_fix_patch_3') ? 1 : -1,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&& :is(.pm-table-cell-content-wrap, .pm-table-header-content-wrap) > [data-drag-handler-anchor-name]::after':
-			{
-				content: '""',
-				position: 'absolute',
-				top: 0,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				left: `-${editorExperiment('table-nested-dnd', true) ? DRAG_HANDLE_MAX_WIDTH_PLUS_GAP : 0}px`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-				width: `${editorExperiment('table-nested-dnd', true) ? DRAG_HANDLE_MAX_WIDTH_PLUS_GAP : 0}px`,
-				height: '100%',
-				cursor: 'default',
-				zIndex: 1,
-			},
+		{
+			content: '""',
+			position: 'absolute',
+			top: 0,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			left: `-${editorExperiment('table-nested-dnd', true) ? DRAG_HANDLE_MAX_WIDTH_PLUS_GAP : 0}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			width: `${editorExperiment('table-nested-dnd', true) ? DRAG_HANDLE_MAX_WIDTH_PLUS_GAP : 0}px`,
+			height: '100%',
+			cursor: 'default',
+			zIndex: 1,
+		},
 	},
 	// TODO - ED-23995 this style override needs to be moved to the Rule styles after FF cleanup - packages/editor/editor-common/src/styles/shared/rule.ts
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -157,10 +159,10 @@ const withInlineNodeStyleWithChromeFix = css({
 const globalStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror-widget:first-child + *:not([data-panel-type], .code-block, [data-node-type="nestedExpand"])':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-			marginTop: '0 !important',
-		},
+	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		marginTop: '0 !important',
+	},
 });
 
 const withDividerInPanelStyleFix = css({
@@ -184,10 +186,10 @@ const withDeleteLinesStyleFix = css({
 const withMediaSingleStyleFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 	['.ProseMirror.ua-firefox .mediaSingleView-content-wrap[data-drag-handler-node-type="mediaSingle"][data-drag-handler-anchor-name], .ProseMirror.ua-firefox [data-drag-handler-anchor-name][data-drag-handler-node-type] .mediaSingleView-content-wrap']:
-		{
-			userSelect: 'auto',
-			cursor: 'pointer',
-		},
+	{
+		userSelect: 'auto',
+		cursor: 'pointer',
+	},
 });
 
 const withFormatInLayoutStyleFix = css({
@@ -203,12 +205,22 @@ const getTextNodeStyle = () => {
 		: withInlineNodeStyle;
 };
 
+const withRelativePosStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&& [data-drag-handler-anchor-name]': {
+			position: 'relative',
+		},
+	}
+});
+
 export const GlobalStylesWrapper = () => {
 	return (
 		<Global
 			styles={[
 				globalStyles,
-				editorExperiment('nested-dnd', true) ? extendedHoverZoneNested : extendedHoverZone,
+				editorExperiment('nested-dnd', true) ? extendedHoverZoneNested() : extendedHoverZone(),
 				getTextNodeStyle(),
 				withDeleteLinesStyleFix,
 				withMediaSingleStyleFix,
@@ -220,6 +232,9 @@ export const GlobalStylesWrapper = () => {
 					: undefined,
 				fg('platform_editor_element_dnd_nested_fix_patch_2')
 					? withFormatInLayoutStyleFix
+					: undefined,
+				fg('platform_editor_element_dnd_nested_fix_patch_3')
+					? withRelativePosStyle
 					: undefined,
 			]}
 		/>

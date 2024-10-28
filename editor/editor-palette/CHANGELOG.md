@@ -1,5 +1,13 @@
 # @atlaskit/editor-palette
 
+## 1.6.3
+
+### Patch Changes
+
+- [#157011](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157011)
+  [`83a8620f8dee5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83a8620f8dee5) -
+  ENGHEALTH-17808: upgrade editor-palette react 18 peer deps
+
 ## 1.6.2
 
 ### Patch Changes

@@ -88,7 +88,17 @@
 		"./avatar-fix-icon": "./src/ui/avatar-fix-icon/index.tsx",
 		"./avatar-monitor-icon": "./src/ui/avatar-monitor-icon/index.tsx",
 		"./avatar-request-icon": "./src/ui/avatar-request-icon/index.tsx",
-		"./arrow-down-circle-icon": "./src/ui/arrow-down-circle-icon/index.tsx"
+		"./arrow-down-circle-icon": "./src/ui/arrow-down-circle-icon/index.tsx",
+		"./people-group-icon": "./src/ui/people-group-icon/index.tsx",
+		"./verified-icon": "./src/ui/verified-icon/index.tsx",
+		"./atlas-icon": "./src/ui/atlas-icon/index.tsx",
+		"./application-icon": "./src/ui/application-icon/index.tsx",
+		"./capability-icon": "./src/ui/capability-icon/index.tsx",
+		"./cloud-resource-icon": "./src/ui/cloud-resource-icon/index.tsx",
+		"./data-pipeline-icon": "./src/ui/data-pipeline-icon/index.tsx",
+		"./machine-learning-model-icon": "./src/ui/machine-learning-model-icon/index.tsx",
+		"./template-icon": "./src/ui/template-icon/index.tsx",
+		"./ui-element-icon": "./src/ui/ui-element-icon/index.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
@@ -147,7 +157,17 @@
 		"./avatar-fix-icon": "./src/ui/avatar-fix-icon/index.tsx",
 		"./avatar-monitor-icon": "./src/ui/avatar-monitor-icon/index.tsx",
 		"./avatar-request-icon": "./src/ui/avatar-request-icon/index.tsx",
-		"./arrow-down-circle-icon": "./src/ui/arrow-down-circle-icon/index.tsx"
+		"./arrow-down-circle-icon": "./src/ui/arrow-down-circle-icon/index.tsx",
+		"./people-group-icon": "./src/ui/people-group-icon/index.tsx",
+		"./verified-icon": "./src/ui/verified-icon/index.tsx",
+		"./atlas-icon": "./src/ui/atlas-icon/index.tsx",
+		"./application-icon": "./src/ui/application-icon/index.tsx",
+		"./capability-icon": "./src/ui/capability-icon/index.tsx",
+		"./cloud-resource-icon": "./src/ui/cloud-resource-icon/index.tsx",
+		"./data-pipeline-icon": "./src/ui/data-pipeline-icon/index.tsx",
+		"./machine-learning-model-icon": "./src/ui/machine-learning-model-icon/index.tsx",
+		"./template-icon": "./src/ui/template-icon/index.tsx",
+		"./ui-element-icon": "./src/ui/ui-element-icon/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^22.24.0",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/people-teams-ui-public",
-	"version": "1.2.0",
+	"version": "1.4.0",
 	"description": "UI components for public packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,6 +39,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^22.24.0",
+		"@atlaskit/legacy-custom-icons": "^0.10.0",
 		"@atlaskit/primitives": "^12.1.0",
 		"@atlaskit/tokens": "^2.0.2",
 		"@babel/runtime": "^7.0.0",

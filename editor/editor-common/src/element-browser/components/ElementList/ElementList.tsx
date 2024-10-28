@@ -16,6 +16,8 @@ import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext'
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Stack, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -161,6 +163,7 @@ function ElementList({
 						columnIndex={columnIndex}
 						parent={parent}
 					>
+						{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={style}
@@ -365,23 +368,51 @@ const itemStyleOverrides = {
 	alignItems: 'flex-start',
 };
 
-const ElementBefore = memo(({ icon, title }: Partial<QuickInsertItem>) => (
+const ElementBefore = memo(({ icon }: Partial<QuickInsertItem>) => (
 	<div css={[itemIcon, itemIconStyle]}>{icon ? icon() : <IconFallback />}</div>
 ));
 
-const ItemContent = memo(({ title, description, keyshortcut }: Partial<QuickInsertItem>) => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-	<div css={itemBody} className="item-body">
-		<div css={itemText}>
-			<div css={itemTitleWrapper}>
-				<p css={itemTitle}>{title}</p>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-				<div css={itemAfter}>{keyshortcut && <div css={shortcutStyle}>{keyshortcut}</div>}</div>
+const ItemContent = memo(({ title, description, keyshortcut }: Partial<QuickInsertItem>) => {
+	if (fg('platform_editor_typography_ugc')) {
+		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			<div css={itemBody} className="item-body">
+				<div css={itemText}>
+					<Stack space="space.025">
+						<div css={itemTitleWrapper}>
+							<Text maxLines={1}>{title}</Text>
+							<div css={itemAfter}>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+								{keyshortcut && <div css={shortcutStyle}>{keyshortcut}</div>}
+							</div>
+						</div>
+						{description && (
+							<Text color="color.text.subtle" size="small" maxLines={2}>
+								{description}
+							</Text>
+						)}
+					</Stack>
+				</div>
 			</div>
-			{description && <p css={itemDescription}>{description}</p>}
-		</div>
-	</div>
-));
+		);
+	} else {
+		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			<div css={itemBody} className="item-body">
+				<div css={itemText}>
+					<div css={itemTitleWrapper}>
+						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text*/}
+						<p css={itemTitle}>{title}</p>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<div css={itemAfter}>{keyshortcut && <div css={shortcutStyle}>{keyshortcut}</div>}</div>
+					</div>
+					{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text*/}
+					{description && <p css={itemDescription}>{description}</p>}
+				</div>
+			</div>
+		);
+	}
+});
 
 const elementItemsWrapper = css({
 	flex: 1,
@@ -459,7 +490,6 @@ const itemTitleWrapper = css({
 	display: 'flex',
 	justifyContent: 'space-between',
 });
-
 const itemTitle = css({
 	width: '100%',
 	overflow: 'hidden',

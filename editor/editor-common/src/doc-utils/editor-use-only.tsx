@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/use-primitives-text */
 import React from 'react';
 
 import SectionMessage from '@atlaskit/section-message';

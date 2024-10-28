@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useMemo, useRef } from 'react';
+import { useContext, useEffect, useMemo, useRef } from 'react';
 import type { KeyboardEventHandler, SyntheticEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -11,6 +11,7 @@ import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
 
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
 import { Stack } from '@atlaskit/primitives';
 import { B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -141,9 +142,10 @@ const TableSelectorPopup = ({
 	const buttons = useMemo(() => {
 		return createArray(maxCols, maxRows);
 	}, [maxCols, maxRows]);
+	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
 
 	return (
-		<Stack>
+		<Stack ref={setOutsideClickTargetRef}>
 			<div
 				aria-label={`${formatMessage(messages.tableSizeSelectorPopup)}`}
 				css={

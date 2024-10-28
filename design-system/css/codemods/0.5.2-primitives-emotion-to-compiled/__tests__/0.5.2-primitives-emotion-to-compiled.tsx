@@ -864,9 +864,9 @@ export default AssetCard;
  * @jsxRuntime classic
  * @jsx jsx
  */
-import Anchor from '@atlaskit/primitives/anchor';
+import Anchor from "@atlaskit/primitives/compiled/anchor";
 import { Box, Text } from "@atlaskit/primitives/compiled";
-import { media } from '@atlaskit/primitives/responsive';
+import { media } from "@atlaskit/primitives/compiled/responsive";
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 

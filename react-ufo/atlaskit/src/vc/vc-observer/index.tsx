@@ -327,7 +327,7 @@ export class VCObserver {
 
 		if (ssr !== UNUSED_SECTOR) {
 			const element = {
-				__debug__element: window.document?.body,
+				__debug__element: new WeakRef<HTMLElement>(window.document?.body),
 				intersectionRect: {
 					top: 0,
 					left: 0,
@@ -440,7 +440,7 @@ export class VCObserver {
 			}
 
 			this.componentsLog[time].push({
-				__debug__element: this.devToolsEnabled ? element : null,
+				__debug__element: this.devToolsEnabled ? new WeakRef<HTMLElement>(element) : null,
 				intersectionRect,
 				targetName,
 				ignoreReason,

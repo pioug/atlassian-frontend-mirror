@@ -8,7 +8,10 @@ import { jsx } from '@emotion/react';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
-import EmojiPickerList, { type Props } from '../src/components/picker/EmojiPickerList';
+import {
+	EmojiPickerVirtualListInternalOld as EmojiPickerList,
+	type Props,
+} from '../src/components/picker/EmojiPickerList';
 
 import { IntlProvider } from 'react-intl-next';
 import { emojiPicker } from '../src/components/picker/styles';

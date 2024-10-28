@@ -22,7 +22,11 @@ export {
 	annotationSharedStyles,
 } from './shared/annotation';
 export { columnLayoutSharedStyle } from './shared/column-layout';
-export { mediaSingleSharedStyle, richMediaClassName } from './shared/media-single';
+export {
+	mediaSingleSharedStyle,
+	mediaSingleSharedStyleNew,
+	richMediaClassName,
+} from './shared/media-single';
 export { blockquoteSharedStyles } from './shared/blockquote';
 export { headingsSharedStyles } from './shared/headings';
 export { ruleSharedStyles } from './shared/rule';

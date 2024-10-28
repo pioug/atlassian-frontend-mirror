@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.9.7
+
+### Patch Changes
+
+- [#156974](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156974)
+  [`e23605a60e753`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e23605a60e753) -
+  Add four and five column support for layout sections
+- Updated dependencies
+
 ## 1.9.6
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-status
 
+## 2.5.5
+
+### Patch Changes
+
+- [#155668](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155668)
+  [`f948f63ced742`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f948f63ced742) -
+  We are testing replacing findDOMNode with an explicit ref behind a feature flag. If this fix is
+  successful it will be available in a later release.
+- Updated dependencies
+
 ## 2.5.4
 
 ### Patch Changes

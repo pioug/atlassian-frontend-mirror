@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import type { ComponentClass, HTMLAttributes, ReactElement } from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -22,7 +22,10 @@ import {
 	IconStatus,
 } from '@atlaskit/editor-common/quick-insert';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import { withReactEditorViewOuterListeners as withOuterListeners } from '@atlaskit/editor-common/ui-react';
+import {
+	OutsideClickTargetRefContext,
+	withReactEditorViewOuterListeners as withOuterListeners,
+} from '@atlaskit/editor-common/ui-react';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { borderRadius } from '@atlaskit/theme';
@@ -265,9 +268,10 @@ const flexWrapperStyles = css({
 });
 
 const FlexWrapper = (props: HTMLAttributes<HTMLDivElement>) => {
+	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
 	const { children, ...divProps } = props;
 	return (
-		<div css={flexWrapperStyles} {...divProps}>
+		<div ref={setOutsideClickTargetRef} css={flexWrapperStyles} {...divProps}>
 			{children}
 		</div>
 	);

@@ -9,6 +9,7 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from './messages';
@@ -20,10 +21,10 @@ const captionWrapperStyle = css({
 	color: token('color.text.subtle'),
 });
 
-const placeholderStyle = css({
-	color: token('color.text.subtlest'),
+const placeholderStyle = xcss({
+	color: 'color.text.subtlest',
 	position: 'absolute',
-	top: 0,
+	top: 'space.0',
 	width: '100%',
 });
 
@@ -56,7 +57,9 @@ export class CaptionComponent extends React.Component<Props & WrappedComponentPr
 				css={captionWrapperStyle}
 			>
 				{showPlaceholder ? (
-					<p css={placeholderStyle}>{formatMessage(messages.placeholder)}</p>
+					<Box xcss={placeholderStyle}>
+						<Text>{formatMessage(messages.placeholder)}</Text>
+					</Box>
 				) : null}
 				{children}
 			</div>

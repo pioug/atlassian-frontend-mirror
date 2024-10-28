@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import { withReactEditorViewOuterListeners } from '../../ui-react';
+import { OutsideClickTargetRefContext, withReactEditorViewOuterListeners } from '../../ui-react';
 import type { WithOutsideClickProps } from '../../ui-react/with-react-editor-view-outer-listeners';
 import type { OpenChangedEvent } from '../../ui/DropList';
 import DropdownList from '../../ui/DropList';
@@ -44,9 +44,12 @@ export class Dropdown extends PureComponent<Props, State> {
 		};
 	}
 
-	private handleRef = (target: HTMLElement | null) => {
-		this.setState({ target: target || undefined });
-	};
+	private handleRef =
+		(setOutsideClickTargetRef: (el: HTMLElement | null) => void) =>
+		(target: HTMLElement | null) => {
+			setOutsideClickTargetRef(target);
+			this.setState({ target: target || undefined });
+		};
 
 	private updatePopupPlacement = (placement: [string, string]) => {
 		this.setState({ popupPlacement: placement });
@@ -121,10 +124,14 @@ export class Dropdown extends PureComponent<Props, State> {
 		const { trigger, isOpen } = this.props;
 
 		return (
-			<>
-				<div ref={this.handleRef}>{trigger}</div>
-				{isOpen ? this.renderDropdown() : null}
-			</>
+			<OutsideClickTargetRefContext.Consumer>
+				{(setOutsideClickTargetRef) => (
+					<>
+						<div ref={this.handleRef(setOutsideClickTargetRef)}>{trigger}</div>
+						{isOpen ? this.renderDropdown() : null}
+					</>
+				)}
+			</OutsideClickTargetRefContext.Consumer>
 		);
 	}
 }

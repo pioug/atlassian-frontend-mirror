@@ -29,8 +29,6 @@ const animatedStyles = css({
 	animationIterationCount: 'infinite',
 });
 
-const reducedFontStyle = css({ fontSize: '0.7em' });
-
 const baseStyles = css({
 	overflow: 'hidden',
 	opacity: 1,
@@ -44,13 +42,10 @@ const baseStyles = css({
 });
 
 export const IconMessageWrapper = (props: IconMessageWrapperProps) => {
-	const { animated, reducedFont } = props;
+	const { animated } = props;
 
 	return (
-		<div
-			id="iconMessageWrapper"
-			css={[baseStyles, reducedFont && reducedFontStyle, animated && animatedStyles]}
-		>
+		<div id="iconMessageWrapper" css={[baseStyles, animated && animatedStyles]}>
 			{props.children}
 		</div>
 	);

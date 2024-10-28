@@ -28,15 +28,13 @@ import { AnchorRectCache, isAnchorSupported } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 import { getTrMetadata } from '../utils/transactions';
 
+import { findNodeDecs, nodeDecorations } from './decorations-anchor';
 import {
 	dragHandleDecoration,
-	dropTargetDecorations,
 	emptyParagraphNodeDecorations,
-	findDropTargetDecs,
 	findHandleDec,
-	findNodeDecs,
-	nodeDecorations,
-} from './decorations';
+} from './decorations-drag-handle';
+import { dropTargetDecorations, findDropTargetDecs } from './decorations-drop-target';
 import { handleMouseOver } from './handle-mouse-over';
 import { boundKeydownHandler } from './keymap';
 

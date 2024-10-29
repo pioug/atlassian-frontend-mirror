@@ -1,5 +1,13 @@
 # @atlaskit/media-core
 
+## 34.3.1
+
+### Patch Changes
+
+- [#157454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157454)
+  [`94e18b08d21d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/94e18b08d21d2) -
+  add config for authProviderTimeout to media-client to override default timeout
+
 ## 34.3.0
 
 ### Minor Changes

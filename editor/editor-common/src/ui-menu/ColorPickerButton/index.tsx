@@ -258,6 +258,7 @@ const ColorPickerButton = (props: Props) => {
 		<div css={colorPickerButtonWrapper}>
 			<Tooltip content={title} position="top">
 				<Button
+					appearance={'subtle'}
 					ref={buttonRef}
 					aria-label={title}
 					aria-expanded={props.isAriaExpanded ? isPopupOpen : undefined}

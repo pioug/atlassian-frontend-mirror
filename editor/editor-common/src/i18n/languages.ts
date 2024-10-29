@@ -12,6 +12,7 @@ export default {
 	nl: 'Dutch',
 	en: 'English',
 	en_GB: 'English (United Kingdom)',
+	en_ZZ: 'English (Instrumented)', // Used by i18n team in staging
 	fi: 'Finnish',
 	fr: 'French',
 	de: 'German',

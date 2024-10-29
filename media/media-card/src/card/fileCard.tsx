@@ -584,6 +584,7 @@ export const FileCard = ({
 			disableOverlay &&
 			useInlinePlayer &&
 			isVideoPlayable &&
+			fileStateValue?.status !== 'failed-processing' &&
 			finalStatus !== 'error'
 		) {
 			setIsPlayingFile(true);

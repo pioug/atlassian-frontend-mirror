@@ -1,5 +1,18 @@
 # @atlaskit/datetime-picker
 
+## 15.5.1
+
+### Patch Changes
+
+- [#156121](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156121)
+  [`6e87dd7dd8d3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e87dd7dd8d3a) -
+  When `shouldShowCalendarButton` is `true`, ensures that input text properly overflows via
+  controlling an underlying select component.
+- [#156147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156147)
+  [`a5c2ba68d297d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a5c2ba68d297d) -
+  We are testing converting the datetime picker from a class component to a functional component
+  behind a feature flag. If this fix is successful it will be available in a later release.
+
 ## 15.5.0
 
 ### Minor Changes

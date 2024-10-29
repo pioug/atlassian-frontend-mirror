@@ -34,7 +34,6 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { goToNextCell, moveCursorBackward, setFocusToCellMenu } from '../commands';
 import {
@@ -317,6 +316,7 @@ export function keymapPlugin(
 		),
 		list,
 	);
+	
 	bindKeymapWithCommand(
 		escape.common!,
 		stopKeyboardColumnResizing({
@@ -326,9 +326,7 @@ export function keymapPlugin(
 		list,
 	);
 
-	if (fg('platform_editor_a11y_table_context_menu')) {
-		bindKeymapWithCommand(focusToContextMenuTrigger.common!, setFocusToCellMenu(), list);
-	}
+	bindKeymapWithCommand(focusToContextMenuTrigger.common!, setFocusToCellMenu(), list);
 
 	return keymap(list) as SafePlugin;
 }

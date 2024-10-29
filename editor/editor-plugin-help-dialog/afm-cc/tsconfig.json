@@ -4,8 +4,7 @@
         "target": "es5",
         "composite": true,
         "outDir": "../dist",
-        "rootDir": "../",
-        "baseUrl": "../"
+        "rootDir": "../"
     },
     "include": [
         "../src/**/*.ts",
@@ -38,9 +37,6 @@
         },
         {
             "path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/primitives/afm-cc/tsconfig.json"

@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 3.6.13
+
+### Patch Changes
+
+- [#153904](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/153904)
+  [`c08ee2802b968`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c08ee2802b968) -
+  Change inline-edit to be a controlled component
+
 ## 3.6.12
 
 ### Patch Changes

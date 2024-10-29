@@ -7,17 +7,29 @@ import { editType, isEditTypeSupported } from './index';
 describe('editType', () => {
 	describe('string type', () => {
 		it('returns inline edit props for string component', () => {
-			const props = editType({ type: 'string', values: ['value'] });
+			const props = editType({
+				defaultValue: { type: 'string', values: ['value'] },
+				currentValue: { type: 'string', values: ['value'] },
+				setEditValues: () => {},
+			});
 			expect(props).toEqual({ defaultValue: 'value', editView: expect.any(Function) });
 		});
 
 		it('returns empty string value for string component', () => {
-			const props = editType({ type: 'string', values: [] });
+			const props = editType({
+				defaultValue: { type: 'string', values: [] },
+				currentValue: { type: 'string', values: [] },
+				setEditValues: () => {},
+			});
 			expect(props).toEqual({ defaultValue: '', editView: expect.any(Function) });
 		});
 
 		it('returns first string value for string component', () => {
-			const props = editType({ type: 'string', values: ['value1', 'value2', 'value3'] });
+			const props = editType({
+				defaultValue: { type: 'string', values: ['value1', 'value2', 'value3'] },
+				currentValue: { type: 'string', values: ['value1', 'value2', 'value3'] },
+				setEditValues: () => {},
+			});
 			expect(props).toEqual({ defaultValue: 'value1', editView: expect.any(Function) });
 		});
 	});
@@ -35,13 +47,22 @@ describe('editType', () => {
 		['time', ['2023-03-16T14:04:02.200+0000']],
 		['user', [{ displayName: 'Chad', url: 'url' }]],
 	])('returns empty inline edit props for %s component', (type, values) => {
-		const props = editType({ type, values } as DatasourceTypeWithOnlyValues);
+		const props = editType({
+			defaultValue: { type, values } as DatasourceTypeWithOnlyValues,
+			currentValue: { type, values } as DatasourceTypeWithOnlyValues,
+			setEditValues: () => {},
+		});
 		expect(props).toEqual({ defaultValue: '', editView: expect.any(Function) });
 	});
 
 	it('returns empty inline edit props by default', () => {
-		// @ts-ignore DatasourceType
-		const props = editType({ type: 'unknown', values: ['value'] });
+		const props = editType({
+			// @ts-ignore DatasourceType
+			defaultValue: { type: 'unknown', values: ['value'] },
+			// @ts-ignore DatasourceType
+			currentValue: { type: 'unknown', values: ['value'] },
+			setEditValues: () => {},
+		});
 		expect(props).toEqual({ defaultValue: '', editView: expect.any(Function) });
 	});
 });

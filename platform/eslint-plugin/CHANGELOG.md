@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.12.0
+
+### Minor Changes
+
+- [#157394](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157394)
+  [`aba8228458905`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aba8228458905) -
+  Renamed `ensure-valid-yarn-protocol-usage` to `ensure-valid-plaform-yarn-protocol-usage`
+
 ## 0.11.0
 
 ### Minor Changes

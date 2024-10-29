@@ -31,7 +31,7 @@ class WithOutsideClick extends PureComponent<
 		editorRef?: React.RefObject<HTMLDivElement>;
 		popupsMountPoint?: HTMLElement;
 		children?: React.ReactNode;
-		outsideClickTargetRef: React.MutableRefObject<HTMLElement | null>;
+		outsideClickTargetRef: React.MutableRefObject<WeakRef<HTMLElement> | null>;
 	},
 	{}
 > {
@@ -68,7 +68,7 @@ class WithOutsideClick extends PureComponent<
 		}
 
 		const domNode = fg('platform_editor_replace_finddomnode_in_common')
-			? this.props.outsideClickTargetRef.current
+			? this.props.outsideClickTargetRef.current?.deref()
 			: ReactDOM.findDOMNode(this);
 
 		if (!domNode || (evt.target instanceof Node && !domNode.contains(evt.target))) {
@@ -124,10 +124,10 @@ export default function withReactEditorViewOuterListeners<P extends {}>(
 	}) => {
 		const isActiveProp = hasIsOpen(props) ? props.isOpen : true;
 		const [isActiveComponent, setActiveComponent] = useState(false);
-		const outsideClickTargetRef = useRef<HTMLElement | null>(null);
+		const outsideClickTargetRef = useRef<WeakRef<HTMLElement> | null>(null);
 		const setOutsideClickTargetRef = useCallback(
 			(el: HTMLElement | null) => {
-				outsideClickTargetRef.current = el;
+				outsideClickTargetRef.current = el && new WeakRef(el);
 			},
 			[outsideClickTargetRef],
 		);

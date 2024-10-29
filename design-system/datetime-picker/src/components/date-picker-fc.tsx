@@ -28,6 +28,7 @@ import Select, {
 	type ActionMeta,
 	type DropdownIndicatorProps,
 	type GroupType,
+	type IndicatorsContainerProps,
 	type InputActionMeta,
 	mergeStyles,
 	type OptionType,
@@ -44,6 +45,7 @@ import {
 	isDateDisabled,
 	parseDate,
 } from '../internal/date-picker-migration';
+import { IndicatorsContainer } from '../internal/indicators-container';
 import { Menu } from '../internal/menu';
 import { getSafeCalendarValue, getShortISOString } from '../internal/parse-date';
 import { makeSingleValue } from '../internal/single-value';
@@ -460,6 +462,15 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 
 	const selectComponents = {
 		DropdownIndicator: shouldShowCalendarButton ? EmptyComponent : dropDownIcon,
+		// Only use this new container component if the calendar button is shown.
+		// Otherwise, it throws errors downstream for some reason
+		...(shouldShowCalendarButton
+			? {
+					IndicatorsContainer: (props: IndicatorsContainerProps<any>) => (
+						<IndicatorsContainer {...props} showClearIndicator={showClearIndicator} />
+					),
+				}
+			: {}),
 		Menu,
 		SingleValue,
 		...(!showClearIndicator && { ClearIndicator: EmptyComponent }),

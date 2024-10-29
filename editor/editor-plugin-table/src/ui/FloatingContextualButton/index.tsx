@@ -21,7 +21,6 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { toggleContextualMenu } from '../../commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
@@ -77,12 +76,10 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 	targetCellRef = findDomRefAtPos(targetCellPosition, domAtPos);
 
 	useEffect(() => {
-		if (fg('platform_editor_a11y_table_context_menu')) {
-			if (isCellMenuOpenByKeyboard && !isContextualMenuOpen) {
-				const { state, dispatch } = editorView;
-				// open the menu when the keyboard shortcut is pressed
-				toggleContextualMenu()(state, dispatch);
-			}
+		if (isCellMenuOpenByKeyboard && !isContextualMenuOpen) {
+			const { state, dispatch } = editorView;
+			// open the menu when the keyboard shortcut is pressed
+			toggleContextualMenu()(state, dispatch);
 		}
 	}, [isCellMenuOpenByKeyboard, isContextualMenuOpen, editorView]);
 
@@ -106,15 +103,11 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 				className={ClassName.CONTEXTUAL_MENU_BUTTON}
 				selected={isContextualMenuOpen}
 				title={labelCellOptions}
-				keymap={
-					fg('platform_editor_a11y_table_context_menu') ? focusToContextMenuTrigger : undefined
-				}
+				keymap={focusToContextMenuTrigger}
 				onClick={handleClick}
 				iconBefore={<ExpandIcon label="" color="currentColor" isFacadeDisabled={true} />}
 				aria-label={labelCellOptions}
-				aria-expanded={
-					fg('platform_editor_a11y_table_context_menu') ? isContextualMenuOpen : undefined
-				}
+				aria-expanded={isContextualMenuOpen}
 			/>
 		</div>
 	);

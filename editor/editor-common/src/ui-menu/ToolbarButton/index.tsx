@@ -12,7 +12,6 @@ import { css, jsx } from '@emotion/react';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { ButtonProps } from '@atlaskit/button/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { PositionType } from '@atlaskit/tooltip';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -171,10 +170,8 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>((props, ref) => 
 		return button;
 	}
 
-	const tooltipContent = hideTooltip ? null : fg('platform_editor_a11y_table_context_menu') ? (
+	const tooltipContent = hideTooltip ? null : (
 		<ToolTipContent description={title} keymap={keymap} />
-	) : (
-		title
 	);
 
 	return (

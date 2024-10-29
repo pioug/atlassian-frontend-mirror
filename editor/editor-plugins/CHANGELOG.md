@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 5.6.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.6.13
+
+### Patch Changes
+
+- [#157477](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157477)
+  [`b62c7289b73f2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b62c7289b73f2) -
+  ED-24722 Clean up platform.editor.media.inline-image.base-support FF
+- Updated dependencies
+
+## 5.6.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.6.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.6.10
 
 ### Patch Changes

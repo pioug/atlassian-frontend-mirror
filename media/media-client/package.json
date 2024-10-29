@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "28.0.5",
+	"version": "28.0.6",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -93,6 +93,12 @@
 			"type": "boolean"
 		},
 		"platform.media-cdn-single-host": {
+			"type": "boolean"
+		},
+		"platform_media_cdn_single_host": {
+			"type": "boolean"
+		},
+		"platform_media_cdn_delivery": {
 			"type": "boolean"
 		}
 	}

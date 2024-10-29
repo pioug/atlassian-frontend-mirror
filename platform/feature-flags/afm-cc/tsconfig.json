@@ -11,8 +11,7 @@
     "compilerOptions": {
         "composite": true,
         "outDir": "../dist",
-        "rootDir": "../",
-        "baseUrl": "../"
+        "rootDir": "../"
     },
     "references": []
 }

@@ -3,7 +3,7 @@ import rule from '../../index';
 
 const cwd = process.cwd();
 
-describe('test ensure-valid-yarn-protocol-usage rule', () => {
+describe('test ensure-valid-platform-yarn-protocol-usage rule', () => {
 	tester.run('workspace protocol', rule, {
 		valid: [
 			// Workspace protocol is allowed in private packages as dependencies

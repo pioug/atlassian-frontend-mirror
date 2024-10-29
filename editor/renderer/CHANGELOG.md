@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 112.0.0
+
+### Major Changes
+
+- [#156509](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156509)
+  [`c58ae26b37318`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c58ae26b37318) -
+  Fix versions for tmp-editor-statsig (major used to force dependers to release new versions)
+
+## 111.3.3
+
+### Patch Changes
+
+- [#157477](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157477)
+  [`b62c7289b73f2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b62c7289b73f2) -
+  ED-24722 Clean up platform.editor.media.inline-image.base-support FF
+
 ## 111.3.2
 
 ### Patch Changes

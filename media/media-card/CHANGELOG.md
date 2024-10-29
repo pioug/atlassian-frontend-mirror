@@ -1,5 +1,21 @@
 # @atlaskit/media-card
 
+## 78.9.2
+
+### Patch Changes
+
+- [#155914](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155914)
+  [`664c7065b5496`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/664c7065b5496) -
+  Fixed media card showing perpetual spinner for failed processing videos
+
+## 78.9.1
+
+### Patch Changes
+
+- [#156328](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156328)
+  [`91ea9df3f02c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91ea9df3f02c3) -
+  migrate media CDN FFs to Statsig
+
 ## 78.9.0
 
 ### Minor Changes

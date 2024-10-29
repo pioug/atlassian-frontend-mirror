@@ -1,5 +1,13 @@
 # @atlaskit/legacy-custom-icons
 
+## 0.11.0
+
+### Minor Changes
+
+- [#157477](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157477)
+  [`c731ba915cb03`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c731ba915cb03) -
+  Missing changeset for newly exported icons
+
 ## 0.10.0
 
 ### Minor Changes

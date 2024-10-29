@@ -10,7 +10,7 @@ import {
 	datePickerDefaultAriaLabel,
 	DateTimePickerWithoutAnalytics as DateTimePicker,
 	timePickerDefaultAriaLabel,
-} from '../../date-time-picker';
+} from '../../date-time-picker-class';
 
 jest.mock('@atlaskit/select', () => {
 	const actual = jest.requireActual('@atlaskit/select');
@@ -130,7 +130,7 @@ describe('DateTimePicker', () => {
 		);
 
 		firePickerEvent.changeDate(todayISO);
-		expect(onChangeSpy).toHaveBeenCalledWith(expect.stringContaining(defaultTime));
+		expect(onChangeSpy.mock.calls[0][0]).toEqual(expect.stringContaining(defaultTime));
 	});
 
 	it('should handle a controlled value', () => {

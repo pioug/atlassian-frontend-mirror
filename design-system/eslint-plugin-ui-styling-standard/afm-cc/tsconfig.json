@@ -7,8 +7,7 @@
         ],
         "composite": true,
         "outDir": "../dist",
-        "rootDir": "../",
-        "baseUrl": "../"
+        "rootDir": "../"
     },
     "include": [
         "../src/**/*.ts",

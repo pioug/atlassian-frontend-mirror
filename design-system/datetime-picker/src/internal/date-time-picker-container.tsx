@@ -3,6 +3,8 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { forwardRef } from 'react';
+
 import { css, jsx } from '@emotion/react';
 
 import { B100, N0, N100, N20, N30, R400 } from '@atlaskit/theme/colors';
@@ -76,45 +78,42 @@ const baseContainerStyles = css({
 	},
 });
 
-/**
- * This is the container for the datetime picker component.
- */
-export const DateTimePickerContainer = ({
-	isDisabled,
-	isFocused,
-	appearance,
-	isInvalid,
-	innerProps,
-	testId,
-	children,
-}: {
+type DateTimePickerContainerProps = {
+	children?: React.ReactNode;
 	isDisabled: boolean;
 	isFocused: boolean;
 	appearance: Appearance;
 	isInvalid: boolean;
 	innerProps: React.AllHTMLAttributes<HTMLElement>;
 	testId?: string;
-	children: React.ReactNode;
-}) => {
-	const notFocusedOrIsDisabled = !(isFocused || isDisabled);
-
-	return (
-		<div
-			css={[
-				baseContainerStyles,
-				newBorderStyles,
-				isDisabled && isDisabledStyles,
-				isFocused && isFocusedStyles,
-				appearance === 'subtle' && (isFocused ? subtleFocusedBgStyles : subtleBgStyles),
-				isFocused && isFocusedBorderStyles,
-				isInvalid && isInvalidBorderStyles,
-				notFocusedOrIsDisabled && (isInvalid ? isInvalidHoverStyles : hoverStyles),
-				appearance === 'none' && noBgStyles,
-			]}
-			{...innerProps}
-			data-testid={testId}
-		>
-			{children}
-		</div>
-	);
 };
+
+/**
+ * This is the container for the datetime picker component.
+ */
+export const DateTimePickerContainer = forwardRef<HTMLDivElement, DateTimePickerContainerProps>(
+	({ children, isDisabled, isFocused, appearance, isInvalid, innerProps, testId }, ref) => {
+		const notFocusedOrIsDisabled = !(isFocused || isDisabled);
+
+		return (
+			<div
+				css={[
+					baseContainerStyles,
+					newBorderStyles,
+					isDisabled && isDisabledStyles,
+					isFocused && isFocusedStyles,
+					appearance === 'subtle' && (isFocused ? subtleFocusedBgStyles : subtleBgStyles),
+					isFocused && isFocusedBorderStyles,
+					isInvalid && isInvalidBorderStyles,
+					notFocusedOrIsDisabled && (isInvalid ? isInvalidHoverStyles : hoverStyles),
+					appearance === 'none' && noBgStyles,
+				]}
+				{...innerProps}
+				data-testid={testId}
+				ref={ref}
+			>
+				{children}
+			</div>
+		);
+	},
+);

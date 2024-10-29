@@ -56,7 +56,6 @@ import {
 	undoRedoMessages,
 } from '@atlaskit/editor-common/messages';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -736,24 +735,14 @@ export const getSupportedFormatting = (
 		(format) => schema.nodes[format.type] || schema.marks[format.type],
 	);
 
-	return fg('platform_editor_a11y_table_context_menu')
-		? [
-				...navigationKeymaps(intl),
-				...otherFormatting(intl),
-				...supportedBySchema,
-				...(imageEnabled ? [imageAutoFormat] : []),
-				...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
-				...focusTableResizeHandleFormatting(intl),
-				...resizeInformationFormatting(intl),
-				...openCellOptionsFormattingtoFormat(intl),
-			]
-		: [
-				...navigationKeymaps(intl),
-				...otherFormatting(intl),
-				...supportedBySchema,
-				...(imageEnabled ? [imageAutoFormat] : []),
-				...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
-				...focusTableResizeHandleFormatting(intl),
-				...resizeInformationFormatting(intl),
-			];
+	return [
+		...navigationKeymaps(intl),
+		...otherFormatting(intl),
+		...supportedBySchema,
+		...(imageEnabled ? [imageAutoFormat] : []),
+		...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
+		...focusTableResizeHandleFormatting(intl),
+		...resizeInformationFormatting(intl),
+		...openCellOptionsFormattingtoFormat(intl),
+	];
 };

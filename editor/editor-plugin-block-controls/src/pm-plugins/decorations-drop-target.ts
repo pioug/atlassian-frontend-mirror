@@ -11,14 +11,17 @@ import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { MAX_LAYOUT_COLUMN_SUPPORTED } from '../consts';
 import type { ActiveNode, BlockControlsPlugin } from '../types';
 import { nodeMargins } from '../ui/consts';
 import { DropTarget, type DropTargetProps } from '../ui/drop-target';
+import { DropTargetLayout, type DropTargetLayoutProps } from '../ui/drop-target-layout';
 import {
 	DropTargetV2,
 	EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_GAP,
 	EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET,
 } from '../ui/drop-target-v2';
+import { isPreRelease2 } from '../utils/advanced-layouts-flags';
 import { type AnchorRectCache } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 import { canMoveNodeToIndex } from '../utils/validation';
@@ -145,6 +148,26 @@ export const createDropTargetDecoration = (
 	);
 };
 
+export const createLayoutDropTargetDecoration = (
+	pos: number,
+	props: Omit<DropTargetLayoutProps, 'getPos'>,
+) => {
+	return Decoration.widget(
+		pos,
+		(_, getPos) => {
+			const element = document.createElement('div');
+			element.setAttribute('data-blocks-drop-target-container', 'true');
+			element.style.clear = 'unset';
+
+			ReactDOM.render(createElement(DropTargetLayout, { ...props, getPos }), element);
+			return element;
+		},
+		{
+			type: TYPE_DROP_TARGET_DEC,
+		},
+	);
+};
+
 export const dropTargetDecorations = (
 	newState: EditorState,
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
@@ -183,12 +206,30 @@ export const dropTargetDecorations = (
 		prevNodeStack.push(node);
 	};
 
+	const isAdvancedLayoutsPreRelease2 = isPreRelease2();
+
 	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, index) => {
 		let depth = 0;
 		// drop target deco at the end position
 		let endPos;
 		if (editorExperiment('nested-dnd', true)) {
 			depth = newState.doc.resolve(pos).depth;
+
+			if (isAdvancedLayoutsPreRelease2) {
+				if (
+					node.type.name === 'layoutColumn' &&
+					parent?.type.name === 'layoutSection' &&
+					parent?.firstChild !== node && // Not the first node
+					parent?.childCount < MAX_LAYOUT_COLUMN_SUPPORTED
+				) {
+					decs.push(
+						createLayoutDropTargetDecoration(pos, {
+							api,
+							formatMessage,
+						}),
+					);
+				}
+			}
 
 			if (node.isInline || !parent || DISABLE_CHILD_DROP_TARGET.includes(parent.type.name)) {
 				if (fg('platform_editor_drag_and_drop_target_v2')) {

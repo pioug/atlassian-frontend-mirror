@@ -11,7 +11,6 @@ import { css, jsx } from '@emotion/react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import type { CustomItemComponentProps } from '@atlaskit/menu';
 import { CustomItem, MenuGroup, Section } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import type { PositionType } from '@atlaskit/tooltip';
 import Tooltip from '@atlaskit/tooltip';
@@ -123,21 +122,13 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 
 	private handleCloseAndFocus = (event: PointerEvent | KeyboardEvent) => {
 		this.state.target?.querySelector('button')?.focus();
-		if (fg('platform_editor_a11y_table_context_menu')) {
-			this.handleClose(event);
-		} else {
-			this.handleClose();
-		}
+		this.handleClose(event);
 	};
 
 	private handleClose = (event?: MouseEvent | PointerEvent | KeyboardEvent) => {
 		const { onOpenChange } = this.props;
 		if (onOpenChange) {
-			if (fg('platform_editor_a11y_table_context_menu')) {
-				onOpenChange({ isOpen: false, event: event });
-			} else {
-				onOpenChange({ isOpen: false });
-			}
+			onOpenChange({ isOpen: false, event: event });
 		}
 	};
 
@@ -210,11 +201,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 						handleClickOutside={this.handleClose}
 						handleEscapeKeydown={handleEscapeKeydown || this.handleCloseAndFocus}
 						handleEnterKeydown={(e: KeyboardEvent) => {
-							if (fg('platform_editor_a11y_table_context_menu')) {
-								if (!allowEnterDefaultBehavior) {
-									e.preventDefault();
-								}
-							} else {
+							if (!allowEnterDefaultBehavior) {
 								e.preventDefault();
 							}
 							e.stopPropagation();
@@ -377,9 +364,7 @@ export function DropdownMenuItem({
 				component={DropdownMenuItemCustomComponent}
 				onMouseEnter={() => onMouseEnter && onMouseEnter({ item })}
 				onMouseLeave={() => onMouseLeave && onMouseLeave({ item })}
-				aria-expanded={
-					fg('platform_editor_a11y_table_context_menu') ? item['aria-expanded'] : undefined
-				}
+				aria-expanded={item['aria-expanded']}
 			>
 				{item.content}
 			</CustomItem>

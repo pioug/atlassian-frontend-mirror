@@ -11,6 +11,7 @@ export { default as da } from './da';
 export { default as nl } from './nl';
 export { default as en } from './en';
 export { default as en_GB } from './en_GB';
+export { default as en_ZZ } from './en_ZZ';
 export { default as fi } from './fi';
 export { default as fr } from './fr';
 export { default as de } from './de';

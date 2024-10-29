@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.38.1
+
+### Patch Changes
+
+- [#157477](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157477)
+  [`b62c7289b73f2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b62c7289b73f2) -
+  ED-24722 Clean up platform.editor.media.inline-image.base-support FF
+
 ## 1.38.0
 
 ### Minor Changes

@@ -47,6 +47,7 @@ export interface MediaClientConfig {
 	readonly stargateBaseUrl?: string;
 	readonly getAuthFromContext?: AuthFromContextProvider;
 	readonly useSha256ForUploads?: boolean;
+	readonly authProviderTimeoutMs?: number;
 }
 
 export interface AuthContext {
@@ -61,4 +62,5 @@ export type MediaApiConfig = {
 	authProvider: AuthProvider;
 	initialAuth?: Auth;
 	chunkHashAlgorithm?: ChunkHashAlgorithm;
+	authProviderTimeout?: number;
 };

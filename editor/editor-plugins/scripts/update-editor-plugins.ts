@@ -28,7 +28,7 @@ interface DependenciesDiffResult {
 	updated: DependencyDiff[];
 }
 
-const foldersToIgnore = ['editor-plugin-ai'];
+const foldersToIgnore: string[] = [];
 
 // Locate the root directory of the project
 const rootPath = findRootSync(process.cwd());
@@ -63,6 +63,33 @@ function getPluginFolderNames(): string[] {
 			!foldersToIgnore.includes(folder) &&
 			!/editor-plugin-.*-tests$/.test(folder),
 	);
+}
+
+function getPluginFolderNamesAndPackageJsons(): {
+	depFolderNames: string[];
+	packageJsons: Record<string, any>[];
+} {
+	const depFolderNames: string[] = [];
+	const packageJsons: Record<string, any>[] = [];
+
+	getPluginFolderNames().forEach((folderName) => {
+		const packageJson = getPluginPackageJson(path.join(pluginsPath, folderName));
+		/**
+		 * editor-plugin is public package.
+		 * And we don't want to expose private packages through this public package.
+		 * That's why if any package starts with @atlassian,
+		 * 	then we will not export it from editor-plugins.
+		 */
+		if (!packageJson.name.startsWith('@atlassian')) {
+			packageJsons.push(packageJson);
+			depFolderNames.push(folderName);
+		}
+	});
+
+	return {
+		depFolderNames,
+		packageJsons,
+	};
 }
 
 function extractFileNameFromDepName(pluginName: string): string {
@@ -374,10 +401,7 @@ async function run() {
 		.parse();
 
 	try {
-		const depFolderNames = getPluginFolderNames();
-		const packageJsons = depFolderNames.map((dep) =>
-			getPluginPackageJson(path.join(pluginsPath, dep)),
-		);
+		const { depFolderNames, packageJsons } = getPluginFolderNamesAndPackageJsons();
 		const newEditorPluginsDeps = getUpdatedDependenciesFromPackageJsons(packageJsons);
 		const editorPluginsPackageJson = getEditorPluginsPackageJson();
 		const featureFlags = argv['update-feature-flags']

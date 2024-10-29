@@ -2,11 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import AKInlineEdit from '@atlaskit/inline-edit';
 import { type AtomicActionExecuteResponse } from '@atlaskit/linking-types';
-import {
-	type DatasourceDataResponseItem,
-	type DatasourceType,
-	type Link,
-} from '@atlaskit/linking-types/datasource';
+import { type DatasourceDataResponseItem, type Link } from '@atlaskit/linking-types/datasource';
 import { Box, xcss } from '@atlaskit/primitives';
 import { useSmartLinkReload } from '@atlaskit/smart-card/hooks';
 
@@ -28,18 +24,28 @@ interface InlineEditProps {
 	execute: (value: string | number) => Promise<AtomicActionExecuteResponse>;
 }
 
+const getBackendUpdateValue = (typedNewValue: DatasourceTypeWithOnlyValues): string | number => {
+	switch (typedNewValue.type) {
+		case 'string':
+			return typedNewValue.values[0] || '';
+	}
+
+	throw new Error(
+		`Datasource 2 way sync Backend update value not implemented for type ${typedNewValue.type}`,
+	);
+};
+
 const mapUpdatedItem = (
-	type: DatasourceType['type'],
 	existingItem: DatasourceDataResponseItem,
 	columnKey: string,
-	newValue: string,
+	newValue: DatasourceTypeWithOnlyValues,
 ): DatasourceDataResponseItem | null => {
-	switch (type) {
+	switch (newValue.type) {
 		case 'string':
 			return {
 				...existingItem,
 				[columnKey]: {
-					data: newValue,
+					data: newValue.values[0] || '',
 				},
 			};
 		default:
@@ -78,6 +84,8 @@ export const InlineEdit = ({
 	datasourceTypeWithValues,
 }: InlineEditProps) => {
 	const [isEditing, setIsEditing] = useState(false);
+	const [editValues, setEditValues] =
+		useState<DatasourceTypeWithOnlyValues>(datasourceTypeWithValues);
 
 	const item = useDatasourceItem({ id: ari });
 	const { entityType, integrationKey } = item || {};
@@ -90,14 +98,15 @@ export const InlineEdit = ({
 
 	const refreshDatasourceItem = useRefreshDatasourceItem(item);
 	const onCommitUpdate = useCallback(
-		(value: string) => {
+		(newValue: DatasourceTypeWithOnlyValues) => {
 			if (!item) {
 				setIsEditing(false);
 				return;
 			}
+
 			const existingData = item.data;
 
-			const newItem = mapUpdatedItem(datasourceTypeWithValues.type, item.data, columnKey, value);
+			const newItem = mapUpdatedItem(item.data, columnKey, newValue);
 
 			if (!newItem || !isNewValue(columnKey, newItem, existingData)) {
 				setIsEditing(false);
@@ -108,7 +117,7 @@ export const InlineEdit = ({
 
 			fireEvent('ui.form.submitted.inlineEdit', {});
 
-			execute(value)
+			execute(getBackendUpdateValue(newValue))
 				.then(refreshDatasourceItem)
 				.catch((error) => {
 					const status = error && typeof error === 'object' ? error.status : undefined;
@@ -117,17 +126,7 @@ export const InlineEdit = ({
 				});
 			setIsEditing(false);
 		},
-		[
-			item,
-			datasourceTypeWithValues.type,
-			columnKey,
-			onUpdateItem,
-			ari,
-			refreshDatasourceItem,
-			fireEvent,
-			execute,
-			showErrorFlag,
-		],
+		[item, columnKey, onUpdateItem, ari, refreshDatasourceItem, fireEvent, execute, showErrorFlag],
 	);
 
 	const onEdit = useCallback(() => {
@@ -157,14 +156,18 @@ export const InlineEdit = ({
 	return (
 		<Box xcss={editContainerStyles}>
 			<AKInlineEdit
-				{...editType(datasourceTypeWithValues)}
+				{...editType({
+					defaultValue: datasourceTypeWithValues,
+					currentValue: editValues,
+					setEditValues,
+				})}
 				hideActionButtons
 				readView={() => readView}
 				readViewFitContainerWidth
 				isEditing={isEditing}
 				onEdit={onEdit}
 				onCancel={onCancelEdit}
-				onConfirm={onCommitUpdate}
+				onConfirm={() => onCommitUpdate(editValues)}
 			/>
 		</Box>
 	);

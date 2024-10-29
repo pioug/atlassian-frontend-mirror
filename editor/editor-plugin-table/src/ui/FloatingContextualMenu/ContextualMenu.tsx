@@ -53,7 +53,6 @@ import TableColumnAddRightIcon from '@atlaskit/icon/core/table-column-add-right'
 import TableColumnDeleteIcon from '@atlaskit/icon/core/table-column-delete';
 import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import {
@@ -138,18 +137,16 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	private dropdownMenuRef = React.createRef<HTMLDivElement>();
 
 	componentDidMount() {
-		if (fg('platform_editor_a11y_table_context_menu')) {
-			// ArrowKeyNavigationProvider in DropdownMenu expects that menu handle will stay focused
-			// until user pressed ArrowDown.
-			// Behavior above fails the A11Y requirement about first item in menu should be focused immediately.
-			// so here is triggering componentDidUpdate inside dropdown to set focus on first element
-			const { isCellMenuOpenByKeyboard } = this.props;
-			if (isCellMenuOpenByKeyboard) {
-				this.setState({
-					...this.state,
-					isOpenAllowed: isCellMenuOpenByKeyboard,
-				});
-			}
+		// ArrowKeyNavigationProvider in DropdownMenu expects that menu handle will stay focused
+		// until user pressed ArrowDown.
+		// Behavior above fails the A11Y requirement about first item in menu should be focused immediately.
+		// so here is triggering componentDidUpdate inside dropdown to set focus on first element
+		const { isCellMenuOpenByKeyboard } = this.props;
+		if (isCellMenuOpenByKeyboard) {
+			this.setState({
+				...this.state,
+				isOpenAllowed: isCellMenuOpenByKeyboard,
+			});
 		}
 	}
 
@@ -162,11 +159,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			: this.createOriginalContextMenuItems();
 		let isOpenAllowed = false;
 
-		if (fg('platform_editor_a11y_table_context_menu')) {
-			isOpenAllowed = isCellMenuOpenByKeyboard ? this.state.isOpenAllowed : isOpen;
-		} else {
-			isOpenAllowed = isOpen;
-		}
+		isOpenAllowed = isCellMenuOpenByKeyboard ? this.state.isOpenAllowed : isOpen;
 
 		return (
 			<div
@@ -180,12 +173,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					//Disabling key navigation now as it works only partially
 					arrowKeyNavigationProviderOptions={{
 						type: ArrowKeyNavigationType.MENU,
-						disableArrowKeyNavigation:
-							isCellMenuOpenByKeyboard &&
-							!this.state.isSubmenuOpen &&
-							fg('platform_editor_a11y_table_context_menu')
-								? false
-								: true,
+						disableArrowKeyNavigation: !isCellMenuOpenByKeyboard || this.state.isSubmenuOpen,
 					}}
 					items={items}
 					isOpen={isOpenAllowed}
@@ -197,19 +185,13 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					fitWidth={
 						isDragAndDropEnabled ? contextualMenuDropdownWidthDnD : contextualMenuDropdownWidth
 					}
-					shouldFocusFirstItem={
-						fg('platform_editor_a11y_table_context_menu')
-							? () => {
-									return Boolean(isCellMenuOpenByKeyboard);
-								}
-							: undefined
-					}
+					shouldFocusFirstItem={() => {
+						return Boolean(isCellMenuOpenByKeyboard);
+					}}
 					boundariesElement={boundariesElement}
 					offset={offset}
 					section={isDragAndDropEnabled ? { hasSeparator: true } : undefined}
-					allowEnterDefaultBehavior={
-						fg('platform_editor_a11y_table_context_menu') ? this.state.isSubmenuOpen : false
-					}
+					allowEnterDefaultBehavior={this.state.isSubmenuOpen}
 				/>
 			</div>
 		);
@@ -248,15 +230,13 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			let selectedRowIndex;
 			let selectedColumnIndex;
 
-			if (fg('platform_editor_a11y_table_context_menu')) {
-				const selectedRowAndColumnFromPalette = getSelectedRowAndColumnFromPalette(
-					cellBackgroundColorPalette,
-					background!,
-					colorPalletteColumns,
-				);
-				selectedRowIndex = selectedRowAndColumnFromPalette.selectedRowIndex;
-				selectedColumnIndex = selectedRowAndColumnFromPalette.selectedColumnIndex;
-			}
+			const selectedRowAndColumnFromPalette = getSelectedRowAndColumnFromPalette(
+				cellBackgroundColorPalette,
+				background!,
+				colorPalletteColumns,
+			);
+			selectedRowIndex = selectedRowAndColumnFromPalette.selectedRowIndex;
+			selectedColumnIndex = selectedRowAndColumnFromPalette.selectedColumnIndex;
 			return {
 				content: isDragAndDropEnabled
 					? formatMessage(messages.backgroundColor)
@@ -285,62 +265,46 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 									: ClassName.CONTEXTUAL_MENU_ICON
 							}
 						/>
-						{fg('platform_editor_a11y_table_context_menu')
-							? isSubmenuOpen && (
-									<div
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-										className={ClassName.CONTEXTUAL_SUBMENU}
-										ref={this.handleSubMenuRef}
-									>
-										<ArrowKeyNavigationProvider
-											type={ArrowKeyNavigationType.COLOR}
-											selectedRowIndex={selectedRowIndex || 0}
-											selectedColumnIndex={selectedColumnIndex || 0}
-											handleClose={() => {
-												this.setState({ isSubmenuOpen: false });
-												if (this.dropdownMenuRef && this.dropdownMenuRef.current) {
-													const focusableItems = this.dropdownMenuRef.current.querySelectorAll(
-														'div[tabindex="-1"]:not([disabled])',
-													) as NodeListOf<HTMLElement>;
-													if (focusableItems && focusableItems.length) {
-														focusableItems[0].focus();
-													}
-												}
-											}}
-											isPopupPositioned={true}
-											isOpenedByKeyboard={isCellMenuOpenByKeyboard!}
-										>
-											<ColorPalette
-												cols={7}
-												onClick={this.setColor}
-												selectedColor={node?.attrs?.background || '#ffffff'}
-												paletteOptions={{
-													palette: cellBackgroundColorPalette,
-													paletteColorTooltipMessages: backgroundPaletteTooltipMessages,
-													hexToPaletteColor: hexToEditorBackgroundPaletteColor,
-												}}
-											/>
-										</ArrowKeyNavigationProvider>
-									</div>
-								)
-							: isSubmenuOpen && (
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-									<div className={ClassName.CONTEXTUAL_SUBMENU} ref={this.handleSubMenuRef}>
-										<ColorPalette
-											cols={7}
-											onClick={this.setColor}
-											selectedColor={node?.attrs?.background || '#ffffff'}
-											paletteOptions={{
-												palette: cellBackgroundColorPalette,
-												paletteColorTooltipMessages: backgroundPaletteTooltipMessages,
-												hexToPaletteColor: hexToEditorBackgroundPaletteColor,
-											}}
-										/>
-									</div>
-								)}
+						{isSubmenuOpen && (
+							<div
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								className={ClassName.CONTEXTUAL_SUBMENU}
+								ref={this.handleSubMenuRef}
+							>
+								<ArrowKeyNavigationProvider
+									type={ArrowKeyNavigationType.COLOR}
+									selectedRowIndex={selectedRowIndex || 0}
+									selectedColumnIndex={selectedColumnIndex || 0}
+									handleClose={() => {
+										this.setState({ isSubmenuOpen: false });
+										if (this.dropdownMenuRef && this.dropdownMenuRef.current) {
+											const focusableItems = this.dropdownMenuRef.current.querySelectorAll(
+												'div[tabindex="-1"]:not([disabled])',
+											) as NodeListOf<HTMLElement>;
+											if (focusableItems && focusableItems.length) {
+												focusableItems[0].focus();
+											}
+										}
+									}}
+									isPopupPositioned={true}
+									isOpenedByKeyboard={isCellMenuOpenByKeyboard!}
+								>
+									<ColorPalette
+										cols={7}
+										onClick={this.setColor}
+										selectedColor={node?.attrs?.background || '#ffffff'}
+										paletteOptions={{
+											palette: cellBackgroundColorPalette,
+											paletteColorTooltipMessages: backgroundPaletteTooltipMessages,
+											hexToPaletteColor: hexToEditorBackgroundPaletteColor,
+										}}
+									/>
+								</ArrowKeyNavigationProvider>
+							</div>
+						)}
 					</div>
 				),
-				'aria-expanded': fg('platform_editor_a11y_table_context_menu') ? isSubmenuOpen : undefined,
+				'aria-expanded': isSubmenuOpen,
 			} as MenuItem;
 		}
 	};
@@ -700,8 +664,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		if (
 			isCellMenuOpenByKeyboard &&
 			(item.value.name !== 'background' ||
-				(item.value.name === 'background' && this.state.isSubmenuOpen)) &&
-			fg('platform_editor_a11y_table_context_menu')
+				(item.value.name === 'background' && this.state.isSubmenuOpen))
 		) {
 			const { tr } = state;
 			tr.setMeta(tablePluginKey, {
@@ -821,11 +784,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				// 1st time when user chooses the background color item.
 				// 2nd when color has been chosen from color palette.
 				// here we are handling the 1st call relying on the isSubmenuOpen state value
-				if (
-					isCellMenuOpenByKeyboard &&
-					!this.state.isSubmenuOpen &&
-					fg('platform_editor_a11y_table_context_menu')
-				) {
+				if (isCellMenuOpenByKeyboard && !this.state.isSubmenuOpen) {
 					this.setState({ isSubmenuOpen: true });
 				}
 				break;
@@ -855,34 +814,29 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			isCellMenuOpenByKeyboard,
 		} = this.props;
 
-		if (fg('platform_editor_a11y_table_context_menu')) {
-			if (payload) {
-				const { event } = payload;
-				if (event && event instanceof KeyboardEvent) {
-					if (!this.state.isSubmenuOpen) {
-						if (arrowsList.has(event.key)) {
-							// preventing default behavior for avoiding cursor jump to next/previous table column
-							// when left/right arrow pressed.
-							event.preventDefault();
-						}
-
-						toggleContextualMenu()(state, dispatch);
-						this.setState({ isSubmenuOpen: false });
-						setFocusToCellMenu(false)(state, dispatch);
-						dom.focus();
+		if (payload) {
+			const { event } = payload;
+			if (event && event instanceof KeyboardEvent) {
+				if (!this.state.isSubmenuOpen) {
+					if (arrowsList.has(event.key)) {
+						// preventing default behavior for avoiding cursor jump to next/previous table column
+						// when left/right arrow pressed.
+						event.preventDefault();
 					}
-				} else {
-					// mouse click outside
+
 					toggleContextualMenu()(state, dispatch);
 					this.setState({ isSubmenuOpen: false });
-					if (isCellMenuOpenByKeyboard) {
-						setFocusToCellMenu(false)(state, dispatch);
-					}
+					setFocusToCellMenu(false)(state, dispatch);
+					dom.focus();
+				}
+			} else {
+				// mouse click outside
+				toggleContextualMenu()(state, dispatch);
+				this.setState({ isSubmenuOpen: false });
+				if (isCellMenuOpenByKeyboard) {
+					setFocusToCellMenu(false)(state, dispatch);
 				}
 			}
-		} else {
-			toggleContextualMenu()(state, dispatch);
-			this.setState({ isSubmenuOpen: false });
 		}
 	};
 

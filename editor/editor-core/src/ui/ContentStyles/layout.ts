@@ -25,6 +25,13 @@ import { token } from '@atlaskit/tokens';
 
 export { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN };
 
+const isPreRelease2 = () => {
+	return (
+		editorExperiment('advanced_layouts', true) ||
+		fg('platform_editor_advanced_layouts_pre_release_2')
+	);
+};
+
 const firstNodeWithNotMarginTop = () =>
 	editorExperiment('nested-dnd', true)
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
@@ -47,6 +54,42 @@ const firstNodeWithNotMarginTop = () =>
 
 				> .ProseMirror-gapcursor:first-child + span + * {
 					margin-top: 0;
+				}
+			`;
+
+// TODO handle responsive
+const layoutColumnStyles = () =>
+	isPreRelease2()
+		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+			css`
+				> [data-layout-column] {
+					margin: 0 ${LAYOUT_SECTION_MARGIN / 2}px;
+				}
+
+				> [data-layout-column]:first-of-type {
+					margin-left: 0;
+				}
+
+				> [data-layout-column]:last-of-type {
+					margin-right: 0;
+				}
+
+				@media screen and (max-width: ${gridMediumMaxWidth}px) {
+					[data-layout-column] + [data-layout-column] {
+						margin: 0;
+					}
+				}
+			`
+		: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+			css`
+				[data-layout-column] + [data-layout-column] {
+					margin-left: ${LAYOUT_SECTION_MARGIN}px;
+				}
+
+				@media screen and (max-width: ${gridMediumMaxWidth}px) {
+					[data-layout-column] + [data-layout-column] {
+						margin-left: 0;
+					}
 				}
 			`;
 
@@ -129,15 +172,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 				}
 			}
 
-			[data-layout-column] + [data-layout-column] {
-				margin-left: ${LAYOUT_SECTION_MARGIN}px;
-			}
-
-			@media screen and (max-width: ${gridMediumMaxWidth}px) {
-				[data-layout-column] + [data-layout-column] {
-					margin-left: 0;
-				}
-			}
+			${layoutColumnStyles()}
 
 			// TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
 			// This is because the default state already uses the same token and, as such, the hover style won't change anything.

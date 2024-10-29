@@ -15,7 +15,11 @@ import type {
 } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
-import { Popup, withOuterListeners } from '@atlaskit/editor-common/ui';
+import {
+	PlainOutsideClickTargetRefContext,
+	Popup,
+	withOuterListeners,
+} from '@atlaskit/editor-common/ui';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
@@ -145,40 +149,44 @@ export const MediaInsertPicker = ({
 			onPositionCalculated={onPositionCalculated}
 			focusTrap
 		>
-			<MediaInsertWrapper>
-				<Tabs id="media-insert-tab-navigation">
-					<Box paddingBlockEnd="space.150">
-						<TabList>
-							<Tab>{intl.formatMessage(mediaInsertMessages.fileTabTitle)}</Tab>
-							<Tab>{intl.formatMessage(mediaInsertMessages.linkTabTitle)}</Tab>
-						</TabList>
-					</Box>
-					<CustomTabPanel>
-						<LocalMedia
-							ref={autofocusRef}
-							mediaProvider={mediaProvider}
-							closeMediaInsertPicker={() => {
-								closeMediaInsertPicker();
-								focusEditor();
-							}}
-							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-							insertFile={insertFile}
-						/>
-					</CustomTabPanel>
-					<CustomTabPanel>
-						<MediaFromURL
-							mediaProvider={mediaProvider}
-							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-							closeMediaInsertPicker={() => {
-								closeMediaInsertPicker();
-								focusEditor();
-							}}
-							insertMediaSingle={insertMediaSingle}
-							insertExternalMediaSingle={insertExternalMediaSingle}
-						/>
-					</CustomTabPanel>
-				</Tabs>
-			</MediaInsertWrapper>
+			<PlainOutsideClickTargetRefContext.Consumer>
+				{(setOutsideClickTargetRef) => (
+					<MediaInsertWrapper ref={setOutsideClickTargetRef}>
+						<Tabs id="media-insert-tab-navigation">
+							<Box paddingBlockEnd="space.150">
+								<TabList>
+									<Tab>{intl.formatMessage(mediaInsertMessages.fileTabTitle)}</Tab>
+									<Tab>{intl.formatMessage(mediaInsertMessages.linkTabTitle)}</Tab>
+								</TabList>
+							</Box>
+							<CustomTabPanel>
+								<LocalMedia
+									ref={autofocusRef}
+									mediaProvider={mediaProvider}
+									closeMediaInsertPicker={() => {
+										closeMediaInsertPicker();
+										focusEditor();
+									}}
+									dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+									insertFile={insertFile}
+								/>
+							</CustomTabPanel>
+							<CustomTabPanel>
+								<MediaFromURL
+									mediaProvider={mediaProvider}
+									dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+									closeMediaInsertPicker={() => {
+										closeMediaInsertPicker();
+										focusEditor();
+									}}
+									insertMediaSingle={insertMediaSingle}
+									insertExternalMediaSingle={insertExternalMediaSingle}
+								/>
+							</CustomTabPanel>
+						</Tabs>
+					</MediaInsertWrapper>
+				)}
+			</PlainOutsideClickTargetRefContext.Consumer>
 		</PopupWithListeners>
 	);
 };

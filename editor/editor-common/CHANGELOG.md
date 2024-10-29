@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 94.6.1
+
+### Patch Changes
+
+- [#157477](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157477)
+  [`b62c7289b73f2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b62c7289b73f2) -
+  ED-24722 Clean up platform.editor.media.inline-image.base-support FF
+
+## 94.6.0
+
+### Minor Changes
+
+- [#157489](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157489)
+  [`00657197923b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00657197923b2) -
+  We are testing replacing findDOMNode with an explicit ref behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
+### Patch Changes
+
+- [#157432](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157432)
+  [`f42393192e79d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f42393192e79d) -
+  set button appearance to subtle to remove unwanted grey border
+
+## 94.5.1
+
+### Patch Changes
+
+- [#152968](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152968)
+  [`501e975100eab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/501e975100eab) -
+  [ED-24137] feature flag clean up for the Cell Options menu a11y work
+
 ## 94.5.0
 
 ### Minor Changes

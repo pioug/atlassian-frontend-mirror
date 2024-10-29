@@ -510,7 +510,7 @@ describe('MediaStore', () => {
 				);
 				expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
 					collectionName,
-				});
+				}, undefined);
 			});
 
 			it('should fail if response is malformed JSON', async () => {
@@ -718,7 +718,7 @@ describe('MediaStore', () => {
 				);
 				expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
 					collectionName: params.collection,
-				});
+				}, undefined);
 			});
 
 			it('should fail if error status is returned', async () => {
@@ -858,7 +858,7 @@ describe('MediaStore', () => {
 
 		describe('getFileImageURL', () => {
 			describe('should return the file image preview url based on the file id only in commercial environment', () => {
-				// createFileImageURL is a private function that is called within this function, its output has been altered based on the feature flag 'platform.media-cdn-delivery'
+				// createFileImageURL is a private function that is called within this function, its output has been altered based on the feature flag 'platform_media_cdn_delivery'
 				const collection = 'some-collection';
 
 				const nonCdnURL = `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
@@ -866,7 +866,7 @@ describe('MediaStore', () => {
 				const cdnURL = `${baseUrl}/file/1234/image/cdn?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
 
 				ffTest(
-					'platform.media-cdn-delivery',
+					'platform_media_cdn_delivery',
 					async () => {
 						// Test against fedramp micros perimeter, should return non-cdn url
 						global.MICROS_PERIMETER = 'fedramp-moderate';
@@ -875,7 +875,7 @@ describe('MediaStore', () => {
 						});
 						expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
 							collectionName: collection,
-						});
+						}, undefined);
 						expect(url).toEqual(nonCdnURL);
 
 						// Test against fedramp hostname, should return non-cdn url
@@ -885,7 +885,7 @@ describe('MediaStore', () => {
 						});
 						expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
 							collectionName: collection,
-						});
+						}, undefined);
 						expect(url).toEqual(nonCdnURL);
 
 						// Test against commercial micros perimeter and hostname, should return cdn url
@@ -896,7 +896,7 @@ describe('MediaStore', () => {
 						});
 						expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
 							collectionName: collection,
-						});
+						}, undefined);
 						expect(url).toEqual(cdnURL);
 					},
 					async () => {
@@ -905,7 +905,7 @@ describe('MediaStore', () => {
 						});
 						expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
 							collectionName: collection,
-						});
+						}, undefined);
 						expect(url).toEqual(nonCdnURL);
 					},
 				);
@@ -916,7 +916,7 @@ describe('MediaStore', () => {
 				const url = await mediaStore.getFileImageURL('1234', { collection });
 				expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
 					collectionName: collection,
-				});
+				}, undefined);
 				expect(url).toEqual(
 					`${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
 				);
@@ -931,7 +931,7 @@ describe('MediaStore', () => {
 				});
 				expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
 					collectionName: collection,
-				});
+				}, undefined);
 				expect(url).toEqual(
 					`${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
 				);
@@ -943,7 +943,7 @@ describe('MediaStore', () => {
 				const nonCdnURL = `${baseUrl}/file/123/image?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`;
 				const cdnURL = `${baseUrl}/file/123/image/cdn?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`;
 				ffTest(
-					'platform.media-cdn-delivery',
+					'platform_media_cdn_delivery',
 					async () => {
 						fetchMock.once(JSON.stringify({ data }), {
 							status: 201,
@@ -1458,7 +1458,7 @@ describe('MediaStore', () => {
 				};
 
 				ffTest(
-					'platform.media-cdn-delivery',
+					'platform_media_cdn_delivery',
 					async () => {
 						// Test against fedramp micros perimeter, should return non-cdn url
 						let response = await mediaStore.getFileBinary('1234', 'some-collection-name');
@@ -1517,7 +1517,7 @@ describe('MediaStore', () => {
 
 				const cdnURL = `${baseUrl}/file/1234/binary/cdn?client=some-client-id&collection=some-collection-name&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
 				ffTest(
-					'platform.media-cdn-delivery',
+					'platform_media_cdn_delivery',
 					async () => {
 						// When the feature flag is enabled, the URL should contain the new path
 
@@ -1549,7 +1549,7 @@ describe('MediaStore', () => {
 				await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
 				expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
 					collectionName: 'some-collection-name',
-				});
+				}, undefined);
 			});
 
 			it('should return file url with custom max-age', async () => {
@@ -1577,8 +1577,8 @@ describe('MediaStore', () => {
 					`${baseUrl}/sd-video?client=some-client-id&collection=some-collection&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`,
 				);
 				expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
-					collectionName: 'some-collection',
-				});
+					collectionName: 'some-collection'
+				}, undefined);
 			});
 
 			describe('handling CDN url', () => {
@@ -1590,7 +1590,7 @@ describe('MediaStore', () => {
 						'http://some-host/sd-video/cdn?client=some-client-id&collection=some-collection&max-age=2592000&token=some-token';
 
 					ffTest(
-						'platform.media-cdn-delivery',
+						'platform_media_cdn_delivery',
 						async () => {
 							// Test against fedramp micros perimeter, should return non-cdn url
 							global.MICROS_PERIMETER = 'fedramp-moderate';
@@ -1793,7 +1793,7 @@ describe('MediaStore', () => {
 
 			describe('getFileImageURLSync', () => {
 				describe('should return the file image preview url based on the file id only in commercial environment', () => {
-					// createFileImageURL is a private function that is called within this function, its output has been altered based on the feature flag 'platform.media-cdn-delivery'
+					// createFileImageURL is a private function that is called within this function, its output has been altered based on the feature flag 'platform_media_cdn_delivery'
 					const collection = 'some-collection';
 
 					const cdnURL = `${baseUrl}/file/1234/image/cdn?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
@@ -1801,7 +1801,7 @@ describe('MediaStore', () => {
 					const nonCdnURL = `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
 
 					ffTest(
-						'platform.media-cdn-delivery',
+						'platform_media_cdn_delivery',
 						async () => {
 							// Test against fedramp micros perimeter, should return non-cdn url
 							global.MICROS_PERIMETER = 'fedramp-moderate';

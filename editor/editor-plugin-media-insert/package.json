@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media-insert",
-	"version": "3.2.5",
+	"version": "4.0.0",
 	"description": "Media Insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,7 +28,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^42.3.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^94.5.0",
+		"@atlaskit/editor-common": "^94.6.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-media": "^1.38.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
@@ -44,7 +44,7 @@
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/tabs": "^16.5.0",
 		"@atlaskit/textfield": "^6.5.0",
-		"@atlaskit/tmp-editor-statsig": "*",
+		"@atlaskit/tmp-editor-statsig": "^2.10.0",
 		"@babel/runtime": "^7.0.0",
 		"react": "^16.8.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"

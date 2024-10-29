@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 4.20.7
+
+### Patch Changes
+
+- [#155914](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155914)
+  [`508501922f391`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/508501922f391) -
+  Use heading component
+
 ## 4.20.6
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { Box, xcss } from '@atlaskit/primitives';
 
@@ -14,6 +14,12 @@ const styles = xcss({
 	backgroundColor: 'elevation.surface.overlay',
 });
 
-export const MediaInsertWrapper = ({ children }: { children?: React.ReactNode }) => {
-	return <Box xcss={styles}>{children}</Box>;
-};
+export const MediaInsertWrapper = forwardRef<HTMLElement, { children?: React.ReactNode }>(
+	({ children }, ref) => {
+		return (
+			<Box ref={ref} xcss={styles}>
+				{children}
+			</Box>
+		);
+	},
+);

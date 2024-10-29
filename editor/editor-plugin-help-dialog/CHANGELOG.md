@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 1.9.3
+
+### Patch Changes
+
+- [#152968](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152968)
+  [`501e975100eab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/501e975100eab) -
+  [ED-24137] feature flag clean up for the Cell Options menu a11y work
+
 ## 1.9.2
 
 ### Patch Changes

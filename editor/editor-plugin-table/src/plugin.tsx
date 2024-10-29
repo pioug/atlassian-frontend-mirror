@@ -39,7 +39,6 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { insertTableWithSize } from './commands/insert';
 import { pluginConfig } from './create-plugin-config';
@@ -576,9 +575,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							return (
 								<>
 									{targetCellPosition &&
-										(tableRef ||
-											(isCellMenuOpenByKeyboard &&
-												fg('platform_editor_a11y_table_context_menu'))) &&
+										(tableRef || isCellMenuOpenByKeyboard) &&
 										!isResizing &&
 										options &&
 										options.allowContextualMenu && (

@@ -68,7 +68,7 @@ const jsonHeaders = {
 
 const cdnFeatureFlag = (endpoint: string) => {
 	let result = endpoint;
-	if (fg('platform.media-cdn-delivery')) {
+	if (fg('platform.media-cdn-delivery') || fg('platform_media_cdn_delivery')) {
 		if (isCommercial()) {
 			result += '/cdn';
 		}
@@ -542,7 +542,7 @@ export class MediaStore implements MediaApi {
 		return response;
 	}
 
-	resolveAuth = (authContext?: AuthContext) => resolveAuth(this.config.authProvider, authContext);
+	resolveAuth = (authContext?: AuthContext) => resolveAuth(this.config.authProvider, authContext, this.config.authProviderTimeout);
 
 	resolveInitialAuth = () => resolveInitialAuth(this.config.initialAuth);
 	get chunkHashAlgorithm() {

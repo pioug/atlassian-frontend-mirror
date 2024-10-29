@@ -1,5 +1,16 @@
 # @atlaskit/media-client
 
+## 28.0.6
+
+### Patch Changes
+
+- [#156328](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156328)
+  [`91ea9df3f02c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91ea9df3f02c3) -
+  migrate media CDN FFs to Statsig
+- [#157454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157454)
+  [`94e18b08d21d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/94e18b08d21d2) -
+  add config for authProviderTimeout to media-client to override default timeout
+
 ## 28.0.5
 
 ### Patch Changes

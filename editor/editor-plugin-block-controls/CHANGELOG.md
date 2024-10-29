@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.12.0
+
+### Minor Changes
+
+- [#157523](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157523)
+  [`0ae18423289a5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ae18423289a5) -
+  ED-25289 implement drop zone in between columns
+
 ## 2.11.0
 
 ### Minor Changes

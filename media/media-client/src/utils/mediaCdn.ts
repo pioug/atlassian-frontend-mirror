@@ -17,7 +17,10 @@ export function mapToMediaCdnUrl(url: string, token: string) {
 		return url;
 	}
 	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-	if (fg('platform.media-cdn-delivery') && fg('platform.media-cdn-single-host')) {
+	if (
+		(fg('platform.media-cdn-delivery') || fg('platform_media_cdn_delivery')) &&
+		(fg('platform.media-cdn-single-host') || fg('platform_media_cdn_single_host'))
+	) {
 		try {
 			const parsedUrl = new URL(url);
 			const cdnHost = MEDIA_CDN_MAP[parsedUrl.host];

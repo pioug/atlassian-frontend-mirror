@@ -13,7 +13,11 @@ import Calendar from '@atlaskit/calendar';
 import type { WeekDay } from '@atlaskit/calendar/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { Popup, withOuterListeners } from '@atlaskit/editor-common/ui';
+import {
+	PlainOutsideClickTargetRefContext,
+	Popup,
+	withOuterListeners,
+} from '@atlaskit/editor-common/ui';
 import { timestampToIsoFormat, timestampToUTCDate } from '@atlaskit/editor-common/utils';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { N0, N60A } from '@atlaskit/theme/colors';
@@ -131,29 +135,35 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 				ariaLabel={null}
 				preventOverflow={true}
 			>
-				<div css={popupContentWrapper}>
-					<DatePickerInput
-						date={date}
-						onNewDate={this.handleNewDate}
-						onSubmitDate={this.handleKeyboardSubmitDate}
-						onEmptySubmit={this.handleEmptySubmitDate}
-						locale={intl.locale}
-						dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-						autoFocus={autoFocus}
-						autoSelectAll={isNew}
-					/>
-					<Calendar
-						onChange={this.handleOnChange}
-						onSelect={(date: DateType) => onSelect(date, INPUT_METHOD.PICKER)}
-						day={day}
-						month={month}
-						year={year}
-						selected={selected}
-						ref={this.handleRef}
-						weekStartDay={weekStartDay}
-						testId={'datepicker'}
-					/>
-				</div>
+				<PlainOutsideClickTargetRefContext.Consumer>
+					{(setOutsideClickTargetRef) => (
+						<div css={popupContentWrapper} ref={setOutsideClickTargetRef}>
+							<DatePickerInput
+								date={date}
+								onNewDate={this.handleNewDate}
+								onSubmitDate={this.handleKeyboardSubmitDate}
+								onEmptySubmit={this.handleEmptySubmitDate}
+								locale={intl.locale}
+								dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+								// Passthrough prop here
+								// eslint-disable-next-line jsx-a11y/no-autofocus
+								autoFocus={autoFocus}
+								autoSelectAll={isNew}
+							/>
+							<Calendar
+								onChange={this.handleOnChange}
+								onSelect={(date: DateType) => onSelect(date, INPUT_METHOD.PICKER)}
+								day={day}
+								month={month}
+								year={year}
+								selected={selected}
+								ref={this.handleRef}
+								weekStartDay={weekStartDay}
+								testId={'datepicker'}
+							/>
+						</div>
+					)}
+				</PlainOutsideClickTargetRefContext.Consumer>
 			</PopupWithListeners>
 		);
 	}

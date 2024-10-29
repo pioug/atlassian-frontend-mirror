@@ -178,7 +178,12 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 			mockSmartCardResolve('https://acme.atlassian.net/browse/EDM-1000', newSummary);
 
 			await act(async () => {
-				fireEvent.change(inlineEdit, { target: { value: newSummary } });
+				fireEvent.change(inlineEdit, {
+					target: { value: newSummary },
+					currentTarget: { value: newSummary },
+				});
+			});
+			await act(async () => {
 				fireEvent.submit(inlineEdit);
 			});
 		};

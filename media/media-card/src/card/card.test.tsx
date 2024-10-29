@@ -2805,6 +2805,49 @@ describe('Card ', () => {
 			expect(screen.queryByLabelText('play')).not.toBeInTheDocument();
 			expect(screen.queryByRole('video')).not.toBeInTheDocument();
 		});
+
+		it('should render preview unavailable when video is failed processing and inline player enabled', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.failedVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const original = mediaApi.getItems;
+
+			let resolveItems = () => {}
+
+			mediaApi.getItems = jest.fn(async (...args) => {
+				await new Promise<void>(res => {
+					resolveItems = res
+				});
+				return original(...args);
+			});
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						disableOverlay
+						useInlinePlayer
+						appearance='auto'
+						isLazy={false}
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			await waitFor(() => {
+				expect(mediaApi.getItems).toHaveBeenCalled();
+			})
+
+			act(() => {
+				resolveItems();
+			});
+
+			// simulate that the file has been fully loaded by the browser
+			const PreviewUnavailable = await screen.findByText('Preview unavailable', undefined);
+			expect(PreviewUnavailable).toBeInTheDocument();
+
+			expect(screen.queryByTestId(spinnerTestId, undefined)).not.toBeInTheDocument();
+		});
 	});
 
 	describe('should update when a new identifier is provided', () => {

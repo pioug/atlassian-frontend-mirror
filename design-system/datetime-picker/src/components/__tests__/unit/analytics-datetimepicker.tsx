@@ -1,44 +1,56 @@
-import {
-	createAndFireEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+import React from 'react';
 
-import '../../date-time-picker';
+import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
+import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import __noop from '@atlaskit/ds-lib/noop';
 
-// This is a global mock for this file that will mock all components wrapped with analytics
-// and replace them with an empty SFC that returns null. This includes components imported
-// directly in this file and others imported as dependencies of those imports.
-jest.mock('@atlaskit/analytics-next', () => ({
-	withAnalyticsEvents: jest.fn(() => jest.fn(() => () => null)),
-	withAnalyticsContext: jest.fn(() => jest.fn(() => () => null)),
-	createAndFireEvent: jest.fn(() => jest.fn((args) => args)),
-}));
+import DateTimePicker from '../../date-time-picker';
+
+const attributes = {
+	componentName: 'dateTimePicker',
+	packageName: process.env._PACKAGE_NAME_ as string,
+	packageVersion: process.env._PACKAGE_VERSION_ as string,
+};
 
 describe('DateTimePicker', () => {
-	it('should be wrapped with analytics context', () => {
-		expect(withAnalyticsContext).toHaveBeenCalledWith({
-			componentName: 'dateTimePicker',
-			packageName,
-			packageVersion,
-		});
-	});
+	const testId = 'testId';
 
-	it('should be wrapped with analytics events', () => {
-		expect(createAndFireEvent).toHaveBeenCalledWith('atlaskit');
-		expect(withAnalyticsEvents).toHaveBeenCalledWith({
-			onChange: {
+	it(`should fire an event on internal channel when value is changed`, async () => {
+		const user = userEvent.setup();
+		const onAtlaskitEvent = jest.fn();
+		render(
+			<AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
+				<div>
+					<label htmlFor="time">
+						Time
+						<DateTimePicker id="datetime" testId={testId} onChange={__noop} />
+					</label>
+				</div>
+			</AnalyticsListener>,
+		);
+		const datePickerInput = within(
+			screen.getByTestId(`${testId}--datepicker--container`),
+		).getByRole('combobox') as HTMLInputElement;
+		const timePickerInput = within(
+			screen.getByTestId(`${testId}--timepicker--container`),
+		).getByRole('combobox') as HTMLInputElement;
+		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
+			payload: {
 				action: 'changed',
 				actionSubject: 'dateTimePicker',
-				attributes: {
-					componentName: 'dateTimePicker',
-					packageName,
-					packageVersion,
-				},
+				attributes,
 			},
 		});
+		await user.type(datePickerInput, '1/1/2001{Enter}');
+		await user.type(timePickerInput, '11:00{Enter}');
+		const mock: jest.Mock = onAtlaskitEvent;
+		// Once for each underlying component change and once for each datetime picker change
+		expect(mock).toHaveBeenCalledTimes(4);
+		const dateTimePickerEvents = mock.mock.calls.filter(
+			(call) => call[0].payload.actionSubject === attributes.componentName,
+		);
+		dateTimePickerEvents.forEach((e) => expect(e[0].payload).toEqual(expected.payload));
 	});
 });

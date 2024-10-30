@@ -1,5 +1,13 @@
 # @atlaskit/layering
 
+## 0.7.1
+
+### Patch Changes
+
+- [#157176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157176)
+  [`3d03c4f1002ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d03c4f1002ab) -
+  Bind key event listeners on window instead of document for useCloseOnEscapePress
+
 ## 0.7.0
 
 ### Minor Changes

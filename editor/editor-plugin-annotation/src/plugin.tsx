@@ -105,12 +105,14 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 					!pluginState.mouseData.isSelecting
 				) {
 					const { isToolbarAbove } = annotationProviders.inlineComment;
-					return buildToolbar(api?.analytics?.actions)(
+
+					return buildToolbar(api?.analytics?.actions)({
 						state,
 						intl,
 						isToolbarAbove,
-						featureFlags?.commentsOnMedia,
-					) as SelectionToolbarGroup;
+						isCommentOnMediaOn: featureFlags?.commentsOnMedia,
+						api,
+					}) as SelectionToolbarGroup;
 				}
 			},
 		},

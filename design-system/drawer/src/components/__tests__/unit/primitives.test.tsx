@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 
-import EmojiIcon from '@atlaskit/icon/glyph/emoji';
+import EmojiIcon from '@atlaskit/icon/core/migration/emoji';
 
 import DrawerPrimitive from '../../primitives';
 import { wrapperWidth } from '../../primitives/drawer-wrapper';

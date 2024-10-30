@@ -9,7 +9,8 @@ import { useCallback, useRef } from 'react';
 import { jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
-import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
+import ArrowLeft from '@atlaskit/icon/core/migration/arrow-left';
+import ArrowLeftOld from '@atlaskit/icon/glyph/arrow-left';
 import {
 	ExitingPersistence,
 	SlideIn,
@@ -17,6 +18,7 @@ import {
 	useExitingPersistence,
 } from '@atlaskit/motion';
 import type { SlideInProps } from '@atlaskit/motion/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { animationTimingFunction, transitionDurationMs } from '../../constants';
 import {
@@ -136,7 +138,22 @@ const DrawerPrimitive = ({
 									<IconButton
 										onClick={onClose}
 										testId={testId && 'DrawerPrimitiveSidebarCloseButton'}
-										icon={Icon ? (iconProps) => <Icon {...iconProps} size="large" /> : ArrowLeft}
+										icon={
+											Icon
+												? (iconProps) => (
+														<Icon
+															{...iconProps}
+															size="large"
+															{...(fg('platform-visual-refresh-icon-ads-migration')
+																? { LEGACY_size: 'large' }
+																: {})}
+														/>
+													)
+												: fg('platform-visual-refresh-icon-ads-migration')
+													? ArrowLeft
+													: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+														ArrowLeftOld
+										}
 										label={closeLabel}
 										shape="circle"
 										appearance="subtle"

@@ -37,6 +37,9 @@
 			"path": "../../../build/formatting/tsconfig.app.json"
 		},
 		{
+			"path": "../eslint-plugin/tsconfig.app.json"
+		},
+		{
 			"path": "../eslint-utils/tsconfig.app.json"
 		},
 		{

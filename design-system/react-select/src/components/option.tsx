@@ -102,6 +102,7 @@ const Option = <Option, IsMulti extends boolean, Group extends GroupBase<Option>
 			ref={innerRef}
 			aria-disabled={isDisabled}
 			{...innerProps}
+			tabIndex={-1}
 		>
 			{children}
 		</div>

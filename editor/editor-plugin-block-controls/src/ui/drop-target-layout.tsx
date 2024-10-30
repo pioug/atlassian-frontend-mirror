@@ -44,7 +44,7 @@ const dropTargetLayoutHintStyle = css({
 });
 
 export const DropTargetLayout = (props: DropTargetLayoutProps) => {
-	const { api } = props;
+	const { api, getPos } = props;
 
 	const ref = useRef<HTMLDivElement | null>(null);
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
@@ -54,7 +54,13 @@ export const DropTargetLayout = (props: DropTargetLayoutProps) => {
 		if (!activeNode) {
 			return;
 		}
-	}, [api?.blockControls?.sharedState]);
+
+		const to = getPos();
+		if (to !== undefined) {
+			const { pos: from } = activeNode;
+			api?.core?.actions.execute(api?.blockControls?.commands?.moveToLayout(from, to));
+		}
+	}, [api, getPos]);
 
 	useEffect(() => {
 		if (ref.current) {

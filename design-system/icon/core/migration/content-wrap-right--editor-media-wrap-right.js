@@ -1,0 +1,33 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::55a7f1c09c25653217ff074c79cc9853>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _contentWrapRight = _interopRequireDefault(require("@atlaskit/icon/core/content-wrap-right"));
+var _mediaWrapRight = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/media-wrap-right"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+/**
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
+ *
+ * Migration Icon component for ContentWrapRightIcon.
+ * This component is ContentWrapRightIcon, with `UNSAFE_fallbackIcon` set to "EditorMediaWrapRightIcon".
+ *
+ * Category: single-purpose
+ * Location: @atlaskit/icon
+ * Usage guidance: Single purpose - Reserved for right aligning media and content with wrapping enabled.
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
+ */
+const ContentWrapRightIcon = props => /*#__PURE__*/_react.default.createElement(_contentWrapRight.default, Object.assign({
+  LEGACY_fallbackIcon: _mediaWrapRight.default
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
+ContentWrapRightIcon.Name = 'ContentWrapRightIconMigration';
+var _default = exports.default = ContentWrapRightIcon;

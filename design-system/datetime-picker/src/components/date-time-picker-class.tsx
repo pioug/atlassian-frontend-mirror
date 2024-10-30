@@ -13,7 +13,7 @@ import {
 	withAnalyticsContext,
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
+import SelectClearIcon from '@atlaskit/icon/utility/migration/cross-circle--select-clear';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';
 import { N500, N70 } from '@atlaskit/theme/colors';
@@ -391,7 +391,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerBaseProps, S
 						tabIndex={-1}
 						type="button"
 					>
-						<SelectClearIcon size="small" primaryColor="inherit" label={clearControlLabel} />
+						<SelectClearIcon LEGACY_size="small" color="currentColor" label={clearControlLabel} />{' '}
 					</button>
 				) : null}
 			</DateTimePickerContainer>

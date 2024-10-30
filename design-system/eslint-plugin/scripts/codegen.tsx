@@ -156,9 +156,10 @@ async function generatePluginIndex() {
     	import { rules } from './rules/index.codegen';
 
 		// this uses require because not all node versions this package supports use the same import assertions/attributes
-		const pkgJson = require('../package.json');
+		// eslint-disable-next-line import/no-extraneous-dependencies
+		const pkgJson = require('${packagePluginName}/package.json');
 
-		export const { version, name }: { name: string; version: string; } = pkgJson;
+		const { version, name }: { name: string; version: string; } = pkgJson;
 
 		export const plugin = {
 			meta: {
@@ -187,7 +188,7 @@ async function generatePluginIndex() {
 		} as const;
 
 		export { rules } from './rules/index.codegen';
-		export const configs = plugin.configs;
+		export const { configs, meta } = plugin;
 
 		export default plugin;
   `;

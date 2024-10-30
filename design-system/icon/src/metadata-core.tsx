@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `UNSAFE_createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::d76c32c1492b8dd1bef65149c573c900>>
+ * @codegen <<SignedSource::ac7f367e690af67950a58d9f31ed30f7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -1081,6 +1081,7 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'ContentWrapLeftIcon',
 		package: '@atlaskit/icon/core/content-wrap-left',
+		oldName: ['editor/media-wrap-left'],
 		type: 'core',
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for left aligning media and content with wrapping enabled.',
@@ -1102,6 +1103,7 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'ContentWrapRightIcon',
 		package: '@atlaskit/icon/core/content-wrap-right',
+		oldName: ['editor/media-wrap-right'],
 		type: 'core',
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for right aligning media and content with wrapping enabled.',
@@ -1331,6 +1333,7 @@ const metadata: Record<string, metadata> = {
 		keywords: ['discovery', 'icon', 'core', 'discovery', 'note', 'filled'],
 		componentName: 'DiscoveryIcon',
 		package: '@atlaskit/icon/core/discovery',
+		oldName: ['editor/note'],
 		type: 'core',
 		categorization: 'single-purpose',
 		usage:
@@ -1713,7 +1716,7 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'FileIcon',
 		package: '@atlaskit/icon/core/file',
-		oldName: ['editor/file', 'file'],
+		oldName: ['document-filled', 'document', 'editor/file', 'file'],
 		type: 'core',
 		categorization: 'multi-purpose',
 		usage:
@@ -1724,6 +1727,7 @@ const metadata: Record<string, metadata> = {
 		keywords: ['files', 'icon', 'core', 'documents', 'files', 'papers'],
 		componentName: 'FilesIcon',
 		package: '@atlaskit/icon/core/files',
+		oldName: ['documents'],
 		type: 'core',
 		categorization: 'multi-purpose',
 		usage:
@@ -2610,7 +2614,7 @@ const metadata: Record<string, metadata> = {
 		keywords: ['minus', 'icon', 'core', 'rule', 'horizontal line', 'divider', 'minus', 'subtract'],
 		componentName: 'MinusIcon',
 		package: '@atlaskit/icon/core/minus',
-		oldName: ['editor/horizontal-rule'],
+		oldName: ['editor/divider', 'editor/horizontal-rule'],
 		type: 'core',
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: horizontal rule in Editor.',

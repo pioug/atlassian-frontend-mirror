@@ -1875,6 +1875,7 @@ cases(
 		rerender(<Select {...renderProps} isSearchable />);
 
 		const setInputValue = (val: string) => {
+			// eslint-disable-next-line jsx-a11y/no-autofocus
 			rerender(<Select {...renderProps} autoFocus inputValue={val} />);
 		};
 
@@ -1982,6 +1983,7 @@ cases(
 		rerender(<Select {...renderProps} isSearchable />);
 
 		const setInputValue = (val: string) => {
+			// eslint-disable-next-line jsx-a11y/no-autofocus
 			rerender(<Select {...renderProps} autoFocus inputValue={val} />);
 		};
 
@@ -2227,10 +2229,12 @@ cases(
 
 test('accessibility > to show the number of options available in A11yText when the menu is Open', () => {
 	let { container, rerender } = render(
+		// eslint-disable-next-line jsx-a11y/no-autofocus
 		<Select {...BASIC_PROPS} inputValue={''} autoFocus menuIsOpen />,
 	);
 
 	let setInputValue = (val: string) => {
+		// eslint-disable-next-line jsx-a11y/no-autofocus
 		rerender(<Select {...BASIC_PROPS} autoFocus menuIsOpen inputValue={val} />);
 	};
 
@@ -2299,7 +2303,7 @@ test('accessibility > interacting with multi values options shows correct A11yTe
 
 	fireEvent.keyDown(input, { keyCode: 37, key: 'ArrowLeft' });
 	expect(container.querySelector(liveRegionFocusedId)!).toHaveTextContent(
-		/value 1 focused, 2 of 2\./,
+		'value 1 focused, (2 of 2).',
 	);
 	expect(container.querySelector(liveRegionGuidanceId)!).toHaveTextContent(
 		/Use left and right to toggle between focused values, press Backspace to remove the currently focused value/,
@@ -2307,7 +2311,7 @@ test('accessibility > interacting with multi values options shows correct A11yTe
 
 	fireEvent.keyDown(input, { keyCode: 37, key: 'ArrowLeft' });
 	expect(container.querySelector(liveRegionFocusedId)!).toHaveTextContent(
-		/value 0 focused, 1 of 2\./,
+		'value 0 focused, (1 of 2).',
 	);
 	expect(container.querySelector(liveRegionGuidanceId)!).toHaveTextContent(
 		/Use left and right to toggle between focused values, press Backspace to remove the currently focused value/,

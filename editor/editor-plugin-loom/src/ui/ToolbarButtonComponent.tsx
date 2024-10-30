@@ -74,7 +74,13 @@ const LoomToolbarButtonInternal = React.forwardRef<HTMLElement, Props & WrappedC
 				buttonId={TOOLBAR_BUTTON.RECORD_VIDEO}
 				disabled={disabled}
 				title={label}
-				iconBefore={<VideoIcon label={label} color={token('color.text')} spacing="spacious" />}
+				iconBefore={
+					<VideoIcon
+						label={label}
+						color={disabled ? token('color.text.disabled') : token('color.text')}
+						spacing="spacious"
+					/>
+				}
 				selected={selected}
 				onBlur={onBlur}
 				onFocus={onFocus}

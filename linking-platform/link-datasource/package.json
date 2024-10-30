@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.6.13",
+	"version": "3.6.15",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,7 +42,7 @@
 		"@atlaskit/badge": "^16.4.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/datetime-picker": "^15.5.0",
-		"@atlaskit/dropdown-menu": "^12.21.0",
+		"@atlaskit/dropdown-menu": "^12.22.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/empty-state": "^7.12.0",
 		"@atlaskit/flag": "^15.8.0",
@@ -59,7 +59,7 @@
 		"@atlaskit/layering": "^0.7.0",
 		"@atlaskit/link-client-extension": "^2.4.0",
 		"@atlaskit/linking-common": "^6.0.0",
-		"@atlaskit/linking-types": "^9.2.0",
+		"@atlaskit/linking-types": "^9.3.0",
 		"@atlaskit/logo": "^14.3.0",
 		"@atlaskit/lozenge": "^11.12.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
@@ -70,8 +70,8 @@
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
 		"@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^1.2.0",
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
-		"@atlaskit/primitives": "^12.2.0",
-		"@atlaskit/select": "^18.3.0",
+		"@atlaskit/primitives": "^13.0.0",
+		"@atlaskit/select": "^18.4.0",
 		"@atlaskit/smart-card": "^30.1.0",
 		"@atlaskit/smart-user-picker": "6.11.1",
 		"@atlaskit/spinner": "^16.3.0",
@@ -164,6 +164,9 @@
 			"type": "boolean"
 		},
 		"platform-datasources-enable-two-way-sync": {
+			"type": "boolean"
+		},
+		"enable_datasource_supporting_actions": {
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource-assets_add_version_parameter": {

@@ -9,6 +9,11 @@ export function isIPhone() {
 	return testPlatform(/^iPhone/i);
 }
 
+export function isSafari() {
+	const ua = navigator.userAgent.toLowerCase();
+	return ua.includes('safari') && !ua.includes('chrome');
+}
+
 export function isMac() {
 	return testPlatform(/^Mac/i);
 }

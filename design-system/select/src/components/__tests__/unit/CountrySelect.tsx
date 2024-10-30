@@ -42,9 +42,9 @@ describe('Country Select accessible labels and group labels', () => {
 		const input = screen.getByRole('combobox');
 		const ariaLive = screen.getByRole('log');
 		await userEvent.click(input);
-		expect(ariaLive).toHaveTextContent('Uzbekistan (UZ) +998, 1 of 3.3 results available.');
+		expect(ariaLive).toHaveTextContent('Uzbekistan (UZ) +998 not selected, (1 of 3), completion selected');
 		await userEvent.keyboard('{ArrowDown>}');
-		expect(ariaLive).toHaveTextContent('Vanuatu (VU) +678, 2 of 3.3 results available.');
+		expect(ariaLive).toHaveTextContent('Vanuatu (VU) +678 not selected, (2 of 3), completion selected');
 	});
 
 	it('screen reader should announce the group labels, option serial number in the group, and number of options in the group', async () => {

@@ -9,7 +9,7 @@ import {
 	type UploadPreviewUpdateEventPayload,
 	type UploadsStartEventPayload,
 	type UploadParams,
-	type FlagData,
+	type UploadRejectionData,
 } from '../types';
 import { UploadComponent } from './component';
 import { UploadServiceImpl } from '../service/uploadServiceImpl';
@@ -38,7 +38,7 @@ export type LocalUploadComponentBaseProps = {
 } & WithAnalyticsEventsProps;
 
 export type LocalUploadComponentBaseState = {
-	errorFlags: FlagData[];
+	errorFlags: UploadRejectionData[];
 };
 
 export class LocalUploadComponentReact<
@@ -86,22 +86,19 @@ export class LocalUploadComponentReact<
 		this.uploadService.on('file-preview-update', this.onFilePreviewUpdate);
 		this.uploadService.on('file-converting', this.onFileConverting);
 		this.uploadService.on('file-upload-error', this.onUploadError);
-		this.uploadService.onFileEmpty(this.addErrorFlag);
 
-		if (tenantUploadParams.onUploadRejection) {
+		const onFileRejection = (rejectionData: UploadRejectionData) => {
 			const { onUploadRejection } = tenantUploadParams;
-			this.uploadService.onFileRejection((rejectionData) => {
-				const shouldOverride = onUploadRejection(rejectionData);
-				if (!shouldOverride) {
-					this.addErrorFlag(rejectionData);
-				}
-			});
-		} else {
-			this.uploadService.onFileRejection(this.addErrorFlag);
-		}
+			const shouldOverride = onUploadRejection?.(rejectionData);
+			if (!shouldOverride) {
+				this.addErrorFlag(rejectionData);
+			}
+		};
+		this.uploadService.onFileRejection(onFileRejection);
+		this.uploadService.onFileEmpty(onFileRejection);
 	}
 
-	private addErrorFlag = (flagData: FlagData) => {
+	private addErrorFlag = (flagData: UploadRejectionData) => {
 		this.setState({
 			errorFlags: [...this.state.errorFlags, flagData],
 		});

@@ -148,7 +148,9 @@ export const InlineDropTarget = ({
 		if (activeNode && toPos !== undefined) {
 			const { pos: start } = activeNode;
 			api?.core?.actions.execute(
-				api?.blockControls?.commands?.moveToLayout(start, toPos, position),
+				api?.blockControls?.commands?.moveToLayout(start, toPos, {
+					moveToEnd: position === 'right',
+				}),
 			);
 		}
 	}, [api, getPos, position]);

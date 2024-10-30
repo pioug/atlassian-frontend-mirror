@@ -16,7 +16,6 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { Command, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import { withOuterListeners } from '@atlaskit/editor-common/ui';
 import {
 	backgroundPaletteTooltipMessages,
 	cellBackgroundColorPalette,
@@ -264,8 +263,6 @@ const convertToDropdownItems = (
 	return { menuItems, menuCallback };
 };
 
-const ColorPaletteWithListeners = withOuterListeners(ColorPalette);
-
 const DragMenu = React.memo(
 	({
 		direction = 'row',
@@ -413,7 +410,7 @@ const DragMenu = React.memo(
 									isPopupPositioned={true}
 									isOpenedByKeyboard={isKeyboardModeActive}
 								>
-									<ColorPaletteWithListeners
+									<ColorPalette
 										cols={colorPalletteColumns}
 										onClick={(color) => {
 											setColor(color);

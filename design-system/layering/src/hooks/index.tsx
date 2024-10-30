@@ -30,6 +30,7 @@ export function useCloseOnEscapePress({ onClose, isDisabled }: UseCloseOnEscapeP
 	const onKeyDown = useCallback(
 		(e: KeyboardEvent) => {
 			const isDisabledLayer = isLayerDisabled();
+
 			if (isDisabled || escapePressed.current || e.key !== ESCAPE || isDisabledLayer) {
 				// We're either already handling the key down event or it's not escape or disabled.
 				// Bail early!
@@ -48,7 +49,7 @@ export function useCloseOnEscapePress({ onClose, isDisabled }: UseCloseOnEscapeP
 
 	useEffect(() => {
 		return bindAll(
-			document,
+			window,
 			[
 				{
 					type: 'keydown',

@@ -51,8 +51,8 @@ describe('dropdown menu keyboard navigation', () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
-					{items.map((text, i) => (
-						<DropdownItem key={i}>{text}</DropdownItem>
+					{items.map((text) => (
+						<DropdownItem>{text}</DropdownItem>
 					))}
 				</DropdownItemGroup>
 			</DropdownMenu>,
@@ -70,8 +70,8 @@ describe('dropdown menu keyboard navigation', () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
-					{items.map((text, i) => (
-						<DropdownItem key={i}>{text}</DropdownItem>
+					{items.map((text) => (
+						<DropdownItem>{text}</DropdownItem>
 					))}
 				</DropdownItemGroup>
 			</DropdownMenu>,
@@ -86,8 +86,8 @@ describe('dropdown menu keyboard navigation', () => {
 			render(
 				<DropdownMenu trigger={triggerText} testId={testId}>
 					<DropdownItemGroup>
-						{items.map((text, i) => (
-							<DropdownItem key={i}>{text}</DropdownItem>
+						{items.map((text) => (
+							<DropdownItem>{text}</DropdownItem>
 						))}
 					</DropdownItemGroup>
 				</DropdownMenu>,
@@ -107,8 +107,8 @@ describe('dropdown menu keyboard navigation', () => {
 			render(
 				<DropdownMenu trigger={triggerText} testId={testId}>
 					<DropdownItemGroup>
-						{items.map((text, i) => (
-							<DropdownItem key={i}>{text}</DropdownItem>
+						{items.map((text) => (
+							<DropdownItem>{text}</DropdownItem>
 						))}
 					</DropdownItemGroup>
 				</DropdownMenu>,
@@ -126,8 +126,8 @@ describe('dropdown menu keyboard navigation', () => {
 			render(
 				<DropdownMenu trigger={triggerText} testId={testId}>
 					<DropdownItemGroup>
-						{items.map((text, i) => (
-							<DropdownItem key={i}>{text}</DropdownItem>
+						{items.map((text) => (
+							<DropdownItem>{text}</DropdownItem>
 						))}
 					</DropdownItemGroup>
 				</DropdownMenu>,
@@ -156,8 +156,8 @@ describe('dropdown menu keyboard navigation', () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
-					{items.map((text, i) => (
-						<DropdownItem key={i}>{text}</DropdownItem>
+					{items.map((text) => (
+						<DropdownItem>{text}</DropdownItem>
 					))}
 				</DropdownItemGroup>
 			</DropdownMenu>,
@@ -341,8 +341,8 @@ describe('dropdown menu keyboard navigation', () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
-					{items.map((text, i) => (
-						<DropdownItem key={i}>{text}</DropdownItem>
+					{items.map((text) => (
+						<DropdownItem>{text}</DropdownItem>
 					))}
 				</DropdownItemGroup>
 			</DropdownMenu>,
@@ -369,8 +369,8 @@ describe('dropdown menu keyboard navigation', () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
-					{items.map((text, i) => (
-						<DropdownItem key={i}>{text}</DropdownItem>
+					{items.map((text) => (
+						<DropdownItem>{text}</DropdownItem>
 					))}
 				</DropdownItemGroup>
 			</DropdownMenu>,
@@ -398,8 +398,8 @@ describe('dropdown menu keyboard navigation', () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
-					{items.map((text, i) => (
-						<DropdownItem key={i}>{text}</DropdownItem>
+					{items.map((text) => (
+						<DropdownItem>{text}</DropdownItem>
 					))}
 				</DropdownItemGroup>
 			</DropdownMenu>,
@@ -428,8 +428,8 @@ describe('dropdown menu keyboard navigation', () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
-					{items.map((text, i) => (
-						<DropdownItem key={i}>{text}</DropdownItem>
+					{items.map((text) => (
+						<DropdownItem>{text}</DropdownItem>
 					))}
 				</DropdownItemGroup>
 			</DropdownMenu>,
@@ -464,8 +464,8 @@ describe('dropdown menu keyboard navigation', () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} onOpenChange={onOpenChange}>
 				<DropdownItemGroup>
-					{items.map((text, i) => (
-						<DropdownItem key={i}>{text}</DropdownItem>
+					{items.map((text) => (
+						<DropdownItem>{text}</DropdownItem>
 					))}
 				</DropdownItemGroup>
 			</DropdownMenu>,

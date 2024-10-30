@@ -153,7 +153,6 @@ export const ProviderCard = ({
 					onClick={handleClick}
 					icon={(props) =>
 						expanded ? (
-							// eslint-disable-next-line @atlaskit/design-system/ensure-icon-color
 							<CollapseIcon
 								{...props}
 								LEGACY_size="small"
@@ -161,7 +160,6 @@ export const ProviderCard = ({
 								LEGACY_fallbackIcon={CollapseIconLegacy}
 							/>
 						) : (
-							// eslint-disable-next-line @atlaskit/design-system/ensure-icon-color
 							<ExpandIcon
 								{...props}
 								LEGACY_size="small"

@@ -1,5 +1,33 @@
 # @atlaskit/icon
 
+## 22.24.1
+
+### Patch Changes
+
+- [#157955](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157955)
+  [`ea8ebc84a9079`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea8ebc84a9079) -
+  Updated migration mapping for several icon entrypoints.
+
+  **`@atlaskit/icon/core/migration`**
+
+  - `content-wrap-left--editor-media-wrap-left`
+  - `content-wrap-right--editor-media-wrap-right`
+  - `discovery--editor-note`
+  - `file--document-filled`
+  - `file--document`
+  - `files--documents`
+  - `minus--editor-divider`
+
+  Updated legacy icons to map to new icons via the icon facade:
+
+  - document → file
+  - document-filled → file
+  - documents → files
+  - editor/divider → minus
+  - editor/media-wrap-left → content-wrap-left
+  - editor/media-wrap-right → content-wrap-right
+  - editor/note → discovery
+
 ## 22.24.0
 
 ### Minor Changes

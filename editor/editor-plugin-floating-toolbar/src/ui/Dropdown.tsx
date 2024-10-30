@@ -13,6 +13,7 @@ import type {
 	CommandDispatch,
 	DropdownOptions,
 	DropdownOptionT,
+	FloatingToolbarButtonSpotlightConfig,
 } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
@@ -81,6 +82,7 @@ export interface Props {
 	footer?: React.ReactNode;
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
+	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
 }
 
 export interface State {
@@ -114,6 +116,7 @@ export default class Dropdown extends Component<Props, State> {
 			footer,
 			onMount,
 			pulse,
+			spotlightConfig,
 		} = this.props;
 
 		let trigger;
@@ -131,6 +134,7 @@ export default class Dropdown extends Component<Props, State> {
 					tooltipContent={tooltip}
 					onMount={onMount}
 					pulse={pulse}
+					spotlightConfig={spotlightConfig}
 				/>
 			);
 		} else {
@@ -157,6 +161,7 @@ export default class Dropdown extends Component<Props, State> {
 					areaControls={dropdownListId}
 					onMount={onMount}
 					pulse={pulse}
+					spotlightConfig={spotlightConfig}
 				>
 					{title}
 				</Button>

@@ -9,6 +9,7 @@ import { jsx } from '@compiled/react';
 import { cssMap, cx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
+// NOTE: While this is using Compiled, this is backwards compatability with the old Emotion API.
 import { Box, Inline } from '../src';
 
 const styles = cssMap({

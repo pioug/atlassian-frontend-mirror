@@ -71,7 +71,13 @@ export type BlockControlsPlugin = NextEditorPlugin<
 		];
 		sharedState: BlockControlsSharedState;
 		commands: {
-			moveToLayout: (start: number, to: number, position: 'left' | 'right') => EditorCommand;
+			/**
+			 * Move a node before (unless `moveToEnd` is set) another node to expand a layout or create a new layout
+			 * @param from position of the node to be moved
+			 * @param to position of the layout/layout column/node to move the node to
+			 * @param options moveToEnd: move the node to after the layout/layout column/another node
+			 */
+			moveToLayout: (start: number, to: number, options?: { moveToEnd?: boolean }) => EditorCommand;
 			moveNode: (
 				start: number,
 				to: number,

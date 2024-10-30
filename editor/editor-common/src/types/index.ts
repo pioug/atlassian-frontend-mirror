@@ -64,6 +64,7 @@ export type {
 	FloatingToolbarItem,
 	FloatingToolbarConfig,
 	FloatingToolbarHandler,
+	FloatingToolbarButtonSpotlightConfig,
 } from './floating-toolbar';
 
 export type { MarkOptions, NodeOptions } from './copy-button';

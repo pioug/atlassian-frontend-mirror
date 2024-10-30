@@ -156,7 +156,9 @@ export default function createPostInteractionLogPayload({
 	);
 
 	let lastInteractionFinishVC90: number | null = null;
+	let lastInteractionFinishVCClean: boolean = false;
 	if (lastInteractionFinishVCResult?.['ufo:vc:state']) {
+		lastInteractionFinishVCClean = true;
 		const lastInteractionFinishVCMetrics = lastInteractionFinishVCResult?.['metrics:vc'] as Record<
 			number,
 			number
@@ -167,7 +169,9 @@ export default function createPostInteractionLogPayload({
 	let postInteractionFinishVCRatios: Record<string, number> = {};
 	let revisedVC90: number | null = null;
 	let postInteractionFinishVCUpdates: VCEntryType[] = [];
+	let postInteractionFinishVCClean: boolean = false;
 	if (postInteractionFinishVCResult?.['ufo:vc:state']) {
+		postInteractionFinishVCClean = true;
 		postInteractionFinishVCRatios = postInteractionFinishVCResult?.['ufo:vc:ratios'] as Record<
 			string,
 			number
@@ -223,10 +227,12 @@ export default function createPostInteractionLogPayload({
 						end: lastInteractionFinishEnd,
 						ttai: lastInteractionFinishTTAI,
 						vc90: lastInteractionFinishVC90,
+						vcClean: lastInteractionFinishVCClean,
 					},
 					revisedEndTime,
 					revisedTtai,
 					revisedVC90,
+					vcClean: postInteractionFinishVCClean,
 					lateMutations,
 					reactProfilerTimings: transformReactProfilerTimings(reactProfilerTimings),
 				},

@@ -11,9 +11,7 @@ import { type NoticeProps, type OptionType } from '../types';
 export const NoOptionsMessage = (props: NoticeProps<OptionType>) => {
 	return (
 		<components.NoOptionsMessage {...props}>
-			<span id="no-options" role="alert">
-				<Text color="color.text.subtle">{props.children || `No options`}</Text>
-			</span>
+			<Text color="color.text.subtle">{props.children || `No options`}</Text>
 		</components.NoOptionsMessage>
 	);
 };

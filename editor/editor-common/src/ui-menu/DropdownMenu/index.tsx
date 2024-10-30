@@ -193,11 +193,8 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 				>
 					<DropListWithOutsideListeners
 						isOpen={true}
-						appearance="tall"
 						position={popupPlacement.join(' ')}
-						shouldFlip={false}
 						shouldFitContainer={true}
-						isTriggerNotTabbable={true}
 						handleClickOutside={this.handleClose}
 						handleEscapeKeydown={handleEscapeKeydown || this.handleCloseAndFocus}
 						handleEnterKeydown={(e: KeyboardEvent) => {

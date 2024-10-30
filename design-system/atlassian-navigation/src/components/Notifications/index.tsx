@@ -1,6 +1,6 @@
 import React, { forwardRef, type Ref } from 'react';
 
-import NotificationIcon from '@atlaskit/icon/glyph/notification';
+import NotificationIcon from '@atlaskit/icon/core/migration/notification';
 
 import { BadgeContainer } from '../BadgeContainer';
 import { IconButton } from '../IconButton';
@@ -25,7 +25,11 @@ export const Notifications = forwardRef((props: NotificationsProps, ref: Ref<any
 		<BadgeContainer id={NOTIFICATIONS_BADGE_ID} badge={badge} role="listitem">
 			<IconButton
 				icon={
-					<NotificationIcon label={typeof tooltip === 'string' ? tooltip : 'Notification Icon'} />
+					<NotificationIcon
+						spacing="spacious"
+						color="currentColor"
+						label={typeof tooltip === 'string' ? tooltip : 'Notification Icon'}
+					/>
 				}
 				tooltip={tooltip}
 				ref={ref}

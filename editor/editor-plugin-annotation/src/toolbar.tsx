@@ -16,6 +16,7 @@ import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
 import { annotationMessages } from '@atlaskit/editor-common/messages';
 import type {
 	Command,
+	ExtractInjectionAPI,
 	FloatingToolbarButton,
 	FloatingToolbarConfig,
 } from '@atlaskit/editor-common/types';
@@ -25,24 +26,64 @@ import {
 	getRangeInlineNodeNames,
 } from '@atlaskit/editor-common/utils';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import LegacyCommentIcon from '@atlaskit/icon/glyph/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { setInlineCommentDraftState } from './commands';
-import { AnnotationSelectionType, AnnotationTestIds } from './types';
+import { type AnnotationPlugin, AnnotationSelectionType, AnnotationTestIds } from './types';
 import { getPluginState, isSelectionValid, resolveDraftBookmark } from './utils';
+
+const INLINE_COMMENT_ON_INLINE_NODE_SPOTLIGHT_EP_MESSAGE_ID = 'inline-comments-on-inline-node-spotlight';
+
+interface BuildToolbarOptions {
+	state: EditorState,
+	intl: IntlShape,
+	isToolbarAbove?: boolean,
+	isCommentOnMediaOn?: boolean,
+	_supportedNodes?: string[],
+	api?: ExtractInjectionAPI<AnnotationPlugin>,
+}
+
+const createSpotlightConfig = ({
+	api,
+	intl,
+}: { api?: ExtractInjectionAPI<AnnotationPlugin>; intl: IntlShape }): FloatingToolbarButton<Command>['spotlightConfig'] => {
+	const isUserEnrolledInEpAudience = !!api?.engagementPlatform?.sharedState.currentState()?.messageStates[INLINE_COMMENT_ON_INLINE_NODE_SPOTLIGHT_EP_MESSAGE_ID];
+	// Ensure experiment is only ran on users who are in the EP audience
+	const isSpotlightOpen = isUserEnrolledInEpAudience && editorExperiment('comment_on_inline_node_spotlight', true, { exposure: true });
+	const stopSpotlight = () => api?.engagementPlatform?.actions.stopMessage(INLINE_COMMENT_ON_INLINE_NODE_SPOTLIGHT_EP_MESSAGE_ID);
+
+	return {
+		isSpotlightOpen,
+		pulse: isSpotlightOpen,
+		onTargetClick: stopSpotlight,
+		spotlightCardOptions: {
+			children: intl.formatMessage(annotationMessages.createCommentOnInlineNodeSpotlightBody),
+			actions: [
+				{
+					text: intl.formatMessage(annotationMessages.createCommentOnInlineNodeSpotlightAction),
+					onClick: () => stopSpotlight(),
+				},
+			],
+			placement: 'top-start' as const,
+			width: 275,
+		},
+	};
+};
 
 export const buildToolbar =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	(
-		state: EditorState,
-		intl: IntlShape,
-		isToolbarAbove: boolean = false,
-		isCommentOnMediaOn?: boolean,
-		_supportedNodes: string[] = [],
-	): FloatingToolbarConfig | undefined => {
+	({
+		state,
+		intl,
+		isToolbarAbove = false,
+		isCommentOnMediaOn,
+		_supportedNodes = [],
+		api,
+	}: BuildToolbarOptions): FloatingToolbarConfig | undefined => {
 		const { schema } = state;
 		const selectionValid = isSelectionValid(state, isCommentOnMediaOn);
 		const isMediaSelected = isCommentOnMediaOn && currentMediaNodeWithPos(state);
@@ -81,6 +122,7 @@ export const buildToolbar =
 						doc: state.doc,
 						pos: resolveDraftBookmark(state, inlineCommentPluginState?.bookmark),
 					}) ?? [];
+
 				const isNonTextInlineNodeInludedInComment =
 					inlineNodeNames.filter((nodeName) => nodeName !== 'text').length > 0;
 
@@ -91,17 +133,29 @@ export const buildToolbar =
 						actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
 						eventType: EVENT_TYPE.UI,
 						attributes: {
-							/**
-							 * This attribute is used as the trigger to display an engagement platform promotion message
-							 * when isNonTextInlineNodeInludedInComment is true, and isDisabled is false,
-							 * A spotlight/flag will be shown to the user to encourage them to comment on inline nodes.
-							 */
 							isNonTextInlineNodeInludedInComment,
 							isDisabled: selectionValid === AnnotationSelectionType.DISABLED,
 							inputMethod: INPUT_METHOD.FLOATING_TB,
 							mode: MODE.EDITOR,
 						},
 					});
+				}
+
+				/* When a user selects a valid range of content that includes non-text inline node (e.g. media, mention, emoji, etc.)
+			     * Attempt to fire a spotlight to guide the user to create an inline comment on the inline node.
+				 * The spotlight will only be displayed if the user is a valid EP audience and the feature flag is enabled.
+				*/
+				if (isNonTextInlineNodeInludedInComment
+					&& selectionValid === AnnotationSelectionType.VALID
+					&& fg('editor_inline_comments_on_inline_nodes_spotlight')
+				) {
+					api?.engagementPlatform?.actions.startMessage('inline-comments-on-inline-node-spotlight');
+				}
+			},
+			onUnmount: () => {
+				// if enagement spotlight is still active, stop it
+				if (api?.engagementPlatform?.sharedState.currentState()?.messageStates[INLINE_COMMENT_ON_INLINE_NODE_SPOTLIGHT_EP_MESSAGE_ID]) {
+					api?.engagementPlatform?.actions.stopMessage(INLINE_COMMENT_ON_INLINE_NODE_SPOTLIGHT_EP_MESSAGE_ID);
 				}
 			},
 			onClick: (state, dispatch) => {
@@ -119,9 +173,11 @@ export const buildToolbar =
 						},
 					});
 				}
+
 				return setInlineCommentDraftState(editorAnalyticsAPI)(true)(state, dispatch);
 			},
-			supportsViewMode: true, // TODO: MODES-3950 Clean up this floating toolbar view mode logic
+			supportsViewMode: true, // TODO: MODES-3950 Clean up this floating toolbar view mode logic,
+			spotlightConfig: createSpotlightConfig({ api, intl }),
 		};
 
 		const { annotation } = schema.marks;

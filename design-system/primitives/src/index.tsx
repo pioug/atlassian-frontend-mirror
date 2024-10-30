@@ -44,8 +44,5 @@ export type {
 } from './components/anchor';
 export { media, UNSAFE_media, UNSAFE_BREAKPOINTS_CONFIG } from './responsive';
 export type { Breakpoint, MediaQuery } from './responsive';
-export {
-	useSurface as UNSAFE_useSurface,
-	SurfaceContext as UNSAFE_SurfaceContext,
-} from './components/internal/surface-provider';
+export { useSurface as UNSAFE_useSurface } from './components/internal/surface-provider';
 export { inverseColorMap as UNSAFE_inverseColorMap } from './xcss/style-maps.partial';

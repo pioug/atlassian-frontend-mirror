@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SignInIcon from '@atlaskit/icon/glyph/sign-in';
+import LogInIcon from '@atlaskit/icon/core/migration/log-in--sign-in';
 
 import { IconButton } from '../IconButton';
 
@@ -19,7 +19,13 @@ export const SignIn = (props: SignInProps) => {
 	return (
 		<div role="listitem">
 			<IconButton
-				icon={<SignInIcon label={typeof tooltip === 'string' ? tooltip : 'Sign-in Icon'} />}
+				icon={
+					<LogInIcon
+						color="currentColor"
+						spacing="spacious"
+						label={typeof tooltip === 'string' ? tooltip : 'Sign-in Icon'}
+					/>
+				}
 				tooltip={tooltip}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...iconButtonProps}

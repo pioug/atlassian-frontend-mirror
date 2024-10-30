@@ -29,6 +29,7 @@ interface BasicResourceTiming {
 	type: string;
 	workerStart: number;
 	fetchStart: number;
+	count?: number;
 }
 
 interface CacheableResourceTiming extends BasicResourceTiming {

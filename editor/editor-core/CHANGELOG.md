@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 201.1.0
+
+### Minor Changes
+
+- [#154932](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154932)
+  [`3c26362f19c76`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c26362f19c76) -
+  Adding support for en-ZZ i18n locale to editor package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 201.0.0
 
 ### Major Changes

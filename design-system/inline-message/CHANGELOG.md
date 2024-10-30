@@ -1,5 +1,23 @@
 # @atlaskit/inline-message
 
+## 12.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.4.0
+
+### Minor Changes
+
+- [#157176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157176)
+  [`3d03c4f1002ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d03c4f1002ab) -
+  Integrate layering and use CloseManager instead
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.6
 
 ### Patch Changes

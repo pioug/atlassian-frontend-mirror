@@ -15,6 +15,8 @@ import {
 	type UploadPreviewUpdateEventPayload,
 	type UploadsStartEventPayload,
 	type UploadRejectionData,
+	type FileSizeLimitExceededData,
+	type FileEmptyData,
 } from '../../../types';
 import { type UploadService } from '../../../service/types';
 import { SCALE_FACTOR_DEFAULT } from '../../../util/getPreviewFromImage';
@@ -269,45 +271,55 @@ describe.skip('LocalUploadReact', () => {
 		expect(onUploadRejection).toHaveBeenCalledWith(data);
 	});
 
-	it('should call the addFlag when config callback returns false', () => {
-		const data: UploadRejectionData = {
+	describe('addFlag', () => {
+		const fileSizeLimitExceededData: FileSizeLimitExceededData = {
 			reason: 'fileSizeLimitExceeded',
 			fileName: 'test.png',
 			limit: 100,
 		};
 
-		onUploadRejection.mockImplementation(() => false);
+		const fileEmptyData: FileEmptyData = {
+			reason: 'fileEmpty',
+			fileName: 'test.png',
+		};
 
-		let uploadService: UploadService;
-		class DummyLocalUploadComponent extends LocalUploadComponentReact<LocalUploadComponentBaseProps> {
-			constructor(props: LocalUploadComponentBaseProps) {
-				super(props, 'browser');
-				uploadService = this.uploadService;
+		it.each([
+			['fileSizeLimitExceeded', fileSizeLimitExceededData],
+			['fileEmpty', fileEmptyData],
+		])('should call the addFlag for %s when config callback returns false', (_type, data) => {
+			onUploadRejection.mockImplementation(() => false);
+
+			let uploadService: UploadService;
+			class DummyLocalUploadComponent extends LocalUploadComponentReact<LocalUploadComponentBaseProps> {
+				constructor(props: LocalUploadComponentBaseProps) {
+					super(props, 'browser');
+					uploadService = this.uploadService;
+				}
+
+				render() {
+					return this.state.errorFlags.map((flag) => <p>{flag.fileName}</p>);
+				}
 			}
+			render(
+				<DummyLocalUploadComponent
+					mediaClient={mediaClient}
+					config={config}
+					onUploadsStart={onUploadsStart}
+					onPreviewUpdate={onPreviewUpdate}
+					onEnd={onEnd}
+					onError={onError}
+				/>,
+			);
 
-			render() {
-				return this.state.errorFlags.map((flag) => <p>{flag.fileName}</p>);
-			}
-		}
-		render(
-			<DummyLocalUploadComponent
-				mediaClient={mediaClient}
-				config={config}
-				onUploadsStart={onUploadsStart}
-				onPreviewUpdate={onPreviewUpdate}
-				onEnd={onEnd}
-				onError={onError}
-			/>,
-		);
+			const onFileRejectionInUploadService = jest.spyOn(uploadService!, 'onFileRejection');
 
-		const onFileRejectionInUploadService = jest.spyOn(uploadService!, 'onFileRejection');
+			const argument = onFileRejectionInUploadService.mock.calls[0][0];
+			argument(data);
 
-		const argument = onFileRejectionInUploadService.mock.calls[0][0];
-		argument(data);
-
-		expect(onUploadRejection).toHaveBeenCalledWith(data);
-		waitFor(() => {
-			expect(screen.getByText('test.png')).toBeInTheDocument();
+			expect(onUploadRejection).toHaveBeenCalledWith(data);
+			waitFor(() => {
+				expect(screen.getByText('test.png')).toBeInTheDocument();
+			});
 		});
 	});
 

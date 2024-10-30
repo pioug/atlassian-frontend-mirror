@@ -129,7 +129,7 @@ test.describe('Inline Edit with Datepicker', () => {
 
 		// Is not the same for Safari
 		const timePicker = page.locator(
-			'[data-testid="datepicker--timepicker--container"] [aria-autocomplete="list"]',
+			'[data-testid="datepicker--timepicker--container"] [aria-autocomplete="both"]',
 		);
 		await expect(timePicker).toBeFocused();
 

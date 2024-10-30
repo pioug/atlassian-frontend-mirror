@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 30.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.1.6
+
+### Patch Changes
+
+- [#157758](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157758)
+  [`27217ca737a9c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/27217ca737a9c) -
+  Internal clean-up following eslint config change
+- Updated dependencies
+
 ## 30.1.5
 
 ### Patch Changes

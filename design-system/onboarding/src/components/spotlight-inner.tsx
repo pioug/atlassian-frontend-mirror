@@ -171,6 +171,8 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 											footer={this.props.footer}
 											header={this.props.header}
 											heading={this.props.heading}
+											titleId={this.props.titleId}
+											label={this.props.label}
 											headingAfterElement={this.props.headingAfterElement}
 											image={this.props.image}
 											targetNode={replacementElement || targetNode}

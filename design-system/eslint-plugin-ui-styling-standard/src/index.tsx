@@ -1,1 +1,1 @@
-export { configs, rules } from './index.codegen';
+export { meta, rules, plugin, configs, default } from './index.codegen';

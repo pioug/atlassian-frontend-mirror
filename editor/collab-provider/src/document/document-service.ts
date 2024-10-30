@@ -263,6 +263,28 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 	};
 
+	private isStepsFromNewClientIdForSameUserId = (steps: StepJson[]) => {
+		try {
+			if (!Array.isArray(steps) || steps.length === 0) {
+				return false;
+			}
+			const clientIds = new Set(steps.map(({ clientId }) => clientId));
+			if (!clientIds.has(this.clientId!)) {
+				const userIds = new Set(steps.map(({ userId }) => userId));
+				if (userIds.has(this.getUserId()!)) {
+					return true;
+				}
+			}
+			return false;
+		} catch (err) {
+			this.analyticsHelper?.sendErrorEvent(
+				err,
+				'Error while checking for new clientId for same userId in steps',
+			);
+			return false;
+		}
+	};
+
 	private processSteps(data: StepsPayload) {
 		const { version, steps } = data;
 		logger(`Processing data. Version "${version}".`);
@@ -284,8 +306,15 @@ export class DocumentService implements DocumentServiceInterface {
 					setTimeout(() => this.sendStepsFromCurrentState(), 100);
 				}
 			} catch (error) {
+				// ESS-6421: log if error processing steps when there are steps from the same userId but not the same clientId
+				let userIdMatch = this.isStepsFromNewClientIdForSameUserId(steps);
 				logger(`Processing steps failed with error: ${error}. Triggering catch up call.`);
-				this.analyticsHelper?.sendErrorEvent(error, 'Error while processing steps');
+				this.analyticsHelper?.sendErrorEvent(
+					error,
+					userIdMatch
+						? `Error while processing steps with new clientId`
+						: `Error while processing steps`,
+				);
 
 				this.throttledCatchupv2(CatchupEventReason.PROCESS_STEPS);
 			}

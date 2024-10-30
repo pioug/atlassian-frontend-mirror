@@ -24,9 +24,6 @@ const dropOffset = '0, 8';
 
 export interface Props extends WithAnalyticsEventsProps {
 	isOpen?: boolean;
-	appearance?: string;
-	shouldFlip?: boolean;
-	isTriggerNotTabbable?: boolean;
 	trigger?: React.ReactNode;
 	position: string;
 	onOpenChange?: (event: OpenChangedEvent) => void;

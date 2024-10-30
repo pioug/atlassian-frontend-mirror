@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 9.3.0
+
+### Minor Changes
+
+- [#157343](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157343)
+  [`64cef773c3dcf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64cef773c3dcf) -
+  EDM-10952 Update AtomicActionInterface with supportingActions
+
 ## 9.2.0
 
 ### Minor Changes

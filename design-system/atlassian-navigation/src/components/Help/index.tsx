@@ -1,6 +1,6 @@
 import React, { forwardRef, type Ref } from 'react';
 
-import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
+import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 
 import { useTheme } from '../../theme';
 import { BadgeContainer } from '../BadgeContainer';
@@ -29,7 +29,9 @@ export const Help = forwardRef((props: HelpProps, ref: Ref<any>) => {
 			icon={
 				<QuestionCircleIcon
 					label={typeof tooltip === 'string' ? tooltip : 'Help Icon'}
-					secondaryColor={navigation.backgroundColor}
+					color="currentColor"
+					spacing="spacious"
+					LEGACY_secondaryColor={navigation.backgroundColor}
 				/>
 			}
 			ref={ref}

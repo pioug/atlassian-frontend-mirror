@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::11d1ce4c1740cea37e5de3ccba44a8f5>>
+ * @codegen <<SignedSource::3488c902f0db00c9b39ff91abeff0c91>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 export default {
@@ -25,7 +25,10 @@ export default {
 		'@atlaskit/ui-styling-standard/use-compiled': 'error',
 		'@atlaskit/design-system/consistent-css-prop-usage': [
 			'error',
-			{ excludeReactComponents: true, shouldAlwaysCheckXcss: true },
+			{
+				excludeReactComponents: true,
+				shouldAlwaysCheckXcss: true,
+			},
 		],
 		'@atlaskit/design-system/no-css-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-keyframes-tagged-template-expression': 'error',
@@ -47,11 +50,17 @@ export default {
 		],
 		'@atlaskit/design-system/no-invalid-css-map': [
 			'error',
-			{ allowedFunctionCalls: [['@atlaskit/tokens', 'token']] },
+			{
+				allowedFunctionCalls: [['@atlaskit/tokens', 'token']],
+			},
 		],
 		'@compiled/jsx-pragma': [
 			'error',
-			{ runtime: 'classic', onlyRunIfImportingCompiled: true, importSources: ['@atlaskit/css'] },
+			{
+				runtime: 'classic',
+				onlyRunIfImportingCompiled: true,
+				importSources: ['@atlaskit/css'],
+			},
 		],
 	},
-};
+} as const;

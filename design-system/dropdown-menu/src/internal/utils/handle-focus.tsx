@@ -1,7 +1,9 @@
+import { type RefObject } from 'react';
+
 import { KEY_DOWN, KEY_END, KEY_HOME, KEY_TAB, KEY_UP } from '@atlaskit/ds-lib/keycodes';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { type Action, type FocusableElement } from '../../types';
+import { type Action, type FocusableElementRef } from '../../types';
 
 import { PREFIX } from './use-generated-id';
 
@@ -18,14 +20,14 @@ const actionMap: { [key: string]: Action } = {
  * to find one that isn't disabled. If all following elements are disabled,
  * return undefined.
  */
-const getNextFocusableElement = (refs: FocusableElement[], currentFocusedIdx: number) => {
+const getNextFocusableElement = (refs: FocusableElementRef[], currentFocusedIdx: number) => {
 	while (currentFocusedIdx + 1 < refs.length) {
-		const isDisabled = refs[currentFocusedIdx + 1].hasAttribute('disabled');
+		const { current: element } = refs[++currentFocusedIdx];
+		const isValid = !!element && !element.hasAttribute('disabled');
 
-		if (!isDisabled) {
-			return refs[currentFocusedIdx + 1];
+		if (isValid) {
+			return element;
 		}
-		currentFocusedIdx++;
 	}
 };
 
@@ -35,26 +37,26 @@ const getNextFocusableElement = (refs: FocusableElement[], currentFocusedIdx: nu
  * to find one that isn't disabled. If all previous elements are disabled,
  * return undefined.
  */
-const getPrevFocusableElement = (refs: FocusableElement[], currentFocusedIdx: number) => {
+const getPrevFocusableElement = (refs: FocusableElementRef[], currentFocusedIdx: number) => {
 	while (currentFocusedIdx > 0) {
-		const isDisabled = refs[currentFocusedIdx - 1].hasAttribute('disabled');
+		const { current: element } = refs[--currentFocusedIdx];
+		const isValid = !!element && !element.hasAttribute('disabled');
 
-		if (!isDisabled) {
-			return refs[currentFocusedIdx - 1];
+		if (isValid) {
+			return element;
 		}
-		currentFocusedIdx--;
 	}
 };
 
 export default function handleFocus(
-	refs: { current: Array<FocusableElement> },
+	refs: RefObject<FocusableElementRef[]>,
 	isLayerDisabled: () => boolean,
 	onClose: (e: KeyboardEvent) => void,
 ) {
 	return (e: KeyboardEvent) => {
-		const currentRefs = refs.current ?? refs;
-		const currentFocusedIdx = currentRefs.findIndex((el: HTMLButtonElement | HTMLAnchorElement) =>
-			document.activeElement?.isSameNode(el),
+		const currentRefs = refs.current ?? [];
+		const currentFocusedIdx = currentRefs.findIndex(
+			({ current: el }) => el && document.activeElement?.isSameNode(el),
 		);
 
 		if (fg('platform_dst_popup-disable-focuslock')) {
@@ -100,7 +102,6 @@ export default function handleFocus(
 				e.preventDefault();
 				if (currentFocusedIdx > 0) {
 					const prevFocusableElement = getPrevFocusableElement(currentRefs, currentFocusedIdx);
-
 					prevFocusableElement?.focus();
 				} else {
 					const lastFocusableElement = getPrevFocusableElement(currentRefs, currentRefs.length);

@@ -21,6 +21,9 @@
       "path": "../../../design-system/icon/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../../design-system/legacy-custom-icons/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
     },
     {

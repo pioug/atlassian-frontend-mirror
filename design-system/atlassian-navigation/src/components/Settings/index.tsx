@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
+import SettingsIcon from '@atlaskit/icon/core/migration/settings';
 
 import { IconButton } from '../IconButton';
 
@@ -20,7 +20,13 @@ export const Settings = forwardRef((props: SettingsProps, ref: React.Ref<any>) =
 	return (
 		<div role="listitem">
 			<IconButton
-				icon={<SettingsIcon label={typeof tooltip === 'string' ? tooltip : 'Settings Icon'} />}
+				icon={
+					<SettingsIcon
+						color="currentColor"
+						spacing="spacious"
+						label={typeof tooltip === 'string' ? tooltip : 'Settings Icon'}
+					/>
+				}
 				ref={ref}
 				tooltip={tooltip}
 				{...iconButtonProps}

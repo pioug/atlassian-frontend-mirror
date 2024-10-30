@@ -1,5 +1,20 @@
 # @atlaskit/link-datasource
 
+## 3.6.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.14
+
+### Patch Changes
+
+- [#157343](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157343)
+  [`64cef773c3dcf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64cef773c3dcf) -
+  Internal refactor to support fetchActions behind new ff: `enable_datasource_supporting_actions`
+- Updated dependencies
+
 ## 3.6.13
 
 ### Patch Changes

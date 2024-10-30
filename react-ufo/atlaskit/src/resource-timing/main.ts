@@ -147,7 +147,12 @@ export const getResourceTimings = (interactionStart: number, interactionEnd: num
 			? sanitiseEndpoints(name)
 			: mapResources(name);
 
-		if (!url || resourceTiming[url]) {
+		if (!url) {
+			return;
+		}
+
+		if (resourceTiming[url]) {
+			resourceTiming[url].count = (resourceTiming[url].count || 1) + 1;
 			return;
 		}
 

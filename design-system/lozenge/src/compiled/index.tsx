@@ -4,12 +4,11 @@
  */
 import { type CSSProperties, memo, type ReactNode, useMemo } from 'react';
 
+import { cssMap as cssMapUnbounded } from '@compiled/react';
+
 import { cssMap, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	type BackgroundColor,
-	UNSAFE_SurfaceContext as SurfaceContext,
-} from '@atlaskit/primitives';
+import { type BackgroundColor, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const stylesOld = cssMap({
@@ -22,34 +21,6 @@ const stylesOld = cssMap({
 		paddingInline: token('space.050'),
 		boxSizing: 'border-box',
 	},
-	text: {
-		// @ts-expect-error -- TODO: This is still pending migration to typography tokens
-		fontFamily:
-			'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-		// @ts-expect-error -- TODO: This is still pending migration to typography tokens
-		fontSize: '11px',
-		fontStyle: 'normal',
-		// TODO: This is still pending migration to typography tokens
-		fontWeight: token('font.weight.bold'),
-		// @ts-expect-error -- TODO: This is still pending migration to typography tokens
-		lineHeight: '16px',
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		textTransform: 'uppercase',
-		whiteSpace: 'nowrap',
-	},
-	'bg.bold.default': { backgroundColor: token('color.background.neutral.bold') },
-	'bg.bold.inprogress': { backgroundColor: token('color.background.information.bold') },
-	'bg.bold.moved': { backgroundColor: token('color.background.warning.bold') },
-	'bg.bold.new': { backgroundColor: token('color.background.discovery.bold') },
-	'bg.bold.removed': { backgroundColor: token('color.background.danger.bold') },
-	'bg.bold.success': { backgroundColor: token('color.background.success.bold') },
-	'bg.subtle.default': { backgroundColor: token('color.background.neutral') },
-	'bg.subtle.inprogress': { backgroundColor: token('color.background.information') },
-	'bg.subtle.moved': { backgroundColor: token('color.background.warning') },
-	'bg.subtle.new': { backgroundColor: token('color.background.discovery') },
-	'bg.subtle.removed': { backgroundColor: token('color.background.danger') },
-	'bg.subtle.success': { backgroundColor: token('color.background.success') },
 	'text.bold.default': { color: token('color.text.inverse', '#FFFFFF') },
 	'text.bold.inprogress': { color: token('color.text.inverse', '#FFFFFF') },
 	'text.bold.moved': { color: token('color.text.warning.inverse', '#172B4D') },
@@ -62,6 +33,22 @@ const stylesOld = cssMap({
 	'text.subtle.new': { color: token('color.text.discovery', '#403294') },
 	'text.subtle.removed': { color: token('color.text.danger', '#DE350B') },
 	'text.subtle.success': { color: token('color.text.success', '#006644') },
+});
+
+// NOTE: This is isolated to avoid breaking the bounded `stylesOld` interface as they do not fall within the Design System.
+const stylesOldUnbounded = cssMapUnbounded({
+	text: {
+		fontFamily:
+			'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+		fontSize: '11px',
+		fontStyle: 'normal',
+		fontWeight: token('font.weight.bold'),
+		lineHeight: '16px',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		textTransform: 'uppercase',
+		whiteSpace: 'nowrap',
+	},
 });
 
 const backgroundColorsOld: Record<'bold' | 'subtle', Record<ThemeAppearance, BackgroundColor>> = {
@@ -83,45 +70,38 @@ const backgroundColorsOld: Record<'bold' | 'subtle', Record<ThemeAppearance, Bac
 	},
 };
 
-const stylesNew = cssMap({
+/**
+ * TODO: We should be using our bounded `cssMap` here, but most of
+ * these styles from the visual refresh are not in the Design System.
+ */
+const stylesNew = cssMapUnbounded({
 	container: {
 		display: 'inline-flex',
 		boxSizing: 'border-box',
 		position: 'static',
 		blockSize: 'min-content',
-		// @ts-expect-error -- TODO: css or lozenge are wrong
 		borderRadius: '3px',
 		overflow: 'hidden',
 		paddingInlineStart: token('space.050'),
 		paddingInlineEnd: token('space.050'),
 	},
 	text: {
-		// @ts-expect-error -- TODO: This is still pending migration to typography tokens
 		fontFamily:
 			'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-		// @ts-expect-error -- TODO: This is still pending migration to typography tokens
 		fontSize: '11px',
 		fontStyle: 'normal',
-		// TODO: This is still pending migration to typography tokens
 		fontWeight: token('font.weight.bold'),
-		// @ts-expect-error -- TODO: This is still pending migration to typography tokens
 		lineHeight: '16px',
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		textTransform: 'uppercase',
 		whiteSpace: 'nowrap',
 	},
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'bg.bold.default': { backgroundColor: '#DDDEE1' },
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'bg.bold.inprogress': { backgroundColor: '#8FB8F6' },
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'bg.bold.moved': { backgroundColor: '#F9C84E' },
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'bg.bold.new': { backgroundColor: '#D8A0F7' },
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'bg.bold.removed': { backgroundColor: '#FD9891' },
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'bg.bold.success': { backgroundColor: '#B3DF72' },
 	'bg.subtle.default': { backgroundColor: token('color.background.neutral.subtle') },
 	'bg.subtle.inprogress': { backgroundColor: token('color.background.neutral.subtle') },
@@ -129,20 +109,13 @@ const stylesNew = cssMap({
 	'bg.subtle.new': { backgroundColor: token('color.background.neutral.subtle') },
 	'bg.subtle.removed': { backgroundColor: token('color.background.neutral.subtle') },
 	'bg.subtle.success': { backgroundColor: token('color.background.neutral.subtle') },
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'border.subtle.default': { border: `1px solid #B7B9BE` },
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'border.subtle.inprogress': { border: `1px solid #669DF1` },
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'border.subtle.moved': { border: `1px solid #FCA700` },
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'border.subtle.new': { border: `1px solid #C97CF4` },
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'border.subtle.removed': { border: `1px solid #F87168` },
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'border.subtle.success': { border: `1px solid #94C748` },
 	'text.subtle': { color: token('color.text') },
-	// @ts-expect-error -- Untokenized hardcoded values from the Visual Refresh…
 	'text.bold': { color: '#292A2E' },
 });
 
@@ -249,30 +222,31 @@ const Lozenge = memo(
 		}
 
 		return (
-			<SurfaceContext.Provider value={backgroundColorsOld[appearanceStyle][appearanceType]}>
+			<Box
+				as="span"
+				backgroundColor={backgroundColorsOld[appearanceStyle][appearanceType]}
+				style={{
+					backgroundColor: style?.backgroundColor,
+					maxWidth: maxWidthIsPc ? maxWidth : '100%',
+				}}
+				paddingInline="space.050"
+				xcss={stylesOld.container}
+				testId={testId}
+			>
 				<span
+					css={[stylesOldUnbounded.text, stylesOld[`text.${appearanceStyle}.${appearanceType}`]]}
 					style={{
-						backgroundColor: style?.backgroundColor,
-						maxWidth: maxWidthIsPc ? maxWidth : '100%',
+						color: style?.color,
+						// to negate paddingInline specified on Box above
+						maxWidth: maxWidthIsPc
+							? '100%'
+							: `calc(${maxWidthValue} - ${token('space.100', '8px')})`,
 					}}
-					css={[stylesOld.container, stylesOld[`bg.${appearanceStyle}.${appearanceType}`]]}
-					data-testid={testId}
+					data-testid={testId && `${testId}--text`}
 				>
-					<span
-						css={[stylesOld.text, stylesOld[`text.${appearanceStyle}.${appearanceType}`]]}
-						style={{
-							color: style?.color,
-							// to negate paddingInline specified on Box above
-							maxWidth: maxWidthIsPc
-								? '100%'
-								: `calc(${maxWidthValue} - ${token('space.100', '8px')})`,
-						}}
-						data-testid={testId && `${testId}--text`}
-					>
-						{children}
-					</span>
+					{children}
 				</span>
-			</SurfaceContext.Provider>
+			</Box>
 		);
 	},
 );

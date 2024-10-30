@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 2.0.5
+
+### Patch Changes
+
+- [#158114](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158114)
+  [`01676a379617b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01676a379617b) -
+  Modifies our bounded CSS type schema to allow both numeric and string `0` values for ease-of-use.
+
 ## 2.0.4
 
 ### Patch Changes

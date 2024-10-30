@@ -21,6 +21,9 @@
   ],
   "references": [
     {
+      "path": "../../eslint-plugin/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../eslint-utils/afm-jira/tsconfig.json"
     }
   ]

@@ -5,12 +5,12 @@ import FailIcon from '@atlaskit/icon/core/migration/cross-circle';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { type FlagData } from '../../types';
+import { type UploadRejectionData } from '../../types';
 import { errorFlagMessages } from './messages';
 import { injectIntl, IntlProvider, useIntl, type WrappedComponentProps } from 'react-intl-next';
 
 export interface ErrorFlagGroupProps {
-	readonly flagData: FlagData[];
+	readonly flagData: UploadRejectionData[];
 	onFlagDismissed: () => void;
 }
 const defaultOptions = {
@@ -52,7 +52,7 @@ const FlagGroupContent = ({ flagData, onFlagDismissed }: ErrorFlagGroupProps) =>
 	const intl = useIntl();
 	return (
 		<FlagGroup onDismissed={onFlagDismissed}>
-			{flagData.map((data: FlagData, i: number) => (
+			{flagData.map((data: UploadRejectionData, i: number) => (
 				<AutoDismissFlag
 					id={i}
 					icon={

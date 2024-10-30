@@ -1,7 +1,7 @@
 import React from 'react';
 
+import NotificationIcon from '@atlaskit/icon/core/migration/notification';
 import Nav4NotificationsIcon from '@atlaskit/icon/core/notification';
-import NotificationIcon from '@atlaskit/icon/glyph/notification';
 import { token } from '@atlaskit/tokens';
 
 import { SkeletonIconButton } from './components/SkeletonIconButton';
@@ -26,7 +26,7 @@ export type SkeletonNotificationButtonProps = {
  */
 export const SkeletonNotificationButton = ({ label = '' }: SkeletonNotificationButtonProps) => (
 	<SkeletonIconButton>
-		<NotificationIcon label={label} />
+		<NotificationIcon color="currentColor" spacing="spacious" label={label} />
 	</SkeletonIconButton>
 );
 

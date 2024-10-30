@@ -17,9 +17,11 @@ import {
 	withAnalyticsContext,
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import CalendarIcon from '@atlaskit/icon/glyph/calendar';
+import CalendarIconNew from '@atlaskit/icon/core/migration/calendar';
+import CalendarIconOld from '@atlaskit/icon/glyph/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Pressable, xcss } from '@atlaskit/primitives';
 import Select, {
 	type ActionMeta,
 	type DropdownIndicatorProps,
@@ -49,6 +51,19 @@ import { type DatePickerBaseProps } from '../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
+
+const dropdownIndicatorStyles = xcss({
+	minWidth: token('space.300'),
+	minHeight: token('space.300'),
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+});
+
+const CalendarIcon = fg('platform-visual-refresh-icon-ads-migration')
+	? CalendarIconNew
+	: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+		CalendarIconOld;
 
 type DatePickerProps = typeof datePickerDefaultProps & DatePickerBaseProps;
 
@@ -111,8 +126,17 @@ const iconSpacingWithClearButtonStyles = css({
 	marginInlineEnd: token('space.400', '2rem'),
 });
 
+const iconSpacingWithoutClearButtonStylesNew = css({
+	marginInlineEnd: token('space.050', '0.25rem'),
+});
+
 const iconSpacingWithoutClearButtonStyles = css({
 	marginInlineEnd: token('space.025', '0.125rem'),
+});
+
+const calendarButtonFixedSizeStyles = xcss({
+	width: `${32 / 14}em`,
+	height: `${32 / 14}em`,
 });
 
 const calendarButtonStyles = xcss({
@@ -436,7 +460,9 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			openCalendarLabel = 'Open calendar',
 			disabled,
 			disabledDateFilter,
-			icon = CalendarIcon as unknown as React.ComponentType<DropdownIndicatorProps<OptionType>>,
+			icon: Icon = CalendarIcon as unknown as React.ComponentType<
+				DropdownIndicatorProps<OptionType>
+			>,
 			id = '',
 			innerProps = {},
 			inputLabel = 'Date picker',
@@ -468,7 +494,19 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 
 		const showClearIndicator = Boolean((value || selectInputValue) && !hideIcon);
 
-		const dropDownIcon = appearance === 'subtle' || hideIcon || showClearIndicator ? null : icon;
+		let clearIndicator = Icon;
+
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		if (fg('platform-visual-refresh-icons') && fg('platform-visual-refresh-icon-ads-migration')) {
+			clearIndicator = (props: DropdownIndicatorProps<OptionType>) => (
+				<Box xcss={dropdownIndicatorStyles}>
+					<Icon {...props} />
+				</Box>
+			);
+		}
+
+		const dropDownIcon =
+			appearance === 'subtle' || hideIcon || showClearIndicator ? null : clearIndicator;
 
 		const SingleValue = makeSingleValue({ lang: this.props.locale });
 
@@ -618,7 +656,9 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 									iconContainerStyles,
 									value && !hideIcon
 										? iconSpacingWithClearButtonStyles
-										: iconSpacingWithoutClearButtonStyles,
+										: fg('platform-visual-refresh-icon-ads-migration')
+											? iconSpacingWithoutClearButtonStylesNew
+											: iconSpacingWithoutClearButtonStyles,
 								]}
 							>
 								{inputLabelId && (
@@ -634,10 +674,21 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 									testId={testId && `${testId}--open-calendar-button`}
 									type="button"
 									backgroundColor="color.background.neutral.subtle"
-									padding="space.050"
-									xcss={calendarButtonStyles}
+									padding={
+										fg('platform-visual-refresh-icon-ads-migration') ? 'space.0' : 'space.050'
+									}
+									xcss={[
+										calendarButtonStyles,
+										fg('platform-visual-refresh-icon-ads-migration') &&
+											calendarButtonFixedSizeStyles,
+									]}
 								>
-									<CalendarIcon label="" primaryColor={token('color.icon')} />
+									<CalendarIcon
+										label=""
+										{...(fg('platform-visual-refresh-icon-ads-migration')
+											? { color: token('color.icon') }
+											: { primaryColor: token('color.icon') })}
+									/>
 								</Pressable>
 							</div>
 						)}

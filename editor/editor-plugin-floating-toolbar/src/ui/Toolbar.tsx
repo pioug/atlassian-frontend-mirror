@@ -189,6 +189,7 @@ const ToolbarItems = React.memo(
 							onFocus={() => dispatchCommand(item.onFocus)}
 							onBlur={() => dispatchCommand(item.onBlur)}
 							onMount={item.onMount}
+							onUnmount={item.onUnmount}
 							selected={item.selected}
 							disabled={item.disabled}
 							tooltipContent={item.tooltipContent}
@@ -198,6 +199,7 @@ const ToolbarItems = React.memo(
 							tabIndex={item.tabIndex}
 							isRadioButton={item.isRadioButton}
 							pulse={item.pulse}
+							spotlightConfig={item.spotlightConfig}
 						>
 							{item.showTitle && item.title}
 						</Button>

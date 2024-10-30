@@ -5,7 +5,6 @@ import { canUseDOM } from 'exenv';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import { UNSAFE_LAYERING, useCloseOnEscapePress } from '@atlaskit/layering';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 
 import Blanket from './blanket';
@@ -75,14 +74,8 @@ export const Drawer = ({
 	const handleKeyDown = useCallback(
 		(evt: KeyboardEvent) => {
 			onKeyDown && onKeyDown(evt as unknown as SyntheticEvent);
-			if (!fg('platform.design-system-team.inline-message-layering_wfp1p')) {
-				// when feature flag on, we will use the EscapeCloseManager instead
-				if (evt.key === 'Escape' && isOpen && onClose) {
-					handleClose(evt as unknown as SyntheticEvent<HTMLElement>);
-				}
-			}
 		},
-		[handleClose, isOpen, onClose, onKeyDown],
+		[onKeyDown],
 	);
 
 	useEffect(() => {
@@ -149,7 +142,7 @@ export const Drawer = ({
 				shouldReturnFocus={shouldReturnFocus}
 				scrollContentLabel={scrollContentLabel}
 			>
-				{isOpen && fg('platform.design-system-team.inline-message-layering_wfp1p') ? (
+				{isOpen ? (
 					<UNSAFE_LAYERING isDisabled={false}>
 						{children}
 						<EscapeCloseManager onClose={handleClose} />

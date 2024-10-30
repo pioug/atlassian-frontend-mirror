@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 9.44.0
+
+### Minor Changes
+
+- [#158040](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158040)
+  [`3dbb9d2f67580`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3dbb9d2f67580) -
+  log when error processing steps from different clientId, same userId
+
 ## 9.43.3
 
 ### Patch Changes

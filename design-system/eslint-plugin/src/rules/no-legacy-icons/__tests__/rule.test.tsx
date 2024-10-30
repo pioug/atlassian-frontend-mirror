@@ -239,7 +239,7 @@ describe('no-legacy-icons', () => {
 				<DocumentIcon label="" />
 				`,
 				output: `
-				import DocumentIcon from '@atlaskit/icon/core/migration/page--document';
+				import DocumentIcon from '@atlaskit/icon/core/migration/file--document';
 
 				<DocumentIcon color="currentColor" spacing="spacious" label="" />
 				`,

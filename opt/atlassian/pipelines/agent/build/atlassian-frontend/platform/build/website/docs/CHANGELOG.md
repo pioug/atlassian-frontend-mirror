@@ -1,5 +1,11 @@
 # @atlaskit/docs
 
+## 9.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.17
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/lozenge
 
+## 11.12.2
+
+### Patch Changes
+
+- [#158114](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158114)
+  [`01676a379617b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01676a379617b) -
+  The experimental compiled variant makes use of the compiled Primitives variant.
+- Updated dependencies
+
 ## 11.12.1
 
 ### Patch Changes

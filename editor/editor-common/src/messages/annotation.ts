@@ -26,4 +26,14 @@ export const annotationMessages = defineMessages({
 		description:
 			'A label for a toolbar (UI element) that creates annotations/comments in the document',
 	},
+	createCommentOnInlineNodeSpotlightBody: {
+		id: 'fabric.editor.createCommentOnInlineNodeSpotlight.body',
+		defaultMessage: 'You can now leave comments on inline elements like links, dates, statuses and mentions.',
+		description: 'The body content of the spotlight message that appears when the user can leave comments on inline nodes',
+	},
+	createCommentOnInlineNodeSpotlightAction: {
+		id: 'fabric.editor.createCommentOnInlineNodeSpotlight.action',
+		defaultMessage: 'Got it',
+		description: 'The content of the action button that closes the spotlight',
+	},
 });

@@ -4,6 +4,7 @@ import { type Action, createActionsHook, createHook, createStore } from 'react-s
 
 import { useDatasourceClientExtension } from '@atlaskit/link-client-extension';
 import type { ActionsDiscoveryRequest, AtomicActionInterface } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type DatasourceOperationFailedAttributesType,
@@ -20,20 +21,37 @@ type FieldKey = string;
  * Atomic actions available for an integration (by field)
  * @example
  * ```ts
- *	{
- *		jira: {
- *			summary: {
- *				actionKey: 'atlassian:work-item:update:summary',
- *				type: 'string',
- *				description: 'Update issue summary',
- *			}
- *		}
- *	}
+ * {
+ *  jira: {
+ *    summary: {
+ *      actionKey: 'atlassian:work-item:update:summary',
+ *      type: 'string'
+ *    },
+ *    status: {
+ *      actionKey: 'atlassian:work-item:update:status',
+ *      type: 'string',
+ *      fetchAction: {
+ *        actionKey: 'atlassian:work-item:get:statuses',
+ *        type: 'string',
+ *        inputs: {
+ *          issueId: {
+ *            type: 'string'
+ *          }
+ *        }
+ *      }
+ *    }
+ *  }
+ * }
  * ```
  */
 type IntegrationActions = Record<
 	IntegrationKey,
-	Record<FieldKey, Pick<AtomicActionInterface, 'actionKey' | 'type' | 'description'>>
+	Record<
+		FieldKey,
+		Pick<AtomicActionInterface, 'actionKey' | 'type' | 'description'> & {
+			fetchAction?: Pick<AtomicActionInterface, 'actionKey' | 'type' | 'inputs'>;
+		}
+	>
 >;
 
 /**
@@ -107,16 +125,28 @@ export const actions = {
 						getState();
 
 					const actionsByIntegration = response.actions.reduce<IntegrationActions>(
-						(acc, action) => ({
-							...acc,
-							[action.integrationKey]: {
-								...acc[action.integrationKey],
-								[action.fieldKey]: {
-									actionKey: action.actionKey,
-									type: action.type,
+						(acc, action) => {
+							const fieldKey = action.fieldKey;
+							const fetchAction = action.inputs?.[fieldKey]?.fetchAction;
+							return {
+								...acc,
+								[action.integrationKey]: {
+									...acc[action.integrationKey],
+									[fieldKey]: {
+										actionKey: action.actionKey,
+										type: action.type,
+										...(fetchAction &&
+											fg('enable_datasource_supporting_actions') && {
+												fetchAction: {
+													actionKey: fetchAction.actionKey,
+													type: fetchAction.type,
+													inputs: fetchAction.inputs,
+												},
+											}),
+									},
 								},
-							},
-						}),
+							};
+						},
 						currentActions,
 					);
 

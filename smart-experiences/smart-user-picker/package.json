@@ -57,7 +57,7 @@
 		"react-dom": "^16.8.0"
 	},
 	"devDependencies": {
-		"@atlaskit/select": "^18.3.0",
+		"@atlaskit/select": "^18.4.0",
 		"@atlaskit/util-data-test": "^17.11.0",
 		"enzyme": "^3.10.0",
 		"fetch-mock": "^8.0.0",

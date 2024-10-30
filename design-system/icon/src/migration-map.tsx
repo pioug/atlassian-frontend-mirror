@@ -826,7 +826,8 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'document-filled': {
-		newIcon: { name: 'page', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'file', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'page', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -835,7 +836,8 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	document: {
-		newIcon: { name: 'page', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'file', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'page', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -844,7 +846,8 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	documents: {
-		newIcon: { name: 'pages', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'files', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'pages', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -1049,6 +1052,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/divider': {
+		newIcon: { name: 'minus', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'icon-lab',
 			medium: 'icon-lab',
@@ -1349,6 +1353,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/media-wrap-left': {
+		newIcon: { name: 'content-wrap-left', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'icon-lab',
 			medium: 'icon-lab',
@@ -1357,6 +1362,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/media-wrap-right': {
+		newIcon: { name: 'content-wrap-right', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'icon-lab',
 			medium: 'icon-lab',
@@ -1387,7 +1393,8 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/note': {
-		newIcon: { name: 'page', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'discovery', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'page', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.0
+
+### Minor Changes
+
+- [#157826](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157826)
+  [`130b9c5dcd038`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/130b9c5dcd038) -
+  [ED-25054] Support drag and drop a non layout column node in between layout columns
+
+## 2.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.12.1
+
+### Patch Changes
+
+- [#157852](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157852)
+  [`5d80f01f056a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d80f01f056a1) -
+  [ux] ED-25473 Remove inline margin top for top node
+
 ## 2.12.0
 
 ### Minor Changes

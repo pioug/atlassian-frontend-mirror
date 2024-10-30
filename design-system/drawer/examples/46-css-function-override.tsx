@@ -9,7 +9,7 @@ import { Component, type SyntheticEvent } from 'react';
 import { css, type CSSObject, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
+import ArrowLeftIcon from '@atlaskit/icon/core/migration/arrow-left';
 import { token } from '@atlaskit/tokens';
 
 import Drawer from '../src';
@@ -86,8 +86,13 @@ export default class DrawersExample extends Component<{}, State> {
 					isOpen={this.state.isDrawerOpen}
 					width="full"
 					label="Drawer with css custom overrides"
-					icon={() => (
-						<ArrowLeftIcon primaryColor={token('color.icon.inverse')} label="Close drawer" />
+					icon={(props) => (
+						<ArrowLeftIcon
+							{...props}
+							LEGACY_size="medium"
+							color={token('color.icon.inverse')}
+							label="Close drawer"
+						/>
 					)}
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 					overrides={{

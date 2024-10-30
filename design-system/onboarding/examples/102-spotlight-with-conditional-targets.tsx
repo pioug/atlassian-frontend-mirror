@@ -43,6 +43,7 @@ function SpotlightWithConditionalTargets() {
 						]}
 						dialogPlacement="bottom left"
 						heading="Green"
+						titleId="heading-label--green"
 						target="green"
 						key="green"
 						testId="spotlight1"
@@ -61,6 +62,7 @@ function SpotlightWithConditionalTargets() {
 						]}
 						dialogPlacement="bottom center"
 						heading="Yellow"
+						titleId="heading-label--yellow"
 						target="yellow"
 						key="yellow"
 						testId="spotlight2"
@@ -76,6 +78,7 @@ function SpotlightWithConditionalTargets() {
 						actions={[{ onClick: finish, text: 'Got it' }]}
 						dialogPlacement="bottom right"
 						heading="Red"
+						titleId="heading-label--red"
 						target="red"
 						key="red"
 						testId="spotlight3"

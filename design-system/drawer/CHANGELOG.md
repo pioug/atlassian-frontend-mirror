@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 9.1.0
+
+### Minor Changes
+
+- [#157176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157176)
+  [`3d03c4f1002ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d03c4f1002ab) -
+  Integrate layering and use CloseManager instead
+
 ## 9.0.6
 
 ### Patch Changes

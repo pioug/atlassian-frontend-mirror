@@ -8,10 +8,10 @@ import { type FC, useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
+import PersonIconLegacy from '@atlaskit/icon/core/migration/person';
+import ReleaseIconMigration from '@atlaskit/icon/core/migration/release--ship';
 import PersonIcon from '@atlaskit/icon/core/person';
 import ReleaseIcon from '@atlaskit/icon/core/release';
-import PersonIconLegacy from '@atlaskit/icon/glyph/person';
-import ShipIcon from '@atlaskit/icon/glyph/ship';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -102,10 +102,10 @@ const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, te
 					) : (
 						<PersonIconLegacy
 							label={alt}
-							primaryColor={token('color.icon.inverse', N0)}
-							secondaryColor={token('color.icon.subtle', N90)}
+							color={token('color.icon.inverse', N0)}
+							LEGACY_secondaryColor={token('color.icon.subtle', N90)}
 							testId={testId && `${testId}--person`}
-							aria-hidden={isHidden}
+							spacing="spacious"
 						/>
 					)
 				) : fg('platform-component-visual-refresh') ? (
@@ -116,12 +116,12 @@ const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, te
 						spacing="spacious"
 					/>
 				) : (
-					<ShipIcon
+					<ReleaseIconMigration
 						label={alt}
-						primaryColor={token('color.icon.inverse', N0)}
-						secondaryColor={token('color.icon.subtle', N90)}
+						color={token('color.icon.inverse', N0)}
+						LEGACY_secondaryColor={token('color.icon.subtle', N90)}
 						testId={testId && `${testId}--ship`}
-						aria-hidden={isHidden}
+						spacing="spacious"
 					/>
 				)}
 			</span>

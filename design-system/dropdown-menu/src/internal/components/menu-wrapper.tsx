@@ -11,10 +11,11 @@ import MenuGroup from '@atlaskit/menu/menu-group';
 import { Box, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
 
-import { type FocusableElement, type MenuWrapperProps } from '../../types';
-import { FocusManagerContext } from '../components/focus-manager';
+import { type FocusableElementRef, type MenuWrapperProps } from '../../types';
 import isCheckboxItem from '../utils/is-checkbox-item';
 import isRadioItem from '../utils/is-radio-item';
+
+import { FocusManagerContext } from './focus-manager';
 
 const spinnerContainerStyles = xcss({
 	display: 'flex',
@@ -59,7 +60,11 @@ const MenuWrapper = ({
 	const { menuItemRefs } = useContext(FocusManagerContext);
 
 	const closeOnMenuItemClick = (e: MouseEvent | KeyboardEvent) => {
-		const isTargetMenuItemOrDecendant = menuItemRefs.some((menuItem: FocusableElement) => {
+		const isTargetMenuItemOrDescendant = menuItemRefs.some((menuItemRef: FocusableElementRef) => {
+			const { current: menuItem } = menuItemRef;
+			if (!menuItem) {
+				return false;
+			}
 			const isCheckboxOrRadio = isCheckboxItem(menuItem) || isRadioItem(menuItem);
 
 			return menuItem.contains(e.target as Node) && !isCheckboxOrRadio;
@@ -69,7 +74,7 @@ const MenuWrapper = ({
 		// its descendant. Don't close the menu if the click is triggered
 		// from a MenuItemRadio or MenuItemCheckbox so that the user can
 		// select multiple items.
-		if (isTargetMenuItemOrDecendant && onClose) {
+		if (isTargetMenuItemOrDescendant && onClose) {
 			onClose(e);
 		}
 	};
@@ -82,7 +87,10 @@ const MenuWrapper = ({
 	}, [isLoading, onUpdate]);
 
 	useEffect(() => {
-		const firstFocusableRef = menuItemRefs.find((ref) => !ref.hasAttribute('disabled')) ?? null;
+		const firstFocusableRef =
+			menuItemRefs
+				.map(({ current }) => current)
+				.find((el) => !!el && !el.hasAttribute('disabled')) ?? null;
 
 		if (shouldRenderToParent && (isTriggeredUsingKeyboard || autoFocus)) {
 			firstFocusableRef?.focus();

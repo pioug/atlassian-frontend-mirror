@@ -456,6 +456,7 @@ export const MenuList = <Option, IsMulti extends boolean, Group extends GroupBas
 			})}
 			ref={innerRef}
 			{...innerProps}
+			tabIndex={-1}
 		>
 			{children}
 		</div>

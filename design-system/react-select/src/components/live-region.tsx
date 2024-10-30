@@ -2,9 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, type ReactNode, useMemo } from 'react';
+import { Fragment, type ReactNode, useMemo, useRef } from 'react';
 
 import { jsx } from '@emotion/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type AriaSelection, defaultAriaLiveMessages } from '../accessibility';
 import { type CommonProps, type GroupBase, type OnChangeValue, type Options } from '../types';
@@ -64,6 +66,9 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 	const ariaLabel = selectProps['aria-label'] || label;
 	const ariaLive = selectProps['aria-live'];
 
+	// for safari, we will use minimum support from aria-live region
+	const isA11yImprovementEnabled = fg('design_system_select-a11y-improvement') && !isAppleDevice;
+
 	// Update aria live message configuration when prop changes
 	const messages = useMemo(
 		() => ({
@@ -110,11 +115,18 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 		return message;
 	}, [ariaSelection, messages, isOptionDisabled, selectValue, getOptionLabel]);
 
+	const prevInputValue = useRef('');
+
 	const ariaFocused = useMemo(() => {
 		let focusMsg = '';
 		const focused = focusedOption || focusedValue;
 		const isSelected = !!(focusedOption && selectValue && selectValue.includes(focusedOption));
-
+		if ((!inputValue || inputValue === prevInputValue.current) && isA11yImprovementEnabled) {
+			// only announce focus option when searching when ff is on,
+			// for safari, we will announce for all
+			return '';
+		}
+		prevInputValue.current = inputValue;
 		if (focused && messages.onFocus) {
 			const onFocusProps = {
 				focused,
@@ -125,12 +137,15 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 				context: focused === focusedOption ? ('menu' as const) : ('value' as const),
 				selectValue,
 				isAppleDevice,
+				isMulti,
 			};
 
 			focusMsg = messages.onFocus(onFocusProps);
 		}
+
 		return focusMsg;
 	}, [
+		inputValue,
 		focusedOption,
 		focusedValue,
 		getOptionLabel,
@@ -139,22 +154,37 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 		focusableOptions,
 		selectValue,
 		isAppleDevice,
+		isA11yImprovementEnabled,
+		isMulti,
 	]);
 
 	const ariaResults = useMemo(() => {
 		let resultsMsg = '';
 		if (menuIsOpen && options.length && !isLoading && messages.onFilter) {
-			const resultsMessage = screenReaderStatus({
-				count: focusableOptions.length,
-			});
-			resultsMsg = messages.onFilter({ inputValue, resultsMessage });
+			const shouldAnnounceAvailableResults = !focusableOptions.length;
+			if (
+				(shouldAnnounceAvailableResults && fg('design_system_select-a11y-improvement')) ||
+				!fg('design_system_select-a11y-improvement')
+			) {
+				// only announce no option results when ff is on
+				const resultsMessage = screenReaderStatus({
+					count: focusableOptions.length,
+				});
+
+				resultsMsg = messages.onFilter({ inputValue, resultsMessage });
+			}
 		}
+
 		return resultsMsg;
 	}, [focusableOptions, inputValue, menuIsOpen, messages, options, screenReaderStatus, isLoading]);
 
 	const isInitialFocus = ariaSelection?.action === 'initial-input-focus';
 
 	const ariaGuidance = useMemo(() => {
+		if (fg('design_system_select-a11y-improvement')) {
+			// don't announce guidance at all when ff is on
+			return '';
+		}
 		let guidanceMsg = '';
 		if (messages.guidance) {
 			const context = focusedValue ? 'value' : menuIsOpen ? 'menu' : 'input';
@@ -188,7 +218,9 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 			<span id="aria-selection">{ariaSelected}</span>
 			<span id="aria-focused">{ariaFocused}</span>
 			<span id="aria-results">{ariaResults}</span>
-			<span id="aria-guidance">{ariaGuidance}</span>
+			{!fg('design_system_select-a11y-improvement') && (
+				<span id="aria-guidance">{ariaGuidance}</span>
+			)}
 		</Fragment>
 	);
 
@@ -197,7 +229,10 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 			{/* We use 'aria-describedby' linked to this component for the initial focus */}
 			{/* action, then for all other actions we use the live region below */}
 			<A11yText id={id}>{isInitialFocus && ScreenReaderText}</A11yText>
-			<A11yText aria-live={ariaLive} aria-atomic="false" aria-relevant="additions text" role="log">
+			<A11yText
+				aria-live={isA11yImprovementEnabled ? 'polite' : ariaLive}
+				role={isA11yImprovementEnabled ? 'status' : 'log'}
+			>
 				{isFocused && !isInitialFocus && ScreenReaderText}
 			</A11yText>
 		</Fragment>

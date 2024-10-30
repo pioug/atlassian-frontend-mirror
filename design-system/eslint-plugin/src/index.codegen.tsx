@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7656123b732a9145dedb7f9eee588883>>
+ * @codegen <<SignedSource::c77bc1fd6f2331dc0cae4fb3a58994d3>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import allFlat from './presets/all-flat.codegen';
@@ -10,9 +10,10 @@ import recommended from './presets/recommended.codegen';
 import { rules } from './rules/index.codegen';
 
 // this uses require because not all node versions this package supports use the same import assertions/attributes
-const pkgJson = require('../package.json');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const pkgJson = require('@atlaskit/eslint-plugin-design-system/package.json');
 
-export const { version, name }: { name: string; version: string } = pkgJson;
+const { version, name }: { name: string; version: string } = pkgJson;
 
 export const plugin = {
 	meta: {
@@ -48,6 +49,6 @@ export const plugin = {
 } as const;
 
 export { rules } from './rules/index.codegen';
-export const configs = plugin.configs;
+export const { configs, meta } = plugin;
 
 export default plugin;

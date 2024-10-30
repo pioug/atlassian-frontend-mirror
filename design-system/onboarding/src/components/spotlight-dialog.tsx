@@ -5,6 +5,7 @@ import FocusLockNext from 'react-focus-lock-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type Placement, Popper } from '@atlaskit/popper';
+import { Box } from '@atlaskit/primitives';
 
 import { DialogImage } from '../styled/dialog';
 import { type Actions } from '../types';
@@ -80,6 +81,16 @@ export interface SpotlightDialogProps {
 	 * serving as a hook for automated tests.
 	 */
 	testId?: string;
+	/**
+	 * Refers to an `aria-label` attribute. Sets an accessible name for the spotlight dialog wrapper to announce it to users of assistive technology.
+	 * Usage of either this, or the `titleId` prop is strongly recommended to improve accessibility.
+	 */
+	label?: string;
+	/**
+	 * Refers to a value of an `aria-labelledby` attribute. References an element to define accessible name for the spotlight dialog.
+	 * Usage of either this, or the `label` prop is strongly recommended to improve accessibility.
+	 */
+	titleId?: string;
 }
 
 interface State {
@@ -130,10 +141,14 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 			heading,
 			headingAfterElement,
 			image,
+			label = 'Introducing new feature',
+			titleId,
 			targetNode,
 			testId,
 		} = this.props;
 		const { focusLockDisabled } = this.state;
+
+		const dialogLabel = !heading && !titleId ? label : undefined;
 
 		const translatedPlacement: Placement | undefined = dialogPlacement
 			? ({
@@ -171,9 +186,18 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 			<Popper modifiers={modifiers} referenceElement={targetNode} placement={translatedPlacement}>
 				{({ ref, style, update }) => (
 					<ValueChanged value={dialogWidth} onChange={update}>
+						{/* eslint-disable-next-line jsx-a11y/no-autofocus */}
 						<FocusLock disabled={focusLockDisabled} returnFocus={false} autoFocus>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-							<div ref={ref} style={{ ...style, ...animationStyles }}>
+							<Box
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								style={{ ...style, ...animationStyles }}
+								ref={ref}
+								aria-modal={true}
+								role="dialog"
+								aria-label={dialogLabel}
+								aria-labelledby={titleId}
+								testId={`${testId}-container`}
+							>
 								<SpotlightCard
 									testId={testId}
 									width={dialogWidth}
@@ -185,6 +209,7 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 										Footer: footer,
 									}}
 									heading={heading}
+									headingId={titleId}
 									headingAfterElement={headingAfterElement}
 									// This should be heading level 1 since this is technically a modal, including a focus lock on the modal window.
 									// But because it is not a _true_ modal, we are setting it to `2` until that is fixed.
@@ -192,7 +217,7 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 								>
 									{children}
 								</SpotlightCard>
-							</div>
+							</Box>
 						</FocusLock>
 					</ValueChanged>
 				)}

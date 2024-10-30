@@ -9,14 +9,8 @@ const customBorderStyles = xcss({
 	borderRadius: 'border.radius',
 });
 
-const Block = ({ style }: any) => (
-	<Box
-		xcss={customBorderStyles}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		style={style}
-		backgroundColor="color.background.neutral"
-		padding="space.600"
-	/>
+const Block = () => (
+	<Box xcss={customBorderStyles} backgroundColor="color.background.neutral" padding="space.600" />
 );
 
 export default function Basic() {

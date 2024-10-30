@@ -18,6 +18,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import { Store } from '../../state';
+import { ActionsStore } from '../../state/actions';
 import {
 	type DatasourceTableStateProps,
 	useDatasourceTableState,
@@ -64,6 +65,7 @@ describe('useDatasourceTableState', () => {
 	let getDatasourceData: jest.Mock = jest.fn();
 	let getDatasourceActionsAndPermissions: jest.Mock = jest.fn();
 	const store = defaultRegistry.getStore(Store);
+	const actionsStore = defaultRegistry.getStore(ActionsStore);
 
 	const setup = (fields?: string[]) => {
 		asMock(useDatasourceClientExtension).mockReturnValue({
@@ -95,6 +97,7 @@ describe('useDatasourceTableState', () => {
 	beforeEach(() => {
 		jest.resetModules();
 		store.storeState.resetState();
+		actionsStore.storeState.resetState();
 		getDatasourceData = jest.fn().mockResolvedValue(mockDatasourceDataResponse);
 		mockIsFedRamp.mockReturnValue(false);
 	});
@@ -201,6 +204,41 @@ describe('useDatasourceTableState', () => {
 					);
 					expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
 						datasourceId: mockDatasourceId,
+					});
+				});
+
+				ffTest.on('enable_datasource_supporting_actions', 'flag on', () => {
+					it('should include fetchAction in the state when they are available', async () => {
+						asMock(getDatasourceData).mockResolvedValueOnce({
+							...mockDatasourceDataResponseWithSchema,
+						});
+
+						asMock(getDatasourceActionsAndPermissions).mockResolvedValueOnce({
+							...mockActionsDiscoveryResponse,
+						});
+
+						const { waitForNextUpdate } = setup();
+						await waitForNextUpdate();
+
+						const actions = actionsStore.storeState.getState();
+
+						expect(actions['actionsByIntegration']['jira']).toEqual(
+							expect.objectContaining({
+								status: {
+									actionKey: 'atlassian:work-item:update:status',
+									fetchAction: {
+										actionKey: 'atlassian:work-item:get:statuses',
+										inputs: {
+											issueId: {
+												type: 'string',
+											},
+										},
+										type: 'string',
+									},
+									type: 'string',
+								},
+							}),
+						);
 					});
 				});
 			});

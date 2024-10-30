@@ -7,7 +7,7 @@ import { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import SearchIcon from '@atlaskit/icon/glyph/search';
+import SearchIcon from '@atlaskit/icon/core/migration/search';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -122,7 +122,7 @@ const SearchComponent = (props: SearchComponentProps) => {
 	return (
 		<div css={searchInputContainerStyles} role="search">
 			<div css={searchInputIconStyles}>
-				<SearchIcon label="" />
+				<SearchIcon color="currentColor" spacing="spacious" label="" />
 			</div>
 			<input
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -160,7 +160,7 @@ export const Search = (props: SearchProps) => {
 			<IconButton
 				// @ts-ignore Overriding styles is not supported.
 				css={searchIconStyles}
-				icon={<SearchIcon label={label} />}
+				icon={<SearchIcon color="currentColor" spacing="spacious" label={label} />}
 				tooltip={tooltip}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...iconButtonProps}

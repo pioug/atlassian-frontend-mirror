@@ -6,4 +6,5 @@ export type {
 	EpComponents,
 	EpHooks,
 	CoordinationClient,
+	EngagementPlatformPluginState,
 } from '@atlaskit/editor-plugin-engagement-platform';

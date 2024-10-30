@@ -12,7 +12,6 @@ import React, {
 } from 'react';
 import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import Tooltip from '@atlaskit/tooltip';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { COLOR_PALETTE_MENU, KEY_ENTER, KEY_SPACE, KEY_TAB } from '../constants';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -137,10 +136,10 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 								? mergeRefs([ref, tooltipProps.ref, initialFocusRef])
 								: mergeRefs([ref, tooltipProps.ref])
 						}
-						role={fg('platform_color_picker-fix-a11y-violations') ? role : isInsideMenuRole}
+						role={role}
 						tabIndex={selected ? 0 : -1}
-						aria-checked={fg('platform_color_picker-fix-a11y-violations') ? ariaChecked : selected}
-						aria-label={fg('platform_color_picker-fix-a11y-violations') ? ariaLabel : label}
+						aria-checked={ariaChecked}
+						aria-label={ariaLabel}
 						css={[
 							sharedColorContainerStyles,
 							(isColorPaletteMenu || isTabbing === undefined || isTabbing) &&

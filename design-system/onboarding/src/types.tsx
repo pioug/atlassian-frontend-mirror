@@ -108,4 +108,14 @@ export interface SpotlightProps {
 	 * Used set the 'block' attribute on scrollIntoView, which determines the vertical alignment of the target node to the nearest scrollable ancestor.
 	 */
 	scrollPositionBlock?: ScrollLogicalPosition;
+	/**
+	 * Refers to an `aria-label` attribute. Sets an accessible name for the spotlight dialog wrapper to announce it to users of assistive technology.
+	 * Usage of either this, or the `titleId` prop is strongly recommended to improve accessibility.
+	 */
+	label?: string;
+	/**
+	 * Refers to a value of an `aria-labelledby` attribute. References an element to define accessible name for the spotlight dialog.
+	 * Usage of either this, or the `label` prop is strongly recommended to improve accessibility.
+	 */
+	titleId?: string;
 }

@@ -19,7 +19,6 @@ import {
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import ColorCard, { type ColorCardRef } from './ColorCard';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { getOptions, getWidth } from '../utils';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -147,13 +146,10 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 		[isFocusLockEnabled, selectedColorIndex, setFocusedIndex, options],
 	);
 
-	const isInsideMenuRole = fg('platform_color_picker-fix-a11y-violations') ? 'menu' : 'group';
-	const role = isInsideMenu ? isInsideMenuRole : 'radiogroup';
-
 	return (
 		<div
 			aria-label={fullLabel}
-			role={role}
+			role={isInsideMenu ? 'menu' : 'radiogroup'}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={[colorPaletteMenuStyles, mode === Mode.Standard && colorPaletteMenuStandardStyles]}
 			style={{

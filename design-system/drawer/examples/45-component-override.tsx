@@ -15,7 +15,7 @@ import {
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
+import AppSwitcherIcon from '@atlaskit/icon/core/migration/app-switcher';
 import { token } from '@atlaskit/tokens';
 
 import Drawer from '../src';
@@ -87,7 +87,7 @@ const SidebarOverrideComponent: FC<{ children?: ReactNode }> = ({ children }) =>
 		>
 			{children}
 			<IconWrapper onClick={() => console.log('onNewButtonClicked')}>
-				<AppSwitcherIcon label="extra-button" />
+				<AppSwitcherIcon color="currentColor" label="extra-button" />
 			</IconWrapper>
 		</div>
 	);

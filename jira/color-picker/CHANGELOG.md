@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 3.4.5
+
+### Patch Changes
+
+- [#157202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157202)
+  [`609601c6264dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/609601c6264dc) -
+  Removed FG that fixes storybook violations
+
 ## 3.4.4
 
 ### Patch Changes

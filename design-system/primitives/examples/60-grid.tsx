@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Grid, xcss } from '../src';
+import { Box, type BoxProps, Grid, xcss } from '../src';
 
 const customBorderStyles = xcss({
 	borderColor: 'color.border',
@@ -9,7 +9,8 @@ const customBorderStyles = xcss({
 	borderRadius: 'border.radius',
 });
 
-const Block = ({ style }: any) => (
+// NOTE: We just cheat with `style`, do not copy this pattern into your code…
+const Block = ({ style }: { style?: BoxProps<'div'>['style'] }) => (
 	<Box
 		xcss={customBorderStyles}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

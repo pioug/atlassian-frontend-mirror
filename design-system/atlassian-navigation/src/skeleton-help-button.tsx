@@ -1,7 +1,7 @@
 import React from 'react';
 
+import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 import Nav4QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
-import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import { token } from '@atlaskit/tokens';
 
 import { SkeletonIconButton } from './components/SkeletonIconButton';
@@ -32,7 +32,11 @@ export const SkeletonHelpButton = ({ label = '' }: SkeletonHelpButtonProps) => {
 
 	return (
 		<SkeletonIconButton>
-			<QuestionCircleIcon label={label} secondaryColor={navigation.backgroundColor} />
+			<QuestionCircleIcon
+				label={label}
+				color="currentColor"
+				LEGACY_secondaryColor={navigation.backgroundColor}
+			/>
 		</SkeletonIconButton>
 	);
 };
@@ -44,6 +48,6 @@ export const SkeletonHelpButton = ({ label = '' }: SkeletonHelpButtonProps) => {
  */
 export const Nav4SkeletonHelpButton = ({ label = '' }: SkeletonHelpButtonProps) => (
 	<SkeletonIconButton>
-		<Nav4QuestionCircleIcon label={label} color={token('color.icon')} />
+		<Nav4QuestionCircleIcon label={label} spacing="spacious" color={token('color.icon')} />
 	</SkeletonIconButton>
 );

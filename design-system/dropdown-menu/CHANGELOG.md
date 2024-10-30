@@ -1,5 +1,25 @@
 # @atlaskit/dropdown-menu
 
+## 12.22.0
+
+### Minor Changes
+
+- [`cfef14b7ec2bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cfef14b7ec2bc) -
+  Update Dropdown Menu internals so that menuItemRefs are always stored in order. In the case of a
+  DropDownItem with async content then the ref may only be populated once the content has loaded.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.21.1
+
+### Patch Changes
+
+- [#157534](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157534)
+  [`ca0824645f3a5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca0824645f3a5) -
+  Remove the use of Math.random for the generation of IDs
+
 ## 12.21.0
 
 ### Minor Changes

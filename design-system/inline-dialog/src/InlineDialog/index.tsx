@@ -10,7 +10,7 @@ import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
-import { UNSAFE_LAYERING, useCloseOnEscapePress } from '@atlaskit/layering';
+import { UNSAFE_LAYERING, UNSAFE_useLayering, useCloseOnEscapePress } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Popper, Reference } from '@atlaskit/popper';
 
@@ -30,9 +30,31 @@ const checkIsChildOfPortal = (node: HTMLElement | null): boolean => {
 	);
 };
 
-// escape close manager for layering
-const EscapeCloseManager = ({ handleClose }: { handleClose: (event: KeyboardEvent) => void }) => {
-	useCloseOnEscapePress({ onClose: handleClose });
+// Close manager for layering
+const CloseManager = ({
+	handleEscapeClose,
+	handleClick,
+}: {
+	handleEscapeClose: (event: KeyboardEvent) => void;
+	handleClick: (event: MouseEvent) => void;
+}) => {
+	useCloseOnEscapePress({ onClose: handleEscapeClose });
+
+	const { isLayerDisabled } = UNSAFE_useLayering();
+
+	useEffect(() => {
+		return bind(window, {
+			type: 'click',
+			listener: (e) => {
+				if (isLayerDisabled()) {
+					return;
+				}
+				handleClick(e);
+			},
+			options: { capture: true },
+		});
+	}, [handleClick, isLayerDisabled]);
+
 	// only create a dummy component for using ths hook in class component
 	return <span />;
 };
@@ -63,9 +85,6 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 	// we put this into a ref to avoid handleCloseRequest having this as a dependency
 	const onCloseRef = useRef<typeof onClose>(onClose);
 
-	const isLayeringEnabled =
-		fg('platform.design-system-team.inline-message-layering_wfp1p') && isOpen;
-
 	useEffect(() => {
 		onCloseRef.current = onClose;
 	});
@@ -85,7 +104,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 				return;
 			}
 
-			if (isLayeringEnabled) {
+			if (isOpen) {
 				onCloseRef.current?.({ isOpen: false, event });
 				return;
 			}
@@ -100,7 +119,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 				onCloseRef.current?.({ isOpen: false, event });
 			}
 		},
-		[isLayeringEnabled],
+		[isOpen],
 	);
 
 	const handleClick = useCallback(
@@ -110,51 +129,14 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 				return;
 			}
 
-			// if feature flag is enabled we won't file the close event when clicking inside dialog
-			if (isLayeringEnabled && containerRef.current?.contains(event.target as Node)) {
+			if (containerRef.current?.contains(event.target as Node)) {
 				return;
 			}
 
 			handleCloseRequest(event);
 		},
-		[handleCloseRequest, isLayeringEnabled],
+		[handleCloseRequest, containerRef, triggerRef],
 	);
-
-	useEffect(() => {
-		if (!isOpen) {
-			return;
-		}
-
-		return bind(window, {
-			type: 'click',
-			listener: handleClick,
-			options: { capture: true },
-		});
-	}, [isOpen, handleClick]);
-
-	const handleKeyDown = useCallback(
-		(event: KeyboardEvent) => {
-			if (event.key === 'Escape') {
-				handleCloseRequest(event);
-			}
-		},
-		[handleCloseRequest],
-	);
-
-	useEffect(() => {
-		// if layering is enabled, we will use useCloseOnEscapePress hook instead
-		if (!isOpen || isLayeringEnabled) {
-			return;
-		}
-
-		const unbind = bind(window, {
-			type: 'keydown',
-			listener: handleKeyDown,
-			options: { capture: true },
-		});
-
-		return unbind;
-	}, [isOpen, handleKeyDown, isLayeringEnabled]);
 
 	const popper = isOpen ? (
 		<Popper placement={placement} strategy={strategy}>
@@ -203,10 +185,10 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 					</NodeResolverWrapper>
 				)}
 			</Reference>
-			{isLayeringEnabled ? (
+			{isOpen ? (
 				<UNSAFE_LAYERING isDisabled={false}>
 					{popper}
-					<EscapeCloseManager handleClose={handleCloseRequest} />
+					<CloseManager handleEscapeClose={handleCloseRequest} handleClick={handleClick} />
 				</UNSAFE_LAYERING>
 			) : (
 				popper

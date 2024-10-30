@@ -34,10 +34,12 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.tsx",
 	"af:exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./package.json": "./package.json"
 	},
 	"exports": {
-		".": "./index.js"
+		".": "./index.js",
+		"./package.json": "./package.json"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"

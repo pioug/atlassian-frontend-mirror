@@ -6,6 +6,7 @@ import type { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation
 import type { Command, NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorViewModeEffectsPlugin } from '@atlaskit/editor-plugin-editor-viewmode-effects';
+import type { EngagementPlatformPlugin } from '@atlaskit/editor-plugin-engagement-platform';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -48,6 +49,7 @@ export type AnnotationPlugin = NextEditorPlugin<
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<EditorViewModeEffectsPlugin>,
 			OptionalPlugin<FeatureFlagsPlugin>,
+			OptionalPlugin<EngagementPlatformPlugin>,
 		];
 		actions: {
 			stripNonExistingAnnotations: StripNonExistingAnnotations;

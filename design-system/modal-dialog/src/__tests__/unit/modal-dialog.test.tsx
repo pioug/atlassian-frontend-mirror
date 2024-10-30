@@ -414,7 +414,7 @@ describe('<ModalDialog />', () => {
 				key: 'Escape',
 			});
 
-			document.dispatchEvent(escapeKeyDownEvent);
+			window.dispatchEvent(escapeKeyDownEvent);
 			expect(spy).toHaveBeenCalledTimes(1);
 		});
 
@@ -433,7 +433,7 @@ describe('<ModalDialog />', () => {
 				key: 'Escape',
 			});
 
-			document.dispatchEvent(escapeKeyDownEvent);
+			window.dispatchEvent(escapeKeyDownEvent);
 			expect(spy).not.toHaveBeenCalled();
 		});
 	});

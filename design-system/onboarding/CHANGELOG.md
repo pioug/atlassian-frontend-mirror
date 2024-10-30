@@ -1,5 +1,20 @@
 # @atlaskit/onboarding
 
+## 11.17.0
+
+### Minor Changes
+
+- [#158301](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158301)
+  [`71f646cbd1ba6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/71f646cbd1ba6) -
+  [ux] Fixes issue where focus moved beyond spotlight container in screen reader mode. Additionally
+  spotlight dialog now supports props to add/reference label to it.
+
+## 11.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.16.0
 
 ### Minor Changes

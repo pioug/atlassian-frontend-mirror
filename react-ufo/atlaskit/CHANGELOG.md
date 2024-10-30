@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.0.4
+
+### Patch Changes
+
+- [#157826](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157826)
+  [`cd0465f950cb6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd0465f950cb6) -
+  Added count of network calls
+
+## 2.0.3
+
+### Patch Changes
+
+- [#157758](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157758)
+  [`0a582096048e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a582096048e6) -
+  add vc clean field to post interaction log
+
 ## 2.0.2
 
 ### Patch Changes

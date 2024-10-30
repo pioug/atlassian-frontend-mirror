@@ -1,5 +1,14 @@
 # @atlaskit/link-test-helpers
 
+## 7.5.3
+
+### Patch Changes
+
+- [#157343](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157343)
+  [`64cef773c3dcf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64cef773c3dcf) -
+  Update mockActionsDiscovery to include fetchAction
+- Updated dependencies
+
 ## 7.5.2
 
 ### Patch Changes

@@ -8,7 +8,7 @@ import { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import AddIcon from '@atlaskit/icon/glyph/editor/add';
+import AddIcon from '@atlaskit/icon/core/migration/add--editor-add';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -98,7 +98,7 @@ export const Create = ({
 			<IconButton
 				id="createGlobalItemIconButton"
 				testId={testId && `${testId}-icon-button`}
-				icon={<AddIcon label={text} />}
+				icon={<AddIcon color="currentColor" spacing="spacious" label={text} />}
 				onClick={onClick}
 				href={href}
 				tooltip={iconButtonTooltip}

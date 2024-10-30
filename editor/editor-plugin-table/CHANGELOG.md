@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 7.29.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.29.8
+
+### Patch Changes
+
+- [#157905](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157905)
+  [`f02486a915690`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f02486a915690) -
+  NO-ISSUE Cleanup unused props and components
+- Updated dependencies
+
 ## 7.29.7
 
 ### Patch Changes

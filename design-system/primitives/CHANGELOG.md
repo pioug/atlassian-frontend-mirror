@@ -1,5 +1,29 @@
 # @atlaskit/primitives
 
+## 13.0.0
+
+### Major Changes
+
+- [#158114](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158114)
+  [`01676a379617b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01676a379617b) -
+  This generates a new entrypoint for opt-in to Compiled through `@atlaskit/primitives/compiled`.
+
+  No documentation is currently available on how to use this, and this is for internal testing, use
+  at your own risk.
+
+  Possibly BREAKING: In theory, this could have an impact depending on your bundling setup due to
+  newly distributed `dist/cjs/compiled/box.compiled.css` type files—the most notable impact is in an
+  extreme, Webpack may error if it was not expecting `*.css` files (and then these files could be
+  ignored for now following future updates), _or_ are included but not used, increasing
+  client-facing bundle size.
+
+### Minor Changes
+
+- [#158114](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158114)
+  [`01676a379617b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01676a379617b) -
+  Remove the UNSAFE_SurfaceContext export which was temporarily used internally and not documented
+  for public use.
+
 ## 12.2.7
 
 ### Patch Changes

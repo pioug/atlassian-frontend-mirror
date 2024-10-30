@@ -5,4 +5,5 @@ export type {
 	EpComponents,
 	EpHooks,
 	CoordinationClient,
+	EngagementPlatformPluginState,
 } from './engagementPlatformPluginType';

@@ -13,7 +13,7 @@ import { bind } from 'bind-event-listener';
 import __noop from '@atlaskit/ds-lib/noop';
 import { UNSAFE_useLayering } from '@atlaskit/layering';
 
-import { type FocusableElement } from '../../types';
+import { type FocusableElementRef } from '../../types';
 import handleFocus from '../utils/handle-focus';
 
 /**
@@ -25,8 +25,8 @@ import handleFocus from '../utils/handle-focus';
  *
  */
 export const FocusManagerContext = createContext<{
-	menuItemRefs: FocusableElement[];
-	registerRef: (ref: FocusableElement) => void;
+	menuItemRefs: FocusableElementRef[];
+	registerRef(ref: FocusableElementRef): void;
 }>({
 	menuItemRefs: [],
 	registerRef: __noop,
@@ -39,15 +39,15 @@ const FocusManager: FC<{
 	children: ReactNode;
 	onClose: (e: KeyboardEvent) => void;
 }> = ({ children, onClose }) => {
-	const menuItemRefs = useRef<FocusableElement[]>([]);
+	const menuItemRefs = useRef<FocusableElementRef[]>([]);
 	// Used to force a re-render only
 	const [refresh, setRefresh] = useState(0);
 	const registerMode = useRef<'ordered' | 'unordered' | 'regenerate'>('ordered');
 	registerMode.current = 'ordered';
 
 	const registerRef = useCallback(
-		(ref: FocusableElement): void => {
-			if (!ref || menuItemRefs.current.includes(ref)) {
+		(ref: FocusableElementRef): void => {
+			if (menuItemRefs.current.includes(ref)) {
 				return;
 			}
 

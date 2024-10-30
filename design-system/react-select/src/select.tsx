@@ -10,8 +10,10 @@ import React, {
 	type TouchEventHandler,
 } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { type AriaLiveMessages, type AriaSelection } from './accessibility';
-import { isAppleDevice } from './accessibility/helpers';
+import { isAppleDevice, isSafari } from './accessibility/helpers';
 import {
 	formatGroupLabel as formatGroupLabelBuiltin,
 	getOptionLabel as getOptionLabelBuiltin,
@@ -817,7 +819,7 @@ export default class Select<
 	openAfterFocus = false;
 	scrollToFocusedOptionOnUpdate = false;
 	userIsDragging?: boolean;
-	isAppleDevice = isAppleDevice();
+	isAppleDevice = fg('design_system_select-a11y-improvement') ? isSafari() : isAppleDevice();
 
 	// Refs
 	// ------------------------------
@@ -1871,7 +1873,7 @@ export default class Select<
 			labelId,
 			menuIsOpen,
 			required,
-			tabIndex,
+			tabIndex = 0,
 		} = this.props;
 		const { Input } = this.getComponents();
 		const { inputIsHidden, ariaSelection } = this.state;
@@ -1883,7 +1885,7 @@ export default class Select<
 
 		// aria attributes makes the JSX "noisy", separated for clarity
 		const ariaAttributes = {
-			'aria-autocomplete': 'list' as const,
+			'aria-autocomplete': 'both' as const,
 			'aria-errormessage': this.props['aria-errormessage'],
 			'aria-expanded': menuIsOpen,
 			'aria-haspopup': 'listbox' as AriaAttributes['aria-haspopup'],
@@ -1893,11 +1895,7 @@ export default class Select<
 			'aria-labelledby': this.props['aria-labelledby'] || labelId,
 			'aria-required': required || isRequired,
 			role: 'combobox',
-			'aria-activedescendant': this.isAppleDevice
-				? undefined
-				: this.state.focusedOptionId
-					? this.state.focusedOptionId
-					: undefined,
+			'aria-activedescendant': this.state.focusedOptionId || undefined,
 			...(menuIsOpen && {
 				'aria-controls': this.getElementId('listbox'),
 			}),
@@ -2140,6 +2138,8 @@ export default class Select<
 			noOptionsMessage,
 			onMenuScrollToTop,
 			onMenuScrollToBottom,
+			labelId,
+			label,
 		} = this.props;
 
 		if (!menuIsOpen) {
@@ -2147,8 +2147,9 @@ export default class Select<
 		}
 
 		// TODO: Internal Option Type here
-		const render = (props: CategorizedOption<Option>, id: string) => {
+		const render = (props: CategorizedOption<Option>, id: string, headingId?: string) => {
 			const { type, data, isDisabled, isSelected, label, value } = props;
+
 			const isFocused = focusedOption === data;
 			const onHover = isDisabled ? undefined : () => this.onOptionHover(data);
 			const onSelect = isDisabled ? undefined : () => this.selectOption(data);
@@ -2159,7 +2160,11 @@ export default class Select<
 				onMouseMove: onHover,
 				onMouseOver: onHover,
 				role: 'option',
-				'aria-selected': this.isAppleDevice ? undefined : isSelected, // is not supported on Apple devices
+				'aria-selected':
+					!commonProps.isMulti && fg('design_system_select-a11y-improvement')
+						? isSelected || undefined
+						: isSelected,
+				'aria-describedby': fg('design_system_select-a11y-improvement') ? headingId : undefined,
 			};
 
 			return (
@@ -2184,7 +2189,8 @@ export default class Select<
 		let menuUI: ReactNode;
 
 		if (this.hasOptions()) {
-			menuUI = this.getCategorizedOptions().map((item) => {
+			const items = this.getCategorizedOptions();
+			menuUI = items.map((item) => {
 				if (item.type === 'group') {
 					const { data, options, index: groupIndex } = item;
 					const groupId = `${this.getElementId('group')}-${groupIndex}`;
@@ -2203,7 +2209,9 @@ export default class Select<
 							}}
 							label={this.formatGroupLabel(item.data)}
 						>
-							{item.options.map((option) => render(option, `${groupIndex}-${option.index}`))}
+							{item.options.map((option) =>
+								render(option, `${groupIndex}-${option.index}`, headingId),
+							)}
 						</Group>
 					);
 				} else if (item.type === 'option') {
@@ -2230,7 +2238,6 @@ export default class Select<
 			menuPosition,
 			menuShouldScrollIntoView,
 		};
-
 		const menuElement = (
 			<MenuPlacer {...commonProps} {...menuPlacementProps}>
 				{({ ref, placerProps: { placement, maxHeight } }) => (
@@ -2261,8 +2268,16 @@ export default class Select<
 									}}
 									innerProps={{
 										role: 'listbox',
-										'aria-multiselectable': commonProps.isMulti,
+										// don't add aria-multiselectable when ff is on and the value is false
+										'aria-multiselectable': fg('design_system_select-a11y-improvement')
+											? commonProps.isMulti || undefined
+											: commonProps.isMulti,
 										id: this.getElementId('listbox'),
+										// add aditional label on listbox when ff is on
+										...(fg('design_system_select-a11y-improvement') && {
+											'aria-label': label,
+											'aria-labelledby': labelId,
+										}),
 									}}
 									isLoading={isLoading}
 									maxHeight={maxHeight}

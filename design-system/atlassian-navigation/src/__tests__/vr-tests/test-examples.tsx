@@ -1,7 +1,7 @@
 import React from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import NotificationIcon from '@atlaskit/icon/glyph/notification';
+import NotificationIcon from '@atlaskit/icon/core/migration/notification';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { Stack } from '@atlaskit/primitives';
@@ -117,7 +117,7 @@ const SkeletonButtonsExample = () => (
 		renderCreate={() => <SkeletonCreateButton text="Create"></SkeletonCreateButton>}
 		renderNotifications={() => (
 			<SkeletonIconButton>
-				<NotificationIcon label="Notifications" />
+				<NotificationIcon color="currentColor" label="Notifications" />
 			</SkeletonIconButton>
 		)}
 	/>
@@ -132,7 +132,7 @@ const ThemedSkeletonButtonsExample = () => (
 		renderCreate={() => <SkeletonCreateButton text="Create"></SkeletonCreateButton>}
 		renderNotifications={() => (
 			<SkeletonIconButton>
-				<NotificationIcon label="Notifications" />
+				<NotificationIcon color="currentColor" spacing="spacious" label="Notifications" />
 			</SkeletonIconButton>
 		)}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides

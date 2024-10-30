@@ -13,14 +13,7 @@ const blockStyles = xcss({
 	borderColor: 'color.border.discovery',
 });
 
-const Block = (style?: any) => (
-	<Box
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		style={style}
-		backgroundColor="color.background.discovery.bold"
-		xcss={blockStyles}
-	/>
-);
+const Block = () => <Box backgroundColor="color.background.discovery.bold" xcss={blockStyles} />;
 
 export default function Basic() {
 	return (
@@ -31,8 +24,7 @@ export default function Basic() {
 					<Box padding="space.200" backgroundColor="color.background.neutral">
 						<Block />
 						<Bleed block="space.100">
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-							<Block style={{ position: 'relative' }} />
+							<Block />
 						</Bleed>
 						<Block />
 					</Box>
@@ -43,8 +35,7 @@ export default function Basic() {
 						<Inline>
 							<Block />
 							<Bleed inline="space.100">
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-								<Block style={{ position: 'relative' }} />
+								<Block />
 							</Bleed>
 							<Block />
 						</Inline>
@@ -55,8 +46,7 @@ export default function Basic() {
 					<Box padding="space.200" backgroundColor="color.background.neutral">
 						<Block />
 						<Bleed all="space.100">
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-							<Block style={{ position: 'relative' }} />
+							<Block />
 						</Bleed>
 						<Block />
 					</Box>

@@ -3,8 +3,7 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import EmojiIcon from '@atlaskit/icon/glyph/emoji';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import EmojiIcon from '@atlaskit/icon/core/migration/emoji';
 
 import Drawer from '../../index';
 import { type DrawerProps } from '../../types';
@@ -41,7 +40,7 @@ describe('esc key', () => {
 		global.window.removeEventListener.mockRestore();
 	});
 
-	ffTest('platform.design-system-team.inline-message-layering_wfp1p', () => {
+	it('should call onClose handler when pressing Escape', () => {
 		let isOpen = true;
 
 		const onClose = jest.fn(() => {
@@ -114,29 +113,20 @@ describe('Drawer Transitions', () => {
 
 	it('should call onClose if user press ESC', () => {
 		const onClose = jest.fn();
-		const event = { key: 'Escape' };
 
 		render(createDrawer({ isOpen: true, onClose: onClose }));
+		escKeyDown();
 
-		const [, eventHandler] = findKeydownListenerCall(window.addEventListener);
-
-		eventHandler(event);
-
-		expect(onClose.mock.calls[0][0]).toBe(event);
+		expect(onClose).toHaveBeenCalled();
 	});
 
 	it('should not call onClose if user press ESC while the drawer is closed', () => {
 		const onClose = jest.fn();
 
-		const { rerender } = render(createDrawer({ isOpen: false, onClose: onClose }));
+		render(createDrawer({ isOpen: false, onClose: onClose }));
 
 		escKeyDown();
 		expect(onClose).not.toHaveBeenCalled();
-
-		rerender(createDrawer({ isOpen: true, onClose: onClose }));
-
-		escKeyDown();
-		expect(onClose).toHaveBeenCalled();
 	});
 
 	it('should call onClose when blanket is clicked', async () => {

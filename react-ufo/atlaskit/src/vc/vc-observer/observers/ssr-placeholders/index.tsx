@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const EQUALITY_THRESHOLD = 0.1;
 const ANCESTOR_LOOKUP_LIMIT = 10;
 
@@ -15,11 +13,9 @@ export class SSRPlaceholderHandlers {
 
 	constructor() {
 		this.intersectionObserver = new IntersectionObserver((entries) =>
-			fg('no_ssr_placeholder_check_when_not_intersecting')
-				? entries
-						.filter((entry) => entry.intersectionRatio > 0)
-						.forEach(this.intersectionObserverCallback)
-				: entries.forEach(this.intersectionObserverCallback),
+			entries
+				.filter((entry) => entry.intersectionRatio > 0)
+				.forEach(this.intersectionObserverCallback),
 		);
 		if (window.document) {
 			try {

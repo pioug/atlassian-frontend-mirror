@@ -1,5 +1,31 @@
 # @atlaskit/select
 
+## 18.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.4.1
+
+### Patch Changes
+
+- [#157857](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157857)
+  [`8cf1d1a9589a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8cf1d1a9589a6) -
+  Hide flag emoji in country select for better AT support
+
+## 18.4.0
+
+### Minor Changes
+
+- [#157818](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157818)
+  [`87c14ad1a3efa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87c14ad1a3efa) -
+  Use semantic tags and arias for combobox and listbox and reduce aria-live
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.3.0
 
 ### Minor Changes

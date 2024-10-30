@@ -514,6 +514,27 @@ describe('document-service', () => {
 				expect(service.sendStepsFromCurrentState).toBeCalledTimes(1);
 			});
 
+			it('Log if error processing when no steps originate from clientId but there are steps from same userId', () => {
+				const { service, providerEmitCallbackMock, analyticsHelperMock } = createMockService();
+				// @ts-ignore
+				jest.spyOn(service, 'getUserId').mockReturnValue('testUser');
+				// @ts-ignore
+				service.clientId = 'clientId1';
+				const mockError = new Error('MyMockError');
+				providerEmitCallbackMock.mockImplementation(() => {
+					throw mockError;
+				});
+				// @ts-ignore - Testing private method
+				service.processSteps({
+					steps: [{ clientId: 'clientId2', userId: 'testUser' }],
+					version: 1,
+				});
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledWith(
+					mockError,
+					'Error while processing steps with new clientId',
+				);
+			});
+
 			it('catchupv2 : Handles errors thrown', () => {
 				const { service, providerEmitCallbackMock, analyticsHelperMock } = createMockService({
 					featureFlags: {},

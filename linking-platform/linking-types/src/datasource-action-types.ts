@@ -26,15 +26,39 @@ export interface PermissionInterface extends PermissionTypes {
 }
 
 export interface AtomicActionInterface {
-	integrationKey: string; // eg: jira
-	// to be sent to actions-service to execute an action
-	actionKey: string; // eg: atlassian:work-item:update:summary
-	// to identify actionable column in FE
-	fieldKey: string; // eg: summary
-	// types the field value can take
+	integrationKey: string;
+	/**
+	 * To be sent to actions-service to execute an action
+	 * eg: atlassian:work-item:update:summary
+	 */
+	actionKey: string;
+	/**
+	 * To identify the actionable column in FE.
+	 * Should be the same as the last word in `actionKey`.
+	 */
+	fieldKey: string;
+	/**
+	 * types the field value can take
+	 */
 	type: 'string' | 'number';
 	description?: string;
+	/**
+	 * The inputs required to execute the action
+	 */
+	inputs?: ActionInputs;
 }
+
+type ActionInputs = { [key: string]: ActionInput };
+
+/**
+ * Information received from ORS about the a given input type and the
+ * actions that can be applied to it.
+ */
+type ActionInput = {
+	type: 'string' | 'number';
+	description?: string;
+	fetchAction?: AtomicActionInterface;
+};
 
 export interface ActionsServiceDiscoveryResponse {
 	actions: AtomicActionInterface[];

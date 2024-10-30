@@ -7,18 +7,14 @@ import { forwardRef, type Ref } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import ChevronIconOld from '@atlaskit/icon/glyph/chevron-down';
 import ChevronIcon from '@atlaskit/icon/utility/chevron-down';
+import ChevronIconMigration from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Bleed, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { PrimaryButton } from '../PrimaryButton';
 
 import { type PrimaryDropdownButtonProps } from './types';
-
-const chevronIconStylesWithSpacingFixStyles = xcss({
-	marginInlineEnd: 'space.negative.050',
-});
 
 /**
  * __Primary dropdown button__
@@ -37,9 +33,11 @@ export const PrimaryDropdownButton = forwardRef<HTMLElement, PrimaryDropdownButt
 					fg('platform-component-visual-refresh') ? (
 						<ChevronIcon label="" color="currentColor" />
 					) : (
-						<Bleed xcss={chevronIconStylesWithSpacingFixStyles} inline="space.100">
-							<ChevronIconOld label="" />
-						</Bleed>
+						<ChevronIconMigration
+							LEGACY_margin={`0 ${token('space.negative.050')} 0 ${token('space.negative.100')}`}
+							color="currentColor"
+							label=""
+						/>
 					)
 				}
 				ref={ref}

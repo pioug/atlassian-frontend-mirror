@@ -106,7 +106,7 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 				pos,
 				pos + node.nodeSize,
 				{
-					style: `anchor-name: ${anchorName}; ${pos === 0 ? 'margin-top: 0px;' : ''} ${fg('platform_editor_element_dnd_nested_fix_patch_3') ? '' : 'position: relative; z-index: 1;'}`,
+					style: `anchor-name: ${anchorName}; ${pos === 0 && !fg('platform_editor_element_dnd_nested_fix_patch_3') ? 'margin-top: 0px;' : ''} ${fg('platform_editor_element_dnd_nested_fix_patch_3') ? '' : 'position: relative; z-index: 1;'}`,
 					['data-drag-handler-anchor-name']: anchorName,
 					['data-drag-handler-node-type']: node.type.name,
 					['data-drag-handler-anchor-depth']: `${depth}`,

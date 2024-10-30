@@ -2,6 +2,9 @@ import { existsSync } from 'fs';
 import fs from 'fs/promises';
 import { extname, join, relative } from 'path';
 
+// @ts-expect-error - this isn't declared in the types
+import { Legacy } from '@eslint/eslintrc';
+import type { Linter } from 'eslint';
 import camelCase from 'lodash/camelCase';
 import outdent from 'outdent';
 
@@ -10,6 +13,8 @@ import { getPathSafeName, type LintRule } from '@atlaskit/eslint-utils/create-ru
 import { createSignedArtifact } from '@atlassian/codegen';
 
 import { type ExternalRuleMeta, externalRules } from '../src/rules/external-rules';
+
+const { naming }: { naming: ESLintRCNaming } = Legacy;
 
 const packagePluginName = '@atlaskit/eslint-plugin-ui-styling-standard';
 const pluginName = '@atlaskit/ui-styling-standard';
@@ -42,6 +47,7 @@ interface InternalRule extends FoundRule {
 interface GeneratedConfig {
 	name: string;
 	path: string;
+	flatPath: string;
 }
 
 const ignoreList = ['index.codegen.tsx', 'TEMPLATE.md', '__tests__', 'utils', 'external-rules.tsx'];
@@ -76,56 +82,82 @@ async function ruleDocsPath(name: string) {
  * Generates the preset config, eg. `src/presets/all.codegen.tsx` and `src/presets/recommended.codegen.tsx`
  */
 async function generatePresetConfig(name: 'all' | 'recommended', rules: FoundRule[]) {
-	const externalScopes = externalRules
-		.filter((rule) => rule.name?.includes('/'))
-		.map((rule) => {
+	const externalScopes = externalRules.flatMap((rule) => {
+		const groups = rule.name.split('/');
+		if (groups.length > 1) {
 			// Take the first part of the name, eg. `@atlaskit/design-system` and wrap it in quotes to be
-			const groups = rule.name.split('/');
-			return `'${groups.slice(0, groups.length - 1).join('/')}'`;
-		});
+			return groups.slice(0, groups.length - 1).join('/');
+		}
 
-	// NOTE: Given we have external plugins, we must include them as plugins as well./
-	const pluginList = [`'${pluginName}'`, ...Array.from(new Set(externalScopes))];
+		return [];
+	});
 
-	const code = outdent`
-    export default {
-      plugins: [
-        ${pluginList.join(',\n')}],
-      rules: {
-        ${rules
-					.filter((rule) => rule.module.meta?.docs?.removeFromPresets !== true)
-					.map((rule) => {
-						const { severity, recommended, pluginConfig } = rule.module.meta?.docs || {};
+	// // NOTE: Given we have external plugins, we must include them as plugins as well./
+	// const pluginList = [`'${pluginName}'`, ...Array.from(new Set(externalScopes))];
 
-						// `recommended` is a snowflake at this stage ... it can be a string at runtime
-						// because of legacy `import { createRule } from 'utils/create-rule'` so we take
-						// into account this possibility (as a fallback) until everything is moved over
-						// to the new syntax
-						const calculatedSeverity =
-							severity ?? (typeof recommended === 'string' ? String(recommended) : 'error');
+	const externalPlugins = Array.from(new Set([...externalScopes])).map((externalScope) => ({
+		name: naming.getShorthandName(externalScope, 'eslint-plugin'),
+		specifier: naming.normalizePackageName(externalScope, 'eslint-plugin'),
+		identifier: `${camelCase(naming.getShorthandName(externalScope, 'eslint-plugin'))}Plugin`,
+	}));
 
-						let ruleName = rule.ruleName;
-						if (ruleIsInternal(rule)) {
-							ruleName = `${pluginName}/${rule.ruleName}`;
-						}
+	const ruleConfig = rules.reduce<Linter.RulesRecord>((rulesRecord, rule) => {
+		if (rule.module.meta?.docs?.removeFromPresets !== true) {
+			const { severity, recommended, pluginConfig } = rule.module.meta?.docs || {};
 
-						if (typeof pluginConfig === 'object' && pluginConfig) {
-							return `'${ruleName}': ['${calculatedSeverity}', ${JSON.stringify(pluginConfig)}]`;
-						}
+			// `recommended` is a snowflake at this stage ... it can be a string at runtime
+			// because of legacy `import { createRule } from 'utils/create-rule'` so we take
+			// into account this possibility (as a fallback) until everything is moved over
+			// to the new syntax
+			const calculatedSeverity =
+				severity ?? (typeof recommended === 'string' ? String(recommended) : 'error');
 
-						return `'${ruleName}': '${calculatedSeverity}'`;
-					})
-					.join(',')}
-      },
-    }
-  `;
+			const ruleName = ruleIsInternal(rule) ? `${pluginName}/${rule.ruleName}` : rule.ruleName;
 
-	const filepath = join(presetsDir, `${name}.codegen.tsx`);
-	await writeFile(filepath, code);
+			rulesRecord[ruleName] =
+				typeof pluginConfig === 'object' && pluginConfig
+					? [calculatedSeverity, pluginConfig]
+					: calculatedSeverity;
+		}
+
+		return rulesRecord;
+	}, {});
+
+	const legacyCode = format(
+		`
+		export default ${JSON.stringify(
+			{
+				plugins: [pluginName, ...Array.from(externalPlugins.map((p) => p.name))],
+				rules: ruleConfig,
+			},
+			null,
+			2,
+		)} as const;`,
+		'typescript',
+	);
+
+	const flatCode = format(
+		`
+
+		${externalPlugins.map((plugin) => `import * as ${plugin.identifier} from '${plugin.specifier}';`).join('\n')}
+
+		export default {
+		plugins: {
+				// NOTE: The reference to this plugin is inserted dynamically while creating the plugin in \`index.codegen.tsx\`
+				${externalPlugins.map((plugin) => `'${plugin.name}': ${plugin.identifier}`).join(',\n')}
+		},
+		rules: ${JSON.stringify(ruleConfig, null, 2)},
+		} as const;`,
+		'typescript',
+	);
+
+	await writeFile(join(presetsDir, `${name}-flat.codegen.tsx`), flatCode);
+	await writeFile(join(presetsDir, `${name}.codegen.tsx`), legacyCode);
 
 	generatedConfigs.push({
 		name: camelCase(name),
 		path: './' + relative(srcDir, join(presetsDir, `${name}.codegen`)),
+		flatPath: './' + relative(srcDir, join(presetsDir, `${name}-flat.codegen`)),
 	});
 }
 
@@ -152,28 +184,68 @@ async function generateRuleIndex(rules: FoundRule[]) {
 			.map((rule) => `import ${camelCase(rule.pathSafeName)} from './${rule.pathSafeName}'`)
 			.join('\n')}
 
-    export default {
+    export const rules = {
     ${internalRules.map((rule) => `'${rule.ruleName}': ${camelCase(rule.pathSafeName)}`).join(',')}
     }
   `;
 
-	const filepath = join(rulesDir, 'index.codegen.tsx');
-	await writeFile(filepath, code);
+	await writeFile(join(srcDir, 'rules/index.codegen.tsx'), code);
 }
 
 /**
  * Generates the `src/index.codegen.tsx` entrypoint, exporting all the preset configs.
  */
 async function generatePluginIndex() {
-	const code = outdent`
-    ${generatedConfigs.map((config) => `import ${config.name} from '${config.path}'`).join('\n')}
+	const code = format(
+		`
+	${generatedConfigs
+		.flatMap((config) => [
+			`import ${config.name}Flat from '${config.flatPath}';`,
+			`import ${config.name} from '${config.path}';`,
+		])
+		.join('\n')}
+		import { rules } from './rules/index.codegen';
 
-    export { default as rules } from './rules/index.codegen'
+		// this uses require because not all node versions this package supports use the same import assertions/attributes
+		// eslint-disable-next-line import/no-extraneous-dependencies
+		const pkgJson = require('${packagePluginName}/package.json');
 
-    export const configs = {
-      ${generatedConfigs.map((config) => `${config.name}`).join(',')}
-    }
-  `;
+		const { version, name }: { name: string; version: string; } = pkgJson;
+
+		export const plugin = {
+			meta: {
+				name,
+				version,
+			},
+			rules,
+			// flat configs need to be done like this so they can get a reference to the plugin.
+			// see here: https://eslint.org/docs/latest/extend/plugins#configs-in-plugins
+			// they cannot use \`Object.assign\` because it will not work with the getter
+			configs: {
+				${generatedConfigs
+					.flatMap(
+						(config) => `${config.name}, 'flat/${config.name}': {
+							...${config.name}Flat,
+							plugins: {
+								...${config.name}Flat.plugins,
+								get '${pluginName}'() {
+									return plugin;
+								}
+							}
+						}`,
+					)
+					.join(',')}
+			},
+		} as const;
+
+		export { rules } from './rules/index.codegen';
+		export const { configs, meta } = plugin;
+
+		export default plugin;
+
+  `,
+		'typescript',
+	);
 
 	const filepath = join(srcDir, 'index.codegen.tsx');
 	await writeFile(filepath, code);
@@ -372,3 +444,25 @@ async function generate() {
 }
 
 generate();
+
+/**
+ * These are taken from here:
+ * https://github.com/eslint/eslintrc/blob/fc9837d3c4eb6c8c97bd5594fb72ea95b6e32ab8/lib/shared/naming.js
+ */
+interface ESLintRCNaming {
+	/**
+	 * Brings package name to correct format based on prefix
+	 * @param name The name of the package.
+	 * @param prefix Can be either "eslint-plugin", "eslint-config" or "eslint-formatter"
+	 * @returns Normalized name of the package
+	 */
+	normalizePackageName(name: string, prefix: string): string;
+
+	/**
+	 * Removes the prefix from a fullname.
+	 * @param fullname The term which may have the prefix.
+	 * @param prefix The prefix to remove.
+	 * @returns The term without prefix.
+	 */
+	getShorthandName(fullname: string, prefix: string): string;
+}

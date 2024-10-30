@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import AtlaskitSelect from '../../..';
+import AtlaskitSelect from '../../../index';
 
 const OPTIONS = [
 	{ label: '0', value: 'zero' },
@@ -15,10 +15,10 @@ const OPTIONS = [
 ];
 
 describe('Select', () => {
-	// Basic test
-	// TODO re-enable this test once we fix accessibility issue on select
-	it.skip('Basic select should pass basic axe audit', async () => {
-		const { container } = render(<AtlaskitSelect options={OPTIONS} menuIsOpen />);
+	it('Basic select should pass basic axe audit', async () => {
+		const { container } = render(
+			<AtlaskitSelect options={OPTIONS} menuIsOpen label="Basic select" />,
+		);
 		await axe(container);
 	});
 });

@@ -15,7 +15,7 @@ import type {
 } from '@atlaskit/menu/types';
 import type { ContentProps, TriggerProps } from '@atlaskit/popup/types';
 
-export type FocusableElement = HTMLAnchorElement | HTMLButtonElement;
+export type FocusableElementRef = RefObject<HTMLAnchorElement | HTMLButtonElement>;
 export type Action = 'next' | 'prev' | 'first' | 'last' | 'tab';
 
 export type Placement =

@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 5.6.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.6.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.6.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.6.15
+
+### Patch Changes
+
+- [#157867](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157867)
+  [`8398a1f0013fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8398a1f0013fc) -
+  [ux] ED-25331-add-spotlight-to-inline-comment-button
+- Updated dependencies
+
 ## 5.6.14
 
 ### Patch Changes

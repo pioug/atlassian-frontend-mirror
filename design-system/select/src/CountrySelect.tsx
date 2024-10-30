@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/fs/filename-pattern-match */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -32,7 +33,9 @@ const flagStyles = css({
 
 const Opt = ({ children, icon }: { icon: Country['icon']; children: string }) => (
 	<div css={labelStyles}>
-		<span css={flagStyles}>{icon}</span>
+		<span aria-hidden="true" css={flagStyles}>
+			{icon}
+		</span>
 		{children}
 	</div>
 );

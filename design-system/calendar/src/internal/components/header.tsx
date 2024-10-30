@@ -10,8 +10,8 @@ import { jsx } from '@emotion/react';
 import { IconButton } from '@atlaskit/button/new';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import Heading from '@atlaskit/heading';
-import ArrowleftIcon from '@atlaskit/icon/glyph/chevron-left-large';
-import ArrowrightIcon from '@atlaskit/icon/glyph/chevron-right-large';
+import ChevronLeftIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
+import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-large';
 import { Box, Inline } from '@atlaskit/primitives';
 
 import { type TabIndex } from '../../types';
@@ -77,7 +77,7 @@ const Header = memo<HeaderProps>(function Header({
 					tabIndex={tabIndex}
 					onClick={handlePrevMonthInteraction}
 					testId={testId && `${testId}--previous-month`}
-					icon={ArrowleftIcon}
+					icon={ChevronLeftIcon}
 					label={`${previousMonthLabel}, ${previousHeading}`}
 				/>
 				{/* This is required to ensure that the new month/year is announced when the previous/next month buttons are activated */}
@@ -101,7 +101,7 @@ const Header = memo<HeaderProps>(function Header({
 					tabIndex={tabIndex}
 					onClick={handleNextMonthInteraction}
 					testId={testId && `${testId}--next-month`}
-					icon={ArrowrightIcon}
+					icon={ChevronRightIcon}
 					label={`${nextMonthLabel}, ${nextHeading}`}
 				/>
 			</Inline>

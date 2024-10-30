@@ -1,5 +1,7 @@
 import type { AriaAttributes } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import {
 	type ActionMeta,
 	type GroupBase,
@@ -113,6 +115,10 @@ export interface AriaOnFocusProps<Option, Group extends GroupBase<Option>> {
 	 * Boolean indicating whether user uses Apple device
 	 */
 	isAppleDevice: boolean;
+	/**
+	 * Boolean value of selectProp isMulti
+	 */
+	isMulti: boolean;
 }
 
 export type AriaGuidance = (props: AriaGuidanceProps) => string;
@@ -197,13 +203,14 @@ export const defaultAriaLiveMessages = {
 			options,
 			label = '',
 			selectValue,
+			isMulti,
 			isDisabled,
 			isSelected,
 			isAppleDevice,
 		} = props;
 
 		const getArrayIndex = (arr: OptionsOrGroups<Option, Group>, item: Option) =>
-			arr && arr.length ? `${arr.indexOf(item) + 1} of ${arr.length}` : '';
+			arr && arr.length ? `(${arr.indexOf(item) + 1} of ${arr.length})` : '';
 
 		if (context === 'value' && selectValue) {
 			return `value ${label} focused, ${getArrayIndex(selectValue, focused)}.`;
@@ -211,8 +218,11 @@ export const defaultAriaLiveMessages = {
 
 		if (context === 'menu' && isAppleDevice) {
 			const disabled = isDisabled ? ' disabled' : '';
-			const status = `${isSelected ? ' selected' : ''}${disabled}`;
-			return `${label}${status}, ${getArrayIndex(options, focused)}.`;
+			// don't announce not selected for single selection
+			const notSelectedStatus =
+				!isMulti && fg('design_system_select-a11y-improvement') ? '' : ' not selected';
+			const status = `${isSelected ? ' selected' : notSelectedStatus}${disabled}`;
+			return `${label}${status}, ${getArrayIndex(options, focused)}, completion selected`;
 		}
 		return '';
 	},

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-loom
 
+## 3.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.7
+
+### Patch Changes
+
+- [#157550](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157550)
+  [`57749c4f9fd9f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57749c4f9fd9f) -
+  Add disabled color to Loom icon in editor
+
 ## 3.1.6
 
 ### Patch Changes

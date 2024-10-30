@@ -306,6 +306,28 @@ export const mockActionsDiscoveryResponse: ActionsDiscoveryResponse = {
 			integrationKey: 'jira',
 			type: 'string',
 		},
+		{
+			integrationKey: 'jira',
+			actionKey: 'atlassian:work-item:update:status',
+			type: 'string',
+			fieldKey: 'status',
+			inputs: {
+				status: {
+					type: 'string',
+					fetchAction: {
+						actionKey: 'atlassian:work-item:get:statuses',
+						integrationKey: 'jira',
+						fieldKey: 'status',
+						type: 'string',
+						inputs: {
+							issueId: {
+								type: 'string',
+							},
+						},
+					},
+				},
+			},
+		},
 	],
 	permissions: {
 		data: [
@@ -317,6 +339,16 @@ export const mockActionsDiscoveryResponse: ActionsDiscoveryResponse = {
 			{
 				ari: 'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10030',
 				fieldKey: 'summary',
+				isEditable: true,
+			},
+			{
+				ari: 'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10025',
+				fieldKey: 'status',
+				isEditable: true,
+			},
+			{
+				ari: 'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10030',
+				fieldKey: 'status',
 				isEditable: true,
 			},
 		],

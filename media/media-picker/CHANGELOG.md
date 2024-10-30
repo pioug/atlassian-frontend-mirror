@@ -1,5 +1,37 @@
 # @atlaskit/media-picker
 
+## 67.0.0
+
+### Major Changes
+
+- [#157917](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157917)
+  [`3a51e350e14ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a51e350e14ce) -
+  [ux] Property `onUploadRejection` now also catches rejected empty files (zero byte).
+
+  You must ensure that the user gets the right feedback if your `onUploadRejection` callback
+  overrides the default Error Flag (i.e. returns true).
+
+  The new callback parameter is of the type:
+
+  ```
+  type UploadRejectionData = FileSizeLimitExceededData | FileEmptyData
+  ```
+
+  Where:
+
+  ```
+  type FileSizeLimitExceededData = {
+  	reason: 'fileSizeLimitExceeded';
+  	fileName: string;
+  	limit: number;
+  }
+
+  type FileEmptyData = {
+  	reason: 'fileEmpty';
+  	fileName: string;
+  }
+  ```
+
 ## 66.7.5
 
 ### Patch Changes

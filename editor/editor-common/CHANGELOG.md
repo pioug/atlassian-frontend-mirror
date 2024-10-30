@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 94.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 94.8.0
+
+### Minor Changes
+
+- [#157867](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157867)
+  [`8398a1f0013fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8398a1f0013fc) -
+  [ux] ED-25331-add-spotlight-to-inline-comment-button
+
+### Patch Changes
+
+- [`ae4b01915f647`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae4b01915f647) -
+  Fix emoji XSS
+- [#157905](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157905)
+  [`f02486a915690`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f02486a915690) -
+  NO-ISSUE Cleanup unused props and components
+- Updated dependencies
+
+## 94.7.0
+
+### Minor Changes
+
+- [#154932](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154932)
+  [`3c26362f19c76`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c26362f19c76) -
+  Adding support for en-ZZ i18n locale to editor package
+
 ## 94.6.1
 
 ### Patch Changes

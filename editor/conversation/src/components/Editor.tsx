@@ -23,6 +23,7 @@ import {
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { User } from '../model';
 
@@ -129,17 +130,29 @@ export default class Editor extends React.Component<Props, State> {
 		this.beforeUnloadHandler = beforeUnloadHandler.bind({});
 	}
 
-	UNSAFE_componentWillUpdate(_nextProps: Props, nextState: State) {
-		if (nextState.isExpanded && !this.state.isExpanded && this.props.onOpen) {
-			this.props.onOpen();
-		} else if (!nextState.isExpanded && this.state.isExpanded && this.props.onClose) {
-			this.props.onClose();
-		}
-	}
-
 	componentDidMount() {
 		if (this.state.isExpanded && this.props.onOpen) {
 			this.props.onOpen();
+		}
+	}
+
+	UNSAFE_componentWillUpdate(_nextProps: Props, nextState: State) {
+		if (!fg('platform_editor_react18_phase2')) {
+			if (nextState.isExpanded && !this.state.isExpanded && this.props.onOpen) {
+				this.props.onOpen();
+			} else if (!nextState.isExpanded && this.state.isExpanded && this.props.onClose) {
+				this.props.onClose();
+			}
+		}
+	}
+
+	getSnapshotBeforeUpdate(_nextProps: Props, nextState: State) {
+		if (fg('platform_editor_react18_phase2')) {
+			if (nextState.isExpanded && !this.state.isExpanded && this.props.onOpen) {
+				this.props.onOpen();
+			} else if (!nextState.isExpanded && this.state.isExpanded && this.props.onClose) {
+				this.props.onClose();
+			}
 		}
 	}
 

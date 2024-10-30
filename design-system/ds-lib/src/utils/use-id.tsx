@@ -152,7 +152,7 @@ export const IdProvider = forwardRef<string, IdProviderProps>(
  * @see https://react.dev/reference/react/useId#generating-ids-for-several-related-elements
  * @see https://github.com/thearnica/react-uid#hooks-168
  * @example
- * import { useIdSeed } from '@atlaskit/ds-lib/react-uid';
+ * import { useIdSeed } from '@atlaskit/ds-lib/use-id';
  *
  * export default function Form() {
  * 	 const idSeed = useIdSeed();

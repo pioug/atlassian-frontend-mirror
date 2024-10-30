@@ -6,7 +6,7 @@
 import { css, jsx } from '@emotion/react';
 
 import Nav4AppSwitcherIcon from '@atlaskit/icon/core/app-switcher';
-import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
+import AppSwitcherIcon from '@atlaskit/icon/core/migration/app-switcher';
 import { token } from '@atlaskit/tokens';
 
 import { SkeletonIconButton } from './components/SkeletonIconButton';
@@ -80,7 +80,7 @@ export const SkeletonSwitcherButton = ({ label = '', testId }: SkeletonSwitcherB
 			css={skeletonSwitcherButtonStyles}
 			type="button"
 		>
-			<AppSwitcherIcon label={label} />
+			<AppSwitcherIcon color="currentColor" spacing="spacious" label={label} />
 		</button>
 	);
 };
@@ -92,6 +92,6 @@ export const SkeletonSwitcherButton = ({ label = '', testId }: SkeletonSwitcherB
  */
 export const Nav4SkeletonSwitcherButton = ({ label = '', testId }: SkeletonSwitcherButtonProps) => (
 	<SkeletonIconButton>
-		<Nav4AppSwitcherIcon label={label} color={token('color.icon')} />
+		<Nav4AppSwitcherIcon label={label} spacing="spacious" color={token('color.icon')} />
 	</SkeletonIconButton>
 );

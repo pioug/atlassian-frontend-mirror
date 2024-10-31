@@ -31,6 +31,8 @@ export const TWO_COL_LAYOUTS: PresetLayout[] = [
 	'two_right_sidebar',
 ];
 export const THREE_COL_LAYOUTS: PresetLayout[] = ['three_equal', 'three_with_sidebars'];
+export const FOUR_COL_LAYOUTS: PresetLayout[] = ['four_equal'];
+export const FIVE_COL_LAYOUTS: PresetLayout[] = ['five_equal'];
 
 const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
 	if (isPreRelease2()) {
@@ -271,6 +273,31 @@ const fromThreeColstoOne = (node: Node, tr: Transaction, insideRightEdgePos: num
 	)(tr);
 };
 
+const increaseColumns = (
+	schema: Schema,
+	pos: number,
+	newColumnsNumber = 1,
+	formatMessage?: IntlShape['formatMessage'],
+) => {
+	return (tr: Transaction) => {
+		for (let i = 0; i < newColumnsNumber; i++) {
+			addColumn(schema, pos, formatMessage)(tr);
+		}
+	};
+};
+
+const decreaseColumns = (node: Node, insideRightEdgePos: number, columnsNumberToRemove = 1) => {
+	return (tr: Transaction) => {
+		let endPos = insideRightEdgePos;
+		let lastColumn = node.content.lastChild;
+		for (let i = 0; i < columnsNumberToRemove; i++) {
+			lastColumn && removeLastColumnInLayout(lastColumn, endPos - lastColumn.nodeSize, endPos)(tr);
+			endPos -= lastColumn?.nodeSize || 0;
+			lastColumn = node.content.child(node.childCount - i - 2);
+		}
+	};
+};
+
 /**
  * Handles switching from 2 -> 3 cols, or 3 -> 2 cols
  * Switching from 2 -> 3 just adds a new one at the end
@@ -315,7 +342,26 @@ function forceColumnStructure(
 	} else if (THREE_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 1) {
 		fromOneColToThree(state.schema, insideRightEdgeOfLayoutSection)(tr);
 	}
+	return tr;
+}
 
+function forceColumnStructureNew(
+	state: EditorState,
+	node: Node,
+	pos: number,
+	presetLayout: PresetLayout,
+	formatMessage?: IntlShape['formatMessage'],
+): Transaction {
+	const tr = state.tr;
+	const insideRightEdgeOfLayoutSection = pos + node.nodeSize - 1;
+	const numCols = node.childCount;
+
+	const columnChange = getWidthsForPreset(presetLayout).length - numCols;
+	if (columnChange > 0) {
+		increaseColumns(state.schema, insideRightEdgeOfLayoutSection, columnChange, formatMessage)(tr);
+	} else if (columnChange < 0) {
+		decreaseColumns(node, insideRightEdgeOfLayoutSection, -columnChange)(tr);
+	}
 	return tr;
 }
 
@@ -364,7 +410,8 @@ export function forceSectionToPresetLayout(
 	presetLayout: PresetLayout,
 	formatMessage?: IntlShape['formatMessage'],
 ): Transaction {
-	let tr = forceColumnStructure(state, node, pos, presetLayout, formatMessage);
+	const forceColumnStructureFn = isPreRelease2() ? forceColumnStructureNew : forceColumnStructure;
+	let tr = forceColumnStructureFn(state, node, pos, presetLayout, formatMessage);
 
 	// save the selection here, since forcing column widths causes a change over the
 	// entire layoutSection, which remaps selection to the end. not remapping here

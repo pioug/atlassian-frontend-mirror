@@ -1,5 +1,4 @@
 export type { BadgeProps } from './BadgeProps.codegen';
-export type { BannerProps } from './BannerProps.codegen';
 export type { BleedProps } from './BleedProps.codegen';
 export type { BoxProps } from './BoxProps.codegen';
 export type { ButtonGroupProps } from './ButtonGroupProps.codegen';

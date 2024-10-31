@@ -710,6 +710,10 @@ function getSSRDoneTimeValue(config: Config | undefined): number | undefined {
 	return config?.ssr?.getSSRDoneTime ? config?.ssr?.getSSRDoneTime() : ssr.getSSRDoneTime();
 }
 
+function getPayloadSize (payload: Object): number {
+	return Math.round(new TextEncoder().encode(JSON.stringify(payload)).length / 1024);
+}
+
 function createInteractionMetricsPayload(interaction: InteractionMetrics, interactionId: string) {
 	const interactionPayloadStart = performance.now();
 	const config = getConfig();
@@ -805,7 +809,7 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 	};
 
 	const newUFOName = sanitizeUfoName(ufoName);
-	return {
+	const payload = {
 		actionSubject: 'experience',
 		action: 'measured',
 		eventType: 'operational',
@@ -817,6 +821,7 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 				'event:hostname': window.location?.hostname || 'unknown',
 				'event:product': config.product,
 				'event:schema': '1.0.0',
+				'event:sizeInKb': 0,
 				'event:source': {
 					name: 'react-ufo/web',
 					version: REACT_UFO_VERSION,
@@ -876,9 +881,14 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 					...getBm3TrackerTimings(interaction),
 				},
 				'ufo:payloadTime': roundEpsilon(performance.now() - interactionPayloadStart),
+
 			},
 		},
 	};
+
+	payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
+
+	return payload;
 }
 
 export function createPayloads(interactionId: string, interaction: InteractionMetrics) {

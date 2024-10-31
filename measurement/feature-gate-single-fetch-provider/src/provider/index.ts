@@ -8,6 +8,7 @@ import {
 	type CustomAttributes,
 	type FrontendExperimentsResult,
 	type Identifiers,
+	type OptionsWithDefaults,
 	type Provider,
 } from '@atlaskit/feature-gate-js-client';
 
@@ -18,7 +19,7 @@ export type { ProviderOptions } from './types';
 export default class SingleFetchProvider implements Provider {
 	private readonly providerOptions: ProviderOptions;
 	private clientVersion: string | undefined;
-	private clientOptions: BaseClientOptions | undefined;
+	private clientOptions: OptionsWithDefaults<BaseClientOptions> | undefined;
 	private identifiers: Identifiers | undefined;
 	private customAttributes: CustomAttributes | undefined;
 
@@ -31,7 +32,7 @@ export default class SingleFetchProvider implements Provider {
 	}
 
 	async setProfile(
-		clientOptions: BaseClientOptions,
+		clientOptions: OptionsWithDefaults<BaseClientOptions>,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {

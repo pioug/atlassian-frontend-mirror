@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "112.1.0",
+	"version": "112.2.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,16 +29,16 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/code": "^15.6.0",
-		"@atlaskit/editor-common": "^94.8.0",
+		"@atlaskit/editor-common": "^94.9.0",
 		"@atlaskit/editor-json-transformer": "^8.20.0",
 		"@atlaskit/editor-palette": "1.6.3",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.1.0",
-		"@atlaskit/emoji": "^67.8.0",
+		"@atlaskit/emoji": "^67.9.0",
 		"@atlaskit/feature-gate-js-client": "^4.20.0",
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/link-datasource": "^3.6.0",
-		"@atlaskit/media-card": "^78.9.0",
+		"@atlaskit/media-card": "^78.10.0",
 		"@atlaskit/media-client": "^28.0.0",
 		"@atlaskit/media-client-react": "^2.2.0",
 		"@atlaskit/media-common": "^11.7.0",
@@ -118,6 +118,9 @@
 			"type": "boolean"
 		},
 		"editor_inline_comments_on_inline_nodes": {
+			"type": "boolean"
+		},
+		"forbid_comments_on_empty_newlines": {
 			"type": "boolean"
 		},
 		"annotations_align_editor_and_renderer_styles": {

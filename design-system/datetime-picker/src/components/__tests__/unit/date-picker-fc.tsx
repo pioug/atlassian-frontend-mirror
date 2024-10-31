@@ -653,7 +653,7 @@ describe('DatePicker', () => {
 					selectProps: { testId: testId },
 				}),
 			);
-			const clearButton = screen.getByRole('button', { name: 'clear' });
+			const clearButton = screen.getByRole('button', { name: /clear/i });
 
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.mouseOver(clearButton);
@@ -679,7 +679,7 @@ describe('DatePicker', () => {
 				}),
 			);
 
-			const clearButton = screen.getByRole('button', { name: 'clear' });
+			const clearButton = screen.getByRole('button', { name: /clear/i });
 
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.mouseOver(clearButton);

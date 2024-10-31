@@ -1,7 +1,8 @@
+import coinflip from '../coinflip';
 import { type PostInteractionLogOutput, type ReactProfilerTiming } from '../common';
 import { REACT_UFO_VERSION } from '../common/constants';
 import { type VCEntryType } from '../common/vc/types';
-import { getConfig } from '../config';
+import { getConfig, getPostInteractionRate } from '../config';
 import { isSegmentLabel, sanitizeUfoName } from '../create-payload/common/utils';
 import { getPageVisibilityState } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';
@@ -132,6 +133,11 @@ export default function createPostInteractionLogPayload({
 	}
 
 	const ufoName = sanitizeUfoName(lastInteractionFinish.ufoName);
+	const rate = getPostInteractionRate(ufoName, lastInteractionFinish.type);
+
+	if (!coinflip(rate)) {
+		return null;
+	}
 
 	const pageVisibilityState = getPageVisibilityState(
 		lastInteractionFinish.start,

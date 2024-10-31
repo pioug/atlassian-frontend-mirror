@@ -1,11 +1,12 @@
 import React from 'react';
 
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import Button from '@atlaskit/button/standard-button';
 import { type CustomThemeButtonProps } from '@atlaskit/button/types';
 import __noop from '@atlaskit/ds-lib/noop';
 
-interface BreadcrumbsButtonProps extends CustomThemeButtonProps {
+interface BreadcrumbsButtonProps extends CustomThemeButtonProps, WithAnalyticsEventsProps {
 	hasOverflow?: boolean;
 
 	/**
@@ -30,12 +31,16 @@ const noop = __noop;
 const Step = React.forwardRef<HTMLButtonElement, BreadcrumbsButtonProps>(
 	(
 		{
+			analyticsContext,
+			component,
 			hasOverflow = true,
 			href = '#',
-			onClick: onClickProvided = noop,
-			analyticsContext,
-			iconBefore,
 			iconAfter,
+			iconBefore,
+			onClick: onClickProvided = noop,
+			target,
+			testId,
+			// Button does not take `createAnalyticsEvent`, but it is spread on anyway
 			...props
 		},
 		ref,
@@ -49,14 +54,17 @@ const Step = React.forwardRef<HTMLButtonElement, BreadcrumbsButtonProps>(
 
 		return (
 			<Button
+				{...props}
 				appearance="subtle-link"
-				spacing="none"
+				component={component}
+				href={href}
 				iconAfter={hasOverflow ? undefined : iconAfter}
 				iconBefore={hasOverflow ? undefined : iconBefore}
 				onClick={handleClicked}
 				ref={ref}
-				href={href}
-				{...props}
+				spacing="none"
+				target={target}
+				testId={testId}
 			/>
 		);
 	},

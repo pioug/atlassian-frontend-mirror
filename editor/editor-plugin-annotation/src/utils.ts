@@ -22,6 +22,7 @@ import {
 	getAnnotationIdsFromRange,
 	getRangeInlineNodeNames,
 	hasAnnotationMark,
+	isEmptyTextSelection,
 	isParagraph,
 	isText,
 } from '@atlaskit/editor-common/utils';
@@ -398,26 +399,6 @@ export const hasInvalidNodes = (state: EditorState): boolean => {
 	);
 };
 
-/**
- * Checks if selection contains only empty text
- * e.g. when you select across multiple empty paragraphs
- */
-function isEmptyTextSelection(selection: TextSelection | AllSelection, schema: Schema) {
-	const { text, paragraph } = schema.nodes;
-	let hasContent = false;
-	selection.content().content.descendants((node) => {
-		// for empty paragraph - consider empty (nothing to comment on)
-		if (node.type === paragraph && !node.content.size) {
-			return false;
-		}
-		// for not a text or nonempty text - consider nonempty (can comment if the node is supported for annotations)
-		if (node.type !== text || !node.textContent) {
-			hasContent = true;
-		}
-		return !hasContent;
-	});
-	return !hasContent;
-}
 
 export const isSupportedBlockNode = (node: Node, supportedBlockNodes: string[] = []) => {
 	return (

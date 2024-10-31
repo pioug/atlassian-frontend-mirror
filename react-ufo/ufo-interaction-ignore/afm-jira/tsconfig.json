@@ -16,9 +16,5 @@
     "../src/**/test.*",
     "../src/**/examples.*"
   ],
-  "references": [
-    {
-      "path": "../../../observability/interaction-context/afm-jira/tsconfig.json"
-    }
-  ]
+  "references": []
 }

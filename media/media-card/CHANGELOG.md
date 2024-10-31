@@ -1,5 +1,29 @@
 # @atlaskit/media-card
 
+## 78.10.2
+
+### Patch Changes
+
+- [#156157](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156157)
+  [`8d23a2a1568fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d23a2a1568fe) -
+  fix React 18 strict mode issues
+
+## 78.10.1
+
+### Patch Changes
+
+- [#158161](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158161)
+  [`f092b9d2f949d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f092b9d2f949d) -
+  clean up LD Media CDN FFs
+
+## 78.10.0
+
+### Minor Changes
+
+- [#158522](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158522)
+  [`d5002484a701c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d5002484a701c) -
+  Created React UFO Segment for Media Card
+
 ## 78.9.3
 
 ### Patch Changes

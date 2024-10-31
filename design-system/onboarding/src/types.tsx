@@ -69,6 +69,11 @@ export interface SpotlightProps {
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	pulse?: boolean;
 	/**
+	 * Whether the spotlight should check for changes to the spotlighted element or its position.
+	 * This prop may negatively affect performance and should be used only if layout shifts are causing the spotlight to be positioned incorrectly.
+	 */
+	shouldWatchTarget?: boolean;
+	/**
 	 * The name of the SpotlightTarget.
 	 */
 	target?: string;

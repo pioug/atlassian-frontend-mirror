@@ -459,7 +459,7 @@ export const addProfilerTimings = (
 			startTime,
 			commitTime,
 		});
-	} else if (getConfig()?.captureLateReRenders) {
+	} else if (getConfig()?.postInteractionLog?.enabled) {
 		postInteractionLog.addProfilerTimings(
 			labelStack,
 			type,
@@ -583,7 +583,7 @@ export function tryComplete(interactionId: string, endTime?: number) {
 		if (noMoreHolds) {
 			finishInteraction(interactionId, interaction, endTime);
 
-			if (getConfig()?.captureLateReRenders) {
+			if (getConfig()?.postInteractionLog?.enabled) {
 				postInteractionLog.onInteractionComplete(interaction);
 			}
 		}
@@ -648,7 +648,7 @@ export function addNewInteraction(
 	routeName?: string | null,
 	trace: TraceIdContext | null = null,
 ) {
-	if (getConfig()?.captureLateReRenders) {
+	if (getConfig()?.postInteractionLog?.enabled) {
 		postInteractionLog.reset();
 	}
 

@@ -6,7 +6,7 @@ import type {
 	Schema,
 	Slice,
 } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { AllSelection, EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 type Range = {
 	from: number;
@@ -206,4 +206,25 @@ export function getAnnotationMarksForPos(pos: ResolvedPos): Mark[] | undefined {
 		.filter((mark) => mark.type === pos.doc.type.schema.marks.annotation);
 
 	return annotationMarks;
+}
+
+/**
+ * Checks if selection contains only empty text
+ * e.g. when you select across multiple empty paragraphs
+ */
+export function isEmptyTextSelection(selection: TextSelection | AllSelection, schema: Schema) {
+	const { text, paragraph } = schema.nodes;
+	let hasContent = false;
+	selection.content().content.descendants((node) => {
+		// for empty paragraph - consider empty (nothing to comment on)
+		if (node.type === paragraph && !node.content.size) {
+			return false;
+		}
+		// for not a text or nonempty text - consider nonempty (can comment if the node is supported for annotations)
+		if (node.type !== text || !node.textContent) {
+			hasContent = true;
+		}
+		return !hasContent;
+	});
+	return !hasContent;
 }

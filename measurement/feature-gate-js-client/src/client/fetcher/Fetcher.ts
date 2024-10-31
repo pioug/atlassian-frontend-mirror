@@ -3,6 +3,7 @@ import {
 	type CustomAttributes,
 	FeatureGateEnvironment,
 	type Identifiers,
+	type OptionsWithDefaults,
 	PerimeterType,
 } from '../types';
 import { CLIENT_VERSION } from '../version';
@@ -16,8 +17,8 @@ import {
 
 const DEFAULT_REQUEST_TIMEOUT_MS = 5000;
 
-const PROD_BASE_URL = 'https://api.atlassian.com/flags';
-const STAGING_BASE_URL = 'https://api.stg.atlassian.com/flags';
+export const PROD_BASE_URL = 'https://api.atlassian.com/flags';
+export const STAGING_BASE_URL = 'https://api.stg.atlassian.com/flags';
 export const DEV_BASE_URL = 'https://api.dev.atlassian.com/flags';
 export const FEDM_STAGING_BASE_URL = 'https://api.stg.atlassian-us-gov-mod.com/flags';
 export const FEDM_PROD_BASE_URL = 'https://api.atlassian-us-gov-mod.com/flags';
@@ -25,7 +26,7 @@ export const FEDM_PROD_BASE_URL = 'https://api.atlassian-us-gov-mod.com/flags';
 export const GATEWAY_BASE_URL = '/gateway/api/flags';
 
 export type FetcherOptions = Pick<
-	ClientOptions,
+	OptionsWithDefaults<ClientOptions>,
 	'apiKey' | 'fetchTimeoutMs' | 'environment' | 'useGatewayURL' | 'targetApp' | 'perimeter'
 >;
 
@@ -97,7 +98,7 @@ export default class Fetcher {
 	private static getBaseUrl(
 		serviceEnv: FeatureGateEnvironment,
 		useGatewayUrl: boolean = false,
-		perimeter: PerimeterType = PerimeterType.COMMERCIAL,
+		perimeter: PerimeterType,
 	): string {
 		if (useGatewayUrl) {
 			return GATEWAY_BASE_URL;

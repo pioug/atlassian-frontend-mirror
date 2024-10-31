@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "0.27.25",
+	"version": "0.28.0",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,12 +28,11 @@
 	},
 	"dependencies": {
 		"@atlaskit/badge": "^16.4.0",
-		"@atlaskit/banner": "^12.5.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/calendar": "^15.0.0",
+		"@atlaskit/calendar": "^15.1.0",
 		"@atlaskit/checkbox": "^15.1.0",
 		"@atlaskit/code": "^15.6.0",
-		"@atlaskit/datetime-picker": "^15.5.0",
+		"@atlaskit/datetime-picker": "^15.6.0",
 		"@atlaskit/dynamic-table": "^16.1.0",
 		"@atlaskit/empty-state": "^7.12.0",
 		"@atlaskit/form": "^10.5.0",

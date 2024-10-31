@@ -1,11 +1,16 @@
 import React, { useCallback } from 'react';
 
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI, QuickInsertSharedState } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	ExtractInjectionAPI,
+	QuickInsertSharedState,
+} from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { closeElementBrowserModal, insertItem } from '../../commands';
+import { closeElementBrowserModal } from '../../commands';
 import type { QuickInsertPlugin } from '../../index';
 import { getQuickInsertSuggestions } from '../../search';
 
@@ -21,12 +26,15 @@ const Modal = ({
 	quickInsertState,
 	editorView,
 	helpUrl,
-	onInsert,
+	insertItem,
 }: {
 	editorView: EditorView;
 	quickInsertState: QuickInsertSharedState | undefined;
 	helpUrl?: string;
-	onInsert?: (item: QuickInsertItem) => void;
+	insertItem?: (
+		item: QuickInsertItem,
+		source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
+	) => Command;
 }) => {
 	const getItems = useCallback(
 		(query?: string, category?: string) =>
@@ -53,11 +61,10 @@ const Modal = ({
 	const insertableItem = React.useRef<QuickInsertItem | null>(null);
 	const onInsertItem = useCallback(
 		(item: QuickInsertItem) => {
-			onInsert?.(item);
 			closeElementBrowserModal()(editorView.state, editorView.dispatch);
 			insertableItem.current = item;
 		},
-		[editorView, onInsert],
+		[editorView],
 	);
 
 	const onClose = useCallback(() => {
@@ -76,8 +83,8 @@ const Modal = ({
 
 		focusInEditor();
 
-		insertItem(item)(editorView.state, editorView.dispatch);
-	}, [editorView, focusInEditor]);
+		insertItem?.(item)(editorView.state, editorView.dispatch);
+	}, [editorView, focusInEditor, insertItem]);
 
 	return (
 		<ModalElementBrowser
@@ -101,7 +108,7 @@ export default ({ editorView, helpUrl, pluginInjectionAPI }: Props) => {
 			quickInsertState={quickInsertState ?? undefined}
 			editorView={editorView}
 			helpUrl={helpUrl}
-			onInsert={pluginInjectionAPI?.quickInsert?.actions?.onInsert}
+			insertItem={pluginInjectionAPI?.quickInsert?.actions?.insertItem}
 		/>
 	);
 };

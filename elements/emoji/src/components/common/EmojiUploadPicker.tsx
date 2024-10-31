@@ -36,7 +36,6 @@ import {
 	emojiUploadBottom,
 	emojiUploadTop,
 	headingH5,
-	requiredSymbol,
 	uploadChooseFileBrowse,
 	uploadChooseFileEmojiName,
 	uploadChooseFileMessage,
@@ -139,13 +138,9 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={emojiUploadTop}>
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-				<h2 css={[uploadChooseFileMessage, headingH5]}>
+				<label css={[uploadChooseFileMessage, headingH5]} htmlFor="new-emoji-name-input">
 					<FormattedMessage {...messages.addCustomEmojiLabel} />
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<span aria-hidden="true" css={requiredSymbol}>
-						*
-					</span>
-				</h2>
+				</label>
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={closeEmojiUploadButton}>
 					<AkButton

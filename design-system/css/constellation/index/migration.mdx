@@ -2,20 +2,20 @@
 order: 1
 ---
 
+import SectionMessage from '@atlaskit/section-message';
+
 ## Migration to `@atlaskit/css`
 
-`@atlaskit/css` is the replacement for `@atlaskit/primitives/xcss` which will only work with the
-Compiled variants of packages, eg. `@atlaskit/primitives/compiled` (note that not all packages will
-be migrated to Compiled by the end of 2024).
+<SectionMessage title="Migration from Emotion to Compiled" appearance="discovery">
+	<p>
+		The Atlassian Design System is under the process of migrating from Emotion to Compiled for our
+		CSS-in-JS. Further details to come.
+	</p>
+</SectionMessage>
 
-Typically, this migration means moving from the `const styles = xcss({ padding: 'space.100' })` API
-to a `const styles = cssMap({ root: { padding: token('space.100') } })` API, and we have a codemod
-to assist with a majority of this migration for you. Some things are not available in the Compiled
-API such as dynamic styles or imports, please use the
+We have a codemod available to support this migration, but there are some breaking changes between Emotion
+and Compiled, such as dynamic styles or imports. Please use the
 [UI Styling Standard ESLint Plugin](/components/eslint-plugin-ui-styling-standard/) to guide you.
-
-Refer to [Configuration required](/components/css/examples#configuration-required) for details on
-how to configure your project to use `@atlaskit/css`
 
 ## Codemod
 

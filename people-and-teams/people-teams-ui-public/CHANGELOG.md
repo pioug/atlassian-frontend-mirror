@@ -1,5 +1,12 @@
 # @atlaskit/people-teams-ui-public
 
+## 1.4.3
+
+### Patch Changes
+
+- [`a855fbac72cf7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a855fbac72cf7) -
+  Update tsconfig references
+
 ## 1.4.2
 
 ### Patch Changes

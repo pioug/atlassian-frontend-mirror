@@ -195,6 +195,18 @@ export const runCommonHoverCardTests = (
 	setup: (params?: SetUpParams) => ReturnType<typeof hoverCardSetup>,
 	config: TestConfig,
 ) => {
+	it('should be accessible', async () => {
+		const { container } = await setup();
+		await act(async () => {
+			jest.runAllTimers();
+		});
+		expect(await screen.findByTestId('hover-card')).toBeInTheDocument();
+
+		jest.useRealTimers();
+		await expect(container).toBeAccessible();
+		jest.useFakeTimers();
+	});
+
 	it('should show tooltip on copy link button', async () => {
 		const { event } = await setup();
 

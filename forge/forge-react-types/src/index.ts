@@ -1,6 +1,5 @@
 export type {
 	BadgeProps,
-	BannerProps,
 	BleedProps,
 	BoxProps,
 	ButtonGroupProps,

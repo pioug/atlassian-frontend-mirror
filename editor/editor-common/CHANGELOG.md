@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 94.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 94.9.0
+
+### Minor Changes
+
+- [`9b887cc6b70f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b887cc6b70f9) -
+  [ux] EDF-1733: Add Define button to selection toolbar in live pages view mode
+- [#152319](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152319)
+  [`bfa9c49e1928b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfa9c49e1928b) -
+  [ux] Added a check to handle the case where a single non-breaking space is selected and the user
+  attempts to leave a comment on it.
+
 ## 94.8.1
 
 ### Patch Changes

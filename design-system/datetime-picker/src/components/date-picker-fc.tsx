@@ -147,6 +147,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 	const {
 		appearance = 'default' as Appearance,
 		autoFocus = false,
+		clearControlLabel = 'Clear',
 		hideIcon = false,
 		openCalendarLabel = 'Open calendar',
 		defaultIsOpen = false,
@@ -591,6 +592,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 				aria-describedby={ariaDescribedBy}
 				aria-label={label || undefined}
 				autoFocus={autoFocus}
+				clearControlLabel={clearControlLabel}
 				closeMenuOnSelect
 				// For some reason, this and the below `styles` type error _only_ show
 				// up when you alter some of the properties in the `selectComponents`

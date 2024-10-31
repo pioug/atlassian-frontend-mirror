@@ -78,8 +78,6 @@ const InsertMenu = ({
 				editorView.focus();
 			}
 
-			pluginInjectionApi?.quickInsert?.actions?.onInsert?.(item);
-
 			if (isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true)) {
 				pluginInjectionApi?.quickInsert?.actions.insertItem(
 					item,

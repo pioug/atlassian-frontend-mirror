@@ -44,7 +44,7 @@
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",
-		"@atlaskit/avatar": "^21.16.0",
+		"@atlaskit/avatar": "^21.17.0",
 		"@atlaskit/badge": "^16.4.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/code": "^15.6.0",

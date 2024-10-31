@@ -5,6 +5,8 @@ import {
 	FeatureGateEnvironment,
 	type FrontendExperimentsResult,
 	type Identifiers,
+	type OptionsWithDefaults,
+	PerimeterType,
 } from '@atlaskit/feature-gate-js-client';
 
 import Broadcast from '../../Broadcast';
@@ -36,8 +38,9 @@ const mockExperimentValues = {
 	value: '12345',
 };
 
-const mockClientOptions: BaseClientOptions = {
+const mockClientOptions: OptionsWithDefaults<BaseClientOptions> = {
 	environment: FeatureGateEnvironment.Development,
+	perimeter: PerimeterType.COMMERCIAL,
 	targetApp: 'targetApp_web',
 };
 
@@ -62,8 +65,8 @@ const expectedRulesetProfile = {
 	customAttributes: mockCustomAttributes,
 	identifiers: mockIdentifiers,
 	environment: FeatureGateEnvironment.Development,
+	perimeter: PerimeterType.COMMERCIAL,
 	targetApp: 'targetApp_web',
-	perimeter: undefined,
 };
 const mockExperimentValuesResponse: FrontendExperimentsResponse = {
 	experimentValues: mockExperimentValues,
@@ -81,6 +84,7 @@ const getMockEVEntry = (timestamp: number): ExperimentValuesEntry => ({
 		identifiers: mockIdentifiers,
 		customAttributes: mockCustomAttributes,
 		environment: mockClientOptions.environment,
+		perimeter: mockClientOptions.perimeter,
 		targetApp: mockClientOptions.targetApp,
 	},
 	experimentValuesResponse: {
@@ -196,6 +200,7 @@ describe('PollingProvider', () => {
 				{
 					apiKey: '123',
 					environment: 'development',
+					perimeter: 'commercial',
 					fetchTimeoutMs: 15,
 					targetApp: 'targetApp_web',
 					useGatewayURL: true,
@@ -217,6 +222,7 @@ describe('PollingProvider', () => {
 			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
+				perimeter: 'commercial',
 				fetchTimeoutMs: 15,
 				targetApp: 'targetApp_web',
 				useGatewayURL: true,
@@ -237,6 +243,7 @@ describe('PollingProvider', () => {
 				{
 					apiKey: '123',
 					environment: 'development',
+					perimeter: 'commercial',
 					fetchTimeoutMs: 15,
 					targetApp: 'targetApp_web',
 					useGatewayURL: true,
@@ -288,6 +295,7 @@ describe('PollingProvider', () => {
 				{
 					apiKey: '123',
 					environment: 'development',
+					perimeter: 'commercial',
 					fetchTimeoutMs: 15,
 					targetApp: 'targetApp_web',
 					useGatewayURL: true,
@@ -412,6 +420,7 @@ describe('PollingProvider', () => {
 			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
+				perimeter: 'commercial',
 				fetchTimeoutMs: 15,
 				targetApp: 'targetApp_web',
 				useGatewayURL: true,
@@ -445,6 +454,7 @@ describe('PollingProvider', () => {
 			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
+				perimeter: 'commercial',
 				fetchTimeoutMs: 15,
 				targetApp: 'targetApp_web',
 				useGatewayURL: true,
@@ -502,6 +512,7 @@ describe('PollingProvider', () => {
 			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
+				perimeter: 'commercial',
 				fetchTimeoutMs: 15,
 				targetApp: 'targetApp_web',
 				useGatewayURL: true,

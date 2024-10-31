@@ -11,6 +11,7 @@ export type {
 	Identifiers,
 	InitializeValues,
 	UpdateUserCompletionCallback,
+	OptionsWithDefaults,
 	Provider,
 
 	// Statsig

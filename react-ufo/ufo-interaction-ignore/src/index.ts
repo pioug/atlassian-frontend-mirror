@@ -1,1 +1,1 @@
-export { default } from './ufo-interaction-ignore';
+export { default } from '@atlaskit/react-ufo/interaction-ignore';

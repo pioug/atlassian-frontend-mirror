@@ -34,6 +34,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/atlassian-context": "^0.0.2",
 		"@babel/runtime": "^7.0.0",
 		"eventemitter2": "^4.1.0",
 		"statsig-js-lite": "^1.4.0"

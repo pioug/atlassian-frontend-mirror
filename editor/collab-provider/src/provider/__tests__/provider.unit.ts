@@ -1293,9 +1293,6 @@ describe('Provider', () => {
 		it('Should block view only steps metadata', () => {
 			const provider = createSocketIOCollabProvider({
 				...testProviderConfig,
-				featureFlags: {
-					blockViewOnly: true,
-				},
 			});
 			const setMetadataSpy = jest.spyOn((provider as any).metadataService, 'setMetadata');
 			const getIsNamespaceLockedSpy = jest.spyOn(

@@ -5,11 +5,14 @@ import {
 	canApplyAnnotationOnRange,
 	getAnnotationIdsFromRange,
 	getAnnotationInlineNodeTypes,
+	isEmptyTextSelection,
 } from '@atlaskit/editor-common/utils';
 import type { AnnotationId } from '@atlaskit/adf-schema';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type { Node, Schema, Mark } from '@atlaskit/editor-prosemirror/model';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
+
 import {
 	AddNodeMarkStep,
 	RemoveMarkStep,
@@ -104,6 +107,13 @@ export default class RendererActions
 	_privateValidatePositionsForAnnotation(from: number, to: number): boolean {
 		if (!this.doc || !this.schema) {
 			return false;
+		}
+
+		if (fg('forbid_comments_on_empty_newlines')) {
+			const currentSelection = TextSelection.create(this.doc, from, to);
+			if(isEmptyTextSelection(currentSelection, this.schema)){
+				return false;
+			}
 		}
 
 		return canApplyAnnotationOnRange({ from, to }, this.doc, this.schema);

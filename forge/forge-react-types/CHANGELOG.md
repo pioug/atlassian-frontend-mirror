@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.28.0
+
+### Minor Changes
+
+- [#158509](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158509)
+  [`8e9a4bf40930a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e9a4bf40930a) -
+  Clean up banner from forge ui kit components
+
 ## 0.27.25
 
 ### Patch Changes

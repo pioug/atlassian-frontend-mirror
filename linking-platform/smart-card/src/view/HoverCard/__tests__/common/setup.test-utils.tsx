@@ -13,15 +13,7 @@ import * as analytics from '../../../../utils/analytics/analytics';
 import { fakeFactory } from '../../../../utils/mocks';
 import { mockConfluenceResponse } from '../__mocks__/mocks';
 
-
-
-
-
-
-
-
 import { mockUrl } from './common.test-utils';
-
 
 export type SetUpParams = {
 	mock?: any;
@@ -55,25 +47,26 @@ export const setup = async ({
 	const analyticsSpy = jest.fn();
 	setGlobalTheme({ colorMode: 'dark' });
 
-	const { findAllByTestId, queryByTestId, findByTestId, findByRole, queryByRole } = render(
-		<AnalyticsListener channel={analytics.ANALYTICS_CHANNEL} onEvent={analyticsSpy}>
-			<IntlProvider locale="en">
-				<Provider client={mockClient} featureFlags={featureFlags}>
-					{component ? (
-						component
-					) : (
-						<Card
-							appearance="inline"
-							url={mockUrl}
-							showHoverPreview={true}
-							showAuthTooltip={true}
-							{...extraCardProps}
-						/>
-					)}
-				</Provider>
-			</IntlProvider>
-		</AnalyticsListener>,
-	);
+	const { container, findAllByTestId, queryByTestId, findByTestId, findByRole, queryByRole } =
+		render(
+			<AnalyticsListener channel={analytics.ANALYTICS_CHANNEL} onEvent={analyticsSpy}>
+				<IntlProvider locale="en">
+					<Provider client={mockClient} featureFlags={featureFlags}>
+						{component ? (
+							component
+						) : (
+							<Card
+								appearance="inline"
+								url={mockUrl}
+								showHoverPreview={true}
+								showAuthTooltip={true}
+								{...extraCardProps}
+							/>
+						)}
+					</Provider>
+				</IntlProvider>
+			</AnalyticsListener>,
+		);
 
 	const element = await screen.findByTestId(testId);
 	const event = userEvent.setup(userEventOptions);
@@ -82,6 +75,7 @@ export const setup = async ({
 	await event.hover(element);
 
 	return {
+		container,
 		findAllByTestId,
 		findByTestId,
 		queryByTestId,

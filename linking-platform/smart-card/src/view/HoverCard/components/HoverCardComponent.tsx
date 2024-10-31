@@ -222,7 +222,7 @@ export const HoverCardComponent = ({
 	);
 
 	const trigger = useCallback(
-		(triggerProps: any) => (
+		({ 'aria-haspopup': ariaHasPopup, 'aria-expanded': ariaExpanded, ...triggerProps }: any) => (
 			<span ref={parentSpan}>
 				<span
 					{...triggerProps}

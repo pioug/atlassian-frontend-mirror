@@ -80,7 +80,7 @@ export default () => {
 	return (
 		<Stack space="space.400" alignInline="start">
 			<Stack space="space.200" testId="box-with-background-and-paddingBlock">
-				<Heading level="h600">paddingBlock</Heading>
+				<Heading size="medium">paddingBlock</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{spacingValues.map((space) => (
 						<Box key={space} backgroundColor="color.background.discovery.bold" paddingBlock={space}>
@@ -90,7 +90,7 @@ export default () => {
 				</Inline>
 			</Stack>
 			<Stack space="space.200" testId="box-with-background-and-paddingInline">
-				<Heading level="h600">paddingInline</Heading>
+				<Heading size="medium">paddingInline</Heading>
 				<Stack space="space.200" alignInline="center">
 					{spacingValues.map((space) => (
 						<Box
@@ -104,7 +104,7 @@ export default () => {
 				</Stack>
 			</Stack>
 			<Stack space="space.200" testId="box-with-background-and-padding">
-				<Heading level="h600">padding</Heading>
+				<Heading size="medium">padding</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{spacingValues.map((space) => (
 						<Box key={space} backgroundColor="color.background.discovery.bold" padding={space}>
@@ -114,7 +114,7 @@ export default () => {
 				</Inline>
 			</Stack>
 			<Stack space="space.200" testId="box-with-backgroundColor">
-				<Heading level="h600">backgroundColor</Heading>
+				<Heading size="medium">backgroundColor</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{backgroundColors.map((backgroundColor) => (
 						<Box
@@ -129,7 +129,7 @@ export default () => {
 				</Inline>
 			</Stack>
 			<Stack space="space.200" testId="box-with-borderColor">
-				<Heading level="h600">borderColor</Heading>
+				<Heading size="medium">borderColor</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{borderColors.map((borderColor) => (
 						<Box
@@ -144,7 +144,7 @@ export default () => {
 				</Inline>
 			</Stack>
 			<Stack space="space.200" testId="box-with-shadow">
-				<Heading level="h600">shadow</Heading>
+				<Heading size="medium">shadow</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{elevations.map((shadow) => (
 						<Box

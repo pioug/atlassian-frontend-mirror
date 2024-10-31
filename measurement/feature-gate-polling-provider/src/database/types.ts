@@ -3,9 +3,13 @@ import {
 	type BaseClientOptions,
 	type CustomAttributes,
 	type Identifiers,
+	type OptionsWithDefaults,
 } from '@atlaskit/feature-gate-js-client';
 
-export type RulesetProfile = Pick<BaseClientOptions, 'environment' | 'targetApp' | 'perimeter'> & {
+export type RulesetProfile = Pick<
+	OptionsWithDefaults<BaseClientOptions>,
+	'environment' | 'targetApp' | 'perimeter'
+> & {
 	identifiers: Identifiers;
 	customAttributes?: CustomAttributes;
 };

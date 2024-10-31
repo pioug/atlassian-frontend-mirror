@@ -164,9 +164,43 @@ const InnerBreadcrumbs = forwardRef((props: BreadcrumbsProps, ref: React.Ref<any
 });
 
 const Breadcrumbs = memo(
-	forwardRef((props: BreadcrumbsProps, ref: React.Ref<any>) => {
-		return <InnerBreadcrumbs {...props} ref={ref} />;
-	}),
+	forwardRef(
+		(
+			{
+				analyticsContext,
+				children,
+				createAnalyticsEvent,
+				defaultExpanded,
+				ellipsisLabel,
+				isExpanded,
+				itemsAfterCollapse,
+				itemsBeforeCollapse,
+				label,
+				maxItems,
+				onExpand,
+				testId,
+				...props
+			}: BreadcrumbsProps,
+			ref: React.Ref<any>,
+		) => (
+			<InnerBreadcrumbs
+				{...props}
+				analyticsContext={analyticsContext}
+				children={children}
+				createAnalyticsEvent={createAnalyticsEvent}
+				defaultExpanded={defaultExpanded}
+				ellipsisLabel={ellipsisLabel}
+				isExpanded={isExpanded}
+				itemsAfterCollapse={itemsAfterCollapse}
+				itemsBeforeCollapse={itemsBeforeCollapse}
+				label={label}
+				maxItems={maxItems}
+				onExpand={onExpand}
+				ref={ref}
+				testId={testId}
+			/>
+		),
+	),
 );
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

@@ -40,7 +40,6 @@ import { errorCodeMapper } from '../errors/error-code-mapper';
 import type { InternalError, ViewOnlyStepsError } from '../errors/internal-errors';
 import { INTERNAL_ERROR_CODE } from '../errors/internal-errors';
 import { EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const';
-import { getCollabProviderFeatureFlag } from '../feature-flags';
 import { Api } from '../api/api';
 import { shouldTelepointerBeSampled } from '../analytics/performance';
 import { NullApi } from '../api/null-api';
@@ -433,7 +432,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
 	private isViewOnly() {
 		return (
-			getCollabProviderFeatureFlag('blockViewOnly', this.config.featureFlags) &&
 			this.permit &&
 			// isPermittedToEdit or isPermittedToView can be undefined, must use `===` here.
 			this.permit.isPermittedToEdit === false &&

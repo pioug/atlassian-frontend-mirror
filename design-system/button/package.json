@@ -114,7 +114,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/app-provider": "^1.4.0",
-		"@atlaskit/calendar": "^15.0.0",
+		"@atlaskit/calendar": "^15.1.0",
 		"@atlaskit/checkbox": "^15.1.0",
 		"@atlaskit/dropdown-menu": "^12.22.0",
 		"@atlaskit/ssr": "*",

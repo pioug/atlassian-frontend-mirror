@@ -1,5 +1,29 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.0.7
+
+### Patch Changes
+
+- [#155785](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155785)
+  [`0c6d7f8285d34`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c6d7f8285d34) -
+  moved atlaskit ufo-interaction-ignore to atlaskit/react-ufo
+
+## 2.0.6
+
+### Patch Changes
+
+- [#157418](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157418)
+  [`e6939ccf435a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e6939ccf435a3) -
+  Add payload size as part of UFO payload
+
+## 2.0.5
+
+### Patch Changes
+
+- [#158480](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158480)
+  [`fcbd1c4e6293b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fcbd1c4e6293b) -
+  Sending `custom.post-interaction-log` event for certain Perf Push experiences
+
 ## 2.0.4
 
 ### Patch Changes

@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import Loadable from 'react-loadable';
 import { CardLoading } from '../utils/lightCards/cardLoading';
 import { type CardWithMediaClientConfigProps } from './types';
+import UFOSegment from '@atlaskit/react-ufo/segment';
 
 const MediaCardContext = React.createContext({});
 
-const CardLoadingWithContext: React.FC<{}> = () => {
+const CardLoadingWithContext = () => {
 	const props = useContext(MediaCardContext);
 	return <CardLoading {...props} interactionName="media-card-async-loading" />;
 };
@@ -24,9 +25,11 @@ type CardLoaderComponent = React.FC<CardWithMediaClientConfigProps> & {
 
 const CardLoader: CardLoaderComponent = (props) => {
 	return (
-		<MediaCardContext.Provider value={props}>
-			<MediaCardWithMediaClientProvider {...props} />
-		</MediaCardContext.Provider>
+		<UFOSegment name="media-card">
+			<MediaCardContext.Provider value={props}>
+				<MediaCardWithMediaClientProvider {...props} />
+			</MediaCardContext.Provider>
+		</UFOSegment>
 	);
 };
 

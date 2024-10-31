@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 1.3.3
+
+### Patch Changes
+
+- [#155785](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/155785)
+  [`0c6d7f8285d34`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c6d7f8285d34) -
+  moved atlaskit ufo-interaction-ignore to atlaskit/react-ufo
+
 ## 1.3.2
 
 ### Patch Changes

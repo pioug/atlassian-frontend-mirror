@@ -110,6 +110,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 	render() {
 		const {
 			pulse,
+			shouldWatchTarget,
 			target,
 			targetNode,
 			targetBgColor,
@@ -129,7 +130,10 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 								hasNodeResolver={!fg('platform_design_system_team_onboarding_noderesolve')}
 								innerRef={(elem: HTMLElement | null) => this.setState({ replacementElement: elem })}
 							>
-								<ElementBox element={targetNode}>
+								<ElementBox
+									element={targetNode}
+									resizeUpdateMethod={shouldWatchTarget ? 'polling' : undefined}
+								>
 									{(box) => (
 										<TargetReplacement
 											data-testid={`${testId}--target`}
@@ -139,9 +143,13 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 								</ElementBox>
 							</NodeResolverSpotlightInner>
 						) : (
-							<ElementBox element={targetNode}>
+							<ElementBox
+								element={targetNode}
+								resizeUpdateMethod={shouldWatchTarget ? 'polling' : undefined}
+							>
 								{(box) => (
 									<Clone
+										shouldWatch={shouldWatchTarget}
 										testId={`${testId}--target`}
 										pulse={pulse}
 										target={target}

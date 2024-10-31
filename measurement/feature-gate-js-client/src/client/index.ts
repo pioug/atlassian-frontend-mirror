@@ -7,6 +7,8 @@ import Statsig, {
 	type StatsigUser,
 } from 'statsig-js-lite';
 
+import { isFedRamp } from '@atlaskit/atlassian-context';
+
 import Subscriptions from '../subscriptions';
 
 import Fetcher, { type FetcherOptions } from './fetcher';
@@ -24,6 +26,7 @@ import {
 	type GetLayerValueOptions,
 	type Identifiers,
 	type InitializeValues,
+	type OptionsWithDefaults,
 	PerimeterType,
 	type Provider,
 	type UpdateUserCompletionCallback,
@@ -45,6 +48,7 @@ export type {
 	GetExperimentValueOptions,
 	Identifiers,
 	InitializeValues,
+	OptionsWithDefaults,
 	UpdateUserCompletionCallback,
 	Provider,
 } from './types';
@@ -73,7 +77,9 @@ const DEFAULT_EVENT_LOGGING_API = 'https://xp.atlassian.com/v1/';
  * ```
  */
 class FeatureGates {
-	private static initOptions: BaseClientOptions | ClientOptions | FromValuesClientOptions;
+	private static initOptions: OptionsWithDefaults<
+		BaseClientOptions | ClientOptions | FromValuesClientOptions
+	>;
 	private static initPromise: Promise<void> | null = null;
 	private static initCompleted: boolean = false;
 	private static initWithDefaults: boolean = false;
@@ -109,8 +115,9 @@ class FeatureGates {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {
+		const clientOptionsWithDefaults = this.getOptionsWithDefaults(clientOptions);
 		if (FeatureGates.initPromise) {
-			if (!FeatureGates.shallowEquals(clientOptions, FeatureGates.initOptions)) {
+			if (!FeatureGates.shallowEquals(clientOptionsWithDefaults, FeatureGates.initOptions)) {
 				// eslint-disable-next-line no-console
 				console.warn(
 					'Feature Gates client already initialized with different options. New options were not applied.',
@@ -119,8 +126,12 @@ class FeatureGates {
 			return FeatureGates.initPromise;
 		}
 		const startTime = performance.now();
-		FeatureGates.initOptions = clientOptions;
-		FeatureGates.initPromise = FeatureGates.init(clientOptions, identifiers, customAttributes)
+		FeatureGates.initOptions = clientOptionsWithDefaults;
+		FeatureGates.initPromise = FeatureGates.init(
+			clientOptionsWithDefaults,
+			identifiers,
+			customAttributes,
+		)
 			.then(() => {
 				FeatureGates.initCompleted = true;
 				FeatureGates.initWithDefaults = true;
@@ -133,7 +144,7 @@ class FeatureGates {
 					totalTime,
 					'initialize',
 					FeatureGates.initCompleted,
-					clientOptions.apiKey,
+					clientOptionsWithDefaults.apiKey,
 				);
 			});
 		return FeatureGates.initPromise;
@@ -162,8 +173,9 @@ class FeatureGates {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {
+		const clientOptionsWithDefaults = this.getOptionsWithDefaults(clientOptions);
 		if (FeatureGates.initPromise) {
-			if (!FeatureGates.shallowEquals(clientOptions, FeatureGates.initOptions)) {
+			if (!FeatureGates.shallowEquals(clientOptionsWithDefaults, FeatureGates.initOptions)) {
 				// eslint-disable-next-line no-console
 				console.warn(
 					'Feature Gates client already initialized with different options. New options were not applied.',
@@ -172,7 +184,7 @@ class FeatureGates {
 			return FeatureGates.initPromise;
 		}
 		const startTime = performance.now();
-		FeatureGates.initOptions = clientOptions;
+		FeatureGates.initOptions = clientOptionsWithDefaults;
 		FeatureGates.provider = provider;
 		FeatureGates.provider.setClientVersion(CLIENT_VERSION);
 		if (FeatureGates.provider.setApplyUpdateCallback) {
@@ -180,7 +192,7 @@ class FeatureGates {
 		}
 
 		FeatureGates.initPromise = FeatureGates.initWithProvider(
-			clientOptions,
+			clientOptionsWithDefaults,
 			identifiers,
 			customAttributes,
 		)
@@ -253,8 +265,9 @@ class FeatureGates {
 		customAttributes?: CustomAttributes,
 		initializeValues: Record<string, unknown> = {},
 	): Promise<void> {
+		const clientOptionsWithDefaults = this.getOptionsWithDefaults(clientOptions);
 		if (FeatureGates.initPromise) {
-			if (!FeatureGates.shallowEquals(clientOptions, FeatureGates.initOptions)) {
+			if (!FeatureGates.shallowEquals(clientOptionsWithDefaults, FeatureGates.initOptions)) {
 				// eslint-disable-next-line no-console
 				console.warn(
 					'Feature Gates client already initialized with different options. New options were not applied.',
@@ -263,9 +276,9 @@ class FeatureGates {
 			return FeatureGates.initPromise;
 		}
 		const startTime = performance.now();
-		FeatureGates.initOptions = clientOptions;
+		FeatureGates.initOptions = clientOptionsWithDefaults;
 		FeatureGates.initPromise = FeatureGates.initFromValues(
-			clientOptions,
+			clientOptionsWithDefaults,
 			identifiers,
 			customAttributes,
 			initializeValues,
@@ -298,8 +311,9 @@ class FeatureGates {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {
+		const fetchOptionsWithDefaults = this.getOptionsWithDefaults(fetchOptions);
 		const initializeValuesProducer = () =>
-			Fetcher.fetchExperimentValues(fetchOptions, identifiers, customAttributes).then(
+			Fetcher.fetchExperimentValues(fetchOptionsWithDefaults, identifiers, customAttributes).then(
 				({ experimentValues, customAttributes }) => ({
 					experimentValues,
 					customAttributesFromFetch: customAttributes,
@@ -731,13 +745,12 @@ class FeatureGates {
 	 * @private
 	 */
 	private static async init(
-		clientOptions: ClientOptions,
+		clientOptions: OptionsWithDefaults<ClientOptions>,
 		identifiers: Identifiers,
 		customAttributes: CustomAttributes | undefined,
 	) {
 		const fromValuesClientOptions: FromValuesClientOptions = {
 			...clientOptions,
-			disableCurrentPageLogging: true,
 		};
 
 		let experimentValues: Record<string, unknown> | undefined;
@@ -787,7 +800,7 @@ class FeatureGates {
 	}
 
 	private static async initWithProvider(
-		baseClientOptions: BaseClientOptions,
+		baseClientOptions: OptionsWithDefaults<BaseClientOptions>,
 		identifiers: Identifiers,
 		customAttributes: CustomAttributes | undefined,
 	) {
@@ -1205,6 +1218,23 @@ class FeatureGates {
 
 			return defaultValue;
 		}
+	}
+
+	private static getOptionsWithDefaults<T extends BaseClientOptions>(
+		options: T,
+	): OptionsWithDefaults<T> {
+		return {
+			perimeter: FeatureGates.getDefaultPerimeter(),
+			...options,
+		};
+	}
+
+	private static getDefaultPerimeter(): PerimeterType {
+		/**
+		 * If more federal PerimeterTypes are added in the future, this should be updated so
+		 * that isFedRamp() === true always returns the strictest perimeter.
+		 */
+		return isFedRamp() ? PerimeterType.FEDRAMP_MODERATE : PerimeterType.COMMERCIAL;
 	}
 }
 

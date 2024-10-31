@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-breakout
 
+## 1.8.5
+
+### Patch Changes
+
+- [#156102](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156102)
+  [`05bfe209f2801`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/05bfe209f2801) -
+  Replace platform.editor.core.increase-full-page-guttering with new FG
+
 ## 1.8.4
 
 ### Patch Changes

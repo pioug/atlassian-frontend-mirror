@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "2.0.4",
+	"version": "2.0.7",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -46,6 +46,7 @@
 		"./initial-page-load-extra-timing": "./src/initial-page-load-extra-timing/index.ts",
 		"./interaction-context": "./src/interaction-context/index.ts",
 		"./interaction-id-context": "./src/interaction-id-context/index.ts",
+		"./interaction-ignore": "./src/interaction-ignore/index.ts",
 		"./interaction-metrics": "./src/interaction-metrics/index.ts",
 		"./interaction-metrics-init": "./src/interaction-metrics-init/index.ts",
 		"./label": "./src/label/index.ts",
@@ -90,6 +91,7 @@
 		"./hidden-timing": "./src/hidden-timing/index.ts",
 		"./initial-page-load-extra-timing": "./src/initial-page-load-extra-timing/index.ts",
 		"./interaction-context": "./src/interaction-context/index.ts",
+		"./interaction-ignore": "./src/interaction-ignore/index.ts",
 		"./interaction-id-context": "./src/interaction-id-context/index.ts",
 		"./interaction-metrics": "./src/interaction-metrics/index.ts",
 		"./interaction-metrics-init": "./src/interaction-metrics-init/index.ts",
@@ -117,7 +119,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/interaction-context": "^2.1.0",
+		"@atlaskit/interaction-context": "^2.1.4",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0",

@@ -101,13 +101,13 @@ export const init = (
 			(awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise().then((client) => {
 				const instance = client.getInstance();
 				sinkInteraction(instance, payloadPackage);
-				if (config.captureLateReRenders) {
+				if (config.postInteractionLog?.enabled) {
 					sinkPostInteractionLog(instance, createPostInteractionLogPayloadPackage.default);
 				}
 			});
 		} else if ((awc as GenericAnalyticWebClientInstance).sendOperationalEvent) {
 			sinkInteraction(awc as GenericAnalyticWebClientInstance, payloadPackage);
-			if (config.captureLateReRenders) {
+			if (config.postInteractionLog?.enabled) {
 				sinkPostInteractionLog(
 					awc as GenericAnalyticWebClientInstance,
 					createPostInteractionLogPayloadPackage.default,

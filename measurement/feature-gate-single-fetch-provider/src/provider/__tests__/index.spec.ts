@@ -4,6 +4,8 @@ import {
 	type CustomAttributes,
 	FeatureGateEnvironment,
 	type Identifiers,
+	type OptionsWithDefaults,
+	PerimeterType,
 } from '@atlaskit/feature-gate-js-client';
 
 import SingleFetchProvider, { type ProviderOptions } from '../index';
@@ -20,8 +22,9 @@ const mockExperimentValues = {
 	value: '12345',
 };
 
-const mockClientOptions: BaseClientOptions = {
+const mockClientOptions: OptionsWithDefaults<BaseClientOptions> = {
 	environment: FeatureGateEnvironment.Development,
+	perimeter: PerimeterType.COMMERCIAL,
 	targetApp: 'targetApp_web',
 };
 
@@ -74,6 +77,7 @@ describe('SingeFetchProvider', () => {
 				{
 					apiKey: '123',
 					environment: 'development',
+					perimeter: 'commercial',
 					fetchTimeoutMs: 12,
 					targetApp: 'targetApp_web',
 					useGatewayURL: true,
@@ -98,6 +102,7 @@ describe('SingeFetchProvider', () => {
 				{
 					apiKey: '123',
 					environment: 'development',
+					perimeter: 'commercial',
 					fetchTimeoutMs: 12,
 					targetApp: 'targetApp_web',
 					useGatewayURL: true,
@@ -129,6 +134,7 @@ describe('SingeFetchProvider', () => {
 			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
+				perimeter: 'commercial',
 				fetchTimeoutMs: 12,
 				targetApp: 'targetApp_web',
 				useGatewayURL: true,
@@ -146,6 +152,7 @@ describe('SingeFetchProvider', () => {
 			await expect(mockedFetcher.fetchClientSdkKey).toHaveBeenCalledWith(mockClientVersion, {
 				apiKey: '123',
 				environment: 'development',
+				perimeter: 'commercial',
 				fetchTimeoutMs: 12,
 				targetApp: 'targetApp_web',
 				useGatewayURL: true,

@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 4.9.3
+
+### Patch Changes
+
+- [`a855fbac72cf7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a855fbac72cf7) -
+  Update tsconfig references
+- Updated dependencies
+
 ## 4.9.2
 
 ### Patch Changes

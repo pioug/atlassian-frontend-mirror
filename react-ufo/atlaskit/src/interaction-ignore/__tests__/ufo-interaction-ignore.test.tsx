@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 
-import UFOInteractionIgnore from '../../src';
+import UFOInteractionIgnore from '../index';
 
 describe('UFO Interaction Ignore', () => {
 	const testInteractionContext: InteractionContextType = {

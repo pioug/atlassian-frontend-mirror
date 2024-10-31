@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 12.0.0
+
+### Major Changes
+
+- [#158161](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158161)
+  [`1bf871b6178fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1bf871b6178fe) -
+  Make spotlight watch for changes to wrapped component
+
 ## 11.17.0
 
 ### Minor Changes

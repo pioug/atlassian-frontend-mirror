@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 9.2.0
+
+### Minor Changes
+
+- [#157307](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157307)
+  [`a1e80ec0a5e4a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1e80ec0a5e4a) -
+  Enable new icons behind a feature flag.
+
 ## 9.1.0
 
 ### Minor Changes

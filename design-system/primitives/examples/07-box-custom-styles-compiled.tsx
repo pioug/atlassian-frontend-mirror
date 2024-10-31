@@ -16,13 +16,13 @@ const styles = cssMap({
 export default () => {
 	return (
 		<Stack space="space.400" alignInline="start">
-			<Heading level="h600">Custom width</Heading>
+			<Heading size="medium">Custom width</Heading>
 			<Stack space="space.200" testId="box-custom-width">
 				<Box xcss={styles.solid}>custom width</Box>
 			</Stack>
 
 			<Stack space="space.200" testId="box-custom-padding">
-				<Heading level="h600">Custom padding</Heading>
+				<Heading size="medium">Custom padding</Heading>
 				<Box
 					backgroundColor="color.background.discovery.bold"
 					// NOTE: This was previously `paddingLeft: 14px` for some odd reason…

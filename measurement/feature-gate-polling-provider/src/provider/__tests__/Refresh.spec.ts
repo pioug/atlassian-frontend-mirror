@@ -6,6 +6,7 @@ import {
 	type CustomAttributes,
 	FeatureGateEnvironment,
 	type Identifiers,
+	PerimeterType,
 } from '@atlaskit/feature-gate-js-client';
 
 import Refresh, { NO_CACHE_RETRY_OPTIONS_DEFAULT, SCHEDULER_OPTIONS_DEFAULT } from '../Refresh';
@@ -46,8 +47,8 @@ const mockRulesetProfile = {
 	customAttributes: mockCustomAttributes,
 	identifiers: mockIdentifiers,
 	environment: FeatureGateEnvironment.Development,
+	perimeter: PerimeterType.COMMERCIAL,
 	targetApp: 'targetApp_web',
-	perimeter: undefined,
 };
 
 const mockExperimentValuesResponse: FrontendExperimentsResponse = {
@@ -381,6 +382,7 @@ describe('Refresh', () => {
 				{
 					apiKey: 'mock-api-key',
 					environment: mockRulesetProfile.environment,
+					perimeter: mockRulesetProfile.perimeter,
 					targetApp: mockRulesetProfile.targetApp,
 				},
 				mockIdentifiers,

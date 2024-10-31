@@ -2,6 +2,7 @@ import {
 	type BaseClientOptions,
 	type CustomAttributes,
 	type Identifiers,
+	type OptionsWithDefaults,
 } from '@atlaskit/feature-gate-js-client';
 
 export interface FrontendExperimentsRequest {
@@ -20,7 +21,10 @@ export interface FrontendClientSdkKeyResponse {
 	clientSdkKey: string;
 }
 
-export type FetcherOptions = Pick<BaseClientOptions, 'environment' | 'targetApp' | 'perimeter'> & {
+export type FetcherOptions = Pick<
+	OptionsWithDefaults<BaseClientOptions>,
+	'environment' | 'targetApp' | 'perimeter'
+> & {
 	apiKey: string;
 	fetchTimeoutMs?: number;
 	useGatewayURL?: boolean;

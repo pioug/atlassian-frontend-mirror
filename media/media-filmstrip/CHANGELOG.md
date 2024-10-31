@@ -1,5 +1,13 @@
 # @atlaskit/media-filmstrip
 
+## 47.4.4
+
+### Patch Changes
+
+- [#156157](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156157)
+  [`8d23a2a1568fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d23a2a1568fe) -
+  fix React 18 strict mode issues
+
 ## 47.4.3
 
 ### Patch Changes

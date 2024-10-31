@@ -16,8 +16,12 @@ export const closeElementBrowserModal = (): Command => (state, dispatch) => {
 	return true;
 };
 
+export const createInsertItem = (onInsert?: (item: QuickInsertItem) => void) =>
+	insertItem(onInsert);
+
 // this method was adapted from the typeahead plugin so we respect the API for quick insert items
-export const insertItem =
+const insertItem =
+	(onInsert?: (item: QuickInsertItem) => void) =>
 	(item: QuickInsertItem, source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR): Command =>
 	(state, dispatch) => {
 		const insert = (
@@ -33,6 +37,8 @@ export const insertItem =
 		if (tr && dispatch) {
 			dispatch(tr);
 		}
+
+		onInsert?.(item);
 
 		return true;
 	};

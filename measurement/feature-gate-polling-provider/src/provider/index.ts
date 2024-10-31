@@ -9,6 +9,7 @@ import {
 	type CustomAttributes,
 	type FrontendExperimentsResult,
 	type Identifiers,
+	type OptionsWithDefaults,
 	type Provider,
 } from '@atlaskit/feature-gate-js-client';
 
@@ -72,7 +73,7 @@ export default class PollingProvider implements Provider {
 	}
 
 	async setProfile(
-		clientOptions: BaseClientOptions,
+		clientOptions: OptionsWithDefaults<BaseClientOptions>,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {
@@ -206,7 +207,7 @@ export default class PollingProvider implements Provider {
 	}
 
 	private async getProfileHashAndProfile(
-		clientOptions: BaseClientOptions,
+		clientOptions: OptionsWithDefaults<BaseClientOptions>,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<{ profileHash: string; rulesetProfile: RulesetProfile }> {
@@ -225,7 +226,7 @@ export default class PollingProvider implements Provider {
 	}
 
 	private getRulesetProfile(
-		clientOptions: BaseClientOptions,
+		clientOptions: OptionsWithDefaults<BaseClientOptions>,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): RulesetProfile {

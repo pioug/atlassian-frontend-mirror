@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 30.1.9
+
+### Patch Changes
+
+- [#156157](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156157)
+  [`67bdb3a72c8bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67bdb3a72c8bb) -
+  Fix hover card accessibility violation
+
+## 30.1.8
+
+### Patch Changes
+
+- [#158485](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158485)
+  [`f6d0a7ac31c3e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f6d0a7ac31c3e) -
+  Add generic aria-label to lazy-render-placeholder
+
 ## 30.1.7
 
 ### Patch Changes

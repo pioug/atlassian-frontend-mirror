@@ -1,4 +1,4 @@
-import type { InteractionMetrics } from '../common';
+import type { InteractionMetrics, InteractionType } from '../common';
 
 let config: Config | undefined;
 export interface AdditionalData {
@@ -39,6 +39,10 @@ type SelectorConfig = {
 	dataVC?: boolean;
 };
 
+type Rates = {
+	readonly [key: string]: number;
+}
+
 // Defensively typed, since this is directly user-editable
 // and they could delete empty members
 export type Config = {
@@ -49,9 +53,7 @@ export type Config = {
 	readonly ufoNameOverrides?: UFONameOverride;
 	readonly namePrefix?: string;
 	readonly segmentPrefix?: string;
-	readonly rates?: {
-		readonly [key: string]: number;
-	};
+	readonly rates?: Rates;
 	readonly rules?: readonly {
 		readonly test?: string;
 		readonly rate?: number;
@@ -83,7 +85,11 @@ export type Config = {
 		readonly ssr?: boolean;
 		readonly stopVCAtInteractionFinish?: boolean;
 	};
-	readonly captureLateReRenders?: boolean;
+	readonly postInteractionLog?: {
+		readonly enabled?: boolean;
+		readonly rates?: Rates;
+		readonly kind?: Record<InteractionType, number>;
+	};
 	readonly enableSegmentHighlighting?: boolean;
 	readonly shouldCalculateLighthouseMetricsFromTTAI?: boolean;
 	readonly timeWindowForLateMutationsInMilliseconds?: number;
@@ -155,6 +161,30 @@ export function getInteractionRate(name: string, interactionKind: InteractionKin
 		return 0;
 	} catch (e: any) {
 		// Fallback
+		return 0;
+	}
+}
+
+export function getPostInteractionRate(name: string, interactionType: InteractionType): number {
+	try {
+		if (!config) {
+			return 0;
+		}
+		const { postInteractionLog } = config;
+		if (!postInteractionLog?.enabled) {
+			return 0;
+		}
+
+		if (postInteractionLog.rates && typeof postInteractionLog.rates[name] === 'number') {
+			return postInteractionLog.rates[name];
+		}
+
+		if (postInteractionLog.kind && typeof postInteractionLog.kind[interactionType] === 'number') {
+			return postInteractionLog.kind[interactionType];
+		}
+
+		return 0;
+	} catch (e: any) {
 		return 0;
 	}
 }

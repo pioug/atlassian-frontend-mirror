@@ -6,6 +6,7 @@ import type FeatureGates from '../index';
 // eslint-disable-next-line no-duplicate-imports
 import {
 	FeatureGateEnvironment as FeatureGateEnvironmentType,
+	PerimeterType,
 	type Provider,
 	type UpdateUserCompletionCallback,
 } from '../index';
@@ -1896,6 +1897,7 @@ describe('FeatureGate client', () => {
 					{
 						apiKey: 'apiKey-456',
 						environment: FeatureGateEnvironment.Development,
+						perimeter: PerimeterType.COMMERCIAL,
 						targetApp: TARGET_APP,
 					},
 					{
@@ -1917,6 +1919,7 @@ describe('FeatureGate client', () => {
 				{
 					apiKey: 'apiKey-456',
 					environment: FeatureGateEnvironment.Development,
+					perimeter: PerimeterType.COMMERCIAL,
 					targetApp: TARGET_APP,
 				},
 				{ atlassianAccountId: 'abc-456' },
@@ -1935,6 +1938,7 @@ describe('FeatureGate client', () => {
 					{
 						apiKey: 'apiKey-456',
 						environment: FeatureGateEnvironment.Development,
+						perimeter: PerimeterType.COMMERCIAL,
 						targetApp: TARGET_APP,
 					},
 					{ atlassianAccountId: 'abc-456' },
@@ -1955,6 +1959,7 @@ describe('FeatureGate client', () => {
 					{
 						apiKey: 'apiKey-456',
 						environment: FeatureGateEnvironment.Development,
+						perimeter: PerimeterType.COMMERCIAL,
 						targetApp: TARGET_APP,
 					},
 					{ atlassianAccountId: 'abc-456' },
@@ -1979,6 +1984,7 @@ describe('FeatureGate client', () => {
 				{
 					apiKey: 'apiKey-456',
 					environment: FeatureGateEnvironment.Development,
+					perimeter: PerimeterType.COMMERCIAL,
 					targetApp: TARGET_APP,
 				},
 				{ atlassianAccountId: 'abc-456' },
@@ -2012,6 +2018,7 @@ describe('FeatureGate client', () => {
 					{
 						apiKey: 'apiKey-456',
 						environment: FeatureGateEnvironment.Development,
+						perimeter: PerimeterType.COMMERCIAL,
 						targetApp: TARGET_APP,
 					},
 					{ atlassianAccountId: 'abc-456' },
@@ -2034,6 +2041,7 @@ describe('FeatureGate client', () => {
 					{
 						apiKey: CLIENT_KEY,
 						environment: FeatureGateEnvironment.Development,
+						perimeter: PerimeterType.COMMERCIAL,
 						targetApp: TARGET_APP,
 					},
 					{ atlassianAccountId: 'abc-123' },

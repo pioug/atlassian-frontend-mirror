@@ -39,7 +39,7 @@ exports[`FilmstripView .render() styles 1`] = `
   font-size: 0;
 }
 
-.emotion-0:first-child {
+.emotion-0:first-of-type {
   padding-left: 0;
 }
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-shared-styles",
-	"version": "3.1.1",
+	"version": "3.1.2",
 	"description": "Style values used in the editor/renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
 		"platform.confluence.frontend.narrow-full-page-editor-toolbar": {
 			"type": "boolean"
 		},
-		"platform.editor.core.increase-full-page-guttering": {
+		"platform_editor_core_increase_full_page_guttering": {
 			"type": "boolean"
 		}
 	},

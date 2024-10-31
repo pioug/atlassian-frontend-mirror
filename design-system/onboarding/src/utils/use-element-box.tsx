@@ -136,10 +136,11 @@ const usePollingElementBox = (element: HTMLElement, updateMethod: ResizeUpdateMe
  * Not using ResizeObserver because of IE11 support.
  * @param element HTMLElement to watch when resizing.
  */
-export const useElementBox = (element: HTMLElement) => {
-	const updateMethod = getBooleanFF('platform.design-system.refresh-spotlight-on-interval')
-		? 'polling'
-		: 'resizeListener';
+export const useElementBox = (element: HTMLElement, resizeUpdateMethod?: ResizeUpdateMethod) => {
+	const updateMethod =
+		resizeUpdateMethod || getBooleanFF('platform.design-system.refresh-spotlight-on-interval')
+			? 'polling'
+			: 'resizeListener';
 	const boxViaResizeListener = useResizeAwareElementBox(element, updateMethod);
 	const boxViaPolling = usePollingElementBox(element, updateMethod);
 
@@ -156,7 +157,8 @@ export const useElementBox = (element: HTMLElement) => {
 export const ElementBox = (props: {
 	element: HTMLElement;
 	children: (box: ElementBoundingBox) => any;
+	resizeUpdateMethod?: ResizeUpdateMethod;
 }) => {
-	const box = useElementBox(props.element);
+	const box = useElementBox(props.element, props.resizeUpdateMethod);
 	return props.children(box);
 };

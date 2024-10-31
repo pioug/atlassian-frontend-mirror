@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.21.0
+
+### Minor Changes
+
+- [#157735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157735)
+  [`0138fda541246`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0138fda541246) -
+  Adding flat config presets to @atlaskit/eslint-plugin-ui-styling-standard
+
 ## 0.20.1
 
 ### Patch Changes

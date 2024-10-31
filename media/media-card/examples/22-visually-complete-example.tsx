@@ -2,7 +2,7 @@ import CardLoader from '../src/card/cardLoader';
 import React, { useEffect, useState } from 'react';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import { getVCObserver } from '@atlassian/react-ufo/vc';
+import { getVCObserver } from '@atlaskit/react-ufo/vc';
 import { type FileIdentifier } from '@atlaskit/media-client';
 
 import { MainWrapper } from '../example-helpers';

@@ -656,9 +656,10 @@ describe('DatePicker', () => {
 					onChange: onChangeSpy,
 					testId: testId,
 					selectProps: { testId: testId },
+					clearControlLabel: 'Clear date',
 				}),
 			);
-			const clearButton = screen.getByRole('button', { name: 'clear' });
+			const clearButton = screen.getByRole('button', { name: 'Clear date' });
 
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.mouseOver(clearButton);
@@ -681,10 +682,11 @@ describe('DatePicker', () => {
 					testId: testId,
 					selectProps: { testId: testId },
 					defaultIsOpen: true,
+					clearControlLabel: 'Clear date',
 				}),
 			);
 
-			const clearButton = screen.getByRole('button', { name: 'clear' });
+			const clearButton = screen.getByRole('button', { name: 'Clear date' });
 
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.mouseOver(clearButton);
@@ -729,6 +731,24 @@ describe('DatePicker', () => {
 			const input = getInput();
 			expect(input).toHaveAttribute('aria-describedby', expect.stringContaining(describedBy));
 		});
+	});
+
+	it('when clearControl prop is passed, button should have an aria-label', () => {
+		const onChangeSpy = jest.fn();
+		const datePickerLabel = 'Date Test';
+		const clearControlLabel = `Clear ${datePickerLabel}`;
+
+		render(
+			createDatePicker({
+				value: exampleDate.iso,
+				onChange: onChangeSpy,
+				testId: testId,
+				selectProps: { testId: testId },
+				label: datePickerLabel,
+				clearControlLabel: clearControlLabel,
+			}),
+		);
+		expect(screen.getByRole('button', { name: clearControlLabel })).toBeInTheDocument();
 	});
 
 	describe('Edge cases', () => {

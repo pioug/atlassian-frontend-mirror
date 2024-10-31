@@ -83,7 +83,7 @@ class BreakoutViewOld {
 
 		// when editor padding = 32px the breakout padding is calculated as 96px (32 * 3)
 		// the extra '32' ensures nodes with breakout applied default to line length its below default width
-		const padding = fg('platform.editor.core.increase-full-page-guttering')
+		const padding = fg('platform_editor_core_increase_full_page_guttering')
 			? akEditorGutterPaddingDynamic() * 2 + 32
 			: undefined;
 		let breakoutWidthPx = calcBreakoutWidthPx(this.mark.attrs.mode, widthState.width, padding);

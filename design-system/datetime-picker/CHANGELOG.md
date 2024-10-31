@@ -1,5 +1,20 @@
 # @atlaskit/datetime-picker
 
+## 15.6.0
+
+### Minor Changes
+
+- [#157307](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157307)
+  [`a1e80ec0a5e4a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1e80ec0a5e4a) -
+  Enable new icons behind a feature flag.
+- [#157307](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157307)
+  [`e6c2d403fadd0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e6c2d403fadd0) -
+  Add clearControlLabel to datepicker component.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.5.2
 
 ### Patch Changes

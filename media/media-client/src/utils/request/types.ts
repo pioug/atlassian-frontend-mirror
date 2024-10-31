@@ -44,7 +44,6 @@ export type RequestErrorReason =
 	| 'clientOffline' // TODO: implement BMPT-964 behind feature flag
 	| 'clientAbortedRequest'
 	| 'clientTimeoutRequest' // TODO: implement BMPT-918 behind feature flag
-	| 'nonMediaError'
 	| 'serverInvalidBody'
 	| 'serverBadRequest'
 	| 'serverUnauthorized'

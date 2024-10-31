@@ -27,7 +27,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
-import { insertItem, openElementBrowserModal } from './commands';
+import { createInsertItem, openElementBrowserModal } from './commands';
 import { pluginKey } from './plugin-key';
 import { getQuickInsertSuggestions } from './search';
 import ModalElementBrowser from './ui/ModalElementBrowser';
@@ -51,7 +51,6 @@ export type QuickInsertPlugin = NextEditorPlugin<
 				source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
 			) => Command;
 			getSuggestions: (searchOptions: QuickInsertSearchOptions) => QuickInsertItem[];
-			onInsert: (item: QuickInsertItem) => void;
 		};
 		commands: {
 			openElementBrowserModal: EditorCommand;
@@ -152,7 +151,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		},
 
 		actions: {
-			insertItem,
+			insertItem: createInsertItem(onInsert),
 
 			openTypeAhead(inputMethod) {
 				return Boolean(
@@ -172,7 +171,6 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 
 				return getQuickInsertSuggestions(searchOptions, lazyDefaultItems, providedItems);
 			},
-			onInsert,
 		},
 
 		commands: {

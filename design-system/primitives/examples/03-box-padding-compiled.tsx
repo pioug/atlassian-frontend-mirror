@@ -32,7 +32,7 @@ export default () => {
 	return (
 		<Stack space="space.400" alignInline="start" testId="box-padding">
 			<Stack space="space.200" testId="box-with-background-and-padding">
-				<Heading level="h600">padding</Heading>
+				<Heading size="medium">padding</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{spacingValues.map((space) => (
 						<Box key={space} backgroundColor="color.background.discovery.bold" padding={space}>
@@ -43,7 +43,7 @@ export default () => {
 			</Stack>
 
 			<Stack space="space.200" testId="box-with-background-and-paddingBlock">
-				<Heading level="h600">paddingBlock</Heading>
+				<Heading size="medium">paddingBlock</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{spacingValues.map((space) => (
 						<Box key={space} backgroundColor="color.background.discovery.bold" paddingBlock={space}>
@@ -54,7 +54,7 @@ export default () => {
 			</Stack>
 
 			<Stack space="space.200" testId="box-with-background-and-paddingBlockStart">
-				<Heading level="h600">paddingBlockStart</Heading>
+				<Heading size="medium">paddingBlockStart</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{spacingValues.map((space) => (
 						<Box
@@ -69,7 +69,7 @@ export default () => {
 			</Stack>
 
 			<Stack space="space.200" testId="box-with-background-and-paddingBlockEnd">
-				<Heading level="h600">paddingBlockEnd</Heading>
+				<Heading size="medium">paddingBlockEnd</Heading>
 				<Inline space="space.200" alignBlock="center">
 					{spacingValues.map((space) => (
 						<Box
@@ -85,7 +85,7 @@ export default () => {
 
 			<Inline space="space.600">
 				<Stack space="space.200" testId="box-with-background-and-paddingInline">
-					<Heading level="h600">paddingInline</Heading>
+					<Heading size="medium">paddingInline</Heading>
 					<Stack space="space.200" alignInline="center">
 						{spacingValues.map((space) => (
 							<Box
@@ -100,7 +100,7 @@ export default () => {
 				</Stack>
 
 				<Stack space="space.200" testId="box-with-background-and-paddingInlineStart">
-					<Heading level="h600">paddingInlineStart</Heading>
+					<Heading size="medium">paddingInlineStart</Heading>
 					<Stack space="space.200" alignInline="center">
 						{spacingValues.map((space) => (
 							<Box
@@ -115,7 +115,7 @@ export default () => {
 				</Stack>
 
 				<Stack space="space.200" testId="box-with-background-and-paddingInlineEnd">
-					<Heading level="h600">paddingInlineEnd</Heading>
+					<Heading size="medium">paddingInlineEnd</Heading>
 					<Stack space="space.200" alignInline="center">
 						{spacingValues.map((space) => (
 							<Box
@@ -131,7 +131,7 @@ export default () => {
 			</Inline>
 
 			<Stack space="space.200" testId="box-with-background-and-overlapping-padding-props">
-				<Heading level="h600">overlapping padding props</Heading>
+				<Heading size="medium">overlapping padding props</Heading>
 				<Box
 					backgroundColor="color.background.discovery.bold"
 					padding="space.100"

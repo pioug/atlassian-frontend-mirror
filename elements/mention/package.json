@@ -42,7 +42,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/avatar": "^21.16.0",
+		"@atlaskit/avatar": "^21.17.0",
 		"@atlaskit/focus-ring": "^1.6.0",
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/lozenge": "^11.12.0",

@@ -1,5 +1,13 @@
 # @atlaskit/media-client-react
 
+## 2.2.3
+
+### Patch Changes
+
+- [#158481](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158481)
+  [`a6efbf9ceb2c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6efbf9ceb2c9) -
+  Removed nonMediaErrors due to incorrectly logging serverUnauthorised
+
 ## 2.2.2
 
 ### Patch Changes

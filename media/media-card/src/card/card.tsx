@@ -11,6 +11,7 @@ import {
 } from '../utils/mediaPerformanceObserver/mediaPerformanceObserver';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
+import UFOLabel from '@atlaskit/react-ufo/label';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -19,9 +20,13 @@ export type CardBaseProps = CardProps & Partial<WrappedComponentProps>;
 
 export const CardBase = ({ identifier, ...otherProps }: CardBaseProps & WrappedComponentProps) => {
 	const innerContent = isFileIdentifier(identifier) ? (
-		<FileCard {...otherProps} identifier={identifier} key={identifier.id} />
+		<UFOLabel name="media-card-file-card">
+			<FileCard {...otherProps} identifier={identifier} key={identifier.id} />
+		</UFOLabel>
 	) : (
-		<ExternalImageCard {...otherProps} identifier={identifier} key={identifier.dataURI} />
+		<UFOLabel name="media-card-external-image">
+			<ExternalImageCard {...otherProps} identifier={identifier} key={identifier.dataURI} />
+		</UFOLabel>
 	);
 	return otherProps.intl ? innerContent : <IntlProvider locale="en">{innerContent}</IntlProvider>;
 };

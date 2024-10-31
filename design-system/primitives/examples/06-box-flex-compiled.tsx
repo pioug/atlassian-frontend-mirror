@@ -21,7 +21,7 @@ export default () => {
 	return (
 		<Stack space="space.400" alignInline="start">
 			<Stack space="space.200" testId="box-with-flex">
-				<Heading level="h600">flex</Heading>
+				<Heading size="medium">flex</Heading>
 				<Inline space="space.200" alignBlock="center">
 					<Box padding="space.400" xcss={styles.container}>
 						<Box xcss={styles.flex1}>flex=1</Box>
@@ -31,7 +31,7 @@ export default () => {
 			</Stack>
 
 			<Stack space="space.200" testId="box-with-flex">
-				<Heading level="h600">flexGrow</Heading>
+				<Heading size="medium">flexGrow</Heading>
 				<Inline space="space.200" alignBlock="center">
 					<Box xcss={cx(styles.container, styles.wide)} padding="space.400">
 						<Box xcss={styles.grow0}>flexGrow=0</Box>

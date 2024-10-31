@@ -181,19 +181,13 @@ export const buildToolbar = (
 			{
 				title: intl.formatMessage(layoutMessages.columnOption, { count: 4 }), //'4-columns'
 				icon: iconPlaceholder,
-				onClick: () => {
-					// TODO: Implement layout update in ED-25053
-					return true;
-				},
+				onClick: setPresetLayout(editorAnalyticsAPI)('four_equal', intl.formatMessage),
 				selected: numberOfColumns === 4,
 			},
 			{
 				title: intl.formatMessage(layoutMessages.columnOption, { count: 5 }), //'5-columns'
 				icon: iconPlaceholder,
-				onClick: () => {
-					// TODO: Implement layout update in ED-25053
-					return true;
-				},
+				onClick: setPresetLayout(editorAnalyticsAPI)('five_equal', intl.formatMessage),
 				selected: numberOfColumns === 5,
 			},
 		];

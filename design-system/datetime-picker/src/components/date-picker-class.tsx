@@ -456,6 +456,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			appearance = 'default',
 			'aria-describedby': ariaDescribedBy,
 			autoFocus = false,
+			clearControlLabel = 'Clear',
 			hideIcon = false,
 			openCalendarLabel = 'Open calendar',
 			disabled,
@@ -599,6 +600,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					aria-describedby={ariaDescribedBy}
 					aria-label={label || undefined}
 					autoFocus={autoFocus}
+					clearControlLabel={clearControlLabel}
 					closeMenuOnSelect
 					// FOr some reason, this and the below `styles` type error _only_ show
 					// up when you alter some of the properties in the `selectComponents`

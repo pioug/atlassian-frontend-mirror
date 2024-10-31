@@ -40,24 +40,20 @@ const staticItemStyles = css({
 	paddingBlock: token('space.025'),
 });
 
-const EllipsisItem = memo((props: EllipsisItemProps) => {
-	const { onClick = noop, testId, label } = props;
-
-	return (
-		<li css={itemWrapperStyles}>
-			<Button
-				appearance="subtle-link"
-				spacing="none"
-				testId={testId}
-				onClick={onClick}
-				aria-label={label}
-				css={staticItemStyles}
-			>
-				&hellip;
-			</Button>
-		</li>
-	);
-});
+const EllipsisItem = memo(({ label, onClick = noop, testId }: EllipsisItemProps) => (
+	<li css={itemWrapperStyles}>
+		<Button
+			appearance="subtle-link"
+			aria-label={label}
+			css={staticItemStyles}
+			onClick={onClick}
+			spacing="none"
+			testId={testId}
+		>
+			&hellip;
+		</Button>
+	</li>
+));
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default EllipsisItem;

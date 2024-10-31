@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 17.11.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.11.5
 
 ### Patch Changes

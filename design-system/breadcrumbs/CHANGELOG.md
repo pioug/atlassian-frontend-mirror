@@ -1,5 +1,13 @@
 # @atlaskit/breadcrumbs
 
+## 13.1.0
+
+### Minor Changes
+
+- [#158518](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158518)
+  [`9c03322cef3d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c03322cef3d5) -
+  Improve typing and make spread props explicit in internal components.
+
 ## 13.0.2
 
 ### Patch Changes

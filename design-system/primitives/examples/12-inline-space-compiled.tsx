@@ -38,7 +38,7 @@ export default () => (
 	<div data-testid="inline-example" css={styles.padded}>
 		<Inline space="space.1000">
 			<Stack space="space.100" testId="inline-space">
-				<Heading level="h700">space</Heading>
+				<Heading size="large">space</Heading>
 				{spaceItems.map((space) => (
 					<Inline>
 						<span css={styles.spaceValue}>{space}</span>
@@ -51,7 +51,7 @@ export default () => (
 			</Stack>
 
 			<Stack space="space.100" testId="inline-rowSpace">
-				<Heading level="h700">rowSpace</Heading>
+				<Heading size="large">rowSpace</Heading>
 				{spaceItems.map((space) => (
 					<div css={styles.container}>
 						<Inline>

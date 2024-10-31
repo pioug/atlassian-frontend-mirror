@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.23.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.23.0
+
+### Minor Changes
+
+- [#152319](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/152319)
+  [`bfa9c49e1928b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfa9c49e1928b) -
+  [ux] Added a check to handle the case where a single non-breaking space is selected and the user
+  attempts to leave a comment on it.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.22.0
 
 ### Minor Changes

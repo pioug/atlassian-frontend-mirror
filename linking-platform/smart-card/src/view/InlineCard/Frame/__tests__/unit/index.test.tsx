@@ -52,4 +52,26 @@ describe('Frame', () => {
 		});
 		expect(onClick).toHaveBeenCalled();
 	});
+
+	describe('a11y', () => {
+		it('should be accessible with url', async () => {
+			const { container } = render(<Frame link="www.link-url" />);
+			await expect(container).toBeAccessible();
+		});
+
+		it('should be accessible with onClick', async () => {
+			const { container } = render(<Frame onClick={() => {}} />);
+			await expect(container).toBeAccessible();
+		});
+
+		it('should be accessible with url and onClick', async () => {
+			const { container } = render(<Frame link="www.link-url" onClick={() => {}} />);
+			await expect(container).toBeAccessible();
+		});
+
+		it('should be accessible with span', async () => {
+			const { container } = render(<Frame />);
+			await expect(container).toBeAccessible();
+		});
+	});
 });

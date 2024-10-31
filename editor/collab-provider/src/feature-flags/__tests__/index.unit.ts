@@ -5,14 +5,10 @@ describe('Feature flags', () => {
 		const result = getProductSpecificFeatureFlags(
 			{
 				testFF: true,
-				blockViewOnly: true,
 			},
 			'confluence',
 		);
-		expect(result).toEqual([
-			'confluence.frontend.collab.provider.testFF',
-			'confluence.frontend.ncs.block-view-only',
-		]);
+		expect(result).toEqual(['confluence.frontend.collab.provider.testFF']);
 	});
 
 	it('getCollabProviderFeatureFlag return true', () => {

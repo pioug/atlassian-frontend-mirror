@@ -63,9 +63,10 @@ export const Frame = forwardRef<HTMLSpanElement & null, FrameViewProps>((props, 
 	const handleMouseDown = useMouseDownEvent();
 
 	const isInteractive = Boolean(onClick);
+	const isAnchor = Boolean(link || onClick);
 
 	// Depending on whenever Frame was given onClick or link itself we display span or anchor elements
-	const Wrapper = link || onClick ? WrapperAnchor : WrapperSpan;
+	const Wrapper = isAnchor ? WrapperAnchor : WrapperSpan;
 
 	return (
 		<Wrapper
@@ -74,6 +75,7 @@ export const Frame = forwardRef<HTMLSpanElement & null, FrameViewProps>((props, 
 			isSelected={isSelected}
 			isInteractive={isInteractive}
 			tabIndex={isInteractive ? 0 : undefined}
+			aria-label={isAnchor && !children ? link ?? 'Link' : undefined}
 			role={isInteractive ? 'button' : undefined}
 			onClick={handleClick}
 			onMouseDown={handleMouseDown}

@@ -14,7 +14,6 @@ import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import VideoIcon from '@atlaskit/icon/core/video';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { LoomPlugin } from '../plugin';
@@ -62,9 +61,7 @@ const LoomToolbarButtonInternal = React.forwardRef<HTMLElement, Props & WrappedC
 				? toolbarInsertBlockMessages.addLoomVideoComment
 				: toolbarInsertBlockMessages.addLoomVideo,
 		);
-		const shouldShowRecordText =
-			fg('platform.editor.plugin.loom.responsive-menu_4at4a') &&
-			(widthState?.width || 0) > LOOM_BUTTON_WIDTH_BREAKPOINT;
+		const shouldShowRecordText = (widthState?.width || 0) > LOOM_BUTTON_WIDTH_BREAKPOINT;
 
 		return (
 			<ToolbarButton

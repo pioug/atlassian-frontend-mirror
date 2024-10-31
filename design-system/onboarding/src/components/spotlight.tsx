@@ -17,6 +17,7 @@ import { SpotlightConsumer } from './spotlight-manager';
 const Spotlight = ({
 	dialogWidth = 400,
 	pulse = true,
+	shouldWatchTarget = false,
 	testId = 'spotlight',
 	targetNode,
 	target,
@@ -38,6 +39,7 @@ const Spotlight = ({
 					testId={testId}
 					dialogWidth={dialogWidth}
 					pulse={pulse}
+					shouldWatchTarget={shouldWatchTarget}
 				/>
 			) : null;
 		}}

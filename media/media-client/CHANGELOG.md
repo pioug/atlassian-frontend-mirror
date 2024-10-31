@@ -1,5 +1,21 @@
 # @atlaskit/media-client
 
+## 28.0.8
+
+### Patch Changes
+
+- [#158161](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158161)
+  [`f092b9d2f949d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f092b9d2f949d) -
+  clean up LD Media CDN FFs
+
+## 28.0.7
+
+### Patch Changes
+
+- [#158481](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158481)
+  [`a6efbf9ceb2c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6efbf9ceb2c9) -
+  Removed nonMediaErrors due to incorrectly logging serverUnauthorised
+
 ## 28.0.6
 
 ### Patch Changes

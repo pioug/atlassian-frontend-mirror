@@ -80,6 +80,11 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 */
 	autoFocus?: boolean;
 	/**
+	 * Set the `aria-label` for the clear button.
+	 * Add the word "Clear" at the beginning of the clearControlLabel.
+	 */
+	clearControlLabel?: string;
+	/**
 	 * The default for `isOpen`. Will be `false` if not provided.
 	 *
 	 * @deprecated
@@ -291,7 +296,8 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 */
 	autoFocus?: boolean;
 	/**
-	 * Set the aria-label for the clear button
+	 * Set the `aria-label` for the clear button.
+	 * Add the word "Clear" at the beginning of the clearControlLabel.
 	 */
 	clearControlLabel?: string;
 	/**
@@ -427,7 +433,8 @@ export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
 	 */
 	autoFocus?: boolean;
 	/**
-	 * Set the `aria-label` for the clear icon button.
+	 * Set the `aria-label` for the clear button.
+	 * Add the word "Clear" at the beginning of the clearControlLabel.
 	 */
 	clearControlLabel?: string;
 	/**

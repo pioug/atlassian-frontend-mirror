@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media
 
+## 1.38.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.38.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.38.3
 
 ### Patch Changes

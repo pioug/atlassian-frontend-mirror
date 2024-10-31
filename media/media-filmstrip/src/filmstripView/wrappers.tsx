@@ -47,7 +47,7 @@ const filmStripListItemStyles = css({
 	margin: 0,
 	padding: `0 ${token('space.050', '4px')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':first-child': {
+	':first-of-type': {
 		paddingLeft: 0,
 	},
 	display: 'inline-block',

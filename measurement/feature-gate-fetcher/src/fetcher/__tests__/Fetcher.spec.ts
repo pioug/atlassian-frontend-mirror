@@ -1,6 +1,6 @@
 import fetchMock from 'jest-fetch-mock';
 
-import { FeatureGateEnvironment } from '@atlaskit/feature-gate-js-client';
+import { FeatureGateEnvironment, PerimeterType } from '@atlaskit/feature-gate-js-client';
 
 import { ResponseError } from '../errors';
 import Fetcher from '../index';
@@ -41,6 +41,7 @@ const defaultClientSdkKeyResponseBody: FrontendClientSdkKeyResponse = {
 const defaultFetcherOptions: FetcherOptions = {
 	apiKey: mockApiKey,
 	environment: FeatureGateEnvironment.Staging,
+	perimeter: PerimeterType.COMMERCIAL,
 	targetApp: TARGET_APP,
 };
 

@@ -34,9 +34,6 @@
 	"references": [
 		{
 			"path": "tsconfig.app.json"
-		},
-		{
-			"path": "../../observability/interaction-context/tsconfig.app.json"
 		}
 	],
 	"files": []

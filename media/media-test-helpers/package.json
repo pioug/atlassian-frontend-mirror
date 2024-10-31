@@ -25,6 +25,7 @@
 		"team": "Media Experience",
 		"runReact18": true
 	},
+	"sideEffects": false,
 	"dependencies": {
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/checkbox": "^15.1.0",

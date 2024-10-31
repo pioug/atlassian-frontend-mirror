@@ -1,6 +1,8 @@
 import fetchMock from 'jest-fetch-mock';
 import type StatsigType from 'statsig-js-lite';
 
+import { isFedRamp } from '@atlaskit/atlassian-context';
+
 import type FeatureGates from '../client';
 // eslint-disable-next-line no-duplicate-imports
 import type {
@@ -8,8 +10,19 @@ import type {
 	Identifiers,
 	PerimeterType as PerimeterTypeType,
 } from '../client';
-import { DEV_BASE_URL, FEDM_PROD_BASE_URL, GATEWAY_BASE_URL } from '../client/fetcher/Fetcher';
+import {
+	DEV_BASE_URL,
+	FEDM_PROD_BASE_URL,
+	GATEWAY_BASE_URL,
+	PROD_BASE_URL,
+} from '../client/fetcher/Fetcher';
 import { type ClientOptions } from '../client/types';
+
+jest.mock('@atlaskit/atlassian-context', () => ({
+	isFedRamp: jest.fn(),
+}));
+
+const isFedRampMock = jest.mocked(isFedRamp);
 
 describe('FeatureGate client Statsig integration test', () => {
 	const MOCK_CLIENT_SDK_KEY = 'client-mockSdkKey';
@@ -48,6 +61,8 @@ describe('FeatureGate client Statsig integration test', () => {
 	beforeEach(() => {
 		console.error = jest.fn();
 		console.warn = jest.fn();
+
+		isFedRampMock.mockReturnValue(false);
 
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore Remove globally saved reference to FeatureGates client between tests
@@ -195,6 +210,188 @@ describe('FeatureGate client Statsig integration test', () => {
 
 			expectTestCohortNotEnrolled();
 		});
+
+		describe('initialize in fedramp-moderate perimeter', function () {
+			beforeEach(() => {
+				fetchMock.resetMocks();
+				fetchMock
+					.mockResponseOnce(
+						JSON.stringify({
+							clientSdkKey: MOCK_CLIENT_SDK_KEY,
+						}),
+						{ status: 200 },
+					)
+					.mockResponseOnce(
+						JSON.stringify({
+							experimentValues: TEST_INITIALIZE_VALUES,
+						}),
+						{ status: 200 },
+					);
+			});
+
+			test('initialize fails for fedramp-moderate perimeter and FeatureGateEnvironment.Development', async () => {
+				await expect(
+					initializeFeatureGates(TEST_IDENTIFIERS, {
+						environment: FeatureGateEnvironment.Development, // not valid for fedramp-moderate perimeter
+						perimeter: PerimeterType.FEDRAMP_MODERATE,
+					}),
+				).rejects.toThrow('Invalid environment "development" for "fedramp-moderate" perimeter');
+				expect(fetchMock).not.toHaveBeenCalled();
+			});
+
+			test('initialize succeeds for fedramp-moderate perimeter and FeatureGateEnvironment.Production', async () => {
+				await initializeFeatureGates(TEST_IDENTIFIERS, {
+					environment: FeatureGateEnvironment.Production,
+					perimeter: PerimeterType.FEDRAMP_MODERATE,
+				});
+				expect(statsigInitSpy).toHaveBeenCalledTimes(1);
+				expect(statsigInitSpy).toHaveBeenCalledWith(MOCK_CLIENT_SDK_KEY, TEST_STATSIG_USER, {
+					...TEST_STATSIG_OPTIONS,
+					environment: {
+						tier: 'production',
+					},
+					disableAllLogging: true, // disableAllLogging in FedRAMP
+					initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues,
+					apiKey: API_KEY, // apiKey added
+				});
+
+				// call FFS with base url for environment and perimeter
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${FEDM_PROD_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`,
+					expect.objectContaining({}),
+				);
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${FEDM_PROD_BASE_URL}/api/v2/frontend/experimentValues`,
+					expect.objectContaining({}),
+				);
+			});
+
+			test('useGatewayUrl takes precedence over perimeter and environment to build FFS base url', async () => {
+				await initializeFeatureGates(TEST_IDENTIFIERS, {
+					environment: FeatureGateEnvironment.Production,
+					useGatewayURL: true,
+					perimeter: PerimeterType.FEDRAMP_MODERATE,
+				});
+
+				// call FFS using gateway base url
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${GATEWAY_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`,
+					expect.objectContaining({}),
+				);
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${GATEWAY_BASE_URL}/api/v2/frontend/experimentValues`,
+					expect.objectContaining({}),
+				);
+			});
+
+			test('perimeter defaults to PerimeterType.FEDRAMP_MODERATE if the code is running in a FedRAMP environment', async () => {
+				isFedRampMock.mockReturnValue(true);
+				await initializeFeatureGates(TEST_IDENTIFIERS, {
+					environment: FeatureGateEnvironment.Production,
+				});
+				expect(statsigInitSpy).toHaveBeenCalledTimes(1);
+				expect(statsigInitSpy).toHaveBeenCalledWith(MOCK_CLIENT_SDK_KEY, TEST_STATSIG_USER, {
+					...TEST_STATSIG_OPTIONS,
+					environment: {
+						tier: 'production',
+					},
+					disableAllLogging: true, // disableAllLogging in FedRAMP
+					initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues,
+					apiKey: API_KEY, // apiKey added
+				});
+
+				// call FFS with base url for environment and perimeter
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${FEDM_PROD_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`,
+					expect.objectContaining({}),
+				);
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${FEDM_PROD_BASE_URL}/api/v2/frontend/experimentValues`,
+					expect.objectContaining({}),
+				);
+			});
+
+			test('perimeter can be set explicitly to commercial even when running in a FedRAMP environment', async () => {
+				isFedRampMock.mockReturnValue(true);
+				await initializeFeatureGates(TEST_IDENTIFIERS, {
+					environment: FeatureGateEnvironment.Production,
+					perimeter: PerimeterType.COMMERCIAL,
+				});
+				expect(statsigInitSpy).toHaveBeenCalledTimes(1);
+				expect(statsigInitSpy).toHaveBeenCalledWith(MOCK_CLIENT_SDK_KEY, TEST_STATSIG_USER, {
+					...TEST_STATSIG_OPTIONS,
+					environment: {
+						tier: 'production',
+					},
+					initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues,
+					apiKey: API_KEY, // apiKey added
+				});
+
+				// call FFS with base url for environment and perimeter
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${PROD_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`,
+					expect.objectContaining({}),
+				);
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${PROD_BASE_URL}/api/v2/frontend/experimentValues`,
+					expect.objectContaining({}),
+				);
+			});
+
+			test('perimeter defaults to PerimeterType.COMMERCIAL if the code is running in a non-FedRAMP environment', async () => {
+				isFedRampMock.mockReturnValue(false);
+				await initializeFeatureGates(TEST_IDENTIFIERS, {
+					environment: FeatureGateEnvironment.Production,
+				});
+				expect(statsigInitSpy).toHaveBeenCalledTimes(1);
+				expect(statsigInitSpy).toHaveBeenCalledWith(MOCK_CLIENT_SDK_KEY, TEST_STATSIG_USER, {
+					...TEST_STATSIG_OPTIONS,
+					environment: {
+						tier: 'production',
+					},
+					initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues,
+					apiKey: API_KEY, // apiKey added
+				});
+
+				// call FFS with base url for environment and perimeter
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${PROD_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`,
+					expect.objectContaining({}),
+				);
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${PROD_BASE_URL}/api/v2/frontend/experimentValues`,
+					expect.objectContaining({}),
+				);
+			});
+
+			test('perimeter can be set explicitly to FedRAMP even when running in a non-FedRAMP environment', async () => {
+				isFedRampMock.mockReturnValue(false);
+				await initializeFeatureGates(TEST_IDENTIFIERS, {
+					environment: FeatureGateEnvironment.Production,
+					perimeter: PerimeterType.FEDRAMP_MODERATE,
+				});
+				expect(statsigInitSpy).toHaveBeenCalledTimes(1);
+				expect(statsigInitSpy).toHaveBeenCalledWith(MOCK_CLIENT_SDK_KEY, TEST_STATSIG_USER, {
+					...TEST_STATSIG_OPTIONS,
+					environment: {
+						tier: 'production',
+					},
+					disableAllLogging: true, // disableAllLogging in FedRAMP
+					initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues,
+					apiKey: API_KEY, // apiKey added
+				});
+
+				// call FFS with base url for environment and perimeter
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${FEDM_PROD_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`,
+					expect.objectContaining({}),
+				);
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${FEDM_PROD_BASE_URL}/api/v2/frontend/experimentValues`,
+					expect.objectContaining({}),
+				);
+			});
+		});
 	});
 
 	describe('initializeFromValues client', function () {
@@ -284,80 +481,6 @@ describe('FeatureGate client Statsig integration test', () => {
 			);
 
 			expectTestCohortNotEnrolled();
-		});
-
-		describe('initialize in fedramp-moderate perimeter', function () {
-			beforeEach(() => {
-				fetchMock.resetMocks();
-				fetchMock
-					.mockResponseOnce(
-						JSON.stringify({
-							clientSdkKey: MOCK_CLIENT_SDK_KEY,
-						}),
-						{ status: 200 },
-					)
-					.mockResponseOnce(
-						JSON.stringify({
-							experimentValues: TEST_INITIALIZE_VALUES,
-						}),
-						{ status: 200 },
-					);
-			});
-
-			test('initialize fails for fedramp-moderate perimeter and FeatureGateEnvironment.Development', async () => {
-				await expect(
-					initializeFeatureGates(TEST_IDENTIFIERS, {
-						environment: FeatureGateEnvironment.Development, // not valid for fedramp-moderate perimeter
-						perimeter: PerimeterType.FEDRAMP_MODERATE,
-					}),
-				).rejects.toThrow('Invalid environment "development" for "fedramp-moderate" perimeter');
-				expect(fetchMock).not.toHaveBeenCalled();
-			});
-
-			test('initialize succeeds for fedramp-moderate perimeter and FeatureGateEnvironment.Production', async () => {
-				await initializeFeatureGates(TEST_IDENTIFIERS, {
-					environment: FeatureGateEnvironment.Production,
-					perimeter: PerimeterType.FEDRAMP_MODERATE,
-				});
-				expect(statsigInitSpy).toHaveBeenCalledTimes(1);
-				expect(statsigInitSpy).toHaveBeenCalledWith(MOCK_CLIENT_SDK_KEY, TEST_STATSIG_USER, {
-					...TEST_STATSIG_OPTIONS,
-					environment: {
-						tier: 'production',
-					},
-					disableAllLogging: true, // disableAllLogging in FedRAMP
-					initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues
-					apiKey: API_KEY, // apiKey added
-				});
-
-				// call FFS with base url for environment and perimeter
-				expect(fetchMock).toHaveBeenCalledWith(
-					`${FEDM_PROD_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`,
-					expect.objectContaining({}),
-				);
-				expect(fetchMock).toHaveBeenCalledWith(
-					`${FEDM_PROD_BASE_URL}/api/v2/frontend/experimentValues`,
-					expect.objectContaining({}),
-				);
-			});
-
-			test('useGatewayUrl takes precedence over perimeter and environment to build FFS base url', async () => {
-				await initializeFeatureGates(TEST_IDENTIFIERS, {
-					environment: FeatureGateEnvironment.Production,
-					useGatewayURL: true,
-					perimeter: PerimeterType.FEDRAMP_MODERATE,
-				});
-
-				// call FFS using gateway base url
-				expect(fetchMock).toHaveBeenCalledWith(
-					`${GATEWAY_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`,
-					expect.objectContaining({}),
-				);
-				expect(fetchMock).toHaveBeenCalledWith(
-					`${GATEWAY_BASE_URL}/api/v2/frontend/experimentValues`,
-					expect.objectContaining({}),
-				);
-			});
 		});
 	});
 

@@ -79,6 +79,8 @@ export interface FromValuesClientOptions extends BaseClientOptions {
 	sdkKey?: string;
 }
 
+export type OptionsWithDefaults<T extends BaseClientOptions> = T & Required<Pick<T, 'perimeter'>>;
+
 export interface FrontendExperimentsResult extends InitializeValues {
 	clientSdkKey?: string;
 }
@@ -96,6 +98,7 @@ export enum FeatureGateEnvironment {
 	Production = 'production',
 }
 
+// If adding new values here, please check FeatureGates.getDefaultPerimeter to make sure it still returns something sensible.
 export enum PerimeterType {
 	COMMERCIAL = 'commercial',
 	FEDRAMP_MODERATE = 'fedramp-moderate',
@@ -133,7 +136,7 @@ export interface FrontendExperimentsResult extends InitializeValues {
 export interface Provider {
 	setClientVersion: (clientVersion: string) => void;
 	setProfile: (
-		clientOptions: BaseClientOptions,
+		clientOptions: OptionsWithDefaults<BaseClientOptions>,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	) => Promise<void>;

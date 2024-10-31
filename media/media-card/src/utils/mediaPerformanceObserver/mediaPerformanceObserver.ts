@@ -49,8 +49,7 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 						fileId: fileId,
 						mediaClientId: clientId,
 						featureFlags: {
-							'media-cdn-single-host':
-								fg('platform.media-cdn-single-host') || fg('platform_media_cdn_single_host'),
+							'media-cdn-single-host': fg('platform_media_cdn_single_host'),
 						},
 						...mediaDurationMetrics,
 					},

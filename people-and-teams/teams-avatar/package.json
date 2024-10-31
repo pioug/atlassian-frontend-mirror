@@ -38,7 +38,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/avatar": "^21.16.0",
+		"@atlaskit/avatar": "^21.17.0",
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.0.0",

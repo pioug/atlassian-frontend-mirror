@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 67.9.0
+
+### Minor Changes
+
+- [#157680](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157680)
+  [`11a7dc2c3271a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/11a7dc2c3271a) -
+  [ux] [A11y] Remove heading mark-up for emoji upload and remove mandatory asterisk
+
 ## 67.8.10
 
 ### Patch Changes

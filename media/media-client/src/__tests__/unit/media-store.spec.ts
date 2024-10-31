@@ -725,7 +725,6 @@ describe('MediaStore', () => {
 				fetchMock.once('something went wrong', {
 					status: 403,
 					statusText: 'Forbidden',
-					headers: { 'x-media-env': 'some-env', 'x-media-region': 'some-region' },
 				});
 
 				const body: MediaStoreTouchFileBody = {
@@ -742,35 +741,6 @@ describe('MediaStore', () => {
 
 					expect(err.attributes).toMatchObject({
 						reason: 'serverForbidden',
-						method: 'POST',
-						endpoint: '/upload/createWithFiles',
-						statusCode: 403,
-					});
-				}
-
-				expect.assertions(1);
-			});
-
-			it('should fail with nonMediaError if error status is returned and x-media-headers are not present', async () => {
-				fetchMock.once('something went wrong', {
-					status: 403,
-					statusText: 'Forbidden',
-				});
-
-				const body: MediaStoreTouchFileBody = {
-					descriptors: [descriptor1],
-				};
-				try {
-					await mediaStore.touchFiles(body, params);
-				} catch (err) {
-					// @ts-expect-error
-					if (!isRequestError(err)) {
-						// @ts-expect-error
-						return expect(isRequestError(err)).toBeTruthy();
-					}
-
-					expect(err.attributes).toMatchObject({
-						reason: 'nonMediaError',
 						method: 'POST',
 						endpoint: '/upload/createWithFiles',
 						statusCode: 403,

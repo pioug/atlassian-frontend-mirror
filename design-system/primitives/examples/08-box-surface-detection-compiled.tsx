@@ -34,7 +34,7 @@ export default () => {
 				padding="space.200"
 				xcss={styles.header}
 			>
-				<Heading level="h500">Header overlay</Heading>
+				<Heading size="small">Header overlay</Heading>
 			</Box>
 			<p>Some text that is partially covered by the header.</p>
 		</Box>

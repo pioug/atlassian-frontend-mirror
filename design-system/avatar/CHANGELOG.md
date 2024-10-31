@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 21.17.0
+
+### Minor Changes
+
+- [#157307](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157307)
+  [`a1e80ec0a5e4a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1e80ec0a5e4a) -
+  Enable new icons behind a feature flag.
+
 ## 21.16.1
 
 ### Patch Changes

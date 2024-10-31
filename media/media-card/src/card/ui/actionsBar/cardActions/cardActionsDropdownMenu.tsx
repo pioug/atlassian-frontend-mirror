@@ -1,5 +1,5 @@
 import React from 'react';
-import { Component } from 'react';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import DropdownMenu, { DropdownItemGroup, DropdownItem } from '@atlaskit/dropdown-menu';
@@ -7,7 +7,7 @@ import DropdownMenu, { DropdownItemGroup, DropdownItem } from '@atlaskit/dropdow
 import { type CardAction } from '../../../actions';
 import { type CardActionIconButtonVariant } from './styles';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { createAndFireMediaCardEvent } from '../../../../utils/analytics';
+import { createAndFireMediaCardEvent, fireMediaCardEvent } from '../../../../utils/analytics';
 import { CardActionButton } from './cardActionButton';
 
 export type CardActionsDropdownMenuProps = {
@@ -17,17 +17,6 @@ export type CardActionsDropdownMenuProps = {
 	readonly triggerVariant?: CardActionIconButtonVariant;
 	readonly onOpenChange?: (attrs: { isOpen: boolean }) => void;
 };
-
-const CardActionButtonWithAnalytics = withAnalyticsEvents({
-	onClick: createAndFireMediaCardEvent({
-		eventType: 'ui',
-		action: 'clicked',
-		actionSubject: 'button',
-		actionSubjectId: 'mediaCardDropDownMenu',
-		attributes: {},
-	}),
-	// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
-})(CardActionButton);
 
 type DropdownItemProps = any & WithAnalyticsEventsProps; // Trick applied due to the lack of props type of DropdownItem
 const DropdownItemWithProps = (props: DropdownItemProps) => (
@@ -55,33 +44,48 @@ const createDropdownItemWithAnalytics = (action: CardAction, index: number) => {
 	);
 };
 
-export class CardActionsDropdownMenu extends Component<CardActionsDropdownMenuProps> {
-	render(): JSX.Element | null {
-		const { actions, triggerColor, onOpenChange, triggerVariant } = this.props;
+export const CardActionsDropdownMenu = ({
+	actions,
+	triggerColor,
+	onOpenChange,
+	triggerVariant,
+}: CardActionsDropdownMenuProps) => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 
-		if (actions.length > 0) {
-			return (
-				<DropdownMenu
-					testId="media-card-actions-menu"
-					onOpenChange={onOpenChange}
-					trigger={({ triggerRef, ...providedProps }) => (
-						// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
-						<CardActionButtonWithAnalytics
-							variant={triggerVariant}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							style={{ color: triggerColor }}
-							ref={triggerRef}
-							{...providedProps}
-						>
-							<MoreIcon color="currentColor" spacing="spacious" label="more" />
-						</CardActionButtonWithAnalytics>
-					)}
-				>
-					<DropdownItemGroup>{actions.map(createDropdownItemWithAnalytics)}</DropdownItemGroup>
-				</DropdownMenu>
-			);
-		} else {
-			return null;
-		}
+	if (actions.length > 0) {
+		return (
+			<DropdownMenu
+				testId="media-card-actions-menu"
+				onOpenChange={onOpenChange}
+				trigger={({ triggerRef, isSelected, testId, onClick, ...providedProps }) => (
+					<CardActionButton
+						variant={triggerVariant}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						style={{ color: triggerColor }}
+						ref={triggerRef}
+						onClick={(e) => {
+							fireMediaCardEvent(
+								{
+									eventType: 'ui',
+									action: 'clicked',
+									actionSubject: 'button',
+									actionSubjectId: 'mediaCardDropDownMenu',
+									attributes: {},
+								},
+								createAnalyticsEvent,
+							);
+							onClick?.(e);
+						}}
+						{...providedProps}
+					>
+						<MoreIcon color="currentColor" spacing="spacious" label="more" />
+					</CardActionButton>
+				)}
+			>
+				<DropdownItemGroup>{actions.map(createDropdownItemWithAnalytics)}</DropdownItemGroup>
+			</DropdownMenu>
+		);
+	} else {
+		return null;
 	}
-}
+};

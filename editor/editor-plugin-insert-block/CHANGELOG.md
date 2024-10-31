@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.6
+
+### Patch Changes
+
+- [#157845](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157845)
+  [`036086b523133`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/036086b523133) -
+  Removed onInsert from quickInsert plugin actions, as the behavior is now encapsulated within
+  insertItem
+- Updated dependencies
+
 ## 2.4.5
 
 ### Patch Changes

@@ -74,7 +74,7 @@ export const mockJiraData = {
 				source: high,
 			},
 			status: {
-				text: 'In progress',
+				text: 'In Progress',
 				status: 'inprogress',
 			},
 			resolution: 'Unresolved',
@@ -373,7 +373,7 @@ export const mockJiraData = {
 				source: high,
 			},
 			status: {
-				text: 'In progress',
+				text: 'In Progress',
 				status: 'inprogress',
 			},
 			resolution: 'Unresolved',

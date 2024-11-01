@@ -1,12 +1,11 @@
 import {
-	type MediaClientErrorReason,
 	isPollingError as isMediaClientPollingError,
 	isRateLimitedError as isMediaClientRateLimitedError,
 	type PollingErrorReason,
 } from '@atlaskit/media-client';
 import { type CardPreview } from './types';
 
-import { MediaFileStateError } from '@atlaskit/media-client-react';
+import { isMediaFileStateError } from '@atlaskit/media-client-react';
 import { isMediaFilePreviewError } from '@atlaskit/media-file-preview';
 /**
  * Primary reason is logged through Data Portal.
@@ -53,16 +52,6 @@ export type SsrPreviewPrimaryReason =
 	| 'ssr-server-load';
 
 export type SvgPrimaryReason = 'svg-img-error' | 'svg-binary-fetch' | 'svg-unknown-error';
-
-export function isMediaFileStateError(err: Error): err is MediaFileStateError {
-	return err instanceof MediaFileStateError;
-}
-
-export function getFileStateErrorReason(
-	err: MediaFileStateError,
-): MediaClientErrorReason | 'unknown' {
-	return err.details?.reason ?? 'unknown';
-}
 
 const POLLING_REASON: PollingErrorReason = 'pollingMaxAttemptsExceeded';
 

@@ -124,4 +124,39 @@ test.describe('DatasourceTableView', () => {
 
 		await expect(page.getByTestId('inline-edit-text')).toBeHidden();
 	});
+
+	test('can update statuses column', async ({ page }) => {
+		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
+		await withFeatureFlags(page, [
+			'enable_datasource_react_sweet_state',
+			'platform-datasources-enable-two-way-sync',
+			'platform-datasources-enable-two-way-sync-statuses',
+		]);
+
+		await page.getByTestId('link-datasource-render-type--status').first().click();
+		await page.getByTestId('inline-edit-status-option-In Progress').first().click();
+
+		await expect(page.getByTestId('inline-edit-status')).toBeHidden();
+		await expect(page.getByTestId('link-datasource-render-type--status--text').first()).toHaveText(
+			'in progress',
+			{ ignoreCase: true },
+		);
+	});
+
+	test('can filter options with type-ahead in statuses column', async ({ page }) => {
+		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
+		await withFeatureFlags(page, [
+			'enable_datasource_react_sweet_state',
+			'platform-datasources-enable-two-way-sync',
+			'platform-datasources-enable-two-way-sync-statuses',
+		]);
+
+		await page.getByTestId('link-datasource-render-type--status').first().click();
+		await page.getByRole('combobox').fill('in p');
+
+		await expect(page.getByRole('listbox').getByRole('option')).toHaveCount(1);
+		await expect(page.getByRole('listbox').getByRole('option')).toHaveText('in progress', {
+			ignoreCase: true,
+		});
+	});
 });

@@ -138,6 +138,10 @@ exports[`WikiMarkup => ADF Formatters - deleted should detect deleted mark at en
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

@@ -54,43 +54,61 @@ export const headingsSharedStyles = (
 		| 'typography-modernized'
 		| 'typography-refreshed',
 ) => {
-	const isADSTokenMigrationEnabled = fg('platform_editor_typography_ugc');
-	if (isADSTokenMigrationEnabled) {
+	if (fg('platform_editor_typography_ugc')) {
 		return css({
 			'& h1': {
 				font: editorUGCToken('editor.font.heading.h1', typographyTheme),
 				marginBottom: 0,
 				marginTop: '1.667em',
+				'& strong': {
+					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
+				},
 			},
 
 			'& h2': {
 				font: editorUGCToken('editor.font.heading.h2', typographyTheme),
 				marginTop: '1.8em',
 				marginBottom: 0,
+				'& strong': {
+					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
+				},
 			},
 
 			'& h3': {
 				font: editorUGCToken('editor.font.heading.h3', typographyTheme),
 				marginTop: '2em',
 				marginBottom: 0,
+				'& strong': {
+					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
+				},
 			},
 
 			'& h4': {
 				font: editorUGCToken('editor.font.heading.h4', typographyTheme),
 				marginTop: '1.357em',
+				'& strong': {
+					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
+				},
 			},
 
 			'& h5': {
 				font: editorUGCToken('editor.font.heading.h5', typographyTheme),
 				marginTop: '1.667em',
 				textTransform: 'none',
+				'& strong': {
+					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
+				},
 			},
 
 			'& h6': {
 				font: editorUGCToken('editor.font.heading.h6', typographyTheme),
 				marginTop: '1.455em',
 				textTransform: 'none',
+				'& strong': {
+					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
+				},
 			},
+
 			...headingWithAlignmentStyles(),
 		});
 	} else {

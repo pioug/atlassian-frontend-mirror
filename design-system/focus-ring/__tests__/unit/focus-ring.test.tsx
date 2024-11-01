@@ -3,13 +3,17 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import FocusRing from '../../src';
+import FocusRingCompiled from '../../src/compiled';
 
-describe('Focus Ring', () => {
+describe.each([
+	['emotion', FocusRing],
+	['compiled', FocusRingCompiled],
+])(`variant=%p`, (_variant, Component) => {
 	it('renders with basic usage', () => {
 		render(
-			<FocusRing>
+			<Component>
 				<div data-testid="test" />
-			</FocusRing>,
+			</Component>,
 		);
 
 		expect(screen.getByTestId('test')).toBeInTheDocument();
@@ -17,9 +21,9 @@ describe('Focus Ring', () => {
 
 	it('renders with inset prop', () => {
 		render(
-			<FocusRing isInset>
+			<Component isInset>
 				<div data-testid="test" />
-			</FocusRing>,
+			</Component>,
 		);
 
 		expect(screen.getByTestId('test')).toBeInTheDocument();
@@ -27,10 +31,10 @@ describe('Focus Ring', () => {
 
 	it('should join pre-defined class name', () => {
 		render(
-			<FocusRing>
+			<Component>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 				<div data-testid="test" className="foobar" />
-			</FocusRing>,
+			</Component>,
 		);
 
 		expect(screen.getByTestId('test').className.includes('foobar')).toBe(true);

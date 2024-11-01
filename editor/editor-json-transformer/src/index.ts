@@ -53,6 +53,7 @@ const isUnsupportedNode = (node: PMNode) =>
 	isType('unsupportedBlock')(node) || isType('unsupportedInline')(node);
 const isDataConsumer = isType('dataConsumer');
 const isFragmentMark = isType('fragment');
+const isHardBreak = isType('hardBreak');
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const filterNull = (subject: any) => {
@@ -110,13 +111,18 @@ const toJSON = (node: PMNode): JSONNode => {
 	} else if (node.attrs && Object.keys(node.attrs).length) {
 		obj.attrs = node.attrs;
 	}
-
 	if (obj.attrs) {
 		obj.attrs = filterNull(obj.attrs);
 	}
 
 	// Remove the attrs property if it's empty, this is currently limited to paragraph nodes.
 	if (isParagraph(node) && obj.attrs && !Object.keys(obj.attrs).length) {
+		delete obj.attrs;
+	}
+
+	// Hard break has optional attr.text which was added for PM <-> ADF compatibility.
+	// No need to preserve it.
+	if (isHardBreak(node)) {
 		delete obj.attrs;
 	}
 

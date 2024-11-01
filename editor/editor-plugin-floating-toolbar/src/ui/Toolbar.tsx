@@ -177,7 +177,7 @@ const ToolbarItems = React.memo(
 											Legacy_secondaryColor={token('elevation.surface')}
 										/>
 									) : (
-										<ButtonIcon label={item.title} />
+										<ButtonIcon label={item.title} spacing="spacious" />
 									)
 								) : undefined
 							}

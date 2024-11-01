@@ -1,5 +1,36 @@
 # @atlaskit/feature-gate-fetcher
 
+## 0.2.0
+
+### Minor Changes
+
+- [#157451](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157451)
+  [`3733e5e12d1dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3733e5e12d1dc) -
+  Bump statsig-js-lite
+- [#157451](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157451)
+  [`3733e5e12d1dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3733e5e12d1dc) -
+  Bump statsig-js-lite
+- [#157451](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157451)
+  [`3733e5e12d1dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3733e5e12d1dc) -
+  Update statsig-js-lite
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.0
+
+### Minor Changes
+
+- [#158460](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158460)
+  [`bcb59292573a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bcb59292573a3) -
+  Set a sensible default for `perimeter` based on the hostname, rather than always defaulting to
+  commercial
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.0.5
 
 ### Patch Changes

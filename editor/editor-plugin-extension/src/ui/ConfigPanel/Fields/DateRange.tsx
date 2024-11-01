@@ -76,6 +76,8 @@ const DateField = ({
 							onFieldChange(parentField.name, true);
 						}}
 						locale={intl.locale}
+						shouldShowCalendarButton
+						inputLabel={intl.formatMessage(messages[fieldName])}
 					/>
 					<FieldMessages error={error} />
 				</Fragment>

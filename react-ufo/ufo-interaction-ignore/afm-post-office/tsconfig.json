@@ -16,5 +16,9 @@
     "../src/**/test.*",
     "../src/**/examples.*"
   ],
-  "references": []
+  "references": [
+    {
+      "path": "../../atlaskit/afm-post-office/tsconfig.json"
+    }
+  ]
 }

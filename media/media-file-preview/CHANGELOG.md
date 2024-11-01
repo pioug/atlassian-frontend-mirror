@@ -1,5 +1,15 @@
 # @atlaskit/media-file-preview
 
+## 0.9.2
+
+### Patch Changes
+
+- [#158851](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158851)
+  [`f5c5983855cae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5c5983855cae) -
+  Used new @atlaskit/media-client-react functions for verifying MediaFileStateError type and
+  extracting error reason
+- Updated dependencies
+
 ## 0.9.1
 
 ### Patch Changes

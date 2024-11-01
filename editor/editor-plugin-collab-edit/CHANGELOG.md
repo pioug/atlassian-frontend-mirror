@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.22.6
+
+### Patch Changes
+
+- [#159176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159176)
+  [`8f1d77592a9dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f1d77592a9dc) -
+  Bump adf-schema to 44.2.0
+- Updated dependencies
+
 ## 1.22.5
 
 ### Patch Changes

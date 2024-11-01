@@ -1122,36 +1122,6 @@ describe('Media', () => {
 	});
 
 	describe('Media Annotation Mark', () => {
-		describe('when feature is disabled', () => {
-			it('media comment badge does not render', () => {
-				const result = renderWithIntl(
-					<Media
-						type={mediaNode.attrs.type as MediaType}
-						id={mediaNode.attrs.id}
-						collection={mediaNode.attrs.collection}
-						alt="test"
-						marks={[
-							{
-								type: 'annotation',
-								attrs: {
-									id: 'foo',
-									annotationType: AnnotationTypes.INLINE_COMMENT,
-								},
-							},
-						]}
-						isLinkMark={() => false}
-						isBorderMark={() => false}
-						isAnnotationMark={() => true}
-						allowAltTextOnImages={false}
-						isDrafting={false}
-						featureFlags={{ commentsOnMedia: false }}
-					/>,
-				);
-
-				expect(result.container.querySelector('#foo')).toBeInTheDocument();
-				expect(screen.queryByLabelText('View comments')).not.toBeInTheDocument();
-			});
-		});
 		describe('when feature is enabled', () => {
 			it('renders badge when annotation exists', () => {
 				const result = renderWithIntl(
@@ -1174,7 +1144,7 @@ describe('Media', () => {
 						isAnnotationMark={() => true}
 						allowAltTextOnImages={false}
 						isDrafting={false}
-						featureFlags={{ commentsOnMedia: true }}
+						featureFlags={undefined}
 					/>,
 				);
 				expect(result.container.querySelector('#foo')).toBeInTheDocument();
@@ -1193,7 +1163,7 @@ describe('Media', () => {
 						isAnnotationMark={() => true}
 						allowAltTextOnImages={false}
 						isDrafting={true}
-						featureFlags={{ commentsOnMedia: true }}
+						featureFlags={undefined}
 					/>,
 				);
 				expect(result.container.querySelector('#foo')).not.toBeInTheDocument();

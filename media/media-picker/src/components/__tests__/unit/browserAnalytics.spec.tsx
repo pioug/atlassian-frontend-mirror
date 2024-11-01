@@ -10,7 +10,7 @@ import {
 	createMediaSubject,
 	fromObservable,
 } from '@atlaskit/media-client';
-import { ANALYTICS_MEDIA_CHANNEL, type MediaFeatureFlags } from '@atlaskit/media-common';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 
 import { Browser } from '../../browser/browser';
 import { type BrowserConfig } from '../../../../src/types';
@@ -20,9 +20,6 @@ import * as ufoWrapper from '../../../util/ufoExperiences';
 describe('Browser analytics instrumentation', () => {
 	const browseConfig: BrowserConfig & LocalUploadConfig = {
 		uploadParams: {},
-	};
-	const someFeatureFlags: MediaFeatureFlags = {
-		commentsOnMedia: true,
 	};
 	const uploadId = 'upload id';
 	let oldDateNow: () => number;
@@ -67,7 +64,7 @@ describe('Browser analytics instrumentation', () => {
 		const onEvent = jest.fn();
 		const browser = mount(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
-				<Browser mediaClient={mediaClient} config={browseConfig} featureFlags={someFeatureFlags} />
+				<Browser mediaClient={mediaClient} config={browseConfig} />
 			</AnalyticsListener>,
 		);
 		const fileContents = 'file contents';
@@ -86,7 +83,7 @@ describe('Browser analytics instrumentation', () => {
 						componentName: 'browser',
 						component: 'browser',
 						[MEDIA_CONTEXT]: {
-							featureFlags: expect.objectContaining(someFeatureFlags),
+							featureFlags: undefined,
 						},
 					},
 				],
@@ -127,7 +124,7 @@ describe('Browser analytics instrumentation', () => {
 		const onEvent = jest.fn();
 		const browser = mount(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
-				<Browser mediaClient={mediaClient} config={browseConfig} featureFlags={someFeatureFlags} />
+				<Browser mediaClient={mediaClient} config={browseConfig} />
 			</AnalyticsListener>,
 		);
 		const fileContents = 'file contents';
@@ -147,7 +144,7 @@ describe('Browser analytics instrumentation', () => {
 						componentName: 'browser',
 						component: 'browser',
 						[MEDIA_CONTEXT]: {
-							featureFlags: expect.objectContaining(someFeatureFlags),
+							featureFlags: undefined,
 						},
 					},
 				],
@@ -190,7 +187,7 @@ describe('Browser analytics instrumentation', () => {
 						componentName: 'browser',
 						component: 'browser',
 						[MEDIA_CONTEXT]: {
-							featureFlags: expect.objectContaining(someFeatureFlags),
+							featureFlags: undefined,
 						},
 					},
 				],
@@ -237,7 +234,7 @@ describe('Browser analytics instrumentation', () => {
 		const onEvent = jest.fn();
 		const browser = mount(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
-				<Browser mediaClient={mediaClient} config={browseConfig} featureFlags={someFeatureFlags} />
+				<Browser mediaClient={mediaClient} config={browseConfig} />
 			</AnalyticsListener>,
 		);
 		const fileContents = 'file contents';
@@ -257,7 +254,7 @@ describe('Browser analytics instrumentation', () => {
 						componentName: 'browser',
 						component: 'browser',
 						[MEDIA_CONTEXT]: {
-							featureFlags: expect.objectContaining(someFeatureFlags),
+							featureFlags: undefined,
 						},
 					},
 				],
@@ -300,7 +297,7 @@ describe('Browser analytics instrumentation', () => {
 						componentName: 'browser',
 						component: 'browser',
 						[MEDIA_CONTEXT]: {
-							featureFlags: expect.objectContaining(someFeatureFlags),
+							featureFlags: undefined,
 						},
 					},
 				],
@@ -362,7 +359,7 @@ describe('Browser analytics instrumentation', () => {
 		const onEvent = jest.fn();
 		const browser = mount(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_MEDIA_CHANNEL}>
-				<Browser mediaClient={mediaClient} config={browseConfig} featureFlags={someFeatureFlags} />
+				<Browser mediaClient={mediaClient} config={browseConfig} />
 			</AnalyticsListener>,
 		);
 		const fileContents = 'file contents';
@@ -382,7 +379,7 @@ describe('Browser analytics instrumentation', () => {
 						componentName: 'browser',
 						component: 'browser',
 						[MEDIA_CONTEXT]: {
-							featureFlags: expect.objectContaining(someFeatureFlags),
+							featureFlags: undefined,
 						},
 					},
 				],
@@ -425,7 +422,7 @@ describe('Browser analytics instrumentation', () => {
 						componentName: 'browser',
 						component: 'browser',
 						[MEDIA_CONTEXT]: {
-							featureFlags: expect.objectContaining(someFeatureFlags),
+							featureFlags: undefined,
 						},
 					},
 				],

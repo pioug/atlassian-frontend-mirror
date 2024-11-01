@@ -113,6 +113,10 @@ exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark a
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

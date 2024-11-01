@@ -1,3 +1,5 @@
+import { type MediaClientErrorReason } from '@atlaskit/media-client';
+
 export class MediaFileStateError extends Error {
 	constructor(
 		readonly id: string,
@@ -14,4 +16,12 @@ export class MediaFileStateError extends Error {
 			Error.captureStackTrace(this, new.target);
 		}
 	}
+}
+
+export function isMediaFileStateError(err: Error): err is MediaFileStateError {
+	return err instanceof Error && 'id' in err;
+}
+
+export function getFileStateErrorReason(err: Error): MediaClientErrorReason | 'unknown' {
+	return isMediaFileStateError(err) ? err.details?.reason : 'unknown';
 }

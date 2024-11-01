@@ -8290,5 +8290,9 @@ export const bigTable = {
 				},
 			],
 		},
+		{
+			type: 'paragraph',
+			content: [{ type: 'text', text: 'Last' }],
+		},
 	],
 };

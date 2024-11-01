@@ -15,12 +15,9 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { isValid, parseISO } from 'date-fns';
-// This is a deprecated component but we will be able to use the actual hook
-// version very soon from converting this to functional. And also React 18 is on
-// the horizon
-import { useUID } from 'react-uid';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import { useId } from '@atlaskit/ds-lib/use-id';
 import CalendarIconNew from '@atlaskit/icon/core/migration/calendar';
 import CalendarIconOld from '@atlaskit/icon/glyph/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
@@ -564,7 +561,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 	// `label` takes precedence of the `inputLabel`
 	const fullopenCalendarLabel =
 		label || inputLabel ? `${label || inputLabel} , ${openCalendarLabel}` : openCalendarLabel;
-	const openCalendarLabelId = `open-calendar-label--${useUID()}`;
+	const openCalendarLabelId = `open-calendar-label--${useId()}`;
 
 	return (
 		// These event handlers must be on this element because the events come

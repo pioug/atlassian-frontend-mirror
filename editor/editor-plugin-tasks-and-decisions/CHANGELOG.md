@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.11.12
+
+### Patch Changes
+
+- [#159176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159176)
+  [`8f1d77592a9dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f1d77592a9dc) -
+  Bump adf-schema to 44.2.0
+- [#158708](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158708)
+  [`6a5dd592373c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a5dd592373c2) -
+  [ux] ED-25552 Assume has edit permission for tasks is true unless configured
+
 ## 2.11.11
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/focus-ring
 
+## 1.7.0
+
+### Minor Changes
+
+- [#159379](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159379)
+  [`821ffec580412`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/821ffec580412) -
+  Adds an experimental Compiled CSS-in-JS entrypoint for our Focus Ring component. This requires
+  specific setup that is not documented fully and is not intended for external consumption.
+
 ## 1.6.1
 
 ### Patch Changes

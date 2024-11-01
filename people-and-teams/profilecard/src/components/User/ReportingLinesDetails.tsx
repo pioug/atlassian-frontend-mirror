@@ -5,6 +5,8 @@ import { FormattedMessage } from 'react-intl-next';
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
 import Button from '@atlaskit/button';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import messages from '../../messages';
 import {
@@ -30,6 +32,16 @@ export type ReportingLinesDetailsProps = Pick<
 function getProfileHref(userId: string, profileUrl?: string) {
 	return profileUrl ? profileUrl + userId : undefined;
 }
+
+const reportingLinesHeadingDefaultStyles = xcss({
+	color: 'color.text',
+	font: 'font.heading.xxsmall',
+	fontWeight: 600,
+	marginBottom: 'space.100',
+});
+const reportingLinesHeadingStyles = xcss({
+	marginBottom: '0',
+});
 
 const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 	const {
@@ -64,10 +76,16 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 		<>
 			{manager && (
 				<ReportingLinesSection>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-					<ReportingLinesHeading style={{ marginBottom: 0 }}>
-						<FormattedMessage {...messages.managerSectionHeading} />
-					</ReportingLinesHeading>
+					{fg('platform_profile_card_css_refactor') ? (
+						<Box xcss={[reportingLinesHeadingDefaultStyles, reportingLinesHeadingStyles]}>
+							<FormattedMessage {...messages.managerSectionHeading} />
+						</Box>
+					) : (
+						/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */
+						<ReportingLinesHeading style={{ marginBottom: 0 }}>
+							<FormattedMessage {...messages.managerSectionHeading} />
+						</ReportingLinesHeading>
+					)}
 					<OffsetWrapper>
 						<Button
 							appearance="subtle"
@@ -86,9 +104,15 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 			)}
 			{hasReports && (
 				<ReportingLinesSection>
-					<ReportingLinesHeading>
-						<FormattedMessage {...messages.directReportsSectionHeading} />
-					</ReportingLinesHeading>
+					{fg('platform_profile_card_css_refactor') ? (
+						<Box xcss={reportingLinesHeadingDefaultStyles}>
+							<FormattedMessage {...messages.directReportsSectionHeading} />
+						</Box>
+					) : (
+						<ReportingLinesHeading>
+							<FormattedMessage {...messages.directReportsSectionHeading} />
+						</ReportingLinesHeading>
+					)}
 					<AvatarGroup
 						appearance="stack"
 						size="small"

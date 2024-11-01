@@ -340,7 +340,6 @@ describe('Dropzone', () => {
 							<Dropzone
 								mediaClient={mediaClient}
 								config={config}
-								featureFlags={{ commentsOnMedia: true }}
 							/>
 							,
 						</AnalyticsListener>,
@@ -357,7 +356,7 @@ describe('Dropzone', () => {
 							componentName: 'dropzone',
 							component: 'dropzone',
 							[MEDIA_CONTEXT]: {
-								featureFlags: expect.objectContaining({ commentsOnMedia: true }),
+								featureFlags: undefined,
 							},
 						}),
 					];

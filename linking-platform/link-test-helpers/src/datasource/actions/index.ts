@@ -49,11 +49,18 @@ export const mockActionsDiscovery = (overrides?: Partial<ActionsServiceDiscovery
 				return {
 					actions,
 					permissions: {
-						data: new Array(20).fill(null).map((_, i) => ({
-							ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${i * 10 + numberOfLoads}`,
-							fieldKey: 'summary',
-							isEditable: i % 2 === 1,
-						})),
+						data: new Array(20).fill(null).flatMap((_, i) => [
+							{
+								ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${i * 10 + numberOfLoads}`,
+								fieldKey: 'summary',
+								isEditable: i % 2 === 1,
+							},
+							{
+								ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${i * 10 + numberOfLoads}`,
+								fieldKey: 'status',
+								isEditable: i % 2 === 1,
+							},
+						]),
 					},
 					...overrides,
 				};

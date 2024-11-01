@@ -42,7 +42,6 @@ export type InlineCommentAction =
 				drafting: boolean;
 				editorState: EditorState;
 				targetType?: TargetType;
-				isCommentOnMediaOn?: boolean;
 				supportedBlockNodes?: string[];
 				targetNodeId?: string;
 			};

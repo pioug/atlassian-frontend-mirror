@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 3.7.0
+
+### Minor Changes
+
+- [#159162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159162)
+  [`bfd053853f59d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfd053853f59d) -
+  [ux] Enable updating jira issue statues in datasource list view via inline edit.
+
+## 3.6.16
+
+### Patch Changes
+
+- [#159176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159176)
+  [`8f1d77592a9dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f1d77592a9dc) -
+  Bump adf-schema to 44.2.0
+- Updated dependencies
+
 ## 3.6.15
 
 ### Patch Changes

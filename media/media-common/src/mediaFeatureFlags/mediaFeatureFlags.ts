@@ -37,9 +37,6 @@ export const getFeatureFlagKeysAllProducts = (): Array<string> => {
  */
 export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
 	mediaInline: false,
-	// We can't yet switch this feature on
-	// TODO https://product-fabric.atlassian.net/browse/MEX-104
-	commentsOnMedia: false,
 };
 
 /**

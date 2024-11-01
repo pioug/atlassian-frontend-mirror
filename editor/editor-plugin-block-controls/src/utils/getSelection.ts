@@ -1,6 +1,7 @@
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { NodeSelection, TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const getInlineNodePos = (
 	tr: Transaction,
@@ -83,10 +84,18 @@ export const selectNode = (tr: Transaction, start: number, nodeType: string): Tr
 export const setCursorPositionAtMovedNode = (tr: Transaction, start: number): Transaction => {
 	const node = tr.doc.nodeAt(start);
 	const isNodeSelection = node && NodeSelection.isSelectable(node);
+
 	const nodeSize = node ? node.nodeSize : 1;
 	let selection: GapCursorSelection | TextSelection;
 	// decisionList node is not selectable, but we want to select the whole node not just text
-	if (isNodeSelection || node?.type.name === 'decisionList') {
+	// blockQuote is selectable, but we want to set cursor at the inline end Pos instead of the gap cursor as this causes jittering post drop
+	if (
+		(isNodeSelection &&
+			(fg('platform_editor_element_dnd_nested_fix_patch_4')
+				? node.type.name !== 'blockquote'
+				: true)) ||
+		node?.type.name === 'decisionList'
+	) {
 		selection = new GapCursorSelection(tr.doc.resolve(start + node.nodeSize), Side.RIGHT);
 	} else {
 		const { inlineNodeEndPos } = getInlineNodePos(tr, start, nodeSize);

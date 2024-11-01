@@ -304,4 +304,37 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 28-10-2024
+	'editor_ai_-_proactive_ai_model_variations': {
+		productKeys: {
+			confluence: 'editor_ai_-_proactive_ai_model_variations',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'skip_grammar']),
+		defaultValue: 'control' as 'control' | 'skip_grammar',
+	},
+	'editor_ai_-_proactive_ai_spelling_and_grammar': {
+		productKeys: {
+			confluence: 'editor_ai_-_proactive_ai_spelling_and_grammar',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'default-off', 'default-on']),
+		defaultValue: 'control' as 'control' | 'default-off' | 'default-on',
+	},
+	'platform_editor_ai-prompts-placeholder': {
+		productKeys: {
+			confluence: 'platform_editor_ai-prompts-placeholder',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'test']),
+		defaultValue: 'control' as 'control' | 'test',
+	},
+	'editor_ai_-_gpt4_experiment': {
+		productKeys: {
+			confluence: 'editor_ai_-_gpt4_experiment',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'einstein']),
+		defaultValue: 'control' as 'control' | 'einstein',
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

@@ -30,7 +30,6 @@ export default (
 				action.data.drafting,
 				action.data.editorState,
 				action.data.targetType,
-				action.data.isCommentOnMediaOn,
 				action.data.supportedBlockNodes,
 				action.data.targetNodeId,
 			);
@@ -95,7 +94,6 @@ function getNewDraftState(
 	drafting: boolean,
 	editorState?: EditorState,
 	targetType?: TargetType,
-	isCommentOnMediaOn?: boolean,
 	supportedBlockNodes?: string[],
 	targetNodeId?: string,
 ) {
@@ -116,9 +114,7 @@ function getNewDraftState(
 
 	if (drafting && editorState) {
 		newState.bookmark = editorState.selection.getBookmark();
-		const { from, to } = isCommentOnMediaOn
-			? resolveDraftBookmark(editorState, newState.bookmark, supportedBlockNodes)
-			: newState.bookmark.resolve(editorState.doc);
+		const { from, to } = resolveDraftBookmark(editorState, newState.bookmark, supportedBlockNodes);
 
 		const draftDecoration = addDraftDecoration(from, to, targetType);
 		newState.draftDecorationSet = draftDecorationSet.add(editorState.doc, [draftDecoration]);

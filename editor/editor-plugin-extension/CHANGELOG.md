@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.15.8
+
+### Patch Changes
+
+- [`0b274edd1ef5e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0b274edd1ef5e) -
+  Init new calendar button functionality in ConfigPanel date pickers
+
+## 1.15.7
+
+### Patch Changes
+
+- [#159176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159176)
+  [`8f1d77592a9dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f1d77592a9dc) -
+  Bump adf-schema to 44.2.0
+- Updated dependencies
+
 ## 1.15.6
 
 ### Patch Changes

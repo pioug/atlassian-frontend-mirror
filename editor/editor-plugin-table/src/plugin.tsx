@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
+import {
+	tableCell,
+	tableCellWithNestedTable,
+	tableHeader,
+	tableHeaderWithNestedTable,
+	tableRow,
+	tableRowWithNestedTable,
+} from '@atlaskit/adf-schema';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -39,6 +46,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { insertTableWithSize } from './commands/insert';
 import { pluginConfig } from './create-plugin-config';
@@ -258,20 +266,37 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 
 		nodes() {
 			const { allowColumnResizing } = pluginConfig(options?.tableOptions);
+			const isNestingSupported = fg('platform_editor_use_nested_table_pm_nodes');
 
-			return [
-				{
-					name: 'table',
-					node: tableNodeSpecWithFixedToDOM({
-						allowColumnResizing: Boolean(allowColumnResizing),
-						tableResizingEnabled: Boolean(options?.tableResizingEnabled),
-						getEditorContainerWidth: defaultGetEditorContainerWidth,
-					}),
-				},
-				{ name: 'tableHeader', node: tableHeader },
-				{ name: 'tableRow', node: tableRow },
-				{ name: 'tableCell', node: tableCell },
-			];
+			return isNestingSupported
+				? [
+						{
+							name: 'table',
+							node: tableNodeSpecWithFixedToDOM({
+								allowColumnResizing: Boolean(allowColumnResizing),
+								tableResizingEnabled: Boolean(options?.tableResizingEnabled),
+								getEditorContainerWidth: defaultGetEditorContainerWidth,
+								isNestingSupported,
+							}),
+						},
+						{ name: 'tableHeader', node: tableHeaderWithNestedTable },
+						{ name: 'tableRow', node: tableRowWithNestedTable },
+						{ name: 'tableCell', node: tableCellWithNestedTable },
+					]
+				: [
+						{
+							name: 'table',
+							node: tableNodeSpecWithFixedToDOM({
+								allowColumnResizing: Boolean(allowColumnResizing),
+								tableResizingEnabled: Boolean(options?.tableResizingEnabled),
+								getEditorContainerWidth: defaultGetEditorContainerWidth,
+								isNestingSupported,
+							}),
+						},
+						{ name: 'tableHeader', node: tableHeader },
+						{ name: 'tableRow', node: tableRow },
+						{ name: 'tableCell', node: tableCell },
+					];
 		},
 
 		pmPlugins() {

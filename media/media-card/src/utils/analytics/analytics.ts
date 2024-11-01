@@ -6,7 +6,9 @@ import {
 	getMediaClientErrorReason,
 	type RequestMetadata,
 	isRequestError,
+	isMediaClientError,
 } from '@atlaskit/media-client';
+import { isMediaFileStateError, getFileStateErrorReason } from '@atlaskit/media-client-react';
 import {
 	ANALYTICS_MEDIA_CHANNEL,
 	type FileAttributes,
@@ -29,8 +31,6 @@ import {
 	isKnownErrorType,
 	type MediaCardError,
 	type MediaCardErrorPrimaryReason,
-	getFileStateErrorReason,
-	isMediaFileStateError,
 } from '../../errors';
 import { type CardPreviewSource, type CardDimensions, type CardStatus } from '../../types';
 import { type SSR } from '@atlaskit/media-common';
@@ -256,25 +256,6 @@ export const getRenderPreviewableCardPayload = (
 	},
 });
 
-export const getRenderCommencedEventPayload = (
-	fileAttributes: FileAttributes,
-	performanceAttributes: PerformanceAttributes,
-	traceContext: MediaTraceContext,
-): RenderCommencedEventPayload => {
-	return {
-		eventType: 'operational',
-		action: 'commenced',
-		actionSubject: 'mediaCardRender',
-		attributes: {
-			fileAttributes,
-			performanceAttributes,
-			traceContext: {
-				traceId: traceContext.traceId,
-			},
-		},
-	};
-};
-
 export const getRenderSucceededEventPayload = (
 	fileAttributes: FileAttributes,
 	performanceAttributes: PerformanceAttributes,
@@ -345,9 +326,9 @@ export const getRenderErrorErrorReason = (
 	error: MediaCardError,
 ): MediaClientErrorReason | 'nativeError' => {
 	if (isKnownErrorType(error) && error.secondaryError) {
-		const mediaClientReason = isMediaFileStateError(error.secondaryError)
-			? getFileStateErrorReason(error.secondaryError)
-			: getMediaClientErrorReason(error.secondaryError);
+		const mediaClientReason = isMediaClientError(error.secondaryError)
+			? getMediaClientErrorReason(error.secondaryError)
+			: getFileStateErrorReason(error.secondaryError);
 		if (mediaClientReason !== 'unknown') {
 			return mediaClientReason;
 		}

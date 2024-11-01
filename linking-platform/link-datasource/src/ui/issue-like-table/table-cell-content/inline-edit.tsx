@@ -28,6 +28,8 @@ const getBackendUpdateValue = (typedNewValue: DatasourceTypeWithOnlyValues): str
 	switch (typedNewValue.type) {
 		case 'string':
 			return typedNewValue.values[0] || '';
+		case 'status':
+			return typedNewValue.values[0]?.id || '';
 	}
 
 	throw new Error(
@@ -48,6 +50,15 @@ const mapUpdatedItem = (
 					data: newValue.values[0] || '',
 				},
 			};
+		case 'status':
+			return newValue.values[0]
+				? {
+						...existingItem,
+						[columnKey]: {
+							data: newValue.values[0],
+						},
+					}
+				: existingItem;
 		default:
 	}
 	return null;

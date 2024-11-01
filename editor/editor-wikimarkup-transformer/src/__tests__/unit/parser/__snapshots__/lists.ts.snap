@@ -719,6 +719,10 @@ exports[`JIRA wiki markup - Lists ESS-2539 Should render list separated by ruler
                   "type": "text",
                 },
                 {
+                  "attrs": {
+                    "text": "
+",
+                  },
                   "type": "hardBreak",
                 },
                 {
@@ -761,6 +765,10 @@ exports[`JIRA wiki markup - Lists ESS-2539 Should render list separated by ruler
                           "type": "text",
                         },
                         {
+                          "attrs": {
+                            "text": "
+",
+                          },
                           "type": "hardBreak",
                         },
                         {
@@ -2329,6 +2337,10 @@ exports[`JIRA wiki markup - Lists should find the full content of a list item pr
                   "type": "text",
                 },
                 {
+                  "attrs": {
+                    "text": "
+",
+                  },
                   "type": "hardBreak",
                 },
                 {
@@ -2909,6 +2921,10 @@ exports[`JIRA wiki markup - Lists should not be a list item if it follows by a l
                   "type": "text",
                 },
                 {
+                  "attrs": {
+                    "text": "
+",
+                  },
                   "type": "hardBreak",
                 },
                 {
@@ -2916,6 +2932,10 @@ exports[`JIRA wiki markup - Lists should not be a list item if it follows by a l
                   "type": "text",
                 },
                 {
+                  "attrs": {
+                    "text": "
+",
+                  },
                   "type": "hardBreak",
                 },
                 {

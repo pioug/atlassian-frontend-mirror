@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 201.1.4
+
+### Patch Changes
+
+- [`01ef5296f2ad8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01ef5296f2ad8) -
+  ED-25331 Fix jittering after dropping blockquotes by setting cursor at inline end pos instead of
+  gap cursor
+- Updated dependencies
+
+## 201.1.3
+
+### Patch Changes
+
+- [#159176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159176)
+  [`8f1d77592a9dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f1d77592a9dc) -
+  Bump adf-schema to 44.2.0
+
+## 201.1.2
+
+### Patch Changes
+
+- [#157911](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157911)
+  [`cd5818c8dbf0e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd5818c8dbf0e) -
+  Cleanup FF platform_hide_editor_toolbar_ssr
+
 ## 201.1.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "201.1.1",
+	"version": "201.1.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -38,12 +38,12 @@
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.4.0",
-		"@atlaskit/adf-schema": "^42.3.1",
+		"@atlaskit/adf-schema": "^44.2.0",
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^94.9.0",
+		"@atlaskit/editor-common": "^94.10.0",
 		"@atlaskit/editor-json-transformer": "^8.20.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.6.0",
 		"@atlaskit/editor-plugins": "^5.6.0",
@@ -55,7 +55,7 @@
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
-		"@atlaskit/tmp-editor-statsig": "^2.10.0",
+		"@atlaskit/tmp-editor-statsig": "^2.11.0",
 		"@atlaskit/tokens": "^2.0.0",
 		"@atlaskit/tooltip": "^18.8.0",
 		"@atlaskit/width-detector": "^4.3.0",
@@ -83,8 +83,8 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.10.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
-		"@atlaskit/collab-provider": "9.44.0",
-		"@atlaskit/editor-plugin-annotation": "1.23.1",
+		"@atlaskit/collab-provider": "9.44.1",
+		"@atlaskit/editor-plugin-annotation": "1.23.3",
 		"@atlaskit/editor-plugin-card": "^4.3.0",
 		"@atlaskit/editor-plugin-list": "^3.9.0",
 		"@atlaskit/editor-plugin-paste": "^2.0.0",
@@ -206,9 +206,6 @@
 		"platform_editor_drag_and_drop_expand_style_fix": {
 			"type": "boolean"
 		},
-		"platform_hide_editor_toolbar_ssr": {
-			"type": "boolean"
-		},
 		"platform_editor_media_batch_updates": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -295,6 +292,10 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_element_dnd_nested_fix_patch_4": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform-visual-refresh-icons": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -307,6 +308,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_utilize_linebreakreplacement": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_typography_ugc": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

@@ -373,6 +373,10 @@ exports[`JIRA wiki markup - Links [EX-500] should jump over the link if it is in
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -380,6 +384,10 @@ exports[`JIRA wiki markup - Links [EX-500] should jump over the link if it is in
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

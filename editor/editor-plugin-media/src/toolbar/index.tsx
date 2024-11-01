@@ -56,6 +56,7 @@ import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import FilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
@@ -180,7 +181,8 @@ const generateMediaCardFloatingToolbar = (
 		{
 			id: 'editor.media.view.switcher.inline',
 			type: 'button',
-			icon: IconInline,
+			icon: ImageInlineIcon,
+			iconFallback: IconInline,
 			selected: false,
 			focusEditoronEnter: true,
 			disabled: false,
@@ -192,7 +194,8 @@ const generateMediaCardFloatingToolbar = (
 		{
 			id: 'editor.media.view.switcher.thumbnail',
 			type: 'button',
-			icon: IconCard,
+			icon: SmartLinkCardIcon,
+			iconFallback: IconCard,
 			selected: true,
 			disabled: false,
 			focusEditoronEnter: true,
@@ -278,10 +281,8 @@ const generateMediaSingleFloatingToolbar = (
 		allowMediaInline,
 		allowMediaInlineImages,
 		allowImagePreview,
-		getEditorFeatureFlags,
 		isViewOnly,
 	} = options;
-	const editorFeatureFlags = getEditorFeatureFlags ? getEditorFeatureFlags() : undefined;
 
 	let toolbarButtons: FloatingToolbarItem<Command>[] = [];
 	const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
@@ -558,7 +559,7 @@ const generateMediaSingleFloatingToolbar = (
 			toolbarButtons.push({ type: 'separator' });
 		}
 
-		if (editorFeatureFlags && editorFeatureFlags.commentsOnMedia && allowCommentsOnMedia) {
+		if (allowCommentsOnMedia) {
 			toolbarButtons.push(commentButton(intl, state, pluginInjectionApi), {
 				type: 'separator',
 				supportsViewMode: true,
@@ -675,7 +676,8 @@ const generateMediaSingleFloatingToolbar = (
 		type: 'button',
 		appearance: 'danger',
 		focusEditoronEnter: true,
-		icon: RemoveIcon,
+		icon: DeleteIcon,
+		iconFallback: RemoveIcon,
 		onMouseEnter: hoverDecoration?.(mediaSingle, true),
 		onMouseLeave: hoverDecoration?.(mediaSingle, false),
 		onFocus: hoverDecoration?.(mediaSingle, true),

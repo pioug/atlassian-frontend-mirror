@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 
 import relativeDate from '../../internal/relative-date';
@@ -30,6 +31,38 @@ const detailedListWrapperStyles = xcss({
 	padding: 'space.0',
 });
 
+const fullNameLabelStyles = xcss({
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
+	fontSize: '18px',
+	fontWeight: '400',
+	letterSpacing: 'normal',
+	lineHeight: `${24 / 18}em`,
+});
+
+const noMetaLabelStyles = xcss({
+	marginTop: 'space.400',
+	marginRight: '0',
+	marginBottom: 'space.150',
+	marginLeft: '0',
+});
+
+const metaLabelStyles = xcss({
+	marginTop: 'space.150',
+	marginRight: '0',
+	marginBottom: '0',
+	marginLeft: '0',
+});
+
+const disabledAccountStyles = xcss({
+	color: 'color.text',
+});
+
+const activeAccountStyles = xcss({
+	color: 'color.text.inverse',
+});
+
 const renderName = (nickname?: string, fullName?: string, meta?: string) => {
 	if (!fullName && !nickname) {
 		return null;
@@ -39,6 +72,22 @@ const renderName = (nickname?: string, fullName?: string, meta?: string) => {
 	const shownNickname = ` (${nickname}) `;
 
 	const displayName = isNicknameRedundant ? fullName : `${fullName}${shownNickname}`;
+
+	if (fg('platform_profile_card_css_refactor')) {
+		return (
+			<Box
+				xcss={[
+					fullNameLabelStyles,
+					activeAccountStyles,
+					meta ? metaLabelStyles : noMetaLabelStyles,
+				]}
+				testId="profilecard-name"
+				id="profilecard-name-label"
+			>
+				{displayName}
+			</Box>
+		);
+	}
 
 	return (
 		<FullNameLabel noMeta={!meta} data-testid="profilecard-name" id="profilecard-name-label">
@@ -69,7 +118,7 @@ const disabledAccountDesc = (
 	const secondSentence = <FormattedMessage {...messages[msgKey]} />;
 
 	return (
-		<Text as='p' testId="profilecard-disabled-account">
+		<Text as="p" testId="profilecard-disabled-account">
 			<FormattedMessage {...messages.generalDescMsgForDisabledUser} /> {secondSentence}
 		</Text>
 	);
@@ -122,14 +171,24 @@ const DisabledProfileCardDetails = (
 
 	return (
 		<DetailsGroup>
-			<FullNameLabel
-				noMeta
-				isDisabledAccount
-				data-testid="profilecard-name"
-				id="profilecard-name-label"
-			>
-				{name}
-			</FullNameLabel>
+			{fg('platform_profile_card_css_refactor') ? (
+				<Box
+					xcss={[fullNameLabelStyles, noMetaLabelStyles, disabledAccountStyles]}
+					testId="profilecard-name"
+					id="profilecard-name-label"
+				>
+					{name}
+				</Box>
+			) : (
+				<FullNameLabel
+					noMeta
+					isDisabledAccount
+					data-testid="profilecard-name"
+					id="profilecard-name-label"
+				>
+					{name}
+				</FullNameLabel>
+			)}
 
 			{hasDisabledAccountLozenge && (
 				<LozengeWrapper>

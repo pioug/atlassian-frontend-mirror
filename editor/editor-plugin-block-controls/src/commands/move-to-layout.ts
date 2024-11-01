@@ -177,16 +177,25 @@ export const moveToLayout =
 
 			return moveToExistingLayout(toLayout, toLayoutPos, fromNodeWithoutBreakout, from, toPos, tr);
 		} else {
+			let toNodeWithoutBreakout: PMNode = toNode;
+
+			// remove breakout from node;
+			if (breakout && $to.nodeAfter && $to.nodeAfter.marks.some((m) => m.type === breakout)) {
+				tr.removeNodeMark(to, breakout);
+				// resolve again the source node after node updated (remove breakout marks)
+				toNodeWithoutBreakout = tr.doc.resolve(to).nodeAfter || toNode;
+			}
+
 			const layoutContents = options?.moveToEnd
-				? [toNode, fromNodeWithoutBreakout]
-				: [fromNodeWithoutBreakout, toNode];
+				? [toNodeWithoutBreakout, fromNodeWithoutBreakout]
+				: [fromNodeWithoutBreakout, toNodeWithoutBreakout];
 
 			const newLayout = createNewLayout(tr.doc.type.schema, layoutContents);
 
 			if (newLayout) {
 				tr.delete(from, from + fromNode.nodeSize);
 				const mappedTo = tr.mapping.map(to);
-				tr.delete(mappedTo, mappedTo + toNode.nodeSize)
+				tr.delete(mappedTo, mappedTo + toNodeWithoutBreakout.nodeSize)
 					.insert(mappedTo, newLayout)
 					.setSelection(new NodeSelection(tr.doc.resolve(mappedTo)))
 					.scrollIntoView();

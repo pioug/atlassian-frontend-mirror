@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 26.0.2
+
+### Patch Changes
+
+- [#159249](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159249)
+  [`665bb2f24332d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/665bb2f24332d) -
+  fix React 18 StrictMode issue
+
 ## 26.0.1
 
 ### Patch Changes

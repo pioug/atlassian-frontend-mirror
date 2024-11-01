@@ -204,6 +204,10 @@ exports[`WikiMarkup => ADF Formatters - emphasis should detect emphasis mark at 
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

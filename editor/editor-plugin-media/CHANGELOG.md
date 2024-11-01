@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-media
 
+## 1.39.0
+
+### Minor Changes
+
+- [#158723](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158723)
+  [`8ff5b01b0d37f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ff5b01b0d37f) -
+  [ED-24682] Cleanup feature flag for commenting on media in the renderer
+
+  **@atlaskit/editor-plugin-media**: Add optional checks for the api in Comment Badges on media
+
+### Patch Changes
+
+- [`ccf61c525278a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ccf61c525278a) -
+  fix floating toolbar spacing and legacy icon issues
+- Updated dependencies
+
+## 1.38.6
+
+### Patch Changes
+
+- [#159176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159176)
+  [`8f1d77592a9dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f1d77592a9dc) -
+  Bump adf-schema to 44.2.0
+- Updated dependencies
+
 ## 1.38.5
 
 ### Patch Changes

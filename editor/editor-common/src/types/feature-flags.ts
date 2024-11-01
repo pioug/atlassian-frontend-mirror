@@ -265,15 +265,6 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Enables commenting on media
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-22102
-	 * @default false
-	 */
-	commentsOnMedia?: boolean;
-
-	/**
-	 * @description
 	 * Enables macro interaction visual updates
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/PGXT-4910

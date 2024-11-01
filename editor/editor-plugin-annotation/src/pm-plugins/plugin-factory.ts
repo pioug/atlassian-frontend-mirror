@@ -79,7 +79,6 @@ const getSelectionChangedHandler =
 		}
 
 		if (
-			pluginState.featureFlagsPluginState?.commentsOnMedia &&
 			// If pluginState.selectedAnnotations is annotations of block node, i.e. when a new comment is created,
 			// we keep it as it is so that we can show comment view component with the newly created comment
 			isBlockNodeAnnotationsSelected(tr.selection, pluginState.selectedAnnotations)
@@ -127,7 +126,7 @@ export const { createPluginState, createCommand } = pluginFactory(inlineCommentP
 	onDocChanged: handleDocChanged,
 
 	mapping: (tr, pluginState, editorState) => {
-		let { draftDecorationSet, bookmark, featureFlagsPluginState } = pluginState;
+		let { draftDecorationSet, bookmark } = pluginState;
 		let mappedDecorationSet: DecorationSet = DecorationSet.empty,
 			mappedBookmark;
 		let hasMappedDecorations = false;
@@ -136,22 +135,20 @@ export const { createPluginState, createCommand } = pluginFactory(inlineCommentP
 			mappedDecorationSet = draftDecorationSet.map(tr.mapping, tr.doc);
 		}
 
-		if (featureFlagsPluginState?.commentsOnMedia) {
-			hasMappedDecorations =
-				mappedDecorationSet.find(undefined, undefined, (spec) =>
-					Object.values(decorationKey).includes(spec.key),
-				).length > 0;
+		hasMappedDecorations =
+			mappedDecorationSet.find(undefined, undefined, (spec) =>
+				Object.values(decorationKey).includes(spec.key),
+			).length > 0;
 
-			// When changes to decoration target make decoration invalid (e.g. delete text, add mark to node),
-			// we need to reset bookmark to hide create component and to avoid invalid draft being published
-			// We only perform this change when document selection has changed.
-			if (!hasMappedDecorations && shouldClearBookMarkCheck(tr, editorState, bookmark)) {
-				return {
-					...pluginState,
-					draftDecorationSet: mappedDecorationSet,
-					bookmark: undefined,
-				};
-			}
+		// When changes to decoration target make decoration invalid (e.g. delete text, add mark to node),
+		// we need to reset bookmark to hide create component and to avoid invalid draft being published
+		// We only perform this change when document selection has changed.
+		if (!hasMappedDecorations && shouldClearBookMarkCheck(tr, editorState, bookmark)) {
+			return {
+				...pluginState,
+				draftDecorationSet: mappedDecorationSet,
+				bookmark: undefined,
+			};
 		}
 
 		if (bookmark) {

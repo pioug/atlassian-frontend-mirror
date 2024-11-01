@@ -30,7 +30,6 @@ import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { getDefaultCardDimensions } from '../utils/cardDimensions';
 import { usePrevious } from '../utils/usePrevious';
 import {
-	fireCommencedEvent,
 	fireCopiedEvent,
 	fireOperationalEvent,
 	fireScreenEvent,
@@ -99,16 +98,7 @@ export const ExternalImageCard = ({
 		wasStatusProcessing: false,
 	});
 
-	const fireCommencedEventRef = useCurrentValueRef(() => {
-		createAnalyticsEvent &&
-			fireCommencedEvent(
-				createAnalyticsEvent,
-				fileAttributes,
-				{
-					overall: { durationSincePageStart: timeElapsedTillCommenced },
-				},
-				traceContext,
-			);
+	const startUfoExperienceRef = useCurrentValueRef(() => {
 		startUfoExperience(internalOccurrenceKey);
 	});
 
@@ -198,8 +188,8 @@ export const ExternalImageCard = ({
 	//----------------------------------------------------------------//
 
 	useEffect(() => {
-		fireCommencedEventRef.current();
-	}, [fireCommencedEventRef]);
+		startUfoExperienceRef.current();
+	}, [startUfoExperienceRef]);
 
 	useEffect(() => {
 		const fireCopiedCardEvent = () => {

@@ -4002,6 +4002,10 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
                       "type": "text",
                     },
                     {
+                      "attrs": {
+                        "text": "
+",
+                      },
                       "type": "hardBreak",
                     },
                     {
@@ -4009,6 +4013,10 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
                       "type": "text",
                     },
                     {
+                      "attrs": {
+                        "text": "
+",
+                      },
                       "type": "hardBreak",
                     },
                     {
@@ -4016,6 +4024,10 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
                       "type": "text",
                     },
                     {
+                      "attrs": {
+                        "text": "
+",
+                      },
                       "type": "hardBreak",
                     },
                     {

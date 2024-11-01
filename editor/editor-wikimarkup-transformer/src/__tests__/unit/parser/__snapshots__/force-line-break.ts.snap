@@ -23,6 +23,10 @@ exports[`WikiMarkup => ADF - force line break ESS-2359 should detect hardbreaks 
       },
       "content": [
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -30,6 +34,10 @@ exports[`WikiMarkup => ADF - force line break ESS-2359 should detect hardbreaks 
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -49,6 +57,10 @@ exports[`WikiMarkup => ADF - force line break ESS-2359 should detect hardbreaks 
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
       ],
@@ -92,6 +104,10 @@ exports[`WikiMarkup => ADF - force line break should detect the correct force li
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -119,6 +135,10 @@ exports[`WikiMarkup => ADF - force line break should detect the correct force li
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -126,6 +146,10 @@ exports[`WikiMarkup => ADF - force line break should detect the correct force li
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -153,6 +177,10 @@ exports[`WikiMarkup => ADF - force line break should detect the force line break
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

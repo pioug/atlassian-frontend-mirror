@@ -18,4 +18,8 @@ export type {
 	WithMediaClientConfig,
 } from './withMediaClient';
 
-export { MediaFileStateError } from './MediaFileStateError';
+export {
+	MediaFileStateError,
+	isMediaFileStateError,
+	getFileStateErrorReason,
+} from './MediaFileStateError';

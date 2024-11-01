@@ -50,7 +50,6 @@ import { usePrevious } from '../utils/usePrevious';
 import { ViewportDetector } from '../utils/viewportDetector';
 import { getDefaultCardDimensions } from '../utils/cardDimensions';
 import {
-	fireCommencedEvent,
 	fireCopiedEvent,
 	fireNonCriticalErrorEvent,
 	fireOperationalEvent,
@@ -381,16 +380,7 @@ export const FileCard = ({
 		createAnalyticsEvent && fireScreenEvent(createAnalyticsEvent, fileAttributes);
 	});
 
-	const fireCommencedEventRef = useCurrentValueRef(() => {
-		createAnalyticsEvent &&
-			fireCommencedEvent(
-				createAnalyticsEvent,
-				fileAttributes,
-				{
-					overall: { durationSincePageStart: timeElapsedTillCommenced },
-				},
-				traceContext,
-			);
+	const startUfoExperienceRef = useCurrentValueRef(() => {
 		startUfoExperience(internalOccurrenceKey);
 	});
 
@@ -541,9 +531,9 @@ export const FileCard = ({
 		const turnedVisible = !prevIsCardVisible && isCardVisible;
 
 		if (turnedVisible) {
-			fireCommencedEventRef.current();
+			startUfoExperienceRef.current();
 		}
-	}, [fireCommencedEventRef, isCardVisible, prevIsCardVisible]);
+	}, [startUfoExperienceRef, isCardVisible, prevIsCardVisible]);
 
 	//----------------------------------------------------------------//
 	//----------------- set complete status --------------------------//

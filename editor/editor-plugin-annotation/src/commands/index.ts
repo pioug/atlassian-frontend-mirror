@@ -156,20 +156,18 @@ const getDraftCommandAction: (
 	drafting: boolean,
 	targetType: TargetType,
 	targetNodeId?: string,
-	isCommentOnMediaOn?: boolean,
 	supportedBlockNodes?: string[],
 ) => (state: Readonly<EditorState>) => InlineCommentAction | false = (
 	drafting: boolean,
 	targetType: TargetType,
 	targetNodeId?: string,
-	isCommentOnMediaOn?: boolean,
 	supportedBlockNodes?: string[],
 ) => {
 	return (editorState: EditorState) => {
 		// validate selection only when entering draft mode
 		if (
 			drafting &&
-			isSelectionValid(editorState, isCommentOnMediaOn) !== AnnotationSelectionType.VALID
+			isSelectionValid(editorState) !== AnnotationSelectionType.VALID
 		) {
 			return false;
 		}
@@ -180,7 +178,6 @@ const getDraftCommandAction: (
 				drafting,
 				editorState,
 				targetType,
-				isCommentOnMediaOn,
 				supportedBlockNodes,
 				targetNodeId,
 			},
@@ -236,14 +233,12 @@ export const setInlineCommentDraftState =
 		drafting: boolean,
 		inputMethod: InlineCommentInputMethod = INPUT_METHOD.TOOLBAR,
 		targetType: TargetType = 'inline',
-		isCommentOnMediaOn: boolean = false,
 		targetNodeId: string | undefined = undefined,
 	): Command => {
 		const commandAction = getDraftCommandAction(
 			drafting,
 			targetType,
 			targetNodeId,
-			isCommentOnMediaOn,
 			supportedBlockNodes,
 		);
 		return createCommand(

@@ -138,6 +138,10 @@ exports[`WikiMarkup => ADF Formatters - inserted should detect inserted mark at 
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

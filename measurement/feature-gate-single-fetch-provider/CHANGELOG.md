@@ -1,5 +1,24 @@
 # @atlaskit/feature-gate-single-fetch-provider
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.0
+
+### Minor Changes
+
+- [#158460](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158460)
+  [`bcb59292573a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bcb59292573a3) -
+  Set a sensible default for `perimeter` based on the hostname, rather than always defaulting to
+  commercial
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

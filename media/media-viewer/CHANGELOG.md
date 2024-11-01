@@ -1,5 +1,14 @@
 # @atlaskit/media-viewer
 
+## 49.2.5
+
+### Patch Changes
+
+- [#158851](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158851)
+  [`f5c5983855cae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5c5983855cae) -
+  Fixed logging of file state error events
+- Updated dependencies
+
 ## 49.2.4
 
 ### Patch Changes

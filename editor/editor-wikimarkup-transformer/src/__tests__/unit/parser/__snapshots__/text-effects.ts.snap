@@ -1432,6 +1432,10 @@ exports[`JIRA wiki markup - Text effects should convert double baskslash to a ha
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -1663,6 +1667,10 @@ exports[`JIRA wiki markup - Text effects should not apply marks on separate line
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -1830,6 +1838,10 @@ exports[`JIRA wiki markup - Text effects should not fail while applying marks to
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

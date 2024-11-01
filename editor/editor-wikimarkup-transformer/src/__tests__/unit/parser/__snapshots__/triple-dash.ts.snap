@@ -13,6 +13,10 @@ exports[`JIRA wiki markup - Triple Dash should not replace with triple dashes wh
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -20,6 +24,10 @@ exports[`JIRA wiki markup - Triple Dash should not replace with triple dashes wh
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -27,6 +35,10 @@ exports[`JIRA wiki markup - Triple Dash should not replace with triple dashes wh
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

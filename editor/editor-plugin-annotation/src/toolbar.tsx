@@ -80,13 +80,12 @@ export const buildToolbar =
 		state,
 		intl,
 		isToolbarAbove = false,
-		isCommentOnMediaOn,
 		_supportedNodes = [],
 		api,
 	}: BuildToolbarOptions): FloatingToolbarConfig | undefined => {
 		const { schema } = state;
-		const selectionValid = isSelectionValid(state, isCommentOnMediaOn);
-		const isMediaSelected = isCommentOnMediaOn && currentMediaNodeWithPos(state);
+		const selectionValid = isSelectionValid(state);
+		const isMediaSelected = currentMediaNodeWithPos(state);
 
 		// comments on media can only be added via media floating toolbar
 		if (isMediaSelected || selectionValid === AnnotationSelectionType.INVALID) {

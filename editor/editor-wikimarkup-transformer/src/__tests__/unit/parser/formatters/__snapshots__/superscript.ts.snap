@@ -117,6 +117,10 @@ exports[`WikiMarkup => ADF Formatters - Superscript should detect superscript ma
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

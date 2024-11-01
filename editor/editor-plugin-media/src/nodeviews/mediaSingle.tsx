@@ -319,7 +319,6 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 			annotationPluginState,
 			editorAppearance,
 		} = this.props;
-		const { commentsOnMedia = false } = mediaOptions?.getEditorFeatureFlags?.() || {};
 
 		const {
 			layout,
@@ -473,7 +472,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 						{({ badgeSize }: { badgeSize: 'small' | 'medium' }) => (
 							<>
 								{shouldShowExternalMediaBadge && <ExternalImageBadge badgeSize={badgeSize} />}
-								{commentsOnMedia && (
+								{mediaOptions.allowCommentsOnMedia && (
 									<CommentBadgeNextWrapper
 										view={view}
 										api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}
@@ -487,7 +486,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 						)}
 					</MediaBadges>
 				)}
-				{!editorExperiment('add-media-from-url', true) && commentsOnMedia && (
+				{!editorExperiment('add-media-from-url', true) && mediaOptions.allowCommentsOnMedia && (
 					<CommentBadge
 						view={view}
 						api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}

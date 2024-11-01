@@ -42,7 +42,6 @@ describe('editType', () => {
 		['link', [{ url: 'url' }]],
 		['number', [123]],
 		['richtext', [{ text: '<p></p>>' }]],
-		['status', [{ text: 'DONE' }]],
 		['tag', [{ text: 'ON' }]],
 		['time', ['2023-03-16T14:04:02.200+0000']],
 		['user', [{ displayName: 'Chad', url: 'url' }]],

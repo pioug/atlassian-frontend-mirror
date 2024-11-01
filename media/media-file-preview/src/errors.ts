@@ -1,6 +1,3 @@
-import { type MediaClientErrorReason } from '@atlaskit/media-client';
-import { MediaFileStateError } from '@atlaskit/media-client-react';
-
 import { type MediaFilePreview } from './types';
 
 /**
@@ -147,13 +144,3 @@ export const ensureMediaFilePreviewError = (
 	}
 	return new MediaFilePreviewError(primaryReason, error);
 };
-
-export function isMediaFileStateError(err: Error): err is MediaFileStateError {
-	return err instanceof MediaFileStateError;
-}
-
-export function getFileStateErrorReason(
-	err: MediaFileStateError,
-): MediaClientErrorReason | 'unknown' {
-	return err.details?.reason ?? 'unknown';
-}

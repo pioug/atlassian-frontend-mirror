@@ -1,5 +1,15 @@
 # @atlaskit/media-common
 
+## 11.7.1
+
+### Patch Changes
+
+- [#158723](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158723)
+  [`8ff5b01b0d37f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ff5b01b0d37f) -
+  [ED-24682] Cleanup feature flag for commenting on media in the renderer
+
+  **@atlaskit/editor-plugin-media**: Add optional checks for the api in Comment Badges on media
+
 ## 11.7.0
 
 ### Minor Changes

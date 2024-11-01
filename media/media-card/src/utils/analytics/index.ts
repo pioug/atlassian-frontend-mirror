@@ -15,7 +15,6 @@ export type {
 	RenderInlineCardSucceededEventPayload,
 	RenderInlineCardFailedEventPayload,
 	RenderSucceededEventPayload,
-	RenderCommencedEventPayload,
 	CacheHitEventPayload,
 	RemoteSuccessEventPayload,
 	CopiedFileEventPayload,
@@ -27,7 +26,6 @@ export type {
 export {
 	getFileAttributes,
 	getRenderPreviewableCardPayload,
-	getRenderCommencedEventPayload,
 	getRenderSucceededEventPayload,
 	getCacheHitEventPayload,
 	getRemoteSuccessEventPayload,

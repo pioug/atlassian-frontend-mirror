@@ -136,6 +136,10 @@ export const isTableNested = (state: EditorState, tablePos = 0): boolean => {
 	);
 };
 
+export const isTableNestedInMoreThanOneNode = (state: EditorState, tablePos = 0) => {
+	return state.doc.resolve(tablePos).depth > 2;
+};
+
 const anyChildCellMergedAcrossRow = (node: PmNode): boolean =>
 	mapChildren(node, (child) => child.attrs.rowspan || 0).some((rowspan) => rowspan > 1);
 

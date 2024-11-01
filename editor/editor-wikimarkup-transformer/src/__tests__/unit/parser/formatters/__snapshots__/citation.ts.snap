@@ -113,6 +113,10 @@ exports[`WikiMarkup => ADF Formatters - citation should detect citation mark at 
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

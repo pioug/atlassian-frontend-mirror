@@ -153,6 +153,10 @@ exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark a
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

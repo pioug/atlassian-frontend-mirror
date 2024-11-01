@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-loom
 
+## 3.1.10
+
+### Patch Changes
+
+- [#158883](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158883)
+  [`f0e2b3da18c56`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f0e2b3da18c56) -
+  ED-24719 Clean up platform.editor.plugin.loom.responsive-menu_4at4a FF
+
 ## 3.1.9
 
 ### Patch Changes

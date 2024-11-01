@@ -7,7 +7,8 @@
   "testExamples": [
     "issue-like-table-3p-unauth.tsx",
     "issue-like-table-readonly.tsx",
-    "issue-like-table.tsx",
+    "issue-like-table-j2ws.tsx",
+	"issue-like-table.tsx",
     "jira-issues-config-modal-no-results.tsx",
     "with-issues-modal.tsx"
   ]

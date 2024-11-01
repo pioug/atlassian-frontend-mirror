@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.11.0
+
+### Minor Changes
+
+- [#159227](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159227)
+  [`a82a45030b4c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a82a45030b4c3) -
+  [EDF-1716] Removed getExperimentCohort from @atlassian/generative-ai-modal/utils/experiments
+
 ## 2.10.0
 
 ### Minor Changes

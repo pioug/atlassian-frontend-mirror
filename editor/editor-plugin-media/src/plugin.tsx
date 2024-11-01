@@ -414,7 +414,6 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 						altTextValidator: options && options.altTextValidator,
 						fullWidthEnabled: options && options.fullWidthEnabled,
 						allowMediaInlineImages: options && options.allowMediaInlineImages,
-						getEditorFeatureFlags: options && options.getEditorFeatureFlags,
 						isViewOnly: api?.editorViewMode?.sharedState.currentState()?.mode === 'view',
 					},
 					api,

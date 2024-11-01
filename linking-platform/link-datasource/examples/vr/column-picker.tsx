@@ -52,7 +52,6 @@ export default () => {
 							value={numberOfFields}
 							onChange={(e) => {
 								const value = +e.currentTarget.value;
-								console.log(`set new value of ${value}`);
 								setNumberOfFields(value);
 							}}
 						/>

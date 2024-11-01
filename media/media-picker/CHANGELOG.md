@@ -1,5 +1,17 @@
 # @atlaskit/media-picker
 
+## 67.0.1
+
+### Patch Changes
+
+- [#158723](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158723)
+  [`8ff5b01b0d37f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ff5b01b0d37f) -
+  [ED-24682] Cleanup feature flag for commenting on media in the renderer
+
+  **@atlaskit/editor-plugin-media**: Add optional checks for the api in Comment Badges on media
+
+- Updated dependencies
+
 ## 67.0.0
 
 ### Major Changes

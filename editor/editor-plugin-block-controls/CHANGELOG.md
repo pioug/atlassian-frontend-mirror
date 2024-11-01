@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.3
+
+### Patch Changes
+
+- [`01ef5296f2ad8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01ef5296f2ad8) -
+  ED-25331 Fix jittering after dropping blockquotes by setting cursor at inline end pos instead of
+  gap cursor
+- Updated dependencies
+
+## 2.13.2
+
+### Patch Changes
+
+- [#159192](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159192)
+  [`0df45cd10dc0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0df45cd10dc0d) -
+  ED-25539 fix bug drag a node to a node with breakout
+- Updated dependencies
+
+## 2.13.1
+
+### Patch Changes
+
+- [#159176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159176)
+  [`8f1d77592a9dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f1d77592a9dc) -
+  Bump adf-schema to 44.2.0
+
 ## 2.13.0
 
 ### Minor Changes

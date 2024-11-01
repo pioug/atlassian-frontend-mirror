@@ -3840,7 +3840,7 @@ describe('Card ', () => {
 					),
 				);
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(3, {
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
 					eventType: 'screen',
 					action: 'viewed',
 					actionSubject: 'mediaCardRenderScreen',
@@ -3857,7 +3857,7 @@ describe('Card ', () => {
 					},
 				});
 
-				expect(event.fire).toHaveBeenCalledTimes(3); // 2 operational events, 1 screen event
+				expect(event.fire).toHaveBeenCalledTimes(2); // 1 operational events, 1 screen event
 				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 
@@ -3889,7 +3889,7 @@ describe('Card ', () => {
 					),
 				);
 
-				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(3, {
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
 					eventType: 'screen',
 					action: 'viewed',
 					actionSubject: 'mediaCardRenderScreen',
@@ -3906,7 +3906,7 @@ describe('Card ', () => {
 					},
 				});
 
-				expect(event.fire).toHaveBeenCalledTimes(3); // 2 operational events, 1 screen event
+				expect(event.fire).toHaveBeenCalledTimes(2); // 1 operational events, 1 screen event
 				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 		});
@@ -3958,29 +3958,6 @@ describe('Card ', () => {
 				await waitFor(() => {
 					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
 						eventType: 'operational',
-						action: 'commenced',
-						actionSubject: 'mediaCardRender',
-						attributes: {
-							fileAttributes: {
-								fileMediatype: undefined,
-								fileMimetype: undefined,
-								fileId: fileItem.id,
-								fileSize: undefined,
-								fileStatus: undefined,
-							},
-							performanceAttributes: {
-								overall: {
-									durationSincePageStart: PERFORMANCE_NOW,
-								},
-							},
-							traceContext: { traceId: expect.any(String) },
-						},
-					});
-				});
-
-				await waitFor(() => {
-					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-						eventType: 'operational',
 						action: 'succeeded',
 						actionSubject: 'mediaCardRender',
 						attributes: {
@@ -4006,7 +3983,7 @@ describe('Card ', () => {
 					});
 				});
 
-				expect(event.fire).toHaveBeenCalledTimes(3); // 2 operational events, 1 screen event
+				expect(event.fire).toHaveBeenCalledTimes(2); // 1 operational events, 1 screen event
 				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 
@@ -4044,26 +4021,6 @@ describe('Card ', () => {
 				await waitFor(() => {
 					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
 						eventType: 'operational',
-						action: 'commenced',
-						actionSubject: 'mediaCardRender',
-						attributes: {
-							fileAttributes: {
-								fileMediatype: 'image',
-								fileId: extIdentifier.mediaItemType,
-							},
-							performanceAttributes: {
-								overall: {
-									durationSincePageStart: PERFORMANCE_NOW,
-								},
-							},
-							traceContext: { traceId: expect.any(String) },
-						},
-					});
-				});
-
-				await waitFor(() => {
-					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-						eventType: 'operational',
 						action: 'succeeded',
 						actionSubject: 'mediaCardRender',
 						attributes: {
@@ -4086,7 +4043,7 @@ describe('Card ', () => {
 					});
 				});
 
-				expect(event.fire).toHaveBeenCalledTimes(3); // 2 operational events, 1 screen event
+				expect(event.fire).toHaveBeenCalledTimes(2); // 1 operational events, 1 screen event
 				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 
@@ -4119,29 +4076,6 @@ describe('Card ', () => {
 				await waitFor(() => {
 					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
 						eventType: 'operational',
-						action: 'commenced',
-						actionSubject: 'mediaCardRender',
-						attributes: {
-							fileAttributes: {
-								fileMediatype: undefined,
-								fileMimetype: undefined,
-								fileId: fileItem.id,
-								fileSize: undefined,
-								fileStatus: undefined,
-							},
-							performanceAttributes: {
-								overall: {
-									durationSincePageStart: PERFORMANCE_NOW,
-								},
-							},
-							traceContext: { traceId: expect.any(String) },
-						},
-					});
-				});
-
-				await waitFor(() => {
-					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-						eventType: 'operational',
 						action: 'failed',
 						actionSubject: 'mediaCardRender',
 						attributes: {
@@ -4171,7 +4105,7 @@ describe('Card ', () => {
 					});
 				});
 
-				expect(event.fire).toHaveBeenCalledTimes(2);
+				expect(event.fire).toHaveBeenCalledTimes(1);
 				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 
@@ -4204,29 +4138,6 @@ describe('Card ', () => {
 				await waitFor(() => {
 					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
 						eventType: 'operational',
-						action: 'commenced',
-						actionSubject: 'mediaCardRender',
-						attributes: {
-							fileAttributes: {
-								fileMediatype: undefined,
-								fileMimetype: undefined,
-								fileId: fileItem.id,
-								fileSize: undefined,
-								fileStatus: undefined,
-							},
-							performanceAttributes: {
-								overall: {
-									durationSincePageStart: PERFORMANCE_NOW,
-								},
-							},
-							traceContext: { traceId: expect.any(String) },
-						},
-					});
-				});
-
-				await waitFor(() => {
-					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-						eventType: 'operational',
 						action: 'failed',
 						actionSubject: 'mediaCardRender',
 						attributes: {
@@ -4256,7 +4167,7 @@ describe('Card ', () => {
 					});
 				});
 
-				expect(event.fire).toHaveBeenCalledTimes(2);
+				expect(event.fire).toHaveBeenCalledTimes(1);
 				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 
@@ -4285,29 +4196,6 @@ describe('Card ', () => {
 				await waitFor(() => {
 					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
 						eventType: 'operational',
-						action: 'commenced',
-						actionSubject: 'mediaCardRender',
-						attributes: {
-							fileAttributes: {
-								fileMediatype: undefined,
-								fileMimetype: undefined,
-								fileId: fileItem.id,
-								fileSize: undefined,
-								fileStatus: undefined,
-							},
-							performanceAttributes: {
-								overall: {
-									durationSincePageStart: PERFORMANCE_NOW,
-								},
-							},
-							traceContext: { traceId: expect.any(String) },
-						},
-					});
-				});
-
-				await waitFor(() => {
-					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-						eventType: 'operational',
 						action: 'failed',
 						actionSubject: 'mediaCardRender',
 						attributes: {
@@ -4334,7 +4222,7 @@ describe('Card ', () => {
 					});
 				});
 
-				expect(event.fire).toHaveBeenCalledTimes(2);
+				expect(event.fire).toHaveBeenCalledTimes(1);
 				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 
@@ -4366,29 +4254,6 @@ describe('Card ', () => {
 
 				await waitFor(() => {
 					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
-						eventType: 'operational',
-						action: 'commenced',
-						actionSubject: 'mediaCardRender',
-						attributes: {
-							fileAttributes: {
-								fileMediatype: undefined,
-								fileMimetype: undefined,
-								fileId: fileItem.id,
-								fileSize: undefined,
-								fileStatus: undefined,
-							},
-							performanceAttributes: {
-								overall: {
-									durationSincePageStart: PERFORMANCE_NOW,
-								},
-							},
-							traceContext: { traceId: expect.any(String) },
-						},
-					});
-				});
-
-				await waitFor(() => {
-					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
 						eventType: 'operational',
 						action: 'failed',
 						actionSubject: 'mediaCardRender',
@@ -4425,7 +4290,7 @@ describe('Card ', () => {
 					});
 				});
 
-				expect(event.fire).toHaveBeenCalledTimes(2);
+				expect(event.fire).toHaveBeenCalledTimes(1);
 				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 
@@ -4458,29 +4323,6 @@ describe('Card ', () => {
 				await waitFor(() => {
 					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
 						eventType: 'operational',
-						action: 'commenced',
-						actionSubject: 'mediaCardRender',
-						attributes: {
-							fileAttributes: {
-								fileMediatype: undefined,
-								fileMimetype: undefined,
-								fileId: fileItem.id,
-								fileSize: undefined,
-								fileStatus: undefined,
-							},
-							performanceAttributes: {
-								overall: {
-									durationSincePageStart: PERFORMANCE_NOW,
-								},
-							},
-							traceContext: { traceId: expect.any(String) },
-						},
-					});
-				});
-
-				await waitFor(() => {
-					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
-						eventType: 'operational',
 						action: 'failed',
 						actionSubject: 'mediaCardRender',
 						attributes: {
@@ -4510,7 +4352,7 @@ describe('Card ', () => {
 					});
 				});
 
-				expect(event.fire).toHaveBeenCalledTimes(2);
+				expect(event.fire).toHaveBeenCalledTimes(1);
 				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 		});
@@ -4552,30 +4394,9 @@ describe('Card ', () => {
 			);
 			makeVisible();
 
-			await waitFor(() => expect(event.fire).toHaveBeenCalledTimes(2));
+			await waitFor(() => expect(event.fire).toHaveBeenCalledTimes(1));
 
 			expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
-				eventType: 'operational',
-				action: 'commenced',
-				actionSubject: 'mediaCardRender',
-				attributes: {
-					fileAttributes: {
-						fileMediatype: undefined,
-						fileMimetype: undefined,
-						fileId: fileItem.id,
-						fileSize: undefined,
-						fileStatus: undefined,
-					},
-					performanceAttributes: {
-						overall: {
-							durationSincePageStart: PERFORMANCE_NOW,
-						},
-					},
-					traceContext: { traceId: expect.any(String) },
-				},
-			});
-
-			expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
 				eventType: 'operational',
 				action: 'nonCriticalFail',
 				actionSubject: 'mediaCardRender',

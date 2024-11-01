@@ -391,7 +391,6 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 		contextIdentifierProvider: contextIdentifierProviderPromise,
 		mediaPluginState,
 	} = mediaSingleNodeNextProps;
-	const { commentsOnMedia = false } = mediaOptions?.getEditorFeatureFlags?.() || {};
 
 	const [mediaProvider, setMediaProvider] = React.useState<MediaProvider | null>(null);
 	const [_contextIdentifierProvider, setContextIdentifierProvider] =
@@ -629,7 +628,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 					{({ badgeSize }: { badgeSize: 'small' | 'medium' }) => (
 						<>
 							{shouldShowExternalMediaBadge && <ExternalImageBadge badgeSize={badgeSize} />}
-							{commentsOnMedia && (
+							{mediaOptions.allowCommentsOnMedia && (
 								<CommentBadgeNextWrapper
 									view={view}
 									api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}
@@ -643,7 +642,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 					)}
 				</MediaBadges>
 			)}
-			{!editorExperiment('add-media-from-url', true) && commentsOnMedia && (
+			{!editorExperiment('add-media-from-url', true) && mediaOptions.allowCommentsOnMedia && (
 				<CommentBadge
 					view={view}
 					api={pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>}

@@ -786,6 +786,13 @@ describe('JSONTransformer:', () => {
 			expect(transformer.encodeNode(textNode as PMNode)).toEqual(expected);
 		});
 
+		it('should encode hardBreak and remove redundant attrs', () => {
+			const schema = AdfSchemaDefault.getSchemaBasedOnStage();
+			const hardBreak = schema.nodes.hardBreak.createChecked();
+
+			expect(transformer.encodeNode(hardBreak as PMNode).attrs).toBeUndefined();
+		});
+
 		describe('unsupported mark', () => {
 			let markOverrideRuleFor: any;
 			beforeEach(() => {
@@ -1601,6 +1608,7 @@ describe('JSONTransformer:', () => {
 									type: 'breakout',
 									attrs: {
 										mode: 'wide',
+										width: null,
 									},
 								},
 								{
@@ -1632,6 +1640,7 @@ describe('JSONTransformer:', () => {
 									type: 'breakout',
 									attrs: {
 										mode: 'wide',
+										width: null,
 									},
 								},
 							],
@@ -1661,6 +1670,7 @@ describe('JSONTransformer:', () => {
 											type: 'breakoutInvalid',
 											attrs: {
 												mode: 'wide',
+												width: null,
 											},
 										},
 									},
@@ -1694,6 +1704,7 @@ describe('JSONTransformer:', () => {
 									type: 'breakoutInvalid',
 									attrs: {
 										mode: 'wide',
+										width: null,
 									},
 								},
 							],

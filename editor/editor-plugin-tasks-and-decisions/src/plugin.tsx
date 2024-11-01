@@ -153,7 +153,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		allowNestedTasks,
 		consumeTabs,
 		useLongPressSelection,
-		hasEditPermission,
+		hasEditPermission = true,
 		hasRequestedEditPermission,
 		requestToEditContent,
 		taskDecisionProvider,
@@ -198,7 +198,10 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 				isInsideTask: isInsideTask(editorState),
 				indentDisabled: itemIndex === 0 || indentLevel >= MAX_INDENTATION_LEVEL,
 				outdentDisabled: indentLevel <= 1,
-				hasEditPermission: pluginState?.hasEditPermission,
+				// hasEditPermission is assumed to be true if pluginState.hasEditPermission is undefined
+				// this allows the default plugin state to initialise as true if the extra configuration is not provided
+				hasEditPermission:
+					pluginState?.hasEditPermission !== undefined ? pluginState?.hasEditPermission : true,
 				requestToEditContent: pluginState?.requestToEditContent,
 				hasRequestedEditPermission: pluginState?.hasRequestedEditPermission,
 				taskDecisionProvider: pluginState?.taskDecisionProvider,
@@ -270,13 +273,13 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					<ToolbarDecision
 						editorView={editorView}
 						isDisabled={disabled}
-						isReducedSpacing={true}
+						isReducedSpacing
 						editorAPI={api}
 					/>
 					<ToolbarTask
 						editorView={editorView}
 						isDisabled={disabled}
-						isReducedSpacing={true}
+						isReducedSpacing
 						editorAPI={api}
 					/>
 				</div>

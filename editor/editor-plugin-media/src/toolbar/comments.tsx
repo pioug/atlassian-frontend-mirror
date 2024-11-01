@@ -48,7 +48,6 @@ export const commentButton = (
 					// TODO: might need to update to reflect it's from media floating toolbar
 					INPUT_METHOD.FLOATING_TB,
 					'block',
-					true,
 					selectMediaNode.attrs?.id,
 				)(state, dispatch);
 			}

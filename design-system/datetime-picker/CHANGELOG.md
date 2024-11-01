@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 15.7.0
+
+### Minor Changes
+
+- [#158791](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158791)
+  [`2dcea88bcb6c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2dcea88bcb6c7) -
+  Support React 18 SSR by removing use of react-uid
+
 ## 15.6.0
 
 ### Minor Changes

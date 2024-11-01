@@ -1,5 +1,18 @@
 # @atlaskit/media-card
 
+## 78.10.3
+
+### Patch Changes
+
+- [#158851](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158851)
+  [`f5c5983855cae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5c5983855cae) -
+  Used new @atlaskit/media-client-react functions for verifying MediaFileStateError type and
+  extracting error reason
+- [#159313](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159313)
+  [`d9195e7bfb522`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d9195e7bfb522) -
+  Removed unused mediaCardRender commenced event
+- Updated dependencies
+
 ## 78.10.2
 
 ### Patch Changes

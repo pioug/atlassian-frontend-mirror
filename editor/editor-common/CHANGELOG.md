@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 94.10.0
+
+### Minor Changes
+
+- [#159372](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159372)
+  [`a76bccb5634a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a76bccb5634a4) -
+  add custom tokens for editor bold ugc headings
+
+## 94.9.3
+
+### Patch Changes
+
+- [#158723](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158723)
+  [`8ff5b01b0d37f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ff5b01b0d37f) -
+  [ED-24682] Cleanup feature flag for commenting on media in the renderer
+
+  **@atlaskit/editor-plugin-media**: Add optional checks for the api in Comment Badges on media
+
+- Updated dependencies
+
+## 94.9.2
+
+### Patch Changes
+
+- [#159176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159176)
+  [`8f1d77592a9dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f1d77592a9dc) -
+  Bump adf-schema to 44.2.0
+
 ## 94.9.1
 
 ### Patch Changes

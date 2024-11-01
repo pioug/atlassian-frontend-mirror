@@ -51,6 +51,8 @@ function Date({
 							}}
 							locale={intl.locale}
 							placeholder={placeholder}
+							shouldShowCalendarButton
+							inputLabel={label}
 						/>
 						<FieldMessages error={error} description={description} />
 					</>

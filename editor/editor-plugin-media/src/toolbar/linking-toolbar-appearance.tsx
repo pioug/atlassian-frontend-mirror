@@ -128,7 +128,7 @@ export const LinkToolbarAppearance = ({
 					onClick={onAddLink}
 					title={title}
 					tooltipContent={<ToolTipContent description={title} keymap={addLink} />}
-					icon={<LinkIcon color="currentColor" label={title} />}
+					icon={<LinkIcon color="currentColor" label={title} spacing="spacious" />}
 				/>
 				<Separator />
 			</Fragment>

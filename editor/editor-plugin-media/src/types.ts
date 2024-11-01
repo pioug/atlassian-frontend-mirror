@@ -133,7 +133,6 @@ export type MediaFloatingToolbarOptions = {
 	allowAltTextOnImages?: boolean;
 	allowImagePreview?: boolean;
 	altTextValidator?: (value: string) => string[];
-	getEditorFeatureFlags?: GetEditorFeatureFlags;
 	fullWidthEnabled?: boolean;
 	allowCommentsOnMedia?: boolean;
 	isViewOnly?: boolean;

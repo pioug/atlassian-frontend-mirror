@@ -33,6 +33,10 @@ exports[`JIRA wiki markup - Misc [CS-480] this is not a list 1`] = `
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

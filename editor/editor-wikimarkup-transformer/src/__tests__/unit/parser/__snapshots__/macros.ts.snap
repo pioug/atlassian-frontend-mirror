@@ -378,6 +378,10 @@ exports[`JIRA wiki markup - Macros ESS-2539 should not ignore the newline if the
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

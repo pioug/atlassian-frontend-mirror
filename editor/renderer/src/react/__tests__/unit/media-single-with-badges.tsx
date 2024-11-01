@@ -23,19 +23,18 @@ jest.mock('@atlaskit/editor-common/media-single', () => ({
 }));
 
 type Props = {
-	commentsOnMedia: boolean;
 	includeNodeType: boolean;
 	excerptIncludeClass: boolean;
 	type?: MediaType;
 };
 
 const createMockProps = (props: Props) => {
-	const { commentsOnMedia, includeNodeType, excerptIncludeClass, type } = props;
+	const { includeNodeType, excerptIncludeClass, type } = props;
 
 	const mockProps = {
 		type: type ?? ('file' as MediaType),
 		marks: [mockAnnotationMark, mockLinkDefinition, mockBorderMark],
-		featureFlags: { commentsOnMedia },
+		featureFlags: {},
 		mediaSingleElement: document.createElement('div'),
 		isBorderMark: () => true,
 		isLinkMark: () => true,
@@ -81,13 +80,12 @@ describe('MediaWithDraftAnnotation', () => {
 		nextState = { 1: AnnotationMarkStates.ACTIVE };
 	});
 
-	it('should show CommentBadge when commentsOnMedia flag is true', () => {
+	it('should show CommentBadge if there is a comment', () => {
 		const { queryByTestId } = render(
 			<IntlProvider locale="en">
 				<InlineCommentsStateContext.Provider value={nextState}>
 					<MediaWithDraftAnnotation
 						{...createMockProps({
-							commentsOnMedia: true,
 							includeNodeType: false,
 							excerptIncludeClass: false,
 						})}
@@ -101,33 +99,12 @@ describe('MediaWithDraftAnnotation', () => {
 		expect(commentBadge).not.toBeNull();
 	});
 
-	it('should not show CommentBadge when commentsOnMedia flag is false', () => {
-		const { queryByTestId } = render(
-			<IntlProvider locale="en">
-				<InlineCommentsStateContext.Provider value={nextState}>
-					<MediaWithDraftAnnotation
-						{...createMockProps({
-							commentsOnMedia: false,
-							includeNodeType: false,
-							excerptIncludeClass: false,
-						})}
-					/>
-				</InlineCommentsStateContext.Provider>
-				,
-			</IntlProvider>,
-		);
-
-		const commentBadge = queryByTestId('comment-badge');
-		expect(commentBadge).toBeNull();
-	});
-
 	it('should not show CommentBadge when closest nodeType is include', () => {
 		const { queryByTestId } = render(
 			<IntlProvider locale="en">
 				<InlineCommentsStateContext.Provider value={nextState}>
 					<MediaWithDraftAnnotation
 						{...createMockProps({
-							commentsOnMedia: true,
 							includeNodeType: true,
 							excerptIncludeClass: false,
 						})}
@@ -147,7 +124,6 @@ describe('MediaWithDraftAnnotation', () => {
 				<InlineCommentsStateContext.Provider value={nextState}>
 					<MediaWithDraftAnnotation
 						{...createMockProps({
-							commentsOnMedia: true,
 							includeNodeType: false,
 							excerptIncludeClass: true,
 						})}
@@ -169,7 +145,6 @@ describe('MediaWithDraftAnnotation', () => {
 						<InlineCommentsStateContext.Provider value={nextState}>
 							<MediaWithDraftAnnotation
 								{...createMockProps({
-									commentsOnMedia: false,
 									includeNodeType: false,
 									excerptIncludeClass: false,
 									type: 'external',
@@ -200,7 +175,6 @@ describe('MediaWithDraftAnnotation', () => {
 						<InlineCommentsStateContext.Provider value={nextState}>
 							<MediaWithDraftAnnotation
 								{...createMockProps({
-									commentsOnMedia: false,
 									includeNodeType: false,
 									excerptIncludeClass: false,
 									type: 'file',

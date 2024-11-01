@@ -10,7 +10,6 @@ import {
 	getRenderErrorEventPayload,
 	getRenderFailedFileStatusPayload,
 	getCopiedFilePayload,
-	getRenderCommencedEventPayload,
 	type MediaCardAnalyticsEventPayload,
 	getRenderPreviewableCardPayload,
 	type SSRStatus,
@@ -68,18 +67,6 @@ export const fireOperationalEvent = (
 			);
 			break;
 	}
-};
-
-export const fireCommencedEvent = (
-	createAnalyticsEvent: CreateUIAnalyticsEvent,
-	fileAttributes: FileAttributes,
-	performanceAttributes: PerformanceAttributes,
-	traceContext: MediaTraceContext,
-) => {
-	fireMediaCardEvent(
-		getRenderCommencedEventPayload(fileAttributes, performanceAttributes, traceContext),
-		createAnalyticsEvent,
-	);
 };
 
 export const fireCopiedEvent = (

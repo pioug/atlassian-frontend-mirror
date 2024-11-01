@@ -2,9 +2,11 @@ import React from 'react';
 
 import type InlineEdit from '@atlaskit/inline-edit';
 import type { DatasourceType } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type DatasourceTypeWithOnlyValues } from '../types';
 
+import StatusEditType from './status';
 import TextEditType, { toTextValue } from './text';
 
 // This is used in editor-card-plugin to identify if any type of inline edit is active.
@@ -32,16 +34,26 @@ export const editType = ({
 					/>
 				),
 			};
+		case 'status':
+			return {
+				defaultValue: toTextValue(defaultValue),
+				editView: ({ ...fieldProps }) => (
+					<StatusEditType
+						{...fieldProps}
+						currentValue={currentValue}
+						setEditValues={setEditValues}
+						id={ACTIVE_INLINE_EDIT_ID}
+					/>
+				),
+			};
 		default:
 			return { defaultValue: '', editView: () => <></> };
 	}
 };
 
 export const isEditTypeSupported = (type: DatasourceType['type']) => {
-	switch (type) {
-		case 'string':
-			return true;
-		default:
-			return false;
-	}
+	const supportedEditType = fg('platform-datasources-enable-two-way-sync-statuses')
+		? ['string', 'status']
+		: ['string'];
+	return supportedEditType.includes(type);
 };

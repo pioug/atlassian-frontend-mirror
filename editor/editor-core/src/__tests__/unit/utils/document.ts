@@ -1958,6 +1958,7 @@ describe(name, () => {
 										type: 'breakout',
 										attrs: {
 											mode: 'wide',
+											width: null,
 										},
 									},
 								],
@@ -1997,7 +1998,7 @@ describe(name, () => {
 									},
 								],
 								marks: [
-									{ type: 'breakout', attrs: { mode: 'wide' } },
+									{ type: 'breakout', attrs: { mode: 'wide', width: null } },
 									{
 										type: 'unsupportedMark',
 										attrs: { originalValue: { type: 'alignment' } },
@@ -2638,6 +2639,7 @@ describe(name, () => {
 											type: 'breakout',
 											attrs: {
 												mode: 'wide',
+												width: null,
 											},
 										},
 									],
@@ -2658,6 +2660,7 @@ describe(name, () => {
 											type: 'breakout',
 											attrs: {
 												mode: 'wide',
+												width: null,
 											},
 										},
 										{
@@ -2694,6 +2697,7 @@ describe(name, () => {
 											type: 'breakout123',
 											attrs: {
 												mode: 'wide',
+												width: null,
 											},
 										},
 									],
@@ -2717,6 +2721,7 @@ describe(name, () => {
 													type: 'breakout123',
 													attrs: {
 														mode: 'wide',
+														width: null,
 													},
 												},
 											},
@@ -2755,6 +2760,7 @@ describe(name, () => {
 											type: 'breakout',
 											attrs: {
 												mode: 'wide',
+												width: null,
 											},
 										},
 									],
@@ -2774,6 +2780,7 @@ describe(name, () => {
 										{
 											type: 'breakout',
 											attrs: {
+												width: null,
 												mode: 'wide',
 											},
 										},
@@ -2809,6 +2816,7 @@ describe(name, () => {
 										{
 											type: 'breakoutInvalid',
 											attrs: {
+												width: null,
 												mode: 'wide',
 											},
 										},
@@ -2833,6 +2841,7 @@ describe(name, () => {
 													type: 'breakoutInvalid',
 													attrs: {
 														mode: 'wide',
+														width: null,
 													},
 												},
 											},

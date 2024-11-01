@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-viewer",
-	"version": "49.2.4",
+	"version": "49.2.5",
 	"description": "MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/icon-file-type": "^6.7.0",
 		"@atlaskit/media-client": "^28.0.0",
-		"@atlaskit/media-client-react": "^2.2.0",
+		"@atlaskit/media-client-react": "^2.3.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-svg": "^0.2.0",
 		"@atlaskit/media-ui": "^26.0.0",

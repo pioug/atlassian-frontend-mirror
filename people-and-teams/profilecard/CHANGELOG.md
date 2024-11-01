@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 20.8.3
+
+### Patch Changes
+
+- [#159176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159176)
+  [`b8e7f2a47aae5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b8e7f2a47aae5) -
+  A11Y-7954 Fix expandable button reading order
+
 ## 20.8.2
 
 ### Patch Changes

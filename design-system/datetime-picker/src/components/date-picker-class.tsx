@@ -7,16 +7,13 @@ import { Component, createRef, type CSSProperties } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { isValid, parseISO } from 'date-fns';
-// This is a deprecated component but we will be able to use the actual hook
-// version very soon from converting this to functional. And also React 18 is on
-// the horizon
-import { UID } from 'react-uid';
 
 import {
 	createAndFireEvent,
 	withAnalyticsContext,
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+import { IdProvider } from '@atlaskit/ds-lib/use-id';
 import CalendarIconNew from '@atlaskit/icon/core/migration/calendar';
 import CalendarIconOld from '@atlaskit/icon/glyph/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
@@ -651,8 +648,8 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					shouldSetFocusOnCurrentDay={calendarProps.shouldSetFocusOnCurrentDay}
 				/>
 				{shouldShowCalendarButton && !isDisabled ? (
-					<UID name={(id) => `open-calendar-label--${id}`}>
-						{(openCalendarLabelId) => (
+					<IdProvider prefix="open-calendar-label--">
+						{({ id: openCalendarLabelId }) => (
 							<div
 								css={[
 									iconContainerStyles,
@@ -694,7 +691,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 								</Pressable>
 							</div>
 						)}
-					</UID>
+					</IdProvider>
 				) : null}
 			</div>
 		);

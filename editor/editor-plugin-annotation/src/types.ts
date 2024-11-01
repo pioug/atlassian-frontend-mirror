@@ -35,8 +35,6 @@ type SetInlineCommentDraftState = (
 	inputMethod: InlineCommentInputMethod,
 	/** @default 'inline' */
 	targetType?: TargetType,
-	/** check for confluence.frontend.fabric.editor.comments-on-media feature flag */
-	isCommentOnMediaOn?: boolean,
 	targetNodeId?: string,
 ) => Command;
 

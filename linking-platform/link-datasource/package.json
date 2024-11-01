@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.6.15",
+	"version": "3.7.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,14 +34,14 @@
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^42.3.1",
+		"@atlaskit/adf-schema": "^44.2.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/atlassian-context": "^0.0.2",
 		"@atlaskit/avatar": "^21.17.0",
 		"@atlaskit/avatar-group": "^10.0.0",
 		"@atlaskit/badge": "^16.4.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/datetime-picker": "^15.6.0",
+		"@atlaskit/datetime-picker": "^15.7.0",
 		"@atlaskit/dropdown-menu": "^12.22.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/empty-state": "^7.12.0",
@@ -167,6 +167,9 @@
 			"type": "boolean"
 		},
 		"enable_datasource_supporting_actions": {
+			"type": "boolean"
+		},
+		"platform-datasources-enable-two-way-sync-statuses": {
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource-assets_add_version_parameter": {

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.9.9
+
+### Patch Changes
+
+- [#159176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159176)
+  [`8f1d77592a9dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f1d77592a9dc) -
+  Bump adf-schema to 44.2.0
+
+## 1.9.8
+
+### Patch Changes
+
+- [#158827](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158827)
+  [`6696a5d9665c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6696a5d9665c7) -
+  Refactor forceColumnStructure so it works for 2-5 columns layout under advanced_layout experiment
+
 ## 1.9.7
 
 ### Patch Changes

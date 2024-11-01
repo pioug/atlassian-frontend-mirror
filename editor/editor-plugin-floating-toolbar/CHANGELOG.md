@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.14.2
+
+### Patch Changes
+
+- [`ccf61c525278a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ccf61c525278a) -
+  fix floating toolbar spacing and legacy icon issues
+
 ## 1.14.1
 
 ### Patch Changes

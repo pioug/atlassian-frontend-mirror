@@ -411,8 +411,7 @@ class Media extends PureComponent<MediaProps, {}> {
 		const isInPageInclude = mediaSingleElement?.closest('[data-node-type="include"]');
 		const isIncludeExcerpt = !!mediaSingleElement?.closest('.ak-excerpt-include');
 
-		const showCommentBadge =
-			!!annotationMarks && featureFlags?.commentsOnMedia && !isInPageInclude && !isIncludeExcerpt;
+		const showCommentBadge = !!annotationMarks && !isInPageInclude && !isIncludeExcerpt;
 		const shouldShowExternalMediaBadge = this.props.type === 'external';
 
 		return (

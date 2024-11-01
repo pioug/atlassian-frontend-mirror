@@ -1,5 +1,14 @@
 # @atlaskit/avatar
 
+## 21.17.1
+
+### Patch Changes
+
+- [#157335](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157335)
+  [`51a41686c7949`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/51a41686c7949) -
+  Fixes lineheight issue for xxxsmall avatars which was throwing off the positioning of the fallback
+  icon
+
 ## 21.17.0
 
 ### Minor Changes

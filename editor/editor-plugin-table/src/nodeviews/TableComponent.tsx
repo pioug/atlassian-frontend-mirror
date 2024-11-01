@@ -70,6 +70,7 @@ import {
 	containsHeaderRow,
 	getAssistiveMessage,
 	isTableNested,
+	isTableNestedInMoreThanOneNode,
 	tablesHaveDifferentColumnWidths,
 	tablesHaveDifferentNoOfColumns,
 	tablesHaveDifferentNoOfRows,
@@ -92,6 +93,10 @@ const initialOverflowCaptureTimeroutDelay = 300;
 // the current collected data becomes stale and we want to start collecting fresh data again in future.
 // PLEASE NOTE: that the current way this alaytics has been configured WILL cause reflows to occur. This is why the has been disabled.
 const isOverflowAnalyticsEnabled = false;
+
+// Prevent unnecessary parentWidth updates when table is nested inside of a node that is nested itself.
+const NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MIN_THRESHOLD = 2;
+const NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MAX_THRESHOLD = 20;
 
 interface ComponentProps {
 	view: EditorView;
@@ -161,6 +166,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	private isInitialOverflowSent: boolean;
 	private initialOverflowCaptureTimerId?: ReturnType<typeof setTimeout>;
 	private resizeObserver?: ResizeObserver;
+
+	private wrapperWidth?: number;
+	private wrapperReisizeObserver?: ResizeObserver;
 
 	private dragAndDropCleanupFn?: CleanupFn;
 
@@ -248,6 +256,16 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			this.handleColgroupUpdates(true);
 		}
 
+		if (this.wrapper && fg('platform_editor_nested_table_in_nested_parent_fix')) {
+			this.wrapperReisizeObserver = new ResizeObserver((entries) => {
+				for (const entry of entries) {
+					this.wrapperWidth = entry.contentRect.width;
+				}
+			});
+
+			this.wrapperReisizeObserver.observe(this.wrapper);
+		}
+
 		if (allowColumnResizing && this.wrapper && !isIE11) {
 			this.wrapper.addEventListener('scroll', this.handleScrollDebounced, {
 				passive: true,
@@ -305,6 +323,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 
 		this.resizeObserver?.disconnect();
+		this.wrapperReisizeObserver?.disconnect();
 
 		if (this.stickyScrollbar) {
 			this.stickyScrollbar.dispose();
@@ -1025,7 +1044,37 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		const isNested = isTableNested(this.props.view.state, this.props.getPos());
 
-		const parentWidth = this.getParentNodeWidth();
+		let parentWidth = this.getParentNodeWidth();
+
+		if (
+			isNested &&
+			isTableNestedInMoreThanOneNode(this.props.view.state, this.props.getPos()) &&
+			fg('platform_editor_nested_table_in_nested_parent_fix')
+		) {
+			const resizeObsWrapperWidth = this.wrapperWidth || 0;
+
+			const wrapperWidthDiffBetweenRerenders = Math.abs(
+				resizeObsWrapperWidth - (this.state.parentWidth || 0),
+			);
+			const isOusideOfThreshold =
+				wrapperWidthDiffBetweenRerenders <=
+					NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MIN_THRESHOLD ||
+				wrapperWidthDiffBetweenRerenders > NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MAX_THRESHOLD;
+			// 1. Check isOusideOfThreshold is added to prevent undersired state update.
+			// When table is nested in the extenstion and the table column is being resized,
+			// space available within extension can change and cause undesirable state update.
+			// MIN_THRESNESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MIN_THRESHOLDHOLD value is required
+			// as the resizeObsWrapperWidth can differ between page reloads by 2px.
+
+			// 2. Check resizeObsWrapperWidth > 1 is added to prevent parentWidth update when table unmounts.
+			// When a is nested table in a nested expand and the expand collabses, the table unmounts and
+			// resizeObsWrapperWidth becomes 1.
+			parentWidth =
+				isOusideOfThreshold && resizeObsWrapperWidth > 1
+					? resizeObsWrapperWidth
+					: this.state.parentWidth;
+		}
+
 		const parentWidthChanged = parentWidth && parentWidth !== this.state.parentWidth;
 
 		const layoutSize = this.tableNodeLayoutSize(node, containerWidth.width, options);

@@ -135,7 +135,6 @@ export const InlineEditableTableCell = styled.td({
 		boxSizing: 'content-box',
 		borderRight: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
 		borderBottom: `${token('border.width', '1px')} solid ${token('color.border', N40)}`,
-		overflow: 'hidden',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`${withTablePluginBodyPrefix('&:last-child')}`]: {

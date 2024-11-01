@@ -138,6 +138,10 @@ exports[`WikiMarkup => ADF Formatters - Strong should detect strong mark at end 
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

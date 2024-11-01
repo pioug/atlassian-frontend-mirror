@@ -6,6 +6,7 @@ import {
 	isRequestError,
 	isMediaStoreError,
 } from '@atlaskit/media-client';
+import { isMediaFileStateError, getFileStateErrorReason } from '@atlaskit/media-client-react';
 import { type ZipEntry } from 'unzipit';
 
 export class MediaViewerError extends Error {
@@ -101,6 +102,8 @@ export function getSecondaryErrorReason(error: MediaViewerError): SecondaryError
 	if (secondaryError) {
 		if (isMediaClientError(secondaryError)) {
 			return getMediaClientErrorReason(secondaryError);
+		} else if (isMediaFileStateError(secondaryError)) {
+			return getFileStateErrorReason(secondaryError);
 		}
 		return 'nativeError';
 	}

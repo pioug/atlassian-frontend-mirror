@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Component, type CSSProperties } from 'react';
 import { ImageComponent } from './styled';
 import { getCssFromImageOrientation, isRotated } from '../imageMetaData';
@@ -51,7 +50,7 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
 	// and if it does recalculate the image height and width
 
 	componentDidMount() {
-		const parent = ReactDOM.findDOMNode(this)!.parentElement;
+		const parent = this.imageRef.current?.parentElement;
 		if (!parent) {
 			return;
 		}

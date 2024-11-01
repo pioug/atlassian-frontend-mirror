@@ -346,14 +346,13 @@ export const getDraftCommandAnalyticsPayload = (
 
 export const isSelectionValid = (
 	state: EditorState,
-	isCommentOnMediaOn?: boolean,
 	_supportedNodes: string[] = [],
 ): AnnotationSelectionType => {
 	const { selection } = state;
 	const { disallowOnWhitespace } = getPluginState(state) || {};
 
 	// Allow media so that it can enter draft mode
-	if (isCommentOnMediaOn && currentMediaNodeWithPos(state)?.node) {
+	if (currentMediaNodeWithPos(state)?.node) {
 		return AnnotationSelectionType.VALID;
 	}
 

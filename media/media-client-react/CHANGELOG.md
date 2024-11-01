@@ -1,5 +1,13 @@
 # @atlaskit/media-client-react
 
+## 2.3.0
+
+### Minor Changes
+
+- [#158851](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158851)
+  [`f5c5983855cae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5c5983855cae) -
+  Added new exports for verifying MediaFileStateError type and extracting error reason
+
 ## 2.2.3
 
 ### Patch Changes

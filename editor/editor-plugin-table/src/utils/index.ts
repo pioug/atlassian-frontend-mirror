@@ -19,6 +19,7 @@ export {
 	tablesHaveDifferentNoOfColumns,
 	tablesHaveDifferentNoOfRows,
 	isTableNested,
+	isTableNestedInMoreThanOneNode,
 } from './nodes';
 export {
 	transformSliceToRemoveOpenTable,

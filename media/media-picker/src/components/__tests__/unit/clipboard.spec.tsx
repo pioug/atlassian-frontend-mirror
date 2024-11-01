@@ -5,7 +5,6 @@ jest.mock('../../../service/uploadServiceImpl');
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
-import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { ClipboardMockFile, fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { LocalFileSource } from '../../../service/types';
 import { Clipboard, ClipboardBase } from '../../clipboard/clipboard';
@@ -17,20 +16,14 @@ describe('Clipboard', () => {
 	let eventsMap: Record<string, Function>;
 	let eventsMapWithContainer: Record<string, Function>;
 
-	const someFeatureFlags: MediaFeatureFlags = {
-		commentsOnMedia: true,
-	};
-
 	const legacyConfig: ClipboardConfig = {
 		uploadParams: {},
-		featureFlags: someFeatureFlags,
 	};
 
 	const container = document.body;
 	const config: ClipboardConfig = {
 		container,
 		uploadParams: {},
-		featureFlags: someFeatureFlags,
 	};
 
 	beforeEach(() => {
@@ -265,7 +258,6 @@ describe('Clipboard', () => {
 				<Clipboard
 					mediaClient={mediaClient}
 					config={legacyConfig}
-					featureFlags={someFeatureFlags}
 				/>
 			</AnalyticsListener>,
 		);
@@ -301,7 +293,7 @@ describe('Clipboard', () => {
 						componentName: 'clipboard',
 						component: 'clipboard',
 						[MEDIA_CONTEXT]: {
-							featureFlags: expect.objectContaining(someFeatureFlags),
+							featureFlags: undefined,
 						},
 					},
 				],
@@ -544,7 +536,7 @@ describe('Clipboard', () => {
 
 		const clipboard = mount(
 			<AnalyticsListener channel={FabricChannel.media} onEvent={analyticsHandler}>
-				<Clipboard mediaClient={mediaClient} config={config} featureFlags={someFeatureFlags} />
+				<Clipboard mediaClient={mediaClient} config={config} />
 			</AnalyticsListener>,
 		);
 
@@ -579,7 +571,7 @@ describe('Clipboard', () => {
 						componentName: 'clipboard',
 						component: 'clipboard',
 						[MEDIA_CONTEXT]: {
-							featureFlags: expect.objectContaining(someFeatureFlags),
+							featureFlags: undefined,
 						},
 					},
 				],

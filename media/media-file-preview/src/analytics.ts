@@ -1,15 +1,15 @@
 import {
 	getMediaClientErrorReason,
+	isMediaClientError,
 	isRequestError,
 	type MediaClientErrorReason,
 } from '@atlaskit/media-client';
+import { getFileStateErrorReason, isMediaFileStateError } from '@atlaskit/media-client-react';
 import { type MediaTraceContext, type SuccessAttributes } from '@atlaskit/media-common';
 
 import {
-	getFileStateErrorReason,
 	ImageLoadError,
 	isMediaFilePreviewError,
-	isMediaFileStateError,
 	type MediaFilePreviewError,
 	type MediaFilePreviewErrorPrimaryReason,
 } from './errors';
@@ -63,9 +63,9 @@ export const getRenderErrorErrorReason = (
 	error: MediaFilePreviewError,
 ): MediaClientErrorReason | 'nativeError' => {
 	if (isMediaFilePreviewError(error) && error.secondaryError) {
-		const mediaClientReason = isMediaFileStateError(error.secondaryError)
-			? getFileStateErrorReason(error.secondaryError)
-			: getMediaClientErrorReason(error.secondaryError);
+		const mediaClientReason = isMediaClientError(error.secondaryError)
+			? getMediaClientErrorReason(error.secondaryError)
+			: getFileStateErrorReason(error.secondaryError);
 		if (mediaClientReason !== 'unknown') {
 			return mediaClientReason;
 		}

@@ -1,7 +1,6 @@
 // Media feature flags - type and defaults defined here in one source of truth
 export interface MediaFeatureFlags {
 	mediaInline?: boolean;
-	commentsOnMedia?: boolean;
 }
 
 export interface WithMediaFeatureFlags {

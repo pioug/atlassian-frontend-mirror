@@ -65,12 +65,24 @@ exports[`JIRA wiki markup - Text [ESS-2539] shoudld keep text after multiple for
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -178,6 +190,10 @@ exports[`JIRA wiki markup - Text should ignore leading spaces on each line 1`] =
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -274,6 +290,10 @@ exports[`JIRA wiki markup - Text should respect \\ as a line break 1`] = `
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {
@@ -301,6 +321,10 @@ exports[`JIRA wiki markup - Text should respect \\\\ as a line break 1`] = `
           "type": "text",
         },
         {
+          "attrs": {
+            "text": "
+",
+          },
           "type": "hardBreak",
         },
         {

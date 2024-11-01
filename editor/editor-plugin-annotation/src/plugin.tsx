@@ -110,7 +110,6 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 						state,
 						intl,
 						isToolbarAbove,
-						isCommentOnMediaOn: featureFlags?.commentsOnMedia,
 						api,
 					}) as SelectionToolbarGroup;
 				}

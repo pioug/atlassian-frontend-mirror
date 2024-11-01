@@ -60,7 +60,7 @@
 		"@atlaskit/ds-lib": "^3.1.0",
 		"@atlassian/codegen": "*",
 		"@atlassian/ts-loader": "*",
-		"@compiled/eslint-plugin": "^0.16.0",
+		"@compiled/eslint-plugin": "^0.17.0",
 		"@eslint/eslintrc": "^3.0.2",
 		"@types/eslint": "^8.56.6",
 		"@types/eslint__eslintrc": "^2.1.2",
@@ -70,7 +70,7 @@
 		"typescript": "~5.4.2"
 	},
 	"peerDependencies": {
-		"@compiled/eslint-plugin": "^0.16.0"
+		"@compiled/eslint-plugin": "^0.17.0"
 	},
 	"scripts": {
 		"codegen": "run-ts ./scripts/codegen.tsx"

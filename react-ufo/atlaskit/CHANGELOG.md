@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.0.8
+
+### Patch Changes
+
+- [#159176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159176)
+  [`b682bf3a24cd4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b682bf3a24cd4) -
+  Remove include_node_counts_in_ttvc_metric and no_ssr_placeholder_check_when_not_intersecting
+
 ## 2.0.7
 
 ### Patch Changes

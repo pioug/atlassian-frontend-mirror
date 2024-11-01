@@ -1,5 +1,13 @@
 # @atlaskit/link-test-helpers
 
+## 7.5.4
+
+### Patch Changes
+
+- [#159162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159162)
+  [`bfd053853f59d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfd053853f59d) -
+  [ux] Enable updating jira issue statues in datasource list view via inline edit.
+
 ## 7.5.3
 
 ### Patch Changes

@@ -1,9 +1,9 @@
 import kebabCase from 'lodash/kebabCase';
 
-import { table } from '@atlaskit/adf-schema';
+import { table, tableWithNestedTable } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/src/types';
-import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -16,14 +16,17 @@ type Config = {
 	allowColumnResizing: boolean;
 	tableResizingEnabled: boolean;
 	getEditorContainerWidth: GetEditorContainerWidth;
+	isNestingSupported?: boolean;
 };
-export const tableNodeSpecWithFixedToDOM = (config: Config): typeof table => {
+export const tableNodeSpecWithFixedToDOM = (config: Config): NodeSpec => {
+	const tableNode = config.isNestingSupported ? tableWithNestedTable : table;
+
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
-		return table;
+		return tableNode;
 	}
 
 	return {
-		...table,
+		...tableNode,
 		toDOM: (node: PMNode): DOMOutputSpec => {
 			const gutterPadding = akEditorGutterPaddingDynamic() * 2;
 			const editorWidthFromGetter = fg('platform_editor_breakout_use_css')

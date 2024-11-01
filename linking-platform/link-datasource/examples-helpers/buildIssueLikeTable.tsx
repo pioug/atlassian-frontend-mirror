@@ -30,6 +30,7 @@ interface Props {
 	canControlWrapping?: boolean;
 	skipIntl?: boolean;
 	forceLoading?: boolean;
+	visibleColumnKeys?: string[];
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -46,6 +47,7 @@ const ExampleBody = ({
 	canResizeColumns = true,
 	canControlWrapping = true,
 	forceLoading = false,
+	visibleColumnKeys: overrideVisibleColumnKeys,
 }: Props) => {
 	const parameters = useMemo<JiraIssueDatasourceParameters>(
 		() => ({
@@ -85,10 +87,17 @@ const ExampleBody = ({
 	});
 
 	useEffect(() => {
-		if (visibleColumnKeys.length === 0 && defaultVisibleColumnKeys.length > 0) {
+		if (overrideVisibleColumnKeys) {
+			onVisibleColumnKeysChange(overrideVisibleColumnKeys);
+		} else if (visibleColumnKeys.length === 0 && defaultVisibleColumnKeys.length > 0) {
 			onVisibleColumnKeysChange(defaultVisibleColumnKeys);
 		}
-	}, [visibleColumnKeys, defaultVisibleColumnKeys, onVisibleColumnKeysChange]);
+	}, [
+		visibleColumnKeys,
+		defaultVisibleColumnKeys,
+		onVisibleColumnKeysChange,
+		overrideVisibleColumnKeys,
+	]);
 
 	return (
 		<TableViewWrapper>
@@ -116,22 +125,12 @@ const ExampleBody = ({
 	);
 };
 
-export const ExampleIssueLikeTable = ({
-	isReadonly,
-	canResizeColumns,
-	canControlWrapping,
-	forceLoading,
-}: Props) => {
+export const ExampleIssueLikeTable = (props: Props) => {
 	return (
 		<DatasourceExperienceIdProvider>
 			<IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
 				<SmartCardProvider client={new SmartLinkClient()}>
-					<ExampleBody
-						isReadonly={isReadonly}
-						canResizeColumns={canResizeColumns}
-						canControlWrapping={canControlWrapping}
-						forceLoading={forceLoading}
-					/>
+					<ExampleBody {...props} />
 				</SmartCardProvider>
 			</IntlMessagesProvider>
 		</DatasourceExperienceIdProvider>

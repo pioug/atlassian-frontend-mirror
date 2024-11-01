@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-table
 
+## 7.30.0
+
+### Minor Changes
+
+- [#159340](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159340)
+  [`aa03078fd0c80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa03078fd0c80) -
+  [ux] [ED-25398] This change is enabling nested tables behind a feature gate.
+
+### Patch Changes
+
+- [`9546839a5b527`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9546839a5b527) -
+  [ux] Fix comically wide table columns widths when table nested inside a nested node.
+- Updated dependencies
+
+## 7.29.10
+
+### Patch Changes
+
+- [#159176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159176)
+  [`8f1d77592a9dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f1d77592a9dc) -
+  Bump adf-schema to 44.2.0
+- Updated dependencies
+
 ## 7.29.9
 
 ### Patch Changes

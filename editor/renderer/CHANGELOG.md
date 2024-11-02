@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 112.2.3
+
+### Patch Changes
+
+- [#157334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157334)
+  [`c3e486551954c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3e486551954c) -
+  Adds a onLoadComplete callback for useLoadAnnotations annotations hook
+
 ## 112.2.2
 
 ### Patch Changes

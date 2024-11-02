@@ -217,7 +217,7 @@ const IconAllExample = () => {
 				</Heading>
 				{singlePurposeAdsIcons && filterIcons(singlePurposeAdsIcons, query).length > 0 && (
 					<Fragment>
-						<Heading size="xsmall">{'Single-Purpose icons'}</Heading>
+						<Heading size="xsmall">{'Single-purpose icons'}</Heading>
 						{renderIcons(singlePurposeAdsIcons)}
 					</Fragment>
 				)}
@@ -234,7 +234,7 @@ const IconAllExample = () => {
 				<Inline alignBlock="center" space="space.100">
 					<IconTile size="24" appearance="green" label="" icon={FlaskIcon} />
 					<Heading size="small">
-						Icon Lab (exported from <Code>@atlaskit/icon-lab/core/*</Code>)
+						Icon lab (exported from <Code>@atlaskit/icon-lab/core/*</Code>)
 					</Heading>
 				</Inline>
 				{singlePurposeLabIcons && filterIcons(singlePurposeLabIcons, query).length > 0 && (

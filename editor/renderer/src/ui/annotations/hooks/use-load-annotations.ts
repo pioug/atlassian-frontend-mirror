@@ -6,11 +6,14 @@ import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import { ProvidersContext } from '../context';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
 
+export type LoadCompleteHandler = (params: { numberOfUnresolvedInlineComments: number }) => void;
+
 type Props = {
 	adfDocument: JSONDocNode;
 	isNestedRender: boolean;
+	onLoadComplete?: LoadCompleteHandler
 };
-export const useLoadAnnotations = ({ adfDocument, isNestedRender }: Props) => {
+export const useLoadAnnotations = ({ adfDocument, isNestedRender, onLoadComplete }: Props) => {
 	const actions = useContext(ActionsContext);
 	const providers = useContext(ProvidersContext);
 
@@ -29,6 +32,10 @@ export const useLoadAnnotations = ({ adfDocument, isNestedRender }: Props) => {
 		const annotations = actions.getAnnotationMarks();
 		// we don't want to request integrators for state with an empty list of ids.
 		if (!annotations.length) {
+			onLoadComplete &&
+				onLoadComplete({
+					numberOfUnresolvedInlineComments: 0,
+				});
 			return;
 		}
 		const ids = annotations.map((mark) => mark.attrs.id);
@@ -50,8 +57,12 @@ export const useLoadAnnotations = ({ adfDocument, isNestedRender }: Props) => {
 			);
 
 			updateSubscriberInlineComment.emit(AnnotationUpdateEvent.SET_ANNOTATION_STATE, payload);
+			onLoadComplete &&
+				onLoadComplete({
+					numberOfUnresolvedInlineComments: data.filter((data) => data.state === 'active').length,
+				});
 		};
 
 		inlineCommentGetState(ids, isNestedRender).then(cb);
-	}, [actions, providers, adfDocument, isNestedRender]);
+	}, [actions, providers, adfDocument, isNestedRender, onLoadComplete]);
 };

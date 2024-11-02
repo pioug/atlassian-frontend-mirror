@@ -5,7 +5,7 @@ import { AnnotationView } from './view';
 import { AnnotationsContextWrapper } from './wrapper';
 import { type AnnotationsWrapperProps } from './types';
 import { ProvidersContext, InlineCommentsStateContext } from './context';
-import { useLoadAnnotations } from './hooks/use-load-annotations';
+import { type LoadCompleteHandler, useLoadAnnotations } from './hooks/use-load-annotations';
 import { useAnnotationStateByTypeEvent } from './hooks/use-events';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { AnnotationRangeProvider } from './contexts/AnnotationRangeContext';
@@ -14,12 +14,15 @@ import { AnnotationHoverContext } from './contexts/AnnotationHoverContext';
 type LoadAnnotationsProps = {
 	adfDocument: JSONDocNode;
 	isNestedRender: boolean;
+	onLoadComplete?: LoadCompleteHandler;
 };
 
-const LoadAnnotations = React.memo<LoadAnnotationsProps>(({ adfDocument, isNestedRender }) => {
-	useLoadAnnotations({ adfDocument, isNestedRender });
-	return null;
-});
+const LoadAnnotations = React.memo<LoadAnnotationsProps>(
+	({ adfDocument, isNestedRender, onLoadComplete }) => {
+		useLoadAnnotations({ adfDocument, isNestedRender, onLoadComplete });
+		return null;
+	},
+);
 
 // This is used by renderers when setting the data-start-pos attribute on commentable nodes
 // By default it is 1 (the possible starting position of any document).
@@ -30,7 +33,8 @@ export const AnnotationsPositionContext = React.createContext<{ startPos: number
 });
 
 export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
-	const { children, annotationProvider, rendererRef, adfDocument, isNestedRender } = props;
+	const { children, annotationProvider, rendererRef, adfDocument, isNestedRender, onLoadComplete } =
+		props;
 	const updateSubscriber =
 		annotationProvider &&
 		annotationProvider.inlineComment &&
@@ -52,7 +56,11 @@ export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
 							createAnalyticsEvent={createAnalyticsEvent}
 							rendererRef={rendererRef}
 						>
-							<LoadAnnotations adfDocument={adfDocument} isNestedRender={isNestedRender} />
+							<LoadAnnotations
+								adfDocument={adfDocument}
+								isNestedRender={isNestedRender}
+								onLoadComplete={onLoadComplete}
+							/>
 							<AnnotationView isNestedRender={isNestedRender} createAnalyticsEvent={createAnalyticsEvent} />
 							{children}
 						</AnnotationsContextWrapper>

@@ -1,27 +1,13 @@
-import React, { Fragment, type FunctionComponent, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 
 import Heading from '@atlaskit/heading';
 import { Inline, Stack, xcss } from '@atlaskit/primitives';
 
-import AddIcon from '../core/add';
-import { IconTile } from '../src';
-import { type NewCoreIconProps } from '../src/types';
+import AddIcon from '../../core/add';
+import { IconTile } from '../../src';
 
 const styles = xcss({ padding: 'space.200' });
 const IconSizeExample = () => {
-	const [NewFeatureIconObject, setNewFeatureIconObject] = useState<
-		FunctionComponent<NewCoreIconProps> | undefined
-	>(undefined);
-
-	useEffect(() => {
-		// eslint-disable-next-line import/extensions, import/dynamic-import-chunkname
-		import('@atlaskit/icon-object/glyph/new-feature/24.js').then((module) => {
-			setNewFeatureIconObject(
-				() => module.default as unknown as FunctionComponent<NewCoreIconProps>,
-			);
-		});
-	});
-
 	const sizes = ['16', '24', '32', '40', '48'] as const;
 	const appearances = [
 		'blue',
@@ -72,20 +58,8 @@ const IconSizeExample = () => {
 					</Inline>
 				</>
 			))}
-			<Heading size="medium">Example using LEGACY_fallbackComponent</Heading>
-			<IconTile
-				icon={AddIcon}
-				label=""
-				appearance="greenBold"
-				shape="square"
-				size="24"
-				LEGACY_fallbackComponent={
-					NewFeatureIconObject ? <NewFeatureIconObject label="" /> : undefined
-				}
-			/>
 		</Stack>
 	);
-
 };
 
 export default IconSizeExample;

@@ -18,7 +18,46 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Icon",
-			"category": "Components"
+			"category": "Components",
+			"status": {
+				"type": "open-alpha",
+				"description": "These are new icons that will be released as part of Atlassian's visual refresh. Use the legacy icons for current product experiences.",
+				"actions": [
+					{
+						"text": "View legacy icons",
+						"href": "/components/icon/icon-legacy/"
+					},
+					{
+						"text": "Migration guide",
+						"href": "/components/icon/migration-guide/"
+					}
+				]
+			},
+			"subPages": [
+				{
+					"title": "Icon (legacy)",
+					"id": "icon-legacy",
+					"sortKey": 1
+				},
+				{
+					"title": "Icon tile",
+					"id": "icon-tile",
+					"status": {
+						"type": "open-alpha"
+					},
+					"sortKey": 2
+				},
+				{
+					"title": "Custom icon (legacy)",
+					"id": "custom-icon",
+					"sortKey": 3
+				},
+				{
+					"title": "Custom SVG",
+					"id": "custom-svg",
+					"sortKey": 4
+				}
+			]
 		},
 		"runReact18": true
 	},

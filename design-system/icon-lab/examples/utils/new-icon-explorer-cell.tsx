@@ -88,10 +88,10 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 		: `import ${componentName} from '${packageName}';`;
 
 	const metadata: { [index: string]: string } = {
-		'Icon Type': type || 'TBD',
+		'Icon type': type || 'TBD',
 		Category: categorization || 'TBD',
 		'Owning team': team || 'TBD',
-		'Recommended Usage': usage || '',
+		'Recommended usage': usage || '',
 	};
 
 	if (oldName && typeof oldName === 'string') {

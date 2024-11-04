@@ -199,17 +199,4 @@ export interface CardProps
 		BlockProps,
 		EmbedProps,
 		FlexibleProps,
-		WithAnalyticsEventsProps {
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3226 Internal documentation for deprecation (no external access)}
-	 * Likely here for legacy reason where editor would store data in ADF instead of resolving it every time
-	 * https://product-fabric.atlassian.net/browse/EDM-10930
-	 */
-	data?: any;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3226 Internal documentation for deprecation (no external access)}
-	 * Likely here for legacy reason where editor would store data in ADF instead of resolving it every time
-	 * https://product-fabric.atlassian.net/browse/EDM-10930
-	 */
-	importer?: (target: any) => void;
-}
+		WithAnalyticsEventsProps {}

@@ -48,11 +48,27 @@ const mockActionsStoreState: Partial<ActionsStoreState> = {
 	actionsByIntegration: {
 		jira: {
 			summary: { actionKey: 'atlassian:work-item:update:summary', type: 'string' },
+			status: {
+				actionKey: 'atlassian:work-item:update:status',
+				fetchAction: {
+					actionKey: 'atlassian:work-item:get:statuses',
+					inputs: {
+						issueId: {
+							type: 'string',
+						},
+					},
+					type: 'string',
+				},
+				type: 'string',
+			},
 		},
 	},
 	permissions: {
 		'some-test-ari': {
 			summary: {
+				isEditable: true,
+			},
+			status: {
 				isEditable: true,
 			},
 		},
@@ -104,6 +120,19 @@ describe('useExecuteAtomicAction', () => {
 		actionsStore.storeState.setState(emptyActionsStoreState);
 		const { result } = setup();
 		expect(result.current.execute).toBe(undefined);
+	});
+
+	it('should return execute and executeFetch function if both schemas are present', () => {
+		actionsStore.storeState.setState(mockActionsStoreState);
+		const { result } = setup({ fieldKey: 'status' });
+		expect(result.current.execute).not.toBe(undefined);
+		expect(result.current.executeFetch).not.toBe(undefined);
+	});
+
+	it('should not return executeFetch function if no fetchSchema is present', () => {
+		actionsStore.storeState.setState(mockActionsStoreState);
+		const { result } = setup();
+		expect(result.current.executeFetch).toBe(undefined);
 	});
 
 	describe('analytics', () => {

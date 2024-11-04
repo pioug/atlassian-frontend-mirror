@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 3.8.0
+
+### Minor Changes
+
+- [#159818](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159818)
+  [`93569e5cdfe71`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93569e5cdfe71) -
+  EDM-10970 updating useAtomicAction to return executeFetch for actions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.7.0
 
 ### Minor Changes

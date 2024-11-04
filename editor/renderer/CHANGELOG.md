@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 112.3.0
+
+### Minor Changes
+
+- [#159791](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159791)
+  [`ce28bda7a3e2a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce28bda7a3e2a) -
+  Removing deprecated `data` and `importer` prop from @atlaskit/smart-card
+
+### Patch Changes
+
+- [#159546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159546)
+  [`e2dc2f10636c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e2dc2f10636c6) -
+  [ux] Layout responsiveness in renderer
+- Updated dependencies
+
 ## 112.2.3
 
 ### Patch Changes

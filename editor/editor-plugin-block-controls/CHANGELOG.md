@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.4
+
+### Patch Changes
+
+- [#157700](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157700)
+  [`83f28893f3406`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83f28893f3406) -
+  ED-25062 implement drop hints
+- Updated dependencies
+
 ## 2.13.3
 
 ### Patch Changes

@@ -100,6 +100,13 @@ const SIDEBAR_LAYOUT_TYPES: PresetLayoutButtonItem[] = [
 	},
 ];
 
+const SIDEBAR_LAYOUT_TYPES_BY_COLUMNS = {
+	2: [SIDEBAR_LAYOUT_TYPES[0], SIDEBAR_LAYOUT_TYPES[1]],
+	3: [SIDEBAR_LAYOUT_TYPES[2]],
+	4: [],
+	5: [],
+};
+
 const buildLayoutButton = (
 	intl: IntlShape,
 	item: PresetLayoutButtonItem,
@@ -191,6 +198,11 @@ export const buildToolbar = (
 				selected: numberOfColumns === 5,
 			},
 		];
+		const sidebarTypesByColumns =
+			SIDEBAR_LAYOUT_TYPES_BY_COLUMNS[
+				numberOfColumns as keyof typeof SIDEBAR_LAYOUT_TYPES_BY_COLUMNS
+			];
+
 		return {
 			title: layoutToolbarTitle,
 			getDomRef: (view) => findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
@@ -206,13 +218,18 @@ export const buildToolbar = (
 								showSelected: true,
 								testId: 'column-options-button',
 							},
+							sidebarTypesByColumns.length > 0 && separator,
 						]
 					: []) as FloatingToolbarItem<Command>[]),
 				...layoutTypes.map((i) => buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI)),
 				...(addSidebarLayouts
-					? SIDEBAR_LAYOUT_TYPES.map((i) =>
-							buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
-						)
+					? isPreRelease2()
+						? sidebarTypesByColumns.map((i) =>
+								buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
+							)
+						: SIDEBAR_LAYOUT_TYPES.map((i) =>
+								buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
+							)
 					: []),
 				separator,
 				{

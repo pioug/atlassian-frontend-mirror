@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/legacy-custom-icons",
-	"version": "0.11.0",
+	"version": "0.12.0",
 	"description": "A centralised place to store legacy custom icons.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -98,7 +98,8 @@
 		"./data-pipeline-icon": "./src/ui/data-pipeline-icon/index.tsx",
 		"./machine-learning-model-icon": "./src/ui/machine-learning-model-icon/index.tsx",
 		"./template-icon": "./src/ui/template-icon/index.tsx",
-		"./ui-element-icon": "./src/ui/ui-element-icon/index.tsx"
+		"./ui-element-icon": "./src/ui/ui-element-icon/index.tsx",
+		"./chat-icon": "./src/ui/chat-icon/index.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
@@ -167,11 +168,12 @@
 		"./data-pipeline-icon": "./src/ui/data-pipeline-icon/index.tsx",
 		"./machine-learning-model-icon": "./src/ui/machine-learning-model-icon/index.tsx",
 		"./template-icon": "./src/ui/template-icon/index.tsx",
-		"./ui-element-icon": "./src/ui/ui-element-icon/index.tsx"
+		"./ui-element-icon": "./src/ui/ui-element-icon/index.tsx",
+		"./chat-icon": "./src/ui/chat-icon/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^22.24.0",
-		"@atlaskit/tokens": "^2.0.3",
+		"@atlaskit/tokens": "^2.1.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

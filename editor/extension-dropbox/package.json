@@ -50,12 +50,12 @@
 	"dependencies": {
 		"@atlaskit/adf-utils": "^19.10.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^94.10.0",
+		"@atlaskit/editor-common": "^94.11.0",
 		"@atlaskit/heading": "2.4.7",
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/primitives": "^13.0.0",
-		"@atlaskit/tokens": "^2.0.0",
+		"@atlaskit/tokens": "^2.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

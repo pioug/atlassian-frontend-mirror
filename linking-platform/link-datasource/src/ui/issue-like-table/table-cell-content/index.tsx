@@ -117,7 +117,7 @@ const InlineEditableCell = ({
 	renderItem: TableViewPropsRenderType;
 }) => {
 	// Execute fn is only returned when the field is editable and the action schema exists
-	const { execute } = useExecuteAtomicAction({
+	const { execute, executeFetch } = useExecuteAtomicAction({
 		ari,
 		fieldKey: columnKey,
 		integrationKey,
@@ -150,6 +150,7 @@ const InlineEditableCell = ({
 		<InlineEdit
 			ari={ari}
 			execute={execute}
+			executeFetch={executeFetch}
 			readView={readView}
 			columnKey={columnKey}
 			datasourceTypeWithValues={values}

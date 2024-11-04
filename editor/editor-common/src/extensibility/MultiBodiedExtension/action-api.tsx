@@ -4,7 +4,6 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { ACTION } from '../../analytics';
 import type { EventDispatcher } from '../../event-dispatcher';
@@ -50,8 +49,7 @@ export const useMultiBodiedExtensionActions = ({
 				) {
 					if (index < 0 || index >= possiblyMbeNode?.content?.childCount) {
 						throw new Error(
-							`Index out of bounds: valid range is 0-${
-								possiblyMbeNode?.content?.childCount - 1
+							`Index out of bounds: valid range is 0-${possiblyMbeNode?.content?.childCount - 1
 							} inclusive`,
 						);
 					}
@@ -137,29 +135,14 @@ export const useMultiBodiedExtensionActions = ({
 				// We are retaining node.attrs to keep the node type and extension key
 				// and only updating the parameters coming in from the user
 				// parameters will contain only macroParams information
-				let updatedParameters;
-				if (getBooleanFF('platform.editor.mbe-update-params-change')) {
-					// With the new feature flag, we will not be de-structuring macroParams,
-					// and will directly replace/overwrite the macroParams with the parameters
-					updatedParameters = {
-						...node.attrs,
-						parameters: {
-							...node.attrs.parameters,
-							macroParams: parameters,
-						},
-					};
-				} else {
-					updatedParameters = {
-						...node.attrs,
-						parameters: {
-							...node.attrs.parameters,
-							macroParams: {
-								...node.attrs?.parameters?.macroParams,
-								...parameters,
-							},
-						},
-					};
-				}
+				const updatedParameters = {
+					...node.attrs,
+					parameters: {
+						...node.attrs.parameters,
+						macroParams: parameters,
+					},
+				};
+
 				const tr = state.tr.setNodeMarkup(pos, null, updatedParameters);
 				dispatch(tr);
 				if (eventDispatcher) {

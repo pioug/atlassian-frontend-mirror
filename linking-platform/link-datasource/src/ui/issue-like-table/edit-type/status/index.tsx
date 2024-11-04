@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { type FieldProps } from '@atlaskit/form';
-import { type Status } from '@atlaskit/linking-types';
+import { ActionOperationStatus, type AtomicActionExecuteResponse, type Status } from '@atlaskit/linking-types';
 import Lozenge from '@atlaskit/lozenge';
 // FilterOptionOption is used in the filterOption function which is part of the public API, but the type itself is not exported
 // eslint-disable-next-line import/no-extraneous-dependencies,no-restricted-imports
@@ -13,10 +13,12 @@ import type { DatasourceTypeWithOnlyValues } from '../../types';
 interface Props extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyValues;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
+	executeFetch?: <E>(inputs: any) => Promise<E>;
 }
 
 const StatusEditType = (props: Props) => {
-	const { options, isLoading } = useStatusOptions();
+	const { currentValue, executeFetch } = props;
+	const { options, isLoading } = useStatusOptions(currentValue, executeFetch);
 
 	return (
 		<div>
@@ -31,7 +33,7 @@ const StatusEditType = (props: Props) => {
 				getOptionValue={(option) => option.text}
 				options={options}
 				isLoading={isLoading}
-				defaultValue={props.currentValue?.values?.[0] as Status}
+				defaultValue={currentValue?.values?.[0] as Status}
 				filterOption={filterOption}
 				formatOptionLabel={(option) => (
 					<Lozenge testId={`inline-edit-status-option-${option.text}`} {...option.style}>
@@ -52,29 +54,48 @@ const StatusEditType = (props: Props) => {
 const filterOption = (option: FilterOptionOption<Status>, inputValue: string) =>
 	option.data.text.toLowerCase().includes(inputValue.toLowerCase());
 
-const useStatusOptions = () => {
+const useStatusOptions = (currentValue: DatasourceTypeWithOnlyValues, executeFetch?: <E>(inputs: any) => Promise<E>) => {
 	const [{ options, isLoading }, setOptions] = useState({
 		isLoading: true,
 		options: [] as Status[],
 	});
+
 	useEffect(() => {
-		loadOptions().then((options) => setOptions({ isLoading: false, options }));
-	}, []);
+		let isMounted = true;
+		loadOptions(currentValue, executeFetch)
+			.then((options) => {
+				if (isMounted) {
+					setOptions({ isLoading: false, options })
+				}
+			});
+		return () => { isMounted = false };
+	}, [currentValue, executeFetch]);
+
 	return { options, isLoading };
 };
 
-const loadOptions = async (): Promise<Status[]> => {
-	return new Promise<Status[]>((resolve) => {
-		setTimeout(
-			() =>
-				resolve([
-					{ text: 'To Do', id: '1', style: { appearance: 'default' } },
-					{ text: 'In Progress', id: '1', style: { appearance: 'inprogress' } },
-					{ text: 'Done', id: '2', style: { appearance: 'success' } },
-				] as Status[]),
-			1000,
-		);
-	});
+const loadOptions = async (currentValue: DatasourceTypeWithOnlyValues, executeFetch?: <E>(inputs: any) => Promise<E>): Promise<Status[]> => {
+	if (executeFetch) {
+		const result = await executeFetch<AtomicActionExecuteResponse<Status>>({ [currentValue.type]: currentValue.values[0] });
+		const { operationStatus, entities } = result;
+
+		if (operationStatus === ActionOperationStatus.SUCCESS && entities) {
+			return new Promise<Status[]>((resolve) => {
+				setTimeout(
+					() => resolve(
+						entities.map((entity) => ({
+								id: entity.id,
+								text: entity.text,
+								style: entity.style,
+							})
+						)
+					), 1000
+				)
+			})
+		}
+	}
+
+	return [];
 };
 
 export default StatusEditType;

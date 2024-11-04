@@ -1,5 +1,17 @@
 # @atlaskit/onboarding
 
+## 12.1.0
+
+### Minor Changes
+
+- [#159268](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159268)
+  [`960359d2e994c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/960359d2e994c) -
+  Updated logic for node-resolver-spotlight-target to remove extra span from document
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.0
 
 ### Major Changes

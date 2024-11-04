@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-expand",
-	"version": "2.9.3",
+	"version": "2.9.4",
 	"description": "Expand plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,19 +36,19 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^44.2.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^94.10.0",
+		"@atlaskit/editor-common": "^94.11.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-decorations": "^1.3.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.3.0",
 		"@atlaskit/editor-plugin-selection": "^1.5.0",
 		"@atlaskit/editor-plugin-selection-marker": "^1.5.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
-		"@atlaskit/editor-shared-styles": "^3.1.0",
+		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/editor-tables": "^2.8.0",
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/tmp-editor-statsig": "^2.11.0",
-		"@atlaskit/tokens": "^2.0.0",
+		"@atlaskit/tokens": "^2.1.0",
 		"@atlaskit/tooltip": "^18.8.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -108,7 +108,7 @@
 		"platform.editor.live-pages-expand-divergence": {
 			"type": "boolean"
 		},
-		"platform.editor.single-player-expand": {
+		"platform-editor-single-player-expand": {
 			"type": "boolean"
 		},
 		"platform_editor_nest_nested_expand_in_expand_jira": {
@@ -118,6 +118,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_nest_nested_expand_drag_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_expand_auto_scroll": {
 			"type": "boolean"
 		}
 	}

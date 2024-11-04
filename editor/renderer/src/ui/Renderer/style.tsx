@@ -14,6 +14,7 @@ import { mediaInlineImageStyles } from '@atlaskit/editor-common/media-inline';
 import {
 	tableSharedStyle,
 	columnLayoutSharedStyle,
+	columnLayoutResponsiveSharedStyle,
 	blockquoteSharedStyles,
 	headingsSharedStyles,
 	ruleSharedStyles,
@@ -504,6 +505,9 @@ const stickyScrollbarStyles = `
 	   bottom:  ${token('space.250', '20px')}; // MAX_BROWSER_SCROLLBAR_HEIGHT = 20;
 	 }
   `;
+const isAdvancedLayoutsPreRelease2 = () =>
+	editorExperiment('advanced_layouts', true) ||
+	fg('platform_editor_advanced_layouts_pre_release_2');
 
 export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: any) => {
 	const { colorMode, typography } = getGlobalTheme();
@@ -834,7 +838,9 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 
 		${getLightWeightCodeBlockStylesForRootRendererStyleSheet()}
 
-      ${columnLayoutSharedStyle};
+      ${isAdvancedLayoutsPreRelease2()
+			? columnLayoutResponsiveSharedStyle
+			: columnLayoutSharedStyle};
 		& [data-layout-section] {
 			margin-top: ${token('space.250', '20px')};
 			& > div + div {

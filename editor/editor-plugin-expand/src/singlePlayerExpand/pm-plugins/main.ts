@@ -58,6 +58,9 @@ export const createPlugin = (
 				return containsClass(event.target as Element, expandClassNames.titleContainer);
 			},
 			handleScrollToSelection() {
+				if (fg('platform_editor_expand_auto_scroll')) {
+					return true;
+				}
 				return containsClass(document.activeElement, expandClassNames.titleInput);
 			},
 			handleClickOn: createSelectionClickHandler(

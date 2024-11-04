@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::33657d1270804d34fc3f5a99539be7e4>>
+ * @codegen <<SignedSource::20eca7a700c9d3abd4ba0568f6be2126>>
  * @codegenCommand yarn generate-artifacts
  */
 import AlignLeftIcon from '../../src/ui/align-left-icon';
@@ -22,6 +22,7 @@ import BookIcon from '../../src/ui/book-icon';
 import BugIcon from '../../src/ui/bug-icon';
 import CalendarIcon from '../../src/ui/calendar-icon';
 import CapabilityIcon from '../../src/ui/capability-icon';
+import ChatIcon from '../../src/ui/chat-icon';
 import ClockIcon from '../../src/ui/clock-icon';
 import CloudResourceIcon from '../../src/ui/cloud-resource-icon';
 import ComponentIcon from '../../src/ui/component-icon';
@@ -90,6 +91,7 @@ export default {
 	BugIcon,
 	CalendarIcon,
 	CapabilityIcon,
+	ChatIcon,
 	ClockIcon,
 	CloudResourceIcon,
 	ComponentIcon,

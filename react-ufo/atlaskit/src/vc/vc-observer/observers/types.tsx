@@ -5,6 +5,7 @@ export type Callback = (
 	box: DOMRectReadOnly,
 	targetName: string,
 	node: HTMLElement,
+	type: string,
 	ignoreReason?: VCIgnoreReason,
 ) => void;
 export type MutationRecordWithTimestamp = MutationRecord & {

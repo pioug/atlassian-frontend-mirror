@@ -16,5 +16,9 @@
     "../src/**/test.*",
     "../src/**/examples.*"
   ],
-  "references": []
+  "references": [
+    {
+      "path": "../../../uip/atlassian-context/afm-jira/tsconfig.json"
+    }
+  ]
 }

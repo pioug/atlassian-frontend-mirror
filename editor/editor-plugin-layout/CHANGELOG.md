@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.9.10
+
+### Patch Changes
+
+- [#159826](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159826)
+  [`f60aee4fc057e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f60aee4fc057e) -
+  [ux] Show toolbar distribution options based on layout columnsnumber
+- Updated dependencies
+
 ## 1.9.9
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-media
 
+## 1.39.1
+
+### Patch Changes
+
+- [#159807](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159807)
+  [`1bec926742a8a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1bec926742a8a) -
+  ED-25583 Update getMediaFromSupportedMediaNodesFromSelection to take into consideration inline
+  selections
+- Updated dependencies
+
 ## 1.39.0
 
 ### Minor Changes

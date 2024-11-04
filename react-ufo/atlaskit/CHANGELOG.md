@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.0.9
+
+### Patch Changes
+
+- [#154926](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154926)
+  [`33fd71f8d4196`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/33fd71f8d4196) -
+  Reporting VC with HTML attributes updates as separate field
+
 ## 2.0.8
 
 ### Patch Changes

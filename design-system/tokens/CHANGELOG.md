@@ -1,5 +1,16 @@
 # @atlaskit/tokens
 
+## 2.1.0
+
+### Minor Changes
+
+- [#159268](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159268)
+  [`487d22f32a93f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/487d22f32a93f) -
+  In the `DesignTokenStyles` schema which controls `@atlaskit/css` type interfaces:
+  - Adds `zIndex: -1|0|1` as a valid options
+  - Blocks the `background` property from being used, use `backgroundColor` or another property
+    directly instead
+
 ## 2.0.5
 
 ### Patch Changes

@@ -36,14 +36,14 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^44.2.0",
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/editor-common": "^94.10.0",
+		"@atlaskit/editor-common": "^94.11.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
-		"@atlaskit/editor-shared-styles": "^3.1.0",
+		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/status": "^1.5.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^2.0.0",
+		"@atlaskit/tokens": "^2.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

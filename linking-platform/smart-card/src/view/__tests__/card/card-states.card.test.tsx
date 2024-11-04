@@ -869,24 +869,4 @@ describe('smart-card: card states, block', () => {
 			});
 		});
 	});
-
-	describe('render method: withData', () => {
-		describe('> state: resolved', () => {
-			it('block: renders successfully with data', async () => {
-				render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} data={mocks.success.data} />
-						</Provider>
-					</IntlProvider>,
-				);
-				const resolvedViewName = await screen.findByText('I love cheese');
-				const resolvedViewDescription = await screen.findByText(
-					'Here is your serving of cheese: 🧀',
-				);
-				expect(resolvedViewName).toBeInTheDocument();
-				expect(resolvedViewDescription).toBeInTheDocument();
-			});
-		});
-	});
 });

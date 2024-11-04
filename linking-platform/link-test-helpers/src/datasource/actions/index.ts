@@ -92,3 +92,61 @@ export const mockActionsExecution = () => {
 		},
 	);
 };
+
+export const mockActionsFetchExecution = () => {
+	fetchMock.post(
+		ORS_ACTIONS_EXECUTION_ENDPOINT,
+		async (): Promise<AtomicActionExecuteResponse> => ({
+			operationStatus: ActionOperationStatus.SUCCESS,
+			errors: [],
+			entities: [
+				{
+					id: "11",
+					text: "Backlog",
+					style: {
+						appearance: "default"
+					},
+				},
+				{
+					id: "21",
+					text: "Selected for Development",
+					style: {
+						appearance: "moved"
+					},
+				},
+				{
+					id: "31",
+					text: "In Progress",
+					style: {
+						appearance: "inprogress"
+					},
+				},
+				{
+					id: "41",
+					text: "Done",
+					style: {
+						appearance: "success"
+					},
+				},
+				{
+					id: "51",
+					text: "Pending",
+					style: {
+						appearance: "removed"
+					},
+				},
+				{
+					id: "61",
+					text: "some new status",
+					style: {
+						appearance: "new"
+					},
+				}
+			]
+		}),
+		{
+			delay: 10,
+			overwriteRoutes: true,
+		},
+	);
+};

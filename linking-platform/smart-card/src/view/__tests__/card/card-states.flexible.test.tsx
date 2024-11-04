@@ -192,26 +192,6 @@ describe('smart-card: card states, flexible', () => {
 		});
 	});
 
-	describe('render method: withData', () => {
-		describe('> state: resolved', () => {
-			it('flexible: renders successfully with data', async () => {
-				render(
-					<Provider client={mockClient}>
-						<Card appearance="block" url={mockUrl} data={mocks.success.data}>
-							<TitleBlock />
-						</Card>
-					</Provider>,
-				);
-				const resolvedViewName = await screen.findByText('I love cheese');
-				const resolvedViewDescription = await screen.findByText(
-					'Here is your serving of cheese: 🧀',
-				);
-				expect(resolvedViewName).toBeTruthy();
-				expect(resolvedViewDescription).toBeTruthy();
-			});
-		});
-	});
-
 	describe.each(['inline', 'block', 'embed'] satisfies CardAppearance[])(
 		'with %s card appearance',
 		(appearance: CardAppearance) => {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "201.1.4",
+	"version": "201.1.5",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,12 +43,12 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^94.10.0",
+		"@atlaskit/editor-common": "^94.11.0",
 		"@atlaskit/editor-json-transformer": "^8.20.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.6.0",
 		"@atlaskit/editor-plugins": "^5.6.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
-		"@atlaskit/editor-shared-styles": "^3.1.0",
+		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/emoji": "^67.9.0",
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/media-card": "^78.10.0",
@@ -56,7 +56,7 @@
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/tmp-editor-statsig": "^2.11.0",
-		"@atlaskit/tokens": "^2.0.0",
+		"@atlaskit/tokens": "^2.1.0",
 		"@atlaskit/tooltip": "^18.8.0",
 		"@atlaskit/width-detector": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
@@ -95,8 +95,8 @@
 		"@atlaskit/media-test-helpers": "^34.5.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/primitives": "^13.0.0",
-		"@atlaskit/renderer": "^112.2.0",
-		"@atlaskit/smart-card": "^30.1.0",
+		"@atlaskit/renderer": "^112.3.0",
+		"@atlaskit/smart-card": "^30.2.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.4.0",
 		"@atlaskit/util-data-test": "^17.11.0",
@@ -171,7 +171,7 @@
 		"platform_editor_prevent_toolbar_width_reflow": {
 			"type": "boolean"
 		},
-		"platform.editor.single-player-expand": {
+		"platform-editor-single-player-expand": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
@@ -316,6 +316,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_replace_finddomnode_in_common": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_expand_auto_scroll": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

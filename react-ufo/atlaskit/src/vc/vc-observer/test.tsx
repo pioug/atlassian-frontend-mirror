@@ -76,6 +76,7 @@ describe('vc-observer', () => {
 				}),
 				'body > div',
 				document.createElement('div'),
+				'html',
 			);
 		});
 		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
@@ -114,7 +115,7 @@ describe('vc-observer', () => {
 			'vc:updates': [{ time: 5, vc: 100, elements: ['body > div'] }],
 			'vc:time': expect.any(Number),
 			'vc:total': 10000,
-			'vc:old': {
+			'vc:attrs': {
 				25: 5,
 				50: 5,
 				75: 5,
@@ -124,17 +125,6 @@ describe('vc-observer', () => {
 				95: 5,
 				98: 5,
 				99: 5,
-			},
-			'vc:old:dom': {
-				25: ['body > div'],
-				50: ['body > div'],
-				75: ['body > div'],
-				80: ['body > div'],
-				85: ['body > div'],
-				90: ['body > div'],
-				95: ['body > div'],
-				98: ['body > div'],
-				99: ['body > div'],
 			},
 			'vc:ignored': [],
 		});
@@ -153,6 +143,7 @@ describe('vc-observer', () => {
 				}),
 				'div#a',
 				document.createElement('div'),
+				'html',
 			);
 			fn(
 				10,
@@ -164,6 +155,7 @@ describe('vc-observer', () => {
 				}),
 				'div#b',
 				document.createElement('div'),
+				'html',
 			);
 			fn(
 				15,
@@ -175,6 +167,7 @@ describe('vc-observer', () => {
 				}),
 				'div#c',
 				document.createElement('div'),
+				'html',
 			);
 			fn(
 				20,
@@ -186,6 +179,7 @@ describe('vc-observer', () => {
 				}),
 				'div#d',
 				document.createElement('div'),
+				'html',
 			);
 		});
 		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
@@ -232,7 +226,7 @@ describe('vc-observer', () => {
 			],
 			'vc:time': expect.any(Number),
 			'vc:total': 10000,
-			'vc:old': {
+			'vc:attrs': {
 				25: 5,
 				50: 5,
 				75: 10,
@@ -242,17 +236,6 @@ describe('vc-observer', () => {
 				95: 20,
 				98: 20,
 				99: 20,
-			},
-			'vc:old:dom': {
-				25: ['div#a'],
-				50: ['div#a'],
-				75: ['div#b'],
-				80: ['div#c'],
-				85: ['div#c'],
-				90: ['div#c'],
-				95: ['div#d'],
-				98: ['div#d'],
-				99: ['div#d'],
 			},
 			'vc:ignored': [],
 		});
@@ -271,6 +254,7 @@ describe('vc-observer', () => {
 				}),
 				'div#a',
 				document.createElement('div'),
+				'html',
 			);
 			fn(
 				10,
@@ -282,6 +266,7 @@ describe('vc-observer', () => {
 				}),
 				'div#b',
 				document.createElement('div'),
+				'html',
 				'image',
 			);
 			fn(
@@ -294,6 +279,7 @@ describe('vc-observer', () => {
 				}),
 				'div#c',
 				document.createElement('div'),
+				'html',
 			);
 			fn(
 				20,
@@ -305,6 +291,7 @@ describe('vc-observer', () => {
 				}),
 				'div#d',
 				document.createElement('div'),
+				'html',
 			);
 		});
 		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
@@ -350,7 +337,123 @@ describe('vc-observer', () => {
 			],
 			'vc:time': expect.any(Number),
 			'vc:total': 10000,
-			'vc:old': {
+			'vc:attrs': {
+				25: 5,
+				50: 5,
+				75: 5,
+				80: 15,
+				85: 15,
+				90: 15,
+				95: 20,
+				98: 20,
+				99: 20,
+			},
+			'vc:ignored': [
+				{
+					targetName: 'div#b',
+					ignoreReason: 'image',
+				},
+			],
+		});
+	});
+
+	test('updates attributes only in the new field', () => {
+		vc.start({ startTime: 0 });
+		callbacks.forEach((fn: Callback) => {
+			fn(
+				5,
+				mockBox({
+					top: 0,
+					left: 0,
+					width: VIEWPORT_WIDTH,
+					height: VIEWPORT_HEIGHT,
+				}),
+				'div#a',
+				document.createElement('div'),
+				'html',
+			);
+			fn(
+				10,
+				mockBox({
+					top: 0,
+					left: 0,
+					width: VIEWPORT_WIDTH,
+					height: VIEWPORT_HEIGHT / 2,
+				}),
+				'div#b',
+				document.createElement('div'),
+				'attr',
+			);
+			fn(
+				15,
+				mockBox({
+					top: 0,
+					left: 0,
+					width: VIEWPORT_WIDTH / 2,
+					height: VIEWPORT_HEIGHT / 2,
+				}),
+				'div#c',
+				document.createElement('div'),
+				'html',
+			);
+			fn(
+				20,
+				mockBox({
+					top: 0,
+					left: 0,
+					width: VIEWPORT_WIDTH / 4,
+					height: VIEWPORT_HEIGHT / 4,
+				}),
+				'div#d',
+				document.createElement('div'),
+				'html',
+			);
+		});
+		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
+		expect(result).toEqual({
+			'vc:state': true,
+			'vc:clean': true,
+			'metrics:vc': {
+				25: 5,
+				50: 5,
+				75: 5,
+				80: 15,
+				85: 15,
+				90: 15,
+				95: 20,
+				98: 20,
+				99: 20,
+			},
+			'vc:dom': {
+				25: ['div#a'],
+				50: ['div#a'],
+				75: ['div#a'],
+				80: ['div#c'],
+				85: ['div#c'],
+				90: ['div#c'],
+				95: ['div#d'],
+				98: ['div#d'],
+				99: ['div#d'],
+			},
+			'vc:ratios': {
+				'div#a': 1,
+				'div#b': 0.5,
+				'div#c': 0.25,
+				'div#d': 0.0625,
+			},
+			'vc:size': {
+				w: VIEWPORT_WIDTH,
+				h: VIEWPORT_HEIGHT,
+			},
+			'vc:updates': [
+				{ time: 5, vc: 75, elements: ['div#a'] },
+				//{ time: 10, vc: 75, elements: ['div#b'] },
+				{ time: 15, vc: 93.8, elements: ['div#c'] },
+				{ time: 20, vc: 100, elements: ['div#d'] },
+			],
+			'vc:time': expect.any(Number),
+			'vc:total': 10000,
+			'vc:attrs': {
 				25: 5,
 				50: 5,
 				75: 10,
@@ -361,23 +464,7 @@ describe('vc-observer', () => {
 				98: 20,
 				99: 20,
 			},
-			'vc:old:dom': {
-				25: ['div#a'],
-				50: ['div#a'],
-				75: ['div#b'],
-				80: ['div#c'],
-				85: ['div#c'],
-				90: ['div#c'],
-				95: ['div#d'],
-				98: ['div#d'],
-				99: ['div#d'],
-			},
-			'vc:ignored': [
-				{
-					targetName: 'div#b',
-					ignoreReason: 'image',
-				},
-			],
+			'vc:ignored': [],
 		});
 	});
 
@@ -394,6 +481,7 @@ describe('vc-observer', () => {
 				}),
 				'div#a',
 				document.createElement('div'),
+				'html',
 			);
 		});
 		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '' });
@@ -432,7 +520,7 @@ describe('vc-observer', () => {
 			'vc:updates': [{ time: 5, vc: 100, elements: ['div#a'] }],
 			'vc:time': expect.any(Number),
 			'vc:total': 10000,
-			'vc:old': {
+			'vc:attrs': {
 				25: 5,
 				50: 5,
 				75: 5,
@@ -442,17 +530,6 @@ describe('vc-observer', () => {
 				95: 5,
 				98: 5,
 				99: 5,
-			},
-			'vc:old:dom': {
-				25: ['div#a'],
-				50: ['div#a'],
-				75: ['div#a'],
-				80: ['div#a'],
-				85: ['div#a'],
-				90: ['div#a'],
-				95: ['div#a'],
-				98: ['div#a'],
-				99: ['div#a'],
 			},
 			'vc:ignored': [],
 		});
@@ -469,6 +546,7 @@ describe('vc-observer', () => {
 				}),
 				'div#b',
 				document.createElement('div'),
+				'html',
 			);
 		});
 		const resultTransition = vc.getVCResult({ start: 100, stop: 200, tti: 3, prefix: '' });
@@ -507,7 +585,7 @@ describe('vc-observer', () => {
 			'vc:updates': [{ time: 10, vc: 100, elements: ['div#b'] }],
 			'vc:time': expect.any(Number),
 			'vc:total': 2500,
-			'vc:old': {
+			'vc:attrs': {
 				25: 10,
 				50: 10,
 				75: 10,
@@ -517,17 +595,6 @@ describe('vc-observer', () => {
 				95: 10,
 				98: 10,
 				99: 10,
-			},
-			'vc:old:dom': {
-				25: ['div#b'],
-				50: ['div#b'],
-				75: ['div#b'],
-				80: ['div#b'],
-				85: ['div#b'],
-				90: ['div#b'],
-				95: ['div#b'],
-				98: ['div#b'],
-				99: ['div#b'],
 			},
 			'vc:ignored': [],
 		});
@@ -546,6 +613,7 @@ describe('vc-observer', () => {
 				}),
 				'div#b',
 				document.createElement('div'),
+				'html',
 			);
 		});
 		const result = vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '', ssr: 3 });
@@ -587,7 +655,7 @@ describe('vc-observer', () => {
 			],
 			'vc:time': expect.any(Number),
 			'vc:total': 10000,
-			'vc:old': {
+			'vc:attrs': {
 				25: 3,
 				50: 3,
 				75: 10,
@@ -597,17 +665,6 @@ describe('vc-observer', () => {
 				95: 10,
 				98: 10,
 				99: 10,
-			},
-			'vc:old:dom': {
-				25: ['SSR'],
-				50: ['SSR'],
-				75: ['div#b'],
-				80: ['div#b'],
-				85: ['div#b'],
-				90: ['div#b'],
-				95: ['div#b'],
-				98: ['div#b'],
-				99: ['div#b'],
 			},
 			'vc:ignored': [],
 		});

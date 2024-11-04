@@ -225,6 +225,7 @@ export const dropTargetDecorations = (
 					decs.push(
 						createLayoutDropTargetDecoration(pos, {
 							api,
+							parent,
 							formatMessage,
 						}),
 					);

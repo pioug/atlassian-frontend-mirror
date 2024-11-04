@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.9.4
+
+### Patch Changes
+
+- [#159855](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159855)
+  [`f91ace0ef7fbe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f91ace0ef7fbe) -
+  [ux] ED-25534 Fix Long Content Expand auto scroll issue
+- [#159308](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159308)
+  [`14ef6f05d711c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14ef6f05d711c) -
+  [ED-24690] Replace LD FF with Statsig platform-editor-single-player-expand
+- Updated dependencies
+
 ## 2.9.3
 
 ### Patch Changes

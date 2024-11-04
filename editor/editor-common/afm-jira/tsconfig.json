@@ -114,6 +114,9 @@
       "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../design-system/popper/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
     },
     {

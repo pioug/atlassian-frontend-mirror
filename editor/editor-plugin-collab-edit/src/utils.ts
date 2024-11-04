@@ -2,8 +2,9 @@ import { AnalyticsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { CollabEditOptions, CollabParticipant } from '@atlaskit/editor-common/collab';
+import { processRawValueWithoutTransformation } from '@atlaskit/editor-common/process-raw-value';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,
 	type ReadonlyTransaction,
@@ -15,6 +16,7 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { avatarColors } from '@atlaskit/editor-shared-styles/consts';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
 	decorations
@@ -103,8 +105,17 @@ export const replaceDocument = (
 ) => {
 	const { schema, tr } = state;
 
-	let content: Array<PMNode> = (doc.content || []).map((child: any) => schema.nodeFromJSON(child));
-	let hasContent = !!content.length;
+	let hasContent: boolean;
+	let content: Array<PMNode> | Fragment | undefined;
+
+	if (fg('platform_editor_use_nested_table_pm_nodes')) {
+		const parsedDoc = processRawValueWithoutTransformation(schema, doc);
+		hasContent = !!parsedDoc?.childCount;
+		content = parsedDoc?.content;
+	} else {
+		content = (doc.content || []).map((child: any) => schema.nodeFromJSON(child));
+		hasContent = Array.isArray(content) && !!content.length;
+	}
 
 	if (hasContent) {
 		tr.setMeta('addToHistory', false);

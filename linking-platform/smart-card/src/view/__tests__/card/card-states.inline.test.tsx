@@ -410,20 +410,4 @@ describe('smart-card: card states, inline', () => {
 			});
 		});
 	});
-
-	describe('render method: withData', () => {
-		describe('> state: resolved', () => {
-			it('inline: renders successfully with data', async () => {
-				render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card appearance="inline" url={mockUrl} data={mocks.success.data} />
-						</Provider>
-					</IntlProvider>,
-				);
-				const resolvedView = await screen.findByText('I love cheese');
-				expect(resolvedView).toBeInTheDocument();
-			});
-		});
-	});
 });

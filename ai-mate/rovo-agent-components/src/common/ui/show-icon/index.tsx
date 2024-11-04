@@ -1,18 +1,6 @@
 import React from 'react';
 
-import Icon, { type CustomGlyphProps, type IconProps } from '@atlaskit/icon';
+import { type IconProps } from '@atlaskit/icon';
+import EyeOpenIcon from '@atlaskit/icon/core/eye-open';
 
-const CustomGlyph = (props: CustomGlyphProps) => (
-	<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<path
-			fillRule="evenodd"
-			clipRule="evenodd"
-			d="M7.99996 3.5C5.05732 3.5 2.50937 5.34456 1.57585 7.89564C1.55122 7.96295 1.55122 8.03705 1.57585 8.10436C2.50937 10.6554 5.05732 12.5 7.99996 12.5C10.9426 12.5 13.4907 10.6554 14.4243 8.10436C14.4489 8.03705 14.4489 7.96295 14.4243 7.89564C13.4907 5.34458 10.9426 3.5 7.99996 3.5ZM0.167196 7.38017C1.31905 4.23246 4.43338 2 7.99996 2C11.5665 2 14.681 4.23244 15.8329 7.38017C15.9793 7.78033 15.9793 8.21967 15.8329 8.61983C14.681 11.7676 11.5665 14 7.99996 14C4.43338 14 1.31905 11.7675 0.167196 8.61983C0.0207653 8.21967 0.0207653 7.78033 0.167196 7.38017ZM8.00005 6.5C7.17163 6.5 6.50005 7.17157 6.50005 8C6.50005 8.82843 7.17163 9.5 8.00005 9.5C8.82848 9.5 9.50005 8.82843 9.50005 8C9.50005 7.17157 8.82848 6.5 8.00005 6.5ZM5.00005 8C5.00005 6.34315 6.3432 5 8.00005 5C9.65691 5 11.0001 6.34315 11.0001 8C11.0001 9.65685 9.65691 11 8.00005 11C6.3432 11 5.00005 9.65685 5.00005 8Z"
-			fill="currentColor"
-		/>
-	</svg>
-);
-
-export const ShowIcon = (props: Omit<IconProps, 'glyph'>) => (
-	<Icon glyph={CustomGlyph} {...props} />
-);
+export const ShowIcon = (props: Omit<IconProps, 'glyph'>) => <EyeOpenIcon {...props} />;

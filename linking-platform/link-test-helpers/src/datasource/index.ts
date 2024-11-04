@@ -2,7 +2,7 @@ import fetchMock from 'fetch-mock/cjs/client';
 
 import {
 	mockActionsDiscovery,
-	mockActionsExecution,
+	mockActionsExecution, mockActionsFetchExecution,
 	ORS_ACTIONS_DISCOVERY_ENDPOINT,
 } from './actions';
 import { mockAssetsClientFetchRequests } from './assets';
@@ -244,6 +244,7 @@ export const mockDatasourceFetchRequests = ({
 
 	mockActionsDiscovery();
 	mockActionsExecution();
+	mockActionsFetchExecution();
 };
 
 export const forceBaseUrl = (baseUrl: string) => {

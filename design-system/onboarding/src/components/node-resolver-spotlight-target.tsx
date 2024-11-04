@@ -1,5 +1,11 @@
-import React, { type ReactElement, useEffect, useRef } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ReactElement, useEffect, useRef } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
 import NodeResolver from 'react-node-resolver';
 
 interface NodeResolverSpotlightTargetProps {
@@ -8,7 +14,9 @@ interface NodeResolverSpotlightTargetProps {
 	targetRef: (name: string) => (element: Element | null | undefined) => void;
 	name: string;
 }
-
+const spanStyles = css({
+	display: 'contents'
+});
 /**
  * A wrapper component that conditionally applies a NodeResolver to its children.
  *
@@ -27,7 +35,6 @@ const NodeResolverSpotlightTarget = ({
 	name,
 }: NodeResolverSpotlightTargetProps) => {
 	const divRef = useRef<HTMLDivElement>(null);
-
 	useEffect(() => {
 		if (!hasNodeResolver) {
 			targetRef(name)(divRef.current?.firstElementChild);
@@ -40,7 +47,15 @@ const NodeResolverSpotlightTarget = ({
 	if (hasNodeResolver) {
 		return <NodeResolver innerRef={targetRef(name)}>{children}</NodeResolver>;
 	}
-	return <span ref={divRef}>{children}</span>;
+
+	return (
+		<span
+			ref={divRef}
+			css={spanStyles}
+		>
+			{children}
+		</span>
+	);
 };
 
 export default NodeResolverSpotlightTarget;

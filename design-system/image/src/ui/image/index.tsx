@@ -30,7 +30,7 @@ const baseImageStyles = css({
 });
 
 const themedImageStyles = css({
-	content: `var(--img-source)`,
+	content: `url(var(--img-source))`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'html[data-color-mode=dark] &': {
 		content: `var(--img-source-dark)`,
@@ -72,8 +72,8 @@ export default function Image({ src, srcDark, alt, testId, ...props }: ImageProp
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={
 				{
-					'--img-source': `url(${src})`,
-					'--img-source-dark': `url(${srcDark || src})`,
+					'--img-source': src,
+					'--img-source-dark': srcDark || src,
 				} as React.CSSProperties
 			}
 			css={[baseImageStyles, themedImageStyles]}

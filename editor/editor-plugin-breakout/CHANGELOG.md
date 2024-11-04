@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-breakout
 
+## 1.8.7
+
+### Patch Changes
+
+- [#159308](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159308)
+  [`14ef6f05d711c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14ef6f05d711c) -
+  [ED-24690] Replace LD FF with Statsig platform-editor-single-player-expand
+- Updated dependencies
+
 ## 1.8.6
 
 ### Patch Changes

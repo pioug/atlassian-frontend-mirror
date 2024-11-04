@@ -16,10 +16,12 @@ export const editType = ({
 	defaultValue,
 	currentValue,
 	setEditValues,
+	executeFetch
 }: {
 	defaultValue: DatasourceTypeWithOnlyValues;
 	currentValue: DatasourceTypeWithOnlyValues;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
+	executeFetch?: <E>(inputs: any) => Promise<E>;
 }): Pick<React.ComponentProps<typeof InlineEdit>, 'defaultValue' | 'editView'> => {
 	switch (defaultValue.type) {
 		case 'string':
@@ -43,6 +45,7 @@ export const editType = ({
 						currentValue={currentValue}
 						setEditValues={setEditValues}
 						id={ACTIVE_INLINE_EDIT_ID}
+						executeFetch={executeFetch}
 					/>
 				),
 			};

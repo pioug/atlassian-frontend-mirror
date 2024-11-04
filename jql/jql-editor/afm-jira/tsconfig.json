@@ -48,6 +48,9 @@
       "path": "../../jql-parser/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../design-system/legacy-custom-icons/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
     },
     {

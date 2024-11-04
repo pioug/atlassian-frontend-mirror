@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.22.7
+
+### Patch Changes
+
+- [#159766](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159766)
+  [`5140d0f3b3895`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5140d0f3b3895) -
+  ED-25400 Use consistent node parsing logic for preload of editor-plugin-collab-edit
+
 ## 1.22.6
 
 ### Patch Changes

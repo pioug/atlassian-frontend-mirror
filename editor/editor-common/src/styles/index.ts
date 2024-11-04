@@ -21,7 +21,7 @@ export {
 	AnnotationSharedCSSByState,
 	annotationSharedStyles,
 } from './shared/annotation';
-export { columnLayoutSharedStyle } from './shared/column-layout';
+export { columnLayoutSharedStyle, columnLayoutResponsiveSharedStyle } from './shared/column-layout';
 export {
 	mediaSingleSharedStyle,
 	mediaSingleSharedStyleNew,

@@ -77,6 +77,7 @@ export {
 	akEditorTableCellBlanketSelected,
 	akEditorTableCellBlanketDeleted,
 	akEditorWrappedNodeZIndex,
+	layoutBreakpointWidth,
 } from './consts';
 export type { EditorTheme, ParticipantColor } from './consts';
 

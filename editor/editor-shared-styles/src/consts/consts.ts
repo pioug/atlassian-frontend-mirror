@@ -80,6 +80,11 @@ export const akEditorTableCellBlanketSelected = 'rgba(179, 212, 255, 0.3)';
 export const akEditorTableCellBlanketDeleted = 'rgba(255, 235, 230, 0.3)';
 export const akEditorWrappedNodeZIndex = akEditorUnitZIndex * 2; //prevent paragraph nodes from rendering above wrapped nodes
 
+export const layoutBreakpointWidth = {
+	SMALL: 550,
+	MEDIUM: 760,
+};
+
 // @see typography spreadsheet: https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128
 export const blockNodesVerticalMargin = '0.75rem';
 

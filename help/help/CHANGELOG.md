@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.10.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.10.4
 
 ### Patch Changes

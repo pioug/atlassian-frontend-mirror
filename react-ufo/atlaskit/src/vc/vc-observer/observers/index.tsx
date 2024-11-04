@@ -20,6 +20,7 @@ type SSRInclusiveState = {
 type ObservedMutationMapValue = {
 	mutation: MutationRecordWithTimestamp;
 	ignoreReason?: VCIgnoreReason;
+	type: string;
 };
 
 export type SelectorConfig = {
@@ -134,11 +135,11 @@ export class Observers implements BrowserObservers {
 	private observeElement = (
 		node: HTMLElement,
 		mutation: MutationRecordWithTimestamp,
-		_type: string,
+		type: string,
 		ignoreReason: VCIgnoreReason,
 	) => {
 		this.intersectionObserver?.observe(node);
-		this.observedMutations.set(node, { mutation, ignoreReason });
+		this.observedMutations.set(node, { mutation, ignoreReason, type });
 	};
 
 	private getMutationObserver() {
@@ -229,11 +230,9 @@ export class Observers implements BrowserObservers {
 								}
 							});
 						} else if (mutation.type === 'attributes') {
-							mutation.addedNodes.forEach((node) => {
-								if (node instanceof HTMLElement) {
-									this.observeElement(node, mutation, 'attr', ignoreReason);
-								}
-							});
+							if (mutation.target instanceof HTMLElement) {
+								this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
+							}
 						}
 					});
 					this.measureStop();
@@ -303,6 +302,7 @@ export class Observers implements BrowserObservers {
 									ir,
 									elementName,
 									target,
+									data.type,
 									data.ignoreReason,
 								);
 							});

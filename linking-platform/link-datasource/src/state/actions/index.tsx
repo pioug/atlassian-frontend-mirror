@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { type Action, createActionsHook, createHook, createStore } from 'react-sweet-state';
 
 import { useDatasourceClientExtension } from '@atlaskit/link-client-extension';
-import type { ActionsDiscoveryRequest, AtomicActionInterface } from '@atlaskit/linking-types';
+import type { ActionsDiscoveryRequest, AtomicActionExecuteResponse, AtomicActionInterface } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -222,10 +222,10 @@ const getFieldUpdateActionByAri = (
 	const isEditable = state.permissions[ari]?.[fieldKey]?.isEditable;
 
 	if (!isEditable) {
-		return;
+		return {};
 	}
 
-	return state.actionsByIntegration[integrationKey]?.[fieldKey];
+	return { schema: state.actionsByIntegration[integrationKey]?.[fieldKey], fetchSchema: state.actionsByIntegration[integrationKey]?.[fieldKey].fetchAction };
 };
 
 /**
@@ -254,8 +254,11 @@ export const useExecuteAtomicAction = ({
 	ari: string;
 	fieldKey: string;
 	integrationKey: string;
-}) => {
-	const [schema] = useAtomicUpdateActionSchema({ ari, fieldKey, integrationKey });
+}): {
+	execute?: (value: (string | number)) => Promise<AtomicActionExecuteResponse<unknown>>,
+	executeFetch?: <E>(inputs: any) => Promise<E>
+} => {
+	const [{ schema, fetchSchema }] = useAtomicUpdateActionSchema({ ari, fieldKey, integrationKey });
 
 	const { executeAtomicAction: executeAction, invalidateDatasourceDataCacheByAri } =
 		useDatasourceClientExtension();
@@ -302,11 +305,32 @@ export const useExecuteAtomicAction = ({
 		],
 	);
 
-	if (!schema) {
-		return {};
-	}
+	const executeFetch = useCallback(
+		<E,>(inputs: any) => {
+			if (!fetchSchema) {
+				throw new Error('No supporting action schema found.');
+			}
+
+			// A generic type can allow us here to define the inputs and outputs
+			return executeAction({
+				integrationKey,
+				actionKey: fetchSchema.actionKey,
+				parameters: { inputs, target: { ari } },
+			})
+				.then((resp) => {
+					return resp as E;
+				})
+				.catch((error) => {
+					captureError('actionExecution', error); // fetchActionExecution
+					// Rethrow up to component for flags and other handling
+					throw error;
+				});
+		},
+		[fetchSchema, executeAction, integrationKey, ari, captureError],
+	);
 
 	return {
-		execute,
+		...(schema && { execute }),
+		...(fetchSchema && { executeFetch })
 	};
 };

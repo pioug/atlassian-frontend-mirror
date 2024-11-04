@@ -1,5 +1,14 @@
 # @atlaskit/image
 
+## 1.3.3
+
+### Patch Changes
+
+- [#156266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156266)
+  [`6029cf729997a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6029cf729997a) -
+  Fixes an issue where images with invalid/not-found urls will be requested in an infinite loop
+- Updated dependencies
+
 ## 1.3.2
 
 ### Patch Changes

@@ -22,7 +22,7 @@ module.exports = {
 ```
 
 We don't recommended maintaining your own configuration. If you do not use our config you will need
-to specify individual rules and configuration. Add the plugin to your `.eslintrc.js` file.
+to specify individual rules and configuration. Add the plugin to your `eslint.config.cjs` file.
 
 ```diff
 module.exports = {

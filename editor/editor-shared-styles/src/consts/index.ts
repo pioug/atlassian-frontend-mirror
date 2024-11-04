@@ -79,4 +79,5 @@ export {
 	akEditorTableCellBlanketSelected,
 	akEditorTableCellBlanketDeleted,
 	akEditorWrappedNodeZIndex,
+	layoutBreakpointWidth,
 } from './consts';

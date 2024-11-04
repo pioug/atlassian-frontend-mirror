@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 1.3.0
+
+### Minor Changes
+
+- [#159557](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159557)
+  [`e4def56b93caa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e4def56b93caa) -
+  [ux] 'EDF-1733: Hide selection toolbar on Define modal render, expose selection toolbar action
+  utilities, add AI definitions integration coverage'
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.11
 
 ### Patch Changes

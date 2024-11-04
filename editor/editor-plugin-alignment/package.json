@@ -21,13 +21,13 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^44.2.0",
-		"@atlaskit/editor-common": "^94.10.0",
+		"@atlaskit/editor-common": "^94.11.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-tables": "^2.8.0",
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/platform-feature-flags": "0.3.0",
-		"@atlaskit/tokens": "^2.0.0",
+		"@atlaskit/tokens": "^2.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

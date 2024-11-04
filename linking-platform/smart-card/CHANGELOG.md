@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 30.2.0
+
+### Minor Changes
+
+- [#159791](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159791)
+  [`ce28bda7a3e2a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce28bda7a3e2a) -
+  Removing deprecated `data` and `importer` prop from @atlaskit/smart-card
+
 ## 30.1.9
 
 ### Patch Changes

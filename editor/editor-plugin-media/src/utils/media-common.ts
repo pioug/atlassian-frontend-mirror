@@ -299,6 +299,11 @@ export const getMediaSingleOrInlineNodeFromSelection = (state: EditorState): PMN
 export const getMediaFromSupportedMediaNodesFromSelection = (state: EditorState): PMNode | null => {
 	const { node } = state.selection as NodeSelection;
 
+	// Specifically for media supported nodes, double click could have been initiated on the media caption
+	if (!node) {
+		return null;
+	}
+
 	switch (node.type) {
 		case node.type.schema.nodes.media:
 		case node.type.schema.nodes.mediaInline:

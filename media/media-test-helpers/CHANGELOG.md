@@ -1,5 +1,14 @@
 # @atlaskit/media-test-helpers
 
+## 34.5.6
+
+### Patch Changes
+
+- [#154926](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/154926)
+  [`ca1195b6c4b46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca1195b6c4b46) -
+  Removes the sideEffects: false attribute from the media test helpers package as it causes
+  storybook failures for downstream consumers
+
 ## 34.5.5
 
 ### Patch Changes

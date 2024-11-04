@@ -1,5 +1,17 @@
 # @atlaskit/rovo-agent-components
 
+## 1.9.0
+
+### Minor Changes
+
+- [#157700](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157700)
+  [`0578a177c381c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0578a177c381c) -
+  Custom icon migration behind feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.1
 
 ### Patch Changes

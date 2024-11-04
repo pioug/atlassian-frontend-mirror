@@ -17,11 +17,14 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { toggleToolbar } from './commands';
 import { selectionToolbarPluginKey } from './plugin-key';
 
 type SelectionToolbarPluginState = {
 	selectionStable: boolean;
+	hide: boolean;
 };
 
 export const selectionToolbarPlugin: NextEditorPlugin<
@@ -34,12 +37,28 @@ export const selectionToolbarPlugin: NextEditorPlugin<
 			preferenceToolbarAboveSelection?: boolean;
 		};
 		dependencies: [OptionalPlugin<EditorViewModePlugin>];
+		actions?: {
+			suppressToolbar: () => boolean;
+			unsuppressToolbar: () => boolean;
+		};
 	}
 > = (options) => {
 	let __selectionToolbarHandlers: SelectionToolbarHandler[] = [];
 
 	return {
 		name: 'selectionToolbar',
+
+		...(editorExperiment('platform_editor_live_pages_ai_definitions', 'test') && {
+			actions: {
+				suppressToolbar: () => {
+					return options.api?.core.actions.execute(toggleToolbar({ hide: true })) ?? false;
+				},
+				unsuppressToolbar: () => {
+					return options.api?.core.actions.execute(toggleToolbar({ hide: false })) ?? false;
+				},
+			},
+		}),
+
 		pmPlugins(selectionToolbarHandlers: Array<SelectionToolbarHandler>) {
 			if (selectionToolbarHandlers) {
 				__selectionToolbarHandlers.push(...selectionToolbarHandlers);
@@ -53,7 +72,7 @@ export const selectionToolbarPlugin: NextEditorPlugin<
 							key: selectionToolbarPluginKey,
 							state: {
 								init(): SelectionToolbarPluginState {
-									return { selectionStable: false };
+									return { selectionStable: false, hide: false };
 								},
 								apply(tr, pluginState: SelectionToolbarPluginState) {
 									const meta = tr.getMeta(selectionToolbarPluginKey);
@@ -123,11 +142,12 @@ export const selectionToolbarPlugin: NextEditorPlugin<
 		},
 		pluginsOptions: {
 			floatingToolbar(state, intl, providerFactory) {
-				const { selectionStable } = selectionToolbarPluginKey.getState(state);
+				const { selectionStable, hide } = selectionToolbarPluginKey.getState(state);
 
 				if (
 					state.selection.empty ||
 					!selectionStable ||
+					hide ||
 					state.selection instanceof NodeSelection ||
 					// $anchorCell is only available in CellSelection, this check is to
 					// avoid importing CellSelection from @atlaskit/editor-tables

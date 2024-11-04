@@ -91,38 +91,20 @@ export const InlineCard = memo(
 
 		const card = useMemo(
 			() => (
-				fg('linking-platform-migrate-deprecated-data-prop') ? (
-					<SmartCard
-						key={url}
-						url={url ?? data.url}
-						appearance="inline"
-						onClick={onClick}
-						container={scrollContainer}
-						onResolve={onResolve}
-						onError={onError}
-						inlinePreloaderStyle={useAlternativePreloader ? 'on-right-without-skeleton' : undefined}
-						actionOptions={actionOptions}
-						isHovered={isHovered}
-						showHoverPreview={showHoverPreview}
-						hoverPreviewOptions={hoverPreviewOptions}
-					/>
-					) : (
-					<SmartCard
-						key={url}
-						url={url}
-						data={data}
-						appearance="inline"
-						onClick={onClick}
-						container={scrollContainer}
-						onResolve={onResolve}
-						onError={onError}
-						inlinePreloaderStyle={useAlternativePreloader ? 'on-right-without-skeleton' : undefined}
-						actionOptions={actionOptions}
-						isHovered={isHovered}
-						showHoverPreview={showHoverPreview}
-						hoverPreviewOptions={hoverPreviewOptions}
-					/>
-				)
+				<SmartCard
+					key={url}
+					url={url ?? data.url}
+					appearance="inline"
+					onClick={onClick}
+					container={scrollContainer}
+					onResolve={onResolve}
+					onError={onError}
+					inlinePreloaderStyle={useAlternativePreloader ? 'on-right-without-skeleton' : undefined}
+					actionOptions={actionOptions}
+					isHovered={isHovered}
+					showHoverPreview={showHoverPreview}
+					hoverPreviewOptions={hoverPreviewOptions}
+				/>
 			),
 			[
 				url,

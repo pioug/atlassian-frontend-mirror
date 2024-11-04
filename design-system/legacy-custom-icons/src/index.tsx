@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8a9df125f0d5efaa91b1f0c49cc146c7>>
+ * @codegen <<SignedSource::e1c324b5ff9be54f1734f5d8b5893e3f>>
  * @codegenCommand yarn generate-artifacts
  */
 export { default as AlignLeftIcon } from './ui/align-left-icon';
@@ -22,6 +22,7 @@ export { default as BookIcon } from './ui/book-icon';
 export { default as BugIcon } from './ui/bug-icon';
 export { default as CalendarIcon } from './ui/calendar-icon';
 export { default as CapabilityIcon } from './ui/capability-icon';
+export { default as ChatIcon } from './ui/chat-icon';
 export { default as ClockIcon } from './ui/clock-icon';
 export { default as CloudResourceIcon } from './ui/cloud-resource-icon';
 export { default as ComponentIcon } from './ui/component-icon';

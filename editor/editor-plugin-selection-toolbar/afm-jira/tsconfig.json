@@ -22,6 +22,9 @@
     },
     {
       "path": "../../editor-plugin-editor-viewmode/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
     }
   ]
 }

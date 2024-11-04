@@ -185,7 +185,7 @@ is from, and the second element being the name of the function.
 For example, with the below configuration, the above code example would be okay.
 
 ```tsx
-// .eslintrc.js
+// eslint.config.cjs
 
 // ...
       rules: {

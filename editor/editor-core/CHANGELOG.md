@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 201.1.5
+
+### Patch Changes
+
+- [#159234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159234)
+  [`3b9dd8853cd56`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b9dd8853cd56) -
+  [EDF-1648](https://product-fabric.atlassian.net/browse/EDF-1648) - fix Editor AI Command Palette
+  ouside click handler
+- [#159308](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159308)
+  [`14ef6f05d711c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14ef6f05d711c) -
+  [ED-24690] Replace LD FF with Statsig platform-editor-single-player-expand
+- Updated dependencies
+
 ## 201.1.4
 
 ### Patch Changes

@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 94.11.1
+
+### Patch Changes
+
+- [#159827](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159827)
+  [`8e43150e942f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e43150e942f6) -
+  [ux] Clean up FF for updateParams API change
+- Updated dependencies
+
+## 94.11.0
+
+### Minor Changes
+
+- [#159546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159546)
+  [`e2dc2f10636c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e2dc2f10636c6) -
+  [ux] Layout responsiveness in renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 94.10.0
 
 ### Minor Changes

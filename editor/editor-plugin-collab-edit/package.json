@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-collab-edit",
-	"version": "1.22.6",
+	"version": "1.22.7",
 	"description": "Collab Edit plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,13 +36,13 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^44.2.0",
 		"@atlaskit/custom-steps": "^0.8.0",
-		"@atlaskit/editor-common": "^94.10.0",
+		"@atlaskit/editor-common": "^94.11.0",
 		"@atlaskit/editor-json-transformer": "^8.18.2",
 		"@atlaskit/editor-plugin-analytics": "1.10.3",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
-		"@atlaskit/editor-shared-styles": "^3.1.0",
+		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/prosemirror-collab": "^0.10.0",
 		"@babel/runtime": "^7.0.0",
@@ -109,6 +109,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_filter_spamming_transactions": {
+			"type": "boolean"
+		},
+		"platform_editor_use_nested_table_pm_nodes": {
 			"type": "boolean"
 		}
 	}

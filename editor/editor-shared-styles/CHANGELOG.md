@@ -1,5 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 3.2.0
+
+### Minor Changes
+
+- [#159546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159546)
+  [`e2dc2f10636c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e2dc2f10636c6) -
+  [ux] Layout responsiveness in renderer
+
 ## 3.1.2
 
 ### Patch Changes

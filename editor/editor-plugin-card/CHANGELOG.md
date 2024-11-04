@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 4.3.11
+
+### Patch Changes
+
+- [#159791](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159791)
+  [`ce28bda7a3e2a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce28bda7a3e2a) -
+  Removing usages of `linking-platform-migrate-deprecated-data-prop` FF so we can remove deprecated
+  props from `@atlaskit/smart-card`
+- Updated dependencies
+
 ## 4.3.10
 
 ### Patch Changes

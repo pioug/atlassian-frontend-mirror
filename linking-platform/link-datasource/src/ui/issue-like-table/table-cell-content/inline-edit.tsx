@@ -22,6 +22,7 @@ interface InlineEditProps {
 	readView: React.ReactNode;
 	datasourceTypeWithValues: DatasourceTypeWithOnlyValues;
 	execute: (value: string | number) => Promise<AtomicActionExecuteResponse>;
+	executeFetch?: <E>(inputs: any) => Promise<E>;
 }
 
 const getBackendUpdateValue = (typedNewValue: DatasourceTypeWithOnlyValues): string | number => {
@@ -90,6 +91,7 @@ const useRefreshDatasourceItem = (item: DatasourceItem | undefined) => {
 export const InlineEdit = ({
 	ari,
 	execute,
+	executeFetch,
 	readView,
 	columnKey,
 	datasourceTypeWithValues,
@@ -171,6 +173,7 @@ export const InlineEdit = ({
 					defaultValue: datasourceTypeWithValues,
 					currentValue: editValues,
 					setEditValues,
+					executeFetch
 				})}
 				hideActionButtons
 				readView={() => readView}

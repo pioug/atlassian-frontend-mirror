@@ -165,6 +165,7 @@ export interface DesignTokenStyles {
 	borderRight: BorderShorthand;
 	borderTop: BorderShorthand;
   appearance: 'none' | 'auto';
+	background: never;
   backgroundColor: BackgroundColor;
   blockSize: SizeIntrinsic;
   borderBlockColor: BorderColor;
@@ -268,7 +269,7 @@ export interface DesignTokenStyles {
   top: Space;
   userModify: never;
   width: SizeIntrinsic;
-  zIndex: 100 | 200 | 300 | 400 | 500 | 510 | 600 | 700 | 800;
+  zIndex: -1 | 0 | 1 | 100 | 200 | 300 | 400 | 500 | 510 | 600 | 700 | 800;
 }
 `,
 		'typescript',

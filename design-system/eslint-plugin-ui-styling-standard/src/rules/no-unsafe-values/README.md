@@ -257,7 +257,7 @@ named export.
 Default imports are not supported.
 
 ```tsx
-// .eslintrc.js
+// eslint.config.cjs
 
 // ...
       rules: {
@@ -284,7 +284,7 @@ named export.
 Default imports are not currently supported.
 
 ```tsx
-// .eslintrc.js
+// eslint.config.cjs
 
 // ...
       rules: {

@@ -15,6 +15,8 @@ import { layers } from '@atlaskit/theme/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
+import { useActiveAnchorTracker } from '../utils/active-anchor-tracker';
+import { isPreRelease2 } from '../utils/advanced-layouts-flags';
 import { type AnchorRectCache, isAnchorSupported } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 import { shouldAllowInlineDropTarget } from '../utils/inline-drop-target';
@@ -111,21 +113,30 @@ const HoverZone = ({
 }) => {
 	const ref = useRef<HTMLDivElement | null>(null);
 
+	const isRemainingheight = dropTargetStyle === 'remainingHeight';
+
+	const anchorName = useMemo(() => {
+		return node ? getNodeAnchor(node) : '';
+	}, [node]);
+	const [_isActive, setActiveAnchor] = useActiveAnchorTracker(anchorName);
+
 	useEffect(() => {
 		if (ref.current) {
 			return dropTargetForElements({
 				element: ref.current,
-				onDragEnter,
+				onDragEnter: () => {
+					if (!isNestedDropTarget && isPreRelease2()) {
+						setActiveAnchor();
+					}
+					onDragEnter();
+				},
 				onDragLeave,
 				onDrop,
 			});
 		}
-	}, [onDragEnter, onDragLeave, onDrop]);
-
-	const isRemainingheight = dropTargetStyle === 'remainingHeight';
+	}, [isNestedDropTarget, onDragEnter, onDragLeave, onDrop, setActiveAnchor]);
 
 	const hoverZoneUpperStyle = useMemo(() => {
-		const anchorName = node ? getNodeAnchor(node) : '';
 		const heightStyleOffset = `var(--editor-block-controls-drop-indicator-gap, 0)/2`;
 		const transformOffset = `var(${EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET}, 0)`;
 
@@ -149,7 +160,7 @@ const HoverZone = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 			maxWidth: `${editorWidth || 0}px`,
 		});
-	}, [anchorRectCache, editorWidth, node, position]);
+	}, [anchorName, anchorRectCache, editorWidth, node?.type.name, position]);
 
 	/**
 	 * 1. Above the last empty line

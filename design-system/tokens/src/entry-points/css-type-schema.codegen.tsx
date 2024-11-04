@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::63f1f789248a804ea2645fbeeab85e64>>
+ * @codegen <<SignedSource::d647e618ad00afc6f87c6d5c1d31c0ee>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -409,6 +409,7 @@ export interface DesignTokenStyles {
 	borderRight: BorderShorthand;
 	borderTop: BorderShorthand;
 	appearance: 'none' | 'auto';
+	background: never;
 	backgroundColor: BackgroundColor;
 	blockSize: SizeIntrinsic;
 	borderBlockColor: BorderColor;
@@ -512,5 +513,5 @@ export interface DesignTokenStyles {
 	top: Space;
 	userModify: never;
 	width: SizeIntrinsic;
-	zIndex: 100 | 200 | 300 | 400 | 500 | 510 | 600 | 700 | 800;
+	zIndex: -1 | 0 | 1 | 100 | 200 | 300 | 400 | 500 | 510 | 600 | 700 | 800;
 }

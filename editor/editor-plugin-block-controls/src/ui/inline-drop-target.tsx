@@ -14,8 +14,11 @@ import { type EditorContainerWidth } from '@atlaskit/editor-common/src/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { B200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
+import { useActiveAnchorTracker } from '../utils/active-anchor-tracker';
 import { type AnchorRectCache, isAnchorSupported } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 
@@ -42,6 +45,13 @@ type DropTargetOffsets = {
 	left: number;
 	right: number;
 };
+
+const dropTargetLayoutHintStyle = css({
+	height: '100%',
+	position: 'relative',
+	borderRight: `1px dashed ${token('color.border.focused', B200)}`,
+	width: 0,
+});
 
 const getDropTargetPositionOverride = (node?: PMNode, editorWidth?: number): DropTargetOffsets => {
 	if (!node || !editorWidth) {
@@ -102,6 +112,8 @@ export const InlineDropTarget = ({
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 	const anchorName = nextNode ? getNodeAnchor(nextNode) : '';
 
+	const [isActiveAnchor] = useActiveAnchorTracker(anchorName);
+
 	const handleDragEnter = useCallback(() => {
 		setIsDraggedOver(true);
 	}, []);
@@ -161,9 +173,14 @@ export const InlineDropTarget = ({
 				data-test-id={`block-ctrl-drop-target-${position}`}
 				css={[dropTargetCommonStyle, dropTargetRectStyle]}
 			>
-				{(isDraggedOver || isBlocksDragTargetDebug()) && <DropIndicator edge={position} />}
+				{isDraggedOver || isBlocksDragTargetDebug() ? (
+					<DropIndicator edge={position} />
+				) : (
+					isActiveAnchor && (
+						<div data-testid="block-ctrl-drop-hint" css={dropTargetLayoutHintStyle}></div>
+					)
+				)}
 			</div>
-
 			<InlineHoverZone
 				position={position}
 				node={nextNode}

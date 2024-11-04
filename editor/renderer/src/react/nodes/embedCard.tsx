@@ -86,7 +86,6 @@ export default function EmbedCard(props: {
 
 	const cardProps: Partial<ComponentProps<typeof Card>> = {
 		url,
-		data,
 		onClick,
 		container: portal,
 		platform,

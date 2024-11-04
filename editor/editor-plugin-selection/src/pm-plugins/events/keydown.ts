@@ -2,7 +2,7 @@ import { expandedState } from '@atlaskit/editor-common/expand';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /*
  * The way expand was built, no browser recognize selection on it.
@@ -20,7 +20,7 @@ const isCollapsedExpand = (
 	{ __livePage }: { __livePage: boolean },
 ): boolean => {
 	let currentExpandedState;
-	if (__livePage && getBooleanFF('platform.editor.single-player-expand')) {
+	if (__livePage && fg('platform-editor-single-player-expand')) {
 		currentExpandedState = node ? !expandedState.get(node) : undefined;
 	} else if (__livePage) {
 		currentExpandedState = node?.attrs.__expanded;

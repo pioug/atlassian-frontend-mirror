@@ -24,6 +24,8 @@ import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin, PluginState } from '../types';
+import { defaultActiveAnchorTracker } from '../utils/active-anchor-tracker';
+import { isPreRelease2 } from '../utils/advanced-layouts-flags';
 import { AnchorRectCache, isAnchorSupported } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 import { getTrMetadata } from '../utils/transactions';
@@ -47,7 +49,7 @@ type ElementDragSource = {
 	type: string;
 };
 
-const isHTMLElement = (element: Element | null): element is HTMLElement => {
+const isHTMLElement = (element: Element | EventTarget | null): element is HTMLElement => {
 	return element instanceof HTMLElement;
 };
 
@@ -76,6 +78,11 @@ const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) =>
 				if (isHTMLElement(scrollable)) {
 					scrollable.style.setProperty('scroll-behavior', null);
 				}
+
+				if (isPreRelease2()) {
+					defaultActiveAnchorTracker.reset();
+				}
+
 				api?.core?.actions.execute(({ tr }) => {
 					const { start } = source.data as ElementDragSource;
 					// if no drop targets are rendered, assume that drop is invalid
@@ -93,7 +100,10 @@ const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) =>
 							},
 						})(tr);
 					}
-					return tr.setMeta(key, { isDragging: false, isPMDragging: false });
+					return tr.setMeta(key, {
+						isDragging: false,
+						isPMDragging: false,
+					});
 				});
 			},
 		}),
@@ -686,6 +696,25 @@ export const createPlugin = (
 					}
 
 					return false;
+				},
+				dragenter(_view: EditorView, event: DragEvent) {
+					if (isPreRelease2()) {
+						if (isHTMLElement(event.target)) {
+							const closestParentElement = event.target.closest(
+								'[data-drag-handler-anchor-depth="0"]',
+							);
+
+							if (closestParentElement) {
+								const currentAnchor = closestParentElement.getAttribute(
+									'data-drag-handler-anchor-name',
+								);
+
+								if (currentAnchor) {
+									defaultActiveAnchorTracker.emit(currentAnchor);
+								}
+							}
+						}
+					}
 				},
 				dragstart(view: EditorView) {
 					anchorRectCache?.setEditorView(view);

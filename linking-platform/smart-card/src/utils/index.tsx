@@ -4,10 +4,6 @@ import Loadable from 'react-loadable';
 
 import { type ActiveThemeState, themeObjectToString } from '@atlaskit/tokens';
 
-import type { CardProps } from '../view/Card';
-
-export const isCardWithData = (props: CardProps) => !!props.data;
-
 export const isSpecialEvent = (evt: React.MouseEvent | React.KeyboardEvent) =>
 	evt.isDefaultPrevented() &&
 	(isIframe() || isSpecialKey(evt) || isSpecialClick(evt as React.MouseEvent));

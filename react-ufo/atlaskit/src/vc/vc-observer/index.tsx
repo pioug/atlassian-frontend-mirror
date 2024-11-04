@@ -208,7 +208,6 @@ export class VCObserver {
 			totalTime,
 			componentsLog,
 			viewport,
-			oldDomUpdatesEnabled,
 			devToolsEnabled,
 			ratios,
 		} = rawData;
@@ -255,7 +254,7 @@ export class VCObserver {
 		});
 
 		const outOfBoundary = outOfBoundaryInfo ? { [`${fullPrefix}vc:oob`]: outOfBoundaryInfo } : {};
-		const oldDomUpdates = oldDomUpdatesEnabled ? { [`${fullPrefix}vc:old:dom`]: ssrVC.VCBox } : {};
+		//const oldDomUpdates = oldDomUpdatesEnabled ? { [`${fullPrefix}vc:old:dom`]: ssrVC.VCBox } : {};
 
 		const stopTime = performance.now();
 
@@ -305,8 +304,8 @@ export class VCObserver {
 			[`${fullPrefix}vc:total`]: totalPainted,
 			[`${fullPrefix}vc:ratios`]: ratios,
 			...outOfBoundary,
-			[`${fullPrefix}vc:old`]: ssrVC.VC,
-			...oldDomUpdates,
+			[`${fullPrefix}vc:attrs`]: ssrVC.VC,
+			//...oldDomUpdates,
 			[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
 		};
 	};
@@ -416,6 +415,7 @@ export class VCObserver {
 		intersectionRect: DOMRectReadOnly,
 		targetName: string,
 		element: HTMLElement,
+		type: string,
 		ignoreReason?: VCIgnoreReason,
 	) => {
 		this.measureStart();
@@ -429,9 +429,11 @@ export class VCObserver {
 				intersectionRect.height,
 			);
 			this.vcRatios[targetName] = this.getElementRatio(mappedValues);
-			this.applyChangesToHeatMap(mappedValues, time, this.heatmap);
-
 			if (!ignoreReason) {
+				this.applyChangesToHeatMap(mappedValues, time, this.heatmap);
+			}
+
+			if (!ignoreReason && type !== 'attr') {
 				this.applyChangesToHeatMap(mappedValues, time, this.ssrInclusiveHeatmap);
 			}
 

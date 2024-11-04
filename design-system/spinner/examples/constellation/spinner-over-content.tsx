@@ -48,7 +48,7 @@ const rows: RowType[] = [
 	},
 	{
 		cells: [
-			{ content: '.eslintrc.js' },
+			{ content: 'eslint.config.cjs' },
 			{ content: '28.62 KB' },
 			{ content: '2022-08-17' },
 			{

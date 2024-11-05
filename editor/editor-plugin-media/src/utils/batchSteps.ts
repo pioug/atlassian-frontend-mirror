@@ -1,4 +1,5 @@
 import { BatchAttrsStep, type BatchAttrsStepData } from '@atlaskit/adf-schema/steps';
+import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 /**
@@ -28,5 +29,6 @@ export const batchStepsUpdate = (editorView: EditorView, steps: BatchAttrsStepDa
 	if (tr.steps.length > 0 && tr.doc.eq(state.doc)) {
 		return false;
 	}
+	tintDirtyTransaction(tr);
 	dispatch(tr);
 };

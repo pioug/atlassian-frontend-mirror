@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 112.3.2
+
+### Patch Changes
+
+- [#160291](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160291)
+  [`223443d621e88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/223443d621e88) -
+  [ux] Fixes default table column widths when table is nested in extension that is nested in layout
+
+## 112.3.1
+
+### Patch Changes
+
+- [#159704](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159704)
+  [`03e6dc49c3d4f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/03e6dc49c3d4f) -
+  Add temporary sticky header configuration options to allow consumer to set the default overflow
+  parent
+
 ## 112.3.0
 
 ### Minor Changes

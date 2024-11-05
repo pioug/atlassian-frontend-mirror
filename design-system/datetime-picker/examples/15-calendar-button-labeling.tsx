@@ -13,6 +13,7 @@ export default () => {
 			<Label htmlFor="label">`label` prop</Label>
 			<DatePicker
 				id="label"
+				clearControlLabel="Clear `label` prop"
 				onChange={console.log}
 				shouldShowCalendarButton
 				label="`label` prop"
@@ -22,6 +23,7 @@ export default () => {
 			<Label htmlFor="inputLabel">`inputLabel` prop</Label>
 			<DatePicker
 				id="inputLabel"
+				clearControlLabel="Clear `inputLabel` prop"
 				onChange={console.log}
 				shouldShowCalendarButton
 				inputLabel="`inputLabel` prop"
@@ -33,6 +35,7 @@ export default () => {
 			</Label>
 			<DatePicker
 				id="inputLabelId"
+				clearControlLabel="Clear `inputLabelId` prop"
 				onChange={console.log}
 				shouldShowCalendarButton
 				inputLabelId="input-label-id--label"

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.9.5
+
+### Patch Changes
+
+- [#159926](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159926)
+  [`f60e3e772ea72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f60e3e772ea72) -
+  Add null check to fix crash in legacy toolbar while swapping ebetween view and edit mode in love
+  pages
+- Updated dependencies
+
 ## 2.9.4
 
 ### Patch Changes

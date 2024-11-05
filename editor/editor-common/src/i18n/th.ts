@@ -53,6 +53,7 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ คุณไม่สามารถจัดเรียงตารางด้วยช่องข้อมูลที่ถูกรวมได้',
   'fabric.editor.cancelButton': 'ยกเลิก',
   'fabric.editor.captionPlaceholder': 'เพิ่มคำอธิบาย',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt': 'เพิ่มคำบรรยาย - ดับเบิลคลิกเพื่อดูตัวอย่าง',
   'fabric.editor.cardFloatingControls': 'ตัวเลือกการ์ด',
   'fabric.editor.cellBackground': 'พื้นหลังช่องข้อมูล',
   'fabric.editor.cellOptions': 'ตัวเลือกช่องข้อมูล',
@@ -112,6 +113,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'คุณสามารถแสดงความคิดเห็นได้เฉพาะกับข้อความ หัวเรื่อง เอโมจิ วันที่ การกล่าวถึง ลิงก์ และสถานะเท่านั้น',
   'fabric.editor.createCommentInvalid': 'คุณสามารถแสดงความคิดเห็นได้เฉพาะบนข้อความและหัวข้อเท่านั้น',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'รับทราบ',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'คุณสามารถแสดงความคิดเห็นเกี่ยวกับองค์ประกอบแบบบรรทัดเดียวได้ เช่น ลิงก์ วันที่ สถานะ และการกล่าวถึง',
   'fabric.editor.customPanel': 'แผงแบบกำหนดเอง',
   'fabric.editor.customPanel.description': 'เพิ่มข้อความบันทึกพร้อมเอโมจิและพื้นหลังมีสีสัน',
   'fabric.editor.datasource.assetsObjects.description':
@@ -212,7 +216,7 @@ export default {
   'fabric.editor.findNext': 'ค้นหาถัดไป',
   'fabric.editor.findPrevious': 'ค้นหาก่อนหน้า',
   'fabric.editor.findReplaceToolbarButton': 'ค้นหาและแทนที่',
-  'fabric.editor.fiveColumns': 'เค้าโครง 5 คอลัมน์',
+  'fabric.editor.fiveColumns': 'เค้าโครงห้าคอลัมน์',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'ยกเลิก',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'ลบองค์ประกอบที่เชื่อมต่อด้วย',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -225,7 +229,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'เลื่อนไปทางซ้าย',
   'fabric.editor.floatingToolbar.scrollRight': 'เลื่อนไปทางขวา',
   'fabric.editor.focusTableResizeHandle': 'การจัดการปรับขนาดตารางที่โฟกัส',
-  'fabric.editor.fourColumns': 'เค้าโครง 4 คอลัมน์',
+  'fabric.editor.fourColumns': 'เค้าโครงสี่คอลัมน์',
   'fabric.editor.headerColumn': 'คอลัมน์ส่วนหัว',
   'fabric.editor.headerRow': 'แถวส่วนหัว',
   'fabric.editor.heading1': 'หัวเรื่อง 1',
@@ -300,6 +304,8 @@ export default {
     '{userRole, select, admin {เชิญเพื่อนร่วมทีมให้ไปยัง {productName}} trusted {เชิญเพื่อนร่วมทีมให้ไปยัง {productName}} other {เพิ่มเพื่อนร่วมทีมไปยัง {productName}}}',
   'fabric.editor.italic': 'ตัวเอียง',
   'fabric.editor.keyboardShortcuts': 'ปุ่มลัด',
+  'fabric.editor.layout.columnOption': '{count, plural, other {{count}-คอลัมน์}}',
+  'fabric.editor.layout.placeholder': 'เพิ่มเนื้อหา',
   'fabric.editor.layoutFixedWidth': 'กลับไปตรงกลาง',
   'fabric.editor.layoutFullWidth': 'แสดงแบบเต็มความกว้าง',
   'fabric.editor.layoutWide': 'แสดงแบบกว้างขึ้น',

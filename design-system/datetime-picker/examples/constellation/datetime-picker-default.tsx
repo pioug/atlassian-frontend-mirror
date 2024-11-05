@@ -1,10 +1,12 @@
 import React from 'react';
 
+import { Label } from '@atlaskit/form';
+
 import { DateTimePicker } from '../../src';
 
 const DateTimePickerDefaultExample = () => (
 	<>
-		<label htmlFor="datetime">Appointment date and time</label>
+		<Label htmlFor="datetime">Appointment date and time</Label>
 		<DateTimePicker
 			id="datetime"
 			clearControlLabel="Clear default example"

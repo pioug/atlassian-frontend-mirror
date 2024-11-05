@@ -21,6 +21,9 @@
       "path": "../../editor-common/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../editor-plugin-editor-disabled/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../editor-plugin-editor-viewmode/afm-jira/tsconfig.json"
     },
     {

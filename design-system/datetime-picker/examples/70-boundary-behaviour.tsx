@@ -58,8 +58,8 @@ export default () => {
 								id="react-select-above--input"
 								defaultValue={dateTimePickerValue}
 								onChange={onDateTimePickerChange}
-								datePickerProps={{ label: 'Date, DateTime' }}
-								timePickerProps={{ label: 'Time, DateTime' }}
+								datePickerProps={{ label: 'DateTime, date' }}
+								timePickerProps={{ label: 'DateTime, time' }}
 								clearControlLabel="Clear DateTime"
 							/>
 							<Label htmlFor="paragraphs-below">Paragraphs below: {textBelow}</Label>

@@ -27,6 +27,7 @@ export default () => {
 					<DatePicker
 						autoFocus={false}
 						id="react-select-value1-input"
+						clearControlLabel="Clear picker popup field"
 						onChange={(date: string) => {
 							setDate(date);
 						}}
@@ -49,6 +50,7 @@ export default () => {
 			<Label htmlFor="react-select-custom-input">Custom date format</Label>
 			<DatePicker
 				id="react-select-custom-input"
+				clearControlLabel="Clear custom date format"
 				dateFormat="DD/MMM/YY"
 				placeholder="e.g. 31/Dec/18"
 				onChange={console.log}

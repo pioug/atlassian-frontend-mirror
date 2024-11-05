@@ -31,9 +31,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
+import type { FloatingToolbarPlugin } from '../floatingToolbarPluginType';
 import { checkShouldForceFocusAndApply, forceFocusSelector } from '../pm-plugins/force-focus';
 import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';
-import type { FloatingToolbarPlugin } from '../types';
 
 import Dropdown from './Dropdown';
 import { EmojiPickerButton } from './EmojiPickerButton';

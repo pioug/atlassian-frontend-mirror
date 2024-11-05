@@ -53,6 +53,8 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Je kan een tabel met samengevoegde cellen niet rangschikken',
   'fabric.editor.cancelButton': 'Annuleren',
   'fabric.editor.captionPlaceholder': 'Bijschrift toevoegen',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt':
+    'Voeg een bijschrift toe - dubbelklik om een voorvertoning te zien',
   'fabric.editor.cardFloatingControls': 'Kaartopties',
   'fabric.editor.cellBackground': 'Celachtergrond',
   'fabric.editor.cellOptions': 'Celopties',
@@ -114,6 +116,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Je kunt alleen opmerkingen plaatsen bij tekst, kopteksten, emoticons, datums, vermeldingen, links en statussen.',
   'fabric.editor.createCommentInvalid': 'Je kunt alleen opmerkingen plaatsen bij tekst en koppen',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Begrepen',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Je kunt nu opmerkingen achterlaten op inline-elementen zoals links, datums, statussen en vermeldingen.',
   'fabric.editor.customPanel': 'Aangepast paneel',
   'fabric.editor.customPanel.description': 'Voeg een notitie toe met een emoji en een gekleurde achtergrond',
   'fabric.editor.datasource.assetsObjects.description':
@@ -215,7 +220,7 @@ export default {
   'fabric.editor.findNext': 'Volgende zoeken',
   'fabric.editor.findPrevious': 'Vorige zoeken',
   'fabric.editor.findReplaceToolbarButton': 'Zoeken en vervangen',
-  'fabric.editor.fiveColumns': 'Lay-out van 5 kolommen',
+  'fabric.editor.fiveColumns': 'Lay-out van vijf kolommen',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Annuleren',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Ook gekoppelde elementen verwijderen',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -228,7 +233,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Scrol naar links',
   'fabric.editor.floatingToolbar.scrollRight': 'Scrol naar rechts',
   'fabric.editor.focusTableResizeHandle': 'Knop om grootte van focustabel te wijzigen',
-  'fabric.editor.fourColumns': 'Lay-out van 4 kolommen',
+  'fabric.editor.fourColumns': 'Lay-out van vier kolommen',
   'fabric.editor.headerColumn': 'Header-kolom',
   'fabric.editor.headerRow': 'Header-rij',
   'fabric.editor.heading1': 'Koptekst 1',
@@ -303,6 +308,8 @@ export default {
     '{userRole, select, admin {Nodig teamgenoten uit voor {productName}} trusted {Nodig teamgenoten uit voor {productName}} other {Voeg teamgenoten toe aan {productName}}}',
   'fabric.editor.italic': 'Cursief',
   'fabric.editor.keyboardShortcuts': 'Sneltoetsen',
+  'fabric.editor.layout.columnOption': '{count, plural, one {-kolom} other {{count}-kolommen}}',
+  'fabric.editor.layout.placeholder': 'Inhoud toevoegen',
   'fabric.editor.layoutFixedWidth': 'Terug naar midden',
   'fabric.editor.layoutFullWidth': 'Op volledige breedte weergeven',
   'fabric.editor.layoutWide': 'Brede weergave',

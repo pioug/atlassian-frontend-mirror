@@ -6,8 +6,8 @@ import Link from '@atlaskit/link';
 
 import Page, { Grid, GridColumn } from '../src';
 
-const BasicExample = () => (
-	<Page testId="page">
+const PageBanner = () => {
+	return (
 		<Banner appearance="warning" icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>
 			We are planning on deprecating Page component. We recommend using the Page layout component
 			instead.
@@ -16,6 +16,11 @@ const BasicExample = () => (
 				View page layout documentation
 			</Link>
 		</Banner>
+	);
+};
+
+const BasicExample = () => (
+	<Page testId="page" banner={<PageBanner />} isBannerOpen>
 		<Grid testId="grid">
 			<GridColumn medium={8}>
 				<h1>Main heading</h1>

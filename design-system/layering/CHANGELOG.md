@@ -1,5 +1,12 @@
 # @atlaskit/layering
 
+## 0.7.2
+
+### Patch Changes
+
+- [`a18bf674fd76b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a18bf674fd76b) -
+  Export layering without UNSAFE prefix
+
 ## 0.7.1
 
 ### Patch Changes

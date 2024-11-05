@@ -407,6 +407,7 @@ export default function createUniversalPresetInternal({
 						typeof props.allowLayouts === 'object'
 							? props.allowLayouts.UNSAFE_allowSingleColumnLayout
 							: undefined,
+					editorAppearance: appearance,
 				},
 			],
 			Boolean(props.allowLayouts),

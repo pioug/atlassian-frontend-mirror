@@ -227,7 +227,7 @@ export const StickyTable = ({
 /**
  * Traverse DOM Tree upwards looking for table parents with "overflow: scroll".
  */
-function findHorizontalOverflowScrollParent(table: HTMLElement | null): HTMLElement | null {
+function findHorizontalOverflowScrollParent(table: HTMLElement | null, defaultScrollRootEl?: HTMLElement): HTMLElement | null {
 	let parent: HTMLElement | null = table;
 	if (!parent) {
 		return null;
@@ -237,6 +237,12 @@ function findHorizontalOverflowScrollParent(table: HTMLElement | null): HTMLElem
 		// IE11 on Window 8 doesn't show styles from CSS when accessing through element.style property.
 		const style = window.getComputedStyle(parent);
 		if (style.overflow === 'scroll' || style.overflowY === 'scroll') {
+			return parent;
+		}
+
+		if (!!defaultScrollRootEl && defaultScrollRootEl === parent) {
+			// If a defaultScrollRootEl was specified and we reached it without finding a closer scroll parent,
+			// use the defaultScrollRootEl.
 			return parent;
 		}
 	}
@@ -249,8 +255,8 @@ export class OverflowParent {
 		this.ref = ref;
 	}
 
-	static fromElement(el: HTMLElement | null) {
-		return new OverflowParent(findHorizontalOverflowScrollParent(el) || window);
+	static fromElement(el: HTMLElement | null, defaultScrollRootEl?: HTMLElement) {
+		return new OverflowParent(findHorizontalOverflowScrollParent(el, defaultScrollRootEl) || window);
 	}
 
 	get isElement() {

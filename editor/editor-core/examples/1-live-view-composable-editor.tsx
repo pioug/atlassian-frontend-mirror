@@ -109,6 +109,7 @@ function ComposableEditorPage() {
 			featureFlags: {
 				'nested-expand-in-expand-ex': true,
 			},
+			allowTemplatePlaceholders: true,
 		},
 	});
 

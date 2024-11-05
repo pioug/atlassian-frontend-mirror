@@ -20,6 +20,9 @@ export default {
   'fabric.editor.addMediaFiles': '⁣⁢Add image, video, or file‌⁭‍؜؜⁪⁭⁯‍‍؜‍⁬؜⁮⁬⁬⁬⁯؜⁮‍⁣⁤',
   'fabric.editor.addRowAbove': '⁣⁢Add row above‌‍‍⁡⁠⁯⁭‌⁬⁬‍⁪⁡⁯⁯⁡⁭؜⁠⁯⁮‌⁠⁯⁬⁣⁤',
   'fabric.editor.addRowBelow': '⁣⁢Add row below⁯⁭⁮⁯⁬⁮⁭⁫⁪⁮‌‌⁭⁠⁡⁯⁠‌⁡⁡⁫⁬؜⁬⁣⁤',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip':
+    '⁣⁢Highlight a term, acronym, or abbreviation؜⁬‌⁬‌⁯⁠⁡⁮⁪⁮‌‌⁠⁮‍⁫‌⁠⁣⁤',
+  'fabric.editor.ai.selectionToolbar.define.title': '⁣⁢Define⁠⁠⁯⁮؜⁭‍⁭⁮⁫⁯⁡⁮⁬⁪⁠؜⁠⁡⁫⁪⁣⁤',
   'fabric.editor.alignCenter': '⁣⁢Align center⁫؜⁡‍⁮⁠⁪⁪⁭⁯⁭⁡⁠⁫⁭‍⁭⁡⁭‌‍⁬⁮⁪⁯⁬⁯⁣⁤',
   'fabric.editor.alignImageCenter': '⁣⁢Align center⁭⁡⁡⁫⁬‍⁫⁠⁫‌⁮⁭⁡⁭⁯⁠⁡⁡‌⁯⁡⁮⁣⁤',
   'fabric.editor.alignImageLeft': '⁣⁢Align left⁠⁪⁠‍؜⁯⁭⁫⁭⁪⁡⁡⁭⁠⁡⁠⁯⁬‍؜‌⁡⁣⁤',
@@ -120,6 +123,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     '⁣⁢You can only comment on text, headings, emojis, dates, mentions, links, and statuses.؜⁯⁠⁫⁫؜⁡⁮⁬⁡‍⁯⁪⁫‍؜⁮⁬⁣⁤',
   'fabric.editor.createCommentInvalid': '⁣⁢You can only comment on text and headings⁮⁠‍⁫⁮‌⁯⁬⁯⁪⁫⁮⁪‌⁭⁠⁮‍⁪⁫⁪⁯⁬⁡⁣⁤',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': '⁣⁢Got it⁯⁬‌⁡⁯⁠⁮⁠⁡⁯⁮⁯⁠⁫⁫؜⁪⁡⁭⁭⁠⁣⁤',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    '⁣⁢You can now leave comments on inline elements like links, dates, statuses and mentions.⁭؜⁪‌⁠‍؜⁡⁡⁭⁮‌‌⁮‌⁠⁯⁬⁮⁡⁡⁯؜⁬⁣⁤',
   'fabric.editor.customPanel': '⁣⁢Custom panel⁭⁭⁬؜؜⁬⁭⁠⁪⁬⁠⁭‍⁯⁠⁫⁯⁫⁯؜⁣⁤',
   'fabric.editor.customPanel.description': '⁣⁢Add a note with an emoji and colored background‍⁬⁠⁭⁫⁡⁯⁮⁮⁯‍⁪⁡⁪⁭⁡⁮⁪⁡⁮⁯⁮‌⁣⁤',
   'fabric.editor.datasource.assetsObjects.description':

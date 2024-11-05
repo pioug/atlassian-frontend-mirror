@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { Skeleton } from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
 
-import { Skeleton } from '../../src';
 
 const AvatarSkeletonWeightNormalExample = () => {
 	return <Skeleton color={token('color.background.accent.yellow.subtler')} weight="normal" />;

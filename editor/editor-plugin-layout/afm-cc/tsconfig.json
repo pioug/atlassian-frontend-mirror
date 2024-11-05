@@ -27,6 +27,12 @@
             "path": "../../editor-plugin-decorations/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-editor-disabled/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-width/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {

@@ -53,6 +53,8 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Не можна сортувати таблицю, у якій є об’єднані клітинки',
   'fabric.editor.cancelButton': 'Скасувати',
   'fabric.editor.captionPlaceholder': 'Додати підпис',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt':
+    'Додайте підпис: двічі натисніть, щоб попередньо переглянути',
   'fabric.editor.cardFloatingControls': 'Параметри картки',
   'fabric.editor.cellBackground': 'Фон клітинки',
   'fabric.editor.cellOptions': 'Параметри клітинки',
@@ -115,6 +117,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Ви можете коментувати лише текст, заголовки, емодзі, дати, згадування, посилання й стани.',
   'fabric.editor.createCommentInvalid': 'Коментувати можна лише текст і заголовки',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Зрозуміло',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Тепер ви можете залишати коментарі до вбудованих елементів, як-от посилання, дати, статуси та згадування.',
   'fabric.editor.customPanel': 'Користувацька панель',
   'fabric.editor.customPanel.description': 'Додайте примітку з емодзі та кольоровим фоном',
   'fabric.editor.datasource.assetsObjects.description':
@@ -306,6 +311,9 @@ export default {
     '{userRole, select, admin {Запрошення учасника команди до {productName}} trusted {Запрошення учасника команди до {productName}} other {Додавання учасника команди до {productName}}}',
   'fabric.editor.italic': 'Курсив',
   'fabric.editor.keyboardShortcuts': 'Гарячі клавіші',
+  'fabric.editor.layout.columnOption':
+    '{count, plural, one {{count}-стовп.} few {{count}-стовп.} many {{count}-стовп.} other {{count}-стовп.}}',
+  'fabric.editor.layout.placeholder': 'Додайте вміст',
   'fabric.editor.layoutFixedWidth': 'Стандартне відображення',
   'fabric.editor.layoutFullWidth': 'Відобразити повну ширину',
   'fabric.editor.layoutWide': 'Розширити',

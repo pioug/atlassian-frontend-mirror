@@ -71,6 +71,7 @@ export default () => {
 				</Label>
 				<DatePicker
 					id="react-select-datepicker-1--input"
+					clearControlLabel="Clear select date (default)"
 					onChange={onChange}
 					locale={locale}
 					testId={'date-picker'}
@@ -104,12 +105,12 @@ export default () => {
 					defaultValue="2021-01-01"
 					datePickerProps={{
 						weekStartDay,
-						label: 'Date, Date / time picker (default)',
+						label: 'Date / time picker (default), date',
 						shouldShowCalendarButton: true,
 						openCalendarLabel: 'open calendar',
 					}}
 					timePickerProps={{
-						label: 'Time, Date / time picker (default)',
+						label: 'Date / time picker (default), time',
 					}}
 					clearControlLabel="Clear date / time picker (default)"
 				/>

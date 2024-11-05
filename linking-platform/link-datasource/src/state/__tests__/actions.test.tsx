@@ -199,5 +199,69 @@ describe('useExecuteAtomicAction', () => {
 				integrationKey: 'jira',
 			});
 		});
+
+		it('should fire event when executing fetch action', async () => {
+			actionsStore.storeState.setState(mockActionsStoreState);
+			mockExecuteAction.mockResolvedValue({});
+
+			const { result } = setup({ fieldKey: 'status' });
+
+			const executeFetch = result.current.executeFetch;
+			executeFetch && (await executeFetch('new summary'));
+			expect(mockFireEvent).toHaveBeenCalledTimes(1);
+			expect(mockFireEvent).toHaveBeenCalledWith('operational.fetchActionExecution.success', {
+				integrationKey: 'jira',
+				experience: 'datasource',
+			});
+		});
+
+		it('should NOT fire success analytics event when fetch action fails', async () => {
+			actionsStore.storeState.setState(mockActionsStoreState);
+			const mockedError = new Error('some error');
+			mockExecuteAction.mockRejectedValue(mockedError);
+
+			const { result } = setup({ fieldKey: 'status' });
+
+			const executeFetch = result.current.executeFetch;
+			try {
+				executeFetch && (await executeFetch('new summary'));
+			} catch (err: any) {
+				// Error although caught and logged should be rethrown
+				expect(err.message).toBe('some error');
+			}
+
+			expect(mockFireEvent).not.toHaveBeenCalledWith('operational.fetchActionExecution.success', {
+				integrationKey: 'jira',
+				experience: 'datasource',
+			});
+		});
+
+		it('should capture error and fire analytics event AND log to sentry	when fetch action fails', async () => {
+			actionsStore.storeState.setState(mockActionsStoreState);
+			const mockedError = new Error('some error');
+			mockExecuteAction.mockRejectedValue(mockedError);
+
+			const { result } = setup({ fieldKey: 'status' });
+
+			const executeFetch = result.current.executeFetch;
+			try {
+				executeFetch && (await executeFetch('new summary'));
+			} catch (err: any) {
+				// Error although caught and logged should be rethrown
+				expect(err.message).toBe('some error');
+			}
+
+			expect(mockFireEvent).toHaveBeenCalledWith('operational.datasource.operationFailed', {
+				errorLocation: 'fetchActionExecution',
+				status: null,
+				traceId: null,
+				reason: 'internal',
+			});
+
+			// Should have logged to sentry
+			expect(captureException).toHaveBeenCalledWith(mockedError, 'link-datasource', {
+				integrationKey: 'jira',
+			});
+		});
 	});
 });

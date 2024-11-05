@@ -53,6 +53,7 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ En tabel med flettede celler kan ikke sorteres',
   'fabric.editor.cancelButton': 'Annullér',
   'fabric.editor.captionPlaceholder': 'Tilføj en billedtekst',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt': 'Tilføj en billedtekst – dobbeltklik for forhåndsvisning',
   'fabric.editor.cardFloatingControls': 'Muligheder for kort',
   'fabric.editor.cellBackground': 'Baggrundsfarve i celle',
   'fabric.editor.cellOptions': 'Egenskaber for celle',
@@ -115,6 +116,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Du kan kun kommentere tekst, overskrifter, emojier, datoer, omtaler, links og statusser.',
   'fabric.editor.createCommentInvalid': 'Du kan kun kommentere tekst og overskrifter',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Forstået',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Nu kan du oprette kommentarer til indlejrede elementer som links, datoer, statusser og omtaler.',
   'fabric.editor.customPanel': 'Brugerdefineret panel',
   'fabric.editor.customPanel.description': 'Tilføj en note med en emoji og farvet baggrund',
   'fabric.editor.datasource.assetsObjects.description':
@@ -304,6 +308,8 @@ export default {
     '{userRole, select, admin {Inviter teammedlemmer til {productName}} trusted {Inviter teammedlemmer til {productName}} other {Tilføj teammedlem til {productName}}}',
   'fabric.editor.italic': 'Kursiv',
   'fabric.editor.keyboardShortcuts': 'Tastaturgenveje',
+  'fabric.editor.layout.columnOption': '{count, plural, one { kolonne} other {{count} kolonner}}',
+  'fabric.editor.layout.placeholder': 'Tilføj indhold',
   'fabric.editor.layoutFixedWidth': 'Tilbage til centrering',
   'fabric.editor.layoutFullWidth': 'Vis i fuld bredde',
   'fabric.editor.layoutWide': 'Vis bred',

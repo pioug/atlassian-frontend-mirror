@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.23.1
+
+### Patch Changes
+
+- [#160428](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160428)
+  [`6d4fa76f052b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d4fa76f052b2) -
+  Releases an unreleased fix for the '../package.json' not found in
+  @atlaskit/eslint-plugin-design-system@10.23.0
+
 ## 10.23.0
 
 ### Minor Changes

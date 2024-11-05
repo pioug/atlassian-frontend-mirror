@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.10.0
+
+### Minor Changes
+
+- [#159777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159777)
+  [`64dae465493a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64dae465493a4) -
+  Add Breakout Resizing component to editor-common, add support in Layout plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.10
 
 ### Patch Changes

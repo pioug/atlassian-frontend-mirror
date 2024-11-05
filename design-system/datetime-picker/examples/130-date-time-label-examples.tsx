@@ -24,12 +24,12 @@ export default () => (
 		<Box paddingBlock="space.200">
 			<Heading size="large">Date - Using explicit label</Heading>
 			<Label htmlFor="birthday">Birthday</Label>
-			<DatePicker testId="test" id="birthday" />
+			<DatePicker testId="test" id="birthday" clearControlLabel="Clear birthday" />
 		</Box>
 
 		<Box paddingBlock="space.200">
 			<Heading size="large">Date - Using label prop only (no visible label)</Heading>
-			<DatePicker label="End date" />
+			<DatePicker clearControlLabel="Clear end date" label="End date" />
 		</Box>
 	</Box>
 );

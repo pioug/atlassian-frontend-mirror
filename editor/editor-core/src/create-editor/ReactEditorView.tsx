@@ -818,7 +818,8 @@ export class ReactEditorView<T = {}> extends React.Component<
 	);
 
 	render() {
-		const renderTrackingEnabled = true;
+		// Render tracking is firing too many events in Jira so we are disabling them for now. See - https://product-fabric.atlassian.net/browse/ED-25616
+		const renderTrackingEnabled = !fg('platform_editor_disable_rerender_tracking_jira');
 		const useShallow = true;
 
 		return (

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/legacy-custom-icons",
-	"version": "0.12.0",
+	"version": "0.13.0",
 	"description": "A centralised place to store legacy custom icons.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -99,7 +99,17 @@
 		"./machine-learning-model-icon": "./src/ui/machine-learning-model-icon/index.tsx",
 		"./template-icon": "./src/ui/template-icon/index.tsx",
 		"./ui-element-icon": "./src/ui/ui-element-icon/index.tsx",
-		"./chat-icon": "./src/ui/chat-icon/index.tsx"
+		"./chat-icon": "./src/ui/chat-icon/index.tsx",
+		"./checkbox-icon": "./src/ui/checkbox-icon/index.tsx",
+		"./cmdb-object-icon": "./src/ui/cmdb-object-icon/index.tsx",
+		"./dropdown-icon": "./src/ui/dropdown-icon/index.tsx",
+		"./number-icon": "./src/ui/number-icon/index.tsx",
+		"./radio-icon": "./src/ui/radio-icon/index.tsx",
+		"./form-card-icon": "./src/ui/form-card-icon/index.tsx",
+		"./cascading-dropdown-icon": "./src/ui/cascading-dropdown-icon/index.tsx",
+		"./short-text-icon": "./src/ui/short-text-icon/index.tsx",
+		"./long-text-icon": "./src/ui/long-text-icon/index.tsx",
+		"./paragraph-icon": "./src/ui/paragraph-icon/index.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
@@ -169,7 +179,17 @@
 		"./machine-learning-model-icon": "./src/ui/machine-learning-model-icon/index.tsx",
 		"./template-icon": "./src/ui/template-icon/index.tsx",
 		"./ui-element-icon": "./src/ui/ui-element-icon/index.tsx",
-		"./chat-icon": "./src/ui/chat-icon/index.tsx"
+		"./chat-icon": "./src/ui/chat-icon/index.tsx",
+		"./checkbox-icon": "./src/ui/checkbox-icon/index.tsx",
+		"./cmdb-object-icon": "./src/ui/cmdb-object-icon/index.tsx",
+		"./dropdown-icon": "./src/ui/dropdown-icon/index.tsx",
+		"./number-icon": "./src/ui/number-icon/index.tsx",
+		"./radio-icon": "./src/ui/radio-icon/index.tsx",
+		"./form-card-icon": "./src/ui/form-card-icon/index.tsx",
+		"./cascading-dropdown-icon": "./src/ui/cascading-dropdown-icon/index.tsx",
+		"./short-text-icon": "./src/ui/short-text-icon/index.tsx",
+		"./long-text-icon": "./src/ui/long-text-icon/index.tsx",
+		"./paragraph-icon": "./src/ui/paragraph-icon/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^22.24.0",

@@ -5,7 +5,7 @@ import { createRule } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 
-import { openTypeAheadAtCursor } from '../transforms/open-typeahead-at-cursor';
+import { openTypeAheadAtCursor } from '../pm-plugins/commands/open-typeahead-at-cursor';
 import type { TypeAheadHandler } from '../types';
 
 export function inputRulePlugin(

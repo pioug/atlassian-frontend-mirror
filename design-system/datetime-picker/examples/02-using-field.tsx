@@ -15,6 +15,7 @@ export default () => {
 						shouldShowCalendarButton
 						inputLabel="Date"
 						openCalendarLabel="open calendar"
+						clearControlLabel="Clear date"
 					/>
 				)}
 			</Field>
@@ -29,11 +30,11 @@ export default () => {
 						{...fieldProps}
 						clearControlLabel="Clear datetime"
 						datePickerProps={{
-							label: 'Date, Datetime',
+							label: 'Datetime, date',
 							shouldShowCalendarButton: true,
 							openCalendarLabel: 'open calendar',
 						}}
-						timePickerProps={{ label: 'Time, Datetime' }}
+						timePickerProps={{ label: 'Datetime, time' }}
 					/>
 				)}
 			</Field>

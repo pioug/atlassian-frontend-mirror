@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 3.8.1
+
+### Patch Changes
+
+- [#159211](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159211)
+  [`9e940f7c89d05`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e940f7c89d05) -
+  Adding analytics for `executeFetch` and updating test delays for loading state
+
 ## 3.8.0
 
 ### Minor Changes

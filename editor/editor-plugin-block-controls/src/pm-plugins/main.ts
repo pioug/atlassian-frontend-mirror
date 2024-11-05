@@ -79,10 +79,6 @@ const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) =>
 					scrollable.style.setProperty('scroll-behavior', null);
 				}
 
-				if (isPreRelease2()) {
-					defaultActiveAnchorTracker.reset();
-				}
-
 				api?.core?.actions.execute(({ tr }) => {
 					const { start } = source.data as ElementDragSource;
 					// if no drop targets are rendered, assume that drop is invalid
@@ -717,11 +713,16 @@ export const createPlugin = (
 					}
 				},
 				dragstart(view: EditorView) {
+					if (isPreRelease2()) {
+						defaultActiveAnchorTracker.reset();
+					}
+
 					anchorRectCache?.setEditorView(view);
 					view.dispatch(view.state.tr.setMeta(key, { isPMDragging: true }));
 				},
 				dragend(view: EditorView) {
 					const { state, dispatch } = view;
+
 					if (key.getState(state)?.isPMDragging) {
 						dispatch(state.tr.setMeta(key, { isPMDragging: false }));
 					}

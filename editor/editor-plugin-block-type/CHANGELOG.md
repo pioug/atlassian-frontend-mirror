@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-type
 
+## 4.0.3
+
+### Patch Changes
+
+- [#159777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159777)
+  [`e708d0a9e4b36`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e708d0a9e4b36) -
+  Refactoring plugins to meet folder standards.
+- Updated dependencies
+
 ## 4.0.2
 
 ### Patch Changes

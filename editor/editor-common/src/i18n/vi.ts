@@ -53,6 +53,7 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Bạn không thể sắp xếp bảng có các ô đã hợp nhất',
   'fabric.editor.cancelButton': 'Hủy',
   'fabric.editor.captionPlaceholder': 'Thêm chú thích',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt': 'Thêm chú thích - nhấp đúp để xem trước',
   'fabric.editor.cardFloatingControls': 'Tùy chọn thẻ',
   'fabric.editor.cellBackground': 'Nền ô',
   'fabric.editor.cellOptions': 'Tùy chọn ô',
@@ -112,6 +113,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Bạn chỉ có thể nhận xét về văn bản, tiêu đề, biểu tượng cảm xúc, ngày tháng, lượt nhắc đến, liên kết và trạng thái.',
   'fabric.editor.createCommentInvalid': 'Bạn chỉ có thể bình luận về văn bản và tiêu đề',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Đã hiểu',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Hiện bạn có thể để lại bình luận trên các thành phần trong dòng như liên kết, ngày tháng, trạng thái và lượt nhắc đến.',
   'fabric.editor.customPanel': 'Bảng tùy chỉnh',
   'fabric.editor.customPanel.description': 'Thêm ghi chú với biểu tượng cảm xúc và nền màu',
   'fabric.editor.datasource.assetsObjects.description':
@@ -214,7 +218,7 @@ export default {
   'fabric.editor.findNext': 'Tìm tiếp theo',
   'fabric.editor.findPrevious': 'Tìm trước đó',
   'fabric.editor.findReplaceToolbarButton': 'Tìm kiếm và thay thế',
-  'fabric.editor.fiveColumns': 'Bố cục 5 cột',
+  'fabric.editor.fiveColumns': 'Bố cục năm cột',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Hủy',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Đồng thời xóa các thành phần được kết nối',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -227,7 +231,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Cuộn sang trái',
   'fabric.editor.floatingToolbar.scrollRight': 'Cuộn sang phải',
   'fabric.editor.focusTableResizeHandle': 'Ô điều khiển thay đổi kích thước bảng tiêu điểm',
-  'fabric.editor.fourColumns': 'Bố cục 4 cột',
+  'fabric.editor.fourColumns': 'Bố cục bốn cột',
   'fabric.editor.headerColumn': 'Cột tiêu đề',
   'fabric.editor.headerRow': 'Hàng tiêu đề',
   'fabric.editor.heading1': 'Heading 1',
@@ -303,6 +307,8 @@ export default {
     '{userRole, select, admin {Mời thành viên cùng nhóm vào {productName}} trusted {Mời thành viên cùng nhóm vào {productName}} other {Thêm thành viên cùng nhóm vào {productName}}}',
   'fabric.editor.italic': 'In nghiêng',
   'fabric.editor.keyboardShortcuts': 'Phím tắt bàn phím',
+  'fabric.editor.layout.columnOption': '{count, plural, other {{count} cột}}',
+  'fabric.editor.layout.placeholder': 'Thêm nội dung',
   'fabric.editor.layoutFixedWidth': 'Quay lại chính giữa',
   'fabric.editor.layoutFullWidth': 'Hiển thị toàn chiều rộng',
   'fabric.editor.layoutWide': 'Hiển thị rộng hơn',

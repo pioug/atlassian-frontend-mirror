@@ -11,6 +11,7 @@ const DatePickerDefaultExample = () => (
 		</Label>
 		<DatePicker
 			id="default-date-picker-example"
+			clearControlLabel="Clear choose date"
 			shouldShowCalendarButton
 			inputLabelId="date"
 			openCalendarLabel="open calendar"

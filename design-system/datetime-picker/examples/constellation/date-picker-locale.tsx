@@ -12,6 +12,7 @@ const DatePickerLocaleExample = () => (
 		<DatePicker
 			locale={'en-US'}
 			id="datepicker-locale-en"
+			clearControlLabel="Clear English language example"
 			shouldShowCalendarButton
 			inputLabelId="english"
 			openCalendarLabel="open calendar"
@@ -23,6 +24,7 @@ const DatePickerLocaleExample = () => (
 		<DatePicker
 			locale={'ja-JP'}
 			id="datepicker-locale-jp"
+			clearControlLabel="Clear Japanese language example"
 			shouldShowCalendarButton
 			inputLabelId="japanese"
 			openCalendarLabel="open calendar"

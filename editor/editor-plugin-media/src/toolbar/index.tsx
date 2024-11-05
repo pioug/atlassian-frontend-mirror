@@ -207,17 +207,17 @@ const generateMediaCardFloatingToolbar = (
 		{ type: 'separator' },
 		fg('platform_editor_media_previewer_bugfix')
 			? {
-					id: 'editor.media.viewer',
-					testId: 'file-preview-toolbar-button',
-					type: 'button',
-					icon: MaximizeIcon,
-					iconFallback: FilePreviewIcon,
-					title: intl.formatMessage(messages.preview),
-					onClick: () => {
-						return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
-					},
-					supportsViewMode: true,
-				}
+				id: 'editor.media.viewer',
+				testId: 'file-preview-toolbar-button',
+				type: 'button',
+				icon: MaximizeIcon,
+				iconFallback: FilePreviewIcon,
+				title: intl.formatMessage(messages.preview),
+				onClick: () => {
+					return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
+				},
+				supportsViewMode: true,
+			}
 			: generateFilePreviewItem(mediaPluginState, intl),
 		{ type: 'separator' },
 		{
@@ -319,7 +319,7 @@ const generateMediaSingleFloatingToolbar = (
 		let isChangingLayoutDisabled = false;
 		const selectedNode = getSelectedMediaSingle(state);
 
-		if (fg('platform.editor.media.extended-resize-experience')) {
+		if (fg('platform_editor_media_extended_resize_experience')) {
 			const contentWidth = widthPlugin?.sharedState.currentState()?.lineLength;
 			const selectedNodeMaxWidth = pluginState.currentMaxWidth || contentWidth;
 
@@ -437,7 +437,7 @@ const generateMediaSingleFloatingToolbar = (
 		if (
 			allowResizing &&
 			(!isWithinTable || allowResizingInTables === true) &&
-			fg('platform.editor.media.extended-resize-experience')
+			fg('platform_editor_media_extended_resize_experience')
 		) {
 			const selectedMediaSingleNode = getSelectedMediaSingle(state);
 
@@ -622,22 +622,22 @@ const generateMediaSingleFloatingToolbar = (
 				toolbarButtons.push(
 					fg('platform_editor_media_previewer_bugfix')
 						? {
-								id: 'editor.media.viewer',
-								testId: 'file-preview-toolbar-button',
-								type: 'button',
-								icon: MaximizeIcon,
-								iconFallback: FilePreviewIcon,
-								title: intl.formatMessage(messages.preview),
-								onClick: () => {
-									return (
-										handleShowMediaViewer({
-											api: pluginInjectionApi,
-											mediaPluginState: pluginState,
-										}) ?? false
-									);
-								},
-								supportsViewMode: true,
-							}
+							id: 'editor.media.viewer',
+							testId: 'file-preview-toolbar-button',
+							type: 'button',
+							icon: MaximizeIcon,
+							iconFallback: FilePreviewIcon,
+							title: intl.formatMessage(messages.preview),
+							onClick: () => {
+								return (
+									handleShowMediaViewer({
+										api: pluginInjectionApi,
+										mediaPluginState: pluginState,
+									}) ?? false
+								);
+							},
+							supportsViewMode: true,
+						}
 						: generateFilePreviewItem(pluginState, intl),
 					{
 						type: 'separator',
@@ -847,7 +847,7 @@ export const floatingToolbar = (
 		mediaAssistiveMessage: assistiveMessage,
 	};
 
-	if (allowResizing && fg('platform.editor.media.extended-resize-experience')) {
+	if (allowResizing && fg('platform_editor_media_extended_resize_experience')) {
 		return {
 			...toolbarConfig,
 			width: mediaPluginState.isResizing ? undefined : getMaxToolbarWidth(),

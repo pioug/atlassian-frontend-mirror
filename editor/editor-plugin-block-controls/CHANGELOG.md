@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.5
+
+### Patch Changes
+
+- [#158691](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158691)
+  [`f71feb1fedb07`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f71feb1fedb07) -
+  ED-25618 enable 5 columns for pre release 2
+- [#158691](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158691)
+  [`70ef661bbbb4d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70ef661bbbb4d) -
+  Update feature flag to gate
+- Updated dependencies
+
 ## 2.13.4
 
 ### Patch Changes

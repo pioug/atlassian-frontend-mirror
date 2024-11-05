@@ -20,6 +20,7 @@ const DatePickerDisableComplexExample = () => (
 			defaultValue="2020-12-15"
 			disabledDateFilter={weekendFilter}
 			id="datepicker-disable-complex"
+			clearControlLabel="Clear disabled dates (complex)"
 			shouldShowCalendarButton
 			inputLabelId="disabled"
 			openCalendarLabel="open calendar"

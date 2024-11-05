@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { isPreRelease2 } from './advanced-layouts-flags';
 
 export class ActiveAnchorTracker {
-	emitter: EventEmitter;
+	emitter: EventEmitter | null;
 	lastActiveAnchor: string = '';
 
 	constructor() {
@@ -13,15 +13,19 @@ export class ActiveAnchorTracker {
 	}
 
 	public subscribe(anchorName: string, callback: (isActive: boolean) => void) {
-		this.emitter.on(anchorName, callback);
+		if (this.emitter) {
+			this.emitter.on(anchorName, callback);
+		}
 	}
 
 	public unsubscribe(anchorName: string, callback: (isActive: boolean) => void) {
-		this.emitter.removeListener(anchorName, callback);
+		if (this.emitter) {
+			this.emitter.removeListener(anchorName, callback);
+		}
 	}
 
 	public emit(anchorName: string) {
-		if (this.lastActiveAnchor !== anchorName) {
+		if (this.lastActiveAnchor !== anchorName && this.emitter) {
 			this.emitter.emit(this.lastActiveAnchor, false);
 			this.emitter.emit(anchorName, true);
 			this.lastActiveAnchor = anchorName;
@@ -29,10 +33,18 @@ export class ActiveAnchorTracker {
 	}
 
 	public reset() {
-		this.emitter.removeAllListeners();
+		if (this.emitter) {
+			// To prevent any potential memory leaks,
+			// we set the event emitter to null and then create a new event emitter.
+			this.emitter.removeAllListeners();
+			this.emitter = null;
+			this.emitter = new EventEmitter();
+		}
 	}
 }
 
+// TODO We should use a scoped ActiveAnchorTracker rather than the global static object.
+// Move this into the plugin scope once the newApply functions becomes default apply.
 export const defaultActiveAnchorTracker: ActiveAnchorTracker = new ActiveAnchorTracker();
 
 export const useActiveAnchorTracker = (

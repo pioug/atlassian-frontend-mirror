@@ -55,6 +55,7 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Impossible de trier un tableau comportant des cellules fusionnées',
   'fabric.editor.cancelButton': 'Annuler',
   'fabric.editor.captionPlaceholder': 'Ajouter une légende',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt': 'Ajouter une légende : cliquez deux fois pour prévisualiser',
   'fabric.editor.cardFloatingControls': 'Options de carte',
   'fabric.editor.cellBackground': 'Arrière-plan de la cellule',
   'fabric.editor.cellOptions': 'Options de la cellule',
@@ -116,6 +117,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Vous ne pouvez commenter que le texte, les titres, les émoticônes, les dates, les mentions, les liens et les états.',
   'fabric.editor.createCommentInvalid': 'Vous pouvez uniquement commenter du texte et des titres',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'OK',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Vous pouvez désormais laisser des commentaires sur des éléments contextuels tels que des liens, des dates, des états et des mentions.',
   'fabric.editor.customPanel': 'Volet personnalisé',
   'fabric.editor.customPanel.description': "Ajoutez une remarque avec une émoticône et un fond d'écran coloré",
   'fabric.editor.datasource.assetsObjects.description':
@@ -218,7 +222,7 @@ export default {
   'fabric.editor.findNext': 'Suivant',
   'fabric.editor.findPrevious': 'Précédent',
   'fabric.editor.findReplaceToolbarButton': 'Rechercher et remplacer',
-  'fabric.editor.fiveColumns': 'Disposition en 5 colonnes',
+  'fabric.editor.fiveColumns': 'Disposition en cinq colonnes',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Annuler',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Supprimer également les éléments connectés',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -232,7 +236,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Faire défiler vers la gauche',
   'fabric.editor.floatingToolbar.scrollRight': 'Faire défiler vers la droite',
   'fabric.editor.focusTableResizeHandle': 'Focus sur la poignée de redimensionnement des tableaux',
-  'fabric.editor.fourColumns': 'Disposition en 4 colonnes',
+  'fabric.editor.fourColumns': 'Disposition en quatre colonnes',
   'fabric.editor.headerColumn': "Colonne de l'en-tête",
   'fabric.editor.headerRow': "Ligne d'en-tête",
   'fabric.editor.heading1': 'En-tête 1',
@@ -308,6 +312,8 @@ export default {
     '{userRole, select, admin {Inviter un coéquipier à rejoindre {productName}} trusted {Inviter un coéquipier à rejoindre {productName}} other {Ajouter un coéquipier à {productName}}}',
   'fabric.editor.italic': 'Italique',
   'fabric.editor.keyboardShortcuts': 'Raccourcis clavier',
+  'fabric.editor.layout.columnOption': '{count, plural, one {1 colonne} other {{count} colonnes}}',
+  'fabric.editor.layout.placeholder': 'Ajouter du contenu',
   'fabric.editor.layoutFixedWidth': 'Centrer à nouveau',
   'fabric.editor.layoutFullWidth': 'Passer en mode pleine largeur',
   'fabric.editor.layoutWide': 'Passer en mode élargi',

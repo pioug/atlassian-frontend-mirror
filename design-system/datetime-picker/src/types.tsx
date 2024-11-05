@@ -82,6 +82,7 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	/**
 	 * Set the `aria-label` for the clear button.
 	 * Add the word "Clear" at the beginning of the clearControlLabel.
+	 * For instance, for a field to set an appointment, use "Clear appointment date and time".
 	 */
 	clearControlLabel?: string;
 	/**
@@ -298,6 +299,7 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	/**
 	 * Set the `aria-label` for the clear button.
 	 * Add the word "Clear" at the beginning of the clearControlLabel.
+	 * For instance, for a field to set an appointment, use "Clear appointment date and time".
 	 */
 	clearControlLabel?: string;
 	/**
@@ -435,6 +437,7 @@ export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
 	/**
 	 * Set the `aria-label` for the clear button.
 	 * Add the word "Clear" at the beginning of the clearControlLabel.
+	 * For instance, for a field to set an appointment, use "Clear appointment date and time".
 	 */
 	clearControlLabel?: string;
 	/**

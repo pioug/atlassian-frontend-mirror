@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Status } from '../../src';
+import { Status } from '@atlaskit/avatar';
 
 const AvatarStatusWidthExample = () => {
 	const [width, setWidth] = useState(60);
@@ -16,8 +16,7 @@ const AvatarStatusWidthExample = () => {
 				type="range"
 				value={width}
 			/>
-			{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<div style={{ maxWidth: width, border: '1px dotted blue' }}>
 				<Status status="approved" />
 			</div>

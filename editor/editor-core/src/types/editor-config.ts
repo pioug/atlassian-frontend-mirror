@@ -6,7 +6,7 @@ import type { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 import type { MarkConfig, NodeConfig } from './pm-config';
 import type { PMPlugin } from './pm-plugin';
 
-type EditorViewStateUpdatedCallbackProps = {
+export type EditorViewStateUpdatedCallbackProps = {
 	readonly originalTransaction: Readonly<Transaction>;
 	readonly transactions: readonly Transaction[];
 	readonly oldEditorState: Readonly<EditorState>;

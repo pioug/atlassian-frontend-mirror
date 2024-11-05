@@ -54,6 +54,7 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Nie można sortować tabeli ze scalonymi komórkami',
   'fabric.editor.cancelButton': 'Anuluj',
   'fabric.editor.captionPlaceholder': 'Dodaj podpis',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt': 'Dodaj podpis — kliknij dwukrotnie, aby wyświetlić podgląd',
   'fabric.editor.cardFloatingControls': 'Opcje kart',
   'fabric.editor.cellBackground': 'Tło komórki',
   'fabric.editor.cellOptions': 'Opcje komórki',
@@ -116,6 +117,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Można komentować tylko tekst, nagłówki, emoji, daty, wzmianki, łącza i statusy.',
   'fabric.editor.createCommentInvalid': 'Możesz komentować tylko tekst i nagłówki',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Rozumiem',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Możesz teraz dodawać komentarze do elementów śródwierszowych, takich jak łącza, daty, statusy i wzmianki.',
   'fabric.editor.customPanel': 'Panel niestandardowy',
   'fabric.editor.customPanel.description': 'Dodaj notatkę z emoji i kolorowym tłem',
   'fabric.editor.datasource.assetsObjects.description':
@@ -218,7 +222,7 @@ export default {
   'fabric.editor.findNext': 'Znajdź następne',
   'fabric.editor.findPrevious': 'Znajdź poprzednie',
   'fabric.editor.findReplaceToolbarButton': 'Znajdź i zamień',
-  'fabric.editor.fiveColumns': 'Układ 5-kolumnowy',
+  'fabric.editor.fiveColumns': 'Układ pięciokolumnowy',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Anuluj',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Usuń także połączone elementy',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -231,7 +235,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Przewiń w lewo',
   'fabric.editor.floatingToolbar.scrollRight': 'Przewiń w prawo',
   'fabric.editor.focusTableResizeHandle': 'Koncentracja na uchwycie zmiany rozmiaru tabeli',
-  'fabric.editor.fourColumns': 'Układ 4-kolumnowy',
+  'fabric.editor.fourColumns': 'Układ czterokolumnowy',
   'fabric.editor.headerColumn': 'Kolumna nagłówka',
   'fabric.editor.headerRow': 'Wiersz nagłówka',
   'fabric.editor.heading1': 'Nagłówek 1',
@@ -307,6 +311,9 @@ export default {
     '{userRole, select, admin {Zaproś członka zespołu do produktu {productName}} trusted {Zaproś członka zespołu do produktu {productName}} other {Dodaj członka zespołu do produktu {productName}}}',
   'fabric.editor.italic': 'Kursywa',
   'fabric.editor.keyboardShortcuts': 'Skróty klawiszowe',
+  'fabric.editor.layout.columnOption':
+    '{count, plural, one {-kolumnowy} few {{count}-kolumnowy} many {{count}-kolumnowy} other {{count}-kolumnowy}}',
+  'fabric.editor.layout.placeholder': 'Dodaj treści',
   'fabric.editor.layoutFixedWidth': 'Powrót do centrum',
   'fabric.editor.layoutFullWidth': 'Pełna szerokość',
   'fabric.editor.layoutWide': 'Szeroki widok',

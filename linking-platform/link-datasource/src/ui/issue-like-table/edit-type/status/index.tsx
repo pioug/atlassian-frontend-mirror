@@ -80,18 +80,12 @@ const loadOptions = async (currentValue: DatasourceTypeWithOnlyValues, executeFe
 		const { operationStatus, entities } = result;
 
 		if (operationStatus === ActionOperationStatus.SUCCESS && entities) {
-			return new Promise<Status[]>((resolve) => {
-				setTimeout(
-					() => resolve(
-						entities.map((entity) => ({
-								id: entity.id,
-								text: entity.text,
-								style: entity.style,
-							})
-						)
-					), 1000
-				)
-			})
+			return entities.map((entity) => ({
+					id: entity.id,
+					text: entity.text,
+					style: entity.style,
+				})
+			)
 		}
 	}
 

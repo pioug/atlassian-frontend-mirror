@@ -14,11 +14,11 @@ export default () => {
 				onChange={console.log}
 				clearControlLabel="Clear stock"
 				datePickerProps={{
-					label: 'Date, Stock',
+					label: 'Stock, date',
 					shouldShowCalendarButton: true,
 					openCalendarLabel: 'open calendar',
 				}}
-				timePickerProps={{ label: 'Time, Stock' }}
+				timePickerProps={{ label: 'Stock, time' }}
 			/>
 
 			<Label htmlFor="react-select-stock-value--input">Stock with value</Label>
@@ -28,11 +28,11 @@ export default () => {
 				defaultValue="2020-10-10"
 				clearControlLabel="Clear stock with value"
 				datePickerProps={{
-					label: 'Date, Stock with value',
+					label: 'Stock with value, date',
 					shouldShowCalendarButton: true,
 					openCalendarLabel: 'open calendar',
 				}}
-				timePickerProps={{ label: 'Time, Stock with value' }}
+				timePickerProps={{ label: 'Stock with value, time' }}
 			/>
 
 			<Label htmlFor="react-select-disabled--input">Disabled input</Label>
@@ -41,11 +41,11 @@ export default () => {
 				isDisabled
 				onChange={console.log}
 				datePickerProps={{
-					label: 'Date, Disabled input',
+					label: 'Disabled input, date',
 					shouldShowCalendarButton: true,
 					openCalendarLabel: 'open calendar',
 				}}
-				timePickerProps={{ label: 'Time, Disabled input' }}
+				timePickerProps={{ label: 'Disabled input, time' }}
 			/>
 
 			<Label htmlFor="react-select-disabled-value--input">Disabled input with value</Label>
@@ -55,11 +55,11 @@ export default () => {
 				onChange={console.log}
 				defaultValue="2020-10-10"
 				datePickerProps={{
-					label: 'Date, Disabled input with value',
+					label: 'Disabled input with value, date',
 					shouldShowCalendarButton: true,
 					openCalendarLabel: 'open calendar',
 				}}
-				timePickerProps={{ label: 'Time, Disabled input with value' }}
+				timePickerProps={{ label: 'Disabled input with value, time' }}
 			/>
 
 			<Label htmlFor="react-select-custom-date--input">Custom date format</Label>
@@ -69,12 +69,12 @@ export default () => {
 				datePickerProps={{
 					dateFormat: 'DD/MMM/YY',
 					placeholder: 'e.g. 31/Dec/18',
-					label: 'Date, Custom date format',
+					label: 'Custom date format, date',
 					shouldShowCalendarButton: true,
 					openCalendarLabel: 'open calendar',
 				}}
 				clearControlLabel="Clear custom date format"
-				timePickerProps={{ label: 'Time, Custom date format' }}
+				timePickerProps={{ label: 'Custom date format, time' }}
 			/>
 
 			<Label htmlFor="react-select-custom-value--input">Custom date format with value</Label>
@@ -84,13 +84,13 @@ export default () => {
 				datePickerProps={{
 					dateFormat: 'DD/MMM/YY',
 					placeholder: 'e.g. 31/Dec/18',
-					label: 'Date, Custom date format with value',
+					label: 'Custom date format with value, date',
 					shouldShowCalendarButton: true,
 					openCalendarLabel: 'open calendar',
 				}}
 				defaultValue="2020-10-10"
 				clearControlLabel="Clear custom date format with value"
-				timePickerProps={{ label: 'Time, Custom date format with value' }}
+				timePickerProps={{ label: 'Custom date format with value, time' }}
 			/>
 		</Box>
 	);

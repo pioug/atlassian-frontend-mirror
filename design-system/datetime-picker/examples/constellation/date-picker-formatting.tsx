@@ -16,6 +16,7 @@ const DatePickerFormattingExample = () => (
 			placeholder="2021-06-10"
 			parseInputValue={(date: string) => parseISO(date)}
 			id="datepicker-format"
+			clearControlLabel="Clear Custom Date Format"
 			shouldShowCalendarButton
 			inputLabelId="custom"
 			openCalendarLabel="open calendar"

@@ -1,7 +1,8 @@
 import React from 'react';
 
+import Avatar from '@atlaskit/avatar';
+
 import ExampleImg from '../../examples-util/nucleus.png';
-import Avatar from '../../src';
 
 const AvatarMediumExample = () => {
 	return (

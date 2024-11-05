@@ -55,6 +55,7 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Nem rendezhetsz egyesített cellákat tartalmazó táblázatot',
   'fabric.editor.cancelButton': 'Mégse',
   'fabric.editor.captionPlaceholder': 'Képaláírás hozzáadása',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt': 'Felirat hozzáadása – dupla kattintás az előnézethez',
   'fabric.editor.cardFloatingControls': 'Kártya beállításai',
   'fabric.editor.cellBackground': 'Cella háttere',
   'fabric.editor.cellOptions': 'Cellabeállítások',
@@ -116,6 +117,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Csak szövegekhez, címsorokhoz, emojikhoz, dátumokhoz, említésekhez, linkekhez és állapotokhoz fűzhetsz megjegyzést.',
   'fabric.editor.createCommentInvalid': 'Csak szöveghez és fejléchez fűzhetsz megjegyzést',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Értettem',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Mostantól megjegyzéseket fűzhetsz olyan beágyazott elemekhez, mint például a linkek, a dátumok, az állapotok és az említések.',
   'fabric.editor.customPanel': 'Egyéni panel',
   'fabric.editor.customPanel.description': 'Adj hozzá megjegyzést emojival és színes háttérrel',
   'fabric.editor.datasource.assetsObjects.description':
@@ -218,7 +222,7 @@ export default {
   'fabric.editor.findNext': 'Következő keresése',
   'fabric.editor.findPrevious': 'Előző keresése',
   'fabric.editor.findReplaceToolbarButton': 'Keresés és csere',
-  'fabric.editor.fiveColumns': '5 oszlopos elrendezés',
+  'fabric.editor.fiveColumns': 'Ötoszlopos elrendezés',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Mégse',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'A kapcsolódó elemek is törlődjenek',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -231,7 +235,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Görgetés balra',
   'fabric.editor.floatingToolbar.scrollRight': 'Görgetés jobbra',
   'fabric.editor.focusTableResizeHandle': 'Táblázat méretét módosító kapcsoló',
-  'fabric.editor.fourColumns': '4 oszlopos elrendezés',
+  'fabric.editor.fourColumns': 'Négyoszlopos elrendezés',
   'fabric.editor.headerColumn': 'Fejlécoszlop',
   'fabric.editor.headerRow': 'Fejlécsor',
   'fabric.editor.heading1': '1. szintű címsor',
@@ -307,6 +311,8 @@ export default {
     '{userRole, select, admin {Csapattag meghívása a(z) {productName} termékbe} trusted {Csapattag meghívása a(z) {productName} termékbe} other {Csapattag hozzáadása a(z) {productName} termékhez}}',
   'fabric.editor.italic': 'Dőlt',
   'fabric.editor.keyboardShortcuts': 'Billentyűparancsok',
+  'fabric.editor.layout.columnOption': '{count, plural, one {oszlopos} other {{count} oszlopos}}',
+  'fabric.editor.layout.placeholder': 'Tartalom hozzáadása',
   'fabric.editor.layoutFixedWidth': 'Vissza a középponthoz',
   'fabric.editor.layoutFullWidth': 'Teljes szélességű nézet',
   'fabric.editor.layoutWide': 'Széles nézet',

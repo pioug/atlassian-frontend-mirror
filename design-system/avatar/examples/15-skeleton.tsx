@@ -1,9 +1,9 @@
 import React from 'react';
 
+import { Skeleton } from '@atlaskit/avatar';
 import * as colors from '@atlaskit/theme/colors';
 
 import { Block, Gap } from '../examples-util/helpers';
-import { Skeleton } from '../src';
 
 export default () => (
 	<div>

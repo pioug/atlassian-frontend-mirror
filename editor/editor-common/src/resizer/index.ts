@@ -11,3 +11,4 @@ export type {
 	HandleResizeStart,
 	Dimensions,
 } from './types';
+export { BreakoutResizer, ignoreResizerMutations } from './BreakoutResizer';

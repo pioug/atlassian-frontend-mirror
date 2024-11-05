@@ -67,10 +67,9 @@ export function useCloseOnEscapePress({ onClose, isDisabled }: UseCloseOnEscapeP
 
 /**
  *
- * @experimental Still under development. Do not use.
+ * @deprecated Please use useLayering instead
  *
- * Layering hook to get layering info like the current level, the top level of
- * the given component
+ * Layering hook to get layering info like the current level, the top level of the given component
  *
  */
 export function UNSAFE_useLayering() {
@@ -81,3 +80,5 @@ export function UNSAFE_useLayering() {
 	}, [currentLevel, topLevelRef]);
 	return { currentLevel, topLevelRef, isLayerDisabled };
 }
+
+export const useLayering = UNSAFE_useLayering;

@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 78.10.4
+
+### Patch Changes
+
+- [#159175](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159175)
+  [`3d950b640ad0c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d950b640ad0c) -
+  Replace @atlassian/react-ufo imports with @atlaskit/react-ufo
+
 ## 78.10.3
 
 ### Patch Changes

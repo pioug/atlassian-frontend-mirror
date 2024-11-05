@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "4.0.2",
+	"version": "4.0.3",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,18 +29,17 @@
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts",
-		"./consts": "./src/consts.ts",
-		"./styles": "./src/styles.ts"
+		"./consts": "./src/ui/consts.ts",
+		"./styles": "./src/ui/styles.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./consts": "./src/consts.ts",
-		"./i18n/*": "./src/i18n/*.ts",
-		"./styles": "./src/styles.ts"
+		"./consts": "./src/ui/consts.ts",
+		"./styles": "./src/ui/styles.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^44.2.0",
-		"@atlaskit/editor-common": "^94.11.0",
+		"@atlaskit/editor-common": "^94.12.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
@@ -75,6 +74,9 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
+			"code-structure": [
+				"editor-plugin"
+			],
 			"import-structure": [
 				"atlassian-conventions"
 			],

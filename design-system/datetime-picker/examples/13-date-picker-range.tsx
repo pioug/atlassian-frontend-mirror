@@ -36,6 +36,7 @@ export default () => {
 			</Label>
 			<DatePicker
 				id="react-select-start-date--input"
+				clearControlLabel="Clear start date (past 30 days)"
 				onChange={(date: string) => setStartDate(date)}
 				value={startDate}
 				minDate={earliestDateString}
@@ -52,6 +53,7 @@ export default () => {
 			</Label>
 			<DatePicker
 				id="react-select-end-date--input"
+				clearControlLabel="Clear end date"
 				value={endDate}
 				minDate={startDate || earliestDateString}
 				maxDate={latestDateString}

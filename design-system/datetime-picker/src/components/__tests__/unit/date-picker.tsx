@@ -733,7 +733,7 @@ describe('DatePicker', () => {
 		});
 	});
 
-	it('when clearControl prop is passed, button should have an aria-label', () => {
+	it('when `clearControlLabel` prop is passed, button should have an aria-label', () => {
 		const onChangeSpy = jest.fn();
 		const datePickerLabel = 'Date Test';
 		const clearControlLabel = `Clear ${datePickerLabel}`;

@@ -91,9 +91,9 @@ const LayeringProvider: FC<{
 /**
  * __UNSAFE_LAYERING__
  *
- * @experimental Still under development. Do not use.
+ * @deprecated Please use Layering instead
  *
- * @important the component is toggled by isDisabled props, default is true
+ * @important the component is toggled by isDisabled props, the default isDisabled is true
  *
  * Layering component is a wrapper to let children to consume layer contexts and hooks.
  *
@@ -112,3 +112,16 @@ export const UNSAFE_LAYERING: FC<{
 
 	return isNested ? content : <LayeringProvider>{content}</LayeringProvider>;
 };
+
+// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
+// Remove links that the component does not have (such as usage). If there are no links remove them all.
+/**
+ * __Layering__
+ *
+ * A layering {description}.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const Layering = UNSAFE_LAYERING;

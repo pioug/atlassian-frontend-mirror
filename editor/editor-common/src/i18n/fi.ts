@@ -53,6 +53,7 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Et voi lajitella yhdistettyjä soluja sisältävää taulukkoa',
   'fabric.editor.cancelButton': 'Peruuta',
   'fabric.editor.captionPlaceholder': 'Lisää kuvateksti',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt': 'Lisää kuvateksti – esikatsele kaksoisnapsauttamalla',
   'fabric.editor.cardFloatingControls': 'Korttivaihtoehdot',
   'fabric.editor.cellBackground': 'Solun tausta',
   'fabric.editor.cellOptions': 'Soluvalinnat',
@@ -113,6 +114,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Voit kommentoida vain tekstiä, otsikoita, emojeita, päivämääriä, mainintoja, linkkejä ja tiloja.',
   'fabric.editor.createCommentInvalid': 'Voit kommentoida vain tekstiä ja otsikoita',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Selvä',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Voit nyt jättää kommentteja sisäisiin elementteihin, kuten linkkeihin, päivämääriin, tiloihin ja mainintoihin.',
   'fabric.editor.customPanel': 'Mukautettu paneeli',
   'fabric.editor.customPanel.description': 'Lisää huomautus, jossa on emoji ja värillinen tausta',
   'fabric.editor.datasource.assetsObjects.description':
@@ -302,6 +306,8 @@ export default {
     '{userRole, select, admin {Kutsu tiimikaveri tuotteeseen {productName}} trusted {Kutsu tiimikaveri tuotteeseen {productName}} other {Lisää tiimikaveri tuotteeseen {productName}}}',
   'fabric.editor.italic': 'Kursivoitu',
   'fabric.editor.keyboardShortcuts': 'Pikanäppäimet',
+  'fabric.editor.layout.columnOption': '{count, plural, one {-sarakkeinen} other {{count}-sarakkeinen}}',
+  'fabric.editor.layout.placeholder': 'Lisää sisältöä',
   'fabric.editor.layoutFixedWidth': 'Takaisin keskelle',
   'fabric.editor.layoutFullWidth': 'Näytä koko leveydellä',
   'fabric.editor.layoutWide': 'Levennä',

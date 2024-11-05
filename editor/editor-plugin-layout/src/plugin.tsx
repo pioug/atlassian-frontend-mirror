@@ -9,10 +9,12 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	layoutMessages,
 	toolbarInsertBlockMessages as messages,
 } from '@atlaskit/editor-common/messages';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import {
 	IconFiveColumnLayout,
 	IconFourColumnLayout,
@@ -24,9 +26,13 @@ import type {
 	FloatingToolbarConfig,
 	NextEditorPlugin,
 	OptionalPlugin,
+	PMPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	createDefaultLayoutSection,
@@ -35,6 +41,7 @@ import {
 } from './actions';
 import { default as createLayoutPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
+import { default as createLayoutResizingPlugin } from './pm-plugins/resizing';
 import type { LayoutState } from './pm-plugins/types';
 import { buildToolbar } from './toolbar';
 import type { LayoutPluginOptions } from './types';
@@ -47,7 +54,12 @@ export type LayoutPlugin = NextEditorPlugin<
 	'layout',
 	{
 		pluginConfiguration: LayoutPluginOptions | undefined;
-		dependencies: [DecorationsPlugin, OptionalPlugin<AnalyticsPlugin>];
+		dependencies: [
+			DecorationsPlugin,
+			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<WidthPlugin>,
+			OptionalPlugin<EditorDisabledPlugin>,
+		];
 		actions: {
 			insertLayoutColumns: ReturnType<typeof insertLayoutColumnsWithAnalytics>;
 		};
@@ -68,12 +80,30 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 	},
 
 	pmPlugins() {
-		return [
+		const plugins = [
 			{
 				name: 'layout',
 				plugin: () => createLayoutPlugin(options),
 			},
-		];
+		] as Array<PMPlugin>;
+
+		if (
+			(options.editorAppearance === 'full-page' || options.editorAppearance === 'full-width') &&
+			api &&
+			fg('platform_editor_advanced_layouts_breakout_resizing')
+		) {
+			plugins.push({
+				name: 'layoutResizing',
+				plugin: ({
+					portalProviderAPI,
+					eventDispatcher,
+				}: {
+					portalProviderAPI: PortalProviderAPI;
+					eventDispatcher: EventDispatcher;
+				}) => createLayoutResizingPlugin(options, api, portalProviderAPI, eventDispatcher),
+			});
+		}
+		return plugins;
 	},
 
 	actions: {

@@ -318,15 +318,20 @@ export const useExecuteAtomicAction = ({
 				parameters: { inputs, target: { ari } },
 			})
 				.then((resp) => {
+					fireEvent('operational.fetchActionExecution.success', {
+						integrationKey: integrationKey,
+						experience: 'datasource',
+					});
+
 					return resp as E;
 				})
 				.catch((error) => {
-					captureError('actionExecution', error); // fetchActionExecution
+					captureError('fetchActionExecution', error);
 					// Rethrow up to component for flags and other handling
 					throw error;
 				});
 		},
-		[fetchSchema, executeAction, integrationKey, ari, captureError],
+		[fetchSchema, executeAction, integrationKey, ari, fireEvent, captureError],
 	);
 
 	return {

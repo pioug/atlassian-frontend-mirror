@@ -2,12 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import Avatar, { AvatarContext } from '@atlaskit/avatar';
 import { Box, Stack } from '@atlaskit/primitives';
 
-import Avatar, { AvatarContext } from '../src';
 
 const CustomSVG = () => (
 	<Stack space="space.400">

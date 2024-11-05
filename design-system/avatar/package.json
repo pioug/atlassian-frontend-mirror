@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/avatar",
-	"version": "21.17.1",
+	"version": "21.17.2",
 	"description": "An avatar is a visual representation of a user or entity.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,7 +21,7 @@
 		}
 	},
 	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
+	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
 		"website": {
@@ -31,22 +31,22 @@
 		"runReact18": true
 	},
 	"af:exports": {
-		"./AvatarItem": "./src/entry-points/avatar-item.ts",
-		"./Avatar": "./src/entry-points/avatar.ts",
-		"./Presence": "./src/entry-points/presence.ts",
-		"./Skeleton": "./src/entry-points/skeleton.ts",
-		"./Status": "./src/entry-points/status.ts",
-		"./types": "./src/entry-points/types.ts",
-		".": "./src/index.ts"
+		"./AvatarItem": "./src/entry-points/avatar-item.tsx",
+		"./Avatar": "./src/entry-points/avatar.tsx",
+		"./Presence": "./src/entry-points/presence.tsx",
+		"./Skeleton": "./src/entry-points/skeleton.tsx",
+		"./Status": "./src/entry-points/status.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		".": "./src/index.tsx"
 	},
 	"exports": {
-		"./AvatarItem": "./src/entry-points/avatar-item.ts",
-		"./Avatar": "./src/entry-points/avatar.ts",
-		"./Presence": "./src/entry-points/presence.ts",
-		"./Skeleton": "./src/entry-points/skeleton.ts",
-		"./Status": "./src/entry-points/status.ts",
-		"./types": "./src/entry-points/types.ts",
-		".": "./src/index.ts"
+		"./AvatarItem": "./src/entry-points/avatar-item.tsx",
+		"./Avatar": "./src/entry-points/avatar.tsx",
+		"./Presence": "./src/entry-points/presence.tsx",
+		"./Skeleton": "./src/entry-points/skeleton.tsx",
+		"./Status": "./src/entry-points/status.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		".": "./src/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
@@ -75,6 +75,7 @@
 		"@atlassian/feature-flags-test-utils": "*",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
 		"@types/jscodeshift": "^0.11.0",
 		"jest-in-case": "^1.0.2",
 		"jscodeshift": "^0.13.0",

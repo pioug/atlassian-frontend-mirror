@@ -145,7 +145,7 @@ export const mockActionsFetchExecution = () => {
 			]
 		}),
 		{
-			delay: 10,
+			delay: 100,
 			overwriteRoutes: true,
 		},
 	);

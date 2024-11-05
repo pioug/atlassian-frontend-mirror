@@ -1,10 +1,14 @@
-import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
+import type {
+	EditorAppearance,
+	LongPressSelectionPluginOptions,
+} from '@atlaskit/editor-common/types';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 
 export interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
 	allowBreakout?: boolean;
 	UNSAFE_addSidebarLayouts?: boolean;
 	UNSAFE_allowSingleColumnLayout?: boolean;
+	editorAppearance?: EditorAppearance;
 }
 
 export type PresetLayout =

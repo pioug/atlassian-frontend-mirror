@@ -11,10 +11,11 @@ import type {
 	TypeAheadInputMethod,
 	TypeAheadPluginState,
 } from '../types';
-import { isTypeAheadHandler } from '../utils';
+
 
 import { ACTIONS } from './actions';
 import { pluginKey } from './key';
+import { isTypeAheadHandler } from './utils';
 
 export type ReducerOptions = {
 	popupMountRef: PopupMountPointReference;

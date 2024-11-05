@@ -1,7 +1,7 @@
-export { blockTypePlugin } from './plugin';
-export type { BlockTypePlugin } from './plugin';
-export type { BlockTypePluginOptions, BlockType } from './plugin/types';
-export type { BlockTypeState } from './plugin/pm-plugins/main';
-export type { InputMethod } from './plugin/commands';
-export type { DropdownItem } from './plugin/ui/ToolbarBlockType';
-export type { TextBlockTypes } from './plugin/block-types';
+export { blockTypePlugin } from './blockTypePlugin';
+export type { BlockTypePlugin } from './blockTypePluginType';
+export type { BlockTypePluginOptions, BlockType } from './pm-plugins/types';
+export type { BlockTypeState } from './pm-plugins/main';
+export type { InputMethod } from './pm-plugins/commands';
+export type { DropdownItem } from './pm-plugins/ui/ToolbarBlockType';
+export type { TextBlockTypes } from './pm-plugins/block-types';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Status } from '../../src';
+import { Status } from '@atlaskit/avatar';
 
 const AvatarStatusBorderColorExample = () => {
 	return (

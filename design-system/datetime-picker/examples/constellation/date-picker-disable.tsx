@@ -22,6 +22,7 @@ const DatePickerDisabledExample = () => (
 			defaultValue="2020-12-15"
 			disabled={disabledDates}
 			id="datepicker-disabled"
+			clearControlLabel="Clear disabled dates"
 			shouldShowCalendarButton
 			inputLabelId="disabled"
 			openCalendarLabel="open calendar"

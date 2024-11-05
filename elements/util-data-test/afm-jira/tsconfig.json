@@ -30,6 +30,9 @@
       "path": "../../mention/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../people-and-teams/profilecard/afm-jira/tsconfig.json"
     },
     {

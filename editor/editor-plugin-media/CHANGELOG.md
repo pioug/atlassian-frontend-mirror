@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 1.39.3
+
+### Patch Changes
+
+- [#158691](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158691)
+  [`70ef661bbbb4d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70ef661bbbb4d) -
+  Update feature flag to gate
+- Updated dependencies
+
+## 1.39.2
+
+### Patch Changes
+
+- [#159688](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159688)
+  [`76f89ea38f855`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76f89ea38f855) -
+  Tint media batchSteps to address a regression
+
 ## 1.39.1
 
 ### Patch Changes

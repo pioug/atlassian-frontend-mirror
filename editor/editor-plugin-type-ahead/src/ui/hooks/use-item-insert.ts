@@ -3,10 +3,10 @@ import { useCallback, useLayoutEffect, useRef } from 'react';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { insertTypeAheadItem } from '../../commands/insert-type-ahead-item';
-import { CloseSelectionOptions } from '../../constants';
-import { closeTypeAhead } from '../../transforms/close-type-ahead';
-import { setSelectionBeforeQuery } from '../../transforms/set-selection-before-query';
+import { closeTypeAhead } from '../../pm-plugins/commands/close-type-ahead';
+import { insertTypeAheadItem } from '../../pm-plugins/commands/insert-type-ahead-item';
+import { setSelectionBeforeQuery } from '../../pm-plugins/commands/set-selection-before-query';
+import { CloseSelectionOptions } from '../../pm-plugins/constants';
 import type {
 	OnInsertSelectedItem,
 	OnInsertSelectedItemProps,

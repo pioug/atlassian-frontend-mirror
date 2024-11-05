@@ -7,14 +7,14 @@ import { closest } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import { TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE } from '../constants';
 import type { PopupMountPointReference, TypeAheadHandler, TypeAheadPluginState } from '../types';
 
 import { ACTIONS } from './actions';
+import { TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE } from './constants';
 import { factoryDecorations } from './decorations';
+import { isInsertionTransaction } from './isInsertionTransaction';
 import { pluginKey } from './key';
 import { createReducer } from './reducer';
-import { isInsertionTransaction } from './utils';
 
 const hasValidTypeAheadStep = (tr: ReadonlyTransaction): InsertTypeAheadStep | null => {
 	const steps = tr.steps.filter((step) => step instanceof InsertTypeAheadStep);

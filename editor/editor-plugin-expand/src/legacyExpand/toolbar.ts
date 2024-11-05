@@ -13,7 +13,10 @@ export const getToolbarConfig =
 	(state, { formatMessage }) => {
 		const { hoverDecoration } = api?.decorations?.actions ?? {};
 		const editorAnalyticsAPI = api?.analytics?.actions;
-		const { expandRef } = getPluginState(state);
+		// JST-1060364: We are observing this crashing the editor where the `expandPlugin` doesn't exist
+		// in the editor (resulting in `Cannot destructure property 'expandRef' of ...`).
+		// For now let's add a null check to ensure we don't crash while we investigate further.
+		const { expandRef } = getPluginState(state) ?? {};
 		if (expandRef) {
 			const { nestedExpand, expand } = state.schema.nodes;
 			return {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "201.1.5",
+	"version": "201.1.7",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,9 +43,9 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^94.11.0",
+		"@atlaskit/editor-common": "^94.12.0",
 		"@atlaskit/editor-json-transformer": "^8.20.0",
-		"@atlaskit/editor-plugin-quick-insert": "1.6.0",
+		"@atlaskit/editor-plugin-quick-insert": "1.6.1",
 		"@atlaskit/editor-plugins": "^5.6.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
@@ -164,7 +164,7 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform.editor.media.extended-resize-experience": {
+		"platform_editor_media_extended_resize_experience": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
@@ -300,6 +300,9 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_react_editor_view_react_18": {
+			"type": "boolean"
+		},
 		"platform_editor_advanced_layouts_pre_release_1": {
 			"type": "boolean"
 		},
@@ -315,11 +318,18 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_disable_rerender_tracking_jira": {
+			"type": "boolean"
+		},
 		"platform_editor_replace_finddomnode_in_common": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
 		"platform_editor_expand_auto_scroll": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_advanced_layouts_breakout_resizing": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

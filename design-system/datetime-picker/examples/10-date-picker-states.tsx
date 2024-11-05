@@ -19,6 +19,7 @@ export default () => {
 			</Label>
 			<DatePicker
 				id="react-select-datepicker-1-input"
+				clearControlLabel="Clear stock"
 				onChange={console.log}
 				testId={'datepicker-1'}
 				shouldShowCalendarButton
@@ -31,6 +32,7 @@ export default () => {
 			</Label>
 			<DatePicker
 				id="react-select-disabled--input"
+				clearControlLabel="Clear disabled input"
 				isDisabled
 				onChange={console.log}
 				shouldShowCalendarButton
@@ -43,6 +45,7 @@ export default () => {
 			</Label>
 			<DatePicker
 				id="react-select-disabled-dates--input"
+				clearControlLabel="Clear disabled dates"
 				minDate={now(8)}
 				maxDate={now(28)}
 				onChange={console.log}
@@ -56,6 +59,7 @@ export default () => {
 			</Label>
 			<DatePicker
 				id="react-select-custom--input"
+				clearControlLabel="Clear custom date format"
 				dateFormat="DD/MMM/YY"
 				placeholder="e.g. 31/Dec/18"
 				onChange={console.log}

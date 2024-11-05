@@ -42,7 +42,7 @@
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",
@@ -51,7 +51,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-gate-node-client-standalone": "^3.5.0",
 		"@testing-library/react": "^12.1.5",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

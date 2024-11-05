@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar, { AvatarItem } from '../../src';
+import Avatar, { AvatarItem } from '@atlaskit/avatar';
 
 const AvatarItemBackgroundColorExample = () => (
 	<AvatarItem

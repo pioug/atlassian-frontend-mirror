@@ -172,7 +172,7 @@ const mediaAsyncOperations = async (props: {
 			});
 			props.addPendingTask(copyNode);
 			await copyNode;
-		} catch (e) {}
+		} catch (e) { }
 	}
 };
 
@@ -208,7 +208,7 @@ const useMediaAsyncOperations = ({
 	}, [mediaNode, addPendingTask, mediaNodeUpdater, getPos]);
 };
 
-const noop = () => {};
+const noop = () => { };
 
 /**
  * Keep returning the same ProseMirror Node, unless the node content changed.
@@ -566,7 +566,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 
 	const isCurrentNodeDrafting = Boolean(
 		annotationPluginState?.isDrafting &&
-			annotationPluginState?.targetNodeId === mediaNode?.firstChild?.attrs.id,
+		annotationPluginState?.targetNodeId === mediaNode?.firstChild?.attrs.id,
 	);
 
 	const shouldShowExternalMediaBadge = childMediaNodeAttrs.type === 'external';
@@ -622,7 +622,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 					mediaHeight={height}
 					mediaWidth={width}
 					extendedResizeOffset={
-						fg('platform.editor.media.extended-resize-experience') && !isInsideTable
+						fg('platform_editor_media_extended_resize_experience') && !isInsideTable
 					}
 				>
 					{({ badgeSize }: { badgeSize: 'small' | 'medium' }) => (
@@ -670,7 +670,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 	return (
 		<Fragment>
 			{canResize ? (
-				fg('platform.editor.media.extended-resize-experience') ? (
+				fg('platform_editor_media_extended_resize_experience') ? (
 					<ResizableMediaSingleNext
 						view={view}
 						getPos={getPos}

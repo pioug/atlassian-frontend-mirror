@@ -18,15 +18,18 @@ export default () => {
 
 	return (
 		<Box>
-			<Label htmlFor="react-select-datetime--input">Current time is: {value}</Label>
+			<Label htmlFor="react-select-datetime--input">Current date and time is: {value}</Label>
 			<DateTimePicker
 				id="react-select-datetime--input"
 				value={value}
 				onChange={onChange}
-				timePickerProps={{ label: `Time, Current time is: ${value}`, timeIsEditable: true }}
+				timePickerProps={{
+					label: `Current time`,
+					timeIsEditable: true,
+				}}
 				isInvalid={invalid}
 				clearControlLabel="Clear current time"
-				datePickerProps={{ label: `Date, Current time is: ${value}` }}
+				datePickerProps={{ label: `Current date` }}
 			/>
 		</Box>
 	);

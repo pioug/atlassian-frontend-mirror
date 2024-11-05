@@ -1,7 +1,7 @@
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import { MAX_LAYOUT_COLUMN_SUPPORTED } from '../consts';
+import { maxLayoutColumnSupported } from '../consts';
 
 import { isPreRelease1 } from './advanced-layouts-flags';
 import { isWrappedMedia } from './check-media-layout';
@@ -16,7 +16,7 @@ export const shouldAllowInlineDropTarget = (isNested: boolean, node?: PMNode) =>
 	}
 
 	if (node?.type.name === 'layoutSection') {
-		return node.childCount < MAX_LAYOUT_COLUMN_SUPPORTED;
+		return node.childCount < maxLayoutColumnSupported();
 	}
 	return !isEmptyParagraph(node);
 };

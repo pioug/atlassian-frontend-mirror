@@ -24,8 +24,9 @@ import {
 	CloseSelectionOptions,
 	TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE,
 	TYPE_AHEAD_POPUP_CONTENT_CLASS,
-} from '../constants';
-import type { OnSelectItem, TypeAheadHandler, TypeAheadItem, TypeAheadPlugin } from '../types';
+} from '../pm-plugins/constants';
+import type { TypeAheadPlugin } from '../typeAheadPluginType';
+import type { OnSelectItem, TypeAheadHandler, TypeAheadItem } from '../types';
 
 import { TypeAheadList } from './TypeAheadList';
 

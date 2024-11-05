@@ -53,6 +53,7 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ 병합된 셀이 있는 표를 정렬할 수 없습니다',
   'fabric.editor.cancelButton': '취소',
   'fabric.editor.captionPlaceholder': '캡션 추가',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt': '캡션 추가 - 미리 보려면 두 번 클릭하세요',
   'fabric.editor.cardFloatingControls': '카드 옵션',
   'fabric.editor.cellBackground': '셀 배경',
   'fabric.editor.cellOptions': '셀 옵션',
@@ -112,6 +113,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     '텍스트, 제목, 이모지, 날짜, 멘션, 링크 및 상태에만 댓글을 추가할 수 있습니다.',
   'fabric.editor.createCommentInvalid': '텍스트 및 제목에만 댓글을 작성할 수 있습니다',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': '확인',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    '이제 링크, 날짜, 상태 및 멘션 같은 인라인 요소에 댓글을 남길 수 있습니다.',
   'fabric.editor.customPanel': '사용자 지정 패널',
   'fabric.editor.customPanel.description': '이모지 및 색상 배경이 있는 메모 추가',
   'fabric.editor.datasource.assetsObjects.description':
@@ -300,6 +304,8 @@ export default {
     '{userRole, select, admin {팀원을 {productName}에 초대} trusted {팀원을 {productName}에 초대} other {팀원을 {productName}에 추가}}',
   'fabric.editor.italic': '기울임꼴',
   'fabric.editor.keyboardShortcuts': '키보드 단축키',
+  'fabric.editor.layout.columnOption': '{count, plural, other {{count}개 열}}',
+  'fabric.editor.layout.placeholder': '콘텐츠 추가',
   'fabric.editor.layoutFixedWidth': '원래 너비로',
   'fabric.editor.layoutFullWidth': '전체 너비로 표시',
   'fabric.editor.layoutWide': '넓게 표시',

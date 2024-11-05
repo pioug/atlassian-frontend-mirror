@@ -19,6 +19,7 @@ export default () => {
 			</Label>
 			<DatePicker
 				id="react-select-custom-parser--input"
+				clearControlLabel="Clear custom date format and parseInputValue prop"
 				dateFormat="DD/MM/YY"
 				parseInputValue={parseInputValue}
 				placeholder="e.g. 31/Dec/18"

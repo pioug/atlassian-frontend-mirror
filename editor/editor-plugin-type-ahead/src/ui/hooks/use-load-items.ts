@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { updateListItem } from '../../commands/update-list-items';
+import { updateListItem } from '../../pm-plugins/commands/update-list-items';
 import type { TypeAheadHandler, TypeAheadItem } from '../../types';
 
 const EMPTY_LIST_ITEM: Array<TypeAheadItem> = [];

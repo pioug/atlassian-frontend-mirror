@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 201.1.7
+
+### Patch Changes
+
+- [#159941](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159941)
+  [`379f1bd3cffe6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/379f1bd3cffe6) -
+  add gate to disable rerender tracking in jira
+
+## 201.1.6
+
+### Patch Changes
+
+- [#158291](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158291)
+  [`f485597c02e9a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f485597c02e9a) -
+  Refactoring the core editor component to remove unsafe methods for React 18.
+- [#158691](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158691)
+  [`70ef661bbbb4d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70ef661bbbb4d) -
+  Update feature flag to gate
+- Updated dependencies
+
 ## 201.1.5
 
 ### Patch Changes

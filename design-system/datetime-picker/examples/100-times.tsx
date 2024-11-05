@@ -22,8 +22,8 @@ export default () => {
 			<DateTimePicker
 				clearControlLabel="Clear DateTimePicker - times"
 				id="react-select-datetimepicker--input"
-				timePickerProps={{ label: 'Time, DateTimePicker - times', times }}
-				datePickerProps={{ label: 'Date, DateTimePicker - times' }}
+				timePickerProps={{ label: 'DateTimePicker - times, time', times }}
+				datePickerProps={{ label: 'DateTimePicker - times, date' }}
 			/>
 		</Box>
 	);

@@ -2,14 +2,14 @@ import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common
 import { Fragment, type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { MAX_LAYOUT_COLUMN_SUPPORTED } from '../consts';
+import { maxLayoutColumnSupported } from '../consts';
 import type { BlockControlsPlugin } from '../types';
 import { DEFAULT_COLUMN_DISTRIBUTIONS } from '../ui/consts';
 
 type LayoutContent = Fragment | PMNode;
 
 const createNewLayout = (schema: Schema, layoutContents: LayoutContent[]) => {
-	if (layoutContents.length === 0 || layoutContents.length > MAX_LAYOUT_COLUMN_SUPPORTED) {
+	if (layoutContents.length === 0 || layoutContents.length > maxLayoutColumnSupported()) {
 		return null;
 	}
 
@@ -89,7 +89,7 @@ const moveToExistingLayout = (
 	to: number,
 	tr: Transaction,
 ) => {
-	if (toLayout.childCount < MAX_LAYOUT_COLUMN_SUPPORTED) {
+	if (toLayout.childCount < maxLayoutColumnSupported()) {
 		const newColumnWidth = DEFAULT_COLUMN_DISTRIBUTIONS[toLayout.childCount + 1];
 
 		updateColumnWidths(tr, toLayout, toLayoutPos, newColumnWidth);

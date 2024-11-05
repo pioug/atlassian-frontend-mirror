@@ -10,8 +10,8 @@ const DateTimePickerRequiredExample = () => (
 			<DateTimePicker
 				{...rest}
 				clearControlLabel="Clear log entry"
-				datePickerProps={{ label: 'Date, log entry' }}
-				timePickerProps={{ label: 'Time, log entry' }}
+				datePickerProps={{ label: 'Log entry, date' }}
+				timePickerProps={{ label: 'Log entry, time' }}
 			/>
 		)}
 	</Field>

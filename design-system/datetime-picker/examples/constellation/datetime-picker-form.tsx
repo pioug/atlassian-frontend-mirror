@@ -17,9 +17,9 @@ const DateTimePickerFormExample = () => (
 								clearControlLabel="Clear scheduled run time"
 								datePickerProps={{
 									shouldShowCalendarButton: true,
-									label: 'Date, Scheduled run time',
+									label: 'Scheduled run time, date',
 								}}
-								timePickerProps={{ label: 'Time, Scheduled run time' }}
+								timePickerProps={{ label: 'Scheduled run time, time' }}
 							/>
 							<HelperMessage>Help or instruction text goes here</HelperMessage>
 						</>

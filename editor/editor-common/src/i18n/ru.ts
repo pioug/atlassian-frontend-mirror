@@ -55,6 +55,8 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Невозможно отсортировать таблицу с объединением ячеек',
   'fabric.editor.cancelButton': 'Отменить',
   'fabric.editor.captionPlaceholder': 'Добавьте подпись',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt':
+    'Добавьте подпись (нажмите дважды для предварительного просмотра)',
   'fabric.editor.cardFloatingControls': 'Параметры карточки',
   'fabric.editor.cellBackground': 'Фон ячеек',
   'fabric.editor.cellOptions': 'Параметры ячеек',
@@ -118,6 +120,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Можно комментировать только текст, заголовки, эмодзи, даты, упоминания, ссылки и статусы.',
   'fabric.editor.createCommentInvalid': 'Можно комментировать только текст и заголовки',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Понятно',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Теперь вы можете оставлять комментарии к встроенным элементам, таким как ссылки, даты, статусы и упоминания.',
   'fabric.editor.customPanel': 'Пользовательская панель',
   'fabric.editor.customPanel.description': 'Добавьте примечание с эмодзи и цветным фоном',
   'fabric.editor.datasource.assetsObjects.description':
@@ -219,7 +224,7 @@ export default {
   'fabric.editor.findNext': 'Найти далее',
   'fabric.editor.findPrevious': 'Найти ранее',
   'fabric.editor.findReplaceToolbarButton': 'Найти и заменить',
-  'fabric.editor.fiveColumns': 'Макет с 5 колонками',
+  'fabric.editor.fiveColumns': 'Макет с пятью колонками',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Отмена',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Также удалить подключенные элементы',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -233,7 +238,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Прокрутить влево',
   'fabric.editor.floatingToolbar.scrollRight': 'Прокрутить вправо',
   'fabric.editor.focusTableResizeHandle': 'Маркер для изменения размера активной таблицы',
-  'fabric.editor.fourColumns': 'Макет с 4 колонками',
+  'fabric.editor.fourColumns': 'Макет с четырьмя колонками',
   'fabric.editor.headerColumn': 'Столбец заголовков',
   'fabric.editor.headerRow': 'Строка заголовков',
   'fabric.editor.heading1': 'Заголовок 1',
@@ -308,6 +313,9 @@ export default {
     '{userRole, select, admin {Пригласить коллегу начать работу с {productName}} trusted {Пригласить коллегу начать работу с {productName}} other {Добавить коллегу для работы с {productName}}}',
   'fabric.editor.italic': 'Курсив',
   'fabric.editor.keyboardShortcuts': 'Сочетания клавиш',
+  'fabric.editor.layout.columnOption':
+    '{count, plural, one {{count} колонка} few {{count} колонки} many {{count} колонок} other {{count} колонки}}',
+  'fabric.editor.layout.placeholder': 'Добавить контент',
   'fabric.editor.layoutFixedWidth': 'По центру',
   'fabric.editor.layoutFullWidth': 'В полную ширину',
   'fabric.editor.layoutWide': 'Шире обычного',

@@ -248,7 +248,7 @@ export const toDOM = (node: PMNode): DOMOutputSpec => {
 	const childMediaHeight = childNode?.attrs.height || DEFAULT_IMAGE_HEIGHT;
 
 	const dataAttrs = getAttrsFromNodeMediaSingle(
-		fg('platform.editor.media.extended-resize-experience'),
+		fg('platform_editor_media_extended_resize_experience'),
 		node,
 	);
 
@@ -259,7 +259,7 @@ export const toDOM = (node: PMNode): DOMOutputSpec => {
 		childMediaHeight,
 		mediaSingleDimensionWidth: mediaSingleAttrs.width,
 		isPixelWidth,
-		isExtendedResizeExperience: fg('platform.editor.media.extended-resize-experience'),
+		isExtendedResizeExperience: fg('platform_editor_media_extended_resize_experience'),
 	});
 
 	const isMediaWrapped = WRAPPED_LAYOUTS.includes(layout);
@@ -267,7 +267,7 @@ export const toDOM = (node: PMNode): DOMOutputSpec => {
 		isPixelWidth,
 		isMediaWrapped,
 		mediaSingleDimensionWidth: mediaSingleAttrs?.width,
-		isExtendedResizeExperience: fg('platform.editor.media.extended-resize-experience'),
+		isExtendedResizeExperience: fg('platform_editor_media_extended_resize_experience'),
 	});
 	const contentWrapperWidth = mediaContentWrapperWidthCSSCalc({
 		isMediaWrapped,

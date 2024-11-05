@@ -12,6 +12,7 @@ import type {
 	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import { calcBreakoutWidthPx } from '@atlaskit/editor-common/utils';
+import { type EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { WidthPlugin, WidthPluginState } from '@atlaskit/editor-plugin-width';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -171,12 +172,26 @@ class BreakoutView implements NodeView {
 
 		contentDOM.style.transition = `min-width 0.5s ${akEditorSwoopCubicBezier}`;
 
-		// original breakout algorithm is in calcBreakoutWidth from platform/packages/editor/editor-common/src/utils/breakout.ts
-		if (mark.attrs.mode === 'full-width') {
-			contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(--ak-editor--full-width-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
-		}
-		if (mark.attrs.mode === 'wide') {
-			contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(--ak-editor--breakout-wide-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+		if (fg('platform_editor_advanced_layouts_breakout_resizing')) {
+			if (mark.attrs.width) {
+				contentDOM.style.minWidth = `min(${mark.attrs.width}px, calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding)))`;
+			} else {
+				// original breakout algorithm is in calcBreakoutWidth from platform/packages/editor/editor-common/src/utils/breakout.ts
+				if (mark.attrs.mode === 'full-width') {
+					contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(--ak-editor--full-width-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+				}
+				if (mark.attrs.mode === 'wide') {
+					contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(--ak-editor--breakout-wide-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+				}
+			}
+		} else {
+			// original breakout algorithm is in calcBreakoutWidth from platform/packages/editor/editor-common/src/utils/breakout.ts
+			if (mark.attrs.mode === 'full-width') {
+				contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(--ak-editor--full-width-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+			}
+			if (mark.attrs.mode === 'wide') {
+				contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(--ak-editor--breakout-wide-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+			}
 		}
 
 		this.dom = dom;
@@ -251,14 +266,29 @@ const LayoutButtonWrapper = ({
 	mountPoint,
 }: LayoutButtonWrapperProps) => {
 	// Re-render with `width` (but don't use state) due to https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/24272
-	const { breakoutState, editorViewModeState } = useSharedPluginState(api, [
+	const { breakoutState, editorViewModeState, editorDisabledState } = useSharedPluginState(api, [
 		'width',
 		'breakout',
 		'editorViewMode',
+		'editorDisabled',
 	]);
 	const isViewMode = editorViewModeState?.mode === 'view';
 	const isEditMode = editorViewModeState?.mode === 'edit';
 
+	if (fg('platform_editor_react_editor_view_react_18')) {
+		return !isViewMode &&
+			editorDisabledState !== undefined &&
+			!editorDisabledState?.editorDisabled ? (
+			<LayoutButton
+				editorView={editorView}
+				mountPoint={mountPoint}
+				boundariesElement={boundariesElement}
+				scrollableElement={scrollableElement}
+				node={breakoutState?.breakoutNode?.node ?? null}
+				isLivePage={isEditMode}
+			/>
+		) : null;
+	}
 	return !isViewMode ? (
 		<LayoutButton
 			editorView={editorView}
@@ -279,7 +309,11 @@ export type BreakoutPlugin = NextEditorPlugin<
 	'breakout',
 	{
 		pluginConfiguration: BreakoutPluginOptions | undefined;
-		dependencies: [WidthPlugin, OptionalPlugin<EditorViewModePlugin>];
+		dependencies: [
+			WidthPlugin,
+			OptionalPlugin<EditorViewModePlugin>,
+			OptionalPlugin<EditorDisabledPlugin>,
+		];
 		sharedState: Partial<BreakoutPluginState>;
 	}
 >;
@@ -324,7 +358,10 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 		popupsScrollableElement,
 	}) {
 		// This is a bit crappy, but should be resolved once we move to a static schema.
-		if ((options && !options.allowBreakoutButton) || !editorView.editable) {
+		if (
+			(options && !options.allowBreakoutButton) ||
+			(!editorView.editable && !fg('platform_editor_react_editor_view_react_18'))
+		) {
 			return null;
 		}
 

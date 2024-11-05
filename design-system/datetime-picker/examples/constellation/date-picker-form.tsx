@@ -14,6 +14,7 @@ const DatePickerFormExample = () => (
 						<>
 							<DatePicker
 								{...fieldProps}
+								clearControlLabel="Clear start date"
 								shouldShowCalendarButton
 								inputLabel="Start date"
 								openCalendarLabel="open calendar"

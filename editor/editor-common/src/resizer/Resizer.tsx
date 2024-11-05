@@ -48,8 +48,8 @@ export type ResizerProps = {
 	className?: string;
 	// Enables resizing in left and/or right direction and enables handles
 	enable: EnabledHandles;
-	// initial width for now as Resizer is using defaultSize.
-	width: number;
+	// initial width for now as Resizer is using defaultSize - defaults to 'auto' if not provided
+	width?: number;
 	minWidth?: number | string;
 	maxWidth?: number | string;
 	// The snap property is used to specify absolute pixel values that resizing should snap to.
@@ -66,7 +66,7 @@ export type ResizerProps = {
 	isHandleVisible?: boolean;
 	// Resizer lifecycle callbacks:
 	handleResizeStart: HandleResizeStart;
-	handleResize: HandleResize;
+	handleResize?: HandleResize;
 	handleResizeStop: HandleResize;
 	/**
 	 * This can be used to override the css class name applied to the resize handle.
@@ -106,6 +106,16 @@ export type ResizerProps = {
 	 * control if extended resize zone is needed, by default we apply it to the resizer
 	 */
 	needExtendedResizeZone?: boolean;
+
+	/**
+	 * Additional styles to be applied to the resizer component
+	 */
+	style?: CSSProperties;
+
+	/**
+	 * Access to the inner most element which wraps passed children
+	 */
+	childrenDOMRef?: (ref: HTMLElement | null) => void;
 };
 
 type forwardRefType = {
@@ -160,6 +170,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 		handleHighlight = 'none',
 		handleTooltipContent,
 		needExtendedResizeZone = true,
+		childrenDOMRef,
 		...otherProps
 	} = props;
 
@@ -181,6 +192,9 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 			_elementRef: HTMLDivElement,
 			delta: Dimensions,
 		) => {
+			if (!handleResize) {
+				return;
+			}
 			const resizableCurrent = resizable.current;
 			if (!resizableCurrent || !resizableCurrent.state.original) {
 				return;
@@ -349,7 +363,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 		<Resizable
 			ref={resizable}
 			size={{
-				width, // just content itself (no paddings)
+				width: width ?? 'auto', // just content itself (no paddings)
 				height: 'auto',
 			}}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -367,7 +381,9 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 			{...otherProps}
 		>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
-			<span className={resizerZoneClassName}>{children}</span>
+			<span className={resizerZoneClassName} ref={(ref) => childrenDOMRef && childrenDOMRef(ref)}>
+				{children}
+			</span>
 		</Resizable>
 	);
 };

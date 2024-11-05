@@ -18,10 +18,10 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
 
-import { updateSelectedIndex } from '../commands/update-selected-index';
-import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../constants';
+import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-index';
+import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../pm-plugins/constants';
+import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../pm-plugins/utils';
 import type { TypeAheadHandler, TypeAheadItem } from '../types';
-import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../utils';
 
 import { AssistiveText } from './AssistiveText';
 import { TypeAheadListItem } from './TypeAheadListItem';

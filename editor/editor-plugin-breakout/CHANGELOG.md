@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-breakout
 
+## 1.9.0
+
+### Minor Changes
+
+- [#159777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159777)
+  [`64dae465493a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64dae465493a4) -
+  Add Breakout Resizing component to editor-common, add support in Layout plugin
+
+### Patch Changes
+
+- [#158291](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158291)
+  [`f485597c02e9a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f485597c02e9a) -
+  Refactoring the core editor component to remove unsafe methods for React 18.
+- Updated dependencies
+
 ## 1.8.7
 
 ### Patch Changes

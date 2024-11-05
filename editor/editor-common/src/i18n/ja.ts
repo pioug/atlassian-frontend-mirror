@@ -53,6 +53,7 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ 結合セルを含む表は並べ替えられません。',
   'fabric.editor.cancelButton': 'キャンセル',
   'fabric.editor.captionPlaceholder': 'キャプションを追加',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt': 'キャプションを追加 - ダブルクリックしてプレビュー',
   'fabric.editor.cardFloatingControls': 'カードのオプション',
   'fabric.editor.cellBackground': 'セルの背景',
   'fabric.editor.cellOptions': 'セルのオプション',
@@ -113,6 +114,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'テキスト、見出し、絵文字、日付、メンション、リンク、ステータスにのみコメントできます。',
   'fabric.editor.createCommentInvalid': 'テキストと見出しにのみコメントできます',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'OK',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'リンク、日付、ステータス、メンションなどのインライン要素にコメントを残せるようになりました。',
   'fabric.editor.customPanel': 'カスタム パネル',
   'fabric.editor.customPanel.description': '絵文字と背景色でメモを追加',
   'fabric.editor.datasource.assetsObjects.description':
@@ -302,6 +306,8 @@ export default {
     '{userRole, select, admin {チームメイトを {productName} に招待} trusted {チームメイトを {productName} に招待} other {チームメイトを {productName} に追加}}',
   'fabric.editor.italic': '斜体',
   'fabric.editor.keyboardShortcuts': 'キーボード ショートカット',
+  'fabric.editor.layout.columnOption': '{count, plural, other {{count} 列}}',
+  'fabric.editor.layout.placeholder': 'コンテンツを追加',
   'fabric.editor.layoutFixedWidth': '標準の幅に戻す',
   'fabric.editor.layoutFullWidth': '全幅で表示',
   'fabric.editor.layoutWide': 'ワイド表示',

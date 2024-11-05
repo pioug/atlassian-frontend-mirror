@@ -54,6 +54,8 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Non puoi ordinare una tabella con celle unite',
   'fabric.editor.cancelButton': 'Annulla',
   'fabric.editor.captionPlaceholder': 'Aggiungi didascalia',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt':
+    "Aggiungi una didascalia (doppio clic per visualizzare l'anteprima)",
   'fabric.editor.cardFloatingControls': 'Opzioni scheda',
   'fabric.editor.cellBackground': 'Sfondo cella',
   'fabric.editor.cellOptions': 'Opzioni cella',
@@ -114,6 +116,9 @@ export default {
   'fabric.editor.createComment': 'Commento',
   'fabric.editor.createCommentDisabled': 'Puoi commentare solo testo, titoli, emoji, date, menzioni, link e stati.',
   'fabric.editor.createCommentInvalid': 'Puoi inserire commenti solo per il testo e le intestazioni',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Ho capito',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Ora puoi lasciare commenti su elementi in linea come link, date, stati e menzioni.',
   'fabric.editor.customPanel': 'Pannello personalizzato',
   'fabric.editor.customPanel.description': 'Aggiungi una nota con un emoji e uno sfondo colorato',
   'fabric.editor.datasource.assetsObjects.description':
@@ -216,7 +221,7 @@ export default {
   'fabric.editor.findNext': 'Trova successivo',
   'fabric.editor.findPrevious': 'Trova precedente',
   'fabric.editor.findReplaceToolbarButton': 'Trova e sostituisci',
-  'fabric.editor.fiveColumns': 'Layout a 5 colonne',
+  'fabric.editor.fiveColumns': 'Layout a cinque colonne',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Annulla',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Elimina anche gli elementi collegati',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -230,7 +235,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Scorri a sinistra',
   'fabric.editor.floatingToolbar.scrollRight': 'Scorri a destra',
   'fabric.editor.focusTableResizeHandle': 'Quadratino di ridimensionamento della tabella Focus',
-  'fabric.editor.fourColumns': 'Layout a 4 colonne',
+  'fabric.editor.fourColumns': 'Layout a quattro colonne',
   'fabric.editor.headerColumn': 'Colonna di intestazione',
   'fabric.editor.headerRow': 'Riga di intestazione',
   'fabric.editor.heading1': 'Titolo 1',
@@ -307,6 +312,8 @@ export default {
     '{userRole, select, admin {Invita un collega in {productName}} trusted {Invita un collega in {productName}} other {Aggiunti un collega a {productName}}}',
   'fabric.editor.italic': 'Corsivo',
   'fabric.editor.keyboardShortcuts': 'Scelte rapide da tastiera',
+  'fabric.editor.layout.columnOption': '{count, plural, one {-colonna} other {{count}-colonne}}',
+  'fabric.editor.layout.placeholder': 'Aggiungi contenuti',
   'fabric.editor.layoutFixedWidth': 'Torna alla visualizzazione centrata',
   'fabric.editor.layoutFullWidth': 'Vai alla vista a schermo intero',
   'fabric.editor.layoutWide': 'Allarga',

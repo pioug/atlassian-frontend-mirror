@@ -53,6 +53,8 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ No puedes ordenar una tabla con celdas combinadas',
   'fabric.editor.cancelButton': 'Cancelar',
   'fabric.editor.captionPlaceholder': 'Añadir un subtítulo',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt':
+    'Añade una leyenda: haz doble clic para obtener una vista previa',
   'fabric.editor.cardFloatingControls': 'Opciones de tarjeta',
   'fabric.editor.cellBackground': 'Fondo de celda',
   'fabric.editor.cellOptions': 'Opciones de celda',
@@ -114,6 +116,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Solo puedes comentar en texto, encabezados, emoticonos, fechas, menciones, enlaces y estados.',
   'fabric.editor.createCommentInvalid': 'Solo puedes comentar en el texto y los encabezados',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Entendido',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Ahora puedes dejar comentarios en los elementos en línea, como enlaces, fechas, estados y menciones.',
   'fabric.editor.customPanel': 'Panel personalizado',
   'fabric.editor.customPanel.description': 'Añade una nota con un emoticono y un fondo de color',
   'fabric.editor.datasource.assetsObjects.description':
@@ -216,7 +221,7 @@ export default {
   'fabric.editor.findNext': 'Buscar siguiente',
   'fabric.editor.findPrevious': 'Buscar anterior',
   'fabric.editor.findReplaceToolbarButton': 'Buscar y reemplazar',
-  'fabric.editor.fiveColumns': 'Diseño de 5 columnas',
+  'fabric.editor.fiveColumns': 'Diseño de cinco columnas',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Cancelar',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Eliminar también los elementos conectados',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -230,7 +235,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Desplazarse a la izquierda',
   'fabric.editor.floatingToolbar.scrollRight': 'Desplazarse a la derecha',
   'fabric.editor.focusTableResizeHandle': 'Controlador de cambio de tamaño de la tabla centrado',
-  'fabric.editor.fourColumns': 'Diseño de 4 columnas',
+  'fabric.editor.fourColumns': 'Diseño de cuatro columnas',
   'fabric.editor.headerColumn': 'Columna de encabezado',
   'fabric.editor.headerRow': 'Fila de encabezado',
   'fabric.editor.heading1': 'Título 1',
@@ -306,6 +311,8 @@ export default {
     '{userRole, select, admin {Invita a un compañero de equipo a {productName}} trusted {Invita a un compañero de equipo a {productName}} other {Añade a un compañero de equipo a {productName}}}',
   'fabric.editor.italic': 'Cursiva',
   'fabric.editor.keyboardShortcuts': 'Métodos abreviados de teclado',
+  'fabric.editor.layout.columnOption': '{count, plural, one {-columna} other {{count}-columnas}}',
+  'fabric.editor.layout.placeholder': 'Añadir contenido',
   'fabric.editor.layoutFixedWidth': 'Volver a centrar',
   'fabric.editor.layoutFullWidth': 'Usar ancho completo',
   'fabric.editor.layoutWide': 'Usar formato ancho',

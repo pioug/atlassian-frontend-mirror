@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Label } from '@atlaskit/form';
+
 import { DateTimePicker } from '../../src';
 
 const disabledDates = [
@@ -13,17 +15,17 @@ const disabledDates = [
 
 const DateTimePickerDisabledExample = () => (
 	<>
-		<label htmlFor="datetime">Appointment date and time</label>
+		<Label htmlFor="datetime">Appointment date and time</Label>
 		<DateTimePicker
 			id="datetime"
-			defaultValue="2020-12-15"
 			clearControlLabel="Clear disabled dates"
 			datePickerProps={{
 				disabled: disabledDates,
 				shouldShowCalendarButton: true,
-				label: 'Date, Appointment date and time',
+				label: 'Appointment date',
 			}}
-			timePickerProps={{ label: 'Time, Appointment date and time' }}
+			defaultValue="2020-12-15"
+			timePickerProps={{ label: 'Appointment time' }}
 		/>
 	</>
 );

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Presence } from '../../src';
+import { Presence } from '@atlaskit/avatar';
 
 const AvatarPresenceWidthExample = () => {
 	const [width, setWidth] = useState(60);
@@ -16,8 +16,7 @@ const AvatarPresenceWidthExample = () => {
 				type="range"
 				value={width}
 			/>
-			{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<div style={{ maxWidth: width, border: '1px dotted blue' }}>
 				<Presence presence="busy" />
 			</div>

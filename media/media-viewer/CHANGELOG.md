@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 49.2.6
+
+### Patch Changes
+
+- [#160376](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160376)
+  [`5eebcd17b41ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5eebcd17b41ce) -
+  fix React 18 strict mode issue and clean-up examples
+
 ## 49.2.5
 
 ### Patch Changes

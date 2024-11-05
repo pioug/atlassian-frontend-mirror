@@ -13,12 +13,13 @@ export default () => {
 			<Label id="open" htmlFor="react-select-is-open--input">
 				Always open
 			</Label>
-			<DatePicker id="react-select-is-open--input" isOpen />
+			<DatePicker id="react-select-is-open--input" clearControlLabel="Clear always open" isOpen />
 			<Label id="open-calendar" htmlFor="react-select-is-open-calendar--input">
 				Always open with calendar button
 			</Label>
 			<DatePicker
 				id="react-select-is-open-calendar--input"
+				clearControlLabel="Clear always open with calendar button"
 				isOpen
 				shouldShowCalendarButton
 				inputLabelId="open-calendar"

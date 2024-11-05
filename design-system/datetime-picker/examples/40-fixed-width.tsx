@@ -25,6 +25,7 @@ export default () => {
 			<Box xcss={pickerBoxStyles}>
 				<DatePicker
 					id="react-select-date--input"
+					clearControlLabel="Clear date picker"
 					onChange={console.log}
 					shouldShowCalendarButton
 					inputLabelId="date"
@@ -46,11 +47,11 @@ export default () => {
 					onChange={console.log}
 					clearControlLabel="Clear datetime picker"
 					datePickerProps={{
-						label: 'Date, Date / time picker',
+						label: 'Date / time picker, date',
 						shouldShowCalendarButton: true,
 						openCalendarLabel: 'open calendar',
 					}}
-					timePickerProps={{ label: 'Time, Date / time picker' }}
+					timePickerProps={{ label: 'Date / time picker, time' }}
 				/>
 			</Box>
 		</Box>

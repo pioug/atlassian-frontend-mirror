@@ -1,4 +1,4 @@
-import type { FloatingToolbarPluginData } from '../../types';
+import type { FloatingToolbarPluginData } from '../../floatingToolbarPluginType';
 
 import type { FloatingToolbarPluginAction } from './types';
 

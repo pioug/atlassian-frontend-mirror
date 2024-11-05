@@ -19,6 +19,7 @@ export default () => (
 		<Label htmlFor="datepicker">Date picker</Label>
 		<DatePicker
 			id="datepicker"
+			clearControlLabel="Clear date picker"
 			onChange={logValue}
 			dateFormat="MMMM/DD"
 			placeholder="MMMM/DD"

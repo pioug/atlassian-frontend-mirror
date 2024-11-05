@@ -162,7 +162,7 @@ export const insertMediaAsMediaSingle = (
 		return false;
 	}
 
-	const resizeExperience = fg('platform.editor.media.extended-resize-experience');
+	const resizeExperience = fg('platform_editor_media_extended_resize_experience');
 	const insertMediaPopup = editorExperiment('add-media-from-url', true);
 	const mediaSingleAttrs =
 		resizeExperience && insertMediaPopup
@@ -380,7 +380,7 @@ const createMediaSingleNode =
 
 		const mediaSingleAttrs = alignLeftOnInsert ? { layout: 'align-start' } : {};
 
-		const extendedMediaSingleAttrs = fg('platform.editor.media.extended-resize-experience')
+		const extendedMediaSingleAttrs = fg('platform_editor_media_extended_resize_experience')
 			? {
 					...mediaSingleAttrs,
 					width: getMediaSingleInitialWidth(scaledWidth, maxWidth, minWidth),
@@ -406,7 +406,7 @@ const replaceWithMediaSingleNode =
 			mediaNode.marks,
 		);
 
-		const extendedMediaSingleAttrs = fg('platform.editor.media.extended-resize-experience')
+		const extendedMediaSingleAttrs = fg('platform_editor_media_extended_resize_experience')
 			? {
 					width: getMediaSingleInitialWidth(width, maxWidth, minWidth),
 					widthType: 'pixel',

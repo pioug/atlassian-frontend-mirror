@@ -22,7 +22,7 @@ import { EmojiPicker } from '@atlaskit/emoji';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import Tooltip from '@atlaskit/tooltip';
 
-import { type FloatingToolbarPlugin } from '../types';
+import { type FloatingToolbarPlugin } from '../floatingToolbarPluginType';
 
 import EditorEmojiAddIcon from './EditorEmojiAddIcon';
 

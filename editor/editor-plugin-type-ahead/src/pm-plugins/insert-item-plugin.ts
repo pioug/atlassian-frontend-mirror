@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import { ACTIONS } from './actions';
-import { isInsertionTransaction } from './utils';
+import { isInsertionTransaction } from './isInsertionTransaction';
 
 export function createPlugin(): SafePlugin {
 	return new SafePlugin({

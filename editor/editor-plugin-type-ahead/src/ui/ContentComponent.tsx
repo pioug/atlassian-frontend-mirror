@@ -4,7 +4,8 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { PopupMountPointReference, TypeAheadPlugin } from '../types';
+import type { TypeAheadPlugin } from '../typeAheadPluginType';
+import type { PopupMountPointReference } from '../types';
 
 import { TypeAheadMenu } from './TypeAheadMenu';
 

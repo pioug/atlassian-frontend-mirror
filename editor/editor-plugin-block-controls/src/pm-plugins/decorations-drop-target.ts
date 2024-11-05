@@ -11,7 +11,7 @@ import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { MAX_LAYOUT_COLUMN_SUPPORTED } from '../consts';
+import { maxLayoutColumnSupported } from '../consts';
 import type { ActiveNode, BlockControlsPlugin } from '../types';
 import { nodeMargins } from '../ui/consts';
 import { DropTarget, type DropTargetProps } from '../ui/drop-target';
@@ -220,7 +220,7 @@ export const dropTargetDecorations = (
 					node.type.name === 'layoutColumn' &&
 					parent?.type.name === 'layoutSection' &&
 					parent?.firstChild !== node && // Not the first node
-					parent?.childCount < MAX_LAYOUT_COLUMN_SUPPORTED
+					parent?.childCount < maxLayoutColumnSupported()
 				) {
 					decs.push(
 						createLayoutDropTargetDecoration(pos, {

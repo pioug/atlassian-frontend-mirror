@@ -58,6 +58,7 @@ export default () => {
 					isDisabled
 					onChange={console.log}
 					id={dateId}
+					clearControlLabel="Clear date"
 					shouldShowCalendarButton
 					inputLabelId="date"
 					openCalendarLabel="open calendar"
@@ -100,11 +101,11 @@ export default () => {
 					onChange={console.log}
 					id={datetimeId}
 					datePickerProps={{
-						label: 'Date, Date / time',
+						label: 'Date / time, date',
 						shouldShowCalendarButton: true,
 						openCalendarLabel: 'open calendar',
 					}}
-					timePickerProps={{ label: 'Time, Date / time' }}
+					timePickerProps={{ label: 'Date / time, time' }}
 				/>
 			</Box>
 		</Box>

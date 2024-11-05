@@ -255,6 +255,7 @@ events:
               'onNextPage',
               'actionDiscovery',
               'actionExecution',
+              'fetchActionExecution'
             ]
           required: false
           description: Codebase location of the error to help debugging the source
@@ -518,6 +519,18 @@ events:
   - actionExecution success:
       type: operational
       description: Fired when an atomic action execution is successful
+      attributes:
+        <<:
+          [
+            *ComponentMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+            *IntegrationKey,
+            *Experience,
+          ]
+  - fetchActionExecution success:
+      type: operational
+      description: Fired when a fetch atomic action execution is successful
       attributes:
         <<:
           [

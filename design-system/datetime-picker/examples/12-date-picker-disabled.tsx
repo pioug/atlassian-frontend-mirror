@@ -32,6 +32,7 @@ export default () => {
 			</Label>
 			<DatePicker
 				id="datepicker"
+				clearControlLabel="Clear date picker"
 				minDate={now(8)}
 				maxDate={now(28)}
 				disabled={disabledDates}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Skeleton } from '../../src';
+import { Skeleton } from '@atlaskit/avatar';
 
 const AvatarSkeletonSquareExample = () => {
 	return <Skeleton appearance="square" />;

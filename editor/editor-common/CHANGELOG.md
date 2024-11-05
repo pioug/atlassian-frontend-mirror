@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 94.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 94.12.0
+
+### Minor Changes
+
+- [#159777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159777)
+  [`64dae465493a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64dae465493a4) -
+  Add Breakout Resizing component to editor-common, add support in Layout plugin
+
+### Patch Changes
+
+- [#158691](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158691)
+  [`70ef661bbbb4d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70ef661bbbb4d) -
+  Update feature flag to gate
+
 ## 94.11.1
 
 ### Patch Changes

@@ -1134,6 +1134,37 @@ describe('@atlaskit/editor-core', () => {
 		});
 	});
 
+	ffTest.on('platform_editor_disable_rerender_tracking_jira', 'rerenders', () => {
+		it('should not fire re-render tracking events when enabled', () => {
+			const { rerender } = renderWithIntl(
+				<ReactEditorView {...requiredProps()} {...analyticsProps()} />,
+			);
+			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
+			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
+			mockFire.mockClear();
+			rerender(<ReactEditorView {...requiredProps()} {...analyticsProps()} />);
+			expect(mockFire).not.toHaveBeenCalled();
+		});
+	});
+
+	ffTest.off('platform_editor_disable_rerender_tracking_jira', 'rerenders', () => {
+		it('should fire re-render tracking events when disabled', () => {
+			const { rerender } = renderWithIntl(
+				<ReactEditorView {...requiredProps()} {...analyticsProps()} />,
+			);
+			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
+			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
+			mockFire.mockClear();
+			rerender(<ReactEditorView {...requiredProps()} {...analyticsProps()} />);
+			expect(mockFire).toHaveBeenCalledWith({
+				payload: expect.objectContaining({
+					action: 'reRendered',
+					actionSubject: 'reactEditorView',
+				}),
+			});
+		});
+	});
+
 	ffTest.on(
 		'editor_load_conf_collab_docs_without_checks',
 		'calling processRawValue in createEditorState',

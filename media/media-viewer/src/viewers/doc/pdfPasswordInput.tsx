@@ -93,7 +93,7 @@ export const PDFPasswordInput = ({
 							<FormattedMessage {...messages.password_protected_pdf} />
 						</h1>
 					</Box>
-					<Field aria-required={true} name="password" isRequired>
+					<Field aria-required={true} name="password" defaultValue="" isRequired>
 						{({ fieldProps }) => (
 							<Box xcss={inputStyle}>
 								<TextField

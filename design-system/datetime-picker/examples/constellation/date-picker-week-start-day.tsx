@@ -12,6 +12,7 @@ const DatePickerWeekStartDayExample = () => (
 		<DatePicker
 			weekStartDay={0}
 			id="datepicker-sunday"
+			clearControlLabel="Clear week starting on Sunday"
 			shouldShowCalendarButton
 			inputLabelId="sunday"
 			openCalendarLabel="open calendar"
@@ -23,6 +24,7 @@ const DatePickerWeekStartDayExample = () => (
 		<DatePicker
 			weekStartDay={1}
 			id="datepicker-monday"
+			clearControlLabel="Clear week starting on Monday"
 			shouldShowCalendarButton
 			inputLabelId="monday"
 			openCalendarLabel="open calendar"

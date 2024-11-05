@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { Skeleton } from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
 
-import { Skeleton } from '../../src';
 
 const AvatarSkeletonColorDefaultExample = () => {
 	return (

@@ -14,6 +14,7 @@ const DatePickerDisableRangeExample = () => (
 			minDate="2020-12-10"
 			maxDate="2020-12-20"
 			id="datepicker-disabled-range"
+			clearControlLabel="Clear disabled date range"
 			shouldShowCalendarButton
 			inputLabelId="disabled"
 			openCalendarLabel="open calendar"

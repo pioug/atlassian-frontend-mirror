@@ -53,6 +53,7 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Birleştirilmiş hücre içeren bir tabloyu sıralayamazsınız',
   'fabric.editor.cancelButton': 'İptal',
   'fabric.editor.captionPlaceholder': 'Açıklama yazısı ekleyin',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt': 'Başlık ekleyin, önizlemek için çift tıklayın',
   'fabric.editor.cardFloatingControls': 'Kart seçenekleri',
   'fabric.editor.cellBackground': 'Hücre arka planı',
   'fabric.editor.cellOptions': 'Hücre seçenekleri',
@@ -112,6 +113,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     "Yalnızca metinlere, başlıklara, emoji'lere, tarihlere, bahsetmelere, bağlantılara ve durumlara yorum ekleyebilirsiniz.",
   'fabric.editor.createCommentInvalid': 'Yalnızca metin ve başlıklarda yorum yapabilirsiniz',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Anladım',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Artık bağlantılar, tarihler, durumlar ve bahsetmeler gibi satır içi öğelere yorum ekleyebilirsiniz.',
   'fabric.editor.customPanel': 'Özel panel',
   'fabric.editor.customPanel.description': 'Emoji ve renkli arkaplan içeren bir not ekleyin',
   'fabric.editor.datasource.assetsObjects.description':
@@ -213,7 +217,7 @@ export default {
   'fabric.editor.findNext': 'Sonrakini bul',
   'fabric.editor.findPrevious': 'Öncekini bul',
   'fabric.editor.findReplaceToolbarButton': 'Bul ve değiştir',
-  'fabric.editor.fiveColumns': '5 sütunlu yerleşim',
+  'fabric.editor.fiveColumns': 'Beş sütunlu yerleşim',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'İptal',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Bağlı öğeleri de sil',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -226,7 +230,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Sola kaydır',
   'fabric.editor.floatingToolbar.scrollRight': 'Sağa kaydır',
   'fabric.editor.focusTableResizeHandle': 'Odak tablosu yeniden boyutlandırma kolu',
-  'fabric.editor.fourColumns': '4 sütunlu yerleşim',
+  'fabric.editor.fourColumns': 'Dört sütunlu yerleşim',
   'fabric.editor.headerColumn': 'Başlık sütunu',
   'fabric.editor.headerRow': 'Başlık satırı',
   'fabric.editor.heading1': 'Başlık 1',
@@ -301,6 +305,8 @@ export default {
     '{userRole, select, admin {Takım arkadaşınızı {productName} ürününe davet edin} trusted {Takım arkadaşınızı {productName} ürününe davet edin} other {Takım arkadaşınızı {productName} ürününe ekleyin}}',
   'fabric.editor.italic': 'İtalik',
   'fabric.editor.keyboardShortcuts': 'Klavye kısayolları',
+  'fabric.editor.layout.columnOption': '{count, plural, one {sütunlu} other {{count} sütunlu}}',
+  'fabric.editor.layout.placeholder': 'İçerik ekleyin',
   'fabric.editor.layoutFixedWidth': 'Ortaya getir',
   'fabric.editor.layoutFullWidth': 'Tam genişliğe geç',
   'fabric.editor.layoutWide': 'Genişlet',

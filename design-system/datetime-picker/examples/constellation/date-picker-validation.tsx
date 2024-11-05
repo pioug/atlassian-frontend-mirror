@@ -26,6 +26,7 @@ const DatePickerValidationExample = () => (
 						<>
 							<DatePicker
 								{...fieldProps}
+								clearControlLabel="Clear start day"
 								shouldShowCalendarButton
 								inputLabel="Start day"
 								openCalendarLabel="open calendar"

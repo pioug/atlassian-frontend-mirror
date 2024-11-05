@@ -53,6 +53,8 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Du kan inte sortera en panelvy med sammanslagna celler',
   'fabric.editor.cancelButton': 'Avbryt',
   'fabric.editor.captionPlaceholder': 'Lägg till en bildtext',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt':
+    'Lägg till en bildtext – dubbelklicka för att förhandsgranska',
   'fabric.editor.cardFloatingControls': 'Kortalternativ',
   'fabric.editor.cellBackground': 'Cellbakgrund',
   'fabric.editor.cellOptions': 'Cellalternativ',
@@ -114,6 +116,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Du kan bara kommentera text, rubriker, emojis, datum, omnämnanden, länkar och statusar.',
   'fabric.editor.createCommentInvalid': 'Du kan bara kommentera på text och rubriker',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Jag förstår',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Nu kan nu lämna kommentarer i infogade delar som länkar, datum, statusar och omnämnanden.',
   'fabric.editor.customPanel': 'Anpassad panel',
   'fabric.editor.customPanel.description': 'Lägg till en anteckning med en emoji och en färgad bakgrund',
   'fabric.editor.datasource.assetsObjects.description':
@@ -304,6 +309,8 @@ export default {
     '{userRole, select, admin {Bjud in teammedlem till {productName}} trusted {Bjud in teammedlem till {productName}} other {Lägg till teammedlem i {productName}}}',
   'fabric.editor.italic': 'Kursiv',
   'fabric.editor.keyboardShortcuts': 'Kortkommandon',
+  'fabric.editor.layout.columnOption': '{count, plural, one {kolumn} other {{count} kolumner}}',
+  'fabric.editor.layout.placeholder': 'Lägg till innehåll',
   'fabric.editor.layoutFixedWidth': 'Tillbaka till centrera',
   'fabric.editor.layoutFullWidth': 'Använd full bredd',
   'fabric.editor.layoutWide': 'Använd bred',

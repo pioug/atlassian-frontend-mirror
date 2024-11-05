@@ -4,13 +4,10 @@ import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { updateSelectedIndex } from '../commands/update-selected-index';
-import type { CloseSelectionOptions } from '../constants';
-import type {
-	PopupMountPointReference,
-	TypeAheadPlugin,
-	TypeAheadPluginSharedState,
-} from '../types';
+import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-index';
+import type { CloseSelectionOptions } from '../pm-plugins/constants';
+import type { TypeAheadPlugin } from '../typeAheadPluginType';
+import type { PopupMountPointReference, TypeAheadPluginSharedState } from '../types';
 
 import { useItemInsert } from './hooks/use-item-insert';
 import { TypeAheadPopup } from './TypeAheadPopup';

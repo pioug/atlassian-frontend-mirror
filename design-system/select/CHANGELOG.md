@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 18.4.3
+
+### Patch Changes
+
+- [#158691](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158691)
+  [`453919c3f78d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/453919c3f78d3) -
+  Pass isInvalid to internal react-select from select prop to support aria-invalid on input
+
 ## 18.4.2
 
 ### Patch Changes

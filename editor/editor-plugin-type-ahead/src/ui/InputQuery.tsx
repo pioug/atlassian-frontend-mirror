@@ -20,9 +20,9 @@ import {
 	CloseSelectionOptions,
 	TYPE_AHEAD_DECORATION_ELEMENT_ID,
 	TYPE_AHEAD_POPUP_CONTENT_CLASS,
-} from '../constants';
+} from '../pm-plugins/constants';
+import { getPluginState } from '../pm-plugins/utils';
 import type { TypeAheadItem } from '../types';
-import { getPluginState } from '../utils';
 
 import { AssistiveText } from './AssistiveText';
 

@@ -53,6 +53,7 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Tabulku se sloučenými buňkami nelze seřadit',
   'fabric.editor.cancelButton': 'Zrušit',
   'fabric.editor.captionPlaceholder': 'Přidejte popisek',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt': 'Přidejte popisek – dvojitým kliknutím zobrazíte náhled.',
   'fabric.editor.cardFloatingControls': 'Možnosti karty',
   'fabric.editor.cellBackground': 'Pozadí buněk',
   'fabric.editor.cellOptions': 'Možnosti buňky',
@@ -115,6 +116,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Komentovat můžete pouze text, nadpisy, smajlíky, kalendářní data, zmínky, odkazy a stavy.',
   'fabric.editor.createCommentInvalid': 'Komentovat můžete pouze text a nadpisy',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Rozumím',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Nyní můžete zanechat komentáře k vloženým prvkům, jako jsou odkazy, kalendářní data, stavy a zmínky.',
   'fabric.editor.customPanel': 'Vlastní panel',
   'fabric.editor.customPanel.description': 'Přidejte poznámku se smajlíkem a barevným pozadím.',
   'fabric.editor.datasource.assetsObjects.description':
@@ -216,7 +220,7 @@ export default {
   'fabric.editor.findNext': 'Najít další',
   'fabric.editor.findPrevious': 'Najít předchozí',
   'fabric.editor.findReplaceToolbarButton': 'Najít a nahradit',
-  'fabric.editor.fiveColumns': 'Rozvržení 5 sloupců',
+  'fabric.editor.fiveColumns': 'Rozvržení pěti sloupců',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Zrušit',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Vymazat také všechny připojené prvky',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -229,7 +233,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Posunout doleva',
   'fabric.editor.floatingToolbar.scrollRight': 'Posunout doprava',
   'fabric.editor.focusTableResizeHandle': 'Zaměření na úchyt ke změně velikosti tabulky',
-  'fabric.editor.fourColumns': 'Rozvržení 4 sloupců',
+  'fabric.editor.fourColumns': 'Rozvržení čtyř sloupců',
   'fabric.editor.headerColumn': 'Sloupec záhlaví',
   'fabric.editor.headerRow': 'Řádek záhlaví',
   'fabric.editor.heading1': 'Nadpis 1',
@@ -304,6 +308,9 @@ export default {
     '{userRole, select, admin {Pozvat týmového kolegu do produktu {productName}} trusted {Pozvat týmového kolegu do produktu {productName}} other {Přidat týmového kolegu do produktu {productName}}}',
   'fabric.editor.italic': 'Kurzíva',
   'fabric.editor.keyboardShortcuts': 'Klávesové zkratky',
+  'fabric.editor.layout.columnOption':
+    '{count, plural, one { sloupec} few {{count} sloupce} many {{count} sloupce} other {{count} sloupců}}',
+  'fabric.editor.layout.placeholder': 'Přidat obsah',
   'fabric.editor.layoutFixedWidth': 'Zpět na zobrazení standardní šířky',
   'fabric.editor.layoutFullWidth': 'Přepnout do zobrazení na celou šířku',
   'fabric.editor.layoutWide': 'Přepnout do zobrazení na šířku',

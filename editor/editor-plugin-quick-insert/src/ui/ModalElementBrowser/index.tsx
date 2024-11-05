@@ -10,9 +10,9 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { closeElementBrowserModal } from '../../commands';
-import type { QuickInsertPlugin } from '../../index';
-import { getQuickInsertSuggestions } from '../../search';
+import { closeElementBrowserModal } from '../../pm-plugins/commands';
+import type { QuickInsertPlugin } from '../../quickInsertPluginType';
+import { getQuickInsertSuggestions } from '../search';
 
 import ModalElementBrowser from './ModalElementBrowser';
 

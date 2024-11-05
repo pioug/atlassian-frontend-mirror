@@ -53,6 +53,8 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Você não pode ordenar uma tabela com células mescladas',
   'fabric.editor.cancelButton': 'Cancelar',
   'fabric.editor.captionPlaceholder': 'Adicionar legenda',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt':
+    'Adicione uma legenda: clique duas vezes para pré-visualizar',
   'fabric.editor.cardFloatingControls': 'Opções de cartão',
   'fabric.editor.cellBackground': 'Plano de fundo da célula',
   'fabric.editor.cellOptions': 'Opções de célula',
@@ -114,6 +116,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Você só pode comentar em textos, títulos, emojis, datas, menções, links e status.',
   'fabric.editor.createCommentInvalid': 'Você só pode comentar em texto e cabeçalhos',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Entendi',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Agora você pode deixar comentários em elementos integrados, como links, datas, status e menções.',
   'fabric.editor.customPanel': 'Painel personalizado',
   'fabric.editor.customPanel.description': 'Adicione uma observação com um emoji e plano de fundo colorido',
   'fabric.editor.datasource.assetsObjects.description':
@@ -305,6 +310,8 @@ export default {
     '{userRole, select, admin {Convidar colega de equipe para {productName}} trusted {Convidar colega de equipe para {productName}} other {Adicionar colega de equipe para {productName}}}',
   'fabric.editor.italic': 'Itálico',
   'fabric.editor.keyboardShortcuts': 'Atalhos de teclado',
+  'fabric.editor.layout.columnOption': '{count, plural, one {-coluna} other {{count}-colunas}}',
+  'fabric.editor.layout.placeholder': 'Adicionar conteúdo',
   'fabric.editor.layoutFixedWidth': 'Voltar ao centro',
   'fabric.editor.layoutFullWidth': 'Usar largura inteira',
   'fabric.editor.layoutWide': 'Ampliar',

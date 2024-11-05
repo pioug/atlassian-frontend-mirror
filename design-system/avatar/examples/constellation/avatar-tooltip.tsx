@@ -1,8 +1,8 @@
 import React from 'react';
 
+import Avatar from '@atlaskit/avatar';
 import Tooltip from '@atlaskit/tooltip';
 
-import Avatar from '../../src';
 
 const AvatarTooltipExample = () => {
 	const presence = 'online';

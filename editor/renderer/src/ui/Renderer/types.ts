@@ -10,9 +10,29 @@ export type RendererAppearance =
   */
 	'comment' | 'full-page' | 'full-width' | undefined;
 
+/**
+ * DO NOT USE THESE OPTIONS
+ * These StickyHeaderConfig_DO_NOT_USE options are being TEMPORARILY added so Confluence can use Sticky Table Headers
+ * in Nav4.
+ *
+ * They will be cleaned up ASAP after Confluence refactors its page layout to add an explicit scroll container (DISCO-3121)
+ *
+ * `defaultScrollRoot_DO_NOT_USE` - defaults to undefined - can be used to specify the default OverflowParent if the table
+ *      doesn't have a parent that explicitly specifies `overflow: scroll` or `overflow-y: scroll`. When undefined, the
+ *      default OverflowParent will be the window
+ * `defaultScrollRootTop_DO_NOT_USE` - defaults to 0 - can be used to specify any offset that should be applied to the
+ *      sticky table header offset but does not need to be included when determining if the header should be sticky.
+ *      This is required bcause the llogic that determines if the header should be sticky takes the OverflowParent.offsetTop
+ *      into account. But the calculation to get the actual header offset does not.
+ */
+type StickyHeaderConfig_DO_NOT_USE = {
+	defaultScrollRoot_DO_NOT_USE?: HTMLElement;
+	defaultScrollRootTop_DO_NOT_USE?: number;
+};
+
 export type StickyHeaderConfig = {
 	offsetTop?: number;
-};
+} & StickyHeaderConfig_DO_NOT_USE;
 
 export type StickyHeaderProps =
 	| boolean

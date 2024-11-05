@@ -21,6 +21,9 @@
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-editor-disabled/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-editor-viewmode/afm-cc/tsconfig.json"
         },
         {

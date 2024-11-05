@@ -8,9 +8,11 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { SharedTableProps } from './types';
 import { useFeatureFlags } from '../../../use-feature-flags';
 import type { RendererContextProps } from '../../../renderer-context';
+import { useRendererContext } from '../../../renderer-context';
 
 // we allow scaling down column widths by no more than 30%
 // this intends to reduce unwanted scrolling in the Renderer in these scenarios:
@@ -80,6 +82,7 @@ const renderScaleDownColgroup = (
 	props: SharedTableProps & {
 		isTableScalingEnabled: boolean;
 		isTableFixedColumnWidthsOptionEnabled: boolean;
+		isTopLevelRenderer?: boolean;
 	},
 ): CSSProperties[] | null => {
 	let {
@@ -93,6 +96,7 @@ const renderScaleDownColgroup = (
 		isTableScalingEnabled,
 		isTableFixedColumnWidthsOptionEnabled,
 		allowTableResizing,
+		isTopLevelRenderer,
 	} = props;
 	if (!columnWidths) {
 		return [];
@@ -102,11 +106,18 @@ const renderScaleDownColgroup = (
 	const noOfColumns = columnWidths.length;
 	let targetWidths;
 
+	// This is a fix for ED-23259
+	// Some extensions (for ex: Page Properties or Excerpt) do not renderer tables directly inside themselves. They use ReactRenderer.
+	// So if we add a check like isInsideExtension (similar to exising isInsideBlockNode), it will fail, and to the only way to learn
+	// if the table is rendered inside another node, is to check if the Renderer itself is nested.
+	const isRendererNested =
+		isTopLevelRenderer === false && fg('platform_editor_nested_table_in_nested_parent_fix');
+
 	// appearance == comment && allowTableResizing && !tableNode?.attrs.width, means it is a comment
 	// appearance == comment && !allowTableResizing && !tableNode?.attrs.width, means it is a inline comment
 	// When comment and inline comment table width inherits from the parent container, we want tableContainerWidth === renderWidth
 	const tableContainerWidth =
-		rendererAppearance === 'comment' && !tableNode?.attrs.width
+		(rendererAppearance === 'comment' && !tableNode?.attrs.width) || isRendererNested
 			? renderWidth
 			: getTableContainerWidth(tableNode);
 
@@ -239,6 +250,7 @@ const renderScaleDownColgroup = (
 };
 
 export const Colgroup = (props: SharedTableProps) => {
+	const { isTopLevelRenderer } = useRendererContext();
 	let { columnWidths, isNumberColumnEnabled } = props;
 	const flags = useFeatureFlags() as RendererContextProps['featureFlags'] | undefined;
 
@@ -248,6 +260,7 @@ export const Colgroup = (props: SharedTableProps) => {
 
 	const colStyles = renderScaleDownColgroup({
 		...props,
+		isTopLevelRenderer,
 		isTableScalingEnabled:
 			!!(flags && 'tablePreserveWidth' in flags && flags.tablePreserveWidth) ||
 			(props.rendererAppearance === 'comment' &&

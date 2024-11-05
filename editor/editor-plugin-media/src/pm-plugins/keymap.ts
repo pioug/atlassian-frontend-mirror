@@ -65,7 +65,7 @@ function keymapPlugin(
 	bindKeymapWithCommand(insertNewLine.common!, splitMediaGroup, list);
 	bindKeymapWithCommand(enter.common!, splitMediaGroup, list);
 
-	if (fg('platform.editor.media.extended-resize-experience')) {
+	if (fg('platform_editor_media_extended_resize_experience')) {
 		bindKeymapWithCommand(
 			increaseMediaSize.common!,
 			handleMediaIncrease(editorAnalyticsAPI, widthPlugin, options, getIntl),

@@ -466,7 +466,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 						mediaHeight={height}
 						mediaWidth={width}
 						extendedResizeOffset={
-							fg('platform.editor.media.extended-resize-experience') && !isInsideTable
+							fg('platform_editor_media_extended_resize_experience') && !isInsideTable
 						}
 					>
 						{({ badgeSize }: { badgeSize: 'small' | 'medium' }) => (
@@ -514,7 +514,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 		return (
 			<Fragment>
 				{canResize ? (
-					fg('platform.editor.media.extended-resize-experience') ? (
+					fg('platform_editor_media_extended_resize_experience') ? (
 						<ResizableMediaSingleNext
 							{...resizableMediaSingleProps}
 							showLegacyNotification={widthType !== 'pixel'}
@@ -660,7 +660,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 			domRef.contentEditable = 'true';
 		}
 
-		if (fg('platform.editor.media.extended-resize-experience')) {
+		if (fg('platform_editor_media_extended_resize_experience')) {
 			domRef.classList.add('media-extended-resize-experience');
 		}
 
@@ -828,15 +828,15 @@ export const ReactMediaSingleNode =
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 		mediaOptions: MediaOptions = {},
 	) =>
-	(node: PMNode, view: EditorView, getPos: getPosHandler) => {
-		return new MediaSingleNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
-			eventDispatcher,
-			fullWidthMode: mediaOptions.fullWidthEnabled,
-			providerFactory,
-			mediaOptions,
-			dispatchAnalyticsEvent,
-			isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
-			pluginInjectionApi,
-			editorAppearance: mediaOptions.editorAppearance,
-		}).init();
-	};
+		(node: PMNode, view: EditorView, getPos: getPosHandler) => {
+			return new MediaSingleNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
+				eventDispatcher,
+				fullWidthMode: mediaOptions.fullWidthEnabled,
+				providerFactory,
+				mediaOptions,
+				dispatchAnalyticsEvent,
+				isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
+				pluginInjectionApi,
+				editorAppearance: mediaOptions.editorAppearance,
+			}).init();
+		};

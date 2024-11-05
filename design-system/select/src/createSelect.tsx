@@ -127,6 +127,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 				}
 				tabSelectsValue={tabSelectsValue}
 				onClickPreventDefault={onClickPreventDefault}
+				isInvalid={isInvalid}
 				{...restProps}
 				components={components}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

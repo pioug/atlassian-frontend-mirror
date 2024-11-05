@@ -1,3 +1,5 @@
+import { isPreRelease2 } from './utils/advanced-layouts-flags';
+
 export enum DIRECTION {
 	UP = 'up',
 	DOWN = 'down',
@@ -5,4 +7,6 @@ export enum DIRECTION {
 	RIGHT = 'right',
 }
 
-export const MAX_LAYOUT_COLUMN_SUPPORTED = 3;
+export const maxLayoutColumnSupported = () => {
+	return isPreRelease2() ? 5 : 3;
+};

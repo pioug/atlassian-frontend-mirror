@@ -14,16 +14,17 @@ import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE, TYPE_AHEAD_DECORATION_KEY } from '../constants';
-import { StatsModifier } from '../stats-modifier';
-import { closeTypeAhead } from '../transforms/close-type-ahead';
 import type {
 	CreateTypeAheadDecorations,
 	PopupMountPointReference,
 	RemoveTypeAheadDecorations,
 } from '../types';
 import { WrapperTypeAhead } from '../ui/WrapperTypeAhead';
-import { getTypeAheadQuery } from '../utils';
+
+import { closeTypeAhead } from './commands/close-type-ahead';
+import { TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE, TYPE_AHEAD_DECORATION_KEY } from './constants';
+import { StatsModifier } from './stats-modifier';
+import { getTypeAheadQuery } from './utils';
 
 type FactoryProps = {
 	intl: IntlShape;

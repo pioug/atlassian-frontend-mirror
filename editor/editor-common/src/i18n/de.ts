@@ -55,6 +55,8 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Tabellen mit zusammengeführten Zellen können nicht sortiert werden.',
   'fabric.editor.cancelButton': 'Abbrechen',
   'fabric.editor.captionPlaceholder': 'Eine Bildunterschrift hinzufügen',
+  'fabric.editor.captionPlaceholderWithDoubleClickPrompt':
+    'Fügen Sie eine Bildunterschrift hinzu und führen Sie einen Doppelklick aus, um eine Vorschau davon anzuzeigen.',
   'fabric.editor.cardFloatingControls': 'Kartenoptionen',
   'fabric.editor.cellBackground': 'Zellenhintergrund',
   'fabric.editor.cellOptions': 'Zelloptionen',
@@ -117,6 +119,9 @@ export default {
   'fabric.editor.createCommentDisabled':
     'Sie können nur Text, Überschriften, Emojis, Daten, Erwähnungen, Links und Status kommentieren.',
   'fabric.editor.createCommentInvalid': 'Sie können nur Kommentare für Text und Überschriften hinterlassen.',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.action': 'Verstanden',
+  'fabric.editor.createCommentOnInlineNodeSpotlight.body':
+    'Sie können jetzt Kommentare zu Inline-Elementen wie Verknüpfungen, Daten, Status und Erwähnungen hinterlassen.',
   'fabric.editor.customPanel': 'Benutzerdefiniertes Panel',
   'fabric.editor.customPanel.description': 'Fügen Sie einen Hinweis mit Emoji und farbigem Hintergrund hinzu',
   'fabric.editor.datasource.assetsObjects.description':
@@ -218,7 +223,7 @@ export default {
   'fabric.editor.findNext': 'Nächstes suchen',
   'fabric.editor.findPrevious': 'Vorheriges suchen',
   'fabric.editor.findReplaceToolbarButton': 'Suchen und ersetzen',
-  'fabric.editor.fiveColumns': 'Layout mit 5 Spalten',
+  'fabric.editor.fiveColumns': 'Layout mit fünf Spalten',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Abbrechen',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Verbundene Elemente ebenfalls löschen',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -232,7 +237,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Nach links scrollen',
   'fabric.editor.floatingToolbar.scrollRight': 'Nach rechts scrollen',
   'fabric.editor.focusTableResizeHandle': 'Ziehpunkt zur Größenänderung der Tabelle fokussieren',
-  'fabric.editor.fourColumns': 'Layout mit 4 Spalten',
+  'fabric.editor.fourColumns': 'Layout mit vier Spalten',
   'fabric.editor.headerColumn': 'Kopfzeilen-Spalte',
   'fabric.editor.headerRow': 'Kopfzeile',
   'fabric.editor.heading1': 'Überschrift 1',
@@ -307,6 +312,8 @@ export default {
     '{userRole, select, admin {Teammitglied zu {productName} einladen} trusted {Teammitglied zu {productName} einladen} other {Teammitglied zu {productName} hinzufügen}}',
   'fabric.editor.italic': 'Kursiv',
   'fabric.editor.keyboardShortcuts': 'Tastenkombinationen',
+  'fabric.editor.layout.columnOption': '{count, plural, one { Spalte} other {{count} Spalten}}',
+  'fabric.editor.layout.placeholder': 'Inhalt hinzufügen',
   'fabric.editor.layoutFixedWidth': 'Zurück zur Mitte',
   'fabric.editor.layoutFullWidth': 'Volle Breite wählen',
   'fabric.editor.layoutWide': 'Verbreitern',

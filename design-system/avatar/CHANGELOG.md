@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 21.17.2
+
+### Patch Changes
+
+- [#159704](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159704)
+  [`b3a2ceaf98b77`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b3a2ceaf98b77) -
+  Internal refactoring of file names and resolving of ESLint disables.
+
 ## 21.17.1
 
 ### Patch Changes

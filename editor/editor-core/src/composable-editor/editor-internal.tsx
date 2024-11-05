@@ -23,12 +23,14 @@ import { type CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-aut
 import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
 import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
 import type { EditorViewProps } from '../create-editor/ReactEditorView';
 import ReactEditorView from '../create-editor/ReactEditorView';
+import ReactEditorViewNext from '../create-editor/ReactEditorViewNext';
 import type { EventDispatcher } from '../event-dispatcher';
 import { ContextAdapter } from '../nodeviews/context-adapter';
 import { type EditorAppearanceComponentProps } from '../types';
@@ -91,7 +93,9 @@ export const EditorInternal = memo(
 		};
 
 		const featureFlags = createFeatureFlagsFromProps(props);
-		const renderTrackingEnabled = true;
+
+		// Render tracking is firing too many events in Jira so we are disabling them for now. See - https://product-fabric.atlassian.net/browse/ED-25616
+		const renderTrackingEnabled = !fg('platform_editor_disable_rerender_tracking_jira');
 		const useShallow = false;
 		const [portalProviderAPI, PortalRenderer] = usePortalProvider();
 
@@ -118,65 +122,127 @@ export const EditorInternal = memo(
 							<ContextAdapter>
 								<IntlProviderIfMissingWrapper>
 									<Fragment>
-										<ReactEditorViewContextWrapper
-											editorProps={overriddenEditorProps}
-											createAnalyticsEvent={createAnalyticsEvent}
-											portalProviderAPI={portalProviderAPI}
-											providerFactory={providerFactory}
-											onEditorCreated={onEditorCreated}
-											onEditorDestroyed={onEditorDestroyed}
-											disabled={props.disabled}
-											preset={preset}
-											render={({
-												editor,
-												view,
-												eventDispatcher,
-												config,
-												dispatchAnalyticsEvent,
-												editorRef,
-												editorAPI,
-											}) => (
-												<BaseThemeWrapper baseFontSize={getBaseFontSize(props.appearance)}>
-													<AppearanceComponent
-														innerRef={editorRef}
-														editorAPI={editorAPI}
-														appearance={props.appearance!}
-														disabled={props.disabled}
-														editorActions={editorActions}
-														editorDOMElement={editor}
-														editorView={view}
-														providerFactory={providerFactory}
-														eventDispatcher={eventDispatcher}
-														dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-														maxHeight={props.maxHeight}
-														minHeight={props.minHeight}
-														onSave={props.onSave ? handleSave : undefined}
-														onCancel={props.onCancel}
-														popupsMountPoint={props.popupsMountPoint}
-														popupsBoundariesElement={props.popupsBoundariesElement}
-														popupsScrollableElement={props.popupsScrollableElement}
-														contentComponents={config.contentComponents}
-														primaryToolbarComponents={config.primaryToolbarComponents}
-														primaryToolbarIconBefore={props.primaryToolbarIconBefore}
-														secondaryToolbarComponents={config.secondaryToolbarComponents}
-														customContentComponents={props.contentComponents}
-														customPrimaryToolbarComponents={props.primaryToolbarComponents}
-														customSecondaryToolbarComponents={props.secondaryToolbarComponents}
-														contextPanel={props.contextPanel}
-														collabEdit={props.collabEdit}
-														persistScrollGutter={props.persistScrollGutter}
-														enableToolbarMinWidth={
-															props.featureFlags?.toolbarMinWidthOverflow != null
-																? !!props.featureFlags?.toolbarMinWidthOverflow
-																: props.allowUndoRedoButtons
-														}
-														useStickyToolbar={props.useStickyToolbar}
-														featureFlags={featureFlags}
-														pluginHooks={config.pluginHooks}
-													/>
-												</BaseThemeWrapper>
-											)}
-										/>
+										{fg('platform_editor_react_editor_view_react_18') ? (
+											<ReactEditorViewNext
+												editorProps={overriddenEditorProps}
+												createAnalyticsEvent={createAnalyticsEvent}
+												portalProviderAPI={portalProviderAPI}
+												providerFactory={providerFactory}
+												onEditorCreated={onEditorCreated}
+												onEditorDestroyed={onEditorDestroyed}
+												disabled={props.disabled}
+												preset={preset}
+												render={({
+													editor,
+													view,
+													eventDispatcher,
+													config,
+													dispatchAnalyticsEvent,
+													editorRef,
+													editorAPI,
+												}) => (
+													<BaseThemeWrapper baseFontSize={getBaseFontSize(props.appearance)}>
+														<AppearanceComponent
+															innerRef={editorRef}
+															editorAPI={editorAPI}
+															appearance={props.appearance!}
+															disabled={props.disabled}
+															editorActions={editorActions}
+															editorDOMElement={editor}
+															editorView={view}
+															providerFactory={providerFactory}
+															eventDispatcher={eventDispatcher}
+															dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+															maxHeight={props.maxHeight}
+															minHeight={props.minHeight}
+															onSave={props.onSave ? handleSave : undefined}
+															onCancel={props.onCancel}
+															popupsMountPoint={props.popupsMountPoint}
+															popupsBoundariesElement={props.popupsBoundariesElement}
+															popupsScrollableElement={props.popupsScrollableElement}
+															contentComponents={config.contentComponents}
+															primaryToolbarComponents={config.primaryToolbarComponents}
+															primaryToolbarIconBefore={props.primaryToolbarIconBefore}
+															secondaryToolbarComponents={config.secondaryToolbarComponents}
+															customContentComponents={props.contentComponents}
+															customPrimaryToolbarComponents={props.primaryToolbarComponents}
+															customSecondaryToolbarComponents={props.secondaryToolbarComponents}
+															contextPanel={props.contextPanel}
+															collabEdit={props.collabEdit}
+															persistScrollGutter={props.persistScrollGutter}
+															enableToolbarMinWidth={
+																props.featureFlags?.toolbarMinWidthOverflow != null
+																	? !!props.featureFlags?.toolbarMinWidthOverflow
+																	: props.allowUndoRedoButtons
+															}
+															useStickyToolbar={props.useStickyToolbar}
+															featureFlags={featureFlags}
+															pluginHooks={config.pluginHooks}
+														/>
+													</BaseThemeWrapper>
+												)}
+											/>
+										) : (
+											<ReactEditorViewContextWrapper
+												editorProps={overriddenEditorProps}
+												createAnalyticsEvent={createAnalyticsEvent}
+												portalProviderAPI={portalProviderAPI}
+												providerFactory={providerFactory}
+												onEditorCreated={onEditorCreated}
+												onEditorDestroyed={onEditorDestroyed}
+												disabled={props.disabled}
+												preset={preset}
+												render={({
+													editor,
+													view,
+													eventDispatcher,
+													config,
+													dispatchAnalyticsEvent,
+													editorRef,
+													editorAPI,
+												}) => (
+													<BaseThemeWrapper baseFontSize={getBaseFontSize(props.appearance)}>
+														<AppearanceComponent
+															innerRef={editorRef}
+															editorAPI={editorAPI}
+															appearance={props.appearance!}
+															disabled={props.disabled}
+															editorActions={editorActions}
+															editorDOMElement={editor}
+															editorView={view}
+															providerFactory={providerFactory}
+															eventDispatcher={eventDispatcher}
+															dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+															maxHeight={props.maxHeight}
+															minHeight={props.minHeight}
+															onSave={props.onSave ? handleSave : undefined}
+															onCancel={props.onCancel}
+															popupsMountPoint={props.popupsMountPoint}
+															popupsBoundariesElement={props.popupsBoundariesElement}
+															popupsScrollableElement={props.popupsScrollableElement}
+															contentComponents={config.contentComponents}
+															primaryToolbarComponents={config.primaryToolbarComponents}
+															primaryToolbarIconBefore={props.primaryToolbarIconBefore}
+															secondaryToolbarComponents={config.secondaryToolbarComponents}
+															customContentComponents={props.contentComponents}
+															customPrimaryToolbarComponents={props.primaryToolbarComponents}
+															customSecondaryToolbarComponents={props.secondaryToolbarComponents}
+															contextPanel={props.contextPanel}
+															collabEdit={props.collabEdit}
+															persistScrollGutter={props.persistScrollGutter}
+															enableToolbarMinWidth={
+																props.featureFlags?.toolbarMinWidthOverflow != null
+																	? !!props.featureFlags?.toolbarMinWidthOverflow
+																	: props.allowUndoRedoButtons
+															}
+															useStickyToolbar={props.useStickyToolbar}
+															featureFlags={featureFlags}
+															pluginHooks={config.pluginHooks}
+														/>
+													</BaseThemeWrapper>
+												)}
+											/>
+										)}
 										<PortalRenderer />
 									</Fragment>
 								</IntlProviderIfMissingWrapper>

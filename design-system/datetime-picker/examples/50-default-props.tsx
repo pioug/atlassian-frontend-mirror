@@ -13,6 +13,7 @@ export default () => {
 			</Label>
 			<DatePicker
 				id="react-select-date--input"
+				clearControlLabel="Clear datePicker defaultValue defaultIsOpen"
 				defaultValue="2018-03-01"
 				defaultIsOpen
 				onChange={console.log}
@@ -36,11 +37,11 @@ export default () => {
 				defaultValue="2018-01-02T14:30-08:00"
 				onChange={console.log}
 				datePickerProps={{
-					label: 'Date, DateTimePicker defaultValue',
+					label: 'DateTimePicker defaultValue, date',
 					shouldShowCalendarButton: true,
 					openCalendarLabel: 'open calendar',
 				}}
-				timePickerProps={{ label: 'Time, DateTimePicker defaultValue' }}
+				timePickerProps={{ label: 'DateTimePicker defaultValue, time' }}
 			/>
 		</Box>
 	);

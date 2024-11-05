@@ -17,7 +17,12 @@ export default () => {
 			/>
 
 			<Label htmlFor="react-select-date--input">DatePicker - isInvalid</Label>
-			<DatePicker id="react-select-date--input" onChange={console.log} isInvalid />
+			<DatePicker
+				id="react-select-date--input"
+				clearControlLabel="Clear datePicker - isInvalid"
+				onChange={console.log}
+				isInvalid
+			/>
 
 			<Label htmlFor="react-select-datetime--input">DateTimePicker - isInvalid</Label>
 			<DateTimePicker
@@ -25,8 +30,8 @@ export default () => {
 				onChange={console.log}
 				isInvalid
 				clearControlLabel="Clear datetime picker is invalid"
-				datePickerProps={{ label: 'Date, DateTimePicker - isInvalid' }}
-				timePickerProps={{ label: 'Time, DateTimePicker - isInvalid' }}
+				datePickerProps={{ label: 'DateTimePicker - isInvalid, date' }}
+				timePickerProps={{ label: 'DateTimePicker - isInvalid, time' }}
 			/>
 		</Box>
 	);

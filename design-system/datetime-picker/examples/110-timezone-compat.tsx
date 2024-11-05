@@ -30,8 +30,8 @@ export default () => (
 			onChange={logValue}
 			parseValue={parseValue}
 			defaultValue={jiraServerValueConvertedToHKTime}
-			datePickerProps={{ label: 'Date, Timezone Compatible Datetime' }}
-			timePickerProps={{ label: 'Time, Timezone Compatible Datetime' }}
+			datePickerProps={{ label: 'Timezone Compatible Datetime, date' }}
+			timePickerProps={{ label: 'Timezone Compatible Datetime, time' }}
 		/>
 	</Box>
 );

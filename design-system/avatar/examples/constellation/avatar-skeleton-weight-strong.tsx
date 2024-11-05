@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { Skeleton } from '@atlaskit/avatar';
 import { Y500 } from '@atlaskit/theme/colors';
 
-import { Skeleton } from '../../src';
 
 const AvatarSkeletonWeightStrongExample = () => {
 	return <Skeleton color={Y500} weight="strong" />;

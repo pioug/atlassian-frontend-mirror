@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help",
-	"version": "7.10.5",
+	"version": "7.10.6",
 	"description": "A cross-product help component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,7 +48,7 @@
 		"@atlaskit/help-article": "^4.2.0",
 		"@atlaskit/help-layout": "^4.3.0",
 		"@atlaskit/icon": "^22.24.0",
-		"@atlaskit/legacy-custom-icons": "^0.12.0",
+		"@atlaskit/legacy-custom-icons": "^0.13.0",
 		"@atlaskit/notification-indicator": "^9.4.0",
 		"@atlaskit/notification-log-client": "^6.1.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",

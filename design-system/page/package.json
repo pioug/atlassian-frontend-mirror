@@ -64,6 +64,7 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "*",
 		"@atlaskit/ds-lib": "^3.1.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",

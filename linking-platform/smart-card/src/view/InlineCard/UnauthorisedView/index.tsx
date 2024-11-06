@@ -7,8 +7,6 @@ import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-
-
 import { messages } from '../../../messages';
 import { type AnalyticsFacade } from '../../../state/analytics';
 import { HoverCard } from '../../HoverCard';

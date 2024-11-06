@@ -41,7 +41,7 @@ type SelectorConfig = {
 
 type Rates = {
 	readonly [key: string]: number;
-}
+};
 
 // Defensively typed, since this is directly user-editable
 // and they could delete empty members

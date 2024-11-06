@@ -24,6 +24,7 @@ snapshotInformational(OverflowLayoutRenderer, {
 	},
 });
 
+// Advanced layouts
 snapshotInformational(Layout4ColRenderer, {
 	description: '4 column layout when layout size < 550px',
 	featureFlags: { advanced_layouts: true },

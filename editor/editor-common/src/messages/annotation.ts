@@ -28,8 +28,10 @@ export const annotationMessages = defineMessages({
 	},
 	createCommentOnInlineNodeSpotlightBody: {
 		id: 'fabric.editor.createCommentOnInlineNodeSpotlight.body',
-		defaultMessage: 'You can now leave comments on inline elements like links, dates, statuses and mentions.',
-		description: 'The body content of the spotlight message that appears when the user can leave comments on inline nodes',
+		defaultMessage:
+			'You can now leave comments on inline elements like links, dates, statuses and mentions.',
+		description:
+			'The body content of the spotlight message that appears when the user can leave comments on inline nodes',
 	},
 	createCommentOnInlineNodeSpotlightAction: {
 		id: 'fabric.editor.createCommentOnInlineNodeSpotlight.action',

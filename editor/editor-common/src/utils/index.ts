@@ -77,6 +77,7 @@ export {
 	calcBreakoutWidthPx,
 	getNextBreakoutMode,
 	getTitle,
+	calcBreakoutWithCustomWidth,
 } from './breakout';
 
 export {

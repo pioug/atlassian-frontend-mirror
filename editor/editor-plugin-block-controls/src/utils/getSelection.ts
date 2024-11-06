@@ -49,11 +49,11 @@ export const getSelection = (tr: Transaction, start: number) => {
 	const nodeName = node?.type.name;
 	const isBlockQuoteWithMedia = nodeName === 'blockquote' && isNodeWithMedia(tr, start, nodeSize);
 
-	// decisionList node is not selectable, but we want to select the whole node not just text
 	if (
 		(isNodeSelection && nodeName !== 'blockquote') ||
 		isBlockQuoteWithMedia ||
-		nodeName === 'decisionList'
+		// decisionList/layoutColumn node is not selectable, but we want to select the whole node not just text
+		['decisionList', 'layoutColumn'].includes(nodeName || '')
 	) {
 		return new NodeSelection($startPos);
 	} else if (nodeName === 'mediaGroup' && node?.childCount === 1) {

@@ -102,6 +102,19 @@ export { breakoutConsts };
 export const calcWideWidth = breakoutConsts.calcWideWidth;
 export const calcBreakoutWidth = breakoutConsts.calcBreakoutWidth;
 
+// Calculate width for nodes using resizing and breakout mark, only applied in renderer
+export const calcBreakoutWithCustomWidth = (
+	mode: 'full-width' | 'wide',
+	width: number | null,
+	editorContainerWidth: number,
+) => {
+	if (width !== null && width > 0) {
+		const effectiveFullWidth = editorContainerWidth - breakoutConsts.padding;
+		return `${Math.min(width, effectiveFullWidth)}px`;
+	}
+	return calcBreakoutWidth(mode, editorContainerWidth);
+};
+
 export function calculateBreakoutStyles({
 	mode,
 	widthStateLineLength,

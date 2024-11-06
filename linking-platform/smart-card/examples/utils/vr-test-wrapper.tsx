@@ -9,7 +9,6 @@ import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
-
 import { IFrame } from '../../src/view/EmbedCard/components/IFrame';
 import HoverCardControl from '../../src/view/FlexibleCard/components/container/hover-card-control';
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';

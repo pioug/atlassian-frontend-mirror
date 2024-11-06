@@ -27,6 +27,7 @@ const createTimePicker = (props: TimePickerBaseProps = {}) => (
 );
 
 describe('TimePicker', () => {
+	const getInput = () => screen.getByRole('combobox');
 	const queryMenu = () => screen.queryByTestId(`${testId}--popper--container`);
 	/**
 	 * This is necessary for entering values in the mock time picker above. Why we
@@ -114,7 +115,6 @@ describe('TimePicker', () => {
 	it('should be required when prop is passed', () => {
 		render(createTimePicker({ isRequired: true }));
 
-		const getInput = () => screen.getByRole('combobox');
 		expect(getInput()).toBeRequired();
 	});
 
@@ -198,6 +198,27 @@ describe('TimePicker', () => {
 
 		const label = screen.queryByText('midday');
 		expect(label).toBeInTheDocument();
+	});
+
+	describe('Placeholder', () => {
+		const defaultPlaceholder = '1:00 PM';
+
+		it('should show default placeholder if none provided', () => {
+			render(createTimePicker());
+
+			const input = getInput();
+			expect(input).toHaveValue('');
+			expect(screen.getByText(defaultPlaceholder)).toBeInTheDocument();
+		});
+
+		it('should show a placeholder if provided', () => {
+			const placeholder = 'placeholder';
+			render(createTimePicker({ placeholder }));
+
+			const input = getInput();
+			expect(input).toHaveValue('');
+			expect(screen.getByText(placeholder)).toBeInTheDocument();
+		});
 	});
 
 	it('should call custom parseInputValue - AM', async () => {
@@ -301,84 +322,98 @@ describe('TimePicker', () => {
 		expect(onChangeSpy.mock.calls[0][0]).toBe('15:32');
 	});
 
-	it('should clear the value if the backspace key is pressed', async () => {
-		const user = userEvent.setup();
-		const onChangeSpy = jest.fn();
-		render(createTimePicker({ value: '15:32', onChange: onChangeSpy }));
+	describe('Clearing the input', () => {
+		it('should not show the clear button if a value is not present', () => {
+			render(createTimePicker());
+			const clearButton = screen.queryByRole('button', { name: /clear/i });
+			expect(clearButton).not.toBeInTheDocument();
+		});
 
-		const selectInput = screen.getByDisplayValue('');
-		await user.type(selectInput, '{Backspace}');
+		it('should show the clear button if a value is present', () => {
+			render(createTimePicker({ value: '15:32' }));
+			const clearButton = screen.getByRole('button', { name: /clear/i });
+			expect(clearButton).toBeInTheDocument();
+		});
 
-		expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
-	});
+		it('should clear the value if the backspace key is pressed', async () => {
+			const user = userEvent.setup();
+			const onChangeSpy = jest.fn();
+			render(createTimePicker({ value: '15:32', onChange: onChangeSpy }));
 
-	it('should clear the value if the delete key is pressed', async () => {
-		const user = userEvent.setup();
-		const onChangeSpy = jest.fn();
-		render(createTimePicker({ value: '15:32', onChange: onChangeSpy }));
+			const selectInput = screen.getByDisplayValue('');
+			await user.type(selectInput, '{Backspace}');
 
-		const selectInput = screen.getByDisplayValue('');
-		await user.type(selectInput, '{Delete}');
+			expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
+		});
 
-		expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
-	});
+		it('should clear the value if the delete key is pressed', async () => {
+			const user = userEvent.setup();
+			const onChangeSpy = jest.fn();
+			render(createTimePicker({ value: '15:32', onChange: onChangeSpy }));
 
-	it('should clear the value if the clear button is pressed and the menu should stay closed', async () => {
-		const user = userEvent.setup();
-		const onChangeSpy = jest.fn();
-		render(createTimePicker({ value: '15:32', onChange: onChangeSpy }));
-		const clearButton = screen.getByRole('button', { name: /clear/i });
-		if (!clearButton) {
-			throw new Error('Expected button to be non-null');
-		}
+			const selectInput = screen.getByDisplayValue('');
+			await user.type(selectInput, '{Delete}');
 
-		await user.click(clearButton);
+			expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
+		});
 
-		expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
-		expect(screen.queryByTestId(`${testId}--popper--container`)).not.toBeInTheDocument();
-	});
+		it('should clear the value if the clear button is pressed and the menu should stay closed', async () => {
+			const user = userEvent.setup();
+			const onChangeSpy = jest.fn();
+			render(createTimePicker({ value: '15:32', onChange: onChangeSpy }));
+			const clearButton = screen.getByRole('button', { name: /clear/i });
+			if (!clearButton) {
+				throw new Error('Expected button to be non-null');
+			}
 
-	it('should clear the value and leave the menu open if the clear button is pressed while menu is open', async () => {
-		const user = userEvent.setup();
-		const onChangeSpy = jest.fn();
+			await user.click(clearButton);
 
-		render(
-			createTimePicker({
-				value: '15:32',
-				onChange: onChangeSpy,
-				defaultIsOpen: true,
-				selectProps: { testId: testId },
-			}),
-		);
+			expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
+			expect(screen.queryByTestId(`${testId}--popper--container`)).not.toBeInTheDocument();
+		});
 
-		const clearButton = screen.getByRole('button', { name: /clear/i });
-		if (!clearButton) {
-			throw new Error('Expected button to be non-null');
-		}
+		it('should clear the value and leave the menu open if the clear button is pressed while menu is open', async () => {
+			const user = userEvent.setup();
+			const onChangeSpy = jest.fn();
 
-		await user.click(clearButton);
+			render(
+				createTimePicker({
+					value: '15:32',
+					onChange: onChangeSpy,
+					defaultIsOpen: true,
+					selectProps: { testId: testId },
+				}),
+			);
 
-		expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
-		expect(screen.getByTestId(`${testId}--popper--container`)).toBeInTheDocument();
-	});
+			const clearButton = screen.getByRole('button', { name: /clear/i });
+			if (!clearButton) {
+				throw new Error('Expected button to be non-null');
+			}
 
-	it('should render the custom clear label', () => {
-		const timePickerLabel = 'test time';
-		const clearControlLabel = `Clear ${timePickerLabel}`;
-		const onChangeSpy = jest.fn();
+			await user.click(clearButton);
 
-		render(
-			createTimePicker({
-				value: '15:32',
-				onChange: onChangeSpy,
-				defaultIsOpen: true,
-				selectProps: { testId: testId },
-				label: timePickerLabel,
-				clearControlLabel,
-			}),
-		);
+			expect(onChangeSpy).toHaveBeenCalledWith('', expect.any(Object));
+			expect(screen.getByTestId(`${testId}--popper--container`)).toBeInTheDocument();
+		});
 
-		expect(screen.getByRole('button', { name: clearControlLabel })).toBeInTheDocument();
+		it('should render the custom clear label', () => {
+			const timePickerLabel = 'test time';
+			const clearControlLabel = `Clear ${timePickerLabel}`;
+			const onChangeSpy = jest.fn();
+
+			render(
+				createTimePicker({
+					value: '15:32',
+					onChange: onChangeSpy,
+					defaultIsOpen: true,
+					selectProps: { testId: testId },
+					label: timePickerLabel,
+					clearControlLabel,
+				}),
+			);
+
+			expect(screen.getByRole('button', { name: clearControlLabel })).toBeInTheDocument();
+		});
 	});
 
 	it('should never apply an ID to the hidden input', () => {

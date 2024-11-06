@@ -7,10 +7,9 @@ import ChevronIcon from '../../utility/chevron-down';
 import DragHandleIcon from '../../utility/drag-handle';
 import ErrorIcon from '../../utility/error';
 
-
 const IconUtilityExample = () => {
 	return (
-		<Inline space='space.100'>
+		<Inline space="space.100">
 			<Box>
 				<ChevronIcon label="" />
 			</Box>

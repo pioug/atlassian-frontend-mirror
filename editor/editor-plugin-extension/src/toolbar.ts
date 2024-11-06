@@ -28,6 +28,7 @@ import CenterIcon from '@atlaskit/icon/glyph/editor/media-center';
 import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
 import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { editExtension } from './actions';
 import { removeDescendantNodes, removeExtension, updateExtensionLayout } from './commands';
@@ -260,7 +261,7 @@ export const getToolbarConfig =
 					},
 					{
 						type: 'copy-button',
-						supportsViewMode: true,
+						supportsViewMode: !fg('platform_editor_remove_copy_button_from_view_mode'),
 						items: [
 							{
 								state,

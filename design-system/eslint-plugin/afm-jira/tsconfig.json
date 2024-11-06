@@ -1,33 +1,33 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "ES2021.String"
-    ],
-    "outDir": "../../../../../tsDist/@atlaskit__eslint-plugin-design-system/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../eslint-utils/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../icon/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../tokens/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"target": "es5",
+		"lib": [
+			"ES2021.String"
+		],
+		"outDir": "../../../../../tsDist/@atlaskit__eslint-plugin-design-system/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../eslint-utils/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-jira/tsconfig.json"
+		}
+	]
 }

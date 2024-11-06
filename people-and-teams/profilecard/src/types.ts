@@ -553,16 +553,8 @@ export type TeamProfileCardErrorType = {
 
 export interface ProfileClientOptions
 	extends Omit<TeamCentralCardClientOptions, 'gatewayGraphqlUrl'> {
-	/**
-	 * pf-directory url
-	 * When we clean up CloudUser migration FF, we should remove this prop
-	 */
-	url?: string;
-	/**
-	 * AGG url
-	 * When we clean up CloudUser migration FF, we should mark this prop as required
-	 */
 	gatewayGraphqlUrl?: string;
+	url?: string;
 	cacheSize?: number;
 	cacheMaxAge?: number;
 	/** Name of integrating product e.g. jira, atlas, confluence **/

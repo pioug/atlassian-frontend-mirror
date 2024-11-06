@@ -16,17 +16,15 @@ import { type EventKey } from './analytics.types';
 import createEventPayload from './create-event-payload';
 
 export const useAnalyticsEvents = () => {
-  const { createAnalyticsEvent } = useAnalyticsNextEvents();
-  const fireEvent = useCallback(
-    <K extends EventKey>(
-      ...params: Parameters<typeof createEventPayload<K>>
-    ) => {
-      const event = createAnalyticsEvent(createEventPayload<K>(...params));
-      event.fire(EVENT_CHANNEL);
-    },
-    [createAnalyticsEvent],
-  );
-  return {
-    fireEvent,
-  };
+	const { createAnalyticsEvent } = useAnalyticsNextEvents();
+	const fireEvent = useCallback(
+		<K extends EventKey>(...params: Parameters<typeof createEventPayload<K>>) => {
+			const event = createAnalyticsEvent(createEventPayload<K>(...params));
+			event.fire(EVENT_CHANNEL);
+		},
+		[createAnalyticsEvent],
+	);
+	return {
+		fireEvent,
+	};
 };

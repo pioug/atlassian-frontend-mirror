@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "20.8.3",
+	"version": "20.9.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -81,7 +81,7 @@
 		"@atlaskit/rovo-agent-components": "^1.9.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^2.1.0",
+		"@atlaskit/tokens": "^2.2.0",
 		"@atlaskit/tooltip": "^18.8.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -132,9 +132,6 @@
 			"type": "boolean"
 		},
 		"enable_ptc_sharded_townsquare_calls": {
-			"type": "boolean"
-		},
-		"migrate_cloud_user_to_agg_user_query_profile_card": {
 			"type": "boolean"
 		},
 		"enable_agent_profile_card": {

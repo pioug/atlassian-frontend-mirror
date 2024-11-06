@@ -1,48 +1,48 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__editor-plugin-annotation/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*",
-    "../src/**/examples.*"
-  ],
-  "references": [
-    {
-      "path": "../../editor-common/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-plugin-editor-viewmode-effects/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-plugin-engagement-platform/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-plugin-feature-flags/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/onboarding/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-annotation/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-common/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode-effects/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-engagement-platform/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/onboarding/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
+		}
+	]
 }

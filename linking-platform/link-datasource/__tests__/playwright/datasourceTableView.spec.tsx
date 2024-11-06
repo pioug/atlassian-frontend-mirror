@@ -131,7 +131,7 @@ test.describe('DatasourceTableView', () => {
 			'enable_datasource_react_sweet_state',
 			'platform-datasources-enable-two-way-sync',
 			'platform-datasources-enable-two-way-sync-statuses',
-			'enable_datasource_supporting_actions'
+			'enable_datasource_supporting_actions',
 		]);
 
 		await page.getByTestId('link-datasource-render-type--status').first().click();
@@ -150,7 +150,7 @@ test.describe('DatasourceTableView', () => {
 			'enable_datasource_react_sweet_state',
 			'platform-datasources-enable-two-way-sync',
 			'platform-datasources-enable-two-way-sync-statuses',
-			'enable_datasource_supporting_actions'
+			'enable_datasource_supporting_actions',
 		]);
 
 		await page.getByTestId('link-datasource-render-type--status').first().click();

@@ -316,7 +316,7 @@ export function keymapPlugin(
 		),
 		list,
 	);
-	
+
 	bindKeymapWithCommand(
 		escape.common!,
 		stopKeyboardColumnResizing({

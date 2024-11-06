@@ -9,7 +9,6 @@ import { getMockForbiddenDirectAccessResponse } from '../../src/view/HoverCard/_
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-
 const mockUrl = 'https://www.mockurl.com';
 
 const getStoreOptions = (

@@ -15,7 +15,6 @@ import extractProviderIcon from './extract-provider-icon';
 import extractUrlIcon from './extract-url-icon';
 import { type IconDescriptor } from './types';
 
-
 const extractTask = (data: JsonLd.Data.Task, label?: string) => {
 	const { id, icon: url } = extractTaskType(data as JsonLd.Data.Task) || {};
 	const taskType = id?.split('#').pop();

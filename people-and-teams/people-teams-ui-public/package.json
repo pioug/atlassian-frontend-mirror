@@ -12,7 +12,8 @@
 		"website": {
 			"name": "PeopleTeamsUiPublic",
 			"category": "Components"
-		}
+		},
+		"runReact18": true
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",
@@ -41,7 +42,7 @@
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/legacy-custom-icons": "^0.13.0",
 		"@atlaskit/primitives": "^13.0.0",
-		"@atlaskit/tokens": "^2.1.0",
+		"@atlaskit/tokens": "^2.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1"
 	},

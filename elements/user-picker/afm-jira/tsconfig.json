@@ -1,69 +1,69 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__user-picker/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/avatar/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/logo/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/lozenge/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../people-and-teams/people-teams-ui-public/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/popper/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/select/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/spinner/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../people-and-teams/teams-avatar/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/theme/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../data/ufo-external/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__user-picker/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/logo/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/lozenge/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../people-and-teams/people-teams-ui-public/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popper/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../people-and-teams/teams-avatar/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-jira/tsconfig.json"
+		}
+	]
 }

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.39.4
+
+### Patch Changes
+
+- [#160815](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160815)
+  [`40198d061572a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40198d061572a) -
+  migrate inline media preview icon
+
 ## 1.39.3
 
 ### Patch Changes

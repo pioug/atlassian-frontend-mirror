@@ -12,7 +12,6 @@ import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import { type FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import Snippet from '../index';
 
-
 describe('Snippet', () => {
 	const snippetContent = 'Smart link snippet';
 	const overrideContent = 'This is a prop content';

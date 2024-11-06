@@ -13,7 +13,6 @@ import { type ActionItem } from '../../types';
 import FooterBlock from '../index';
 import { type FooterBlockProps } from '../types';
 
-
 describe('FooterBlock', () => {
 	const testIdBase = 'some-test-id';
 	const renderFooterBlock = (props?: FooterBlockProps) => {

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-breakout
 
+## 1.9.1
+
+### Patch Changes
+
+- [#158057](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158057)
+  [`1051d541ab905`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1051d541ab905) -
+  migrate breakout button icons
+- Updated dependencies
+
 ## 1.9.0
 
 ### Minor Changes

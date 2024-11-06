@@ -172,7 +172,7 @@ const mediaAsyncOperations = async (props: {
 			});
 			props.addPendingTask(copyNode);
 			await copyNode;
-		} catch (e) { }
+		} catch (e) {}
 	}
 };
 
@@ -208,7 +208,7 @@ const useMediaAsyncOperations = ({
 	}, [mediaNode, addPendingTask, mediaNodeUpdater, getPos]);
 };
 
-const noop = () => { };
+const noop = () => {};
 
 /**
  * Keep returning the same ProseMirror Node, unless the node content changed.
@@ -566,7 +566,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 
 	const isCurrentNodeDrafting = Boolean(
 		annotationPluginState?.isDrafting &&
-		annotationPluginState?.targetNodeId === mediaNode?.firstChild?.attrs.id,
+			annotationPluginState?.targetNodeId === mediaNode?.firstChild?.attrs.id,
 	);
 
 	const shouldShowExternalMediaBadge = childMediaNodeAttrs.type === 'external';

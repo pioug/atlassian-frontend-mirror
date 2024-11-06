@@ -14,15 +14,15 @@ import ensureValidBinValues from './rules/ensure-valid-bin-values';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
 import ensureNativeAndAfExportsSynced from './rules/ensure-native-and-af-exports-synced';
-import noModuleLevelEval from './rules/no-module-level-eval';
-import noModuleLevelEvalNav4 from './rules/no-module-level-eval-nav4';
-import staticFeatureFlags from './rules/static-feature-flags';
-import noPreconditioning from './rules/no-preconditioning';
-import inlineUsage from './rules/inline-usage';
-import preferFG from './rules/prefer-fg';
-import noAlias from './rules/no-alias';
+import noModuleLevelEval from './rules/feature-gating/no-module-level-eval';
+import noModuleLevelEvalNav4 from './rules/feature-gating/no-module-level-eval-nav4';
+import staticFeatureFlags from './rules/feature-gating/static-feature-flags';
+import noPreconditioning from './rules/feature-gating/no-preconditioning';
+import inlineUsage from './rules/feature-gating/inline-usage';
+import preferFG from './rules/feature-gating/prefer-fg';
+import noAlias from './rules/feature-gating/no-alias';
 import useEntrypointsInExamples from './rules/use-entrypoints-in-examples';
-import useRecommendedUtils from './rules/use-recommended-utils';
+import useRecommendedUtils from './rules/feature-gating/use-recommended-utils';
 
 export const rules = {
 	'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
@@ -50,20 +50,24 @@ export const rules = {
 	'use-recommended-utils': useRecommendedUtils,
 };
 
+const commonConfig = {
+	'@atlaskit/platform/ensure-test-runner-arguments': 'error',
+	'@atlaskit/platform/ensure-test-runner-nested-count': 'warn',
+	'@atlaskit/platform/no-invalid-feature-flag-usage': 'error',
+	'@atlaskit/platform/no-invalid-storybook-decorator-usage': 'error',
+	'@atlaskit/platform/ensure-atlassian-team': 'error',
+};
+
 export const configs = {
 	recommended: {
 		plugins: ['@atlaskit/platform'],
 		rules: {
+			...commonConfig,
 			'@atlaskit/platform/ensure-feature-flag-registration': 'error',
 			'@atlaskit/platform/ensure-feature-flag-prefix': [
 				'warn',
 				{ allowedPrefixes: ['platform.', 'platform_'] },
 			],
-			'@atlaskit/platform/ensure-test-runner-arguments': 'error',
-			'@atlaskit/platform/ensure-test-runner-nested-count': 'warn',
-			'@atlaskit/platform/no-invalid-feature-flag-usage': 'error',
-			'@atlaskit/platform/no-invalid-storybook-decorator-usage': 'error',
-			'@atlaskit/platform/ensure-atlassian-team': 'error',
 			'@atlaskit/platform/no-module-level-eval': 'error',
 			'@atlaskit/platform/no-module-level-eval-nav4': 'error',
 			'@atlaskit/platform/static-feature-flags': 'error',
@@ -72,6 +76,10 @@ export const configs = {
 			'@atlaskit/platform/prefer-fg': 'error',
 			'@atlaskit/platform/no-alias': 'error',
 		},
+	},
+	jira: {
+		plugins: ['@atlaskit/platform'],
+		rules: { ...commonConfig, '@atlaskit/platform/no-module-level-eval-nav4': 'error' },
 	},
 };
 

@@ -1,23 +1,23 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__ds-explorations/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*",
-    "../src/**/examples.*"
-  ],
-  "references": [
-    {
-      "path": "../../tokens/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__ds-explorations/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../tokens/afm-jira/tsconfig.json"
+		}
+	]
 }

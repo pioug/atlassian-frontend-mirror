@@ -255,10 +255,7 @@ describe('Clipboard', () => {
 
 		const clipboard = mount(
 			<AnalyticsListener channel={FabricChannel.media} onEvent={analyticsHandler}>
-				<Clipboard
-					mediaClient={mediaClient}
-					config={legacyConfig}
-				/>
+				<Clipboard mediaClient={mediaClient} config={legacyConfig} />
 			</AnalyticsListener>,
 		);
 

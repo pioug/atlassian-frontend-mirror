@@ -59,7 +59,7 @@ const getThemeStyles = async (
 			light: preferences?.light || themeStateDefaults['light'],
 			shape: preferences?.shape || themeStateDefaults['shape'],
 			spacing: preferences?.spacing || themeStateDefaults['spacing'],
-			typography: preferences?.typography || themeStateDefaults['typography'],
+			typography: preferences?.typography || themeStateDefaults['typography'](),
 		};
 		themePreferences = getThemePreferences(themeState);
 		themeOverridePreferences = getThemeOverridePreferences(themeState);

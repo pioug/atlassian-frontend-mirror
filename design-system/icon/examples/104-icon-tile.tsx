@@ -85,7 +85,6 @@ const IconSizeExample = () => {
 			/>
 		</Stack>
 	);
-
 };
 
 export default IconSizeExample;

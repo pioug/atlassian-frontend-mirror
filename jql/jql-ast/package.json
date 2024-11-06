@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-ast",
-	"version": "3.3.0",
+	"version": "3.3.1",
 	"description": "JQL Abstract Syntax Tree",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

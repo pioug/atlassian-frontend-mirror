@@ -7,6 +7,7 @@ import { jsx } from '@emotion/react';
 import { newFileExperienceClassName } from '../../cardConstants';
 import { wrapperStyles } from './styles';
 import { type WrapperProps } from './types';
+import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 
 export const Wrapper = (props: WrapperProps) => {
 	const {
@@ -48,6 +49,7 @@ export const Wrapper = (props: WrapperProps) => {
 			ref={innerRef}
 			onClick={onClick}
 			onMouseEnter={onMouseEnter}
+			{...VcMediaWrapperProps}
 		>
 			{props.children}
 		</div>

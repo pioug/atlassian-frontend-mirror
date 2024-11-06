@@ -78,6 +78,7 @@ export default function Example() {
 		0,
 		{},
 		{
+			gatewayGraphqlUrl: 'https://api-private.stg.atlassian.com/graphql',
 			url: 'DUMMY',
 			teamCentralUrl: 'teamCentralUrl',
 			teamCentralBaseUrl: 'http://localhost:3000',

@@ -168,14 +168,14 @@ const makeAlign = (
 
 		const newAttrs = fg('platform_editor_media_extended_resize_experience')
 			? // with extended experience, change alignment does not change media single width
-			{ ...node.attrs, layout }
+				{ ...node.attrs, layout }
 			: alignAttributes(
-				layout,
-				node.attrs as RichMediaAttributes,
-				undefined,
-				nodeWidth,
-				widthPluginState.lineLength,
-			);
+					layout,
+					node.attrs as RichMediaAttributes,
+					undefined,
+					nodeWidth,
+					widthPluginState.lineLength,
+				);
 
 		const tr = state.tr.setNodeMarkup(state.selection.from, undefined, newAttrs);
 		tr.setMeta('scrollIntoView', false);
@@ -298,35 +298,35 @@ const buildLayoutButtons = (
 
 	const alignmentToolbarItems = allowAlignment
 		? mapIconsToToolbarItem(
-			alignmentIcons,
-			layout,
-			intl,
-			nodeType,
-			widthPluginDependencyApi,
-			analyticsApi,
-			isChangingLayoutDisabled,
-		)
+				alignmentIcons,
+				layout,
+				intl,
+				nodeType,
+				widthPluginDependencyApi,
+				analyticsApi,
+				isChangingLayoutDisabled,
+			)
 		: [];
 	const wrappingToolbarItems = allowWrapping
 		? mapIconsToToolbarItem(
-			wrappingIcons,
-			layout,
-			intl,
-			nodeType,
-			widthPluginDependencyApi,
-			analyticsApi,
-			isChangingLayoutDisabled,
-		)
+				wrappingIcons,
+				layout,
+				intl,
+				nodeType,
+				widthPluginDependencyApi,
+				analyticsApi,
+				isChangingLayoutDisabled,
+			)
 		: [];
 	const breakOutToolbarItems = !allowResizing
 		? mapIconsToToolbarItem(
-			breakoutIcons,
-			layout,
-			intl,
-			nodeType,
-			widthPluginDependencyApi,
-			analyticsApi,
-		)
+				breakoutIcons,
+				layout,
+				intl,
+				nodeType,
+				widthPluginDependencyApi,
+				analyticsApi,
+			)
 		: [];
 
 	const items = [

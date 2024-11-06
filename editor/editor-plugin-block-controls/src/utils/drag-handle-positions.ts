@@ -1,4 +1,9 @@
-import { DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT, DRAG_HANDLE_WIDTH, dragHandleGap } from '../ui/consts';
+import {
+	DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT,
+	DRAG_HANDLE_HEIGHT,
+	DRAG_HANDLE_WIDTH,
+	dragHandleGap,
+} from '../ui/consts';
 
 export const getTopPosition = (dom: HTMLElement | null, type?: string) => {
 	if (!dom) {
@@ -9,6 +14,8 @@ export const getTopPosition = (dom: HTMLElement | null, type?: string) => {
 		return `${dom.offsetTop + (table?.offsetTop || 0)}px`;
 	} else if (type === 'rule') {
 		return `${dom.offsetTop - DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT}px`;
+	} else if (type === 'layoutColumn') {
+		return `${-DRAG_HANDLE_WIDTH}px`;
 	} else {
 		return `${dom.offsetTop}px`;
 	}
@@ -25,7 +32,9 @@ export const getLeftPosition = (
 		return 'auto';
 	}
 	if (!innerContainer) {
-		return `${dom.offsetLeft - dragHandleGap(type, parentType) - DRAG_HANDLE_WIDTH}px`;
+		return type === 'layoutColumn'
+			? `${dom.offsetLeft + dom.clientWidth / 2 - DRAG_HANDLE_HEIGHT / 2}px`
+			: `${dom.offsetLeft - dragHandleGap(type, parentType) - DRAG_HANDLE_WIDTH}px`;
 	}
 
 	// There is a showMacroInteractionDesignUpdates prop in extension node wrapper that can add a relative span under the top level div

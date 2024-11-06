@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 78.11.0
+
+### Minor Changes
+
+- [#160884](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160884)
+  [`52e16a1e398bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52e16a1e398bf) -
+  Media Card integrates with React UFO VC Media Wrapper
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 78.10.4
 
 ### Patch Changes

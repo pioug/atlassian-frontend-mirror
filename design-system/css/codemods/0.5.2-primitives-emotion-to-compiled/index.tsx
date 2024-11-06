@@ -50,8 +50,6 @@ const styleMaps = {
 export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) {
 	const base = j(fileInfo.source);
 
-	addJsxPragma(j, base);
-
 	// replace xcss with cssMap
 	const xcssSpecifier = getImportSpecifier(j, base, 'xcss');
 	if (!xcssSpecifier) {
@@ -61,6 +59,8 @@ export default function transformer(fileInfo: FileInfo, { jscodeshift: j }: API,
 	replaceXcssWithCssMap(j, base, xcssSpecifier);
 
 	updateImports(j, base);
+
+	addJsxPragma(j, base);
 
 	return base.toSource();
 }
@@ -221,20 +221,34 @@ function ensureSelectorAmpersand(j: core.JSCodeshift, objectExpression: core.Obj
 }
 
 function updateImports(j: core.JSCodeshift, source: ReturnType<typeof j>) {
-	// remove xcss import
+	// remove xcss import and collect primitives to import
+	const primitivesToImport = new Set<string>();
 	source
 		.find(j.ImportDeclaration)
-		.filter((path: ASTPath<ImportDeclaration>) => path.node.source.value === '@atlaskit/primitives')
+		.filter((path: ASTPath<ImportDeclaration>) => {
+			const importSource = path.node.source.value as string;
+			return (
+				importSource === '@atlaskit/primitives' || importSource.startsWith('@atlaskit/primitives/')
+			);
+		})
 		.forEach((path) => {
 			if (path.node.specifiers) {
-				path.node.specifiers = path.node.specifiers.filter(
-					(specifier) => specifier.local?.name !== 'xcss',
-				);
-				if (path.node.specifiers.length === 0) {
-					// if no specifiers remain, remove the import
-					j(path).remove();
-				}
+				path.node.specifiers.forEach((specifier) => {
+					if (specifier.type === 'ImportSpecifier' && specifier.imported) {
+						const importedName = specifier.imported.name;
+						if (importedName !== 'xcss') {
+							primitivesToImport.add(importedName);
+						}
+					} else if (specifier.type === 'ImportDefaultSpecifier') {
+						// handle deep imports like `import Anchor from '@atlaskit/primitives/anchor'`
+						if (specifier.local) {
+							primitivesToImport.add(specifier.local.name);
+						}
+					}
+				});
 			}
+			// remove the import declaration
+			j(path).remove();
 		});
 
 	const importsNeeded = {
@@ -245,18 +259,17 @@ function updateImports(j: core.JSCodeshift, source: ReturnType<typeof j>) {
 
 	// check existing imports
 	source.find(j.ImportDeclaration).forEach((path) => {
-		switch (path.node.source.value) {
+		const importSource = path.node.source.value as string;
+		switch (importSource) {
 			case '@atlaskit/css':
-				if (path.node.specifiers) {
-					path.node.specifiers.forEach((specifier) => {
-						if (specifier.local?.name === 'cssMap') {
-							importsNeeded.cssMap = true;
-						}
-						if (specifier.local?.name === 'jsx') {
-							importsNeeded.jsx = true;
-						}
-					});
-				}
+				path.node.specifiers?.forEach((specifier) => {
+					if (specifier.local?.name === 'cssMap') {
+						importsNeeded.cssMap = true;
+					}
+					if (specifier.local?.name === 'jsx') {
+						importsNeeded.jsx = true;
+					}
+				});
 				break;
 			case '@atlaskit/tokens':
 				importsNeeded.token = true;
@@ -264,7 +277,17 @@ function updateImports(j: core.JSCodeshift, source: ReturnType<typeof j>) {
 			case '@emotion/react':
 				// remove the jsx import from @emotion/react
 				path.node.specifiers = path.node.specifiers?.filter(
-					(specifier) => j.ImportSpecifier.check(specifier) && specifier.imported.name !== 'jsx',
+					(specifier) => !(j.ImportSpecifier.check(specifier) && specifier.imported.name === 'jsx'),
+				);
+				if (path.node.specifiers?.length === 0) {
+					j(path).remove();
+				}
+				break;
+			case 'react':
+				// remove default import React from 'react' if not needed
+				path.node.specifiers = path.node.specifiers?.filter(
+					(specifier) =>
+						!(specifier.type === 'ImportDefaultSpecifier' && specifier.local?.name === 'React'),
 				);
 				if (path.node.specifiers?.length === 0) {
 					j(path).remove();
@@ -275,15 +298,47 @@ function updateImports(j: core.JSCodeshift, source: ReturnType<typeof j>) {
 
 	const newImports: ImportDeclaration[] = [];
 
-	if (!importsNeeded.cssMap || !importsNeeded.jsx) {
-		// add cssMap and jsx together if either is missing
-		const cssMapImport = j.importDeclaration(
-			[j.importSpecifier(j.identifier('cssMap')), j.importSpecifier(j.identifier('jsx'))],
-			j.literal('@atlaskit/css'),
+	// add grouped import for primitives
+	// e.g. import { Anchor, Box } from '@atlaskit/primitives/compiled';
+	if (primitivesToImport.size > 0) {
+		const primitivesImport = j.importDeclaration(
+			Array.from(primitivesToImport)
+				.sort()
+				.map((name) => j.importSpecifier(j.identifier(name))),
+			j.literal('@atlaskit/primitives/compiled'),
 		);
-		newImports.push(cssMapImport);
+		newImports.push(primitivesImport);
 	}
 
+	// add cssMap and jsx import if needed
+	if (!importsNeeded.cssMap || !importsNeeded.jsx) {
+		const existingCssImports = source
+			.find(j.ImportDeclaration)
+			.filter((path) => path.node.source.value === '@atlaskit/css');
+
+		const newSpecifiers: core.ImportSpecifier[] = [];
+
+		if (!importsNeeded.cssMap) {
+			newSpecifiers.push(j.importSpecifier(j.identifier('cssMap')));
+		}
+		if (!importsNeeded.jsx) {
+			newSpecifiers.push(j.importSpecifier(j.identifier('jsx')));
+		}
+
+		if (existingCssImports.size() > 0) {
+			// existing import from '@atlaskit/css'
+			const existingCssImport = existingCssImports.at(0).get();
+
+			if (existingCssImport && existingCssImport.node.specifiers) {
+				existingCssImport.node.specifiers.push(...newSpecifiers);
+			}
+		} else {
+			const cssMapImport = j.importDeclaration(newSpecifiers, j.literal('@atlaskit/css'));
+			newImports.push(cssMapImport);
+		}
+	}
+
+	// add token import
 	if (!importsNeeded.token) {
 		const tokenImport = j.importDeclaration(
 			[j.importSpecifier(j.identifier('token'))],
@@ -292,37 +347,7 @@ function updateImports(j: core.JSCodeshift, source: ReturnType<typeof j>) {
 		newImports.push(tokenImport);
 	}
 
-	// remove default import React from 'react' if not needed
-	source.find(j.ImportDeclaration, { source: { value: 'react' } }).forEach((path) => {
-		path.node.specifiers = path.node.specifiers?.filter(
-			(specifier) =>
-				!(specifier.type === 'ImportDefaultSpecifier' && specifier.local?.name === 'React'),
-		);
-		if (path.node.specifiers?.length === 0) {
-			j(path).remove();
-		}
-	});
-
-	// update @atlaskit/primitives imports to @atlaskit/primitives/compiled
-	source
-		.find(j.ImportDeclaration)
-		.filter(
-			(path: ASTPath<ImportDeclaration>) =>
-				typeof path.node.source.value === 'string' &&
-				path.node.source.value.startsWith('@atlaskit/primitives'),
-		)
-		.forEach((path) => {
-			const originalSource = path.node.source.value;
-			const newSource =
-				typeof originalSource === 'string'
-					? originalSource.replace('@atlaskit/primitives', '@atlaskit/primitives/compiled')
-					: originalSource;
-			if (newSource !== undefined) {
-				path.node.source = j.literal(newSource);
-			}
-		});
-
-	// add new imports after any existing comments to ensure they're below the jsx pragma
+	// add new imports after any existing comments
 	const rootNode = source.get().node;
 	const firstNonCommentIndex = rootNode.program.body.findIndex(
 		(node: core.Node) =>

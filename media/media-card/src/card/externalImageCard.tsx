@@ -29,11 +29,7 @@ import {
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { getDefaultCardDimensions } from '../utils/cardDimensions';
 import { usePrevious } from '../utils/usePrevious';
-import {
-	fireCopiedEvent,
-	fireOperationalEvent,
-	fireScreenEvent,
-} from './cardAnalytics';
+import { fireCopiedEvent, fireOperationalEvent, fireScreenEvent } from './cardAnalytics';
 import { CardView } from './cardView';
 import { performanceNow } from './performance';
 

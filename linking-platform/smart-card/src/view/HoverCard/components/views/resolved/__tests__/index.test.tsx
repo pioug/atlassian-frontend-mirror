@@ -9,9 +9,6 @@ import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import type { CardState, ProductType } from '@atlaskit/linking-common';
 
-
-
-
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
 import mockAtlasProjectWithAiSummary from '../../../../../../__fixtures__/atlas-project-with-ai-summary';
@@ -32,7 +29,6 @@ import {
 	mockJiraResponseWithDatasources,
 } from '../../../../__tests__/__mocks__/mocks';
 import HoverCardResolvedView from '../index';
-
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => {
 	const original = jest.requireActual('../../../../../../state/hooks/use-ai-summary');

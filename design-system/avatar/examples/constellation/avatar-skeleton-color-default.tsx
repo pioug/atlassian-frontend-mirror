@@ -3,7 +3,6 @@ import React from 'react';
 import { Skeleton } from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
 
-
 const AvatarSkeletonColorDefaultExample = () => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

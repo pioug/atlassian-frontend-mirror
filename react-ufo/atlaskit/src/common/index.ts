@@ -27,8 +27,4 @@ export type {
 /**
  * @deprecated Prefer import from @atlaskit/react-ufo/interaction-context
  */
-export type {
-	Label,
-	SegmentLabel,
-	LabelStack
-} from '../interaction-context'
+export type { Label, SegmentLabel, LabelStack } from '../interaction-context';

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import { type FieldProps } from '@atlaskit/form';
-import { ActionOperationStatus, type AtomicActionExecuteResponse, type Status } from '@atlaskit/linking-types';
+import {
+	ActionOperationStatus,
+	type AtomicActionExecuteResponse,
+	type Status,
+} from '@atlaskit/linking-types';
 import Lozenge from '@atlaskit/lozenge';
 // FilterOptionOption is used in the filterOption function which is part of the public API, but the type itself is not exported
 // eslint-disable-next-line import/no-extraneous-dependencies,no-restricted-imports
@@ -54,7 +58,10 @@ const StatusEditType = (props: Props) => {
 const filterOption = (option: FilterOptionOption<Status>, inputValue: string) =>
 	option.data.text.toLowerCase().includes(inputValue.toLowerCase());
 
-const useStatusOptions = (currentValue: DatasourceTypeWithOnlyValues, executeFetch?: <E>(inputs: any) => Promise<E>) => {
+const useStatusOptions = (
+	currentValue: DatasourceTypeWithOnlyValues,
+	executeFetch?: <E>(inputs: any) => Promise<E>,
+) => {
 	const [{ options, isLoading }, setOptions] = useState({
 		isLoading: true,
 		options: [] as Status[],
@@ -62,30 +69,36 @@ const useStatusOptions = (currentValue: DatasourceTypeWithOnlyValues, executeFet
 
 	useEffect(() => {
 		let isMounted = true;
-		loadOptions(currentValue, executeFetch)
-			.then((options) => {
-				if (isMounted) {
-					setOptions({ isLoading: false, options })
-				}
-			});
-		return () => { isMounted = false };
+		loadOptions(currentValue, executeFetch).then((options) => {
+			if (isMounted) {
+				setOptions({ isLoading: false, options });
+			}
+		});
+		return () => {
+			isMounted = false;
+		};
 	}, [currentValue, executeFetch]);
 
 	return { options, isLoading };
 };
 
-const loadOptions = async (currentValue: DatasourceTypeWithOnlyValues, executeFetch?: <E>(inputs: any) => Promise<E>): Promise<Status[]> => {
+const loadOptions = async (
+	currentValue: DatasourceTypeWithOnlyValues,
+	executeFetch?: <E>(inputs: any) => Promise<E>,
+): Promise<Status[]> => {
 	if (executeFetch) {
-		const result = await executeFetch<AtomicActionExecuteResponse<Status>>({ [currentValue.type]: currentValue.values[0] });
+		const result = await executeFetch<AtomicActionExecuteResponse<Status>>({
+			[currentValue.type]: currentValue.values[0],
+		});
 		const { operationStatus, entities } = result;
 
 		if (operationStatus === ActionOperationStatus.SUCCESS && entities) {
 			return entities.map((entity) => ({
-					id: entity.id,
-					text: entity.text,
-					style: entity.style,
-				})
-			)
+				id: entity.id,
+				text: entity.text,
+				style: entity.style,
+				transitionId: entity.transitionId,
+			}));
 		}
 	}
 

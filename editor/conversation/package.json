@@ -36,12 +36,12 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/avatar": "^21.17.0",
 		"@atlaskit/comment": "^11.1.0",
-		"@atlaskit/editor-common": "^94.12.0",
+		"@atlaskit/editor-common": "^94.13.0",
 		"@atlaskit/editor-core": "^201.1.0",
 		"@atlaskit/editor-plugins": "^5.6.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/reactions": "^22.14.0",
-		"@atlaskit/renderer": "^112.3.0",
+		"@atlaskit/renderer": "^112.4.0",
 		"@babel/runtime": "^7.0.0",
 		"date-fns": "^2.17.0",
 		"lodash": "^4.17.21",
@@ -55,7 +55,7 @@
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {
-		"@atlaskit/util-data-test": "^17.11.0",
+		"@atlaskit/util-data-test": "^17.12.0",
 		"@testing-library/react": "^12.1.5",
 		"@types/react-redux": "^5.0.0",
 		"enzyme": "^3.10.0",

@@ -11,7 +11,7 @@ export type LoadCompleteHandler = (params: { numberOfUnresolvedInlineComments: n
 type Props = {
 	adfDocument: JSONDocNode;
 	isNestedRender: boolean;
-	onLoadComplete?: LoadCompleteHandler
+	onLoadComplete?: LoadCompleteHandler;
 };
 export const useLoadAnnotations = ({ adfDocument, isNestedRender, onLoadComplete }: Props) => {
 	const actions = useContext(ActionsContext);

@@ -17,8 +17,6 @@ import { getPreviewBlockStyles } from '../../../styled';
 import { connectButtonStyles, mainTextStyles, titleBlockStyles } from './styled';
 import { type HoverCardForbiddenProps } from './types';
 
-
-
 const HoverCardForbiddenView = ({
 	flexibleCardProps,
 	testId = 'hover-card-forbidden-view',

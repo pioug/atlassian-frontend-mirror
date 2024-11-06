@@ -337,11 +337,7 @@ describe('Dropzone', () => {
 
 					component = mount(
 						<AnalyticsListener channel="media" onEvent={handleAnalyticsEvent}>
-							<Dropzone
-								mediaClient={mediaClient}
-								config={config}
-							/>
-							,
+							<Dropzone mediaClient={mediaClient} config={config} />,
 						</AnalyticsListener>,
 					);
 

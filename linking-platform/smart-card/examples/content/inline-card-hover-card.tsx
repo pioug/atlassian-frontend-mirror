@@ -10,7 +10,6 @@ import {
 } from '../../examples/utils/custom-client';
 import { Card } from '../../src';
 
-
 export default () => (
 	<SmartCardProvider client={new ResolvedClient('stg')}>
 		<Stack space="space.100">

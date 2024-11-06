@@ -1,84 +1,84 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__profilecard/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../uip/atlassian-context/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/avatar/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/avatar-group/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/button/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/dropdown-menu/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/empty-state/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/focus-ring/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../team-central/give-kudos/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/lozenge/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/menu/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/popup/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../ai-mate/rovo-agent-components/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/spinner/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/theme/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__profilecard/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../uip/atlassian-context/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar-group/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/empty-state/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/focus-ring/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../team-central/give-kudos/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/lozenge/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/menu/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popup/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../ai-mate/rovo-agent-components/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+		}
+	]
 }

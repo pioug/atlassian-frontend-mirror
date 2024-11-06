@@ -12,7 +12,6 @@ import { BlockCard } from '../../src/view/BlockCard';
 import { getCardState, type GetCardStateProps } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div({
 	width: '80%',

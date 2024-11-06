@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 4.4.0
+
+### Minor Changes
+
+- [#159018](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159018)
+  [`14d5e189df870`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14d5e189df870) -
+  [ux] ED-25367-remove-copy-button-from-view-mode-when-its-the-only-item
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.11
 
 ### Patch Changes

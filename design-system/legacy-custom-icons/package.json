@@ -193,7 +193,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^22.24.0",
-		"@atlaskit/tokens": "^2.1.0",
+		"@atlaskit/tokens": "^2.2.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

@@ -1,36 +1,36 @@
 {
-  "extends": "../../../../tsconfig.entry-points.post-office.json",
-  "compilerOptions": {
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__link-analytics/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*",
-    "../src/**/examples.*"
-  ],
-  "references": [
-    {
-      "path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../link-client-extension/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../linking-common/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../linking-types/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../link-provider/afm-post-office/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.post-office.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__link-analytics/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../link-client-extension/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../linking-common/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../linking-types/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../link-provider/afm-post-office/tsconfig.json"
+		}
+	]
 }

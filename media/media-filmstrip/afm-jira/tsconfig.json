@@ -1,42 +1,42 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__media-filmstrip/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-card/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-client/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-common/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/theme/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-core/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__media-filmstrip/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-card/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-client/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-common/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-core/afm-jira/tsconfig.json"
+		}
+	]
 }

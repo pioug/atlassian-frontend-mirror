@@ -398,7 +398,6 @@ export const hasInvalidNodes = (state: EditorState): boolean => {
 	);
 };
 
-
 export const isSupportedBlockNode = (node: Node, supportedBlockNodes: string[] = []) => {
 	return (
 		supportedBlockNodes.indexOf(node.type.name) >= 0 ||

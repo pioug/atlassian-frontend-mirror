@@ -1,48 +1,48 @@
 {
-  "extends": "../../../../tsconfig.entry-points.post-office.json",
-  "compilerOptions": {
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__give-kudos/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*",
-    "../src/**/examples.*"
-  ],
-  "references": [
-    {
-      "path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/button/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/drawer/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/icon/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../helpers/intl-messages-provider/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/modal-dialog/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/portal/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/theme/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.post-office.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__give-kudos/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/drawer/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/intl-messages-provider/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/portal/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
+		}
+	]
 }

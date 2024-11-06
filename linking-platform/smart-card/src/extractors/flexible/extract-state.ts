@@ -15,7 +15,7 @@ import {
 import { canShowAction } from '../../utils/actions/can-show-action';
 import { CardAction, type CardActionOptions } from '../../view/Card/types';
 import { extractLozenge } from '../common/lozenge';
-import { type LinkLozenge , type LinkLozengeInvokeActions} from '../common/lozenge/types';
+import { type LinkLozenge, type LinkLozengeInvokeActions } from '../common/lozenge/types';
 
 import { extractPreviewAction } from './actions/extract-preview-action';
 import extractServerAction from './extract-server-action';

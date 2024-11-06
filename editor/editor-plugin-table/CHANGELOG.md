@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 7.30.2
+
+### Patch Changes
+
+- [#160630](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160630)
+  [`1f1fd28e743e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1f1fd28e743e8) -
+  [ux] Show drop targets when drag and drop feature is enabled in Jira via FF.
+
+## 7.30.1
+
+### Patch Changes
+
+- [#160688](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160688)
+  [`7988fbc63aa4b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7988fbc63aa4b) -
+  [ux] Fix numbered column position when new tables in Jira FF is enabled.
+- Updated dependencies
+
 ## 7.30.0
 
 ### Minor Changes

@@ -8,7 +8,6 @@ import { type CardWithUrlContentProps } from '../types';
 
 import { LoadingCardLink } from './LoadingCardLink';
 
-
 export function LazyLazilyRenderCard(props: CardWithUrlContentProps) {
 	const { appearance, container, id } = props;
 	const offset = Math.ceil(window.innerHeight / 4);

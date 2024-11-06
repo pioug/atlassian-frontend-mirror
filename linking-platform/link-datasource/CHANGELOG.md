@@ -1,5 +1,26 @@
 # @atlaskit/link-datasource
 
+## 3.8.3
+
+### Patch Changes
+
+- [#160594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160594)
+  [`e21f888db3b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e21f888db3b5a) -
+  Update min and default width to `120px` for the `Status` column in Jira SLLV.
+- Updated dependencies
+
+## 3.8.2
+
+### Patch Changes
+
+- [#160697](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160697)
+  [`f9338153f205c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f9338153f205c) -
+  Use `transitionId` for Status field update execution
+- [#160682](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160682)
+  [`5685ddb1ad521`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5685ddb1ad521) -
+  Removes redundant usage of atlaskit/image in favor of native img tags
+- Updated dependencies
+
 ## 3.8.1
 
 ### Patch Changes

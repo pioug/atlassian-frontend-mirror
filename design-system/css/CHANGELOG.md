@@ -1,5 +1,14 @@
 # @atlaskit/css
 
+## 0.6.1
+
+### Patch Changes
+
+- [#160054](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160054)
+  [`a85c8b06aad62`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a85c8b06aad62) -
+  Updates to the 0.5.2-primitives-emotion-to-compiled codemod to group imports from
+  @atlaskit/primitives.
+
 ## 0.6.0
 
 ### Minor Changes

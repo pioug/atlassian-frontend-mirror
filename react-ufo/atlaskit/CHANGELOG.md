@@ -1,5 +1,27 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.2.0
+
+### Minor Changes
+
+- [#160594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160594)
+  [`4a91df26ce837`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a91df26ce837) -
+  Capture Style display changes
+
+## 2.1.0
+
+### Minor Changes
+
+- [#160884](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160884)
+  [`52e16a1e398bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52e16a1e398bf) -
+  Exposing VC Media Wrapper Props object
+
+### Patch Changes
+
+- [#160884](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160884)
+  [`52e16a1e398bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52e16a1e398bf) -
+  Renamed entry point for VC Media export
+
 ## 2.0.9
 
 ### Patch Changes

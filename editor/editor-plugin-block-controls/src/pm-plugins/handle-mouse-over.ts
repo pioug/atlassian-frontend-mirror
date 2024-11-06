@@ -1,9 +1,11 @@
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockControlsPlugin } from '../types';
+import { isPreRelease2 } from '../utils/advanced-layouts-flags';
 
 const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
 	if (target instanceof HTMLHeadingElement || target instanceof HTMLParagraphElement) {
@@ -11,6 +13,12 @@ const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
 	}
 	return false;
 };
+
+const isLayoutColumnWithoutContent = (target: EventTarget | null) =>
+	target instanceof HTMLDivElement &&
+	target?.getAttribute('data-drag-handler-node-type') === 'layoutColumn' &&
+	// Remove placeholder text
+	target.textContent?.replace(new RegExp(ZERO_WIDTH_SPACE, 'g'), '') === '';
 
 export const handleMouseOver = (
 	view: EditorView,
@@ -40,6 +48,11 @@ export const handleMouseOver = (
 
 		const parentElement = rootElement.parentElement?.closest('[data-drag-handler-anchor-name]');
 		const parentElementType = parentElement?.getAttribute('data-drag-handler-node-type');
+
+		// Don't show drag handle when there is no content/only placeholder in layout column
+		if (isPreRelease2() && isLayoutColumnWithoutContent(rootElement)) {
+			return false;
+		}
 		// We want to exlude handles from showing for direct decendant of table nodes (i.e. nodes in cells)
 		if (
 			parentElement &&

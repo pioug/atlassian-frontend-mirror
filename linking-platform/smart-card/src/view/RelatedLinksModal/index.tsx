@@ -20,7 +20,6 @@ import RelatedLinksResolvedView from './views/resolved';
 import RelatedLinksResolvingView from './views/resolving';
 import RelatedLinksUnavailableView from './views/unavailable';
 
-
 const isGrantedResponse = (
 	response: SuccessResponse | ErrorResponse,
 ): response is SuccessResponse => {

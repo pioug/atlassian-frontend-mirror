@@ -20,7 +20,6 @@ import {
 import { exampleTokens, getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-
 const containerStyles = css({
 	display: 'flex',
 	flexWrap: 'wrap',

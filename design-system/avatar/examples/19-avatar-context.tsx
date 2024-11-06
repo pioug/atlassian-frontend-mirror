@@ -7,7 +7,6 @@ import { jsx } from '@emotion/react';
 import Avatar, { AvatarContext } from '@atlaskit/avatar';
 import { Box, Stack } from '@atlaskit/primitives';
 
-
 const CustomSVG = () => (
 	<Stack space="space.400">
 		<Box>

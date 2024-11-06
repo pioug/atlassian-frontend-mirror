@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.6
+
+### Patch Changes
+
+- [#160415](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160415)
+  [`9dd7911f0fb16`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9dd7911f0fb16) -
+  [ux] [ED-25057] Implement drag handle for layout column (position, hover zone, selection)
+- Updated dependencies
+
 ## 2.13.5
 
 ### Patch Changes

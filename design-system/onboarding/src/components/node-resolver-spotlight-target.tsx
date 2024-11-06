@@ -15,7 +15,7 @@ interface NodeResolverSpotlightTargetProps {
 	name: string;
 }
 const spanStyles = css({
-	display: 'contents'
+	display: 'contents',
 });
 /**
  * A wrapper component that conditionally applies a NodeResolver to its children.
@@ -49,10 +49,7 @@ const NodeResolverSpotlightTarget = ({
 	}
 
 	return (
-		<span
-			ref={divRef}
-			css={spanStyles}
-		>
+		<span ref={divRef} css={spanStyles}>
 			{children}
 		</span>
 	);

@@ -30,7 +30,7 @@ const getBackendUpdateValue = (typedNewValue: DatasourceTypeWithOnlyValues): str
 		case 'string':
 			return typedNewValue.values[0] || '';
 		case 'status':
-			return typedNewValue.values[0]?.id || '';
+			return typedNewValue.values[0]?.transitionId || '';
 	}
 
 	throw new Error(
@@ -173,7 +173,7 @@ export const InlineEdit = ({
 					defaultValue: datasourceTypeWithValues,
 					currentValue: editValues,
 					setEditValues,
-					executeFetch
+					executeFetch,
 				})}
 				hideActionButtons
 				readView={() => readView}

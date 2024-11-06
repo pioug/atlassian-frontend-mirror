@@ -8,7 +8,6 @@ import { extractProvider } from '@atlaskit/link-extractors';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-
 import { messages } from '../../../../messages';
 import Text from '../../../FlexibleCard/components/elements/text';
 

@@ -178,7 +178,9 @@ function createNodeView<ExtraComponentProps>({
  */
 function setDomAttrs(node: PMNode, element: HTMLElement) {
 	// prevent potential XSS attacks since attributes may contain user input
-	if (isSSR()) {return;}
+	if (isSSR()) {
+		return;
+	}
 
 	Object.keys(node.attrs || {}).forEach((attr) => {
 		element.setAttribute(attr, node.attrs[attr]);

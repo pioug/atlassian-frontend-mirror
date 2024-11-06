@@ -357,6 +357,27 @@ describe('DatePicker', () => {
 		});
 	});
 
+	describe('Placeholder', () => {
+		const defaultPlaceholder = '2/18/1993';
+
+		it('should show default placeholder if none provided', () => {
+			render(createDatePicker());
+
+			const input = getInput();
+			expect(input).toHaveValue('');
+			expect(screen.getByText(defaultPlaceholder)).toBeInTheDocument();
+		});
+
+		it('should show a placeholder if provided', () => {
+			const placeholder = 'placeholder';
+			render(createDatePicker({ placeholder }));
+
+			const input = getInput();
+			expect(input).toHaveValue('');
+			expect(screen.getByText(placeholder)).toBeInTheDocument();
+		});
+	});
+
 	describe('Disabled dates', () => {
 		const year = '2018';
 		const month = '10';
@@ -381,6 +402,23 @@ describe('DatePicker', () => {
 			);
 
 			await user.click(screen.getByTestId(testIdContainer));
+			await user.click(screen.getByText(day));
+			expect(onChangeSpy).not.toHaveBeenCalled();
+		});
+
+		it('should not allow clicking disabled dates via disabled function', async () => {
+			const user = userEvent.setup();
+			const onChangeSpy = jest.fn();
+
+			render(
+				createDatePicker({
+					value: startDate,
+					disabledDateFilter: disabledFn,
+					onChange: onChangeSpy,
+				}),
+			);
+
+			await user.click(getInput());
 			await user.click(screen.getByText(day));
 			expect(onChangeSpy).not.toHaveBeenCalled();
 		});
@@ -425,6 +463,13 @@ describe('DatePicker', () => {
 	});
 
 	describe('Focus management', () => {
+		it('should focus on the input on render if prop is provided', () => {
+			render(createDatePicker({ autoFocus: true }));
+
+			const input = getInput();
+			expect(input).toHaveFocus();
+		});
+
 		it('focused calendar date is reset on open', async () => {
 			const user = userEvent.setup();
 			const { rerender } = render(
@@ -609,6 +654,18 @@ describe('DatePicker', () => {
 	});
 
 	describe('Clearing the input', () => {
+		it('should not show the clear button if a value is not present', () => {
+			render(createDatePicker());
+			const clearButton = screen.queryByRole('button', { name: /clear/i });
+			expect(clearButton).not.toBeInTheDocument();
+		});
+
+		it('should show the clear button if a value is present', () => {
+			render(createDatePicker({ value: exampleDate.iso }));
+			const clearButton = screen.getByRole('button', { name: /clear/i });
+			expect(clearButton).toBeInTheDocument();
+		});
+
 		it('pressing the Backspace key to empty the input should clear the value', async () => {
 			const user = userEvent.setup();
 			const onChangeSpy = jest.fn();
@@ -898,40 +955,40 @@ describe('DatePicker', () => {
 			expect(selectInput).toHaveFocus();
 			expect(queryCalendar()).not.toBeInTheDocument();
 		});
-	});
 
-	it('should bring focus back to button and close calendar when focused on the calendar and the escape key is pressed if calendar button present', async () => {
-		const user = userEvent.setup();
-		render(
-			createDatePicker({
-				testId: testId,
-				shouldShowCalendarButton: true,
-				openCalendarLabel,
-			}),
-		);
+		it('should bring focus back to button and close calendar when focused on the calendar and the escape key is pressed if calendar button present', async () => {
+			const user = userEvent.setup();
+			render(
+				createDatePicker({
+					testId: testId,
+					shouldShowCalendarButton: true,
+					openCalendarLabel,
+				}),
+			);
 
-		const selectInput = getInput();
-		const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
-		expect(queryCalendar()).not.toBeInTheDocument();
-		expect(selectInput).not.toHaveFocus();
+			const selectInput = getInput();
+			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			expect(queryCalendar()).not.toBeInTheDocument();
+			expect(selectInput).not.toHaveFocus();
 
-		// Move focus to the calendar button
-		await user.tab();
-		expect(selectInput).toHaveFocus();
-		await user.tab();
-		expect(calendarButton).toHaveFocus();
-		// Open and move focus to inside the calendar
-		await user.keyboard('{Enter}');
-		expect(queryCalendar()).toBeInTheDocument();
-		// An element within the calendar's container should have focus
-		expect(calendarButton).not.toHaveFocus();
-		expect(selectInput).not.toHaveFocus();
-		// An element within the calendar's container should have focus
-		const focusedElement = screen.getByTestId(`${testId}--calendar--previous-month`);
-		expect(focusedElement).toHaveFocus();
+			// Move focus to the calendar button
+			await user.tab();
+			expect(selectInput).toHaveFocus();
+			await user.tab();
+			expect(calendarButton).toHaveFocus();
+			// Open and move focus to inside the calendar
+			await user.keyboard('{Enter}');
+			expect(queryCalendar()).toBeInTheDocument();
+			// An element within the calendar's container should have focus
+			expect(calendarButton).not.toHaveFocus();
+			expect(selectInput).not.toHaveFocus();
+			// An element within the calendar's container should have focus
+			const focusedElement = screen.getByTestId(`${testId}--calendar--previous-month`);
+			expect(focusedElement).toHaveFocus();
 
-		await user.keyboard('{Escape}');
-		expect(queryCalendar()).not.toBeInTheDocument();
-		expect(calendarButton).toHaveFocus();
+			await user.keyboard('{Escape}');
+			expect(queryCalendar()).not.toBeInTheDocument();
+			expect(calendarButton).toHaveFocus();
+		});
 	});
 });

@@ -24,6 +24,7 @@ import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N40A, R500 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { SORTING_ICON_CLASS_NAME } from '../pm-plugins/view-mode-sort/consts';
@@ -284,7 +285,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 	${hoveredDeleteButton()};
 	${hoveredCell()};
 	${hoveredWarningCell};
-	${props.featureFlags?.tableDragAndDrop && insertLine()};
+	${insertLine()};
 	${resizeHandle(props.featureFlags?.tableDragAndDrop)};
 	${rangeSelectionStyles};
 	${viewModeSortStyles()};
@@ -848,7 +849,10 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		position: relative;
 		float: right;
 		margin-left: ${akEditorTableToolbarSize}px;
-		top: ${props.featureFlags?.tableDragAndDrop ? 0 : akEditorTableToolbarSize}px;
+		top: ${props.featureFlags?.tableDragAndDrop ||
+		editorExperiment('support_table_in_comment_jira', true)
+			? 0
+			: akEditorTableToolbarSize}px;
 		width: ${akEditorTableNumberColumnWidth + 1}px;
 		box-sizing: border-box;
 	}

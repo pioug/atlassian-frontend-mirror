@@ -36,7 +36,7 @@ export class MediaClient {
 				chunkHashAlgorithm: mediaClientConfig.useSha256ForUploads
 					? ChunkHashAlgorithm.Sha256
 					: ChunkHashAlgorithm.Sha1,
-				authProviderTimeout: mediaClientConfig.authProviderTimeoutMs
+				authProviderTimeout: mediaClientConfig.authProviderTimeoutMs,
 			});
 		this.config = mediaClientConfig;
 		this.file = new FileFetcherImpl(this.mediaStore, this.store);

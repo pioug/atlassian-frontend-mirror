@@ -1,6 +1,7 @@
 import React from 'react';
 import { isImageRemote } from '../image-cropper/isImageRemote';
 import { ImageWrapper } from './imageWrapper';
+import { isSSR } from '../util';
 
 export interface ImagePlacerImageProps {
 	src?: string;
@@ -19,7 +20,11 @@ export const IMAGE_ERRORS = {
 };
 
 export class ImagePlacerImage extends React.Component<ImagePlacerImageProps, {}> {
-	UNSAFE_componentWillMount() {
+	constructor(props: ImagePlacerImageProps) {
+		super(props);
+		if (isSSR()) {
+			return;
+		}
 		const { src, onError } = this.props;
 		if (src !== undefined) {
 			try {

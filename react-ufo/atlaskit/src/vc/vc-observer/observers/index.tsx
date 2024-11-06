@@ -2,7 +2,14 @@ import { type VCIgnoreReason } from '../../../common/vc/types';
 import { isContainedWithinMediaWrapper } from '../media-wrapper/vc-utils';
 
 import { SSRPlaceholderHandlers } from './ssr-placeholders';
-import type { BrowserObservers, Callback, MutationRecordWithTimestamp } from './types';
+import type {
+	BrowserObservers,
+	Callback,
+	MutationRecordWithTimestamp,
+	ObservedMutationType,
+} from './types';
+
+export type { ObservedMutationType } from './types';
 
 const state = {
 	normal: 1,
@@ -20,7 +27,7 @@ type SSRInclusiveState = {
 type ObservedMutationMapValue = {
 	mutation: MutationRecordWithTimestamp;
 	ignoreReason?: VCIgnoreReason;
-	type: string;
+	type: ObservedMutationType;
 };
 
 export type SelectorConfig = {
@@ -135,7 +142,7 @@ export class Observers implements BrowserObservers {
 	private observeElement = (
 		node: HTMLElement,
 		mutation: MutationRecordWithTimestamp,
-		type: string,
+		type: ObservedMutationType,
 		ignoreReason: VCIgnoreReason,
 	) => {
 		this.intersectionObserver?.observe(node);
@@ -231,13 +238,43 @@ export class Observers implements BrowserObservers {
 							});
 						} else if (mutation.type === 'attributes') {
 							if (mutation.target instanceof HTMLElement) {
-								this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
+								// Commenting the following line temporarily.
+								// this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
+
+								// using the if below to collect data
+								// how would VC90 changes if only style display changes are accounted for
+								if (
+									mutation.attributeName === 'style' &&
+									this.getStyleDisplay(mutation.target.getAttribute('style')) !==
+										this.getStyleDisplay(mutation.oldValue)
+								) {
+									this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
+								}
 							}
 						}
 					});
 					this.measureStop();
 				})
 			: null;
+	}
+
+	private getStyleDisplay(styleAttributeValue: string | null | undefined) {
+		if (!styleAttributeValue) {
+			return undefined;
+		}
+
+		// Split the style string into individual declarations
+		const declarations = styleAttributeValue.split(';');
+		// Iterate over each declaration
+		for (const declaration of declarations) {
+			// Trim whitespace and split into property and value
+			const [property, value] = declaration.split(':').map((part) => part.trim());
+			// Check if the property is 'display'
+			if (property && property.toLowerCase() === 'display') {
+				return value;
+			}
+		}
+		return undefined;
 	}
 
 	private getElementName(element: HTMLElement) {

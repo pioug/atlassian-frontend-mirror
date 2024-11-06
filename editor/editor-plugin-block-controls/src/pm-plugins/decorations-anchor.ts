@@ -4,16 +4,13 @@ import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { isPreRelease2 } from '../utils/advanced-layouts-flags';
+
 import { getNestedDepth, getNodeAnchor, TYPE_NODE_DEC } from './decorations-common';
 
-const IGNORE_NODES = [
-	'tableCell',
-	'tableHeader',
-	'tableRow',
-	'layoutColumn',
-	'listItem',
-	'caption',
-];
+const IGNORE_NODES = isPreRelease2()
+	? ['tableCell', 'tableHeader', 'tableRow', 'listItem', 'caption']
+	: ['tableCell', 'tableHeader', 'tableRow', 'listItem', 'caption', 'layoutColumn'];
 
 const IGNORE_NODE_DESCENDANTS = ['listItem', 'taskList', 'decisionList', 'mediaSingle'];
 

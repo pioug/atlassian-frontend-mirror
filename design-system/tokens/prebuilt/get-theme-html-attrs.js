@@ -47,7 +47,7 @@ var getThemeHtmlAttrs = function getThemeHtmlAttrs() {
     _ref$spacing = _ref.spacing,
     spacing = _ref$spacing === void 0 ? _themeConfig.themeStateDefaults['spacing'] : _ref$spacing,
     _ref$typography = _ref.typography,
-    typography = _ref$typography === void 0 ? _themeConfig.themeStateDefaults['typography'] : _ref$typography,
+    typography = _ref$typography === void 0 ? _themeConfig.themeStateDefaults['typography']() : _ref$typography,
     _ref$UNSAFE_themeOpti = _ref.UNSAFE_themeOptions,
     UNSAFE_themeOptions = _ref$UNSAFE_themeOpti === void 0 ? _themeConfig.themeStateDefaults['UNSAFE_themeOptions'] : _ref$UNSAFE_themeOpti;
   var themeAttribute = (0, _themeStateTransformer.themeObjectToString)({

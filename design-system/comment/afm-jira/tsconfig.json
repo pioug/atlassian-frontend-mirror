@@ -1,45 +1,45 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__comment/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../button/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../icon/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../lozenge/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../primitives/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../theme/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../tokens/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__comment/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../button/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../lozenge/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-jira/tsconfig.json"
+		}
+	]
 }

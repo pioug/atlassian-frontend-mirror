@@ -1,5 +1,29 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.12.1
+
+### Patch Changes
+
+- [#160594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160594)
+  [`493429610a122`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/493429610a122) -
+  Updated the proactive ai visual formatting experiment gate to use a new gate which is scoped to
+  the tenantId. This will no longer be controlled via an experiment.
+
+## 2.12.0
+
+### Minor Changes
+
+- [`1e479826df45b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1e479826df45b) -
+  [EDF-1804](https://product-fabric.atlassian.net/browse/EDF-1804)
+  [EDF-1805](https://product-fabric.atlassian.net/browse/EDF-1805) - add Refine button to the Editor
+  AI Command Palette
+
+### Patch Changes
+
+- [#159628](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159628)
+  [`38ed9d4438ed0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/38ed9d4438ed0) -
+  EDF-1840 Set up statsig experiment
+
 ## 2.11.0
 
 ### Minor Changes

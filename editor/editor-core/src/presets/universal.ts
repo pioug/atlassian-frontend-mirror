@@ -366,6 +366,7 @@ export default function createUniversalPresetInternal({
 					extensionHandlers: props.extensionHandlers,
 					useLongPressSelection: false,
 					appearance,
+					__livePage: props.__livePage,
 				},
 			],
 			Boolean(props.allowExtension),

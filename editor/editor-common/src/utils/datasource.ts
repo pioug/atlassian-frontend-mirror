@@ -3,7 +3,7 @@ import {
 	CONFLUENCE_SEARCH_DATASOURCE_ID,
 	JIRA_LIST_OF_LINKS_DATASOURCE_ID,
 } from '@atlaskit/link-datasource';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DatasourceModalType } from '../types';
 
@@ -30,7 +30,7 @@ export const canRenderDatasource = (
 		case 'jira':
 			return true;
 		case 'assets':
-			if (getBooleanFF('platform.linking-platform.datasource-assets_objects')) {
+			if (fg('linking_platform_datasource_assets_objects')) {
 				return true;
 			}
 			return false;

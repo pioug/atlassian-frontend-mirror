@@ -4,7 +4,6 @@ import Avatar, { AvatarItem } from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-
 const containerStyle = {
 	padding: token('space.250', '20px'),
 };

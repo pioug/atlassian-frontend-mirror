@@ -12,7 +12,6 @@ import {
 	openEmbedModalWithFlexibleUiIcon,
 } from '../utils';
 
-
 describe('getPrimitivesInlineSpaceBySize', () => {
 	it.each([
 		[SmartLinkSize.XLarge, 'space.250'],

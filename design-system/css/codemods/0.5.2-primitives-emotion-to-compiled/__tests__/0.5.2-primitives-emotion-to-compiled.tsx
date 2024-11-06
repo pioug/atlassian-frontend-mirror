@@ -20,7 +20,6 @@ const MyComponent = () => <Box xcss={styles} />`,
  * @jsx jsx
  */
 import { Box } from "@atlaskit/primitives/compiled";
-
 import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
@@ -56,7 +55,6 @@ const MyComponent = () => <Box xcss={styles} />`,
  * @jsx jsx
  */
 import { Box } from "@atlaskit/primitives/compiled";
-
 import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
@@ -99,7 +97,6 @@ const MyComponent = () => <Box xcss={styles} />`,
  * @jsx jsx
  */
 import { Box } from "@atlaskit/primitives/compiled";
-
 import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
@@ -171,7 +168,7 @@ const MyComponent = () => <Box xcss={styles} />`,
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Box, Inline, Stack, Flex, Bleed, Grid, Pressable, Anchor } from "@atlaskit/primitives/compiled";
+import { Anchor, Bleed, Box, Flex, Grid, Inline, Pressable, Stack } from "@atlaskit/primitives/compiled";
 import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
@@ -201,7 +198,6 @@ const MyComponent = () => <Box xcss={styles} />`,
  * @jsx jsx
  */
 import { Box } from "@atlaskit/primitives/compiled";
-
 import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
@@ -273,8 +269,7 @@ const MyComponent = () => <Stack xcss={containerStyles}><Inline xcss={innerStyle
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Stack, Inline } from "@atlaskit/primitives/compiled";
-
+import { Inline, Stack } from "@atlaskit/primitives/compiled";
 import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
@@ -312,7 +307,6 @@ const MyComponent = () => <Box xcss={styles} />`,
  * @jsx jsx
  */
 import { Box } from "@atlaskit/primitives/compiled";
-
 import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
@@ -351,7 +345,6 @@ const MyComponent = () => <Box xcss={styles} />`,
  * @jsx jsx
  */
 import { Box } from "@atlaskit/primitives/compiled";
-
 import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
@@ -435,7 +428,6 @@ export default CardLink;
 import { type ReactNode } from 'react';
 
 import { Anchor } from "@atlaskit/primitives/compiled";
-
 import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 
@@ -636,13 +628,13 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { HorizontalScrollContainer, SectionLink } from '@af/design-system-docs-ui';
 import { Code, CodeBlock } from '@atlaskit/code';
 import Link from '@atlaskit/link';
-import { Box } from "@atlaskit/primitives/compiled";
 import { token } from '@atlaskit/tokens';
 
 import { ThemedImgMdx, type ThemedImgMdxProps } from '../../../components/themed-img';
 import useSnippet, { type SnippetProps } from '../../../hooks/use-snippet';
 import { TSMorphProps } from '../components/props';
 
+import { Box } from "@atlaskit/primitives/compiled";
 import { cssMap, jsx } from "@atlaskit/css";
 
 const styles = cssMap({
@@ -864,14 +856,12 @@ export default AssetCard;
  * @jsxRuntime classic
  * @jsx jsx
  */
-import Anchor from "@atlaskit/primitives/compiled/anchor";
-import { Box, Text } from "@atlaskit/primitives/compiled";
-import { media } from "@atlaskit/primitives/compiled/responsive";
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import ThemedImg from '../themed-img';
 
+import { Anchor, Box, Text, media } from "@atlaskit/primitives/compiled";
 import { cssMap, jsx } from "@atlaskit/css";
 import { token } from "@atlaskit/tokens";
 

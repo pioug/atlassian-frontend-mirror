@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.themeStateDefaults = exports.themeOverrideIds = exports.themeIdsWithOverrides = exports.themeIds = exports.themeContrastModes = exports.themeColorModes = exports.default = void 0;
+var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
 /**
  * This file contains the source of truth for themes and all associated meta data.
  */
@@ -217,6 +218,11 @@ var themeConfig = {
  */
 
 /**
+ * Can't evaluate typography feature flags at the module level,
+ * it will always resolve to false when server side rendered or when flags are loaded async.
+ */
+
+/**
  * themeStateDefaults: the default values for ThemeState used by theming utilities
  */
 var themeStateDefaults = exports.themeStateDefaults = {
@@ -226,7 +232,12 @@ var themeStateDefaults = exports.themeStateDefaults = {
   light: 'light',
   shape: undefined,
   spacing: 'spacing',
-  typography: undefined,
+  typography: function typography() {
+    if ((0, _platformFeatureFlags.fg)('platform-default-typography-modernized')) {
+      return 'typography-modernized';
+    }
+    return undefined;
+  },
   UNSAFE_themeOptions: undefined
 };
 

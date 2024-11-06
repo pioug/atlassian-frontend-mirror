@@ -89,6 +89,7 @@ export interface Status {
 		appearance?: 'default' | 'inprogress' | 'moved' | 'new' | 'removed' | 'success';
 		isBold?: boolean;
 	};
+	transitionId?: string;
 }
 
 export interface StatusType {

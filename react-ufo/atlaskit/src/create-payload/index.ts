@@ -710,7 +710,7 @@ function getSSRDoneTimeValue(config: Config | undefined): number | undefined {
 	return config?.ssr?.getSSRDoneTime ? config?.ssr?.getSSRDoneTime() : ssr.getSSRDoneTime();
 }
 
-function getPayloadSize (payload: Object): number {
+function getPayloadSize(payload: Object): number {
 	return Math.round(new TextEncoder().encode(JSON.stringify(payload)).length / 1024);
 }
 
@@ -881,7 +881,6 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 					...getBm3TrackerTimings(interaction),
 				},
 				'ufo:payloadTime': roundEpsilon(performance.now() - interactionPayloadStart),
-
 			},
 		},
 	};

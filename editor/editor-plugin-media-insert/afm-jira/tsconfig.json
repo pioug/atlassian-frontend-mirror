@@ -1,75 +1,75 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__editor-plugin-media-insert/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*",
-    "../src/**/examples.*"
-  ],
-  "references": [
-    {
-      "path": "../../../design-system/button/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-common/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-plugin-media/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-shared-styles/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/form/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../media/media-card/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../media/media-client/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../media/media-client-react/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../media/media-picker/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/section-message/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tabs/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/textfield/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-media-insert/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/button/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-card/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-client/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-client-react/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-picker/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/section-message/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tabs/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		}
+	]
 }

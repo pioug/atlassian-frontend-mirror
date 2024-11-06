@@ -14,8 +14,6 @@ import LinkInfo from './components/link-info';
 import { MAX_MODAL_SIZE, MIN_MODAL_SIZE } from './constants';
 import { type EmbedModalProps, EmbedModalSize } from './types';
 
-
-
 const toSize = (width: string) =>
 	width === MAX_MODAL_SIZE ? EmbedModalSize.Large : EmbedModalSize.Small;
 

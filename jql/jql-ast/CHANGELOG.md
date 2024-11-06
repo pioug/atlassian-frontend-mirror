@@ -1,5 +1,12 @@
 # @atlaskit/jql-ast
 
+## 3.3.1
+
+### Patch Changes
+
+- [`0d6e00a1eb419`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d6e00a1eb419) -
+  Adding new textfields to private safe array in JqlAnonymizerVisitor
+
 ## 3.3.0
 
 ### Minor Changes

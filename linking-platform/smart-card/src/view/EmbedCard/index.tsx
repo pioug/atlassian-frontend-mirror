@@ -20,7 +20,6 @@ import NotFoundView from './views/not-found-view';
 import { EmbedCardResolvedView } from './views/ResolvedView';
 import UnauthorizedView from './views/unauthorized-view';
 
-
 export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 	(
 		{

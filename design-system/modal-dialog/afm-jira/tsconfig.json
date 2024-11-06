@@ -1,63 +1,63 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__modal-dialog/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../blanket/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../monorepo-tooling/codemod-utils/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../ds-lib/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../focus-ring/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../icon/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../layering/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../motion/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../portal/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../pragmatic-drag-and-drop/core/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../primitives/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../theme/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../tokens/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__modal-dialog/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../blanket/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../monorepo-tooling/codemod-utils/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../focus-ring/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../layering/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../motion/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../portal/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/core/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-jira/tsconfig.json"
+		}
+	]
 }

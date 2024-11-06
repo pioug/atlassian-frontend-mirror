@@ -1,5 +1,4 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
 	ApiClientResponse,
@@ -13,7 +12,7 @@ import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
 import { getErrorAttributes } from './errorUtils';
-import { AGGQuery, directoryGraphqlQuery } from './graphqlUtils';
+import { AGGQuery } from './graphqlUtils';
 
 /**
  * Transform response from GraphQL
@@ -50,38 +49,6 @@ export const modifyResponse = (response: ApiClientResponse): ProfileCardClientDa
 		accountType: data.accountType || undefined,
 	};
 };
-
-/**
- * @param  {string} userId
- * @param  {string} cloudId
- * @return {string} GraphQL Query String
- */
-export const buildUserQuery = (cloudId: string, userId: string) => ({
-	query: `query User($userId: String!, $cloudId: String!) {
-    User: CloudUser(userId: $userId, cloudId: $cloudId) {
-      id
-      isCurrentUser
-      status
-      statusModifiedDate
-      isBot
-      isNotMentionable
-      fullName
-      nickname
-      email
-      meta: title
-      location
-      companyName
-      avatarUrl(size: 192)
-      remoteWeekdayIndex: localTime(format: "d")
-      remoteWeekdayString: localTime(format: "ddd")
-      remoteTimeString: localTime(format: "h:mma")
-    }
-  }`,
-	variables: {
-		cloudId,
-		userId,
-	},
-});
 
 export const buildAggUserQuery = (userId: string) => ({
 	query: `query user($userId: ID!) {
@@ -132,48 +99,36 @@ export default class UserProfileCardClient extends CachingClient<any> {
 	}
 
 	async makeRequest(cloudId: string, userId: string): Promise<ProfileCardClientData> {
-		if (fg('migrate_cloud_user_to_agg_user_query_profile_card')) {
-			const gatewayGraphqlUrl = this.options.gatewayGraphqlUrl || '/gateway/api/graphql';
-			const userQueryPromise = queryAGGUser(gatewayGraphqlUrl, userId);
+		const gatewayGraphqlUrl = this.options.gatewayGraphqlUrl || '/gateway/api/graphql';
+		const urlWithOperationName = `${gatewayGraphqlUrl}?operationName=aggUserQuery`;
+		const userQueryPromise = queryAGGUser(urlWithOperationName, userId);
 
-			const user = await userQueryPromise;
-
-			let timestring: string | undefined;
-			const localWeekdayIndex = new Date().getDay().toString();
-			if (user.zoneinfo) {
-				if (localTime(user.zoneinfo, 'i') === localWeekdayIndex) {
-					timestring = localTime(user.zoneinfo, 'h:mmbbb') || undefined;
-				} else {
-					timestring = localTime(user.zoneinfo, 'eee h:mmbbb') || undefined;
-				}
+		const user = await userQueryPromise;
+		let timestring: string | undefined;
+		const localWeekdayIndex = new Date().getDay().toString();
+		if (user.zoneinfo) {
+			if (localTime(user.zoneinfo, 'i') === localWeekdayIndex) {
+				timestring = localTime(user.zoneinfo, 'h:mmbbb') || undefined;
+			} else {
+				timestring = localTime(user.zoneinfo, 'eee h:mmbbb') || undefined;
 			}
-
-			return {
-				...user,
-				isBot: user.__typename === 'AppUser',
-				isAgent: user.appType === 'agent',
-				status: user.accountStatus,
-				statusModifiedDate: user.extendedProfile?.closedDate || user.extendedProfile?.inactiveDate,
-				avatarUrl: user.picture,
-				email: user.email,
-				fullName: user.name,
-				location: user.extendedProfile?.location,
-				meta: user.extendedProfile?.jobTitle,
-				nickname: user.nickname,
-				companyName: user.extendedProfile?.organization,
-				timestring: timestring,
-			};
-		} else {
-			if (!this.options.url) {
-				throw new Error('options.url is a required parameter');
-			}
-
-			const query = buildUserQuery(cloudId, userId);
-
-			const response = await directoryGraphqlQuery<ApiClientResponse>(this.options.url, query);
-
-			return modifyResponse(response);
 		}
+
+		return {
+			...user,
+			isBot: user.__typename === 'AppUser',
+			isAgent: user.appType === 'agent',
+			status: user.accountStatus,
+			statusModifiedDate: user.extendedProfile?.closedDate || user.extendedProfile?.inactiveDate,
+			avatarUrl: user.picture,
+			email: user.email,
+			fullName: user.name,
+			location: user.extendedProfile?.location,
+			meta: user.extendedProfile?.jobTitle,
+			nickname: user.nickname,
+			companyName: user.extendedProfile?.organization,
+			timestring: timestring,
+		};
 	}
 
 	getProfile(

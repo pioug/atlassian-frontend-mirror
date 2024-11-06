@@ -81,7 +81,9 @@ export default ({
 	const isButtonPressed = ariaHasPopup ? undefined : selected;
 	const ariaChecked = isRadioButton ? isButtonPressed : undefined;
 	const ariaPressed = isRadioButton ? undefined : isButtonPressed;
-	const [spotlightReferenceElement, setSpotlightReferenceElement] = useState<HTMLElement | null>(null);
+	const [spotlightReferenceElement, setSpotlightReferenceElement] = useState<HTMLElement | null>(
+		null,
+	);
 
 	useEffect(() => {
 		onMount?.();
@@ -89,13 +91,18 @@ export default ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const onSpotlightTargetClick = spotlightConfig?.isSpotlightOpen ? spotlightConfig?.onTargetClick : undefined;
-	const handleOnClick = useCallback((event: React.MouseEvent) => {
-		// fire the spotlight onTargetClick callback if a spotlight is rendered and callback is provided
-		onSpotlightTargetClick?.();
+	const onSpotlightTargetClick = spotlightConfig?.isSpotlightOpen
+		? spotlightConfig?.onTargetClick
+		: undefined;
+	const handleOnClick = useCallback(
+		(event: React.MouseEvent) => {
+			// fire the spotlight onTargetClick callback if a spotlight is rendered and callback is provided
+			onSpotlightTargetClick?.();
 
-		onClick?.(event);
-	}, [onClick, onSpotlightTargetClick]);
+			onClick?.(event);
+		},
+		[onClick, onSpotlightTargetClick],
+	);
 
 	return (
 		<>
@@ -160,12 +167,12 @@ export default ({
 					</Pulse>
 				</div>
 			</Tooltip>
-			{ spotlightConfig?.isSpotlightOpen && spotlightReferenceElement &&
+			{spotlightConfig?.isSpotlightOpen && spotlightReferenceElement && (
 				<ButtonSpotlightCard
 					referenceElement={spotlightReferenceElement}
 					{...spotlightConfig.spotlightCardOptions}
 				/>
-			}
+			)}
 		</>
 	);
 };

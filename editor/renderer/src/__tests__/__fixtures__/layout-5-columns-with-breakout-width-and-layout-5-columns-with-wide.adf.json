@@ -1,0 +1,324 @@
+{
+	"version": 1,
+	"type": "doc",
+	"content": [
+		{
+			"type": "layoutSection",
+			"attrs": {},
+			"content": [
+				{
+					"type": "layoutColumn",
+					"attrs": {
+						"width": 20
+					},
+					"content": [
+						{
+							"type": "panel",
+							"attrs": {
+								"panelType": "info"
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "A panel"
+										}
+									]
+								}
+							]
+						},
+						{
+							"type": "bulletList",
+							"content": [
+								{
+									"type": "listItem",
+									"content": [
+										{
+											"type": "paragraph",
+											"content": [
+												{
+													"type": "text",
+													"text": "Some content"
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "layoutColumn",
+					"attrs": {
+						"width": 20
+					},
+					"content": [
+						{
+							"type": "panel",
+							"attrs": {
+								"panelType": "info"
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Secondary panel"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "layoutColumn",
+					"attrs": {
+						"width": 20
+					},
+					"content": [
+						{
+							"type": "panel",
+							"attrs": {
+								"panelType": "info"
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Third panel"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "layoutColumn",
+					"attrs": {
+						"width": 20
+					},
+					"content": [
+						{
+							"type": "panel",
+							"attrs": {
+								"panelType": "info"
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Fourth panel"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "layoutColumn",
+					"attrs": {
+						"width": 20
+					},
+					"content": [
+						{
+							"type": "panel",
+							"attrs": {
+								"panelType": "info"
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Fifth panel"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			],
+			"marks": [
+				{
+					"type": "breakout",
+					"attrs": {
+						"mode": "wide",
+						"width": 1326
+					}
+				}
+			]
+		},
+		{
+			"type": "layoutSection",
+			"attrs": {},
+			"content": [
+				{
+					"type": "layoutColumn",
+					"attrs": {
+						"width": 20
+					},
+					"content": [
+						{
+							"type": "panel",
+							"attrs": {
+								"panelType": "info"
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "A panel"
+										}
+									]
+								}
+							]
+						},
+						{
+							"type": "bulletList",
+							"content": [
+								{
+									"type": "listItem",
+									"content": [
+										{
+											"type": "paragraph",
+											"content": [
+												{
+													"type": "text",
+													"text": "Some content"
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "layoutColumn",
+					"attrs": {
+						"width": 20
+					},
+					"content": [
+						{
+							"type": "panel",
+							"attrs": {
+								"panelType": "info"
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Secondary panel"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "layoutColumn",
+					"attrs": {
+						"width": 20
+					},
+					"content": [
+						{
+							"type": "panel",
+							"attrs": {
+								"panelType": "info"
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Third panel"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "layoutColumn",
+					"attrs": {
+						"width": 20
+					},
+					"content": [
+						{
+							"type": "panel",
+							"attrs": {
+								"panelType": "info"
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Fourth panel"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "layoutColumn",
+					"attrs": {
+						"width": 20
+					},
+					"content": [
+						{
+							"type": "panel",
+							"attrs": {
+								"panelType": "info"
+							},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Fifth panel"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			],
+			"marks": [
+				{
+					"type": "breakout",
+					"attrs": {
+						"mode": "wide",
+						"width": null
+					}
+				}
+			]
+		}
+	]
+}

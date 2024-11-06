@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { ssr } from '@atlaskit/ssr';
 
-
 import { cardState, url } from '../../../examples/utils/smart-card-ssr-state';
 import { Client, Provider, TitleBlock } from '../../index';
 import { CardSSR } from '../../ssr';

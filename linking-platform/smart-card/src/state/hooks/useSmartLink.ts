@@ -8,7 +8,6 @@ import { useSmartLinkConfig } from '../config';
 import { useSmartLinkRenderers } from '../renderers';
 import { useSmartCardState as useSmartLinkState } from '../store';
 
-
 export function useSmartLink(id: string, url: string) {
 	const state = useSmartLinkState(url);
 	const { store } = useSmartLinkContext();

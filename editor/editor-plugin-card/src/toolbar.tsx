@@ -52,6 +52,7 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
 
 import { changeSelectedCardToText } from './pm-plugins/doc';
@@ -417,7 +418,7 @@ const generateToolbarItems =
 				...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
 				{
 					type: 'copy-button',
-					supportsViewMode: true,
+					supportsViewMode: !fg('platform_editor_remove_copy_button_from_view_mode'),
 					items: [
 						{
 							state,

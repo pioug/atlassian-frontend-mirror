@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-panel
 
+## 3.1.0
+
+### Minor Changes
+
+- [#159018](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159018)
+  [`14d5e189df870`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14d5e189df870) -
+  [ux] ED-25367-remove-copy-button-from-view-mode-when-its-the-only-item
+
 ## 3.0.1
 
 ### Patch Changes

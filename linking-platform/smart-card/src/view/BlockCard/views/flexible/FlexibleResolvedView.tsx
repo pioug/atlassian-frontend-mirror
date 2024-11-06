@@ -22,7 +22,6 @@ import {
 } from './utils';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
-
 /**
  * This view represents a Block card that has an 'Resolved' status.
  * @see SmartLinkStatus

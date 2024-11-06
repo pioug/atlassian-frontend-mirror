@@ -3,7 +3,6 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { type JsonLd } from 'json-ld-types';
 
-
 import { CardClient } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';

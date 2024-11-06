@@ -1,66 +1,66 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__media-test-helpers/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../design-system/button/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/checkbox/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/locale/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-client/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-common/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-ui/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/popup/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tabs/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/textfield/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../data/ufo-external/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-core/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__media-test-helpers/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/button/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/checkbox/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/locale/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-client/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-common/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-ui/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popup/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tabs/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-core/afm-jira/tsconfig.json"
+		}
+	]
 }

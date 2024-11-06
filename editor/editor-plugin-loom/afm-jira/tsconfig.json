@@ -1,51 +1,51 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__editor-plugin-loom/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*",
-    "../src/**/examples.*"
-  ],
-  "references": [
-    {
-      "path": "../../../design-system/button/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-common/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-plugin-hyperlink/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-plugin-primary-toolbar/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-plugin-quick-insert/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../editor-plugin-width/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__editor-plugin-loom/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../design-system/button/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-hyperlink/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-primary-toolbar/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-quick-insert/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		}
+	]
 }

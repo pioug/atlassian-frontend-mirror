@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 9.4.0
+
+### Minor Changes
+
+- [#160697](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160697)
+  [`f9338153f205c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f9338153f205c) -
+  Updates datasource-types `Status` to include optional `transitionId`
+
 ## 9.3.0
 
 ### Minor Changes

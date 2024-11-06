@@ -8,7 +8,7 @@ import { css, Global, jsx } from '@emotion/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP } from './consts';
+import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP, DRAG_HANDLE_WIDTH } from './consts';
 import { emptyBlockExperimentGlobalStyles } from './empty-block-experiment/global-styles';
 
 const extendedHoverZone = () =>
@@ -93,6 +93,23 @@ const extendedHoverZoneNested = () =>
 					cursor: 'default',
 					zIndex: 1,
 				},
+
+			// hover zone for layout column should be placed near the top of the column (where drag handle is)
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&& [data-drag-handler-anchor-name][data-layout-column]::after': {
+				content: '""',
+				position: 'absolute',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				top: `${-DRAG_HANDLE_WIDTH / 2}px`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				left: 0,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				width: '100%',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				height: `${DRAG_HANDLE_WIDTH}px`,
+				cursor: 'default',
+				zIndex: 1,
+			},
 		},
 		// TODO - ED-23995 this style override needs to be moved to the Rule styles after FF cleanup - packages/editor/editor-common/src/styles/shared/rule.ts
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

@@ -11,14 +11,14 @@ import AddIcon from '@atlaskit/icon/glyph/add';
 import Tooltip from '../src';
 
 const Icon = () => (
-	<Tooltip content="Inner tooltip" position="right" testId='inner-nesting-tooltip'>
-		<AddIcon label="inner" size="small" testId='icon' />
+	<Tooltip content="Inner tooltip" position="right" testId="inner-nesting-tooltip">
+		<AddIcon label="inner" size="small" testId="icon" />
 	</Tooltip>
 );
 
 function Example() {
 	return (
-		<Tooltip content="Outer tooltip" testId='outer-nesting-tooltip'>
+		<Tooltip content="Outer tooltip" testId="outer-nesting-tooltip">
 			{(tooltipProps) => (
 				<Button iconAfter={Icon} {...tooltipProps}>
 					Hover over me or my icon

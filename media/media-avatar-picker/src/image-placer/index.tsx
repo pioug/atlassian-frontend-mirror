@@ -21,6 +21,7 @@ import { imagePlacerWrapperStyles } from './styles';
 import { initialiseImagePreview, renderImageAtCurrentView } from './imageProcessor';
 import { zoomToFit, applyConstraints, transformVisibleBoundsToImageCoords } from './constraints';
 import { ImagePlacerErrorWrapper } from './imagePlacerErrorWrapper';
+import { isSSR } from '../util';
 
 /*
 "container(Width|Height)" is the outputed size of the final image plus "margin"s.
@@ -167,7 +168,11 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 		return new Bounds(originX, originY, cornerX - originX, cornerY - originY);
 	}
 
-	UNSAFE_componentWillMount() {
+	constructor(props: ImagePlacerProps) {
+		super(props);
+		if (isSSR()) {
+			return;
+		}
 		this.provideImageActions();
 	}
 

@@ -20,7 +20,6 @@ import {
 import { type FlexibleUiOptions } from '../../../FlexibleCard/types';
 import { type RelatedLinkItemProp } from '../types';
 
-
 const hoverStyles = xcss({
 	':hover': {
 		backgroundColor: 'color.background.input.hovered',

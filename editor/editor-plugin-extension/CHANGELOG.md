@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.16.0
+
+### Minor Changes
+
+- [#159018](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159018)
+  [`14d5e189df870`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14d5e189df870) -
+  [ux] ED-25367-remove-copy-button-from-view-mode-when-its-the-only-item
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.15.9
+
+### Patch Changes
+
+- [#160771](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160771)
+  [`52c92c480a7df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52c92c480a7df) -
+  Passes bodied macro feature gate and live page info from Confluence to extension nodes
+- Updated dependencies
+
 ## 1.15.8
 
 ### Patch Changes

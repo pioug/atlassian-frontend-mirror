@@ -23,6 +23,7 @@ import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import DeleteIcon from '@atlaskit/icon/core/delete';
+import ExpandIcon from '@atlaskit/icon/core/expand';
 import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
@@ -119,7 +120,8 @@ export const generateMediaInlineFloatingToolbar = (
 					id: 'editor.media.viewer',
 					testId: 'file-preview-toolbar-button',
 					type: 'button',
-					icon: FilePreviewIcon,
+					icon: ExpandIcon,
+					iconFallback: FilePreviewIcon,
 					title: intl.formatMessage(messages.preview),
 					onClick: () => {
 						return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
@@ -315,7 +317,8 @@ const getMediaInlineImageToolbar = (
 						id: 'editor.media.viewer',
 						testId: 'file-preview-toolbar-button',
 						type: 'button',
-						icon: FilePreviewIcon,
+						icon: ExpandIcon,
+						iconFallback: FilePreviewIcon,
 						title: intl.formatMessage(messages.preview),
 						onClick: () => {
 							return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;

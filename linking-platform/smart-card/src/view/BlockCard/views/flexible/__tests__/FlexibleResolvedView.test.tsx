@@ -12,8 +12,6 @@ import FlexibleResolvedView from '../FlexibleResolvedView';
 
 import { mockConfluenceResponse } from './__mocks__/blockCardMocks';
 
-
-
 describe('FlexibleResolvedView', () => {
 	const url = 'https://some.url';
 

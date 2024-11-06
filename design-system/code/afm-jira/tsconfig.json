@@ -1,36 +1,36 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__code/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../monorepo-tooling/codemod-utils/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../theme/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../tokens/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../tooltip/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../visually-hidden/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__code/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../monorepo-tooling/codemod-utils/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../tooltip/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../visually-hidden/afm-jira/tsconfig.json"
+		}
+	]
 }

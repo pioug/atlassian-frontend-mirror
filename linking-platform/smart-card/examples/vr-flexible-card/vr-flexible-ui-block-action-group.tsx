@@ -16,8 +16,6 @@ import {
 import VrExpandDropdownMenuWrapper from '../utils/vr-expand-dropdown-menu-wrapper';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-
-
 // Override the padding that came with new vr wrapper
 const containerStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

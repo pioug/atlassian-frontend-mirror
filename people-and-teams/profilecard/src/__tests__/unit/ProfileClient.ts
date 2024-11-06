@@ -24,23 +24,23 @@ describe('Profilecard', () => {
 	describe('UserProfileCardClient', () => {
 		const mockIsFedRamp = isFedRamp as jest.Mock;
 
-		it('config.url is available when set on instantiation', () => {
+		it('gatewayGraphqlUrl is available when set on instantiation', () => {
 			const client = new ProfileClient({
-				url: clientUrl,
+				gatewayGraphqlUrl: clientUrl,
 			}).userClient;
 
-			expect(client.options.url).toEqual(clientUrl);
+			expect(client.options.gatewayGraphqlUrl).toEqual(clientUrl);
 			expect(client.cache).toEqual(null);
 		});
 
 		it('cache is available when cacheMaxAge is set on instantiation', () => {
 			const client = new ProfileClient({
-				url: clientUrl,
+				gatewayGraphqlUrl: clientUrl,
 				cacheSize: clientCacheSize,
 				cacheMaxAge: clientCacheMaxAge,
 			}).userClient;
 
-			expect(client.options.url).toEqual(clientUrl);
+			expect(client.options.gatewayGraphqlUrl).toEqual(clientUrl);
 			expect(client.cache).not.toEqual(null);
 			expect(client.cache!.limit).toEqual(clientCacheSize);
 			expect(client.config.cacheMaxAge).toEqual(clientCacheMaxAge);
@@ -48,7 +48,7 @@ describe('Profilecard', () => {
 
 		it('should cap the cache at 30 days, even if you set a longer one', () => {
 			const client = new ProfileClient({
-				url: clientUrl,
+				gatewayGraphqlUrl: clientUrl,
 				cacheSize: clientCacheSize,
 				// 40 days
 				cacheMaxAge: 40 * 24 * 60 * 60 * 1000,
@@ -61,7 +61,7 @@ describe('Profilecard', () => {
 			mockIsFedRamp.mockReturnValue(true);
 
 			const client = new ProfileClient({
-				url: clientUrl,
+				gatewayGraphqlUrl: clientUrl,
 				teamCentralUrl: clientUrl,
 			});
 
@@ -75,7 +75,7 @@ describe('Profilecard', () => {
 			mockIsFedRamp.mockReturnValue(false);
 
 			const client = new ProfileClient({
-				url: clientUrl,
+				gatewayGraphqlUrl: clientUrl,
 				teamCentralUrl: clientUrl,
 			});
 
@@ -84,7 +84,7 @@ describe('Profilecard', () => {
 
 		describe('LRU Cache', () => {
 			const client = new ProfileClient({
-				url: clientUrl,
+				gatewayGraphqlUrl: clientUrl,
 				cacheSize: clientCacheSize,
 				cacheMaxAge: clientCacheMaxAge,
 			}).userClient;
@@ -97,10 +97,16 @@ describe('Profilecard', () => {
 
 				fetchMock.mock({
 					options: {
-						method: 'GET',
+						method: 'POST',
 					},
 					matcher: `begin:${clientUrl}`,
-					response: { data: 'foo' },
+					response: {
+						data: {
+							user: {
+								zoneinfo: 'test-zoneinfo',
+							},
+						},
+					},
 				});
 			});
 

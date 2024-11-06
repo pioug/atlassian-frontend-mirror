@@ -49,9 +49,7 @@ test('The flyout is not locked by default', async ({ page }) => {
 	await expect(page.locator(sideNavigation)).toBeHidden();
 });
 
-test('The lock prevents the flyout state from automatically collapsing', async ({
-	page,
-}) => {
+test('The lock prevents the flyout state from automatically collapsing', async ({ page }) => {
 	await page.visitExample('design-system', 'page-layout', 'locked-sidebar', {
 		featureFlag: 'platform_dst_popup-disable-focuslock',
 	});

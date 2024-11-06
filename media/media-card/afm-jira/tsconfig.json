@@ -1,85 +1,85 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__media-card/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/__tests_external__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/dropdown-menu/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../editor/editor-shared-styles/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-client/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-client-react/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-common/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-file-preview/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-svg/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-ui/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-viewer/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../react-ufo/atlaskit/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/spinner/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/theme/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../data/ufo-external/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../react-ufo/ufo-interaction-ignore/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/visually-hidden/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__media-card/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/__tests_external__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../editor/editor-shared-styles/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-client/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-client-react/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-common/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-file-preview/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-svg/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-ui/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-viewer/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/ufo-interaction-ignore/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/visually-hidden/afm-jira/tsconfig.json"
+		}
+	]
 }

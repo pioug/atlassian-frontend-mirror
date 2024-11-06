@@ -7,7 +7,6 @@ import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
 import { IconAndTitleLayout } from '../../index';
 
-
 jest.mock('react-render-image');
 
 describe('IconAndTitleLayout', () => {

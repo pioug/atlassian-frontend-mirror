@@ -10,7 +10,6 @@ import { BlockCardResolvingView } from '../../BlockCard';
 import { EmbedCardResolvedView, type EmbedCardResolvedViewProps } from '../views/ResolvedView';
 import UnresolvedView from '../views/unresolved-view';
 
-
 jest.mock('@atlaskit/link-provider', () => ({
 	useSmartLinkContext: () => ({
 		store: { getState: () => ({ 'test-url': mocks.analytics }) },

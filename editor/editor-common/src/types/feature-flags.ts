@@ -283,6 +283,15 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
+	 * Enables renderer node view of bodied macros in live pages
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/PGXT-5931
+	 * @default false
+	 */
+	livePagesBodiedMacrosRendererView?: boolean;
+
+	/**
+	 * @description
 	 * Enables extra analytics to be added for comments on media
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/ED-23355

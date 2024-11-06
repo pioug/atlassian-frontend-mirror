@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "94.12.1",
+	"version": "94.13.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -211,7 +211,7 @@
 		"@atlaskit/icon-object": "^6.7.0",
 		"@atlaskit/link-datasource": "^3.8.0",
 		"@atlaskit/link-picker": "^1.47.0",
-		"@atlaskit/media-card": "^78.10.0",
+		"@atlaskit/media-card": "^78.11.0",
 		"@atlaskit/media-client": "^28.0.0",
 		"@atlaskit/media-client-react": "^2.3.0",
 		"@atlaskit/media-common": "^11.7.0",
@@ -225,15 +225,15 @@
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popper": "^6.3.0",
 		"@atlaskit/primitives": "^13.0.0",
-		"@atlaskit/profilecard": "^20.8.0",
+		"@atlaskit/profilecard": "^20.9.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/smart-card": "^30.2.0",
 		"@atlaskit/smart-user-picker": "^6.11.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/textfield": "^6.5.0",
-		"@atlaskit/tmp-editor-statsig": "^2.11.0",
-		"@atlaskit/tokens": "^2.1.0",
+		"@atlaskit/tmp-editor-statsig": "^2.12.0",
+		"@atlaskit/tokens": "^2.2.0",
 		"@atlaskit/tooltip": "^18.8.0",
 		"@atlaskit/width-detector": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
@@ -271,7 +271,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/media-core": "^34.3.0",
 		"@atlaskit/media-test-helpers": "^34.5.0",
-		"@atlaskit/util-data-test": "^17.11.0",
+		"@atlaskit/util-data-test": "^17.12.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/jest-dom": "^6.4.5",
@@ -313,7 +313,7 @@
 		"platform_editor_breakout_use_css": {
 			"type": "boolean"
 		},
-		"platform.linking-platform.datasource-assets_objects": {
+		"linking_platform_datasource_assets_objects": {
 			"type": "boolean"
 		},
 		"editor_inline_comments_on_inline_nodes": {

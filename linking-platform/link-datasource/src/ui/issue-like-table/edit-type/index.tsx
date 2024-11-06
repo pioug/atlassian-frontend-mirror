@@ -16,7 +16,7 @@ export const editType = ({
 	defaultValue,
 	currentValue,
 	setEditValues,
-	executeFetch
+	executeFetch,
 }: {
 	defaultValue: DatasourceTypeWithOnlyValues;
 	currentValue: DatasourceTypeWithOnlyValues;

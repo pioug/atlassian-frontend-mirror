@@ -6,7 +6,6 @@ import uuid from 'uuid';
 import { extractPreview, extractUrlFromLinkJsonLd } from '@atlaskit/link-extractors';
 import type { EnvironmentsKeys } from '@atlaskit/linking-common';
 
-
 import { getBranchDeploy, getDefaultResponse, getDefaultUrl } from './utils';
 
 const stringify = (obj: object) => JSON.stringify(obj, null, 2);

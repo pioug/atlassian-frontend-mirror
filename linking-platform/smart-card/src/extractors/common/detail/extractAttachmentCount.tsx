@@ -6,7 +6,6 @@ import AttachmentIcon from '@atlaskit/icon/core/migration/attachment';
 import { N600 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-
 import { type LinkDetail } from './types';
 
 export type LinkAttachmentType =

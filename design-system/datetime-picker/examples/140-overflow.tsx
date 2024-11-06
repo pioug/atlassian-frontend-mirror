@@ -5,7 +5,6 @@ import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import { Box, xcss } from '@atlaskit/primitives';
 
-
 const containerStyles = xcss({
 	maxWidth: '175px',
 });

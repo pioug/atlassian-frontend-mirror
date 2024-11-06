@@ -25,6 +25,7 @@ export interface Props {
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	eventDispatcher?: EventDispatcher;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+	showLivePagesBodiedMacrosRendererView?: boolean;
 }
 
 export class Extension extends Component<Props, any> {
@@ -57,6 +58,7 @@ export class Extension extends Component<Props, any> {
 			pluginInjectionApi,
 			eventDispatcher,
 			macroInteractionDesignFeatureFlags,
+			showLivePagesBodiedMacrosRendererView,
 		} = this.props;
 
 		return (
@@ -72,6 +74,7 @@ export class Extension extends Component<Props, any> {
 				pluginInjectionApi={pluginInjectionApi}
 				eventDispatcher={eventDispatcher}
 				macroInteractionDesignFeatureFlags={macroInteractionDesignFeatureFlags}
+				showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
 			/>
 		);
 	};

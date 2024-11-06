@@ -93,7 +93,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 	state: State = defaultState;
 	imageElement?: HTMLImageElement;
 
-	UNSAFE_componentWillMount() {
+	componentDidMount() {
 		if (!exenv.canUseDOM) {
 			return;
 		}

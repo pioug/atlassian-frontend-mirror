@@ -20,8 +20,6 @@ import { InlineCardResolvingView } from './ResolvingView';
 import { type InlineCardProps } from './types';
 import { InlineCardUnauthorizedView } from './UnauthorisedView';
 
-
-
 export {
 	InlineCardResolvedView,
 	InlineCardResolvingView,

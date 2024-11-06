@@ -11,13 +11,13 @@ import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
 const baseStyles = css({
-  display: 'block',
-  padding: token('space.100', '8px'),
-  border: 'none',
-  borderRadius: token('border.radius.100', '3px'),
-  font: token('font.body'),
-  marginBlock: token('space.150'),
-  marginInline: 0
+	display: 'block',
+	padding: token('space.100', '8px'),
+	border: 'none',
+	borderRadius: token('border.radius.100', '3px'),
+	font: token('font.body'),
+	marginBlock: token('space.150'),
+	marginInline: 0,
 });
 
 const stackStyles = css({

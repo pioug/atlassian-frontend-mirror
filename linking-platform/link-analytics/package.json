@@ -36,7 +36,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/link-client-extension": "^2.4.0",
 		"@atlaskit/linking-common": "^6.0.0",
-		"@atlaskit/linking-types": "^9.3.0",
+		"@atlaskit/linking-types": "^9.4.0",
 		"@babel/runtime": "^7.0.0",
 		"json-ld-types": "^4.1.0",
 		"lru_map": "^0.4.1",

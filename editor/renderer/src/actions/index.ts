@@ -111,7 +111,7 @@ export default class RendererActions
 
 		if (fg('forbid_comments_on_empty_newlines')) {
 			const currentSelection = TextSelection.create(this.doc, from, to);
-			if(isEmptyTextSelection(currentSelection, this.schema)){
+			if (isEmptyTextSelection(currentSelection, this.schema)) {
 				return false;
 			}
 		}

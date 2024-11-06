@@ -6,7 +6,6 @@ import PeopleIcon from '@atlaskit/icon/core/migration/people-group--people';
 import { N600 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-
 import { type LinkDetail } from './types';
 
 export type LinkSubscriberType =

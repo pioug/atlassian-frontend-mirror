@@ -1,57 +1,57 @@
 {
-  "extends": "../../../../tsconfig.entry-points.post-office.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__atlassian-navigation/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../analytics/analytics-namespaced-context/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../button/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../ds-lib/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../icon/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../logo/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../popup/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../primitives/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../theme/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../tokens/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../tooltip/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../width-detector/afm-post-office/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.post-office.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__atlassian-navigation/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-namespaced-context/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../button/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../logo/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../popup/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../tooltip/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../width-detector/afm-post-office/tsconfig.json"
+		}
+	]
 }

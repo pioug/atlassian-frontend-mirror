@@ -25,8 +25,6 @@ import {
 	ERROR_MESSAGE_OAUTH,
 } from '../../actions/constants';
 
-
-
 const useResponse = () => {
 	// Takes in the JSON-LD response and dispatch the resolved action for the card.
 	// It will dispatch a successful or error action

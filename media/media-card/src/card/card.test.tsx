@@ -2812,11 +2812,11 @@ describe('Card ', () => {
 
 			const original = mediaApi.getItems;
 
-			let resolveItems = () => {}
+			let resolveItems = () => {};
 
 			mediaApi.getItems = jest.fn(async (...args) => {
-				await new Promise<void>(res => {
-					resolveItems = res
+				await new Promise<void>((res) => {
+					resolveItems = res;
 				});
 				return original(...args);
 			});
@@ -2828,7 +2828,7 @@ describe('Card ', () => {
 						identifier={identifier}
 						disableOverlay
 						useInlinePlayer
-						appearance='auto'
+						appearance="auto"
 						isLazy={false}
 					/>
 				</MockedMediaClientProvider>,
@@ -2836,7 +2836,7 @@ describe('Card ', () => {
 
 			await waitFor(() => {
 				expect(mediaApi.getItems).toHaveBeenCalled();
-			})
+			});
 
 			act(() => {
 				resolveItems();

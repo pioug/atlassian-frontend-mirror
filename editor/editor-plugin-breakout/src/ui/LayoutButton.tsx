@@ -19,6 +19,8 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findParentDomRefOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
+import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import { B300, N20A, N300 } from '@atlaskit/theme/colors';
@@ -146,9 +148,17 @@ const LayoutButton = ({
 					onClick={() => handleClick(nextBreakoutMode)}
 					iconBefore={
 						breakoutMode === 'full-width' ? (
-							<CollapseIcon label={title} />
+							<ShrinkHorizontalIcon
+								label={title}
+								LEGACY_fallbackIcon={CollapseIcon}
+								spacing="spacious"
+							/>
 						) : (
-							<ExpandIcon label={title} />
+							<GrowHorizontalIcon
+								label={title}
+								LEGACY_fallbackIcon={ExpandIcon}
+								spacing="spacious"
+							/>
 						)
 					}
 				/>

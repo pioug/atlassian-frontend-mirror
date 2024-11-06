@@ -8,7 +8,6 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
-
 import {
 	AsanaTask,
 	AtlasProject,

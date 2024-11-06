@@ -828,15 +828,15 @@ export const ReactMediaSingleNode =
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 		mediaOptions: MediaOptions = {},
 	) =>
-		(node: PMNode, view: EditorView, getPos: getPosHandler) => {
-			return new MediaSingleNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
-				eventDispatcher,
-				fullWidthMode: mediaOptions.fullWidthEnabled,
-				providerFactory,
-				mediaOptions,
-				dispatchAnalyticsEvent,
-				isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
-				pluginInjectionApi,
-				editorAppearance: mediaOptions.editorAppearance,
-			}).init();
-		};
+	(node: PMNode, view: EditorView, getPos: getPosHandler) => {
+		return new MediaSingleNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
+			eventDispatcher,
+			fullWidthMode: mediaOptions.fullWidthEnabled,
+			providerFactory,
+			mediaOptions,
+			dispatchAnalyticsEvent,
+			isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
+			pluginInjectionApi,
+			editorAppearance: mediaOptions.editorAppearance,
+		}).init();
+	};

@@ -16,7 +16,6 @@ import { ProviderCategory } from './ProviderCategory';
 import { exampleSpinner } from './Spinner';
 import { type ExampleUIConfig, type ExampleUrl, type ExampleUrls } from './types';
 
-
 const START_PROD_URL = 'https://start.atlassian.com/gateway/api';
 const START_STG_URL = 'https://start.stg.atlassian.com/gateway/api';
 

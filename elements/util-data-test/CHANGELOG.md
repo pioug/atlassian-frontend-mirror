@@ -1,5 +1,12 @@
 # @atlaskit/util-data-test
 
+## 17.12.0
+
+### Minor Changes
+
+- [`d4e1da5230f3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4e1da5230f3a) -
+  [ux] Enable new icons behind a feature flag.
+
 ## 17.11.6
 
 ### Patch Changes

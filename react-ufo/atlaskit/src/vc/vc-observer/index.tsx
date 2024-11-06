@@ -13,7 +13,7 @@ import type {
 
 import { attachAbortListeners } from './attachAbortListeners';
 import { getViewportHeight, getViewportWidth } from './getViewport';
-import { Observers, type SelectorConfig } from './observers';
+import { type ObservedMutationType, Observers, type SelectorConfig } from './observers';
 
 type PixelsToMap = { l: number; t: number; r: number; b: number };
 
@@ -415,7 +415,7 @@ export class VCObserver {
 		intersectionRect: DOMRectReadOnly,
 		targetName: string,
 		element: HTMLElement,
-		type: string,
+		type: ObservedMutationType,
 		ignoreReason?: VCIgnoreReason,
 	) => {
 		this.measureStart();

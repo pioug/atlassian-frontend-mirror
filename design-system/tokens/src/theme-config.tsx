@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 /**
  * This file contains the source of truth for themes and all associated meta data.
  */
@@ -351,16 +353,29 @@ export interface ThemeState {
 }
 
 /**
+ * Can't evaluate typography feature flags at the module level,
+ * it will always resolve to false when server side rendered or when flags are loaded async.
+ */
+interface ThemeStateDefaults extends Omit<ThemeState, 'typography'> {
+	typography: () => ThemeState['typography'];
+}
+
+/**
  * themeStateDefaults: the default values for ThemeState used by theming utilities
  */
-export const themeStateDefaults: ThemeState = {
+export const themeStateDefaults: ThemeStateDefaults = {
 	colorMode: 'auto',
 	contrastMode: 'auto',
 	dark: 'dark',
 	light: 'light',
 	shape: undefined,
 	spacing: 'spacing',
-	typography: undefined,
+	typography: () => {
+		if (fg('platform-default-typography-modernized')) {
+			return 'typography-modernized';
+		}
+		return undefined;
+	},
 	UNSAFE_themeOptions: undefined,
 };
 

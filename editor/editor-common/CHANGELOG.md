@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 94.13.0
+
+### Minor Changes
+
+- [#159144](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159144)
+  [`139c972d12c19`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/139c972d12c19) -
+  Add calcBreakoutWithCustomWidth function which uses width attribute on breakout mark for node
+  width calculation, defaults to mode if not present. Add support in renderer for breakout width
+
+### Patch Changes
+
+- [#160771](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160771)
+  [`52c92c480a7df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52c92c480a7df) -
+  Passes bodied macro feature gate and live page info from Confluence to extension nodes
+- [`b55162d6227f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b55162d6227f4) -
+  Migrate platform.linking-platform.datasource-assets_objects feature flag to Statsig
+- Updated dependencies
+
 ## 94.12.1
 
 ### Patch Changes

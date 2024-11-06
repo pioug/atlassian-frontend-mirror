@@ -1,11 +1,16 @@
-import { EditorNodeContainerModel, EditorTableModel, expect, editorPerformanceTestCase as test } from '@af/editor-libra';
+import {
+	EditorNodeContainerModel,
+	EditorTableModel,
+	expect,
+	editorPerformanceTestCase as test,
+} from '@af/editor-libra';
 
 import { hugeDocument } from '../fixtures/huge-document';
 
 test.use({
 	launchOptions: {
 		args: ['--js-flags=--expose-gc'],
-	}
+	},
 });
 test.describe('@composable-full-page__memory', () => {
 	test.describe('Editor - Performance', () => {

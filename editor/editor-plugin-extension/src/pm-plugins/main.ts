@@ -180,6 +180,7 @@ const createPlugin = (
 		appearance?: EditorAppearance;
 	} = {},
 	featureFlags?: FeatureFlags,
+	__livePage?: boolean,
 ) => {
 	const state = createPluginState(dispatch, {
 		showEditButton: false,
@@ -194,6 +195,9 @@ const createPlugin = (
 		showMacroInteractionDesignUpdates: featureFlags?.macroInteractionUpdates ?? false,
 		showMacroButtonUpdates: featureFlags?.macroInteractionButtonUpdates ?? false,
 	};
+	const showLivePagesBodiedMacrosRendererView = !!(
+		__livePage && featureFlags?.livePagesBodiedMacrosRendererView
+	);
 
 	return new SafePlugin({
 		state,
@@ -351,6 +355,7 @@ const createPlugin = (
 					extensionNodeViewOptions,
 					pluginInjectionApi,
 					macroInteractionDesignFeatureFlags,
+					showLivePagesBodiedMacrosRendererView,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews
 				inlineExtension: lazyExtensionNodeView(

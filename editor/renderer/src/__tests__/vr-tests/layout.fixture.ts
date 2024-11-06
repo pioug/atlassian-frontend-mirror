@@ -13,6 +13,10 @@ import * as LayoutWithMedia from '../__fixtures__/layout-with-media.adf.json';
 import * as LayoutWithTextAndCodeblock from '../__fixtures__/layout-with-text-and-codeblock.adf.json';
 import * as layout4Col from '../__fixtures__/layout-4-columns.adf.json';
 import * as layout5Col from '../__fixtures__/layout-5-columns.adf.json';
+import * as layout3ColWithWidth from '../__fixtures__/layout-3-columns-with-breakout-width.adf.json';
+import * as layout4ColWithWidth from '../__fixtures__/layout-4-columns-with-breakout-width.adf.json';
+import * as layout5ColWithWidth from '../__fixtures__/layout-5-columns-with-breakout-width.adf.json';
+import * as layout5ColWithWidthAndLayout5ColWithWide from '../__fixtures__/layout-5-columns-with-breakout-width-and-layout-5-columns-with-wide.adf.json';
 
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 
@@ -92,4 +96,24 @@ export const Layout4ColRenderer = generateRendererComponent({
 export const Layout5ColRenderer = generateRendererComponent({
 	document: layout5Col,
 	appearance: 'full-width',
+});
+
+export const Layout3ColWithWidthRenderer = generateRendererComponent({
+	document: layout3ColWithWidth,
+	appearance: 'full-page',
+});
+
+export const Layout4ColWithWidthRenderer = generateRendererComponent({
+	document: layout4ColWithWidth,
+	appearance: 'full-page',
+});
+
+export const Layout5ColWithWidthRenderer = generateRendererComponent({
+	document: layout5ColWithWidth,
+	appearance: 'full-page',
+});
+
+export const Layout5ColWithWidthAndLayout5ColWithWideRenderer = generateRendererComponent({
+	document: layout5ColWithWidthAndLayout5ColWithWide,
+	appearance: 'full-page',
 });

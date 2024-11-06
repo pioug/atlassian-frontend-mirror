@@ -48,7 +48,6 @@ import {
 	extractVoteCount,
 } from './utils';
 
-
 const extractFlexibleUiContext = ({
 	id,
 	renderers,

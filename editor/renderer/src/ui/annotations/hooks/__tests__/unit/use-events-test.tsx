@@ -427,7 +427,6 @@ describe('Annotations: Hooks/useEvents', () => {
 		});
 
 		it('should listen for ON_ANNOTATION_CLICK for nested render but do not bind multiple(duplicate) callback', () => {
-
 			expect(updateSubscriberFake.on).toHaveBeenCalledTimes(0);
 
 			CustomComp = () => {
@@ -442,9 +441,7 @@ describe('Annotations: Hooks/useEvents', () => {
 			};
 
 			expect(updateSubscriberFake.on).toHaveBeenCalledTimes(0);
-
 		});
-
 
 		it('should listen for DESELECT_ANNOTATIONS', () => {
 			expect(updateSubscriberFake.on).toHaveBeenCalledTimes(0);

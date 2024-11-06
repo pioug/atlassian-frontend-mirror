@@ -6,6 +6,7 @@
 import { jsx } from '@emotion/react';
 import { type InlinePlayerWrapperProps } from './types';
 import { inlinePlayerWrapperStyles, inlinePlayerClassName } from './inlinePlayerWrapperStyles';
+import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 
 export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => {
 	const { testId, selected, dimensions, onClick, innerRef } = props;
@@ -22,6 +23,7 @@ export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => {
 			})}
 			onClick={onClick}
 			ref={innerRef}
+			{...VcMediaWrapperProps}
 		>
 			{props.children}
 		</div>

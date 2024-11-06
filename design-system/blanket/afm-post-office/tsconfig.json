@@ -1,36 +1,36 @@
 {
-  "extends": "../../../../tsconfig.entry-points.post-office.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__blanket/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../monorepo-tooling/codemod-utils/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../ds-lib/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../theme/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../tokens/afm-post-office/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.post-office.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__blanket/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../monorepo-tooling/codemod-utils/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-post-office/tsconfig.json"
+		}
+	]
 }

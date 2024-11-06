@@ -235,16 +235,6 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'leading', 'trailing']),
 		defaultValue: 'control' as 'control' | 'leading' | 'trailing',
 	},
-	// Added 2024-10-03
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/editor_ai_-_proactive_ai_improve_writing/setup
-	'editor_ai_-_proactive_ai_improve_writing': {
-		productKeys: {
-			confluence: 'editor_ai_-_proactive_ai_improve_writing',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
-	},
 	// Added 2024-10-06
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_element_dnd_apply_optimisation
 	'optimised-apply-dnd': {
@@ -313,6 +303,16 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'skip_grammar']),
 		defaultValue: 'control' as 'control' | 'skip_grammar',
 	},
+	// Added 2024-10-31
+	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_refine_response_button/setup
+	platform_editor_ai_refine_response_button: {
+		productKeys: {
+			confluence: 'platform_editor_ai_refine_response_button',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 	'editor_ai_-_proactive_ai_spelling_and_grammar': {
 		productKeys: {
 			confluence: 'editor_ai_-_proactive_ai_spelling_and_grammar',
@@ -336,5 +336,14 @@ export const editorExperimentsConfig = {
 		param: 'cohort',
 		typeGuard: oneOf(['control', 'einstein']),
 		defaultValue: 'control' as 'control' | 'einstein',
+	},
+	// Added 2024-11-06
+	platform_editor_ai_facepile: {
+		productKeys: {
+			confluence: 'platform_editor_ai_facepile',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
 	},
 } satisfies Record<string, EditorExperimentConfigValue>;

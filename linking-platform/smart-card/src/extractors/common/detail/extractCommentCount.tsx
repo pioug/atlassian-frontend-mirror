@@ -6,7 +6,6 @@ import ChatIcon from '@atlaskit/icon/core/migration/comment';
 import { N600 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-
 import { type LinkDetail } from './types';
 
 export type LinkCommentType =

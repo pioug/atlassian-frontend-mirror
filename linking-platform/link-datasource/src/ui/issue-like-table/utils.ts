@@ -7,6 +7,7 @@ export type GetWidthCss = (arg: { shouldUseWidth: boolean; width?: number }) => 
 
 const keyBasedMinWidthMap: Record<string, number> = {
 	summary: COLUMN_BASE_WIDTH * 26,
+	status: COLUMN_BASE_WIDTH * 15,
 };
 
 export const getColumnMinWidth = (key: string) => {

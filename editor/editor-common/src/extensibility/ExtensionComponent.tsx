@@ -39,6 +39,7 @@ export interface Props {
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	eventDispatcher?: EventDispatcher;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+	showLivePagesBodiedMacrosRendererView?: boolean;
 }
 
 export interface State {

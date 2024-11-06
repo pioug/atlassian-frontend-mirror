@@ -13,7 +13,6 @@ import AIGlowingBorder from './ai-glowing-border';
 import { AI_BORDER_PALETTE } from './constants';
 import type { AIPrismProps } from './types';
 
-
 const contentStyles = css({
 	transition: 'box-shadow 0.5s ease',
 });

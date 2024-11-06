@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 112.4.0
+
+### Minor Changes
+
+- [#159144](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159144)
+  [`139c972d12c19`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/139c972d12c19) -
+  Add calcBreakoutWithCustomWidth function which uses width attribute on breakout mark for node
+  width calculation, defaults to mode if not present. Add support in renderer for breakout width
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 112.3.2
 
 ### Patch Changes

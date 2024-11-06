@@ -5,9 +5,11 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
 import PageIcon from '@atlaskit/icon/core/migration/page';
 import TeamsIcon from '@atlaskit/icon/core/migration/teams';
+import MinusIcon from '@atlaskit/icon/core/minus';
+import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
+import SmartLinkEmbedIcon from '@atlaskit/icon/core/smart-link-embed';
+import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import { IconCard, IconEmbed, IconInline, IconUrl } from '../../examples/images';
 
 import { navigateToUrl, toAbsolutePath } from './index';
 
@@ -38,21 +40,21 @@ const DocQuickLinks = () => (
 					Card
 				</DropdownItem>
 				<DropdownItem
-					elemBefore={<IconInline label="" />}
+					elemBefore={<SmartLinkInlineIcon label="" />}
 					description="Inline appearance"
 					onClick={() => navigateToUrl(toAbsolutePath('./inline-card'))}
 				>
 					Inline
 				</DropdownItem>
 				<DropdownItem
-					elemBefore={<IconCard label="" />}
+					elemBefore={<SmartLinkCardIcon label="" />}
 					description="Block appearance (card)"
 					onClick={() => navigateToUrl(toAbsolutePath('./block-card'))}
 				>
 					Block
 				</DropdownItem>
 				<DropdownItem
-					elemBefore={<IconEmbed label="" />}
+					elemBefore={<SmartLinkEmbedIcon label="" />}
 					description="Embed appearance (iframe)"
 					onClick={() => navigateToUrl(toAbsolutePath('./embed-card'))}
 				>
@@ -84,7 +86,7 @@ const DocQuickLinks = () => (
 			</DropdownItemGroup>
 			<DropdownItemGroup hasSeparator>
 				<DropdownItem
-					elemBefore={<IconUrl label="" />}
+					elemBefore={<MinusIcon label="" />}
 					onClick={() => navigateToUrl(toAbsolutePath('./link-url'))}
 				>
 					LinkUrl

@@ -97,6 +97,10 @@ const queries = [
 		anonymized:
 			'project = "?" and issuetype = "?" and status in ("?", "?", "?", "?") and cf[12345] in ("?", "?", "?", "?") and "?[Text]" = "?" ORDER BY "?[Dropdown]" DESC',
 	},
+	{
+		raw: 'textfields ~ "test search" order by created desc',
+		anonymized: 'textfields ~ "?" ORDER BY created DESC',
+	},
 ];
 
 const builder = new JastBuilder();

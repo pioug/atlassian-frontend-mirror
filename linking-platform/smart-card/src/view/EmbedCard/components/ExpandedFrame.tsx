@@ -17,7 +17,6 @@ import {
 	Wrapper,
 } from './styled';
 
-
 export interface ExpandedFrameProps {
 	isPlaceholder?: boolean;
 	href?: string;

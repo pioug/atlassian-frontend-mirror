@@ -14,7 +14,6 @@ import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
 
-
 mockSimpleIntersectionObserver();
 
 describe('smart-card: card states, embed', () => {

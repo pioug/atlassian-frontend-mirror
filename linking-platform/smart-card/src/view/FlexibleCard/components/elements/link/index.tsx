@@ -21,7 +21,6 @@ import {
 
 import { type LinkProps } from './types';
 
-
 const DEFAULT_MAX_LINES = 2;
 const MAXIMUM_MAX_LINES = 2;
 const MINIMUM_MAX_LINES = 1;

@@ -19,7 +19,7 @@ export interface ImagePlacerContainerProps {
 export class ImagePlacerContainer extends React.Component<ImagePlacerContainerProps, {}> {
 	private dragClientStart?: Vector2;
 
-	UNSAFE_componentWillMount() {
+	componentDidMount() {
 		if (this.isTouch) {
 			document.addEventListener('touchmove', this.onTouchMove);
 			document.addEventListener('touchend', this.onMouseUp);

@@ -16,8 +16,6 @@ import Action from '../action';
 
 import type { DownloadActionProps } from './types';
 
-
-
 const DownloadAction = ({ onClick: onClickCallback, ...props }: DownloadActionProps) => {
 	const context = useFlexibleUiContext();
 	const analytics = useFlexibleUiAnalyticsContext();

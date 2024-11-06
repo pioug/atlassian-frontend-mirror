@@ -19,7 +19,6 @@ import {
 } from './styled';
 import { type HoverCardLoadingViewProps } from './types';
 
-
 const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps) => {
 	const testId = 'hover-card-loading-view';
 	const lineHeightRem = 1.25;

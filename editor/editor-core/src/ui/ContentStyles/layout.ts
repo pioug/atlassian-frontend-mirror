@@ -11,6 +11,7 @@ import { tableMarginFullWidthMode } from '@atlaskit/editor-plugins/table/ui/cons
 import {
 	akEditorDeleteBackground,
 	akEditorDeleteBorder,
+	akEditorSelectedBorder,
 	akEditorSelectedBorderSize,
 	akEditorSelectedNodeClassName,
 	akEditorSwoopCubicBezier,
@@ -78,6 +79,11 @@ const layoutColumnStyles = () =>
 					[data-layout-column] + [data-layout-column] {
 						margin: 0;
 					}
+				}
+
+				> [data-layout-column].${akEditorSelectedNodeClassName}:not(.danger) {
+					${getSelectionStyles([SelectionStyle.Blanket])};
+					border: ${akEditorSelectedBorder};
 				}
 			`
 		: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
@@ -191,7 +197,14 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 
 			&.${akEditorSelectedNodeClassName}:not(.danger) {
 				[data-layout-column] {
-					${getSelectionStyles([SelectionStyle.Border, SelectionStyle.Blanket])}
+					${isPreRelease2()
+						? /* SelectionStyle.Border adds extra ::after content which clashes with hover zone for layout columns and is not needed for layout anyway
+						see platform/packages/editor/editor-shared-styles/src/selection/utils.ts(~L43)
+						*/
+							`border: ${akEditorSelectedBorder};
+					${getSelectionStyles([SelectionStyle.Blanket])}`
+						: `
+						${getSelectionStyles([SelectionStyle.Border, SelectionStyle.Blanket])}`}
 				}
 			}
 		}

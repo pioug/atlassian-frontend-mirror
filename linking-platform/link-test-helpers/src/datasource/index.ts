@@ -2,7 +2,8 @@ import fetchMock from 'fetch-mock/cjs/client';
 
 import {
 	mockActionsDiscovery,
-	mockActionsExecution, mockActionsFetchExecution,
+	mockActionsExecution,
+	mockActionsFetchExecution,
 	ORS_ACTIONS_DISCOVERY_ENDPOINT,
 } from './actions';
 import { mockAssetsClientFetchRequests } from './assets';

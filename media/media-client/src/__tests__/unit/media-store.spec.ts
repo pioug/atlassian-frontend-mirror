@@ -508,9 +508,13 @@ describe('MediaStore', () => {
 						},
 					},
 				);
-				expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
-					collectionName,
-				}, undefined);
+				expect(resolveAuth).toHaveBeenCalledWith(
+					authProvider,
+					{
+						collectionName,
+					},
+					undefined,
+				);
 			});
 
 			it('should fail if response is malformed JSON', async () => {
@@ -716,9 +720,13 @@ describe('MediaStore', () => {
 						body: JSON.stringify(body),
 					},
 				);
-				expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
-					collectionName: params.collection,
-				}, undefined);
+				expect(resolveAuth).toHaveBeenCalledWith(
+					authProvider,
+					{
+						collectionName: params.collection,
+					},
+					undefined,
+				);
 			});
 
 			it('should fail if error status is returned', async () => {
@@ -843,9 +851,13 @@ describe('MediaStore', () => {
 						let url = await mediaStore.getFileImageURL('1234', {
 							collection,
 						});
-						expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
-							collectionName: collection,
-						}, undefined);
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
 						expect(url).toEqual(nonCdnURL);
 
 						// Test against fedramp hostname, should return non-cdn url
@@ -853,9 +865,13 @@ describe('MediaStore', () => {
 						url = await mediaStore.getFileImageURL('1234', {
 							collection,
 						});
-						expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
-							collectionName: collection,
-						}, undefined);
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
 						expect(url).toEqual(nonCdnURL);
 
 						// Test against commercial micros perimeter and hostname, should return cdn url
@@ -864,18 +880,26 @@ describe('MediaStore', () => {
 						url = await mediaStore.getFileImageURL('1234', {
 							collection,
 						});
-						expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
-							collectionName: collection,
-						}, undefined);
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
 						expect(url).toEqual(cdnURL);
 					},
 					async () => {
 						const url = await mediaStore.getFileImageURL('1234', {
 							collection,
 						});
-						expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
-							collectionName: collection,
-						}, undefined);
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
 						expect(url).toEqual(nonCdnURL);
 					},
 				);
@@ -884,9 +908,13 @@ describe('MediaStore', () => {
 			it('should return the file image preview url based on the file id', async () => {
 				const collection = 'some-collection';
 				const url = await mediaStore.getFileImageURL('1234', { collection });
-				expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
-					collectionName: collection,
-				}, undefined);
+				expect(resolveAuth).toHaveBeenCalledWith(
+					authProvider,
+					{
+						collectionName: collection,
+					},
+					undefined,
+				);
 				expect(url).toEqual(
 					`${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
 				);
@@ -899,9 +927,13 @@ describe('MediaStore', () => {
 					'max-age': undefined,
 					mode: undefined,
 				});
-				expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
-					collectionName: collection,
-				}, undefined);
+				expect(resolveAuth).toHaveBeenCalledWith(
+					authProvider,
+					{
+						collectionName: collection,
+					},
+					undefined,
+				);
 				expect(url).toEqual(
 					`${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
 				);
@@ -1517,9 +1549,13 @@ describe('MediaStore', () => {
 
 			it('should call resolveAuth with authProvider and given collection name', async () => {
 				await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
-				expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
-					collectionName: 'some-collection-name',
-				}, undefined);
+				expect(resolveAuth).toHaveBeenCalledWith(
+					authProvider,
+					{
+						collectionName: 'some-collection-name',
+					},
+					undefined,
+				);
 			});
 
 			it('should return file url with custom max-age', async () => {
@@ -1546,9 +1582,13 @@ describe('MediaStore', () => {
 				expect(url).toEqual(
 					`${baseUrl}/sd-video?client=some-client-id&collection=some-collection&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`,
 				);
-				expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
-					collectionName: 'some-collection'
-				}, undefined);
+				expect(resolveAuth).toHaveBeenCalledWith(
+					authProvider,
+					{
+						collectionName: 'some-collection',
+					},
+					undefined,
+				);
 			});
 
 			describe('handling CDN url', () => {

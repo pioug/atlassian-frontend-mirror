@@ -7,7 +7,6 @@ import { mockBaseResponseWithDownload, mockBaseResponseWithPreview } from '../__
 
 import { type setup as hoverCardSetup, type SetUpParams } from './setup.test-utils';
 
-
 type AnalyticsTestConfig = {
 	/**
 	 * The display of a link that triggered the hover card

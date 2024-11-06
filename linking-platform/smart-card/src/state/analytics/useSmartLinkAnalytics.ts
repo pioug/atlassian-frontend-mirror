@@ -77,7 +77,6 @@ import {
 import { failUfoExperience, startUfoExperience, succeedUfoExperience } from './ufoExperiences';
 import { useDispatchAnalytics } from './useDispatchAnalytics';
 
-
 const applyCommonAttributes = (event: AnalyticsPayload, commonAttributes: CommonEventProps) => {
 	if (event && event.attributes) {
 		for (const [key, value] of Object.entries(commonAttributes)) {

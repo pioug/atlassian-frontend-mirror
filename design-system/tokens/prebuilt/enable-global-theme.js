@@ -44,7 +44,7 @@ var enableGlobalTheme = function enableGlobalTheme() {
     _ref$spacing = _ref.spacing,
     spacing = _ref$spacing === void 0 ? _themeConfig.themeStateDefaults['spacing'] : _ref$spacing,
     _ref$typography = _ref.typography,
-    typography = _ref$typography === void 0 ? _themeConfig.themeStateDefaults['typography'] : _ref$typography,
+    typography = _ref$typography === void 0 ? _themeConfig.themeStateDefaults['typography']() : _ref$typography,
     _ref$UNSAFE_themeOpti = _ref.UNSAFE_themeOptions,
     UNSAFE_themeOptions = _ref$UNSAFE_themeOpti === void 0 ? _themeConfig.themeStateDefaults['UNSAFE_themeOptions'] : _ref$UNSAFE_themeOpti;
   var themeLoader = arguments.length > 1 ? arguments[1] : undefined;

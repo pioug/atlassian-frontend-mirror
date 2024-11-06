@@ -208,7 +208,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 							userPickerOptions={userPickerOptions}
 						/>
 					) : (
-						<Text as='p'>
+						<Text as="p">
 							<FormattedMessage {...messages.formNoPermissions} />
 						</Text>
 					)}

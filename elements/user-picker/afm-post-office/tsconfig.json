@@ -1,69 +1,69 @@
 {
-  "extends": "../../../../tsconfig.entry-points.post-office.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__user-picker/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/avatar/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/icon/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/logo/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/lozenge/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../people-and-teams/people-teams-ui-public/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/popper/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/select/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/spinner/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../people-and-teams/teams-avatar/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/theme/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tooltip/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../../data/ufo-external/afm-post-office/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.post-office.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__user-picker/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/logo/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/lozenge/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../people-and-teams/people-teams-ui-public/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popper/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../people-and-teams/teams-avatar/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-post-office/tsconfig.json"
+		}
+	]
 }

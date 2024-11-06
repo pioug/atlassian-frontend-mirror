@@ -13,8 +13,6 @@ import { type getXProductHeaderValue } from '../utils';
 
 import { streamAnswer, streamErrorAnswer } from './__mocks__/streamAnswers';
 
-
-
 const fetchMock = fetch as jest.MockedFunction<typeof fetch>;
 
 /**

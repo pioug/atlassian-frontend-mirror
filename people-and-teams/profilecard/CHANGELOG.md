@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 20.9.0
+
+### Minor Changes
+
+- [`2e6586eb695c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e6586eb695c1) -
+  Clean up feature flag migrate_cloud_user_to_agg_user_query_profile_card
+
 ## 20.8.3
 
 ### Patch Changes

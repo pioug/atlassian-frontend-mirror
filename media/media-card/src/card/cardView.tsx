@@ -14,7 +14,7 @@ import {
 	type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
-import CardSpinner from './ui/cardSpinner/cardSpinner';
+import SpinnerIcon from '@atlaskit/spinner';
 import Tooltip from '@atlaskit/tooltip';
 import { messages } from '@atlaskit/media-ui';
 
@@ -332,7 +332,7 @@ export const CardViewBase = ({
 				)}
 				{renderSpinner && (
 					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasVisibleTitleBox}>
-						<CardSpinner testId="media-card-loading" interactionName="media-card-loading" />
+						<SpinnerIcon testId="media-card-loading" interactionName="media-card-loading" />
 					</IconWrapper>
 				)}
 				{renderImageRenderer && (

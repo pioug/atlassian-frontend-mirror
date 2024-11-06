@@ -1604,7 +1604,7 @@ describe('IssueLikeDataTableView', () => {
 								expect(queryAllByTestId('sometable--cell-0')[0]).toHaveStyle('max-width: 360px');
 
 								expect(queryByTestId('status-column-heading')).toHaveStyle(
-									`max-width: ${8 * 18}px`,
+									`max-width: ${8 * 15}px`,
 								);
 							});
 
@@ -1703,7 +1703,7 @@ describe('IssueLikeDataTableView', () => {
 								});
 
 								expect(queryByTestId('status-column-heading')).toHaveStyle({
-									width: `${8 * 18}px`,
+									width: `${8 * 15}px`,
 								});
 							});
 

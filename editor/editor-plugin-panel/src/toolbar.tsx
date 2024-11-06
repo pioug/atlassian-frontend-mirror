@@ -43,6 +43,7 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import RemoveEmojiIcon from '@atlaskit/icon/glyph/editor/remove-emoji';
 import LegacySuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import LegacyWarningIcon from '@atlaskit/icon/glyph/editor/warning';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { changePanelType, removePanel } from './actions';
 import type { EmojiInfo, PanelPluginOptions } from './types';
@@ -312,7 +313,7 @@ export const getToolbarItems = (
 		});
 		items.push({
 			type: 'copy-button',
-			supportsViewMode: true,
+			supportsViewMode: !fg('platform_editor_remove_copy_button_from_view_mode'),
 			items: [{ state, formatMessage, nodeType: panelNodeType }],
 		});
 	}

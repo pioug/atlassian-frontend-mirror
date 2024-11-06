@@ -13,6 +13,7 @@ export const STATUS_FIELD = 'status';
 export const STATUS_CATEGORY_FIELD = 'statuscategory';
 export const SUMMARY_FIELD = 'summary';
 export const TEXT_FIELD = 'text';
+export const TEXFIELDS_FIELD = 'textfields';
 export const TYPE_FIELD = 'type';
 export const UPDATED_FIELD = 'updated';
 
@@ -58,6 +59,7 @@ export const PRIVACY_SAFE_FIELDS: string[] = [
 	STATUS_CATEGORY_FIELD,
 	SUMMARY_FIELD,
 	TEXT_FIELD,
+	TEXFIELDS_FIELD,
 	TYPE_FIELD,
 	UPDATED_FIELD,
 	AFFECTED_VERSION_FIELD,

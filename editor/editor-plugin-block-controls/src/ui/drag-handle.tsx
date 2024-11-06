@@ -47,6 +47,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin, HandleOptions } from '../types';
 import { getNestedNodePosition, selectNode } from '../utils';
+import { isPreRelease2 } from '../utils/advanced-layouts-flags';
 import { getLeftPosition, getTopPosition } from '../utils/drag-handle-positions';
 
 import {
@@ -92,6 +93,10 @@ const dragHandleButtonStyles = css({
 	'&:focus': {
 		outline: `2px solid ${token('color.border.focused', '#388BFF')}`,
 	},
+});
+
+const layoutColumnDragHandleStyles = css({
+	transform: 'rotate(90deg)',
 });
 
 const selectedStyles = css({
@@ -320,25 +325,31 @@ export const DragHandle = ({
 			}
 		}
 
+		const isEdgeCase = (hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer;
+		const isLayoutColumn = nodeType === 'layoutColumn';
+
 		if (supportsAnchor) {
 			return {
-				left:
-					(hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer
-						? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType)})`
+				left: isEdgeCase
+					? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType)})`
+					: isPreRelease2() && isLayoutColumn
+						? `calc((anchor(${anchorName} right) + anchor(${anchorName} left))/2 - ${DRAG_HANDLE_HEIGHT / 2}px)`
 						: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType, parentNodeType)}px)`,
 
-				top: fg('platform_editor_elements_dnd_ed_23674')
-					? `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`
-					: anchorName.includes('table')
-						? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
-						: `anchor(${anchorName} start)`,
+				top:
+					isPreRelease2() && isLayoutColumn
+						? `calc(anchor(${anchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
+						: fg('platform_editor_elements_dnd_ed_23674')
+							? `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`
+							: anchorName.includes('table')
+								? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
+								: `anchor(${anchorName} start)`,
 			};
 		}
 		return {
-			left:
-				(hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer
-					? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType)})`
-					: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType),
+			left: isEdgeCase
+				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType)})`
+				: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType),
 			top: fg('platform_editor_elements_dnd_ed_23674')
 				? getTopPosition(dom, nodeType)
 				: getTopPosition(dom),
@@ -492,7 +503,11 @@ export const DragHandle = ({
 		// eslint-disable-next-line @atlaskit/design-system/no-html-button
 		<button
 			type="button"
-			css={[dragHandleButtonStyles, dragHandleSelected && selectedStyles]}
+			css={[
+				dragHandleButtonStyles,
+				isPreRelease2() && nodeType === 'layoutColumn' && layoutColumnDragHandleStyles,
+				dragHandleSelected && selectedStyles,
+			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={positionStyles}

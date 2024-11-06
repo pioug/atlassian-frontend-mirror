@@ -9,7 +9,6 @@ import { token } from '@atlaskit/tokens';
 import { gs as gridSize } from '../../common/utils';
 import { type FrameStyle } from '../types';
 
-
 export const className = 'media-card-frame';
 
 export interface WrapperProps {

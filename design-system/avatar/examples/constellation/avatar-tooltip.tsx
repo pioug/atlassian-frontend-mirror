@@ -3,7 +3,6 @@ import React from 'react';
 import Avatar from '@atlaskit/avatar';
 import Tooltip from '@atlaskit/tooltip';
 
-
 const AvatarTooltipExample = () => {
 	const presence = 'online';
 	const name = 'Mike Cannon-Brookes';

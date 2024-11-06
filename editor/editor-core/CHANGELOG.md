@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 201.1.9
+
+### Patch Changes
+
+- [#160415](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160415)
+  [`9dd7911f0fb16`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9dd7911f0fb16) -
+  [ux] [ED-25057] Implement drag handle for layout column (position, hover zone, selection)
+- Updated dependencies
+
+## 201.1.8
+
+### Patch Changes
+
+- [#160771](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160771)
+  [`52c92c480a7df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52c92c480a7df) -
+  Passes bodied macro feature gate and live page info from Confluence to extension nodes
+- Updated dependencies
+
 ## 201.1.7
 
 ### Patch Changes

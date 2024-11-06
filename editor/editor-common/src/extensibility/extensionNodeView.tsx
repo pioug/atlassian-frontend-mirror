@@ -54,6 +54,7 @@ export class ExtensionNode extends ReactNodeView {
 			extensionNodeViewOptions?: ExtensionNodeViewOptions;
 			pluginInjectionApi: ExtensionsPluginInjectionAPI;
 			macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+			showLivePagesBodiedMacrosRendererView?: boolean;
 		},
 		forwardRef: ForwardRef,
 	) {
@@ -79,6 +80,7 @@ export class ExtensionNode extends ReactNodeView {
 					editorAppearance={props.extensionNodeViewOptions?.appearance}
 					pluginInjectionApi={props.pluginInjectionApi}
 					macroInteractionDesignFeatureFlags={props.macroInteractionDesignFeatureFlags}
+					showLivePagesBodiedMacrosRendererView={props.showLivePagesBodiedMacrosRendererView}
 				/>
 			</ExtensionNodeWrapper>
 		);
@@ -93,6 +95,7 @@ export default function ExtensionNodeView(
 	extensionNodeViewOptions: ExtensionNodeViewOptions,
 	pluginInjectionApi: ExtensionsPluginInjectionAPI,
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags,
+	showLivePagesBodiedMacrosRendererView?: boolean,
 ) {
 	return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
 		return new ExtensionNode(node, view, getPos, portalProviderAPI, eventDispatcher, {
@@ -101,6 +104,7 @@ export default function ExtensionNodeView(
 			extensionNodeViewOptions,
 			pluginInjectionApi,
 			macroInteractionDesignFeatureFlags,
+			showLivePagesBodiedMacrosRendererView,
 		}).init();
 	};
 }

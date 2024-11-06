@@ -1,33 +1,33 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__media-image/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../media-client/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-client-react/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-common/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../media-file-preview/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__media-image/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../media-client/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-client-react/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-common/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../media-file-preview/afm-jira/tsconfig.json"
+		}
+	]
 }

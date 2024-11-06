@@ -37,7 +37,7 @@ export const AddOptionAvatar: React.FunctionComponent<AddOptionAvatarProps> = ({
 		<div css={getEmailAvatarWrapperStyle(isLozenge)}>
 			<EmailIcon
 				testId="add-option-avatar-email-icon"
-				label={label || ""}
+				label={label || ''}
 				LEGACY_size={isLozenge ? 'small' : 'medium'}
 				LEGACY_margin="0 0 0 -2px"
 				color={token('color.text.subtle', N500)}

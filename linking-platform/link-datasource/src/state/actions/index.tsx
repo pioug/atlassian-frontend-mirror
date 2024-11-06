@@ -3,7 +3,11 @@ import { useCallback, useMemo } from 'react';
 import { type Action, createActionsHook, createHook, createStore } from 'react-sweet-state';
 
 import { useDatasourceClientExtension } from '@atlaskit/link-client-extension';
-import type { ActionsDiscoveryRequest, AtomicActionExecuteResponse, AtomicActionInterface } from '@atlaskit/linking-types';
+import type {
+	ActionsDiscoveryRequest,
+	AtomicActionExecuteResponse,
+	AtomicActionInterface,
+} from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -225,7 +229,10 @@ const getFieldUpdateActionByAri = (
 		return {};
 	}
 
-	return { schema: state.actionsByIntegration[integrationKey]?.[fieldKey], fetchSchema: state.actionsByIntegration[integrationKey]?.[fieldKey].fetchAction };
+	return {
+		schema: state.actionsByIntegration[integrationKey]?.[fieldKey],
+		fetchSchema: state.actionsByIntegration[integrationKey]?.[fieldKey].fetchAction,
+	};
 };
 
 /**
@@ -255,8 +262,8 @@ export const useExecuteAtomicAction = ({
 	fieldKey: string;
 	integrationKey: string;
 }): {
-	execute?: (value: (string | number)) => Promise<AtomicActionExecuteResponse<unknown>>,
-	executeFetch?: <E>(inputs: any) => Promise<E>
+	execute?: (value: string | number) => Promise<AtomicActionExecuteResponse<unknown>>;
+	executeFetch?: <E>(inputs: any) => Promise<E>;
 } => {
 	const [{ schema, fetchSchema }] = useAtomicUpdateActionSchema({ ari, fieldKey, integrationKey });
 
@@ -336,6 +343,6 @@ export const useExecuteAtomicAction = ({
 
 	return {
 		...(schema && { execute }),
-		...(fetchSchema && { executeFetch })
+		...(fetchSchema && { executeFetch }),
 	};
 };

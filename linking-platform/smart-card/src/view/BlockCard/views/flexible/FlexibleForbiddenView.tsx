@@ -22,8 +22,6 @@ import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
-
-
 /**
  * This view represent a Block Card with the 'Forbidden' status.
  * It should have a "Try another account" button that will allow a user to connect another account and view the block card.

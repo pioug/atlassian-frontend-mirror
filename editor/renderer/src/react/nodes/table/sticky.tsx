@@ -227,7 +227,10 @@ export const StickyTable = ({
 /**
  * Traverse DOM Tree upwards looking for table parents with "overflow: scroll".
  */
-function findHorizontalOverflowScrollParent(table: HTMLElement | null, defaultScrollRootEl?: HTMLElement): HTMLElement | null {
+function findHorizontalOverflowScrollParent(
+	table: HTMLElement | null,
+	defaultScrollRootEl?: HTMLElement,
+): HTMLElement | null {
 	let parent: HTMLElement | null = table;
 	if (!parent) {
 		return null;
@@ -256,7 +259,9 @@ export class OverflowParent {
 	}
 
 	static fromElement(el: HTMLElement | null, defaultScrollRootEl?: HTMLElement) {
-		return new OverflowParent(findHorizontalOverflowScrollParent(el, defaultScrollRootEl) || window);
+		return new OverflowParent(
+			findHorizontalOverflowScrollParent(el, defaultScrollRootEl) || window,
+		);
 	}
 
 	get isElement() {

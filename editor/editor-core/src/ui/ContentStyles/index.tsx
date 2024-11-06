@@ -94,10 +94,10 @@ type ContentStylesProps = {
 	featureFlags?: FeatureFlags;
 	viewMode?: 'view' | 'edit';
 	typographyTheme?:
-	| 'typography'
-	| 'typography-adg3'
-	| 'typography-modernized'
-	| 'typography-refreshed';
+		| 'typography'
+		| 'typography-adg3'
+		| 'typography-modernized'
+		| 'typography-refreshed';
 };
 
 const ruleStyles = () => css`

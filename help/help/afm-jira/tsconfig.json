@@ -1,84 +1,84 @@
 {
-  "extends": "../../../../tsconfig.entry-points.jira.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__help/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/button/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/checkbox/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/form/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../help-article/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../help-layout/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/legacy-custom-icons/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../notifications/notification-indicator/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../notifications/notification-log-client/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/radio/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/section-message/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/select/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/spinner/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/textarea/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/textfield/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/theme/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__help/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/checkbox/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../help-article/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../help-layout/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/legacy-custom-icons/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../notifications/notification-indicator/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../notifications/notification-log-client/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/radio/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/section-message/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textarea/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+		}
+	]
 }

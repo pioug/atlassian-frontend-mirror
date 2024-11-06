@@ -20,8 +20,6 @@ import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { Card, type CardAppearance } from '../../Card';
 
-
-
 // ShouldSample needs to be loaded for beforeEach inside to be picked up before test runs
 import '../../../utils/shouldSample';
 

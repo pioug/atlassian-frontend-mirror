@@ -1,11 +1,10 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-jest';
 
-import { AGGErrors, DirectoryGraphQLErrors } from '../../util/errors';
-import { AGGQuery, directoryGraphqlQuery } from '../graphqlUtils';
-import UserProfileCardClient, { buildAggUserQuery, buildUserQuery } from '../UserProfileCardClient';
+import { AGGErrors } from '../../util/errors';
+import { AGGQuery } from '../graphqlUtils';
+import UserProfileCardClient, { buildAggUserQuery } from '../UserProfileCardClient';
 
 jest.mock('../../util/performance', () => ({
 	getPageTime: jest.fn(() => 1000),
@@ -19,20 +18,21 @@ jest.mock('../../util/analytics', () => ({
 }));
 
 jest.mock('../graphqlUtils');
-(directoryGraphqlQuery as jest.Mock).mockImplementation(() => Promise.resolve({ User: {} }));
-(AGGQuery as jest.Mock).mockImplementation(() => Promise.resolve({ User: {} }));
+(AGGQuery as jest.Mock).mockImplementation(() =>
+	Promise.resolve({
+		user: {
+			zoneinfo: 'test-zoneinfo',
+		},
+	}),
+);
 
 const mockAnalytics = jest.fn();
 
-const mockDirectoryError = new DirectoryGraphQLErrors(
-	[{ message: 'Test error', category: 'Internal', type: 'type' }],
-	'test-id',
-);
 const mockAggError = new AGGErrors([{ message: 'Test error', extensions: {} }], 'test-id');
 
 describe('UserProfileCardClient', () => {
 	const options = {
-		url: 'https://test.com',
+		gatewayGraphqlUrl: 'https://test.com/gateway/api/graphql',
 		cacheMaxAge: 1000,
 	};
 
@@ -44,14 +44,6 @@ describe('UserProfileCardClient', () => {
 	beforeEach(() => {
 		client = new UserProfileCardClient(options);
 		jest.clearAllMocks();
-	});
-
-	it('should throw an error if options.url is not provided', async () => {
-		// @ts-ignore
-		client = new UserProfileCardClient({});
-		await expect(client.makeRequest(cloudId, userId)).rejects.toThrow(
-			'options.url is a required parameter',
-		);
 	});
 
 	it('should return a cached profile if it exists', async () => {
@@ -68,95 +60,39 @@ describe('UserProfileCardClient', () => {
 		expect(spy).toHaveBeenCalledWith(cloudId, userId);
 	});
 
-	it('should handle request errors', async () => {
-		(directoryGraphqlQuery as jest.Mock).mockRejectedValue(mockDirectoryError);
+	describe('makeRequest', () => {
+		beforeEach(() => {
+			client = new UserProfileCardClient(options);
+			fetchMock.mock({
+				options: {
+					method: 'GET',
+				},
+				matcher: `begin:/gateway/api/teams/site`,
+				response: { isPresent: true },
+			});
+			// jest.clearAllMocks();
+		});
 
-		await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow(
-			'DirectoryGraphQLErrors',
-		);
-	});
+		afterEach(() => {
+			fetchMock.restore();
+		});
 
-	it('should call analytics when makeRequest throws an error', async () => {
-		(directoryGraphqlQuery as jest.Mock).mockRejectedValue(mockDirectoryError);
+		it('should handle request errors', async () => {
+			(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
 
-		await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow(
-			'DirectoryGraphQLErrors',
-		);
+			await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow('AGGErrors');
+		});
 
-		expect(mockAnalytics).toHaveBeenLastCalledWith({
-			attrs: {
-				duration: 0,
-				errorCount: 1,
-				errorDetails: [
-					{
-						errorCategory: 'Internal',
-						errorNumber: undefined,
-						errorPath: '',
-						errorType: 'type',
-						errorMessage: 'Test error',
-						isSLOFailure: true,
-					},
-				],
-				errorMessage: 'DirectoryGraphQLErrors',
-				isSLOFailure: true,
-				traceId: 'test-id',
-			},
-			status: 'failed',
+		it('should call analytics when makeRequest throws an error', async () => {
+			(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
+
+			await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow('AGGErrors');
+
+			expect(mockAnalytics).toHaveBeenCalled();
 		});
 	});
-
-	ffTest.on(
-		'migrate_cloud_user_to_agg_user_query_profile_card',
-		'with cloudUser migration on',
-		() => {
-			const optionsNext = {
-				gatewayGraphqlUrl: 'https://test.com',
-				cacheMaxAge: 1000,
-			};
-
-			const userId = 'test-user';
-			const cloudId = 'test-cloud';
-
-			let client: UserProfileCardClient;
-
-			beforeEach(() => {
-				client = new UserProfileCardClient(optionsNext);
-				fetchMock.mock({
-					options: {
-						method: 'GET',
-					},
-					matcher: `begin:/gateway/api/teams/site`,
-					response: { isPresent: true },
-				});
-				// jest.clearAllMocks();
-			});
-
-			afterEach(() => {
-				fetchMock.restore();
-			});
-
-			it('should handle request errors', async () => {
-				(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
-
-				await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow(
-					'AGGErrors',
-				);
-			});
-
-			it('should call analytics when makeRequest throws an error', async () => {
-				(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
-
-				await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow(
-					'AGGErrors',
-				);
-
-				expect(mockAnalytics).toHaveBeenCalled();
-			});
-		},
-	);
 });
 
 describe('UserProfileCardClient query tests', () => {
-	parseAndTestGraphQLQueries([buildUserQuery('', '').query]);
 	parseAndTestGraphQLQueries([buildAggUserQuery('').query]);
 });

@@ -10,7 +10,11 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { type TypeAheadInputMethod, type TypeAheadPluginOptions, type TypeAheadPluginSharedState } from './types';
+import {
+	type TypeAheadInputMethod,
+	type TypeAheadPluginOptions,
+	type TypeAheadPluginSharedState,
+} from './types';
 
 type InsertTypeAheadItemProps = {
 	triggerHandler: TypeAheadHandler;

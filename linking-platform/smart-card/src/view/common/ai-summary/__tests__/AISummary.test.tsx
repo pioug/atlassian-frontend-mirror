@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 
 import AISummary from '../index';
 
-
 const markdownBulletList = `
 - Item 1
 - Item 2

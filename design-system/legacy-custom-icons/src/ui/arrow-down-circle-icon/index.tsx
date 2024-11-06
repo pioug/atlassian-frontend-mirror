@@ -22,7 +22,13 @@ const ArrowDownCircleIconGlyph = (props: CustomGlyphProps) => (
 /**
  * __ArrowDownCircleIcon__
  */
-const ArrowDownCircleIcon = ({ label, primaryColor, secondaryColor, size = 'small', testId }: IconProps) => (
+const ArrowDownCircleIcon = ({
+	label,
+	primaryColor,
+	secondaryColor,
+	size = 'small',
+	testId,
+}: IconProps) => (
 	<Icon
 		label={label}
 		primaryColor={primaryColor}

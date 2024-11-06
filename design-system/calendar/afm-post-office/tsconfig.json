@@ -1,48 +1,48 @@
 {
-  "extends": "../../../../tsconfig.entry-points.post-office.json",
-  "compilerOptions": {
-    "declaration": true,
-    "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__calendar/app",
-    "composite": true,
-    "rootDir": "../"
-  },
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.tsx"
-  ],
-  "exclude": [
-    "../src/**/__tests__/*",
-    "../src/**/*.test.*",
-    "../src/**/test.*"
-  ],
-  "references": [
-    {
-      "path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../button/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../ds-lib/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../heading/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../icon/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../locale/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../primitives/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../theme/afm-post-office/tsconfig.json"
-    },
-    {
-      "path": "../../tokens/afm-post-office/tsconfig.json"
-    }
-  ]
+	"extends": "../../../../tsconfig.entry-points.post-office.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__calendar/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../button/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../heading/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../locale/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-post-office/tsconfig.json"
+		}
+	]
 }

@@ -12,8 +12,6 @@ import { FlexibleUiContext } from '../../../state/flexible-ui-context';
 import { TitleBlock } from '../components/blocks';
 import FlexibleCard from '../index';
 
-
-
 jest.mock('@atlaskit/link-provider', () => {
 	return {
 		...jest.requireActual('@atlaskit/link-provider'),

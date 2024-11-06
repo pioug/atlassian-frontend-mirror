@@ -179,13 +179,13 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 
 			const mediaSingleOption = fg('platform_editor_media_extended_resize_experience')
 				? {
-					withCaption: allowCaptions,
-					withExtendedWidthTypes: true,
-				}
+						withCaption: allowCaptions,
+						withExtendedWidthTypes: true,
+					}
 				: {
-					withCaption: allowCaptions,
-					withExtendedWidthTypes: false,
-				};
+						withCaption: allowCaptions,
+						withExtendedWidthTypes: false,
+					};
 
 			return [
 				{ name: 'mediaGroup', node: mediaGroupSpecWithFixedToDOM() },
@@ -373,29 +373,29 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 				editorExperiment('add-media-from-url', true)
 					? []
 					: [
-						{
-							id: 'media',
-							title: formatMessage(messages.mediaFiles),
-							description: formatMessage(messages.mediaFilesDescription),
-							priority: 400,
-							keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video', 'file'],
-							icon: () => <IconImages />,
-							action(insert, state) {
-								const pluginState = stateKey.getState(state);
-								pluginState?.showMediaPicker();
-								const tr = insert('');
-								api?.analytics?.actions.attachAnalyticsEvent({
-									action: ACTION.OPENED,
-									actionSubject: ACTION_SUBJECT.PICKER,
-									actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,
-									attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
-									eventType: EVENT_TYPE.UI,
-								})(tr);
+							{
+								id: 'media',
+								title: formatMessage(messages.mediaFiles),
+								description: formatMessage(messages.mediaFilesDescription),
+								priority: 400,
+								keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video', 'file'],
+								icon: () => <IconImages />,
+								action(insert, state) {
+									const pluginState = stateKey.getState(state);
+									pluginState?.showMediaPicker();
+									const tr = insert('');
+									api?.analytics?.actions.attachAnalyticsEvent({
+										action: ACTION.OPENED,
+										actionSubject: ACTION_SUBJECT.PICKER,
+										actionSubjectId: ACTION_SUBJECT_ID.PICKER_CLOUD,
+										attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+										eventType: EVENT_TYPE.UI,
+									})(tr);
 
-								return tr;
+									return tr;
+								},
 							},
-						},
-					],
+						],
 
 			floatingToolbar: (state, intl, providerFactory) =>
 				floatingToolbar(

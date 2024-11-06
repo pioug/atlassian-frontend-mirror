@@ -116,7 +116,7 @@ export type FloatingToolbarButtonSpotlightConfig = {
 	pulse?: boolean;
 	onTargetClick?: () => void;
 	spotlightCardOptions: React.ComponentProps<typeof SpotlightCard> & { placement?: Placement };
-}
+};
 
 export type FloatingToolbarCopyButton = {
 	type: 'copy-button';

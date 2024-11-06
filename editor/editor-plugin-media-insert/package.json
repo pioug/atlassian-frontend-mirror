@@ -28,14 +28,14 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^44.2.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^94.12.0",
+		"@atlaskit/editor-common": "^94.13.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-media": "^1.39.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/form": "^10.5.3",
 		"@atlaskit/icon": "^22.24.0",
-		"@atlaskit/media-card": "^78.10.0",
+		"@atlaskit/media-card": "^78.11.0",
 		"@atlaskit/media-client": "^28.0.0",
 		"@atlaskit/media-client-react": "^2.3.0",
 		"@atlaskit/media-picker": "^67.0.0",
@@ -44,13 +44,13 @@
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/tabs": "^16.5.0",
 		"@atlaskit/textfield": "^6.5.0",
-		"@atlaskit/tmp-editor-statsig": "^2.11.0",
+		"@atlaskit/tmp-editor-statsig": "^2.12.0",
 		"@babel/runtime": "^7.0.0",
 		"react": "^16.8.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"@atlaskit/tokens": "^2.1.0"
+		"@atlaskit/tokens": "^2.2.0"
 	},
 	"devDependencies": {
 		"typescript": "~5.4.2"

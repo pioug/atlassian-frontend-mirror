@@ -1,5 +1,20 @@
 # @atlaskit/media-avatar-picker
 
+## 24.10.5
+
+### Patch Changes
+
+- [`8409cdfa1a7b4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8409cdfa1a7b4) -
+  React 18 strict mode fix
+
+## 24.10.4
+
+### Patch Changes
+
+- [#160682](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160682)
+  [`5237432b2a106`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5237432b2a106) -
+  Fix React 18 strict mode issues
+
 ## 24.10.3
 
 ### Patch Changes

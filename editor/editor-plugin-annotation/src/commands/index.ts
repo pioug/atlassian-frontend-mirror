@@ -165,10 +165,7 @@ const getDraftCommandAction: (
 ) => {
 	return (editorState: EditorState) => {
 		// validate selection only when entering draft mode
-		if (
-			drafting &&
-			isSelectionValid(editorState) !== AnnotationSelectionType.VALID
-		) {
+		if (drafting && isSelectionValid(editorState) !== AnnotationSelectionType.VALID) {
 			return false;
 		}
 

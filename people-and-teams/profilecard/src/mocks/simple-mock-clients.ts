@@ -43,7 +43,12 @@ class SimpleMockAgentClient extends RovoAgentCardClient {
 	}
 }
 
-const args = { cacheSize: 10, maxCacheAge: 0, url: '/graphql/directory' };
+const args = {
+	cacheSize: 10,
+	maxCacheAge: 0,
+	url: '/graphql/directory',
+	gatewayGraphqlUrl: '/gateway/api/graphql',
+};
 export const simpleMockUserClient = new SimpleMockUserClient(args);
 export const simpleMockTeamClient = new SimpleMockTeamClient(args);
 export const simpleMockAgentClient = new SimpleMockAgentClient(args);

@@ -101,48 +101,54 @@ export const mockActionsFetchExecution = () => {
 			errors: [],
 			entities: [
 				{
-					id: "11",
-					text: "Backlog",
+					id: '11',
+					text: 'Backlog',
 					style: {
-						appearance: "default"
+						appearance: 'default',
 					},
+					transitionId: '711',
 				},
 				{
-					id: "21",
-					text: "Selected for Development",
+					id: '21',
+					text: 'Selected for Development',
 					style: {
-						appearance: "moved"
+						appearance: 'moved',
 					},
+					transitionId: '11',
 				},
 				{
-					id: "31",
-					text: "In Progress",
+					id: '31',
+					text: 'In Progress',
 					style: {
-						appearance: "inprogress"
+						appearance: 'inprogress',
 					},
+					transitionId: '2',
 				},
 				{
-					id: "41",
-					text: "Done",
+					id: '41',
+					text: 'Done',
 					style: {
-						appearance: "success"
+						appearance: 'success',
 					},
+					transitionId: '1000',
 				},
 				{
-					id: "51",
-					text: "Pending",
+					id: '51',
+					text: 'Pending',
 					style: {
-						appearance: "removed"
+						appearance: 'removed',
 					},
+					transitionId: '1001',
 				},
 				{
-					id: "61",
-					text: "some new status",
+					id: '61',
+					text: 'some new status',
 					style: {
-						appearance: "new"
+						appearance: 'new',
 					},
-				}
-			]
+					transitionId: '1002',
+				},
+			],
 		}),
 		{
 			delay: 100,

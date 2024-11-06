@@ -1,5 +1,15 @@
 # @atlaskit/tokens
 
+## 2.2.0
+
+### Minor Changes
+
+- [#160957](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160957)
+  [`d0fdd33f28249`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0fdd33f28249) -
+  [ux] Default typography theme changed to modernized behind feature flag
+  `platform-default-typography-modernized`. If testing is successful the change will be available in
+  a later release.
+
 ## 2.1.0
 
 ### Minor Changes

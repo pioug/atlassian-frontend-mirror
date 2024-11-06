@@ -361,9 +361,7 @@ export default function ProfilecardTriggerNext({
 	const profilecardProps: ProfilecardProps = {
 		userId: userId,
 		fullName: prepopulatedData?.fullName,
-		isCurrentUser: fg('migrate_cloud_user_to_agg_user_query_profile_card')
-			? userId === viewingUserId
-			: data?.isCurrentUser,
+		isCurrentUser: userId === viewingUserId,
 		clientFetchProfile: clientFetchProfile,
 		...data,
 		reportingLines: reportingLinesData,

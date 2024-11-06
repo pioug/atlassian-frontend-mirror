@@ -7,10 +7,9 @@ import ImageIcon from '../../core/image';
 import OfficeBuildingIcon from '../../core/office-building';
 import StopwatchIcon from '../../core/stopwatch';
 
-
 const IconDefaultNewExample = () => {
 	return (
-		<Inline space='space.100'>
+		<Inline space="space.100">
 			<Box>
 				<ImageIcon label="" />
 			</Box>

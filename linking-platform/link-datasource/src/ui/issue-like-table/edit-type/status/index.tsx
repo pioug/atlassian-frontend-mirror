@@ -12,12 +12,13 @@ import Lozenge from '@atlaskit/lozenge';
 import { type FilterOptionOption } from '@atlaskit/react-select/src/filters';
 import Select from '@atlaskit/select';
 
+import type { ExecuteFetch } from '../../../../state/actions';
 import type { DatasourceTypeWithOnlyValues } from '../../types';
 
 interface Props extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyValues;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
-	executeFetch?: <E>(inputs: any) => Promise<E>;
+	executeFetch?: ExecuteFetch;
 }
 
 const StatusEditType = (props: Props) => {
@@ -84,12 +85,11 @@ const useStatusOptions = (
 
 const loadOptions = async (
 	currentValue: DatasourceTypeWithOnlyValues,
-	executeFetch?: <E>(inputs: any) => Promise<E>,
+	executeFetch?: ExecuteFetch,
 ): Promise<Status[]> => {
 	if (executeFetch) {
-		const result = await executeFetch<AtomicActionExecuteResponse<Status>>({
-			[currentValue.type]: currentValue.values[0],
-		});
+		const result = await executeFetch<AtomicActionExecuteResponse<Status>>({});
+
 		const { operationStatus, entities } = result;
 
 		if (operationStatus === ActionOperationStatus.SUCCESS && entities) {

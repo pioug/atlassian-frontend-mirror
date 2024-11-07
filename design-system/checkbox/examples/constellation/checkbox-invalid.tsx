@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, ErrorMessage, FormFooter } from '@atlaskit/form';
-
-import { Checkbox } from '../../src';
 
 interface FormData {
 	[key: string]: string;

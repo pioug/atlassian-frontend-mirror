@@ -7,13 +7,12 @@ import { useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import Calendar from '@atlaskit/calendar';
+import type { WeekDay } from '@atlaskit/calendar/types';
 import { Label } from '@atlaskit/form';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 import { Box, xcss } from '@atlaskit/primitives';
 import Select, { type ValueType } from '@atlaskit/select';
-
-import Calendar from '../../src';
-import type { WeekDay } from '../../src/types';
 
 const localeContainerStyles = xcss({ maxWidth: '300px' });
 const localeInputStyles = css({ marginBlockStart: '-0.5em' });

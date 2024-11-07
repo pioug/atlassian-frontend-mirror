@@ -1,9 +1,8 @@
 import React from 'react';
 
+import Banner from '@atlaskit/banner';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import Link from '@atlaskit/link';
-
-import Banner from '../src';
 
 const Icon = <ErrorIcon label="Error" secondaryColor="inherit" />;
 

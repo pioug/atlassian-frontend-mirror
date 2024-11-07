@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 1.10.0
+
+### Minor Changes
+
+- [#159728](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159728)
+  [`55ccdb1b96f3e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/55ccdb1b96f3e) -
+  Height is now optional on AgentBanner
+
 ## 1.9.1
 
 ### Patch Changes

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import { Checkbox } from '@atlaskit/checkbox';
+import Comment, { CommentAction, CommentAuthor, CommentTime } from '@atlaskit/comment';
 import { Box } from '@atlaskit/primitives';
 
-import Comment, { CommentAction, CommentAuthor, CommentTime } from '../../src';
 import sampleAvatar from '../images/avatar_400x400.jpg';
 
 const CommentDefaultExample = () => {

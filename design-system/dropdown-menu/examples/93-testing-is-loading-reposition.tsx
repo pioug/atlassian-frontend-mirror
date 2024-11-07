@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Inline from '@atlaskit/primitives/inline';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => {
 	const [isLoading, setLoading] = useState(true);

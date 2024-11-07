@@ -17,17 +17,17 @@ export type RendererAppearance =
  *
  * They will be cleaned up ASAP after Confluence refactors its page layout to add an explicit scroll container (DISCO-3121)
  *
- * `defaultScrollRoot_DO_NOT_USE` - defaults to undefined - can be used to specify the default OverflowParent if the table
- *      doesn't have a parent that explicitly specifies `overflow: scroll` or `overflow-y: scroll`. When undefined, the
- *      default OverflowParent will be the window
- * `defaultScrollRootTop_DO_NOT_USE` - defaults to 0 - can be used to specify any offset that should be applied to the
- *      sticky table header offset but does not need to be included when determining if the header should be sticky.
- *      This is required bcause the llogic that determines if the header should be sticky takes the OverflowParent.offsetTop
+ * `defaultScrollRootId_DO_NOT_USE` - defaults to undefined - can be used to specify the id of default OverflowParent if
+ *      the table doesn't have a parent that explicitly specifies `overflow: scroll` or `overflow-y: scroll`. When undefined,
+ *      the default OverflowParent will be the window
+ * `shouldAddDefaultScrollRootOffsetTop_DO_NOT_USE` - defaults to false - can be used to specify that if the OverflowParent
+ *      is the default one specificed, then the sticky table header offset should include the OverflowParent offset.
+ *      This is required because the logic that determines if the header should be sticky always takes the OverflowParent.offsetTop
  *      into account. But the calculation to get the actual header offset does not.
  */
 type StickyHeaderConfig_DO_NOT_USE = {
-	defaultScrollRoot_DO_NOT_USE?: HTMLElement;
-	defaultScrollRootTop_DO_NOT_USE?: number;
+	defaultScrollRootId_DO_NOT_USE?: string;
+	shouldAddDefaultScrollRootOffsetTop_DO_NOT_USE?: boolean;
 };
 
 export type StickyHeaderConfig = {

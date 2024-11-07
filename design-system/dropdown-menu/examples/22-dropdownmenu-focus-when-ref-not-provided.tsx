@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
 import { Box, Inline } from '@atlaskit/primitives';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => {
 	return (

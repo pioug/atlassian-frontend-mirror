@@ -9,7 +9,7 @@ import EditorContext from '../../../ui/EditorContext';
 import WithEditorActions from '../../../ui/WithEditorActions';
 
 describe('WithEditorActions', () => {
-	ffTest.both('platform_editor_react18_phase2', 'react 18', () => {
+	ffTest.both('platform_editor_react18_phase2_v2', 'react 18', () => {
 		it('should render component with editorActions', () => {
 			const editorActions = new EditorActions();
 			const component = jest.fn(() => null);
@@ -23,7 +23,7 @@ describe('WithEditorActions', () => {
 		});
 	});
 
-	ffTest.both('platform_editor_react18_phase2', 'react 18', () => {
+	ffTest.both('platform_editor_react18_phase2_v2', 'react 18', () => {
 		it('should re-render component after editor is registered in editorActions', () => {
 			const mockEditorView: any = {};
 			const editorActions = new EditorActions();
@@ -42,7 +42,7 @@ describe('WithEditorActions', () => {
 		});
 	});
 
-	ffTest.both('platform_editor_react18_phase2', 'react 18', () => {
+	ffTest.both('platform_editor_react18_phase2_v2', 'react 18', () => {
 		it('should render component with editor actions even if they were registered before WithEditorActions component renders', () => {
 			const mockEditorView: any = {};
 			const editorActions = new EditorActions();

@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import { Label } from '@atlaskit/form';
-import { cities } from '../common/data';
-import { AsyncSelect, type OptionsType } from '../../src';
+import React from 'react';
 
-interface State {
-	inputValue: string;
-}
+import { Label } from '@atlaskit/form';
+import Select, { type OptionsType } from '@atlaskit/select';
+
+import { cities } from '../common/data';
 
 const filterCities = (inputValue: string) =>
 	cities.filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
@@ -17,28 +15,18 @@ const promiseOptions = (inputValue: string) =>
 		}, 1000);
 	});
 
-class WithPromises extends Component<{}, State> {
-	state = { inputValue: '' };
-
-	handleInputChange = (newValue: string) => {
-		const inputValue = newValue.replace(/\W/g, '');
-		this.setState({ inputValue });
-		return inputValue;
-	};
-
-	render() {
-		return (
-			<>
-				<Label htmlFor="async-select-example">What city do you live in?</Label>
-				<AsyncSelect
-					inputId="async-select-example"
-					cacheOptions
-					defaultOptions
-					loadOptions={promiseOptions}
-				/>
-			</>
-		);
-	}
-}
+const WithPromises = () => {
+	return (
+		<>
+			<Label htmlFor="async-select-example">What city do you live in?</Label>
+			<Select
+				inputId="async-select-example"
+				cacheOptions
+				defaultOptions
+				loadOptions={promiseOptions}
+			/>
+		</>
+	);
+};
 
 export default () => <WithPromises />;

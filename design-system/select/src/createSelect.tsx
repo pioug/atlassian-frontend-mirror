@@ -141,6 +141,9 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 					),
 					styles,
 				)}
+				// indicates react-select to be async by default using the base Select component
+				// so that makers can pass all async props on the base select to async load options.
+				isAsync
 			/>
 		);
 	});

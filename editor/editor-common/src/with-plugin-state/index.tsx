@@ -107,7 +107,7 @@ class WithPluginState<P extends NamedPluginKeys> extends React.Component<
 	}
 
 	render() {
-		if (fg('platform_editor_react18_phase2')) {
+		if (fg('platform_editor_react18_phase2_v2')) {
 			return <WithPluginStateNew {...this.props} />;
 		}
 		return <WithPluginStateOld {...this.props} />;

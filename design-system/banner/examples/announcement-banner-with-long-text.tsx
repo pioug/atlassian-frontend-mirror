@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Banner from '@atlaskit/banner';
 import { Text } from '@atlaskit/primitives';
-
-import Banner from '../src';
 
 export default () => (
 	<>

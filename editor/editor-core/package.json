@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "201.1.9",
+	"version": "201.1.11",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,9 +43,9 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^94.13.0",
+		"@atlaskit/editor-common": "^94.14.0",
 		"@atlaskit/editor-json-transformer": "^8.20.0",
-		"@atlaskit/editor-plugin-quick-insert": "1.6.1",
+		"@atlaskit/editor-plugin-quick-insert": "1.7.0",
 		"@atlaskit/editor-plugins": "^5.6.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
@@ -103,7 +103,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.156",
+		"@atlassian/search-provider": "2.4.157",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -243,7 +243,7 @@
 		"platform_editor_ssr_fix_block_controls": {
 			"type": "boolean"
 		},
-		"platform_editor_react18_mention_with_provider": {
+		"platform_editor_react18_mention_with_provider_fix": {
 			"type": "boolean"
 		},
 		"platform_editor_remove_use_preset_context": {
@@ -253,11 +253,11 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_react18_phase2": {
+		"platform_editor_react18_phase2_v2": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_react18_extension_component": {
+		"platform_editor_react18_extension_component_v2": {
 			"type": "boolean"
 		},
 		"platform_editor_context_panel_support_multiple": {

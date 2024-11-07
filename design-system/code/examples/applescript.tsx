@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CodeBlock } from '../src';
+import { CodeBlock } from '@atlaskit/code';
 
 const exampleCodeBlock = `12 + 2 * 5
 "DUMPtruck" is equal to "dumptruck"`;

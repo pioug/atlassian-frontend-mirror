@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { Box } from '@atlaskit/primitives';
-
 import DropdownMenu, {
 	DropdownItem,
 	DropdownItemCheckbox,
 	DropdownItemGroup,
 	DropdownItemRadio,
-} from '../src';
+} from '@atlaskit/dropdown-menu';
+import { Box } from '@atlaskit/primitives';
 
 export default () => (
 	<Box padding="space.150">

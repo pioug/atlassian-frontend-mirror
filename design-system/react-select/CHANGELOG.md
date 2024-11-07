@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.3.0
+
+### Minor Changes
+
+- [#160447](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160447)
+  [`515ed7a31a9fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/515ed7a31a9fb) -
+  Make async select by default in select
+
 ## 1.2.0
 
 ### Minor Changes

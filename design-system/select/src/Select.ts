@@ -4,14 +4,14 @@ import {
 	withAnalyticsContext,
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import ReactSelect from '@atlaskit/react-select';
+import AsyncSelect from '@atlaskit/react-select/async';
 
 import createSelect from './createSelect';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-export const SelectWithoutAnalytics = createSelect(ReactSelect);
+export const SelectWithoutAnalytics = createSelect(AsyncSelect);
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
 const Select = withAnalyticsContext({

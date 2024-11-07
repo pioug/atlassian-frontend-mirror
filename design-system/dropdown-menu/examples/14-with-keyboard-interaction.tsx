@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
 import ModalDialog, {
 	ModalBody,
@@ -10,8 +11,6 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 import { Box } from '@atlaskit/primitives';
 import Stack from '@atlaskit/primitives/stack';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => {
 	const [isModalOpen, setModalOpen] = useState(false);

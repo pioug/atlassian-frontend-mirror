@@ -1,8 +1,7 @@
 import React, { forwardRef } from 'react';
 
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import CheckIcon from '@atlaskit/icon/glyph/check';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 // CustomComponent should be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.
 const CustomComponent = forwardRef<HTMLAnchorElement, React.PropsWithChildren<{}>>(

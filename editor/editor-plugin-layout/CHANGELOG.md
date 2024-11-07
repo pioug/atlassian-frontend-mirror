@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.11.1
+
+### Patch Changes
+
+- [#161230](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161230)
+  [`70a438baa282b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70a438baa282b) -
+  [ux] Add equal distribution button on layout toolbar
+
 ## 1.11.0
 
 ### Minor Changes

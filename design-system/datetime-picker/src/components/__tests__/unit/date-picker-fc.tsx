@@ -57,6 +57,18 @@ describe('DatePicker', () => {
 		expect(input).toHaveValue('');
 	});
 
+	it('should be invalid when prop is passed', () => {
+		render(createDatePicker({ isInvalid: true }));
+
+		expect(getInput()).toBeInvalid();
+	});
+
+	it('should not be invalid when prop is passed', () => {
+		render(createDatePicker({ isInvalid: false }));
+
+		expect(getInput()).toBeValid();
+	});
+
 	it('should use provided value', () => {
 		render(createDatePicker({ value: exampleDate.iso }));
 

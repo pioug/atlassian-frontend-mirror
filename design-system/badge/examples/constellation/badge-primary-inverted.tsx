@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Badge from '../../src';
+import Badge from '@atlaskit/badge';
 
 const BadgePrimaryInvertedExample = () => {
 	return <Badge appearance="primaryInverted">{5}</Badge>;

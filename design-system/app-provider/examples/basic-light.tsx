@@ -1,8 +1,7 @@
 import React from 'react';
 
+import AppProvider, { useColorMode } from '@atlaskit/app-provider';
 import { Box } from '@atlaskit/primitives';
-
-import AppProvider, { useColorMode } from '../src';
 
 function Basic() {
 	const colorMode = useColorMode();

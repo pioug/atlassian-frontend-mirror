@@ -55,6 +55,18 @@ describe('DatePicker', () => {
 		expect(getInput()).not.toBeRequired();
 	});
 
+	it('should be invalid when prop is passed', () => {
+		render(createDatePicker({ isInvalid: true }));
+
+		expect(getInput()).toBeInvalid();
+	});
+
+	it('should not be invalid when prop is passed', () => {
+		render(createDatePicker({ isInvalid: false }));
+
+		expect(getInput()).toBeValid();
+	});
+
 	it('should have an empty value if none is provided', () => {
 		render(createDatePicker());
 

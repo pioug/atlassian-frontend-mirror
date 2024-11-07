@@ -206,7 +206,7 @@ const ToolbarItems = React.memo(
 					);
 
 				case 'input':
-					if (fg('platform_editor_react18_phase2')) {
+					if (fg('platform_editor_react18_phase2_v2')) {
 						return (
 							<InputNew
 								key={idx}

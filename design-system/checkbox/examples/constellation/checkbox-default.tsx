@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { Checkbox } from '@atlaskit/checkbox';
 import __noop from '@atlaskit/ds-lib/noop';
-
-import { Checkbox } from '../../src';
 
 const CheckboxDefaultExample = () => {
 	return (

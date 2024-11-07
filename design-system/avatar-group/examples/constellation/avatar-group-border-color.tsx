@@ -1,7 +1,8 @@
 import React from 'react';
 
+import AvatarGroup from '@atlaskit/avatar-group';
+
 import { getFreeToUseAvatarImage, RANDOM_USERS } from '../../examples-util/data';
-import AvatarGroup from '../../src';
 
 const AvatarGroupBorderColorExample = () => {
 	const data = RANDOM_USERS.map((d, i) => ({

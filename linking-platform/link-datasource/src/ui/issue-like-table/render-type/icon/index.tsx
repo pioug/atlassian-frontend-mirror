@@ -4,6 +4,9 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { type Icon } from '@atlaskit/linking-types';
+import { Box, xcss } from '@atlaskit/primitives';
+
+import TextRenderType from '../text';
 
 interface IconProps extends Icon {
 	testId?: string;
@@ -16,9 +19,17 @@ const IconWrapper = styled.div({
 	justifyContent: 'left',
 });
 
-export const ICON_TYPE_TEST_ID = 'link-datasource-render-type--icon';
+const textWrapperStyles = xcss({
+	marginLeft: 'space.100',
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
+});
 
-const IconRenderType = ({ label, source, testId = ICON_TYPE_TEST_ID }: IconProps) => {
+export const ICON_TYPE_TEST_ID = 'link-datasource-render-type--icon';
+export const ICON_TYPE_TEXT_TEST_ID = `${ICON_TYPE_TEST_ID}-text`;
+
+const IconRenderType = ({ label, text, source, testId = ICON_TYPE_TEST_ID }: IconProps) => {
 	return (
 		<IconWrapper>
 			<img
@@ -28,6 +39,11 @@ const IconRenderType = ({ label, source, testId = ICON_TYPE_TEST_ID }: IconProps
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={{ minWidth: '20px', maxWidth: '20px' }} // having just width: '20px' shrinks it when table width is reduced
 			/>
+			{text && (
+				<Box xcss={textWrapperStyles}>
+					<TextRenderType testId={ICON_TYPE_TEXT_TEST_ID} text={text}></TextRenderType>
+				</Box>
+			)}
 		</IconWrapper>
 	);
 };

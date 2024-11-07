@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Calendar from '../src';
+import Calendar from '@atlaskit/calendar';
 
 export default () => {
 	return (

@@ -72,7 +72,7 @@ describe(name, () => {
 	});
 
 	describe('WithPluginState', () => {
-		ffTest.both('platform_editor_react18_phase2', 'react 18', () => {
+		ffTest.both('platform_editor_react18_phase2_v2', 'react 18', () => {
 			it('should call render with current plugin state', () => {
 				const pluginState = {};
 				const plugin = createPlugin(pluginState, pluginKey);
@@ -242,7 +242,7 @@ describe(name, () => {
 		editorView.destroy();
 	});
 
-	ffTest.off('platform_editor_react18_phase2', 'react 18', () => {
+	ffTest.off('platform_editor_react18_phase2_v2', 'react 18', () => {
 		it('should clean all listeners after unmount', () => {
 			const pluginState = {};
 			const plugin = createPlugin(pluginState, pluginKey);
@@ -266,7 +266,7 @@ describe(name, () => {
 			expect(wpsInstance.listeners).toEqual([]);
 		});
 
-		ffTest.on('platform_editor_react18_phase2', 'react 18', () => {
+		ffTest.on('platform_editor_react18_phase2_v2', 'react 18', () => {
 			it('should clean all listeners after unmount', () => {
 				const pluginState = {};
 				const plugin = createPlugin(pluginState, pluginKey);

@@ -6,13 +6,13 @@ import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type {
 	Command,
 	ExtractInjectionAPI,
+	QuickInsertSearchOptions,
 	QuickInsertSharedState,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { closeElementBrowserModal } from '../../pm-plugins/commands';
 import type { QuickInsertPlugin } from '../../quickInsertPluginType';
-import { getQuickInsertSuggestions } from '../search';
 
 import ModalElementBrowser from './ModalElementBrowser';
 
@@ -27,6 +27,7 @@ const Modal = ({
 	editorView,
 	helpUrl,
 	insertItem,
+	getSuggestions,
 }: {
 	editorView: EditorView;
 	quickInsertState: QuickInsertSharedState | undefined;
@@ -35,18 +36,17 @@ const Modal = ({
 		item: QuickInsertItem,
 		source?: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR,
 	) => Command;
+	getSuggestions?: (searchOptions: QuickInsertSearchOptions) => QuickInsertItem[];
 }) => {
 	const getItems = useCallback(
 		(query?: string, category?: string) =>
-			getQuickInsertSuggestions(
-				{
-					query,
-					category,
-				},
-				quickInsertState?.lazyDefaultItems,
-				quickInsertState?.providedItems,
-			),
-		[quickInsertState?.lazyDefaultItems, quickInsertState?.providedItems],
+			getSuggestions?.({
+				query,
+				category,
+			}) ?? [],
+		// See: https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/157796/overview?commentId=8559952
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[getSuggestions, quickInsertState?.lazyDefaultItems, quickInsertState?.providedItems],
 	);
 
 	const focusInEditor = useCallback(() => {
@@ -109,6 +109,7 @@ export default ({ editorView, helpUrl, pluginInjectionAPI }: Props) => {
 			editorView={editorView}
 			helpUrl={helpUrl}
 			insertItem={pluginInjectionAPI?.quickInsert?.actions?.insertItem}
+			getSuggestions={pluginInjectionAPI?.quickInsert?.actions?.getSuggestions}
 		/>
 	);
 };

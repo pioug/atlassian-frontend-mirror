@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { Box } from '@atlaskit/primitives';
-
-import Breadcrumbs, { BreadcrumbsItem } from '../../src';
 
 const BreadcrumbsBeforeAfterCollapseExample = () => {
 	return (

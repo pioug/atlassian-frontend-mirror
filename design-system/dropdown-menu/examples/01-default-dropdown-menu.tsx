@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
 // CustomComponent should be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.
 const CustomComponent = forwardRef<HTMLButtonElement, React.PropsWithChildren<{}>>(

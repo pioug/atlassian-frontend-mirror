@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import { Checkbox } from '../src';
+import { Checkbox } from '@atlaskit/checkbox';
 
 const BasicUsageExample = class extends PureComponent {
 	render() {

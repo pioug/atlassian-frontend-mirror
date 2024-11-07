@@ -20,6 +20,14 @@ import SelectIndicatorsClear from '../../examples/constellation/select-indicator
 import SelectIndicatorsDropdown from '../../examples/constellation/select-indicators-dropdown';
 import SelectIndicatorsLoading from '../../examples/constellation/select-indicators-loading';
 
+## Async select
+
+Select now supports to handle loading data from remote sources by default, please use `loadOptions`
+prop that can be given a promise or callback that will eventually resolve to its list of options
+instead of `options`.
+
+<Example Component={SelectAsync} packageName="@atlaskit/select" />
+
 ## Single select
 
 Allows the user to select a single item from a dropdown list of options.

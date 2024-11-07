@@ -40,10 +40,9 @@ export default class Mention extends PureComponent<MentionProps, {}> {
 
 	private renderWithProvider = (providers: Providers) => {
 		const { accessLevel, eventHandlers, id, text, localId } = this.props;
-
 		const { mentionProvider, profilecardProvider } = providers;
 
-		if (fg('platform_editor_react18_mention_with_provider')) {
+		if (fg('platform_editor_react18_mention_with_provider_fix')) {
 			return (
 				<MentionWithProviders
 					id={id}

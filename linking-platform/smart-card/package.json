@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "30.2.0",
+	"version": "30.2.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,7 +44,7 @@
 		"@atlaskit/link-client-extension": "^2.4.0",
 		"@atlaskit/link-extractors": "^1.9.0",
 		"@atlaskit/linking-common": "^6.0.0",
-		"@atlaskit/linking-types": "^9.4.0",
+		"@atlaskit/linking-types": "^9.5.0",
 		"@atlaskit/logo": "^14.3.0",
 		"@atlaskit/lozenge": "^11.12.0",
 		"@atlaskit/menu": "^2.13.0",
@@ -54,7 +54,7 @@
 		"@atlaskit/popup": "^1.29.0",
 		"@atlaskit/primitives": "^13.0.0",
 		"@atlaskit/section-message": "^6.6.0",
-		"@atlaskit/select": "^18.4.0",
+		"@atlaskit/select": "^18.5.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/textarea": "^5.6.0",
 		"@atlaskit/textfield": "^6.5.0",

@@ -1,8 +1,7 @@
 import React from 'react';
 
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import CheckIcon from '@atlaskit/icon/glyph/check';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemElemAfterExample = () => {
 	return (

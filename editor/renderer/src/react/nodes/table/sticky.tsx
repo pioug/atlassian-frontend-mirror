@@ -229,7 +229,7 @@ export const StickyTable = ({
  */
 function findHorizontalOverflowScrollParent(
 	table: HTMLElement | null,
-	defaultScrollRootEl?: HTMLElement,
+	defaultScrollRootId?: string,
 ): HTMLElement | null {
 	let parent: HTMLElement | null = table;
 	if (!parent) {
@@ -243,9 +243,9 @@ function findHorizontalOverflowScrollParent(
 			return parent;
 		}
 
-		if (!!defaultScrollRootEl && defaultScrollRootEl === parent) {
-			// If a defaultScrollRootEl was specified and we reached it without finding a closer scroll parent,
-			// use the defaultScrollRootEl.
+		if (!!defaultScrollRootId && parent.id === defaultScrollRootId) {
+			// If a defaultScrollRootId was specified and we reached the element with this id without finding a closer
+			// scroll parent, use this element as the scroll parent
 			return parent;
 		}
 	}
@@ -258,14 +258,22 @@ export class OverflowParent {
 		this.ref = ref;
 	}
 
-	static fromElement(el: HTMLElement | null, defaultScrollRootEl?: HTMLElement) {
+	static fromElement(el: HTMLElement | null, defaultScrollRootId?: string) {
 		return new OverflowParent(
-			findHorizontalOverflowScrollParent(el, defaultScrollRootEl) || window,
+			findHorizontalOverflowScrollParent(el, defaultScrollRootId) || window,
 		);
 	}
 
 	get isElement() {
 		return this.ref instanceof HTMLElement;
+	}
+
+	get id() {
+		if (this.ref instanceof HTMLElement) {
+			return this.ref.id;
+		}
+
+		return '';
 	}
 
 	get top() {

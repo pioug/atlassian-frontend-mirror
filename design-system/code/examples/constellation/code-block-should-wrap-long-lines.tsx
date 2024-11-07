@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
+import { CodeBlock } from '@atlaskit/code';
 import { Label } from '@atlaskit/form';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
-
-import { CodeBlock } from '../../src';
 
 const exampleCodeBlock = `import Message from '../../../src/packages/components/example-of-a-really-long-import-path/message'
 

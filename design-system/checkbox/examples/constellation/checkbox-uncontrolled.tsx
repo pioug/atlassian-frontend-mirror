@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Checkbox } from '../../src';
+import { Checkbox } from '@atlaskit/checkbox';
 
 const CheckboxUncontrolledExample = () => (
 	<Checkbox

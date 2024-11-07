@@ -1,9 +1,8 @@
 import React from 'react';
 
+import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { AtlassianIcon } from '@atlaskit/logo';
 import { token } from '@atlaskit/tokens';
-
-import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
 export default () => (
 	<div>

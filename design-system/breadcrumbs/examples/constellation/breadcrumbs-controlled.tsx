@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
+import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives';
-
-import Breadcrumbs, { BreadcrumbsItem } from '../../src';
 
 const BreadcrumbsControlledExample = () => {
 	const [isExpanded, setExpanse] = useState(false);

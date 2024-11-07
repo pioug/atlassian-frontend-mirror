@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.10.7
+
+### Patch Changes
+
+- [#160856](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160856)
+  [`cac6f93b64bae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cac6f93b64bae) -
+  [ux] changed iph empty search message to h2 for accessibility
+
 ## 7.10.6
 
 ### Patch Changes

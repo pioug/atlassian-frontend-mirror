@@ -1,10 +1,9 @@
 import React from 'react';
 
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import { ButtonItem } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 const NestedDropdown = ({ level = 0 }) => {
 	return (

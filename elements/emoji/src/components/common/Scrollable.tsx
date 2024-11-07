@@ -32,7 +32,7 @@ export default class Scrollable extends PureComponent<Props, {}> {
 			// Not using Element.scrollIntoView as it scrolls even to top/bottom of view even if
 			// already visible
 			const scrollableRect = this.scrollableDiv.getBoundingClientRect();
-			const elementRect = fg('platform_editor_react18_phase2')
+			const elementRect = fg('platform_editor_react18_phase2_v2')
 				? child.getBoundingClientRect()
 				: (findDOMNode(child) as Element).getBoundingClientRect();
 			if (forceToTop || elementRect.top < scrollableRect.top) {

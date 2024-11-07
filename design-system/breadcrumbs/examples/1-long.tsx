@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Breadcrumbs, { BreadcrumbsItem } from '../src';
+import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
 const BreadcrumbsExpand = () => {
 	const [isExpanded, setExpanse] = useState(false);

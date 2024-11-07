@@ -6,9 +6,8 @@
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import { Code } from '@atlaskit/code';
 import { token } from '@atlaskit/tokens';
-
-import { Code } from '../src';
 
 const jsCode = `const map = new Map({ key: 'value' })`;
 const adg4 = `ADG 4.0`;

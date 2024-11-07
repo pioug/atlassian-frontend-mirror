@@ -1,9 +1,8 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React from 'react';
 
+import Avatar, { type AppearanceType } from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
-
-import Avatar, { type AppearanceType } from '../src';
 
 import { Block, Code, Note } from './helpers';
 

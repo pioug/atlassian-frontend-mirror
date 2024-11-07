@@ -175,7 +175,11 @@ export const newApply = (
 	// Re-create node decorations
 	const isDecSetEmpty = decorations === DecorationSet.empty;
 	const isNodeDecsMissing = isDecSetEmpty || maybeNodeCountChanged;
-	const shouldRedrawNodeDecs = !isResizerResizing && isNodeDecsMissing;
+	const shouldRedrawNodeDecs =
+		!isResizerResizing &&
+		(fg('platform_editor_advanced_layouts_redraw_on_drag')
+			? isNodeDecsMissing || meta?.isDragging
+			: isNodeDecsMissing);
 
 	let isActiveNodeModified = false;
 

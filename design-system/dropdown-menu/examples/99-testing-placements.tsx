@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react';
 
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import { type Placement } from '@atlaskit/dropdown-menu/types';
 import { Box, Text, xcss } from '@atlaskit/primitives';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
-import { type Placement } from '../src/types';
 
 const gridStyles = xcss({
 	display: 'grid',

@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Banner from '@atlaskit/banner';
 import Link from '@atlaskit/link';
-
-import Banner from '../../src';
 
 const BannerAnnouncementExample = () => {
 	return (

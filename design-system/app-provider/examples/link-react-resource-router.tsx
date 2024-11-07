@@ -8,10 +8,8 @@ import {
 	Router,
 } from 'react-resource-router';
 
+import AppProvider, { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-provider';
 import { Box } from '@atlaskit/primitives';
-
-import AppProvider, { type RouterLinkComponentProps } from '../src';
-import useRouterLink from '../src/router-link-provider/hooks/use-router-link';
 
 type LinkConfig = Pick<LinkProps, 'to' | 'href' | 'replace'>;
 

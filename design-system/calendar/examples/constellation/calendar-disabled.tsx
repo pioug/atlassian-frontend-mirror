@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Calendar from '../../src';
+import Calendar from '@atlaskit/calendar';
 
 // Make sure your filter callback has a stable reference to avoid necessary re-renders,
 // either by defining it outside of the render function's scope or using useState

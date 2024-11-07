@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Code, CodeBlock } from '../src';
+import { Code, CodeBlock } from '@atlaskit/code';
 
 import { characters, codeSnippets } from './example-data/bidi-examples';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CodeBlock } from '../../src';
+import { CodeBlock } from '@atlaskit/code';
 
 const exampleCodeBlock = `	<Box>
 		Hello {this.props.name} // <- Bug on this line

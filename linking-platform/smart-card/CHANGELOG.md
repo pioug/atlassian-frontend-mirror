@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 30.2.1
+
+### Patch Changes
+
+- [#161372](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161372)
+  [`78671d9d71d26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/78671d9d71d26) -
+  Add aria-lable to smart link anchor
+
 ## 30.2.0
 
 ### Minor Changes

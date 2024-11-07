@@ -538,7 +538,7 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 }
 
 export const ExtensionComponent = (props: Props) => {
-	if (fg('platform_editor_react18_extension_component')) {
+	if (fg('platform_editor_react18_extension_component_v2')) {
 		return <ExtensionComponentNew {...props} />;
 	}
 	return <ExtensionComponentOld {...props} />;

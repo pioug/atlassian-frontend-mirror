@@ -1,8 +1,11 @@
 import React from 'react';
 
+import DropdownMenu, {
+	DropdownItem,
+	DropdownItemCheckbox,
+	DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
 import Inline from '@atlaskit/primitives/inline';
-
-import DropdownMenu, { DropdownItem, DropdownItemCheckbox, DropdownItemGroup } from '../src';
 
 export default () => (
 	<Inline space="space.600">

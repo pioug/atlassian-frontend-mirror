@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 1.15.5
+
+### Patch Changes
+
+- [#161245](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161245)
+  [`a4f0ead84f4b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4f0ead84f4b7) -
+  increase spacing on more formattin toolbar button
+
 ## 1.15.4
 
 ### Patch Changes

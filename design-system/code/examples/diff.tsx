@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CodeBlock } from '../src';
+import { CodeBlock } from '@atlaskit/code';
 
 const exampleCodeBlock = `-  const woah = fun => fun + 1;
 +  const dude = woah(2) + 3;

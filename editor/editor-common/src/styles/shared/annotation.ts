@@ -46,7 +46,7 @@ export const AnnotationSharedCSSByState = () => {
 				},
 			},
 			focus: css({
-				background: token('color.background.accent.yellow.subtler'),
+				background: token('color.background.accent.yellow.subtlest.pressed'),
 				borderBottomColor: token('color.border.accent.yellow'),
 				boxShadow: token('elevation.shadow.overlay'),
 			}),

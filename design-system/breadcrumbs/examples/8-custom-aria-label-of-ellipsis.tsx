@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Breadcrumbs, { BreadcrumbsItem } from '../src';
+import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
 export default () => {
 	const [label, setLabel] = useState<string>('');

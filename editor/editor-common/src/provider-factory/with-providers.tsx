@@ -22,7 +22,7 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 
 		const providers: Record<string, Promise<any> | undefined> = {};
 		this.props.providers.forEach((name) => {
-			if (fg('platform_editor_react18_phase2')) {
+			if (fg('platform_editor_react18_phase2_v2')) {
 				const providerPromise = props.providerFactory.subscribe(name, this.handleProviderIfMounted);
 				providers[name] = providerPromise;
 			} else {
@@ -40,7 +40,7 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 	}
 
 	UNSAFE_componentWillMount() {
-		if (!fg('platform_editor_react18_phase2')) {
+		if (!fg('platform_editor_react18_phase2_v2')) {
 			const { providers, providerFactory } = this.props;
 
 			providers.forEach((name) => {

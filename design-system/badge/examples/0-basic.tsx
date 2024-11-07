@@ -7,9 +7,8 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import Badge from '@atlaskit/badge';
 import { token } from '@atlaskit/tokens';
-
-import Badge from '../src';
 
 const itemStyles = css({
 	display: 'flex',

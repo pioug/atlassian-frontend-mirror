@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Breadcrumbs, { BreadcrumbsItem } from '../../src';
+import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
 const BreadcrumbsItemTruncationExample = () => {
 	return (

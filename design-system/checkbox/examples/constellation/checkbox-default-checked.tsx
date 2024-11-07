@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { Checkbox } from '@atlaskit/checkbox';
 import { Box } from '@atlaskit/primitives';
-
-import { Checkbox } from '../../src';
 
 const CheckboxDefaultCheckedExample = () => {
 	return (

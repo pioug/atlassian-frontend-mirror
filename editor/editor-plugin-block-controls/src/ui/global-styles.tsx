@@ -31,7 +31,7 @@ const extendedHoverZone = () =>
 				background: 'transparent',
 				cursor: 'default',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				zIndex: fg('platform_editor_element_dnd_nested_fix_patch_3') ? 1 : -1,
+				zIndex: -1,
 			},
 		},
 		// TODO - ED-23995 this style override needs to be moved to the Rule styles after FF cleanup - packages/editor/editor-common/src/styles/shared/rule.ts
@@ -77,7 +77,7 @@ const extendedHoverZoneNested = () =>
 				height: '100%',
 				cursor: 'default',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-				zIndex: fg('platform_editor_element_dnd_nested_fix_patch_3') ? 1 : -1,
+				zIndex: -1,
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&& :is(.pm-table-cell-content-wrap, .pm-table-header-content-wrap) > [data-drag-handler-anchor-name]::after':
@@ -258,6 +258,26 @@ const withRelativePosStyle = css({
 	},
 });
 
+const withAnchorNameZindexStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&& [data-drag-handler-anchor-name]': {
+			zIndex: 1,
+		},
+	},
+});
+
+const withAnchorNameZindexNestedStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&& [data-drag-handler-anchor-depth="0"][data-drag-handler-anchor-name]': {
+			zIndex: 1,
+		},
+	},
+});
+
 export const GlobalStylesWrapper = () => {
 	return (
 		<Global
@@ -277,7 +297,13 @@ export const GlobalStylesWrapper = () => {
 					? withFormatInLayoutStyleFix
 					: undefined,
 				fg('platform_editor_element_dnd_nested_fix_patch_3')
-					? [withRelativePosStyle, topLevelNodeMarginStyles]
+					? [
+							withRelativePosStyle,
+							topLevelNodeMarginStyles,
+							editorExperiment('nested-dnd', true)
+								? withAnchorNameZindexNestedStyle
+								: withAnchorNameZindexStyle,
+						]
 					: undefined,
 			]}
 		/>

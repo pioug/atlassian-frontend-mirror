@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 18.5.0
+
+### Minor Changes
+
+- [#160447](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160447)
+  [`515ed7a31a9fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/515ed7a31a9fb) -
+  Make async select by default in select
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.4.3
 
 ### Patch Changes

@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
+import AvatarGroup from '@atlaskit/avatar-group';
 import Modal, { ModalBody } from '@atlaskit/modal-dialog';
 
 import { RANDOM_USERS } from '../examples-util/data';
 import ExampleImage from '../examples-util/nucleus.png';
-import AvatarGroup from '../src';
 
 export default () => {
 	const data = RANDOM_USERS.slice(0, 8).map((d) => ({

@@ -8,6 +8,7 @@ import type {
 	UserBrowserExtensionResults,
 } from '../../utils';
 
+import { type AIDefinitionsEventPayload } from './ai-definitions-events';
 import type { AvatarEventPayload } from './avatar';
 import type { ConfigPanelEventPayload } from './config-panel-events';
 import type { ContextMenuEventPayload } from './context-menu-events';
@@ -109,7 +110,8 @@ export type AnalyticsEventPayload<T = void> =
 	| ViewEventPayload
 	| MediaUploadEventPayload
 	| MentionEventPayload
-	| EngagementPlatformEventPayload;
+	| EngagementPlatformEventPayload
+	| AIDefinitionsEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

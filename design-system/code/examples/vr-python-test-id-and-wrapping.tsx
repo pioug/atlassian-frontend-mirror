@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { CodeBlock } from '@atlaskit/code';
 import { Stack } from '@atlaskit/primitives';
-
-import { CodeBlock } from '../src';
 
 const exampleCodeBlock = `def factorial(n):
 """

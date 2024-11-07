@@ -1,9 +1,8 @@
 import React from 'react';
 
+import Banner from '@atlaskit/banner';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { Box, Stack, Text } from '@atlaskit/primitives';
-
-import Banner from '../src';
 
 const Padded = ({ children }: { children: React.ReactNode }) => (
 	<Box paddingInline="space.200">

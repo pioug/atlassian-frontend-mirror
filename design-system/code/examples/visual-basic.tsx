@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CodeBlock } from '../src';
+import { CodeBlock } from '@atlaskit/code';
 
 const exampleCodeBlock = `Function AddNumbers(ByVal X As Integer, ByVal Y As Integer)
   AddNumbers = X + Y

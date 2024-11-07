@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Calendar from '@atlaskit/calendar';
 import Box from '@atlaskit/primitives/box';
-
-import Calendar from '../src';
 
 const log = (msg: string) => (e: any) => console.log(msg, e);
 

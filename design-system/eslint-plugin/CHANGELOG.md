@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.23.2
+
+### Patch Changes
+
+- [#161311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161311)
+  [`adbfbbf9f7aa0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/adbfbbf9f7aa0) -
+  Updated `no-deprecated-apis` rule to mark Heading `level` prop as deprecated.
+
 ## 10.23.1
 
 ### Patch Changes

@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { Label } from '@atlaskit/form';
 import Spinner from '@atlaskit/spinner';
+
+import Select from '../../src';
+import { type LoadingIndicatorProps, type OptionType } from '../../src/types';
 import { cities } from '../common/data';
-import { AsyncSelect } from '../../src';
-import { type OptionType, type LoadingIndicatorProps } from '../../src/types';
 
 const LoadingIndicator = (props: LoadingIndicatorProps<OptionType>) => {
 	return <Spinner {...props} />;
@@ -23,7 +25,7 @@ export default () => {
 	return (
 		<>
 			<Label htmlFor="indicators-loading">What city do you live in?</Label>
-			<AsyncSelect
+			<Select
 				inputId="indicators-loading"
 				cacheOptions
 				defaultOptions

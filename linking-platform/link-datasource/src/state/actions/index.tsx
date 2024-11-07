@@ -5,6 +5,7 @@ import { type Action, createActionsHook, createHook, createStore } from 'react-s
 import { useDatasourceClientExtension } from '@atlaskit/link-client-extension';
 import type {
 	ActionsDiscoveryRequest,
+	AtomicActionExecuteRequest,
 	AtomicActionExecuteResponse,
 	AtomicActionInterface,
 } from '@atlaskit/linking-types';
@@ -242,6 +243,9 @@ export const useAtomicUpdateActionSchema = createHook(ActionsStore, {
 	selector: getFieldUpdateActionByAri,
 });
 
+export type ExecuteFetch = <E>(
+	inputs: AtomicActionExecuteRequest['parameters']['inputs'],
+) => Promise<E>;
 /**
  * Given an ARI + fieldKey + integrationKey
  * Returns an executable action that updates a field on the entity if the user has permissions to do so
@@ -263,7 +267,7 @@ export const useExecuteAtomicAction = ({
 	integrationKey: string;
 }): {
 	execute?: (value: string | number) => Promise<AtomicActionExecuteResponse<unknown>>;
-	executeFetch?: <E>(inputs: any) => Promise<E>;
+	executeFetch?: ExecuteFetch;
 } => {
 	const [{ schema, fetchSchema }] = useAtomicUpdateActionSchema({ ari, fieldKey, integrationKey });
 
@@ -313,7 +317,7 @@ export const useExecuteAtomicAction = ({
 	);
 
 	const executeFetch = useCallback(
-		<E,>(inputs: any) => {
+		<E,>(inputs: AtomicActionExecuteRequest['parameters']['inputs']) => {
 			if (!fetchSchema) {
 				throw new Error('No supporting action schema found.');
 			}

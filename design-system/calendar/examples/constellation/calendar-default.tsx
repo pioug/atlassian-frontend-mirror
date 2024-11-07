@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Calendar from '../../src';
+import Calendar from '@atlaskit/calendar';
 
 const defaultPreviouslySelected = ['2020-12-06'];
 const defaultSelected = ['2020-12-08'];

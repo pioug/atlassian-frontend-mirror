@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import cases from 'jest-in-case';
 import selectEvent from 'react-select-event';
 
-import AtlaskitSelect from '../../..';
+import AtlaskitSelect from '../../../index';
+interface Option {
+	readonly label: string;
+	readonly value: string;
+}
 
 jest.mock('../../../utils/grouped-options-announcement', () => {
 	const originalModule = jest.requireActual<
@@ -29,6 +34,43 @@ const OPTIONS = [
 ];
 
 describe('Select', () => {
+	// test cases for async select using Select
+	cases(
+		'async load options',
+		async ({ props, expectOptionLength }: any) => {
+			render(<AtlaskitSelect classNamePrefix="react-select" menuIsOpen {...props} />);
+
+			await waitFor(() => {
+				expect(screen.getAllByRole('option').length).toBe(expectOptionLength);
+			});
+		},
+		{
+			'with callback  > should resolve options with defaultOptions true': {
+				props: {
+					defaultOptions: true,
+					loadOptions: (inputValue: string, callBack: (options: readonly Option[]) => void) =>
+						callBack([OPTIONS[0]]),
+				},
+				expectOptionLength: 1,
+			},
+			'with promise  > should resolve options with defaultOptions true': {
+				props: {
+					defaultOptions: true,
+					loadOptions: () => Promise.resolve([OPTIONS[0]]),
+				},
+				expectOptionLength: 1,
+			},
+			'with cacheOptions  > should resolve options with defaultOptions true': {
+				props: {
+					defaultOptions: true,
+					cacheOptions: true,
+					loadOptions: () => Promise.resolve(OPTIONS),
+				},
+				expectOptionLength: OPTIONS.length,
+			},
+		},
+	);
+
 	// temporarily skip this test as part of DST-2476 resolution
 	it.skip('should load the animated component as default', () => {
 		render(<AtlaskitSelect aria-label="Options" />);

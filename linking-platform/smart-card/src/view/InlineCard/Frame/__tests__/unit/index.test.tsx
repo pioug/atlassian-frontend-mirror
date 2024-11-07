@@ -69,6 +69,16 @@ describe('Frame', () => {
 			await expect(container).toBeAccessible();
 		});
 
+		it('should be accessible with children', async () => {
+			const { container } = render(<Frame link="www.link-url">This is my link</Frame>);
+			await expect(container).toBeAccessible();
+		});
+
+		it('should be accessible with empty whitespace as children', async () => {
+			const { container } = render(<Frame link="www.link-url"> </Frame>);
+			await expect(container).toBeAccessible();
+		});
+
 		it('should be accessible with span', async () => {
 			const { container } = render(<Frame />);
 			await expect(container).toBeAccessible();

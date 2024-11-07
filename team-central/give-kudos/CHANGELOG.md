@@ -1,5 +1,13 @@
 # @atlassian/give-kudos
 
+## 2.3.0
+
+### Minor Changes
+
+- [#161561](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161561)
+  [`81f0df6c487a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/81f0df6c487a1) -
+  [ux] Legacy icons migration behind feature flag
+
 ## 2.2.1
 
 ### Patch Changes

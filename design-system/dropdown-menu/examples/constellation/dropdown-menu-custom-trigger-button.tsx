@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/glyph/more';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuCustomTriggerButtonExample = () => {
 	return (

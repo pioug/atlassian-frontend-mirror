@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { CommentAction, CommentAuthor, CommentEdited, CommentTime } from '@atlaskit/comment';
 import Stack from '@atlaskit/primitives/stack';
-
-import { CommentAction, CommentAuthor, CommentEdited, CommentTime } from '../src';
 
 export default () => (
 	<Stack space="space.100">

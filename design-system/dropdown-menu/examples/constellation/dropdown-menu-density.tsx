@@ -6,9 +6,12 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import DropdownMenu, {
+	DropdownItem,
+	DropdownItemCheckbox,
+	DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
 import { Inline } from '@atlaskit/primitives';
-
-import DropdownMenu, { DropdownItem, DropdownItemCheckbox, DropdownItemGroup } from '../../src';
 
 export default () => (
 	<Inline space="space.600">

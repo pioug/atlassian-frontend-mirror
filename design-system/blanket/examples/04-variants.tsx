@@ -9,6 +9,7 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Badge from '@atlaskit/badge';
+import Blanket from '@atlaskit/blanket';
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import { useCloseOnEscapePress } from '@atlaskit/layering';
@@ -17,8 +18,6 @@ import { fontSize } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
-
-import Blanket from '../src';
 
 const labelStyles = css({
 	display: 'inline-block',

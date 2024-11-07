@@ -37,7 +37,7 @@ class RecentLink extends React.Component<
 	};
 
 	UNSAFE_componentWillReceiveProps(nextProps: RecentSearchProps) {
-		if (!fg('platform_editor_react18_phase2')) {
+		if (!fg('platform_editor_react18_phase2_v2')) {
 			if (this.props.defaultUrl !== nextProps.defaultUrl) {
 				this.setState((state: RecentSearchState) => {
 					if (state.url !== nextProps.defaultUrl) {
@@ -54,7 +54,7 @@ class RecentLink extends React.Component<
 	}
 
 	componentDidUpdate(prevProps: RecentSearchProps) {
-		if (fg('platform_editor_react18_phase2')) {
+		if (fg('platform_editor_react18_phase2_v2')) {
 			if (prevProps.defaultUrl !== this.props.defaultUrl) {
 				this.setState((state: RecentSearchState) => {
 					if (state.url !== this.props.defaultUrl) {

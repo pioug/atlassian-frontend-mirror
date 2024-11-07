@@ -99,10 +99,42 @@ const layoutColumnStyles = () =>
 				}
 			`;
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+const layoutBorderStyles = (viewMode?: 'edit' | 'view') => css`
+	// TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
+	// This is because the default state already uses the same token and, as such, the hover style won't change anything.
+	// https://product-fabric.atlassian.net/browse/DSP-4441
+	/* Shows the border when cursor is inside a layout */
+	&.selected [data-layout-column],
+	&:hover [data-layout-column] {
+		border: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid ${token('color.border')};
+	}
+
+	&.selected.danger [data-layout-column] {
+		background-color: ${token('color.background.danger', akEditorDeleteBackground)};
+		border-color: ${token('color.border.danger', akEditorDeleteBorder)};
+	}
+
+	&.${akEditorSelectedNodeClassName}:not(.danger) {
+		[data-layout-column] {
+			${isPreRelease2()
+				? /* SelectionStyle.Border adds extra ::after content which clashes with hover zone for layout columns and is not needed for layout anyway
+				see platform/packages/editor/editor-shared-styles/src/selection/utils.ts(~L43)
+				*/
+					`border: ${akEditorSelectedBorder};
+			${getSelectionStyles([SelectionStyle.Blanket])}`
+				: `
+				${getSelectionStyles([SelectionStyle.Border, SelectionStyle.Blanket])}`}
+		}
+	}
+`;
+
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 	.ProseMirror {
-		${columnLayoutSharedStyle} [data-layout-section] {
+		${columnLayoutSharedStyle}
+
+		[data-layout-section] {
 			// TODO: Migrate away from gridSize
 			// Recommendation: Replace directly with 7px
 			margin: ${token('space.100', '8px')} -${akLayoutGutterOffset}px 0;
@@ -179,34 +211,12 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 			}
 
 			${layoutColumnStyles()}
+		}
 
-			// TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
-			// This is because the default state already uses the same token and, as such, the hover style won't change anything.
-			// https://product-fabric.atlassian.net/browse/DSP-4441
-			/* Shows the border when cursor is inside a layout */
-			&.selected [data-layout-column],
-			&:hover [data-layout-column] {
-				border: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
-					${token('color.border')};
-			}
-
-			&.selected.danger > [data-layout-column] {
-				background-color: ${token('color.background.danger', akEditorDeleteBackground)};
-				border-color: ${token('color.border.danger', akEditorDeleteBorder)};
-			}
-
-			&.${akEditorSelectedNodeClassName}:not(.danger) {
-				[data-layout-column] {
-					${isPreRelease2()
-						? /* SelectionStyle.Border adds extra ::after content which clashes with hover zone for layout columns and is not needed for layout anyway
-						see platform/packages/editor/editor-shared-styles/src/selection/utils.ts(~L43)
-						*/
-							`border: ${akEditorSelectedBorder};
-					${getSelectionStyles([SelectionStyle.Blanket])}`
-						: `
-						${getSelectionStyles([SelectionStyle.Border, SelectionStyle.Blanket])}`}
-				}
-			}
+		// styles to support borders for layout
+		[data-layout-section],
+		.layoutSectionView-content-wrap {
+			${layoutBorderStyles(viewMode)}
 		}
 	}
 

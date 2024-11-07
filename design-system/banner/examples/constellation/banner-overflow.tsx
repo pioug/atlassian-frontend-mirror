@@ -1,9 +1,8 @@
 import React from 'react';
 
+import Banner from '@atlaskit/banner';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import Banner from '../../src';
 
 const containerStyles = xcss({
 	maxWidth: '400px',

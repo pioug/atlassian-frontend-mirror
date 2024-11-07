@@ -2,8 +2,9 @@ import React from 'react';
 
 import { Label } from '@atlaskit/form';
 
+import Select, { type OptionsType } from '../src';
+
 import { cities } from './common/data';
-import { AsyncSelect, type OptionsType } from '../src';
 
 const filterCities = (inputValue: string) =>
 	cities.filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
@@ -17,7 +18,7 @@ const promiseOptions = (inputValue: string) =>
 const WithPromises = () => (
 	<>
 		<Label htmlFor="async-example">Which country do you live in?</Label>
-		<AsyncSelect inputId="async-example" cacheOptions defaultOptions loadOptions={promiseOptions} />
+		<Select inputId="async-example" cacheOptions defaultOptions loadOptions={promiseOptions} />
 	</>
 );
 

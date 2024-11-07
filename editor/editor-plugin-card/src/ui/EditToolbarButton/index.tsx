@@ -20,7 +20,6 @@ import {
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import type { DatasourceAdf } from '@atlaskit/link-datasource';
 import { ButtonItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -292,34 +291,32 @@ export const EditToolbarButton = (props: EditDatasourceToolbarButtonProps) => {
 	return (
 		<CardContextProvider>
 			{({ cardContext }) => {
-				if (fg('enable_datasource_nourl_edit_dropdown_datafetch')) {
-					if (props.url) {
-						return (
-							<EditToolbarButtonWithUrl
-								datasourceId={datasourceId}
-								url={props.url}
-								intl={intl}
-								editorAnalyticsApi={editorAnalyticsApi}
-								editorView={editorView}
-								cardContext={cardContext}
-								onLinkEditClick={onLinkEditClick}
-								currentAppearance={currentAppearance}
-							/>
-						);
-					}
-					if (props.datasourceId && props.node) {
-						return (
-							<EditToolbarButtonWithDatasourceId
-								datasourceId={props.datasourceId}
-								node={props.node}
-								intl={intl}
-								editorAnalyticsApi={editorAnalyticsApi}
-								editorView={editorView}
-								onLinkEditClick={onLinkEditClick}
-								currentAppearance={currentAppearance}
-							/>
-						);
-					}
+				if (props.url) {
+					return (
+						<EditToolbarButtonWithUrl
+							datasourceId={datasourceId}
+							url={props.url}
+							intl={intl}
+							editorAnalyticsApi={editorAnalyticsApi}
+							editorView={editorView}
+							cardContext={cardContext}
+							onLinkEditClick={onLinkEditClick}
+							currentAppearance={currentAppearance}
+						/>
+					);
+				}
+				if (props.datasourceId && props.node) {
+					return (
+						<EditToolbarButtonWithDatasourceId
+							datasourceId={props.datasourceId}
+							node={props.node}
+							intl={intl}
+							editorAnalyticsApi={editorAnalyticsApi}
+							editorView={editorView}
+							onLinkEditClick={onLinkEditClick}
+							currentAppearance={currentAppearance}
+						/>
+					);
 				}
 				return (
 					<EditToolbarButtonWithCardContext

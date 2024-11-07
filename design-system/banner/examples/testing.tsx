@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Banner from '@atlaskit/banner';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-
-import Banner from '../src';
 
 export default () => (
 	<Banner icon={<WarningIcon label="Warning" secondaryColor="inherit" />} testId="myBannerTestId">

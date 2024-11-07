@@ -3,11 +3,11 @@ import React, { type FC, useState } from 'react';
 import shuffle from 'lodash/shuffle';
 
 import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
+import AvatarGroup from '@atlaskit/avatar-group';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 
 import { RANDOM_USERS } from '../examples-util/data';
-import AvatarGroup from '../src';
 
 type State = {
 	avatarCount: number;

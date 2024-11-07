@@ -4,11 +4,11 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 
 import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
+import AvatarGroup from '@atlaskit/avatar-group';
 import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import { getFreeToUseAvatarImage, RANDOM_USERS } from '../../examples-util/data';
-import AvatarGroup from '../../src';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ButtonGroup = styled.div({

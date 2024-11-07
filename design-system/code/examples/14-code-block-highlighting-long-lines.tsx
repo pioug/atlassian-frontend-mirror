@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CodeBlock } from '../src';
+import { CodeBlock } from '@atlaskit/code';
 
 const exampleCodeBlock = `// React Component.  Curabitur placerat luctus massa, nec pharetra sapien condimentum a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum fringilla orci eu tempor. Praesent et felis aliquam, pellentesque velit id, bibendum lorem. Fusce vestibulum eros iaculis urna volutpat sodales. Mauris varius interdum condimentum. Cras eu consequat nunc. Aenean nulla risus, auctor ac sagittis sit amet, elementum vel ipsum.
 class HelloMessage extends React.Component {

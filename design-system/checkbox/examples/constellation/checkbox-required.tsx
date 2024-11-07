@@ -1,9 +1,8 @@
 import React, { type ChangeEvent, Fragment, useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, FormFooter } from '@atlaskit/form';
-
-import { Checkbox } from '../../src';
 
 const CheckboxRequiredExample = () => {
 	const [isChecked, setIsChecked] = useState(false);

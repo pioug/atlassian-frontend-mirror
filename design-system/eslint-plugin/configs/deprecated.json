@@ -38,6 +38,11 @@
 			{
 				"moduleSpecifier": "@atlaskit/button/new"
 			}
+		],
+		"level": [
+			{
+				"moduleSpecifier": "@atlaskit/heading"
+			}
 		]
 	},
 	"imports": {

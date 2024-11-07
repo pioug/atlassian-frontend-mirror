@@ -268,10 +268,13 @@ export enum ACTION_SUBJECT {
 	INLINE_DIALOG = 'inlineDialog',
 	ENGAGEMENT_PLATFORM = 'engagementPlatform',
 	MEDIA_VIEWER = 'mediaViewer',
+	DECORATION = 'decoration',
 }
 
 export enum ACTION_SUBJECT_ID {
 	ACTION = 'action',
+	AI_DEFINITIONS_DEFINE_BUTTON = 'aiDefinitionsDefineButton',
+	AI_DEFINITIONS_AUTO_HIGHLIGHT = 'aiDefinitionsAutoHighlight',
 	ALL = 'all',
 	ALT_TEXT = 'altText',
 	ANNOTATE_BUTTON = 'annotateButton',

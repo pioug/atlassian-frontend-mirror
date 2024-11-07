@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Badge from '@atlaskit/badge';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
-
-import Badge from '../src';
 
 const wrapperStyles = xcss({
 	backgroundColor: 'color.background.accent.red.subtlest',

@@ -101,9 +101,47 @@ const SIDEBAR_LAYOUT_TYPES: PresetLayoutButtonItem[] = [
 	},
 ];
 
+const LAYOUT_DISTRIBUTION_TYPES: PresetLayoutButtonItem[] = [
+	{
+		id: 'editor.layout.twoEquals',
+		type: 'two_equal',
+		title: toolbarMessages.twoColumns,
+		icon: LayoutTwoColumnsIcon,
+		iconFallback: LayoutTwoEqualIcon,
+	},
+	{
+		id: 'editor.layout.twoRightSidebar',
+		type: 'two_right_sidebar',
+		title: toolbarMessages.rightSidebar,
+		icon: LayoutTwoColumnsSidebarRightIcon,
+		iconFallback: LayoutTwoRightSidebarIcon,
+	},
+	{
+		id: 'editor.layout.twoLeftSidebar',
+		type: 'two_left_sidebar',
+		title: toolbarMessages.leftSidebar,
+		icon: LayoutTwoColumnsSidebarLeftIcon,
+		iconFallback: LayoutTwoLeftSidebarIcon,
+	},
+	{
+		id: 'editor.layout.threeEquals',
+		type: 'three_equal',
+		title: toolbarMessages.threeColumns,
+		icon: LayoutThreeColumnsIcon,
+		iconFallback: LayoutThreeEqualIcon,
+	},
+	{
+		id: 'editor.layout.threeWithSidebars',
+		type: 'three_with_sidebars',
+		title: toolbarMessages.threeColumnsWithSidebars,
+		icon: LayoutThreeColumnsSidebarsIcon,
+		iconFallback: LayoutThreeWithSidebarsIcon,
+	},
+];
+
 const SIDEBAR_LAYOUT_TYPES_BY_COLUMNS = {
-	2: [SIDEBAR_LAYOUT_TYPES[0], SIDEBAR_LAYOUT_TYPES[1]],
-	3: [SIDEBAR_LAYOUT_TYPES[2]],
+	2: [LAYOUT_DISTRIBUTION_TYPES[0], LAYOUT_DISTRIBUTION_TYPES[1], LAYOUT_DISTRIBUTION_TYPES[2]],
+	3: [LAYOUT_DISTRIBUTION_TYPES[3], LAYOUT_DISTRIBUTION_TYPES[4]],
 	4: [],
 	5: [],
 };

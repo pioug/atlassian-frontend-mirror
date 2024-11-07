@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { Inline } from '@atlaskit/primitives';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => {
 	const ref = useRef<HTMLInputElement>(null);

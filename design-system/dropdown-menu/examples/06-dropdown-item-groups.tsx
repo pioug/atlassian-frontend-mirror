@@ -1,6 +1,9 @@
 import React from 'react';
 
-import DropdownMenu, { DropdownItemCheckbox, DropdownItemCheckboxGroup } from '../src';
+import DropdownMenu, {
+	DropdownItemCheckbox,
+	DropdownItemCheckboxGroup,
+} from '@atlaskit/dropdown-menu';
 
 const DropdownMenuMultipleCheckboxGroup = () => (
 	<DropdownMenu trigger="Choices" testId="lite-mode-ddm" shouldRenderToParent>

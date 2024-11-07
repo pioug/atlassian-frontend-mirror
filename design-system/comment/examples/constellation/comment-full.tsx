@@ -1,8 +1,13 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import Comment, {
+	CommentAction,
+	CommentAuthor,
+	CommentEdited,
+	CommentTime,
+} from '@atlaskit/comment';
 
-import Comment, { CommentAction, CommentAuthor, CommentEdited, CommentTime } from '../../src';
 import sampleAvatar from '../images/avatar_400x400.jpg';
 
 const CommentFullExample = () => {

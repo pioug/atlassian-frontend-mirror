@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "4.4.0",
+	"version": "4.4.1",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,7 +37,7 @@
 		"@atlaskit/adf-schema": "^44.2.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/custom-steps": "^0.8.0",
-		"@atlaskit/editor-common": "^94.13.0",
+		"@atlaskit/editor-common": "^94.14.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-decorations": "^1.3.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.3.0",
@@ -54,7 +54,7 @@
 		"@atlaskit/link-client-extension": "^2.4.0",
 		"@atlaskit/link-datasource": "^3.8.0",
 		"@atlaskit/linking-common": "^6.0.0",
-		"@atlaskit/linking-types": "^9.4.0",
+		"@atlaskit/linking-types": "^9.5.0",
 		"@atlaskit/menu": "2.13.2",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.0.0",
@@ -110,9 +110,6 @@
 		"enable_datasource_react_sweet_state": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"enable_datasource_nourl_edit_dropdown_datafetch": {
-			"type": "boolean"
 		},
 		"platform-datasources-enable-two-way-sync": {
 			"type": "boolean"

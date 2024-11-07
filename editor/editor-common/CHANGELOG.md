@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 94.14.0
+
+### Minor Changes
+
+- [#160752](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160752)
+  [`d86736afc929e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d86736afc929e) -
+  EDF-1887: Add UI analytics tracking for button and highlight clicks and tie Editor and Definition
+  Modal events with common readingAidsSessionId
+
+## 94.13.1
+
+### Patch Changes
+
+- [#159985](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/159985)
+  [`99cf3fd57868b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/99cf3fd57868b) -
+  [ux] Changed comment annotation color to have correct yellow highlight background color
+
 ## 94.13.0
 
 ### Minor Changes

@@ -139,6 +139,12 @@ const items: Item[] = [
 			[
 				{
 					source: Image.trello,
+					label: 'Without-Text',
+				},
+				{
+					source: Image.trello,
+					text: 'Trello',
+					label: 'With-Text',
 				},
 			],
 		],

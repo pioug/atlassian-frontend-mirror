@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.8
+
+### Patch Changes
+
+- [#161257](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161257)
+  [`8272113e38746`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8272113e38746) -
+  Fix anchor name out of sync on edited node while dragging
+- Updated dependencies
+
+## 2.13.7
+
+### Patch Changes
+
+- [#160954](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160954)
+  [`3d5a71c2d5e22`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d5a71c2d5e22) -
+  Fix issue with zindex on DnD psudo-element
+
 ## 2.13.6
 
 ### Patch Changes

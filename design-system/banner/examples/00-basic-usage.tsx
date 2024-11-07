@@ -1,9 +1,8 @@
 import React from 'react';
 
+import Banner from '@atlaskit/banner';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import Box from '@atlaskit/primitives/box';
-
-import Banner from '../src';
 
 export default () => (
 	<Box>

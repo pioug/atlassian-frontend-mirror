@@ -1,10 +1,9 @@
 import React, { useCallback, useState } from 'react';
 
+import Blanket from '@atlaskit/blanket';
 import Button from '@atlaskit/button/new';
 import { useCloseOnEscapePress } from '@atlaskit/layering';
 import { Stack, Text } from '@atlaskit/primitives';
-
-import Blanket from '../src';
 
 const BasicExample = () => {
 	const [isBlanketVisible, setIsBlanketVisible] = useState(false);

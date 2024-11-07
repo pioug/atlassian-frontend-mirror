@@ -1,9 +1,8 @@
 import React from 'react';
 
+import { useColorMode, useSetColorMode, useSetTheme, useTheme } from '@atlaskit/app-provider';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { Box } from '@atlaskit/primitives';
-
-import { useColorMode, useSetColorMode, useSetTheme, useTheme } from '../../src';
 
 const AppProviderThemeCodeBlock = `import React from 'react';
 import { Box } from '@atlaskit/primitives';

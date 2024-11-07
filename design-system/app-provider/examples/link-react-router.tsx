@@ -2,10 +2,8 @@ import React, { forwardRef, type Ref } from 'react';
 
 import { BrowserRouter, Link, type LinkProps, Route, Switch } from 'react-router-dom';
 
+import AppProvider, { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-provider';
 import { Box } from '@atlaskit/primitives';
-
-import AppProvider, { type RouterLinkComponentProps } from '../src';
-import useRouterLink from '../src/router-link-provider/hooks/use-router-link';
 
 export type LinkConfig = Pick<LinkProps, 'to' | 'replace'>;
 

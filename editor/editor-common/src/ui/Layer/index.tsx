@@ -77,7 +77,7 @@ export default class Layer extends Component<Props, State> {
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		if (!fg('platform_editor_react18_phase2')) {
+		if (!fg('platform_editor_react18_phase2_v2')) {
 			this.applyPopper(nextProps);
 		}
 	}
@@ -85,7 +85,7 @@ export default class Layer extends Component<Props, State> {
 	componentDidUpdate(prevProps: Props, prevState: State) {
 		const { onPositioned } = this.props;
 		const { hasExtractedStyles } = this.state;
-		if (this.props !== prevProps && fg('platform_editor_react18_phase2')) {
+		if (this.props !== prevProps && fg('platform_editor_react18_phase2_v2')) {
 			this.applyPopper(this.props);
 		}
 

@@ -3,6 +3,7 @@ import React, { type KeyboardEvent, useState } from 'react';
 import { useOverflowStatus } from '@atlaskit/atlassian-navigation';
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/new';
+import { DropdownItem } from '@atlaskit/dropdown-menu';
 import { Label } from '@atlaskit/form';
 import EditorAddIcon from '@atlaskit/icon/glyph/add';
 import EditorPeopleIcon from '@atlaskit/icon/glyph/people-group';
@@ -11,8 +12,6 @@ import Popup from '@atlaskit/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
 import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-
-import { DropdownItem } from '../src';
 
 interface SearchDropdownItemProps {
 	setFilteredOptions: React.Dispatch<React.SetStateAction<{ label: string; value: string }[]>>;

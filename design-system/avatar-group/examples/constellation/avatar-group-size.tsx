@@ -1,9 +1,9 @@
 import React from 'react';
 
+import AvatarGroup from '@atlaskit/avatar-group';
 import { Stack } from '@atlaskit/primitives';
 
 import { getFreeToUseAvatarImage, RANDOM_USERS } from '../../examples-util/data';
-import AvatarGroup from '../../src';
 
 const AvatarGroupSizeExample = () => {
 	const data = RANDOM_USERS.slice(0, 8).map((d, i) => ({

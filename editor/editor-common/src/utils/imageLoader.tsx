@@ -156,7 +156,7 @@ const withImageLoaderNew = <P extends {}>(
 export const withImageLoader = <P extends {}>(
 	Wrapped: ComponentType<React.PropsWithChildren<P & ImageLoaderProps>>,
 ): React.ComponentClass<P & ImageLoaderProps> => {
-	if (fg('platform_editor_react18_phase2')) {
+	if (fg('platform_editor_react18_phase2_v2')) {
 		return withImageLoaderNew(Wrapped);
 	}
 	return withImageLoaderOld(Wrapped);

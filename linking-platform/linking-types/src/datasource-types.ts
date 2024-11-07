@@ -115,6 +115,7 @@ export interface LinkType {
 export interface Icon {
 	source: string;
 	label?: string;
+	text?: string;
 	id?: string;
 }
 

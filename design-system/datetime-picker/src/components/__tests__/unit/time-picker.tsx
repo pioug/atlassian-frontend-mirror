@@ -118,6 +118,24 @@ describe('TimePicker', () => {
 		expect(getInput()).toBeRequired();
 	});
 
+	it('should not be required when prop is passed', () => {
+		render(createTimePicker({ isRequired: false }));
+
+		expect(getInput()).not.toBeRequired();
+	});
+
+	it('should be invalid when prop is passed', () => {
+		render(createTimePicker({ isInvalid: true }));
+
+		expect(getInput()).toBeInvalid();
+	});
+
+	it('should not be invalid when prop is passed', () => {
+		render(createTimePicker({ isInvalid: false }));
+
+		expect(getInput()).toBeValid();
+	});
+
 	it('should have an empty value if none is provided', () => {
 		render(createTimePicker());
 
@@ -436,7 +454,7 @@ describe('TimePicker', () => {
 		const label = 'label';
 		render(createTimePicker({ label }));
 
-		const input = screen.getByRole('combobox');
+		const input = getInput();
 		expect(input).toHaveAttribute('aria-label', label);
 	});
 
@@ -444,7 +462,7 @@ describe('TimePicker', () => {
 		const describedBy = 'description';
 		render(createTimePicker({ 'aria-describedby': describedBy }));
 
-		const input = screen.getByRole('combobox');
+		const input = getInput();
 		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining(describedBy));
 	});
 });

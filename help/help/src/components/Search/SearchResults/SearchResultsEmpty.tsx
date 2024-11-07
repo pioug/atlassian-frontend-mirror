@@ -13,7 +13,11 @@ import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import NotFoundImage from '../../../assets/NotFoundImage';
 import { messages } from '../../../messages';
 
-import { SearchResultEmptyMessageImage, SearchResultEmptyMessageText } from './styled';
+import {
+	SearchResultEmptyMessageImage,
+	SearchResultEmptyMessageText,
+	SearchResultEmptyMessageHeaderText,
+} from './styled';
 
 export interface Props {
 	searchExternalUrl?: string;
@@ -43,9 +47,10 @@ export const SearchResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 			<SearchResultEmptyMessageImage>
 				<NotFoundImage />
 			</SearchResultEmptyMessageImage>
-
 			<SearchResultEmptyMessageText>
-				<strong>{formatMessage(messages.help_search_results_no_results)}</strong>
+				<SearchResultEmptyMessageHeaderText>
+					{formatMessage(messages.help_search_results_no_results)}
+				</SearchResultEmptyMessageHeaderText>
 			</SearchResultEmptyMessageText>
 			{searchExternalUrl && (
 				<SearchResultEmptyMessageText>

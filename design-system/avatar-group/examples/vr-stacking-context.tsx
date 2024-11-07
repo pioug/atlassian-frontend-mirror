@@ -6,10 +6,10 @@
 import { css, jsx } from '@emotion/react';
 
 import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
+import AvatarGroup from '@atlaskit/avatar-group';
 import { token } from '@atlaskit/tokens';
 
 import { RANDOM_USERS } from '../examples-util/data';
-import AvatarGroup from '../src';
 
 const containerStyles = css({
 	display: 'flex',

@@ -4,7 +4,7 @@ import DropdownMenuStateless, {
 	DropdownItemRadio,
 	DropdownItemRadioGroup,
 	type OnOpenChangeArgs,
-} from '../src';
+} from '@atlaskit/dropdown-menu';
 
 const DropdownMenuStatelessExample = () => {
 	const [isOpen, setIsOpen] = useState(false);

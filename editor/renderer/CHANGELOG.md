@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 112.4.1
+
+### Patch Changes
+
+- [#161210](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161210)
+  [`ffa275ccb1a59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ffa275ccb1a59) -
+  adjust temporary sticky table config options to accept an id rather than the HTMLElement
+- Updated dependencies
+
 ## 112.4.0
 
 ### Minor Changes

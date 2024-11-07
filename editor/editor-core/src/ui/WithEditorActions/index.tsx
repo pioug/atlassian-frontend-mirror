@@ -17,7 +17,7 @@ export default class WithEditorActions extends React.Component<WithEditorActions
 	}
 
 	render() {
-		if (fg('platform_editor_react18_phase2')) {
+		if (fg('platform_editor_react18_phase2_v2')) {
 			return <WithEditorActionsNew {...this.props} />;
 		}
 		return <WithEditorActionsOld {...this.props} />;

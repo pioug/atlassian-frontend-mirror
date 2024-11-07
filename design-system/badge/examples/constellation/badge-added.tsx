@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Badge from '../../src';
+import Badge from '@atlaskit/badge';
 
 const BadgeAddedExample = () => {
 	return <Badge appearance="added">+100</Badge>;

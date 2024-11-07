@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 1.7.0
+
+### Minor Changes
+
+- [`e9f1406d9e6fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9f1406d9e6fb) -
+  Use getSuggestions from quickInsert plugin so the search behavior is consistent amongst surface
+  areas
+
 ## 1.6.1
 
 ### Patch Changes

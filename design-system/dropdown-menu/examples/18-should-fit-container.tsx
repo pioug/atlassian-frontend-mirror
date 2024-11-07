@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 const spacerStyles = xcss({
 	margin: 'space.800',

@@ -207,7 +207,7 @@ describe('useExecuteAtomicAction', () => {
 			const { result } = setup({ fieldKey: 'status' });
 
 			const executeFetch = result.current.executeFetch;
-			executeFetch && (await executeFetch('new summary'));
+			executeFetch && (await executeFetch({ issueId: '123' }));
 			expect(mockFireEvent).toHaveBeenCalledTimes(1);
 			expect(mockFireEvent).toHaveBeenCalledWith('operational.fetchActionExecution.success', {
 				integrationKey: 'jira',
@@ -224,7 +224,7 @@ describe('useExecuteAtomicAction', () => {
 
 			const executeFetch = result.current.executeFetch;
 			try {
-				executeFetch && (await executeFetch('new summary'));
+				executeFetch && (await executeFetch({ issueId: '123' }));
 			} catch (err: any) {
 				// Error although caught and logged should be rethrown
 				expect(err.message).toBe('some error');
@@ -245,7 +245,7 @@ describe('useExecuteAtomicAction', () => {
 
 			const executeFetch = result.current.executeFetch;
 			try {
-				executeFetch && (await executeFetch('new summary'));
+				executeFetch && (await executeFetch({ issueId: '123' }));
 			} catch (err: any) {
 				// Error although caught and logged should be rethrown
 				expect(err.message).toBe('some error');

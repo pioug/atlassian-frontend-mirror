@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Badge from '../../src';
+import Badge from '@atlaskit/badge';
 
 const BadgeRemovedExample = () => {
 	return <Badge appearance="removed">-100</Badge>;

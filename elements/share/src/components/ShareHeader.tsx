@@ -23,7 +23,7 @@ const headerWrapperStyles = xcss({
 export const ShareHeader = ({ title }: Props) => {
 	return (
 		<Box xcss={headerWrapperStyles}>
-			<Heading level="h500">{title || <FormattedMessage {...messages.formTitle} />}</Heading>
+			<Heading size="small">{title || <FormattedMessage {...messages.formTitle} />}</Heading>
 		</Box>
 	);
 };

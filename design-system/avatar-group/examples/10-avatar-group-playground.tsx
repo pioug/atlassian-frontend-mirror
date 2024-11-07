@@ -1,6 +1,7 @@
 import React, { type FC, useState } from 'react';
 
 import { AVATAR_SIZES } from '@atlaskit/avatar';
+import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
@@ -9,7 +10,6 @@ import ArrowUp from '@atlaskit/icon/glyph/arrow-up';
 import Toggle from '@atlaskit/toggle';
 
 import { Code, Note } from '../examples-util/helpers';
-import AvatarGroup, { type AvatarGroupProps } from '../src';
 
 type State = {
 	avatarCount: number;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '../../src';
-import { type OnOpenChangeArgs } from '../../src/types';
+import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '@atlaskit/dropdown-menu';
+import { type OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 
 const DropdownOpenExample = () => {
 	const [isOpen, setIsOpen] = useState(false);

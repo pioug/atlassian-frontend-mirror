@@ -172,7 +172,7 @@ export const AssistiveTextNew = ({
 };
 
 export const AssistiveText = (props: AssistiveTextProps) => {
-	if (fg('platform_editor_react18_phase2')) {
+	if (fg('platform_editor_react18_phase2_v2')) {
 		return <AssistiveTextNew {...props} />;
 	} else {
 		return <AssistveTextOld {...props} />;

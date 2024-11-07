@@ -63,7 +63,7 @@ export const MentionWithProviders = ({
 	}, [profilecardProviderResolver]);
 
 	const MentionComponent =
-		profilecardProviderResolver && GENERIC_USER_IDS.indexOf(id) === -1
+		profilecardProvider && profilecardProviderResolver && GENERIC_USER_IDS.indexOf(id) === -1
 			? ResourcedMentionWithProfilecard
 			: ResourcedMention;
 

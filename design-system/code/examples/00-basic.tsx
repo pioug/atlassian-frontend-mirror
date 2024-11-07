@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Code, CodeBlock } from '../src';
+import { Code, CodeBlock } from '@atlaskit/code';
 
 const exampleCodeBlock = `// Longer snippets usually require <CodeBlock/>
 // CodeBlock supports line numbers syntax highlighting and accessible colors.

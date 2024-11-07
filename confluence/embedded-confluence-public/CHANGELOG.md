@@ -1,5 +1,13 @@
 # @atlaskit/embedded-confluence
 
+## 2.20.1
+
+### Patch Changes
+
+- [#161172](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161172)
+  [`c507711d92a7a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c507711d92a7a) -
+  [CBT-4069] Update embedded-confluence peer dependencies to support React 16.8.0 - 18.2.0
+
 ## 2.20.0
 
 ### Minor Changes

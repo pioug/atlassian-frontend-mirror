@@ -7,10 +7,9 @@ import { Fragment, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/new';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-
-import Banner from '../src';
 
 const Icon = <WarningIcon label="Warning" secondaryColor="inherit" />;
 

@@ -1,8 +1,10 @@
 import React from 'react';
 
+import DropdownMenu, {
+	DropdownItemCheckbox,
+	DropdownItemCheckboxGroup,
+} from '@atlaskit/dropdown-menu';
 import __noop from '@atlaskit/ds-lib/noop';
-
-import DropdownMenu, { DropdownItemCheckbox, DropdownItemCheckboxGroup } from '../src';
 
 const DropdownMenuCheckbox = () => (
 	<DropdownMenu trigger="Choices" onOpenChange={__noop} testId="lite-mode-ddm" shouldRenderToParent>

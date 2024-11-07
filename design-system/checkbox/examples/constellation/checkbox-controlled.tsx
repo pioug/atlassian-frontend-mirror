@@ -1,6 +1,6 @@
 import React, { type ChangeEvent, useCallback, useState } from 'react';
 
-import { Checkbox } from '../../src';
+import { Checkbox } from '@atlaskit/checkbox';
 
 const CheckboxControlledExample = () => {
 	const [isChecked, setIsChecked] = useState(true);

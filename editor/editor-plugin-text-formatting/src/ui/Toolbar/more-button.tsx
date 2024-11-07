@@ -51,7 +51,7 @@ export const MoreButton = React.memo(
 				iconBefore={
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={fg('platform-visual-refresh-icons') ? MoreIconStyle : triggerWrapperStyles}>
-						{<ShowMoreHorizontalIcon label="" color="currentColor" />}
+						{<ShowMoreHorizontalIcon label="" color="currentColor" spacing="compact" />}
 					</div>
 				}
 				aria-expanded={ariaExpanded}

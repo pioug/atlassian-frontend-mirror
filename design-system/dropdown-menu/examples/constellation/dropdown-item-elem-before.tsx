@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
 const DropdownItemElemBeforeExample = () => {
 	return (

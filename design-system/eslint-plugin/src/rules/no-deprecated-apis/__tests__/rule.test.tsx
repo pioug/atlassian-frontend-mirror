@@ -121,5 +121,14 @@ typescriptEslintTester.run(name, rule, {
 			errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
 			options: [{ deprecatedConfig: hasNamedSpecifiers }],
 		},
+		{
+			code: `import Heading from '@atlaskit/heading';
+
+        const Element = () => (
+          <Heading level="h700" />
+        );`,
+			errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
+			options: [{ deprecatedConfig: defaultMeta }],
+		},
 	],
 });

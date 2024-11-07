@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 201.1.11
+
+### Patch Changes
+
+- [#161054](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161054)
+  [`b0f65564c2b35`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b0f65564c2b35) -
+  Add react node view for layout class name to styles to fix border specificity issues
+
+## 201.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 201.1.9
 
 ### Patch Changes

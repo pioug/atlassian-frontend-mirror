@@ -1,10 +1,9 @@
 import React from 'react';
 
+import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import Button from '@atlaskit/button/new';
 import Select from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
-
-import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
 const data = [
 	<BreadcrumbsItem href="/item" key="Item" text="Item" />,

@@ -6,9 +6,8 @@
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import { Checkbox } from '@atlaskit/checkbox';
 import { token } from '@atlaskit/tokens';
-
-import { Checkbox } from '../src';
 
 const iframeStyles = css({
 	boxSizing: 'border-box',

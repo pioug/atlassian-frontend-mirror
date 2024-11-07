@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 4.4.1
+
+### Patch Changes
+
+- [#161054](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161054)
+  [`20f069140338e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20f069140338e) -
+  Remove enable_datasource_nourl_edit_dropdown_datafetch FF
+
 ## 4.4.0
 
 ### Minor Changes

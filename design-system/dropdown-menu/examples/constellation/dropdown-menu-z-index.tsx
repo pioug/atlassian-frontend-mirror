@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const containerStyles = xcss({
 	width: 'size.300',

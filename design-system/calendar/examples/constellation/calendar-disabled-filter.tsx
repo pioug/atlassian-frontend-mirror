@@ -3,7 +3,7 @@ import React from 'react';
 // eslint-disable-next-line no-restricted-imports
 import { parseISO } from 'date-fns';
 
-import Calendar from '../../src';
+import Calendar from '@atlaskit/calendar';
 
 // Make sure your filter callback has a stable reference to avoid necessary re-renders,
 // either by defining it outside of the render function's scope or using useCallback

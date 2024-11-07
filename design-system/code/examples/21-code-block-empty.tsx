@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Code, CodeBlock } from '../src';
+import { Code, CodeBlock } from '@atlaskit/code';
 
 export default function Component() {
 	return (

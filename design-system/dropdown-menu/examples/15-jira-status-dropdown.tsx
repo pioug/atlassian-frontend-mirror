@@ -1,10 +1,9 @@
 import React from 'react';
 
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Arrow from '@atlaskit/icon/glyph/arrow-right';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 const jiraItemStyles = xcss({
 	width: 'size.600',

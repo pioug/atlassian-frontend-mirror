@@ -244,7 +244,7 @@ export class TableContainer extends React.Component<
 		if (this.props.stickyHeaders) {
 			this.overflowParent = OverflowParent.fromElement(
 				this.tableRef.current,
-				this.props.stickyHeaders?.defaultScrollRoot_DO_NOT_USE,
+				this.props.stickyHeaders?.defaultScrollRootId_DO_NOT_USE,
 			);
 			this.overflowParent.addEventListener('scroll', this.onScroll);
 		}
@@ -259,7 +259,7 @@ export class TableContainer extends React.Component<
 		if (this.props.stickyHeaders && !this.overflowParent) {
 			this.overflowParent = OverflowParent.fromElement(
 				this.tableRef.current,
-				this.props.stickyHeaders?.defaultScrollRoot_DO_NOT_USE,
+				this.props.stickyHeaders?.defaultScrollRootId_DO_NOT_USE,
 			);
 		} else if (!this.props.stickyHeaders && this.overflowParent) {
 			this.overflowParent.removeEventListener('scroll', this.onScroll);
@@ -360,16 +360,29 @@ export class TableContainer extends React.Component<
 		);
 	}
 
+	get shouldAddOverflowParentOffsetTop_DO_NOT_USE() {
+		// IF the StickyHeaderConfig specifies that the default scroll root offsetTop should be added
+		// AND the StickyHeaderConfig specifies a default scroll root id
+		// AND the OverflowParent is the corresponding element
+		// THEN we should add the OverflowParent offset top (RETURN TRUE)
+		return (
+			this.props.stickyHeaders &&
+			!!this.props.stickyHeaders.shouldAddDefaultScrollRootOffsetTop_DO_NOT_USE &&
+			!!this.props.stickyHeaders.defaultScrollRootId_DO_NOT_USE &&
+			this.overflowParent &&
+			this.overflowParent.id === this.props.stickyHeaders.defaultScrollRootId_DO_NOT_USE
+		);
+	}
+
 	get stickyTop() {
 		switch (this.state.stickyMode) {
 			case 'pin-bottom':
 				return this.pinTop;
 			case 'stick':
 				const offsetTop = this.props.stickyHeaders && this.props.stickyHeaders.offsetTop;
-				if (typeof offsetTop === 'number') {
-					const defaultScrollRootOffsetTop =
-						this.props.stickyHeaders?.defaultScrollRootTop_DO_NOT_USE ?? 0;
-					return offsetTop + defaultScrollRootOffsetTop;
+				if (typeof offsetTop === 'number' && this.shouldAddOverflowParentOffsetTop_DO_NOT_USE) {
+					const overflowParentOffsetTop = this.overflowParent ? this.overflowParent.top : 0;
+					return offsetTop + overflowParentOffsetTop;
 				} else {
 					return offsetTop;
 				}

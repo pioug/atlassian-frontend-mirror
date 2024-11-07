@@ -21,7 +21,7 @@ export class LegacyEditorContext extends React.Component<EditorContextProps, {}>
 	}
 
 	render() {
-		if (fg('platform_editor_react18_phase2')) {
+		if (fg('platform_editor_react18_phase2_v2')) {
 			return <LegacyEditorContextNew {...this.props}>{this.props.children}</LegacyEditorContextNew>;
 		}
 

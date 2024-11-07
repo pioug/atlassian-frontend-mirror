@@ -1,10 +1,9 @@
 import React from 'react';
 
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { Label } from '@atlaskit/form';
 import { Stack } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 import NestedDropdownMenuExample from './12-nested-dropdown';
 

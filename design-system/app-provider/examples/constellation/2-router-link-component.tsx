@@ -2,7 +2,7 @@ import React, { forwardRef, type Ref } from 'react';
 
 import { Link, type LinkProps, RouteComponent, Router } from 'react-resource-router';
 
-import AppProvider, { type RouterLinkComponentProps } from '../../src';
+import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
 
 type ReactResourceRouterLinkConfig = Pick<LinkProps, 'to' | 'href' | 'replace'>;
 
@@ -56,7 +56,7 @@ import {
   RouteComponent,
   Router,
 } from 'react-resource-router';
-import AppProvider, { type RouterLinkComponentProps } from '../../src';
+import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
 
 type ReactResourceRouterLinkConfig = Pick<LinkProps, 'to' | 'href' | 'replace'>;
 

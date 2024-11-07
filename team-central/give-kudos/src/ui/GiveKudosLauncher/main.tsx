@@ -12,8 +12,8 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import Drawer from '@atlaskit/drawer';
-import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
-import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import ArrowLeft from '@atlaskit/icon/core/migration/arrow-left';
+import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import Modal, {
 	ModalBody,
@@ -131,8 +131,9 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						),
 						icon: (
 							<SuccessIcon
+								spacing="spacious"
 								label={intl.formatMessage(messages.successIconLabel)}
-								primaryColor={token('color.icon.success', G300)}
+								color={token('color.icon.success', G300)}
 							/>
 						),
 					});
@@ -151,8 +152,9 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						description: <FormattedMessage {...messages.JiraKudosCreatedDescriptionFlag} />,
 						icon: (
 							<SuccessIcon
+								spacing="spacious"
 								label={intl.formatMessage(messages.successIconLabel)}
-								primaryColor={token('color.icon.success', G300)}
+								color={token('color.icon.success', G300)}
 							/>
 						),
 						actions: [
@@ -238,8 +240,9 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 							),
 							icon: (
 								<SuccessIcon
+									spacing="spacious"
 									label={intl.formatMessage(messages.successIconLabel)}
-									primaryColor={token('color.icon.success', G300)}
+									color={token('color.icon.success', G300)}
 								/>
 							),
 						});
@@ -333,7 +336,11 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 		return (
 			<div css={sidebarDivStyles}>
 				<Button onClick={handleCloseDrawerClicked} css={sidebarButtonStyles}>
-					<ArrowLeft label={intl.formatMessage(messages.closeDrawerButtonLabel)} />
+					<ArrowLeft
+						color="currentColor"
+						spacing="spacious"
+						label={intl.formatMessage(messages.closeDrawerButtonLabel)}
+					/>
 				</Button>
 			</div>
 		);

@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
 export default () => (
 	<DropdownMenu

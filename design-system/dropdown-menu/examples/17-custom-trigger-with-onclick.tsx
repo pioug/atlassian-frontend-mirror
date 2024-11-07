@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup, type OnOpenChangeArgs } from '../src';
+import DropdownMenu, {
+	DropdownItem,
+	DropdownItemGroup,
+	type OnOpenChangeArgs,
+} from '@atlaskit/dropdown-menu';
 
 const DropdownMenuCustomTriggerWithOnClick = () => {
 	const [isOpen, setIsOpen] = useState(false);

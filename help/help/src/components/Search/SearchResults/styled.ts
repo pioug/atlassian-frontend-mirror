@@ -53,6 +53,15 @@ export const SearchResultEmptyMessageText = styled.div({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const SearchResultEmptyMessageHeaderText = styled.h2({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	color: token('color.text', colors.N500),
+	fontSize: '0.875rem',
+	fontStyle: 'normal',
+	fontWeight: 'bold',
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SearchResultSearchExternalSiteContainer = styled.div({
 	padding: token('space.300', '24px'),
 	textAlign: 'center',

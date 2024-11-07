@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
 export default () => (
 	<DropdownMenu trigger="More cities" appearance="tall">

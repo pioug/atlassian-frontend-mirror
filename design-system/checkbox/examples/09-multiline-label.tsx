@@ -6,10 +6,9 @@ import { Fragment } from 'react';
 
 import { jsx } from '@compiled/react';
 
+import { Checkbox } from '@atlaskit/checkbox';
 import { cssMap } from '@atlaskit/css';
 import { Stack } from '@atlaskit/primitives';
-
-import { Checkbox } from '../src';
 
 const styles = cssMap({
 	root: { alignItems: 'center' },

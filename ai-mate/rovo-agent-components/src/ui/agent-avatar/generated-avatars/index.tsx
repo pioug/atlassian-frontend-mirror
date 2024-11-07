@@ -317,7 +317,7 @@ export const AgentBanner = ({
 	agentIdentityAccountId,
 	height,
 }: Pick<GeneratedAvatarProps, 'agentId' | 'agentNamedId' | 'agentIdentityAccountId'> & {
-	height: number;
+	height?: number;
 }) => {
 	const { color } = getAvatarRender({
 		agentNamedId,
@@ -327,7 +327,10 @@ export const AgentBanner = ({
 	});
 
 	return (
-		<Box xcss={bannerStyles} style={{ backgroundColor: color.primary, height: `${height}px` }} />
+		<Box
+			xcss={bannerStyles}
+			style={{ backgroundColor: color.primary, height: height ? `${height}px` : undefined }}
+		/>
 	);
 };
 

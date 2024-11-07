@@ -62,7 +62,7 @@
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popper": "^6.3.0",
 		"@atlaskit/primitives": "^13.0.0",
-		"@atlaskit/select": "^18.4.0",
+		"@atlaskit/select": "^18.5.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/teams-avatar": "^1.1.0",
 		"@atlaskit/theme": "^14.0.0",

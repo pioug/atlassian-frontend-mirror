@@ -8,10 +8,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
+import Blanket from '@atlaskit/blanket';
 import Button from '@atlaskit/button/new';
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
-
-import Blanket from '../src';
 
 const eventResultStyles = xcss({
 	padding: 'space.100',

@@ -21,14 +21,20 @@ type AsyncSelect = <
 
 const AsyncSelect = forwardRef(
 	<Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-		props: AsyncProps<Option, IsMulti, Group>,
+		props: AsyncProps<Option, IsMulti, Group> & { isAsync: boolean },
 		ref:
 			| ((instance: Select<Option, IsMulti, Group> | null) => void)
 			| MutableRefObject<Select<Option, IsMulti, Group> | null>
 			| null,
 	) => {
+		// when isAsync is true, options are not provided and async props are used, we will enable async
+		const isAsyncEnabledInBaseSelect =
+			props.isAsync && !props.options && (!!props.loadOptions || !!props.defaultOptions);
 		const stateManagedProps = useAsync(props);
-		const selectProps = useStateManager(stateManagedProps);
+		// when isAsync is falsy or isAsyncEnabledInBaseSelect is true, we use async props, otherwise we use base props
+		let selectAsyncProps = !props.isAsync || isAsyncEnabledInBaseSelect ? stateManagedProps : props;
+
+		const selectProps = useStateManager(selectAsyncProps);
 
 		return <Select ref={ref} {...selectProps} />;
 	},

@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 3.8.5
+
+### Patch Changes
+
+- [#158223](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/158223)
+  [`ab22f74a91062`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab22f74a91062) -
+  The change here adds an optional `text` property for the Datasource Icon type.
+- Updated dependencies
+
+## 3.8.4
+
+### Patch Changes
+
+- [#161257](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161257)
+  [`085902303c5ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/085902303c5ee) -
+  Fixes how we pass input params to executeFetchAction - behind ff
+
 ## 3.8.3
 
 ### Patch Changes

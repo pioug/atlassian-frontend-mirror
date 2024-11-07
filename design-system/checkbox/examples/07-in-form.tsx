@@ -1,9 +1,8 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, FormFooter } from '@atlaskit/form';
-
-import { Checkbox } from '../src';
 
 export default () => (
 	<Form<{ remember: boolean }> onSubmit={() => {}}>

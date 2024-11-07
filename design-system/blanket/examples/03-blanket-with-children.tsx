@@ -8,12 +8,11 @@ import { useCallback, useState } from 'react';
 import { jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
+import Blanket from '@atlaskit/blanket';
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import { useCloseOnEscapePress } from '@atlaskit/layering';
 import { Stack, Text, xcss } from '@atlaskit/primitives';
-
-import Blanket from '../src';
 
 const blanketChildStyles = xcss({
 	width: '50%',

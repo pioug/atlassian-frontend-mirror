@@ -237,7 +237,7 @@ export default class Popup extends React.Component<Props, State> {
 	UNSAFE_componentWillReceiveProps(newProps: Props) {
 		// We are delaying `updatePosition` otherwise it happens before the children
 		// get rendered and we end up with a wrong position
-		if (!fg('platform_editor_react18_phase2')) {
+		if (!fg('platform_editor_react18_phase2_v2')) {
 			this.scheduledUpdatePosition(newProps);
 		}
 	}
@@ -301,7 +301,7 @@ export default class Popup extends React.Component<Props, State> {
 	componentDidUpdate(prevProps: Props) {
 		this.handleChangedFocusTrapProp(prevProps);
 
-		if (fg('platform_editor_react18_phase2')) {
+		if (fg('platform_editor_react18_phase2_v2')) {
 			if (this.props !== prevProps) {
 				this.scheduledUpdatePosition(prevProps);
 			}

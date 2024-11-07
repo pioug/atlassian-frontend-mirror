@@ -1,8 +1,7 @@
 import React, { forwardRef, useCallback, useRef } from 'react';
 
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 const CustomComponent = forwardRef<HTMLButtonElement, React.PropsWithChildren<{}>>(
 	({ children, ...props }, ref) => (

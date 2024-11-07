@@ -1,7 +1,6 @@
 import React, { useCallback, useReducer } from 'react';
 
-import Calendar from '../src';
-import type { DateObj } from '../src/internal/types';
+import Calendar from '@atlaskit/calendar';
 
 const log = (msg: string) => (e: any) => console.log(msg, e);
 const onBlur = () => log('Blur');
@@ -46,7 +45,7 @@ export default () => {
 		[state.selected],
 	);
 
-	const handleChange = useCallback((changedDate: DateObj) => {
+	const handleChange = useCallback((changedDate) => {
 		const { day, month, year } = changedDate;
 		setState({
 			day,

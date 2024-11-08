@@ -311,13 +311,21 @@ const bannerStyles = xcss({
 	width: '100%',
 });
 
+const bannerFillSpaceStyles = xcss({
+	width: '100%',
+	height: '100%',
+	objectFit: 'cover',
+});
+
 export const AgentBanner = ({
 	agentNamedId,
 	agentId,
 	agentIdentityAccountId,
 	height,
+	fillSpace,
 }: Pick<GeneratedAvatarProps, 'agentId' | 'agentNamedId' | 'agentIdentityAccountId'> & {
 	height?: number;
+	fillSpace?: boolean;
 }) => {
 	const { color } = getAvatarRender({
 		agentNamedId,
@@ -328,7 +336,7 @@ export const AgentBanner = ({
 
 	return (
 		<Box
-			xcss={bannerStyles}
+			xcss={[bannerStyles, fillSpace ? bannerFillSpaceStyles : undefined]}
 			style={{ backgroundColor: color.primary, height: height ? `${height}px` : undefined }}
 		/>
 	);

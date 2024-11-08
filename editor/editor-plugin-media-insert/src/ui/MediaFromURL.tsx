@@ -17,7 +17,8 @@ import {
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
-import EditorFilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
+import ExpandIcon from '@atlaskit/icon/core/expand';
+import { default as EditorFilePreviewIconLegacy } from '@atlaskit/icon/glyph/editor/file-preview';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
@@ -331,7 +332,9 @@ export function MediaFromURL({
 												type="submit"
 												isLoading={previewState.isLoading}
 												isDisabled={!!error || !meta.dirty}
-												iconBefore={EditorFilePreviewIcon}
+												iconBefore={() => (
+													<ExpandIcon label="" LEGACY_fallbackIcon={EditorFilePreviewIconLegacy} />
+												)}
 											>
 												{strings.loadPreview}
 											</Button>

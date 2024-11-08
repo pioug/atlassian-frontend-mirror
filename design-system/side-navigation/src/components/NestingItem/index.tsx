@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Fragment, useCallback, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -14,6 +14,7 @@ import {
 	type CustomItemComponentProps,
 	type Overrides,
 } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { N10 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -39,9 +40,14 @@ interface NestingItemOverrides extends Overrides {
 	 * Use this to override the back button displayed when navigation is nested.
 	 * You'll want to import the [go back item](/packages/navigation/side-navigation/docs/go-back-item) component and use it here.
 	 * This will be displayed for all children nesting item components unless they define their own.
+	 * Your custom component should be wrapped with forwardRef to support assistive technologies.
 	 */
 	GoBackItem?: {
-		render?: (props: { onClick: () => void; testId?: string }) => React.ReactNode;
+		render?: (props: {
+			onClick: () => void;
+			testId?: string;
+			ref?: React.Ref<HTMLElement>;
+		}) => React.ReactNode;
 	};
 }
 
@@ -66,6 +72,7 @@ export interface NestingItemProps<TCustomComponentProps = CustomItemComponentPro
 	/**
 	 * Used to customize the rendered component when shown as an item.
 	 * You can use this for example to change it to a SPA link.
+	 * Your custom component should be wrapped with forwardRef to support assistive technologies.
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	component?: React.ComponentType<TCustomComponentProps>;
@@ -148,11 +155,43 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 		stack,
 		childIds,
 		forceShowTopScrollIndicator,
+		activeParentId,
+		goBackButtonRef,
+		isDefaultFocusControl,
+		focusGoBackButton,
 	} = useNestedContext();
 
 	const mergedStyles = overrideStyleFunction(nestingItemStyle, cssFn);
 
 	const [isInteracted, setIsInteracted] = useState(false);
+	const parentItemRef = useRef<HTMLButtonElement | null>(null);
+
+	// To avoid error we need to make sure that the component is wrapped in ForwardRef
+	const isForwardRefCheck = <P,>(component: React.ComponentType<P>) => {
+		if (component?.prototype?.isReactComponent) {
+			return false;
+		}
+		return (
+			(component as React.ForwardRefExoticComponent<any>)?.$$typeof ===
+			Symbol.for('react.forward_ref')
+		);
+	};
+
+	const shouldFocus = isDefaultFocusControl && fg('platform-side-navigation-keyboard-focus');
+	const backButtonRef = shouldFocus ? goBackButtonRef : null;
+	const activeParentRef = shouldFocus ? parentItemRef : null;
+
+	useEffect(() => {
+		if (shouldFocus) {
+			if (activeParentId === id) {
+				parentItemRef?.current?.focus();
+			}
+
+			if (focusGoBackButton) {
+				goBackButtonRef?.current?.focus();
+			}
+		}
+	}, [activeParentId, id, goBackButtonRef, focusGoBackButton, isDefaultFocusControl, shouldFocus]);
 
 	const backButton =
 		(props.overrides &&
@@ -161,6 +200,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 			props.overrides.GoBackItem.render({
 				onClick: onUnNest,
 				testId: testId && `${testId}--go-back-item`,
+				ref: backButtonRef,
 			})) ||
 		contextualBackButton;
 
@@ -174,6 +214,10 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 			parentId: id,
 			childIds,
 			forceShowTopScrollIndicator,
+			activeParentId,
+			goBackButtonRef,
+			isDefaultFocusControl,
+			focusGoBackButton,
 		}),
 		[
 			stack,
@@ -184,6 +228,10 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 			id,
 			childIds,
 			forceShowTopScrollIndicator,
+			activeParentId,
+			goBackButtonRef,
+			isDefaultFocusControl,
+			focusGoBackButton,
 		],
 	);
 
@@ -267,6 +315,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 	if (component) {
 		return (
 			<CustomItem<CustomItemComponentProps>
+				ref={isForwardRefCheck(component) ? parentItemRef : null}
 				{...componentProps}
 				//@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
 				component={component}
@@ -274,7 +323,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 		);
 	}
 
-	return <ButtonItem {...componentProps} />;
+	return <ButtonItem ref={activeParentRef} {...componentProps} />;
 };
 
 export default NestingItem;

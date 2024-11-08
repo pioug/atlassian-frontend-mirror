@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ReactDOM from 'react-dom';
+import uuid from 'uuid/v4';
 
 import type { PanelAttributes } from '@atlaskit/adf-schema';
 import { PanelType } from '@atlaskit/adf-schema';
@@ -14,6 +15,7 @@ import {
 	PanelWarningIcon,
 } from '@atlaskit/editor-common/icons';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
 	ExtractInjectionAPI,
@@ -25,6 +27,7 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import TipIcon from '@atlaskit/icon/glyph/editor/hint';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PanelPlugin, PanelPluginOptions } from '../types';
 import { panelAttrsToDom } from '../utils';
@@ -89,7 +92,9 @@ class PanelNodeView {
 	getPos: getPosHandlerNode;
 	view: EditorView;
 	providerFactory?: ProviderFactory;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 	pluginOptions: PanelPluginOptions;
+	key: string;
 
 	constructor(
 		node: Node,
@@ -97,12 +102,15 @@ class PanelNodeView {
 		getPos: getPosHandlerNode,
 		pluginOptions: PanelPluginOptions,
 		api: ExtractInjectionAPI<PanelPlugin> | undefined,
+		nodeViewPortalProviderAPI: PortalProviderAPI,
 		providerFactory?: ProviderFactory,
 	) {
+		this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
 		this.providerFactory = providerFactory;
 		this.pluginOptions = pluginOptions;
 		this.view = view;
 		this.node = node;
+		this.key = uuid();
 
 		const { dom, contentDOM } = DOMSerializer.renderSpec(
 			document,
@@ -118,15 +126,30 @@ class PanelNodeView {
 		}
 		// set contentEditable as false to be able to select the custom panels with keyboard
 		this.icon.contentEditable = 'false';
-		ReactDOM.render(
-			<PanelIcon
-				pluginInjectionApi={api}
-				allowCustomPanel={pluginOptions.allowCustomPanel}
-				panelAttributes={node.attrs as PanelAttributes}
-				providerFactory={this.providerFactory}
-			/>,
-			this.icon,
-		);
+		if (fg('platform_editor_react18_plugin_portalprovider')) {
+			this.nodeViewPortalProviderAPI.render(
+				() => (
+					<PanelIcon
+						pluginInjectionApi={api}
+						allowCustomPanel={pluginOptions.allowCustomPanel}
+						panelAttributes={node.attrs as PanelAttributes}
+						providerFactory={this.providerFactory}
+					/>
+				),
+				this.icon,
+				this.key,
+			);
+		} else {
+			ReactDOM.render(
+				<PanelIcon
+					pluginInjectionApi={api}
+					allowCustomPanel={pluginOptions.allowCustomPanel}
+					panelAttributes={node.attrs as PanelAttributes}
+					providerFactory={this.providerFactory}
+				/>,
+				this.icon,
+			);
+		}
 	}
 
 	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {
@@ -139,12 +162,19 @@ class PanelNodeView {
 		const isInsideIcon = this.icon.contains(mutation.target);
 		return isIcon || isInsideIcon;
 	}
+
+	destroy() {
+		if (fg('platform_editor_react18_plugin_portalprovider')) {
+			this.nodeViewPortalProviderAPI.remove(this.key);
+		}
+	}
 }
 
 export const getPanelNodeView =
 	(
 		pluginOptions: PanelPluginOptions,
 		api: ExtractInjectionAPI<PanelPlugin> | undefined,
+		portalProviderAPI: PortalProviderAPI,
 		providerFactory?: ProviderFactory,
 	) =>
 	(node: Node, view: EditorView, getPos: getPosHandler): PanelNodeView => {
@@ -154,6 +184,7 @@ export const getPanelNodeView =
 			getPos as getPosHandlerNode,
 			pluginOptions,
 			api,
+			portalProviderAPI,
 			providerFactory,
 		);
 	};

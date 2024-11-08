@@ -518,6 +518,80 @@ describe('JSONTransformer:', () => {
 			});
 		});
 
+		it("should not override mention text if it's already defined", () => {
+			const { editorView } = editor(
+				doc(
+					p(
+						mention({
+							id: 'id-rick',
+							text: '@Rick Sanchez',
+						})(),
+					),
+				),
+			);
+
+			expect(
+				new JSONTransformer(AdfSchemaDefault.defaultSchema, {
+					'id-rick': 'Pickle Rick',
+				}).encode(editorView.state.doc),
+			).toEqual({
+				version: 1,
+				type: 'doc',
+				content: [
+					{
+						type: 'paragraph',
+						content: [
+							{
+								type: 'mention',
+								attrs: {
+									id: 'id-rick',
+									text: '@Rick Sanchez',
+									accessLevel: '',
+								},
+							},
+						],
+					},
+				],
+			});
+		});
+
+		it('should set mention text using mention mapping if text is unset', () => {
+			const { editorView } = editor(
+				doc(
+					p(
+						mention({
+							id: 'id-rick',
+							text: '',
+						})(),
+					),
+				),
+			);
+
+			expect(
+				new JSONTransformer(AdfSchemaDefault.defaultSchema, {
+					'id-rick': 'Pickle Rick',
+				}).encode(editorView.state.doc),
+			).toEqual({
+				version: 1,
+				type: 'doc',
+				content: [
+					{
+						type: 'paragraph',
+						content: [
+							{
+								type: 'mention',
+								attrs: {
+									id: 'id-rick',
+									text: '@Pickle Rick',
+									accessLevel: '',
+								},
+							},
+						],
+					},
+				],
+			});
+		});
+
 		it('should strip uniqueId from codeBlock node', () => {
 			const { editorView } = editor(
 				doc(

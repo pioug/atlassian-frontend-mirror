@@ -92,6 +92,7 @@ describe(name, () => {
 						providerFactory: {} as any,
 						errorReporter: {} as any,
 						portalProviderAPI: { render() {}, remove() {} } as any,
+						nodeViewPortalProviderAPI: { render() {}, remove() {} } as any,
 						dispatchAnalyticsEvent: () => {},
 						featureFlags: {},
 						getIntl: () => ({}) as any,

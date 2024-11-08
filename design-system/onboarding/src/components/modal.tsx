@@ -4,7 +4,6 @@
  */
 import { Component, type ElementType, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import Button, { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
@@ -68,6 +67,7 @@ type ModalProps = {
  * - [Code](https://atlassian.design/components/onboarding/benefits-modal/code)
  * - [Usage](https://atlassian.design/components/onboarding/benefits-modal/usage)
  */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class BenefitsModal extends Component<ModalProps> {
 	headerComponent = (props: ModalProps) => {
 		const { header: HeaderElement, image: src } = props;
@@ -108,7 +108,18 @@ export default class BenefitsModal extends Component<ModalProps> {
 	};
 
 	render() {
-		const { actions, children, heading, ...props } = this.props;
+		const {
+			actions,
+			children,
+			heading,
+			// All of the following props except `...rest` are unused but were being
+			// spread into the Modal, which it does not accept.
+			experimental_shouldShowPrimaryButtonOnRight,
+			footer,
+			header,
+			image,
+			...rest
+		} = this.props;
 
 		const Header = this.headerComponent(this.props);
 		const Footer = this.footerComponent(this.props);
@@ -121,10 +132,17 @@ export default class BenefitsModal extends Component<ModalProps> {
 		return (
 			<Modal
 				autoFocus
-				shouldScrollInViewport
-				shouldCloseOnOverlayClick={false}
 				shouldCloseOnEscapePress={false}
-				{...props}
+				shouldCloseOnOverlayClick={false}
+				shouldScrollInViewport
+				// @ts-ignore All of the following props were in the rest props, so I'm
+				// making them explicit here even though the Modal doesn't accept them.
+				experimental_shouldShowPrimaryButtonOnRight={experimental_shouldShowPrimaryButtonOnRight}
+				footer={footer}
+				header={header}
+				heading={heading}
+				image={image}
+				{...rest}
 			>
 				<Header />
 				<ModalBody>

@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import { N0 } from '@atlaskit/theme/colors';
-
 import {
 	Spotlight,
 	SpotlightManager,
 	SpotlightPulse,
 	SpotlightTarget,
 	SpotlightTransition,
-} from '../../src';
+} from '@atlaskit/onboarding';
+import { N0 } from '@atlaskit/theme/colors';
 
 const SpotlightPulseExample = () => {
 	const [isSpotlightActive, setIsSpotlightActive] = useState(false);

@@ -32,7 +32,6 @@ import Select, {
 	mergeStyles,
 	type OptionType,
 } from '@atlaskit/select';
-import { N500, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -81,36 +80,37 @@ const dropdownIndicatorStyles = xcss({
 	justifyContent: 'center',
 });
 
+// eslint-disable-next-line @atlaskit/platform/no-module-level-eval, @atlaskit/platform/ensure-feature-flag-prefix
 const CalendarIcon = fg('platform-visual-refresh-icon-ads-migration')
 	? CalendarIconNew
 	: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		CalendarIconOld;
 
-const iconContainerStyles = css({
+const iconContainerStyles = xcss({
 	display: 'flex',
 	height: '100%',
 	position: 'absolute',
 	alignItems: 'center',
 	flexBasis: 'inherit',
-	color: token('color.text.subtlest', N70),
-	insetBlockStart: 0,
-	insetInlineEnd: 0,
+	color: 'color.text.subtlest',
+	insetBlockStart: 'space.0',
+	insetInlineEnd: 'space.0',
 	transition: `color 150ms`,
-	'&:hover': {
-		color: token('color.text.subtle', N500),
+	':hover': {
+		color: 'color.text.subtle',
 	},
 });
 
-const iconSpacingWithClearButtonStyles = css({
-	marginInlineEnd: token('space.400', '2rem'),
+const iconSpacingWithClearButtonStyles = xcss({
+	marginInlineEnd: 'space.400',
 });
 
-const iconSpacingWithoutClearButtonStylesNew = css({
-	marginInlineEnd: token('space.050', '0.25rem'),
+const iconSpacingWithoutClearButtonStylesNew = xcss({
+	marginInlineEnd: 'space.050',
 });
 
-const iconSpacingWithoutClearButtonStyles = css({
-	marginInlineEnd: token('space.025', '0.125rem'),
+const iconSpacingWithoutClearButtonStyles = xcss({
+	marginInlineEnd: 'space.025',
 });
 
 const calendarButtonFixedSizeStyles = xcss({
@@ -480,7 +480,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 
 	let clearIndicator = Icon;
 
-	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+	// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
 	if (fg('platform-visual-refresh-icons') && fg('platform-visual-refresh-icon-ads-migration')) {
 		clearIndicator = (props: DropdownIndicatorProps<OptionType>) => (
 			<Box xcss={dropdownIndicatorStyles}>
@@ -565,19 +565,21 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 
 	return (
 		// These event handlers must be on this element because the events come
-		// from different child elements.
+		// from different child elements.  Cannot use Box primtive until we remove ...innerProps
 		<div
 			{...innerProps}
 			css={pickerContainerStyles}
-			role="presentation"
+			data-testid={testId && `${testId}--container`}
 			onBlur={onContainerBlur}
 			onFocus={onContainerFocus}
 			onClick={onInputClick}
 			onInput={onTextInput}
 			onKeyDown={onInputKeyDown}
 			ref={getContainerRef}
-			data-testid={testId && `${testId}--container`}
+			// loophole role="presentation" as it solves the onclick, onfocus, etc. typecheck errors
+			role="presentation"
 		>
+			{/* because this input type="hidden", does not need to be textfield component */}
 			<input
 				name={name}
 				type="hidden"
@@ -612,6 +614,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 					placeholder: placeholder,
 					l10n: l10n,
 				})}
+				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 				styles={mergedStyles}
 				value={initialValue}
 				{...selectProps}
@@ -640,12 +643,13 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 				shouldSetFocusOnCurrentDay={calendarProps.shouldSetFocusOnCurrentDay}
 			/>
 			{shouldShowCalendarButton && !isDisabled ? (
-				<div
-					css={[
+				<Box
+					xcss={[
 						iconContainerStyles,
 						value && !hideIcon
 							? iconSpacingWithClearButtonStyles
-							: fg('platform-visual-refresh-icon-ads-migration')
+							: // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+								fg('platform-visual-refresh-icon-ads-migration')
 								? iconSpacingWithoutClearButtonStylesNew
 								: iconSpacingWithoutClearButtonStyles,
 					]}
@@ -676,7 +680,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 								: { primaryColor: token('color.icon') })}
 						/>
 					</Pressable>
-				</div>
+				</Box>
 			) : null}
 		</div>
 	);

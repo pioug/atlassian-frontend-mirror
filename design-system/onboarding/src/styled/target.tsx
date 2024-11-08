@@ -4,7 +4,6 @@
  */
 import { type HTMLAttributes, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, keyframes } from '@emotion/react';
 
 import { reduceMotionAsPerUserPreference } from '@atlaskit/motion';
@@ -13,16 +12,15 @@ import { token } from '@atlaskit/tokens';
 
 type BaseProps = React.HTMLAttributes<HTMLDivElement> & {
 	bgColor?: string;
-	radius?: number;
-	className?: string;
-	testId?: string;
 	children?: ReactNode;
+	className?: string;
+	radius?: number;
+	testId?: string;
 };
 
 type TargetProps = Omit<BaseProps, 'css'> & {
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	pulse?: boolean;
-	testId?: string;
 };
 
 // NOTE:
@@ -48,8 +46,19 @@ const animationStyles = css({
 	boxShadow: baseShadow,
 });
 
-const Base = ({ children, bgColor, radius, style, testId, ...props }: BaseProps) => (
+const Base = ({
+	bgColor,
+	children,
+	className,
+	radius,
+	testId,
+	style,
+	// The rest of these props are from `HTMLDivElement`
+	...props
+}: BaseProps) => (
 	<div
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+		className={className}
 		data-testid={testId}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		style={
@@ -73,8 +82,22 @@ const Base = ({ children, bgColor, radius, style, testId, ...props }: BaseProps)
  *
  * @internal
  */
-export const TargetInner = ({ children, pulse, ...props }: TargetProps) => (
+export const TargetInner = ({
+	bgColor,
+	children,
+	className,
+	pulse,
+	radius,
+	testId,
+	// Thes rest of these are from `HTMLDivElement`
+	...props
+}: TargetProps) => (
 	<Base
+		bgColor={bgColor}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+		className={className}
+		radius={radius}
+		testId={testId}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -88,10 +111,8 @@ const targetOverlayStyles = css({
 	width: '100%',
 	height: '100%',
 	position: 'absolute',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	insetBlockStart: 0,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	insetInlineStart: 0,
+	insetBlockStart: token('space.0', '0'),
+	insetInlineStart: token('space.0', '0'),
 });
 
 /**
@@ -102,15 +123,17 @@ const targetOverlayStyles = css({
  *
  * @internal
  */
-export const TargetOverlay = (props: HTMLAttributes<HTMLDivElement>) => (
+export const TargetOverlay = ({ onClick, ...props }: HTMLAttributes<HTMLDivElement>) => (
+	// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 	<div
+		onClick={onClick}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 		css={targetOverlayStyles}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		style={
 			{
-				cursor: props.onClick ? 'pointer' : 'auto',
+				cursor: onClick ? 'pointer' : 'auto',
 			} as React.CSSProperties
 		}
 	/>
@@ -125,8 +148,21 @@ export const TargetOverlay = (props: HTMLAttributes<HTMLDivElement>) => (
  * - [Code](https://atlassian.design/components/onboarding/code)
  * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
-export const Pulse = ({ children, pulse = true, testId, ...props }: TargetProps) => (
+export const Pulse = ({
+	bgColor,
+	children,
+	className,
+	radius,
+	pulse = true,
+	testId,
+	...props
+}: TargetProps) => (
 	<Base
+		bgColor={bgColor}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+		className={className}
+		radius={radius}
+		testId={testId}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 		css={[
@@ -134,7 +170,6 @@ export const Pulse = ({ children, pulse = true, testId, ...props }: TargetProps)
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			reduceMotionAsPerUserPreference,
 		]}
-		testId={testId}
 	>
 		{children}
 	</Base>

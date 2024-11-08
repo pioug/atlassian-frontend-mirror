@@ -4,7 +4,6 @@
  */
 import { type ElementType, type MouseEventHandler, useCallback, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { bind, type UnbindFn } from 'bind-event-listener';
 
@@ -321,6 +320,8 @@ const AvatarGroup = ({
 							maxHeight={300}
 							setInitialFocusRef={isTriggeredUsingKeyboard ? setInitialFocusRef : undefined}
 						>
+							{/* TODO: Give section an accessible name -- https://product-fabric.atlassian.net/browse/DSP-21437 */}
+							{/* eslint-disable-next-line @atlaskit/design-system/use-menu-section-title */}
 							<Section>
 								{data.slice(max).map((avatar, index) =>
 									getOverrides(overrides).AvatarGroupItem.render(

@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/no-unsafe-overrides */
 import React, { useEffect } from 'react';
 
 import { render } from '@testing-library/react';
@@ -40,6 +39,7 @@ const createAvatarGroup = (props: AvatarGroupProps, withUniqueIndex = false) => 
 			maxCount={4}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...props}
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 			overrides={{
 				Avatar: {
 					render: (Component, props: AvatarProps, index: number) => (

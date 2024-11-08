@@ -3,10 +3,14 @@ import React, { useState } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button, { IconButton } from '@atlaskit/button/new';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
+import {
+	Spotlight,
+	SpotlightManager,
+	SpotlightTarget,
+	SpotlightTransition,
+} from '@atlaskit/onboarding';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { Spotlight, SpotlightManager, SpotlightTarget, SpotlightTransition } from '../../src';
 
 import CodeSandboxIcon from './example-components/code-sandbox-icon';
 

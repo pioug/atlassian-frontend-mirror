@@ -1,5 +1,5 @@
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -14,11 +14,22 @@ const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
 	return false;
 };
 
-const isLayoutColumnWithoutContent = (target: EventTarget | null) =>
-	target instanceof HTMLDivElement &&
-	target?.getAttribute('data-drag-handler-node-type') === 'layoutColumn' &&
-	// Remove placeholder text
-	target.textContent?.replace(new RegExp(ZERO_WIDTH_SPACE, 'g'), '') === '';
+const isLayoutColumnWithoutContent = (node: PMNode) => {
+	if (node?.type.name === 'layoutColumn') {
+		let foundNonEmptyNode = false;
+
+		for (let i = 0; i < node.childCount; i++) {
+			const child = node.child(i);
+
+			if (child.content.size && child.firstChild?.type.name !== 'placeholder') {
+				foundNonEmptyNode = true;
+				break;
+			}
+		}
+
+		return !foundNonEmptyNode;
+	}
+};
 
 export const handleMouseOver = (
 	view: EditorView,
@@ -49,10 +60,6 @@ export const handleMouseOver = (
 		const parentElement = rootElement.parentElement?.closest('[data-drag-handler-anchor-name]');
 		const parentElementType = parentElement?.getAttribute('data-drag-handler-node-type');
 
-		// Don't show drag handle when there is no content/only placeholder in layout column
-		if (isPreRelease2() && isLayoutColumnWithoutContent(rootElement)) {
-			return false;
-		}
 		// We want to exlude handles from showing for direct decendant of table nodes (i.e. nodes in cells)
 		if (
 			parentElement &&
@@ -101,6 +108,12 @@ export const handleMouseOver = (
 			}
 		} else {
 			pos = view.posAtDOM(rootElement, 0);
+		}
+
+		const node = view.state.doc.nodeAt(pos);
+		if (isPreRelease2() && node && isLayoutColumnWithoutContent(node)) {
+			// Don't show drag handle when there is no content/only placeholder in layout column
+			return false;
 		}
 
 		let rootPos: number;

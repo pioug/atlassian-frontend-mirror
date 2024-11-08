@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 import Button from '@atlaskit/button/new';
-
-import { Modal } from '../src';
+import { Modal } from '@atlaskit/onboarding';
 
 import welcomeImage from './assets/this-is-new-jira.png';
 
@@ -11,6 +10,7 @@ interface State {
 	primaryButtonOnRight: boolean;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ModalBasicExample extends Component<{}, State> {
 	state: State = { active: false, primaryButtonOnRight: false };
 

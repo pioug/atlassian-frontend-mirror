@@ -3,10 +3,9 @@ import React, { Component } from 'react';
 import Lorem from 'react-lorem-component';
 import { Transition } from 'react-transition-group';
 
+import { Spotlight, SpotlightManager, SpotlightTransition } from '@atlaskit/onboarding';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-
-import { Spotlight, SpotlightManager, SpotlightTransition } from '../src';
 
 import { Highlight } from './styled';
 
@@ -17,6 +16,7 @@ interface State {
 
 type AnimationState = { [key: string]: any };
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightNodeExample extends Component<Object, State> {
 	drawer = React.createRef<HTMLElement>();
 	nodeRef = React.createRef<HTMLElement>();

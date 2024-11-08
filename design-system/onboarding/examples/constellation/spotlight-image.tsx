@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import {
+	Spotlight,
+	SpotlightManager,
+	SpotlightTarget,
+	SpotlightTransition,
+} from '@atlaskit/onboarding';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { Spotlight, SpotlightManager, SpotlightTarget, SpotlightTransition } from '../../src';
 import spotlightImage from '../assets/this-is-new-jira.png';
 
 const SpotlightImageExample = () => {

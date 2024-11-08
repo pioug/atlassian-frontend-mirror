@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 49.2.7
+
+### Patch Changes
+
+- [#156911](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156911)
+  [`194066533e77e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/194066533e77e) -
+  Overriding HDActive flag and using HDAvailable instead to request for 1280p video
+
 ## 49.2.6
 
 ### Patch Changes

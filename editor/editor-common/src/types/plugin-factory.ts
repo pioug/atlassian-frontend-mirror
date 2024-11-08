@@ -18,6 +18,7 @@ export type PMPluginFactoryParams = {
 	providerFactory: ProviderFactory;
 	errorReporter?: ErrorReporter;
 	portalProviderAPI: PortalProviderAPI;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	featureFlags: FeatureFlags;
 	getIntl: () => IntlShape;

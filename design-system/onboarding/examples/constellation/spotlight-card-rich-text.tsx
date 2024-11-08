@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SpotlightCard } from '../../src';
+import { SpotlightCard } from '@atlaskit/onboarding';
 
 const SpotlightCardRichTextExample = () => {
 	return (

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.14.4
+
+### Patch Changes
+
+- [#161539](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161539)
+  [`a3538a83b5e02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3538a83b5e02) -
+  set floating toolbar icon color when active
+
 ## 1.14.3
 
 ### Patch Changes

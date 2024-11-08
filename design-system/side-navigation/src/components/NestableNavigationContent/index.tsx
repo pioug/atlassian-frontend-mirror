@@ -2,12 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { ExitingPersistence } from '@atlaskit/motion';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { GoBackItem as GoBackButton } from '../Item';
 import { default as NestingItem } from '../NestingItem';
@@ -84,11 +85,22 @@ export interface NestableNavigationContentProps {
 		 * Use this to override the default back button displayed when navigation is nested.
 		 * You'll want to import the [go back item](/packages/navigation/docs/go-back-item) component and use it here.
 		 * This will be displayed for all children [nesting items](/packages/navigation/side-navigation/docs/nesting-item) unless they define their own.
+		 * Your custom component should be wrapped with forwardRef to support assistive technologies.
 		 */
 		GoBackItem?: {
-			render?: (props: { onClick: () => void; testId?: string }) => React.ReactNode;
+			render?: (props: {
+				onClick: () => void;
+				testId?: string;
+				ref?: React.Ref<HTMLElement>;
+			}) => React.ReactNode;
 		};
 	};
+	/**
+	 * This property is enabled by default (set to true) and is designed to manage keyboard focus
+	 * for the "go back" button or the last active parent within the `<NestingItem/>` component.
+	 * It is applicable only when using our `<NestingItem/>` component.
+	 */
+	isDefaultFocusControl?: boolean;
 }
 
 const nestableNavigationContentStyles = css({
@@ -124,12 +136,18 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
 		onUnknownNest,
 		stack,
 		showTopScrollIndicator,
+		isDefaultFocusControl = true,
 	} = props;
+	const goBackButtonRef = useRef<HTMLButtonElement | null>(null);
 	const [committedStack, setCommittedStack] = useState(stack || initialStack || []);
 	const controlledStack = stack || undefined;
 	const currentStackId = committedStack[committedStack.length - 1] || ROOT_ID;
 	const [transition, setTransition] = useState('nesting');
 	const backTestId = testId && `${testId}--go-back-item`;
+	const [activeParentId, setActiveParentId] = useState<string>('');
+	const [focusGoBackButton, setFocusGoBackButton] = useState(false);
+	const shouldFocus = isDefaultFocusControl && fg('platform-side-navigation-keyboard-focus');
+
 	const renderGoBackItem =
 		overrides && overrides.GoBackItem && overrides.GoBackItem.render
 			? overrides.GoBackItem.render
@@ -140,11 +158,11 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
 	const onNestHandler = useCallback(
 		(layerId: string) => {
 			onChange && onChange(committedStack.concat(layerId));
+			setFocusGoBackButton(true);
 			if (controlledStack) {
 				// We are in controlled mode - ignore the steps.
 				return;
 			}
-
 			// We need to split the state update into to parts.
 			// First: Updating the direction of the motions.
 			// Second: Actually updating the stack (which will cause elements to enter & leave).
@@ -162,6 +180,8 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
 
 	const onUnNestHandler = useCallback(() => {
 		onChange && onChange(committedStack.slice(0, committedStack.length - 1));
+		setActiveParentId(currentStackId);
+		setFocusGoBackButton(false);
 
 		if (controlledStack) {
 			// We are in controlled mode - ignore the steps.
@@ -179,7 +199,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
 				return newStack;
 			});
 		});
-	}, [controlledStack, onChange, committedStack]);
+	}, [controlledStack, onChange, committedStack, setActiveParentId, currentStackId]);
 
 	useEffect(() => {
 		if (!controlledStack) {
@@ -209,6 +229,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
 	const backButton = renderGoBackItem({
 		onClick: onUnNestHandler,
 		testId: backTestId,
+		ref: shouldFocus ? goBackButtonRef : null,
 	});
 
 	const context: NestedContextValue = useMemo(
@@ -221,6 +242,10 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
 			parentId: ROOT_ID,
 			childIds: childIdsRef,
 			forceShowTopScrollIndicator: showTopScrollIndicator,
+			activeParentId,
+			goBackButtonRef,
+			isDefaultFocusControl,
+			focusGoBackButton,
 		}),
 		[
 			currentStackId,
@@ -230,6 +255,10 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
 			onUnNestHandler,
 			childIdsRef,
 			showTopScrollIndicator,
+			activeParentId,
+			goBackButtonRef,
+			isDefaultFocusControl,
+			focusGoBackButton,
 		],
 	);
 

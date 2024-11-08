@@ -7,7 +7,8 @@ import { type DispatchAnalyticsEvent, INPUT_METHOD } from '@atlaskit/editor-comm
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { type MediaState, type MediaStateEventListener } from '@atlaskit/editor-plugin-media/types';
-import UploadIcon from '@atlaskit/icon/glyph/upload';
+import UploadIcon from '@atlaskit/icon/core/upload';
+import { default as UploadIconLegacy } from '@atlaskit/icon/glyph/upload';
 import {
 	Browser,
 	type ImagePreview,
@@ -176,7 +177,7 @@ export const LocalMedia = React.forwardRef<HTMLButtonElement, Props>(
 					</SectionMessage>
 				)}
 				<Button
-					iconBefore={UploadIcon}
+					iconBefore={() => <UploadIcon label="" LEGACY_fallbackIcon={UploadIconLegacy} />}
 					ref={ref}
 					shouldFitContainer
 					isDisabled={!uploadMediaClientConfig || !uploadParams}

@@ -45,8 +45,8 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 		return [
 			{
 				name: 'panel',
-				plugin: ({ providerFactory, dispatch }) =>
-					createPlugin(dispatch, providerFactory, options, api),
+				plugin: ({ providerFactory, dispatch, nodeViewPortalProviderAPI }) =>
+					createPlugin(dispatch, providerFactory, options, api, nodeViewPortalProviderAPI),
 			},
 			{
 				name: 'panelKeyMap',

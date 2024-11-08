@@ -38,18 +38,16 @@ export const Fade = ({ hasEntered, children, onExited }: FadeProps) => {
 			{...(fg('platform_design_system_team_transition_group_r18') && { nodeRef })}
 		>
 			{(status: string) => {
-				const base = {
-					transition: `opacity ${duration.exit}ms`,
-					opacity: 0,
-				};
 				const anim: Animation = {
 					entered: { opacity: 1 },
 					exiting: { opacity: 0 },
 				};
 
-				const style = { ...base, ...anim[status] };
-
-				return children(style);
+				return children({
+					transition: `opacity ${duration.exit}ms`,
+					opacity: 0,
+					...(status in anim ? anim[status] : {}),
+				});
 			}}
 		</Transition>
 	);

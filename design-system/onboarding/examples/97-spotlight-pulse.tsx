@@ -8,8 +8,7 @@ import { jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-
-import { SpotlightManager, SpotlightPulse, SpotlightTarget } from '../src';
+import { SpotlightManager, SpotlightPulse, SpotlightTarget } from '@atlaskit/onboarding';
 
 /**
  * This example shows how to use <SpotlightPulse />. This can be used when you want a pulse keyframe

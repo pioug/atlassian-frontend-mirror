@@ -2,9 +2,13 @@ import React, { Component, Fragment } from 'react';
 
 import Lorem from 'react-lorem-component';
 
+import {
+	Spotlight,
+	SpotlightManager,
+	SpotlightTarget,
+	SpotlightTransition,
+} from '@atlaskit/onboarding';
 import { token } from '@atlaskit/tokens';
-
-import { Spotlight, SpotlightManager, SpotlightTarget, SpotlightTransition } from '../src';
 
 import { Highlight, HighlightGroup } from './styled';
 
@@ -22,6 +26,7 @@ const Paragraph = ({ position }: { position: number }) => (
 	</Fragment>
 );
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightAutoscrollExample extends Component<{}, State> {
 	readonly state: State = {
 		spotlight: 'off',

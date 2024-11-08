@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media-insert",
-	"version": "4.0.3",
+	"version": "4.0.4",
 	"description": "Media Insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,7 +40,7 @@
 		"@atlaskit/media-client-react": "^2.3.0",
 		"@atlaskit/media-picker": "^67.0.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^13.0.0",
+		"@atlaskit/primitives": "^13.1.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/tabs": "^16.5.0",
 		"@atlaskit/textfield": "^6.5.0",

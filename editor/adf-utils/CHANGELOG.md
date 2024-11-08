@@ -1,5 +1,13 @@
 # @atlaskit/adf-utils
 
+## 19.11.0
+
+### Minor Changes
+
+- [#161679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161679)
+  [`27c4a6d9b2fb1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/27c4a6d9b2fb1) -
+  ED-25498 Add nested table incoming transform for adf-utils
+
 ## 19.10.1
 
 ### Patch Changes

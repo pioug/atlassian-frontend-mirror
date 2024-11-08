@@ -8,15 +8,15 @@ import { type ImgHTMLAttributes, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import { token } from '@atlaskit/tokens';
-
 import {
 	Spotlight,
 	SpotlightManager,
 	SpotlightPulse,
 	SpotlightTarget,
 	SpotlightTransition,
-} from '../../src';
+} from '@atlaskit/onboarding';
+import { token } from '@atlaskit/tokens';
+
 import logoInverted from '../assets/logo-inverted.png';
 import logo from '../assets/logo.png';
 

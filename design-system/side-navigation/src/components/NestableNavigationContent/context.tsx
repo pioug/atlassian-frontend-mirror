@@ -12,6 +12,10 @@ export interface NestedContextValue {
 	backButton?: React.ReactNode;
 	childIds: MutableRefObject<Set<string>>;
 	forceShowTopScrollIndicator: boolean | undefined;
+	activeParentId?: string;
+	goBackButtonRef?: React.MutableRefObject<HTMLButtonElement | null>;
+	isDefaultFocusControl?: boolean;
+	focusGoBackButton?: boolean;
 }
 
 /**

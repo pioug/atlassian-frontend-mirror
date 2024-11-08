@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line import/no-extraneous-dependencies -- This is part of examples, so this is not accurate.
 import styled from '@emotion/styled';
 
 import { type SizeType } from '@atlaskit/avatar';
@@ -37,6 +37,7 @@ export const Code = styled.code({
 	backgroundColor: R50,
 	borderRadius: '0.2em',
 	color: R400,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: '0.85em',
 	lineHeight: 1.1,
 	padding: '0.1em 0.4em',

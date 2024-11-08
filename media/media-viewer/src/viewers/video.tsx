@@ -75,6 +75,11 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 		const { item, showControls, previewCount } = this.props;
 		const useCustomVideoPlayer = !isIE();
 		const isAutoPlay = previewCount === 0;
+
+		const hdAvailable = isHDAvailable(item);
+		const hdActiveOverride = fg('platform_media_disable_video_640p_artifact_usage')
+			? hdAvailable
+			: isHDActive;
 		return useCustomVideoPlayer ? (
 			<CustomVideoPlayerWrapper data-testid="media-viewer-video-content">
 				<CustomMediaPlayer
@@ -84,8 +89,8 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 					showControls={showControls}
 					src={content}
 					fileId={item.id}
-					isHDActive={isHDActive}
-					isHDAvailable={isHDAvailable(item)}
+					isHDActive={hdActiveOverride}
+					isHDAvailable={hdAvailable}
 					isShortcutEnabled={true}
 					onFirstPlay={this.onFirstPlay}
 					onError={this.onError}
@@ -105,7 +110,12 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 		try {
 			let contentUrl: string | undefined;
 			if (item.status === 'processed') {
-				const preferHd = isHDActive && isHDAvailable(item);
+				const hdAvailable = isHDAvailable(item);
+				const hdActiveOverride = fg('platform_media_disable_video_640p_artifact_usage')
+					? hdAvailable
+					: isHDActive;
+
+				const preferHd = hdActiveOverride && hdAvailable;
 
 				contentUrl = await mediaClient.file.getArtifactURL(
 					item.artifacts,

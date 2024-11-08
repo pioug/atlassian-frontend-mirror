@@ -8,8 +8,12 @@ import { Component } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
-
-import { Spotlight, SpotlightManager, SpotlightTarget, SpotlightTransition } from '../src';
+import {
+	Spotlight,
+	SpotlightManager,
+	SpotlightTarget,
+	SpotlightTransition,
+} from '@atlaskit/onboarding';
 
 import { Highlight } from './styled';
 
@@ -25,6 +29,7 @@ interface State {
 	active: boolean;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightButtonAppearanceExample extends Component<{}, State> {
 	state: State = { active: false };
 

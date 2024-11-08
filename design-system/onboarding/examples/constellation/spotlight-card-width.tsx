@@ -1,9 +1,8 @@
 import React from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
+import { SpotlightCard } from '@atlaskit/onboarding';
 import { token } from '@atlaskit/tokens';
-
-import { SpotlightCard } from '../../src';
 
 const SpotlightCardWidth = () => {
 	return (
@@ -20,6 +19,7 @@ const SpotlightCardWidth = () => {
 			<SpotlightCard
 				width={200}
 				heading="Switch it up"
+				headingLevel={2}
 				actions={[
 					{ text: 'Next', onClick: __noop },
 					{ text: 'Dismiss', onClick: __noop, appearance: 'subtle' },
@@ -30,6 +30,7 @@ const SpotlightCardWidth = () => {
 			<SpotlightCard
 				width={400}
 				heading="Switch it up"
+				headingLevel={2}
 				actions={[
 					{ text: 'Next', onClick: __noop },
 					{ text: 'Dismiss', onClick: __noop, appearance: 'subtle' },
@@ -40,6 +41,7 @@ const SpotlightCardWidth = () => {
 			<SpotlightCard
 				width={600}
 				heading="Switch it up"
+				headingLevel={2}
 				actions={[
 					{ text: 'Next', onClick: __noop },
 					{ text: 'Dismiss', onClick: __noop, appearance: 'subtle' },

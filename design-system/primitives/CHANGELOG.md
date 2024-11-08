@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 13.1.0
+
+### Minor Changes
+
+- [#161694](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161694)
+  [`22f69cdefebd9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/22f69cdefebd9) -
+  Add compiled.css sideEffect to @atlaskit/primitives to hint and fix bundlers to load these styles
+
 ## 13.0.0
 
 ### Major Changes

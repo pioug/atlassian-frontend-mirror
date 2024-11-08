@@ -4,7 +4,6 @@
  */
 import { type ImgHTMLAttributes, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
@@ -26,8 +25,6 @@ const actionItemStyles = css({
 	margin: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
 });
 
-type DialogImageProps = ImgHTMLAttributes<HTMLImageElement>;
-
 /**
  * __Dialog image__
  *
@@ -35,7 +32,7 @@ type DialogImageProps = ImgHTMLAttributes<HTMLImageElement>;
  *
  * @internal
  */
-export const DialogImage = ({ alt, ...props }: DialogImageProps) => (
+export const DialogImage = ({ alt, ...props }: ImgHTMLAttributes<HTMLImageElement>) => (
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	<img css={imageStyles} alt={alt} {...props} />
 );

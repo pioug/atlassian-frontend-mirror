@@ -8,11 +8,10 @@ import { type ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import { SpotlightCard } from '@atlaskit/onboarding';
 import { Box, xcss } from '@atlaskit/primitives';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 import { token } from '@atlaskit/tokens';
-
-import { SpotlightCard } from '../../src';
 
 const wrapperStyles = css({
 	display: 'flex',
@@ -48,7 +47,7 @@ const SpotlightCardIsFlat = () => {
 				<p css={taglineStyles}>
 					Tell us about your team so we can personalise your project for you.
 				</p>
-				<SpotlightCard heading="Why are you trying Jira Software?" isFlat>
+				<SpotlightCard heading="Why are you trying Jira Software?" headingLevel={3} isFlat>
 					<Option>
 						<Button>Learn about agile</Button>
 					</Option>

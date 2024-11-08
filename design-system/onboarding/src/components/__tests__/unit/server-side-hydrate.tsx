@@ -14,7 +14,6 @@ test('should ssr then hydrate correctly', async () => {
 	// Jest 29 - Added assertion to fix: Jest worker encountered 4 child process exceptions, exceeding retry limit
 	await screen.findAllByRole('button');
 
-	// eslint-disable-next-line no-console
 	const mockCalls = (console.error as jest.Mock).mock.calls;
 	expect(mockCalls.length).toBe(0);
 

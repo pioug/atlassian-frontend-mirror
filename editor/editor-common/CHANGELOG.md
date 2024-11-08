@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 94.14.2
+
+### Patch Changes
+
+- [#160699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160699)
+  [`3f6d3eca921ed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f6d3eca921ed) -
+  ED-25575: migrate panel plugin node rendering to portals
+- Updated dependencies
+
+## 94.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 94.14.0
 
 ### Minor Changes

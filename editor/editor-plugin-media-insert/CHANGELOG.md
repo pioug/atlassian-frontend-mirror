@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 4.0.4
+
+### Patch Changes
+
+- [#161539](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161539)
+  [`2c4801586c99f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c4801586c99f) -
+  migrate media picker icons
+
 ## 4.0.3
 
 ### Patch Changes

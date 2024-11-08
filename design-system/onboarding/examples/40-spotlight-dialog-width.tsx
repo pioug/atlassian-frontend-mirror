@@ -12,9 +12,13 @@ import Lorem from 'react-lorem-component';
 import { Code } from '@atlaskit/code';
 import ArrowDownIcon from '@atlaskit/icon/glyph/arrow-down';
 import ArrowUpIcon from '@atlaskit/icon/glyph/arrow-up';
+import {
+	Spotlight,
+	SpotlightManager,
+	SpotlightTarget,
+	SpotlightTransition,
+} from '@atlaskit/onboarding';
 import { token } from '@atlaskit/tokens';
-
-import { Spotlight, SpotlightManager, SpotlightTarget, SpotlightTransition } from '../src';
 
 import { Highlight } from './styled';
 
@@ -56,7 +60,7 @@ const buttonStyles = css({
 
 type State = { value: number | null };
 
-/* eslint-disable react/sort-comp */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightDialogWidthExample extends Component<{}, State> {
 	state: State = { value: null };
 

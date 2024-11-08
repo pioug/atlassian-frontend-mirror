@@ -86,7 +86,7 @@ const emptyDoc = createDocFromContent([
 	},
 ]);
 
-const toJSON = (node: PMNode): JSONNode => {
+const toJSON = (node: PMNode, mentionMap?: Record<string, string | undefined>): JSONNode => {
 	const obj: JSONNode = { type: node.type.name };
 	if (isUnsupportedNode(node)) {
 		return node.attrs.originalValue;
@@ -115,6 +115,18 @@ const toJSON = (node: PMNode): JSONNode => {
 		obj.attrs = filterNull(obj.attrs);
 	}
 
+	if (isMentionNode(node) && mentionMap) {
+		// If the mentionMap exists and has a name defined then we should use it and prepend @ to the begining of it.
+		const name = !!mentionMap?.[node.attrs.id] ? `@${mentionMap[node.attrs.id]}` : '';
+		const text = (obj.attrs as any)?.text ?? '';
+
+		obj.attrs = {
+			...obj.attrs,
+			// If an explicit text value is set on the mention then that should take priority over the mentionMap value.
+			text: !!text ? text : name,
+		};
+	}
+
 	// Remove the attrs property if it's empty, this is currently limited to paragraph nodes.
 	if (isParagraph(node) && obj.attrs && !Object.keys(obj.attrs).length) {
 		delete obj.attrs;
@@ -131,7 +143,7 @@ const toJSON = (node: PMNode): JSONNode => {
 	} else {
 		node.content.forEach((child: PMNode) => {
 			obj.content = obj.content || [];
-			obj.content.push(toJSON(child));
+			obj.content.push(toJSON(child, mentionMap));
 		});
 	}
 
@@ -206,16 +218,23 @@ const getUnwrappedNodeAttributes = (node: PMNode, mark: PMMark, obj: JSONNode): 
 
 export class JSONTransformer implements Transformer<JSONDocNode> {
 	private schema: Schema;
+	private mentionMap: Record<string, string | undefined> | undefined;
 
-	constructor(schema: Schema = defaultSchema) {
+	/**
+	 * @param schema The current editor schema
+	 * @param mentionMap An optional mapping of user IDs to mention names. This is used by the encoder to substitute empty
+	 * mention node.attr.text values with mapped names.
+	 */
+	constructor(schema: Schema = defaultSchema, mentionMap?: Record<string, string | undefined>) {
 		this.schema = schema;
+		this.mentionMap = mentionMap;
 	}
 
 	encode(node: PMNode): JSONDocNode {
 		const content: JSONNode[] = [];
 
 		node.content.forEach((child) => {
-			content.push(sanitizeNode(toJSON(child)));
+			content.push(sanitizeNode(toJSON(child, this.mentionMap)));
 		});
 
 		if (!content || isEqual(content, emptyDoc.content)) {
@@ -249,6 +268,6 @@ export class JSONTransformer implements Transformer<JSONDocNode> {
 	 * This method is used to encode a single node
 	 */
 	encodeNode(node: PMNode): JSONNode {
-		return sanitizeNode(toJSON(node));
+		return sanitizeNode(toJSON(node, this.mentionMap));
 	}
 }

@@ -10,8 +10,12 @@ import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button';
 import { Code } from '@atlaskit/code';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-
-import { Spotlight, SpotlightManager, SpotlightTarget, SpotlightTransition } from '../src';
+import {
+	Spotlight,
+	SpotlightManager,
+	SpotlightTarget,
+	SpotlightTransition,
+} from '@atlaskit/onboarding';
 
 import { Highlight } from './styled';
 
@@ -44,7 +48,7 @@ interface State {
 	index?: number;
 }
 
-/* eslint-disable react/sort-comp */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightDialogPlacementExample extends Component<{}, State> {
 	state: State = {};
 

@@ -88,6 +88,7 @@ export interface EditorViewProps extends WrappedComponentProps {
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	providerFactory: ProviderFactory;
 	portalProviderAPI: PortalProviderAPI;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 	disabled?: boolean;
 	render?: (props: {
 		editor: JSX.Element;
@@ -251,6 +252,7 @@ function ReactEditorView(props: EditorViewProps) {
 				eventDispatcher: eventDispatcher,
 				providerFactory: options.props.providerFactory,
 				portalProviderAPI: props.portalProviderAPI,
+				nodeViewPortalProviderAPI: props.nodeViewPortalProviderAPI,
 				dispatchAnalyticsEvent: dispatchAnalyticsEvent,
 				featureFlags: featureFlags.current,
 				getIntl: () => props.intl,
@@ -313,6 +315,7 @@ function ReactEditorView(props: EditorViewProps) {
 		[
 			props.intl,
 			props.portalProviderAPI,
+			props.nodeViewPortalProviderAPI,
 			props.editorProps,
 			dispatchAnalyticsEvent,
 			eventDispatcher,
@@ -425,6 +428,7 @@ function ReactEditorView(props: EditorViewProps) {
 				eventDispatcher: eventDispatcher,
 				providerFactory: props.providerFactory,
 				portalProviderAPI: props.portalProviderAPI,
+				nodeViewPortalProviderAPI: props.nodeViewPortalProviderAPI,
 				dispatchAnalyticsEvent: dispatchAnalyticsEvent,
 				featureFlags: createFeatureFlagsFromProps(props.editorProps),
 				getIntl: () => props.intl,

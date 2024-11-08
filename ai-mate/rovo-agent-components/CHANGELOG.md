@@ -1,5 +1,17 @@
 # @atlaskit/rovo-agent-components
 
+## 1.11.0
+
+### Minor Changes
+
+- [#160811](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160811)
+  [`c35578a9d8158`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c35578a9d8158) -
+  Fix agent banner color when embedded
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.10.0
 
 ### Minor Changes

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.9
+
+### Patch Changes
+
+- [#161549](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161549)
+  [`35e70290e4ccb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35e70290e4ccb) -
+  [ED-25317] Fix the issue where drag handle for layout column does not show up when the content is
+  not empty (with non text content)
+- Updated dependencies
+
 ## 2.13.8
 
 ### Patch Changes

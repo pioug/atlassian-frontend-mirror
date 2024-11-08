@@ -9,15 +9,14 @@ import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import { Code } from '@atlaskit/code';
-import { token } from '@atlaskit/tokens';
-
 import {
 	Spotlight,
 	SpotlightManager,
 	SpotlightPulse,
 	SpotlightTarget,
 	SpotlightTransition,
-} from '../src';
+} from '@atlaskit/onboarding';
+import { token } from '@atlaskit/tokens';
 
 import logoInverted from './assets/logo-inverted.png';
 import logo from './assets/logo.png';
@@ -50,7 +49,7 @@ const Image = ({ alt, src }: ImgHTMLAttributes<HTMLImageElement>) => (
 interface State {
 	active: boolean;
 }
-/* eslint-disable react/sort-comp */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightTargetReplacementExample extends Component<{}, State> {
 	state: State = {
 		active: false,

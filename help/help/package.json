@@ -52,7 +52,7 @@
 		"@atlaskit/notification-indicator": "^9.4.0",
 		"@atlaskit/notification-log-client": "^6.1.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^13.0.0",
+		"@atlaskit/primitives": "^13.1.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/select": "^18.5.0",

@@ -8,9 +8,13 @@ import { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import {
+	Spotlight,
+	SpotlightManager,
+	SpotlightTarget,
+	SpotlightTransition,
+} from '@atlaskit/onboarding';
 import { token } from '@atlaskit/tokens';
-
-import { Spotlight, SpotlightManager, SpotlightTarget, SpotlightTransition } from '../src';
 
 interface State {
 	active: boolean;
@@ -29,6 +33,7 @@ const relativeDivStyles = css({
 	transform: 'translate(10px, 10px)',
 });
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightRelativeTarget extends Component<Object, State> {
 	state: State = { active: false };
 

@@ -8,10 +8,9 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import UndoIcon from '@atlaskit/icon/glyph/editor/undo';
+import { SpotlightCard } from '@atlaskit/onboarding';
 import { Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import { SpotlightCard } from '../src';
 
 import welcomeImage from './assets/this-is-new-jira.png';
 
@@ -67,6 +66,7 @@ export default () => {
 			</SpotlightCard>
 			<SpotlightCard
 				heading="Switch it up"
+				headingLevel={2}
 				headingAfterElement={
 					<Button iconBefore={UndoIcon} appearance="subtle">
 						Replay

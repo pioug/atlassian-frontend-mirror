@@ -158,6 +158,16 @@ const ToolbarItems = React.memo(
 						}
 					};
 
+					const getIconColor = (disabled?: boolean, selected?: boolean) => {
+						if (disabled) {
+							return token('color.icon.disabled');
+						}
+						if (selected) {
+							return token('color.icon.selected');
+						}
+						return token('color.icon');
+					};
+
 					return (
 						<Button
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -169,7 +179,7 @@ const ToolbarItems = React.memo(
 								item.icon ? (
 									item.iconFallback ? (
 										<ButtonIcon
-											color={item.disabled ? token('color.icon.disabled') : token('color.icon')}
+											color={getIconColor(item.disabled, item.selected)}
 											spacing="spacious"
 											label={item.title}
 											LEGACY_fallbackIcon={item.iconFallback}

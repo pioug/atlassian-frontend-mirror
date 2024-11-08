@@ -10,9 +10,8 @@ import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+import { Spotlight, SpotlightManager, SpotlightTarget } from '@atlaskit/onboarding';
 import { token } from '@atlaskit/tokens';
-
-import { Spotlight, SpotlightManager, SpotlightTarget } from '../src';
 
 const targetContainerStyles = css({
 	width: 200,

@@ -1,11 +1,9 @@
-/* eslint-disable @atlaskit/design-system/no-nested-styles */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { h600 } from '@atlaskit/theme/typography';
@@ -38,6 +36,7 @@ const modalImageStyles = css({
 	height: 'auto',
 	borderStartEndRadius: token('border.radius', '3px'),
 	borderStartStartRadius: token('border.radius', '3px'),
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 	'@media (min-width: 320px) and (max-width: 480px)': {
 		borderRadius: 0,
 	},

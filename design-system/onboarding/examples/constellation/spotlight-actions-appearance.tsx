@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import SearchIcon from '@atlaskit/icon/glyph/search';
+import {
+	Spotlight,
+	SpotlightManager,
+	SpotlightTarget,
+	SpotlightTransition,
+} from '@atlaskit/onboarding';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { Spotlight, SpotlightManager, SpotlightTarget, SpotlightTransition } from '../../src';
 
 const SpotlightActionsAppearance = () => {
 	const [isSpotlightActive, setIsSpotlightActive] = useState(false);

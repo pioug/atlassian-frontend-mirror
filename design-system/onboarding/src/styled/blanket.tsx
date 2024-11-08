@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { N100A } from '@atlaskit/theme/colors';
@@ -35,8 +34,7 @@ type BlanketProps = {
  *
  * @internal
  */
-const Blanket = (props: BlanketProps) => {
-	const { onBlanketClicked } = props;
+const Blanket = ({ isTinted, onBlanketClicked, style }: BlanketProps) => {
 	return (
 		<div
 			role="presentation"
@@ -44,8 +42,8 @@ const Blanket = (props: BlanketProps) => {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={
 				{
-					...props.style,
-					backgroundColor: props.isTinted ? token('color.blanket', N100A) : 'transparent',
+					...style,
+					backgroundColor: isTinted ? token('color.blanket', N100A) : 'transparent',
 				} as React.CSSProperties
 			}
 			onClick={onBlanketClicked}

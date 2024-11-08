@@ -57,7 +57,7 @@ const AvatarGroupExample: FC = () => {
 	) as AvatarGroupProps['size'][];
 	const avatarSize = sizes[sizeIndex];
 	const stackSourceURLs = [];
-	// eslint-disable-next-line no-plusplus
+
 	for (let i = 0; i < avatarCount; i++) {
 		stackSourceURLs.push(i);
 	}

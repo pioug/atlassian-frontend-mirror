@@ -1,5 +1,14 @@
 # @atlaskit/side-navigation
 
+## 3.6.0
+
+### Minor Changes
+
+- [#160699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160699)
+  [`a4cb190f3a282`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4cb190f3a282) -
+  Side navigation, keyboard focus should appear on first interactive element which is `Go back`
+  button and when `Go back` control is activated, focus should appear on the triggered element.
+
 ## 3.5.5
 
 ### Patch Changes

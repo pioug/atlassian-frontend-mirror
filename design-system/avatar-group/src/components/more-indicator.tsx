@@ -4,7 +4,6 @@
  */
 import { forwardRef, useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import Avatar, {
@@ -86,6 +85,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 	(
 		{
 			appearance = 'circle' as AppearanceType,
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 			borderColor = fg('platform-component-visual-refresh')
 				? token('elevation.surface')
 				: token('color.border.inverse', N0),

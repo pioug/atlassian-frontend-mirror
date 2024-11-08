@@ -1,0 +1,30 @@
+{
+	"version": 1,
+	"type": "doc",
+	"content": [
+		{
+			"type": "table",
+			"content": [
+				{
+					"type": "tableRow",
+					"content": [
+						{
+							"type": "extension",
+							"attrs": {
+								"extensionType": "com.atlassian.nesting",
+								"extensionKey": "nested-table",
+								"parameters": {
+									"macroParams": {
+										"nestedContent": {
+											"value": "{\"type\":\"paragraph\"}"
+										}
+									}
+								}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -97,18 +97,14 @@ export interface SpotlightProps {
 	 * Alternative element to render than the wrapped target.
 	 */
 	targetReplacement?: ComponentType<any>;
-	/* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
 	/**
-    This prop is a unique string that appears as an attribute `data-testid` in the rendered HTML output serving as a hook for automated tests.
-    As this component is composed of multiple components we use this `testId` as a prefix:
-
-    - `"${testId}--dialog"` to identify the spotlight dialog
-    - `"${testId}--target"` to identify the spotlight target clone
-
-    Defaults to `"spotlight"`.
-   */
+	 * This prop is a unique string that appears as an attribute `data-testid` in the rendered HTML output serving as a hook for automated tests.
+	 * Defaults to `"spotlight"`.
+	 * As this component is composed of multiple components we use this `testId` as a prefix:
+	 * - `"${testId}--dialog"` to identify the spotlight dialog
+	 * - `"${testId}--target"` to identify the spotlight target clone
+	 */
 	testId?: string;
-	/* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
 	/**
 	 * Used set the 'block' attribute on scrollIntoView, which determines the vertical alignment of the target node to the nearest scrollable ancestor.
 	 */

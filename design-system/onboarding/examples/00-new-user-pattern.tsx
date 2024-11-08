@@ -8,11 +8,10 @@ import { type ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
+import { SpotlightCard } from '@atlaskit/onboarding';
 import { Box, xcss } from '@atlaskit/primitives';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 import { token } from '@atlaskit/tokens';
-
-import { SpotlightCard } from '../src';
 
 const wrapperStyles = css({
 	display: 'flex',

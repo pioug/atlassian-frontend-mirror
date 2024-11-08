@@ -5,6 +5,8 @@ export default {
 	nl: 'Dutch',
 	en: 'English',
 	en_GB: 'English (United Kingdom)',
+	// Used by i18n team in staging to send visual context to translators
+	en_ZZ: 'English (Instrumented)',
 	et: 'Estonian',
 	fi: 'Finnish',
 	fr: 'French',

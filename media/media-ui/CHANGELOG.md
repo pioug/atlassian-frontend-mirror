@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 26.1.0
+
+### Minor Changes
+
+- [#161636](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161636)
+  [`69629c54c803b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/69629c54c803b) -
+  Adding en-ZZ locale support to media-ui
+
 ## 26.0.2
 
 ### Patch Changes

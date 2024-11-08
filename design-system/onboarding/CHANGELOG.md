@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 12.1.1
+
+### Patch Changes
+
+- [#161203](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161203)
+  [`65b24f1c77e69`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/65b24f1c77e69) -
+  Make spread props more explicit and types more accurate throughout all components.
+
 ## 12.1.0
 
 ### Minor Changes

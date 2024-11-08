@@ -22,6 +22,7 @@ describe('ReactEditorView/reconfigureState', () => {
 	const defaultProps = {
 		providerFactory: ProviderFactory.create({}),
 		portalProviderAPI: {} as any,
+		nodeViewPortalProviderAPI: {} as any,
 		onEditorCreated: () => {},
 		onEditorDestroyed: () => {},
 	};

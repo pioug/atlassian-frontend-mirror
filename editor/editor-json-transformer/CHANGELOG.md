@@ -1,5 +1,14 @@
 # @atlaskit/editor-json-transformer
 
+## 8.20.4
+
+### Patch Changes
+
+- [`9a4a3df453d84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a4a3df453d84) -
+  Updated the JSONTransformer to support using an mention mapping. During the encoding of mentions
+  the text names can be pulled from the mention map and encoded.
+- Updated dependencies
+
 ## 8.20.3
 
 ### Patch Changes

@@ -7,8 +7,7 @@
 import { jsx } from '@emotion/react';
 
 import Button, { Theme as ButtonTheme } from '@atlaskit/button';
-
-import { modalButtonTheme, spotlightButtonTheme } from '../src';
+import { modalButtonTheme, spotlightButtonTheme } from '@atlaskit/onboarding';
 
 export default () => {
 	return (

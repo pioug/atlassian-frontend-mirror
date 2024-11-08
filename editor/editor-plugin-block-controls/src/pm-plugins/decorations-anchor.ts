@@ -8,9 +8,16 @@ import { isPreRelease2 } from '../utils/advanced-layouts-flags';
 
 import { getNestedDepth, getNodeAnchor, TYPE_NODE_DEC } from './decorations-common';
 
-const IGNORE_NODES = isPreRelease2()
-	? ['tableCell', 'tableHeader', 'tableRow', 'listItem', 'caption']
-	: ['tableCell', 'tableHeader', 'tableRow', 'listItem', 'caption', 'layoutColumn'];
+const IGNORE_NODES = [
+	'tableCell',
+	'tableHeader',
+	'tableRow',
+	'listItem',
+	'caption',
+	'layoutColumn',
+];
+
+const IGNORE_NODES_NEXT = ['tableCell', 'tableHeader', 'tableRow', 'listItem', 'caption'];
 
 const IGNORE_NODE_DESCENDANTS = ['listItem', 'taskList', 'decisionList', 'mediaSingle'];
 
@@ -29,7 +36,7 @@ export const shouldDescendIntoNode = (node: PMNode) => {
 	return !IGNORE_NODE_DESCENDANTS.includes(node.type.name);
 };
 
-const shouldIgnoreNode = (node: PMNode) => {
+const shouldIgnoreNode = (node: PMNode, ignore_nodes: string[]) => {
 	const isEmbedCard =
 		'embedCard' === node.type.name && fg('platform_editor_element_dnd_nested_fix_patch_3');
 
@@ -39,7 +46,7 @@ const shouldIgnoreNode = (node: PMNode) => {
 
 	return (isEmbedCard || isMediaSingle) && ['wrap-right', 'wrap-left'].includes(node.attrs.layout)
 		? true
-		: IGNORE_NODES.includes(node.type.name);
+		: ignore_nodes.includes(node.type.name);
 };
 
 /**
@@ -76,6 +83,7 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 	const docFrom = from === undefined || from < 0 ? 0 : from;
 	const docTo = to === undefined || to > newState.doc.nodeSize - 2 ? newState.doc.nodeSize - 2 : to;
 
+	const ignore_nodes = isPreRelease2() ? IGNORE_NODES_NEXT : IGNORE_NODES;
 	newState.doc.nodesBetween(docFrom, docTo, (node, pos, _parent, index) => {
 		let depth = 0;
 		let anchorName;
@@ -88,7 +96,7 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 				return false;
 			}
 
-			if (shouldIgnoreNode(node)) {
+			if (shouldIgnoreNode(node, ignore_nodes)) {
 				return shouldDescend; //skip over, don't consider it a valid depth
 			}
 

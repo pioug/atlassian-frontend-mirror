@@ -8,11 +8,10 @@ import { useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import { Spotlight, SpotlightManager, SpotlightTarget } from '@atlaskit/onboarding';
 import { Box } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { token } from '@atlaskit/tokens';
-
-import { Spotlight, SpotlightManager, SpotlightTarget } from '../src';
 
 function SpotlightTargetTabs() {
 	const [active, setActive] = useState(true);

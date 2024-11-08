@@ -10,16 +10,15 @@ import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import { borderRadius } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
-
 import {
 	Spotlight,
 	SpotlightManager,
 	SpotlightPulse,
 	SpotlightTarget,
 	SpotlightTransition,
-} from '../src';
+} from '@atlaskit/onboarding';
+import { borderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 const wrapperStyles = css({
 	display: 'flex',

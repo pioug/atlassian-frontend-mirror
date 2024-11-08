@@ -109,6 +109,7 @@ const FocusLock = fg('platform_dst_onboarding-bump-react-focus-lock')
  * - [Code](https://atlassian.design/components/onboarding/code)
  * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 	state = {
 		focusLockDisabled: true,
@@ -186,7 +187,6 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 			<Popper modifiers={modifiers} referenceElement={targetNode} placement={translatedPlacement}>
 				{({ ref, style, update }) => (
 					<ValueChanged value={dialogWidth} onChange={update}>
-						{/* eslint-disable-next-line jsx-a11y/no-autofocus */}
 						<FocusLock disabled={focusLockDisabled} returnFocus={false} autoFocus>
 							<Box
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -226,4 +226,5 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 	}
 }
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default SpotlightDialogComponent;

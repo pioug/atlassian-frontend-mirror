@@ -1,13 +1,13 @@
 import React from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-
-import { SpotlightCard } from '../../src';
+import { SpotlightCard } from '@atlaskit/onboarding';
 
 const SpotlightCardHeadingExample = () => {
 	return (
 		<SpotlightCard
 			heading="Switch it up"
+			headingLevel={2}
 			actionsBeforeElement="1/3"
 			actions={[
 				{ text: 'Next', onClick: __noop },

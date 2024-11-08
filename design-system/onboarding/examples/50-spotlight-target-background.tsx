@@ -9,9 +9,8 @@ import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import { Code } from '@atlaskit/code';
+import { Spotlight, SpotlightManager, SpotlightTarget } from '@atlaskit/onboarding';
 import { token } from '@atlaskit/tokens';
-
-import { Spotlight, SpotlightManager, SpotlightTarget } from '../src';
 
 import { Highlight, HighlightGroup } from './styled';
 
@@ -25,7 +24,7 @@ interface State {
 	active: number | null;
 }
 
-/* eslint-disable react/sort-comp */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightTargetBackgroundExample extends Component<Object, State> {
 	state: State = { active: null };
 

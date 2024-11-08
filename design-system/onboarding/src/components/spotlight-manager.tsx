@@ -70,6 +70,7 @@ const Container = ({
  * - [Code](https://atlassian.design/components/onboarding/code)
  * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightManager extends PureComponent<
 	SpotlightManagerProps,
 	{

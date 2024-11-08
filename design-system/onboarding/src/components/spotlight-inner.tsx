@@ -101,8 +101,16 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 			return {};
 		}
 
+		const { height, left, top, width, ...rest } = box;
+
 		return {
-			...box,
+			// Handling this just in case there are invalid elements being sent in to
+			// the `box` arg
+			...rest,
+			height,
+			left,
+			top,
+			width,
 			position: 'fixed',
 		};
 	};

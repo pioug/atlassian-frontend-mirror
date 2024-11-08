@@ -15,12 +15,28 @@ import { SpotlightConsumer } from './spotlight-manager';
  * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
 const Spotlight = ({
+	actions,
+	actionsBeforeElement,
+	children,
+	dialogPlacement,
 	dialogWidth = 400,
+	footer,
+	header,
+	heading,
+	headingAfterElement,
+	image,
+	label,
 	pulse = true,
+	scrollPositionBlock,
 	shouldWatchTarget = false,
-	testId = 'spotlight',
-	targetNode,
 	target,
+	targetBgColor,
+	targetNode,
+	targetOnClick,
+	targetRadius,
+	targetReplacement,
+	testId = 'spotlight',
+	titleId,
 	...rest
 }: SpotlightProps) => (
 	<SpotlightConsumer>
@@ -32,14 +48,30 @@ const Spotlight = ({
 			return actualTargetNode ? (
 				<SpotlightInner
 					{...rest}
-					targetNode={actualTargetNode}
-					target={target}
-					onOpened={opened}
-					onClosed={closed}
-					testId={testId}
+					actions={actions}
+					actionsBeforeElement={actionsBeforeElement}
+					children={children}
+					dialogPlacement={dialogPlacement}
 					dialogWidth={dialogWidth}
+					footer={footer}
+					header={header}
+					heading={heading}
+					headingAfterElement={headingAfterElement}
+					image={image}
+					label={label}
+					onClosed={closed}
+					onOpened={opened}
 					pulse={pulse}
+					scrollPositionBlock={scrollPositionBlock}
 					shouldWatchTarget={shouldWatchTarget}
+					target={target}
+					targetBgColor={targetBgColor}
+					targetNode={actualTargetNode}
+					targetOnClick={targetOnClick}
+					targetRadius={targetRadius}
+					targetReplacement={targetReplacement}
+					testId={testId}
+					titleId={titleId}
 				/>
 			) : null;
 		}}

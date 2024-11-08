@@ -8,7 +8,7 @@ import {
 	SpotlightTarget,
 	SpotlightTransition,
 	useSpotlight,
-} from '../src';
+} from '@atlaskit/onboarding';
 
 import { Highlight, HighlightGroup } from './styled';
 

@@ -4,16 +4,15 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button, { IconButton } from '@atlaskit/button/new';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import VidFullScreenOnIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
-import { N0 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
-
 import {
 	Spotlight,
 	SpotlightManager,
 	SpotlightTarget,
 	SpotlightTransition,
 	useSpotlight,
-} from '../../src';
+} from '@atlaskit/onboarding';
+import { N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import CodeSandboxIcon from './example-components/code-sandbox-icon';
 

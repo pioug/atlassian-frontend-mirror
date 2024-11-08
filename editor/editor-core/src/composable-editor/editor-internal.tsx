@@ -98,6 +98,7 @@ export const EditorInternal = memo(
 		const renderTrackingEnabled = !fg('platform_editor_disable_rerender_tracking_jira');
 		const useShallow = false;
 		const [portalProviderAPI, PortalRenderer] = usePortalProvider();
+		const [nodeViewPortalProviderAPI, NodeViewPortalRenderer] = usePortalProvider();
 
 		return (
 			<Fragment>
@@ -127,6 +128,7 @@ export const EditorInternal = memo(
 												editorProps={overriddenEditorProps}
 												createAnalyticsEvent={createAnalyticsEvent}
 												portalProviderAPI={portalProviderAPI}
+												nodeViewPortalProviderAPI={nodeViewPortalProviderAPI}
 												providerFactory={providerFactory}
 												onEditorCreated={onEditorCreated}
 												onEditorDestroyed={onEditorDestroyed}
@@ -187,6 +189,7 @@ export const EditorInternal = memo(
 												editorProps={overriddenEditorProps}
 												createAnalyticsEvent={createAnalyticsEvent}
 												portalProviderAPI={portalProviderAPI}
+												nodeViewPortalProviderAPI={nodeViewPortalProviderAPI}
 												providerFactory={providerFactory}
 												onEditorCreated={onEditorCreated}
 												onEditorDestroyed={onEditorDestroyed}
@@ -244,6 +247,7 @@ export const EditorInternal = memo(
 											/>
 										)}
 										<PortalRenderer />
+										<NodeViewPortalRenderer />
 									</Fragment>
 								</IntlProviderIfMissingWrapper>
 							</ContextAdapter>

@@ -908,7 +908,7 @@ describe('DatePicker', () => {
 			const user = userEvent.setup();
 			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
 
-			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			const calendarButton = screen.getByTestId(`${testId}--open-calendar-button`);
 			await user.click(calendarButton);
 
 			expect(queryCalendar()).toBeVisible();
@@ -918,7 +918,7 @@ describe('DatePicker', () => {
 			const user = userEvent.setup();
 			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
 
-			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			const calendarButton = screen.getByTestId(`${testId}--open-calendar-button`);
 			// Tab into the picker, close the calendar, tab to the calendar button
 			await user.tab();
 			await user.keyboard('{Escape}');
@@ -931,7 +931,7 @@ describe('DatePicker', () => {
 			const user = userEvent.setup();
 			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
 
-			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			const calendarButton = screen.getByTestId(`${testId}--open-calendar-button`);
 			await user.tab();
 			await user.keyboard('{Escape}');
 			await user.tab();
@@ -945,7 +945,7 @@ describe('DatePicker', () => {
 			const user = userEvent.setup();
 			render(createDatePicker({ shouldShowCalendarButton: true, openCalendarLabel }));
 
-			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			const calendarButton = screen.getByTestId(`${testId}--open-calendar-button`);
 			await user.tab();
 			await user.tab();
 			expect(calendarButton).toHaveFocus();
@@ -979,7 +979,7 @@ describe('DatePicker', () => {
 			);
 
 			const selectInput = getInput();
-			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			const calendarButton = screen.getByTestId(`${testId}--open-calendar-button`);
 			expect(queryCalendar()).not.toBeInTheDocument();
 			expect(selectInput).not.toHaveFocus();
 

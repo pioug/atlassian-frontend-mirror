@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 10.0.2
+
+### Patch Changes
+
+- [#161368](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161368)
+  [`870668ea63139`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/870668ea63139) -
+  Refactoring internals to make spread props more explicit and resolve ESLint disables.
+
 ## 10.0.1
 
 ### Patch Changes

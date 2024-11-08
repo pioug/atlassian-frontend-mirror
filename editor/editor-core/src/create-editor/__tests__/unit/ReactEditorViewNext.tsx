@@ -116,6 +116,10 @@ const portalProviderAPI: any = {
 	render() {},
 	remove() {},
 };
+const nodeViewPortalProviderAPI: any = {
+	render() {},
+	remove() {},
+};
 
 const getPromiseResolver = () => {
 	let resolver = (_: unknown) => {};
@@ -131,6 +135,7 @@ const getPromiseResolver = () => {
 const requiredProps = () => ({
 	providerFactory: ProviderFactory.create({}),
 	portalProviderAPI,
+	nodeViewPortalProviderAPI,
 	onEditorCreated: () => {},
 	onEditorDestroyed: () => {},
 	editorProps: {},

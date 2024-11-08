@@ -22,6 +22,7 @@ export type LightPMPluginFactoryParams = {
 	props: {};
 	prevProps?: {};
 	portalProviderAPI: PortalProviderAPI;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	featureFlags: FeatureFlags;
 	getIntl: () => IntlShape;

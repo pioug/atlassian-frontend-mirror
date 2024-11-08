@@ -22,9 +22,15 @@ const portalProviderAPI: any = {
 	remove() {},
 };
 
+const nodeViewPortalProviderAPI: any = {
+	render() {},
+	remove() {},
+};
+
 const requiredProps = () => ({
 	providerFactory: ProviderFactory.create({}),
 	portalProviderAPI,
+	nodeViewPortalProviderAPI,
 	onEditorCreated: () => {},
 	onEditorDestroyed: () => {},
 	editorProps: {},

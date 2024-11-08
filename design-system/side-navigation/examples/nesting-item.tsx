@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, type MouseEvent } from 'react';
+import { forwardRef, Fragment, type MouseEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -23,18 +23,19 @@ const containerStyles = xcss({
 	overflow: 'hidden',
 	height: '340px',
 });
-const CustomNestingItem = ({
-	children,
-	href,
-	...props
-}: CustomItemComponentProps & { href: string }) => {
-	return (
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-		<a href={href} {...props}>
-			{children}
-		</a>
-	);
-};
+const CustomNestingItem = forwardRef(
+	(
+		{ children, href, ...props }: CustomItemComponentProps & { href: string },
+		ref: React.Ref<HTMLAnchorElement>,
+	) => {
+		return (
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+			<a href={href} {...props} ref={ref}>
+				{children}
+			</a>
+		);
+	},
+);
 
 const BasicExample = () => {
 	return (

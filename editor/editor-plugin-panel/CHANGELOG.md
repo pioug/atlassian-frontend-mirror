@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-panel
 
+## 3.1.1
+
+### Patch Changes
+
+- [#160699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160699)
+  [`3f6d3eca921ed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f6d3eca921ed) -
+  ED-25575: migrate panel plugin node rendering to portals
+
 ## 3.1.0
 
 ### Minor Changes

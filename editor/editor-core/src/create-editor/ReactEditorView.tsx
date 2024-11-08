@@ -91,6 +91,7 @@ export interface EditorViewProps {
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	providerFactory: ProviderFactory;
 	portalProviderAPI: PortalProviderAPI;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 	disabled?: boolean;
 	editorAPI: PublicPluginAPI<any> | undefined;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -404,6 +405,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 			eventDispatcher: this.eventDispatcher,
 			providerFactory: props.providerFactory,
 			portalProviderAPI: props.portalProviderAPI,
+			nodeViewPortalProviderAPI: props.nodeViewPortalProviderAPI,
 			dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
 			featureFlags: createFeatureFlagsFromProps(props.editorProps),
 			getIntl: () => this.props.intl,
@@ -512,6 +514,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 			eventDispatcher: this.eventDispatcher,
 			providerFactory: options.props.providerFactory,
 			portalProviderAPI: this.props.portalProviderAPI,
+			nodeViewPortalProviderAPI: this.props.nodeViewPortalProviderAPI,
 			dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
 			featureFlags: this.featureFlags,
 			getIntl: () => this.props.intl,

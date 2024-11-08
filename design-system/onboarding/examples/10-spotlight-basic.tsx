@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import { Spotlight, SpotlightManager, SpotlightTarget, SpotlightTransition } from '../src';
+import {
+	Spotlight,
+	SpotlightManager,
+	SpotlightTarget,
+	SpotlightTransition,
+} from '@atlaskit/onboarding';
 
 import { Highlight, HighlightGroup } from './styled';
 
@@ -10,6 +15,7 @@ interface State {
 	active: number | null;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class SpotlightBasicExample extends Component<Object, State> {
 	state: State = { active: null };
 

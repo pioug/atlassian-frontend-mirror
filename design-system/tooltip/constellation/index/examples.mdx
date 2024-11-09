@@ -11,6 +11,7 @@ import TooltipCustomization from '../../examples/constellation/tooltip-customiza
 import TooltipUpdate from '../../examples/constellation/tooltip-update';
 import TooltipPreventInteractions from '../../examples/constellation/tooltip-prevent-interactions';
 import TooltipRenderProps from '../../examples/constellation/tooltip-render-props';
+import TooltipConditional from '../../examples/constellation/tooltip-conditional';
 
 ## Default
 
@@ -76,6 +77,24 @@ Set `ignoreTooltipPointerEvents` to true to prevent mouse interactions with the 
 
 ## Accessibility
 
-The tooltip uses render props to provide aria attributes for assistive technology.
+In order for screen readers to get access to content within tooltips, a hidden element is created
+that contains the `content` of a tooltip. The trigger of a tooltip (the `children` of `<Tooltip>`)
+is provided with `aria-describedby` to connect the hidden element to the trigger.
+
+- If `content` is a function: `aria-describedby` is provided as a prop.
+- If `content` is a component: `aria-describedby` is manually added to the added to the element in a
+  `useEffect`
+
+To disable the usage of a hidden element for screen reader announcements, use the
+`isScreenReaderAnnouncementDisabled` prop. This is useful when the content of a tooltip matches the
+content of the trigger as no hidden element would be needed.
 
 <Example Component={TooltipRenderProps} packageName="@atlaskit/tooltip" />
+
+## Conditional tooltips
+
+A tooltip can be conditionally shown by leveraging the `canAppear` prop. This is helpful when you
+have an element where you only want to show the tooltip of the content of the element is
+concatenated.
+
+<Example Component={TooltipConditional} packageName="@atlaskit/tooltip" />

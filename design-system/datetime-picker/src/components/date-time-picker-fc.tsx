@@ -1,18 +1,13 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import { format, isValid, parseISO } from 'date-fns';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import { IconButton } from '@atlaskit/button/new';
 import SelectClearIcon from '@atlaskit/icon/utility/migration/cross-circle--select-clear';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';
-import { N500, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { formatDateTimeZoneIntoIso } from '../internal';
@@ -26,6 +21,7 @@ import DatePickerNew from './date-picker-fc';
 import TimePicker from './time-picker';
 
 const DatePicker = componentWithCondition(
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	() => fg('dst-date-picker-use-functional-component'),
 	DatePickerNew,
 	DatePickerOld,
@@ -41,33 +37,21 @@ const analyticsAttributes = {
 
 // Make DatePicker 50% the width of DateTimePicker
 // If rendering an icon container, shrink the TimePicker
-const datePickerContainerStyles = css({
+const datePickerContainerStyles = xcss({
 	flexBasis: '50%',
 	flexGrow: 1,
 	flexShrink: 0,
 });
 
-const timePickerContainerStyles = css({
+const timePickerContainerStyles = xcss({
 	flexBasis: '50%',
 	flexGrow: 1,
 });
 
-const iconContainerStyles = css({
+const iconContainerStyles = xcss({
 	display: 'flex',
-	margin: token('border.width', '1px'),
 	alignItems: 'center',
 	flexBasis: 'inherit',
-	backgroundColor: 'inherit',
-	border: 'none',
-	color: token('color.text.subtlest', N70),
-	paddingBlockEnd: token('space.075', '6px'),
-	paddingBlockStart: token('space.075', '6px'),
-	paddingInlineEnd: token('space.100', '8px'),
-	paddingInlineStart: token('space.050', '4px'),
-	transition: `color 150ms`,
-	'&:hover': {
-		color: token('color.text.subtle', N500),
-	},
 });
 
 // react-select overrides (via @atlaskit/select).
@@ -344,8 +328,9 @@ const DateTimePicker = forwardRef(
 				testId={testId}
 				innerProps={innerProps}
 			>
+				{/* since this input is a type=hidden, we do not need to use the textfield component */}
 				<input name={name} type="hidden" value={value} data-testid={testId && `${testId}--input`} />
-				<div css={datePickerContainerStyles}>
+				<Box xcss={datePickerContainerStyles}>
 					<DatePicker
 						appearance={appearance}
 						aria-describedby={datePickerAriaDescribedBy}
@@ -382,8 +367,8 @@ const DateTimePicker = forwardRef(
 						value={dateValue}
 						weekStartDay={datePickerProps.weekStartDay}
 					/>
-				</div>
-				<div css={timePickerContainerStyles}>
+				</Box>
+				<Box xcss={timePickerContainerStyles}>
 					<TimePicker
 						appearance={timePickerProps.appearance || appearance}
 						aria-describedby={timePickerAriaDescribedBy}
@@ -414,17 +399,24 @@ const DateTimePicker = forwardRef(
 						times={timePickerProps.times}
 						value={timeValue}
 					/>
-				</div>
+				</Box>
 				{isClearable && !isDisabled ? (
-					<button
-						css={iconContainerStyles}
-						onClick={onClear}
-						data-testid={testId && `${testId}--icon--container`}
-						tabIndex={-1}
-						type="button"
-					>
-						<SelectClearIcon LEGACY_size="small" color="currentColor" label={clearControlLabel} />{' '}
-					</button>
+					<Inline xcss={iconContainerStyles}>
+						<IconButton
+							appearance="subtle"
+							label={clearControlLabel}
+							icon={(iconProps) => (
+								<SelectClearIcon
+									{...iconProps}
+									color={token('color.text.subtlest')}
+									LEGACY_size="small"
+								/>
+							)}
+							onClick={onClear}
+							testId={testId && `${testId}--icon--container`}
+							tabIndex={-1}
+						/>
+					</Inline>
 				) : null}
 			</DateTimePickerContainer>
 		);

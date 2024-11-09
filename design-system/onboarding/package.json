@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/onboarding",
-	"version": "12.1.1",
+	"version": "12.1.2",
 	"description": "An onboarding spotlight introduces new features to users through focused messages or multi-step tours.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,7 +41,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/ds-lib": "^3.1.0",
+		"@atlaskit/ds-lib": "^3.2.0",
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/layering": "^0.7.0",
 		"@atlaskit/modal-dialog": "^12.17.0",

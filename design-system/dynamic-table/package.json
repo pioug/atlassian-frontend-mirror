@@ -43,7 +43,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/ds-lib": "^3.1.0",
+		"@atlaskit/ds-lib": "^3.2.0",
 		"@atlaskit/pagination": "^14.9.0",
 		"@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration": "^1.2.1",
 		"@atlaskit/spinner": "^16.3.0",

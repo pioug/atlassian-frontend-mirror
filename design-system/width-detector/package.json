@@ -39,7 +39,7 @@
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",
-		"@atlaskit/ds-lib": "^3.1.0",
+		"@atlaskit/ds-lib": "^3.2.0",
 		"@atlaskit/ssr": "*",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",

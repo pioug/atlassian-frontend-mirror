@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { bind, bindAll } from 'bind-event-listener';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { UNSAFE_useLayering } from '@atlaskit/layering';
+import { useLayering } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type CloseManagerHook } from './types';
@@ -22,7 +22,7 @@ export const useCloseManager = ({
 	shouldCloseOnTab,
 	shouldRenderToParent,
 }: CloseManagerHook): void => {
-	const { isLayerDisabled, currentLevel } = UNSAFE_useLayering();
+	const { isLayerDisabled, currentLevel } = useLayering();
 	const { requestFrame, cancelAllFrames } = useAnimationFrame();
 
 	useEffect(() => {

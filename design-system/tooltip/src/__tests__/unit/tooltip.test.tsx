@@ -1190,7 +1190,7 @@ describe('Tooltip', () => {
 		});
 	});
 
-	it('should link correct aria-describedby attribute to the trigger and correct id to the tooltip', () => {
+	it('should render hidden text for screen readers', () => {
 		const wrapped = (
 			<Tooltip testId="tooltip" content="Save">
 				<button data-testid="trigger">focus me</button>
@@ -1200,7 +1200,7 @@ describe('Tooltip', () => {
 			<Tooltip testId="tooltip" content="Save">
 				{(tooltipProps) => (
 					<button {...tooltipProps} data-testid="trigger">
-						focus me
+						hidden content
 					</button>
 				)}
 			</Tooltip>
@@ -1216,10 +1216,51 @@ describe('Tooltip', () => {
 				jest.runAllTimers();
 			});
 
-			const triggerDescriptionId = trigger.getAttribute('aria-describedby');
-			const tooltipId = screen.getByTestId('tooltip-hidden').getAttribute('id');
+			const tooltip = screen.getByTestId('tooltip');
+			const hiddenElement = screen.getByTestId('tooltip-hidden');
+			// element is hidden
+			expect(hiddenElement.hidden).toBe(true);
+			// hidden element linked to trigger
+			expect(hiddenElement.id).toBe(trigger.getAttribute('aria-describedby'));
+			// hidden element has the correct content
+			expect(tooltip).toHaveTextContent(hiddenElement.textContent ?? '');
+			expect(hiddenElement).toHaveTextContent('Save');
 
-			expect(triggerDescriptionId).toEqual(tooltipId);
+			unmount();
+		});
+	});
+
+	it('should not render hidden text for screen readers when asked not to', () => {
+		const wrapped = (
+			<Tooltip testId="tooltip" content="Save" isScreenReaderAnnouncementDisabled>
+				<button data-testid="trigger">focus me</button>
+			</Tooltip>
+		);
+		const renderProp = (
+			<Tooltip testId="tooltip" content="Save" isScreenReaderAnnouncementDisabled>
+				{(tooltipProps) => (
+					<button {...tooltipProps} data-testid="trigger">
+						hidden content
+					</button>
+				)}
+			</Tooltip>
+		);
+
+		[wrapped, renderProp].forEach((jsx) => {
+			const { unmount } = render(jsx);
+
+			const trigger = screen.getByTestId('trigger');
+			fireEvent.mouseOver(trigger);
+
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			expect(screen.getByTestId('tooltip')).toBeInTheDocument();
+			expect(screen.queryByTestId('tooltip-hidden')).not.toBeInTheDocument();
+			// trigger not pointing to any hidden element
+			expect(trigger).not.toHaveAttribute('aria-describedby');
+
 			unmount();
 		});
 	});

@@ -11,7 +11,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import FocusRing from '@atlaskit/focus-ring';
-import { UNSAFE_useLayering, useCloseOnEscapePress } from '@atlaskit/layering';
+import { useCloseOnEscapePress, useLayering } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { media } from '@atlaskit/primitives';
@@ -153,7 +153,7 @@ const ModalDialog = (
 		isDisabled: !shouldCloseOnEscapePress,
 	});
 
-	const { currentLevel } = UNSAFE_useLayering();
+	const { currentLevel } = useLayering();
 	return (
 		<Positioner
 			stackIndex={stackIndex!}

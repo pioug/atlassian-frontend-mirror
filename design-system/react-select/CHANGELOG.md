@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.3.1
+
+### Patch Changes
+
+- [#162105](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162105)
+  [`4edf9a851c491`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4edf9a851c491) -
+  Improve the aria live for searching and reduce the live message when menu is open
+
 ## 1.3.0
 
 ### Minor Changes

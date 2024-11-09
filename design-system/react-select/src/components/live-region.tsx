@@ -81,6 +81,10 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 	// Update aria live selected option when prop changes
 	const ariaSelected = useMemo(() => {
 		let message = '';
+		if (isA11yImprovementEnabled && menuIsOpen) {
+			// we don't need to have selected message when the menu is open
+			return '';
+		}
 		if (ariaSelection && messages.onChange) {
 			const {
 				option,
@@ -101,6 +105,11 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 			const multiSelected = selectedOptions || removedValues || undefined;
 			const labels = multiSelected ? multiSelected.map(getOptionLabel) : [];
 
+			if (isA11yImprovementEnabled && !label && !labels.length) {
+				// return empty string if no labels provided
+				return '';
+			}
+
 			const onChangeProps = {
 				// multiSelected items are usually items that have already been selected
 				// or set by the user as a default value so we assume they are not disabled
@@ -113,7 +122,15 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 			message = messages.onChange(onChangeProps);
 		}
 		return message;
-	}, [ariaSelection, messages, isOptionDisabled, selectValue, getOptionLabel]);
+	}, [
+		ariaSelection,
+		messages,
+		isOptionDisabled,
+		selectValue,
+		getOptionLabel,
+		isA11yImprovementEnabled,
+		menuIsOpen,
+	]);
 
 	const prevInputValue = useRef('');
 
@@ -121,12 +138,11 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 		let focusMsg = '';
 		const focused = focusedOption || focusedValue;
 		const isSelected = !!(focusedOption && selectValue && selectValue.includes(focusedOption));
-		if ((!inputValue || inputValue === prevInputValue.current) && isA11yImprovementEnabled) {
-			// only announce focus option when searching when ff is on,
+		if (inputValue === prevInputValue.current && isA11yImprovementEnabled) {
+			// only announce focus option when searching when ff is on and the input value changed
 			// for safari, we will announce for all
 			return '';
 		}
-		prevInputValue.current = inputValue;
 		if (focused && messages.onFocus) {
 			const onFocusProps = {
 				focused,
@@ -136,12 +152,12 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 				options: focusableOptions,
 				context: focused === focusedOption ? ('menu' as const) : ('value' as const),
 				selectValue,
-				isAppleDevice,
 				isMulti,
 			};
 
 			focusMsg = messages.onFocus(onFocusProps);
 		}
+		prevInputValue.current = inputValue;
 
 		return focusMsg;
 	}, [
@@ -153,7 +169,6 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 		messages,
 		focusableOptions,
 		selectValue,
-		isAppleDevice,
 		isA11yImprovementEnabled,
 		isMulti,
 	]);

@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 94.15.0
+
+### Minor Changes
+
+- [`52d232456ff0c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52d232456ff0c) -
+  Updated quick insert find function to conditionally set sort function to account for new logic
+  around triggering experiment exposure
+
 ## 94.14.2
 
 ### Patch Changes

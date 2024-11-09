@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/app-provider": "^1.4.0",
-		"@atlaskit/ds-lib": "^3.1.0",
+		"@atlaskit/ds-lib": "^3.2.0",
 		"@atlaskit/focus-ring": "^1.7.0",
 		"@atlaskit/interaction-context": "^2.1.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",

@@ -7,7 +7,7 @@ import { forwardRef, Fragment, useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import FocusRing from '@atlaskit/focus-ring';
-import { UNSAFE_useLayering } from '@atlaskit/layering';
+import { useLayering } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Popper } from '@atlaskit/popper';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
@@ -142,7 +142,7 @@ function PopperWrapper({
 		shouldRenderToParent,
 	});
 
-	const { currentLevel } = UNSAFE_useLayering();
+	const { currentLevel } = useLayering();
 
 	const mergedModifiers = useMemo(
 		() => [

@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.10.8
+
+### Patch Changes
+
+- [#161706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161706)
+  [`e28ad5552a7d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e28ad5552a7d3) -
+  legend to feedback radio group
+
 ## 7.10.7
 
 ### Patch Changes

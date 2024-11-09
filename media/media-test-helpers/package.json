@@ -38,7 +38,7 @@
 		"@atlaskit/tabs": "^16.5.0",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/tokens": "^2.2.0",
-		"@atlaskit/tooltip": "^18.8.0",
+		"@atlaskit/tooltip": "^18.9.0",
 		"@atlaskit/ufo": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

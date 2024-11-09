@@ -1,5 +1,19 @@
 # @atlaskit/tooltip
 
+## 18.9.0
+
+### Minor Changes
+
+- [`be6f923511512`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be6f923511512) - -
+  Added new prop: `canAppear`, which can be used to _conditionally_ show tooltips.
+  - Added new prop: `isScreenReaderAnnouncementDisabled` which can be used to disable hidden text
+    for tooltips. This is useful when the Tooltip `content` matches the Tooltip trigger content as
+    hidden text is not required.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.8.5
 
 ### Patch Changes

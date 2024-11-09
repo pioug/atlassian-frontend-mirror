@@ -5,6 +5,7 @@ import { bind } from 'bind-event-listener';
 import { usePlatformLeafSyntheticEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
+import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { type Direction, ExitingPersistence, FadeIn, type Transition } from '@atlaskit/motion';
 import { mediumDurationMs } from '@atlaskit/motion/durations';
@@ -71,11 +72,13 @@ function Tooltip({
 	delay = 300,
 	onShow = noop,
 	onHide = noop,
+	canAppear,
 	hideTooltipOnClick = false,
 	hideTooltipOnMouseDown = false,
 	analyticsContext,
 	strategy = 'fixed',
 	ignoreTooltipPointerEvents = false,
+	isScreenReaderAnnouncementDisabled = false,
 }: TooltipProps) {
 	const tooltipPosition = position === 'mouse' ? mousePosition : position;
 	const onShowHandler = usePlatformLeafSyntheticEventHandler({
@@ -109,15 +112,9 @@ function Tooltip({
 	}, []);
 
 	// Putting a few things into refs so that we don't have to break memoization
-	const lastState = useRef<State>(state);
-	const lastDelay = useRef<number>(delay);
-	const lastHandlers = useRef({ onShowHandler, onHideHandler });
+	const stableState = useStableRef(state);
+	const stableProps = useStableRef({ onShowHandler, onHideHandler, delay, canAppear });
 	const hasCalledShowHandler = useRef<boolean>(false);
-	useEffect(() => {
-		lastState.current = state;
-		lastDelay.current = delay;
-		lastHandlers.current = { onShowHandler, onHideHandler };
-	}, [delay, onHideHandler, onShowHandler, state]);
 
 	const start = useCallback((api: API) => {
 		// @ts-ignore
@@ -130,7 +127,7 @@ function Tooltip({
 		}
 		// Only call onHideHandler if we have called onShowHandler
 		if (hasCalledShowHandler.current) {
-			lastHandlers.current.onHideHandler();
+			stableProps.current.onHideHandler();
 		}
 		// @ts-ignore
 		apiRef.current = null;
@@ -138,7 +135,7 @@ function Tooltip({
 		hasCalledShowHandler.current = false;
 		// just in case
 		setState('hide');
-	}, []);
+	}, [stableProps]);
 
 	const abort = useCallback(() => {
 		if (!apiRef.current) {
@@ -147,11 +144,11 @@ function Tooltip({
 		apiRef.current.abort();
 		// Only call onHideHandler if we have called onShowHandler
 		if (hasCalledShowHandler.current) {
-			lastHandlers.current.onHideHandler();
+			stableProps.current.onHideHandler();
 		}
 		// @ts-ignore
 		apiRef.current = null;
-	}, []);
+	}, [stableProps]);
 	useEffect(
 		function mount() {
 			return function unmount() {
@@ -184,7 +181,7 @@ function Tooltip({
 		});
 	}, []);
 
-	const showTooltip = useCallback(
+	const tryShowTooltip = useCallback(
 		(source: Source) => {
 			/**
 			 * Prevent tooltips from being shown during a drag. This can occur with
@@ -195,24 +192,44 @@ function Tooltip({
 				return;
 			}
 
+			// Another tooltip is has been active but we still have the old `api`
+			// around. We need to finish up the last usage.
+			// Note: just being safe - this should not happen
 			if (apiRef.current && !apiRef.current.isActive()) {
 				abort();
 			}
 
-			// Tell the tooltip to keep showing
+			// This tooltip is already active, we can exit
 			if (apiRef.current && apiRef.current.isActive()) {
 				apiRef.current.keep();
 				return;
 			}
 
+			/**
+			 * Check if tooltip is allowed to show.
+			 *
+			 * Once a tooltip has started, or has scheduled to start
+			 * we won't be checking `canAppear` again.
+			 *
+			 * - We don't want tooltips to disappear once they are shown
+			 * - For consistency, we start after a single positive `canAppear`.
+			 *   Otherwise the amount of times we ask consumers would depend on
+			 *   how many times we get a "mousemove", which _could_ lead to situations
+			 *   where moving the mouse could result in a different outcome to if
+			 *   the mouse was not moved.
+			 */
+			if (stableProps.current.canAppear && !stableProps.current.canAppear?.()) {
+				return;
+			}
+
 			const entry: Entry = {
 				source,
-				delay: lastDelay.current,
+				delay: stableProps.current.delay,
 				show: ({ isImmediate }) => {
 					// Call the onShow handler if it hasn't been called yet
 					if (!hasCalledShowHandler.current) {
 						hasCalledShowHandler.current = true;
-						lastHandlers.current.onShowHandler();
+						stableProps.current.onShowHandler();
 					}
 					setState(isImmediate ? 'show-immediate' : 'fade-in');
 				},
@@ -223,13 +240,13 @@ function Tooltip({
 						setState('before-fade-out');
 					}
 				},
-				done: done,
+				done,
 			};
 
 			const api: API = show(entry);
 			start(api);
 		},
-		[abort, done, start],
+		[stableProps, abort, done, start],
 	);
 
 	const hideTooltipOnEsc = useCallback(() => {
@@ -304,9 +321,10 @@ function Tooltip({
 							}),
 						}
 					: { type: 'keyboard' };
-			showTooltip(source);
+
+			tryShowTooltip(source);
 		},
-		[position, showTooltip],
+		[position, tryShowTooltip],
 	);
 
 	// Ideally we would be using onMouseEnter here, but
@@ -353,8 +371,10 @@ function Tooltip({
 	}, []);
 
 	const onFocus = useCallback(() => {
-		showTooltip({ type: 'keyboard' });
-	}, [showTooltip]);
+		// TODO: this does not play well with `hideTooltipOnMouseDown`
+		// as "focus" will occur after the "mousedown".
+		tryShowTooltip({ type: 'keyboard' });
+	}, [tryShowTooltip]);
 
 	const onBlur = useCallback(() => {
 		if (apiRef.current) {
@@ -362,22 +382,27 @@ function Tooltip({
 		}
 	}, []);
 
-	const onAnimationFinished = useCallback((transition: Transition) => {
-		// Using lastState here because motion is not picking up the latest value
-		if (transition === 'exiting' && lastState.current === 'fade-out' && apiRef.current) {
-			// @ts-ignore: refs are writeable
-			apiRef.current.finishHideAnimation();
-		}
-	}, []);
+	const onAnimationFinished = useCallback(
+		(transition: Transition) => {
+			// Using lastState here because motion is not picking up the latest value
+			if (transition === 'exiting' && stableState.current === 'fade-out' && apiRef.current) {
+				// @ts-ignore: refs are writeable
+				apiRef.current.finishHideAnimation();
+			}
+		},
+		[stableState],
+	);
 
 	// Doing a cast because typescript is struggling to narrow the type
 	const CastTargetContainer = TargetContainer as React.ElementType;
 
-	const shouldRenderTooltipContainer: boolean = state !== 'hide' && Boolean(content);
+	const shouldRenderTooltipPopup: boolean = state !== 'hide' && Boolean(content);
+	const shouldRenderHiddenContent: boolean =
+		!isScreenReaderAnnouncementDisabled && shouldRenderTooltipPopup;
 
 	const shouldRenderTooltipChildren: boolean = state !== 'hide' && state !== 'fade-out';
 
-	useNotifyOpenLayerObserver({ isOpen: shouldRenderTooltipContainer });
+	useNotifyOpenLayerObserver({ isOpen: shouldRenderTooltipPopup });
 
 	const getReferenceElement = () => {
 		if (position === 'mouse' && apiRef.current?.mousePosition) {
@@ -387,7 +412,7 @@ function Tooltip({
 		return targetRef.current || undefined;
 	};
 
-	const tooltipId = useUniqueId('tooltip', shouldRenderTooltipContainer);
+	const tooltipIdForHiddenContent = useUniqueId('tooltip', shouldRenderHiddenContent);
 
 	const tooltipTriggerProps: Omit<TriggerProps, 'ref'> = {
 		onMouseOver,
@@ -407,29 +432,34 @@ function Tooltip({
 
 	// This useEffect is purely for managing the aria attribute when using the
 	// wrapped children approach.
+	const isChildrenAFunction: boolean = typeof children === 'function';
 	useEffect(() => {
-		// If there is no container element, we should exit early, because that
-		// means they are using the render prop API, and that is implemented in a
-		// different way. If there is no target element yet or tooltipId, we also
-		// shouldn't do anything because there is nothing to operate on or with.
-		if (!containerRef.current || !targetRef.current || !tooltipId) {
+		if (isChildrenAFunction) {
 			return;
 		}
 
+		// If `children` is _not_ a function, we are stepping outside of the public
+		// API to add a `aria-describedby` attribute.
+
 		const target = targetRef.current;
 
-		if (shouldRenderTooltipContainer) {
-			target.setAttribute('aria-describedby', tooltipId);
-		} else {
-			target.removeAttribute('aria-describedby');
+		if (!target || !tooltipIdForHiddenContent) {
+			return;
 		}
-	}, [shouldRenderTooltipContainer, tooltipId]);
 
-	const hiddenContent = (
-		<span data-testid={testId ? `${testId}-hidden` : undefined} hidden id={tooltipId}>
+		target.setAttribute('aria-describedby', tooltipIdForHiddenContent);
+		return () => target.removeAttribute('aria-describedby');
+	}, [isChildrenAFunction, tooltipIdForHiddenContent]);
+
+	const hiddenContent = shouldRenderHiddenContent ? (
+		<span
+			data-testid={testId ? `${testId}-hidden` : undefined}
+			hidden
+			id={tooltipIdForHiddenContent}
+		>
 			{typeof content === 'function' ? content({}) : content}
 		</span>
-	);
+	) : null;
 
 	return (
 		<>
@@ -440,11 +470,11 @@ function Tooltip({
 				<>
 					{children({
 						...tooltipTriggerProps,
-						'aria-describedby': tooltipId,
+						'aria-describedby': tooltipIdForHiddenContent,
 						ref: setDirectRef,
 					})}
 					{/* render a hidden tooltip content for screen readers to announce */}
-					{shouldRenderTooltipContainer && hiddenContent}
+					{hiddenContent}
 				</>
 			) : (
 				<CastTargetContainer
@@ -454,11 +484,11 @@ function Tooltip({
 				>
 					{children}
 					{/* render a hidden tooltip content for screen readers to announce */}
-					{shouldRenderTooltipContainer && hiddenContent}
+					{hiddenContent}
 				</CastTargetContainer>
 			)}
 
-			{shouldRenderTooltipContainer ? (
+			{shouldRenderTooltipPopup ? (
 				<Portal zIndex={tooltipZIndex}>
 					<Popper
 						placement={tooltipPosition}

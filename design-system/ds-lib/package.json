@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ds-lib",
-	"version": "3.1.0",
+	"version": "3.2.0",
 	"description": "Reusable utilities and hooks specific to design system.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,6 +46,7 @@
 		"./use-focus-event": "./src/hooks/use-focus-event.tsx",
 		"./use-scrollbar-width": "./src/hooks/use-scrollbar-width.tsx",
 		"./use-previous-value": "./src/hooks/use-previous-value.tsx",
+		"./use-stable-ref": "./src/hooks/use-stable-ref.tsx",
 		"./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.tsx",
 		"./use-auto-focus": "./src/hooks/use-auto-focus.tsx"
 	},
@@ -64,6 +65,7 @@
 		"./use-focus-event": "./src/hooks/use-focus-event.tsx",
 		"./use-scrollbar-width": "./src/hooks/use-scrollbar-width.tsx",
 		"./use-previous-value": "./src/hooks/use-previous-value.tsx",
+		"./use-stable-ref": "./src/hooks/use-stable-ref.tsx",
 		"./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.tsx",
 		"./use-auto-focus": "./src/hooks/use-auto-focus.tsx"
 	},

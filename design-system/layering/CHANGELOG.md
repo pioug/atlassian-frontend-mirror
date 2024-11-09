@@ -1,5 +1,13 @@
 # @atlaskit/layering
 
+## 0.7.3
+
+### Patch Changes
+
+- [#161638](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161638)
+  [`d2e5e5ce0053d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2e5e5ce0053d) -
+  Use Layering and useLayering API and remove setTimeout when updating layer context.
+
 ## 0.7.2
 
 ### Patch Changes

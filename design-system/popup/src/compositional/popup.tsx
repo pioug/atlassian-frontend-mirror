@@ -10,7 +10,7 @@ import invariant from 'tiny-invariant';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { UNSAFE_LAYERING } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
@@ -202,7 +202,7 @@ export const PopupContent = ({
 	}
 
 	const popperWrapper = (
-		<UNSAFE_LAYERING isDisabled={false}>
+		<Layering isDisabled={false}>
 			<PopperWrapper
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				xcss={xcss}
@@ -228,7 +228,7 @@ export const PopupContent = ({
 				strategy={strategy}
 				shouldFitViewport={shouldFitViewport}
 			/>
-		</UNSAFE_LAYERING>
+		</Layering>
 	);
 
 	if (shouldRenderToParent) {

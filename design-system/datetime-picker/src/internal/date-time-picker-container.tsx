@@ -95,6 +95,7 @@ export const DateTimePickerContainer = forwardRef<HTMLDivElement, DateTimePicker
 	({ children, isDisabled, isFocused, appearance, isInvalid, innerProps, testId }, ref) => {
 		const notFocusedOrIsDisabled = !(isFocused || isDisabled);
 
+		// we cannot use Box or Flex primitives because these do not allow ...innerProps to be passed
 		return (
 			<div
 				css={[

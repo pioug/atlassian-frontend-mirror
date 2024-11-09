@@ -21,6 +21,9 @@
             "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../button/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../calendar/afm-cc/tsconfig.json"
         },
         {

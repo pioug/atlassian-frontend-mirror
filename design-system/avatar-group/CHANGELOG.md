@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 10.0.3
+
+### Patch Changes
+
+- [#161302](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161302)
+  [`e005ceaf960e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e005ceaf960e2) -
+  Make some spread props explicit in internal functions and components.
+
 ## 10.0.2
 
 ### Patch Changes

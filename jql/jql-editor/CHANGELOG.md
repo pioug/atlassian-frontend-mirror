@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 4.10.0
+
+### Minor Changes
+
+- [`5fb18cc1a6de4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5fb18cc1a6de4) -
+  Update trello-board-screen message
+
 ## 4.9.5
 
 ### Patch Changes

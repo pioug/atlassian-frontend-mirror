@@ -1,5 +1,33 @@
 # @atlaskit/ds-lib
 
+## 3.2.0
+
+### Minor Changes
+
+- [`be6f923511512`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be6f923511512) -
+  Adding new hook: `useStableRef` which is helpful to store the latest values of `state` or `props`
+  for usage in effects or event listeners without needing to create new effects or event listeners
+  functions.
+
+  ```tsx
+  import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
+
+  function Component({ canShow }: { canShow: () => boolean }) {
+  	const stableRef = useStableRef({ canShow });
+
+  	useEffect(
+  		() => {
+  			stableRef.current.canShow();
+  		},
+  		// Able to use the last render value of `canShow` without needing
+  		// to invalidate the effect. Useful for lazy usage of props.
+  		[],
+  	);
+
+  	return null;
+  }
+  ```
+
 ## 3.1.0
 
 ### Minor Changes

@@ -14,7 +14,7 @@ import ScrollLock, { TouchScrollable } from 'react-scrolllock';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import Blanket from '@atlaskit/blanket';
 import noop from '@atlaskit/ds-lib/noop';
-import { UNSAFE_LAYERING } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
@@ -155,7 +155,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
 	}
 
 	return (
-		<UNSAFE_LAYERING isDisabled={false}>
+		<Layering isDisabled={false}>
 			<Portal zIndex={layers.modal()}>
 				<FadeIn>
 					{(fadeInProps) => (
@@ -179,7 +179,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
 					)}
 				</FadeIn>
 			</Portal>
-		</UNSAFE_LAYERING>
+		</Layering>
 	);
 };
 

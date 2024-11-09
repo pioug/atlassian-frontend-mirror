@@ -16,9 +16,17 @@ import { FocusManagerContext } from './focus-manager';
  * It sets focus to the first avatar when popup is open.
  */
 const PopupAvatarGroup = ({
+	children,
+	isLoading,
+	maxHeight,
 	maxWidth = 800,
+	minHeight,
 	minWidth = 320,
+	onClick,
+	role,
 	setInitialFocusRef,
+	spacing,
+	testId,
 	...rest
 }: PopupAvatarGroupProps) => {
 	const { menuItemRefs } = useContext(FocusManagerContext);
@@ -28,8 +36,21 @@ const PopupAvatarGroup = ({
 	}, [menuItemRefs, setInitialFocusRef]);
 
 	return (
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-		<MenuGroup maxWidth={maxWidth} minWidth={minWidth} {...rest} />
+		<MenuGroup
+			isLoading={isLoading}
+			maxHeight={maxHeight}
+			maxWidth={maxWidth}
+			minHeight={minHeight}
+			minWidth={minWidth}
+			onClick={onClick}
+			role={role}
+			spacing={spacing}
+			testId={testId}
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+			{...rest}
+		>
+			{children}
+		</MenuGroup>
 	);
 };
 

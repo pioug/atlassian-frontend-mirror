@@ -9,7 +9,7 @@ export type QuickInsertOptions =
 	| boolean
 	| {
 			provider?: Promise<QuickInsertProvider>;
-			prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction;
+			prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction | undefined;
 			onInsert?: (item: QuickInsertItem) => void;
 	  };
 
@@ -28,7 +28,7 @@ export type QuickInsertSearchOptions = {
 	category?: string;
 	disableDefaultItems?: boolean;
 	featuredItems?: boolean;
-	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction;
+	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction | undefined;
 };
 
 export type QuickInsertPluginState = {
@@ -48,7 +48,7 @@ export interface QuickInsertPluginOptions {
 	enableElementBrowser?: boolean;
 	elementBrowserHelpUrl?: string;
 	emptyStateHandler?: EmptyStateHandler;
-	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction;
+	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction | undefined;
 	onInsert?: (item: QuickInsertItem) => void;
 }
 

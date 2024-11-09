@@ -10,7 +10,7 @@ import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
-import { UNSAFE_LAYERING, UNSAFE_useLayering, useCloseOnEscapePress } from '@atlaskit/layering';
+import { Layering, useCloseOnEscapePress, useLayering } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Popper, Reference } from '@atlaskit/popper';
 
@@ -40,7 +40,7 @@ const CloseManager = ({
 }) => {
 	useCloseOnEscapePress({ onClose: handleEscapeClose });
 
-	const { isLayerDisabled } = UNSAFE_useLayering();
+	const { isLayerDisabled } = useLayering();
 
 	useEffect(() => {
 		return bind(window, {
@@ -186,10 +186,10 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 				)}
 			</Reference>
 			{isOpen ? (
-				<UNSAFE_LAYERING isDisabled={false}>
+				<Layering isDisabled={false}>
 					{popper}
 					<CloseManager handleEscapeClose={handleCloseRequest} handleClick={handleClick} />
-				</UNSAFE_LAYERING>
+				</Layering>
 			) : (
 				popper
 			)}

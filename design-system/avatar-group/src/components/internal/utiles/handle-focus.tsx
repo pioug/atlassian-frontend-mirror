@@ -57,7 +57,7 @@ export default function handleFocus(refs: Array<FocusableElement>) {
 					e.preventDefault();
 					const nextFocusableElement = getNextFocusableElement(refs, currentFocusedIdx);
 
-					nextFocusableElement && nextFocusableElement.focus();
+					nextFocusableElement?.focus();
 				}
 				break;
 
@@ -66,7 +66,7 @@ export default function handleFocus(refs: Array<FocusableElement>) {
 					e.preventDefault();
 					const prevFocusableElement = getPrevFocusableElement(refs, currentFocusedIdx);
 
-					prevFocusableElement && prevFocusableElement.focus();
+					prevFocusableElement?.focus();
 				}
 				break;
 
@@ -74,14 +74,14 @@ export default function handleFocus(refs: Array<FocusableElement>) {
 				e.preventDefault();
 				// Search for first non-disabled element if first element is disabled
 				const nextFocusableElement = getNextFocusableElement(refs, -1);
-				nextFocusableElement && nextFocusableElement.focus();
+				nextFocusableElement?.focus();
 				break;
 
 			case 'last':
 				e.preventDefault();
 				// Search for last non-disabled element if last element is disabled
 				const prevFocusableElement = getPrevFocusableElement(refs, refs.length);
-				prevFocusableElement && prevFocusableElement.focus();
+				prevFocusableElement?.focus();
 				break;
 
 			default:

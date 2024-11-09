@@ -32,7 +32,7 @@
 		"@atlaskit/calendar": "^15.1.0",
 		"@atlaskit/checkbox": "^15.1.0",
 		"@atlaskit/code": "^15.6.0",
-		"@atlaskit/datetime-picker": "^15.8.0",
+		"@atlaskit/datetime-picker": "^15.9.0",
 		"@atlaskit/dynamic-table": "^16.1.0",
 		"@atlaskit/empty-state": "^7.12.0",
 		"@atlaskit/form": "^10.5.0",
@@ -56,7 +56,7 @@
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/toggle": "^13.4.0",
 		"@atlaskit/tokens": "^2.2.0",
-		"@atlaskit/tooltip": "^18.8.0",
+		"@atlaskit/tooltip": "^18.9.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

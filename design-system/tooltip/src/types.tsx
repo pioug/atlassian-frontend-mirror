@@ -29,6 +29,11 @@ export interface TooltipProps {
 	 * 2. Function which returns a `ReactNode`
 	 * The benefit of the second approach is that it allows you to consume the `update` render prop.
 	 * This `update` function can be called to manually recalculate the position of the tooltip.
+	 *
+	 * This content will be rendered into two places:
+	 * 1. Into the tooltip
+	 * 2. Into a hidden element for screen readers (unless `isScreenReaderAnnouncementDisabled` is set to `true`)
+	 *
 	 */
 	content: ReactNode | (({ update }: { update?: () => void }) => ReactNode);
 
@@ -66,6 +71,27 @@ export interface TooltipProps {
 	 * When interacting with the target element using a keyboard, it will use this position against the target element instead.
 	 */
 	mousePosition?: PositionTypeBase;
+
+	/**
+	 * Whether or not the tooltip can be displayed. Once a tooltip
+	 * is scheduled to be displayed, or is already displayed, it will
+	 * continue to be shown.
+	 *
+	 * @description
+	 *
+	 * `canAppear()` is called in response to user events, and
+	 * not during the rendering of components.
+	 *
+	 */
+	canAppear?: () => boolean;
+
+	/**
+	 * By default tooltip content will be duplicated into a hidden element so
+	 * it can be read out by a screen reader. Sometimes this is not ideal as
+	 * it can result in the same content be announced twice. For those situations,
+	 * you can leverage this prop to disable the duplicate hidden text.
+	 */
+	isScreenReaderAnnouncementDisabled?: boolean;
 
 	/**
 	 * Function to be called when the tooltip will be shown. It's called when the

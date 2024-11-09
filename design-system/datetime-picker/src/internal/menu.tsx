@@ -7,7 +7,7 @@ import { css, jsx } from '@emotion/react';
 import { isValid, parseISO } from 'date-fns';
 
 import Calendar from '@atlaskit/calendar';
-import { UNSAFE_LAYERING } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering';
 import { type MenuProps } from '@atlaskit/select';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
@@ -52,7 +52,7 @@ export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => {
 	const { day, month, year } = getValidDate([calendarValue, calendarView]);
 
 	return (
-		<UNSAFE_LAYERING isDisabled={false}>
+		<Layering isDisabled={false}>
 			<FixedLayer
 				inputValue={selectProps.inputValue}
 				containerRef={selectProps.calendarContainerRef}
@@ -81,6 +81,6 @@ export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => {
 				}
 				testId={selectProps.testId}
 			/>
-		</UNSAFE_LAYERING>
+		</Layering>
 	);
 };

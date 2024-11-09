@@ -4,7 +4,7 @@ import React, { type SyntheticEvent, useCallback, useEffect } from 'react';
 import { canUseDOM } from 'exenv';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import { UNSAFE_LAYERING, useCloseOnEscapePress } from '@atlaskit/layering';
+import { Layering, useCloseOnEscapePress } from '@atlaskit/layering';
 import Portal from '@atlaskit/portal';
 
 import Blanket from './blanket';
@@ -143,10 +143,10 @@ export const Drawer = ({
 				scrollContentLabel={scrollContentLabel}
 			>
 				{isOpen ? (
-					<UNSAFE_LAYERING isDisabled={false}>
+					<Layering isDisabled={false}>
 						{children}
 						<EscapeCloseManager onClose={handleClose} />
-					</UNSAFE_LAYERING>
+					</Layering>
 				) : (
 					children
 				)}

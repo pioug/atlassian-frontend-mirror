@@ -11,6 +11,7 @@ type Refs =
  * @param refs: An array of refs (as function or ref object)
  */
 export default function mergeRefs(refs: Refs[]) {
+	// TODO: could this be wrapped in `useCallback` so we get a stable function?
 	return (value: HTMLElement | null) => {
 		refs.forEach((ref) => {
 			if (typeof ref === 'function') {

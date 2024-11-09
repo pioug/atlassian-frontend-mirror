@@ -68,16 +68,8 @@ const options = {
 export function find(
 	query: string,
 	items: QuickInsertItem[],
-	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction,
+	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction | undefined,
 ): QuickInsertItem[] {
-	const fuseOptions: Fuse.IFuseOptions<QuickInsertItem> = { ...options };
-
-	if (prioritySortingFn) {
-		fuseOptions.sortFn = prioritySortingFn(items);
-	}
-
-	const fuse = new Fuse(items, fuseOptions);
-
 	if (query === '') {
 		// Copy and sort list by priority
 		return items
@@ -87,6 +79,19 @@ export function find(
 					(a.priority || Number.POSITIVE_INFINITY) - (b.priority || Number.POSITIVE_INFINITY),
 			);
 	}
+
+	const fuseOptions: Fuse.IFuseOptions<QuickInsertItem> = { ...options };
+
+	if (prioritySortingFn) {
+		const sortFn = prioritySortingFn(items);
+		// prioritySortingFn will trigger the experiment exposure, but sortFn
+		// will be undefined for the control group.
+		if (sortFn) {
+			fuseOptions.sortFn = sortFn;
+		}
+	}
+
+	const fuse = new Fuse(items, fuseOptions);
 
 	return fuse.search(query).map((result) => result.item);
 }

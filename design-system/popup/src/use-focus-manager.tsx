@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import createFocusTrap, { type FocusTrap } from 'focus-trap';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { UNSAFE_useLayering } from '@atlaskit/layering';
+import { useLayering } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FocusManagerHook } from './types';
@@ -20,7 +20,7 @@ export const useFocusManager = ({
 	shouldRenderToParent,
 }: FocusManagerHook): void => {
 	const { requestFrame, cancelAllFrames } = useAnimationFrame();
-	const { currentLevel } = UNSAFE_useLayering();
+	const { currentLevel } = useLayering();
 
 	useEffect(() => {
 		if (!popupRef || shouldCloseOnTab) {

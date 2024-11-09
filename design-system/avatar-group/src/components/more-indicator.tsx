@@ -72,7 +72,7 @@ export interface MoreIndicatorProps extends AvatarPropTypes {
 	count: number;
 	'aria-controls'?: string;
 	'aria-expanded'?: boolean;
-	'aria-haspopup'?: boolean;
+	'aria-haspopup'?: boolean | 'dialog';
 	buttonProps: Partial<React.HTMLAttributes<HTMLElement>>;
 	onClick: AvatarClickEventHandler;
 	isActive: boolean;

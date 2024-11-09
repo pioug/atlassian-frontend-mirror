@@ -1,5 +1,13 @@
 # @atlaskit/inline-dialog
 
+## 15.2.1
+
+### Patch Changes
+
+- [#161638](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161638)
+  [`d2e5e5ce0053d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2e5e5ce0053d) -
+  Use new API of layering without UNSAFE prefix
+
 ## 15.2.0
 
 ### Minor Changes

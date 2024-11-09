@@ -4,7 +4,7 @@ import { canUseDOM } from 'exenv';
 import ScrollLock from 'react-scrolllock';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
-import { UNSAFE_LAYERING } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -174,7 +174,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 						{TargetReplacement && !replacementElement ? null : (
 							<Fade hasEntered={isOpen} onExited={onExited}>
 								{(animationStyles) => (
-									<UNSAFE_LAYERING
+									<Layering
 										isDisabled={fg('platform_design_system_team_spotlight_layering') ? false : true}
 									>
 										<SpotlightDialog
@@ -194,7 +194,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 											targetNode={replacementElement || targetNode}
 											animationStyles={animationStyles}
 										/>
-									</UNSAFE_LAYERING>
+									</Layering>
 								)}
 							</Fade>
 						)}

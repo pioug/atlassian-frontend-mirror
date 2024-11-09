@@ -266,15 +266,18 @@ const AvatarGroup = ({
 			return null;
 		}
 
-		const renderMoreButton = (
-			props: {
-				'aria-controls'?: string;
-				'aria-expanded'?: boolean;
-				'aria-haspopup'?: boolean | 'dialog';
-			} & {
-				onClick: MouseEventHandler;
-			},
-		) => (
+		const renderMoreButton = ({
+			'aria-controls': ariaControls,
+			'aria-expanded': ariaExpanded,
+			'aria-haspopup': ariaHasPopup,
+			onClick,
+			...props
+		}: {
+			'aria-controls'?: string;
+			'aria-expanded'?: boolean;
+			'aria-haspopup'?: boolean | 'dialog';
+			onClick: MouseEventHandler;
+		}) => (
 			<MoreIndicator
 				buttonProps={showMoreButtonProps}
 				borderColor={borderColor}
@@ -282,7 +285,12 @@ const AvatarGroup = ({
 				size={size}
 				testId={testId && `${testId}--overflow-menu--trigger`}
 				isActive={isOpen}
-				{...(props as any)}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...props}
+				aria-controls={ariaControls}
+				aria-expanded={ariaExpanded}
+				aria-haspopup={ariaHasPopup}
+				onClick={onClick}
 			/>
 		);
 

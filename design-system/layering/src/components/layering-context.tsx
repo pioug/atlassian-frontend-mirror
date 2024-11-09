@@ -51,15 +51,8 @@ const LevelProvider: FC<{
 		setTopLevel(currentLevel);
 	}
 	useEffect(() => {
-		// avoid immediate cleanup using setTimeout when component unmount
-		// this will make sure non-top layer components can get the correct top level value
-		// when multiple layers trigger onClose in sequence.
-		// From React 17, the useEffect cleanup functions are delayed till the commit phase is completed. In other words, the useEffect cleanup functions run asynchronously - for example, if the component is unmounting, the cleanup runs after the screen has been updated.
-		// TODO revisit after we migrate to react 18. https://product-fabric.atlassian.net/browse/DSP-13139
 		return () => {
-			setTimeout(() => {
-				setTopLevel(currentLevel - 1);
-			}, 0);
+			setTopLevel(currentLevel - 1);
 		};
 	}, [setTopLevel, currentLevel]);
 	return <LevelContext.Provider value={currentLevel}>{children}</LevelContext.Provider>;
@@ -98,10 +91,13 @@ const LayeringProvider: FC<{
  * Layering component is a wrapper to let children to consume layer contexts and hooks.
  *
  */
-export const UNSAFE_LAYERING: FC<{
+export const UNSAFE_LAYERING = ({
+	children,
+	isDisabled = true,
+}: {
 	children: ReactNode;
 	isDisabled?: boolean;
-}> = ({ children, isDisabled = true }) => {
+}) => {
 	const currentLevel = useContext(LevelContext);
 	if (isDisabled) {
 		return <>{children}</>;

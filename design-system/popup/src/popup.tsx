@@ -9,7 +9,7 @@ import { type FC, memo, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { UNSAFE_LAYERING } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
@@ -74,7 +74,7 @@ export const Popup: FC<PopupProps> = memo(
 		useNotifyOpenLayerObserver({ isOpen });
 
 		const renderPopperWrapper = (
-			<UNSAFE_LAYERING isDisabled={false}>
+			<Layering isDisabled={false}>
 				<PopperWrapper
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 					xcss={xcss}
@@ -105,7 +105,7 @@ export const Popup: FC<PopupProps> = memo(
 					modifiers={modifiers}
 					shouldFitViewport={shouldFitViewport}
 				/>
-			</UNSAFE_LAYERING>
+			</Layering>
 		);
 
 		const popupContent = (

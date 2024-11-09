@@ -93,6 +93,25 @@ function Component() {
 }
 ```
 
+### `useStableRef()`
+
+```tsx
+function Component({ canShow }: { canShow: () => boolean }) {
+	const stableRef = useStableRef({ canShow });
+
+	useEffect(
+		() => {
+			stableRef.current.canShow();
+		},
+		// Able to use the last render value of `canShow` without needing
+		// to invalidate the effect. Useful for lazy usage of props.
+		[],
+	);
+
+	return null;
+}
+```
+
 ### `useLazyCallback()`
 
 ```tsx

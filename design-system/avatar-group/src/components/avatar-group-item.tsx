@@ -17,14 +17,62 @@ export interface AvatarGroupItemProps {
 }
 
 const AvatarGroupItem = forwardRef<HTMLElement, AvatarGroupItemProps>((props, ref) => {
-	const { avatar, onAvatarClick, testId, index } = props;
-	const { href, onClick, ...rest } = avatar;
+	const { avatar, index, onAvatarClick, testId } = props;
+	const {
+		analyticsContext,
+		appearance,
+		as,
+		borderColor,
+		children,
+		href,
+		isDisabled,
+		key,
+		label,
+		name,
+		onClick,
+		presence,
+		size,
+		src,
+		stackIndex,
+		status,
+		tabIndex,
+		target,
+		testId: groupItemTestId,
+		...rest
+	} = avatar;
 	const itemRef = useRegisterItemWithFocusManager();
 
-	const CustomComponent = ({ children, ...props }: CustomItemComponentProps) => {
+	const CustomComponent = ({
+		children,
+		className,
+		disabled,
+		draggable,
+		onClick,
+		onDragStart,
+		onMouseDown,
+		ref,
+		tabIndex,
+		'data-testid': testId,
+		...props
+	}: CustomItemComponentProps) => {
 		return (
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-			<button type="button" {...props}>
+			<button
+				type="button"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={className}
+				disabled={disabled}
+				draggable={draggable}
+				onClick={onClick}
+				// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+				onDragStart={onDragStart}
+				onMouseDown={onMouseDown}
+				ref={ref}
+				tabIndex={tabIndex}
+				data-testid={testId}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...props}
+			>
 				{children}
 			</button>
 		);
@@ -33,10 +81,21 @@ const AvatarGroupItem = forwardRef<HTMLElement, AvatarGroupItemProps>((props, re
 	const AvatarIcon = (
 		<Avatar
 			{...rest}
-			testId={testId && `${testId}--avatar`}
+			analyticsContext={analyticsContext}
+			appearance={appearance}
+			as={as}
 			borderColor="transparent"
-			size="small"
+			children={children}
+			isDisabled={isDisabled}
+			label={label}
 			name=""
+			presence={presence}
+			size="small"
+			src={src}
+			stackIndex={stackIndex}
+			status={status}
+			tabIndex={tabIndex}
+			testId={testId && `${testId}--avatar`}
 		/>
 	);
 
@@ -48,15 +107,15 @@ const AvatarGroupItem = forwardRef<HTMLElement, AvatarGroupItemProps>((props, re
 			<LinkItem
 				ref={mergeRefs([ref, itemRef])}
 				href={href}
-				target={avatar.target}
-				rel={avatar.target === '_blank' ? 'noopener noreferrer' : undefined}
+				target={target}
+				rel={target === '_blank' ? 'noopener noreferrer' : undefined}
 				iconBefore={AvatarIcon}
 				testId={testId}
 				onClick={(event) =>
 					callback && callback(event as React.MouseEvent<Element>, undefined, index)
 				}
 			>
-				{avatar.name}
+				{name}
 			</LinkItem>
 		);
 	}
@@ -70,13 +129,13 @@ const AvatarGroupItem = forwardRef<HTMLElement, AvatarGroupItemProps>((props, re
 				iconBefore={AvatarIcon}
 				testId={testId}
 			>
-				{avatar.name}
+				{name}
 			</ButtonItem>
 		);
 	}
 	return (
 		<CustomItem iconBefore={AvatarIcon} component={CustomComponent} testId={testId}>
-			{avatar.name}
+			{name}
 		</CustomItem>
 	);
 });

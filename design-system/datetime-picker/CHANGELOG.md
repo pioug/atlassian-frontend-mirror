@@ -1,5 +1,21 @@
 # @atlaskit/datetime-picker
 
+## 15.9.1
+
+### Patch Changes
+
+- [#161638](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161638)
+  [`d2e5e5ce0053d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2e5e5ce0053d) -
+  Use new API of layering without UNSAFE prefix
+
+## 15.9.0
+
+### Minor Changes
+
+- [#161715](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161715)
+  [`fc083f8b29d92`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc083f8b29d92) -
+  update datetime picker to use button component and primitives
+
 ## 15.8.0
 
 ### Minor Changes

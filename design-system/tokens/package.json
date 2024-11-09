@@ -31,7 +31,7 @@
 		"codegen-tokens": "run-ts ./scripts/style-dictionary/build.tsx && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/heading && yarn codegen"
 	},
 	"dependencies": {
-		"@atlaskit/ds-lib": "^3.1.0",
+		"@atlaskit/ds-lib": "^3.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@babel/traverse": "^7.23.2",
@@ -49,7 +49,7 @@
 		"@atlaskit/checkbox": "^15.1.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/textfield": "^6.5.0",
-		"@atlaskit/tooltip": "^18.8.0",
+		"@atlaskit/tooltip": "^18.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/codegen": "^0.1.0",
 		"@atlassian/feature-flags-test-utils": "*",

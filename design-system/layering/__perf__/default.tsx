@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { UNSAFE_LAYERING, UNSAFE_useLayering } from '../src';
+import { Layering, useLayering } from '../src';
 
 const LayerWrapper = () => {
-	const { currentLevel, topLevelRef } = UNSAFE_useLayering();
+	const { currentLevel, topLevelRef } = useLayering();
 
 	return (
 		<div>
@@ -13,7 +13,7 @@ const LayerWrapper = () => {
 };
 
 export default () => (
-	<UNSAFE_LAYERING>
+	<Layering>
 		<LayerWrapper />
-	</UNSAFE_LAYERING>
+	</Layering>
 );

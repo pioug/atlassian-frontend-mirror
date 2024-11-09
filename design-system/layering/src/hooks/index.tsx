@@ -25,7 +25,7 @@ interface UseCloseOnEscapePressOpts {
  */
 export function useCloseOnEscapePress({ onClose, isDisabled }: UseCloseOnEscapePressOpts): void {
 	const escapePressed = useRef(false);
-	const { isLayerDisabled } = UNSAFE_useLayering();
+	const { isLayerDisabled } = useLayering();
 
 	const onKeyDown = useCallback(
 		(e: KeyboardEvent) => {

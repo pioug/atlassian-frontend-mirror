@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { type FieldProps } from '@atlaskit/form';
-import { UNSAFE_LAYERING } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -17,7 +17,7 @@ export const toTextValue = (typeWithValues: DatasourceTypeWithOnlyValues): strin
 
 const TextEditType = (props: TextEditTypeProps) => {
 	return (
-		<UNSAFE_LAYERING isDisabled={false}>
+		<Layering isDisabled={false}>
 			<Textfield
 				{...props}
 				autoFocus
@@ -35,7 +35,7 @@ const TextEditType = (props: TextEditTypeProps) => {
 					})
 				}
 			/>
-		</UNSAFE_LAYERING>
+		</Layering>
 	);
 };
 

@@ -112,10 +112,6 @@ export interface AriaOnFocusProps<Option, Group extends GroupBase<Option>> {
 	 */
 	selectValue: Options<Option>;
 	/**
-	 * Boolean indicating whether user uses Apple device
-	 */
-	isAppleDevice: boolean;
-	/**
 	 * Boolean value of selectProp isMulti
 	 */
 	isMulti: boolean;
@@ -206,7 +202,6 @@ export const defaultAriaLiveMessages = {
 			isMulti,
 			isDisabled,
 			isSelected,
-			isAppleDevice,
 		} = props;
 
 		const getArrayIndex = (arr: OptionsOrGroups<Option, Group>, item: Option) =>
@@ -216,7 +211,7 @@ export const defaultAriaLiveMessages = {
 			return `value ${label} focused, ${getArrayIndex(selectValue, focused)}.`;
 		}
 
-		if (context === 'menu' && isAppleDevice) {
+		if (context === 'menu') {
 			const disabled = isDisabled ? ' disabled' : '';
 			// don't announce not selected for single selection
 			const notSelectedStatus =

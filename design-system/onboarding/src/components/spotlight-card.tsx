@@ -8,7 +8,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button, { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
 import Heading from '@atlaskit/heading';
-import { UNSAFE_useLayering } from '@atlaskit/layering';
+import { useLayering } from '@atlaskit/layering';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -156,7 +156,7 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
 			headingId,
 		} = props;
 		const { Header = DefaultHeader, Footer = DefaultFooter } = components;
-		const { currentLevel } = UNSAFE_useLayering();
+		const { currentLevel } = useLayering();
 
 		return (
 			<ButtonTheme.Provider value={spotlightButtonTheme}>

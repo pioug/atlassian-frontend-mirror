@@ -6,11 +6,11 @@ import userEvent from '@testing-library/user-event';
 import Button from '@atlaskit/button/new';
 import Modal, { ModalBody, ModalHeader } from '@atlaskit/modal-dialog';
 
-import { UNSAFE_LAYERING, UNSAFE_useLayering } from '../../../index';
+import { Layering, useLayering } from '../../../index';
 
 describe('Layering', () => {
 	const Wrapper = () => {
-		const { currentLevel, topLevelRef } = UNSAFE_useLayering();
+		const { currentLevel, topLevelRef } = useLayering();
 		return (
 			<div>
 				The current level is {currentLevel}, top level is {topLevelRef.current ?? 'null'}
@@ -26,11 +26,11 @@ describe('Layering', () => {
 
 	it('should have correct context value if 2 layers are provided', () => {
 		render(
-			<UNSAFE_LAYERING isDisabled={false}>
-				<UNSAFE_LAYERING isDisabled={false}>
+			<Layering isDisabled={false}>
+				<Layering isDisabled={false}>
 					<Wrapper />
-				</UNSAFE_LAYERING>
-			</UNSAFE_LAYERING>,
+				</Layering>
+			</Layering>,
 		);
 		expect(screen.getByText(/^The current level is/)).toHaveTextContent(
 			'The current level is 2, top level is 2',
@@ -39,15 +39,15 @@ describe('Layering', () => {
 
 	it('should have correct context value if 4 layers are provided', () => {
 		render(
-			<UNSAFE_LAYERING isDisabled={false}>
-				<UNSAFE_LAYERING isDisabled={false}>
-					<UNSAFE_LAYERING isDisabled={false}>
-						<UNSAFE_LAYERING isDisabled={false}>
+			<Layering isDisabled={false}>
+				<Layering isDisabled={false}>
+					<Layering isDisabled={false}>
+						<Layering isDisabled={false}>
 							<Wrapper />
-						</UNSAFE_LAYERING>
-					</UNSAFE_LAYERING>
-				</UNSAFE_LAYERING>
-			</UNSAFE_LAYERING>,
+						</Layering>
+					</Layering>
+				</Layering>
+			</Layering>,
 		);
 		expect(screen.getByText(/^The current level is/)).toHaveTextContent(
 			'The current level is 4, top level is 4',
@@ -56,9 +56,9 @@ describe('Layering', () => {
 
 	it('should have default context value if isDisabled is true by default', () => {
 		render(
-			<UNSAFE_LAYERING>
+			<Layering>
 				<Wrapper />
-			</UNSAFE_LAYERING>,
+			</Layering>,
 		);
 		expect(screen.getByText(/^The current level is/)).toHaveTextContent(
 			'The current level is 0, top level is null',

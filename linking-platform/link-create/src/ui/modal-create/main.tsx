@@ -8,7 +8,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import { UNSAFE_LAYERING } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering';
 import { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
 import { Box } from '@atlaskit/primitives';
 
@@ -96,13 +96,13 @@ const LinkCreateWithModal = ({
 					activePlugin={activePlugin}
 				/>
 			)}
-			<UNSAFE_LAYERING isDisabled={false}>
+			<Layering isDisabled={false}>
 				<ConfirmDismissDialog
 					active={showExitWarning}
 					onClose={handleCloseExitWarning}
 					onCancel={onCancel}
 				/>
-			</UNSAFE_LAYERING>
+			</Layering>
 		</LinkCreateCallbackProvider>
 	);
 };

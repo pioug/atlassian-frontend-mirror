@@ -1,5 +1,12 @@
 # @atlaskit/people-teams-ui-public
 
+## 1.5.0
+
+### Minor Changes
+
+- [`5fb18cc1a6de4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5fb18cc1a6de4) -
+  Update trello-board-screen message
+
 ## 1.4.5
 
 ### Patch Changes

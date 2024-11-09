@@ -221,15 +221,20 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 									return (
 										<form {...formProps} name="form-example">
 											{!wasHelpful && (
-												<Field name="feedbackReason" isRequired>
-													{({ fieldProps }: { fieldProps: any }) => (
-														<RadioGroup
-															{...fieldProps}
-															options={negativeFeedbackReason}
-															onChange={radioGroupReasonOnChange}
-														/>
-													)}
-												</Field>
+												<fieldset>
+													<legend hidden={true}>
+														{formatMessage(messages.help_article_rating_form_title)}
+													</legend>
+													<Field name="feedbackReason" isRequired>
+														{({ fieldProps }: { fieldProps: any }) => (
+															<RadioGroup
+																{...fieldProps}
+																options={negativeFeedbackReason}
+																onChange={radioGroupReasonOnChange}
+															/>
+														)}
+													</Field>
+												</fieldset>
 											)}
 											<Field name="feedbackReasonText" defaultValue="">
 												{({ fieldProps }: { fieldProps: any }) => (

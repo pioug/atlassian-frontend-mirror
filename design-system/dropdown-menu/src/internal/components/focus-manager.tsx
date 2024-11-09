@@ -11,7 +11,7 @@ import React, {
 import { bind } from 'bind-event-listener';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { UNSAFE_useLayering } from '@atlaskit/layering';
+import { useLayering } from '@atlaskit/layering';
 
 import { type FocusableElementRef } from '../../types';
 import handleFocus from '../utils/handle-focus';
@@ -72,8 +72,7 @@ const FocusManager: FC<{
 		[refresh],
 	);
 
-	const { isLayerDisabled } = UNSAFE_useLayering();
-
+	const { isLayerDisabled } = useLayering();
 	// Intentionally rebinding on each render
 	useEffect(() => {
 		if (registerMode.current === 'ordered') {

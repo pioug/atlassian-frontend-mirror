@@ -1,4 +1,5 @@
 import { BaseMediaClientError } from '../../models/errors';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type FileFetcherErrorReason =
 	| 'invalidFileId'
@@ -12,6 +13,7 @@ export type FileFetcherErrorAttributes = {
 	readonly metadata?: {
 		readonly collectionName?: string;
 		readonly occurrenceKey?: string;
+		readonly traceContext?: MediaTraceContext;
 	};
 };
 export class FileFetcherError extends BaseMediaClientError<FileFetcherErrorAttributes> {
@@ -21,18 +23,20 @@ export class FileFetcherError extends BaseMediaClientError<FileFetcherErrorAttri
 		readonly metadata?: {
 			readonly collectionName?: string;
 			readonly occurrenceKey?: string;
+			readonly traceContext?: MediaTraceContext;
 		},
 	) {
 		super(reason);
 	}
 
 	get attributes() {
-		const { reason, id, metadata: { collectionName, occurrenceKey } = {} } = this;
+		const { reason, id, metadata: { collectionName, occurrenceKey, traceContext } = {} } = this;
 		return {
 			reason,
 			id,
 			collectionName,
 			occurrenceKey,
+			...(traceContext && { metadata: { traceContext } }),
 		};
 	}
 }

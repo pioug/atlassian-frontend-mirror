@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-
-import { Box, xcss } from '../src';
+import { Box, xcss } from '@atlaskit/primitives';
 
 const containerStyles = xcss({
 	position: 'relative',

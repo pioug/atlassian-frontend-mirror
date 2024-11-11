@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { AtlassianMarketplaceIcon, AtlassianMarketplaceLogo } from '../../src';
+import { AtlassianMarketplaceIcon, AtlassianMarketplaceLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

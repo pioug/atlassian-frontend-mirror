@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 import Button from '@atlaskit/button/new';
+import InlineDialog from '@atlaskit/inline-dialog';
 import { token } from '@atlaskit/tokens';
 
-import InlineDialog from '../../src';
 import { Placements } from '../utils';
 
 interface State {

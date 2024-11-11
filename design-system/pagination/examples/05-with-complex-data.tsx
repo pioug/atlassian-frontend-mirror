@@ -1,9 +1,8 @@
 import React, { type SyntheticEvent, useState } from 'react';
 
 import { Code } from '@atlaskit/code';
+import Pagination from '@atlaskit/pagination';
 import { Stack, Text } from '@atlaskit/primitives';
-
-import Pagination from '../src';
 
 const PAGES = [...Array(10)].map((_, i) => ({
 	label: i + 1,

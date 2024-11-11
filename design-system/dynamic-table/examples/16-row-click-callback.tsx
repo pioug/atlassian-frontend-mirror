@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { DynamicTableStateless } from '../src';
-import type { RowType } from '../src/types';
+import { DynamicTableStateless } from '@atlaskit/dynamic-table';
+import type { RowType } from '@atlaskit/dynamic-table/types';
 
 import { rows as allRows, head } from './content/sample-data';
 

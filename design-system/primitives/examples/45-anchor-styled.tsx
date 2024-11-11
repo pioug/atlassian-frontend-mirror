@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { xcss } from '../src';
+import { xcss } from '@atlaskit/primitives';
+
 import Anchor from '../src/components/anchor';
 
 const anchorStyles = xcss({

@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-
-import { Box, Stack, Text, xcss } from '../src';
+import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 
 const inheritContainerStyles = xcss({
 	color: 'color.text.brand',

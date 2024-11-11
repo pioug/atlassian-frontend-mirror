@@ -10,10 +10,9 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import { type Placement } from '@atlaskit/popper';
+import Popup from '@atlaskit/popup';
 import { Box, Text } from '@atlaskit/primitives';
 import VisuallyHidden from '@atlaskit/visually-hidden';
-
-import Popup from '../src';
 
 type PopupProps = {
 	isLoading: boolean;

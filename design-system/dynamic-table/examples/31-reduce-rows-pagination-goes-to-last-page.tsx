@@ -8,8 +8,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-
-import DynamicTable from '../src'; // defaults to using the STATEFUL component
+import DynamicTable from '@atlaskit/dynamic-table'; // defaults to using the STATEFUL component
 
 import { caption, head, rows } from './content/sample-data';
 

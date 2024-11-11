@@ -15,3 +15,7 @@ export {
 	getListOfRovoParams,
 } from './common/utils/params';
 export type { RovoChatParams, RovoChatPathway } from './common/utils/params/types';
+export {
+	useRovoPostMessageToPubsub,
+	RovoPostMessagePubsubListener,
+} from './common/utils/post-message-to-pubsub';

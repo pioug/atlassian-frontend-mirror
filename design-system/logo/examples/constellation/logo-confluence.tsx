@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { ConfluenceIcon, ConfluenceLogo } from '../../src';
+import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 3.8.7
+
+### Patch Changes
+
+- [`f72c22d3b02b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f72c22d3b02b0) -
+  The changes here updates the default width, and adds a min-width to the Priority column in Jira
+  SLLV.
+
 ## 3.8.6
 
 ### Patch Changes

@@ -5,10 +5,14 @@ import Lorem from 'react-lorem-component';
 import Button, { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
+import ModalDialog, {
+	ModalBody,
+	ModalFooter,
+	ModalTransition,
+	useModal,
+} from '@atlaskit/modal-dialog';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import ModalDialog, { ModalBody, ModalFooter, ModalTransition, useModal } from '../src';
 
 const headerStyles: React.CSSProperties = {
 	background:

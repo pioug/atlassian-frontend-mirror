@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { BitbucketIcon, BitbucketLogo } from '../../src';
+import { BitbucketIcon, BitbucketLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

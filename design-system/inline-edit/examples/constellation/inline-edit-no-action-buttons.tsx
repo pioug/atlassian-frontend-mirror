@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
+import { InlineEditableTextfield } from '@atlaskit/inline-edit';
 import { Box } from '@atlaskit/primitives';
-
-import { InlineEditableTextfield } from '../../src';
 
 const InlineEditNoActionsExample = () => {
 	const placeholderLabel = 'Initial postcode value';

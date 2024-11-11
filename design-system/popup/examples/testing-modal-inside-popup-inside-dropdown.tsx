@@ -6,11 +6,10 @@ import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Modal, { ModalBody, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+import Popup from '@atlaskit/popup';
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-
-import Popup from '../src';
 
 const wrapperStyles = xcss({
 	display: 'flex',

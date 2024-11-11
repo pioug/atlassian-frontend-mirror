@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { ErrorMessage } from '@atlaskit/form';
+import InlineEdit from '@atlaskit/inline-edit';
 import { Box, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
-
-import InlineEdit from '../src';
 
 const readViewContainerStyles = xcss({
 	font: 'font.body',

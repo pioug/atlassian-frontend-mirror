@@ -9,11 +9,10 @@ import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
+import Modal, { ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
 import { Box, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 import { token } from '@atlaskit/tokens';
-
-import Modal, { ModalHeader, ModalTitle, ModalTransition } from '../src';
 
 import ModalTitleWithClose from './common/modal-title';
 

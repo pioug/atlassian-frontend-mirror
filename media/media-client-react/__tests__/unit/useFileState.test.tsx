@@ -262,6 +262,12 @@ describe('useFileState', () => {
 					id: testFileId,
 					occurrenceKey: undefined,
 					reason: 'emptyItems',
+					metadata: {
+						traceContext: {
+							traceId: expect.any(String),
+							spanId: expect.any(String),
+						},
+					},
 				},
 				id: testFileId,
 				message: 'emptyItems',
@@ -315,6 +321,12 @@ describe('useFileState', () => {
 					id: testFileId,
 					occurrenceKey: undefined,
 					reason: 'zeroVersionFile',
+					metadata: {
+						traceContext: {
+							traceId: expect.any(String),
+							spanId: expect.any(String),
+						},
+					},
 				},
 				id: testFileId,
 				message: 'zeroVersionFile',
@@ -355,6 +367,12 @@ describe('useFileState', () => {
 						method: 'POST',
 						reason: 'serverBadRequest',
 						statusCode: 400,
+						metadata: {
+							traceContext: {
+								traceId: expect.any(String),
+								spanId: expect.any(String),
+							},
+						},
 					},
 					id: testFileId,
 					message: 'serverBadRequest',
@@ -395,6 +413,12 @@ describe('useFileState', () => {
 						method: 'POST',
 						reason: 'serverNotFound',
 						statusCode: 404,
+						metadata: {
+							traceContext: {
+								traceId: expect.any(String),
+								spanId: expect.any(String),
+							},
+						},
 					},
 					id: testFileId,
 					message: 'serverNotFound',

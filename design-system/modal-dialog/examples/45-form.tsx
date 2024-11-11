@@ -3,17 +3,16 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, Field } from '@atlaskit/form';
-import { Box, Stack } from '@atlaskit/primitives';
-import { RadioGroup } from '@atlaskit/radio';
-import Textfield from '@atlaskit/textfield';
-
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
-} from '../src';
+} from '@atlaskit/modal-dialog';
+import { Box, Stack } from '@atlaskit/primitives';
+import { RadioGroup } from '@atlaskit/radio';
+import Textfield from '@atlaskit/textfield';
 
 import ModalTitleWithClose from './common/modal-title';
 

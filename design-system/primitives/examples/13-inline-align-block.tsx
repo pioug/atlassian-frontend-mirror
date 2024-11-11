@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Inline, Stack, xcss } from '../src';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const alignBlockItems = ['start', 'center', 'end', 'baseline', 'stretch', undefined] as const;
 

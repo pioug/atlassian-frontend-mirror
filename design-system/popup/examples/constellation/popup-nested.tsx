@@ -11,9 +11,8 @@ import Button from '@atlaskit/button/new';
 import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
 import MenuIcon from '@atlaskit/icon/glyph/menu';
 import { ButtonItem, Section } from '@atlaskit/menu';
+import Popup from '@atlaskit/popup';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
-
-import Popup from '../../src';
 
 const nestedPopupStyles = xcss({
 	maxWidth: '800px',

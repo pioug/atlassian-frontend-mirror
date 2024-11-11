@@ -12,20 +12,19 @@ import Flag, { FlagGroup } from '@atlaskit/flag';
 import { Field } from '@atlaskit/form';
 import Info from '@atlaskit/icon/glyph/info';
 import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
-import Popup from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
-import Select, { PopupSelect } from '@atlaskit/select';
-import { layers } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
-
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
-} from '../src';
+} from '@atlaskit/modal-dialog';
+import Popup from '@atlaskit/popup';
+import { Box, xcss } from '@atlaskit/primitives';
+import Select, { PopupSelect } from '@atlaskit/select';
+import { layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import ModalTitleWithClose from './common/modal-title';
 

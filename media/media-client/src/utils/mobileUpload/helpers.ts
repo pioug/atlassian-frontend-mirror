@@ -16,6 +16,7 @@ import {
 	type StateMachineEvent,
 	type StateMachineTypestate,
 } from './stateMachine/types';
+import { isNotFoundMediaItemDetails } from '../../models/media';
 
 export const createMobileFileStateSubject = (
 	service: Interpreter<StateMachineContext, any, StateMachineEvent, StateMachineTypestate>,
@@ -47,10 +48,11 @@ export const createMobileDownloadFileStream = (
 			collectionName,
 		});
 
-		if (!response) {
+		if (isNotFoundMediaItemDetails(response)) {
 			throw new MobileUploadError('emptyItems', id, {
 				collectionName,
 				occurrenceKey,
+				traceContext: response.metadataTraceContext,
 			});
 		}
 
@@ -58,6 +60,7 @@ export const createMobileDownloadFileStream = (
 			throw new MobileUploadError('zeroVersionFile', id, {
 				collectionName,
 				occurrenceKey,
+				traceContext: response.metadataTraceContext,
 			});
 		}
 

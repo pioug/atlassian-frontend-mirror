@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { LoomAttributionIcon, LoomAttributionLogo } from '../../src';
+import { LoomAttributionIcon, LoomAttributionLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

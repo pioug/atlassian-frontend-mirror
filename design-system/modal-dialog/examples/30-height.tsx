@@ -5,15 +5,14 @@ import Lorem from 'react-lorem-component';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
-import { Box, Inline, xcss } from '@atlaskit/primitives';
-
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
-} from '../src';
+} from '@atlaskit/modal-dialog';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 
 import ModalTitleWithClose from './common/modal-title';
 

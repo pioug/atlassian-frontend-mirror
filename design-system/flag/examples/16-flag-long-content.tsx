@@ -1,11 +1,10 @@
 import React from 'react';
 
-import Text from '@atlaskit/primitives/text';
 import noop from '@atlaskit/ds-lib/noop';
+import Flag, { FlagGroup } from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import Text from '@atlaskit/primitives/text';
 import { token } from '@atlaskit/tokens';
-
-import Flag, { FlagGroup } from '../src';
 
 export default () => (
 	<>

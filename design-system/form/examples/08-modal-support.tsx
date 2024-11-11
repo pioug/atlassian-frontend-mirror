@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
+import Form, { CheckboxField, Field } from '@atlaskit/form';
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
@@ -11,8 +12,6 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
-
-import Form, { CheckboxField, Field } from '../src';
 
 export default function ModalDialogForm() {
 	const [isOpen, setIsOpen] = useState(false);

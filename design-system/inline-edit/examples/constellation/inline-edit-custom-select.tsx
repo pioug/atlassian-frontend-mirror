@@ -7,12 +7,11 @@ import { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import InlineEdit from '@atlaskit/inline-edit';
 import { Box, xcss } from '@atlaskit/primitives';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Tag from '@atlaskit/tag';
 import Group from '@atlaskit/tag-group';
-
-import InlineEdit from '../../src';
 
 const containerStyles = xcss({
 	paddingBlockStart: 'space.100',

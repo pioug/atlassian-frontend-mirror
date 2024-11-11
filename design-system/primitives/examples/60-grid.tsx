@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, type BoxProps, Grid, xcss } from '../src';
+import { Box, type BoxProps, Grid, xcss } from '@atlaskit/primitives';
 
 const customBorderStyles = xcss({
 	borderColor: 'color.border',

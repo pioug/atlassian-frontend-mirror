@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Pagination from '../../src';
+import Pagination from '@atlaskit/pagination';
 
 export default function PaginationDefaultExample() {
 	return (

@@ -1,9 +1,8 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
+import Form, { Field, FormFooter, FormHeader, RequiredAsterisk } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
-
-import Form, { Field, FormFooter, FormHeader, RequiredAsterisk } from '../src';
 
 export default () => (
 	<div

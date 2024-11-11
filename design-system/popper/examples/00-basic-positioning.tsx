@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Manager, Popper, Reference } from '../src';
+import { Manager, Popper, Reference } from '@atlaskit/popper';
 
 export default () => (
 	<Manager>

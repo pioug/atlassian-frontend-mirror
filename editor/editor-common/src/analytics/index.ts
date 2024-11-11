@@ -146,3 +146,4 @@ export {
 	unlinkPayload,
 } from './linking-utils';
 export type { LinkType } from './linking-utils';
+export type { RequestToEditAEP } from './types/general-events';

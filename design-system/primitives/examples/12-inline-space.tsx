@@ -6,9 +6,8 @@
 import { css, jsx } from '@emotion/react';
 
 import Heading from '@atlaskit/heading';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import { Box, Inline, Stack, xcss } from '../src';
 
 const spaceItems = [
 	'space.0',

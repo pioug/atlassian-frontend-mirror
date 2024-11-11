@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Code } from '@atlaskit/code';
-
-import { ConfluenceIcon, ConfluenceLogo } from '../src';
+import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
 
 export default () => (
 	<div data-testid="sizes">

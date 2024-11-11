@@ -1,14 +1,14 @@
 import React, { type ReactElement } from 'react';
-import Stack from '@atlaskit/primitives/stack';
+
 import noop from '@atlaskit/ds-lib/noop';
+import Flag from '@atlaskit/flag';
+import { type AppearanceTypes } from '@atlaskit/flag/types';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
+import Stack from '@atlaskit/primitives/stack';
 import { token } from '@atlaskit/tokens';
-
-import Flag from '../src';
-import { type AppearanceTypes } from '../src/types';
 
 const actions = [
 	{ content: 'Understood', onClick: noop },

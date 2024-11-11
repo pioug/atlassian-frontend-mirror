@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, xcss } from '../src';
+import { Box, xcss } from '@atlaskit/primitives';
 
 const boxStyles = xcss({
 	width: 'size.500',

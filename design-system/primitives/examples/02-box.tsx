@@ -1,8 +1,8 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-
-import { type BackgroundColor, Box, Inline, type Space, Stack, xcss } from '../src';
+import { type BackgroundColor, Box, Inline, type Space, Stack, xcss } from '@atlaskit/primitives';
 
 const spacingValues: Space[] = [
 	'space.0',

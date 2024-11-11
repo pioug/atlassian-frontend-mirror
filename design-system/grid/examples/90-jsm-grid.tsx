@@ -5,6 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import Grid, { GridItem } from '@atlaskit/grid';
 import Heading, { HeadingContextProvider } from '@atlaskit/heading';
 import { JiraServiceManagementLogo } from '@atlaskit/logo';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
@@ -15,8 +16,6 @@ import {
 } from '@atlaskit/primitives/responsive';
 import Textfield from '@atlaskit/textfield';
 import { useThemeObserver } from '@atlaskit/tokens';
-
-import Grid, { GridItem } from '../src';
 
 import JSMCard from './91-jsm-card';
 import JSMConfigCard from './92-jsm-config-card';

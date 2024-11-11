@@ -1,11 +1,10 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
+import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
-import { token } from '@atlaskit/tokens';
 import { Box } from '@atlaskit/primitives';
-
-import { AutoDismissFlag, FlagGroup } from '../../src';
+import { token } from '@atlaskit/tokens';
 
 const AutoDismissFlagErrorExample = () => {
 	const [flags, setFlags] = React.useState<Array<number>>([]);

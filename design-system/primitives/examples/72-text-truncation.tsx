@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Inline, Stack, Text, xcss } from '../src';
+import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 
 const labelWidthStyles = xcss({
 	width: '160px',

@@ -3,9 +3,8 @@ import React from 'react';
 import { HashRouter, Link, Route, Switch } from 'react-router-dom';
 
 import Heading from '@atlaskit/heading';
+import Pagination from '@atlaskit/pagination';
 import { Box, Stack } from '@atlaskit/primitives';
-
-import Pagination from '../src';
 
 interface Pages {
 	href: string;

@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Link from '@atlaskit/link';
 import { Box } from '@atlaskit/primitives';
-
-import Link from '../src';
 
 export default function SubtleExample() {
 	return (

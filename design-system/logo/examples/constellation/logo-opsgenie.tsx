@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { OpsgenieIcon, OpsgenieLogo } from '../../src';
+import { OpsgenieIcon, OpsgenieLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

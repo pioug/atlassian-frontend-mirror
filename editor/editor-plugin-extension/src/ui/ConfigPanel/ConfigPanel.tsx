@@ -564,4 +564,6 @@ function ConfigFormIntlWithBoundary({
 	);
 }
 
-export default withAnalyticsContext({ source: 'ConfigPanel' })(withAnalyticsEvents()(ConfigPanel));
+const result = withAnalyticsContext({ source: 'ConfigPanel' })(withAnalyticsEvents()(ConfigPanel));
+
+export default result;

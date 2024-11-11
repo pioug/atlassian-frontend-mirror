@@ -9,9 +9,8 @@ import { jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/glyph/more';
+import Popup, { type PopupComponentProps } from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import Popup, { type PopupComponentProps } from '../../src';
 
 const containerStyles = xcss({
 	padding: 'space.200',

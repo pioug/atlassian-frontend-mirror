@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
+import InlineEdit from '@atlaskit/inline-edit';
 import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-
-import InlineEdit from '../../src';
 
 /*
   As inline edit allows for a custom input component, styling of `ReadViewContainer` needs to be shipped with the component.

@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Link from '@atlaskit/link';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import Link from '../src';
 
 const containerStyles = xcss({
 	// @ts-ignore

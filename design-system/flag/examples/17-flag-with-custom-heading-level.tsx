@@ -1,8 +1,8 @@
 import React from 'react';
-import { token } from '@atlaskit/tokens';
-import InfoIcon from '@atlaskit/icon/glyph/info';
 
-import Flag from '../src';
+import Flag from '@atlaskit/flag';
+import InfoIcon from '@atlaskit/icon/glyph/info';
+import { token } from '@atlaskit/tokens';
 
 export default () => (
 	<>

@@ -1,14 +1,13 @@
 import React, { type ReactElement, type ReactNode, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import Flag, { FlagGroup } from '@atlaskit/flag';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
 import Box from '@atlaskit/primitives/box';
 import { token } from '@atlaskit/tokens';
-
-import Flag, { FlagGroup } from '../src';
 
 type flagData = {
 	created: number;

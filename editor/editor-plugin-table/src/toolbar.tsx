@@ -11,7 +11,7 @@ import { CHANGE_ALIGNMENT_REASON, INPUT_METHOD } from '@atlaskit/editor-common/a
 import { addColumnAfter, addRowAfter, backspace, tooltip } from '@atlaskit/editor-common/keymaps';
 import commonMessages, { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import type { typeOption } from '@atlaskit/editor-common/src/types/floating-toolbar';
+import type { typeOption } from '@atlaskit/editor-common/types';
 import type {
 	Command,
 	CommandDispatch,

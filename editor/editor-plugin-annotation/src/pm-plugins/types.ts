@@ -1,6 +1,6 @@
 import type { EditorAnalyticsAPI, VIEW_METHOD } from '@atlaskit/editor-common/analytics';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type { EditorState, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';

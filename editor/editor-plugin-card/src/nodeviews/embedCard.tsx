@@ -22,7 +22,7 @@ import {
 	UnsupportedBlock,
 } from '@atlaskit/editor-common/ui';
 import { floatingLayouts, isRichMediaInsideOfBlockNode } from '@atlaskit/editor-common/utils';
-import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode/src';
+import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Highlights } from '@atlaskit/editor-plugin-grid';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';

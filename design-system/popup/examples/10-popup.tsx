@@ -12,9 +12,8 @@ import Button from '@atlaskit/button/new';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import Link from '@atlaskit/link';
 import { type Placement } from '@atlaskit/popper';
+import Popup from '@atlaskit/popup';
 import { token } from '@atlaskit/tokens';
-
-import Popup from '../src';
 
 const spacerStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage

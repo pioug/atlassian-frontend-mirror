@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Grid, { GridItem, type GridProps } from '@atlaskit/grid';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import Grid, { GridItem, type GridProps } from '../src';
 
 const itemStyles = xcss({
 	display: 'flex',

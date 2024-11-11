@@ -12,6 +12,7 @@ const defaultMetadata: RequestErrorMetadata & MediaHeaders = {
 	clientExhaustedRetries: true,
 	mediaRegion: 'test-media-region',
 	mediaEnv: 'test-media-env',
+	traceContext: { traceId: 'some-trace', spanId: 'some-span' },
 };
 
 export const createServerUnauthorizedError = (metadataAndHeaders = defaultMetadata) =>

@@ -9,9 +9,8 @@ import { css, jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
+import Popup from '@atlaskit/popup';
 import Select from '@atlaskit/select';
-
-import Popup from '../src';
 
 const selectContainerStyles = css({
 	minWidth: 175,

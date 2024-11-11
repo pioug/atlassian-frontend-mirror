@@ -4097,10 +4097,12 @@ describe('Card ', () => {
 							failReason: 'metadata-fetch',
 							error: 'serverRateLimited',
 							errorDetail: 'serverRateLimited',
-							request: undefined,
+							request: {
+								traceContext: { traceId: expect.any(String), spanId: expect.any(String) },
+							},
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
 							traceContext: { traceId: expect.any(String) },
-							metadataTraceContext: undefined,
+							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 						},
 					});
 				});
@@ -4282,6 +4284,7 @@ describe('Card ', () => {
 								mediaRegion: 'test-media-region',
 								mediaEnv: 'test-media-env',
 								statusCode: 403,
+								traceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 							},
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
 							traceContext: { traceId: expect.any(String) },
@@ -4344,10 +4347,72 @@ describe('Card ', () => {
 							failReason: 'metadata-fetch',
 							error: 'serverUnauthorized',
 							errorDetail: 'serverUnauthorized',
-							request: undefined,
+							request: {
+								traceContext: { traceId: expect.any(String), spanId: expect.any(String) },
+							},
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
 							traceContext: { traceId: expect.any(String) },
-							metadataTraceContext: undefined,
+							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
+						},
+					});
+				});
+
+				expect(event.fire).toHaveBeenCalledTimes(1);
+				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
+			});
+
+			it('when no items are returned from the /items endpoint', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+				const { mediaApi } = createMockedMediaApi(); // Intentionally skipping fileItem
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				// card should completely process the error
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
+				);
+
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+						eventType: 'operational',
+						action: 'failed',
+						actionSubject: 'mediaCardRender',
+						attributes: {
+							fileMimetype: undefined,
+							fileAttributes: {
+								fileMediatype: undefined,
+								fileMimetype: undefined,
+								fileId: fileItem.id,
+								fileSize: undefined,
+								fileStatus: undefined,
+							},
+							performanceAttributes: {
+								overall: {
+									durationSinceCommenced: 0,
+									durationSincePageStart: PERFORMANCE_NOW,
+								},
+							},
+							status: 'fail',
+							failReason: 'metadata-fetch',
+							error: 'emptyItems',
+							errorDetail: 'emptyItems',
+							request: {
+								traceContext: { traceId: expect.any(String), spanId: expect.any(String) },
+							},
+							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+							traceContext: { traceId: expect.any(String) },
+							metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 						},
 					});
 				});
@@ -4843,6 +4908,10 @@ describe('Card ', () => {
 							mediaEnv: 'test-media-env',
 							mediaRegion: 'test-media-region',
 							statusCode: 403,
+							traceContext: {
+								spanId: expect.any(String),
+								traceId: expect.any(String),
+							},
 						},
 						ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
 						status: 'fail',

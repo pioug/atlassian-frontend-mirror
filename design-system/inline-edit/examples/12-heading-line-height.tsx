@@ -8,11 +8,10 @@ import { type FC, type ReactNode, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Heading from '@atlaskit/heading';
+import InlineEdit from '@atlaskit/inline-edit';
 import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-
-import InlineEdit from '../src';
 
 const messageStyles = xcss({
 	borderRadius: 'border.radius',

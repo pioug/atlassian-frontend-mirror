@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { RovoIcon, RovoLogo } from '../../src';
+import { RovoIcon, RovoLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

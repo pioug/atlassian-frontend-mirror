@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-
-import { Box, Inline, Stack } from '../src';
+import { Box, Inline, Stack } from '@atlaskit/primitives';
 
 const backgroundColors = [
 	'color.background.disabled',

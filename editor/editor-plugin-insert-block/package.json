@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-insert-block",
-	"version": "2.4.7",
+	"version": "2.4.8",
 	"description": "Insert block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^94.15.0",
+		"@atlaskit/editor-common": "^94.16.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-block-type": "^4.0.0",
 		"@atlaskit/editor-plugin-code-block": "^3.5.0",
@@ -75,7 +75,8 @@
 		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0",
 		"lodash": "^4.17.21",
-		"memoize-one": "^6.0.0"
+		"memoize-one": "^6.0.0",
+		"react-virtualized": "^9.8.0"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
@@ -88,6 +89,7 @@
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
+		"@types/react-virtualized": "^9.18.12",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {
@@ -125,6 +127,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_toolbar_responsive_fixes": {
+			"type": "boolean"
+		},
+		"platform_editor_reduce_element_browser_padding": {
 			"type": "boolean"
 		}
 	}

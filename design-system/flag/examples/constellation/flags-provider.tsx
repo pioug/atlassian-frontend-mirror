@@ -1,5 +1,6 @@
 import React from 'react';
-import { FlagsProvider } from '../../src';
+
+import { FlagsProvider } from '@atlaskit/flag';
 
 const FlagProviderExample = () => {
 	return (

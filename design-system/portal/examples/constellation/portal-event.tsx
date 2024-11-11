@@ -10,11 +10,14 @@ import { bindAll, type UnbindFn } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/new';
 import { CodeBlock } from '@atlaskit/code';
+import Portal, {
+	PORTAL_MOUNT_EVENT,
+	PORTAL_UNMOUNT_EVENT,
+	type PortalEvent,
+} from '@atlaskit/portal';
 import { Box, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import { token } from '@atlaskit/tokens';
-
-import Portal, { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT, type PortalEvent } from '../../src';
 
 const containerStyles = xcss({
 	margin: 'space.200',

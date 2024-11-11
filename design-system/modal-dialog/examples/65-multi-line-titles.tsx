@@ -5,9 +5,6 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
 import { Field } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives';
-import { RadioGroup } from '@atlaskit/radio';
-
 import ModalDialog, {
 	type Appearance,
 	ModalBody,
@@ -15,7 +12,9 @@ import ModalDialog, {
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
-} from '../src';
+} from '@atlaskit/modal-dialog';
+import { Box } from '@atlaskit/primitives';
+import { RadioGroup } from '@atlaskit/radio';
 
 import ModalTitleWithClose from './common/modal-title';
 

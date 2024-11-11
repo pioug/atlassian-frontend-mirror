@@ -4,13 +4,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { type EditorContainerWidth } from '@atlaskit/editor-common/src/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -24,11 +22,6 @@ import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 
 import { type DropTargetProps } from './drop-target';
 
-const dropTargetCommonStyle = css({
-	position: 'absolute',
-	display: 'block',
-});
-
 const hoverZoneCommonStyle = css({
 	position: 'absolute',
 	// above the top and bottom drop zone as block hover zone
@@ -37,65 +30,50 @@ const hoverZoneCommonStyle = css({
 
 // gap between node boundary and drop indicator/drop zone
 const GAP = 4;
-const HOVER_ZONE_WIDTH_OFFSET = 40;
-const HOVER_ZONE_HEIGHT_OFFSET = 10;
-const HOVER_ZONE_DEFAULT_WIDTH = 40;
-
-type DropTargetOffsets = {
-	left: number;
-	right: number;
-};
 
 const dropTargetLayoutHintStyle = css({
 	height: '100%',
-	position: 'relative',
+	position: 'absolute',
 	borderRight: `1px dashed ${token('color.border.focused', B200)}`,
 	width: 0,
+	left: 0,
 });
 
-const getDropTargetPositionOverride = (node?: PMNode, editorWidth?: number): DropTargetOffsets => {
-	if (!node || !editorWidth) {
-		return { left: 0, right: 0 };
-	}
+const dropTargetLayoutHintLeftStyle = css({
+	left: 'unset',
+	right: 0,
+});
 
-	const getOffsets = (nodeWidth: number) => {
-		const offset = (editorWidth - nodeWidth) / 2;
-		return { left: offset, right: offset };
-	};
+type NodeDimensionType = {
+	width: string;
+	height: string;
+	top: string;
+	widthOffset?: string;
+};
 
-	if (node?.type.name === 'table' && node.attrs.width) {
-		return getOffsets(node.attrs.width);
-	}
+const defaultNodeDimension = {
+	width: '0',
+	height: '0',
+	top: 'unset',
+};
 
-	// media single 🤦
-	if (node?.type.name === 'mediaSingle') {
-		let mediaNodeWidth = 0;
-		if (node.attrs.width) {
-			if (node.attrs.widthType === 'pixel') {
-				mediaNodeWidth = node.attrs.width;
-			} else if (editorWidth) {
-				mediaNodeWidth = (node.attrs.width / 100) * editorWidth;
-			}
-		} else {
-			// use media width
-			const mediaNode = node.firstChild;
-			if (mediaNode && mediaNode.attrs.width) {
-				mediaNodeWidth = mediaNode.attrs.width;
-			}
-		}
-
-		if (mediaNodeWidth) {
-			if (node.attrs.layout === 'align-start') {
-				return { left: 0, right: editorWidth - mediaNodeWidth };
-			} else if (node.attrs.layout === 'align-end') {
-				return { left: editorWidth - mediaNodeWidth, right: 0 };
-			}
-
-			return getOffsets(mediaNodeWidth);
+const getWidthOffset = (node: PMNode, width: string, position: 'left' | 'right') => {
+	if (node.type.name === 'mediaSingle' || node.type.name === 'table') {
+		const isLeftPosition = position === 'left';
+		if (node.attrs.layout === 'align-start') {
+			return isLeftPosition
+				? `-0.5*(var(--ak-editor--line-length) - ${width})`
+				: `0.5*(var(--ak-editor--line-length) - ${width})`;
+		} else if (node?.attrs.layout === 'align-end') {
+			return isLeftPosition
+				? `0.5*(var(--ak-editor--line-length) - ${width})`
+				: `-0.5*(var(--ak-editor--line-length) - ${width})`;
 		}
 	}
 
-	return { left: 0, right: 0 };
+	if (node.type.name === 'bodiedExtension' || node.type.name === 'extension') {
+		return '-12px';
+	}
 };
 
 export const InlineDropTarget = ({
@@ -108,47 +86,72 @@ export const InlineDropTarget = ({
 	anchorRectCache?: AnchorRectCache;
 	position: 'left' | 'right';
 }) => {
-	const { widthState } = useSharedPluginState(api, ['width']);
+	const ref = useRef<HTMLDivElement | null>(null);
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
-	const anchorName = nextNode ? getNodeAnchor(nextNode) : '';
+
+	const anchorName = useMemo(() => {
+		return nextNode ? getNodeAnchor(nextNode) : '';
+	}, [nextNode]);
 
 	const [isActiveAnchor] = useActiveAnchorTracker(anchorName);
 
-	const handleDragEnter = useCallback(() => {
-		setIsDraggedOver(true);
-	}, []);
+	const isLeftPosition = position === 'left';
 
-	const handleDragLeave = useCallback(() => {
-		setIsDraggedOver(false);
-	}, []);
-
-	const offsets = useMemo(() => {
-		return getDropTargetPositionOverride(nextNode, widthState?.lineLength);
-	}, [nextNode, widthState]);
-
-	const dropTargetRectStyle = useMemo(() => {
-		if (isAnchorSupported()) {
-			return css({
-				height: `calc(anchor-size(${anchorName} height))`,
-				positionAnchor: anchorName,
-				left:
-					position === 'left'
-						? `calc(anchor(left) - ${GAP - offsets.left}px)`
-						: `calc(anchor(right) + ${GAP - offsets.right}px)`,
-				top: `calc(anchor(top))`,
-			});
+	const nodeDimension: NodeDimensionType = useMemo(() => {
+		if (!nextNode) {
+			return defaultNodeDimension;
 		}
-		const nodeRect = anchorRectCache?.getRect(anchorName);
+		let innerContainerWidth: string | null = null;
+		let targetAnchorName = anchorName;
 
-		return css({
-			height: `calc(${nodeRect?.height || 0}px)`,
-			left:
-				position === 'left'
-					? `${(nodeRect?.left || 0) - GAP + offsets.left}px`
-					: `${(nodeRect?.right || 0) + GAP - offsets.right}px`,
-			top: `${nodeRect?.top || 0}px`,
-		});
-	}, [anchorName, anchorRectCache, offsets.left, offsets.right, position]);
+		if (['blockCard', 'embedCard'].includes(nextNode.type.name)) {
+			if (nextNode.attrs.layout === 'wide') {
+				innerContainerWidth = `max(var(--ak-editor--legacy-breakout-wide-layout-width), var(--ak-editor--line-length))`;
+			} else if (nextNode.attrs.layout === 'full-width') {
+				innerContainerWidth =
+					'max(calc(var(--ak-editor-max-container-width) - var(--ak-editor--default-gutter-padding) * 2), var(--ak-editor--line-length))';
+			}
+		} else if (nextNode.type.name === 'table' && nextNode.firstChild) {
+			const tableWidthAnchor = getNodeAnchor(nextNode.firstChild);
+			innerContainerWidth = isAnchorSupported()
+				? `anchor-size(${tableWidthAnchor} width)`
+				: `${anchorRectCache?.getRect(tableWidthAnchor)?.width || 0}px`;
+			if (nextNode.attrs.width) {
+				// when the table has horizontal scroll
+				innerContainerWidth = `min(${nextNode.attrs.width}px, ${innerContainerWidth})`;
+			}
+		} else if (nextNode.type.name === 'mediaSingle' && nextNode.firstChild) {
+			targetAnchorName = getNodeAnchor(nextNode.firstChild);
+		}
+
+		if (isAnchorSupported()) {
+			const width = innerContainerWidth || `anchor-size(${targetAnchorName} width)`;
+			const height = `anchor-size(${targetAnchorName} height)`;
+
+			return {
+				width,
+				height,
+				top: 'anchor(top)',
+				widthOffset: getWidthOffset(nextNode, width, position),
+			};
+		}
+
+		if (anchorRectCache) {
+			const nodeRect = anchorRectCache.getRect(targetAnchorName);
+			const width = innerContainerWidth || `${nodeRect?.width || 0}px`;
+			const top = nodeRect?.top ? `${nodeRect?.top}px` : 'unset';
+			const height = `${nodeRect?.height || 0}px`;
+
+			return {
+				width,
+				height,
+				top,
+				widthOffset: getWidthOffset(nextNode, width, position),
+			};
+		}
+
+		return defaultNodeDimension;
+	}, [anchorName, anchorRectCache, nextNode, position]);
 
 	const onDrop = useCallback(() => {
 		const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
@@ -167,107 +170,55 @@ export const InlineDropTarget = ({
 		}
 	}, [api, getPos, position]);
 
-	return (
-		<Fragment>
-			<div
-				data-test-id={`block-ctrl-drop-target-${position}`}
-				css={[dropTargetCommonStyle, dropTargetRectStyle]}
-			>
-				{isDraggedOver || isBlocksDragTargetDebug() ? (
-					<DropIndicator edge={position} />
-				) : (
-					isActiveAnchor && (
-						<div data-testid="block-ctrl-drop-hint" css={dropTargetLayoutHintStyle}></div>
-					)
-				)}
-			</div>
-			<InlineHoverZone
-				position={position}
-				node={nextNode}
-				editorWidthState={widthState}
-				anchorRectCache={anchorRectCache}
-				onDragEnter={handleDragEnter}
-				onDragLeave={handleDragLeave}
-				onDrop={onDrop}
-				offsets={offsets}
-			/>
-		</Fragment>
-	);
-};
+	const inlineHoverZoneRectStyle = useMemo(() => {
+		return css({
+			positionAnchor: anchorName,
+			minWidth: token('space.100', '8px'),
+			left: isLeftPosition ? 0 : 'unset',
+			right: isLeftPosition ? 'unset' : 0,
+			top: `calc(anchor(top))`,
+			width: nodeDimension.widthOffset
+				? `calc((100% - ${nodeDimension.width})/2 - ${GAP}px + ${nodeDimension.widthOffset})`
+				: `calc((100% - ${nodeDimension.width})/2 - ${GAP}px)`,
+			height: `calc(${nodeDimension.height})`,
+		});
+	}, [anchorName, isLeftPosition, nodeDimension]);
 
-type InlineHoverZoneProps = {
-	node?: PMNode;
-	editorWidthState?: EditorContainerWidth;
-	anchorRectCache?: AnchorRectCache;
-	position: 'left' | 'right';
-	offsets: DropTargetOffsets;
-	onDragEnter: () => void;
-	onDragLeave: () => void;
-	onDrop: () => void;
-};
-
-export const InlineHoverZone = ({
-	node,
-	editorWidthState,
-	anchorRectCache,
-	position,
-	offsets,
-	onDragEnter,
-	onDragLeave,
-	onDrop,
-}: InlineHoverZoneProps) => {
-	const ref = useRef<HTMLDivElement | null>(null);
-	const { width: editorWith } = editorWidthState || {};
-	const anchorName = node ? getNodeAnchor(node) : '';
+	const dropIndicatorPos = useMemo(() => {
+		return isLeftPosition ? 'right' : 'left';
+	}, [isLeftPosition]);
 
 	useEffect(() => {
 		if (ref.current) {
 			return dropTargetForElements({
 				element: ref.current,
-				onDragEnter,
-				onDragLeave,
+				onDragEnter: () => {
+					setIsDraggedOver(true);
+				},
+				onDragLeave: () => {
+					setIsDraggedOver(false);
+				},
 				onDrop,
 			});
 		}
-	}, [onDragEnter, onDragLeave, onDrop]);
-
-	const inlineHoverZoneRectStyle = useMemo(() => {
-		const offset = offsets[position];
-
-		if (isAnchorSupported()) {
-			return css({
-				positionAnchor: anchorName,
-				left: position === 'left' ? 'unset' : `calc(anchor(right) + ${GAP - offset}px)`,
-				right: position === 'left' ? `calc(anchor(left) + ${GAP - offset}px)` : 'unset',
-				top: `calc(anchor(top))`,
-				width: editorWith
-					? `calc((${editorWith}px - anchor-size(${anchorName} width))/2 - ${HOVER_ZONE_WIDTH_OFFSET}px + ${offset}px)`
-					: `${HOVER_ZONE_DEFAULT_WIDTH}px`,
-				height: `calc(anchor-size(${anchorName} height))`,
-			});
-		}
-
-		const nodeRect = anchorRectCache?.getRect(anchorName);
-		const width = editorWith
-			? (editorWith - (nodeRect?.width || 0)) / 2 - HOVER_ZONE_WIDTH_OFFSET + offset
-			: HOVER_ZONE_DEFAULT_WIDTH;
-
-		return css({
-			left:
-				position === 'left'
-					? `${(nodeRect?.left || 0) - width - GAP + offset}px`
-					: `${(nodeRect?.right || 0) + GAP - offset}px`,
-			top: `${nodeRect?.top || 0}px`,
-			width: `${width}px`,
-			height: `calc(${anchorRectCache?.getHeight(anchorName) || 0}px - ${HOVER_ZONE_HEIGHT_OFFSET}px)`,
-		});
-	}, [anchorName, anchorRectCache, editorWith, offsets, position]);
+	}, [onDrop, setIsDraggedOver]);
 
 	return (
 		<div
 			ref={ref}
 			data-test-id={`drop-target-hover-zone-${position}`}
 			css={[hoverZoneCommonStyle, inlineHoverZoneRectStyle]}
-		/>
+		>
+			{isDraggedOver || isBlocksDragTargetDebug() ? (
+				<DropIndicator edge={dropIndicatorPos} />
+			) : (
+				isActiveAnchor && (
+					<div
+						data-testid="block-ctrl-drop-hint"
+						css={[dropTargetLayoutHintStyle, isLeftPosition && dropTargetLayoutHintLeftStyle]}
+					/>
+				)
+			)}
+		</div>
 	);
 };

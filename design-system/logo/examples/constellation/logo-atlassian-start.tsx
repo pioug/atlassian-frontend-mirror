@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AtlassianStartLogo } from '../../src';
+import { AtlassianStartLogo } from '@atlaskit/logo';
 
 const LogoAtlassianStart = () => {
 	return <AtlassianStartLogo appearance="brand" />;

@@ -122,7 +122,10 @@ describe('createFileDataLoader', () => {
 			expect(result[1]).toEqual({
 				name: 'file-2',
 			});
-			expect(result[2]).toBeNull();
+			expect(result[2]).toEqual({
+				id: '2',
+				type: 'not-found',
+			});
 		});
 
 		it('should use collection name to find item', () => {
@@ -167,15 +170,20 @@ describe('createFileDataLoader', () => {
 			expect(result).toEqual([
 				{
 					name: 'file-1',
+					metadataTraceContext: undefined,
 				},
-				null,
+				{
+					id: '1',
+					type: 'not-found',
+				},
 				{
 					name: 'file-2',
+					metadataTraceContext: undefined,
 				},
 			]);
 		});
 
-		it('should return null for not found files', () => {
+		it('should return id and type for not found files', () => {
 			const keys: DataloaderKey[] = [
 				{
 					id: '1',
@@ -200,7 +208,10 @@ describe('createFileDataLoader', () => {
 
 			const result = getItemsFromKeys(keys, items);
 
-			expect(result).toEqual([null, null]);
+			expect(result).toEqual([
+				{ id: '1', type: 'not-found' },
+				{ id: '2', type: 'not-found' },
+			]);
 		});
 	});
 
@@ -615,7 +626,7 @@ describe('createFileDataLoader', () => {
 			expect.assertions(1);
 		});
 
-		it('should return undefined for not found files', async () => {
+		it('should return id, collection, metadata trace context and type for not found files', async () => {
 			const { dataLoader } = setup();
 			const collectionName = 'collection';
 
@@ -624,7 +635,12 @@ describe('createFileDataLoader', () => {
 				collectionName,
 			});
 
-			expect(result).toBeNull();
+			expect(result).toEqual({
+				id: 'item-not-found',
+				collection: collectionName,
+				metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
+				type: 'not-found',
+			});
 		});
 	});
 });

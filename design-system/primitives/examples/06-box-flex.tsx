@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-
-import { Box, Inline, Stack, xcss } from '../src';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const flexContainerStyles = xcss({ display: 'flex' });
 const flex1Styles = xcss({ borderStyle: 'solid', flex: '1' });

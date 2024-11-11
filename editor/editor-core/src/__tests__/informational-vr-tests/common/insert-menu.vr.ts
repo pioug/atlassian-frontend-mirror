@@ -10,6 +10,9 @@ snapshotInformational(EditorWithElementBrowser, {
 	selector: {
 		byTestId: 'element-browser',
 	},
+	featureFlags: {
+		platform_editor_reduce_element_browser_padding: true,
+	},
 	prepare: async (page: Page, component: Locator) => {
 		const editor = await EditorPageModel.from({ page });
 		const toolbar = EditorMainToolbarModel.from(editor);

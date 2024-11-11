@@ -1,9 +1,8 @@
 import React from 'react';
 
 import Link from '@atlaskit/link';
+import Portal from '@atlaskit/portal';
 import { token } from '@atlaskit/tokens';
-
-import Portal from '../src';
 
 const StackingContextExample = () => (
 	<div>

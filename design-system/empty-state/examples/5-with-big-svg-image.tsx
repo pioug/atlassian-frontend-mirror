@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EmptyState, { type Sizes } from '../src';
+import EmptyState, { type Sizes } from '@atlaskit/empty-state';
 // @ts-ignore
 
 import exampleImage from './img/example-image.svg';

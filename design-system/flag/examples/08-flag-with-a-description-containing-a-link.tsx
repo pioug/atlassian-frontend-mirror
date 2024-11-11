@@ -1,11 +1,10 @@
 import React from 'react';
 
+import Flag, { FlagGroup } from '@atlaskit/flag';
+import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import Link from '@atlaskit/link';
 import Text from '@atlaskit/primitives/text';
-import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { token } from '@atlaskit/tokens';
-
-import Flag, { FlagGroup } from '../src';
 
 export default () => (
 	<>

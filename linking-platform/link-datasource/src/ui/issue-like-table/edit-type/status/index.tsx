@@ -7,9 +7,7 @@ import {
 	type Status,
 } from '@atlaskit/linking-types';
 import Lozenge from '@atlaskit/lozenge';
-// FilterOptionOption is used in the filterOption function which is part of the public API, but the type itself is not exported
-// eslint-disable-next-line import/no-extraneous-dependencies,no-restricted-imports
-import { type FilterOptionOption } from '@atlaskit/react-select/src/filters';
+import { type FilterOptionOption } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';
 
 import type { ExecuteFetch } from '../../../../state/actions';

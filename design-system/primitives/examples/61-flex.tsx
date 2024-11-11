@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Flex } from '../src';
+import { Box, Flex } from '@atlaskit/primitives';
 
 const Block = () => <Box backgroundColor="color.background.neutral" padding="space.600" />;
 

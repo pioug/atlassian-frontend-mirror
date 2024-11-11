@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-
-import Form, { Field, FormFooter } from '../src';
+import Form, { Field, FormFooter } from '@atlaskit/form';
 
 interface ColorButtonProps {
 	color: string;

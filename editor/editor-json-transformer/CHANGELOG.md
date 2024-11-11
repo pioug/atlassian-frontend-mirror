@@ -1,5 +1,18 @@
 # @atlaskit/editor-json-transformer
 
+## 8.21.0
+
+### Minor Changes
+
+- [#156454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156454)
+  [`8dfa896f600a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8dfa896f600a2) -
+  [ED-25499] this change adds a transformer for converting nested tables to extensions in outgoing
+  documents
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.20.4
 
 ### Patch Changes

@@ -60,7 +60,7 @@ const EmojiPickerWithProvider = (props: EmojiPickerWithProviderProps) => {
 
 const EmojiPickerWithListener = withReactEditorViewOuterListeners(EmojiPickerWithProvider);
 
-export const EmojiPickerButton = (props: {
+type EmojiPickerButtonReturnType = (props: {
 	className?: string;
 	editorView?: EditorView;
 	idx?: number;
@@ -71,7 +71,9 @@ export const EmojiPickerButton = (props: {
 	mountPoint?: HTMLElement;
 	setDisableParentScroll?: (disable: boolean) => void;
 	pluginInjectionApi?: ExtractInjectionAPI<FloatingToolbarPlugin>;
-}) => {
+}) => JSX.Element;
+
+export const EmojiPickerButton: EmojiPickerButtonReturnType = (props) => {
 	const buttonRef = React.useRef<HTMLButtonElement>(null);
 	const [isPopupOpen, setIsPopupOpen] = React.useState(false);
 

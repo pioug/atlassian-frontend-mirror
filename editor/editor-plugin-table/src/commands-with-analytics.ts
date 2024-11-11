@@ -3,6 +3,7 @@ import type { IntlShape } from 'react-intl-next/src/types';
 import type { TableLayout } from '@atlaskit/adf-schema';
 import { tableBackgroundColorPalette } from '@atlaskit/adf-schema';
 import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
+import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
@@ -10,9 +11,8 @@ import {
 	TABLE_ACTION,
 	TABLE_DISPLAY_MODE,
 } from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { type CHANGE_ALIGNMENT_REASON } from '@atlaskit/editor-common/analytics';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
-import { type CHANGE_ALIGNMENT_REASON } from '@atlaskit/editor-common/src/analytics/types/table-events';
 import type { Command, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';

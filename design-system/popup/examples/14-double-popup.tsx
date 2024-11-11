@@ -8,9 +8,8 @@ import { type FC, Fragment, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import Popup from '@atlaskit/popup';
 import { token } from '@atlaskit/tokens';
-
-import Popup from '../src';
 
 const spacerStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage

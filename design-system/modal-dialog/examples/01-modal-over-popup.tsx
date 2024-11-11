@@ -3,10 +3,15 @@ import React, { type FC, useCallback, useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+import Modal, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+} from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../src';
 
 import ModalTitleWithClose from './common/modal-title';
 

@@ -3,10 +3,11 @@
  * @jsx jsx
  */
 import type { ComponentClass, HTMLAttributes, ReactElement } from 'react';
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useLayoutEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { ELEMENT_ITEM_HEIGHT, ElementBrowser } from '@atlaskit/editor-common/element-browser';
@@ -26,6 +27,7 @@ import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
+import { fg } from '@atlaskit/platform-feature-flags';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { borderRadius } from '@atlaskit/theme';
@@ -34,6 +36,8 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { InsertMenuProps, SvgGetterParams } from './types';
+
+const DEFAULT_HEIGHT = 560;
 
 const InsertMenu = ({
 	editorView,
@@ -45,6 +49,28 @@ const InsertMenu = ({
 	isFullPageAppearance,
 }: InsertMenuProps) => {
 	const [itemCount, setItemCount] = useState(0);
+	const [height, setHeight] = useState(DEFAULT_HEIGHT);
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const cache = new CellMeasurerCache({
+		fixedWidth: true,
+		defaultHeight: ELEMENT_ITEM_HEIGHT,
+		minHeight: ELEMENT_ITEM_HEIGHT,
+	});
+
+	useLayoutEffect(() => {
+		// Figure based on visuals to exclude the searchbar, padding/margin, and the ViewMore item.
+		const EXTRA_SPACE_EXCLUDING_ELEMENTLIST = 128;
+		const totalItemHeight =
+			[...Array(itemCount)].reduce((sum, _, index) => sum + cache.rowHeight({ index }), 0) +
+			EXTRA_SPACE_EXCLUDING_ELEMENTLIST;
+
+		if (itemCount > 0 && totalItemHeight < DEFAULT_HEIGHT) {
+			setHeight(totalItemHeight);
+		} else {
+			setHeight(DEFAULT_HEIGHT);
+		}
+	}, [cache, itemCount]);
 
 	const transform = useCallback(
 		(item: MenuItem): QuickInsertItem => ({
@@ -155,7 +181,7 @@ const InsertMenu = ({
 	if (isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true)) {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			<div css={insertMenuWrapper(itemCount, isFullPageAppearance)}>
+			<div css={insertMenuWrapper(height, itemCount, isFullPageAppearance)}>
 				<FlexWrapper>
 					<ElementBrowser
 						mode="inline"
@@ -167,6 +193,7 @@ const InsertMenu = ({
 						// On page resize we want the InlineElementBrowser to show updated tools/overflow items
 						key={quickInsertDropdownItems.length}
 						viewMoreItem={viewMoreItem}
+						cache={fg('platform_editor_reduce_element_browser_padding') ? cache : undefined}
 					/>
 				</FlexWrapper>
 			</div>
@@ -175,7 +202,7 @@ const InsertMenu = ({
 
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-		<div css={insertMenuWrapper(itemCount, isFullPageAppearance)}>
+		<div css={insertMenuWrapper(height, itemCount, isFullPageAppearance)}>
 			<ElementBrowserWrapper
 				handleClickOutside={toggleVisiblity}
 				handleEscapeKeydown={toggleVisiblity}
@@ -191,6 +218,7 @@ const InsertMenu = ({
 					// On page resize we want the InlineElementBrowser to show updated tools/overflow items
 					key={quickInsertDropdownItems.length}
 					viewMoreItem={viewMoreItem}
+					cache={fg('platform_editor_reduce_element_browser_padding') ? cache : undefined}
 				/>
 			</ElementBrowserWrapper>
 		</div>
@@ -220,12 +248,12 @@ const getInsertMenuHeight = ({ itemCount }: { itemCount: number }) => {
 	// Figure based on visuals to exclude the searchbar, padding/margin, and the ViewMore item.
 	const EXTRA_SPACE_EXCLUDING_ELEMENTLIST = 128;
 	if (itemCount > 0 && itemCount < 6) {
-		return itemCount * ELEMENT_ITEM_HEIGHT + EXTRA_SPACE_EXCLUDING_ELEMENTLIST;
+		return itemCount * 75 + EXTRA_SPACE_EXCLUDING_ELEMENTLIST;
 	}
 	return 560; // For showing 6 Elements.
 };
 
-const insertMenuWrapper = (itemCount: number, isFullPageAppearance?: boolean) => {
+const insertMenuWrapper = (height: number, itemCount: number, isFullPageAppearance?: boolean) => {
 	if (isFullPageAppearance && editorExperiment('insert-menu-in-right-rail', true)) {
 		return css({
 			display: 'flex',
@@ -244,8 +272,8 @@ const insertMenuWrapper = (itemCount: number, isFullPageAppearance?: boolean) =>
 		display: 'flex',
 		flexDirection: 'column',
 		width: '320px',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: `${getInsertMenuHeight({ itemCount })}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+		height: `${fg('platform_editor_reduce_element_browser_padding') ? height : getInsertMenuHeight({ itemCount })}px`,
 		backgroundColor: `${token('elevation.surface.overlay', N0)}`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderRadius: `${borderRadius()}px`,

@@ -123,6 +123,9 @@
 			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/react-select/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/select/afm-post-office/tsconfig.json"
 		},
 		{

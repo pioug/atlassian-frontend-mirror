@@ -5,3 +5,4 @@ export { transformNodesMissingContent } from './transforms/nodes-missing-content
 export { transformIndentationMarks } from './transforms/indentation-marks-transform';
 export { transformInvalidMediaContent } from './transforms/invalid-media-content-transform';
 export { transformNestedTablesIncomingDocument } from './transforms/nested-table-transform';
+export { transformNestedTableNodeOutgoingDocument } from './transforms/nested-table-transform';

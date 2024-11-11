@@ -8,6 +8,7 @@ import { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import { type GridProps } from '@atlaskit/grid';
 import {
 	Content,
 	LeftSidebarWithoutResize,
@@ -20,8 +21,6 @@ import { Box, xcss } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { media, UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive';
 import Stack from '@atlaskit/primitives/stack';
-
-import { type GridProps } from '../src';
 
 import GridCards from './01-grid-cards';
 

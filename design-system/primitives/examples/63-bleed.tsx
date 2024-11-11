@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Heading, { HeadingContextProvider } from '@atlaskit/heading';
-
-import { Bleed, Box, Inline, Stack, xcss } from '../src';
+import { Bleed, Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const blockStyles = xcss({
 	width: '3rem',

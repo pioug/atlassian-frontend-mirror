@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-
-import { Box, Stack, xcss } from '../src';
+import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 const solidBorderStyles = xcss({ borderStyle: 'solid' });
 

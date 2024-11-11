@@ -51,3 +51,5 @@ export type {
 } from './provider-factory/autoformatting-provider';
 
 export type { ContextIdentifierProvider } from './provider-factory/context-identifier-provider';
+
+export type { ProfilecardProvider } from './provider-factory/profile-card-provider';

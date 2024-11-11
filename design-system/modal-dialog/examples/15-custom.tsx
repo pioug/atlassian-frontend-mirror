@@ -6,10 +6,6 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading';
-import { Box, Inline, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
-
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
@@ -17,7 +13,10 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 	useModal,
-} from '../src';
+} from '@atlaskit/modal-dialog';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import ModalTitleWithClose from './common/modal-title';
 

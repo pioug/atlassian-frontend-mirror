@@ -11,10 +11,15 @@ import Avatar from '@atlaskit/avatar';
 import Button, { IconButton } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import InlineDialog from '@atlaskit/inline-dialog';
+import Modal, {
+	ModalBody,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+	useModal,
+} from '@atlaskit/modal-dialog';
 import { Box, Flex, Grid, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import Modal, { ModalBody, ModalHeader, ModalTitle, ModalTransition, useModal } from '../../src';
 
 const footerStyles = xcss({
 	display: 'flex',

@@ -3,15 +3,14 @@ import React, { useCallback, useRef, useState } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
-import { Box, xcss } from '@atlaskit/primitives';
-
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
-} from '../src';
+} from '@atlaskit/modal-dialog';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import ModalTitleWithClose from './common/modal-title';
 

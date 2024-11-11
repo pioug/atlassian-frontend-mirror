@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1cccef68eb9733d840f31dd863aad5ab>>
+ * @codegen <<SignedSource::3056ca27910772d8db63d331da918c78>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import * as atlaskitDesignSystemPlugin from '@atlaskit/eslint-plugin-design-system';
@@ -40,7 +40,6 @@ export default {
 		'@atlaskit/design-system/no-css-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-keyframes-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-styled-tagged-template-expression': 'error',
-		'@compiled/no-suppress-xcss': 'error',
 		'@compiled/no-js-xcss': 'error',
 		'@atlaskit/design-system/no-empty-styled-expression': [
 			'error',

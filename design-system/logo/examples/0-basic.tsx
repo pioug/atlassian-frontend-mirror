@@ -46,7 +46,7 @@ import {
 	StatuspageLogo,
 	TrelloIcon,
 	TrelloLogo,
-} from '../src';
+} from '@atlaskit/logo';
 
 export default () => (
 	<div>

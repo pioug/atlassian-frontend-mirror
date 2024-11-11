@@ -26,6 +26,7 @@ export class RequestError extends BaseMediaClientError<RequestErrorAttributes> {
 				attempts,
 				clientExhaustedRetries,
 				statusCode,
+				traceContext,
 			} = {},
 			innerError,
 		} = this;
@@ -39,6 +40,7 @@ export class RequestError extends BaseMediaClientError<RequestErrorAttributes> {
 			attempts,
 			clientExhaustedRetries,
 			statusCode,
+			metadata: { traceContext },
 			innerError,
 		};
 	}

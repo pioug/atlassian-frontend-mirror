@@ -5,6 +5,7 @@ export { MediaStore, getMediaEnvironment, getMediaRegion } from './MediaStore';
 
 export type {
 	ResponseFileItem,
+	EmptyResponseFileItem,
 	ItemsPayload,
 	ImageMetadataArtifact,
 	ImageMetadata,

@@ -15,7 +15,14 @@
 			"category": "Libraries",
 			"ignorePropTypes": true,
 			"status": {
-				"type": "beta"
+				"type": "beta",
+				"description": "The Atlassian Design System is migrating from Emotion to Compiled CSS-in-JS. This transition aims to improve performance and align with modern React features.",
+				"actions": [
+					{
+						"text": "View RFC",
+						"href": "https://community.developer.atlassian.com/t/rfc-73-migrating-our-components-to-compiled-css-in-js/85953"
+					}
+				]
 			}
 		}
 	},

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
+import { InlineEditableTextfield } from '@atlaskit/inline-edit';
 import { Box } from '@atlaskit/primitives';
-
-import { InlineEditableTextfield } from '../../src';
 
 const InlineEditRequiredFieldExample = () => {
 	const placeholderLabel = 'Initial description value';

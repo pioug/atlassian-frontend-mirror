@@ -3,9 +3,8 @@ import React, { Fragment, useCallback, useState } from 'react';
 import Button, { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
+import Modal, { ModalBody, ModalFooter, ModalTransition, useModal } from '@atlaskit/modal-dialog';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import Modal, { ModalBody, ModalFooter, ModalTransition, useModal } from '../../src';
 
 const headerStyles = xcss({
 	display: 'flex',

@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { CompassIcon, CompassLogo } from '../../src';
+import { CompassIcon, CompassLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

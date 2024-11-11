@@ -1,9 +1,13 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import ModalDialog, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+} from '@atlaskit/modal-dialog';
 import { Box, Inline } from '@atlaskit/primitives';
-
-import ModalDialog, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '../src';
 
 import ModalTitleWithClose from './common/modal-title';
 

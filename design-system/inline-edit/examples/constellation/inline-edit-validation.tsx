@@ -3,11 +3,10 @@ import React, { useEffect, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InlineDialog from '@atlaskit/inline-dialog';
+import InlineEdit from '@atlaskit/inline-edit';
 import { Box, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-
-import InlineEdit from '../../src';
 
 const containerStyles = xcss({
 	paddingBlockStart: 'space.100',

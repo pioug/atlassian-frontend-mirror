@@ -5,10 +5,9 @@ import styled from '@emotion/styled';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+import { Manager, Popper, Reference } from '@atlaskit/popper';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-
-import { Manager, Popper, Reference } from '../src';
 
 interface PopupProps {
 	isReferenceHidden: boolean | undefined;

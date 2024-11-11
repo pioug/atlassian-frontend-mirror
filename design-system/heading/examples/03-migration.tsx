@@ -1,8 +1,8 @@
+/* eslint-disable @atlaskit/design-system/no-deprecated-apis */
 import React, { Fragment } from 'react';
 
+import Heading from '@atlaskit/heading';
 import { Grid } from '@atlaskit/primitives';
-
-import Heading from '../src';
 
 export default () => {
 	return (

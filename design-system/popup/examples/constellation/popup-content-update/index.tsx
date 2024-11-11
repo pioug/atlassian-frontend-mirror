@@ -10,10 +10,9 @@ import { jsx } from '@emotion/react';
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading';
+import Popup from '@atlaskit/popup';
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
-
-import Popup from '../../../src';
 
 import { data } from './data';
 

@@ -5,9 +5,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import { Content, LeftSidebar, Main, PageLayout } from '@atlaskit/page-layout';
 import { Header, NavigationHeader, SideNavigation } from '@atlaskit/side-navigation';
 
-import { Content, LeftSidebar, Main, PageLayout } from '../../src';
 import { ExpandLeftSidebarKeyboardShortcut, SlotLabel } from '../common';
 
 export default () => {

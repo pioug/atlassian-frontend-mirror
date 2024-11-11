@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-
-import InlineDialog from '../src';
+import InlineDialog from '@atlaskit/inline-dialog';
 
 const content = (
 	<div>

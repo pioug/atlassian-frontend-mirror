@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import Portal from '@atlaskit/portal';
 import { Box, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import Portal from '../src';
 
 export default function BasicPortalExample() {
 	const [zIndexes, setzIndex] = useState({ zIndex1: 100, zIndex2: 200 });

@@ -10,10 +10,9 @@ import { IconButton } from '@atlaskit/button/new';
 import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import JiraCaptureIcon from '@atlaskit/icon/glyph/jira/capture';
 import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
+import Popup from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 import { B75 } from '@atlaskit/theme/colors';
-
-import Popup from '../src';
 
 const triggerStyles = css({
 	backgroundColor: B75,

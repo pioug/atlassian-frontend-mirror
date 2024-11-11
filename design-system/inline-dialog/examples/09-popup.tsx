@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-
-import InlineDialog from '../src';
+import InlineDialog from '@atlaskit/inline-dialog';
 
 export default () => {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);

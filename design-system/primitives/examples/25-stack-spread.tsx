@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Stack, xcss } from '../src';
+import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 const blockStyles = xcss({ borderRadius: 'border.radius.050' });
 const flexStyles = xcss({ display: 'flex' });

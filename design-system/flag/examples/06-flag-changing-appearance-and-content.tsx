@@ -7,17 +7,16 @@ import { type ReactElement, type SyntheticEvent, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { Box, xcss, Text } from '@atlaskit/primitives';
 import noop from '@atlaskit/ds-lib/noop';
+import Flag, { FlagGroup } from '@atlaskit/flag';
+import { AppearanceArray, type AppearanceTypes } from '@atlaskit/flag/types';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Warning from '@atlaskit/icon/glyph/warning';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
-
-import Flag, { FlagGroup } from '../src';
-import { AppearanceArray, type AppearanceTypes } from '../src/types';
 
 type Appearances<Keys extends AppearanceTypes> = {
 	[K in Keys]: { description?: string; title: string; actions?: any[] };

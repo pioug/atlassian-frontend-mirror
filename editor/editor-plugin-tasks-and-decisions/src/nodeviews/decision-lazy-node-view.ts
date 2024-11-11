@@ -1,6 +1,6 @@
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 

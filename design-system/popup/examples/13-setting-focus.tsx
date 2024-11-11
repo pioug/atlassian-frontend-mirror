@@ -8,11 +8,10 @@ import { type FC, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import Popup from '@atlaskit/popup';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 import { token } from '@atlaskit/tokens';
-
-import Popup from '../src';
 
 const radioValues = [
 	{ name: 'Button', value: '-1', label: 'None' },

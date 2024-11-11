@@ -9,9 +9,8 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import Link from '@atlaskit/link';
+import Popup from '@atlaskit/popup';
 import { token } from '@atlaskit/tokens';
-
-import Popup from '../src';
 
 import { popupContent, popupLinkContent, popupTextContent, popupTrigger } from './utils/selectors';
 

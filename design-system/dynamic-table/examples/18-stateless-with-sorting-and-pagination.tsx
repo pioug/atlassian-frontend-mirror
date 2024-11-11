@@ -9,9 +9,8 @@ import { jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-
-import { DynamicTableStateless } from '../src';
-import { type SortOrderType } from '../src/types';
+import { DynamicTableStateless } from '@atlaskit/dynamic-table';
+import { type SortOrderType } from '@atlaskit/dynamic-table/types';
 
 import { caption, head, rows } from './content/sample-data';
 

@@ -6,7 +6,7 @@ import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { Grid } from 'react-virtualized';
+import { Grid, List } from 'react-virtualized';
 import type { Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
@@ -73,9 +73,10 @@ export interface Props {
 	selectedCategory?: string;
 	selectedCategoryIndex?: number;
 	searchTerm?: string;
+	cache?: CellMeasurerCache;
 }
 
-function ElementList({
+function ElementListOld({
 	items,
 	mode,
 	selectedItemIndex,
@@ -124,16 +125,14 @@ function ElementList({
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const cache = new CellMeasurerCache({
 		fixedWidth: true,
-		defaultHeight: ELEMENT_ITEM_HEIGHT,
-		minHeight: ELEMENT_ITEM_HEIGHT,
+		defaultHeight: 75,
+		minHeight: 75,
 	});
 
 	const columnWidth = (containerWidth - ELEMENT_ITEM_PADDING * 2) / columnCount;
 	const rowCount = Math.ceil(items.length / columnCount);
 	const rowHeight = ({ index }: { index: number }) =>
-		cache.rowHeight({ index }) <= ELEMENT_ITEM_HEIGHT
-			? ELEMENT_ITEM_HEIGHT
-			: cache.rowHeight({ index }) + ELEMENT_ITEM_PADDING * 2;
+		cache.rowHeight({ index }) <= 75 ? 75 : cache.rowHeight({ index }) + ELEMENT_ITEM_PADDING * 2;
 
 	const cellRenderer = useMemo(
 		() =>
@@ -279,6 +278,406 @@ function ElementList({
 		</Fragment>
 	);
 }
+
+function ElementListNew({
+	items,
+	mode,
+	selectedItemIndex,
+	focusedItemIndex,
+	columnCount,
+	setColumnCount,
+	createAnalyticsEvent,
+	emptyStateHandler,
+	selectedCategory,
+	selectedCategoryIndex,
+	searchTerm,
+	setFocusedCategoryIndex,
+	setFocusedItemIndex,
+	cache,
+	onInsertItem,
+}: Props & SelectedItemProps & WithAnalyticsEventsProps) {
+	const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
+	const [scrollbarWidth, setScrollbarWidth] = useState(SCROLLBAR_WIDTH);
+
+	const fullMode = mode === Modes.full;
+
+	useEffect(() => {
+		/**
+		 * More of an optimization condition.
+		 * Initially the containerWidths are reported 0 twice.
+		 **/
+		if (fullMode && containerWidth > 0) {
+			setColumnCount(getColumnCount(containerWidth));
+			const updatedScrollbarWidth = getScrollbarWidth();
+
+			if (updatedScrollbarWidth > 0) {
+				setScrollbarWidth(updatedScrollbarWidth);
+			}
+		}
+	}, [fullMode, containerWidth, setColumnCount, scrollbarWidth]);
+
+	const onExternalLinkClick = useCallback(() => {
+		fireAnalyticsEvent(createAnalyticsEvent)({
+			payload: {
+				action: ACTION.VISITED,
+				actionSubject: ACTION_SUBJECT.SMART_LINK,
+				eventType: EVENT_TYPE.TRACK,
+			},
+		});
+	}, [createAnalyticsEvent]);
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const listCache =
+		cache ??
+		new CellMeasurerCache({
+			fixedWidth: true,
+			defaultHeight: ELEMENT_ITEM_HEIGHT,
+			minHeight: ELEMENT_ITEM_HEIGHT,
+		});
+
+	useEffect(() => {
+		// need to recalculate values if we have the same items, but they're reordered
+		listCache.clearAll();
+	}, [listCache, searchTerm]);
+
+	const rowHeight = ({ index }: { index: number }) => {
+		return listCache.rowHeight({ index });
+	};
+
+	return (
+		<Fragment>
+			<ContainerWidthMonitor />
+			<div
+				css={elementItemsWrapper}
+				data-testid="element-items"
+				id={selectedCategory ? `browse-category-${selectedCategory}-tab` : 'browse-category-tab'}
+				aria-labelledby={
+					selectedCategory
+						? `browse-category--${selectedCategory}-button`
+						: 'browse-category-button'
+				}
+				role="tabpanel"
+				tabIndex={items.length === 0 ? 0 : undefined}
+			>
+				{!items.length ? (
+					emptyStateHandler ? (
+						emptyStateHandler({
+							mode,
+							selectedCategory,
+							searchTerm,
+						})
+					) : (
+						<EmptyState onExternalLinkClick={onExternalLinkClick} />
+					)
+				) : (
+					<Fragment>
+						{containerWidth > 0 && (
+							<AutoSizer disableWidth>
+								{({ height }: Size) =>
+									columnCount === 1 ? (
+										<ElementListSingleColumn
+											cache={listCache}
+											setFocusedCategoryIndex={setFocusedCategoryIndex}
+											selectedCategoryIndex={selectedCategoryIndex}
+											items={items}
+											setFocusedItemIndex={setFocusedItemIndex}
+											fullMode={fullMode}
+											selectedItemIndex={selectedItemIndex}
+											focusedItemIndex={focusedItemIndex}
+											rowHeight={rowHeight}
+											containerWidth={containerWidth}
+											height={height}
+											onInsertItem={onInsertItem}
+										/>
+									) : (
+										<ElementListMultipleColumns
+											columnCount={columnCount}
+											cache={listCache}
+											setFocusedCategoryIndex={setFocusedCategoryIndex}
+											selectedCategoryIndex={selectedCategoryIndex}
+											items={items}
+											setFocusedItemIndex={setFocusedItemIndex}
+											fullMode={fullMode}
+											selectedItemIndex={selectedItemIndex}
+											focusedItemIndex={focusedItemIndex}
+											rowHeight={rowHeight}
+											containerWidth={containerWidth}
+											height={height}
+											onInsertItem={onInsertItem}
+										/>
+									)
+								}
+							</AutoSizer>
+						)}
+					</Fragment>
+				)}
+			</div>
+		</Fragment>
+	);
+}
+
+type ElementListSingleColumnProps = {
+	items: QuickInsertItem[];
+	fullMode: boolean;
+	setFocusedItemIndex: (index: number) => void;
+	rowHeight: ({ index }: { index: number }) => number;
+	containerWidth: number;
+	height: number;
+	onInsertItem: (item: QuickInsertItem) => void;
+	cache: CellMeasurerCache;
+	focusedItemIndex?: number;
+	setFocusedCategoryIndex?: (index: number) => void;
+	selectedCategoryIndex?: number;
+	selectedItemIndex?: number;
+};
+
+const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
+	const {
+		items,
+		fullMode,
+		setFocusedItemIndex,
+		rowHeight,
+		containerWidth,
+		height,
+		onInsertItem,
+		cache,
+		focusedItemIndex,
+		setFocusedCategoryIndex,
+		selectedCategoryIndex,
+		selectedItemIndex,
+	} = props;
+
+	const rowRenderer = useMemo(
+		() =>
+			({
+				index,
+				key,
+				style,
+				parent,
+			}: {
+				index: number;
+				key: string | number;
+				style: object;
+				parent: object;
+			}) => {
+				return (
+					<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							style={style}
+							key={key}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 -- Ignored via go/DSP-18766
+							className="element-item-wrapper"
+							css={elementItemWrapperSingle}
+							onKeyDown={(e) => {
+								if (e.key === 'Tab') {
+									if (e.shiftKey && index === 0) {
+										if (setFocusedCategoryIndex) {
+											if (!!selectedCategoryIndex) {
+												setFocusedCategoryIndex(selectedCategoryIndex);
+											} else {
+												setFocusedCategoryIndex(0);
+											}
+											e.preventDefault();
+										}
+									}
+									// before focus jumps from elements list we need to rerender react-virtualized grid.
+									// Otherwise on the next render 'scrollToCell' will have same cached value
+									// and grid will not be scrolled to top.
+									// So Tab press on category will not work anymore due to invisible 1-t element.
+									else if (index === items.length - 2) {
+										setFocusedItemIndex(items.length - 1);
+									}
+								}
+							}}
+						>
+							<MemoizedElementItem
+								inlineMode={!fullMode}
+								index={index}
+								item={items[index]}
+								selected={selectedItemIndex === index}
+								focus={focusedItemIndex === index}
+								setFocusedItemIndex={setFocusedItemIndex}
+								onInsertItem={onInsertItem}
+							/>
+						</div>
+					</CellMeasurer>
+				);
+			}, // eslint-disable-next-line react-hooks/exhaustive-deps
+		[
+			cache,
+			items,
+			fullMode,
+			selectedItemIndex,
+			focusedItemIndex,
+			selectedCategoryIndex,
+			setFocusedCategoryIndex,
+			setFocusedItemIndex,
+			props,
+		],
+	);
+
+	return (
+		<List
+			rowRenderer={rowRenderer}
+			rowCount={items.length}
+			rowHeight={rowHeight}
+			width={containerWidth - ELEMENT_LIST_PADDING * 2}
+			height={height}
+			overscanRowCount={3}
+			containerRole="presentation"
+			role="listbox"
+			{...(selectedItemIndex !== undefined && {
+				scrollToIndex: selectedItemIndex,
+			})}
+		/>
+	);
+};
+
+type ElementListMultipleColumnsProps = {
+	columnCount: number;
+	items: QuickInsertItem[];
+	fullMode: boolean;
+	setFocusedItemIndex: (index: number) => void;
+	rowHeight: ({ index }: { index: number }) => number;
+	containerWidth: number;
+	height: number;
+	onInsertItem: (item: QuickInsertItem) => void;
+	cache: CellMeasurerCache;
+	focusedItemIndex?: number;
+	setFocusedCategoryIndex?: (index: number) => void;
+	selectedCategoryIndex?: number;
+	selectedItemIndex?: number;
+};
+
+const ElementListMultipleColumns = (props: ElementListMultipleColumnsProps) => {
+	const {
+		columnCount,
+		items,
+		fullMode,
+		setFocusedItemIndex,
+		rowHeight,
+		containerWidth,
+		height,
+		onInsertItem,
+		cache,
+		focusedItemIndex,
+		setFocusedCategoryIndex,
+		selectedCategoryIndex,
+		selectedItemIndex,
+	} = props;
+
+	const columnWidth = (containerWidth - ELEMENT_ITEM_PADDING * 2) / columnCount;
+	const rowCount = Math.ceil(items.length / columnCount);
+
+	const cellRenderer = useMemo(
+		() =>
+			({
+				columnIndex,
+				key,
+				parent,
+				rowIndex,
+				style,
+			}: {
+				columnIndex: number;
+				rowIndex: number;
+				key: string | number;
+				parent: object;
+				style: object;
+			}) => {
+				const index = rowIndex * columnCount + columnIndex;
+				if (items[index] == null) {
+					return;
+				}
+
+				return index > items.length - 1 ? null : (
+					<CellMeasurer
+						cache={cache}
+						key={key}
+						rowIndex={rowIndex}
+						columnIndex={columnIndex}
+						parent={parent}
+					>
+						{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							style={style}
+							key={key}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 -- Ignored via go/DSP-18766
+							className="element-item-wrapper"
+							css={elementItemWrapper}
+							onKeyDown={(e) => {
+								if (e.key === 'Tab') {
+									if (e.shiftKey && index === 0) {
+										if (setFocusedCategoryIndex) {
+											if (!!selectedCategoryIndex) {
+												setFocusedCategoryIndex(selectedCategoryIndex);
+											} else {
+												setFocusedCategoryIndex(0);
+											}
+											e.preventDefault();
+										}
+									}
+									// before focus jumps from elements list we need to rerender react-virtualized grid.
+									// Otherwise on the next render 'scrollToCell' will have same cached value
+									// and grid will not be scrolled to top.
+									// So Tab press on category will not work anymore due to invisible 1-t element.
+									else if (index === items.length - 2) {
+										setFocusedItemIndex(items.length - 1);
+									}
+								}
+							}}
+						>
+							<MemoizedElementItem
+								inlineMode={!fullMode}
+								index={index}
+								item={items[index]}
+								selected={selectedItemIndex === index}
+								focus={focusedItemIndex === index}
+								setFocusedItemIndex={setFocusedItemIndex}
+								onInsertItem={onInsertItem}
+							/>
+						</div>
+					</CellMeasurer>
+				);
+			}, // eslint-disable-next-line react-hooks/exhaustive-deps
+		[
+			cache,
+			items,
+			fullMode,
+			selectedItemIndex,
+			columnCount,
+			focusedItemIndex,
+			selectedCategoryIndex,
+			setFocusedCategoryIndex,
+			setFocusedItemIndex,
+			props,
+		],
+	);
+
+	return (
+		<Grid
+			cellRenderer={cellRenderer}
+			height={height}
+			width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
+			/**
+			 * Refresh Grid on WidthObserver value change.
+			 * Length of the items used to force re-render to solve Firefox bug with react-virtualized retaining
+			 * scroll position after updating the data. If new data has different number of cells, a re-render
+			 * is forced to prevent the scroll position render bug.
+			 */
+			key={containerWidth + items.length}
+			rowHeight={rowHeight}
+			rowCount={rowCount}
+			columnCount={columnCount}
+			columnWidth={columnWidth}
+			deferredMeasurementCache={cache}
+			{...(selectedItemIndex !== undefined && {
+				scrollToRow: Math.floor(selectedItemIndex / columnCount),
+			})}
+		/>
+	);
+};
 
 type ElementItemType = {
 	inlineMode: boolean;
@@ -440,6 +839,18 @@ const elementItemsWrapper = css({
 	},
 });
 
+const elementItemWrapperSingle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	div: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		button: {
+			minHeight: '60px',
+			alignItems: 'flex-start',
+			padding: `${token('space.150', '12px')} ${token('space.150', '12px')} 11px`,
+		},
+	},
+});
+
 const elementItemWrapper = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	div: {
@@ -511,6 +922,62 @@ const itemIconStyle = css({
 		objectFit: 'cover',
 	},
 });
+
+function ElementList({
+	items,
+	mode,
+	selectedItemIndex,
+	focusedItemIndex,
+	columnCount,
+	setColumnCount,
+	createAnalyticsEvent,
+	emptyStateHandler,
+	selectedCategory,
+	selectedCategoryIndex,
+	searchTerm,
+	setFocusedCategoryIndex,
+	setFocusedItemIndex,
+	...props
+}: Props & SelectedItemProps & WithAnalyticsEventsProps) {
+	if (fg('platform_editor_reduce_element_browser_padding')) {
+		return (
+			<ElementListNew
+				items={items}
+				mode={mode}
+				selectedItemIndex={selectedItemIndex}
+				focusedItemIndex={focusedItemIndex}
+				columnCount={columnCount}
+				setColumnCount={setColumnCount}
+				createAnalyticsEvent={createAnalyticsEvent}
+				emptyStateHandler={emptyStateHandler}
+				selectedCategory={selectedCategory}
+				selectedCategoryIndex={selectedCategoryIndex}
+				searchTerm={searchTerm}
+				setFocusedCategoryIndex={setFocusedCategoryIndex}
+				setFocusedItemIndex={setFocusedItemIndex}
+				{...props}
+			/>
+		);
+	}
+	return (
+		<ElementListOld
+			items={items}
+			mode={mode}
+			selectedItemIndex={selectedItemIndex}
+			focusedItemIndex={focusedItemIndex}
+			columnCount={columnCount}
+			setColumnCount={setColumnCount}
+			createAnalyticsEvent={createAnalyticsEvent}
+			emptyStateHandler={emptyStateHandler}
+			selectedCategory={selectedCategory}
+			selectedCategoryIndex={selectedCategoryIndex}
+			searchTerm={searchTerm}
+			setFocusedCategoryIndex={setFocusedCategoryIndex}
+			setFocusedItemIndex={setFocusedItemIndex}
+			{...props}
+		/>
+	);
+}
 
 const MemoizedElementListWithAnalytics = memo(
 	withAnalyticsContext({ component: 'ElementList' })(ElementList),

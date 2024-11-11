@@ -1,6 +1,6 @@
 import type { DocNode } from '@atlaskit/adf-schema';
-import type { VisitorCollection } from '@atlaskit/adf-utils/src/types';
 import { traverse } from '@atlaskit/adf-utils/traverse';
+import type { VisitorCollection } from '@atlaskit/adf-utils/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { type ContentNodeDataProviders } from './consumption/content';

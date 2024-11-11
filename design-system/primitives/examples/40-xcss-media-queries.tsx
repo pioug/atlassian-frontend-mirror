@@ -1,7 +1,8 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-selectors */
 /* eslint-disable @atlaskit/design-system/no-nested-styles */
 import React from 'react';
 
-import { Box, Inline, media, Stack, xcss } from '../src';
+import { Box, Inline, media, Stack, xcss } from '@atlaskit/primitives';
 
 const aboveStyles = xcss({
 	'@media all': {

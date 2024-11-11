@@ -1,0 +1,62 @@
+{
+	"type": "tableHeader",
+	"attrs": {},
+	"content": [
+		{
+			"type": "table",
+			"attrs": {
+				"isNumberColumnEnabled": false,
+				"layout": "default",
+				"localId": "58243e71-9906-4f0b-8a27-84973f7203f0",
+				"width": 164
+			},
+			"content": [
+				{
+					"type": "tableRow",
+					"content": [
+						{
+							"type": "tableHeader",
+							"attrs": {},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "a",
+											"marks": [
+												{
+													"type": "Nested table header content"
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "tableRow",
+					"content": [
+						{
+							"type": "tableCell",
+							"attrs": {},
+							"content": [
+								{
+									"type": "paragraph",
+									"content": [
+										{
+											"type": "text",
+											"text": "Nested table content"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

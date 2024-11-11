@@ -8,9 +8,8 @@ import { useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import Popup from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import Popup from '../src';
 
 const spacerStyles = xcss({
 	display: 'flex',

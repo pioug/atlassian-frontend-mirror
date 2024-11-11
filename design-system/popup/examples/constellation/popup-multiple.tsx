@@ -9,9 +9,8 @@ import { jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import Popup from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import Popup from '../../src';
 
 const contentStyles = xcss({
 	padding: 'space.200',

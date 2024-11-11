@@ -4,10 +4,9 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
+import { Manager, type Placement, Popper, Reference } from '@atlaskit/popper';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-
-import { Manager, type Placement, Popper, Reference } from '../src';
 
 interface PopupProps {
 	isReferenceHidden: boolean | undefined;

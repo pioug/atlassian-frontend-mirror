@@ -7,6 +7,7 @@ export {
 } from './client/media-store';
 export type {
 	ResponseFileItem,
+	EmptyResponseFileItem,
 	ItemsPayload,
 	ImageMetadataArtifact,
 	ImageMetadata,

@@ -7,9 +7,6 @@ import React, { Fragment, type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { B500, DN10, N40, P300, Y300 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
-
 import {
 	AtlassianAccessIcon,
 	AtlassianAdminIcon,
@@ -31,7 +28,9 @@ import {
 	RovoIcon,
 	StatuspageIcon,
 	TrelloIcon,
-} from '../src';
+} from '@atlaskit/logo';
+import { B500, DN10, N40, P300, Y300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 const logoOptions = [
 	AtlassianMarketplaceIcon,

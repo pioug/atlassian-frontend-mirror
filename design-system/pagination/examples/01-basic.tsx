@@ -1,8 +1,7 @@
 import React, { type SyntheticEvent, useState } from 'react';
 
+import Pagination from '@atlaskit/pagination';
 import { Stack, Text } from '@atlaskit/primitives';
-
-import Pagination from '../src';
 
 const Pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 

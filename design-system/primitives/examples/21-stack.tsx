@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-
-import { Box, Inline, Stack, xcss } from '../src';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const alignInlineItems = ['start', 'center', 'end'] as const;
 const alignBlockItems = ['start', 'center', 'end'] as const;

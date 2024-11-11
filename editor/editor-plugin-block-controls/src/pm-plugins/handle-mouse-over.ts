@@ -5,7 +5,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockControlsPlugin } from '../types';
-import { isPreRelease2 } from '../utils/advanced-layouts-flags';
+import { isPreRelease1, isPreRelease2 } from '../utils/advanced-layouts-flags';
 
 const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
 	if (target instanceof HTMLHeadingElement || target instanceof HTMLParagraphElement) {
@@ -55,6 +55,16 @@ export const handleMouseOver = (
 		// We want to exlude handles from showing for empty paragraph and heading nodes
 		if (editorExperiment('nested-dnd', true) && isEmptyNestedParagraphOrHeading(rootElement)) {
 			return false;
+		}
+
+		if (rootElement.getAttribute('data-drag-handler-node-type') === 'media' && isPreRelease1()) {
+			rootElement = rootElement.closest(
+				'[data-drag-handler-anchor-name][data-drag-handler-node-type="mediaSingle"]',
+			);
+
+			if (!rootElement) {
+				return false;
+			}
 		}
 
 		const parentElement = rootElement.parentElement?.closest('[data-drag-handler-anchor-name]');

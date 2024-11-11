@@ -37,6 +37,19 @@ export type MediaItemDetails = {
 	readonly metadataTraceContext?: MediaTraceContext;
 };
 
+export type NotFoundMediaItemDetails = {
+	readonly id: string;
+	readonly collection?: string;
+	readonly type: 'not-found';
+	readonly metadataTraceContext?: MediaTraceContext;
+};
+
+export const isNotFoundMediaItemDetails = (
+	itemDetails: any,
+): itemDetails is NotFoundMediaItemDetails => {
+	return 'type' in itemDetails && itemDetails.type === 'not-found';
+};
+
 export type MediaRepresentations = {
 	image?: Object;
 };

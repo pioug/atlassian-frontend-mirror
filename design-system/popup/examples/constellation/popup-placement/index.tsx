@@ -9,10 +9,9 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import { type Placement, placements } from '@atlaskit/popper';
+import Popup from '@atlaskit/popup';
 import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import Popup from '../../../src';
 
 import { placementGridPositions } from './placement-grid-positions';
 

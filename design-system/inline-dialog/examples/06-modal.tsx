@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import InlineDialog from '@atlaskit/inline-dialog';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -8,8 +9,6 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-
-import InlineDialog from '../src';
 
 export default () => {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);

@@ -9,7 +9,7 @@ import ReactNodeView, {
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, UnsupportedBlock } from '@atlaskit/editor-common/ui';
 import { browser, canRenderDatasource } from '@atlaskit/editor-common/utils';
-import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode/src';
+import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';

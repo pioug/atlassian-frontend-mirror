@@ -1,9 +1,8 @@
 import React, { type FC, useState } from 'react';
 
+import InlineEdit from '@atlaskit/inline-edit';
 import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-
-import InlineEdit from '../src';
 
 const readViewContainerStyles = xcss({
 	display: 'flex',

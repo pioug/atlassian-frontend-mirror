@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { TrelloIcon, TrelloLogo } from '../../src';
+import { TrelloIcon, TrelloLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

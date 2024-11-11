@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Grid, { GridContainer, GridItem } from '../../src';
+import Grid, { GridContainer, GridItem } from '@atlaskit/grid';
 
 import { SkeletonBox } from './shared/skeleton-box';
 

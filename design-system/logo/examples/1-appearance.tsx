@@ -1,8 +1,5 @@
 import React from 'react';
 
-import Lozenge from '@atlaskit/lozenge';
-import { B200 } from '@atlaskit/theme/colors';
-
 import {
 	AtlasIcon,
 	AtlasLogo,
@@ -53,7 +50,9 @@ import {
 	StatuspageLogo,
 	TrelloIcon,
 	TrelloLogo,
-} from '../src';
+} from '@atlaskit/logo';
+import Lozenge from '@atlaskit/lozenge';
+import { B200 } from '@atlaskit/theme/colors';
 
 const appearances = ['brand', 'neutral', 'inverse'];
 

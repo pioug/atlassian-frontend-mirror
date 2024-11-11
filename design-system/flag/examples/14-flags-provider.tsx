@@ -3,10 +3,9 @@ import React, { useRef } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
+import { type CreateFlagArgs, FlagsProvider, useFlags } from '@atlaskit/flag';
 import Info from '@atlaskit/icon/glyph/info';
 import { token } from '@atlaskit/tokens';
-
-import { type CreateFlagArgs, FlagsProvider, useFlags } from '../src';
 
 const actions = [
 	{

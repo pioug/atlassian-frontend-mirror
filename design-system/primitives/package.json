@@ -77,7 +77,17 @@
 					"title": "XCSS",
 					"folder": "xcss",
 					"slug": "primitives/xcss",
-					"id": "@atlaskit/primitives/xcss"
+					"id": "@atlaskit/primitives/xcss",
+					"status": {
+						"type": "intent-to-deprecate",
+						"description": "We are planning on deprecating XCSS. We recommend using @atlaskit/css instead.",
+						"actions": [
+							{
+								"text": "View @atlaskit/css documentation",
+								"href": "https://atlassian.design/components/css/"
+							}
+						]
+					}
 				},
 				{
 					"title": "Responsive",

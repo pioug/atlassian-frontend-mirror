@@ -6,9 +6,8 @@
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import { Manager, Popper, Reference } from '@atlaskit/popper';
 import { token } from '@atlaskit/tokens';
-
-import { Manager, Popper, Reference } from '../../src';
 
 const popupStyles = css({
 	maxWidth: '160px',

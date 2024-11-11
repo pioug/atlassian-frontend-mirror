@@ -1,6 +1,6 @@
 import React, { type FC } from 'react';
 
-import DynamicTable from '../src';
+import DynamicTable from '@atlaskit/dynamic-table';
 
 const caption = 'Example issue with DynamicTable';
 

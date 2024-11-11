@@ -1,11 +1,10 @@
 import React from 'react';
 
 import Banner from '@atlaskit/banner';
+import Form, { Field, useFormState } from '@atlaskit/form';
 import { Box, xcss } from '@atlaskit/primitives';
 import Select, { type ValueType as Value } from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
-
-import Form, { Field, useFormState } from '../../src';
 
 interface Option {
 	label: string;

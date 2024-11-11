@@ -2,8 +2,7 @@ import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
-
-import Form, { ErrorMessage, Field, FormFooter } from '../../src';
+import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
 
 interface FormData {
 	[key: string]: string;

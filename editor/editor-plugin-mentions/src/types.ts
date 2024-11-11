@@ -1,5 +1,5 @@
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import { type ProfilecardProvider } from '@atlaskit/editor-common/src/provider-factory/profile-card-provider';
+import { type ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
 	NextEditorPlugin,
 	OptionalPlugin,

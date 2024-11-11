@@ -1,9 +1,8 @@
 import React from 'react';
 
+import { ErrorMessage, HelperMessage, ValidMessage } from '@atlaskit/form';
 import Link from '@atlaskit/link';
 import Lozenge from '@atlaskit/lozenge';
-
-import { ErrorMessage, HelperMessage, ValidMessage } from '../src/messages';
 
 export default function MessagesExample() {
 	return (

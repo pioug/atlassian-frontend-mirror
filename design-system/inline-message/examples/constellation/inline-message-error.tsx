@@ -1,6 +1,6 @@
 import React from 'react';
 
-import InlineMessage from '../../src';
+import InlineMessage from '@atlaskit/inline-message';
 
 const InlineMessageErrorExample = () => {
 	return (

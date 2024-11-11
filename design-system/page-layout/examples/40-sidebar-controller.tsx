@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { ButtonItem, Section } from '@atlaskit/menu';
+import { Content, LeftSidebar, Main, PageLayout, usePageLayoutResize } from '@atlaskit/page-layout';
 import {
 	Header,
 	NavigationHeader,
@@ -8,8 +9,6 @@ import {
 	SideNavigation,
 } from '@atlaskit/side-navigation';
 import Tooltip from '@atlaskit/tooltip';
-
-import { Content, LeftSidebar, Main, PageLayout, usePageLayoutResize } from '../src';
 
 import { ExpandLeftSidebarKeyboardShortcut, SlotLabel } from './common';
 

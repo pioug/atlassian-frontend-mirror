@@ -1,5 +1,14 @@
 # @atlaskit/adf-utils
 
+## 19.12.0
+
+### Minor Changes
+
+- [#156454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156454)
+  [`8dfa896f600a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8dfa896f600a2) -
+  [ED-25499] this change adds a transformer for converting nested tables to extensions in outgoing
+  documents
+
 ## 19.11.0
 
 ### Minor Changes

@@ -1,10 +1,9 @@
 import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
+import Flag from '@atlaskit/flag';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import { token } from '@atlaskit/tokens';
-
-import Flag from '../../src';
 
 const FlagInfoExample = () => {
 	return (

@@ -2,7 +2,7 @@ import kebabCase from 'lodash/kebabCase';
 
 import { table, tableWithNestedTable } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/src/types';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';

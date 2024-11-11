@@ -22,6 +22,7 @@ import { useConstructor, usePreviousState } from '@atlaskit/editor-common/hooks'
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
 import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type {
 	AllEditorPresetPluginTypes,
 	EditorPresetBuilder,
@@ -35,7 +36,6 @@ import type {
 	ContextIdentifierProvider,
 	ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { OptionalPlugin, PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
 import {
 	analyticsEventKey,

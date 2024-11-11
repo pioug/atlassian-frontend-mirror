@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { AtlassianAdministrationIcon, AtlassianAdministrationLogo } from '../../src';
+import { AtlassianAdministrationIcon, AtlassianAdministrationLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

@@ -3,9 +3,6 @@ import React, { Fragment } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
-import { Box, Text, xcss } from '@atlaskit/primitives';
-import TextField from '@atlaskit/textfield';
-
 import Form, {
 	CheckboxField,
 	ErrorMessage,
@@ -16,7 +13,9 @@ import Form, {
 	MessageWrapper,
 	RequiredAsterisk,
 	ValidMessage,
-} from '../src';
+} from '@atlaskit/form';
+import { Box, Text, xcss } from '@atlaskit/primitives';
+import TextField from '@atlaskit/textfield';
 
 const FormContainerStyle = xcss({
 	display: 'flex',

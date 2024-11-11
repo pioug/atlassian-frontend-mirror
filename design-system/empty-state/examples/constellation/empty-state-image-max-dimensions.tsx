@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
+import EmptyState from '@atlaskit/empty-state';
 
-import EmptyState from '../../src';
 import LockClosedImage from '../images/LockClosed.png';
 
 const EmptyStateImageMaxDimensionsExample = () => {

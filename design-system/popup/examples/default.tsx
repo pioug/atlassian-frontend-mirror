@@ -9,8 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
-
-import Popup from '../src';
+import Popup from '@atlaskit/popup';
 
 const popupStyles = css({
 	width: 175,

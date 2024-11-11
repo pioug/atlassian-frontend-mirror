@@ -27,6 +27,13 @@ export interface ResponseFileItem {
 	metadataTraceContext?: MediaTraceContext;
 }
 
+export interface EmptyResponseFileItem {
+	id: string;
+	type: 'not-found';
+	collection?: string;
+	metadataTraceContext?: MediaTraceContext;
+}
+
 export interface ItemsPayload {
 	items: ResponseFileItem[];
 }
@@ -127,7 +134,7 @@ export type MediaStoreGetFileImageParams = {
 	readonly upscale?: boolean;
 	readonly 'max-age'?: number;
 	/*
-	The below parameters aren't accepted by the endpoint, 
+	The below parameters aren't accepted by the endpoint,
 	but are required by hot-110955 to communicate information to the PerformanceObserver
 	*/
 	readonly source?: string;

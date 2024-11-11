@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-
-import EmptyState from '../src';
+import EmptyState from '@atlaskit/empty-state';
 
 import exampleImage from './img/example-image.png';
 
@@ -14,9 +13,9 @@ const primaryAction = (
 
 const props = {
 	header: 'I am the header',
-	description: `Lorem ipsum is a pseudo-Latin text used in web design, 
-        typography, layout, and printing in place of English to emphasise 
-        design elements over content. It's also called placeholder (or filler) 
+	description: `Lorem ipsum is a pseudo-Latin text used in web design,
+        typography, layout, and printing in place of English to emphasise
+        design elements over content. It's also called placeholder (or filler)
         text. It's a convenient tool for mock-ups.`,
 	imageUrl: exampleImage,
 	primaryAction,

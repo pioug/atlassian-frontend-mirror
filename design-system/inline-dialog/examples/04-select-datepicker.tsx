@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { DatePicker } from '@atlaskit/datetime-picker';
+import InlineDialog from '@atlaskit/inline-dialog';
 import Select from '@atlaskit/select';
-
-import InlineDialog from '../src';
 
 interface State {
 	isDialogOpen: boolean;

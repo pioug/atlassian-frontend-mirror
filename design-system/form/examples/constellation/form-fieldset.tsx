@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
+import Form, { CheckboxField, Fieldset } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives';
-
-import Form, { CheckboxField, Fieldset } from '../../src';
 
 const FormFieldsetExample = () => (
 	<Box>

@@ -5,7 +5,7 @@ import useStateManager from './use-state-manager';
 export { default } from './state-manager';
 export { mergeStyles } from './styles';
 export { defaultTheme } from './theme';
-export { createFilter } from './filters';
+export { createFilter, type FilterOptionOption } from './filters';
 export { components } from './components';
 export type SelectInstance<
 	Option = unknown,

@@ -5,9 +5,8 @@ import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+import Popup from '@atlaskit/popup';
 import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
-
-import Popup from '../src';
 
 import ModalInsidePopup from './testing-modal';
 import { PopupDOM, PopupPortal } from './testing-nested';

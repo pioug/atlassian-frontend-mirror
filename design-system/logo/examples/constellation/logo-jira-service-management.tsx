@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { JiraServiceManagementIcon, JiraServiceManagementLogo } from '../../src';
+import { JiraServiceManagementIcon, JiraServiceManagementLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

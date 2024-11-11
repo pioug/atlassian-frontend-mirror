@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { browser } from '@atlaskit/editor-common/browser';
 import { MentionWithProfileCard } from '@atlaskit/editor-common/mention';
-import { type ProfilecardProvider } from '@atlaskit/editor-common/src/provider-factory/profile-card-provider';
+import { type ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { MentionEventHandlers } from '@atlaskit/editor-common/ui';
 import { ResourcedMention } from '@atlaskit/mention/element';
 import {

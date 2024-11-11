@@ -1,9 +1,8 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
+import InlineDialog from '@atlaskit/inline-dialog';
 import { type Placement } from '@atlaskit/popper';
-
-import InlineDialog from '../src';
 
 import StackLayout from './utils/stack-layout';
 

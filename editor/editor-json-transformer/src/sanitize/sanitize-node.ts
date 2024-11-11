@@ -1,8 +1,14 @@
+import { type ADFEntity } from '@atlaskit/adf-utils/src/types';
+import { transformNestedTableNodeOutgoingDocument } from '@atlaskit/adf-utils/transforms';
 import { traverse } from '@atlaskit/adf-utils/traverse';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type JSONNode } from '../types';
 
 import { removeMarks, removeNonAnnotationMarks } from './remove-marks';
+
+const hasNestedTable = (tableCellNode: ADFEntity) =>
+	tableCellNode.content?.some((node) => node?.type === 'table');
 
 export function sanitizeNode(json: JSONNode): JSONNode {
 	const sanitizedJSON = traverse(json, {
@@ -27,6 +33,16 @@ export function sanitizeNode(json: JSONNode): JSONNode {
 				return node;
 			}
 			return false; // empty caption
+		},
+		tableCell: (node) => {
+			if (hasNestedTable(node) && fg('platform_editor_use_nested_table_pm_nodes')) {
+				return transformNestedTableNodeOutgoingDocument(node);
+			}
+		},
+		tableHeader: (node) => {
+			if (hasNestedTable(node) && fg('platform_editor_use_nested_table_pm_nodes')) {
+				return transformNestedTableNodeOutgoingDocument(node);
+			}
 		},
 		emoji: removeNonAnnotationMarks,
 		mention: removeNonAnnotationMarks,

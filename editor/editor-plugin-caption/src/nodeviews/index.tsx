@@ -1,13 +1,13 @@
 import React from 'react';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type {
 	ForwardRef,
 	ReactComponentProps,
 	shouldUpdate,
 } from '@atlaskit/editor-common/react-node-view';
 import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type {
 	ExtractInjectionAPI,
 	getPosHandler,

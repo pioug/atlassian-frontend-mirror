@@ -1,9 +1,8 @@
 import React from 'react';
 
+import Flag from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { token } from '@atlaskit/tokens';
-
-import Flag from '../../src';
 
 const FlagActionsExample = () => {
 	return (

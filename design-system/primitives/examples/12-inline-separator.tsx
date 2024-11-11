@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Inline } from '../src';
+import { Box, Inline } from '@atlaskit/primitives';
 
 export default () => (
 	<Box testId="inline-example" padding="space.100">

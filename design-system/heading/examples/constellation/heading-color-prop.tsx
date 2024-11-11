@@ -5,10 +5,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import Heading from '@atlaskit/heading';
 import { Stack } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import Heading from '../../src';
 
 export default () => {
 	return (

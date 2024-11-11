@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import { usePageLayoutResize } from '../../src';
+import { usePageLayoutResize } from '@atlaskit/page-layout';
 
 export const ExpandLeftSidebarKeyboardShortcut = () => {
 	const { toggleLeftSidebar } = usePageLayoutResize();

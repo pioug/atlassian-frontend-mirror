@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 94.16.0
+
+### Minor Changes
+
+- [#162455](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162455)
+  [`37db7ee7998bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/37db7ee7998bb) -
+  [ux] ED-25030: Reduce padding between insert menu items and remove padding from the right hand
+  side of the insert menu when a scrollbar is not present
+
 ## 94.15.0
 
 ### Minor Changes

@@ -22,7 +22,7 @@ import {
 	mapMediaFileToFileState,
 	mapMediaItemToFileState,
 } from '../../models/file-state';
-import { type MediaFile } from '../../models/media';
+import { isNotFoundMediaItemDetails, type MediaFile } from '../../models/media';
 import { FileFetcherError } from './error';
 import { type UploadableFile, type UploadableFileUpfrontIds, uploadFile } from '../../uploader';
 import { type UploadController } from '../../upload-controller';
@@ -125,8 +125,10 @@ export class FileFetcherImpl implements FileFetcher {
 		this.dataloader = createFileDataloader(mediaApi);
 	}
 
-	private getErrorFileState = (error: any, id: string, occurrenceKey?: string): ErrorFileState =>
-		typeof error === 'string'
+	private getErrorFileState = (error: any, id: string, occurrenceKey?: string): ErrorFileState => {
+		const { metadata, ...attributes } = error?.attributes ?? {};
+
+		return typeof error === 'string'
 			? {
 					status: 'error',
 					id,
@@ -138,10 +140,14 @@ export class FileFetcherImpl implements FileFetcher {
 					status: 'error',
 					id,
 					reason: error?.reason,
-					details: error?.attributes,
+					details: {
+						...attributes,
+						...(metadata?.traceContext && { metadata }),
+					},
 					occurrenceKey,
 					message: error?.message,
 				};
+	};
 
 	private setFileState = (id: string, fileState: FileState) => {
 		this.store.setState((state) => {
@@ -157,13 +163,19 @@ export class FileFetcherImpl implements FileFetcher {
 				collectionName,
 				occurrenceKey,
 			});
+
+			const { metadata, ...attributes } = err?.attributes ?? {};
+
 			const errorFileState: ErrorFileState = {
 				status: 'error',
 				id,
 				reason: err?.reason,
 				message: err?.message,
 				occurrenceKey,
-				details: err?.attributes,
+				details: {
+					...attributes,
+					...(metadata?.traceContext && { metadata }),
+				},
 			};
 
 			subject.error(err);
@@ -223,10 +235,11 @@ export class FileFetcherImpl implements FileFetcher {
 				collectionName,
 			});
 
-			if (!response) {
+			if (isNotFoundMediaItemDetails(response)) {
 				throw new FileFetcherError('emptyItems', id, {
 					collectionName,
 					occurrenceKey,
+					traceContext: response.metadataTraceContext,
 				});
 			}
 
@@ -234,6 +247,7 @@ export class FileFetcherImpl implements FileFetcher {
 				throw new FileFetcherError('zeroVersionFile', id, {
 					collectionName,
 					occurrenceKey,
+					traceContext: response.metadataTraceContext,
 				});
 			}
 

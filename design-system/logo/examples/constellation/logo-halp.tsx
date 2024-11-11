@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { HalpIcon, HalpLogo } from '../../src';
+import { HalpIcon, HalpLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

@@ -6,15 +6,14 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
 import { Field } from '@atlaskit/form';
-import { Box, xcss } from '@atlaskit/primitives';
-
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
-} from '../src';
+} from '@atlaskit/modal-dialog';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import ModalTitleWithClose from './common/modal-title';
 

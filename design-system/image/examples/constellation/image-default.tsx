@@ -1,8 +1,8 @@
 import React from 'react';
 
+import Image from '@atlaskit/image';
 import { Inline, xcss } from '@atlaskit/primitives';
 
-import Image from '../../src';
 import ExampleImage from '../images/Celebration.png';
 
 const containerStyles = xcss({

@@ -4,7 +4,7 @@ import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { isPreRelease2 } from '../utils/advanced-layouts-flags';
+import { isPreRelease1, isPreRelease2 } from '../utils/advanced-layouts-flags';
 
 import { getNestedDepth, getNodeAnchor, TYPE_NODE_DEC } from './decorations-common';
 
@@ -20,6 +20,7 @@ const IGNORE_NODES = [
 const IGNORE_NODES_NEXT = ['tableCell', 'tableHeader', 'tableRow', 'listItem', 'caption'];
 
 const IGNORE_NODE_DESCENDANTS = ['listItem', 'taskList', 'decisionList', 'mediaSingle'];
+const IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT = ['listItem', 'taskList', 'decisionList'];
 
 export const shouldDescendIntoNode = (node: PMNode) => {
 	// Optimisation to avoid drawing node decorations for empty table cells
@@ -33,16 +34,36 @@ export const shouldDescendIntoNode = (node: PMNode) => {
 		}
 	}
 
+	if (isPreRelease1()) {
+		return !IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT.includes(node.type.name);
+	}
+
 	return !IGNORE_NODE_DESCENDANTS.includes(node.type.name);
 };
 
-const shouldIgnoreNode = (node: PMNode, ignore_nodes: string[]) => {
+const shouldIgnoreNode = (
+	node: PMNode,
+	ignore_nodes: string[],
+	depth: number,
+	parent?: PMNode | null,
+) => {
 	const isEmbedCard =
 		'embedCard' === node.type.name && fg('platform_editor_element_dnd_nested_fix_patch_3');
 
 	// TODO use isWrappedMedia when clean up the feature flag
 	const isMediaSingle =
 		'mediaSingle' === node.type.name && fg('platform_editor_element_dnd_nested_fix_patch_1');
+
+	const isFirstTableHeaderOrTableRow =
+		parent?.type.name === 'table' &&
+		depth === 1 &&
+		node === parent.firstChild &&
+		['tableHeader', 'tableRow'].includes(node.type.name) &&
+		isPreRelease1();
+
+	if (isFirstTableHeaderOrTableRow) {
+		return false;
+	}
 
 	return (isEmbedCard || isMediaSingle) && ['wrap-right', 'wrap-left'].includes(node.attrs.layout)
 		? true
@@ -84,7 +105,7 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 	const docTo = to === undefined || to > newState.doc.nodeSize - 2 ? newState.doc.nodeSize - 2 : to;
 
 	const ignore_nodes = isPreRelease2() ? IGNORE_NODES_NEXT : IGNORE_NODES;
-	newState.doc.nodesBetween(docFrom, docTo, (node, pos, _parent, index) => {
+	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, index) => {
 		let depth = 0;
 		let anchorName;
 		const shouldDescend = shouldDescendIntoNode(node);
@@ -95,12 +116,12 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 			if (node.isInline) {
 				return false;
 			}
+			depth = newState.doc.resolve(pos).depth;
 
-			if (shouldIgnoreNode(node, ignore_nodes)) {
+			if (shouldIgnoreNode(node, ignore_nodes, depth, parent)) {
 				return shouldDescend; //skip over, don't consider it a valid depth
 			}
 
-			depth = newState.doc.resolve(pos).depth;
 			anchorName = anchorName ?? `--node-anchor-${node.type.name}-${pos}`;
 		} else {
 			anchorName = anchorName ?? `--node-anchor-${node.type.name}-${index}`;

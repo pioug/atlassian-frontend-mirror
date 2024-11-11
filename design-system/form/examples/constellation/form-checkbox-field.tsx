@@ -2,9 +2,8 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
+import Form, { CheckboxField, Field, Fieldset, FormFooter } from '@atlaskit/form';
 import { RadioGroup } from '@atlaskit/radio';
-
-import Form, { CheckboxField, Field, Fieldset, FormFooter } from '../../src';
 
 const FormCheckboxExample = () => {
 	return (

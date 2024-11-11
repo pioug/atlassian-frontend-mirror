@@ -8,8 +8,7 @@ import { useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-
-import DynamicTable from '../src';
+import DynamicTable from '@atlaskit/dynamic-table';
 
 import { caption, head, rows } from './content/sample-data';
 

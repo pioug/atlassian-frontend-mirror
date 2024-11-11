@@ -1,11 +1,10 @@
 import React from 'react';
 
+import Form, { Field, useFormState } from '@atlaskit/form';
 import { Box, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 import { type OptionsPropType } from '@atlaskit/radio/types';
 import TextField from '@atlaskit/textfield';
-
-import Form, { Field, useFormState } from '../../src';
 
 const formContainerStyles = xcss({
 	maxWidth: '400px',

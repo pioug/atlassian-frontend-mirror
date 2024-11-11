@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 28.1.0
+
+### Minor Changes
+
+- [#156454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156454)
+  [`cfba72d9716f0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cfba72d9716f0) -
+  Logs trace context for metadata error events
+
 ## 28.0.8
 
 ### Patch Changes

@@ -9,10 +9,9 @@ import { jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import Popup from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
-
-import Popup from '../../src';
 
 const radioValues = [
 	{ name: 'None', value: '0', label: 'None' },

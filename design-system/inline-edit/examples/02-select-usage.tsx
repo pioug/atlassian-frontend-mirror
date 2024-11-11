@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
+import InlineEdit from '@atlaskit/inline-edit';
 import { Box, xcss } from '@atlaskit/primitives';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Tag from '@atlaskit/tag';
 import Group from '@atlaskit/tag-group';
-
-import InlineEdit from '../src';
 
 const readViewContainerStyles = xcss({
 	font: 'font.body',

@@ -480,6 +480,12 @@ function Tooltip({
 				<CastTargetContainer
 					{...tooltipTriggerProps}
 					ref={setImplicitRefFromChildren}
+					/**
+					 * TODO: Why is role="presentation" added?
+					 * - Is it only to "remove" the `Container` from screen readers?
+					 * - Why is it added only to the `Container` but not to `tooltipTriggerProps`?
+					 * - Should `role="presentation"` only be used if `shouldRenderHiddenContent == false`?
+					 */
 					role="presentation"
 				>
 					{children}

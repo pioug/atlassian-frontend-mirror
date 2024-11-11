@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AtlassianIcon } from '../../src';
+import { AtlassianIcon } from '@atlaskit/logo';
 
 const Icon = () => {
 	return <AtlassianIcon appearance="brand" />;

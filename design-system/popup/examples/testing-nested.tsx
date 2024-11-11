@@ -12,8 +12,7 @@ import Button from '@atlaskit/button/new';
 import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
 import MenuIcon from '@atlaskit/icon/glyph/menu';
 import { ButtonItem, PopupMenuGroup, Section } from '@atlaskit/menu';
-
-import Popup from '../src';
+import Popup from '@atlaskit/popup';
 
 const styles = css({ display: 'flex', gap: '16px' });
 const NestedPopup = ({ shouldRenderToParent }: { shouldRenderToParent?: boolean }) => {

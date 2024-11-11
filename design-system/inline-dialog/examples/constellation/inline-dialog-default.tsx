@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
 import Button from '@atlaskit/button/new';
+import InlineDialog from '@atlaskit/inline-dialog';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import InlineDialog from '../../src';
 
 const containerStyles = xcss({
 	minHeight: '120px',

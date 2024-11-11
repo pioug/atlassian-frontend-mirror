@@ -45,6 +45,7 @@ export const mockJiraData = {
 			priority: {
 				label: 'major',
 				source: questionMark,
+				text: 'Major',
 			},
 			status: {
 				text: 'To do',
@@ -72,6 +73,7 @@ export const mockJiraData = {
 			priority: {
 				label: 'high',
 				source: high,
+				text: 'High',
 			},
 			status: {
 				text: 'In Progress',
@@ -98,6 +100,7 @@ export const mockJiraData = {
 			priority: {
 				label: 'medium',
 				source: medium,
+				text: 'Medium',
 			},
 			status: {
 				text: 'Done',
@@ -124,6 +127,7 @@ export const mockJiraData = {
 			priority: {
 				label: 'low',
 				source: low,
+				text: 'Low',
 			},
 			status: {
 				text: 'Closed',
@@ -154,6 +158,7 @@ export const mockJiraData = {
 			priority: {
 				label: 'trivial',
 				source: trivial,
+				text: 'Trivial',
 			},
 			status: {
 				text: 'To do',
@@ -180,6 +185,7 @@ export const mockJiraData = {
 			priority: {
 				label: 'blocker',
 				source: blocker,
+				text: 'Blocker',
 			},
 			status: {
 				text: 'To do',
@@ -738,4 +744,5 @@ export const defaultInitialVisibleColumnKeys: string[] = [
 	'status',
 	'created',
 	'description',
+	'priority',
 ];

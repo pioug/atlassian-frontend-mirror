@@ -8,8 +8,7 @@ import { type FC, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-
-import Popup from '../src';
+import Popup from '@atlaskit/popup';
 
 const popupStyles = css({
 	width: 175,

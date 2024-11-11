@@ -1,3 +1,4 @@
+import { type MediaTraceContext } from '@atlaskit/media-common';
 import { BaseMediaClientError } from '../../models/errors';
 
 export type MobileUploadErrorReason = 'emptyItems' | 'zeroVersionFile';
@@ -8,6 +9,7 @@ export type MobileUploadErrorAttributes = {
 	readonly metadata?: {
 		readonly collectionName?: string;
 		readonly occurrenceKey?: string;
+		readonly traceContext?: MediaTraceContext;
 	};
 };
 export class MobileUploadError extends BaseMediaClientError<MobileUploadErrorAttributes> {
@@ -17,18 +19,20 @@ export class MobileUploadError extends BaseMediaClientError<MobileUploadErrorAtt
 		readonly metadata?: {
 			readonly collectionName?: string;
 			readonly occurrenceKey?: string;
+			readonly traceContext?: MediaTraceContext;
 		},
 	) {
 		super(reason);
 	}
 
 	get attributes() {
-		const { reason, id, metadata: { collectionName, occurrenceKey } = {} } = this;
+		const { reason, id, metadata: { collectionName, occurrenceKey, traceContext } = {} } = this;
 		return {
 			reason,
 			id,
 			collectionName,
 			occurrenceKey,
+			metadata: { traceContext },
 		};
 	}
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Inline, Stack, xcss } from '../src';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const containerStyles = xcss({ display: 'flex', padding: 'space.200' });
 const wrapperBoxStyles = xcss({
@@ -22,10 +22,10 @@ const logicalMarginStyles = xcss({
 	marginInlineEnd: 'space.400',
 });
 const visualMarginStyles = xcss({
-	marginTop: 'space.100',
-	marginBottom: 'space.200',
-	marginLeft: 'space.300',
-	marginRight: 'space.400',
+	marginBlockStart: 'space.100',
+	marginBlockEnd: 'space.200',
+	marginInlineStart: 'space.300',
+	marginInlineEnd: 'space.400',
 });
 
 export default function Basic() {

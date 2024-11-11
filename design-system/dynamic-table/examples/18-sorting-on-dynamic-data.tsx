@@ -7,10 +7,9 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import DynamicTable from '@atlaskit/dynamic-table';
 import { Stack } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
-
-import DynamicTable from '../src';
 
 const caption = 'Hello';
 const head = {

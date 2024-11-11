@@ -2,9 +2,8 @@ import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { token } from '@atlaskit/tokens';
-
-import { DynamicTableStateless } from '../src';
 
 import { head, rows } from './content/sample-data';
 

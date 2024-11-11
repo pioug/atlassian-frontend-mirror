@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { Box, Inline, Stack, xcss } from '../src';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const fixedSizeContainerStyles = css({ maxWidth: '300px' });
 const blockStyles = xcss({ borderRadius: 'border.radius.050' });

@@ -18,6 +18,14 @@ import {
 import Button from '@atlaskit/button/new';
 import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
+import {
+	Content,
+	LeftSidebar,
+	Main,
+	PageLayout,
+	RightPanel,
+	TopNavigation,
+} from '@atlaskit/page-layout';
 import Popup from '@atlaskit/popup';
 import {
 	Header,
@@ -28,8 +36,6 @@ import {
 } from '@atlaskit/side-navigation';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-
-import { Content, LeftSidebar, Main, PageLayout, RightPanel, TopNavigation } from '../src';
 
 import { ExpandLeftSidebarKeyboardShortcut, SlotLabel, SlotWrapper } from './common';
 

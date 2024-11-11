@@ -5,9 +5,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import Image from '@atlaskit/image';
 import { Inline, xcss } from '@atlaskit/primitives';
-
-import Image from '../src';
 
 import ExampleImage from './images/Celebration.png';
 

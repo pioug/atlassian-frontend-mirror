@@ -1,18 +1,89 @@
-import { transformNestedTablesIncomingDocument } from '../../../transforms/nested-table-transform';
 import nestedTableExtensionAdf from './__fixtures__/nested-table-extension-adf.json';
 import nestedTableExtensionWithNoNestedContentAdf from './__fixtures__/nested-table-extension-with-no-nestedcontent-adf.json';
-import nestedTableExtensionWithInvalidNestedContentAdf from './__fixtures__/nested-table-extension-with-invalid-nestedcontent-adf.json';
-import nestedTableExtensionWithoutTableAdf from './__fixtures__/nested-table-extension-without-table-adf.json';
 import nestedTableWithInvalidJsonAdf from './__fixtures__/nested-table-extension-with-invalid-json-adf.json';
-import nestedTableWithArrayAdf from './__fixtures__/nested-table-extension-with-array-adf.json';
+import nestedTableInsideTableCellAdf from './__fixtures__/nested-table-inside-table-cell.json';
+import nestedTableInsideTableHeaderAdf from './__fixtures__/nested-table-inside-table-header.json';
 
-describe('nested-table-transform', () => {
-	describe('transformNestedTablesIncomingDocument', () => {
+import {
+	transformNestedTableNodeOutgoingDocument,
+	transformNestedTablesIncomingDocument,
+} from '../../../transforms';
+
+describe('Nested table transformations', () => {
+	describe('transform incoming document', () => {
 		it('should transform nested table extension to nested table', () => {
 			const result = transformNestedTablesIncomingDocument(nestedTableExtensionAdf);
 
 			expect(result.isTransformed).toBe(true);
-			expect(result.transformedAdf).toMatchSnapshot();
+			expect(result.transformedAdf).toMatchInlineSnapshot(`
+			{
+			  "content": [
+			    {
+			      "content": [
+			        {
+			          "content": [
+			            {
+			              "content": [
+			                {
+			                  "content": [
+			                    {
+			                      "content": [
+			                        {
+			                          "text": "Header 1",
+			                          "type": "text",
+			                        },
+			                      ],
+			                      "type": "tableHeader",
+			                    },
+			                    {
+			                      "content": [
+			                        {
+			                          "text": "Header 2",
+			                          "type": "text",
+			                        },
+			                      ],
+			                      "type": "tableHeader",
+			                    },
+			                  ],
+			                  "type": "tableRow",
+			                },
+			                {
+			                  "content": [
+			                    {
+			                      "content": [
+			                        {
+			                          "text": "Cell 1",
+			                          "type": "text",
+			                        },
+			                      ],
+			                      "type": "tableCell",
+			                    },
+			                    {
+			                      "content": [
+			                        {
+			                          "text": "Cell 2",
+			                          "type": "text",
+			                        },
+			                      ],
+			                      "type": "tableCell",
+			                    },
+			                  ],
+			                  "type": "tableRow",
+			                },
+			              ],
+			              "type": "table",
+			            },
+			          ],
+			          "type": "tableRow",
+			        },
+			      ],
+			      "type": "table",
+			    },
+			  ],
+			  "type": "doc",
+			  "version": 1,
+			}
+		`);
 		});
 
 		it('should clear the node if nested table extension is missing nestedContent', () => {
@@ -20,32 +91,88 @@ describe('nested-table-transform', () => {
 				nestedTableExtensionWithNoNestedContentAdf,
 			);
 
-			expect(result.isTransformed).toBe(false);
-			expect(result.transformedAdf).toMatchSnapshot();
-		});
-
-		it('should throw an error if nested table extension nestedContent is not a string', () => {
-			expect(() => {
-				transformNestedTablesIncomingDocument(nestedTableExtensionWithInvalidNestedContentAdf);
-			}).toThrow('Invalid nested table content');
-		});
-
-		it('should throw an error if nested table extension nestedContent is not an object', () => {
-			expect(() => {
-				transformNestedTablesIncomingDocument(nestedTableWithArrayAdf);
-			}).toThrow('Invalid nested table content');
-		});
-
-		it('should throw an error if nested table extension nestedContent is not a table', () => {
-			expect(() => {
-				transformNestedTablesIncomingDocument(nestedTableExtensionWithoutTableAdf);
-			}).toThrow('Invalid nested table content');
+			expect(result.isTransformed).toBe(true);
+			expect(result.transformedAdf).toMatchInlineSnapshot(`
+			{
+			  "content": [
+			    {
+			      "content": [
+			        {
+			          "content": [],
+			          "type": "tableRow",
+			        },
+			      ],
+			      "type": "table",
+			    },
+			  ],
+			  "type": "doc",
+			  "version": 1,
+			}
+		`);
 		});
 
 		it('should throw an error if nested table extension nestedContent is not valid JSON', () => {
 			expect(() => {
 				transformNestedTablesIncomingDocument(nestedTableWithInvalidJsonAdf);
 			}).toThrow('Failed to parse nested table content');
+		});
+	});
+
+	describe('transform outgoing document', () => {
+		it('should transform a nested table inside a table cell', () => {
+			const transformedAdf = transformNestedTableNodeOutgoingDocument(
+				nestedTableInsideTableCellAdf,
+			);
+			expect(transformedAdf).toMatchInlineSnapshot(`
+			{
+			  "attrs": {},
+			  "content": [
+			    {
+			      "attrs": {
+			        "extensionKey": "nested-table",
+			        "extensionType": "com.atlassian.nesting",
+			        "parameters": {
+			          "macroParams": {
+			            "nestedContent": {
+			              "value": "{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default","localId":"58243e71-9906-4f0b-8a27-84973f7203f0","width":164},"content":[{"type":"tableRow","content":[{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"a","marks":[{"type":"Nested table header content"}]}]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"Nested table content"}]}]}]}]}",
+			            },
+			          },
+			        },
+			      },
+			      "type": "extension",
+			    },
+			  ],
+			  "type": "tableCell",
+			}
+		`);
+		});
+
+		it('should transform a nested table inside a table header', () => {
+			const transformedAdf = transformNestedTableNodeOutgoingDocument(
+				nestedTableInsideTableHeaderAdf,
+			);
+			expect(transformedAdf).toMatchInlineSnapshot(`
+			{
+			  "attrs": {},
+			  "content": [
+			    {
+			      "attrs": {
+			        "extensionKey": "nested-table",
+			        "extensionType": "com.atlassian.nesting",
+			        "parameters": {
+			          "macroParams": {
+			            "nestedContent": {
+			              "value": "{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default","localId":"58243e71-9906-4f0b-8a27-84973f7203f0","width":164},"content":[{"type":"tableRow","content":[{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"a","marks":[{"type":"Nested table header content"}]}]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"Nested table content"}]}]}]}]}",
+			            },
+			          },
+			        },
+			      },
+			      "type": "extension",
+			    },
+			  ],
+			  "type": "tableHeader",
+			}
+		`);
 		});
 	});
 });

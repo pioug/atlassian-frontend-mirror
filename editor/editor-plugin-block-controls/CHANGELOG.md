@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.10
+
+### Patch Changes
+
+- [#162501](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162501)
+  [`3bdd9f8231197`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3bdd9f8231197) -
+  ED-25579 fix vertical drop target bugs
+- Updated dependencies
+
 ## 2.13.9
 
 ### Patch Changes

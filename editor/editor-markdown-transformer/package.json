@@ -45,7 +45,7 @@
 		"markdown-it-table": "^2.0.6"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-json-transformer": "^8.20.0",
+		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@emotion/react": "^11.7.1",
 		"@types/markdown-it": "^13.0.7",
 		"react": "^16.8.0",

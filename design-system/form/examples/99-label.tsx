@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Label } from '../src';
+import { Label } from '@atlaskit/form';
 
 export default () => (
 	<Label id="someId" htmlFor="example">

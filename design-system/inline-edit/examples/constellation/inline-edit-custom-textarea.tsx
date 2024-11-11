@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
+import InlineEdit from '@atlaskit/inline-edit';
 import { Box, xcss } from '@atlaskit/primitives';
 import TextArea from '@atlaskit/textarea';
-
-import InlineEdit from '../../src';
 
 const containerStyles = xcss({
 	paddingBlockStart: 'space.100',

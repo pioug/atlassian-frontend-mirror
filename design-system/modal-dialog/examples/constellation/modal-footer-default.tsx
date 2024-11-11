@@ -11,10 +11,15 @@ import Avatar from '@atlaskit/avatar';
 import Button, { IconButton } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import InlineDialog from '@atlaskit/inline-dialog';
+import Modal, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+} from '@atlaskit/modal-dialog';
 import { Flex, Grid, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../../src';
 
 const wrapperStyles = css({
 	display: 'flex',

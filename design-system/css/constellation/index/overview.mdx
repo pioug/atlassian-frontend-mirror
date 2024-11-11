@@ -6,45 +6,47 @@ import SectionMessage from '@atlaskit/section-message';
 
 <SectionMessage title="Migration from Emotion to Compiled" appearance="discovery">
 	<p>
-		The Atlassian Design System is under the process of migrating from Emotion to Compiled for our
-		CSS-in-JS. Further details to come.
+		The Atlassian Design System is migrating from Emotion to Compiled CSS-in-JS. This transition
+		aims to improve performance and align with modern React features.{' '}
+		<a href="https://community.developer.atlassian.com/t/rfc-73-migrating-our-components-to-compiled-css-in-js/85953">
+			Read our RFC to learn more.
+		</a>
 	</p>
 </SectionMessage>
 
-`@atlaskit/css` is the replacement for `@atlaskit/primitives.xcss`, refer to
-[Migration](/components/css/migration) for details migrating.
+`@atlaskit/css` is the replacement for `@atlaskit/primitives.xcss`. It serves as a bounded styling
+library for use with native HTML elements and the Atlassian Design System, including
+[primitive components](/components/primitives).
 
-This is a bounded styling library to be used both with native styles (`<div>`) and the Atlassian
-Design System, such as our [primitive components](/components/primitives).
+Built on [Compiled CSS-in-JS](https://compiledcssinjs.com/), it provides a performant, static
+styling solution with some syntax changes. Notably, dynamic styles and certain imports/exports may
+not work as before.
 
-This is built on top of [Compiled CSS-in-JS](https://compiledcssinjs.com/) which is a much more
-performant, static styling solution with the same syntax and a few breaking changes—the primary ones
-being dynamic styles as well as deep imports or exports for reuse of styles may not work.
-
-This will require configuration, refer to our
-[Get started](/get-started/develop#set-up-your-bundling-environment) guide.
+For configuration details, see our
+[Get Started](/get-started/develop#set-up-your-bundling-environment) guide.
 
 ## Usage
 
-For the most part, `@atlaskit/css` should behave like `@compiled/react` or other CSS-in-JS
-libraries' `css()` syntaxes, however we promote `cssMap` as a way to create maps of styles as that's
-the common use-case at Atlassian.
+`@atlaskit/css` closely resembles the behavior of `@compiled/react` and other CSS-in-JS libraries'
+`css()` functions. However, we encourage using `cssMap` to create style maps, as the common practice
+at Atlassian.
 
-Please note that `@atlaskit/css` is a strictly bounded variant to help promote and align the usage
-of Design System tokens and properties, so you you cannot use arbitrary values such as
-`color: 'rgba(123, 45, 67)', padding: 8`, and typically we only allow our
-[tokenized values](/components/tokens/all-tokens), but a few other property restrictions or
-limitations exist, such as `zIndex` only having a few allowed literal numeric values.
+This is a strictly bounded variant designed to align the use of
+[Design System tokens](<(/components/tokens/all-tokens)>) and properties. You cannot use arbitrary
+values, such as `color: 'rgba(123, 45, 67)'` nor `padding: 8`. Typically, only tokenized values are
+allowed. Additionally, there are some restrictions, such as `zIndex`, which only supports a limited
+set of numeric values.
 
 ### cssMap
 
-`cssMap` is the default function we suggest to use, it can be reused across native elements through
-`props.css` and React components through `props.xcss` and is flexible to style maps that are known
-ahead-of-time.
-
-These can be reused across multiple components, even across native and non-native.
+We recommend using `cssMap` to create style maps. These maps can be applied and reused on both
+native elements and React components using `props.css` and `props.xcss`.
 
 ```tsx
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { cssMap } from '@atlaskit/css';
 const styles = cssMap({
 	root: { display: 'inline-block' },
@@ -73,9 +75,8 @@ export default ({
 
 ### cx
 
-The `cx` function is required when combining styles inside of an `xcss` prop, but can be used
-anywhere. This is only required because `xcss={[styles.root, styles.bordered]}` results in incorrect
-typing while with a function it is preserved.
+Use the `cx` function when combining styles in an `xcss` prop to maintain correct typing. This is
+not required for native elements, but still works with or without.
 
 ```tsx
 <div css={[styles.root, styles.bordered]} />
@@ -83,7 +84,7 @@ typing while with a function it is preserved.
 <Box xcss={cx(styles.root, styles.bordered)} />
 ```
 
-### Typical example
+### JSX pragma
 
 You must have a JSX pragma in scope in order to use this, depending on your setup this may be
 automatic, require `React` imported, or require `jsx` imported.
@@ -128,14 +129,15 @@ export default ({
 };
 ```
 
-### Building a reusable component with pass-through styles
+## Building reusable components
 
-With the introduction of `@atlaskit/css` (and the underlying `createStrictAPI` from Compiled), we're
-now able to define a strictly bounded API for our components. This may be an API pattern that you
-want to copy as well.
+With the introduction of `@atlaskit/css`, and leveraging the underlying `createStrictAPI` from
+Compiled, we've established a strictly bounded API for our components. This approach ensures
+consistency and alignment with our Design System, and it might be an API pattern you find beneficial
+to adopt in your own projects.
 
-For example, if you want to create your own component that allows you to extend and pass-through
-styles, you can do so:
+For instance, if you want to create a component that allows you to extend and pass-through styles,
+you can do so:
 
 ```tsx
 /**
@@ -153,11 +155,10 @@ const styles = cssMap({
 export function Card({
 	children,
 	xcss,
-	dense,
+	isDense,
 }: {
 	children: React.ReactNode;
-	dense?: boolean;
-	/** Only `padding`, `borderRadius`, `backgroundColor`, and `color` properties and `hover` and `focus` pseudos are allowed */
+	isDense?: boolean;
 	xcss?: StrictXCSSProp<
 		'padding' | 'borderRadius' | 'backgroundColor' | 'color',
 		'&:hover' | '&:focus'
@@ -171,8 +172,7 @@ export function Card({
 }
 ```
 
-I'm then allowed to build a component that uses this `Card` component and overrides these properties
-as I see fit:
+You can then build a component using this Card component and override its properties as needed:
 
 ```tsx
 /**
@@ -227,6 +227,46 @@ export function Card({
 }) {
 	return <Box xcss={cx(styles.button, xcss)}>{children}</Box>;
 }
+```
+
+### Unbounded styles
+
+If you need to apply styles that aren't tokenized, or styles that aren't within the `@atlaskit/css`
+API, you can use the `cssMap()` function from `@compiled/react` directly on native HTML elements.
+Note that this won't work on primitive components. While it's best to stick to the Design System
+guidelines, this option can be useful for handling specific edge cases. Please note this isn't
+recommended for general use.
+
+```tsx
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap } from '@compiled/react';
+
+import { jsx } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
+
+const unboundedStyles = cssMap({
+	container: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:first-child': {
+			paddingBlockEnd: token('space.150'),
+		},
+		'@media (min-width: 48rem)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:first-child': {
+				paddingBlockStart: token('space.400'),
+			},
+		},
+	},
+});
+
+const Container = ({ children, testId }: ContainerProps) => (
+	<div css={unboundedStyles.container} data-testid={testId}>
+		{children}
+	</div>
+);
 ```
 
 ## Configuration required

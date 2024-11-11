@@ -9,9 +9,8 @@ import { jsx } from '@emotion/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
+import Popup from '@atlaskit/popup';
 import { Box, Text, xcss } from '@atlaskit/primitives';
-
-import Popup from '../src';
 
 const data = [
 	`Last night I saw you in my dreams, now I can't wait to go to sleep.`,

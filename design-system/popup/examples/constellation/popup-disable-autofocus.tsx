@@ -8,10 +8,9 @@ import { useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import Popup from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-
-import Popup from '../../src';
 
 const wrapperStyles = xcss({
 	display: 'grid',

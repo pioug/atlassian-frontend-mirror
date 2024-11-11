@@ -3,6 +3,7 @@ import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
+import Form, { Field, FormFooter, FormHeader, FormSection, RequiredAsterisk } from '@atlaskit/form';
 import { RadioGroup } from '@atlaskit/radio';
 import Select, {
 	components,
@@ -11,8 +12,6 @@ import Select, {
 	type ValueType,
 } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
-
-import Form, { Field, FormFooter, FormHeader, FormSection, RequiredAsterisk } from '../../src';
 
 const RequiredInput = (props: InputProps<OptionType, false>) => {
 	const newProps = {

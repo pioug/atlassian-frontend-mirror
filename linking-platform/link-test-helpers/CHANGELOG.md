@@ -1,5 +1,12 @@
 # @atlaskit/link-test-helpers
 
+## 7.5.8
+
+### Patch Changes
+
+- [`f72c22d3b02b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f72c22d3b02b0) -
+  Updates Jira SLLV mock to include `text` value for priority field.
+
 ## 7.5.7
 
 ### Patch Changes

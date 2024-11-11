@@ -286,6 +286,7 @@ const buildDataResponse = ({
 						data: {
 							source: item.priority.source,
 							label: item.priority.label,
+							text: item.priority.text,
 						},
 					},
 					status: {

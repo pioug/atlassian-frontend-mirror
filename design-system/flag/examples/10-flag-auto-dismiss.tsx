@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Box from '@atlaskit/primitives/box';
+import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
+import { type AppearanceTypes } from '@atlaskit/flag/types';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import Box from '@atlaskit/primitives/box';
 import { token } from '@atlaskit/tokens';
-
-import { AutoDismissFlag, FlagGroup } from '../src';
-import { type AppearanceTypes } from '../src/types';
 
 const appearances: AppearanceTypes[] = ['error', 'info', 'normal', 'success', 'warning'];
 const color = {

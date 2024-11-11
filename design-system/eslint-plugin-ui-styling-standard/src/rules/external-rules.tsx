@@ -90,19 +90,6 @@ export const externalRules: ExternalRuleMeta[] = [
 		},
 	},
 	{
-		name: '@compiled/no-suppress-xcss',
-		displayName: 'no-suppress-xcss',
-		isExternal: true,
-		docs: {
-			description: 'Disallows supressing type violations when using the xcss prop.',
-			url: getRuleUrl('no-suppress-xcss'),
-			externalUrl:
-				'https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/no-suppress-xcss',
-			recommended: true,
-			severity: 'error',
-		},
-	},
-	{
 		name: '@compiled/no-js-xcss',
 		displayName: 'no-js-xcss',
 		isExternal: true,

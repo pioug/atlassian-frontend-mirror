@@ -553,6 +553,12 @@ describe('FileFetcher', () => {
 						id: items[0].id,
 						occurrenceKey: undefined,
 						reason: 'emptyItems',
+						metadata: {
+							traceContext: {
+								traceId: expect.any(String),
+								spanId: expect.any(String),
+							},
+						},
 					};
 
 					const expectedFileState = {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, xcss } from '../src';
+import { Box, xcss } from '@atlaskit/primitives';
 
 // Example usage of the box xcss API
 // generates a safe set of classNames

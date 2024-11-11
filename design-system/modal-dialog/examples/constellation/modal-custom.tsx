@@ -5,9 +5,9 @@ import Button, { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import Image from '@atlaskit/image';
+import Modal, { ModalTransition, useModal } from '@atlaskit/modal-dialog';
 import { Box, Grid, Stack, xcss } from '@atlaskit/primitives';
 
-import Modal, { ModalTransition, useModal } from '../../src';
 import welcomeImage from '../images/this-is-new-jira.png';
 
 const gridStyles = xcss({

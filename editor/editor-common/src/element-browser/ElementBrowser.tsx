@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 
+import type { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
+
 import type { QuickInsertItem } from '../provider-factory';
 import type { EmptyStateHandler } from '../types';
 
@@ -17,6 +19,7 @@ export interface Props {
 	defaultCategory?: string;
 	emptyStateHandler?: EmptyStateHandler;
 	viewMoreItem?: QuickInsertItem;
+	cache?: CellMeasurerCache;
 }
 
 export interface State {
@@ -116,6 +119,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 			mode,
 			emptyStateHandler,
 			viewMoreItem,
+			cache,
 		} = this.props;
 		const { categories, searchTerm, selectedCategory, items } = this.state;
 		return (
@@ -133,6 +137,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 				searchTerm={searchTerm}
 				emptyStateHandler={emptyStateHandler}
 				viewMoreItem={viewMoreItem}
+				cache={cache}
 			/>
 		);
 	}

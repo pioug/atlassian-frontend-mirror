@@ -5,9 +5,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 import { token } from '@atlaskit/tokens';
-
-import { ConfluenceIcon, JiraIcon } from '../src';
 
 /**
  * Example of properties that may be set on an ancestor,

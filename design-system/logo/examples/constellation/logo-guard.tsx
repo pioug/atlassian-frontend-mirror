@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { GuardIcon, GuardLogo } from '../../src';
+import { GuardIcon, GuardLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

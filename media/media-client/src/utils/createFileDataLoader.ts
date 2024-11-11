@@ -1,7 +1,11 @@
 import Dataloader from 'dataloader';
 
-import { type MediaStore, type ResponseFileItem } from '../client/media-store';
-import { type MediaItemDetails } from '../models/media';
+import {
+	type MediaStore,
+	type ResponseFileItem,
+	type EmptyResponseFileItem,
+} from '../client/media-store';
+import { type NotFoundMediaItemDetails, type MediaItemDetails } from '../models/media';
 import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
 
 export const MAX_BATCH_SIZE = 100;
@@ -11,7 +15,7 @@ export type DataloaderKey = {
 	readonly collectionName?: string;
 };
 
-export type DataloaderResult = MediaItemDetails | null;
+export type DataloaderResult = MediaItemDetails | NotFoundMediaItemDetails;
 
 export type BatchLoadingErrorResult = {
 	readonly id: string;
@@ -23,24 +27,37 @@ const isBatchLoadingErrorResult = (result: any): result is BatchLoadingErrorResu
 	return result.error instanceof Error;
 };
 
+const isResponseFileItem = (fileItem: any): fileItem is ResponseFileItem => {
+	return 'details' in fileItem;
+};
+
 const makeCacheKey = (id: string, collection?: string) => (collection ? `${id}-${collection}` : id);
 
 type DataloaderMap = { [id: string]: DataloaderResult | Error };
 
 export const getItemsFromKeys = (
 	dataloaderKeys: ReadonlyArray<DataloaderKey>,
-	fileItems: Array<ResponseFileItem | BatchLoadingErrorResult>,
+	fileItems: Array<ResponseFileItem | BatchLoadingErrorResult | EmptyResponseFileItem>,
 ): Array<DataloaderResult | Error> => {
 	const itemsByKey = fileItems.reduce<DataloaderMap>((prev, fileItem) => {
 		const { id, collection } = fileItem;
 		const key = makeCacheKey(id, collection);
 
-		prev[key] = isBatchLoadingErrorResult(fileItem)
-			? fileItem.error
-			: {
-					...fileItem.details,
-					metadataTraceContext: fileItem.metadataTraceContext,
-				};
+		if (isBatchLoadingErrorResult(fileItem)) {
+			prev[key] = fileItem.error;
+		} else if (isResponseFileItem(fileItem)) {
+			prev[key] = {
+				...fileItem.details,
+				metadataTraceContext: fileItem.metadataTraceContext,
+			};
+		} else {
+			prev[key] = {
+				id,
+				collection,
+				type: 'not-found',
+				metadataTraceContext: fileItem.metadataTraceContext,
+			};
+		}
 
 		return prev;
 	}, {});
@@ -49,7 +66,7 @@ export const getItemsFromKeys = (
 		const { id, collectionName } = dataloaderKey;
 		const key = makeCacheKey(id, collectionName);
 
-		return itemsByKey[key] || null;
+		return itemsByKey[key] || { id, type: 'not-found' };
 	});
 };
 
@@ -79,7 +96,7 @@ export function createBatchLoadingFunc(mediaStore: MediaStore) {
 
 			return acc;
 		}, {});
-		const items: Array<ResponseFileItem | BatchLoadingErrorResult> = [];
+		const items: Array<ResponseFileItem | BatchLoadingErrorResult | EmptyResponseFileItem> = [];
 
 		await Promise.all(
 			Object.keys(fileIdsByCollection).map(async (collectionNameKey) => {
@@ -99,6 +116,18 @@ export function createBatchLoadingFunc(mediaStore: MediaStore) {
 						metadataTraceContext,
 					}));
 					items.push(...itemsWithMetadataTraceContext);
+
+					// add EmptyResponseFileItem for each file ID not included in /items response
+					const itemsIds = itemsWithMetadataTraceContext.map((item) => item.id);
+					const fileIdsNotFound = fileIds.filter((id) => !itemsIds.includes(id));
+					fileIdsNotFound.forEach((fileId) => {
+						items.push({
+							id: fileId,
+							collection: collectionName,
+							type: 'not-found',
+							metadataTraceContext,
+						});
+					});
 				} catch (error) {
 					fileIds.forEach((fileId) => {
 						items.push({

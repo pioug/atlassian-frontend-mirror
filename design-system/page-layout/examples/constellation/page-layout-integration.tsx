@@ -17,6 +17,7 @@ import {
 import noop from '@atlaskit/ds-lib/noop';
 import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
+import { Content, LeftSidebar, Main, PageLayout, TopNavigation } from '@atlaskit/page-layout';
 import Popup from '@atlaskit/popup';
 import {
 	Header,
@@ -26,7 +27,6 @@ import {
 	SideNavigation,
 } from '@atlaskit/side-navigation';
 
-import { Content, LeftSidebar, Main, PageLayout, TopNavigation } from '../../src';
 import { SlotLabel, SlotWrapper } from '../common';
 
 export default function ProductLayout() {

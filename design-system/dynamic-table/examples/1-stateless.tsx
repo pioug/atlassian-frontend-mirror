@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import Banner from '@atlaskit/banner';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-
-import { DynamicTableStateless } from '../src';
 
 import { head, rows } from './content/sample-data';
 

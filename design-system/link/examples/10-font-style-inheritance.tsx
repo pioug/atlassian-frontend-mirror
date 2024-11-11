@@ -1,9 +1,8 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
+import Link from '@atlaskit/link';
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
-
-import Link from '../src';
 
 const textContent = (
 	<>

@@ -8,8 +8,6 @@ import { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { token } from '@atlaskit/tokens';
-
 import {
 	Banner,
 	Content,
@@ -19,7 +17,8 @@ import {
 	RightPanel,
 	TopNavigation,
 	useCustomSkipLink,
-} from '../src';
+} from '@atlaskit/page-layout';
+import { token } from '@atlaskit/tokens';
 
 import { SlotLabel, SlotWrapper } from './common';
 

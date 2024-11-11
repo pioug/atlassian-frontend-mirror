@@ -10,6 +10,14 @@ import { jsx } from '@emotion/react';
 import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { ButtonItem, LinkItem, PopupMenuGroup, Section } from '@atlaskit/menu';
+import {
+	Content,
+	LeftSidebar,
+	Main,
+	PageLayout,
+	RightSidebar,
+	useLeftSidebarFlyoutLock,
+} from '@atlaskit/page-layout';
 import Popup from '@atlaskit/popup';
 import {
 	Header,
@@ -18,14 +26,6 @@ import {
 	SideNavigation,
 } from '@atlaskit/side-navigation';
 
-import {
-	Content,
-	LeftSidebar,
-	Main,
-	PageLayout,
-	RightSidebar,
-	useLeftSidebarFlyoutLock,
-} from '../../src';
 import { SlotLabel } from '../common';
 
 const PopupMenu = ({ closePopupMenu }: { closePopupMenu: () => void }) => {

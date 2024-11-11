@@ -1,8 +1,8 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-
-import { Box, Inline, Stack, xcss } from '../src';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const borderColors = [
 	'color.border.discovery',

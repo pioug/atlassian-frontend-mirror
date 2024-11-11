@@ -5,6 +5,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
 
+import {
+	akEditorCalculatedWideLayoutWidth,
+	akEditorCalculatedWideLayoutWidthSmallViewport,
+} from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -176,6 +180,19 @@ const withInlineNodeStyleWithChromeFix = css({
 	},
 });
 
+const legacyBreakoutWideLayoutStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	'.ProseMirror-widget[data-blocks-drop-target-container="true"]': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		'--ak-editor--legacy-breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidthSmallViewport}px`,
+
+		'@media (width>=1280px)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			'--ak-editor--legacy-breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidth}px`,
+		},
+	},
+});
+
 const globalStyles = () =>
 	fg('platform_editor_element_dnd_nested_fix_patch_3')
 		? css({
@@ -287,6 +304,7 @@ export const GlobalStylesWrapper = () => {
 				getTextNodeStyle(),
 				withDeleteLinesStyleFix,
 				withMediaSingleStyleFix,
+				legacyBreakoutWideLayoutStyle,
 				editorExperiment('platform_editor_empty_line_prompt', true, { exposure: false })
 					? emptyBlockExperimentGlobalStyles
 					: undefined,

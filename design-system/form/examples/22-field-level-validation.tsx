@@ -1,10 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import { Box, Text, xcss } from '@atlaskit/primitives';
-import Select, { type ValueType } from '@atlaskit/select';
-import TextField from '@atlaskit/textfield';
-
 import Form, {
 	ErrorMessage,
 	Field,
@@ -14,7 +10,10 @@ import Form, {
 	MessageWrapper,
 	RequiredAsterisk,
 	ValidMessage,
-} from '../src';
+} from '@atlaskit/form';
+import { Box, Text, xcss } from '@atlaskit/primitives';
+import Select, { type ValueType } from '@atlaskit/select';
+import TextField from '@atlaskit/textfield';
 
 interface Option {
 	label: string;

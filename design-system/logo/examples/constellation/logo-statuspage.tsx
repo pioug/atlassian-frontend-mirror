@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { StatuspageIcon, StatuspageLogo } from '../../src';
+import { StatuspageIcon, StatuspageLogo } from '@atlaskit/logo';
 
 const tableStyle = css({
 	width: '415px',

@@ -1,10 +1,9 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
+import Form, { FormFooter, RangeField } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives';
 import Range from '@atlaskit/range';
-
-import Form, { FormFooter, RangeField } from '../../src';
 
 const FormRangeFieldExample = () => {
 	return (

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import Pagination from '@atlaskit/pagination';
 import { Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
-
-import Pagination from '../src';
 
 const customEllipsisStyles = xcss({
 	margin: 'space.0',

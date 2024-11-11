@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Inline, xcss } from '../src';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 
 const containerStyles = xcss({ display: 'flex', flexDirection: 'row' });
 

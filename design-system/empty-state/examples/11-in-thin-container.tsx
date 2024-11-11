@@ -8,9 +8,8 @@ import { type FC, type ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button, { LinkButton } from '@atlaskit/button/new';
+import EmptyState from '@atlaskit/empty-state';
 import { token } from '@atlaskit/tokens';
-
-import EmptyState from '../src';
 
 import exampleImage from './img/example-image.png';
 

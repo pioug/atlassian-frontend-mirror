@@ -3,9 +3,14 @@ import React, { useCallback, useRef, useState } from 'react';
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
+import Modal, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+} from '@atlaskit/modal-dialog';
 import Textfield from '@atlaskit/textfield';
-
-import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../../src';
 
 export default function Example() {
 	const [isOpen, setIsOpen] = useState(false);

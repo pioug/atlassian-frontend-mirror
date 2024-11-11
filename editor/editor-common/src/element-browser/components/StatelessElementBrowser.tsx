@@ -7,6 +7,7 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
+import type { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
@@ -48,6 +49,7 @@ export type StatelessElementBrowserProps = {
 	searchTerm?: string;
 	emptyStateHandler?: EmptyStateHandler;
 	viewMoreItem?: QuickInsertItem;
+	cache?: CellMeasurerCache;
 } & WithAnalyticsEventsProps;
 
 const wrapper = css({
@@ -162,6 +164,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 		onSelectCategory,
 		searchTerm,
 		showCategories,
+		cache,
 	} = props;
 	const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
 	const categoryBeenChosen = useRef(false);
@@ -289,6 +292,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 					onKeyDown={onKeyDown}
 					viewMoreItem={viewMoreItem}
 					focusOnViewMore={focusOnViewMore}
+					cache={cache}
 				/>
 			) : (
 				<DesktopBrowser
@@ -306,6 +310,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 					setFocusedCategoryIndex={setFocusedCategoryIndex}
 					selectedCategoryIndex={selectedCategoryIndex}
 					onSelectCategory={onSelectCategoryCB}
+					cache={cache}
 				/>
 			)}
 		</div>
@@ -338,6 +343,7 @@ function MobileBrowser({
 	createAnalyticsEvent,
 	emptyStateHandler,
 	viewMoreItem,
+	cache,
 }: StatelessElementBrowserProps &
 	SelectedItemProps & {
 		focusOnSearch: boolean;
@@ -399,6 +405,7 @@ function MobileBrowser({
 					emptyStateHandler={emptyStateHandler}
 					selectedCategory={selectedCategory}
 					searchTerm={searchTerm}
+					cache={cache}
 				/>
 			</div>
 			{viewMoreItem && <ViewMore item={viewMoreItem} focus={focusOnViewMore} />}
@@ -431,6 +438,7 @@ function DesktopBrowser({
 	searchTerm,
 	createAnalyticsEvent,
 	emptyStateHandler,
+	cache,
 }: StatelessElementBrowserProps &
 	SelectedItemProps & {
 		focusOnSearch: boolean;
@@ -503,6 +511,7 @@ function DesktopBrowser({
 					selectedCategoryIndex={selectedCategoryIndex}
 					searchTerm={searchTerm}
 					setFocusedCategoryIndex={showCategories ? setFocusedCategoryIndex : undefined}
+					cache={cache}
 				/>
 			</div>
 		</div>

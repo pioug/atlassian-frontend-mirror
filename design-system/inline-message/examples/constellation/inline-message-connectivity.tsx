@@ -1,8 +1,7 @@
 import React from 'react';
 
+import InlineMessage from '@atlaskit/inline-message';
 import Link from '@atlaskit/link';
-
-import InlineMessage from '../../src';
 
 const InlineMessageConnectivityExample = () => {
 	return (

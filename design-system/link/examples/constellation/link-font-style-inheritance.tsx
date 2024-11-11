@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-
-import Link from '../../src';
+import Link from '@atlaskit/link';
 
 export default function FontStyleInheritance() {
 	return (

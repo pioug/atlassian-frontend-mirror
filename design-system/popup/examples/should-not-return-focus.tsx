@@ -8,8 +8,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-
-import Popup from '../src';
+import Popup from '@atlaskit/popup';
 
 const TestInput = ({ onCancel }: { onCancel: () => void }) => {
 	const ref = useRef<HTMLInputElement>(null);

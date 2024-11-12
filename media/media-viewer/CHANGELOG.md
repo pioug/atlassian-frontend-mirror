@@ -1,5 +1,16 @@
 # @atlaskit/media-viewer
 
+## 49.3.0
+
+### Minor Changes
+
+- [`6099ac032dd30`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6099ac032dd30) -
+  Added viewerOptions to override file preview renderer in media components
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 49.2.7
 
 ### Patch Changes

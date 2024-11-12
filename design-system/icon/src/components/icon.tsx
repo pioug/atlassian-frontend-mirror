@@ -131,7 +131,7 @@ export const Icon = memo(function Icon(props: IconProps) {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					'--icon-secondary-color': secondaryColor || getBackground(),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					...(UNSAFE_margin ? { margin: UNSAFE_margin } : {}),
+					margin: UNSAFE_margin,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				} as CSSProperties
 			}

@@ -7,6 +7,6 @@ export default md`
 ### Props
 
 ${(
-	<Props heading="" props={require('!!extract-react-types-loader!../../utils/props-hover-card')} />
+	<Props heading="" props={require('!!extract-react-types-loader!../../props/props-hover-card')} />
 )}
 `;

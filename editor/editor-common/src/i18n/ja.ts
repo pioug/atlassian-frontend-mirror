@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': '画像、動画、またはファイルを追加',
   'fabric.editor.addRowAbove': '上に行を追加',
   'fabric.editor.addRowBelow': '下に行を追加',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': '用語、頭字語、または略語をハイライトする',
+  'fabric.editor.ai.selectionToolbar.define.title': '定義',
   'fabric.editor.alignCenter': '中央揃え',
   'fabric.editor.alignImageCenter': '中央揃え',
   'fabric.editor.alignImageLeft': '左揃え',

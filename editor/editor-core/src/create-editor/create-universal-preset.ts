@@ -23,7 +23,7 @@ export function createUniversalPreset({
 		appearance: props.appearance,
 		props: getDefaultPresetOptionsFromEditorProps(props),
 		initialPluginConfiguration: initialPluginConfiguration,
-		featureFlags: createFeatureFlagsFromProps(props),
+		featureFlags: createFeatureFlagsFromProps(props.featureFlags),
 		prevAppearance: prevProps?.appearance,
 	});
 

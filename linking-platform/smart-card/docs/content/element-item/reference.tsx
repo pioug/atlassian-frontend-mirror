@@ -9,7 +9,7 @@ export default md`
 ${(
 	<Props
 		heading=""
-		props={require('!!extract-react-types-loader!../../utils/props-element-item')}
+		props={require('!!extract-react-types-loader!../../props/props-element-item')}
 	/>
 )}
 

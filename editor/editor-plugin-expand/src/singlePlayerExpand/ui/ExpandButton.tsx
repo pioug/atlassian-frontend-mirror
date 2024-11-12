@@ -16,7 +16,8 @@ import {
 	expandMessages,
 } from '@atlaskit/editor-common/ui';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
-import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
+import { default as ChevronRightIconLegacy } from '@atlaskit/icon/glyph/chevron-right';
+import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 import Tooltip from '@atlaskit/tooltip';
 
 interface ExpandIconButtonProps {
@@ -57,12 +58,13 @@ export const ExpandButtonInner = (props: ExpandIconButtonWithLabelProps) => {
 		},
 		[props],
 	);
+
 	return (
 		<Button
 			appearance="subtle"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={expandClassNames.iconContainer}
-			iconBefore={<ChevronRightIcon label={''} />}
+			iconBefore={<ChevronRightIcon label={''} LEGACY_fallbackIcon={ChevronRightIconLegacy} />}
 			shouldFitContainer
 			theme={useTheme}
 			aria-expanded={props.expanded}

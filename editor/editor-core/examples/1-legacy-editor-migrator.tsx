@@ -105,7 +105,7 @@ function converter(props: EditorProps) {
 	const preset = createUniversalPresetInternal({
 		appearance: props.appearance,
 		props: getDefaultPresetOptionsFromEditorProps(props),
-		featureFlags: createFeatureFlagsFromProps(props),
+		featureFlags: createFeatureFlagsFromProps(props.featureFlags),
 	});
 	const plugins = preset.build({});
 

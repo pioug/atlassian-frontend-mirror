@@ -76,9 +76,6 @@
 			"path": "../../../data/ufo-external/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../react-ufo/ufo-interaction-ignore/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/visually-hidden/afm-jira/tsconfig.json"
 		}
 	]

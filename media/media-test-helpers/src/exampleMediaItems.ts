@@ -141,6 +141,12 @@ export const emailUnsupportedFileId: FileIdentifier = {
 	collectionName,
 };
 
+export const htmlFileId: FileIdentifier = {
+	id: '34c01a5d-5a23-49d0-9a21-c27c3a9b13de',
+	mediaItemType: fileType,
+	collectionName,
+};
+
 export const archiveFileId: FileIdentifier = {
 	id: '1abbae6b-f507-4b4f-b181-21016bf3b7cc',
 	mediaItemType: fileType,
@@ -179,6 +185,12 @@ export const zipItemLargeInnerFileId: FileIdentifier = {
 
 export const zipEncryptedFileId: FileIdentifier = {
 	id: 'd1569d0f-936d-46f3-b974-a285696016c0',
+	mediaItemType: fileType,
+	collectionName,
+};
+
+export const zipFileWithHtmlId: FileIdentifier = {
+	id: '5c2397e4-93fd-440d-829f-ba16048f3bd8',
 	mediaItemType: fileType,
 	collectionName,
 };

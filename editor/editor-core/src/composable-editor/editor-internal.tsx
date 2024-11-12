@@ -92,7 +92,7 @@ export const EditorInternal = memo(
 			analyticsHandler: undefined,
 		};
 
-		const featureFlags = createFeatureFlagsFromProps(props);
+		const featureFlags = createFeatureFlagsFromProps(props.featureFlags);
 
 		// Render tracking is firing too many events in Jira so we are disabling them for now. See - https://product-fabric.atlassian.net/browse/ED-25616
 		const renderTrackingEnabled = !fg('platform_editor_disable_rerender_tracking_jira');

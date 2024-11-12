@@ -1,42 +1,15 @@
+import { code, md, Props } from '@atlaskit/docs';
 import React from 'react';
-
-import { code, md } from '@atlaskit/docs';
-
-import DocQuickLinks from './utils/doc-quick-links';
 
 export default md`
 
-${(<DocQuickLinks />)}
+# CardClient
 
 The Client is a HTTP client which interacts with the [Object Resolver Service](https://microscope.prod.atl-paas.net/services/object-resolver-service), or a service of your own. It lives on the **SmartCardProvider**, which uses **React.Context**.
 
-The Object Resolver Service provides primary endpoint for Smart Links:
+The Object Resolver Service provides primary endpoints:
 
-* **/resolve:** for getting the JSON-LD metadata backing a link.
-
-We recommend a similar API contract for your services. All clients must return data in the [JSON-LD format](https://product-fabric.atlassian.net/wiki/spaces/SL/pages/460753040/Atlassian+Object+Vocabulary+JSON-LD). We export **ResolveResponse** to represent this:
-
-${code`
-type RemoteResourceAuthConfig = {
-key: string;
-displayName: string;
-url: string;
-};
-
-type ResolveResponse = {
-meta: {
-  visibility: 'public' | 'restricted' | 'other' | 'not_found';
-  access: 'granted' | 'unauthorized' | 'forbidden';
-  auth: RemoteResourceAuthConfig[];
-  definitionId: string;
-};
-data?: {
-  [name: string]: any;
-};
-}
-`}
-
-## Backend endpoint
+* **/resolve:** for getting the JSON-LD metadata for Smart Links.
 
 By default, the Client will talk to **/gateway/api/object-resolver** endpoint of the current domain. This assumes that your product has already integrated with Stargate so that our service is accessible through that endpoint.
 We **do not** offer a way to configure that endpoint. Please refer to the section below on how to provide your own implementation.
@@ -69,13 +42,32 @@ fetchData(url: string) {
 }
 }
 
-// Setup the Provider with this custom client.
+// Set up the Provider with this custom client.
 ...
 <SmartCardProvider client={new AwesomeClient()}>
-...
-<Card appearance="block" url={awesomeUrl} />
-...
+	<Card appearance="block" url={awesomeUrl} />
 </SmartCardProvider>
-...
 `}
+
+## Limitations
+
+### Production and staging environment
+
+Due to security reasons, **Object Resolver Service** cannot resolve Atlassian production and staging links interchangeably.
+This means we can only resolve Atlassian staging links in the staging environment and production links in the production environment.
+
+## Setting up for local development
+
+For local development, please configure \`CardClient\` to point to the staging environment and ensure that you're logged in to [https://pug.jira-dev.com](https://pug.jira-dev.com/).
+
+${code`
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+
+<SmartCardProvider client="new CardClient('stg')">
+	<Card appearance="inline" url="https://staging-link-url" />
+</SmartCardProvider>
+`}
+
+${(<Props heading="" props={require('!!extract-react-types-loader!./props/props-client')} />)}
+
 `;

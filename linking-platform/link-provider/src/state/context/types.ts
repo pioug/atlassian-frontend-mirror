@@ -12,6 +12,10 @@ import { type CardConnections } from '../store/types';
 // TODO: Remove once mobile team move to using authentication
 // flow https://product-fabric.atlassian.net/browse/SL-347.
 export interface CardAuthFlowOpts {
+	/**
+	 * Enable and disable authentication flow.
+	 * If disabled, Smart Links will not offer Connect option when the link returns forbidden nor unauthorized status.
+	 */
 	authFlow?: 'oauth2' | 'disabled';
 }
 
@@ -45,14 +49,43 @@ export interface CardProviderRenderers {
 }
 
 export type CardProviderProps = {
+	/**
+	 * A client that make request to Object Resolver Service to resolve url for linking components.
+	 * See `CardClient` for more details.
+	 */
 	client?: CardClient;
-	/** @deprecated Feature removed (EDM-2205) */
+	/**
+	 * @deprecated Feature removed (EDM-2205)
+	 */
 	cacheOptions?: CardProviderCacheOpts;
+	/**
+	 * The options for redux store that contains linking data.
+	 * `initialState` can be used to set linking data and prevent card client to make a request to resolve the url.
+	 */
 	storeOptions?: CardProviderStoreOpts;
+	/**
+	 * Any React components contains linking components.
+	 */
 	children: React.ReactNode;
+	/**
+	 * A render function returning React component.
+	 * `emoji` is used to render Smart Link icon for Confluence emoji.
+	 */
 	renderers?: CardProviderRenderers;
-	// Needed to support passing flags from the product without having to bump this interface
+	/**
+	 * Specify feature flag value to linking components.
+	 * The use of this prop is not recommended.
+	 * Please use `@atlaskit/platform-feature-flags` instead.
+	 */
 	featureFlags?: LinkingPlatformFeatureFlags & { [flag: string]: unknown };
+	/**
+	 * Flag indicated whether AI feature is enabled in AdminHub.
+	 * This is required for AI summary in Smart Links.
+	 */
 	isAdminHubAIEnabled?: boolean;
+	/**
+	 * The product that linking components are rendered in.
+	 * Required for features such as AI summary in Smart Links, Loom embed Smart Links, etc.
+	 */
 	product?: ProductType;
 } & CardAuthFlowOpts;

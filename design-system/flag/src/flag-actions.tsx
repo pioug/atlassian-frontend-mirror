@@ -99,10 +99,9 @@ const FlagActions: FC<FlagActionsProps> = (props) => {
 						spacing="compact"
 						testId={action.testId}
 						key={index}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={
 							{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								[VAR_COLOR]: actionTextColor[appearance],
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								[VAR_BG_COLOR]: actionBackgroundColor[appearance].default,

@@ -18,6 +18,7 @@ import {
 } from '@atlaskit/media-common';
 import { type CardAction } from './card/actions';
 import { type MediaCardError } from './errors';
+import { type ViewerOptionsProps } from '@atlaskit/media-viewer';
 
 export type CardStatus =
 	| 'uploading'
@@ -127,6 +128,8 @@ export interface SharedCardProps {
 	readonly titleBoxBgColor?: string;
 	// Sets the title box icon.
 	readonly titleBoxIcon?: TitleBoxIcon;
+	// Sets viewer options
+	readonly viewerOptions?: ViewerOptionsProps;
 }
 
 export interface CardOnClickCallback {

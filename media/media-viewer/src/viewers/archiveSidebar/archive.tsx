@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { type MediaClient, type FileState } from '@atlaskit/media-client';
 import { CustomMediaPlayer, messages } from '@atlaskit/media-ui';
 import { getLanguageType, isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
+import { Text } from '@atlaskit/primitives';
 
 import { Outcome } from '../../domain';
 import {
@@ -38,6 +39,7 @@ import { createZipEntryLoadFailedEvent } from '../../analytics/events/operationa
 import { CodeViewRenderer } from '../codeViewer/codeViewerRenderer';
 import { DEFAULT_LANGUAGE } from '../codeViewer/util';
 import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../item-viewer';
+import { type CustomRendererConfig } from '../../viewerOptions';
 
 export type Props = ArchiveViewerProps & WithAnalyticsEventsProps;
 
@@ -105,6 +107,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 			content: Outcome.successful<Content, ArchiveViewerError>({
 				...this.state.content.data,
 				selectedArchiveEntry: undefined,
+				hasLoadedEntries: false, // displays a nice loading spinner for the content viewer
 			}),
 		});
 		let src = '';
@@ -117,7 +120,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 
 		if (!selectedArchiveEntry.isDirectory) {
 			try {
-				const blob = await rejectAfter(() => selectedArchiveEntry.blob());
+				const blob = await rejectAfter(() => selectedArchiveEntry.blob(), 10000);
 				src = URL.createObjectURL(blob);
 				if (isCodeMimeType) {
 					codeViewerSrc = await rejectAfter(() => blob.text());
@@ -145,6 +148,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 				error: undefined,
 				codeViewerSrc,
 				isCodeMimeType,
+				hasLoadedEntries: true,
 			}),
 		});
 	};
@@ -215,10 +219,9 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 	}
 
 	private renderArchiveItemViewer(content: Content) {
-		const { item } = this.props;
+		const { item, viewerOptions } = this.props;
 		const { src, name, isDirectory, error, selectedArchiveEntry, codeViewerSrc, isCodeMimeType } =
 			content;
-
 		if (error) {
 			return this.renderPreviewError(error, selectedArchiveEntry);
 		}
@@ -231,6 +234,26 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 				);
 			}
 
+			const customRenderer = viewerOptions?.customRenderers?.find(
+				(renderer: CustomRendererConfig) =>
+					renderer.shouldUseCustomRenderer({ fileItem: item, archiveFileItem: { name } }),
+			);
+			if (customRenderer) {
+				return (
+					<ArchiveItemViewerWrapper>
+						{customRenderer.renderContent({
+							fileItem: item,
+							archiveFileItem: { name },
+							getBinaryContent: async () => (await fetch(src)).blob(),
+							onLoad: this.onViewerLoad(selectedArchiveEntry),
+							onError: this.onViewerError(
+								'archiveviewer-customrenderer-onerror',
+								selectedArchiveEntry,
+							),
+						})}
+					</ArchiveItemViewerWrapper>
+				);
+			}
 			const mediaType = getMediaTypeFromFilename(name);
 
 			if (isCodeMimeType) {
@@ -349,9 +372,9 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 		return (
 			<ListWrapper>
 				<ErrorMessage fileId={item.id} fileState={item} error={error} supressAnalytics={true}>
-					<p>
+					<Text>
 						<FormattedMessage {...messages.try_downloading_file} />
-					</p>
+					</Text>
 				</ErrorMessage>
 			</ListWrapper>
 		);

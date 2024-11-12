@@ -1,10 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1a3251fbf15977e38e269c18c4c63316>>
+ * @codegen <<SignedSource::884e28457d7860b1abca070fca8ab853>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 export default {
-	plugins: ['@atlaskit/ui-styling-standard', '@atlaskit/design-system', '@compiled'],
+	plugins: ['@atlaskit/ui-styling-standard', '@atlaskit/design-system'],
 	rules: {
 		'@atlaskit/ui-styling-standard/atlaskit-theme': 'error',
 		'@atlaskit/ui-styling-standard/convert-props-syntax': 'error',
@@ -33,7 +33,6 @@ export default {
 		'@atlaskit/design-system/no-css-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-keyframes-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-styled-tagged-template-expression': 'error',
-		'@compiled/no-js-xcss': 'error',
 		'@atlaskit/design-system/no-empty-styled-expression': [
 			'error',
 			{
@@ -51,14 +50,6 @@ export default {
 			'error',
 			{
 				allowedFunctionCalls: [['@atlaskit/tokens', 'token']],
-			},
-		],
-		'@compiled/jsx-pragma': [
-			'error',
-			{
-				runtime: 'classic',
-				onlyRunIfImportingCompiled: true,
-				importSources: ['@atlaskit/css'],
 			},
 		],
 	},

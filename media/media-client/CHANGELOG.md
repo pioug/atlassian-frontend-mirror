@@ -1,5 +1,12 @@
 # @atlaskit/media-client
 
+## 28.2.0
+
+### Minor Changes
+
+- [`6099ac032dd30`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6099ac032dd30) -
+  Added viewerOptions to override file preview renderer in media components
+
 ## 28.1.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.12.2
+
+### Patch Changes
+
+- [#162710](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162710)
+  [`a661bece58fb8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a661bece58fb8) -
+  [ux] EDF-1864 Updates the improve writing button from the floating toolbar to use the change tone
+  to professional prompt. Added platform_editor_ai_change_tone_floating_toolbar experiment.
+
 ## 2.12.1
 
 ### Patch Changes

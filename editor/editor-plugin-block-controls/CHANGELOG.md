@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.11
+
+### Patch Changes
+
+- [`dda502e353b44`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dda502e353b44) -
+  [ux] [ED-25317] Implement drag and drop a layout column within the same layout section
+
 ## 2.13.10
 
 ### Patch Changes

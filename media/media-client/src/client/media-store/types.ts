@@ -248,7 +248,11 @@ export interface MediaApi {
 	// TODO Create ticket in case Trace Id can be supported through query params
 	getFileImageURLSync: (id: string, params?: MediaStoreGetFileImageParams) => string;
 
-	getFileBinary: (id: string, collectionName?: string) => Promise<Blob>;
+	getFileBinary: (
+		id: string,
+		collectionName?: string,
+		abortController?: AbortController,
+	) => Promise<Blob>;
 
 	getFileBinaryURL: (id: string, collectionName?: string) => Promise<string>;
 

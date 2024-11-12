@@ -5,6 +5,7 @@ import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/st
 import { maxLayoutColumnSupported } from '../consts';
 import type { BlockControlsPlugin } from '../types';
 import { DEFAULT_COLUMN_DISTRIBUTIONS } from '../ui/consts';
+import { isInSameLayout } from '../utils/validation';
 
 type LayoutContent = Fragment | PMNode;
 
@@ -88,8 +89,16 @@ const moveToExistingLayout = (
 	from: number,
 	to: number,
 	tr: Transaction,
+	isSameLayout: boolean,
 ) => {
-	if (toLayout.childCount < maxLayoutColumnSupported()) {
+	if (isSameLayout) {
+		// reorder columns
+		tr.delete(from, from + sourceNode.nodeSize);
+		const mappedTo = tr.mapping.map(to);
+		tr.insert(mappedTo, sourceNode)
+			.setSelection(new NodeSelection(tr.doc.resolve(mappedTo)))
+			.scrollIntoView();
+	} else if (toLayout.childCount < maxLayoutColumnSupported()) {
 		const newColumnWidth = DEFAULT_COLUMN_DISTRIBUTIONS[toLayout.childCount + 1];
 
 		updateColumnWidths(tr, toLayout, toLayoutPos, newColumnWidth);
@@ -169,13 +178,29 @@ export const moveToLayout =
 		if (toNode.type === layoutSection) {
 			const toPos = options?.moveToEnd ? to + toNode.nodeSize - 1 : to + 1;
 
-			return moveToExistingLayout(toNode, to, fromNodeWithoutBreakout, from, toPos, tr);
+			return moveToExistingLayout(
+				toNode,
+				to,
+				fromNodeWithoutBreakout,
+				from,
+				toPos,
+				tr,
+				isInSameLayout($from, $to),
+			);
 		} else if (toNode.type === layoutColumn) {
 			const toLayout = $to.parent;
 			const toLayoutPos = to - $to.parentOffset - 1;
 			const toPos = options?.moveToEnd ? to + toNode.nodeSize : to;
 
-			return moveToExistingLayout(toLayout, toLayoutPos, fromNodeWithoutBreakout, from, toPos, tr);
+			return moveToExistingLayout(
+				toLayout,
+				toLayoutPos,
+				fromNodeWithoutBreakout,
+				from,
+				toPos,
+				tr,
+				isInSameLayout($from, $to),
+			);
 		} else {
 			let toNodeWithoutBreakout: PMNode = toNode;
 

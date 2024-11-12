@@ -558,9 +558,9 @@ describe('@atlaskit/editor-core', () => {
 			it('When setup with the collab plugin -- should not call processRawValue', () => {
 				const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
 				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
-				const processRawValueWithoutTransformationSpy = jest.spyOn(
+				const processRawValueWithoutValidationSpy = jest.spyOn(
 					ProcessRawValueModule,
-					'processRawValueWithoutTransformation',
+					'processRawValueWithoutValidation',
 				);
 
 				const { editorView } = createEditorFactory()({
@@ -571,7 +571,7 @@ describe('@atlaskit/editor-core', () => {
 				});
 
 				expect(processRawValueSpy).not.toHaveBeenCalled();
-				expect(processRawValueWithoutTransformationSpy).toHaveBeenCalledTimes(1);
+				expect(processRawValueWithoutValidationSpy).toHaveBeenCalledTimes(1);
 
 				expect(editorView.state.doc.toJSON()).toEqual({
 					...mockDocument,
@@ -583,9 +583,9 @@ describe('@atlaskit/editor-core', () => {
 				const mockDocument =
 					'{"type":"doc","content":[{"type":"blockquote","content":[{"type":"codeBlock","attrs":{"language":null,"uniqueId":null}}]}]}';
 				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
-				const processRawValueWithoutTransformationSpy = jest.spyOn(
+				const processRawValueWithoutValidationSpy = jest.spyOn(
 					ProcessRawValueModule,
-					'processRawValueWithoutTransformation',
+					'processRawValueWithoutValidation',
 				);
 
 				const { editorView } = createEditorFactory()({
@@ -596,7 +596,7 @@ describe('@atlaskit/editor-core', () => {
 				});
 
 				expect(processRawValueSpy).not.toHaveBeenCalled();
-				expect(processRawValueWithoutTransformationSpy).toHaveBeenCalledTimes(1);
+				expect(processRawValueWithoutValidationSpy).toHaveBeenCalledTimes(1);
 
 				expect(editorView.state.doc.toJSON()).toEqual(
 					doc(blockquote(code_block()()))(defaultSchema).toJSON(),
@@ -632,9 +632,9 @@ describe('@atlaskit/editor-core', () => {
 			it('When setup with the collab plugin -- should call processRawValue', () => {
 				const mockDocument = doc(p('example doc'))(defaultSchema).toJSON();
 				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
-				const processRawValueWithoutTransformationSpy = jest.spyOn(
+				const processRawValueWithoutValidationSpy = jest.spyOn(
 					ProcessRawValueModule,
-					'processRawValueWithoutTransformation',
+					'processRawValueWithoutValidation',
 				);
 
 				const { editorView } = createEditorFactory()({
@@ -645,7 +645,7 @@ describe('@atlaskit/editor-core', () => {
 				});
 
 				expect(processRawValueSpy).toHaveBeenCalledTimes(1);
-				expect(processRawValueWithoutTransformationSpy).not.toHaveBeenCalled();
+				expect(processRawValueWithoutValidationSpy).not.toHaveBeenCalled();
 
 				expect(editorView.state.doc.toJSON()).toEqual({
 					...mockDocument,
@@ -658,9 +658,9 @@ describe('@atlaskit/editor-core', () => {
 					const mockDocument =
 						'{"type":"doc","content":[{"type":"blockquote","content":[{"type":"codeBlock","attrs":{"language":null,"uniqueId":null}}]}]}';
 					const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
-					const processRawValueWithoutTransformationSpy = jest.spyOn(
+					const processRawValueWithoutValidationSpy = jest.spyOn(
 						ProcessRawValueModule,
-						'processRawValueWithoutTransformation',
+						'processRawValueWithoutValidation',
 					);
 
 					const { editorView } = createEditorFactory()({
@@ -671,7 +671,7 @@ describe('@atlaskit/editor-core', () => {
 					});
 
 					expect(processRawValueSpy).toHaveBeenCalledTimes(1);
-					expect(processRawValueWithoutTransformationSpy).not.toHaveBeenCalled();
+					expect(processRawValueWithoutValidationSpy).not.toHaveBeenCalled();
 
 					expect(editorView.state.doc.toJSON()).toEqual(
 						doc(

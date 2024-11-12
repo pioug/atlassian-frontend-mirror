@@ -36,8 +36,10 @@ function getSpellCheck(featureFlags: {
  * Transforms EditorProps to an FeatureFlags object,
  * which is used by both current and archv3 editors.
  */
-export function createFeatureFlagsFromProps(props: Omit<EditorNextProps, 'preset'>): FeatureFlags {
-	const normalizedFeatureFlags = normalizeFeatureFlags(props.featureFlags);
+export function createFeatureFlagsFromProps(
+	featureFlags: EditorNextProps['featureFlags'],
+): FeatureFlags {
+	const normalizedFeatureFlags = normalizeFeatureFlags(featureFlags);
 
 	return {
 		...normalizedFeatureFlags,
@@ -45,46 +47,40 @@ export function createFeatureFlagsFromProps(props: Omit<EditorNextProps, 'preset
 		catchAllTracking: false,
 
 		showAvatarGroupAsPlugin: Boolean(
-			typeof props.featureFlags?.showAvatarGroupAsPlugin === 'boolean'
-				? !!props.featureFlags?.showAvatarGroupAsPlugin
+			typeof featureFlags?.showAvatarGroupAsPlugin === 'boolean'
+				? !!featureFlags?.showAvatarGroupAsPlugin
 				: false,
 		),
 
 		errorBoundaryDocStructure: Boolean(
-			typeof props.featureFlags?.useErrorBoundaryDocStructure === 'boolean'
-				? !!props.featureFlags?.useErrorBoundaryDocStructure
+			typeof featureFlags?.useErrorBoundaryDocStructure === 'boolean'
+				? !!featureFlags?.useErrorBoundaryDocStructure
 				: false,
 		),
 
 		synchronyErrorDocStructure: Boolean(
-			typeof props.featureFlags?.synchronyErrorDocStructure === 'boolean'
-				? !!props.featureFlags?.synchronyErrorDocStructure
+			typeof featureFlags?.synchronyErrorDocStructure === 'boolean'
+				? !!featureFlags?.synchronyErrorDocStructure
 				: false,
 		),
 
 		enableViewUpdateSubscription: Boolean(
-			typeof props.featureFlags?.enableViewUpdateSubscription === 'boolean'
-				? !!props.featureFlags?.enableViewUpdateSubscription
+			typeof featureFlags?.enableViewUpdateSubscription === 'boolean'
+				? !!featureFlags?.enableViewUpdateSubscription
 				: false,
 		),
 
 		collabAvatarScroll: Boolean(
-			typeof props.featureFlags?.collabAvatarScroll === 'boolean'
-				? !!props.featureFlags?.collabAvatarScroll
+			typeof featureFlags?.collabAvatarScroll === 'boolean'
+				? !!featureFlags?.collabAvatarScroll
 				: false,
 		),
 		twoLineEditorToolbar: Boolean(
-			typeof props.featureFlags?.twoLineEditorToolbar === 'boolean'
-				? !!props.featureFlags?.twoLineEditorToolbar
+			typeof featureFlags?.twoLineEditorToolbar === 'boolean'
+				? !!featureFlags?.twoLineEditorToolbar
 				: false,
 		),
 
-		useNativeCollabPlugin: Boolean(
-			typeof props.collabEdit?.useNativePlugin === 'boolean'
-				? !!props.collabEdit?.useNativePlugin
-				: false,
-		),
-
-		disableSpellcheckByBrowser: getSpellCheck(props.featureFlags!),
+		disableSpellcheckByBrowser: getSpellCheck(featureFlags!),
 	};
 }

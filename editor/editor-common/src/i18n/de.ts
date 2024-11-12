@@ -20,6 +20,9 @@ export default {
   'fabric.editor.addMediaFiles': 'Bild, Video oder Datei hinzufügen',
   'fabric.editor.addRowAbove': 'Zeile oberhalb hinzufügen',
   'fabric.editor.addRowBelow': 'Zeile unterhalb hinzufügen',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip':
+    'Markieren Sie einen Begriff, ein Akronym oder eine Abkürzung.',
+  'fabric.editor.ai.selectionToolbar.define.title': 'Definieren',
   'fabric.editor.alignCenter': 'Mittig ausrichten',
   'fabric.editor.alignImageCenter': 'Mittig ausrichten',
   'fabric.editor.alignImageLeft': 'Links ausrichten',

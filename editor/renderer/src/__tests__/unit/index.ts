@@ -1,6 +1,7 @@
 import assert from 'assert';
 import * as sinon from 'sinon';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
+import { transformNestedTablesIncomingDocument } from '@atlaskit/adf-utils/transforms';
 /**
  * TS 3.9+ defines non-configurable property for exports, that's why it's not possible to mock them like this anymore:
  *
@@ -15,6 +16,16 @@ jest.mock('@atlaskit/editor-common/validator', () => ({
 	__esModule: true,
 	...jest.requireActual<Object>('@atlaskit/editor-common/validator'),
 }));
+
+jest.mock('@atlaskit/adf-utils/transforms', () => ({
+	__esModule: true,
+	...jest.requireActual<Object>('@atlaskit/adf-utils/transforms'),
+	transformNestedTablesIncomingDocument: jest.fn((adf) => ({
+		transformedAdf: adf,
+		isTransformed: true,
+	})),
+}));
+
 import * as common from '@atlaskit/editor-common/validator';
 import { renderDocument, type Serializer } from '../../index';
 
@@ -24,6 +35,7 @@ import { PLATFORM } from '../../analytics/events';
 import doc from '../__fixtures__/basic-document.adf.json';
 import dateDoc from '../__fixtures__/date.adf.json';
 import headingsDoc from '../__fixtures__/headings-adf.json';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 class MockSerializer implements Serializer<string> {
 	serializeFragment(_fragment: any) {
@@ -257,6 +269,170 @@ describe('Renderer', () => {
 							errorStack: 'Invalid collection of marks for node text: link,link',
 						},
 					}),
+				);
+			});
+		});
+
+		describe('nested tables', () => {
+			const mockDispatchAnalyticsEvent = jest.fn();
+
+			beforeEach(() => {
+				jest.clearAllMocks();
+			});
+
+			describe('should transform nested tables', () => {
+				ffTest(
+					'platform_editor_use_nested_table_pm_nodes',
+					() => {
+						const document = {
+							type: 'doc',
+							version: 1,
+							content: [
+								{
+									attrs: {
+										localId: null,
+									},
+									type: 'paragraph',
+									content: [{ type: 'text', text: 'A' }],
+								},
+							],
+						};
+
+						renderDocument(
+							document,
+							serializer,
+							schema,
+							undefined,
+							true,
+							undefined,
+							mockDispatchAnalyticsEvent,
+						);
+
+						expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document);
+						expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
+							action: 'nestedTableTransformed',
+							actionSubject: 'renderer',
+							eventType: 'operational',
+						});
+					},
+					() => {
+						const document = {
+							type: 'doc',
+							version: 1,
+							content: [
+								{
+									attrs: {
+										localId: null,
+									},
+									type: 'paragraph',
+									content: [{ type: 'text', text: 'B' }],
+								},
+							],
+						};
+
+						renderDocument(
+							document,
+							serializer,
+							schema,
+							undefined,
+							true,
+							undefined,
+							mockDispatchAnalyticsEvent,
+						);
+						expect(transformNestedTablesIncomingDocument).not.toHaveBeenCalledWith(document);
+						expect(mockDispatchAnalyticsEvent).not.toHaveBeenCalledWith({
+							action: 'nestedTableTransformed',
+							actionSubject: 'renderer',
+							eventType: 'operational',
+						});
+					},
+				);
+			});
+
+			describe('should fire analytics event when failing to transform nested tables', () => {
+				ffTest(
+					'platform_editor_use_nested_table_pm_nodes',
+					() => {
+						// Prevent console.error from showing in the test output
+						jest.spyOn(console, 'error').mockImplementationOnce(jest.fn());
+
+						(
+							transformNestedTablesIncomingDocument as jest.MockedFunction<
+								typeof transformNestedTablesIncomingDocument
+							>
+						).mockImplementationOnce(() => {
+							throw new Error();
+						});
+
+						const document = {
+							type: 'doc',
+							version: 1,
+							content: [
+								{
+									attrs: {
+										localId: null,
+									},
+									type: 'paragraph',
+									content: [{ type: 'text', text: 'C' }],
+								},
+							],
+						};
+
+						renderDocument(
+							document,
+							serializer,
+							schema,
+							undefined,
+							true,
+							undefined,
+							mockDispatchAnalyticsEvent,
+						);
+						expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document);
+						expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
+							action: 'invalidProsemirrorDocument',
+							actionSubject: 'renderer',
+							eventType: 'operational',
+							attributes: {
+								platform: 'web',
+								errorStack: expect.any(String),
+							},
+						});
+					},
+					() => {
+						const document = {
+							type: 'doc',
+							version: 1,
+							content: [
+								{
+									attrs: {
+										localId: null,
+									},
+									type: 'paragraph',
+									content: [{ type: 'text', text: 'D' }],
+								},
+							],
+						};
+
+						renderDocument(
+							document,
+							serializer,
+							schema,
+							undefined,
+							true,
+							undefined,
+							mockDispatchAnalyticsEvent,
+						);
+						expect(transformNestedTablesIncomingDocument).not.toHaveBeenCalledWith(document);
+						expect(mockDispatchAnalyticsEvent).not.toHaveBeenCalledWith({
+							action: 'invalidProsemirrorDocument',
+							actionSubject: 'renderer',
+							eventType: 'operational',
+							attributes: {
+								platform: 'web',
+								errorStack: expect.any(String),
+							},
+						});
+					},
 				);
 			});
 		});

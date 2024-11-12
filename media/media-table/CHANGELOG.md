@@ -1,5 +1,16 @@
 # @atlaskit/media-table
 
+## 15.3.0
+
+### Minor Changes
+
+- [`6099ac032dd30`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6099ac032dd30) -
+  Added viewerOptions to override file preview renderer in media components
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.2.6
 
 ### Patch Changes

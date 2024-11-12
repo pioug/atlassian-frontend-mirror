@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': 'Thêm ảnh, video hoặc tệp',
   'fabric.editor.addRowAbove': 'Thêm hàng bên trên',
   'fabric.editor.addRowBelow': 'Thêm hàng bên dưới',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Đánh dấu một thuật ngữ, từ viết tắt hoặc chữ rút gọn',
+  'fabric.editor.ai.selectionToolbar.define.title': 'Xác định',
   'fabric.editor.alignCenter': 'Căn giữa',
   'fabric.editor.alignImageCenter': 'Căn giữa',
   'fabric.editor.alignImageLeft': 'Căn trái',

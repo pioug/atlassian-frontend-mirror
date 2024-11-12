@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.0.3
+
+### Patch Changes
+
+- [#162388](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162388)
+  [`2ec86d6f98873`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ec86d6f98873) -
+  hard-code pasteTracking to always be enabled :)
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

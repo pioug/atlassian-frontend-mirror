@@ -4,7 +4,6 @@ let config: Config | undefined;
 export interface AdditionalData {
 	[key: string]:
 		| null
-		| undefined
 		| string
 		| number
 		| boolean
@@ -91,6 +90,7 @@ export type Config = {
 		readonly kind?: Record<InteractionType, number>;
 	};
 	readonly enableSegmentHighlighting?: boolean;
+	readonly enableAdditionalPerformanceMarks?: boolean;
 	readonly shouldCalculateLighthouseMetricsFromTTAI?: boolean;
 	readonly timeWindowForLateMutationsInMilliseconds?: number;
 	readonly manuallyTrackReactProfilerMounts?: boolean;

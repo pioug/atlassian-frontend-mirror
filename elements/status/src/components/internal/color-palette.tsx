@@ -9,8 +9,9 @@ import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { type Color as ColorType } from '../Status';
 import Color from './color';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-const palette: [
+const paletteLegacy: [
 	colorValue: ColorType,
 	backgroundColor: string,
 	borderColor: string,
@@ -53,6 +54,55 @@ const palette: [
 		token('color.icon.success', colors.G400),
 	],
 ];
+
+const paletteRefreshed: [
+	colorValue: ColorType,
+	backgroundColor: string,
+	borderColor: string,
+	iconColor: string,
+][] = [
+	[
+		'neutral',
+		token('color.background.accent.gray.subtler', colors.N300),
+		token('color.border.bold', colors.N400),
+		token('color.icon', colors.N400),
+	],
+	[
+		'blue',
+		token('color.background.information.pressed', colors.B300),
+		token('color.border.information', colors.B400),
+		token('color.icon', colors.N400),
+	],
+	[
+		'green',
+		token('color.background.success.pressed', colors.G300),
+		token('color.border.success', colors.G400),
+		token('color.icon', colors.N400),
+	],
+	[
+		'yellow',
+		token('color.background.warning.pressed', colors.Y300),
+		token('color.border.warning', colors.Y400),
+		token('color.icon', colors.N400),
+	],
+	[
+		'red',
+		token('color.background.danger.pressed', colors.R300),
+		token('color.border.danger', colors.R400),
+		token('color.icon', colors.R400),
+	],
+	[
+		'purple',
+		token('color.background.discovery.pressed', colors.P300),
+		token('color.border.discovery', colors.P400),
+		token('color.icon', colors.N400),
+	],
+];
+
+const getPalette = () =>
+	fg('platform-component-visual-refresh') ? paletteRefreshed : paletteLegacy;
+
+const palette = getPalette();
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const colorPaletteWrapperStyles = css`

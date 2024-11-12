@@ -68,6 +68,13 @@ export const init = (
 	if (initialized) {
 		return;
 	}
+
+	if (window !== undefined) {
+		window.__REACT_UFO_ENABLE_PERF_TRACING = Boolean(
+			sessionStorage.getItem('additionalPerfMarks') === 'true',
+		);
+	}
+
 	setUFOConfig(config);
 
 	if (config.vc?.enabled) {

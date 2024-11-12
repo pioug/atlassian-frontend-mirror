@@ -62,6 +62,7 @@ export interface OwnProps {
 	onClick?: (event: React.SyntheticEvent<any>) => void;
 	onHover?: () => void;
 	role?: string;
+	isBold?: boolean;
 }
 
 export type Props = OwnProps & WithAnalyticsEventsProps;
@@ -90,7 +91,7 @@ class StatusInternal extends PureComponent<Props, any> {
 	}
 
 	render() {
-		const { text, color, style, role, onClick } = this.props;
+		const { text, color, style, role, onClick, isBold } = this.props;
 		if (text.trim().length === 0) {
 			return null;
 		}
@@ -110,7 +111,7 @@ class StatusInternal extends PureComponent<Props, any> {
 				data-style={style}
 				role={role}
 			>
-				<Lozenge appearance={appearance} maxWidth={MAX_WIDTH}>
+				<Lozenge appearance={appearance} maxWidth={MAX_WIDTH} isBold={isBold}>
 					{text}
 				</Lozenge>
 			</span>

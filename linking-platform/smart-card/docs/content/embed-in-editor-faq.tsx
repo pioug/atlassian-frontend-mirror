@@ -6,7 +6,7 @@ export default customMd`
 
 By default, Smart Links are displayed with an inline appearance within the Editor.
 Link providers who wish to specify a different appearance for certain links can achieve this by utilizing \`@atlaskit/editor-card-provider\`.
-Please see [provider.ts](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/linking-platform/editor-card-provider/src/provider.ts).
+Please see [provider.ts](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/edc5ac5ccd46946bb17e59d01260dd5002580206/linking-platform/editor-card-provider/src/provider.ts).
 
 Things to consider:
 

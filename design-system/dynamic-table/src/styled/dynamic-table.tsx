@@ -49,16 +49,15 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
 			<table
 				// React and Typescript do not yet support the inert attribute https://github.com/facebook/react/pull/24730
 				{...{ inert: isLoading ? '' : undefined }}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={
 					{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						[tableRowCSSVars.CSS_VAR_HOVER_BACKGROUND]: row.hoverBackground,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						[tableRowCSSVars.CSS_VAR_HIGHLIGHTED_BACKGROUND]: row.highlightedBackground,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						[tableRowCSSVars.CSS_VAR_HOVER_HIGHLIGHTED_BACKGROUND]: row.hoverHighlightedBackground,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						[tableRowCSSVars.CSS_VAR_ROW_FOCUS_OUTLINE]: row.focusOutline,
 					} as React.CSSProperties
 				}

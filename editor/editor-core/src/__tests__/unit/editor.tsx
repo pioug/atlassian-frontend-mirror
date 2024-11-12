@@ -547,21 +547,21 @@ describe('setting default props as expected', () => {
 		(global.console.error as jest.Mock).mockRestore();
 		(global.console.warn as jest.Mock).mockRestore();
 	});
-	it('should set default behaviour for ', () => {
+	it('should have default undefined feature flag object', () => {
 		const componentSpy = jest.spyOn(featureFlagsFromProps, 'createFeatureFlagsFromProps');
 		render(<Editor />);
 
 		// If it's the default behaviour when we check the featureFlags
 		// in the Editor this should be true.
-		expect(componentSpy).toHaveBeenNthCalledWith(
-			1,
-			expect.objectContaining({
-				appearance: 'comment',
-				disabled: false,
-				extensionHandlers: {},
-				allowHelpDialog: true,
-				quickInsert: true,
-			}),
+		expect(componentSpy).toHaveBeenLastCalledWith(undefined);
+	});
+
+	it('should receive feature flags if passed', () => {
+		const componentSpy = jest.spyOn(featureFlagsFromProps, 'createFeatureFlagsFromProps');
+		render(<Editor featureFlags={{ errorBoundaryDocStructure: true }} />);
+
+		expect(componentSpy).toHaveBeenLastCalledWith(
+			expect.objectContaining({ errorBoundaryDocStructure: true }),
 		);
 	});
 });

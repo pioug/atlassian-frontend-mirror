@@ -25,7 +25,13 @@ export default memo(function Status(props: Props) {
 						userContext: 'document',
 					}}
 				>
-					<AkStatus text={text} color={color} localId={localId} role="presentation" />
+					<AkStatus
+						text={text}
+						color={color}
+						localId={localId}
+						role="presentation"
+						isBold={fg('platform-component-visual-refresh')}
+					/>
 				</FabricElementsAnalyticsContext>
 			</span>
 		);
@@ -37,7 +43,13 @@ export default memo(function Status(props: Props) {
 				userContext: 'document',
 			}}
 		>
-			<AkStatus text={text} color={color} localId={localId} role="presentation" />
+			<AkStatus
+				text={text}
+				color={color}
+				localId={localId}
+				role="presentation"
+				isBold={fg('platform-component-visual-refresh')}
+			/>
 		</FabricElementsAnalyticsContext>
 	);
 });

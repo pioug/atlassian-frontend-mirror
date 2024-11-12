@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': 'Přidat obrázek, video nebo soubor',
   'fabric.editor.addRowAbove': 'Přidat řádek nad',
   'fabric.editor.addRowBelow': 'Přidat řádek pod',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Zvýraznění termínu, akronymu nebo zkratky',
+  'fabric.editor.ai.selectionToolbar.define.title': 'Definovat',
   'fabric.editor.alignCenter': 'Zarovnat na střed',
   'fabric.editor.alignImageCenter': 'Zarovnat na střed',
   'fabric.editor.alignImageLeft': 'Zarovnat vlevo',

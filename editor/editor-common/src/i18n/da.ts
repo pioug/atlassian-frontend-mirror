@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': 'Tilføj billede, video eller fil',
   'fabric.editor.addRowAbove': 'Tilføj række ovenfor',
   'fabric.editor.addRowBelow': 'Tilføj række nedenfor',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Fremhæv et udtryk, akronym eller en forkortelse',
+  'fabric.editor.ai.selectionToolbar.define.title': 'Definer',
   'fabric.editor.alignCenter': 'Centrér',
   'fabric.editor.alignImageCenter': 'Centrér',
   'fabric.editor.alignImageLeft': 'Venstrejustér',

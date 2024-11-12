@@ -106,6 +106,11 @@ export const resizerStyles = css`
 				height: 96px;
 			}
 		}
+		&.clamped {
+			& .${resizerHandleThumbClassName} {
+				height: clamp(43px, calc(100% - 32px), 96px);
+			}
+		}
 
 		/*
       Handle Alignment

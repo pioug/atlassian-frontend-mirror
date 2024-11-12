@@ -16,7 +16,8 @@ import {
 	WidthProvider,
 } from '@atlaskit/editor-common/ui';
 import { akEditorLineHeight, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
+import { default as ChevronRightIconLegacy } from '@atlaskit/icon/glyph/chevron-right';
+import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -197,7 +198,11 @@ function Expand({
 			>
 				{isMobile ? (
 					<ExpandIconWrapper expanded={expanded}>
-						<ChevronRightIcon label={label} />
+						<ChevronRightIcon
+							label={label}
+							LEGACY_fallbackIcon={ChevronRightIconLegacy}
+							spacing="spacious"
+						/>
 					</ExpandIconWrapper>
 				) : (
 					<Tooltip
@@ -208,7 +213,11 @@ function Expand({
 						testId={'tooltip'}
 					>
 						<ExpandIconWrapper expanded={expanded}>
-							<ChevronRightIcon label={label} />
+							<ChevronRightIcon
+								label={label}
+								LEGACY_fallbackIcon={ChevronRightIconLegacy}
+								spacing="spacious"
+							/>
 						</ExpandIconWrapper>
 					</Tooltip>
 				)}

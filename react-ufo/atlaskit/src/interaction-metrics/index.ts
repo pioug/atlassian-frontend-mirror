@@ -77,6 +77,14 @@ export function getActiveInteraction() {
 	return interactions.get(interactionId.current);
 }
 
+function isPerformanceTracingEnabled() {
+	return (
+		getConfig()?.enableAdditionalPerformanceMarks ||
+		window.__REACT_UFO_ENABLE_PERF_TRACING ||
+		process.env.NODE_ENV !== 'production'
+	);
+}
+
 function labelStackToString(labelStack: LabelStack | null | undefined, name?: string) {
 	const stack = [...(labelStack ?? [])];
 	if (name) {
@@ -142,7 +150,7 @@ export function addCustomTiming(interactionId: string, labelStack: LabelStack, d
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		interaction.customTimings.push({ labelStack, data });
-		if (window.__REACT_UFO_ENABLE_PERF_TRACING || process.env.NODE_ENV !== 'production') {
+		if (isPerformanceTracingEnabled()) {
 			for (const [key, timingData] of Object.entries(data)) {
 				const { startTime, endTime } = timingData;
 				try {
@@ -170,7 +178,7 @@ export function addMark(
 	if (interaction != null) {
 		interaction.marks.push({ type, name, labelStack, time });
 	}
-	if (window.__REACT_UFO_ENABLE_PERF_TRACING || process.env.NODE_ENV !== 'production') {
+	if (isPerformanceTracingEnabled()) {
 		performance.mark(`🛸 ${labelStackToString(labelStack, name)} [${type}]`, {
 			startTime: time,
 		});
@@ -186,7 +194,7 @@ export function addMarkToAll(
 	interactions.forEach((interaction) => {
 		interaction.marks.push({ type, name, labelStack, time });
 	});
-	if (window.__REACT_UFO_ENABLE_PERF_TRACING || process.env.NODE_ENV !== 'production') {
+	if (isPerformanceTracingEnabled()) {
 		performance.mark(`🛸 ${labelStackToString(labelStack, name)} [${type}]`, {
 			startTime: time,
 		});
@@ -205,7 +213,7 @@ export function addSpan(
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		interaction.spans.push({ type, name, labelStack, start, end, size });
-		if (window.__REACT_UFO_ENABLE_PERF_TRACING || process.env.NODE_ENV !== 'production') {
+		if (isPerformanceTracingEnabled()) {
 			try {
 				// for Firefox 102 and older
 				performance.measure(`🛸 ${labelStackToString(labelStack, name)} [${type}]`, {
@@ -230,7 +238,7 @@ export function addSpanToAll(
 	interactions.forEach((interaction) => {
 		interaction.spans.push({ type, name, labelStack, start, end, size });
 	});
-	if (window.__REACT_UFO_ENABLE_PERF_TRACING || process.env.NODE_ENV !== 'production') {
+	if (isPerformanceTracingEnabled()) {
 		try {
 			// for Firefox 102 and older
 			performance.measure(`🛸 ${labelStackToString(labelStack, name)} [${type}]`, {
@@ -291,7 +299,7 @@ export function addHold(interactionId: string, labelStack: LabelStack, name: str
 		addHoldCriterion(id, labelStack, name, start);
 		return () => {
 			const end = performance.now();
-			if (window.__REACT_UFO_ENABLE_PERF_TRACING || process.env.NODE_ENV !== 'production') {
+			if (isPerformanceTracingEnabled()) {
 				try {
 					// for Firefox 102 and older
 					performance.measure(`🛸 ${labelStackToString(labelStack, name)} [hold]`, {
@@ -438,7 +446,7 @@ export const addProfilerTimings = (
 	startTime: number,
 	commitTime: number,
 ) => {
-	if (window.__REACT_UFO_ENABLE_PERF_TRACING || process.env.NODE_ENV !== 'production') {
+	if (isPerformanceTracingEnabled()) {
 		try {
 			// for Firefox 102 and older
 			performance.measure(`🛸 ${labelStackToString(labelStack)} [react-profiler] ${type}`, {
@@ -515,7 +523,7 @@ const finishInteraction = (
 		handleInteraction(id, data);
 	}
 
-	if (window.__REACT_UFO_ENABLE_PERF_TRACING || process.env.NODE_ENV !== 'production') {
+	if (isPerformanceTracingEnabled()) {
 		const profilerTimingMap = new Map<
 			string,
 			{ labelStack: LabelStack; start?: number; end?: number }
@@ -876,7 +884,7 @@ export function addRedirect(
 		interaction.routeName = nextRouteName;
 		interaction.redirects.push({ fromInteractionName: fromUfoName, time });
 
-		if (window.__REACT_UFO_ENABLE_PERF_TRACING || process.env.NODE_ENV !== 'production') {
+		if (isPerformanceTracingEnabled()) {
 			const prevRedirect = interaction.redirects.at(-2);
 			try {
 				// for Firefox 102 and older

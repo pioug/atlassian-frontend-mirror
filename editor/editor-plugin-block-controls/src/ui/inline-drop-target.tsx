@@ -206,7 +206,7 @@ export const InlineDropTarget = ({
 	return (
 		<div
 			ref={ref}
-			data-test-id={`drop-target-hover-zone-${position}`}
+			data-testid={`drop-target-hover-zone-${position}`}
 			css={[hoverZoneCommonStyle, inlineHoverZoneRectStyle]}
 		>
 			{isDraggedOver || isBlocksDragTargetDebug() ? (

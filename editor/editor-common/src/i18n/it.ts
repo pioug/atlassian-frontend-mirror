@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': "Aggiungi un'immagine, un video o un file",
   'fabric.editor.addRowAbove': 'Aggiungi riga sopra',
   'fabric.editor.addRowBelow': 'Aggiungi riga sotto',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': "Evidenzia un termine, un acronimo o un'abbreviazione",
+  'fabric.editor.ai.selectionToolbar.define.title': 'Definisci',
   'fabric.editor.alignCenter': 'Allinea al centro',
   'fabric.editor.alignImageCenter': 'Allinea al centro',
   'fabric.editor.alignImageLeft': 'Allinea a sinistra',

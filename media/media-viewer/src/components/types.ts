@@ -2,6 +2,7 @@ import { type Identifier, type MediaClient } from '@atlaskit/media-client';
 import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { type ReactNode } from 'react';
+import { type ViewerOptionsProps } from '../viewerOptions';
 
 export type FileStateFlags = {
 	wasStatusProcessing: boolean;
@@ -36,6 +37,8 @@ export interface MediaViewerProps {
 	readonly extensions?: MediaViewerExtensions;
 	// Retrieve auth based on a given context.
 	readonly contextId?: string;
+	// Viewer options for media viewer.
+	readonly viewerOptions?: ViewerOptionsProps;
 }
 
 export type MediaMessage = {

@@ -90,6 +90,27 @@ describe('<ItemViewer />', () => {
 			expect(await screen.findByTestId('media-viewer-image')).toBeInTheDocument();
 		});
 
+		it('should load custom viewer', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const shouldUseCustomRenderer = jest.fn().mockReturnValue(true);
+			const renderContent = jest.fn().mockReturnValue(<div data-testid="custom-test-renderer" />);
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<ItemViewer
+							previewCount={0}
+							identifier={identifier}
+							viewerOptions={{ customRenderers: [{ shouldUseCustomRenderer, renderContent }] }}
+						/>
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			expect(await screen.findByTestId('custom-test-renderer')).toBeInTheDocument();
+			expect(renderContent).toHaveBeenCalledTimes(1);
+		});
+
 		it('should load video viewer for video', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
 			const { mediaApi } = createMockedMediaApi(fileItem);

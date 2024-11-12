@@ -38,7 +38,7 @@ import type {
 import { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
 import {
 	processRawValue,
-	processRawValueWithoutTransformation,
+	processRawValueWithoutValidation,
 } from '@atlaskit/editor-common/process-raw-value';
 import type {
 	ContextIdentifierProvider,
@@ -251,7 +251,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 			.withPlugins(() => this.getPluginNames())
 			.withNodeCounts(() => this.countNodes());
 
-		this.featureFlags = createFeatureFlagsFromProps(this.props.editorProps);
+		this.featureFlags = createFeatureFlagsFromProps(this.props.editorProps.featureFlags);
 		const featureFlagsEnabled = this.featureFlags
 			? getEnabledFeatureFlagKeys(this.featureFlags)
 			: [];
@@ -350,7 +350,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 		// nodes that haven't been re-rendered to the document yet.
 		this.blur();
 
-		this.featureFlags = createFeatureFlagsFromProps(this.props.editorProps);
+		this.featureFlags = createFeatureFlagsFromProps(this.props.editorProps.featureFlags);
 
 		this.editorState = this.createEditorState({
 			props: this.props,
@@ -407,7 +407,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 			portalProviderAPI: props.portalProviderAPI,
 			nodeViewPortalProviderAPI: props.nodeViewPortalProviderAPI,
 			dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-			featureFlags: createFeatureFlagsFromProps(props.editorProps),
+			featureFlags: createFeatureFlagsFromProps(props.editorProps.featureFlags),
 			getIntl: () => this.props.intl,
 		});
 
@@ -533,7 +533,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 			// if the collabEdit API is set, skip this validation due to potential pm validation errors
 			// from docs that end up with invalid marks after processing (See #hot-111702 for more details)
 			if (api?.collabEdit !== undefined && fg('editor_load_conf_collab_docs_without_checks')) {
-				doc = processRawValueWithoutTransformation(schema, options.doc);
+				doc = processRawValueWithoutValidation(schema, options.doc, this.dispatchAnalyticsEvent);
 			} else {
 				doc = processRawValue(
 					schema,

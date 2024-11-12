@@ -7,6 +7,7 @@ import { Navigation } from './navigation';
 import { type MediaViewerExtensions } from './components/types';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import Header from './header';
+import { type ViewerOptionsProps } from './viewerOptions';
 
 export type Props = Readonly<
 	{
@@ -19,6 +20,7 @@ export type Props = Readonly<
 		isSidebarVisible?: boolean;
 		contextId?: string;
 		featureFlags?: MediaFeatureFlags;
+		viewerOptions?: ViewerOptionsProps;
 	} & WithShowControlMethodProp
 >;
 
@@ -39,6 +41,7 @@ export const List = ({
 	isSidebarVisible,
 	onNavigationChange,
 	items,
+	viewerOptions,
 }: Props) => {
 	const [selectedItem, setSelectedItem] = useState(defaultSelectedItem);
 	const [previewCount, setPreviewCount] = useState(0);
@@ -69,6 +72,7 @@ export const List = ({
 				previewCount={previewCount}
 				contextId={contextId}
 				featureFlags={featureFlags}
+				viewerOptions={viewerOptions}
 			/>
 			<Navigation
 				items={items}

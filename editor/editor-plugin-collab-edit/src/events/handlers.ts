@@ -91,7 +91,7 @@ export const subscribe = effect<
 		const handlers: CollabHandlers = {
 			initHandler: (data) => {
 				view.dispatch(view.state.tr.setMeta('collabInitialised', true));
-				handleInit(data, view, options);
+				handleInit(data, view, options, editorAnalyticsApi);
 			},
 			connectedHandler: (data) => handleConnection(data, view),
 			dataHandler: (data) => applyRemoteData(data, view, options),

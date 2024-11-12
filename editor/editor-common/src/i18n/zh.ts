@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': '添加图像、视频或文件',
   'fabric.editor.addRowAbove': '在上方添加行',
   'fabric.editor.addRowBelow': '在下方添加行',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': '突出显示术语、首字母缩略词或缩写',
+  'fabric.editor.ai.selectionToolbar.define.title': '定义',
   'fabric.editor.alignCenter': '居中对齐',
   'fabric.editor.alignImageCenter': '居中',
   'fabric.editor.alignImageLeft': '左对齐',

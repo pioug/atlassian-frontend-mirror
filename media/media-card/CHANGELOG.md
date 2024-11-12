@@ -1,5 +1,24 @@
 # @atlaskit/media-card
 
+## 78.12.1
+
+### Patch Changes
+
+- [#162388](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162388)
+  [`95e70f4e28842`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/95e70f4e28842) -
+  Move `@atlaskit/ufo-interaction-ignore` to `@atlaskit/react-ufo`
+
+## 78.12.0
+
+### Minor Changes
+
+- [`6099ac032dd30`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6099ac032dd30) -
+  Added viewerOptions to override file preview renderer in media components
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 78.11.0
 
 ### Minor Changes

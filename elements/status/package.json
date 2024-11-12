@@ -27,6 +27,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/lozenge": "^11.12.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.1.0",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/theme": "^14.0.0",
@@ -81,5 +82,10 @@
 		"./element": "./src/element.ts",
 		"./i18n/*": "./src/i18n/*.ts",
 		"./picker": "./src/picker.ts"
+	},
+	"platform-feature-flags": {
+		"platform-component-visual-refresh": {
+			"type": "boolean"
+		}
 	}
 }

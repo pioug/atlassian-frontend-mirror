@@ -14,7 +14,7 @@ import {
 } from '@atlaskit/media-ui';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
-import { MediaViewer } from '@atlaskit/media-viewer';
+import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
 import Tooltip from '@atlaskit/tooltip';
 import React, { type FC, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
@@ -36,6 +36,7 @@ export interface MediaInlineCardProps {
 	isSelected?: boolean;
 	onClick?: InlineCardOnClickCallback;
 	mediaViewerItems?: Identifier[];
+	viewerOptions?: ViewerOptionsProps;
 }
 
 // UI component which renders an inline link in the appropiate state based on a media file
@@ -48,6 +49,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 	onClick,
 	mediaViewerItems,
 	intl,
+	viewerOptions,
 }) => {
 	const [fileState, setFileState] = useState<FileState | undefined>();
 	const [subscribeError, setSubscribeError] = useState<Error>();
@@ -96,6 +98,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 					mediaClientConfig={mediaClient.mediaClientConfig}
 					selectedItem={identifier}
 					onClose={onMediaViewerClose}
+					viewerOptions={viewerOptions}
 				/>,
 				document.body,
 			);

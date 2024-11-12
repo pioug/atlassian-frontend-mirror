@@ -7,6 +7,7 @@ import {
 	akLayoutGutterOffset,
 	relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const BORDER_RADIUS = token('border.radius.100', '4px');
@@ -101,7 +102,7 @@ const titleInputStyles = () =>
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontSize: relativeFontSizeToBase16(14),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		lineHeight: akEditorLineHeight,
+		lineHeight: fg('platform-visual-refresh-icons') ? 1 : akEditorLineHeight,
 		fontWeight: 'normal',
 		color: token('color.text.subtlest'),
 		background: 'transparent',

@@ -45,6 +45,7 @@ import type { LoomEventPayload } from './loom-events';
 import type { MediaEventPayload } from './media-events';
 import { type MentionEventPayload } from './mention-events';
 import type { MoveContentEventPayload } from './move-content-events';
+import { type NestedTableActionsEventPayload } from './nested-table-events';
 import type { NodeEventPayload } from './node-events';
 import type { PasteEventPayload } from './paste-events';
 import type { ReferentialityEventPayload } from './referentiality-events';
@@ -111,6 +112,7 @@ export type AnalyticsEventPayload<T = void> =
 	| MediaUploadEventPayload
 	| MentionEventPayload
 	| EngagementPlatformEventPayload
+	| NestedTableActionsEventPayload
 	| AIDefinitionsEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "94.16.0",
+	"version": "94.17.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -211,14 +211,14 @@
 		"@atlaskit/icon-object": "^6.7.0",
 		"@atlaskit/link-datasource": "^3.8.0",
 		"@atlaskit/link-picker": "^1.47.0",
-		"@atlaskit/media-card": "^78.11.0",
-		"@atlaskit/media-client": "^28.1.0",
+		"@atlaskit/media-card": "^78.12.0",
+		"@atlaskit/media-client": "^28.2.0",
 		"@atlaskit/media-client-react": "^2.3.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-file-preview": "^0.9.0",
 		"@atlaskit/media-picker": "^67.0.0",
 		"@atlaskit/media-ui": "^26.1.0",
-		"@atlaskit/media-viewer": "49.2.7",
+		"@atlaskit/media-viewer": "49.3.0",
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/onboarding": "^12.1.0",
@@ -270,7 +270,7 @@
 	"devDependencies": {
 		"@af/visual-regression": "*",
 		"@atlaskit/media-core": "^34.3.0",
-		"@atlaskit/media-test-helpers": "^34.5.0",
+		"@atlaskit/media-test-helpers": "^34.6.0",
 		"@atlaskit/util-data-test": "^17.12.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/dom": "^10.1.0",
@@ -358,10 +358,16 @@
 		"platform_editor_replace_finddomnode_in_common": {
 			"type": "boolean"
 		},
+		"platform-visual-refresh-icons": {
+			"type": "boolean"
+		},
 		"platform_editor_element_dnd_nested_fix_patch_3": {
 			"type": "boolean"
 		},
 		"platform_editor_reduce_element_browser_padding": {
+			"type": "boolean"
+		},
+		"platform_editor_use_nested_table_pm_nodes": {
 			"type": "boolean"
 		}
 	}

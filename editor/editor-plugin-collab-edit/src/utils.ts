@@ -2,7 +2,7 @@ import { AnalyticsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { CollabEditOptions, CollabParticipant } from '@atlaskit/editor-common/collab';
-import { processRawValueWithoutTransformation } from '@atlaskit/editor-common/process-raw-value';
+import { processRawValueWithoutValidation } from '@atlaskit/editor-common/process-raw-value';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
 import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
@@ -102,6 +102,7 @@ export const replaceDocument = (
 	version?: number,
 	options?: CollabEditOptions,
 	reserveCursor?: boolean,
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
 ) => {
 	const { schema, tr } = state;
 
@@ -109,7 +110,11 @@ export const replaceDocument = (
 	let content: Array<PMNode> | Fragment | undefined;
 
 	if (fg('platform_editor_use_nested_table_pm_nodes')) {
-		const parsedDoc = processRawValueWithoutTransformation(schema, doc);
+		const parsedDoc = processRawValueWithoutValidation(
+			schema,
+			doc,
+			editorAnalyticsAPI?.fireAnalyticsEvent,
+		);
 		hasContent = !!parsedDoc?.childCount;
 		content = parsedDoc?.content;
 	} else {

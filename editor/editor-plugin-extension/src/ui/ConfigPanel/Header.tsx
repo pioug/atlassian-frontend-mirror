@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment } from 'react';
+import { Fragment, lazy, Suspense, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -15,6 +15,7 @@ import type { Icon } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import { N200 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
@@ -119,16 +120,31 @@ const Header = ({
 	onClose,
 	intl,
 }: Props) => {
-	const ResolvedIcon = Loadable<{ label: string }, never>({
-		loader: icon,
-		loading: () => null,
-	});
+	const ResolvedIcon = useMemo(() => {
+		if (fg('platform_editor_react18_phase2_loadable')) {
+			return lazy(() =>
+				icon().then((Cmp) => {
+					if ('default' in Cmp) {
+						return Cmp;
+					}
+					return { default: Cmp };
+				}),
+			);
+		}
+
+		return Loadable<{ label: string }, never>({
+			loader: icon,
+			loading: () => null,
+		});
+	}, [icon]);
 
 	return (
 		<Fragment>
 			<div css={itemStyles}>
 				<div css={itemIconStyles}>
-					<ResolvedIcon label={title} />
+					<Suspense fallback={null}>
+						<ResolvedIcon label={title} />
+					</Suspense>
 				</div>
 				<div css={itemBodyStyles}>
 					{summary ? (

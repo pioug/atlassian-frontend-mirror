@@ -40,9 +40,9 @@
 	},
 	"dependencies": {
 		"@atlaskit/avatar-group": "^10.0.0",
-		"@atlaskit/editor-common": "^94.16.0",
+		"@atlaskit/editor-common": "^94.17.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
-		"@atlaskit/editor-plugin-collab-edit": "^1.22.0",
+		"@atlaskit/editor-plugin-collab-edit": "^1.23.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",

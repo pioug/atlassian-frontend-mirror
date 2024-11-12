@@ -5,7 +5,6 @@
 import { memo } from 'react';
 
 // Compiled isn't ready to be used in components used by Ecosystem
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -87,6 +86,7 @@ const Badge = memo(function Badge({
 	style,
 	testId,
 }: BadgeProps) {
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (fg('platform-component-visual-refresh')) {
 		return (
 			<span

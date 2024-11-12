@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.23.0
+
+### Minor Changes
+
+- [#162298](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162298)
+  [`f5893b7270927`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5893b7270927) -
+  ED-25498 Integrate transformNestedTablesIncomingDocument with Editor and Renderer to transform
+  nested table extensions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.22.7
 
 ### Patch Changes

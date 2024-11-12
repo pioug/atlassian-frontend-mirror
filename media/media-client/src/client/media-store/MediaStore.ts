@@ -285,6 +285,7 @@ export class MediaStore implements MediaApi {
 	async getFileBinary(
 		id: string,
 		collectionName?: string,
+		abortController?: AbortController,
 		maxAge: number = FILE_CACHE_MAX_AGE,
 	): Promise<Blob> {
 		const headers: RequestHeaders = {};
@@ -306,7 +307,7 @@ export class MediaStore implements MediaApi {
 			},
 		};
 
-		return this.request(`/file/${id}/${binaryEndpoint}`, options, undefined, true).then(
+		return this.request(`/file/${id}/${binaryEndpoint}`, options, abortController, true).then(
 			createMapResponseToBlob(metadata),
 		);
 	}

@@ -1,5 +1,20 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 1.0.0
+
+### Major Changes
+
+- [#162439](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162439)
+  [`d4e7809eb2373`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4e7809eb2373) -
+  Remove Compiled rules from plugin, please use @compiled/eslint-plugin directly
+
+### Patch Changes
+
+- [#157624](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/157624)
+  [`1734bd61b5d9e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1734bd61b5d9e) -
+  Fix enforce-style-prop from erroring on type assertion, eg. '{…} as React.CSSProperties' which is
+  a common pattern
+
 ## 0.21.0
 
 ### Minor Changes

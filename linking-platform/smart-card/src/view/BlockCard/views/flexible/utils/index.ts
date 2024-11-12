@@ -1,5 +1,7 @@
 import type { JsonLd } from 'json-ld-types';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import {
 	ElementName,
 	MediaPlacement,
@@ -71,19 +73,27 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 			};
 		case 'jira-object-provider':
 			const isJiraTask = data['@type']?.includes('atlassian:Task') ?? false;
+			const isJiraPlan = !!data['atlassian:ownedBy'] ?? false;
+
+			let topMetadata: ElementItem[] = [
+				{ name: ElementName.AuthorGroup },
+				{ name: ElementName.CreatedBy },
+				{ name: ElementName.ModifiedOn },
+			];
+
+			if (isJiraTask) {
+				topMetadata = [
+					{ name: ElementName.AssignedToGroup },
+					{ name: ElementName.AssignedTo },
+					{ name: ElementName.ModifiedOn },
+				];
+			} else if (isJiraPlan && fg('smart_links_for_plans')) {
+				topMetadata = [{ name: ElementName.OwnedByGroup }, { name: ElementName.OwnedBy }];
+			}
+
 			return {
 				titleMetadata: defaultTitleMetadata,
-				topMetadata: isJiraTask
-					? [
-							{ name: ElementName.AssignedToGroup },
-							{ name: ElementName.AssignedTo },
-							{ name: ElementName.ModifiedOn },
-						]
-					: [
-							{ name: ElementName.AuthorGroup },
-							{ name: ElementName.CreatedBy },
-							{ name: ElementName.ModifiedOn },
-						],
+				topMetadata,
 				bottomMetadata: [
 					{ name: ElementName.StoryPoints },
 					{ name: ElementName.Priority },

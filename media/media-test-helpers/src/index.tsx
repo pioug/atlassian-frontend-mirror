@@ -73,9 +73,11 @@ export {
 	zipItemMultipleFoldersAtRootId,
 	zipJiraArchiveFileId,
 	zipEncryptedFileId,
+	zipFileWithHtmlId,
 	codeFileId,
 	emailFileId,
 	emailUnsupportedFileId,
+	htmlFileId,
 	vrVideoDetails,
 } from './exampleMediaItems';
 export { createMouseEvent } from './createMouseEvent';

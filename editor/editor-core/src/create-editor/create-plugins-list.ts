@@ -46,7 +46,7 @@ export function getDefaultPresetOptionsFromEditorProps(
 		typeAhead: {
 			isMobile: false,
 		},
-		featureFlags: createFeatureFlagsFromProps(props),
+		featureFlags: createFeatureFlagsFromProps(props.featureFlags),
 		paste: {
 			cardOptions,
 			sanitizePrivateContent: props.sanitizePrivateContent,

@@ -171,19 +171,14 @@ const Flag: FC<FlagProps> = (props) => {
 	const shouldRenderGap = (!isBold && (description || actions.length)) || isExpanded;
 	// when delayAnnouncement is available we will use a hidden content for announcement
 	const delayedAnnouncement = delayAnnouncement ? (
-		<VisuallyHidden role="alert">
+		<VisuallyHidden>
 			{title}
 			{description}
 		</VisuallyHidden>
 	) : undefined;
 
 	return (
-		<div
-			role={delayAnnouncement ? undefined : 'alert'}
-			css={flagWrapperStyles}
-			data-testid={testId}
-			{...autoDismissProps}
-		>
+		<div role="alert" css={flagWrapperStyles} data-testid={testId} {...autoDismissProps}>
 			<Box backgroundColor={flagBackgroundColor[appearance]} padding="space.200" xcss={flagStyles}>
 				<Inline alignBlock="stretch" space="space.200">
 					<div
@@ -206,7 +201,12 @@ const Flag: FC<FlagProps> = (props) => {
 									xcss={overflowWrapStyles}
 								>
 									<Heading as={`h${headingLevel}`} size="xsmall" color={textColor}>
-										{title}
+										<span
+											/* if isDelayToAnnounce is true, we will hide the content form screen reader to avoid duplicate announcement */
+											aria-hidden={isDelayToAnnounce}
+										>
+											{title}
+										</span>
 									</Heading>
 								</Box>
 								{isDismissable
@@ -229,6 +229,8 @@ const Flag: FC<FlagProps> = (props) => {
 										style={{ color: flagTextColorToken[appearance] }}
 										css={descriptionStyles}
 										data-testid={testId && `${testId}-description`}
+										/* if isDelayToAnnounce is true, we will hide the content form screen reader to avoid duplicate announcement */
+										aria-hidden={isDelayToAnnounce}
 									>
 										{description}
 									</div>

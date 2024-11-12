@@ -70,7 +70,7 @@ function Editor() {
 
 ##### Configure Smart Links in editor
 
-Please refer to [CardOptions](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/editor-common/src/card/cardOptions.ts) for the available configurations.
+Please refer to [CardOptions](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/edc5ac5ccd46946bb17e59d01260dd5002580206/editor/editor-common/src/card/cardOptions.ts) for the available configurations.
 
 ### Renderer (@atlaskit/renderer)
 
@@ -93,7 +93,7 @@ import { Renderer } from '@atlaskit/renderer';
 ##### Configure Smart Links in renderer
 
 Set \`smartLinks\` on \`Renderer\` component.
-Please refer to [SmartLinksOptions](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/renderer/src/types/smartLinksOptions.ts) for the available configurations.
+Please refer to [SmartLinksOptions](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/edc5ac5ccd46946bb17e59d01260dd5002580206/editor/renderer/src/types/smartLinksOptions.ts) for the available configurations.
 
 ${code`
 import { SmartCardProvider } from '@atlaskit/link-provider';
@@ -106,10 +106,10 @@ import { Renderer } from '@atlaskit/renderer';
 
 ### Related packages
 
-* [@atlaskit/editor-core](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/editor-core)
-* [@atlaskit/editor-plugin-card](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/editor-plugin-card)
-* [@atlaskit/editor-plugin-hyperlink](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/editor-plugin-hyperlink)
-* [@atlaskit/editor-card-provider](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/linking-platform/editor-card-provider)
-* [@atlaskit/renderer](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/renderer)
+* [@atlaskit/editor-core](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/edc5ac5ccd46946bb17e59d01260dd5002580206/editor/editor-core)
+* [@atlaskit/editor-plugin-card](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/edc5ac5ccd46946bb17e59d01260dd5002580206/editor/editor-plugin-card)
+* [@atlaskit/editor-plugin-hyperlink](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/edc5ac5ccd46946bb17e59d01260dd5002580206/editor/editor-plugin-hyperlink)
+* [@atlaskit/editor-card-provider](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/edc5ac5ccd46946bb17e59d01260dd5002580206/linking-platform/editor-card-provider)
+* [@atlaskit/renderer](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/edc5ac5ccd46946bb17e59d01260dd5002580206/editor/renderer)
 
 `;

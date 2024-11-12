@@ -45,6 +45,11 @@ export const toExamplePath = (path: string = '') => {
 	return sanitizeUrl(absolutePath);
 };
 
+export const toPackagePath = (group: string, packageName: string) => {
+	const origin = window.location.origin;
+	return sanitizeUrl(`${origin}/packages/${group}/${packageName}`);
+};
+
 export const navigateToUrl = (url: string) => {
 	window.location.href = url;
 };
@@ -66,7 +71,7 @@ export const overrideActionsProps = (props: Object) => (
 					},
 				})}
 			>
-				<Props heading="" props={require('!!extract-react-types-loader!./props-actions')} />
+				<Props heading="" props={require('!!extract-react-types-loader!../props/props-actions')} />
 			</div>
 		)}
 		type="arrayType"

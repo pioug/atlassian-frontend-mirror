@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': 'Kép, videó vagy fájl hozzáadása',
   'fabric.editor.addRowAbove': 'Sor beszúrása felülre',
   'fabric.editor.addRowBelow': 'Sor beszúrása alulra',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Emelj ki egy kifejezést, mozaikszót vagy rövidítést',
+  'fabric.editor.ai.selectionToolbar.define.title': 'Definiálás',
   'fabric.editor.alignCenter': 'Középre igazítás',
   'fabric.editor.alignImageCenter': 'Középre igazítás',
   'fabric.editor.alignImageLeft': 'Balra igazítás',

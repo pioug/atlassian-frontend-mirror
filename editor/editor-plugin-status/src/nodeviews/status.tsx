@@ -13,6 +13,7 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { statusMessages as messages } from '@atlaskit/editor-common/messages';
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { Color, StatusStyle } from '@atlaskit/status/element';
 import { Status } from '@atlaskit/status/element';
 
@@ -66,6 +67,7 @@ const StatusContainerView = (props: ContainerProps) => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={style}
 				onClick={handleClick}
+				isBold={fg('platform-component-visual-refresh')}
 			/>
 		</span>
 	);

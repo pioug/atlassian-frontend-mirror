@@ -22,7 +22,7 @@ import {
 	type SSR,
 	isVideoMimeTypeSupportedByBrowser,
 } from '@atlaskit/media-common';
-import { MediaViewer } from '@atlaskit/media-viewer';
+import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
 import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { MediaCardError } from '../errors';
@@ -109,6 +109,8 @@ export interface FileCardProps extends CardEventProps {
 	readonly ssr?: SSR;
 	/** Disable tooltip for the card */
 	readonly shouldHideTooltip?: boolean;
+	/** Sets options for viewer **/
+	readonly viewerOptions?: ViewerOptionsProps;
 }
 
 export const FileCard = ({
@@ -139,6 +141,7 @@ export const FileCard = ({
 	onClick,
 	onMouseEnter,
 	videoControlsWrapperRef,
+	viewerOptions,
 }: FileCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	//----------------------------------------------------------------//
@@ -859,6 +862,7 @@ export const FileCard = ({
 							}}
 							contextId={contextId}
 							featureFlags={featureFlags}
+							viewerOptions={viewerOptions}
 						/>,
 						document.body,
 					)

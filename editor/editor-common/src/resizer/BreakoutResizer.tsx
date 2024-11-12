@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -34,7 +34,20 @@ const getHandleStyle = (node: BreakoutSupportedNodes) => {
 			const handleOffset = editorExperiment('nested-dnd', true)
 				? LAYOUT_COLUMN_PADDING * 2 + 8
 				: LAYOUT_COLUMN_PADDING * 2;
-			return { left: { left: `-${handleOffset}px` }, right: { right: `-${handleOffset}px` } };
+			return {
+				left: {
+					left: `-${handleOffset}px`,
+					height: 'calc(100% - 8px)',
+					bottom: '0px',
+					top: 'unset',
+				},
+				right: {
+					right: `-${handleOffset}px`,
+					height: 'calc(100% - 8px)',
+					bottom: '0px',
+					top: 'unset',
+				},
+			};
 	}
 };
 
@@ -55,24 +68,43 @@ export const ignoreResizerMutations = (
  */
 const BreakoutResizer = ({
 	editorView,
-	node,
+	nodeType,
 	getPos,
 	getRef,
 	disabled,
 	getEditorWidth,
+	parentRef,
 }: {
 	editorView: EditorView;
-	node: BreakoutSupportedNodes;
+	nodeType: BreakoutSupportedNodes;
 	getPos: getPosHandlerNode;
 	getRef?: (ref: HTMLElement | null) => void;
-	disabled: boolean;
+	disabled?: boolean;
 	getEditorWidth: () => EditorContainerWidth | undefined;
+	parentRef?: HTMLElement;
 }) => {
 	const [{ minWidth, maxWidth, isResizing }, setResizingState] = useState<ResizingState>({
 		minWidth: undefined,
 		maxWidth: undefined,
 		isResizing: false,
 	});
+
+	// Relying on re-renders caused by selection changes inside/around node
+	const isSelectionInNode = useMemo(() => {
+		const pos = getPos();
+		if (pos === undefined) {
+			return false;
+		}
+		const node = editorView.state.doc.nodeAt(pos);
+		if (node === null) {
+			return false;
+		}
+		const endPos = pos + node.nodeSize;
+		const startPos = pos;
+		const { $from, $to } = editorView.state.selection;
+
+		return $from.pos >= startPos && endPos >= $to.pos;
+	}, [editorView.state.doc, editorView.state.selection, getPos]);
 
 	const handleResizeStart = useCallback<HandleResizeStart>(() => {
 		let newMinWidth;
@@ -111,7 +143,7 @@ const BreakoutResizer = ({
 					breakout.create({ width: Math.max(newWidth, akEditorDefaultLayoutWidth) }),
 				]);
 			}
-			newTr.setMeta('is-resizer-resizing', false);
+			newTr.setMeta('is-resizer-resizing', false).setMeta('scrollIntoView', false);
 			dispatch(newTr);
 			setResizingState({ isResizing: false, minWidth: undefined, maxWidth: undefined });
 		},
@@ -133,7 +165,7 @@ const BreakoutResizer = ({
 				left: true,
 				right: true,
 			}}
-			handleStyles={getHandleStyle(node)}
+			handleStyles={getHandleStyle(nodeType)}
 			minWidth={minWidth}
 			maxWidth={maxWidth}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
@@ -146,11 +178,15 @@ const BreakoutResizer = ({
 						}
 					: undefined
 			}
-			resizeRatio={2}
 			handleResizeStart={handleResizeStart}
 			handleResizeStop={handleResizeStop}
-			handleSize="small"
 			childrenDOMRef={getRef}
+			resizeRatio={2}
+			isHandleVisible={isSelectionInNode}
+			handleSize="clamped"
+			handleHighlight="full-height"
+			handlePositioning="adjacent"
+			handleAlignmentMethod="sticky"
 		/>
 	);
 };

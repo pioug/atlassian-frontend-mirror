@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': 'Görsel, video ya da dosya ekle',
   'fabric.editor.addRowAbove': 'Yukarıya satır ekle',
   'fabric.editor.addRowBelow': 'Aşağıya satır ekle',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Bir terimi veya kısaltmayı vurgulayın',
+  'fabric.editor.ai.selectionToolbar.define.title': 'Tanımla',
   'fabric.editor.alignCenter': 'Ortaya hizala',
   'fabric.editor.alignImageCenter': 'Ortaya hizala',
   'fabric.editor.alignImageLeft': 'Sola hizala',

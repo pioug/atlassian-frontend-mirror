@@ -147,6 +147,7 @@ export type FeatureFlags = {
 	twoLineEditorToolbar?: boolean;
 
 	/**
+	 * @deprecated
 	 * @description
 	 * Enable new collab service
 	 * @see https://product-fabric.atlassian.net/browse/ED-14097

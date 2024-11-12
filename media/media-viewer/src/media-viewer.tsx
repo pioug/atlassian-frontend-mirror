@@ -16,6 +16,7 @@ import { type MediaViewerExtensions } from './components/types';
 import { mediaViewerPopupClass } from './classnames';
 import ScrollLock from 'react-scrolllock';
 import FocusLock from 'react-focus-lock';
+import { type ViewerOptionsProps } from './viewerOptions';
 
 export type Props = {
 	onClose?: () => void;
@@ -25,6 +26,7 @@ export type Props = {
 	extensions?: MediaViewerExtensions;
 	contextId?: string;
 	innerRef?: React.Ref<HTMLDivElement>;
+	viewerOptions?: ViewerOptionsProps;
 };
 
 const MediaViewerComponent = ({
@@ -36,6 +38,7 @@ const MediaViewerComponent = ({
 	onClose,
 	selectedItem,
 	intl,
+	viewerOptions,
 }: Props & WrappedComponentProps) => {
 	const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 	const [selectedIdentifier, setSelectedIdentifier] = useState<Identifier>();
@@ -97,6 +100,7 @@ const MediaViewerComponent = ({
 						isSidebarVisible={isSidebarVisible}
 						contextId={contextId}
 						featureFlags={featureFlags}
+						viewerOptions={viewerOptions}
 					/>
 				</Content>
 				{renderSidebar()}

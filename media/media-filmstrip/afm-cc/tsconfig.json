@@ -30,6 +30,9 @@
             "path": "../../media-common/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../media-viewer/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/theme/afm-cc/tsconfig.json"
         },
         {

@@ -39,9 +39,9 @@ const Blanket = ({ isTinted, onBlanketClicked, style }: BlanketProps) => {
 		<div
 			role="presentation"
 			css={blanketStyles}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={
 				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Pass-through style props are not allowed
 					...style,
 					backgroundColor: isTinted ? token('color.blanket', N100A) : 'transparent',
 				} as React.CSSProperties

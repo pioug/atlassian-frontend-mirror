@@ -56,7 +56,14 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 	);
 
 	const getFeatureFlagsFromRef = useCallback(() => {
-		return createFeatureFlagsFromProps(propsRef.current);
+		return {
+			...createFeatureFlagsFromProps(propsRef.current.featureFlags),
+			useNativeCollabPlugin: Boolean(
+				typeof propsRef.current.collabEdit?.useNativePlugin === 'boolean'
+					? !!propsRef.current.collabEdit?.useNativePlugin
+					: false,
+			),
+		};
 	}, []);
 
 	const onEditorCreated = useCallback(

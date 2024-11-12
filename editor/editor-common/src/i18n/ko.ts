@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': '이미지, 동영상 또는 파일 추가',
   'fabric.editor.addRowAbove': '위에 행 추가',
   'fabric.editor.addRowBelow': '아래에 행 추가',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': '용어, 머리글자어 또는 약어를 강조 표시합니다',
+  'fabric.editor.ai.selectionToolbar.define.title': '정의',
   'fabric.editor.alignCenter': '가운데 정렬',
   'fabric.editor.alignImageCenter': '가운데 정렬',
   'fabric.editor.alignImageLeft': '왼쪽 정렬',

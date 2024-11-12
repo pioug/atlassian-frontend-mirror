@@ -125,6 +125,7 @@ export enum ACTION {
 	RENDERED = 'rendered',
 	ON_EDITOR_READY_CALLBACK = 'onEditorReadyCallback',
 	ON_CHANGE_CALLBACK = 'onChangeCalled',
+	NESTED_TABLE_TRANSFORMED = 'nestedTableTransformed',
 	NEW_COLLAB_SYNC_UP_ERROR_NO_STEPS = 'newCollabSyncUpErrorNoSteps',
 	REMOVE_ICON = 'removedIcon',
 	INVALID_PROSEMIRROR_DOCUMENT = 'invalidProsemirrorDocument',

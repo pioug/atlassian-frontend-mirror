@@ -1,6 +1,6 @@
 import React, { type PropsWithChildren, useEffect, useCallback, useState } from 'react';
 
-import UFOInteractionIgnore from '@atlaskit/ufo-interaction-ignore';
+import UFOInteractionIgnore from '@atlaskit/react-ufo/interaction-ignore';
 
 import getDocument from './document';
 

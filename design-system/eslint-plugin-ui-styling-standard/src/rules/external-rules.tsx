@@ -90,19 +90,6 @@ export const externalRules: ExternalRuleMeta[] = [
 		},
 	},
 	{
-		name: '@compiled/no-js-xcss',
-		displayName: 'no-js-xcss',
-		isExternal: true,
-		docs: {
-			description: 'Disallows using xcss prop inside JavaScript files.',
-			url: getRuleUrl('no-js-xcss'),
-			externalUrl:
-				'https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/no-js-xcss',
-			recommended: true,
-			severity: 'error',
-		},
-	},
-	{
 		name: '@atlaskit/design-system/no-empty-styled-expression',
 		displayName: 'no-empty-styled-expression',
 		isExternal: true,
@@ -131,24 +118,6 @@ export const externalRules: ExternalRuleMeta[] = [
 			severity: 'error',
 			pluginConfig: {
 				allowedFunctionCalls: [['@atlaskit/tokens', 'token']],
-			},
-		},
-	},
-	{
-		name: '@compiled/jsx-pragma',
-		displayName: 'jsx-pragma',
-		isExternal: true,
-		docs: {
-			description: 'Ensures that the Compiled JSX pragma is set when using Compiled',
-			url: getRuleUrl('jsx-pragma'),
-			externalUrl:
-				'https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/jsx-pragma',
-			recommended: true,
-			severity: 'error',
-			pluginConfig: {
-				runtime: 'classic',
-				onlyRunIfImportingCompiled: true,
-				importSources: ['@atlaskit/css'],
 			},
 		},
 	},

@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 94.17.1
+
+### Patch Changes
+
+- [#162141](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162141)
+  [`e292090371d60`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e292090371d60) -
+  migrate expand chevron to new icon
+
+## 94.17.0
+
+### Minor Changes
+
+- [#162388](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162388)
+  [`ac57b50211fdc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac57b50211fdc) -
+  add 'clamped' option to resizer prop HandleSize which uses CSS to alter height of handle, add
+  logic to ensure handles are visible when selection is inside node
+- [#162298](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162298)
+  [`f5893b7270927`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5893b7270927) -
+  ED-25498 Integrate transformNestedTablesIncomingDocument with Editor and Renderer to transform
+  nested table extensions
+
+## 94.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 94.16.0
 
 ### Minor Changes

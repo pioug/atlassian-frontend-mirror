@@ -247,25 +247,21 @@ export function createPlugin(
 				}
 
 				const { state } = view;
-				const analyticsPlugin = pluginInjectionApi?.analytics?.sharedState?.currentState();
-				const pasteTrackingEnabled = analyticsPlugin?.performanceTracking?.pasteTracking?.enabled;
 
-				if (pasteTrackingEnabled) {
-					const content = getContentNodeTypes(slice.content);
-					const pasteId = uuid();
-					const measureName = `${PASTE}_${pasteId}`;
-					measureRender(measureName, ({ duration, distortedDuration }) => {
-						const payload = createPasteMeasurePayload({
-							view,
-							duration,
-							content,
-							distortedDuration,
-						});
-						if (payload) {
-							dispatchAnalyticsEvent(payload);
-						}
+				const content = getContentNodeTypes(slice.content);
+				const pasteId = uuid();
+				const measureName = `${PASTE}_${pasteId}`;
+				measureRender(measureName, ({ duration, distortedDuration }) => {
+					const payload = createPasteMeasurePayload({
+						view,
+						duration,
+						content,
+						distortedDuration,
 					});
-				}
+					if (payload) {
+						dispatchAnalyticsEvent(payload);
+					}
+				});
 				// creating a custom dispatch because we want to add a meta whenever we do a paste.
 				const dispatch = (tr: Transaction) => {
 					// https://product-fabric.atlassian.net/browse/ED-12633

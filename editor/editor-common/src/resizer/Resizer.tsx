@@ -91,6 +91,8 @@ export type ResizerProps = {
 	handlePositioning?: HandlePositioning;
 	/**
 	 * The handleSize is used to determine the width/height of the handle element.
+	 *
+	 * **To be deprecated** and replaced with 'clamped' by default
 	 */
 	handleSize?: HandleSize;
 	/**

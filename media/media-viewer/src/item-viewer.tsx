@@ -8,6 +8,7 @@ import {
 	type ExternalImageIdentifier,
 	type NonErrorFileState,
 } from '@atlaskit/media-client';
+import { Text } from '@atlaskit/primitives';
 import { FormattedMessage } from 'react-intl-next';
 import { messages, type WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
@@ -39,6 +40,8 @@ import {
 } from './analytics/ufoExperiences';
 import { type FileStateFlags } from './components/types';
 import type { SvgViewerProps } from './viewers/svg';
+import { type ViewerOptionsProps } from './viewerOptions';
+import { CustomViewer } from './viewers/customViewer/customViewer';
 
 const ImageViewer = Loadable({
 	loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
@@ -91,6 +94,7 @@ export type Props = Readonly<{
 	previewCount: number;
 	contextId?: string;
 	featureFlags?: MediaFeatureFlags;
+	viewerOptions?: ViewerOptionsProps;
 }> &
 	WithAnalyticsEventsProps &
 	WithShowControlMethodProp;
@@ -115,6 +119,7 @@ export const ItemViewerBase = ({
 	previewCount,
 	contextId,
 	createAnalyticsEvent,
+	viewerOptions,
 }: Props): React.ReactElement | null => {
 	// States and Refs
 	const [item, setItem] = useState<State>(Outcome.pending());
@@ -231,7 +236,22 @@ export const ItemViewerBase = ({
 			collectionName,
 			onClose,
 			previewCount,
+			viewerOptions,
 		};
+
+		const customRenderer = viewerOptions?.customRenderers?.find((renderer) =>
+			renderer.shouldUseCustomRenderer({ fileItem }),
+		);
+		if (customRenderer) {
+			return (
+				<CustomViewer
+					customRendererConfig={customRenderer}
+					onError={onLoadFail}
+					onSuccess={onSuccess}
+					{...viewerProps}
+				/>
+			);
+		}
 
 		// TODO: fix all of the item errors
 
@@ -315,9 +335,9 @@ export const ItemViewerBase = ({
 						fileStateFlags={fileStateFlagsRef.current}
 						traceContext={traceContext.current}
 					>
-						<p>
+						<Text>
 							<FormattedMessage {...messages.try_downloading_file} />
-						</p>
+						</Text>
 						{renderDownloadButton(fileState, error)}
 					</ErrorMessage>
 				);

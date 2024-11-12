@@ -3,13 +3,15 @@ import {
 	transformIndentationMarks,
 	transformInvalidMediaContent,
 	transformMediaLinkMarks,
+	transformNestedTablesIncomingDocument,
 	transformNodesMissingContent,
 	transformTextLinkCodeMarks,
 } from '@atlaskit/adf-utils/transforms';
-import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Node } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
@@ -24,7 +26,45 @@ interface NodeType {
 	[key: string]: any;
 }
 
-export function processRawValueWithoutTransformation(schema: Schema, value?: ReplaceRawValue) {
+const transformNestedTablesWithAnalytics = (
+	node: ADFEntity,
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+): { transformedAdf: ADFEntity; isTransformed: boolean } => {
+	try {
+		const { transformedAdf, isTransformed } = transformNestedTablesIncomingDocument(node);
+
+		if (isTransformed && dispatchAnalyticsEvent) {
+			dispatchAnalyticsEvent({
+				action: ACTION.NESTED_TABLE_TRANSFORMED,
+				actionSubject: ACTION_SUBJECT.EDITOR,
+				eventType: EVENT_TYPE.OPERATIONAL,
+			});
+
+			return { transformedAdf, isTransformed };
+		}
+	} catch (e) {
+		// eslint-disable-next-line no-console
+		console.error('Failed to transform one or more nested tables in the document');
+		if (dispatchAnalyticsEvent) {
+			dispatchAnalyticsEvent({
+				action: ACTION.DOCUMENT_PROCESSING_ERROR,
+				actionSubject: ACTION_SUBJECT.EDITOR,
+				eventType: EVENT_TYPE.OPERATIONAL,
+				attributes: {
+					errorMessage: 'Failed to transform one or more nested tables in the document',
+				},
+			});
+		}
+	}
+
+	return { transformedAdf: node, isTransformed: false };
+};
+
+export function processRawValueWithoutValidation(
+	schema: Schema,
+	value?: ReplaceRawValue,
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+) {
 	if (!value) {
 		return;
 	}
@@ -42,9 +82,18 @@ export function processRawValueWithoutTransformation(schema: Schema, value?: Rep
 	} else {
 		node = value;
 	}
-	const parsedDoc = Node.fromJSON(schema, node);
 
-	return parsedDoc;
+	if (fg('platform_editor_use_nested_table_pm_nodes')) {
+		// Convert nested-table extensions into nested tables
+		const { transformedAdf } = transformNestedTablesWithAnalytics(
+			node as ADFEntity,
+			dispatchAnalyticsEvent,
+		);
+
+		return Node.fromJSON(schema, transformedAdf);
+	} else {
+		return Node.fromJSON(schema, node);
+	}
 }
 
 export function processRawValue(
@@ -130,7 +179,7 @@ export function processRawValue(
 			});
 		}
 
-		let discardedMarks = [];
+		let discardedMarks: ADFEntityMark[] = [];
 		({ transformedAdf, isTransformed, discardedMarks } = transformDedupeMarks(
 			transformedAdf as ADFEntity,
 		));
@@ -181,6 +230,14 @@ export function processRawValue(
 				actionSubject: ACTION_SUBJECT.EDITOR,
 				eventType: EVENT_TYPE.OPERATIONAL,
 			});
+		}
+
+		if (fg('platform_editor_use_nested_table_pm_nodes')) {
+			// Convert nested-table extensions into nested tables
+			({ transformedAdf } = transformNestedTablesWithAnalytics(
+				transformedAdf as ADFEntity,
+				dispatchAnalyticsEvent,
+			));
 		}
 
 		const entity: ADFEntity = validateADFEntity(

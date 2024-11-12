@@ -231,7 +231,9 @@ const HoverZone = ({
 	);
 };
 
-export const DropTargetV2 = (props: DropTargetProps & { anchorRectCache?: AnchorRectCache }) => {
+export const DropTargetV2 = (
+	props: DropTargetProps & { anchorRectCache?: AnchorRectCache; isSameLayout?: boolean },
+) => {
 	const {
 		api,
 		getPos,
@@ -241,6 +243,7 @@ export const DropTargetV2 = (props: DropTargetProps & { anchorRectCache?: Anchor
 		formatMessage,
 		anchorRectCache,
 		dropTargetStyle = 'default',
+		isSameLayout,
 	} = props;
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 
@@ -319,7 +322,7 @@ export const DropTargetV2 = (props: DropTargetProps & { anchorRectCache?: Anchor
 				/>
 			)}
 
-			{shouldAllowInlineDropTarget(isNestedDropTarget, nextNode) && (
+			{shouldAllowInlineDropTarget(isNestedDropTarget, nextNode, isSameLayout) && (
 				<Fragment>
 					<InlineDropTarget {...props} position="left" />
 					<InlineDropTarget {...props} position="right" />

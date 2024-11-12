@@ -10,7 +10,7 @@ import {
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { EditorViewStateUpdatedCallbackProps } from '../../types/editor-config';
@@ -20,10 +20,7 @@ import { freezeUnsafeTransactionProperties } from '../../utils/performance/safer
 import { EVENT_NAME_ON_CHANGE } from '../../utils/performance/track-transactions';
 import { validateNodes, validNode } from '../../utils/validateNodes';
 
-type DispatchTransaction = (
-	view: EditorView | undefined,
-	tr: Transaction,
-) => EditorState | undefined;
+type DispatchTransaction = (view: EditorView | undefined, tr: Transaction) => void;
 
 export const useDispatchTransaction = ({
 	onChange,
@@ -91,7 +88,6 @@ export const useDispatchTransaction = ({
 						});
 					});
 				}
-				return newEditorState;
 			} else {
 				const invalidNodes = nodes
 					.filter((node) => !validNode(node))

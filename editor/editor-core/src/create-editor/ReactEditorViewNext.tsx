@@ -30,7 +30,7 @@ import type {
 import { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
 import {
 	processRawValue,
-	processRawValueWithoutTransformation,
+	processRawValueWithoutValidation,
 } from '@atlaskit/editor-common/process-raw-value';
 import type {
 	ContextIdentifierProvider,
@@ -135,7 +135,13 @@ type ReactEditorViewPlugins = [
 function ReactEditorView(props: EditorViewProps) {
 	const {
 		preset,
-		editorProps: { appearance: nextAppearance, disabled },
+		editorProps: {
+			appearance: nextAppearance,
+			disabled,
+			featureFlags: editorPropFeatureFlags,
+			errorReporterHandler,
+			defaultValue,
+		},
 	} = props;
 	const [editorAPI, setEditorAPI] = useState<PublicPluginAPI<ReactEditorViewPlugins> | undefined>(
 		undefined,
@@ -160,11 +166,17 @@ function ReactEditorView(props: EditorViewProps) {
 		onEditorViewStateUpdatedCallbacks: [],
 	});
 	const contentTransformer = useRef<Transformer<string> | undefined>(undefined);
-	const featureFlags = useRef(createFeatureFlagsFromProps(props.editorProps));
+	const featureFlags = useMemo(
+		() => createFeatureFlagsFromProps(editorPropFeatureFlags),
+		[editorPropFeatureFlags],
+	);
 	const getEditorState = useCallback(() => viewRef.current?.state, []);
 	const getEditorView = useCallback(() => viewRef.current, []);
 	const dispatch = useMemo(() => createDispatch(eventDispatcher), [eventDispatcher]);
-	const errorReporter = useRef(createErrorReporter(props.editorProps.errorReporterHandler));
+	const errorReporter = useMemo(
+		() => createErrorReporter(errorReporterHandler),
+		[errorReporterHandler],
+	);
 
 	const handleAnalyticsEvent: FireAnalyticsCallback = useCallback(
 		(payload) => {
@@ -192,24 +204,6 @@ function ReactEditorView(props: EditorViewProps) {
 
 	useLayoutEffect(() => {
 		setEditorAPI(pluginInjectionAPI.current.api());
-	}, []);
-
-	const blur = useCallback(() => {
-		if (!viewRef.current) {
-			return;
-		}
-
-		if (viewRef.current.dom instanceof HTMLElement && viewRef.current.hasFocus()) {
-			viewRef.current.dom.blur();
-		}
-
-		// The selectionToDOM method uses the document selection to determine currently selected node
-		// We need to mimic blurring this as it seems doing the above is not enough.
-		// @ts-expect-error
-		const sel = (viewRef.current.root as DocumentOrShadowRoot).getSelection();
-		if (sel) {
-			sel.removeAllRanges();
-		}
 	}, []);
 
 	const createEditorState = useCallback(
@@ -247,14 +241,14 @@ function ReactEditorView(props: EditorViewProps) {
 			const plugins = createPMPlugins({
 				schema,
 				dispatch: dispatch,
-				errorReporter: errorReporter.current,
+				errorReporter: errorReporter,
 				editorConfig: config.current,
 				eventDispatcher: eventDispatcher,
 				providerFactory: options.props.providerFactory,
 				portalProviderAPI: props.portalProviderAPI,
 				nodeViewPortalProviderAPI: props.nodeViewPortalProviderAPI,
 				dispatchAnalyticsEvent: dispatchAnalyticsEvent,
-				featureFlags: featureFlags.current,
+				featureFlags,
 				getIntl: () => props.intl,
 			});
 
@@ -270,7 +264,7 @@ function ReactEditorView(props: EditorViewProps) {
 				// if the collabEdit API is set, skip this validation due to potential pm validation errors
 				// from docs that end up with invalid marks after processing (See #hot-111702 for more details)
 				if (api?.collabEdit !== undefined && fg('editor_load_conf_collab_docs_without_checks')) {
-					doc = processRawValueWithoutTransformation(schema, options.doc);
+					doc = processRawValueWithoutValidation(schema, options.doc, dispatchAnalyticsEvent);
 				} else {
 					doc = processRawValue(
 						schema,
@@ -313,6 +307,8 @@ function ReactEditorView(props: EditorViewProps) {
 			});
 		},
 		[
+			errorReporter,
+			featureFlags,
 			props.intl,
 			props.portalProviderAPI,
 			props.nodeViewPortalProviderAPI,
@@ -322,6 +318,41 @@ function ReactEditorView(props: EditorViewProps) {
 			dispatch,
 		],
 	);
+
+	const initialEditorState = useMemo(
+		() =>
+			createEditorState({
+				props,
+				doc: defaultValue,
+				// ED-4759: Don't set selection at end for full-page editor - should be at start.
+				selectionAtStart: isFullPage(nextAppearance),
+			}),
+		// This is only used for the initial state - afterwards we will have `viewRef` available for use
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[],
+	);
+
+	const getCurrentEditorState = useCallback(() => {
+		return viewRef.current?.state ?? initialEditorState;
+	}, [initialEditorState]);
+
+	const blur = useCallback(() => {
+		if (!viewRef.current) {
+			return;
+		}
+
+		if (viewRef.current.dom instanceof HTMLElement && viewRef.current.hasFocus()) {
+			viewRef.current.dom.blur();
+		}
+
+		// The selectionToDOM method uses the document selection to determine currently selected node
+		// We need to mimic blurring this as it seems doing the above is not enough.
+		// @ts-expect-error
+		const sel = (viewRef.current.root as DocumentOrShadowRoot).getSelection();
+		if (sel) {
+			sel.removeAllRanges();
+		}
+	}, []);
 
 	const resetEditorState = useCallback(
 		({ doc, shouldScrollToBottom }: { doc: string; shouldScrollToBottom: boolean }) => {
@@ -334,15 +365,12 @@ function ReactEditorView(props: EditorViewProps) {
 			// nodes that haven't been re-rendered to the document yet.
 			blur();
 
-			featureFlags.current = createFeatureFlagsFromProps(props.editorProps);
-
 			const newEditorState = createEditorState({
 				props: props,
 				doc: doc,
 				resetting: true,
 				selectionAtStart: !shouldScrollToBottom,
 			});
-			editorState.current = newEditorState;
 			viewRef.current.updateState(newEditorState);
 			props.editorProps.onChange?.(viewRef.current, { source: 'local' });
 		},
@@ -357,7 +385,7 @@ function ReactEditorView(props: EditorViewProps) {
 			actionSubject: ACTION_SUBJECT.EDITOR,
 			attributes: {
 				platform: PLATFORMS.WEB,
-				featureFlags: featureFlags.current ? getEnabledFeatureFlagKeys(featureFlags.current) : [],
+				featureFlags: featureFlags ? getEnabledFeatureFlagKeys(featureFlags) : [],
 			},
 			eventType: EVENT_TYPE.UI,
 		});
@@ -418,19 +446,19 @@ function ReactEditorView(props: EditorViewProps) {
 
 			config.current = processPluginsList(editorPlugins);
 
-			const state = editorState.current;
+			const state = viewRef.current.state;
 
 			const plugins = createPMPlugins({
 				schema: state.schema,
 				dispatch: dispatch,
-				errorReporter: errorReporter.current,
+				errorReporter: errorReporter,
 				editorConfig: config.current,
 				eventDispatcher: eventDispatcher,
 				providerFactory: props.providerFactory,
 				portalProviderAPI: props.portalProviderAPI,
 				nodeViewPortalProviderAPI: props.nodeViewPortalProviderAPI,
 				dispatchAnalyticsEvent: dispatchAnalyticsEvent,
-				featureFlags: createFeatureFlagsFromProps(props.editorProps),
+				featureFlags,
 				getIntl: () => props.intl,
 			});
 
@@ -442,7 +470,7 @@ function ReactEditorView(props: EditorViewProps) {
 
 			return viewRef.current.update({ ...viewRef.current.props, state: newState });
 		},
-		[blur, dispatchAnalyticsEvent, eventDispatcher, dispatch],
+		[blur, dispatchAnalyticsEvent, eventDispatcher, dispatch, errorReporter, featureFlags],
 	);
 
 	const onEditorViewUpdated = useCallback(
@@ -496,16 +524,13 @@ function ReactEditorView(props: EditorViewProps) {
 	const getDirectEditorProps = useCallback(
 		(state?: EditorState): DirectEditorProps => {
 			return {
-				state: state || editorState.current,
+				state: state ?? getCurrentEditorState(),
 				dispatchTransaction: (tr: Transaction) => {
 					// Block stale transactions:
 					// Prevent runtime exeptions from async transactions that would attempt to
 					// update the DOM after React has unmounted the Editor.
 					if (canDispatchTransactions.current) {
-						const newState = dispatchTransaction(viewRef.current, tr);
-						if (newState) {
-							editorState.current = newState;
-						}
+						dispatchTransaction(viewRef.current, tr);
 					}
 				},
 				// Disables the contentEditable attribute of the editor if the editor is disabled
@@ -513,7 +538,7 @@ function ReactEditorView(props: EditorViewProps) {
 				attributes: { 'data-gramm': 'false' },
 			};
 		},
-		[dispatchTransaction, disabled],
+		[dispatchTransaction, disabled, getCurrentEditorState],
 	);
 
 	const createEditorView = useCallback(
@@ -682,16 +707,7 @@ function ReactEditorView(props: EditorViewProps) {
 
 	useFireFullWidthEvent(nextAppearance, dispatchAnalyticsEvent);
 
-	const editorState = useRef(
-		createEditorState({
-			props,
-			doc: props.editorProps.defaultValue,
-			// ED-4759: Don't set selection at end for full-page editor - should be at start.
-			selectionAtStart: isFullPage(props.editorProps.appearance),
-		}),
-	);
-
-	usePluginPerformanceObserver(editorState, pluginInjectionAPI, dispatchAnalyticsEvent);
+	usePluginPerformanceObserver(getCurrentEditorState, pluginInjectionAPI, dispatchAnalyticsEvent);
 
 	const editor = useMemo(
 		() => createEditor(props.editorProps.assistiveLabel, props.editorProps.assistiveDescribedBy),

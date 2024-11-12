@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.17.0
+
+### Minor Changes
+
+- [#162388](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162388)
+  [`20e29525ca817`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20e29525ca817) -
+  refactor: use React.lazy instead of react-loadable for config-panel header icon
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.16.0
 
 ### Minor Changes

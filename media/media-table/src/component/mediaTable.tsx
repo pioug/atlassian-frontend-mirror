@@ -259,7 +259,7 @@ export class MediaTable extends Component<
 
 	private renderMediaViewer = (): React.ReactPortal | null => {
 		const { mediaViewerSelectedItem } = this.state;
-		const { mediaClient, items } = this.props;
+		const { mediaClient, items, viewerOptions } = this.props;
 
 		if (!mediaViewerSelectedItem) {
 			return null;
@@ -276,6 +276,7 @@ export class MediaTable extends Component<
 				selectedItem={mediaViewerSelectedItem}
 				onClose={this.onMediaViewerClose}
 				collectionName={collectionName}
+				viewerOptions={viewerOptions}
 			/>,
 			document.body,
 		);

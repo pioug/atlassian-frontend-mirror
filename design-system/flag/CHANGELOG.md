@@ -1,5 +1,14 @@
 # @atlaskit/flag
 
+## 15.8.8
+
+### Patch Changes
+
+- [#162319](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162319)
+  [`2ac6ec33aa35a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ac6ec33aa35a) -
+  Added aria-hidden to title and description when delayAnnouncement enabled to avoid duplicate
+  announcement. Also removed condition for role alert
+
 ## 15.8.7
 
 ### Patch Changes

@@ -60,7 +60,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/media-core": "^34.3.0",
-		"@atlaskit/media-test-helpers": "^34.5.0",
+		"@atlaskit/media-test-helpers": "^34.6.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",

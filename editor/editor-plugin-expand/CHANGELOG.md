@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.10.1
+
+### Patch Changes
+
+- [#162141](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162141)
+  [`e292090371d60`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e292090371d60) -
+  migrate expand chevron to new icon
+
 ## 2.10.0
 
 ### Minor Changes

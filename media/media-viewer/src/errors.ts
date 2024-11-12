@@ -69,7 +69,8 @@ export type MediaViewerErrorReason =
 	| 'svg-img-error'
 	| 'svg-binary-fetch'
 	| 'svg-unknown-error'
-	| 'unsupported';
+	| 'unsupported'
+	| 'custom-viewer-error';
 
 export type ArchiveViewerErrorReason =
 	| 'archiveviewer-bundle-loader'
@@ -83,7 +84,8 @@ export type ArchiveViewerErrorReason =
 	| 'archiveviewer-codeviewer-file-size-exceeds'
 	| 'archiveviewer-missing-name-src'
 	| 'archiveviewer-unsupported'
-	| 'archiveviewer-encrypted-entry';
+	| 'archiveviewer-encrypted-entry'
+	| 'archiveviewer-customrenderer-onerror';
 
 export type PrimaryErrorReason = MediaViewerErrorReason | ArchiveViewerErrorReason;
 

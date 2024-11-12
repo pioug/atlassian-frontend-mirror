@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.2.1
+
+### Patch Changes
+
+- [#162445](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162445)
+  [`19a11c825b2fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19a11c825b2fe) -
+  enable additional performance marks in performance tab
+
 ## 2.2.0
 
 ### Minor Changes

@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': 'Afbeelding, video of bestand toevoegen',
   'fabric.editor.addRowAbove': 'Rij hierboven toevoegen',
   'fabric.editor.addRowBelow': 'Rij hieronder toevoegen',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Een term, acroniem of afkorting markeren',
+  'fabric.editor.ai.selectionToolbar.define.title': 'Definiëren',
   'fabric.editor.alignCenter': 'Uitlijnen centreren',
   'fabric.editor.alignImageCenter': 'Uitlijnen centreren',
   'fabric.editor.alignImageLeft': 'Links uitlijnen',

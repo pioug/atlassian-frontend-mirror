@@ -9,18 +9,14 @@ describe('Feature Flags from Props', () => {
 
 		it('should default errorBoundaryDocStructure to true if FF is passed to true', () => {
 			const flags = createFeatureFlagsFromProps({
-				featureFlags: {
-					useErrorBoundaryDocStructure: true,
-				},
+				useErrorBoundaryDocStructure: true,
 			});
 			expect(flags.errorBoundaryDocStructure).toBe(true);
 		});
 
 		it('should default errorBoundaryDocStructure to false if FF is passed to false', () => {
 			const flags = createFeatureFlagsFromProps({
-				featureFlags: {
-					useErrorBoundaryDocStructure: false,
-				},
+				useErrorBoundaryDocStructure: false,
 			});
 			expect(flags.errorBoundaryDocStructure).toBe(false);
 		});
@@ -30,10 +26,8 @@ describe('Feature Flags from Props', () => {
 		it('should merge mapFeatureFlagsProp result', () => {
 			expect(
 				createFeatureFlagsFromProps({
-					featureFlags: {
-						a: true,
-						b: false,
-					},
+					a: true,
+					b: false,
 				}),
 			).toEqual(
 				expect.objectContaining({
@@ -46,19 +40,17 @@ describe('Feature Flags from Props', () => {
 		it('should retain existing mappings', () => {
 			expect(
 				createFeatureFlagsFromProps({
-					featureFlags: {
-						newInsertionBehaviour: true,
-						interactiveExpand: true,
-						placeholderBracketHint: true,
-						findReplace: true,
-						findReplaceMatchCase: true,
-						extensionLocalIdGeneration: true,
-						addColumnWithCustomStep: true,
-						undoRedoButtons: true,
-						catchAllTracking: true,
-						showAvatarGroupAsPlugin: false,
-						twoLineEditorToolbar: false,
-					},
+					newInsertionBehaviour: true,
+					interactiveExpand: true,
+					placeholderBracketHint: true,
+					findReplace: true,
+					findReplaceMatchCase: true,
+					extensionLocalIdGeneration: true,
+					addColumnWithCustomStep: true,
+					undoRedoButtons: true,
+					catchAllTracking: true,
+					showAvatarGroupAsPlugin: false,
+					twoLineEditorToolbar: false,
 				}),
 			).toEqual(createFeatureFlagsFromProps({}));
 		});
@@ -68,9 +60,7 @@ describe('Feature Flags from Props', () => {
 		it('should add the FF value', () => {
 			expect(
 				createFeatureFlagsFromProps({
-					featureFlags: {
-						synchronyErrorDocStructure: true,
-					},
+					synchronyErrorDocStructure: true,
 				}),
 			).toEqual(
 				expect.objectContaining({

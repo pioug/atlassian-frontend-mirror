@@ -346,4 +346,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2024-11-06
+	platform_editor_ai_change_tone_floating_toolbar: {
+		productKeys: {
+			confluence: 'platform_editor_ai_change_tone_floating_toolbar',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

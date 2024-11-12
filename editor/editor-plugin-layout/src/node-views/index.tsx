@@ -27,11 +27,13 @@ const LayoutBreakoutResizer = ({
 	forwardRef,
 	getPos,
 	view,
+	parentRef,
 }: {
 	view: EditorView;
 	getPos: getPosHandlerNode;
 	pluginInjectionApi?: ExtractInjectionAPI<LayoutPlugin>;
 	forwardRef: ForwardRef;
+	parentRef?: HTMLElement;
 }) => {
 	const { editorDisabledState } = useSharedPluginState(pluginInjectionApi, ['editorDisabled']);
 
@@ -44,9 +46,10 @@ const LayoutBreakoutResizer = ({
 			getRef={forwardRef}
 			getPos={getPos}
 			editorView={view}
-			node="layoutSection"
+			nodeType="layoutSection"
 			getEditorWidth={getEditorWidth}
 			disabled={editorDisabledState?.editorDisabled === true}
+			parentRef={parentRef}
 		/>
 	);
 };
@@ -98,6 +101,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 				forwardRef={forwardRef}
 				getPos={props.getPos}
 				view={props.view}
+				parentRef={this.layoutDOM}
 			/>
 		);
 	}

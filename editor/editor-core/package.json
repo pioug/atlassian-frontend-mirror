@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "201.1.12",
+	"version": "201.2.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^94.16.0",
+		"@atlaskit/editor-common": "^94.17.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.7.0",
 		"@atlaskit/editor-plugins": "^5.6.0",
@@ -51,7 +51,7 @@
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/emoji": "^67.9.0",
 		"@atlaskit/icon": "^22.24.0",
-		"@atlaskit/media-card": "^78.11.0",
+		"@atlaskit/media-card": "^78.12.0",
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
@@ -92,10 +92,10 @@
 		"@atlaskit/logo": "^14.3.0",
 		"@atlaskit/media-core": "^34.3.0",
 		"@atlaskit/media-integration-test-helpers": "^3.1.0",
-		"@atlaskit/media-test-helpers": "^34.5.0",
+		"@atlaskit/media-test-helpers": "^34.6.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/primitives": "^13.1.0",
-		"@atlaskit/renderer": "^112.4.0",
+		"@atlaskit/renderer": "^112.5.0",
 		"@atlaskit/smart-card": "^30.2.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.4.0",
@@ -323,6 +323,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_expand_auto_scroll": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

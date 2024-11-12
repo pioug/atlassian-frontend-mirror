@@ -50,6 +50,7 @@ export const MediaViewerBase = ({
 	items,
 	extensions,
 	contextId,
+	viewerOptions,
 }: MediaViewerProps) => {
 	const { items: normalisedItems, selectedItem: normalisedSelectedItem } = useMemo(
 		() => normaliseItems(items, selectedItem, collectionName),
@@ -86,6 +87,7 @@ export const MediaViewerBase = ({
 			featureFlags={featureFlags}
 			extensions={extensions}
 			contextId={contextId}
+			viewerOptions={viewerOptions}
 		/>
 	);
 };

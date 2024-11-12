@@ -1,8 +1,10 @@
 import memoizeOne from 'memoize-one';
 
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+
+import { isPreRelease2 } from '../utils/advanced-layouts-flags';
 
 export const isInsideTable = (nodeType: NodeType): Boolean => {
 	const { tableCell, tableHeader } = nodeType.schema.nodes;
@@ -23,6 +25,19 @@ export const isExpand = (nodeType: NodeType): Boolean => {
 
 export const isNestedExpand = (nodeType: NodeType): Boolean => {
 	return nodeType === nodeType.schema.nodes.nestedExpand;
+};
+
+export const isInSameLayout = ($from: ResolvedPos, $to: ResolvedPos) => {
+	const fromNode = $from.nodeAfter;
+	const toNode = $to.nodeAfter;
+	return !!(
+		fromNode &&
+		toNode &&
+		fromNode.type.name === 'layoutColumn' &&
+		['layoutSection', 'layoutColumn'].includes(toNode.type.name) &&
+		// fromNode can either be in the same layoutSection as toNode or is a layoutColumn inside the toNode (type layoutSection)
+		($from.sameParent($to) || $from.parent === toNode)
+	);
 };
 
 /**
@@ -71,7 +86,21 @@ export const memoizedTransformExpandToNestedExpand = memoizeOne((node: PMNode) =
 	}
 });
 
-export function canMoveNodeToIndex(destParent: PMNode, indexIntoParent: number, srcNode: PMNode) {
+export function canMoveNodeToIndex(
+	destParent: PMNode,
+	indexIntoParent: number,
+	srcNode: PMNode,
+	destNode?: PMNode,
+) {
+	if (
+		isPreRelease2() &&
+		// Allow drag layout column and drop into layout section
+		srcNode.type.name === 'layoutColumn' &&
+		destNode?.type.name === 'layoutSection'
+	) {
+		return true;
+	}
+
 	let srcNodeType = srcNode.type;
 
 	const parentNodeType = destParent?.type.name;

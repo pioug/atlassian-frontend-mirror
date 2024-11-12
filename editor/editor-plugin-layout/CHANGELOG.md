@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.12.0
+
+### Minor Changes
+
+- [#162388](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162388)
+  [`ac57b50211fdc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac57b50211fdc) -
+  add 'clamped' option to resizer prop HandleSize which uses CSS to alter height of handle, add
+  logic to ensure handles are visible when selection is inside node
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.11.1
 
 ### Patch Changes

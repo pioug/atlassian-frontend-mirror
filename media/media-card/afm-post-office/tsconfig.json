@@ -76,9 +76,6 @@
 			"path": "../../../data/ufo-external/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../../react-ufo/ufo-interaction-ignore/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/visually-hidden/afm-post-office/tsconfig.json"
 		}
 	]

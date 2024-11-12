@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': 'Додати зображення, відео або файл',
   'fabric.editor.addRowAbove': 'Додати рядок угорі',
   'fabric.editor.addRowBelow': 'Додати рядок знизу',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Позначте термін, акронім або абревіатуру',
+  'fabric.editor.ai.selectionToolbar.define.title': 'Визначити',
   'fabric.editor.alignCenter': 'Вирівнювання по центру',
   'fabric.editor.alignImageCenter': 'Вирівнювання по центру',
   'fabric.editor.alignImageLeft': 'Вирівнювання по лівому краю',

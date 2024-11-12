@@ -5,7 +5,7 @@ import prerequisites from '../prerequisites';
 
 export default customMd`
 
-Smart Link is lazy-loading by default. To bypass [React lazy(load)](https://react.dev/reference/react/lazy) in \`Card\`, use \`CardSSR\` from \`/ssr\` [entrypoint](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/linking-platform/smart-card/src/ssr.tsx).
+Smart Link is lazy-loading by default. To bypass [React lazy(load)](https://react.dev/reference/react/lazy) in \`Card\`, use \`CardSSR\` from \`/ssr\` [entrypoint](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/edc5ac5ccd46946bb17e59d01260dd5002580206/linking-platform/smart-card/src/ssr.tsx).
 \`CardSSR\` has been fully integrated with \`inline\` appearance.
 
 &nbsp;

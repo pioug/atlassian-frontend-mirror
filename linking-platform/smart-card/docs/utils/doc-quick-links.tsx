@@ -2,6 +2,11 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
+import BacklogIcon from '@atlaskit/icon/core/backlog';
+import CommentIcon from '@atlaskit/icon/core/comment';
+import LinkIcon from '@atlaskit/icon/core/link';
+import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
 import PageIcon from '@atlaskit/icon/core/migration/page';
 import TeamsIcon from '@atlaskit/icon/core/migration/teams';
@@ -9,12 +14,12 @@ import MinusIcon from '@atlaskit/icon/core/minus';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import SmartLinkEmbedIcon from '@atlaskit/icon/core/smart-link-embed';
 import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
+import SmartLinkListIcon from '@atlaskit/icon/core/smart-link-list';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { navigateToUrl, toAbsolutePath } from './index';
+import { navigateToUrl, toAbsolutePath, toPackagePath } from './index';
 
 const styles = xcss({ textAlign: 'right' });
-
 const DocQuickLinks = () => (
 	<Box paddingBlock="space.100" xcss={styles}>
 		<DropdownMenu<HTMLButtonElement>
@@ -29,12 +34,12 @@ const DocQuickLinks = () => (
 		>
 			<DropdownItemGroup hasSeparator>
 				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./intro'))}>
-					Overview
+					@ataskit/smart-card
 				</DropdownItem>
 			</DropdownItemGroup>
 			<DropdownItemGroup hasSeparator>
 				<DropdownItem
-					description="Start here for Smart Link"
+					description="Start here for Smart Links"
 					onClick={() => navigateToUrl(toAbsolutePath('./card'))}
 				>
 					Card
@@ -61,54 +66,101 @@ const DocQuickLinks = () => (
 					Embed
 				</DropdownItem>
 				<DropdownItem
-					description="Composable Smart Link"
+					elemBefore={<BacklogIcon label="" />}
+					description="Composable Smart Links"
 					onClick={() => navigateToUrl(toAbsolutePath('./flexible-card'))}
 				>
 					Flexible
 				</DropdownItem>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./card-actions'))}>
+				<DropdownItem
+					description="Interactions such as preview, copy link, etc."
+					onClick={() => navigateToUrl(toAbsolutePath('./card-actions'))}
+				>
 					Card actions
 				</DropdownItem>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./card-in-editor'))}>
+				<DropdownItem
+					description="Smart Links inside Fabric Editor"
+					onClick={() => navigateToUrl(toAbsolutePath('./card-in-editor'))}
+				>
 					Card in Editor
 				</DropdownItem>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./card-ssr'))}>
+				<DropdownItem
+					description="Non-lazyload Smart Links"
+					onClick={() => navigateToUrl(toAbsolutePath('./card-ssr'))}
+				>
 					CardSSR
 				</DropdownItem>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./handle-errors'))}>
+				<DropdownItem
+					description="Error handling and fallback component"
+					onClick={() => navigateToUrl(toAbsolutePath('./handle-errors'))}
+				>
 					Handle errors
 				</DropdownItem>
 			</DropdownItemGroup>
 			<DropdownItemGroup hasSeparator>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./hover-card'))}>
+				<DropdownItem
+					elemBefore={<CommentIcon label="" />}
+					description="Standalone Hover Preview"
+					onClick={() => navigateToUrl(toAbsolutePath('./hover-card'))}
+				>
 					HoverCard
 				</DropdownItem>
 			</DropdownItemGroup>
 			<DropdownItemGroup hasSeparator>
 				<DropdownItem
 					elemBefore={<MinusIcon label="" />}
+					description="Hyperlink with built-in safety check"
 					onClick={() => navigateToUrl(toAbsolutePath('./link-url'))}
 				>
 					LinkUrl
 				</DropdownItem>
 			</DropdownItemGroup>
 			<DropdownItemGroup hasSeparator>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./hooks'))}>Hooks</DropdownItem>
+				<DropdownItem
+					description="Utilities React hooks"
+					onClick={() => navigateToUrl(toAbsolutePath('./hooks'))}
+				>
+					Hooks
+				</DropdownItem>
+				<DropdownItem
+					description="Analytics events, dashboards"
+					onClick={() => navigateToUrl(toAbsolutePath('./analytics'))}
+				>
+					Analytics
+				</DropdownItem>
 			</DropdownItemGroup>
 			<DropdownItemGroup hasSeparator>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./provider'))}>
-					SmartCardProvider
+				<DropdownItem
+					description="SmartCardProvider, CardClient"
+					elemAfter={<LinkExternalIcon label="Open in new tab" />}
+					elemBefore={<AngleBracketsIcon label="" />}
+					onClick={() => navigateToUrl(toPackagePath('linking-platform', 'link-provider'))}
+				>
+					Link provider
 				</DropdownItem>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./client'))}>
-					CardClient
+				<DropdownItem
+					elemAfter={<LinkExternalIcon label="Open in new tab" />}
+					elemBefore={<SmartLinkListIcon label="" />}
+					description="List of links (Jira issues, Confluence list)"
+					onClick={() => navigateToUrl(toPackagePath('linking-platform', 'link-datasource'))}
+					target="_blank"
+				>
+					Link datasource
 				</DropdownItem>
-				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./analytics'))}>
-					Analytics
-				</DropdownItem>{' '}
+				<DropdownItem
+					elemAfter={<LinkExternalIcon label="Open in new tab" />}
+					elemBefore={<LinkIcon label="" />}
+					description="Insert links"
+					onClick={() => navigateToUrl(toPackagePath('linking-platform', 'link-picker'))}
+					target="_blank"
+				>
+					Link picker
+				</DropdownItem>
 			</DropdownItemGroup>
 			<DropdownItemGroup hasSeparator>
 				<DropdownItem
 					description="Questions and feedback"
+					elemAfter={<LinkExternalIcon label="Open in new tab" />}
 					elemBefore={<FeedbackIcon color="currentColor" spacing="spacious" label="" />}
 					href="https://atlassian.enterprise.slack.com/archives/CFKGAQZRV"
 					target="_blank"
@@ -117,6 +169,7 @@ const DocQuickLinks = () => (
 				</DropdownItem>
 				<DropdownItem
 					description="Contributing to Smart Links"
+					elemAfter={<LinkExternalIcon label="Open in new tab" />}
 					elemBefore={<TeamsIcon color="currentColor" spacing="spacious" label="" />}
 					href="https://hello.atlassian.net/wiki/spaces/TWPLP/pages/3609380368"
 					target="_blank"

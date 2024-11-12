@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': 'Lägg till en bild, video eller fil',
   'fabric.editor.addRowAbove': 'Lägg till rad ovanför',
   'fabric.editor.addRowBelow': 'Lägg till rad nedanför',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Markera en term, akronym eller förkortning',
+  'fabric.editor.ai.selectionToolbar.define.title': 'Definiera',
   'fabric.editor.alignCenter': 'Centrera',
   'fabric.editor.alignImageCenter': 'Centrera',
   'fabric.editor.alignImageLeft': 'Vänsterjustera',

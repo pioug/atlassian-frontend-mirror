@@ -24,7 +24,7 @@ import {
 import { isPreRelease2 } from '../utils/advanced-layouts-flags';
 import { type AnchorRectCache } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
-import { canMoveNodeToIndex } from '../utils/validation';
+import { canMoveNodeToIndex, isInSameLayout } from '../utils/validation';
 
 import { getNestedDepth, TYPE_DROP_TARGET_DEC, unmountDecorations } from './decorations-common';
 
@@ -118,6 +118,7 @@ export const createDropTargetDecoration = (
 	props: Omit<DropTargetProps, 'getPos'>,
 	side?: number,
 	anchorRectCache?: AnchorRectCache,
+	isSameLayout?: boolean,
 ) => {
 	return Decoration.widget(
 		pos,
@@ -132,7 +133,7 @@ export const createDropTargetDecoration = (
 				element.style.setProperty('display', 'block');
 
 				ReactDOM.render(
-					createElement(DropTargetV2, { ...props, getPos, anchorRectCache }),
+					createElement(DropTargetV2, { ...props, getPos, anchorRectCache, isSameLayout }),
 					element,
 				);
 			} else {
@@ -185,8 +186,8 @@ export const dropTargetDecorations = (
 	const docTo = to === undefined || to > POS_END_OF_DOC ? POS_END_OF_DOC : to;
 	let prevNode: PMNode | undefined;
 	const activeNodePos = activeNode?.pos;
-	const activePMNode =
-		typeof activeNodePos === 'number' && newState.doc.resolve(activeNodePos).nodeAfter;
+	const $activeNodePos = typeof activeNodePos === 'number' && newState.doc.resolve(activeNodePos);
+	const activePMNode = $activeNodePos && $activeNodePos.nodeAfter;
 
 	anchorRectCache?.clear();
 
@@ -212,16 +213,19 @@ export const dropTargetDecorations = (
 		let depth = 0;
 		// drop target deco at the end position
 		let endPos;
+		const $pos = newState.doc.resolve(pos);
+		const isSameLayout = $activeNodePos && isInSameLayout($activeNodePos, $pos);
 		if (editorExperiment('nested-dnd', true)) {
-			depth = newState.doc.resolve(pos).depth;
+			depth = $pos.depth;
 
 			if (isAdvancedLayoutsPreRelease2) {
 				if (
 					node.type.name === 'layoutColumn' &&
 					parent?.type.name === 'layoutSection' &&
 					parent?.firstChild !== node && // Not the first node
-					parent?.childCount < maxLayoutColumnSupported()
+					(parent?.childCount < maxLayoutColumnSupported() || isSameLayout)
 				) {
+					// Add drop target for layout columns
 					decs.push(
 						createLayoutDropTargetDecoration(pos, {
 							api,
@@ -249,8 +253,7 @@ export const dropTargetDecorations = (
 				}
 				return shouldDescend(node); //skip over, don't consider it a valid depth
 			}
-
-			const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode);
+			const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode, node);
 
 			//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
 			if (!canDrop && !isBlocksDragTargetDebug()) {
@@ -296,6 +299,7 @@ export const dropTargetDecorations = (
 				},
 				-1,
 				anchorRectCache,
+				isSameLayout,
 			),
 		);
 

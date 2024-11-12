@@ -30,6 +30,9 @@
 			"path": "../../media-common/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../media-viewer/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/theme/afm-post-office/tsconfig.json"
 		},
 		{

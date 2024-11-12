@@ -13,8 +13,12 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/anal
 import { type AnalyticsEventPayload, PLATFORM } from './analytics/events';
 import { trackUnsupportedContentLevels } from './analytics/unsupported-content';
 import { type RendererAppearance } from './ui/Renderer/types';
-import { transformMediaLinkMarks } from '@atlaskit/adf-utils/transforms';
+import {
+	transformMediaLinkMarks,
+	transformNestedTablesIncomingDocument,
+} from '@atlaskit/adf-utils/transforms';
 import { countNodes } from './ui/Renderer/count-nodes';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface RenderOutput<T> {
 	result: T;
@@ -96,8 +100,36 @@ const _validation = (
 		}
 	}
 
+	if (fg('platform_editor_use_nested_table_pm_nodes')) {
+		// Convert nested-table extensions into nested tables
+		try {
+			const { transformedAdf, isTransformed } = transformNestedTablesIncomingDocument(result);
+
+			if (isTransformed) {
+				dispatchAnalyticsEvent?.({
+					action: ACTION.NESTED_TABLE_TRANSFORMED,
+					actionSubject: ACTION_SUBJECT.RENDERER,
+					eventType: EVENT_TYPE.OPERATIONAL,
+				});
+
+				result = transformedAdf;
+			}
+		} catch (e) {
+			dispatchAnalyticsEvent?.({
+				action: ACTION.INVALID_PROSEMIRROR_DOCUMENT,
+				actionSubject: ACTION_SUBJECT.RENDERER,
+				eventType: EVENT_TYPE.OPERATIONAL,
+				attributes: {
+					platform: PLATFORM.WEB,
+					errorStack: 'Failed to transform one or more nested tables in the document',
+				},
+			});
+		}
+	}
+
 	return result;
 };
+
 const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 	const [newDoc, newSchema, newADFStage, newUseSpecValidator] = newArgs;
 	const [oldDoc, oldSchema, oldADFStage, oldUseSpecValidator] = lastArgs;

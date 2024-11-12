@@ -91,7 +91,7 @@
 		"@atlaskit/css-reset": "^6.11.0",
 		"@atlaskit/link": "^1.2.1",
 		"@atlaskit/link-test-helpers": "^7.5.0",
-		"@atlaskit/media-test-helpers": "^34.5.0",
+		"@atlaskit/media-test-helpers": "^34.6.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/analytics-tooling": "*",
@@ -179,6 +179,9 @@
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons": {
+			"type": "boolean"
+		},
+		"smart_links_for_plans": {
 			"type": "boolean"
 		}
 	}

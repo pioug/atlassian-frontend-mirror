@@ -56,11 +56,21 @@ const commonConfig = {
 	'@atlaskit/platform/no-invalid-feature-flag-usage': 'error',
 	'@atlaskit/platform/no-invalid-storybook-decorator-usage': 'error',
 	'@atlaskit/platform/ensure-atlassian-team': 'error',
+	'@atlaskit/platform/no-module-level-eval-nav4': 'error',
+	// Compiled: rules that are not included via `@compiled/recommended
+	'@compiled/jsx-pragma': [
+		'error',
+		{
+			importSources: ['@atlaskit/css'],
+			onlyRunIfImportingCompiled: true,
+			runtime: 'classic',
+		},
+	],
 };
 
 export const configs = {
 	recommended: {
-		plugins: ['@atlaskit/platform'],
+		plugins: ['@atlaskit/platform', '@compiled'],
 		rules: {
 			...commonConfig,
 			'@atlaskit/platform/ensure-feature-flag-registration': 'error',
@@ -69,7 +79,6 @@ export const configs = {
 				{ allowedPrefixes: ['platform.', 'platform_'] },
 			],
 			'@atlaskit/platform/no-module-level-eval': 'error',
-			'@atlaskit/platform/no-module-level-eval-nav4': 'error',
 			'@atlaskit/platform/static-feature-flags': 'error',
 			'@atlaskit/platform/no-preconditioning': 'error',
 			'@atlaskit/platform/inline-usage': 'error',
@@ -78,8 +87,10 @@ export const configs = {
 		},
 	},
 	jira: {
-		plugins: ['@atlaskit/platform'],
-		rules: { ...commonConfig, '@atlaskit/platform/no-module-level-eval-nav4': 'error' },
+		plugins: ['@atlaskit/platform', '@compiled'],
+		rules: {
+			...commonConfig,
+		},
 	},
 };
 

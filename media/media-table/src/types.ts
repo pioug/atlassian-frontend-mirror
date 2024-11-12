@@ -3,6 +3,7 @@ import { type HeadType } from '@atlaskit/dynamic-table/types';
 import { type SortOrderType } from '@atlaskit/dynamic-table/types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type ViewerOptionsProps } from '@atlaskit/media-viewer';
 
 export type { SortOrderType };
 
@@ -69,6 +70,8 @@ export interface MediaTableProps {
 	highlightedRowIndex?: number[];
 	/** callback triggered when row click is passed, if returned true it will prevent default behaviour. **/
 	onRowClick?: (rowData: RowData, index: number) => boolean;
+	/** Sets viewer options **/
+	viewerOptions?: ViewerOptionsProps;
 }
 
 export interface MediaTableState {

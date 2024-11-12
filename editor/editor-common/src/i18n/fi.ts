@@ -20,6 +20,8 @@ export default {
   'fabric.editor.addMediaFiles': 'Lisää kuva, video tai tiedosto',
   'fabric.editor.addRowAbove': 'Lisää rivi yläpuolelle',
   'fabric.editor.addRowBelow': 'Lisää rivi alapuolelle',
+  'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Korosta termi, akronyymi tai lyhenne',
+  'fabric.editor.ai.selectionToolbar.define.title': 'Määritä',
   'fabric.editor.alignCenter': 'Tasaa keskelle',
   'fabric.editor.alignImageCenter': 'Tasaa keskelle',
   'fabric.editor.alignImageLeft': 'Tasaa vasemmalle',

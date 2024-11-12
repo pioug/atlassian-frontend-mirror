@@ -1,16 +1,14 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3056ca27910772d8db63d331da918c78>>
+ * @codegen <<SignedSource::4595bc1a07f9da4186e2df84cea56831>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import * as atlaskitDesignSystemPlugin from '@atlaskit/eslint-plugin-design-system';
-import * as compiledPlugin from '@compiled/eslint-plugin';
 
 export default {
 	plugins: {
 		// NOTE: The reference to this plugin is inserted dynamically while creating the plugin in `index.codegen.tsx`
 		'@atlaskit/design-system': atlaskitDesignSystemPlugin,
-		'@compiled': compiledPlugin,
 	},
 	rules: {
 		'@atlaskit/ui-styling-standard/atlaskit-theme': 'error',
@@ -40,7 +38,6 @@ export default {
 		'@atlaskit/design-system/no-css-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-keyframes-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-styled-tagged-template-expression': 'error',
-		'@compiled/no-js-xcss': 'error',
 		'@atlaskit/design-system/no-empty-styled-expression': [
 			'error',
 			{
@@ -58,14 +55,6 @@ export default {
 			'error',
 			{
 				allowedFunctionCalls: [['@atlaskit/tokens', 'token']],
-			},
-		],
-		'@compiled/jsx-pragma': [
-			'error',
-			{
-				runtime: 'classic',
-				onlyRunIfImportingCompiled: true,
-				importSources: ['@atlaskit/css'],
 			},
 		],
 	},

@@ -275,6 +275,13 @@ type RendererTTIAEP = AEP<
 	EVENT_TYPE.OPERATIONAL
 >;
 
+type NestedTableTransformedAEP = OperationalAEP<
+	ACTION.NESTED_TABLE_TRANSFORMED,
+	ACTION_SUBJECT.RENDERER,
+	undefined,
+	undefined
+>;
+
 export type AnalyticsEventPayload<T = void> =
 	| RendererStartAEP
 	| RendererRenderedAEP
@@ -298,7 +305,8 @@ export type AnalyticsEventPayload<T = void> =
 	| AnnotationDeleteAEP
 	| MediaLnkTransformedAEP
 	| InvalidProsemirrorDocumentErrorAEP
-	| RendererTTIAEP;
+	| RendererTTIAEP
+	| NestedTableTransformedAEP;
 
 export type FireAnalyticsCallback = <T = void>(
 	payload: AnalyticsEventPayload<T>,

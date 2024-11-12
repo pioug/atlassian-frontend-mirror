@@ -30,7 +30,7 @@
 		"@atlaskit/adf-schema": "^44.2.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/custom-steps": "^0.8.0",
-		"@atlaskit/editor-common": "^94.16.0",
+		"@atlaskit/editor-common": "^94.17.0",
 		"@atlaskit/editor-palette": "1.6.3",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",

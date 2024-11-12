@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 112.5.1
+
+### Patch Changes
+
+- [#162141](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162141)
+  [`e292090371d60`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e292090371d60) -
+  migrate expand chevron to new icon
+
+## 112.5.0
+
+### Minor Changes
+
+- [#162298](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162298)
+  [`f5893b7270927`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5893b7270927) -
+  ED-25498 Integrate transformNestedTablesIncomingDocument with Editor and Renderer to transform
+  nested table extensions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 112.4.1
 
 ### Patch Changes

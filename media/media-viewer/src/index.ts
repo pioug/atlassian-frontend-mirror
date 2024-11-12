@@ -5,3 +5,10 @@ export type {
 	MediaViewerProps,
 	MediaMessage,
 } from './components/types';
+export type {
+	ViewerOptionsProps,
+	CustomRendererConfig,
+	CustomRendererStateProps,
+	CustomRendererProps,
+	ArchiveFileItem,
+} from './viewerOptions';

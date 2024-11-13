@@ -16,7 +16,11 @@ const styles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"> div > [role='tablist']": {
 		flexWrap: 'wrap',
+		justifyContent: 'center',
 		marginBlockEnd: '1rem',
+		'&::before': {
+			backgroundColor: 'unset',
+		},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	"> div > [role='tablist'] > [role='tab']": {

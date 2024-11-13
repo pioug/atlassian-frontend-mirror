@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 3.8.8
+
+### Patch Changes
+
+- [#163413](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163413)
+  [`85d906a810a1d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85d906a810a1d) -
+  Fix an issue where all columns don't load from server when picker is opened with React18
+
 ## 3.8.7
 
 ### Patch Changes

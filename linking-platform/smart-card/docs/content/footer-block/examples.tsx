@@ -57,17 +57,4 @@ ${(
 	/>
 )}
 
-### Override CSS
-
-Use \`overrideCss\` to override the styles of the block.
-Although let us know what we’re missing in the spirit of improving platform
-components for everyone!
-
-${(
-	<CustomExample
-		Component={require('../../../examples/content/footer-block-override-css').default}
-		source={require('!!raw-loader!../../../examples/content/footer-block-override-css')}
-	/>
-)}
-
 `;

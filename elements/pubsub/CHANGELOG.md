@@ -1,5 +1,13 @@
 # @atlaskit/pubsub
 
+## 6.7.1
+
+### Patch Changes
+
+- [#163256](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163256)
+  [`b1f7fec4bc920`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b1f7fec4bc920) -
+  Remove analytics events that can cause a request storm.
+
 ## 6.7.0
 
 ### Minor Changes

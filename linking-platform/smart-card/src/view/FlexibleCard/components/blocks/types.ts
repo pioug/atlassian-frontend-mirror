@@ -1,4 +1,4 @@
-import { type PropsWithChildren, type Ref } from 'react';
+import { type ReactNode, type Ref } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type SerializedStyles } from '@emotion/react';
@@ -12,9 +12,14 @@ import {
 } from '../../../../constants';
 import { type ActionProps } from '../actions/action/types';
 
-export type BlockProps = PropsWithChildren<{
+export type BlockProps = {
 	/**
-	 * The direction that the block should arrange it's elements. Can be vertical
+	 * React children
+	 */
+	children?: ReactNode | undefined;
+
+	/**
+	 * The direction that the block should arrange its elements. Can be vertical
 	 * or horizontal. Default is horizontal.
 	 * @internal
 	 */
@@ -22,6 +27,8 @@ export type BlockProps = PropsWithChildren<{
 
 	/**
 	 * Any additional CSS properties to apply to the block.
+	 * The use of this prop is **strongly** discouraged.
+	 * `@emotion/react` will be replaced with compiled.
 	 */
 	overrideCss?: SerializedStyles;
 
@@ -61,7 +68,7 @@ export type BlockProps = PropsWithChildren<{
 	 * @internal
 	 */
 	onTransitionEnd?: () => void;
-}>;
+};
 
 /**
  * Used to represent a metadata element to be rendered.

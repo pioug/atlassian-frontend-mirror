@@ -30,6 +30,7 @@ import type {
 import {
 	calcMediaSingleMaxWidth,
 	DEFAULT_IMAGE_WIDTH,
+	MEDIA_SINGLE_ADJACENT_HANDLE_MARGIN,
 	MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
 	MEDIA_SINGLE_RESIZE_THROTTLE_TIME,
 	MEDIA_SINGLE_SNAP_GAP,
@@ -37,6 +38,7 @@ import {
 } from '@atlaskit/editor-common/media-single';
 import type {
 	Dimensions,
+	HandlePositioning,
 	HandleResize,
 	HandleResizeStart,
 	Position,
@@ -203,11 +205,26 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 		return !!($pos && $pos.depth !== 0);
 	}
 
+	// Check if adjacement mode should be activated;
+	isAdjacentMode(): boolean {
+		if (fg('platform_editor_inline_resize_media_to_edge')) {
+			if (this.props.forceHandlePositioning === 'adjacent') {
+				return true;
+			}
+		}
+
+		return this.isNestedNode() ?? false;
+	}
+
+	getHandlePositioning(): HandlePositioning | undefined {
+		return this.isAdjacentMode() ? 'adjacent' : undefined;
+	}
+
 	private getDefaultGuidelines() {
 		const { lineLength, containerWidth, fullWidthMode } = this.props;
 
 		// disable guidelines for nested media single node
-		return this.isNestedNode()
+		return this.isAdjacentMode()
 			? []
 			: generateDefaultGuidelines(lineLength, containerWidth || 0, fullWidthMode);
 	}
@@ -224,7 +241,7 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 		});
 
 		// disable guidelines for nested media single node
-		const dynamicGuidelines = this.isNestedNode() ? [] : dynamicGuides;
+		const dynamicGuidelines = this.isAdjacentMode() ? [] : dynamicGuides;
 
 		this.setState({
 			relativeGuides,
@@ -264,7 +281,7 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 			containerWidth || 0,
 			lineLength,
 			fullWidthMode,
-			this.isNestedNode(),
+			this.isAdjacentMode(),
 		);
 	};
 
@@ -331,7 +348,7 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 
 	private calcMaxWidth = memoizeOne(
 		(contentWidth: number, containerWidth: number, fullWidthMode?: boolean) => {
-			if (this.isNestedNode() || fullWidthMode) {
+			if (this.isAdjacentMode() || fullWidthMode) {
 				return contentWidth;
 			}
 
@@ -512,6 +529,25 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 		);
 	};
 
+	getMaxWidth = () => {
+		const { lineLength, containerWidth, fullWidthMode, editorAppearance, forceHandlePositioning } =
+			this.props;
+		const { isResizing } = this.state;
+
+		if (
+			editorAppearance === 'chromeless' &&
+			forceHandlePositioning === 'adjacent' &&
+			fg('platform_editor_inline_resize_media_to_edge')
+		) {
+			return containerWidth - MEDIA_SINGLE_ADJACENT_HANDLE_MARGIN * 2;
+		}
+
+		return !isResizing && this.isAdjacentMode()
+			? // set undefined to fall back to 100%
+				undefined
+			: this.calcMaxWidth(lineLength, containerWidth, fullWidthMode);
+	};
+
 	render() {
 		const {
 			width: origWidth,
@@ -552,13 +588,10 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 			},
 		);
 		const resizerNextClassName = classnames(className, resizerStyles as unknown as Mapping);
-		const isNestedNode = this.isNestedNode();
+		const isNestedNode = this.isAdjacentMode();
+		const handlePositioning = this.getHandlePositioning();
 
-		const maxWidth =
-			!isResizing && isNestedNode
-				? // set undefined to fall back to 100%
-					undefined
-				: this.calcMaxWidth(lineLength, containerWidth, fullWidthMode);
+		const maxWidth = this.getMaxWidth();
 
 		const minWidth = this.calcMinWidth(isVideoFile, lineLength);
 
@@ -592,7 +625,7 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 					resizeRatio={nonWrappedLayouts.includes(layout) ? 2 : 1}
 					data-testid={resizerNextTestId}
 					isHandleVisible={selected}
-					handlePositioning={isNestedNode ? 'adjacent' : undefined}
+					handlePositioning={handlePositioning}
 					handleHighlight="full-height"
 				>
 					{children}
@@ -781,6 +814,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 		updateSize,
 		view,
 		viewMediaClientConfig,
+		forceHandlePositioning,
 	} = props;
 
 	const initialWidth = useMemo(() => {
@@ -821,6 +855,15 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 		return !!($pos && $pos.depth !== 0);
 	}, [nodePosition, view]);
 
+	const isAdjacentMode = useMemo(() => {
+		if (fg('platform_editor_inline_resize_media_to_edge')) {
+			if (forceHandlePositioning === 'adjacent') {
+				return true;
+			}
+		}
+		return isNestedNode;
+	}, [isNestedNode, forceHandlePositioning]);
+
 	const maybeContainerWidth = containerWidth || origWidth;
 
 	const memoizedCss = useMemo(() => {
@@ -829,16 +872,24 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 			containerWidth: maybeContainerWidth,
 			fullWidthMode,
 			mediaSingleWidth: dimensions.width,
-			isNestedNode,
+			isNestedNode: isAdjacentMode,
 			isExtendedResizeExperienceOn: true,
 		});
-	}, [layout, maybeContainerWidth, fullWidthMode, dimensions.width, isNestedNode]);
+	}, [layout, maybeContainerWidth, fullWidthMode, dimensions.width, isAdjacentMode]);
 
 	const maxWidth = useMemo(() => {
-		if (!isResizing && isNestedNode) {
+		if (
+			editorAppearance === 'chromeless' &&
+			forceHandlePositioning === 'adjacent' &&
+			fg('platform_editor_inline_resize_media_to_edge')
+		) {
+			return containerWidth - MEDIA_SINGLE_ADJACENT_HANDLE_MARGIN * 2;
+		}
+
+		if (!isResizing && isAdjacentMode) {
 			return undefined;
 		}
-		if (isNestedNode || fullWidthMode) {
+		if (isAdjacentMode || fullWidthMode) {
 			return lineLength;
 		}
 
@@ -846,7 +897,15 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 			containerWidth,
 			editorAppearance,
 		});
-	}, [isNestedNode, fullWidthMode, lineLength, editorAppearance, containerWidth, isResizing]);
+	}, [
+		isAdjacentMode,
+		fullWidthMode,
+		lineLength,
+		editorAppearance,
+		containerWidth,
+		isResizing,
+		forceHandlePositioning,
+	]);
 
 	const minWidth = calcMinWidth({ isVideoFile, contentWidth: lineLength });
 
@@ -897,12 +956,12 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 		}, {} as EnabledHandles);
 	}, [layout, isInsideInlineLike]);
 	const defaultGuidelines = useMemo(() => {
-		if (isNestedNode) {
+		if (isAdjacentMode) {
 			return [];
 		}
 
 		return generateDefaultGuidelines(lineLength, containerWidth, fullWidthMode);
-	}, [isNestedNode, lineLength, containerWidth, fullWidthMode]);
+	}, [isAdjacentMode, lineLength, containerWidth, fullWidthMode]);
 
 	const relativeGuidesRef = useRef<RelativeGuides>({});
 	const guidelinesRef = useRef<GuidelineConfig[]>([]);
@@ -915,10 +974,10 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 		});
 
 		// disable guidelines for nested media single node
-		const dynamicGuidelines = isNestedNode ? [] : dynamicGuides;
+		const dynamicGuidelines = isAdjacentMode ? [] : dynamicGuides;
 		relativeGuidesRef.current = relativeGuides;
 		guidelinesRef.current = [...defaultGuidelines, ...dynamicGuidelines];
-	}, [view, lineLength, defaultGuidelines, isNestedNode]);
+	}, [view, lineLength, defaultGuidelines, isAdjacentMode]);
 
 	const isGuidelineEnabled = useMemo(() => {
 		return !!pluginInjectionApi?.guideline;
@@ -1015,7 +1074,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 				containerWidth,
 				lineLength,
 				fullWidthMode,
-				isNestedNode,
+				isNestedNode: isAdjacentMode,
 			})(size, delta, false, aspectRatioRef.current);
 
 			if (isGuidelineEnabled) {
@@ -1054,7 +1113,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 			containerWidth,
 			lineLength,
 			fullWidthMode,
-			isNestedNode,
+			isAdjacentMode,
 			updateActiveGuidelines,
 		],
 	);
@@ -1074,7 +1133,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 				containerWidth,
 				lineLength,
 				fullWidthMode,
-				isNestedNode,
+				isNestedNode: isAdjacentMode,
 			})(size, delta, false, aspectRatioRef.current);
 
 			if (dispatchAnalyticsEvent) {
@@ -1122,7 +1181,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 			dispatchAnalyticsEvent,
 			containerWidth,
 			fullWidthMode,
-			isNestedNode,
+			isAdjacentMode,
 			layout,
 			lineLength,
 			view,
@@ -1174,6 +1233,13 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 		});
 	}, [view, viewMediaClientConfig, nodePosition]);
 
+	const handlePositioning = useMemo(() => {
+		if (forceHandlePositioning) {
+			return forceHandlePositioning;
+		}
+		return isAdjacentMode ? 'adjacent' : undefined;
+	}, [forceHandlePositioning, isAdjacentMode]);
+
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
@@ -1194,7 +1260,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 				resizeRatio={nonWrappedLayouts.includes(layout) ? 2 : 1}
 				data-testid={resizerNextTestId}
 				isHandleVisible={selected}
-				handlePositioning={isNestedNode ? 'adjacent' : undefined}
+				handlePositioning={handlePositioning}
 				handleHighlight="full-height"
 			>
 				{children}
@@ -1234,6 +1300,7 @@ const ResizableMediaSingleToggle = ({
 	view,
 	viewMediaClientConfig,
 	width,
+	forceHandlePositioning,
 }: ResizableMediaSingleNextProps) => {
 	if (fg('platform_editor_react18_phase2__media_single')) {
 		return (
@@ -1268,6 +1335,7 @@ const ResizableMediaSingleToggle = ({
 				view={view}
 				viewMediaClientConfig={viewMediaClientConfig}
 				width={width}
+				forceHandlePositioning={forceHandlePositioning}
 			/>
 		);
 	}
@@ -1304,6 +1372,7 @@ const ResizableMediaSingleToggle = ({
 			view={view}
 			viewMediaClientConfig={viewMediaClientConfig}
 			width={width}
+			forceHandlePositioning={forceHandlePositioning}
 		/>
 	);
 };

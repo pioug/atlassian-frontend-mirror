@@ -37,7 +37,7 @@ Use \`size\` to override block sizing on author group.
 
 ### Checklist Progress
 
-A \`ChecklistProgress\` element shows the number of completed check list items over the 
+A \`ChecklistProgress\` element shows the number of completed check list items over the
 total number of checklist items on the link resource.
 Its data is mapped to \`atlassian:checkItems\` from a link resolver.
 
@@ -169,6 +169,7 @@ A link resolver can also specify a icon url to use with the priority element.
 ${(
 	<CustomExample
 		Component={require('../../../examples/content/element-priority-variants').default}
+		source={require('!!raw-loader!../../../examples/content/element-priority-variants')}
 		sourceVisible={false}
 	/>
 )}
@@ -245,6 +246,7 @@ A state can have different text and appearances as specified by link resolver.
 ${(
 	<CustomExample
 		Component={require('../../../examples/content/element-state-variants').default}
+		source={require('!!raw-loader!../../../examples/content/element-state-variants')}
 		sourceVisible={false}
 	/>
 )}

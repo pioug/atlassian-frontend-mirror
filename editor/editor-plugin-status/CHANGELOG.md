@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-status
 
+## 2.5.7
+
+### Patch Changes
+
+- [#162726](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162726)
+  [`10223ce40d9a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10223ce40d9a0) -
+  update appearance and colours for visual refresh
+- Updated dependencies
+
 ## 2.5.6
 
 ### Patch Changes

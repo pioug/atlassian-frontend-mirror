@@ -1,5 +1,6 @@
 import type { MediaADFAttrs, MediaInlineAttributes } from '@atlaskit/adf-schema';
 import type { ProviderFactory, Providers } from '@atlaskit/editor-common/provider-factory';
+import type { HandlePositioning } from '@atlaskit/editor-common/resizer';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type { EditorAppearance, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
@@ -64,6 +65,9 @@ export interface MediaOptions {
 	allowCaptions?: boolean;
 	allowCommentsOnMedia?: boolean;
 	editorAppearance?: EditorAppearance;
+	// Allows consumer products to always force the positioning of resize handles when resizing media.
+	// eg: inline comment editor (chromeless) can force a smaller gap between content and resize handles
+	forceHandlePositioning?: HandlePositioning;
 }
 
 export interface MediaSingleOptions {

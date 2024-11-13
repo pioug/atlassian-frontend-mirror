@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.3.2
+
+### Patch Changes
+
+- [#163217](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163217)
+  [`560d23ab4dfbe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/560d23ab4dfbe) -
+  Add null check on safari for SSR
+
 ## 1.3.1
 
 ### Patch Changes

@@ -63,12 +63,6 @@ export default class WebsocketTransport extends AbstractApsTransport {
 						return;
 					}
 
-					this.analyticsClient.sendEvent('aps-ws', 'close', {
-						code: event.code,
-						wasClean: event.wasClean,
-						reason: event.reason,
-					});
-
 					this.eventEmitter.emit(EventType.NETWORK_DOWN, {});
 
 					if (this.state === State.CONNECTING || this.state === State.RECONNECTING) {
@@ -84,11 +78,7 @@ export default class WebsocketTransport extends AbstractApsTransport {
 							.catch(reject);
 					}
 				},
-				onMessageSendError: (readyState: number) => {
-					this.analyticsClient.sendEvent('aps-ws', 'error sending message', {
-						readyState,
-					});
-				},
+				onMessageSendError: (readyState: number) => {},
 				onError: (event: ErrorEvent) => {
 					logDebug('Websocket onError', event);
 				},

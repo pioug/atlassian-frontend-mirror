@@ -37,7 +37,7 @@ export interface RenderAssetsContentProps {
 	schemaId?: string;
 	onNextPage: () => void;
 	hasNextPage: boolean;
-	loadDatasourceDetails: () => void;
+	loadDatasourceDetails: () => Promise<void>;
 	columns: DatasourceResponseSchemaProperty[];
 	defaultVisibleColumnKeys: string[];
 	onVisibleColumnKeysChange: (visibleColumnKeys: string[]) => void;

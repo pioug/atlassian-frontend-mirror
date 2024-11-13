@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "1.39.4",
+	"version": "1.40.1",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,7 +40,7 @@
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^94.17.0",
+		"@atlaskit/editor-common": "^94.18.0",
 		"@atlaskit/editor-palette": "1.6.3",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-annotation": "1.23.3",
@@ -70,7 +70,7 @@
 		"@atlaskit/primitives": "^13.1.0",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.12.0",
+		"@atlaskit/tmp-editor-statsig": "^2.13.0",
 		"@atlaskit/tokens": "^2.2.0",
 		"@atlaskit/tooltip": "^18.9.0",
 		"@babel/runtime": "^7.0.0",
@@ -146,6 +146,12 @@
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons": {
+			"type": "boolean"
+		},
+		"platform_editor_prevent_delete_image_in_view_mode": {
+			"type": "boolean"
+		},
+		"platform_editor_inline_resize_media_to_edge": {
 			"type": "boolean"
 		}
 	},

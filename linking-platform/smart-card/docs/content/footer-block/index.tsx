@@ -14,6 +14,8 @@ export default customMd`
 A footer block provides the source of the link, and some actions.
 Typically used at the bottom of a Smart Link.
 
+&nbsp;
+
 ${(
 	<ContentTabs
 		tabs={[

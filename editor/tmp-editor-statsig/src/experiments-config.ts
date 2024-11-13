@@ -226,15 +226,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-10-01
-	platform_editor_ai_floating_toolbar_v2: {
-		productKeys: {
-			confluence: 'platform_editor_ai_floating_toolbar_v2',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'leading', 'trailing']),
-		defaultValue: 'control' as 'control' | 'leading' | 'trailing',
-	},
 	// Added 2024-10-06
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_element_dnd_apply_optimisation
 	'optimised-apply-dnd': {
@@ -350,6 +341,15 @@ export const editorExperimentsConfig = {
 	platform_editor_ai_change_tone_floating_toolbar: {
 		productKeys: {
 			confluence: 'platform_editor_ai_change_tone_floating_toolbar',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2024-11-11
+	platform_editor_ai_response_history: {
+		productKeys: {
+			confluence: 'platform_editor_ai_response_history',
 		},
 		param: 'isEnabled',
 		typeGuard: isBoolean,

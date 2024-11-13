@@ -189,19 +189,6 @@ ${(
 	/>
 )}
 
-### Override CSS
-
-Use \`overrideCss\` to override the styles of the block.
-Although let us know what we’re missing in the spirit of improving platform
-components for everyone!
-
-${(
-	<CustomExample
-		Component={require('../../../examples/content/title-block-override-css').default}
-		source={require('!!raw-loader!../../../examples/content/title-block-override-css')}
-	/>
-)}
-
 ### Resolving views
 When a link is loading, the TitleBlock will show resolving views.
  If \`hideIcon\` is true, the icon will be hidden.
@@ -210,6 +197,7 @@ When a link is loading, the TitleBlock will show resolving views.
 ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-resolving').default}
+		source={require('!!raw-loader!../../../examples/content/title-block-resolving')}
 		sourceVisible={false}
 	/>
 )}
@@ -218,6 +206,7 @@ ${(
 ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-resolving-hide-icon').default}
+		source={require('!!raw-loader!../../../examples/content/title-block-resolving-hide-icon')}
 		sourceVisible={false}
 	/>
 )}
@@ -235,6 +224,7 @@ If \`hideIcon\` is true, the icon will be hidden.
 ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-unresolved-error').default}
+		source={require('!!raw-loader!../../../examples/content/title-block-unresolved-error')}
 		sourceVisible={false}
 	/>
 )}
@@ -244,6 +234,7 @@ ${(
 ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-unresolved-error-hide-icon').default}
+		source={require('!!raw-loader!../../../examples/content/title-block-unresolved-error-hide-icon')}
 		sourceVisible={false}
 	/>
 )}
@@ -253,6 +244,7 @@ ${(
 ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-unresolved-not-found').default}
+		source={require('!!raw-loader!../../../examples/content/title-block-unresolved-not-found')}
 		sourceVisible={false}
 	/>
 )}
@@ -262,6 +254,7 @@ ${(
 ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-unresolved-forbidden').default}
+		source={require('!!raw-loader!../../../examples/content/title-block-unresolved-forbidden')}
 		sourceVisible={false}
 	/>
 )}
@@ -273,6 +266,7 @@ A forbidden view may render the provider icon given that link resolver providing
 ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-unresolved-unauth').default}
+		source={require('!!raw-loader!../../../examples/content/title-block-unresolved-unauth')}
 		sourceVisible={false}
 	/>
 )}

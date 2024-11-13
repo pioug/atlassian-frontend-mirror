@@ -691,6 +691,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 						mediaSingleWidth={mediaSingleWidth}
 						editorAppearance={editorAppearance}
 						showLegacyNotification={widthType !== 'pixel'}
+						forceHandlePositioning={mediaOptions?.forceHandlePositioning}
 					>
 						{MediaChildren}
 					</ResizableMediaSingleNext>

@@ -14,6 +14,8 @@ export default customMd`
 A snippet block provides a description for a link.
 Its data is mapped to \`summary\` from a link resolver.
 
+&nbsp;
+
 ${(
 	<ContentTabs
 		tabs={[

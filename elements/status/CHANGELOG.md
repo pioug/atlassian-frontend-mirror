@@ -1,5 +1,13 @@
 # @atlaskit/status
 
+## 1.6.0
+
+### Minor Changes
+
+- [#162726](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162726)
+  [`10223ce40d9a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10223ce40d9a0) -
+  update appearance and colours for visual refresh
+
 ## 1.5.3
 
 ### Patch Changes

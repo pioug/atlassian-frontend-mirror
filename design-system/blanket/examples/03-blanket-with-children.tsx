@@ -12,7 +12,7 @@ import Blanket from '@atlaskit/blanket';
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import { useCloseOnEscapePress } from '@atlaskit/layering';
-import { Stack, Text, xcss } from '@atlaskit/primitives';
+import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 
 const blanketChildStyles = xcss({
 	width: '50%',
@@ -31,13 +31,13 @@ const BasicExample = () => {
 		setShouldAllowClickThrough(false);
 	}, []);
 
-	const onBlanketClicked = useCallback(() => {
+	const closeBlanket = useCallback(() => {
 		setIsBlanketVisible(false);
 		setShouldAllowClickThrough(true);
 	}, []);
 
 	useCloseOnEscapePress({
-		onClose: onBlanketClicked,
+		onClose: closeBlanket,
 		isDisabled: !isBlanketVisible,
 	});
 
@@ -52,14 +52,22 @@ const BasicExample = () => {
 				Show blanket
 			</Button>
 			<Blanket
-				onBlanketClicked={onBlanketClicked}
 				isTinted={isBlanketVisible}
 				shouldAllowClickThrough={shouldAllowClickThrough}
 				testId="blanket-with-children"
 			>
-				<Stack space="space.200" xcss={blanketChildStyles}>
-					<Heading size="xlarge">Blanket Heading</Heading>
-					<Lorem count={20} />
+				<Stack space="space.200" xcss={blanketChildStyles} grow="hug">
+					<Stack>
+						<Heading size="xlarge">Blanket Heading</Heading>
+						<Lorem count={20} />
+					</Stack>
+					{isBlanketVisible && (
+						<Box>
+							<Button appearance="primary" onClick={closeBlanket} testId="close-button">
+								Close blanket
+							</Button>
+						</Box>
+					)}
 				</Stack>
 			</Blanket>
 		</Stack>

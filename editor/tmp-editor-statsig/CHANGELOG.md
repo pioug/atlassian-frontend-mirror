@@ -1,5 +1,22 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.13.1
+
+### Patch Changes
+
+- [#162401](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162401)
+  [`da610ad81acb7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/da610ad81acb7) -
+  EDF-1910 Added platform_editor_ai_response_history
+
+## 2.13.0
+
+### Minor Changes
+
+- [#163217](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163217)
+  [`d2d5c286e4e86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2d5c286e4e86) -
+  [ux] EDF-1845 Remove floating toolbar experiment (platform_editor_ai_floating_toolbar_v2). Change
+  the behaviour to use the trailing variant of the experiment.
+
 ## 2.12.2
 
 ### Patch Changes

@@ -10,8 +10,11 @@ export function isIPhone() {
 }
 
 export function isSafari() {
-	const ua = navigator.userAgent.toLowerCase();
-	return ua.includes('safari') && !ua.includes('chrome');
+	if (typeof window !== 'undefined' && window.navigator != null) {
+		const ua = window.navigator.userAgent?.toLowerCase();
+		return ua ? ua.includes('safari') && !ua.includes('chrome') : false;
+	}
+	return false;
 }
 
 export function isMac() {

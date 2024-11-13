@@ -8,6 +8,7 @@
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
+	"sideEffects": false,
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",

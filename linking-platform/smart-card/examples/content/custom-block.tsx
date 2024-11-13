@@ -1,15 +1,19 @@
 import React from 'react';
 
-import { CustomBlock } from '@atlaskit/smart-card';
+import { Box } from '@atlaskit/primitives';
+
+import { CustomBlock } from '../../src';
+
+import ExampleContainer from './example-container';
 
 export default () => {
 	return (
-		<div>
+		<ExampleContainer>
 			<CustomBlock>
-				<div>Block 1</div>
-				<div>Block 2</div>
-				<div>Block 3</div>
+				<Box>Block 1</Box>
+				<Box>Block 2</Box>
+				<Box>Block 3</Box>
 			</CustomBlock>
-		</div>
+		</ExampleContainer>
 	);
 };

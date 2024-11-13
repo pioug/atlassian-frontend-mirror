@@ -62,21 +62,4 @@ As a Flexible Smart Links block, a preview block inherits and allow sizing overr
 However, this has **no impact** as a preview block has no elements
 or actions that support sizing.
 
-
-### Override CSS
-
-Use \`overrideCss\` to override the styles of the block.
-Although let us know what we’re missing in the spirit of improving platform
-components for everyone!
-
-The following example shows the preview block styles being override to show in
-4:3 aspect ratio.
-
-${(
-	<CustomExample
-		Component={require('../../../examples/content/preview-block-override-css').default}
-		source={require('!!raw-loader!../../../examples/content/preview-block-override-css')}
-	/>
-)}
-
 `;

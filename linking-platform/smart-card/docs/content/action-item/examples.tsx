@@ -11,6 +11,7 @@ To create a custom action, see \`CustomAction\`.
 ${(
 	<CustomExample
 		Component={require('../../../examples/content/action-variants').default}
+		source={require('!!raw-loader!../../../examples/content/action-variants')}
 		sourceVisible={false}
 	/>
 )}

@@ -43,7 +43,7 @@ export interface IssueLikeDataTableViewProps {
 	items: DatasourceDataResponseItem[];
 	itemIds: string[];
 	onNextPage: NextPageType;
-	onLoadDatasourceDetails: () => void;
+	onLoadDatasourceDetails: () => Promise<void>;
 	/**
 	 * A function to define new or override existing render components.
 	 * eg:

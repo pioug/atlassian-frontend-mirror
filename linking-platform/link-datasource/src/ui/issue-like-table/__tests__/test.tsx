@@ -158,7 +158,7 @@ describe('IssueLikeDataTableView', () => {
 	const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
 		const onAnalyticsEvent = jest.fn();
 		const onNextPage = jest.fn(() => {});
-		const onLoadDatasourceDetails = jest.fn(() => {});
+		const onLoadDatasourceDetails = jest.fn(() => Promise.resolve());
 		const onVisibleColumnKeysChange = jest.fn(() => {});
 		const onColumnResize = jest.fn(() => {});
 		const onWrappedColumnChange = jest.fn(() => {});

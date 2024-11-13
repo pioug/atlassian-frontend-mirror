@@ -20,7 +20,13 @@ class CustomClient extends Client {
 					},
 				],
 			},
-			data: {},
+			data: {
+				generator: {
+					'@type': 'Object',
+					'@id': 'confluence-object-provider',
+					name: 'Confluence',
+				},
+			},
 		} as JsonLd.Response);
 	}
 }

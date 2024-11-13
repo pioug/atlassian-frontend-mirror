@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 112.5.2
+
+### Patch Changes
+
+- [#162726](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162726)
+  [`10223ce40d9a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10223ce40d9a0) -
+  update status appearance for visual refresh
+- Updated dependencies
+
 ## 112.5.1
 
 ### Patch Changes

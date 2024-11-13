@@ -11,7 +11,7 @@ export default customMd`
 Flexible Smart Links, also known as FlexibleCard, Flexible UI, and Flex UI, is a composable system made up of data elements inside UI blocks,
 built by Linking Platform to aid Atlassian product teams in creating their own contextually appropriate Smart Link views,
 without being dependent on Linking Platform.
-This system does not affect inline, block or embed views of links.
+This system does not affect inline, block or embed appearance of links.
 
 &nbsp;
 

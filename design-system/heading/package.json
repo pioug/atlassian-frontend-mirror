@@ -40,6 +40,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/formatting": "*",
+		"@af/integration-testing": "*",
 		"@atlaskit/ds-lib": "^3.2.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^13.4.0",

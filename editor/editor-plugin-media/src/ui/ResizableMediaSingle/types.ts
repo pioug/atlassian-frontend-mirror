@@ -1,5 +1,6 @@
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { HandlePositioning } from '@atlaskit/editor-common/resizer';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MediaSingleProps } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -25,4 +26,5 @@ export type Props = MediaSingleProps & {
 	mediaSingleWidth?: number;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	disableHandles?: boolean;
+	forceHandlePositioning?: HandlePositioning;
 };

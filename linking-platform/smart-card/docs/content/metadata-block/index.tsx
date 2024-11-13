@@ -14,6 +14,8 @@ export default customMd`
 A metadata block is designed to contain groups of metadata in the form of elements.
 Accepts an array of elements to be shown either primary (left hand side) or secondary (right hand side).
 
+&nbsp;
+
 ${(
 	<ContentTabs
 		tabs={[

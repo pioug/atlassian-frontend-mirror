@@ -14,6 +14,8 @@ export default customMd`
 The UI options is a prop on Card component used to configure Flexible Smart Links.
 It can be combined to provide a wide range of integrations.
 
+&nbsp;
+
 ${(
 	<ContentTabs
 		tabs={[

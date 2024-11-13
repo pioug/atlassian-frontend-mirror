@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-media
 
+## 1.40.1
+
+### Patch Changes
+
+- [#163299](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163299)
+  [`164ca5d30a1ca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/164ca5d30a1ca) -
+  ED-25335-make-media-single-non-editable-in-live-view
+
+## 1.40.0
+
+### Minor Changes
+
+- [#161860](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161860)
+  [`a147e2be38608`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a147e2be38608) -
+  [ux] ED-25319 Support forced media resize handle positions in media options
+- [#161860](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161860)
+  [`4b8000830cac4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4b8000830cac4) -
+  [ux] ED-25319 support new forceHandlePositioning media option for chromeless editors
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.39.4
 
 ### Patch Changes

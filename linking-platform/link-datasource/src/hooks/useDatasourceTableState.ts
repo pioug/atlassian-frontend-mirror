@@ -47,7 +47,7 @@ export interface DatasourceTableState {
 	/** Resets state of the hook to be as if it is a first time it is being called. */
 	reset: (options?: ResetOptions) => void;
 	/** Requests the available column schemas that can be displayed within the table */
-	loadDatasourceDetails: () => void;
+	loadDatasourceDetails: () => Promise<void>;
 	/** Item ids to be hydrated from a store by consumers [NOTE: They must be in the same order as responseItems] */
 	responseItemIds: string[];
 	/** Items to be rendered within the table */

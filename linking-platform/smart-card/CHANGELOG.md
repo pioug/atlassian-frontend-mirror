@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 30.2.3
+
+### Patch Changes
+
+- [#163278](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163278)
+  [`fbaa7de32c0b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fbaa7de32c0b2) -
+  Update FlexibleCard block prop children types
+
+## 30.2.2
+
+### Patch Changes
+
+- [#162750](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162750)
+  [`37259b34967fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/37259b34967fa) -
+  Updated metadata structure for Jira plans smart links block view
+
 ## 30.2.1
 
 ### Patch Changes

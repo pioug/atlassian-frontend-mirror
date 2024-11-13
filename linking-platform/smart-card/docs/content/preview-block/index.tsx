@@ -14,6 +14,8 @@ export default customMd`
 A preview block provides a thumbnail for the link.
 Its data is mapped to \`image\` from a link resolver.
 
+&nbsp;
+
 ${(
 	<ContentTabs
 		tabs={[

@@ -397,10 +397,10 @@ export const IssueLikeDataTableView = ({
 	}, [containerRef]);
 
 	useEffect(() => {
-		if (!hasFullSchema) {
+		if (orderedColumns.length !== columns.length) {
 			setOrderedColumns(getOrderedColumns([...columns], [...visibleColumnKeys]));
 		}
-	}, [columns, visibleColumnKeys, hasFullSchema]);
+	}, [columns, visibleColumnKeys, orderedColumns]);
 
 	useEffect(() => {
 		if (experienceId && status === 'resolved') {
@@ -713,6 +713,9 @@ export const IssueLikeDataTableView = ({
 
 	const isEditable = onVisibleColumnKeysChange && hasData;
 
+	const orderedColumnsAreUpToDate = orderedColumns.length === columns.length;
+	const shouldDisplayColumnsInPicker = hasFullSchema && orderedColumnsAreUpToDate;
+
 	const view = (
 		<div
 			/* There is required contentEditable={true} in editor-card-plugin
@@ -809,8 +812,8 @@ export const IssueLikeDataTableView = ({
 						{onVisibleColumnKeysChange && (
 							<ColumnPickerHeader>
 								<ColumnPicker
-									columns={hasFullSchema ? orderedColumns : []}
-									selectedColumnKeys={hasFullSchema ? visibleColumnKeys : []}
+									columns={shouldDisplayColumnsInPicker ? orderedColumns : []}
+									selectedColumnKeys={shouldDisplayColumnsInPicker ? visibleColumnKeys : []}
 									onSelectedColumnKeysChange={onSelectedColumnKeysChange}
 									onOpen={handlePickerOpen}
 								/>

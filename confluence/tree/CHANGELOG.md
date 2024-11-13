@@ -1,5 +1,13 @@
 # @atlaskit/tree
 
+## 8.12.0
+
+### Minor Changes
+
+- [#162901](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162901)
+  [`89dcc67daf2b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89dcc67daf2b6) -
+  removing flaky test
+
 ## 8.11.0
 
 ### Minor Changes

@@ -398,6 +398,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 			selected: isSelected,
 			dispatchAnalyticsEvent: dispatchAnalyticsEvent,
 			pluginInjectionApi: pluginInjectionApi,
+			forceHandlePositioning: mediaOptions?.forceHandlePositioning,
 			...mediaSingleProps,
 		};
 
@@ -648,16 +649,27 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 	lastOffsetLeft = 0;
 	forceViewUpdate = false;
 	selectionType: number | null = null;
+	unsubscribeToViewModeChange: (() => void) | undefined;
 
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
-		if (
-			this.reactComponentProps.mediaOptions &&
-			this.reactComponentProps.mediaOptions.allowMediaSingleEditable
-		) {
-			// workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
-			// see also: https://github.com/ProseMirror/prosemirror/issues/884
-			domRef.contentEditable = 'true';
+
+		if (fg('platform_editor_prevent_delete_image_in_view_mode')) {
+			// controll the domRef contentEditable attribute based on the editor view mode
+			this.unsubscribeToViewModeChange = this.subscribeToViewModeChange(domRef);
+			const initialViewMode =
+				this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState()
+					?.mode;
+			this.updateDomRefContentEditable(domRef, initialViewMode);
+		} else {
+			if (
+				this.reactComponentProps.mediaOptions &&
+				this.reactComponentProps.mediaOptions.allowMediaSingleEditable
+			) {
+				// workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
+				// see also: https://github.com/ProseMirror/prosemirror/issues/884
+				domRef.contentEditable = 'true';
+			}
 		}
 
 		if (fg('platform_editor_media_extended_resize_experience')) {
@@ -692,6 +704,29 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		}
 
 		return super.viewShouldUpdate(nextNode);
+	}
+
+	subscribeToViewModeChange(domRef: HTMLElement) {
+		return this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.onChange(
+			(viewModeState) => {
+				this.updateDomRefContentEditable(domRef, viewModeState.nextSharedState?.mode);
+			},
+		);
+	}
+
+	updateDomRefContentEditable(domRef: HTMLElement, editorViewMode?: 'edit' | 'view') {
+		// if the editor is in view mode, we should not allow editing
+		if (editorViewMode === 'view') {
+			domRef.contentEditable = 'false';
+			return;
+		}
+
+		// if the editor is in edit mode, we should allow editing if the media options allow it
+		if (this.reactComponentProps.mediaOptions?.allowMediaSingleEditable) {
+			// workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
+			// see also: https://github.com/ProseMirror/prosemirror/issues/884
+			domRef.contentEditable = 'true';
+		}
 	}
 
 	checkAndUpdateSelectionType = () => {
@@ -816,6 +851,10 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		}
 
 		return true;
+	}
+
+	destroy() {
+		this.unsubscribeToViewModeChange?.();
 	}
 }
 

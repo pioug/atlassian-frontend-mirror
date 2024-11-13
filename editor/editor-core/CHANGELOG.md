@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 201.3.0
+
+### Minor Changes
+
+- [#161860](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161860)
+  [`a147e2be38608`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a147e2be38608) -
+  [ux] ED-25319 Support forced media resize handle positions in media options
+
+### Patch Changes
+
+- Updated dependencies
+
+## 201.2.1
+
+### Patch Changes
+
+- [#162942](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162942)
+  [`f7eedf81e6de4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7eedf81e6de4) -
+  Refactor ReactEditorViewNext to avoid unnecessary call of functions on re-render and mark
+  `useNativeCollabPlugin` FeatureFlag as deprecated.
+- Updated dependencies
+
 ## 201.2.0
 
 ### Minor Changes

@@ -26,6 +26,8 @@ and we will be happy to look in to it.
 Or if your team would like to contribute to our link resolvers or even create one of your own, let us know!
 Let's making the linking experience better for everyone!
 
+&nbsp;
+
 ${(
 	<ContentTabs
 		tabs={[

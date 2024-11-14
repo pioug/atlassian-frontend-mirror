@@ -57,6 +57,7 @@ const AgentProfileCard = ({
 		onDuplicateAgent,
 		onOpenChat: onOpenChatFullScreen,
 		onConversationStarter,
+		onViewFullProfile,
 	} = useAgentUrlActions({
 		cloudId: cloudId || '',
 	});
@@ -209,6 +210,8 @@ const AgentProfileCard = ({
 					onDuplicateAgent={() => onDuplicateAgent(agent.id)}
 					onDeleteAgent={handleOnDelete}
 					onChatClick={() => (onChatClick ? onChatClick() : onOpenChatFullScreen(agent.id))}
+					resourceClient={resourceClient}
+					onViewFullProfileClick={() => onViewFullProfile(agent.id)}
 				/>
 			</Box>
 		</AgentProfileCardWrapper>

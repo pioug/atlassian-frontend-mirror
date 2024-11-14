@@ -32,7 +32,7 @@
 		"@atlaskit/ds-lib": "^3.2.0",
 		"@atlaskit/focus-ring": "^1.7.0",
 		"@atlaskit/icon": "^22.24.0",
-		"@atlaskit/layering": "^0.7.0",
+		"@atlaskit/layering": "^0.7.3",
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/portal": "^4.9.0",
@@ -74,7 +74,7 @@
 		"jscodeshift": "^0.13.0",
 		"react-dom": "^16.8.0",
 		"react-lorem-component": "^0.13.0",
-		"storybook-addon-performance": "^0.16.0",
+		"storybook-addon-performance": "^0.17.3",
 		"tiny-invariant": "^1.2.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

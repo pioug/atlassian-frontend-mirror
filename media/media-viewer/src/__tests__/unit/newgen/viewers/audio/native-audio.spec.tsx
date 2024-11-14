@@ -30,6 +30,8 @@ const audioItem: ProcessedFileState = {
 	representations: {},
 };
 
+const traceContext = { traceId: 'some-trace-id' };
+
 function createFixture(
 	authPromise: Promise<Auth>,
 	collectionName?: string,
@@ -61,6 +63,7 @@ function createFixture(
 				item={item || audioItem}
 				collectionName={collectionName}
 				previewCount={0}
+				traceContext={traceContext}
 			/>
 		</IntlProvider>,
 	);
@@ -112,13 +115,15 @@ describe('Audio viewer', () => {
 		it('it should show the default cover while the audio cover is loading', async () => {
 			const authPromise = Promise.resolve({ token, clientId, baseUrl });
 			createFixture(authPromise);
-			await waitFor(() => expect(screen.getByLabelText('cover')).toBeInTheDocument());
+			const component = await screen.findByLabelText('cover');
+			expect(component).toBeInTheDocument();
 		});
 
 		it('it should show the default cover when the audio cover is errored', async () => {
 			const authPromise = Promise.resolve({ token, clientId, baseUrl });
 			createFixture(authPromise, undefined, undefined, undefined, Promise.resolve(''));
-			await waitFor(() => expect(screen.getByLabelText('cover')).toBeInTheDocument());
+			const component = await screen.findByLabelText('cover');
+			expect(component).toBeInTheDocument();
 		});
 
 		it('it should show the audio cover if exists', async () => {
@@ -144,7 +149,7 @@ describe('Audio viewer', () => {
 				undefined,
 				Promise.resolve('http://localhost/some-cover-image'),
 			);
-			await waitFor(() => expect(screen.getByAltText('my audio')).toBeInTheDocument());
+			await screen.findByAltText('my audio');
 			expect(screen.getByAltText('my audio').getAttribute('src')).toBe(
 				'http://localhost/some-cover-image',
 			);
@@ -169,6 +174,7 @@ describe('Audio viewer', () => {
 							item={audioItem}
 							collectionName="collectionName"
 							previewCount={previewCount}
+							traceContext={traceContext}
 						/>
 						,
 					</IntlProvider>,

@@ -41,7 +41,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/flag": "^15.8.0",
 		"@atlaskit/icon": "^22.24.0",
-		"@atlaskit/media-client": "^28.2.0",
+		"@atlaskit/media-client": "^28.3.0",
 		"@atlaskit/media-client-react": "^2.3.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-ui": "^26.1.0",

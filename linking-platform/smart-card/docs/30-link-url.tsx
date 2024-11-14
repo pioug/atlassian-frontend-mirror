@@ -9,11 +9,11 @@ import reference from './content/link-url/reference';
 import { TabName } from './utils';
 import ContentTabs from './utils/content-tabs';
 import customMd from './utils/custom-md';
-import DocQuickLinks from './utils/doc-quick-links';
+import QuickLinks from './utils/quick-links';
 
 export default customMd`
 
-${(<DocQuickLinks />)}
+${(<QuickLinks />)}
 
 We want to warn users if a link description text looks like a URL but the actual link destination is different.
 

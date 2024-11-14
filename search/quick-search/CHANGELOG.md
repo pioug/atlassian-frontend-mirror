@@ -1,5 +1,13 @@
 # @atlaskit/quick-search
 
+## 8.2.3
+
+### Patch Changes
+
+- [#163815](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163815)
+  [`c4cc01fa62da2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c4cc01fa62da2) -
+  Typography uplift work
+
 ## 8.2.2
 
 ### Patch Changes

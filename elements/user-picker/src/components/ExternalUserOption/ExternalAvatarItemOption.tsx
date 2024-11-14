@@ -42,6 +42,7 @@ const getTextStyle = (isSecondary?: boolean) => {
 	const secondaryCssArgs = isSecondary
 		? {
 				color: token('color.text.selected', B400),
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				fontSize: '0.85em',
 			}
 		: {};

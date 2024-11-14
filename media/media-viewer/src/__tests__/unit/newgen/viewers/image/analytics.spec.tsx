@@ -44,6 +44,7 @@ function createFixture(response: Promise<Blob>) {
 				onClose={onClose}
 				onLoad={onLoad}
 				onError={onError}
+				traceContext={{ traceId: 'some-trace-id' }}
 			/>
 		</IntlProvider>,
 	);

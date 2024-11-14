@@ -1,5 +1,5 @@
 import { type Auth, isClientBasedAuth } from '@atlaskit/media-core';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import { type MediaTraceContext, getRandomHex } from '@atlaskit/media-common';
 import { mapAuthToQueryParameters } from '../../models/auth-query-parameters';
 import { RequestError, isRequestError } from './errors';
 
@@ -34,6 +34,16 @@ export function isRateLimitedError(error: Error | undefined) {
 		(!!error && !!error.message && error.message.includes('429'))
 	);
 }
+
+export const extendTraceContext = (
+	traceContext?: MediaTraceContext,
+): Required<MediaTraceContext> | undefined =>
+	traceContext
+		? {
+				...traceContext,
+				spanId: traceContext?.spanId || getRandomHex(8),
+			}
+		: undefined;
 
 export const ZipkinHeaderKeys = {
 	traceId: 'x-b3-traceid',

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { type FieldProps } from '@atlaskit/form';
 import { Layering } from '@atlaskit/layering';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
+import { succeedUfoExperience } from '../../../../analytics/ufoExperiences';
+import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
 import type { DatasourceTypeWithOnlyValues } from '../../types';
 
 interface TextEditTypeProps extends Omit<FieldProps<string>, 'value'> {
@@ -16,6 +18,19 @@ export const toTextValue = (typeWithValues: DatasourceTypeWithOnlyValues): strin
 	(typeWithValues.values?.[0] as string) ?? '';
 
 const TextEditType = (props: TextEditTypeProps) => {
+	const experienceId = useDatasourceExperienceId();
+
+	useEffect(() => {
+		if (experienceId) {
+			succeedUfoExperience(
+				{
+					name: 'inline-edit-rendered',
+				},
+				experienceId,
+			);
+		}
+	}, [experienceId]);
+
 	return (
 		<Layering isDisabled={false}>
 			<Textfield

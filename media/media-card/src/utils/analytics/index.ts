@@ -42,4 +42,6 @@ export {
 	getCopiedFilePayload,
 	fireMediaCardEvent,
 	createAndFireMediaCardEvent,
+	getDownloadSucceededEventPayload,
+	getDownloadFailedEventPayload,
 } from './analytics';

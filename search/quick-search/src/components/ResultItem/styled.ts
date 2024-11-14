@@ -12,9 +12,9 @@ export const ResultItemGroupHeader = styled.div({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ResultItemGroupTitle = styled.div({
-	fontSize: '11px',
+	font: token('font.body.small'),
 	lineHeight: '16px',
-	fontWeight: 600,
+	fontWeight: token('font.weight.semibold'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
@@ -31,13 +31,13 @@ export const ResultItemAfterWrapper = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ResultItemCaption = styled.span({
 	color: N200,
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 	marginLeft: token('space.100', '8px'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ResultItemSubText = styled.span({
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 	color: N200,
 });
 

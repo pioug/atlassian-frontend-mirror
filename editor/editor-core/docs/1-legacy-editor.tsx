@@ -252,9 +252,9 @@ ${code`
 ${(
 	<Example
 		packageName="@atlaskit/editor-core"
-		Component={require('../examples/1-basic').default}
+		Component={require('../examples/1-basic-composable-editor').default}
 		title="Basic"
-		source={require('!!raw-loader!../examples/1-basic')}
+		source={require('!!raw-loader!../examples/1-basic-composable-editor')}
 	/>
 )}
 

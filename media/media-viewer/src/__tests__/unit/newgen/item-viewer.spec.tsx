@@ -12,6 +12,8 @@ import * as ufoWrapper from '../../../analytics/ufoExperiences';
 import { ItemViewer } from '../../../item-viewer';
 import { createMockedMediaClientProvider } from '../../utils/_mockedMediaClientProvider';
 
+const traceContext = { traceId: 'some-trace-id' };
+
 /* Mocks */
 
 // TODO: https://product-fabric.atlassian.net/browse/CXP-3191
@@ -82,7 +84,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -102,6 +104,7 @@ describe('<ItemViewer />', () => {
 							previewCount={0}
 							identifier={identifier}
 							viewerOptions={{ customRenderers: [{ shouldUseCustomRenderer, renderContent }] }}
+							traceContext={traceContext}
 						/>
 					</MockedMediaClientProvider>
 				</IntlProvider>,
@@ -118,7 +121,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -143,7 +146,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -175,7 +178,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -198,7 +201,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -221,7 +224,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -241,7 +244,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -259,7 +262,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -302,7 +305,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -375,7 +378,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -447,7 +450,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -511,7 +514,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -558,7 +561,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -595,7 +598,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -632,7 +635,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -675,7 +678,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -716,7 +719,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -754,7 +757,7 @@ describe('<ItemViewer />', () => {
 			render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -791,7 +794,7 @@ describe('<ItemViewer />', () => {
 			const { container } = render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -835,7 +838,7 @@ describe('<ItemViewer />', () => {
 			const { container } = render(
 				<IntlProvider locale="en">
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} />,
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 					</MockedMediaClientProvider>
 				</IntlProvider>,
 			);
@@ -880,7 +883,7 @@ describe('<ItemViewer />', () => {
 		render(
 			<IntlProvider locale="en">
 				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-					<ItemViewer previewCount={0} identifier={identifier} />,
+					<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
 				</MockedMediaClientProvider>
 			</IntlProvider>,
 		);

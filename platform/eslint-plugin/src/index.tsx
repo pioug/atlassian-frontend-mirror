@@ -73,17 +73,20 @@ export const configs = {
 		plugins: ['@atlaskit/platform', '@compiled'],
 		rules: {
 			...commonConfig,
-			'@atlaskit/platform/ensure-feature-flag-registration': 'error',
-			'@atlaskit/platform/ensure-feature-flag-prefix': [
-				'warn',
-				{ allowedPrefixes: ['platform.', 'platform_'] },
-			],
+			// See platform/packages/platform/eslint-plugin/src/rules/feature-gating/README.md
+			// These rules are specific to `platform` and seem a WIP; jira and confluence currently have their own rules
 			'@atlaskit/platform/no-module-level-eval': 'error',
 			'@atlaskit/platform/static-feature-flags': 'error',
 			'@atlaskit/platform/no-preconditioning': 'error',
 			'@atlaskit/platform/inline-usage': 'error',
 			'@atlaskit/platform/prefer-fg': 'error',
 			'@atlaskit/platform/no-alias': 'error',
+			// end: feature-gating rules
+			'@atlaskit/platform/ensure-feature-flag-registration': 'error',
+			'@atlaskit/platform/ensure-feature-flag-prefix': [
+				'warn',
+				{ allowedPrefixes: ['platform.', 'platform_'] },
+			],
 		},
 	},
 	jira: {

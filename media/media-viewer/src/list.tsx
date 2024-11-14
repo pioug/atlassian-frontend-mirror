@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { type Identifier } from '@atlaskit/media-client';
 import { hideControlsClassName, type WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { ItemViewer } from './item-viewer';
 import { HeaderWrapper, ListWrapper } from './styleWrappers';
 import { Navigation } from './navigation';
 import { type MediaViewerExtensions } from './components/types';
-import { type MediaFeatureFlags } from '@atlaskit/media-common';
+import {
+	type MediaFeatureFlags,
+	type MediaTraceContext,
+	getRandomHex,
+} from '@atlaskit/media-common';
 import Header from './header';
 import { type ViewerOptionsProps } from './viewerOptions';
 
@@ -46,6 +50,9 @@ export const List = ({
 	const [selectedItem, setSelectedItem] = useState(defaultSelectedItem);
 	const [previewCount, setPreviewCount] = useState(0);
 	const [isArchiveSideBarVisible, setIsArchiveSideBarVisible] = useState(false);
+	const traceContext = useRef<MediaTraceContext>({
+		traceId: getRandomHex(8),
+	});
 
 	return (
 		<ListWrapper>
@@ -63,6 +70,7 @@ export const List = ({
 					isArchiveSideBarVisible={isArchiveSideBarVisible}
 					featureFlags={featureFlags}
 					onSetArchiveSideBarVisible={setIsArchiveSideBarVisible}
+					traceContext={traceContext.current}
 				/>
 			</HeaderWrapper>
 			<ItemViewer
@@ -73,6 +81,7 @@ export const List = ({
 				contextId={contextId}
 				featureFlags={featureFlags}
 				viewerOptions={viewerOptions}
+				traceContext={traceContext.current}
 			/>
 			<Navigation
 				items={items}

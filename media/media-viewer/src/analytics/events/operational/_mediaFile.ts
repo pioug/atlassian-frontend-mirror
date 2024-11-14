@@ -9,5 +9,7 @@ export type MediaFileEventPayload<
 		| 'loadFailed'
 		| 'previewUnsupported'
 		| 'zipEntryLoadSucceeded'
-		| 'zipEntryLoadFailed',
+		| 'zipEntryLoadFailed'
+		| 'downloadSucceeded'
+		| 'downloadFailed',
 > = OperationalEventPayload<Attributes, Action, 'mediaFile'>;

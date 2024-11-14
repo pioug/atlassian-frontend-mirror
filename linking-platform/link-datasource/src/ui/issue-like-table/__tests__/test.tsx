@@ -24,6 +24,7 @@ import {
 	type MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { ActionOperationStatus } from '@atlaskit/linking-types';
 import {
 	type DatasourceDataResponseItem,
 	type DatasourceResponseSchemaProperty,
@@ -41,6 +42,16 @@ import { getOrderedColumns, IssueLikeDataTableView } from '../index';
 import { ScrollableContainerHeight } from '../styled';
 import { type IssueLikeDataTableViewProps, type TableViewPropsRenderType } from '../types';
 import { getColumnMinWidth } from '../utils';
+
+let mockUseExecuteAtomicAction = jest.fn();
+
+jest.mock('../../../state/actions', () => {
+	return {
+		__esModule: true,
+		...jest.requireActual('../../../state/actions'),
+		useExecuteAtomicAction: () => mockUseExecuteAtomicAction(),
+	};
+});
 
 function getDefaultInput(overrides: Partial<Input> = {}): Input {
 	const defaults: Input = {
@@ -67,6 +78,9 @@ function getDefaultInput(overrides: Partial<Input> = {}): Input {
 const mockColumnPickerUfoStart = jest.fn();
 const mockTableRenderUfoSuccess = jest.fn();
 const mockTableRenderUfoFailure = jest.fn();
+const mockInlineEditUfoStart = jest.fn();
+const mockInlineEditUfoSuccess = jest.fn();
+const mockInlineEditUfoFailure = jest.fn();
 
 jest.mock('@atlaskit/ufo', () => ({
 	__esModule: true,
@@ -92,6 +106,13 @@ jest.mock('@atlaskit/ufo', () => ({
 						start: mockColumnPickerUfoStart,
 						addMetadata: mockColumnPickerUfoAddMetadata,
 						success: mockColumnPickerUfoSuccess,
+					};
+				}
+				if (experienceId === 'inline-edit-rendered') {
+					return {
+						success: mockInlineEditUfoSuccess,
+						start: mockInlineEditUfoStart,
+						failure: mockInlineEditUfoFailure,
 					};
 				}
 			}),
@@ -181,7 +202,7 @@ describe('IssueLikeDataTableView', () => {
 								items={[]}
 								itemIds={[]}
 								columns={[]}
-								visibleColumnKeys={['id']}
+								visibleColumnKeys={['id', 'status']}
 								{...props}
 							/>
 						</SmartCardProvider>
@@ -227,6 +248,19 @@ describe('IssueLikeDataTableView', () => {
 			};
 		};
 
+		const openInlineEdit = async (dropdownOption: string) => {
+			const { findByText } = renderResult;
+
+			const statusCell = await findByText('Done');
+
+			// open popup
+			act(() => {
+				fireEvent.click(statusCell);
+			});
+
+			await findByText(dropdownOption);
+		};
+
 		return {
 			...renderResult,
 			onAnalyticsEvent,
@@ -236,6 +270,7 @@ describe('IssueLikeDataTableView', () => {
 			onColumnResize,
 			onWrappedColumnChange,
 			openColumnPicker,
+			openInlineEdit,
 		};
 	};
 
@@ -272,6 +307,10 @@ describe('IssueLikeDataTableView', () => {
 		// use to spoof visibility of a Smart Link.
 		window.IntersectionObserver = MockIntersectionObserverFactory(mockIntersectionObserverOpts);
 		mockCellBoundingRect({ cellWidth: 600, tableWidth: 100 });
+		mockUseExecuteAtomicAction.mockClear();
+		mockInlineEditUfoStart.mockClear();
+		mockInlineEditUfoSuccess.mockClear();
+		mockInlineEditUfoFailure.mockClear();
 	});
 
 	afterEach(() => {
@@ -1927,6 +1966,9 @@ describe('IssueLikeDataTableView', () => {
 
 	ffTest.on('platform-datasources-enable-two-way-sync', 'toggling inline editable cell', () => {
 		ffTest.on('enable_datasource_react_sweet_state', 'with react sweet state on', () => {
+			const execute = jest.fn().mockResolvedValue({});
+			mockUseExecuteAtomicAction.mockReturnValue({ execute });
+
 			it('shows editable cell on click when field is editable', async () => {
 				const items = getComplexItems();
 				const columns = getComplexColumns();
@@ -1973,6 +2015,8 @@ describe('IssueLikeDataTableView', () => {
 			});
 
 			it('does not show editable cell on click when field is NOT editable', async () => {
+				mockUseExecuteAtomicAction.mockReturnValue({});
+
 				const items = getComplexItems();
 				const columns = getComplexColumns();
 				const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
@@ -2018,6 +2062,8 @@ describe('IssueLikeDataTableView', () => {
 			});
 
 			it('does not show editable cell on click when there are no actions available', async () => {
+				mockUseExecuteAtomicAction.mockReturnValue({});
+
 				const items = getComplexItems();
 				const columns = getComplexColumns();
 				const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
@@ -2135,6 +2181,165 @@ describe('IssueLikeDataTableView', () => {
 
 				expect(mockColumnPickerUfoStart).toHaveBeenCalledTimes(1);
 				expect(mockColumnPickerUfoAddMetadata).toHaveBeenCalledTimes(1);
+			});
+		});
+
+		ffTest.on('platform-datasources-enable-two-way-sync', 'InlineEditRendered', () => {
+			ffTest.on('enable_datasource_react_sweet_state', 'with react sweet state on', () => {
+				ffTest.on(
+					'platform-datasources-enable-two-way-sync-statuses',
+					'with 2 way sync for status on',
+					() => {
+						const items: DatasourceDataResponseItem[] = [
+							{
+								status: {
+									data: { text: 'Done' },
+								},
+								ari: { data: 'ari/blah' },
+							},
+							{
+								status: {
+									data: { text: 'To Do' },
+								},
+								ari: { data: 'ari/id2' },
+							},
+							{
+								status: {
+									data: { text: 'In Progress' },
+								},
+								ari: { data: 'ari/id3' },
+							},
+						];
+
+						const columns: DatasourceResponseSchemaProperty[] = [
+							{
+								key: 'status',
+								title: 'Status',
+								type: 'status',
+							},
+						];
+
+						const execute = jest.fn().mockResolvedValue({});
+
+						it('should mark Ufo experience as started when inline edit is opened', async () => {
+							const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+							actionStore.storeState.setState({
+								actionsByIntegration: {
+									jira: {
+										status: {
+											actionKey: 'atlassian:work-item:update:status',
+											type: 'string',
+										},
+									},
+								},
+								permissions: {
+									'ari/blah': {
+										status: { isEditable: true },
+									},
+								},
+							});
+
+							const executeFetch = jest.fn().mockResolvedValue({});
+							mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+							const { openInlineEdit } = setup({
+								items,
+								columns,
+								itemIds,
+							});
+
+							await openInlineEdit('No options');
+
+							expect(mockInlineEditUfoStart).toHaveBeenCalledTimes(1);
+						});
+
+						it('should mark Ufo experience as successful when options have loaded', async () => {
+							const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+							actionStore.storeState.setState({
+								actionsByIntegration: {
+									jira: {
+										status: {
+											actionKey: 'atlassian:work-item:update:status',
+											type: 'string',
+										},
+									},
+								},
+								permissions: {
+									'ari/blah': {
+										status: { isEditable: true },
+									},
+								},
+							});
+
+							const executeFetch = jest.fn().mockResolvedValue({
+								operationStatus: ActionOperationStatus.SUCCESS,
+								errors: [],
+								entities: [
+									{
+										id: '11',
+										text: 'Backlog',
+										style: {
+											appearance: 'default',
+										},
+										transitionId: '711',
+									},
+								],
+							});
+							mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+							const { openInlineEdit } = setup({
+								items,
+								columns,
+								itemIds,
+							});
+
+							await openInlineEdit('Backlog');
+
+							expect(mockInlineEditUfoStart).toHaveBeenCalledTimes(1);
+							await waitFor(() => {
+								expect(mockInlineEditUfoSuccess).toHaveBeenCalledTimes(1);
+							});
+						});
+
+						it('should mark Ufo experience as failure when executeFetch fails', async () => {
+							const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+							actionStore.storeState.setState({
+								actionsByIntegration: {
+									jira: {
+										status: {
+											actionKey: 'atlassian:work-item:update:status',
+											type: 'string',
+										},
+									},
+								},
+								permissions: {
+									'ari/blah': {
+										status: { isEditable: true },
+									},
+								},
+							});
+
+							const executeFetch = jest.fn().mockResolvedValue({
+								operationStatus: ActionOperationStatus.FAILURE,
+								errors: [],
+							});
+							mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+							const { openInlineEdit } = setup({
+								items,
+								columns,
+								itemIds,
+							});
+
+							await openInlineEdit('No options');
+
+							expect(mockInlineEditUfoStart).toHaveBeenCalledTimes(1);
+							await waitFor(() => {
+								expect(mockInlineEditUfoFailure).toHaveBeenCalledTimes(1);
+							});
+						});
+					},
+				);
 			});
 		});
 	});

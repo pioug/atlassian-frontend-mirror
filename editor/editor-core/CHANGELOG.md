@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 201.3.1
+
+### Patch Changes
+
+- [#162554](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162554)
+  [`bb0f938202ca0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb0f938202ca0) -
+  [ux] Advanced layout responsiveness in Editor
+- [#162782](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162782)
+  [`c0ff2fca39e86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c0ff2fca39e86) -
+  fix context panel issue with editor container size
+- Updated dependencies
+
 ## 201.3.0
 
 ### Minor Changes

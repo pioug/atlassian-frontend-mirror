@@ -46,7 +46,7 @@
 		"@atlaskit/editor-plugin-mentions": "^2.10.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-tables": "^2.8.0",
-		"@atlaskit/media-client": "^28.2.0",
+		"@atlaskit/media-client": "^28.3.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/tmp-editor-statsig": "^2.13.0",

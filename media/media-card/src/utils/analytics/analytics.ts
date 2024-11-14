@@ -113,6 +113,18 @@ export type RenderFailedEventPayload = OperationalEventPayload<
 	'mediaCardRender'
 >;
 
+export type DownloadFailedEventPayload = OperationalEventPayload<
+	WithFileAttributes &
+		WithTraceContext &
+		FailureAttributes & {
+			failReason: FailedErrorFailReason;
+			error?: MediaClientErrorReason | 'nativeError';
+			request?: RequestMetadata;
+		},
+	'failed',
+	'mediaCardDownload'
+>;
+
 export type ErrorEventPayload = OperationalEventPayload<
 	WithFileAttributes &
 		WithPerformanceAttributes &
@@ -169,6 +181,12 @@ export type RenderInlineCardFailedEventPayload = OperationalEventPayload<
 	'mediaInlineRender'
 >;
 
+export type DownloadSucceededEventPayload = OperationalEventPayload<
+	WithFileAttributes & SuccessAttributes & WithTraceContext,
+	'succeeded',
+	'mediaCardDownload'
+>;
+
 export type RenderSucceededEventPayload = OperationalEventPayload<
 	WithFileAttributes &
 		WithPerformanceAttributes &
@@ -176,12 +194,6 @@ export type RenderSucceededEventPayload = OperationalEventPayload<
 		SuccessAttributes &
 		WithTraceContext,
 	'succeeded',
-	'mediaCardRender'
->;
-
-export type RenderCommencedEventPayload = OperationalEventPayload<
-	WithFileAttributes & WithPerformanceAttributes & WithTraceContext,
-	'commenced',
 	'mediaCardRender'
 >;
 
@@ -218,7 +230,6 @@ export type RenderScreenEventPayload = Omit<
 };
 
 export type MediaCardAnalyticsEventPayload =
-	| RenderCommencedEventPayload
 	| RenderSucceededEventPayload
 	| RenderFailedEventPayload
 	| CopiedFileEventPayload
@@ -230,7 +241,9 @@ export type MediaCardAnalyticsEventPayload =
 	| AnalyticsErrorBoundaryCardPayload
 	| AnalyticsErrorBoundaryInlinePayload
 	| RenderInlineCardFailedEventPayload
-	| RenderInlineCardSucceededEventPayload;
+	| RenderInlineCardSucceededEventPayload
+	| DownloadSucceededEventPayload
+	| DownloadFailedEventPayload;
 
 export const getFileAttributes = (
 	metadata: FileDetails,
@@ -272,6 +285,23 @@ export const getRenderSucceededEventPayload = (
 		performanceAttributes,
 		status: 'success',
 		ssrReliability,
+		traceContext,
+		metadataTraceContext,
+	},
+});
+
+export const getDownloadSucceededEventPayload = (
+	fileAttributes: FileAttributes,
+	traceContext: MediaTraceContext,
+	metadataTraceContext?: MediaTraceContext,
+): DownloadSucceededEventPayload => ({
+	eventType: 'operational',
+	action: 'succeeded',
+	actionSubject: 'mediaCardDownload',
+	attributes: {
+		fileMimetype: fileAttributes.fileMimetype,
+		fileAttributes,
+		status: 'success',
 		traceContext,
 		metadataTraceContext,
 	},
@@ -397,6 +427,25 @@ export const getRenderErrorEventPayload = (
 		...extractErrorInfo(error, metadataTraceContext),
 		request: getRenderErrorRequestMetadata(error),
 		ssrReliability,
+		traceContext,
+	},
+});
+
+export const getDownloadFailedEventPayload = (
+	fileAttributes: FileAttributes,
+	error: MediaCardError,
+	traceContext: MediaTraceContext,
+	metadataTraceContext?: MediaTraceContext,
+): DownloadFailedEventPayload => ({
+	eventType: 'operational',
+	action: 'failed',
+	actionSubject: 'mediaCardDownload',
+	attributes: {
+		fileMimetype: fileAttributes.fileMimetype,
+		fileAttributes,
+		status: 'fail',
+		...extractErrorInfo(error, metadataTraceContext),
+		request: getRenderErrorRequestMetadata(error),
 		traceContext,
 	},
 });

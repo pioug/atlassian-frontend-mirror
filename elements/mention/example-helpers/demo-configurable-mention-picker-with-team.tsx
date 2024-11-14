@@ -1,4 +1,6 @@
+import Heading from '@atlaskit/heading';
 import { token } from '@atlaskit/tokens';
+import { Text } from '@atlaskit/primitives';
 import React from 'react';
 import { type MentionResourceConfig } from '../src/api/MentionResource';
 import TeamMentionResource from '../src/api/TeamMentionResource';
@@ -72,12 +74,12 @@ export default class ConfigurableTeamMentionPicker extends React.Component<Props
 		return (
 			<div style={{ padding: `${token('space.150', '12px')}` }}>
 				{React.cloneElement(this.props.children, { resourceProvider })}
-				<p>
+				<Text as="p">
 					<label htmlFor="mention-urls">MentionResource config</label>
-				</p>
+				</Text>
 
 				<div>
-					<h3>Default mention config</h3>
+					<Heading size="medium">Default mention config</Heading>
 					<textarea
 						id="mention-urls"
 						rows={15}
@@ -90,7 +92,7 @@ export default class ConfigurableTeamMentionPicker extends React.Component<Props
 				</div>
 
 				<div>
-					<h3>Team service config</h3>
+					<Heading size="medium">Team service config</Heading>
 					<textarea
 						id="mention-urls-team"
 						name="teamMentionConfig"

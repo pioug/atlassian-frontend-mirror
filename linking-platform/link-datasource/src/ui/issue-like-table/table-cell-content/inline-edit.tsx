@@ -7,10 +7,14 @@ import { Box, xcss } from '@atlaskit/primitives';
 import { useSmartLinkReload } from '@atlaskit/smart-card/hooks';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
+import { startUfoExperience } from '../../../analytics/ufoExperiences';
+import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
 import { useDatasourceTableFlag } from '../../../hooks/useDatasourceTableFlag';
 import { type DatasourceItem, useDatasourceActions, useDatasourceItem } from '../../../state';
 import { editType } from '../edit-type';
 import type { DatasourceTypeWithOnlyValues } from '../types';
+
+export const InlineEditUFOExperience = 'inline-edit-rendered';
 
 const editContainerStyles = xcss({
 	marginBlockStart: 'space.negative.100',
@@ -110,6 +114,9 @@ export const InlineEdit = ({
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	const refreshDatasourceItem = useRefreshDatasourceItem(item);
+
+	const experienceId = useDatasourceExperienceId();
+
 	const onCommitUpdate = useCallback(
 		(newValue: DatasourceTypeWithOnlyValues) => {
 			if (!item) {
@@ -145,6 +152,15 @@ export const InlineEdit = ({
 	const onEdit = useCallback(() => {
 		setIsEditing(true);
 
+		if (experienceId) {
+			startUfoExperience(
+				{
+					name: InlineEditUFOExperience,
+				},
+				experienceId,
+			);
+		}
+
 		if (integrationKey && entityType) {
 			fireEvent('ui.inlineEdit.clicked.datasource', {
 				integrationKey,
@@ -152,7 +168,7 @@ export const InlineEdit = ({
 				fieldKey: columnKey,
 			});
 		}
-	}, [columnKey, entityType, fireEvent, integrationKey]);
+	}, [columnKey, entityType, experienceId, fireEvent, integrationKey]);
 
 	const onCancelEdit = useCallback(() => {
 		setIsEditing(false);

@@ -22,6 +22,8 @@ const externalIdentifier: Identifier = {
 	mediaItemType: 'external-image',
 };
 
+const traceContext = { traceId: 'some-trace-id' };
+
 describe('<Header />', () => {
 	it('onSetArchiveSideBarVisible to be called with true if media type is archive', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingArchive();
@@ -34,6 +36,7 @@ describe('<Header />', () => {
 						intl={fakeIntl}
 						identifier={identifier}
 						onSetArchiveSideBarVisible={onSetArchiveSideBarVisible}
+						traceContext={traceContext}
 					/>
 				</MockedMediaClientProvider>
 			</IntlProvider>,
@@ -53,6 +56,7 @@ describe('<Header />', () => {
 						intl={fakeIntl}
 						identifier={identifier}
 						onSetArchiveSideBarVisible={onSetArchiveSideBarVisible}
+						traceContext={traceContext}
 					/>
 				</MockedMediaClientProvider>
 			</IntlProvider>,
@@ -73,6 +77,7 @@ describe('<Header />', () => {
 						intl={fakeIntl}
 						identifier={identifier}
 						onSetArchiveSideBarVisible={onSetArchiveSideBarVisible}
+						traceContext={traceContext}
 					/>
 				</MockedMediaClientProvider>
 			</IntlProvider>,
@@ -94,6 +99,7 @@ describe('<Header />', () => {
 							intl={fakeIntl}
 							identifier={externalIdentifierWithName}
 							onSetArchiveSideBarVisible={onSetArchiveSideBarVisible}
+							traceContext={traceContext}
 						/>
 					</MockedMediaClientProvider>
 				</IntlProvider>,
@@ -115,6 +121,7 @@ describe('<Header />', () => {
 							intl={fakeIntl}
 							identifier={externalIdentifier}
 							onSetArchiveSideBarVisible={onSetArchiveSideBarVisible}
+							traceContext={traceContext}
 						/>
 					</MockedMediaClientProvider>
 				</IntlProvider>,
@@ -138,6 +145,7 @@ describe('<Header />', () => {
 								intl={fakeIntl}
 								identifier={identifier}
 								onSetArchiveSideBarVisible={onSetArchiveSideBarVisible}
+								traceContext={traceContext}
 							/>
 						</MockedMediaClientProvider>
 					</IntlProvider>,
@@ -161,6 +169,7 @@ describe('<Header />', () => {
 								intl={fakeIntl}
 								identifier={identifier}
 								onSetArchiveSideBarVisible={onSetArchiveSideBarVisible}
+								traceContext={traceContext}
 							/>
 						</MockedMediaClientProvider>
 					</IntlProvider>,
@@ -184,6 +193,7 @@ describe('<Header />', () => {
 								intl={fakeIntl}
 								identifier={externalIdentifierWithName}
 								onSetArchiveSideBarVisible={onSetArchiveSideBarVisible}
+								traceContext={traceContext}
 							/>
 						</MockedMediaClientProvider>
 					</IntlProvider>,
@@ -206,6 +216,7 @@ describe('<Header />', () => {
 								intl={fakeIntl}
 								identifier={identifier}
 								onSetArchiveSideBarVisible={onSetArchiveSideBarVisible}
+								traceContext={traceContext}
 							/>
 						</MockedMediaClientProvider>
 					</IntlProvider>,
@@ -240,6 +251,7 @@ describe('<Header />', () => {
 										renderer: () => <div />,
 									},
 								}}
+								traceContext={traceContext}
 							/>
 						</MockedMediaClientProvider>
 					</IntlProvider>,

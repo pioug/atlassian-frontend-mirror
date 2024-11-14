@@ -1,5 +1,7 @@
+import React from 'react';
 import { type FileItem, type FileDetails } from '@atlaskit/media-client';
 import { type ReactNode } from 'react';
+import DownloadIcon from '@atlaskit/icon/core/migration/download';
 
 export interface CardAction {
 	label?: string;
@@ -20,3 +22,9 @@ export function attachDetailsToActions(
 		},
 	}));
 }
+
+export const createDownloadAction = (handler: CardEventHandler) => ({
+	label: 'Download',
+	icon: <DownloadIcon color="currentColor" spacing="spacious" label="Download" />,
+	handler,
+});

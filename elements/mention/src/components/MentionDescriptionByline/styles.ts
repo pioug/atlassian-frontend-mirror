@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DescriptionBylineStyle = styled.span({
 	color: token('color.text.subtlest', N100),
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 	marginTop: token('space.025', '2px'),
 	display: 'block',
 	overflow: 'hidden',

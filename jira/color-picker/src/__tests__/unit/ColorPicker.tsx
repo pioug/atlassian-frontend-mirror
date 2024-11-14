@@ -29,8 +29,26 @@ describe('ColorPicker', () => {
 		);
 	};
 
+	beforeEach(() => {
+		mockGetBooleanFG.mockReturnValue(false);
+	});
+
 	afterEach(() => {
 		jest.resetAllMocks();
+	});
+
+	test('should render ColorPickerMenu on ColorPicker click', async () => {
+		const { getByLabelText, getAllByRole } = renderUI();
+		const colorButton = getByLabelText('Blue selected, Color picker');
+		expect(colorButton).toHaveAttribute('aria-expanded', 'false');
+		expect(colorButton).toBeInTheDocument();
+
+		// click on trigger
+		await userEvent.click(colorButton);
+		expect(colorButton).toHaveAttribute('aria-expanded', 'true');
+
+		// popup to have color options
+		expect(getAllByRole('option')).toHaveLength(2);
 	});
 
 	describe('FFs enabled', () => {
@@ -66,7 +84,7 @@ describe('ColorPicker', () => {
 			expect(colorButton).toHaveAttribute('aria-expanded', 'true');
 
 			// popup to have color options
-			expect(getAllByRole('option')).toHaveLength(2);
+			expect(getAllByRole('radio')).toHaveLength(2);
 		});
 
 		test('should not submit form when click on trigger', async () => {

@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 1.12.0
+
+### Minor Changes
+
+- [#163699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163699)
+  [`f946e35c60150`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f946e35c60150) -
+  Move AgentDropdownMenu to rovo-agent-components
+
 ## 1.11.0
 
 ### Minor Changes

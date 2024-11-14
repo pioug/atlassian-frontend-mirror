@@ -38,8 +38,9 @@ import PluginSlot from '../../PluginSlot';
 
 import {
 	contentArea,
-	contentAreaContainerTypeInlineSize,
 	contentAreaHeightNoToolbar,
+	contentAreaWrapper,
+	contentAreaWrapperNoStyles,
 	editorContentAreaStyle,
 	editorContentGutterStyle,
 	ScrollContainer,
@@ -71,6 +72,7 @@ interface FullPageEditorContentAreaProps {
 }
 
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
+export const EDITOR_CONTAINER = 'ak-editor-container';
 
 const Content = React.forwardRef<
 	ScrollContainerRefs,
@@ -101,74 +103,80 @@ const Content = React.forwardRef<
 	return (
 		<div
 			css={[
-				fg('platform_editor_breakout_use_css')
-					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						contentAreaContainerTypeInlineSize
-					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						contentArea,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+				contentArea,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				props.isEditorToolbarHidden && contentAreaHeightNoToolbar,
 			]}
 			data-testid={CONTENT_AREA_TEST_ID}
 			ref={containerRef}
 		>
-			<ScrollContainer
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className="fabric-editor-popup-scroll-parent"
-				featureFlags={props.featureFlags}
-				ref={scrollContainerRef}
-				viewMode={props?.viewMode}
+			<div
+				css={
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+					fg('platform_editor_breakout_use_css') ? contentAreaWrapper : contentAreaWrapperNoStyles
+				}
+				data-testid={EDITOR_CONTAINER}
+				data-editor-container={fg('platform_editor_breakout_use_css') ? 'true' : 'false'}
 			>
-				<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
-					<div
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						css={editorContentAreaStyle({
-							fullWidthMode,
-							layoutMaxWidth: theme.layoutMaxWidth,
-						})}
-						role="region"
-						aria-label={props.intl.formatMessage(messages.editableContentLabel)}
-						ref={contentAreaRef}
-					>
+				<ScrollContainer
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className="fabric-editor-popup-scroll-parent"
+					featureFlags={props.featureFlags}
+					ref={scrollContainerRef}
+					viewMode={props?.viewMode}
+				>
+					<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							css={editorContentGutterStyle()}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={[
-								'ak-editor-content-area',
-								'appearance-full-page',
-								fullWidthMode ? 'fabric-editor--full-width-mode' : '',
-							].join(' ')}
+							css={editorContentAreaStyle({
+								fullWidthMode,
+								layoutMaxWidth: theme.layoutMaxWidth,
+							})}
+							role="region"
+							aria-label={props.intl.formatMessage(messages.editableContentLabel)}
 							ref={contentAreaRef}
 						>
-							{!!props.customContentComponents && 'before' in props.customContentComponents
-								? props.customContentComponents.before
-								: props.customContentComponents}
-							<PluginSlot
-								editorView={props.editorView}
-								editorActions={props.editorActions}
-								eventDispatcher={props.eventDispatcher}
-								providerFactory={props.providerFactory}
-								appearance={props.appearance}
-								items={props.contentComponents}
-								pluginHooks={props.pluginHooks}
-								contentArea={contentAreaRef.current ?? undefined}
-								popupsMountPoint={props.popupsMountPoint}
-								popupsBoundariesElement={props.popupsBoundariesElement}
-								popupsScrollableElement={props.popupsScrollableElement}
-								disabled={!!props.disabled}
-								containerElement={scrollContainerRef.current}
-								dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-								wrapperElement={props.wrapperElement}
-							/>
-							{props.editorDOMElement}
-							{!!props.customContentComponents && 'after' in props.customContentComponents
-								? props.customContentComponents.after
-								: null}
+							<div
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+								css={editorContentGutterStyle()}
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								className={[
+									'ak-editor-content-area',
+									'appearance-full-page',
+									fullWidthMode ? 'fabric-editor--full-width-mode' : '',
+								].join(' ')}
+								ref={contentAreaRef}
+							>
+								{!!props.customContentComponents && 'before' in props.customContentComponents
+									? props.customContentComponents.before
+									: props.customContentComponents}
+								<PluginSlot
+									editorView={props.editorView}
+									editorActions={props.editorActions}
+									eventDispatcher={props.eventDispatcher}
+									providerFactory={props.providerFactory}
+									appearance={props.appearance}
+									items={props.contentComponents}
+									pluginHooks={props.pluginHooks}
+									contentArea={contentAreaRef.current ?? undefined}
+									popupsMountPoint={props.popupsMountPoint}
+									popupsBoundariesElement={props.popupsBoundariesElement}
+									popupsScrollableElement={props.popupsScrollableElement}
+									disabled={!!props.disabled}
+									containerElement={scrollContainerRef.current}
+									dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+									wrapperElement={props.wrapperElement}
+								/>
+								{props.editorDOMElement}
+								{!!props.customContentComponents && 'after' in props.customContentComponents
+									? props.customContentComponents.after
+									: null}
+							</div>
 						</div>
-					</div>
-				</ClickAreaBlock>
-			</ScrollContainer>
+					</ClickAreaBlock>
+				</ScrollContainer>
+			</div>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={sidebarArea}>
 				{props.contextPanel || <ContextPanel editorAPI={props.editorAPI} visible={false} />}

@@ -1,7 +1,8 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
-import EditorFilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
+import LegacyEditorFilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
+import EditorFilePreviewIcon from '@atlaskit/icon/core/expand';
 import Button from '@atlaskit/button';
 import { messages } from '@atlaskit/media-ui';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -22,8 +23,13 @@ const MediaPreviewButton = (props: Props & WrappedComponentProps) => {
 		<Button
 			appearance="subtle"
 			testId="preview-button"
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-20884
-			iconAfter={<EditorFilePreviewIcon label={formatMessage(messages.preview)} />}
+			iconAfter={
+				<EditorFilePreviewIcon
+					LEGACY_fallbackIcon={LegacyEditorFilePreviewIcon}
+					label={formatMessage(messages.preview)}
+					color="currentColor"
+				/>
+			}
 			onKeyPress={(event) => event.stopPropagation()}
 			onClick={(event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
 				analyticsEvent

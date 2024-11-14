@@ -41,7 +41,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@storybook/addon-knobs": "^5.3.18",
+		"@storybook/addon-knobs": "^6.4.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@welldone-software/why-did-you-render": "^6.2.0",

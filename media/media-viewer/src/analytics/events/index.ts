@@ -1,5 +1,9 @@
 import { type CommencedEventPayload } from './operational/commenced';
 import { type LoadFailedEventPayload } from './operational/loadFailed';
+import {
+	type DownloadFailedEventPayload,
+	type DownloadSucceededEventPayload,
+} from './operational/download';
 import { type LoadSucceededEventPayload } from './operational/loadSucceeded';
 import { type PreviewUnsupportedEventPayload } from './operational/previewUnsupported';
 import { type ZipEntryLoadFailedEventPayload } from './operational/zipEntryLoadFailed';
@@ -29,4 +33,6 @@ export type MediaViewerEventPayload =
 	| FailedPreviewDownloadButtonClickedEventPayload
 	| NavigatedEventPayload
 	| ZoomInButtonClickEventPayload
-	| ZoomOutButtonClickEventPayload;
+	| ZoomOutButtonClickEventPayload
+	| DownloadFailedEventPayload
+	| DownloadSucceededEventPayload;

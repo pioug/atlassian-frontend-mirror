@@ -44,7 +44,7 @@
 		"@atlaskit/blanket": "^13.3.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/icon": "^22.24.0",
-		"@atlaskit/layering": "^0.7.0",
+		"@atlaskit/layering": "^0.7.3",
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/portal": "^4.9.0",

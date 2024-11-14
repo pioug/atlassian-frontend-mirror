@@ -76,7 +76,7 @@
 		"@types/raf-schd": "^4.0.1",
 		"jest-emotion": "^10.0.32",
 		"raf-stub": "^2.0.1",
-		"storybook-addon-performance": "^0.16.0",
+		"storybook-addon-performance": "^0.17.3",
 		"typescript": "~5.4.2"
 	},
 	"platform-feature-flags": {

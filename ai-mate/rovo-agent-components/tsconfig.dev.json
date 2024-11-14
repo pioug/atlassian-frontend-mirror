@@ -33,7 +33,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
@@ -43,6 +43,9 @@
 		},
 		{
 			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

@@ -64,6 +64,7 @@ describe('Archive', () => {
 			collectionName: collectionName,
 			onError: () => {},
 			onSuccess: () => {},
+			traceContext: { traceId: 'some-trace-id' },
 		};
 		const props = { ...baseProps, ...passedProps };
 		return shallow(<ArchiveViewerBase {...props} />);

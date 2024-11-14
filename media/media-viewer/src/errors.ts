@@ -70,7 +70,8 @@ export type MediaViewerErrorReason =
 	| 'svg-binary-fetch'
 	| 'svg-unknown-error'
 	| 'unsupported'
-	| 'custom-viewer-error';
+	| 'custom-viewer-error'
+	| 'download';
 
 export type ArchiveViewerErrorReason =
 	| 'archiveviewer-bundle-loader'

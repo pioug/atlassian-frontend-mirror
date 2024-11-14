@@ -1,5 +1,17 @@
 # @atlaskit/media-viewer
 
+## 49.4.0
+
+### Minor Changes
+
+- [#163838](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163838)
+  [`c3fcf9a7c2028`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3fcf9a7c2028) -
+  Logging good/bad events from file downloads
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 49.3.0
 
 ### Minor Changes

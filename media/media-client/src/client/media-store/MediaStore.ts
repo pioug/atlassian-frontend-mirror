@@ -4,7 +4,7 @@ import {
 	type Auth,
 	isClientBasedAuth,
 } from '@atlaskit/media-core';
-import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 import { type MediaFileArtifacts } from '@atlaskit/media-state';
 import type {
 	ItemsPayload,
@@ -33,6 +33,7 @@ import {
 	createUrl,
 	createMapResponseToJson,
 	createMapResponseToBlob,
+	extendTraceContext,
 } from '../../utils/request/helpers';
 import { mapToMediaCdnUrl } from '../../utils/mediaCdn';
 import {
@@ -510,12 +511,8 @@ export class MediaStore implements MediaApi {
 		} = options;
 		const auth = await this.resolveAuth(authContext);
 		const clientId = isClientBasedAuth(auth) ? auth.clientId : undefined;
-		const extendedTraceContext = traceContext
-			? {
-					...traceContext,
-					spanId: traceContext?.spanId || getRandomHex(8),
-				}
-			: undefined;
+		const extendedTraceContext = extendTraceContext(traceContext);
+		const extendedParams = addMediaClientParam ? { ...params, clientId } : params;
 
 		let url = `${auth.baseUrl}${path}`;
 
@@ -529,7 +526,7 @@ export class MediaStore implements MediaApi {
 				method,
 				endpoint,
 				auth,
-				params: addMediaClientParam ? { ...params, clientId } : params,
+				params: extendedParams,
 				headers,
 				body,
 				clientOptions,
@@ -541,6 +538,15 @@ export class MediaStore implements MediaApi {
 		setKeyValueInSessionStorage(MEDIA_API_REGION, response.headers.get('x-media-region'));
 		setKeyValueInSessionStorage(MEDIA_API_ENVIRONMENT, response.headers.get('x-media-env'));
 		return response;
+	}
+
+	async testUrl(url: string, options: { traceContext?: MediaTraceContext } = {}) {
+		const { traceContext } = options;
+		await request(url, {
+			method: 'HEAD',
+			traceContext: extendTraceContext(traceContext),
+			clientOptions: { retryOptions: { maxAttempts: 1 } },
+		});
 	}
 
 	resolveAuth = (authContext?: AuthContext) =>

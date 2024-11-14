@@ -16,3 +16,4 @@ export { ShowIcon } from './common/ui/show-icon';
 export { HiddenIcon } from './common/ui/hidden-icon';
 export { AgentAvatar } from './ui/agent-avatar';
 export { AgentBanner } from './ui/agent-avatar/generated-avatars';
+export { AgentDropdownMenu } from './ui/agent-dropdown-menu';

@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 10.26.5
+
+### Patch Changes
+
+- [#163815](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163815)
+  [`c4cc01fa62da2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c4cc01fa62da2) -
+  Typography uplift work
+
 ## 10.26.4
 
 ### Patch Changes

@@ -79,7 +79,7 @@ export const TimeStyle = styled.div({
 	marginLeft: token('space.250', '20px'),
 	flex: 'none',
 	color: token('color.text.subtlest', N100),
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 });
 
 export const MENTION_ITEM_HEIGHT = 48;

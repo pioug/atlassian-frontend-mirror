@@ -86,8 +86,9 @@ function setup(options: SetupOptions = {}) {
 				onError={() => {}}
 				mediaClient={mediaClient}
 				item={item || videoItem}
-				{...props}
 				previewCount={(props && props.previewCount) || 0}
+				traceContext={{ traceId: 'some-trace-id' }}
+				{...props}
 			/>
 		</IntlProvider>,
 	);

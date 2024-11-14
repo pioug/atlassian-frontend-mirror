@@ -8,11 +8,13 @@ import ErrorMessage from '../errorMessage';
 import { Spinner } from '../loading';
 import { ErrorViewDownloadButton } from '../download';
 import { type MediaViewerError } from '../errors';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type BaseProps = {
 	mediaClient: MediaClient;
 	item: FileState;
 	collectionName?: string;
+	traceContext: MediaTraceContext;
 };
 
 export type BaseState<Content> = {
@@ -90,13 +92,14 @@ export abstract class BaseViewer<
 	}
 
 	private renderDownloadButton(error: MediaViewerError) {
-		const { item, mediaClient, collectionName } = this.props;
+		const { item, mediaClient, collectionName, traceContext } = this.props;
 		return (
 			<ErrorViewDownloadButton
 				fileState={item}
 				mediaClient={mediaClient}
 				error={error}
 				collectionName={collectionName}
+				traceContext={traceContext}
 			/>
 		);
 	}

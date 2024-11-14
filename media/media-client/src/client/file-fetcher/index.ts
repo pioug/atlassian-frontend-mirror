@@ -104,7 +104,12 @@ export interface FileFetcher {
 		collection?: string,
 		traceContext?: MediaTraceContext,
 	): Promise<ExternalUploadPayload>;
-	downloadBinary(id: string, name?: string, collectionName?: string): Promise<void>;
+	downloadBinary(
+		id: string,
+		name?: string,
+		collectionName?: string,
+		traceContext?: MediaTraceContext,
+	): Promise<void>;
 	getCurrentState(id: string, options?: GetFileOptions): Promise<FileState>;
 	copyFile(
 		source: CopySourceFile,
@@ -515,7 +520,12 @@ export class FileFetcherImpl implements FileFetcher {
 		return fromObservable(subject);
 	}
 
-	public async downloadBinary(id: string, name: string = 'download', collectionName?: string) {
+	public async downloadBinary(
+		id: string,
+		name: string = 'download',
+		collectionName?: string,
+		traceContext?: MediaTraceContext,
+	) {
 		const url = await this.mediaApi.getFileBinaryURL(id, collectionName);
 		downloadUrl(url, { name });
 
@@ -524,6 +534,8 @@ export class FileFetcherImpl implements FileFetcher {
 			isUserCollection: collectionName === RECENTS_COLLECTION,
 			viewingLevel: 'download',
 		});
+		// Test the download after initiated the Browser process to catch any potential errors.
+		await this.mediaApi.testUrl(url, { traceContext });
 	}
 
 	public async copyFile(

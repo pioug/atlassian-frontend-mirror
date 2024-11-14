@@ -4,19 +4,17 @@ import type { EditorAppearance, PMPluginFactoryParams } from '@atlaskit/editor-c
 
 import { codeBidiWarningPluginKey } from '../plugin-key';
 
-import {
-	createBidiWarningsDecorationSetFromDoc,
-	createPluginState,
-	getPluginState,
-} from './plugin-factory';
+import { createBidiWarningsDecorationSetFromDoc, pluginFactoryCreator } from './plugin-factory';
 
 export const createPlugin = (
-	{ dispatch, getIntl }: PMPluginFactoryParams,
+	{ dispatch, getIntl, nodeViewPortalProviderAPI }: PMPluginFactoryParams,
 	{ appearance }: { appearance?: EditorAppearance },
 ) => {
 	const intl = getIntl();
 
 	const codeBidiWarningLabel = intl.formatMessage(codeBidiWarningMessages.label);
+
+	const { createPluginState, getPluginState } = pluginFactoryCreator(nodeViewPortalProviderAPI);
 
 	return new SafePlugin({
 		key: codeBidiWarningPluginKey,
@@ -26,6 +24,7 @@ export const createPlugin = (
 					doc: state.doc,
 					codeBidiWarningLabel,
 					tooltipEnabled: true,
+					nodeViewPortalProviderAPI,
 				}),
 				codeBidiWarningLabel,
 				tooltipEnabled: true,

@@ -39,10 +39,14 @@ import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-hel
 import { createMockedMediaClientProvider } from './utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { MediaViewer } from '../../../media-viewer';
 import { type MediaViewerExtensions } from '../../../components/types';
-import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
+import {
+	createMockedMediaApi,
+	createServerUnauthorizedError,
+} from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import * as analytics from '../../../analytics';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
+import * as downloadUrlModule from '@atlaskit/media-common/downloadUrl';
 
 const fireAnalyticsMock = jest.spyOn(analytics, 'fireAnalytics');
 const mocksucceedMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'succeedMediaFileUfoExperience');
@@ -650,6 +654,326 @@ describe('<MediaViewer />', () => {
 					}),
 				);
 			});
+		});
+	});
+
+	describe('Download Button', () => {
+		const downloadUrlSpy = jest.spyOn(downloadUrlModule, 'downloadUrl');
+
+		it('should download the binary when clicking download button', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const binaryUrl = 'binary-url';
+			const getFileBinaryURL = jest
+				.spyOn(mediaApi, 'getFileBinaryURL')
+				.mockResolvedValue(binaryUrl);
+			const testUrl = jest.spyOn(mediaApi, 'testUrl');
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaViewer selectedItem={identifier} items={[identifier]} />,
+				</MockedMediaClientProvider>,
+			);
+
+			const downloadButton = await screen.findByTestId('media-viewer-download-button');
+			expect(downloadButton).toBeInTheDocument();
+
+			await user.click(downloadButton);
+
+			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+				traceContext: { traceId: expect.any(String) },
+			});
+
+			expect(downloadUrlSpy).toHaveBeenCalledWith(expect.any(String), {
+				name: fileItem.details.name,
+			});
+
+			const fileAttributes = {
+				fileId: identifier.id,
+				fileMediatype: fileItem.details.mediaType,
+				fileMimetype: fileItem.details.mimeType,
+				fileSize: fileItem.details.size,
+			};
+
+			expect(fireAnalyticsMock).toHaveBeenCalledWith(
+				{
+					eventType: 'ui',
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'downloadButton',
+					attributes: {
+						fileAttributes,
+						fileProcessingStatus: 'processed',
+					},
+				},
+				expect.anything(),
+			);
+			expect(fireAnalyticsMock).toHaveBeenCalledWith(
+				{
+					eventType: 'operational',
+					actionSubject: 'mediaFile',
+					action: 'downloadSucceeded',
+					attributes: {
+						status: 'success',
+						fileMediatype: fileItem.details.mediaType,
+						fileMimetype: fileItem.details.mimeType,
+						fileAttributes,
+						traceContext: {
+							traceId: expect.any(String),
+						},
+					},
+				},
+				expect.anything(),
+			);
+		});
+
+		it('should download the binary when clicking download button on error view', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.failedVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const binaryUrl = 'binary-url';
+			const getFileBinaryURL = jest
+				.spyOn(mediaApi, 'getFileBinaryURL')
+				.mockResolvedValue(binaryUrl);
+			const testUrl = jest.spyOn(mediaApi, 'testUrl');
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaViewer selectedItem={identifier} items={[identifier]} />,
+				</MockedMediaClientProvider>,
+			);
+
+			const downloadButton = await screen.findByTestId('media-viewer-error-download-button');
+
+			expect(downloadButton).toBeInTheDocument();
+			await user.click(downloadButton);
+
+			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+				traceContext: { traceId: expect.any(String) },
+			});
+
+			expect(downloadUrlSpy).toHaveBeenCalledWith(expect.any(String), {
+				name: fileItem.details.name,
+			});
+
+			const fileAttributes = {
+				fileId: identifier.id,
+				fileMediatype: fileItem.details.mediaType,
+				fileMimetype: fileItem.details.mimeType,
+				fileSize: fileItem.details.size,
+			};
+
+			expect(fireAnalyticsMock).toHaveBeenCalledWith(
+				{
+					eventType: 'ui',
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'failedPreviewDownloadButton',
+					attributes: {
+						failReason: 'itemviewer-file-failed-processing-status',
+						fileAttributes,
+						fileProcessingStatus: 'failed-processing',
+					},
+				},
+				expect.anything(),
+			);
+			expect(fireAnalyticsMock).toHaveBeenCalledWith(
+				{
+					eventType: 'operational',
+					actionSubject: 'mediaFile',
+					action: 'downloadSucceeded',
+					attributes: {
+						status: 'success',
+						fileMediatype: fileItem.details.mediaType,
+						fileMimetype: fileItem.details.mimeType,
+						fileAttributes,
+						traceContext: {
+							traceId: expect.any(String),
+						},
+					},
+				},
+				expect.anything(),
+			);
+		});
+
+		it('should log failed event when download fails', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const binaryUrl = 'binary-url';
+			const getFileBinaryURL = jest
+				.spyOn(mediaApi, 'getFileBinaryURL')
+				.mockResolvedValue(binaryUrl);
+			const testUrl = jest
+				.spyOn(mediaApi, 'testUrl')
+				.mockRejectedValue(createServerUnauthorizedError());
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaViewer selectedItem={identifier} items={[identifier]} />,
+				</MockedMediaClientProvider>,
+			);
+
+			const downloadButton = await screen.findByTestId('media-viewer-download-button');
+			expect(downloadButton).toBeInTheDocument();
+
+			// Clearing Media Viewer reliability calls for easier debugging
+			fireAnalyticsMock.mockClear();
+
+			await user.click(downloadButton);
+
+			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+				traceContext: { traceId: expect.any(String) },
+			});
+
+			expect(downloadUrlSpy).toHaveBeenCalledWith(expect.any(String), {
+				name: fileItem.details.name,
+			});
+
+			const fileAttributes = {
+				fileId: identifier.id,
+				fileMediatype: fileItem.details.mediaType,
+				fileMimetype: fileItem.details.mimeType,
+				fileSize: fileItem.details.size,
+			};
+
+			expect(fireAnalyticsMock).toHaveBeenCalledWith(
+				{
+					eventType: 'ui',
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'downloadButton',
+					attributes: {
+						fileAttributes,
+						fileProcessingStatus: 'processed',
+					},
+				},
+				expect.anything(),
+			);
+			expect(fireAnalyticsMock).toHaveBeenCalledWith(
+				{
+					eventType: 'operational',
+					actionSubject: 'mediaFile',
+					action: 'downloadFailed',
+					attributes: {
+						error: 'serverUnauthorized',
+						errorDetail: undefined,
+						failReason: 'download',
+						status: 'fail',
+						fileMediatype: fileItem.details.mediaType,
+						fileMimetype: fileItem.details.mimeType,
+						fileAttributes,
+						traceContext: {
+							traceId: expect.any(String),
+						},
+						request: {
+							attempts: 5,
+							clientExhaustedRetries: true,
+							mediaEnv: 'test-media-env',
+							mediaRegion: 'test-media-region',
+							statusCode: 403,
+							traceContext: {
+								traceId: expect.any(String),
+								spanId: expect.any(String),
+							},
+						},
+					},
+				},
+				expect.anything(),
+			);
+		});
+
+		it('should log failed event when download fails on error view', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.failedVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const binaryUrl = 'binary-url';
+			const getFileBinaryURL = jest
+				.spyOn(mediaApi, 'getFileBinaryURL')
+				.mockResolvedValue(binaryUrl);
+			const testUrl = jest
+				.spyOn(mediaApi, 'testUrl')
+				.mockRejectedValue(createServerUnauthorizedError());
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaViewer selectedItem={identifier} items={[identifier]} />,
+				</MockedMediaClientProvider>,
+			);
+
+			// Clearing Media Viewer reliability calls for easier debugging
+			fireAnalyticsMock.mockClear();
+
+			const downloadButton = await screen.findByTestId('media-viewer-error-download-button');
+
+			expect(downloadButton).toBeInTheDocument();
+			await user.click(downloadButton);
+
+			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+				traceContext: { traceId: expect.any(String) },
+			});
+
+			expect(downloadUrlSpy).toHaveBeenCalledWith(expect.any(String), {
+				name: fileItem.details.name,
+			});
+
+			const fileAttributes = {
+				fileId: identifier.id,
+				fileMediatype: fileItem.details.mediaType,
+				fileMimetype: fileItem.details.mimeType,
+				fileSize: fileItem.details.size,
+			};
+
+			expect(fireAnalyticsMock).toHaveBeenCalledWith(
+				{
+					eventType: 'ui',
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'failedPreviewDownloadButton',
+					attributes: {
+						failReason: 'itemviewer-file-failed-processing-status',
+						fileAttributes,
+						fileProcessingStatus: 'failed-processing',
+					},
+				},
+				expect.anything(),
+			);
+			expect(fireAnalyticsMock).toHaveBeenCalledWith(
+				{
+					eventType: 'operational',
+					actionSubject: 'mediaFile',
+					action: 'downloadFailed',
+					attributes: {
+						error: 'serverUnauthorized',
+						errorDetail: undefined,
+						failReason: 'download',
+						status: 'fail',
+						fileMediatype: fileItem.details.mediaType,
+						fileMimetype: fileItem.details.mimeType,
+						fileAttributes,
+						traceContext: {
+							traceId: expect.any(String),
+						},
+						request: {
+							attempts: 5,
+							clientExhaustedRetries: true,
+							mediaEnv: 'test-media-env',
+							mediaRegion: 'test-media-region',
+							statusCode: 403,
+							traceContext: {
+								traceId: expect.any(String),
+								spanId: expect.any(String),
+							},
+						},
+					},
+				},
+				expect.anything(),
+			);
 		});
 	});
 });

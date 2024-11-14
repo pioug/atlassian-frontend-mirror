@@ -1,5 +1,17 @@
 # @atlaskit/util-data-test
 
+## 17.13.0
+
+### Minor Changes
+
+- [#163699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163699)
+  [`f946e35c60150`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f946e35c60150) -
+  Update mock profilecard client contract
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.12.0
 
 ### Minor Changes

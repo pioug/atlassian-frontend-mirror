@@ -14,6 +14,7 @@ import { BaseViewer } from '../base-viewer';
 import { DEFAULT_LANGUAGE, normaliseLineBreaks } from './util';
 import { getLanguageType, getExtension } from '@atlaskit/media-ui/codeViewer';
 import { msgToText } from './msg-parser';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 
 const moduleLoader = () =>
 	import(/* webpackChunkName: "@atlaskit-internal_media-code-viewer" */ './codeViewerRenderer');
@@ -28,6 +29,7 @@ export type Props = {
 	onClose?: () => void;
 	onError: (error: MediaViewerError) => void;
 	onSuccess: () => void;
+	traceContext: MediaTraceContext;
 };
 
 export class CodeViewer extends BaseViewer<string, Props> {

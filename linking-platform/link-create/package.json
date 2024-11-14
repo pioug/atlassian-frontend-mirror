@@ -46,7 +46,7 @@
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/icon-file-type": "^6.7.0",
 		"@atlaskit/intl-messages-provider": "^1.0.2",
-		"@atlaskit/layering": "^0.7.0",
+		"@atlaskit/layering": "^0.7.3",
 		"@atlaskit/linking-common": "^6.0.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
 		"@atlaskit/primitives": "^13.1.0",

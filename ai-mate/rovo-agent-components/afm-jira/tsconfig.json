@@ -18,10 +18,16 @@
 	],
 	"references": [
 		{
+			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/avatar/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/button/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/heading/afm-jira/tsconfig.json"
@@ -34,6 +40,9 @@
 		},
 		{
 			"path": "../../../design-system/logo/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"

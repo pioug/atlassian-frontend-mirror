@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 28.3.0
+
+### Minor Changes
+
+- [#163838](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163838)
+  [`c3fcf9a7c2028`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3fcf9a7c2028) -
+  Media Client File Download throws Request errors due to failed connection (Not streaming errors)
+
 ## 28.2.0
 
 ### Minor Changes

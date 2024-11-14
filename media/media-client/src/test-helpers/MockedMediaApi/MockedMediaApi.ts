@@ -158,6 +158,8 @@ const getMediaApi = ({ getItem }: { setItems: SetItems; getItem: GetItem }): Med
 		token: '',
 		baseUrl: '',
 	}),
+
+	testUrl: async () => {},
 });
 
 /**

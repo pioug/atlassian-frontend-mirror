@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 3.4.6
+
+### Patch Changes
+
+- [#163555](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163555)
+  [`f13bab6193072`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f13bab6193072) -
+  Fixed roles to align with radio button use case
+
 ## 3.4.5
 
 ### Patch Changes

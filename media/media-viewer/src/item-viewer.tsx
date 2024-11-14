@@ -24,11 +24,7 @@ import { createLoadSucceededEvent } from './analytics/events/operational/loadSuc
 import { fireAnalytics, getFileAttributes } from './analytics';
 import { InteractiveImg } from './viewers/image/interactive-img';
 import ArchiveViewerLoader from './viewers/archiveSidebar/archiveViewerLoader';
-import {
-	getRandomHex,
-	type MediaFeatureFlags,
-	type MediaTraceContext,
-} from '@atlaskit/media-common';
+import { type MediaFeatureFlags, type MediaTraceContext } from '@atlaskit/media-common';
 import type { ImageViewerProps } from './viewers/image';
 import type { Props as VideoViewerProps } from './viewers/video';
 import type { Props as AudioViewerProps } from './viewers/audio';
@@ -95,6 +91,7 @@ export type Props = Readonly<{
 	contextId?: string;
 	featureFlags?: MediaFeatureFlags;
 	viewerOptions?: ViewerOptionsProps;
+	traceContext: MediaTraceContext;
 }> &
 	WithAnalyticsEventsProps &
 	WithShowControlMethodProp;
@@ -120,12 +117,10 @@ export const ItemViewerBase = ({
 	contextId,
 	createAnalyticsEvent,
 	viewerOptions,
+	traceContext,
 }: Props): React.ReactElement | null => {
 	// States and Refs
 	const [item, setItem] = useState<State>(Outcome.pending());
-	const traceContext = useRef<MediaTraceContext>({
-		traceId: getRandomHex(8),
-	});
 	const fileStateFlagsRef = useRef<FileStateFlags>({
 		wasStatusUploading: false,
 		wasStatusProcessing: false,
@@ -150,10 +145,11 @@ export const ItemViewerBase = ({
 					mediaClient={mediaClient}
 					error={error}
 					collectionName={collectionName}
+					traceContext={traceContext}
 				/>
 			);
 		},
-		[mediaClient, identifier],
+		[mediaClient, identifier, traceContext],
 	);
 
 	// Did mount
@@ -164,11 +160,11 @@ export const ItemViewerBase = ({
 		}
 
 		fireAnalytics(
-			createCommencedEvent(identifier?.id, traceContext.current),
+			createCommencedEvent(identifier?.id, traceContext),
 			createAnalyticsEventRef.current,
 		);
 		startMediaFileUfoExperience();
-	}, [identifier]);
+	}, [identifier, traceContext]);
 
 	useEffect(() => {
 		if (isExternalImageIdentifier(identifier)) {
@@ -210,7 +206,7 @@ export const ItemViewerBase = ({
 			if (isFileStateItem(fileItem)) {
 				const fileAttributes = getFileAttributes(fileItem);
 				fireAnalytics(
-					createLoadSucceededEvent(fileAttributes, traceContext.current),
+					createLoadSucceededEvent(fileAttributes, traceContext),
 					createAnalyticsEventRef.current,
 				);
 				succeedMediaFileUfoExperience({
@@ -219,7 +215,7 @@ export const ItemViewerBase = ({
 				});
 			}
 		});
-	}, [item]);
+	}, [item, traceContext]);
 
 	const onLoadFail = useCallback(
 		(mediaViewerError: MediaViewerError) => {
@@ -237,6 +233,7 @@ export const ItemViewerBase = ({
 			onClose,
 			previewCount,
 			viewerOptions,
+			traceContext,
 		};
 
 		const customRenderer = viewerOptions?.customRenderers?.find((renderer) =>
@@ -272,7 +269,7 @@ export const ItemViewerBase = ({
 					onLoad={onSuccess}
 					onError={onLoadFail}
 					onClose={onClose}
-					traceContext={traceContext.current}
+					traceContext={traceContext}
 				/>
 			);
 		}
@@ -286,7 +283,6 @@ export const ItemViewerBase = ({
 						onLoad={onSuccess}
 						onError={onLoadFail}
 						contextId={contextId}
-						traceContext={traceContext.current}
 						{...viewerProps}
 					/>
 				);
@@ -333,7 +329,7 @@ export const ItemViewerBase = ({
 						error={error}
 						fileState={fileState}
 						fileStateFlags={fileStateFlagsRef.current}
-						traceContext={traceContext.current}
+						traceContext={traceContext}
 					>
 						<Text>
 							<FormattedMessage {...messages.try_downloading_file} />

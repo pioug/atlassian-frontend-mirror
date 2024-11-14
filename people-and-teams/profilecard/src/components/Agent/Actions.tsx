@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
-import { ChatPillIcon } from '@atlaskit/rovo-agent-components';
+import { AgentDropdownMenu, ChatPillIcon } from '@atlaskit/rovo-agent-components';
 
-import { type RovoAgentProfileCardInfo } from '../../types';
+import { type ProfileClient, type RovoAgentProfileCardInfo } from '../../types';
 
 import { AgentDeleteConfirmationModal } from './AgentDeleteConfirmationModal';
 
@@ -20,6 +21,8 @@ type AgentActionsProps = {
 	onDuplicateAgent: () => void;
 	onDeleteAgent: () => void;
 	onChatClick: () => void;
+	onViewFullProfileClick: () => void;
+	resourceClient: ProfileClient;
 };
 
 interface ActionMenuItem {
@@ -62,6 +65,7 @@ const actionsWrapperStyles = xcss({
 	marginBlockStart: 'space.200',
 	color: 'color.text',
 });
+
 const buildAgentActions = ({
 	onDuplicateAgent,
 	onCopyAgent,
@@ -115,10 +119,24 @@ export const AgentActions = ({
 	onDuplicateAgent,
 	onCopyAgent,
 	onChatClick,
+	onViewFullProfileClick,
 	agent,
+	resourceClient,
 }: AgentActionsProps) => {
 	const { formatMessage } = useIntl();
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const isForgeAgent = agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY';
+
+	const loadAgentPermissions = useCallback(async () => {
+		const {
+			permissions: { AGENT_UPDATE, AGENT_DEACTIVATE },
+		} = await resourceClient.getRovoAgentPermissions(agent.id);
+
+		return {
+			isEditEnabled: AGENT_UPDATE.permitted,
+			isDeleteEnabled: AGENT_DEACTIVATE.permitted,
+		};
+	}, [agent.id, resourceClient]);
 
 	const agentActions = buildAgentActions({
 		onDuplicateAgent,
@@ -153,41 +171,42 @@ export const AgentActions = ({
 						</Box>
 					</Button>
 				</Box>
-				<DropdownMenu<HTMLButtonElement>
-					trigger={({ triggerRef, ...props }) => (
-						<Box>
-							<IconButton
-								{...props}
-								icon={MoreIcon}
-								label="more"
-								ref={triggerRef}
-								onClick={(e) => {
-									e.stopPropagation();
-									props.onClick?.(e);
-								}}
-							/>
-						</Box>
-					)}
-					placement="bottom-end"
-				>
-					<DropdownItemGroup>
-						{agentActions.map(({ text, onClick }, idx) => {
-							return (
-								<DropdownItem
-									key={idx}
+
+				{fg('rovo_use_agent_permissions') ? (
+					<AgentDropdownMenu
+						agentId={agent.id}
+						isAgentCreatedByUser={isAgentCreatedByCurrentUser ?? false}
+						onDeleteAgent={() => setIsDeleteModalOpen(true)}
+						onEditAgent={onEditAgent}
+						onDuplicateAgent={onDuplicateAgent}
+						onCopyAgent={onCopyAgent}
+						isForgeAgent={isForgeAgent}
+						loadAgentPermissions={loadAgentPermissions}
+						loadPermissionsOnMount
+						onViewAgentFullProfileClick={onViewFullProfileClick}
+						doesAgentHaveIdentityAccountId={!!agent.identity_account_id}
+						shouldTriggerStopPropagation
+					/>
+				) : (
+					<DropdownMenu<HTMLButtonElement>
+						trigger={({ triggerRef, ...props }) => (
+							<Box>
+								<IconButton
+									{...props}
+									icon={MoreIcon}
+									label="more"
+									ref={triggerRef}
 									onClick={(e) => {
 										e.stopPropagation();
-										onClick?.();
+										props.onClick?.(e);
 									}}
-								>
-									{text}
-								</DropdownItem>
-							);
-						})}
-					</DropdownItemGroup>
-					{isAgentCreatedByCurrentUser && (
-						<DropdownItemGroup hasSeparator>
-							{agentSetting.map(({ text, onClick }, idx) => {
+								/>
+							</Box>
+						)}
+						placement="bottom-end"
+					>
+						<DropdownItemGroup>
+							{agentActions.map(({ text, onClick }, idx) => {
 								return (
 									<DropdownItem
 										key={idx}
@@ -201,8 +220,25 @@ export const AgentActions = ({
 								);
 							})}
 						</DropdownItemGroup>
-					)}
-				</DropdownMenu>
+						{isAgentCreatedByCurrentUser && (
+							<DropdownItemGroup hasSeparator>
+								{agentSetting.map(({ text, onClick }, idx) => {
+									return (
+										<DropdownItem
+											key={idx}
+											onClick={(e) => {
+												e.stopPropagation();
+												onClick?.();
+											}}
+										>
+											{text}
+										</DropdownItem>
+									);
+								})}
+							</DropdownItemGroup>
+						)}
+					</DropdownMenu>
+				)}
 			</Inline>
 			<AgentDeleteConfirmationModal
 				isOpen={isDeleteModalOpen}

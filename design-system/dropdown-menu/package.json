@@ -27,7 +27,7 @@
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/ds-lib": "^3.2.0",
 		"@atlaskit/icon": "^22.24.0",
-		"@atlaskit/layering": "^0.7.0",
+		"@atlaskit/layering": "^0.7.3",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popup": "^1.29.0",
@@ -60,7 +60,7 @@
 		"jscodeshift": "^0.13.0",
 		"raf-stub": "^2.0.1",
 		"react-dom": "^16.8.0",
-		"storybook-addon-performance": "^0.16.0",
+		"storybook-addon-performance": "^0.17.3",
 		"tiny-invariant": "^1.2.0",
 		"typescript": "~5.4.2"
 	},

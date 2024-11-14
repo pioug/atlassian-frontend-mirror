@@ -1,4 +1,5 @@
 import { token } from '@atlaskit/tokens';
+import { Text } from '@atlaskit/primitives';
 import React from 'react';
 import serializeJavascript from 'serialize-javascript';
 import MentionResource, { type MentionResourceConfig } from '../src/api/MentionResource';
@@ -42,10 +43,10 @@ export default class ConfigurableMentionPicker extends React.Component<Props, St
 		return (
 			<div style={{ padding: `${token('space.150', '12px')}` }}>
 				{React.cloneElement(this.props.children, { resourceProvider })}
-				<p>
+				<Text as="p">
 					<label htmlFor="mention-urls">MentionResource config</label>
-				</p>
-				<p>
+				</Text>
+				<Text as="p">
 					<textarea
 						id="mention-urls"
 						rows={15}
@@ -54,7 +55,7 @@ export default class ConfigurableMentionPicker extends React.Component<Props, St
 						onChange={this.mentionConfigChange}
 						defaultValue={serializeJavascript(this.props.config).replace(/\\u002F/g, '/')}
 					/>
-				</p>
+				</Text>
 			</div>
 		);
 	}

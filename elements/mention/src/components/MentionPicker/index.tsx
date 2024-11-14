@@ -1,3 +1,4 @@
+import { Text } from '@atlaskit/primitives';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
@@ -245,7 +246,7 @@ export class MentionPicker extends React.PureComponent<
 		const infoContent =
 			info && !visible ? (
 				<MentionPickerInfoStyle>
-					<p>{info}</p>
+					<Text as="p">{info}</Text>
 				</MentionPickerInfoStyle>
 			) : null;
 

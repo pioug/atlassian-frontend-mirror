@@ -32,7 +32,7 @@ import {
 import { ToolbarDownloadButton, DisabledToolbarDownloadButton } from './download';
 import { type MediaViewerExtensions } from './components/types';
 import { MediaFileStateError, useFileState, useMediaClient } from '@atlaskit/media-client-react';
-import { type MediaFeatureFlags } from '@atlaskit/media-common';
+import { type MediaFeatureFlags, type MediaTraceContext } from '@atlaskit/media-common';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { getFormat } from './viewers/codeViewer/util';
 import { MediaViewerError } from './errors';
@@ -46,6 +46,7 @@ export type Props = {
 	readonly featureFlags?: MediaFeatureFlags;
 	readonly onSetArchiveSideBarVisible?: (isVisible: boolean) => void;
 	readonly isArchiveSideBarVisible?: boolean;
+	traceContext: MediaTraceContext;
 };
 
 export const Header = ({
@@ -55,6 +56,7 @@ export const Header = ({
 	onSidebarButtonClick,
 	identifier,
 	onSetArchiveSideBarVisible,
+	traceContext,
 }: Props & WrappedComponentProps) => {
 	// States
 	const [item, setItem] = useState<Outcome<FileState, MediaViewerError>>(Outcome.pending());
@@ -191,7 +193,12 @@ export const Header = ({
 					pending: () => DisabledToolbarDownloadButton,
 					failed: () => DisabledToolbarDownloadButton,
 					successful: (item) => (
-						<ToolbarDownloadButton state={item} identifier={identifier} mediaClient={mediaClient} />
+						<ToolbarDownloadButton
+							state={item}
+							identifier={identifier}
+							mediaClient={mediaClient}
+							traceContext={traceContext}
+						/>
 					),
 				})}
 			</RightHeader>

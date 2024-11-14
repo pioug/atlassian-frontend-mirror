@@ -301,6 +301,8 @@ export interface MediaApi {
 		controller?: AbortController,
 	) => Promise<Response>;
 
+	testUrl: (url: string, options?: { traceContext?: MediaTraceContext }) => Promise<void>;
+
 	resolveAuth: (authContext?: AuthContext) => Promise<Auth>;
 
 	resolveInitialAuth: () => Auth;

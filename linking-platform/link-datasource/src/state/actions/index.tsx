@@ -232,7 +232,7 @@ const getFieldUpdateActionByAri = (
 
 	return {
 		schema: state.actionsByIntegration[integrationKey]?.[fieldKey],
-		fetchSchema: state.actionsByIntegration[integrationKey]?.[fieldKey].fetchAction,
+		fetchSchema: state.actionsByIntegration[integrationKey]?.[fieldKey]?.fetchAction,
 	};
 };
 

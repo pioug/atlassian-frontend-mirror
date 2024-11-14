@@ -10,7 +10,10 @@ import Lozenge from '@atlaskit/lozenge';
 import { type FilterOptionOption } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';
 
+import { failUfoExperience, succeedUfoExperience } from '../../../../analytics/ufoExperiences';
+import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
 import type { ExecuteFetch } from '../../../../state/actions';
+import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
 import type { DatasourceTypeWithOnlyValues } from '../../types';
 
 interface Props extends Omit<FieldProps<string>, 'value'> {
@@ -21,36 +24,55 @@ interface Props extends Omit<FieldProps<string>, 'value'> {
 
 const StatusEditType = (props: Props) => {
 	const { currentValue, executeFetch } = props;
-	const { options, isLoading } = useStatusOptions(currentValue, executeFetch);
+	const { options, isLoading, hasFailed } = useStatusOptions(currentValue, executeFetch);
+	const experienceId = useDatasourceExperienceId();
+
+	useEffect(() => {
+		if (!experienceId) {
+			return;
+		}
+
+		if (hasFailed) {
+			failUfoExperience(
+				{
+					name: InlineEditUFOExperience,
+				},
+				experienceId,
+			);
+		} else if (!isLoading) {
+			succeedUfoExperience(
+				{
+					name: InlineEditUFOExperience,
+				},
+				experienceId,
+			);
+		}
+	}, [experienceId, isLoading, hasFailed]);
 
 	return (
-		<div>
-			<Select<Status>
-				{...props}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
-				className="single-select"
-				testId="inline-edit-status"
-				autoFocus
-				defaultMenuIsOpen
-				blurInputOnSelect
-				getOptionValue={(option) => option.text}
-				options={options}
-				isLoading={isLoading}
-				defaultValue={currentValue?.values?.[0] as Status}
-				filterOption={filterOption}
-				formatOptionLabel={(option) => (
-					<Lozenge testId={`inline-edit-status-option-${option.text}`} {...option.style}>
-						{option.text}
-					</Lozenge>
-				)}
-				onChange={(e) =>
-					props.setEditValues({
-						type: 'status',
-						values: e ? [e] : [],
-					})
-				}
-			/>
-		</div>
+		<Select<Status>
+			{...props}
+			testId="inline-edit-status"
+			autoFocus
+			defaultMenuIsOpen
+			blurInputOnSelect
+			getOptionValue={(option) => option.text}
+			options={options}
+			isLoading={isLoading}
+			defaultValue={currentValue?.values?.[0] as Status}
+			filterOption={filterOption}
+			formatOptionLabel={(option) => (
+				<Lozenge testId={`inline-edit-status-option-${option.text}`} {...option.style}>
+					{option.text}
+				</Lozenge>
+			)}
+			onChange={(e) =>
+				props.setEditValues({
+					type: 'status',
+					values: e ? [e] : [],
+				})
+			}
+		/>
 	);
 };
 
@@ -59,26 +81,31 @@ const filterOption = (option: FilterOptionOption<Status>, inputValue: string) =>
 
 const useStatusOptions = (
 	currentValue: DatasourceTypeWithOnlyValues,
-	executeFetch?: <E>(inputs: any) => Promise<E>,
+	executeFetch?: ExecuteFetch,
 ) => {
-	const [{ options, isLoading }, setOptions] = useState({
+	const [{ options, isLoading, hasFailed }, setOptions] = useState({
 		isLoading: true,
 		options: [] as Status[],
+		hasFailed: false,
 	});
 
 	useEffect(() => {
 		let isMounted = true;
-		loadOptions(currentValue, executeFetch).then((options) => {
-			if (isMounted) {
-				setOptions({ isLoading: false, options });
-			}
-		});
+		loadOptions(currentValue, executeFetch)
+			.then((options) => {
+				if (isMounted) {
+					setOptions({ isLoading: false, options, hasFailed: false });
+				}
+			})
+			.catch((err) => {
+				setOptions({ isLoading: false, options: [], hasFailed: true });
+			});
 		return () => {
 			isMounted = false;
 		};
 	}, [currentValue, executeFetch]);
 
-	return { options, isLoading };
+	return { options, isLoading, hasFailed };
 };
 
 const loadOptions = async (
@@ -90,7 +117,11 @@ const loadOptions = async (
 
 		const { operationStatus, entities } = result;
 
-		if (operationStatus === ActionOperationStatus.SUCCESS && entities) {
+		if (operationStatus === ActionOperationStatus.FAILURE) {
+			throw new Error('Failed to fetch status options');
+		}
+
+		if (entities) {
 			return entities.map((entity) => ({
 				id: entity.id,
 				text: entity.text,

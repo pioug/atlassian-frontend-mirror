@@ -20,6 +20,7 @@ import { type BaseState, BaseViewer } from './base-viewer';
 import { isIE } from '../utils/isIE';
 import { CustomMediaPlayer, type WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type Props = Readonly<
 	{
@@ -29,6 +30,7 @@ export type Props = Readonly<
 		previewCount: number;
 		onCanPlay: () => void;
 		onError: (error: MediaViewerError) => void;
+		traceContext: MediaTraceContext;
 	} & WithShowControlMethodProp
 >;
 

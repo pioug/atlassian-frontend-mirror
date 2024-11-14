@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from '@atlaskit/primitives';
 import { md, Example, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
 import MentionWithEditorExample from '../examples/14-mention-with-editor-extending-abstract-mention-resource';
@@ -11,12 +12,12 @@ export default md`
 
   ${(
 		<>
-			<p>
+			<Text as="p">
 				To use Mention in <a href="/packages/editor/editor-core">@atlaskit/editor-core</a>
 				{', '}
 				check the 'Editor with mentions' section in editor-core, then follow these steps for a more
 				involved tutorial:
-			</p>
+			</Text>
 		</>
 	)}
 

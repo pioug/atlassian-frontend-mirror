@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 
@@ -90,40 +90,31 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 		[creatorUserId, fireAnalytics, props.cloudId, props.resourceClient],
 	);
 
-	const getAgentInfo = useCallback(() => {
-		return props.resourceClient.getRovoAgentProfile(
-			{ type: 'identity', value: props.accountId },
-			fireAnalytics,
-		);
-	}, [fireAnalytics, props.accountId, props.resourceClient]);
-
 	const fetchData = useCallback(async () => {
 		setIsLoading(true);
-		const getAgentData = async (): Promise<RovoAgentProfileCardInfo> => {
-			const profileData = await getAgentInfo();
+		try {
+			const profileData = await props.resourceClient.getRovoAgentProfile(
+				{ type: 'identity', value: props.accountId },
+				fireAnalytics,
+			);
 			const agentCreatorInfo = await getCreator(
 				profileData?.creator_type,
 				profileData?.creator || undefined,
 			);
-			return {
+			setAgentData({
 				...profileData,
 				creatorInfo: agentCreatorInfo,
-			};
-		};
-
-		const agentData = await getAgentData();
-		setAgentData(agentData);
-		setIsLoading(false);
-	}, [getAgentInfo, getCreator]);
+			});
+		} catch (err: any) {
+			setError(err);
+		} finally {
+			setIsLoading(false);
+		}
+	}, [fireAnalytics, getCreator, props.accountId, props.resourceClient]);
 
 	useEffect(() => {
-		try {
-			fetchData();
-		} catch (error: any) {
-			setIsLoading(false);
-			setError(error);
-		}
-	}, [fetchData, getAgentInfo, getCreator, props.accountId, props.cloudId, props.resourceClient]);
+		fetchData();
+	}, [fetchData]);
 
 	if (error || (!isLoading && !agentData)) {
 		return (
@@ -139,8 +130,8 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 		);
 	}
 
-	if (agentData) {
-		return (
+	return (
+		<Suspense fallback={null}>
 			<AgentProfileCardLazy
 				agent={agentData}
 				isLoading={isLoading}
@@ -153,8 +144,6 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 				resourceClient={props.resourceClient}
 				cloudId={props.cloudId}
 			/>
-		);
-	}
-
-	return null;
+		</Suspense>
+	);
 };

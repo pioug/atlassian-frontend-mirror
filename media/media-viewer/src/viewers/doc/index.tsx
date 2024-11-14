@@ -5,6 +5,7 @@ import { MediaViewerError } from '../../errors';
 import { PDFRenderer } from './pdfRenderer';
 import { BaseViewer } from '../base-viewer';
 import { getObjectUrlFromFileState } from '../../utils/getObjectUrlFromFileState';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type Props = {
 	mediaClient: MediaClient;
@@ -13,6 +14,7 @@ export type Props = {
 	onClose?: () => void;
 	onError: (error: MediaViewerError) => void;
 	onSuccess: () => void;
+	traceContext: MediaTraceContext;
 };
 
 export type State = {

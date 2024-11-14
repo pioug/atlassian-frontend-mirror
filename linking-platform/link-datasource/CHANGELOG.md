@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 3.8.9
+
+### Patch Changes
+
+- [`e7175d6f8d396`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e7175d6f8d396) -
+  Adding UFO analytics to inline editable fields for J2WS
+
 ## 3.8.8
 
 ### Patch Changes

@@ -844,7 +844,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 		& [data-layout-section] {
 			margin-top: ${token('space.250', '20px')};
 			& > div + div {
-				margin-left: ${token('space.400', '32px')};
+				margin-left: ${isAdvancedLayoutsPreRelease2() ? 0 : token('space.400', '32px')};
 			}
 
 			@media screen and (max-width: ${gridMediumMaxWidth}px) {

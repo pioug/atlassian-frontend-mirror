@@ -27,7 +27,7 @@ export type ImageViewerProps = {
 	onError: (error: MediaViewerError) => void;
 	onClose?: () => void;
 	contextId?: string;
-	traceContext?: MediaTraceContext;
+	traceContext: MediaTraceContext;
 };
 
 export interface ImageViewerContent {

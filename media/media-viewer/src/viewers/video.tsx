@@ -13,6 +13,7 @@ import { isIE } from '../utils/isIE';
 import { type BaseState, BaseViewer } from './base-viewer';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type Props = Readonly<
 	{
@@ -22,6 +23,7 @@ export type Props = Readonly<
 		previewCount: number;
 		onCanPlay: () => void;
 		onError: (error: MediaViewerError) => void;
+		traceContext: MediaTraceContext;
 	} & WithShowControlMethodProp
 >;
 

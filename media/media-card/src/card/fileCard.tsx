@@ -1,5 +1,4 @@
 import { useAnalyticsEvents, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import {
 	type FileDetails,
 	type FileIdentifier,
@@ -54,11 +53,13 @@ import {
 	fireNonCriticalErrorEvent,
 	fireOperationalEvent,
 	fireScreenEvent,
+	fireDownloadSucceededEvent,
+	fireDownloadFailedEvent,
 } from './cardAnalytics';
 import { CardView } from './cardView';
 import { InlinePlayerLazy } from './inlinePlayerLazy';
 import { useFilePreview, type MediaFilePreview } from '@atlaskit/media-file-preview';
-import { type CardAction } from './actions';
+import { type CardAction, createDownloadAction } from './actions';
 import { performanceNow } from './performance';
 import { useContext } from 'react';
 import { DateOverrideContext } from '../dateOverrideContext';
@@ -305,12 +306,32 @@ export const FileCard = ({
 
 	const computedActions = useMemo(() => {
 		if (finalStatus === 'failed-processing' || shouldEnableDownloadButton) {
-			const downloadAction = {
-				label: 'Download',
-				icon: <DownloadIcon color="currentColor" spacing="spacious" label="Download" />,
-				handler: () =>
-					mediaClient.file.downloadBinary(identifier.id, metadata.name, identifier.collectionName),
+			const downloadHandler = async () => {
+				try {
+					await mediaClient.file.downloadBinary(
+						identifier.id,
+						metadata.name,
+						identifier.collectionName,
+						traceContext,
+					);
+					fireDownloadSucceededEvent(
+						createAnalyticsEvent,
+						fileAttributes,
+						traceContext,
+						fileStateValue?.metadataTraceContext,
+					);
+				} catch (e) {
+					const error = new MediaCardError('download', e as Error);
+					fireDownloadFailedEvent(
+						createAnalyticsEvent,
+						fileAttributes,
+						error,
+						traceContext,
+						fileStateValue?.metadataTraceContext,
+					);
+				}
 			};
+			const downloadAction = createDownloadAction(downloadHandler);
 			return [downloadAction, ...(actions ?? [])];
 		} else {
 			return actions;
@@ -323,6 +344,10 @@ export const FileCard = ({
 		metadata.name,
 		shouldEnableDownloadButton,
 		finalStatus,
+		createAnalyticsEvent,
+		fileAttributes,
+		fileStateValue?.metadataTraceContext,
+		traceContext,
 	]);
 
 	//----------------------------------------------------------------//

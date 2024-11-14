@@ -12,4 +12,11 @@ interface ColumnPickerRendered {
 	};
 }
 
-export type UfoExperience = DatasourceRendered | ColumnPickerRendered;
+interface InlineEditRendered {
+	name: 'inline-edit-rendered'; // platform.fe.custom.datasource.inline-edit-rendered
+	metadata?: {
+		extensionKey?: string;
+	};
+}
+
+export type UfoExperience = DatasourceRendered | ColumnPickerRendered | InlineEditRendered;

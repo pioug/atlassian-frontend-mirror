@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 94.18.1
+
+### Patch Changes
+
+- [#162554](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162554)
+  [`bb0f938202ca0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb0f938202ca0) -
+  [ux] Advanced layout responsiveness in Editor
+- Updated dependencies
+
 ## 94.18.0
 
 ### Minor Changes

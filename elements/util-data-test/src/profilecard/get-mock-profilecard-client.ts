@@ -125,5 +125,17 @@ export function simpleMockProfilecardClient(): ProfileClient {
 		) => {
 			return Promise.reject({ reason: 'not built yet' });
 		},
+		getRovoAgentPermissions: () => {
+			return Promise.resolve({
+				permissions: {
+					AGENT_UPDATE: {
+						permitted: true,
+					},
+					AGENT_DEACTIVATE: {
+						permitted: true,
+					},
+				},
+			});
+		},
 	};
 }

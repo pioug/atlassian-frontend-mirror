@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 20.10.0
+
+### Minor Changes
+
+- [#163699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163699)
+  [`f946e35c60150`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f946e35c60150) -
+  Refactor to use shared agent dropdown from @atlaskit/rovo-agent-components
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.9.0
 
 ### Minor Changes

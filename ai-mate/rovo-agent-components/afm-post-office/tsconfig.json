@@ -18,10 +18,16 @@
 	],
 	"references": [
 		{
+			"path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/avatar/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/button/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/heading/afm-post-office/tsconfig.json"
@@ -34,6 +40,9 @@
 		},
 		{
 			"path": "../../../design-system/logo/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"

@@ -6,7 +6,11 @@ import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import { BreakoutResizer, ignoreResizerMutations } from '@atlaskit/editor-common/resizer';
 import { type ExtractInjectionAPI, type getPosHandlerNode } from '@atlaskit/editor-common/types';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import {
+	type DOMOutputSpec,
+	DOMSerializer,
+	type Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { type LayoutPlugin } from '../plugin';
@@ -56,6 +60,13 @@ const LayoutBreakoutResizer = ({
 
 type ForwardRef = (ref: HTMLElement | null) => void;
 
+const toDOM = () =>
+	[
+		'div',
+		{ class: 'layout-section-container' },
+		['div', { 'data-layout-section': true }, 0],
+	] as DOMOutputSpec;
+
 export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	options: LayoutPluginOptions;
 	layoutDOM?: HTMLElement;
@@ -81,11 +92,13 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	}
 
 	getContentDOM() {
-		const dom = document.createElement('div');
-		dom.setAttribute('data-layout-section', 'true');
-		this.layoutDOM = dom;
+		const { dom: container, contentDOM } = DOMSerializer.renderSpec(document, toDOM()) as {
+			dom: HTMLElement;
+			contentDOM?: HTMLElement;
+		};
+		this.layoutDOM = container.querySelector('[data-layout-section]') as HTMLElement;
 		this.layoutDOM.setAttribute('data-column-rule-style', this.node.attrs.columnRuleStyle);
-		return { dom };
+		return { dom: container, contentDOM };
 	}
 
 	setDomAttrs(node: PMNode, element: HTMLElement): void {

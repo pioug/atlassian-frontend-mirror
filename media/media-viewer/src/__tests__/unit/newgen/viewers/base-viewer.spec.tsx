@@ -10,6 +10,8 @@ import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { mount } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 
+const traceContext = { traceId: 'some-trace-id' };
+
 function createItem(): ProcessedFileState {
 	return {
 		id: 'some-id',
@@ -27,7 +29,7 @@ function createProps(): BaseProps {
 	const item = createItem();
 	const mediaClient = fakeMediaClient();
 	const collectionName = 'test-collection';
-	return { item, mediaClient, collectionName };
+	return { item, mediaClient, collectionName, traceContext };
 }
 
 function createInitialState() {

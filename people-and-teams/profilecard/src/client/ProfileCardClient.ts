@@ -111,6 +111,14 @@ class ProfileCardClient implements ProfileClient {
 	getRovoAgentProfile(id: AgentIdType, analytics?: (event: AnalyticsEventPayload) => void) {
 		return this.rovoAgentClient?.getProfile(id, analytics);
 	}
+
+	getRovoAgentPermissions(
+		id: string,
+		fireAnalytics?: ((event: AnalyticsEventPayload) => void) | undefined,
+	) {
+		return this.rovoAgentClient?.getPermissions(id, fireAnalytics);
+	}
+
 	deleteAgent(id: string, analytics?: (event: AnalyticsEventPayload) => void) {
 		return this.rovoAgentClient?.deleteAgent(id, analytics);
 	}

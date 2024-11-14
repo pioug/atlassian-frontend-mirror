@@ -10,6 +10,7 @@ import { FlagsProvider } from '@atlaskit/flag';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
+import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id';
 import { Store, StoreContainer } from '../../../../state';
 import { type DatasourceTypeWithOnlyValues } from '../../types';
 import { InlineEdit } from '../inline-edit';
@@ -50,7 +51,9 @@ describe('InlineEdit', () => {
 				<IntlProvider locale="en">
 					<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
 						<FlagsProvider>
-							<InlineEdit {...props} />,
+							<DatasourceExperienceIdProvider>
+								<InlineEdit {...props} />,
+							</DatasourceExperienceIdProvider>
 						</FlagsProvider>
 					</AnalyticsListener>
 				</IntlProvider>

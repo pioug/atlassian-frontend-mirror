@@ -19,6 +19,12 @@ const columnPickerCustomExperienceConfig = {
 	performanceType: ExperiencePerformanceTypes.Custom,
 };
 
+const inlineEditCustomExperienceConfig = {
+	platform: { component: 'datasource' },
+	type: ExperienceTypes.Load,
+	performanceType: ExperiencePerformanceTypes.InlineResult,
+};
+
 const ufoExperiences: Record<UfoExperience['name'], ConcurrentExperience> = {
 	'datasource-rendered': new ConcurrentExperience(
 		'datasource-rendered',
@@ -27,6 +33,10 @@ const ufoExperiences: Record<UfoExperience['name'], ConcurrentExperience> = {
 	'column-picker-rendered': new ConcurrentExperience(
 		'column-picker-rendered',
 		columnPickerCustomExperienceConfig,
+	),
+	'inline-edit-rendered': new ConcurrentExperience(
+		'inline-edit-rendered',
+		inlineEditCustomExperienceConfig,
 	),
 };
 

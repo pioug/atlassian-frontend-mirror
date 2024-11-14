@@ -499,6 +499,17 @@ export type RelativeDateKeyType =
 	| null;
 
 export type AgentIdType = { type: 'agent' | 'identity'; value: string };
+
+type AgentPermissionName = 'AGENT_UPDATE' | 'AGENT_DEACTIVATE';
+export type AgentPermissions = {
+	permissions: Record<
+		AgentPermissionName,
+		{
+			permitted: boolean;
+		}
+	>;
+};
+
 export interface ProfileClient {
 	flushCache: () => void;
 	getProfile: (
@@ -518,6 +529,10 @@ export interface ProfileClient {
 		id: AgentIdType,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,
 	) => Promise<RovoAgent>;
+	getRovoAgentPermissions: (
+		id: string,
+		fireAnalytics?: (event: AnalyticsEventPayload) => void,
+	) => Promise<AgentPermissions>;
 	deleteAgent: (
 		id: string,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,

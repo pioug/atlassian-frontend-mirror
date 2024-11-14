@@ -33,10 +33,16 @@
 	},
 	"references": [
 		{
+			"path": "../../analytics/analytics-next/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/avatar/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/heading/tsconfig.app.json"
@@ -45,7 +51,13 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/legacy-custom-icons/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/logo/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

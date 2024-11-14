@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from '@atlaskit/primitives';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
@@ -26,7 +27,7 @@ export const sampleAvatarUrl = mentionSampleAvatarUrl;
 
 export const generateMentionItem = (component: JSX.Element, description?: string) => (
 	<div>
-		<p>{description}</p>
+		<Text as="p">{description}</Text>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 		<ul style={{ padding: 0 }}>{component}</ul>
 	</div>

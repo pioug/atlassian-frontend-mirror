@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "201.3.0",
+	"version": "201.3.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,7 +51,7 @@
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/emoji": "^67.9.0",
 		"@atlaskit/icon": "^22.24.0",
-		"@atlaskit/media-card": "^78.12.0",
+		"@atlaskit/media-card": "^78.13.0",
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
@@ -99,13 +99,13 @@
 		"@atlaskit/smart-card": "^30.2.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.4.0",
-		"@atlaskit/util-data-test": "^17.12.0",
+		"@atlaskit/util-data-test": "^17.13.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.162",
+		"@atlassian/search-provider": "2.4.164",
 		"@emotion/jest": "^11.8.0",
-		"@storybook/addon-knobs": "^5.3.18",
+		"@storybook/addon-knobs": "^6.4.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@types/diff": "^5.0.2",

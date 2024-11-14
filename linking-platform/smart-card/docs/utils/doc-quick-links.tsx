@@ -116,18 +116,11 @@ const DocQuickLinks = () => (
 				</DropdownItem>
 			</DropdownItemGroup>
 			<DropdownItemGroup hasSeparator>
-				<DropdownItem
-					description="Utilities React hooks"
-					onClick={() => navigateToUrl(toAbsolutePath('./hooks'))}
-				>
-					Hooks
-				</DropdownItem>
-				<DropdownItem
-					description="Analytics events, dashboards"
-					onClick={() => navigateToUrl(toAbsolutePath('./analytics'))}
-				>
+				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./hooks'))}>Hooks</DropdownItem>
+				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./analytics'))}>
 					Analytics
 				</DropdownItem>
+				<DropdownItem onClick={() => navigateToUrl(toAbsolutePath('./faq'))}>FAQ</DropdownItem>
 			</DropdownItemGroup>
 			<DropdownItemGroup hasSeparator>
 				<DropdownItem
@@ -159,7 +152,6 @@ const DocQuickLinks = () => (
 			</DropdownItemGroup>
 			<DropdownItemGroup hasSeparator>
 				<DropdownItem
-					description="Questions and feedback"
 					elemAfter={<LinkExternalIcon label="Open in new tab" />}
 					elemBefore={<FeedbackIcon color="currentColor" spacing="spacious" label="" />}
 					href="https://atlassian.enterprise.slack.com/archives/CFKGAQZRV"
@@ -168,7 +160,6 @@ const DocQuickLinks = () => (
 					#help-linking-platform
 				</DropdownItem>
 				<DropdownItem
-					description="Contributing to Smart Links"
 					elemAfter={<LinkExternalIcon label="Open in new tab" />}
 					elemBefore={<TeamsIcon color="currentColor" spacing="spacious" label="" />}
 					href="https://hello.atlassian.net/wiki/spaces/TWPLP/pages/3609380368"

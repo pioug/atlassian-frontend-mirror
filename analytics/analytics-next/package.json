@@ -77,7 +77,7 @@
 		"@atlaskit/ssr": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^12.1.5",
-		"storybook-addon-performance": "^0.16.0",
+		"storybook-addon-performance": "^0.17.3",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

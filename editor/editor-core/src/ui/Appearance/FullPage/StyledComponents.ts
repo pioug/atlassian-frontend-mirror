@@ -64,29 +64,23 @@ export const contentArea = () => {
 	});
 };
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const contentAreaContainerTypeInlineSize = () => {
-	const editorToolbarHeight = FULL_PAGE_EDITOR_TOOLBAR_HEIGHT();
-	return css({
-		display: 'flex',
-		flexDirection: 'row',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: `calc(100% - ${editorToolbarHeight})`,
-		boxSizing: 'border-box',
-		margin: 0,
-		padding: 0,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		transition: `padding 0ms ${akEditorSwoopCubicBezier}`,
-		containerType: 'inline-size',
-		containerName: 'editor-area',
-		// Chrome 129 Regression!
-		// By the spec, when the container-type: inline-size is used
-		// The browser should apply the bewlo properties to the element.
-		// However, for reasons that goes beyond my knowledge.
-		// Chrome 129 broke that behavior, and now we need to make it explicity.
-		contain: 'layout style inline-size',
-	});
-};
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const contentAreaWrapper = css({
+	width: '100%',
+	containerType: 'inline-size',
+	containerName: 'editor-area',
+	// Chrome 129 Regression!
+	// By the spec, when the container-type: inline-size is used
+	// The browser should apply the bewlo properties to the element.
+	// However, for reasons that goes beyond my knowledge.
+	// Chrome 129 broke that behavior, and now we need to make it explicity.
+	contain: 'layout style inline-size',
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const contentAreaWrapperNoStyles = css({
+	display: 'contents',
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const contentAreaHeightNoToolbar = css({

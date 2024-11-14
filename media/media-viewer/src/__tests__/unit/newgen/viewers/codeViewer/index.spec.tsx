@@ -57,6 +57,7 @@ function createFixture(
 				collectionName={collectionName}
 				onSuccess={onSuccess}
 				onError={onError}
+				traceContext={{ traceId: 'some-trace-id' }}
 				{...props}
 			/>
 		</IntlProvider>,

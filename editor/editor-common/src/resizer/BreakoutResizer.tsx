@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { LAYOUT_COLUMN_PADDING } from '../styles';
+import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles';
 import { type EditorContainerWidth, type getPosHandlerNode } from '../types';
 
 import Resizer from './Resizer';
@@ -32,7 +32,7 @@ const getHandleStyle = (node: BreakoutSupportedNodes) => {
 		// expand and layout section elements have a negative margin applied
 		default:
 			const handleOffset = editorExperiment('nested-dnd', true)
-				? LAYOUT_COLUMN_PADDING * 2 + 8
+				? LAYOUT_SECTION_MARGIN * 2 + 8
 				: LAYOUT_COLUMN_PADDING * 2;
 			return {
 				left: {

@@ -2994,6 +2994,10 @@ describe('Card ', () => {
 		const [fileItem, identifier] = generateSampleFileItem.failedPdf();
 		const { mediaApi } = createMockedMediaApi(fileItem);
 
+		const binaryUrl = 'binary-url';
+		const getFileBinaryURL = jest.spyOn(mediaApi, 'getFileBinaryURL').mockResolvedValue(binaryUrl);
+		const testUrl = jest.spyOn(mediaApi, 'testUrl');
+
 		const user = userEvent.setup();
 
 		render(
@@ -3016,11 +3020,118 @@ describe('Card ', () => {
 
 		const btn = screen.getByLabelText('Download');
 		await user.click(btn);
+
+		expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+			traceContext: { traceId: expect.any(String) },
+		});
+
 		expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
 		expect(globalMediaEventEmitter.emit).toHaveBeenCalledWith('media-viewed', {
 			fileId: fileItem.id,
 			isUserCollection: false,
 			viewingLevel: 'download',
+		});
+
+		expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+			eventType: 'operational',
+			action: 'succeeded',
+			actionSubject: 'mediaCardDownload',
+			attributes: {
+				fileMimetype: fileItem.details.mimeType,
+				status: 'success',
+				fileAttributes: {
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileId: fileItem.id,
+					fileSize: fileItem.details.size,
+					fileStatus: 'failed-processing',
+				},
+				metadataTraceContext: {
+					spanId: expect.any(String),
+					traceId: expect.any(String),
+				},
+				traceContext: {
+					traceId: expect.any(String),
+				},
+			},
+		});
+	});
+
+	it('should log failed download action', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.failedPdf();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
+		const binaryUrl = 'binary-url';
+		const getFileBinaryURL = jest.spyOn(mediaApi, 'getFileBinaryURL').mockResolvedValue(binaryUrl);
+		const testUrl = jest
+			.spyOn(mediaApi, 'testUrl')
+			.mockRejectedValue(createServerUnauthorizedError());
+
+		const user = userEvent.setup();
+
+		render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<CardLoader
+					mediaClientConfig={dummyMediaClientConfig}
+					identifier={identifier}
+					isLazy={false}
+				/>
+			</MockedMediaClientProvider>,
+		);
+
+		// card should completely process the error
+		await waitFor(async () =>
+			expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+				'data-test-status',
+				'failed-processing',
+			),
+		);
+
+		const btn = screen.getByLabelText('Download');
+		await user.click(btn);
+
+		expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+			traceContext: { traceId: expect.any(String) },
+		});
+
+		expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+			eventType: 'operational',
+			action: 'failed',
+			actionSubject: 'mediaCardDownload',
+			attributes: {
+				error: 'serverUnauthorized',
+				errorDetail: 'serverUnauthorized',
+				failReason: 'download',
+				fileMimetype: fileItem.details.mimeType,
+				status: 'fail',
+				fileAttributes: {
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileId: fileItem.id,
+					fileSize: fileItem.details.size,
+					fileStatus: 'failed-processing',
+				},
+				metadataTraceContext: {
+					spanId: expect.any(String),
+					traceId: expect.any(String),
+				},
+				traceContext: {
+					traceId: expect.any(String),
+				},
+				request: {
+					attempts: 5,
+					clientExhaustedRetries: true,
+					mediaEnv: 'test-media-env',
+					mediaRegion: 'test-media-region',
+					statusCode: 403,
+					traceContext: {
+						spanId: expect.any(String),
+						traceId: expect.any(String),
+					},
+				},
+			},
 		});
 	});
 

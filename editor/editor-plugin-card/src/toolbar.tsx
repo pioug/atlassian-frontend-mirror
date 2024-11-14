@@ -138,16 +138,11 @@ export const visitCardLink =
 	};
 
 export const openLinkSettings =
-	(
-		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-		userPreferencesLink: string | undefined,
-	): Command =>
+	(editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
 	(state, dispatch) => {
 		if (!(state.selection instanceof NodeSelection)) {
 			return false;
 		}
-
-		window.open(userPreferencesLink || getLinkPreferencesURLFromENV());
 
 		if (dispatch) {
 			const {
@@ -551,7 +546,7 @@ export const getSettingsButton = (
 		icon: SettingsIcon,
 		iconFallback: CogIcon,
 		title: intl.formatMessage(linkToolbarMessages.settingsLink),
-		onClick: openLinkSettings(editorAnalyticsApi, userPreferencesLink),
+		onClick: openLinkSettings(editorAnalyticsApi),
 		href: userPreferencesLink || getLinkPreferencesURLFromENV(),
 		target: '_blank',
 	};

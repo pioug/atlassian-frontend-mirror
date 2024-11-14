@@ -137,7 +137,7 @@ export const FixedButton = ({
 			return 0;
 		}
 
-		const container = targetCellRef.closest('[data-testid="ak-editor-fp-content-area"]');
+		const container = targetCellRef.closest('[data-editor-container="true"]');
 		return container?.getBoundingClientRect().left || 0;
 	}, [targetCellRef]);
 

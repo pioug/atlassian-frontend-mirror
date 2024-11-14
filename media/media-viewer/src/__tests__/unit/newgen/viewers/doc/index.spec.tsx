@@ -24,6 +24,7 @@ jest.mock('../../../../../utils/getObjectUrlFromFileState', () => ({
 	__esModule: true,
 	getObjectUrlFromFileState: jest.fn().mockResolvedValue('object-url-from-filestate'),
 }));
+const traceContext = { traceId: 'some-trace-id' };
 
 function createFixture(
 	fetchPromise: Promise<any>,
@@ -56,6 +57,7 @@ function createFixture(
 			collectionName={collectionName}
 			onSuccess={() => {}}
 			onError={onError}
+			traceContext={traceContext}
 		/>,
 	);
 	(el as any).instance()['fetch'] = jest.fn();

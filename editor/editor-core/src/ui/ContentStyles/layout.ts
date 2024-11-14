@@ -2,6 +2,7 @@
 import { css } from '@emotion/react';
 
 import {
+	columnLayoutResponsiveSharedStyle,
 	columnLayoutSharedStyle,
 	LAYOUT_COLUMN_PADDING,
 	LAYOUT_SECTION_MARGIN,
@@ -99,6 +100,44 @@ const layoutColumnStyles = () =>
 				}
 			`;
 
+const layoutSectionStyles = () =>
+	fg('platform_editor_advanced_layouts_breakout_resizing')
+		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+			css`
+				${columnLayoutResponsiveSharedStyle};
+				.layout-section-container [data-layout-section] {
+					> .ProseMirror-widget {
+						flex: none;
+						display: contents !important;
+
+						&[data-blocks-drag-handle-container] div {
+							display: contents !important;
+						}
+
+						&[data-blocks-drop-target-container] {
+							display: block !important;
+							margin: ${token('space.negative.050', '-4px')};
+
+							[data-drop-target-for-element] {
+								position: absolute;
+							}
+						}
+
+						& + [data-layout-column] {
+							margin: 0;
+						}
+					}
+
+					> [data-layout-column] {
+						margin: 0;
+					}
+				}
+			`
+		: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+			css`
+				${columnLayoutSharedStyle}
+			`;
+
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 const layoutBorderStyles = (viewMode?: 'edit' | 'view') => css`
 	// TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
@@ -132,8 +171,7 @@ const layoutBorderStyles = (viewMode?: 'edit' | 'view') => css`
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 	.ProseMirror {
-		${columnLayoutSharedStyle}
-
+		${layoutSectionStyles()}
 		[data-layout-section] {
 			// TODO: Migrate away from gridSize
 			// Recommendation: Replace directly with 7px
@@ -229,6 +267,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 	}
 
 	${editorExperiment('nested-dnd', true) &&
+	!fg('platform_editor_advanced_layouts_breakout_resizing') &&
 	`.ak-editor-content-area.appearance-full-page .ProseMirror [data-layout-section] {
 				margin: ${token('space.100', '8px')} -${akLayoutGutterOffset + 8}px 0;
 				}`}

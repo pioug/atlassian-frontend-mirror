@@ -34,6 +34,7 @@ describe('ProfileCardResourced', () => {
 		getRovoAgentProfile: jest.fn(),
 		deleteAgent: jest.fn(),
 		setFavouriteAgent: jest.fn(),
+		getRovoAgentPermissions: jest.fn(),
 	};
 
 	beforeEach(() => {

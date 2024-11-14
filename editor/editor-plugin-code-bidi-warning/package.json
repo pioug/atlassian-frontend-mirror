@@ -37,7 +37,9 @@
 		"@atlaskit/code": "^15.6.0",
 		"@atlaskit/editor-common": "^94.18.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
-		"@babel/runtime": "^7.0.0"
+		"@atlaskit/platform-feature-flags": "^0.3.0",
+		"@babel/runtime": "^7.0.0",
+		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
@@ -83,6 +85,11 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_react18_plugin_portalprovider": {
+			"type": "boolean"
 		}
 	}
 }

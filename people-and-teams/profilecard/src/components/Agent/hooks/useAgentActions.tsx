@@ -68,11 +68,20 @@ export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 		window.open(urlWithParams, '_blank', 'noopener, noreferrer');
 	};
 
+	const onViewFullProfile = (agentId: string) => {
+		window.open(
+			`${window.location.origin}/people/agent/${agentId}`,
+			'_blank',
+			'noopener, noreferrer',
+		);
+	};
+
 	return {
 		onEditAgent,
 		onCopyAgent,
 		onDuplicateAgent,
 		onOpenChat,
 		onConversationStarter,
+		onViewFullProfile,
 	};
 };

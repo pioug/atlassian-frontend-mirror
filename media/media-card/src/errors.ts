@@ -23,7 +23,8 @@ export type MediaCardErrorPrimaryReason =
 	| SvgPrimaryReason
 	| 'missing-error-data'
 	// Reasons below are used to wrap unexpected/unknown errors with ensureMediaCardError
-	| 'preview-fetch';
+	| 'preview-fetch'
+	| 'download';
 
 export type ImageLoadPrimaryReason =
 	| 'cache-remote-uri'

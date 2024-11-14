@@ -77,6 +77,7 @@ describe('Archive with custom renderer', () => {
 			collectionName: collectionName,
 			onError: () => {},
 			onSuccess: () => {},
+			traceContext: { traceId: 'some-trace-id' },
 		};
 		const props = { ...baseProps, ...passedProps };
 		return shallow(<ArchiveViewerBase viewerOptions={viewerOptions} {...props} />);

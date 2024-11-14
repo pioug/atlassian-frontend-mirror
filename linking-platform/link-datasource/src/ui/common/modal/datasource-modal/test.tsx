@@ -9,6 +9,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FlagsProvider } from '@atlaskit/flag';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 
+import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id';
 import { InlineEdit } from '../../../issue-like-table/table-cell-content/inline-edit';
 
 import { DatasourceModal } from './index';
@@ -52,13 +53,15 @@ describe('DatasourceModal', () => {
 			<SmartCardProvider client={new CardClient()}>
 				<DatasourceModal onClose={onClose}>
 					<FlagsProvider>
-						<InlineEdit
-							ari="fake-ari"
-							columnKey="fake-column"
-							execute={executeFn}
-							datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
-							readView={<p>Test</p>}
-						/>
+						<DatasourceExperienceIdProvider>
+							<InlineEdit
+								ari="fake-ari"
+								columnKey="fake-column"
+								execute={executeFn}
+								datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
+								readView={<p>Test</p>}
+							/>
+						</DatasourceExperienceIdProvider>
 					</FlagsProvider>
 				</DatasourceModal>
 			</SmartCardProvider>,
@@ -81,13 +84,15 @@ describe('DatasourceModal', () => {
 			<SmartCardProvider client={new CardClient()}>
 				<DatasourceModal onClose={onModalCloseFn}>
 					<FlagsProvider>
-						<InlineEdit
-							ari="fake-ari"
-							columnKey="fake-column"
-							execute={executeFn}
-							datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
-							readView={<MockReadView />}
-						/>
+						<DatasourceExperienceIdProvider>
+							<InlineEdit
+								ari="fake-ari"
+								columnKey="fake-column"
+								execute={executeFn}
+								datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
+								readView={<MockReadView />}
+							/>
+						</DatasourceExperienceIdProvider>
 					</FlagsProvider>
 				</DatasourceModal>
 			</SmartCardProvider>,

@@ -14,6 +14,8 @@ import {
 	getRenderPreviewableCardPayload,
 	type SSRStatus,
 	getErrorEventPayload,
+	getDownloadSucceededEventPayload,
+	getDownloadFailedEventPayload,
 } from '../utils/analytics';
 import { type CardStatus } from '../types';
 import { MediaCardError } from '../errors';
@@ -108,4 +110,36 @@ export const fireNonCriticalErrorEvent = (
 	);
 
 	fireMediaCardEvent(errorPayload, createAnalyticsEvent);
+};
+
+export const fireDownloadSucceededEvent = (
+	createAnalyticsEvent: CreateUIAnalyticsEvent,
+	fileAttributes: FileAttributes,
+	traceContext: MediaTraceContext,
+	metadataTraceContext?: MediaTraceContext,
+) => {
+	const payload = getDownloadSucceededEventPayload(
+		fileAttributes,
+		traceContext,
+		metadataTraceContext,
+	);
+
+	fireMediaCardEvent(payload, createAnalyticsEvent);
+};
+
+export const fireDownloadFailedEvent = (
+	createAnalyticsEvent: CreateUIAnalyticsEvent,
+	fileAttributes: FileAttributes,
+	error: MediaCardError = new MediaCardError('missing-error-data'),
+	traceContext: MediaTraceContext,
+	metadataTraceContext?: MediaTraceContext,
+) => {
+	const payload = getDownloadFailedEventPayload(
+		fileAttributes,
+		error,
+		traceContext,
+		metadataTraceContext,
+	);
+
+	fireMediaCardEvent(payload, createAnalyticsEvent);
 };
